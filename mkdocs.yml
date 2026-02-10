@@ -45,11 +45,9 @@ plugins:
       separator: '[\s\-\.]+'
   - tags
   - meta-descriptions
-  # Enable variables in Markdown ({{ variable_name }})
-  # Install: pip install mkdocs-macros-plugin
-  # - macros:
-  #     include_yaml:
-  #       - docs/_variables.yml  
+  - macros:
+      include_yaml:
+        - docs/_variables.yml  
 
 markdown_extensions:
   - admonition

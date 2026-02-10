@@ -7,6 +7,9 @@ echo "Running documentation quality checks..."
 # Get list of staged .md files
 STAGED_MD=$(git diff --cached --name-only --diff-filter=ACM | grep '\.md$' || true)
 
+# Get list of staged API spec files (OpenAPI/Swagger)
+STAGED_API=$(git diff --cached --name-only --diff-filter=ACM | grep -E '(openapi|swagger|api-spec).*\.(yaml|yml|json)$' || true)
+
 if [ -z "$STAGED_MD" ]; then
     echo "No Markdown files staged. Skipping checks."
     exit 0
@@ -15,8 +18,28 @@ fi
 echo "Checking files: $STAGED_MD"
 
 # 1. Vale (style check)
+# 0. Spectral (API specs) - runs first, independent of Markdown
 echo ""
-echo "1/5 Vale (style)..."
+echo "0/6 Spectral (API specs)..."
+if [ -n "$STAGED_API" ]; then
+    if command -v spectral &> /dev/null; then
+        for file in $STAGED_API; do
+            echo "  Validating: $file"
+            spectral lint "$file" --ruleset .spectral.yml
+            if [ $? -ne 0 ]; then
+                echo "Spectral found API spec issues in $file"
+                exit 1
+            fi
+        done
+    else
+        echo "Spectral not installed. Install: npm install -g @stoplight/spectral-cli"
+    fi
+else
+    echo "No API spec files staged. Skipping."
+fi
+
+echo ""
+echo "1/6 Vale (style)..."
 if command -v vale &> /dev/null; then
     vale $STAGED_MD
     if [ $? -ne 0 ]; then
@@ -29,7 +52,7 @@ fi
 
 # 2. markdownlint (formatting)
 echo ""
-echo "2/5 markdownlint (formatting)..."
+echo "2/6 markdownlint (formatting)..."
 if command -v markdownlint &> /dev/null; then
     markdownlint $STAGED_MD
     if [ $? -ne 0 ]; then
@@ -42,7 +65,7 @@ fi
 
 # 3. cspell (spelling)
 echo ""
-echo "3/5 cspell (spelling)..."
+echo "3/6 cspell (spelling)..."
 if command -v cspell &> /dev/null; then
     cspell --no-progress $STAGED_MD
     if [ $? -ne 0 ]; then
@@ -55,7 +78,7 @@ fi
 
 # 4. Frontmatter validation
 echo ""
-echo "4/5 Frontmatter validation..."
+echo "4/6 Frontmatter validation..."
 if [ -f "scripts/validate_frontmatter.py" ]; then
     python scripts/validate_frontmatter.py
     if [ $? -ne 0 ]; then
@@ -68,7 +91,7 @@ fi
 
 # 5. GEO lint
 echo ""
-echo "5/5 GEO optimization..."
+echo "5/6 GEO optimization..."
 if [ -f "scripts/geo_lint.py" ]; then
     for file in $STAGED_MD; do
         python scripts/geo_lint.py "$file"

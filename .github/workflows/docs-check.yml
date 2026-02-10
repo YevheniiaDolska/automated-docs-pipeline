@@ -6,6 +6,9 @@ on:
       - 'docs/**'
       - '.vale/**'
       - 'docs-schema.yml'
+      - 'api/**'
+      - '**/*.yaml'
+      - '**/*.json'
 
 jobs:
   vale:
@@ -59,3 +62,34 @@ jobs:
           python-version: '3.11'
       - run: pip install pyyaml
       - run: python scripts/geo_lint.py docs/
+
+  spectral:
+    name: API spec validation (Spectral)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Find OpenAPI specs
+        id: find-specs
+        run: |
+          # Ищем OpenAPI файлы
+          SPECS=$(find . -type f \( -name "openapi*.yaml" -o -name "openapi*.yml" -o -name "openapi*.json" -o -name "swagger*.yaml" -o -name "swagger*.yml" -o -name "swagger*.json" -o -name "api-spec*.yaml" -o -name "api-spec*.yml" \) 2>/dev/null | head -20)
+          if [ -n "$SPECS" ]; then
+            echo "found=true" >> $GITHUB_OUTPUT
+            echo "specs<<EOF" >> $GITHUB_OUTPUT
+            echo "$SPECS" >> $GITHUB_OUTPUT
+            echo "EOF" >> $GITHUB_OUTPUT
+          else
+            echo "found=false" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Run Spectral
+        if: steps.find-specs.outputs.found == 'true'
+        uses: stoplightio/spectral-action@latest
+        with:
+          file_glob: '{**/openapi*.yaml,**/openapi*.yml,**/openapi*.json,**/swagger*.yaml,**/swagger*.yml,**/swagger*.json,**/api-spec*.yaml,**/api-spec*.yml}'
+          spectral_ruleset: .spectral.yml
+
+      - name: Skip - no API specs found
+        if: steps.find-specs.outputs.found == 'false'
+        run: echo "No OpenAPI/Swagger specs found - skipping Spectral validation"

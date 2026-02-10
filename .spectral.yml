@@ -1,0 +1,35 @@
+# Spectral configuration for OpenAPI/Swagger validation
+# Docs: https://docs.stoplight.io/docs/spectral
+
+extends:
+  - "spectral:oas"  # OpenAPI Specification rules
+
+# Severity levels: error, warn, info, hint, off
+
+rules:
+  # --- Documentation quality ---
+  operation-description: warn
+  operation-operationId: error
+  operation-tags: warn
+  info-contact: warn
+  info-description: error
+  info-license: off
+
+  # --- Security ---
+  operation-security-defined: error
+
+  # --- Best practices ---
+  no-eval-in-markdown: error
+  no-script-tags-in-markdown: error
+  path-params: error
+  typed-enum: warn
+
+  # --- Response codes ---
+  operation-success-response: error
+
+  # --- Naming conventions ---
+  path-keys-no-trailing-slash: error
+  path-not-include-query: error
+
+  # --- Custom rules for n8n API docs ---
+  # Add custom rules here when needed
