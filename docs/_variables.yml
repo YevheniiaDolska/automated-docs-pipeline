@@ -1,0 +1,69 @@
+# =============================================================
+# PROJECT VARIABLES - Single source of truth
+# =============================================================
+# These variables are used across all documentation.
+# Change them here to update everywhere.
+#
+# Usage in Markdown (with mkdocs-macros-plugin):
+#   {{ product_name }}
+#   {{ cloud_url }}
+#   {{ support_email }}
+# =============================================================
+
+# --- PRODUCT INFO ---
+product_name: "n8n"
+product_full_name: "n8n workflow automation"
+product_tagline: "Free and source-available fair-code licensed workflow automation"
+
+# --- VERSIONS ---
+current_version: "1.50.0"
+min_supported_version: "1.40.0"
+api_version: "v1"
+docs_version: "2.0"
+
+# --- URLS ---
+cloud_url: "https://app.n8n.cloud"
+cloud_signup_url: "https://app.n8n.cloud/register"
+docs_url: "https://docs.n8n.io"
+community_url: "https://community.n8n.io"
+github_url: "https://github.com/n8n-io/n8n"
+status_page_url: "https://status.n8n.io"
+
+# --- SUPPORT ---
+support_email: "support@n8n.io"
+sales_email: "sales@n8n.io"
+
+# --- DEFAULT PORTS ---
+default_port: 5678
+default_webhook_port: 5678
+
+# --- DEFAULT PATHS ---
+default_data_folder: "~/.n8n"
+default_config_path: "~/.n8n/config"
+
+# --- ENVIRONMENT VARIABLES ---
+env_vars:
+  webhook_url: "WEBHOOK_URL"
+  data_folder: "N8N_USER_FOLDER"
+  port: "N8N_PORT"
+  basic_auth_user: "N8N_BASIC_AUTH_USER"
+  basic_auth_password: "N8N_BASIC_AUTH_PASSWORD"
+  encryption_key: "N8N_ENCRYPTION_KEY"
+
+# --- LIMITS ---
+max_payload_size_mb: 16
+max_execution_timeout_seconds: 3600
+rate_limit_requests_per_minute: 60
+
+# --- COMMON TERMS (for consistency) ---
+terms:
+  workflow: "workflow"
+  node: "node"
+  trigger: "trigger"
+  execution: "execution"
+  credential: "credential"
+  expression: "expression"
+
+# --- BRANDING ---
+company_name: "n8n GmbH"
+copyright_year: "2024"

@@ -1,0 +1,30 @@
+{
+  "name": "n8n-docs-pipeline",
+  "version": "1.0.0",
+  "description": "Automated documentation pipeline with GEO optimization",
+  "scripts": {
+    "prepare": "husky install",
+    "lint": "npm run lint:vale && npm run lint:md && npm run lint:spell && npm run lint:frontmatter && npm run lint:geo",
+    "lint:vale": "vale docs/",
+    "lint:md": "markdownlint docs/",
+    "lint:spell": "cspell \"docs/**/*.md\"",
+    "lint:frontmatter": "python scripts/validate_frontmatter.py",
+    "lint:geo": "python scripts/geo_lint.py docs/",
+    "serve": "mkdocs serve",
+    "build": "mkdocs build --strict",
+    "gaps": "python -m scripts.gap_detection.cli analyze",
+    "gaps:full": "python -m scripts.gap_detection.cli full --generate",
+    "gaps:community": "python -m scripts.gap_detection.cli community",
+    "gaps:code": "python -m scripts.gap_detection.cli code",
+    "gaps:generate": "python -m scripts.gap_detection.cli generate --report reports/doc_gaps_report.json",
+    "new-doc": "python scripts/new_doc.py"
+  },
+  "devDependencies": {
+    "husky": "^8.0.3",
+    "markdownlint-cli": "^0.38.0",
+    "cspell": "^8.3.2"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}

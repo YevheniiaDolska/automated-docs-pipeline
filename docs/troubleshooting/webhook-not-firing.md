@@ -7,6 +7,9 @@ n8n_component: webhook
 tags:
   - Troubleshooting
   - Webhook
+  - Nodes
+  - Cloud
+  - Self-hosted
 ---
 
 # Fix: n8n Webhook trigger not firing

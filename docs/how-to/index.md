@@ -5,6 +5,8 @@ content_type: how-to
 product: both
 tags:
   - How-To
+  - Cloud
+  - Self-hosted
 ---
 
 # How-To Guides

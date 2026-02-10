@@ -68,6 +68,18 @@ mkdocs serve
 | `validate_frontmatter.py` | Проверяет frontmatter по схеме |
 | `geo_lint.py` | GEO-линтер (9 правил из нашего пайплайна) |
 | `new_doc.py` | Генерация новой страницы из шаблона |
+| `gap_detection/` | **Система обнаружения doc gaps** |
+
+### Gap Detection модуль (scripts/gap_detection/)
+
+| Файл | Что делает |
+|------|-----------|
+| `cli.py` | CLI интерфейс для всех команд |
+| `code_analyzer.py` | Анализ git diff на doc-relevant изменения |
+| `community_collector.py` | Сбор и категоризация RSS community |
+| `algolia_parser.py` | Парсинг Algolia no-results queries |
+| `gap_aggregator.py` | Агрегация в Excel/JSON отчёт |
+| `batch_generator.py` | Генерация batch задач для Claude Code |
 
 ### CI/CD (.github/workflows/)
 
@@ -76,6 +88,7 @@ mkdocs serve
 | `docs-check.yml` | При PR: Vale + markdownlint + cspell + frontmatter + GEO |
 | `deploy.yml` | При merge в main: build + deploy на GitHub Pages |
 | `monitor-n8n.yml` | Еженедельно: проверяет n8n releases + community |
+| `gap-detection.yml` | Еженедельно: полный анализ doc gaps + создание issue |
 
 ### Контент (docs/)
 
@@ -179,7 +192,123 @@ Monitor workflow (в `monitor-n8n.yml`):
 
 ---
 
-## Фаза 4: CI/CD настройка (15 мин)
+## Фаза 4: Автоматическое обнаружение doc gaps (NEW!)
+
+### Система Gap Detection
+
+Новая система автоматически находит пробелы в документации из трёх источников:
+
+1. **Изменения кода** — git diff анализ на новые API, env vars, CLI команды
+2. **Community вопросы** — RSS feeds community.n8n.io
+3. **Algolia поиск** — запросы без результатов (no-results queries)
+
+### Быстрый старт
+
+```bash
+# Установи зависимости
+pip install pyyaml openpyxl
+
+# Анализ за последние 7 дней
+npm run gaps
+
+# Полный пайплайн: анализ + генерация batch конфига
+npm run gaps:full
+
+# Только community
+npm run gaps:community
+
+# Только код (с указанием релиза)
+python -m scripts.gap_detection.cli code --tag v1.2.0
+```
+
+### CLI команды
+
+```bash
+# Полный анализ
+python -m scripts.gap_detection.cli analyze --since 30 --output-dir ./reports
+
+# С Algolia данными
+python -m scripts.gap_detection.cli analyze --algolia-json path/to/algolia_export.json
+
+# Генерация документов из отчёта
+python -m scripts.gap_detection.cli generate \
+  --report reports/doc_gaps_report.json \
+  --max 10 \
+  --priority high,medium
+
+# Полный цикл
+python -m scripts.gap_detection.cli full --since 7 --generate --max 5
+```
+
+### Выходные файлы
+
+После анализа в `reports/` появятся:
+
+| Файл | Назначение |
+|------|------------|
+| `doc_gaps_report.json` | Для Claude Code анализа |
+| `doc_gaps_report.csv` | Для Excel/Google Sheets |
+| `doc_gaps_report.xlsx` | Полный Excel с форматированием |
+| `batch_tasks.json` | Конфиг для batch генерации |
+
+### GitHub Actions Workflow
+
+Workflow `.github/workflows/gap-detection.yml`:
+- Запускается каждый понедельник в 8:00 UTC
+- Или вручную через workflow_dispatch
+- Создаёт GitHub Issue со списком гэпов
+- Опционально создаёт PR с batch конфигом
+
+### Использование с Claude Code
+
+После генерации batch конфига, доступна slash-команда:
+
+```bash
+# В Claude Code CLI
+/generate-docs
+```
+
+Или напрямую:
+```bash
+claude -p .claude/commands/generate-docs.md
+```
+
+### Workflow на практике
+
+```
+Понедельник утром:
+┌─────────────────────────────────────────────────────────┐
+│ GitHub Actions: gap-detection.yml                       │
+│ ↓                                                       │
+│ 1. Анализирует код (git diff за неделю)                │
+│ 2. Собирает community вопросы (RSS)                    │
+│ 3. (опционально) Парсит Algolia analytics              │
+│ ↓                                                       │
+│ Создаёт Issue: "📊 Doc Gap Analysis: 5 high priority"  │
+│ + Excel/JSON отчёт в artifacts                         │
+└─────────────────────────────────────────────────────────┘
+
+Твои действия:
+1. Открываешь Issue, смотришь high priority гэпы
+2. Запускаешь: npm run gaps:generate
+3. Claude Code создаёт черновики документов
+4. Ты ревьюишь, редактируешь
+5. git commit (pre-commit hooks проверяют качество)
+6. Push → CI проверяет → Merge → Auto-deploy
+```
+
+---
+
+## Фаза 5: CI/CD настройка (15 мин)
+
+### Обзор всех workflows
+
+| Workflow | Триггер | Что делает |
+|----------|---------|------------|
+| `docs-check.yml` | PR на docs/ | 5 проверок качества |
+| `deploy.yml` | Push в main | Build + deploy на GitHub Pages |
+| `monitor-n8n.yml` | Понедельник 9:00 | Мониторинг releases + community |
+| `gap-detection.yml` | Понедельник 8:00 | Анализ doc gaps + отчёт |
 
 ### GitHub Pages
 

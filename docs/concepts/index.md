@@ -5,6 +5,8 @@ content_type: concept
 product: both
 tags:
   - Concept
+  - Cloud
+  - Self-hosted
 ---
 
 # Concepts

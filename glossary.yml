@@ -1,0 +1,95 @@
+# n8n Documentation Glossary
+# Used by GEO linter to ensure consistent terminology
+# Format: preferred_term: [aliases, variations]
+
+terms:
+  # Core concepts
+  workflow:
+    description: "A sequence of connected nodes that process data"
+    aliases: ["flow", "automation", "pipeline"]
+
+  node:
+    description: "A single step in a workflow that performs an action"
+    aliases: ["step", "block", "component"]
+
+  trigger:
+    description: "A node that starts workflow execution"
+    aliases: ["start node", "initiator"]
+
+  execution:
+    description: "A single run of a workflow"
+    aliases: ["run", "instance"]
+
+  credential:
+    description: "Stored authentication data for external services"
+    aliases: ["auth", "authentication", "secret"]
+
+  # Node types
+  webhook:
+    description: "HTTP endpoint that triggers workflows on incoming requests"
+    aliases: ["HTTP trigger", "web hook", "API endpoint"]
+
+  HTTP Request:
+    description: "Node that makes outbound HTTP calls"
+    aliases: ["API call", "REST call", "fetch"]
+
+  Code node:
+    description: "Node for custom JavaScript/Python logic"
+    aliases: ["function node", "script node"]
+
+  IF node:
+    description: "Conditional branching node"
+    aliases: ["condition", "branch", "switch"]
+
+  # Data concepts
+  item:
+    description: "A single data object passed between nodes"
+    aliases: ["record", "row", "entry"]
+
+  expression:
+    description: "Dynamic value using {{ }} syntax"
+    aliases: ["template", "variable", "placeholder"]
+
+  binary data:
+    description: "File attachments (images, PDFs, etc.)"
+    aliases: ["file", "attachment", "blob"]
+
+  # Deployment
+  n8n Cloud:
+    description: "Hosted SaaS version of n8n"
+    aliases: ["cloud version", "hosted n8n", "SaaS"]
+
+  self-hosted:
+    description: "Running n8n on your own infrastructure"
+    aliases: ["on-premise", "on-prem", "local install"]
+
+  # Features
+  error handling:
+    description: "Mechanisms for dealing with node failures"
+    aliases: ["exception handling", "failure handling"]
+
+  retry:
+    description: "Automatic re-execution after failure"
+    aliases: ["retry logic", "auto-retry"]
+
+# Forbidden terms (use preferred instead)
+forbidden:
+  - term: "simple"
+    reason: "Subjective - what's simple to one user isn't to another"
+    use_instead: "straightforward"
+
+  - term: "easy"
+    reason: "Subjective and potentially condescending"
+    use_instead: "You can quickly..."
+
+  - term: "just"
+    reason: "Minimizes complexity, can frustrate users"
+    use_instead: "Remove the word entirely"
+
+  - term: "obviously"
+    reason: "If it were obvious, it wouldn't need documentation"
+    use_instead: "Remove the word entirely"
+
+  - term: "please"
+    reason: "Unnecessary politeness in technical docs"
+    use_instead: "Direct imperative (Click, Select, Enter)"

@@ -1,0 +1,86 @@
+#!/bin/sh
+# Pre-commit hook: runs all documentation quality checks
+# Install: npx husky install && npx husky add .husky/pre-commit "sh .husky/pre-commit"
+
+echo "Running documentation quality checks..."
+
+# Get list of staged .md files
+STAGED_MD=$(git diff --cached --name-only --diff-filter=ACM | grep '\.md$' || true)
+
+if [ -z "$STAGED_MD" ]; then
+    echo "No Markdown files staged. Skipping checks."
+    exit 0
+fi
+
+echo "Checking files: $STAGED_MD"
+
+# 1. Vale (style check)
+echo ""
+echo "1/5 Vale (style)..."
+if command -v vale &> /dev/null; then
+    vale $STAGED_MD
+    if [ $? -ne 0 ]; then
+        echo "Vale found style issues. Fix them or use 'git commit --no-verify' to skip."
+        exit 1
+    fi
+else
+    echo "Vale not installed. Skipping style check."
+fi
+
+# 2. markdownlint (formatting)
+echo ""
+echo "2/5 markdownlint (formatting)..."
+if command -v markdownlint &> /dev/null; then
+    markdownlint $STAGED_MD
+    if [ $? -ne 0 ]; then
+        echo "markdownlint found formatting issues."
+        exit 1
+    fi
+else
+    echo "markdownlint not installed. Skipping."
+fi
+
+# 3. cspell (spelling)
+echo ""
+echo "3/5 cspell (spelling)..."
+if command -v cspell &> /dev/null; then
+    cspell --no-progress $STAGED_MD
+    if [ $? -ne 0 ]; then
+        echo "cspell found spelling errors."
+        exit 1
+    fi
+else
+    echo "cspell not installed. Skipping."
+fi
+
+# 4. Frontmatter validation
+echo ""
+echo "4/5 Frontmatter validation..."
+if [ -f "scripts/validate_frontmatter.py" ]; then
+    python scripts/validate_frontmatter.py
+    if [ $? -ne 0 ]; then
+        echo "Frontmatter validation failed."
+        exit 1
+    fi
+else
+    echo "validate_frontmatter.py not found. Skipping."
+fi
+
+# 5. GEO lint
+echo ""
+echo "5/5 GEO optimization..."
+if [ -f "scripts/geo_lint.py" ]; then
+    for file in $STAGED_MD; do
+        python scripts/geo_lint.py "$file"
+        if [ $? -ne 0 ]; then
+            echo "GEO lint found issues in $file"
+            exit 1
+        fi
+    done
+else
+    echo "geo_lint.py not found. Skipping."
+fi
+
+echo ""
+echo "All checks passed!"
+exit 0

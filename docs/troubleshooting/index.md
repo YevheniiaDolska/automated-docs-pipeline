@@ -5,6 +5,8 @@ content_type: troubleshooting
 product: both
 tags:
   - Troubleshooting
+  - Cloud
+  - Self-hosted
 ---
 
 # Troubleshooting

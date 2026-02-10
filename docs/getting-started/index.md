@@ -5,6 +5,8 @@ content_type: tutorial
 product: both
 tags:
   - Tutorial
+  - Cloud
+  - Self-hosted
 ---
 
 # Getting Started

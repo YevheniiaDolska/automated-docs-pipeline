@@ -43,8 +43,14 @@ edit_uri: edit/main/docs/
 plugins:
   - search:
       separator: '[\s\-\.]+'
-  - tags
-  # - meta-descriptions  # Uncomment after: pip install mkdocs-meta-descriptions-plugin
+  - tags:
+      tags_file: tags.md
+  - meta-descriptions
+  # Enable variables in Markdown ({{ variable_name }})
+  # Install: pip install mkdocs-macros-plugin
+  # - macros:
+  #     include_yaml:
+  #       - docs/_variables.yml  
 
 markdown_extensions:
   - admonition

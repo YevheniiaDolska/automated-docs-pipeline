@@ -5,6 +5,9 @@ content_type: reference
 product: both
 tags:
   - Reference
+  - Nodes
+  - Cloud
+  - Self-hosted
 ---
 
 # Reference

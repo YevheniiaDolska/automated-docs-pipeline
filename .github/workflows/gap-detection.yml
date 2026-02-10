@@ -1,0 +1,181 @@
+name: Documentation Gap Detection
+
+# Собирает информацию о documentation gaps из трёх источников:
+# 1. Изменения в коде (git diff за последние N дней)
+# 2. Вопросы в community (RSS feeds)
+# 3. Поисковые запросы Algolia (если есть экспорт)
+#
+# НЕ отправляет код во внешние API — только локальный анализ.
+# Генерация документов происходит локально через Claude Code.
+
+on:
+  schedule:
+    - cron: '0 8 * * 1'  # Every Monday 8:00 UTC
+  workflow_dispatch:       # Manual trigger
+    inputs:
+      since_days:
+        description: 'Analyze commits from last N days'
+        required: false
+        default: '7'
+
+env:
+  PYTHON_VERSION: '3.11'
+
+jobs:
+  analyze-gaps:
+    name: Analyze Documentation Gaps
+    runs-on: ubuntu-latest
+    outputs:
+      total_gaps: ${{ steps.analyze.outputs.total_gaps }}
+      high_priority: ${{ steps.analyze.outputs.high_priority }}
+      report_path: ${{ steps.analyze.outputs.report_path }}
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0  # Full history for git analysis
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ env.PYTHON_VERSION }}
+
+      - name: Install dependencies
+        run: |
+          pip install pyyaml openpyxl
+
+      - name: Run gap analysis
+        id: analyze
+        run: |
+          cd scripts
+          python -m gap_detection.cli analyze \
+            --repo .. \
+            --since ${{ github.event.inputs.since_days || '7' }} \
+            --output-dir ../reports
+
+          # Extract metrics from JSON report
+          if [ -f ../reports/doc_gaps_report.json ]; then
+            TOTAL=$(jq '.summary.total_gaps' ../reports/doc_gaps_report.json)
+            HIGH=$(jq '.summary.high_priority' ../reports/doc_gaps_report.json)
+            echo "total_gaps=$TOTAL" >> $GITHUB_OUTPUT
+            echo "high_priority=$HIGH" >> $GITHUB_OUTPUT
+            echo "report_path=reports/doc_gaps_report.json" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Upload reports to artifacts (backup)
+        uses: actions/upload-artifact@v4
+        with:
+          name: gap-reports
+          path: reports/
+          retention-days: 30
+
+      - name: Commit reports to repository
+        run: |
+          git config --local user.email "github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "github-actions[bot]"
+          git add reports/
+          git diff --staged --quiet || git commit -m "chore: update gap analysis reports [skip ci]"
+          git push
+
+      - name: Create summary issue
+        if: steps.analyze.outputs.high_priority > 0
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require('fs');
+            const report = JSON.parse(fs.readFileSync('reports/doc_gaps_report.json', 'utf8'));
+
+            // Format high priority gaps
+            const highPriority = report.gaps
+              .filter(g => g.priority === 'high')
+              .slice(0, 10);
+
+            const gapList = highPriority.map(g =>
+              `- **[${g.id}]** ${g.title}\n  - Type: ${g.suggested_doc_type} | Source: ${g.source}\n  - Action: ${g.action_required.substring(0, 100)}...`
+            ).join('\n\n');
+
+            const body = `## Documentation Gap Analysis - ${new Date().toISOString().split('T')[0]}
+
+            ### Summary
+            - **Total gaps found:** ${report.summary.total_gaps}
+            - **High priority:** ${report.summary.high_priority}
+            - **Medium priority:** ${report.summary.medium_priority}
+
+            ### By Source
+            ${Object.entries(report.summary.by_source).map(([k, v]) => `- ${k}: ${v}`).join('\n')}
+
+            ### By Doc Type
+            ${Object.entries(report.summary.by_doc_type).map(([k, v]) => `- ${k}: ${v}`).join('\n')}
+
+            ---
+
+            ### High Priority Gaps (Top 10)
+
+            ${gapList}
+
+            ---
+
+            ### Next Steps (локально на твоём ПК)
+            1. \`git pull\` — отчёты уже в репозитории
+            2. Открой Claude Code в папке проекта
+            3. Скажи: "Создай документы по reports/doc_gaps_report.json"
+
+            **Отчёты:** \`reports/doc_gaps_report.json\` (и .xlsx, .csv)`;
+
+            await github.rest.issues.create({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              title: `📊 Doc Gap Analysis: ${report.summary.high_priority} high priority gaps - ${new Date().toISOString().split('T')[0]}`,
+              body: body,
+              labels: ['doc-gaps', 'auto-created', 'needs-triage']
+            });
+
+  # Job generate-docs удалён — генерация документов происходит
+  # локально через Claude Code для безопасности (код не уходит в API)
+
+  notify-slack:
+    name: Notify Slack
+    needs: analyze-gaps
+    if: always() && needs.analyze-gaps.outputs.high_priority > 0
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Send Slack notification
+        if: env.SLACK_WEBHOOK_URL != ''
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+        run: |
+          curl -X POST -H 'Content-type: application/json' \
+            --data '{
+              "text": "📊 Documentation Gap Analysis Complete",
+              "blocks": [
+                {
+                  "type": "header",
+                  "text": {
+                    "type": "plain_text",
+                    "text": "📊 Doc Gap Analysis"
+                  }
+                },
+                {
+                  "type": "section",
+                  "fields": [
+                    {
+                      "type": "mrkdwn",
+                      "text": "*Total gaps:* ${{ needs.analyze-gaps.outputs.total_gaps }}"
+                    },
+                    {
+                      "type": "mrkdwn",
+                      "text": "*High priority:* ${{ needs.analyze-gaps.outputs.high_priority }}"
+                    }
+                  ]
+                },
+                {
+                  "type": "section",
+                  "text": {
+                    "type": "mrkdwn",
+                    "text": "<${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}|View workflow run>"
+                  }
+                }
+              ]
+            }' \
+            $SLACK_WEBHOOK_URL || true

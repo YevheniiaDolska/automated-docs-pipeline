@@ -11,4 +11,4 @@ tags:
 
 Use the tags below to filter content by topic, type, or component.
 
-[TAGS]
+<!-- material/tags -->

@@ -7,6 +7,8 @@ n8n_component: workflow-engine
 tags:
   - Concept
   - Nodes
+  - Cloud
+  - Self-hosted
 ---
 
 # How the n8n workflow execution model works

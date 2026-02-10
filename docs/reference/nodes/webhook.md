@@ -9,6 +9,8 @@ tags:
   - Reference
   - Webhook
   - Nodes
+  - Cloud
+  - Self-hosted
 ---
 
 # Webhook node reference

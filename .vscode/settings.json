@@ -1,0 +1,70 @@
+{
+  // =============================================================
+  // PROJECT SETTINGS - Shared with team via git
+  // =============================================================
+
+  // --- EDITOR ---
+  "editor.formatOnSave": true,
+  "editor.wordWrap": "on",
+  "editor.rulers": [80, 120],
+
+  // --- FILES ---
+  "files.exclude": {
+    "**/__pycache__": true,
+    "**/site": true,
+    "**/.vale": false
+  },
+  "files.associations": {
+    "*.md": "markdown"
+  },
+
+  // --- MARKDOWN ---
+  "[markdown]": {
+    "editor.defaultFormatter": "DavidAnson.vscode-markdownlint",
+    "editor.quickSuggestions": {
+      "other": true,
+      "comments": false,
+      "strings": true
+    },
+    "editor.snippetSuggestions": "top",
+    "editor.tabCompletion": "on"
+  },
+
+  // --- SPELL CHECK ---
+  "cSpell.enabled": true,
+  "cSpell.language": "en",
+  "cSpell.customDictionaries": {
+    "project-words": {
+      "name": "project-words",
+      "path": "${workspaceFolder}/cspell.json",
+      "addWords": true
+    }
+  },
+
+  // --- VALE (if Vale extension installed) ---
+  "vale.valeCLI.path": "vale",
+  "vale.valeCLI.config": "${workspaceFolder}/.vale.ini",
+
+  // --- YAML ---
+  "[yaml]": {
+    "editor.tabSize": 2,
+    "editor.insertSpaces": true
+  },
+
+  // --- PYTHON ---
+  "[python]": {
+    "editor.tabSize": 4
+  },
+
+  // --- TERMINAL ---
+  "terminal.integrated.cwd": "${workspaceFolder}",
+
+  // --- SEARCH ---
+  "search.exclude": {
+    "**/site": true,
+    "**/node_modules": true,
+    "**/.vale/styles/Google": true,
+    "**/.vale/styles/proselint": true,
+    "**/.vale/styles/write-good": true
+  }
+}
