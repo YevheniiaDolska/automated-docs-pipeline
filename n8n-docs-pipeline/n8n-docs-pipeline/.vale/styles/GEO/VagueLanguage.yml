@@ -1,0 +1,16 @@
+extends: existence
+message: "GEO: '%s' is vague. Use specific terms for LLM extraction."
+level: suggestion
+tokens:
+  - 'various'
+  - 'several'
+  - 'a number of'
+  - 'significantly'
+  - 'basically'
+  - 'simply'
+  - 'just'
+  - 'obviously'
+  - 'etc\.'
+  - 'and so on'
+  - 'and more'
+  - 'a lot of'

@@ -1,0 +1,14 @@
+extends: existence
+message: "GEO: Heading '%s' is too generic. Use descriptive headings for LLM discoverability."
+level: warning
+scope: heading
+tokens:
+  - '^Overview$'
+  - '^Introduction$'
+  - '^Configuration$'
+  - '^Setup$'
+  - '^Details$'
+  - '^Information$'
+  - '^General$'
+  - '^Notes$'
+  - '^Summary$'

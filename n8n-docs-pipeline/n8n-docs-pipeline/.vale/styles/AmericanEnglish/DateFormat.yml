@@ -1,0 +1,6 @@
+extends: existence
+message: "American English: Avoid DD/MM/YYYY date format. Use ISO 8601 (YYYY-MM-DD) or Month DD, YYYY."
+level: warning
+tokens:
+  - '\b\d{1,2}/\d{1,2}/\d{4}\b'
+  - '\b\d{1,2}\s(?:January|February|March|April|May|June|July|August|September|October|November|December)\s\d{4}\b'
