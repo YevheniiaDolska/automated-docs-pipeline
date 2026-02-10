@@ -43,8 +43,7 @@ edit_uri: edit/main/docs/
 plugins:
   - search:
       separator: '[\s\-\.]+'
-  - tags:
-      tags_file: tags.md
+  - tags
   - meta-descriptions
   # Enable variables in Markdown ({{ variable_name }})
   # Install: pip install mkdocs-macros-plugin
@@ -92,7 +91,6 @@ nav:
   - Troubleshooting:
     - troubleshooting/index.md
     - Webhook not firing: troubleshooting/webhook-not-firing.md
-  - Tags: tags.md
 
 extra:
   # --- ALGOLIA DOCSEARCH ---
