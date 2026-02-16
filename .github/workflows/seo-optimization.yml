@@ -1,0 +1,158 @@
+name: SEO/GEO Optimization
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'docs/**/*.md'
+  schedule:
+    - cron: '0 3 * * 0'  # Weekly on Sunday at 3 AM UTC
+  workflow_dispatch:
+    inputs:
+      fix_issues:
+        description: 'Automatically fix issues and enhance metadata'
+        required: false
+        default: 'false'
+        type: boolean
+
+jobs:
+  optimize-seo:
+    name: Run comprehensive SEO/GEO optimization
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0  # Full history for git metadata
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: |
+          pip install pyyaml algoliasearch
+
+      - name: Run SEO/GEO optimization
+        id: optimize
+        run: |
+          # Set fix flag based on input or schedule
+          if [ "${{ github.event.inputs.fix_issues }}" = "true" ] || [ "${{ github.event_name }}" = "schedule" ]; then
+            FIX_FLAG="--fix"
+          else
+            FIX_FLAG=""
+          fi
+
+          # Run comprehensive optimization
+          python scripts/seo_geo_optimizer.py docs/ $FIX_FLAG \
+            --sitemap \
+            --algolia \
+            --output seo-report.json > optimization.log 2>&1 || true
+
+          # Count findings
+          if [ -f seo-report.json ]; then
+            TOTAL_ISSUES=$(grep -c "finding" optimization.log || echo "0")
+            echo "total_issues=$TOTAL_ISSUES" >> $GITHUB_OUTPUT
+          fi
+
+          # Check if files were modified
+          if git diff --quiet; then
+            echo "files_changed=false" >> $GITHUB_OUTPUT
+          else
+            echo "files_changed=true" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Generate sitemap
+        if: always()
+        run: |
+          if [ -f sitemap.xml ]; then
+            echo "✅ Sitemap generated successfully"
+            echo "Total URLs: $(grep -c "<loc>" sitemap.xml)"
+          fi
+
+      - name: Generate SEO report
+        if: always()
+        run: |
+          echo "## SEO/GEO Optimization Report" > seo-summary.md
+          echo "" >> seo-summary.md
+          echo "**Date**: $(date)" >> seo-summary.md
+          echo "**Branch**: ${{ github.ref_name }}" >> seo-summary.md
+          echo "" >> seo-summary.md
+
+          if [ -f optimization.log ]; then
+            echo "### Findings Summary" >> seo-summary.md
+            grep -E "errors?|warnings?|suggestions?" optimization.log | head -5 >> seo-summary.md || true
+            echo "" >> seo-summary.md
+          fi
+
+          if [ -f sitemap.xml ]; then
+            echo "### Sitemap Statistics" >> seo-summary.md
+            echo "- Total pages: $(grep -c "<loc>" sitemap.xml)" >> seo-summary.md
+            echo "- High priority pages: $(grep -c "<priority>0.[8-9]" sitemap.xml)" >> seo-summary.md
+            echo "" >> seo-summary.md
+          fi
+
+          if [ -f seo-report-algolia.json ]; then
+            echo "### Search Index Statistics" >> seo-summary.md
+            echo "- Total records: $(jq '.records | length' seo-report-algolia.json)" >> seo-summary.md
+            echo "" >> seo-summary.md
+          fi
+
+      - name: Commit improvements
+        if: steps.optimize.outputs.files_changed == 'true'
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git add -A
+          git commit -m "chore: SEO/GEO optimizations and metadata enhancements [skip ci]"
+
+      - name: Push changes
+        if: steps.optimize.outputs.files_changed == 'true'
+        uses: ad-m/github-push-action@master
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          branch: ${{ github.ref }}
+
+      - name: Upload Algolia records
+        if: success() && env.ALGOLIA_APP_ID != ''
+        env:
+          ALGOLIA_APP_ID: ${{ secrets.ALGOLIA_APP_ID }}
+          ALGOLIA_API_KEY: ${{ secrets.ALGOLIA_ADMIN_KEY }}
+          ALGOLIA_INDEX_NAME: ${{ secrets.ALGOLIA_INDEX_NAME || 'docs' }}
+        run: python scripts/upload_to_algolia.py
+
+      - name: Create issue for critical findings
+        if: steps.optimize.outputs.total_issues > 10
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require('fs');
+            let summary = '';
+            try {
+              summary = fs.readFileSync('seo-summary.md', 'utf8');
+            } catch (e) {
+              summary = 'SEO/GEO optimization found multiple issues.';
+            }
+
+            await github.rest.issues.create({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              title: `🔍 SEO/GEO: ${context.payload.head_commit ? context.payload.head_commit.message : 'Multiple issues found'}`,
+              body: summary + '\n\n### Action Required\n' +
+                    '- [ ] Review GEO findings\n' +
+                    '- [ ] Fix critical errors\n' +
+                    '- [ ] Update metadata where needed\n' +
+                    '- [ ] Verify search indexing',
+              labels: ['seo', 'maintenance', 'auto-created']
+            });
+
+      - name: Upload artifacts
+        if: always()
+        uses: actions/upload-artifact@v3
+        with:
+          name: seo-optimization-report
+          path: |
+            seo-summary.md
+            seo-report.json
+            seo-report-algolia.json
+            sitemap.xml
+            optimization.log

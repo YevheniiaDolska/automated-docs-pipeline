@@ -1,0 +1,425 @@
+#!/usr/bin/env python3
+"""
+Algolia search configuration and indexing for documentation.
+Provides faceted search, analytics, and smart ranking.
+"""
+
+import json
+import yaml
+import re
+from pathlib import Path
+from datetime import datetime
+import hashlib
+
+class AlgoliaIndexer:
+    def __init__(self):
+        self.records = []
+
+    def extract_content_sections(self, content):
+        """Split content into searchable sections."""
+        sections = []
+        current_section = {
+            'heading': '',
+            'content': '',
+            'level': 0
+        }
+
+        lines = content.split('\n')
+        for line in lines:
+            # Check if it's a heading
+            heading_match = re.match(r'^(#{1,6})\s+(.+)$', line)
+            if heading_match:
+                # Save previous section if it has content
+                if current_section['content'].strip():
+                    sections.append(current_section)
+
+                # Start new section
+                level = len(heading_match.group(1))
+                current_section = {
+                    'heading': heading_match.group(2),
+                    'content': '',
+                    'level': level
+                }
+            else:
+                # Add to current section content
+                if line.strip() and not line.startswith('```'):
+                    current_section['content'] += line + ' '
+
+        # Don't forget last section
+        if current_section['content'].strip():
+            sections.append(current_section)
+
+        return sections
+
+    def create_record(self, filepath, frontmatter, section, section_index):
+        """Create an Algolia record from a document section."""
+
+        # Generate unique objectID
+        object_id = hashlib.md5(
+            f"{filepath}#{section_index}".encode()
+        ).hexdigest()
+
+        # Clean content for search
+        content = section['content']
+        # Remove markdown syntax
+        content = re.sub(r'\[([^\]]+)\]\([^\)]+\)', r'\1', content)  # Links
+        content = re.sub(r'`([^`]+)`', r'\1', content)  # Inline code
+        content = re.sub(r'\*\*([^*]+)\*\*', r'\1', content)  # Bold
+        content = re.sub(r'\*([^*]+)\*', r'\1', content)  # Italic
+
+        # Extract code snippets for separate indexing
+        code_snippets = re.findall(r'```[^`]*```', section['content'])
+
+        # Build hierarchy for faceting
+        hierarchy = {
+            'lvl0': frontmatter.get('product', 'Documentation'),
+            'lvl1': frontmatter.get('content_type', 'General'),
+            'lvl2': section['heading'] if section['level'] == 2 else '',
+            'lvl3': section['heading'] if section['level'] == 3 else '',
+            'lvl4': section['heading'] if section['level'] == 4 else ''
+        }
+
+        # Calculate ranking boost
+        ranking_boost = 0
+
+        # Boost based on content type
+        content_type_boosts = {
+            'tutorial': 10,
+            'how-to': 8,
+            'reference': 6,
+            'concept': 4,
+            'troubleshooting': 2
+        }
+        ranking_boost += content_type_boosts.get(frontmatter.get('content_type', ''), 0)
+
+        # Boost based on path depth (shallower = more important)
+        path_depth = len(Path(filepath).parts) - 2  # Subtract 'docs' and filename
+        ranking_boost -= path_depth * 2
+
+        # Boost if it's an index page
+        if 'index' in Path(filepath).stem:
+            ranking_boost += 20
+
+        # Penalize deprecated content
+        if frontmatter.get('maturity') == 'deprecated':
+            ranking_boost -= 50
+
+        record = {
+            'objectID': object_id,
+
+            # Content fields
+            'title': frontmatter.get('title', ''),
+            'heading': section['heading'],
+            'content': content[:1000],  # Limit content length
+            'description': frontmatter.get('description', ''),
+
+            # Facet fields
+            'product': frontmatter.get('product', 'both'),
+            'content_type': frontmatter.get('content_type', ''),
+            'component': frontmatter.get('n8n_component', ''),
+            'version': frontmatter.get('n8n_version', ''),
+            'maturity': frontmatter.get('maturity', 'ga'),
+            'tags': frontmatter.get('tags', []),
+
+            # Hierarchy for UI
+            'hierarchy': hierarchy,
+
+            # Metadata
+            'url': f"/{str(filepath).replace('docs/', '').replace('.md', '')}#{section_index}",
+            'last_reviewed': frontmatter.get('last_reviewed', ''),
+            'path': str(filepath),
+
+            # Ranking
+            'ranking_boost': ranking_boost,
+            'heading_level': section['level'],
+
+            # Analytics
+            'word_count': len(content.split()),
+            'has_code': len(code_snippets) > 0,
+            'code_snippets': code_snippets[:3]  # Store up to 3 code examples
+        }
+
+        return record
+
+    def index_file(self, filepath):
+        """Index a single markdown file."""
+        content = filepath.read_text(encoding='utf-8')
+        frontmatter, body = self.extract_frontmatter(content)
+
+        # Skip if marked as no-index
+        if frontmatter.get('search_exclude', False):
+            return []
+
+        # Extract sections
+        sections = self.extract_content_sections(body)
+
+        # Create records for each section
+        records = []
+        for i, section in enumerate(sections):
+            record = self.create_record(filepath, frontmatter, section, i)
+            records.append(record)
+            self.records.append(record)
+
+        return records
+
+    def extract_frontmatter(self, text):
+        """Extract frontmatter from markdown."""
+        if not text.startswith('---'):
+            return {}, text
+        parts = text.split('---', 2)
+        if len(parts) < 3:
+            return {}, text
+        try:
+            fm = yaml.safe_load(parts[1]) or {}
+            return fm, parts[2]
+        except yaml.YAMLError:
+            return {}, text
+
+    def generate_config(self):
+        """Generate Algolia index configuration."""
+
+        config = {
+            'searchableAttributes': [
+                'unordered(title)',
+                'unordered(heading)',
+                'unordered(content)',
+                'unordered(description)',
+                'tags'
+            ],
+            'attributesForFaceting': [
+                'searchable(product)',
+                'searchable(content_type)',
+                'searchable(component)',
+                'searchable(tags)',
+                'maturity',
+                'version',
+                'has_code'
+            ],
+            'customRanking': [
+                'desc(ranking_boost)',
+                'asc(heading_level)',
+                'desc(word_count)'
+            ],
+            'attributesToSnippet': [
+                'content:50',
+                'description:30'
+            ],
+            'attributesToHighlight': [
+                'title',
+                'heading',
+                'content',
+                'tags'
+            ],
+            'distinct': True,
+            'attributeForDistinct': 'url',
+            'highlightPreTag': '<mark>',
+            'highlightPostTag': '</mark>',
+            'snippetEllipsisText': '…',
+            'removeWordsIfNoResults': 'lastWords',
+            'typoTolerance': {
+                'enabled': True,
+                'minWordSizeForTypos': {
+                    'oneTypo': 4,
+                    'twoTypos': 8
+                }
+            },
+            'replicas': [
+                'docs_by_date',  # Sorted by date
+                'docs_deprecated'  # Only deprecated content
+            ]
+        }
+
+        return config
+
+    def generate_analytics_dashboard(self):
+        """Generate configuration for Algolia analytics dashboard."""
+
+        dashboard = {
+            'widgets': [
+                {
+                    'type': 'searches_no_results',
+                    'title': 'Searches with No Results (Documentation Gaps)',
+                    'period': 'last_7_days'
+                },
+                {
+                    'type': 'top_searches',
+                    'title': 'Most Searched Terms',
+                    'limit': 20
+                },
+                {
+                    'type': 'top_hits',
+                    'title': 'Most Clicked Results',
+                    'limit': 20
+                },
+                {
+                    'type': 'top_filters',
+                    'title': 'Most Used Filters',
+                    'attributes': ['product', 'content_type', 'component']
+                },
+                {
+                    'type': 'low_click_rate',
+                    'title': 'Searches with Low Click Rate (Poor Results)',
+                    'threshold': 0.2
+                }
+            ],
+            'alerts': [
+                {
+                    'name': 'High No-Results Rate',
+                    'condition': 'no_results_rate > 0.15',
+                    'action': 'create_github_issue'
+                },
+                {
+                    'name': 'Trending Search Term',
+                    'condition': 'search_growth > 200%',
+                    'action': 'notify_team'
+                }
+            ]
+        }
+
+        return dashboard
+
+def generate_search_ui_config():
+    """Generate configuration for search UI implementation."""
+
+    ui_config = {
+        'searchBox': {
+            'placeholder': 'Search documentation...',
+            'autofocus': True,
+            'searchAsYouType': True
+        },
+        'refinementList': [
+            {
+                'attribute': 'product',
+                'title': 'Product',
+                'limit': 10,
+                'showMore': False
+            },
+            {
+                'attribute': 'content_type',
+                'title': 'Content Type',
+                'limit': 6,
+                'transformItems': {
+                    'how-to': 'How-to Guide',
+                    'tutorial': 'Tutorial',
+                    'concept': 'Concept',
+                    'reference': 'Reference',
+                    'troubleshooting': 'Troubleshooting'
+                }
+            },
+            {
+                'attribute': 'component',
+                'title': 'Component',
+                'limit': 10,
+                'showMore': True,
+                'searchable': True
+            },
+            {
+                'attribute': 'tags',
+                'title': 'Tags',
+                'limit': 20,
+                'showMore': True,
+                'searchable': True
+            }
+        ],
+        'hits': {
+            'hitsPerPage': 10,
+            'templates': {
+                'item': '''
+                    <div class="search-hit">
+                        <div class="search-hit-title">
+                            <a href="{{url}}">{{#helpers.highlight}}{ "attribute": "title" }{{/helpers.highlight}}</a>
+                            {{#maturity}}
+                                {{#equals maturity "deprecated"}}
+                                    <span class="badge badge-deprecated">Deprecated</span>
+                                {{/equals}}
+                                {{#equals maturity "preview"}}
+                                    <span class="badge badge-preview">Preview</span>
+                                {{/equals}}
+                            {{/maturity}}
+                        </div>
+                        <div class="search-hit-path">
+                            {{hierarchy.lvl0}} › {{hierarchy.lvl1}}
+                            {{#hierarchy.lvl2}} › {{hierarchy.lvl2}}{{/hierarchy.lvl2}}
+                        </div>
+                        <div class="search-hit-content">
+                            {{#helpers.snippet}}{ "attribute": "content" }{{/helpers.snippet}}
+                        </div>
+                        {{#has_code}}
+                            <div class="search-hit-code-indicator">
+                                <i class="icon-code"></i> Contains code examples
+                            </div>
+                        {{/has_code}}
+                    </div>
+                '''
+            }
+        },
+        'pagination': {
+            'padding': 3,
+            'showFirst': True,
+            'showLast': True
+        },
+        'analytics': {
+            'enabled': True,
+            'clickAnalytics': True,
+            'userToken': 'auto'
+        }
+    }
+
+    return ui_config
+
+def main():
+    import argparse
+    parser = argparse.ArgumentParser(description='Algolia search configuration')
+    parser.add_argument('--index', metavar='PATH', help='Index documentation for Algolia')
+    parser.add_argument('--config', action='store_true', help='Generate Algolia configuration')
+    parser.add_argument('--output', default='algolia-records.json', help='Output file for records')
+    args = parser.parse_args()
+
+    if args.index:
+        indexer = AlgoliaIndexer()
+        path = Path(args.index)
+
+        if path.is_file():
+            indexer.index_file(path)
+        else:
+            for md_file in sorted(path.rglob('*.md')):
+                if not md_file.name.startswith('_'):
+                    print(f"Indexing {md_file}...")
+                    indexer.index_file(md_file)
+
+        # Save records
+        with open(args.output, 'w') as f:
+            json.dump(indexer.records, f, indent=2, default=str)
+
+        print(f"✅ Indexed {len(indexer.records)} records to {args.output}")
+
+        # Generate analytics
+        print("\n📊 Index Statistics:")
+        print(f"  Total records: {len(indexer.records)}")
+
+        # Count by type
+        types = {}
+        for r in indexer.records:
+            ct = r.get('content_type', 'unknown')
+            types[ct] = types.get(ct, 0) + 1
+
+        print("  By content type:")
+        for t, count in sorted(types.items()):
+            print(f"    - {t}: {count}")
+
+    if args.config:
+        config = AlgoliaIndexer().generate_config()
+        ui_config = generate_search_ui_config()
+        dashboard = AlgoliaIndexer().generate_analytics_dashboard()
+
+        with open('algolia-config.json', 'w') as f:
+            json.dump({
+                'index_settings': config,
+                'ui_config': ui_config,
+                'analytics_dashboard': dashboard
+            }, f, indent=2)
+
+        print("✅ Generated Algolia configuration: algolia-config.json")
+
+if __name__ == '__main__':
+    main()

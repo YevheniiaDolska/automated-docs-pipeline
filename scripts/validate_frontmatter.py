@@ -84,12 +84,12 @@ def main():
         all_errors.extend(validate_file(md_file, schema))
 
     if all_errors:
-        print(f"\n❌ Frontmatter validation: {len(all_errors)} error(s)\n", file=sys.stderr)
+        print(f"\nFrontmatter validation: {len(all_errors)} error(s)\n", file=sys.stderr)
         for e in all_errors:
             print(f"  {e}", file=sys.stderr)
         sys.exit(1)
     else:
-        print(f"✅ Frontmatter validation: all files pass")
+        print("Frontmatter validation: all files pass")
 
 if __name__ == "__main__":
     main()

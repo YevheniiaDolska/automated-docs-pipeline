@@ -1,0 +1,118 @@
+name: Stale Documentation Check
+
+on:
+  schedule:
+    - cron: '0 9 * * 1'  # Every Monday at 9:00 UTC
+  workflow_dispatch:       # Manual trigger
+
+jobs:
+  check-stale:
+    name: Find stale documentation
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0  # Full history for accurate dates
+
+      - name: Find stale docs
+        id: stale
+        run: |
+          echo "## Stale Documentation Report" > stale-report.md
+          echo "" >> stale-report.md
+          echo "Generated: $(date '+%Y-%m-%d %H:%M UTC')" >> stale-report.md
+          echo "" >> stale-report.md
+
+          # Configuration
+          STALE_DAYS=180
+          WARNING_DAYS=90
+
+          echo "### Documents not updated in >$STALE_DAYS days (Critical)" >> stale-report.md
+          echo "" >> stale-report.md
+
+          CRITICAL_COUNT=0
+          WARNING_COUNT=0
+
+          # Find stale docs
+          for file in docs/**/*.md; do
+            if [ -f "$file" ]; then
+              # Get last modification date from git
+              last_modified=$(git log -1 --format="%ai" -- "$file" 2>/dev/null)
+              if [ -n "$last_modified" ]; then
+                # Calculate days since last modification
+                last_timestamp=$(date -d "$last_modified" +%s 2>/dev/null || date -j -f "%Y-%m-%d %H:%M:%S %z" "$last_modified" +%s 2>/dev/null)
+                current_timestamp=$(date +%s)
+                days_ago=$(( (current_timestamp - last_timestamp) / 86400 ))
+
+                # Check if stale
+                if [ $days_ago -gt $STALE_DAYS ]; then
+                  echo "- **$file** — $days_ago days old (last: $last_modified)" >> stale-report.md
+                  CRITICAL_COUNT=$((CRITICAL_COUNT + 1))
+                fi
+              fi
+            fi
+          done
+
+          if [ $CRITICAL_COUNT -eq 0 ]; then
+            echo "*No critical stale documents found.*" >> stale-report.md
+          fi
+
+          echo "" >> stale-report.md
+          echo "### Documents not updated in >$WARNING_DAYS days (Warning)" >> stale-report.md
+          echo "" >> stale-report.md
+
+          # Find warning-level stale docs
+          for file in docs/**/*.md; do
+            if [ -f "$file" ]; then
+              last_modified=$(git log -1 --format="%ai" -- "$file" 2>/dev/null)
+              if [ -n "$last_modified" ]; then
+                last_timestamp=$(date -d "$last_modified" +%s 2>/dev/null || date -j -f "%Y-%m-%d %H:%M:%S %z" "$last_modified" +%s 2>/dev/null)
+                current_timestamp=$(date +%s)
+                days_ago=$(( (current_timestamp - last_timestamp) / 86400 ))
+
+                if [ $days_ago -gt $WARNING_DAYS ] && [ $days_ago -le $STALE_DAYS ]; then
+                  echo "- $file — $days_ago days old" >> stale-report.md
+                  WARNING_COUNT=$((WARNING_COUNT + 1))
+                fi
+              fi
+            fi
+          done
+
+          if [ $WARNING_COUNT -eq 0 ]; then
+            echo "*No warning-level stale documents found.*" >> stale-report.md
+          fi
+
+          echo "" >> stale-report.md
+          echo "### Summary" >> stale-report.md
+          echo "- Critical (>$STALE_DAYS days): $CRITICAL_COUNT documents" >> stale-report.md
+          echo "- Warning (>$WARNING_DAYS days): $WARNING_COUNT documents" >> stale-report.md
+
+          # Output counts for issue creation
+          echo "critical_count=$CRITICAL_COUNT" >> $GITHUB_OUTPUT
+          echo "warning_count=$WARNING_COUNT" >> $GITHUB_OUTPUT
+
+      - name: Create issue if stale docs found
+        if: steps.stale.outputs.critical_count > 0 || steps.stale.outputs.warning_count > 0
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require('fs');
+            const report = fs.readFileSync('stale-report.md', 'utf8');
+
+            await github.rest.issues.create({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              title: `📅 Stale Documentation Alert - ${new Date().toISOString().split('T')[0]}`,
+              body: report + '\n\n### Action Required\n' +
+                    '- [ ] Review critical stale documents\n' +
+                    '- [ ] Update outdated content\n' +
+                    '- [ ] Mark deprecated content appropriately\n' +
+                    '- [ ] Archive or remove obsolete documents',
+              labels: ['stale-docs', 'maintenance', 'auto-created']
+            });
+
+      - name: Upload report as artifact
+        if: always()
+        uses: actions/upload-artifact@v3
+        with:
+          name: stale-docs-report
+          path: stale-report.md

@@ -1,0 +1,84 @@
+name: Auto-enhance Metadata
+
+on:
+  pull_request:
+    paths:
+      - 'docs/**/*.md'
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: 'Dry run (show changes without applying)'
+        required: false
+        default: 'false'
+        type: boolean
+
+jobs:
+  enhance-metadata:
+    name: Auto-enhance document metadata
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0  # Full history for git metadata
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: pip install pyyaml
+
+      - name: Run metadata enhancement
+        id: enhance
+        run: |
+          if [ "${{ github.event.inputs.dry_run }}" = "true" ]; then
+            python scripts/seo_geo_optimizer.py docs/ > enhancement-report.txt 2>&1
+            echo "dry_run=true" >> $GITHUB_OUTPUT
+          else
+            python scripts/seo_geo_optimizer.py docs/ --fix > enhancement-report.txt 2>&1
+            echo "dry_run=false" >> $GITHUB_OUTPUT
+          fi
+
+          # Check if files were modified
+          if git diff --quiet; then
+            echo "files_changed=false" >> $GITHUB_OUTPUT
+          else
+            echo "files_changed=true" >> $GITHUB_OUTPUT
+            echo "## Files Enhanced" >> enhancement-summary.md
+            git diff --name-only >> enhancement-summary.md
+          fi
+
+      - name: Create commit if changes
+        if: steps.enhance.outputs.files_changed == 'true' && steps.enhance.outputs.dry_run == 'false'
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git add -A
+          git commit -m "docs: auto-enhance metadata based on file paths and content"
+
+      - name: Push changes
+        if: steps.enhance.outputs.files_changed == 'true' && steps.enhance.outputs.dry_run == 'false'
+        uses: ad-m/github-push-action@master
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          branch: ${{ github.head_ref }}
+
+      - name: Comment on PR
+        if: github.event_name == 'pull_request' && steps.enhance.outputs.files_changed == 'true'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require('fs');
+            let report = '';
+            try {
+              report = fs.readFileSync('enhancement-report.txt', 'utf8');
+            } catch (e) {
+              report = 'Metadata enhancement completed.';
+            }
+
+            await github.rest.issues.createComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.issue.number,
+              body: `## 🤖 Automated Metadata Enhancement\n\n\`\`\`\n${report}\n\`\`\`\n\nMetadata has been automatically inferred from:\n- File paths (content_type, product)\n- File content (version mentions, structure)\n- Git history (last_reviewed date)\n\nPlease review the changes and adjust if needed.`
+            });

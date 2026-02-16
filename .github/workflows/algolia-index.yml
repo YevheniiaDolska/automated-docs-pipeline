@@ -1,0 +1,146 @@
+name: Update Algolia Search Index
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'docs/**/*.md'
+  workflow_dispatch:
+
+env:
+  # These secrets need to be set in GitHub repository settings
+  ALGOLIA_APP_ID: ${{ secrets.ALGOLIA_APP_ID }}
+  ALGOLIA_API_KEY: ${{ secrets.ALGOLIA_ADMIN_KEY }}
+  ALGOLIA_INDEX_NAME: ${{ secrets.ALGOLIA_INDEX_NAME || 'docs' }}
+
+jobs:
+  update-search-index:
+    name: Update Algolia index
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: |
+          pip install pyyaml algoliasearch
+
+      - name: Generate search records
+        run: |
+          python scripts/seo_geo_optimizer.py docs/ --algolia --output algolia-records.json
+
+      - name: Push to Algolia
+        run: |
+          python3 -c "
+          import json
+          import os
+          from algoliasearch.search_client import SearchClient
+
+          # Initialize client
+          client = SearchClient.create(
+              os.environ['ALGOLIA_APP_ID'],
+              os.environ['ALGOLIA_API_KEY']
+          )
+
+          index = client.init_index(os.environ['ALGOLIA_INDEX_NAME'])
+
+          # Load records
+          with open('algolia-records.json', 'r') as f:
+              records = json.load(f)
+
+          # Configure index settings
+          settings = {
+              'searchableAttributes': [
+                  'unordered(title)',
+                  'unordered(heading)',
+                  'unordered(content)',
+                  'unordered(description)',
+                  'tags'
+              ],
+              'attributesForFaceting': [
+                  'searchable(product)',
+                  'searchable(content_type)',
+                  'searchable(component)',
+                  'searchable(tags)',
+                  'maturity',
+                  'version'
+              ],
+              'customRanking': [
+                  'desc(ranking_boost)',
+                  'asc(heading_level)',
+                  'desc(word_count)'
+              ],
+              'attributesToSnippet': [
+                  'content:50',
+                  'description:30'
+              ],
+              'distinct': True,
+              'attributeForDistinct': 'url'
+          }
+
+          # Update settings
+          index.set_settings(settings)
+
+          # Clear and upload records (atomic replace)
+          index.clear_objects()
+          response = index.save_objects(records)
+
+          print(f'✅ Uploaded {len(records)} records to Algolia')
+          print(f'Index: {os.environ[\\\"ALGOLIA_INDEX_NAME\\\"]}')
+          print(f'Task ID: {response[\\\"taskID\\\"]}')
+          "
+
+      - name: Test search
+        continue-on-error: true
+        run: |
+          python3 -c "
+          import os
+          import time
+          from algoliasearch.search_client import SearchClient
+
+          # Wait for indexing
+          time.sleep(5)
+
+          client = SearchClient.create(
+              os.environ['ALGOLIA_APP_ID'],
+              os.environ['ALGOLIA_API_KEY']
+          )
+
+          index = client.init_index(os.environ['ALGOLIA_INDEX_NAME'])
+
+          # Test search
+          result = index.search('webhook', {
+              'facetFilters': [],
+              'hitsPerPage': 3
+          })
+
+          print('🔍 Search test results:')
+          print(f'Found {result[\\\"nbHits\\\"]} results for \\\"webhook\\\"')
+          for hit in result['hits'][:3]:
+              print(f'  - {hit.get(\\\"title\\\", \\\"Untitled\\\")}: {hit.get(\\\"url\\\", \\\"\\\")}')"
+
+      - name: Generate search analytics report
+        if: always()
+        run: |
+          echo "## Algolia Search Index Update" > search-report.md
+          echo "" >> search-report.md
+          echo "- **Date**: $(date)" >> search-report.md
+          echo "- **Index**: $ALGOLIA_INDEX_NAME" >> search-report.md
+          echo "- **Records**: $(jq length algolia-records.json)" >> search-report.md
+          echo "" >> search-report.md
+          echo "### Content Type Breakdown" >> search-report.md
+          jq -r '.[].content_type' algolia-records.json | sort | uniq -c | while read count type; do
+            echo "- $type: $count" >> search-report.md
+          done
+
+      - name: Upload report
+        if: always()
+        uses: actions/upload-artifact@v3
+        with:
+          name: search-index-report
+          path: |
+            search-report.md
+            algolia-records.json

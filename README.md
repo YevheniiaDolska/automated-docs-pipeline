@@ -16,7 +16,7 @@ flowchart TB
     end
 
     subgraph "Document Creation (Local)"
-        F[git pull] --> G[Claude Code]
+        F[git pull] --> G[AI Assistant]
         G --> H[Draft Documents]
         H --> I[Human Review]
     end
@@ -79,7 +79,7 @@ flowchart TB
 
 ## Gap Detection Sources
 
-```
+```text
 ┌─────────────────────────────────────────────────────────────┐
 │  1. CODE CHANGES (git diff analysis)                        │
 │     - New API endpoints                                     │
@@ -103,7 +103,7 @@ flowchart TB
 
 ## Workflow
 
-```
+```text
 Monday morning:
 1. Check GitHub Issues → see auto-created gap analysis
 2. git pull → get latest reports/doc_gaps_report.json

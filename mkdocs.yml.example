@@ -1,0 +1,55 @@
+# MkDocs configuration with lifecycle management
+
+site_name: Documentation
+site_url: https://docs.example.com
+
+# Theme with lifecycle support
+theme:
+  name: material
+  custom_dir: overrides  # For lifecycle templates
+  features:
+    - navigation.tabs
+    - navigation.sections
+    - navigation.expand
+    - search.suggest
+    - search.highlight
+
+# Plugins
+plugins:
+  - search
+  - macros:
+      include_dir: docs
+      include_yaml:
+        - _variables.yml
+
+  # For lifecycle filtering
+  - mkdocs-exclude:
+      regex:
+        - '.*\bremoved\b.*'  # Exclude removed pages from build
+
+# Extensions
+markdown_extensions:
+  - admonition
+  - meta
+  - pymdownx.superfences
+  - pymdownx.tabbed:
+      alternate_style: true
+
+# Extra CSS for lifecycle badges
+extra_css:
+  - stylesheets/lifecycle.css
+
+# Navigation with lifecycle awareness
+nav:
+  - Home: index.md
+  - Getting Started:
+    - Overview: getting-started/index.md
+    - Tutorials: getting-started/tutorials.md
+
+  # Deprecated section (auto-populated)
+  - Deprecated:
+    - Overview: deprecated/index.md
+
+# Hooks for lifecycle processing
+hooks:
+  - scripts/lifecycle_hook.py

@@ -2,7 +2,17 @@
   "permissions": {
     "allow": [
       "Bash(ls:*)",
-      "Bash(chmod:*)"
+      "Bash(chmod:*)",
+      "Bash(git rm:*)",
+      "Bash(cd:*)",
+      "Bash(python3:*)",
+      "Bash(curl:*)",
+      "Bash(cmd.exe /c \"mkdocs serve\")",
+      "Bash(python test_pipeline.py:*)",
+      "Bash(cat:*)",
+      "Bash(git reset:*)",
+      "Bash(git add:*)",
+      "Bash(git commit:*)"
     ],
     "deny": [],
     "ask": []

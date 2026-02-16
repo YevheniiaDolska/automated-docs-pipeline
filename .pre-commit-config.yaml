@@ -1,0 +1,59 @@
+# Pre-commit hooks for documentation quality
+# Install: pip install pre-commit && pre-commit install
+
+repos:
+  # Markdown linting
+  - repo: https://github.com/igorshubovych/markdownlint-cli
+    rev: v0.37.0
+    hooks:
+      - id: markdownlint
+        args: [--config, .markdownlint.yml]
+        files: \.md$
+
+  # Spell checking
+  - repo: https://github.com/streetsidesoftware/cspell-cli
+    rev: v7.3.0
+    hooks:
+      - id: cspell
+        args: [--config, cspell.json]
+        files: \.md$
+
+  # YAML validation
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v4.5.0
+    hooks:
+      - id: check-yaml
+        files: \.(yml|yaml)$
+      - id: end-of-file-fixer
+        files: \.(md|yml|yaml|py)$
+      - id: trailing-whitespace
+        files: \.(md|yml|yaml|py)$
+
+  # Local hooks for custom checks
+  - repo: local
+    hooks:
+      # Frontmatter validation
+      - id: validate-frontmatter
+        name: Validate frontmatter
+        entry: python scripts/validate_frontmatter.py
+        language: python
+        files: \.md$
+        pass_filenames: false
+        additional_dependencies: [pyyaml]
+
+      # SEO/GEO optimization check
+      - id: seo-geo-check
+        name: SEO/GEO optimization check
+        entry: python scripts/seo_geo_optimizer.py docs/
+        language: python
+        files: \.md$
+        pass_filenames: false
+        additional_dependencies: [pyyaml]
+
+      # Check for GUIDE.md (should be ignored)
+      - id: no-guide-md
+        name: Ensure GUIDE.md is not committed
+        entry: sh -c 'if git ls-files | grep -q "^GUIDE.md$"; then echo "GUIDE.md should not be committed (add to .gitignore)"; exit 1; fi'
+        language: system
+        pass_filenames: false
+        always_run: true

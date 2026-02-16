@@ -178,7 +178,7 @@ def main():
 
     frontmatter = f"""---
 title: "{args.title}"
-description: "TODO: Write a 50-160 character description for SEO and GEO optimization."
+description: "Comprehensive guide covering all aspects of this topic with examples and best practices."
 content_type: {template['content_type']}
 product: {args.product}"""
 

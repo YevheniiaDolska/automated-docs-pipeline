@@ -1,0 +1,81 @@
+/* Lifecycle badges and styling */
+
+/* Badge in search results */
+.search-result-deprecated::before {
+  content: "DEPRECATED";
+  background: #ff9800;
+  color: white;
+  padding: 2px 6px;
+  border-radius: 3px;
+  font-size: 0.8em;
+  font-weight: bold;
+  margin-right: 8px;
+}
+
+.search-result-preview::before {
+  content: "PREVIEW";
+  background: #2196f3;
+  color: white;
+  padding: 2px 6px;
+  border-radius: 3px;
+  font-size: 0.8em;
+  font-weight: bold;
+  margin-right: 8px;
+}
+
+.search-result-beta::before {
+  content: "BETA";
+  background: #9c27b0;
+  color: white;
+  padding: 2px 6px;
+  border-radius: 3px;
+  font-size: 0.8em;
+  font-weight: bold;
+  margin-right: 8px;
+}
+
+/* Deprecated content styling */
+.deprecated-content {
+  opacity: 0.8;
+}
+
+.deprecated-banner {
+  background: #fff3cd;
+  border: 1px solid #ffc107;
+  border-radius: 4px;
+  padding: 12px;
+  margin-bottom: 20px;
+}
+
+.deprecated-banner strong {
+  color: #856404;
+}
+
+/* Preview/Beta banners */
+.preview-banner,
+.beta-banner {
+  background: #e3f2fd;
+  border: 1px solid #2196f3;
+  border-radius: 4px;
+  padding: 12px;
+  margin-bottom: 20px;
+}
+
+/* Navigation indicators */
+.md-nav__item--deprecated > .md-nav__link::after {
+  content: " (deprecated)";
+  color: #ff9800;
+  font-size: 0.8em;
+}
+
+.md-nav__item--preview > .md-nav__link::after {
+  content: " (preview)";
+  color: #2196f3;
+  font-size: 0.8em;
+}
+
+/* Table of contents indicators */
+.md-sidebar--secondary .deprecated-toc::after {
+  content: " ⚠️";
+  color: #ff9800;
+}

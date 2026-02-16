@@ -1,0 +1,253 @@
+name: Auto-update Documentation
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'api/**/*.yaml'
+      - 'api/**/*.yml'
+      - 'openapi.yaml'
+      - 'src/config/**'
+      - 'src/api/**'
+  workflow_dispatch:
+
+jobs:
+  detect-changes:
+    name: Detect documentation impact
+    runs-on: ubuntu-latest
+    outputs:
+      has_api_changes: ${{ steps.detect.outputs.has_api_changes }}
+      has_config_changes: ${{ steps.detect.outputs.has_config_changes }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 2
+
+      - name: Detect changes
+        id: detect
+        run: |
+          # Check for API spec changes
+          if git diff HEAD~1 --name-only | grep -E "openapi|swagger|api.*\.ya?ml"; then
+            echo "has_api_changes=true" >> $GITHUB_OUTPUT
+          else
+            echo "has_api_changes=false" >> $GITHUB_OUTPUT
+          fi
+
+          # Check for config changes
+          if git diff HEAD~1 --name-only | grep -E "src/config|\.env\.example"; then
+            echo "has_config_changes=true" >> $GITHUB_OUTPUT
+          else
+            echo "has_config_changes=false" >> $GITHUB_OUTPUT
+          fi
+
+  auto-update-api-docs:
+    name: Update API documentation
+    needs: detect-changes
+    if: needs.detect-changes.outputs.has_api_changes == 'true'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Generate API docs from OpenAPI
+        run: |
+          # Install tools
+          npm install -g @redocly/cli @apidevtools/swagger-cli
+
+          # Find OpenAPI spec
+          SPEC_FILE=$(find . -type f \( -name "openapi*.yaml" -o -name "openapi*.yml" -o -name "openapi*.json" \) | head -1)
+
+          if [ -n "$SPEC_FILE" ]; then
+            echo "Found OpenAPI spec: $SPEC_FILE"
+
+            # Validate spec
+            npx @apidevtools/swagger-cli validate "$SPEC_FILE"
+
+            # Generate markdown documentation
+            npx @redocly/cli build-docs "$SPEC_FILE" --output docs/reference/api-generated.html
+
+            # Extract endpoints for reference pages
+            node -e "
+            const yaml = require('js-yaml');
+            const fs = require('fs');
+            const spec = yaml.load(fs.readFileSync('$SPEC_FILE', 'utf8'));
+
+            // Create individual endpoint docs
+            for (const [path, methods] of Object.entries(spec.paths || {})) {
+              for (const [method, details] of Object.entries(methods)) {
+                if (['get', 'post', 'put', 'patch', 'delete'].includes(method)) {
+                  const filename = 'docs/reference/endpoints/' +
+                    path.replace(/[{}]/g, '').replace(/\//g, '-').substring(1) +
+                    '-' + method + '.md';
+
+                  const content = [
+                    '---',
+                    'title: \"' + method.toUpperCase() + ' ' + path + '\"',
+                    'description: \"' + (details.summary || details.description || '').substring(0, 150) + '\"',
+                    'content_type: reference',
+                    'auto_generated: true',
+                    '---',
+                    '',
+                    '# ' + method.toUpperCase() + ' ' + path,
+                    '',
+                    details.description || details.summary || '',
+                    '',
+                    '## Parameters',
+                    // Add parameter details...
+                    '',
+                    '## Responses',
+                    // Add response details...
+                  ].join('\\n');
+
+                  // fs.writeFileSync(filename, content);
+                  console.log('Would generate:', filename);
+                }
+              }
+            }
+            "
+          fi
+
+      - name: Check for deprecated endpoints
+        run: |
+          # Look for deprecated flags in OpenAPI
+          SPEC_FILE=$(find . -type f \( -name "openapi*.yaml" -o -name "openapi*.yml" \) | head -1)
+
+          if [ -n "$SPEC_FILE" ]; then
+            # Find deprecated endpoints
+            grep -n "deprecated: true" "$SPEC_FILE" || true > deprecated.txt
+
+            if [ -s deprecated.txt ]; then
+              echo "## Deprecated Endpoints Found" > deprecation-report.md
+              echo "" >> deprecation-report.md
+              cat deprecated.txt >> deprecation-report.md
+              echo "" >> deprecation-report.md
+              echo "These endpoints should be marked as deprecated in documentation." >> deprecation-report.md
+            fi
+          fi
+
+      - name: Create Issue for documentation updates
+        if: always()
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const changes = `
+            ## API Changes Detected
+
+            The following changes need documentation updates:
+            - Files changed: ${{ github.sha }}
+
+            ### Suggested Actions:
+            1. Review the changes in the code
+            2. Update relevant documentation with Claude Code
+            3. Focus on these areas:
+               - API endpoints that changed
+               - New configuration options
+               - Deprecated features
+
+            ### Context for AI Assistant:
+            Use this information to generate documentation updates.
+            `;
+
+            await github.rest.issues.create({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              title: "📝 Docs needed: API changes in ${{ github.sha }}",
+              body: changes,
+              labels: ['documentation', 'auto-created']
+            })
+          body: |
+            ## Automated Documentation Update
+
+            This PR contains automated updates based on detected changes:
+
+            - [ ] API specification changes detected
+            - [ ] Generated documentation updated
+            - [ ] Deprecation warnings added
+
+            ### Changes detected in:
+            ${{ github.sha }}
+
+            ### Next steps:
+            1. Review the automated changes
+            2. Add any additional context or examples
+            3. Verify frontmatter is correct
+            4. Merge when ready
+
+            ---
+            *This PR was automatically generated by the self-healing docs system.*
+          branch: auto-docs/${{ github.sha }}
+          commit-message: "docs: auto-update from API changes in ${{ github.sha }}"
+          labels: auto-update, documentation
+
+  monitor-code-docs-sync:
+    name: Check code-docs synchronization
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Analyze code for undocumented features
+        id: gaps
+        run: |
+          echo "## Documentation Coverage Report" > coverage-report.md
+          echo "" >> coverage-report.md
+
+          # Check for public APIs without docs
+          echo "### Public APIs Check" >> coverage-report.md
+          echo "" >> coverage-report.md
+
+          # Find exported functions in TypeScript/JavaScript
+          find src -type f \( -name "*.ts" -o -name "*.js" \) -exec grep -l "^export" {} \; | while read file; do
+            basename_no_ext=$(basename "$file" | sed 's/\.[^.]*$//')
+            doc_file="docs/reference/$basename_no_ext.md"
+
+            if [ ! -f "$doc_file" ]; then
+              echo "- Missing docs for: $file" >> coverage-report.md
+            fi
+          done || echo "No missing API docs found." >> coverage-report.md
+
+          echo "" >> coverage-report.md
+
+          # Check for configuration options without docs
+          echo "### Configuration Options Check" >> coverage-report.md
+          echo "" >> coverage-report.md
+
+          # Look for env variables in code
+          grep -r "process\.env\." src --include="*.js" --include="*.ts" 2>/dev/null | \
+            grep -oE "process\.env\.[A-Z_]+" | \
+            sort -u | \
+            sed 's/process\.env\.//' > found-env-vars.txt || true
+
+          # Check if each is documented
+          while read var; do
+            if ! grep -q "$var" docs/**/*.md 2>/dev/null; then
+              echo "- Undocumented env var: $var" >> coverage-report.md
+            fi
+          done < found-env-vars.txt || true
+
+          # Count gaps
+          GAP_COUNT=$(grep -c "^-" coverage-report.md || echo "0")
+          echo "gap_count=$GAP_COUNT" >> $GITHUB_OUTPUT
+
+      - name: Create issue for gaps
+        if: steps.gaps.outputs.gap_count > 0
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require('fs');
+            const report = fs.readFileSync('coverage-report.md', 'utf8');
+
+            await github.rest.issues.create({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              title: `📊 Documentation gaps detected in ${context.sha.substring(0, 7)}`,
+              body: report + '\n\n### Action Required\n' +
+                    '- [ ] Document missing APIs\n' +
+                    '- [ ] Document environment variables\n' +
+                    '- [ ] Update configuration guides\n' +
+                    '- [ ] Add examples for new features',
+              labels: ['gap-detected', 'auto-created', 'documentation']
+            });

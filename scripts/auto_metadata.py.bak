@@ -1,0 +1,234 @@
+#!/usr/bin/env python3
+"""
+Automatically infer and update metadata in frontmatter based on file paths and content.
+This reduces manual work for doc writers.
+"""
+
+import yaml
+import re
+import sys
+from pathlib import Path
+from datetime import datetime
+import subprocess
+
+def get_git_info(filepath):
+    """Get git information for a file."""
+    try:
+        # Get last modified date
+        result = subprocess.run(
+            ["git", "log", "-1", "--format=%aI", "--", str(filepath)],
+            capture_output=True, text=True, check=True
+        )
+        last_modified = result.stdout.strip()
+
+        # Get original author
+        result = subprocess.run(
+            ["git", "log", "--reverse", "--format=%an", "--", str(filepath)],
+            capture_output=True, text=True, check=True
+        )
+        original_author = result.stdout.strip().split('\n')[0] if result.stdout else None
+
+        return {
+            'last_reviewed': last_modified[:10] if last_modified else None,
+            'original_author': original_author
+        }
+    except subprocess.CalledProcessError:
+        return {}
+
+def infer_metadata_from_path(filepath):
+    """Infer metadata from file path."""
+    path_parts = filepath.parts
+    metadata = {}
+
+    # Infer content_type from directory
+    if 'getting-started' in path_parts or 'tutorial' in path_parts:
+        metadata['content_type'] = 'tutorial'
+    elif 'how-to' in path_parts or 'guides' in path_parts:
+        metadata['content_type'] = 'how-to'
+    elif 'concept' in path_parts or 'concepts' in path_parts:
+        metadata['content_type'] = 'concept'
+    elif 'reference' in path_parts or 'api' in path_parts:
+        metadata['content_type'] = 'reference'
+    elif 'troubleshoot' in path_parts or 'troubleshooting' in path_parts:
+        metadata['content_type'] = 'troubleshooting'
+    elif 'release' in path_parts or 'changelog' in path_parts:
+        metadata['content_type'] = 'release-note'
+
+    # Infer product from path
+    if 'cloud' in str(filepath).lower():
+        metadata['product'] = 'n8n-cloud'
+    elif 'self-hosted' in str(filepath).lower() or 'docker' in str(filepath).lower():
+        metadata['product'] = 'n8n-self-hosted'
+
+    # Infer component from filename
+    filename = filepath.stem.lower()
+    components = {
+        'webhook': 'webhook',
+        'http': 'http-request',
+        'code': 'code',
+        'ai': 'ai-agent',
+        'schedule': 'schedule',
+        'workflow': 'workflow-engine',
+        'credential': 'credentials',
+        'expression': 'expressions'
+    }
+
+    for key, value in components.items():
+        if key in filename:
+            metadata['n8n_component'] = value
+            break
+
+    # Auto-generate tags from path and filename
+    tags = []
+
+    # Add directory-based tags
+    for part in path_parts[1:-1]:  # Skip 'docs' and filename
+        if part not in ['getting-started', 'how-to', 'reference', 'concepts', 'troubleshooting']:
+            tags.append(part.replace('-', ' ').title())
+
+    # Add component tag if found
+    if 'n8n_component' in metadata:
+        tags.append(metadata['n8n_component'].replace('-', ' ').title())
+
+    if tags:
+        metadata['tags'] = list(set(tags))[:8]  # Max 8 tags
+
+    return metadata
+
+def analyze_content(content):
+    """Analyze content to infer metadata."""
+    metadata = {}
+
+    # Check for version mentions
+    version_match = re.search(r'n8n (?:version |v?)(\d+\.\d+)', content, re.IGNORECASE)
+    if version_match:
+        metadata['n8n_version'] = version_match.group(1)
+
+    # Infer content_type from content structure
+    if not metadata.get('content_type'):
+        # Check for numbered steps (how-to indicator)
+        if re.search(r'^\d+\.\s+', content, re.MULTILINE):
+            metadata['content_type'] = 'how-to'
+        # Check for "Prerequisites" section (tutorial indicator)
+        elif 'Prerequisites' in content or '## Before you begin' in content:
+            metadata['content_type'] = 'tutorial'
+        # Check for problem/solution pattern (troubleshooting)
+        elif 'Problem:' in content or 'Solution:' in content or 'Error:' in content:
+            metadata['content_type'] = 'troubleshooting'
+        # Check for API/parameter tables (reference)
+        elif '| Parameter |' in content or '| Method |' in content:
+            metadata['content_type'] = 'reference'
+
+    return metadata
+
+def extract_frontmatter(text):
+    """Extract existing frontmatter."""
+    if not text.startswith('---'):
+        return None, text
+
+    parts = text.split('---', 2)
+    if len(parts) < 3:
+        return None, text
+
+    try:
+        fm = yaml.safe_load(parts[1])
+        return fm or {}, '---' + parts[2]
+    except yaml.YAMLError:
+        return None, text
+
+def merge_metadata(existing, inferred):
+    """Merge inferred metadata with existing, preserving manual entries."""
+    merged = existing.copy()
+
+    for key, value in inferred.items():
+        # Don't overwrite existing values except for auto-updateable fields
+        if key not in merged:
+            merged[key] = value
+        elif key in ['last_reviewed', 'tags']:
+            # These can be auto-updated
+            if key == 'tags' and 'tags' in existing:
+                # Merge tags
+                existing_tags = existing.get('tags', [])
+                new_tags = value if isinstance(value, list) else [value]
+                merged['tags'] = list(set(existing_tags + new_tags))[:8]
+            else:
+                merged[key] = value
+
+    # Add auto_metadata flag
+    merged['auto_enhanced'] = True
+
+    return merged
+
+def update_file(filepath, dry_run=False):
+    """Update a single file with inferred metadata."""
+    content = filepath.read_text(encoding='utf-8')
+    existing_fm, body = extract_frontmatter(content)
+
+    if existing_fm is None:
+        print(f"⚠️  {filepath}: No frontmatter found, skipping")
+        return False
+
+    # Infer metadata
+    path_metadata = infer_metadata_from_path(filepath)
+    content_metadata = analyze_content(body)
+    git_metadata = get_git_info(filepath)
+
+    # Combine all inferred metadata
+    inferred = {**path_metadata, **content_metadata, **git_metadata}
+
+    # Merge with existing
+    updated_fm = merge_metadata(existing_fm, inferred)
+
+    # Check if anything changed
+    if updated_fm == existing_fm:
+        print(f"✓ {filepath}: No updates needed")
+        return False
+
+    if dry_run:
+        print(f"Would update {filepath}:")
+        for key, value in inferred.items():
+            if key not in existing_fm:
+                print(f"  + {key}: {value}")
+        return True
+
+    # Write updated file
+    yaml_str = yaml.dump(updated_fm, default_flow_style=False, sort_keys=False)
+    new_content = f"---\n{yaml_str}---{body}"
+    filepath.write_text(new_content, encoding='utf-8')
+
+    print(f"✅ {filepath}: Updated with inferred metadata")
+    for key, value in inferred.items():
+        if key not in existing_fm:
+            print(f"  + {key}: {value}")
+
+    return True
+
+def main():
+    import argparse
+    parser = argparse.ArgumentParser(description='Auto-enhance document metadata')
+    parser.add_argument('path', nargs='?', default='docs',
+                       help='Path to process (file or directory)')
+    parser.add_argument('--dry-run', action='store_true',
+                       help='Show what would be changed without modifying files')
+    args = parser.parse_args()
+
+    path = Path(args.path)
+    files_updated = 0
+
+    if path.is_file():
+        if update_file(path, args.dry_run):
+            files_updated = 1
+    else:
+        for md_file in sorted(path.rglob('*.md')):
+            if md_file.name.startswith('_'):
+                continue
+            if update_file(md_file, args.dry_run):
+                files_updated += 1
+
+    print(f"\n📊 Summary: {files_updated} files {'would be' if args.dry_run else ''} updated")
+
+    if args.dry_run and files_updated > 0:
+        print("\nRun without --dry-run to apply changes")
+
+if __name__ == '__main__':
+    main()

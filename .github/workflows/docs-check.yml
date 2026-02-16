@@ -52,8 +52,8 @@ jobs:
       - run: pip install pyyaml
       - run: python scripts/validate_frontmatter.py
 
-  geo-lint:
-    name: GEO optimization check
+  seo-geo-check:
+    name: SEO/GEO optimization check
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -61,7 +61,7 @@ jobs:
         with:
           python-version: '3.11'
       - run: pip install pyyaml
-      - run: python scripts/geo_lint.py docs/
+      - run: python scripts/seo_geo_optimizer.py docs/
 
   spectral:
     name: API spec validation (Spectral)
