@@ -4,11 +4,13 @@ description: "Complete guide to integrating [Product] into your [application/pla
 content_type: how-to
 product: both
 tags:
+
   - How-To
   - Tutorial
+
 ---
 
-# [Product] integration guide
+## [Product] integration guide
 
 This guide walks you through integrating [Product] into your [application type]. You'll learn authentication, making API requests, handling webhooks, and deploying to production.
 
@@ -28,7 +30,8 @@ sequenceDiagram
     API-->>App: Responses
     API->>WH: 3. Events occur
     WH->>App: Webhook notifications
-```
+
+```text
 
 ## Prerequisites
 
@@ -46,10 +49,10 @@ Before you begin:
 ### Get your credentials
 
 1. Go to [Dashboard]([URL]) → Settings → API Keys
-2. Create a new API key with these permissions:
+1. Create a new API key with these permissions:
    - [Permission 1]
    - [Permission 2]
-3. Copy both the **Client ID** and **Client Secret**
+1. Copy both the **Client ID** and **Client Secret**
 
 ### Configure authentication
 
@@ -58,7 +61,7 @@ Before you begin:
     ```bash
     export [PRODUCT]_CLIENT_ID="your-client-id"
     export [PRODUCT]_CLIENT_SECRET="your-client-secret"
-    ```
+```
 
 === "Configuration file"
 
@@ -66,7 +69,8 @@ Before you begin:
     # config/[product].yml
     client_id: ${[PRODUCT]_CLIENT_ID}
     client_secret: ${[PRODUCT]_CLIENT_SECRET}
-    ```
+
+```text
 
 !!! danger "Security warning"
     Never hardcode credentials in source code. Always use environment variables or a secrets manager.
@@ -92,7 +96,7 @@ Before you begin:
       const { access_token, expires_in } = await response.json();
       return access_token;
     };
-    ```
+```
 
 === "API Key"
 
@@ -102,7 +106,8 @@ Before you begin:
       'Authorization': `Bearer ${process.env.[PRODUCT]_API_KEY}`,
       'Content-Type': 'application/json'
     };
-    ```
+
+```text
 
 ## Step 2: Install the SDK (optional)
 
@@ -112,7 +117,7 @@ Using the official SDK simplifies integration:
 
     ```bash
     npm install @[product]/sdk
-    ```
+```
 
     ```javascript
     import { [Product]Client } from '@[product]/sdk';
@@ -121,13 +126,14 @@ Using the official SDK simplifies integration:
       clientId: process.env.[PRODUCT]_CLIENT_ID,
       clientSecret: process.env.[PRODUCT]_CLIENT_SECRET
     });
-    ```
+
+```text
 
 === "Python"
 
     ```bash
     pip install [product]-sdk
-    ```
+```
 
     ```python
     from [product] import Client
@@ -136,7 +142,8 @@ Using the official SDK simplifies integration:
         client_id=os.environ['[PRODUCT]_CLIENT_ID'],
         client_secret=os.environ['[PRODUCT]_CLIENT_SECRET']
     )
-    ```
+
+```text
 
 === "REST API (no SDK)"
 
@@ -155,7 +162,7 @@ Using the official SDK simplifies integration:
     });
 
     console.log('[Resource] created:', [resource].id);
-    ```
+```
 
 === "REST API"
 
@@ -167,7 +174,8 @@ Using the official SDK simplifies integration:
         "name": "My first [resource]",
         "[field]": "[value]"
       }'
-    ```
+
+```text
 
 ### List [resources]
 
@@ -186,7 +194,8 @@ for (const [resource] of [resources].data) {
 
 ```javascript
 const [resource] = await client.[resources].get('[resource_id]');
-```
+
+```text
 
 ### Update a [resource]
 
@@ -200,7 +209,8 @@ const updated = await client.[resources].update('[resource_id]', {
 
 ```javascript
 await client.[resources].delete('[resource_id]');
-```
+
+```text
 
 ## Step 4: Handle responses and errors
 
@@ -242,7 +252,8 @@ try {
     throw error;
   }
 }
-```
+
+```text
 
 ### Implement retry logic
 
@@ -302,7 +313,8 @@ app.post('/webhooks/[product]', express.raw({ type: 'application/json' }), (req,
 
   res.status(200).send('OK');
 });
-```
+
+```text
 
 ### Verify webhook signatures
 
@@ -327,20 +339,21 @@ const verifySignature = (payload, signature) => {
 === "Dashboard"
 
     1. Go to [Dashboard]([URL]) → Webhooks
-    2. Click "Add endpoint"
-    3. Enter your URL: `https://yourapp.com/webhooks/[product]`
-    4. Select events to subscribe to
-    5. Save
+    1. Click "Add endpoint"
+    1. Enter your URL: `<https://yourapp.com/webhooks/[product]`>
+    1. Select events to subscribe to
+    1. Save
 
 === "API"
 
     ```javascript
     await client.webhooks.create({
-      url: 'https://yourapp.com/webhooks/[product]',
+      url: '<https://yourapp.com/webhooks/[product]',>
       events: ['[resource].created', '[resource].updated'],
       secret: 'your-webhook-secret'
     });
-    ```
+
+```text
 
 ## Step 6: Test your integration
 
@@ -374,8 +387,9 @@ Use [ngrok](https://ngrok.com) to test webhooks locally:
 
 ```bash
 ngrok http 3000
-# Use the generated URL as your webhook endpoint
-```
+## Use the generated URL as your webhook endpoint
+
+```text
 
 ## Step 7: Go to production
 
@@ -411,7 +425,7 @@ export const config = {
 Monitor these metrics:
 
 | Metric | Alert threshold |
-|--------|-----------------|
+| -------- | ----------------- |
 | API error rate | > 1% |
 | API latency (p95) | > 2s |
 | Webhook delivery failures | > 5 consecutive |
@@ -451,7 +465,8 @@ export const setupWebhooks = (app) => {
     res.status(200).send('OK');
   });
 };
-```
+
+```text
 
 ## Troubleshooting
 
@@ -460,6 +475,7 @@ export const setupWebhooks = (app) => {
 **Error:** `401 Unauthorized`
 
 **Causes:**
+
 - Invalid or expired credentials
 - Wrong environment (test vs. production)
 - Missing required scopes
@@ -475,6 +491,7 @@ export const setupWebhooks = (app) => {
 ### Webhook not received
 
 **Causes:**
+
 - Incorrect URL
 - Firewall blocking requests
 - SSL certificate issues

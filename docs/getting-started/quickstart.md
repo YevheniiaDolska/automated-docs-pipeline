@@ -1,38 +1,39 @@
 ---
-title: "Build your first n8n workflow in 5 minutes"
-description: "Create a webhook-triggered workflow that receives HTTP requests and sends Slack notifications using n8n. No coding required."
+title: "Build your first workflow in 5 minutes"
+description: "Create a webhook-triggered workflow that receives HTTP requests and sends Slack notifications. No coding required."
 content_type: tutorial
 product: both
-n8n_component: webhook
 tags:
-  - Tutorial
-  - Webhook
-  - Cloud
-  - Self-hosted
+
+ - Tutorial
+ - Webhook
+ - Cloud
+ - Self-hosted
+
 ---
 
-## Build your first n8n workflow in 5 minutes
+## Build your first workflow in 5 minutes
 
-An n8n workflow is a series of connected nodes that process data automatically. In this tutorial you create a workflow that receives an HTTP request via a Webhook node and sends a notification to Slack.
+A workflow is a series of connected nodes that process data automatically. In this tutorial you create a workflow that receives an HTTP request via a Webhook node and sends a notification to Slack.
 
 ## Prerequisites
 
-- An n8n instance (Cloud or self-hosted). See [installation options](https://docs.n8n.io/hosting/).
+- An instance (Cloud or self-hosted). See [installation options](../installation.md).
 - A Slack workspace where you can add apps.
 
 ## Step 1: Create a new workflow
 
-=== "n8n Cloud"
+=== "Cloud"
 
-    * Log in to your n8n Cloud instance.
-    * Select **New Workflow** from the top-right menu.
-    * The canvas opens with an empty workflow.
+- Log in to your Cloud instance.
+- Select **New Workflow** from the top-right menu.
+- The canvas opens with an empty workflow.
 
 === "Self-hosted"
 
-    * Open your n8n instance at `http://localhost:5678`.
-    * Select **New Workflow**.
-    * The canvas opens with an empty workflow.
+- Open your instance at `<http://localhost:5678`.>
+- Select **New Workflow**.
+- The canvas opens with an empty workflow.
 
 ## Step 2: Add a Webhook trigger node
 
@@ -42,7 +43,7 @@ An n8n workflow is a series of connected nodes that process data automatically. 
 1. Copy the **Test URL** — you will need it in Step 5.
 
 !!! info "Test URL vs Production URL"
-    The Test URL is active only while the workflow editor is open. The Production URL activates after you toggle the workflow to **Active**.
+ The Test URL is active only while the workflow editor is open. The Production URL activates after you toggle the workflow to **Active**.
 
 ## Step 3: Add a Slack node
 
@@ -64,8 +65,8 @@ New webhook received: {% raw %}{{ $json.body.message }}{% endraw %}
 
 ```bash
 curl -X POST YOUR_TEST_URL \
-  -H "Content-Type: application/json" \
-  -d '{"message": "Hello from my first workflow!"}'
+ -H "Content-Type: application/json" \
+ -d '{"message": "Hello from my first workflow!"}'
 ```
 
 1. Check your Slack channel — the message appears within 2 seconds.
@@ -80,5 +81,5 @@ The workflow now runs automatically for every incoming request, without the edit
 ## Next steps
 
 - [Configure Webhook authentication](../how-to/configure-webhook-trigger.md) to secure your endpoint
-- [Understand the execution model](../concepts/workflow-execution-model.md) to learn how n8n processes data
+- [Understand the execution model](../concepts/workflow-execution-model.md) to learn how workflows process data
 - [Webhook node reference](../reference/nodes/webhook.md) for all available parameters

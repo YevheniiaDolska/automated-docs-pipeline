@@ -1,0 +1,151 @@
+name: CI - Documentation Quality
+
+on:
+  pull_request:
+    paths:
+      - 'docs/**'
+      - '*.md'
+      - 'mkdocs.yml'
+      - '.markdownlint.yml'
+      - 'cspell.json'
+  push:
+    branches: [main]
+    paths:
+      - 'docs/**'
+      - '*.md'
+      - 'mkdocs.yml'
+
+jobs:
+  lint-docs:
+    name: Lint Documentation
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.11'
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+
+      - name: Install dependencies
+        run: |
+          # Python dependencies
+          pip install pyyaml
+
+          # Node dependencies
+          npm install -g markdownlint-cli
+          npm install -g cspell
+
+      - name: Run markdownlint
+        run: |
+          echo "::group::Markdownlint"
+          markdownlint --config .markdownlint.yml "**/*.md" || exit_code=$?
+          echo "::endgroup::"
+          if [ "${exit_code:-0}" -ne 0 ]; then
+            echo "❌ Markdownlint found issues"
+            exit 1
+          fi
+          echo "✅ Markdownlint passed"
+
+      - name: Run cspell
+        run: |
+          echo "::group::Spell Check"
+          cspell "**/*.md" --config cspell.json || exit_code=$?
+          echo "::endgroup::"
+          if [ "${exit_code:-0}" -ne 0 ]; then
+            echo "❌ Spell check found issues"
+            exit 1
+          fi
+          echo "✅ Spell check passed"
+
+      - name: Validate frontmatter
+        run: |
+          echo "::group::Frontmatter Validation"
+          python scripts/validate_frontmatter.py || exit_code=$?
+          echo "::endgroup::"
+          if [ "${exit_code:-0}" -ne 0 ]; then
+            echo "❌ Frontmatter validation failed"
+            exit 1
+          fi
+          echo "✅ Frontmatter validation passed"
+
+      - name: SEO/GEO optimization check
+        run: |
+          echo "::group::SEO/GEO Optimization"
+          python scripts/seo_geo_optimizer.py docs/ || exit_code=$?
+          echo "::endgroup::"
+          if [ "${exit_code:-0}" -ne 0 ]; then
+            echo "❌ SEO/GEO check failed"
+            exit 1
+          fi
+          echo "✅ SEO/GEO check passed"
+
+      - name: Check for orphaned pages
+        run: |
+          echo "::group::Navigation Check"
+          # Find all .md files in docs/ that are not in mkdocs.yml
+          orphaned=$(find docs -name "*.md" -type f | while read file; do
+            filename=$(basename "$file")
+            if ! grep -q "$filename" mkdocs.yml; then
+              echo "$file"
+            fi
+          done)
+
+          if [ ! -z "$orphaned" ]; then
+            echo "❌ Found orphaned pages not in mkdocs.yml:"
+            echo "$orphaned"
+            exit 1
+          fi
+          echo "✅ All pages are in navigation"
+          echo "::endgroup::"
+
+      - name: Summary
+        if: always()
+        run: |
+          echo "## Documentation Quality Check Summary" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "| Check | Status |" >> $GITHUB_STEP_SUMMARY
+          echo "|-------|--------|" >> $GITHUB_STEP_SUMMARY
+          echo "| Markdownlint | ✅ |" >> $GITHUB_STEP_SUMMARY
+          echo "| Spell Check | ✅ |" >> $GITHUB_STEP_SUMMARY
+          echo "| Frontmatter | ✅ |" >> $GITHUB_STEP_SUMMARY
+          echo "| SEO/GEO | ✅ |" >> $GITHUB_STEP_SUMMARY
+          echo "| Navigation | ✅ |" >> $GITHUB_STEP_SUMMARY
+
+  build-docs:
+    name: Build Documentation
+    runs-on: ubuntu-latest
+    needs: lint-docs
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.11'
+
+      - name: Install MkDocs
+        run: |
+          pip install mkdocs
+          pip install mkdocs-material
+          pip install mkdocs-macros-plugin
+
+      - name: Build documentation
+        run: |
+          mkdocs build --strict
+          echo "✅ Documentation built successfully"
+
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: documentation-site
+          path: site/

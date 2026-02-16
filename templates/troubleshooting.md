@@ -1,26 +1,27 @@
 ---
 title: "Fix: [Problem description]"
-description: "Troubleshoot [problem] in n8n. Common causes include [cause 1], [cause 2], and [cause 3] with step-by-step solutions."
+description: "Troubleshoot [problem]. Common causes include [cause 1], [cause 2], and [cause 3] with step-by-step solutions."
 content_type: troubleshooting
 product: both
-n8n_component: webhook
 tags:
+
   - Troubleshooting
+
 ---
 
-# Fix: [Problem description]
+## Fix: [Problem description]
 
 [Brief description of the problem symptoms - what the user sees or experiences. Keep factual and specific.]
 
 ## Quick diagnosis
 
 | Symptom | Likely cause | Jump to |
-|---------|--------------|---------|
-| [Symptom 1] | [Cause] | [Cause 1](#cause-1-name) |
-| [Symptom 2] | [Cause] | [Cause 2](#cause-2-name) |
-| [Symptom 3] | [Cause] | [Cause 3](#cause-3-name) |
+| --------- | -------------- | --------- |
+| [Symptom 1] | [Cause] | [Cause 1](#cause-1-most-common-cause) |
+| [Symptom 2] | [Cause] | [Cause 2](#cause-2-second-common-cause) |
+| [Symptom 3] | [Cause] | [Cause 3](#cause-3-less-common-cause) |
 
-## Cause 1: [Most common cause] {#cause-1-name}
+## Cause 1: [Most common cause] {#cause-1-most-common-cause}
 
 **Symptom:** [What specifically indicates this cause - error message, behavior]
 
@@ -29,15 +30,18 @@ tags:
 **Fix:**
 
 1. [First step to resolve]
-2. [Second step]
-3. Verify: [How to confirm the fix worked]
+1. [Second step]
+1. Verify: [How to confirm the fix worked]
 
 ```bash
 # Example command or configuration
 [fix example]
-```
 
-## Cause 2: [Second common cause] {#cause-2-name}
+```text
+
+<a name="cause-2-second-common-cause"></a>
+
+## Cause 2: [Second common cause]
 
 **Symptom:** [Indicator]
 
@@ -45,7 +49,7 @@ tags:
 
 **Fix:**
 
-=== "n8n Cloud"
+=== "Cloud"
 
     [Cloud-specific fix]
 
@@ -56,9 +60,9 @@ tags:
     ```bash
     # Self-hosted specific command
     [command]
-    ```
+```
 
-## Cause 3: [Less common cause] {#cause-3-name}
+## Cause 3: [Less common cause] {#cause-3-less-common-cause}
 
 **Symptom:** [Indicator]
 
@@ -71,7 +75,7 @@ tags:
 !!! warning "Data loss risk"
     [Warning if the fix has risks]
 
-## Cause 4: [Edge case] {#cause-4-name}
+## Cause 4: [Edge case] {#cause-4-edge-case}
 
 **Symptom:** [Indicator]
 
@@ -84,17 +88,19 @@ tags:
 If none of the above solutions work:
 
 1. **Check logs:** [Where to find relevant logs]
+
    ```bash
    [log command]
-   ```
 
-2. **Gather information:**
-   - n8n version: [how to check]
+```text
+
+1. **Gather information:**
+   - Version: [how to check]
    - Deployment type: Cloud / Self-hosted
    - Error message (full text)
 
-3. **Get help:**
-   - Search [n8n Community](https://community.n8n.io) for similar issues
+1. **Get help:**
+   - Search [Community Forum](https://community.example.com) for similar issues
    - Create a new topic with the information above
 
 ## Prevention

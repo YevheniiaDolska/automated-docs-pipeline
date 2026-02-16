@@ -1,14 +1,16 @@
 ---
-title: "How-To Guides for n8n"
-description: "Step-by-step guides for specific n8n tasks including webhook configuration, error handling, and API integration."
+title: "How-To Guides for"
+description: "Step-by-step guides for specific tasks including webhook configuration, error handling, and API integration."
 content_type: how-to
 product: both
 tags:
-  - How-To
-  - Cloud
-  - Self-hosted
+
+ - How-To
+ - Cloud
+ - Self-hosted
+
 ---
 
-# How-To Guides
+## How-To Guides
 
-Each guide solves a specific task. You need basic n8n knowledge before using these.
+Each guide solves a specific task. You need basic knowledge before using these.

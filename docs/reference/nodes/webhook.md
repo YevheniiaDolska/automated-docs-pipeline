@@ -1,19 +1,21 @@
 ---
-title: "Webhook node reference for n8n"
-description: "Complete parameter reference for the n8n Webhook trigger node including HTTP methods, authentication, response modes, and binary data handling."
+title: "Webhook node reference for"
+description: "Complete parameter reference for the Webhook trigger node including HTTP methods, authentication, response modes, and binary data handling."
 content_type: reference
 product: both
-n8n_component: webhook
-n8n_version: "2.0"
+app_component: webhook
+app_version: "2.0"
 tags:
-  - Reference
-  - Webhook
-  - Nodes
-  - Cloud
-  - Self-hosted
+
+ - Reference
+ - Webhook
+ - Nodes
+ - Cloud
+ - Self-hosted
+
 ---
 
-# Webhook node reference
+## Webhook node reference
 
 The Webhook node is a trigger node that starts a workflow when it receives an HTTP request at a unique URL. It supports GET, POST, PUT, PATCH, DELETE, and HEAD methods.
 
@@ -43,13 +45,13 @@ Each Webhook node generates two URLs:
 - **Test URL**: Active only while the workflow editor is open and listening. Format: `{base_url}/webhook-test/{path}`
 - **Production URL**: Active when the workflow is toggled to Active. Format: `{base_url}/webhook/{path}`
 
-=== "n8n Cloud"
+=== "Cloud"
 
-    Base URL: `https://your-instance.app.n8n.cloud`
+ Base URL: `<https://your-instance.app.the> product.cloud`
 
 === "Self-hosted"
 
-    Base URL: your configured `WEBHOOK_URL` environment variable, or `http://localhost:5678` by default.
+ Base URL: your configured `WEBHOOK_URL` environment variable, or `<http://localhost:5678`> by default.
 
 ## Output
 
@@ -57,12 +59,12 @@ The Webhook node outputs a single item with the following structure:
 
 ```json
 {
-  "json": {
-    "headers": { "content-type": "application/json", "...": "..." },
-    "params": {},
-    "query": { "key": "value" },
-    "body": { "...": "request body..." }
-  }
+ "json": {
+ "headers": { "content-type": "application/json", "...": "..." },
+ "params": {},
+ "query": { "key": "value" },
+ "body": { "...": "request body..." }
+ }
 }
 ```
 
@@ -72,8 +74,8 @@ For binary data (file uploads), the node outputs an additional `binary` key.
 
 | Variable | Default | Description |
 |----------|---------|-------------|
-| `WEBHOOK_URL` | `http://localhost:5678` | Base URL for webhook endpoints |
-| `N8N_PAYLOAD_SIZE_MAX` | `16` | Maximum request body size in MB |
+| `WEBHOOK_URL` | `<http://localhost:5678`> | Base URL for webhook endpoints |
+| `APP_PAYLOAD_SIZE_MAX` | `16` | Maximum request body size in MB |
 
 ## Related
 

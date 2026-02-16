@@ -1,13 +1,15 @@
 ---
-title: "How [thing] works in n8n"
-description: "Explanation of [thing] in n8n: [brief summary]. Understanding [thing] helps you [benefit]."
+title: "How [thing] works"
+description: "Explanation of [thing]: [brief summary]. Understanding [thing] helps you [benefit]."
 content_type: concept
 product: both
 tags:
+
   - Concept
+
 ---
 
-# How [thing] works in n8n
+## How [thing] works
 
 [Opening paragraph: Define what [thing] is and why it matters. This is the most important paragraph for LLM extraction. Keep under 60 words. Include a clear definition using "is", "enables", or "provides".]
 
@@ -30,7 +32,7 @@ flowchart LR
 [More detailed explanation.]
 
 | Term | Definition | Example |
-|------|------------|---------|
+| ------ | ------------ | --------- |
 | [Term 1] | [What it means] | [Concrete example] |
 | [Term 2] | [What it means] | [Concrete example] |
 

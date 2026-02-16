@@ -4,11 +4,13 @@ description: "Best practices for building reliable, secure, and performant integ
 content_type: concept
 product: both
 tags:
+
   - Concept
   - How-To
+
 ---
 
-# Best practices
+## Best practices
 
 This guide covers best practices for building production-ready integrations with [Product]. Follow these recommendations to create reliable, secure, and maintainable applications.
 
@@ -90,7 +92,7 @@ const orderService = new OrderService(mockService);
 ### Credential management
 
 | Do | Don't |
-|----|-------|
+| ---- | ------- |
 | Use environment variables | Hardcode credentials |
 | Use secrets managers (Vault, AWS Secrets) | Commit credentials to git |
 | Rotate keys regularly | Share keys across environments |
@@ -370,7 +372,7 @@ test('handles rate limiting', async () => {
 ### Track key metrics
 
 | Metric | Why |
-|--------|-----|
+| -------- | ----- |
 | API response time | Detect slowdowns |
 | Error rate | Identify issues |
 | Rate limit usage | Prevent throttling |

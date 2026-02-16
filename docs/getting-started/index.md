@@ -1,6 +1,6 @@
 ---
-title: Getting Started with n8n
-description: "Step-by-step tutorials to help you build your first n8n workflow, from installation through your first automation."
+title: "Getting Started"
+description: "Step-by-step tutorials to help you build your first workflow, from installation through your first automation."
 content_type: tutorial
 product: both
 tags:
@@ -9,6 +9,6 @@ tags:
   - Self-hosted
 ---
 
-# Getting Started
+## Getting Started
 
-Tutorials walk you through n8n from zero to a working automation. Each tutorial produces a concrete result.
+Tutorials walk you through from zero to a working automation. Each tutorial produces a concrete result.

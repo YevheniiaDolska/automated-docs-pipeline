@@ -4,11 +4,13 @@ description: "Implement webhooks to receive real-time notifications from [Produc
 content_type: how-to
 product: both
 tags:
+
   - How-To
   - Reference
+
 ---
 
-# Webhooks
+## Webhooks
 
 Webhooks send real-time notifications to your application when events occur in [Product]. Instead of polling the API, your app receives instant updates.
 
@@ -25,7 +27,8 @@ sequenceDiagram
     W->>W: Verify signature
     W->>P: 200 OK (acknowledge)
     W->>A: Process event asynchronously
-```
+
+```text
 
 ## Quick setup
 
@@ -53,10 +56,10 @@ app.post('/webhooks/[product]', express.raw({ type: 'application/json' }), (req,
 === "Dashboard"
 
     1. Go to [Dashboard]([URL]) → Webhooks
-    2. Click **Add Endpoint**
-    3. Enter URL: `https://yourapp.com/webhooks/[product]`
-    4. Select events to receive
-    5. Copy the **Signing Secret**
+    1. Click **Add Endpoint**
+    1. Enter URL: `<https://yourapp.com/webhooks/[product]`>
+    1. Select events to receive
+    1. Copy the **Signing Secret**
 
 === "API"
 
@@ -64,10 +67,11 @@ app.post('/webhooks/[product]', express.raw({ type: 'application/json' }), (req,
     curl -X POST [API_URL]/v1/webhooks \
       -H "Authorization: Bearer $API_KEY" \
       -d '{
-        "url": "https://yourapp.com/webhooks/[product]",
+        "url": "<https://yourapp.com/webhooks/[product]",>
         "events": ["[resource].created", "[resource].updated"]
       }'
-    ```
+
+```text
 
 ### 3. Verify signatures
 
@@ -102,7 +106,7 @@ const verifyWebhookSignature = (payload, signature, secret) => {
 ### Resource events
 
 | Event | Trigger |
-|-------|---------|
+| ------- | --------- |
 | `[resource].created` | New [resource] created |
 | `[resource].updated` | [Resource] modified |
 | `[resource].deleted` | [Resource] deleted |
@@ -110,7 +114,7 @@ const verifyWebhookSignature = (payload, signature, secret) => {
 ### Status events
 
 | Event | Trigger |
-|-------|---------|
+| ------- | --------- |
 | `[resource].status.active` | [Resource] activated |
 | `[resource].status.failed` | [Resource] failed |
 | `[resource].status.completed` | [Resource] completed |
@@ -118,7 +122,7 @@ const verifyWebhookSignature = (payload, signature, secret) => {
 ### Account events
 
 | Event | Trigger |
-|-------|---------|
+| ------- | --------- |
 | `account.updated` | Account settings changed |
 | `billing.invoice.created` | New invoice |
 | `billing.payment.failed` | Payment failed |
@@ -145,10 +149,11 @@ All webhooks follow this structure:
     }
   }
 }
-```
+
+```text
 
 | Field | Type | Description |
-|-------|------|-------------|
+| ------- | ------ | ------------- |
 | `id` | string | Unique event ID |
 | `type` | string | Event type |
 | `created` | integer | Unix timestamp |
@@ -223,7 +228,8 @@ const handle[Resource]Deleted = async (resourceId) => {
   // Soft delete or remove
   await db.[resources].delete({ externalId: resourceId });
 };
-```
+
+```text
 
 ## Best practices
 
@@ -265,7 +271,8 @@ const processWebhook = async (event) => {
     processedAt: new Date()
   });
 };
-```
+
+```text
 
 ### Use a queue
 
@@ -309,14 +316,15 @@ const processWebhook = async (event) => {
     throw error;
   }
 };
-```
+
+```text
 
 ## Retry behavior
 
 [Product] retries failed webhooks with exponential backoff:
 
 | Attempt | Delay |
-|---------|-------|
+| --------- | ------- |
 | 1 | Immediate |
 | 2 | 1 minute |
 | 3 | 5 minutes |
@@ -330,7 +338,7 @@ After 7 failures, the webhook is disabled and you're notified.
 ### What counts as failure
 
 | Response | Result |
-|----------|--------|
+| ---------- | -------- |
 | `2xx` | Success |
 | `3xx` | Failure (redirects not followed) |
 | `4xx` | Failure (won't retry for 4xx except 429) |
@@ -345,7 +353,7 @@ Use [ngrok](https://ngrok.com) to expose localhost:
 
 ```bash
 ngrok http 3000
-# Forwarding https://abc123.ngrok.io -> localhost:3000
+# Output: Forwarding <https://abc123.ngrok.io> -> localhost:3000
 ```
 
 Register the ngrok URL as your webhook endpoint.
@@ -353,11 +361,12 @@ Register the ngrok URL as your webhook endpoint.
 ### CLI testing
 
 ```bash
-# Trigger a test event
+## Trigger a test event
 curl -X POST [API_URL]/v1/webhooks/[webhook_id]/test \
   -H "Authorization: Bearer $API_KEY" \
   -d '{"event_type": "[resource].created"}'
-```
+
+```text
 
 ### Replay events
 
@@ -387,21 +396,21 @@ Monitor for:
 ### Not receiving webhooks
 
 1. **Verify URL:** Endpoint must be HTTPS and publicly accessible
-2. **Check firewall:** Allow requests from [Product] IP ranges
-3. **Review logs:** Check endpoint logs in the dashboard
-4. **Test manually:** Send a test event
+1. **Check firewall:** Allow requests from [Product] IP ranges
+1. **Review logs:** Check endpoint logs in the dashboard
+1. **Test manually:** Send a test event
 
 ### Signature verification failing
 
 1. **Use raw body:** Don't parse JSON before verification
-2. **Check secret:** Ensure you're using the correct signing secret
-3. **Timing:** Verify system clock is accurate (within 5 minutes)
+1. **Check secret:** Ensure you're using the correct signing secret
+1. **Timing:** Verify system clock is accurate (within 5 minutes)
 
 ### Missing events
 
 1. **Check subscriptions:** Verify event types are selected
-2. **Review filters:** Check if filters exclude the events
-3. **Check disabled:** Endpoint may be disabled after failures
+1. **Review filters:** Check if filters exclude the events
+1. **Check disabled:** Endpoint may be disabled after failures
 
 ## Security
 
@@ -409,17 +418,18 @@ Monitor for:
 
 If your firewall requires it, allowlist these IP ranges:
 
-```
+```text
 [IP_RANGE_1]
 [IP_RANGE_2]
-```
+
+```text
 
 ### Rotate signing secrets
 
 1. Generate new secret in dashboard
-2. Update your application
-3. Both secrets work during rotation period
-4. Remove old secret after deployment
+1. Update your application
+1. Both secrets work during rotation period
+1. Remove old secret after deployment
 
 ## Related
 

@@ -1,14 +1,15 @@
 ---
-title: "n8n [version] release notes"
-description: "What's new in n8n [version]: [headline feature], [second feature], performance improvements, and bug fixes."
+title: " [version] release notes"
+description: "What's new in  [version]: [headline feature], [second feature], performance improvements, and bug fixes."
 content_type: release-note
 product: both
-n8n_version: "[version]"
 tags:
+
   - Reference
+
 ---
 
-# n8n [version] release notes
+## [version] release notes
 
 **Released:** [YYYY-MM-DD]
 
@@ -27,9 +28,10 @@ This release includes:
 [Description of what the feature does and why it's useful. Include a screenshot or code example if helpful.]
 
 ```yaml
-# Example usage
+## Example usage
 [configuration or code]
-```
+
+```text
 
 ### [Second feature name]
 
@@ -67,46 +69,48 @@ This release includes:
 
 ```yaml
 [new configuration]
-```
+
+```text
 
 **Migration steps:**
 
 1. [Step 1]
-2. [Step 2]
+1. [Step 2]
 
 ## Deprecations
 
 The following features are deprecated and will be removed in [future version]:
 
 | Feature | Deprecated | Removal | Alternative |
-|---------|------------|---------|-------------|
+| --------- | ------------ | --------- | ------------- |
 | [Feature] | v[current] | v[future] | [New approach] |
 
 ## Upgrade notes
 
 ### Prerequisites
 
-- Minimum n8n version: [version]
+- Minimum  version: [version]
 - [Other requirements]
 
 ### Upgrade steps
 
-=== "n8n Cloud"
+=== " Cloud"
 
     Cloud instances are updated automatically. No action required.
 
 === "Self-hosted (Docker)"
 
     ```bash
-    docker pull n8nio/n8n:[version]
+    docker pull n8nio/:[version]
     docker-compose up -d
-    ```
+```
 
 === "Self-hosted (npm)"
 
     ```bash
-    npm update -g n8n
-    ```
+    npm update -g
+
+```text
 
 ### Post-upgrade checklist
 
@@ -127,4 +131,4 @@ Thanks to our community contributors:
 
 ## Full changelog
 
-See the [complete changelog on GitHub](https://github.com/n8n-io/n8n/releases/tag/n8n@[version]).
+See the [complete changelog on GitHub](https://github.com/-io//releases/tag/@[version]).

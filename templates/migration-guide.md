@@ -4,10 +4,12 @@ description: "Complete migration guide from [old version/system] to [new version
 content_type: how-to
 product: both
 tags:
+
   - How-To
+
 ---
 
-# Migrate from [old] to [new]
+## Migrate from [old] to [new]
 
 This guide helps you migrate from [old version/system] to [new version/system]. Follow these steps to ensure a smooth transition.
 
@@ -34,12 +36,13 @@ This guide helps you migrate from [old version/system] to [new version/system]. 
 Verify your setup is compatible:
 
 ```bash
-# Check current version
+## Check current version
 [version check command]
 
-# Verify dependencies
+## Verify dependencies
 [dependency check]
-```
+
+```text
 
 ## Breaking changes
 
@@ -62,7 +65,8 @@ Verify your setup is compatible:
 
 ```yaml
 [new configuration or code]
-```
+
+```text
 
 **Migration action:** [What to do]
 
@@ -82,14 +86,15 @@ Verify your setup is compatible:
 ```javascript
 // New API
 [new code]
-```
+
+```text
 
 ## Migration steps
 
 ### Step 1: Backup current setup
 
 ```bash
-# Backup command
+## Backup command
 [backup command]
 ```
 
@@ -97,12 +102,13 @@ Verify backup:
 
 ```bash
 [verification command]
-```
+
+```text
 
 ### Step 2: Update dependencies
 
 ```bash
-# Update to compatible versions
+## Update to compatible versions
 [update commands]
 ```
 
@@ -111,7 +117,7 @@ Verify backup:
 Replace deprecated settings:
 
 | Old setting | New setting | Notes |
-|-------------|-------------|-------|
+| ------------- | ------------- | ------- |
 | `[old_key]` | `[new_key]` | [Note] |
 | `[old_key2]` | Removed | [Alternative] |
 
@@ -122,19 +128,20 @@ Replace deprecated settings:
     Run the migration script:
 
     ```bash
-    npx @n8n/migrate [options]
-    ```
+    npx @/migrate [options]
+
+```text
 
 === "Manual migration"
 
     1. [Manual step 1]
-    2. [Manual step 2]
-    3. [Manual step 3]
+    1. [Manual step 2]
+    1. [Manual step 3]
 
 ### Step 5: Test the migration
 
 ```bash
-# Run tests
+## Run tests
 [test command]
 ```
 
@@ -146,7 +153,7 @@ Replace deprecated settings:
 
 ### Step 6: Deploy
 
-=== "n8n Cloud"
+=== " Cloud"
 
     [Cloud migration steps]
 
@@ -155,18 +162,19 @@ Replace deprecated settings:
     ```bash
     # Deploy new version
     [deployment command]
-    ```
+
+```text
 
 ## Post-migration verification
 
 After migration, verify:
 
 1. **Functionality:** [What to test]
-2. **Performance:** [Metrics to check]
-3. **Logs:** [What to look for]
+1. **Performance:** [Metrics to check]
+1. **Logs:** [What to look for]
 
 ```bash
-# Verification commands
+## Verification commands
 [commands]
 ```
 
@@ -177,19 +185,22 @@ If issues occur, rollback to the previous version:
 ### Quick rollback
 
 ```bash
-# Rollback command
+## Rollback command
 [rollback command]
-```
+
+```text
 
 ### Full rollback
 
 1. Stop current version
-2. Restore from backup:
+1. Restore from backup:
+
    ```bash
    [restore command]
-   ```
-3. Restart services
-4. Verify functionality
+```
+
+1. Restart services
+1. Verify functionality
 
 ## Troubleshooting migration issues
 
@@ -203,7 +214,8 @@ If issues occur, rollback to the previous version:
 
 ```bash
 [fix command]
-```
+
+```text
 
 ### [Common issue 2]
 
@@ -214,7 +226,7 @@ If issues occur, rollback to the previous version:
 ## Migration timeline
 
 | Phase | Duration | Description |
-|-------|----------|-------------|
+| ------- | ---------- | ------------- |
 | Preparation | [time] | Backup, test environment |
 | Migration | [time] | Apply changes |
 | Verification | [time] | Test functionality |
@@ -223,8 +235,8 @@ If issues occur, rollback to the previous version:
 ## Getting help
 
 - [Migration FAQ](./migration-faq.md)
-- [Community forum](https://community.n8n.io)
-- [Support contact](mailto:support@n8n.io)
+- [Community forum](https://community..io)
+- [Support contact](mailto:support@.io)
 
 ## Related
 

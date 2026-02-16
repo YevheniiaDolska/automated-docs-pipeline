@@ -1,8 +1,13 @@
 # Claude Code Instructions for Documentation Pipeline
 
+## 🚨 CRITICAL: Write Documents Right the First Time
+
+**Claude, you MUST follow ALL these rules to avoid 20 iterations of fixes.**
+**Every document you create MUST pass ALL linters on the first try.**
+
 ## Project Overview
 
-This is an automated documentation pipeline for n8n. When writing or editing documentation, follow these rules strictly to ensure all linting checks pass.
+This is an automated documentation pipeline for technical products. When writing or editing documentation, follow these rules strictly to ensure all linting checks pass.
 
 **IMPORTANT**: This pipeline includes comprehensive SEO/GEO optimization with 60+ automated checks. All content MUST pass:
 
@@ -57,9 +62,12 @@ description: "Description between 50-160 characters for SEO. Include key terms."
 content_type: tutorial|how-to|concept|reference|troubleshooting|release-note
 product: both|n8n-cloud|n8n-self-hosted
 tags:
+
   - Tag1
   - Tag2
+
 ---
+
 ```
 
 **Validation rules:**
@@ -81,9 +89,10 @@ tags:
 **Example:**
 
 ```markdown
-# Webhook node reference
+## Webhook node reference
 
 The Webhook node is a trigger that starts workflows when it receives HTTP requests. It supports GET, POST, PUT, PATCH, DELETE methods and provides built-in authentication options.
+
 ```
 
 **Heading rules:**
@@ -103,7 +112,7 @@ The Webhook node is a trigger that starts workflows when it receives HTTP reques
 Use these templates based on `content_type`:
 
 | Type | Purpose | Template |
-|------|---------|----------|
+| ------ | --------- | ---------- |
 | `tutorial` | Learning-oriented, step-by-step | `doc-tutorial` snippet |
 | `how-to` | Task-oriented, specific goals | `doc-howto` snippet |
 | `concept` | Understanding-oriented, explanations | `doc-concept` snippet |
@@ -145,6 +154,7 @@ Use these templates based on `content_type`:
 
 !!! tip "Pro tip"
     Helpful hint.
+
 ```
 
 **Content tabs:**
@@ -157,6 +167,7 @@ Use these templates based on `content_type`:
 === "Self-hosted"
 
     Self-hosted content
+
 ```
 
 ### 6. Allowed Tags
@@ -180,6 +191,7 @@ Common values are in `docs/_variables.yml`. When the mkdocs-macros-plugin is ena
 ```markdown
 The default port is {{ default_port }}.
 Visit [n8n Cloud]({{ cloud_url }}).
+
 ```
 
 ## Pre-commit Checks
@@ -195,15 +207,16 @@ Before committing, these checks run automatically:
 To run manually:
 
 ```bash
-# Run all SEO/GEO checks
+## Run all SEO/GEO checks
 python scripts/seo_geo_optimizer.py docs/
 
 # Run with auto-fix
 python scripts/seo_geo_optimizer.py docs/ --fix
 
-# Individual checks:
+# Individual checks
 vale docs/path/to/file.md
 markdownlint docs/path/to/file.md
+
 ```
 
 ## Creating New Documents
@@ -216,9 +229,11 @@ markdownlint docs/path/to/file.md
 
    ```bash
    ls templates/
-   ```
+
+```bash
 
    Available templates include:
+
    - `tutorial.md` - Step-by-step learning guides
    - `how-to.md` - Task-oriented guides
    - `concept.md` - Explanations and understanding
@@ -234,7 +249,8 @@ markdownlint docs/path/to/file.md
    ```bash
    # Example: Creating a new webhook how-to guide
    cp templates/webhooks-guide.md docs/how-to/your-new-webhook-guide.md
-   ```
+
+```
 
 1. **OR use VS Code snippets (preferred for consistency):**
    - Type the snippet prefix and press Tab
@@ -263,24 +279,29 @@ markdownlint docs/path/to/file.md
 
    ```yaml
    nav:
+
      - Getting Started:
        - getting-started/index.md
        - "Your New Tutorial": getting-started/your-new-tutorial.md  # Add here
-   ```
+
+```text
 
    **Rules for nav updates:**
+
    - Add new documents in the appropriate section
    - Use descriptive titles (not just filenames)
    - Maintain alphabetical or logical order within sections
    - For multi-level navigation, create subsections:
 
      ```yaml
+
      - Reference:
        - reference/index.md
        - Nodes:
          - Webhook node: reference/nodes/webhook.md
          - HTTP node: reference/nodes/http.md  # New node
-     ```
+
+```
 
 1. **File naming conventions:**
    - Use kebab-case: `configure-webhook-trigger.md`
@@ -302,12 +323,13 @@ markdownlint docs/path/to/file.md
    # Or individual checks
    python scripts/validate_frontmatter.py
    python scripts/seo_geo_optimizer.py docs/your-new-file.md
-   ```
+
+```bash
 
 ### Template Selection Guide
 
 | If you're documenting... | Use this template | Location | Snippet |
-|-------------------------|-------------------|----------|---------|
+| ------------------------- | ------------------- | ---------- | --------- |
 | First-time setup | `quickstart.md` | `docs/getting-started/` | `doc-tutorial` |
 | Step-by-step learning | `tutorial.md` | `docs/getting-started/` | `doc-tutorial` |
 | Specific task | `how-to.md` | `docs/how-to/` | `doc-howto` |
@@ -336,13 +358,14 @@ When adding a new document:
 
 1. **Automatic location selection based on content_type:**
 
-   ```text
+```text
    content_type: tutorial → docs/getting-started/
    content_type: how-to → docs/how-to/
    content_type: concept → docs/concepts/
    content_type: reference → docs/reference/
    content_type: troubleshooting → docs/troubleshooting/
-   ```
+
+```
 
 1. **Automatic mkdocs.yml update - Claude MUST:**
    - Read current mkdocs.yml structure
@@ -355,11 +378,13 @@ When adding a new document:
 
    ```yaml
    # If adding a new webhook how-to:
+
    1. File goes in: docs/how-to/configure-webhook-auth.md
-   2. Update mkdocs.yml nav section "How-To Guides"
-   3. Place alphabetically or after related webhook docs
-   4. Use descriptive title: "Configure webhook authentication"
-   ```
+   1. Update mkdocs.yml nav section "How-To Guides"
+   1. Place alphabetically or after related webhook docs
+   1. Use descriptive title: "Configure webhook authentication"
+
+```yaml
 
 1. **GitHub Actions will verify:**
    - No orphaned pages (files not in nav)
@@ -371,11 +396,13 @@ When adding a new document:
    ```yaml
    # When adding a new webhook authentication guide:
    nav:
+
      - How-To Guides:
        - how-to/index.md
        - Configure Webhook triggers: how-to/configure-webhook-trigger.md
        - Authenticate Webhook requests: how-to/authenticate-webhooks.md  # NEW
-   ```
+
+```
 
 ## Quick Reference
 
@@ -433,10 +460,12 @@ When adding a new document:
 - Ordered lists: Use `1.` for ALL items (auto-renumbering)
 
   ```markdown
+
   1. First item
   1. Second item
   1. Third item
-  ```
+
+```javascript
 
 - This allows easy reordering without manual renumbering
 
@@ -455,7 +484,8 @@ When adding a new document:
   ### Subsection
 
   ## Another Section
-  ```
+
+```
 
 ### YAML Files
 
@@ -467,7 +497,8 @@ When adding a new document:
   message = `Line 1\nLine 2\nLine 3`  # ✅
   message = `Line 1
   Line 2`  # ❌ Will break YAML parsing
-  ```
+
+```yaml
 
 - Python in workflows: Use heredoc or external scripts
 - Keep inline code simple to avoid YAML parsing issues
@@ -485,6 +516,44 @@ When adding a new document:
 - Always use absolute paths in tools, not relative paths
 - Use kebab-case for file names
 - Avoid special characters in file names
+
+## CRITICAL Formatting Rules (ALL documents MUST follow)
+
+**Use templates from `templates/` directory - they already follow these rules!**
+
+### Essential Structure Requirements
+
+**EVERY document MUST have:**
+
+- ✅ **Blank line after frontmatter**
+- ✅ **Blank lines before AND after ALL headings**
+- ✅ **Blank lines before AND after ALL code blocks**
+- ✅ **Blank lines before AND after ALL lists**
+- ✅ **All ordered lists use `1.` for EVERY item** (auto-renumbers on render)
+- ✅ **Code blocks ALWAYS have language specified** (```python, ```bash, etc.)
+- ✅ **Only ONE H1 (#)** - must match the title in frontmatter
+- ✅ **First paragraph under 60 words** for SEO/GEO optimization
+
+### Template Usage
+
+**ALWAYS use existing templates:**
+
+1. Check `templates/` directory for matching template
+1. Copy the template structure exactly
+1. Templates are PRE-VALIDATED to pass all checks
+1. DO NOT modify the formatting structure
+
+Available templates in `templates/`:
+
+- tutorial.md
+- how-to.md
+- concept.md
+- reference.md
+- troubleshooting.md
+- api-reference.md
+- quickstart.md
+- migration-guide.md
+- And more...
 
 ## Claude's Step-by-Step Process for New Documentation
 
@@ -515,9 +584,18 @@ When user asks to create new documentation, Claude MUST:
    - Ensure frontmatter complete
    - First paragraph under 60 words
 
+## Automatic Validation
+
+**TWO layers of protection ensure quality:**
+
+1. **Pre-commit hooks** (local) - Run automatically before commit
+1. **CI/CD checks** (GitHub) - Same checks run on PR/push
+
+Both use IDENTICAL rules, so if it passes locally, it passes in CI.
+
 ## Quick Checklist for New Documents
 
-Before committing ANY documentation:
+**Claude, VERIFY each point before saving ANY file:**
 
 - [ ] **Blank lines present:**
   - Before/after headings

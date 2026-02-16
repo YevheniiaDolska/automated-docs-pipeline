@@ -4,11 +4,13 @@ description: "Handle [Product] API errors effectively. Covers error types, respo
 content_type: how-to
 product: both
 tags:
+
   - How-To
   - Reference
+
 ---
 
-# Error handling
+## Error handling
 
 This guide covers how to handle errors from the [Product] API, including error types, response formats, and best practices for building resilient integrations.
 
@@ -29,7 +31,7 @@ All API errors return a consistent JSON structure:
 ```
 
 | Field | Type | Description |
-|-------|------|-------------|
+| ------- | ------ | ------------- |
 | `type` | string | Error category (see [Error types](#error-types)) |
 | `code` | string | Specific error code |
 | `message` | string | Human-readable description |
@@ -39,7 +41,7 @@ All API errors return a consistent JSON structure:
 ## HTTP status codes
 
 | Status | Meaning | Action |
-|--------|---------|--------|
+| -------- | --------- | -------- |
 | `400` | Bad Request | Fix request parameters |
 | `401` | Unauthorized | Check authentication |
 | `403` | Forbidden | Check permissions |
@@ -172,7 +174,7 @@ Too many requests.
 
 **Headers:**
 
-```
+```text
 X-RateLimit-Limit: 100
 X-RateLimit-Remaining: 0
 X-RateLimit-Reset: 1704067230
@@ -432,16 +434,16 @@ const apiClient = new ApiClient({
 ### Common debugging steps
 
 1. **Check request ID:** Look up in [Dashboard]([URL]) → Logs
-2. **Verify request format:** Log raw request before sending
-3. **Check credentials:** Ensure correct environment (test/live)
-4. **Review rate limits:** Check headers for remaining quota
+1. **Verify request format:** Log raw request before sending
+1. **Check credentials:** Ensure correct environment (test/live)
+1. **Review rate limits:** Check headers for remaining quota
 
 ## Error codes reference
 
 ### Validation errors
 
 | Code | Description |
-|------|-------------|
+| ------ | ------------- |
 | `invalid_parameter` | Parameter value is invalid |
 | `missing_parameter` | Required parameter not provided |
 | `invalid_format` | Wrong data format (e.g., invalid email) |
@@ -451,7 +453,7 @@ const apiClient = new ApiClient({
 ### Resource errors
 
 | Code | Description |
-|------|-------------|
+| ------ | ------------- |
 | `resource_not_found` | Resource doesn't exist |
 | `resource_exists` | Resource already exists |
 | `resource_locked` | Resource is locked for editing |
@@ -460,7 +462,7 @@ const apiClient = new ApiClient({
 ### Authentication errors
 
 | Code | Description |
-|------|-------------|
+| ------ | ------------- |
 | `invalid_api_key` | API key is invalid |
 | `expired_api_key` | API key has expired |
 | `invalid_token` | OAuth token is invalid |

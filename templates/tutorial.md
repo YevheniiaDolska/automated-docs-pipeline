@@ -1,13 +1,15 @@
 ---
-title: "[Action] [thing] in n8n"
+title: "[Action] [thing]"
 description: "Learn how to [action] [thing] step by step. This tutorial takes approximately [X] minutes and requires no prior experience."
 content_type: tutorial
 product: both
 tags:
+
   - Tutorial
+
 ---
 
-# [Action] [thing] in n8n
+## [Action] [thing]
 
 [Opening paragraph: Define what you'll build and why it matters. Keep under 60 words. Include a clear outcome statement.]
 
@@ -19,7 +21,7 @@ tags:
 
 Before you begin, ensure you have:
 
-- An n8n instance (Cloud or self-hosted). See [installation options](https://docs.n8n.io/hosting/).
+- An instance (Cloud or self-hosted). See [installation options](../getting-started/installation.md).
 - [Second prerequisite]
 - [Third prerequisite if needed]
 
@@ -27,15 +29,15 @@ Before you begin, ensure you have:
 
 [Brief explanation of what this step accomplishes and why.]
 
-=== "n8n Cloud"
+=== "Cloud"
 
     1. [Cloud-specific instruction]
-    2. [Next instruction]
+    1. [Next instruction]
 
 === "Self-hosted"
 
     1. [Self-hosted instruction]
-    2. [Next instruction]
+    1. [Next instruction]
 
 ## Step 2: [Second action verb] [what]
 
@@ -57,8 +59,8 @@ Before you begin, ensure you have:
 [How to verify the implementation works.]
 
 1. [Test step 1]
-2. [Test step 2]
-3. You should see: [expected result]
+1. [Test step 2]
+1. You should see: [expected result]
 
 ## Complete example
 

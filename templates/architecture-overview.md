@@ -4,10 +4,12 @@ description: "Technical architecture of [Product]: system components, data flow,
 content_type: concept
 product: both
 tags:
+
   - Concept
+
 ---
 
-# Architecture overview
+## Architecture overview
 
 This document describes the technical architecture of [Product], including system components, data flow, and design principles.
 
@@ -132,14 +134,14 @@ Manages outbound communications:
 ### Primary database
 
 | Component | Technology | Purpose |
-|-----------|------------|---------|
+| ----------- | ------------ | --------- |
 | Primary DB | [PostgreSQL/MySQL] | Transactional data |
 | Read replicas | [Same] | Read scaling |
 | Sharding | [Strategy] | Horizontal scaling |
 
 **Data model:**
 
-```
+```text
 [Resource]
 ├── id (primary key)
 ├── organization_id (tenant key)
@@ -153,14 +155,14 @@ Manages outbound communications:
 Multi-layer caching:
 
 | Layer | Technology | TTL | Use case |
-|-------|------------|-----|----------|
+| ------- | ------------ | ----- | ---------- |
 | Edge | CDN | 5 min | Static assets |
 | Application | Redis | 1 min | API responses |
 | Database | Query cache | 30 sec | Frequent queries |
 
 **Cache invalidation:**
 
-```
+```text
 Event → Cache invalidation → Fresh data on next request
 ```
 
@@ -179,7 +181,7 @@ flowchart LR
 **Queue types:**
 
 | Queue | Purpose | Priority |
-|-------|---------|----------|
+| ------- | --------- | ---------- |
 | `webhooks` | Webhook delivery | High |
 | `processing` | Background jobs | Normal |
 | `analytics` | Usage tracking | Low |
@@ -225,7 +227,7 @@ sequenceDiagram
 
 ### Deployment architecture
 
-```
+```text
 ┌─────────────────────────────────────────────────────────┐
 │                        Region 1                          │
 ├─────────────────────────────────────────────────────────┤
@@ -243,7 +245,7 @@ sequenceDiagram
 ### High availability
 
 | Component | HA Strategy | RTO | RPO |
-|-----------|-------------|-----|-----|
+| ----------- | ------------- | ----- | ----- |
 | API | Multi-AZ, auto-scaling | <1 min | N/A |
 | Database | Multi-AZ replica | <5 min | <1 min |
 | Cache | Cluster mode | <1 min | N/A |
@@ -260,7 +262,7 @@ sequenceDiagram
 
 ### Network security
 
-```
+```text
 Internet → WAF → Load Balancer → VPC → Services
                                   ↓
                               Private Subnet
@@ -271,14 +273,14 @@ Internet → WAF → Load Balancer → VPC → Services
 **Layers:**
 
 1. **WAF:** Block malicious requests
-2. **DDoS protection:** [Provider]
-3. **VPC:** Network isolation
-4. **Security groups:** Service-level access control
+1. **DDoS protection:** [Provider]
+1. **VPC:** Network isolation
+1. **Security groups:** Service-level access control
 
 ### Data security
 
 | Data state | Protection |
-|------------|------------|
+| ------------ | ------------ |
 | In transit | TLS 1.3 |
 | At rest | AES-256 |
 | In use | [Additional measures] |
@@ -306,7 +308,7 @@ sequenceDiagram
 ### Horizontal scaling
 
 | Component | Scaling trigger | Max instances |
-|-----------|-----------------|---------------|
+| ----------- | ----------------- | --------------- |
 | API servers | CPU > 70% | [N] |
 | Workers | Queue depth > 1000 | [N] |
 | Cache | Memory > 80% | Cluster mode |
@@ -316,14 +318,14 @@ sequenceDiagram
 Database scaling path:
 
 1. Read replicas for read scaling
-2. Connection pooling
-3. Query optimization
-4. Sharding for write scaling
+1. Connection pooling
+1. Query optimization
+1. Sharding for write scaling
 
 ### Performance targets
 
 | Metric | Target | Current |
-|--------|--------|---------|
+| -------- | -------- | --------- |
 | API latency (p50) | <100ms | [Current] |
 | API latency (p99) | <500ms | [Current] |
 | Throughput | [X] req/sec | [Current] |

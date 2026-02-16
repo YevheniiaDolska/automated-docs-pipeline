@@ -4,18 +4,21 @@ description: "Complete API reference for [endpoint] including request/response s
 content_type: reference
 product: both
 tags:
+
   - Reference
+
 ---
 
-# [Endpoint/Resource] API reference
+## [Endpoint/Resource] API reference
 
 The [endpoint] API allows you to [primary capability]. Use this endpoint to [common use case].
 
 ## Base URL
 
-```
-https://api.n8n.io/v1/[resource]
-```
+```text
+<https://api.example.com/v1/[resource]>
+
+```text
 
 ## Authentication
 
@@ -33,14 +36,15 @@ Retrieves a paginated list of [resources].
 
 **Request:**
 
-```
+```http
 GET /v1/[resources]
-```
+
+```text
 
 **Query parameters:**
 
 | Parameter | Type | Required | Description |
-|-----------|------|----------|-------------|
+| ----------- | ------ | ---------- | ------------- |
 | `limit` | `integer` | No | Number of results (1-100). Default: `20` |
 | `offset` | `integer` | No | Pagination offset. Default: `0` |
 | `sort` | `string` | No | Sort field. Options: `created_asc`, `created_desc` |
@@ -70,20 +74,21 @@ GET /v1/[resources]
 === "cURL"
 
     ```bash
-    curl -X GET "https://api.n8n.io/v1/[resources]?limit=10" \
+    curl -X GET "<https://api.example.com/v1/[resources]?limit=10"> \
       -H "Authorization: Bearer YOUR_API_KEY"
-    ```
+
+```text
 
 === "JavaScript"
 
     ```javascript
-    const response = await fetch('https://api.n8n.io/v1/[resources]', {
+    const response = await fetch('<https://api.example.com/v1/[resources]',> {
       headers: {
         'Authorization': 'Bearer YOUR_API_KEY'
       }
     });
     const data = await response.json();
-    ```
+```
 
 === "Python"
 
@@ -91,11 +96,12 @@ GET /v1/[resources]
     import requests
 
     response = requests.get(
-        'https://api.n8n.io/v1/[resources]',
+        '<https://api.example.com/v1/[resources]',>
         headers={'Authorization': 'Bearer YOUR_API_KEY'}
     )
     data = response.json()
-    ```
+
+```text
 
 ---
 
@@ -105,14 +111,14 @@ Retrieves a single [resource] by ID.
 
 **Request:**
 
-```
+```http
 GET /v1/[resources]/{id}
 ```
 
 **Path parameters:**
 
 | Parameter | Type | Description |
-|-----------|------|-------------|
+| ----------- | ------ | ------------- |
 | `id` | `string` | The [resource] ID |
 
 **Response:**
@@ -125,7 +131,8 @@ GET /v1/[resources]/{id}
   "created_at": "2024-01-15T10:30:00Z",
   "updated_at": "2024-01-15T14:45:00Z"
 }
-```
+
+```text
 
 ---
 
@@ -135,14 +142,14 @@ Creates a new [resource].
 
 **Request:**
 
-```
+```http
 POST /v1/[resources]
 ```
 
 **Request body:**
 
 | Field | Type | Required | Description |
-|-------|------|----------|-------------|
+| ------- | ------ | ---------- | ------------- |
 | `name` | `string` | Yes | [Resource] name (1-255 characters) |
 | `description` | `string` | No | Optional description |
 | `config` | `object` | No | Configuration options |
@@ -157,7 +164,8 @@ POST /v1/[resources]
     "option1": "value1"
   }
 }
-```
+
+```text
 
 **Response:** `201 Created`
 
@@ -178,9 +186,10 @@ Updates an existing [resource].
 
 **Request:**
 
-```
+```http
 PATCH /v1/[resources]/{id}
-```
+
+```text
 
 **Request body:**
 
@@ -202,9 +211,10 @@ Permanently deletes a [resource].
 
 **Request:**
 
-```
+```http
 DELETE /v1/[resources]/{id}
-```
+
+```text
 
 **Response:** `204 No Content`
 
@@ -214,7 +224,7 @@ DELETE /v1/[resources]/{id}
 ## Error responses
 
 | Status code | Error type | Description |
-|-------------|------------|-------------|
+| ------------- | ------------ | ------------- |
 | `400` | `VALIDATION_ERROR` | Invalid request parameters |
 | `401` | `UNAUTHORIZED` | Missing or invalid API key |
 | `403` | `FORBIDDEN` | Insufficient permissions |
@@ -245,11 +255,12 @@ DELETE /v1/[resources]/{id}
 
 Rate limit headers:
 
-```
+```http
 X-RateLimit-Limit: 60
 X-RateLimit-Remaining: 45
 X-RateLimit-Reset: 1705320000
-```
+
+```text
 
 ## Webhooks
 

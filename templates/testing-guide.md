@@ -4,10 +4,12 @@ description: "Test your [Product] integration effectively. Covers test environme
 content_type: how-to
 product: both
 tags:
+
   - How-To
+
 ---
 
-# Testing guide
+## Testing guide
 
 This guide covers testing strategies for [Product] integrations, from unit tests to end-to-end testing in production-like environments.
 
@@ -16,7 +18,7 @@ This guide covers testing strategies for [Product] integrations, from unit tests
 ### Sandbox vs. Production
 
 | Environment | Use | API Keys | Data |
-|-------------|-----|----------|------|
+| ------------- | ----- | ---------- | ------ |
 | **Sandbox** | Development, testing | `sk_test_*` | Test data, no real effects |
 | **Production** | Live application | `sk_live_*` | Real data, real effects |
 
@@ -35,7 +37,7 @@ const client = new [Product]Client({
 The sandbox provides test data for common scenarios:
 
 | Test input | Behavior |
-|------------|----------|
+| ------------ | ---------- |
 | `test_success_*` | Simulates successful operations |
 | `test_fail_*` | Simulates failures |
 | `test_slow_*` | Simulates slow responses |
@@ -246,7 +248,7 @@ describe('Webhook integration', () => {
     // Trigger an action that sends a webhook
     await client.[resources].create({
       name: 'Webhook Test',
-      webhookUrl: 'http://localhost:3001/webhooks'
+      webhookUrl: '<http://localhost:3001/webhooks'>
     });
 
     // Wait for webhook
@@ -310,23 +312,23 @@ const pollUntilComplete = async (id, timeout = 60000) => {
 ### Using ngrok
 
 ```bash
-# Start your local server
+## Start your local server
 npm run dev
 
-# In another terminal, expose it
+## In another terminal, expose it
 ngrok http 3000
 
-# Use the ngrok URL as webhook endpoint
-# https://abc123.ngrok.io/webhooks
+## Use the ngrok URL as webhook endpoint
+## URL: <https://abc123.ngrok.io/webhooks>
 ```
 
 ### Using the CLI
 
 ```bash
-# Trigger test webhook
+## Trigger test webhook
 [product] webhooks trigger \
   --event [resource].created \
-  --endpoint http://localhost:3000/webhooks
+  --endpoint <http://localhost:3000/webhooks>
 ```
 
 ### Mock webhook server
@@ -419,7 +421,7 @@ export const build[Resource]List = (count, overrides = {}) =>
 ### GitHub Actions
 
 ```yaml
-# .github/workflows/test.yml
+## .github/workflows/test.yml
 name: Test
 
 on: [push, pull_request]
@@ -428,10 +430,13 @@ jobs:
   unit-tests:
     runs-on: ubuntu-latest
     steps:
+
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
+
         with:
           node-version: '20'
+
       - run: npm ci
       - run: npm test
 
@@ -439,12 +444,16 @@ jobs:
     runs-on: ubuntu-latest
     needs: unit-tests
     steps:
+
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
+
         with:
           node-version: '20'
+
       - run: npm ci
       - run: npm run test:integration
+
         env:
           [PRODUCT]_TEST_API_KEY: ${{ secrets.[PRODUCT]_TEST_API_KEY }}
           [PRODUCT]_WEBHOOK_SECRET: ${{ secrets.[PRODUCT]_WEBHOOK_SECRET }}
@@ -461,7 +470,7 @@ jobs:
 ### Test coverage
 
 | Area | Coverage goal |
-|------|--------------|
+| ------ | -------------- |
 | API operations | 100% |
 | Error handling | 100% |
 | Webhook processing | 100% |

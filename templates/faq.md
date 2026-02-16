@@ -4,10 +4,12 @@ description: "Frequently asked questions about [Product]. Find answers to common
 content_type: reference
 product: both
 tags:
+
   - Reference
+
 ---
 
-# Frequently asked questions
+## Frequently asked questions
 
 Quick answers to common questions about [Product].
 
@@ -28,7 +30,7 @@ Quick answers to common questions about [Product].
 ### How does [Product] compare to [Competitor]?
 
 | Feature | [Product] | [Competitor] |
-|---------|-----------|--------------|
+| --------- | ----------- | -------------- |
 | [Feature 1] | [Comparison] | [Comparison] |
 | [Feature 2] | [Comparison] | [Comparison] |
 | Pricing | [Info] | [Info] |
@@ -40,7 +42,7 @@ See our detailed [comparison guide](./comparisons/vs-competitor.md).
 ### How much does [Product] cost?
 
 | Plan | Price | Includes |
-|------|-------|----------|
+| ------ | ------- | ---------- |
 | Free | $0/month | [Limits] |
 | Pro | $[X]/month | [Limits] |
 | Enterprise | Custom | [Features] |
@@ -59,8 +61,8 @@ Yes, [Product] offers [X]-day free trial of the Pro plan. No credit card require
 ### How do I cancel my subscription?
 
 1. Go to [Dashboard]([URL]) → Settings → Billing
-2. Click **Cancel subscription**
-3. Confirm cancellation
+1. Click **Cancel subscription**
+1. Confirm cancellation
 
 Your access continues until the end of the billing period.
 
@@ -73,7 +75,7 @@ Your access continues until the end of the billing period.
 ### What are the API rate limits?
 
 | Plan | Requests/minute | Requests/day |
-|------|-----------------|--------------|
+| ------ | ----------------- | -------------- |
 | Free | [X] | [X] |
 | Pro | [X] | [X] |
 | Enterprise | Custom | Custom |
@@ -145,9 +147,9 @@ Yes. Go to [Dashboard]([URL]) → Settings → Export Data, or use the [export A
 ### How do I reset my password?
 
 1. Go to [login page]([URL])
-2. Click **Forgot password**
-3. Enter your email
-4. Follow the reset link
+1. Click **Forgot password**
+1. Enter your email
+1. Follow the reset link
 
 ### Can I change my email address?
 
@@ -156,8 +158,8 @@ Yes. Go to [Dashboard]([URL]) → Settings → Account → Change email.
 ### How do I delete my account?
 
 1. Go to [Dashboard]([URL]) → Settings → Account
-2. Click **Delete account**
-3. Confirm deletion
+1. Click **Delete account**
+1. Confirm deletion
 
 !!! warning "Account deletion is permanent"
     All data will be permanently deleted within 30 days.
@@ -165,8 +167,8 @@ Yes. Go to [Dashboard]([URL]) → Settings → Account → Change email.
 ### How do I add team members?
 
 1. Go to [Dashboard]([URL]) → Team
-2. Click **Invite member**
-3. Enter their email and role
+1. Click **Invite member**
+1. Enter their email and role
 
 See [team management guide](../how-to/team.md).
 
@@ -177,33 +179,35 @@ See [team management guide](../how-to/team.md).
 A 401 error means your API key is invalid or expired.
 
 **Fix:**
+
 1. Check you're using the correct API key
-2. Verify you're using the right environment (test vs. live)
-3. [Generate a new key]([URL]) if needed
+1. Verify you're using the right environment (test vs. live)
+1. [Generate a new key]([URL]) if needed
 
 ### Why am I getting rate limited?
 
 You've exceeded the [rate limits](#what-are-the-api-rate-limits) for your plan.
 
 **Fix:**
+
 1. Implement [exponential backoff](../how-to/error-handling.md#retry-strategies)
-2. Cache responses where possible
-3. Consider upgrading your plan
+1. Cache responses where possible
+1. Consider upgrading your plan
 
 ### My webhook isn't receiving events
 
 Common causes:
 
 1. **Incorrect URL:** Ensure HTTPS and publicly accessible
-2. **Firewall:** Allow [Product] IP ranges
-3. **Signature verification failing:** Check webhook secret
+1. **Firewall:** Allow [Product] IP ranges
+1. **Signature verification failing:** Check webhook secret
 
 See [webhook troubleshooting](../troubleshooting/webhooks.md).
 
 ### How do I contact support?
 
 | Channel | Response time | Best for |
-|---------|---------------|----------|
+| --------- | --------------- | ---------- |
 | [Help center]([URL]) | Self-service | Common questions |
 | Email: [support email] | 24 hours | Account issues |
 | [Community forum]([URL]) | Varies | Technical questions |
@@ -214,7 +218,7 @@ See [webhook troubleshooting](../troubleshooting/webhooks.md).
 ### What's the API uptime SLA?
 
 | Plan | Uptime SLA |
-|------|------------|
+| ------ | ------------ |
 | Free | No SLA |
 | Pro | 99.9% |
 | Enterprise | 99.99% |

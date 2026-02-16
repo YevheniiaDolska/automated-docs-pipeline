@@ -4,11 +4,13 @@ description: "Security best practices for [Product]. Covers credential managemen
 content_type: concept
 product: both
 tags:
+
   - Concept
   - How-To
+
 ---
 
-# Security guide
+## Security guide
 
 This guide covers security best practices for integrating with [Product] and protecting your data.
 
@@ -17,7 +19,7 @@ This guide covers security best practices for integrating with [Product] and pro
 [Product] implements multiple layers of security:
 
 | Layer | Protection |
-|-------|------------|
+| ------- | ------------ |
 | **Transport** | TLS 1.3 encryption |
 | **Authentication** | API keys, OAuth 2.0, JWT |
 | **Authorization** | Role-based access control |
@@ -29,7 +31,7 @@ This guide covers security best practices for integrating with [Product] and pro
 ### API key management
 
 | Do | Don't |
-|----|-------|
+| ---- | ------- |
 | Store keys in environment variables | Hardcode keys in source code |
 | Use secrets managers (Vault, AWS Secrets) | Commit keys to version control |
 | Rotate keys regularly (quarterly) | Share keys via chat/email |
@@ -44,11 +46,12 @@ This guide covers security best practices for integrating with [Product] and pro
     # .env (add to .gitignore)
     [PRODUCT]_API_KEY=sk_live_...
     [PRODUCT]_WEBHOOK_SECRET=whsec_...
-    ```
+
+```text
 
     ```javascript
     const apiKey = process.env.[PRODUCT]_API_KEY;
-    ```
+```
 
 === "AWS Secrets Manager"
 
@@ -62,7 +65,8 @@ This guide covers security best practices for integrating with [Product] and pro
       });
       return JSON.parse(SecretString).apiKey;
     };
-    ```
+
+```text
 
 === "HashiCorp Vault"
 
@@ -72,17 +76,17 @@ This guide covers security best practices for integrating with [Product] and pro
     const client = vault({ endpoint: process.env.VAULT_ADDR });
     const { data } = await client.read('secret/data/[product]');
     const apiKey = data.data.api_key;
-    ```
+```
 
 ### Key rotation
 
 Rotate API keys regularly:
 
 1. **Generate new key** in [Dashboard]([URL])
-2. **Update configuration** in your application
-3. **Deploy** the change
-4. **Verify** functionality
-5. **Revoke old key** after confirming
+1. **Update configuration** in your application
+1. **Deploy** the change
+1. **Verify** functionality
+1. **Revoke old key** after confirming
 
 ```javascript
 // Support graceful rotation with fallback
@@ -90,7 +94,8 @@ const apiKeys = [
   process.env.[PRODUCT]_API_KEY_NEW,
   process.env.[PRODUCT]_API_KEY_OLD
 ].filter(Boolean);
-```
+
+```text
 
 ## Authentication security
 
@@ -113,10 +118,10 @@ const client = new [Product]Client({
 When implementing OAuth:
 
 1. **Validate state parameter** to prevent CSRF
-2. **Store tokens securely** (encrypted, server-side)
-3. **Use PKCE** for public clients
-4. **Implement token refresh** before expiry
-5. **Revoke tokens** when users disconnect
+1. **Store tokens securely** (encrypted, server-side)
+1. **Use PKCE** for public clients
+1. **Implement token refresh** before expiry
+1. **Revoke tokens** when users disconnect
 
 ```javascript
 // Validate state to prevent CSRF
@@ -126,7 +131,8 @@ app.get('/callback', (req, res) => {
   }
   // Continue with token exchange
 });
-```
+
+```text
 
 ## Webhook security
 
@@ -177,7 +183,8 @@ app.post('/webhooks',
   express.raw({ type: 'application/json' }),
   webhookHandler
 );
-```
+
+```text
 
 ## Data protection
 
@@ -189,7 +196,7 @@ All API communication uses TLS 1.3:
 // The SDK enforces HTTPS
 const client = new [Product]Client({
   apiKey: process.env.API_KEY
-  // All requests use https://api.[product].com
+  // All requests use <https://api.[product].com>
 });
 ```
 
@@ -200,7 +207,7 @@ const client = new [Product]Client({
 ### Sensitive data handling
 
 | Data type | Recommendation |
-|-----------|----------------|
+| ----------- | ---------------- |
 | API keys | Environment variables or secrets manager |
 | Webhook secrets | Secrets manager, rotate regularly |
 | Access tokens | Encrypted storage, short TTL |
@@ -220,7 +227,8 @@ const sanitize = (obj) => {
 };
 
 logger.info('Request', sanitize(requestData));
-```
+
+```text
 
 ## Input validation
 
@@ -252,7 +260,8 @@ const resource = await client.[resources].get(sanitizedId);
 
 // Don't construct queries with user input
 const bad = `/resources/${userInput}`; // Dangerous!
-```
+
+```text
 
 ## Network security
 
@@ -281,7 +290,7 @@ app.post('/webhooks', (req, res, next) => {
 Allow outbound connections to:
 
 | Destination | Port | Purpose |
-|-------------|------|---------|
+| ------------- | ------ | --------- |
 | `api.[product].com` | 443 | API requests |
 | `webhooks.[product].com` | 443 | Webhook delivery |
 
@@ -309,7 +318,8 @@ res.status(500).json({
   error: error.message,
   stack: error.stack // Never expose stack traces!
 });
-```
+
+```text
 
 ## Access control
 
@@ -327,7 +337,7 @@ const restrictedKey = await client.apiKeys.create({
 ### Role-based access
 
 | Role | Permissions |
-|------|-------------|
+| ------ | ------------- |
 | Viewer | Read-only access |
 | Editor | Create, update |
 | Admin | Full access including delete |
@@ -375,10 +385,10 @@ const restrictedKey = await client.apiKeys.create({
 ### If credentials are compromised
 
 1. **Immediately revoke** the compromised key in [Dashboard]([URL])
-2. **Generate new credentials**
-3. **Update your application**
-4. **Review logs** for unauthorized access
-5. **Contact [security email]** if needed
+1. **Generate new credentials**
+1. **Update your application**
+1. **Review logs** for unauthorized access
+1. **Contact [security email]** if needed
 
 ### Report vulnerabilities
 

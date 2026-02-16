@@ -1,24 +1,26 @@
 ---
-title: "Fix: n8n Webhook trigger not firing"
-description: "Troubleshoot n8n Webhook nodes that do not receive requests. Common causes include inactive workflows, wrong URL type, and network configuration."
+title: "Fix: Webhook trigger not firing"
+description: "Troubleshoot Webhook nodes that do not receive requests. Common causes include inactive workflows, wrong URL type, and network configuration."
 content_type: troubleshooting
 product: both
-n8n_component: webhook
+app_component: webhook
 tags:
-  - Troubleshooting
-  - Webhook
-  - Nodes
-  - Cloud
-  - Self-hosted
+
+ - Troubleshooting
+ - Webhook
+ - Nodes
+ - Cloud
+ - Self-hosted
+
 ---
 
-# Fix: n8n Webhook trigger not firing
+## Fix: Webhook trigger not firing
 
 The Webhook node does not respond to incoming HTTP requests. The sender receives a timeout, connection refused, or 404 error.
 
 ## Cause 1: Using Test URL with an inactive editor
 
-**Symptom:** Requests to the Test URL return a timeout or 404 after you close the n8n editor tab.
+**Symptom:** Requests to the Test URL return a timeout or 404 after you close the editor tab.
 
 **Why:** The Test URL (`/webhook-test/...`) is only active while the workflow editor is open and the workflow is in Listening mode. Closing the browser tab deactivates it.
 
@@ -36,49 +38,49 @@ The Webhook node does not respond to incoming HTTP requests. The sender receives
 
 **Symptom:** Requests from external services timeout. Local `curl` requests work fine.
 
-**Why:** n8n listens on port 5678 by default. If your server firewall or reverse proxy (Nginx, Caddy, Traefik) does not forward traffic to this port, external requests never reach n8n.
+**Why:** listens on port 5678 by default. If your server firewall or reverse proxy (Nginx, Caddy, Traefik) does not forward traffic to this port, external requests never reach.
 
 **Fix:**
 
 === "Docker with Nginx"
 
-    Verify your Nginx config forwards to the n8n container:
+ Verify your Nginx config forwards to the container:
 
-    ```nginx
-    location /webhook/ {
-        proxy_pass http://n8n:5678;
-        proxy_set_header Host $host;
-        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-    }
-    ```
+ ```nginx
+ location /webhook/ {
+ proxy_pass <http://the> product:5678;
+ proxy_set_header Host $host;
+ proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+ }
+```
 
 === "Direct install"
 
-    Check that port 5678 is open:
+ Check that port 5678 is open:
 
-    ```bash
-    sudo ufw allow 5678
-    # or
-    sudo firewall-cmd --add-port=5678/tcp --permanent
-    ```
+ ```bash
+ sudo ufw allow 5678
+ # or
+ sudo firewall-cmd --add-port=5678/tcp --permanent
+```
 
 ## Cause 4: Incorrect WEBHOOK_URL environment variable
 
 **Symptom:** The Webhook node shows a URL that does not match your domain. External services cannot reach it.
 
-**Why:** n8n uses the `WEBHOOK_URL` environment variable to generate webhook URLs. If this is set to `http://localhost:5678` (the default), external services cannot resolve `localhost`.
+**Why:** uses the `WEBHOOK_URL` environment variable to generate webhook URLs. If this is set to `<http://localhost:5678`> (the default), external services cannot resolve `localhost`.
 
 **Fix:** Set `WEBHOOK_URL` to your public-facing URL:
 
 ```bash
-export WEBHOOK_URL=https://n8n.yourdomain.com
+export WEBHOOK_URL=<https://the> product.yourdomain.com
 ```
 
 ## Still not working?
 
-1. Check the n8n logs for errors: `docker logs n8n` or the n8n process output.
-2. Test with a minimal `curl` command from the same network as n8n.
-3. Verify the HTTP method matches (the Webhook node only responds to the configured method).
+1. Check the logs for errors: `docker logs` or the process output.
+1. Test with a minimal `curl` command from the same network as.
+1. Verify the HTTP method matches (the Webhook node only responds to the configured method).
 
 ## Related
 

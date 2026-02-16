@@ -1,14 +1,15 @@
 ---
-title: "[Configure|Set up|Enable] [feature] in n8n"
-description: "Step-by-step guide to [configure] [feature] in n8n. Covers [main approach], [alternative], and best practices."
+title: "[Configure | Set up | Enable] [feature]"
+description: "Step-by-step guide to [configure] [feature]. Covers [main approach], [alternative], and best practices."
 content_type: how-to
 product: both
-n8n_component: webhook
 tags:
+
   - How-To
+
 ---
 
-# [Configure|Set up|Enable] [feature] in n8n
+## [Configure | Set up | Enable] [feature]
 
 [Opening paragraph: What this guide helps you accomplish and when you'd need it. Keep under 60 words. Start with the key benefit.]
 
@@ -22,11 +23,11 @@ tags:
 [When to use this option - 1-2 sentences.]
 
 1. [First step with specific action]
-2. [Second step]
-3. [Third step]
+1. [Second step]
+1. [Third step]
 
 ```yaml
-# Example configuration
+## Example configuration
 key: value
 ```
 
@@ -38,10 +39,10 @@ key: value
 [When to use this alternative instead.]
 
 1. [First step]
-2. [Second step]
+1. [Second step]
 
 ```bash
-# Command example
+## Command example
 command --flag value
 ```
 
@@ -52,7 +53,7 @@ command --flag value
 ## Which method to choose
 
 | Method | Best for | Complexity |
-|--------|----------|------------|
+| -------- | ---------- | ------------ |
 | [Option 1] | [Use case] | Low |
 | [Option 2] | [Use case] | Medium |
 | [Option 3] | [Use case] | High |
@@ -62,7 +63,7 @@ command --flag value
 To confirm [feature] is working correctly:
 
 1. [Verification step]
-2. You should see: [expected result]
+1. You should see: [expected result]
 
 ## Troubleshooting
 

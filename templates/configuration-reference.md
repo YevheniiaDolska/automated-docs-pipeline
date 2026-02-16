@@ -4,10 +4,12 @@ description: "Complete configuration reference for [Product]. All environment va
 content_type: reference
 product: both
 tags:
+
   - Reference
+
 ---
 
-# Configuration reference
+## Configuration reference
 
 This reference covers all configuration options for [Product].
 
@@ -16,8 +18,8 @@ This reference covers all configuration options for [Product].
 [Product] can be configured via:
 
 1. **Environment variables** (recommended for secrets)
-2. **Configuration file** (`[product].config.js` or `[product].yml`)
-3. **Constructor options** (programmatic)
+1. **Configuration file** (`[product].config.js` or `[product].yml`)
+1. **Constructor options** (programmatic)
 
 Priority: Constructor options > Environment variables > Config file > Defaults
 
@@ -26,15 +28,15 @@ Priority: Constructor options > Environment variables > Config file > Defaults
 ### Required
 
 | Variable | Description | Example |
-|----------|-------------|---------|
+| ---------- | ------------- | --------- |
 | `[PRODUCT]_API_KEY` | API key for authentication | `sk_live_abc123` |
 
 ### Optional
 
 | Variable | Description | Default |
-|----------|-------------|---------|
+| ---------- | ------------- | --------- |
 | `[PRODUCT]_ENVIRONMENT` | `test` or `live` | `live` |
-| `[PRODUCT]_API_URL` | Custom API URL | `https://api.[product].com` |
+| `[PRODUCT]_API_URL` | Custom API URL | `<https://api.[product].com`> |
 | `[PRODUCT]_TIMEOUT` | Request timeout (ms) | `30000` |
 | `[PRODUCT]_MAX_RETRIES` | Max retry attempts | `3` |
 | `[PRODUCT]_LOG_LEVEL` | Logging level | `warn` |
@@ -42,14 +44,14 @@ Priority: Constructor options > Environment variables > Config file > Defaults
 ### Webhook configuration
 
 | Variable | Description | Default |
-|----------|-------------|---------|
+| ---------- | ------------- | --------- |
 | `[PRODUCT]_WEBHOOK_SECRET` | Webhook signing secret | — |
 | `[PRODUCT]_WEBHOOK_TOLERANCE` | Signature tolerance (seconds) | `300` |
 
 ### Advanced
 
 | Variable | Description | Default |
-|----------|-------------|---------|
+| ---------- | ------------- | --------- |
 | `[PRODUCT]_PROXY` | HTTP proxy URL | — |
 | `[PRODUCT]_CA_CERT` | Custom CA certificate path | — |
 | `[PRODUCT]_DISABLE_TELEMETRY` | Disable anonymous telemetry | `false` |
@@ -83,7 +85,7 @@ module.exports = {
 ### YAML
 
 ```yaml
-# [product].yml
+## [product].yml
 apiKey: ${[PRODUCT]_API_KEY}
 environment: live
 timeout: 30000
@@ -143,9 +145,9 @@ apiKey: process.env.[PRODUCT]_API_KEY
 The API environment to use.
 
 | Environment | Use case | API URL |
-|-------------|----------|---------|
-| `test` | Development, testing | `https://api.test.[product].com` |
-| `live` | Production | `https://api.[product].com` |
+| ------------- | ---------- | --------- |
+| `test` | Development, testing | `<https://api.test.[product].com`> |
+| `live` | Production | `<https://api.[product].com`> |
 
 #### `baseUrl`
 
@@ -156,7 +158,7 @@ The API environment to use.
 Override the API base URL. Useful for proxies or custom deployments.
 
 ```javascript
-baseUrl: 'https://api.custom.[product].com'
+baseUrl: '<https://api.custom.[product].com'>
 ```
 
 ### Request settings
@@ -255,7 +257,7 @@ Maximum age of webhook timestamp. Older webhooks are rejected (replay attack pro
 HTTP proxy URL for all requests:
 
 ```javascript
-proxy: 'http://proxy.example.com:8080'
+proxy: '<http://proxy.example.com:8080'>
 ```
 
 #### `agent`
@@ -297,23 +299,27 @@ For self-hosted [Product] deployments:
 ### Docker
 
 ```yaml
-# docker-compose.yml
+## docker-compose.yml
 services:
   [product]:
     image: [product]/[product]:latest
     environment:
+
       - DATABASE_URL=postgres://user:pass@db:5432/[product]
       - REDIS_URL=redis://redis:6379
       - SECRET_KEY=${SECRET_KEY}
       - [OTHER_VARS]
+
     ports:
+
       - "3000:3000"
+
 ```
 
 ### Kubernetes
 
 ```yaml
-# configmap.yml
+## configmap.yml
 apiVersion: v1
 kind: ConfigMap
 metadata:
@@ -322,7 +328,7 @@ data:
   DATABASE_URL: "postgres://db:5432/[product]"
   LOG_LEVEL: "info"
 ---
-# secret.yml
+## secret.yml
 apiVersion: v1
 kind: Secret
 metadata:

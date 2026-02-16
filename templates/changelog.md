@@ -4,10 +4,12 @@ description: "[Product] changelog: all releases, new features, improvements, bug
 content_type: reference
 product: both
 tags:
+
   - Reference
+
 ---
 
-# Changelog
+## Changelog
 
 All notable changes to [Product] are documented here.
 
@@ -18,9 +20,11 @@ Format based on [Keep a Changelog](https://keepachangelog.com/). [Product] uses 
 ## [Unreleased]
 
 ### Added
+
 - [Feature in development]
 
 ### Changed
+
 - [Change in development]
 
 ---
@@ -28,24 +32,30 @@ Format based on [Keep a Changelog](https://keepachangelog.com/). [Product] uses 
 ## [X.Y.Z] - YYYY-MM-DD
 
 ### Added
+
 - **[Feature name]:** [Description of new feature and its benefits]
 - [Another new feature]
 
 ### Changed
+
 - **[Component]:** [Description of what changed and why]
 - [Another change]
 
 ### Deprecated
+
 - **[Feature name]:** [What's deprecated, timeline for removal, and migration path]
 
 ### Removed
+
 - **[Feature name]:** [What was removed and what to use instead]
 
 ### Fixed
+
 - **[Bug description]:** [What was fixed] ([#issue-number])
 - [Another bug fix]
 
 ### Security
+
 - **[Vulnerability]:** [Security fix description]
 
 ---
@@ -53,9 +63,11 @@ Format based on [Keep a Changelog](https://keepachangelog.com/). [Product] uses 
 ## [X.Y.Z-1] - YYYY-MM-DD
 
 ### Added
+
 - [Feature]
 
 ### Fixed
+
 - [Bug fix]
 
 ---
@@ -74,8 +86,10 @@ Format based on [Keep a Changelog](https://keepachangelog.com/). [Product] uses 
 **Migration:**
 
 ```diff
+
 - old_method(arg)
 + new_method(arg, options)
+
 ```
 
 #### [Breaking change 2]
@@ -85,9 +99,11 @@ Format based on [Keep a Changelog](https://keepachangelog.com/). [Product] uses 
 **Migration:** See [migration guide](../how-to/migrate-x-to-y.md).
 
 ### Added
+
 - [New feature]
 
 ### Changed
+
 - [Change]
 
 ---
@@ -95,7 +111,7 @@ Format based on [Keep a Changelog](https://keepachangelog.com/). [Product] uses 
 ## Version history
 
 | Version | Date | Highlights |
-|---------|------|------------|
+| --------- | ------ | ------------ |
 | [X.Y.Z] | YYYY-MM-DD | [Key feature] |
 | [X.Y.Z-1] | YYYY-MM-DD | [Key feature] |
 | [X.Y.Z-2] | YYYY-MM-DD | [Key feature] |
@@ -113,7 +129,7 @@ For API-specific changes, see [API Changelog](./api-changelog.md).
 
 ---
 
-[Unreleased]: https://github.com/[org]/[repo]/compare/vX.Y.Z...HEAD
-[X.Y.Z]: https://github.com/[org]/[repo]/compare/vX.Y.Z-1...vX.Y.Z
-[X.Y.Z-1]: https://github.com/[org]/[repo]/compare/vX.Y.Z-2...vX.Y.Z-1
-[X.Y.Z-2]: https://github.com/[org]/[repo]/releases/tag/vX.Y.Z-2
+[Unreleased]: <https://github.com/[org]/[repo]/compare/vX.Y.Z...HEAD>
+[X.Y.Z]: <https://github.com/[org]/[repo]/compare/vX.Y.Z-1...vX.Y.Z>
+[X.Y.Z-1]: <https://github.com/[org]/[repo]/compare/vX.Y.Z-2...vX.Y.Z-1>
+[X.Y.Z-2]: <https://github.com/[org]/[repo]/releases/tag/vX.Y.Z-2>

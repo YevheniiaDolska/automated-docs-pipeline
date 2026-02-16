@@ -4,11 +4,13 @@ description: "How to [achieve specific outcome] using [Product]. Complete soluti
 content_type: how-to
 product: both
 tags:
+
   - How-To
   - Tutorial
+
 ---
 
-# [Use case]: [Achieving specific outcome]
+## [Use case]: [Achieving specific outcome]
 
 Learn how to [achieve specific outcome] using [Product]. This guide provides a complete solution from architecture to production deployment.
 
@@ -28,7 +30,7 @@ Learn how to [achieve specific outcome] using [Product]. This guide provides a c
 ### Time estimate
 
 | Phase | Duration |
-|-------|----------|
+| ------- | ---------- |
 | Setup | [X] minutes |
 | Implementation | [X] minutes |
 | Testing | [X] minutes |
@@ -47,7 +49,7 @@ flowchart LR
 ### Components
 
 | Component | Role |
-|-----------|------|
+| ----------- | ------ |
 | [Component 1] | [What it does] |
 | [Component 2] | [What it does] |
 | [Component 3] | [What it does] |
@@ -55,8 +57,8 @@ flowchart LR
 ### Data flow
 
 1. [Step 1 of data flow]
-2. [Step 2]
-3. [Step 3]
+1. [Step 2]
+1. [Step 3]
 
 ## Prerequisites
 
@@ -218,7 +220,7 @@ const variation2 = async () => {
 ### Common errors
 
 | Error | Cause | Solution |
-|-------|-------|----------|
+| ------- | ------- | ---------- |
 | `[error_code_1]` | [Cause] | [Solution] |
 | `[error_code_2]` | [Cause] | [Solution] |
 
@@ -293,14 +295,14 @@ describe('[UseCase] integration', () => {
 Monitor these metrics:
 
 | Metric | Alert threshold |
-|--------|-----------------|
+| -------- | ----------------- |
 | [Metric 1] | [Threshold] |
 | [Metric 2] | [Threshold] |
 
 ## Cost estimation
 
 | Usage | Estimated cost |
-|-------|----------------|
+| ------- | ---------------- |
 | [X] [resources]/month | $[Y] |
 | [X] API calls/month | $[Y] |
 

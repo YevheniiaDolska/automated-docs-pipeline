@@ -4,10 +4,12 @@ description: "Get started with [Product] in under [X] minutes. Make your first [
 content_type: tutorial
 product: both
 tags:
+
   - Tutorial
+
 ---
 
-# [Product] quickstart
+## [Product] quickstart
 
 Get [Product] running and make your first [API call/workflow] in under [X] minutes. No prior experience required.
 
@@ -33,8 +35,8 @@ Choose your installation method:
 === "Cloud (Recommended)"
 
     1. Go to [signup URL]
-    2. Create an account
-    3. You're ready — skip to Step 2
+    1. Create an account
+    1. You're ready — skip to Step 2
 
 === "Docker"
 
@@ -42,32 +44,34 @@ Choose your installation method:
     docker run -d --name [product] \
       -p [port]:[port] \
       [image-name]
-    ```
+
+```text
 
 === "npm"
 
     ```bash
     npm install -g [package-name]
     [package-name] start
-    ```
+```
 
 Verify installation:
 
 ```bash
 [verification command]
-# Expected output: [expected output]
-```
+## Expected output: [expected output]
+
+```text
 
 ## Step 2: [Get credentials/Configure]
 
 [Brief explanation of what credentials are needed and why.]
 
 1. [Go to dashboard/settings]
-2. [Create/Copy credential]
-3. Save it securely — you'll need it in the next step
+1. [Create/Copy credential]
+1. Save it securely — you'll need it in the next step
 
 ```bash
-# Set as environment variable
+## Set as environment variable
 export [VAR_NAME]="your-credential-here"
 ```
 
@@ -87,7 +91,8 @@ export [VAR_NAME]="your-credential-here"
       -d '{
         "[field]": "[value]"
       }'
-    ```
+
+```text
 
 === "JavaScript"
 
@@ -105,7 +110,7 @@ export [VAR_NAME]="your-credential-here"
 
     const data = await response.json();
     console.log(data);
-    ```
+```
 
 === "Python"
 
@@ -125,7 +130,8 @@ export [VAR_NAME]="your-credential-here"
     )
 
     print(response.json())
-    ```
+
+```text
 
 **Expected response:**
 
@@ -141,10 +147,10 @@ export [VAR_NAME]="your-credential-here"
 [How to confirm it worked.]
 
 1. [Verification step 1]
-2. [Verification step 2]
-3. You should see: [expected result]
+1. [Verification step 2]
+1. You should see: [expected result]
 
-## You're done!
+## You're done
 
 You've successfully [what they accomplished]. Here's what you built:
 
@@ -155,7 +161,7 @@ You've successfully [what they accomplished]. Here's what you built:
 Now that you have [Product] running:
 
 | Goal | Resource |
-|------|----------|
+| ------ | ---------- |
 | Learn the basics | [Tutorial: Build your first [thing]](../getting-started/first-thing.md) |
 | Explore features | [How-to guides](../how-to/index.md) |
 | Go to production | [Deployment guide](../how-to/deployment.md) |

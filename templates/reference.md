@@ -1,23 +1,22 @@
 ---
-title: "[Component] reference for n8n"
-description: "Complete parameter reference for the n8n [Component] including [key feature 1], [key feature 2], and configuration examples."
+title: "[Component] reference"
+description: "Complete parameter reference for the [Component] including [key feature 1], [key feature 2], and configuration examples."
 content_type: reference
 product: both
-n8n_component: webhook
-n8n_version: "2.0"
 tags:
+
   - Reference
-  - Nodes
+
 ---
 
-# [Component] reference
+## [Component] reference
 
-The [Component] [is/does what] in n8n. [One sentence with key capability.]
+The [Component] [is/does what]. [One sentence with key capability.]
 
 ## Parameters
 
 | Parameter | Type | Default | Description |
-|-----------|------|---------|-------------|
+| ----------- | ------ | --------- | ------------- |
 | **[param1]** | `string` | — | [What it does]. Required. |
 | **[param2]** | `enum` | `option1` | [What it does]. Options: `option1`, `option2`, `option3` |
 | **[param3]** | `number` | `0` | [What it does]. Range: 0-100 |
@@ -38,7 +37,8 @@ The [Component] [is/does what] in n8n. [One sentence with key capability.]
     ```yaml
     config:
       option: A
-    ```
+
+```text
 
 === "Option B"
 
@@ -47,7 +47,7 @@ The [Component] [is/does what] in n8n. [One sentence with key capability.]
     ```yaml
     config:
       option: B
-    ```
+```
 
 ## [Section 2: Secondary functionality]
 
@@ -64,17 +64,18 @@ The [Component] outputs data in this structure:
     "nested": "data"
   }
 }
-```
+
+```text
 
 | Field | Type | Description |
-|-------|------|-------------|
+| ------- | ------ | ------------- |
 | `field1` | `string` | [What it contains] |
 | `field2` | `object` | [What it contains] |
 
 ## Environment variables
 
 | Variable | Default | Description |
-|----------|---------|-------------|
+| ---------- | --------- | ------------- |
 | `[VAR_NAME]` | `[default]` | [What it controls] |
 | `[VAR_NAME_2]` | `[default]` | [What it controls] |
 
@@ -92,7 +93,8 @@ The [Component] outputs data in this structure:
 ```yaml
 # Configuration for [advanced use case]
 [complete working example]
-```
+
+```text
 
 ## Limitations
 

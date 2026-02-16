@@ -4,18 +4,20 @@ description: "Learn how to authenticate with [Product] API using API keys, OAuth
 content_type: how-to
 product: both
 tags:
+
   - How-To
   - Reference
+
 ---
 
-# Authentication
+## Authentication
 
 All [Product] API requests require authentication. This guide covers available authentication methods, implementation, and security best practices.
 
 ## Authentication methods overview
 
 | Method | Use case | Complexity |
-|--------|----------|------------|
+| -------- | ---------- | ------------ |
 | [API Keys](#api-key-authentication) | Server-to-server, scripts | Simple |
 | [OAuth 2.0](#oauth-20) | User authorization, third-party apps | Medium |
 | [JWT](#jwt-authentication) | Microservices, stateless auth | Medium |
@@ -27,13 +29,13 @@ API keys are the simplest way to authenticate. Use them for server-side applicat
 ### Get your API key
 
 1. Go to [Dashboard]([URL]) → Settings → API Keys
-2. Click **Create API Key**
-3. Select permissions:
+1. Click **Create API Key**
+1. Select permissions:
    - `read` — Read-only access
    - `write` — Create and update resources
    - `delete` — Delete resources
    - `admin` — Full access
-4. Copy the key immediately — it won't be shown again
+1. Copy the key immediately — it won't be shown again
 
 ### Use API keys
 
@@ -42,7 +44,8 @@ Include the API key in the `Authorization` header:
 ```bash
 curl -X GET [API_URL]/v1/[resource] \
   -H "Authorization: Bearer [YOUR_API_KEY]"
-```
+
+```text
 
 === "JavaScript"
 
@@ -52,7 +55,7 @@ curl -X GET [API_URL]/v1/[resource] \
         'Authorization': `Bearer ${process.env.API_KEY}`
       }
     });
-    ```
+```
 
 === "Python"
 
@@ -64,19 +67,20 @@ curl -X GET [API_URL]/v1/[resource] \
         '[API_URL]/v1/[resource]',
         headers={'Authorization': f'Bearer {os.environ["API_KEY"]}'}
     )
-    ```
+
+```text
 
 === "Go"
 
     ```go
     req, _ := http.NewRequest("GET", "[API_URL]/v1/[resource]", nil)
     req.Header.Set("Authorization", "Bearer "+os.Getenv("API_KEY"))
-    ```
+```
 
 ### API key types
 
 | Type | Prefix | Environment | Use for |
-|------|--------|-------------|---------|
+| ------ | -------- | ------------- | --------- |
 | Test | `sk_test_` | Sandbox | Development, testing |
 | Live | `sk_live_` | Production | Production traffic |
 | Restricted | `rk_` | Both | Limited permissions |
@@ -91,7 +95,7 @@ Use OAuth 2.0 when your application needs to access [Product] on behalf of users
 ### Supported flows
 
 | Flow | Use case |
-|------|----------|
+| ------ | ---------- |
 | Authorization Code | Web apps with backend |
 | Authorization Code + PKCE | Mobile apps, SPAs |
 | Client Credentials | Machine-to-machine |
@@ -112,24 +116,25 @@ sequenceDiagram
     App->>Auth: 5. Exchange code for token
     Auth->>App: 6. Access token + refresh token
     App->>API: 7. API requests with token
-```
+
+```text
 
 #### Step 1: Register your application
 
 1. Go to [Dashboard]([URL]) → OAuth Apps
-2. Create new application
-3. Configure:
+1. Create new application
+1. Configure:
    - **Name:** Your app name
-   - **Redirect URIs:** `https://yourapp.com/callback`
+   - **Redirect URIs:** `<https://yourapp.com/callback`>
    - **Scopes:** Permissions your app needs
-4. Save your **Client ID** and **Client Secret**
+1. Save your **Client ID** and **Client Secret**
 
 #### Step 2: Redirect user to authorization
 
 ```javascript
 const authUrl = new URL('[AUTH_URL]/oauth/authorize');
 authUrl.searchParams.set('client_id', CLIENT_ID);
-authUrl.searchParams.set('redirect_uri', 'https://yourapp.com/callback');
+authUrl.searchParams.set('redirect_uri', '<https://yourapp.com/callback'>);
 authUrl.searchParams.set('response_type', 'code');
 authUrl.searchParams.set('scope', 'read write');
 authUrl.searchParams.set('state', generateRandomState()); // CSRF protection
@@ -155,7 +160,7 @@ app.get('/callback', async (req, res) => {
     body: new URLSearchParams({
       grant_type: 'authorization_code',
       code,
-      redirect_uri: 'https://yourapp.com/callback',
+      redirect_uri: '<https://yourapp.com/callback',>
       client_id: CLIENT_ID,
       client_secret: CLIENT_SECRET
     })
@@ -168,7 +173,8 @@ app.get('/callback', async (req, res) => {
 
   res.redirect('/dashboard');
 });
-```
+
+```text
 
 #### Step 4: Refresh tokens
 
@@ -216,12 +222,13 @@ const getClientCredentialsToken = async () => {
   const { access_token, expires_in } = await response.json();
   return access_token;
 };
-```
+
+```text
 
 ### OAuth scopes
 
 | Scope | Access |
-|-------|--------|
+| ------- | -------- |
 | `read` | Read resources |
 | `write` | Create and update resources |
 | `delete` | Delete resources |
@@ -230,6 +237,8 @@ const getClientCredentialsToken = async () => {
 | `offline_access` | Get refresh tokens |
 
 Request only the scopes you need.
+
+<a name="jwt-authentication"></a>
 
 ## JWT authentication
 
@@ -258,7 +267,8 @@ const generateJWT = () => {
 ```bash
 curl -X GET [API_URL]/v1/[resource] \
   -H "Authorization: Bearer [JWT_TOKEN]"
-```
+
+```text
 
 ## Security best practices
 
@@ -288,7 +298,7 @@ curl -X GET [API_URL]/v1/[resource] \
     # .env (never commit this file)
     [PRODUCT]_API_KEY=sk_live_...
     [PRODUCT]_CLIENT_SECRET=...
-    ```
+```
 
 === "AWS Secrets Manager"
 
@@ -300,7 +310,8 @@ curl -X GET [API_URL]/v1/[resource] \
       const response = await client.getSecretValue({ SecretId: secretName });
       return JSON.parse(response.SecretString);
     };
-    ```
+
+```text
 
 === "HashiCorp Vault"
 
@@ -310,22 +321,22 @@ curl -X GET [API_URL]/v1/[resource] \
     const client = vault({ endpoint: process.env.VAULT_ADDR });
     const { data } = await client.read('secret/data/[product]');
     const apiKey = data.data.api_key;
-    ```
+```
 
 ### Key rotation
 
 Rotate API keys regularly:
 
 1. Create new API key
-2. Update application configuration
-3. Deploy with new key
-4. Verify functionality
-5. Revoke old key
+1. Update application configuration
+1. Deploy with new key
+1. Verify functionality
+1. Revoke old key
 
 ## Error responses
 
 | Status | Error | Description |
-|--------|-------|-------------|
+| -------- | ------- | ------------- |
 | `401` | `unauthorized` | Missing or invalid credentials |
 | `403` | `forbidden` | Valid credentials but insufficient permissions |
 | `429` | `rate_limited` | Too many requests |
@@ -338,19 +349,20 @@ Rotate API keys regularly:
   "message": "Invalid API key provided",
   "request_id": "req_abc123"
 }
-```
+
+```text
 
 ## Testing authentication
 
 ### Test with cURL
 
 ```bash
-# Test API key
+## Test API key
 curl -I [API_URL]/v1/[resource] \
   -H "Authorization: Bearer $API_KEY"
 
-# Expected: HTTP/2 200
-# Invalid key: HTTP/2 401
+## Expected: HTTP/2 200
+## Invalid key: HTTP/2 401
 ```
 
 ### Test in sandbox

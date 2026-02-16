@@ -4,15 +4,17 @@ description: "Complete reference for the [Product] [Language] SDK. Covers instal
 content_type: reference
 product: both
 tags:
+
   - Reference
+
 ---
 
-# [Language] SDK reference
+## [Language] SDK reference
 
 Official [Language] SDK for [Product].
 
 | | |
-|--|--|
+| -- | -- |
 | **Package** | `[package-name]` |
 | **Version** | `[version]` |
 | **Source** | [GitHub]([url]) |
@@ -24,19 +26,21 @@ Official [Language] SDK for [Product].
 
     ```bash
     npm install [package-name]
-    ```
+
+```text
 
 === "yarn"
 
     ```bash
     yarn add [package-name]
-    ```
+```
 
 === "pnpm"
 
     ```bash
     pnpm add [package-name]
-    ```
+
+```text
 
 **Requirements:**
 
@@ -67,10 +71,11 @@ console.log([resource].id);
 
 ```javascript
 const client = new [Product]Client(options);
-```
+
+```text
 
 | Option | Type | Default | Description |
-|--------|------|---------|-------------|
+| -------- | ------ | --------- | ------------- |
 | `apiKey` | `string` | — | API key (required unless using OAuth) |
 | `accessToken` | `string` | — | OAuth access token |
 | `environment` | `'test' \| 'live'` | `'live'` | API environment |
@@ -111,12 +116,13 @@ const { data, pagination } = await client.[resources].list({
   limit: 20,
   status: 'active'
 });
-```
+
+```text
 
 **Parameters:**
 
 | Parameter | Type | Description |
-|-----------|------|-------------|
+| ----------- | ------ | ------------- |
 | `limit` | `number` | Results per page (1-100) |
 | `starting_after` | `string` | Cursor for pagination |
 | `status` | `string` | Filter by status |
@@ -132,7 +138,7 @@ const [resource] = await client.[resources].get('[resource_id]');
 **Parameters:**
 
 | Parameter | Type | Description |
-|-----------|------|-------------|
+| ----------- | ------ | ------------- |
 | `id` | `string` | [Resource] ID |
 
 **Returns:** `[Resource]`
@@ -146,12 +152,13 @@ const [resource] = await client.[resources].create({
   name: 'New [resource]',
   [field]: 'value'
 });
-```
+
+```text
 
 **Parameters:**
 
 | Parameter | Type | Required | Description |
-|-----------|------|----------|-------------|
+| ----------- | ------ | ---------- | ------------- |
 | `name` | `string` | Yes | [Resource] name |
 | `[field]` | `string` | No | [Field description] |
 | `metadata` | `object` | No | Custom key-value pairs |
@@ -174,7 +181,8 @@ Only provided fields are updated.
 
 ```javascript
 await client.[resources].delete('[resource_id]');
-```
+
+```text
 
 **Returns:** `void`
 
@@ -215,7 +223,8 @@ for await (const [resource] of client.[resources].list({ limit: 100 })) {
 
 // Or collect all
 const all = await client.[resources].list({ limit: 100 }).toArray();
-```
+
+```text
 
 ## Error handling
 
@@ -253,7 +262,7 @@ try {
 ### Error properties
 
 | Property | Type | Description |
-|----------|------|-------------|
+| ---------- | ------ | ------------- |
 | `type` | `string` | Error type |
 | `code` | `string` | Error code |
 | `message` | `string` | Error message |
@@ -286,7 +295,8 @@ app.post('/webhooks', (req, res) => {
 
   res.sendStatus(200);
 });
-```
+
+```text
 
 ### Construct event
 
@@ -312,7 +322,8 @@ const [resource] = await client.[resources].create(
   { name: 'Example' },
   { idempotencyKey: 'unique-request-id-123' }
 );
-```
+
+```text
 
 ## Metadata
 
@@ -341,7 +352,8 @@ const client = new [Product]Client({
   logger: console, // or custom logger
   logLevel: 'debug' // 'debug' | 'info' | 'warn' | 'error'
 });
-```
+
+```text
 
 ## Testing
 
@@ -377,7 +389,8 @@ interface [Resource] {
 }
 
 type [Resource]Status = 'active' | 'inactive' | 'pending';
-```
+
+```text
 
 ### Pagination
 

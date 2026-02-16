@@ -7,8 +7,8 @@ deprecated_since: "2024-01-15"
 sunset_date: "2024-07-01"
 replaced_by: "/reference/nodes/webhook"
 tags:
-  - Deprecated
-  - Webhook
+ - Deprecated
+ - Webhook
 ---
 
 ## Old Webhook API
@@ -24,11 +24,11 @@ This is an example of a deprecated page. When you build the site with MkDocs, it
 ```javascript
 // OLD WAY (deprecated)
 const webhook = new OldWebhook({
-  port: 5678
+ port: 5678
 });
 
 // NEW WAY
 const webhook = new WebhookNode({
-  port: {{ default_port }}
+ port: {{ default_port }}
 });
 ```
