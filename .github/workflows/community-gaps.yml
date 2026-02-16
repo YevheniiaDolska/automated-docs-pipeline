@@ -1,0 +1,75 @@
+name: Community Documentation Gaps
+
+on:
+  schedule:
+    - cron: '0 9 * * 1'  # Every Monday at 9:00 UTC
+  workflow_dispatch:       # Manual trigger
+
+jobs:
+  analyze-community:
+    name: Analyze Community Posts
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: |
+          pip install requests beautifulsoup4 pyyaml
+
+      - name: Fetch Community Posts
+        id: fetch
+        run: |
+          python scripts/fetch_community_posts.py \
+            --days 7 \
+            --min-views 100 \
+            --output community-posts.json
+        env:
+          COMMUNITY_API_KEY: ${{ secrets.COMMUNITY_API_KEY }}
+          COMMUNITY_URL: ${{ vars.COMMUNITY_URL || 'https://community.n8n.io' }}
+
+      - name: Analyze Documentation Gaps
+        run: |
+          python scripts/community_gap_detector.py \
+            --input community-posts.json \
+            --output gap-report.md
+
+      - name: Create Issue if Gaps Found
+        if: success()
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require('fs');
+            const report = fs.readFileSync('gap-report.md', 'utf8');
+
+            // Parse report to check if we have significant gaps
+            const significantGaps = report.match(/Significant gaps found: (\d+)/);
+
+            if (significantGaps && parseInt(significantGaps[1]) > 0) {
+              // Create issue
+              await github.rest.issues.create({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                title: `📊 Weekly Community Gaps Report - ${new Date().toISOString().split('T')[0]}`,
+                body: report,
+                labels: ['documentation', 'community-feedback', 'auto-generated']
+              });
+
+              console.log('Created issue for documentation gaps');
+            } else {
+              console.log('No significant gaps found');
+            }
+
+      - name: Upload Report
+        uses: actions/upload-artifact@v3
+        if: always()
+        with:
+          name: community-gaps-report
+          path: |
+            gap-report.md
+            community-posts.json

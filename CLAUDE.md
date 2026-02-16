@@ -122,19 +122,56 @@ Use these templates based on `content_type`:
 
 ### 4. Style Rules (Vale checks these)
 
+**🔴 CRITICAL: All documentation MUST pass Vale style checks on first write!**
+
+**Vale Configuration:**
+
+- **American English** - Use US spelling only
+- **Google Developer Style Guide** - Primary style guide (may be Microsoft Writing Guide for some projects)
+- **write-good** - Clear, concise writing rules
+
+**Specific Vale Rules to Follow:**
+
+**American English:**
+
+- Use US spelling: "color", "optimize", "analyze", "center"
+- NOT British spelling variants
+- Use "license" (verb and noun)
+- Use "canceled" not "cancelled"
+
+**Google Style Guide Requirements:**
+
+- **Acronyms**: Write out on first use: "Application Programming Interface (API)"
+- **Contractions**: Avoid them. Use "do not" instead of "don't"
+- **Numbers**: Spell out one through nine, use numerals for 10 and above
+- **Oxford comma**: Always use it: "red, white, and blue"
+- **Headings**: Use sentence case, not Title Case
+- **Lists**: Use parallel structure (all items start with same part of speech)
+
+**write-good Rules:**
+
+- **Avoid weasel words**: "many", "various", "very", "extremely", "fairly"
+- **No passive voice**: "Configure the setting" NOT "The setting should be configured"
+- **Avoid adverbs**: "quickly", "easily", "simply" - be specific instead
+- **No clichés**: "at the end of the day", "low-hanging fruit"
+- **Be specific**: "in 5 seconds" not "quickly"
+
 **DO:**
 
 - Use active voice: "Configure the webhook" not "The webhook should be configured"
 - Use second person: "you" not "the user"
 - Use present tense: "This node sends" not "This node will send"
 - Be direct: "Click Save" not "Please click the Save button"
+- Be specific: "Processing takes 2-3 seconds" not "Processing is fast"
 
 **DON'T:**
 
-- Use "simple", "easy", "just" (condescending)
+- Use "simple", "easy", "just", "simply", "easily" (condescending weasel words)
 - Use "obviously", "clearly" (if obvious, no need to document)
 - Use passive voice unless necessary
 - Use future tense for current features
+- Use hedge words: "generally", "usually", "often", "sometimes" (be precise)
+- Start sentences with "There is/are" (wordy)
 
 ### 5. Markdown Formatting
 
@@ -198,25 +235,35 @@ Visit [n8n Cloud]({{ cloud_url }}).
 
 Before committing, these checks run automatically:
 
-1. Vale (style)
-1. markdownlint (formatting)
-1. cspell (spelling)
-1. validate_frontmatter.py (metadata)
-1. seo_geo_optimizer.py (comprehensive SEO/GEO optimization)
+1. **Vale** (style - American English, Google/Microsoft Style Guide, write-good)
+1. **markdownlint** (formatting)
+1. **cspell** (spelling)
+1. **validate_frontmatter.py** (metadata)
+1. **seo_geo_optimizer.py** (comprehensive SEO/GEO optimization)
+
+**🔴 Vale is configured STRICTLY - no --no-exit flag!**
+
+- ALL Vale errors and warnings will block commits
+- Write correctly the first time to avoid multiple iterations
+- Check Vale output carefully: it shows exactly what needs fixing
 
 To run manually:
 
 ```bash
-## Run all SEO/GEO checks
+# Run Vale style checks (MUST pass!)
+vale docs/path/to/file.md
+
+# Run all SEO/GEO checks
 python scripts/seo_geo_optimizer.py docs/
 
 # Run with auto-fix
 python scripts/seo_geo_optimizer.py docs/ --fix
 
-# Individual checks
-vale docs/path/to/file.md
-markdownlint docs/path/to/file.md
+# Run all checks at once
+npm run lint
 
+# Individual checks
+markdownlint docs/path/to/file.md
 ```
 
 ## Creating New Documents
@@ -584,6 +631,35 @@ When user asks to create new documentation, Claude MUST:
    - Ensure frontmatter complete
    - First paragraph under 60 words
 
+## Pull Request Reviews
+
+### 🔴 CRITICAL: Fix BOTH Errors AND Warnings
+
+**When reviewing pull requests or fixing linting issues, Claude MUST:**
+
+1. **Fix ALL errors (red)** - These block commits and merges
+1. **Fix ALL warnings (yellow)** - These indicate quality issues
+1. **Not ignore any linting output** - Both errors and warnings need attention
+
+**Why this matters:**
+- Warnings today become technical debt tomorrow
+- Clean code has zero warnings, not just zero errors
+- Warnings often indicate SEO/GEO optimization issues
+- Users expect professional quality with no linting issues at all
+
+**Example workflow when reviewing PR:**
+```bash
+# Run all checks
+npm run lint
+
+# If output shows:
+# ❌ ERROR: Missing frontmatter
+# ⚠️ WARNING: Passive voice detected
+# ⚠️ WARNING: Line too long
+
+# Claude MUST fix ALL three issues, not just the error
+```
+
 ## Automatic Validation
 
 **TWO layers of protection ensure quality:**
@@ -597,6 +673,20 @@ Both use IDENTICAL rules, so if it passes locally, it passes in CI.
 
 **Claude, VERIFY each point before saving ANY file:**
 
+**Content & Style (Vale):**
+
+- [ ] **American English spelling** (optimize, color, analyze)
+- [ ] **Active voice only** (no passive constructions)
+- [ ] **No weasel words** (simple, easy, just, simply, various, many)
+- [ ] **Second person "you"** not "the user" or "users"
+- [ ] **Present tense** for current features
+- [ ] **Specific facts** not vague claims ("2 seconds" not "quickly")
+- [ ] **No contractions** (do not, not don't)
+- [ ] **Oxford comma** in lists
+- [ ] **Sentence case** in headings
+
+**Formatting (Markdown):**
+
 - [ ] **Blank lines present:**
   - Before/after headings
   - Before/after lists
@@ -606,6 +696,11 @@ Both use IDENTICAL rules, so if it passes locally, it passes in CI.
 - [ ] **Ordered lists use `1.` for all items**
 - [ ] **No emoji in Python scripts** (plain ASCII only)
 - [ ] **No bare URLs** - use [text](url) format
+
+**Metadata & SEO:**
+
 - [ ] **Frontmatter complete** with all required fields
 - [ ] **First paragraph under 60 words** for GEO optimization
 - [ ] **No dollar signs before commands** in code blocks
+- [ ] **Title under 70 characters**
+- [ ] **Description 50-160 characters**
