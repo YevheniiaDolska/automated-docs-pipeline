@@ -1,398 +1,100 @@
 ---
 title: "Configuration reference"
-description: "Complete configuration reference for [Product]. All environment variables, configuration files, and settings with defaults and examples."
+description: "Complete reference of [Product] configuration: environment variables, file keys, defaults, allowed values, and validation rules."
 content_type: reference
 product: both
 tags:
-
   - Reference
-
+  - Configuration
 ---
 
-## Configuration reference
+# Configuration reference
 
-This reference covers all configuration options for [Product].
+This page is the source of truth for configuration behavior. Keep values exact and versioned.
 
-## Configuration methods
+## How to read this reference
 
-[Product] can be configured via:
+- Use this page for exact keys and allowed values.
+- Use `templates/configuration-guide.md` for workflows and rollout strategy.
 
-1. **Environment variables** (recommended for secrets)
-1. **Configuration file** (`[product].config.js` or `[product].yml`)
-1. **Constructor options** (programmatic)
+## Precedence and loading order
 
-Priority: Constructor options > Environment variables > Config file > Defaults
+1. CLI/runtime flag
+1. Environment variable
+1. Configuration file
+1. Internal default
 
 ## Environment variables
 
-### Required
+| Variable | Type | Required | Default | Allowed values | Notes |
+| --- | --- | --- | --- | --- | --- |
+| `PRODUCT_ENV` | string | No | `production` | `development`, `staging`, `production` | Controls mode-specific defaults |
+| `PRODUCT_PORT` | integer | No | `8080` | `1-65535` | Public API listener |
+| `PRODUCT_BASE_URL` | string | Yes | - | valid URL | Must be externally reachable |
+| `PRODUCT_DATABASE_URL` | string | Yes | - | DSN | Required at startup |
+| `PRODUCT_LOG_LEVEL` | string | No | `info` | `debug`, `info`, `warn`, `error` | Prefer `info` in production |
+| `PRODUCT_ENCRYPTION_KEY` | string | Yes | - | 32+ bytes | Secret, never log |
 
-| Variable | Description | Example |
-| ---------- | ------------- | --------- |
-| `[PRODUCT]_API_KEY` | API key for authentication | `sk_live_abc123` |
-
-### Optional
-
-| Variable | Description | Default |
-| ---------- | ------------- | --------- |
-| `[PRODUCT]_ENVIRONMENT` | `test` or `live` | `live` |
-| `[PRODUCT]_API_URL` | Custom API URL | `<https://api.[product].com`> |
-| `[PRODUCT]_TIMEOUT` | Request timeout (ms) | `30000` |
-| `[PRODUCT]_MAX_RETRIES` | Max retry attempts | `3` |
-| `[PRODUCT]_LOG_LEVEL` | Logging level | `warn` |
-
-### Webhook configuration
-
-| Variable | Description | Default |
-| ---------- | ------------- | --------- |
-| `[PRODUCT]_WEBHOOK_SECRET` | Webhook signing secret | — |
-| `[PRODUCT]_WEBHOOK_TOLERANCE` | Signature tolerance (seconds) | `300` |
-
-### Advanced
-
-| Variable | Description | Default |
-| ---------- | ------------- | --------- |
-| `[PRODUCT]_PROXY` | HTTP proxy URL | — |
-| `[PRODUCT]_CA_CERT` | Custom CA certificate path | — |
-| `[PRODUCT]_DISABLE_TELEMETRY` | Disable anonymous telemetry | `false` |
-
-## Configuration file
-
-### JavaScript/TypeScript
-
-```javascript
-// [product].config.js
-module.exports = {
-  apiKey: process.env.[PRODUCT]_API_KEY,
-  environment: 'live',
-  timeout: 30000,
-  retries: {
-    max: 3,
-    initialDelay: 1000,
-    maxDelay: 30000
-  },
-  logging: {
-    level: 'info',
-    format: 'json'
-  },
-  webhooks: {
-    secret: process.env.[PRODUCT]_WEBHOOK_SECRET,
-    tolerance: 300
-  }
-};
-```
-
-### YAML
+## File-based configuration keys
 
 ```yaml
-## [product].yml
-apiKey: ${[PRODUCT]_API_KEY}
-environment: live
-timeout: 30000
+server:
+  host: 0.0.0.0
+  port: 8080
+  request_timeout_ms: 30000
 
-retries:
-  max: 3
-  initialDelay: 1000
-  maxDelay: 30000
+database:
+  pool_min: 5
+  pool_max: 25
 
-logging:
-  level: info
-  format: json
-
-webhooks:
-  secret: ${[PRODUCT]_WEBHOOK_SECRET}
-  tolerance: 300
+security:
+  cors_allow_origins:
+    - https://app.example.com
 ```
 
-### JSON
+## Schema constraints
 
-```json
-{
-  "apiKey": "${[PRODUCT]_API_KEY}",
-  "environment": "live",
-  "timeout": 30000,
-  "retries": {
-    "max": 3,
-    "initialDelay": 1000,
-    "maxDelay": 30000
-  }
-}
-```
+| Key | Constraint |
+| --- | --- |
+| `server.request_timeout_ms` | `1000-120000` |
+| `database.pool_max` | must be `>= database.pool_min` |
+| `security.cors_allow_origins` | no wildcard in production |
 
-## Configuration options
+## Sensitive keys
 
-### Core settings
+Treat these as secrets:
 
-#### `apiKey`
+- `PRODUCT_ENCRYPTION_KEY`
+- `PRODUCT_DATABASE_URL`
+- `PRODUCT_WEBHOOK_SECRET`
+- `PRODUCT_JWT_SIGNING_KEY`
 
-- **Type:** `string`
-- **Required:** Yes
-- **Environment:** `[PRODUCT]_API_KEY`
-
-Your API key for authentication. Use test keys (`sk_test_`) in development and live keys (`sk_live_`) in production.
-
-```javascript
-// Never hardcode keys
-apiKey: process.env.[PRODUCT]_API_KEY
-```
-
-#### `environment`
-
-- **Type:** `'test' | 'live'`
-- **Default:** `'live'`
-- **Environment:** `[PRODUCT]_ENVIRONMENT`
-
-The API environment to use.
-
-| Environment | Use case | API URL |
-| ------------- | ---------- | --------- |
-| `test` | Development, testing | `<https://api.test.[product].com`> |
-| `live` | Production | `<https://api.[product].com`> |
-
-#### `baseUrl`
-
-- **Type:** `string`
-- **Default:** Based on environment
-- **Environment:** `[PRODUCT]_API_URL`
-
-Override the API base URL. Useful for proxies or custom deployments.
-
-```javascript
-baseUrl: '<https://api.custom.[product].com'>
-```
-
-### Request settings
-
-#### `timeout`
-
-- **Type:** `number` (milliseconds)
-- **Default:** `30000`
-- **Environment:** `[PRODUCT]_TIMEOUT`
-
-Request timeout in milliseconds. Requests exceeding this duration are aborted.
-
-```javascript
-timeout: 60000 // 60 seconds
-```
-
-#### `maxRetries`
-
-- **Type:** `number`
-- **Default:** `3`
-- **Environment:** `[PRODUCT]_MAX_RETRIES`
-
-Maximum number of retry attempts for failed requests. Set to `0` to disable retries.
-
-#### `retries`
-
-- **Type:** `object`
-
-Fine-grained retry configuration:
-
-```javascript
-retries: {
-  max: 3,                    // Max attempts
-  initialDelay: 1000,        // First retry delay (ms)
-  maxDelay: 30000,           // Max retry delay (ms)
-  multiplier: 2,             // Backoff multiplier
-  retryCondition: (error) => // Custom retry condition
-    error.status >= 500 || error.status === 429
-}
-```
-
-### Logging
-
-#### `logging.level`
-
-- **Type:** `'debug' | 'info' | 'warn' | 'error' | 'none'`
-- **Default:** `'warn'`
-- **Environment:** `[PRODUCT]_LOG_LEVEL`
-
-Minimum log level to output.
-
-#### `logging.format`
-
-- **Type:** `'json' | 'pretty'`
-- **Default:** `'json'` in production, `'pretty'` otherwise
-
-Log output format.
-
-#### `logging.logger`
-
-- **Type:** `Logger`
-- **Default:** Console logger
-
-Custom logger instance:
-
-```javascript
-logging: {
-  logger: winston.createLogger({ /* ... */ })
-}
-```
-
-### Webhook settings
-
-#### `webhooks.secret`
-
-- **Type:** `string`
-- **Environment:** `[PRODUCT]_WEBHOOK_SECRET`
-
-Secret for verifying webhook signatures.
-
-#### `webhooks.tolerance`
-
-- **Type:** `number` (seconds)
-- **Default:** `300`
-- **Environment:** `[PRODUCT]_WEBHOOK_TOLERANCE`
-
-Maximum age of webhook timestamp. Older webhooks are rejected (replay attack protection).
-
-### Network settings
-
-#### `proxy`
-
-- **Type:** `string`
-- **Environment:** `[PRODUCT]_PROXY`
-
-HTTP proxy URL for all requests:
-
-```javascript
-proxy: '<http://proxy.example.com:8080'>
-```
-
-#### `agent`
-
-- **Type:** `http.Agent`
-
-Custom HTTP agent for connection pooling:
-
-```javascript
-import https from 'https';
-
-agent: new https.Agent({
-  keepAlive: true,
-  maxSockets: 50
-})
-```
-
-#### `caCert`
-
-- **Type:** `string | Buffer`
-- **Environment:** `[PRODUCT]_CA_CERT`
-
-Custom CA certificate for TLS verification.
-
-### Telemetry
-
-#### `telemetry`
-
-- **Type:** `boolean`
-- **Default:** `true`
-- **Environment:** `[PRODUCT]_DISABLE_TELEMETRY=true`
-
-Enable anonymous usage telemetry. Helps improve the SDK.
-
-## Self-hosted configuration
-
-For self-hosted [Product] deployments:
-
-### Docker
+## Example: complete production config
 
 ```yaml
-## docker-compose.yml
-services:
-  [product]:
-    image: [product]/[product]:latest
-    environment:
+server:
+  host: 0.0.0.0
+  port: 8080
+  request_timeout_ms: 30000
 
-      - DATABASE_URL=postgres://user:pass@db:5432/[product]
-      - REDIS_URL=redis://redis:6379
-      - SECRET_KEY=${SECRET_KEY}
-      - [OTHER_VARS]
+database:
+  url: ${PRODUCT_DATABASE_URL}
+  pool_min: 10
+  pool_max: 50
 
-    ports:
+security:
+  encryption_key: ${PRODUCT_ENCRYPTION_KEY}
+  cors_allow_origins:
+    - https://app.example.com
 
-      - "3000:3000"
-
+observability:
+  metrics_enabled: true
+  log_level: info
 ```
 
-### Kubernetes
+## Validation checklist
 
-```yaml
-## configmap.yml
-apiVersion: v1
-kind: ConfigMap
-metadata:
-  name: [product]-config
-data:
-  DATABASE_URL: "postgres://db:5432/[product]"
-  LOG_LEVEL: "info"
----
-## secret.yml
-apiVersion: v1
-kind: Secret
-metadata:
-  name: [product]-secrets
-type: Opaque
-data:
-  SECRET_KEY: <base64-encoded>
-  API_KEY: <base64-encoded>
-```
-
-## Configuration validation
-
-The SDK validates configuration on initialization:
-
-```javascript
-import { [Product]Client, ConfigError } from '[package]';
-
-try {
-  const client = new [Product]Client({
-    // Invalid configuration
-  });
-} catch (error) {
-  if (error instanceof ConfigError) {
-    console.error('Invalid configuration:', error.message);
-    console.error('Invalid fields:', error.fields);
-  }
-}
-```
-
-## Examples
-
-### Minimal configuration
-
-```javascript
-const client = new [Product]Client({
-  apiKey: process.env.[PRODUCT]_API_KEY
-});
-```
-
-### Full configuration
-
-```javascript
-const client = new [Product]Client({
-  apiKey: process.env.[PRODUCT]_API_KEY,
-  environment: process.env.NODE_ENV === 'production' ? 'live' : 'test',
-  timeout: 60000,
-  retries: {
-    max: 5,
-    initialDelay: 500,
-    maxDelay: 60000
-  },
-  logging: {
-    level: process.env.NODE_ENV === 'production' ? 'warn' : 'debug',
-    format: 'json'
-  },
-  webhooks: {
-    secret: process.env.[PRODUCT]_WEBHOOK_SECRET,
-    tolerance: 300
-  }
-});
-```
-
-## Related
-
-- [Authentication](../how-to/authentication.md)
-- [SDK Reference](./sdk.md)
-- [Deployment guide](../how-to/deployment.md)
+- [ ] Required keys are present.
+- [ ] No secret is hardcoded in repository files.
+- [ ] Production values are explicit, not implicit defaults.
+- [ ] Limits and pools are sized for expected load.

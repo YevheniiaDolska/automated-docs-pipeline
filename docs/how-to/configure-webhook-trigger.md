@@ -1,17 +1,20 @@
 ---
-title: "Configure Webhook trigger authentication in"
-description: "Set up HMAC signature verification, basic auth, or header-based authentication for Webhook trigger nodes to secure incoming requests."
+title: Configure Webhook trigger authentication in
+description: Set up HMAC signature verification, basic auth, or header-based authentication
+  for Webhook trigger nodes to secure incoming requests.
 content_type: how-to
 product: both
 app_component: webhook
 tags:
-
 - How-To
 - Webhook
 - Cloud
 - Self-hosted
-
+n8n_component: webhook
+last_reviewed: '2026-02-16'
+original_author: JaneDo
 ---
+
 
 ## Configure Webhook trigger authentication in The Webhook node accepts incoming HTTP requests to trigger workflow execution. By default, the Webhook endpoint is open to any request. To prevent unauthorized access, configure one of the authentication methods described in this guide
 
@@ -87,7 +90,7 @@ return $input.all();
 ## Which method to choose
 
 | Method | Security level | Best for |
-| -------- | --------------- | ---------- |
+| --- | --- | --- |
 | Header Auth | Medium | Internal services, simple integrations |
 | Basic Auth | Medium | Services that support HTTP Basic Auth |
 | HMAC | High | GitHub, Stripe, Shopify, any service that signs requests |

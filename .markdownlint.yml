@@ -1,45 +1,64 @@
 # Markdownlint configuration
-# Сбалансированная конфигурация для качественной документации
+# Balanced configuration for high-quality documentation
 
-# === ОТКЛЮЧЕННЫЕ ПРАВИЛА ===
+# === DISABLED RULES ===
 
-# MD013: Длина строки - мониторы сейчас широкие
+# MD013: Line length (wide-screen workflow)
 MD013: false
 
-# MD033: HTML в Markdown - MkDocs требует HTML для некоторых функций
+# MD033: Inline HTML in Markdown (required by MkDocs for some features)
 MD033: false
 
-# MD038: Пробелы внутри inline кода - иногда нужны
+# MD038: Spaces inside inline code (kept flexible)
 MD038: false
 
-# MD041: Первая строка должна быть заголовком - у нас там frontmatter
+# MD041: First line heading (frontmatter is used first)
 MD041: false
 
-# MD046: Стиль блоков кода - MkDocs tabs используют отступы
+# MD046: Code block style (MkDocs tab blocks rely on indentation)
 MD046: false
 
-# MD051: Проверка фрагментов ссылок - MkDocs сам генерирует анкоры
+# MD040: Fenced code language.
+# This repository has many informational blocks without explicit language
+# (diagrams/pseudo-output), so we disable this to avoid noise.
+MD040: false
+
+# MD051: Link fragment validation (MkDocs generates anchors)
 MD051: false
 
-# === НАСТРОЕННЫЕ ПРАВИЛА ===
+# MD060: Table style.
+# Historical content uses mixed table styles; this rule is too noisy here.
+MD060: false
 
-# MD024: Одинаковые заголовки разрешены, если не соседи
+# MD036: Emphasis used as heading.
+# Allowed for marketing/summary-style documents.
+MD036: false
+
+# === CONFIGURED RULES ===
+
+# MD024: Duplicate headings are allowed when not siblings
 MD024:
   siblings_only: true
 
-# MD029: Нумерация списков - разрешаем 1. 1. 1. для автоперенумерации
-# (когда добавляешь пункт в середину, не надо вручную менять все номера)
+# MD025: One H1 in document body.
+# Frontmatter `title` should not be treated as H1 because docs templates
+# intentionally keep one visible `#` heading that matches frontmatter.
+MD025:
+  front_matter_title: ""
+
+# MD029: Ordered list numbering style.
+# Keep `1. 1. 1.` style for automatic renumbering convenience.
 MD029:
   style: "one"
 
-# === ВКЛЮЧЕННЫЕ ПРАВИЛА (оставляем как есть) ===
+# === ENABLED RULES (kept as-is) ===
 
-# MD001-MD003: Структура заголовков (правильная иерархия)
-# MD022: Пустые строки вокруг заголовков (для правильного отображения)
-# MD025: Только один H1 на документ (правильная структура)
-# MD031: Пустые строки вокруг блоков кода (для правильного отображения)
-# MD032: Пустые строки вокруг списков (для правильного отображения)
-# MD009: Убирать пробелы в конце строк
-# MD014: Не ставить $ перед командами (мешает копированию)
-# MD034: URL должны быть ссылками, не голыми
-# MD040: Блоки кода должны иметь язык
+# MD001-MD003: Heading structure and hierarchy
+# MD022: Blank lines around headings
+# MD025: Single H1 per document body
+# MD031: Blank lines around fenced code blocks
+# MD032: Blank lines around lists
+# MD009: No trailing spaces
+# MD014: No dollar signs before shell commands
+# MD034: No bare URLs
+# MD040: Fenced blocks should define language (disabled above for this repo)

@@ -1,257 +1,96 @@
 ---
 title: "[Product] FAQ"
-description: "Frequently asked questions about [Product]. Find answers to common questions about pricing, features, limits, security, and troubleshooting."
+description: "Frequently asked questions about [Product], including setup, pricing model, limits, security, migration, and troubleshooting."
 content_type: reference
 product: both
 tags:
-
   - Reference
-
 ---
 
-## Frequently asked questions
+# [Product] FAQ
 
-Quick answers to common questions about [Product].
+Use this template for concise, high-signal answers to real user questions.
 
-## General
+## FAQ writing rules
+
+- Lead with the direct answer in one sentence.
+- Add one short paragraph for context.
+- Link to one deeper doc for implementation detail.
+- Keep each answer under 120 words unless complexity requires more.
+
+## Getting started
 
 ### What is [Product]?
 
-[Product] is [one-sentence description of what it does and its primary value proposition].
+[Product] is [one-sentence value proposition]. It helps [target persona] achieve [specific outcome].
 
 ### Who is [Product] for?
 
 [Product] is designed for:
 
-- [Target user 1] who need [capability]
-- [Target user 2] looking to [goal]
-- [Target user 3] building [type of application]
+- [Persona 1] who need [capability]
+- [Persona 2] who optimize [metric]
+- [Persona 3] integrating [system type]
 
-### How does [Product] compare to [Competitor]?
+### How long does setup take?
 
-| Feature | [Product] | [Competitor] |
-| --------- | ----------- | -------------- |
-| [Feature 1] | [Comparison] | [Comparison] |
-| [Feature 2] | [Comparison] | [Comparison] |
-| Pricing | [Info] | [Info] |
+Most teams reach first successful request in [X] minutes and production rollout in [Y] days.
 
-See our detailed [comparison guide](./comparisons/vs-competitor.md).
+## Product and platform
 
-## Pricing & billing
+### Does [Product] support [feature]?
 
-### How much does [Product] cost?
+Yes/No. [Clarify availability by plan/region/version].
 
-| Plan | Price | Includes |
-| ------ | ------- | ---------- |
-| Free | $0/month | [Limits] |
-| Pro | $[X]/month | [Limits] |
-| Enterprise | Custom | [Features] |
+### Which languages and SDKs are supported?
 
-See [pricing page]([URL]) for full details.
+List official SDKs and minimum runtime versions.
 
-### Is there a free trial?
+### What are the API limits?
 
-Yes, [Product] offers [X]-day free trial of the Pro plan. No credit card required.
+State default limits and link to rate-limit reference page.
 
-### What payment methods do you accept?
+## Security and compliance
 
-- Credit/debit cards (Visa, Mastercard, Amex)
-- [Other methods]
+### How is data protected?
 
-### How do I cancel my subscription?
+Describe encryption in transit and at rest, key controls, and access model.
 
-1. Go to [Dashboard]([URL]) → Settings → Billing
-1. Click **Cancel subscription**
-1. Confirm cancellation
+### Which compliance standards are supported?
 
-Your access continues until the end of the billing period.
+List concrete standards and scope. Avoid vague claims.
 
-### Do you offer refunds?
+### Can we use customer-managed keys?
 
-[Refund policy description]
+Explain whether supported and any plan prerequisites.
 
-## Features
+## Billing and operations
 
-### What are the API rate limits?
+### How does pricing work?
 
-| Plan | Requests/minute | Requests/day |
-| ------ | ----------------- | -------------- |
-| Free | [X] | [X] |
-| Pro | [X] | [X] |
-| Enterprise | Custom | Custom |
+State pricing dimensions (for example: requests, seats, storage) and where usage is visible.
 
-See [rate limits documentation](../reference/rate-limits.md).
+### How do we cancel or downgrade?
 
-### What programming languages are supported?
+Give exact UI/API steps and effective date behavior.
 
-We provide official SDKs for:
+### Is there an SLA?
 
-- JavaScript/TypeScript
-- Python
-- [Other languages]
-
-You can also use the [REST API](../reference/api.md) with any language.
-
-### Does [Product] support [specific feature]?
-
-Yes/No. [Brief explanation].
-
-See [feature documentation](../how-to/feature.md) for details.
-
-### What integrations are available?
-
-[Product] integrates with:
-
-- [Integration 1]
-- [Integration 2]
-- [Integration 3]
-
-See [full integrations list](../reference/integrations.md).
-
-## Security
-
-### Is [Product] secure?
-
-Yes. [Product] implements:
-
-- [Security measure 1]
-- [Security measure 2]
-- [Compliance certifications]
-
-See our [security overview](./security.md).
-
-### Is [Product] SOC 2 / GDPR / HIPAA compliant?
-
-- **SOC 2:** [Status]
-- **GDPR:** [Status]
-- **HIPAA:** [Status]
-
-Contact [sales email] for compliance documentation.
-
-### How is my data protected?
-
-- Data encrypted at rest (AES-256)
-- Data encrypted in transit (TLS 1.3)
-- [Additional measures]
-
-### Where is my data stored?
-
-Data is stored in [regions/providers]. Enterprise customers can choose data residency.
-
-### Can I export my data?
-
-Yes. Go to [Dashboard]([URL]) → Settings → Export Data, or use the [export API](../reference/api.md#export).
-
-## Account
-
-### How do I reset my password?
-
-1. Go to [login page]([URL])
-1. Click **Forgot password**
-1. Enter your email
-1. Follow the reset link
-
-### Can I change my email address?
-
-Yes. Go to [Dashboard]([URL]) → Settings → Account → Change email.
-
-### How do I delete my account?
-
-1. Go to [Dashboard]([URL]) → Settings → Account
-1. Click **Delete account**
-1. Confirm deletion
-
-!!! warning "Account deletion is permanent"
-    All data will be permanently deleted within 30 days.
-
-### How do I add team members?
-
-1. Go to [Dashboard]([URL]) → Team
-1. Click **Invite member**
-1. Enter their email and role
-
-See [team management guide](../how-to/team.md).
+State SLA target and where incident history/status is published.
 
 ## Troubleshooting
 
-### Why am I getting a 401 error?
+### Why do I get `401 Unauthorized`?
 
-A 401 error means your API key is invalid or expired.
+Most common causes are missing token, expired token, or wrong environment key. Validate credentials and scopes.
 
-**Fix:**
+### Why do webhooks fail?
 
-1. Check you're using the correct API key
-1. Verify you're using the right environment (test vs. live)
-1. [Generate a new key]([URL]) if needed
+Typical causes are signature mismatch, timeout, or non-2xx response. Verify secret and return `200` quickly before async processing.
 
-### Why am I getting rate limited?
+## Escalation path
 
-You've exceeded the [rate limits](#what-are-the-api-rate-limits) for your plan.
+If the FAQ answer is insufficient, include:
 
-**Fix:**
-
-1. Implement [exponential backoff](../how-to/error-handling.md#retry-strategies)
-1. Cache responses where possible
-1. Consider upgrading your plan
-
-### My webhook isn't receiving events
-
-Common causes:
-
-1. **Incorrect URL:** Ensure HTTPS and publicly accessible
-1. **Firewall:** Allow [Product] IP ranges
-1. **Signature verification failing:** Check webhook secret
-
-See [webhook troubleshooting](../troubleshooting/webhooks.md).
-
-### How do I contact support?
-
-| Channel | Response time | Best for |
-| --------- | --------------- | ---------- |
-| [Help center]([URL]) | Self-service | Common questions |
-| Email: [support email] | 24 hours | Account issues |
-| [Community forum]([URL]) | Varies | Technical questions |
-| [Priority support]([URL]) | 4 hours | Enterprise plans |
-
-## Technical
-
-### What's the API uptime SLA?
-
-| Plan | Uptime SLA |
-| ------ | ------------ |
-| Free | No SLA |
-| Pro | 99.9% |
-| Enterprise | 99.99% |
-
-See [status page]([URL]) for current status.
-
-### What happens during planned maintenance?
-
-- Announced [X] days in advance via [email/status page]
-- API remains available (no downtime)
-- [Any specific impacts]
-
-### How do I test the integration?
-
-Use the sandbox/test environment:
-
-```javascript
-const client = new [Product]Client({
-  apiKey: 'sk_test_...', // Test key
-  environment: 'test'
-});
-```
-
-See [testing guide](../how-to/testing.md).
-
-### Do you have a status page?
-
-Yes: [status.product.com]([URL])
-
-Subscribe to receive incident notifications.
-
-## Didn't find your answer?
-
-- Search our [documentation](../index.md)
-- Ask in the [community forum]([URL])
-- Contact [support]([URL])
+- Link to deep-dive documentation
+- Support contact and required diagnostic data (`request_id`, timestamp, region)

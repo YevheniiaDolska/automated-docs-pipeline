@@ -11,8 +11,17 @@ Documentation Gap Detection System
 
 __version__ = "1.0.0"
 
-from .code_analyzer import CodeChangeAnalyzer
-from .community_collector import CommunityCollector
-from .algolia_parser import AlgoliaAnalytics
-from .gap_aggregator import GapAggregator
-from .batch_generator import BatchDocGenerator
+try:
+    from .code_analyzer import CodeChangeAnalyzer
+    from .community_collector import CommunityCollector
+    from .algolia_parser import AlgoliaAnalytics
+    from .gap_aggregator import GapAggregator
+    from .batch_generator import BatchDocGenerator
+except ImportError:
+    if __name__ != "__main__":
+        raise
+
+
+if __name__ == "__main__":
+    print("Run as module, for example:")
+    print("  python -m scripts.gap_detection.cli --help")

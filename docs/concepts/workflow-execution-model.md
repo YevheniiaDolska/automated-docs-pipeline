@@ -1,17 +1,20 @@
 ---
-title: "How the workflow execution model works"
-description: "processes workflows by executing nodes sequentially, passing data as arrays of JSON objects between each node in the chain."
+title: How the workflow execution model works
+description: processes workflows by executing nodes sequentially, passing data as
+  arrays of JSON objects between each node in the chain.
 content_type: concept
 product: both
 app_component: workflow-engine
 tags:
-
- - Concept
- - Nodes
- - Cloud
- - Self-hosted
-
+- Concept
+- Nodes
+- Cloud
+- Self-hosted
+n8n_component: workflow-engine
+last_reviewed: '2026-02-16'
+original_author: JaneDo
 ---
+
 
 ## How the workflow execution model works
 
@@ -28,7 +31,7 @@ Every node in receives and outputs data in the same format: an array of items, w
 ]
 ```
 
-When a node receives 5 items, it processes each item independently. The Slack node, for example, sends 5 separate messages — one per item.
+When a node receives 5 items, it processes each item independently. The Slack node, for example, sends 5 separate messages—one per item.
 
 ## Execution flow
 

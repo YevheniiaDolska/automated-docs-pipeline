@@ -1,5 +1,56 @@
 {%- extends "base.html" -%}
 
+{% block extrahead %}
+  {{ super() }}
+
+  {# Meta tags for Algolia DocSearch and other search engines #}
+  {% if page and page.meta %}
+
+    {# Basic metadata #}
+    {% if page.meta.description %}
+      <meta name="description" content="{{ page.meta.description }}">
+    {% endif %}
+
+    {# Algolia DocSearch facets - configurable for any project #}
+    {% if page.meta.content_type %}
+      <meta name="docsearch:content_type" content="{{ page.meta.content_type }}">
+    {% endif %}
+
+    {% if page.meta.product %}
+      <meta name="docsearch:product" content="{{ page.meta.product }}">
+    {% endif %}
+
+    {% if page.meta.component %}
+      <meta name="docsearch:component" content="{{ page.meta.component }}">
+    {% endif %}
+
+    {% if page.meta.version %}
+      <meta name="docsearch:version" content="{{ page.meta.version }}">
+    {% endif %}
+
+    {% if page.meta.tags %}
+      <meta name="docsearch:tags" content="{{ page.meta.tags | join(', ') }}">
+    {% endif %}
+
+    {# Additional custom facets - easily extensible #}
+    {% if page.meta.audience %}
+      <meta name="docsearch:audience" content="{{ page.meta.audience }}">
+    {% endif %}
+
+    {% if page.meta.difficulty %}
+      <meta name="docsearch:difficulty" content="{{ page.meta.difficulty }}">
+    {% endif %}
+
+    {# SEO and social media tags #}
+    <meta property="og:title" content="{{ page.title }} - {{ config.site_name }}">
+    {% if page.meta.description %}
+      <meta property="og:description" content="{{ page.meta.description }}">
+    {% endif %}
+    <meta property="og:type" content="article">
+
+  {% endif %}
+{% endblock %}
+
 {% block content %}
 
   {# Automatic lifecycle banners based on frontmatter #}

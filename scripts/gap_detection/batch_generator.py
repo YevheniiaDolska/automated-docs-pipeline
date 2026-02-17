@@ -18,7 +18,10 @@ from datetime import datetime
 from pathlib import Path
 from typing import Optional
 
-from .gap_aggregator import DocumentationGap, AggregatedReport
+if __package__:
+    from .gap_aggregator import DocumentationGap, AggregatedReport
+else:
+    from gap_aggregator import DocumentationGap, AggregatedReport
 
 
 @dataclass
@@ -429,7 +432,10 @@ def run_batch_generation(
         priority: Фильтр приоритета
         use_claude: Использовать Claude Code
     """
-    from .gap_aggregator import AggregatedReport, DocumentationGap
+    if __package__:
+        from .gap_aggregator import AggregatedReport, DocumentationGap
+    else:
+        from gap_aggregator import AggregatedReport, DocumentationGap
 
     # Загружаем отчёт
     with open(report_path, 'r', encoding='utf-8') as f:
@@ -468,12 +474,18 @@ def run_batch_generation(
 if __name__ == '__main__':
     import sys
 
+    if len(sys.argv) > 1 and sys.argv[1] in ("-h", "--help"):
+        print("Usage: python scripts/gap_detection/batch_generator.py <report.json> [max_tasks]")
+        print("\nExample:")
+        print("  python scripts/gap_detection/batch_generator.py reports/doc_gaps_report.json 5")
+        sys.exit(0)
+
     if len(sys.argv) > 1:
         run_batch_generation(
             sys.argv[1],
             max_tasks=int(sys.argv[2]) if len(sys.argv) > 2 else 10
         )
     else:
-        print("Usage: python -m gap_detection.batch_generator <report.json> [max_tasks]")
+        print("Usage: python scripts/gap_detection/batch_generator.py <report.json> [max_tasks]")
         print("\nExample:")
-        print("  python -m gap_detection.batch_generator reports/doc_gaps_report.json 5")
+        print("  python scripts/gap_detection/batch_generator.py reports/doc_gaps_report.json 5")

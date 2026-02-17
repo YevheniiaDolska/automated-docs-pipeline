@@ -1,0 +1,252 @@
+{
+  "summary": {
+    "total_gaps": 12,
+    "high_priority": 6,
+    "medium_priority": 6,
+    "low_priority": 0,
+    "by_source": {
+      "code": 12
+    },
+    "by_doc_type": {
+      "how-to": 8,
+      "reference": 4
+    },
+    "by_category": {
+      "authentication": 1,
+      "removed_function": 1,
+      "database_schema": 1,
+      "api_endpoint": 1,
+      "breaking_change": 1,
+      "signature_change": 1,
+      "webhook": 1,
+      "new_function": 1,
+      "public_function": 1,
+      "error_handling": 1,
+      "env_var": 1,
+      "config_option": 1
+    }
+  },
+  "sources_analyzed": [
+    "code_changes",
+    "community"
+  ],
+  "generated_at": "2026-02-17T14:36:21.590750",
+  "gaps": [
+    {
+      "id": "CODE-0005",
+      "title": "Authentication: authentication: Auth",
+      "description": "Update authentication documentation for changes in .claude/settings.local.json. Include security considerations.",
+      "source": "code",
+      "category": "authentication",
+      "suggested_doc_type": "how-to",
+      "priority": "high",
+      "frequency": 1399,
+      "keywords": [],
+      "related_files": [
+        ".claude/settings.local.json"
+      ],
+      "sample_queries": [],
+      "action_required": "Update authentication documentation for changes in .claude/settings.local.json. Include security considerations.",
+      "status": "new",
+      "created_at": "2026-02-17T14:36:21.590963"
+    },
+    {
+      "id": "CODE-0013",
+      "title": "Removed Function: Function removed: print",
+      "description": "BREAKING: Function print was removed. Update documentation and add migration guide.",
+      "source": "code",
+      "category": "removed_function",
+      "suggested_doc_type": "how-to",
+      "priority": "high",
+      "frequency": 79,
+      "keywords": [],
+      "related_files": [
+        "scripts/FINAL_FIX_NOW.py"
+      ],
+      "sample_queries": [],
+      "action_required": "BREAKING: Function print was removed. Update documentation and add migration guide.",
+      "status": "new",
+      "created_at": "2026-02-17T14:36:21.591028"
+    },
+    {
+      "id": "CODE-0153",
+      "title": "Database Schema: database_schema: migration",
+      "description": "Document database schema change in scripts/fix_everything_now.py. Update data model documentation.",
+      "source": "code",
+      "category": "database_schema",
+      "suggested_doc_type": "how-to",
+      "priority": "high",
+      "frequency": 77,
+      "keywords": [],
+      "related_files": [
+        "scripts/fix_everything_now.py"
+      ],
+      "sample_queries": [],
+      "action_required": "Document database schema change in scripts/fix_everything_now.py. Update data model documentation.",
+      "status": "new",
+      "created_at": "2026-02-17T14:36:21.592345"
+    },
+    {
+      "id": "CODE-0181",
+      "title": "Api Endpoint: api_endpoint: /webhooks/${2:product}",
+      "description": "Document API endpoint: /webhooks/${2:product}. Include request/response examples, parameters, authentication requirements.",
+      "source": "code",
+      "category": "api_endpoint",
+      "suggested_doc_type": "reference",
+      "priority": "high",
+      "frequency": 34,
+      "keywords": [],
+      "related_files": [
+        ".vscode/docs.code-snippets"
+      ],
+      "sample_queries": [],
+      "action_required": "Document API endpoint: /webhooks/${2:product}. Include request/response examples, parameters, authentication requirements.",
+      "status": "new",
+      "created_at": "2026-02-17T14:36:21.592574"
+    },
+    {
+      "id": "CODE-2353",
+      "title": "Breaking Change: breaking_change: @deprecated",
+      "description": "URGENT: Document breaking change in scripts/gap_detection/code_analyzer.py. Update migration guide with before/after examples.",
+      "source": "code",
+      "category": "breaking_change",
+      "suggested_doc_type": "how-to",
+      "priority": "high",
+      "frequency": 8,
+      "keywords": [],
+      "related_files": [
+        "scripts/gap_detection/code_analyzer.py"
+      ],
+      "sample_queries": [],
+      "action_required": "URGENT: Document breaking change in scripts/gap_detection/code_analyzer.py. Update migration guide with before/after examples.",
+      "status": "new",
+      "created_at": "2026-02-17T14:36:21.636883"
+    },
+    {
+      "id": "CODE-1340",
+      "title": "Signature Change: Function signature changed: print",
+      "description": "UPDATE REQUIRED: Function print signature changed. Old: (\"✅ GEO Lint: no blocking errors\") → New: (\"Running seo_geo_optimizer.py with GEO-only mode...\\n\"). Update documentation and examples.",
+      "source": "code",
+      "category": "signature_change",
+      "suggested_doc_type": "how-to",
+      "priority": "high",
+      "frequency": 2,
+      "keywords": [],
+      "related_files": [
+        "scripts/geo_lint.py"
+      ],
+      "sample_queries": [],
+      "action_required": "UPDATE REQUIRED: Function print signature changed. Old: (\"✅ GEO Lint: no blocking errors\") → New: (\"Running seo_geo_optimizer.py with GEO-only mode...\\n\"). Update documentation and examples.",
+      "status": "new",
+      "created_at": "2026-02-17T14:36:21.630680"
+    },
+    {
+      "id": "CODE-0009",
+      "title": "Webhook: webhook: webhook",
+      "description": "Update webhook documentation for changes in CLAUDE.md. Include payload examples and event types.",
+      "source": "code",
+      "category": "webhook",
+      "suggested_doc_type": "how-to",
+      "priority": "medium",
+      "frequency": 1003,
+      "keywords": [],
+      "related_files": [
+        "CLAUDE.md"
+      ],
+      "sample_queries": [],
+      "action_required": "Update webhook documentation for changes in CLAUDE.md. Include payload examples and event types.",
+      "status": "new",
+      "created_at": "2026-02-17T14:36:21.591002"
+    },
+    {
+      "id": "CODE-0006",
+      "title": "New Function: New function: if",
+      "description": "Document new function: if. Include parameters, return value, and usage example.",
+      "source": "code",
+      "category": "new_function",
+      "suggested_doc_type": "how-to",
+      "priority": "medium",
+      "frequency": 352,
+      "keywords": [],
+      "related_files": [
+        ".github/workflows/community-gaps.yml"
+      ],
+      "sample_queries": [],
+      "action_required": "Document new function: if. Include parameters, return value, and usage example.",
+      "status": "new",
+      "created_at": "2026-02-17T14:36:21.590982"
+    },
+    {
+      "id": "CODE-0054",
+      "title": "Public Function: public_function: analyze_post",
+      "description": "Consider documenting public API: analyze_post. Include parameters, return value, and example usage.",
+      "source": "code",
+      "category": "public_function",
+      "suggested_doc_type": "reference",
+      "priority": "medium",
+      "frequency": 174,
+      "keywords": [],
+      "related_files": [
+        "scripts/community_gap_detector.py"
+      ],
+      "sample_queries": [],
+      "action_required": "Consider documenting public API: analyze_post. Include parameters, return value, and example usage.",
+      "status": "new",
+      "created_at": "2026-02-17T14:36:21.591330"
+    },
+    {
+      "id": "CODE-0794",
+      "title": "Error Handling: error_handling: 400",
+      "description": "Document new error type: 400. Include cause, solution, and error code.",
+      "source": "code",
+      "category": "error_handling",
+      "suggested_doc_type": "how-to",
+      "priority": "medium",
+      "frequency": 34,
+      "keywords": [],
+      "related_files": [
+        "templates/authentication-guide.md"
+      ],
+      "sample_queries": [],
+      "action_required": "Document new error type: 400. Include cause, solution, and error code.",
+      "status": "new",
+      "created_at": "2026-02-17T14:36:21.596695"
+    },
+    {
+      "id": "CODE-0665",
+      "title": "Env Var: env_var: API_KEY",
+      "description": "Add environment variable API_KEY to configuration reference. Include default value, description, and examples.",
+      "source": "code",
+      "category": "env_var",
+      "suggested_doc_type": "reference",
+      "priority": "medium",
+      "frequency": 30,
+      "keywords": [],
+      "related_files": [
+        "templates/authentication-guide.md"
+      ],
+      "sample_queries": [],
+      "action_required": "Add environment variable API_KEY to configuration reference. Include default value, description, and examples.",
+      "status": "new",
+      "created_at": "2026-02-17T14:36:21.595774"
+    },
+    {
+      "id": "CODE-0001",
+      "title": "Config Option: config_option: local",
+      "description": "Document configuration option: local. Include allowed values and when to use.",
+      "source": "code",
+      "category": "config_option",
+      "suggested_doc_type": "reference",
+      "priority": "medium",
+      "frequency": 18,
+      "keywords": [],
+      "related_files": [
+        ".claude/settings.local.json"
+      ],
+      "sample_queries": [],
+      "action_required": "Document configuration option: local. Include allowed values and when to use.",
+      "status": "new",
+      "created_at": "2026-02-17T14:36:21.590879"
+    }
+  ]
+}

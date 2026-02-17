@@ -18,6 +18,15 @@ repos:
         args: [--config, cspell.json]
         files: \.md$
 
+  # Vale style checking
+  - repo: https://github.com/errata-ai/vale
+    rev: v2.30.0
+    hooks:
+      - id: vale
+        args: [--config, .vale.ini]
+        files: \.md$
+        exclude: ^templates/
+
   # YAML validation
   - repo: https://github.com/pre-commit/pre-commit-hooks
     rev: v4.5.0
@@ -57,3 +66,13 @@ repos:
         language: system
         pass_filenames: false
         always_run: true
+
+      # Spectral API documentation linting
+      - id: spectral
+        name: Lint OpenAPI/Swagger specs with Spectral
+        entry: spectral lint
+        language: node
+        files: \.(yml|yaml|json)$
+        exclude: ^(?!.*(?:openapi|swagger|api)).*$
+        additional_dependencies: ['@stoplight/spectral-cli@^6.11.0']
+        args: ['--ruleset', '.spectral.yml']

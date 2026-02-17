@@ -2,74 +2,78 @@ name: Community Documentation Gaps
 
 on:
   schedule:
-    - cron: '0 9 * * 1'  # Every Monday at 9:00 UTC
-  workflow_dispatch:       # Manual trigger
+    - cron: '0 9 * * 1' # Every Monday at 09:00 UTC
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  issues: write
 
 jobs:
   analyze-community:
-    name: Analyze Community Posts
+    name: Analyze Community Topics
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout
+        uses: actions/checkout@v4
 
       - name: Setup Python
-        uses: actions/setup-python@v4
+        uses: actions/setup-python@v5
         with:
           python-version: '3.11'
 
       - name: Install dependencies
         run: |
-          pip install requests beautifulsoup4 pyyaml
+          python -m pip install --upgrade pip
+          pip install pyyaml requests
 
-      - name: Fetch Community Posts
-        id: fetch
+      - name: Collect community topics
         run: |
-          python scripts/fetch_community_posts.py \
-            --days 7 \
-            --min-views 100 \
-            --output community-posts.json
-        env:
-          COMMUNITY_API_KEY: ${{ secrets.COMMUNITY_API_KEY }}
-          COMMUNITY_URL: ${{ vars.COMMUNITY_URL || 'https://community.n8n.io' }}
+          mkdir -p reports
+          python3 -m scripts.gap_detection.cli community --limit 100 | tee reports/community-gap-report.txt
 
-      - name: Analyze Documentation Gaps
-        run: |
-          python scripts/community_gap_detector.py \
-            --input community-posts.json \
-            --output gap-report.md
-
-      - name: Create Issue if Gaps Found
-        if: success()
+      - name: Create issue if topics found
         uses: actions/github-script@v7
         with:
           script: |
             const fs = require('fs');
-            const report = fs.readFileSync('gap-report.md', 'utf8');
+            const reportPath = 'reports/community-gap-report.txt';
+            const report = fs.existsSync(reportPath)
+              ? fs.readFileSync(reportPath, 'utf8')
+              : 'Community gap report was not generated.';
 
-            // Parse report to check if we have significant gaps
-            const significantGaps = report.match(/Significant gaps found: (\d+)/);
+            const match = report.match(/Collected\s+(\d+)\s+topics/i);
+            const count = match ? parseInt(match[1], 10) : 0;
 
-            if (significantGaps && parseInt(significantGaps[1]) > 0) {
-              // Create issue
+            if (count > 0) {
+              const date = new Date().toISOString().split('T')[0];
+              const body = [
+                '## Community Gap Report',
+                '',
+                `Collected topics: ${count}`,
+                '',
+                '```text',
+                report.slice(0, 60000),
+                '```',
+              ].join('\n');
+
               await github.rest.issues.create({
                 owner: context.repo.owner,
                 repo: context.repo.repo,
-                title: `📊 Weekly Community Gaps Report - ${new Date().toISOString().split('T')[0]}`,
-                body: report,
-                labels: ['documentation', 'community-feedback', 'auto-generated']
+                title: `[Docs] Weekly Community Gaps - ${date}`,
+                body,
+                labels: ['documentation', 'community-feedback', 'auto-created']
               });
 
-              console.log('Created issue for documentation gaps');
+              core.info(`Created issue with ${count} collected topics.`);
             } else {
-              console.log('No significant gaps found');
+              core.info('No actionable community topics found. No issue created.');
             }
 
-      - name: Upload Report
-        uses: actions/upload-artifact@v3
+      - name: Upload artifact
         if: always()
+        uses: actions/upload-artifact@v4
         with:
           name: community-gaps-report
-          path: |
-            gap-report.md
-            community-posts.json
+          path: reports/community-gap-report.txt

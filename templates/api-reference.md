@@ -1,180 +1,284 @@
 ---
-title: "[Endpoint/Resource] API reference"
-description: "Complete API reference for [endpoint] including request/response schemas, authentication, and code examples in multiple languages."
+title: "[Resource] API"
+description: "[Resource] API for [primary capability]. Process [X] requests/second with [Y]ms latency. Full CRUD operations with webhook support."
 content_type: reference
 product: both
 tags:
-
+  - API
   - Reference
-
 ---
 
-## [Endpoint/Resource] API reference
+# [Resource] API
 
-The [endpoint] API allows you to [primary capability]. Use this endpoint to [common use case].
+The [Resource] API provides programmatic access to [capability]. Process up to [10,000] [operations] per minute with [sub-100ms] latency.
+
+## Quick start
+
+```bash
+# Your first API call (takes 30 seconds)
+curl https://{{ api_url }}/v1/[resources] \
+  -H "Authorization: Bearer sk_live_[your-key]" \
+  -d name="My First Resource" \
+  -d type="production"
+
+# Response (23ms)
+{
+  "id": "res_1a2b3c4d5e",
+  "name": "My First Resource",
+  "created": 1705320000
+}
+```
 
 ## Base URL
 
 ```text
-<https://api.example.com/v1/[resource]>
+Production: https://{{ api_url }}/v1
+Sandbox:    https://sandbox.{{ api_url }}/v1
+EU Region:  https://eu.{{ api_url }}/v1
+```
 
-```text
+Rate limits: 10,000 req/min (standard), 50,000 req/min (enterprise)
 
 ## Authentication
 
-All requests require authentication via API key:
-
 ```bash
-Authorization: Bearer YOUR_API_KEY
+# Header authentication (recommended)
+Authorization: Bearer sk_live_abc123xyz987
+
+# Query parameter (webhooks only)
+?api_key=sk_live_abc123xyz987
 ```
+
+Test vs Live keys:
+
+- Test: `sk_test_` - Safe for development, no real operations
+- Live: `sk_live_` - Production use, real operations
 
 ## Endpoints
 
 ### List [resources]
 
-Retrieves a paginated list of [resources].
+`GET /v1/[resources]`
 
-**Request:**
+Returns paginated [resources]. Default page size: 20, max: 100.
 
-```http
-GET /v1/[resources]
+#### Parameters
 
-```text
+| Parameter | Type | Default | Description |
+|-----------|------|---------|-------------|
+| `limit` | integer | `20` | Results per page (1-100) |
+| `starting_after` | string | — | Cursor for pagination |
+| `created` | object | — | Filter by creation date |
+| `created.gte` | integer | — | Created on or after (Unix timestamp) |
+| `created.lte` | integer | — | Created on or before |
+| `status` | enum | — | Filter by status: `active`, `pending`, `archived` |
+| `expand[]` | array | — | Expand nested objects |
 
-**Query parameters:**
-
-| Parameter | Type | Required | Description |
-| ----------- | ------ | ---------- | ------------- |
-| `limit` | `integer` | No | Number of results (1-100). Default: `20` |
-| `offset` | `integer` | No | Pagination offset. Default: `0` |
-| `sort` | `string` | No | Sort field. Options: `created_asc`, `created_desc` |
-
-**Response:**
+#### Response
 
 ```json
 {
+  "object": "list",
   "data": [
     {
-      "id": "res_abc123",
-      "name": "Example resource",
-      "created_at": "2024-01-15T10:30:00Z"
+      "id": "res_1a2b3c4d5e",
+      "object": "resource",
+      "created": 1705320000,
+      "name": "Production Resource",
+      "status": "active",
+      "metadata": {
+        "order_id": "6789"
+      },
+      "metrics": {
+        "requests_today": 4521,
+        "success_rate": 99.97,
+        "avg_latency_ms": 47
+      }
     }
   ],
-  "pagination": {
-    "total": 150,
-    "limit": 20,
-    "offset": 0,
-    "has_more": true
+  "has_more": true,
+  "total_count": 1547
+}
+```
+
+#### Examples
+
+<details>
+<summary>JavaScript (Node.js)</summary>
+
+```javascript
+const resources = await fetch('https://{{ api_url }}/v1/resources?limit=10', {
+  headers: {
+    'Authorization': 'Bearer sk_live_...',
+    'Content-Type': 'application/json'
   }
-}
+});
+
+const data = await resources.json();
+console.log(`Found ${data.total_count} resources`);
+// Output: Found 1547 resources
 ```
 
-**Code examples:**
+</details>
 
-=== "cURL"
+<details>
+<summary>Python</summary>
 
-    ```bash
-    curl -X GET "<https://api.example.com/v1/[resources]?limit=10"> \
-      -H "Authorization: Bearer YOUR_API_KEY"
+```python
+import requests
 
-```text
+response = requests.get(
+    'https://{{ api_url }}/v1/resources',
+    headers={'Authorization': 'Bearer sk_live_...'},
+    params={'limit': 10, 'status': 'active'}
+)
 
-=== "JavaScript"
-
-    ```javascript
-    const response = await fetch('<https://api.example.com/v1/[resources]',> {
-      headers: {
-        'Authorization': 'Bearer YOUR_API_KEY'
-      }
-    });
-    const data = await response.json();
+data = response.json()
+print(f"Active resources: {data['total_count']}")
+# Output: Active resources: 892
 ```
 
-=== "Python"
+</details>
 
-    ```python
-    import requests
+<details>
+<summary>Go</summary>
 
-    response = requests.get(
-        '<https://api.example.com/v1/[resources]',>
-        headers={'Authorization': 'Bearer YOUR_API_KEY'}
-    )
-    data = response.json()
+```go
+client := &http.Client{Timeout: 10 * time.Second}
+req, _ := http.NewRequest("GET", "https://{{ api_url }}/v1/resources", nil)
+req.Header.Add("Authorization", "Bearer sk_live_...")
 
-```text
-
----
-
-### Get [resource]
-
-Retrieves a single [resource] by ID.
-
-**Request:**
-
-```http
-GET /v1/[resources]/{id}
+resp, _ := client.Do(req)
+// Process response
 ```
 
-**Path parameters:**
-
-| Parameter | Type | Description |
-| ----------- | ------ | ------------- |
-| `id` | `string` | The [resource] ID |
-
-**Response:**
-
-```json
-{
-  "id": "res_abc123",
-  "name": "Example resource",
-  "status": "active",
-  "created_at": "2024-01-15T10:30:00Z",
-  "updated_at": "2024-01-15T14:45:00Z"
-}
-
-```text
+</details>
 
 ---
 
 ### Create [resource]
 
-Creates a new [resource].
+`POST /v1/[resources]`
 
-**Request:**
+Creates a new [resource]. Returns immediately (< 100ms) while processing happens asynchronously.
 
-```http
-POST /v1/[resources]
+#### Parameters
+
+| Parameter | Type | Required | Description |
+|-----------|------|----------|-------------|
+| `name` | string | **Yes** | Display name (3-255 chars) |
+| `type` | enum | **Yes** | Type: `production`, `staging`, `development` |
+| `configuration` | object | No | Configuration settings |
+| `configuration.timeout_ms` | integer | No | Timeout in ms (100-30000, default: 5000) |
+| `configuration.retry_count` | integer | No | Retry attempts (0-5, default: 3) |
+| `configuration.batch_size` | integer | No | Batch size (1-1000, default: 100) |
+| `metadata` | object | No | Key-value pairs (max 20 keys, 500 chars per value) |
+| `idempotency_key` | string | No | Ensure exactly-once execution |
+
+#### Request
+
+```bash
+curl https://{{ api_url }}/v1/resources \
+  -H "Authorization: Bearer sk_live_..." \
+  -H "Idempotency-Key: unique_key_123" \
+  -d name="Production API Resource" \
+  -d type="production" \
+  -d "configuration[timeout_ms]=10000" \
+  -d "configuration[retry_count]=5" \
+  -d "metadata[team]"="platform" \
+  -d "metadata[environment]"="prod"
 ```
 
-**Request body:**
-
-| Field | Type | Required | Description |
-| ------- | ------ | ---------- | ------------- |
-| `name` | `string` | Yes | [Resource] name (1-255 characters) |
-| `description` | `string` | No | Optional description |
-| `config` | `object` | No | Configuration options |
-
-**Example request:**
+#### Response
 
 ```json
 {
-  "name": "My new resource",
-  "description": "Optional description",
-  "config": {
-    "option1": "value1"
+  "id": "res_7x8y9z0a1b",
+  "object": "resource",
+  "created": 1705320000,
+  "name": "Production API Resource",
+  "type": "production",
+  "status": "pending",
+  "configuration": {
+    "timeout_ms": 10000,
+    "retry_count": 5,
+    "batch_size": 100
+  },
+  "metadata": {
+    "team": "platform",
+    "environment": "prod"
+  },
+  "provisioning": {
+    "status": "in_progress",
+    "estimated_completion": 1705320030,
+    "steps_completed": 2,
+    "steps_total": 5
   }
 }
+```
 
-```text
+#### Idempotency
 
-**Response:** `201 Created`
+Use `Idempotency-Key` header to safely retry requests:
+
+```bash
+Idempotency-Key: order_12345_create_resource
+```
+
+Keys are stored for 24 hours. Retrying with same key returns cached response.
+
+---
+
+### Get [resource]
+
+`GET /v1/[resources]/{id}`
+
+Retrieves a single [resource] with full details.
+
+#### Parameters
+
+| Parameter | Type | Description |
+| --- | --- | --- |
+| `id` | string | Resource ID (e.g., `res_1a2b3c4d5e`) |
+| `expand[]` | array | Expand nested objects: `metrics`, `logs`, `related_resources` |
+
+#### Response
 
 ```json
 {
-  "id": "res_xyz789",
-  "name": "My new resource",
+  "id": "res_1a2b3c4d5e",
+  "object": "resource",
+  "created": 1705320000,
+  "updated": 1705406400,
+  "name": "Production Resource",
+  "type": "production",
   "status": "active",
-  "created_at": "2024-01-15T16:00:00Z"
+  "configuration": {
+    "timeout_ms": 5000,
+    "retry_count": 3,
+    "batch_size": 100,
+    "rate_limit": 1000
+  },
+  "metrics": {
+    "lifetime": {
+      "requests": 1547289,
+      "success_rate": 99.97,
+      "errors": 463
+    },
+    "last_24h": {
+      "requests": 48291,
+      "success_rate": 99.99,
+      "errors": 5,
+      "avg_latency_ms": 47,
+      "p95_latency_ms": 124,
+      "p99_latency_ms": 201
+    }
+  },
+  "limits": {
+    "max_requests_per_minute": 10000,
+    "max_batch_size": 1000,
+    "max_payload_bytes": 10485760
+  }
 }
 ```
 
@@ -182,92 +286,358 @@ POST /v1/[resources]
 
 ### Update [resource]
 
-Updates an existing [resource].
+`PATCH /v1/[resources]/{id}`
 
-**Request:**
+Updates specified fields. Only include fields you want to change.
 
-```http
-PATCH /v1/[resources]/{id}
+#### Parameters
 
-```text
+| Parameter | Type | Description |
+|-----------|------|-------------|
+| `name` | string | New display name |
+| `configuration` | object | Updated configuration (merged with existing) |
+| `metadata` | object | Updated metadata (replaces entirely) |
+| `status` | enum | Change status: `active`, `paused`, `archived` |
 
-**Request body:**
+#### Request
 
-Only include fields you want to update.
-
-```json
-{
-  "name": "Updated name"
-}
+```bash
+curl -X PATCH https://{{ api_url }}/v1/resources/res_1a2b3c4d5e \
+  -H "Authorization: Bearer sk_live_..." \
+  -d name="Updated Resource Name" \
+  -d "configuration[timeout_ms]=7500" \
+  -d status="paused"
 ```
 
-**Response:** `200 OK`
+#### Response
+
+Returns updated resource object with `updated` timestamp.
 
 ---
 
 ### Delete [resource]
 
-Permanently deletes a [resource].
+`DELETE /v1/[resources]/{id}`
 
-**Request:**
+Permanently deletes a [resource]. This cannot be undone.
 
-```http
-DELETE /v1/[resources]/{id}
+#### Request
 
-```text
+```bash
+curl -X DELETE https://{{ api_url }}/v1/resources/res_1a2b3c4d5e \
+  -H "Authorization: Bearer sk_live_..."
+```
 
-**Response:** `204 No Content`
-
-!!! warning "Irreversible action"
-    Deletion cannot be undone. Consider deactivating instead if you might need the [resource] later.
-
-## Error responses
-
-| Status code | Error type | Description |
-| ------------- | ------------ | ------------- |
-| `400` | `VALIDATION_ERROR` | Invalid request parameters |
-| `401` | `UNAUTHORIZED` | Missing or invalid API key |
-| `403` | `FORBIDDEN` | Insufficient permissions |
-| `404` | `NOT_FOUND` | [Resource] not found |
-| `429` | `RATE_LIMITED` | Too many requests |
-| `500` | `INTERNAL_ERROR` | Server error |
-
-**Error response format:**
+#### Response
 
 ```json
 {
-  "error": "VALIDATION_ERROR",
-  "message": "Invalid request parameters",
-  "details": [
+  "id": "res_1a2b3c4d5e",
+  "object": "resource",
+  "deleted": true,
+  "deleted_at": 1705406400
+}
+```
+
+⚠️ **Warning**: Deletion is immediate and permanent. Consider using `status: archived` instead.
+
+---
+
+## Batch operations
+
+Process multiple operations in a single request (up to 100 operations).
+
+### Batch request
+
+`POST /v1/batch`
+
+```json
+{
+  "operations": [
     {
-      "field": "name",
-      "message": "Name is required"
+      "method": "POST",
+      "path": "/v1/resources",
+      "body": { "name": "Resource 1", "type": "production" }
+    },
+    {
+      "method": "PATCH",
+      "path": "/v1/resources/res_abc123",
+      "body": { "status": "active" }
+    },
+    {
+      "method": "DELETE",
+      "path": "/v1/resources/res_xyz789"
+    }
+  ]
+}
+```
+
+### Batch response
+
+```json
+{
+  "results": [
+    {
+      "status": 201,
+      "body": { "id": "res_new123", "name": "Resource 1" }
+    },
+    {
+      "status": 200,
+      "body": { "id": "res_abc123", "status": "active" }
+    },
+    {
+      "status": 204,
+      "body": { "deleted": true }
     }
   ],
-  "request_id": "req_abc123xyz"
+  "summary": {
+    "total": 3,
+    "successful": 3,
+    "failed": 0,
+    "duration_ms": 127
+  }
+}
+```
+
+## Error handling
+
+### Error response format
+
+```json
+{
+  "error": {
+    "type": "invalid_request_error",
+    "code": "parameter_invalid",
+    "message": "The 'name' parameter must be between 3 and 255 characters.",
+    "param": "name",
+    "doc_url": "https://docs.example.com/errors/parameter_invalid",
+    "request_id": "req_8a7b6c5d4e3f2g1h",
+    "request_log_url": "https://dashboard.example.com/logs/req_8a7b6c5d4e3f2g1h"
+  }
+}
+```
+
+### Error types
+
+| Type | HTTP Status | Description | Recovery |
+|------|-------------|-------------|----------|
+| `api_error` | 500 | Server error | Retry with exponential backoff |
+| `authentication_error` | 401 | Invalid API key | Check your API key |
+| `invalid_request_error` | 400 | Invalid parameters | Fix parameters and retry |
+| `permission_error` | 403 | Insufficient permissions | Check API key scopes |
+| `rate_limit_error` | 429 | Too many requests | Retry after `Retry-After` header |
+| `resource_not_found` | 404 | Resource doesn't exist | Check resource ID |
+| `conflict_error` | 409 | Resource already exists | Use different identifier |
+| `timeout_error` | 504 | Request timeout | Retry with idempotency key |
+
+### Retry strategy
+
+```javascript
+async function retryWithBackoff(fn, maxRetries = 3) {
+  for (let i = 0; i < maxRetries; i++) {
+    try {
+      return await fn();
+    } catch (error) {
+      if (error.status === 429) {
+        // Rate limited - use Retry-After header
+        const delay = error.headers['Retry-After'] * 1000;
+        await sleep(delay);
+      } else if (error.status >= 500) {
+        // Server error - exponential backoff
+        const delay = Math.min(1000 * Math.pow(2, i), 30000);
+        await sleep(delay);
+      } else {
+        // Client error - don't retry
+        throw error;
+      }
+    }
+  }
+  throw new Error(`Failed after ${maxRetries} attempts`);
 }
 ```
 
 ## Rate limits
 
-- **Standard:** 60 requests per minute
-- **Burst:** 100 requests per minute (short bursts allowed)
+### Limits by plan
 
-Rate limit headers:
+| Plan | Requests/min | Burst | Concurrent | Monthly quota |
+| --- | --- | --- | --- | --- |
+| Free | 60 | 100 | 10 | 10,000 |
+| Starter | 600 | 1,000 | 50 | 100,000 |
+| Growth | 3,000 | 5,000 | 200 | 1,000,000 |
+| Scale | 10,000 | 15,000 | 500 | 10,000,000 |
+| Enterprise | Custom | Custom | Custom | Unlimited |
+
+### Rate limit headers
 
 ```http
-X-RateLimit-Limit: 60
-X-RateLimit-Remaining: 45
-X-RateLimit-Reset: 1705320000
+X-RateLimit-Limit: 10000
+X-RateLimit-Remaining: 9847
+X-RateLimit-Reset: 1705320600
+X-RateLimit-Reset-After: 42
+Retry-After: 42
+```
 
-```text
+### Handling rate limits
+
+```python
+import time
+import requests
+
+def api_call_with_retry(url, headers):
+    while True:
+        response = requests.get(url, headers=headers)
+
+        if response.status_code == 429:
+            # Rate limited
+            retry_after = int(response.headers.get('Retry-After', 60))
+            print(f"Rate limited. Waiting {retry_after} seconds...")
+            time.sleep(retry_after)
+            continue
+
+        return response
+```
 
 ## Webhooks
 
-[Resource] changes can trigger webhooks. See [Webhooks guide](../how-to/webhooks.md).
+Receive real-time notifications for [resource] events.
 
-## Related
+### Available events
 
-- [Authentication guide](../how-to/authentication.md)
-- [Error handling](../concepts/error-handling.md)
-- [Rate limits](../reference/rate-limits.md)
+| Event | Description | Payload includes |
+| --- | --- | --- |
+| `resource.created` | Resource was created | Full resource object |
+| `resource.updated` | Resource was modified | Changes and full object |
+| `resource.deleted` | Resource was deleted | ID and deletion timestamp |
+| `resource.status_changed` | Status changed | Old status, new status |
+| `resource.limit_exceeded` | Limit was exceeded | Limit type, current value |
+
+### Webhook payload
+
+```json
+{
+  "id": "evt_1a2b3c4d5e6f7g8h",
+  "object": "event",
+  "type": "resource.updated",
+  "created": 1705320000,
+  "api_version": "2024-01-15",
+  "data": {
+    "object": { /* Full resource object */ },
+    "previous_attributes": {
+      "name": "Old Name",
+      "updated": 1705319900
+    }
+  },
+  "request": {
+    "id": "req_8a7b6c5d4e3f2g1h",
+    "idempotency_key": "unique_key_123"
+  }
+}
+```
+
+### Webhook security
+
+Verify webhook signatures:
+
+```javascript
+const crypto = require('crypto');
+
+function verifyWebhook(payload, signature, secret) {
+  const expectedSignature = crypto
+    .createHmac('sha256', secret)
+    .update(payload)
+    .digest('hex');
+
+  return crypto.timingSafeEqual(
+    Buffer.from(signature),
+    Buffer.from(expectedSignature)
+  );
+}
+```
+
+## Pagination
+
+Use cursor-based pagination for consistent results:
+
+```javascript
+async function* getAllResources(apiKey) {
+  let hasMore = true;
+  let startingAfter = null;
+
+  while (hasMore) {
+    const params = new URLSearchParams({
+      limit: 100,
+      ...(startingAfter && { starting_after: startingAfter })
+    });
+
+    const response = await fetch(
+      `https://{{ api_url }}/v1/resources?${params}`,
+      { headers: { 'Authorization': `Bearer ${apiKey}` } }
+    );
+
+    const data = await response.json();
+
+    for (const resource of data.data) {
+      yield resource;
+    }
+
+    hasMore = data.has_more;
+    if (hasMore && data.data.length > 0) {
+      startingAfter = data.data[data.data.length - 1].id;
+    }
+  }
+}
+
+// Usage
+for await (const resource of getAllResources('sk_live_...')) {
+  console.log(resource.id);
+}
+```
+
+## Performance
+
+### Response times
+
+| Endpoint | P50 | P95 | P99 |
+|----------|-----|-----|-----|
+| List resources | 45ms | 120ms | 250ms |
+| Get resource | 23ms | 67ms | 145ms |
+| Create resource | 67ms | 189ms | 420ms |
+| Update resource | 54ms | 156ms | 340ms |
+| Delete resource | 31ms | 89ms | 180ms |
+
+### Best practices
+
+1. **Use connection pooling** - Reuse HTTPS connections
+1. **Implement retries** - Handle transient failures automatically
+1. **Use idempotency keys** - Safely retry write operations
+1. **Paginate large datasets** - Use `limit` and `starting_after`
+1. **Expand nested objects** - Reduce number of API calls
+1. **Cache when possible** - Resources are cache-friendly (ETag support)
+
+## SDKs and libraries
+
+Official SDKs with full type safety and automatic retries:
+
+- **Node.js**: `npm install @example/api-sdk`
+- **Python**: `pip install example-api`
+- **Go**: `go get github.com/example/example-go`
+- **Ruby**: `gem install example`
+- **PHP**: `composer require example/example-php`
+- **Java**: Maven `com.example:example-java:2.0.0`
+- **.NET**: `dotnet add package Example.Api`
+
+## Changelog
+
+| Version | Date | Changes |
+|---------|------|---------|
+| 2024-01-15 | Jan 15, 2024 | Added batch operations, improved error messages |
+| 2023-11-01 | Nov 1, 2023 | Increased rate limits, added EU region |
+| 2023-09-15 | Sep 15, 2023 | Added webhook signature verification |
+
+## Support
+
+- **Documentation**: <https://docs.example.com/api>
+- **Status page**: <https://status.example.com>
+- **Support**: <support@example.com>
+- **Response time**: < 2 hours (business), < 30 min (enterprise)

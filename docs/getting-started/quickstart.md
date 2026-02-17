@@ -1,16 +1,18 @@
 ---
-title: "Build your first workflow in 5 minutes"
-description: "Create a webhook-triggered workflow that receives HTTP requests and sends Slack notifications. No coding required."
+title: Build your first workflow in 5 minutes
+description: Create a webhook-triggered workflow that receives HTTP requests and sends
+  Slack notifications. No coding required.
 content_type: tutorial
 product: both
 tags:
-
- - Tutorial
- - Webhook
- - Cloud
- - Self-hosted
-
+- Tutorial
+- Webhook
+- Cloud
+- Self-hosted
+last_reviewed: '2026-02-16'
+original_author: JaneDo
 ---
+
 
 ## Build your first workflow in 5 minutes
 
@@ -31,7 +33,7 @@ A workflow is a series of connected nodes that process data automatically. In th
 
 === "Self-hosted"
 
-- Open your instance at `<http://localhost:5678`.>
+- Open your instance at `http://localhost:5678`.
 - Select **New Workflow**.
 - The canvas opens with an empty workflow.
 
@@ -40,7 +42,7 @@ A workflow is a series of connected nodes that process data automatically. In th
 1. Select the **+** button on the canvas.
 1. Search for **Webhook** and select it.
 1. Set **HTTP Method** to `POST`.
-1. Copy the **Test URL** — you will need it in Step 5.
+1. Copy the **Test URL**—you will need it in Step 5.
 
 !!! info "Test URL vs Production URL"
  The Test URL is active only while the workflow editor is open. The Production URL activates after you toggle the workflow to **Active**.
@@ -69,7 +71,7 @@ curl -X POST YOUR_TEST_URL \
  -d '{"message": "Hello from my first workflow!"}'
 ```
 
-1. Check your Slack channel — the message appears within 2 seconds.
+1. Check your Slack channel—the message appears within 2 seconds.
 
 ## Step 5: Activate the workflow
 

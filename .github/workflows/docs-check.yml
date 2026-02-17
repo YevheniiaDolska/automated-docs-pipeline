@@ -20,7 +20,7 @@ jobs:
         with:
           files: docs/
           reporter: github-pr-review
-          vale_flags: "--no-exit"
+          # Strict mode - no --no-exit flag, all warnings and errors fail the check
 
   markdownlint:
     name: Markdown formatting

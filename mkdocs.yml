@@ -88,9 +88,13 @@ nav:
   - Troubleshooting:
     - troubleshooting/index.md
     - Webhook not firing: troubleshooting/webhook-not-firing.md
+  - Search: search-faceted.md
 
 extra_css:
   - stylesheets/lifecycle.css
+
+extra_javascript:
+  - assets/javascripts/faceted-search.js
 
 extra:
   # --- ALGOLIA DOCSEARCH ---

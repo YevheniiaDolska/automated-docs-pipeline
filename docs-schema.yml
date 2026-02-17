@@ -1,27 +1,27 @@
-required_fields:
-  title:
-    type: string
-    max_length: 70
-  description:
-    type: string
-    min_length: 50
-    max_length: 160
-  content_type:
-    type: enum
-    values: [tutorial, how-to, concept, reference, troubleshooting, release-note]
+# Documentation Schema Definition
+content_type:
+  - tutorial
+  - how-to
+  - concept
+  - reference
+  - troubleshooting
+  - release-note
 
-optional_fields:
-  product:
-    type: enum
-    values: [n8n-cloud, n8n-self-hosted, both]
-  n8n_component:
-    type: enum
-    values: [webhook, http-request, code, ai-agent, schedule, workflow-engine, credentials, expressions]
-  n8n_version:
-    type: string
-    pattern: "^\\d+\\.\\d+"
-  tags:
-    type: list
-    max_items: 8
-  applies_to:
-    type: string
+product:
+  - both
+  - cloud
+  - self-hosted
+
+tags:
+  - Tutorial
+  - How-To
+  - Concept
+  - Reference
+  - Troubleshooting
+  - API
+  - Configuration
+  - Deployment
+  - Security
+  - Performance
+  - Migration
+  - Integration

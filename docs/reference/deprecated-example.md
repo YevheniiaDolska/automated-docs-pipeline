@@ -1,15 +1,18 @@
 ---
-title: "Old Webhook API (Deprecated)"
-description: "This API is deprecated. Use the new Webhook node instead."
+title: Old Webhook API (Deprecated)
+description: This API is deprecated. Use the new Webhook node instead.
 content_type: reference
 maturity: deprecated
-deprecated_since: "2024-01-15"
-sunset_date: "2024-07-01"
-replaced_by: "/reference/nodes/webhook"
+deprecated_since: '2024-01-15'
+sunset_date: '2024-07-01'
+replaced_by: /reference/nodes/webhook
 tags:
- - Deprecated
- - Webhook
+- Deprecated
+- Webhook
+last_reviewed: '2026-02-16'
+original_author: JaneDo
 ---
+
 
 ## Old Webhook API
 

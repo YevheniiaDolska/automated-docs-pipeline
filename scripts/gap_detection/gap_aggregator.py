@@ -26,9 +26,14 @@ try:
 except ImportError:
     HAS_OPENPYXL = False
 
-from .code_analyzer import CodeChangeAnalyzer, AnalysisResult as CodeResult
-from .community_collector import CommunityCollector, CollectionResult as CommunityResult
-from .algolia_parser import AlgoliaAnalytics, AlgoliaResult
+if __package__:
+    from .code_analyzer import CodeChangeAnalyzer, AnalysisResult as CodeResult
+    from .community_collector import CommunityCollector, CollectionResult as CommunityResult
+    from .algolia_parser import AlgoliaAnalytics, AlgoliaResult
+else:
+    from code_analyzer import CodeChangeAnalyzer, AnalysisResult as CodeResult
+    from community_collector import CommunityCollector, CollectionResult as CommunityResult
+    from algolia_parser import AlgoliaAnalytics, AlgoliaResult
 
 
 @dataclass
@@ -471,6 +476,13 @@ class GapAggregator:
 
 
 if __name__ == '__main__':
+    import sys
+
+    if len(sys.argv) > 1 and sys.argv[1] in ("-h", "--help"):
+        print("Usage: python scripts/gap_detection/gap_aggregator.py")
+        print("Runs a full gap analysis and writes reports to ./reports")
+        sys.exit(0)
+
     # Demo run
     aggregator = GapAggregator('./reports')
 

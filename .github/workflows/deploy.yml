@@ -25,6 +25,9 @@ jobs:
 
       - run: pip install -r requirements.txt
 
+      - name: Generate facets index for search
+        run: python scripts/generate_facets_index.py
+
       - run: mkdocs build --strict
 
       - uses: actions/upload-pages-artifact@v3

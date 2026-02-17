@@ -31,5 +31,21 @@ rules:
   path-keys-no-trailing-slash: error
   path-not-include-query: error
 
-  # --- Custom rules for n8n API docs ---
-  # Add custom rules here when needed
+  # --- Custom rules for API docs ---
+  # Ensure parameter descriptions
+  parameter-description:
+    description: Parameters must have descriptions
+    severity: error
+    given: $..parameters[*]
+    then:
+      field: description
+      function: truthy
+
+  # Ensure examples in schemas
+  schema-properties-example:
+    description: Schema properties should have examples
+    severity: warn
+    given: $..properties.*
+    then:
+      field: example
+      function: truthy

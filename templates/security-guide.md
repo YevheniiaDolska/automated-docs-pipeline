@@ -1,403 +1,103 @@
 ---
 title: "Security guide"
-description: "Security best practices for [Product]. Covers credential management, data protection, secure integration, compliance, and incident response."
-content_type: concept
+description: "Secure [Product] deployments with least privilege, secret management, network controls, validation, monitoring, and incident response."
+content_type: how-to
 product: both
 tags:
-
-  - Concept
   - How-To
-
+  - Security
 ---
 
-## Security guide
+# Security guide
 
-This guide covers security best practices for integrating with [Product] and protecting your data.
+This guide provides practical controls to secure integration and operations for [Product].
 
-## Security overview
+## Security baseline
 
-[Product] implements multiple layers of security:
+Implement these controls before production launch:
 
-| Layer | Protection |
-| ------- | ------------ |
-| **Transport** | TLS 1.3 encryption |
-| **Authentication** | API keys, OAuth 2.0, JWT |
-| **Authorization** | Role-based access control |
-| **Data** | AES-256 encryption at rest |
-| **Infrastructure** | SOC 2 compliant hosting |
+- Least-privilege credentials and scoped tokens
+- Secret storage outside source control
+- TLS everywhere (service-to-service included)
+- Signature verification on inbound webhooks
+- Audit logs and alerting for auth anomalies
 
-## Credential security
+## Credentials and secret management
 
-### API key management
+### Do and do not
 
-| Do | Don't |
-| ---- | ------- |
-| Store keys in environment variables | Hardcode keys in source code |
-| Use secrets managers (Vault, AWS Secrets) | Commit keys to version control |
-| Rotate keys regularly (quarterly) | Share keys via chat/email |
-| Use separate keys per environment | Use production keys in development |
-| Restrict key permissions | Use admin keys everywhere |
+| Do | Do not |
+| --- | --- |
+| Store secrets in vault/KMS | Commit secrets to repository |
+| Rotate keys on schedule | Reuse one key across all workloads |
+| Scope tokens minimally | Grant admin by default |
+| Redact secrets in logs | Log full headers/tokens |
 
-### Secure storage
+### Rotation workflow
 
-=== "Environment variables"
+1. Generate new credential.
+1. Deploy dual credential support.
+1. Confirm traffic cutover.
+1. Revoke old credential.
 
-    ```bash
-    # .env (add to .gitignore)
-    [PRODUCT]_API_KEY=sk_live_...
-    [PRODUCT]_WEBHOOK_SECRET=whsec_...
+## Transport and network security
 
-```text
+- Enforce HTTPS/TLS 1.2+.
+- Restrict inbound CIDRs where possible.
+- Use private networking or peering for internal traffic.
+- Set strict CORS origins for browser-facing APIs.
 
-    ```javascript
-    const apiKey = process.env.[PRODUCT]_API_KEY;
-```
+## Input and payload validation
 
-=== "AWS Secrets Manager"
+Validate all external input:
 
-    ```javascript
-    import { SecretsManager } from '@aws-sdk/client-secrets-manager';
-
-    const getApiKey = async () => {
-      const client = new SecretsManager();
-      const { SecretString } = await client.getSecretValue({
-        SecretId: '[product]-api-key'
-      });
-      return JSON.parse(SecretString).apiKey;
-    };
-
-```text
-
-=== "HashiCorp Vault"
-
-    ```javascript
-    import vault from 'node-vault';
-
-    const client = vault({ endpoint: process.env.VAULT_ADDR });
-    const { data } = await client.read('secret/data/[product]');
-    const apiKey = data.data.api_key;
-```
-
-### Key rotation
-
-Rotate API keys regularly:
-
-1. **Generate new key** in [Dashboard]([URL])
-1. **Update configuration** in your application
-1. **Deploy** the change
-1. **Verify** functionality
-1. **Revoke old key** after confirming
-
-```javascript
-// Support graceful rotation with fallback
-const apiKeys = [
-  process.env.[PRODUCT]_API_KEY_NEW,
-  process.env.[PRODUCT]_API_KEY_OLD
-].filter(Boolean);
-
-```text
-
-## Authentication security
-
-### API key authentication
-
-```javascript
-// Secure: Use environment variables
-const client = new [Product]Client({
-  apiKey: process.env.[PRODUCT]_API_KEY
-});
-
-// Never do this
-const client = new [Product]Client({
-  apiKey: 'sk_live_abc123' // Exposed in code!
-});
-```
-
-### OAuth security
-
-When implementing OAuth:
-
-1. **Validate state parameter** to prevent CSRF
-1. **Store tokens securely** (encrypted, server-side)
-1. **Use PKCE** for public clients
-1. **Implement token refresh** before expiry
-1. **Revoke tokens** when users disconnect
-
-```javascript
-// Validate state to prevent CSRF
-app.get('/callback', (req, res) => {
-  if (req.query.state !== req.session.oauthState) {
-    return res.status(403).send('Invalid state');
-  }
-  // Continue with token exchange
-});
-
-```text
+- schema validation for request bodies
+- length and type constraints
+- allow-list for enum-like fields
+- reject unknown fields where feasible
 
 ## Webhook security
 
-### Always verify signatures
+- Verify signature and timestamp.
+- Reject replayed events.
+- Return `200` quickly; process asynchronously.
+- Store delivery and processing audit trail.
 
-```javascript
-import crypto from 'crypto';
+## Access control model
 
-const verifyWebhookSignature = (payload, signature, secret) => {
-  const timestamp = signature.split(',')[0].split('=')[1];
-  const sig = signature.split(',')[1].split('=')[1];
+Define roles and scopes explicitly.
 
-  // Prevent replay attacks
-  const tolerance = 300; // 5 minutes
-  if (Math.abs(Date.now() / 1000 - timestamp) > tolerance) {
-    return false;
-  }
+Example role matrix:
 
-  // Verify signature
-  const expected = crypto
-    .createHmac('sha256', secret)
-    .update(`${timestamp}.${payload}`)
-    .digest('hex');
+| Role | Allowed actions |
+| --- | --- |
+| `viewer` | read-only access |
+| `operator` | read + execute workflows |
+| `admin` | configuration and credential management |
 
-  return crypto.timingSafeEqual(
-    Buffer.from(sig),
-    Buffer.from(expected)
-  );
-};
-```
+## Detection and monitoring
 
-!!! danger "Never skip signature verification"
-    Unsigned webhooks can be forged. Always verify before processing.
+Track at minimum:
 
-### Webhook endpoint security
+- Failed auth count by source
+- Permission denied rates
+- Secret access events
+- Sudden webhook signature failures
 
-```javascript
-// Rate limit webhook endpoint
-import rateLimit from 'express-rate-limit';
+## Incident response template
 
-const webhookLimiter = rateLimit({
-  windowMs: 60 * 1000,
-  max: 100
-});
+1. Detect and triage severity.
+1. Contain compromised token or endpoint.
+1. Rotate affected secrets.
+1. Validate restoration of normal behavior.
+1. Publish postmortem with corrective actions.
 
-app.post('/webhooks',
-  webhookLimiter,
-  express.raw({ type: 'application/json' }),
-  webhookHandler
-);
+## Adaptation notes for template users
 
-```text
+Replace role names, controls, and compliance statements with facts from your environment.
 
-## Data protection
+## Related docs
 
-### Data in transit
-
-All API communication uses TLS 1.3:
-
-```javascript
-// The SDK enforces HTTPS
-const client = new [Product]Client({
-  apiKey: process.env.API_KEY
-  // All requests use <https://api.[product].com>
-});
-```
-
-### Data at rest
-
-[Product] encrypts all data at rest with AES-256.
-
-### Sensitive data handling
-
-| Data type | Recommendation |
-| ----------- | ---------------- |
-| API keys | Environment variables or secrets manager |
-| Webhook secrets | Secrets manager, rotate regularly |
-| Access tokens | Encrypted storage, short TTL |
-| User data | Minimize collection, encrypt if stored |
-| Logs | Redact sensitive fields |
-
-### Log sanitization
-
-```javascript
-// Don't log sensitive data
-const sanitize = (obj) => {
-  const sanitized = { ...obj };
-  if (sanitized.apiKey) sanitized.apiKey = '[REDACTED]';
-  if (sanitized.password) sanitized.password = '[REDACTED]';
-  if (sanitized.token) sanitized.token = '[REDACTED]';
-  return sanitized;
-};
-
-logger.info('Request', sanitize(requestData));
-
-```text
-
-## Input validation
-
-### Validate all input
-
-```javascript
-import Joi from 'joi';
-
-const schema = Joi.object({
-  email: Joi.string().email().required(),
-  amount: Joi.number().positive().max(1000000).required(),
-  metadata: Joi.object().unknown(true)
-});
-
-const createResource = async (input) => {
-  const { error, value } = schema.validate(input);
-  if (error) {
-    throw new ValidationError(error.details);
-  }
-  return client.[resources].create(value);
-};
-```
-
-### Prevent injection
-
-```javascript
-// Use parameterized queries, never string concatenation
-const resource = await client.[resources].get(sanitizedId);
-
-// Don't construct queries with user input
-const bad = `/resources/${userInput}`; // Dangerous!
-
-```text
-
-## Network security
-
-### IP allowlisting (optional)
-
-If your infrastructure requires it:
-
-```javascript
-// [Product] IP ranges for webhooks
-const allowedIPs = [
-  '[IP_RANGE_1]',
-  '[IP_RANGE_2]'
-];
-
-app.post('/webhooks', (req, res, next) => {
-  const clientIP = req.ip;
-  if (!allowedIPs.some(range => isInRange(clientIP, range))) {
-    return res.status(403).send('Forbidden');
-  }
-  next();
-});
-```
-
-### Firewall rules
-
-Allow outbound connections to:
-
-| Destination | Port | Purpose |
-| ------------- | ------ | --------- |
-| `api.[product].com` | 443 | API requests |
-| `webhooks.[product].com` | 443 | Webhook delivery |
-
-## Error handling security
-
-### Don't expose internal errors
-
-```javascript
-// Good: Generic error to client
-app.use((error, req, res, next) => {
-  logger.error('Internal error', {
-    error: error.message,
-    stack: error.stack,
-    requestId: req.id
-  });
-
-  res.status(500).json({
-    error: 'An unexpected error occurred',
-    requestId: req.id
-  });
-});
-
-// Bad: Exposing internal details
-res.status(500).json({
-  error: error.message,
-  stack: error.stack // Never expose stack traces!
-});
-
-```text
-
-## Access control
-
-### Principle of least privilege
-
-```javascript
-// Create restricted API key with minimal permissions
-const restrictedKey = await client.apiKeys.create({
-  name: 'webhook-processor',
-  permissions: ['[resources]:read'], // Only what's needed
-  ipRestrictions: ['10.0.0.0/8']
-});
-```
-
-### Role-based access
-
-| Role | Permissions |
-| ------ | ------------- |
-| Viewer | Read-only access |
-| Editor | Create, update |
-| Admin | Full access including delete |
-
-## Compliance
-
-### SOC 2
-
-[Product] is SOC 2 Type II certified. Request our report at [security email].
-
-### GDPR
-
-- Data processing agreement available
-- Data export via API
-- Account deletion upon request
-
-### PCI DSS
-
-[If applicable: compliance level and details]
-
-## Security checklist
-
-### Before going live
-
-- [ ] API keys in environment variables (not code)
-- [ ] Different keys for test/production
-- [ ] Webhook signatures verified
-- [ ] Input validation implemented
-- [ ] Error messages don't expose internals
-- [ ] Logs don't contain sensitive data
-- [ ] HTTPS enforced everywhere
-- [ ] Tokens stored securely
-- [ ] Minimum necessary permissions
-
-### Regular maintenance
-
-- [ ] Rotate API keys quarterly
-- [ ] Review access permissions
-- [ ] Audit logs for anomalies
-- [ ] Update dependencies
-- [ ] Review security advisories
-
-## Incident response
-
-### If credentials are compromised
-
-1. **Immediately revoke** the compromised key in [Dashboard]([URL])
-1. **Generate new credentials**
-1. **Update your application**
-1. **Review logs** for unauthorized access
-1. **Contact [security email]** if needed
-
-### Report vulnerabilities
-
-Report security vulnerabilities to [security@product.com].
-
-We follow responsible disclosure and do not pursue legal action against good-faith researchers.
-
-## Related
-
-- [Authentication guide](./authentication.md)
-- [Webhooks guide](./webhooks.md)
-- [Best practices](./best-practices.md)
+- `templates/authentication-guide.md`
+- `templates/webhooks-guide.md`
+- `templates/error-handling-guide.md`

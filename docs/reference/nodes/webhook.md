@@ -1,19 +1,22 @@
 ---
-title: "Webhook node reference for"
-description: "Complete parameter reference for the Webhook trigger node including HTTP methods, authentication, response modes, and binary data handling."
+title: Webhook node reference for
+description: Complete parameter reference for the Webhook trigger node including HTTP
+  methods, authentication, response modes, and binary data handling.
 content_type: reference
 product: both
 app_component: webhook
-app_version: "2.0"
+app_version: '2.0'
 tags:
-
- - Reference
- - Webhook
- - Nodes
- - Cloud
- - Self-hosted
-
+- Reference
+- Webhook
+- Nodes
+- Cloud
+- Self-hosted
+n8n_component: webhook
+last_reviewed: '2026-02-16'
+original_author: JaneDo
 ---
+
 
 ## Webhook node reference
 
@@ -22,7 +25,7 @@ The Webhook node is a trigger node that starts a workflow when it receives an HT
 ## Parameters
 
 | Parameter | Type | Default | Description |
-|-----------|------|---------|-------------|
+| --- | --- | --- | --- |
 | **HTTP Method** | enum | `GET` | HTTP method the webhook responds to. Options: `GET`, `POST`, `PUT`, `PATCH`, `DELETE`, `HEAD` |
 | **Path** | string | auto-generated UUID | URL path segment. The full URL is `{base_url}/webhook/{path}` |
 | **Authentication** | enum | `None` | Authentication method. Options: `None`, `Basic Auth`, `Header Auth` |
@@ -33,7 +36,7 @@ The Webhook node is a trigger node that starts a workflow when it receives an HT
 ## Authentication options
 
 | Method | Credential type | Header checked |
-|--------|----------------|----------------|
+| --- | --- | --- |
 | None | — | — |
 | Basic Auth | Basic Auth | `Authorization: Basic {base64}` |
 | Header Auth | Header Auth | Custom header name/value pair |

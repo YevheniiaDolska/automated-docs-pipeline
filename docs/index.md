@@ -1,15 +1,17 @@
 ---
-title: "Documentation Pipeline Demo"
-description: "Automated documentation pipeline with GEO optimization, faceted search, and CI/CD quality gates for workflow automation platform."
+title: Documentation Pipeline Demo
+description: Automated documentation pipeline with GEO optimization, faceted search,
+  and CI/CD quality gates for workflow automation platform.
 content_type: concept
 product: both
 tags:
-
 - Concept
 - Cloud
 - Self-hosted
-
+last_reviewed: '2026-02-16'
+original_author: JaneDo
 ---
+
 
 ## Documentation Pipeline Demo
 
@@ -23,11 +25,11 @@ The pipeline includes automated style checking with Vale, frontmatter validation
 
 ## Browse by type
 
-- **[Getting Started](getting-started/index.md)** — Tutorials to learn from scratch
-- **[How-To Guides](how-to/index.md)** — Step-by-step solutions for specific tasks
-- **[Concepts](concepts/index.md)** — Architecture and design explanations
-- **[Reference](reference/index.md)** — Complete parameter and API docs
-- **[Troubleshooting](troubleshooting/index.md)** — Common problems and fixes
+- **[Getting Started](getting-started/index.md)**—Tutorials to learn from scratch
+- **[How-To Guides](how-to/index.md)**—Step-by-step solutions for specific tasks
+- **[Concepts](concepts/index.md)**—Architecture and design explanations
+- **[Reference](reference/index.md)**—Complete parameter and API docs
+- **[Troubleshooting](troubleshooting/index.md)**—Common problems and fixes
 
 ## Browse by tag
 

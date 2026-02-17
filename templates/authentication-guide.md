@@ -1,377 +1,176 @@
 ---
 title: "Authentication guide"
-description: "Learn how to authenticate with [Product] API using API keys, OAuth 2.0, or JWT. Includes security best practices and code examples."
+description: "Implement secure authentication for [Product/API]. Includes API keys, OAuth, token rotation, validation, and production troubleshooting."
 content_type: how-to
 product: both
 tags:
-
   - How-To
-  - Reference
-
+  - Security
+  - API
 ---
 
-## Authentication
+# Authentication guide
 
-All [Product] API requests require authentication. This guide covers available authentication methods, implementation, and security best practices.
+Use this guide to implement authentication that is secure by default and easy to operate. You will start with a working request, then choose the best auth model for your architecture.
 
-## Authentication methods overview
+## Quick start (first successful request)
 
-| Method | Use case | Complexity |
-| -------- | ---------- | ------------ |
-| [API Keys](#api-key-authentication) | Server-to-server, scripts | Simple |
-| [OAuth 2.0](#oauth-20) | User authorization, third-party apps | Medium |
-| [JWT](#jwt-authentication) | Microservices, stateless auth | Medium |
+```bash
+curl -X GET https://api.example.com/v1/projects \
+  -H "Authorization: Bearer $API_TOKEN" \
+  -H "Content-Type: application/json"
+```
+
+Expected response:
+
+```json
+{
+  "data": [
+    {
+      "id": "prj_123",
+      "name": "Marketing automation"
+    }
+  ]
+}
+```
+
+## Choose an authentication model
+
+| Model | Use when | Strengths | Tradeoffs |
+| --- | --- | --- | --- |
+| API key | Server-to-server calls from trusted backend | Simple, fast to ship | Key lifecycle and scope control required |
+| OAuth 2.0 | Third-party apps act on behalf of users | Delegated access, revocable tokens | More moving parts |
+| JWT service identity | Internal microservices | Stateless verification, low latency | Token issuance and key rotation complexity |
+
+## Prerequisites
+
+- HTTPS for all API traffic
+- Secret storage (for example: cloud secrets manager or vault)
+- Separate credentials for test and production
+- Monitoring for authentication failures
 
 ## API key authentication
 
-API keys are the simplest way to authenticate. Use them for server-side applications and scripts.
+### Issue keys
 
-### Get your API key
+1. Create one key per environment and workload.
+1. Scope each key to minimum required permissions.
+1. Set expiration for temporary workloads.
+1. Record owner and rotation date.
 
-1. Go to [Dashboard]([URL]) → Settings → API Keys
-1. Click **Create API Key**
-1. Select permissions:
-   - `read` — Read-only access
-   - `write` — Create and update resources
-   - `delete` — Delete resources
-   - `admin` — Full access
-1. Copy the key immediately — it won't be shown again
+### Use keys securely
 
-### Use API keys
+```javascript
+import fetch from 'node-fetch';
 
-Include the API key in the `Authorization` header:
+const client = async (path, options = {}) => {
+  const response = await fetch(`https://api.example.com${path}`, {
+    ...options,
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${process.env.PRODUCT_API_KEY}`,
+      ...(options.headers || {})
+    }
+  });
 
-```bash
-curl -X GET [API_URL]/v1/[resource] \
-  -H "Authorization: Bearer [YOUR_API_KEY]"
+  if (!response.ok) {
+    const body = await response.text();
+    throw new Error(`API error ${response.status}: ${body}`);
+  }
 
-```text
-
-=== "JavaScript"
-
-    ```javascript
-    const response = await fetch('[API_URL]/v1/[resource]', {
-      headers: {
-        'Authorization': `Bearer ${process.env.API_KEY}`
-      }
-    });
+  return response.json();
+};
 ```
 
-=== "Python"
+### Rotation checklist
 
-    ```python
-    import requests
-    import os
+1. Issue new key.
+1. Deploy with dual-key fallback.
+1. Verify successful traffic on new key.
+1. Revoke old key.
+1. Close incident if any auth errors spike.
 
-    response = requests.get(
-        '[API_URL]/v1/[resource]',
-        headers={'Authorization': f'Bearer {os.environ["API_KEY"]}'}
-    )
+## OAuth 2.0 authorization code flow
 
-```text
-
-=== "Go"
-
-    ```go
-    req, _ := http.NewRequest("GET", "[API_URL]/v1/[resource]", nil)
-    req.Header.Set("Authorization", "Bearer "+os.Getenv("API_KEY"))
-```
-
-### API key types
-
-| Type | Prefix | Environment | Use for |
-| ------ | -------- | ------------- | --------- |
-| Test | `sk_test_` | Sandbox | Development, testing |
-| Live | `sk_live_` | Production | Production traffic |
-| Restricted | `rk_` | Both | Limited permissions |
-
-!!! warning "Test vs. Live keys"
-    Test keys only work in the sandbox environment. Never use test keys in production.
-
-## OAuth 2.0
-
-Use OAuth 2.0 when your application needs to access [Product] on behalf of users.
-
-### Supported flows
-
-| Flow | Use case |
-| ------ | ---------- |
-| Authorization Code | Web apps with backend |
-| Authorization Code + PKCE | Mobile apps, SPAs |
-| Client Credentials | Machine-to-machine |
-
-### Authorization Code flow
+Use OAuth when users connect their account to your integration.
 
 ```mermaid
 sequenceDiagram
     participant User
-    participant App as Your App
-    participant Auth as [Product] Auth
-    participant API as [Product] API
+    participant App
+    participant Auth
+    participant API
 
-    User->>App: 1. Click "Connect"
-    App->>Auth: 2. Redirect to authorization
-    User->>Auth: 3. Approve access
-    Auth->>App: 4. Redirect with code
-    App->>Auth: 5. Exchange code for token
-    Auth->>App: 6. Access token + refresh token
-    App->>API: 7. API requests with token
-
-```text
-
-#### Step 1: Register your application
-
-1. Go to [Dashboard]([URL]) → OAuth Apps
-1. Create new application
-1. Configure:
-   - **Name:** Your app name
-   - **Redirect URIs:** `<https://yourapp.com/callback`>
-   - **Scopes:** Permissions your app needs
-1. Save your **Client ID** and **Client Secret**
-
-#### Step 2: Redirect user to authorization
-
-```javascript
-const authUrl = new URL('[AUTH_URL]/oauth/authorize');
-authUrl.searchParams.set('client_id', CLIENT_ID);
-authUrl.searchParams.set('redirect_uri', '<https://yourapp.com/callback'>);
-authUrl.searchParams.set('response_type', 'code');
-authUrl.searchParams.set('scope', 'read write');
-authUrl.searchParams.set('state', generateRandomState()); // CSRF protection
-
-res.redirect(authUrl.toString());
+    User->>App: Click Connect
+    App->>Auth: Redirect with state + PKCE challenge
+    Auth->>User: Login and consent
+    Auth->>App: Redirect with code
+    App->>Auth: Exchange code for tokens
+    App->>API: Call API with access token
 ```
 
-#### Step 3: Handle callback
+Implementation guardrails:
 
-```javascript
-app.get('/callback', async (req, res) => {
-  const { code, state } = req.query;
+- Validate `state` to prevent CSRF.
+- Use PKCE for public clients.
+- Store refresh tokens encrypted at rest.
+- Rotate refresh tokens when supported.
 
-  // Verify state matches (CSRF protection)
-  if (state !== req.session.oauthState) {
-    return res.status(400).send('Invalid state');
-  }
+## JWT service authentication
 
-  // Exchange code for token
-  const tokenResponse = await fetch('[AUTH_URL]/oauth/token', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-    body: new URLSearchParams({
-      grant_type: 'authorization_code',
-      code,
-      redirect_uri: '<https://yourapp.com/callback',>
-      client_id: CLIENT_ID,
-      client_secret: CLIENT_SECRET
-    })
-  });
-
-  const { access_token, refresh_token, expires_in } = await tokenResponse.json();
-
-  // Store tokens securely
-  await saveTokens(req.user.id, { access_token, refresh_token, expires_in });
-
-  res.redirect('/dashboard');
-});
-
-```text
-
-#### Step 4: Refresh tokens
-
-Access tokens expire. Use refresh tokens to get new ones:
-
-```javascript
-const refreshAccessToken = async (userId) => {
-  const { refresh_token } = await getStoredTokens(userId);
-
-  const response = await fetch('[AUTH_URL]/oauth/token', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-    body: new URLSearchParams({
-      grant_type: 'refresh_token',
-      refresh_token,
-      client_id: CLIENT_ID,
-      client_secret: CLIENT_SECRET
-    })
-  });
-
-  const tokens = await response.json();
-  await saveTokens(userId, tokens);
-
-  return tokens.access_token;
-};
-```
-
-### Client Credentials flow
-
-For server-to-server authentication without user context:
-
-```javascript
-const getClientCredentialsToken = async () => {
-  const response = await fetch('[AUTH_URL]/oauth/token', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-    body: new URLSearchParams({
-      grant_type: 'client_credentials',
-      client_id: CLIENT_ID,
-      client_secret: CLIENT_SECRET,
-      scope: 'read write'
-    })
-  });
-
-  const { access_token, expires_in } = await response.json();
-  return access_token;
-};
-
-```text
-
-### OAuth scopes
-
-| Scope | Access |
-| ------- | -------- |
-| `read` | Read resources |
-| `write` | Create and update resources |
-| `delete` | Delete resources |
-| `[resource]:read` | Read specific resource type |
-| `[resource]:write` | Write specific resource type |
-| `offline_access` | Get refresh tokens |
-
-Request only the scopes you need.
-
-<a name="jwt-authentication"></a>
-
-## JWT authentication
-
-Use JWTs for stateless authentication in microservices.
-
-### Generate a JWT
-
-```javascript
-import jwt from 'jsonwebtoken';
-
-const generateJWT = () => {
-  const payload = {
-    iss: CLIENT_ID,          // Issuer (your client ID)
-    sub: 'user_123',         // Subject (user or service ID)
-    aud: '[PRODUCT]_API',    // Audience
-    iat: Math.floor(Date.now() / 1000),
-    exp: Math.floor(Date.now() / 1000) + 3600  // 1 hour
-  };
-
-  return jwt.sign(payload, CLIENT_SECRET, { algorithm: 'HS256' });
-};
-```
-
-### Use JWT in requests
-
-```bash
-curl -X GET [API_URL]/v1/[resource] \
-  -H "Authorization: Bearer [JWT_TOKEN]"
-
-```text
-
-## Security best practices
-
-### Do
-
-- Store credentials in environment variables or secrets manager
-- Use HTTPS for all API requests
-- Implement token refresh before expiry
-- Rotate API keys periodically
-- Use minimum required scopes/permissions
-- Log authentication failures for monitoring
-
-### Don't
-
-- Hardcode credentials in source code
-- Commit credentials to version control
-- Share API keys across environments
-- Use production keys in development
-- Expose credentials in client-side code
-- Log access tokens
-
-### Secure credential storage
-
-=== "Environment variables"
-
-    ```bash
-    # .env (never commit this file)
-    [PRODUCT]_API_KEY=sk_live_...
-    [PRODUCT]_CLIENT_SECRET=...
-```
-
-=== "AWS Secrets Manager"
-
-    ```javascript
-    import { SecretsManager } from '@aws-sdk/client-secrets-manager';
-
-    const getSecret = async (secretName) => {
-      const client = new SecretsManager();
-      const response = await client.getSecretValue({ SecretId: secretName });
-      return JSON.parse(response.SecretString);
-    };
-
-```text
-
-=== "HashiCorp Vault"
-
-    ```javascript
-    import vault from 'node-vault';
-
-    const client = vault({ endpoint: process.env.VAULT_ADDR });
-    const { data } = await client.read('secret/data/[product]');
-    const apiKey = data.data.api_key;
-```
-
-### Key rotation
-
-Rotate API keys regularly:
-
-1. Create new API key
-1. Update application configuration
-1. Deploy with new key
-1. Verify functionality
-1. Revoke old key
-
-## Error responses
-
-| Status | Error | Description |
-| -------- | ------- | ------------- |
-| `401` | `unauthorized` | Missing or invalid credentials |
-| `403` | `forbidden` | Valid credentials but insufficient permissions |
-| `429` | `rate_limited` | Too many requests |
-
-**Error response format:**
+For service-to-service traffic, issue short-lived JWTs.
 
 ```json
 {
-  "error": "unauthorized",
-  "message": "Invalid API key provided",
-  "request_id": "req_abc123"
+  "iss": "service-auth",
+  "sub": "worker-sync",
+  "aud": "product-api",
+  "scope": "projects:read projects:write",
+  "iat": 1739010000,
+  "exp": 1739010300
 }
-
-```text
-
-## Testing authentication
-
-### Test with cURL
-
-```bash
-## Test API key
-curl -I [API_URL]/v1/[resource] \
-  -H "Authorization: Bearer $API_KEY"
-
-## Expected: HTTP/2 200
-## Invalid key: HTTP/2 401
 ```
 
-### Test in sandbox
+Recommendations:
 
-Use test credentials in the sandbox environment before going live.
+- TTL 5-10 minutes.
+- Sign with asymmetric keys (RS256 or ES256).
+- Rotate signing keys and publish JWKS.
 
-## Related
+## Error handling for auth
 
-- [API Reference](../reference/api.md)
-- [Error codes](../reference/errors.md)
-- [Rate limits](../reference/rate-limits.md)
-- [Security overview](./security.md)
+| HTTP status | Typical cause | Action |
+| --- | --- | --- |
+| `401` | Missing, expired, or invalid token | Refresh/reissue token and retry once |
+| `403` | Token valid but lacks scope | Request correct scopes/permissions |
+| `429` | Auth endpoint rate-limited | Exponential backoff with jitter |
+
+## Observability
+
+Track these metrics from day one:
+
+- Authentication success rate
+- Token refresh failures
+- Permission denied (`403`) by endpoint
+- Time to recover after key rotation
+
+## Security requirements
+
+- Never place secrets in client-side code.
+- Never log full tokens.
+- Redact secrets in error traces.
+- Enforce least privilege by default.
+
+## Adaptation notes for template users
+
+Replace placeholders before publishing:
+
+- `[Product/API]`
+- `https://api.example.com`
+- Example scopes, endpoint paths, and role names
+
+## Related docs
+
+- `templates/security-guide.md`
+- `templates/error-handling-guide.md`
+- `templates/integration-guide.md`

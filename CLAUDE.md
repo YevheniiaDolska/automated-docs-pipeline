@@ -1,31 +1,130 @@
-# Claude Code Instructions for Documentation Pipeline
+# Claude Code instructions for documentation pipeline
 
-## 🚨 CRITICAL: Write Documents Right the First Time
+## Write documents right the first time
 
 **Claude, you MUST follow ALL these rules to avoid 20 iterations of fixes.**
 **Every document you create MUST pass ALL linters on the first try.**
 
-## Project Overview
+## Project overview
 
 This is an automated documentation pipeline for technical products. When writing or editing documentation, follow these rules strictly to ensure all linting checks pass.
 
-**IMPORTANT**: This pipeline includes comprehensive SEO/GEO optimization with 60+ automated checks. All content MUST pass:
+## Stripe-level documentation quality principles
+
+### Write for humans first, search engines second
+
+**Every document MUST:**
+
+1. **Start with the user's goal** - What are they trying to achieve?
+1. **Provide working code immediately** - Show, don't tell
+1. **Explain the why, not just the how** - Context matters
+1. **Include realistic examples** - Not "foo/bar" but actual use cases
+1. **Anticipate next steps** - What will they need after this?
+
+### The Stripe documentation formula
+
+**Opening paragraph (The Hook):**
+
+- State what the feature/API does in one sentence
+- Explain the primary use case
+- Set expectations for what they'll learn
+
+**Immediate value (The Code):**
+
+```javascript
+// Show a complete, working example within first 100 words
+const result = await stripe.charges.create({
+  amount: 2000,
+  currency: 'usd',
+  source: 'tok_visa',
+  description: 'My First Test Charge (created for API docs)',
+});
+```
+
+**Progressive disclosure:**
+
+1. Simple case first (80% of users)
+1. Common variations (15% of users)
+1. Advanced scenarios (5% of users)
+
+### Quality checklist for every document
+
+**Before saving ANY document, verify:**
+
+- [ ] **First paragraph hooks the reader** - Would YOU keep reading?
+- [ ] **Code example in first 200 words** - Can they copy-paste and run?
+- [ ] **Every code block is complete** - No placeholder text or partial examples
+- [ ] **Examples use realistic data** - Real product names, not "test123"
+- [ ] **Error cases are covered** - What could go wrong? How to fix?
+- [ ] **Performance is mentioned** - Rate limits? Timeouts? Best practices?
+- [ ] **Security is addressed** - Authentication? Permissions? Validation?
+- [ ] **Links to next steps** - Where do they go after success?
+
+### Writing tone and style
+
+**DO write like this:**
+
+- "To process payments, create a charge object with the amount and currency."
+- "Authentication fails if the API key is invalid. Check your key in the dashboard."
+- "This endpoint returns up to 100 results. Use pagination for larger datasets."
+
+**DON'T write like this:**
+
+- "You might want to consider possibly creating a charge object."
+- "It should be noted that authentication may fail."
+- "Handle large result sets in several ways."
+
+### Code examples that teach
+
+**Bad example:**
+
+```javascript
+// Process payment
+processPayment(amount, currency);
+```
+
+**Stripe-quality example:**
+
+```javascript
+// Process a $20.00 payment in USD
+// Returns a charge object with status 'succeeded' or throws an error
+try {
+  const charge = await stripe.charges.create({
+    amount: 2000,        // Amount in cents ($20.00)
+    currency: 'usd',
+    source: 'tok_visa',  // Token from Stripe.js or Elements
+    description: 'Order #1234 - Blue T-Shirt (Size: M)',
+    metadata: {
+      order_id: '1234',
+      customer_email: 'customer@example.com'
+    }
+  });
+
+  console.log('Payment successful:', charge.id);
+  // Save charge.id to your database for refunds/disputes
+} catch (error) {
+  console.error('Payment failed:', error.message);
+  // Common errors: card_declined, insufficient_funds, expired_card
+}
+```
+
+**IMPORTANT:** this pipeline includes comprehensive SEO/GEO optimization with 60+ automated checks. All content MUST pass:
 
 - GEO linting (LLM/AI optimization)
 - SEO metadata validation
 - Structured data requirements
 - Search ranking optimization
 
-## Critical Rules
+## Critical rules
 
-### 🔴 RULE #1: Use Templates and Snippets When Available
+### Use templates and snippets when available
 
-**When creating documentation, prioritize consistency:**
+**When creating documentation, ensure consistency:**
 
 1. **Check for relevant templates in `templates/` directory:**
    - If a matching template exists, use it as base
    - Copy it: `cp templates/[template] docs/[section]/[new-file].md`
-   - Modify content while keeping structure
+   - Edit content while keeping structure
 
 1. **OR use VS Code snippets from `.vscode/docs.code-snippets`:**
    - Type snippet prefix (doc-tutorial, doc-howto, etc.) and press Tab
@@ -41,17 +140,17 @@ This is an automated documentation pipeline for technical products. When writing
    - Use descriptive titles, maintain logical order
    - Claude should ALWAYS update mkdocs.yml when adding docs
 
-**Why this matters:** Templates and snippets ensure:
+**Why this matters:** templates and snippets ensure:
 
 - Consistent structure and formatting
-- All required sections are included
+- All required sections include necessary content
 - Frontmatter is complete and valid
-- SEO/GEO optimization rules are followed
-- Navigation is properly maintained
+- SEO/GEO optimization rules receive proper attention
+- Navigation stays properly maintained
 
-## Original Critical Rules
+## Original critical rules
 
-### 1. Frontmatter Requirements (MANDATORY)
+### Frontmatter requirements
 
 Every `.md` file in `docs/` MUST have valid frontmatter:
 
@@ -77,13 +176,48 @@ tags:
 - `content_type`: Required, must be one of the allowed values
 - `product`: Optional but recommended
 - `tags`: Optional, max 8 tags
+- `status`: Optional - `active` (default), `deprecated`, `removed`
+- `deprecated_since`: Required if status is `deprecated` (for example, "2024-01-15")
+- `removal_date`: Required if status is `removed` (for example, "2024-06-01")
+- `replacement_url`: Required if deprecated/removed - link to new documentation
 
-### 2. GEO Optimization (for LLM/AI search)
+**Handling deprecated and removed content:**
+
+For deprecated documents:
+
+```yaml
+---
+title: "Old API Endpoint (Deprecated)"
+description: "This endpoint is deprecated. Use the new /v2/endpoint instead."
+status: deprecated
+deprecated_since: "2024-01-15"
+replacement_url: "/reference/api-v2-endpoint"
+---
+
+!!! warning "Deprecated"
+    This feature is deprecated since January 15, 2024.
+    Please use [new endpoint](/reference/api-v2-endpoint) instead.
+```
+
+For removed documents:
+
+```yaml
+---
+title: "Removed Feature"
+description: "This feature has been removed. See migration guide."
+status: removed
+removal_date: "2024-06-01"
+replacement_url: "/migration/feature-migration"
+noindex: true  # Prevents search engine indexing
+---
+```
+
+### GEO optimization for LLM and AI search
 
 **First paragraph rules:**
 
 - Keep under 60 words
-- Include a clear definition using "is", "enables", "provides", "allows"
+- Include a clear definition using "is," "enables," "provides," "allows"
 - Answer the implied question directly
 
 **Example:**
@@ -98,16 +232,16 @@ The Webhook node is a trigger that starts workflows when it receives HTTP reques
 **Heading rules:**
 
 - Use descriptive headings, NOT generic ones
-- BAD: "Overview", "Configuration", "Setup"
-- GOOD: "Configure HMAC authentication", "Set up webhook endpoints"
+- BAD: "Overview," "Configuration," "Setup"
+- GOOD: "Configure HMAC authentication," "Set up webhook endpoints"
 
 **Fact density:**
 
 - Include concrete facts every 200 words (numbers, code, config values)
 - Tables and code blocks count as facts
-- Examples: port numbers (8080), timeout values (30s), version numbers (1.2.3)
+- Examples: port numbers (8080), timeout values (30 seconds), version numbers (1.2.3)
 
-### 3. Document Types (Diátaxis Framework)
+### Document types using Diátaxis framework
 
 Use these templates based on `content_type`:
 
@@ -120,24 +254,24 @@ Use these templates based on `content_type`:
 | `troubleshooting` | Problem → cause → solution | `doc-troubleshoot` snippet |
 | `release-note` | Version changes | `doc-release` snippet |
 
-### 4. Style Rules (Vale checks these)
+### Style rules enforced by Vale
 
-**🔴 CRITICAL: All documentation MUST pass Vale style checks on first write!**
+**CRITICAL: All documentation MUST pass Vale style checks on first write.**
 
 **Vale Configuration:**
 
-- **American English** - Use US spelling only
-- **Google Developer Style Guide** - Primary style guide (may be Microsoft Writing Guide for some projects)
+- **American English** - Use American spelling only
+- **Google Developer Style Guide** - Primary style guide for the documentation
 - **write-good** - Clear, concise writing rules
 
 **Specific Vale Rules to Follow:**
 
 **American English:**
 
-- Use US spelling: "color", "optimize", "analyze", "center"
+- Use American spelling: "color," "optimize," "analyze," "center"
 - NOT British spelling variants
 - Use "license" (verb and noun)
-- Use "canceled" not "cancelled"
+- Use "canceled" instead of British spelling
 
 **Google Style Guide Requirements:**
 
@@ -150,30 +284,30 @@ Use these templates based on `content_type`:
 
 **write-good Rules:**
 
-- **Avoid weasel words**: "many", "various", "very", "extremely", "fairly"
-- **No passive voice**: "Configure the setting" NOT "The setting should be configured"
-- **Avoid adverbs**: "quickly", "easily", "simply" - be specific instead
-- **No clichés**: "at the end of the day", "low-hanging fruit"
+- **Avoid weasel words**: "many," "various," "extremely," "fairly"
+- **No passive voice**: "Configure the setting" NOT "The setting requires configuration"
+- **Avoid adverbs**: Be specific instead of using vague adverbs
+- **No clichés**: Avoid overused phrases
 - **Be specific**: "in 5 seconds" not "quickly"
 
 **DO:**
 
-- Use active voice: "Configure the webhook" not "The webhook should be configured"
+- Use active voice: "Configure the webhook"
 - Use second person: "you" not "the user"
-- Use present tense: "This node sends" not "This node will send"
+- Use present tense: "This node sends"
 - Be direct: "Click Save" not "Please click the Save button"
 - Be specific: "Processing takes 2-3 seconds" not "Processing is fast"
 
 **DON'T:**
 
-- Use "simple", "easy", "just", "simply", "easily" (condescending weasel words)
-- Use "obviously", "clearly" (if obvious, no need to document)
+- Use "simple," "easy," "just" (condescending weasel words)
+- Use subjective terms without evidence
 - Use passive voice unless necessary
 - Use future tense for current features
-- Use hedge words: "generally", "usually", "often", "sometimes" (be precise)
-- Start sentences with "There is/are" (wordy)
+- Use hedge words: Be precise instead of vague
+- Start sentences with wordy constructions
 
-### 5. Markdown Formatting
+### Markdown formatting
 
 **Code blocks:**
 
@@ -207,7 +341,7 @@ Use these templates based on `content_type`:
 
 ```
 
-### 6. Allowed Tags
+### Allowed tags
 
 Use only these tags (defined in `mkdocs.yml`):
 
@@ -215,23 +349,79 @@ Use only these tags (defined in `mkdocs.yml`):
 - Cloud, Self-hosted
 - Webhook, Nodes, AI
 
-### 7. File Naming
+### File naming
 
 - Use kebab-case: `configure-webhook-trigger.md`
 - Be descriptive: `webhook-not-firing.md` not `issue-1.md`
 - Match the title (slugified)
 
-## Variables
+## Variables system
 
-Common values are in `docs/_variables.yml`. When the mkdocs-macros-plugin is enabled, use:
+**All common values MUST reside in `docs/_variables.yml` and documentation must reference them.**
+
+### Why use variables
+
+- **Single source of truth** - Update once, changes everywhere
+- **Consistency** - Same values across all docs
+- **Easy updates** - Change port from 5678 to 8080 in one place
+- **Product agnostic** - Easy to rebrand for different companies
+
+### How to use variables
 
 ```markdown
 The default port is {{ default_port }}.
-Visit [n8n Cloud]({{ cloud_url }}).
-
+Visit [{{ product_name }} Cloud]({{ cloud_url }}).
+Configure {{ product_name }} using environment variable {{ env_vars.port }}.
 ```
 
-## Pre-commit Checks
+### Available variables in `_variables.yml`
+
+```yaml
+# Product info
+product_name: "ProductName"
+product_full_name: "Product workflow automation"
+
+# Versions
+current_version: "1.50.0"
+api_version: "v1"
+
+# URLs
+cloud_url: "https://app.n8n.cloud"
+docs_url: "https://docs.n8n.io"
+
+# Ports and paths
+default_port: 5678
+default_data_folder: "~/.n8n"
+
+# Environment variables
+env_vars:
+  port: "N8N_PORT"
+  webhook_url: "WEBHOOK_URL"
+
+# Limits
+max_payload_size_mb: 16
+rate_limit_requests_per_minute: 60
+```
+
+### Examples of proper usage
+
+**GOOD:**
+
+```markdown
+Run {{ product_name }} on port {{ default_port }}
+The maximum payload size is {{ max_payload_size_mb }} MB
+Set the port using {{ env_vars.port }}
+```
+
+**BAD:**
+
+```markdown
+Run ProductName on port 5678  # Hardcoded values
+The maximum payload size is 16 MB  # Should use variable
+Set the port using N8N_PORT  # Should use env_vars.port
+```
+
+## Pre-commit checks
 
 Before committing, these checks run automatically:
 
@@ -241,10 +431,10 @@ Before committing, these checks run automatically:
 1. **validate_frontmatter.py** (metadata)
 1. **seo_geo_optimizer.py** (comprehensive SEO/GEO optimization)
 
-**🔴 Vale is configured STRICTLY - no --no-exit flag!**
+**Vale runs with strict configuration - no --no-exit flag.**
 
-- ALL Vale errors and warnings will block commits
-- Write correctly the first time to avoid multiple iterations
+- ALL Vale errors and warnings block commits
+- Write correctly the first time to avoid iterations
 - Check Vale output carefully: it shows exactly what needs fixing
 
 To run manually:
@@ -266,9 +456,9 @@ npm run lint
 markdownlint docs/path/to/file.md
 ```
 
-## Creating New Documents
+## Creating new documents
 
-### IMPORTANT: Use Templates and Snippets for Consistency
+### Use templates and snippets for consistency
 
 **ALWAYS use existing templates and snippets when creating new documentation:**
 
@@ -309,7 +499,7 @@ markdownlint docs/path/to/file.md
      - `doc-troubleshoot` - Troubleshooting guide
      - `fm` - Basic frontmatter only
      - `note`, `warning`, `tip` - Admonition blocks
-     - `tabs` - Content tabs for Cloud/Self-hosted
+     - `tabs` - Content tabs for cloud and self-hosted versions
      - `mermaid-flow` - Flow diagrams
      - `table-params` - Parameter tables
 
@@ -375,8 +565,8 @@ markdownlint docs/path/to/file.md
 
 ### Template Selection Guide
 
-| If you're documenting... | Use this template | Location | Snippet |
-| ------------------------- | ------------------- | ---------- | --------- |
+| If you're documenting this | Use this template | Location | Snippet |
+| --- | --- | --- | --- |
 | First-time setup | `quickstart.md` | `docs/getting-started/` | `doc-tutorial` |
 | Step-by-step learning | `tutorial.md` | `docs/getting-started/` | `doc-tutorial` |
 | Specific task | `how-to.md` | `docs/how-to/` | `doc-howto` |
@@ -451,9 +641,9 @@ When adding a new document:
 
 ```
 
-## Quick Reference
+## Quick reference
 
-### Snippet Prefixes (VS Code)
+### Snippet prefixes for VS Code
 
 - `doc-tutorial` - Full tutorial template
 - `doc-howto` - How-to guide template
@@ -467,7 +657,7 @@ When adding a new document:
 - `mermaid-flow`, `mermaid-seq` - Diagrams
 - `table-params`, `table-compare` - Tables
 
-### Config Files
+### Config files
 
 - `.vale.ini` - Style linting rules
 - `.markdownlint.yml` - Markdown formatting rules
@@ -476,9 +666,9 @@ When adding a new document:
 - `glossary.yml` - Terminology glossary
 - `mkdocs.yml` - Site configuration
 
-## Important Linting Rules to Follow
+## Important linting rules to follow
 
-### NO Emoji or Special Unicode in Code
+### No emoji or special unicode in code
 
 **NEVER use emoji or special Unicode characters in:**
 
@@ -487,9 +677,9 @@ When adding a new document:
 - Documentation can use ✓ and ✗ for checkmarks if needed
 - Avoid all other emoji
 
-### Markdown Formatting (IMPORTANT - Follow these rules!)
+### Markdown formatting rules
 
-**Blank lines are REQUIRED for proper rendering:**
+**Blank lines ensure proper rendering:**
 
 - Before and after ALL lists
 - Before and after ALL code blocks
@@ -534,7 +724,7 @@ When adding a new document:
 
 ```
 
-### YAML Files
+### YAML files
 
 **Multiline strings in YAML workflows:**
 
@@ -600,7 +790,7 @@ Available templates in `templates/`:
 - api-reference.md
 - quickstart.md
 - migration-guide.md
-- And more...
+- And more templates.
 
 ## Claude's Step-by-Step Process for New Documentation
 
@@ -660,7 +850,7 @@ npm run lint
 # Claude MUST fix ALL three issues, not just the error
 ```
 
-## Automatic Validation
+## Automatic validation
 
 **TWO layers of protection ensure quality:**
 
@@ -669,7 +859,7 @@ npm run lint
 
 Both use IDENTICAL rules, so if it passes locally, it passes in CI.
 
-## Quick Checklist for New Documents
+## Quick checklist for new documents
 
 **Claude, VERIFY each point before saving ANY file:**
 
@@ -677,7 +867,7 @@ Both use IDENTICAL rules, so if it passes locally, it passes in CI.
 
 - [ ] **American English spelling** (optimize, color, analyze)
 - [ ] **Active voice only** (no passive constructions)
-- [ ] **No weasel words** (simple, easy, just, simply, various, many)
+- [ ] **No weasel words** (simple, easy, just, many)
 - [ ] **Second person "you"** not "the user" or "users"
 - [ ] **Present tense** for current features
 - [ ] **Specific facts** not vague claims ("2 seconds" not "quickly")

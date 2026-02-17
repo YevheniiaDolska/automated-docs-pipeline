@@ -1,135 +1,109 @@
 ---
 title: "Changelog"
-description: "[Product] changelog: all releases, new features, improvements, bug fixes, and breaking changes in chronological order."
+description: "Track product releases with clear impact, upgrade guidance, and migration steps for every audience."
 content_type: reference
 product: both
 tags:
-
   - Reference
-
 ---
 
-## Changelog
+# Changelog
 
-All notable changes to [Product] are documented here.
+Use this template to publish releases that users can trust and act on quickly. Every entry should answer: what changed, who is affected, and what action is required.
 
-Format based on [Keep a Changelog](https://keepachangelog.com/). [Product] uses [Semantic Versioning](https://semver.org/).
+## Publishing rules
 
----
+- Keep newest release at the top.
+- Use exact date format: `YYYY-MM-DD`.
+- Separate additive changes from breaking changes.
+- Link migration guide for any behavior change.
+- Include security fixes in a dedicated section.
+
+## Versioning policy
+
+This changelog follows [Semantic Versioning](https://semver.org/) and [Keep a Changelog](https://keepachangelog.com/).
 
 ## [Unreleased]
 
 ### Added
 
-- [Feature in development]
+- [New capability in development]
 
 ### Changed
 
-- [Change in development]
+- [Behavior improvement in development]
+
+### Deprecated
+
+- [Feature planned for removal]
+
+### Fixed
+
+- [Bug fix in development]
+
+### Security
+
+- [Security hardening in development]
 
 ---
 
 ## [X.Y.Z] - YYYY-MM-DD
 
+### Release summary
+
+One paragraph with the most important impact for users and operators.
+
 ### Added
 
-- **[Feature name]:** [Description of new feature and its benefits]
-- [Another new feature]
+- **[Feature name]:** [What it does and why it matters]
+- **[Feature name]:** [Any limits, regions, or plans]
 
 ### Changed
 
-- **[Component]:** [Description of what changed and why]
-- [Another change]
+- **[Component]:** [What changed, old behavior vs new behavior]
+- **[API]:** [Payload/response/latency changes if relevant]
 
 ### Deprecated
 
-- **[Feature name]:** [What's deprecated, timeline for removal, and migration path]
+- **[Deprecated item]:** [Removal date and replacement]
 
 ### Removed
 
-- **[Feature name]:** [What was removed and what to use instead]
+- **[Removed item]:** [Migration target link]
 
 ### Fixed
 
-- **[Bug description]:** [What was fixed] ([#issue-number])
-- [Another bug fix]
+- **[Issue]:** [Customer-visible symptom and fix]
 
 ### Security
 
-- **[Vulnerability]:** [Security fix description]
+- **[CVE/issue]:** [Scope, severity, recommended action]
 
----
+### Upgrade action required
 
-## [X.Y.Z-1] - YYYY-MM-DD
+- [ ] [Any required environment/config change]
+- [ ] [Any migration command or script]
+- [ ] [Any client SDK minimum version]
 
-### Added
-
-- [Feature]
-
-### Fixed
-
-- [Bug fix]
-
----
-
-## [X.Y.Z-2] - YYYY-MM-DD
-
-### Breaking Changes
-
-!!! warning "Breaking changes in this release"
-    Review these changes before upgrading.
-
-#### [Breaking change 1]
-
-**What changed:** [Description]
-
-**Migration:**
+### Migration example
 
 ```diff
-
-- old_method(arg)
-+ new_method(arg, options)
-
+- client.createTask({ retries: 0 })
++ client.createTask({ retryPolicy: { maxAttempts: 1 } })
 ```
 
-#### [Breaking change 2]
+## Support window
 
-**What changed:** [Description]
+| Version line | Status | End of support |
+| --- | --- | --- |
+| `X.y` | Active | YYYY-MM-DD |
+| `W.y` | Security fixes only | YYYY-MM-DD |
+| `V.y` | End-of-life | YYYY-MM-DD |
 
-**Migration:** See [migration guide](../how-to/migrate-x-to-y.md).
+## Template QA checklist
 
-### Added
-
-- [New feature]
-
-### Changed
-
-- [Change]
-
----
-
-## Version history
-
-| Version | Date | Highlights |
-| --------- | ------ | ------------ |
-| [X.Y.Z] | YYYY-MM-DD | [Key feature] |
-| [X.Y.Z-1] | YYYY-MM-DD | [Key feature] |
-| [X.Y.Z-2] | YYYY-MM-DD | [Key feature] |
-
----
-
-## Upgrade guides
-
-- [Upgrade from X.0 to X.1](../how-to/upgrade-x0-x1.md)
-- [Upgrade from (X-1).x to X.0](../how-to/upgrade-major.md)
-
-## API changelog
-
-For API-specific changes, see [API Changelog](./api-changelog.md).
-
----
-
-[Unreleased]: <https://github.com/[org]/[repo]/compare/vX.Y.Z...HEAD>
-[X.Y.Z]: <https://github.com/[org]/[repo]/compare/vX.Y.Z-1...vX.Y.Z>
-[X.Y.Z-1]: <https://github.com/[org]/[repo]/compare/vX.Y.Z-2...vX.Y.Z-1>
-[X.Y.Z-2]: <https://github.com/[org]/[repo]/releases/tag/vX.Y.Z-2>
+- [ ] Frontmatter complete
+- [ ] Date and version are concrete
+- [ ] Breaking changes called out explicitly
+- [ ] Migration link included when needed
+- [ ] No ambiguous wording like "may" or "might"
