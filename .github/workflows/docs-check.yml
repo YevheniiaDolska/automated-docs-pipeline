@@ -63,6 +63,17 @@ jobs:
       - run: pip install pyyaml
       - run: python scripts/seo_geo_optimizer.py docs/
 
+  code-examples-smoke:
+    name: Code examples smoke
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - run: pip install pyyaml
+      - run: python3 scripts/check_code_examples_smoke.py --paths docs templates
+
   spectral:
     name: API spec validation (Spectral)
     runs-on: ubuntu-latest
@@ -93,3 +104,22 @@ jobs:
       - name: Skip - no API specs found
         if: steps.find-specs.outputs.found == 'false'
         run: echo "No OpenAPI/Swagger specs found - skipping Spectral validation"
+
+  build-docs:
+    name: Build docs (strict)
+    runs-on: ubuntu-latest
+    needs:
+      - vale
+      - markdownlint
+      - cspell
+      - frontmatter
+      - seo-geo-check
+      - code-examples-smoke
+      - spectral
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - run: pip install -r requirements.txt
+      - run: mkdocs build --strict

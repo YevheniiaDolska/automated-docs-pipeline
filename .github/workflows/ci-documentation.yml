@@ -1,19 +1,13 @@
 name: CI - Documentation Quality
 
 on:
-  pull_request:
-    paths:
-      - 'docs/**'
-      - '*.md'
-      - 'mkdocs.yml'
-      - '.markdownlint.yml'
-      - 'cspell.json'
   push:
     branches: [main]
     paths:
       - 'docs/**'
       - '*.md'
       - 'mkdocs.yml'
+  workflow_dispatch:
 
 jobs:
   lint-docs:

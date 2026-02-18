@@ -1,0 +1,35 @@
+name: minimal
+version: 1
+
+notes:
+  - Minimal mode keeps only core quality gates and structure enforcement.
+  - Use this mode for strict environments or fast pilot onboarding.
+
+docs_contract:
+  interface_patterns:
+    - '^api/'
+    - 'openapi.*\.(ya?ml|json)$'
+    - '^sdk/'
+    - '^clients/'
+  doc_patterns:
+    - '^docs/'
+    - '^templates/'
+    - '^\.vscode/docs\.code-snippets$'
+
+drift:
+  openapi_patterns:
+    - 'openapi.*\.(ya?ml|json)$'
+    - 'swagger.*\.(ya?ml|json)$'
+  sdk_patterns:
+    - '^sdk/'
+    - '^clients/'
+  reference_doc_patterns:
+    - '^docs/reference/'
+    - '^templates/api-reference\.md$'
+    - '^templates/sdk-reference\.md$'
+
+kpi_sla:
+  min_quality_score: 75
+  max_stale_pct: 20.0
+  max_high_priority_gaps: 10
+  max_quality_score_drop: 8

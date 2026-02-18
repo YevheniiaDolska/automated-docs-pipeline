@@ -4,6 +4,36 @@
 
 Templates should NOT contain made-up numbers. Claude Code will adapt based on context:
 
+## Measurement model (required for production claims)
+
+Any business or performance claim must use one of these labels:
+
+1. **Measured**: Computed from real data with a timestamped window and source.
+1. **Target**: A planned objective with due date and owner.
+1. **Hypothesis**: An estimate pending validation.
+
+Use this structure in docs:
+
+```markdown
+Metric: <name>
+Type: Measured | Target | Hypothesis
+Formula: <explicit formula>
+Window: <date range>
+Source: <report or system>
+Baseline: <value and date>
+Current: <value and date>
+Target: <value and deadline>
+Confidence: High | Medium | Low
+```
+
+### Standard formulas
+
+- **Time-to-doc** = `docs_merged_at - code_merged_at` (hours)
+- **Stale percent** = `(stale_docs / total_docs) * 100`
+- **High-priority gap count** = `count(gaps where priority == "high")`
+- **Docs quality score** = weighted composite from metadata completeness, stale ratio, and gap pressure
+- **Estimated annual savings (Hypothesis)** = `(hours_saved_per_month * loaded_hourly_rate * 12) - annual_tooling_cost`
+
 ## Adaptation Strategy
 
 ### 1. When Real Metrics Are Available
@@ -49,6 +79,7 @@ Templates should NOT contain made-up numbers. Claude Code will adapt based on co
 ✅ "Based on similar deployments, expect 10-50 requests/second"
 ✅ "Estimated cost: $50-200/month depending on usage"
 ✅ "Industry benchmark: 45ms P50 for similar APIs"
+✅ "Hypothesis: annual savings $90k-$140k, confidence: medium, formula documented in KPI appendix"
 ```
 
 ### Bad (Dishonest) Adaptations

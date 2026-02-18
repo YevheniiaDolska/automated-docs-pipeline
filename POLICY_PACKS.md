@@ -1,54 +1,42 @@
-# Policy Packs
+# Policy packs
 
-## Purpose
+Policy packs let you adapt one pipeline to different companies without rewriting scripts.
 
-Policy packs let teams tune docs-automation behavior without changing Python code.
-Use a policy pack to adapt gates for API-first, monorepo, or multi-product repositories.
+## Available packs
 
-## Available Packs
+1. `policy_packs/minimal.yml`
+1. `policy_packs/api-first.yml`
+1. `policy_packs/monorepo.yml`
+1. `policy_packs/multi-product.yml`
 
-- `policy_packs/api-first.yml`
-- `policy_packs/monorepo.yml`
-- `policy_packs/multi-product.yml`
+## What a policy pack controls
 
-## Fields
+1. Interface-to-docs contract patterns.
+1. API/SDK drift detection patterns.
+1. KPI SLA thresholds.
 
-### `docs_contract`
+## How to run with a pack
 
-- `interface_patterns`: Changed files that imply documentation is required.
-- `doc_patterns`: Files that satisfy the docs-update requirement.
-
-### `drift`
-
-- `openapi_patterns`: OpenAPI/spec-related change patterns.
-- `sdk_patterns`: SDK/client change patterns.
-- `reference_doc_patterns`: Reference docs paths that resolve drift.
-
-### `kpi_sla`
-
-- `min_quality_score`
-- `max_stale_pct`
-- `max_high_priority_gaps`
-- `max_quality_score_drop`
-
-## Usage Examples
+Docs contract:
 
 ```bash
-python3 scripts/check_docs_contract.py \
-  --base origin/main \
-  --head HEAD \
-  --policy-pack policy_packs/monorepo.yml
+python3 scripts/check_docs_contract.py --base origin/main --head HEAD --policy-pack policy_packs/minimal.yml
 ```
 
-```bash
-python3 scripts/check_api_sdk_drift.py \
-  --base origin/main \
-  --head HEAD \
-  --policy-pack policy_packs/multi-product.yml
-```
+Drift check:
 
 ```bash
-python3 scripts/evaluate_kpi_sla.py \
-  --current reports/kpi-wall.json \
-  --policy-pack policy_packs/api-first.yml
+python3 scripts/check_api_sdk_drift.py --base origin/main --head HEAD --policy-pack policy_packs/api-first.yml
 ```
+
+KPI SLA:
+
+```bash
+python3 scripts/evaluate_kpi_sla.py --current reports/kpi-wall.json --policy-pack policy_packs/minimal.yml
+```
+
+## Recommendation for new clients
+
+1. Start with `minimal.yml`.
+1. Move to `api-first.yml` if API-driven.
+1. Add stricter thresholds after baseline.

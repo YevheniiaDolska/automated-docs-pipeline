@@ -1,52 +1,39 @@
-# API-First Playbook
+# API-first playbook
 
-## Purpose
+Use this when a company ships API changes frequently.
 
-Use this workflow when a company follows API-first delivery.
-The pipeline can generate server stubs and SDK clients directly from OpenAPI specs using ready-made tools.
+## Goal
 
-## Tooling
+Keep API docs, SDK docs, and contracts synchronized with code changes.
 
-- OpenAPI Generator (`openapitools/openapi-generator-cli`)
-- Optional alternatives: NSwag, Swagger Codegen, Speakeasy, Stainless
+## Required gates
 
-## GitHub Actions Workflow
+1. PR DoD contract: `.github/workflows/pr-dod-contract.yml`
+1. API/SDK drift gate: `.github/workflows/api-sdk-drift-gate.yml`
+1. Smoke examples: `.github/workflows/code-examples-smoke.yml`
 
-Run `.github/workflows/api-first-scaffold.yml` manually and provide:
+## Basic workflow
 
-1. `spec_path` (for example `api/openapi.yaml`)
-1. `server_generator` (for example `typescript-express-server`)
-1. `client_generator` (for example `typescript-axios`)
+1. Update OpenAPI spec.
+1. Update SDK/client code.
+1. Update reference docs in same PR.
+1. Run drift check.
 
-Output artifacts:
-
-- `generated/server`
-- `generated/client`
-
-## Local Command Equivalent
+## Local commands
 
 ```bash
-docker run --rm -v "${PWD}:/local" openapitools/openapi-generator-cli:v7.7.0 generate \
-  -i /local/api/openapi.yaml \
-  -g typescript-express-server \
-  -o /local/generated/server
-
-docker run --rm -v "${PWD}:/local" openapitools/openapi-generator-cli:v7.7.0 generate \
-  -i /local/api/openapi.yaml \
-  -g typescript-axios \
-  -o /local/generated/client
+python3 scripts/check_api_sdk_drift.py --base origin/main --head HEAD --policy-pack policy_packs/api-first.yml
+python3 scripts/check_docs_contract.py --base origin/main --head HEAD --policy-pack policy_packs/api-first.yml
 ```
 
-## Recommended Delivery Model
+## Optional code generation
 
-1. Generate stubs from the spec.
-1. Implement business logic in service-layer modules.
-1. Keep generated code isolated from handcrafted domain logic.
-1. Regenerate stubs on spec changes.
-1. Use drift gates to enforce docs/reference updates with API changes.
+Example with OpenAPI Generator image:
 
-## Quality Guardrails
+```bash
+docker run --rm -v "${PWD}:/local" openapitools/openapi-generator-cli:v7.7.0 generate -i /local/api/openapi.yaml -g typescript-axios -o /local/generated/client
+```
 
-1. Run `npm run drift-check` after API/spec changes.
-1. Update `docs/reference/` and `templates/api-reference.md` when signatures change.
-1. Include migration notes in `release-docs-pack.md` for breaking changes.
+## Delivery rule
+
+If API signature changes and reference docs are not updated, PR must fail.

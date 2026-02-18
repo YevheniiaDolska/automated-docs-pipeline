@@ -1,148 +1,83 @@
-# Documentation Pipeline Setup Guide
+# Documentation pipeline setup guide (beginner-first)
 
-## What This System Is
+## What this repository gives you
 
-This repository is a unified documentation operations system.
-It combines technical writing workflows, quality gates, SEO/GEO optimization,
-metadata governance, gap detection, and reporting in one pipeline.
+This is a documentation operations system, not only templates.
 
-The goal is not random AI drafting.
-The goal is repeatable, high-quality documentation output with measurable
-business impact.
+It includes:
 
-## Quick Start (Windows PowerShell)
+1. Document quality gates.
+1. Frontmatter schema validation.
+1. API and SDK drift checks.
+1. DoD contract checks for pull requests.
+1. KPI and release reporting.
+1. Smoke checks for runnable code examples.
 
-### 1. Install Python and dependencies
+## Fast setup
 
-```powershell
-# From project root
-cd "C:\Users\Kroha\Documents\development\Auto-Doc Pipeline"
-
-python --version
-# If this prints Python 3.x, continue.
-
-pip install -r requirements.txt
-```
-
-### 2. Verify core scripts
-
-Run these from project root:
-
-```powershell
-python3 scripts\validate_frontmatter.py docs
-python3 scripts\doc_layers_validator.py docs
-python3 scripts\seo_geo_optimizer.py docs
-python3 scripts\gap_detector.py
-python3 scripts\new_doc.py --help
-python3 scripts\lifecycle_manager.py --help
-python3 scripts\generate_facets_index.py --help
-python3 scripts\upload_to_algolia.py --help
-```
-
-If you are in the `scripts` folder, return to root first:
-
-```powershell
-cd ..
-```
-
-### 3. Run quality checks
-
-```powershell
+```bash
+git clone <repo-url>
+cd "Auto-Doc Pipeline"
+python3 -m pip install -r requirements.txt
 npm install
-npm run lint:md
-npm run lint:frontmatter
-npm run lint:seo
+make validate-minimal
 ```
 
-### 4. Build and preview docs
+## Choose execution mode
 
-```powershell
-mkdocs serve
-# http://127.0.0.1:8000
+### Minimal mode
 
-mkdocs build
+Use when company has strict constraints.
+
+```bash
+make validate-minimal
 ```
 
-## Core Capabilities
+Includes:
 
-### Content system
+1. Markdown linting.
+1. Frontmatter schema checks.
+1. SEO/GEO structure checks.
+1. Code example smoke checks.
+1. DoD and drift contracts.
 
-- Diataxis-aligned templates for tutorials, how-to guides, concepts, and reference docs.
-- Specialized templates for API, integration, security, testing, configuration, and webhooks.
-- Reusable variables via `docs/_variables.yml` to keep content consistent.
+### Full mode
 
-### Quality system
+Use when you want all checks and reports.
 
-- Style and clarity checks (Vale + write-good).
-- Markdown structure checks (`markdownlint`).
-- Frontmatter schema validation.
-- Documentation-layer validation for structural quality.
-- API quality checks (Spectral, where applicable).
-- Optional spelling checks (`cspell`).
-
-### Growth and discoverability system
-
-- SEO/GEO checks with actionable recommendations.
-- Metadata completeness validation.
-- Faceted search index generation.
-- Optional Algolia integration for scale.
-
-### Governance and planning system
-
-- Gap detection from code deltas, stale docs, and community signals.
-- Lifecycle tracking for documentation freshness.
-- Pilot analysis with before/after KPI reporting.
-
-## Recommended Daily Workflow
-
-1. Draft or update docs using templates and snippets.
-1. Run local quality gates before commit.
-1. Open PR and let CI re-run checks.
-1. Review gap reports and prioritize high-impact updates.
-1. Track publish speed, quality, and support outcomes.
-
-## Troubleshooting
-
-### `ModuleNotFoundError: No module named 'yaml'`
-
-Run:
-
-```powershell
-pip install PyYAML
+```bash
+make validate-full
 ```
 
-Then verify:
+## One-command workflow
 
-```powershell
-python3 -c "import yaml; print('PyYAML OK')"
+```bash
+make validate
 ```
 
-### `python` works but npm scripts fail
+## Development container
 
-Use `python3` in shell and ensure `package.json` lint commands reference `python3`.
+If your local Python or Node setup is unstable, use containerized setup.
 
-### `vale` command not found
+1. Open project in VS Code.
+1. Reopen in Dev Container.
+1. Run `make validate-minimal`.
 
-Install Vale and sync styles:
+Files:
 
-```powershell
-vale --version
-vale sync
-```
+1. `.devcontainer/devcontainer.json`
+1. `.devcontainer/Dockerfile`
+1. `docker-compose.docs-ops.yml`
 
-Then run:
+## Security first
 
-```powershell
-vale docs templates
-```
+Before enabling automation in company repos, read:
 
-## What Good Looks Like
+1. `SECURITY_OPERATIONS.md`
 
-A healthy setup means:
+## Next documents
 
-- docs checks pass locally and in CI.
-- new content follows templates and shared variables.
-- metadata is complete and valid.
-- markdownlint has no blocking violations in active documentation paths.
-- SEO/GEO checks produce actionable, low-noise recommendations.
-- gap reports generate clear, prioritized work items.
+1. `SETUP_GUIDE.md` for detailed local setup.
+1. `SETUP_FOR_PROJECTS.md` for integrating into external repos.
+1. `PRIVATE_REPO_SETUP.md` for private GitHub repositories.
+1. `OPERATOR_RUNBOOK.md` for pilot delivery steps.

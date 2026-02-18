@@ -11,6 +11,8 @@
     "lint:frontmatter": "python3 scripts/validate_frontmatter.py",
     "lint:geo": "python3 scripts/seo_geo_optimizer.py docs/",
     "lint:examples-smoke": "python3 scripts/check_code_examples_smoke.py --paths docs templates",
+    "validate:minimal": "npm run lint:md && npm run lint:frontmatter && npm run lint:geo && npm run lint:examples-smoke",
+    "validate:full": "npm run validate:minimal && npm run docs-ops:e2e && npm run docs-ops:golden && npm run docs-ops:test-suite && python3 test_pipeline.py",
     "serve": "mkdocs serve",
     "build": "mkdocs build --strict",
     "gaps": "python3 -m scripts.gap_detection.cli analyze",

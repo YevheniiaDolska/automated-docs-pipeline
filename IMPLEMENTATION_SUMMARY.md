@@ -264,7 +264,7 @@ You now have:
 1. **Industry-standard methodologies** (SDD + BDR)
 1. **Comprehensive automation** (everything runs automatically)
 1. **Impressive reporting** (HTML reports that wow clients)
-1. **Clear value proposition** ($3,500 pilot proves $150k/year savings)
+1. **Clear value proposition** (pilot defines a measurable baseline and validates savings hypotheses before scale)
 
 The system is now:
 

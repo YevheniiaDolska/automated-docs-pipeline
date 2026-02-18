@@ -1,0 +1,14 @@
+{
+  "name": "auto-doc-pipeline",
+  "dockerFile": "Dockerfile",
+  "postCreateCommand": "python3 -m pip install -r requirements.txt && npm install",
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "esbenp.prettier-vscode",
+        "DavidAnson.vscode-markdownlint",
+        "streetsidesoftware.code-spell-checker"
+      ]
+    }
+  }
+}
