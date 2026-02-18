@@ -1,0 +1,55 @@
+name: PR DoD Contract
+
+on:
+  pull_request:
+    types: [opened, edited, synchronize, reopened]
+    paths:
+      - 'api/**'
+      - 'sdk/**'
+      - 'clients/**'
+      - 'src/**'
+      - 'docs/**'
+      - 'templates/**'
+      - '.vscode/docs.code-snippets'
+      - 'scripts/check_docs_contract.py'
+      - 'scripts/validate_pr_dod.py'
+      - 'policy_packs/**'
+
+permissions:
+  contents: read
+  pull-requests: write
+
+jobs:
+  dod-contract:
+    name: Validate PR DoD Contract
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Validate PR template contract
+        run: |
+          python3 scripts/validate_pr_dod.py --event-path "$GITHUB_EVENT_PATH"
+
+      - name: Check interface-to-docs contract
+        run: |
+          python3 scripts/check_docs_contract.py \
+            --base "${{ github.event.pull_request.base.sha }}" \
+            --head "${{ github.event.pull_request.head.sha }}" \
+            --policy-pack "policy_packs/api-first.yml" \
+            --json-output reports/pr_docs_contract.json
+
+      - name: Upload contract report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: pr-docs-contract
+          path: reports/pr_docs_contract.json

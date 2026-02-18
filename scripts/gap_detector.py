@@ -135,9 +135,9 @@ def run_analysis(output_dir: str, since_days: int, algolia_csv: str | None, algo
     aggregator.save_to_csv(report)
     try:
         aggregator.save_to_excel(report)
-    except Exception:
+    except (ImportError, OSError, ValueError) as exc:
         # Excel export is optional (depends on openpyxl runtime availability).
-        pass
+        print(f"Warning: Excel export failed: {exc}", file=sys.stderr)
 
     gaps = [asdict(g) for g in report.gaps]
     debt_score = _compute_debt_score(gaps)

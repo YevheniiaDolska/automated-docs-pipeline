@@ -1,0 +1,46 @@
+name: Docs Ops E2E
+
+on:
+  pull_request:
+    paths:
+      - 'scripts/check_docs_contract.py'
+      - 'scripts/check_api_sdk_drift.py'
+      - 'scripts/evaluate_kpi_sla.py'
+      - 'scripts/test_docs_ops_e2e.py'
+      - 'scripts/test_golden_reports_and_workflows.py'
+      - 'policy_packs/**'
+      - 'tests/fixtures/docs_ops/**'
+      - 'tests/golden/**'
+      - '.github/workflows/pr-dod-contract.yml'
+      - '.github/workflows/api-sdk-drift-gate.yml'
+      - '.github/workflows/kpi-wall.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  e2e:
+    name: Run docs ops e2e fixtures
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install pyyaml
+
+      - name: Run E2E fixtures
+        run: |
+          python3 scripts/test_docs_ops_e2e.py
+
+      - name: Run golden report and workflow tests
+        run: |
+          python3 scripts/test_golden_reports_and_workflows.py

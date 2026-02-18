@@ -1,0 +1,116 @@
+name: Weekly KPI Wall
+
+on:
+  schedule:
+    - cron: '0 6 * * 1'
+  workflow_dispatch:
+    inputs:
+      policy_pack:
+        description: Optional policy pack path
+        required: false
+        default: policy_packs/api-first.yml
+        type: string
+
+permissions:
+  contents: read
+  issues: write
+
+jobs:
+  generate-kpi-wall:
+    name: Generate KPI wall and dashboard
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install pyyaml
+
+      - name: Generate KPI wall and dashboard
+        run: |
+          python3 scripts/generate_kpi_wall.py --docs-dir docs --reports-dir reports --stale-days 90
+
+      - name: Resolve policy pack input
+        id: policy
+        run: |
+          if [ -n "${{ github.event.inputs.policy_pack }}" ]; then
+            echo "path=${{ github.event.inputs.policy_pack }}" >> "$GITHUB_OUTPUT"
+          else
+            echo "path=policy_packs/api-first.yml" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Extract previous KPI snapshot from main (optional)
+        run: |
+          set +e
+          git fetch origin main --depth=2
+          git show origin/main:reports/kpi-wall.json > reports/previous-kpi-wall.json
+          EXIT_CODE=$?
+          if [ "$EXIT_CODE" -ne 0 ]; then
+            echo "No previous KPI snapshot found in main branch. Trend check will use current snapshot only."
+            rm -f reports/previous-kpi-wall.json
+          fi
+          set -e
+
+      - name: Evaluate KPI SLA and trend
+        id: sla
+        continue-on-error: true
+        run: |
+          if [ -f reports/previous-kpi-wall.json ]; then
+            python3 scripts/evaluate_kpi_sla.py \
+              --current reports/kpi-wall.json \
+              --previous reports/previous-kpi-wall.json \
+              --policy-pack "${{ steps.policy.outputs.path }}" \
+              --json-output reports/kpi-sla-report.json \
+              --md-output reports/kpi-sla-report.md
+          else
+            python3 scripts/evaluate_kpi_sla.py \
+              --current reports/kpi-wall.json \
+              --policy-pack "${{ steps.policy.outputs.path }}" \
+              --json-output reports/kpi-sla-report.json \
+              --md-output reports/kpi-sla-report.md
+          fi
+
+      - name: Create issue when SLA is breached
+        if: steps.sla.outcome == 'failure'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require('fs');
+            const reportPath = 'reports/kpi-sla-report.md';
+            const report = fs.existsSync(reportPath)
+              ? fs.readFileSync(reportPath, 'utf8')
+              : 'KPI SLA breach detected. Report is unavailable.';
+            const date = new Date().toISOString().split('T')[0];
+
+            await github.rest.issues.create({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              title: `[KPI SLA] Weekly breach detected - ${date}`,
+              body: report,
+              labels: ['documentation', 'auto-created', 'high-priority']
+            });
+
+      - name: Fail job when SLA is breached
+        if: steps.sla.outcome == 'failure'
+        run: |
+          echo "KPI SLA breach detected."
+          exit 1
+
+      - name: Upload KPI artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: docs-kpi-wall
+          path: |
+            reports/kpi-wall.md
+            reports/kpi-wall.json
+            reports/wow-dashboard.html
+            reports/kpi-sla-report.md
+            reports/kpi-sla-report.json

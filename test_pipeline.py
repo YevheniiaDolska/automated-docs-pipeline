@@ -6,6 +6,7 @@ Tests all major components of the documentation pipeline
 
 import sys
 import subprocess
+import shlex
 from pathlib import Path
 from typing import Tuple, List
 import yaml
@@ -23,9 +24,9 @@ class PipelineTestRunner:
     def run_command(self, command: str, cwd: str = None) -> Tuple[int, str, str]:
         """Execute command and return exit code, stdout, stderr"""
         try:
+            cmd_parts = shlex.split(command)
             result = subprocess.run(
-                command,
-                shell=True,
+                cmd_parts,
                 capture_output=True,
                 text=True,
                 cwd=cwd or self.root_dir

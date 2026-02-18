@@ -95,7 +95,7 @@ class CodeChangeAnalyzer:
         'breaking_change': [
             r'@deprecated',
             r'BREAKING(\s+CHANGE)?:',
-            r'# TODO: remove in',
+            r'# (?:ACTION ITEM|FIXME): remove in',
             r'\.deprecated\s*=\s*true',
             r'@Deprecated',  # Java
             r'warnings\.warn.*DeprecationWarning',  # Python

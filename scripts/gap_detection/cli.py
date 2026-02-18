@@ -43,7 +43,8 @@ def cmd_analyze(args):
 
     try:
         excel_path = aggregator.save_to_excel(report)
-    except Exception:
+    except (ImportError, OSError, ValueError) as exc:
+        print(f"Warning: Excel report was not generated: {exc}")
         excel_path = None
 
     # Выводим summary

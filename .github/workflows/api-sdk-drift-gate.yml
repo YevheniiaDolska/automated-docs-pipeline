@@ -1,0 +1,84 @@
+name: API SDK Drift Gate
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+    paths:
+      - 'api/**'
+      - '**/openapi*.yaml'
+      - '**/openapi*.yml'
+      - '**/openapi*.json'
+      - '**/swagger*.yaml'
+      - '**/swagger*.yml'
+      - '**/swagger*.json'
+      - 'sdk/**'
+      - 'clients/**'
+      - 'generated/**'
+
+permissions:
+  contents: read
+  issues: write
+
+jobs:
+  drift:
+    name: Detect API/SDK drift
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Run drift check
+        id: drift
+        continue-on-error: true
+        run: |
+          python3 scripts/check_api_sdk_drift.py \
+            --base "${{ github.event.pull_request.base.sha }}" \
+            --head "${{ github.event.pull_request.head.sha }}" \
+            --policy-pack "policy_packs/api-first.yml" \
+            --json-output reports/api_sdk_drift_report.json \
+            --md-output reports/api_sdk_drift_report.md
+
+      - name: Create issue when drift is detected
+        if: steps.drift.outcome == 'failure'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require('fs');
+            const reportPath = 'reports/api_sdk_drift_report.md';
+            const body = fs.existsSync(reportPath)
+              ? fs.readFileSync(reportPath, 'utf8')
+              : 'API/SDK drift detected. Report file is unavailable.';
+
+            const prNumber = context.payload.pull_request.number;
+            const title = `[Docs Drift] PR #${prNumber} changed API/SDK without reference docs`;
+
+            await github.rest.issues.create({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              title,
+              body,
+              labels: ['documentation', 'doc-gap', 'auto-created']
+            });
+
+      - name: Upload drift report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: api-sdk-drift-report
+          path: |
+            reports/api_sdk_drift_report.json
+            reports/api_sdk_drift_report.md
+
+      - name: Fail job when drift exists
+        if: steps.drift.outcome == 'failure'
+        run: |
+          echo "API/SDK drift detected. Reference docs update is required."
+          exit 1

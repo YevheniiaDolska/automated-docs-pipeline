@@ -1,0 +1,31 @@
+docs_contract:
+  interface_patterns:
+    - "^api/"
+    - "openapi.*\\.(ya?ml|json)$"
+    - "swagger.*\\.(ya?ml|json)$"
+    - "api-spec.*\\.(ya?ml|json)$"
+    - "^sdk/"
+    - "^clients/"
+  doc_patterns:
+    - "^docs/reference/"
+    - "^docs/how-to/"
+    - "^templates/api-reference\\.md$"
+    - "^templates/sdk-reference\\.md$"
+
+drift:
+  openapi_patterns:
+    - "openapi.*\\.(ya?ml|json)$"
+    - "swagger.*\\.(ya?ml|json)$"
+  sdk_patterns:
+    - "^sdk/"
+    - "^clients/"
+  reference_doc_patterns:
+    - "^docs/reference/"
+    - "^templates/api-reference\\.md$"
+    - "^templates/sdk-reference\\.md$"
+
+kpi_sla:
+  min_quality_score: 82
+  max_stale_pct: 12.0
+  max_high_priority_gaps: 6
+  max_quality_score_drop: 4

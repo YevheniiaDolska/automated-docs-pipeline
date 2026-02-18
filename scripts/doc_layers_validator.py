@@ -9,6 +9,7 @@ from pathlib import Path
 from typing import Dict, List, Tuple
 import re
 from datetime import datetime
+from yaml import YAMLError
 
 class DocLayersValidator:
     """
@@ -46,8 +47,8 @@ class DocLayersValidator:
                 if len(parts) >= 2:
                     fm = yaml.safe_load(parts[1])
                     return fm.get("content_type", "")
-            except:
-                pass
+            except (YAMLError, AttributeError, TypeError):
+                return ""
         return ""
 
     def check_layer_consistency(self, content: str, content_type: str, file_path: Path) -> List[Dict]:

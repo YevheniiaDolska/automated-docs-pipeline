@@ -1,0 +1,41 @@
+name: Code Examples Smoke
+
+on:
+  pull_request:
+    paths:
+      - 'docs/**'
+      - 'templates/**'
+      - 'scripts/check_code_examples_smoke.py'
+      - '.github/workflows/code-examples-smoke.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'docs/**'
+      - 'templates/**'
+      - 'scripts/check_code_examples_smoke.py'
+
+permissions:
+  contents: read
+
+jobs:
+  code-examples-smoke:
+    name: Run smoke checks for code examples
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install pyyaml
+
+      - name: Run code examples smoke check
+        run: |
+          python3 scripts/check_code_examples_smoke.py --paths docs templates

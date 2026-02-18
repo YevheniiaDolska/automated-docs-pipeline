@@ -20,6 +20,7 @@ SETUP_GUIDE.md
 USER_GUIDE.md
 WINDOWS_PATH_SETUP.md
 BEGINNER_GUIDE.md
+OPERATOR_RUNBOOK.md
 
 # Algolia local files
 algolia-records.json
@@ -29,3 +30,22 @@ ALGOLIA_SETUP.md
 # Local SEO/metadata work files
 seo-work/
 *.seo-backup
+
+# Generated docs-ops reports
+reports/pilot-baseline.json
+reports/pilot-final.json
+reports/pilot-analysis.json
+reports/baseline-summary.md
+reports/executive-report.md
+reports/doc_gaps_report.csv
+reports/doc_gaps_report.json
+reports/doc_gaps_report.xlsx
+reports/kpi-wall.json
+reports/kpi-wall.md
+reports/kpi-sla-report.json
+reports/kpi-sla-report.md
+reports/wow-dashboard.html
+reports/release-docs-pack.md
+reports/api_sdk_drift_report.json
+reports/api_sdk_drift_report.md
+reports/pr_docs_contract.json

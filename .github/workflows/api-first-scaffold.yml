@@ -1,0 +1,67 @@
+name: API First Scaffold
+
+on:
+  workflow_dispatch:
+    inputs:
+      spec_path:
+        description: Path to OpenAPI spec file
+        required: true
+        default: api/openapi.yaml
+        type: string
+      server_generator:
+        description: Server stub generator
+        required: true
+        default: typescript-express-server
+        type: string
+      client_generator:
+        description: Client SDK generator
+        required: true
+        default: typescript-axios
+        type: string
+
+permissions:
+  contents: read
+
+jobs:
+  scaffold:
+    name: Generate API-first stubs and SDK
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Validate spec path
+        run: |
+          if [ ! -f "${{ github.event.inputs.spec_path }}" ]; then
+            echo "Spec not found: ${{ github.event.inputs.spec_path }}"
+            exit 1
+          fi
+
+      - name: Generate server scaffold with OpenAPI Generator
+        run: |
+          mkdir -p generated/server
+          docker run --rm \
+            -v "${PWD}:/local" \
+            openapitools/openapi-generator-cli:v7.7.0 generate \
+            -i "/local/${{ github.event.inputs.spec_path }}" \
+            -g "${{ github.event.inputs.server_generator }}" \
+            -o /local/generated/server
+
+      - name: Generate client SDK with OpenAPI Generator
+        run: |
+          mkdir -p generated/client
+          docker run --rm \
+            -v "${PWD}:/local" \
+            openapitools/openapi-generator-cli:v7.7.0 generate \
+            -i "/local/${{ github.event.inputs.spec_path }}" \
+            -g "${{ github.event.inputs.client_generator }}" \
+            -o /local/generated/client
+
+      - name: Upload generated artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: api-first-scaffold
+          path: |
+            generated/server
+            generated/client

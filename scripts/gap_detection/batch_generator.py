@@ -154,7 +154,7 @@ class BatchDocGenerator:
                 task.status = 'generated'
                 batch.generated_files.append(task.output_path)
 
-            except Exception as e:
+            except (OSError, ValueError, RuntimeError, subprocess.SubprocessError) as e:
                 task.status = 'error'
                 batch.errors.append(f'{task.id}: {str(e)}')
 

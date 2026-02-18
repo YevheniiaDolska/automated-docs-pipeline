@@ -13,6 +13,9 @@ from datetime import datetime
 import yaml
 import sys
 import argparse
+from json import JSONDecodeError
+from contextlib import redirect_stdout
+from io import StringIO
 
 class PilotAnalyzer:
     """
@@ -76,8 +79,8 @@ class PilotAnalyzer:
                                 "errors": file_errors,
                                 "warnings": file_warnings
                             }
-                except:
-                    pass
+                except JSONDecodeError:
+                    print("  ⚠️ Failed to parse Vale JSON output, using empty style summary.")
 
             self.results["vale_analysis"] = {
                 "errors": errors,
@@ -93,7 +96,7 @@ class PilotAnalyzer:
             }
 
             return self.results["vale_analysis"]
-        except Exception as e:
+        except (OSError, subprocess.SubprocessError) as e:
             print(f"  ⚠️ Vale not found or error: {e}")
             return {"errors": 0, "warnings": 0, "suggestions": 0, "total_style_issues": 0}
 
@@ -114,12 +117,12 @@ class PilotAnalyzer:
                     data = json.loads(result.stdout)
                     self.results["seo_geo_analysis"] = data
                     return data
-                except:
-                    pass
+                except JSONDecodeError:
+                    print("  ⚠️ Failed to parse SEO/GEO JSON output, using fallback analysis.")
 
             # Fallback to basic SEO analysis
             return self._basic_seo_analysis()
-        except:
+        except (OSError, subprocess.SubprocessError, subprocess.TimeoutExpired):
             return self._basic_seo_analysis()
 
     def _basic_seo_analysis(self):
@@ -185,12 +188,12 @@ class PilotAnalyzer:
                     data = json.loads(result.stdout)
                     self.results["gap_detection"] = data
                     return data
-                except:
-                    pass
+                except JSONDecodeError:
+                    print("  ⚠️ Failed to parse gap detector JSON output, using fallback analysis.")
 
             # Fallback to basic gap detection
             return self._basic_gap_detection()
-        except:
+        except (OSError, subprocess.SubprocessError, subprocess.TimeoutExpired):
             return self._basic_gap_detection()
 
     def _basic_gap_detection(self):
@@ -202,14 +205,14 @@ class PilotAnalyzer:
             "total_gaps": 0
         }
 
-        uncertainty_patterns = ["TODO", "FIXME", "UNCLEAR", "probably", "maybe", "TBD"]
+        uncertainty_patterns = ["ACTION ITEM", "FIXME", "UNCLEAR", "probably", "maybe", "TBD"]
 
         for md_file in self.docs_dir.rglob("*.md"):
             content = md_file.read_text(encoding='utf-8')
 
             for pattern in uncertainty_patterns:
                 if pattern in content:
-                    if pattern in ["TODO", "FIXME"]:
+                    if pattern in ["ACTION ITEM", "FIXME"]:
                         gaps["todos"] += content.count(pattern)
                     elif pattern in ["probably", "maybe"]:
                         gaps["uncertainties"] += content.count(pattern)
@@ -237,10 +240,10 @@ class PilotAnalyzer:
                     data = json.loads(result.stdout)
                     self.results["layer_validation"] = data
                     return data
-                except:
-                    pass
-        except:
-            pass
+                except JSONDecodeError:
+                    print("  ⚠️ Failed to parse layer validation JSON output, using fallback result.")
+        except (OSError, subprocess.SubprocessError, subprocess.TimeoutExpired) as exc:
+            print(f"  ⚠️ Layer validator unavailable: {exc}")
 
         # Simple fallback
         self.results["layer_validation"] = {
@@ -336,7 +339,7 @@ class PilotAnalyzer:
         gap_data = self.results.get("gap_detection", {})
         if isinstance(gap_data, dict) and gap_data.get("todos", 0) > 0:
             wins.append({
-                "action": f"Complete {gap_data.get('todos', 0)} TODO items",
+                "action": f"Complete {gap_data.get('todos', 0)} action items",
                 "impact": "Complete documentation",
                 "effort": "Medium",
                 "priority": 75
@@ -865,12 +868,13 @@ def main():
     analyzer = PilotAnalyzer(docs_dir=args.docs_dir)
 
     if args.json:
-        analyzer.run_vale_analysis()
-        analyzer.run_seo_geo_analysis()
-        analyzer.run_gap_detection()
-        analyzer.run_layer_validation()
-        analyzer.calculate_debt_score()
-        analyzer.identify_quick_wins()
+        with redirect_stdout(StringIO()):
+            analyzer.run_vale_analysis()
+            analyzer.run_seo_geo_analysis()
+            analyzer.run_gap_detection()
+            analyzer.run_layer_validation()
+            analyzer.calculate_debt_score()
+            analyzer.identify_quick_wins()
 
         print(json.dumps(analyzer.results, indent=2))
     else:

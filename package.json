@@ -10,6 +10,7 @@
     "lint:spell": "cspell \"docs/**/*.md\"",
     "lint:frontmatter": "python3 scripts/validate_frontmatter.py",
     "lint:geo": "python3 scripts/seo_geo_optimizer.py docs/",
+    "lint:examples-smoke": "python3 scripts/check_code_examples_smoke.py --paths docs templates",
     "serve": "mkdocs serve",
     "build": "mkdocs build --strict",
     "gaps": "python3 -m scripts.gap_detection.cli analyze",
@@ -17,7 +18,15 @@
     "gaps:community": "python3 -m scripts.gap_detection.cli community",
     "gaps:code": "python3 -m scripts.gap_detection.cli code",
     "gaps:generate": "python3 -m scripts.gap_detection.cli generate --report reports/doc_gaps_report.json",
-    "new-doc": "python3 scripts/new_doc.py"
+    "new-doc": "python3 scripts/new_doc.py",
+    "kpi-wall": "python3 scripts/generate_kpi_wall.py --docs-dir docs --reports-dir reports --stale-days 90",
+    "release-pack": "python3 scripts/generate_release_docs_pack.py --output reports/release-docs-pack.md",
+    "docs-contract": "python3 scripts/check_docs_contract.py --base origin/main --head HEAD --json-output reports/pr_docs_contract.json",
+    "drift-check": "python3 scripts/check_api_sdk_drift.py --base origin/main --head HEAD --json-output reports/api_sdk_drift_report.json --md-output reports/api_sdk_drift_report.md",
+    "kpi-sla": "python3 scripts/evaluate_kpi_sla.py --current reports/kpi-wall.json --policy-pack policy_packs/api-first.yml --json-output reports/kpi-sla-report.json --md-output reports/kpi-sla-report.md",
+    "docs-ops:e2e": "python3 scripts/test_docs_ops_e2e.py",
+    "docs-ops:golden": "python3 scripts/test_golden_reports_and_workflows.py",
+    "docs-ops:test-suite": "python3 -m unittest discover -s tests -p 'test_autopipeline_suite.py'"
   },
   "devDependencies": {
     "husky": "^8.0.3",

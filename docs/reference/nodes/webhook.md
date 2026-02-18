@@ -73,6 +73,20 @@ The Webhook node outputs a single item with the following structure:
 
 For binary data (file uploads), the node outputs an additional `binary` key.
 
+## Smoke-checked examples
+
+Use these minimal examples to verify that basic snippets still run in CI.
+
+```bash smoke
+python3 -c "print('webhook smoke ok')"
+```
+
+```python smoke
+payload = {"event": "ping", "status": "ok"}
+assert payload["status"] == "ok"
+print("webhook smoke ok")
+```
+
 ## Environment variables
 
 | Variable | Default | Description |

@@ -1,0 +1,73 @@
+{
+  ".github/workflows/api-sdk-drift-gate.yml": {
+    "jobs": {
+      "drift": [
+        "Checkout",
+        "Setup Python",
+        "Run drift check",
+        "Create issue when drift is detected",
+        "Upload drift report",
+        "Fail job when drift exists"
+      ]
+    },
+    "name": "API SDK Drift Gate",
+    "triggers": []
+  },
+  ".github/workflows/docs-ops-e2e.yml": {
+    "jobs": {
+      "e2e": [
+        "Checkout",
+        "Setup Python",
+        "Install dependencies",
+        "Run E2E fixtures",
+        "Run golden report and workflow tests"
+      ]
+    },
+    "name": "Docs Ops E2E",
+    "triggers": []
+  },
+  ".github/workflows/kpi-wall.yml": {
+    "jobs": {
+      "generate-kpi-wall": [
+        "Checkout",
+        "Setup Python",
+        "Install dependencies",
+        "Generate KPI wall and dashboard",
+        "Resolve policy pack input",
+        "Extract previous KPI snapshot from main (optional)",
+        "Evaluate KPI SLA and trend",
+        "Create issue when SLA is breached",
+        "Fail job when SLA is breached",
+        "Upload KPI artifacts"
+      ]
+    },
+    "name": "Weekly KPI Wall",
+    "triggers": []
+  },
+  ".github/workflows/pr-dod-contract.yml": {
+    "jobs": {
+      "dod-contract": [
+        "Checkout",
+        "Setup Python",
+        "Validate PR template contract",
+        "Check interface-to-docs contract",
+        "Upload contract report"
+      ]
+    },
+    "name": "PR DoD Contract",
+    "triggers": []
+  },
+  ".github/workflows/release-docs-pack.yml": {
+    "jobs": {
+      "generate-release-pack": [
+        "Checkout",
+        "Setup Python",
+        "Determine version",
+        "Generate release docs pack",
+        "Upload release docs artifact"
+      ]
+    },
+    "name": "Release Docs Pack",
+    "triggers": []
+  }
+}

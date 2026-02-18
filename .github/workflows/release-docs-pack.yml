@@ -1,0 +1,53 @@
+name: Release Docs Pack
+
+on:
+  release:
+    types: [published]
+  workflow_dispatch:
+    inputs:
+      version:
+        description: Release version/tag
+        required: false
+        type: string
+
+permissions:
+  contents: read
+
+jobs:
+  generate-release-pack:
+    name: Generate release docs pack
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Determine version
+        id: version
+        run: |
+          if [ -n "${{ github.event.inputs.version }}" ]; then
+            echo "value=${{ github.event.inputs.version }}" >> "$GITHUB_OUTPUT"
+          elif [ -n "${{ github.event.release.tag_name }}" ]; then
+            echo "value=${{ github.event.release.tag_name }}" >> "$GITHUB_OUTPUT"
+          else
+            echo "value=" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Generate release docs pack
+        run: |
+          python3 scripts/generate_release_docs_pack.py \
+            --version "${{ steps.version.outputs.value }}" \
+            --output reports/release-docs-pack.md
+
+      - name: Upload release docs artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: release-docs-pack
+          path: reports/release-docs-pack.md
