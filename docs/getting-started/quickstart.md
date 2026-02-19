@@ -20,7 +20,7 @@ A workflow is a series of connected nodes that process data automatically. In th
 
 ## Prerequisites
 
-- An instance (Cloud or self-hosted). See [installation options](../installation.md).
+- An instance (Cloud or self-hosted). See the [getting started overview](index.md).
 - A Slack workspace where you can add apps.
 
 ## Step 1: Create a new workflow
