@@ -32,6 +32,50 @@ jobs:
         run: |
           python scripts/seo_geo_optimizer.py docs/ --algolia --output algolia-records.json
 
+      - name: Normalize generated records file
+        run: |
+          python3 - <<'PY'
+          import json
+          from pathlib import Path
+
+          candidates = [
+              Path("algolia-records.json"),
+              Path("algolia-records-algolia.json"),
+              Path("seo-output-algolia.json"),
+          ]
+
+          source = None
+          for candidate in candidates:
+              if candidate.exists():
+                  source = candidate
+                  break
+
+          if source is None:
+              raise SystemExit(
+                  "No Algolia records file found. Expected one of: "
+                  "algolia-records.json, algolia-records-algolia.json, seo-output-algolia.json"
+              )
+
+          payload = json.loads(source.read_text(encoding="utf-8"))
+
+          # seo_geo_optimizer outputs {records, config}; workflow needs plain records list.
+          if isinstance(payload, dict) and "records" in payload:
+              records = payload["records"]
+          elif isinstance(payload, list):
+              records = payload
+          else:
+              raise SystemExit(f"Unsupported Algolia payload format in {source}")
+
+          if not isinstance(records, list):
+              raise SystemExit(f"Expected records list in {source}")
+
+          Path("algolia-records.json").write_text(
+              json.dumps(records, indent=2),
+              encoding="utf-8",
+          )
+          print(f"Prepared algolia-records.json with {len(records)} records (source: {source})")
+          PY
+
       - name: Push to Algolia
         run: |
           python3 - <<'PY'
