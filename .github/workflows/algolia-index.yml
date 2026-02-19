@@ -26,7 +26,7 @@ jobs:
 
       - name: Install dependencies
         run: |
-          pip install pyyaml algoliasearch
+          pip install pyyaml "algoliasearch==2.6.3"
 
       - name: Generate search records
         run: |
