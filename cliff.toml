@@ -47,8 +47,6 @@ commit_parsers = [
 ]
 # Protect breaking changes
 protect_breaking_commits = false
-# Filter commits
-filter_commits = true
 # Glob pattern for matching git tags
 tag_pattern = "v[0-9]*"
 # Skip tags regex
