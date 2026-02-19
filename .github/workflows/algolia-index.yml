@@ -137,12 +137,17 @@ jobs:
           index.clear_objects()
           response = index.save_objects(records)
           task_id = None
-          if isinstance(response, dict):
-              task_id = response.get("taskID") or response.get("taskId")
-          elif isinstance(response, list) and response:
-              first_item = response[0]
-              if isinstance(first_item, dict):
-                  task_id = first_item.get("taskID") or first_item.get("taskId")
+          # algoliasearch SDK may return wrappers with `raw_responses`.
+          response_payload = getattr(response, "raw_responses", response)
+          try:
+              if isinstance(response_payload, dict):
+                  task_id = response_payload.get("taskID") or response_payload.get("taskId")
+              elif isinstance(response_payload, list) and response_payload:
+                  first_item = response_payload[0]
+                  if isinstance(first_item, dict):
+                      task_id = first_item.get("taskID") or first_item.get("taskId")
+          except Exception:
+              task_id = None
 
           print(f"Uploaded {len(records)} records to Algolia")
           print(f"Index: {index_name}")
