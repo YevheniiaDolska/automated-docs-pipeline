@@ -34,51 +34,52 @@ jobs:
 
       - name: Push to Algolia
         run: |
-          python3 -c "
+          python3 - <<'PY'
           import json
           import os
           from algoliasearch.search_client import SearchClient
 
           # Initialize client
           client = SearchClient.create(
-              os.environ['ALGOLIA_APP_ID'],
-              os.environ['ALGOLIA_API_KEY']
+              os.environ["ALGOLIA_APP_ID"],
+              os.environ["ALGOLIA_API_KEY"],
           )
 
-          index = client.init_index(os.environ['ALGOLIA_INDEX_NAME'])
+          index_name = os.environ["ALGOLIA_INDEX_NAME"]
+          index = client.init_index(index_name)
 
           # Load records
-          with open('algolia-records.json', 'r') as f:
-              records = json.load(f)
+          with open("algolia-records.json", "r", encoding="utf-8") as handle:
+              records = json.load(handle)
 
           # Configure index settings
           settings = {
-              'searchableAttributes': [
-                  'unordered(title)',
-                  'unordered(heading)',
-                  'unordered(content)',
-                  'unordered(description)',
-                  'tags'
+              "searchableAttributes": [
+                  "unordered(title)",
+                  "unordered(heading)",
+                  "unordered(content)",
+                  "unordered(description)",
+                  "tags",
               ],
-              'attributesForFaceting': [
-                  'searchable(product)',
-                  'searchable(content_type)',
-                  'searchable(component)',
-                  'searchable(tags)',
-                  'maturity',
-                  'version'
+              "attributesForFaceting": [
+                  "searchable(product)",
+                  "searchable(content_type)",
+                  "searchable(component)",
+                  "searchable(tags)",
+                  "maturity",
+                  "version",
               ],
-              'customRanking': [
-                  'desc(ranking_boost)',
-                  'asc(heading_level)',
-                  'desc(word_count)'
+              "customRanking": [
+                  "desc(ranking_boost)",
+                  "asc(heading_level)",
+                  "desc(word_count)",
               ],
-              'attributesToSnippet': [
-                  'content:50',
-                  'description:30'
+              "attributesToSnippet": [
+                  "content:50",
+                  "description:30",
               ],
-              'distinct': True,
-              'attributeForDistinct': 'url'
+              "distinct": True,
+              "attributeForDistinct": "url",
           }
 
           # Update settings
@@ -88,15 +89,15 @@ jobs:
           index.clear_objects()
           response = index.save_objects(records)
 
-          print(f'✅ Uploaded {len(records)} records to Algolia')
-          print(f'Index: {os.environ[\\\"ALGOLIA_INDEX_NAME\\\"]}')
-          print(f'Task ID: {response[\\\"taskID\\\"]}')
-          "
+          print(f"Uploaded {len(records)} records to Algolia")
+          print(f"Index: {index_name}")
+          print(f"Task ID: {response['taskID']}")
+          PY
 
       - name: Test search
         continue-on-error: true
         run: |
-          python3 -c "
+          python3 - <<'PY'
           import os
           import time
           from algoliasearch.search_client import SearchClient
@@ -105,22 +106,26 @@ jobs:
           time.sleep(5)
 
           client = SearchClient.create(
-              os.environ['ALGOLIA_APP_ID'],
-              os.environ['ALGOLIA_API_KEY']
+              os.environ["ALGOLIA_APP_ID"],
+              os.environ["ALGOLIA_API_KEY"],
           )
 
-          index = client.init_index(os.environ['ALGOLIA_INDEX_NAME'])
+          index = client.init_index(os.environ["ALGOLIA_INDEX_NAME"])
 
           # Test search
-          result = index.search('webhook', {
-              'facetFilters': [],
-              'hitsPerPage': 3
-          })
+          result = index.search(
+              "webhook",
+              {
+                  "facetFilters": [],
+                  "hitsPerPage": 3,
+              },
+          )
 
-          print('🔍 Search test results:')
-          print(f'Found {result[\\\"nbHits\\\"]} results for \\\"webhook\\\"')
-          for hit in result['hits'][:3]:
-              print(f'  - {hit.get(\\\"title\\\", \\\"Untitled\\\")}: {hit.get(\\\"url\\\", \\\"\\\")}')"
+          print("Search test results:")
+          print(f"Found {result['nbHits']} results for 'webhook'")
+          for hit in result["hits"][:3]:
+              print(f"  - {hit.get('title', 'Untitled')}: {hit.get('url', '')}")
+          PY
 
       - name: Generate search analytics report
         if: always()
