@@ -7,6 +7,10 @@ on:
       - 'docs/**/*.md'
   workflow_dispatch:
 
+concurrency:
+  group: algolia-index-${{ github.ref }}
+  cancel-in-progress: true
+
 env:
   # These secrets need to be set in GitHub repository settings
   ALGOLIA_APP_ID: ${{ secrets.ALGOLIA_APP_ID }}
@@ -132,10 +136,17 @@ jobs:
           # Clear and upload records (atomic replace)
           index.clear_objects()
           response = index.save_objects(records)
+          task_id = None
+          if isinstance(response, dict):
+              task_id = response.get("taskID") or response.get("taskId")
+          elif isinstance(response, list) and response:
+              first_item = response[0]
+              if isinstance(first_item, dict):
+                  task_id = first_item.get("taskID") or first_item.get("taskId")
 
           print(f"Uploaded {len(records)} records to Algolia")
           print(f"Index: {index_name}")
-          print(f"Task ID: {response['taskID']}")
+          print(f"Task ID: {task_id or 'n/a'}")
           PY
 
       - name: Test search
