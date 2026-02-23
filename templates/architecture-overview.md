@@ -98,7 +98,7 @@ Every feature available via API with consistent performance:
 
 All state changes emit events with delivery guarantees:
 
-```javascript
+```text
 // Event performance metrics
 {
   "publishing_latency_p50": "3ms",

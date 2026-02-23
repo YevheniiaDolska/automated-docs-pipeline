@@ -56,7 +56,7 @@ A workflow is a series of connected nodes that process data automatically. In th
 1. Set **Channel** to your target channel name or ID.
 1. Set **Text** to an expression:
 
-```json
+```text
 New webhook received: {% raw %}{{ $json.body.message }}{% endraw %}
 ```
 

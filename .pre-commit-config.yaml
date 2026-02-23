@@ -76,3 +76,13 @@ repos:
         exclude: ^(?!.*(?:openapi|swagger|api)).*$
         additional_dependencies: ['@stoplight/spectral-cli@^6.11.0']
         args: ['--ruleset', '.spectral.yml']
+
+      # Code snippet syntax linting
+      - id: lint-code-snippets
+        name: Lint code snippets in markdown
+        entry: python scripts/lint_code_snippets.py --quiet
+        language: python
+        files: ^docs/.*\.md$
+        exclude: ^templates/
+        pass_filenames: true
+        additional_dependencies: [pyyaml]
