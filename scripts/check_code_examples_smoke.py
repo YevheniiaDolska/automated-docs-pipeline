@@ -174,7 +174,110 @@ def _run_js(content: str, timeout: int) -> tuple[bool, str]:
         script_path.unlink(missing_ok=True)
 
 
-def _run_smoke_block(block: CodeBlock, timeout: int) -> tuple[bool, str]:
+def _run_curl(content: str, timeout: int, execute: bool) -> tuple[bool, str]:
+    curl_bin = shutil.which("curl")
+    if curl_bin is None:
+        return False, "curl is not installed but curl smoke block was found"
+
+    with tempfile.NamedTemporaryFile("w", suffix=".sh", encoding="utf-8", delete=False) as handle:
+        handle.write("set -euo pipefail\n")
+        handle.write(content + "\n")
+        script_path = Path(handle.name)
+    try:
+        syntax = subprocess.run(
+            ["bash", "-n", str(script_path)],
+            capture_output=True,
+            text=True,
+            timeout=timeout,
+            check=False,
+        )
+        if syntax.returncode != 0:
+            return False, syntax.stderr.strip() or "curl snippet syntax check failed"
+
+        if not execute:
+            return True, ""
+
+        run = subprocess.run(
+            ["bash", str(script_path)],
+            capture_output=True,
+            text=True,
+            timeout=timeout,
+            check=False,
+        )
+        if run.returncode != 0:
+            return False, run.stderr.strip() or "curl example failed"
+        return True, ""
+    finally:
+        script_path.unlink(missing_ok=True)
+
+
+def _run_go(content: str, timeout: int) -> tuple[bool, str]:
+    go_bin = shutil.which("go")
+    if go_bin is None:
+        return False, "go is not installed but Go smoke block was found"
+
+    with tempfile.TemporaryDirectory() as temp_dir:
+        temp_path = Path(temp_dir)
+        source_path = temp_path / "main.go"
+        source_path.write_text(content + "\n", encoding="utf-8")
+
+        mod_init = subprocess.run(
+            [go_bin, "mod", "init", "smokeexample"],
+            cwd=temp_dir,
+            capture_output=True,
+            text=True,
+            timeout=timeout,
+            check=False,
+        )
+        if mod_init.returncode != 0 and "go.mod already exists" not in (mod_init.stderr or ""):
+            return False, mod_init.stderr.strip() or "go module init failed"
+
+        build = subprocess.run(
+            [go_bin, "build", "./..."],
+            cwd=temp_dir,
+            capture_output=True,
+            text=True,
+            timeout=timeout,
+            check=False,
+        )
+        if build.returncode != 0:
+            return False, build.stderr.strip() or "go example build failed"
+        return True, ""
+
+
+def _run_typescript(content: str, timeout: int) -> tuple[bool, str]:
+    tsc_bin = shutil.which("tsc")
+    if tsc_bin is None:
+        return False, "tsc is not installed but TypeScript smoke block was found"
+
+    with tempfile.TemporaryDirectory() as temp_dir:
+        temp_path = Path(temp_dir)
+        source_path = temp_path / "example.ts"
+        source_path.write_text(content + "\n", encoding="utf-8")
+
+        compile_result = subprocess.run(
+            [
+                tsc_bin,
+                "--pretty",
+                "false",
+                "--noEmit",
+                "--target",
+                "ES2020",
+                "--module",
+                "commonjs",
+                str(source_path),
+            ],
+            capture_output=True,
+            text=True,
+            timeout=timeout,
+            check=False,
+        )
+        if compile_result.returncode != 0:
+            return False, compile_result.stderr.strip() or "typescript compile check failed"
+        return True, ""
+
+
+def _run_smoke_block(block: CodeBlock, timeout: int, allow_network: bool) -> tuple[bool, str]:
     language = block.language
     if language in {"python", "py"}:
         return _run_python(block.content, timeout)
@@ -186,10 +289,19 @@ def _run_smoke_block(block: CodeBlock, timeout: int) -> tuple[bool, str]:
         return _run_yaml(block.content)
     if language in {"javascript", "js"}:
         return _run_js(block.content, timeout)
+    if language in {"typescript", "ts"}:
+        return _run_typescript(block.content, timeout)
+    if language == "go":
+        return _run_go(block.content, timeout)
+    if language == "curl":
+        # Curl examples are often network-bound. Execute only when explicitly tagged
+        # with `network` and network execution is enabled.
+        should_execute = "network" in block.tags and allow_network
+        return _run_curl(block.content, timeout, should_execute)
     return False, f"unsupported language for smoke execution: '{language}'"
 
 
-def run_smoke(paths: list[str], timeout: int, allow_empty: bool) -> int:
+def run_smoke(paths: list[str], timeout: int, allow_empty: bool, allow_network: bool) -> int:
     files = _iter_markdown_files(paths)
     blocks: list[CodeBlock] = []
     for file_path in files:
@@ -205,7 +317,7 @@ def run_smoke(paths: list[str], timeout: int, allow_empty: bool) -> int:
 
     failures: list[str] = []
     for block in smoke_blocks:
-        ok, reason = _run_smoke_block(block, timeout)
+        ok, reason = _run_smoke_block(block, timeout, allow_network)
         if not ok:
             failures.append(f"{block.path}:{block.line} -> {reason}")
 
@@ -233,9 +345,19 @@ def main() -> int:
         action="store_true",
         help="Allow zero smoke-tagged examples",
     )
+    parser.add_argument(
+        "--allow-network",
+        action="store_true",
+        help="Allow execution of smoke blocks tagged with `network`",
+    )
     args = parser.parse_args()
 
-    return run_smoke(paths=args.paths, timeout=args.timeout, allow_empty=args.allow_empty)
+    return run_smoke(
+        paths=args.paths,
+        timeout=args.timeout,
+        allow_empty=args.allow_empty,
+        allow_network=args.allow_network,
+    )
 
 
 if __name__ == "__main__":

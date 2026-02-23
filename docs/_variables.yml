@@ -22,33 +22,33 @@ api_version: "v1"
 docs_version: "2.0"
 
 # --- URLS ---
-cloud_url: "https://app.n8n.cloud"
-cloud_signup_url: "https://app.n8n.cloud/register"
-docs_url: "https://docs.n8n.io"
-community_url: "https://community.n8n.io"
-github_url: "https://github.com/n8n-io/n8n"
-status_page_url: "https://status.n8n.io"
+cloud_url: "https://app.example.com"
+cloud_signup_url: "https://app.example.com/register"
+docs_url: "https://docs.example.com"
+community_url: "https://community.example.com"
+github_url: "https://github.com/YOUR_ORG/YOUR_REPO"
+status_page_url: "https://status.example.com"
 
 # --- SUPPORT ---
-support_email: "support@n8n.io"
-sales_email: "sales@n8n.io"
+support_email: "support@example.com"
+sales_email: "sales@example.com"
 
 # --- DEFAULT PORTS ---
 default_port: 5678
 default_webhook_port: 5678
 
 # --- DEFAULT PATHS ---
-default_data_folder: "~/.n8n"
-default_config_path: "~/.n8n/config"
+default_data_folder: "~/.product"
+default_config_path: "~/.product/config"
 
 # --- ENVIRONMENT VARIABLES ---
 env_vars:
   webhook_url: "WEBHOOK_URL"
-  data_folder: "N8N_USER_FOLDER"
-  port: "N8N_PORT"
-  basic_auth_user: "N8N_BASIC_AUTH_USER"
-  basic_auth_password: "N8N_BASIC_AUTH_PASSWORD"
-  encryption_key: "N8N_ENCRYPTION_KEY"
+  data_folder: "PRODUCT_USER_FOLDER"
+  port: "PRODUCT_PORT"
+  basic_auth_user: "PRODUCT_BASIC_AUTH_USER"
+  basic_auth_password: "PRODUCT_BASIC_AUTH_PASSWORD"
+  encryption_key: "PRODUCT_ENCRYPTION_KEY"
 
 # --- LIMITS ---
 max_payload_size_mb: 16
@@ -65,5 +65,5 @@ terms:
   expression: "expression"
 
 # --- BRANDING ---
-company_name: "n8n GmbH"
+company_name: "Your Company"
 copyright_year: "2024"

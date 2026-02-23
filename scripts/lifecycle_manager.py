@@ -13,9 +13,16 @@ from datetime import datetime
 class LifecycleManager:
     """Manages content lifecycle (preview, beta, ga, deprecated, removed)"""
 
-    def __init__(self, docs_dir='docs', site_generator='mkdocs'):
+    def __init__(self, docs_dir='docs', site_generator=None):
         self.docs_dir = Path(docs_dir)
-        self.site_generator = site_generator
+        if site_generator is None:
+            try:
+                from site_generator import SiteGenerator as SG
+                self.site_generator = SG.detect().name
+            except ImportError:
+                self.site_generator = 'mkdocs'
+        else:
+            self.site_generator = site_generator
         self.deprecated_pages = []
         self.removed_pages = []
         self.preview_pages = []
@@ -40,7 +47,10 @@ class LifecycleManager:
             'beta': [],
             'ga': [],
             'deprecated': [],
-            'removed': []
+            'removed': [],
+            'draft': [],
+            'active': [],
+            'archived': []
         }
 
         for md_file in self.docs_dir.rglob('*.md'):
@@ -50,9 +60,24 @@ class LifecycleManager:
             content = md_file.read_text(encoding='utf-8')
             frontmatter, _ = self.extract_frontmatter(content)
 
-            maturity = frontmatter.get('maturity', 'ga')
-            if maturity in results:
-                results[maturity].append({
+            # Prefer current schema field `status`, keep backward compatibility with `maturity`.
+            status = frontmatter.get('status')
+            maturity = frontmatter.get('maturity')
+
+            # Canonical state for reporting with compatibility mapping.
+            if isinstance(status, str) and status:
+                lifecycle_state = status
+            elif isinstance(maturity, str) and maturity:
+                legacy_map = {
+                    'ga': 'active',
+                    'removed': 'archived',
+                }
+                lifecycle_state = legacy_map.get(maturity, maturity)
+            else:
+                lifecycle_state = 'active'
+
+            if lifecycle_state in results:
+                results[lifecycle_state].append({
                     'file': str(md_file),
                     'title': frontmatter.get('title', ''),
                     'replaced_by': frontmatter.get('replaced_by', ''),
@@ -77,7 +102,7 @@ class LifecycleManager:
 {% block content %}
 
   {# Automatic lifecycle banners based on frontmatter #}
-  {% if page.meta.maturity == 'deprecated' %}
+  {% if page.meta.status == 'deprecated' or page.meta.maturity == 'deprecated' %}
     <div class="admonition warning">
       <p class="admonition-title">⚠️ Deprecated</p>
       <p>This feature is deprecated{% if page.meta.deprecated_since %} since {{ page.meta.deprecated_since }}{% endif %}.</p>
@@ -88,7 +113,7 @@ class LifecycleManager:
         <p>This will be removed on {{ page.meta.sunset_date }}.</p>
       {% endif %}
     </div>
-  {% elif page.meta.maturity == 'preview' %}
+  {% elif page.meta.status == 'draft' or page.meta.maturity == 'preview' %}
     <div class="admonition info">
       <p class="admonition-title">🔬 Preview Feature</p>
       <p>This feature is in preview and may change without notice.</p>
@@ -107,9 +132,9 @@ class LifecycleManager:
 
 {% block htmltitle %}
   {# Add lifecycle state to page title #}
-  {% if page.meta.maturity == 'deprecated' %}
+  {% if page.meta.status == 'deprecated' or page.meta.maturity == 'deprecated' %}
     <title>[Deprecated] {{ page.title }} - {{ config.site_name }}</title>
-  {% elif page.meta.maturity == 'preview' %}
+  {% elif page.meta.status == 'draft' or page.meta.maturity == 'preview' %}
     <title>[Preview] {{ page.title }} - {{ config.site_name }}</title>
   {% else %}
     {{ super() }}
@@ -344,6 +369,7 @@ def main():
     parser.add_argument('--docusaurus', action='store_true', help='Generate Docusaurus plugin')
     parser.add_argument('--redirects', action='store_true', help='Generate redirect pages')
     parser.add_argument('--report', action='store_true', help='Generate lifecycle report')
+    parser.add_argument('--json-output', type=str, default='', help='Write lifecycle scan results as JSON')
     args = parser.parse_args()
 
     manager = LifecycleManager()
@@ -367,6 +393,12 @@ def main():
         # Save report
         Path('lifecycle-report.md').write_text(report)
         print(f"\n✅ Report saved to lifecycle-report.md")
+
+    if args.json_output:
+        output_path = Path(args.json_output)
+        output_path.parent.mkdir(parents=True, exist_ok=True)
+        output_path.write_text(json.dumps(results, indent=2), encoding='utf-8')
+        print(f"✅ JSON report saved to {output_path}")
 
 if __name__ == '__main__':
     main()

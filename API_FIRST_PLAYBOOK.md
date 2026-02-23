@@ -27,6 +27,8 @@ Main enforcement workflows:
 1. `.github/workflows/pr-dod-contract.yml`
 1. `.github/workflows/api-sdk-drift-gate.yml`
 1. `.github/workflows/code-examples-smoke.yml`
+1. `.github/workflows/api-first-scaffold.yml` (OpenAPI-based scaffold generation)
+1. `.github/workflows/openapi-source-sync.yml` (api-first and code-first source resolution)
 
 Main scripts:
 
@@ -132,6 +134,26 @@ docker run --rm -v "${PWD}:/local" openapitools/openapi-generator-cli:v7.7.0 gen
 ```
 
 Use generated code as a starting point, then add business logic manually.
+
+Repository-native option:
+
+1. Run `.github/workflows/api-first-scaffold.yml` via `workflow_dispatch`.
+1. Provide `spec_path`, `server_generator`, and `client_generator`.
+1. Workflow generates server stubs and client SDK artifacts automatically.
+
+## Optional PLG API sandbox
+
+1. Embed `docs/reference/api-playground.md` in docs navigation.
+1. Use `docs/assets/javascripts/api-playground.js` with provider `swagger-ui` or `redoc`.
+1. For Swagger UI, set `try_it_enabled` based on risk policy.
+1. Route `Try it out` traffic to non-production sandbox URL.
+1. Use unified `extra.plg.api_playground` config for API-first and code-first projects.
+
+For mock sandbox bootstrap from OpenAPI:
+
+```bash
+npm run api:sandbox:mock
+```
 
 ## Common failure cases and fixes
 

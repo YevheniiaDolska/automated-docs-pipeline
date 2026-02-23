@@ -44,6 +44,35 @@
     "name": "Weekly KPI Wall",
     "triggers": []
   },
+  ".github/workflows/lifecycle-management.yml": {
+    "jobs": {
+      "lifecycle": [
+        "Checkout",
+        "Setup Python",
+        "Install dependencies",
+        "Generate lifecycle reports",
+        "Compute lifecycle summary",
+        "Create lifecycle issue",
+        "Create draft PR with lifecycle report update",
+        "Upload lifecycle artifacts"
+      ]
+    },
+    "name": "Lifecycle Management",
+    "triggers": []
+  },
+  ".github/workflows/openapi-source-sync.yml": {
+    "jobs": {
+      "resolve-openapi": [
+        "Checkout",
+        "Setup Node (for code-first script option)",
+        "Resolve spec for api-first",
+        "Export spec for code-first",
+        "Upload resolved spec"
+      ]
+    },
+    "name": "OpenAPI Source Sync",
+    "triggers": []
+  },
   ".github/workflows/pr-dod-contract.yml": {
     "jobs": {
       "dod-contract": [

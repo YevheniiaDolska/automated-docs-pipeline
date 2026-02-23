@@ -1,25 +1,32 @@
-name: Monitor n8n for Documentation Gaps
+name: Monitor product releases for documentation gaps
 
 on:
   schedule:
     - cron: '0 9 * * 1'  # Every Monday 9:00 UTC
   workflow_dispatch:       # Manual trigger
 
+# Configure these environment variables for your product
+env:
+  PRODUCT_GITHUB_OWNER: 'YOUR_ORG'
+  PRODUCT_GITHUB_REPO: 'YOUR_REPO'
+  COMMUNITY_RSS_URL: 'https://community.example.com/c/questions/7.rss'
+  COMMUNITY_PAGE_URL: 'https://community.example.com/c/questions/7'
+
 jobs:
   check-releases:
-    name: Check n8n GitHub releases
+    name: Check product GitHub releases
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
 
-      - name: Fetch latest n8n releases
+      - name: Fetch latest product releases
         id: releases
         uses: actions/github-script@v7
         with:
           script: |
             const { data: releases } = await github.rest.repos.listReleases({
-              owner: 'n8n-io',
-              repo: 'n8n',
+              owner: process.env.PRODUCT_GITHUB_OWNER,
+              repo: process.env.PRODUCT_GITHUB_REPO,
               per_page: 5
             });
 
@@ -43,15 +50,15 @@ jobs:
                 await github.rest.issues.create({
                   owner: context.repo.owner,
                   repo: context.repo.repo,
-                  title: `📦 n8n ${release.tag_name}: new features may need documentation`,
-                  body: `## n8n ${release.tag_name} released on ${release.published_at}\n\n` +
+                  title: `Release ${release.tag_name}: new features may need documentation`,
+                  body: `## ${release.tag_name} released on ${release.published_at}\n\n` +
                         `### Features detected:\n\`\`\`\n${featureLines}\n\`\`\`\n\n` +
                         `**Full release:** ${release.html_url}\n\n` +
                         `### Action needed:\n` +
                         `- [ ] Review features for documentation impact\n` +
                         `- [ ] Create/update affected pages\n` +
                         `- [ ] Update version references if needed`,
-                  labels: ['n8n-release', 'auto-created']
+                  labels: ['product-release', 'auto-created']
                 });
               }
             }
@@ -59,7 +66,7 @@ jobs:
             return recent.length;
 
   check-community:
-    name: Check n8n community for doc gaps
+    name: Check community for doc gaps
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -67,8 +74,8 @@ jobs:
       - name: Fetch community questions
         id: community
         run: |
-          # Fetch recent questions from n8n community RSS
-          curl -s "https://community.n8n.io/c/questions/7.rss" \
+          # Fetch recent questions from community RSS
+          curl -s "$COMMUNITY_RSS_URL" \
             -o /tmp/community.xml 2>/dev/null || true
 
           # Parse titles (simple grep - works for RSS)
@@ -99,11 +106,11 @@ jobs:
               await github.rest.issues.create({
                 owner: context.repo.owner,
                 repo: context.repo.repo,
-                title: `🔍 Weekly community topics review - ${new Date().toISOString().split('T')[0]}`,
-                body: `## Recent n8n community questions\n\n` +
+                title: `Weekly community topics review - ${new Date().toISOString().split('T')[0]}`,
+                body: `## Recent community questions\n\n` +
                       `Review these for documentation gaps:\n\n` +
                       `\`\`\`\n${topics}\`\`\`\n\n` +
-                      `**Source:** https://community.n8n.io/c/questions/7\n\n` +
+                      `**Source:** ${process.env.COMMUNITY_PAGE_URL}\n\n` +
                       `### Patterns to look for:\n` +
                       `- Repeated questions = missing/unclear docs\n` +
                       `- Unanswered questions = doc gap\n` +

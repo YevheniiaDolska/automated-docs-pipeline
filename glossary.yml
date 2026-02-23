@@ -1,4 +1,4 @@
-# n8n Documentation Glossary
+# Documentation Glossary
 # Used by GEO linter to ensure consistent terminology
 # Format: preferred_term: [aliases, variations]
 
@@ -55,12 +55,12 @@ terms:
     aliases: ["file", "attachment", "blob"]
 
   # Deployment
-  n8n Cloud:
-    description: "Hosted SaaS version of n8n"
-    aliases: ["cloud version", "hosted n8n", "SaaS"]
+  cloud:
+    description: "Hosted SaaS version of the product"
+    aliases: ["cloud version", "hosted version", "SaaS"]
 
   self-hosted:
-    description: "Running n8n on your own infrastructure"
+    description: "Running the product on your own infrastructure"
     aliases: ["on-premise", "on-prem", "local install"]
 
   # Features

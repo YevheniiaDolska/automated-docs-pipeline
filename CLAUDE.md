@@ -11,6 +11,8 @@ This is an automated documentation pipeline for technical products. When writing
 
 ## Stripe-level documentation quality principles
 
+**Quality bar requirement:** every generated document must be equal to or better than Stripe documentation quality (clarity, structure, accuracy, examples, and usability).
+
 ### Write for humans first, search engines second
 
 **Every document MUST:**
@@ -159,7 +161,7 @@ Every `.md` file in `docs/` MUST have valid frontmatter:
 title: "Descriptive title under 70 characters"
 description: "Description between 50-160 characters for SEO. Include key terms."
 content_type: tutorial|how-to|concept|reference|troubleshooting|release-note
-product: both|n8n-cloud|n8n-self-hosted
+product: both|cloud|self-hosted
 tags:
 
   - Tag1
@@ -331,7 +333,7 @@ Use these templates based on `content_type`:
 **Content tabs:**
 
 ```markdown
-=== "n8n Cloud"
+=== "Cloud"
 
     Cloud-specific content
 
@@ -386,16 +388,16 @@ current_version: "1.50.0"
 api_version: "v1"
 
 # URLs
-cloud_url: "https://app.n8n.cloud"
-docs_url: "https://docs.n8n.io"
+cloud_url: "https://app.example.com"
+docs_url: "https://docs.example.com"
 
 # Ports and paths
 default_port: 5678
-default_data_folder: "~/.n8n"
+default_data_folder: "~/.product"
 
 # Environment variables
 env_vars:
-  port: "N8N_PORT"
+  port: "PRODUCT_PORT"
   webhook_url: "WEBHOOK_URL"
 
 # Limits
@@ -418,7 +420,7 @@ Set the port using {{ env_vars.port }}
 ```markdown
 Run ProductName on port 5678  # Hardcoded values
 The maximum payload size is 16 MB  # Should use variable
-Set the port using N8N_PORT  # Should use env_vars.port
+Set the port using PRODUCT_PORT  # Should use env_vars.port
 ```
 
 ## Pre-commit checks
@@ -444,10 +446,10 @@ To run manually:
 vale docs/path/to/file.md
 
 # Run all SEO/GEO checks
-python scripts/seo_geo_optimizer.py docs/
+python3 scripts/seo_geo_optimizer.py docs/
 
 # Run with auto-fix
-python scripts/seo_geo_optimizer.py docs/ --fix
+python3 scripts/seo_geo_optimizer.py docs/ --fix
 
 # Run all checks at once
 npm run lint
@@ -558,8 +560,8 @@ markdownlint docs/path/to/file.md
    npm run lint
 
    # Or individual checks
-   python scripts/validate_frontmatter.py
-   python scripts/seo_geo_optimizer.py docs/your-new-file.md
+   python3 scripts/validate_frontmatter.py
+   python3 scripts/seo_geo_optimizer.py docs/your-new-file.md
 
 ```bash
 

@@ -39,6 +39,15 @@ EU Region:  https://eu.{{ api_url }}/v1
 
 Rate limits: 10,000 req/min (standard), 50,000 req/min (enterprise)
 
+## API playground
+
+This reference can include interactive sandbox exploration using the docs API
+playground page.
+
+- For regulated projects: keep `Try it out` disabled or sandbox-only.
+- For low-risk projects: allow real API requests with strict auth scopes.
+- For mixed mode: let users switch sandbox and real API targets explicitly.
+
 ## Authentication
 
 ```bash

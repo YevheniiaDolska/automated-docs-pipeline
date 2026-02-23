@@ -56,9 +56,9 @@ def infer_metadata_from_path(filepath):
 
     # Infer product from path
     if 'cloud' in str(filepath).lower():
-        metadata['product'] = 'n8n-cloud'
+        metadata['product'] = 'cloud'
     elif 'self-hosted' in str(filepath).lower() or 'docker' in str(filepath).lower():
-        metadata['product'] = 'n8n-self-hosted'
+        metadata['product'] = 'self-hosted'
 
     # Infer component from filename
     filename = filepath.stem.lower()
@@ -75,7 +75,7 @@ def infer_metadata_from_path(filepath):
 
     for key, value in components.items():
         if key in filename:
-            metadata['n8n_component'] = value
+            metadata['app_component'] = value
             break
 
     # Auto-generate tags from path and filename
@@ -87,8 +87,8 @@ def infer_metadata_from_path(filepath):
             tags.append(part.replace('-', ' ').title())
 
     # Add component tag if found
-    if 'n8n_component' in metadata:
-        tags.append(metadata['n8n_component'].replace('-', ' ').title())
+    if 'app_component' in metadata:
+        tags.append(metadata['app_component'].replace('-', ' ').title())
 
     if tags:
         metadata['tags'] = list(set(tags))[:8]  # Max 8 tags
@@ -100,9 +100,9 @@ def analyze_content(content):
     metadata = {}
 
     # Check for version mentions
-    version_match = re.search(r'n8n (?:version |v?)(\d+\.\d+)', content, re.IGNORECASE)
+    version_match = re.search(r'(?:version |v)(\d+\.\d+)', content, re.IGNORECASE)
     if version_match:
-        metadata['n8n_version'] = version_match.group(1)
+        metadata['app_version'] = version_match.group(1)
 
     # Infer content_type from content structure
     if not metadata.get('content_type'):

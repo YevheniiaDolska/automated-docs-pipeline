@@ -1,46 +1,50 @@
-# Private repository setup guide
+# Private repository setup
 
-Yes, the pipeline works in private repositories.
+This pipeline works in private repositories.
 
-## 1. Add pipeline files
+## 1. Add pipeline files in feature branch
 
-Follow `SETUP_FOR_PROJECTS.md` and commit in a feature branch.
+Follow `SETUP_FOR_PROJECTS.md`, then open a pull request.
 
-## 2. Configure repository permissions
+## 2. Configure repository settings
 
-1. Allow GitHub Actions in the repository.
-1. Ensure workflow permissions allow reading contents.
-1. Grant issue creation only to workflows that need it.
+1. Enable GitHub Actions for the repository.
+1. Set workflow permissions to at least read repository contents.
+1. Grant additional permissions only to workflows that need them.
 
 ## 3. Configure secrets
 
-Only if used:
+Create only required secrets:
 
-1. `ALGOLIA_APP_ID`
-1. `ALGOLIA_ADMIN_API_KEY`
-1. `ALGOLIA_INDEX_NAME`
+1. `ALGOLIA_APP_ID` (optional)
+1. `ALGOLIA_ADMIN_KEY` (optional)
+1. `ALGOLIA_INDEX_NAME` (optional)
 
-Store only in Actions secrets.
+Store secrets in GitHub Actions secrets only.
 
-## 4. Validate in private repo
+## 4. Validate before merge
 
 ```bash
-make validate-minimal
+npm run validate:minimal
 ```
 
-## 5. Open pull request
+Recommended before major merges:
 
-CI should run:
+```bash
+npm run validate:full
+```
 
-1. docs checks
-1. DoD contract
-1. drift gate
-1. smoke examples
+## 5. Required CI checks in PR
 
-## Security checklist
+1. Documentation quality checks.
+1. PR DoD contract.
+1. API and SDK drift gate.
+1. Code examples smoke.
+1. Lifecycle management workflow (recommended).
 
-1. No secrets in docs or snippets.
-1. Use least-privilege tokens.
-1. Rotate tokens every 90 days.
+## 6. Security checklist
 
-Reference: `SECURITY_OPERATIONS.md`.
+1. No secrets in markdown, snippets, templates, or code.
+1. Least-privilege tokens only.
+1. Rotate credentials on a fixed schedule.
+1. Use `SECURITY_OPERATIONS.md` for incident response.

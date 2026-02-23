@@ -1,10 +1,7 @@
 extends: substitution
-message: "n8n style: Use '%s' instead of '%s'."
+message: "Terminology: Use '%s' instead of '%s'."
 level: error
 swap:
-  N8N: n8n
-  N8n: n8n
-  node8n: n8n
   zapier: Zapier
   make.com: Make
   integromat: Make

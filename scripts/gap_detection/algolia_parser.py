@@ -359,7 +359,7 @@ def create_sample_data(output_path: str = 'sample_algolia_data.json'):
             {"query": "how to schedule workflow", "count": 28, "nbHits": 5, "clickThroughRate": 0.05},
             {"query": "json transform", "count": 25, "nbHits": 3, "clickThroughRate": 0.08},
             {"query": "api key authentication", "count": 22, "nbHits": 0, "clickThroughRate": 0},
-            {"query": "docker install n8n", "count": 20, "nbHits": 2, "clickThroughRate": 0.15},
+            {"query": "docker install self-hosted", "count": 20, "nbHits": 2, "clickThroughRate": 0.15},
             {"query": "error 500 http request", "count": 18, "nbHits": 0, "clickThroughRate": 0},
             {"query": "cron expression", "count": 15, "nbHits": 1, "clickThroughRate": 0.03},
             {"query": "workflow timeout", "count": 12, "nbHits": 0, "clickThroughRate": 0},

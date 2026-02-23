@@ -23,7 +23,8 @@
       "Bash(pip install:*)",
       "Bash(python validate_frontmatter.py:*)",
       "Bash(for f in authentication-guide.md changelog.md configuration-guide.md configuration-reference.md error-handling-guide.md faq.md glossary-page.md integration-guide.md sdk-reference.md security-guide.md testing-guide.md use-case.md webhooks-guide.md)",
-      "Bash(done)"
+      "Bash(done)",
+      "Bash(tree:*)"
     ],
     "deny": [],
     "ask": []

@@ -21,6 +21,7 @@ A pack defines:
 1. `policy_packs/api-first.yml`
 1. `policy_packs/monorepo.yml`
 1. `policy_packs/multi-product.yml`
+1. `policy_packs/plg.yml`
 
 ## Which pack to choose
 
@@ -46,6 +47,12 @@ A pack defines:
 1. One docs system supports multiple products.
 1. You need stricter boundaries by product area.
 
+### Choose `plg.yml` when
+
+1. Self-serve activation and adoption are top goals.
+1. You need value-first docs patterns by persona and use case.
+1. You want API playground behavior policy (`sandbox-only`, `real-api`, `mixed`).
+
 ## First run (recommended for beginners)
 
 Start with `minimal.yml`.
@@ -64,6 +71,14 @@ python3 scripts/evaluate_kpi_sla.py --current reports/kpi-wall.json --policy-pac
 python3 scripts/check_docs_contract.py --base origin/main --head HEAD --policy-pack policy_packs/api-first.yml
 python3 scripts/check_api_sdk_drift.py --base origin/main --head HEAD --policy-pack policy_packs/api-first.yml --json-output reports/api_sdk_drift_report.json --md-output reports/api_sdk_drift_report.md
 python3 scripts/evaluate_kpi_sla.py --current reports/kpi-wall.json --policy-pack policy_packs/api-first.yml --json-output reports/kpi-sla-report.json --md-output reports/kpi-sla-report.md
+```
+
+## Same checks with PLG pack
+
+```bash
+python3 scripts/check_docs_contract.py --base origin/main --head HEAD --policy-pack policy_packs/plg.yml
+python3 scripts/check_api_sdk_drift.py --base origin/main --head HEAD --policy-pack policy_packs/plg.yml --json-output reports/api_sdk_drift_report.json --md-output reports/api_sdk_drift_report.md
+python3 scripts/evaluate_kpi_sla.py --current reports/kpi-wall.json --policy-pack policy_packs/plg.yml --json-output reports/kpi-sla-report.json --md-output reports/kpi-sla-report.md
 ```
 
 ## How to customize a pack safely

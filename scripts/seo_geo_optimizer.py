@@ -148,7 +148,13 @@ def geo_lint_file(filepath):
                                 "LLMs need explicit definitions to extract answers.", "suggestion"))
 
     # Rule 4: Generic headings
+    in_code_block_g = False
     for i, line in enumerate(lines, 1):
+        if line.strip().startswith("```"):
+            in_code_block_g = not in_code_block_g
+            continue
+        if in_code_block_g:
+            continue
         if line.startswith("#"):
             heading_text = re.sub(r'^#+\s*', '', line).strip().lower()
             if heading_text in GEO_RULES["generic_headings"]:
@@ -158,8 +164,14 @@ def geo_lint_file(filepath):
 
     # Rule 5: Heading hierarchy
     prev_level = 0
+    in_code_block_h = False
     for i, line in enumerate(lines, 1):
-        if line.startswith("#") and not line.startswith("```"):
+        if line.strip().startswith("```"):
+            in_code_block_h = not in_code_block_h
+            continue
+        if in_code_block_h:
+            continue
+        if line.startswith("#"):
             level = len(line.split()[0]) if line.split() else 0
             if level > prev_level + 1 and prev_level > 0:
                 findings.append(GEOFinding(filepath, i, "heading-hierarchy-skip",
@@ -231,7 +243,7 @@ class SEOEnhancer:
             "dateModified": frontmatter.get('last_reviewed', datetime.now().isoformat()),
             "author": {
                 "@type": "Organization",
-                "name": "n8n Documentation Team"
+                "name": "Documentation Team"
             }
         }
 
@@ -338,7 +350,7 @@ class SEOEnhancer:
             'og:description': description,
             'og:url': canonical,
             'og:type': 'article',
-            'og:site_name': 'n8n Documentation',
+            'og:site_name': 'Documentation',
 
             # Twitter Card tags
             'twitter:card': 'summary',
@@ -347,7 +359,7 @@ class SEOEnhancer:
 
             # Additional SEO tags
             'robots': 'index, follow',
-            'author': 'n8n Documentation Team'
+            'author': 'Documentation Team'
         }
 
         # Add product-specific tags if applicable
@@ -497,8 +509,8 @@ class AlgoliaOptimizer:
             # Facet fields
             'product': frontmatter.get('product', 'both'),
             'content_type': frontmatter.get('content_type', ''),
-            'component': frontmatter.get('n8n_component', ''),
-            'version': frontmatter.get('n8n_version', ''),
+            'component': frontmatter.get('app_component', ''),
+            'version': frontmatter.get('app_version', ''),
             'maturity': frontmatter.get('maturity', 'ga'),
             'tags': frontmatter.get('tags', []),
 
@@ -587,9 +599,9 @@ def infer_metadata_from_path(filepath):
 
     # Infer product from path
     if 'cloud' in str(filepath).lower():
-        metadata['product'] = 'n8n-cloud'
+        metadata['product'] = 'cloud'
     elif 'self-hosted' in str(filepath).lower() or 'docker' in str(filepath).lower():
-        metadata['product'] = 'n8n-self-hosted'
+        metadata['product'] = 'self-hosted'
 
     # Infer component from filename
     filename = filepath.stem.lower()
@@ -606,7 +618,7 @@ def infer_metadata_from_path(filepath):
 
     for key, value in components.items():
         if key in filename:
-            metadata['n8n_component'] = value
+            metadata['app_component'] = value
             break
 
     # Auto-generate tags from path and filename
@@ -615,8 +627,8 @@ def infer_metadata_from_path(filepath):
         if part not in ['getting-started', 'how-to', 'reference', 'concepts', 'troubleshooting']:
             tags.append(part.replace('-', ' ').title())
 
-    if 'n8n_component' in metadata:
-        tags.append(metadata['n8n_component'].replace('-', ' ').title())
+    if 'app_component' in metadata:
+        tags.append(metadata['app_component'].replace('-', ' ').title())
 
     if tags:
         metadata['tags'] = list(set(tags))[:8]  # Max 8 tags
@@ -628,9 +640,9 @@ def analyze_content(content):
     metadata = {}
 
     # Check for version mentions
-    version_match = re.search(r'n8n (?:version |v?)(\d+\.\d+)', content, re.IGNORECASE)
+    version_match = re.search(r'(?:version |v)(\d+\.\d+)', content, re.IGNORECASE)
     if version_match:
-        metadata['n8n_version'] = version_match.group(1)
+        metadata['app_version'] = version_match.group(1)
 
     # Infer content_type from content structure
     if not metadata.get('content_type'):

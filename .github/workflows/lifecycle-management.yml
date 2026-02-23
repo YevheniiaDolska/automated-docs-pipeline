@@ -1,0 +1,130 @@
+name: Lifecycle Management
+
+on:
+  schedule:
+    - cron: '0 8 * * 1'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  issues: write
+  pull-requests: write
+
+concurrency:
+  group: lifecycle-management-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  lifecycle:
+    name: Scan lifecycle and propose actions
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install pyyaml
+
+      - name: Generate lifecycle reports
+        run: |
+          mkdir -p reports
+          python3 scripts/lifecycle_manager.py \
+            --scan \
+            --report \
+            --json-output reports/lifecycle-report.json
+
+      - name: Compute lifecycle summary
+        id: summary
+        run: |
+          python3 - <<'PY'
+          import json
+          from pathlib import Path
+
+          data = json.loads(Path('reports/lifecycle-report.json').read_text(encoding='utf-8'))
+          draft = len(data.get('draft', []))
+          active = len(data.get('active', []))
+          deprecated = len(data.get('deprecated', []))
+          archived = len(data.get('archived', []))
+
+          needs_attention = 1 if (deprecated > 0 or archived > 0) else 0
+
+          with open('/tmp/lifecycle_outputs.txt', 'w', encoding='utf-8') as out:
+            out.write(f'draft={draft}\n')
+            out.write(f'active={active}\n')
+            out.write(f'deprecated={deprecated}\n')
+            out.write(f'archived={archived}\n')
+            out.write(f'needs_attention={needs_attention}\n')
+          PY
+
+          cat /tmp/lifecycle_outputs.txt >> "$GITHUB_OUTPUT"
+
+      - name: Create lifecycle issue
+        if: steps.summary.outputs.needs_attention == '1'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require('fs');
+            const report = fs.readFileSync('lifecycle-report.md', 'utf8');
+            const deprecated = '${{ steps.summary.outputs.deprecated }}';
+            const archived = '${{ steps.summary.outputs.archived }}';
+
+            const title = `Lifecycle actions required (${new Date().toISOString().slice(0, 10)})`;
+            const body = [
+              '## Lifecycle scan detected items that require review',
+              '',
+              `- Deprecated pages: ${deprecated}`,
+              `- Archived pages: ${archived}`,
+              '',
+              '### Guardrails',
+              '- [x] Auto-issue is enabled',
+              '- [x] Auto-PR is draft-only and requires human approval',
+              '- [x] Archive/remove actions are manual-only after review',
+              '',
+              '### Report',
+              report,
+            ].join('\n');
+
+            await github.rest.issues.create({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              title,
+              body,
+              labels: ['documentation', 'lifecycle', 'auto-created']
+            });
+
+      - name: Create draft PR with lifecycle report update
+        if: steps.summary.outputs.needs_attention == '1'
+        uses: peter-evans/create-pull-request@v6
+        with:
+          commit-message: 'docs: update lifecycle report'
+          title: 'docs: lifecycle report update'
+          body: |
+            This automated draft PR updates the lifecycle report.
+
+            Guardrails:
+            - auto-issue is enabled,
+            - this PR is draft-only and requires human approval,
+            - archive/remove actions remain manual after review.
+          branch: chore/lifecycle-report-update
+          delete-branch: true
+          draft: true
+          add-paths: |
+            lifecycle-report.md
+            reports/lifecycle-report.json
+
+      - name: Upload lifecycle artifacts
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: lifecycle-report
+          path: |
+            lifecycle-report.md
+            reports/lifecycle-report.json

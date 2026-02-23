@@ -12,7 +12,7 @@ tags:
 - Nodes
 - Cloud
 - Self-hosted
-n8n_component: webhook
+app_component: webhook
 last_reviewed: '2026-02-16'
 original_author: JaneDo
 ---

@@ -1,83 +1,128 @@
-# Documentation pipeline setup guide (beginner-first)
+# Setup guide for beginners
 
-## What this repository gives you
+This guide gives the fastest reliable setup path.
 
-This is a documentation operations system, not only templates.
+## What happens after setup
 
-It includes:
+Once configured, the pipeline runs automatically in CI.
 
-1. Document quality gates.
-1. Frontmatter schema validation.
-1. API and SDK drift checks.
-1. DoD contract checks for pull requests.
-1. KPI and release reporting.
-1. Smoke checks for runnable code examples.
+1. It continuously checks documentation quality and contract compliance.
+1. It detects API and SDK drift and documentation gaps.
+1. It produces reports for prioritization and planning.
+1. Teams can use those reports as input for AI drafting with strict quality prompts.
+1. Humans review facts, context, and final decisions before merge.
+1. Quality bar is set to Stripe-level clarity and usability from the first draft.
 
-## Fast setup
+Local AI behavior:
+
+1. It reads repository structure and changed files.
+1. It identifies what docs to add or update based on those changes.
+1. It follows project templates, snippets, and lint constraints automatically.
+
+Platform capabilities summary:
+
+1. Continuous gap detection and backlog reports.
+1. DoD enforcement and API or SDK drift prevention.
+1. KPI wall, SLA evaluation, and release docs pack.
+1. SEO and GEO optimization as part of quality gates.
+1. Optional Algolia indexing for searchable and browsable docs.
+1. Optional API-first scaffold from OpenAPI to server stubs and client SDKs.
+1. Automated lifecycle management loop with safe guardrails.
+1. Optional PLG API playground with Swagger UI or Redoc.
+1. Optional OpenAPI mock sandbox generation for test environments.
+1. Unified PLG config block (`extra.plg`) for API-first and code-first projects.
+
+Lifecycle guardrails:
+
+1. Automatic lifecycle issue creation is enabled.
+1. Automatic lifecycle pull requests are draft-only.
+1. Archive or removal actions are always manual after human review.
+
+## 1. Prerequisites
+
+Install:
+
+1. Python 3.10 or newer
+1. Node.js 18 or newer
+1. Git
+1. Optional: Docker Desktop
+1. Optional: GNU Make
+
+Check versions:
+
+```bash
+python3 --version
+node --version
+npm --version
+git --version
+```
+
+## 2. Install locally
 
 ```bash
 git clone <repo-url>
 cd "Auto-Doc Pipeline"
 python3 -m pip install -r requirements.txt
 npm install
-make validate-minimal
 ```
 
-## Choose execution mode
+## 3. First validation run
 
-### Minimal mode
-
-Use when company has strict constraints.
+If `make` exists:
 
 ```bash
 make validate-minimal
 ```
 
-Includes:
+If `make` is not installed:
 
-1. Markdown linting.
-1. Frontmatter schema checks.
-1. SEO/GEO structure checks.
-1. Code example smoke checks.
-1. DoD and drift contracts.
+```bash
+npm run validate:minimal
+```
 
-### Full mode
+Expected result: all checks pass.
 
-Use when you want all checks and reports.
+## 4. Full validation run
+
+If `make` exists:
 
 ```bash
 make validate-full
 ```
 
-## One-command workflow
+Without `make`:
 
 ```bash
-make validate
+npm run validate:full
 ```
 
-## Development container
+## 5. Run docs locally
 
-If your local Python or Node setup is unstable, use containerized setup.
+If `make` exists:
 
-1. Open project in VS Code.
-1. Reopen in Dev Container.
-1. Run `make validate-minimal`.
+```bash
+make docs-serve
+```
 
-Files:
+Without `make`:
 
-1. `.devcontainer/devcontainer.json`
-1. `.devcontainer/Dockerfile`
-1. `docker-compose.docs-ops.yml`
+```bash
+npm run serve
+```
 
-## Security first
+## 6. Containerized setup (optional)
 
-Before enabling automation in company repos, read:
+Use this if local tooling conflicts:
 
-1. `SECURITY_OPERATIONS.md`
+```bash
+docker compose -f docker-compose.docs-ops.yml up --build
+```
 
-## Next documents
+Or use VS Code Dev Container with `.devcontainer/devcontainer.json`.
 
-1. `SETUP_GUIDE.md` for detailed local setup.
-1. `SETUP_FOR_PROJECTS.md` for integrating into external repos.
-1. `PRIVATE_REPO_SETUP.md` for private GitHub repositories.
-1. `OPERATOR_RUNBOOK.md` for pilot delivery steps.
+## 7. Next guides
+
+1. `SETUP_GUIDE.md` for detailed setup and troubleshooting.
+1. `SETUP_FOR_PROJECTS.md` for rollout to another repository.
+1. `PRIVATE_REPO_SETUP.md` for private repository specifics.
+1. `USER_GUIDE.md` for daily team usage.

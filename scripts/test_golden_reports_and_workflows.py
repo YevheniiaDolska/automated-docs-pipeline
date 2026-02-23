@@ -218,6 +218,8 @@ def _run_workflow_goldens(update: bool) -> None:
         Path(".github/workflows/kpi-wall.yml"),
         Path(".github/workflows/release-docs-pack.yml"),
         Path(".github/workflows/docs-ops-e2e.yml"),
+        Path(".github/workflows/lifecycle-management.yml"),
+        Path(".github/workflows/openapi-source-sync.yml"),
     ]
 
     payload = {str(path): _workflow_fingerprint(path) for path in workflow_paths}

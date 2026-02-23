@@ -1,6 +1,6 @@
-site_name: "n8n Documentation (Pipeline Demo)"
+site_name: "Documentation (Pipeline Demo)"
 site_description: "Automated documentation pipeline with GEO optimization and faceted search"
-site_url: "https://YOUR_USERNAME.github.io/n8n-docs-pipeline/"
+site_url: "https://YOUR_USERNAME.github.io/auto-doc-pipeline/"
 
 theme:
   name: material
@@ -36,13 +36,13 @@ theme:
   icon:
     repo: fontawesome/brands/github
 
-repo_url: https://github.com/YOUR_USERNAME/n8n-docs-pipeline
-repo_name: n8n-docs-pipeline
+repo_url: https://github.com/YOUR_USERNAME/auto-doc-pipeline
+repo_name: auto-doc-pipeline
 edit_uri: edit/main/docs/
 
 plugins:
   - search:
-      separator: '[\s\-\.]+'
+      enabled: false
   - tags
   - meta-descriptions
   - macros:
@@ -83,6 +83,7 @@ nav:
     - Workflow execution model: concepts/workflow-execution-model.md
   - Reference:
     - reference/index.md
+    - API playground: reference/api-playground.md
     - Deprecated examples: reference/deprecated-example.md
     - Nodes:
       - Webhook node: reference/nodes/webhook.md
@@ -97,16 +98,34 @@ extra_css:
 
 extra_javascript:
   - assets/javascripts/faceted-search.js
+  - assets/javascripts/api-playground.js
 
 extra:
-  # --- ALGOLIA DOCSEARCH ---
-  # Uncomment after you receive your Algolia keys:
-  #
-  # algolia:
-  #   app_id: YOUR_APP_ID
-  #   api_key: YOUR_SEARCH_API_KEY
-  #   index_name: n8n-docs-pipeline
-  #
+  algolia:
+    app_id: YOUR_ALGOLIA_APP_ID
+    api_key: YOUR_ALGOLIA_SEARCH_ONLY_KEY
+    index_name: YOUR_ALGOLIA_INDEX_NAME
+  plg:
+    mode: mixed
+    approach: hybrid
+    api_playground:
+      enabled: true
+      provider: swagger-ui
+      try_it_mode: sandbox-only
+      try_it_enabled: false
+      source:
+        strategy: api-first
+        api_first_spec_url: /api/openapi.yaml
+        code_first_spec_url: /api/openapi-generated.yaml
+      endpoints:
+        sandbox_base_url: https://sandbox-api.example.com
+        production_base_url: https://api.example.com
+  # Backward compatibility for older docs pages/config readers.
+  api_playground:
+    provider: swagger-ui
+    spec_url: /api/openapi.yaml
+    try_it_enabled: false
+    sandbox_base_url: https://sandbox-api.example.com
   tags:
     Tutorial: tutorial
     How-To: how-to

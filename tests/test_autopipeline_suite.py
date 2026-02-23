@@ -8,15 +8,29 @@ import subprocess
 import tempfile
 import time
 import unittest
+from unittest.mock import patch
 from datetime import date
 from pathlib import Path
 
+import yaml
+
 from scripts.check_api_sdk_drift import evaluate as evaluate_drift
-from scripts.check_code_examples_smoke import run_smoke
+from scripts.check_code_examples_smoke import _parse_blocks, _run_smoke_block, run_smoke
 from scripts.check_docs_contract import evaluate_contract
 from scripts.evaluate_kpi_sla import evaluate as evaluate_sla
 from scripts.generate_kpi_wall import build_metrics
 from scripts.test_docs_ops_e2e import run_docs_contract_tests, run_drift_tests, run_sla_tests
+
+# Docusaurus adapter & GUI configurator tests
+from test_docusaurus_adapter import (
+    AdmonitionConversionTests,
+    TabConversionTests,
+    NavConversionTests,
+    SiteGeneratorTests,
+    ConfigGenerationTests,
+    IntegrationTests as AdapterIntegrationTests,
+)
+from test_gui_configurator import ConfiguratorGenerationTests
 
 
 ROOT_DIR = Path(__file__).resolve().parents[1]
@@ -134,6 +148,28 @@ Integration test page.
             self.assertTrue(json_out.exists())
             self.assertTrue(md_out.exists())
 
+    def test_lifecycle_manager_generates_report_and_json(self) -> None:
+        cmd = [
+            "python3",
+            str(SCRIPTS_DIR / "lifecycle_manager.py"),
+            "--scan",
+            "--report",
+            "--json-output",
+            "reports/lifecycle-report.test.json",
+        ]
+        completed = subprocess.run(cmd, cwd=ROOT_DIR, capture_output=True, text=True, check=False)
+        self.assertEqual(
+            completed.returncode,
+            0,
+            msg=f"Lifecycle manager CLI failed. stderr={completed.stderr}",
+        )
+        self.assertTrue((ROOT_DIR / "lifecycle-report.md").exists())
+        self.assertTrue((ROOT_DIR / "reports/lifecycle-report.test.json").exists())
+
+        payload = json.loads((ROOT_DIR / "reports/lifecycle-report.test.json").read_text(encoding="utf-8"))
+        for key in ["draft", "active", "deprecated", "archived"]:
+            self.assertIn(key, payload)
+
 
 class SecurityTests(unittest.TestCase):
     """Validate basic secure coding constraints for pipeline scripts."""
@@ -154,6 +190,22 @@ class SecurityTests(unittest.TestCase):
             if any(pattern in text for pattern in patterns):
                 offenders.append(str(path))
         self.assertEqual(offenders, [], msg=f"Possible hardcoded secret markers in: {offenders}")
+
+    def test_lifecycle_workflow_has_guardrails(self) -> None:
+        workflow_path = ROOT_DIR / ".github/workflows/lifecycle-management.yml"
+        self.assertTrue(workflow_path.exists(), msg="Missing lifecycle-management workflow.")
+        data = yaml.safe_load(workflow_path.read_text(encoding="utf-8"))
+
+        steps = data["jobs"]["lifecycle"]["steps"]
+        create_pr_step = next(
+            (step for step in steps if step.get("uses", "").startswith("peter-evans/create-pull-request")),
+            None,
+        )
+        self.assertIsNotNone(create_pr_step, msg="Lifecycle workflow must use create-pull-request.")
+        self.assertTrue(
+            create_pr_step.get("with", {}).get("draft") is True,
+            msg="Lifecycle PR automation must stay draft-only.",
+        )
 
 
 class PerformanceTests(unittest.TestCase):
@@ -178,6 +230,20 @@ class PerformanceTests(unittest.TestCase):
         self.assertLess(contract_elapsed, 3.0)
         self.assertLess(drift_elapsed, 3.0)
 
+    def test_smoke_block_parsing_scales(self) -> None:
+        with tempfile.TemporaryDirectory() as temp:
+            tmp_path = Path(temp)
+            doc_path = tmp_path / "large.md"
+            block = "```python smoke\nprint('ok')\n```\n"
+            doc_path.write_text("# Large\n\n" + block * 2000, encoding="utf-8")
+
+            start = time.perf_counter()
+            blocks = _parse_blocks(doc_path)
+            elapsed = time.perf_counter() - start
+
+            self.assertEqual(len(blocks), 2000)
+            self.assertLess(elapsed, 2.0)
+
 
 class E2ETests(unittest.TestCase):
     """Validate full fixture-driven behavior from existing E2E checks."""
@@ -201,6 +267,8 @@ class WorkflowContractTests(unittest.TestCase):
             ".github/workflows/docs-ops-e2e.yml",
             ".github/workflows/api-first-scaffold.yml",
             ".github/workflows/code-examples-smoke.yml",
+            ".github/workflows/lifecycle-management.yml",
+            ".github/workflows/openapi-source-sync.yml",
         ]
         missing = [path for path in required if not (ROOT_DIR / path).exists()]
         self.assertEqual(missing, [], msg=f"Missing workflow files: {missing}")
@@ -230,8 +298,56 @@ print("ok")
                 encoding="utf-8",
             )
 
-            result = run_smoke(paths=[str(docs_dir)], timeout=8, allow_empty=False)
+            result = run_smoke(paths=[str(docs_dir)], timeout=8, allow_empty=False, allow_network=False)
             self.assertEqual(result, 0)
+
+    def test_smoke_runner_handles_curl_without_network_execution(self) -> None:
+        block_content = 'curl -X GET "https://example.com/health"'
+        with patch("scripts.check_code_examples_smoke.shutil.which", return_value="/usr/bin/curl"):
+            ok, reason = _run_smoke_block(
+                block=type("B", (), {"language": "curl", "content": block_content, "tags": {"smoke"}})(),
+                timeout=5,
+                allow_network=False,
+            )
+        self.assertTrue(ok, msg=reason)
+
+    def test_smoke_dispatch_for_typescript_and_go(self) -> None:
+        ts_block = type("B", (), {"language": "ts", "content": "const x: number = 1;", "tags": {"smoke"}})()
+        go_block = type("B", (), {"language": "go", "content": "package main\nfunc main() {}", "tags": {"smoke"}})()
+
+        with patch("scripts.check_code_examples_smoke._run_typescript", return_value=(True, "")) as ts_runner:
+            ok_ts, _ = _run_smoke_block(ts_block, timeout=5, allow_network=False)
+            self.assertTrue(ok_ts)
+            ts_runner.assert_called_once()
+
+        with patch("scripts.check_code_examples_smoke._run_go", return_value=(True, "")) as go_runner:
+            ok_go, _ = _run_smoke_block(go_block, timeout=5, allow_network=False)
+            self.assertTrue(ok_go)
+            go_runner.assert_called_once()
+
+
+class PLGConfigTests(unittest.TestCase):
+    """Validate PLG policy/config contracts for API-first and code-first modes."""
+
+    def test_plg_policy_pack_exists_and_has_modes(self) -> None:
+        policy_path = ROOT_DIR / "policy_packs/plg.yml"
+        self.assertTrue(policy_path.exists(), msg="Missing PLG policy pack.")
+        payload = yaml.safe_load(policy_path.read_text(encoding="utf-8"))
+        self.assertIn("plg", payload)
+        plg = payload["plg"]
+        self.assertIn(plg["try_it_mode"], {"sandbox-only", "real-api", "mixed"})
+
+    def test_mkdocs_has_unified_plg_config(self) -> None:
+        mkdocs_path = ROOT_DIR / "mkdocs.yml"
+        payload = yaml.safe_load(mkdocs_path.read_text(encoding="utf-8"))
+        self.assertIn("extra", payload)
+        self.assertIn("plg", payload["extra"])
+        plg = payload["extra"]["plg"]
+        self.assertIn("api_playground", plg)
+        source = plg["api_playground"]["source"]
+        self.assertIn(source["strategy"], {"api-first", "code-first"})
+        self.assertIn("api_first_spec_url", source)
+        self.assertIn("code_first_spec_url", source)
 
 
 def load_tests(loader: unittest.TestLoader, tests: unittest.TestSuite, pattern: str) -> unittest.TestSuite:
@@ -247,6 +363,14 @@ def load_tests(loader: unittest.TestLoader, tests: unittest.TestSuite, pattern: 
         E2ETests,
         WorkflowContractTests,
         CodeExamplesSmokeTests,
+        PLGConfigTests,
+        AdmonitionConversionTests,
+        TabConversionTests,
+        NavConversionTests,
+        SiteGeneratorTests,
+        ConfigGenerationTests,
+        AdapterIntegrationTests,
+        ConfiguratorGenerationTests,
     ]:
         suite.addTests(loader.loadTestsFromTestCase(test_case))
     return suite

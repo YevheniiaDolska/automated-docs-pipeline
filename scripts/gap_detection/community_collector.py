@@ -3,7 +3,7 @@
 Community Topics Collector
 
 Собирает вопросы из community источников для определения документационных гэпов:
-- RSS feeds (community.n8n.io, forums)
+- RSS feeds (community forums)
 - Категоризация по темам
 - Определение частых вопросов без документации
 """
@@ -44,16 +44,17 @@ class CommunityCollector:
     """Собирает и анализирует community вопросы для определения doc gaps."""
 
     # RSS feeds для мониторинга
+    # Override these with your own community RSS feeds
     DEFAULT_RSS_FEEDS = [
         {
-            'url': 'https://community.n8n.io/c/questions/7.rss',
-            'name': 'n8n Community Questions',
-            'source': 'n8n_community'
+            'url': 'https://community.example.com/c/questions/7.rss',
+            'name': 'Community Questions',
+            'source': 'community'
         },
         {
-            'url': 'https://community.n8n.io/c/feature-requests/6.rss',
-            'name': 'n8n Feature Requests',
-            'source': 'n8n_features'
+            'url': 'https://community.example.com/c/feature-requests/6.rss',
+            'name': 'Feature Requests',
+            'source': 'features'
         },
     ]
 

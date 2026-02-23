@@ -776,6 +776,18 @@ response = client.[method](
 
 This endpoint triggers the `[event.name]` webhook event.
 
+## API playground
+
+Use the interactive API playground to test this endpoint inside docs.
+
+- Swagger UI and Redoc are supported.
+- `Try it out` can be disabled globally by policy.
+- Requests can be routed to sandbox, real API, or mixed mode.
+
+If your docs site enables playground integration, add:
+
+- [API Playground](./api-playground.md)
+
 ## See also
 
 - [Authentication Guide](../how-to/authenticate.md)
@@ -901,13 +913,18 @@ This endpoint triggers the `[event.name]` webhook event.
         return text.strip('-')
 
     def update_navigation(self, file_path: str, title: str, doc_type: str):
-        """Update mkdocs.yml navigation with new document."""
-        mkdocs_path = Path("mkdocs.yml")
-        if not mkdocs_path.exists():
-            print("⚠️ mkdocs.yml not found, skipping navigation update")
-            return
-
-        print(f"📝 Remember to add '{title}: {file_path}' to the appropriate section in mkdocs.yml")
+        """Print navigation update instructions for the detected generator."""
+        try:
+            from site_generator import SiteGenerator
+            gen = SiteGenerator.detect()
+            instructions = gen.get_nav_update_instructions(file_path, title)
+            print(f"Navigation update:\n  {instructions}")
+        except ImportError:
+            mkdocs_path = Path("mkdocs.yml")
+            if not mkdocs_path.exists():
+                print("Navigation config not found, skipping navigation update")
+                return
+            print(f"Remember to add '{title}: {file_path}' to the appropriate section in mkdocs.yml")
 
     def validate_document(self, file_path: Path):
         """Run basic validation on the created document."""

@@ -1,0 +1,61 @@
+// @ts-check
+// Auto-Doc Pipeline -- Docusaurus config template
+// Variables surrounded by __VARIABLE__ are replaced by init_pipeline.py
+
+/** @type {import('@docusaurus/types').Config} */
+const config = {
+  title: '__PRODUCT_NAME__',
+  url: '__SITE_URL__',
+  baseUrl: '/',
+  onBrokenLinks: 'throw',
+  onBrokenMarkdownLinks: 'warn',
+  favicon: 'img/favicon.ico',
+
+  organizationName: '__GITHUB_ORG__',
+  projectName: '__GITHUB_REPO__',
+
+  presets: [
+    [
+      'classic',
+      /** @type {import('@docusaurus/preset-classic').Options} */
+      ({
+        docs: {
+          routeBasePath: '/',
+          sidebarPath: require.resolve('./sidebars.js'),
+          editUrl: '__REPO_URL__/edit/main/',
+        },
+        blog: false,
+        theme: {
+          customCss: require.resolve('./src/css/custom.css'),
+        },
+      }),
+    ],
+  ],
+
+  themeConfig:
+    /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
+    ({
+      navbar: {
+        title: '__PRODUCT_NAME__',
+        items: [
+          {
+            type: 'docSidebar',
+            sidebarId: 'docs',
+            position: 'left',
+            label: 'Documentation',
+          },
+        ],
+      },
+      footer: {
+        style: 'dark',
+        copyright: `Copyright ${new Date().getFullYear()} __COMPANY__. Built with Auto-Doc Pipeline.`,
+      },
+      prism: {
+        theme: require('prism-react-renderer').themes.github,
+        darkTheme: require('prism-react-renderer').themes.dracula,
+        additionalLanguages: ['bash', 'yaml', 'json'],
+      },
+    }),
+};
+
+module.exports = config;

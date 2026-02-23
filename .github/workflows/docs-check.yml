@@ -71,7 +71,14 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.11'
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      - uses: actions/setup-go@v5
+        with:
+          go-version: '1.22'
       - run: pip install pyyaml
+      - run: npm install -g typescript
       - run: python3 scripts/check_code_examples_smoke.py --paths docs templates
 
   spectral:
@@ -121,5 +128,16 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.11'
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
       - run: pip install -r requirements.txt
-      - run: mkdocs build --strict
+      - name: Detect site generator
+        id: detect
+        run: echo "generator=$(python3 scripts/run_generator.py detect)" >> $GITHUB_OUTPUT
+      - name: Build with MkDocs
+        if: steps.detect.outputs.generator == 'mkdocs'
+        run: mkdocs build --strict
+      - name: Build with Docusaurus
+        if: steps.detect.outputs.generator == 'docusaurus'
+        run: npm install && npx docusaurus build

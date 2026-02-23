@@ -1,0 +1,78 @@
+name: OpenAPI Source Sync
+
+on:
+  workflow_dispatch:
+    inputs:
+      strategy:
+        description: OpenAPI source strategy
+        required: true
+        default: api-first
+        type: choice
+        options:
+          - api-first
+          - code-first
+      spec_path:
+        description: OpenAPI spec path
+        required: true
+        default: api/openapi.yaml
+        type: string
+
+permissions:
+  contents: read
+
+jobs:
+  resolve-openapi:
+    name: Resolve OpenAPI spec from selected strategy
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node (for code-first script option)
+        if: inputs.strategy == 'code-first'
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Resolve spec for api-first
+        if: inputs.strategy == 'api-first'
+        run: |
+          if [ ! -f "${{ inputs.spec_path }}" ]; then
+            echo "OpenAPI spec not found at: ${{ inputs.spec_path }}"
+            exit 1
+          fi
+
+      - name: Export spec for code-first
+        if: inputs.strategy == 'code-first'
+        run: |
+          set -euo pipefail
+
+          if [ -f "${{ inputs.spec_path }}" ]; then
+            echo "Spec already exists at ${{ inputs.spec_path }}"
+            exit 0
+          fi
+
+          if [ -f package.json ] && node -e "const p=require('./package.json'); process.exit((p.scripts && p.scripts['openapi:export']) ? 0 : 1)"; then
+            npm ci
+            npm run openapi:export
+          elif [ -x scripts/export_openapi.sh ]; then
+            scripts/export_openapi.sh
+          else
+            echo "Code-first strategy selected, but no export path found."
+            echo "Expected one of:"
+            echo "1) package.json script: openapi:export"
+            echo "2) executable script: scripts/export_openapi.sh"
+            exit 1
+          fi
+
+          if [ ! -f "${{ inputs.spec_path }}" ]; then
+            echo "Expected generated spec at ${{ inputs.spec_path }}, but file is missing."
+            exit 1
+          fi
+
+      - name: Upload resolved spec
+        uses: actions/upload-artifact@v4
+        with:
+          name: openapi-source-sync
+          path: ${{ inputs.spec_path }}

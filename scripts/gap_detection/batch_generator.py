@@ -280,9 +280,9 @@ class BatchDocGenerator:
         # Простая замена плейсхолдеров
         content = template
         content = content.replace('[Title]', task.context.get('title', task.title))
-        content = content.replace('[Product]', 'n8n')
-        content = content.replace('[product]', 'n8n')
-        content = content.replace('[PRODUCT]', 'N8N')
+        content = content.replace('[Product]', 'ProductName')
+        content = content.replace('[product]', 'productname')
+        content = content.replace('[PRODUCT]', 'PRODUCTNAME')
 
         # Записываем файл
         output_path = self.output_base / task.output_path

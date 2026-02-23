@@ -73,20 +73,31 @@ def extract_first_paragraph(content):
 
     return snippet
 
-def build_url_from_path(file_path, docs_dir):
-    """Build URL path following MkDocs conventions."""
+def build_url_from_path(file_path, docs_dir, generator=None):
+    """Build URL path using the detected or specified site generator.
+
+    Falls back to MkDocs conventions if the generator module is unavailable.
+    """
+    if generator is not None:
+        return generator.build_url_from_path(file_path, docs_dir)
+
+    try:
+        from site_generator import SiteGenerator
+        gen = SiteGenerator.detect()
+        return gen.build_url_from_path(file_path, docs_dir)
+    except ImportError:
+        pass
+
+    # Fallback: MkDocs conventions
     rel_path = file_path.relative_to(docs_dir)
 
-    # Handle index.md files
     if rel_path.name == "index.md":
         url = str(rel_path.parent) + "/"
     else:
         url = str(rel_path).replace(".md", "/")
 
-    # Normalize path separators
     url = url.replace("\\", "/")
 
-    # Clean up root index
     if url == "./":
         url = ""
 

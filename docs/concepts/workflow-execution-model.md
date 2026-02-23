@@ -10,7 +10,7 @@ tags:
 - Nodes
 - Cloud
 - Self-hosted
-n8n_component: workflow-engine
+app_component: workflow-engine
 last_reviewed: '2026-02-16'
 original_author: JaneDo
 ---

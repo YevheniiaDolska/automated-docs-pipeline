@@ -180,10 +180,18 @@ jobs:
                   "hitsPerPage": 3,
               },
           )
+          payload = getattr(result, "raw_responses", result)
+          if isinstance(payload, list) and payload:
+              payload = payload[0]
+          if not isinstance(payload, dict):
+              raise SystemExit(f"Unexpected search response payload type: {type(payload)}")
+
+          hits = payload.get("hits", [])
+          nb_hits = payload.get("nbHits", len(hits))
 
           print("Search test results:")
-          print(f"Found {result['nbHits']} results for 'webhook'")
-          for hit in result["hits"][:3]:
+          print(f"Found {nb_hits} results for 'webhook'")
+          for hit in hits[:3]:
               print(f"  - {hit.get('title', 'Untitled')}: {hit.get('url', '')}")
           PY
 

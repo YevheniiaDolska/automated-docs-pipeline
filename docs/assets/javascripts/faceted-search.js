@@ -23,8 +23,15 @@ document.addEventListener("DOMContentLoaded", async () => {
       content_type: "type",
       product: "product",
       component: "component"
+    },
+    // Search UX settings for large docs sets
+    search: {
+      debounceMs: 300,
+      memoize: true
     }
   };
+
+  const searchCache = new Map();
 
   // Try multiple paths for the facets index (handles different page depths)
   async function loadFacetsIndex() {
@@ -115,10 +122,30 @@ document.addEventListener("DOMContentLoaded", async () => {
     state.filters[facetKey] = [];
   });
 
-  // Search function
-  function searchPages(query, filters) {
-    return pages.filter(page => {
-      // Text search
+  function debounce(fn, waitMs) {
+    let timer = null;
+    return (...args) => {
+      if (timer) {
+        window.clearTimeout(timer);
+      }
+      timer = window.setTimeout(() => fn(...args), waitMs);
+    };
+  }
+
+  function filtersKey(filters) {
+    const stable = Object.keys(filters)
+      .sort()
+      .map(key => [key, [...filters[key]].sort()]);
+    return JSON.stringify(stable);
+  }
+
+  function cachedSearch(query, filters) {
+    const cacheKey = `${query.toLowerCase()}::${filtersKey(filters)}`;
+    if (CONFIG.search.memoize && searchCache.has(cacheKey)) {
+      return searchCache.get(cacheKey);
+    }
+
+    const results = pages.filter(page => {
       if (query) {
         const q = query.toLowerCase();
         const searchable = [
@@ -133,7 +160,6 @@ document.addEventListener("DOMContentLoaded", async () => {
         }
       }
 
-      // Apply facet filters
       for (const [facetKey, selectedValues] of Object.entries(filters)) {
         if (selectedValues.length === 0) continue;
 
@@ -141,20 +167,26 @@ document.addEventListener("DOMContentLoaded", async () => {
         if (!pageValue) return false;
 
         if (Array.isArray(pageValue)) {
-          // For array fields, check if any selected value is in the array
           if (!selectedValues.some(v => pageValue.includes(v))) {
             return false;
           }
-        } else {
-          // For single-value fields
-          if (!selectedValues.includes(pageValue)) {
-            return false;
-          }
+        } else if (!selectedValues.includes(pageValue)) {
+          return false;
         }
       }
 
       return true;
     });
+
+    if (CONFIG.search.memoize) {
+      searchCache.set(cacheKey, results);
+    }
+    return results;
+  }
+
+  // Search function
+  function searchPages(query, filters) {
+    return cachedSearch(query, filters);
   }
 
   // Render functions
@@ -274,12 +306,14 @@ document.addEventListener("DOMContentLoaded", async () => {
   }
 
   function bindEvents() {
+    const debouncedRender = debounce(render, CONFIG.search.debounceMs);
+
     // Search input
     const searchInput = document.getElementById("fs-query");
     if (searchInput) {
       searchInput.addEventListener("input", (e) => {
         state.query = e.target.value;
-        render();
+        debouncedRender();
       });
 
       // Auto-focus search input

@@ -1,0 +1,50 @@
+name: plg
+version: 1
+
+notes:
+  - PLG profile adds value-first documentation patterns and interactive API sandbox controls.
+  - Use this pack for self-serve onboarding and adoption-focused docs programs.
+
+docs_contract:
+  interface_patterns:
+    - '^api/'
+    - 'openapi.*\.(ya?ml|json)$'
+    - '^sdk/'
+    - '^clients/'
+    - '^src/'
+  doc_patterns:
+    - '^docs/'
+    - '^templates/'
+    - '^\.vscode/docs\.code-snippets$'
+
+# Drift remains strict: API or SDK changes require reference docs updates.
+drift:
+  openapi_patterns:
+    - 'openapi.*\.(ya?ml|json)$'
+    - 'swagger.*\.(ya?ml|json)$'
+  sdk_patterns:
+    - '^sdk/'
+    - '^clients/'
+  reference_doc_patterns:
+    - '^docs/reference/'
+    - '^templates/api-reference\.md$'
+    - '^templates/sdk-reference\.md$'
+
+kpi_sla:
+  min_quality_score: 84
+  max_stale_pct: 10.0
+  max_high_priority_gaps: 5
+  max_quality_score_drop: 3
+
+plg:
+  mode: mixed
+  # sandbox-only | real-api | mixed
+  try_it_mode: sandbox-only
+  try_it_enabled: false
+  value_first_docs:
+    enabled: true
+    # Advisory guidance for teams. Not enforced as blocking requirements yet.
+    recommended_sections:
+      - time-to-value
+      - expected-outcome
+      - activation-checklist

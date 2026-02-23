@@ -116,8 +116,8 @@ class AlgoliaIndexer:
             # Facet fields
             'product': frontmatter.get('product', 'both'),
             'content_type': frontmatter.get('content_type', ''),
-            'component': frontmatter.get('n8n_component', ''),
-            'version': frontmatter.get('n8n_version', ''),
+            'component': frontmatter.get('app_component', ''),
+            'version': frontmatter.get('app_version', ''),
             'maturity': frontmatter.get('maturity', 'ga'),
             'tags': frontmatter.get('tags', []),
 

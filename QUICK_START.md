@@ -18,8 +18,16 @@ npm install
 
 ## 3. Validate minimal mode
 
+If `make` is available:
+
 ```bash
 make validate-minimal
+```
+
+If `make` is not available:
+
+```bash
+npm run validate:minimal
 ```
 
 If this command passes, your core setup works.
@@ -30,10 +38,22 @@ If this command passes, your core setup works.
 make validate-full
 ```
 
+Or:
+
+```bash
+npm run validate:full
+```
+
 ## 5. Start docs preview
 
 ```bash
 make docs-serve
+```
+
+Or:
+
+```bash
+npm run serve
 ```
 
 Open `http://127.0.0.1:8000`.

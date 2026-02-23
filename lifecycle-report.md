@@ -1,14 +1,17 @@
 # Documentation Lifecycle Report
 
-Generated: 2026-02-18T16:19:14.311965
+Generated: 2026-02-22T18:12:24.713381
 
 ## Statistics
 
 - **PREVIEW**: 0 pages
 - **BETA**: 0 pages
-- **GA**: 15 pages
+- **GA**: 0 pages
 - **DEPRECATED**: 1 pages
 - **REMOVED**: 0 pages
+- **DRAFT**: 0 pages
+- **ACTIVE**: 16 pages
+- **ARCHIVED**: 0 pages
 
 ## Preview Pages (Check Duration)
 
