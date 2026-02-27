@@ -1,6 +1,6 @@
 # Documentation Lifecycle Report
 
-Generated: 2026-02-22T18:12:24.713381
+Generated: 2026-02-26T18:27:25.633169
 
 ## Statistics
 
@@ -10,7 +10,7 @@ Generated: 2026-02-22T18:12:24.713381
 - **DEPRECATED**: 1 pages
 - **REMOVED**: 0 pages
 - **DRAFT**: 0 pages
-- **ACTIVE**: 16 pages
+- **ACTIVE**: 18 pages
 - **ARCHIVED**: 0 pages
 
 ## Preview Pages (Check Duration)

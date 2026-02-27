@@ -1,100 +1,259 @@
 # Implementation summary
 
-This document describes the current implemented state of the pipeline.
+This document describes the current state of the Auto-Doc Pipeline: what is implemented, what each component does, and how the pieces fit together.
 
-## Current architecture
+## System architecture
 
-The repository now operates as a documentation operations system with four
-mandatory PR gates and supporting automation.
+The pipeline operates as a documentation operations system with four layers:
 
-## Mandatory PR gates
+```text
+Layer 1: Quality enforcement (CI gates on every PR)
+Layer 2: Detection (drift, gaps, staleness)
+Layer 3: Reporting (KPI, badges, dashboards)
+Layer 4: Generation support (templates, variables, AI instructions, verification)
+```
 
-1. Docs quality gate: `.github/workflows/docs-check.yml`
-1. PR DoD contract: `.github/workflows/pr-dod-contract.yml`
-1. API and SDK drift gate: `.github/workflows/api-sdk-drift-gate.yml`
-1. Code examples smoke gate: `.github/workflows/code-examples-smoke.yml`
+## Mandatory PR gates (4 workflows)
 
-## Supporting automation
+These workflows run on every pull request. If any gate fails, the PR cannot merge.
 
-1. CI documentation sweep: `.github/workflows/ci-documentation.yml`
-1. KPI wall generation: `.github/workflows/kpi-wall.yml`
-1. Release docs pack: `.github/workflows/release-docs-pack.yml`
-1. Algolia indexing: `.github/workflows/algolia-index.yml` (optional)
-1. Changelog artifact generation: `.github/workflows/changelog.yml`
+| Gate | Workflow | What it checks |
+| --- | --- | --- |
+| Docs quality | `docs-check.yml` | Vale style (American English, Google Guide, write-good), markdownlint formatting, cspell spelling, frontmatter schema, SEO/GEO optimization. Auto-detects MkDocs or Docusaurus. |
+| PR DoD contract | `pr-dod-contract.yml` | If interface files changed (controllers, routes, models), docs must change in the same PR. |
+| API/SDK drift | `api-sdk-drift-gate.yml` | If OpenAPI specs or SDK code changed, corresponding reference docs must update. Creates issues on drift. |
+| Code examples smoke | `code-examples-smoke.yml` | Executes fenced code blocks tagged `smoke` in 8 languages: Python, Bash, JavaScript, TypeScript, Go, curl, JSON, YAML. |
 
-## Implemented command surface
+## Supporting automation (8 workflows)
 
-### Core validation
+These workflows run on schedule or on specific triggers.
 
-1. `npm run validate:minimal`
-1. `npm run validate:full`
-1. `npm run lint:md`
-1. `npm run lint:frontmatter`
-1. `npm run lint:geo`
-1. `npm run lint:examples-smoke`
+| Workflow | Trigger | What it does |
+| --- | --- | --- |
+| `ci-documentation.yml` | Push to main | Full validation sweep across all docs. |
+| `kpi-wall.yml` | Weekly (Monday) | Generates quality score, staleness %, gap count, WOW trends, SVG badges. |
+| `release-docs-pack.yml` | Release event | Packages release-specific documentation artifacts. |
+| `docs-ops-e2e.yml` | Push to main | Runs end-to-end pipeline validation (51 tests). |
+| `lifecycle-management.yml` | Weekly | Scans for stale/deprecated pages, creates issues, proposes draft PRs. |
+| `openapi-source-sync.yml` | Push with OpenAPI changes | Resolves API spec from api-first or code-first strategy. |
+| `algolia-index.yml` | Deploy (optional) | Uploads search records to Algolia with robust payload handling. |
+| `changelog.yml` | Release event | Generates automated release notes. |
 
-### Contract and drift checks
+## Command surface
 
-1. `npm run docs-contract`
-1. `npm run drift-check`
+### Validation commands
 
-### Reporting
+| Command | What it does |
+| --- | --- |
+| `npm run validate:minimal` | Vale + markdownlint + frontmatter validation |
+| `npm run validate:full` | All checks including SEO/GEO and code snippets |
+| `npm run lint:md` | Markdownlint only |
+| `npm run lint:frontmatter` | Frontmatter schema validation only |
+| `npm run lint:geo` | SEO/GEO optimization checks only |
+| `npm run lint:examples-smoke` | Code example execution only |
+| `npm run lint:snippets` | Code snippet linting only |
+| `npm run lint:snippets:strict` | Strict code snippet linting |
 
-1. `npm run kpi-wall`
-1. `npm run kpi-sla`
-1. `npm run release-pack`
+### Contract and drift commands
 
-### Test coverage
+| Command | What it does |
+| --- | --- |
+| `npm run docs-contract` | PR interface-to-docs contract check |
+| `npm run drift-check` | API/SDK drift detection |
 
-1. `npm run docs-ops:e2e`
-1. `npm run docs-ops:golden`
-1. `npm run docs-ops:test-suite`
-1. `python3 test_pipeline.py`
+### Reporting commands
 
-## Policy packs
+| Command | What it does |
+| --- | --- |
+| `npm run kpi-wall` | Generate KPI dashboard |
+| `npm run kpi-sla` | Evaluate KPI against SLA thresholds |
+| `npm run kpi-full` | KPI wall + badges combined |
+| `npm run badges` | Generate SVG badge images |
+| `npm run release-pack` | Generate release documentation pack |
+| `npm run gaps` | Run gap detection |
 
-1. `policy_packs/minimal.yml`
-1. `policy_packs/api-first.yml`
-1. `policy_packs/monorepo.yml`
-1. `policy_packs/multi-product.yml`
+### Site generator commands
 
-## Frontmatter governance
+| Command | What it does |
+| --- | --- |
+| `npm run generator:detect` | Show which generator is active |
+| `npm run generator:info` | Detailed generator information |
+| `npm run build` | Build site (auto-detect generator) |
+| `npm run serve` | Start preview server (auto-detect) |
+| `npm run build:mkdocs` | Build with MkDocs explicitly |
+| `npm run build:docusaurus` | Build with Docusaurus explicitly |
+| `npm run serve:mkdocs` | Preview with MkDocs |
+| `npm run serve:docusaurus` | Preview with Docusaurus |
+| `npm run convert:to-docusaurus` | Convert MkDocs Markdown to Docusaurus |
+| `npm run convert:to-mkdocs` | Convert Docusaurus Markdown to MkDocs |
 
-`docs-schema.yml` defines required metadata and validation constraints.
+### Setup and utility commands
 
-`scripts/validate_frontmatter.py` validates documents against schema rules.
+| Command | What it does |
+| --- | --- |
+| `npm run configurator` | Generate browser-based setup wizard |
+| `npm run new-doc` | Create new document from template |
+| `npm run api:sandbox:mock` | Start mock API sandbox from OpenAPI spec |
+| `npm run api:sandbox:stop` | Stop mock API sandbox |
 
-## API-first support
+### Test commands
 
-The pipeline supports API-first teams through:
+| Command | What it does |
+| --- | --- |
+| `npm run docs-ops:e2e` | End-to-end tests |
+| `npm run docs-ops:golden` | Golden file comparison tests |
+| `npm run docs-ops:test-suite` | Full test suite (51 tests across 15 classes) |
+| `npm run test:adapter` | Docusaurus adapter tests (25 tests) |
+| `npm run test:configurator` | GUI configurator tests (7 tests) |
 
-1. PR-level drift blocking,
-1. docs contract enforcement,
-1. smoke checks for runnable examples,
-1. optional OpenAPI-based scaffolding workflows.
+## Scripts inventory (35+)
 
-## Search stack
+### Core validation scripts
 
-Optional Algolia support is implemented via:
+| Script | Purpose |
+| --- | --- |
+| `validate_frontmatter.py` | Validates Markdown frontmatter against `docs-schema.yml` |
+| `seo_geo_optimizer.py` | 60+ SEO/GEO checks with optional auto-fix |
+| `lint_code_snippets.py` | Code block syntax and structure validation |
+| `check_code_examples_smoke.py` | Executes tagged code blocks in 8 languages |
+| `doc_layers_validator.py` | Diataxis framework layer integrity checks |
 
-1. record generation in `scripts/seo_geo_optimizer.py`,
-1. indexing workflow with robust payload handling,
-1. faceted UI script with debounce and memoization,
-1. index smoke search in CI.
+### Contract and drift scripts
 
-## Security model
+| Script | Purpose |
+| --- | --- |
+| `check_docs_contract.py` | PR-level interface-to-docs contract enforcement |
+| `check_api_sdk_drift.py` | API/SDK change vs docs synchronization |
+| `validate_pr_dod.py` | Definition of Done contract checks |
 
-Security operations are documented in `SECURITY_OPERATIONS.md`.
+### Reporting scripts
 
-Key rule: secrets live only in CI secret stores.
+| Script | Purpose |
+| --- | --- |
+| `generate_kpi_wall.py` | KPI dashboard with 8+ metrics and WOW trends |
+| `evaluate_kpi_sla.py` | KPI threshold evaluation against policy pack SLA |
+| `generate_badge.py` | SVG badge generation from KPI data |
+| `generate_release_docs_pack.py` | Release-specific documentation packaging |
+| `pilot_analysis.py` | Pilot program impact analysis and debt scoring |
+
+### Gap detection scripts
+
+| Script | Purpose |
+| --- | --- |
+| `gap_detector.py` | Unified entry point for gap analysis |
+| `gap_detection/code_analyzer.py` | Code/doc mismatch detection |
+| `gap_detection/community_collector.py` | Community-source signal collection |
+| `gap_detection/algolia_parser.py` | Search-failure pattern analysis |
+| `gap_detection/gap_aggregator.py` | Multi-signal prioritization |
+| `gap_detection/batch_generator.py` | Batch issue and report generation |
+| `gap_detection/cli.py` | Modular gap detection CLI |
+
+### Site generator scripts
+
+| Script | Purpose |
+| --- | --- |
+| `site_generator.py` | ABC with auto-detection, factory method |
+| `markdown_converter.py` | Bidirectional MkDocs/Docusaurus Markdown conversion |
+| `generate_docusaurus_config.py` | Nav-to-sidebar conversion and config generation |
+| `preprocess_variables.py` | `{{ variable }}` replacement for Docusaurus |
+| `run_generator.py` | Auto-detecting CLI wrapper for build/serve/detect |
+
+### Setup scripts
+
+| Script | Purpose |
+| --- | --- |
+| `init_pipeline.py` | Bootstrap pipeline in new repositories with generator choice |
+| `generate_configurator.py` | Browser-based GUI wizard (6-step configuration) |
+| `new_doc.py` | Create new document from templates |
+| `auto_metadata.py` | Automatic metadata enrichment |
+
+### Lifecycle and search scripts
+
+| Script | Purpose |
+| --- | --- |
+| `lifecycle_manager.py` | Draft/active/deprecated/archived state tracking |
+| `upload_to_algolia.py` | Algolia search record upload |
+| `generate_facets_index.py` | Client-side faceted search index generation |
+| `algolia_config.py` | Algolia configuration management |
+
+## Policy packs (5)
+
+| Pack | Use case | Quality % | Max stale % | Max gaps | Max drop |
+| --- | --- | --- | --- | --- | --- |
+| `minimal.yml` | Pilot, new teams | 75 | 20 | 10 | 8 |
+| `api-first.yml` | OpenAPI-driven products | 82 | 12 | 6 | 4 |
+| `monorepo.yml` | Multi-service repos | 80 | 15 | 8 | 6 |
+| `multi-product.yml` | Product families | 80 | 15 | 8 | 6 |
+| `plg.yml` | Product-led growth | 85 | 10 | 5 | 3 |
+
+## Templates (27)
+
+All templates in `templates/` are pre-validated to pass Vale, markdownlint, frontmatter validation, and SEO/GEO checks. See `README.md` for the full template list.
+
+## AI documentation support
+
+### Instruction files
+
+- `CLAUDE.md`: 1200+ lines of instructions for Claude Code including Stripe-quality standards, template enforcement, shared variables mandate, self-verification with auto-correction, and 16-step generation flow.
+- `AGENTS.md`: Same instructions adapted for Codex.
+
+### AI workflow
+
+1. Select template (never write from scratch).
+1. Use shared variables from `_variables.yml`.
+1. Generate content following Stripe-quality standards.
+1. Execute all code blocks and verify output.
+1. Fact-check all assertions (versions, ports, paths).
+1. Auto-correct any errors found.
+1. Replace hardcoded values with variables.
+1. Update navigation in `mkdocs.yml`.
+1. Log verification summary.
+
+### Variables system
+
+`docs/_variables.yml` is the single source of truth for all product-specific values. Documents use `{{ variable_name }}` syntax. The macros plugin substitutes variables at build time.
+
+## Configuration files
+
+| File | Purpose |
+| --- | --- |
+| `.vale.ini` | Style enforcement: American English, Google Guide, write-good |
+| `.markdownlint.yml` | Markdown formatting rules |
+| `cspell.json` | Spelling dictionary with 200+ custom terms |
+| `docs-schema.yml` | Frontmatter JSON Schema validation |
+| `mkdocs.yml` | MkDocs Material theme configuration |
+| `.pre-commit-config.yaml` | Pre-commit hook framework |
+| `package.json` | npm scripts (49 commands) |
+| `Makefile` | Make shortcuts for common operations |
+
+## Site generator abstraction
+
+The pipeline supports MkDocs and Docusaurus via a unified abstraction:
+
+- Auto-detection from config files (`mkdocs.yml` vs `docusaurus.config.js`).
+- Bidirectional Markdown conversion (admonitions, tabs, frontmatter).
+- Generator-agnostic validation scripts.
+- Docusaurus scaffold with config templates, CSS, and React components.
+
+## GUI configurator
+
+`scripts/generate_configurator.py` generates a self-contained HTML wizard at `reports/pipeline-configurator.html` with 6 steps:
+
+1. Policy pack selection.
+1. Variable editing.
+1. Generator choice.
+1. KPI threshold tuning.
+1. Live preview.
+1. Export as files or batch download.
 
 ## Operational readiness
 
-The repository is ready for service-style delivery with:
+The pipeline is ready for service delivery:
 
-1. baseline measurement,
-1. pilot execution,
-1. KPI reporting,
-1. executive summary output.
-
-See `OPERATOR_RUNBOOK.md` for execution steps.
+- Baseline measurement with `pilot_analysis.py`.
+- Pilot execution with daily/weekly validation cadence.
+- Executive reporting with before/after KPI comparison.
+- GUI configurator for client self-service.
+- See `PILOT_VS_FULL_IMPLEMENTATION.md` for delivery modes.
+- See `CUSTOMIZATION_PER_COMPANY.md` for per-client configuration.
+- See `OPERATOR_RUNBOOK.md` for execution steps.

@@ -1,54 +1,32 @@
 # Setup guide for beginners
 
-This guide gives the fastest reliable setup path.
+This guide covers the fastest reliable path to get the Auto-Doc Pipeline running locally. It explains what happens after setup, the prerequisites, and the installation steps.
 
 ## What happens after setup
 
-Once configured, the pipeline runs automatically in CI.
+Once configured, the pipeline runs automatically in CI on every pull request. Here is what it does:
 
-1. It continuously checks documentation quality and contract compliance.
-1. It detects API and SDK drift and documentation gaps.
-1. It produces reports for prioritization and planning.
-1. Teams can use those reports as input for AI drafting with strict quality prompts.
-1. Humans review facts, context, and final decisions before merge.
-1. Quality bar is set to Stripe-level clarity and usability from the first draft.
+1. **Checks documentation quality** (style, formatting, spelling, frontmatter, SEO/GEO).
+1. **Enforces the docs contract** (if interface files changed, docs must change too).
+1. **Detects API/SDK drift** (if API or SDK changed, reference docs must update).
+1. **Executes code examples** (fenced code blocks tagged `smoke` must run without errors).
+1. **Generates reports** (KPI dashboard, gap backlog, lifecycle alerts).
 
-Local AI behavior:
+Locally, AI assistants (Claude or Codex) can draft documentation using project-specific templates and instructions. Humans review facts and approve content.
 
-1. It reads repository structure and changed files.
-1. It identifies what docs to add or update based on those changes.
-1. It follows project templates, snippets, and lint constraints automatically.
+## Prerequisites
 
-Platform capabilities summary:
+Install these tools:
 
-1. Continuous gap detection and backlog reports.
-1. DoD enforcement and API or SDK drift prevention.
-1. KPI wall, SLA evaluation, and release docs pack.
-1. SEO and GEO optimization as part of quality gates.
-1. Optional Algolia indexing for searchable and browsable docs.
-1. Optional API-first scaffold from OpenAPI to server stubs and client SDKs.
-1. Automated lifecycle management loop with safe guardrails.
-1. Optional PLG API playground with Swagger UI or Redoc.
-1. Optional OpenAPI mock sandbox generation for test environments.
-1. Unified PLG config block (`extra.plg`) for API-first and code-first projects.
+| Tool | Minimum version | Where to get it |
+| --- | --- | --- |
+| Python | 3.10 | `https://www.python.org/downloads/` |
+| Node.js | 18 | `https://nodejs.org/` |
+| Git | Any recent version | `https://git-scm.com/` |
+| Docker Desktop | Optional | `https://www.docker.com/products/docker-desktop/` |
+| GNU Make | Optional | Included on macOS/Linux; optional on Windows |
 
-Lifecycle guardrails:
-
-1. Automatic lifecycle issue creation is enabled.
-1. Automatic lifecycle pull requests are draft-only.
-1. Archive or removal actions are always manual after human review.
-
-## 1. Prerequisites
-
-Install:
-
-1. Python 3.10 or newer
-1. Node.js 18 or newer
-1. Git
-1. Optional: Docker Desktop
-1. Optional: GNU Make
-
-Check versions:
+Verify your installations:
 
 ```bash
 python3 --version
@@ -57,7 +35,7 @@ npm --version
 git --version
 ```
 
-## 2. Install locally
+## Install locally
 
 ```bash
 git clone <repo-url>
@@ -66,53 +44,79 @@ python3 -m pip install -r requirements.txt
 npm install
 ```
 
-## 3. First validation run
+## Run minimal validation
 
-If `make` exists:
+If `make` is available:
 
 ```bash
 make validate-minimal
 ```
 
-If `make` is not installed:
+If `make` is not installed (common on Windows):
 
 ```bash
 npm run validate:minimal
 ```
 
-Expected result: all checks pass.
+Expected result: the command runs and reports any issues found. It may find issues in existing docs (that is normal for a first setup).
 
-## 4. Full validation run
-
-If `make` exists:
-
-```bash
-make validate-full
-```
-
-Without `make`:
+## Run full validation
 
 ```bash
 npm run validate:full
 ```
 
-## 5. Run docs locally
+This runs all checks including the end-to-end test suite.
 
-If `make` exists:
+## Preview docs locally
 
-```bash
-make docs-serve
-```
-
-Without `make`:
+The pipeline auto-detects whether you use MkDocs or Docusaurus:
 
 ```bash
 npm run serve
 ```
 
-## 6. Containerized setup (optional)
+Or explicitly choose a generator:
 
-Use this if local tooling conflicts:
+```bash
+npm run serve:mkdocs       # MkDocs on port 8000
+npm run serve:docusaurus   # Docusaurus on port 3000
+```
+
+Check which generator is active:
+
+```bash
+npm run generator:detect
+```
+
+## Choose a generator (optional)
+
+The pipeline defaults to MkDocs. To switch to Docusaurus:
+
+```bash
+npm run convert:to-docusaurus
+npm run build:docusaurus
+```
+
+To switch back:
+
+```bash
+npm run convert:to-mkdocs
+```
+
+## Generate the GUI configurator (optional)
+
+Create a browser-based setup wizard:
+
+```bash
+npm run configurator
+```
+
+Open `reports/pipeline-configurator.html` in a browser. No internet required.
+
+## Containerized setup (optional)
+
+If local tooling conflicts, use Docker:
 
 ```bash
 docker compose -f docker-compose.docs-ops.yml up --build
@@ -120,9 +124,12 @@ docker compose -f docker-compose.docs-ops.yml up --build
 
 Or use VS Code Dev Container with `.devcontainer/devcontainer.json`.
 
-## 7. Next guides
+## Next steps
 
-1. `SETUP_GUIDE.md` for detailed setup and troubleshooting.
-1. `SETUP_FOR_PROJECTS.md` for rollout to another repository.
-1. `PRIVATE_REPO_SETUP.md` for private repository specifics.
-1. `USER_GUIDE.md` for daily team usage.
+| Situation | Guide |
+| --- | --- |
+| First time, need step-by-step hand-holding | `BEGINNER_GUIDE.md` |
+| Installing pipeline into another repository | `SETUP_FOR_PROJECTS.md` |
+| Private repository specifics | `PRIVATE_REPO_SETUP.md` |
+| Daily team usage | `USER_GUIDE.md` |
+| Full feature walkthrough | `GETTING_STARTED_ZERO_TO_PRO.md` |

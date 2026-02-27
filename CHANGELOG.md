@@ -6,16 +6,33 @@ All notable changes to the documentation are tracked here.
 
 ### ✨ Features
 
+- Add Docusaurus site generator support with auto-detection
+- Add bidirectional Markdown conversion (MkDocs to Docusaurus and back)
+- Add Docusaurus config and sidebar generation from MkDocs nav
+- Add variable preprocessing for Docusaurus (replaces mkdocs-macros)
+- Add auto-detecting generator CLI wrapper (run_generator.py)
+- Add Docusaurus scaffold directory with config templates, CSS, and React components
+- Add browser-based GUI configurator with 6-step wizard
+- Add init script with generator choice (init_pipeline.py --generator)
+- Add code snippet linting (lint_code_snippets.py)
+- Add PLG policy pack (policy_packs/plg.yml)
+- Add PLG API playground with Swagger UI and Redoc support
+- Add OpenAPI source sync workflow (api-first and code-first)
+- Add lifecycle management workflow with guardrails
+- Add KPI SVG badge generation and WOW dashboard
+- Add 25 Docusaurus adapter tests and 7 GUI configurator tests (51 total)
 - Add enhanced gap detection system (71110b1)
 - Add variables (3fb23ad)
 - Add comprehensive documentation pipeline with SEO/GEO optimization (d32cd10)
 
 ### 🐛 Bug Fixes
 
+- Fix robust Algolia response and task_id handling
 - Improved templates and snippets (f48ac75)
 
 ### 📝 Documentation
 
+- Update all documentation to reflect Docusaurus adapter, GUI configurator, and new commands
 - Update changelog [skip ci] (964a92a)
 - Update changelog [skip ci] (2380000)
 

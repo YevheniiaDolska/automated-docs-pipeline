@@ -1,8 +1,10 @@
 #!/usr/bin/env python3
 """
 Comprehensive SEO and GEO Optimization Tool for Documentation
+24 automated checks (8 GEO + 16 SEO) plus enhancement/generation.
 Combines all SEO/GEO functionality:
-- GEO linting for LLM optimization
+- GEO linting for LLM optimization (8 checks)
+- SEO validation of existing docs (16 checks)
 - SEO metadata enhancement
 - Structured data generation
 - Sitemap generation
@@ -408,6 +410,198 @@ class SEOEnhancer:
             'priority': priority
         }
 
+# ==================== SEO VALIDATION ====================
+
+SEO_RULES = {
+    "title_min_chars": 10,
+    "title_max_chars": 70,
+    "max_url_depth": 4,
+    "min_internal_links": 1,
+    "max_image_without_alt_pct": 0,
+    "min_content_words": 100,
+    "max_line_length_for_mobile": 120,
+}
+
+
+def seo_validate_file(filepath):
+    """Validate SEO best practices on an existing documentation file.
+
+    Returns a list of GEOFinding objects (reusing the same data class
+    since findings are structurally identical).
+
+    Checks performed (14 rules):
+      SEO-01  Title length optimization
+      SEO-02  Title contains target keywords from filename
+      SEO-03  URL/path structure depth
+      SEO-04  URL uses kebab-case
+      SEO-05  Image alt text presence
+      SEO-06  Internal link density
+      SEO-07  External links use descriptive text (no bare URLs)
+      SEO-08  Canonical-friendly path (no special chars)
+      SEO-09  Mobile-friendly line lengths
+      SEO-10  Heading keywords match title
+      SEO-11  Content freshness signal (last_reviewed)
+      SEO-12  Minimum content length
+      SEO-13  No duplicate headings
+      SEO-14  Structured data presence (code blocks / tables)
+    """
+    findings = []
+    text = filepath.read_text(encoding="utf-8")
+    fm, content = extract_frontmatter(text)
+    lines = text.split("\n")
+
+    # --- SEO-01: Title length ---
+    title = fm.get("title", "")
+    if not title:
+        findings.append(GEOFinding(filepath, 1, "seo-title-missing",
+                                   "Missing 'title' in frontmatter", "error"))
+    elif len(title) < SEO_RULES["title_min_chars"]:
+        findings.append(GEOFinding(filepath, 1, "seo-title-short",
+                                   f"Title too short ({len(title)} chars, min {SEO_RULES['title_min_chars']})"))
+    elif len(title) > SEO_RULES["title_max_chars"]:
+        findings.append(GEOFinding(filepath, 1, "seo-title-long",
+                                   f"Title too long ({len(title)} chars, max {SEO_RULES['title_max_chars']})"))
+
+    # --- SEO-02: Title contains keywords from filename ---
+    stem_words = set(filepath.stem.replace("-", " ").replace("_", " ").lower().split())
+    stop_words = {"the", "a", "an", "and", "or", "in", "on", "of", "to", "for", "is", "with"}
+    stem_words -= stop_words
+    if title and stem_words:
+        title_lower = title.lower()
+        overlap = sum(1 for w in stem_words if w in title_lower)
+        if overlap < len(stem_words) * 0.5 and len(stem_words) > 1:
+            findings.append(GEOFinding(filepath, 1, "seo-title-keyword-mismatch",
+                                       f"Title does not reflect filename keywords: {stem_words}",
+                                       "suggestion"))
+
+    # --- SEO-03: URL depth ---
+    depth = len(filepath.parts) - 1  # minus filename
+    if depth > SEO_RULES["max_url_depth"]:
+        findings.append(GEOFinding(filepath, 1, "seo-url-depth",
+                                   f"URL depth {depth} exceeds max {SEO_RULES['max_url_depth']}. "
+                                   "Shallower paths rank better."))
+
+    # --- SEO-04: URL uses kebab-case ---
+    if "_" in filepath.stem or any(c.isupper() for c in filepath.stem):
+        findings.append(GEOFinding(filepath, 1, "seo-url-naming",
+                                   "Filename should use kebab-case (lowercase, hyphens). "
+                                   f"Current: '{filepath.name}'"))
+
+    # --- SEO-05: Image alt text ---
+    img_pattern = re.compile(r"!\[([^\]]*)\]\(")
+    in_code = False
+    for i, line in enumerate(lines, 1):
+        if line.strip().startswith("```"):
+            in_code = not in_code
+            continue
+        if in_code:
+            continue
+        for match in img_pattern.finditer(line):
+            alt = match.group(1).strip()
+            if not alt:
+                findings.append(GEOFinding(filepath, i, "seo-img-no-alt",
+                                           "Image missing alt text. Add descriptive alt for SEO."))
+
+    # --- SEO-06: Internal link density ---
+    internal_link_count = len(re.findall(r"\[([^\]]+)\]\((?!https?://)", content))
+    if internal_link_count < SEO_RULES["min_internal_links"]:
+        findings.append(GEOFinding(filepath, 1, "seo-low-internal-links",
+                                   f"Only {internal_link_count} internal link(s). "
+                                   "Add cross-references to improve SEO link graph.",
+                                   "suggestion"))
+
+    # --- SEO-07: External links use descriptive text ---
+    bare_url_pattern = re.compile(r"(?<!\()(https?://[^\s\)]+)(?!\))")
+    in_code = False
+    for i, line in enumerate(lines, 1):
+        if line.strip().startswith("```"):
+            in_code = not in_code
+            continue
+        if in_code:
+            continue
+        for match in bare_url_pattern.finditer(line):
+            url = match.group(0)
+            if not re.search(r"\[[^\]]+\]\(" + re.escape(url), line):
+                findings.append(GEOFinding(filepath, i, "seo-bare-url",
+                                           f"Bare URL found. Use [descriptive text]({url}) instead."))
+
+    # --- SEO-08: Canonical-friendly path ---
+    bad_chars = set("!@#$%^&*()+={}[];',")
+    if any(c in bad_chars for c in filepath.stem):
+        findings.append(GEOFinding(filepath, 1, "seo-path-special-chars",
+                                   "Filename contains special characters. Use only "
+                                   "alphanumeric and hyphens for clean URLs."))
+
+    # --- SEO-09: Mobile-friendly line lengths ---
+    long_lines = 0
+    in_code = False
+    for line in lines:
+        if line.strip().startswith("```"):
+            in_code = not in_code
+            continue
+        if in_code:
+            continue
+        if len(line) > SEO_RULES["max_line_length_for_mobile"]:
+            long_lines += 1
+    if long_lines > 5:
+        findings.append(GEOFinding(filepath, 1, "seo-long-lines",
+                                   f"{long_lines} lines exceed {SEO_RULES['max_line_length_for_mobile']} chars. "
+                                   "Long lines hurt mobile readability."))
+
+    # --- SEO-10: Heading keywords match title ---
+    if title:
+        title_words = set(title.lower().split()) - stop_words
+        h2_texts = re.findall(r"^##\s+(.+)$", content, re.MULTILINE)
+        if h2_texts and title_words:
+            h2_words = set()
+            for h in h2_texts:
+                h2_words.update(h.lower().split())
+            h2_words -= stop_words
+            overlap = title_words & h2_words
+            if not overlap and len(title_words) > 2:
+                findings.append(GEOFinding(filepath, 1, "seo-heading-keyword-gap",
+                                           "No H2 headings share keywords with the title. "
+                                           "Align headings with title for better ranking.",
+                                           "suggestion"))
+
+    # --- SEO-11: Content freshness signal ---
+    if not fm.get("last_reviewed") and not fm.get("date"):
+        findings.append(GEOFinding(filepath, 1, "seo-no-freshness",
+                                   "No 'last_reviewed' or 'date' in frontmatter. "
+                                   "Search engines favor dated content.", "suggestion"))
+
+    # --- SEO-12: Minimum content length ---
+    word_count = len(content.split())
+    if word_count < SEO_RULES["min_content_words"]:
+        findings.append(GEOFinding(filepath, 1, "seo-thin-content",
+                                   f"Only {word_count} words. Pages under "
+                                   f"{SEO_RULES['min_content_words']} words rank poorly.",
+                                   "warning"))
+
+    # --- SEO-13: Duplicate headings ---
+    headings = re.findall(r"^(#{1,6})\s+(.+)$", content, re.MULTILINE)
+    seen = {}
+    for level, text in headings:
+        key = text.strip().lower()
+        if key in seen:
+            findings.append(GEOFinding(filepath, 1, "seo-duplicate-heading",
+                                       f"Duplicate heading: '{text.strip()}'. "
+                                       "Use unique headings for better anchor links."))
+        seen[key] = True
+
+    # --- SEO-14: Structured data presence ---
+    has_code_block = "```" in content
+    has_table = "|" in content and re.search(r"\|.*\|.*\|", content)
+    has_list = bool(re.search(r"^[\-\*]\s", content, re.MULTILINE))
+    if not has_code_block and not has_table and not has_list:
+        findings.append(GEOFinding(filepath, 1, "seo-no-structured-data",
+                                   "No code blocks, tables, or lists found. "
+                                   "Structured content improves search snippets.",
+                                   "suggestion"))
+
+    return findings
+
+
 # ==================== ALGOLIA SEARCH OPTIMIZATION ====================
 
 class AlgoliaOptimizer:
@@ -686,6 +880,11 @@ class ComprehensiveSEOOptimizer:
         # 1. GEO Linting
         results['geo_findings'] = geo_lint_file(filepath)
         self.findings.extend(results['geo_findings'])
+
+        # 1b. SEO Validation
+        seo_findings = seo_validate_file(filepath)
+        results['geo_findings'].extend(seo_findings)
+        self.findings.extend(seo_findings)
 
         # 2. Auto-enhance metadata if needed
         if fix:

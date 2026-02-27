@@ -823,6 +823,14 @@ When user asks to create new documentation, Claude MUST:
    - Ensure frontmatter complete
    - First paragraph under 60 words
 
+1. **Self-verify (MANDATORY):**
+   - Execute all code blocks and verify output matches
+   - Run all shell commands and verify results
+   - Fact-check all specific claims (versions, ports, paths, counts)
+   - Replace any mismatches with verified correct values
+   - Use standard placeholders for environment-specific values
+   - Log verification summary (X blocks executed, Y facts checked, Z corrections)
+
 ## Pull Request Reviews
 
 ### 🔴 CRITICAL: Fix BOTH Errors AND Warnings
@@ -861,6 +869,169 @@ npm run lint
 
 Both use IDENTICAL rules, so if it passes locally, it passes in CI.
 
+## Self-verification layer (post-generation quality gate)
+
+**After generating or editing ANY documentation, Claude MUST run a self-verification pass before committing.**
+
+This verification layer catches errors that linting tools cannot detect: wrong code output, broken commands, incorrect facts, and stale assertions. It replaces the need for manual human verification of technical accuracy.
+
+### Why self-verification matters
+
+- Linters check **style and formatting** -- they cannot verify **technical correctness**
+- A code example that passes markdownlint can still produce wrong output
+- A shell command that looks valid can fail or produce unexpected results
+- A claimed "default port 5678" might have changed to 8080 in the latest release
+- Self-verification catches these errors **before** human review, reducing review cycles from 5+ rounds to 1-2
+
+### Step 1: Execute all code examples
+
+**For every fenced code block with a language tag, Claude MUST:**
+
+1. **Identify executable blocks** -- blocks tagged `python`, `javascript`, `bash`, `shell`, `typescript`, `ruby`, `go`, `java`, `curl`
+1. **Execute each block** in a sandboxed environment (no network calls, no filesystem writes outside temp)
+1. **Capture stdout and stderr** from execution
+1. **Compare actual output against documented output** (the `<!-- expected-output: ... -->` comment or output block that follows the code block)
+1. **If output mismatches:** replace the documented output with the actual output
+1. **If execution fails:** fix the code so it runs, or add a comment explaining why it cannot run in isolation (for example, requires API key)
+
+**Execution rules by language:**
+
+| Language | How to execute | Timeout |
+| --- | --- | --- |
+| `python` | `python3 -c "<code>"` | 30 seconds |
+| `javascript` | `node -e "<code>"` | 30 seconds |
+| `typescript` | `npx tsx -e "<code>"` | 30 seconds |
+| `bash` / `shell` | Execute in sandboxed shell | 30 seconds |
+| `curl` | Execute with `--max-time 10` | 15 seconds |
+| `ruby` | `ruby -e "<code>"` | 30 seconds |
+| `go` | Write to temp file, `go run` | 30 seconds |
+
+**What to skip:**
+
+- Code blocks tagged with `yaml`, `json`, `xml`, `toml`, `ini`, `sql`, `graphql`, `text`, `markdown`, `diff`, `dockerfile` -- these are configuration/data, not executable
+- Code blocks containing `# do-not-execute` comment
+- Code blocks that require external services (databases, APIs) -- mark these with `<!-- requires: service-name -->`
+
+**Example verification flow:**
+
+```text
+BEFORE verification:
+    ```python
+    print(2 + 2)
+    ```
+    Output: `5`
+
+AFTER verification:
+    ```python
+    print(2 + 2)
+    ```
+    Output: `4`
+```
+
+### Step 2: Verify shell commands and their output
+
+**For every bash/shell command documented, Claude MUST:**
+
+1. **Run the command** (with safe substitutions for destructive commands)
+1. **Verify the exit code** matches expectations (0 for success)
+1. **Compare output** against what the document claims
+1. **Fix discrepancies** -- update the documented output to match reality
+
+**Safe execution rules:**
+
+- **Read-only commands** (`ls`, `cat`, `grep`, `find`, `which`, `--version`, `--help`): execute directly
+- **Write commands** (`mkdir`, `cp`, `mv`, `rm`): execute in a temp directory
+- **Install commands** (`npm install`, `pip install`): execute with `--dry-run` if supported, otherwise skip and note
+- **Destructive commands** (`rm -rf`, `drop table`): NEVER execute -- verify syntax only
+- **Commands with placeholders** (`<your-api-key>`, `YOUR_TOKEN`): skip execution, verify syntax
+
+### Step 3: Fact-check concrete assertions
+
+**Claude MUST verify every specific claim in the document:**
+
+1. **Version numbers** -- check against actual installed versions or official documentation
+1. **Port numbers** -- verify against default configuration files or `_variables.yml`
+1. **File paths** -- verify that referenced files and directories exist in the project
+1. **URL paths** -- verify that linked documentation pages exist
+1. **Configuration values** -- verify against actual config files (`.vale.ini`, `mkdocs.yml`, `package.json`)
+1. **CLI flags and options** -- verify with `--help` output
+1. **Error messages** -- verify they match actual error output
+1. **Numeric claims** -- verify counts ("supports 5 methods" -- count them)
+
+**Fact-check categories:**
+
+| Claim type | How to verify | Example |
+| --- | --- | --- |
+| Version number | Run `tool --version` | "Node.js 18.x" -> verify with `node --version` |
+| Default value | Check config/source | "Default port 5678" -> check `_variables.yml` |
+| File exists | Check filesystem | "Edit `config.yml`" -> verify file exists |
+| Link works | Check target exists | `[guide](../how-to/setup.md)` -> verify file exists |
+| Count claim | Actually count | "Supports 5 auth methods" -> count listed methods |
+| CLI flag | Run `--help` | "`--verbose` flag" -> verify in help output |
+
+### Step 4: Replace mismatches with correct values
+
+**When verification finds a discrepancy, Claude MUST:**
+
+1. **Replace the incorrect value** with the verified correct value
+1. **Use placeholders** for environment-specific values:
+   - API keys: `YOUR_API_KEY`
+   - Tokens: `YOUR_TOKEN`
+   - User-specific paths: `~/.config/your-app/`
+   - Domain names: `your-domain.example.com`
+   - IP addresses: `192.0.2.1` (documentation range per RFC 5737)
+1. **Add a comment** if the original value was intentionally approximate (for example, "approximately 100 ms" does not need exact verification)
+1. **Log all changes** -- after verification, list what was corrected:
+
+```text
+Verification summary:
+- Fixed: print(2+2) output changed from "5" to "4"
+- Fixed: Default port updated from 5678 to 8080 (per _variables.yml)
+- Verified: 12 code blocks executed, 12 passed
+- Skipped: 3 blocks (require external API)
+- Fact-checked: 8 assertions, 7 correct, 1 fixed
+```
+
+### Step 5: Verify internal consistency
+
+**Claude MUST check that the document does not contradict itself:**
+
+1. **Cross-reference within the document** -- if section 1 says "port 5678" and section 3 says "port 8080," flag and fix
+1. **Cross-reference with `_variables.yml`** -- all hardcoded values that exist in variables must use the variable
+1. **Cross-reference with other docs** -- if this document links to another, verify the linked content is consistent
+1. **Verify code and text agree** -- if text says "returns a list" but code shows a dict, fix the text
+
+### Verification checklist (run after every generation)
+
+**Claude, run this checklist AFTER writing the document but BEFORE committing:**
+
+- [ ] **All code blocks execute** without errors (or are marked as non-executable with reason)
+- [ ] **All documented outputs match** actual execution results
+- [ ] **All shell commands produce** the documented result
+- [ ] **All version numbers are current** and verified
+- [ ] **All file paths exist** in the project
+- [ ] **All internal links resolve** to existing pages
+- [ ] **All configuration values match** `_variables.yml` or source files
+- [ ] **No self-contradictions** exist within the document
+- [ ] **All numeric claims are accurate** (counts, limits, sizes)
+- [ ] **All placeholders use standard format** (`YOUR_API_KEY`, not `<api-key>` or `xxx`)
+
+### When to skip verification
+
+**Skip the full verification pass ONLY when:**
+
+- Editing frontmatter only (title, description, tags)
+- Fixing typos in prose text (no code or facts changed)
+- Updating navigation in `mkdocs.yml` (no content changes)
+- Adding admonitions or formatting changes (no technical content)
+
+**NEVER skip verification when:**
+
+- Any code block is added or modified
+- Any shell command is added or modified
+- Any specific number, version, port, path, or URL is written
+- Any "how to" steps are documented
+
 ## Quick checklist for new documents
 
 **Claude, VERIFY each point before saving ANY file:**
@@ -896,3 +1067,221 @@ Both use IDENTICAL rules, so if it passes locally, it passes in CI.
 - [ ] **No dollar signs before commands** in code blocks
 - [ ] **Title under 70 characters**
 - [ ] **Description 50-160 characters**
+
+## MANDATORY: Template and snippet enforcement
+
+**Claude MUST ALWAYS use templates and snippets when creating documentation. Writing from scratch is NEVER acceptable.**
+
+### Why this is mandatory
+
+Templates are pre-validated to pass all linters. When you write from scratch, you introduce formatting errors, missing sections, and inconsistent structure. Templates eliminate this entirely.
+
+### Complete template inventory (27 templates)
+
+Before creating ANY document, check `templates/` for a matching template:
+
+| Document type | Template file | VS Code snippet |
+| --- | --- | --- |
+| Step-by-step learning | `tutorial.md` | `doc-tutorial` |
+| Task-oriented guide | `how-to.md` | `doc-howto` |
+| Explanation page | `concept.md` | `doc-concept` |
+| Technical specification | `reference.md` | `doc-reference` |
+| Problem-solution | `troubleshooting.md` | `doc-troubleshoot` |
+| Quick onboarding | `quickstart.md` | `doc-tutorial` |
+| API endpoint docs | `api-reference.md` | `doc-reference` |
+| Auth patterns | `authentication-guide.md` | `doc-howto` |
+| Version upgrade | `migration-guide.md` | `doc-howto` |
+| Production setup | `deployment-guide.md` | `doc-howto` |
+| Webhook integration | `webhooks-guide.md` | `doc-howto` |
+| SDK client library | `sdk-reference.md` | `doc-reference` |
+| Security policy | `security-guide.md` | `doc-reference` |
+| Config setup | `configuration-guide.md` | `doc-howto` |
+| Config options table | `configuration-reference.md` | `doc-reference` |
+| Third-party integration | `integration-guide.md` | `doc-howto` |
+| Testing approach | `testing-guide.md` | `doc-howto` |
+| Error codes/recovery | `error-handling-guide.md` | `doc-reference` |
+| System architecture | `architecture-overview.md` | `doc-concept` |
+| Guidelines/patterns | `best-practices.md` | `doc-concept` |
+| Business use-case | `use-case.md` | `doc-concept` |
+| Version changelog | `release-note.md` | `doc-release` |
+| Release notes | `changelog.md` | `doc-release` |
+| FAQ page | `faq.md` | `doc-reference` |
+| Terminology | `glossary-page.md` | `doc-reference` |
+| PLG persona page | `plg-persona-guide.md` | `doc-tutorial` |
+| PLG value page | `plg-value-page.md` | `doc-concept` |
+
+### Template selection process
+
+1. Read the user's request. Identify the document type.
+1. Find the matching template from the table above.
+1. Copy the template: `cp templates/[template] docs/[section]/[filename].md`
+1. Edit the content while preserving the template structure.
+1. Do NOT add sections that are not in the template.
+1. Do NOT remove required sections from the template.
+
+## MANDATORY: Shared variables for all factual values
+
+**Every value that could change between companies or product versions MUST be a variable in `docs/_variables.yml`.**
+
+### What MUST be a variable
+
+- Product name, company name, tagline
+- All URLs (cloud, docs, API, support, status page)
+- All port numbers
+- All version numbers
+- All environment variable names
+- All file paths that are product-specific
+- All limits (payload size, rate limits, timeouts, max connections)
+- All email addresses
+- All branding values (copyright year)
+
+### How to use variables in documents
+
+```markdown
+Run {{ product_name }} on port {{ default_port }}.
+The maximum payload size is {{ max_payload_size_mb }} MB.
+Set the port using the {{ env_vars.port }} environment variable.
+Visit [{{ product_name }} Cloud]({{ cloud_url }}).
+Current version: {{ current_version }}.
+```
+
+### Variable naming rules
+
+- Use snake_case: `product_name`, not `productName`.
+- Be descriptive: `max_payload_size_mb`, not `payload_size`.
+- Include units in the name: `request_timeout_seconds`, `rate_limit_requests_per_minute`.
+- Group related variables with YAML nesting: `env_vars.port`, `env_vars.api_key`.
+- NEVER use generic names: `port` is bad, `default_port` is good, `webhook_listener_port` is better.
+
+### What to do if a variable does not exist
+
+1. Check `docs/_variables.yml` for the value.
+1. If it does not exist, add it with a descriptive name.
+1. Use the new variable in the document.
+1. Document the new variable with a comment in `_variables.yml`.
+
+### Detection of hardcoded values
+
+After writing a document, scan it for hardcoded values that should be variables:
+
+- Port numbers (5678, 8080, 3000)
+- Version numbers (1.0.0, 2.5.0)
+- URLs (`https://app.example.com`)
+- Product names (if they appear literally instead of as `{{ product_name }}`)
+- Email addresses
+
+Replace each with the corresponding variable.
+
+## MANDATORY: Auto-correction during verification
+
+**When self-verification finds an error, Claude MUST fix it immediately, not just report it.**
+
+### Auto-correction workflow
+
+```text
+Generate document
+      |
+      v
+Execute all code blocks
+      |
+      v
+Does output match documented output?
+  YES -> Move to next block
+  NO  -> REPLACE documented output with actual output
+      |
+      v
+Run all shell commands
+      |
+      v
+Does command produce expected result?
+  YES -> Move to next command
+  NO  -> Fix the command OR update documented result
+      |
+      v
+Fact-check all assertions
+      |
+      v
+Is the assertion correct?
+  YES -> Move to next assertion
+  NO  -> REPLACE incorrect value with verified correct value
+      |
+      v
+Check for hardcoded values
+      |
+      v
+Is the value in _variables.yml?
+  YES -> REPLACE hardcoded value with {{ variable_name }}
+  NO  -> ADD variable to _variables.yml, THEN replace
+      |
+      v
+Check internal consistency
+      |
+      v
+Do all sections agree?
+  YES -> Document is ready
+  NO  -> Fix contradictions, ensure single source of truth
+```
+
+### What auto-correction looks like in practice
+
+**Before verification:**
+
+```markdown
+Run the server on port 5678.
+The API version is v1.
+```
+
+**After verification (if _variables.yml says port is 8080 and API version is v2):**
+
+```markdown
+Run the server on port {{ default_port }}.
+The API version is {{ api_version }}.
+```
+
+**Before verification (code output wrong):**
+
+```python
+result = 2 + 2
+print(result)  # Output: 5
+```
+
+**After verification:**
+
+```python
+result = 2 + 2
+print(result)  # Output: 4
+```
+
+### Verification summary format
+
+After every document generation, log a summary:
+
+```text
+Verification summary:
+- Code blocks: 8 executed, 8 passed, 0 fixed
+- Shell commands: 3 executed, 2 passed, 1 fixed (npm install path corrected)
+- Fact-checks: 12 assertions, 11 correct, 1 fixed (port 5678 -> {{ default_port }})
+- Variables: 4 hardcoded values replaced with variables
+- Consistency: No contradictions found
+```
+
+## Complete AI documentation generation flow
+
+**This is the full step-by-step process Claude MUST follow for every document:**
+
+1. **Identify document type** from user request.
+1. **Select matching template** from `templates/` (NEVER write from scratch).
+1. **Copy template** to correct location based on content_type.
+1. **Read `docs/_variables.yml`** and use variables for all product-specific values.
+1. **Fill template** with actual content, following Stripe-quality standards.
+1. **Format correctly**: blank lines around headings, lists, code blocks. One H1 only.
+1. **Apply style rules**: American English, active voice, no weasel words, no contractions.
+1. **Keep first paragraph under 60 words** with a clear definition.
+1. **Execute all code blocks** and verify output matches.
+1. **Run all shell commands** and verify results.
+1. **Fact-check all assertions** (versions, ports, paths, URLs, counts).
+1. **Replace hardcoded values** with variables from `_variables.yml`.
+1. **Check internal consistency** (no contradictions within the document).
+1. **Update `mkdocs.yml`** navigation with the new page.
+1. **Run validation**: `npm run validate:minimal`.
+1. **Log verification summary** with counts of blocks executed, facts checked, corrections made.

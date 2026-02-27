@@ -1,18 +1,22 @@
-# How Claude Code Adapts Metrics in Templates
+# How AI adapts metrics in documentation
 
-## The Problem with Fake Metrics
+## The problem
 
-Templates should NOT contain made-up numbers. Claude Code will adapt based on context:
+Documentation templates contain placeholder values for metrics such as response times, uptime percentages, and cost savings. If an AI agent fills in these placeholders with invented numbers, the documentation becomes dishonest. Readers lose trust. Sales teams make promises the product cannot keep.
 
-## Measurement model (required for production claims)
+This guide defines the rules that AI agents (Claude Code, Codex, or any future agent) must follow when replacing metric placeholders in templates.
 
-Any business or performance claim must use one of these labels:
+## Measurement model
 
-1. **Measured**: Computed from real data with a timestamped window and source.
-1. **Target**: A planned objective with due date and owner.
-1. **Hypothesis**: An estimate pending validation.
+Every business or performance claim in documentation must use one of these 3 labels:
 
-Use this structure in docs:
+| Label | Definition | Requirements |
+| --- | --- | --- |
+| **Measured** | Computed from real data | Must include timestamped window and data source |
+| **Target** | A planned objective | Must include due date and owner |
+| **Hypothesis** | An estimate pending validation | Must include confidence level and validation plan |
+
+Use this structure when documenting any metric:
 
 ```markdown
 Metric: <name>
@@ -26,94 +30,116 @@ Target: <value and deadline>
 Confidence: High | Medium | Low
 ```
 
-### Standard formulas
+## Standard formulas
 
-- **Time-to-doc** = `docs_merged_at - code_merged_at` (hours)
-- **Stale percent** = `(stale_docs / total_docs) * 100`
-- **High-priority gap count** = `count(gaps where priority == "high")`
-- **Docs quality score** = weighted composite from metadata completeness, stale ratio, and gap pressure
-- **Estimated annual savings (Hypothesis)** = `(hours_saved_per_month * loaded_hourly_rate * 12) - annual_tooling_cost`
+These formulas define how specific metrics are calculated across all documentation:
 
-## Adaptation Strategy
+| Metric | Formula |
+| --- | --- |
+| Time-to-doc | `docs_merged_at - code_merged_at` (hours) |
+| Stale percent | `(stale_docs / total_docs) * 100` |
+| High-priority gap count | `count(gaps where priority == "high")` |
+| Docs quality score | Weighted composite from metadata completeness, stale ratio, and gap pressure |
+| Estimated annual savings (Hypothesis) | `(hours_saved_per_month * loaded_hourly_rate * 12) - annual_tooling_cost` |
 
-### 1. When Real Metrics Are Available
+## How the AI agent must handle metrics
 
-```markdown
-# Template says: "[X]ms response time"
+### When real metrics are available
 
-# Claude Code will write:
-- If metrics exist: "45ms average response time (P50), 189ms P99 (measured over 30 days)"
-- If from monitoring: "Response time: 45-67ms (Datadog metrics, last 7 days)"
-- If from benchmarks: "Benchmark results: 52ms under normal load (1000 req/s)"
-```
-
-### 2. When Metrics Are Unknown (New Project)
+If the repository, monitoring system, or analytics dashboard provides actual data, the AI agent must use that data and cite the source:
 
 ```markdown
-# Template says: "[X]% success rate"
-
-# Claude Code will write:
-- Target/Goal: "Target: >99.9% success rate"
-- Industry standard: "Industry standard: 99.95% uptime for critical services"
-- Estimate based on stack: "Expected: ~50ms latency (based on Node.js + PostgreSQL typical performance)"
-- Placeholder for measurement: "Success rate: [to be measured after deployment]"
+# Good: uses real data with source
+Response time: 45 ms average (P50), 189 ms P99 (measured over 30 days, source: Datadog)
+Uptime: 99.97% (measured January 1 to March 31, 2025, source: internal monitoring)
 ```
 
-### 3. When Making Comparisons
+### When metrics are unknown (new project)
+
+If no real data exists, the AI agent must clearly label the value as a target, industry standard, or estimate:
 
 ```markdown
-# Template says: "[X]x faster"
+# Good: clearly labeled as target
+Target: >99.9% success rate (to be measured after deployment)
 
-# Claude Code will write:
-- If comparing versions: "2.3x faster than v1.0 (measured: 450ms → 195ms)"
-- If theoretical: "Expected: 3-5x faster with caching enabled"
-- If based on similar systems: "Similar implementations show 2-4x improvement"
+# Good: references industry standard
+Industry standard: 99.95% uptime for critical services (source: Cloud provider SLAs)
+
+# Good: estimate with basis
+Expected: ~50 ms latency (based on Node.js + PostgreSQL typical performance)
+
+# Good: placeholder for future measurement
+Success rate: [to be measured after deployment]
 ```
 
-## Examples of Proper Adaptation
+### When making comparisons
 
-### Good (Honest) Adaptations
+If the template asks for a comparison (for example, "X times faster"), the AI agent must provide the actual numbers:
 
 ```markdown
-✅ "Target response time: <100ms (to be validated in load testing)"
-✅ "Based on similar deployments, expect 10-50 requests/second"
-✅ "Estimated cost: $50-200/month depending on usage"
-✅ "Industry benchmark: 45ms P50 for similar APIs"
-✅ "Hypothesis: annual savings $90k-$140k, confidence: medium, formula documented in KPI appendix"
+# Good: shows both numbers
+2.3x faster than v1.0 (measured: 450 ms reduced to 195 ms)
+
+# Good: labeled as expected
+Expected: 3-5x faster with caching enabled (to be validated in load testing)
+
+# Good: references similar systems
+Similar implementations show 2-4x improvement (source: published benchmarks)
 ```
 
-### Bad (Dishonest) Adaptations
+## What the AI agent must never do
+
+These patterns are prohibited:
 
 ```markdown
-❌ "Handles 1 million requests/second" (unless actually tested)
-❌ "99.999% uptime guaranteed" (unless SLA exists)
-❌ "45ms response time" (without context/source)
-❌ "Saves $10,000/month" (without basis)
+# Bad: specific number without source
+Handles 1 million requests per second
+
+# Bad: guarantee without SLA
+99.999% uptime guaranteed
+
+# Bad: number without context
+45 ms response time
+
+# Bad: cost claim without formula
+Saves $10,000 per month
 ```
 
-## Key Principles
+Every number must have either a source (for measured values), a label (for targets), or a confidence level (for hypotheses).
 
-1. **Be Honest**: If you don't have metrics, say so
-1. **Use Targets**: "Target: X" or "Goal: Y" for new projects
-1. **Reference Sources**: "Based on," "Measured by," "According to"
-1. **Industry Standards**: Use well-known benchmarks as references
-1. **Ranges Over Absolutes**: "10-50 ms" is better than "23 ms" without data
-1. **Clear About Estimates**: Use terms like estimated, expected, and typical
+## Key principles
 
-## Template Placeholders
+1. **Be honest.** If you do not have metrics, say so. "To be measured after deployment" is better than an invented number.
+1. **Use targets for new projects.** Write "Target: X" or "Goal: Y" instead of stating unproven values as facts.
+1. **Reference sources.** Use phrases like "based on," "measured by," and "according to."
+1. **Use industry standards when available.** Published benchmarks from reputable sources are acceptable references.
+1. **Prefer ranges over absolute values.** "10-50 ms" is more honest than "23 ms" when you do not have precise data.
+1. **Label estimates clearly.** Use words like "estimated," "expected," and "typical" so readers know the value is not measured.
 
-Templates use these placeholders that Claude Code will replace:
+## Template placeholders
 
-- `[X]` - Numeric value
-- `[metric]` - Specific metric name
-- `[measured]` - Actual measured value or "to be measured"
-- `[target]` - Target/goal value
-- `[estimate]` - Estimated value based on context
+Templates in the `templates/` directory use these placeholders that the AI agent must replace:
 
-Claude Code will:
+| Placeholder | Meaning |
+| --- | --- |
+| `[X]` | A numeric value |
+| `[metric]` | A specific metric name |
+| `[measured]` | An actual measured value, or "to be measured" if unavailable |
+| `[target]` | A target or goal value |
+| `[estimate]` | An estimated value based on context |
 
-- Replace with real data when available
-- Use industry standards when applicable
-- Clearly mark estimates and targets
-- Add measurement placeholders for future data collection
-- Never invent specific numbers without basis
+The AI agent must:
+
+1. Replace the placeholder with real data when available.
+1. Use industry standards when real data is not available.
+1. Clearly mark estimates and targets with labels.
+1. Add measurement placeholders for future data collection.
+1. Never invent specific numbers without a documented basis.
+
+## Related guides
+
+| Guide | What it covers |
+| --- | --- |
+| `CLAUDE.md` | AI agent instructions including self-verification rules |
+| `AGENTS.md` | Codex agent instructions including fact-checking rules |
+| `POLICY_PACKS.md` | Quality thresholds that metrics must meet |

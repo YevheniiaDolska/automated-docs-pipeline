@@ -1,145 +1,238 @@
 # Auto-Doc Pipeline
 
-A documentation operations pipeline for Docs as Code teams.
+An automated documentation operations system for technical products.
 
-It combines quality gates, contract checks, drift detection, smoke tests,
-reporting, and optional Algolia search indexing.
+You install it into a company repository. It enforces documentation quality, detects when docs fall behind code, generates reports, and helps AI assistants (Claude, Codex) produce Stripe-quality documentation from the first draft.
+
+## What this system does (plain language)
+
+Imagine you have a software product with documentation. This pipeline does the following:
+
+1. **Checks every document for quality** before it merges. Grammar, style, spelling, formatting, SEO, metadata. If something is wrong, the pull request fails until the author fixes it.
+1. **Detects when code changes but docs do not.** If a developer changes an API endpoint and does not update the reference docs, the pipeline blocks the PR and tells them what to update.
+1. **Runs code examples from docs to verify they work.** If a tutorial says `print(2 + 2)` and claims the output is 5, the pipeline catches it. Supports Python, Bash, JavaScript, TypeScript, Go, JSON, YAML, and curl.
+1. **Finds documentation gaps automatically.** It scans code changes, community signals, search analytics, and existing docs to produce a prioritized backlog of what needs to be written.
+1. **Produces KPI dashboards and reports.** Quality scores, staleness percentages, gap counts, week-over-week trends, and SVG badges for your README.
+1. **Manages document lifecycle.** Tracks draft, active, deprecated, and archived states. Automatically creates issues when pages go stale.
+1. **Helps AI write better docs.** The `CLAUDE.md` and `AGENTS.md` files contain detailed instructions that make Claude and Codex produce documentation that passes all quality gates on the first attempt, using templates, shared variables, and self-verification.
+1. **Supports two site generators.** MkDocs (default) and Docusaurus, with automatic detection and bidirectional Markdown conversion between formats.
+1. **Includes an interactive API sandbox.** Swagger UI or Redoc embedded in docs, with configurable `Try it out` routing to sandbox or production.
+1. **Ships with 27 production-ready templates.** Tutorials, how-to guides, API references, troubleshooting pages, quickstarts, changelogs, glossaries, and 20 more. Each template passes all linters out of the box.
+
+## How it works (the flow)
+
+```text
+Developer changes code
+        |
+        v
+Opens Pull Request
+        |
+        v
+4 mandatory CI gates run automatically:
+  1. docs-check.yml        -> style, formatting, spelling, frontmatter, SEO/GEO
+  2. pr-dod-contract.yml   -> if interface changed, docs must change too
+  3. api-sdk-drift-gate.yml -> if OpenAPI/SDK changed, reference docs must update
+  4. code-examples-smoke.yml -> all tagged code blocks must execute without errors
+        |
+        v
+If any gate fails -> PR is blocked with clear error message
+If all gates pass -> PR can merge
+        |
+        v
+Supporting automation runs on schedule:
+  - KPI dashboard generation (weekly)
+  - Gap detection (weekly)
+  - Lifecycle management (weekly)
+  - Algolia search indexing (on deploy)
+```
 
 ## What is included
 
-1. Quality gates for Markdown, spelling, style, frontmatter, and SEO/GEO.
-1. PR Definition of Done contract checks.
-1. API and SDK drift gate with issue creation on drift.
-1. Continuous documentation gap detection from code, docs signals, and policy rules.
-1. Prioritized gap reports for planning and execution (`JSON`, `CSV`, `XLSX`, markdown reports).
-1. Smoke execution for tagged code examples in docs and templates.
-1. KPI wall and KPI SLA evaluation reports.
-1. Release docs pack generation for releases.
-1. Optional Algolia indexing workflow.
-1. Policy packs for different rollout profiles.
-1. API-first scaffold workflow to generate server stubs and client SDKs from OpenAPI.
-1. AI drafting workflow support with strict quality prompts and template/snippet grounding.
-1. Searchable and browsable documentation architecture with faceted search support.
-1. Structured and manageable docs metadata via frontmatter schema validation.
-1. Lifecycle visibility for draft, active, deprecated, and archived content.
-1. Automated lifecycle loop with guardrails: scheduled scan, report, auto-issue, and draft PR.
-1. Optional PLG API playground with Swagger UI or Redoc, including `Try it out` controls.
-1. Value-first PLG documentation patterns: persona guides, use-case pages, ROI framing, and activation paths.
+### Quality gates (mandatory on every PR)
 
-## Operating model and value
+1. **Docs quality gate** (`docs-check.yml`): Vale style checks (American English, Google Developer Style Guide, write-good), markdownlint formatting, cspell spelling, frontmatter schema validation, SEO/GEO optimization checks. Auto-detects MkDocs or Docusaurus.
+1. **PR DoD contract** (`pr-dod-contract.yml`): If interface files changed (controllers, routes, models) and docs did not change, the PR fails.
+1. **API/SDK drift gate** (`api-sdk-drift-gate.yml`): If OpenAPI specs or SDK code changed without corresponding reference docs updates, the PR fails. Creates GitHub issues for unresolved drift.
+1. **Code examples smoke** (`code-examples-smoke.yml`): Executes fenced code blocks tagged with `smoke` in eight languages: Python, Bash, JavaScript, TypeScript, Go, curl, JSON, YAML.
 
-After implementation, the system runs continuously in CI.
+### Supporting automation (runs on schedule or triggers)
 
-1. The pipeline detects quality issues, drift, and documentation gaps automatically.
-1. It produces reports and prioritized work items for the team.
-1. Drafting can be delegated to AI using templates, snippets, reports, and strict prompt instructions.
-1. Humans orchestrate the process, validate factual correctness, and approve final content.
-1. Quality target is Stripe-level documentation quality from the first draft.
+1. **CI documentation sweep** (`ci-documentation.yml`): Full validation across all docs.
+1. **KPI wall** (`kpi-wall.yml`): Weekly quality score, staleness, gap count, and trend dashboard.
+1. **Release docs pack** (`release-docs-pack.yml`): Generates documentation package for each release.
+1. **E2E test suite** (`docs-ops-e2e.yml`): End-to-end pipeline validation.
+1. **Lifecycle management** (`lifecycle-management.yml`): Scans for stale/deprecated pages, creates issues, proposes draft PRs.
+1. **OpenAPI source sync** (`openapi-source-sync.yml`): Resolves API spec from api-first or code-first strategy.
+1. **Algolia indexing** (`algolia-index.yml`): Optional search index upload.
+1. **Changelog** (`changelog.yml`): Automated release note generation.
 
-AI assistance model:
+### Scripts (35+)
 
-1. The local AI assistant works from repository structure and changed files.
-1. It maps code and API changes to required documentation updates.
-1. It proposes adds and edits in the right docs paths instead of random text generation.
+| Category | Scripts | What they do |
+| --- | --- | --- |
+| Validation | `validate_frontmatter.py`, `seo_geo_optimizer.py`, `lint_code_snippets.py`, `check_code_examples_smoke.py`, `doc_layers_validator.py` | Check quality, formatting, SEO, code validity |
+| Contracts | `check_docs_contract.py`, `check_api_sdk_drift.py`, `validate_pr_dod.py` | Enforce docs-as-code contracts |
+| Reporting | `generate_kpi_wall.py`, `evaluate_kpi_sla.py`, `generate_badge.py`, `generate_release_docs_pack.py`, `pilot_analysis.py` | Produce dashboards, badges, reports |
+| Gap detection | `gap_detector.py`, `gap_detection/` (6 modules) | Find missing docs from code, search, community |
+| Site generation | `site_generator.py`, `markdown_converter.py`, `generate_docusaurus_config.py`, `preprocess_variables.py`, `run_generator.py` | Build, serve, convert between MkDocs and Docusaurus |
+| Setup | `init_pipeline.py`, `generate_configurator.py`, `new_doc.py`, `auto_metadata.py` | Bootstrap pipeline, generate GUI wizard, create docs from templates |
+| Lifecycle | `lifecycle_manager.py` | Track draft/active/deprecated/archived states |
+| Search | `upload_to_algolia.py`, `generate_facets_index.py` | Optional Algolia integration |
 
-This is why the model saves time: people stop doing repetitive checks manually and focus on factual accuracy and decisions.
+### Templates (27)
 
-## Core workflows
+Pre-validated Markdown templates that pass all linters out of the box:
 
-1. `.github/workflows/docs-check.yml`
-1. `.github/workflows/pr-dod-contract.yml`
-1. `.github/workflows/api-sdk-drift-gate.yml`
-1. `.github/workflows/code-examples-smoke.yml`
-1. `.github/workflows/ci-documentation.yml`
-1. `.github/workflows/kpi-wall.yml`
-1. `.github/workflows/release-docs-pack.yml`
-1. `.github/workflows/algolia-index.yml` (optional)
-1. `.github/workflows/lifecycle-management.yml`
-1. `.github/workflows/openapi-source-sync.yml` (api-first and code-first support)
+| Template | Purpose |
+| --- | --- |
+| `tutorial.md` | Step-by-step learning guides |
+| `how-to.md` | Task-oriented guides |
+| `concept.md` | Explanation and understanding pages |
+| `reference.md` | Technical specification pages |
+| `troubleshooting.md` | Problem-cause-solution guides |
+| `quickstart.md` | 5-10 minute onboarding |
+| `api-reference.md` | API endpoint documentation |
+| `authentication-guide.md` | Auth pattern documentation |
+| `migration-guide.md` | Version upgrade guides |
+| `deployment-guide.md` | Production setup guides |
+| `webhooks-guide.md` | Webhook integration docs |
+| `sdk-reference.md` | SDK client library docs |
+| `security-guide.md` | Security policy docs |
+| `configuration-guide.md` | Configuration setup docs |
+| `configuration-reference.md` | Config options table |
+| `integration-guide.md` | Third-party integration docs |
+| `testing-guide.md` | Testing approach docs |
+| `error-handling-guide.md` | Error codes and recovery |
+| `architecture-overview.md` | System architecture docs |
+| `best-practices.md` | Guidelines and patterns |
+| `use-case.md` | Business use-case pages |
+| `release-note.md` | Version changelog |
+| `changelog.md` | Release notes format |
+| `faq.md` | Frequently asked questions |
+| `glossary-page.md` | Terminology reference |
+| `plg-persona-guide.md` | PLG persona targeting |
+| `plg-value-page.md` | PLG value proposition |
 
-## Code examples smoke coverage
+### Policy packs (5)
 
-Smoke checks execute fenced code blocks tagged with `smoke` for supported languages:
+Policy packs adapt the pipeline to different companies and team sizes:
 
-1. `python`
-1. `bash` or `sh`
-1. `javascript` or `js`
-1. `typescript` or `ts` (compile check with `tsc`)
-1. `go` (build check with `go build`)
-1. `curl` (syntax by default, execution only with `network` tag and `--allow-network`)
-1. `json`
-1. `yaml` or `yml`
+| Pack | Best for | Quality threshold | Max stale % |
+| --- | --- | --- | --- |
+| `minimal.yml` | New teams, pilot week, restricted environments | 75% | 20% |
+| `api-first.yml` | OpenAPI-driven teams, SDK-heavy products | 82% | 12% |
+| `monorepo.yml` | Multiple services in one repo | 80% | 15% |
+| `multi-product.yml` | One docs system for multiple products | 80% | 15% |
+| `plg.yml` | Product-led growth, self-serve activation | 85% | 10% |
+
+### Variables system
+
+All company-specific values live in one file: `docs/_variables.yml`. Every document references variables instead of hardcoding values. When you change the port number or product name, it updates across all docs automatically.
+
+```yaml
+# docs/_variables.yml
+product_name: "Acme API"
+default_port: 5678
+cloud_url: "https://app.acme.com"
+api_version: "v2"
+support_email: "support@acme.com"
+```
+
+In documentation:
+
+```markdown
+Run {{ product_name }} on port {{ default_port }}.
+Visit [{{ product_name }} Cloud]({{ cloud_url }}).
+```
 
 ## Local commands
 
-If `make` is available:
+### With Make
 
 ```bash
-make install
-make validate-minimal
-make validate-full
-make test
-make docs-serve
+make install            # Install all dependencies
+make validate-minimal   # Run core quality checks
+make validate-full      # Run all quality checks
+make test               # Run test suite
+make docs-serve         # Start documentation preview
+make configurator       # Generate browser-based setup wizard
 ```
 
-Cross-platform fallback (without `make`):
+### With npm (cross-platform, no Make required)
 
 ```bash
-python3 -m pip install -r requirements.txt
-npm install
-npm run validate:minimal
-npm run validate:full
-npm run docs-ops:test-suite
-npm run serve
-npm run api:sandbox:mock
-npm run api:sandbox:stop
+npm install                     # Install dependencies
+npm run validate:minimal        # Core quality checks
+npm run validate:full           # All quality checks
+npm run docs-ops:test-suite     # Run 51 tests
+npm run serve                   # Start docs preview (auto-detects generator)
+npm run configurator            # Generate setup wizard
+npm run gaps                    # Run gap detection
+npm run kpi-wall                # Generate KPI dashboard
 ```
 
-## Modes
+## Site generator support
 
-1. Minimal mode: `policy_packs/minimal.yml`
-1. API-first mode: `policy_packs/api-first.yml`
-1. PLG mode: `policy_packs/plg.yml`
+The pipeline supports two documentation site generators:
 
-Minimal mode is best for first rollout in restricted environments.
+1. **MkDocs** (default): Uses `mkdocs.yml`, Material theme. Preview at `http://127.0.0.1:8000`.
+1. **Docusaurus**: Uses `docusaurus.config.js`, React-based. Preview at `http://localhost:3000`.
 
-## Optional search stack
+The pipeline auto-detects which generator to use based on which config file exists.
 
-Algolia support is integrated.
+```bash
+npm run generator:detect          # Check active generator
+npm run convert:to-docusaurus     # Switch from MkDocs to Docusaurus
+npm run convert:to-mkdocs         # Switch from Docusaurus to MkDocs
+```
 
-1. Generate records from docs with `scripts/seo_geo_optimizer.py --algolia`.
-1. Upload/index via `.github/workflows/algolia-index.yml`.
-1. Use faceted client UI from `docs/assets/javascripts/faceted-search.js`.
+## AI documentation workflow
 
-## Optional API sandbox stack
+The pipeline includes two instruction files that make AI assistants produce high-quality docs:
 
-1. Embed API playground in docs using `docs/assets/javascripts/api-playground.js`.
-1. Choose provider: Swagger UI or Redoc.
-1. Disable or enable `Try it out` for Swagger UI.
-1. Route requests to sandbox base URL for safe testing.
-1. Generate mock sandbox from OpenAPI with `docker-compose.api-sandbox.yml`.
-1. Resolve OpenAPI source from api-first or code-first strategy with `openapi-source-sync.yml`.
+1. **`CLAUDE.md`**: Instructions for Claude Code. Covers templates, variables, self-verification, formatting rules, and Stripe-quality standards.
+1. **`AGENTS.md`**: Instructions for Codex. Same content adapted for Codex workflow.
 
-## PLG documentation layer (not only API docs)
+When Claude or Codex generates documentation in this repository, they:
 
-The pipeline also supports value-first documentation patterns for self-serve growth:
+1. Select the matching template from `templates/` (never write from scratch).
+1. Use variables from `docs/_variables.yml` for all product-specific values.
+1. Follow Vale style rules (American English, active voice, no weasel words).
+1. Execute all code examples and verify output matches documentation.
+1. Fact-check all specific claims (versions, ports, paths, counts).
+1. Auto-correct any mismatches found during verification.
+1. Update `mkdocs.yml` navigation when adding new pages.
 
-1. Persona entry pages focused on user outcomes.
-1. Use-case pages with setup-time and savings framing.
-1. Activation-oriented quickstarts and checklists.
-1. Before/after and ROI sections for adoption decisions.
-1. Stack or bundle guides that combine multiple templates into one workflow.
+## Test coverage
+
+51 automated tests across 15 test classes:
+
+```bash
+npm run docs-ops:test-suite     # Main test suite
+npm run test:adapter            # 25 Docusaurus adapter tests
+npm run test:configurator       # 7 GUI configurator tests
+```
 
 ## Start here
 
-1. `README_SETUP.md` for local setup.
-1. `SETUP_FOR_PROJECTS.md` for installing into another repository.
-1. `PRIVATE_REPO_SETUP.md` for private repository usage.
-1. `PLG_PLAYBOOK.md` for value-first, activation-oriented docs patterns.
-1. `USER_GUIDE.md` for team usage.
-1. `OPERATOR_RUNBOOK.md` for implementation delivery.
+| Your situation | Read this first |
+| --- | --- |
+| Never used this before | `QUICK_START.md` |
+| Windows user starting from zero | `BEGINNER_GUIDE.md` |
+| Setting up for the first time | `README_SETUP.md` |
+| Installing into another repository | `SETUP_FOR_PROJECTS.md` |
+| Private repository | `PRIVATE_REPO_SETUP.md` |
+| Running a pilot week for a client | `PILOT_VS_FULL_IMPLEMENTATION.md` |
+| Customizing for a specific company | `CUSTOMIZATION_PER_COMPANY.md` |
+| API-first team workflow | `API_FIRST_PLAYBOOK.md` |
+| Product-led growth docs | `PLG_PLAYBOOK.md` |
+| Understanding policy packs | `POLICY_PACKS.md` |
+| Team daily usage | `USER_GUIDE.md` |
+| Implementation delivery | `OPERATOR_RUNBOOK.md` |
+| Full feature inventory | `PACKAGE_CONTENTS.md` |
 
 ## Security
 
-Read `SECURITY_OPERATIONS.md` before enabling automation in a company
-repository.
+Read `SECURITY_OPERATIONS.md` before enabling automation in a company repository.
+
+Key rule: secrets live only in CI secret stores, never in code or config files.
