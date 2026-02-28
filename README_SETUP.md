@@ -60,6 +60,12 @@ npm run validate:minimal
 
 Expected result: the command runs and reports any issues found. It may find issues in existing docs (that is normal for a first setup).
 
+`validate:minimal` does not run Vale or spelling checks. To run the broader local lint suite that matches CI more closely:
+
+```bash
+npm run lint
+```
+
 ## Run full validation
 
 ```bash
@@ -121,6 +127,8 @@ If local tooling conflicts, use Docker:
 ```bash
 docker compose -f docker-compose.docs-ops.yml up --build
 ```
+
+This container flow runs one validation pass via `make validate` and exits. It is useful for confirming the toolchain, but it is not a long-running preview server.
 
 Or use VS Code Dev Container with `.devcontainer/devcontainer.json`.
 

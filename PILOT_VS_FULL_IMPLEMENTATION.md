@@ -35,13 +35,27 @@ The pipeline is designed to scale from pilot to full by changing configuration, 
 
 The pilot week proves value on the client's real repository in five days. The goal is a measurable before/after comparison.
 
+Before Day 1, determine which starting point you have:
+
+1. **Fresh client repository**: the pipeline is not installed yet.
+1. **Existing pipeline repository**: the repo already contains `scripts/`, `templates/`, `package.json`, and the workflow files.
+
+If it is a fresh repository, bootstrap it first from the client repository root:
+
+```bash
+python3 /path/to/Auto-Doc\ Pipeline/scripts/init_pipeline.py \
+  --product-name "Client Product" \
+  --generator mkdocs \
+  --target-dir .
+```
+
 ### Day 1: Setup and baseline
 
 **What you do:**
 
 1. Fork or clone the client's documentation repository.
 1. Create an implementation branch.
-1. Install the pipeline dependencies.
+1. Install the pipeline dependencies if the repository already contains the pipeline files.
 
 ```bash
 python3 -m pip install -r requirements.txt
@@ -49,6 +63,11 @@ npm install
 ```
 
 1. Choose the `minimal.yml` policy pack (the most lenient profile).
+1. Update workflow files that still point to `policy_packs/api-first.yml` if you want the repo to truly run in pilot mode:
+   - `.github/workflows/pr-dod-contract.yml`
+   - `.github/workflows/api-sdk-drift-gate.yml`
+   - `.github/workflows/kpi-wall.yml`
+
 1. Run baseline measurement:
 
 ```bash
@@ -85,6 +104,7 @@ support_email: "support@client.com"
 
 ```bash
 npm run validate:minimal
+npm run lint
 ```
 
 1. Adapt 3-5 templates to the client's product context:
@@ -129,10 +149,18 @@ npm run gaps
 
 1. Review the gap report. Prioritize by severity.
 1. Fix the top 3-5 gaps using templates.
-1. Run full validation:
+1. Run fuller validation:
 
 ```bash
 npm run validate:full
+```
+
+If that is too heavy for a five-day pilot, the minimum acceptable report set is:
+
+```bash
+npm run validate:minimal
+npm run gaps
+npm run kpi-wall
 ```
 
 ### Day 5: Generate final report and deliver
@@ -201,6 +229,7 @@ The full implementation builds on the pilot. It enables all pipeline features an
    - Multiple products: `multi-product.yml`
 
 1. Or create a custom policy pack (see `CUSTOMIZATION_PER_COMPANY.md`).
+1. Update workflow files so they reference the chosen policy pack instead of the default `policy_packs/api-first.yml` where applicable.
 
 ### Week 2: Templates and variables
 
@@ -270,6 +299,7 @@ copyright_year: 2026
    - Configure API playground in `mkdocs.yml`.
 
 1. Set up KPI SLA thresholds in the policy pack.
+1. Confirm the policy pack used by `.github/workflows/kpi-wall.yml`.
 
 ### Week 4: Training and handoff
 
@@ -314,6 +344,7 @@ copyright_year: 2026
 After a successful pilot, converting to full implementation requires:
 
 1. **Change policy pack** from `minimal.yml` to the appropriate pack.
+1. **Update workflow references** so the selected pack is actually used.
 1. **Enable remaining CI gates** (DoD contract, drift, smoke).
 1. **Expand variables** from basic to full set.
 1. **Customize remaining templates** for the product.
