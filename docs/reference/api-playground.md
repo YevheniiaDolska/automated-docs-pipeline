@@ -1,14 +1,18 @@
 ---
 title: API playground
-description: Interactive API reference with Swagger UI or Redoc and configurable sandbox behavior for product-led growth.
+description: Interactive API reference with Swagger UI or Redoc and configurable sandbox
+  behavior for product-led growth.
 content_type: reference
 product: both
 tags:
-  - Reference
-  - API
-  - Playground
+- Reference
+- API
+- Playground
 status: active
+last_reviewed: '2026-02-23'
+original_author: Developer
 ---
+
 
 ## Overview
 

@@ -10,10 +10,11 @@ tags:
 - Webhook
 - Cloud
 - Self-hosted
-app_component: webhook
 last_reviewed: '2026-02-16'
 original_author: JaneDo
+app_version: '1.40'
 ---
+
 
 
 ## Configure Webhook trigger authentication in The Webhook node accepts incoming HTTP requests to trigger workflow execution. By default, the Webhook endpoint is open to any request. To prevent unauthorized access, configure one of the authentication methods described in this guide
