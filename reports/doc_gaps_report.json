@@ -1,120 +1,81 @@
 {
   "summary": {
-    "total_gaps": 14,
-    "high_priority": 6,
-    "medium_priority": 8,
+    "total_gaps": 11,
+    "high_priority": 5,
+    "medium_priority": 6,
     "low_priority": 0,
     "by_source": {
-      "code": 12,
-      "community": 2
+      "code": 11
     },
     "by_doc_type": {
-      "how-to": 9,
-      "reference": 5
+      "how-to": 8,
+      "reference": 3
     },
     "by_category": {
       "authentication": 1,
       "database_schema": 1,
-      "removed_function": 1,
-      "api_endpoint": 1,
       "breaking_change": 1,
+      "removed_function": 1,
       "signature_change": 1,
       "webhook": 1,
       "new_function": 1,
       "public_function": 1,
-      "env_var": 1,
-      "error_handling": 1,
       "config_option": 1,
-      "integration": 2
+      "env_var": 1,
+      "error_handling": 1
     }
   },
   "sources_analyzed": [
     "code_changes",
     "community"
   ],
-  "generated_at": "2026-02-23T08:36:07.166938",
+  "generated_at": "2026-03-02T08:31:35.291537",
   "gaps": [
     {
-      "id": "CODE-0001",
+      "id": "CODE-0016",
       "title": "Authentication: authentication: Auth",
-      "description": "Update authentication documentation for changes in .github/workflows/algolia-index.yml. Include security considerations.",
+      "description": "Update authentication documentation for changes in docs/how-to/configure-webhook-trigger.md. Include security considerations.",
       "source": "code",
       "category": "authentication",
       "suggested_doc_type": "how-to",
       "priority": "high",
-      "frequency": 1682,
+      "frequency": 351,
       "keywords": [],
       "related_files": [
-        ".github/workflows/algolia-index.yml"
+        "docs/how-to/configure-webhook-trigger.md"
       ],
       "sample_queries": [],
-      "action_required": "Update authentication documentation for changes in .github/workflows/algolia-index.yml. Include security considerations.",
+      "action_required": "Update authentication documentation for changes in docs/how-to/configure-webhook-trigger.md. Include security considerations.",
       "status": "new",
-      "created_at": "2026-02-23T08:36:07.166963"
+      "created_at": "2026-03-02T08:31:35.291659"
     },
     {
-      "id": "CODE-0047",
+      "id": "CODE-0329",
       "title": "Database Schema: database_schema: migration",
-      "description": "Document database schema change in API_FIRST_PLAYBOOK.md. Update data model documentation.",
+      "description": "Document database schema change in PILOT_VS_FULL_IMPLEMENTATION.md. Update data model documentation.",
       "source": "code",
       "category": "database_schema",
       "suggested_doc_type": "how-to",
       "priority": "high",
-      "frequency": 184,
+      "frequency": 39,
       "keywords": [],
       "related_files": [
-        "API_FIRST_PLAYBOOK.md"
+        "PILOT_VS_FULL_IMPLEMENTATION.md"
       ],
       "sample_queries": [],
-      "action_required": "Document database schema change in API_FIRST_PLAYBOOK.md. Update data model documentation.",
+      "action_required": "Document database schema change in PILOT_VS_FULL_IMPLEMENTATION.md. Update data model documentation.",
       "status": "new",
-      "created_at": "2026-02-23T08:36:07.167121"
+      "created_at": "2026-03-02T08:31:35.292758"
     },
     {
-      "id": "CODE-1009",
-      "title": "Removed Function: Function removed: generate_gap_report",
-      "description": "BREAKING: Function generate_gap_report was removed. Update documentation and add migration guide.",
-      "source": "code",
-      "category": "removed_function",
-      "suggested_doc_type": "how-to",
-      "priority": "high",
-      "frequency": 171,
-      "keywords": [],
-      "related_files": [
-        "scripts/community_gap_detector.py"
-      ],
-      "sample_queries": [],
-      "action_required": "BREAKING: Function generate_gap_report was removed. Update documentation and add migration guide.",
-      "status": "new",
-      "created_at": "2026-02-23T08:36:07.170295"
-    },
-    {
-      "id": "CODE-0501",
-      "title": "Api Endpoint: api_endpoint: /webhooks",
-      "description": "Document API endpoint: /webhooks. Include request/response examples, parameters, authentication requirements.",
-      "source": "code",
-      "category": "api_endpoint",
-      "suggested_doc_type": "reference",
-      "priority": "high",
-      "frequency": 37,
-      "keywords": [],
-      "related_files": [
-        ".vscode/docs.code-snippets"
-      ],
-      "sample_queries": [],
-      "action_required": "Document API endpoint: /webhooks. Include request/response examples, parameters, authentication requirements.",
-      "status": "new",
-      "created_at": "2026-02-23T08:36:07.168648"
-    },
-    {
-      "id": "CODE-0159",
+      "id": "CODE-1176",
       "title": "Breaking Change: breaking_change: @deprecated",
       "description": "URGENT: Document breaking change in reports/doc_gaps_report.csv. Update migration guide with before/after examples.",
       "source": "code",
       "category": "breaking_change",
       "suggested_doc_type": "how-to",
       "priority": "high",
-      "frequency": 34,
+      "frequency": 20,
       "keywords": [],
       "related_files": [
         "reports/doc_gaps_report.csv"
@@ -122,192 +83,151 @@
       "sample_queries": [],
       "action_required": "URGENT: Document breaking change in reports/doc_gaps_report.csv. Update migration guide with before/after examples.",
       "status": "new",
-      "created_at": "2026-02-23T08:36:07.167504"
+      "created_at": "2026-03-02T08:31:35.295649"
     },
     {
-      "id": "CODE-0002",
+      "id": "CODE-0424",
+      "title": "Removed Function: Function removed: for",
+      "description": "BREAKING: Function for was removed. Update documentation and add migration guide.",
+      "source": "code",
+      "category": "removed_function",
+      "suggested_doc_type": "how-to",
+      "priority": "high",
+      "frequency": 19,
+      "keywords": [],
+      "related_files": [
+        "docs/pear/bare-stream-README.md"
+      ],
+      "sample_queries": [],
+      "action_required": "BREAKING: Function for was removed. Update documentation and add migration guide.",
+      "status": "new",
+      "created_at": "2026-03-02T08:31:35.293063"
+    },
+    {
+      "id": "CODE-0512",
       "title": "Signature Change: Function signature changed: print",
-      "description": "UPDATE REQUIRED: Function print signature changed. Old: (f\"Task ID: {response['taskID']}\") → New: (f\"Task ID: {task_id or 'n/a'}\"). Update documentation and examples.",
+      "description": "UPDATE REQUIRED: Function print signature changed. Old: (f\"Found {result['nbHits']} results for 'webhook'\") → New: (f\"Found {nb_hits} results for 'webhook'\"). Update documentation and examples.",
       "source": "code",
       "category": "signature_change",
       "suggested_doc_type": "how-to",
       "priority": "high",
-      "frequency": 25,
+      "frequency": 7,
       "keywords": [],
       "related_files": [
         ".github/workflows/algolia-index.yml"
       ],
       "sample_queries": [],
-      "action_required": "UPDATE REQUIRED: Function print signature changed. Old: (f\"Task ID: {response['taskID']}\") → New: (f\"Task ID: {task_id or 'n/a'}\"). Update documentation and examples.",
+      "action_required": "UPDATE REQUIRED: Function print signature changed. Old: (f\"Found {result['nbHits']} results for 'webhook'\") → New: (f\"Found {nb_hits} results for 'webhook'\"). Update documentation and examples.",
       "status": "new",
-      "created_at": "2026-02-23T08:36:07.166971"
+      "created_at": "2026-03-02T08:31:35.293366"
     },
     {
-      "id": "CODE-0004",
-      "title": "Webhook: webhook: Webhook",
-      "description": "Update webhook documentation for changes in docs/getting-started/quickstart.md. Include payload examples and event types.",
+      "id": "CODE-0001",
+      "title": "Webhook: webhook: webhook",
+      "description": "Update webhook documentation for changes in docs/how-to/configure-webhook-trigger.md. Include payload examples and event types.",
       "source": "code",
       "category": "webhook",
       "suggested_doc_type": "how-to",
       "priority": "medium",
-      "frequency": 1300,
+      "frequency": 451,
       "keywords": [],
       "related_files": [
-        "docs/getting-started/quickstart.md"
+        "docs/how-to/configure-webhook-trigger.md"
       ],
       "sample_queries": [],
-      "action_required": "Update webhook documentation for changes in docs/getting-started/quickstart.md. Include payload examples and event types.",
+      "action_required": "Update webhook documentation for changes in docs/how-to/configure-webhook-trigger.md. Include payload examples and event types.",
       "status": "new",
-      "created_at": "2026-02-23T08:36:07.166980"
+      "created_at": "2026-03-02T08:31:35.291585"
     },
     {
-      "id": "CODE-0015",
-      "title": "New Function: New function: Path",
-      "description": "Document new function: Path. Include parameters, return value, and usage example.",
+      "id": "CODE-0339",
+      "title": "New Function: New function: print",
+      "description": "Document new function: print. Include parameters, return value, and usage example.",
       "source": "code",
       "category": "new_function",
       "suggested_doc_type": "how-to",
       "priority": "medium",
-      "frequency": 368,
+      "frequency": 218,
       "keywords": [],
       "related_files": [
-        ".github/workflows/algolia-index.yml"
+        "AGENTS.md"
       ],
       "sample_queries": [],
-      "action_required": "Document new function: Path. Include parameters, return value, and usage example.",
+      "action_required": "Document new function: print. Include parameters, return value, and usage example.",
       "status": "new",
-      "created_at": "2026-02-23T08:36:07.167026"
+      "created_at": "2026-03-02T08:31:35.292787"
     },
     {
-      "id": "CODE-0100",
-      "title": "Public Function: public_function: load_schema",
-      "description": "Consider documenting public API: load_schema. Include parameters, return value, and example usage.",
+      "id": "CODE-0465",
+      "title": "Public Function: public_function: seo_validate_file",
+      "description": "Consider documenting public API: seo_validate_file. Include parameters, return value, and example usage.",
       "source": "code",
       "category": "public_function",
       "suggested_doc_type": "reference",
       "priority": "medium",
-      "frequency": 225,
+      "frequency": 139,
       "keywords": [],
       "related_files": [
-        "scripts/validate_frontmatter.py"
+        "scripts/seo_geo_optimizer.py"
       ],
       "sample_queries": [],
-      "action_required": "Consider documenting public API: load_schema. Include parameters, return value, and example usage.",
+      "action_required": "Consider documenting public API: seo_validate_file. Include parameters, return value, and example usage.",
       "status": "new",
-      "created_at": "2026-02-23T08:36:07.167281"
+      "created_at": "2026-03-02T08:31:35.293191"
     },
     {
-      "id": "CODE-0017",
-      "title": "Env Var: env_var: ALGOLIA_APP_ID",
-      "description": "Add environment variable ALGOLIA_APP_ID to configuration reference. Include default value, description, and examples.",
-      "source": "code",
-      "category": "env_var",
-      "suggested_doc_type": "reference",
-      "priority": "medium",
-      "frequency": 73,
-      "keywords": [],
-      "related_files": [
-        ".github/workflows/algolia-index.yml"
-      ],
-      "sample_queries": [],
-      "action_required": "Add environment variable ALGOLIA_APP_ID to configuration reference. Include default value, description, and examples.",
-      "status": "new",
-      "created_at": "2026-02-23T08:36:07.167032"
-    },
-    {
-      "id": "CODE-0109",
-      "title": "Error Handling: error_handling: ValueError",
-      "description": "Document new error type: ValueError. Include cause, solution, and error code.",
-      "source": "code",
-      "category": "error_handling",
-      "suggested_doc_type": "how-to",
-      "priority": "medium",
-      "frequency": 54,
-      "keywords": [],
-      "related_files": [
-        "scripts/validate_frontmatter.py"
-      ],
-      "sample_queries": [],
-      "action_required": "Document new error type: ValueError. Include cause, solution, and error code.",
-      "status": "new",
-      "created_at": "2026-02-23T08:36:07.167307"
-    },
-    {
-      "id": "CODE-0153",
+      "id": "CODE-0332",
       "title": "Config Option: config_option: local",
       "description": "Document configuration option: local. Include allowed values and when to use.",
       "source": "code",
       "category": "config_option",
       "suggested_doc_type": "reference",
       "priority": "medium",
-      "frequency": 46,
+      "frequency": 39,
       "keywords": [],
       "related_files": [
-        "reports/doc_gaps_report.csv"
+        ".claude/settings.local.json"
       ],
       "sample_queries": [],
       "action_required": "Document configuration option: local. Include allowed values and when to use.",
       "status": "new",
-      "created_at": "2026-02-23T08:36:07.167487"
+      "created_at": "2026-03-02T08:31:35.292767"
     },
     {
-      "id": "COMM-4200",
-      "title": "Integration: integration:feature",
-      "description": "Frequently asked topic (3 questions)",
-      "source": "community",
-      "category": "integration",
-      "suggested_doc_type": "how-to",
-      "priority": "medium",
-      "frequency": 5,
-      "keywords": [
-        "url",
-        "node",
-        "nodes",
-        "code",
-        "request",
-        "portal",
-        "feature",
-        "new",
-        "easiest",
-        "upload"
-      ],
-      "related_files": [],
-      "sample_queries": [
-        "Feature Request: Code Library for Reusable Functions in Code Nodes",
-        "Feature Request: Add Oracle Database as Memory Backend in AI Agent Node",
-        "Feature request: “Portal Entry” and “Portal Exit” nodes to keep large workflows visually clean",
-        "[New Node] Upload to URL: The easiest way to get a public URL for your files",
-        "[New Community Node] Aggregate By Field - Group items while preserving full data structure"
-      ],
-      "action_required": "Create how-to covering: feature, request, code",
-      "status": "new",
-      "created_at": "2026-02-23T08:36:07.181537"
-    },
-    {
-      "id": "COMM-4201",
-      "title": "Integration: integration:add",
-      "description": "Frequently asked topic (3 questions)",
-      "source": "community",
-      "category": "integration",
+      "id": "CODE-0513",
+      "title": "Env Var: env_var: ALGOLIA_INDEX_NAME",
+      "description": "Add environment variable ALGOLIA_INDEX_NAME to configuration reference. Include default value, description, and examples.",
+      "source": "code",
+      "category": "env_var",
       "suggested_doc_type": "reference",
       "priority": "medium",
-      "frequency": 3,
-      "keywords": [
-        "add",
-        "node",
-        "api",
-        "option",
-        "think"
+      "frequency": 4,
+      "keywords": [],
+      "related_files": [
+        ".github/workflows/algolia-index.yml"
       ],
-      "related_files": [],
-      "sample_queries": [
-        "Add API option \"think\" in Ollama nodes (to disable/enable thinking mode in the API call)",
-        "Add session/thread tracking metadata to OpenRouter node for external observability (Broadcast)",
-        "Add charaters options in Recursive Character Text Splitter node"
-      ],
-      "action_required": "Create reference covering: add, node, api",
+      "sample_queries": [],
+      "action_required": "Add environment variable ALGOLIA_INDEX_NAME to configuration reference. Include default value, description, and examples.",
       "status": "new",
-      "created_at": "2026-02-23T08:36:07.181542"
+      "created_at": "2026-03-02T08:31:35.293369"
+    },
+    {
+      "id": "CODE-0821",
+      "title": "Error Handling: error_handling: FileNotFoundError",
+      "description": "Document new error type: FileNotFoundError. Include cause, solution, and error code.",
+      "source": "code",
+      "category": "error_handling",
+      "suggested_doc_type": "how-to",
+      "priority": "medium",
+      "frequency": 3,
+      "keywords": [],
+      "related_files": [
+        "scripts/gap_detection/batch_generator.py"
+      ],
+      "sample_queries": [],
+      "action_required": "Document new error type: FileNotFoundError. Include cause, solution, and error code.",
+      "status": "new",
+      "created_at": "2026-03-02T08:31:35.294421"
     }
   ]
 }
