@@ -102,18 +102,18 @@ else
     echo "validate_frontmatter.py not found. Skipping."
 fi
 
-# 5. GEO lint
+# 5. SEO/GEO optimization
 echo ""
-echo "5/6 GEO optimization..."
-if [ -f "scripts/geo_lint.py" ]; then
+echo "5/6 SEO/GEO optimization..."
+if [ -f "scripts/seo_geo_optimizer.py" ]; then
     for file in $STAGED_MD; do
-        python scripts/geo_lint.py "$file"
+        python3 scripts/seo_geo_optimizer.py "$file"
         if [ $? -ne 0 ]; then
-            FAILED="$FAILED geo-lint"
+            FAILED="$FAILED seo-geo"
         fi
     done
 else
-    echo "geo_lint.py not found. Skipping."
+    echo "seo_geo_optimizer.py not found. Skipping."
 fi
 
 # Final verdict
