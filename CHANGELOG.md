@@ -2,6 +2,23 @@
 
 All notable changes to the documentation are tracked here.
 
+## [2026-03-02]
+
+### Added
+
+- Consolidated report system with `scripts/consolidate_reports.py` and `weekly-consolidation.yml` workflow
+- Self-verification instructions added to per-document processing loop in `CLAUDE.md` and `AGENTS.md`
+- Lifecycle management instructions for deprecated and removed docs (status, deprecated_since, removal_date, replacement_url fields)
+- Four new templates: `user-guide.md`, `admin-guide.md`, `upgrade-guide.md`, `api-endpoint.md`
+- `doc_layers_validator.py` integrated into `validate:full` pipeline
+- `api_url` variable added to `docs/_variables.yml`
+- `stale_files` list added to KPI wall output
+
+### Changed
+
+- Enhanced `release-docs-pack.yml` with auto-commit and issue creation on release
+- Updated all root documentation files to reflect current pipeline state
+
 ## [unreleased]
 
 ### ✨ Features

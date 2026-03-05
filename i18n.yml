@@ -1,0 +1,44 @@
+# =============================================================
+# i18n Configuration - Multi-language documentation support
+# =============================================================
+# This file defines all supported languages and translation settings.
+# Add new languages by appending entries to the `languages` array.
+#
+# Usage:
+#   python3 scripts/i18n_sync.py --config i18n.yml
+#   python3 scripts/i18n_translate.py --config i18n.yml --locale ru
+# =============================================================
+
+# Default (source) language for all documentation
+default_language: en
+
+# Directory layout strategy: "folder" means docs/en/, docs/ru/, etc.
+docs_structure: folder
+
+# Supported languages
+# Each entry defines a locale with build and SEO settings.
+# Set build: false to exclude a language from the site build.
+languages:
+  - locale: en
+    name: English
+    build: true
+    # SEO overrides are optional; English uses global defaults
+  - locale: ru
+    name: Russian
+    build: true
+    seo_overrides:
+      meta_desc_max_chars: 200
+      first_para_max_words: 80
+
+# Translation settings
+translation:
+  # Days before a translation is considered stale
+  stale_threshold_days: 30
+
+  # Auto-translation provider configuration
+  auto_translate:
+    provider: anthropic
+    model: claude-sonnet-4-20250514
+    max_concurrency: 3
+    # Temperature for translation (lower = more literal)
+    temperature: 0.3

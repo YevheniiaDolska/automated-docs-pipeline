@@ -15,11 +15,40 @@ import subprocess
 class DocumentCreator:
     """Creates new documentation files from templates with all required metadata."""
 
-    def __init__(self, base_dir: str = "docs"):
+    def __init__(
+        self,
+        base_dir: str = "docs",
+        locale: str | None = None,
+        i18n_config_path: str = "i18n.yml",
+    ):
         self.base_dir = Path(base_dir)
         self.templates_dir = Path("templates")
-        self.variables_file = self.base_dir / "_variables.yml"
-        self.variables = self.load_variables()
+        self.locale = locale
+        self.i18n_config = None
+
+        # Load i18n config if available
+        i18n_path = Path(i18n_config_path)
+        if i18n_path.exists():
+            try:
+                from i18n_utils import load_i18n_config, load_variables_for_locale
+                self.i18n_config = load_i18n_config(i18n_path)
+                if not self.locale:
+                    self.locale = self.i18n_config.default_language
+            except (ImportError, Exception):
+                pass
+
+        # Load variables (locale-aware if possible)
+        if self.locale and self.i18n_config:
+            try:
+                from i18n_utils import load_variables_for_locale
+                self.variables = load_variables_for_locale(
+                    self.locale, str(self.base_dir)
+                )
+            except ImportError:
+                self.variables = self.load_variables()
+        else:
+            self.variables_file = self.base_dir / "_variables.yml"
+            self.variables = self.load_variables()
 
     def load_variables(self) -> dict:
         """Load shared variables from _variables.yml."""
@@ -797,8 +826,22 @@ If your docs site enables playground integration, add:
             }
         }
 
-    def create_document(self, doc_type: str, title: str, output_path: str = None) -> Path:
-        """Create a new document from template."""
+    def create_document(
+        self,
+        doc_type: str,
+        title: str,
+        output_path: str = None,
+        translate_from: str | None = None,
+    ) -> Path:
+        """Create a new document from template.
+
+        Args:
+            doc_type: Document type (tutorial, how-to, etc.).
+            title: Document title.
+            output_path: Custom output path (optional).
+            translate_from: Path to source document to translate from
+                (relative to docs/, e.g. "en/how-to/configure-webhooks.md").
+        """
         templates = self.get_templates()
 
         if doc_type not in templates:
@@ -809,7 +852,11 @@ If your docs site enables playground integration, add:
         # Generate filename if not provided
         if not output_path:
             slug = self.slugify(title)
-            output_dir = self.base_dir / template["dir"]
+            # Place in locale subdirectory if locale is set
+            if self.locale:
+                output_dir = self.base_dir / self.locale / template["dir"]
+            else:
+                output_dir = self.base_dir / template["dir"]
             output_dir.mkdir(parents=True, exist_ok=True)
             output_path = output_dir / f"{slug}.md"
         else:
@@ -817,18 +864,20 @@ If your docs site enables playground integration, add:
             output_path.parent.mkdir(parents=True, exist_ok=True)
 
         # Generate frontmatter
-        frontmatter = self.generate_frontmatter(title, template, doc_type)
+        frontmatter = self.generate_frontmatter(
+            title, template, doc_type, translate_from=translate_from
+        )
 
         # Replace variables in body
         body = self.replace_variables(template["body"])
 
         # Combine frontmatter and body
-        content = f"---\n{yaml.dump(frontmatter, default_flow_style=False)}---\n{body}"
+        content = f"---\n{yaml.dump(frontmatter, default_flow_style=False, allow_unicode=True)}---\n{body}"
 
         # Write file
         output_path.write_text(content, encoding='utf-8')
 
-        print(f"✅ Created {doc_type} document: {output_path}")
+        print(f"Created {doc_type} document: {output_path}")
 
         # Update mkdocs.yml navigation if needed
         self.update_navigation(str(output_path.relative_to(self.base_dir)), title, doc_type)
@@ -838,7 +887,13 @@ If your docs site enables playground integration, add:
 
         return output_path
 
-    def generate_frontmatter(self, title: str, template: dict, doc_type: str) -> dict:
+    def generate_frontmatter(
+        self,
+        title: str,
+        template: dict,
+        doc_type: str,
+        translate_from: str | None = None,
+    ) -> dict:
         """Generate complete frontmatter for the document."""
         # Generate description from template
         topic = title.lower().replace("how to ", "").replace("understanding ", "")
@@ -860,8 +915,23 @@ If your docs site enables playground integration, add:
             "product": "both",  # Default to both, can be customized
             "tags": self.suggest_tags(title, doc_type),
             "date_created": str(date.today()),
-            "last_modified": str(date.today())
+            "last_modified": str(date.today()),
         }
+
+        # Add i18n fields
+        if self.locale:
+            frontmatter["language"] = self.locale
+
+        if translate_from:
+            frontmatter["translation_of"] = translate_from
+            # Compute source hash
+            source_path = self.base_dir / translate_from
+            if source_path.exists():
+                try:
+                    from i18n_utils import compute_content_hash
+                    frontmatter["source_hash"] = compute_content_hash(source_path)
+                except ImportError:
+                    pass
 
         return frontmatter
 
@@ -1004,11 +1074,33 @@ Available document types:
         default='docs',
         help='Base documentation directory (default: docs)'
     )
+    parser.add_argument(
+        '--locale',
+        help='Locale code (e.g. en, ru). Places file in docs/{locale}/...'
+    )
+    parser.add_argument(
+        '--translate-from',
+        help='Source document path relative to docs/ (e.g. en/how-to/guide.md)'
+    )
+    parser.add_argument(
+        '--i18n-config',
+        default='i18n.yml',
+        help='Path to i18n.yml config (default: i18n.yml)'
+    )
 
     args = parser.parse_args()
 
-    creator = DocumentCreator(base_dir=args.docs_dir)
-    creator.create_document(args.type, args.title, args.output)
+    creator = DocumentCreator(
+        base_dir=args.docs_dir,
+        locale=args.locale,
+        i18n_config_path=args.i18n_config,
+    )
+    creator.create_document(
+        args.type,
+        args.title,
+        args.output,
+        translate_from=args.translate_from,
+    )
 
 if __name__ == "__main__":
     main()

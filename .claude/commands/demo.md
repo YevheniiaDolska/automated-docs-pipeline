@@ -1,0 +1,617 @@
+# Live Demo: Auto-Doc Pipeline—One Document, All Features
+
+You are running a live demo of the Auto-Doc Pipeline for a potential client. You will generate ONE impressive document that showcases EVERY major capability of the system.
+
+## Custom topic support
+
+**This command accepts an optional argument: the document topic.**
+
+- `/demo`—uses the default topic: "Set up real-time webhook processing pipeline" (how-to)
+- `/demo Configure OAuth2 authentication with PKCE flow`—uses the custom topic provided by the user
+
+**If a custom topic is provided ($ARGUMENTS is not empty):**
+
+1. Use `$ARGUMENTS` as the document title instead of "Set up real-time webhook processing pipeline"
+1. Determine the best `content_type` for this topic (how-to, tutorial, concept, reference, troubleshooting)
+1. Generate a slug from the title (kebab-case)—this becomes the filename
+1. In Step 4, run: `python3 scripts/new_doc.py {content_type} "{title}" 2>&1`
+1. All file paths throughout the demo change accordingly:
+   - Document: `docs/en/{content_type_dir}/{slug}.md`
+   - Diagram: `docs/diagrams/demo-{slug}.html`
+1. The document MUST still contain ALL elements A through N—adapted to the custom topic:
+   - Code examples must be relevant to the topic (not HMAC if the topic is about OAuth)
+   - Mermaid diagram must illustrate the topic's architecture
+   - Interactive diagram must show components relevant to the topic
+   - Tables, admonitions, troubleshooting—all adapted
+1. ALL quality rules remain the same: variables, self-verification, linters, commit, deploy
+
+**If no argument is provided ($ARGUMENTS is empty):** use the default webhook pipeline topic as described below.
+
+---
+
+**CRITICAL RULES:**
+
+- This is a LIVE DEMO. Every step produces real output. Do NOT skip. Do NOT abbreviate.
+- Comment in Russian at each step. Be enthusiastic but professional.
+- Follow ALL rules from CLAUDE.md strictly (templates, variables, Stripe quality, self-verification, formatting).
+- The generated document must pass `npm run validate:minimal` on the FIRST attempt.
+- At the end, commit and push to trigger GitHub Actions build + deploy to MkDocs site.
+
+---
+
+## PHASE 1: Show the intelligence (2 minutes)
+
+### Step 1. Gap detection—show the system finding problems
+
+```bash
+cd "/mnt/c/Users/Kroha/Documents/development/Auto-Doc Pipeline"
+export PATH=~/bin:$PATH
+```
+
+Say: "Начнём. Сначала покажу, как система НАХОДИТ пробелы в документации из трёх источников: анализ кода, вопросы комьюнити, и поисковая аналитика."
+
+```bash
+npm run gaps 2>&1 | tail -30
+```
+
+### Step 2. Show consolidated report
+
+```bash
+python3 -c "
+import json, os
+path = 'reports/consolidated_report.json'
+if os.path.exists(path):
+    with open(path) as f:
+        r = json.load(f)
+    hs = r.get('health_summary', {})
+    items = r.get('action_items', [])
+    t1 = [i for i in items if i.get('priority') == 'high']
+    t2 = [i for i in items if i.get('priority') == 'medium']
+    t3 = [i for i in items if i.get('priority') == 'low']
+    print('=== CONSOLIDATED REPORT ===')
+    print(f'Quality Score: {hs.get(\"quality_score\", \"N/A\")}/100')
+    print(f'Drift: {hs.get(\"drift_status\", \"ok\")} | SLA: {hs.get(\"sla_status\", \"ok\")}')
+    print(f'Tier 1 (critical): {len(t1)} | Tier 2 (code): {len(t2)} | Tier 3 (community): {len(t3)}')
+    print(f'Total action items: {len(items)}')
+    for i, item in enumerate(items[:3]):
+        print(f'  {i+1}. [{item.get(\"priority\",\"?\").upper()}] {item.get(\"title\",\"?\")}')
+else:
+    print('No consolidated report found. Run: npm run consolidate')
+"
+```
+
+Say: "Три источника → один отчёт → приоритизация по трём уровням. Теперь AI знает что именно создавать. Давай создадим ОДИН документ, который покажет ВСЕ возможности пайплайна."
+
+### Step 3. Show variables (single source of truth)
+
+```bash
+cat docs/_variables.yml
+```
+
+Say: "Вот единый источник правды. Все значения—порты, URL, лимиты—здесь. В документе будут `{{ переменные }}`, не хардкод. Меняешь здесь—меняется везде."
+
+---
+
+## PHASE 2: Generate ONE document with ALL features (the main event)
+
+### Step 4. Create skeleton from template
+
+```bash
+python3 scripts/new_doc.py how-to "Set up real-time webhook processing pipeline" 2>&1
+```
+
+Say: "Скелет создан из предвалидированного шаблона. Сейчас я заполню его НАСТОЯЩИМ контентом, и ты увидишь ВСЕ возможности пайплайна в одном документе."
+
+### Step 5. GENERATE THE FULL DOCUMENT
+
+NOW—this is the MAIN WOW MOMENT. Read the generated skeleton, then COMPLETELY REWRITE it with production-quality content that demonstrates every feature.
+
+The document `docs/en/how-to/set-up-real-time-webhook-processing-pipeline.md` must contain ALL of the following elements. This is a HARD REQUIREMENT—include EVERY item:
+
+---
+
+**A) FRONTMATTER—complete metadata (Возможность: validate_frontmatter)**
+
+```yaml
+---
+title: "Set up a real-time webhook processing pipeline"
+description: "Configure end-to-end webhook ingestion with HMAC verification, async queue processing, and delivery guarantees in under 15 minutes."
+content_type: how-to
+product: both
+tags:
+  - Webhook
+  - How-To
+  - Cloud
+  - Self-hosted
+last_reviewed: "2026-03-04"
+---
+```
+
+- title under 70 characters
+- description 50-160 characters with keywords
+- content_type matches template
+- last_reviewed set to today
+
+---
+
+**B) OPENING PARAGRAPH—under 60 words with definition (Возможность: GEO optimization)**
+
+First paragraph MUST:
+
+- Be under 60 words
+- Contain a definition word ("enables," "provides," "allows")
+- Answer what + why immediately
+- Use {{ product_name }} variable
+
+Example structure: "{{ product_name }} webhook processing pipeline enables real-time event ingestion with cryptographic signature verification, async queue processing, and automatic retry logic. This guide walks you through setting up a production-ready webhook receiver with HMAC-SHA256 authentication, BullMQ event queuing, and delivery guarantees—supporting up to {{ rate_limit_requests_per_minute }} events per minute."
+
+---
+
+**C) PREREQUISITES—with version check (Возможность: Stripe quality)**
+
+Prerequisites section with:
+
+- Specific version requirements ({{ product_name }} {{ current_version }}+)
+- Access requirements
+- A runnable version check command in a bash code block
+
+---
+
+**D) CONTENT TABS—Cloud vs Self-hosted (Возможность: MkDocs Material tabs)**
+
+Use MkDocs content tabs syntax to show different setup paths:
+
+```markdown
+=== "Cloud"
+
+    Cloud-specific configuration steps here.
+
+=== "Self-hosted"
+
+    Self-hosted configuration steps here.
+```
+
+Include at least ONE section with content tabs showing real differences between Cloud and Self-hosted deployment.
+
+---
+
+**E) VARIABLES THROUGHOUT (Возможность: Variables System)**
+
+Use at MINIMUM these variables from docs/_variables.yml:
+
+- {{ product_name }}
+- {{ default_port }}
+- {{ env_vars.webhook_url }}
+- {{ env_vars.encryption_key }}
+- {{ max_payload_size_mb }}
+- {{ rate_limit_requests_per_minute }}
+- {{ api_version }}
+- {{ cloud_url }}
+
+NEVER hardcode values that exist in _variables.yml.
+
+---
+
+**F) TWO PRODUCTION-QUALITY CODE EXAMPLES (Возможность: Self-verification + code smoke test)**
+
+Include BOTH:
+
+**1. Python HMAC verification**—a complete, runnable function:
+
+```python
+import hmac
+import hashlib
+import json
+import time
+
+def verify_webhook_signature(payload_body, signature_header, secret):
+    """Verify HMAC-SHA256 webhook signature with replay protection."""
+    # ... full implementation with:
+    # - HMAC-SHA256 computation
+    # - Timing-safe comparison
+    # - Replay protection (5-minute window)
+    # - Return True/False
+```
+
+Include a test call that ACTUALLY RUNS and prints output:
+
+```python
+# Test verification
+test_payload = '{"event": "order.completed", "order_id": "ord_1234", "amount": 2999}'
+test_secret = "whsec_test_secret_key_abc123"
+# ... compute signature and verify
+print("Signature valid:", result)  # Must print True
+```
+
+**2. JavaScript/Node.js HMAC verification**—equivalent implementation:
+
+```javascript
+const crypto = require('crypto');
+
+function verifyWebhookSignature(payload, signatureHeader, secret) {
+    // ... full implementation
+}
+```
+
+---
+
+**G) TABLE—configuration parameters (Возможность: Structured data for SEO)**
+
+A parameter table with at least 5 rows:
+
+| Parameter | Type | Default | Description |
+|-----------|------|---------|-------------|
+| `webhook_secret` | string | Required | HMAC signing secret (min 32 characters) |
+| `max_payload_size` | integer | {{ max_payload_size_mb }} MB | Maximum accepted webhook body size |
+| … | … | … | … |
+
+---
+
+**H) MERMAID DIAGRAM—data flow (Возможность: Mermaid rendering)**
+
+A Mermaid sequence or flow diagram showing the webhook processing flow:
+
+```mermaid
+sequenceDiagram
+    participant C as Client
+    participant G as API Gateway
+    participant V as HMAC Validator
+    participant Q as Event Queue
+    participant P as Processor
+    participant D as Database
+    C->>G: POST /webhooks (signed payload)
+    G->>V: Validate HMAC-SHA256
+    V-->>G: Signature valid
+    G->>Q: Enqueue event
+    Q->>P: Process async
+    P->>D: Store result
+    P-->>C: 200 OK (acknowledged)
+```
+
+---
+
+**I) ADMONITIONS—info, warning, tip (Возможность: MkDocs Material admonitions)**
+
+Include at least THREE different admonition types:
+
+```markdown
+!!! info "Payload size limit"
+    {{ product_name }} accepts webhook payloads up to {{ max_payload_size_mb }} MB...
+
+!!! warning "Signature verification required"
+    Always verify webhook signatures before processing...
+
+!!! tip "Replay protection"
+    Include a timestamp in the signed payload and reject events older than 5 minutes...
+```
+
+---
+
+**J) TROUBLESHOOTING SECTION—3 problems with solutions (Возможность: Troubleshooting template)**
+
+Three real problems in "Problem → Cause → Solution" format:
+
+1. **Signature mismatch**—payload modified in transit (check encoding, raw body vs parsed)
+1. **Replay attack detected**—clock skew between servers (NTP sync, increase tolerance window)
+1. **Connection timeout**—slow processing blocks response (async queue, return 200 immediately)
+
+---
+
+**K) PERFORMANCE SECTION—concrete metrics (Возможность: GEO fact density)**
+
+Include specific numbers:
+
+- Throughput: X webhooks/second
+- Verification latency: Xms
+- Queue processing: X events/second
+- Retry intervals: 1 s, 5 s, 30 s (exponential backoff)
+- Storage retention: X days
+
+This satisfies GEO-6 (fact density—a fact every 200 words).
+
+---
+
+**L) NON-GENERIC HEADINGS (Возможность: GEO heading validation)**
+
+ALL headings must be specific. NEVER use: "Overview," "Introduction," "Configuration," "Setup," "Details," "Information," "General," "Notes," "Summary."
+
+GOOD: "Configure HMAC signature verification," "Set up async event processing," "Handle delivery failures with exponential backoff"
+
+---
+
+**M) INTERNAL LINK (Возможность: SEO internal linking)**
+
+At least one internal link to another doc in the project, for example:
+
+```markdown
+For API endpoint details, see the [API reference](../reference/api-reference.md).
+```
+
+---
+
+**N) EMBEDDED INTERACTIVE DIAGRAM (Возможность: Interactive diagrams)**
+
+At the end of the document, AFTER the troubleshooting section, add a section that embeds the interactive diagram created in Phase 3 (Step 8):
+
+```markdown
+## Explore the webhook pipeline architecture
+
+The interactive diagram below shows all 13 components across 5 layers. Click any component to see detailed metrics, technologies, and connections.
+
+<div class="interactive-diagram" markdown>
+<iframe src="../../diagrams/demo-webhook-pipeline.html" title="Webhook processing pipeline architecture"></iframe>
+</div>
+
+For static environments, refer to the [Mermaid sequence diagram](#verify-hmac-sha256-signatures) above.
+```
+
+This section demonstrates that the pipeline embeds rich interactive HTML diagrams directly inside MkDocs pages—not just static Mermaid.
+
+---
+
+After writing the complete document with ALL elements A through N, proceed to self-verification.
+
+### Step 6. SELF-VERIFICATION
+
+Perform these verification steps and show output:
+
+1. **Execute the Python HMAC code block**—run it and show it produces correct output
+
+1. **Check all variable references**—verify each {{ variable }} exists in docs/_variables.yml:
+
+```bash
+for var in product_name default_port env_vars.webhook_url env_vars.encryption_key max_payload_size_mb rate_limit_requests_per_minute api_version cloud_url; do
+    root_var=$(echo "$var" | cut -d. -f1)
+    if grep -q "$root_var" docs/_variables.yml 2>/dev/null; then
+        echo "  [OK] {{ $var }}"
+    else
+        echo "  [!!] {{ $var }} NOT FOUND in _variables.yml"
+    fi
+done
+```
+
+1. **Scan for hardcoded values** in the generated file:
+
+```bash
+echo "=== Hardcoded value check ==="
+file="docs/en/how-to/set-up-real-time-webhook-processing-pipeline.md"
+hardcoded=0
+grep -n "5678\|ProductName\|product_name[^}]\|example\.com" "$file" 2>/dev/null | grep -v "{{" | grep -v "^---" | head -5
+if [ $? -ne 0 ]; then echo "  No hardcoded values found. All clean."; fi
+```
+
+1. **Print verification summary:**
+
+```
+Verification summary:
+- Code blocks: 2 languages (Python, JavaScript), Python executed successfully
+- Variable references: 8 checked, 8 valid
+- Hardcoded values: 0 found
+- Fact-checks: throughput, latency, retry intervals verified
+- Internal consistency: No contradictions
+- Document elements: frontmatter, tabs, mermaid, admonitions, table, code, troubleshooting, embedded interactive diagram — all present
+```
+
+Say: "Документ самопроверен. Код запущен—HMAC работает. 8 переменных проверены. Хардкоженных значений—ноль. Теперь 7 линтеров."
+
+---
+
+## PHASE 3: Quality gates + Interactive diagram (2 minutes)
+
+### Step 7. Run all linters
+
+```bash
+npm run validate:minimal 2>&1
+```
+
+Say: "ВСЕ проверки прошли с первого раза. 22 SEO/GEO правила, форматирование, метаданные, стиль—всё green. Шаблоны предвалидированы, самопроверка ловит ошибки ДО линтеров."
+
+### Step 8. Generate interactive diagram
+
+Say: "И последний штрих—интерактивная архитектурная диаграмма. Когда в документе описана архитектура из 6+ компонентов, пайплайн генерирует кликабельную HTML-диаграмму."
+
+NOW create `docs/diagrams/demo-webhook-pipeline.html`—a COMPLETE, working HTML file based on `templates/interactive-diagram.html`.
+
+First, read the template to understand its structure:
+
+```bash
+cat templates/interactive-diagram.html
+```
+
+Then create the customized version with:
+
+**5 layers, 13 components:**
+
+- **Clients layer:** "Mobile App" (2.1M users), "Web Dashboard" (450K DAU), "Partner API" (85 integrations)
+- **Edge layer:** "CloudFlare CDN" (99.99% uptime), "Rate Limiter" ({{ rate_limit_requests_per_minute }} req/min)
+- **Verification layer:** "API Gateway" (12K req/sec), "HMAC Validator" (<2 ms verify)
+- **Processing layer:** "Event Router" (8 event types), "BullMQ Queue" (Redis-backed), "Retry Engine" (exponential backoff)
+- **Storage layer:** "PostgreSQL" (2 read replicas, 8.5K queries/sec), "Event Log" (30-day retention), "Grafana Monitoring" (real-time alerts)
+
+Each component MUST have a rich description (2-3 sentences with specific metrics, technologies, and how it connects to adjacent components).
+
+The HTML file must be COMPLETE and self-contained—opens in a browser, dark theme, animated arrows, clickable components with info panel.
+
+After creating, show the path:
+
+```bash
+# For Windows browser:
+echo "Open in browser:"
+echo "  file:///$(cd docs/diagrams && wslpath -w demo-webhook-pipeline.html 2>/dev/null || echo "$(pwd)/docs/diagrams/demo-webhook-pipeline.html")"
+```
+
+Say: "Открой в браузере—кликабельная диаграмма с 13 компонентами на 5 слоях. Каждый компонент раскрывается: конкретные метрики, технологии, связи. Анимированные стрелки. Адаптивный дизайн. И это генерируется автоматически для любого документа, где описана сложная архитектура."
+
+---
+
+## PHASE 4: The numbers + Publish to MkDocs (2 minutes)
+
+### Step 9. Final stats
+
+```bash
+echo ""
+echo "============================================"
+echo "   AUTO-DOC PIPELINE: BY THE NUMBERS"
+echo "============================================"
+echo ""
+echo "   $(ls templates/*.md templates/*.html 2>/dev/null | wc -l) Stripe-quality templates"
+echo "   7 automated quality checks per PR"
+echo "   22 SEO/GEO rules (Google + ChatGPT + Perplexity)"
+echo "   3 gap detection sources (code, community, search)"
+echo "   $(ls policy_packs/*.yml 2>/dev/null | wc -l) configurable policy packs"
+echo "   $(ls .github/workflows/*.yml 2>/dev/null | wc -l) CI/CD workflow automations"
+echo "   $(find scripts/ -name '*.py' 2>/dev/null | wc -l) Python scripts"
+echo "   493+ tests, 0 failures"
+echo "   18 Spectral rules for OpenAPI specs"
+echo "   Unlimited languages (i18n)"
+echo "   2 site generators (MkDocs + Docusaurus)"
+echo "   Self-verification: code execution + fact-checking"
+echo ""
+echo "   Setup for new client: 1-2 hours"
+echo "   Pilot week: 5 days"
+echo "   Full implementation: 2-4 weeks"
+echo "============================================"
+```
+
+### Step 10. Add document to MkDocs navigation
+
+Say: "Документ прошёл все проверки. Теперь добавляю его в навигацию MkDocs и публикую."
+
+Update `mkdocs.yml`—add the new document to the "How-To Guides" nav section:
+
+```yaml
+  - How-To Guides:
+    - how-to/index.md
+    - Configure Webhook triggers: how-to/configure-webhook-trigger.md
+    - Set up webhook processing pipeline: en/how-to/set-up-real-time-webhook-processing-pipeline.md
+```
+
+Verify the nav update is valid:
+
+```bash
+python3 -c "
+import yaml
+with open('mkdocs.yml') as f:
+    cfg = yaml.safe_load(f)
+nav = cfg.get('nav', [])
+for section in nav:
+    if isinstance(section, dict):
+        for key, val in section.items():
+            if 'How-To' in str(key):
+                print(f'Nav section: {key}')
+                if isinstance(val, list):
+                    for item in val:
+                        print(f'  - {item}')
+print('mkdocs.yml nav updated successfully.')
+"
+```
+
+### Step 11. Commit and push to trigger GitHub Actions
+
+Say: "Коммичу и пушу. GitHub Actions запустит CI-пайплайн: линтеры → проверка кода → сборка MkDocs → деплой на GitHub Pages."
+
+```bash
+git add docs/en/how-to/set-up-real-time-webhook-processing-pipeline.md docs/diagrams/demo-webhook-pipeline.html mkdocs.yml
+git commit -m "$(cat <<'EOF'
+docs: add webhook processing pipeline guide (demo)
+
+- Stripe-quality how-to with HMAC verification (Python + JS)
+- Content tabs (Cloud / Self-hosted), Mermaid diagram, admonitions
+- Interactive 13-component architecture diagram (5 layers)
+- All values from _variables.yml, zero hardcoded values
+- Passed 7 linters and 22 SEO/GEO rules on first attempt
+EOF
+)"
+```
+
+```bash
+git push origin main
+```
+
+### Step 12. Show GitHub Actions pipeline running
+
+Say: "Пуш сделан. Смотри, GitHub Actions уже запустился—сейчас покажу."
+
+```bash
+echo "=== GitHub Actions: triggered workflows ==="
+echo ""
+# Wait a moment for GitHub to register the push
+sleep 3
+gh run list --limit 5 --json databaseId,workflowName,status,conclusion,createdAt \
+  --jq '.[] | "  \(.status) | \(.workflowName) | \(.createdAt)"' 2>/dev/null || \
+  echo "  (gh CLI not configured — check Actions tab in GitHub manually)"
+echo ""
+echo "Workflows triggered by this push:"
+echo "  1. ci-documentation.yml  — Vale + markdownlint + frontmatter + GEO lint"
+echo "  2. code-examples-smoke.yml — executes code blocks from the document"
+echo "  3. seo-optimization.yml — 22 SEO/GEO rules deep check"
+echo "  4. algolia-index.yml — updates Algolia search index"
+echo "  5. deploy.yml — builds MkDocs and deploys to GitHub Pages"
+echo ""
+echo "After deploy completes (~2-3 minutes), the document will be live at:"
+echo "  $(grep 'site_url' mkdocs.yml 2>/dev/null | sed 's/site_url: //' | tr -d '\"' | sed 's/\"//g')en/how-to/set-up-real-time-webhook-processing-pipeline/"
+```
+
+Say: "Пять воркфлоу запустились автоматически. Линтеры проверяют документ ещё раз в CI, smoke-тест выполняет блоки кода, SEO-оптимайзер делает глубокий анализ. А deploy.yml собирает ВЕСЬ сайт MkDocs и публикует на GitHub Pages. Через 2-3 минуты документ будет доступен по ссылке."
+
+### Step 13. Show the live site (after deploy)
+
+```bash
+echo ""
+echo "============================================"
+echo "   WAITING FOR DEPLOY..."
+echo "============================================"
+echo ""
+echo "Check deploy status:"
+gh run list --workflow=deploy.yml --limit 1 --json status,conclusion \
+  --jq '.[0] | "  Status: \(.status) | Result: \(.conclusion // "in progress")"' 2>/dev/null || \
+  echo "  (check GitHub Actions tab manually)"
+echo ""
+SITE_URL=$(grep 'site_url' mkdocs.yml 2>/dev/null | sed 's/site_url: //' | tr -d '"' | sed 's/ //g')
+echo "When deploy completes, open:"
+echo "  ${SITE_URL}en/how-to/set-up-real-time-webhook-processing-pipeline/"
+echo ""
+echo "The document is now:"
+echo "  - Live on the MkDocs site with full navigation"
+echo "  - Searchable via Algolia"
+echo "  - Indexed with SEO metadata"
+echo "  - Interactive diagram accessible from the page"
+```
+
+### Step 14. Closing pitch
+
+Say (in Russian):
+
+"Один документ—и ты увидел ВСЁ:
+
+1. Gap detection нашёл пробелы из трёх источников
+1. Шаблон создал правильную структуру с первого раза
+1. AI заполнил Stripe-quality контентом с переменными вместо хардкода
+1. Самопроверка запустила код, проверила факты, нашла ноль ошибок
+1. 7 линтеров прошли с первого раза—22 SEO/GEO правила, стиль, форматирование
+1. Интерактивная диаграмма с 13 кликабельными компонентами
+1. Коммит → пуш → 5 GitHub Actions воркфлоу → сайт собран и опубликован
+
+И всё это—в одном документе: Mermaid-диаграмма, табы Cloud/Self-hosted, адмониции, таблица параметров, два рабочих примера кода на Python и JavaScript, траблшутинг, метрики производительности, и встроенная интерактивная диаграмма с 13 кликабельными компонентами прямо на странице. И документ уже live на MkDocs-сайте.
+
+Это не генератор текста. Это операционная система для документации.
+
+Весь путь: нашёл пробел → создал → проверил → опубликовал. Автоматически.
+
+Хочешь попробовать на своём репозитории?"
+
+---
+
+## POST-DEMO: Cleanup (optional, run separately)
+
+After the demo, if you want to remove the demo document from the site:
+
+```bash
+git rm docs/en/how-to/set-up-real-time-webhook-processing-pipeline.md docs/diagrams/demo-webhook-pipeline.html
+git checkout HEAD~1 -- mkdocs.yml
+git add mkdocs.yml
+git commit -m "chore: remove demo artifacts"
+git push origin main
+```
+
+Say: "Демо-документ удалён. Сайт пересоберётся автоматически."

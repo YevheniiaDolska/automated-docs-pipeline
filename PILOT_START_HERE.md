@@ -1,245 +1,100 @@
-# Pilot start here
+# Start a 1-week pilot of this pipeline
 
-This guide is the exact order of actions for a five-day pilot of the Auto-Doc Pipeline. It is written for a person who has never launched a project before.
+This guide walks you through a 1-week pilot of the Auto-Doc Pipeline on your own repository. By the end, you have working quality gates, a consolidated report, and generated documentation.
 
-## What the pilot should achieve
+## Prerequisites
 
-By the end of the pilot, you should have:
+You need Git, Node.js 18+, Python 3.10+, and npm installed. On Windows, use `py -3` if `python3` does not work.
 
-1. The pipeline installed in the client's repository.
-1. One working CI quality gate.
-1. Baseline and final KPI reports.
-1. A small set of adapted templates.
-1. A short executive summary that shows before vs after improvement.
+## Step 1: Fork the repository
 
-## Before you start
-
-You need:
-
-1. A local copy of this repository: `Auto-Doc Pipeline`.
-1. Access to the client's repository.
-1. Git, Node.js 18+, Python 3.10+, and npm installed.
-
-Check your tools:
+Fork or clone the Auto-Doc Pipeline repository:
 
 ```bash
-git --version
-node --version
-npm --version
-python3 --version
+git clone <your-fork-url>
+cd "Auto-Doc Pipeline"
+python3 -m pip install -r requirements.txt
+npm install
 ```
 
-On Windows, if `python3` does not work, use:
+## Step 2: Edit `_variables.yml`
 
-```bash
-py -3 --version
-```
-
-## Day 1: install the pipeline in the client repository
-
-### Step 1: clone the client repository
-
-```bash
-git clone <client-repo-url>
-cd <client-repo-folder>
-git checkout -b chore/docs-ops-pilot
-```
-
-### Step 2: install the pipeline into that repository
-
-Run this command from the **client repository root**:
-
-```bash
-python3 /path/to/Auto-Doc\ Pipeline/scripts/init_pipeline.py \
-  --product-name "Client Product" \
-  --generator mkdocs \
-  --target-dir .
-```
-
-On Windows:
-
-```bash
-py -3 "C:\path\to\Auto-Doc Pipeline\scripts\init_pipeline.py" ^
-  --product-name "Client Product" ^
-  --generator mkdocs ^
-  --target-dir .
-```
-
-### Step 3: confirm the install worked
-
-Run:
-
-```bash
-npm run validate:minimal
-```
-
-Then run:
-
-```bash
-npm run generator:detect
-```
-
-Expected result:
-
-1. `validate:minimal` completes, even if it reports documentation issues.
-1. `generator:detect` prints `mkdocs` unless you intentionally chose Docusaurus.
-
-### Step 4: fill in the basic product variables
-
-Open `docs/_variables.yml` in the client repository and update these values:
+Open `docs/_variables.yml` and replace the placeholder values with your product information:
 
 ```yaml
-product_name: "Client Product"
-product_full_name: "Client Product platform"
+product_name: "Your Product"
+product_full_name: "Your Product platform"
 current_version: "1.0.0"
-cloud_url: "https://app.client.com"
-docs_url: "https://docs.client.com"
-support_email: "support@client.com"
+cloud_url: "https://app.yourproduct.com"
+docs_url: "https://docs.yourproduct.com"
+support_email: "support@yourcompany.com"
 default_port: 8080
 ```
 
-### Step 5: capture baseline reports
+Every document references these variables. Update them once and all docs reflect your product.
 
-```bash
-python3 scripts/pilot_analysis.py --json > reports/pilot-baseline.json
-python3 scripts/generate_kpi_wall.py --docs-dir docs --reports-dir reports --stale-days 90
-python3 scripts/evaluate_kpi_sla.py \
-  --current reports/kpi-wall.json \
-  --policy-pack policy_packs/minimal.yml \
-  --json-output reports/kpi-sla-report.json \
-  --md-output reports/kpi-sla-report.md
-npm run gaps
+## Step 3: Choose the minimal policy pack
+
+The `minimal.yml` policy pack uses relaxed thresholds suitable for a pilot:
+
+- Minimum quality score: 75 (instead of 82-84)
+- Maximum stale percentage: 20% (instead of 10-12%)
+- Maximum high-priority gaps: 10 (instead of 5-6)
+
+No workflow changes are needed for local testing. For CI, set the policy pack input:
+
+```yaml
+# In workflow files
+with:
+  policy_pack: policy_packs/minimal.yml
 ```
 
-Save these outputs:
+## Step 4: Run the consolidated report
 
-1. `reports/pilot-baseline.json`
-1. `reports/kpi-wall.json`
-1. `reports/kpi-sla-report.md`
-1. Gap report outputs in `reports/`
-
-## Day 2: enable only the pilot-safe gate
-
-For a pilot, use only the core quality gate first:
-
-1. Keep `.github/workflows/docs-check.yml`.
-1. Do not require the other three gates yet unless the client explicitly wants them.
-
-Important:
-
-1. Some workflow files still reference `policy_packs/api-first.yml` by default.
-1. For a pilot, keep the repo aligned with `policy_packs/minimal.yml` where you actively use KPI or contract checks.
-
-Run:
+Generate a single report that merges gap detection, KPI data, and staleness analysis:
 
 ```bash
-npm run validate:minimal
-npm run lint
+npm run consolidate
 ```
 
-Fix the most obvious problems first:
+This produces a consolidated report in `reports/` that identifies missing documentation, stale pages, and quality issues in priority order.
 
-1. Missing frontmatter.
-1. Broken headings or lists.
-1. Bad first paragraphs.
-1. Broken `smoke` code blocks.
+## Step 5: Process with Claude Code
 
-## Day 3: adapt a few templates
+Feed the consolidated report to Claude Code. The `CLAUDE.md` and `AGENTS.md` files in the repository instruct the AI to:
 
-Pick only 3 to 5 templates that matter most for the client.
-
-Recommended set:
-
-1. `templates/quickstart.md`
-1. `templates/how-to.md`
-1. `templates/troubleshooting.md`
-1. `templates/api-reference.md` if the client has an API
-1. `templates/tutorial.md` if they need onboarding
-
-Copy them into the client docs tree:
-
-```bash
-cp templates/quickstart.md docs/getting-started/quickstart.md
-cp templates/how-to.md docs/how-to/common-task.md
-cp templates/troubleshooting.md docs/troubleshooting/common-issue.md
-```
-
-Then edit them:
-
-1. Replace placeholder text with real client information.
+1. Select the correct template from `templates/`.
 1. Use variables from `docs/_variables.yml`.
-1. Keep code examples complete.
+1. Follow all style and formatting rules.
+1. Self-verify code examples and fact-check assertions.
 
-Validate again:
+Generate 5-10 documents from the highest-priority items in the report.
 
-```bash
-npm run validate:minimal
-```
+## Step 6: Review results
 
-## Day 4: generate and fix a small batch of docs
-
-Use Claude or Codex with the repository instructions:
-
-1. `CLAUDE.md`
-1. `AGENTS.md`
-
-Generate 2 to 3 real documents, not more.
-
-After each batch, run:
+Run validation on the generated documents:
 
 ```bash
 npm run validate:minimal
-npm run gaps
 ```
 
-Fix:
+Review each document for factual accuracy. The pipeline handles formatting, style, and SEO/GEO optimization. You verify that the technical content is correct for your product.
 
-1. Any failed smoke examples.
-1. Missing metadata.
-1. The highest-priority documentation gaps.
+## Step 7: Decide on full implementation
 
-## Day 5: create the before vs after report
+After the pilot week, you have:
 
-Run the final measurement:
+1. A working quality gate system.
+1. A consolidated report showing documentation health.
+1. 5-10 generated documents that pass all linters.
+1. Baseline KPI data for before/after comparison.
 
-```bash
-python3 scripts/pilot_analysis.py --json > reports/pilot-final.json
-python3 scripts/generate_kpi_wall.py --docs-dir docs --reports-dir reports --stale-days 90
-npm run kpi-full
-npm run kpi-sla
-```
+To move to full implementation, switch to a stricter policy pack (`api-first.yml` or `plg.yml`), enable all four CI gates, and customize the remaining templates. See `PILOT_VS_FULL_IMPLEMENTATION.md` for details.
 
-Create badges:
+## Related guides
 
-```bash
-npm run badges
-```
-
-## What you send to the client
-
-Send these artifacts:
-
-1. `reports/pilot-baseline.json`
-1. `reports/pilot-final.json`
-1. `reports/kpi-sla-report.md`
-1. SVG badges from `reports/`
-1. The adapted template files
-1. The short executive summary
-
-## What to write in the executive summary
-
-Keep it short. Include:
-
-1. Quality score before vs after.
-1. Stale docs trend before vs after.
-1. Number of gaps found and number fixed.
-1. Number of docs drafted during the pilot.
-1. Recommendation: stop, extend pilot, or move to full implementation.
-
-## The pilot is successful when
-
-1. The client repository can run `npm run validate:minimal`.
-1. At least one CI quality gate is active.
-1. Baseline and final KPI outputs exist.
-1. The team can create a new page from a template.
-1. You can clearly show before vs after movement in at least one KPI.
+| Guide | What it covers |
+| --- | --- |
+| `PILOT_VS_FULL_IMPLEMENTATION.md` | Comparison of pilot vs full rollout |
+| `MINIMAL_MODE.md` | Details on the minimal policy pack |
+| `QUICK_START.md` | 10-step setup for any environment |

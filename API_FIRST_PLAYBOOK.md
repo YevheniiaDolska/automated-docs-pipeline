@@ -1,63 +1,381 @@
-# API-first playbook
+# API-first and code-first playbook
 
-This playbook explains how to manage documentation for API-first products. API-first means the API contract (OpenAPI specification) is the source of truth, and all documentation, SDKs, and client libraries must stay synchronized with it.
+This playbook explains how to manage documentation for products that expose APIs. It covers two workflows: API-first, where you write the OpenAPI specification before writing code, and code-first, where you extract the OpenAPI specification from existing code. Both workflows converge on the same quality gates, drift detection, and reference documentation pipeline.
 
-## What API-first means
+## Two workflows, one quality bar
 
-In an API-first workflow:
-
-1. The OpenAPI specification file defines what the API does.
-1. SDK and client library code is generated or written to match the spec.
-1. Reference documentation describes the same endpoints, schemas, and behaviors.
-1. If any of these three (spec, SDK, docs) get out of sync, that is called "drift."
-
-This playbook prevents drift by automating checks that catch it before code merges.
-
-## Why drift is a problem
-
-Without automated drift detection, teams frequently ship:
-
-1. **Updated API, outdated docs**: New endpoints exist but docs still describe the old ones.
-1. **Updated SDK, missing migration notes**: Breaking changes in the SDK with no upgrade guide.
-1. **Broken code examples**: Examples in docs reference old field names or removed endpoints.
-
-Each of these causes support tickets, developer frustration, and lost trust.
-
-## What the pipeline provides for API-first teams
-
-### Enforcement workflows
-
-These GitHub Actions workflows run automatically on pull requests:
-
-| Workflow | File | What it checks |
+| Aspect | API-first | Code-first |
 | --- | --- | --- |
-| PR DoD contract | `.github/workflows/pr-dod-contract.yml` | If interface files changed, docs must also change |
-| API/SDK drift gate | `.github/workflows/api-sdk-drift-gate.yml` | If OpenAPI or SDK changed, reference docs must update |
-| Code examples smoke | `.github/workflows/code-examples-smoke.yml` | Fenced code blocks tagged `smoke` must execute without errors |
-| OpenAPI source sync | `.github/workflows/openapi-source-sync.yml` | Resolves API spec from api-first or code-first strategy |
-| API scaffold generation | `.github/workflows/api-first-scaffold.yml` | Generates server stubs and client SDKs from OpenAPI spec |
+| Source of truth | Hand-written OpenAPI spec in `api/openapi.yaml` | Running application code |
+| How the spec arrives | Author writes it, then generates stubs | `npm run gaps:code` reads code, then generates spec |
+| Mock server | Prism mock from spec (`npm run api:sandbox:mock`) | Real endpoints tested directly |
+| Scaffold generation | OpenAPI Generator via `api-first-scaffold.yml` | Not applicable (code exists) |
+| Spectral lint | Runs on the hand-written spec | Runs on the generated spec |
+| Reference docs | Generated from the spec | Generated from the spec |
 
-### Enforcement scripts
+Both paths produce an OpenAPI specification file. Once that file exists, every downstream check (Spectral lint, drift detection, DoD contract, consolidated report) works identically.
 
-These scripts run locally and in CI:
+## API-first workflow
 
-| Script | What it does |
+Use this workflow when you design the API contract before writing server code. The specification file drives code generation, mock servers, and documentation.
+
+### Step 1: Write the OpenAPI specification
+
+Create or edit `api/openapi.yaml`. Follow the OpenAPI quality rules enforced by `.spectral.yml` (see the Spectral rules section below).
+
+### Step 2: Generate server stubs and client SDKs
+
+Use the `api-first-scaffold.yml` workflow in GitHub Actions:
+
+1. Go to the Actions tab and select "API First Scaffold."
+1. Provide `spec_path` (default: `api/openapi.yaml`).
+1. Provide `server_generator` (default: `typescript-express-server`).
+1. Provide `client_generator` (default: `typescript-axios`).
+1. Run the workflow. It generates artifacts in `generated/server` and `generated/client`.
+
+You can also run the generator locally with Docker:
+
+```bash
+docker run --rm -v "${PWD}:/local" openapitools/openapi-generator-cli:v7.7.0 generate \
+  -i /local/api/openapi.yaml \
+  -g typescript-express-server \
+  -o /local/generated/server
+```
+
+```bash
+docker run --rm -v "${PWD}:/local" openapitools/openapi-generator-cli:v7.7.0 generate \
+  -i /local/api/openapi.yaml \
+  -g typescript-axios \
+  -o /local/generated/client
+```
+
+### Step 3: Start the Prism mock server
+
+The mock server serves realistic responses from the OpenAPI spec without real backend code:
+
+```bash
+npm run api:sandbox:mock
+```
+
+This starts a Stoplight Prism container on port 4010 using `docker-compose.api-sandbox.yml`. Prism reads `api/openapi.yaml` and returns example responses for every endpoint.
+
+Stop the mock server:
+
+```bash
+npm run api:sandbox:stop
+```
+
+### Step 4: Test against the mock
+
+Send requests to `http://localhost:4010` to verify that your spec produces correct example responses. Fix the spec until mock responses match your design intent.
+
+### Step 5: Lint the specification with Spectral
+
+```bash
+npx @stoplight/spectral-cli lint api/openapi.yaml
+```
+
+Fix all errors before proceeding. See the Spectral rules section for the full rule set.
+
+### Step 6: Write reference documentation
+
+Use `templates/api-reference.md` as the base template. Place the new file in `docs/reference/` and update `mkdocs.yml` navigation.
+
+## Code-first workflow
+
+Use this workflow when the API already exists in code and you need to extract the specification from it.
+
+### Step 1: Analyze code changes
+
+Run the code gap analyzer to identify documentation-relevant changes in recent commits:
+
+```bash
+npm run gaps:code
+```
+
+This executes `python3 -m scripts.gap_detection.cli code`, which scans git history for changes to controllers, routes, handlers, models, and SDK files. It reports which changes need documentation and suggests document types.
+
+For a specific release tag:
+
+```bash
+python3 -m scripts.gap_detection.cli code --tag v1.2.0
+```
+
+For a custom time window:
+
+```bash
+python3 -m scripts.gap_detection.cli code --since 30
+```
+
+### Step 2: Generate the OpenAPI specification from code
+
+If your project has an export script, the `openapi-source-sync.yml` workflow handles this automatically:
+
+1. Go to the Actions tab and select "OpenAPI Source Sync."
+1. Select `code-first` as the strategy.
+1. Provide the expected output path (default: `api/openapi.yaml`).
+
+The workflow looks for one of these export methods:
+
+1. A `package.json` script named `openapi:export`.
+1. An executable script at `scripts/export_openapi.sh`.
+
+If neither exists, the workflow fails with instructions on what to add.
+
+### Step 3: Test real endpoints
+
+Unlike the API-first workflow where you test against a Prism mock, the code-first workflow tests against the actual running application. Start your server and run integration tests against it.
+
+### Step 4: Lint the generated specification
+
+```bash
+npx @stoplight/spectral-cli lint api/openapi.yaml
+```
+
+Fix all Spectral errors. If the generated spec has issues, fix the source code annotations and re-export.
+
+### Step 5: Write reference documentation
+
+Same as API-first: use `templates/api-reference.md`, place in `docs/reference/`, update `mkdocs.yml`.
+
+## Drift detection
+
+Drift occurs when the API specification, SDK code, or documentation get out of sync. The pipeline detects drift automatically and blocks pull requests until it is resolved.
+
+### How drift detection works
+
+The `check_api_sdk_drift.py` script compares files changed in a pull request against three pattern groups defined in `policy_packs/api-first.yml`:
+
+| Pattern group | What it matches | Examples |
+| --- | --- | --- |
+| `openapi_patterns` | OpenAPI specification files | `openapi*.yaml`, `swagger*.json` |
+| `sdk_patterns` | SDK and client library code | `sdk/**`, `clients/**` |
+| `reference_doc_patterns` | Reference documentation | `docs/reference/**`, `templates/api-reference.md` |
+
+**Decision logic:**
+
+1. If no OpenAPI or SDK files changed, the check passes.
+1. If OpenAPI or SDK files changed AND reference docs also changed, the check passes.
+1. If OpenAPI or SDK files changed WITHOUT reference doc updates, the check fails with status `drift`.
+
+### Running drift detection locally
+
+```bash
+npm run drift-check
+```
+
+Or with full arguments:
+
+```bash
+python3 scripts/check_api_sdk_drift.py \
+  --base origin/main \
+  --head HEAD \
+  --policy-pack policy_packs/api-first.yml \
+  --json-output reports/api_sdk_drift_report.json \
+  --md-output reports/api_sdk_drift_report.md
+```
+
+The script produces two report files:
+
+- `reports/api_sdk_drift_report.json` -- structured data for the consolidated report.
+- `reports/api_sdk_drift_report.md` -- human-readable summary.
+
+### Drift detection in CI
+
+The `api-sdk-drift-gate.yml` workflow runs automatically on every pull request that touches API, OpenAPI, SDK, or generated files. When drift is detected:
+
+1. The workflow creates a GitHub issue labeled `documentation`, `doc-gap`, and `auto-created`.
+1. The issue title includes the pull request number.
+1. The issue body contains the full drift report.
+1. The workflow fails, blocking the pull request from merging.
+
+**Trigger paths:**
+
+- `api/**`
+- `**/openapi*.yaml`, `**/openapi*.yml`, `**/openapi*.json`
+- `**/swagger*.yaml`, `**/swagger*.yml`, `**/swagger*.json`
+- `sdk/**`, `clients/**`, `generated/**`
+
+### Fixing a drift failure
+
+1. Read the drift report in `reports/api_sdk_drift_report.md` or the auto-created issue.
+1. Update the corresponding files in `docs/reference/`.
+1. Re-run `npm run drift-check` to verify.
+1. Push the documentation changes in the same pull request.
+
+## Definition of Done contract
+
+The `check_docs_contract.py` script enforces a stricter rule than drift detection: any change to public interface files must include documentation changes in the same pull request. This prevents undocumented API changes from reaching production.
+
+### How the DoD contract works
+
+The script compares changed files against two pattern groups from `policy_packs/api-first.yml`:
+
+| Pattern group | What it matches |
 | --- | --- |
-| `scripts/check_docs_contract.py` | Checks if interface file changes have matching docs changes |
-| `scripts/check_api_sdk_drift.py` | Checks if API/SDK changes have matching reference doc updates |
-| `scripts/check_code_examples_smoke.py` | Executes tagged code blocks in 8 languages |
+| `interface_patterns` | `api/**`, OpenAPI specs, `sdk/**`, `clients/**` |
+| `doc_patterns` | `docs/reference/**`, `docs/how-to/**`, API templates |
 
-### Policy pack
+If interface files changed but no doc files changed, the script returns exit code 1 and blocks the pull request.
 
-The `api-first.yml` policy pack sets quality thresholds for API-heavy products:
+### Running the DoD contract locally
+
+```bash
+npm run docs-contract
+```
+
+Or with full arguments:
+
+```bash
+python3 scripts/check_docs_contract.py \
+  --base origin/main \
+  --head HEAD \
+  --policy-pack policy_packs/api-first.yml \
+  --json-output reports/pr_docs_contract.json
+```
+
+### DoD contract in CI
+
+The `pr-dod-contract.yml` workflow runs on every pull request that touches `api/`, `sdk/`, `clients/`, `src/`, `docs/`, `templates/`, or policy packs. It runs two steps:
+
+1. `validate_pr_dod.py` -- validates the pull request template structure.
+1. `check_docs_contract.py` -- validates interface-to-docs pairing.
+
+Both must pass for the pull request to proceed.
+
+## Spectral rules
+
+The `.spectral.yml` configuration extends the built-in `spectral:oas` ruleset and adds 18 rules organized into four categories.
+
+### Documentation quality rules
+
+| Rule | Severity | What it checks |
+| --- | --- | --- |
+| `operation-description` | warn | Every operation has a description |
+| `operation-operationId` | error | Every operation has an `operationId` |
+| `operation-tags` | warn | Every operation has at least one tag |
+| `info-contact` | warn | The `info` object includes contact details |
+| `info-description` | error | The `info` object has a description |
+| `info-license` | off | License info (disabled) |
+
+### Security rules
+
+| Rule | Severity | What it checks |
+| --- | --- | --- |
+| `no-eval-in-markdown` | error | No `eval()` in markdown descriptions |
+| `no-script-tags-in-markdown` | error | No `<script>` tags in markdown descriptions |
+
+### Best practices rules
+
+| Rule | Severity | What it checks |
+| --- | --- | --- |
+| `path-params` | error | Path parameters are defined and used |
+| `typed-enum` | warn | Enum values have explicit types |
+| `operation-success-response` | error | Every operation defines a success response |
+
+### Naming convention rules
+
+| Rule | Severity | What it checks |
+| --- | --- | --- |
+| `path-keys-no-trailing-slash` | error | Paths do not end with `/` |
+| `path-not-include-query` | error | Paths do not contain query strings |
+
+### Custom rules
+
+| Rule | Severity | What it checks |
+| --- | --- | --- |
+| `parameter-description` | error | Every parameter has a description |
+| `schema-properties-example` | warn | Schema properties include example values |
+
+### OpenAPI quality requirements
+
+Every OpenAPI specification in this pipeline must satisfy these requirements:
+
+1. **Every operation has an `operationId`** -- Spectral enforces this at error severity. Use camelCase: `listOrders`, `createUser`, `getOrderById`.
+1. **Every operation has a description** -- Spectral warns if missing. Write one to three sentences explaining what the endpoint does.
+1. **Every parameter has a description** -- Custom Spectral rule at error severity. Describe the parameter purpose, valid values, and defaults.
+1. **Schema properties include examples** -- Custom Spectral rule at warn severity. Provide realistic example values, not placeholders.
+1. **Every operation defines a success response** -- Spectral enforces this at error severity. Include at least one 2xx response with a schema.
+1. **Error responses are documented** -- Include 400, 401, 403, 404, and 500 responses where applicable.
+1. **The info object is complete** -- Must include `description` (error) and `contact` (warn).
+1. **Paths follow conventions** -- No trailing slashes, no query strings in paths.
+
+## Policy pack thresholds
+
+The `policy_packs/api-first.yml` file defines quality thresholds that the pipeline enforces through KPI SLA checks:
 
 ```yaml
-# policy_packs/api-first.yml
-min_quality_score: 82      # Strict quality
-max_stale_percentage: 12   # Low stale tolerance
-max_high_priority_gaps: 6  # Few gaps allowed
-max_quality_score_drop: 4  # Tight quality regression limit
+kpi_sla:
+  min_quality_score: 82
+  max_stale_pct: 12.0
+  max_high_priority_gaps: 6
+  max_quality_score_drop: 4
 ```
+
+| Threshold | Value | What it means |
+| --- | --- | --- |
+| `min_quality_score` | 82 | Documentation quality score must stay at or above 82 |
+| `max_stale_pct` | 12.0 | No more than 12% of documents can be stale (90+ days without update) |
+| `max_high_priority_gaps` | 6 | No more than 6 high-priority documentation gaps allowed |
+| `max_quality_score_drop` | 4 | Quality score cannot drop more than 4 points between reports |
+
+Run the SLA check:
+
+```bash
+npm run kpi-sla
+```
+
+The policy pack also defines file pattern groups for the docs contract and drift detection (see those sections above).
+
+## Integration with the consolidated report
+
+The consolidated report (`reports/consolidated_report.json`) merges four data sources into one prioritized action list:
+
+1. **Gap analysis** (`doc_gaps_report.json`) -- missing documentation identified by code analysis, community signals, and search analytics.
+1. **API/SDK drift** (`api_sdk_drift_report.json`) -- specification or SDK changes without matching doc updates.
+1. **KPI wall** (`kpi-wall.json`) -- quality scores, stale documents, metadata completeness.
+1. **KPI SLA** (`kpi-sla-report.json`) -- threshold breaches.
+
+### Drift items are Tier 1 priority
+
+The consolidator assigns `priority: "high"` to all drift-detected items. Drift action items include:
+
+- **`api_drift` category** -- OpenAPI spec changed without documentation update. Lists the changed spec files.
+- **`sdk_drift` category** -- SDK or client code changed without documentation update. Lists the changed SDK files.
+
+The consolidator also cross-references drift data with gap analysis items. If a gap's `related_files` overlap with drift-changed files, the gap item receives a `drift_related: true` annotation and `drift_overlapping_files` context. This promotes those gaps to higher effective priority when an LLM agent processes the consolidated report.
+
+### Running the full consolidation
+
+```bash
+npm run consolidate
+```
+
+This runs gap analysis, KPI wall, KPI SLA checks, and then merges all four reports into `reports/consolidated_report.json`.
+
+To consolidate from existing reports without re-running analysis:
+
+```bash
+npm run consolidate:reports-only
+```
+
+## Enforcement workflows summary
+
+| Workflow | File | Trigger | What it does |
+| --- | --- | --- | --- |
+| API/SDK drift gate | `api-sdk-drift-gate.yml` | PR touching API/SDK files | Blocks PR if docs are missing, creates issue |
+| PR DoD contract | `pr-dod-contract.yml` | PR touching interface or doc files | Blocks PR if interface changes lack docs |
+| Code examples smoke | `code-examples-smoke.yml` | PR or push touching docs/templates | Executes tagged code blocks to verify they work |
+| OpenAPI source sync | `openapi-source-sync.yml` | Manual dispatch | Resolves spec from api-first or code-first strategy |
+| API-first scaffold | `api-first-scaffold.yml` | Manual dispatch | Generates server stubs and client SDKs |
+
+## Enforcement scripts summary
+
+| Script | npm command | What it does |
+| --- | --- | --- |
+| `check_api_sdk_drift.py` | `npm run drift-check` | Detects API/SDK drift against reference docs |
+| `check_docs_contract.py` | `npm run docs-contract` | Blocks PRs when interface changes lack doc updates |
+| `check_code_examples_smoke.py` | `npm run lint:examples-smoke` | Executes fenced code blocks tagged `smoke` |
 
 ## First-time local setup
 
@@ -80,85 +398,32 @@ Verify the installation works:
 npm run validate:minimal
 ```
 
-## Core commands
-
-### Check the interface-to-docs contract
-
-This command checks whether code changes that affect public interfaces also include documentation updates:
-
-```bash
-python3 scripts/check_docs_contract.py \
-  --base origin/main \
-  --head HEAD \
-  --policy-pack policy_packs/api-first.yml
-```
-
-**What happens:**
-
-1. The script compares files changed between `origin/main` and `HEAD`.
-1. If any changed file matches `interface_patterns` in the policy pack (for example, `src/controllers/**`, `src/routes/**`), the script checks whether any file matching `docs_patterns` also changed.
-1. If interface files changed but no docs files changed, the command fails.
-
-**How to fix a failure:** Add documentation updates to the same pull request.
-
-### Check API/SDK drift
-
-This command checks whether API specification or SDK changes have matching documentation updates:
-
-```bash
-python3 scripts/check_api_sdk_drift.py \
-  --base origin/main \
-  --head HEAD \
-  --policy-pack policy_packs/api-first.yml \
-  --json-output reports/api_sdk_drift_report.json \
-  --md-output reports/api_sdk_drift_report.md
-```
-
-**What happens:**
-
-1. The script looks for changes in files matching `drift_patterns` (for example, `openapi*.yaml`, `sdk/**`).
-1. If those files changed but reference docs did not update, the command fails.
-1. The report files explain exactly which documentation is missing.
-
-**How to fix a failure:** Update the corresponding files in `docs/reference/`.
-
-### Check code examples
-
-This command executes fenced code blocks in documentation to verify they work:
-
-```bash
-python3 scripts/check_code_examples_smoke.py --paths docs templates
-```
-
-**What happens:**
-
-1. The script finds all fenced code blocks tagged with `smoke`.
-1. It executes each block in the appropriate language runtime.
-1. If any block fails (syntax error, runtime error), the command fails.
-
-**Supported languages:** Python, Bash, JavaScript, TypeScript, Go, curl, JSON, YAML.
-
-**How to fix a failure:** Open the file and line number shown in the output, fix the broken code example.
-
 ## Step-by-step workflow for an API change
 
-When you change the API, follow this exact sequence:
+### API-first path
 
-1. **Update the OpenAPI specification file** with the new or changed endpoint.
-1. **Update SDK or client code** if the change affects them.
-1. **Update reference docs** in `docs/reference/` to describe the change.
-1. **Add migration notes** if the change is breaking (removed fields, changed behavior).
-1. **Run the DoD contract check** to verify docs are included.
-1. **Run the drift check** to verify reference docs match the spec.
-1. **Run the smoke examples check** to verify code examples still work.
-1. **Open the pull request** only after all three checks pass locally.
+1. Edit `api/openapi.yaml` with the new or changed endpoint.
+1. Lint the spec: `npx @stoplight/spectral-cli lint api/openapi.yaml`.
+1. Start the mock: `npm run api:sandbox:mock`.
+1. Test requests against `http://localhost:4010`.
+1. Stop the mock: `npm run api:sandbox:stop`.
+1. Generate stubs if needed (run `api-first-scaffold.yml` or use Docker locally).
+1. Update reference docs in `docs/reference/`.
+1. Run `npm run docs-contract` and `npm run drift-check`.
+1. Run `npm run lint:examples-smoke`.
+1. Open the pull request after all checks pass.
 
-```bash
-# Run all three checks in sequence
-python3 scripts/check_docs_contract.py --base origin/main --head HEAD --policy-pack policy_packs/api-first.yml
-python3 scripts/check_api_sdk_drift.py --base origin/main --head HEAD --policy-pack policy_packs/api-first.yml --json-output reports/api_sdk_drift_report.json --md-output reports/api_sdk_drift_report.md
-python3 scripts/check_code_examples_smoke.py --paths docs templates
-```
+### Code-first path
+
+1. Implement the API change in code.
+1. Run `npm run gaps:code` to identify what needs documentation.
+1. Export the updated spec (via `openapi:export` script or `scripts/export_openapi.sh`).
+1. Lint the spec: `npx @stoplight/spectral-cli lint api/openapi.yaml`.
+1. Test real endpoints.
+1. Update reference docs in `docs/reference/`.
+1. Run `npm run docs-contract` and `npm run drift-check`.
+1. Run `npm run lint:examples-smoke`.
+1. Open the pull request after all checks pass.
 
 ## What to include in docs for API changes
 
@@ -173,43 +438,6 @@ At minimum, update these sections in the reference documentation:
 
 Use the `templates/api-reference.md` template for new endpoint documentation.
 
-## Optional: generate code from OpenAPI
-
-If your team uses OpenAPI Generator to create client SDKs:
-
-```bash
-docker run --rm -v "${PWD}:/local" openapitools/openapi-generator-cli:v7.7.0 generate \
-  -i /local/api/openapi.yaml \
-  -g typescript-axios \
-  -o /local/generated/client
-```
-
-This generates a TypeScript client from the OpenAPI spec. Use the generated code as a starting point, then add business logic.
-
-The pipeline also provides a built-in scaffold workflow:
-
-1. Go to GitHub Actions and run `.github/workflows/api-first-scaffold.yml` manually.
-1. Provide `spec_path` (path to your OpenAPI file).
-1. Provide `server_generator` (for example, `spring`, `express`).
-1. Provide `client_generator` (for example, `typescript-axios`, `python`).
-1. The workflow generates server stubs and client SDK artifacts.
-
-## Optional: API playground
-
-For interactive API documentation where users can try endpoints in the browser, see the API playground section in `PLG_PLAYBOOK.md`. The playground uses Swagger UI or Redoc and routes test requests to a sandbox environment.
-
-Start a mock sandbox from your OpenAPI spec:
-
-```bash
-npm run api:sandbox:mock
-```
-
-Stop the mock sandbox:
-
-```bash
-npm run api:sandbox:stop
-```
-
 ## Common failure cases and fixes
 
 ### Drift gate failed
@@ -220,16 +448,16 @@ npm run api:sandbox:stop
 
 1. Check the drift report in `reports/api_sdk_drift_report.md` for details.
 1. Update the corresponding files in `docs/reference/`.
-1. Re-run the drift check.
+1. Re-run `npm run drift-check`.
 
 ### DoD contract failed
 
-**What it means:** Public interface files changed (controllers, routes, models) without any documentation changes in the same pull request.
+**What it means:** Public interface files changed (controllers, routes, models, API specs) without any documentation changes in the same pull request.
 
 **How to fix:**
 
 1. Add documentation files to the same pull request.
-1. Re-run the contract check.
+1. Re-run `npm run docs-contract`.
 
 ### Smoke examples failed
 
@@ -239,15 +467,37 @@ npm run api:sandbox:stop
 
 1. Read the script output to find the exact file and line number.
 1. Open the file and fix the broken code example.
-1. Re-run the smoke check.
+1. Re-run `npm run lint:examples-smoke`.
 
-## Definition of done for an API-first pull request
+### Spectral lint failed
+
+**What it means:** The OpenAPI specification violates one or more quality rules.
+
+**How to fix:**
+
+1. Run `npx @stoplight/spectral-cli lint api/openapi.yaml` to see all violations.
+1. Fix each violation in the spec file.
+1. Errors must be fixed. Warnings should be fixed.
+1. Re-run the lint command until the spec passes.
+
+### KPI SLA breach
+
+**What it means:** Documentation quality metrics dropped below thresholds in `policy_packs/api-first.yml`.
+
+**How to fix:**
+
+1. Run `npm run kpi-sla` to see which thresholds are breached.
+1. Address the specific metric: improve quality score, update stale docs, or close high-priority gaps.
+1. Run `npm run consolidate` to regenerate all reports.
+
+## Definition of done for an API-related pull request
 
 A pull request is ready to merge only when all of these are true:
 
 1. DoD contract check passes.
 1. Drift gate check passes.
 1. Smoke examples check passes.
+1. Spectral lint passes on all OpenAPI specification files.
 1. Reference docs describe the current API behavior (not the old behavior).
 1. Breaking changes include a migration guide or release note.
 1. All code examples are complete and runnable.
@@ -260,7 +510,16 @@ If you have never used these checks before, start with this one command:
 npm run validate:minimal
 ```
 
-This runs the basic quality checks. Once that passes consistently, add the API-first checks (contract, drift, smoke) to your workflow before every API-related pull request.
+This runs the basic quality checks. Once that passes consistently, add the API checks to your workflow:
+
+```bash
+npm run drift-check
+npm run docs-contract
+npm run lint:examples-smoke
+npx @stoplight/spectral-cli lint api/openapi.yaml
+```
+
+Run all four before every API-related pull request.
 
 ## Related guides
 

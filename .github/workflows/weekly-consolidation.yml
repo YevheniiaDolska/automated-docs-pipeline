@@ -1,0 +1,190 @@
+name: Weekly Consolidated Report
+
+# Runs every Monday at 09:00 UTC (after KPI at 06:00 and gap detection at 08:00).
+# Collects all 4 reports, consolidates into one file, commits to repo,
+# and creates a GitHub issue with instructions for the user.
+
+on:
+  schedule:
+    - cron: '0 9 * * 1'
+  workflow_dispatch:
+    inputs:
+      since_days:
+        description: Analyze commits from last N days
+        required: false
+        default: '7'
+        type: string
+      policy_pack:
+        description: Policy pack path for SLA evaluation
+        required: false
+        default: policy_packs/api-first.yml
+        type: string
+
+env:
+  PYTHON_VERSION: '3.11'
+
+permissions:
+  contents: write
+  issues: write
+
+jobs:
+  consolidate:
+    name: Generate consolidated documentation report
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ env.PYTHON_VERSION }}
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install pyyaml openpyxl
+
+      - name: Run gap analysis
+        run: |
+          cd scripts
+          python -m gap_detection.cli analyze \
+            --repo .. \
+            --since ${{ github.event.inputs.since_days || '7' }} \
+            --output-dir ../reports
+
+      - name: Generate KPI wall
+        run: |
+          python3 scripts/generate_kpi_wall.py \
+            --docs-dir docs \
+            --reports-dir reports \
+            --stale-days 90
+
+      - name: Extract previous KPI snapshot
+        run: |
+          set +e
+          git show origin/main:reports/kpi-wall.json > reports/previous-kpi-wall.json 2>/dev/null
+          EXIT_CODE=$?
+          if [ "$EXIT_CODE" -ne 0 ]; then
+            echo "No previous KPI snapshot found. Trend check uses current only."
+            rm -f reports/previous-kpi-wall.json
+          fi
+          set -e
+
+      - name: Evaluate KPI SLA
+        continue-on-error: true
+        run: |
+          POLICY="${{ github.event.inputs.policy_pack || 'policy_packs/api-first.yml' }}"
+          PREV_ARG=""
+          if [ -f reports/previous-kpi-wall.json ]; then
+            PREV_ARG="--previous reports/previous-kpi-wall.json"
+          fi
+          python3 scripts/evaluate_kpi_sla.py \
+            --current reports/kpi-wall.json \
+            $PREV_ARG \
+            --policy-pack "$POLICY" \
+            --json-output reports/kpi-sla-report.json \
+            --md-output reports/kpi-sla-report.md
+
+      - name: Run API/SDK drift check
+        continue-on-error: true
+        run: |
+          python3 scripts/check_api_sdk_drift.py \
+            --base origin/main \
+            --head HEAD \
+            --json-output reports/api_sdk_drift_report.json \
+            --md-output reports/api_sdk_drift_report.md
+
+      - name: Consolidate all reports
+        id: consolidate
+        run: |
+          python3 scripts/consolidate_reports.py \
+            --reports-dir reports \
+            --output reports/consolidated_report.json
+
+          # Extract metrics for issue creation
+          if [ -f reports/consolidated_report.json ]; then
+            TOTAL=$(python3 -c "import json; d=json.load(open('reports/consolidated_report.json')); print(d['health_summary']['total_action_items'])")
+            SCORE=$(python3 -c "import json; d=json.load(open('reports/consolidated_report.json')); print(d['health_summary']['quality_score'])")
+            DRIFT=$(python3 -c "import json; d=json.load(open('reports/consolidated_report.json')); print(d['health_summary']['drift_status'])")
+            SLA=$(python3 -c "import json; d=json.load(open('reports/consolidated_report.json')); print(d['health_summary']['sla_status'])")
+            echo "total_items=$TOTAL" >> $GITHUB_OUTPUT
+            echo "quality_score=$SCORE" >> $GITHUB_OUTPUT
+            echo "drift_status=$DRIFT" >> $GITHUB_OUTPUT
+            echo "sla_status=$SLA" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Commit reports
+        run: |
+          git config --local user.email "github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "github-actions[bot]"
+          git add reports/
+          git diff --staged --quiet || git commit -m "chore: weekly consolidated report [skip ci]"
+          git push
+
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: consolidated-report
+          path: |
+            reports/consolidated_report.json
+            reports/doc_gaps_report.json
+            reports/kpi-wall.json
+            reports/kpi-sla-report.json
+            reports/api_sdk_drift_report.json
+          retention-days: 30
+
+      - name: Create GitHub issue with consolidated report
+        if: steps.consolidate.outputs.total_items > 0
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require('fs');
+            const report = JSON.parse(fs.readFileSync('reports/consolidated_report.json', 'utf8'));
+            const date = new Date().toISOString().split('T')[0];
+            const health = report.health_summary;
+            const items = report.action_items;
+
+            const highPriority = items.filter(i => i.priority === 'high');
+            const itemList = highPriority.slice(0, 15).map(i =>
+              `- **[${i.id}]** ${i.title} (${i.source_report}, ${i.category})\n  Action: ${i.action_required.substring(0, 120)}...`
+            ).join('\n\n');
+
+            const body = `## Weekly Consolidated Report - ${date}
+
+            ### Health summary
+            - **Quality score:** ${health.quality_score}
+            - **Drift status:** ${health.drift_status}
+            - **SLA status:** ${health.sla_status}
+            - **Total docs:** ${health.total_docs}
+            - **Stale docs:** ${health.stale_pct}%
+            - **Total action items:** ${health.total_action_items}
+
+            ### High-priority action items (top 15)
+
+            ${itemList || 'None'}
+
+            ---
+
+            ### Next steps
+            1. \`git pull\` to get the latest reports
+            2. Open Claude Code in the project directory
+            3. Say: "Process reports/consolidated_report.json"
+
+            Claude Code reads CLAUDE.md automatically and knows how to:
+            - Prioritize items into 3 tiers (revenue-critical, code-driven, community)
+            - Decide whether to update existing docs or create new ones
+            - Select the correct template for each document
+            - Run linting and fix issues
+            - Produce a batch summary when done`;
+
+            await github.rest.issues.create({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              title: `Consolidated report: ${health.total_action_items} items, score ${health.quality_score} - ${date}`,
+              body: body,
+              labels: ['documentation', 'auto-created', 'consolidated-report']
+            });

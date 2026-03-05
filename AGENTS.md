@@ -1109,6 +1109,10 @@ Before creating ANY document, check `templates/` for a matching template:
 | Terminology | `glossary-page.md` | `doc-reference` |
 | PLG persona page | `plg-persona-guide.md` | `doc-tutorial` |
 | PLG value page | `plg-value-page.md` | `doc-concept` |
+| User guide | `user-guide.md` | `doc-howto` |
+| Administration guide | `admin-guide.md` | `doc-howto` |
+| Upgrade guide | `upgrade-guide.md` | `doc-howto` |
+| Single API endpoint | `api-endpoint.md` | `doc-reference` |
 
 ### Template selection process
 
@@ -1269,14 +1273,17 @@ Verification summary:
 
 **This is the full step-by-step process Codex MUST follow for every document:**
 
-1. **Identify document type** from user request.
+1. **Identify document type and locale** from user request. Default locale: `en`.
 1. **Select matching template** from `templates/` (NEVER write from scratch).
-1. **Copy template** to correct location based on content_type.
-1. **Read `docs/_variables.yml`** and use variables for all product-specific values.
+1. **Copy template** to correct location: `docs/{locale}/{content_type_dir}/{slug}.md`.
+1. **Read variables** -- use `docs/_variables.yml` merged with `docs/{locale}/_variables.yml` if it exists.
 1. **Fill template** with actual content, following Stripe-quality standards.
 1. **Format correctly**: blank lines around headings, lists, code blocks. One H1 only.
-1. **Apply style rules**: American English, active voice, no weasel words, no contractions.
-1. **Keep first paragraph under 60 words** with a clear definition.
+1. **Apply style rules**:
+   - English: American English, active voice, no weasel words, no contractions.
+   - Non-English: apply equivalent rules manually (see "Quality enforcement for non-English documentation").
+1. **Keep first paragraph under locale word limit** (en: 60, ru: 80, de: 70) with a clear definition.
+1. **Set i18n frontmatter fields** if locale is not `en`: `language`, `translation_of`, `source_hash`.
 1. **Execute all code blocks** and verify output matches.
 1. **Run all shell commands** and verify results.
 1. **Fact-check all assertions** (versions, ports, paths, URLs, counts).
@@ -1284,4 +1291,844 @@ Verification summary:
 1. **Check internal consistency** (no contradictions within the document).
 1. **Update `mkdocs.yml`** navigation with the new page.
 1. **Run validation**: `npm run validate:minimal`.
+1. **For non-English docs**: run the translation quality checklist (active voice, weasel words, terminology, spelling).
 1. **Log verification summary** with counts of blocks executed, facts checked, corrections made.
+
+## i18n: Multi-language documentation
+
+### Configuration
+
+Languages are configured in `i18n.yml` (project root). Layout is folder-based: `docs/en/`, `docs/ru/`, etc.
+
+**Key scripts:**
+
+- `npm run i18n:migrate` -- one-time migration from flat to folder layout
+- `npm run i18n:sync` -- check translation freshness -> `reports/i18n_sync_report.json`
+- `npm run i18n:translate -- --source en/how-to/guide.md --locale ru` -- translate one file
+- `npm run i18n:translate:all -- --locale ru` -- translate all missing
+- `npm run i18n:translate:stale -- --locale ru` -- re-translate stale only
+
+### Document creation with locale
+
+```bash
+# English (default)
+python3 scripts/new_doc.py how-to "Configure webhooks" --locale en
+
+# Russian translation from English source
+python3 scripts/new_doc.py how-to "Nastroyka vebkhukov" --locale ru \
+  --translate-from en/how-to/configure-webhooks.md
+```
+
+### i18n frontmatter fields
+
+Translated documents MUST include these frontmatter fields:
+
+```yaml
+---
+title: "Translated title"
+description: "Translated description (50-200 chars)"
+content_type: how-to
+language: ru
+translation_of: en/how-to/configure-webhooks.md
+source_hash: "abc123..."
+---
+```
+
+- `language`: ISO 639-1 code matching the folder (for example, `ru` for `docs/ru/`)
+- `translation_of`: path to the source document relative to `docs/`
+- `source_hash`: SHA-256 of the source document body at translation time
+
+### Locale-aware variables
+
+`docs/_variables.yml` is the base (English defaults). Each locale can override values in `docs/{locale}/_variables.yml`:
+
+```yaml
+# docs/ru/_variables.yml (only override what differs)
+product_tagline: "Platform avtomatizatsii rabochikh protsessov"
+```
+
+Technical values (ports, URLs, versions) stay shared.
+
+## MANDATORY: Quality enforcement for non-English documentation
+
+**Vale, write-good, proselint, and cspell do NOT support non-English languages.** For English docs these tools enforce quality automatically. For all other languages, **Codex IS the quality linter.** Codex MUST apply equivalent quality rules manually when writing or reviewing non-English documentation.
+
+### What automated tools check per language
+
+| Check | English (`docs/en/`) | Other locales (`docs/ru/`, etc.) |
+| --- | --- | --- |
+| Vale: Google style guide | Automated | **Codex enforces manually** |
+| Vale: write-good | Automated | **Codex enforces manually** |
+| Vale: AmericanEnglish | Automated | N/A (use native spelling) |
+| Vale: GEO (structure) | Automated | Automated |
+| cspell (spelling) | Automated | **Skipped** (Codex checks) |
+| markdownlint (formatting) | Automated | Automated |
+| frontmatter validation | Automated | Automated |
+| SEO/GEO optimizer | Automated (en rules) | Automated (locale rules) |
+
+### Rules Codex MUST enforce for non-English documentation
+
+**When writing or editing ANY non-English document, Codex MUST apply ALL of the following rules.** These are the same rules that Vale, write-good, and proselint enforce for English, adapted for the target language.
+
+**1. Active voice (equivalent of write-good passive voice check):**
+
+- Use active voice in the target language
+- Russian: "Nastroyte webhook" (active), NOT "Webhook dolzhen byt' nastroyen" (passive)
+- German: "Konfigurieren Sie den Webhook" (active), NOT "Der Webhook muss konfiguriert werden" (passive)
+- The subject should perform the action, not receive it
+
+**2. No weasel words (equivalent of write-good weasel word check):**
+
+- Do not use vague qualifiers in any language
+- Banned in Russian: "prosto" (just/simple), "legko" (easy), "bystro" (quickly), "mnogo" (many/various), "razlichnye" (various), "nekotorye" (some), "obychno" (usually)
+- Banned in German: "einfach" (simple), "schnell" (quickly), "verschiedene" (various), "einige" (some)
+- Replace with specific values: "za 5 sekund" not "bystro," "3 metoda" not "neskolko metodov"
+
+**3. Direct, imperative style (equivalent of Google style guide):**
+
+- Use second person "you" equivalent: Russian "vy," German "Sie"
+- Use present tense for current features
+- Be direct: "Nazhmite Sokhranit'" not "Pozhaluysta, nazhmite knopku Sokhranit'"
+- No hedge words: be precise, not vague
+
+**4. No contractions (equivalent of Google style guide):**
+
+- Use full word forms in formal documentation
+- This applies in languages where colloquial contractions exist
+
+**5. Specific facts, not vague claims:**
+
+- "Obrabotka zanimaet 2-3 sekundy" not "Obrabotka proiskhodit bystro"
+- Include numbers, timeouts, limits in all languages
+
+**6. Correct technical terminology:**
+
+- Use the standard accepted technical terms for the target language
+- Do NOT transliterate English terms when a native equivalent is standard
+- DO keep English terms when they are the accepted standard in the target language (API, HTTP, JSON, webhook, etc.)
+- When in doubt, keep the English technical term
+
+**7. Spelling and grammar:**
+
+- Codex MUST check spelling and grammar in the target language
+- cspell cannot do this for non-English, so Codex is the only checker
+- Pay attention to: declension, case agreement, verb conjugation
+- Russian: check grammatical cases, verb aspects
+- German: check compound words, article genders, cases
+
+**8. Consistent terminology within a document:**
+
+- If you translate "workflow" as "rabochiy protsess" in paragraph 1, use the same translation throughout
+- Do NOT alternate between translations of the same term
+- Create a mental glossary and stick to it
+
+### Quality checklist for non-English documents
+
+**Before saving ANY non-English document, Codex MUST verify:**
+
+- [ ] **Active voice used throughout** (no passive constructions)
+- [ ] **No weasel words** (no "prosto," "legko," "bystro" equivalents)
+- [ ] **Second person "you"** (vy/Sie, not "polzovatel'" / "der Benutzer")
+- [ ] **Present tense** for current features
+- [ ] **Specific facts** not vague claims (numbers, timeouts, limits)
+- [ ] **Correct spelling and grammar** in the target language
+- [ ] **Consistent technical terminology** (same term = same translation)
+- [ ] **Code blocks untranslated** (code stays in English)
+- [ ] **{{ variables }} preserved** (not translated or modified)
+- [ ] **Link paths preserved** (only link text translated)
+- [ ] **Frontmatter i18n fields set** (language, translation_of, source_hash)
+- [ ] **First paragraph under locale word limit** (60 for en, 80 for ru, 70 for de)
+- [ ] **All GEO structural rules pass** (heading hierarchy, fact density)
+- [ ] **Formatting correct** (blank lines, one H1, code block languages)
+
+### Self-verification for translations
+
+After generating or editing a non-English document, Codex MUST add a verification note:
+
+```text
+Translation quality check:
+- Language: [locale]
+- Active voice: verified (0 passive constructions found)
+- Weasel words: verified (0 found)
+- Terminology consistency: verified ([N] terms checked)
+- Spelling/grammar: verified
+- Code blocks preserved: [N] blocks, all untouched
+- Variables preserved: [N] {{ }} placeholders, all intact
+- Frontmatter i18n fields: language, translation_of, source_hash set
+```
+
+## Consolidated report processing and prioritization
+
+**Codex MUST follow this workflow when the user says "Process reports/consolidated_report.json" or hands over the consolidated report.**
+
+### How the consolidated report is generated
+
+A cron job (`.github/workflows/weekly-consolidation.yml`) runs every Monday at 09:00 UTC and:
+
+1. Runs gap analysis (`doc_gaps_report.json`) -- detects undocumented code: new endpoints, functions, webhooks, config options, env vars, breaking changes, authentication changes
+1. Runs KPI wall (`kpi-wall.json`) -- measures documentation health: quality score (0-100), stale docs percentage, metadata completeness, total gaps count
+1. Runs drift check (`api_sdk_drift_report.json`) -- detects when API spec or SDK code changed but reference docs did not update
+1. Runs SLA evaluation (`kpi-sla-report.json`) -- checks KPI metrics against policy thresholds and flags breaches
+1. Runs `scripts/consolidate_reports.py` -- merges all 4 into ONE file: `reports/consolidated_report.json`
+
+The user can also run this locally: `npm run consolidate`
+
+### What is inside the consolidated report
+
+The consolidated report has this structure:
+
+```json
+{
+  "generated_at": "ISO timestamp",
+  "input_reports": {
+    "gaps": { "found": true, "total_gaps": 10 },
+    "drift": { "found": true, "status": "ok" },
+    "kpi": { "found": true, "quality_score": 82 },
+    "sla": { "found": true, "status": "ok", "breaches": [] }
+  },
+  "health_summary": {
+    "quality_score": 82,
+    "drift_status": "ok",
+    "sla_status": "ok",
+    "total_action_items": 12
+  },
+  "action_items": [
+    {
+      "id": "CONS-001",
+      "source_report": "gaps|drift|kpi|sla",
+      "title": "...",
+      "category": "authentication|api_drift|stale_doc|sla_breach|...",
+      "suggested_doc_type": "how-to|reference|null",
+      "priority": "high|medium|low",
+      "frequency": 240,
+      "action_required": "...",
+      "related_files": ["..."],
+      "context": { "drift_related": false, "sla_breach_related": false }
+    }
+  ]
+}
+```
+
+### Step 1: Read the consolidated report
+
+Read `reports/consolidated_report.json`. This is the ONLY file you need. Do NOT read the 4 individual reports separately.
+
+### Step 2: Check health summary
+
+Before processing action items, check `health_summary`:
+
+- If `sla_status` is `"breach"`, warn the user about SLA violations
+- If `drift_status` is `"drift"`, flag that API/SDK docs are out of sync
+- Report `quality_score` to the user
+
+### Step 3: Prioritize action items into 3 tiers
+
+Read ALL items from `action_items` array and assign each to a tier:
+
+**Tier 1 - Revenue-critical (process first):**
+
+- Items with `source_report: "drift"` (API/SDK drift detected)
+- Items with `source_report: "sla"` (SLA breaches)
+- Items with `category` in: `breaking_change`, `api_endpoint`, `authentication`
+
+**Tier 2 - Code-driven (process second):**
+
+- Items with `category` in: `signature_change`, `new_function`, `removed_function`, `webhook`, `config_option`, `env_var`, `cli_command`
+- Items with `category: "stale_doc"` (documents not updated in over 90 days)
+
+**Tier 3 - Community and search (process last):**
+
+- Items with `source_report: "gaps"` where `context.source` is `"community"` or `"search"`
+- All remaining items not matched by Tier 1 or Tier 2
+
+### Step 4: Sort within each tier
+
+Within each tier, sort items by `frequency` field descending. Items that appear more frequently in user queries or code analysis get processed first.
+
+### Step 5: Process each item in tier order
+
+Process ALL Tier 1 items first, then ALL Tier 2, then ALL Tier 3.
+
+For each item, follow this decision tree:
+
+```text
+For each action_item:
+      |
+      v
+Does an existing document cover this topic?
+  YES -> UPDATE the existing document (add section, fix drift, refresh content)
+  NO  -> Does the topic warrant a full new document?
+    YES -> CREATE new document using the correct template from templates/
+    NO  -> ADD the information to the most relevant existing document
+      |
+      v
+Select template based on suggested_doc_type:
+  tutorial    -> templates/tutorial.md    -> docs/getting-started/
+  how-to      -> templates/how-to.md     -> docs/how-to/
+  concept     -> templates/concept.md    -> docs/concepts/
+  reference   -> templates/reference.md  -> docs/reference/
+  troubleshooting -> templates/troubleshooting.md -> docs/troubleshooting/
+  quickstart  -> templates/quickstart.md -> docs/getting-started/
+  integration-guide -> templates/integration-guide.md -> docs/how-to/
+  faq         -> templates/faq.md        -> docs/reference/
+```
+
+**Special handling by source_report:**
+
+- `"drift"` items: find the reference doc that covers the changed API/SDK files and update it to match current code
+- `"sla"` items: SLA threshold breaches (quality score, stale percentage, gap count). These signal urgency -- prioritize fixing the gaps and stale docs that caused the breach
+- `"kpi"` items (stale docs): read the file in `related_files` and assess whether content is outdated. If content needs changes, update it. If content is still accurate, only update `last_reviewed` in frontmatter to today's date. Either way, the file stops being stale after `last_reviewed` is set.
+- `"gaps"` items: these are missing content -- create or update docs based on `suggested_doc_type`
+
+### Lifecycle management (deprecated and removed documents)
+
+When processing action items that involve **removed features, deprecated endpoints, or replaced functionality**, Codex MUST update the document lifecycle status:
+
+**For deprecated features:**
+
+1. Set frontmatter: `status: deprecated`, `deprecated_since: "YYYY-MM-DD"`, `replacement_url: "/path/to/new-doc"`
+1. Add a warning admonition at the top of the document body:
+
+   ```markdown
+   !!! warning "Deprecated"
+       This feature is deprecated since [date].
+       Use [new feature](/path/to/new-doc) instead.
+   ```
+
+1. Do NOT delete the document—users may still reference it
+
+**For removed features:**
+
+1. Set frontmatter: `status: removed`, `removal_date: "YYYY-MM-DD"`, `replacement_url: "/path/to/migration"`, `noindex: true`
+1. Replace the document body with a redirect notice:
+
+   ```markdown
+   !!! danger "Removed"
+       This feature was removed on [date].
+       See the [migration guide](/path/to/migration) for alternatives.
+   ```
+
+1. The `noindex: true` flag prevents search engines from indexing the page
+1. The `lifecycle_manager.py` script automatically adds CSS classes and banners for these states
+
+**When to set lifecycle status:**
+
+- Gap report says `category: "removed_function"` → set `status: removed` on the relevant doc
+- Drift report shows an endpoint was deleted from OpenAPI spec → set `status: deprecated` or `status: removed`
+- Any action_item mentions deprecation, removal, or replacement → update lifecycle accordingly
+
+### Per-document processing loop
+
+For each document (new or updated):
+
+1. Write or update content following all rules in this file
+1. **Run self-verification (MANDATORY before linting):**
+   - Execute every code block in the document and verify the output matches what is documented. If the output differs, fix the documented output to match reality.
+   - Run every shell command in the document and verify it succeeds. If a command fails, fix the command or update the documented result.
+   - Fact-check every concrete assertion: version numbers (run `tool --version`), port numbers (check `docs/_variables.yml`), file paths (verify they exist), internal links (verify target files exist), configuration values (check source configs).
+   - Replace any mismatched values with verified correct values. Use variables from `docs/_variables.yml` instead of hardcoded values.
+   - Check internal consistency: if the document says "port 5678" in one section and "port 8080" in another, fix the contradiction.
+   - Walk through the document as if you are the user following the instructions step by step. If any step is unclear, incomplete, or produces unexpected results, fix it.
+1. Run `npm run validate:minimal`
+1. If linting fails, fix the issues and re-run (max 5 retries)
+1. If all 5 retries fail, log the document as blocked and move to the next item
+1. Update `mkdocs.yml` navigation if a new document was created
+1. Log a verification summary for this document:
+
+   ```text
+   [CONS-001] configure-webhook-auth.md:
+   - Code blocks: 3 executed, 3 passed, 0 fixed
+   - Shell commands: 2 executed, 2 passed, 0 fixed
+   - Fact-checks: 5 assertions, 4 correct, 1 fixed (port 5678 -> {{ default_port }})
+   - Variables: 2 hardcoded values replaced
+   - Lint: passed on attempt 1
+   ```
+
+### After all documents are processed
+
+After processing the entire queue:
+
+1. Stage all created and modified files so the user can review with `git diff --staged`:
+
+   ```bash
+   git add docs/ mkdocs.yml
+   ```
+
+1. Produce a batch summary:
+
+   ```text
+   Consolidated report processing summary:
+   - Report: reports/consolidated_report.json
+   - Quality score: [N] | Drift: [status] | SLA: [status]
+   - Total action items: [N]
+   - Tier 1 (revenue-critical): [N] processed, [N] blocked
+   - Tier 2 (code-driven): [N] processed, [N] blocked
+   - Tier 3 (community/search): [N] processed, [N] blocked
+   - Documents created: [N]
+   - Documents updated: [N]
+   - Lint retries used: [N] total across all documents
+   - Blocked items (need manual review): [list with CONS-IDs]
+   ```
+
+1. Tell the user to review with:
+
+   ```bash
+   git diff --staged       # shows all changes including new files
+   git diff --staged --stat  # shows summary of changed files
+   ```
+
+## Code-first API documentation workflow
+
+**Use this workflow when the API code already exists and you need to generate documentation from it.**
+
+Code-first means the source code (controllers, routes, models) is the source of truth. The OpenAPI spec and reference docs are derived from the code.
+
+### 10-step code-first flow
+
+1. **Detect undocumented endpoints:**
+
+   ```bash
+   npm run gaps:code
+   ```
+
+   This runs `python3 -m scripts.gap_detection.cli code` and produces a report of endpoints found in code but missing from documentation.
+
+1. **Read the source code:**
+   - Locate controllers, routes, and model files
+   - Extract endpoint details: HTTP method, path, request body schema, response schema, authentication requirements, rate limits
+   - Note any middleware (validation, auth, logging)
+
+1. **Generate or update the OpenAPI spec:**
+   - Create or update `api/openapi.yaml` as the root spec file
+   - Use `$ref` pointers to per-resource files under `api/paths/`
+   - Place shared schemas under `api/components/schemas/`
+   - Place shared responses under `api/components/responses/`
+
+1. **Apply Stripe-quality descriptions:**
+   - Active voice, present tense
+   - Concrete examples with realistic data
+   - Every parameter has a description and example
+   - Every response code has a description and example body
+   - Follow all rules from the "OpenAPI spec quality rules" section below
+
+1. **Organize for maintainability:**
+
+   ```text
+   api/
+     openapi.yaml              # Root spec with $ref to paths and components
+     paths/
+       users.yaml              # /users endpoints
+       orders.yaml             # /orders endpoints
+       webhooks.yaml           # /webhooks endpoints
+     components/
+       schemas/
+         User.yaml
+         Order.yaml
+         Error.yaml
+       responses/
+         NotFound.yaml
+         Unauthorized.yaml
+         ValidationError.yaml
+   ```
+
+1. **Use discriminator for polymorphic types:**
+   - Add `discriminator` with `propertyName` for union types
+   - Use `allOf` with a base `$ref` for inheritance hierarchies
+
+1. **Test against real endpoints:**
+   - Send actual HTTP requests to the running API
+   - Compare response status codes, headers, and body shapes against the spec
+   - Fix any mismatches in the spec
+
+1. **Compare responses with spec descriptions:**
+   - Verify that every field in the actual response appears in the schema
+   - Verify that example values match realistic data types
+   - Fix discrepancies in the spec, not in the code
+
+1. **Run Spectral lint:**
+
+   ```bash
+   npx spectral lint api/openapi.yaml --ruleset .spectral.yml
+   ```
+
+   The spec MUST pass with zero errors and zero warnings. See the "OpenAPI spec quality rules" section for all 18 rules.
+
+1. **Update reference docs and build:**
+    - Generate or update reference docs using `templates/api-reference.md`
+    - Run `npm run validate:minimal` on all changed docs
+    - Run `npm run build` to verify the full site builds
+
+**Key difference from API-first:** In code-first, you test against real running endpoints. You do NOT use a Prism mock server. Prism is only for the API-first workflow when code does not exist yet.
+
+## API-first documentation workflow
+
+**Use this workflow when you are designing a new API from scratch (no code exists yet).**
+
+API-first means the OpenAPI specification is written first, and code is generated from it. The spec is the single source of truth.
+
+### 11-step API-first flow
+
+1. **Parse the user brief:**
+   - Extract resources (nouns: users, orders, payments)
+   - Extract operations (verbs: create, list, update, delete)
+   - Extract schemas (data shapes, required fields, validation rules)
+   - Extract constraints (authentication, rate limits, pagination)
+
+1. **Map operations to HTTP methods:**
+
+   | Operation | HTTP method | Path pattern | Success code |
+   | --- | --- | --- | --- |
+   | Create | POST | `/resources` | 201 |
+   | List | GET | `/resources` | 200 |
+   | Get one | GET | `/resources/{id}` | 200 |
+   | Update (full) | PUT | `/resources/{id}` | 200 |
+   | Update (partial) | PATCH | `/resources/{id}` | 200 |
+   | Delete | DELETE | `/resources/{id}` | 204 |
+
+1. **Generate the root OpenAPI spec:**
+   - Create `api/openapi.yaml` with full `info` block (title, description, version, contact, license)
+   - Set `servers` array with at least mock and production URLs
+   - Define `security` schemes (Bearer token, API key, OAuth2)
+
+1. **Create per-resource path files:**
+   - One file per resource under `api/paths/`
+   - Use `$ref` from root spec to each path file
+   - Apply `discriminator` for polymorphic types
+   - Use `allOf` for inheritance
+
+1. **Apply all quality rules:**
+   - Follow every rule from the "OpenAPI spec quality rules" section below
+   - Every operation has `operationId`, `summary`, `description`, `tags`
+   - Every parameter has `description`, `example`, explicit `required`
+   - Every schema property has `description`, `type`, `example`
+   - All possible response codes are defined (200/201, 400, 401, 403, 404, 409, 429, 500)
+
+1. **Generate endpoint code with OpenAPI Generator:**
+   - Use the GitHub Actions workflow `.github/workflows/api-first-scaffold.yml`
+   - Or run locally with Docker:
+
+     ```bash
+     docker run --rm -v "${PWD}:/local" \
+       openapitools/openapi-generator-cli:v7.7.0 generate \
+       -i /local/api/openapi.yaml \
+       -g typescript-express-server \
+       -o /local/generated/server
+     ```
+
+   - Generate client SDK:
+
+     ```bash
+     docker run --rm -v "${PWD}:/local" \
+       openapitools/openapi-generator-cli:v7.7.0 generate \
+       -i /local/api/openapi.yaml \
+       -g typescript-axios \
+       -o /local/generated/client
+     ```
+
+1. **Deploy a Prism mock server:**
+
+   ```bash
+   npm run api:sandbox:mock
+   ```
+
+   This starts a Prism mock server using `docker-compose.api-sandbox.yml` that serves realistic responses based on the spec examples.
+
+1. **Test all endpoints against the mock:**
+   - Send requests to each endpoint
+   - Verify response status codes match the spec
+   - Verify response body shapes match schema definitions
+   - Verify example values are realistic and consistent
+
+1. **Fix discrepancies:**
+   - If mock responses do not match spec expectations, fix the spec
+   - Re-run Prism to confirm fixes
+   - Stop the mock server when done: `npm run api:sandbox:stop`
+
+1. **Run Spectral lint and all doc linters:**
+
+    ```bash
+    npx spectral lint api/openapi.yaml --ruleset .spectral.yml
+    npm run validate:minimal
+    ```
+
+    Both MUST pass with zero errors and zero warnings.
+
+1. **Generate reference docs, build, and publish:**
+    - Generate reference docs using `templates/api-reference.md` template
+    - Update `mkdocs.yml` navigation
+    - Run `npm run build` to verify the full site builds
+    - Create a pull request with all changes
+
+## Interactive diagrams
+
+**When a document describes system architecture, data flow, or multi-component interactions, Codex MUST generate an interactive HTML diagram instead of a static Mermaid block.**
+
+Interactive diagrams have clickable components with description panels. They look professional and provide a better experience than static images or basic Mermaid flowcharts.
+
+### When to create an interactive diagram
+
+This applies to **any document type** (how-to, concept, reference, troubleshooting, tutorial) whenever the content describes something multi-component:
+
+- Architecture overviews (system components, infrastructure layers)
+- Data flow diagrams (request lifecycle, event processing pipelines)
+- Integration diagrams (how services connect to each other)
+- Deployment diagrams (infrastructure topology)
+- Troubleshooting: request path through multiple services
+- How-to: multi-service setup or configuration
+- Reference: API gateway routing, webhook delivery chain
+- Concept: microservices communication, queue processing
+
+**Rule: if the content describes 6+ interacting components or multiple layers, create an interactive diagram regardless of document type.** For simple linear flows (3-5 steps), a Mermaid diagram is sufficient.
+
+### How to create an interactive diagram
+
+1. Copy the template: `cp templates/interactive-diagram.html docs/diagrams/[name].html`
+1. Edit the HTML structure: add/remove layers and components (the `<!-- EDIT THIS SECTION -->` comments mark editable areas)
+1. Edit the `descriptions` object in the `<script>` section. Every component MUST have a rich description that appears in the info panel when the user clicks on it:
+   - `title`: Component name with context (for example, "PostgreSQL Database" not just "Database")
+   - `desc`: 2-3 sentences with concrete metrics, specific technologies, and how this component connects to others. Write as if explaining to an engineer who needs to understand the system in 30 seconds.
+   - `tags`: 3-5 technology tags (frameworks, protocols, key specs)
+
+   **Good description:**
+
+   ```
+   "Primary database with 2 read replicas. Handles 8,500 queries/sec
+   (peak: 12,000). Uses PgBouncer connection pooling (max 500 connections).
+   Automated daily backups with 30-day retention and point-in-time recovery."
+   ```
+
+   **Bad description:**
+
+   ```
+   "The database stores data."
+   ```
+
+1. Each component needs a `data-id` attribute that matches a key in `descriptions`
+1. Embed in the Markdown document using iframe:
+
+**MkDocs embedding:**
+
+```markdown
+<div class="interactive-diagram" markdown>
+<iframe src="../diagrams/[name].html"></iframe>
+</div>
+```
+
+The `docs/stylesheets/diagrams.css` handles responsive sizing and styling automatically.
+
+**Docusaurus embedding (in MDX files):**
+
+```jsx
+import InteractiveDiagram from '@site/src/components/InteractiveDiagram';
+
+<InteractiveDiagram src="/diagrams/[name].html" title="System architecture" />
+```
+
+### Diagram template structure
+
+The template (`templates/interactive-diagram.html`) has:
+
+- Dark theme with CSS custom properties (easy to rebrand)
+- Layers with labeled groups (Clients, Edge, Gateway, Services, Data)
+- Clickable components with icon, name, and metric
+- Animated arrows between layers
+- Info panel that shows title, description, and technology tags on click
+- Responsive design (works on mobile)
+
+### Files
+
+| File | Purpose |
+| --- | --- |
+| `templates/interactive-diagram.html` | Template for new diagrams |
+| `docs/diagrams/` | Directory for diagram HTML files |
+| `docs/stylesheets/diagrams.css` | CSS for iframe embedding in MkDocs |
+| `docusaurus/src/components/InteractiveDiagram.jsx` | React wrapper for Docusaurus |
+
+## OpenAPI spec quality rules
+
+**Every OpenAPI spec in this project MUST meet Stripe-quality standards. These rules apply to both code-first and API-first workflows.**
+
+### Operation rules
+
+| Field | Rule | Example |
+| --- | --- | --- |
+| `operationId` | Required, camelCase, unique across spec | `listUsers`, `createOrder` |
+| `summary` | Required, imperative mood, under 80 characters | `List all users`, `Create an order` |
+| `description` | Required, 2-4 sentences, active voice, present tense | Explains what the endpoint does, when to use it, and what it returns |
+| `tags` | Required, one tag per operation, PascalCase resource name | `Users`, `Orders`, `Webhooks` |
+
+### Parameter rules
+
+Every parameter (path, query, header) MUST have:
+
+- `description`: What the parameter does, in active voice
+- `example`: A realistic example value (not "string" or "123")
+- `required`: Explicitly set to `true` or `false` (do not rely on defaults)
+
+### Schema property rules
+
+Every property in every schema MUST have:
+
+- `description`: What the property represents
+- `type`: The data type (`string`, `integer`, `boolean`, `array`, `object`)
+- `example`: A realistic example value
+
+Use `$ref` to reference shared schemas. Do not duplicate schema definitions.
+
+### Response rules
+
+Every operation MUST define these response codes where applicable:
+
+| Status code | When to use | Required |
+| --- | --- | --- |
+| `200` | Successful GET, PUT, PATCH | Yes for those methods |
+| `201` | Successful POST (resource created) | Yes for POST |
+| `204` | Successful DELETE (no content) | Yes for DELETE |
+| `400` | Validation error, malformed request | Yes for all |
+| `401` | Missing or invalid authentication | Yes for all authenticated endpoints |
+| `403` | Authenticated but not authorized | Yes if authorization differs from authentication |
+| `404` | Resource not found | Yes for endpoints with path parameters |
+| `409` | Conflict (duplicate resource) | Yes for POST if uniqueness constraints exist |
+| `429` | Rate limit exceeded | Yes if rate limiting is enabled |
+| `500` | Internal server error | Yes for all |
+
+Every response MUST include an `example` body.
+
+### Polymorphism rules
+
+- Use `discriminator` with `propertyName` to distinguish union types
+- Define subtypes using `allOf` with a base schema `$ref`
+- Document the discriminator field in the base schema description
+
+### File organization
+
+```text
+api/
+  openapi.yaml                    # Root spec - $ref to paths and components
+  paths/
+    users.yaml                    # All /users endpoints
+    orders.yaml                   # All /orders endpoints
+  components/
+    schemas/
+      User.yaml                   # User schema
+      Order.yaml                  # Order schema
+      Error.yaml                  # Shared error schema
+    responses/
+      NotFound.yaml               # 404 response
+      Unauthorized.yaml           # 401 response
+      ValidationError.yaml        # 400 response
+```
+
+### Spectral lint rules
+
+The `.spectral.yml` configuration extends `spectral:oas` and enforces these 18 rules:
+
+**Inherited rules (from spectral:oas):**
+
+| Rule | Severity | What it checks |
+| --- | --- | --- |
+| `operation-description` | warn | Every operation has a description |
+| `operation-operationId` | error | Every operation has an operationId |
+| `operation-tags` | warn | Every operation has at least one tag |
+| `info-contact` | warn | The info object has contact information |
+| `info-description` | error | The info object has a description |
+| `info-license` | off | License information (disabled) |
+| `no-eval-in-markdown` | error | No eval() in Markdown descriptions |
+| `no-script-tags-in-markdown` | error | No script tags in Markdown descriptions |
+| `path-params` | error | Path parameters match path template |
+| `typed-enum` | warn | Enum values match the declared type |
+| `operation-success-response` | error | Every operation has a success response |
+| `path-keys-no-trailing-slash` | error | Paths do not end with a slash |
+| `path-not-include-query` | error | Paths do not include query strings |
+
+**Custom rules (project-specific):**
+
+| Rule | Severity | What it checks |
+| --- | --- | --- |
+| `parameter-description` | error | Every parameter has a description |
+| `schema-properties-example` | warn | Schema properties have example values |
+
+**Target: zero errors AND zero warnings.**
+
+## Full SEO and GEO optimization rules
+
+**These are the exact 22 checks (8 GEO + 14 SEO) enforced by `scripts/seo_geo_optimizer.py`. Every document MUST pass all of them.**
+
+### GEO rules (LLM and AI search optimization)
+
+GEO rules optimize documents for retrieval by large language models and AI-powered search engines.
+
+**Configuration constants:**
+
+```python
+GEO_RULES = {
+    "first_para_max_words": 60,
+    "max_words_without_fact": 200,
+    "meta_desc_min_chars": 50,
+    "meta_desc_max_chars": 160,
+    "min_heading_words": 3,
+    "generic_headings": [
+        "overview", "introduction", "configuration", "setup",
+        "details", "information", "general", "notes", "summary"
+    ],
+    "definition_patterns": [
+        r"\bis\b", r"\benables?\b", r"\bprovides?\b", r"\ballows?\b",
+        r"\bcreates?\b", r"\bprocesses?\b", r"\bexecutes?\b"
+    ],
+    "fact_patterns": [
+        r"\d+", r"`[^`]+`", r"\bdefault\b", r"\bport\b",
+        r"\bversion\b", r"\bMB\b", r"\bGB\b", r"\bms\b",
+        r"```", r"\bhttp[s]?://\b"
+    ]
+}
+```
+
+**All 8 GEO checks:**
+
+| ID | Rule name | Severity | Threshold | What it checks |
+| --- | --- | --- | --- | --- |
+| GEO-1 | `meta-description-missing` | error | Must exist | Frontmatter `description` field is present |
+| GEO-1b | `meta-description-short` | warning | Min 50 characters | Description is not too short for search snippets |
+| GEO-1c | `meta-description-long` | warning | Max 160 characters | Description is not too long (gets truncated in search) |
+| GEO-2 | `first-paragraph-too-long` | warning | Max 60 words | First paragraph is concise enough for LLM extraction |
+| GEO-3 | `first-paragraph-no-definition` | suggestion | Must contain: is, enables, provides, allows, creates, processes, or executes | First paragraph contains an explicit definition pattern |
+| GEO-4 | `heading-generic` | warning | Not in banned list | Headings are descriptive, not generic (banned: overview, introduction, configuration, setup, details, information, general, notes, summary) |
+| GEO-5 | `heading-hierarchy-skip` | error | No skipping levels | Heading levels do not skip (H2 to H4 is invalid) |
+| GEO-6 | `low-fact-density` | warning | Max 200 words between facts | Content includes concrete facts (numbers, code, config values) at least every 200 words |
+
+### SEO rules (search engine optimization)
+
+SEO rules optimize documents for traditional search engines (Google, Bing).
+
+**Configuration constants:**
+
+```python
+SEO_RULES = {
+    "title_min_chars": 10,
+    "title_max_chars": 70,
+    "max_url_depth": 4,
+    "min_internal_links": 1,
+    "max_image_without_alt_pct": 0,
+    "min_content_words": 100,
+    "max_line_length_for_mobile": 120,
+}
+```
+
+**All 14 SEO checks:**
+
+| ID | Rule name | Severity | Threshold | What it checks |
+| --- | --- | --- | --- | --- |
+| SEO-01 | `seo-title-missing` / `seo-title-short` / `seo-title-long` | error / warning / warning | 10-70 characters | Title exists and is within optimal length |
+| SEO-02 | `seo-title-keyword-mismatch` | suggestion | 50% overlap | Title contains keywords from the filename |
+| SEO-03 | `seo-url-depth` | warning | Max 4 levels | File path depth does not exceed 4 levels |
+| SEO-04 | `seo-url-naming` | warning | Kebab-case only | Filename uses lowercase with hyphens (no underscores or uppercase) |
+| SEO-05 | `seo-img-no-alt` | warning | 0% without alt | Every image has alt text |
+| SEO-06 | `seo-low-internal-links` | suggestion | Min 1 internal link | Document has at least 1 internal cross-reference |
+| SEO-07 | `seo-bare-url` | warning | Zero bare URLs | All URLs use `[descriptive text](url)` format |
+| SEO-08 | `seo-path-special-chars` | warning | No special characters | Filename contains only alphanumeric characters and hyphens |
+| SEO-09 | `seo-long-lines` | warning | Max 120 characters, max 5 violations | Lines outside code blocks do not exceed 120 characters |
+| SEO-10 | `seo-heading-keyword-gap` | suggestion | At least 1 shared keyword | H2 headings share at least one keyword with the title |
+| SEO-11 | `seo-no-freshness` | suggestion | Must exist | Frontmatter contains `last_reviewed` or `date` field |
+| SEO-12 | `seo-thin-content` | warning | Min 100 words | Document has at least 100 words of content |
+| SEO-13 | `seo-duplicate-heading` | warning | Zero duplicates | No two headings have the same text |
+| SEO-14 | `seo-no-structured-data` | suggestion | At least 1 element | Document contains structured data markup (tables, code blocks, or lists) |

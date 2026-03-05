@@ -313,7 +313,7 @@ export function LifecycleBanner() {
 </html>'''
 
                 # Save redirect page
-                old_path = Path(page['file']).relative_to('docs')
+                old_path = Path(page['file']).relative_to(self.docs_dir)
                 redirect_path = redirects_dir / old_path.with_suffix('.html')
                 redirect_path.parent.mkdir(parents=True, exist_ok=True)
                 redirect_path.write_text(redirect_html)

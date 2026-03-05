@@ -11,7 +11,8 @@ on:
         type: string
 
 permissions:
-  contents: read
+  contents: write
+  issues: write
 
 jobs:
   generate-release-pack:
@@ -46,8 +47,36 @@ jobs:
             --version "${{ steps.version.outputs.value }}" \
             --output reports/release-docs-pack.md
 
+      - name: Commit release docs pack
+        run: |
+          git config --local user.email "github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "github-actions[bot]"
+          git add reports/release-docs-pack.md
+          git diff --staged --quiet || git commit -m "docs: release pack for ${{ steps.version.outputs.value }} [skip ci]"
+          git push
+
       - name: Upload release docs artifact
         uses: actions/upload-artifact@v4
         with:
           name: release-docs-pack
           path: reports/release-docs-pack.md
+
+      - name: Create issue for release documentation
+        if: steps.version.outputs.value != ''
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require('fs');
+            const version = '${{ steps.version.outputs.value }}';
+            const packPath = 'reports/release-docs-pack.md';
+            const pack = fs.existsSync(packPath)
+              ? fs.readFileSync(packPath, 'utf8').substring(0, 3000)
+              : 'Release docs pack was generated but could not be read.';
+
+            await github.rest.issues.create({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              title: `Release ${version}: update documentation`,
+              body: `## Release ${version} documentation\n\nA release docs pack has been generated.\n\n### Next steps\n1. \`git pull\` to get \`reports/release-docs-pack.md\`\n2. Open Claude Code and say: "Update docs for release ${version} based on reports/release-docs-pack.md"\n\n### Pack preview\n\n${pack}`,
+              labels: ['documentation', 'auto-created', 'release']
+            });

@@ -1,5 +1,6 @@
 #!/bin/sh
-# Pre-commit hook: runs all documentation quality checks
+# Pre-commit hook: runs ALL documentation quality checks and shows ALL errors at once.
+# Collects failures from every linter, then blocks the commit if any failed.
 # Install: npx husky install && npx husky add .husky/pre-commit "sh .husky/pre-commit"
 
 echo "Running documentation quality checks..."
@@ -17,7 +18,14 @@ fi
 
 echo "Checking files: $STAGED_MD"
 
-# 1. Vale (style check)
+# Split staged files into English and non-English for locale-aware linting.
+# Vale and cspell run only on English docs; markdownlint and frontmatter run on all.
+STAGED_EN=$(echo "$STAGED_MD" | grep -v -E '^docs/(ru|de|fr|es|zh|ja|ko|pt)/' || true)
+STAGED_NON_EN=$(echo "$STAGED_MD" | grep -E '^docs/(ru|de|fr|es|zh|ja|ko|pt)/' || true)
+
+# Track failures across all checks
+FAILED=""
+
 # 0. Spectral (API specs) - runs first, independent of Markdown
 echo ""
 echo "0/6 Spectral (API specs)..."
@@ -27,8 +35,7 @@ if [ -n "$STAGED_API" ]; then
             echo "  Validating: $file"
             spectral lint "$file" --ruleset .spectral.yml
             if [ $? -ne 0 ]; then
-                echo "Spectral found API spec issues in $file"
-                exit 1
+                FAILED="$FAILED spectral"
             fi
         done
     else
@@ -38,13 +45,15 @@ else
     echo "No API spec files staged. Skipping."
 fi
 
+# 1. Vale (style check)
 echo ""
 echo "1/6 Vale (style)..."
 if command -v vale &> /dev/null; then
+    # Vale runs on all files but .vale.ini applies GEO-only rules
+    # for non-English locales automatically via glob overrides.
     vale $STAGED_MD
     if [ $? -ne 0 ]; then
-        echo "Vale found style issues. Fix them or use 'git commit --no-verify' to skip."
-        exit 1
+        FAILED="$FAILED vale"
     fi
 else
     echo "Vale not installed. Skipping style check."
@@ -56,21 +65,26 @@ echo "2/6 markdownlint (formatting)..."
 if command -v markdownlint &> /dev/null; then
     markdownlint $STAGED_MD
     if [ $? -ne 0 ]; then
-        echo "markdownlint found formatting issues."
-        exit 1
+        FAILED="$FAILED markdownlint"
     fi
 else
     echo "markdownlint not installed. Skipping."
 fi
 
-# 3. cspell (spelling)
+# 3. cspell (spelling) -- English docs only
 echo ""
 echo "3/6 cspell (spelling)..."
 if command -v cspell &> /dev/null; then
-    cspell --no-progress $STAGED_MD
-    if [ $? -ne 0 ]; then
-        echo "cspell found spelling errors."
-        exit 1
+    if [ -n "$STAGED_EN" ]; then
+        cspell --no-progress $STAGED_EN
+        if [ $? -ne 0 ]; then
+            FAILED="$FAILED cspell"
+        fi
+    else
+        echo "No English docs staged. Skipping spell check."
+    fi
+    if [ -n "$STAGED_NON_EN" ]; then
+        echo "  (Skipped spell check for non-English: $STAGED_NON_EN)"
     fi
 else
     echo "cspell not installed. Skipping."
@@ -82,8 +96,7 @@ echo "4/6 Frontmatter validation..."
 if [ -f "scripts/validate_frontmatter.py" ]; then
     python scripts/validate_frontmatter.py
     if [ $? -ne 0 ]; then
-        echo "Frontmatter validation failed."
-        exit 1
+        FAILED="$FAILED frontmatter"
     fi
 else
     echo "validate_frontmatter.py not found. Skipping."
@@ -96,14 +109,24 @@ if [ -f "scripts/geo_lint.py" ]; then
     for file in $STAGED_MD; do
         python scripts/geo_lint.py "$file"
         if [ $? -ne 0 ]; then
-            echo "GEO lint found issues in $file"
-            exit 1
+            FAILED="$FAILED geo-lint"
         fi
     done
 else
     echo "geo_lint.py not found. Skipping."
 fi
 
+# Final verdict
 echo ""
+if [ -n "$FAILED" ]; then
+    echo "============================================"
+    echo "  COMMIT BLOCKED: quality checks failed"
+    echo "============================================"
+    echo "  Failed checks:$FAILED"
+    echo "  Fix all issues above, then commit again."
+    echo "============================================"
+    exit 1
+fi
+
 echo "All checks passed!"
 exit 0

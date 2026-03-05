@@ -1,6 +1,6 @@
 site_name: "Documentation (Pipeline Demo)"
 site_description: "Automated documentation pipeline with GEO optimization and faceted search"
-site_url: "https://YOUR_USERNAME.github.io/auto-doc-pipeline/"
+site_url: "https://yevheniiadolska.github.io/automated-docs-pipeline/"
 
 theme:
   name: material
@@ -36,13 +36,25 @@ theme:
   icon:
     repo: fontawesome/brands/github
 
-repo_url: https://github.com/YOUR_USERNAME/auto-doc-pipeline
-repo_name: auto-doc-pipeline
+repo_url: https://github.com/YevheniiaDolska/automated-docs-pipeline
+repo_name: automated-docs-pipeline
 edit_uri: edit/main/docs/
 
 plugins:
   - search:
       enabled: false
+  - i18n:
+      docs_structure: folder
+      fallback_to_default: true
+      languages:
+        - locale: en
+          default: true
+          name: English
+          build: true
+        - locale: ru
+          default: false
+          name: Russian
+          build: true
   - tags
   - meta-descriptions
   - macros:
@@ -95,6 +107,7 @@ nav:
 
 extra_css:
   - stylesheets/lifecycle.css
+  - stylesheets/diagrams.css
 
 extra_javascript:
   - assets/javascripts/faceted-search.js

@@ -1,0 +1,207 @@
+{
+  "generated_at": "2026-03-02T16:46:39.868303",
+  "total_tasks": 10,
+  "tasks": [
+    {
+      "id": "DOC-001",
+      "gap_id": "CODE-0003",
+      "title": "Authentication: authentication: Auth",
+      "doc_type": "how-to",
+      "category": "authentication",
+      "priority": "high",
+      "output_path": "docs/how-to/authentication-auth.md",
+      "template_name": "how-to.md",
+      "context": {
+        "title": "Authentication: authentication: Auth",
+        "description": "Update authentication documentation for changes in FULL_IMPLEMENTATION_START_HERE.md. Include security considerations.",
+        "category": "authentication",
+        "keywords": [],
+        "sample_queries": [],
+        "action_required": "Update authentication documentation for changes in FULL_IMPLEMENTATION_START_HERE.md. Include security considerations.",
+        "source": "code"
+      },
+      "status": "pending"
+    },
+    {
+      "id": "DOC-002",
+      "gap_id": "CODE-0005",
+      "title": "Database Schema: database_schema: migration",
+      "doc_type": "how-to",
+      "category": "database_schema",
+      "priority": "high",
+      "output_path": "docs/how-to/database-schema-database-schema-migration.md",
+      "template_name": "how-to.md",
+      "context": {
+        "title": "Database Schema: database_schema: migration",
+        "description": "Document database schema change in PILOT_VS_FULL_IMPLEMENTATION.md. Update data model documentation.",
+        "category": "database_schema",
+        "keywords": [],
+        "sample_queries": [],
+        "action_required": "Document database schema change in PILOT_VS_FULL_IMPLEMENTATION.md. Update data model documentation.",
+        "source": "code"
+      },
+      "status": "pending"
+    },
+    {
+      "id": "DOC-003",
+      "gap_id": "CODE-0100",
+      "title": "Removed Function: Function removed: if",
+      "doc_type": "how-to",
+      "category": "removed_function",
+      "priority": "high",
+      "output_path": "docs/how-to/removed-function-function-removed-if.md",
+      "template_name": "how-to.md",
+      "context": {
+        "title": "Removed Function: Function removed: if",
+        "description": "BREAKING: Function if was removed. Update documentation and add migration guide.",
+        "category": "removed_function",
+        "keywords": [],
+        "sample_queries": [],
+        "action_required": "BREAKING: Function if was removed. Update documentation and add migration guide.",
+        "source": "code"
+      },
+      "status": "pending"
+    },
+    {
+      "id": "DOC-004",
+      "gap_id": "CODE-0188",
+      "title": "Signature Change: Function signature changed: print",
+      "doc_type": "how-to",
+      "category": "signature_change",
+      "priority": "high",
+      "output_path": "docs/how-to/signature-change-function-signature-changed-print.md",
+      "template_name": "how-to.md",
+      "context": {
+        "title": "Signature Change: Function signature changed: print",
+        "description": "UPDATE REQUIRED: Function print signature changed. Old: (f\"Found {result['nbHits']} results for 'webhook'\") → New: (f\"Found {nb_hits} results for 'webhook'\"). Update documentation and examples.",
+        "category": "signature_change",
+        "keywords": [],
+        "sample_queries": [],
+        "action_required": "UPDATE REQUIRED: Function print signature changed. Old: (f\"Found {result['nbHits']} results for 'webhook'\") → New: (f\"Found {nb_hits} results for 'webhook'\"). Update documentation and examples.",
+        "source": "code"
+      },
+      "status": "pending"
+    },
+    {
+      "id": "DOC-005",
+      "gap_id": "CODE-0015",
+      "title": "New Function: New function: print",
+      "doc_type": "how-to",
+      "category": "new_function",
+      "priority": "medium",
+      "output_path": "docs/how-to/new-function-new-function-print.md",
+      "template_name": "how-to.md",
+      "context": {
+        "title": "New Function: New function: print",
+        "description": "Document new function: print. Include parameters, return value, and usage example.",
+        "category": "new_function",
+        "keywords": [],
+        "sample_queries": [],
+        "action_required": "Document new function: print. Include parameters, return value, and usage example.",
+        "source": "code"
+      },
+      "status": "pending"
+    },
+    {
+      "id": "DOC-006",
+      "gap_id": "CODE-0001",
+      "title": "Webhook: webhook: webhook",
+      "doc_type": "how-to",
+      "category": "webhook",
+      "priority": "medium",
+      "output_path": "docs/how-to/webhook-webhook.md",
+      "template_name": "how-to.md",
+      "context": {
+        "title": "webhook: webhook",
+        "description": "Update webhook documentation for changes in FULL_IMPLEMENTATION_START_HERE.md. Include payload examples and event types.",
+        "category": "webhook",
+        "keywords": [],
+        "sample_queries": [],
+        "action_required": "Update webhook documentation for changes in FULL_IMPLEMENTATION_START_HERE.md. Include payload examples and event types.",
+        "source": "code"
+      },
+      "status": "pending"
+    },
+    {
+      "id": "DOC-007",
+      "gap_id": "CODE-0141",
+      "title": "Public Function: public_function: seo_validate_file",
+      "doc_type": "reference",
+      "category": "public_function",
+      "priority": "medium",
+      "output_path": "docs/reference/public-function-public-function-seo-validate-file.md",
+      "template_name": "reference.md",
+      "context": {
+        "title": "Public Function: public_function: seo_validate_file",
+        "description": "Consider documenting public API: seo_validate_file. Include parameters, return value, and example usage.",
+        "category": "public_function",
+        "keywords": [],
+        "sample_queries": [],
+        "action_required": "Consider documenting public API: seo_validate_file. Include parameters, return value, and example usage.",
+        "source": "code"
+      },
+      "status": "pending"
+    },
+    {
+      "id": "DOC-008",
+      "gap_id": "CODE-0008",
+      "title": "Config Option: config_option: local",
+      "doc_type": "reference",
+      "category": "config_option",
+      "priority": "medium",
+      "output_path": "docs/reference/config-option-config-option-local.md",
+      "template_name": "reference.md",
+      "context": {
+        "title": "Config Option: config_option: local",
+        "description": "Document configuration option: local. Include allowed values and when to use.",
+        "category": "config_option",
+        "keywords": [],
+        "sample_queries": [],
+        "action_required": "Document configuration option: local. Include allowed values and when to use.",
+        "source": "code"
+      },
+      "status": "pending"
+    },
+    {
+      "id": "DOC-009",
+      "gap_id": "CODE-0189",
+      "title": "Env Var: env_var: ALGOLIA_INDEX_NAME",
+      "doc_type": "reference",
+      "category": "env_var",
+      "priority": "medium",
+      "output_path": "docs/reference/env-var-env-var-algolia-index-name.md",
+      "template_name": "reference.md",
+      "context": {
+        "title": "Env Var: env_var: ALGOLIA_INDEX_NAME",
+        "description": "Add environment variable ALGOLIA_INDEX_NAME to configuration reference. Include default value, description, and examples.",
+        "category": "env_var",
+        "keywords": [],
+        "sample_queries": [],
+        "action_required": "Add environment variable ALGOLIA_INDEX_NAME to configuration reference. Include default value, description, and examples.",
+        "source": "code"
+      },
+      "status": "pending"
+    },
+    {
+      "id": "DOC-010",
+      "gap_id": "CODE-0497",
+      "title": "Error Handling: error_handling: FileNotFoundError",
+      "doc_type": "how-to",
+      "category": "error_handling",
+      "priority": "medium",
+      "output_path": "docs/how-to/error-handling-error-handling-filenotfounderror.md",
+      "template_name": "how-to.md",
+      "context": {
+        "title": "Error Handling: error_handling: FileNotFoundError",
+        "description": "Document new error type: FileNotFoundError. Include cause, solution, and error code.",
+        "category": "error_handling",
+        "keywords": [],
+        "sample_queries": [],
+        "action_required": "Document new error type: FileNotFoundError. Include cause, solution, and error code.",
+        "source": "code"
+      },
+      "status": "pending"
+    }
+  ],
+  "claude_prompt": "# Documentation Generation Tasks\n\nGenerate the following documentation files based on the gap analysis.\nFollow these rules:\n\n1. Use the templates in `./templates/` directory\n2. Follow frontmatter schema from `docs-schema.yml`\n3. Keep descriptions 50-160 characters for SEO\n4. First paragraph must be <60 words with a clear definition\n5. Use concrete examples and code samples\n6. Don't use words like 'simple', 'easy', 'just'\n\n## Tasks\n\n### DOC-001: Authentication: authentication: Auth\n- **Type**: how-to\n- **Priority**: high\n- **Output**: `docs/how-to/authentication-auth.md`\n- **Template**: `templates/how-to.md`\n- **Category**: authentication\n\n**Context**: Update authentication documentation for changes in FULL_IMPLEMENTATION_START_HERE.md. Include security considerations.\n\n**Keywords**: \n\n**Sample questions from users**:\n\n---\n\n### DOC-002: Database Schema: database_schema: migration\n- **Type**: how-to\n- **Priority**: high\n- **Output**: `docs/how-to/database-schema-database-schema-migration.md`\n- **Template**: `templates/how-to.md`\n- **Category**: database_schema\n\n**Context**: Document database schema change in PILOT_VS_FULL_IMPLEMENTATION.md. Update data model documentation.\n\n**Keywords**: \n\n**Sample questions from users**:\n\n---\n\n### DOC-003: Removed Function: Function removed: if\n- **Type**: how-to\n- **Priority**: high\n- **Output**: `docs/how-to/removed-function-function-removed-if.md`\n- **Template**: `templates/how-to.md`\n- **Category**: removed_function\n\n**Context**: BREAKING: Function if was removed. Update documentation and add migration guide.\n\n**Keywords**: \n\n**Sample questions from users**:\n\n---\n\n### DOC-004: Signature Change: Function signature changed: print\n- **Type**: how-to\n- **Priority**: high\n- **Output**: `docs/how-to/signature-change-function-signature-changed-print.md`\n- **Template**: `templates/how-to.md`\n- **Category**: signature_change\n\n**Context**: UPDATE REQUIRED: Function print signature changed. Old: (f\"Found {result['nbHits']} results for 'webhook'\") → New: (f\"Found {nb_hits} results for 'webhook'\"). Update documentation and examples.\n\n**Keywords**: \n\n**Sample questions from users**:\n\n---\n\n### DOC-005: New Function: New function: print\n- **Type**: how-to\n- **Priority**: medium\n- **Output**: `docs/how-to/new-function-new-function-print.md`\n- **Template**: `templates/how-to.md`\n- **Category**: new_function\n\n**Context**: Document new function: print. Include parameters, return value, and usage example.\n\n**Keywords**: \n\n**Sample questions from users**:\n\n---\n\n### DOC-006: Webhook: webhook: webhook\n- **Type**: how-to\n- **Priority**: medium\n- **Output**: `docs/how-to/webhook-webhook.md`\n- **Template**: `templates/how-to.md`\n- **Category**: webhook\n\n**Context**: Update webhook documentation for changes in FULL_IMPLEMENTATION_START_HERE.md. Include payload examples and event types.\n\n**Keywords**: \n\n**Sample questions from users**:\n\n---\n\n### DOC-007: Public Function: public_function: seo_validate_file\n- **Type**: reference\n- **Priority**: medium\n- **Output**: `docs/reference/public-function-public-function-seo-validate-file.md`\n- **Template**: `templates/reference.md`\n- **Category**: public_function\n\n**Context**: Consider documenting public API: seo_validate_file. Include parameters, return value, and example usage.\n\n**Keywords**: \n\n**Sample questions from users**:\n\n---\n\n### DOC-008: Config Option: config_option: local\n- **Type**: reference\n- **Priority**: medium\n- **Output**: `docs/reference/config-option-config-option-local.md`\n- **Template**: `templates/reference.md`\n- **Category**: config_option\n\n**Context**: Document configuration option: local. Include allowed values and when to use.\n\n**Keywords**: \n\n**Sample questions from users**:\n\n---\n\n### DOC-009: Env Var: env_var: ALGOLIA_INDEX_NAME\n- **Type**: reference\n- **Priority**: medium\n- **Output**: `docs/reference/env-var-env-var-algolia-index-name.md`\n- **Template**: `templates/reference.md`\n- **Category**: env_var\n\n**Context**: Add environment variable ALGOLIA_INDEX_NAME to configuration reference. Include default value, description, and examples.\n\n**Keywords**: \n\n**Sample questions from users**:\n\n---\n\n### DOC-010: Error Handling: error_handling: FileNotFoundError\n- **Type**: how-to\n- **Priority**: medium\n- **Output**: `docs/how-to/error-handling-error-handling-filenotfounderror.md`\n- **Template**: `templates/how-to.md`\n- **Category**: error_handling\n\n**Context**: Document new error type: FileNotFoundError. Include cause, solution, and error code.\n\n**Keywords**: \n\n**Sample questions from users**:\n\n---\n\n## Execution\n\nFor each task:\n1. Read the template file\n2. Create the document with proper frontmatter\n3. Fill in content based on context and keywords\n4. Save to the specified output path\n\nAfter generating all documents, run: `npm run lint` to validate."
+}

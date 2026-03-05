@@ -44,6 +44,70 @@ GEO_RULES = {
     ]
 }
 
+# Per-locale GEO rule overrides.
+# Keys are locale codes; values override the corresponding GEO_RULES entries.
+# Languages not listed here fall back to the default English rules above.
+GEO_RULES_BY_LOCALE: dict[str, dict] = {
+    "ru": {
+        "first_para_max_words": 80,
+        "meta_desc_max_chars": 200,
+        "generic_headings": [
+            "overview", "introduction", "configuration", "setup",
+            "details", "information", "general", "notes", "summary",
+            # Russian generic headings
+            "obzor", "vvedenie", "nastroyka", "nastrojka",
+            "podrobnosti", "informatsiya", "obshchee", "zametki",
+        ],
+        "definition_patterns": [
+            r"\bis\b", r"\benables?\b", r"\bprovides?\b", r"\ballows?\b",
+            r"\bcreates?\b", r"\bprocesses?\b", r"\bexecutes?\b",
+            # Russian definition patterns
+            r"\beto\b", r"\byavlyaetsya\b", r"\bpozvolyaet\b",
+            r"\bobespechivae?t\b", r"\bsozdae?t\b",
+            # Cyrillic patterns
+            r"\b\u044d\u0442\u043e\b",  # eto
+            r"\b\u044f\u0432\u043b\u044f\u0435\u0442\u0441\u044f\b",  # yavlyaetsya
+            r"\b\u043f\u043e\u0437\u0432\u043e\u043b\u044f\u0435\u0442\b",  # pozvolyaet
+            r"\b\u043e\u0431\u0435\u0441\u043f\u0435\u0447\u0438\u0432\u0430\u0435\u0442\b",  # obespechvaet
+        ],
+    },
+    "de": {
+        "first_para_max_words": 70,
+        "meta_desc_max_chars": 180,
+        "generic_headings": [
+            "overview", "introduction", "configuration", "setup",
+            "details", "information", "general", "notes", "summary",
+            "ueberblick", "uebersicht", "einleitung", "konfiguration",
+            "einrichtung", "details", "informationen", "allgemein",
+        ],
+        "definition_patterns": [
+            r"\bis\b", r"\benables?\b", r"\bprovides?\b", r"\ballows?\b",
+            r"\bcreates?\b", r"\bprocesses?\b", r"\bexecutes?\b",
+            r"\bist\b", r"\bermoeglicht\b", r"\bbietet\b", r"\berlaubt\b",
+        ],
+    },
+}
+
+
+def _get_geo_rules_for_locale(locale: str | None) -> dict:
+    """Return GEO rules for a locale, merging overrides with defaults."""
+    if not locale or locale not in GEO_RULES_BY_LOCALE:
+        return GEO_RULES
+    merged = GEO_RULES.copy()
+    merged.update(GEO_RULES_BY_LOCALE[locale])
+    return merged
+
+
+def _detect_locale_from_path(filepath) -> str | None:
+    """Detect locale from docs/{locale}/... path structure."""
+    parts = Path(filepath).parts
+    for i, part in enumerate(parts):
+        if part == "docs" and i + 1 < len(parts):
+            candidate = parts[i + 1]
+            if re.match(r"^[a-z]{2,3}$", candidate):
+                return candidate
+    return None
+
 # ==================== HELPER FUNCTIONS ====================
 
 def extract_frontmatter(text):
@@ -122,28 +186,32 @@ def geo_lint_file(filepath):
     fm, content = extract_frontmatter(text)
     lines = text.split("\n")
 
+    # Detect locale and load locale-specific rules
+    locale = _detect_locale_from_path(filepath)
+    rules = _get_geo_rules_for_locale(locale)
+
     # Rule 1: Meta description
     desc = fm.get("description", "")
     if not desc:
         findings.append(GEOFinding(filepath, 1, "meta-description-missing",
                                 "Missing frontmatter 'description' field", "error"))
-    elif len(desc) < GEO_RULES["meta_desc_min_chars"]:
+    elif len(desc) < rules["meta_desc_min_chars"]:
         findings.append(GEOFinding(filepath, 1, "meta-description-short",
-                                f"Description too short ({len(desc)} < {GEO_RULES['meta_desc_min_chars']} chars)"))
-    elif len(desc) > GEO_RULES["meta_desc_max_chars"]:
+                                f"Description too short ({len(desc)} < {rules['meta_desc_min_chars']} chars)"))
+    elif len(desc) > rules["meta_desc_max_chars"]:
         findings.append(GEOFinding(filepath, 1, "meta-description-long",
-                                f"Description too long ({len(desc)} > {GEO_RULES['meta_desc_max_chars']} chars)"))
+                                f"Description too long ({len(desc)} > {rules['meta_desc_max_chars']} chars)"))
 
     # Rule 2: First paragraph density
     first_para = get_first_paragraph(content)
     word_count = len(first_para.split())
-    if word_count > GEO_RULES["first_para_max_words"]:
+    if word_count > rules["first_para_max_words"]:
         findings.append(GEOFinding(filepath, 3, "first-paragraph-too-long",
-                                f"First paragraph: {word_count} words (max {GEO_RULES['first_para_max_words']}). "
+                                f"First paragraph: {word_count} words (max {rules['first_para_max_words']}). "
                                 "LLMs extract the first ~60 words for answers."))
 
     # Rule 3: First paragraph should contain a definition
-    has_definition = any(re.search(p, first_para, re.IGNORECASE) for p in GEO_RULES["definition_patterns"])
+    has_definition = any(re.search(p, first_para, re.IGNORECASE) for p in rules["definition_patterns"])
     if first_para and not has_definition:
         findings.append(GEOFinding(filepath, 3, "first-paragraph-no-definition",
                                 "First paragraph lacks a definition pattern (is/enables/provides). "
@@ -159,7 +227,7 @@ def geo_lint_file(filepath):
             continue
         if line.startswith("#"):
             heading_text = re.sub(r'^#+\s*', '', line).strip().lower()
-            if heading_text in GEO_RULES["generic_headings"]:
+            if heading_text in rules["generic_headings"]:
                 findings.append(GEOFinding(filepath, i, "heading-generic",
                                         f"Generic heading '{line.strip()}'. Use descriptive headings "
                                         "for LLM retrieval (e.g., 'Configure SASL authentication' not 'Configuration')."))
@@ -198,12 +266,12 @@ def geo_lint_file(filepath):
         if not buffer_start:
             buffer_start = i
 
-        has_fact = any(re.search(p, line) for p in GEO_RULES["fact_patterns"])
+        has_fact = any(re.search(p, line) for p in rules.get("fact_patterns", GEO_RULES["fact_patterns"]))
         if has_fact:
             word_buffer = []
             buffer_start = i
 
-        if len(word_buffer) > GEO_RULES["max_words_without_fact"]:
+        if len(word_buffer) > rules["max_words_without_fact"]:
             findings.append(GEOFinding(filepath, buffer_start, "low-fact-density",
                                     f"{len(word_buffer)} words without concrete facts "
                                     f"(numbers, code, config values). Add specifics for LLM extraction."))

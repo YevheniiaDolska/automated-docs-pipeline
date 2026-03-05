@@ -2,84 +2,108 @@
 
 An automated documentation operations system for technical products.
 
-You install it into a company repository. It enforces documentation quality, detects when docs fall behind code, generates reports, and helps AI assistants (Claude, Codex) produce Stripe-quality documentation from the first draft.
+Install it into a company repository. It enforces documentation quality, detects when docs fall behind code, generates consolidated reports, and enables LLM assistants (Claude Code, Codex) to produce Stripe-quality documentation from the first draft with built-in self-verification.
 
-## What this system does (plain language)
-
-Imagine you have a software product with documentation. This pipeline does the following:
-
-1. **Checks every document for quality** before it merges. Grammar, style, spelling, formatting, SEO, metadata. If something is wrong, the pull request fails until the author fixes it.
-1. **Detects when code changes but docs do not.** If a developer changes an API endpoint and does not update the reference docs, the pipeline blocks the PR and tells them what to update.
-1. **Runs code examples from docs to verify they work.** If a tutorial says `print(2 + 2)` and claims the output is 5, the pipeline catches it. Supports Python, Bash, JavaScript, TypeScript, Go, JSON, YAML, and curl.
-1. **Finds documentation gaps automatically.** It scans code changes, community signals, search analytics, and existing docs to produce a prioritized backlog of what needs to be written.
-1. **Produces KPI dashboards and reports.** Quality scores, staleness percentages, gap counts, week-over-week trends, and SVG badges for your README.
-1. **Manages document lifecycle.** Tracks draft, active, deprecated, and archived states. Automatically creates issues when pages go stale.
-1. **Helps AI write better docs.** The `CLAUDE.md` and `AGENTS.md` files contain detailed instructions that make Claude and Codex produce documentation that passes all quality gates on the first attempt, using templates, shared variables, and self-verification.
-1. **Supports two site generators.** MkDocs (default) and Docusaurus, with automatic detection and bidirectional Markdown conversion between formats.
-1. **Includes an interactive API sandbox.** Swagger UI or Redoc embedded in docs, with configurable `Try it out` routing to sandbox or production.
-1. **Ships with 27 production-ready templates.** Tutorials, how-to guides, API references, troubleshooting pages, quickstarts, changelogs, glossaries, and 20 more. Each template passes all linters out of the box.
-
-## How it works (the flow)
+## How the pipeline works
 
 ```text
-Developer changes code
+Monday 09:00 UTC (cron)
         |
         v
-Opens Pull Request
+weekly-consolidation.yml runs:
+  gaps (code + community + algolia) -> doc_gaps_report.json
+  API/SDK drift                     -> api_sdk_drift_report.json
+  KPI wall                          -> kpi-wall.json
+  SLA evaluation                    -> kpi-sla-report.json
         |
         v
-4 mandatory CI gates run automatically:
-  1. docs-check.yml        -> style, formatting, spelling, frontmatter, SEO/GEO
-  2. pr-dod-contract.yml   -> if interface changed, docs must change too
-  3. api-sdk-drift-gate.yml -> if OpenAPI/SDK changed, reference docs must update
-  4. code-examples-smoke.yml -> all tagged code blocks must execute without errors
+consolidate_reports.py merges 4 reports
         |
         v
-If any gate fails -> PR is blocked with clear error message
-If all gates pass -> PR can merge
+reports/consolidated_report.json + GitHub Issue created
         |
         v
-Supporting automation runs on schedule:
-  - KPI dashboard generation (weekly)
-  - Gap detection (weekly)
-  - Lifecycle management (weekly)
-  - Algolia search indexing (on deploy)
+User: git pull -> Claude Code -> "Process reports/consolidated_report.json"
+        |
+        v
+LLM prioritizes (3 tiers), creates/updates docs, self-verifies, lints
+        |
+        v
+User: reviews diffs (git diff), commits
 ```
 
-## What is included
+### Consolidated weekly report
 
-### Quality gates (mandatory on every PR)
+The `scripts/consolidate_reports.py` script merges four input reports into a single `reports/consolidated_report.json`. The `weekly-consolidation.yml` workflow runs every Monday at 09:00 UTC, commits the consolidated report to the repository, and opens a GitHub Issue with instructions for the next documentation cycle.
 
-1. **Docs quality gate** (`docs-check.yml`): Vale style checks (American English, Google Developer Style Guide, write-good), markdownlint formatting, cspell spelling, frontmatter schema validation, SEO/GEO optimization checks. Auto-detects MkDocs or Docusaurus.
-1. **PR DoD contract** (`pr-dod-contract.yml`): If interface files changed (controllers, routes, models) and docs did not change, the PR fails.
-1. **API/SDK drift gate** (`api-sdk-drift-gate.yml`): If OpenAPI specs or SDK code changed without corresponding reference docs updates, the PR fails. Creates GitHub issues for unresolved drift.
-1. **Code examples smoke** (`code-examples-smoke.yml`): Executes fenced code blocks tagged with `smoke` in eight languages: Python, Bash, JavaScript, TypeScript, Go, curl, JSON, YAML.
+Input reports:
 
-### Supporting automation (runs on schedule or triggers)
-
-1. **CI documentation sweep** (`ci-documentation.yml`): Full validation across all docs.
-1. **KPI wall** (`kpi-wall.yml`): Weekly quality score, staleness, gap count, and trend dashboard.
-1. **Release docs pack** (`release-docs-pack.yml`): Generates documentation package for each release.
-1. **E2E test suite** (`docs-ops-e2e.yml`): End-to-end pipeline validation.
-1. **Lifecycle management** (`lifecycle-management.yml`): Scans for stale/deprecated pages, creates issues, proposes draft PRs.
-1. **OpenAPI source sync** (`openapi-source-sync.yml`): Resolves API spec from api-first or code-first strategy.
-1. **Algolia indexing** (`algolia-index.yml`): Optional search index upload.
-1. **Changelog** (`changelog.yml`): Automated release note generation.
-
-### Scripts (35+)
-
-| Category | Scripts | What they do |
+| Report | Source | Content |
 | --- | --- | --- |
-| Validation | `validate_frontmatter.py`, `seo_geo_optimizer.py`, `lint_code_snippets.py`, `check_code_examples_smoke.py`, `doc_layers_validator.py` | Check quality, formatting, SEO, code validity |
-| Contracts | `check_docs_contract.py`, `check_api_sdk_drift.py`, `validate_pr_dod.py` | Enforce docs-as-code contracts |
-| Reporting | `generate_kpi_wall.py`, `evaluate_kpi_sla.py`, `generate_badge.py`, `generate_release_docs_pack.py`, `pilot_analysis.py` | Produce dashboards, badges, reports |
-| Gap detection | `gap_detector.py`, `gap_detection/` (6 modules) | Find missing docs from code, search, community |
-| Site generation | `site_generator.py`, `markdown_converter.py`, `generate_docusaurus_config.py`, `preprocess_variables.py`, `run_generator.py` | Build, serve, convert between MkDocs and Docusaurus |
-| Setup | `init_pipeline.py`, `generate_configurator.py`, `new_doc.py`, `auto_metadata.py` | Bootstrap pipeline, generate GUI wizard, create docs from templates |
-| Lifecycle | `lifecycle_manager.py` | Track draft/active/deprecated/archived states |
-| Search | `upload_to_algolia.py`, `generate_facets_index.py` | Optional Algolia integration |
+| `doc_gaps_report.json` | Code changes, community signals, Algolia search analytics | Missing or outdated documentation |
+| `api_sdk_drift_report.json` | OpenAPI spec and SDK diff against docs | API and SDK reference drift |
+| `kpi-wall.json` | Quality scoring across all docs | Quality score, staleness, metadata completeness |
+| `kpi-sla-report.json` | KPI wall evaluated against policy pack thresholds | SLA breaches and compliance status |
 
-### Templates (27)
+### LLM-driven documentation generation
+
+When Claude Code or Codex processes the consolidated report, it:
+
+1. Prioritizes action items into three tiers (critical, important, routine).
+1. Selects the matching template from `templates/` (never writes from scratch).
+1. Uses variables from `docs/_variables.yml` for all product-specific values.
+1. Follows Vale style rules (American English, active voice, no weasel words).
+1. Self-verifies: executes all code examples, checks shell commands, fact-checks assertions (versions, ports, paths, counts).
+1. Auto-corrects any mismatches found during verification.
+1. Updates `mkdocs.yml` navigation when adding new pages.
+1. Runs linters before committing.
+
+Instructions live in `CLAUDE.md` (for Claude Code) and `AGENTS.md` (for Codex).
+
+## Quality gates
+
+### CI/CD: docs-check.yml (7 parallel checks + build)
+
+Every pull request that touches `docs/` triggers seven parallel checks:
+
+| Check | Tool | What it validates |
+| --- | --- | --- |
+| Style | Vale | American English, Google Developer Style Guide, write-good |
+| Formatting | markdownlint | Markdown structure, blank lines, heading hierarchy |
+| Spelling | cspell | Technical terms, product names, code identifiers |
+| Frontmatter | `validate_frontmatter.py` | Required metadata fields, character limits, schema |
+| SEO/GEO | `seo_geo_optimizer.py` | 60+ checks for search and LLM optimization |
+| Code examples | `check_code_examples_smoke.py` | Executes tagged code blocks in 8 languages |
+| API specs | Spectral | OpenAPI/Swagger spec validation |
+
+All seven checks must pass before the `build-docs` job runs (`mkdocs build --strict` or `npx docusaurus build`).
+
+### Pre-commit hooks (6 checks)
+
+The `.husky/pre-commit` hook runs on every commit with staged `.md` files:
+
+1. Spectral (API specs, if staged)
+1. Vale (style)
+1. markdownlint (formatting)
+1. cspell (spelling)
+1. Frontmatter validation
+1. GEO optimization
+
+### Additional CI workflows
+
+| Workflow | Trigger | Purpose |
+| --- | --- | --- |
+| `weekly-consolidation.yml` | Cron Monday 09:00 UTC / manual | Generate consolidated report, open GitHub Issue |
+| `pr-dod-contract.yml` | PR | Block if interface changed but docs did not |
+| `api-sdk-drift-gate.yml` | PR | Block if OpenAPI/SDK changed without doc updates |
+| `code-examples-smoke.yml` | PR | Execute all tagged code blocks |
+| `kpi-wall.yml` | Weekly | Quality score, staleness, gap count dashboard |
+| `release-docs-pack.yml` | Release published | Generate documentation package for the release |
+| `lifecycle-management.yml` | Weekly | Scan for stale/deprecated pages, create issues |
+| `openapi-source-sync.yml` | Schedule | Resolve API spec (api-first or code-first strategy) |
+| `algolia-index.yml` | Deploy | Upload search index to Algolia |
+
+## Templates (31)
 
 Pre-validated Markdown templates that pass all linters out of the box:
 
@@ -113,21 +137,50 @@ Pre-validated Markdown templates that pass all linters out of the box:
 | `plg-persona-guide.md` | PLG persona targeting |
 | `plg-value-page.md` | PLG value proposition |
 
-### Policy packs (5)
+Plus four additional specialized templates in the `templates/` directory.
 
-Policy packs adapt the pipeline to different companies and team sizes:
+## Policy packs (5)
+
+Policy packs adapt quality thresholds and enforcement rules to different team sizes and product strategies:
 
 | Pack | Best for | Quality threshold | Max stale % |
 | --- | --- | --- | --- |
-| `minimal.yml` | New teams, pilot week, restricted environments | 75% | 20% |
+| `minimal.yml` | New teams, pilot week | 75% | 20% |
 | `api-first.yml` | OpenAPI-driven teams, SDK-heavy products | 82% | 12% |
 | `monorepo.yml` | Multiple services in one repo | 80% | 15% |
 | `multi-product.yml` | One docs system for multiple products | 80% | 15% |
 | `plg.yml` | Product-led growth, self-serve activation | 85% | 10% |
 
-### Variables system
+## Workflows
 
-All company-specific values live in one file: `docs/_variables.yml`. Every document references variables instead of hardcoding values. When you change the port number or product name, it updates across all docs automatically.
+### API-first workflow
+
+For teams that start with an OpenAPI spec:
+
+1. Write or update `api/openapi.yaml`.
+1. OpenAPI Generator produces SDK stubs and reference scaffolds.
+1. Prism mock server provides a sandbox for `Try it out` in docs.
+1. `api-sdk-drift-gate.yml` blocks PRs if specs change without doc updates.
+
+### Code-first workflow
+
+For teams that start with code:
+
+1. `npm run gaps:code` scans recent commits for interface changes.
+1. Real endpoint testing validates documented behavior.
+1. Gap detector produces prioritized backlog of missing docs.
+
+### Doc layers validator
+
+`scripts/doc_layers_validator.py` checks that every documented feature has the required layers (concept, how-to, reference) based on the active policy pack.
+
+### Lifecycle management
+
+Documents have four states: `active`, `deprecated`, `removed`, and draft. Deprecated and removed pages require `deprecated_since`, `removal_date`, and `replacement_url` in frontmatter. Removed pages get `noindex: true` to prevent search engine indexing.
+
+## Variables system
+
+All company-specific values live in `docs/_variables.yml`. Documents reference variables instead of hardcoding values:
 
 ```yaml
 # docs/_variables.yml
@@ -145,72 +198,64 @@ Run {{ product_name }} on port {{ default_port }}.
 Visit [{{ product_name }} Cloud]({{ cloud_url }}).
 ```
 
-## Local commands
-
-### With Make
-
-```bash
-make install            # Install all dependencies
-make validate-minimal   # Run core quality checks
-make validate-full      # Run all quality checks
-make test               # Run test suite
-make docs-serve         # Start documentation preview
-make configurator       # Generate browser-based setup wizard
-```
-
-### With npm (cross-platform, no Make required)
-
-```bash
-npm install                     # Install dependencies
-npm run validate:minimal        # Core quality checks
-npm run validate:full           # All quality checks
-npm run docs-ops:test-suite     # Run 51 tests
-npm run serve                   # Start docs preview (auto-detects generator)
-npm run configurator            # Generate setup wizard
-npm run gaps                    # Run gap detection
-npm run kpi-wall                # Generate KPI dashboard
-```
-
 ## Site generator support
 
 The pipeline supports two documentation site generators:
 
-1. **MkDocs** (default): Uses `mkdocs.yml`, Material theme. Preview at `http://127.0.0.1:8000`.
+1. **MkDocs** (default): Uses `mkdocs.yml` with Material theme. Preview at `http://127.0.0.1:8000`.
 1. **Docusaurus**: Uses `docusaurus.config.js`, React-based. Preview at `http://localhost:3000`.
 
-The pipeline auto-detects which generator to use based on which config file exists.
+Auto-detection based on which config file exists. Bidirectional Markdown conversion between formats.
+
+### Algolia search integration
+
+Optional Algolia integration for faceted search. Configure credentials in `mkdocs.yml` under `extra.algolia`. The `algolia-index.yml` workflow uploads the search index on deploy.
+
+## Key npm commands
 
 ```bash
-npm run generator:detect          # Check active generator
-npm run convert:to-docusaurus     # Switch from MkDocs to Docusaurus
-npm run convert:to-mkdocs         # Switch from Docusaurus to MkDocs
+# Weekly consolidation (the main pipeline command)
+npm run consolidate          # Run gaps + KPI + SLA + consolidate into one report
+npm run consolidate:reports-only  # Consolidate existing reports without regenerating
+
+# Gap detection
+npm run gaps                 # Analyze documentation gaps
+npm run gaps:full            # Full gap analysis with doc generation
+npm run gaps:code            # Code-first gap detection
+npm run gaps:community       # Community signal analysis
+
+# Quality checks
+npm run lint                 # Run all 6 linters (Vale, markdownlint, cspell, frontmatter, SEO/GEO, snippets)
+npm run validate:minimal     # Core checks (markdownlint, frontmatter, SEO/GEO, code examples)
+npm run validate:full        # All checks + e2e + golden tests + test suite
+
+# Reporting
+npm run kpi-wall             # Generate KPI dashboard
+npm run kpi-sla              # Evaluate KPIs against SLA thresholds
+npm run drift-check          # Check API/SDK drift
+npm run badges               # Generate SVG badges from KPI data
+npm run release-pack         # Generate release documentation package
+
+# Build and serve
+npm run build                # Build docs (auto-detects MkDocs or Docusaurus)
+npm run serve                # Start local preview server
+
+# Utilities
+npm run new-doc              # Create new doc from template
+npm run configurator         # Generate browser-based setup wizard
+npm run generator:detect     # Check which site generator is active
 ```
-
-## AI documentation workflow
-
-The pipeline includes two instruction files that make AI assistants produce high-quality docs:
-
-1. **`CLAUDE.md`**: Instructions for Claude Code. Covers templates, variables, self-verification, formatting rules, and Stripe-quality standards.
-1. **`AGENTS.md`**: Instructions for Codex. Same content adapted for Codex workflow.
-
-When Claude or Codex generates documentation in this repository, they:
-
-1. Select the matching template from `templates/` (never write from scratch).
-1. Use variables from `docs/_variables.yml` for all product-specific values.
-1. Follow Vale style rules (American English, active voice, no weasel words).
-1. Execute all code examples and verify output matches documentation.
-1. Fact-check all specific claims (versions, ports, paths, counts).
-1. Auto-correct any mismatches found during verification.
-1. Update `mkdocs.yml` navigation when adding new pages.
 
 ## Test coverage
 
-51 automated tests across 15 test classes:
+Automated tests across multiple test suites:
 
 ```bash
-npm run docs-ops:test-suite     # Main test suite
-npm run test:adapter            # 25 Docusaurus adapter tests
-npm run test:configurator       # 7 GUI configurator tests
+npm run docs-ops:test-suite  # Main test suite
+npm run docs-ops:e2e         # End-to-end pipeline validation
+npm run docs-ops:golden      # Golden report comparison tests
+npm run test:adapter         # Docusaurus adapter tests
+npm run test:configurator    # GUI configurator tests
 ```
 
 ## Start here

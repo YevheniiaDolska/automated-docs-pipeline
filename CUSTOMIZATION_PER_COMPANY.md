@@ -1,344 +1,156 @@
-# Customizing the pipeline for a specific company
+# Customizing the pipeline per company
 
-This guide explains how to adapt the Auto-Doc Pipeline for each client. It covers every configuration point, from product branding to quality thresholds.
+This guide covers every customization point when adapting the Auto-Doc Pipeline for a specific company or product.
 
-## What you customize (overview)
+## Variables customization
 
-When you install the pipeline for a new company, you change these files:
-
-| File | What you change | Why |
-| --- | --- | --- |
-| `docs/_variables.yml` | Product name, URLs, ports, limits | All docs reference variables instead of hardcoded values |
-| `policy_packs/*.yml` | Quality thresholds, drift patterns | Different companies need different strictness levels |
-| `mkdocs.yml` | Site title, nav structure, theme colors | Client-facing documentation site |
-| `CLAUDE.md` | Company-specific style rules (optional) | AI generates docs matching company tone |
-| `AGENTS.md` | Same as CLAUDE.md for Codex | AI generates docs matching company tone |
-| `cspell.json` | Company-specific terms | Spellcheck does not flag product names |
-| `.vale/styles/` | Custom Vale rules (optional) | Company-specific writing rules |
-| `templates/*.md` | Template frontmatter defaults | Templates pre-fill company-specific metadata |
-
-## Step 1: Set up variables
-
-The variables file is the single source of truth for all product-specific values. Every document references these variables using `{{ variable_name }}` syntax. When you change a value here, it changes across all documents.
-
-Edit `docs/_variables.yml`:
+Edit `docs/_variables.yml` to set all product-specific values. Documents reference these with `{{ variable_name }}` syntax, so one change updates every page.
 
 ```yaml
-# ===== Product Identity =====
 product_name: "Acme API"
-product_full_name: "Acme API - Developer Integration Platform"
-product_tagline: "Connect everything, build anything"
 company_name: "Acme Corp"
-
-# ===== Versions =====
 current_version: "2.5.0"
-min_supported_version: "2.0.0"
-api_version: "v2"
-
-# ===== URLs =====
 cloud_url: "https://app.acme.com"
 docs_url: "https://docs.acme.com"
-github_url: "https://github.com/acmecorp/acme-api"
-status_page_url: "https://status.acme.com"
-community_url: "https://community.acme.com"
-
-# ===== Support =====
-support_email: "support@acme.com"
-sales_email: "sales@acme.com"
-
-# ===== Technical Defaults =====
 default_port: 3000
-default_data_folder: "~/.acme"
+support_email: "support@acme.com"
 
-# ===== Environment Variables =====
 env_vars:
   port: "ACME_PORT"
-  webhook_url: "ACME_WEBHOOK_URL"
   api_key: "ACME_API_KEY"
-  database_url: "ACME_DATABASE_URL"
-  secret_key: "ACME_SECRET_KEY"
-  log_level: "ACME_LOG_LEVEL"
+  webhook_url: "ACME_WEBHOOK_URL"
 
-# ===== Limits =====
 max_payload_size_mb: 32
 rate_limit_requests_per_minute: 120
-max_connections: 1000
-request_timeout_seconds: 30
-
-# ===== Branding =====
-copyright_year: 2026
 ```
 
-**Important rules:**
+**Rules:**
 
-- Use unique, descriptive names: `acme_webhook_retry_limit`, not `limit`.
-- Group related variables with YAML nesting: `env_vars.port`, `env_vars.api_key`.
 - Every value that appears in more than one document must be a variable.
-- Never hardcode product names, URLs, ports, or version numbers in documents.
+- Use descriptive names with units: `request_timeout_seconds`, not `timeout`.
+- Group related values with YAML nesting: `env_vars.port`, `env_vars.api_key`.
+- Never hardcode product names, URLs, ports, or versions in documents.
 
-## Step 2: Choose and configure a policy pack
+## Template customization
 
-Policy packs control how strict the quality checks are. Start with the pack that matches the client:
+Templates in `templates/` are pre-validated to pass all linters. Customize them for your product:
 
-### For a new team or pilot
+1. **Update frontmatter defaults** -- Set the `product` field and default tags.
+1. **Add product-specific sections** -- If your product has unique patterns (for example, "workspaces" instead of "projects"), update the template structure.
+1. **Keep the formatting structure** -- Do not remove required sections or change the heading hierarchy. The linter-passing structure is intentional.
 
-Copy `policy_packs/minimal.yml`:
+All 31 templates follow the Diataxis framework: tutorials, how-to guides, concepts, and references.
 
-```bash
-cp policy_packs/minimal.yml policy_packs/client-acme.yml
-```
+## Policy pack selection
 
-Minimal settings (most lenient):
+Policy packs set quality thresholds for CI gates. Choose one and update the workflow references.
 
-```yaml
-min_quality_score: 75
-max_stale_percentage: 20
-max_high_priority_gaps: 10
-max_quality_score_drop: 8
-```
+| Pack | Use case | Quality % | Max stale % |
+| --- | --- | --- | --- |
+| `minimal.yml` | Pilot, new teams | 75 | 20 |
+| `api-first.yml` | API-heavy products | 82 | 12 |
+| `monorepo.yml` | Multi-service repos | 80 | 15 |
+| `multi-product.yml` | Product families | 80 | 15 |
+| `plg.yml` | Product-led growth | 85 | 10 |
 
-### For an API-heavy team
-
-Copy `policy_packs/api-first.yml`:
+To create a custom pack, copy the closest match and adjust:
 
 ```bash
 cp policy_packs/api-first.yml policy_packs/client-acme.yml
 ```
 
-API-first settings (strict on API docs):
-
-```yaml
-min_quality_score: 82
-max_stale_percentage: 12
-max_high_priority_gaps: 6
-max_quality_score_drop: 4
-```
-
-### For a product-led growth company
-
-Copy `policy_packs/plg.yml`:
-
-```bash
-cp policy_packs/plg.yml policy_packs/client-acme.yml
-```
-
-PLG settings (strict on user-facing docs):
-
-```yaml
-min_quality_score: 85
-max_stale_percentage: 10
-max_high_priority_gaps: 5
-max_quality_score_drop: 3
-```
-
-### Customize the policy pack
-
-Edit `policy_packs/client-acme.yml`:
-
-1. Adjust `interface_patterns` to match the client's code structure:
+Then update `interface_patterns` and `docs_patterns` to match the company's code structure:
 
 ```yaml
 interface_patterns:
   - "src/controllers/**"
   - "src/routes/**"
-  - "src/api/**"
-  - "lib/sdk/**"
-```
-
-1. Adjust `docs_patterns` to match the client's docs structure:
-
-```yaml
 docs_patterns:
   - "docs/**/*.md"
-  - "guides/**/*.md"
 ```
 
-1. Adjust KPI thresholds based on the baseline measurement from the pilot.
+Update these workflow files to reference your pack: `pr-dod-contract.yml`, `api-sdk-drift-gate.yml`, `kpi-wall.yml`.
 
-## Step 3: Configure the documentation site
+## Workflow customization
+
+### CI gates
+
+The 4 mandatory PR gates work out of the box. To adjust which file paths trigger them, edit the `on.pull_request.paths` section in each workflow file.
+
+### Scheduled workflows
+
+Adjust the schedule for recurring workflows:
+
+- `kpi-wall.yml` -- Runs weekly on Monday by default. Change the cron expression for a different day.
+- `lifecycle-management.yml` -- Runs weekly to scan for stale pages. Adjust frequency as needed.
+
+### Optional workflows
+
+Enable or disable based on the company's needs:
+
+- `algolia-index.yml` -- Enable if the company uses Algolia for search.
+- `api-first-scaffold.yml` -- Enable if the company generates code from OpenAPI specs.
+- `openapi-source-sync.yml` -- Enable if the company maintains OpenAPI specs.
+
+## Branding
+
+### Documentation site
 
 Edit `mkdocs.yml`:
 
 ```yaml
 site_name: "Acme API Documentation"
 site_url: "https://docs.acme.com"
-site_description: "Official documentation for Acme API"
 
 theme:
   name: material
   palette:
-    primary: blue        # Client brand color
+    primary: blue
     accent: light-blue
-  logo: assets/logo.png  # Client logo
+  logo: assets/logo.png
   favicon: assets/favicon.ico
-
-nav:
-  - Home: index.md
-  - Getting Started:
-    - getting-started/index.md
-    - Quickstart: getting-started/quickstart.md
-  - How-To Guides:
-    - how-to/index.md
-  - Concepts:
-    - concepts/index.md
-  - Reference:
-    - reference/index.md
-  - Troubleshooting:
-    - troubleshooting/index.md
-
-plugins:
-  - search
-  - tags
-  - macros:
-      module_name: docs/_variables
 ```
 
-## Step 4: Add company terms to spellcheck
+### Spelling dictionary
 
-Edit `cspell.json`. Add the client's product names, brand terms, and technical jargon to the `words` array:
+Add company-specific terms to `cspell.json` so the spellchecker does not flag product names:
 
 ```json
 {
-  "words": [
-    "Acme",
-    "AcmeAPI",
-    "acmecorp",
-    "webhook",
-    "GraphQL"
-  ]
+  "words": ["Acme", "AcmeAPI", "acmecorp"]
 }
 ```
 
-This prevents the spellchecker from flagging legitimate company terms.
+### AI instructions
 
-## Step 5: Customize templates (optional)
-
-For each template in `templates/`, you can pre-fill the client's product context:
-
-1. Open a template, for example `templates/quickstart.md`.
-1. Replace generic placeholders with the client's defaults:
-
-```yaml
----
-title: "{{ title }}"
-description: "{{ description }}"
-content_type: tutorial
-product: both
-tags:
-  - Tutorial
-  - Getting Started
----
-```
-
-1. Add client-specific sections if the client's product has unique patterns.
-
-## Step 6: Customize AI instructions (optional)
-
-If the client has specific writing rules beyond the standard, add them to `CLAUDE.md` and `AGENTS.md`.
-
-**Example additions:**
+Add company-specific style rules to `CLAUDE.md` and `AGENTS.md`:
 
 ```markdown
 ## Company-specific style rules
 
 - Always refer to the product as "Acme API" (never "ACME" or "acme").
-- Use "workspace" instead of "project" when referring to user containers.
-- Authentication tokens are called "access keys" in this product.
-- Error responses always include a `request_id` field - mention it in troubleshooting docs.
+- Use "workspace" instead of "project."
+- Authentication tokens are called "access keys."
 ```
 
-Add this section after the existing style rules in both `CLAUDE.md` and `AGENTS.md`.
+### GUI configurator
 
-## Step 7: Configure CI gates
+Run `npm run configurator` to generate a browser-based wizard at `reports/pipeline-configurator.html`. It walks through policy pack selection, variable editing, generator choice, and KPI threshold tuning in 6 steps. Export the configuration as files ready to drop into the company's repository.
 
-### Enable only the docs-check gate (pilot)
+## Customization checklist
 
-In `.github/workflows/docs-check.yml`, make sure it runs on pull requests:
-
-```yaml
-on:
-  pull_request:
-    paths:
-      - "docs/**"
-      - "templates/**"
-```
-
-### Enable all four gates (full implementation)
-
-Enable each workflow in the GitHub repository settings:
-
-1. `docs-check.yml` - quality gate.
-1. `pr-dod-contract.yml` - interface-to-docs contract.
-1. `api-sdk-drift-gate.yml` - API/SDK drift detection.
-1. `code-examples-smoke.yml` - code example validation.
-
-Set them as required status checks in the branch protection rules.
-
-## Step 8: Set up reporting (full implementation)
-
-Enable scheduled workflows:
-
-```yaml
-# In kpi-wall.yml
-on:
-  schedule:
-    - cron: "0 9 * * 1"  # Every Monday at 9 AM UTC
-
-# In lifecycle-management.yml
-on:
-  schedule:
-    - cron: "0 10 * * 1"  # Every Monday at 10 AM UTC
-```
-
-## Complete customization checklist
-
-Use this checklist for every new company:
-
-- [ ] `docs/_variables.yml` filled with all company-specific values.
-- [ ] Policy pack selected and customized (or custom pack created).
-- [ ] `mkdocs.yml` updated with site name, URL, branding, and navigation.
+- [ ] `docs/_variables.yml` filled with company-specific values.
+- [ ] Policy pack selected and referenced in workflows.
+- [ ] `mkdocs.yml` updated with site name, URL, logo, and colors.
 - [ ] `cspell.json` updated with company terms.
-- [ ] Core templates adapted to the company's product.
-- [ ] `CLAUDE.md` and `AGENTS.md` updated with company style rules (if needed).
-- [ ] CI gates enabled in GitHub repository settings.
-- [ ] Repository secrets configured (if using Algolia or other integrations).
-- [ ] Baseline KPI measurement taken.
+- [ ] Templates adapted to company patterns.
+- [ ] `CLAUDE.md` and `AGENTS.md` updated with company style rules.
 - [ ] `npm run validate:minimal` passes.
-- [ ] Documentation site builds in strict mode: `mkdocs build --strict`.
 
-## Using the GUI configurator
+## Related guides
 
-For a faster setup, use the browser-based configurator:
-
-```bash
-npm run configurator
-```
-
-Open `reports/pipeline-configurator.html` in a browser. The wizard walks through:
-
-1. Policy pack selection (choose from built-in packs).
-1. Variable editing (fill in product name, URLs, ports).
-1. Generator choice (MkDocs or Docusaurus).
-1. KPI threshold tuning (adjust quality, staleness, gap limits).
-1. Live preview (see generated configuration files).
-1. Export (download all configuration files as a bundle).
-
-The exported files can be dropped directly into the client's repository.
-
-## Using the init script
-
-For bootstrapping a completely new repository:
-
-```bash
-python3 scripts/init_pipeline.py \
-  --product-name "Acme API" \
-  --generator mkdocs \
-  --policy-pack policy_packs/api-first.yml
-```
-
-This script:
-
-1. Copies all required pipeline files to the target directory.
-1. Configures `docs/_variables.yml` with the product name.
-1. Scaffolds the chosen site generator.
-1. Runs initial validation.
+| Guide | What it covers |
+| --- | --- |
+| `SETUP_FOR_PROJECTS.md` | Full pipeline installation |
+| `ALGOLIA_SETUP.md` | Search integration |
+| `POLICY_PACKS.md` | Policy pack details |

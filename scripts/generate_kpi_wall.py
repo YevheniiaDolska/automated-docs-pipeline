@@ -5,7 +5,7 @@ from __future__ import annotations
 
 import argparse
 import json
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from datetime import date, datetime, timedelta
 from pathlib import Path
 from typing import Any
@@ -22,11 +22,18 @@ class KpiMetrics:
     metadata_completeness_pct: float
     stale_docs: int
     stale_pct: float
-    gap_total: int
-    gap_high: int
-    quality_score: int
-    debt_trend_note: str
-    before_after_note: str
+    stale_files: list[str] = field(default_factory=list)
+    gap_total: int = 0
+    gap_high: int = 0
+    quality_score: int = 0
+    debt_trend_note: str = ""
+    before_after_note: str = ""
+    # i18n metrics
+    i18n_enabled: bool = False
+    i18n_languages: list[str] = field(default_factory=list)
+    i18n_translation_coverage: dict[str, float] = field(default_factory=dict)
+    i18n_stale_translations: int = 0
+    i18n_missing_translations: int = 0
 
 
 def _extract_frontmatter(text: str) -> dict[str, Any] | None:
@@ -116,6 +123,7 @@ def build_metrics(
 
     stale_cutoff = current_date - timedelta(days=stale_days)
     stale_docs = 0
+    stale_files: list[str] = []
 
     for path in files:
         text = path.read_text(encoding="utf-8", errors="ignore")
@@ -125,14 +133,15 @@ def build_metrics(
 
         docs_with_frontmatter += 1
 
-        for field in required_fields:
+        for fm_field in required_fields:
             required_total += 1
-            if fm.get(field):
+            if fm.get(fm_field):
                 required_present += 1
 
         reviewed = _parse_date(fm.get("last_reviewed"))
         if reviewed is not None and reviewed < stale_cutoff:
             stale_docs += 1
+            stale_files.append(str(path.relative_to(docs_dir)))
 
     metadata_pct = (required_present / required_total * 100.0) if required_total else 0.0
     stale_pct = (stale_docs / total_docs * 100.0) if total_docs else 0.0
@@ -147,6 +156,28 @@ def build_metrics(
     else:
         debt_trend_note = f"{gap_total} total gaps, {gap_high} high-priority gaps need SLA attention."
 
+    # Load i18n metrics from sync report if available
+    i18n_enabled = False
+    i18n_languages: list[str] = []
+    i18n_coverage: dict[str, float] = {}
+    i18n_stale = 0
+    i18n_missing = 0
+
+    i18n_report_path = reports_dir / "i18n_sync_report.json"
+    if i18n_report_path.exists():
+        try:
+            i18n_data = json.loads(i18n_report_path.read_text(encoding="utf-8"))
+            coverage_data = i18n_data.get("coverage", {})
+            if coverage_data:
+                i18n_enabled = True
+                i18n_languages = list(coverage_data.keys())
+                for locale, stats in coverage_data.items():
+                    i18n_coverage[locale] = stats.get("coverage_pct", 0.0)
+                    i18n_stale += stats.get("stale", 0)
+                    i18n_missing += stats.get("missing", 0)
+        except (json.JSONDecodeError, OSError):
+            pass
+
     return KpiMetrics(
         generated_at=generated_at or datetime.utcnow().replace(microsecond=0).isoformat() + "Z",
         total_docs=total_docs,
@@ -154,15 +185,37 @@ def build_metrics(
         metadata_completeness_pct=round(metadata_pct, 1),
         stale_docs=stale_docs,
         stale_pct=round(stale_pct, 1),
+        stale_files=stale_files,
         gap_total=gap_total,
         gap_high=gap_high,
         quality_score=quality_score,
         debt_trend_note=debt_trend_note,
         before_after_note=_load_before_after_note(reports_dir),
+        i18n_enabled=i18n_enabled,
+        i18n_languages=i18n_languages,
+        i18n_translation_coverage=i18n_coverage,
+        i18n_stale_translations=i18n_stale,
+        i18n_missing_translations=i18n_missing,
     )
 
 
 def render_markdown(metrics: KpiMetrics) -> str:
+    i18n_section = ""
+    if metrics.i18n_enabled:
+        coverage_lines = "\n".join(
+            f"  - {locale}: **{pct}%**"
+            for locale, pct in metrics.i18n_translation_coverage.items()
+        )
+        i18n_section = f"""
+## Translation Coverage
+
+- Languages: **{', '.join(metrics.i18n_languages)}**
+- Missing translations: **{metrics.i18n_missing_translations}**
+- Stale translations: **{metrics.i18n_stale_translations}**
+- Per-locale coverage:
+{coverage_lines}
+"""
+
     return f"""# Documentation KPI Wall
 
 Generated at: {metrics.generated_at}
@@ -176,7 +229,7 @@ Generated at: {metrics.generated_at}
 - Stale docs: **{metrics.stale_docs} ({metrics.stale_pct}%)**
 - Open doc gaps: **{metrics.gap_total}**
 - High-priority doc gaps: **{metrics.gap_high}**
-
+{i18n_section}
 ## Executive Notes
 
 - Debt trend: {metrics.debt_trend_note}

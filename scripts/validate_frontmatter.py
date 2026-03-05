@@ -151,6 +151,55 @@ def validate_file(filepath: Path, schema: dict[str, Any]) -> list[str]:
     return errors
 
 
+def _validate_i18n_fields(
+    frontmatter: dict[str, Any],
+    filepath: Path,
+    docs_path: Path,
+) -> list[str]:
+    """Validate i18n-specific frontmatter fields.
+
+    Checks:
+    - language matches the locale folder (if folder-based layout)
+    - translation_of target file exists
+    - source_hash is present when translation_of is set
+    """
+    errors: list[str] = []
+
+    language = frontmatter.get("language")
+    translation_of = frontmatter.get("translation_of")
+    source_hash = frontmatter.get("source_hash")
+
+    # Check language matches locale folder
+    if language:
+        try:
+            rel = filepath.relative_to(docs_path)
+            parts = rel.parts
+            if parts and re.match(r"^[a-z]{2,3}$", parts[0]):
+                folder_locale = parts[0]
+                if language != folder_locale:
+                    errors.append(
+                        f"{filepath}: language '{language}' does not match "
+                        f"folder locale '{folder_locale}'"
+                    )
+        except ValueError:
+            pass
+
+    # Check translation_of target exists
+    if translation_of:
+        target = docs_path / translation_of
+        if not target.exists():
+            errors.append(
+                f"{filepath}: translation_of target does not exist: {translation_of}"
+            )
+        # source_hash should be present for translations
+        if not source_hash:
+            errors.append(
+                f"{filepath}: source_hash is required when translation_of is set"
+            )
+
+    return errors
+
+
 def main() -> None:
     schema = load_schema()
     all_errors: list[str] = []
@@ -164,6 +213,12 @@ def main() -> None:
         if md_file.name.startswith("_"):
             continue
         all_errors.extend(validate_file(md_file, schema))
+
+        # Validate i18n fields
+        text = md_file.read_text(encoding="utf-8")
+        fm = extract_frontmatter(text)
+        if fm is not None:
+            all_errors.extend(_validate_i18n_fields(fm, md_file, docs_path))
 
     if all_errors:
         print(f"\nFrontmatter validation: {len(all_errors)} error(s)\n", file=sys.stderr)
