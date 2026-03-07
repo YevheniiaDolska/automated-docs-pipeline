@@ -1,6 +1,6 @@
 ## SEO/GEO Optimization Report
 
-**Date**: Sat Mar  7 10:30:09 UTC 2026
+**Date**: Sat Mar  7 10:54:18 UTC 2026
 **Branch**: main
 
 ### Findings Summary
@@ -11,9 +11,9 @@ GEO Findings: 0 errors, 17 warnings, 17 suggestions
   docs/concepts/workflow-execution-model.md:1 [warning] seo-long-lines: 8 lines exceed 120 chars. Long lines hurt mobile readability.
 
 ### Sitemap Statistics
-- Total pages: 16
+- Total pages: 15
 - High priority pages: 11
 
 ### Search Index Statistics
-- Total records: 71
+- Total records: 55
 
