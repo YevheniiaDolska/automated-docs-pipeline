@@ -1,0 +1,17 @@
+{
+  "intent": "secure",
+  "audience": "support",
+  "channel": "in-product",
+  "module_count": 1,
+  "modules": [
+    {
+      "module_id": "webhook-auth-baseline",
+      "title": "Configure HMAC authentication for inbound webhooks",
+      "priority": 95,
+      "intent": "secure",
+      "audience": "support",
+      "channel": "in-product",
+      "content": "HMAC is required for production webhooks. Add the shared secret and verify X-Signature with SHA-256 before processing payload data."
+    }
+  ]
+}

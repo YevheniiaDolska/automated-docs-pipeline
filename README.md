@@ -60,6 +60,24 @@ When Claude Code or Codex processes the consolidated report, it:
 
 Instructions live in `CLAUDE.md` (for Claude Code) and `AGENTS.md` (for Codex).
 
+## Intelligent knowledge system layer
+
+The pipeline includes an AI-native knowledge layer that keeps docs readable while enabling structured retrieval and dynamic assembly.
+
+| Artifact | Purpose |
+| --- | --- |
+| `knowledge_modules/*.yml` | Modular knowledge units with intent, audience, channel, and dependency metadata |
+| `knowledge-module-schema.yml` | Contract for module structure and metadata integrity |
+| `scripts/validate_knowledge_modules.py` | Quality gate for module schema, dependencies, and cycle safety |
+| `scripts/assemble_intent_experience.py` | Assembles intent experiences into docs pages and channel bundles |
+| `scripts/generate_knowledge_retrieval_index.py` | Builds a module-level retrieval index for assistants and search |
+
+```bash
+npm run lint:knowledge
+npm run build:intent -- --intent configure --audience operator --channel docs
+npm run build:knowledge-index
+```
+
 ## Quality gates
 
 ### CI/CD: docs-check.yml (7 parallel checks + build)
@@ -244,7 +262,15 @@ npm run serve                # Start local preview server
 npm run new-doc              # Create new doc from template
 npm run configurator         # Generate browser-based setup wizard
 npm run generator:detect     # Check which site generator is active
+npm run askai:status         # Show Ask AI module config
+npm run askai:enable         # Enable Ask AI with current config
+npm run askai:disable        # Disable Ask AI
+npm run askai:configure -- --provider openai --billing-mode user-subscription
+npm run askai:runtime:install # Install optional Ask AI runtime pack (API + widget)
 ```
+
+Ask AI is optional and disabled by default. Configure it in `config/ask-ai.yml` or with `npm run askai:configure -- --help`.
+When a client needs runtime Q&A, run `npm run askai:runtime:install` and follow `docs/how-to/install-ask-ai-runtime-pack.md`.
 
 ## Test coverage
 
@@ -256,7 +282,10 @@ npm run docs-ops:e2e         # End-to-end pipeline validation
 npm run docs-ops:golden      # Golden report comparison tests
 npm run test:adapter         # Docusaurus adapter tests
 npm run test:configurator    # GUI configurator tests
+npm run test:all             # Full pytest suite (standardized invocation)
 ```
+
+Use `python3 -m pytest ...` (or `npm run test:all`) instead of bare `pytest ...` to avoid environment-specific import edge cases.
 
 ## Start here
 

@@ -1,0 +1,17 @@
+{
+  "intent": "automate",
+  "audience": "support",
+  "channel": "docs",
+  "module_count": 1,
+  "modules": [
+    {
+      "module_id": "webhook-retry-policy",
+      "title": "Define idempotent webhook retry handling",
+      "priority": 90,
+      "intent": "automate",
+      "audience": "support",
+      "channel": "docs",
+      "content": "Use idempotency keys to make webhook retries safe. Persist a processed-event key for at least 24 hours, and skip duplicate events with HTTP 200 to stop upstream retries. Use exponential backoff for outbound retries: one second, two seconds, four seconds, eight seconds, and 16 seconds, capped at five attempts.\n\n```javascript\nconst retryScheduleSeconds = [1, 2, 4, 8, 16];\n\nfunction shouldProcess(eventId, cache) {\n  if (cache.has(eventId)) {\n    return false;\n  }\n  cache.add(eventId);\n  return true;\n}\n```\n\nAlert when retry rate exceeds 5% for 15 minutes. This threshold usually indicates downstream instability."
+    }
+  ]
+}

@@ -1,0 +1,17 @@
+{
+  "intent": "secure",
+  "audience": "practitioner",
+  "channel": "assistant",
+  "module_count": 1,
+  "modules": [
+    {
+      "module_id": "webhook-auth-baseline",
+      "title": "Configure HMAC authentication for inbound webhooks",
+      "priority": 95,
+      "intent": "secure",
+      "audience": "practitioner",
+      "channel": "assistant",
+      "content": "When users ask about webhook security, recommend HMAC verification first, replay-window validation second (<=300 seconds), and key rotation every 90 days. Mention 401 on failure and request logging for audit trails."
+    }
+  ]
+}

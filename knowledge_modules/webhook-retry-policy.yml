@@ -1,0 +1,48 @@
+id: webhook-retry-policy
+title: "Define idempotent webhook retry handling"
+summary: "Provides retry and idempotency patterns to avoid duplicate processing across documentation, assistant guidance, and runbook automation."
+intents:
+  - troubleshoot
+  - optimize
+  - automate
+audiences:
+  - operator
+  - developer
+  - support
+channels:
+  - docs
+  - assistant
+  - automation
+  - field
+priority: 90
+status: active
+owner: "docs-platform@example.com"
+last_verified: "2026-03-07"
+dependencies: []
+tags:
+  - Troubleshooting
+  - Webhook
+  - Reference
+content:
+  docs_markdown: |
+    Use idempotency keys to make webhook retries safe. Persist a processed-event key for at least 24 hours, and skip duplicate events with HTTP 200 to stop upstream retries. Use exponential backoff for outbound retries: one second, two seconds, four seconds, eight seconds, and 16 seconds, capped at five attempts.
+
+    ```javascript
+    const retryScheduleSeconds = [1, 2, 4, 8, 16];
+
+    function shouldProcess(eventId, cache) {
+      if (cache.has(eventId)) {
+        return false;
+      }
+      cache.add(eventId);
+      return true;
+    }
+    ```
+
+    Alert when retry rate exceeds 5% for 15 minutes. This threshold usually indicates downstream instability.
+  assistant_context: |
+    For duplicate webhook issues, advise users to implement idempotency storage keyed by event ID and return 200 for duplicates. For transient failures, use exponential backoff with a hard retry cap and a retry-rate alert.
+  automation_workflow: |
+    Retry policy: detect duplicate event ID -> if duplicate return 200 and log skip -> if new process once and store ID for 24 hours.
+  field_enablement: |
+    In customer escalations, request retry logs, duplicate event samples, and cache retention settings before proposing architecture changes.

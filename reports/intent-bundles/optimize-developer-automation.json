@@ -1,0 +1,17 @@
+{
+  "intent": "optimize",
+  "audience": "developer",
+  "channel": "automation",
+  "module_count": 1,
+  "modules": [
+    {
+      "module_id": "webhook-retry-policy",
+      "title": "Define idempotent webhook retry handling",
+      "priority": 90,
+      "intent": "optimize",
+      "audience": "developer",
+      "channel": "automation",
+      "content": "Retry policy: detect duplicate event ID -> if duplicate return 200 and log skip -> if new process once and store ID for 24 hours."
+    }
+  ]
+}

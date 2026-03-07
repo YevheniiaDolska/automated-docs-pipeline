@@ -16,3 +16,8 @@ original_author: JaneDo
 ## How-To Guides
 
 Each guide solves a specific task. You need basic knowledge before using these.
+
+- [Configure Ask AI module](configure-ask-ai-module.md)
+- [Install Ask AI runtime pack](install-ask-ai-runtime-pack.md)
+- [Assemble intent experiences](assemble-intent-experiences.md)
+- [Configure Webhook triggers](configure-webhook-trigger.md)

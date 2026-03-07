@@ -54,7 +54,7 @@ fi
 
 # 0. Spectral (API specs) - runs first, independent of Markdown
 echo ""
-echo "0/6 Spectral (API specs)..."
+echo "0/7 Spectral (API specs)..."
 if [ -n "$STAGED_API" ]; then
     if have_cmd spectral; then
         for file in $STAGED_API; do
@@ -73,7 +73,7 @@ fi
 
 # 1. Vale (style check)
 echo ""
-echo "1/6 Vale (style)..."
+echo "1/7 Vale (style)..."
 if [ -n "$VALE_BIN" ]; then
     # Vale runs on all files but .vale.ini applies GEO-only rules
     # for non-English locales automatically via glob overrides.
@@ -87,7 +87,7 @@ fi
 
 # 2. markdownlint (formatting)
 echo ""
-echo "2/6 markdownlint (formatting)..."
+echo "2/7 markdownlint (formatting)..."
 if have_cmd markdownlint; then
     markdownlint $STAGED_MD
     if [ $? -ne 0 ]; then
@@ -99,7 +99,7 @@ fi
 
 # 3. cspell (spelling) -- English docs only
 echo ""
-echo "3/6 cspell (spelling)..."
+echo "3/7 cspell (spelling)..."
 if have_cmd cspell; then
     if [ -n "$STAGED_EN" ]; then
         cspell --no-progress $STAGED_EN
@@ -118,7 +118,7 @@ fi
 
 # 4. Frontmatter validation
 echo ""
-echo "4/6 Frontmatter validation..."
+echo "4/7 Frontmatter validation..."
 if [ -f "scripts/validate_frontmatter.py" ]; then
     if [ -n "$PYTHON_BIN" ]; then
         "$PYTHON_BIN" scripts/validate_frontmatter.py
@@ -134,7 +134,7 @@ fi
 
 # 5. SEO/GEO optimization
 echo ""
-echo "5/6 SEO/GEO optimization..."
+echo "5/7 SEO/GEO optimization..."
 if [ -f "scripts/seo_geo_optimizer.py" ]; then
     if [ -n "$PYTHON_BIN" ]; then
         for file in $STAGED_MD; do
@@ -148,6 +148,22 @@ if [ -f "scripts/seo_geo_optimizer.py" ]; then
     fi
 else
     echo "seo_geo_optimizer.py not found. Skipping."
+fi
+
+# 6. Knowledge modules validation
+echo ""
+echo "6/7 Knowledge modules validation..."
+if [ -f "scripts/validate_knowledge_modules.py" ]; then
+    if [ -n "$PYTHON_BIN" ]; then
+        "$PYTHON_BIN" scripts/validate_knowledge_modules.py
+        if [ $? -ne 0 ]; then
+            FAILED="$FAILED knowledge"
+        fi
+    else
+        echo "python/python3 not found. Skipping knowledge validation."
+    fi
+else
+    echo "validate_knowledge_modules.py not found. Skipping."
 fi
 
 # Final verdict

@@ -37,6 +37,16 @@ You are running a live demo of the Auto-Doc Pipeline for a potential client. You
 - The generated document must pass `npm run validate:full` on the FIRST attempt.
 - At the end, commit and push to trigger GitHub Actions build + deploy to MkDocs site.
 - In demo narration, do NOT present pipeline/unit/integration tests as documentation quality gates. Focus quality claims on documentation checks only (Vale, markdownlint, cspell, frontmatter, SEO/GEO, snippets, smoke checks, and strict build/deploy).
+- Run in autonomous mode. Do not ask the user for per-step confirmations during the demo.
+- If a check/deploy fails, continue the remediation loop automatically until deploy is successful.
+
+**AUTONOMOUS EXECUTION MODE (required):**
+
+- Claude: run with `--permission-mode bypassPermissions --dangerously-skip-permissions`
+- Codex: run with `-a never -s workspace-write`
+- Preferred launchers:
+  - `npm run demo:claude:loop`
+  - `npm run demo:codex:loop`
 
 ---
 

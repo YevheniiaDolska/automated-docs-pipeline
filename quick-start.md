@@ -1,6 +1,18 @@
+---
+title: "Auto-Doc Pipeline quick start"
+description: "Set up the Auto-Doc Pipeline in minutes, run gap analysis, and generate documentation with validation-ready commands."
+content_type: tutorial
+product: both
+tags:
+  - Tutorial
+  - AI
+last_reviewed: "2026-03-07"
+---
+
 # Quick start (5 minutes)
 
-Set up the Auto-Doc Pipeline and generate your first documentation from gap analysis reports.
+This tutorial shows you how to install the Auto-Doc Pipeline, generate a consolidated report,
+and produce docs updates that pass validation checks.
 
 ## Prerequisites
 
@@ -14,9 +26,9 @@ git --version
 
 If anything is missing:
 
-- Node.js: <https://nodejs.org/>
-- Python: <https://www.python.org/downloads/>
-- Git: <https://git-scm.com/>
+- Node.js: [Download Node.js](https://nodejs.org/)
+- Python: [Download Python](https://www.python.org/downloads/)
+- Git: [Install Git](https://git-scm.com/)
 
 ## Step 1: Clone and install
 
@@ -74,6 +86,28 @@ git add docs/ mkdocs.yml
 git commit -m "docs: generate documentation from gap analysis"
 ```
 
+## Optional: Ask AI module (beginner setup)
+
+If a client wants Ask AI configuration support, use these commands:
+
+```bash
+npm run askai:status
+npm run askai:enable
+npm run askai:configure -- --provider openai --billing-mode user-subscription
+```
+
+If the client does not need Ask AI, keep it disabled:
+
+```bash
+npm run askai:disable
+```
+
+If the client asks for a live Ask AI runtime (endpoint + widget), install it:
+
+```bash
+npm run askai:runtime:install
+```
+
 ## What each command does
 
 | Command | Purpose |
@@ -83,6 +117,10 @@ git commit -m "docs: generate documentation from gap analysis"
 | `npm run validate:full` | Full lint check including e2e and golden tests |
 | `npm run serve` | Preview docs site locally (auto-detects MkDocs or Docusaurus) |
 | `npm run lint` | Run all individual linters (Vale, markdownlint, cspell, GEO) |
+| `npm run askai:status` | Show Ask AI module configuration |
+| `npm run askai:enable` | Enable Ask AI module |
+| `npm run askai:disable` | Disable Ask AI module |
+| `npm run askai:runtime:install` | Install Ask AI runtime pack in current repo |
 | `npm run gaps` | Run gap analysis only |
 | `npm run kpi-wall` | Generate KPI dashboard |
 
@@ -90,8 +128,8 @@ git commit -m "docs: generate documentation from gap analysis"
 
 | Goal | Guide |
 | --- | --- |
-| Understand all features | `README.md` |
-| Full setup with troubleshooting | `README_SETUP.md` |
-| Install into another repository | `SETUP_FOR_PROJECTS.md` |
-| Customize for a company | `CUSTOMIZATION_PER_COMPANY.md` |
-| Windows setup from scratch | `BEGINNER_GUIDE.md` |
+| Understand all features | [README](./README.md) |
+| Full setup with troubleshooting | [Setup guide](./README_SETUP.md) |
+| Install into another repository | [Setup for projects](./SETUP_FOR_PROJECTS.md) |
+| Customize for a company | [Customization guide](./CUSTOMIZATION_PER_COMPANY.md) |
+| Windows setup from scratch | [Beginner guide](./BEGINNER_GUIDE.md) |

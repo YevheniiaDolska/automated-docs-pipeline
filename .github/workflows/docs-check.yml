@@ -4,8 +4,11 @@ on:
   pull_request:
     paths:
       - 'docs/**'
+      - 'knowledge_modules/**'
+      - 'knowledge-module-schema.yml'
       - '.vale/**'
       - 'docs-schema.yml'
+      - 'scripts/validate_knowledge_modules.py'
       - 'api/**'
       - '**/*.yaml'
       - '**/*.json'
@@ -112,6 +115,17 @@ jobs:
         if: steps.find-specs.outputs.found == 'false'
         run: echo "No OpenAPI/Swagger specs found - skipping Spectral validation"
 
+  knowledge:
+    name: Knowledge modules validation
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - run: pip install pyyaml
+      - run: python3 scripts/validate_knowledge_modules.py
+
   build-docs:
     name: Build docs (strict)
     runs-on: ubuntu-latest
@@ -123,6 +137,7 @@ jobs:
       - seo-geo-check
       - code-examples-smoke
       - spectral
+      - knowledge
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5

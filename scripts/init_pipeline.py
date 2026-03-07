@@ -35,7 +35,9 @@ PIPELINE_FILES = {
     ],
     "directories": [
         "scripts",
+        "runtime",
         "templates",
+        "config",
         "policy_packs",
         ".vale",
         ".github/workflows",

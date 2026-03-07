@@ -1,0 +1,17 @@
+{
+  "intent": "optimize",
+  "audience": "operator",
+  "channel": "field",
+  "module_count": 1,
+  "modules": [
+    {
+      "module_id": "webhook-retry-policy",
+      "title": "Define idempotent webhook retry handling",
+      "priority": 90,
+      "intent": "optimize",
+      "audience": "operator",
+      "channel": "field",
+      "content": "In customer escalations, request retry logs, duplicate event samples, and cache retention settings before proposing architecture changes."
+    }
+  ]
+}

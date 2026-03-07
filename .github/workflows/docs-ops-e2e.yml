@@ -8,6 +8,8 @@ on:
       - 'scripts/evaluate_kpi_sla.py'
       - 'scripts/test_docs_ops_e2e.py'
       - 'scripts/test_golden_reports_and_workflows.py'
+      - 'tests/test_autopipeline_suite.py'
+      - 'tests/conftest.py'
       - 'policy_packs/**'
       - 'tests/fixtures/docs_ops/**'
       - 'tests/golden/**'
@@ -35,7 +37,7 @@ jobs:
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
-          pip install pyyaml
+          pip install pyyaml pytest
 
       - name: Run E2E fixtures
         run: |
@@ -44,3 +46,7 @@ jobs:
       - name: Run golden report and workflow tests
         run: |
           python3 scripts/test_golden_reports_and_workflows.py
+
+      - name: Run pipeline suite (standardized pytest invocation)
+        run: |
+          python3 -m pytest -q tests/test_autopipeline_suite.py

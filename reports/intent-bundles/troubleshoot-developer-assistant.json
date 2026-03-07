@@ -1,0 +1,17 @@
+{
+  "intent": "troubleshoot",
+  "audience": "developer",
+  "channel": "assistant",
+  "module_count": 1,
+  "modules": [
+    {
+      "module_id": "webhook-retry-policy",
+      "title": "Define idempotent webhook retry handling",
+      "priority": 90,
+      "intent": "troubleshoot",
+      "audience": "developer",
+      "channel": "assistant",
+      "content": "For duplicate webhook issues, advise users to implement idempotency storage keyed by event ID and return 200 for duplicates. For transient failures, use exponential backoff with a hard retry cap and a retry-rate alert."
+    }
+  ]
+}

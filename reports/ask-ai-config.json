@@ -1,0 +1,21 @@
+{
+  "enabled": false,
+  "provider": "openai",
+  "billing_mode": "disabled",
+  "model": "gpt-4.1-mini",
+  "base_url": "https://api.openai.com/v1",
+  "knowledge_index_path": "docs/assets/knowledge-retrieval-index.json",
+  "assistant_bundle_glob": "reports/intent-bundles/*-assistant.json",
+  "max_context_modules": 6,
+  "temperature": 0.2,
+  "top_p": 1.0,
+  "max_tokens": 700,
+  "require_user_auth": true,
+  "allowed_roles": [
+    "admin",
+    "support"
+  ],
+  "rate_limit_per_user_per_minute": 20,
+  "retention_days": 30,
+  "audit_logging": true
+}
