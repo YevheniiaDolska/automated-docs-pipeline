@@ -206,6 +206,7 @@
 <h1>Webhook Processing Pipeline Architecture</h1>
 <p class="subtitle">Click any component to see details</p>
 
+<!-- === EDIT THIS SECTION: Add/remove layers and components === -->
 <div class="diagram">
 
   <div class="layer-label">Clients</div>
@@ -236,7 +237,7 @@
       <div class="name">CloudFlare CDN</div>
       <div class="metric">99.99% uptime</div>
     </div>
-    <div class="component" data-id="ratelimit" onclick="showInfo('ratelimit')">
+    <div class="component" data-id="ratelimiter" onclick="showInfo('ratelimiter')">
       <span class="icon">&#9201;</span>
       <div class="name">Rate Limiter</div>
       <div class="metric">60 req/min</div>
@@ -248,7 +249,7 @@
   <div class="layer-label">Verification</div>
   <div class="layer">
     <div class="component" data-id="gateway" onclick="showInfo('gateway')">
-      <span class="icon">&#9878;</span>
+      <span class="icon">&#128737;</span>
       <div class="name">API Gateway</div>
       <div class="metric">12K req/sec</div>
     </div>
@@ -269,14 +270,14 @@
       <div class="metric">8 event types</div>
     </div>
     <div class="component" data-id="queue" onclick="showInfo('queue')">
-      <span class="icon">&#128736;</span>
+      <span class="icon">&#128230;</span>
       <div class="name">BullMQ Queue</div>
       <div class="metric">Redis-backed</div>
     </div>
     <div class="component" data-id="retry" onclick="showInfo('retry')">
       <span class="icon">&#128260;</span>
       <div class="name">Retry Engine</div>
-      <div class="metric">Exp. backoff</div>
+      <div class="metric">Exponential backoff</div>
     </div>
   </div>
 
@@ -290,110 +291,117 @@
       <div class="metric">2 read replicas</div>
     </div>
     <div class="component" data-id="eventlog" onclick="showInfo('eventlog')">
-      <span class="icon">&#128203;</span>
+      <span class="icon">&#128196;</span>
       <div class="name">Event Log</div>
       <div class="metric">30-day retention</div>
     </div>
     <div class="component" data-id="grafana" onclick="showInfo('grafana')">
-      <span class="icon">&#128200;</span>
+      <span class="icon">&#128202;</span>
       <div class="name">Grafana Monitoring</div>
       <div class="metric">Real-time alerts</div>
     </div>
   </div>
 
 </div>
+<!-- === END EDITABLE SECTION === -->
 
 <div class="info-panel" id="infoPanel">
   <p class="info-default">Click any component to see its description, configuration, and key metrics.</p>
 </div>
 
 <script>
+// === EDIT THIS SECTION: descriptions for each component ===
 const descriptions = {
   mobile: {
     title: "Mobile App",
-    desc: "Native iOS and Android applications serving 2.1 million registered users. Sends webhook events for order completions, payment confirmations, and shipping updates. Uses certificate pinning and payload compression (gzip) to reduce bandwidth by 40%.",
-    tags: ["iOS", "Android", "2.1M users", "Certificate pinning", "gzip"]
+    desc: "Native iOS and Android applications serving 2.1 million registered users. Generates webhook events for order completions, payment confirmations, and shipping updates. Communicates via HTTPS with certificate pinning and sends an average of 3,400 webhook-triggering actions per minute during peak hours.",
+    tags: ["iOS", "Android", "2.1M users", "HTTPS", "Certificate pinning"]
   },
   web: {
     title: "Web Dashboard",
-    desc: "Single-page application with 450,000 daily active users. Provides real-time webhook delivery monitoring, signature key management, and retry configuration. Receives Server-Sent Events for live delivery status updates with sub-second latency.",
-    tags: ["React", "450K DAU", "SSE", "Real-time monitoring"]
+    desc: "Single-page application built with React serving 450,000 daily active users. Provides real-time webhook delivery monitoring, endpoint configuration, and delivery log inspection. Connects to the API Gateway via WebSocket for live event streaming with a 2-second maximum propagation delay.",
+    tags: ["React", "450K DAU", "WebSocket", "Real-time monitoring"]
   },
   partner: {
     title: "Partner API",
-    desc: "RESTful integration layer connecting 85 partner platforms including Shopify, Stripe, and Salesforce. Each partner registers webhook endpoints through the API and receives events filtered by subscription type. Supports OAuth2 and API key authentication.",
-    tags: ["REST", "85 integrations", "OAuth2", "Shopify", "Stripe"]
+    desc: "RESTful integration layer supporting 85 third-party partner integrations. Each partner registers webhook endpoints through the Partner Portal and receives events filtered by subscription topics. Handles OAuth2 token exchange for partner authentication with 15-minute token rotation.",
+    tags: ["REST", "85 integrations", "OAuth2", "Topic filtering"]
   },
   cdn: {
     title: "CloudFlare CDN",
-    desc: "Global edge network with 310 points of presence across 120 countries. Handles TLS termination, HTTP/2 multiplexing, and DDoS mitigation. Maintains 99.99% uptime SLA with automatic failover between edge nodes in under 3 seconds.",
-    tags: ["310 PoPs", "TLS 1.3", "HTTP/2", "DDoS protection", "99.99% SLA"]
+    desc: "Global content delivery network with 310 points of presence across 120 countries. Handles TLS termination, DDoS mitigation (absorbs up to 15 Tbps), and geographic routing to the nearest edge node. Maintains 99.99% uptime SLA with automatic failover between data centers in under 3 seconds.",
+    tags: ["310 PoPs", "TLS termination", "DDoS 15 Tbps", "99.99% SLA"]
   },
-  ratelimit: {
+  ratelimiter: {
     title: "Rate Limiter",
-    desc: "Token bucket algorithm enforcing 60 requests per minute per API key at the edge layer. Backed by Redis with shared state across all CDN nodes for consistent rate enforcement. Returns HTTP 429 with Retry-After header when limits are exceeded.",
-    tags: ["Token bucket", "60 req/min", "Redis", "HTTP 429"]
+    desc: "Token bucket rate limiter enforcing 60 requests per minute per API key (configurable per plan: Starter 60, Pro 300, Enterprise 1,000). Backed by Redis with shared state across all edge nodes. Returns HTTP 429 with Retry-After header and remaining quota in X-RateLimit-Remaining response header.",
+    tags: ["Token bucket", "Redis", "60 req/min", "Per-key limits", "HTTP 429"]
   },
   gateway: {
     title: "API Gateway",
-    desc: "Nginx-based reverse proxy handling 12,000 requests per second across 8 upstream instances. Routes webhook payloads to the HMAC validator, applies request size limits (16 MB max), and strips hop-by-hop headers. Health checks run every 5 seconds.",
-    tags: ["Nginx", "12K req/sec", "16 MB limit", "L7 routing"]
+    desc: "NGINX-based API gateway processing 12,000 requests per second across 8 upstream instances. Routes incoming webhooks to the HMAC validator, enforces request size limits (16 MB max payload), and strips hop-by-hop headers. Adds X-Request-ID for distributed tracing across all downstream services.",
+    tags: ["NGINX", "12K req/sec", "8 instances", "Distributed tracing"]
   },
   hmac: {
     title: "HMAC Validator",
-    desc: "Cryptographic signature verification completing in under 2 milliseconds per payload. Computes HMAC-SHA256 using timing-safe comparison to prevent timing attacks. Enforces 5-minute replay protection window by validating the embedded timestamp against server clock.",
+    desc: "Cryptographic signature verification service validating HMAC-SHA256 signatures in under 2 milliseconds per payload. Implements timing-safe comparison to prevent timing attacks and enforces a 5-minute replay window using the embedded timestamp. Rejects 0.3% of incoming requests as invalid (payload tampering or replay attempts).",
     tags: ["HMAC-SHA256", "<2 ms", "Timing-safe", "Replay protection"]
   },
   router: {
     title: "Event Router",
-    desc: "Routes incoming webhook events to appropriate processing queues based on event type. Supports 8 event types: order.completed, payment.received, shipment.updated, refund.issued, subscription.created, subscription.canceled, invoice.paid, and customer.updated. Uses content-based routing with configurable filters.",
-    tags: ["8 event types", "Content-based routing", "Configurable filters"]
+    desc: "Routes verified webhook events to type-specific handlers across 8 event categories: order.completed, payment.confirmed, shipping.updated, refund.processed, subscription.changed, inventory.low, customer.created, and webhook.test. Uses content-based routing with a trie lookup achieving O(1) dispatch time.",
+    tags: ["8 event types", "Content-based routing", "O(1) dispatch", "Type-safe"]
   },
   queue: {
     title: "BullMQ Queue",
-    desc: "Redis-backed job queue processing 850 events per second with 10 concurrent workers. Supports priority queuing (critical, normal, low), delayed jobs, and rate-limited processing. Jobs are persisted in Redis with configurable TTL. Completed jobs are retained for 1,000 entries for debugging.",
-    tags: ["Redis", "850 events/sec", "10 workers", "Priority queuing", "BullMQ"]
+    desc: "Redis-backed job queue processing 850 events per second with 10 concurrent workers. Supports priority levels (critical, normal, low), job deduplication by idempotency key, and delayed scheduling. Stores job metadata for 1,000 completed and 5,000 failed jobs for debugging. Uses Redis Streams for reliable delivery.",
+    tags: ["Redis Streams", "850 events/sec", "10 workers", "Priority queue"]
   },
   retry: {
     title: "Retry Engine",
-    desc: "Exponential backoff retry mechanism with intervals of 1 second, 5 seconds, 30 seconds, 2 minutes, and 10 minutes. Maximum 5 retry attempts per event. Dead letter queue captures permanently failed events for manual investigation. Retry success rate: 94% by attempt 3.",
-    tags: ["Exponential backoff", "5 attempts", "Dead letter queue", "94% recovery"]
+    desc: "Exponential backoff retry engine with intervals at 1 second, 5 seconds, 30 seconds, 2 minutes, and 10 minutes (5 attempts total). Implements jitter to prevent thundering herd on mass failures. Moves permanently failed events to a dead letter queue after exhausting all retry attempts. Achieves 99.7% eventual delivery rate.",
+    tags: ["Exponential backoff", "5 attempts", "Jitter", "Dead letter queue", "99.7% delivery"]
   },
   postgres: {
     title: "PostgreSQL Database",
-    desc: "Primary database with 2 read replicas handling 8,500 queries per second (peak: 12,000). Uses PgBouncer connection pooling with a maximum of 500 connections. Automated daily backups with 30-day retention and point-in-time recovery. Stores webhook configurations, delivery history, and partner metadata.",
-    tags: ["Primary + 2 replicas", "8.5K QPS", "PgBouncer", "PITR", "30-day backup"]
+    desc: "Primary database with 2 read replicas handling 8,500 queries per second (peak: 12,000). Uses PgBouncer connection pooling with a maximum of 500 connections. Stores webhook delivery records, endpoint configurations, and partner metadata. Automated daily backups with 30-day retention and point-in-time recovery enabled.",
+    tags: ["Primary + 2 replicas", "8.5K queries/sec", "PgBouncer", "PITR backups"]
   },
   eventlog: {
     title: "Event Log",
-    desc: "Append-only event store with 30-day retention policy. Records every webhook delivery attempt with full payload, response status, and processing duration. Supports full-text search across event payloads for debugging. Compressed storage reduces disk usage by 65%.",
-    tags: ["Append-only", "30-day retention", "Full-text search", "65% compression"]
+    desc: "Append-only event log storing all webhook deliveries for 30 days (configurable). Records the full request payload, response status, processing duration, and retry history for each event. Supports full-text search across event payloads and filters by event type, status, and time range. Indexes 1.2 million events per day.",
+    tags: ["30-day retention", "Append-only", "Full-text search", "1.2M events/day"]
   },
   grafana: {
     title: "Grafana Monitoring",
-    desc: "Real-time observability dashboard tracking delivery success rate, queue depth, P99 latency, and error distribution. Alerts trigger when queue depth exceeds 10,000 events or P99 latency crosses 200 milliseconds. Integrates with PagerDuty for on-call escalation within 2 minutes.",
-    tags: ["Grafana", "PagerDuty", "P99 tracking", "Real-time alerts"]
+    desc: "Real-time monitoring dashboard with 12 pre-configured panels tracking ingestion rate, queue depth, P50/P95/P99 latency, error rate, and retry counts. Sends PagerDuty alerts when queue depth exceeds 10,000 events or P99 latency crosses 200 milliseconds. Data sourced from Prometheus with 15-second scrape interval.",
+    tags: ["12 panels", "Prometheus", "PagerDuty", "15s scrape", "Real-time"]
   }
 };
+// === END EDITABLE SECTION ===
 
 // Sync theme with parent page (MkDocs Material or Docusaurus)
 function syncTheme() {
   try {
+    // MkDocs Material: parent body has data-md-color-scheme="slate" for dark
     const parentScheme = window.parent.document.body.getAttribute('data-md-color-scheme');
     if (parentScheme === 'slate') {
       document.documentElement.setAttribute('data-theme', 'dark');
       return;
     }
+    // Docusaurus: parent html has data-theme="dark"
     const parentTheme = window.parent.document.documentElement.getAttribute('data-theme');
     if (parentTheme === 'dark') {
       document.documentElement.setAttribute('data-theme', 'dark');
       return;
     }
+    // If parent is light or not detected, use OS preference (handled by CSS)
   } catch (e) {
     // Cross-origin: fall back to OS preference (handled by CSS media query)
   }
 }
 syncTheme();
+// Re-sync when parent toggles theme
 try {
   new MutationObserver(syncTheme).observe(
     window.parent.document.documentElement,
