@@ -1,214 +1,252 @@
 {
   "summary": {
-    "total_gaps": 10,
-    "high_priority": 4,
-    "medium_priority": 6,
-    "low_priority": 0,
+    "total_gaps": 12,
+    "high_priority": 8,
+    "medium_priority": 3,
+    "low_priority": 1,
     "by_source": {
-      "code": 10
+      "code": 12
     },
     "by_doc_type": {
-      "how-to": 7,
-      "reference": 3
+      "how-to": 8,
+      "reference": 4
     },
     "by_category": {
-      "authentication": 1,
-      "database_schema": 1,
-      "removed_function": 1,
-      "signature_change": 1,
-      "new_function": 1,
       "webhook": 1,
       "public_function": 1,
+      "authentication": 1,
+      "database_schema": 1,
+      "breaking_change": 1,
+      "removed_function": 1,
+      "signature_change": 1,
+      "api_endpoint": 1,
+      "new_function": 1,
       "config_option": 1,
-      "env_var": 1,
-      "error_handling": 1
+      "error_handling": 1,
+      "env_var": 1
     }
   },
   "sources_analyzed": [
     "code_changes",
     "community"
   ],
-  "generated_at": "2026-03-04T17:35:50.612234",
+  "generated_at": "2026-03-07T14:51:27.328474",
   "gaps": [
     {
-      "id": "CODE-0003",
+      "id": "CODE-0008",
+      "title": "Webhook: webhook: webhook",
+      "description": "Update webhook documentation for changes in docs/how-to/configure-webhook-trigger.md. Include payload examples and event types.",
+      "source": "code",
+      "category": "webhook",
+      "suggested_doc_type": "how-to",
+      "priority": "high",
+      "frequency": 1239,
+      "keywords": [],
+      "related_files": [
+        "docs/how-to/configure-webhook-trigger.md"
+      ],
+      "sample_queries": [],
+      "action_required": "Update webhook documentation for changes in docs/how-to/configure-webhook-trigger.md. Include payload examples and event types.",
+      "status": "new",
+      "created_at": "2026-03-07T14:51:27.328795"
+    },
+    {
+      "id": "CODE-0503",
+      "title": "Public Function: public_function: verify_webhook_signature",
+      "description": "Consider documenting public API: verify_webhook_signature. Include parameters, return value, and example usage.",
+      "source": "code",
+      "category": "public_function",
+      "suggested_doc_type": "reference",
+      "priority": "high",
+      "frequency": 846,
+      "keywords": [],
+      "related_files": [
+        "docs/en/how-to/set-up-real-time-webhook-processing-pipeline.md"
+      ],
+      "sample_queries": [],
+      "action_required": "Consider documenting public API: verify_webhook_signature. Include parameters, return value, and example usage.",
+      "status": "new",
+      "created_at": "2026-03-07T14:51:27.336818"
+    },
+    {
+      "id": "CODE-0004",
       "title": "Authentication: authentication: Auth",
-      "description": "Update authentication documentation for changes in FULL_IMPLEMENTATION_START_HERE.md. Include security considerations.",
+      "description": "Update authentication documentation for changes in docs/.claude/settings.local.json. Include security considerations.",
       "source": "code",
       "category": "authentication",
       "suggested_doc_type": "how-to",
       "priority": "high",
-      "frequency": 240,
+      "frequency": 756,
       "keywords": [],
       "related_files": [
-        "FULL_IMPLEMENTATION_START_HERE.md"
+        "docs/.claude/settings.local.json"
       ],
       "sample_queries": [],
-      "action_required": "Update authentication documentation for changes in FULL_IMPLEMENTATION_START_HERE.md. Include security considerations.",
+      "action_required": "Update authentication documentation for changes in docs/.claude/settings.local.json. Include security considerations.",
       "status": "new",
-      "created_at": "2026-03-04T17:35:50.612316"
+      "created_at": "2026-03-07T14:51:27.328722"
     },
     {
-      "id": "CODE-0005",
+      "id": "CODE-0632",
       "title": "Database Schema: database_schema: migration",
-      "description": "Document database schema change in PILOT_VS_FULL_IMPLEMENTATION.md. Update data model documentation.",
+      "description": "Document database schema change in .claude/commands/generate-docs.md. Update data model documentation.",
       "source": "code",
       "category": "database_schema",
       "suggested_doc_type": "how-to",
       "priority": "high",
-      "frequency": 19,
+      "frequency": 104,
       "keywords": [],
       "related_files": [
-        "PILOT_VS_FULL_IMPLEMENTATION.md"
+        ".claude/commands/generate-docs.md"
       ],
       "sample_queries": [],
-      "action_required": "Document database schema change in PILOT_VS_FULL_IMPLEMENTATION.md. Update data model documentation.",
+      "action_required": "Document database schema change in .claude/commands/generate-docs.md. Update data model documentation.",
       "status": "new",
-      "created_at": "2026-03-04T17:35:50.612415"
+      "created_at": "2026-03-07T14:51:27.338693"
     },
     {
-      "id": "CODE-0100",
-      "title": "Removed Function: Function removed: pipeline",
-      "description": "BREAKING: Function pipeline was removed. Update documentation and add migration guide.",
+      "id": "CODE-0622",
+      "title": "Breaking Change: breaking_change: ",
+      "description": "URGENT: Document breaking change in .claude/commands/generate-docs.md. Update migration guide with before/after examples.",
+      "source": "code",
+      "category": "breaking_change",
+      "suggested_doc_type": "how-to",
+      "priority": "high",
+      "frequency": 40,
+      "keywords": [],
+      "related_files": [
+        ".claude/commands/generate-docs.md"
+      ],
+      "sample_queries": [],
+      "action_required": "URGENT: Document breaking change in .claude/commands/generate-docs.md. Update migration guide with before/after examples.",
+      "status": "new",
+      "created_at": "2026-03-07T14:51:27.338564"
+    },
+    {
+      "id": "CODE-0006",
+      "title": "Removed Function: Function removed: HMAC",
+      "description": "BREAKING: Function HMAC was removed. Update documentation and add migration guide.",
       "source": "code",
       "category": "removed_function",
       "suggested_doc_type": "how-to",
       "priority": "high",
-      "frequency": 19,
+      "frequency": 32,
       "keywords": [],
       "related_files": [
-        "docs/pear/bare-stream-README.md"
+        "docs/how-to/configure-webhook-trigger.md"
       ],
       "sample_queries": [],
-      "action_required": "BREAKING: Function pipeline was removed. Update documentation and add migration guide.",
+      "action_required": "BREAKING: Function HMAC was removed. Update documentation and add migration guide.",
       "status": "new",
-      "created_at": "2026-03-04T17:35:50.613607"
+      "created_at": "2026-03-07T14:51:27.328769"
     },
     {
-      "id": "CODE-0188",
+      "id": "CODE-1138",
       "title": "Signature Change: Function signature changed: print",
-      "description": "UPDATE REQUIRED: Function print signature changed. Old: (f\"Found {result['nbHits']} results for 'webhook'\") → New: (f\"Found {nb_hits} results for 'webhook'\"). Update documentation and examples.",
+      "description": "UPDATE REQUIRED: Function print signature changed. Old: (f\"✅ Created {doc_type} document: {output_path}\") → New: (f\"Created {doc_type} document: {output_path}\"). Update documentation and examples.",
       "source": "code",
       "category": "signature_change",
       "suggested_doc_type": "how-to",
       "priority": "high",
-      "frequency": 7,
+      "frequency": 8,
       "keywords": [],
       "related_files": [
-        ".github/workflows/algolia-index.yml"
+        "scripts/new_doc.py"
       ],
       "sample_queries": [],
-      "action_required": "UPDATE REQUIRED: Function print signature changed. Old: (f\"Found {result['nbHits']} results for 'webhook'\") → New: (f\"Found {nb_hits} results for 'webhook'\"). Update documentation and examples.",
+      "action_required": "UPDATE REQUIRED: Function print signature changed. Old: (f\"✅ Created {doc_type} document: {output_path}\") → New: (f\"Created {doc_type} document: {output_path}\"). Update documentation and examples.",
       "status": "new",
-      "created_at": "2026-03-04T17:35:50.614488"
+      "created_at": "2026-03-07T14:51:27.376730"
     },
     {
-      "id": "CODE-0015",
-      "title": "New Function: New function: print",
-      "description": "Document new function: print. Include parameters, return value, and usage example.",
+      "id": "CODE-1350",
+      "title": "Api Endpoint: api_endpoint: /webhooks/stripe",
+      "description": "Document API endpoint: /webhooks/stripe. Include request/response examples, parameters, authentication requirements.",
+      "source": "code",
+      "category": "api_endpoint",
+      "suggested_doc_type": "reference",
+      "priority": "high",
+      "frequency": 2,
+      "keywords": [],
+      "related_files": [
+        "tests/test_coverage_boost.py"
+      ],
+      "sample_queries": [],
+      "action_required": "Document API endpoint: /webhooks/stripe. Include request/response examples, parameters, authentication requirements.",
+      "status": "new",
+      "created_at": "2026-03-07T14:51:27.377961"
+    },
+    {
+      "id": "CODE-0473",
+      "title": "New Function: New function: showInfo",
+      "description": "Document new function: showInfo. Include parameters, return value, and usage example.",
       "source": "code",
       "category": "new_function",
       "suggested_doc_type": "how-to",
       "priority": "medium",
-      "frequency": 218,
+      "frequency": 869,
       "keywords": [],
       "related_files": [
-        "AGENTS.md"
+        "docs/diagrams/demo-webhook-pipeline.html"
       ],
       "sample_queries": [],
-      "action_required": "Document new function: print. Include parameters, return value, and usage example.",
+      "action_required": "Document new function: showInfo. Include parameters, return value, and usage example.",
       "status": "new",
-      "created_at": "2026-03-04T17:35:50.612564"
+      "created_at": "2026-03-07T14:51:27.336435"
     },
     {
       "id": "CODE-0001",
-      "title": "Webhook: webhook: webhook",
-      "description": "Update webhook documentation for changes in FULL_IMPLEMENTATION_START_HERE.md. Include payload examples and event types.",
-      "source": "code",
-      "category": "webhook",
-      "suggested_doc_type": "how-to",
-      "priority": "medium",
-      "frequency": 170,
-      "keywords": [],
-      "related_files": [
-        "FULL_IMPLEMENTATION_START_HERE.md"
-      ],
-      "sample_queries": [],
-      "action_required": "Update webhook documentation for changes in FULL_IMPLEMENTATION_START_HERE.md. Include payload examples and event types.",
-      "status": "new",
-      "created_at": "2026-03-04T17:35:50.612296"
-    },
-    {
-      "id": "CODE-0141",
-      "title": "Public Function: public_function: seo_validate_file",
-      "description": "Consider documenting public API: seo_validate_file. Include parameters, return value, and example usage.",
-      "source": "code",
-      "category": "public_function",
-      "suggested_doc_type": "reference",
-      "priority": "medium",
-      "frequency": 139,
-      "keywords": [],
-      "related_files": [
-        "scripts/seo_geo_optimizer.py"
-      ],
-      "sample_queries": [],
-      "action_required": "Consider documenting public API: seo_validate_file. Include parameters, return value, and example usage.",
-      "status": "new",
-      "created_at": "2026-03-04T17:35:50.614074"
-    },
-    {
-      "id": "CODE-0008",
       "title": "Config Option: config_option: local",
       "description": "Document configuration option: local. Include allowed values and when to use.",
       "source": "code",
       "category": "config_option",
       "suggested_doc_type": "reference",
       "priority": "medium",
-      "frequency": 28,
+      "frequency": 40,
       "keywords": [],
       "related_files": [
-        ".claude/settings.local.json"
+        "docs/.claude/settings.local.json"
       ],
       "sample_queries": [],
       "action_required": "Document configuration option: local. Include allowed values and when to use.",
       "status": "new",
-      "created_at": "2026-03-04T17:35:50.612502"
+      "created_at": "2026-03-07T14:51:27.328601"
     },
     {
-      "id": "CODE-0189",
-      "title": "Env Var: env_var: ALGOLIA_INDEX_NAME",
-      "description": "Add environment variable ALGOLIA_INDEX_NAME to configuration reference. Include default value, description, and examples.",
-      "source": "code",
-      "category": "env_var",
-      "suggested_doc_type": "reference",
-      "priority": "medium",
-      "frequency": 4,
-      "keywords": [],
-      "related_files": [
-        ".github/workflows/algolia-index.yml"
-      ],
-      "sample_queries": [],
-      "action_required": "Add environment variable ALGOLIA_INDEX_NAME to configuration reference. Include default value, description, and examples.",
-      "status": "new",
-      "created_at": "2026-03-04T17:35:50.614495"
-    },
-    {
-      "id": "CODE-0497",
+      "id": "CODE-1130",
       "title": "Error Handling: error_handling: FileNotFoundError",
       "description": "Document new error type: FileNotFoundError. Include cause, solution, and error code.",
       "source": "code",
       "category": "error_handling",
       "suggested_doc_type": "how-to",
       "priority": "medium",
-      "frequency": 3,
+      "frequency": 14,
       "keywords": [],
       "related_files": [
-        "scripts/gap_detection/batch_generator.py"
+        "scripts/i18n_utils.py"
       ],
       "sample_queries": [],
       "action_required": "Document new error type: FileNotFoundError. Include cause, solution, and error code.",
       "status": "new",
-      "created_at": "2026-03-04T17:35:50.619306"
+      "created_at": "2026-03-07T14:51:27.376686"
+    },
+    {
+      "id": "CODE-1879",
+      "title": "Env Var: env_var: DATABASE_URL",
+      "description": "Add environment variable DATABASE_URL to configuration reference. Include default value, description, and examples.",
+      "source": "code",
+      "category": "env_var",
+      "suggested_doc_type": "reference",
+      "priority": "low",
+      "frequency": 5,
+      "keywords": [],
+      "related_files": [
+        "tests/test_gap_detection.py"
+      ],
+      "sample_queries": [],
+      "action_required": "Add environment variable DATABASE_URL to configuration reference. Include default value, description, and examples.",
+      "status": "new",
+      "created_at": "2026-03-07T14:51:27.381268"
     }
   ]
 }
