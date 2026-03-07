@@ -370,4 +370,4 @@ above.
 ## Related resources
 
 - For API endpoint details, see the
-  [API reference](../reference/api-reference.md)
+  [API reference](../../reference/index.md)
