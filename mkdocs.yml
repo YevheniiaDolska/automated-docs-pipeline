@@ -41,8 +41,7 @@ repo_name: automated-docs-pipeline
 edit_uri: edit/main/docs/
 
 plugins:
-  - search:
-      enabled: false
+  - search
   - i18n:
       docs_structure: folder
       fallback_to_default: true
