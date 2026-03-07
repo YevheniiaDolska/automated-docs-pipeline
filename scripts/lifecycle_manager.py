@@ -333,33 +333,33 @@ export function LifecycleBanner() {
             report.append(f"- **{state.upper()}**: {len(pages)} pages")
 
         # Preview pages check
-        report.append("\n## Preview Pages (Check Duration)\n")
+        report.append("\n## Preview Pages (Check Duration)")
         for page in results['preview']:
-            report.append(f"- {page['title']} ({page['file']})")
+            report.append(f"\n- {page['title']} ({page['file']})")
             if page['last_reviewed']:
                 days_old = (datetime.now() - datetime.fromisoformat(page['last_reviewed'])).days
                 if days_old > 365:
-                    report.append(f"  ⚠️ In preview for {days_old} days!")
+                    report.append(f"  !! In preview for {days_old} days!")
 
         # Deprecated pages
-        report.append("\n## Deprecated Pages\n")
+        report.append("\n## Deprecated Pages")
         for page in results['deprecated']:
-            report.append(f"- {page['title']} ({page['file']})")
+            report.append(f"\n- {page['title']} ({page['file']})")
             if page['replaced_by']:
-                report.append(f"  → Replacement: {page['replaced_by']}")
+                report.append(f"  -> Replacement: {page['replaced_by']}")
             if page['sunset_date']:
-                report.append(f"  ⏰ Sunset: {page['sunset_date']}")
+                report.append(f"  Sunset: {page['sunset_date']}")
 
         # Removed pages
-        report.append("\n## Removed Pages (Need Redirects)\n")
+        report.append("\n## Removed Pages (Need Redirects)")
         for page in results['removed']:
-            report.append(f"- {page['title']} ({page['file']})")
+            report.append(f"\n- {page['title']} ({page['file']})")
             if page['replaced_by']:
-                report.append(f"  → Redirect to: {page['replaced_by']}")
+                report.append(f"  -> Redirect to: {page['replaced_by']}")
             else:
-                report.append(f"  ⚠️ No replacement specified!")
+                report.append(f"  !! No replacement specified!")
 
-        return '\n'.join(report)
+        return '\n'.join(report) + '\n'
 
 def main():
     import argparse

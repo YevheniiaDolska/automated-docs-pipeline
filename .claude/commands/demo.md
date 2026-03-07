@@ -32,26 +32,28 @@ You are running a live demo of the Auto-Doc Pipeline for a potential client. You
 **CRITICAL RULES:**
 
 - This is a LIVE DEMO. Every step produces real output. Do NOT skip. Do NOT abbreviate.
-- Comment in Russian at each step. Be enthusiastic but professional.
+- Comment in English at each step. Be enthusiastic but professional.
 - Follow ALL rules from CLAUDE.md strictly (templates, variables, Stripe quality, self-verification, formatting).
-- The generated document must pass `npm run validate:minimal` on the FIRST attempt.
+- The generated document must pass `npm run validate:full` on the FIRST attempt.
 - At the end, commit and push to trigger GitHub Actions build + deploy to MkDocs site.
+- In demo narration, do NOT present pipeline/unit/integration tests as documentation quality gates. Focus quality claims on documentation checks only (Vale, markdownlint, cspell, frontmatter, SEO/GEO, snippets, smoke checks, and strict build/deploy).
 
 ---
 
 ## PHASE 1: Show the intelligence (2 minutes)
 
-### Step 1. Gap detection—show the system finding problems
+### Step 1. Gap + freshness detection—show the system finding problems
 
 ```bash
 cd "/mnt/c/Users/Kroha/Documents/development/Auto-Doc Pipeline"
 export PATH=~/bin:$PATH
 ```
 
-Say: "Начнём. Сначала покажу, как система НАХОДИТ пробелы в документации из трёх источников: анализ кода, вопросы комьюнити, и поисковая аналитика."
+Say: "Let us begin. First, I will show how the system FINDS documentation priorities from four signals: code analysis, community questions, search analytics, and stale-content freshness metrics."
 
 ```bash
 npm run gaps 2>&1 | tail -30
+npm run kpi-wall 2>&1 | tail -20
 ```
 
 ### Step 2. Show consolidated report
@@ -80,7 +82,7 @@ else:
 "
 ```
 
-Say: "Три источника → один отчёт → приоритизация по трём уровням. Теперь AI знает что именно создавать. Давай создадим ОДИН документ, который покажет ВСЕ возможности пайплайна."
+Say: "Four signals -> one report -> three-tier prioritization. Now the AI knows exactly what to create and what to refresh. Let us generate ONE document that demonstrates ALL pipeline capabilities."
 
 ### Step 3. Show variables (single source of truth)
 
@@ -88,7 +90,7 @@ Say: "Три источника → один отчёт → приоритиза
 cat docs/_variables.yml
 ```
 
-Say: "Вот единый источник правды. Все значения—порты, URL, лимиты—здесь. В документе будут `{{ переменные }}`, не хардкод. Меняешь здесь—меняется везде."
+Say: "Here is the single source of truth. All values, such as ports, URLs, and limits, live here. The document will use `{{ variables }}`, not hardcoded values. Change it once here, and it updates everywhere."
 
 ---
 
@@ -100,7 +102,7 @@ Say: "Вот единый источник правды. Все значения
 python3 scripts/new_doc.py how-to "Set up real-time webhook processing pipeline" 2>&1
 ```
 
-Say: "Скелет создан из предвалидированного шаблона. Сейчас я заполню его НАСТОЯЩИМ контентом, и ты увидишь ВСЕ возможности пайплайна в одном документе."
+Say: "The skeleton is generated from a pre-validated template. Now I will fill it with production-grade content so you can see ALL pipeline capabilities in one document."
 
 ### Step 5. GENERATE THE FULL DOCUMENT
 
@@ -110,7 +112,7 @@ The document `docs/en/how-to/set-up-real-time-webhook-processing-pipeline.md` mu
 
 ---
 
-**A) FRONTMATTER—complete metadata (Возможность: validate_frontmatter)**
+**A) FRONTMATTER—complete metadata (Capability: validate_frontmatter)**
 
 ```yaml
 ---
@@ -134,7 +136,7 @@ last_reviewed: "2026-03-04"
 
 ---
 
-**B) OPENING PARAGRAPH—under 60 words with definition (Возможность: GEO optimization)**
+**B) OPENING PARAGRAPH—under 60 words with definition (Capability: GEO optimization)**
 
 First paragraph MUST:
 
@@ -147,7 +149,7 @@ Example structure: "{{ product_name }} webhook processing pipeline enables real-
 
 ---
 
-**C) PREREQUISITES—with version check (Возможность: Stripe quality)**
+**C) PREREQUISITES—with version check (Capability: Stripe quality)**
 
 Prerequisites section with:
 
@@ -157,7 +159,7 @@ Prerequisites section with:
 
 ---
 
-**D) CONTENT TABS—Cloud vs Self-hosted (Возможность: MkDocs Material tabs)**
+**D) CONTENT TABS—Cloud vs Self-hosted (Capability: MkDocs Material tabs)**
 
 Use MkDocs content tabs syntax to show different setup paths:
 
@@ -175,7 +177,7 @@ Include at least ONE section with content tabs showing real differences between 
 
 ---
 
-**E) VARIABLES THROUGHOUT (Возможность: Variables System)**
+**E) VARIABLES THROUGHOUT (Capability: Variables System)**
 
 Use at MINIMUM these variables from docs/_variables.yml:
 
@@ -192,7 +194,7 @@ NEVER hardcode values that exist in _variables.yml.
 
 ---
 
-**F) TWO PRODUCTION-QUALITY CODE EXAMPLES (Возможность: Self-verification + code smoke test)**
+**F) TWO PRODUCTION-QUALITY CODE EXAMPLES (Capability: Self-verification + code smoke test)**
 
 Include BOTH:
 
@@ -235,7 +237,7 @@ function verifyWebhookSignature(payload, signatureHeader, secret) {
 
 ---
 
-**G) TABLE—configuration parameters (Возможность: Structured data for SEO)**
+**G) TABLE—configuration parameters (Capability: Structured data for SEO)**
 
 A parameter table with at least 5 rows:
 
@@ -247,7 +249,7 @@ A parameter table with at least 5 rows:
 
 ---
 
-**H) MERMAID DIAGRAM—data flow (Возможность: Mermaid rendering)**
+**H) MERMAID DIAGRAM—data flow (Capability: Mermaid rendering)**
 
 A Mermaid sequence or flow diagram showing the webhook processing flow:
 
@@ -270,7 +272,7 @@ sequenceDiagram
 
 ---
 
-**I) ADMONITIONS—info, warning, tip (Возможность: MkDocs Material admonitions)**
+**I) ADMONITIONS—info, warning, tip (Capability: MkDocs Material admonitions)**
 
 Include at least THREE different admonition types:
 
@@ -287,7 +289,7 @@ Include at least THREE different admonition types:
 
 ---
 
-**J) TROUBLESHOOTING SECTION—3 problems with solutions (Возможность: Troubleshooting template)**
+**J) TROUBLESHOOTING SECTION—3 problems with solutions (Capability: Troubleshooting template)**
 
 Three real problems in "Problem → Cause → Solution" format:
 
@@ -297,7 +299,7 @@ Three real problems in "Problem → Cause → Solution" format:
 
 ---
 
-**K) PERFORMANCE SECTION—concrete metrics (Возможность: GEO fact density)**
+**K) PERFORMANCE SECTION—concrete metrics (Capability: GEO fact density)**
 
 Include specific numbers:
 
@@ -311,7 +313,7 @@ This satisfies GEO-6 (fact density—a fact every 200 words).
 
 ---
 
-**L) NON-GENERIC HEADINGS (Возможность: GEO heading validation)**
+**L) NON-GENERIC HEADINGS (Capability: GEO heading validation)**
 
 ALL headings must be specific. NEVER use: "Overview," "Introduction," "Configuration," "Setup," "Details," "Information," "General," "Notes," "Summary."
 
@@ -319,7 +321,7 @@ GOOD: "Configure HMAC signature verification," "Set up async event processing," 
 
 ---
 
-**M) INTERNAL LINK (Возможность: SEO internal linking)**
+**M) INTERNAL LINK (Capability: SEO internal linking)**
 
 At least one internal link to another doc in the project, for example:
 
@@ -329,9 +331,9 @@ For API endpoint details, see the [API reference](../reference/api-reference.md)
 
 ---
 
-**N) EMBEDDED INTERACTIVE DIAGRAM (Возможность: Interactive diagrams)**
+**N) EMBEDDED INTERACTIVE DIAGRAM (Capability: Interactive diagrams)**
 
-At the end of the document, AFTER the troubleshooting section, add a section that embeds the interactive diagram created in Phase 3 (Step 8):
+At the end of the document, AFTER the troubleshooting section, add a section that embeds the interactive diagram created in Phase 4 (Step 8):
 
 ```markdown
 ## Explore the webhook pipeline architecture
@@ -349,7 +351,7 @@ This section demonstrates that the pipeline embeds rich interactive HTML diagram
 
 ---
 
-After writing the complete document with ALL elements A through N, proceed to self-verification.
+## PHASE 3: Self-verification and fact-checking (1 minute)
 
 ### Step 6. SELF-VERIFICATION
 
@@ -392,23 +394,23 @@ Verification summary:
 - Document elements: frontmatter, tabs, mermaid, admonitions, table, code, troubleshooting, embedded interactive diagram — all present
 ```
 
-Say: "Документ самопроверен. Код запущен—HMAC работает. 8 переменных проверены. Хардкоженных значений—ноль. Теперь 7 линтеров."
+Say: "The document is self-verified. Code executed successfully, HMAC verification works, eight variables are validated, and zero hardcoded values were found. Now we run the seven linters."
 
 ---
 
-## PHASE 3: Quality gates + Interactive diagram (2 minutes)
+## PHASE 4: Quality gates + Interactive diagram (2 minutes)
 
 ### Step 7. Run all linters
 
 ```bash
-npm run validate:minimal 2>&1
+npm run validate:full 2>&1
 ```
 
-Say: "ВСЕ проверки прошли с первого раза. 22 SEO/GEO правила, форматирование, метаданные, стиль—всё green. Шаблоны предвалидированы, самопроверка ловит ошибки ДО линтеров."
+Say: "ALL checks passed on the first run. The 22 SEO/GEO rules, formatting, metadata, and style are all green. Linters are the highest-quality gate in this pipeline and enforce production-ready documentation standards."
 
 ### Step 8. Generate interactive diagram
 
-Say: "И последний штрих—интерактивная архитектурная диаграмма. Когда в документе описана архитектура из 6+ компонентов, пайплайн генерирует кликабельную HTML-диаграмму."
+Say: "One final touch: an interactive architecture diagram embedded directly in the generated document. The HTML asset is only a backing file; the deliverable is the document page with an inline interactive diagram."
 
 NOW create `docs/diagrams/demo-webhook-pipeline.html`—a COMPLETE, working HTML file based on `templates/interactive-diagram.html`.
 
@@ -430,21 +432,21 @@ Then create the customized version with:
 
 Each component MUST have a rich description (2-3 sentences with specific metrics, technologies, and how it connects to adjacent components).
 
-The HTML file must be COMPLETE and self-contained—opens in a browser, dark theme, animated arrows, clickable components with info panel.
+The HTML file must be COMPLETE and self-contained so the embedded iframe renders correctly: dark theme, animated arrows, clickable components, and info panel.
 
-After creating, show the path:
+After creating, verify that the generated document embeds this diagram:
 
 ```bash
-# For Windows browser:
-echo "Open in browser:"
-echo "  file:///$(cd docs/diagrams && wslpath -w demo-webhook-pipeline.html 2>/dev/null || echo "$(pwd)/docs/diagrams/demo-webhook-pipeline.html")"
+DOC_FILE="docs/en/how-to/set-up-real-time-webhook-processing-pipeline.md"
+echo "Embedded diagram check:"
+grep -n '<iframe src="../../diagrams/demo-webhook-pipeline.html"' "$DOC_FILE"
 ```
 
-Say: "Открой в браузере—кликабельная диаграмма с 13 компонентами на 5 слоях. Каждый компонент раскрывается: конкретные метрики, технологии, связи. Анимированные стрелки. Адаптивный дизайн. И это генерируется автоматически для любого документа, где описана сложная архитектура."
+Say: "The diagram is embedded in the generated document. The page now includes a clickable diagram with 13 components across five layers, each with concrete metrics, technologies, and dependencies."
 
 ---
 
-## PHASE 4: The numbers + Publish to MkDocs (2 minutes)
+## PHASE 5: The numbers + Publish to MkDocs (2 minutes)
 
 ### Step 9. Final stats
 
@@ -475,7 +477,7 @@ echo "============================================"
 
 ### Step 10. Add document to MkDocs navigation
 
-Say: "Документ прошёл все проверки. Теперь добавляю его в навигацию MkDocs и публикую."
+Say: "The document passed all checks. Now I will add it to MkDocs navigation and publish it."
 
 Update `mkdocs.yml`—add the new document to the "How-To Guides" nav section:
 
@@ -508,7 +510,7 @@ print('mkdocs.yml nav updated successfully.')
 
 ### Step 11. Commit and push to trigger GitHub Actions
 
-Say: "Коммичу и пушу. GitHub Actions запустит CI-пайплайн: линтеры → проверка кода → сборка MkDocs → деплой на GitHub Pages."
+Say: "I am committing and pushing now. GitHub Actions will run the CI pipeline: linters -> code checks -> MkDocs build -> deployment to GitHub Pages."
 
 ```bash
 git add docs/en/how-to/set-up-real-time-webhook-processing-pipeline.md docs/diagrams/demo-webhook-pipeline.html mkdocs.yml
@@ -530,7 +532,7 @@ git push origin main
 
 ### Step 12. Show GitHub Actions pipeline running
 
-Say: "Пуш сделан. Смотри, GitHub Actions уже запустился—сейчас покажу."
+Say: "Push completed. GitHub Actions has already started, and I will show it now."
 
 ```bash
 echo "=== GitHub Actions: triggered workflows ==="
@@ -548,11 +550,10 @@ echo "  3. seo-optimization.yml — 22 SEO/GEO rules deep check"
 echo "  4. algolia-index.yml — updates Algolia search index"
 echo "  5. deploy.yml — builds MkDocs and deploys to GitHub Pages"
 echo ""
-echo "After deploy completes (~2-3 minutes), the document will be live at:"
-echo "  $(grep 'site_url' mkdocs.yml 2>/dev/null | sed 's/site_url: //' | tr -d '\"' | sed 's/\"//g')en/how-to/set-up-real-time-webhook-processing-pipeline/"
+echo "Deployment must reach SUCCESS before any final claim."
 ```
 
-Say: "Пять воркфлоу запустились автоматически. Линтеры проверяют документ ещё раз в CI, smoke-тест выполняет блоки кода, SEO-оптимайзер делает глубокий анализ. А deploy.yml собирает ВЕСЬ сайт MkDocs и публикует на GitHub Pages. Через 2-3 минуты документ будет доступен по ссылке."
+Say: "Five workflows started automatically. Now we run an automatic remediation loop: if deploy fails, we diagnose logs, fix the root cause, commit, push, and retry until deploy is green."
 
 ### Step 13. Show the live site (after deploy)
 
@@ -562,14 +563,50 @@ echo "============================================"
 echo "   WAITING FOR DEPLOY..."
 echo "============================================"
 echo ""
-echo "Check deploy status:"
-gh run list --workflow=deploy.yml --limit 1 --json status,conclusion \
-  --jq '.[0] | "  Status: \(.status) | Result: \(.conclusion // "in progress")"' 2>/dev/null || \
-  echo "  (check GitHub Actions tab manually)"
+while true; do
+  state=$(gh run list --workflow=deploy.yml --limit 1 --json databaseId,status,conclusion \
+    --jq '.[0] | "\(.databaseId)|\(.status)|\(.conclusion // "none")"' 2>/dev/null || echo "0|unknown|none")
+  run_id=$(echo "$state" | cut -d'|' -f1)
+  status=$(echo "$state" | cut -d'|' -f2)
+  conclusion=$(echo "$state" | cut -d'|' -f3)
+  echo "  deploy.yml -> run=$run_id status=$status conclusion=$conclusion"
+
+  if [ "$status" = "completed" ] && [ "$conclusion" = "success" ]; then
+    echo "  Deploy succeeded."
+    break
+  fi
+
+  if [ "$status" != "completed" ]; then
+    sleep 20
+    continue
+  fi
+
+  echo "  Deploy failed. Starting remediation cycle..."
+
+  # 1) Collect failure diagnostics
+  gh run view "$run_id" --log-failed 2>/dev/null | tail -200 || true
+
+  # 2) Reproduce locally and identify root cause
+  npm run validate:full || true
+  mkdocs build --strict || true
+
+  # 3) Apply fixes in repo (workflows/config/docs), then re-validate
+  #    IMPORTANT: do not continue until local checks pass
+  npm run validate:full
+  mkdocs build --strict
+
+  # 4) Commit only remediation changes and push
+  git add -A
+  git commit -m "fix: remediate CI/deploy failure in demo loop" || true
+  git push origin main
+
+  # 5) Wait for new deploy run and repeat until success
+  sleep 20
+done
 echo ""
 SITE_URL=$(grep 'site_url' mkdocs.yml 2>/dev/null | sed 's/site_url: //' | tr -d '"' | sed 's/ //g')
 echo "When deploy completes, open:"
-echo "  ${SITE_URL}en/how-to/set-up-real-time-webhook-processing-pipeline/"
+echo "  ${SITE_URL}how-to/set-up-real-time-webhook-processing-pipeline/"
 echo ""
 echo "The document is now:"
 echo "  - Live on the MkDocs site with full navigation"
@@ -580,25 +617,27 @@ echo "  - Interactive diagram accessible from the page"
 
 ### Step 14. Closing pitch
 
-Say (in Russian):
+IMPORTANT: Run this step only after Step 13 confirms `deploy.yml` completed with `success`.
 
-"Один документ—и ты увидел ВСЁ:
+Say:
 
-1. Gap detection нашёл пробелы из трёх источников
-1. Шаблон создал правильную структуру с первого раза
-1. AI заполнил Stripe-quality контентом с переменными вместо хардкода
-1. Самопроверка запустила код, проверила факты, нашла ноль ошибок
-1. 7 линтеров прошли с первого раза—22 SEO/GEO правила, стиль, форматирование
-1. Интерактивная диаграмма с 13 кликабельными компонентами
-1. Коммит → пуш → 5 GitHub Actions воркфлоу → сайт собран и опубликован
+"One document, and you have seen EVERYTHING:
 
-И всё это—в одном документе: Mermaid-диаграмма, табы Cloud/Self-hosted, адмониции, таблица параметров, два рабочих примера кода на Python и JavaScript, траблшутинг, метрики производительности, и встроенная интерактивная диаграмма с 13 кликабельными компонентами прямо на странице. И документ уже live на MkDocs-сайте.
+1. Gap detection found documentation gaps from three sources
+1. The template produced the correct structure on the first attempt
+1. The AI generated Stripe-quality content using variables instead of hardcoded values
+1. Self-verification executed code, checked facts, and found zero errors
+1. Seven linters passed on the first attempt, including 22 SEO/GEO rules, style, and formatting
+1. The interactive diagram includes 13 clickable components
+1. Commit -> push -> five GitHub Actions workflows -> site built and published (verified by successful deploy)
 
-Это не генератор текста. Это операционная система для документации.
+And all of this appears in one document: a Mermaid diagram, Cloud/Self-hosted tabs, admonitions, a parameter table, two working code examples in Python and JavaScript, troubleshooting guidance, performance metrics, and an embedded interactive diagram with 13 clickable components directly on the page. The document is already live on the MkDocs site.
 
-Весь путь: нашёл пробел → создал → проверил → опубликовал. Автоматически.
+This is not a text generator. It is an operating system for documentation.
 
-Хочешь попробовать на своём репозитории?"
+The full path is automated: detect the gap -> generate -> verify -> publish.
+
+Would you like to run this on your repository?"
 
 ---
 
@@ -614,4 +653,4 @@ git commit -m "chore: remove demo artifacts"
 git push origin main
 ```
 
-Say: "Демо-документ удалён. Сайт пересоберётся автоматически."
+Say: "The demo document has been removed. The site will rebuild automatically."
