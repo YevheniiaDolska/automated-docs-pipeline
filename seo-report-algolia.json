@@ -1091,6 +1091,258 @@
       "code_snippets": []
     },
     {
+      "objectID": "d2e0944978fae53937bea013a7784d65",
+      "title": "Configure webhook triggers",
+      "heading": "Configure webhook triggers",
+      "content": "The {{ product_name }} webhook trigger node starts workflows when it receives HTTP requests. It supports GET, POST, PUT, PATCH, and DELETE methods with built-in authentication options including Basic Auth, Header Auth, and JWT validation. ",
+      "description": "Set up and configure webhook trigger nodes to start workflows from incoming HTTP requests with authentication.",
+      "product": "both",
+      "content_type": "how-to",
+      "component": "",
+      "version": "",
+      "maturity": "ga",
+      "tags": [
+        "Webhook",
+        "How-To"
+      ],
+      "hierarchy": {
+        "lvl0": "both",
+        "lvl1": "how-to",
+        "lvl2": "",
+        "lvl3": "",
+        "lvl4": ""
+      },
+      "url": "/how-to/configure-webhook-trigger#0",
+      "last_reviewed": "2026-03-07",
+      "path": "docs/how-to/configure-webhook-trigger.md",
+      "ranking_boost": 6,
+      "heading_level": 1,
+      "word_count": 35,
+      "has_code": false,
+      "code_snippets": []
+    },
+    {
+      "objectID": "5332345e2cc4b2623b3d0b2b66301a05",
+      "title": "Configure webhook triggers",
+      "heading": "Before you start",
+      "content": "You need: - {{ product_name }} {{ current_version }} or later - Access to create workflows - A publicly accessible URL (or a tunnel for local development) ",
+      "description": "Set up and configure webhook trigger nodes to start workflows from incoming HTTP requests with authentication.",
+      "product": "both",
+      "content_type": "how-to",
+      "component": "",
+      "version": "",
+      "maturity": "ga",
+      "tags": [
+        "Webhook",
+        "How-To"
+      ],
+      "hierarchy": {
+        "lvl0": "both",
+        "lvl1": "how-to",
+        "lvl2": "Before you start",
+        "lvl3": "",
+        "lvl4": ""
+      },
+      "url": "/how-to/configure-webhook-trigger#1",
+      "last_reviewed": "2026-03-07",
+      "path": "docs/how-to/configure-webhook-trigger.md",
+      "ranking_boost": 6,
+      "heading_level": 2,
+      "word_count": 27,
+      "has_code": false,
+      "code_snippets": []
+    },
+    {
+      "objectID": "e578ad2e576e151d03e4cd0af0572644",
+      "title": "Configure webhook triggers",
+      "heading": "Create a webhook trigger",
+      "content": "1. Open the {{ product_name }} editor 1. Add a new workflow 1. Select Webhook as the trigger node 1. Choose the HTTP method (POST is recommended for event data) 1. Copy the generated webhook URL === \"Cloud\"     {{ product_name }} Cloud provides a public URL automatically:     ``text     {{ cloud_url }}/webhook/your-workflow-id     ` === \"Self-hosted\"     Configure your instance URL with the {{ env_vars.webhook_url }}     environment variable:     `bash     export {{ env_vars.webhook_url }}=\"https://your-domain.example.com\"     `     Your webhook URL follows this pattern:     `text     https://your-domain.example.com:{{ default_port }}/webhook/your-workflow-id     `` ",
+      "description": "Set up and configure webhook trigger nodes to start workflows from incoming HTTP requests with authentication.",
+      "product": "both",
+      "content_type": "how-to",
+      "component": "",
+      "version": "",
+      "maturity": "ga",
+      "tags": [
+        "Webhook",
+        "How-To"
+      ],
+      "hierarchy": {
+        "lvl0": "both",
+        "lvl1": "how-to",
+        "lvl2": "Create a webhook trigger",
+        "lvl3": "",
+        "lvl4": ""
+      },
+      "url": "/how-to/configure-webhook-trigger#2",
+      "last_reviewed": "2026-03-07",
+      "path": "docs/how-to/configure-webhook-trigger.md",
+      "ranking_boost": 6,
+      "heading_level": 2,
+      "word_count": 82,
+      "has_code": true,
+      "code_snippets": [
+        "```text     {{ cloud_url }}/webhook/your-workflow-id     ```",
+        "```bash     export {{ env_vars.webhook_url }}=\"https://your-domain.example.com\"     ```",
+        "```text     https://your-domain.example.com:{{ default_port }}/webhook/your-workflow-id     ```"
+      ]
+    },
+    {
+      "objectID": "748034654674d300aff75846f09e70fa",
+      "title": "Configure webhook triggers",
+      "heading": "Configure authentication",
+      "content": "!!! warning \"Secure your webhooks\"     Always enable authentication on production webhook endpoints.     Unauthenticated webhooks accept requests from any source. Add authentication in the webhook node settings: | Auth method | Use case | Configuration | |-------------|----------|---------------| | Header Auth | API key validation | Set header name and expected value | | Basic Auth | Username and password | Set credentials in node settings | | JWT | Token-based auth | Configure secret and algorithm | ",
+      "description": "Set up and configure webhook trigger nodes to start workflows from incoming HTTP requests with authentication.",
+      "product": "both",
+      "content_type": "how-to",
+      "component": "",
+      "version": "",
+      "maturity": "ga",
+      "tags": [
+        "Webhook",
+        "How-To"
+      ],
+      "hierarchy": {
+        "lvl0": "both",
+        "lvl1": "how-to",
+        "lvl2": "Configure authentication",
+        "lvl3": "",
+        "lvl4": ""
+      },
+      "url": "/how-to/configure-webhook-trigger#3",
+      "last_reviewed": "2026-03-07",
+      "path": "docs/how-to/configure-webhook-trigger.md",
+      "ranking_boost": 6,
+      "heading_level": 2,
+      "word_count": 76,
+      "has_code": false,
+      "code_snippets": []
+    },
+    {
+      "objectID": "18306a4809ace3c3dd7ac57d6de64f2d",
+      "title": "Configure webhook triggers",
+      "heading": "Test webhook delivery",
+      "content": "Send a test request to verify your webhook works: curl -X POST https://your-domain.example.com:5678/webhook/test \\   -H \"Content-Type: application/json\" \\   -d '{\"event\": \"test\", \"timestamp\": \"2026-03-07T12:00:00Z\"}' Expected response: {   \"status\": \"accepted\",   \"executionId\": \"exec_abc123\" } !!! tip \"Use the test URL first\"     {{ product_name }} provides separate test and production webhook     URLs. Use the test URL during development to inspect payloads     without triggering downstream actions. ",
+      "description": "Set up and configure webhook trigger nodes to start workflows from incoming HTTP requests with authentication.",
+      "product": "both",
+      "content_type": "how-to",
+      "component": "",
+      "version": "",
+      "maturity": "ga",
+      "tags": [
+        "Webhook",
+        "How-To"
+      ],
+      "hierarchy": {
+        "lvl0": "both",
+        "lvl1": "how-to",
+        "lvl2": "Test webhook delivery",
+        "lvl3": "",
+        "lvl4": ""
+      },
+      "url": "/how-to/configure-webhook-trigger#4",
+      "last_reviewed": "2026-03-07",
+      "path": "docs/how-to/configure-webhook-trigger.md",
+      "ranking_boost": 6,
+      "heading_level": 2,
+      "word_count": 61,
+      "has_code": false,
+      "code_snippets": []
+    },
+    {
+      "objectID": "5eabcf00eecf72a483a4d29799904f7f",
+      "title": "Configure webhook triggers",
+      "heading": "Webhook returns 404",
+      "content": "Verify the workflow is active. Inactive workflows do not register webhook endpoints. Activate the workflow and retry. ",
+      "description": "Set up and configure webhook trigger nodes to start workflows from incoming HTTP requests with authentication.",
+      "product": "both",
+      "content_type": "how-to",
+      "component": "",
+      "version": "",
+      "maturity": "ga",
+      "tags": [
+        "Webhook",
+        "How-To"
+      ],
+      "hierarchy": {
+        "lvl0": "both",
+        "lvl1": "how-to",
+        "lvl2": "",
+        "lvl3": "Webhook returns 404",
+        "lvl4": ""
+      },
+      "url": "/how-to/configure-webhook-trigger#5",
+      "last_reviewed": "2026-03-07",
+      "path": "docs/how-to/configure-webhook-trigger.md",
+      "ranking_boost": 6,
+      "heading_level": 3,
+      "word_count": 17,
+      "has_code": false,
+      "code_snippets": []
+    },
+    {
+      "objectID": "a51eabdabf11997e75e0ade1f0f47c3b",
+      "title": "Configure webhook triggers",
+      "heading": "Request body is empty",
+      "content": "Check that you send the Content-Type: application/json header. {{ product_name }} requires this header to parse JSON request bodies. ",
+      "description": "Set up and configure webhook trigger nodes to start workflows from incoming HTTP requests with authentication.",
+      "product": "both",
+      "content_type": "how-to",
+      "component": "",
+      "version": "",
+      "maturity": "ga",
+      "tags": [
+        "Webhook",
+        "How-To"
+      ],
+      "hierarchy": {
+        "lvl0": "both",
+        "lvl1": "how-to",
+        "lvl2": "",
+        "lvl3": "Request body is empty",
+        "lvl4": ""
+      },
+      "url": "/how-to/configure-webhook-trigger#6",
+      "last_reviewed": "2026-03-07",
+      "path": "docs/how-to/configure-webhook-trigger.md",
+      "ranking_boost": 6,
+      "heading_level": 3,
+      "word_count": 19,
+      "has_code": false,
+      "code_snippets": []
+    },
+    {
+      "objectID": "db62c7053a12f5036e44b181e1bd2bbf",
+      "title": "Configure webhook triggers",
+      "heading": "Related resources",
+      "content": "- Set up webhook processing pipeline - Webhook node reference - Troubleshoot webhook issues ",
+      "description": "Set up and configure webhook trigger nodes to start workflows from incoming HTTP requests with authentication.",
+      "product": "both",
+      "content_type": "how-to",
+      "component": "",
+      "version": "",
+      "maturity": "ga",
+      "tags": [
+        "Webhook",
+        "How-To"
+      ],
+      "hierarchy": {
+        "lvl0": "both",
+        "lvl1": "how-to",
+        "lvl2": "Related resources",
+        "lvl3": "",
+        "lvl4": ""
+      },
+      "url": "/how-to/configure-webhook-trigger#7",
+      "last_reviewed": "2026-03-07",
+      "path": "docs/how-to/configure-webhook-trigger.md",
+      "ranking_boost": 6,
+      "heading_level": 2,
+      "word_count": 14,
+      "has_code": false,
+      "code_snippets": []
+    },
+    {
       "objectID": "a8bd61567828dcab4b10337058ad2f36",
       "title": "How-To Guides for",
       "heading": "How-To Guides",
