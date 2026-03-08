@@ -1,13 +1,17 @@
 ---
-title: "Intent experiences reference"
-description: "Reference for generated intent experience pages and multi-channel bundles assembled from reusable knowledge modules."
+title: Intent experiences reference
+description: Reference for generated intent experience pages and multi-channel bundles
+  assembled from reusable knowledge modules.
 content_type: reference
 product: both
 tags:
-  - Reference
-  - AI
-  - How-To
+- Reference
+- AI
+- How-To
+last_reviewed: '2026-03-07'
+original_author: Developer
 ---
+
 
 # Intent experiences reference
 

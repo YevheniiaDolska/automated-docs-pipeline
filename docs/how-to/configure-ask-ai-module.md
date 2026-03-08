@@ -1,13 +1,18 @@
 ---
-title: "Configure Ask AI module"
-description: "Enable or disable Ask AI, set provider and billing mode, and verify configuration in five steps for beginner operators."
+title: Configure Ask AI module
+description: Enable or disable Ask AI, set provider and billing mode, and verify configuration
+  in five steps for beginner operators.
 content_type: how-to
 product: both
 tags:
-  - How-To
-  - AI
-  - Cloud
+- How-To
+- AI
+- Cloud
+app_component: ai-agent
+last_reviewed: '2026-03-07'
+original_author: Developer
 ---
+
 
 # Configure Ask AI module
 

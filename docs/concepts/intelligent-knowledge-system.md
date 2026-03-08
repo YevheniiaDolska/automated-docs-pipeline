@@ -1,13 +1,17 @@
 ---
-title: "Intelligent knowledge system architecture"
-description: "Learn how the pipeline models reusable knowledge modules for AI retrieval, dynamic assembly, and multi-channel documentation delivery."
+title: Intelligent knowledge system architecture
+description: Learn how the pipeline models reusable knowledge modules for AI retrieval,
+  dynamic assembly, and multi-channel documentation delivery.
 content_type: concept
 product: both
 tags:
-  - Concept
-  - AI
-  - Reference
+- Concept
+- AI
+- Reference
+last_reviewed: '2026-03-07'
+original_author: Developer
 ---
+
 
 # Intelligent knowledge system architecture
 

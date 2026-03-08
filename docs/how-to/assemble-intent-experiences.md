@@ -1,13 +1,17 @@
 ---
-title: "Assemble intent experiences"
-description: "Build user-intent documentation and channel bundles from reusable knowledge modules with validation, indexing, and consistent outputs."
+title: Assemble intent experiences
+description: Build user-intent documentation and channel bundles from reusable knowledge
+  modules with validation, indexing, and consistent outputs.
 content_type: how-to
 product: both
 tags:
-  - How-To
-  - AI
-  - Reference
+- How-To
+- AI
+- Reference
+last_reviewed: '2026-03-07'
+original_author: Developer
 ---
+
 
 # Assemble intent experiences
 

@@ -1,12 +1,16 @@
 ---
-title: "Intent experience: integrate for operator"
-description: "Assembled guidance for one intent and audience using reusable knowledge modules with verified metadata and channel-ready sections."
+title: 'Intent experience: integrate for operator'
+description: Assembled guidance for one intent and audience using reusable knowledge
+  modules with verified metadata and channel-ready sections.
 content_type: reference
 product: both
 tags:
-  - Reference
-  - AI
+- Reference
+- AI
+last_reviewed: '2026-03-07'
+original_author: Developer
 ---
+
 
 # Intent experience: integrate for operator
 

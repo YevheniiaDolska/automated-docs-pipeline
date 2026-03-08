@@ -1,13 +1,17 @@
 ---
-title: "Configure webhook triggers"
-description: "Set up and configure webhook trigger nodes to start workflows from incoming HTTP requests with authentication."
+title: Configure webhook triggers
+description: Set up and configure webhook trigger nodes to start workflows from incoming
+  HTTP requests with authentication.
 content_type: how-to
 product: both
 tags:
-  - Webhook
-  - How-To
-last_reviewed: "2026-03-07"
+- Webhook
+- How-To
+last_reviewed: '2026-03-07'
+app_component: webhook
+original_author: JaneDo
 ---
+
 
 # Configure webhook triggers
 

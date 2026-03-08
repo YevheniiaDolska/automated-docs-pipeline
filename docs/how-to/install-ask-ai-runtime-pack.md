@@ -1,13 +1,18 @@
 ---
-title: "Install Ask AI runtime pack"
-description: "Install the optional Ask AI runtime pack with API endpoint, widget, auth checks, and billing hooks in a few commands."
+title: Install Ask AI runtime pack
+description: Install the optional Ask AI runtime pack with API endpoint, widget, auth
+  checks, and billing hooks in a few commands.
 content_type: how-to
 product: both
 tags:
-  - How-To
-  - AI
-  - Cloud
+- How-To
+- AI
+- Cloud
+app_component: ai-agent
+last_reviewed: '2026-03-07'
+original_author: Developer
 ---
+
 
 # Install Ask AI runtime pack
 
