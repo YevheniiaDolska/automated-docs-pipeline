@@ -1,0 +1,15 @@
+[Unit]
+Description=TaskStream API sandbox live mock
+After=docker.service network-online.target
+Wants=network-online.target
+
+[Service]
+Type=oneshot
+RemainAfterExit=yes
+WorkingDirectory=/opt/auto-doc-pipeline
+ExecStart=/usr/bin/bash scripts/api_sandbox_live.sh up taskstream ./api/openapi.yaml 4010
+ExecStop=/usr/bin/bash scripts/api_sandbox_live.sh down taskstream ./api/openapi.yaml 4010
+TimeoutStartSec=0
+
+[Install]
+WantedBy=multi-user.target

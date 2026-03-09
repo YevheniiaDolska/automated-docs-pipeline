@@ -11,12 +11,17 @@ STAGED_MD=$(git diff --cached --name-only --diff-filter=ACM | grep '\.md$' | gre
 # Get list of staged API spec files (OpenAPI/Swagger)
 STAGED_API=$(git diff --cached --name-only --diff-filter=ACM | grep -E '(openapi|swagger|api-spec).*\.(yaml|yml|json)$' || true)
 
-if [ -z "$STAGED_MD" ]; then
-    echo "No Markdown files staged. Skipping checks."
+if [ -z "$STAGED_MD" ] && [ -z "$STAGED_API" ]; then
+    echo "No Markdown or API spec files staged. Skipping checks."
     exit 0
 fi
 
-echo "Checking files: $STAGED_MD"
+if [ -n "$STAGED_MD" ]; then
+    echo "Checking markdown files: $STAGED_MD"
+fi
+if [ -n "$STAGED_API" ]; then
+    echo "Checking API spec files: $STAGED_API"
+fi
 
 # Split staged files into English and non-English for locale-aware linting.
 # Vale and cspell run only on English docs; markdownlint and frontmatter run on all.
@@ -52,21 +57,47 @@ elif can_run_cmd vale.exe; then
     VALE_BIN="vale.exe"
 fi
 
-# 0. Spectral (API specs) - runs first, independent of Markdown
+# 0. API contract lint stack (API specs) - runs first, independent of Markdown
 echo ""
-echo "0/7 Spectral (API specs)..."
+echo "0/7 API contract lint stack..."
 if [ -n "$STAGED_API" ]; then
-    if have_cmd spectral; then
-        for file in $STAGED_API; do
-            echo "  Validating: $file"
+    for file in $STAGED_API; do
+        echo "  Validating: $file"
+
+        if have_cmd spectral; then
             spectral lint "$file" --ruleset .spectral.yml
+        else
+            npx -y @stoplight/spectral-cli lint "$file" --ruleset .spectral.yml
+        fi
+        if [ $? -ne 0 ]; then
+            FAILED="$FAILED spectral"
+        fi
+
+        if have_cmd redocly; then
+            redocly lint "$file"
+        else
+            npx -y @redocly/cli lint "$file"
+        fi
+        if [ $? -ne 0 ]; then
+            FAILED="$FAILED redocly"
+        fi
+
+        if have_cmd swagger-cli; then
+            swagger-cli validate "$file"
+        else
+            npx -y @apidevtools/swagger-cli validate "$file"
+        fi
+        if [ $? -ne 0 ]; then
+            FAILED="$FAILED swagger-cli"
+        fi
+
+        if [ -n "$PYTHON_BIN" ] && [ -f "scripts/validate_openapi_contract.py" ]; then
+            "$PYTHON_BIN" scripts/validate_openapi_contract.py "$file"
             if [ $? -ne 0 ]; then
-                FAILED="$FAILED spectral"
+                FAILED="$FAILED api-contract"
             fi
-        done
-    else
-        echo "Spectral not installed. Install: npm install -g @stoplight/spectral-cli"
-    fi
+        fi
+    done
 else
     echo "No API spec files staged. Skipping."
 fi
@@ -74,13 +105,15 @@ fi
 # 1. Vale (style check)
 echo ""
 echo "1/7 Vale (style)..."
-if [ -n "$VALE_BIN" ]; then
+if [ -n "$STAGED_MD" ] && [ -n "$VALE_BIN" ]; then
     # Vale runs on all files but .vale.ini applies GEO-only rules
     # for non-English locales automatically via glob overrides.
     "$VALE_BIN" $STAGED_MD
     if [ $? -ne 0 ]; then
         FAILED="$FAILED vale"
     fi
+elif [ -z "$STAGED_MD" ]; then
+    echo "No Markdown files staged. Skipping style check."
 else
     echo "Vale not installed. Skipping style check."
 fi
@@ -88,11 +121,13 @@ fi
 # 2. markdownlint (formatting)
 echo ""
 echo "2/7 markdownlint (formatting)..."
-if have_cmd markdownlint; then
+if [ -n "$STAGED_MD" ] && have_cmd markdownlint; then
     markdownlint $STAGED_MD
     if [ $? -ne 0 ]; then
         FAILED="$FAILED markdownlint"
     fi
+elif [ -z "$STAGED_MD" ]; then
+    echo "No Markdown files staged. Skipping markdownlint."
 else
     echo "markdownlint not installed. Skipping."
 fi
@@ -100,7 +135,7 @@ fi
 # 3. cspell (spelling) -- English docs only
 echo ""
 echo "3/7 cspell (spelling)..."
-if have_cmd cspell; then
+if [ -n "$STAGED_MD" ] && have_cmd cspell; then
     if [ -n "$STAGED_EN" ]; then
         cspell --no-progress $STAGED_EN
         if [ $? -ne 0 ]; then
@@ -112,6 +147,8 @@ if have_cmd cspell; then
     if [ -n "$STAGED_NON_EN" ]; then
         echo "  (Skipped spell check for non-English: $STAGED_NON_EN)"
     fi
+elif [ -z "$STAGED_MD" ]; then
+    echo "No Markdown files staged. Skipping spell check."
 else
     echo "cspell not installed. Skipping."
 fi
@@ -119,7 +156,7 @@ fi
 # 4. Frontmatter validation
 echo ""
 echo "4/7 Frontmatter validation..."
-if [ -f "scripts/validate_frontmatter.py" ]; then
+if [ -n "$STAGED_MD" ] && [ -f "scripts/validate_frontmatter.py" ]; then
     if [ -n "$PYTHON_BIN" ]; then
         "$PYTHON_BIN" scripts/validate_frontmatter.py
         if [ $? -ne 0 ]; then
@@ -128,6 +165,8 @@ if [ -f "scripts/validate_frontmatter.py" ]; then
     else
         echo "python/python3 not found. Skipping frontmatter validation."
     fi
+elif [ -z "$STAGED_MD" ]; then
+    echo "No Markdown files staged. Skipping frontmatter validation."
 else
     echo "validate_frontmatter.py not found. Skipping."
 fi
@@ -135,7 +174,7 @@ fi
 # 5. SEO/GEO optimization
 echo ""
 echo "5/7 SEO/GEO optimization..."
-if [ -f "scripts/seo_geo_optimizer.py" ]; then
+if [ -n "$STAGED_MD" ] && [ -f "scripts/seo_geo_optimizer.py" ]; then
     if [ -n "$PYTHON_BIN" ]; then
         for file in $STAGED_MD; do
             "$PYTHON_BIN" scripts/seo_geo_optimizer.py "$file"
@@ -146,6 +185,8 @@ if [ -f "scripts/seo_geo_optimizer.py" ]; then
     else
         echo "python/python3 not found. Skipping SEO/GEO optimization."
     fi
+elif [ -z "$STAGED_MD" ]; then
+    echo "No Markdown files staged. Skipping SEO/GEO optimization."
 else
     echo "seo_geo_optimizer.py not found. Skipping."
 fi

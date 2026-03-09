@@ -1,0 +1,18 @@
+services:
+  prodlike-api:
+    build:
+      context: ./sandbox/prodlike_api
+    container_name: ${API_PRODLIKE_NAME:-api-prodlike-taskstream}
+    environment:
+      PRODLIKE_DB_PATH: /data/prodlike.db
+    ports:
+      - '${API_PRODLIKE_PORT:-4011}:4011'
+    volumes:
+      - ${API_PRODLIKE_DATA_DIR:-./.data/prodlike-taskstream}:/data
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:4011/v1/healthz', timeout=2)"]
+      interval: 10s
+      timeout: 3s
+      retries: 10
+      start_period: 15s
+    restart: unless-stopped

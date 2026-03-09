@@ -1,0 +1,62 @@
+name: API-first production flow
+
+on:
+  pull_request:
+    paths:
+      - 'api/**'
+      - 'demos/api-first/**'
+      - 'docs/how-to/run-api-first-production-flow.md'
+      - 'docs/reference/taskstream-api-playground.md'
+      - 'docs/reference/taskstream-planning-notes.md'
+      - 'scripts/run_api_first_flow.py'
+      - 'scripts/validate_openapi_contract.py'
+      - 'scripts/generate_fastapi_stubs_from_openapi.py'
+      - 'scripts/self_verify_api_user_path.py'
+      - 'scripts/api_sandbox_project.sh'
+      - 'docker-compose.api-sandbox.yml'
+      - '.spectral.yml'
+      - 'package.json'
+  workflow_dispatch:
+
+jobs:
+  api-first-flow:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: |
+          npm ci
+          python3 -m pip install --upgrade pip
+          python3 -m pip install -r requirements.txt
+
+      - name: Start project mock sandbox
+        run: bash scripts/api_sandbox_project.sh up taskstream ./api/openapi.yaml 4010
+
+      - name: Run universal API-first flow
+        run: |
+          python3 scripts/run_api_first_flow.py \
+            --project-slug taskstream \
+            --notes demos/api-first/taskstream-planning-notes.md \
+            --spec api/openapi.yaml \
+            --spec-tree api/taskstream \
+            --verify-user-path \
+            --mock-base-url http://localhost:4010/v1 \
+            --auto-remediate \
+            --max-attempts 3
+
+      - name: Stop project mock sandbox
+        if: always()
+        run: bash scripts/api_sandbox_project.sh down taskstream ./api/openapi.yaml 4010

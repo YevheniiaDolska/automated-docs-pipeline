@@ -1,10 +1,12 @@
-version: '3.8'
-
 services:
   prism-mock:
     image: stoplight/prism:5
+    container_name: ${API_SANDBOX_NAME:-api-sandbox}
     command: mock -h 0.0.0.0 /spec/openapi.yaml
     ports:
-      - '4010:4010'
+      - '${API_SANDBOX_PORT:-4010}:4010'
     volumes:
-      - ./api/openapi.yaml:/spec/openapi.yaml:ro
+      - type: bind
+        source: ${API_SANDBOX_SPEC:-./api/openapi.yaml}
+        target: /spec/openapi.yaml
+        read_only: true

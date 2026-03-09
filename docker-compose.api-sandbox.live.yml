@@ -1,0 +1,18 @@
+version: '3.8'
+
+services:
+  prism-mock-live:
+    image: stoplight/prism:5
+    container_name: ${API_SANDBOX_NAME:-api-sandbox-live}
+    command: mock -h 0.0.0.0 /spec/openapi.yaml
+    restart: unless-stopped
+    ports:
+      - '${API_SANDBOX_PORT:-4010}:4010'
+    volumes:
+      - ${API_SANDBOX_SPEC:-./api/openapi.yaml}:/spec/openapi.yaml:ro
+    healthcheck:
+      test: ["CMD", "sh", "-c", "wget -qO- http://localhost:4010/v1/projects >/dev/null 2>&1 || wget -qO- http://localhost:4010/ >/dev/null 2>&1"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 15s
