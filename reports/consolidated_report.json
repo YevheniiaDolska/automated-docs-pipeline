@@ -1,13 +1,13 @@
 {
-  "generated_at": "2026-03-02T17:25:25.050324+00:00",
+  "generated_at": "2026-03-09T09:48:13.203673+00:00",
   "input_reports": {
     "gaps": {
       "found": true,
-      "generated_at": "2026-03-02T16:46:39.746268",
+      "generated_at": "2026-03-09T09:48:12.873815",
       "details": {
-        "total_gaps": 10,
-        "high_priority": 4,
-        "medium_priority": 6,
+        "total_gaps": 12,
+        "high_priority": 8,
+        "medium_priority": 4,
         "low_priority": 0
       }
     },
@@ -20,9 +20,9 @@
     },
     "kpi": {
       "found": true,
-      "generated_at": "2026-03-02T16:06:19Z",
+      "generated_at": "2026-03-09T09:48:13Z",
       "details": {
-        "quality_score": 88,
+        "quality_score": 76,
         "stale_docs": 0,
         "stale_files_count": 0
       }
@@ -31,39 +31,51 @@
       "found": true,
       "generated_at": "",
       "details": {
-        "status": "ok",
-        "breaches": [],
+        "status": "breach",
+        "breaches": [
+          "Quality score breach: 76 < 82.",
+          "High-priority gap breach: 8 > 6."
+        ],
         "metrics": {
-          "quality_score": 82,
+          "quality_score": 76,
           "stale_pct": 0.0,
-          "high_priority_gaps": 6
+          "high_priority_gaps": 8
         }
       }
+    },
+    "i18n": {
+      "found": false,
+      "generated_at": "",
+      "details": {}
     }
   },
   "health_summary": {
-    "quality_score": 88,
+    "quality_score": 76,
     "stale_pct": 0.0,
-    "total_docs": 17,
+    "total_docs": 38,
     "metadata_completeness_pct": 100.0,
     "drift_status": "ok",
-    "sla_status": "ok",
-    "sla_breaches": [],
-    "total_action_items": 10
+    "sla_status": "breach",
+    "sla_breaches": [
+      "Quality score breach: 76 < 82.",
+      "High-priority gap breach: 8 > 6."
+    ],
+    "total_action_items": 14,
+    "translation_coverage": {}
   },
   "action_items": [
     {
       "id": "CONS-001",
       "source_report": "gaps",
-      "source_id": "CODE-0003",
-      "title": "Authentication: authentication: Auth",
-      "category": "authentication",
+      "source_id": "CODE-0007",
+      "title": "Webhook: webhook: Webhook",
+      "category": "webhook",
       "suggested_doc_type": "how-to",
       "priority": "high",
-      "frequency": 240,
-      "action_required": "Update authentication documentation for changes in FULL_IMPLEMENTATION_START_HERE.md. Include security considerations.",
+      "frequency": 2596,
+      "action_required": "Update webhook documentation for changes in reports/doc_gaps_report.csv. Include payload examples and event types.",
       "related_files": [
-        "FULL_IMPLEMENTATION_START_HERE.md"
+        "reports/doc_gaps_report.csv"
       ],
       "keywords": [],
       "sample_queries": [],
@@ -77,15 +89,15 @@
     {
       "id": "CONS-002",
       "source_report": "gaps",
-      "source_id": "CODE-0005",
-      "title": "Database Schema: database_schema: migration",
-      "category": "database_schema",
+      "source_id": "CODE-0044",
+      "title": "Authentication: authentication: Auth",
+      "category": "authentication",
       "suggested_doc_type": "how-to",
       "priority": "high",
-      "frequency": 19,
-      "action_required": "Document database schema change in PILOT_VS_FULL_IMPLEMENTATION.md. Update data model documentation.",
+      "frequency": 1271,
+      "action_required": "Update authentication documentation for changes in reports/doc_gaps_report.csv. Include security considerations.",
       "related_files": [
-        "PILOT_VS_FULL_IMPLEMENTATION.md"
+        "reports/doc_gaps_report.csv"
       ],
       "keywords": [],
       "sample_queries": [],
@@ -99,15 +111,15 @@
     {
       "id": "CONS-003",
       "source_report": "gaps",
-      "source_id": "CODE-0100",
-      "title": "Removed Function: Function removed: if",
-      "category": "removed_function",
-      "suggested_doc_type": "how-to",
+      "source_id": "CODE-1584",
+      "title": "Public Function: public_function: require_runtime_api_key",
+      "category": "public_function",
+      "suggested_doc_type": "reference",
       "priority": "high",
-      "frequency": 19,
-      "action_required": "BREAKING: Function if was removed. Update documentation and add migration guide.",
+      "frequency": 742,
+      "action_required": "Consider documenting public API: require_runtime_api_key. Include parameters, return value, and example usage.",
       "related_files": [
-        "docs/pear/bare-stream-README.md"
+        "runtime/ask-ai-pack/app/auth.py"
       ],
       "keywords": [],
       "sample_queries": [],
@@ -121,15 +133,15 @@
     {
       "id": "CONS-004",
       "source_report": "gaps",
-      "source_id": "CODE-0188",
-      "title": "Signature Change: Function signature changed: print",
-      "category": "signature_change",
+      "source_id": "CODE-0034",
+      "title": "Database Schema: database_schema: migration",
+      "category": "database_schema",
       "suggested_doc_type": "how-to",
       "priority": "high",
-      "frequency": 7,
-      "action_required": "UPDATE REQUIRED: Function print signature changed. Old: (f\"Found {result['nbHits']} results for 'webhook'\") → New: (f\"Found {nb_hits} results for 'webhook'\"). Update documentation and examples.",
+      "frequency": 119,
+      "action_required": "Document database schema change in reports/doc_gaps_report.csv. Update data model documentation.",
       "related_files": [
-        ".github/workflows/algolia-index.yml"
+        "reports/doc_gaps_report.csv"
       ],
       "keywords": [],
       "sample_queries": [],
@@ -143,15 +155,15 @@
     {
       "id": "CONS-005",
       "source_report": "gaps",
-      "source_id": "CODE-0015",
-      "title": "New Function: New function: print",
-      "category": "new_function",
+      "source_id": "CODE-0001",
+      "title": "Breaking Change: breaking_change:  Change",
+      "category": "breaking_change",
       "suggested_doc_type": "how-to",
-      "priority": "medium",
-      "frequency": 218,
-      "action_required": "Document new function: print. Include parameters, return value, and usage example.",
+      "priority": "high",
+      "frequency": 53,
+      "action_required": "URGENT: Document breaking change in reports/doc_gaps_report.csv. Update migration guide with before/after examples.",
       "related_files": [
-        "AGENTS.md"
+        "reports/doc_gaps_report.csv"
       ],
       "keywords": [],
       "sample_queries": [],
@@ -165,15 +177,15 @@
     {
       "id": "CONS-006",
       "source_report": "gaps",
-      "source_id": "CODE-0001",
-      "title": "Webhook: webhook: webhook",
-      "category": "webhook",
+      "source_id": "CODE-0749",
+      "title": "Removed Function: Function removed: showInfo",
+      "category": "removed_function",
       "suggested_doc_type": "how-to",
-      "priority": "medium",
-      "frequency": 170,
-      "action_required": "Update webhook documentation for changes in FULL_IMPLEMENTATION_START_HERE.md. Include payload examples and event types.",
+      "priority": "high",
+      "frequency": 30,
+      "action_required": "BREAKING: Function showInfo was removed. Update documentation and add migration guide.",
       "related_files": [
-        "FULL_IMPLEMENTATION_START_HERE.md"
+        "docs/diagrams/demo-webhook-pipeline.html"
       ],
       "keywords": [],
       "sample_queries": [],
@@ -187,15 +199,15 @@
     {
       "id": "CONS-007",
       "source_report": "gaps",
-      "source_id": "CODE-0141",
-      "title": "Public Function: public_function: seo_validate_file",
-      "category": "public_function",
+      "source_id": "CODE-1637",
+      "title": "Api Endpoint: api_endpoint: /healthz",
+      "category": "api_endpoint",
       "suggested_doc_type": "reference",
-      "priority": "medium",
-      "frequency": 139,
-      "action_required": "Consider documenting public API: seo_validate_file. Include parameters, return value, and example usage.",
+      "priority": "high",
+      "frequency": 9,
+      "action_required": "Document API endpoint: /healthz. Include request/response examples, parameters, authentication requirements.",
       "related_files": [
-        "scripts/seo_geo_optimizer.py"
+        "runtime/ask-ai-pack/app/main.py"
       ],
       "keywords": [],
       "sample_queries": [],
@@ -209,15 +221,15 @@
     {
       "id": "CONS-008",
       "source_report": "gaps",
-      "source_id": "CODE-0008",
-      "title": "Config Option: config_option: local",
-      "category": "config_option",
-      "suggested_doc_type": "reference",
-      "priority": "medium",
-      "frequency": 28,
-      "action_required": "Document configuration option: local. Include allowed values and when to use.",
+      "source_id": "CODE-4136",
+      "title": "Signature Change: Function signature changed: print",
+      "category": "signature_change",
+      "suggested_doc_type": "how-to",
+      "priority": "high",
+      "frequency": 1,
+      "action_required": "UPDATE REQUIRED: Function print signature changed. Old: (f\"✅ Created {doc_type} document: {output_path}\") → New: (f\"Created {doc_type} document: {output_path}\"). Update documentation and examples.",
       "related_files": [
-        ".claude/settings.local.json"
+        "scripts/new_doc.py"
       ],
       "keywords": [],
       "sample_queries": [],
@@ -231,15 +243,15 @@
     {
       "id": "CONS-009",
       "source_report": "gaps",
-      "source_id": "CODE-0189",
-      "title": "Env Var: env_var: ALGOLIA_INDEX_NAME",
-      "category": "env_var",
-      "suggested_doc_type": "reference",
+      "source_id": "CODE-0843",
+      "title": "New Function: New function: if",
+      "category": "new_function",
+      "suggested_doc_type": "how-to",
       "priority": "medium",
-      "frequency": 4,
-      "action_required": "Add environment variable ALGOLIA_INDEX_NAME to configuration reference. Include default value, description, and examples.",
+      "frequency": 754,
+      "action_required": "Document new function: if. Include parameters, return value, and usage example.",
       "related_files": [
-        ".github/workflows/algolia-index.yml"
+        "docs/reference/intent-experiences/automate-developer.md"
       ],
       "keywords": [],
       "sample_queries": [],
@@ -253,15 +265,15 @@
     {
       "id": "CONS-010",
       "source_report": "gaps",
-      "source_id": "CODE-0497",
-      "title": "Error Handling: error_handling: FileNotFoundError",
-      "category": "error_handling",
-      "suggested_doc_type": "how-to",
+      "source_id": "CODE-0064",
+      "title": "Config Option: config_option: local",
+      "category": "config_option",
+      "suggested_doc_type": "reference",
       "priority": "medium",
-      "frequency": 3,
-      "action_required": "Document new error type: FileNotFoundError. Include cause, solution, and error code.",
+      "frequency": 34,
+      "action_required": "Document configuration option: local. Include allowed values and when to use.",
       "related_files": [
-        "scripts/gap_detection/batch_generator.py"
+        "reports/doc_gaps_report.json"
       ],
       "keywords": [],
       "sample_queries": [],
@@ -270,6 +282,96 @@
         "status": "new",
         "drift_related": false,
         "sla_breach_related": false
+      }
+    },
+    {
+      "id": "CONS-011",
+      "source_report": "gaps",
+      "source_id": "CODE-1582",
+      "title": "Env Var: env_var: ASK_AI_API_KEY",
+      "category": "env_var",
+      "suggested_doc_type": "reference",
+      "priority": "medium",
+      "frequency": 29,
+      "action_required": "Add environment variable ASK_AI_API_KEY to configuration reference. Include default value, description, and examples.",
+      "related_files": [
+        "runtime/ask-ai-pack/app/auth.py"
+      ],
+      "keywords": [],
+      "sample_queries": [],
+      "context": {
+        "source": "code",
+        "status": "new",
+        "drift_related": false,
+        "sla_breach_related": false
+      }
+    },
+    {
+      "id": "CONS-012",
+      "source_report": "gaps",
+      "source_id": "CODE-1620",
+      "title": "Error Handling: error_handling: PermissionError",
+      "category": "error_handling",
+      "suggested_doc_type": "how-to",
+      "priority": "medium",
+      "frequency": 29,
+      "action_required": "Document new error type: PermissionError. Include cause, solution, and error code.",
+      "related_files": [
+        "runtime/ask-ai-pack/app/auth.py"
+      ],
+      "keywords": [],
+      "sample_queries": [],
+      "context": {
+        "source": "code",
+        "status": "new",
+        "drift_related": false,
+        "sla_breach_related": false
+      }
+    },
+    {
+      "id": "CONS-013",
+      "source_report": "sla",
+      "source_id": null,
+      "title": "SLA breach: Quality score breach: 76 < 82.",
+      "category": "sla_breach",
+      "suggested_doc_type": null,
+      "priority": "high",
+      "frequency": 0,
+      "action_required": "Quality score breach: 76 < 82.",
+      "related_files": [],
+      "keywords": [],
+      "sample_queries": [],
+      "context": {
+        "sla_breach_related": true,
+        "breach_details": "Quality score breach: 76 < 82.",
+        "metrics": {
+          "quality_score": 76,
+          "stale_pct": 0.0,
+          "high_priority_gaps": 8
+        }
+      }
+    },
+    {
+      "id": "CONS-014",
+      "source_report": "sla",
+      "source_id": null,
+      "title": "SLA breach: High-priority gap breach: 8 > 6.",
+      "category": "sla_breach",
+      "suggested_doc_type": null,
+      "priority": "high",
+      "frequency": 0,
+      "action_required": "High-priority gap breach: 8 > 6.",
+      "related_files": [],
+      "keywords": [],
+      "sample_queries": [],
+      "context": {
+        "sla_breach_related": true,
+        "breach_details": "High-priority gap breach: 8 > 6.",
+        "metrics": {
+          "quality_score": 76,
+          "stale_pct": 0.0,
+          "high_priority_gaps": 8
+        }
       }
     }
   ]

@@ -30,46 +30,46 @@
     "code_changes",
     "community"
   ],
-  "generated_at": "2026-03-09T08:32:14.407858",
+  "generated_at": "2026-03-09T09:48:12.873815",
   "gaps": [
     {
-      "id": "CODE-0008",
-      "title": "Webhook: webhook: webhook",
-      "description": "Update webhook documentation for changes in docs/how-to/configure-webhook-trigger.md. Include payload examples and event types.",
+      "id": "CODE-0007",
+      "title": "Webhook: webhook: Webhook",
+      "description": "Update webhook documentation for changes in reports/doc_gaps_report.csv. Include payload examples and event types.",
       "source": "code",
       "category": "webhook",
       "suggested_doc_type": "how-to",
       "priority": "high",
-      "frequency": 2537,
+      "frequency": 2596,
       "keywords": [],
       "related_files": [
-        "docs/how-to/configure-webhook-trigger.md"
+        "reports/doc_gaps_report.csv"
       ],
       "sample_queries": [],
-      "action_required": "Update webhook documentation for changes in docs/how-to/configure-webhook-trigger.md. Include payload examples and event types.",
+      "action_required": "Update webhook documentation for changes in reports/doc_gaps_report.csv. Include payload examples and event types.",
       "status": "new",
-      "created_at": "2026-03-09T08:32:14.407928"
+      "created_at": "2026-03-09T09:48:12.873872"
     },
     {
-      "id": "CODE-0001",
+      "id": "CODE-0044",
       "title": "Authentication: authentication: Auth",
-      "description": "Update authentication documentation for changes in docs/concepts/intelligent-knowledge-system.md. Include security considerations.",
+      "description": "Update authentication documentation for changes in reports/doc_gaps_report.csv. Include security considerations.",
       "source": "code",
       "category": "authentication",
       "suggested_doc_type": "how-to",
       "priority": "high",
-      "frequency": 1231,
+      "frequency": 1271,
       "keywords": [],
       "related_files": [
-        "docs/concepts/intelligent-knowledge-system.md"
+        "reports/doc_gaps_report.csv"
       ],
       "sample_queries": [],
-      "action_required": "Update authentication documentation for changes in docs/concepts/intelligent-knowledge-system.md. Include security considerations.",
+      "action_required": "Update authentication documentation for changes in reports/doc_gaps_report.csv. Include security considerations.",
       "status": "new",
-      "created_at": "2026-03-09T08:32:14.407887"
+      "created_at": "2026-03-09T09:48:12.873999"
     },
     {
-      "id": "CODE-1455",
+      "id": "CODE-1584",
       "title": "Public Function: public_function: require_runtime_api_key",
       "description": "Consider documenting public API: require_runtime_api_key. Include parameters, return value, and example usage.",
       "source": "code",
@@ -84,35 +84,35 @@
       "sample_queries": [],
       "action_required": "Consider documenting public API: require_runtime_api_key. Include parameters, return value, and example usage.",
       "status": "new",
-      "created_at": "2026-03-09T08:32:14.414241"
+      "created_at": "2026-03-09T09:48:12.880093"
     },
     {
-      "id": "CODE-0577",
+      "id": "CODE-0034",
       "title": "Database Schema: database_schema: migration",
-      "description": "Document database schema change in IMPLEMENTATION_SUMMARY.md. Update data model documentation.",
+      "description": "Document database schema change in reports/doc_gaps_report.csv. Update data model documentation.",
       "source": "code",
       "category": "database_schema",
       "suggested_doc_type": "how-to",
       "priority": "high",
-      "frequency": 102,
+      "frequency": 119,
       "keywords": [],
       "related_files": [
-        "IMPLEMENTATION_SUMMARY.md"
+        "reports/doc_gaps_report.csv"
       ],
       "sample_queries": [],
-      "action_required": "Document database schema change in IMPLEMENTATION_SUMMARY.md. Update data model documentation.",
+      "action_required": "Document database schema change in reports/doc_gaps_report.csv. Update data model documentation.",
       "status": "new",
-      "created_at": "2026-03-09T08:32:14.409874"
+      "created_at": "2026-03-09T09:48:12.873966"
     },
     {
-      "id": "CODE-0898",
+      "id": "CODE-0001",
       "title": "Breaking Change: breaking_change:  Change",
       "description": "URGENT: Document breaking change in reports/doc_gaps_report.csv. Update migration guide with before/after examples.",
       "source": "code",
       "category": "breaking_change",
       "suggested_doc_type": "how-to",
       "priority": "high",
-      "frequency": 41,
+      "frequency": 53,
       "keywords": [],
       "related_files": [
         "reports/doc_gaps_report.csv"
@@ -120,10 +120,10 @@
       "sample_queries": [],
       "action_required": "URGENT: Document breaking change in reports/doc_gaps_report.csv. Update migration guide with before/after examples.",
       "status": "new",
-      "created_at": "2026-03-09T08:32:14.412390"
+      "created_at": "2026-03-09T09:48:12.873843"
     },
     {
-      "id": "CODE-0620",
+      "id": "CODE-0749",
       "title": "Removed Function: Function removed: showInfo",
       "description": "BREAKING: Function showInfo was removed. Update documentation and add migration guide.",
       "source": "code",
@@ -138,10 +138,10 @@
       "sample_queries": [],
       "action_required": "BREAKING: Function showInfo was removed. Update documentation and add migration guide.",
       "status": "new",
-      "created_at": "2026-03-09T08:32:14.410010"
+      "created_at": "2026-03-09T09:48:12.876263"
     },
     {
-      "id": "CODE-1508",
+      "id": "CODE-1637",
       "title": "Api Endpoint: api_endpoint: /healthz",
       "description": "Document API endpoint: /healthz. Include request/response examples, parameters, authentication requirements.",
       "source": "code",
@@ -156,10 +156,10 @@
       "sample_queries": [],
       "action_required": "Document API endpoint: /healthz. Include request/response examples, parameters, authentication requirements.",
       "status": "new",
-      "created_at": "2026-03-09T08:32:14.414432"
+      "created_at": "2026-03-09T09:48:12.880260"
     },
     {
-      "id": "CODE-4007",
+      "id": "CODE-4136",
       "title": "Signature Change: Function signature changed: print",
       "description": "UPDATE REQUIRED: Function print signature changed. Old: (f\"✅ Created {doc_type} document: {output_path}\") → New: (f\"Created {doc_type} document: {output_path}\"). Update documentation and examples.",
       "source": "code",
@@ -174,10 +174,10 @@
       "sample_queries": [],
       "action_required": "UPDATE REQUIRED: Function print signature changed. Old: (f\"✅ Created {doc_type} document: {output_path}\") → New: (f\"Created {doc_type} document: {output_path}\"). Update documentation and examples.",
       "status": "new",
-      "created_at": "2026-03-09T08:32:14.422926"
+      "created_at": "2026-03-09T09:48:12.888267"
     },
     {
-      "id": "CODE-0714",
+      "id": "CODE-0843",
       "title": "New Function: New function: if",
       "description": "Document new function: if. Include parameters, return value, and usage example.",
       "source": "code",
@@ -192,28 +192,28 @@
       "sample_queries": [],
       "action_required": "Document new function: if. Include parameters, return value, and usage example.",
       "status": "new",
-      "created_at": "2026-03-09T08:32:14.410329"
+      "created_at": "2026-03-09T09:48:12.876549"
     },
     {
-      "id": "CODE-0896",
+      "id": "CODE-0064",
       "title": "Config Option: config_option: local",
       "description": "Document configuration option: local. Include allowed values and when to use.",
       "source": "code",
       "category": "config_option",
       "suggested_doc_type": "reference",
       "priority": "medium",
-      "frequency": 33,
+      "frequency": 34,
       "keywords": [],
       "related_files": [
-        "reports/doc_gaps_report.csv"
+        "reports/doc_gaps_report.json"
       ],
       "sample_queries": [],
       "action_required": "Document configuration option: local. Include allowed values and when to use.",
       "status": "new",
-      "created_at": "2026-03-09T08:32:14.412384"
+      "created_at": "2026-03-09T09:48:12.874062"
     },
     {
-      "id": "CODE-1453",
+      "id": "CODE-1582",
       "title": "Env Var: env_var: ASK_AI_API_KEY",
       "description": "Add environment variable ASK_AI_API_KEY to configuration reference. Include default value, description, and examples.",
       "source": "code",
@@ -228,10 +228,10 @@
       "sample_queries": [],
       "action_required": "Add environment variable ASK_AI_API_KEY to configuration reference. Include default value, description, and examples.",
       "status": "new",
-      "created_at": "2026-03-09T08:32:14.414236"
+      "created_at": "2026-03-09T09:48:12.880087"
     },
     {
-      "id": "CODE-1491",
+      "id": "CODE-1620",
       "title": "Error Handling: error_handling: PermissionError",
       "description": "Document new error type: PermissionError. Include cause, solution, and error code.",
       "source": "code",
@@ -246,7 +246,7 @@
       "sample_queries": [],
       "action_required": "Document new error type: PermissionError. Include cause, solution, and error code.",
       "status": "new",
-      "created_at": "2026-03-09T08:32:14.414377"
+      "created_at": "2026-03-09T09:48:12.880204"
     }
   ]
 }
