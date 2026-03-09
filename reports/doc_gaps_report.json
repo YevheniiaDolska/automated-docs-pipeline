@@ -22,97 +22,97 @@
       "signature_change": 1,
       "new_function": 1,
       "config_option": 1,
-      "error_handling": 1,
-      "env_var": 1
+      "env_var": 1,
+      "error_handling": 1
     }
   },
   "sources_analyzed": [
     "code_changes",
     "community"
   ],
-  "generated_at": "2026-03-07T19:41:56.166063",
+  "generated_at": "2026-03-09T08:32:14.407858",
   "gaps": [
     {
-      "id": "CODE-0004",
+      "id": "CODE-0008",
       "title": "Webhook: webhook: webhook",
-      "description": "Update webhook documentation for changes in docs/diagrams/demo-webhook-pipeline.html. Include payload examples and event types.",
+      "description": "Update webhook documentation for changes in docs/how-to/configure-webhook-trigger.md. Include payload examples and event types.",
       "source": "code",
       "category": "webhook",
       "suggested_doc_type": "how-to",
       "priority": "high",
-      "frequency": 1805,
+      "frequency": 2537,
       "keywords": [],
       "related_files": [
-        "docs/diagrams/demo-webhook-pipeline.html"
+        "docs/how-to/configure-webhook-trigger.md"
       ],
       "sample_queries": [],
-      "action_required": "Update webhook documentation for changes in docs/diagrams/demo-webhook-pipeline.html. Include payload examples and event types.",
+      "action_required": "Update webhook documentation for changes in docs/how-to/configure-webhook-trigger.md. Include payload examples and event types.",
       "status": "new",
-      "created_at": "2026-03-07T19:41:56.166211"
+      "created_at": "2026-03-09T08:32:14.407928"
     },
     {
-      "id": "CODE-0019",
+      "id": "CODE-0001",
       "title": "Authentication: authentication: Auth",
-      "description": "Update authentication documentation for changes in docs/diagrams/demo-webhook-pipeline.html. Include security considerations.",
+      "description": "Update authentication documentation for changes in docs/concepts/intelligent-knowledge-system.md. Include security considerations.",
       "source": "code",
       "category": "authentication",
       "suggested_doc_type": "how-to",
       "priority": "high",
-      "frequency": 721,
+      "frequency": 1231,
       "keywords": [],
       "related_files": [
-        "docs/diagrams/demo-webhook-pipeline.html"
+        "docs/concepts/intelligent-knowledge-system.md"
       ],
       "sample_queries": [],
-      "action_required": "Update authentication documentation for changes in docs/diagrams/demo-webhook-pipeline.html. Include security considerations.",
+      "action_required": "Update authentication documentation for changes in docs/concepts/intelligent-knowledge-system.md. Include security considerations.",
       "status": "new",
-      "created_at": "2026-03-07T19:41:56.166311"
+      "created_at": "2026-03-09T08:32:14.407887"
     },
     {
-      "id": "CODE-0031",
-      "title": "Public Function: public_function: verify_webhook_signature",
-      "description": "Consider documenting public API: verify_webhook_signature. Include parameters, return value, and example usage.",
+      "id": "CODE-1455",
+      "title": "Public Function: public_function: require_runtime_api_key",
+      "description": "Consider documenting public API: require_runtime_api_key. Include parameters, return value, and example usage.",
       "source": "code",
       "category": "public_function",
       "suggested_doc_type": "reference",
       "priority": "high",
-      "frequency": 709,
+      "frequency": 742,
       "keywords": [],
       "related_files": [
-        "docs/en/how-to/set-up-real-time-webhook-processing-pipeline.md"
+        "runtime/ask-ai-pack/app/auth.py"
       ],
       "sample_queries": [],
-      "action_required": "Consider documenting public API: verify_webhook_signature. Include parameters, return value, and example usage.",
+      "action_required": "Consider documenting public API: require_runtime_api_key. Include parameters, return value, and example usage.",
       "status": "new",
-      "created_at": "2026-03-07T19:41:56.166545"
+      "created_at": "2026-03-09T08:32:14.414241"
     },
     {
-      "id": "CODE-0818",
+      "id": "CODE-0577",
       "title": "Database Schema: database_schema: migration",
-      "description": "Document database schema change in reports/doc_gaps_report.csv. Update data model documentation.",
+      "description": "Document database schema change in IMPLEMENTATION_SUMMARY.md. Update data model documentation.",
       "source": "code",
       "category": "database_schema",
       "suggested_doc_type": "how-to",
       "priority": "high",
-      "frequency": 100,
+      "frequency": 102,
       "keywords": [],
       "related_files": [
-        "reports/doc_gaps_report.csv"
+        "IMPLEMENTATION_SUMMARY.md"
       ],
       "sample_queries": [],
-      "action_required": "Document database schema change in reports/doc_gaps_report.csv. Update data model documentation.",
+      "action_required": "Document database schema change in IMPLEMENTATION_SUMMARY.md. Update data model documentation.",
       "status": "new",
-      "created_at": "2026-03-07T19:41:56.171390"
+      "created_at": "2026-03-09T08:32:14.409874"
     },
     {
-      "id": "CODE-0788",
-      "title": "Breaking Change: breaking_change: ",
+      "id": "CODE-0898",
+      "title": "Breaking Change: breaking_change:  Change",
       "description": "URGENT: Document breaking change in reports/doc_gaps_report.csv. Update migration guide with before/after examples.",
       "source": "code",
       "category": "breaking_change",
       "suggested_doc_type": "how-to",
       "priority": "high",
-      "frequency": 50,
+      "frequency": 41,
       "keywords": [],
       "related_files": [
         "reports/doc_gaps_report.csv"
@@ -120,46 +120,46 @@
       "sample_queries": [],
       "action_required": "URGENT: Document breaking change in reports/doc_gaps_report.csv. Update migration guide with before/after examples.",
       "status": "new",
-      "created_at": "2026-03-07T19:41:56.171237"
+      "created_at": "2026-03-09T08:32:14.412390"
     },
     {
-      "id": "CODE-0224",
-      "title": "Removed Function: Function removed: Say",
-      "description": "BREAKING: Function Say was removed. Update documentation and add migration guide.",
+      "id": "CODE-0620",
+      "title": "Removed Function: Function removed: showInfo",
+      "description": "BREAKING: Function showInfo was removed. Update documentation and add migration guide.",
       "source": "code",
       "category": "removed_function",
       "suggested_doc_type": "how-to",
       "priority": "high",
-      "frequency": 22,
+      "frequency": 30,
       "keywords": [],
       "related_files": [
-        ".claude/commands/demo.md"
+        "docs/diagrams/demo-webhook-pipeline.html"
       ],
       "sample_queries": [],
-      "action_required": "BREAKING: Function Say was removed. Update documentation and add migration guide.",
+      "action_required": "BREAKING: Function showInfo was removed. Update documentation and add migration guide.",
       "status": "new",
-      "created_at": "2026-03-07T19:41:56.168004"
+      "created_at": "2026-03-09T08:32:14.410010"
     },
     {
-      "id": "CODE-0096",
-      "title": "Api Endpoint: api_endpoint: /webhooks",
-      "description": "Document API endpoint: /webhooks. Include request/response examples, parameters, authentication requirements.",
+      "id": "CODE-1508",
+      "title": "Api Endpoint: api_endpoint: /healthz",
+      "description": "Document API endpoint: /healthz. Include request/response examples, parameters, authentication requirements.",
       "source": "code",
       "category": "api_endpoint",
       "suggested_doc_type": "reference",
       "priority": "high",
-      "frequency": 6,
+      "frequency": 9,
       "keywords": [],
       "related_files": [
-        "seo-report-algolia.json"
+        "runtime/ask-ai-pack/app/main.py"
       ],
       "sample_queries": [],
-      "action_required": "Document API endpoint: /webhooks. Include request/response examples, parameters, authentication requirements.",
+      "action_required": "Document API endpoint: /healthz. Include request/response examples, parameters, authentication requirements.",
       "status": "new",
-      "created_at": "2026-03-07T19:41:56.167092"
+      "created_at": "2026-03-09T08:32:14.414432"
     },
     {
-      "id": "CODE-2154",
+      "id": "CODE-4007",
       "title": "Signature Change: Function signature changed: print",
       "description": "UPDATE REQUIRED: Function print signature changed. Old: (f\"✅ Created {doc_type} document: {output_path}\") → New: (f\"Created {doc_type} document: {output_path}\"). Update documentation and examples.",
       "source": "code",
@@ -174,79 +174,79 @@
       "sample_queries": [],
       "action_required": "UPDATE REQUIRED: Function print signature changed. Old: (f\"✅ Created {doc_type} document: {output_path}\") → New: (f\"Created {doc_type} document: {output_path}\"). Update documentation and examples.",
       "status": "new",
-      "created_at": "2026-03-07T19:41:56.191889"
+      "created_at": "2026-03-09T08:32:14.422926"
     },
     {
-      "id": "CODE-0001",
+      "id": "CODE-0714",
       "title": "New Function: New function: if",
       "description": "Document new function: if. Include parameters, return value, and usage example.",
       "source": "code",
       "category": "new_function",
       "suggested_doc_type": "how-to",
       "priority": "medium",
-      "frequency": 669,
+      "frequency": 754,
       "keywords": [],
       "related_files": [
-        "docs/diagrams/demo-webhook-pipeline.html"
+        "docs/reference/intent-experiences/automate-developer.md"
       ],
       "sample_queries": [],
       "action_required": "Document new function: if. Include parameters, return value, and usage example.",
       "status": "new",
-      "created_at": "2026-03-07T19:41:56.166175"
+      "created_at": "2026-03-09T08:32:14.410329"
     },
     {
-      "id": "CODE-0264",
+      "id": "CODE-0896",
       "title": "Config Option: config_option: local",
       "description": "Document configuration option: local. Include allowed values and when to use.",
       "source": "code",
       "category": "config_option",
       "suggested_doc_type": "reference",
       "priority": "medium",
-      "frequency": 23,
+      "frequency": 33,
       "keywords": [],
       "related_files": [
-        ".claude/settings.local.json"
+        "reports/doc_gaps_report.csv"
       ],
       "sample_queries": [],
       "action_required": "Document configuration option: local. Include allowed values and when to use.",
       "status": "new",
-      "created_at": "2026-03-07T19:41:56.168201"
+      "created_at": "2026-03-09T08:32:14.412384"
     },
     {
-      "id": "CODE-0352",
-      "title": "Error Handling: error_handling: 401",
-      "description": "Document new error type: 401. Include cause, solution, and error code.",
-      "source": "code",
-      "category": "error_handling",
-      "suggested_doc_type": "how-to",
-      "priority": "medium",
-      "frequency": 15,
-      "keywords": [],
-      "related_files": [
-        "docs/en/how-to/set-up-real-time-webhook-processing-pipeline.md"
-      ],
-      "sample_queries": [],
-      "action_required": "Document new error type: 401. Include cause, solution, and error code.",
-      "status": "new",
-      "created_at": "2026-03-07T19:41:56.168658"
-    },
-    {
-      "id": "CODE-0303",
-      "title": "Env Var: env_var: WEBHOOK_SECRET",
-      "description": "Add environment variable WEBHOOK_SECRET to configuration reference. Include default value, description, and examples.",
+      "id": "CODE-1453",
+      "title": "Env Var: env_var: ASK_AI_API_KEY",
+      "description": "Add environment variable ASK_AI_API_KEY to configuration reference. Include default value, description, and examples.",
       "source": "code",
       "category": "env_var",
       "suggested_doc_type": "reference",
       "priority": "medium",
-      "frequency": 3,
+      "frequency": 29,
       "keywords": [],
       "related_files": [
-        "docs/en/how-to/set-up-real-time-webhook-processing-pipeline.md"
+        "runtime/ask-ai-pack/app/auth.py"
       ],
       "sample_queries": [],
-      "action_required": "Add environment variable WEBHOOK_SECRET to configuration reference. Include default value, description, and examples.",
+      "action_required": "Add environment variable ASK_AI_API_KEY to configuration reference. Include default value, description, and examples.",
       "status": "new",
-      "created_at": "2026-03-07T19:41:56.168397"
+      "created_at": "2026-03-09T08:32:14.414236"
+    },
+    {
+      "id": "CODE-1491",
+      "title": "Error Handling: error_handling: PermissionError",
+      "description": "Document new error type: PermissionError. Include cause, solution, and error code.",
+      "source": "code",
+      "category": "error_handling",
+      "suggested_doc_type": "how-to",
+      "priority": "medium",
+      "frequency": 29,
+      "keywords": [],
+      "related_files": [
+        "runtime/ask-ai-pack/app/auth.py"
+      ],
+      "sample_queries": [],
+      "action_required": "Document new error type: PermissionError. Include cause, solution, and error code.",
+      "status": "new",
+      "created_at": "2026-03-09T08:32:14.414377"
     }
   ]
 }
