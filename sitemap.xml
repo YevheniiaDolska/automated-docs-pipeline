@@ -50,13 +50,25 @@
   </url>
   <url>
     <loc>https://docs.example.com/search-faceted</loc>
-    <lastmod>2026-03-08</lastmod>
+    <lastmod>2026-03-09</lastmod>
     <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://docs.example.com/reference/taskstream-api-playground</loc>
+    <lastmod>2026-03-09</lastmod>
+    <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://docs.example.com/reference/api-playground</loc>
     <lastmod>2026-02-23</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://docs.example.com/reference/taskstream-planning-notes</loc>
+    <lastmod>2026-03-09</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -201,6 +213,12 @@
   <url>
     <loc>https://docs.example.com/how-to/configure-webhook-trigger</loc>
     <lastmod>2026-03-07</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://docs.example.com/how-to/run-api-first-production-flow</loc>
+    <lastmod>2026-03-09</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
