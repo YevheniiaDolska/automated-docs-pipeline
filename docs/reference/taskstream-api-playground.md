@@ -52,3 +52,7 @@ bash scripts/api_prodlike_project.sh up taskstream 4011
 
 - [Run API-first production flow](../how-to/run-api-first-production-flow.md)
 - [TaskStream API planning notes](taskstream-planning-notes.md)
+
+## Next steps
+
+- [Documentation index](index.md)

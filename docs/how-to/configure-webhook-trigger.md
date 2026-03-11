@@ -114,3 +114,7 @@ Check that you send the `Content-Type: application/json` header.
 - [Set up webhook processing pipeline](../en/how-to/set-up-real-time-webhook-processing-pipeline.md)
 - [Webhook node reference](../reference/nodes/webhook.md)
 - [Troubleshoot webhook issues](../troubleshooting/webhook-not-firing.md)
+
+## Next steps
+
+- [Documentation index](index.md)

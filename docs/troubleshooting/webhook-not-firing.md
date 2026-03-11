@@ -89,3 +89,7 @@ export WEBHOOK_URL=https://product.yourdomain.com
 
 - [Webhook node reference](../reference/nodes/webhook.md)
 - [Configure Webhook authentication](../how-to/configure-webhook-trigger.md)
+
+## Next steps
+
+- [Documentation index](index.md)

@@ -81,3 +81,7 @@ This works for both API-first and code-first teams.
 1. `real-api`: use only when product policy allows direct user requests.
 1. `mixed`: let user choose sandbox vs real API explicitly.
 1. Keep write operations protected by auth scopes and rate limits.
+
+## Next steps
+
+- [Documentation index](index.md)

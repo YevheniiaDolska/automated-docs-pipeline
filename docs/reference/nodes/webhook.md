@@ -99,3 +99,7 @@ print("webhook smoke ok")
 - [Configure Webhook authentication](../../how-to/configure-webhook-trigger.md)
 - [Webhook not firing](../../troubleshooting/webhook-not-firing.md)
 - [Workflow execution model](../../concepts/workflow-execution-model.md)
+
+## Next steps
+
+- [Documentation index](../index.md)

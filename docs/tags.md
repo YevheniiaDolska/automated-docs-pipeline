@@ -16,3 +16,7 @@ original_author: JaneDo
 Use the tags below to filter content by topic, type, or component.
 
 <!-- material/tags -->
+
+## Next steps
+
+- [Documentation index](index.md)
