@@ -14,7 +14,13 @@ You are running a live demo of the Auto-Doc Pipeline for a potential client. You
 1. Use `$ARGUMENTS` as the document title instead of "Set up real-time webhook processing pipeline"
 1. Determine the best `content_type` for this topic (how-to, tutorial, concept, reference, troubleshooting)
 1. Generate a slug from the title (kebab-case)—this becomes the filename
-1. In Step 4, run: `python3 scripts/new_doc.py {content_type} "{title}" 2>&1`
+1. In Step 4, select and copy the matching file from `templates/*.md`:
+   - `how-to` -> `templates/how-to.md`
+   - `tutorial` -> `templates/tutorial.md`
+   - `concept` -> `templates/concept.md`
+   - `reference` -> `templates/reference.md`
+   - `troubleshooting` -> `templates/troubleshooting.md`
+   Then create `docs/en/{content_type_dir}/{slug}.md` from that template and customize it for the topic.
 1. All file paths throughout the demo change accordingly:
    - Document: `docs/en/{content_type_dir}/{slug}.md`
    - Diagram: `docs/diagrams/demo-{slug}.html`
@@ -106,17 +112,18 @@ Say: "Here is the single source of truth. All values, such as ports, URLs, and l
 
 ## PHASE 2: Generate ONE document with ALL features (the main event)
 
-### Step 4. Create skeleton from template
+### Step 4. Create document directly from `templates/*.md`
 
 ```bash
-python3 scripts/new_doc.py how-to "Set up real-time webhook processing pipeline" 2>&1
+mkdir -p docs/en/how-to
+cp templates/how-to.md docs/en/how-to/set-up-real-time-webhook-processing-pipeline.md
 ```
 
-Say: "The skeleton is generated from a pre-validated template. Now I will fill it with production-grade content so you can see ALL pipeline capabilities in one document."
+Say: "I copied the document directly from a pre-validated template in `templates/`. Now I will customize it with production-grade content so you can see ALL pipeline capabilities in one document."
 
 ### Step 5. GENERATE THE FULL DOCUMENT
 
-NOW—this is the MAIN WOW MOMENT. Read the generated skeleton, then COMPLETELY REWRITE it with production-quality content that demonstrates every feature.
+NOW—this is the MAIN WOW MOMENT. Starting from the copied template file, fully customize the document with production-quality content that demonstrates every feature.
 
 The document `docs/en/how-to/set-up-real-time-webhook-processing-pipeline.md` must contain ALL of the following elements. This is a HARD REQUIREMENT—include EVERY item:
 

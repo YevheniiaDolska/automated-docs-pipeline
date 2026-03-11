@@ -305,6 +305,71 @@ class TestValidateFile:
         errors = validate_file(md, schema)
         assert any("too short" in e for e in errors)
 
+    def test_lifecycle_deprecated_requires_fields(self, tmp_path: Path) -> None:
+        """Deprecated pages must include lifecycle metadata."""
+        md = tmp_path / "deprecated.md"
+        md.write_text(
+            (
+                "---\n"
+                'title: "Deprecated page"\n'
+                'description: "A valid description for deprecated page."\n'
+                "content_type: reference\n"
+                "status: deprecated\n"
+                "---\n"
+                "# Deprecated\n"
+            ),
+            encoding="utf-8",
+        )
+        errors = validate_file(md, {"required": ["title"], "properties": {"title": {"type": "string"}}})
+        assert any("deprecated_since is required" in e for e in errors)
+        assert any("removal_date is required" in e for e in errors)
+        assert any("replacement_url is required" in e for e in errors)
+
+    def test_lifecycle_removed_requires_noindex(self, tmp_path: Path) -> None:
+        """Removed pages must be explicitly noindex."""
+        md = tmp_path / "removed.md"
+        md.write_text(
+            (
+                "---\n"
+                'title: "Removed page"\n'
+                'description: "A valid description for removed page."\n'
+                "content_type: reference\n"
+                "status: removed\n"
+                "deprecated_since: 2025-01-01\n"
+                "removal_date: 2025-06-01\n"
+                "replacement_url: /docs/new-page\n"
+                "noindex: false\n"
+                "---\n"
+                "# Removed\n"
+            ),
+            encoding="utf-8",
+        )
+        errors = validate_file(md, {"required": ["title"], "properties": {"title": {"type": "string"}}})
+        assert any("noindex: true is required" in e for e in errors)
+
+    def test_lifecycle_removed_valid(self, tmp_path: Path) -> None:
+        """Removed page with full lifecycle metadata passes lifecycle checks."""
+        md = tmp_path / "removed-good.md"
+        md.write_text(
+            (
+                "---\n"
+                'title: "Removed page"\n'
+                'description: "A valid description for removed page."\n'
+                "content_type: reference\n"
+                "status: removed\n"
+                "deprecated_since: 2025-01-01\n"
+                "removal_date: 2025-06-01\n"
+                "replacement_url: /docs/new-page\n"
+                "noindex: true\n"
+                "---\n"
+                "# Removed\n"
+            ),
+            encoding="utf-8",
+        )
+        errors = validate_file(md, {"required": ["title"], "properties": {"title": {"type": "string"}}})
+        assert not any("required when status is 'removed'" in e for e in errors)
+        assert not any("noindex: true is required" in e for e in errors)
+
 
 # ---------------------------------------------------------------------------
 # load_schema

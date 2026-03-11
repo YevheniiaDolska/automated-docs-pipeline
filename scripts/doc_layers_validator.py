@@ -4,9 +4,11 @@ Documentation Layers Validator
 Ensures documentation follows proper abstraction layers (inspired by BDR methodology).
 """
 
+import argparse
+import json
 import yaml
 from pathlib import Path
-from typing import Dict, List, Tuple
+from typing import Any, Dict, List
 import re
 from datetime import datetime
 from yaml import YAMLError
@@ -19,16 +21,74 @@ class DocLayersValidator:
     3. Reference - Technical implementation details
     """
 
-    def __init__(self, docs_dir: str = "docs"):
+    def __init__(self, docs_dir: str = "docs", policy_pack_path: str | None = None):
         self.docs_dir = Path(docs_dir)
         self.layer_violations = []
+        self.required_layers = self._load_required_layers(policy_pack_path)
+        self.feature_key_fields = (
+            "feature_id",
+            "feature",
+            "component",
+            "capability",
+            "topic",
+            "api_group",
+        )
+
+    def _load_required_layers(self, policy_pack_path: str | None) -> tuple[str, ...]:
+        """Load required doc layers from policy pack, fallback to disabled coverage check."""
+        default_layers: tuple[str, ...] = ()
+        if not policy_pack_path:
+            return default_layers
+
+        path = Path(policy_pack_path)
+        if not path.exists():
+            return default_layers
+
+        try:
+            payload = yaml.safe_load(path.read_text(encoding="utf-8")) or {}
+        except YAMLError:
+            return default_layers
+
+        if not isinstance(payload, dict):
+            return default_layers
+
+        section = payload.get("doc_layers", {})
+        if not isinstance(section, dict):
+            return default_layers
+
+        raw_layers = section.get("required_layers") or section.get("required_content_layers")
+        if not isinstance(raw_layers, list):
+            return default_layers
+
+        layers = tuple(
+            str(item).strip().lower()
+            for item in raw_layers
+            if isinstance(item, str) and str(item).strip()
+        )
+        return layers if layers else default_layers
+
+    def extract_frontmatter(self, content: str) -> dict[str, Any]:
+        """Extract frontmatter as mapping."""
+        if not content.startswith("---"):
+            return {}
+        try:
+            parts = content.split("---", 2)
+            if len(parts) >= 2:
+                fm = yaml.safe_load(parts[1])
+                if isinstance(fm, dict):
+                    return fm
+        except (YAMLError, AttributeError, TypeError):
+            return {}
+        return {}
 
     def detect_layer_violations(self) -> List[Dict]:
         """Find documents that mix abstraction layers inappropriately."""
         violations = []
+        feature_layers: dict[str, set[str]] = {}
 
         for md_file in self.docs_dir.rglob("*.md"):
             content = md_file.read_text(encoding='utf-8')
+            frontmatter = self.extract_frontmatter(content)
 
             # Extract frontmatter to determine intended layer
             content_type = self.extract_content_type(content)
@@ -36,6 +96,12 @@ class DocLayersValidator:
             if content_type:
                 issues = self.check_layer_consistency(content, content_type, md_file)
                 violations.extend(issues)
+                feature_key = self.extract_feature_key(md_file, frontmatter, content_type)
+                feature_layers.setdefault(feature_key, set()).add(content_type)
+
+        if feature_layers and self.required_layers:
+            missing = self.detect_missing_required_layers(feature_layers)
+            violations.extend(missing)
 
         return violations
 
@@ -50,6 +116,62 @@ class DocLayersValidator:
             except (YAMLError, AttributeError, TypeError):
                 return ""
         return ""
+
+    def extract_feature_key(self, file_path: Path, frontmatter: dict[str, Any], content_type: str) -> str:
+        """Infer feature key to group docs into concept/how-to/reference sets."""
+        for key in self.feature_key_fields:
+            value = frontmatter.get(key)
+            if isinstance(value, str) and value.strip():
+                return value.strip().lower()
+
+        title = frontmatter.get("title")
+        if isinstance(title, str) and title.strip():
+            normalized = re.sub(r"\s+", "-", title.strip().lower())
+            normalized = re.sub(r"[^a-z0-9\-_/]", "", normalized)
+            if normalized:
+                return normalized
+
+        stem = file_path.stem.lower()
+        suffix_patterns = (
+            "-concept",
+            "-how-to",
+            "-reference",
+            "_concept",
+            "_how_to",
+            "_reference",
+            "-tutorial",
+            "_tutorial",
+            "-troubleshooting",
+            "_troubleshooting",
+        )
+        for suffix in suffix_patterns:
+            if stem.endswith(suffix):
+                stem = stem[: -len(suffix)]
+                break
+        return stem or content_type
+
+    def detect_missing_required_layers(self, feature_layers: dict[str, set[str]]) -> List[Dict]:
+        """Report features missing required layers from active policy pack."""
+        missing: List[Dict] = []
+        required = set(self.required_layers)
+        for feature, seen_layers in sorted(feature_layers.items()):
+            absent = sorted(required - seen_layers)
+            if not absent:
+                continue
+            missing.append(
+                {
+                    "file": feature,
+                    "content_type": "feature",
+                    "violation": f"Missing required layers: {', '.join(absent)}",
+                    "recommendation": (
+                        "Add missing layer docs for this feature "
+                        f"(required by policy pack: {', '.join(self.required_layers)})."
+                    ),
+                    "missing_layers": absent,
+                    "present_layers": sorted(seen_layers),
+                }
+            )
+        return missing
 
     def check_layer_consistency(self, content: str, content_type: str, file_path: Path) -> List[Dict]:
         """Check if content matches its declared type."""
@@ -296,8 +418,54 @@ class DocLayersValidator:
         return output_path
 
 def main():
-    validator = DocLayersValidator()
-    validator.save_report()
+    parser = argparse.ArgumentParser(description="Validate documentation abstraction layers")
+    parser.add_argument("--docs-dir", default="docs", help="Docs directory to scan")
+    parser.add_argument(
+        "--policy-pack",
+        default=None,
+        help="Optional policy pack path. If omitted, defaults are used.",
+    )
+    parser.add_argument(
+        "--output",
+        default="doc_layers_report.html",
+        help="HTML report path",
+    )
+    parser.add_argument(
+        "--json-output",
+        default=None,
+        help="Optional JSON output path for violations",
+    )
+    parser.add_argument(
+        "--strict",
+        action="store_true",
+        help="Return non-zero if any violation is found",
+    )
+    args = parser.parse_args()
+
+    validator = DocLayersValidator(docs_dir=args.docs_dir, policy_pack_path=args.policy_pack)
+    violations = validator.detect_layer_violations()
+    validator.save_report(args.output)
+
+    if args.json_output:
+        json_path = Path(args.json_output)
+        json_path.parent.mkdir(parents=True, exist_ok=True)
+        json_path.write_text(
+            json.dumps(
+                {
+                    "generated_at": datetime.utcnow().isoformat() + "Z",
+                    "required_layers": list(validator.required_layers),
+                    "violations_count": len(violations),
+                    "violations": violations,
+                },
+                ensure_ascii=True,
+                indent=2,
+            ) + "\n",
+            encoding="utf-8",
+        )
+
+    if args.strict and violations:
+        return 1
+    return 0
 
 if __name__ == "__main__":
-    main()
+    raise SystemExit(main())

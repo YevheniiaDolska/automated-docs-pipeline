@@ -2,11 +2,11 @@
 """
 Auto-Detecting Site Generator Wrapper
 
-Detects which site generator the project uses (MkDocs or Docusaurus) and
+Detects which site generator the project uses (MkDocs, Docusaurus, Sphinx, Hugo, or Jekyll) and
 runs the appropriate build, serve, or detect command.
 
 Usage:
-    python3 scripts/run_generator.py detect   # prints 'mkdocs' or 'docusaurus'
+    python3 scripts/run_generator.py detect   # prints generator name
     python3 scripts/run_generator.py build    # runs correct build command
     python3 scripts/run_generator.py serve    # runs correct serve command
 """
@@ -76,7 +76,7 @@ def main() -> int:
     )
     parser.add_argument(
         "--generator",
-        choices=["mkdocs", "docusaurus"],
+        choices=["mkdocs", "docusaurus", "sphinx", "hugo", "jekyll"],
         help="Force a specific generator instead of auto-detecting",
     )
 

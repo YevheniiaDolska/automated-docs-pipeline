@@ -19,7 +19,10 @@ sys.path.insert(0, str(Path(__file__).resolve().parent.parent / "scripts"))
 
 from site_generator import (
     DocusaurusGenerator,
+    HugoGenerator,
+    JekyllGenerator,
     MkDocsGenerator,
+    SphinxGenerator,
     SiteGenerator,
 )
 from markdown_converter import (
@@ -195,6 +198,25 @@ class SiteGeneratorTests(unittest.TestCase):
             gen = SiteGenerator.detect(Path(td))
             self.assertEqual(gen.name, "mkdocs")
 
+    def test_detect_sphinx(self):
+        with tempfile.TemporaryDirectory() as td:
+            (Path(td) / "conf.py").touch()
+            gen = SiteGenerator.detect(Path(td))
+            self.assertEqual(gen.name, "sphinx")
+
+    def test_detect_hugo(self):
+        with tempfile.TemporaryDirectory() as td:
+            (Path(td) / "hugo.toml").touch()
+            gen = SiteGenerator.detect(Path(td))
+            self.assertEqual(gen.name, "hugo")
+
+    def test_detect_jekyll(self):
+        with tempfile.TemporaryDirectory() as td:
+            (Path(td) / "_config.yml").touch()
+            (Path(td) / "_layouts").mkdir()
+            gen = SiteGenerator.detect(Path(td))
+            self.assertEqual(gen.name, "jekyll")
+
     def test_mkdocs_build_command(self):
         gen = MkDocsGenerator()
         cmd = gen.get_build_command()
@@ -218,6 +240,21 @@ class SiteGeneratorTests(unittest.TestCase):
         docus = DocusaurusGenerator()
         self.assertEqual(docus.build_url_from_path(docs / "page.md", docs), "page")
         self.assertEqual(docus.build_url_from_path(docs / "sub" / "index.md", docs), "sub/")
+
+        # Sphinx: page.rst -> page.html
+        sphinx = SphinxGenerator()
+        self.assertEqual(sphinx.build_url_from_path(docs / "page.rst", docs), "page.html")
+        self.assertEqual(sphinx.build_url_from_path(docs / "sub" / "index.rst", docs), "sub/")
+
+        # Hugo: page.md -> page/
+        hugo = HugoGenerator()
+        self.assertEqual(hugo.build_url_from_path(docs / "page.md", docs), "page/")
+        self.assertEqual(hugo.build_url_from_path(docs / "sub" / "_index.md", docs), "sub/")
+
+        # Jekyll: page.md -> page.html
+        jekyll = JekyllGenerator()
+        self.assertEqual(jekyll.build_url_from_path(docs / "page.md", docs), "page.html")
+        self.assertEqual(jekyll.build_url_from_path(docs / "sub" / "index.md", docs), "sub/")
 
 
 # ====================================================================

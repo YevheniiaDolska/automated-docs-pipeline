@@ -1,0 +1,187 @@
+---
+title: "Pipeline Capabilities Catalog"
+description: "Generated catalog of pipeline scripts and capabilities for client task configuration."
+content_type: reference
+product: both
+last_reviewed: "2026-03-11"
+tags:
+  - Operations
+  - Capabilities
+---
+
+# Pipeline Capabilities Catalog
+
+This file is auto-generated from `package.json` scripts.
+
+Use this catalog with `runtime.custom_tasks.weekly` in client profiles to enable any capability.
+
+## How to enable any capability for a client
+
+```yaml
+runtime:
+  custom_tasks:
+    weekly:
+      - id: "my-task"
+        enabled: true
+        command: "npm run <script-name>"
+        continue_on_error: true
+```
+
+| Script | Category | Command |
+| --- | --- | --- |
+| `agent:claude:auto` | Agent/Demo | `bash scripts/claude-auto.sh` |
+| `agent:codex:auto` | Agent/Demo | `bash scripts/codex-auto.sh` |
+| `api-first-demo` | API-first | `bash scripts/api_first_demo_live.sh` |
+| `api-first-demo:stop` | API-first | `bash scripts/api_first_demo_stop.sh` |
+| `api-first:demo` | API-first | `bash -lc 'set -e; bash scripts/api_sandbox_project.sh up taskstream ./api/openapi.yaml 4010; trap "bash scripts/api_sandbox_project.sh down taskstream ./api/openapi.yaml 4010" EXIT; python3 scripts/run_api_first_flow.py --project-slug taskstream --notes demos/api-first/taskstream-planning-notes.md --spec api/openapi.yaml --spec-tree api/taskstream --docs-provider mkdocs --inject-demo-nav --verify-user-path --mock-base-url http://localhost:4010/v1 --auto-remediate --max-attempts 3'` |
+| `api-first:demo:live` | API-first | `bash scripts/api_first_demo_live.sh` |
+| `api-first:demo:stop` | API-first | `bash scripts/api_first_demo_stop.sh` |
+| `api:first:flow:taskstream` | API-first | `python3 scripts/run_api_first_flow.py --project-slug taskstream --notes demos/api-first/taskstream-planning-notes.md --spec api/openapi.yaml --spec-tree api/taskstream --docs-provider mkdocs --inject-demo-nav --auto-remediate` |
+| `api:first:v0:taskstream` | API-first | `python3 scripts/run_api_first_flow.py --project-slug taskstream --notes demos/api-first/taskstream-planning-notes.md --spec api/openapi.yaml --spec-tree api/taskstream --docs-provider mkdocs --auto-remediate --max-attempts 3` |
+| `api:first:verify-user-path` | API-first | `python3 scripts/self_verify_api_user_path.py --base-url http://localhost:4010/v1` |
+| `api:first:verify-user-path:prodlike` | API-first | `python3 scripts/self_verify_prodlike_user_path.py --base-url http://localhost:4011/v1` |
+| `api:sandbox:live` | API-first | `bash scripts/api_sandbox_live.sh up taskstream ./api/openapi.yaml 4010` |
+| `api:sandbox:live:logs` | API-first | `bash scripts/api_sandbox_live.sh logs taskstream ./api/openapi.yaml 4010` |
+| `api:sandbox:live:status` | API-first | `bash scripts/api_sandbox_live.sh status taskstream ./api/openapi.yaml 4010` |
+| `api:sandbox:live:stop` | API-first | `bash scripts/api_sandbox_live.sh down taskstream ./api/openapi.yaml 4010` |
+| `api:sandbox:mock` | API-first | `docker compose -f docker-compose.api-sandbox.yml up -d` |
+| `api:sandbox:prodlike` | API-first | `bash scripts/api_prodlike_project.sh` |
+| `api:sandbox:prodlike:down` | API-first | `bash scripts/api_prodlike_project.sh down taskstream 4011` |
+| `api:sandbox:prodlike:logs` | API-first | `bash scripts/api_prodlike_project.sh logs taskstream 4011` |
+| `api:sandbox:prodlike:status` | API-first | `bash scripts/api_prodlike_project.sh status taskstream 4011` |
+| `api:sandbox:prodlike:up` | API-first | `bash scripts/api_prodlike_project.sh up taskstream 4011` |
+| `api:sandbox:project` | API-first | `bash scripts/api_sandbox_project.sh` |
+| `api:sandbox:stop` | API-first | `docker compose -f docker-compose.api-sandbox.yml down` |
+| `askai:configure` | General | `python3 scripts/configure_ask_ai.py` |
+| `askai:disable` | General | `python3 scripts/configure_ask_ai.py --disable` |
+| `askai:enable` | General | `python3 scripts/configure_ask_ai.py --enable` |
+| `askai:runtime:install` | General | `python3 scripts/install_ask_ai_runtime.py --target-dir .` |
+| `askai:runtime:install:force` | General | `python3 scripts/install_ask_ai_runtime.py --target-dir . --force` |
+| `askai:status` | General | `python3 scripts/configure_ask_ai.py --status` |
+| `badges` | General | `python3 scripts/generate_badge.py --json reports/kpi-wall.json --output reports` |
+| `build` | Build/Generate | `python3 scripts/run_generator.py build` |
+| `build:docusaurus` | Build/Generate | `npx docusaurus build` |
+| `build:intent` | Build/Generate | `python3 scripts/assemble_intent_experience.py` |
+| `build:intent:all` | Build/Generate | `python3 scripts/build_all_intent_experiences.py` |
+| `build:knowledge-index` | Build/Generate | `python3 scripts/generate_knowledge_retrieval_index.py` |
+| `build:mkdocs` | Build/Generate | `mkdocs build --strict` |
+| `configurator` | General | `python3 scripts/generate_configurator.py` |
+| `consolidate` | General | `npm run gaps && npm run kpi-wall && npm run kpi-sla && npm run i18n:sync && npm run validate:knowledge && python3 scripts/consolidate_reports.py` |
+| `consolidate:reports-only` | General | `python3 scripts/consolidate_reports.py` |
+| `convert:to-docusaurus` | General | `python3 scripts/markdown_converter.py to-docusaurus docs/` |
+| `convert:to-mkdocs` | General | `python3 scripts/markdown_converter.py to-mkdocs docs/` |
+| `demo:api-first` | Agent/Demo | `bash scripts/api_first_demo_live.sh` |
+| `demo:api-first:stop` | Agent/Demo | `bash scripts/api_first_demo_stop.sh` |
+| `demo:claude:loop` | Agent/Demo | `bash scripts/claude-demo-loop.sh` |
+| `demo:codex` | Agent/Demo | `bash scripts/codex-demo.sh` |
+| `demo:codex:loop` | Agent/Demo | `bash scripts/codex-demo-loop.sh` |
+| `docs-contract` | General | `python3 scripts/check_docs_contract.py --base origin/main --head HEAD --json-output reports/pr_docs_contract.json` |
+| `docs-ops:e2e` | DocsOps tests | `python3 scripts/test_docs_ops_e2e.py` |
+| `docs-ops:golden` | DocsOps tests | `python3 scripts/test_golden_reports_and_workflows.py` |
+| `docs-ops:test-suite` | DocsOps tests | `python3 -m pytest -q tests/test_autopipeline_suite.py` |
+| `drift-check` | General | `python3 scripts/check_api_sdk_drift.py --base origin/main --head HEAD --json-output reports/api_sdk_drift_report.json --md-output reports/api_sdk_drift_report.md` |
+| `gaps` | Gap detection | `python3 -m scripts.gap_detection.cli analyze` |
+| `gaps:code` | Gap detection | `python3 -m scripts.gap_detection.cli code` |
+| `gaps:community` | Gap detection | `python3 -m scripts.gap_detection.cli community` |
+| `gaps:full` | Gap detection | `python3 -m scripts.gap_detection.cli full --generate` |
+| `gaps:generate` | Gap detection | `python3 -m scripts.gap_detection.cli generate --report reports/doc_gaps_report.json` |
+| `generator:detect` | General | `python3 scripts/run_generator.py detect` |
+| `generator:info` | General | `python3 scripts/run_generator.py info` |
+| `i18n:migrate` | Localization | `python3 scripts/i18n_migrate.py` |
+| `i18n:sync` | Localization | `python3 scripts/i18n_sync.py` |
+| `i18n:translate` | Localization | `python3 scripts/i18n_translate.py` |
+| `i18n:translate:all` | Localization | `python3 scripts/i18n_translate.py --all-missing` |
+| `i18n:translate:stale` | Localization | `python3 scripts/i18n_translate.py --stale-only` |
+| `kpi-full` | KPI/SLA | `npm run kpi-wall && npm run badges` |
+| `kpi-sla` | KPI/SLA | `python3 scripts/evaluate_kpi_sla.py --current reports/kpi-wall.json --policy-pack policy_packs/api-first.yml --json-output reports/kpi-sla-report.json --md-output reports/kpi-sla-report.md` |
+| `kpi-wall` | KPI/SLA | `python3 scripts/generate_kpi_wall.py --docs-dir docs --reports-dir reports --stale-days 90` |
+| `lint` | Lint/Quality | `npm run normalize:docs:check && npm run lint:vale && npm run lint:md && npm run lint:spell && npm run lint:frontmatter && npm run lint:geo && npm run lint:knowledge && npm run lint:snippets` |
+| `lint:examples-smoke` | Lint/Quality | `python3 scripts/check_code_examples_smoke.py --paths docs templates` |
+| `lint:examples-smoke:network` | Lint/Quality | `python3 scripts/check_code_examples_smoke.py --paths docs templates --allow-network` |
+| `lint:frontmatter` | Lint/Quality | `python3 scripts/validate_frontmatter.py` |
+| `lint:geo` | Lint/Quality | `python3 scripts/seo_geo_optimizer.py docs/` |
+| `lint:knowledge` | Lint/Quality | `python3 scripts/validate_knowledge_modules.py` |
+| `lint:layers` | Lint/Quality | `python3 scripts/doc_layers_validator.py` |
+| `lint:md` | Lint/Quality | `markdownlint docs/` |
+| `lint:openapi` | Lint/Quality | `npx -y @stoplight/spectral-cli lint api/openapi.yaml --ruleset .spectral.yml && npx -y @redocly/cli lint api/openapi.yaml && npx -y @apidevtools/swagger-cli validate api/openapi.yaml && python3 scripts/validate_openapi_contract.py api/openapi.yaml` |
+| `lint:snippets` | Lint/Quality | `python3 scripts/lint_code_snippets.py docs/` |
+| `lint:snippets:strict` | Lint/Quality | `python3 scripts/lint_code_snippets.py docs/ templates/ --strict` |
+| `lint:spell` | Lint/Quality | `cspell "docs/**/*.md" --no-must-find-files` |
+| `lint:vale` | Lint/Quality | `vale docs/` |
+| `new-doc` | General | `python3 scripts/new_doc.py` |
+| `normalize:docs` | General | `python3 scripts/normalize_docs.py docs/` |
+| `normalize:docs:check` | General | `python3 scripts/normalize_docs.py docs/ --check` |
+| `prepare` | General | `husky install` |
+| `release-pack` | General | `python3 scripts/generate_release_docs_pack.py --output reports/release-docs-pack.md` |
+| `serve` | General | `python3 scripts/run_generator.py serve` |
+| `serve:docusaurus` | General | `npx docusaurus start` |
+| `serve:mkdocs` | General | `mkdocs serve` |
+| `test:adapter` | General | `python3 -m pytest tests/test_docusaurus_adapter.py -v` |
+| `test:all` | General | `python3 -m pytest -q tests` |
+| `test:configurator` | General | `python3 -m pytest tests/test_gui_configurator.py -v` |
+| `validate:full` | Validation | `npm run validate:minimal && npm run lint:layers && npm run validate:knowledge && npm run docs-ops:e2e && npm run docs-ops:golden && npm run docs-ops:test-suite && python3 test_pipeline.py` |
+| `validate:knowledge` | Validation | `npm run lint:knowledge && npm run build:intent:all && npm run build:knowledge-index` |
+| `validate:minimal` | Validation | `npm run normalize:docs:check && npm run lint:md && npm run lint:frontmatter && npm run lint:geo && npm run lint:examples-smoke` |
+
+## Templates
+
+These can be shipped via `bundle.include_paths` and used by LLM generation flow.
+
+- `templates/admin-guide.md`
+- `templates/api-endpoint.md`
+- `templates/api-reference.md`
+- `templates/architecture-overview.md`
+- `templates/authentication-guide.md`
+- `templates/best-practices.md`
+- `templates/changelog.md`
+- `templates/concept.md`
+- `templates/configuration-guide.md`
+- `templates/configuration-reference.md`
+- `templates/deployment-guide.md`
+- `templates/error-handling-guide.md`
+- `templates/faq.md`
+- `templates/glossary-page.md`
+- `templates/how-to.md`
+- `templates/integration-guide.md`
+- `templates/interactive-diagram.html`
+- `templates/migration-guide.md`
+- `templates/plg-persona-guide.md`
+- `templates/plg-value-page.md`
+- `templates/quickstart.md`
+- `templates/reference.md`
+- `templates/release-note.md`
+- `templates/sdk-reference.md`
+- `templates/security-guide.md`
+- `templates/testing-guide.md`
+- `templates/troubleshooting.md`
+- `templates/tutorial.md`
+- `templates/upgrade-guide.md`
+- `templates/use-case.md`
+- `templates/user-guide.md`
+- `templates/webhooks-guide.md`
+
+## Policy Packs
+
+- `api-first.yml`
+- `minimal.yml`
+- `monorepo.yml`
+- `multi-product.yml`
+- `plg.yml`
+
+## Knowledge Modules
+
+Can be copied into client bundle with `bundle.include_paths: ['knowledge_modules']`.
+
+- `webhook-auth-baseline.yml`
+- `webhook-retry-policy.yml`
+
+## Docker Compose Profiles
+
+- `docker-compose.api-sandbox.live.yml`
+- `docker-compose.api-sandbox.prodlike.yml`
+- `docker-compose.api-sandbox.yml`
+- `docker-compose.docs-ops.yml`
+
+## Next steps
+
+- [Documentation index](../index.md)

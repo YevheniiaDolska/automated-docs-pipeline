@@ -67,7 +67,7 @@
       "Webhook",
       "Reference"
     ],
-    "docs_excerpt": "Use idempotency keys to make webhook retries safe. Persist a processed-event key for at least 24 hours, and skip duplicate events with HTTP 200 to stop upstream retries. Use exponential backoff for outbound retries: 1s, 2s, 4s, 8s, and 16s, capped at 5 attempts.\n\n```javascript\nconst retryScheduleSeconds = [1, 2, 4, 8, 16];\n\nfunction shouldProcess(eventId, cache) {\n  if (cache.has(eventId)) {\n    r",
+    "docs_excerpt": "Use idempotency keys to make webhook retries safe. Persist a processed-event key for at least 24 hours, and skip duplicate events with HTTP 200 to stop upstream retries. Use exponential backoff for outbound retries: one second, two seconds, four seconds, eight seconds, and 16 seconds, capped at five attempts.\n\n```javascript\nconst retryScheduleSeconds = [1, 2, 4, 8, 16];\n\nfunction shouldProcess(eve",
     "assistant_excerpt": "For duplicate webhook issues, advise users to implement idempotency storage keyed by event ID and return 200 for duplicates. For transient failures, use exponential backoff with a hard retry cap and a retry-rate alert.",
     "source_file": "knowledge_modules/webhook-retry-policy.yml"
   }

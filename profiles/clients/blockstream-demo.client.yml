@@ -1,0 +1,148 @@
+client:
+  id: "blockstream-demo"
+  company_name: "Blockstream"
+  contact_email: "devrel@blockstream.example"
+
+bundle:
+  output_dir: "generated/client_bundles"
+  base_policy_pack: "multi-product"
+  style_guide: "google"
+  include_scripts:
+    - "scripts/run_weekly_gap_batch.py"
+    - "scripts/run_api_first_flow.py"
+    - "scripts/generate_openapi_from_planning_notes.py"
+    - "scripts/validate_openapi_contract.py"
+    - "scripts/generate_fastapi_stubs_from_openapi.py"
+    - "scripts/self_verify_api_user_path.py"
+    - "scripts/manage_demo_nav.py"
+    - "scripts/normalize_docs.py"
+    - "scripts/lint_code_snippets.py"
+    - "scripts/validate_frontmatter.py"
+    - "scripts/check_code_examples_smoke.py"
+    - "scripts/seo_geo_optimizer.py"
+    - "scripts/upload_to_algolia.py"
+    - "scripts/generate_facets_index.py"
+    - "scripts/doc_layers_validator.py"
+    - "scripts/lifecycle_manager.py"
+    - "scripts/extract_knowledge_modules_from_docs.py"
+    - "scripts/validate_knowledge_modules.py"
+    - "scripts/generate_knowledge_retrieval_index.py"
+    - "scripts/build_all_intent_experiences.py"
+    - "scripts/i18n_sync.py"
+    - "scripts/i18n_translate.py"
+    - "scripts/i18n_migrate.py"
+    - "scripts/i18n_utils.py"
+    - "scripts/configure_ask_ai.py"
+    - "scripts/install_ask_ai_runtime.py"
+    - "scripts/check_docs_contract.py"
+    - "scripts/check_api_sdk_drift.py"
+    - "scripts/generate_kpi_wall.py"
+    - "scripts/evaluate_kpi_sla.py"
+    - "scripts/consolidate_reports.py"
+    - "scripts/gap_detector.py"
+  include_docs:
+    - "README_SETUP.md"
+    - "POLICY_PACKS.md"
+  include_paths:
+    - "templates/interactive-diagram.html"
+    - "knowledge_modules"
+  llm:
+    codex_instructions_source: "AGENTS.md"
+    claude_instructions_source: "CLAUDE.md"
+    inject_managed_block: true
+    docsops_root_in_client_repo: "docsops"
+  automation:
+    weekly_gap_report:
+      enabled: true
+      since_days: 7
+      day_of_week: "monday"
+      time_24h: "09:00"
+
+runtime:
+  docs_flow:
+    mode: "hybrid"
+  docs_root: "docs"
+  api_root: "api"
+  sdk_root: "clients"
+  preferred_llm: "claude"
+  output_targets:
+    - "sphinx"
+    - "readme"
+    - "github"
+  api_first:
+    enabled: true
+    project_slug: "blockstream-demo"
+    notes_path: "demos/api-first/taskstream-planning-notes.md"
+    spec_path: "api/openapi.yaml"
+    spec_tree_path: "api/taskstream"
+    docs_provider: "mkdocs"
+    docs_spec_target: "docs/assets/api"
+    stubs_output: "generated/api-stubs/fastapi/app/main.py"
+    generate_from_notes: true
+    verify_user_path: false
+    mock_base_url: "http://localhost:4010/v1"
+    run_docs_lint: false
+    auto_remediate: true
+    max_attempts: 4
+  modules:
+    gap_detection: true
+    drift_detection: true
+    docs_contract: true
+    kpi_sla: true
+    rag_optimization: true
+    normalization: true
+    snippet_lint: true
+    self_checks: true
+    fact_checks: true
+    lifecycle_management: true
+    knowledge_validation: true
+    i18n_sync: true
+    release_pack: true
+  integrations:
+    algolia:
+      enabled: false
+      docs_dir: "docs"
+      report_output: "reports/seo-report.json"
+      upload_on_weekly: false
+      app_id_env: "ALGOLIA_APP_ID"
+      api_key_env: "ALGOLIA_API_KEY"
+      index_name_env: "ALGOLIA_INDEX_NAME"
+      index_name_default: "docs"
+    ask_ai:
+      enabled: false
+      auto_configure_on_provision: true
+      install_runtime_pack: false
+      provider: "openai"
+      billing_mode: "disabled"
+      model: "gpt-4.1-mini"
+      base_url: "https://api.openai.com/v1"
+  custom_tasks:
+    weekly:
+      - id: "seo-geo"
+        enabled: true
+        command: "python3 docsops/scripts/seo_geo_optimizer.py docs/"
+        continue_on_error: true
+      - id: "knowledge-index"
+        enabled: true
+        command: "python3 docsops/scripts/generate_knowledge_retrieval_index.py"
+        continue_on_error: true
+      - id: "i18n-translate-stale"
+        enabled: false
+        command: "python3 docsops/scripts/i18n_translate.py --stale-only"
+        continue_on_error: true
+    on_demand: []
+
+private_tuning:
+  gap_priority_weights:
+    business_impact: 0.50
+    user_frequency: 0.30
+    implementation_cost: 0.20
+  stale_days: 14
+  weekly_stale_days: 180
+  rag_chunk_target_tokens: 380
+  verify_max_attempts: 4
+
+legal:
+  license_type: "commercial"
+  redistribution_allowed: false
+  reseller_allowed: false

@@ -2,28 +2,26 @@
 
 An automated documentation operations system for technical products.
 
-Install it into a company repository. It enforces documentation quality, detects when docs fall behind code, generates consolidated reports, and enables LLM assistants (Claude Code, Codex) to produce Stripe-quality documentation from the first draft with built-in self-verification.
+Install it into a company repository. It enforces documentation quality, detects when docs fall behind code, generates consolidated reports, and enables LLM assistants (Claude Code, Codex) to produce high-quality documentation from the first draft with built-in self-verification.
 
 ## How the pipeline works
 
 ```text
-Monday 09:00 UTC (cron)
+One-time setup:
+  onboard_client.py (or provision_client_repo.py) -> profile + bundle + install + scheduler
         |
         v
-weekly-consolidation.yml runs:
-  gaps (code + community + algolia) -> doc_gaps_report.json
-  API/SDK drift                     -> api_sdk_drift_report.json
-  KPI wall                          -> kpi-wall.json
-  SLA evaluation                    -> kpi-sla-report.json
+Weekly scheduler runs:
+  docsops/scripts/run_weekly_gap_batch.py
+    -> gaps, drift, KPI/SLA, stale checks
+    -> knowledge validation + retrieval index
+    -> optional api-first flow + custom weekly tasks
         |
         v
-consolidate_reports.py merges 4 reports
+reports/consolidated_report.json
         |
         v
-reports/consolidated_report.json + GitHub Issue created
-        |
-        v
-User: git pull -> Claude Code -> "Process reports/consolidated_report.json"
+LLM: "Process reports/consolidated_report.json"
         |
         v
 LLM prioritizes (3 tiers), creates/updates docs, self-verifies, lints
@@ -32,9 +30,15 @@ LLM prioritizes (3 tiers), creates/updates docs, self-verifies, lints
 User: reviews diffs (git diff), commits
 ```
 
+Compatibility mode:
+- You can still run the same weekly flow via GitHub Actions cron (`weekly-consolidation.yml` and related workflows).
+
 ### Consolidated weekly report
 
-The `scripts/consolidate_reports.py` script merges four input reports into a single `reports/consolidated_report.json`. The `weekly-consolidation.yml` workflow runs every Monday at 09:00 UTC, commits the consolidated report to the repository, and opens a GitHub Issue with instructions for the next documentation cycle.
+`scripts/consolidate_reports.py` merges source reports into `reports/consolidated_report.json`.
+
+In recommended mode, this is executed by scheduled `docsops/scripts/run_weekly_gap_batch.py` in the client repo.
+In compatibility mode, this can also be executed by `weekly-consolidation.yml` in GitHub Actions.
 
 Input reports:
 
@@ -50,13 +54,20 @@ Input reports:
 When Claude Code or Codex processes the consolidated report, it:
 
 1. Prioritizes action items into three tiers (critical, important, routine).
-1. Selects the matching template from `templates/` (never writes from scratch).
-1. Uses variables from `docs/_variables.yml` for all product-specific values.
+1. Selects the matching template from `templates/`.
+1. If a required doc type has no template yet, creates a new Stripe-quality template in the same project format, then generates docs from that template.
+1. Uses variables from `docs/_variables.yml` for product-specific values.
+1. Adds missing variable keys to `docs/_variables.yml` when needed (instead of hardcoding values in pages).
+1. Updates navigation when adding new pages (`mkdocs.yml` or target provider equivalent).
+1. Handles multilingual flow through English-source-first content, then i18n sync/translate workflow for target locales.
 1. Follows Vale style rules (American English, active voice, no weasel words).
+1. Runs SEO/GEO optimization checks and applies fixes where possible.
+1. Runs RAG/knowledge steps when enabled (`validate_knowledge_modules.py`, `generate_knowledge_retrieval_index.py`, intent assembly tasks).
 1. Self-verifies: executes all code examples, checks shell commands, fact-checks assertions (versions, ports, paths, counts).
 1. Auto-corrects any mismatches found during verification.
-1. Updates `mkdocs.yml` navigation when adding new pages.
-1. Runs linters before committing.
+1. Runs lint/validation locally before commit (pre-commit and explicit lint commands).
+1. Runs the same checks again in CI on pull request; publish/merge stays blocked until green.
+1. Publishes/syncs to configured targets (Sphinx, ReadMe, GitHub docs, optional adapters) according to client profile.
 
 Instructions live in `CLAUDE.md` (for Claude Code) and `AGENTS.md` (for Codex).
 
@@ -68,6 +79,7 @@ The pipeline includes an AI-native knowledge layer that keeps docs readable whil
 | --- | --- |
 | `knowledge_modules/*.yml` | Modular knowledge units with intent, audience, channel, and dependency metadata |
 | `knowledge-module-schema.yml` | Contract for module structure and metadata integrity |
+| `scripts/extract_knowledge_modules_from_docs.py` | Auto-splits docs into audience/intent-ready knowledge modules with metadata |
 | `scripts/validate_knowledge_modules.py` | Quality gate for module schema, dependencies, and cycle safety |
 | `scripts/assemble_intent_experience.py` | Assembles intent experiences into docs pages and channel bundles |
 | `scripts/generate_knowledge_retrieval_index.py` | Builds a module-level retrieval index for assistants and search |
@@ -86,15 +98,17 @@ Every pull request that touches `docs/` triggers seven parallel checks:
 
 | Check | Tool | What it validates |
 | --- | --- | --- |
-| Style | Vale | American English, Google Developer Style Guide, write-good |
+| Style | Vale | American English + selected style profile (`google`/`microsoft`/`hybrid`) + write-good |
 | Formatting | markdownlint | Markdown structure, blank lines, heading hierarchy |
 | Spelling | cspell | Technical terms, product names, code identifiers |
-| Frontmatter | `validate_frontmatter.py` | Required metadata fields, character limits, schema |
-| SEO/GEO | `seo_geo_optimizer.py` | 60+ checks for search and LLM optimization |
+| Frontmatter | `validate_frontmatter.py` | Required metadata fields, character limits, schema for Markdown docs frontmatter (`docs/**/*.md`) |
+| SEO/GEO | `seo_geo_optimizer.py` | 24 automated checks (8 GEO + 16 SEO) for search and LLM optimization |
 | Code examples | `check_code_examples_smoke.py` | Executes tagged code blocks in 8 languages |
 | API specs | Spectral | OpenAPI/Swagger spec validation |
 
 All seven checks must pass before the `build-docs` job runs (`mkdocs build --strict` or `npx docusaurus build`).
+
+`knowledge_modules/*.yml` do not go through `validate_frontmatter.py`; they are validated separately by `validate_knowledge_modules.py` (schema, dependencies, cycle safety).
 
 ### Pre-commit hooks (6 checks)
 
@@ -154,8 +168,10 @@ Pre-validated Markdown templates that pass all linters out of the box:
 | `glossary-page.md` | Terminology reference |
 | `plg-persona-guide.md` | PLG persona targeting |
 | `plg-value-page.md` | PLG value proposition |
-
-Plus four additional specialized templates in the `templates/` directory.
+| `admin-guide.md` | Admin and operations procedures |
+| `api-endpoint.md` | Single-endpoint API documentation |
+| `upgrade-guide.md` | Upgrade and compatibility guidance |
+| `user-guide.md` | End-user product usage guide |
 
 ## Policy packs (5)
 
@@ -166,8 +182,8 @@ Policy packs adapt quality thresholds and enforcement rules to different team si
 | `minimal.yml` | New teams, pilot week | 75% | 20% |
 | `api-first.yml` | OpenAPI-driven teams, SDK-heavy products | 82% | 12% |
 | `monorepo.yml` | Multiple services in one repo | 80% | 15% |
-| `multi-product.yml` | One docs system for multiple products | 80% | 15% |
-| `plg.yml` | Product-led growth, self-serve activation | 85% | 10% |
+| `multi-product.yml` | One docs system for multiple products | 84% | 10% |
+| `plg.yml` | Product-led growth, self-serve activation | 84% | 10% |
 
 ## Workflows
 
@@ -190,11 +206,15 @@ For teams that start with code:
 
 ### Doc layers validator
 
-`scripts/doc_layers_validator.py` checks that every documented feature has the required layers (concept, how-to, reference) based on the active policy pack.
+`scripts/doc_layers_validator.py` checks that every documented feature has the required layers (concept, how-to, reference) from the active policy pack (`policy_packs/selected.yml` in client bundles).
 
 ### Lifecycle management
 
-Documents have four states: `active`, `deprecated`, `removed`, and draft. Deprecated and removed pages require `deprecated_since`, `removal_date`, and `replacement_url` in frontmatter. Removed pages get `noindex: true` to prevent search engine indexing.
+Documents have four states: `active`, `deprecated`, `removed`, and `draft`.
+`validate_frontmatter.py` enforces lifecycle rules automatically:
+- `deprecated` and `removed` pages must include `deprecated_since`, `removal_date`, and `replacement_url`.
+- `removed` pages must include `noindex: true` to prevent search engine indexing.
+Weekly automation also runs `lifecycle_manager.py` to generate lifecycle reports and redirect/cleanup guidance.
 
 ## Variables system
 
@@ -218,16 +238,28 @@ Visit [{{ product_name }} Cloud]({{ cloud_url }}).
 
 ## Site generator support
 
-The pipeline supports two documentation site generators:
+The pipeline supports the most widely used docs site generators out of the box:
 
 1. **MkDocs** (default): Uses `mkdocs.yml` with Material theme. Preview at `http://127.0.0.1:8000`.
 1. **Docusaurus**: Uses `docusaurus.config.js`, React-based. Preview at `http://localhost:3000`.
+1. **Sphinx**: Uses `conf.py`. Build output at `_build/html`; preview with local server at `http://127.0.0.1:8000`.
+1. **Hugo**: Uses `hugo.toml` (or `config.toml/yaml`). Preview at `http://localhost:1313`.
+1. **Jekyll**: Uses `_config.yml`. Preview at `http://127.0.0.1:4000`.
+
+In addition, client profiles can target multiple publication channels via `runtime.output_targets`
+(for example `sphinx`, `readme`, `github`) while keeping one shared docs-ops workflow.
+Those targets are configured in client runtime/policy and executed by the corresponding project adapters/tasks.
 
 Auto-detection based on which config file exists. Bidirectional Markdown conversion between formats.
 
 ### Algolia search integration
 
-Optional Algolia integration for faceted search. Configure credentials in `mkdocs.yml` under `extra.algolia`. The `algolia-index.yml` workflow uploads the search index on deploy.
+Algolia integration is generator-agnostic (MkDocs, Docusaurus, Sphinx, Hugo, Jekyll):
+- records are generated from docs frontmatter/content via pipeline scripts
+- upload is handled by `upload_to_algolia.py`
+- configuration lives in one place: `runtime.integrations.algolia` in the client profile
+
+No generator-specific `mkdocs.yml` edits are required for pipeline indexing/upload.
 
 ## Key npm commands
 
@@ -255,10 +287,11 @@ npm run badges               # Generate SVG badges from KPI data
 npm run release-pack         # Generate release documentation package
 
 # Build and serve
-npm run build                # Build docs (auto-detects MkDocs or Docusaurus)
+npm run build                # Build docs (auto-detects supported generators)
 npm run serve                # Start local preview server
 
 # Utilities
+npm run onboard:client       # One-command client onboarding wizard (profile + bundle + install)
 npm run new-doc              # Create new doc from template
 npm run configurator         # Generate browser-based setup wizard
 npm run generator:detect     # Check which site generator is active
@@ -269,8 +302,18 @@ npm run askai:configure -- --provider openai --billing-mode user-subscription
 npm run askai:runtime:install # Install optional Ask AI runtime pack (API + widget)
 ```
 
-Ask AI is optional and disabled by default. Configure it in `config/ask-ai.yml` or with `npm run askai:configure -- --help`.
-When a client needs runtime Q&A, run `npm run askai:runtime:install` and follow `docs/how-to/install-ask-ai-runtime-pack.md`.
+Operator verification after onboarding:
+1. Check generated profile: `profiles/clients/generated/<client_id>.client.yml`.
+1. Check installed runtime config: `<client-repo>/docsops/config/client_runtime.yml`.
+1. Check installed policy: `<client-repo>/docsops/policy_packs/selected.yml`.
+1. Check env checklist: `<client-repo>/docsops/ENV_CHECKLIST.md`.
+
+Ask AI is optional and disabled by default.
+For client bundles, configure it centrally in `runtime.integrations.ask_ai` (client profile):
+- provisioning auto-applies `config/ask-ai.yml`
+- optional runtime pack install is controlled by `install_runtime_pack`
+
+Manual CLI setup remains available with `npm run askai:configure -- --help`.
 
 ## Test coverage
 
@@ -291,7 +334,7 @@ Use `python3 -m pytest ...` (or `npm run test:all`) instead of bare `pytest ...`
 
 | Your situation | Read this first |
 | --- | --- |
-| Never used this before | `QUICK_START.md` |
+| Never used this before | `quick-start.md` |
 | Windows user starting from zero | `BEGINNER_GUIDE.md` |
 | Setting up for the first time | `README_SETUP.md` |
 | Installing into another repository | `SETUP_FOR_PROJECTS.md` |

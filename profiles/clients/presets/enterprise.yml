@@ -1,0 +1,37 @@
+preset: enterprise
+description: Strict quality and full automation for enterprise multi-product programs.
+overrides:
+  bundle:
+    base_policy_pack: "plg"
+    style_guide: "hybrid"
+  runtime:
+    docs_flow:
+      mode: "hybrid"
+    output_targets:
+      - "sphinx"
+      - "readme"
+      - "github"
+    modules:
+      gap_detection: true
+      drift_detection: true
+      docs_contract: true
+      kpi_sla: true
+      rag_optimization: true
+      normalization: true
+      snippet_lint: true
+      self_checks: true
+      fact_checks: true
+      lifecycle_management: true
+      knowledge_validation: true
+      i18n_sync: true
+      release_pack: true
+    integrations:
+      algolia:
+        enabled: true
+        upload_on_weekly: true
+      ask_ai:
+        enabled: true
+        auto_configure_on_provision: true
+        install_runtime_pack: true
+        provider: "openai"
+        billing_mode: "user-subscription"

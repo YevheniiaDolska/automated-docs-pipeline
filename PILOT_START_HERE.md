@@ -1,10 +1,10 @@
 # Start a 1-week pilot of this pipeline
 
-This guide walks you through a 1-week pilot of the Auto-Doc Pipeline on your own repository. By the end, you have working quality gates, a consolidated report, and generated documentation.
+This guide walks you through a 1-week pilot of the Auto-Doc Pipeline on your own repository. By the end, you have working quality gates, automated weekly reporting, and generated documentation.
 
 ## Prerequisites
 
-You need Git, Node.js 18+, Python 3.10+, and npm installed. On Windows, use `py -3` if `python3` does not work.
+You need Git, Node.js 18+, Python 3.11+, and npm installed. On Windows, use `py -3` if `python3` does not work.
 
 ## Step 1: Fork the repository
 
@@ -49,7 +49,19 @@ with:
   policy_pack: policy_packs/minimal.yml
 ```
 
-## Step 4: Run the consolidated report
+## Step 4: Enable weekly automation (recommended)
+
+Provision once and install scheduler:
+
+```bash
+python3 scripts/provision_client_repo.py \
+  --client profiles/clients/examples/basic.client.yml \
+  --client-repo /path/to/client-repo \
+  --docsops-dir docsops \
+  --install-scheduler linux
+```
+
+## Step 5: Run the consolidated report now (optional)
 
 Generate a single report that merges gap detection, KPI data, and staleness analysis:
 
@@ -59,18 +71,18 @@ npm run consolidate
 
 This produces a consolidated report in `reports/` that identifies missing documentation, stale pages, and quality issues in priority order.
 
-## Step 5: Process with Claude Code
+## Step 6: Process with Claude Code
 
 Feed the consolidated report to Claude Code. The `CLAUDE.md` and `AGENTS.md` files in the repository instruct the AI to:
 
-1. Select the correct template from `templates/`.
-1. Use variables from `docs/_variables.yml`.
-1. Follow all style and formatting rules.
-1. Self-verify code examples and fact-check assertions.
+\11. Select the correct template from `templates/`.
+\11. Use variables from `docs/_variables.yml`.
+\11. Follow all style and formatting rules.
+\11. Self-verify code examples and fact-check assertions.
 
 Generate 5-10 documents from the highest-priority items in the report.
 
-## Step 6: Review results
+## Step 7: Review results
 
 Run validation on the generated documents:
 
@@ -80,14 +92,14 @@ npm run validate:minimal
 
 Review each document for factual accuracy. The pipeline handles formatting, style, and SEO/GEO optimization. You verify that the technical content is correct for your product.
 
-## Step 7: Decide on full implementation
+## Step 8: Decide on full implementation
 
 After the pilot week, you have:
 
-1. A working quality gate system.
-1. A consolidated report showing documentation health.
-1. 5-10 generated documents that pass all linters.
-1. Baseline KPI data for before/after comparison.
+\11. A working quality gate system.
+\11. A consolidated report showing documentation health.
+\11. 5-10 generated documents that pass all linters.
+\11. Baseline KPI data for before/after comparison.
 
 To move to full implementation, switch to a stricter policy pack (`api-first.yml` or `plg.yml`), enable all four CI gates, and customize the remaining templates. See `PILOT_VS_FULL_IMPLEMENTATION.md` for details.
 
@@ -97,4 +109,4 @@ To move to full implementation, switch to a stricter policy pack (`api-first.yml
 | --- | --- |
 | `PILOT_VS_FULL_IMPLEMENTATION.md` | Comparison of pilot vs full rollout |
 | `MINIMAL_MODE.md` | Details on the minimal policy pack |
-| `QUICK_START.md` | 10-step setup for any environment |
+| `quick-start.md` | 10-step setup for any environment |

@@ -1,0 +1,69 @@
+client:
+  id: "example-basic"
+  company_name: "Example Basic Co"
+  contact_email: "docs@example.com"
+
+bundle:
+  output_dir: "generated/client_bundles"
+  base_policy_pack: "minimal"
+  style_guide: "google"
+  include_scripts:
+    - "scripts/gap_detector.py"
+    - "scripts/normalize_docs.py"
+    - "scripts/lint_code_snippets.py"
+    - "scripts/check_code_examples_smoke.py"
+    - "scripts/seo_geo_optimizer.py"
+    - "scripts/consolidate_reports.py"
+    - "scripts/run_weekly_gap_batch.py"
+  include_docs:
+    - "docs/operations/UNIFIED_CLIENT_CONFIG.md"
+    - "docs/operations/PLAN_TIERS.md"
+  include_paths: []
+  llm:
+    codex_instructions_source: "AGENTS.md"
+    claude_instructions_source: "CLAUDE.md"
+    inject_managed_block: true
+    docsops_root_in_client_repo: "docsops"
+  automation:
+    weekly_gap_report:
+      enabled: true
+      since_days: 7
+      day_of_week: "monday"
+      time_24h: "09:00"
+
+runtime:
+  docs_flow:
+    mode: "code-first"
+  docs_root: "docs"
+  api_root: "api"
+  sdk_root: "sdk"
+  preferred_llm: "claude"
+  output_targets: ["sphinx", "github"]
+  api_first:
+    enabled: false
+  modules:
+    gap_detection: true
+    drift_detection: false
+    docs_contract: false
+    kpi_sla: false
+    rag_optimization: false
+    normalization: true
+    snippet_lint: true
+    self_checks: true
+    fact_checks: true
+    knowledge_validation: false
+    i18n_sync: false
+    release_pack: true
+  custom_tasks:
+    weekly:
+      - id: "seo-geo-lite"
+        enabled: true
+        command: "python3 docsops/scripts/seo_geo_optimizer.py docs/"
+        continue_on_error: true
+    on_demand: []
+
+private_tuning:
+  stale_days: 21
+  weekly_stale_days: 180
+  rag_chunk_target_tokens: 420
+  verify_max_attempts: 3

@@ -51,8 +51,28 @@ properties:
       - draft
       - active
       - deprecated
+      - removed
       - archived
     default: active
+
+  deprecated_since:
+    type: string
+    description: "Date when page was marked deprecated."
+    pattern: "^[0-9]{4}-[0-9]{2}-[0-9]{2}$"
+
+  removal_date:
+    type: string
+    description: "Planned or actual date when page is removed."
+    pattern: "^[0-9]{4}-[0-9]{2}-[0-9]{2}$"
+
+  replacement_url:
+    type: string
+    description: "Canonical replacement page URL or path."
+    minLength: 1
+
+  noindex:
+    type: boolean
+    description: "When true, page should not be indexed by search engines."
 
   since_version:
     type: string

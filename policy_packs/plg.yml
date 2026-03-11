@@ -30,6 +30,12 @@ drift:
     - '^templates/api-reference\.md$'
     - '^templates/sdk-reference\.md$'
 
+doc_layers:
+  required_layers:
+    - concept
+    - how-to
+    - reference
+
 kpi_sla:
   min_quality_score: 84
   max_stale_pct: 10.0

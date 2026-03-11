@@ -1,6 +1,6 @@
 # Documentation Lifecycle Report
 
-Generated: 2026-03-07T19:41:28.208003
+Generated: 2026-03-10T16:58:52.304433
 
 ## Statistics
 
@@ -10,7 +10,7 @@ Generated: 2026-03-07T19:41:28.208003
 - **DEPRECATED**: 1 pages
 - **REMOVED**: 0 pages
 - **DRAFT**: 0 pages
-- **ACTIVE**: 37 pages
+- **ACTIVE**: 47 pages
 - **ARCHIVED**: 0 pages
 
 ## Preview Pages (Check Duration)
@@ -19,6 +19,6 @@ Generated: 2026-03-07T19:41:28.208003
 
 - Old Webhook API (Deprecated) (docs/reference/deprecated-example.md)
   -> Replacement: /reference/nodes/webhook
-  Sunset: 2024-07-01
+  Removal date: 2024-07-01
 
 ## Removed Pages (Need Redirects)

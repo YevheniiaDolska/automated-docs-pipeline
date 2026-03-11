@@ -23,6 +23,12 @@ drift:
     - "^services/.*/docs/reference/"
     - "^templates/api-reference\\.md$"
 
+doc_layers:
+  required_layers:
+    - concept
+    - how-to
+    - reference
+
 kpi_sla:
   min_quality_score: 80
   max_stale_pct: 15.0

@@ -9,6 +9,21 @@
 
 This is an automated documentation pipeline for technical products. When writing or editing documentation, follow these rules strictly to ensure all linting checks pass.
 
+## Mandatory pipeline execution for API docs
+
+When a user asks to generate or update OpenAPI from planning notes, you MUST run the API-first pipeline flow. Do not generate ad-hoc API files without running the flow.
+
+Required behavior:
+
+\11. Treat planning notes as source input artifact.
+\11. Generate OpenAPI from notes using pipeline scripts.
+\11. Run full API-first checks (contract validation, lint stack, stub generation, self-verification, sandbox/docs sync).
+\11. Report results and produced artifact paths.
+
+Hard rule:
+
+- If request intent is `generate OpenAPI`, `API-first`, or `planning notes -> spec`, always use pipeline entry points (`scripts/run_api_first_flow.py` and related scripts), not freeform one-off generation.
+
 ## Stripe-level documentation quality principles
 
 **Quality bar requirement:** every generated document must be equal to or better than Stripe documentation quality (clarity, structure, accuracy, examples, and usability).
@@ -17,11 +32,11 @@ This is an automated documentation pipeline for technical products. When writing
 
 **Every document MUST:**
 
-1. **Start with the user's goal** - What are they trying to achieve?
-1. **Provide working code immediately** - Show, don't tell
-1. **Explain the why, not just the how** - Context matters
-1. **Include realistic examples** - Not "foo/bar" but actual use cases
-1. **Anticipate next steps** - What will they need after this?
+\11. **Start with the user's goal** - What are they trying to achieve?
+\11. **Provide working code immediately** - Show, don't tell
+\11. **Explain the why, not just the how** - Context matters
+\11. **Include realistic examples** - Not "foo/bar" but actual use cases
+\11. **Anticipate next steps** - What will they need after this?
 
 ### The Stripe documentation formula
 
@@ -45,9 +60,9 @@ const result = await stripe.charges.create({
 
 **Progressive disclosure:**
 
-1. Simple case first (80% of users)
-1. Common variations (15% of users)
-1. Advanced scenarios (5% of users)
+\11. Simple case first (80% of users)
+\11. Common variations (15% of users)
+\11. Advanced scenarios (5% of users)
 
 ### Quality checklist for every document
 
@@ -123,24 +138,28 @@ try {
 
 **When creating documentation, ensure consistency:**
 
-1. **Check for relevant templates in `templates/` directory:**
-   - If a matching template exists, use it as base
-   - Copy it: `cp templates/[template] docs/[section]/[new-file].md`
-   - Edit content while keeping structure
+\11. **Check for relevant templates in `templates/` directory:**
 
-1. **OR use VS Code snippets from `.vscode/docs.code-snippets`:**
-   - Type snippet prefix (doc-tutorial, doc-howto, etc.) and press Tab
-   - Ensures consistent structure across documentation
+- If a matching template exists, use it as base
+- Copy it: `cp templates/[template] docs/[section]/[new-file].md`
+- Edit content while keeping structure
 
-1. **If no template matches, create carefully:**
-   - Follow the structure from similar existing documents
-   - Include all required frontmatter fields
-   - Follow all formatting and SEO/GEO rules
+\11. **OR use VS Code snippets from `.vscode/docs.code-snippets`:**
 
-1. **ALWAYS update `mkdocs.yml` navigation:**
-   - Add new document to appropriate section in nav
-   - Use descriptive titles, maintain logical order
-   - Claude should ALWAYS update mkdocs.yml when adding docs
+- Type snippet prefix (doc-tutorial, doc-howto, etc.) and press Tab
+- Ensures consistent structure across documentation
+
+\11. **If no template matches, create carefully:**
+
+- Follow the structure from similar existing documents
+- Include all required frontmatter fields
+- Follow all formatting and SEO/GEO rules
+
+\11. **ALWAYS update `mkdocs.yml` navigation:**
+
+- Add new document to appropriate section in nav
+- Use descriptive titles, maintain logical order
+- Claude should ALWAYS update mkdocs.yml when adding docs
 
 **Why this matters:** templates and snippets ensure:
 
@@ -427,11 +446,11 @@ Set the port using PRODUCT_PORT  # Should use env_vars.port
 
 Before committing, these checks run automatically:
 
-1. **Vale** (style - American English, Google/Microsoft Style Guide, write-good)
-1. **markdownlint** (formatting)
-1. **cspell** (spelling)
-1. **validate_frontmatter.py** (metadata)
-1. **seo_geo_optimizer.py** (comprehensive SEO/GEO optimization)
+\11. **Vale** (style - American English, Google/Microsoft Style Guide, write-good)
+\11. **markdownlint** (formatting)
+\11. **cspell** (spelling)
+\11. **validate_frontmatter.py** (metadata)
+\11. **seo_geo_optimizer.py** (comprehensive SEO/GEO optimization)
 
 **Vale runs with strict configuration - no --no-exit flag.**
 
@@ -464,7 +483,7 @@ markdownlint docs/path/to/file.md
 
 **ALWAYS use existing templates and snippets when creating new documentation:**
 
-1. **Check for existing templates first:**
+\11. **Check for existing templates first:**
 
    ```bash
    ls templates/
@@ -483,7 +502,7 @@ markdownlint docs/path/to/file.md
    - `webhooks-guide.md` - Webhook-specific docs
    - And many more specialized templates
 
-1. **Copy the most relevant template:**
+\11. **Copy the most relevant template:**
 
    ```bash
    # Example: Creating a new webhook how-to guide
@@ -491,30 +510,32 @@ markdownlint docs/path/to/file.md
 
 ```
 
-1. **OR use VS Code snippets (preferred for consistency):**
-   - Type the snippet prefix and press Tab
-   - Available snippets:
-     - `doc-tutorial` - Full tutorial with all sections
-     - `doc-howto` - How-to guide structure
-     - `doc-concept` - Concept explanation
-     - `doc-reference` - Reference documentation
-     - `doc-troubleshoot` - Troubleshooting guide
-     - `fm` - Basic frontmatter only
-     - `note`, `warning`, `tip` - Admonition blocks
-     - `tabs` - Content tabs for cloud and self-hosted versions
-     - `mermaid-flow` - Flow diagrams
-     - `table-params` - Parameter tables
+\11. **OR use VS Code snippets (preferred for consistency):**
 
-1. **Determine the correct location:**
-   - `docs/getting-started/` - Tutorials and quickstarts
-   - `docs/how-to/` - Step-by-step task guides
-   - `docs/concepts/` - Understanding and theory
-   - `docs/reference/` - API, configuration, specifications
-   - `docs/reference/nodes/` - Node-specific reference
-   - `docs/troubleshooting/` - Problem resolution
-   - `docs/` - Top-level pages (index, tags, etc.)
+- Type the snippet prefix and press Tab
+- Available snippets:
+  - `doc-tutorial` - Full tutorial with all sections
+  - `doc-howto` - How-to guide structure
+  - `doc-concept` - Concept explanation
+  - `doc-reference` - Reference documentation
+  - `doc-troubleshoot` - Troubleshooting guide
+  - `fm` - Basic frontmatter only
+  - `note`, `warning`, `tip` - Admonition blocks
+  - `tabs` - Content tabs for cloud and self-hosted versions
+  - `mermaid-flow` - Flow diagrams
+  - `table-params` - Parameter tables
 
-1. **Update navigation in mkdocs.yml:**
+\11. **Determine the correct location:**
+
+- `docs/getting-started/` - Tutorials and quickstarts
+- `docs/how-to/` - Step-by-step task guides
+- `docs/concepts/` - Understanding and theory
+- `docs/reference/` - API, configuration, specifications
+- `docs/reference/nodes/` - Node-specific reference
+- `docs/troubleshooting/` - Problem resolution
+- `docs/` - Top-level pages (index, tags, etc.)
+
+\11. **Update navigation in mkdocs.yml:**
 
    ```yaml
    nav:
@@ -542,18 +563,20 @@ markdownlint docs/path/to/file.md
 
 ```
 
-1. **File naming conventions:**
-   - Use kebab-case: `configure-webhook-trigger.md`
-   - Be descriptive: `webhook-hmac-authentication.md` not `auth.md`
-   - Match the title (slugified)
+\11. **File naming conventions:**
 
-1. **Content requirements:**
-   - Fill in all required frontmatter fields
-   - Keep first paragraph under 60 words
-   - Include concrete examples and code
-   - Follow GEO and style rules
+- Use kebab-case: `configure-webhook-trigger.md`
+- Be descriptive: `webhook-hmac-authentication.md` not `auth.md`
+- Match the title (slugified)
 
-1. **Validate before committing:**
+\11. **Content requirements:**
+
+- Fill in all required frontmatter fields
+- Keep first paragraph under 60 words
+- Include concrete examples and code
+- Follow GEO and style rules
+
+\11. **Validate before committing:**
 
    ```bash
    # Run all checks
@@ -595,7 +618,7 @@ When adding a new document:
 
 **How Claude should handle document placement:**
 
-1. **Automatic location selection based on content_type:**
+\11. **Automatic location selection based on content_type:**
 
 ```text
    content_type: tutorial → docs/getting-started/
@@ -606,31 +629,32 @@ When adding a new document:
 
 ```
 
-1. **Automatic mkdocs.yml update - Claude MUST:**
-   - Read current mkdocs.yml structure
-   - Find the appropriate nav section based on content_type
-   - Add the new document with a descriptive title
-   - Maintain logical ordering (alphabetical or by complexity)
-   - Example commit message: "Add webhook authentication guide to how-to section"
+\11. **Automatic mkdocs.yml update - Claude MUST:**
 
-1. **Smart placement logic Claude should follow:**
+- Read current mkdocs.yml structure
+- Find the appropriate nav section based on content_type
+- Add the new document with a descriptive title
+- Maintain logical ordering (alphabetical or by complexity)
+- Example commit message: "Add webhook authentication guide to how-to section"
+
+\11. **Smart placement logic Claude should follow:**
 
    ```yaml
    # If adding a new webhook how-to:
 
-   1. File goes in: docs/how-to/configure-webhook-auth.md
-   1. Update mkdocs.yml nav section "How-To Guides"
-   1. Place alphabetically or after related webhook docs
-   1. Use descriptive title: "Configure webhook authentication"
+\11. File goes in: docs/how-to/configure-webhook-auth.md
+\11. Update mkdocs.yml nav section "How-To Guides"
+\11. Place alphabetically or after related webhook docs
+\11. Use descriptive title: "Configure webhook authentication"
 
 ```yaml
 
-1. **GitHub Actions will verify:**
+\11. **GitHub Actions will verify:**
    - No orphaned pages (files not in nav)
    - Proper categorization
    - Creates issues if navigation needs fixing
 
-1. **Example nav update:**
+\11. **Example nav update:**
 
    ```yaml
    # When adding a new webhook authentication guide:
@@ -700,9 +724,9 @@ When adding a new document:
 
   ```markdown
 
-  1. First item
-  1. Second item
-  1. Third item
+\11. First item
+\11. Second item
+\11. Third item
 
 ```javascript
 
@@ -777,10 +801,10 @@ When adding a new document:
 
 **ALWAYS use existing templates:**
 
-1. Check `templates/` directory for matching template
-1. Copy the template structure exactly
-1. Templates are PRE-VALIDATED to pass all checks
-1. DO NOT modify the formatting structure
+\11. Check `templates/` directory for matching template
+\11. Copy the template structure exactly
+\11. Templates are PRE-VALIDATED to pass all checks
+\11. DO NOT modify the formatting structure
 
 Available templates in `templates/`:
 
@@ -798,32 +822,32 @@ Available templates in `templates/`:
 
 When user asks to create new documentation, Claude MUST:
 
-1. **Select template/snippet:**
+\11. **Select template/snippet:**
    - Check `templates/` for matching template
    - OR use VS Code snippet (doc-tutorial, doc-howto, etc.)
-   - NEVER write from scratch
+   - NEVER write from scratch when a suitable template exists; if none exists, create a new template first
 
-1. **Choose location:**
+\11. **Choose location:**
    - Based on content_type in frontmatter
    - Place in correct folder (getting-started/, how-to/, etc.)
 
-1. **Update mkdocs.yml:**
+\11. **Update mkdocs.yml:**
    - Add to appropriate nav section
    - Use descriptive title
    - Maintain logical order
 
-1. **Follow formatting rules:**
+\11. **Follow formatting rules:**
    - Blank lines around headings/lists/code
    - Only one H1
    - Code blocks with language
    - No emoji in Python
 
-1. **Validate:**
+\11. **Validate:**
    - Run linting checks
    - Ensure frontmatter complete
    - First paragraph under 60 words
 
-1. **Self-verify (MANDATORY):**
+\11. **Self-verify (MANDATORY):**
    - Execute all code blocks and verify output matches
    - Run all shell commands and verify results
    - Fact-check all specific claims (versions, ports, paths, counts)
@@ -837,9 +861,9 @@ When user asks to create new documentation, Claude MUST:
 
 **When reviewing pull requests or fixing linting issues, Claude MUST:**
 
-1. **Fix ALL errors (red)** - These block commits and merges
-1. **Fix ALL warnings (yellow)** - These indicate quality issues
-1. **Not ignore any linting output** - Both errors and warnings need attention
+\11. **Fix ALL errors (red)** - These block commits and merges
+\11. **Fix ALL warnings (yellow)** - These indicate quality issues
+\11. **Not ignore any linting output** - Both errors and warnings need attention
 
 **Why this matters:**
 - Warnings today become technical debt tomorrow
@@ -864,8 +888,8 @@ npm run lint
 
 **TWO layers of protection ensure quality:**
 
-1. **Pre-commit hooks** (local) - Run automatically before commit
-1. **CI/CD checks** (GitHub) - Same checks run on PR/push
+\11. **Pre-commit hooks** (local) - Run automatically before commit
+\11. **CI/CD checks** (GitHub) - Same checks run on PR/push
 
 Both use IDENTICAL rules, so if it passes locally, it passes in CI.
 
@@ -887,12 +911,12 @@ This verification layer catches errors that linting tools cannot detect: wrong c
 
 **For every fenced code block with a language tag, Codex MUST:**
 
-1. **Identify executable blocks** -- blocks tagged `python`, `javascript`, `bash`, `shell`, `typescript`, `ruby`, `go`, `java`, `curl`
-1. **Execute each block** in a sandboxed environment (no network calls, no filesystem writes outside temp)
-1. **Capture stdout and stderr** from execution
-1. **Compare actual output against documented output** (the `<!-- expected-output: ... -->` comment or output block that follows the code block)
-1. **If output mismatches:** replace the documented output with the actual output
-1. **If execution fails:** fix the code so it runs, or add a comment explaining why it cannot run in isolation (for example, requires API key)
+\11. **Identify executable blocks** -- blocks tagged `python`, `javascript`, `bash`, `shell`, `typescript`, `ruby`, `go`, `java`, `curl`
+\11. **Execute each block** in a sandboxed environment (no network calls, no filesystem writes outside temp)
+\11. **Capture stdout and stderr** from execution
+\11. **Compare actual output against documented output** (the `<!-- expected-output: ... -->` comment or output block that follows the code block)
+\11. **If output mismatches:** replace the documented output with the actual output
+\11. **If execution fails:** fix the code so it runs, or add a comment explaining why it cannot run in isolation (for example, requires API key)
 
 **Execution rules by language:**
 
@@ -932,10 +956,10 @@ AFTER verification:
 
 **For every bash/shell command documented, Codex MUST:**
 
-1. **Run the command** (with safe substitutions for destructive commands)
-1. **Verify the exit code** matches expectations (0 for success)
-1. **Compare output** against what the document claims
-1. **Fix discrepancies** -- update the documented output to match reality
+\11. **Run the command** (with safe substitutions for destructive commands)
+\11. **Verify the exit code** matches expectations (0 for success)
+\11. **Compare output** against what the document claims
+\11. **Fix discrepancies** -- update the documented output to match reality
 
 **Safe execution rules:**
 
@@ -949,14 +973,14 @@ AFTER verification:
 
 **Codex MUST verify every specific claim in the document:**
 
-1. **Version numbers** -- check against actual installed versions or official documentation
-1. **Port numbers** -- verify against default configuration files or `_variables.yml`
-1. **File paths** -- verify that referenced files and directories exist in the project
-1. **URL paths** -- verify that linked documentation pages exist
-1. **Configuration values** -- verify against actual config files (`.vale.ini`, `mkdocs.yml`, `package.json`)
-1. **CLI flags and options** -- verify with `--help` output
-1. **Error messages** -- verify they match actual error output
-1. **Numeric claims** -- verify counts ("supports 5 methods" -- count them)
+\11. **Version numbers** -- check against actual installed versions or official documentation
+\11. **Port numbers** -- verify against default configuration files or `_variables.yml`
+\11. **File paths** -- verify that referenced files and directories exist in the project
+\11. **URL paths** -- verify that linked documentation pages exist
+\11. **Configuration values** -- verify against actual config files (`.vale.ini`, `mkdocs.yml`, `package.json`)
+\11. **CLI flags and options** -- verify with `--help` output
+\11. **Error messages** -- verify they match actual error output
+\11. **Numeric claims** -- verify counts ("supports 5 methods" -- count them)
 
 **Fact-check categories:**
 
@@ -973,15 +997,16 @@ AFTER verification:
 
 **When verification finds a discrepancy, Codex MUST:**
 
-1. **Replace the incorrect value** with the verified correct value
-1. **Use placeholders** for environment-specific values:
-   - API keys: `YOUR_API_KEY`
-   - Tokens: `YOUR_TOKEN`
-   - User-specific paths: `~/.config/your-app/`
-   - Domain names: `your-domain.example.com`
-   - IP addresses: `192.0.2.1` (documentation range per RFC 5737)
-1. **Add a comment** if the original value was intentionally approximate (for example, "approximately 100 ms" does not need exact verification)
-1. **Log all changes** -- after verification, list what was corrected:
+\11. **Replace the incorrect value** with the verified correct value
+\11. **Use placeholders** for environment-specific values:
+
+- API keys: `YOUR_API_KEY`
+- Tokens: `YOUR_TOKEN`
+- User-specific paths: `~/.config/your-app/`
+- Domain names: `your-domain.example.com`
+- IP addresses: `192.0.2.1` (documentation range per RFC 5737)
+\11. **Add a comment** if the original value was intentionally approximate (for example, "approximately 100 ms" does not need exact verification)
+\11. **Log all changes** -- after verification, list what was corrected:
 
 ```text
 Verification summary:
@@ -996,10 +1021,10 @@ Verification summary:
 
 **Codex MUST check that the document does not contradict itself:**
 
-1. **Cross-reference within the document** -- if section 1 says "port 5678" and section 3 says "port 8080," flag and fix
-1. **Cross-reference with `_variables.yml`** -- all hardcoded values that exist in variables must use the variable
-1. **Cross-reference with other docs** -- if this document links to another, verify the linked content is consistent
-1. **Verify code and text agree** -- if text says "returns a list" but code shows a dict, fix the text
+\11. **Cross-reference within the document** -- if section 1 says "port 5678" and section 3 says "port 8080," flag and fix
+\11. **Cross-reference with `_variables.yml`** -- all hardcoded values that exist in variables must use the variable
+\11. **Cross-reference with other docs** -- if this document links to another, verify the linked content is consistent
+\11. **Verify code and text agree** -- if text says "returns a list" but code shows a dict, fix the text
 
 ### Verification checklist (run after every generation)
 
@@ -1070,7 +1095,7 @@ Verification summary:
 
 ## MANDATORY: Template and snippet enforcement
 
-**Codex MUST ALWAYS use templates and snippets when creating documentation. Writing from scratch is NEVER acceptable.**
+**Codex MUST ALWAYS start from templates/snippets when available. If no suitable template exists, Codex MUST create a new template in project format first, then generate docs from that template.**
 
 ### Why this is mandatory
 
@@ -1116,12 +1141,12 @@ Before creating ANY document, check `templates/` for a matching template:
 
 ### Template selection process
 
-1. Read the user's request. Identify the document type.
-1. Find the matching template from the table above.
-1. Copy the template: `cp templates/[template] docs/[section]/[filename].md`
-1. Edit the content while preserving the template structure.
-1. Do NOT add sections that are not in the template.
-1. Do NOT remove required sections from the template.
+\11. Read the user's request. Identify the document type.
+\11. Find the matching template from the table above.
+\11. Copy the template: `cp templates/[template] docs/[section]/[filename].md`
+\11. Edit the content while preserving the template structure.
+\11. Do NOT add sections that are not in the template.
+\11. Do NOT remove required sections from the template.
 
 ## MANDATORY: Shared variables for all factual values
 
@@ -1159,10 +1184,10 @@ Current version: {{ current_version }}.
 
 ### What to do if a variable does not exist
 
-1. Check `docs/_variables.yml` for the value.
-1. If it does not exist, add it with a descriptive name.
-1. Use the new variable in the document.
-1. Document the new variable with a comment in `_variables.yml`.
+\11. Check `docs/_variables.yml` for the value.
+\11. If it does not exist, add it with a descriptive name.
+\11. Use the new variable in the document.
+\11. Document the new variable with a comment in `_variables.yml`.
 
 ### Detection of hardcoded values
 
@@ -1273,26 +1298,27 @@ Verification summary:
 
 **This is the full step-by-step process Codex MUST follow for every document:**
 
-1. **Identify document type and locale** from user request. Default locale: `en`.
-1. **Select matching template** from `templates/` (NEVER write from scratch).
-1. **Copy template** to correct location: `docs/{locale}/{content_type_dir}/{slug}.md`.
-1. **Read variables** -- use `docs/_variables.yml` merged with `docs/{locale}/_variables.yml` if it exists.
-1. **Fill template** with actual content, following Stripe-quality standards.
-1. **Format correctly**: blank lines around headings, lists, code blocks. One H1 only.
-1. **Apply style rules**:
-   - English: American English, active voice, no weasel words, no contractions.
-   - Non-English: apply equivalent rules manually (see "Quality enforcement for non-English documentation").
-1. **Keep first paragraph under locale word limit** (en: 60, ru: 80, de: 70) with a clear definition.
-1. **Set i18n frontmatter fields** if locale is not `en`: `language`, `translation_of`, `source_hash`.
-1. **Execute all code blocks** and verify output matches.
-1. **Run all shell commands** and verify results.
-1. **Fact-check all assertions** (versions, ports, paths, URLs, counts).
-1. **Replace hardcoded values** with variables from `_variables.yml`.
-1. **Check internal consistency** (no contradictions within the document).
-1. **Update `mkdocs.yml`** navigation with the new page.
-1. **Run validation**: `npm run validate:minimal`.
-1. **For non-English docs**: run the translation quality checklist (active voice, weasel words, terminology, spelling).
-1. **Log verification summary** with counts of blocks executed, facts checked, corrections made.
+\11. **Identify document type and locale** from user request. Default locale: `en`.
+\11. **Select matching template** from `templates/`; if none exists, create a new template in the same project format first.
+\11. **Copy template** to correct location: `docs/{locale}/{content_type_dir}/{slug}.md`.
+\11. **Read variables** -- use `docs/_variables.yml` merged with `docs/{locale}/_variables.yml` if it exists.
+\11. **Fill template** with actual content, following Stripe-quality standards.
+\11. **Format correctly**: blank lines around headings, lists, code blocks. One H1 only.
+\11. **Apply style rules**:
+
+- English: American English, active voice, no weasel words, no contractions.
+- Non-English: apply equivalent rules manually (see "Quality enforcement for non-English documentation").
+\11. **Keep first paragraph under locale word limit** (en: 60, ru: 80, de: 70) with a clear definition.
+\11. **Set i18n frontmatter fields** if locale is not `en`: `language`, `translation_of`, `source_hash`.
+\11. **Execute all code blocks** and verify output matches.
+\11. **Run all shell commands** and verify results.
+\11. **Fact-check all assertions** (versions, ports, paths, URLs, counts).
+\11. **Replace hardcoded values** with variables from `_variables.yml`.
+\11. **Check internal consistency** (no contradictions within the document).
+\11. **Update `mkdocs.yml`** navigation with the new page.
+\11. **Run validation**: `npm run validate:minimal`.
+\11. **For non-English docs**: run the translation quality checklist (active voice, weasel words, terminology, spelling).
+\11. **Log verification summary** with counts of blocks executed, facts checked, corrections made.
 
 ## i18n: Multi-language documentation
 
@@ -1463,15 +1489,19 @@ Translation quality check:
 
 ### How the consolidated report is generated
 
-A cron job (`.github/workflows/weekly-consolidation.yml`) runs every Monday at 09:00 UTC and:
+In recommended mode, scheduler runs `docsops/scripts/run_weekly_gap_batch.py` in the client repository and:
 
-1. Runs gap analysis (`doc_gaps_report.json`) -- detects undocumented code: new endpoints, functions, webhooks, config options, env vars, breaking changes, authentication changes
-1. Runs KPI wall (`kpi-wall.json`) -- measures documentation health: quality score (0-100), stale docs percentage, metadata completeness, total gaps count
-1. Runs drift check (`api_sdk_drift_report.json`) -- detects when API spec or SDK code changed but reference docs did not update
-1. Runs SLA evaluation (`kpi-sla-report.json`) -- checks KPI metrics against policy thresholds and flags breaches
-1. Runs `scripts/consolidate_reports.py` -- merges all 4 into ONE file: `reports/consolidated_report.json`
+\11. Runs gap analysis (`doc_gaps_report.json`)
+\11. Runs KPI wall + SLA evaluation (`kpi-wall.json`, `kpi-sla-report.json`)
+\11. Runs drift checks (`api_sdk_drift_report.json`)
+\11. Runs `scripts/consolidate_reports.py` to produce `reports/consolidated_report.json`
+\11. Auto-extracts knowledge modules from docs (`extract_knowledge_modules_from_docs.py`)
+\11. Validates modules and rebuilds retrieval index (`validate_knowledge_modules.py`, `generate_knowledge_retrieval_index.py`)
+\11. Runs any enabled `custom_tasks.weekly`
 
-The user can also run this locally: `npm run consolidate`
+Compatibility mode: GitHub Actions cron can run equivalent jobs via `.github/workflows/weekly-consolidation.yml` and companion workflows.
+
+On-demand local run is still available: `npm run consolidate`
 
 ### What is inside the consolidated report
 
@@ -1586,8 +1616,8 @@ When processing action items that involve **removed features, deprecated endpoin
 
 **For deprecated features:**
 
-1. Set frontmatter: `status: deprecated`, `deprecated_since: "YYYY-MM-DD"`, `replacement_url: "/path/to/new-doc"`
-1. Add a warning admonition at the top of the document body:
+\11. Set frontmatter: `status: deprecated`, `deprecated_since: "YYYY-MM-DD"`, `replacement_url: "/path/to/new-doc"`
+\11. Add a warning admonition at the top of the document body:
 
    ```markdown
    !!! warning "Deprecated"
@@ -1595,12 +1625,12 @@ When processing action items that involve **removed features, deprecated endpoin
        Use [new feature](/path/to/new-doc) instead.
    ```
 
-1. Do NOT delete the document—users may still reference it
+\11. Do NOT delete the document—users may still reference it
 
 **For removed features:**
 
-1. Set frontmatter: `status: removed`, `removal_date: "YYYY-MM-DD"`, `replacement_url: "/path/to/migration"`, `noindex: true`
-1. Replace the document body with a redirect notice:
+\11. Set frontmatter: `status: removed`, `removal_date: "YYYY-MM-DD"`, `replacement_url: "/path/to/migration"`, `noindex: true`
+\11. Replace the document body with a redirect notice:
 
    ```markdown
    !!! danger "Removed"
@@ -1608,8 +1638,8 @@ When processing action items that involve **removed features, deprecated endpoin
        See the [migration guide](/path/to/migration) for alternatives.
    ```
 
-1. The `noindex: true` flag prevents search engines from indexing the page
-1. The `lifecycle_manager.py` script automatically adds CSS classes and banners for these states
+\11. The `noindex: true` flag prevents search engines from indexing the page
+\11. The `lifecycle_manager.py` script automatically adds CSS classes and banners for these states
 
 **When to set lifecycle status:**
 
@@ -1621,19 +1651,20 @@ When processing action items that involve **removed features, deprecated endpoin
 
 For each document (new or updated):
 
-1. Write or update content following all rules in this file
-1. **Run self-verification (MANDATORY before linting):**
-   - Execute every code block in the document and verify the output matches what is documented. If the output differs, fix the documented output to match reality.
-   - Run every shell command in the document and verify it succeeds. If a command fails, fix the command or update the documented result.
-   - Fact-check every concrete assertion: version numbers (run `tool --version`), port numbers (check `docs/_variables.yml`), file paths (verify they exist), internal links (verify target files exist), configuration values (check source configs).
-   - Replace any mismatched values with verified correct values. Use variables from `docs/_variables.yml` instead of hardcoded values.
-   - Check internal consistency: if the document says "port 5678" in one section and "port 8080" in another, fix the contradiction.
-   - Walk through the document as if you are the user following the instructions step by step. If any step is unclear, incomplete, or produces unexpected results, fix it.
-1. Run `npm run validate:minimal`
-1. If linting fails, fix the issues and re-run (max 5 retries)
-1. If all 5 retries fail, log the document as blocked and move to the next item
-1. Update `mkdocs.yml` navigation if a new document was created
-1. Log a verification summary for this document:
+\11. Write or update content following all rules in this file
+\11. **Run self-verification (MANDATORY before linting):**
+
+- Execute every code block in the document and verify the output matches what is documented. If the output differs, fix the documented output to match reality.
+- Run every shell command in the document and verify it succeeds. If a command fails, fix the command or update the documented result.
+- Fact-check every concrete assertion: version numbers (run `tool --version`), port numbers (check `docs/_variables.yml`), file paths (verify they exist), internal links (verify target files exist), configuration values (check source configs).
+- Replace any mismatched values with verified correct values. Use variables from `docs/_variables.yml` instead of hardcoded values.
+- Check internal consistency: if the document says "port 5678" in one section and "port 8080" in another, fix the contradiction.
+- Walk through the document as if you are the user following the instructions step by step. If any step is unclear, incomplete, or produces unexpected results, fix it.
+\11. Run `npm run validate:minimal`
+\11. If linting fails, fix the issues and re-run (max 5 retries)
+\11. If all 5 retries fail, log the document as blocked and move to the next item
+\11. Update `mkdocs.yml` navigation if a new document was created
+\11. Log a verification summary for this document:
 
    ```text
    [CONS-001] configure-webhook-auth.md:
@@ -1648,13 +1679,13 @@ For each document (new or updated):
 
 After processing the entire queue:
 
-1. Stage all created and modified files so the user can review with `git diff --staged`:
+\11. Stage all created and modified files so the user can review with `git diff --staged`:
 
    ```bash
    git add docs/ mkdocs.yml
    ```
 
-1. Produce a batch summary:
+\11. Produce a batch summary:
 
    ```text
    Consolidated report processing summary:
@@ -1670,7 +1701,7 @@ After processing the entire queue:
    - Blocked items (need manual review): [list with CONS-IDs]
    ```
 
-1. Tell the user to review with:
+\11. Tell the user to review with:
 
    ```bash
    git diff --staged       # shows all changes including new files
@@ -1685,7 +1716,7 @@ Code-first means the source code (controllers, routes, models) is the source of 
 
 ### 10-step code-first flow
 
-1. **Detect undocumented endpoints:**
+\11. **Detect undocumented endpoints:**
 
    ```bash
    npm run gaps:code
@@ -1693,25 +1724,28 @@ Code-first means the source code (controllers, routes, models) is the source of 
 
    This runs `python3 -m scripts.gap_detection.cli code` and produces a report of endpoints found in code but missing from documentation.
 
-1. **Read the source code:**
-   - Locate controllers, routes, and model files
-   - Extract endpoint details: HTTP method, path, request body schema, response schema, authentication requirements, rate limits
-   - Note any middleware (validation, auth, logging)
+\11. **Read the source code:**
 
-1. **Generate or update the OpenAPI spec:**
-   - Create or update `api/openapi.yaml` as the root spec file
-   - Use `$ref` pointers to per-resource files under `api/paths/`
-   - Place shared schemas under `api/components/schemas/`
-   - Place shared responses under `api/components/responses/`
+- Locate controllers, routes, and model files
+- Extract endpoint details: HTTP method, path, request body schema, response schema, authentication requirements, rate limits
+- Note any middleware (validation, auth, logging)
 
-1. **Apply Stripe-quality descriptions:**
-   - Active voice, present tense
-   - Concrete examples with realistic data
-   - Every parameter has a description and example
-   - Every response code has a description and example body
-   - Follow all rules from the "OpenAPI spec quality rules" section below
+\11. **Generate or update the OpenAPI spec:**
 
-1. **Organize for maintainability:**
+- Create or update `api/openapi.yaml` as the root spec file
+- Use `$ref` pointers to per-resource files under `api/paths/`
+- Place shared schemas under `api/components/schemas/`
+- Place shared responses under `api/components/responses/`
+
+\11. **Apply Stripe-quality descriptions:**
+
+- Active voice, present tense
+- Concrete examples with realistic data
+- Every parameter has a description and example
+- Every response code has a description and example body
+- Follow all rules from the "OpenAPI spec quality rules" section below
+
+\11. **Organize for maintainability:**
 
    ```text
    api/
@@ -1731,21 +1765,24 @@ Code-first means the source code (controllers, routes, models) is the source of 
          ValidationError.yaml
    ```
 
-1. **Use discriminator for polymorphic types:**
-   - Add `discriminator` with `propertyName` for union types
-   - Use `allOf` with a base `$ref` for inheritance hierarchies
+\11. **Use discriminator for polymorphic types:**
 
-1. **Test against real endpoints:**
-   - Send actual HTTP requests to the running API
-   - Compare response status codes, headers, and body shapes against the spec
-   - Fix any mismatches in the spec
+- Add `discriminator` with `propertyName` for union types
+- Use `allOf` with a base `$ref` for inheritance hierarchies
 
-1. **Compare responses with spec descriptions:**
-   - Verify that every field in the actual response appears in the schema
-   - Verify that example values match realistic data types
-   - Fix discrepancies in the spec, not in the code
+\11. **Test against real endpoints:**
 
-1. **Run Spectral lint:**
+- Send actual HTTP requests to the running API
+- Compare response status codes, headers, and body shapes against the spec
+- Fix any mismatches in the spec
+
+\11. **Compare responses with spec descriptions:**
+
+- Verify that every field in the actual response appears in the schema
+- Verify that example values match realistic data types
+- Fix discrepancies in the spec, not in the code
+
+\11. **Run Spectral lint:**
 
    ```bash
    npx spectral lint api/openapi.yaml --ruleset .spectral.yml
@@ -1753,7 +1790,7 @@ Code-first means the source code (controllers, routes, models) is the source of 
 
    The spec MUST pass with zero errors and zero warnings. See the "OpenAPI spec quality rules" section for all 18 rules.
 
-1. **Update reference docs and build:**
+\11. **Update reference docs and build:**
     - Generate or update reference docs using `templates/api-reference.md`
     - Run `npm run validate:minimal` on all changed docs
     - Run `npm run build` to verify the full site builds
@@ -1768,13 +1805,14 @@ API-first means the OpenAPI specification is written first, and code is generate
 
 ### 11-step API-first flow
 
-1. **Parse the user brief:**
-   - Extract resources (nouns: users, orders, payments)
-   - Extract operations (verbs: create, list, update, delete)
-   - Extract schemas (data shapes, required fields, validation rules)
-   - Extract constraints (authentication, rate limits, pagination)
+\11. **Parse the user brief:**
 
-1. **Map operations to HTTP methods:**
+- Extract resources (nouns: users, orders, payments)
+- Extract operations (verbs: create, list, update, delete)
+- Extract schemas (data shapes, required fields, validation rules)
+- Extract constraints (authentication, rate limits, pagination)
+
+\11. **Map operations to HTTP methods:**
 
    | Operation | HTTP method | Path pattern | Success code |
    | --- | --- | --- | --- |
@@ -1785,27 +1823,31 @@ API-first means the OpenAPI specification is written first, and code is generate
    | Update (partial) | PATCH | `/resources/{id}` | 200 |
    | Delete | DELETE | `/resources/{id}` | 204 |
 
-1. **Generate the root OpenAPI spec:**
-   - Create `api/openapi.yaml` with full `info` block (title, description, version, contact, license)
-   - Set `servers` array with at least mock and production URLs
-   - Define `security` schemes (Bearer token, API key, OAuth2)
+\11. **Generate the root OpenAPI spec:**
 
-1. **Create per-resource path files:**
-   - One file per resource under `api/paths/`
-   - Use `$ref` from root spec to each path file
-   - Apply `discriminator` for polymorphic types
-   - Use `allOf` for inheritance
+- Create `api/openapi.yaml` with full `info` block (title, description, version, contact, license)
+- Set `servers` array with at least mock and production URLs
+- Define `security` schemes (Bearer token, API key, OAuth2)
 
-1. **Apply all quality rules:**
-   - Follow every rule from the "OpenAPI spec quality rules" section below
-   - Every operation has `operationId`, `summary`, `description`, `tags`
-   - Every parameter has `description`, `example`, explicit `required`
-   - Every schema property has `description`, `type`, `example`
-   - All possible response codes are defined (200/201, 400, 401, 403, 404, 409, 429, 500)
+\11. **Create per-resource path files:**
 
-1. **Generate endpoint code with OpenAPI Generator:**
-   - Use the GitHub Actions workflow `.github/workflows/api-first-scaffold.yml`
-   - Or run locally with Docker:
+- One file per resource under `api/paths/`
+- Use `$ref` from root spec to each path file
+- Apply `discriminator` for polymorphic types
+- Use `allOf` for inheritance
+
+\11. **Apply all quality rules:**
+
+- Follow every rule from the "OpenAPI spec quality rules" section below
+- Every operation has `operationId`, `summary`, `description`, `tags`
+- Every parameter has `description`, `example`, explicit `required`
+- Every schema property has `description`, `type`, `example`
+- All possible response codes are defined (200/201, 400, 401, 403, 404, 409, 429, 500)
+
+\11. **Generate endpoint code with OpenAPI Generator:**
+
+- Use the GitHub Actions workflow `.github/workflows/api-first-scaffold.yml`
+- Or run locally with Docker:
 
      ```bash
      docker run --rm -v "${PWD}:/local" \
@@ -1815,7 +1857,7 @@ API-first means the OpenAPI specification is written first, and code is generate
        -o /local/generated/server
      ```
 
-   - Generate client SDK:
+- Generate client SDK:
 
      ```bash
      docker run --rm -v "${PWD}:/local" \
@@ -1825,7 +1867,7 @@ API-first means the OpenAPI specification is written first, and code is generate
        -o /local/generated/client
      ```
 
-1. **Deploy a Prism mock server:**
+\11. **Deploy a Prism mock server:**
 
    ```bash
    npm run api:sandbox:mock
@@ -1833,18 +1875,20 @@ API-first means the OpenAPI specification is written first, and code is generate
 
    This starts a Prism mock server using `docker-compose.api-sandbox.yml` that serves realistic responses based on the spec examples.
 
-1. **Test all endpoints against the mock:**
-   - Send requests to each endpoint
-   - Verify response status codes match the spec
-   - Verify response body shapes match schema definitions
-   - Verify example values are realistic and consistent
+\11. **Test all endpoints against the mock:**
 
-1. **Fix discrepancies:**
-   - If mock responses do not match spec expectations, fix the spec
-   - Re-run Prism to confirm fixes
-   - Stop the mock server when done: `npm run api:sandbox:stop`
+- Send requests to each endpoint
+- Verify response status codes match the spec
+- Verify response body shapes match schema definitions
+- Verify example values are realistic and consistent
 
-1. **Run Spectral lint and all doc linters:**
+\11. **Fix discrepancies:**
+
+- If mock responses do not match spec expectations, fix the spec
+- Re-run Prism to confirm fixes
+- Stop the mock server when done: `npm run api:sandbox:stop`
+
+\11. **Run Spectral lint and all doc linters:**
 
     ```bash
     npx spectral lint api/openapi.yaml --ruleset .spectral.yml
@@ -1853,7 +1897,7 @@ API-first means the OpenAPI specification is written first, and code is generate
 
     Both MUST pass with zero errors and zero warnings.
 
-1. **Generate reference docs, build, and publish:**
+\11. **Generate reference docs, build, and publish:**
     - Generate reference docs using `templates/api-reference.md` template
     - Update `mkdocs.yml` navigation
     - Run `npm run build` to verify the full site builds
@@ -1882,12 +1926,13 @@ This applies to **any document type** (how-to, concept, reference, troubleshooti
 
 ### How to create an interactive diagram
 
-1. Copy the template: `cp templates/interactive-diagram.html docs/diagrams/[name].html`
-1. Edit the HTML structure: add/remove layers and components (the `<!-- EDIT THIS SECTION -->` comments mark editable areas)
-1. Edit the `descriptions` object in the `<script>` section. Every component MUST have a rich description that appears in the info panel when the user clicks on it:
-   - `title`: Component name with context (for example, "PostgreSQL Database" not just "Database")
-   - `desc`: 2-3 sentences with concrete metrics, specific technologies, and how this component connects to others. Write as if explaining to an engineer who needs to understand the system in 30 seconds.
-   - `tags`: 3-5 technology tags (frameworks, protocols, key specs)
+\11. Copy the template: `cp templates/interactive-diagram.html docs/diagrams/[name].html`
+\11. Edit the HTML structure: add/remove layers and components (the `<!-- EDIT THIS SECTION -->` comments mark editable areas)
+\11. Edit the `descriptions` object in the `<script>` section. Every component MUST have a rich description that appears in the info panel when the user clicks on it:
+
+- `title`: Component name with context (for example, "PostgreSQL Database" not just "Database")
+- `desc`: 2-3 sentences with concrete metrics, specific technologies, and how this component connects to others. Write as if explaining to an engineer who needs to understand the system in 30 seconds.
+- `tags`: 3-5 technology tags (frameworks, protocols, key specs)
 
    **Good description:**
 
@@ -1903,8 +1948,8 @@ This applies to **any document type** (how-to, concept, reference, troubleshooti
    "The database stores data."
    ```
 
-1. Each component needs a `data-id` attribute that matches a key in `descriptions`
-1. Embed in the Markdown document using iframe:
+\11. Each component needs a `data-id` attribute that matches a key in `descriptions`
+\11. Embed in the Markdown document using iframe:
 
 **MkDocs embedding:**
 

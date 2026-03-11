@@ -21,109 +21,109 @@
       "api_endpoint": 1,
       "signature_change": 1,
       "new_function": 1,
+      "error_handling": 1,
       "config_option": 1,
-      "env_var": 1,
-      "error_handling": 1
+      "env_var": 1
     }
   },
   "sources_analyzed": [
     "code_changes",
     "community"
   ],
-  "generated_at": "2026-03-09T09:48:12.873815",
+  "generated_at": "2026-03-11T11:24:07.191737",
   "gaps": [
     {
-      "id": "CODE-0007",
-      "title": "Webhook: webhook: Webhook",
-      "description": "Update webhook documentation for changes in reports/doc_gaps_report.csv. Include payload examples and event types.",
+      "id": "CODE-0002",
+      "title": "Webhook: webhook: webhook",
+      "description": "Update webhook documentation for changes in .claude/skills/demo/SKILL.md. Include payload examples and event types.",
       "source": "code",
       "category": "webhook",
       "suggested_doc_type": "how-to",
       "priority": "high",
-      "frequency": 2596,
+      "frequency": 2663,
       "keywords": [],
       "related_files": [
-        "reports/doc_gaps_report.csv"
+        ".claude/skills/demo/SKILL.md"
       ],
       "sample_queries": [],
-      "action_required": "Update webhook documentation for changes in reports/doc_gaps_report.csv. Include payload examples and event types.",
+      "action_required": "Update webhook documentation for changes in .claude/skills/demo/SKILL.md. Include payload examples and event types.",
       "status": "new",
-      "created_at": "2026-03-09T09:48:12.873872"
+      "created_at": "2026-03-11T11:24:07.191776"
     },
     {
-      "id": "CODE-0044",
+      "id": "CODE-0001",
       "title": "Authentication: authentication: Auth",
-      "description": "Update authentication documentation for changes in reports/doc_gaps_report.csv. Include security considerations.",
+      "description": "Update authentication documentation for changes in .claude/commands/api-first-demo.md. Include security considerations.",
       "source": "code",
       "category": "authentication",
       "suggested_doc_type": "how-to",
       "priority": "high",
-      "frequency": 1271,
+      "frequency": 1447,
       "keywords": [],
       "related_files": [
-        "reports/doc_gaps_report.csv"
+        ".claude/commands/api-first-demo.md"
       ],
       "sample_queries": [],
-      "action_required": "Update authentication documentation for changes in reports/doc_gaps_report.csv. Include security considerations.",
+      "action_required": "Update authentication documentation for changes in .claude/commands/api-first-demo.md. Include security considerations.",
       "status": "new",
-      "created_at": "2026-03-09T09:48:12.873999"
+      "created_at": "2026-03-11T11:24:07.191766"
     },
     {
-      "id": "CODE-1584",
-      "title": "Public Function: public_function: require_runtime_api_key",
-      "description": "Consider documenting public API: require_runtime_api_key. Include parameters, return value, and example usage.",
+      "id": "CODE-0083",
+      "title": "Public Function: public_function: now_iso",
+      "description": "Consider documenting public API: now_iso. Include parameters, return value, and example usage.",
       "source": "code",
       "category": "public_function",
       "suggested_doc_type": "reference",
       "priority": "high",
-      "frequency": 742,
+      "frequency": 822,
       "keywords": [],
       "related_files": [
-        "runtime/ask-ai-pack/app/auth.py"
+        "sandbox/prodlike_api/app/main.py"
       ],
       "sample_queries": [],
-      "action_required": "Consider documenting public API: require_runtime_api_key. Include parameters, return value, and example usage.",
+      "action_required": "Consider documenting public API: now_iso. Include parameters, return value, and example usage.",
       "status": "new",
-      "created_at": "2026-03-09T09:48:12.880093"
+      "created_at": "2026-03-11T11:24:07.192403"
     },
     {
-      "id": "CODE-0034",
-      "title": "Database Schema: database_schema: migration",
-      "description": "Document database schema change in reports/doc_gaps_report.csv. Update data model documentation.",
+      "id": "CODE-0124",
+      "title": "Database Schema: database_schema: CREATE TABLE",
+      "description": "Document database schema change in sandbox/prodlike_api/app/main.py. Update data model documentation.",
       "source": "code",
       "category": "database_schema",
       "suggested_doc_type": "how-to",
       "priority": "high",
-      "frequency": 119,
+      "frequency": 145,
       "keywords": [],
       "related_files": [
-        "reports/doc_gaps_report.csv"
+        "sandbox/prodlike_api/app/main.py"
       ],
       "sample_queries": [],
-      "action_required": "Document database schema change in reports/doc_gaps_report.csv. Update data model documentation.",
+      "action_required": "Document database schema change in sandbox/prodlike_api/app/main.py. Update data model documentation.",
       "status": "new",
-      "created_at": "2026-03-09T09:48:12.873966"
+      "created_at": "2026-03-11T11:24:07.192603"
     },
     {
-      "id": "CODE-0001",
-      "title": "Breaking Change: breaking_change:  Change",
-      "description": "URGENT: Document breaking change in reports/doc_gaps_report.csv. Update migration guide with before/after examples.",
+      "id": "CODE-0330",
+      "title": "Breaking Change: breaking_change: ",
+      "description": "URGENT: Document breaking change in reports/consolidated_report.json. Update migration guide with before/after examples.",
       "source": "code",
       "category": "breaking_change",
       "suggested_doc_type": "how-to",
       "priority": "high",
-      "frequency": 53,
+      "frequency": 65,
       "keywords": [],
       "related_files": [
-        "reports/doc_gaps_report.csv"
+        "reports/consolidated_report.json"
       ],
       "sample_queries": [],
-      "action_required": "URGENT: Document breaking change in reports/doc_gaps_report.csv. Update migration guide with before/after examples.",
+      "action_required": "URGENT: Document breaking change in reports/consolidated_report.json. Update migration guide with before/after examples.",
       "status": "new",
-      "created_at": "2026-03-09T09:48:12.873843"
+      "created_at": "2026-03-11T11:24:07.193759"
     },
     {
-      "id": "CODE-0749",
+      "id": "CODE-1209",
       "title": "Removed Function: Function removed: showInfo",
       "description": "BREAKING: Function showInfo was removed. Update documentation and add migration guide.",
       "source": "code",
@@ -138,10 +138,10 @@
       "sample_queries": [],
       "action_required": "BREAKING: Function showInfo was removed. Update documentation and add migration guide.",
       "status": "new",
-      "created_at": "2026-03-09T09:48:12.876263"
+      "created_at": "2026-03-11T11:24:07.198760"
     },
     {
-      "id": "CODE-1637",
+      "id": "CODE-2097",
       "title": "Api Endpoint: api_endpoint: /healthz",
       "description": "Document API endpoint: /healthz. Include request/response examples, parameters, authentication requirements.",
       "source": "code",
@@ -156,10 +156,10 @@
       "sample_queries": [],
       "action_required": "Document API endpoint: /healthz. Include request/response examples, parameters, authentication requirements.",
       "status": "new",
-      "created_at": "2026-03-09T09:48:12.880260"
+      "created_at": "2026-03-11T11:24:07.204520"
     },
     {
-      "id": "CODE-4136",
+      "id": "CODE-4596",
       "title": "Signature Change: Function signature changed: print",
       "description": "UPDATE REQUIRED: Function print signature changed. Old: (f\"✅ Created {doc_type} document: {output_path}\") → New: (f\"Created {doc_type} document: {output_path}\"). Update documentation and examples.",
       "source": "code",
@@ -174,46 +174,64 @@
       "sample_queries": [],
       "action_required": "UPDATE REQUIRED: Function print signature changed. Old: (f\"✅ Created {doc_type} document: {output_path}\") → New: (f\"Created {doc_type} document: {output_path}\"). Update documentation and examples.",
       "status": "new",
-      "created_at": "2026-03-09T09:48:12.888267"
+      "created_at": "2026-03-11T11:24:07.219077"
     },
     {
-      "id": "CODE-0843",
-      "title": "New Function: New function: if",
-      "description": "Document new function: if. Include parameters, return value, and usage example.",
+      "id": "CODE-0045",
+      "title": "New Function: New function: startup",
+      "description": "Document new function: startup. Include parameters, return value, and usage example.",
       "source": "code",
       "category": "new_function",
       "suggested_doc_type": "how-to",
       "priority": "medium",
-      "frequency": 754,
+      "frequency": 845,
       "keywords": [],
       "related_files": [
-        "docs/reference/intent-experiences/automate-developer.md"
+        "sandbox/prodlike_api/app/main.py"
       ],
       "sample_queries": [],
-      "action_required": "Document new function: if. Include parameters, return value, and usage example.",
+      "action_required": "Document new function: startup. Include parameters, return value, and usage example.",
       "status": "new",
-      "created_at": "2026-03-09T09:48:12.876549"
+      "created_at": "2026-03-11T11:24:07.192129"
     },
     {
-      "id": "CODE-0064",
+      "id": "CODE-0278",
+      "title": "Error Handling: error_handling: RuntimeError",
+      "description": "Document new error type: RuntimeError. Include cause, solution, and error code.",
+      "source": "code",
+      "category": "error_handling",
+      "suggested_doc_type": "how-to",
+      "priority": "medium",
+      "frequency": 36,
+      "keywords": [],
+      "related_files": [
+        "scripts/run_api_first_flow.py"
+      ],
+      "sample_queries": [],
+      "action_required": "Document new error type: RuntimeError. Include cause, solution, and error code.",
+      "status": "new",
+      "created_at": "2026-03-11T11:24:07.193469"
+    },
+    {
+      "id": "CODE-0329",
       "title": "Config Option: config_option: local",
       "description": "Document configuration option: local. Include allowed values and when to use.",
       "source": "code",
       "category": "config_option",
       "suggested_doc_type": "reference",
       "priority": "medium",
-      "frequency": 34,
+      "frequency": 35,
       "keywords": [],
       "related_files": [
-        "reports/doc_gaps_report.json"
+        "reports/consolidated_report.json"
       ],
       "sample_queries": [],
       "action_required": "Document configuration option: local. Include allowed values and when to use.",
       "status": "new",
-      "created_at": "2026-03-09T09:48:12.874062"
+      "created_at": "2026-03-11T11:24:07.193755"
     },
     {
-      "id": "CODE-1582",
+      "id": "CODE-2042",
       "title": "Env Var: env_var: ASK_AI_API_KEY",
       "description": "Add environment variable ASK_AI_API_KEY to configuration reference. Include default value, description, and examples.",
       "source": "code",
@@ -228,25 +246,7 @@
       "sample_queries": [],
       "action_required": "Add environment variable ASK_AI_API_KEY to configuration reference. Include default value, description, and examples.",
       "status": "new",
-      "created_at": "2026-03-09T09:48:12.880087"
-    },
-    {
-      "id": "CODE-1620",
-      "title": "Error Handling: error_handling: PermissionError",
-      "description": "Document new error type: PermissionError. Include cause, solution, and error code.",
-      "source": "code",
-      "category": "error_handling",
-      "suggested_doc_type": "how-to",
-      "priority": "medium",
-      "frequency": 29,
-      "keywords": [],
-      "related_files": [
-        "runtime/ask-ai-pack/app/auth.py"
-      ],
-      "sample_queries": [],
-      "action_required": "Document new error type: PermissionError. Include cause, solution, and error code.",
-      "status": "new",
-      "created_at": "2026-03-09T09:48:12.880204"
+      "created_at": "2026-03-11T11:24:07.204226"
     }
   ]
 }

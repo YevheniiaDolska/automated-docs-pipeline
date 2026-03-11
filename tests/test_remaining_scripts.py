@@ -103,6 +103,31 @@ class TestDocLayersValidator:
         validator.save_report(output)
         assert Path(output).exists()
 
+    def test_policy_pack_required_layers(self, tmp_path: Path) -> None:
+        from scripts.doc_layers_validator import DocLayersValidator
+
+        docs = tmp_path / "docs"
+        docs.mkdir()
+        self._write_md(
+            docs / "billing-concept.md",
+            'title: "Billing"\ncontent_type: concept\nfeature_id: billing',
+            "# Billing\n\nConcept text.\n",
+        )
+        self._write_md(
+            docs / "billing-how-to.md",
+            'title: "Billing task"\ncontent_type: how-to\nfeature_id: billing',
+            "# Billing Task\n\nSteps.\n",
+        )
+        policy = tmp_path / "policy.yml"
+        policy.write_text(
+            "doc_layers:\n  required_layers:\n    - concept\n    - how-to\n    - reference\n",
+            encoding="utf-8",
+        )
+
+        validator = DocLayersValidator(docs_dir=str(docs), policy_pack_path=str(policy))
+        violations = validator.detect_layer_violations()
+        assert any("Missing required layers: reference" in v.get("violation", "") for v in violations)
+
 
 # ---------------------------------------------------------------------------
 # generate_badge

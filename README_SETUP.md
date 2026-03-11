@@ -44,6 +44,18 @@ Update the `docs_url` in `docs/_variables.yml` to match.
 
 Replace the example commands with your repository URL and product-specific setup steps. Verify that all commands in the README work by running them.
 
+For client delivery, prefer:
+
+```bash
+python3 scripts/onboard_client.py
+```
+
+Manual operator checks after onboarding:
+\11. Review generated profile: `profiles/clients/generated/<client_id>.client.yml`.
+\11. Review installed runtime config: `<client-repo>/docsops/config/client_runtime.yml`.
+\11. Review installed policy: `<client-repo>/docsops/policy_packs/selected.yml`.
+\11. Review env checklist: `<client-repo>/docsops/ENV_CHECKLIST.md`.
+
 ## Verify after changes
 
 Run validation to confirm the README does not break any checks:
@@ -56,5 +68,10 @@ npm run validate:minimal
 
 | Guide | What it covers |
 | --- | --- |
-| `QUICK_START.md` | 10-step setup for any environment |
+| `quick-start.md` | 10-step setup for any environment |
 | `SETUP_FOR_PROJECTS.md` | Full pipeline installation steps |
+| `docs/operations/CANONICAL_FLOW.md` | One-page canonical flow for sales + delivery |
+| `docs/operations/CENTRALIZED_CLIENT_BUNDLES.md` | Centralized per-client profiles, bundle provisioning, weekly automation |
+| `docs/operations/UNIFIED_CLIENT_CONFIG.md` | Full config reference (all keys) |
+| `docs/operations/PLAN_TIERS.md` | Plan matrix and ready presets (Basic/Pro/Enterprise) |
+| `docs/operations/PIPELINE_CAPABILITIES_CATALOG.md` | Full capabilities list generated from package scripts |

@@ -148,6 +148,60 @@ def validate_file(filepath: Path, schema: dict[str, Any]) -> list[str]:
                 field_errors = _validate_node(frontmatter[field], rules, f"{filepath}:{field}")
                 errors.extend(field_errors)
 
+    errors.extend(_validate_lifecycle_fields(frontmatter, filepath))
+
+    return errors
+
+
+def _normalize_lifecycle_status(frontmatter: dict[str, Any]) -> str:
+    """Resolve lifecycle status from current and legacy frontmatter fields."""
+    status = frontmatter.get("status")
+    if isinstance(status, str) and status.strip():
+        return status.strip().lower()
+
+    maturity = frontmatter.get("maturity")
+    if isinstance(maturity, str) and maturity.strip():
+        mapped = {
+            "ga": "active",
+            "removed": "removed",
+            "deprecated": "deprecated",
+            "preview": "draft",
+        }
+        return mapped.get(maturity.strip().lower(), maturity.strip().lower())
+
+    return "active"
+
+
+def _validate_lifecycle_fields(frontmatter: dict[str, Any], filepath: Path) -> list[str]:
+    """Validate lifecycle requirements for deprecated/removed docs."""
+    errors: list[str] = []
+    status = _normalize_lifecycle_status(frontmatter)
+
+    if status not in {"deprecated", "removed", "archived"}:
+        return errors
+
+    required = ("deprecated_since", "removal_date", "replacement_url")
+    for field in required:
+        value = frontmatter.get(field)
+        normalized = _normalize_string_candidate(value).strip() if value is not None else ""
+        if not normalized:
+            errors.append(f"{filepath}: {field} is required when status is '{status}'")
+
+    for field in ("deprecated_since", "removal_date"):
+        value = frontmatter.get(field)
+        normalized = _normalize_string_candidate(value).strip() if value is not None else ""
+        if normalized and not re.match(r"^[0-9]{4}-[0-9]{2}-[0-9]{2}$", normalized):
+            errors.append(f"{filepath}: {field} must match YYYY-MM-DD")
+
+    replacement_url = frontmatter.get("replacement_url")
+    if replacement_url is not None:
+        normalized = _normalize_string_candidate(replacement_url).strip()
+        if not (normalized.startswith("/") or normalized.startswith("http://") or normalized.startswith("https://")):
+            errors.append(f"{filepath}: replacement_url must start with '/' or 'http(s)://'")
+
+    if status in {"removed", "archived"} and frontmatter.get("noindex") is not True:
+        errors.append(f"{filepath}: noindex: true is required when status is '{status}'")
+
     return errors
 
 

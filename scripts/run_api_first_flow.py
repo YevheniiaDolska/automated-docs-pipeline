@@ -231,6 +231,12 @@ def run_one_attempt(
 
     if run_docs_lint:
         print("[demo] Step 5/5: Run documentation quality checks (Vale, markdownlint, SEO/GEO, and more).", flush=True)
+        run(
+            ["python3", "scripts/normalize_docs.py", "docs/"],
+            cwd=repo,
+            compact=True,
+            summary_label="docs normalization finished",
+        )
         run(["npm", "run", "lint"], cwd=repo, compact=True, summary_label="docs lint stack finished")
 
 

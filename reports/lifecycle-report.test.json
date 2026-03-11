@@ -6,8 +6,10 @@
     {
       "file": "docs/reference/deprecated-example.md",
       "title": "Old Webhook API (Deprecated)",
+      "replacement_url": "/reference/nodes/webhook",
       "replaced_by": "/reference/nodes/webhook",
       "deprecated_since": "2024-01-15",
+      "removal_date": "2024-07-01",
       "sunset_date": "2024-07-01",
       "last_reviewed": "2026-02-16"
     }
@@ -18,296 +20,470 @@
     {
       "file": "docs/index.md",
       "title": "Documentation Pipeline Demo",
+      "replacement_url": "",
       "replaced_by": "",
       "deprecated_since": "",
+      "removal_date": "",
       "sunset_date": "",
       "last_reviewed": "2026-02-16"
     },
     {
       "file": "docs/search-faceted.md",
       "title": "Advanced Search",
+      "replacement_url": "",
       "replaced_by": "",
       "deprecated_since": "",
+      "removal_date": "",
       "sunset_date": "",
       "last_reviewed": null
     },
     {
       "file": "docs/SEO_GUIDE.md",
       "title": "SEO/GEO Optimization Guide",
+      "replacement_url": "",
       "replaced_by": "",
       "deprecated_since": "",
+      "removal_date": "",
       "sunset_date": "",
       "last_reviewed": null
     },
     {
       "file": "docs/tags.md",
       "title": "Browse by tag",
+      "replacement_url": "",
       "replaced_by": "",
       "deprecated_since": "",
+      "removal_date": "",
       "sunset_date": "",
       "last_reviewed": "2026-02-16"
     },
     {
       "file": "docs/VARIABLES_GUIDE.md",
       "title": "Variables and Templates Guide",
+      "replacement_url": "",
       "replaced_by": "",
       "deprecated_since": "",
+      "removal_date": "",
       "sunset_date": "",
       "last_reviewed": null
     },
     {
       "file": "docs/concepts/index.md",
       "title": "Concepts and Architecture",
+      "replacement_url": "",
       "replaced_by": "",
       "deprecated_since": "",
+      "removal_date": "",
       "sunset_date": "",
       "last_reviewed": "2026-02-16"
     },
     {
       "file": "docs/concepts/intelligent-knowledge-system.md",
       "title": "Intelligent knowledge system architecture",
+      "replacement_url": "",
       "replaced_by": "",
       "deprecated_since": "",
+      "removal_date": "",
       "sunset_date": "",
-      "last_reviewed": ""
+      "last_reviewed": "2026-03-07"
     },
     {
       "file": "docs/concepts/workflow-execution-model.md",
       "title": "How the workflow execution model works",
+      "replacement_url": "",
       "replaced_by": "",
       "deprecated_since": "",
+      "removal_date": "",
       "sunset_date": "",
       "last_reviewed": "2026-02-16"
     },
     {
       "file": "docs/getting-started/index.md",
       "title": "Getting Started",
+      "replacement_url": "",
       "replaced_by": "",
       "deprecated_since": "",
+      "removal_date": "",
       "sunset_date": "",
       "last_reviewed": "2026-02-16"
     },
     {
       "file": "docs/getting-started/quickstart.md",
       "title": "Build your first workflow in 5 minutes",
+      "replacement_url": "",
       "replaced_by": "",
       "deprecated_since": "",
+      "removal_date": "",
       "sunset_date": "",
       "last_reviewed": "2026-02-16"
     },
     {
       "file": "docs/how-to/assemble-intent-experiences.md",
       "title": "Assemble intent experiences",
+      "replacement_url": "",
       "replaced_by": "",
       "deprecated_since": "",
+      "removal_date": "",
       "sunset_date": "",
-      "last_reviewed": ""
+      "last_reviewed": "2026-03-07"
+    },
+    {
+      "file": "docs/how-to/configure-ask-ai-module.md",
+      "title": "Configure Ask AI module",
+      "replacement_url": "",
+      "replaced_by": "",
+      "deprecated_since": "",
+      "removal_date": "",
+      "sunset_date": "",
+      "last_reviewed": "2026-03-07"
     },
     {
       "file": "docs/how-to/configure-webhook-trigger.md",
       "title": "Configure webhook triggers",
+      "replacement_url": "",
       "replaced_by": "",
       "deprecated_since": "",
+      "removal_date": "",
       "sunset_date": "",
       "last_reviewed": "2026-03-07"
     },
     {
       "file": "docs/how-to/index.md",
       "title": "How-To Guides for",
+      "replacement_url": "",
       "replaced_by": "",
       "deprecated_since": "",
+      "removal_date": "",
       "sunset_date": "",
       "last_reviewed": "2026-02-16"
     },
     {
-      "file": "docs/reference/api-playground.md",
-      "title": "API playground",
+      "file": "docs/how-to/install-ask-ai-runtime-pack.md",
+      "title": "Install Ask AI runtime pack",
+      "replacement_url": "",
       "replaced_by": "",
       "deprecated_since": "",
+      "removal_date": "",
+      "sunset_date": "",
+      "last_reviewed": "2026-03-07"
+    },
+    {
+      "file": "docs/how-to/run-api-first-production-flow.md",
+      "title": "Run API-first production flow",
+      "replacement_url": "",
+      "replaced_by": "",
+      "deprecated_since": "",
+      "removal_date": "",
+      "sunset_date": "",
+      "last_reviewed": "2026-03-09"
+    },
+    {
+      "file": "docs/operations/CANONICAL_FLOW.md",
+      "title": "",
+      "replacement_url": "",
+      "replaced_by": "",
+      "deprecated_since": "",
+      "removal_date": "",
+      "sunset_date": "",
+      "last_reviewed": ""
+    },
+    {
+      "file": "docs/operations/CENTRALIZED_CLIENT_BUNDLES.md",
+      "title": "",
+      "replacement_url": "",
+      "replaced_by": "",
+      "deprecated_since": "",
+      "removal_date": "",
+      "sunset_date": "",
+      "last_reviewed": ""
+    },
+    {
+      "file": "docs/operations/PIPELINE_CAPABILITIES_CATALOG.md",
+      "title": "",
+      "replacement_url": "",
+      "replaced_by": "",
+      "deprecated_since": "",
+      "removal_date": "",
+      "sunset_date": "",
+      "last_reviewed": ""
+    },
+    {
+      "file": "docs/operations/PLAN_TIERS.md",
+      "title": "",
+      "replacement_url": "",
+      "replaced_by": "",
+      "deprecated_since": "",
+      "removal_date": "",
+      "sunset_date": "",
+      "last_reviewed": ""
+    },
+    {
+      "file": "docs/operations/UNIFIED_CLIENT_CONFIG.md",
+      "title": "",
+      "replacement_url": "",
+      "replaced_by": "",
+      "deprecated_since": "",
+      "removal_date": "",
+      "sunset_date": "",
+      "last_reviewed": ""
+    },
+    {
+      "file": "docs/reference/api-playground.md",
+      "title": "API playground",
+      "replacement_url": "",
+      "replaced_by": "",
+      "deprecated_since": "",
+      "removal_date": "",
       "sunset_date": "",
       "last_reviewed": "2026-02-23"
     },
     {
       "file": "docs/reference/index.md",
       "title": "Reference Documentation",
+      "replacement_url": "",
       "replaced_by": "",
       "deprecated_since": "",
+      "removal_date": "",
       "sunset_date": "",
       "last_reviewed": "2026-02-16"
     },
     {
-      "file": "docs/reference/intent-experiences/automate-developer.md",
-      "title": "Intent experience: automate for developer",
+      "file": "docs/reference/taskstream-api-playground.md",
+      "title": "TaskStream API playground",
+      "replacement_url": "",
       "replaced_by": "",
       "deprecated_since": "",
+      "removal_date": "",
+      "sunset_date": "",
+      "last_reviewed": "2026-03-09"
+    },
+    {
+      "file": "docs/reference/taskstream-planning-notes.md",
+      "title": "TaskStream API planning notes",
+      "replacement_url": "",
+      "replaced_by": "",
+      "deprecated_since": "",
+      "removal_date": "",
+      "sunset_date": "",
+      "last_reviewed": "2026-03-09"
+    },
+    {
+      "file": "docs/reference/intent-experiences/automate-developer.md",
+      "title": "Intent experience: automate for developer",
+      "replacement_url": "",
+      "replaced_by": "",
+      "deprecated_since": "",
+      "removal_date": "",
       "sunset_date": "",
       "last_reviewed": ""
     },
     {
       "file": "docs/reference/intent-experiences/automate-operator.md",
       "title": "Intent experience: automate for operator",
+      "replacement_url": "",
       "replaced_by": "",
       "deprecated_since": "",
+      "removal_date": "",
       "sunset_date": "",
       "last_reviewed": ""
     },
     {
       "file": "docs/reference/intent-experiences/automate-support.md",
       "title": "Intent experience: automate for support",
+      "replacement_url": "",
       "replaced_by": "",
       "deprecated_since": "",
+      "removal_date": "",
       "sunset_date": "",
       "last_reviewed": ""
     },
     {
       "file": "docs/reference/intent-experiences/configure-operator.md",
       "title": "Intent experience: configure for operator",
+      "replacement_url": "",
       "replaced_by": "",
       "deprecated_since": "",
+      "removal_date": "",
       "sunset_date": "",
       "last_reviewed": ""
     },
     {
       "file": "docs/reference/intent-experiences/configure-practitioner.md",
       "title": "Intent experience: configure for practitioner",
+      "replacement_url": "",
       "replaced_by": "",
       "deprecated_since": "",
+      "removal_date": "",
       "sunset_date": "",
       "last_reviewed": ""
     },
     {
       "file": "docs/reference/intent-experiences/configure-support.md",
       "title": "Intent experience: configure for support",
+      "replacement_url": "",
       "replaced_by": "",
       "deprecated_since": "",
+      "removal_date": "",
       "sunset_date": "",
       "last_reviewed": ""
     },
     {
       "file": "docs/reference/intent-experiences/index.md",
       "title": "Intent experiences reference",
+      "replacement_url": "",
       "replaced_by": "",
       "deprecated_since": "",
+      "removal_date": "",
       "sunset_date": "",
-      "last_reviewed": ""
+      "last_reviewed": "2026-03-07"
     },
     {
       "file": "docs/reference/intent-experiences/integrate-operator.md",
       "title": "Intent experience: integrate for operator",
+      "replacement_url": "",
       "replaced_by": "",
       "deprecated_since": "",
+      "removal_date": "",
       "sunset_date": "",
       "last_reviewed": ""
     },
     {
       "file": "docs/reference/intent-experiences/integrate-practitioner.md",
       "title": "Intent experience: integrate for practitioner",
+      "replacement_url": "",
       "replaced_by": "",
       "deprecated_since": "",
+      "removal_date": "",
       "sunset_date": "",
       "last_reviewed": ""
     },
     {
       "file": "docs/reference/intent-experiences/integrate-support.md",
       "title": "Intent experience: integrate for support",
+      "replacement_url": "",
       "replaced_by": "",
       "deprecated_since": "",
+      "removal_date": "",
       "sunset_date": "",
       "last_reviewed": ""
     },
     {
       "file": "docs/reference/intent-experiences/optimize-developer.md",
       "title": "Intent experience: optimize for developer",
+      "replacement_url": "",
       "replaced_by": "",
       "deprecated_since": "",
+      "removal_date": "",
       "sunset_date": "",
       "last_reviewed": ""
     },
     {
       "file": "docs/reference/intent-experiences/optimize-operator.md",
       "title": "Intent experience: optimize for operator",
+      "replacement_url": "",
       "replaced_by": "",
       "deprecated_since": "",
+      "removal_date": "",
       "sunset_date": "",
       "last_reviewed": ""
     },
     {
       "file": "docs/reference/intent-experiences/optimize-support.md",
       "title": "Intent experience: optimize for support",
+      "replacement_url": "",
       "replaced_by": "",
       "deprecated_since": "",
+      "removal_date": "",
       "sunset_date": "",
       "last_reviewed": ""
     },
     {
       "file": "docs/reference/intent-experiences/secure-operator.md",
       "title": "Intent experience: secure for operator",
+      "replacement_url": "",
       "replaced_by": "",
       "deprecated_since": "",
+      "removal_date": "",
       "sunset_date": "",
       "last_reviewed": ""
     },
     {
       "file": "docs/reference/intent-experiences/secure-practitioner.md",
       "title": "Intent experience: secure for practitioner",
+      "replacement_url": "",
       "replaced_by": "",
       "deprecated_since": "",
+      "removal_date": "",
       "sunset_date": "",
       "last_reviewed": ""
     },
     {
       "file": "docs/reference/intent-experiences/secure-support.md",
       "title": "Intent experience: secure for support",
+      "replacement_url": "",
       "replaced_by": "",
       "deprecated_since": "",
+      "removal_date": "",
       "sunset_date": "",
       "last_reviewed": ""
     },
     {
       "file": "docs/reference/intent-experiences/troubleshoot-developer.md",
       "title": "Intent experience: troubleshoot for developer",
+      "replacement_url": "",
       "replaced_by": "",
       "deprecated_since": "",
+      "removal_date": "",
       "sunset_date": "",
       "last_reviewed": ""
     },
     {
       "file": "docs/reference/intent-experiences/troubleshoot-operator.md",
       "title": "Intent experience: troubleshoot for operator",
+      "replacement_url": "",
       "replaced_by": "",
       "deprecated_since": "",
+      "removal_date": "",
       "sunset_date": "",
       "last_reviewed": ""
     },
     {
       "file": "docs/reference/intent-experiences/troubleshoot-support.md",
       "title": "Intent experience: troubleshoot for support",
+      "replacement_url": "",
       "replaced_by": "",
       "deprecated_since": "",
+      "removal_date": "",
       "sunset_date": "",
       "last_reviewed": ""
     },
     {
       "file": "docs/reference/nodes/webhook.md",
       "title": "Webhook node reference for",
+      "replacement_url": "",
       "replaced_by": "",
       "deprecated_since": "",
+      "removal_date": "",
       "sunset_date": "",
       "last_reviewed": "2026-02-16"
     },
     {
       "file": "docs/troubleshooting/index.md",
       "title": "Troubleshooting Guide",
+      "replacement_url": "",
       "replaced_by": "",
       "deprecated_since": "",
+      "removal_date": "",
       "sunset_date": "",
       "last_reviewed": "2026-02-16"
     },
     {
       "file": "docs/troubleshooting/webhook-not-firing.md",
       "title": "Fix: Webhook trigger not firing",
+      "replacement_url": "",
       "replaced_by": "",
       "deprecated_since": "",
+      "removal_date": "",
       "sunset_date": "",
       "last_reviewed": "2026-02-16"
     }

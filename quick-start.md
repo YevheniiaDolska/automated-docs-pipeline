@@ -11,7 +11,7 @@ last_reviewed: "2026-03-07"
 
 # Quick start (5 minutes)
 
-This tutorial shows you how to install the Auto-Doc Pipeline, generate a consolidated report,
+This tutorial shows you how to install the Auto-Doc Pipeline, enable smooth weekly automation,
 and produce docs updates that pass validation checks.
 
 ## Prerequisites
@@ -41,7 +41,21 @@ pip install -r requirements.txt
 
 On Windows, use `py -3 -m pip install -r requirements.txt` if `pip` is not on PATH.
 
-## Step 2: Generate the consolidated report
+## Step 2: Recommended weekly automation (no manual weekly commands)
+
+Provision once into the target repository and install scheduler:
+
+```bash
+python3 scripts/provision_client_repo.py \
+  --client profiles/clients/blockstream-demo.client.yml \
+  --client-repo /path/to/client-repo \
+  --docsops-dir docsops \
+  --install-scheduler linux
+```
+
+After that, weekly `reports/consolidated_report.json` is generated automatically by `docsops/scripts/run_weekly_gap_batch.py`.
+
+## Step 3: Generate the consolidated report now (optional immediate run)
 
 ```bash
 npm run consolidate
@@ -55,7 +69,7 @@ To regenerate only the consolidated file from existing reports:
 npm run consolidate:reports-only
 ```
 
-## Step 3: Process with Claude Code
+## Step 4: Process with Claude Code
 
 Open Claude Code in the project directory and give it the report:
 
@@ -63,9 +77,10 @@ Open Claude Code in the project directory and give it the report:
 Process reports/consolidated_report.json
 ```
 
-Claude Code reads the consolidated report, identifies documentation gaps, and generates or updates Markdown files in `docs/` following the templates in `templates/` and the rules in `CLAUDE.md`.
+Claude Code reads the consolidated report, identifies documentation gaps, and generates or updates Markdown files in `docs/` following `CLAUDE.md`.
+If a required doc type has no template, it creates a new template first and then generates docs from that template.
 
-## Step 4: Review and commit
+## Step 5: Review and commit
 
 Check what changed:
 
@@ -131,5 +146,7 @@ npm run askai:runtime:install
 | Understand all features | [README](./README.md) |
 | Full setup with troubleshooting | [Setup guide](./README_SETUP.md) |
 | Install into another repository | [Setup for projects](./SETUP_FOR_PROJECTS.md) |
+| Configure all client keys | [Unified client config](./docs/operations/UNIFIED_CLIENT_CONFIG.md) |
+| Apply Basic/Pro/Enterprise plans | [Plan tiers](./docs/operations/PLAN_TIERS.md) |
 | Customize for a company | [Customization guide](./CUSTOMIZATION_PER_COMPANY.md) |
 | Windows setup from scratch | [Beginner guide](./BEGINNER_GUIDE.md) |

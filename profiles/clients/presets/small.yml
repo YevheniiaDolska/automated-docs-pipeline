@@ -1,0 +1,33 @@
+preset: small
+description: Minimal onboarding for small teams and one-repo docs.
+overrides:
+  bundle:
+    base_policy_pack: "minimal"
+    style_guide: "google"
+  runtime:
+    docs_flow:
+      mode: "code-first"
+    output_targets:
+      - "mkdocs"
+    modules:
+      gap_detection: true
+      drift_detection: true
+      docs_contract: true
+      kpi_sla: true
+      rag_optimization: true
+      normalization: true
+      snippet_lint: true
+      self_checks: true
+      fact_checks: true
+      lifecycle_management: true
+      knowledge_validation: true
+      i18n_sync: false
+      release_pack: false
+    integrations:
+      algolia:
+        enabled: false
+        upload_on_weekly: false
+      ask_ai:
+        enabled: false
+        auto_configure_on_provision: true
+        install_runtime_pack: false

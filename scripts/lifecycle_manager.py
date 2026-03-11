@@ -77,12 +77,16 @@ class LifecycleManager:
                 lifecycle_state = 'active'
 
             if lifecycle_state in results:
+                replacement_url = frontmatter.get('replacement_url', frontmatter.get('replaced_by', ''))
+                removal_date = frontmatter.get('removal_date', frontmatter.get('sunset_date', ''))
                 results[lifecycle_state].append({
                     'file': str(md_file),
                     'title': frontmatter.get('title', ''),
-                    'replaced_by': frontmatter.get('replaced_by', ''),
+                    'replacement_url': replacement_url,
+                    'replaced_by': replacement_url,
                     'deprecated_since': frontmatter.get('deprecated_since', ''),
-                    'sunset_date': frontmatter.get('sunset_date', ''),
+                    'removal_date': removal_date,
+                    'sunset_date': removal_date,
                     'last_reviewed': frontmatter.get('last_reviewed', '')
                 })
 
@@ -106,11 +110,11 @@ class LifecycleManager:
     <div class="admonition warning">
       <p class="admonition-title">⚠️ Deprecated</p>
       <p>This feature is deprecated{% if page.meta.deprecated_since %} since {{ page.meta.deprecated_since }}{% endif %}.</p>
-      {% if page.meta.replaced_by %}
-        <p>Please use <a href="{{ page.meta.replaced_by }}">the replacement feature</a> instead.</p>
+      {% if page.meta.replacement_url or page.meta.replaced_by %}
+        <p>Please use <a href="{{ page.meta.replacement_url or page.meta.replaced_by }}">the replacement feature</a> instead.</p>
       {% endif %}
-      {% if page.meta.sunset_date %}
-        <p>This will be removed on {{ page.meta.sunset_date }}.</p>
+      {% if page.meta.removal_date or page.meta.sunset_date %}
+        <p>This will be removed on {{ page.meta.removal_date or page.meta.sunset_date }}.</p>
       {% endif %}
     </div>
   {% elif page.meta.status == 'draft' or page.meta.maturity == 'preview' %}
@@ -170,13 +174,14 @@ module.exports = function lifecyclePlugin(context, options) {
       // Add canonical tags for deprecated pages
       const tags = [];
 
-      if (content.metadata && content.metadata.maturity === 'deprecated') {
-        if (content.metadata.replaced_by) {
+      if (content.metadata && (content.metadata.status === 'deprecated' || content.metadata.maturity === 'deprecated')) {
+        const replacement = content.metadata.replacement_url || content.metadata.replaced_by;
+        if (replacement) {
           tags.push({
             tagName: 'link',
             attributes: {
               rel: 'canonical',
-              href: content.metadata.replaced_by,
+              href: replacement,
             },
           });
         }
@@ -193,19 +198,20 @@ module.exports = function lifecyclePlugin(context, options) {
       const removedPages = ''' + json.dumps(results.get('removed', []), indent=2) + ''';
 
       for (const page of removedPages) {
-        if (page.replaced_by) {
+        const replacement = page.replacement_url || page.replaced_by;
+        if (replacement) {
           const redirectHtml = `
 <!DOCTYPE html>
 <html>
 <head>
   <meta charset="utf-8">
   <title>Redirecting...</title>
-  <link rel="canonical" href="${page.replaced_by}">
-  <meta http-equiv="refresh" content="0; url=${page.replaced_by}">
-  <script>window.location.replace("${page.replaced_by}");</script>
+  <link rel="canonical" href="${replacement}">
+  <meta http-equiv="refresh" content="0; url=${replacement}">
+  <script>window.location.replace("${replacement}");</script>
 </head>
 <body>
-  <p>This page has moved to <a href="${page.replaced_by}">${page.replaced_by}</a></p>
+  <p>This page has moved to <a href="${replacement}">${replacement}</a></p>
 </body>
 </html>`;
 
@@ -231,19 +237,21 @@ import { useDoc } from '@docusaurus/theme-common';
 
 export function LifecycleBanner() {
   const { metadata } = useDoc();
-  const { maturity, deprecated_since, sunset_date, replaced_by } = metadata;
+  const { status, maturity, deprecated_since, removal_date, sunset_date, replacement_url, replaced_by } = metadata;
+  const replacement = replacement_url || replaced_by;
+  const removeOn = removal_date || sunset_date;
 
-  if (maturity === 'deprecated') {
+  if (status === 'deprecated' || maturity === 'deprecated') {
     return (
       <div className="alert alert--warning margin-bottom--md">
         <strong>⚠️ Deprecated</strong>
         {deprecated_since && <span> since {deprecated_since}</span>}
-        {replaced_by && (
+        {replacement && (
           <p>
-            Please use <a href={replaced_by}>the replacement feature</a> instead.
+            Please use <a href={replacement}>the replacement feature</a> instead.
           </p>
         )}
-        {sunset_date && <p>Will be removed on {sunset_date}</p>}
+        {removeOn && <p>Will be removed on {removeOn}</p>}
       </div>
     );
   }
@@ -281,16 +289,17 @@ export function LifecycleBanner() {
         redirects_dir.mkdir(exist_ok=True)
 
         for page in results.get('removed', []):
-            if page['replaced_by']:
+            replacement_url = page.get('replacement_url') or page.get('replaced_by')
+            if replacement_url:
                 # Create redirect HTML
                 redirect_html = f'''<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="utf-8">
   <title>Page Moved</title>
-  <link rel="canonical" href="{page['replaced_by']}">
-  <meta http-equiv="refresh" content="0; url={page['replaced_by']}">
-  <script>window.location.replace("{page['replaced_by']}");</script>
+  <link rel="canonical" href="{replacement_url}">
+  <meta http-equiv="refresh" content="0; url={replacement_url}">
+  <script>window.location.replace("{replacement_url}");</script>
   <style>
     body {{
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
@@ -307,7 +316,7 @@ export function LifecycleBanner() {
   <div class="container">
     <h1>Page Moved</h1>
     <p>This page has been moved to a new location.</p>
-    <p>If you are not redirected automatically, <a href="{page['replaced_by']}">click here</a>.</p>
+    <p>If you are not redirected automatically, <a href="{replacement_url}">click here</a>.</p>
   </div>
 </body>
 </html>'''
@@ -318,7 +327,7 @@ export function LifecycleBanner() {
                 redirect_path.parent.mkdir(parents=True, exist_ok=True)
                 redirect_path.write_text(redirect_html)
 
-                print(f"✅ Created redirect: {old_path} → {page['replaced_by']}")
+                print(f"✅ Created redirect: {old_path} → {replacement_url}")
 
     def generate_lifecycle_report(self, results):
         """Generate lifecycle status report."""
@@ -345,17 +354,20 @@ export function LifecycleBanner() {
         report.append("\n## Deprecated Pages")
         for page in results['deprecated']:
             report.append(f"\n- {page['title']} ({page['file']})")
-            if page['replaced_by']:
-                report.append(f"  -> Replacement: {page['replaced_by']}")
-            if page['sunset_date']:
-                report.append(f"  Sunset: {page['sunset_date']}")
+            replacement_url = page.get('replacement_url') or page.get('replaced_by')
+            removal_date = page.get('removal_date') or page.get('sunset_date')
+            if replacement_url:
+                report.append(f"  -> Replacement: {replacement_url}")
+            if removal_date:
+                report.append(f"  Removal date: {removal_date}")
 
         # Removed pages
         report.append("\n## Removed Pages (Need Redirects)")
         for page in results['removed']:
             report.append(f"\n- {page['title']} ({page['file']})")
-            if page['replaced_by']:
-                report.append(f"  -> Redirect to: {page['replaced_by']}")
+            replacement_url = page.get('replacement_url') or page.get('replaced_by')
+            if replacement_url:
+                report.append(f"  -> Redirect to: {replacement_url}")
             else:
                 report.append(f"  !! No replacement specified!")
 
@@ -364,6 +376,7 @@ export function LifecycleBanner() {
 def main():
     import argparse
     parser = argparse.ArgumentParser(description='Manage documentation lifecycle')
+    parser.add_argument('--docs-dir', type=str, default='docs', help='Docs directory to scan')
     parser.add_argument('--scan', action='store_true', help='Scan for lifecycle states')
     parser.add_argument('--mkdocs', action='store_true', help='Generate MkDocs overrides')
     parser.add_argument('--docusaurus', action='store_true', help='Generate Docusaurus plugin')
@@ -372,7 +385,7 @@ def main():
     parser.add_argument('--json-output', type=str, default='', help='Write lifecycle scan results as JSON')
     args = parser.parse_args()
 
-    manager = LifecycleManager()
+    manager = LifecycleManager(docs_dir=args.docs_dir)
 
     # Always scan first
     results = manager.scan_all_pages()

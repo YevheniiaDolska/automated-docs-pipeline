@@ -1,0 +1,102 @@
+#!/usr/bin/env python3
+"""One-command interactive onboarding for a new client repository.
+
+Flow:
+1. Generate/select client profile via preset wizard.
+2. Show profile summary and path.
+3. Confirm.
+4. Build bundle + install to client repo + apply integrations + install scheduler.
+"""
+
+from __future__ import annotations
+
+import argparse
+import sys
+from pathlib import Path
+
+import yaml
+
+REPO_ROOT = Path(__file__).resolve().parents[1]
+if str(REPO_ROOT) not in sys.path:
+    sys.path.insert(0, str(REPO_ROOT))
+
+from scripts import provision_client_repo as provision
+
+
+def _prompt_yes_no(prompt: str, default_yes: bool = True) -> bool:
+    suffix = "[Y/n]" if default_yes else "[y/N]"
+    raw = input(f"{prompt} {suffix}: ").strip().lower()
+    if not raw:
+        return default_yes
+    return raw in {"y", "yes"}
+
+
+def _print_profile_preview(profile_path: Path) -> None:
+    payload = yaml.safe_load(profile_path.read_text(encoding="utf-8")) or {}
+    if not isinstance(payload, dict):
+        print(f"[warn] profile is not a mapping: {profile_path}")
+        return
+
+    client = payload.get("client", {}) if isinstance(payload.get("client"), dict) else {}
+    runtime = payload.get("runtime", {}) if isinstance(payload.get("runtime"), dict) else {}
+    flow = runtime.get("docs_flow", {}) if isinstance(runtime.get("docs_flow"), dict) else {}
+    integrations = runtime.get("integrations", {}) if isinstance(runtime.get("integrations"), dict) else {}
+    algolia = integrations.get("algolia", {}) if isinstance(integrations.get("algolia"), dict) else {}
+    ask_ai = integrations.get("ask_ai", {}) if isinstance(integrations.get("ask_ai"), dict) else {}
+
+    print("\nProfile preview")
+    print(f"- Profile file: {profile_path}")
+    print(f"- Client ID: {client.get('id', '')}")
+    print(f"- Company: {client.get('company_name', '')}")
+    print(f"- Docs flow: {flow.get('mode', 'code-first')}")
+    print(f"- Output targets: {runtime.get('output_targets', [])}")
+    print(f"- Algolia enabled: {bool(algolia.get('enabled', False))}")
+    print(f"- Ask AI enabled: {bool(ask_ai.get('enabled', False))}")
+
+
+def parse_args() -> argparse.Namespace:
+    parser = argparse.ArgumentParser(description="Interactive one-command client onboarding")
+    parser.add_argument("--client", help="Optional existing client profile path")
+    parser.add_argument("--client-repo", help="Optional client repository path")
+    parser.add_argument("--docsops-dir", default="docsops", help="Target docsops directory in client repo")
+    parser.add_argument(
+        "--install-scheduler",
+        default="none",
+        choices=["none", "linux", "windows"],
+        help="Scheduler mode (none/linux/windows)",
+    )
+    parser.add_argument(
+        "--yes",
+        action="store_true",
+        help="Skip confirmation prompt before install",
+    )
+    return parser.parse_args()
+
+
+def main() -> int:
+    base_args = parse_args()
+    interactive_args = argparse.Namespace(
+        client=base_args.client,
+        client_repo=base_args.client_repo,
+        docsops_dir=base_args.docsops_dir,
+        install_scheduler=base_args.install_scheduler,
+        interactive=True,
+        generate_profile=True,
+    )
+
+    resolved = provision._resolve_args(interactive_args)
+    profile_path = Path(resolved.client)
+    if not profile_path.is_absolute():
+        profile_path = (provision.REPO_ROOT / profile_path).resolve()
+
+    _print_profile_preview(profile_path)
+    if not base_args.yes:
+        if not _prompt_yes_no("Continue with bundle build + install + scheduler?", default_yes=True):
+            print("[stop] onboarding cancelled by user")
+            return 0
+
+    return provision.execute_provision(resolved)
+
+
+if __name__ == "__main__":
+    sys.exit(main())
