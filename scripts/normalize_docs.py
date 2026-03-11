@@ -58,9 +58,11 @@ def normalize_lines(lines: list[str]) -> list[str]:
     out: list[str] = []
     for line in lines:
         if ORDERED_LIST_RE.match(line):
-            line = ORDERED_LIST_RE.sub(r"\\11. ", line)
+            # Keep original indentation and normalize ordered lists to "1. " style.
+            line = ORDERED_LIST_RE.sub(r"\g<1>1. ", line)
         if UNORDERED_LIST_RE.match(line):
-            line = UNORDERED_LIST_RE.sub(r"\\1- ", line)
+            # Keep original indentation and normalize bullets to "- ".
+            line = UNORDERED_LIST_RE.sub(r"\g<1>- ", line)
         if NEXT_STEPS_HEADING_RE.match(line.strip()):
             indent = line[: len(line) - len(line.lstrip())]
             line = f"{indent}## Next steps"

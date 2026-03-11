@@ -183,14 +183,18 @@ Use MkDocs content tabs syntax to show different setup paths:
 ```markdown
 === "Cloud"
 
-    Cloud-specific configuration steps here.
+    - Cloud-specific configuration step 1.
+    - Cloud-specific configuration step 2.
 
 === "Self-hosted"
 
-    Self-hosted configuration steps here.
+    - Self-hosted configuration step 1.
+    - Self-hosted configuration step 2.
 ```
 
 Include at least ONE section with content tabs showing real differences between Cloud and Self-hosted deployment.
+Inside tab blocks, every content line MUST be indented by 4 spaces.
+Never output broken markers like `\11.` in generated markdown.
 
 ---
 
@@ -449,7 +453,8 @@ Then create the customized version with:
 
 Each component MUST have a rich description (2-3 sentences with specific metrics, technologies, and how it connects to adjacent components).
 
-The HTML file must be COMPLETE and self-contained so the embedded iframe renders correctly: dark theme, animated arrows, clickable components, and info panel.
+The HTML file must be COMPLETE and self-contained so the embedded iframe renders correctly: theme-adaptive (light/dark based on parent page), animated arrows, clickable components, and info panel.
+Do NOT replace theme-sync logic from `templates/interactive-diagram.html`; keep the existing CSS variables and parent-theme detection JS.
 
 After creating, verify that the generated document embeds this diagram:
 
@@ -457,6 +462,15 @@ After creating, verify that the generated document embeds this diagram:
 DOC_FILE="docs/en/how-to/set-up-real-time-webhook-processing-pipeline.md"
 echo "Embedded diagram check:"
 grep -n '<iframe src="../../diagrams/demo-webhook-pipeline.html"' "$DOC_FILE"
+```
+
+Also verify tab syntax and list formatting:
+
+```bash
+echo "Tab syntax check:"
+grep -n '=== "Cloud"\|=== "Self-hosted"' "$DOC_FILE"
+echo "Broken list marker check (must be empty):"
+grep -n '\\11\\.' "$DOC_FILE" || true
 ```
 
 Say: "The diagram is embedded in the generated document. The page now includes a clickable diagram with 13 components across five layers, each with concrete metrics, technologies, and dependencies."

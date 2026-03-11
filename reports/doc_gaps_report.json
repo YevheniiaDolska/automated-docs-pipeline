@@ -30,89 +30,89 @@
     "code_changes",
     "community"
   ],
-  "generated_at": "2026-03-11T11:24:07.191737",
+  "generated_at": "2026-03-11T15:28:41.745644",
   "gaps": [
     {
-      "id": "CODE-0002",
-      "title": "Webhook: webhook: webhook",
-      "description": "Update webhook documentation for changes in .claude/skills/demo/SKILL.md. Include payload examples and event types.",
+      "id": "CODE-0001",
+      "title": "Webhook: webhook: Webhook",
+      "description": "Update webhook documentation for changes in mkdocs.yml. Include payload examples and event types.",
       "source": "code",
       "category": "webhook",
       "suggested_doc_type": "how-to",
       "priority": "high",
-      "frequency": 2663,
+      "frequency": 3064,
       "keywords": [],
       "related_files": [
-        ".claude/skills/demo/SKILL.md"
+        "mkdocs.yml"
       ],
       "sample_queries": [],
-      "action_required": "Update webhook documentation for changes in .claude/skills/demo/SKILL.md. Include payload examples and event types.",
+      "action_required": "Update webhook documentation for changes in mkdocs.yml. Include payload examples and event types.",
       "status": "new",
-      "created_at": "2026-03-11T11:24:07.191776"
+      "created_at": "2026-03-11T15:28:41.746727"
     },
     {
-      "id": "CODE-0001",
+      "id": "CODE-0005",
       "title": "Authentication: authentication: Auth",
-      "description": "Update authentication documentation for changes in .claude/commands/api-first-demo.md. Include security considerations.",
+      "description": "Update authentication documentation for changes in mkdocs.yml. Include security considerations.",
       "source": "code",
       "category": "authentication",
       "suggested_doc_type": "how-to",
       "priority": "high",
-      "frequency": 1447,
+      "frequency": 1813,
       "keywords": [],
       "related_files": [
-        ".claude/commands/api-first-demo.md"
+        "mkdocs.yml"
       ],
       "sample_queries": [],
-      "action_required": "Update authentication documentation for changes in .claude/commands/api-first-demo.md. Include security considerations.",
+      "action_required": "Update authentication documentation for changes in mkdocs.yml. Include security considerations.",
       "status": "new",
-      "created_at": "2026-03-11T11:24:07.191766"
+      "created_at": "2026-03-11T15:28:41.746909"
     },
     {
-      "id": "CODE-0083",
-      "title": "Public Function: public_function: now_iso",
-      "description": "Consider documenting public API: now_iso. Include parameters, return value, and example usage.",
+      "id": "CODE-0075",
+      "title": "Public Function: public_function: verify_webhook_signature",
+      "description": "Consider documenting public API: verify_webhook_signature. Include parameters, return value, and example usage.",
       "source": "code",
       "category": "public_function",
       "suggested_doc_type": "reference",
       "priority": "high",
-      "frequency": 822,
+      "frequency": 965,
       "keywords": [],
       "related_files": [
-        "sandbox/prodlike_api/app/main.py"
+        "docs/en/how-to/set-up-real-time-webhook-processing-pipeline.md"
       ],
       "sample_queries": [],
-      "action_required": "Consider documenting public API: now_iso. Include parameters, return value, and example usage.",
+      "action_required": "Consider documenting public API: verify_webhook_signature. Include parameters, return value, and example usage.",
       "status": "new",
-      "created_at": "2026-03-11T11:24:07.192403"
+      "created_at": "2026-03-11T15:28:41.749081"
     },
     {
-      "id": "CODE-0124",
-      "title": "Database Schema: database_schema: CREATE TABLE",
-      "description": "Document database schema change in sandbox/prodlike_api/app/main.py. Update data model documentation.",
+      "id": "CODE-0147",
+      "title": "Database Schema: database_schema: migration",
+      "description": "Document database schema change in seo-report-algolia.json. Update data model documentation.",
       "source": "code",
       "category": "database_schema",
       "suggested_doc_type": "how-to",
       "priority": "high",
-      "frequency": 145,
+      "frequency": 205,
       "keywords": [],
       "related_files": [
-        "sandbox/prodlike_api/app/main.py"
+        "seo-report-algolia.json"
       ],
       "sample_queries": [],
-      "action_required": "Document database schema change in sandbox/prodlike_api/app/main.py. Update data model documentation.",
+      "action_required": "Document database schema change in seo-report-algolia.json. Update data model documentation.",
       "status": "new",
-      "created_at": "2026-03-11T11:24:07.192603"
+      "created_at": "2026-03-11T15:28:41.751144"
     },
     {
-      "id": "CODE-0330",
-      "title": "Breaking Change: breaking_change: ",
+      "id": "CODE-0684",
+      "title": "Breaking Change: breaking_change:  Change",
       "description": "URGENT: Document breaking change in reports/consolidated_report.json. Update migration guide with before/after examples.",
       "source": "code",
       "category": "breaking_change",
       "suggested_doc_type": "how-to",
       "priority": "high",
-      "frequency": 65,
+      "frequency": 77,
       "keywords": [],
       "related_files": [
         "reports/consolidated_report.json"
@@ -120,17 +120,17 @@
       "sample_queries": [],
       "action_required": "URGENT: Document breaking change in reports/consolidated_report.json. Update migration guide with before/after examples.",
       "status": "new",
-      "created_at": "2026-03-11T11:24:07.193759"
+      "created_at": "2026-03-11T15:28:41.760392"
     },
     {
-      "id": "CODE-1209",
+      "id": "CODE-0006",
       "title": "Removed Function: Function removed: showInfo",
       "description": "BREAKING: Function showInfo was removed. Update documentation and add migration guide.",
       "source": "code",
       "category": "removed_function",
       "suggested_doc_type": "how-to",
       "priority": "high",
-      "frequency": 30,
+      "frequency": 39,
       "keywords": [],
       "related_files": [
         "docs/diagrams/demo-webhook-pipeline.html"
@@ -138,100 +138,100 @@
       "sample_queries": [],
       "action_required": "BREAKING: Function showInfo was removed. Update documentation and add migration guide.",
       "status": "new",
-      "created_at": "2026-03-11T11:24:07.198760"
+      "created_at": "2026-03-11T15:28:41.746933"
     },
     {
-      "id": "CODE-2097",
-      "title": "Api Endpoint: api_endpoint: /healthz",
-      "description": "Document API endpoint: /healthz. Include request/response examples, parameters, authentication requirements.",
+      "id": "CODE-1078",
+      "title": "Api Endpoint: api_endpoint: /tasks",
+      "description": "Document API endpoint: /tasks. Include request/response examples, parameters, authentication requirements.",
       "source": "code",
       "category": "api_endpoint",
       "suggested_doc_type": "reference",
       "priority": "high",
-      "frequency": 9,
+      "frequency": 10,
       "keywords": [],
       "related_files": [
-        "runtime/ask-ai-pack/app/main.py"
+        "tests/test_client_pipeline_coverage.py"
       ],
       "sample_queries": [],
-      "action_required": "Document API endpoint: /healthz. Include request/response examples, parameters, authentication requirements.",
+      "action_required": "Document API endpoint: /tasks. Include request/response examples, parameters, authentication requirements.",
       "status": "new",
-      "created_at": "2026-03-11T11:24:07.204520"
+      "created_at": "2026-03-11T15:28:41.764811"
     },
     {
-      "id": "CODE-4596",
-      "title": "Signature Change: Function signature changed: print",
-      "description": "UPDATE REQUIRED: Function print signature changed. Old: (f\"✅ Created {doc_type} document: {output_path}\") → New: (f\"Created {doc_type} document: {output_path}\"). Update documentation and examples.",
+      "id": "CODE-0859",
+      "title": "Signature Change: Function signature changed: __init__",
+      "description": "UPDATE REQUIRED: Function __init__ signature changed. Old: (self, docs_dir: str = \"docs\") → New: (self, docs_dir: str = \"docs\", policy_pack_path: str | None = None). Update documentation and examples.",
       "source": "code",
       "category": "signature_change",
       "suggested_doc_type": "how-to",
       "priority": "high",
-      "frequency": 1,
+      "frequency": 5,
       "keywords": [],
       "related_files": [
-        "scripts/new_doc.py"
+        "scripts/doc_layers_validator.py"
       ],
       "sample_queries": [],
-      "action_required": "UPDATE REQUIRED: Function print signature changed. Old: (f\"✅ Created {doc_type} document: {output_path}\") → New: (f\"Created {doc_type} document: {output_path}\"). Update documentation and examples.",
+      "action_required": "UPDATE REQUIRED: Function __init__ signature changed. Old: (self, docs_dir: str = \"docs\") → New: (self, docs_dir: str = \"docs\", policy_pack_path: str | None = None). Update documentation and examples.",
       "status": "new",
-      "created_at": "2026-03-11T11:24:07.219077"
+      "created_at": "2026-03-11T15:28:41.762545"
     },
     {
-      "id": "CODE-0045",
-      "title": "New Function: New function: startup",
-      "description": "Document new function: startup. Include parameters, return value, and usage example.",
+      "id": "CODE-0056",
+      "title": "New Function: New function: showInfo",
+      "description": "Document new function: showInfo. Include parameters, return value, and usage example.",
       "source": "code",
       "category": "new_function",
       "suggested_doc_type": "how-to",
       "priority": "medium",
-      "frequency": 845,
+      "frequency": 1006,
       "keywords": [],
       "related_files": [
-        "sandbox/prodlike_api/app/main.py"
+        "docs/diagrams/demo-webhook-pipeline.html"
       ],
       "sample_queries": [],
-      "action_required": "Document new function: startup. Include parameters, return value, and usage example.",
+      "action_required": "Document new function: showInfo. Include parameters, return value, and usage example.",
       "status": "new",
-      "created_at": "2026-03-11T11:24:07.192129"
+      "created_at": "2026-03-11T15:28:41.748211"
     },
     {
-      "id": "CODE-0278",
-      "title": "Error Handling: error_handling: RuntimeError",
-      "description": "Document new error type: RuntimeError. Include cause, solution, and error code.",
+      "id": "CODE-0849",
+      "title": "Error Handling: error_handling: ValueError",
+      "description": "Document new error type: ValueError. Include cause, solution, and error code.",
       "source": "code",
       "category": "error_handling",
       "suggested_doc_type": "how-to",
       "priority": "medium",
-      "frequency": 36,
+      "frequency": 61,
       "keywords": [],
       "related_files": [
-        "scripts/run_api_first_flow.py"
+        "scripts/build_client_bundle.py"
       ],
       "sample_queries": [],
-      "action_required": "Document new error type: RuntimeError. Include cause, solution, and error code.",
+      "action_required": "Document new error type: ValueError. Include cause, solution, and error code.",
       "status": "new",
-      "created_at": "2026-03-11T11:24:07.193469"
+      "created_at": "2026-03-11T15:28:41.762435"
     },
     {
-      "id": "CODE-0329",
+      "id": "CODE-0178",
       "title": "Config Option: config_option: local",
       "description": "Document configuration option: local. Include allowed values and when to use.",
       "source": "code",
       "category": "config_option",
       "suggested_doc_type": "reference",
       "priority": "medium",
-      "frequency": 35,
+      "frequency": 39,
       "keywords": [],
       "related_files": [
-        "reports/consolidated_report.json"
+        ".claude/settings.local.json"
       ],
       "sample_queries": [],
       "action_required": "Document configuration option: local. Include allowed values and when to use.",
       "status": "new",
-      "created_at": "2026-03-11T11:24:07.193755"
+      "created_at": "2026-03-11T15:28:41.751827"
     },
     {
-      "id": "CODE-2042",
+      "id": "CODE-3228",
       "title": "Env Var: env_var: ASK_AI_API_KEY",
       "description": "Add environment variable ASK_AI_API_KEY to configuration reference. Include default value, description, and examples.",
       "source": "code",
@@ -246,7 +246,7 @@
       "sample_queries": [],
       "action_required": "Add environment variable ASK_AI_API_KEY to configuration reference. Include default value, description, and examples.",
       "status": "new",
-      "created_at": "2026-03-11T11:24:07.204226"
+      "created_at": "2026-03-11T15:28:41.782212"
     }
   ]
 }
