@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Webhook processing pipeline architecture</title>
+<style>
+  :root {
+    --bg: #0b1220;
+    --surface: #141f35;
+    --border: #2c3c5d;
+    --text: #dbe7ff;
+    --text-muted: #9fb4de;
+    --accent: #4ecdc4;
+    --accent-glow: rgba(78, 205, 196, 0.25);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: "Segoe UI", Roboto, sans-serif;
+    background: radial-gradient(circle at 20% 0%, #18284a 0%, #0b1220 45%, #060a14 100%);
+    color: var(--text);
+    min-height: 100vh;
+    padding: 2rem 1rem;
+  }
+
+  h1 {
+    text-align: center;
+    font-size: 1.4rem;
+    margin-bottom: 0.4rem;
+  }
+
+  .subtitle {
+    text-align: center;
+    color: var(--text-muted);
+    margin-bottom: 1.6rem;
+    font-size: 0.88rem;
+  }
+
+  .diagram {
+    display: flex;
+    flex-direction: column;
+    gap: 0.85rem;
+    max-width: 980px;
+    margin: 0 auto;
+  }
+
+  .layer-label {
+    font-size: 0.72rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    text-align: center;
+    color: var(--text-muted);
+  }
+
+  .layer {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 0.7rem;
+  }
+
+  .component {
+    width: 170px;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    background: linear-gradient(180deg, #192949 0%, #12203a 100%);
+    padding: 0.75rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    text-align: center;
+  }
+
+  .component:hover,
+  .component.active {
+    border-color: var(--accent);
+    box-shadow: 0 0 0 1px var(--accent), 0 0 20px var(--accent-glow);
+    transform: translateY(-2px);
+  }
+
+  .name {
+    font-size: 0.82rem;
+    font-weight: 600;
+  }
+
+  .metric {
+    color: var(--text-muted);
+    margin-top: 0.25rem;
+    font-size: 0.68rem;
+  }
+
+  .arrow-row {
+    text-align: center;
+    color: #79a9ff;
+    font-size: 1.2rem;
+    animation: pulse 1.8s ease-in-out infinite;
+  }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 0.35; }
+    50% { opacity: 1; }
+  }
+
+  .info-panel {
+    max-width: 980px;
+    margin: 1.2rem auto 0 auto;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    background: #101a2e;
+    padding: 1rem 1.1rem;
+    min-height: 120px;
+  }
+
+  .info-panel h3 {
+    color: var(--accent);
+    margin-bottom: 0.4rem;
+    font-size: 0.98rem;
+  }
+
+  .info-panel p {
+    color: var(--text-muted);
+    line-height: 1.55;
+    font-size: 0.84rem;
+  }
+
+  .tag {
+    display: inline-block;
+    border: 1px solid #2f4c7d;
+    color: #9ec8ff;
+    border-radius: 999px;
+    padding: 0.14rem 0.5rem;
+    margin-top: 0.6rem;
+    margin-right: 0.35rem;
+    font-size: 0.66rem;
+  }
+</style>
+</head>
+<body>
+<h1>Webhook processing pipeline architecture</h1>
+<p class="subtitle">Thirteen components across five layers. Click a component for implementation details.</p>
+
+<div class="diagram">
+  <div class="layer-label">Clients</div>
+  <div class="layer">
+    <div class="component" data-id="mobile" onclick="showInfo('mobile')">
+      <div class="name">Mobile App</div>
+      <div class="metric">2.1M users</div>
+    </div>
+    <div class="component" data-id="dashboard" onclick="showInfo('dashboard')">
+      <div class="name">Web Dashboard</div>
+      <div class="metric">450K DAU</div>
+    </div>
+    <div class="component" data-id="partner" onclick="showInfo('partner')">
+      <div class="name">Partner API</div>
+      <div class="metric">85 integrations</div>
+    </div>
+  </div>
+
+  <div class="arrow-row">v v v</div>
+
+  <div class="layer-label">Edge</div>
+  <div class="layer">
+    <div class="component" data-id="cdn" onclick="showInfo('cdn')">
+      <div class="name">CloudFlare CDN</div>
+      <div class="metric">99.99% uptime</div>
+    </div>
+    <div class="component" data-id="rate-limiter" onclick="showInfo('rate-limiter')">
+      <div class="name">Rate Limiter</div>
+      <div class="metric">{{ rate_limit_requests_per_minute }} req/min</div>
+    </div>
+  </div>
+
+  <div class="arrow-row">v v</div>
+
+  <div class="layer-label">Verification</div>
+  <div class="layer">
+    <div class="component" data-id="gateway" onclick="showInfo('gateway')">
+      <div class="name">API Gateway</div>
+      <div class="metric">12K req/sec</div>
+    </div>
+    <div class="component" data-id="validator" onclick="showInfo('validator')">
+      <div class="name">HMAC Validator</div>
+      <div class="metric">&lt;2 ms verify</div>
+    </div>
+  </div>
+
+  <div class="arrow-row">v v</div>
+
+  <div class="layer-label">Processing</div>
+  <div class="layer">
+    <div class="component" data-id="router" onclick="showInfo('router')">
+      <div class="name">Event Router</div>
+      <div class="metric">8 event types</div>
+    </div>
+    <div class="component" data-id="queue" onclick="showInfo('queue')">
+      <div class="name">BullMQ Queue</div>
+      <div class="metric">Redis-backed</div>
+    </div>
+    <div class="component" data-id="retry" onclick="showInfo('retry')">
+      <div class="name">Retry Engine</div>
+      <div class="metric">Exponential backoff</div>
+    </div>
+  </div>
+
+  <div class="arrow-row">v v v</div>
+
+  <div class="layer-label">Storage</div>
+  <div class="layer">
+    <div class="component" data-id="postgres" onclick="showInfo('postgres')">
+      <div class="name">PostgreSQL</div>
+      <div class="metric">2 replicas, 8.5K qps</div>
+    </div>
+    <div class="component" data-id="event-log" onclick="showInfo('event-log')">
+      <div class="name">Event Log</div>
+      <div class="metric">30-day retention</div>
+    </div>
+    <div class="component" data-id="grafana" onclick="showInfo('grafana')">
+      <div class="name">Grafana Monitoring</div>
+      <div class="metric">Real-time alerts</div>
+    </div>
+  </div>
+</div>
+
+<div class="info-panel" id="infoPanel">
+  <p>Click any component to inspect metrics, technologies, and dependencies.</p>
+</div>
+
+<script>
+const descriptions = {
+  mobile: {
+    title: "Mobile App",
+    desc: "The mobile clients publish purchase, shipment, and subscription events from 2.1 million active users. Requests are signed on-device and sent through CloudFlare with TLS 1.3. The clients retry with jitter to reduce synchronized bursts during regional outages.",
+    tags: ["iOS", "Android", "TLS 1.3"]
+  },
+  dashboard: {
+    title: "Web Dashboard",
+    desc: "The web dashboard produces operational events from 450,000 daily active users and staff tools. It sends signed JSON payloads for admin actions and workflow state changes. Event schemas are versioned so downstream consumers can roll forward safely.",
+    tags: ["SPA", "Signed events", "Schema versioning"]
+  },
+  partner: {
+    title: "Partner API",
+    desc: "Eighty-five partner integrations push webhook events through shared contracts and tenant-bound keys. The partner channel enforces strict idempotency keys per event ID before ingress. It feeds the same verification layer as first-party clients to keep behavior consistent.",
+    tags: ["B2B", "Idempotency", "Multi-tenant"]
+  },
+  cdn: {
+    title: "CloudFlare CDN",
+    desc: "CloudFlare terminates TLS and distributes traffic with a 99.99% availability target. Edge caching is minimal for webhook routes, but WAF filtering and bot scoring protect upstream services. It forwards canonical headers so signature verification keeps deterministic inputs.",
+    tags: ["CDN", "WAF", "Edge TLS"]
+  },
+  "rate-limiter": {
+    title: "Rate Limiter",
+    desc: "The edge rate limiter enforces {{ rate_limit_requests_per_minute }} requests per minute per credential as the default policy. Burst allowances are tracked with Redis token buckets and refreshed in one-second windows. Rejected traffic gets structured `429` responses with retry metadata.",
+    tags: ["Token bucket", "Redis", "429 responses"]
+  },
+  gateway: {
+    title: "API Gateway",
+    desc: "The gateway absorbs up to 12,000 requests per second and normalizes headers before validation. It computes request fingerprints, injects correlation IDs, and forwards raw bodies for cryptographic checks. Health probes and circuit breakers isolate failing upstream zones automatically.",
+    tags: ["12K req/sec", "Correlation IDs", "Circuit breaker"]
+  },
+  validator: {
+    title: "HMAC Validator",
+    desc: "The validator computes HMAC-SHA256 digests in less than two milliseconds for median payload sizes. It uses constant-time comparison and a 300-second replay window tied to signed timestamps. Failed signatures are quarantined with event metadata for incident review.",
+    tags: ["HMAC-SHA256", "<2 ms", "Replay protection"]
+  },
+  router: {
+    title: "Event Router",
+    desc: "The event router classifies eight event types and dispatches each one to dedicated BullMQ queues. Routing keys include tenant, event type, and priority so hot partitions do not starve critical traffic. It emits structured telemetry for every route decision.",
+    tags: ["8 event types", "Priority routing", "Telemetry"]
+  },
+  queue: {
+    title: "BullMQ Queue",
+    desc: "BullMQ stores jobs in Redis for reliable background processing and crash recovery. Workers consume queue shards independently to preserve throughput during maintenance windows. Queue depth alarms trigger before latency exceeds service-level objectives.",
+    tags: ["BullMQ", "Redis", "Backpressure"]
+  },
+  retry: {
+    title: "Retry Engine",
+    desc: "The retry engine handles transient failures with exponential backoff and dead-letter routing. It applies wait intervals at one second, five seconds, and 30 seconds before escalation. Permanent failures are tagged and routed for manual remediation workflows.",
+    tags: ["1/5/30 sec", "DLQ", "Escalation"]
+  },
+  postgres: {
+    title: "PostgreSQL",
+    desc: "PostgreSQL persists processed webhook state with two read replicas and sustained 8,500 queries per second. Primary writes use transactional upserts keyed by event ID to enforce idempotency. Replicas serve analytics and audit reads to protect write performance.",
+    tags: ["8.5K qps", "2 replicas", "Idempotent writes"]
+  },
+  "event-log": {
+    title: "Event Log",
+    desc: "The event log captures raw payload hashes, verification status, and processing outcomes for compliance. Data retention is fixed at 30 days for replay analysis and dispute handling. Lifecycle policies archive low-value traces after retention expiration.",
+    tags: ["30 days", "Audit trail", "Lifecycle"]
+  },
+  grafana: {
+    title: "Grafana Monitoring",
+    desc: "Grafana dashboards aggregate ingress, queue, and worker signals with real-time alerting. Alert rules watch signature failures, queue lag, and retry spikes across tenants. On-call runbooks link directly from panels for faster mitigation.",
+    tags: ["Alerting", "SLOs", "Runbooks"]
+  }
+};
+
+function showInfo(id) {
+  document.querySelectorAll('.component').forEach((el) => el.classList.remove('active'));
+  const selected = document.querySelector(`[data-id="${id}"]`);
+  if (selected) {
+    selected.classList.add('active');
+  }
+  const data = descriptions[id];
+  if (!data) {
+    return;
+  }
+  const panel = document.getElementById('infoPanel');
+  panel.innerHTML = `
+    <h3>${data.title}</h3>
+    <p>${data.desc}</p>
+    <div>${data.tags.map((tag) => `<span class="tag">${tag}</span>`).join('')}</div>
+  `;
+}
+</script>
+</body>
+</html>
