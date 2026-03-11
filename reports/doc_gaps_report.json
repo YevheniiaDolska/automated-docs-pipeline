@@ -30,46 +30,46 @@
     "code_changes",
     "community"
   ],
-  "generated_at": "2026-03-11T15:28:41.745644",
+  "generated_at": "2026-03-11T15:53:23.662950",
   "gaps": [
     {
       "id": "CODE-0001",
-      "title": "Webhook: webhook: Webhook",
-      "description": "Update webhook documentation for changes in mkdocs.yml. Include payload examples and event types.",
+      "title": "Webhook: webhook: webhook",
+      "description": "Update webhook documentation for changes in .claude/commands/demo.md. Include payload examples and event types.",
       "source": "code",
       "category": "webhook",
       "suggested_doc_type": "how-to",
       "priority": "high",
-      "frequency": 3064,
+      "frequency": 3230,
       "keywords": [],
       "related_files": [
-        "mkdocs.yml"
+        ".claude/commands/demo.md"
       ],
       "sample_queries": [],
-      "action_required": "Update webhook documentation for changes in mkdocs.yml. Include payload examples and event types.",
+      "action_required": "Update webhook documentation for changes in .claude/commands/demo.md. Include payload examples and event types.",
       "status": "new",
-      "created_at": "2026-03-11T15:28:41.746727"
+      "created_at": "2026-03-11T15:53:23.663081"
     },
     {
-      "id": "CODE-0005",
+      "id": "CODE-0004",
       "title": "Authentication: authentication: Auth",
-      "description": "Update authentication documentation for changes in mkdocs.yml. Include security considerations.",
+      "description": "Update authentication documentation for changes in .claude/commands/demo.md. Include security considerations.",
       "source": "code",
       "category": "authentication",
       "suggested_doc_type": "how-to",
       "priority": "high",
-      "frequency": 1813,
+      "frequency": 1900,
       "keywords": [],
       "related_files": [
-        "mkdocs.yml"
+        ".claude/commands/demo.md"
       ],
       "sample_queries": [],
-      "action_required": "Update authentication documentation for changes in mkdocs.yml. Include security considerations.",
+      "action_required": "Update authentication documentation for changes in .claude/commands/demo.md. Include security considerations.",
       "status": "new",
-      "created_at": "2026-03-11T15:28:41.746909"
+      "created_at": "2026-03-11T15:53:23.663162"
     },
     {
-      "id": "CODE-0075",
+      "id": "CODE-0394",
       "title": "Public Function: public_function: verify_webhook_signature",
       "description": "Consider documenting public API: verify_webhook_signature. Include parameters, return value, and example usage.",
       "source": "code",
@@ -84,64 +84,64 @@
       "sample_queries": [],
       "action_required": "Consider documenting public API: verify_webhook_signature. Include parameters, return value, and example usage.",
       "status": "new",
-      "created_at": "2026-03-11T15:28:41.749081"
+      "created_at": "2026-03-11T15:53:23.668002"
     },
     {
-      "id": "CODE-0147",
+      "id": "CODE-0036",
       "title": "Database Schema: database_schema: migration",
-      "description": "Document database schema change in seo-report-algolia.json. Update data model documentation.",
+      "description": "Document database schema change in reports/batch_tasks.json. Update data model documentation.",
       "source": "code",
       "category": "database_schema",
       "suggested_doc_type": "how-to",
       "priority": "high",
-      "frequency": 205,
+      "frequency": 232,
       "keywords": [],
       "related_files": [
-        "seo-report-algolia.json"
+        "reports/batch_tasks.json"
       ],
       "sample_queries": [],
-      "action_required": "Document database schema change in seo-report-algolia.json. Update data model documentation.",
+      "action_required": "Document database schema change in reports/batch_tasks.json. Update data model documentation.",
       "status": "new",
-      "created_at": "2026-03-11T15:28:41.751144"
+      "created_at": "2026-03-11T15:53:23.663723"
     },
     {
-      "id": "CODE-0684",
-      "title": "Breaking Change: breaking_change:  Change",
-      "description": "URGENT: Document breaking change in reports/consolidated_report.json. Update migration guide with before/after examples.",
+      "id": "CODE-0009",
+      "title": "Breaking Change: breaking_change: ",
+      "description": "URGENT: Document breaking change in reports/batch_tasks.json. Update migration guide with before/after examples.",
       "source": "code",
       "category": "breaking_change",
       "suggested_doc_type": "how-to",
       "priority": "high",
-      "frequency": 77,
+      "frequency": 92,
       "keywords": [],
       "related_files": [
-        "reports/consolidated_report.json"
+        "reports/batch_tasks.json"
       ],
       "sample_queries": [],
-      "action_required": "URGENT: Document breaking change in reports/consolidated_report.json. Update migration guide with before/after examples.",
+      "action_required": "URGENT: Document breaking change in reports/batch_tasks.json. Update migration guide with before/after examples.",
       "status": "new",
-      "created_at": "2026-03-11T15:28:41.760392"
+      "created_at": "2026-03-11T15:53:23.663236"
     },
     {
-      "id": "CODE-0006",
-      "title": "Removed Function: Function removed: showInfo",
-      "description": "BREAKING: Function showInfo was removed. Update documentation and add migration guide.",
+      "id": "CODE-0193",
+      "title": "Removed Function: Function removed: selectPack",
+      "description": "BREAKING: Function selectPack was removed. Update documentation and add migration guide.",
       "source": "code",
       "category": "removed_function",
       "suggested_doc_type": "how-to",
       "priority": "high",
-      "frequency": 39,
+      "frequency": 61,
       "keywords": [],
       "related_files": [
-        "docs/diagrams/demo-webhook-pipeline.html"
+        "reports/pipeline-configurator.html"
       ],
       "sample_queries": [],
-      "action_required": "BREAKING: Function showInfo was removed. Update documentation and add migration guide.",
+      "action_required": "BREAKING: Function selectPack was removed. Update documentation and add migration guide.",
       "status": "new",
-      "created_at": "2026-03-11T15:28:41.746933"
+      "created_at": "2026-03-11T15:53:23.665638"
     },
     {
-      "id": "CODE-1078",
+      "id": "CODE-1397",
       "title": "Api Endpoint: api_endpoint: /tasks",
       "description": "Document API endpoint: /tasks. Include request/response examples, parameters, authentication requirements.",
       "source": "code",
@@ -156,10 +156,10 @@
       "sample_queries": [],
       "action_required": "Document API endpoint: /tasks. Include request/response examples, parameters, authentication requirements.",
       "status": "new",
-      "created_at": "2026-03-11T15:28:41.764811"
+      "created_at": "2026-03-11T15:53:23.677870"
     },
     {
-      "id": "CODE-0859",
+      "id": "CODE-1178",
       "title": "Signature Change: Function signature changed: __init__",
       "description": "UPDATE REQUIRED: Function __init__ signature changed. Old: (self, docs_dir: str = \"docs\") → New: (self, docs_dir: str = \"docs\", policy_pack_path: str | None = None). Update documentation and examples.",
       "source": "code",
@@ -174,12 +174,12 @@
       "sample_queries": [],
       "action_required": "UPDATE REQUIRED: Function __init__ signature changed. Old: (self, docs_dir: str = \"docs\") → New: (self, docs_dir: str = \"docs\", policy_pack_path: str | None = None). Update documentation and examples.",
       "status": "new",
-      "created_at": "2026-03-11T15:28:41.762545"
+      "created_at": "2026-03-11T15:53:23.675691"
     },
     {
-      "id": "CODE-0056",
-      "title": "New Function: New function: showInfo",
-      "description": "Document new function: showInfo. Include parameters, return value, and usage example.",
+      "id": "CODE-0375",
+      "title": "New Function: New function: if",
+      "description": "Document new function: if. Include parameters, return value, and usage example.",
       "source": "code",
       "category": "new_function",
       "suggested_doc_type": "how-to",
@@ -190,12 +190,12 @@
         "docs/diagrams/demo-webhook-pipeline.html"
       ],
       "sample_queries": [],
-      "action_required": "Document new function: showInfo. Include parameters, return value, and usage example.",
+      "action_required": "Document new function: if. Include parameters, return value, and usage example.",
       "status": "new",
-      "created_at": "2026-03-11T15:28:41.748211"
+      "created_at": "2026-03-11T15:53:23.667807"
     },
     {
-      "id": "CODE-0849",
+      "id": "CODE-1168",
       "title": "Error Handling: error_handling: ValueError",
       "description": "Document new error type: ValueError. Include cause, solution, and error code.",
       "source": "code",
@@ -210,28 +210,28 @@
       "sample_queries": [],
       "action_required": "Document new error type: ValueError. Include cause, solution, and error code.",
       "status": "new",
-      "created_at": "2026-03-11T15:28:41.762435"
+      "created_at": "2026-03-11T15:53:23.675602"
     },
     {
-      "id": "CODE-0178",
+      "id": "CODE-0064",
       "title": "Config Option: config_option: local",
       "description": "Document configuration option: local. Include allowed values and when to use.",
       "source": "code",
       "category": "config_option",
       "suggested_doc_type": "reference",
       "priority": "medium",
-      "frequency": 39,
+      "frequency": 41,
       "keywords": [],
       "related_files": [
-        ".claude/settings.local.json"
+        "reports/consolidated_report.json"
       ],
       "sample_queries": [],
       "action_required": "Document configuration option: local. Include allowed values and when to use.",
       "status": "new",
-      "created_at": "2026-03-11T15:28:41.751827"
+      "created_at": "2026-03-11T15:53:23.664098"
     },
     {
-      "id": "CODE-3228",
+      "id": "CODE-3547",
       "title": "Env Var: env_var: ASK_AI_API_KEY",
       "description": "Add environment variable ASK_AI_API_KEY to configuration reference. Include default value, description, and examples.",
       "source": "code",
@@ -246,7 +246,7 @@
       "sample_queries": [],
       "action_required": "Add environment variable ASK_AI_API_KEY to configuration reference. Include default value, description, and examples.",
       "status": "new",
-      "created_at": "2026-03-11T15:28:41.782212"
+      "created_at": "2026-03-11T15:53:23.697311"
     }
   ]
 }
