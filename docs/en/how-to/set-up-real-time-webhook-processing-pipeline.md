@@ -300,7 +300,7 @@ For static environments, refer to the [Mermaid sequence diagram](#visualize-the-
 
 ## Related guides
 
-For API endpoint details, see the [API reference](../reference/api-reference.md).
+For API endpoint details, see the [API playground](../../reference/api-playground.md).
 
 ## Next steps
 
