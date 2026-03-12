@@ -98,6 +98,10 @@ runtime:
     release_pack: true
   api_first:
     enabled: true
+    openapi_version: "3.1.0"
+    manual_overrides_path: "api/overrides/openapi.manual.yml"
+    regression_snapshot_path: "api/.openapi-regression.json"
+    update_regression_snapshot: false
     generate_from_notes: true
     auto_remediate: true
     max_attempts: 3
@@ -144,6 +148,10 @@ runtime:
     release_pack: true
   api_first:
     enabled: true
+    openapi_version: "3.1.0"
+    manual_overrides_path: "api/overrides/openapi.manual.yml"
+    regression_snapshot_path: "api/.openapi-regression.json"
+    update_regression_snapshot: false
     generate_from_notes: true
     verify_user_path: true
     run_docs_lint: true

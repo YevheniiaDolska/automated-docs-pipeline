@@ -24,6 +24,8 @@ bundle:
   # - scripts/generate_openapi_from_planning_notes.py
   # - scripts/validate_openapi_contract.py
   # - scripts/generate_fastapi_stubs_from_openapi.py
+  # - scripts/apply_openapi_overrides.py
+  # - scripts/check_openapi_regression.py
   include_scripts:
     - "scripts/run_weekly_gap_batch.py"
     - "scripts/check_docs_contract.py"
@@ -47,6 +49,8 @@ bundle:
     - "scripts/validate_knowledge_modules.py"
     - "scripts/generate_knowledge_retrieval_index.py"
     - "scripts/build_all_intent_experiences.py"
+    - "scripts/apply_openapi_overrides.py"
+    - "scripts/check_openapi_regression.py"
     - "scripts/i18n_sync.py"
     - "scripts/i18n_translate.py"
     - "scripts/i18n_migrate.py"
@@ -108,6 +112,10 @@ runtime:
     docs_provider: "mkdocs"
     docs_spec_target: "docs/assets/api"
     stubs_output: "generated/api-stubs/fastapi/app/main.py"
+    openapi_version: "3.0.3"
+    manual_overrides_path: ""
+    regression_snapshot_path: ""
+    update_regression_snapshot: false
     generate_from_notes: true
     verify_user_path: false
     mock_base_url: "http://localhost:4010/v1"

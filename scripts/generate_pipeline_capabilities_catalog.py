@@ -48,6 +48,16 @@ def main() -> int:
         raise ValueError("package.json scripts must be a mapping")
 
     lines: list[str] = []
+    lines.append("---")
+    lines.append('title: "Pipeline Capabilities Catalog"')
+    lines.append('description: "Generated catalog of available pipeline commands, templates, policy packs, and assets for client configuration."')
+    lines.append("content_type: reference")
+    lines.append("product: both")
+    lines.append("tags:")
+    lines.append("  - Operations")
+    lines.append("  - Reference")
+    lines.append("---")
+    lines.append("")
     lines.append("# Pipeline Capabilities Catalog")
     lines.append("")
     lines.append("This file is auto-generated from `package.json` scripts.")

@@ -104,6 +104,9 @@ class TestBuildClientBundle:
         runtime = yaml.safe_load((out / "config" / "client_runtime.yml").read_text(encoding="utf-8"))
         assert runtime["project"]["client_id"] == "acme"
         assert runtime["pipeline"]["weekly_stale_days"] == 180
+        assert runtime["api_first"]["openapi_version"] == "3.0.3"
+        assert runtime["api_first"]["manual_overrides_path"] == ""
+        assert runtime["api_first"]["regression_snapshot_path"] == ""
         selected = yaml.safe_load((out / "policy_packs" / "selected.yml").read_text(encoding="utf-8"))
         assert selected["docs_contract"]["doc_patterns"] == ["^manual/"]
         assert (out / "scripts" / "gap_detector.py").exists()
@@ -527,6 +530,54 @@ class TestWeeklyBatch:
         assert any("proj-v1" in " ".join(cmd) for cmd in api_cmds)
         assert any("proj-v2" in " ".join(cmd) for cmd in api_cmds)
 
+    def test_main_api_first_forwards_overrides_and_regression(self, tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:
+        from scripts import run_weekly_gap_batch as mod
+
+        repo = tmp_path
+        docsops = repo / "docsops"
+        scripts_dir = docsops / "scripts"
+        (docsops / "config").mkdir(parents=True)
+        scripts_dir.mkdir(parents=True)
+        (scripts_dir / "run_api_first_flow.py").write_text("print('ok')\n", encoding="utf-8")
+
+        runtime = {
+            "docs_flow": {"mode": "api-first"},
+            "modules": {},
+            "api_first": {
+                "enabled": True,
+                "project_slug": "proj",
+                "notes_path": "notes.md",
+                "spec_path": "api/openapi.yaml",
+                "spec_tree_path": "api/proj",
+                "docs_provider": "mkdocs",
+                "docs_spec_target": "docs/assets/api",
+                "stubs_output": "generated/stubs.py",
+                "openapi_version": "3.1.0",
+                "manual_overrides_path": "api/overrides.yml",
+                "regression_snapshot_path": "api/.openapi-regression.json",
+                "update_regression_snapshot": True,
+            },
+            "custom_tasks": {"weekly": []},
+        }
+        (docsops / "config" / "client_runtime.yml").write_text(yaml.safe_dump(runtime, sort_keys=False), encoding="utf-8")
+
+        commands: list[list[str]] = []
+        monkeypatch.chdir(repo)
+        monkeypatch.setattr(mod, "_resolve_weekly_base_ref", lambda r, s: "abc123")
+        monkeypatch.setattr(mod, "_run", lambda cmd, cwd: commands.append(cmd))
+        monkeypatch.setattr(mod, "_run_allow_fail", lambda cmd, cwd: 0)
+        monkeypatch.setattr(sys, "argv", ["x", "--docsops-root", "docsops", "--reports-dir", "reports"])
+
+        rc = mod.main()
+        assert rc == 0
+        api_cmds = [cmd for cmd in commands if any("run_api_first_flow.py" in p for p in cmd)]
+        assert len(api_cmds) == 1
+        cmd = api_cmds[0]
+        assert "--openapi-version" in cmd and "3.1.0" in cmd
+        assert "--manual-overrides" in cmd and "api/overrides.yml" in cmd
+        assert "--regression-snapshot" in cmd and "api/.openapi-regression.json" in cmd
+        assert "--update-regression-snapshot" in cmd
+
 
 class TestOnboardClient:
     def test_onboard_happy_path(self, tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:
@@ -830,6 +881,62 @@ class TestRunApiFirstFlow:
         with pytest.raises(RuntimeError):
             mod.main()
 
+    def test_main_forwards_overrides_and_openapi_version(self, tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:
+        from scripts import run_api_first_flow as mod
+
+        repo = tmp_path
+        scripts_dir = repo / "scripts"
+        scripts_dir.mkdir()
+        monkeypatch.setattr(mod, "__file__", str(scripts_dir / "run_api_first_flow.py"))
+
+        (repo / "notes").mkdir()
+        (repo / "notes" / "plan.md").write_text("x", encoding="utf-8")
+        (repo / "api").mkdir()
+        (repo / "api" / "openapi.yaml").write_text("openapi: 3.0.3\n", encoding="utf-8")
+        (repo / "api" / "taskstream").mkdir(parents=True)
+        (repo / "docs" / "assets" / "api").mkdir(parents=True)
+        (repo / "overrides").mkdir()
+        (repo / "overrides" / "api.yml").write_text("spec: {}\n", encoding="utf-8")
+
+        commands: list[list[str]] = []
+
+        def fake_run(cmd: list[str], **_: object) -> None:
+            commands.append(cmd)
+
+        monkeypatch.setattr(mod, "run", fake_run)
+        monkeypatch.setattr(mod, "run_first_available", lambda *a, **k: None)
+        monkeypatch.setattr(mod, "copy_spec_to_docs", lambda *a, **k: None)
+        monkeypatch.setattr(mod.shutil, "copy2", lambda *a, **k: None)
+        monkeypatch.setattr(mod, "self_verify_stub_coverage", lambda *a, **k: None)
+        monkeypatch.setattr(mod, "build_sandbox_page_url", lambda *a, **k: "/reference/taskstream-api-playground/")
+        monkeypatch.setattr(mod, "run_one_attempt", lambda *a, **k: None)
+        monkeypatch.setattr(
+            sys,
+            "argv",
+            [
+                "x",
+                "--project-slug",
+                "taskstream",
+                "--notes",
+                "notes/plan.md",
+                "--spec",
+                "api/openapi.yaml",
+                "--spec-tree",
+                "api/taskstream",
+                "--openapi-version",
+                "3.1.0",
+                "--manual-overrides",
+                "overrides/api.yml",
+            ],
+        )
+
+        assert mod.main() == 0
+        assert any(
+            "generate_openapi_from_planning_notes.py" in " ".join(cmd) and "--openapi-version" in cmd and "3.1.0" in cmd
+            for cmd in commands
+        )
+        assert any("apply_openapi_overrides.py" in " ".join(cmd) for cmd in commands)
+
 
 class TestAdditionalZeroCoverageScripts:
     def test_generate_pipeline_capabilities_catalog(self, tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:
@@ -986,6 +1093,123 @@ class TestGenerateFastApiStubsFromOpenApi:
         missing = tmp_path / "missing.yaml"
         monkeypatch.setattr(sys, "argv", ["x", "--spec", str(missing), "--output", str(out)])
         assert mod.main() == 2
+
+
+class TestApplyOpenApiOverrides:
+    def test_deep_merge_and_apply(self, tmp_path: Path) -> None:
+        from scripts import apply_openapi_overrides as mod
+
+        spec = tmp_path / "openapi.yaml"
+        spec.write_text(
+            yaml.safe_dump(
+                {
+                    "openapi": "3.0.3",
+                    "info": {"title": "Demo"},
+                    "paths": {"/projects": {"get": {"summary": "List projects"}}},
+                },
+                sort_keys=False,
+            ),
+            encoding="utf-8",
+        )
+        tree = tmp_path / "split"
+        file_path = tree / "v1" / "paths" / "projects.yaml"
+        file_path.parent.mkdir(parents=True)
+        file_path.write_text(yaml.safe_dump({"/projects": {"get": {"description": "Base"}}}, sort_keys=False), encoding="utf-8")
+
+        overrides = tmp_path / "overrides.yml"
+        overrides.write_text(
+            yaml.safe_dump(
+                {
+                    "spec": {
+                        "info": {"version": "v1"},
+                        "x-internal-owner": "docs-team",
+                    },
+                    "files": {
+                        "v1/paths/projects.yaml": {
+                            "/projects": {
+                                "get": {
+                                    "x-codeSamples": [
+                                        {"lang": "curl", "source": "curl -sS https://api.example.com/v1/projects"}
+                                    ]
+                                }
+                            }
+                        }
+                    },
+                },
+                sort_keys=False,
+            ),
+            encoding="utf-8",
+        )
+
+        root_applied, files_applied = mod.apply_overrides(spec, tree, overrides)
+        assert root_applied == 1
+        assert files_applied == 1
+
+        merged_spec = yaml.safe_load(spec.read_text(encoding="utf-8"))
+        assert merged_spec["info"]["version"] == "v1"
+        assert merged_spec["x-internal-owner"] == "docs-team"
+
+        merged_path = yaml.safe_load(file_path.read_text(encoding="utf-8"))
+        assert merged_path["/projects"]["get"]["x-codeSamples"][0]["lang"] == "curl"
+
+    def test_main_validation(self, tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:
+        from scripts import apply_openapi_overrides as mod
+
+        spec = tmp_path / "openapi.yaml"
+        spec.write_text("openapi: 3.0.3\n", encoding="utf-8")
+        overrides = tmp_path / "overrides.yml"
+        overrides.write_text("spec: {}\n", encoding="utf-8")
+
+        monkeypatch.setattr(sys, "argv", ["x", "--spec", str(spec), "--overrides", str(overrides)])
+        assert mod.main() == 0
+
+        monkeypatch.setattr(sys, "argv", ["x", "--spec", str(tmp_path / "missing.yaml"), "--overrides", str(overrides)])
+        assert mod.main() == 2
+
+
+class TestCheckOpenApiRegression:
+    def test_snapshot_update_and_compare(self, tmp_path: Path) -> None:
+        from scripts import check_openapi_regression as mod
+
+        spec = tmp_path / "openapi.yaml"
+        spec.write_text(
+            yaml.safe_dump(
+                {
+                    "openapi": "3.0.3",
+                    "info": {"title": "Demo", "version": "v1"},
+                    "paths": {},
+                    "components": {},
+                },
+                sort_keys=False,
+            ),
+            encoding="utf-8",
+        )
+        tree = tmp_path / "api" / "demo"
+        tree.mkdir(parents=True)
+        (tree / "paths.yaml").write_text(yaml.safe_dump({"/x": {"get": {"summary": "X"}}}, sort_keys=False), encoding="utf-8")
+
+        snapshot = mod.collect_snapshot(spec, tree)
+        assert str(spec.as_posix()) in snapshot["files"]
+
+        baseline = dict(snapshot)
+        diff = mod.compare_snapshots(snapshot, baseline)
+        assert diff == {"added": [], "removed": [], "changed": []}
+
+        spec.write_text(
+            yaml.safe_dump(
+                {
+                    "openapi": "3.0.3",
+                    "info": {"title": "Demo Changed", "version": "v1"},
+                    "paths": {},
+                    "components": {},
+                },
+                sort_keys=False,
+            ),
+            encoding="utf-8",
+        )
+        changed = mod.collect_snapshot(spec, tree)
+        diff = mod.compare_snapshots(changed, baseline)
+        assert str(spec.as_posix()) in diff["changed"]
 
 
 class TestBuildAllIntentExperiences:

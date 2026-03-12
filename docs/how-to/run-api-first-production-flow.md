@@ -37,6 +37,9 @@ python3 scripts/run_api_first_flow.py \
   --notes demos/api-first/taskstream-planning-notes.md \
   --spec api/openapi.yaml \
   --spec-tree api/taskstream \
+  --openapi-version 3.1.0 \
+  --manual-overrides api/overrides/openapi.manual.yml \
+  --regression-snapshot api/.openapi-regression.json \
   --docs-provider mkdocs \
   --verify-user-path \
   --mock-base-url http://localhost:4010/v1 \
@@ -59,6 +62,12 @@ Example layout:
 api/v1/openapi.yaml -> docs/assets/api/v1/
 api/v2/openapi.yaml -> docs/assets/api/v2/
 ```
+
+Use overrides and regression snapshot as follows:
+
+- `--manual-overrides`: keep advanced hand-crafted schema parts (`x-*`, `oneOf`, vendor extensions) across regeneration.
+- `--regression-snapshot`: block unexpected contract drift.
+- `--update-regression-snapshot`: refresh baseline snapshot only when intentional changes are approved.
 
 ## Step 3: Start sandbox for live testing
 
@@ -90,6 +99,7 @@ Run these commands to keep code snippets aligned with the new docs standard:
 python3 scripts/generate_multilang_tabs.py --paths docs templates --scope api --write
 python3 scripts/validate_multilang_examples.py --docs-dir docs --scope api --required-languages curl,javascript,python
 python3 scripts/check_code_examples_smoke.py --paths docs templates --allow-empty
+python3 scripts/check_openapi_regression.py --spec api/openapi.yaml --spec-tree api/taskstream --snapshot api/.openapi-regression.json
 ```
 
 Use this API request tab set as the baseline format for executable examples:

@@ -521,6 +521,7 @@ def main() -> int:
     parser.add_argument("--notes", required=True)
     parser.add_argument("--spec", required=True)
     parser.add_argument("--spec-tree", required=True)
+    parser.add_argument("--openapi-version", default="3.0.3")
     args = parser.parse_args()
 
     repo = Path(__file__).resolve().parents[1]
@@ -551,7 +552,7 @@ def main() -> int:
         root_paths[path] = {"$ref": f"./taskstream/v1/paths/{group}.yaml#/{pointer_escape(path)}"}
 
     root_spec: dict[str, Any] = {
-        "openapi": "3.0.3",
+        "openapi": str(args.openapi_version).strip() or "3.0.3",
         "info": {
             "title": f"{project_name} Public API",
             "version": api_version,

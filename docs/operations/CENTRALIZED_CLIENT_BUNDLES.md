@@ -129,6 +129,23 @@ runtime:
 - Algolia upload
 - любые другие скрипты/команды из полного каталога
 
+### 3.2) API-first advanced controls (manual overrides + regression gate)
+
+```yaml
+runtime:
+  api_first:
+    enabled: true
+    openapi_version: "3.1.0"
+    manual_overrides_path: "api/overrides/openapi.manual.yml"
+    regression_snapshot_path: "api/.openapi-regression.json"
+    update_regression_snapshot: false
+```
+
+Для этого в `bundle.include_scripts` должны быть:
+
+- `scripts/apply_openapi_overrides.py`
+- `scripts/check_openapi_regression.py`
+
 ### 3.1) Централизованные интеграции (Algolia + Ask AI)
 
 ```yaml
@@ -321,6 +338,8 @@ python3 scripts/provision_client_repo.py \
 \11. Проверяет stale-доки (по умолчанию 180 дней без изменений).
 \11. Запускает KPI/SLA (если включено в bundle).
 \11. При `mode=api-first|hybrid` запускает API-first flow (если включено в `runtime.api_first.enabled`).
+\11. Применяет manual overrides к OpenAPI артефактам (если задан `manual_overrides_path`).
+\11. Проверяет regression snapshot (если задан `regression_snapshot_path`).
 \11. Генерирует и валидирует мультиязычные вкладки кода (новый стандарт).
 \11. Выполняет smoke-проверки кода и сверяет `expected-output` (если указан).
 \11. Запускает `runtime.custom_tasks.weekly` (если включены).

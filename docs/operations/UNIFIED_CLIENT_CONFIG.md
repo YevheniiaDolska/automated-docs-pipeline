@@ -179,6 +179,10 @@ runtime:
     docs_provider: "mkdocs"
     docs_spec_target: "docs/assets/api"
     stubs_output: "generated/api-stubs/fastapi/app/main.py"
+    openapi_version: "3.0.3"
+    manual_overrides_path: "api/overrides/openapi.manual.yml"
+    regression_snapshot_path: "api/.openapi-regression.json"
+    update_regression_snapshot: false
     generate_from_notes: true
     verify_user_path: false
     mock_base_url: "http://localhost:4010/v1"
@@ -202,6 +206,9 @@ runtime:
         spec_tree_path: "api/v1"
         docs_spec_target: "docs/assets/api/v1"
         stubs_output: "generated/api-stubs/v1/main.py"
+        openapi_version: "3.1.0"
+        manual_overrides_path: "api/v1/overrides/openapi.manual.yml"
+        regression_snapshot_path: "api/v1/.openapi-regression.json"
       - version: "v2"
         project_slug: "acme-v2"
         notes_path: "notes/api-v2-planning.md"
@@ -209,10 +216,20 @@ runtime:
         spec_tree_path: "api/v2"
         docs_spec_target: "docs/assets/api/v2"
         stubs_output: "generated/api-stubs/v2/main.py"
+        openapi_version: "3.1.0"
+        manual_overrides_path: "api/v2/overrides/openapi.manual.yml"
+        regression_snapshot_path: "api/v2/.openapi-regression.json"
 ```
 
 If your codebase has one API version, keep one config only.
 If your codebase has multiple API versions, add one entry per version in `api_first.versions`.
+
+New advanced keys:
+
+- `openapi_version`: OpenAPI version for generation from planning notes.
+- `manual_overrides_path`: YAML overlay file applied after generation for advanced schema blocks and `x-*` extensions.
+- `regression_snapshot_path`: JSON baseline for contract regression gate.
+- `update_regression_snapshot`: when `true`, refreshes baseline during run.
 
 ## 7. Module switches
 
@@ -250,7 +267,7 @@ runtime:
 - `rag_optimization` -> `scripts/generate_knowledge_retrieval_index.py`
 - `i18n_sync` -> `scripts/i18n_sync.py`
 - `release_pack` -> `scripts/generate_release_docs_pack.py`
-- `api-first/hybrid` -> `scripts/run_api_first_flow.py` (+ related api-first scripts)
+- `api-first/hybrid` -> `scripts/run_api_first_flow.py` + `scripts/generate_openapi_from_planning_notes.py` + `scripts/validate_openapi_contract.py` + `scripts/generate_fastapi_stubs_from_openapi.py` + `scripts/apply_openapi_overrides.py` + `scripts/check_openapi_regression.py`
 
 If script is missing in bundle, module is skipped or warned.
 
@@ -377,6 +394,27 @@ How it works in weekly runner:
 - auto-generate tabbed examples from standalone cURL examples
 - validate required language tabs
 - run smoke execution and `expected-output` matching on tagged blocks
+
+#### API-first advanced baseline (overrides + regression gate)
+
+```yaml
+runtime:
+  api_first:
+    enabled: true
+    openapi_version: "3.1.0"
+    manual_overrides_path: "api/overrides/openapi.manual.yml"
+    regression_snapshot_path: "api/.openapi-regression.json"
+    update_regression_snapshot: false
+```
+
+Bundle requirements:
+
+```yaml
+bundle:
+  include_scripts:
+    - "scripts/apply_openapi_overrides.py"
+    - "scripts/check_openapi_regression.py"
+```
 
 #### SEO/GEO weekly
 
@@ -525,6 +563,9 @@ runtime:
     mode: "api-first"
   api_first:
     enabled: true
+    openapi_version: "3.1.0"
+    manual_overrides_path: "api/overrides/openapi.manual.yml"
+    regression_snapshot_path: "api/.openapi-regression.json"
     generate_from_notes: true
 ```
 

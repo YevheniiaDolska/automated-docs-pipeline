@@ -426,7 +426,17 @@ def main() -> int:
                     str(api_cfg.get("stubs_output", "generated/api-stubs/fastapi/app/main.py")),
                     "--max-attempts",
                     str(int(api_cfg.get("max_attempts", 3))),
+                    "--openapi-version",
+                    str(api_cfg.get("openapi_version", "3.0.3")),
                 ]
+                manual_overrides = str(api_cfg.get("manual_overrides_path", "")).strip()
+                if manual_overrides:
+                    cmd.extend(["--manual-overrides", manual_overrides])
+                regression_snapshot = str(api_cfg.get("regression_snapshot_path", "")).strip()
+                if regression_snapshot:
+                    cmd.extend(["--regression-snapshot", regression_snapshot])
+                if bool(api_cfg.get("update_regression_snapshot", False)):
+                    cmd.append("--update-regression-snapshot")
                 if bool(api_cfg.get("auto_remediate", True)):
                     cmd.append("--auto-remediate")
                 if bool(api_cfg.get("verify_user_path", False)):

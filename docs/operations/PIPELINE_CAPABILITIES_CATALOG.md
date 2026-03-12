@@ -1,12 +1,11 @@
 ---
 title: "Pipeline Capabilities Catalog"
-description: "Generated catalog of pipeline scripts and capabilities for client task configuration."
+description: "Generated catalog of available pipeline commands, templates, policy packs, and assets for client configuration."
 content_type: reference
 product: both
-last_reviewed: "2026-03-11"
 tags:
   - Operations
-  - Capabilities
+  - Reference
 ---
 
 # Pipeline Capabilities Catalog
@@ -85,6 +84,8 @@ runtime:
 | `gaps:community` | Gap detection | `python3 -m scripts.gap_detection.cli community` |
 | `gaps:full` | Gap detection | `python3 -m scripts.gap_detection.cli full --generate` |
 | `gaps:generate` | Gap detection | `python3 -m scripts.gap_detection.cli generate --report reports/doc_gaps_report.json` |
+| `generate:multilang-tabs` | General | `python3 scripts/generate_multilang_tabs.py --paths docs templates --scope api --write` |
+| `generate:multilang-tabs:all` | General | `python3 scripts/generate_multilang_tabs.py --paths docs templates --scope all --write` |
 | `generator:detect` | General | `python3 scripts/run_generator.py detect` |
 | `generator:info` | General | `python3 scripts/run_generator.py info` |
 | `i18n:migrate` | Localization | `python3 scripts/i18n_migrate.py` |
@@ -95,7 +96,8 @@ runtime:
 | `kpi-full` | KPI/SLA | `npm run kpi-wall && npm run badges` |
 | `kpi-sla` | KPI/SLA | `python3 scripts/evaluate_kpi_sla.py --current reports/kpi-wall.json --policy-pack policy_packs/api-first.yml --json-output reports/kpi-sla-report.json --md-output reports/kpi-sla-report.md` |
 | `kpi-wall` | KPI/SLA | `python3 scripts/generate_kpi_wall.py --docs-dir docs --reports-dir reports --stale-days 90` |
-| `lint` | Lint/Quality | `npm run normalize:docs:check && npm run lint:vale && npm run lint:md && npm run lint:spell && npm run lint:frontmatter && npm run lint:geo && npm run lint:knowledge && npm run lint:snippets` |
+| `lint` | Lint/Quality | `npm run normalize:docs:check && npm run lint:vale && npm run lint:md && npm run lint:spell && npm run lint:frontmatter && npm run lint:geo && npm run lint:knowledge && npm run lint:snippets && npm run lint:multilang` |
+| `lint:diagrams` | Lint/Quality | `python3 scripts/validate_diagram_content.py docs templates` |
 | `lint:examples-smoke` | Lint/Quality | `python3 scripts/check_code_examples_smoke.py --paths docs templates` |
 | `lint:examples-smoke:network` | Lint/Quality | `python3 scripts/check_code_examples_smoke.py --paths docs templates --allow-network` |
 | `lint:frontmatter` | Lint/Quality | `python3 scripts/validate_frontmatter.py` |
@@ -103,6 +105,8 @@ runtime:
 | `lint:knowledge` | Lint/Quality | `python3 scripts/validate_knowledge_modules.py` |
 | `lint:layers` | Lint/Quality | `python3 scripts/doc_layers_validator.py` |
 | `lint:md` | Lint/Quality | `markdownlint docs/` |
+| `lint:multilang` | Lint/Quality | `python3 scripts/validate_multilang_examples.py --docs-dir docs --scope api --required-languages curl,javascript,python` |
+| `lint:multilang:all` | Lint/Quality | `python3 scripts/validate_multilang_examples.py --docs-dir docs --scope all --required-languages curl,javascript,python` |
 | `lint:openapi` | Lint/Quality | `npx -y @stoplight/spectral-cli lint api/openapi.yaml --ruleset .spectral.yml && npx -y @redocly/cli lint api/openapi.yaml && npx -y @apidevtools/swagger-cli validate api/openapi.yaml && python3 scripts/validate_openapi_contract.py api/openapi.yaml` |
 | `lint:snippets` | Lint/Quality | `python3 scripts/lint_code_snippets.py docs/` |
 | `lint:snippets:strict` | Lint/Quality | `python3 scripts/lint_code_snippets.py docs/ templates/ --strict` |
@@ -111,6 +115,10 @@ runtime:
 | `new-doc` | General | `python3 scripts/new_doc.py` |
 | `normalize:docs` | General | `python3 scripts/normalize_docs.py docs/` |
 | `normalize:docs:check` | General | `python3 scripts/normalize_docs.py docs/ --check` |
+| `onboard:client` | General | `python3 scripts/onboard_client.py` |
+| `openapi:overrides` | General | `python3 scripts/apply_openapi_overrides.py --spec api/openapi.yaml --spec-tree api/taskstream --overrides api/overrides/openapi.manual.yml` |
+| `openapi:regression` | General | `python3 scripts/check_openapi_regression.py --spec api/openapi.yaml --spec-tree api/taskstream --snapshot api/.openapi-regression.json` |
+| `openapi:regression:update` | General | `python3 scripts/check_openapi_regression.py --spec api/openapi.yaml --spec-tree api/taskstream --snapshot api/.openapi-regression.json --update` |
 | `prepare` | General | `husky install` |
 | `release-pack` | General | `python3 scripts/generate_release_docs_pack.py --output reports/release-docs-pack.md` |
 | `serve` | General | `python3 scripts/run_generator.py serve` |
@@ -119,9 +127,9 @@ runtime:
 | `test:adapter` | General | `python3 -m pytest tests/test_docusaurus_adapter.py -v` |
 | `test:all` | General | `python3 -m pytest -q tests` |
 | `test:configurator` | General | `python3 -m pytest tests/test_gui_configurator.py -v` |
-| `validate:full` | Validation | `npm run validate:minimal && npm run lint:layers && npm run validate:knowledge && npm run docs-ops:e2e && npm run docs-ops:golden && npm run docs-ops:test-suite && python3 test_pipeline.py` |
+| `validate:full` | Validation | `npm run validate:minimal && npm run lint:layers && npm run lint:diagrams && npm run validate:knowledge && npm run docs-ops:e2e && npm run docs-ops:golden && npm run docs-ops:test-suite && python3 test_pipeline.py` |
 | `validate:knowledge` | Validation | `npm run lint:knowledge && npm run build:intent:all && npm run build:knowledge-index` |
-| `validate:minimal` | Validation | `npm run normalize:docs:check && npm run lint:md && npm run lint:frontmatter && npm run lint:geo && npm run lint:examples-smoke` |
+| `validate:minimal` | Validation | `npm run normalize:docs:check && npm run lint:md && npm run lint:frontmatter && npm run lint:geo && npm run lint:multilang && npm run lint:examples-smoke` |
 
 ## Templates
 

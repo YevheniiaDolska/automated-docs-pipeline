@@ -20,6 +20,8 @@ bundle:
     - "scripts/run_api_first_flow.py"
     - "scripts/generate_openapi_from_planning_notes.py"
     - "scripts/validate_openapi_contract.py"
+    - "scripts/apply_openapi_overrides.py"
+    - "scripts/check_openapi_regression.py"
     - "scripts/normalize_docs.py"
     - "scripts/lint_code_snippets.py"
     - "scripts/check_code_examples_smoke.py"
@@ -63,6 +65,10 @@ runtime:
     docs_provider: "mkdocs"
     docs_spec_target: "docs/assets/api"
     stubs_output: "generated/api-stubs/fastapi/app/main.py"
+    openapi_version: "3.0.3"
+    manual_overrides_path: ""
+    regression_snapshot_path: ""
+    update_regression_snapshot: false
     generate_from_notes: true
     verify_user_path: false
     mock_base_url: "http://localhost:4010/v1"

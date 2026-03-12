@@ -103,6 +103,8 @@ It executes:
 - drift + docs contract (if enabled)
 - KPI/SLA (if enabled)
 - API-first flow (if enabled)
+  - manual overrides apply (`apply_openapi_overrides.py`)
+  - regression gate (`check_openapi_regression.py`)
 - RAG/knowledge tasks:
   - `extract_knowledge_modules_from_docs.py`
   - `validate_knowledge_modules.py`

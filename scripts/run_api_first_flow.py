@@ -158,6 +158,8 @@ def run_one_attempt(
     verify_user_path: bool,
     mock_base_url: str,
     run_docs_lint: bool,
+    regression_snapshot: Path | None,
+    update_regression_snapshot: bool,
 ) -> None:
     print("[demo] Step 1/5: Validate contract structure and required metadata.", flush=True)
     run(
@@ -220,6 +222,22 @@ def run_one_attempt(
     print("[demo] Step 4/5: Verify that every operation is covered by a generated handler.", flush=True)
     self_verify_stub_coverage(spec, stubs_output)
 
+    if regression_snapshot is not None:
+        print("[demo] Step 4/5: Run OpenAPI regression gate.", flush=True)
+        cmd = [
+            "python3",
+            "scripts/check_openapi_regression.py",
+            "--spec",
+            str(spec),
+            "--spec-tree",
+            str(spec_tree),
+            "--snapshot",
+            str(regression_snapshot),
+        ]
+        if update_regression_snapshot:
+            cmd.append("--update")
+        run(cmd, cwd=repo, compact=True, summary_label="openapi regression gate finished")
+
     if verify_user_path:
         print("[demo] Step 4/5: Simulate end-user API calls against the live mock server.", flush=True)
         run(
@@ -256,6 +274,22 @@ def main() -> int:
     parser.add_argument("--max-attempts", type=int, default=3)
     parser.add_argument("--inject-demo-nav", action="store_true")
     parser.add_argument("--skip-generate-from-notes", action="store_true")
+    parser.add_argument("--openapi-version", default="3.0.3")
+    parser.add_argument(
+        "--manual-overrides",
+        default="",
+        help="Optional YAML file with manual OpenAPI overrides",
+    )
+    parser.add_argument(
+        "--regression-snapshot",
+        default="",
+        help="Optional JSON snapshot path for OpenAPI regression gate",
+    )
+    parser.add_argument(
+        "--update-regression-snapshot",
+        action="store_true",
+        help="Refresh regression snapshot during this run",
+    )
     args = parser.parse_args()
 
     repo = Path(__file__).resolve().parents[1]
@@ -264,6 +298,8 @@ def main() -> int:
     spec_tree = (repo / args.spec_tree).resolve()
     docs_target = (repo / args.docs_spec_target).resolve()
     stubs_output = (repo / args.stubs_output).resolve()
+    manual_overrides = (repo / args.manual_overrides).resolve() if args.manual_overrides else None
+    regression_snapshot = (repo / args.regression_snapshot).resolve() if args.regression_snapshot else None
 
     ensure_file(notes, "planning notes")
 
@@ -279,6 +315,8 @@ def main() -> int:
                 args.spec,
                 "--spec-tree",
                 args.spec_tree,
+                "--openapi-version",
+                args.openapi_version,
             ],
             cwd=repo,
             compact=True,
@@ -287,6 +325,24 @@ def main() -> int:
 
     ensure_file(spec, "OpenAPI spec")
     ensure_file(spec_tree, "OpenAPI split directory")
+
+    if manual_overrides is not None:
+        ensure_file(manual_overrides, "OpenAPI manual overrides file")
+        run(
+            [
+                "python3",
+                "scripts/apply_openapi_overrides.py",
+                "--spec",
+                str(spec),
+                "--spec-tree",
+                str(spec_tree),
+                "--overrides",
+                str(manual_overrides),
+            ],
+            cwd=repo,
+            compact=True,
+            summary_label="manual OpenAPI overrides applied",
+        )
 
     if args.inject_demo_nav:
         run(["python3", "scripts/manage_demo_nav.py", "--mode", "add"], cwd=repo)
@@ -306,6 +362,8 @@ def main() -> int:
                 args.verify_user_path,
                 args.mock_base_url,
                 args.run_docs_lint,
+                regression_snapshot,
+                args.update_regression_snapshot,
             )
             print(f"[demo] sandbox page URL: {build_sandbox_page_url(repo, args.docs_provider)}", flush=True)
             print("[ok] API-first production flow completed successfully", flush=True)
