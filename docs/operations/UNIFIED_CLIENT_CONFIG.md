@@ -150,7 +150,7 @@ bundle:
       enabled: true
       since_days: 7
       day_of_week: "monday"
-      time_24h: "09:00"
+      time_24h: "10:00"
 ```
 
 ## 5. Runtime behavior
@@ -302,7 +302,19 @@ runtime:
     enabled: true
     modules_dir: "knowledge_modules"
     output_path: "docs/assets/knowledge-graph.jsonld"
+  git_sync:
+    enabled: false
+    repo_path: "."
+    remote: "origin"
+    branch: ""
+    fetch_first: true
+    rebase: true
+    autostash: true
+    continue_on_error: true
 ```
+
+When `git_sync.enabled=true`, weekly runner executes `git fetch` + `git pull` before report generation.
+This lets the responsible person avoid manual pull steps.
 
 Important: API-first is only one flow branch.
 The pipeline supports and generates all major doc types (tutorial/how-to/concept/reference/troubleshooting/release/security/sdk/api/user/admin/runbook), and quality automation applies across them.

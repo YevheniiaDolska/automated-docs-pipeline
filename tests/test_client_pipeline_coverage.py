@@ -113,6 +113,8 @@ class TestBuildClientBundle:
         assert runtime["retrieval_eval"]["top_k"] == 3
         assert runtime["knowledge_graph"]["enabled"] is True
         assert runtime["knowledge_graph"]["output_path"] == "docs/assets/knowledge-graph.jsonld"
+        assert runtime["git_sync"]["enabled"] is False
+        assert runtime["git_sync"]["remote"] == "origin"
         selected = yaml.safe_load((out / "policy_packs" / "selected.yml").read_text(encoding="utf-8"))
         assert selected["docs_contract"]["doc_patterns"] == ["^manual/"]
         assert (out / "scripts" / "gap_detector.py").exists()
@@ -356,6 +358,37 @@ class TestWeeklyBatch:
             mod._run_shell("echo test", tmp_path, continue_on_error=False)
         rc = mod._run_shell("echo test", tmp_path, continue_on_error=True)
         assert rc == 1
+
+    def test_run_git_sync_executes_fetch_and_pull(self, tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:
+        from scripts import run_weekly_gap_batch as mod
+
+        repo = tmp_path / "repo"
+        (repo / ".git").mkdir(parents=True)
+
+        calls: list[tuple[str, Path, bool]] = []
+        monkeypatch.setattr(
+            mod,
+            "_run_shell",
+            lambda command, cwd, continue_on_error: calls.append((command, cwd, continue_on_error)) or 0,
+        )
+
+        mod._run_git_sync(
+            tmp_path,
+            {
+                "enabled": True,
+                "repo_path": "repo",
+                "remote": "origin",
+                "branch": "main",
+                "fetch_first": True,
+                "rebase": True,
+                "autostash": True,
+                "continue_on_error": True,
+            },
+        )
+
+        assert calls[0][0] == "git fetch origin --prune"
+        assert calls[1][0] == "git pull --rebase --autostash origin main"
+        assert calls[0][1] == repo.resolve()
 
     def test_main_code_first_and_custom_tasks(self, tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:
         from scripts import run_weekly_gap_batch as mod

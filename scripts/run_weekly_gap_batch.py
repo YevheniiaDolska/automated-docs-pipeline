@@ -42,6 +42,59 @@ def _run_shell(command: str, cwd: Path, continue_on_error: bool) -> int:
     return completed.returncode
 
 
+def _resolve_repo_path(repo_root: Path, repo_path: str) -> Path:
+    target = Path(repo_path).expanduser()
+    if not target.is_absolute():
+        target = repo_root / target
+    return target.resolve()
+
+
+def _run_git_sync(repo_root: Path, git_sync: dict[str, Any]) -> None:
+    if not isinstance(git_sync, dict) or not bool(git_sync.get("enabled", False)):
+        return
+
+    repo_path = str(git_sync.get("repo_path", ".")).strip() or "."
+    target_repo = _resolve_repo_path(repo_root, repo_path)
+    continue_on_error = bool(git_sync.get("continue_on_error", True))
+
+    if not target_repo.exists():
+        message = f"git sync repo path does not exist: {target_repo}"
+        if continue_on_error:
+            print(f"[docsops] warning: {message}")
+            return
+        raise RuntimeError(message)
+
+    if not (target_repo / ".git").exists():
+        message = f"git sync target is not a git repository: {target_repo}"
+        if continue_on_error:
+            print(f"[docsops] warning: {message}")
+            return
+        raise RuntimeError(message)
+
+    remote = str(git_sync.get("remote", "origin")).strip()
+    branch = str(git_sync.get("branch", "")).strip()
+    fetch_first = bool(git_sync.get("fetch_first", True))
+    rebase = bool(git_sync.get("rebase", True))
+    autostash = bool(git_sync.get("autostash", True))
+
+    if fetch_first:
+        if remote:
+            fetch_cmd = f"git fetch {shlex.quote(remote)} --prune"
+        else:
+            fetch_cmd = "git fetch --all --prune"
+        _run_shell(fetch_cmd, target_repo, continue_on_error)
+
+    pull_parts = ["git", "pull"]
+    if rebase:
+        pull_parts.append("--rebase")
+        if autostash:
+            pull_parts.append("--autostash")
+    if remote and branch:
+        pull_parts.extend([remote, branch])
+    pull_cmd = " ".join(shlex.quote(part) for part in pull_parts)
+    _run_shell(pull_cmd, target_repo, continue_on_error)
+
+
 def _read_yaml(path: Path) -> dict[str, Any]:
     with path.open("r", encoding="utf-8") as fh:
         raw = yaml.safe_load(fh) or {}
@@ -133,6 +186,7 @@ def main() -> int:
     terminology = runtime.get("terminology", {})
     retrieval_eval = runtime.get("retrieval_eval", {})
     knowledge_graph = runtime.get("knowledge_graph", {})
+    git_sync = runtime.get("git_sync", {})
     custom_tasks = runtime.get("custom_tasks", {})
     integrations = runtime.get("integrations", {})
 
@@ -142,6 +196,9 @@ def main() -> int:
     policy = _read_yaml(policy_pack) if policy_pack.exists() else {}
     policy_retrieval = policy.get("retrieval_evals", {}) if isinstance(policy.get("retrieval_evals"), dict) else {}
     policy_graph = policy.get("knowledge_graph", {}) if isinstance(policy.get("knowledge_graph"), dict) else {}
+
+    _run_git_sync(repo_root, git_sync if isinstance(git_sync, dict) else {})
+
     base_ref = _resolve_weekly_base_ref(repo_root, args.since)
     head_ref = "HEAD"
 

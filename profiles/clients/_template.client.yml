@@ -83,7 +83,7 @@ bundle:
       enabled: true
       since_days: 7
       day_of_week: "monday"
-      time_24h: "09:00"
+      time_24h: "10:00"
       # Auto-retry delay when a scheduled run fails.
       retry_delay_seconds: 60
 
@@ -163,6 +163,15 @@ runtime:
     enabled: true
     modules_dir: "knowledge_modules"
     output_path: "docs/assets/knowledge-graph.jsonld"
+  git_sync:
+    enabled: false
+    repo_path: "."
+    remote: "origin"
+    branch: ""
+    fetch_first: true
+    rebase: true
+    autostash: true
+    continue_on_error: true
   multilang_examples:
     enabled: true
     scope: "all"

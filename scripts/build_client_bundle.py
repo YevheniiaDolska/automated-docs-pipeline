@@ -168,6 +168,19 @@ def build_runtime_config(profile: dict[str, Any]) -> dict[str, Any]:
                 "output_path": "docs/assets/knowledge-graph.jsonld",
             },
         ),
+        "git_sync": runtime.get(
+            "git_sync",
+            {
+                "enabled": False,
+                "repo_path": ".",
+                "remote": "origin",
+                "branch": "",
+                "fetch_first": True,
+                "rebase": True,
+                "autostash": True,
+                "continue_on_error": True,
+            },
+        ),
         "multilang_examples": runtime.get(
             "multilang_examples",
             {
@@ -372,7 +385,7 @@ def build_automation_files(profile: dict[str, Any], bundle_root: Path) -> None:
 
     docsops_root = str(llm_cfg.get("docsops_root_in_client_repo", "docsops")).strip("/")
     day = str(weekly_cfg.get("day_of_week", "monday")).strip().lower()
-    time_24h = str(weekly_cfg.get("time_24h", "09:00")).strip()
+    time_24h = str(weekly_cfg.get("time_24h", "10:00")).strip()
     since_days = int(weekly_cfg.get("since_days", 7))
     retry_delay_seconds = int(weekly_cfg.get("retry_delay_seconds", 60))
     hh, mm = time_24h.split(":")
