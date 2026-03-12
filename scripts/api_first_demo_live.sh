@@ -4,6 +4,12 @@ set -euo pipefail
 cd "$(dirname "$0")/.."
 export PYTHONUNBUFFERED=1
 
+SANDBOX_BACKEND="${API_FIRST_DEMO_SANDBOX_BACKEND:-docker}"
+MOCK_BASE_URL="${API_FIRST_DEMO_MOCK_BASE_URL:-http://localhost:4010/v1}"
+if [[ "${SANDBOX_BACKEND}" == "external" ]]; then
+  export API_SANDBOX_EXTERNAL_BASE_URL="${MOCK_BASE_URL}"
+fi
+
 stage() {
   echo ""
   echo "============================================================"
@@ -38,9 +44,14 @@ python3 -u scripts/generate_openapi_from_planning_notes.py \
   --spec-tree api/taskstream
 
 stage "STAGE 1/5: START PROJECT MOCK SANDBOX"
-say "Starting a product-specific mock server for TaskStream on port 4010."
-bash scripts/api_sandbox_project.sh up taskstream ./api/openapi.yaml 4010
-say "Mock server is running. I will now execute the production flow."
+if [[ "${SANDBOX_BACKEND}" == "external" ]]; then
+  say "Using external public sandbox endpoint: ${MOCK_BASE_URL}"
+  bash scripts/api_sandbox_project.sh status taskstream ./api/openapi.yaml 4010 external
+else
+  say "Starting a product-specific mock server for TaskStream on port 4010 (backend=${SANDBOX_BACKEND})."
+  bash scripts/api_sandbox_project.sh up taskstream ./api/openapi.yaml 4010 "${SANDBOX_BACKEND}"
+  say "Mock server is running. I will now execute the production flow."
+fi
 
 stage "STAGE 2-5/6: RUN UNIVERSAL API-FIRST FLOW"
 python3 -u scripts/run_api_first_flow.py \
@@ -51,7 +62,7 @@ python3 -u scripts/run_api_first_flow.py \
   --docs-provider mkdocs \
   --inject-demo-nav \
   --verify-user-path \
-  --mock-base-url http://localhost:4010/v1 \
+  --mock-base-url "${MOCK_BASE_URL}" \
   --skip-generate-from-notes \
   --auto-remediate \
   --max-attempts 3
@@ -91,5 +102,10 @@ python3 -u scripts/generate_knowledge_graph_jsonld.py \
   --min-graph-nodes 5
 
 stage "DEMO COMPLETE"
-say "The mock server is still running for live client walkthrough."
-say "Use: bash scripts/api_first_demo_stop.sh after the meeting."
+if [[ "${SANDBOX_BACKEND}" == "external" ]]; then
+  say "External sandbox endpoint remains available for all users: ${MOCK_BASE_URL}"
+  say "No local sandbox process to stop."
+else
+  say "The mock server is still running for live client walkthrough."
+  say "Use: bash scripts/api_first_demo_stop.sh after the meeting."
+fi

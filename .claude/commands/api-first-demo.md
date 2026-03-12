@@ -27,6 +27,15 @@ cd "/mnt/c/Users/Kroha/Documents/development/Auto-Doc Pipeline"
 npm run api-first-demo
 ```
 
+For no-Docker/public sandbox mode:
+
+```bash
+cd "/mnt/c/Users/Kroha/Documents/development/Auto-Doc Pipeline"
+API_FIRST_DEMO_SANDBOX_BACKEND=external \
+API_FIRST_DEMO_MOCK_BASE_URL="https://sandbox-api.example.com/v1" \
+npm run api-first-demo
+```
+
 1. While running, narrate the meaning of each stage in short English sentences:
    - Stage 0: planning notes to OpenAPI generation;
    - Stage 1: mock sandbox startup;

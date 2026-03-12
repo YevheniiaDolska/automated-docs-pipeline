@@ -77,6 +77,31 @@ For contract-mock mode:
 bash scripts/api_sandbox_project.sh up taskstream ./api/openapi.yaml 4010
 ```
 
+For no-Docker mode (local Prism mock):
+
+```bash
+bash scripts/api_sandbox_project.sh up taskstream ./api/openapi.yaml 4010 prism
+```
+
+For public hosted sandbox mode (shared for all docs users):
+
+```bash
+API_SANDBOX_EXTERNAL_BASE_URL="https://sandbox-api.example.com/v1" \
+bash scripts/api_sandbox_project.sh up taskstream ./api/openapi.yaml 4010 external
+```
+
+In external mode, run API-first verification against the same public URL:
+
+```bash
+python3 scripts/run_api_first_flow.py \
+  --project-slug taskstream \
+  --notes demos/api-first/taskstream-planning-notes.md \
+  --spec api/openapi.yaml \
+  --spec-tree api/taskstream \
+  --verify-user-path \
+  --mock-base-url "https://sandbox-api.example.com/v1"
+```
+
 For prod-like mode on VPS:
 
 ```bash
