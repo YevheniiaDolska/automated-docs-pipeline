@@ -29,6 +29,13 @@ doc_layers:
     - how-to
     - reference
 
+diagram_validation:
+  enabled: true
+  strict: false
+  min_description_sentences: 2
+  min_tags_per_component: 3
+  min_tag_overlap_pct: 50
+
 kpi_sla:
   min_quality_score: 80
   max_stale_pct: 15.0

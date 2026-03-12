@@ -115,8 +115,19 @@ Say: "Here is the single source of truth. All values, such as ports, URLs, and l
 ### Step 4. Create document directly from `templates/*.md`
 
 ```bash
-mkdir -p docs/en/how-to
-cp templates/how-to.md docs/en/how-to/set-up-real-time-webhook-processing-pipeline.md
+# Reusable paths for default and custom-topic demos.
+# For custom topic mode, set DOC_CONTENT_TYPE before this step (how-to/tutorial/concept/reference/troubleshooting).
+DEMO_TOPIC="${ARGUMENTS:-Set up real-time webhook processing pipeline}"
+DOC_CONTENT_TYPE="${DOC_CONTENT_TYPE:-how-to}"
+DOC_CONTENT_TYPE_DIR="${DOC_CONTENT_TYPE_DIR:-$DOC_CONTENT_TYPE}"
+DOC_SLUG="${DOC_SLUG:-$(printf '%s' "$DEMO_TOPIC" | tr '[:upper:]' '[:lower:]' | sed -E 's/[^a-z0-9]+/-/g; s/^-+|-+$//g')}"
+DOC_PATH="docs/en/${DOC_CONTENT_TYPE_DIR}/${DOC_SLUG}.md"
+DIAGRAM_PATH="docs/diagrams/demo-${DOC_SLUG}.html"
+DIAGRAM_IFRAME_SRC="../../diagrams/demo-${DOC_SLUG}.html"
+DOC_SITE_PATH="${DOC_CONTENT_TYPE_DIR}/${DOC_SLUG}/"
+
+mkdir -p "docs/en/${DOC_CONTENT_TYPE_DIR}"
+cp "templates/${DOC_CONTENT_TYPE}.md" "$DOC_PATH"
 ```
 
 Say: "I copied the document directly from a pre-validated template in `templates/`. Now I will customize it with production-grade content so you can see ALL pipeline capabilities in one document."
@@ -125,7 +136,7 @@ Say: "I copied the document directly from a pre-validated template in `templates
 
 NOW—this is the MAIN WOW MOMENT. Starting from the copied template file, fully customize the document with production-quality content that demonstrates every feature.
 
-The document `docs/en/how-to/set-up-real-time-webhook-processing-pipeline.md` must contain ALL of the following elements. This is a HARD REQUIREMENT—include EVERY item:
+The document at `$DOC_PATH` must contain ALL of the following elements. This is a HARD REQUIREMENT—include EVERY item:
 
 ---
 
@@ -362,7 +373,7 @@ At the end of the document, AFTER the troubleshooting section, add a section tha
 The interactive diagram below shows all 13 components across 5 layers. Click any component to see detailed metrics, technologies, and connections.
 
 <div class="interactive-diagram" markdown>
-<iframe src="../../diagrams/demo-webhook-pipeline.html" title="Webhook processing pipeline architecture"></iframe>
+<iframe src="../../diagrams/demo-<slug>.html" title="Webhook processing pipeline architecture"></iframe>
 </div>
 
 For static environments, refer to the [Mermaid sequence diagram](#verify-hmac-sha256-signatures) above.
@@ -433,7 +444,7 @@ Say: "ALL checks passed on the first run. The 22 SEO/GEO rules, formatting, meta
 
 Say: "One final touch: an interactive architecture diagram embedded directly in the generated document. The HTML asset is only a backing file; the deliverable is the document page with an inline interactive diagram."
 
-NOW create `docs/diagrams/demo-webhook-pipeline.html`—a COMPLETE, working HTML file based on `templates/interactive-diagram.html`.
+NOW create `$DIAGRAM_PATH`—a COMPLETE, working HTML file based on `templates/interactive-diagram.html`.
 
 First, read the template to understand its structure:
 
@@ -459,9 +470,9 @@ Do NOT replace theme-sync logic from `templates/interactive-diagram.html`; keep 
 After creating, verify that the generated document embeds this diagram:
 
 ```bash
-DOC_FILE="docs/en/how-to/set-up-real-time-webhook-processing-pipeline.md"
+DOC_FILE="$DOC_PATH"
 echo "Embedded diagram check:"
-grep -n '<iframe src="../../diagrams/demo-webhook-pipeline.html"' "$DOC_FILE"
+grep -n "<iframe src=\"${DIAGRAM_IFRAME_SRC}\"" "$DOC_FILE"
 ```
 
 Also verify tab syntax and list formatting:
@@ -544,7 +555,7 @@ print('mkdocs.yml nav updated successfully.')
 Say: "I am committing and pushing now. GitHub Actions will run the CI pipeline: linters -> code checks -> MkDocs build -> deployment to GitHub Pages."
 
 ```bash
-git add docs/en/how-to/set-up-real-time-webhook-processing-pipeline.md docs/diagrams/demo-webhook-pipeline.html mkdocs.yml
+git add "$DOC_PATH" "$DIAGRAM_PATH" mkdocs.yml
 git commit -m "$(cat <<'EOF'
 docs: add webhook processing pipeline guide (demo)
 
@@ -636,8 +647,9 @@ while true; do
 done
 echo ""
 SITE_URL=$(grep 'site_url' mkdocs.yml 2>/dev/null | sed 's/site_url: //' | tr -d '"' | sed 's/ //g')
+DOC_URL="${SITE_URL}${DOC_SITE_PATH}"
 echo "When deploy completes, open:"
-echo "  ${SITE_URL}how-to/set-up-real-time-webhook-processing-pipeline/"
+echo "  ${DOC_URL}"
 echo ""
 echo "The document is now:"
 echo "  - Live on the MkDocs site with full navigation"
@@ -649,6 +661,14 @@ echo "  - Interactive diagram accessible from the page"
 ### Step 14. Closing pitch
 
 IMPORTANT: Run this step only after Step 13 confirms `deploy.yml` completed with `success`.
+
+Before the closing narration, print the direct link again:
+
+```bash
+SITE_URL=$(grep 'site_url' mkdocs.yml 2>/dev/null | sed 's/site_url: //' | tr -d '"' | sed 's/ //g')
+DOC_URL="${SITE_URL}${DOC_SITE_PATH}"
+echo "Live document URL: ${DOC_URL}"
+```
 
 Say:
 
@@ -662,7 +682,8 @@ Say:
 1. The interactive diagram includes 13 clickable components
 1. Commit -> push -> five GitHub Actions workflows -> site built and published (verified by successful deploy)
 
-And all of this appears in one document: a Mermaid diagram, Cloud/Self-hosted tabs, admonitions, a parameter table, two working code examples in Python and JavaScript, troubleshooting guidance, performance metrics, and an embedded interactive diagram with 13 clickable components directly on the page. The document is already live on the MkDocs site.
+And all of this appears in one document: a Mermaid diagram, Cloud/Self-hosted tabs, admonitions, a parameter table, two working code examples in Python and JavaScript, troubleshooting guidance, performance metrics, and an embedded interactive diagram with 13 clickable components directly on the page. The document is already live on the MkDocs site:
+`$DOC_URL`
 
 This is not a text generator. It is an operating system for documentation.
 
@@ -677,7 +698,7 @@ Would you like to run this on your repository?"
 After the demo, if you want to remove the demo document from the site:
 
 ```bash
-git rm docs/en/how-to/set-up-real-time-webhook-processing-pipeline.md docs/diagrams/demo-webhook-pipeline.html
+git rm "$DOC_PATH" "$DIAGRAM_PATH"
 git checkout HEAD~1 -- mkdocs.yml
 git add mkdocs.yml
 git commit -m "chore: remove demo artifacts"

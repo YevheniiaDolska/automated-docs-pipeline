@@ -21,7 +21,7 @@ This is a prototype documentation site demonstrating an automated documentation 
 
 This site is not a replacement for [official docs](<https://docs.product.io>). It demonstrates documentation infrastructure: how to organize, validate, and publish developer docs at scale using automation.
 
-The pipeline includes automated style checking with Vale, frontmatter validation for consistent metadata, GEO linting that optimizes content for AI-powered search engines, faceted search through Algolia DocSearch, and CI/CD workflows that monitor the upstream repository for documentation gaps.
+The pipeline now covers the full docs lifecycle: multi-signal gap detection (codebase, community, and search analytics), template-driven generation with centralized variables, self-verification with executable code checks, seven documentation quality gates (including 22 SEO/GEO rules, style, metadata, and formatting), Mermaid plus embedded interactive diagrams, API-first documentation flows, dual site generators (MkDocs and Docusaurus), Algolia DocSearch indexing, and CI/CD automation from commit to published site.
 
 ## Browse by type
 

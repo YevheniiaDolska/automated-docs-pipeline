@@ -32,7 +32,7 @@ The pipeline operates as a 4-layer documentation operations system:
 
 All scripts are in `scripts/` and `scripts/gap_detection/`. They cover:
 
-- **Validation**: `validate_frontmatter.py`, `seo_geo_optimizer.py` (60+ checks),
+- **Validation**: `validate_frontmatter.py`, `seo_geo_optimizer.py` (24 checks),
   `lint_code_snippets.py`, `check_code_examples_smoke.py` (8 languages),
   `doc_layers_validator.py`.
 - **Contract and drift**: `check_docs_contract.py`, `check_api_sdk_drift.py`, `validate_pr_dod.py`.
@@ -104,3 +104,7 @@ and creates GitHub issues.
 | [Package contents](./PACKAGE_CONTENTS.md) | File-by-file manifest |
 | [Getting started: zero to pro](./GETTING_STARTED_ZERO_TO_PRO.md) | Feature walkthrough |
 | [Customization per company](./CUSTOMIZATION_PER_COMPANY.md) | Per-company configuration |
+
+## Next steps
+
+- [Documentation index](../index.md)

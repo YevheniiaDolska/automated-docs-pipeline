@@ -314,7 +314,7 @@ def render_dashboard_html(metrics: KpiMetrics) -> str:
         ("Vale Style Linting", "American English, Google Style, write-good", "Blocks PR on style violations"),
         ("Markdownlint", "Consistent Markdown formatting", "Enforces heading hierarchy, blank lines, code fences"),
         ("Frontmatter Validation", "Schema-enforced metadata", "Required fields: title, description, content_type"),
-        ("SEO/GEO Optimization", "60+ automated checks", "LLM-ready content, structured data, meta tags"),
+        ("SEO/GEO Optimization", "24 automated checks", "LLM-ready content, structured data, meta tags"),
         ("Code Examples Smoke", "Runtime validation", "Executes tagged code blocks in 7 languages"),
         ("API/SDK Drift Detection", "Contract enforcement", "Blocks PRs when API changes lack doc updates"),
         ("Spelling (cspell)", "Technical dictionary", "Product-specific terminology validation"),

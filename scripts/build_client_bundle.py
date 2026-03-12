@@ -123,6 +123,7 @@ def build_runtime_config(profile: dict[str, Any]) -> dict[str, Any]:
                 "rag_optimization": True,
                 "normalization": True,
                 "snippet_lint": True,
+                "diagram_validation": True,
                 "self_checks": True,
                 "fact_checks": True,
                 "knowledge_validation": True,

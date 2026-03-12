@@ -39,6 +39,7 @@ bundle:
     - "scripts/upload_to_algolia.py"
     - "scripts/generate_facets_index.py"
     - "scripts/doc_layers_validator.py"
+    - "scripts/validate_diagram_content.py"
     - "scripts/lifecycle_manager.py"
     - "scripts/extract_knowledge_modules_from_docs.py"
     - "scripts/validate_knowledge_modules.py"
@@ -121,6 +122,7 @@ runtime:
     rag_optimization: true
     normalization: true
     snippet_lint: true
+    diagram_validation: true
     self_checks: true
     fact_checks: true
     lifecycle_management: true

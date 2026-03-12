@@ -21,7 +21,7 @@ class PilotAnalyzer:
     """
     Comprehensive pilot week analyzer that integrates:
     - Vale style analysis
-    - SEO/GEO optimization (60+ checks)
+    - SEO/GEO optimization (24 checks)
     - Gap detection (uncertainties, community, code changes)
     - Documentation layers validation
     - Documentation debt scoring
@@ -102,7 +102,7 @@ class PilotAnalyzer:
 
     def run_seo_geo_analysis(self):
         """Run SEO/GEO optimization analysis."""
-        print("🌐 Running SEO/GEO optimization analysis (60+ checks)...")
+        print("🌐 Running SEO/GEO optimization analysis (24 checks)...")
         try:
             # Try to run the seo_geo_optimizer script if it exists
             result = subprocess.run(
@@ -655,7 +655,7 @@ class PilotAnalyzer:
             <div class="methodology-badges">
                 <span class="badge">✅ SDD Methodology</span>
                 <span class="badge">✅ BDR Approach</span>
-                <span class="badge">✅ 60+ SEO Checks</span>
+                <span class="badge">✅ 24 SEO Checks</span>
                 <span class="badge">✅ AI-Ready</span>
             </div>
             <div class="date">{datetime.now().strftime("%B %d, %Y at %I:%M %p")}</div>
@@ -745,7 +745,7 @@ class PilotAnalyzer:
 
             <div class="analysis-section">
                 <h2>🔍 SEO/GEO Optimization Analysis</h2>
-                <p>Our 60+ point SEO/GEO analyzer found critical issues affecting discoverability:</p>
+                <p>Our 24-point SEO/GEO analyzer found critical issues affecting discoverability:</p>
                 <ul class="issue-list">
                     <li class="issue-item">
                         <span>Missing meta descriptions</span>
@@ -820,7 +820,7 @@ class PilotAnalyzer:
                 <h2>🏆 What Makes This Different</h2>
                 <p style="font-size: 1.1em; line-height: 1.8; max-width: 800px; margin: 20px auto;">
                     Unlike consultants who provide recommendations, we deliver <strong>working automation</strong>.
-                    This analysis used <strong>Vale</strong> for style checking, <strong>60+ SEO/GEO checks</strong>
+                    This analysis used <strong>Vale</strong> for style checking, <strong>24 SEO/GEO checks</strong>
                     for discoverability, <strong>SDD methodology</strong> for gap tracking, and
                     <strong>BDR approach</strong> for structure validation. Everything is automated and repeatable.
                 </p>

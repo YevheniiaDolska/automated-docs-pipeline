@@ -125,7 +125,7 @@ try {
 }
 ```
 
-**IMPORTANT:** this pipeline includes comprehensive SEO/GEO optimization with 60+ automated checks. All content MUST pass:
+**IMPORTANT:** this pipeline includes comprehensive SEO/GEO optimization with 24 automated checks. All content MUST pass:
 
 - GEO linting (LLM/AI optimization)
 - SEO metadata validation
@@ -1949,7 +1949,16 @@ This applies to **any document type** (how-to, concept, reference, troubleshooti
    ```
 
 \11. Each component needs a `data-id` attribute that matches a key in `descriptions`
-\11. Embed in the Markdown document using iframe:
+\11. Embed in the Markdown document using iframe (see below)
+\11. **Immediately after creating/editing the diagram and embedding it, run validation:**
+
+```bash
+python3 scripts/validate_diagram_content.py docs/diagrams/[name].html docs/[path-to-md]
+```
+
+Fix any errors before proceeding. This checks that data-ids match descriptions, component names and metrics match the document text, and descriptions are not orphaned. Do not skip this step — it catches hallucinated metrics, wrong component counts, and name mismatches between diagram and document.
+
+**Embedding:**
 
 **MkDocs embedding:**
 
@@ -1988,6 +1997,7 @@ The template (`templates/interactive-diagram.html`) has:
 | `docs/diagrams/` | Directory for diagram HTML files |
 | `docs/stylesheets/diagrams.css` | CSS for iframe embedding in MkDocs |
 | `docusaurus/src/components/InteractiveDiagram.jsx` | React wrapper for Docusaurus |
+| `scripts/validate_diagram_content.py` | Post-generation validation (run immediately after creating/editing a diagram) |
 
 ## OpenAPI spec quality rules
 
