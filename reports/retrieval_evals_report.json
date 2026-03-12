@@ -1,0 +1,48 @@
+{
+  "generated_at": "2026-03-12T11:31:43.202833+00:00",
+  "status": "ok",
+  "index_path": "docs/assets/knowledge-retrieval-index.json",
+  "dataset_path": "reports/retrieval_eval_dataset.generated.yml",
+  "thresholds": {
+    "min_precision": 0.5,
+    "min_recall": 0.5,
+    "max_hallucination_rate": 0.5
+  },
+  "metrics": {
+    "status": "ok",
+    "precision_at_k": 0.5,
+    "recall_at_k": 1.0,
+    "hallucination_rate": 0.5,
+    "sample_count": 2,
+    "top_k": 3,
+    "samples": [
+      {
+        "query": "Configure HMAC authentication for inbound webhooks",
+        "expected_ids": [
+          "webhook-auth-baseline"
+        ],
+        "retrieved_ids": [
+          "webhook-auth-baseline",
+          "webhook-retry-policy"
+        ],
+        "hits": 1,
+        "precision": 0.5,
+        "recall": 1.0
+      },
+      {
+        "query": "Define idempotent webhook retry handling",
+        "expected_ids": [
+          "webhook-retry-policy"
+        ],
+        "retrieved_ids": [
+          "webhook-retry-policy",
+          "webhook-auth-baseline"
+        ],
+        "hits": 1,
+        "precision": 0.5,
+        "recall": 1.0
+      }
+    ]
+  },
+  "breaches": []
+}

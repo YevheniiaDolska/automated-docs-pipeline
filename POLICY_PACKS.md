@@ -248,6 +248,7 @@ notes:
 | --- | --- | --- |
 | `mode` | `mixed` | PLG documentation mode |
 | `try_it_mode` | `sandbox-only` | API playground behavior: `sandbox-only`, `real-api`, or `mixed` |
+| `sandbox_backend` | `external` (recommended) | Sandbox runtime mode: `docker`, `prism`, or `external` |
 | `try_it_enabled` | `false` | Whether API playground is active |
 | `value_first_docs.enabled` | `true` | Enables value-first documentation patterns |
 | `value_first_docs.recommended_sections` | `time-to-value`, `expected-outcome`, `activation-checklist` | Advisory sections recommended for every document (not enforced as blocking requirements) |
@@ -258,6 +259,7 @@ notes:
 - Same strict KPI thresholds as multi-product (quality 84, stale 10%, max 5 gaps, max 3-point drop).
 - Only pack with the `plg` section for API sandbox and value-first documentation configuration.
 - Broad doc patterns (like minimal) so that any docs change satisfies the contract.
+- External sandbox is provider-agnostic. Use any public HTTPS mock URL with CORS (Postman, Stoplight-hosted Prism, Mockoon Cloud, or self-hosted).
 
 ---
 

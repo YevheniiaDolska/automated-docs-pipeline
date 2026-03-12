@@ -6,6 +6,7 @@ export PYTHONUNBUFFERED=1
 
 SANDBOX_BACKEND="${API_FIRST_DEMO_SANDBOX_BACKEND:-docker}"
 MOCK_BASE_URL="${API_FIRST_DEMO_MOCK_BASE_URL:-}"
+AUTO_PREPARE_EXTERNAL_MOCK="${API_FIRST_DEMO_AUTO_PREPARE_EXTERNAL_MOCK:-true}"
 
 if [[ "${SANDBOX_BACKEND}" == "external" && -z "${MOCK_BASE_URL}" ]]; then
   MOCK_BASE_URL="$(python3 - <<'PY'
@@ -31,11 +32,11 @@ PY
 )"
 fi
 
-if [[ -z "${MOCK_BASE_URL}" ]]; then
+if [[ -z "${MOCK_BASE_URL}" && "${SANDBOX_BACKEND}" != "external" ]]; then
   MOCK_BASE_URL="http://localhost:4010/v1"
 fi
 
-if [[ "${SANDBOX_BACKEND}" == "external" ]]; then
+if [[ "${SANDBOX_BACKEND}" == "external" && -n "${MOCK_BASE_URL}" ]]; then
   export API_SANDBOX_EXTERNAL_BASE_URL="${MOCK_BASE_URL}"
 fi
 
@@ -74,8 +75,12 @@ python3 -u scripts/generate_openapi_from_planning_notes.py \
 
 stage "STAGE 1/5: START PROJECT MOCK SANDBOX"
 if [[ "${SANDBOX_BACKEND}" == "external" ]]; then
-  say "Using external public sandbox endpoint: ${MOCK_BASE_URL}"
-  bash scripts/api_sandbox_project.sh status taskstream ./api/openapi.yaml 4010 external
+  if [[ "${AUTO_PREPARE_EXTERNAL_MOCK}" == "true" && -z "${MOCK_BASE_URL}" ]]; then
+    say "External mock URL is not preset. It will be auto-prepared in Stage 2-5 via Postman API."
+  else
+    say "Using external public sandbox endpoint: ${MOCK_BASE_URL}"
+    bash scripts/api_sandbox_project.sh status taskstream ./api/openapi.yaml 4010 external
+  fi
 else
   say "Starting a product-specific mock server for TaskStream on port 4010 (backend=${SANDBOX_BACKEND})."
   bash scripts/api_sandbox_project.sh up taskstream ./api/openapi.yaml 4010 "${SANDBOX_BACKEND}"
@@ -83,18 +88,30 @@ else
 fi
 
 stage "STAGE 2-5/6: RUN UNIVERSAL API-FIRST FLOW"
-python3 -u scripts/run_api_first_flow.py \
-  --project-slug taskstream \
-  --notes demos/api-first/taskstream-planning-notes.md \
-  --spec api/openapi.yaml \
-  --spec-tree api/taskstream \
-  --docs-provider mkdocs \
-  --inject-demo-nav \
-  --verify-user-path \
-  --mock-base-url "${MOCK_BASE_URL}" \
-  --skip-generate-from-notes \
-  --auto-remediate \
+api_flow_cmd=(
+  python3 -u scripts/run_api_first_flow.py
+  --project-slug taskstream
+  --notes demos/api-first/taskstream-planning-notes.md
+  --spec api/openapi.yaml
+  --spec-tree api/taskstream
+  --sandbox-backend "${SANDBOX_BACKEND}"
+  --docs-provider mkdocs
+  --inject-demo-nav
+  --verify-user-path
+  --mock-base-url "${MOCK_BASE_URL:-https://sandbox-api.example.com/v1}"
+  --skip-generate-from-notes
+  --auto-remediate
+  --sync-playground-endpoint
   --max-attempts 3
+)
+if [[ "${SANDBOX_BACKEND}" == "external" && "${AUTO_PREPARE_EXTERNAL_MOCK}" == "true" ]]; then
+  api_flow_cmd+=(
+    --auto-prepare-external-mock
+    --external-mock-provider postman
+    --external-mock-base-path /v1
+  )
+fi
+"${api_flow_cmd[@]}"
 
 stage "STAGE 6/9: MULTI-LANGUAGE EXAMPLES BASELINE"
 say "Generating multilingual code tabs and validating required language coverage."

@@ -1858,8 +1858,8 @@ API-first means the OpenAPI specification is written first, and code is generate
 
 \11. **Generate endpoint code with OpenAPI Generator:**
 
-- Use the GitHub Actions workflow `.github/workflows/api-first-scaffold.yml`
-- Or run locally with Docker:
+- Use the API-first flow entry point: `python3 scripts/run_api_first_flow.py ...`
+- Or run generator locally with Docker:
 
      ```bash
      docker run --rm -v "${PWD}:/local" \
@@ -1879,13 +1879,21 @@ API-first means the OpenAPI specification is written first, and code is generate
        -o /local/generated/client
      ```
 
-\11. **Deploy a Prism mock server:**
+\11. **Start API sandbox (choose one mode):**
 
    ```bash
-   npm run api:sandbox:mock
+   # Docker mode
+   bash scripts/api_sandbox_project.sh up taskstream ./api/openapi.yaml 4010 docker
+
+   # No-Docker local mode
+   bash scripts/api_sandbox_project.sh up taskstream ./api/openapi.yaml 4010 prism
+
+   # Public external mode
+   API_SANDBOX_EXTERNAL_BASE_URL="https://sandbox-api.example.com/v1" \
+   bash scripts/api_sandbox_project.sh up taskstream ./api/openapi.yaml 4010 external
    ```
 
-   This starts a Prism mock server using `docker-compose.api-sandbox.yml` that serves realistic responses based on the spec examples.
+   Use external mode for public docs sandbox so Try-it works for all visitors.
 
 \11. **Test all endpoints against the mock:**
 
@@ -1898,7 +1906,11 @@ API-first means the OpenAPI specification is written first, and code is generate
 
 - If mock responses do not match spec expectations, fix the spec
 - Re-run Prism to confirm fixes
-- Stop the mock server when done: `npm run api:sandbox:stop`
+- For local modes, stop when done:
+
+  ```bash
+  bash scripts/api_sandbox_project.sh down taskstream ./api/openapi.yaml 4010 prism
+  ```
 
 \11. **Run Spectral lint and all doc linters:**
 

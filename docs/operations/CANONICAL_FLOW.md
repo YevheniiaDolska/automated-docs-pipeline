@@ -3,7 +3,7 @@ title: "Canonical Flow (Sales + Delivery)"
 description: "Canonical sales and delivery flow for onboarding and operating client Auto-Doc Pipeline setups."
 content_type: reference
 product: both
-last_reviewed: "2026-03-11"
+last_reviewed: "2026-03-12"
 tags:
   - Operations
   - Client Onboarding
@@ -89,6 +89,7 @@ powershell -ExecutionPolicy Bypass -File docsops/ops/install_windows_task.ps1
 ```
 
 Scheduler timezone is local machine timezone. Monday schedule follows client local time when installed on client machine.
+Default schedule is Monday at `10:00` local time.
 
 ## 3. Weekly automation (no manual commands)
 
@@ -103,6 +104,8 @@ It executes:
 - drift + docs contract (if enabled)
 - KPI/SLA (if enabled)
 - API-first flow (if enabled)
+  - supports `docker`, `prism` (no Docker), and `external` public sandbox URL
+  - if `sync_playground_endpoint=true`, sandbox URL is auto-synced into docs playground config
   - manual overrides apply (`apply_openapi_overrides.py`)
   - regression gate (`check_openapi_regression.py`)
 - RAG/knowledge tasks:

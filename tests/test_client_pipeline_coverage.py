@@ -205,12 +205,31 @@ class TestProvisionClientRepo:
 
         monkeypatch.setattr(mod, "copy_bundle_to_repo", fake_copy)
         monkeypatch.setattr(mod, "run_scheduler_install", lambda c, d, m: captured.update({"scheduler": m}))
+        monkeypatch.setattr(mod, "_collect_secret_inputs", lambda c, d: None)
         monkeypatch.setattr(sys, "argv", ["x", "--client", str(profile), "--client-repo", str(repo), "--install-scheduler", "none"])
 
         rc = mod.main()
         assert rc == 0
         assert captured["scheduler"] == "none"
         assert "bundle installed" in capsys.readouterr().out
+
+    def test_dotenv_and_gitignore_helpers(self, tmp_path: Path) -> None:
+        from scripts import provision_client_repo as mod
+
+        repo = tmp_path / "repo"
+        repo.mkdir()
+        dotenv = repo / ".env"
+        gitignore = repo / ".gitignore"
+        gitignore.write_text("node_modules/\n", encoding="utf-8")
+
+        mod._write_dotenv(dotenv, {"POSTMAN_API_KEY": "abc", "POSTMAN_WORKSPACE_ID": "ws"})
+        loaded = mod._read_dotenv(dotenv)
+        assert loaded["POSTMAN_API_KEY"] == "abc"
+        assert loaded["POSTMAN_WORKSPACE_ID"] == "ws"
+
+        mod._ensure_gitignore_has_env(repo, ".env.docsops.local")
+        content = gitignore.read_text(encoding="utf-8")
+        assert ".env.docsops.local" in content
 
     def test_interactive_wizard_and_missing_non_tty(self, tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:
         from scripts import provision_client_repo as mod

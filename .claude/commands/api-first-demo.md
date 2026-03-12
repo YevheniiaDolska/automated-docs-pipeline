@@ -38,6 +38,22 @@ npm run api-first-demo
 
 If `API_FIRST_DEMO_MOCK_BASE_URL` is not set, demo auto-reads `mkdocs.yml` playground `sandbox_base_url`.
 
+For fully automated Postman external mock mode:
+
+```bash
+cd "/mnt/c/Users/Kroha/Documents/development/Auto-Doc Pipeline"
+API_FIRST_DEMO_SANDBOX_BACKEND=external \
+API_FIRST_DEMO_AUTO_PREPARE_EXTERNAL_MOCK=true \
+POSTMAN_API_KEY="YOUR_POSTMAN_API_KEY" \
+POSTMAN_WORKSPACE_ID="YOUR_WORKSPACE_ID" \
+npm run api-first-demo
+```
+
+Optional:
+
+- `POSTMAN_COLLECTION_UID` to reuse a specific collection (otherwise demo imports from generated OpenAPI).
+- `POSTMAN_MOCK_SERVER_ID` to reuse an existing mock.
+
 1. While running, narrate the meaning of each stage in short English sentences:
    - Stage 0: planning notes to OpenAPI generation;
    - Stage 1: mock sandbox startup;

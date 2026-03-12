@@ -7,7 +7,7 @@ tags:
   - How-To
   - Cloud
   - Self-hosted
-last_reviewed: "2026-03-09"
+last_reviewed: "2026-03-12"
 ---
 
 # Run API-first production flow
@@ -42,7 +42,7 @@ python3 scripts/run_api_first_flow.py \
   --regression-snapshot api/.openapi-regression.json \
   --docs-provider mkdocs \
   --verify-user-path \
-  --mock-base-url http://localhost:4010/v1 \
+  --mock-base-url https://sandbox-api.example.com/v1 \
   --auto-remediate \
   --max-attempts 3
 ```
@@ -90,6 +90,8 @@ API_SANDBOX_EXTERNAL_BASE_URL="https://sandbox-api.example.com/v1" \
 bash scripts/api_sandbox_project.sh up taskstream ./api/openapi.yaml 4010 external
 ```
 
+Supported external services are provider-agnostic. You can use Postman Mock Servers, Stoplight-hosted Prism, Mockoon Cloud, or your own hosted Prism-compatible endpoint.
+
 In external mode, run API-first verification against the same public URL:
 
 ```bash
@@ -99,7 +101,25 @@ python3 scripts/run_api_first_flow.py \
   --spec api/openapi.yaml \
   --spec-tree api/taskstream \
   --verify-user-path \
-  --mock-base-url "https://sandbox-api.example.com/v1"
+  --mock-base-url "https://sandbox-api.example.com/v1" \
+  --sync-playground-endpoint
+```
+
+`--sync-playground-endpoint` keeps `mkdocs.yml` playground `sandbox_base_url` aligned with your public mock URL.
+
+For fully automatic Postman-managed external mock:
+
+```bash
+export POSTMAN_API_KEY="YOUR_POSTMAN_API_KEY"
+export POSTMAN_WORKSPACE_ID="YOUR_WORKSPACE_ID"
+# optional: export POSTMAN_COLLECTION_UID="YOUR_COLLECTION_UID"
+# optional: export POSTMAN_MOCK_SERVER_ID="YOUR_EXISTING_MOCK_ID"
+```
+
+Then add these flags to the same flow command:
+
+```text
+--sandbox-backend external --auto-prepare-external-mock --external-mock-provider postman --external-mock-base-path /v1
 ```
 
 For prod-like mode on VPS:
@@ -132,13 +152,13 @@ Use this API request tab set as the baseline format for executable examples:
 === "cURL"
 
     ```bash
-    curl -sS http://localhost:4010/v1/healthz
+    curl -sS https://sandbox-api.example.com/v1/healthz
     ```
 
 === "JavaScript"
 
     ```javascript
-    const res = await fetch("http://localhost:4010/v1/healthz");
+    const res = await fetch("https://sandbox-api.example.com/v1/healthz");
     console.log(await res.json());
     ```
 
@@ -147,7 +167,7 @@ Use this API request tab set as the baseline format for executable examples:
     ```python
     import requests
 
-    res = requests.get("http://localhost:4010/v1/healthz", timeout=10)
+    res = requests.get("https://sandbox-api.example.com/v1/healthz", timeout=10)
     print(res.json())
     ```
 

@@ -7,12 +7,12 @@ tags:
   - Reference
   - Cloud
   - Self-hosted
-last_reviewed: "2026-03-09"
+last_reviewed: "2026-03-12"
 ---
 
 # TaskStream API playground
 
-This page provides an interactive OpenAPI playground where users can send requests to the sandbox endpoint before production rollout.
+This page provides an interactive OpenAPI playground where users can send requests to the configured sandbox endpoint before production rollout.
 
 ## Start a sandbox endpoint
 
@@ -20,6 +20,19 @@ Mock mode:
 
 ```bash
 bash scripts/api_sandbox_project.sh up taskstream ./api/openapi.yaml 4010
+```
+
+No-Docker local mode:
+
+```bash
+bash scripts/api_sandbox_project.sh up taskstream ./api/openapi.yaml 4010 prism
+```
+
+External hosted mode (recommended for public docs):
+
+```bash
+API_SANDBOX_EXTERNAL_BASE_URL="https://sandbox-api.example.com/v1" \
+bash scripts/api_sandbox_project.sh up taskstream ./api/openapi.yaml 4010 external
 ```
 
 Prod-like mode:
@@ -37,7 +50,7 @@ bash scripts/api_prodlike_project.sh up taskstream 4011
   data-api-first-spec-url="/assets/api/openapi.yaml"
   data-try-it-enabled="true"
   data-try-it-mode="sandbox-only"
-  data-sandbox-base-url="{{ docs_url }}/sandbox/taskstream/v1"
+  data-sandbox-base-url="{{ config.extra.plg.api_playground.endpoints.sandbox_base_url }}"
   data-production-base-url="{{ cloud_url }}/v1"
 ></div>
 
@@ -51,13 +64,13 @@ For multi-version API docs, publish one spec per version and add separate playgr
 === "cURL"
 
     ```bash
-    curl -sS "{{ docs_url }}/sandbox/taskstream/v1/healthz"
+    curl -sS "{{ config.extra.plg.api_playground.endpoints.sandbox_base_url }}/healthz"
     ```
 
 === "JavaScript"
 
     ```javascript
-    const res = await fetch("{{ docs_url }}/sandbox/taskstream/v1/healthz");
+    const res = await fetch("{{ config.extra.plg.api_playground.endpoints.sandbox_base_url }}/healthz");
     console.log(await res.json());
     ```
 
@@ -66,7 +79,7 @@ For multi-version API docs, publish one spec per version and add separate playgr
     ```python
     import requests
 
-    res = requests.get("{{ docs_url }}/sandbox/taskstream/v1/healthz", timeout=10)
+    res = requests.get("{{ config.extra.plg.api_playground.endpoints.sandbox_base_url }}/healthz", timeout=10)
     print(res.json())
     ```
 

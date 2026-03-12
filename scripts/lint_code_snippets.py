@@ -26,6 +26,7 @@ import shutil
 import subprocess
 import sys
 import tempfile
+import textwrap
 from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Callable
@@ -82,11 +83,13 @@ def extract_code_blocks(filepath: Path) -> list[CodeBlock]:
 
         if in_block and stripped.startswith("```"):
             # End of code block
+            # Normalize indentation for fenced blocks nested in MkDocs tabs/admonitions.
+            normalized_content = textwrap.dedent("\n".join(block_lines)).strip("\n")
             blocks.append(CodeBlock(
                 filepath=filepath,
                 line_number=block_start,
                 language=language,
-                content="\n".join(block_lines),
+                content=normalized_content,
                 tags=tags,
             ))
             in_block = False

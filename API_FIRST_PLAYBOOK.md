@@ -1,3 +1,15 @@
+---
+title: "API-first and code-first playbook"
+description: "Practical guide for API-first and code-first workflows with sandbox modes, contract checks, and documentation gates."
+content_type: reference
+product: both
+last_reviewed: "2026-03-12"
+tags:
+  - Reference
+  - API
+  - Operations
+---
+
 # API-first and code-first playbook
 
 This playbook explains how to manage documentation for products that expose APIs. It covers two workflows: API-first, where you write the OpenAPI specification before writing code, and code-first, where you extract the OpenAPI specification from existing code. Both workflows converge on the same quality gates, drift detection, and reference documentation pipeline.
@@ -8,8 +20,8 @@ This playbook explains how to manage documentation for products that expose APIs
 | --- | --- | --- |
 | Source of truth | Hand-written OpenAPI spec in `api/openapi.yaml` | Running application code |
 | How the spec arrives | Author writes it, then generates stubs | `npm run gaps:code` reads code, then generates spec |
-| Mock server | Prism mock from spec (`npm run api:sandbox:mock`) | Real endpoints tested directly |
-| Scaffold generation | OpenAPI Generator via `api-first-scaffold.yml` | Not applicable (code exists) |
+| Mock server | `scripts/api_sandbox_project.sh` (`docker`, `prism`, or `external`) | Real endpoints tested directly |
+| Scaffold generation | OpenAPI Generator via local flow (`run_api_first_flow.py`) | Not applicable (code exists) |
 | Spectral lint | Runs on the hand-written spec | Runs on the generated spec |
 | Reference docs | Generated from the spec | Generated from the spec |
 
@@ -23,51 +35,79 @@ Use this workflow when you design the API contract before writing server code. T
 
 Create or edit `api/openapi.yaml`. Follow the OpenAPI quality rules enforced by `.spectral.yml` (see the Spectral rules section below).
 
-### Step 2: Generate server stubs and client SDKs
+### Step 2: Run the API-first flow end-to-end
 
-Use the `api-first-scaffold.yml` workflow in GitHub Actions:
-
-1. Go to the Actions tab and select "API First Scaffold."
-1. Provide `spec_path` (default: `api/openapi.yaml`).
-1. Provide `server_generator` (default: `typescript-express-server`).
-1. Provide `client_generator` (default: `typescript-axios`).
-1. Run the workflow. It generates artifacts in `generated/server` and `generated/client`.
-
-You can also run the generator locally with Docker:
+Run the standard pipeline entry point:
 
 ```bash
-docker run --rm -v "${PWD}:/local" openapitools/openapi-generator-cli:v7.7.0 generate \
-  -i /local/api/openapi.yaml \
-  -g typescript-express-server \
-  -o /local/generated/server
+python3 scripts/run_api_first_flow.py \
+  --project-slug taskstream \
+  --notes demos/api-first/taskstream-planning-notes.md \
+  --spec api/openapi.yaml \
+  --spec-tree api/taskstream \
+  --docs-provider mkdocs \
+  --verify-user-path \
+  --mock-base-url "https://sandbox-api.example.com/v1" \
+  --sync-playground-endpoint \
+  --auto-remediate \
+  --max-attempts 3
 ```
+
+This generates OpenAPI artifacts, runs contract and lint checks, generates stubs, verifies user path, and syncs docs sandbox URL.
+
+### Step 3: Start sandbox mode
+
+Docker mode:
 
 ```bash
-docker run --rm -v "${PWD}:/local" openapitools/openapi-generator-cli:v7.7.0 generate \
-  -i /local/api/openapi.yaml \
-  -g typescript-axios \
-  -o /local/generated/client
+bash scripts/api_sandbox_project.sh up taskstream ./api/openapi.yaml 4010 docker
 ```
 
-### Step 3: Start the Prism mock server
-
-The mock server serves realistic responses from the OpenAPI spec without real backend code:
+No-Docker local mode:
 
 ```bash
-npm run api:sandbox:mock
+bash scripts/api_sandbox_project.sh up taskstream ./api/openapi.yaml 4010 prism
 ```
 
-This starts a Stoplight Prism container on port 4010 using `docker-compose.api-sandbox.yml`. Prism reads `api/openapi.yaml` and returns example responses for every endpoint.
-
-Stop the mock server:
+Public hosted mode:
 
 ```bash
-npm run api:sandbox:stop
+API_SANDBOX_EXTERNAL_BASE_URL="https://sandbox-api.example.com/v1" \
+bash scripts/api_sandbox_project.sh up taskstream ./api/openapi.yaml 4010 external
 ```
 
-### Step 4: Test against the mock
+Supported external providers are not hardcoded. Typical options are Postman Mock Servers, Stoplight-hosted Prism, Mockoon Cloud, or self-hosted Prism.
 
-Send requests to `http://localhost:4010` to verify that your spec produces correct example responses. Fix the spec until mock responses match your design intent.
+### Step 3A: Fully automatic Postman setup (recommended)
+
+Provide these environment variables once:
+
+1. `POSTMAN_API_KEY`
+1. `POSTMAN_WORKSPACE_ID`
+1. optional `POSTMAN_COLLECTION_UID` (if missing, pipeline imports collection from generated OpenAPI)
+1. Optional `POSTMAN_MOCK_SERVER_ID` (reuse existing mock)
+
+Then run API-first flow with external mock auto-prepare:
+
+```bash
+python3 scripts/run_api_first_flow.py \
+  --project-slug taskstream \
+  --notes demos/api-first/taskstream-planning-notes.md \
+  --spec api/openapi.yaml \
+  --spec-tree api/taskstream \
+  --sandbox-backend external \
+  --auto-prepare-external-mock \
+  --external-mock-provider postman \
+  --external-mock-base-path /v1 \
+  --verify-user-path \
+  --sync-playground-endpoint
+```
+
+The pipeline creates or reuses Postman mock automatically and injects resolved URL into playground config.
+
+### Step 4: Test against the selected sandbox
+
+Send requests to your configured `mock_base_url` and fix the spec until responses match design intent.
 
 ### Step 5: Lint the specification with Spectral
 
@@ -367,7 +407,7 @@ npm run consolidate:reports-only
 | PR DoD contract | `pr-dod-contract.yml` | PR touching interface or doc files | Blocks PR if interface changes lack docs |
 | Code examples smoke | `code-examples-smoke.yml` | PR or push touching docs/templates | Executes tagged code blocks to verify they work |
 | OpenAPI source sync | `openapi-source-sync.yml` | Manual dispatch | Resolves spec from api-first or code-first strategy |
-| API-first scaffold | `api-first-scaffold.yml` | Manual dispatch | Generates server stubs and client SDKs |
+| API-first full flow | `scripts/run_api_first_flow.py` | Local run / weekly automation | Generates contract + stubs + verification + sandbox endpoint sync |
 
 ## Enforcement scripts summary
 
@@ -404,10 +444,10 @@ npm run validate:minimal
 
 1. Edit `api/openapi.yaml` with the new or changed endpoint.
 1. Lint the spec: `npx @stoplight/spectral-cli lint api/openapi.yaml`.
-1. Start the mock: `npm run api:sandbox:mock`.
-1. Test requests against `http://localhost:4010`.
-1. Stop the mock: `npm run api:sandbox:stop`.
-1. Generate stubs if needed (run `api-first-scaffold.yml` or use Docker locally).
+1. Start sandbox: `bash scripts/api_sandbox_project.sh up taskstream ./api/openapi.yaml 4010 prism`.
+1. For public docs sandbox use external mode: `API_SANDBOX_EXTERNAL_BASE_URL=\"https://sandbox-api.example.com/v1\" bash scripts/api_sandbox_project.sh up taskstream ./api/openapi.yaml 4010 external`.
+1. Test requests against configured `mock_base_url`.
+1. Run API-first flow to regenerate and verify: `python3 scripts/run_api_first_flow.py ... --verify-user-path --mock-base-url https://sandbox-api.example.com/v1 --sync-playground-endpoint`.
 1. Update reference docs in `docs/reference/`.
 1. Run `npm run docs-contract` and `npm run drift-check`.
 1. Run `npm run lint:examples-smoke`.
@@ -530,3 +570,7 @@ Run all four before every API-related pull request.
 | `CUSTOMIZATION_PER_COMPANY.md` | Full per-company configuration |
 | `PILOT_VS_FULL_IMPLEMENTATION.md` | Pilot week vs full implementation |
 | `OPERATOR_RUNBOOK.md` | Step-by-step delivery execution |
+
+## Next steps
+
+- [Documentation index](../index.md)

@@ -4,6 +4,7 @@
 from __future__ import annotations
 
 import argparse
+import json
 import shutil
 import subprocess
 from pathlib import Path
@@ -151,6 +152,51 @@ def sync_playground_sandbox_url(repo: Path, sandbox_base_url: str) -> None:
 
     mkdocs_path.write_text(yaml.safe_dump(payload, sort_keys=False, allow_unicode=False), encoding="utf-8")
     print(f"[ok] synced playground sandbox endpoint in mkdocs.yml: {sandbox_base_url}", flush=True)
+
+
+def resolve_mock_base_url(repo: Path, args: argparse.Namespace) -> str:
+    base_url = str(args.mock_base_url).strip()
+    sandbox_backend = str(args.sandbox_backend).strip().lower()
+    if sandbox_backend != "external" or not args.auto_prepare_external_mock:
+        return base_url
+
+    out_path = repo / "reports" / "external_mock_resolution.json"
+    cmd = [
+        "python3",
+        "scripts/ensure_external_mock_server.py",
+        "--provider",
+        str(args.external_mock_provider),
+        "--project-slug",
+        str(args.project_slug),
+        "--base-path",
+        str(args.external_mock_base_path),
+        "--spec-path",
+        str((repo / args.spec).resolve()),
+        "--output-json",
+        str(out_path),
+        "--postman-api-key-env",
+        str(args.external_mock_postman_api_key_env),
+        "--postman-workspace-id-env",
+        str(args.external_mock_postman_workspace_id_env),
+        "--postman-collection-uid-env",
+        str(args.external_mock_postman_collection_uid_env),
+        "--postman-mock-server-id-env",
+        str(args.external_mock_postman_mock_server_id_env),
+        "--postman-mock-server-name",
+        str(args.external_mock_postman_mock_server_name),
+    ]
+    if args.external_mock_postman_private:
+        cmd.append("--postman-private")
+    print("[demo] Step 0/5: Ensure external mock server is ready.", flush=True)
+    run(cmd, cwd=repo, compact=True, summary_label="external mock prepared")
+    payload = json.loads(out_path.read_text(encoding="utf-8"))
+    if not isinstance(payload, dict):
+        raise RuntimeError("Invalid external mock resolution payload.")
+    resolved = str(payload.get("mock_base_url", "")).strip()
+    if not resolved:
+        raise RuntimeError("external mock resolver returned empty mock_base_url")
+    print(f"[ok] resolved external mock_base_url: {resolved}", flush=True)
+    return resolved
 
 
 def self_verify_stub_coverage(spec_path: Path, stub_file: Path) -> None:
@@ -313,6 +359,16 @@ def main() -> int:
     parser.add_argument("--stubs-output", default="generated/api-stubs/fastapi/app/main.py")
     parser.add_argument("--verify-user-path", action="store_true")
     parser.add_argument("--mock-base-url", default="http://localhost:4010/v1")
+    parser.add_argument("--sandbox-backend", default="docker")
+    parser.add_argument("--auto-prepare-external-mock", action="store_true")
+    parser.add_argument("--external-mock-provider", default="postman")
+    parser.add_argument("--external-mock-base-path", default="/v1")
+    parser.add_argument("--external-mock-postman-api-key-env", default="POSTMAN_API_KEY")
+    parser.add_argument("--external-mock-postman-workspace-id-env", default="POSTMAN_WORKSPACE_ID")
+    parser.add_argument("--external-mock-postman-collection-uid-env", default="POSTMAN_COLLECTION_UID")
+    parser.add_argument("--external-mock-postman-mock-server-id-env", default="POSTMAN_MOCK_SERVER_ID")
+    parser.add_argument("--external-mock-postman-mock-server-name", default="")
+    parser.add_argument("--external-mock-postman-private", action="store_true")
     parser.add_argument("--run-docs-lint", action="store_true")
     parser.add_argument("--auto-remediate", action="store_true")
     parser.add_argument("--max-attempts", type=int, default=3)
@@ -360,9 +416,6 @@ def main() -> int:
 
     ensure_file(notes, "planning notes")
 
-    if args.docs_provider.lower() == "mkdocs" and args.sync_playground_endpoint:
-        sync_playground_sandbox_url(repo, args.mock_base_url)
-
     if not args.skip_generate_from_notes:
         print("[demo] Step 0/5: Generate OpenAPI contract from planning notes.", flush=True)
         run(
@@ -385,6 +438,11 @@ def main() -> int:
 
     ensure_file(spec, "OpenAPI spec")
     ensure_file(spec_tree, "OpenAPI split directory")
+
+    resolved_mock_base_url = resolve_mock_base_url(repo, args)
+
+    if args.docs_provider.lower() == "mkdocs" and args.sync_playground_endpoint:
+        sync_playground_sandbox_url(repo, resolved_mock_base_url)
 
     if manual_overrides is not None:
         ensure_file(manual_overrides, "OpenAPI manual overrides file")
@@ -420,7 +478,7 @@ def main() -> int:
                 docs_target,
                 stubs_output,
                 args.verify_user_path,
-                args.mock_base_url,
+                resolved_mock_base_url,
                 args.run_docs_lint,
                 regression_snapshot,
                 args.update_regression_snapshot,

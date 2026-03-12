@@ -567,6 +567,8 @@ def main() -> int:
                     str(int(api_cfg.get("max_attempts", 3))),
                     "--openapi-version",
                     str(api_cfg.get("openapi_version", "3.0.3")),
+                    "--sandbox-backend",
+                    str(api_cfg.get("sandbox_backend", "docker")),
                 ]
                 manual_overrides = str(api_cfg.get("manual_overrides_path", "")).strip()
                 if manual_overrides:
@@ -586,6 +588,35 @@ def main() -> int:
                             str(api_cfg.get("mock_base_url", "http://localhost:4010/v1")),
                         ]
                     )
+                external_mock_cfg = api_cfg.get("external_mock", {})
+                if isinstance(external_mock_cfg, dict) and bool(external_mock_cfg.get("enabled", False)):
+                    cmd.extend(
+                        [
+                            "--auto-prepare-external-mock",
+                            "--external-mock-provider",
+                            str(external_mock_cfg.get("provider", "postman")),
+                            "--external-mock-base-path",
+                            str(external_mock_cfg.get("base_path", "/v1")),
+                        ]
+                    )
+                    postman_cfg = external_mock_cfg.get("postman", {})
+                    if isinstance(postman_cfg, dict):
+                        cmd.extend(
+                            [
+                                "--external-mock-postman-api-key-env",
+                                str(postman_cfg.get("api_key_env", "POSTMAN_API_KEY")),
+                                "--external-mock-postman-workspace-id-env",
+                                str(postman_cfg.get("workspace_id_env", "POSTMAN_WORKSPACE_ID")),
+                                "--external-mock-postman-collection-uid-env",
+                                str(postman_cfg.get("collection_uid_env", "POSTMAN_COLLECTION_UID")),
+                                "--external-mock-postman-mock-server-id-env",
+                                str(postman_cfg.get("mock_server_id_env", "POSTMAN_MOCK_SERVER_ID")),
+                                "--external-mock-postman-mock-server-name",
+                                str(postman_cfg.get("mock_server_name", "")),
+                            ]
+                        )
+                        if bool(postman_cfg.get("private", False)):
+                            cmd.append("--external-mock-postman-private")
                 if bool(api_cfg.get("run_docs_lint", False)):
                     cmd.append("--run-docs-lint")
                 if not bool(api_cfg.get("sync_playground_endpoint", True)):

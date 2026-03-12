@@ -14,7 +14,7 @@ last_reviewed: "2026-03-09"
 
 This page provides the exact planning-notes input artifact used by the API-first flow before OpenAPI generation and validation.
 
-The pipeline treats these notes as the contract source of truth and derives endpoint shapes, resource lifecycles, filtering rules, sorting options, authentication requirements, and expected error envelopes. This input-first model keeps API design review aligned with technical writing and implementation planning.
+The pipeline treats these notes as the contract source of truth and derives endpoint shapes, resource life cycle behavior, filtering rules, sorting options, authentication requirements, and expected error envelopes. This input-first model keeps API design review aligned with technical writing and implementation planning.
 
 ## Input artifact location
 
