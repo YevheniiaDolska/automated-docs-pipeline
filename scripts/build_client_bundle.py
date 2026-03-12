@@ -125,6 +125,8 @@ def build_runtime_config(profile: dict[str, Any]) -> dict[str, Any]:
                 "docs_contract": True,
                 "kpi_sla": True,
                 "rag_optimization": True,
+                "ontology_graph": True,
+                "retrieval_evals": True,
                 "terminology_management": True,
                 "multilang_examples": True,
                 "normalization": True,
@@ -143,6 +145,27 @@ def build_runtime_config(profile: dict[str, Any]) -> dict[str, Any]:
                 "enabled": True,
                 "glossary_path": "glossary.yml",
                 "auto_add_from_markers": True,
+            },
+        ),
+        "retrieval_eval": runtime.get(
+            "retrieval_eval",
+            {
+                "enabled": True,
+                "index_path": "docs/assets/knowledge-retrieval-index.json",
+                "dataset_path": "",
+                "top_k": 3,
+                "min_precision": 0.5,
+                "min_recall": 0.5,
+                "max_hallucination_rate": 0.5,
+                "auto_samples": 25,
+            },
+        ),
+        "knowledge_graph": runtime.get(
+            "knowledge_graph",
+            {
+                "enabled": True,
+                "modules_dir": "knowledge_modules",
+                "output_path": "docs/assets/knowledge-graph.jsonld",
             },
         ),
         "multilang_examples": runtime.get(

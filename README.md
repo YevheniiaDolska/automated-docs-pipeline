@@ -83,6 +83,8 @@ The pipeline includes an AI-native knowledge layer that keeps docs readable whil
 | `scripts/validate_knowledge_modules.py` | Quality gate for module schema, dependencies, and cycle safety |
 | `scripts/assemble_intent_experience.py` | Assembles intent experiences into docs pages and channel bundles |
 | `scripts/generate_knowledge_retrieval_index.py` | Builds a module-level retrieval index for assistants and search |
+| `scripts/generate_knowledge_graph_jsonld.py` | Builds lightweight JSON-LD ontology/graph for modules and relations |
+| `scripts/run_retrieval_evals.py` | Calculates retrieval Precision/Recall/Hallucination-rate quality metrics |
 | `scripts/sync_project_glossary.py` | Syncs glossary markers into `glossary.yml` for terminology governance |
 
 ```bash

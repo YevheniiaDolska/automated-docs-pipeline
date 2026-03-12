@@ -49,6 +49,10 @@ class HealthSummary:
     total_action_items: int = 0
     translation_coverage: dict[str, float] = field(default_factory=dict)
     terminology_new_terms: int = 0
+    retrieval_precision_at_k: float = 0.0
+    retrieval_recall_at_k: float = 0.0
+    retrieval_hallucination_rate: float = 0.0
+    knowledge_graph_nodes: int = 0
 
 
 @dataclass
@@ -421,6 +425,70 @@ class ReportConsolidator:
                 )
             )
 
+    def _process_retrieval_evals(self) -> None:
+        """Process retrieval_evals_report.json."""
+        data = self._read_json("retrieval_evals_report.json")
+        if data is None:
+            self.input_statuses["retrieval_evals"] = InputReportStatus(found=False)
+            return
+
+        metrics = data.get("metrics", {}) if isinstance(data.get("metrics"), dict) else {}
+        self.input_statuses["retrieval_evals"] = InputReportStatus(
+            found=True,
+            generated_at=data.get("generated_at", ""),
+            details={
+                "status": data.get("status", "unknown"),
+                "precision_at_k": metrics.get("precision_at_k", 0.0),
+                "recall_at_k": metrics.get("recall_at_k", 0.0),
+                "hallucination_rate": metrics.get("hallucination_rate", 1.0),
+                "top_k": metrics.get("top_k", 0),
+            },
+        )
+        self.health.retrieval_precision_at_k = float(metrics.get("precision_at_k", 0.0) or 0.0)
+        self.health.retrieval_recall_at_k = float(metrics.get("recall_at_k", 0.0) or 0.0)
+        self.health.retrieval_hallucination_rate = float(metrics.get("hallucination_rate", 0.0) or 0.0)
+
+        if str(data.get("status", "")).strip().lower() == "breach":
+            for breach in data.get("breaches", []):
+                self.action_items.append(
+                    ActionItem(
+                        id=self._next_id(),
+                        source_report="retrieval_evals",
+                        source_id=None,
+                        title=f"Retrieval quality breach: {breach}",
+                        category="retrieval_quality",
+                        suggested_doc_type="reference",
+                        priority="high",
+                        frequency=0,
+                        action_required=(
+                            "Improve module summaries/intents/aliases and rerun retrieval evals "
+                            f"until thresholds pass. Breach: {breach}"
+                        ),
+                        related_files=["docs/assets/knowledge-retrieval-index.json", "reports/retrieval_evals_report.json"],
+                        context={"retrieval_eval_related": True, "breach": breach},
+                    )
+                )
+
+    def _process_knowledge_graph(self) -> None:
+        """Process knowledge_graph_report.json."""
+        data = self._read_json("knowledge_graph_report.json")
+        if data is None:
+            self.input_statuses["knowledge_graph"] = InputReportStatus(found=False)
+            return
+
+        self.input_statuses["knowledge_graph"] = InputReportStatus(
+            found=True,
+            generated_at=data.get("generated_at", ""),
+            details={
+                "status": data.get("status", "unknown"),
+                "modules_count": data.get("modules_count", 0),
+                "graph_nodes": data.get("graph_nodes", 0),
+                "edge_count": data.get("edge_count", 0),
+                "output_file": data.get("output_file", ""),
+            },
+        )
+        self.health.knowledge_graph_nodes = int(data.get("graph_nodes", 0) or 0)
+
     def _cross_reference_drift(self) -> None:
         """Аннотирует gap-элементы, связанные с дрифтом."""
         drift_data = self._read_json("api_sdk_drift_report.json")
@@ -452,6 +520,8 @@ class ReportConsolidator:
         self._process_sla()
         self._process_i18n()
         self._process_glossary()
+        self._process_retrieval_evals()
+        self._process_knowledge_graph()
         self._cross_reference_drift()
 
         self.health.total_action_items = len(self.action_items)
@@ -502,6 +572,11 @@ class ReportConsolidator:
         print(f"  SLA status:       {health['sla_status']}")
         print(f"  Total docs:       {health['total_docs']}")
         print(f"  Stale docs:       {health['stale_pct']:.1f}%")
+        print(
+            f"  Retrieval P/R/H:  {health['retrieval_precision_at_k']:.2f} / "
+            f"{health['retrieval_recall_at_k']:.2f} / {health['retrieval_hallucination_rate']:.2f}"
+        )
+        print(f"  Graph nodes:      {health['knowledge_graph_nodes']}")
         print()
         print(f"  Total action items: {len(items)}")
 

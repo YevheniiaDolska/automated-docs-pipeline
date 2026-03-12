@@ -50,6 +50,8 @@ runtime:
     docs_contract: false
     kpi_sla: false
     rag_optimization: false
+    ontology_graph: false
+    retrieval_evals: false
     terminology_management: true
     multilang_examples: true
     normalization: true
@@ -64,6 +66,19 @@ runtime:
     enabled: true
     glossary_path: "glossary.yml"
     auto_add_from_markers: true
+  retrieval_eval:
+    enabled: false
+    index_path: "docs/assets/knowledge-retrieval-index.json"
+    dataset_path: ""
+    top_k: 3
+    min_precision: 0.5
+    min_recall: 0.5
+    max_hallucination_rate: 0.5
+    auto_samples: 25
+  knowledge_graph:
+    enabled: false
+    modules_dir: "knowledge_modules"
+    output_path: "docs/assets/knowledge-graph.jsonld"
   multilang_examples:
     enabled: true
     scope: "all"

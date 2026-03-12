@@ -29,6 +29,8 @@ Use this with:
 | KPI/SLA reports | No | Yes | Yes |
 | API-first flow | No | Optional | Full |
 | RAG/knowledge validation/index | No | Yes | Yes |
+| JSON-LD ontology/graph layer | No | Yes | Yes |
+| Retrieval evals (Precision/Recall/Hallucination) | No | Yes | Yes |
 | Terminology auto-sync (glossary markers) | Yes | Yes | Yes |
 | i18n sync | No | Optional | Yes |
 | SEO/GEO optimization weekly | Optional | Yes | Yes |
@@ -52,6 +54,8 @@ runtime:
     docs_contract: false
     kpi_sla: false
     rag_optimization: false
+    ontology_graph: false
+    retrieval_evals: false
     terminology_management: true
     normalization: true
     snippet_lint: true
@@ -91,6 +95,8 @@ runtime:
     docs_contract: true
     kpi_sla: true
     rag_optimization: true
+    ontology_graph: true
+    retrieval_evals: true
     terminology_management: true
     normalization: true
     snippet_lint: true
@@ -142,6 +148,8 @@ runtime:
     docs_contract: true
     kpi_sla: true
     rag_optimization: true
+    ontology_graph: true
+    retrieval_evals: true
     terminology_management: true
     normalization: true
     snippet_lint: true

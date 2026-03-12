@@ -62,6 +62,7 @@ runtime:
 | `build:docusaurus` | Build/Generate | `npx docusaurus build` |
 | `build:intent` | Build/Generate | `python3 scripts/assemble_intent_experience.py` |
 | `build:intent:all` | Build/Generate | `python3 scripts/build_all_intent_experiences.py` |
+| `build:knowledge-graph` | Build/Generate | `python3 scripts/generate_knowledge_graph_jsonld.py --modules-dir knowledge_modules --output docs/assets/knowledge-graph.jsonld --report reports/knowledge_graph_report.json` |
 | `build:knowledge-index` | Build/Generate | `python3 scripts/generate_knowledge_retrieval_index.py` |
 | `build:mkdocs` | Build/Generate | `mkdocs build --strict` |
 | `configurator` | General | `python3 scripts/generate_configurator.py` |
@@ -79,6 +80,7 @@ runtime:
 | `docs-ops:golden` | DocsOps tests | `python3 scripts/test_golden_reports_and_workflows.py` |
 | `docs-ops:test-suite` | DocsOps tests | `python3 -m pytest -q tests/test_autopipeline_suite.py` |
 | `drift-check` | General | `python3 scripts/check_api_sdk_drift.py --base origin/main --head HEAD --json-output reports/api_sdk_drift_report.json --md-output reports/api_sdk_drift_report.md` |
+| `eval:retrieval` | General | `python3 scripts/run_retrieval_evals.py --index docs/assets/knowledge-retrieval-index.json --auto-generate-dataset --dataset-out reports/retrieval_eval_dataset.generated.yml --report reports/retrieval_evals_report.json --top-k 3 --min-precision 0.5 --min-recall 0.5 --max-hallucination-rate 0.5` |
 | `gaps` | Gap detection | `python3 -m scripts.gap_detection.cli analyze` |
 | `gaps:code` | Gap detection | `python3 -m scripts.gap_detection.cli code` |
 | `gaps:community` | Gap detection | `python3 -m scripts.gap_detection.cli community` |
@@ -129,7 +131,7 @@ runtime:
 | `test:all` | General | `python3 -m pytest -q tests` |
 | `test:configurator` | General | `python3 -m pytest tests/test_gui_configurator.py -v` |
 | `validate:full` | Validation | `npm run validate:minimal && npm run lint:layers && npm run lint:diagrams && npm run validate:knowledge && npm run docs-ops:e2e && npm run docs-ops:golden && npm run docs-ops:test-suite && python3 test_pipeline.py` |
-| `validate:knowledge` | Validation | `npm run lint:knowledge && npm run build:intent:all && npm run build:knowledge-index` |
+| `validate:knowledge` | Validation | `npm run lint:knowledge && npm run build:intent:all && npm run build:knowledge-index && npm run build:knowledge-graph && npm run eval:retrieval` |
 | `validate:minimal` | Validation | `npm run normalize:docs:check && npm run lint:md && npm run lint:frontmatter && npm run lint:geo && npm run lint:multilang && npm run lint:examples-smoke` |
 
 ## Templates

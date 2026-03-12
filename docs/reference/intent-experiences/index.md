@@ -34,6 +34,8 @@ ls docs/reference/intent-experiences/
 ## Retrieval artifact
 
 - `docs/assets/knowledge-retrieval-index.json`: module-level retrieval records for assistants and search.
+- `docs/assets/knowledge-graph.jsonld`: lightweight JSON-LD graph for module relationships.
+- `reports/retrieval_evals_report.json`: Precision/Recall/Hallucination-rate metrics.
 
 ## Source of truth
 

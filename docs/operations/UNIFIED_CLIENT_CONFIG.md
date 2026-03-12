@@ -241,6 +241,8 @@ runtime:
     docs_contract: true
     kpi_sla: true
     rag_optimization: true
+    ontology_graph: true
+    retrieval_evals: true
     terminology_management: true
     normalization: true
     snippet_lint: true
@@ -267,6 +269,8 @@ runtime:
 - `lifecycle_management` -> `scripts/lifecycle_manager.py` (+ lifecycle report/redirect guidance)
 - `knowledge_validation` -> `scripts/extract_knowledge_modules_from_docs.py` + `scripts/validate_knowledge_modules.py`
 - `rag_optimization` -> `scripts/generate_knowledge_retrieval_index.py`
+- `ontology_graph` -> `scripts/generate_knowledge_graph_jsonld.py`
+- `retrieval_evals` -> `scripts/run_retrieval_evals.py`
 - `i18n_sync` -> `scripts/i18n_sync.py`
 - `release_pack` -> `scripts/generate_release_docs_pack.py`
 - `api-first/hybrid` -> `scripts/run_api_first_flow.py` + `scripts/generate_openapi_from_planning_notes.py` + `scripts/validate_openapi_contract.py` + `scripts/generate_fastapi_stubs_from_openapi.py` + `scripts/apply_openapi_overrides.py` + `scripts/check_openapi_regression.py`
@@ -280,6 +284,25 @@ Glossary marker format for new terms inside docs:
 ```
 
 `sync_project_glossary.py` reads markers and updates `glossary.yml`.
+
+RAG-aligned retrieval eval and graph settings:
+
+```yaml
+runtime:
+  retrieval_eval:
+    enabled: true
+    index_path: "docs/assets/knowledge-retrieval-index.json"
+    dataset_path: ""
+    top_k: 3
+    min_precision: 0.5
+    min_recall: 0.5
+    max_hallucination_rate: 0.5
+    auto_samples: 25
+  knowledge_graph:
+    enabled: true
+    modules_dir: "knowledge_modules"
+    output_path: "docs/assets/knowledge-graph.jsonld"
+```
 
 Important: API-first is only one flow branch.
 The pipeline supports and generates all major doc types (tutorial/how-to/concept/reference/troubleshooting/release/security/sdk/api/user/admin/runbook), and quality automation applies across them.
@@ -629,6 +652,8 @@ Default automation order in weekly runner:
 \11. extract knowledge modules from docs (`extract_knowledge_modules_from_docs.py`)
 \11. validate modules (`validate_knowledge_modules.py`)
 \11. regenerate retrieval index (`generate_knowledge_retrieval_index.py`)
+\11. generate JSON-LD knowledge graph (`generate_knowledge_graph_jsonld.py`)
+\11. run retrieval evals (`run_retrieval_evals.py`)
 \11. sync glossary markers to `glossary.yml` (`sync_project_glossary.py`)
 \11. generate multi-language tabs (`generate_multilang_tabs.py`)
 \11. validate multi-language tabs (`validate_multilang_examples.py`)
@@ -642,12 +667,16 @@ To run RAG and knowledge base maintenance without manual commands:
 
 - enable `runtime.modules.knowledge_validation: true`
 - enable `runtime.modules.rag_optimization: true`
+- enable `runtime.modules.ontology_graph: true`
+- enable `runtime.modules.retrieval_evals: true`
 - add `runtime.custom_tasks.weekly` entries (for example intent experiences)
 - include `bundle.include_paths: ["knowledge_modules"]`
 - include scripts:
   - `scripts/extract_knowledge_modules_from_docs.py`
   - `scripts/validate_knowledge_modules.py`
   - `scripts/generate_knowledge_retrieval_index.py`
+  - `scripts/generate_knowledge_graph_jsonld.py`
+  - `scripts/run_retrieval_evals.py`
 
 \11. Provision once:
 
@@ -660,6 +689,8 @@ To run RAG and knowledge base maintenance without manual commands:
 - it runs `extract_knowledge_modules_from_docs.py`
 - it runs `validate_knowledge_modules.py`
 - it runs `generate_knowledge_retrieval_index.py`
+- it runs `generate_knowledge_graph_jsonld.py`
+- it runs `run_retrieval_evals.py`
 - it runs all enabled `custom_tasks.weekly`
 - it writes consolidated reports
 

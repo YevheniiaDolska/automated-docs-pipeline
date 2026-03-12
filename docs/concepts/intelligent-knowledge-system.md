@@ -28,6 +28,8 @@ The pipeline keeps authored modules in `knowledge_modules/*.yml`, validates them
 1. `Knowledge modules`: atomic YAML units with intent, audience, channel, dependency, and owner metadata.
 1. `Intent assembler`: creates audience-specific docs pages and channel bundles from active modules.
 1. `Retrieval index`: exports module-level records to `docs/assets/knowledge-retrieval-index.json`.
+1. `JSON-LD graph`: exports module relationships to `docs/assets/knowledge-graph.jsonld`.
+1. `Retrieval evals`: calculates Precision/Recall/Hallucination-rate in `reports/retrieval_evals_report.json`.
 1. `Quality gates`: checks schema, dependency integrity, cycle safety, and content completeness.
 
 ## Why this improves documentation quality
@@ -54,7 +56,19 @@ Each module defines:
 1. Validate modules with `npm run lint:knowledge`.
 1. Assemble docs and bundles with `npm run build:intent`.
 1. Generate retrieval artifacts with `npm run build:knowledge-index`.
+1. Generate graph artifact with `npm run build:knowledge-graph`.
+1. Run retrieval eval gate with `npm run eval:retrieval`.
 1. Run `npm run validate:knowledge` as a pre-release gate.
+
+## RAG integration contract
+
+Ask AI reads the same artifacts that the weekly knowledge pipeline refreshes.
+
+- `docs/assets/knowledge-retrieval-index.json` is the primary retrieval index.
+- `docs/assets/knowledge-graph.jsonld` adds relationship context for retrieval and reasoning.
+- `reports/retrieval_evals_report.json` provides retrieval quality gates (Precision, Recall, Hallucination-rate).
+
+This shared contract keeps documentation generation, knowledge base updates, and RAG runtime aligned.
 
 ## Security and governance
 

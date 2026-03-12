@@ -103,6 +103,8 @@ Confirm:
 - `enabled` matches client request
 - `billing_mode` matches contract
 - `provider` and `model` match the planned setup
+- `knowledge_index_path`, `knowledge_graph_path`, and `retrieval_eval_report_path` point to current RAG artifacts
+- weekly pipeline refresh keeps those three artifacts up to date before assistant runs
 
 ## Troubleshooting
 

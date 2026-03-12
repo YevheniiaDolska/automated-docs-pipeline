@@ -48,6 +48,8 @@ bundle:
     - "scripts/extract_knowledge_modules_from_docs.py"
     - "scripts/validate_knowledge_modules.py"
     - "scripts/generate_knowledge_retrieval_index.py"
+    - "scripts/generate_knowledge_graph_jsonld.py"
+    - "scripts/run_retrieval_evals.py"
     - "scripts/sync_project_glossary.py"
     - "scripts/build_all_intent_experiences.py"
     - "scripts/apply_openapi_overrides.py"
@@ -131,6 +133,8 @@ runtime:
     docs_contract: true
     kpi_sla: true
     rag_optimization: true
+    ontology_graph: true
+    retrieval_evals: true
     terminology_management: true
     multilang_examples: true
     normalization: true
@@ -146,6 +150,19 @@ runtime:
     enabled: true
     glossary_path: "glossary.yml"
     auto_add_from_markers: true
+  retrieval_eval:
+    enabled: true
+    index_path: "docs/assets/knowledge-retrieval-index.json"
+    dataset_path: ""
+    top_k: 3
+    min_precision: 0.5
+    min_recall: 0.5
+    max_hallucination_rate: 0.5
+    auto_samples: 25
+  knowledge_graph:
+    enabled: true
+    modules_dir: "knowledge_modules"
+    output_path: "docs/assets/knowledge-graph.jsonld"
   multilang_examples:
     enabled: true
     scope: "all"

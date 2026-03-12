@@ -35,6 +35,8 @@ def _update_ask_ai_config(config_path: Path, runtime_dir: str) -> None:
         "model": "gpt-4.1-mini",
         "base_url": "https://api.openai.com/v1",
         "knowledge_index_path": "docs/assets/knowledge-retrieval-index.json",
+        "knowledge_graph_path": "docs/assets/knowledge-graph.jsonld",
+        "retrieval_eval_report_path": "reports/retrieval_evals_report.json",
         "assistant_bundle_glob": "reports/intent-bundles/*-assistant.json",
         "max_context_modules": 6,
         "temperature": 0.2,

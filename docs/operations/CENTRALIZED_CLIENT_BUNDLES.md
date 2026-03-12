@@ -82,6 +82,8 @@ runtime:
     docs_contract: true
     kpi_sla: true
     rag_optimization: true
+    ontology_graph: true
+    retrieval_evals: true
     terminology_management: true
     lifecycle_management: true
 ```
@@ -105,6 +107,8 @@ bundle:
 - lifecycle checks/reports
 - SEO/GEO
 - RAG/knowledge index
+- JSON-LD knowledge graph (`generate_knowledge_graph_jsonld.py`)
+- retrieval evals (`run_retrieval_evals.py`)
 - terminology sync to glossary (`sync_project_glossary.py`)
 - drift/contract/KPI-SLA
 
@@ -124,6 +128,8 @@ runtime:
 
 - SEO/GEO (`seo_geo_optimizer.py`)
 - RAG/knowledge index (`generate_knowledge_retrieval_index.py`)
+- JSON-LD graph (`generate_knowledge_graph_jsonld.py`)
+- retrieval evals (`run_retrieval_evals.py`)
 - glossary sync (`sync_project_glossary.py`)
 - интент-бандлы (`build_all_intent_experiences.py`)
 - мультиязычные табы кода (`generate_multilang_tabs.py` + `validate_multilang_examples.py`)
@@ -379,6 +385,8 @@ JSON/Markdown отчеты (`reports/consolidated_report.json` и связанн
 
 - `runtime.modules.knowledge_validation: true`
 - `runtime.modules.rag_optimization: true`
+- `runtime.modules.ontology_graph: true`
+- `runtime.modules.retrieval_evals: true`
 - `runtime.custom_tasks.weekly` для RAG-задач, включая `build_all_intent_experiences.py`
 - `bundle.include_paths: ["knowledge_modules"]`
 
@@ -394,6 +402,8 @@ JSON/Markdown отчеты (`reports/consolidated_report.json` и связанн
   - `extract_knowledge_modules_from_docs.py`
   - `validate_knowledge_modules.py`
   - `generate_knowledge_retrieval_index.py`
+  - `generate_knowledge_graph_jsonld.py`
+  - `run_retrieval_evals.py`
   - любые `custom_tasks.weekly` (например `build_all_intent_experiences.py`)
 - отчеты формируются автоматически
 
@@ -434,11 +444,15 @@ runtime:
     docs_contract: true
     kpi_sla: true
     rag_optimization: true
+    ontology_graph: true
+    retrieval_evals: true
     terminology_management: true
 bundle:
   include_scripts:
     - "scripts/check_docs_contract.py"
     - "scripts/evaluate_kpi_sla.py"
+    - "scripts/generate_knowledge_graph_jsonld.py"
+    - "scripts/run_retrieval_evals.py"
     - "scripts/sync_project_glossary.py"
 ```
 

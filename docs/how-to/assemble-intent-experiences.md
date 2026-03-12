@@ -76,6 +76,13 @@ npm run build:knowledge-index
 
 The index file `docs/assets/knowledge-retrieval-index.json` now contains module-level records for search and assistant retrieval.
 
+Generate graph and eval artifacts:
+
+```bash
+npm run build:knowledge-graph
+npm run eval:retrieval
+```
+
 ## Common issues
 
 ### No modules matched

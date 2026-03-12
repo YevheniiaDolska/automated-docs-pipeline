@@ -46,3 +46,11 @@ kpi_sla:
 terminology:
   glossary_sync_required: true
   max_new_terms_per_week: 40
+
+retrieval_evals:
+  min_precision: 0.55
+  min_recall: 0.55
+  max_hallucination_rate: 0.45
+
+knowledge_graph:
+  min_graph_nodes: 8

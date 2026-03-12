@@ -17,6 +17,8 @@ DEFAULT_CONFIG: dict[str, Any] = {
     "model": "gpt-4.1-mini",
     "base_url": "https://api.openai.com/v1",
     "knowledge_index_path": "docs/assets/knowledge-retrieval-index.json",
+    "knowledge_graph_path": "docs/assets/knowledge-graph.jsonld",
+    "retrieval_eval_report_path": "reports/retrieval_evals_report.json",
     "assistant_bundle_glob": "reports/intent-bundles/*-assistant.json",
     "max_context_modules": 6,
     "temperature": 0.2,
@@ -79,6 +81,8 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--model", help="Model name")
     parser.add_argument("--base-url", help="Provider API base URL")
     parser.add_argument("--knowledge-index-path", help="Path to retrieval index JSON")
+    parser.add_argument("--knowledge-graph-path", help="Path to JSON-LD knowledge graph")
+    parser.add_argument("--retrieval-eval-report-path", help="Path to retrieval eval report JSON")
     parser.add_argument("--assistant-bundle-glob", help="Glob for assistant bundles")
     parser.add_argument("--max-context-modules", type=int, help="Max retrieved modules per answer")
     parser.add_argument("--temperature", type=float, help="Sampling temperature")
@@ -120,6 +124,8 @@ def main() -> int:
         "model": args.model,
         "base_url": args.base_url,
         "knowledge_index_path": args.knowledge_index_path,
+        "knowledge_graph_path": args.knowledge_graph_path,
+        "retrieval_eval_report_path": args.retrieval_eval_report_path,
         "assistant_bundle_glob": args.assistant_bundle_glob,
         "max_context_modules": args.max_context_modules,
         "temperature": args.temperature,

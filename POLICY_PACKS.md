@@ -33,6 +33,8 @@ Each policy pack defines top-level sections:
 | `drift` | Defines `openapi_patterns`, `sdk_patterns`, and `reference_doc_patterns`. When OpenAPI or SDK files change without a corresponding reference doc update, drift is reported. | `check_api_sdk_drift.py`, `api-sdk-drift-gate.yml` |
 | `kpi_sla` | Defines numeric thresholds for quality score, stale percentage, gap count, and quality regression. Breaching any threshold fails the SLA check. | `evaluate_kpi_sla.py`, `kpi-wall.yml`, `weekly-consolidation.yml` |
 | `terminology` | Defines glossary governance thresholds (`glossary_sync_required`, max new terms per week) for project terminology growth. | `sync_project_glossary.py`, `run_weekly_gap_batch.py` |
+| `retrieval_evals` | Defines retrieval quality thresholds: minimum precision, minimum recall, and maximum hallucination rate. | `run_retrieval_evals.py`, `run_weekly_gap_batch.py` |
+| `knowledge_graph` | Defines minimum node count for the generated JSON-LD knowledge graph. | `generate_knowledge_graph_jsonld.py`, `run_weekly_gap_batch.py` |
 | `plg` | (PLG pack only) Controls API sandbox mode, value-first documentation requirements, and recommended sections. | Advisory guidance for PLG teams |
 
 When a developer changes a file matching `interface_patterns` but does not change any file matching `doc_patterns`, the PR fails. That is how the pipeline enforces documentation freshness.
@@ -269,6 +271,20 @@ notes:
 | `max_stale_pct` | 20.0% | 12.0% | 15.0% | 10.0% | 10.0% |
 | `max_high_priority_gaps` | 10 | 6 | 10 | 5 | 5 |
 | `max_quality_score_drop` | 8 | 4 | 6 | 3 | 3 |
+
+### Retrieval eval thresholds
+
+| Threshold | `minimal` | `api-first` | `monorepo` | `multi-product` | `plg` |
+| --- | --- | --- | --- | --- | --- |
+| `min_precision` | 0.40 | 0.50 | 0.50 | 0.55 | 0.60 |
+| `min_recall` | 0.40 | 0.50 | 0.50 | 0.55 | 0.60 |
+| `max_hallucination_rate` | 0.60 | 0.50 | 0.50 | 0.45 | 0.40 |
+
+### Knowledge graph minimum size
+
+| Threshold | `minimal` | `api-first` | `monorepo` | `multi-product` | `plg` |
+| --- | --- | --- | --- | --- | --- |
+| `min_graph_nodes` | 3 | 5 | 5 | 8 | 10 |
 
 ### Interface patterns (docs contract)
 

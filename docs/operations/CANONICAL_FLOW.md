@@ -109,6 +109,8 @@ It executes:
   - `extract_knowledge_modules_from_docs.py`
   - `validate_knowledge_modules.py`
   - `generate_knowledge_retrieval_index.py`
+  - `generate_knowledge_graph_jsonld.py`
+  - `run_retrieval_evals.py` (Precision/Recall/Hallucination-rate)
 - terminology governance:
   - `sync_project_glossary.py` (syncs glossary markers to `glossary.yml`)
 - multi-language examples standard:

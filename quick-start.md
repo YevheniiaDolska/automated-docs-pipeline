@@ -82,6 +82,8 @@ New baseline included in weekly run:
 - automatic multi-language tabs generation for code examples
 - multi-language tabs validation (`curl` + `javascript` + `python`)
 - smoke execution with optional `expected-output` checks on tagged blocks
+- retrieval quality evals (`precision/recall/hallucination-rate`)
+- lightweight JSON-LD knowledge graph generation
 - glossary marker sync into `glossary.yml` (`sync_project_glossary.py`)
 - API-first advanced controls when configured:
   - manual OpenAPI overrides apply

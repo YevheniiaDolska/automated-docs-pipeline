@@ -91,6 +91,32 @@ def _make_sla_report(status: str = "ok", breaches: list[str] | None = None) -> d
     }
 
 
+def _make_retrieval_report(status: str = "ok") -> dict[str, Any]:
+    return {
+        "generated_at": "2026-01-01T00:00:00Z",
+        "status": status,
+        "metrics": {
+            "precision_at_k": 0.8,
+            "recall_at_k": 0.75,
+            "hallucination_rate": 0.1,
+            "top_k": 3,
+            "sample_count": 10,
+        },
+        "breaches": [] if status == "ok" else ["precision_at_k=0.4 < 0.5"],
+    }
+
+
+def _make_graph_report() -> dict[str, Any]:
+    return {
+        "generated_at": "2026-01-01T00:00:00Z",
+        "status": "ok",
+        "modules_count": 4,
+        "graph_nodes": 20,
+        "edge_count": 11,
+        "output_file": "docs/assets/knowledge-graph.jsonld",
+    }
+
+
 # ---------------------------------------------------------------------------
 # ReportConsolidator._next_id
 # ---------------------------------------------------------------------------
@@ -327,6 +353,22 @@ class TestConsolidate:
         assert "action_items" in result
         assert result["health_summary"]["quality_score"] == 85
         assert len(result["action_items"]) >= 1
+
+    def test_consolidation_includes_retrieval_and_graph(self, tmp_path: Path) -> None:
+        _write_json(tmp_path / "doc_gaps_report.json", _make_gaps_report())
+        _write_json(tmp_path / "api_sdk_drift_report.json", _make_drift_report("ok"))
+        _write_json(tmp_path / "kpi-wall.json", _make_kpi_report())
+        _write_json(tmp_path / "kpi-sla-report.json", _make_sla_report("ok"))
+        _write_json(tmp_path / "retrieval_evals_report.json", _make_retrieval_report("ok"))
+        _write_json(tmp_path / "knowledge_graph_report.json", _make_graph_report())
+
+        consolidator = ReportConsolidator(reports_dir=str(tmp_path))
+        result = consolidator.consolidate()
+
+        assert result["input_reports"]["retrieval_evals"]["found"] is True
+        assert result["input_reports"]["knowledge_graph"]["found"] is True
+        assert result["health_summary"]["retrieval_precision_at_k"] == 0.8
+        assert result["health_summary"]["knowledge_graph_nodes"] == 20
 
     def test_consolidation_with_all_missing_reports(self, tmp_path: Path) -> None:
         """Consolidation completes even when all reports are missing."""

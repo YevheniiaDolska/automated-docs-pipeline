@@ -131,12 +131,17 @@ def main() -> int:
     api_first = runtime.get("api_first", {})
     multilang_examples = runtime.get("multilang_examples", {})
     terminology = runtime.get("terminology", {})
+    retrieval_eval = runtime.get("retrieval_eval", {})
+    knowledge_graph = runtime.get("knowledge_graph", {})
     custom_tasks = runtime.get("custom_tasks", {})
     integrations = runtime.get("integrations", {})
 
     py = sys.executable
     scripts_dir = docsops_root / "scripts"
     policy_pack = docsops_root / "policy_packs" / "selected.yml"
+    policy = _read_yaml(policy_pack) if policy_pack.exists() else {}
+    policy_retrieval = policy.get("retrieval_evals", {}) if isinstance(policy.get("retrieval_evals"), dict) else {}
+    policy_graph = policy.get("knowledge_graph", {}) if isinstance(policy.get("knowledge_graph"), dict) else {}
     base_ref = _resolve_weekly_base_ref(repo_root, args.since)
     head_ref = "HEAD"
 
@@ -355,6 +360,60 @@ def main() -> int:
     knowledge_index = scripts_dir / "generate_knowledge_retrieval_index.py"
     if _is_enabled(modules, "rag_optimization", True) and knowledge_index.exists():
         _run_allow_fail([py, str(knowledge_index)], cwd=repo_root)
+
+    knowledge_graph_script = scripts_dir / "generate_knowledge_graph_jsonld.py"
+    if (
+        _is_enabled(modules, "ontology_graph", True)
+        and knowledge_graph_script.exists()
+        and bool(knowledge_graph.get("enabled", True))
+    ):
+        _run_allow_fail(
+            [
+                py,
+                str(knowledge_graph_script),
+                "--modules-dir",
+                str(knowledge_graph.get("modules_dir", "knowledge_modules")),
+                "--output",
+                str(knowledge_graph.get("output_path", "docs/assets/knowledge-graph.jsonld")),
+                "--report",
+                str(reports_dir / "knowledge_graph_report.json"),
+                "--min-graph-nodes",
+                str(int(knowledge_graph.get("min_graph_nodes", policy_graph.get("min_graph_nodes", 0)))),
+            ],
+            cwd=repo_root,
+        )
+
+    retrieval_evals_script = scripts_dir / "run_retrieval_evals.py"
+    if (
+        _is_enabled(modules, "retrieval_evals", True)
+        and retrieval_evals_script.exists()
+        and bool(retrieval_eval.get("enabled", True))
+    ):
+        cmd = [
+            py,
+            str(retrieval_evals_script),
+            "--index",
+            str(retrieval_eval.get("index_path", "docs/assets/knowledge-retrieval-index.json")),
+            "--dataset-out",
+            str(reports_dir / "retrieval_eval_dataset.generated.yml"),
+            "--report",
+            str(reports_dir / "retrieval_evals_report.json"),
+            "--top-k",
+            str(int(retrieval_eval.get("top_k", 3))),
+            "--min-precision",
+            str(float(retrieval_eval.get("min_precision", policy_retrieval.get("min_precision", 0.5)))),
+            "--min-recall",
+            str(float(retrieval_eval.get("min_recall", policy_retrieval.get("min_recall", 0.5)))),
+            "--max-hallucination-rate",
+            str(float(retrieval_eval.get("max_hallucination_rate", policy_retrieval.get("max_hallucination_rate", 0.5)))),
+            "--auto-samples",
+            str(int(retrieval_eval.get("auto_samples", 25))),
+            "--auto-generate-dataset",
+        ]
+        dataset_path = str(retrieval_eval.get("dataset_path", "")).strip()
+        if dataset_path:
+            cmd.extend(["--dataset", dataset_path])
+        _run_allow_fail(cmd, cwd=repo_root)
 
     i18n_sync = scripts_dir / "i18n_sync.py"
     if _is_enabled(modules, "i18n_sync", True) and i18n_sync.exists():

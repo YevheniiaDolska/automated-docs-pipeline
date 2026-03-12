@@ -109,6 +109,10 @@ class TestBuildClientBundle:
         assert runtime["api_first"]["regression_snapshot_path"] == ""
         assert runtime["terminology"]["enabled"] is True
         assert runtime["terminology"]["glossary_path"] == "glossary.yml"
+        assert runtime["retrieval_eval"]["enabled"] is True
+        assert runtime["retrieval_eval"]["top_k"] == 3
+        assert runtime["knowledge_graph"]["enabled"] is True
+        assert runtime["knowledge_graph"]["output_path"] == "docs/assets/knowledge-graph.jsonld"
         selected = yaml.safe_load((out / "policy_packs" / "selected.yml").read_text(encoding="utf-8"))
         assert selected["docs_contract"]["doc_patterns"] == ["^manual/"]
         assert (out / "scripts" / "gap_detector.py").exists()
@@ -376,6 +380,8 @@ class TestWeeklyBatch:
             "doc_layers_validator.py",
             "validate_knowledge_modules.py",
             "generate_knowledge_retrieval_index.py",
+            "generate_knowledge_graph_jsonld.py",
+            "run_retrieval_evals.py",
             "i18n_sync.py",
             "generate_release_docs_pack.py",
             "generate_kpi_wall.py",
@@ -396,6 +402,8 @@ class TestWeeklyBatch:
                 "fact_checks": True,
                 "knowledge_validation": True,
                 "rag_optimization": True,
+                "ontology_graph": True,
+                "retrieval_evals": True,
                 "terminology_management": True,
                 "i18n_sync": True,
                 "release_pack": True,
@@ -427,6 +435,8 @@ class TestWeeklyBatch:
         rc = mod.main()
         assert rc == 0
         assert any("gap_detector.py" in " ".join(cmd) for _, cmd in ran)
+        assert any("generate_knowledge_graph_jsonld.py" in " ".join(cmd) for _, cmd in ran)
+        assert any("run_retrieval_evals.py" in " ".join(cmd) for _, cmd in ran)
         assert any("consolidate_reports.py" in " ".join(cmd) for _, cmd in ran)
         assert custom == ["echo weekly"]
     def test_main_api_first_branch(self, tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:
