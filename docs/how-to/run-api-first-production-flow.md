@@ -52,6 +52,14 @@ The runner performs:
 1. FastAPI stub generation.
 1. Self-verification of operation coverage and user-path calls.
 
+If you maintain multiple API versions, run one flow per version and publish to separate docs asset paths.
+Example layout:
+
+```text
+api/v1/openapi.yaml -> docs/assets/api/v1/
+api/v2/openapi.yaml -> docs/assets/api/v2/
+```
+
 ## Step 3: Start sandbox for live testing
 
 For contract-mock mode:
@@ -74,7 +82,41 @@ Use Docker restart policy and health checks through:
 - `restart: unless-stopped`
 - built-in healthcheck on `/v1/healthz`
 
-## Step 5: Stop sandbox when needed
+## Step 5: Apply multilingual examples baseline
+
+Run these commands to keep code snippets aligned with the new docs standard:
+
+```bash
+python3 scripts/generate_multilang_tabs.py --paths docs templates --scope api --write
+python3 scripts/validate_multilang_examples.py --docs-dir docs --scope api --required-languages curl,javascript,python
+python3 scripts/check_code_examples_smoke.py --paths docs templates --allow-empty
+```
+
+Use this API request tab set as the baseline format for executable examples:
+
+=== "cURL"
+
+    ```bash
+    curl -sS http://localhost:4010/v1/healthz
+    ```
+
+=== "JavaScript"
+
+    ```javascript
+    const res = await fetch("http://localhost:4010/v1/healthz");
+    console.log(await res.json());
+    ```
+
+=== "Python"
+
+    ```python
+    import requests
+
+    res = requests.get("http://localhost:4010/v1/healthz", timeout=10)
+    print(res.json())
+    ```
+
+## Step 6: Stop sandbox when needed
 
 ```bash
 bash scripts/api_sandbox_project.sh down taskstream ./api/openapi.yaml 4010

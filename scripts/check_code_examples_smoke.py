@@ -5,9 +5,11 @@ from __future__ import annotations
 
 import argparse
 import json
+import re
 import shutil
 import subprocess
 import tempfile
+import textwrap
 from dataclasses import dataclass
 from pathlib import Path
 
@@ -24,6 +26,9 @@ class CodeBlock:
     tags: set[str]
     content: str
     expected_output: str | None = None
+
+
+PLACEHOLDER_PATTERN = re.compile(r"\$(?:\{)?[A-Z][A-Z0-9_]*(?:\})?")
 
 
 def _iter_markdown_files(paths: list[str]) -> list[Path]:
@@ -77,7 +82,7 @@ def _parse_blocks(path: Path) -> list[CodeBlock]:
                     line=start_line,
                     language=language,
                     tags=tags,
-                    content="\n".join(body).strip("\n"),
+                    content=textwrap.dedent("\n".join(body)).strip("\n"),
                     expected_output=expected_output,
                 )
             )
@@ -92,11 +97,22 @@ def _parse_blocks(path: Path) -> list[CodeBlock]:
     return blocks
 
 
-def _run_python(content: str, timeout: int) -> tuple[bool, str]:
+def _run_python(content: str, timeout: int, execute: bool) -> tuple[bool, str]:
     with tempfile.NamedTemporaryFile("w", suffix=".py", encoding="utf-8", delete=False) as handle:
         handle.write(content + "\n")
         script_path = Path(handle.name)
     try:
+        syntax = subprocess.run(
+            ["python3", "-m", "py_compile", str(script_path)],
+            capture_output=True,
+            text=True,
+            timeout=timeout,
+            check=False,
+        )
+        if syntax.returncode != 0:
+            return False, syntax.stderr.strip() or "python syntax check failed"
+        if not execute:
+            return True, ""
         result = subprocess.run(
             ["python3", str(script_path)],
             capture_output=True,
@@ -111,7 +127,7 @@ def _run_python(content: str, timeout: int) -> tuple[bool, str]:
         script_path.unlink(missing_ok=True)
 
 
-def _run_bash(content: str, timeout: int) -> tuple[bool, str]:
+def _run_bash(content: str, timeout: int, execute: bool) -> tuple[bool, str]:
     with tempfile.NamedTemporaryFile("w", suffix=".sh", encoding="utf-8", delete=False) as handle:
         handle.write("set -euo pipefail\n")
         handle.write(content + "\n")
@@ -124,6 +140,8 @@ def _run_bash(content: str, timeout: int) -> tuple[bool, str]:
             timeout=timeout,
             check=True,
         )
+        if not execute:
+            return True, ""
         result = subprocess.run(
             ["bash", str(script_path)],
             capture_output=True,
@@ -156,7 +174,7 @@ def _run_yaml(content: str) -> tuple[bool, str]:
         return False, str(error)
 
 
-def _run_js(content: str, timeout: int) -> tuple[bool, str]:
+def _run_js(content: str, timeout: int, execute: bool) -> tuple[bool, str]:
     node = shutil.which("node")
     if node is None:
         return False, "node is not installed but JavaScript smoke block was found"
@@ -174,6 +192,8 @@ def _run_js(content: str, timeout: int) -> tuple[bool, str]:
         )
         if syntax.returncode != 0:
             return False, syntax.stderr.strip() or "javascript syntax check failed"
+        if not execute:
+            return True, ""
         run = subprocess.run(
             [node, str(script_path)],
             capture_output=True,
@@ -291,26 +311,46 @@ def _run_typescript(content: str, timeout: int) -> tuple[bool, str]:
         return True, ""
 
 
-def _run_smoke_block(block: CodeBlock, timeout: int, allow_network: bool) -> tuple[bool, str]:
+def _has_placeholders(content: str) -> bool:
+    lower = content.lower()
+    if "{{" in content or "}}" in content or "{%" in content or "%}" in content:
+        return True
+    if "<your-" in lower or "your-domain.example.com" in lower or "api.example.com" in lower:
+        return True
+    return bool(PLACEHOLDER_PATTERN.search(content))
+
+
+def _is_network_bound(block: CodeBlock) -> bool:
+    content = block.content.lower()
+    if "http://" in content or "https://" in content:
+        return True
+    if block.language in {"bash", "sh", "shell", "curl"} and ("curl " in content or "wget " in content):
+        return True
+    if block.language in {"javascript", "js"} and ("fetch(" in content or "axios" in content):
+        return True
+    if block.language in {"python", "py"} and ("requests." in content or "httpx." in content or "urllib" in content):
+        return True
+    return False
+
+
+def _run_smoke_block(block: CodeBlock, timeout: int, allow_network: bool, execute: bool) -> tuple[bool, str]:
     language = block.language
     if language in {"python", "py"}:
-        return _run_python(block.content, timeout)
+        return _run_python(block.content, timeout, execute)
     if language in {"bash", "sh", "shell"}:
-        return _run_bash(block.content, timeout)
+        return _run_bash(block.content, timeout, execute)
     if language == "json":
         return _run_json(block.content)
     if language in {"yaml", "yml"}:
         return _run_yaml(block.content)
     if language in {"javascript", "js"}:
-        return _run_js(block.content, timeout)
+        return _run_js(block.content, timeout, execute)
     if language in {"typescript", "ts"}:
         return _run_typescript(block.content, timeout)
     if language == "go":
         return _run_go(block.content, timeout)
     if language == "curl":
-        # Curl examples are often network-bound. Execute only when explicitly tagged
-        # with `network` and network execution is enabled.
-        should_execute = "network" in block.tags and allow_network
+        should_execute = execute and "network" in block.tags and allow_network
         return _run_curl(block.content, timeout, should_execute)
     return False, f"unsupported language for smoke execution: '{language}'"
 
@@ -414,11 +454,18 @@ def run_smoke(paths: list[str], timeout: int, allow_empty: bool, allow_network: 
 
     failures: list[str] = []
     for block in smoke_blocks:
-        ok, reason = _run_smoke_block(block, timeout, allow_network)
+        if _has_placeholders(block.content):
+            continue
+
+        execute_block = True
+        if _is_network_bound(block) and not ("network" in block.tags and allow_network):
+            execute_block = False
+
+        ok, reason = _run_smoke_block(block, timeout, allow_network, execute=execute_block)
         if not ok:
             failures.append(f"{block.path}:{block.line} -> {reason}")
             continue
-        if block.expected_output is not None:
+        if block.expected_output is not None and execute_block:
             out_ok, actual = _collect_output(block, timeout, allow_network)
             if not out_ok:
                 failures.append(f"{block.path}:{block.line} -> failed to collect output: {actual}")

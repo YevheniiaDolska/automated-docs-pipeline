@@ -16,8 +16,8 @@ say() {
 }
 
 stage "API-FIRST LIVE DEMO: TASKSTREAM"
-say "I will run a five-stage API-first flow."
-say "You will see the real planning notes first, then OpenAPI generation from notes, contract validation, linting, stub generation, and user-path checks."
+say "I will run a six-stage API-first flow."
+say "You will see planning notes, OpenAPI generation, contract/lint checks, stub generation, user-path verification, and the multilingual examples baseline."
 
 stage "INPUT ARTIFACT: PLANNING NOTES PREVIEW"
 say "This is the exact notes format the pipeline consumes."
@@ -42,7 +42,7 @@ say "Starting a product-specific mock server for TaskStream on port 4010."
 bash scripts/api_sandbox_project.sh up taskstream ./api/openapi.yaml 4010
 say "Mock server is running. I will now execute the production flow."
 
-stage "STAGE 2-5/5: RUN UNIVERSAL API-FIRST FLOW"
+stage "STAGE 2-5/6: RUN UNIVERSAL API-FIRST FLOW"
 python3 -u scripts/run_api_first_flow.py \
   --project-slug taskstream \
   --notes demos/api-first/taskstream-planning-notes.md \
@@ -55,6 +55,11 @@ python3 -u scripts/run_api_first_flow.py \
   --skip-generate-from-notes \
   --auto-remediate \
   --max-attempts 3
+
+stage "STAGE 6/6: MULTI-LANGUAGE EXAMPLES BASELINE"
+say "Generating multilingual code tabs and validating required language coverage."
+python3 -u scripts/generate_multilang_tabs.py --paths docs templates --scope api --write
+python3 -u scripts/validate_multilang_examples.py --docs-dir docs --scope api --required-languages curl,javascript,python
 
 stage "DEMO COMPLETE"
 say "The mock server is still running for live client walkthrough."

@@ -4,6 +4,7 @@
 from __future__ import annotations
 
 import argparse
+import json
 import shlex
 from dataclasses import dataclass
 from pathlib import Path
@@ -90,10 +91,35 @@ def _py_literal(obj: Any) -> str:
 
 
 def _render_tabs(curl_source: str, req: CurlRequest) -> str:
-    js_headers = "{\n" + "\n".join(f"      {repr(k)}: {repr(v)}," for k, v in req.headers.items()) + ("\n    }" if req.headers else "}")
-    js_data = f"\n    body: JSON.stringify({req.data})," if req.data else ""
+    parsed_data: Any = None
+    has_json_data = False
+    if req.data is not None:
+        try:
+            parsed_data = json.loads(req.data)
+            has_json_data = True
+        except (json.JSONDecodeError, TypeError):
+            has_json_data = False
+
+    if req.headers:
+        js_headers = "{\n" + "\n".join(f"        {json.dumps(k)}: {json.dumps(v)}," for k, v in req.headers.items()) + "\n      }"
+    else:
+        js_headers = "{}"
+    if req.data is not None:
+        if has_json_data:
+            js_payload = f"\n      body: JSON.stringify({json.dumps(parsed_data, ensure_ascii=False)}),"
+        else:
+            js_payload = f"\n      body: {json.dumps(req.data)},"
+    else:
+        js_payload = ""
+
     py_headers = _py_literal(req.headers if req.headers else {})
-    py_data = f"\n    json={_py_literal(req.data)}," if req.data else ""
+    if req.data is not None:
+        if has_json_data:
+            py_payload = f"\n        json={_py_literal(parsed_data)},"
+        else:
+            py_payload = f"\n        data={_py_literal(req.data)},"
+    else:
+        py_payload = ""
 
     return (
         '=== "cURL"\n\n'
@@ -104,7 +130,7 @@ def _render_tabs(curl_source: str, req: CurlRequest) -> str:
         "    ```javascript smoke\n"
         f"    const response = await fetch({req.url!r}, {{\n"
         f"      method: {req.method!r},\n"
-        f"      headers: {js_headers},{js_data}\n"
+        f"      headers: {js_headers},{js_payload}\n"
         "    });\n"
         "    const payload = await response.json();\n"
         "    console.log(payload);\n"
@@ -115,7 +141,7 @@ def _render_tabs(curl_source: str, req: CurlRequest) -> str:
         f"    response = requests.request(\n"
         f"        {req.method!r},\n"
         f"        {req.url!r},\n"
-        f"        headers={py_headers},{py_data}\n"
+        f"        headers={py_headers},{py_payload}\n"
         "        timeout=30,\n"
         "    )\n"
         "    response.raise_for_status()\n"

@@ -41,6 +41,35 @@ bash scripts/api_prodlike_project.sh up taskstream 4011
   data-production-base-url="{{ cloud_url }}/v1"
 ></div>
 
+For multi-version API docs, publish one spec per version and add separate playground blocks or tabs:
+
+- `/assets/api/v1/openapi.yaml`
+- `/assets/api/v2/openapi.yaml`
+
+## Multi-language request examples
+
+=== "cURL"
+
+    ```bash
+    curl -sS "{{ docs_url }}/sandbox/taskstream/v1/healthz"
+    ```
+
+=== "JavaScript"
+
+    ```javascript
+    const res = await fetch("{{ docs_url }}/sandbox/taskstream/v1/healthz");
+    console.log(await res.json());
+    ```
+
+=== "Python"
+
+    ```python
+    import requests
+
+    res = requests.get("{{ docs_url }}/sandbox/taskstream/v1/healthz", timeout=10)
+    print(res.json())
+    ```
+
 ## What this validates
 
 1. Request and response schema compatibility.
