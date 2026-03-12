@@ -5,7 +5,36 @@ cd "$(dirname "$0")/.."
 export PYTHONUNBUFFERED=1
 
 SANDBOX_BACKEND="${API_FIRST_DEMO_SANDBOX_BACKEND:-docker}"
-MOCK_BASE_URL="${API_FIRST_DEMO_MOCK_BASE_URL:-http://localhost:4010/v1}"
+MOCK_BASE_URL="${API_FIRST_DEMO_MOCK_BASE_URL:-}"
+
+if [[ "${SANDBOX_BACKEND}" == "external" && -z "${MOCK_BASE_URL}" ]]; then
+  MOCK_BASE_URL="$(python3 - <<'PY'
+import yaml
+from pathlib import Path
+
+mkdocs = Path("mkdocs.yml")
+if not mkdocs.exists():
+    print("")
+    raise SystemExit(0)
+cfg = yaml.safe_load(mkdocs.read_text(encoding="utf-8")) or {}
+extra = cfg.get("extra", {}) if isinstance(cfg, dict) else {}
+plg = extra.get("plg", {}) if isinstance(extra, dict) else {}
+api_pg = plg.get("api_playground", {}) if isinstance(plg, dict) else {}
+endpoints = api_pg.get("endpoints", {}) if isinstance(api_pg, dict) else {}
+url = endpoints.get("sandbox_base_url", "")
+if not url and isinstance(extra, dict):
+    legacy = extra.get("api_playground", {})
+    if isinstance(legacy, dict):
+        url = legacy.get("sandbox_base_url", "")
+print(str(url).strip())
+PY
+)"
+fi
+
+if [[ -z "${MOCK_BASE_URL}" ]]; then
+  MOCK_BASE_URL="http://localhost:4010/v1"
+fi
+
 if [[ "${SANDBOX_BACKEND}" == "external" ]]; then
   export API_SANDBOX_EXTERNAL_BASE_URL="${MOCK_BASE_URL}"
 fi

@@ -109,6 +109,50 @@ def build_sandbox_page_url(repo: Path, docs_provider: str) -> str:
     return "/reference/taskstream-api-playground/"
 
 
+def sync_playground_sandbox_url(repo: Path, sandbox_base_url: str) -> None:
+    mkdocs_path = repo / "mkdocs.yml"
+    if not mkdocs_path.exists():
+        print("[demo] mkdocs.yml not found; skip playground endpoint sync", flush=True)
+        return
+
+    import yaml
+
+    payload = yaml.safe_load(mkdocs_path.read_text(encoding="utf-8")) or {}
+    if not isinstance(payload, dict):
+        print("[demo] mkdocs.yml payload is not a mapping; skip playground endpoint sync", flush=True)
+        return
+
+    extra = payload.get("extra")
+    if not isinstance(extra, dict):
+        extra = {}
+        payload["extra"] = extra
+
+    plg = extra.get("plg")
+    if not isinstance(plg, dict):
+        plg = {}
+        extra["plg"] = plg
+
+    api_playground = plg.get("api_playground")
+    if not isinstance(api_playground, dict):
+        api_playground = {}
+        plg["api_playground"] = api_playground
+
+    endpoints = api_playground.get("endpoints")
+    if not isinstance(endpoints, dict):
+        endpoints = {}
+        api_playground["endpoints"] = endpoints
+    endpoints["sandbox_base_url"] = sandbox_base_url
+
+    legacy = extra.get("api_playground")
+    if not isinstance(legacy, dict):
+        legacy = {}
+        extra["api_playground"] = legacy
+    legacy["sandbox_base_url"] = sandbox_base_url
+
+    mkdocs_path.write_text(yaml.safe_dump(payload, sort_keys=False, allow_unicode=False), encoding="utf-8")
+    print(f"[ok] synced playground sandbox endpoint in mkdocs.yml: {sandbox_base_url}", flush=True)
+
+
 def self_verify_stub_coverage(spec_path: Path, stub_file: Path) -> None:
     import yaml
 
@@ -273,6 +317,19 @@ def main() -> int:
     parser.add_argument("--auto-remediate", action="store_true")
     parser.add_argument("--max-attempts", type=int, default=3)
     parser.add_argument("--inject-demo-nav", action="store_true")
+    parser.add_argument(
+        "--sync-playground-endpoint",
+        dest="sync_playground_endpoint",
+        action="store_true",
+        default=True,
+        help="Sync mkdocs API playground sandbox_base_url with --mock-base-url",
+    )
+    parser.add_argument(
+        "--no-sync-playground-endpoint",
+        dest="sync_playground_endpoint",
+        action="store_false",
+        help="Disable mkdocs playground endpoint sync",
+    )
     parser.add_argument("--skip-generate-from-notes", action="store_true")
     parser.add_argument("--openapi-version", default="3.0.3")
     parser.add_argument(
@@ -302,6 +359,9 @@ def main() -> int:
     regression_snapshot = (repo / args.regression_snapshot).resolve() if args.regression_snapshot else None
 
     ensure_file(notes, "planning notes")
+
+    if args.docs_provider.lower() == "mkdocs" and args.sync_playground_endpoint:
+        sync_playground_sandbox_url(repo, args.mock_base_url)
 
     if not args.skip_generate_from_notes:
         print("[demo] Step 0/5: Generate OpenAPI contract from planning notes.", flush=True)

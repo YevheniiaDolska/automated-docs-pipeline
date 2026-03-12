@@ -112,6 +112,7 @@ def build_runtime_config(profile: dict[str, Any]) -> dict[str, Any]:
                 "generate_from_notes": True,
                 "verify_user_path": False,
                 "mock_base_url": "http://localhost:4010/v1",
+                "sync_playground_endpoint": True,
                 "run_docs_lint": False,
                 "auto_remediate": True,
                 "max_attempts": 3,

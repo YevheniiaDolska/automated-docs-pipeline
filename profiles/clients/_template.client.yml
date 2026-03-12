@@ -122,6 +122,7 @@ runtime:
     generate_from_notes: true
     verify_user_path: false
     mock_base_url: "http://localhost:4010/v1"
+    sync_playground_endpoint: true
     run_docs_lint: false
     auto_remediate: true
     max_attempts: 3

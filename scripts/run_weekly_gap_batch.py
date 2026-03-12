@@ -588,6 +588,8 @@ def main() -> int:
                     )
                 if bool(api_cfg.get("run_docs_lint", False)):
                     cmd.append("--run-docs-lint")
+                if not bool(api_cfg.get("sync_playground_endpoint", True)):
+                    cmd.append("--no-sync-playground-endpoint")
                 if not bool(api_cfg.get("generate_from_notes", True)):
                     cmd.append("--skip-generate-from-notes")
                 _run(cmd, cwd=repo_root)

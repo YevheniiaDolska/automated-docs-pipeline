@@ -107,6 +107,7 @@ class TestBuildClientBundle:
         assert runtime["api_first"]["openapi_version"] == "3.0.3"
         assert runtime["api_first"]["manual_overrides_path"] == ""
         assert runtime["api_first"]["regression_snapshot_path"] == ""
+        assert runtime["api_first"]["sync_playground_endpoint"] is True
         assert runtime["terminology"]["enabled"] is True
         assert runtime["terminology"]["glossary_path"] == "glossary.yml"
         assert runtime["retrieval_eval"]["enabled"] is True
@@ -498,6 +499,7 @@ class TestWeeklyBatch:
                 "auto_remediate": True,
                 "verify_user_path": True,
                 "mock_base_url": "http://localhost:4010/v1",
+                "sync_playground_endpoint": False,
                 "run_docs_lint": True,
                 "generate_from_notes": False,
             },
@@ -520,6 +522,7 @@ class TestWeeklyBatch:
         assert "--skip-generate-from-notes" in cmd
         assert "--verify-user-path" in cmd
         assert "--run-docs-lint" in cmd
+        assert "--no-sync-playground-endpoint" in cmd
 
     def test_main_api_first_versions_branch(self, tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:
         from scripts import run_weekly_gap_batch as mod
@@ -807,6 +810,16 @@ class TestRunApiFirstFlow:
         (tmp_path / "mkdocs.yml").write_text("site_url: https://docs.example.com\n", encoding="utf-8")
         assert mod.build_sandbox_page_url(tmp_path, "mkdocs").startswith("https://docs.example.com")
         assert mod.build_sandbox_page_url(tmp_path, "docusaurus").endswith("taskstream-api-playground")
+
+    def test_sync_playground_sandbox_url(self, tmp_path: Path) -> None:
+        from scripts import run_api_first_flow as mod
+
+        mkdocs = tmp_path / "mkdocs.yml"
+        mkdocs.write_text("site_name: Demo\n", encoding="utf-8")
+        mod.sync_playground_sandbox_url(tmp_path, "https://sandbox.example.com/v1")
+        payload = yaml.safe_load(mkdocs.read_text(encoding="utf-8"))
+        assert payload["extra"]["plg"]["api_playground"]["endpoints"]["sandbox_base_url"] == "https://sandbox.example.com/v1"
+        assert payload["extra"]["api_playground"]["sandbox_base_url"] == "https://sandbox.example.com/v1"
 
     def test_self_verify_stub_coverage(self, tmp_path: Path) -> None:
         from scripts import run_api_first_flow as mod

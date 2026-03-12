@@ -36,6 +36,8 @@ API_FIRST_DEMO_MOCK_BASE_URL="https://sandbox-api.example.com/v1" \
 npm run api-first-demo
 ```
 
+If `API_FIRST_DEMO_MOCK_BASE_URL` is not set, demo auto-reads `mkdocs.yml` playground `sandbox_base_url`.
+
 1. While running, narrate the meaning of each stage in short English sentences:
    - Stage 0: planning notes to OpenAPI generation;
    - Stage 1: mock sandbox startup;

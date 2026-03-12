@@ -186,6 +186,7 @@ runtime:
     generate_from_notes: true
     verify_user_path: false
     mock_base_url: "http://localhost:4010/v1"
+    sync_playground_endpoint: true
     run_docs_lint: false
     auto_remediate: true
     max_attempts: 3
@@ -230,6 +231,8 @@ New advanced keys:
 - `manual_overrides_path`: YAML overlay file applied after generation for advanced schema blocks and `x-*` extensions.
 - `regression_snapshot_path`: JSON baseline for contract regression gate.
 - `update_regression_snapshot`: when `true`, refreshes baseline during run.
+- `mock_base_url`: sandbox endpoint used by API self-verification.
+- `sync_playground_endpoint`: when `true`, writes `mock_base_url` into `mkdocs.yml` API playground `sandbox_base_url`.
 
 ## 7. Module switches
 
