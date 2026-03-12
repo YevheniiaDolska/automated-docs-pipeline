@@ -428,6 +428,29 @@ Verification summary:
 
 Say: "The document is self-verified. Code executed successfully, HMAC verification works, eight variables are validated, and zero hardcoded values were found. Now we run the seven linters."
 
+### Step 6A. Glossary sync articulation
+
+Run terminology sync and show what changed:
+
+```bash
+npm run glossary:sync
+python3 -c "
+import json
+from pathlib import Path
+p = Path('reports/glossary_sync_report.json')
+if not p.exists():
+    print('No glossary report found')
+else:
+    r = json.loads(p.read_text(encoding='utf-8'))
+    print('=== GLOSSARY SYNC REPORT ===')
+    print('Markers found:', r.get('markers_found', 0))
+    print('Added terms:', r.get('added_count', 0))
+    print('Updated terms:', r.get('updated_count', 0))
+"
+```
+
+Say: "This step keeps terminology governance explicit in the demo. New glossary markers are synchronized into glossary.yml before quality gates."
+
 ---
 
 ## PHASE 4: Quality gates + Interactive diagram (2 minutes)

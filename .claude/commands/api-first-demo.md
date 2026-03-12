@@ -18,8 +18,8 @@ Run autonomously. Do not ask for per-step confirmations.
 
 ## Stage script
 
-1. Say: "I will run an eight-stage API-first flow and narrate each stage in English."
-1. Say: "I will show the exact planning notes input format first, then run validation, linting, stub generation, user-path checks, multilingual examples, retrieval evals, and JSON-LD graph generation."
+1. Say: "I will run a nine-stage API-first flow and narrate each stage in English."
+1. Say: "I will show the exact planning notes input format first, then run validation, linting, stub generation, user-path checks, multilingual examples, glossary sync, retrieval evals, and JSON-LD graph generation."
 1. Run:
 
 ```bash
@@ -32,8 +32,9 @@ npm run api-first-demo
    - Stage 1: mock sandbox startup;
    - Stage 2-5: API-first flow (contract/lint/stubs/user-path checks/docs assets);
    - Stage 6: multilingual examples baseline;
-   - Stage 7: retrieval evals (Precision/Recall/Hallucination-rate);
-   - Stage 8: JSON-LD knowledge graph generation.
+   - Stage 7: glossary sync (`sync_project_glossary.py`);
+   - Stage 8: retrieval evals (Precision/Recall/Hallucination-rate);
+   - Stage 9: JSON-LD knowledge graph generation.
 1. End with:
    - sandbox page URL;
    - confirmation that the mock server is still running for the client walkthrough;

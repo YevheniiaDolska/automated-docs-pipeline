@@ -16,8 +16,8 @@ say() {
 }
 
 stage "API-FIRST LIVE DEMO: TASKSTREAM"
-say "I will run an eight-stage API-first flow."
-say "You will see planning notes, OpenAPI generation, contract/lint checks, stub generation, user-path verification, multilingual examples, retrieval evals, and JSON-LD knowledge graph generation."
+say "I will run a nine-stage API-first flow."
+say "You will see planning notes, OpenAPI generation, contract/lint checks, stub generation, user-path verification, multilingual examples, glossary sync, retrieval evals, and JSON-LD knowledge graph generation."
 
 stage "INPUT ARTIFACT: PLANNING NOTES PREVIEW"
 say "This is the exact notes format the pipeline consumes."
@@ -56,12 +56,20 @@ python3 -u scripts/run_api_first_flow.py \
   --auto-remediate \
   --max-attempts 3
 
-stage "STAGE 6/8: MULTI-LANGUAGE EXAMPLES BASELINE"
+stage "STAGE 6/9: MULTI-LANGUAGE EXAMPLES BASELINE"
 say "Generating multilingual code tabs and validating required language coverage."
 python3 -u scripts/generate_multilang_tabs.py --paths docs templates --scope api --write
 python3 -u scripts/validate_multilang_examples.py --docs-dir docs --scope api --required-languages curl,javascript,python
 
-stage "STAGE 7/8: RETRIEVAL QUALITY EVALS"
+stage "STAGE 7/9: GLOSSARY SYNC"
+say "Syncing glossary markers into glossary.yml for terminology governance."
+python3 -u scripts/sync_project_glossary.py \
+  --paths docs \
+  --glossary glossary.yml \
+  --report reports/glossary_sync_report.json \
+  --write
+
+stage "STAGE 8/9: RETRIEVAL QUALITY EVALS"
 say "Running retrieval precision/recall/hallucination evals on the knowledge index."
 python3 -u scripts/generate_knowledge_retrieval_index.py --modules-dir knowledge_modules --output docs/assets/knowledge-retrieval-index.json
 python3 -u scripts/run_retrieval_evals.py \
@@ -74,7 +82,7 @@ python3 -u scripts/run_retrieval_evals.py \
   --min-recall 0.5 \
   --max-hallucination-rate 0.5
 
-stage "STAGE 8/8: KNOWLEDGE GRAPH JSON-LD"
+stage "STAGE 9/9: KNOWLEDGE GRAPH JSON-LD"
 say "Generating lightweight ontology/graph layer for RAG and discovery."
 python3 -u scripts/generate_knowledge_graph_jsonld.py \
   --modules-dir knowledge_modules \
