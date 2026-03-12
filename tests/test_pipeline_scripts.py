@@ -327,6 +327,17 @@ class TestCheckCodeExamplesSmoke:
         exit_code = run_smoke([str(tmp_path)], timeout=10, allow_empty=True, allow_network=False)
         assert exit_code == 0
 
+    def test_run_smoke_expected_output_match(self, tmp_path: Path) -> None:
+        from scripts.check_code_examples_smoke import run_smoke
+
+        md = tmp_path / "test.md"
+        md.write_text(
+            "```python smoke\nprint('ok')\n```\n<!-- expected-output: ok -->\n",
+            encoding="utf-8",
+        )
+        exit_code = run_smoke([str(tmp_path)], timeout=10, allow_empty=False, allow_network=False)
+        assert exit_code == 0
+
 
 # ===========================================================================
 # check_api_sdk_drift.py (deeper coverage)

@@ -18,7 +18,8 @@ tags:
 
 - Вы запускаете `scripts/onboard_client.py` в своем мастер-репо.
 - Скрипт создает/обновляет `profiles/clients/generated/<client_id>.client.yml`.
-- Затем он собирает и ставит `bundle` в локальный клон клиентского репо.
+- Если клиентский репо доступен на этой же машине, скрипт сразу ставит `bundle` в локальный клон клиентского репо.
+- Если у вас и у клиента разные ноутбуки, вы собираете `bundle` у себя и передаете клиенту для установки в `docsops/`.
 - Клиент дальше просто работает локально через Claude Code / Codex.
 
 ## Что именно вы настраиваете (и где)
@@ -98,6 +99,7 @@ bundle:
 По умолчанию baseline включен:
 
 - self-checks
+- multi-language tabs generation/validation for code examples
 - fact/style checks
 - lifecycle checks/reports
 - SEO/GEO
@@ -121,6 +123,7 @@ runtime:
 - SEO/GEO (`seo_geo_optimizer.py`)
 - RAG/knowledge index (`generate_knowledge_retrieval_index.py`)
 - интент-бандлы (`build_all_intent_experiences.py`)
+- мультиязычные табы кода (`generate_multilang_tabs.py` + `validate_multilang_examples.py`)
 - i18n sync/translate
 - интерактивные диаграммы (через `bundle.include_paths`)
 - Algolia upload
@@ -206,6 +209,24 @@ python3 scripts/build_client_bundle.py --client profiles/clients/blockstream-dem
 ```text
 generated/client_bundles/blockstream-demo/
 ```
+
+### Два режима установки
+
+1. На одной машине (у вас есть путь к клиентскому репо): используете `provision_client_repo.py`, scheduler ставится сразу.
+
+1. На разных ноутбуках: вы собираете bundle командой выше, клиент кладет bundle в `<client-repo>/docsops`, затем клиент ставит scheduler локально:
+
+```bash
+bash docsops/ops/install_cron_weekly.sh
+```
+
+Windows:
+
+```bash
+powershell -ExecutionPolicy Bypass -File docsops/ops/install_windows_task.ps1
+```
+
+Scheduler использует локальную таймзону машины, где установлен. Если установлен на клиентском ноутбуке, Monday run идет по времени клиента.
 
 Быстрый старт по пресетам:
 
@@ -300,6 +321,8 @@ python3 scripts/provision_client_repo.py \
 \11. Проверяет stale-доки (по умолчанию 180 дней без изменений).
 \11. Запускает KPI/SLA (если включено в bundle).
 \11. При `mode=api-first|hybrid` запускает API-first flow (если включено в `runtime.api_first.enabled`).
+\11. Генерирует и валидирует мультиязычные вкладки кода (новый стандарт).
+\11. Выполняет smoke-проверки кода и сверяет `expected-output` (если указан).
 \11. Запускает `runtime.custom_tasks.weekly` (если включены).
 \11. Создает `reports/consolidated_report.json`.
 
@@ -334,7 +357,7 @@ JSON/Markdown отчеты (`reports/consolidated_report.json` и связанн
 
 - `runtime.modules.knowledge_validation: true`
 - `runtime.modules.rag_optimization: true`
-- `runtime.custom_tasks.weekly` для RAG-задач (например intent-сборки)
+- `runtime.custom_tasks.weekly` для RAG-задач, включая `build_all_intent_experiences.py`
 - `bundle.include_paths: ["knowledge_modules"]`
 
 \11. Один раз сделать provisioning:

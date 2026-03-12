@@ -23,6 +23,7 @@ class CodeBlock:
     language: str
     tags: set[str]
     content: str
+    expected_output: str | None = None
 
 
 def _iter_markdown_files(paths: list[str]) -> list[Path]:
@@ -46,8 +47,9 @@ def _parse_blocks(path: Path) -> list[CodeBlock]:
     language = ""
     tags: set[str] = set()
     body: list[str] = []
-
-    for index, line in enumerate(lines, start=1):
+    idx = 0
+    while idx < len(lines):
+        line = lines[idx]
         stripped = line.strip()
         if not in_block and stripped.startswith("```"):
             info = stripped[3:].strip()
@@ -55,11 +57,20 @@ def _parse_blocks(path: Path) -> list[CodeBlock]:
             language = tokens[0] if tokens else ""
             tags = set(tokens[1:])
             body = []
-            start_line = index
+            start_line = idx + 1
             in_block = True
+            idx += 1
             continue
 
         if in_block and stripped.startswith("```"):
+            expected_output: str | None = None
+            lookahead = idx + 1
+            if lookahead < len(lines):
+                marker = lines[lookahead].strip()
+                prefix = "<!-- expected-output:"
+                suffix = "-->"
+                if marker.startswith(prefix) and marker.endswith(suffix):
+                    expected_output = marker[len(prefix):-len(suffix)].strip()
             blocks.append(
                 CodeBlock(
                     path=path,
@@ -67,13 +78,16 @@ def _parse_blocks(path: Path) -> list[CodeBlock]:
                     language=language,
                     tags=tags,
                     content="\n".join(body).strip("\n"),
+                    expected_output=expected_output,
                 )
             )
             in_block = False
+            idx += 1
             continue
 
         if in_block:
             body.append(line)
+        idx += 1
 
     return blocks
 
@@ -301,6 +315,89 @@ def _run_smoke_block(block: CodeBlock, timeout: int, allow_network: bool) -> tup
     return False, f"unsupported language for smoke execution: '{language}'"
 
 
+def _collect_output(block: CodeBlock, timeout: int, allow_network: bool) -> tuple[bool, str]:
+    if block.language in {"python", "py"}:
+        with tempfile.NamedTemporaryFile("w", suffix=".py", encoding="utf-8", delete=False) as handle:
+            handle.write(block.content + "\n")
+            script_path = Path(handle.name)
+        try:
+            result = subprocess.run(
+                ["python3", str(script_path)],
+                capture_output=True,
+                text=True,
+                timeout=timeout,
+                check=False,
+            )
+            if result.returncode != 0:
+                return False, result.stderr.strip() or ""
+            return True, result.stdout.strip()
+        finally:
+            script_path.unlink(missing_ok=True)
+
+    if block.language in {"bash", "sh", "shell"}:
+        with tempfile.NamedTemporaryFile("w", suffix=".sh", encoding="utf-8", delete=False) as handle:
+            handle.write("set -euo pipefail\n")
+            handle.write(block.content + "\n")
+            script_path = Path(handle.name)
+        try:
+            result = subprocess.run(
+                ["bash", str(script_path)],
+                capture_output=True,
+                text=True,
+                timeout=timeout,
+                check=False,
+            )
+            if result.returncode != 0:
+                return False, result.stderr.strip() or ""
+            return True, result.stdout.strip()
+        finally:
+            script_path.unlink(missing_ok=True)
+
+    if block.language in {"javascript", "js"}:
+        node = shutil.which("node")
+        if node is None:
+            return False, "node is not installed"
+        with tempfile.NamedTemporaryFile("w", suffix=".js", encoding="utf-8", delete=False) as handle:
+            handle.write(block.content + "\n")
+            script_path = Path(handle.name)
+        try:
+            result = subprocess.run(
+                [node, str(script_path)],
+                capture_output=True,
+                text=True,
+                timeout=timeout,
+                check=False,
+            )
+            if result.returncode != 0:
+                return False, result.stderr.strip() or ""
+            return True, result.stdout.strip()
+        finally:
+            script_path.unlink(missing_ok=True)
+
+    if block.language == "curl":
+        if not ("network" in block.tags and allow_network):
+            return True, ""
+        with tempfile.NamedTemporaryFile("w", suffix=".sh", encoding="utf-8", delete=False) as handle:
+            handle.write("set -euo pipefail\n")
+            handle.write(block.content + "\n")
+            script_path = Path(handle.name)
+        try:
+            result = subprocess.run(
+                ["bash", str(script_path)],
+                capture_output=True,
+                text=True,
+                timeout=timeout,
+                check=False,
+            )
+            if result.returncode != 0:
+                return False, result.stderr.strip() or ""
+            return True, result.stdout.strip()
+        finally:
+            script_path.unlink(missing_ok=True)
+
+    return True, ""
+
+
 def run_smoke(paths: list[str], timeout: int, allow_empty: bool, allow_network: bool) -> int:
     files = _iter_markdown_files(paths)
     blocks: list[CodeBlock] = []
@@ -320,6 +417,16 @@ def run_smoke(paths: list[str], timeout: int, allow_empty: bool, allow_network: 
         ok, reason = _run_smoke_block(block, timeout, allow_network)
         if not ok:
             failures.append(f"{block.path}:{block.line} -> {reason}")
+            continue
+        if block.expected_output is not None:
+            out_ok, actual = _collect_output(block, timeout, allow_network)
+            if not out_ok:
+                failures.append(f"{block.path}:{block.line} -> failed to collect output: {actual}")
+                continue
+            if actual.strip() != block.expected_output.strip():
+                failures.append(
+                    f"{block.path}:{block.line} -> expected '{block.expected_output.strip()}', got '{actual.strip()}'"
+                )
 
     if failures:
         print("Smoke code example failures detected:")

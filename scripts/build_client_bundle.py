@@ -121,6 +121,7 @@ def build_runtime_config(profile: dict[str, Any]) -> dict[str, Any]:
                 "docs_contract": True,
                 "kpi_sla": True,
                 "rag_optimization": True,
+                "multilang_examples": True,
                 "normalization": True,
                 "snippet_lint": True,
                 "diagram_validation": True,
@@ -129,6 +130,14 @@ def build_runtime_config(profile: dict[str, Any]) -> dict[str, Any]:
                 "knowledge_validation": True,
                 "i18n_sync": True,
                 "release_pack": True,
+            },
+        ),
+        "multilang_examples": runtime.get(
+            "multilang_examples",
+            {
+                "enabled": True,
+                "scope": "all",
+                "required_languages": ["curl", "javascript", "python"],
             },
         ),
         "custom_tasks": runtime.get("custom_tasks", {"weekly": [], "on_demand": []}),

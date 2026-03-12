@@ -471,6 +471,62 @@ class TestWeeklyBatch:
         assert "--verify-user-path" in cmd
         assert "--run-docs-lint" in cmd
 
+    def test_main_api_first_versions_branch(self, tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:
+        from scripts import run_weekly_gap_batch as mod
+
+        repo = tmp_path
+        docsops = repo / "docsops"
+        scripts_dir = docsops / "scripts"
+        (docsops / "config").mkdir(parents=True)
+        scripts_dir.mkdir(parents=True)
+        (scripts_dir / "run_api_first_flow.py").write_text("print('ok')\n", encoding="utf-8")
+
+        runtime = {
+            "docs_flow": {"mode": "hybrid"},
+            "modules": {},
+            "api_first": {
+                "enabled": True,
+                "docs_provider": "mkdocs",
+                "max_attempts": 2,
+                "versions": [
+                    {
+                        "project_slug": "proj-v1",
+                        "notes_path": "notes-v1.md",
+                        "spec_path": "api/openapi-v1.yaml",
+                        "spec_tree_path": "api/v1",
+                        "docs_spec_target": "docs/assets/api/v1",
+                        "stubs_output": "generated/stubs-v1.py",
+                        "enabled": True,
+                    },
+                    {
+                        "project_slug": "proj-v2",
+                        "notes_path": "notes-v2.md",
+                        "spec_path": "api/openapi-v2.yaml",
+                        "spec_tree_path": "api/v2",
+                        "docs_spec_target": "docs/assets/api/v2",
+                        "stubs_output": "generated/stubs-v2.py",
+                        "enabled": True,
+                    },
+                ],
+            },
+            "custom_tasks": {"weekly": []},
+        }
+        (docsops / "config" / "client_runtime.yml").write_text(yaml.safe_dump(runtime, sort_keys=False), encoding="utf-8")
+
+        commands: list[list[str]] = []
+        monkeypatch.chdir(repo)
+        monkeypatch.setattr(mod, "_resolve_weekly_base_ref", lambda r, s: "abc123")
+        monkeypatch.setattr(mod, "_run", lambda cmd, cwd: commands.append(cmd))
+        monkeypatch.setattr(mod, "_run_allow_fail", lambda cmd, cwd: 0)
+        monkeypatch.setattr(sys, "argv", ["x", "--docsops-root", "docsops", "--reports-dir", "reports"])
+
+        rc = mod.main()
+        assert rc == 0
+        api_cmds = [cmd for cmd in commands if any("run_api_first_flow.py" in p for p in cmd)]
+        assert len(api_cmds) == 2
+        assert any("proj-v1" in " ".join(cmd) for cmd in api_cmds)
+        assert any("proj-v2" in " ".join(cmd) for cmd in api_cmds)
+
 
 class TestOnboardClient:
     def test_onboard_happy_path(self, tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:

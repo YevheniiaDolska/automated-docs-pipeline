@@ -6,6 +6,7 @@ from __future__ import annotations
 import argparse
 import json
 import re
+from collections import defaultdict
 from pathlib import Path
 from typing import Any
 
@@ -41,7 +42,47 @@ def _match_module(module: dict[str, Any], intent: str, audience: str, channel: s
 
 
 def _sort_modules(modules: list[dict[str, Any]]) -> list[dict[str, Any]]:
-    return sorted(modules, key=lambda m: (-int(m.get("priority", 0)), str(m.get("id", ""))))
+    by_id: dict[str, dict[str, Any]] = {}
+    for module in modules:
+        module_id = str(module.get("id", "")).strip()
+        if module_id:
+            by_id[module_id] = module
+
+    def _sort_key(module_id: str) -> tuple[int, str]:
+        module = by_id[module_id]
+        return (-int(module.get("priority", 0)), module_id)
+
+    indegree: dict[str, int] = {module_id: 0 for module_id in by_id}
+    graph: dict[str, list[str]] = defaultdict(list)
+
+    for module_id, module in by_id.items():
+        deps = module.get("dependencies", [])
+        if not isinstance(deps, list):
+            continue
+        for dep in deps:
+            dep_id = str(dep).strip()
+            if dep_id in by_id:
+                graph[dep_id].append(module_id)
+                indegree[module_id] += 1
+
+    ready = sorted([module_id for module_id, deg in indegree.items() if deg == 0], key=_sort_key)
+    ordered_ids: list[str] = []
+    while ready:
+        current = ready.pop(0)
+        ordered_ids.append(current)
+        for neighbor in sorted(graph.get(current, []), key=_sort_key):
+            indegree[neighbor] -= 1
+            if indegree[neighbor] == 0:
+                ready.append(neighbor)
+        ready.sort(key=_sort_key)
+
+    if len(ordered_ids) != len(by_id):
+        unresolved = sorted([module_id for module_id, deg in indegree.items() if deg > 0])
+        raise ValueError(
+            "Dependency cycle detected in matched modules: " + ", ".join(unresolved)
+        )
+
+    return [by_id[module_id] for module_id in ordered_ids]
 
 
 def _build_docs_page(intent: str, audience: str, matched: list[dict[str, Any]]) -> str:

@@ -28,6 +28,23 @@ Operator-first setup path (recommended):
 - `<client-repo>/docsops/policy_packs/selected.yml`
 - `<client-repo>/docsops/ENV_CHECKLIST.md`
 
+Different laptops setup path:
+\11. Build bundle on operator machine: `python3 scripts/build_client_bundle.py --client profiles/clients/<client>.client.yml`.
+\11. Copy generated bundle into client repo as `docsops/`.
+\11. Install scheduler on client machine:
+
+```bash
+bash docsops/ops/install_cron_weekly.sh
+```
+
+Windows:
+
+```bash
+powershell -ExecutionPolicy Bypass -File docsops/ops/install_windows_task.ps1
+```
+
+Scheduler uses local machine timezone. Monday schedule follows client local time when installed on client machine.
+
 Plan packaging reference:
 
 - `docs/operations/PLAN_TIERS.md` (Basic / Pro / Enterprise presets)
@@ -170,6 +187,33 @@ runtime:
     max_attempts: 3
 ```
 
+Multi-version API docs (new standard):
+
+```yaml
+runtime:
+  api_first:
+    enabled: true
+    docs_provider: "mkdocs"
+    versions:
+      - version: "v1"
+        project_slug: "acme-v1"
+        notes_path: "notes/api-v1-planning.md"
+        spec_path: "api/v1/openapi.yaml"
+        spec_tree_path: "api/v1"
+        docs_spec_target: "docs/assets/api/v1"
+        stubs_output: "generated/api-stubs/v1/main.py"
+      - version: "v2"
+        project_slug: "acme-v2"
+        notes_path: "notes/api-v2-planning.md"
+        spec_path: "api/v2/openapi.yaml"
+        spec_tree_path: "api/v2"
+        docs_spec_target: "docs/assets/api/v2"
+        stubs_output: "generated/api-stubs/v2/main.py"
+```
+
+If your codebase has one API version, keep one config only.
+If your codebase has multiple API versions, add one entry per version in `api_first.versions`.
+
 ## 7. Module switches
 
 ```yaml
@@ -199,6 +243,7 @@ runtime:
 - `normalization` -> `scripts/normalize_docs.py`
 - `snippet_lint` -> `scripts/lint_code_snippets.py`
 - `self_checks` -> `scripts/check_code_examples_smoke.py`
+- `multilang_examples` -> `scripts/generate_multilang_tabs.py` + `scripts/validate_multilang_examples.py`
 - `fact_checks` -> `scripts/seo_geo_optimizer.py` + `scripts/doc_layers_validator.py`
 - `lifecycle_management` -> `scripts/lifecycle_manager.py` (+ lifecycle report/redirect guidance)
 - `knowledge_validation` -> `scripts/extract_knowledge_modules_from_docs.py` + `scripts/validate_knowledge_modules.py`
@@ -235,6 +280,12 @@ Full list of available capabilities:
 
 - `docs/operations/PIPELINE_CAPABILITIES_CATALOG.md`
 - regenerate catalog: `python3 scripts/generate_pipeline_capabilities_catalog.py`
+
+Recommended default for smooth intent assembly:
+
+- Keep `scripts/build_all_intent_experiences.py` in `bundle.include_scripts`.
+- Keep `python3 docsops/scripts/build_all_intent_experiences.py` enabled in `runtime.custom_tasks.weekly`.
+- Keep `knowledge_modules` in `bundle.include_paths` (or store it directly in client repo).
 
 ## 9. Integrations (single control point)
 
@@ -299,6 +350,33 @@ runtime:
 ```
 
 ### Additional examples
+
+#### Multi-language examples baseline (new standard)
+
+```yaml
+runtime:
+  modules:
+    multilang_examples: true
+  multilang_examples:
+    enabled: true
+    scope: "all"
+    required_languages: ["curl", "javascript", "python"]
+```
+
+Bundle requirements:
+
+```yaml
+bundle:
+  include_scripts:
+    - "scripts/generate_multilang_tabs.py"
+    - "scripts/validate_multilang_examples.py"
+```
+
+How it works in weekly runner:
+
+- auto-generate tabbed examples from standalone cURL examples
+- validate required language tabs
+- run smoke execution and `expected-output` matching on tagged blocks
 
 #### SEO/GEO weekly
 
@@ -477,6 +555,7 @@ runtime:
     docs_contract: true
     kpi_sla: true
     rag_optimization: true
+    multilang_examples: true
     normalization: true
     snippet_lint: true
     knowledge_validation: true
@@ -499,6 +578,9 @@ Default automation order in weekly runner:
 \11. extract knowledge modules from docs (`extract_knowledge_modules_from_docs.py`)
 \11. validate modules (`validate_knowledge_modules.py`)
 \11. regenerate retrieval index (`generate_knowledge_retrieval_index.py`)
+\11. generate multi-language tabs (`generate_multilang_tabs.py`)
+\11. validate multi-language tabs (`validate_multilang_examples.py`)
+\11. run smoke checks with optional `expected-output` matching (`check_code_examples_smoke.py`)
 
 ## 9. Fully automated RAG/knowledge flow
 

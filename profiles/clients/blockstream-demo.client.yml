@@ -19,6 +19,8 @@ bundle:
     - "scripts/lint_code_snippets.py"
     - "scripts/validate_frontmatter.py"
     - "scripts/check_code_examples_smoke.py"
+    - "scripts/generate_multilang_tabs.py"
+    - "scripts/validate_multilang_examples.py"
     - "scripts/seo_geo_optimizer.py"
     - "scripts/upload_to_algolia.py"
     - "scripts/generate_facets_index.py"
@@ -90,6 +92,7 @@ runtime:
     docs_contract: true
     kpi_sla: true
     rag_optimization: true
+    multilang_examples: true
     normalization: true
     snippet_lint: true
     diagram_validation: true
@@ -99,6 +102,10 @@ runtime:
     knowledge_validation: true
     i18n_sync: true
     release_pack: true
+  multilang_examples:
+    enabled: true
+    scope: "all"
+    required_languages: ["curl", "javascript", "python"]
   integrations:
     algolia:
       enabled: false
@@ -126,6 +133,10 @@ runtime:
       - id: "knowledge-index"
         enabled: true
         command: "python3 docsops/scripts/generate_knowledge_retrieval_index.py"
+        continue_on_error: true
+      - id: "intent-experiences"
+        enabled: true
+        command: "python3 docsops/scripts/build_all_intent_experiences.py"
         continue_on_error: true
       - id: "i18n-translate-stale"
         enabled: false

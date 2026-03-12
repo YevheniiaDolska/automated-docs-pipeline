@@ -43,7 +43,9 @@ On Windows, use `py -3 -m pip install -r requirements.txt` if `pip` is not on PA
 
 ## Step 2: Recommended weekly automation (no manual weekly commands)
 
-Provision once into the target repository and install scheduler:
+Use one of these setup modes.
+
+Same machine mode (you have direct access to client repo path):
 
 ```bash
 python3 scripts/provision_client_repo.py \
@@ -53,7 +55,33 @@ python3 scripts/provision_client_repo.py \
   --install-scheduler linux
 ```
 
-After that, weekly `reports/consolidated_report.json` is generated automatically by `docsops/scripts/run_weekly_gap_batch.py`.
+Different laptops mode (you build, client installs):
+
+```bash
+python3 scripts/build_client_bundle.py --client profiles/clients/blockstream-demo.client.yml
+```
+
+Then copy `generated/client_bundles/blockstream-demo/` into client repo as `docsops/`.
+Client installs local scheduler:
+
+```bash
+bash docsops/ops/install_cron_weekly.sh
+```
+
+Windows:
+
+```bash
+powershell -ExecutionPolicy Bypass -File docsops/ops/install_windows_task.ps1
+```
+
+Scheduler uses local machine timezone, so Monday morning is interpreted in client local time when installed on client laptop.
+After install, weekly `reports/consolidated_report.json` is generated automatically by `docsops/scripts/run_weekly_gap_batch.py`.
+
+New baseline included in weekly run:
+
+- automatic multi-language tabs generation for code examples
+- multi-language tabs validation (`curl` + `javascript` + `python`)
+- smoke execution with optional `expected-output` checks on tagged blocks
 
 ## Step 3: Generate the consolidated report now (optional immediate run)
 

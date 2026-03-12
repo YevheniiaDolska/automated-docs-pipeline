@@ -126,3 +126,53 @@ def test_generated_bundle_is_json_serializable() -> None:
 
     payload = json.dumps(bundle)
     assert "module-a" in payload
+
+
+def test_sort_modules_uses_dependency_order() -> None:
+    from scripts.assemble_intent_experience import _sort_modules
+
+    modules = [
+        {
+            "id": "module-a",
+            "priority": 95,
+            "dependencies": ["module-b"],
+        },
+        {
+            "id": "module-b",
+            "priority": 20,
+            "dependencies": [],
+        },
+        {
+            "id": "module-c",
+            "priority": 90,
+            "dependencies": [],
+        },
+    ]
+
+    sorted_modules = _sort_modules(modules)
+    sorted_ids = [module["id"] for module in sorted_modules]
+
+    assert sorted_ids.index("module-b") < sorted_ids.index("module-a")
+
+
+def test_sort_modules_raises_on_cycle() -> None:
+    from scripts.assemble_intent_experience import _sort_modules
+
+    modules = [
+        {
+            "id": "module-a",
+            "priority": 95,
+            "dependencies": ["module-b"],
+        },
+        {
+            "id": "module-b",
+            "priority": 90,
+            "dependencies": ["module-a"],
+        },
+    ]
+
+    try:
+        _sort_modules(modules)
+        assert False, "Expected dependency cycle error"
+    except ValueError as exc:
+        assert "Dependency cycle detected" in str(exc)

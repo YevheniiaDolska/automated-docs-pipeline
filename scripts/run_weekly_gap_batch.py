@@ -55,6 +55,33 @@ def _is_enabled(modules: dict[str, Any], key: str, default: bool = True) -> bool
     return bool(value)
 
 
+def _deep_merge(base: dict[str, Any], override: dict[str, Any]) -> dict[str, Any]:
+    merged: dict[str, Any] = dict(base)
+    for key, value in override.items():
+        if isinstance(value, dict) and isinstance(merged.get(key), dict):
+            merged[key] = _deep_merge(dict(merged[key]), value)
+        else:
+            merged[key] = value
+    return merged
+
+
+def _iter_api_first_configs(api_first: dict[str, Any]) -> list[dict[str, Any]]:
+    versions = api_first.get("versions", [])
+    if not isinstance(versions, list) or not versions:
+        return [api_first]
+
+    base = dict(api_first)
+    base.pop("versions", None)
+    runs: list[dict[str, Any]] = []
+    for item in versions:
+        if not isinstance(item, dict):
+            continue
+        cfg = _deep_merge(base, item)
+        cfg["enabled"] = bool(cfg.get("enabled", api_first.get("enabled", False)))
+        runs.append(cfg)
+    return runs
+
+
 def _resolve_weekly_base_ref(repo_root: Path, since_days: int) -> str:
     ts = datetime.now(timezone.utc) - timedelta(days=since_days)
     before_arg = ts.strftime("%Y-%m-%d %H:%M:%S")
@@ -102,6 +129,7 @@ def main() -> int:
     paths = runtime.get("paths", {})
     pipeline = runtime.get("pipeline", {})
     api_first = runtime.get("api_first", {})
+    multilang_examples = runtime.get("multilang_examples", {})
     custom_tasks = runtime.get("custom_tasks", {})
     integrations = runtime.get("integrations", {})
 
@@ -174,6 +202,45 @@ def main() -> int:
     frontmatter_validator = scripts_dir / "validate_frontmatter.py"
     if flow_mode in {"code-first", "hybrid"} and _is_enabled(modules, "fact_checks", True) and frontmatter_validator.exists():
         _run_allow_fail([py, str(frontmatter_validator)], cwd=repo_root)
+
+    multilang_generator = scripts_dir / "generate_multilang_tabs.py"
+    multilang_validator = scripts_dir / "validate_multilang_examples.py"
+    multilang_enabled = bool(multilang_examples.get("enabled", True))
+    if flow_mode in {"code-first", "hybrid", "api-first"} and _is_enabled(modules, "multilang_examples", True) and multilang_enabled and multilang_validator.exists():
+        required_languages = multilang_examples.get("required_languages", ["curl", "javascript", "python"])
+        if not isinstance(required_languages, list) or not required_languages:
+            required_languages = ["curl", "javascript", "python"]
+        required_languages_csv = ",".join(str(v).strip() for v in required_languages if str(v).strip())
+        scope = str(multilang_examples.get("scope", "all")).strip().lower() or "all"
+        if multilang_generator.exists():
+            _run_allow_fail(
+                [
+                    py,
+                    str(multilang_generator),
+                    "--paths",
+                    str(paths.get("docs_root", "docs")),
+                    "templates",
+                    "--scope",
+                    scope,
+                    "--write",
+                ],
+                cwd=repo_root,
+            )
+        _run_allow_fail(
+            [
+                py,
+                str(multilang_validator),
+                "--docs-dir",
+                str(paths.get("docs_root", "docs")),
+                "--scope",
+                scope,
+                "--required-languages",
+                required_languages_csv,
+                "--report",
+                str(reports_dir / "multilang_examples_report.json"),
+            ],
+            cwd=repo_root,
+        )
 
     smoke_examples = scripts_dir / "check_code_examples_smoke.py"
     if flow_mode in {"code-first", "hybrid"} and _is_enabled(modules, "self_checks", True) and smoke_examples.exists():
@@ -331,46 +398,50 @@ def main() -> int:
             cwd=repo_root,
         )
 
-    if flow_mode in {"api-first", "hybrid"} and bool(api_first.get("enabled", False)):
+    if flow_mode in {"api-first", "hybrid"}:
         api_runner = scripts_dir / "run_api_first_flow.py"
         if not api_runner.exists():
             print("[docsops] warning: api-first enabled but run_api_first_flow.py is missing in bundle")
         else:
-            cmd = [
-                py,
-                str(api_runner),
-                "--project-slug",
-                str(api_first.get("project_slug", "project")),
-                "--notes",
-                str(api_first.get("notes_path", "notes/api-planning.md")),
-                "--spec",
-                str(api_first.get("spec_path", "api/openapi.yaml")),
-                "--spec-tree",
-                str(api_first.get("spec_tree_path", "api/project")),
-                "--docs-provider",
-                str(api_first.get("docs_provider", "mkdocs")),
-                "--docs-spec-target",
-                str(api_first.get("docs_spec_target", "docs/assets/api")),
-                "--stubs-output",
-                str(api_first.get("stubs_output", "generated/api-stubs/fastapi/app/main.py")),
-                "--max-attempts",
-                str(int(api_first.get("max_attempts", 3))),
-            ]
-            if bool(api_first.get("auto_remediate", True)):
-                cmd.append("--auto-remediate")
-            if bool(api_first.get("verify_user_path", False)):
-                cmd.extend(
-                    [
-                        "--verify-user-path",
-                        "--mock-base-url",
-                        str(api_first.get("mock_base_url", "http://localhost:4010/v1")),
-                    ]
-                )
-            if bool(api_first.get("run_docs_lint", False)):
-                cmd.append("--run-docs-lint")
-            if not bool(api_first.get("generate_from_notes", True)):
-                cmd.append("--skip-generate-from-notes")
-            _run(cmd, cwd=repo_root)
+            api_runs = _iter_api_first_configs(api_first if isinstance(api_first, dict) else {})
+            for api_cfg in api_runs:
+                if not bool(api_cfg.get("enabled", False)):
+                    continue
+                cmd = [
+                    py,
+                    str(api_runner),
+                    "--project-slug",
+                    str(api_cfg.get("project_slug", "project")),
+                    "--notes",
+                    str(api_cfg.get("notes_path", "notes/api-planning.md")),
+                    "--spec",
+                    str(api_cfg.get("spec_path", "api/openapi.yaml")),
+                    "--spec-tree",
+                    str(api_cfg.get("spec_tree_path", "api/project")),
+                    "--docs-provider",
+                    str(api_cfg.get("docs_provider", "mkdocs")),
+                    "--docs-spec-target",
+                    str(api_cfg.get("docs_spec_target", "docs/assets/api")),
+                    "--stubs-output",
+                    str(api_cfg.get("stubs_output", "generated/api-stubs/fastapi/app/main.py")),
+                    "--max-attempts",
+                    str(int(api_cfg.get("max_attempts", 3))),
+                ]
+                if bool(api_cfg.get("auto_remediate", True)):
+                    cmd.append("--auto-remediate")
+                if bool(api_cfg.get("verify_user_path", False)):
+                    cmd.extend(
+                        [
+                            "--verify-user-path",
+                            "--mock-base-url",
+                            str(api_cfg.get("mock_base_url", "http://localhost:4010/v1")),
+                        ]
+                    )
+                if bool(api_cfg.get("run_docs_lint", False)):
+                    cmd.append("--run-docs-lint")
+                if not bool(api_cfg.get("generate_from_notes", True)):
+                    cmd.append("--skip-generate-from-notes")
+                _run(cmd, cwd=repo_root)
 
     consolidate = scripts_dir / "consolidate_reports.py"
     if consolidate.exists():

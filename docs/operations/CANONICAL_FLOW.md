@@ -45,7 +45,12 @@ python3 scripts/onboard_client.py
 - module toggles
 - policy/plan strictness
 
-\11. Provision (manual mode):
+\11. Choose delivery mode:
+
+- Same machine mode (you can access client repo path directly): use provisioning.
+- Different laptops mode: build bundle on your machine, then client installs scheduler locally.
+
+\11. Provision (same machine mode):
 
 ```bash
 python3 scripts/provision_client_repo.py \
@@ -65,6 +70,26 @@ python3 scripts/provision_client_repo.py \
   --install-scheduler windows
 ```
 
+\11. Build + handoff (different laptops mode):
+
+```bash
+python3 scripts/build_client_bundle.py --client profiles/clients/<client>.client.yml
+```
+
+Client installs scheduler after copying bundle into `<client-repo>/docsops`:
+
+```bash
+bash docsops/ops/install_cron_weekly.sh
+```
+
+Windows:
+
+```bash
+powershell -ExecutionPolicy Bypass -File docsops/ops/install_windows_task.ps1
+```
+
+Scheduler timezone is local machine timezone. Monday schedule follows client local time when installed on client machine.
+
 ## 3. Weekly automation (no manual commands)
 
 Scheduler runs:
@@ -82,6 +107,11 @@ It executes:
   - `extract_knowledge_modules_from_docs.py`
   - `validate_knowledge_modules.py`
   - `generate_knowledge_retrieval_index.py`
+- multi-language examples standard:
+  - `generate_multilang_tabs.py`
+  - `validate_multilang_examples.py`
+  - `check_code_examples_smoke.py` (including `expected-output` comparison for tagged blocks)
+- intent bundle assembly via `build_all_intent_experiences.py` when enabled in `runtime.custom_tasks.weekly`
 - `custom_tasks.weekly` commands
 - consolidated report generation
 
