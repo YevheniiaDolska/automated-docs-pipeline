@@ -2755,7 +2755,7 @@
       "objectID": "ef6bed7ec2c5e48a8171d3b241106cf7",
       "title": "Run API-first production flow",
       "heading": "Step 2: Run generation and verification",
-      "content": "Run the universal flow command: python3 scripts/run_api_first_flow.py \\   --project-slug taskstream \\   --notes demos/api-first/taskstream-planning-notes.md \\   --spec api/openapi.yaml \\   --spec-tree api/taskstream \\   --docs-provider mkdocs \\   --verify-user-path \\   --mock-base-url http://localhost:4010/v1 \\   --auto-remediate \\   --max-attempts 3 The runner performs: 1. OpenAPI generation from notes. 1. Contract validation. 1. Spectral, Redocly, and Swagger CLI lint checks. 1. FastAPI stub generation. 1. Self-verification of operation coverage and user-path calls. If you maintain multiple API versions, run one flow per version and publish to separate docs asset paths. Example layout: api/v1/openapi.yaml -> docs/assets/api/v1/ api/v2/openapi.yaml -> docs/assets/api/v2/ ",
+      "content": "Run the universal flow command: python3 scripts/run_api_first_flow.py \\   --project-slug taskstream \\   --notes demos/api-first/taskstream-planning-notes.md \\   --spec api/openapi.yaml \\   --spec-tree api/taskstream \\   --openapi-version 3.1.0 \\   --manual-overrides api/overrides/openapi.manual.yml \\   --regression-snapshot api/.openapi-regression.json \\   --docs-provider mkdocs \\   --verify-user-path \\   --mock-base-url http://localhost:4010/v1 \\   --auto-remediate \\   --max-attempts 3 The runner performs: 1. OpenAPI generation from notes. 1. Contract validation. 1. Spectral, Redocly, and Swagger CLI lint checks. 1. FastAPI stub generation. 1. Self-verification of operation coverage and user-path calls. If you maintain multiple API versions, run one flow per version and publish to separate docs asset paths. Example layout: api/v1/openapi.yaml -> docs/assets/api/v1/ api/v2/openapi.yaml -> docs/assets/api/v2/ Use overrides and regression snapshot as follows: - --manual-overrides: keep a",
       "description": "Generate OpenAPI from planning notes, run full lint and self-verification, publish playground assets, and keep a sandbox ready for client testing.",
       "product": "both",
       "content_type": "how-to",
@@ -2779,7 +2779,7 @@
       "path": "docs/how-to/run-api-first-production-flow.md",
       "ranking_boost": 6,
       "heading_level": 2,
-      "word_count": 89,
+      "word_count": 135,
       "has_code": false,
       "code_snippets": []
     },
@@ -2851,7 +2851,7 @@
       "objectID": "751c8c6a5eaa1864332d53acc3098124",
       "title": "Run API-first production flow",
       "heading": "Step 5: Apply multilingual examples baseline",
-      "content": "Run these commands to keep code snippets aligned with the new docs standard: python3 scripts/generate_multilang_tabs.py --paths docs templates --scope api --write python3 scripts/validate_multilang_examples.py --docs-dir docs --scope api --required-languages curl,javascript,python python3 scripts/check_code_examples_smoke.py --paths docs templates --allow-empty Use this API request tab set as the baseline format for executable examples: === \"cURL\"     ``bash     curl -sS http://localhost:4010/v1/healthz     ` === \"JavaScript\"     `javascript     const res = await fetch(\"http://localhost:4010/v1/healthz\");     console.log(await res.json());     ` === \"Python\"     `python     import requests     res = requests.get(\"http://localhost:4010/v1/healthz\", timeout=10)     print(res.json())     `` ",
+      "content": "Run these commands to keep code snippets aligned with the new docs standard: python3 scripts/generate_multilang_tabs.py --paths docs templates --scope api --write python3 scripts/validate_multilang_examples.py --docs-dir docs --scope api --required-languages curl,javascript,python python3 scripts/check_code_examples_smoke.py --paths docs templates --allow-empty python3 scripts/check_openapi_regression.py --spec api/openapi.yaml --spec-tree api/taskstream --snapshot api/.openapi-regression.json Use this API request tab set as the baseline format for executable examples: === \"cURL\"     ``bash     curl -sS http://localhost:4010/v1/healthz     ` === \"JavaScript\"     `javascript     const res = await fetch(\"http://localhost:4010/v1/healthz\");     console.log(await res.json());     ` === \"Python\"     `python     import requests     res = requests.get(\"http://localhost:4010/v1/healthz\", timeout=10)     print(res.json())     `` ",
       "description": "Generate OpenAPI from planning notes, run full lint and self-verification, publish playground assets, and keep a sandbox ready for client testing.",
       "product": "both",
       "content_type": "how-to",
@@ -2875,7 +2875,7 @@
       "path": "docs/how-to/run-api-first-production-flow.md",
       "ranking_boost": 6,
       "heading_level": 2,
-      "word_count": 77,
+      "word_count": 85,
       "has_code": true,
       "code_snippets": [
         "```bash     curl -sS http://localhost:4010/v1/healthz     ```",
@@ -3172,7 +3172,7 @@
       "objectID": "1a609fe9e8cd39873cdac87ce6493b22",
       "title": "Canonical Flow (Sales + Delivery)",
       "heading": "3. Weekly automation (no manual commands)",
-      "content": "Scheduler runs: - docsops/scripts/run_weekly_gap_batch.py It executes: - gap detection - stale checks - drift + docs contract (if enabled) - KPI/SLA (if enabled) - API-first flow (if enabled) - RAG/knowledge tasks:   - extract_knowledge_modules_from_docs.py   - validate_knowledge_modules.py   - generate_knowledge_retrieval_index.py - multi-language examples standard:   - generate_multilang_tabs.py   - validate_multilang_examples.py   - check_code_examples_smoke.py (including expected-output comparison for tagged blocks) - intent bundle assembly via build_all_intent_experiences.py when enabled in runtime.custom_tasks.weekly - custom_tasks.weekly commands - consolidated report generation Output: - reports/consolidated_report.json - related reports are regenerated to the same filenames each run (no manual cleanup required) - reports/docsops_status.json (quick freshness/status check for non-technical users) Client repo .gitignore recommendation: reports/docsops-weekly.log ",
+      "content": "Scheduler runs: - docsops/scripts/run_weekly_gap_batch.py It executes: - gap detection - stale checks - drift + docs contract (if enabled) - KPI/SLA (if enabled) - API-first flow (if enabled)   - manual overrides apply (apply_openapi_overrides.py)   - regression gate (check_openapi_regression.py) - RAG/knowledge tasks:   - extract_knowledge_modules_from_docs.py   - validate_knowledge_modules.py   - generate_knowledge_retrieval_index.py - multi-language examples standard:   - generate_multilang_tabs.py   - validate_multilang_examples.py   - check_code_examples_smoke.py (including expected-output comparison for tagged blocks) - intent bundle assembly via build_all_intent_experiences.py when enabled in runtime.custom_tasks.weekly - custom_tasks.weekly commands - consolidated report generation Output: - reports/consolidated_report.json - related reports are regenerated to the same filenames each run (no manual cleanup required) - reports/docsops_status.json (quick freshness/status check fo",
       "description": "Canonical sales and delivery flow for onboarding and operating client Auto-Doc Pipeline setups.",
       "product": "both",
       "content_type": "reference",
@@ -3195,7 +3195,7 @@
       "path": "docs/operations/CANONICAL_FLOW.md",
       "ranking_boost": 4,
       "heading_level": 2,
-      "word_count": 101,
+      "word_count": 110,
       "has_code": false,
       "code_snippets": []
     },
@@ -3667,6 +3667,37 @@
     {
       "objectID": "28e66ce4223d8fc5ead845c82d7532ba",
       "title": "\u0426\u0435\u043d\u0442\u0440\u0430\u043b\u0438\u0437\u043e\u0432\u0430\u043d\u043d\u0430\u044f \u043d\u0430\u0441\u0442\u0440\u043e\u0439\u043a\u0430 \u043a\u043b\u0438\u0435\u043d\u0442\u043e\u0432",
+      "heading": "3.2) API-first advanced controls (manual overrides + regression gate)",
+      "content": "runtime:   api_first:     enabled: true     openapi_version: \"3.1.0\"     manual_overrides_path: \"api/overrides/openapi.manual.yml\"     regression_snapshot_path: \"api/.openapi-regression.json\"     update_regression_snapshot: false \u0414\u043b\u044f \u044d\u0442\u043e\u0433\u043e \u0432 bundle.include_scripts \u0434\u043e\u043b\u0436\u043d\u044b \u0431\u044b\u0442\u044c: - scripts/apply_openapi_overrides.py - scripts/check_openapi_regression.py ",
+      "description": "\u041f\u0440\u0430\u043a\u0442\u0438\u0447\u0435\u0441\u043a\u0438\u0439 \u043f\u0443\u0442\u044c \u043d\u0430\u0441\u0442\u0440\u043e\u0439\u043a\u0438 \u043a\u043b\u0438\u0435\u043d\u0442\u0441\u043a\u0438\u0445 bundle \u0438 \u0430\u0432\u0442\u043e\u0437\u0430\u043f\u0443\u0441\u043a\u0430 pipeline \u0438\u0437 \u043e\u0434\u043d\u043e\u0433\u043e \u043c\u0435\u0441\u0442\u0430.",
+      "product": "both",
+      "content_type": "reference",
+      "component": "",
+      "version": "",
+      "maturity": "ga",
+      "tags": [
+        "Operations",
+        "Client Onboarding"
+      ],
+      "hierarchy": {
+        "lvl0": "both",
+        "lvl1": "reference",
+        "lvl2": "",
+        "lvl3": "3.2) API-first advanced controls (manual overrides + regression gate)",
+        "lvl4": ""
+      },
+      "url": "/operations/CENTRALIZED_CLIENT_BUNDLES#8",
+      "last_reviewed": "2026-03-11",
+      "path": "docs/operations/CENTRALIZED_CLIENT_BUNDLES.md",
+      "ranking_boost": 4,
+      "heading_level": 3,
+      "word_count": 22,
+      "has_code": false,
+      "code_snippets": []
+    },
+    {
+      "objectID": "2b544ed41cb0d225bb8a3ca0009c065f",
+      "title": "\u0426\u0435\u043d\u0442\u0440\u0430\u043b\u0438\u0437\u043e\u0432\u0430\u043d\u043d\u0430\u044f \u043d\u0430\u0441\u0442\u0440\u043e\u0439\u043a\u0430 \u043a\u043b\u0438\u0435\u043d\u0442\u043e\u0432",
       "heading": "3.1) \u0426\u0435\u043d\u0442\u0440\u0430\u043b\u0438\u0437\u043e\u0432\u0430\u043d\u043d\u044b\u0435 \u0438\u043d\u0442\u0435\u0433\u0440\u0430\u0446\u0438\u0438 (Algolia + Ask AI)",
       "content": "runtime:   integrations:     algolia:       enabled: true       upload_on_weekly: true       app_id_env: \"ALGOLIA_APP_ID\"       api_key_env: \"ALGOLIA_API_KEY\"       index_name_env: \"ALGOLIA_INDEX_NAME\"     ask_ai:       enabled: true       auto_configure_on_provision: true       install_runtime_pack: false       provider: \"openai\"       billing_mode: \"user-subscription\"       model: \"gpt-4.1-mini\" \u0427\u0442\u043e \u044d\u0442\u043e \u0434\u0430\u0435\u0442: - Algolia \u0440\u0430\u0431\u043e\u0442\u0430\u0435\u0442 \u043e\u0434\u0438\u043d\u0430\u043a\u043e\u0432\u043e \u0434\u043b\u044f \u0432\u0441\u0435\u0445 \u043f\u043e\u0434\u0434\u0435\u0440\u0436\u0438\u0432\u0430\u0435\u043c\u044b\u0445 site generators. - Ask AI \u043d\u0430\u0441\u0442\u0440\u0430\u0438\u0432\u0430\u0435\u0442\u0441\u044f \u0430\u0432\u0442\u043e\u043c\u0430\u0442\u0438\u0447\u0435\u0441\u043a\u0438 \u0432\u043e \u0432\u0440\u0435\u043c\u044f provisioning (\u0431\u0435\u0437 \u0440\u0443\u0447\u043d\u044b\u0445 CLI-\u043a\u043e\u043c\u0430\u043d\u0434). ",
       "description": "\u041f\u0440\u0430\u043a\u0442\u0438\u0447\u0435\u0441\u043a\u0438\u0439 \u043f\u0443\u0442\u044c \u043d\u0430\u0441\u0442\u0440\u043e\u0439\u043a\u0438 \u043a\u043b\u0438\u0435\u043d\u0442\u0441\u043a\u0438\u0445 bundle \u0438 \u0430\u0432\u0442\u043e\u0437\u0430\u043f\u0443\u0441\u043a\u0430 pipeline \u0438\u0437 \u043e\u0434\u043d\u043e\u0433\u043e \u043c\u0435\u0441\u0442\u0430.",
@@ -3686,7 +3717,7 @@
         "lvl3": "3.1) \u0426\u0435\u043d\u0442\u0440\u0430\u043b\u0438\u0437\u043e\u0432\u0430\u043d\u043d\u044b\u0435 \u0438\u043d\u0442\u0435\u0433\u0440\u0430\u0446\u0438\u0438 (Algolia + Ask AI)",
         "lvl4": ""
       },
-      "url": "/operations/CENTRALIZED_CLIENT_BUNDLES#8",
+      "url": "/operations/CENTRALIZED_CLIENT_BUNDLES#9",
       "last_reviewed": "2026-03-11",
       "path": "docs/operations/CENTRALIZED_CLIENT_BUNDLES.md",
       "ranking_boost": 4,
@@ -3696,7 +3727,7 @@
       "code_snippets": []
     },
     {
-      "objectID": "2b544ed41cb0d225bb8a3ca0009c065f",
+      "objectID": "854bbebf8623506d55179b00b57d2bae",
       "title": "\u0426\u0435\u043d\u0442\u0440\u0430\u043b\u0438\u0437\u043e\u0432\u0430\u043d\u043d\u0430\u044f \u043d\u0430\u0441\u0442\u0440\u043e\u0439\u043a\u0430 \u043a\u043b\u0438\u0435\u043d\u0442\u043e\u0432",
       "heading": "4) \u041d\u0430\u0441\u043a\u043e\u043b\u044c\u043a\u043e \u0441\u0442\u0440\u043e\u0433\u0438\u0435 \u043f\u0440\u0430\u0432\u0438\u043b\u0430 \u043a\u0430\u0447\u0435\u0441\u0442\u0432\u0430",
       "content": "bundle:   base_policy_pack: \"multi-product\"   policy_overrides:     kpi_sla:       min_doc_coverage: 85 - base_policy_pack = \u0431\u0430\u0437\u043e\u0432\u044b\u0439 \u0440\u0435\u0436\u0438\u043c - policy_overrides = \u0442\u043e\u043d\u043a\u0430\u044f \u0434\u043e\u043a\u0440\u0443\u0442\u043a\u0430 \u043f\u043e\u0434 \u043a\u043b\u0438\u0435\u043d\u0442\u0430 ",
@@ -3717,7 +3748,7 @@
         "lvl3": "4) \u041d\u0430\u0441\u043a\u043e\u043b\u044c\u043a\u043e \u0441\u0442\u0440\u043e\u0433\u0438\u0435 \u043f\u0440\u0430\u0432\u0438\u043b\u0430 \u043a\u0430\u0447\u0435\u0441\u0442\u0432\u0430",
         "lvl4": ""
       },
-      "url": "/operations/CENTRALIZED_CLIENT_BUNDLES#9",
+      "url": "/operations/CENTRALIZED_CLIENT_BUNDLES#10",
       "last_reviewed": "2026-03-11",
       "path": "docs/operations/CENTRALIZED_CLIENT_BUNDLES.md",
       "ranking_boost": 4,
@@ -3727,7 +3758,7 @@
       "code_snippets": []
     },
     {
-      "objectID": "854bbebf8623506d55179b00b57d2bae",
+      "objectID": "c39e4957a03350674ceb4f152ea52ec9",
       "title": "\u0426\u0435\u043d\u0442\u0440\u0430\u043b\u0438\u0437\u043e\u0432\u0430\u043d\u043d\u0430\u044f \u043d\u0430\u0441\u0442\u0440\u043e\u0439\u043a\u0430 \u043a\u043b\u0438\u0435\u043d\u0442\u043e\u0432",
       "heading": "4.1) \u041a\u0430\u043a \u0432\u044b\u0431\u0440\u0430\u0442\u044c style guide (Vale)",
       "content": "bundle:   style_guide: \"google\" # google | microsoft | hybrid \u0421\u0431\u043e\u0440\u0449\u0438\u043a \u0441\u0430\u043c \u043f\u043e\u043b\u043e\u0436\u0438\u0442 .vale.ini \u0432 bundle \u043f\u043e\u0434 \u0432\u044b\u0431\u0440\u0430\u043d\u043d\u044b\u0439 \u043f\u0440\u043e\u0444\u0438\u043b\u044c. ",
@@ -3748,7 +3779,7 @@
         "lvl3": "4.1) \u041a\u0430\u043a \u0432\u044b\u0431\u0440\u0430\u0442\u044c style guide (Vale)",
         "lvl4": ""
       },
-      "url": "/operations/CENTRALIZED_CLIENT_BUNDLES#10",
+      "url": "/operations/CENTRALIZED_CLIENT_BUNDLES#11",
       "last_reviewed": "2026-03-11",
       "path": "docs/operations/CENTRALIZED_CLIENT_BUNDLES.md",
       "ranking_boost": 4,
@@ -3758,7 +3789,7 @@
       "code_snippets": []
     },
     {
-      "objectID": "c39e4957a03350674ceb4f152ea52ec9",
+      "objectID": "108259b9b2dd67d8d7450dbfc649f51f",
       "title": "\u0426\u0435\u043d\u0442\u0440\u0430\u043b\u0438\u0437\u043e\u0432\u0430\u043d\u043d\u0430\u044f \u043d\u0430\u0441\u0442\u0440\u043e\u0439\u043a\u0430 \u043a\u043b\u0438\u0435\u043d\u0442\u043e\u0432",
       "heading": "5) \u0410\u0432\u0442\u043e\u0432\u0441\u0442\u0430\u0432\u043a\u0430 \u0431\u043b\u043e\u043a\u0430 \u0432 AGENTS/CLAUDE",
       "content": "bundle:   llm:     codex_instructions_source: \"AGENTS.md\"     claude_instructions_source: \"CLAUDE.md\"     inject_managed_block: true     docsops_root_in_client_repo: \"docsops\" \u0421\u0431\u043e\u0440\u0449\u0438\u043a \u0430\u0432\u0442\u043e\u043c\u0430\u0442\u0438\u0447\u0435\u0441\u043a\u0438 \u043f\u043e\u043b\u043e\u0436\u0438\u0442 \u0432 bundle: - AGENTS.md - CLAUDE.md \u0418 \u0434\u043e\u0431\u0430\u0432\u0438\u0442 \u0432 \u043e\u0431\u0430 \u0444\u0430\u0439\u043b\u0430 \u0443\u043f\u0440\u0430\u0432\u043b\u044f\u0435\u043c\u044b\u0439 \u0431\u043b\u043e\u043a \u0441 \u0438\u043d\u0441\u0442\u0440\u0443\u043a\u0446\u0438\u0435\u0439 \u0447\u0438\u0442\u0430\u0442\u044c: - docsops/config/client_runtime.yml - docsops/policy_packs/selected.yml ",
@@ -3779,7 +3810,7 @@
         "lvl3": "5) \u0410\u0432\u0442\u043e\u0432\u0441\u0442\u0430\u0432\u043a\u0430 \u0431\u043b\u043e\u043a\u0430 \u0432 AGENTS/CLAUDE",
         "lvl4": ""
       },
-      "url": "/operations/CENTRALIZED_CLIENT_BUNDLES#11",
+      "url": "/operations/CENTRALIZED_CLIENT_BUNDLES#12",
       "last_reviewed": "2026-03-11",
       "path": "docs/operations/CENTRALIZED_CLIENT_BUNDLES.md",
       "ranking_boost": 4,
@@ -3789,7 +3820,7 @@
       "code_snippets": []
     },
     {
-      "objectID": "108259b9b2dd67d8d7450dbfc649f51f",
+      "objectID": "3db83a63846936cea9e180f4d4fc1e56",
       "title": "\u0426\u0435\u043d\u0442\u0440\u0430\u043b\u0438\u0437\u043e\u0432\u0430\u043d\u043d\u0430\u044f \u043d\u0430\u0441\u0442\u0440\u043e\u0439\u043a\u0430 \u043a\u043b\u0438\u0435\u043d\u0442\u043e\u0432",
       "heading": "\u041a\u043e\u043c\u0430\u043d\u0434\u0430 \u0441\u0431\u043e\u0440\u043a\u0438",
       "content": "cd \"C:/Users/Kroha/Documents/development/Auto-Doc Pipeline\" python3 scripts/build_client_bundle.py --client profiles/clients/blockstream-demo.client.yml \u0420\u0435\u0437\u0443\u043b\u044c\u0442\u0430\u0442: generated/client_bundles/blockstream-demo/ ",
@@ -3810,7 +3841,7 @@
         "lvl3": "",
         "lvl4": ""
       },
-      "url": "/operations/CENTRALIZED_CLIENT_BUNDLES#12",
+      "url": "/operations/CENTRALIZED_CLIENT_BUNDLES#13",
       "last_reviewed": "2026-03-11",
       "path": "docs/operations/CENTRALIZED_CLIENT_BUNDLES.md",
       "ranking_boost": 4,
@@ -3820,7 +3851,7 @@
       "code_snippets": []
     },
     {
-      "objectID": "3db83a63846936cea9e180f4d4fc1e56",
+      "objectID": "997f4a521d7803ece1e53084f0dbad21",
       "title": "\u0426\u0435\u043d\u0442\u0440\u0430\u043b\u0438\u0437\u043e\u0432\u0430\u043d\u043d\u0430\u044f \u043d\u0430\u0441\u0442\u0440\u043e\u0439\u043a\u0430 \u043a\u043b\u0438\u0435\u043d\u0442\u043e\u0432",
       "heading": "\u0414\u0432\u0430 \u0440\u0435\u0436\u0438\u043c\u0430 \u0443\u0441\u0442\u0430\u043d\u043e\u0432\u043a\u0438",
       "content": "1. \u041d\u0430 \u043e\u0434\u043d\u043e\u0439 \u043c\u0430\u0448\u0438\u043d\u0435 (\u0443 \u0432\u0430\u0441 \u0435\u0441\u0442\u044c \u043f\u0443\u0442\u044c \u043a \u043a\u043b\u0438\u0435\u043d\u0442\u0441\u043a\u043e\u043c\u0443 \u0440\u0435\u043f\u043e): \u0438\u0441\u043f\u043e\u043b\u044c\u0437\u0443\u0435\u0442\u0435 provision_client_repo.py, scheduler \u0441\u0442\u0430\u0432\u0438\u0442\u0441\u044f \u0441\u0440\u0430\u0437\u0443. 1. \u041d\u0430 \u0440\u0430\u0437\u043d\u044b\u0445 \u043d\u043e\u0443\u0442\u0431\u0443\u043a\u0430\u0445: \u0432\u044b \u0441\u043e\u0431\u0438\u0440\u0430\u0435\u0442\u0435 bundle \u043a\u043e\u043c\u0430\u043d\u0434\u043e\u0439 \u0432\u044b\u0448\u0435, \u043a\u043b\u0438\u0435\u043d\u0442 \u043a\u043b\u0430\u0434\u0435\u0442 bundle \u0432 <client-repo>/docsops, \u0437\u0430\u0442\u0435\u043c \u043a\u043b\u0438\u0435\u043d\u0442 \u0441\u0442\u0430\u0432\u0438\u0442 scheduler \u043b\u043e\u043a\u0430\u043b\u044c\u043d\u043e: bash docsops/ops/install_cron_weekly.sh Windows: powershell -ExecutionPolicy Bypass -File docsops/ops/install_windows_task.ps1 Scheduler \u0438\u0441\u043f\u043e\u043b\u044c\u0437\u0443\u0435\u0442 \u043b\u043e\u043a\u0430\u043b\u044c\u043d\u0443\u044e \u0442\u0430\u0439\u043c\u0437\u043e\u043d\u0443 \u043c\u0430\u0448\u0438\u043d\u044b, \u0433\u0434\u0435 \u0443\u0441\u0442\u0430\u043d\u043e\u0432\u043b\u0435\u043d. \u0415\u0441\u043b\u0438 \u0443\u0441\u0442\u0430\u043d\u043e\u0432\u043b\u0435\u043d \u043d\u0430 \u043a\u043b\u0438\u0435\u043d\u0442\u0441\u043a\u043e\u043c \u043d\u043e\u0443\u0442\u0431\u0443\u043a\u0435, Monday run \u0438\u0434\u0435\u0442 \u043f\u043e \u0432\u0440\u0435\u043c\u0435\u043d\u0438 \u043a\u043b\u0438\u0435\u043d\u0442\u0430. \u0411\u044b\u0441\u0442\u0440\u044b\u0439 \u0441\u0442\u0430\u0440\u0442 \u043f\u043e \u043f\u0440\u0435\u0441\u0435\u0442\u0430\u043c: - profiles/clients/presets/small.yml - profiles/clients/presets/startup.yml - profiles/clients/presets/enterprise.yml \u0421\u0430\u043c\u044b\u0439 \u0431\u044b\u0441\u0442\u0440\u044b\u0439 \u0437\u0430\u043f\u0443\u0441\u043a: python3 scripts/onboard_client.py \u0421\u043a\u0440\u0438\u043f\u0442 \u0437\u0430\u0434\u0430\u0435\u0442 \u0432\u043e\u043f\u0440\u043e\u0441\u044b, \u0441\u043e\u0437\u0434\u0430\u0435\u0442 \u043a\u043b\u0438\u0435\u043d\u0442\u0441\u043a\u0438\u0439 \u043f\u0440\u043e\u0444\u0438\u043b\u044c, \u0441\u043e\u0431\u0438\u0440\u0430\u0435\u0442 bundle, \u0441\u0442\u0430\u0432\u0438\u0442 \u0432 \u043a\u043b\u0438\u0435\u043d\u0442\u0441\u043a\u0438\u0439 \u0440\u0435\u043f\u043e\u0437\u0438\u0442\u043e\u0440\u0438\u0439 \u0438 \u0443\u0441\u0442\u0430\u043d\u0430\u0432\u043b\u0438\u0432\u0430\u0435\u0442 scheduler. onboard_client.py \u043e\u0441\u0442\u0430\u0435\u0442\u0441\u044f \u0432 \u0432\u0430\u0448\u0435\u043c \u043c\u0430\u0441\u0442\u0435\u0440-\u0440\u0435\u043f\u043e \u0438 \u043d\u0435 \u0432\u043a\u043b\u044e\u0447\u0430\u0435\u0442\u0441\u044f \u0432 \u043a\u043b\u0438\u0435\u043d\u0442\u0441\u043a\u0438\u0439 bundle \u043f\u043e \u0443\u043c\u043e\u043b\u0447\u0430\u043d\u0438\u044e. \u041f\u0435\u0440\u0435\u0434 \u0443\u0441\u0442\u0430\u043d\u043e\u0432\u043a\u043e\u0439 \u0432\u044b \u0432\u0438\u0434\u0438\u0442\u0435 preview \u043f\u0440\u043e\u0444\u0438\u043b\u044f",
@@ -3841,7 +3872,7 @@
         "lvl3": "\u0414\u0432\u0430 \u0440\u0435\u0436\u0438\u043c\u0430 \u0443\u0441\u0442\u0430\u043d\u043e\u0432\u043a\u0438",
         "lvl4": ""
       },
-      "url": "/operations/CENTRALIZED_CLIENT_BUNDLES#13",
+      "url": "/operations/CENTRALIZED_CLIENT_BUNDLES#14",
       "last_reviewed": "2026-03-11",
       "path": "docs/operations/CENTRALIZED_CLIENT_BUNDLES.md",
       "ranking_boost": 4,
@@ -3851,7 +3882,7 @@
       "code_snippets": []
     },
     {
-      "objectID": "997f4a521d7803ece1e53084f0dbad21",
+      "objectID": "931f982ec45ae7294d60973ade74792b",
       "title": "\u0426\u0435\u043d\u0442\u0440\u0430\u043b\u0438\u0437\u043e\u0432\u0430\u043d\u043d\u0430\u044f \u043d\u0430\u0441\u0442\u0440\u043e\u0439\u043a\u0430 \u043a\u043b\u0438\u0435\u043d\u0442\u043e\u0432",
       "heading": "\u041a\u043e\u043c\u0430\u043d\u0434\u0430 \"\u043f\u043e\u0434 \u043a\u043b\u044e\u0447\" (\u0431\u0435\u0437 \u0432\u043e\u0437\u043d\u0438 \u043a\u043b\u0438\u0435\u043d\u0442\u0430)",
       "content": "\u0415\u0441\u043b\u0438 \u0432\u044b \u0445\u043e\u0442\u0438\u0442\u0435 \u0441\u0440\u0430\u0437\u0443 \u043d\u0430\u0441\u0442\u0440\u043e\u0438\u0442\u044c \u0438 \u0437\u0430\u043f\u0443\u0441\u043a\u0430\u0442\u044c \u0437\u0430 \u043a\u043b\u0438\u0435\u043d\u0442\u0430, \u0438\u0441\u043f\u043e\u043b\u044c\u0437\u0443\u0439\u0442\u0435 provisioning: python3 scripts/provision_client_repo.py \\   --client profiles/clients/blockstream-demo.client.yml \\   --client-repo /path/to/client-repo \\   --docsops-dir docsops \\   --install-scheduler linux \u0414\u043b\u044f Windows: python3 scripts/provision_client_repo.py \\   --client profiles/clients/blockstream-demo.client.yml \\   --client-repo C:/path/to/client-repo \\   --docsops-dir docsops \\   --install-scheduler windows \u0427\u0442\u043e \u0434\u0435\u043b\u0430\u0435\u0442 \u043a\u043e\u043c\u0430\u043d\u0434\u0430: \\11. \u0421\u043e\u0431\u0438\u0440\u0430\u0435\u0442 bundle \u0438\u0437 \u043a\u043b\u0438\u0435\u043d\u0442\u0441\u043a\u043e\u0433\u043e \u043f\u0440\u043e\u0444\u0438\u043b\u044f. \\11. \u041a\u043e\u043f\u0438\u0440\u0443\u0435\u0442 bundle \u0432 \u0440\u0435\u043f\u043e\u0437\u0438\u0442\u043e\u0440\u0438\u0439 \u043a\u043b\u0438\u0435\u043d\u0442\u0430 (docsops/). \\11. \u0413\u0435\u043d\u0435\u0440\u0438\u0440\u0443\u0435\u0442 docsops/ENV_CHECKLIST.md \u0430\u0432\u0442\u043e\u043c\u0430\u0442\u0438\u0447\u0435\u0441\u043a\u0438. \\11. \u0421\u0442\u0430\u0432\u0438\u0442 weekly scheduler (cron \u0438\u043b\u0438 Task Scheduler). \\11. \u041a\u043b\u0438\u0435\u043d\u0442\u0443 \u043d\u0435 \u043d\u0443\u0436\u043d\u043e \u0440\u0443\u043a\u0430\u043c\u0438 \u043d\u0430\u0441\u0442\u0440\u0430\u0438\u0432\u0430\u0442\u044c pipeline. ",
@@ -3872,7 +3903,7 @@
         "lvl3": "",
         "lvl4": ""
       },
-      "url": "/operations/CENTRALIZED_CLIENT_BUNDLES#14",
+      "url": "/operations/CENTRALIZED_CLIENT_BUNDLES#15",
       "last_reviewed": "2026-03-11",
       "path": "docs/operations/CENTRALIZED_CLIENT_BUNDLES.md",
       "ranking_boost": 4,
@@ -3882,7 +3913,7 @@
       "code_snippets": []
     },
     {
-      "objectID": "931f982ec45ae7294d60973ade74792b",
+      "objectID": "4b0d665f11519a960a19b65422b4ad50",
       "title": "\u0426\u0435\u043d\u0442\u0440\u0430\u043b\u0438\u0437\u043e\u0432\u0430\u043d\u043d\u0430\u044f \u043d\u0430\u0441\u0442\u0440\u043e\u0439\u043a\u0430 \u043a\u043b\u0438\u0435\u043d\u0442\u043e\u0432",
       "heading": "\u0420\u0443\u0447\u043d\u0430\u044f \u043f\u0440\u043e\u0432\u0435\u0440\u043a\u0430 \u043e\u043f\u0435\u0440\u0430\u0442\u043e\u0440\u0430 (\u043f\u043e\u0441\u043b\u0435 \u0443\u0441\u0442\u0430\u043d\u043e\u0432\u043a\u0438)",
       "content": "\\11. \u041f\u0440\u043e\u0432\u0435\u0440\u0438\u0442\u044c <client-repo>/docsops/config/client_runtime.yml. \\11. \u041f\u0440\u043e\u0432\u0435\u0440\u0438\u0442\u044c <client-repo>/docsops/policy_packs/selected.yml. \\11. \u041f\u0440\u043e\u0432\u0435\u0440\u0438\u0442\u044c <client-repo>/docsops/ENV_CHECKLIST.md \u0438 \u043f\u0435\u0440\u0435\u0434\u0430\u0442\u044c \u0441\u043f\u0438\u0441\u043e\u043a env/secrets \u043a\u043b\u0438\u0435\u043d\u0442\u0443. \\11. \u0423\u0431\u0435\u0434\u0438\u0442\u044c\u0441\u044f, \u0447\u0442\u043e scheduler \u0443\u0441\u0442\u0430\u043d\u043e\u0432\u043b\u0435\u043d (cron entry \u0438\u043b\u0438 Task Scheduler task). \\11. \u0417\u0430\u043f\u0443\u0441\u0442\u0438\u0442\u044c \u043e\u0434\u0438\u043d \u0442\u0435\u0441\u0442\u043e\u0432\u044b\u0439 weekly run \u0438 \u0443\u0431\u0435\u0434\u0438\u0442\u044c\u0441\u044f, \u0447\u0442\u043e reports/consolidated_report.json \u043e\u0431\u043d\u043e\u0432\u0438\u043b\u0441\u044f. ",
@@ -3903,7 +3934,7 @@
         "lvl3": "\u0420\u0443\u0447\u043d\u0430\u044f \u043f\u0440\u043e\u0432\u0435\u0440\u043a\u0430 \u043e\u043f\u0435\u0440\u0430\u0442\u043e\u0440\u0430 (\u043f\u043e\u0441\u043b\u0435 \u0443\u0441\u0442\u0430\u043d\u043e\u0432\u043a\u0438)",
         "lvl4": ""
       },
-      "url": "/operations/CENTRALIZED_CLIENT_BUNDLES#15",
+      "url": "/operations/CENTRALIZED_CLIENT_BUNDLES#16",
       "last_reviewed": "2026-03-11",
       "path": "docs/operations/CENTRALIZED_CLIENT_BUNDLES.md",
       "ranking_boost": 4,
@@ -3913,7 +3944,7 @@
       "code_snippets": []
     },
     {
-      "objectID": "4b0d665f11519a960a19b65422b4ad50",
+      "objectID": "edd7db693a5114819e37fcc64e139da2",
       "title": "\u0426\u0435\u043d\u0442\u0440\u0430\u043b\u0438\u0437\u043e\u0432\u0430\u043d\u043d\u0430\u044f \u043d\u0430\u0441\u0442\u0440\u043e\u0439\u043a\u0430 \u043a\u043b\u0438\u0435\u043d\u0442\u043e\u0432",
       "heading": "\u041a\u0430\u043a \u044d\u0442\u043e \u0441\u0442\u0430\u0432\u0438\u0442\u0441\u044f \u043a\u043b\u0438\u0435\u043d\u0442\u0443",
       "content": "\u041a\u043b\u0438\u0435\u043d\u0442 \u043a\u043b\u0430\u0434\u0435\u0442 \u043f\u0430\u043f\u043a\u0443 bundle \u0432 \u0441\u0432\u043e\u0439 \u0440\u0435\u043f\u043e, \u043d\u0430\u043f\u0440\u0438\u043c\u0435\u0440: <client-repo>/docsops/ \u0422\u0430\u043c \u0443\u0436\u0435 \u0431\u0443\u0434\u0443\u0442: - config/client_runtime.yml - policy_packs/selected.yml - scripts/... - AGENTS.md - CLAUDE.md - LICENSE-COMMERCIAL.md - NOTICE - ops/run_weekly_docsops.sh / ops/run_weekly_docsops.ps1 - ops/install_cron_weekly.sh / ops/install_windows_task.ps1 - ops/runbook.md ",
@@ -3934,7 +3965,7 @@
         "lvl3": "",
         "lvl4": ""
       },
-      "url": "/operations/CENTRALIZED_CLIENT_BUNDLES#16",
+      "url": "/operations/CENTRALIZED_CLIENT_BUNDLES#17",
       "last_reviewed": "2026-03-11",
       "path": "docs/operations/CENTRALIZED_CLIENT_BUNDLES.md",
       "ranking_boost": 4,
@@ -3944,7 +3975,7 @@
       "code_snippets": []
     },
     {
-      "objectID": "edd7db693a5114819e37fcc64e139da2",
+      "objectID": "1c3b99edf7083f71e4976cbf8c58fdf0",
       "title": "\u0426\u0435\u043d\u0442\u0440\u0430\u043b\u0438\u0437\u043e\u0432\u0430\u043d\u043d\u0430\u044f \u043d\u0430\u0441\u0442\u0440\u043e\u0439\u043a\u0430 \u043a\u043b\u0438\u0435\u043d\u0442\u043e\u0432",
       "heading": "\u041d\u0435 \u043b\u043e\u043c\u0430\u0435\u0442 \u043b\u0438 \u044d\u0442\u043e \u043b\u043e\u043a\u0430\u043b\u044c\u043d\u044b\u0439 \u043e\u043f\u044b\u0442?",
       "content": "\u041d\u0435 \u043b\u043e\u043c\u0430\u0435\u0442. - \u041a\u043b\u0438\u0435\u043d\u0442 \u043f\u043e-\u043f\u0440\u0435\u0436\u043d\u0435\u043c\u0443 \u0440\u0430\u0431\u043e\u0442\u0430\u0435\u0442 \u043b\u043e\u043a\u0430\u043b\u044c\u043d\u043e. - LLM \u0447\u0438\u0442\u0430\u0435\u0442 \u043b\u043e\u043a\u0430\u043b\u044c\u043d\u044b\u0435 AGENTS.md/CLAUDE.md. - \u0412\u0441\u0435 \u043f\u0440\u043e\u0432\u0435\u0440\u043a\u0438 \u0438 \u0433\u0435\u043d\u0435\u0440\u0430\u0446\u0438\u044f \u0432\u044b\u043f\u043e\u043b\u043d\u044f\u044e\u0442\u0441\u044f \u043b\u043e\u043a\u0430\u043b\u044c\u043d\u043e \u0432 \u0440\u0435\u043f\u043e \u043a\u043b\u0438\u0435\u043d\u0442\u0430. - \u0415\u0436\u0435\u043d\u0435\u0434\u0435\u043b\u044c\u043d\u044b\u0439 \u043e\u0442\u0447\u0451\u0442 \u0444\u043e\u0440\u043c\u0438\u0440\u0443\u0435\u0442\u0441\u044f \u043f\u043e \u0440\u0430\u0441\u043f\u0438\u0441\u0430\u043d\u0438\u044e \u0430\u0432\u0442\u043e\u043c\u0430\u0442\u0438\u0447\u0435\u0441\u043a\u0438. ",
@@ -3965,7 +3996,7 @@
         "lvl3": "",
         "lvl4": ""
       },
-      "url": "/operations/CENTRALIZED_CLIENT_BUNDLES#17",
+      "url": "/operations/CENTRALIZED_CLIENT_BUNDLES#18",
       "last_reviewed": "2026-03-11",
       "path": "docs/operations/CENTRALIZED_CLIENT_BUNDLES.md",
       "ranking_boost": 4,
@@ -3975,10 +4006,10 @@
       "code_snippets": []
     },
     {
-      "objectID": "1c3b99edf7083f71e4976cbf8c58fdf0",
+      "objectID": "fcc85be170140641d351f3140e544bd1",
       "title": "\u0426\u0435\u043d\u0442\u0440\u0430\u043b\u0438\u0437\u043e\u0432\u0430\u043d\u043d\u0430\u044f \u043d\u0430\u0441\u0442\u0440\u043e\u0439\u043a\u0430 \u043a\u043b\u0438\u0435\u043d\u0442\u043e\u0432",
       "heading": "\u0415\u0436\u0435\u043d\u0435\u0434\u0435\u043b\u044c\u043d\u044b\u0439 \u0430\u0432\u0442\u043e\u043c\u0430\u0442\u0438\u0447\u0435\u0441\u043a\u0438\u0439 \u043f\u043e\u0442\u043e\u043a",
-      "content": "\u0421\u043a\u0440\u0438\u043f\u0442 docsops/scripts/run_weekly_gap_batch.py \u043f\u043e \u0440\u0430\u0441\u043f\u0438\u0441\u0430\u043d\u0438\u044e: \\11. \u0421\u043e\u0431\u0438\u0440\u0430\u0435\u0442 gap report \u0437\u0430 \u043f\u043e\u0441\u043b\u0435\u0434\u043d\u0438\u0435 7 \u0434\u043d\u0435\u0439. \\11. \u041f\u0440\u043e\u0432\u0435\u0440\u044f\u0435\u0442 stale-\u0434\u043e\u043a\u0438 (\u043f\u043e \u0443\u043c\u043e\u043b\u0447\u0430\u043d\u0438\u044e 180 \u0434\u043d\u0435\u0439 \u0431\u0435\u0437 \u0438\u0437\u043c\u0435\u043d\u0435\u043d\u0438\u0439). \\11. \u0417\u0430\u043f\u0443\u0441\u043a\u0430\u0435\u0442 KPI/SLA (\u0435\u0441\u043b\u0438 \u0432\u043a\u043b\u044e\u0447\u0435\u043d\u043e \u0432 bundle). \\11. \u041f\u0440\u0438 mode=api-first|hybrid \u0437\u0430\u043f\u0443\u0441\u043a\u0430\u0435\u0442 API-first flow (\u0435\u0441\u043b\u0438 \u0432\u043a\u043b\u044e\u0447\u0435\u043d\u043e \u0432 runtime.api_first.enabled). \\11. \u0413\u0435\u043d\u0435\u0440\u0438\u0440\u0443\u0435\u0442 \u0438 \u0432\u0430\u043b\u0438\u0434\u0438\u0440\u0443\u0435\u0442 \u043c\u0443\u043b\u044c\u0442\u0438\u044f\u0437\u044b\u0447\u043d\u044b\u0435 \u0432\u043a\u043b\u0430\u0434\u043a\u0438 \u043a\u043e\u0434\u0430 (\u043d\u043e\u0432\u044b\u0439 \u0441\u0442\u0430\u043d\u0434\u0430\u0440\u0442). \\11. \u0412\u044b\u043f\u043e\u043b\u043d\u044f\u0435\u0442 smoke-\u043f\u0440\u043e\u0432\u0435\u0440\u043a\u0438 \u043a\u043e\u0434\u0430 \u0438 \u0441\u0432\u0435\u0440\u044f\u0435\u0442 expected-output (\u0435\u0441\u043b\u0438 \u0443\u043a\u0430\u0437\u0430\u043d). \\11. \u0417\u0430\u043f\u0443\u0441\u043a\u0430\u0435\u0442 runtime.custom_tasks.weekly (\u0435\u0441\u043b\u0438 \u0432\u043a\u043b\u044e\u0447\u0435\u043d\u044b). \\11. \u0421\u043e\u0437\u0434\u0430\u0435\u0442 reports/consolidated_report.json. \u0412\u0430\u0436\u043d\u043e: API-first \u0437\u0434\u0435\u0441\u044c \u0442\u043e\u043b\u044c\u043a\u043e \u043e\u0434\u0438\u043d \u0438\u0437 \u043f\u043e\u0434\u043f\u0440\u043e\u0446\u0435\u0441\u0441\u043e\u0432. \u0413\u043b\u0430\u0432\u043d\u044b\u0439 \u043a\u043e\u043d\u0442\u0443\u0440 \u043e\u0445\u0432\u0430\u0442\u044b\u0432\u0430\u0435\u0442 \u0432\u0441\u0435 \u0442\u0438\u043f\u044b \u0434\u043e\u043a\u0443\u043c\u0435\u043d\u0442\u0430\u0446\u0438\u0438 \u0438 quality automation \u0446\u0435\u043b\u0438\u043a\u043e\u043c. \u041f\u043e\u0440\u043e\u0433 stale \u043c\u043e\u0436\u043d\u043e \u043c\u0435\u043d\u044f\u0442\u044c \u0434\u043b\u044f \u043a\u0430\u0436\u0434\u043e\u0433\u043e \u043a\u043b\u0438\u0435\u043d\u0442\u0430: - private_tuning.weekly_stale_days \u0432 profiles/clients/<client>.client.yml \u0414\u0430\u043b\u044c\u0448\u0435 \u043e\u043f\u0435\u0440\u0430\u0442\u043e\u0440 \u0438\u043b\u0438 \u043a\u043e\u043c\u0430\u043d\u0434\u0430: \\11. \u041f\u0435\u0440\u0435\u0434\u0430\u0435\u0442 consolidated report \u043b\u043e\u043a\u0430\u043b\u044c\u043d\u043e\u0439 LLM \u0434\u043b\u044f batch generation. \\11. \u0414\u0435\u043b\u0430\u0435\u0442 \u0431\u044b\u0441\u0442\u0440\u044b\u0439 \u0432\u0438\u0437\u0443\u0430\u043b\u044c\u043d\u044b\u0439 \u0444\u0438\u043d\u0430\u043b\u044c\u043d\u044b\u0439 \u043f\u0440\u043e\u0441\u043c\u043e\u0442\u0440 \u0433\u043e\u0442\u043e\u0432\u044b\u0445 docs. ",
+      "content": "\u0421\u043a\u0440\u0438\u043f\u0442 docsops/scripts/run_weekly_gap_batch.py \u043f\u043e \u0440\u0430\u0441\u043f\u0438\u0441\u0430\u043d\u0438\u044e: \\11. \u0421\u043e\u0431\u0438\u0440\u0430\u0435\u0442 gap report \u0437\u0430 \u043f\u043e\u0441\u043b\u0435\u0434\u043d\u0438\u0435 7 \u0434\u043d\u0435\u0439. \\11. \u041f\u0440\u043e\u0432\u0435\u0440\u044f\u0435\u0442 stale-\u0434\u043e\u043a\u0438 (\u043f\u043e \u0443\u043c\u043e\u043b\u0447\u0430\u043d\u0438\u044e 180 \u0434\u043d\u0435\u0439 \u0431\u0435\u0437 \u0438\u0437\u043c\u0435\u043d\u0435\u043d\u0438\u0439). \\11. \u0417\u0430\u043f\u0443\u0441\u043a\u0430\u0435\u0442 KPI/SLA (\u0435\u0441\u043b\u0438 \u0432\u043a\u043b\u044e\u0447\u0435\u043d\u043e \u0432 bundle). \\11. \u041f\u0440\u0438 mode=api-first|hybrid \u0437\u0430\u043f\u0443\u0441\u043a\u0430\u0435\u0442 API-first flow (\u0435\u0441\u043b\u0438 \u0432\u043a\u043b\u044e\u0447\u0435\u043d\u043e \u0432 runtime.api_first.enabled). \\11. \u041f\u0440\u0438\u043c\u0435\u043d\u044f\u0435\u0442 manual overrides \u043a OpenAPI \u0430\u0440\u0442\u0435\u0444\u0430\u043a\u0442\u0430\u043c (\u0435\u0441\u043b\u0438 \u0437\u0430\u0434\u0430\u043d manual_overrides_path). \\11. \u041f\u0440\u043e\u0432\u0435\u0440\u044f\u0435\u0442 regression snapshot (\u0435\u0441\u043b\u0438 \u0437\u0430\u0434\u0430\u043d regression_snapshot_path). \\11. \u0413\u0435\u043d\u0435\u0440\u0438\u0440\u0443\u0435\u0442 \u0438 \u0432\u0430\u043b\u0438\u0434\u0438\u0440\u0443\u0435\u0442 \u043c\u0443\u043b\u044c\u0442\u0438\u044f\u0437\u044b\u0447\u043d\u044b\u0435 \u0432\u043a\u043b\u0430\u0434\u043a\u0438 \u043a\u043e\u0434\u0430 (\u043d\u043e\u0432\u044b\u0439 \u0441\u0442\u0430\u043d\u0434\u0430\u0440\u0442). \\11. \u0412\u044b\u043f\u043e\u043b\u043d\u044f\u0435\u0442 smoke-\u043f\u0440\u043e\u0432\u0435\u0440\u043a\u0438 \u043a\u043e\u0434\u0430 \u0438 \u0441\u0432\u0435\u0440\u044f\u0435\u0442 expected-output (\u0435\u0441\u043b\u0438 \u0443\u043a\u0430\u0437\u0430\u043d). \\11. \u0417\u0430\u043f\u0443\u0441\u043a\u0430\u0435\u0442 runtime.custom_tasks.weekly (\u0435\u0441\u043b\u0438 \u0432\u043a\u043b\u044e\u0447\u0435\u043d\u044b). \\11. \u0421\u043e\u0437\u0434\u0430\u0435\u0442 reports/consolidated_report.json. \u0412\u0430\u0436\u043d\u043e: API-first \u0437\u0434\u0435\u0441\u044c \u0442\u043e\u043b\u044c\u043a\u043e \u043e\u0434\u0438\u043d \u0438\u0437 \u043f\u043e\u0434\u043f\u0440\u043e\u0446\u0435\u0441\u0441\u043e\u0432. \u0413\u043b\u0430\u0432\u043d\u044b\u0439 \u043a\u043e\u043d\u0442\u0443\u0440 \u043e\u0445\u0432\u0430\u0442\u044b\u0432\u0430\u0435\u0442 \u0432\u0441\u0435 \u0442\u0438\u043f\u044b \u0434\u043e\u043a\u0443\u043c\u0435\u043d\u0442\u0430\u0446\u0438\u0438 \u0438 quality automation \u0446\u0435\u043b\u0438\u043a\u043e\u043c. \u041f\u043e\u0440\u043e\u0433 stale \u043c\u043e\u0436\u043d\u043e \u043c\u0435\u043d\u044f\u0442\u044c \u0434\u043b\u044f \u043a\u0430\u0436\u0434\u043e\u0433\u043e \u043a\u043b\u0438\u0435\u043d\u0442\u0430: - private_tuning.weekly_stale_days \u0432 profiles/clients/<client>.client.yml \u0414\u0430\u043b\u044c\u0448\u0435 ",
       "description": "\u041f\u0440\u0430\u043a\u0442\u0438\u0447\u0435\u0441\u043a\u0438\u0439 \u043f\u0443\u0442\u044c \u043d\u0430\u0441\u0442\u0440\u043e\u0439\u043a\u0438 \u043a\u043b\u0438\u0435\u043d\u0442\u0441\u043a\u0438\u0445 bundle \u0438 \u0430\u0432\u0442\u043e\u0437\u0430\u043f\u0443\u0441\u043a\u0430 pipeline \u0438\u0437 \u043e\u0434\u043d\u043e\u0433\u043e \u043c\u0435\u0441\u0442\u0430.",
       "product": "both",
       "content_type": "reference",
@@ -3996,17 +4027,17 @@
         "lvl3": "",
         "lvl4": ""
       },
-      "url": "/operations/CENTRALIZED_CLIENT_BUNDLES#18",
+      "url": "/operations/CENTRALIZED_CLIENT_BUNDLES#19",
       "last_reviewed": "2026-03-11",
       "path": "docs/operations/CENTRALIZED_CLIENT_BUNDLES.md",
       "ranking_boost": 4,
       "heading_level": 2,
-      "word_count": 113,
+      "word_count": 130,
       "has_code": false,
       "code_snippets": []
     },
     {
-      "objectID": "fcc85be170140641d351f3140e544bd1",
+      "objectID": "9518ede6c71f75e521490d38caed9cad",
       "title": "\u0426\u0435\u043d\u0442\u0440\u0430\u043b\u0438\u0437\u043e\u0432\u0430\u043d\u043d\u0430\u044f \u043d\u0430\u0441\u0442\u0440\u043e\u0439\u043a\u0430 \u043a\u043b\u0438\u0435\u043d\u0442\u043e\u0432",
       "heading": "\u0427\u0442\u043e \u0434\u043e\u0431\u0430\u0432\u0438\u0442\u044c \u0432 `.gitignore` \u043a\u043b\u0438\u0435\u043d\u0442\u0430",
       "content": "\u0420\u0435\u043a\u043e\u043c\u0435\u043d\u0434\u0443\u0435\u043c\u044b\u0439 \u043c\u0438\u043d\u0438\u043c\u0443\u043c: reports/docsops-weekly.log \u042d\u0442\u043e \u043b\u043e\u043a\u0430\u043b\u044c\u043d\u044b\u0439 \u043b\u043e\u0433 \u043f\u043b\u0430\u043d\u0438\u0440\u043e\u0432\u0449\u0438\u043a\u0430. \u0415\u0433\u043e \u043e\u0431\u044b\u0447\u043d\u043e \u043d\u0435 \u043a\u043e\u043c\u043c\u0438\u0442\u044f\u0442. JSON/Markdown \u043e\u0442\u0447\u0435\u0442\u044b (reports/consolidated_report.json \u0438 \u0441\u0432\u044f\u0437\u0430\u043d\u043d\u044b\u0435 \u043e\u0442\u0447\u0435\u0442\u044b) \u043e\u0431\u044b\u0447\u043d\u043e \u043e\u0441\u0442\u0430\u0432\u043b\u044f\u044e\u0442 \u0432 \u0440\u0435\u043f\u043e\u0437\u0438\u0442\u043e\u0440\u0438\u0438, \u0435\u0441\u043b\u0438 \u043a\u043e\u043c\u0430\u043d\u0434\u0430 \u0432\u0435\u0434\u0435\u0442 \u0438\u0441\u0442\u043e\u0440\u0438\u044e \u043e\u0442\u0447\u0435\u0442\u043e\u0432 \u0432 git. ",
@@ -4027,7 +4058,7 @@
         "lvl3": "",
         "lvl4": ""
       },
-      "url": "/operations/CENTRALIZED_CLIENT_BUNDLES#19",
+      "url": "/operations/CENTRALIZED_CLIENT_BUNDLES#20",
       "last_reviewed": "2026-03-11",
       "path": "docs/operations/CENTRALIZED_CLIENT_BUNDLES.md",
       "ranking_boost": 4,
@@ -4037,7 +4068,7 @@
       "code_snippets": []
     },
     {
-      "objectID": "9518ede6c71f75e521490d38caed9cad",
+      "objectID": "aa4468799a11445d3f853d9f4bf7d546",
       "title": "\u0426\u0435\u043d\u0442\u0440\u0430\u043b\u0438\u0437\u043e\u0432\u0430\u043d\u043d\u0430\u044f \u043d\u0430\u0441\u0442\u0440\u043e\u0439\u043a\u0430 \u043a\u043b\u0438\u0435\u043d\u0442\u043e\u0432",
       "heading": "RAG/knowledge \u0431\u0435\u0437 \u0440\u0443\u0447\u043d\u044b\u0445 \u0437\u0430\u043f\u0443\u0441\u043a\u043e\u0432",
       "content": "\u042d\u0442\u043e \u0443\u0436\u0435 \u0443\u043a\u043b\u0430\u0434\u044b\u0432\u0430\u0435\u0442\u0441\u044f \u0432 \u0442\u0435\u043a\u0443\u0449\u0438\u0439 smooth flow: \\11. \u041e\u0434\u0438\u043d \u0440\u0430\u0437 \u043d\u0430\u0441\u0442\u0440\u043e\u0438\u0442\u044c \u043f\u0440\u043e\u0444\u0438\u043b\u044c \u043a\u043b\u0438\u0435\u043d\u0442\u0430 (*.client.yml): - runtime.modules.knowledge_validation: true - runtime.modules.rag_optimization: true - runtime.custom_tasks.weekly \u0434\u043b\u044f RAG-\u0437\u0430\u0434\u0430\u0447, \u0432\u043a\u043b\u044e\u0447\u0430\u044f build_all_intent_experiences.py - bundle.include_paths: [\"knowledge_modules\"] \\11. \u041e\u0434\u0438\u043d \u0440\u0430\u0437 \u0441\u0434\u0435\u043b\u0430\u0442\u044c provisioning: - provision_client_repo.py \u0441\u0442\u0430\u0432\u0438\u0442 docsops/ \u0432 \u043a\u043b\u0438\u0435\u043d\u0442\u0441\u043a\u0438\u0439 \u0440\u0435\u043f\u043e\u0437\u0438\u0442\u043e\u0440\u0438\u0439 - \u0441\u0440\u0430\u0437\u0443 \u0441\u0442\u0430\u0432\u0438\u0442\u0441\u044f \u0440\u0430\u0441\u043f\u0438\u0441\u0430\u043d\u0438\u0435 (cron \u0438\u043b\u0438 Task Scheduler) \\11. \u0414\u0430\u043b\u0435\u0435 weekly job \u0438\u0434\u0435\u0442 \u0430\u0432\u0442\u043e\u043c\u0430\u0442\u0438\u0447\u0435\u0441\u043a\u0438: - \u0437\u0430\u043f\u0443\u0441\u043a\u0430\u0435\u0442\u0441\u044f run_weekly_gap_batch.py - \u0432\u043d\u0443\u0442\u0440\u0438 \u0432\u044b\u043f\u043e\u043b\u043d\u044f\u044e\u0442\u0441\u044f:   - extract_knowledge_modules_from_docs.py   - validate_knowledge_modules.py   - generate_knowledge_retrieval_index.py   - \u043b\u044e\u0431\u044b\u0435 custom_tasks.weekly (\u043d\u0430\u043f\u0440\u0438\u043c\u0435\u0440 build_all_intent_experiences.py) - \u043e\u0442\u0447\u0435\u0442\u044b \u0444\u043e\u0440\u043c\u0438\u0440\u0443\u044e\u0442\u0441\u044f \u0430\u0432\u0442\u043e\u043c\u0430\u0442\u0438\u0447\u0435\u0441\u043a\u0438 \u0418\u0442\u043e\u0433: - \u043a\u043b\u0438\u0435\u043d\u0442\u0441\u043a\u0430\u044f \u043a\u043e\u043c\u0430\u043d\u0434\u0430 \u043d\u0435 \u0437\u0430\u043f\u0443\u0441\u043a\u0430\u0435\u0442 \u043a\u043e\u043c\u0430\u043d\u0434\u044b \u0432\u0440\u0443\u0447\u043d\u0443\u044e - \u0447\u0435\u043b\u043e\u0432\u0435\u043a \u0442\u043e\u043b\u044c\u043a\u043e \u0441\u043c\u043e\u0442\u0440\u0438\u0442 weekly report \u0438 \u0432\u044b\u0431\u043e\u0440\u043e\u0447\u043d\u043e \u043f\u0440\u043e\u0432\u0435\u0440\u044f\u0435\u0442 \u0444\u0438\u043d\u0430\u043b\u044c\u043d\u044b\u0435 docs \u041f\u043e\u0432\u0435\u0434\u0435\u043d\u0438\u0435 \u043e\u0442\u0447\u0435\u0442\u043e\u0432: - weekly \u0437\u0430\u043f\u0443\u0441\u043a \u043f\u0438\u0448\u0435\u0442 \u0432 \u0442\u0435 \u0436\u0435 \u0438\u043c\u0435\u043d\u0430 \u0444\u0430\u0439\u043b\u043e\u0432 - ",
@@ -4058,7 +4089,7 @@
         "lvl3": "",
         "lvl4": ""
       },
-      "url": "/operations/CENTRALIZED_CLIENT_BUNDLES#20",
+      "url": "/operations/CENTRALIZED_CLIENT_BUNDLES#21",
       "last_reviewed": "2026-03-11",
       "path": "docs/operations/CENTRALIZED_CLIENT_BUNDLES.md",
       "ranking_boost": 4,
@@ -4068,7 +4099,7 @@
       "code_snippets": []
     },
     {
-      "objectID": "aa4468799a11445d3f853d9f4bf7d546",
+      "objectID": "e62889ac5c9db30bde76544499d5481b",
       "title": "\u0426\u0435\u043d\u0442\u0440\u0430\u043b\u0438\u0437\u043e\u0432\u0430\u043d\u043d\u0430\u044f \u043d\u0430\u0441\u0442\u0440\u043e\u0439\u043a\u0430 \u043a\u043b\u0438\u0435\u043d\u0442\u043e\u0432",
       "heading": "\u041a\u043b\u0438\u0435\u043d\u0442 1: \u0442\u043e\u043b\u044c\u043a\u043e Sphinx, \u0431\u0435\u0437 drift",
       "content": "runtime:   output_targets: [\"sphinx\"]   modules:     gap_detection: true     drift_detection: false     docs_contract: true     kpi_sla: true     rag_optimization: true bundle:   include_scripts:     - \"scripts/check_docs_contract.py\"     - \"scripts/evaluate_kpi_sla.py\" ",
@@ -4089,7 +4120,7 @@
         "lvl3": "\u041a\u043b\u0438\u0435\u043d\u0442 1: \u0442\u043e\u043b\u044c\u043a\u043e Sphinx, \u0431\u0435\u0437 drift",
         "lvl4": ""
       },
-      "url": "/operations/CENTRALIZED_CLIENT_BUNDLES#21",
+      "url": "/operations/CENTRALIZED_CLIENT_BUNDLES#22",
       "last_reviewed": "2026-03-11",
       "path": "docs/operations/CENTRALIZED_CLIENT_BUNDLES.md",
       "ranking_boost": 4,
@@ -4099,7 +4130,7 @@
       "code_snippets": []
     },
     {
-      "objectID": "e62889ac5c9db30bde76544499d5481b",
+      "objectID": "078d443f13c82a779c35ed2b7032cf85",
       "title": "\u0426\u0435\u043d\u0442\u0440\u0430\u043b\u0438\u0437\u043e\u0432\u0430\u043d\u043d\u0430\u044f \u043d\u0430\u0441\u0442\u0440\u043e\u0439\u043a\u0430 \u043a\u043b\u0438\u0435\u043d\u0442\u043e\u0432",
       "heading": "\u041a\u043b\u0438\u0435\u043d\u0442 2: ReadMe + GitHub, \u043e\u0447\u0435\u043d\u044c \u0441\u0442\u0440\u043e\u0433\u0438\u0439 quality bar",
       "content": "runtime:   output_targets: [\"readme\", \"github\"] bundle:   base_policy_pack: \"plg\"   policy_overrides:     kpi_sla:       min_doc_coverage: 90       max_quality_score_drop: 2 \u0412\u044b \u043c\u0435\u043d\u044f\u0435\u0442\u0435 \u0442\u043e\u043b\u044c\u043a\u043e \u043f\u0440\u043e\u0444\u0438\u043b\u044c YAML. \u041a\u043e\u0434 \u043f\u0430\u0439\u043f\u043b\u0430\u0439\u043d\u0430 \u043d\u0435 \u0442\u0440\u043e\u0433\u0430\u0435\u0442\u0435. ",
@@ -4120,7 +4151,7 @@
         "lvl3": "\u041a\u043b\u0438\u0435\u043d\u0442 2: ReadMe + GitHub, \u043e\u0447\u0435\u043d\u044c \u0441\u0442\u0440\u043e\u0433\u0438\u0439 quality bar",
         "lvl4": ""
       },
-      "url": "/operations/CENTRALIZED_CLIENT_BUNDLES#22",
+      "url": "/operations/CENTRALIZED_CLIENT_BUNDLES#23",
       "last_reviewed": "2026-03-11",
       "path": "docs/operations/CENTRALIZED_CLIENT_BUNDLES.md",
       "ranking_boost": 4,
@@ -4130,7 +4161,7 @@
       "code_snippets": []
     },
     {
-      "objectID": "078d443f13c82a779c35ed2b7032cf85",
+      "objectID": "bdbeb5e031f8f55c6fd138bffe64ba19",
       "title": "\u0426\u0435\u043d\u0442\u0440\u0430\u043b\u0438\u0437\u043e\u0432\u0430\u043d\u043d\u0430\u044f \u043d\u0430\u0441\u0442\u0440\u043e\u0439\u043a\u0430 \u043a\u043b\u0438\u0435\u043d\u0442\u043e\u0432",
       "heading": "Next steps",
       "content": "- Documentation index ",
@@ -4151,7 +4182,7 @@
         "lvl3": "",
         "lvl4": ""
       },
-      "url": "/operations/CENTRALIZED_CLIENT_BUNDLES#23",
+      "url": "/operations/CENTRALIZED_CLIENT_BUNDLES#24",
       "last_reviewed": "2026-03-11",
       "path": "docs/operations/CENTRALIZED_CLIENT_BUNDLES.md",
       "ranking_boost": 4,
@@ -4165,7 +4196,7 @@
       "title": "Pipeline Capabilities Catalog",
       "heading": "Pipeline Capabilities Catalog",
       "content": "This file is auto-generated from package.json scripts. Use this catalog with runtime.custom_tasks.weekly in client profiles to enable any capability. ",
-      "description": "Generated catalog of pipeline scripts and capabilities for client task configuration.",
+      "description": "Generated catalog of available pipeline commands, templates, policy packs, and assets for client configuration.",
       "product": "both",
       "content_type": "reference",
       "component": "",
@@ -4173,7 +4204,7 @@
       "maturity": "ga",
       "tags": [
         "Operations",
-        "Capabilities"
+        "Reference"
       ],
       "hierarchy": {
         "lvl0": "both",
@@ -4183,7 +4214,7 @@
         "lvl4": ""
       },
       "url": "/operations/PIPELINE_CAPABILITIES_CATALOG#0",
-      "last_reviewed": "2026-03-11",
+      "last_reviewed": "",
       "path": "docs/operations/PIPELINE_CAPABILITIES_CATALOG.md",
       "ranking_boost": 4,
       "heading_level": 1,
@@ -4196,7 +4227,7 @@
       "title": "Pipeline Capabilities Catalog",
       "heading": "How to enable any capability for a client",
       "content": "runtime:   custom_tasks:     weekly:       - id: \"my-task\"         enabled: true         command: \"npm run <script-name>\"         continue_on_error: true | Script | Category | Command | | --- | --- | --- | | agent:claude:auto | Agent/Demo | bash scripts/claude-auto.sh | | agent:codex:auto | Agent/Demo | bash scripts/codex-auto.sh | | api-first-demo | API-first | bash scripts/api_first_demo_live.sh | | api-first-demo:stop | API-first | bash scripts/api_first_demo_stop.sh | | api-first:demo | API-first | bash -lc 'set -e; bash scripts/api_sandbox_project.sh up taskstream ./api/openapi.yaml 4010; trap \"bash scripts/api_sandbox_project.sh down taskstream ./api/openapi.yaml 4010\" EXIT; python3 scripts/run_api_first_flow.py --project-slug taskstream --notes demos/api-first/taskstream-planning-notes.md --spec api/openapi.yaml --spec-tree api/taskstream --docs-provider mkdocs --inject-demo-nav --verify-user-path --mock-base-url http://localhost:4010/v1 --auto-remediate --max-attempts 3' | | ap",
-      "description": "Generated catalog of pipeline scripts and capabilities for client task configuration.",
+      "description": "Generated catalog of available pipeline commands, templates, policy packs, and assets for client configuration.",
       "product": "both",
       "content_type": "reference",
       "component": "",
@@ -4204,7 +4235,7 @@
       "maturity": "ga",
       "tags": [
         "Operations",
-        "Capabilities"
+        "Reference"
       ],
       "hierarchy": {
         "lvl0": "both",
@@ -4214,11 +4245,11 @@
         "lvl4": ""
       },
       "url": "/operations/PIPELINE_CAPABILITIES_CATALOG#1",
-      "last_reviewed": "2026-03-11",
+      "last_reviewed": "",
       "path": "docs/operations/PIPELINE_CAPABILITIES_CATALOG.md",
       "ranking_boost": 4,
       "heading_level": 2,
-      "word_count": 1100,
+      "word_count": 1229,
       "has_code": false,
       "code_snippets": []
     },
@@ -4227,7 +4258,7 @@
       "title": "Pipeline Capabilities Catalog",
       "heading": "Templates",
       "content": "These can be shipped via bundle.include_paths and used by LLM generation flow. - templates/admin-guide.md - templates/api-endpoint.md - templates/api-reference.md - templates/architecture-overview.md - templates/authentication-guide.md - templates/best-practices.md - templates/changelog.md - templates/concept.md - templates/configuration-guide.md - templates/configuration-reference.md - templates/deployment-guide.md - templates/error-handling-guide.md - templates/faq.md - templates/glossary-page.md - templates/how-to.md - templates/integration-guide.md - templates/interactive-diagram.html - templates/migration-guide.md - templates/plg-persona-guide.md - templates/plg-value-page.md - templates/quickstart.md - templates/reference.md - templates/release-note.md - templates/sdk-reference.md - templates/security-guide.md - templates/testing-guide.md - templates/troubleshooting.md - templates/tutorial.md - templates/upgrade-guide.md - templates/use-case.md - templates/user-guide.md - templat",
-      "description": "Generated catalog of pipeline scripts and capabilities for client task configuration.",
+      "description": "Generated catalog of available pipeline commands, templates, policy packs, and assets for client configuration.",
       "product": "both",
       "content_type": "reference",
       "component": "",
@@ -4235,7 +4266,7 @@
       "maturity": "ga",
       "tags": [
         "Operations",
-        "Capabilities"
+        "Reference"
       ],
       "hierarchy": {
         "lvl0": "both",
@@ -4245,7 +4276,7 @@
         "lvl4": ""
       },
       "url": "/operations/PIPELINE_CAPABILITIES_CATALOG#2",
-      "last_reviewed": "2026-03-11",
+      "last_reviewed": "",
       "path": "docs/operations/PIPELINE_CAPABILITIES_CATALOG.md",
       "ranking_boost": 4,
       "heading_level": 2,
@@ -4258,7 +4289,7 @@
       "title": "Pipeline Capabilities Catalog",
       "heading": "Policy Packs",
       "content": "- api-first.yml - minimal.yml - monorepo.yml - multi-product.yml - plg.yml ",
-      "description": "Generated catalog of pipeline scripts and capabilities for client task configuration.",
+      "description": "Generated catalog of available pipeline commands, templates, policy packs, and assets for client configuration.",
       "product": "both",
       "content_type": "reference",
       "component": "",
@@ -4266,7 +4297,7 @@
       "maturity": "ga",
       "tags": [
         "Operations",
-        "Capabilities"
+        "Reference"
       ],
       "hierarchy": {
         "lvl0": "both",
@@ -4276,7 +4307,7 @@
         "lvl4": ""
       },
       "url": "/operations/PIPELINE_CAPABILITIES_CATALOG#3",
-      "last_reviewed": "2026-03-11",
+      "last_reviewed": "",
       "path": "docs/operations/PIPELINE_CAPABILITIES_CATALOG.md",
       "ranking_boost": 4,
       "heading_level": 2,
@@ -4289,7 +4320,7 @@
       "title": "Pipeline Capabilities Catalog",
       "heading": "Knowledge Modules",
       "content": "Can be copied into client bundle with bundle.include_paths: ['knowledge_modules']. - webhook-auth-baseline.yml - webhook-retry-policy.yml ",
-      "description": "Generated catalog of pipeline scripts and capabilities for client task configuration.",
+      "description": "Generated catalog of available pipeline commands, templates, policy packs, and assets for client configuration.",
       "product": "both",
       "content_type": "reference",
       "component": "",
@@ -4297,7 +4328,7 @@
       "maturity": "ga",
       "tags": [
         "Operations",
-        "Capabilities"
+        "Reference"
       ],
       "hierarchy": {
         "lvl0": "both",
@@ -4307,7 +4338,7 @@
         "lvl4": ""
       },
       "url": "/operations/PIPELINE_CAPABILITIES_CATALOG#4",
-      "last_reviewed": "2026-03-11",
+      "last_reviewed": "",
       "path": "docs/operations/PIPELINE_CAPABILITIES_CATALOG.md",
       "ranking_boost": 4,
       "heading_level": 2,
@@ -4320,7 +4351,7 @@
       "title": "Pipeline Capabilities Catalog",
       "heading": "Docker Compose Profiles",
       "content": "- docker-compose.api-sandbox.live.yml - docker-compose.api-sandbox.prodlike.yml - docker-compose.api-sandbox.yml - docker-compose.docs-ops.yml ",
-      "description": "Generated catalog of pipeline scripts and capabilities for client task configuration.",
+      "description": "Generated catalog of available pipeline commands, templates, policy packs, and assets for client configuration.",
       "product": "both",
       "content_type": "reference",
       "component": "",
@@ -4328,7 +4359,7 @@
       "maturity": "ga",
       "tags": [
         "Operations",
-        "Capabilities"
+        "Reference"
       ],
       "hierarchy": {
         "lvl0": "both",
@@ -4338,7 +4369,7 @@
         "lvl4": ""
       },
       "url": "/operations/PIPELINE_CAPABILITIES_CATALOG#5",
-      "last_reviewed": "2026-03-11",
+      "last_reviewed": "",
       "path": "docs/operations/PIPELINE_CAPABILITIES_CATALOG.md",
       "ranking_boost": 4,
       "heading_level": 2,
@@ -4351,7 +4382,7 @@
       "title": "Pipeline Capabilities Catalog",
       "heading": "Next steps",
       "content": "- Documentation index ",
-      "description": "Generated catalog of pipeline scripts and capabilities for client task configuration.",
+      "description": "Generated catalog of available pipeline commands, templates, policy packs, and assets for client configuration.",
       "product": "both",
       "content_type": "reference",
       "component": "",
@@ -4359,7 +4390,7 @@
       "maturity": "ga",
       "tags": [
         "Operations",
-        "Capabilities"
+        "Reference"
       ],
       "hierarchy": {
         "lvl0": "both",
@@ -4369,7 +4400,7 @@
         "lvl4": ""
       },
       "url": "/operations/PIPELINE_CAPABILITIES_CATALOG#6",
-      "last_reviewed": "2026-03-11",
+      "last_reviewed": "",
       "path": "docs/operations/PIPELINE_CAPABILITIES_CATALOG.md",
       "ranking_boost": 4,
       "heading_level": 2,
@@ -4474,7 +4505,7 @@
       "objectID": "72e5681844f53102b5aea46d6731bd4f",
       "title": "Plan Tiers (Basic / Pro / Enterprise)",
       "heading": "Pro preset",
-      "content": "bundle:   base_policy_pack: \"api-first\"   style_guide: \"hybrid\" runtime:   docs_flow:     mode: \"hybrid\"   modules:     gap_detection: true     drift_detection: true     docs_contract: true     kpi_sla: true     rag_optimization: true     normalization: true     snippet_lint: true     self_checks: true     fact_checks: true     knowledge_validation: true     i18n_sync: true     release_pack: true   api_first:     enabled: true     generate_from_notes: true     auto_remediate: true     max_attempts: 3   custom_tasks:     weekly:       - id: \"seo-geo\"         enabled: true         command: \"python3 docsops/scripts/seo_geo_optimizer.py docs/\"         continue_on_error: true       - id: \"knowledge-index\"         enabled: true         command: \"python3 docsops/scripts/generate_knowledge_retrieval_index.py\"         continue_on_error: true private_tuning:   weekly_stale_days: 180 ",
+      "content": "bundle:   base_policy_pack: \"api-first\"   style_guide: \"hybrid\" runtime:   docs_flow:     mode: \"hybrid\"   modules:     gap_detection: true     drift_detection: true     docs_contract: true     kpi_sla: true     rag_optimization: true     normalization: true     snippet_lint: true     self_checks: true     fact_checks: true     knowledge_validation: true     i18n_sync: true     release_pack: true   api_first:     enabled: true     openapi_version: \"3.1.0\"     manual_overrides_path: \"api/overrides/openapi.manual.yml\"     regression_snapshot_path: \"api/.openapi-regression.json\"     update_regression_snapshot: false     generate_from_notes: true     auto_remediate: true     max_attempts: 3   custom_tasks:     weekly:       - id: \"seo-geo\"         enabled: true         command: \"python3 docsops/scripts/seo_geo_optimizer.py docs/\"         continue_on_error: true       - id: \"knowledge-index\"         enabled: true         command: \"python3 docsops/scripts/generate_knowledge_retrieval_index.p",
       "description": "Feature packaging matrix and defaults for Basic, Pro, and Enterprise client plans.",
       "product": "both",
       "content_type": "reference",
@@ -4497,7 +4528,7 @@
       "path": "docs/operations/PLAN_TIERS.md",
       "ranking_boost": 4,
       "heading_level": 3,
-      "word_count": 69,
+      "word_count": 77,
       "has_code": false,
       "code_snippets": []
     },
@@ -4505,7 +4536,7 @@
       "objectID": "37ad7a8d9669c2789bc14f9fde87172a",
       "title": "Plan Tiers (Basic / Pro / Enterprise)",
       "heading": "Enterprise preset",
-      "content": "bundle:   base_policy_pack: \"multi-product\"   style_guide: \"microsoft\"   policy_overrides:     kpi_sla:       min_doc_coverage: 90       max_stale_pct: 10       max_quality_score_drop: 2 runtime:   docs_flow:     mode: \"hybrid\"   modules:     gap_detection: true     drift_detection: true     docs_contract: true     kpi_sla: true     rag_optimization: true     normalization: true     snippet_lint: true     self_checks: true     fact_checks: true     knowledge_validation: true     i18n_sync: true     release_pack: true   api_first:     enabled: true     generate_from_notes: true     verify_user_path: true     run_docs_lint: true     auto_remediate: true     max_attempts: 5   custom_tasks:     weekly:       - id: \"seo-geo\"         enabled: true         command: \"python3 docsops/scripts/seo_geo_optimizer.py docs/\"         continue_on_error: true       - id: \"knowledge-validate\"         enabled: true         command: \"python3 docsops/scripts/validate_knowledge_modules.py\"         continue_o",
+      "content": "bundle:   base_policy_pack: \"multi-product\"   style_guide: \"microsoft\"   policy_overrides:     kpi_sla:       min_doc_coverage: 90       max_stale_pct: 10       max_quality_score_drop: 2 runtime:   docs_flow:     mode: \"hybrid\"   modules:     gap_detection: true     drift_detection: true     docs_contract: true     kpi_sla: true     rag_optimization: true     normalization: true     snippet_lint: true     self_checks: true     fact_checks: true     knowledge_validation: true     i18n_sync: true     release_pack: true   api_first:     enabled: true     openapi_version: \"3.1.0\"     manual_overrides_path: \"api/overrides/openapi.manual.yml\"     regression_snapshot_path: \"api/.openapi-regression.json\"     update_regression_snapshot: false     generate_from_notes: true     verify_user_path: true     run_docs_lint: true     auto_remediate: true     max_attempts: 5   custom_tasks:     weekly:       - id: \"seo-geo\"         enabled: true         command: \"python3 docsops/scripts/seo_geo_optimize",
       "description": "Feature packaging matrix and defaults for Basic, Pro, and Enterprise client plans.",
       "product": "both",
       "content_type": "reference",
@@ -4528,7 +4559,7 @@
       "path": "docs/operations/PLAN_TIERS.md",
       "ranking_boost": 4,
       "heading_level": 3,
-      "word_count": 101,
+      "word_count": 109,
       "has_code": false,
       "code_snippets": []
     },
@@ -4939,7 +4970,7 @@
       "objectID": "af2758c52ee5757bf232eb31733382d1",
       "title": "Unified Client Configuration",
       "heading": "6. API-first configuration (one branch, not the whole product)",
-      "content": "runtime:   api_first:     enabled: true     project_slug: \"acme\"     notes_path: \"notes/api-planning.md\"     spec_path: \"api/openapi.yaml\"     spec_tree_path: \"api/acme\"     docs_provider: \"mkdocs\"     docs_spec_target: \"docs/assets/api\"     stubs_output: \"generated/api-stubs/fastapi/app/main.py\"     generate_from_notes: true     verify_user_path: false     mock_base_url: \"http://localhost:4010/v1\"     run_docs_lint: false     auto_remediate: true     max_attempts: 3 Multi-version API docs (new standard): runtime:   api_first:     enabled: true     docs_provider: \"mkdocs\"     versions:       - version: \"v1\"         project_slug: \"acme-v1\"         notes_path: \"notes/api-v1-planning.md\"         spec_path: \"api/v1/openapi.yaml\"         spec_tree_path: \"api/v1\"         docs_spec_target: \"docs/assets/api/v1\"         stubs_output: \"generated/api-stubs/v1/main.py\"       - version: \"v2\"         project_slug: \"acme-v2\"         notes_path: \"notes/api-v2-planning.md\"         spec_path: \"api/v2/op",
+      "content": "runtime:   api_first:     enabled: true     project_slug: \"acme\"     notes_path: \"notes/api-planning.md\"     spec_path: \"api/openapi.yaml\"     spec_tree_path: \"api/acme\"     docs_provider: \"mkdocs\"     docs_spec_target: \"docs/assets/api\"     stubs_output: \"generated/api-stubs/fastapi/app/main.py\"     openapi_version: \"3.0.3\"     manual_overrides_path: \"api/overrides/openapi.manual.yml\"     regression_snapshot_path: \"api/.openapi-regression.json\"     update_regression_snapshot: false     generate_from_notes: true     verify_user_path: false     mock_base_url: \"http://localhost:4010/v1\"     run_docs_lint: false     auto_remediate: true     max_attempts: 3 Multi-version API docs (new standard): runtime:   api_first:     enabled: true     docs_provider: \"mkdocs\"     versions:       - version: \"v1\"         project_slug: \"acme-v1\"         notes_path: \"notes/api-v1-planning.md\"         spec_path: \"api/v1/openapi.yaml\"         spec_tree_path: \"api/v1\"         docs_spec_target: \"docs/assets/api",
       "description": "Single source of truth for per-client Auto-Doc Pipeline configuration, modules, and automation.",
       "product": "both",
       "content_type": "reference",
@@ -4962,7 +4993,7 @@
       "path": "docs/operations/UNIFIED_CLIENT_CONFIG.md",
       "ranking_boost": 4,
       "heading_level": 2,
-      "word_count": 97,
+      "word_count": 160,
       "has_code": false,
       "code_snippets": []
     },
@@ -5001,7 +5032,7 @@
       "objectID": "f00b0ab36a0097fbfe40a3a319a8257f",
       "title": "Unified Client Configuration",
       "heading": "Module -> required script in bundle",
-      "content": "- gap_detection -> scripts/gap_detector.py - drift_detection -> scripts/check_api_sdk_drift.py - docs_contract -> scripts/check_docs_contract.py - kpi_sla -> scripts/evaluate_kpi_sla.py + scripts/generate_kpi_wall.py - normalization -> scripts/normalize_docs.py - snippet_lint -> scripts/lint_code_snippets.py - self_checks -> scripts/check_code_examples_smoke.py - multilang_examples -> scripts/generate_multilang_tabs.py + scripts/validate_multilang_examples.py - fact_checks -> scripts/seo_geo_optimizer.py + scripts/doc_layers_validator.py - lifecycle_management -> scripts/lifecycle_manager.py (+ lifecycle report/redirect guidance) - knowledge_validation -> scripts/extract_knowledge_modules_from_docs.py + scripts/validate_knowledge_modules.py - rag_optimization -> scripts/generate_knowledge_retrieval_index.py - i18n_sync -> scripts/i18n_sync.py - release_pack -> scripts/generate_release_docs_pack.py - api-first/hybrid -> scripts/run_api_first_flow.py (+ related api-first scripts) If scri",
+      "content": "- gap_detection -> scripts/gap_detector.py - drift_detection -> scripts/check_api_sdk_drift.py - docs_contract -> scripts/check_docs_contract.py - kpi_sla -> scripts/evaluate_kpi_sla.py + scripts/generate_kpi_wall.py - normalization -> scripts/normalize_docs.py - snippet_lint -> scripts/lint_code_snippets.py - self_checks -> scripts/check_code_examples_smoke.py - multilang_examples -> scripts/generate_multilang_tabs.py + scripts/validate_multilang_examples.py - fact_checks -> scripts/seo_geo_optimizer.py + scripts/doc_layers_validator.py - lifecycle_management -> scripts/lifecycle_manager.py (+ lifecycle report/redirect guidance) - knowledge_validation -> scripts/extract_knowledge_modules_from_docs.py + scripts/validate_knowledge_modules.py - rag_optimization -> scripts/generate_knowledge_retrieval_index.py - i18n_sync -> scripts/i18n_sync.py - release_pack -> scripts/generate_release_docs_pack.py - api-first/hybrid -> scripts/run_api_first_flow.py + scripts/generate_openapi_from_plann",
       "description": "Single source of truth for per-client Auto-Doc Pipeline configuration, modules, and automation.",
       "product": "both",
       "content_type": "reference",
@@ -5024,7 +5055,7 @@
       "path": "docs/operations/UNIFIED_CLIENT_CONFIG.md",
       "ranking_boost": 4,
       "heading_level": 3,
-      "word_count": 110,
+      "word_count": 116,
       "has_code": false,
       "code_snippets": []
     },
@@ -5155,6 +5186,37 @@
     {
       "objectID": "7162e204b69072785941b7abe3a6cc7b",
       "title": "Unified Client Configuration",
+      "heading": "API-first advanced baseline (overrides + regression gate)",
+      "content": "runtime:   api_first:     enabled: true     openapi_version: \"3.1.0\"     manual_overrides_path: \"api/overrides/openapi.manual.yml\"     regression_snapshot_path: \"api/.openapi-regression.json\"     update_regression_snapshot: false Bundle requirements: bundle:   include_scripts:     - \"scripts/apply_openapi_overrides.py\"     - \"scripts/check_openapi_regression.py\" ",
+      "description": "Single source of truth for per-client Auto-Doc Pipeline configuration, modules, and automation.",
+      "product": "both",
+      "content_type": "reference",
+      "component": "",
+      "version": "",
+      "maturity": "ga",
+      "tags": [
+        "Operations",
+        "Configuration"
+      ],
+      "hierarchy": {
+        "lvl0": "both",
+        "lvl1": "reference",
+        "lvl2": "",
+        "lvl3": "",
+        "lvl4": "API-first advanced baseline (overrides + regression gate)"
+      },
+      "url": "/operations/UNIFIED_CLIENT_CONFIG#17",
+      "last_reviewed": "2026-03-11",
+      "path": "docs/operations/UNIFIED_CLIENT_CONFIG.md",
+      "ranking_boost": 4,
+      "heading_level": 4,
+      "word_count": 20,
+      "has_code": false,
+      "code_snippets": []
+    },
+    {
+      "objectID": "6adf52d2be322b2a36aee7cbc93fe0df",
+      "title": "Unified Client Configuration",
       "heading": "SEO/GEO weekly",
       "content": "runtime:   custom_tasks:     weekly:       - id: \"seo-geo\"         enabled: true         command: \"python3 docsops/scripts/seo_geo_optimizer.py docs/\"         continue_on_error: true ",
       "description": "Single source of truth for per-client Auto-Doc Pipeline configuration, modules, and automation.",
@@ -5174,7 +5236,7 @@
         "lvl3": "",
         "lvl4": "SEO/GEO weekly"
       },
-      "url": "/operations/UNIFIED_CLIENT_CONFIG#17",
+      "url": "/operations/UNIFIED_CLIENT_CONFIG#18",
       "last_reviewed": "2026-03-11",
       "path": "docs/operations/UNIFIED_CLIENT_CONFIG.md",
       "ranking_boost": 4,
@@ -5184,7 +5246,7 @@
       "code_snippets": []
     },
     {
-      "objectID": "6adf52d2be322b2a36aee7cbc93fe0df",
+      "objectID": "f6acad3a184439c186754bb5849b46cc",
       "title": "Unified Client Configuration",
       "heading": "RAG / knowledge base weekly",
       "content": "runtime:   custom_tasks:     weekly:       - id: \"knowledge-validate\"         enabled: true         command: \"python3 docsops/scripts/validate_knowledge_modules.py\"         continue_on_error: true       - id: \"knowledge-index\"         enabled: true         command: \"python3 docsops/scripts/generate_knowledge_retrieval_index.py\"         continue_on_error: true       - id: \"intent-all\"         enabled: true         command: \"python3 docsops/scripts/build_all_intent_experiences.py\"         continue_on_error: true ",
@@ -5205,7 +5267,7 @@
         "lvl3": "",
         "lvl4": "RAG / knowledge base weekly"
       },
-      "url": "/operations/UNIFIED_CLIENT_CONFIG#18",
+      "url": "/operations/UNIFIED_CLIENT_CONFIG#19",
       "last_reviewed": "2026-03-11",
       "path": "docs/operations/UNIFIED_CLIENT_CONFIG.md",
       "ranking_boost": 4,
@@ -5215,7 +5277,7 @@
       "code_snippets": []
     },
     {
-      "objectID": "f6acad3a184439c186754bb5849b46cc",
+      "objectID": "e948e1ea9d36aaf0c6671279ad0ff31d",
       "title": "Unified Client Configuration",
       "heading": "Multilingual (i18n) baseline",
       "content": "runtime:   modules:     i18n_sync: true   custom_tasks:     weekly:       - id: \"i18n-translate-stale\"         enabled: false         command: \"python3 docsops/scripts/i18n_translate.py --stale-only\"         continue_on_error: true Bundle requirements: bundle:   include_scripts:     - \"scripts/i18n_sync.py\"     - \"scripts/i18n_translate.py\"     - \"scripts/i18n_migrate.py\"     - \"scripts/i18n_utils.py\" Practical mode: - Keep i18n_sync always on (checks coverage/drift for locales). - Keep auto-translation off by default (enabled: false) unless client explicitly wants it. ",
@@ -5236,7 +5298,7 @@
         "lvl3": "",
         "lvl4": "Multilingual (i18n) baseline"
       },
-      "url": "/operations/UNIFIED_CLIENT_CONFIG#19",
+      "url": "/operations/UNIFIED_CLIENT_CONFIG#20",
       "last_reviewed": "2026-03-11",
       "path": "docs/operations/UNIFIED_CLIENT_CONFIG.md",
       "ranking_boost": 4,
@@ -5246,7 +5308,7 @@
       "code_snippets": []
     },
     {
-      "objectID": "e948e1ea9d36aaf0c6671279ad0ff31d",
+      "objectID": "e087134485283acb6709bd35fc950481",
       "title": "Unified Client Configuration",
       "heading": "Interactive diagrams assets",
       "content": "bundle:   include_paths:     - \"templates/interactive-diagram.html\" ",
@@ -5267,7 +5329,7 @@
         "lvl3": "",
         "lvl4": "Interactive diagrams assets"
       },
-      "url": "/operations/UNIFIED_CLIENT_CONFIG#20",
+      "url": "/operations/UNIFIED_CLIENT_CONFIG#21",
       "last_reviewed": "2026-03-11",
       "path": "docs/operations/UNIFIED_CLIENT_CONFIG.md",
       "ranking_boost": 4,
@@ -5277,7 +5339,7 @@
       "code_snippets": []
     },
     {
-      "objectID": "e087134485283acb6709bd35fc950481",
+      "objectID": "cbd67003d87e22a740920f2c804d3a03",
       "title": "Unified Client Configuration",
       "heading": "Search facets index",
       "content": "runtime:   custom_tasks:     weekly:       - id: \"facets-index\"         enabled: true         command: \"python3 docsops/scripts/generate_facets_index.py --docs-dir docs --output docs/assets/facets-index.json\"         continue_on_error: true ",
@@ -5298,7 +5360,7 @@
         "lvl3": "",
         "lvl4": "Search facets index"
       },
-      "url": "/operations/UNIFIED_CLIENT_CONFIG#21",
+      "url": "/operations/UNIFIED_CLIENT_CONFIG#22",
       "last_reviewed": "2026-03-11",
       "path": "docs/operations/UNIFIED_CLIENT_CONFIG.md",
       "ranking_boost": 4,
@@ -5308,7 +5370,7 @@
       "code_snippets": []
     },
     {
-      "objectID": "cbd67003d87e22a740920f2c804d3a03",
+      "objectID": "55a9c713c72c4f8c7fc087609c012f41",
       "title": "Unified Client Configuration",
       "heading": "Algolia push",
       "content": "runtime:   custom_tasks:     weekly:       - id: \"algolia-upload\"         enabled: true         command: \"python3 docsops/scripts/upload_to_algolia.py\"         continue_on_error: true ",
@@ -5329,7 +5391,7 @@
         "lvl3": "",
         "lvl4": "Algolia push"
       },
-      "url": "/operations/UNIFIED_CLIENT_CONFIG#22",
+      "url": "/operations/UNIFIED_CLIENT_CONFIG#23",
       "last_reviewed": "2026-03-11",
       "path": "docs/operations/UNIFIED_CLIENT_CONFIG.md",
       "ranking_boost": 4,
@@ -5339,7 +5401,7 @@
       "code_snippets": []
     },
     {
-      "objectID": "55a9c713c72c4f8c7fc087609c012f41",
+      "objectID": "d96d6bdc1c564d297852b2280dd8475c",
       "title": "Unified Client Configuration",
       "heading": "9. Private tuning",
       "content": "private_tuning:   gap_priority_weights:     business_impact: 0.45     user_frequency: 0.35     implementation_cost: 0.20   stale_days: 21   weekly_stale_days: 180   rag_chunk_target_tokens: 420   verify_max_attempts: 3 weekly_stale_days default is 180 (half year), configurable per client. ",
@@ -5360,7 +5422,7 @@
         "lvl3": "",
         "lvl4": ""
       },
-      "url": "/operations/UNIFIED_CLIENT_CONFIG#23",
+      "url": "/operations/UNIFIED_CLIENT_CONFIG#24",
       "last_reviewed": "2026-03-11",
       "path": "docs/operations/UNIFIED_CLIENT_CONFIG.md",
       "ranking_boost": 4,
@@ -5370,7 +5432,7 @@
       "code_snippets": []
     },
     {
-      "objectID": "d96d6bdc1c564d297852b2280dd8475c",
+      "objectID": "8e914b7bdcb4c6c4c6959aafb5ef4f4d",
       "title": "Unified Client Configuration",
       "heading": "10. Legal labeling",
       "content": "legal:   license_type: \"commercial\"   redistribution_allowed: false   reseller_allowed: false Builder generates: - LICENSE-COMMERCIAL.md - NOTICE ",
@@ -5391,7 +5453,7 @@
         "lvl3": "",
         "lvl4": ""
       },
-      "url": "/operations/UNIFIED_CLIENT_CONFIG#24",
+      "url": "/operations/UNIFIED_CLIENT_CONFIG#25",
       "last_reviewed": "2026-03-11",
       "path": "docs/operations/UNIFIED_CLIENT_CONFIG.md",
       "ranking_boost": 4,
@@ -5401,7 +5463,7 @@
       "code_snippets": []
     },
     {
-      "objectID": "8e914b7bdcb4c6c4c6959aafb5ef4f4d",
+      "objectID": "e5865baa1b89bf1c0a76645840fc7568",
       "title": "Unified Client Configuration",
       "heading": "Code-first only",
       "content": "runtime:   docs_flow:     mode: \"code-first\"   modules:     gap_detection: true     drift_detection: true     docs_contract: true     kpi_sla: true ",
@@ -5422,7 +5484,7 @@
         "lvl3": "Code-first only",
         "lvl4": ""
       },
-      "url": "/operations/UNIFIED_CLIENT_CONFIG#25",
+      "url": "/operations/UNIFIED_CLIENT_CONFIG#26",
       "last_reviewed": "2026-03-11",
       "path": "docs/operations/UNIFIED_CLIENT_CONFIG.md",
       "ranking_boost": 4,
@@ -5432,10 +5494,10 @@
       "code_snippets": []
     },
     {
-      "objectID": "e5865baa1b89bf1c0a76645840fc7568",
+      "objectID": "cebf94773fd00d4fda5567889401ec08",
       "title": "Unified Client Configuration",
       "heading": "API-first only",
-      "content": "runtime:   docs_flow:     mode: \"api-first\"   api_first:     enabled: true     generate_from_notes: true ",
+      "content": "runtime:   docs_flow:     mode: \"api-first\"   api_first:     enabled: true     openapi_version: \"3.1.0\"     manual_overrides_path: \"api/overrides/openapi.manual.yml\"     regression_snapshot_path: \"api/.openapi-regression.json\"     generate_from_notes: true ",
       "description": "Single source of truth for per-client Auto-Doc Pipeline configuration, modules, and automation.",
       "product": "both",
       "content_type": "reference",
@@ -5453,17 +5515,17 @@
         "lvl3": "API-first only",
         "lvl4": ""
       },
-      "url": "/operations/UNIFIED_CLIENT_CONFIG#26",
+      "url": "/operations/UNIFIED_CLIENT_CONFIG#27",
       "last_reviewed": "2026-03-11",
       "path": "docs/operations/UNIFIED_CLIENT_CONFIG.md",
       "ranking_boost": 4,
       "heading_level": 3,
-      "word_count": 9,
+      "word_count": 15,
       "has_code": false,
       "code_snippets": []
     },
     {
-      "objectID": "cebf94773fd00d4fda5567889401ec08",
+      "objectID": "ba5187a423915cf697513893f0a09779",
       "title": "Unified Client Configuration",
       "heading": "Hybrid",
       "content": "runtime:   docs_flow:     mode: \"hybrid\"   api_first:     enabled: true   modules:     gap_detection: true     drift_detection: true     docs_contract: true     kpi_sla: true ",
@@ -5484,7 +5546,7 @@
         "lvl3": "Hybrid",
         "lvl4": ""
       },
-      "url": "/operations/UNIFIED_CLIENT_CONFIG#27",
+      "url": "/operations/UNIFIED_CLIENT_CONFIG#28",
       "last_reviewed": "2026-03-11",
       "path": "docs/operations/UNIFIED_CLIENT_CONFIG.md",
       "ranking_boost": 4,
@@ -5494,7 +5556,7 @@
       "code_snippets": []
     },
     {
-      "objectID": "ba5187a423915cf697513893f0a09779",
+      "objectID": "f050915b39aeec4b49942df9a014567a",
       "title": "Unified Client Configuration",
       "heading": "Full UTP baseline (recommended)",
       "content": "runtime:   docs_flow:     mode: \"hybrid\"   modules:     gap_detection: true     drift_detection: true     docs_contract: true     kpi_sla: true     rag_optimization: true     multilang_examples: true     normalization: true     snippet_lint: true     knowledge_validation: true     i18n_sync: true     release_pack: true   custom_tasks:     weekly:       - id: \"seo-geo\"         enabled: true         command: \"python3 docsops/scripts/seo_geo_optimizer.py docs/\"         continue_on_error: true       - id: \"knowledge-index\"         enabled: true         command: \"python3 docsops/scripts/generate_knowledge_retrieval_index.py\"         continue_on_error: true Default automation order in weekly runner: \\11. extract knowledge modules from docs (extract_knowledge_modules_from_docs.py) \\11. validate modules (validate_knowledge_modules.py) \\11. regenerate retrieval index (generate_knowledge_retrieval_index.py) \\11. generate multi-language tabs (generate_multilang_tabs.py) \\11. validate multi-langua",
@@ -5515,7 +5577,7 @@
         "lvl3": "Full UTP baseline (recommended)",
         "lvl4": ""
       },
-      "url": "/operations/UNIFIED_CLIENT_CONFIG#28",
+      "url": "/operations/UNIFIED_CLIENT_CONFIG#29",
       "last_reviewed": "2026-03-11",
       "path": "docs/operations/UNIFIED_CLIENT_CONFIG.md",
       "ranking_boost": 4,
@@ -5525,7 +5587,7 @@
       "code_snippets": []
     },
     {
-      "objectID": "f050915b39aeec4b49942df9a014567a",
+      "objectID": "d3b59e6f0d96d2a154aa6425100a3860",
       "title": "Unified Client Configuration",
       "heading": "9. Fully automated RAG/knowledge flow",
       "content": "To run RAG and knowledge base maintenance without manual commands: \\11. Configure once in client profile: - enable runtime.modules.knowledge_validation: true - enable runtime.modules.rag_optimization: true - add runtime.custom_tasks.weekly entries (for example intent experiences) - include bundle.include_paths: [\"knowledge_modules\"] - include scripts:   - scripts/extract_knowledge_modules_from_docs.py   - scripts/validate_knowledge_modules.py   - scripts/generate_knowledge_retrieval_index.py \\11. Provision once: - install bundle with scripts/provision_client_repo.py - install scheduler with --install-scheduler linux or --install-scheduler windows \\11. Weekly automation then runs by itself: - scheduler triggers run_weekly_gap_batch.py - it runs extract_knowledge_modules_from_docs.py - it runs validate_knowledge_modules.py - it runs generate_knowledge_retrieval_index.py - it runs all enabled custom_tasks.weekly - it writes consolidated reports Outcome: - operators do not run commands man",
@@ -5546,7 +5608,7 @@
         "lvl3": "",
         "lvl4": ""
       },
-      "url": "/operations/UNIFIED_CLIENT_CONFIG#29",
+      "url": "/operations/UNIFIED_CLIENT_CONFIG#30",
       "last_reviewed": "2026-03-11",
       "path": "docs/operations/UNIFIED_CLIENT_CONFIG.md",
       "ranking_boost": 4,
@@ -5556,7 +5618,7 @@
       "code_snippets": []
     },
     {
-      "objectID": "d3b59e6f0d96d2a154aa6425100a3860",
+      "objectID": "3dc2817cc1c2c12ec4af5cc7358760ab",
       "title": "Unified Client Configuration",
       "heading": "Next steps",
       "content": "- Documentation index ",
@@ -5577,7 +5639,7 @@
         "lvl3": "",
         "lvl4": ""
       },
-      "url": "/operations/UNIFIED_CLIENT_CONFIG#30",
+      "url": "/operations/UNIFIED_CLIENT_CONFIG#31",
       "last_reviewed": "2026-03-11",
       "path": "docs/operations/UNIFIED_CLIENT_CONFIG.md",
       "ranking_boost": 4,
