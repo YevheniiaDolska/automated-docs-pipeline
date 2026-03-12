@@ -136,6 +136,28 @@ cp "templates/${DOC_CONTENT_TYPE}.md" "$DOC_PATH"
 
 Say: "I copied the document directly from a pre-validated template in `templates/`. Now I will customize it with production-grade content so you can see ALL pipeline capabilities in one document."
 
+### Step 4A. Glossary pre-check before generation
+
+Before filling the template, verify terminology source of truth:
+
+```bash
+python3 -c "
+import yaml
+from pathlib import Path
+p = Path('glossary.yml')
+if not p.exists():
+    print('glossary.yml not found')
+else:
+    data = yaml.safe_load(p.read_text(encoding='utf-8')) or {}
+    terms = data.get('terms', {})
+    print('=== GLOSSARY PRE-CHECK ===')
+    print('Preferred terms:', len(terms))
+    print('Rule: if a term already exists in glossary, use its preferred form and do not replace it with synonyms.')
+"
+```
+
+Say: "I checked glossary.yml before writing the article. Existing preferred terms must be used exactly, without introducing synonym substitutions."
+
 ### Step 5. GENERATE THE FULL DOCUMENT
 
 NOW—this is the MAIN WOW MOMENT. Starting from the copied template file, fully customize the document with production-quality content that demonstrates every feature.

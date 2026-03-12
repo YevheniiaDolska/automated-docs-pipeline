@@ -484,6 +484,7 @@ markdownlint docs/path/to/file.md
 For every document generation/update:
 
 \11. Read `glossary.yml` first and use preferred terms.
+\11. If a term already exists in `glossary.yml`, use that preferred term exactly and do not replace it with a synonym.
 \11. If you introduce a new project term, add marker in the document:
    `<!-- glossary:add: Term | Description | alias-one, alias-two -->`
 \11. Run:

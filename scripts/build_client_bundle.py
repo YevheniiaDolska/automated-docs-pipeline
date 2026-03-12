@@ -292,6 +292,7 @@ def build_managed_instruction_block(docsops_root: str) -> str:
         f"1. Read `{root}/config/client_runtime.yml`.",
         f"2. Read `{root}/policy_packs/selected.yml`.",
         "3. Read `glossary.yml` before generating docs and use preferred terminology.",
+        "   If a term already exists in glossary, use the preferred form and do not substitute synonyms.",
         "4. If you introduce a new project term, add a marker in docs:",
         "   `<!-- glossary:add: Term | Description | alias1, alias2 -->`.",
         f"5. Run `{root}/scripts/sync_project_glossary.py` when glossary markers are present.",
