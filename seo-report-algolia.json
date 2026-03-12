@@ -2152,7 +2152,7 @@
       "objectID": "18306a4809ace3c3dd7ac57d6de64f2d",
       "title": "Configure webhook triggers",
       "heading": "Test webhook delivery",
-      "content": "Send a test request to verify your webhook works: curl -X POST https://your-domain.example.com:5678/webhook/test \\   -H \"Content-Type: application/json\" \\   -d '{\"event\": \"test\", \"timestamp\": \"2026-03-07T12:00:00Z\"}' Expected response: {   \"status\": \"accepted\",   \"executionId\": \"exec_abc123\" } !!! tip \"Use the test URL first\"     {{ product_name }} provides separate test and production webhook     URLs. Use the test URL during development to inspect payloads     without triggering downstream actions. ",
+      "content": "Send a test request to verify your webhook works: === \"cURL\"     ``bash smoke     curl -X POST https://your-domain.example.com:5678/webhook/test \\       -H \"Content-Type: application/json\" \\       -d '{\"event\": \"test\", \"timestamp\": \"2026-03-07T12:00:00Z\"}'     ` === \"JavaScript\"     `javascript smoke     const response = await fetch('https://your-domain.example.com:5678/webhook/test', {       method: 'POST',       headers: {       'Content-Type': 'application/json',     },     body: JSON.stringify({\"event\": \"test\", \"timestamp\": \"2026-03-07T12:00:00Z\"}),     });     const payload = await response.json();     console.log(payload);     ` === \"Python\"     `python smoke     import requests     response = requests.request(         'POST',         'https://your-domain.example.com:5678/webhook/test',         headers={'Content-Type': 'application/json'},     json='{\"event\": \"test\", \"timestamp\": \"2026-03-07T12:00:00Z\"}',         timeout=30,     )     response.raise_for_status()     print(respons",
       "description": "Set up and configure webhook trigger nodes to start workflows from incoming HTTP requests with authentication.",
       "product": "both",
       "content_type": "how-to",
@@ -2175,9 +2175,13 @@
       "path": "docs/how-to/configure-webhook-trigger.md",
       "ranking_boost": 6,
       "heading_level": 2,
-      "word_count": 61,
-      "has_code": false,
-      "code_snippets": []
+      "word_count": 118,
+      "has_code": true,
+      "code_snippets": [
+        "```bash smoke     curl -X POST https://your-domain.example.com:5678/webhook/test \\       -H \"Content-Type: application/json\" \\       -d '{\"event\": \"test\", \"timestamp\": \"2026-03-07T12:00:00Z\"}'     ```",
+        "```javascript smoke     const response = await fetch('https://your-domain.example.com:5678/webhook/test', {       method: 'POST',       headers: {       'Content-Type': 'application/json',     },     body: JSON.stringify({\"event\": \"test\", \"timestamp\": \"2026-03-07T12:00:00Z\"}),     });     const payload = await response.json();     console.log(payload);     ```",
+        "```python smoke     import requests     response = requests.request(         'POST',         'https://your-domain.example.com:5678/webhook/test',         headers={'Content-Type': 'application/json'},     json='{\"event\": \"test\", \"timestamp\": \"2026-03-07T12:00:00Z\"}',         timeout=30,     )     response.raise_for_status()     print(response.json())     ```"
+      ]
     },
     {
       "objectID": "5eabcf00eecf72a483a4d29799904f7f",
@@ -2499,7 +2503,7 @@
       "objectID": "0c08db46e0bbd69b15d497f27a39e416",
       "title": "Install Ask AI runtime pack",
       "heading": "Step 4: Start runtime server",
-      "content": "python3 -m venv .venv source .venv/bin/activate pip install -r requirements.txt uvicorn app.main:app --host 0.0.0.0 --port 8090 Health check: curl http://localhost:8090/healthz ",
+      "content": "python3 -m venv .venv source .venv/bin/activate pip install -r requirements.txt uvicorn app.main:app --host 0.0.0.0 --port 8090 Health check: === \"cURL\"     ``bash smoke     curl http://localhost:8090/healthz     ` === \"JavaScript\"     `javascript smoke     const response = await fetch('http://localhost:8090/healthz', {       method: 'GET',       headers: { },     });     const payload = await response.json();     console.log(payload);     ` === \"Python\"     `python smoke     import requests     response = requests.request(         'GET',         'http://localhost:8090/healthz',         headers={},         timeout=30,     )     response.raise_for_status()     print(response.json())     `` ",
       "description": "Install the optional Ask AI runtime pack with API endpoint, widget, auth checks, and billing hooks in a few commands.",
       "product": "both",
       "content_type": "how-to",
@@ -2523,9 +2527,13 @@
       "path": "docs/how-to/install-ask-ai-runtime-pack.md",
       "ranking_boost": 6,
       "heading_level": 2,
-      "word_count": 20,
-      "has_code": false,
-      "code_snippets": []
+      "word_count": 65,
+      "has_code": true,
+      "code_snippets": [
+        "```bash smoke     curl http://localhost:8090/healthz     ```",
+        "```javascript smoke     const response = await fetch('http://localhost:8090/healthz', {       method: 'GET',       headers: { },     });     const payload = await response.json();     console.log(payload);     ```",
+        "```python smoke     import requests     response = requests.request(         'GET',         'http://localhost:8090/healthz',         headers={},         timeout=30,     )     response.raise_for_status()     print(response.json())     ```"
+      ]
     },
     {
       "objectID": "f22827f73261133788001b157fbed7cc",
@@ -6280,7 +6288,7 @@
       "objectID": "7ea0df3fc0d97de6c5f2d2a4d4ab4bfa",
       "title": "Intent experience: configure for operator",
       "heading": "Configure HMAC authentication for inbound webhooks",
-      "content": "Covers secure webhook authentication setup for docs, assistant responses, in-product hints, and automation workflows with one reusable module. Use HMAC validation to reject spoofed webhook requests before your workflow executes. Set the shared secret in {{ env_vars.webhook_url }} settings, then verify the X-Signature header with SHA-256. Reject requests older than 300 seconds, and return HTTP 401 for invalid signatures. curl -X POST \"http://localhost:{{ default_webhook_port }}/webhook/order-events\" \\\\   -H \"Content-Type: application/json\" \\\\   -H \"X-Signature: sha256=YOUR_CALCULATED_SIGNATURE\" \\\\   -d '{\"order_id\":\"ord_9482\",\"event\":\"order_paid\",\"amount\":129.99}' Keep replay protection enabled, rotate the secret every 90 days, and monitor 401 spikes for abuse detection. ",
+      "content": "Covers secure webhook authentication setup for docs, assistant responses, in-product hints, and automation workflows with one reusable module. Use HMAC validation to reject spoofed webhook requests before your workflow executes. Set the shared secret in {{ env_vars.webhook_url }} settings, then verify the X-Signature header with SHA-256. Reject requests older than 300 seconds, and return HTTP 401 for invalid signatures. === \"cURL\"     ``bash smoke     curl -X POST \"http://localhost:{{ default_webhook_port }}/webhook/order-events\" \\\\       -H \"Content-Type: application/json\" \\\\       -H \"X-Signature: sha256=YOUR_CALCULATED_SIGNATURE\" \\\\       -d '{\"order_id\":\"ord_9482\",\"event\":\"order_paid\",\"amount\":129.99}'     ` === \"JavaScript\"     `javascript smoke     const response = await fetch('http://localhost:{{ default_webhook_port }}/webhook/order-events', {       method: 'POST',       headers: {       'Content-Type': 'application/json',       'X-Signature': 'sha256=YOUR_CALCULATED_SIGNATURE'",
       "description": "Assembled guidance for one intent and audience using reusable knowledge modules with verified metadata and channel-ready sections.",
       "product": "both",
       "content_type": "reference",
@@ -6303,9 +6311,13 @@
       "path": "docs/reference/intent-experiences/configure-operator.md",
       "ranking_boost": 2,
       "heading_level": 3,
-      "word_count": 93,
-      "has_code": false,
-      "code_snippets": []
+      "word_count": 152,
+      "has_code": true,
+      "code_snippets": [
+        "```bash smoke     curl -X POST \"http://localhost:{{ default_webhook_port }}/webhook/order-events\" \\\\       -H \"Content-Type: application/json\" \\\\       -H \"X-Signature: sha256=YOUR_CALCULATED_SIGNATURE\" \\\\       -d '{\"order_id\":\"ord_9482\",\"event\":\"order_paid\",\"amount\":129.99}'     ```",
+        "```javascript smoke     const response = await fetch('http://localhost:{{ default_webhook_port }}/webhook/order-events', {       method: 'POST',       headers: {       'Content-Type': 'application/json',       'X-Signature': 'sha256=YOUR_CALCULATED_SIGNATURE',     },     body: JSON.stringify({\"order_id\":\"ord_9482\",\"event\":\"order_paid\",\"amount\":129.99}),     });     const payload = await response.json();     console.log(payload);     ```",
+        "```python smoke     import requests     response = requests.request(         'POST',         'http://localhost:{{ default_webhook_port }}/webhook/order-events',         headers={'Content-Type': 'application/json', 'X-Signature': 'sha256=YOUR_CALCULATED_SIGNATURE'},     json='{\"order_id\":\"ord_9482\",\"event\":\"order_paid\",\"amount\":129.99}',         timeout=30,     )     response.raise_for_status()     print(response.json())     ```"
+      ]
     },
     {
       "objectID": "25b8577cdd76dde67e259baf11dc901f",
@@ -6373,7 +6385,7 @@
       "objectID": "617184f048e1a23b17c16495ce898632",
       "title": "Intent experience: configure for practitioner",
       "heading": "Configure HMAC authentication for inbound webhooks",
-      "content": "Covers secure webhook authentication setup for docs, assistant responses, in-product hints, and automation workflows with one reusable module. Use HMAC validation to reject spoofed webhook requests before your workflow executes. Set the shared secret in {{ env_vars.webhook_url }} settings, then verify the X-Signature header with SHA-256. Reject requests older than 300 seconds, and return HTTP 401 for invalid signatures. curl -X POST \"http://localhost:{{ default_webhook_port }}/webhook/order-events\" \\\\   -H \"Content-Type: application/json\" \\\\   -H \"X-Signature: sha256=YOUR_CALCULATED_SIGNATURE\" \\\\   -d '{\"order_id\":\"ord_9482\",\"event\":\"order_paid\",\"amount\":129.99}' Keep replay protection enabled, rotate the secret every 90 days, and monitor 401 spikes for abuse detection. ",
+      "content": "Covers secure webhook authentication setup for docs, assistant responses, in-product hints, and automation workflows with one reusable module. Use HMAC validation to reject spoofed webhook requests before your workflow executes. Set the shared secret in {{ env_vars.webhook_url }} settings, then verify the X-Signature header with SHA-256. Reject requests older than 300 seconds, and return HTTP 401 for invalid signatures. === \"cURL\"     ``bash smoke     curl -X POST \"http://localhost:{{ default_webhook_port }}/webhook/order-events\" \\\\       -H \"Content-Type: application/json\" \\\\       -H \"X-Signature: sha256=YOUR_CALCULATED_SIGNATURE\" \\\\       -d '{\"order_id\":\"ord_9482\",\"event\":\"order_paid\",\"amount\":129.99}'     ` === \"JavaScript\"     `javascript smoke     const response = await fetch('http://localhost:{{ default_webhook_port }}/webhook/order-events', {       method: 'POST',       headers: {       'Content-Type': 'application/json',       'X-Signature': 'sha256=YOUR_CALCULATED_SIGNATURE'",
       "description": "Assembled guidance for one intent and audience using reusable knowledge modules with verified metadata and channel-ready sections.",
       "product": "both",
       "content_type": "reference",
@@ -6396,9 +6408,13 @@
       "path": "docs/reference/intent-experiences/configure-practitioner.md",
       "ranking_boost": 2,
       "heading_level": 3,
-      "word_count": 93,
-      "has_code": false,
-      "code_snippets": []
+      "word_count": 152,
+      "has_code": true,
+      "code_snippets": [
+        "```bash smoke     curl -X POST \"http://localhost:{{ default_webhook_port }}/webhook/order-events\" \\\\       -H \"Content-Type: application/json\" \\\\       -H \"X-Signature: sha256=YOUR_CALCULATED_SIGNATURE\" \\\\       -d '{\"order_id\":\"ord_9482\",\"event\":\"order_paid\",\"amount\":129.99}'     ```",
+        "```javascript smoke     const response = await fetch('http://localhost:{{ default_webhook_port }}/webhook/order-events', {       method: 'POST',       headers: {       'Content-Type': 'application/json',       'X-Signature': 'sha256=YOUR_CALCULATED_SIGNATURE',     },     body: JSON.stringify({\"order_id\":\"ord_9482\",\"event\":\"order_paid\",\"amount\":129.99}),     });     const payload = await response.json();     console.log(payload);     ```",
+        "```python smoke     import requests     response = requests.request(         'POST',         'http://localhost:{{ default_webhook_port }}/webhook/order-events',         headers={'Content-Type': 'application/json', 'X-Signature': 'sha256=YOUR_CALCULATED_SIGNATURE'},     json='{\"order_id\":\"ord_9482\",\"event\":\"order_paid\",\"amount\":129.99}',         timeout=30,     )     response.raise_for_status()     print(response.json())     ```"
+      ]
     },
     {
       "objectID": "1d1567e9ab30122824018877c2cbd771",
@@ -6466,7 +6482,7 @@
       "objectID": "4184bd764e4875b1604f9acf840d415f",
       "title": "Intent experience: configure for support",
       "heading": "Configure HMAC authentication for inbound webhooks",
-      "content": "Covers secure webhook authentication setup for docs, assistant responses, in-product hints, and automation workflows with one reusable module. Use HMAC validation to reject spoofed webhook requests before your workflow executes. Set the shared secret in {{ env_vars.webhook_url }} settings, then verify the X-Signature header with SHA-256. Reject requests older than 300 seconds, and return HTTP 401 for invalid signatures. curl -X POST \"http://localhost:{{ default_webhook_port }}/webhook/order-events\" \\\\   -H \"Content-Type: application/json\" \\\\   -H \"X-Signature: sha256=YOUR_CALCULATED_SIGNATURE\" \\\\   -d '{\"order_id\":\"ord_9482\",\"event\":\"order_paid\",\"amount\":129.99}' Keep replay protection enabled, rotate the secret every 90 days, and monitor 401 spikes for abuse detection. ",
+      "content": "Covers secure webhook authentication setup for docs, assistant responses, in-product hints, and automation workflows with one reusable module. Use HMAC validation to reject spoofed webhook requests before your workflow executes. Set the shared secret in {{ env_vars.webhook_url }} settings, then verify the X-Signature header with SHA-256. Reject requests older than 300 seconds, and return HTTP 401 for invalid signatures. === \"cURL\"     ``bash smoke     curl -X POST \"http://localhost:{{ default_webhook_port }}/webhook/order-events\" \\\\       -H \"Content-Type: application/json\" \\\\       -H \"X-Signature: sha256=YOUR_CALCULATED_SIGNATURE\" \\\\       -d '{\"order_id\":\"ord_9482\",\"event\":\"order_paid\",\"amount\":129.99}'     ` === \"JavaScript\"     `javascript smoke     const response = await fetch('http://localhost:{{ default_webhook_port }}/webhook/order-events', {       method: 'POST',       headers: {       'Content-Type': 'application/json',       'X-Signature': 'sha256=YOUR_CALCULATED_SIGNATURE'",
       "description": "Assembled guidance for one intent and audience using reusable knowledge modules with verified metadata and channel-ready sections.",
       "product": "both",
       "content_type": "reference",
@@ -6489,9 +6505,13 @@
       "path": "docs/reference/intent-experiences/configure-support.md",
       "ranking_boost": 2,
       "heading_level": 3,
-      "word_count": 93,
-      "has_code": false,
-      "code_snippets": []
+      "word_count": 152,
+      "has_code": true,
+      "code_snippets": [
+        "```bash smoke     curl -X POST \"http://localhost:{{ default_webhook_port }}/webhook/order-events\" \\\\       -H \"Content-Type: application/json\" \\\\       -H \"X-Signature: sha256=YOUR_CALCULATED_SIGNATURE\" \\\\       -d '{\"order_id\":\"ord_9482\",\"event\":\"order_paid\",\"amount\":129.99}'     ```",
+        "```javascript smoke     const response = await fetch('http://localhost:{{ default_webhook_port }}/webhook/order-events', {       method: 'POST',       headers: {       'Content-Type': 'application/json',       'X-Signature': 'sha256=YOUR_CALCULATED_SIGNATURE',     },     body: JSON.stringify({\"order_id\":\"ord_9482\",\"event\":\"order_paid\",\"amount\":129.99}),     });     const payload = await response.json();     console.log(payload);     ```",
+        "```python smoke     import requests     response = requests.request(         'POST',         'http://localhost:{{ default_webhook_port }}/webhook/order-events',         headers={'Content-Type': 'application/json', 'X-Signature': 'sha256=YOUR_CALCULATED_SIGNATURE'},     json='{\"order_id\":\"ord_9482\",\"event\":\"order_paid\",\"amount\":129.99}',         timeout=30,     )     response.raise_for_status()     print(response.json())     ```"
+      ]
     },
     {
       "objectID": "6f7a0c374bd79fa42fbcf6afec677cd9",
@@ -6783,7 +6803,7 @@
       "objectID": "a166a6529b48ef6230882d6f925cacef",
       "title": "Intent experience: integrate for operator",
       "heading": "Configure HMAC authentication for inbound webhooks",
-      "content": "Covers secure webhook authentication setup for docs, assistant responses, in-product hints, and automation workflows with one reusable module. Use HMAC validation to reject spoofed webhook requests before your workflow executes. Set the shared secret in {{ env_vars.webhook_url }} settings, then verify the X-Signature header with SHA-256. Reject requests older than 300 seconds, and return HTTP 401 for invalid signatures. curl -X POST \"http://localhost:{{ default_webhook_port }}/webhook/order-events\" \\\\   -H \"Content-Type: application/json\" \\\\   -H \"X-Signature: sha256=YOUR_CALCULATED_SIGNATURE\" \\\\   -d '{\"order_id\":\"ord_9482\",\"event\":\"order_paid\",\"amount\":129.99}' Keep replay protection enabled, rotate the secret every 90 days, and monitor 401 spikes for abuse detection. ",
+      "content": "Covers secure webhook authentication setup for docs, assistant responses, in-product hints, and automation workflows with one reusable module. Use HMAC validation to reject spoofed webhook requests before your workflow executes. Set the shared secret in {{ env_vars.webhook_url }} settings, then verify the X-Signature header with SHA-256. Reject requests older than 300 seconds, and return HTTP 401 for invalid signatures. === \"cURL\"     ``bash smoke     curl -X POST \"http://localhost:{{ default_webhook_port }}/webhook/order-events\" \\\\       -H \"Content-Type: application/json\" \\\\       -H \"X-Signature: sha256=YOUR_CALCULATED_SIGNATURE\" \\\\       -d '{\"order_id\":\"ord_9482\",\"event\":\"order_paid\",\"amount\":129.99}'     ` === \"JavaScript\"     `javascript smoke     const response = await fetch('http://localhost:{{ default_webhook_port }}/webhook/order-events', {       method: 'POST',       headers: {       'Content-Type': 'application/json',       'X-Signature': 'sha256=YOUR_CALCULATED_SIGNATURE'",
       "description": "Assembled guidance for one intent and audience using reusable knowledge modules with verified metadata and channel-ready sections.",
       "product": "both",
       "content_type": "reference",
@@ -6806,9 +6826,13 @@
       "path": "docs/reference/intent-experiences/integrate-operator.md",
       "ranking_boost": 2,
       "heading_level": 3,
-      "word_count": 93,
-      "has_code": false,
-      "code_snippets": []
+      "word_count": 152,
+      "has_code": true,
+      "code_snippets": [
+        "```bash smoke     curl -X POST \"http://localhost:{{ default_webhook_port }}/webhook/order-events\" \\\\       -H \"Content-Type: application/json\" \\\\       -H \"X-Signature: sha256=YOUR_CALCULATED_SIGNATURE\" \\\\       -d '{\"order_id\":\"ord_9482\",\"event\":\"order_paid\",\"amount\":129.99}'     ```",
+        "```javascript smoke     const response = await fetch('http://localhost:{{ default_webhook_port }}/webhook/order-events', {       method: 'POST',       headers: {       'Content-Type': 'application/json',       'X-Signature': 'sha256=YOUR_CALCULATED_SIGNATURE',     },     body: JSON.stringify({\"order_id\":\"ord_9482\",\"event\":\"order_paid\",\"amount\":129.99}),     });     const payload = await response.json();     console.log(payload);     ```",
+        "```python smoke     import requests     response = requests.request(         'POST',         'http://localhost:{{ default_webhook_port }}/webhook/order-events',         headers={'Content-Type': 'application/json', 'X-Signature': 'sha256=YOUR_CALCULATED_SIGNATURE'},     json='{\"order_id\":\"ord_9482\",\"event\":\"order_paid\",\"amount\":129.99}',         timeout=30,     )     response.raise_for_status()     print(response.json())     ```"
+      ]
     },
     {
       "objectID": "4cbe352ef8d9eefaf23b671f9c62ba8a",
@@ -6876,7 +6900,7 @@
       "objectID": "5ca167b87955bc2f1e889ade122eecce",
       "title": "Intent experience: integrate for practitioner",
       "heading": "Configure HMAC authentication for inbound webhooks",
-      "content": "Covers secure webhook authentication setup for docs, assistant responses, in-product hints, and automation workflows with one reusable module. Use HMAC validation to reject spoofed webhook requests before your workflow executes. Set the shared secret in {{ env_vars.webhook_url }} settings, then verify the X-Signature header with SHA-256. Reject requests older than 300 seconds, and return HTTP 401 for invalid signatures. curl -X POST \"http://localhost:{{ default_webhook_port }}/webhook/order-events\" \\\\   -H \"Content-Type: application/json\" \\\\   -H \"X-Signature: sha256=YOUR_CALCULATED_SIGNATURE\" \\\\   -d '{\"order_id\":\"ord_9482\",\"event\":\"order_paid\",\"amount\":129.99}' Keep replay protection enabled, rotate the secret every 90 days, and monitor 401 spikes for abuse detection. ",
+      "content": "Covers secure webhook authentication setup for docs, assistant responses, in-product hints, and automation workflows with one reusable module. Use HMAC validation to reject spoofed webhook requests before your workflow executes. Set the shared secret in {{ env_vars.webhook_url }} settings, then verify the X-Signature header with SHA-256. Reject requests older than 300 seconds, and return HTTP 401 for invalid signatures. === \"cURL\"     ``bash smoke     curl -X POST \"http://localhost:{{ default_webhook_port }}/webhook/order-events\" \\\\       -H \"Content-Type: application/json\" \\\\       -H \"X-Signature: sha256=YOUR_CALCULATED_SIGNATURE\" \\\\       -d '{\"order_id\":\"ord_9482\",\"event\":\"order_paid\",\"amount\":129.99}'     ` === \"JavaScript\"     `javascript smoke     const response = await fetch('http://localhost:{{ default_webhook_port }}/webhook/order-events', {       method: 'POST',       headers: {       'Content-Type': 'application/json',       'X-Signature': 'sha256=YOUR_CALCULATED_SIGNATURE'",
       "description": "Assembled guidance for one intent and audience using reusable knowledge modules with verified metadata and channel-ready sections.",
       "product": "both",
       "content_type": "reference",
@@ -6899,9 +6923,13 @@
       "path": "docs/reference/intent-experiences/integrate-practitioner.md",
       "ranking_boost": 2,
       "heading_level": 3,
-      "word_count": 93,
-      "has_code": false,
-      "code_snippets": []
+      "word_count": 152,
+      "has_code": true,
+      "code_snippets": [
+        "```bash smoke     curl -X POST \"http://localhost:{{ default_webhook_port }}/webhook/order-events\" \\\\       -H \"Content-Type: application/json\" \\\\       -H \"X-Signature: sha256=YOUR_CALCULATED_SIGNATURE\" \\\\       -d '{\"order_id\":\"ord_9482\",\"event\":\"order_paid\",\"amount\":129.99}'     ```",
+        "```javascript smoke     const response = await fetch('http://localhost:{{ default_webhook_port }}/webhook/order-events', {       method: 'POST',       headers: {       'Content-Type': 'application/json',       'X-Signature': 'sha256=YOUR_CALCULATED_SIGNATURE',     },     body: JSON.stringify({\"order_id\":\"ord_9482\",\"event\":\"order_paid\",\"amount\":129.99}),     });     const payload = await response.json();     console.log(payload);     ```",
+        "```python smoke     import requests     response = requests.request(         'POST',         'http://localhost:{{ default_webhook_port }}/webhook/order-events',         headers={'Content-Type': 'application/json', 'X-Signature': 'sha256=YOUR_CALCULATED_SIGNATURE'},     json='{\"order_id\":\"ord_9482\",\"event\":\"order_paid\",\"amount\":129.99}',         timeout=30,     )     response.raise_for_status()     print(response.json())     ```"
+      ]
     },
     {
       "objectID": "2462ab0cab43c437d52553a32c88091c",
@@ -6969,7 +6997,7 @@
       "objectID": "6881eec09b82bde9f942f7d9f4e3394a",
       "title": "Intent experience: integrate for support",
       "heading": "Configure HMAC authentication for inbound webhooks",
-      "content": "Covers secure webhook authentication setup for docs, assistant responses, in-product hints, and automation workflows with one reusable module. Use HMAC validation to reject spoofed webhook requests before your workflow executes. Set the shared secret in {{ env_vars.webhook_url }} settings, then verify the X-Signature header with SHA-256. Reject requests older than 300 seconds, and return HTTP 401 for invalid signatures. curl -X POST \"http://localhost:{{ default_webhook_port }}/webhook/order-events\" \\\\   -H \"Content-Type: application/json\" \\\\   -H \"X-Signature: sha256=YOUR_CALCULATED_SIGNATURE\" \\\\   -d '{\"order_id\":\"ord_9482\",\"event\":\"order_paid\",\"amount\":129.99}' Keep replay protection enabled, rotate the secret every 90 days, and monitor 401 spikes for abuse detection. ",
+      "content": "Covers secure webhook authentication setup for docs, assistant responses, in-product hints, and automation workflows with one reusable module. Use HMAC validation to reject spoofed webhook requests before your workflow executes. Set the shared secret in {{ env_vars.webhook_url }} settings, then verify the X-Signature header with SHA-256. Reject requests older than 300 seconds, and return HTTP 401 for invalid signatures. === \"cURL\"     ``bash smoke     curl -X POST \"http://localhost:{{ default_webhook_port }}/webhook/order-events\" \\\\       -H \"Content-Type: application/json\" \\\\       -H \"X-Signature: sha256=YOUR_CALCULATED_SIGNATURE\" \\\\       -d '{\"order_id\":\"ord_9482\",\"event\":\"order_paid\",\"amount\":129.99}'     ` === \"JavaScript\"     `javascript smoke     const response = await fetch('http://localhost:{{ default_webhook_port }}/webhook/order-events', {       method: 'POST',       headers: {       'Content-Type': 'application/json',       'X-Signature': 'sha256=YOUR_CALCULATED_SIGNATURE'",
       "description": "Assembled guidance for one intent and audience using reusable knowledge modules with verified metadata and channel-ready sections.",
       "product": "both",
       "content_type": "reference",
@@ -6992,9 +7020,13 @@
       "path": "docs/reference/intent-experiences/integrate-support.md",
       "ranking_boost": 2,
       "heading_level": 3,
-      "word_count": 93,
-      "has_code": false,
-      "code_snippets": []
+      "word_count": 152,
+      "has_code": true,
+      "code_snippets": [
+        "```bash smoke     curl -X POST \"http://localhost:{{ default_webhook_port }}/webhook/order-events\" \\\\       -H \"Content-Type: application/json\" \\\\       -H \"X-Signature: sha256=YOUR_CALCULATED_SIGNATURE\" \\\\       -d '{\"order_id\":\"ord_9482\",\"event\":\"order_paid\",\"amount\":129.99}'     ```",
+        "```javascript smoke     const response = await fetch('http://localhost:{{ default_webhook_port }}/webhook/order-events', {       method: 'POST',       headers: {       'Content-Type': 'application/json',       'X-Signature': 'sha256=YOUR_CALCULATED_SIGNATURE',     },     body: JSON.stringify({\"order_id\":\"ord_9482\",\"event\":\"order_paid\",\"amount\":129.99}),     });     const payload = await response.json();     console.log(payload);     ```",
+        "```python smoke     import requests     response = requests.request(         'POST',         'http://localhost:{{ default_webhook_port }}/webhook/order-events',         headers={'Content-Type': 'application/json', 'X-Signature': 'sha256=YOUR_CALCULATED_SIGNATURE'},     json='{\"order_id\":\"ord_9482\",\"event\":\"order_paid\",\"amount\":129.99}',         timeout=30,     )     response.raise_for_status()     print(response.json())     ```"
+      ]
     },
     {
       "objectID": "d48fd71db90d217924d19482f27629f3",
@@ -7341,7 +7373,7 @@
       "objectID": "0ce26974edfb9aa78b7ae5d3a9cb0d8b",
       "title": "Intent experience: secure for operator",
       "heading": "Configure HMAC authentication for inbound webhooks",
-      "content": "Covers secure webhook authentication setup for docs, assistant responses, in-product hints, and automation workflows with one reusable module. Use HMAC validation to reject spoofed webhook requests before your workflow executes. Set the shared secret in {{ env_vars.webhook_url }} settings, then verify the X-Signature header with SHA-256. Reject requests older than 300 seconds, and return HTTP 401 for invalid signatures. curl -X POST \"http://localhost:{{ default_webhook_port }}/webhook/order-events\" \\\\   -H \"Content-Type: application/json\" \\\\   -H \"X-Signature: sha256=YOUR_CALCULATED_SIGNATURE\" \\\\   -d '{\"order_id\":\"ord_9482\",\"event\":\"order_paid\",\"amount\":129.99}' Keep replay protection enabled, rotate the secret every 90 days, and monitor 401 spikes for abuse detection. ",
+      "content": "Covers secure webhook authentication setup for docs, assistant responses, in-product hints, and automation workflows with one reusable module. Use HMAC validation to reject spoofed webhook requests before your workflow executes. Set the shared secret in {{ env_vars.webhook_url }} settings, then verify the X-Signature header with SHA-256. Reject requests older than 300 seconds, and return HTTP 401 for invalid signatures. === \"cURL\"     ``bash smoke     curl -X POST \"http://localhost:{{ default_webhook_port }}/webhook/order-events\" \\\\       -H \"Content-Type: application/json\" \\\\       -H \"X-Signature: sha256=YOUR_CALCULATED_SIGNATURE\" \\\\       -d '{\"order_id\":\"ord_9482\",\"event\":\"order_paid\",\"amount\":129.99}'     ` === \"JavaScript\"     `javascript smoke     const response = await fetch('http://localhost:{{ default_webhook_port }}/webhook/order-events', {       method: 'POST',       headers: {       'Content-Type': 'application/json',       'X-Signature': 'sha256=YOUR_CALCULATED_SIGNATURE'",
       "description": "Assembled guidance for one intent and audience using reusable knowledge modules with verified metadata and channel-ready sections.",
       "product": "both",
       "content_type": "reference",
@@ -7364,9 +7396,13 @@
       "path": "docs/reference/intent-experiences/secure-operator.md",
       "ranking_boost": 2,
       "heading_level": 3,
-      "word_count": 93,
-      "has_code": false,
-      "code_snippets": []
+      "word_count": 152,
+      "has_code": true,
+      "code_snippets": [
+        "```bash smoke     curl -X POST \"http://localhost:{{ default_webhook_port }}/webhook/order-events\" \\\\       -H \"Content-Type: application/json\" \\\\       -H \"X-Signature: sha256=YOUR_CALCULATED_SIGNATURE\" \\\\       -d '{\"order_id\":\"ord_9482\",\"event\":\"order_paid\",\"amount\":129.99}'     ```",
+        "```javascript smoke     const response = await fetch('http://localhost:{{ default_webhook_port }}/webhook/order-events', {       method: 'POST',       headers: {       'Content-Type': 'application/json',       'X-Signature': 'sha256=YOUR_CALCULATED_SIGNATURE',     },     body: JSON.stringify({\"order_id\":\"ord_9482\",\"event\":\"order_paid\",\"amount\":129.99}),     });     const payload = await response.json();     console.log(payload);     ```",
+        "```python smoke     import requests     response = requests.request(         'POST',         'http://localhost:{{ default_webhook_port }}/webhook/order-events',         headers={'Content-Type': 'application/json', 'X-Signature': 'sha256=YOUR_CALCULATED_SIGNATURE'},     json='{\"order_id\":\"ord_9482\",\"event\":\"order_paid\",\"amount\":129.99}',         timeout=30,     )     response.raise_for_status()     print(response.json())     ```"
+      ]
     },
     {
       "objectID": "7c8eabd61272c790140d12c53e6fbff5",
@@ -7434,7 +7470,7 @@
       "objectID": "e7d7cd2546924380a6a3b21765f76f01",
       "title": "Intent experience: secure for practitioner",
       "heading": "Configure HMAC authentication for inbound webhooks",
-      "content": "Covers secure webhook authentication setup for docs, assistant responses, in-product hints, and automation workflows with one reusable module. Use HMAC validation to reject spoofed webhook requests before your workflow executes. Set the shared secret in {{ env_vars.webhook_url }} settings, then verify the X-Signature header with SHA-256. Reject requests older than 300 seconds, and return HTTP 401 for invalid signatures. curl -X POST \"http://localhost:{{ default_webhook_port }}/webhook/order-events\" \\\\   -H \"Content-Type: application/json\" \\\\   -H \"X-Signature: sha256=YOUR_CALCULATED_SIGNATURE\" \\\\   -d '{\"order_id\":\"ord_9482\",\"event\":\"order_paid\",\"amount\":129.99}' Keep replay protection enabled, rotate the secret every 90 days, and monitor 401 spikes for abuse detection. ",
+      "content": "Covers secure webhook authentication setup for docs, assistant responses, in-product hints, and automation workflows with one reusable module. Use HMAC validation to reject spoofed webhook requests before your workflow executes. Set the shared secret in {{ env_vars.webhook_url }} settings, then verify the X-Signature header with SHA-256. Reject requests older than 300 seconds, and return HTTP 401 for invalid signatures. === \"cURL\"     ``bash smoke     curl -X POST \"http://localhost:{{ default_webhook_port }}/webhook/order-events\" \\\\       -H \"Content-Type: application/json\" \\\\       -H \"X-Signature: sha256=YOUR_CALCULATED_SIGNATURE\" \\\\       -d '{\"order_id\":\"ord_9482\",\"event\":\"order_paid\",\"amount\":129.99}'     ` === \"JavaScript\"     `javascript smoke     const response = await fetch('http://localhost:{{ default_webhook_port }}/webhook/order-events', {       method: 'POST',       headers: {       'Content-Type': 'application/json',       'X-Signature': 'sha256=YOUR_CALCULATED_SIGNATURE'",
       "description": "Assembled guidance for one intent and audience using reusable knowledge modules with verified metadata and channel-ready sections.",
       "product": "both",
       "content_type": "reference",
@@ -7457,9 +7493,13 @@
       "path": "docs/reference/intent-experiences/secure-practitioner.md",
       "ranking_boost": 2,
       "heading_level": 3,
-      "word_count": 93,
-      "has_code": false,
-      "code_snippets": []
+      "word_count": 152,
+      "has_code": true,
+      "code_snippets": [
+        "```bash smoke     curl -X POST \"http://localhost:{{ default_webhook_port }}/webhook/order-events\" \\\\       -H \"Content-Type: application/json\" \\\\       -H \"X-Signature: sha256=YOUR_CALCULATED_SIGNATURE\" \\\\       -d '{\"order_id\":\"ord_9482\",\"event\":\"order_paid\",\"amount\":129.99}'     ```",
+        "```javascript smoke     const response = await fetch('http://localhost:{{ default_webhook_port }}/webhook/order-events', {       method: 'POST',       headers: {       'Content-Type': 'application/json',       'X-Signature': 'sha256=YOUR_CALCULATED_SIGNATURE',     },     body: JSON.stringify({\"order_id\":\"ord_9482\",\"event\":\"order_paid\",\"amount\":129.99}),     });     const payload = await response.json();     console.log(payload);     ```",
+        "```python smoke     import requests     response = requests.request(         'POST',         'http://localhost:{{ default_webhook_port }}/webhook/order-events',         headers={'Content-Type': 'application/json', 'X-Signature': 'sha256=YOUR_CALCULATED_SIGNATURE'},     json='{\"order_id\":\"ord_9482\",\"event\":\"order_paid\",\"amount\":129.99}',         timeout=30,     )     response.raise_for_status()     print(response.json())     ```"
+      ]
     },
     {
       "objectID": "7b404529acc64b98298d9741f456b7c4",
@@ -7527,7 +7567,7 @@
       "objectID": "b622750e00156277bb296bac48bb2f63",
       "title": "Intent experience: secure for support",
       "heading": "Configure HMAC authentication for inbound webhooks",
-      "content": "Covers secure webhook authentication setup for docs, assistant responses, in-product hints, and automation workflows with one reusable module. Use HMAC validation to reject spoofed webhook requests before your workflow executes. Set the shared secret in {{ env_vars.webhook_url }} settings, then verify the X-Signature header with SHA-256. Reject requests older than 300 seconds, and return HTTP 401 for invalid signatures. curl -X POST \"http://localhost:{{ default_webhook_port }}/webhook/order-events\" \\\\   -H \"Content-Type: application/json\" \\\\   -H \"X-Signature: sha256=YOUR_CALCULATED_SIGNATURE\" \\\\   -d '{\"order_id\":\"ord_9482\",\"event\":\"order_paid\",\"amount\":129.99}' Keep replay protection enabled, rotate the secret every 90 days, and monitor 401 spikes for abuse detection. ",
+      "content": "Covers secure webhook authentication setup for docs, assistant responses, in-product hints, and automation workflows with one reusable module. Use HMAC validation to reject spoofed webhook requests before your workflow executes. Set the shared secret in {{ env_vars.webhook_url }} settings, then verify the X-Signature header with SHA-256. Reject requests older than 300 seconds, and return HTTP 401 for invalid signatures. === \"cURL\"     ``bash smoke     curl -X POST \"http://localhost:{{ default_webhook_port }}/webhook/order-events\" \\\\       -H \"Content-Type: application/json\" \\\\       -H \"X-Signature: sha256=YOUR_CALCULATED_SIGNATURE\" \\\\       -d '{\"order_id\":\"ord_9482\",\"event\":\"order_paid\",\"amount\":129.99}'     ` === \"JavaScript\"     `javascript smoke     const response = await fetch('http://localhost:{{ default_webhook_port }}/webhook/order-events', {       method: 'POST',       headers: {       'Content-Type': 'application/json',       'X-Signature': 'sha256=YOUR_CALCULATED_SIGNATURE'",
       "description": "Assembled guidance for one intent and audience using reusable knowledge modules with verified metadata and channel-ready sections.",
       "product": "both",
       "content_type": "reference",
@@ -7550,9 +7590,13 @@
       "path": "docs/reference/intent-experiences/secure-support.md",
       "ranking_boost": 2,
       "heading_level": 3,
-      "word_count": 93,
-      "has_code": false,
-      "code_snippets": []
+      "word_count": 152,
+      "has_code": true,
+      "code_snippets": [
+        "```bash smoke     curl -X POST \"http://localhost:{{ default_webhook_port }}/webhook/order-events\" \\\\       -H \"Content-Type: application/json\" \\\\       -H \"X-Signature: sha256=YOUR_CALCULATED_SIGNATURE\" \\\\       -d '{\"order_id\":\"ord_9482\",\"event\":\"order_paid\",\"amount\":129.99}'     ```",
+        "```javascript smoke     const response = await fetch('http://localhost:{{ default_webhook_port }}/webhook/order-events', {       method: 'POST',       headers: {       'Content-Type': 'application/json',       'X-Signature': 'sha256=YOUR_CALCULATED_SIGNATURE',     },     body: JSON.stringify({\"order_id\":\"ord_9482\",\"event\":\"order_paid\",\"amount\":129.99}),     });     const payload = await response.json();     console.log(payload);     ```",
+        "```python smoke     import requests     response = requests.request(         'POST',         'http://localhost:{{ default_webhook_port }}/webhook/order-events',         headers={'Content-Type': 'application/json', 'X-Signature': 'sha256=YOUR_CALCULATED_SIGNATURE'},     json='{\"order_id\":\"ord_9482\",\"event\":\"order_paid\",\"amount\":129.99}',         timeout=30,     )     response.raise_for_status()     print(response.json())     ```"
+      ]
     },
     {
       "objectID": "66c7536fe9ae865b789ddfdc7977e886",
