@@ -26,6 +26,7 @@ bundle:
   # - scripts/generate_fastapi_stubs_from_openapi.py
   # - scripts/apply_openapi_overrides.py
   # - scripts/check_openapi_regression.py
+  # - scripts/ensure_external_mock_server.py
   include_scripts:
     - "scripts/run_weekly_gap_batch.py"
     - "scripts/check_docs_contract.py"
@@ -54,12 +55,14 @@ bundle:
     - "scripts/build_all_intent_experiences.py"
     - "scripts/apply_openapi_overrides.py"
     - "scripts/check_openapi_regression.py"
+    - "scripts/ensure_external_mock_server.py"
     - "scripts/i18n_sync.py"
     - "scripts/i18n_translate.py"
     - "scripts/i18n_migrate.py"
     - "scripts/i18n_utils.py"
     - "scripts/configure_ask_ai.py"
     - "scripts/install_ask_ai_runtime.py"
+    - "scripts/auto_fix_pr_docs.py"
 
   include_docs:
     - "README_SETUP.md"
@@ -105,6 +108,14 @@ runtime:
     - "sphinx"
     - "readme"
 
+  pr_autofix:
+    enabled: true
+    require_label: false
+    label_name: "auto-doc-fix"
+    enable_auto_merge: false
+    commit_message: "docs: auto-sync PR docs"
+    workflow_filename: "docsops-pr-autofix.yml"
+
   api_first:
     enabled: false
     project_slug: "acme"
@@ -121,8 +132,23 @@ runtime:
     update_regression_snapshot: false
     generate_from_notes: true
     verify_user_path: false
-    mock_base_url: "http://localhost:4010/v1"
+    # docker | prism | external (public HTTPS mock endpoint).
+    sandbox_backend: "external"
+    # informational only: postman | stoplight | mockoon | prism-hosted | custom
+    mock_service: "custom"
+    mock_base_url: "https://sandbox-api.example.com/v1"
     sync_playground_endpoint: true
+    external_mock:
+      enabled: true
+      provider: "postman"
+      base_path: "/v1"
+      postman:
+        api_key_env: "POSTMAN_API_KEY"
+        workspace_id_env: "POSTMAN_WORKSPACE_ID"
+        collection_uid_env: "POSTMAN_COLLECTION_UID"
+        mock_server_id_env: "POSTMAN_MOCK_SERVER_ID"
+        mock_server_name: ""
+        private: false
     run_docs_lint: false
     auto_remediate: true
     max_attempts: 3

@@ -32,6 +32,7 @@ Use this with:
 | JSON-LD ontology/graph layer | No | Yes | Yes |
 | Retrieval evals (Precision/Recall/Hallucination) | No | Yes | Yes |
 | Terminology auto-sync (glossary markers) | Yes | Yes | Yes |
+| PR auto-doc fix to same PR branch | Optional | Yes | Yes |
 | i18n sync | No | Optional | Yes |
 | SEO/GEO optimization weekly | Optional | Yes | Yes |
 | Custom weekly task slots | 2 | 6 | Unlimited |
@@ -48,6 +49,8 @@ bundle:
 runtime:
   docs_flow:
     mode: "code-first"
+  pr_autofix:
+    enabled: false
   modules:
     gap_detection: true
     drift_detection: false
@@ -89,6 +92,11 @@ bundle:
 runtime:
   docs_flow:
     mode: "hybrid"
+  pr_autofix:
+    enabled: true
+    require_label: false
+    label_name: "auto-doc-fix"
+    enable_auto_merge: false
   modules:
     gap_detection: true
     drift_detection: true
@@ -112,6 +120,14 @@ runtime:
     regression_snapshot_path: "api/.openapi-regression.json"
     update_regression_snapshot: false
     generate_from_notes: true
+    sandbox_backend: "external"
+    mock_service: "custom"
+    mock_base_url: "https://sandbox-api.example.com/v1"
+    sync_playground_endpoint: true
+    external_mock:
+      enabled: true
+      provider: "postman"
+      base_path: "/v1"
     auto_remediate: true
     max_attempts: 3
   custom_tasks:
@@ -142,6 +158,11 @@ bundle:
 runtime:
   docs_flow:
     mode: "hybrid"
+  pr_autofix:
+    enabled: true
+    require_label: false
+    label_name: "auto-doc-fix"
+    enable_auto_merge: false
   modules:
     gap_detection: true
     drift_detection: true
@@ -166,6 +187,14 @@ runtime:
     update_regression_snapshot: false
     generate_from_notes: true
     verify_user_path: true
+    sandbox_backend: "external"
+    mock_service: "custom"
+    mock_base_url: "https://sandbox-api.example.com/v1"
+    sync_playground_endpoint: true
+    external_mock:
+      enabled: true
+      provider: "postman"
+      base_path: "/v1"
     run_docs_lint: true
     auto_remediate: true
     max_attempts: 5

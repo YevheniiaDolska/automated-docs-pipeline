@@ -20,6 +20,7 @@ bundle:
     - "scripts/run_retrieval_evals.py"
     - "scripts/i18n_sync.py"
     - "scripts/run_api_first_flow.py"
+    - "scripts/ensure_external_mock_server.py"
     - "scripts/generate_openapi_from_planning_notes.py"
     - "scripts/validate_openapi_contract.py"
     - "scripts/apply_openapi_overrides.py"
@@ -33,6 +34,7 @@ bundle:
     - "scripts/seo_geo_optimizer.py"
     - "scripts/consolidate_reports.py"
     - "scripts/run_weekly_gap_batch.py"
+    - "scripts/auto_fix_pr_docs.py"
   include_docs:
     - "docs/operations/UNIFIED_CLIENT_CONFIG.md"
     - "docs/operations/PLAN_TIERS.md"
@@ -49,7 +51,7 @@ bundle:
       enabled: true
       since_days: 7
       day_of_week: "monday"
-      time_24h: "09:00"
+      time_24h: "10:00"
 
 runtime:
   docs_flow:
@@ -59,6 +61,13 @@ runtime:
   sdk_root: "sdk"
   preferred_llm: "claude"
   output_targets: ["sphinx", "readme", "github"]
+  pr_autofix:
+    enabled: true
+    require_label: false
+    label_name: "auto-doc-fix"
+    enable_auto_merge: false
+    commit_message: "docs: auto-sync PR docs"
+    workflow_filename: "docsops-pr-autofix.yml"
   api_first:
     enabled: true
     project_slug: "project"
@@ -74,7 +83,21 @@ runtime:
     update_regression_snapshot: false
     generate_from_notes: true
     verify_user_path: false
-    mock_base_url: "http://localhost:4010/v1"
+    sandbox_backend: "external"
+    mock_service: "custom"
+    mock_base_url: "https://sandbox-api.example.com/v1"
+    sync_playground_endpoint: true
+    external_mock:
+      enabled: true
+      provider: "postman"
+      base_path: "/v1"
+      postman:
+        api_key_env: "POSTMAN_API_KEY"
+        workspace_id_env: "POSTMAN_WORKSPACE_ID"
+        collection_uid_env: "POSTMAN_COLLECTION_UID"
+        mock_server_id_env: "POSTMAN_MOCK_SERVER_ID"
+        mock_server_name: ""
+        private: false
     run_docs_lint: false
     auto_remediate: true
     max_attempts: 3

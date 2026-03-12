@@ -111,8 +111,23 @@ def build_runtime_config(profile: dict[str, Any]) -> dict[str, Any]:
                 "update_regression_snapshot": False,
                 "generate_from_notes": True,
                 "verify_user_path": False,
-                "mock_base_url": "http://localhost:4010/v1",
+                "sandbox_backend": "external",
+                "mock_service": "custom",
+                "mock_base_url": "https://sandbox-api.example.com/v1",
                 "sync_playground_endpoint": True,
+                "external_mock": {
+                    "enabled": True,
+                    "provider": "postman",
+                    "base_path": "/v1",
+                    "postman": {
+                        "api_key_env": "POSTMAN_API_KEY",
+                        "workspace_id_env": "POSTMAN_WORKSPACE_ID",
+                        "collection_uid_env": "POSTMAN_COLLECTION_UID",
+                        "mock_server_id_env": "POSTMAN_MOCK_SERVER_ID",
+                        "mock_server_name": "",
+                        "private": False,
+                    },
+                },
                 "run_docs_lint": False,
                 "auto_remediate": True,
                 "max_attempts": 3,
@@ -191,6 +206,17 @@ def build_runtime_config(profile: dict[str, Any]) -> dict[str, Any]:
             },
         ),
         "custom_tasks": runtime.get("custom_tasks", {"weekly": [], "on_demand": []}),
+        "pr_autofix": runtime.get(
+            "pr_autofix",
+            {
+                "enabled": True,
+                "require_label": False,
+                "label_name": "auto-doc-fix",
+                "enable_auto_merge": False,
+                "commit_message": "docs: auto-sync PR docs",
+                "workflow_filename": "docsops-pr-autofix.yml",
+            },
+        ),
         "integrations": runtime.get(
             "integrations",
             {
@@ -496,14 +522,33 @@ def create_bundle(profile_path: Path) -> Path:
     policy_dst = bundle_root / "policy_packs" / "selected.yml"
     write_yaml(policy_dst, policy)
 
-    for rel in bundle_cfg.get("include_scripts", []):
+    runtime_cfg = build_runtime_config(profile)
+
+    include_scripts = [str(rel) for rel in bundle_cfg.get("include_scripts", [])]
+    required_scripts: list[str] = []
+    pr_autofix = runtime_cfg.get("pr_autofix", {})
+    if isinstance(pr_autofix, Mapping) and bool(pr_autofix.get("enabled", False)):
+        required_scripts.append("scripts/auto_fix_pr_docs.py")
+    api_first = runtime_cfg.get("api_first", {})
+    if isinstance(api_first, Mapping):
+        external_mock = api_first.get("external_mock", {})
+        if bool(api_first.get("enabled", False)) and isinstance(external_mock, Mapping):
+            if str(api_first.get("sandbox_backend", "")).strip().lower() == "external" and bool(
+                external_mock.get("enabled", False)
+            ):
+                required_scripts.append("scripts/ensure_external_mock_server.py")
+
+    for req in required_scripts:
+        if req not in include_scripts:
+            include_scripts.append(req)
+
+    for rel in include_scripts:
         copy_into_bundle(str(rel), bundle_root)
     for rel in bundle_cfg.get("include_docs", []):
         copy_into_bundle(str(rel), bundle_root)
     for rel in bundle_cfg.get("include_paths", []):
         copy_path_into_bundle(str(rel), bundle_root)
 
-    runtime_cfg = build_runtime_config(profile)
     write_yaml(bundle_root / "config" / "client_runtime.yml", runtime_cfg)
 
     build_llm_instruction_files(profile, bundle_root)

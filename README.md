@@ -31,7 +31,28 @@ User: reviews diffs (git diff), commits
 ```
 
 Compatibility mode:
+
 - You can still run the same weekly flow via GitHub Actions cron (`weekly-consolidation.yml` and related workflows).
+
+Current standard (as of 2026-03-12):
+
+- Weekly automation runs locally in client repo, default Monday at `10:00` local time.
+- Optional `git_sync` can pull the repo before weekly checks.
+- API-first sandbox supports `docker`, `prism`, and `external` modes.
+- In `external` mode, use any public HTTPS mock URL with CORS (for example Postman Mock Servers, Stoplight-hosted Prism, Mockoon Cloud, or self-hosted Prism).
+- API-first flow can auto-sync playground sandbox URL from `mock_base_url`.
+- External mock can be auto-prepared via Postman API (first built-in provider). This is optional and provider-agnostic overall.
+- Optional PR auto-doc workflow can update docs in the same PR branch when docs gates fail.
+
+Major updates (simple checklist):
+
+1. Local weekly scheduler is now the main mode (Monday 10:00 local time by default).
+1. Optional pre-run `git_sync` can auto-pull repo before weekly checks.
+1. API-first supports no-Docker and public sandbox (`prism` and `external`).
+1. API playground endpoint is auto-synced from API-first `mock_base_url`.
+1. Knowledge pipeline now includes JSON-LD graph generation and retrieval evals (Precision/Recall/Hallucination-rate).
+1. Glossary flow uses pre-generation term check plus post-generation glossary sync markers.
+1. Multi-language examples are generated/validated as a standard pattern, with smoke checks and expected-output comparison.
 
 ### Consolidated weekly report
 
@@ -55,14 +76,16 @@ When Claude Code or Codex processes the consolidated report, it:
 
 1. Prioritizes action items into three tiers (critical, important, routine).
 1. Selects the matching template from `templates/`.
+1. Checks glossary terms before generation (preferred terms first, no random synonyms for existing terms).
 1. If a required doc type has no template yet, creates a new Stripe-quality template in the same project format, then generates docs from that template.
 1. Uses variables from `docs/_variables.yml` for product-specific values.
 1. Adds missing variable keys to `docs/_variables.yml` when needed (instead of hardcoding values in pages).
 1. Updates navigation when adding new pages (`mkdocs.yml` or target provider equivalent).
 1. Handles multilingual flow through English-source-first content, then i18n sync/translate workflow for target locales.
+1. Generates and validates multi-language code tabs (`curl`, `javascript`, `python`) where executable examples are expected.
 1. Follows Vale style rules (American English, active voice, no weasel words).
 1. Runs SEO/GEO optimization checks and applies fixes where possible.
-1. Runs RAG/knowledge steps when enabled (`validate_knowledge_modules.py`, `generate_knowledge_retrieval_index.py`, intent assembly tasks).
+1. Runs RAG/knowledge steps when enabled (`validate_knowledge_modules.py`, `generate_knowledge_retrieval_index.py`, JSON-LD graph, retrieval evals, intent assembly tasks).
 1. Self-verifies: executes all code examples, checks shell commands, fact-checks assertions (versions, ports, paths, counts).
 1. Auto-corrects any mismatches found during verification.
 1. Runs lint/validation locally before commit (pre-commit and explicit lint commands).
@@ -113,16 +136,22 @@ All seven checks must pass before the `build-docs` job runs (`mkdocs build --str
 
 `knowledge_modules/*.yml` do not go through `validate_frontmatter.py`; they are validated separately by `validate_knowledge_modules.py` (schema, dependencies, cycle safety).
 
-### Pre-commit hooks (6 checks)
+### Pre-commit hooks (7 checks for staged docs)
 
-The `.husky/pre-commit` hook runs on every commit with staged `.md` files:
+The `.husky/pre-commit` hook runs on staged Markdown/API files:
 
-1. Spectral (API specs, if staged)
+1. Optional API contract lint stack (if API spec files are staged: Spectral + Redocly + Swagger CLI + contract validator)
 1. Vale (style)
 1. markdownlint (formatting)
 1. cspell (spelling)
 1. Frontmatter validation
 1. GEO optimization
+1. Knowledge modules validation
+
+Why this section can look different from CI:
+
+- CI `docs-check.yml` runs full repository checks in parallel jobs for pull requests.
+- Pre-commit runs staged-file checks to keep local commits fast.
 
 ### Additional CI workflows
 
@@ -137,6 +166,41 @@ The `.husky/pre-commit` hook runs on every commit with staged `.md` files:
 | `lifecycle-management.yml` | Weekly | Scan for stale/deprecated pages, create issues |
 | `openapi-source-sync.yml` | Schedule | Resolve API spec (api-first or code-first strategy) |
 | `algolia-index.yml` | Deploy | Upload search index to Algolia |
+| `docsops-pr-autofix.yml` | PR opened/updated | Auto-generate missing docs patch into the same PR branch |
+
+Note:
+
+- Recommended operating mode is local scheduler in client repo (`cron`/Task Scheduler), default Monday at `10:00` local time.
+- GitHub Actions weekly workflows remain compatibility mode only.
+
+### PR auto-doc workflow (one-time setup)
+
+If you want blocked PRs to auto-recover when docs are missing:
+
+1. Enable in client profile:
+
+```yaml
+runtime:
+  pr_autofix:
+    enabled: true
+    require_label: false
+    label_name: "auto-doc-fix"
+    enable_auto_merge: false
+    commit_message: "docs: auto-sync PR docs"
+    workflow_filename: "docsops-pr-autofix.yml"
+```
+
+1. Run provisioning once. It installs `.github/workflows/docsops-pr-autofix.yml` in the client repo.
+1. Set repository setting: Actions workflow permissions = `Read and write permissions`.
+1. Optional: add `DOCSOPS_BOT_TOKEN` (`contents:write`, `pull_requests:write`) for orgs where default token cannot push.
+
+How it works:
+
+- Trigger: `pull_request` events (`opened`, `synchronize`, `reopened`, `labeled`).
+- Scope: only the current PR (`base.sha...head.sha`).
+- Action: if API/docs contract or drift is missing docs updates, pipeline generates docs patch.
+- Commit target: same PR branch (`github.event.pull_request.head.ref`), never `main`.
+- Result: checks rerun automatically; if all green, PR can merge (optionally auto-merge).
 
 ## Templates (31)
 
@@ -196,8 +260,15 @@ For teams that start with an OpenAPI spec:
 
 1. Write or update `api/openapi.yaml`.
 1. OpenAPI Generator produces SDK stubs and reference scaffolds.
-1. Prism mock server provides a sandbox for `Try it out` in docs.
+1. Sandbox endpoint can run in `docker`, `prism` (no Docker), or `external` (public hosted) mode.
+1. `run_api_first_flow.py` can auto-sync docs playground endpoint to `mock_base_url` (`sync_playground_endpoint=true`).
 1. `api-sdk-drift-gate.yml` blocks PRs if specs change without doc updates.
+
+If API specs and docs are maintained by different people:
+
+- Keep both changes in the same PR before merge (recommended).
+- Or use a short-lived "contract PR" and immediate linked docs PR, then merge only after both gates are green.
+- Gate behavior is intentional: it prevents shipping undocumented contract changes.
 
 ### Code-first workflow
 
@@ -211,13 +282,22 @@ For teams that start with code:
 
 `scripts/doc_layers_validator.py` checks that every documented feature has the required layers (concept, how-to, reference) from the active policy pack (`policy_packs/selected.yml` in client bundles).
 
+Yes, this is part of smooth weekly automation (`run_weekly_gap_batch.py`) when `fact_checks=true` and flow is `code-first` or `hybrid`.
+
 ### Lifecycle management
 
 Documents have four states: `active`, `deprecated`, `removed`, and `draft`.
 `validate_frontmatter.py` enforces lifecycle rules automatically:
+
 - `deprecated` and `removed` pages must include `deprecated_since`, `removal_date`, and `replacement_url`.
 - `removed` pages must include `noindex: true` to prevent search engine indexing.
 Weekly automation also runs `lifecycle_manager.py` to generate lifecycle reports and redirect/cleanup guidance.
+
+Search impact is automatic:
+
+- `status=removed`: excluded from generated search index.
+- `status=deprecated`: indexed with lower search priority.
+- `status=active`: normal search priority.
 
 ## Variables system
 
@@ -258,6 +338,7 @@ Auto-detection based on which config file exists. Bidirectional Markdown convers
 ### Algolia search integration
 
 Algolia integration is generator-agnostic (MkDocs, Docusaurus, Sphinx, Hugo, Jekyll):
+
 - records are generated from docs frontmatter/content via pipeline scripts
 - upload is handled by `upload_to_algolia.py`
 - configuration lives in one place: `runtime.integrations.algolia` in the client profile
@@ -306,6 +387,7 @@ npm run askai:runtime:install # Install optional Ask AI runtime pack (API + widg
 ```
 
 Operator verification after onboarding:
+
 1. Check generated profile: `profiles/clients/generated/<client_id>.client.yml`.
 1. Check installed runtime config: `<client-repo>/docsops/config/client_runtime.yml`.
 1. Check installed policy: `<client-repo>/docsops/policy_packs/selected.yml`.
@@ -313,6 +395,7 @@ Operator verification after onboarding:
 
 Ask AI is optional and disabled by default.
 For client bundles, configure it centrally in `runtime.integrations.ask_ai` (client profile):
+
 - provisioning auto-applies `config/ask-ai.yml`
 - optional runtime pack install is controlled by `install_runtime_pack`
 

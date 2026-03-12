@@ -155,6 +155,33 @@ runtime:
 - `scripts/apply_openapi_overrides.py`
 - `scripts/check_openapi_regression.py`
 
+### 3.3) PR авто-фикс документации (в ту же PR-ветку)
+
+```yaml
+runtime:
+  pr_autofix:
+    enabled: true
+    require_label: false
+    label_name: "auto-doc-fix"
+    enable_auto_merge: false
+    commit_message: "docs: auto-sync PR docs"
+    workflow_filename: "docsops-pr-autofix.yml"
+```
+
+Что происходит:
+
+\11. Workflow запускается на `pull_request` событиях.
+\11. Смотрит только diff текущего PR (`base...head`).
+\11. Если PR заблокирован по docs-contract/drift, добавляет docs-правки.
+\11. Коммитит правки в ту же PR-ветку (не в `main`).
+\11. Checks перезапускаются автоматически.
+
+Одноразовая настройка для клиента:
+
+\11. Включить `Read and write permissions` для GitHub Actions в репозитории.
+\11. Опционально добавить `DOCSOPS_BOT_TOKEN` (`contents:write`, `pull_requests:write`) если в организации ограничен стандартный токен.
+\11. Прогнать provisioning, чтобы установить `.github/workflows/docsops-pr-autofix.yml`.
+
 ### 3.1) Централизованные интеграции (Algolia + Ask AI)
 
 ```yaml
@@ -347,6 +374,8 @@ python3 scripts/provision_client_repo.py \
 \11. Проверяет stale-доки (по умолчанию 180 дней без изменений).
 \11. Запускает KPI/SLA (если включено в bundle).
 \11. При `mode=api-first|hybrid` запускает API-first flow (если включено в `runtime.api_first.enabled`).
+\11. Для API sandbox поддерживает 3 режима: `docker`, `prism` (без Docker), `external` (публичный URL).
+\11. Если `runtime.api_first.sync_playground_endpoint=true`, URL песочницы автоматически пишется в `mkdocs.yml`.
 \11. Применяет manual overrides к OpenAPI артефактам (если задан `manual_overrides_path`).
 \11. Проверяет regression snapshot (если задан `regression_snapshot_path`).
 \11. Генерирует и валидирует мультиязычные вкладки кода (новый стандарт).
@@ -355,6 +384,17 @@ python3 scripts/provision_client_repo.py \
 \11. Создает `reports/consolidated_report.json`.
 
 Важно: API-first здесь только один из подпроцессов. Главный контур охватывает все типы документации и quality automation целиком.
+
+Простой рекомендуемый блок для публичной API песочницы:
+
+```yaml
+runtime:
+  api_first:
+    sandbox_backend: "external"
+    mock_service: "custom"
+    mock_base_url: "https://sandbox-api.example.com/v1"
+    sync_playground_endpoint: true
+```
 
 Порог stale можно менять для каждого клиента:
 

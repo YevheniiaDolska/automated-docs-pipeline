@@ -3,7 +3,7 @@ title: "Unified Client Configuration"
 description: "Single source of truth for per-client Auto-Doc Pipeline configuration, modules, and automation."
 content_type: reference
 product: both
-last_reviewed: "2026-03-11"
+last_reviewed: "2026-03-12"
 tags:
   - Operations
   - Configuration
@@ -166,6 +166,33 @@ runtime:
   output_targets: ["sphinx", "readme"]
 ```
 
+### 5.1 PR auto-doc workflow
+
+```yaml
+runtime:
+  pr_autofix:
+    enabled: true
+    require_label: false
+    label_name: "auto-doc-fix"
+    enable_auto_merge: false
+    commit_message: "docs: auto-sync PR docs"
+    workflow_filename: "docsops-pr-autofix.yml"
+```
+
+Behavior:
+
+- Trigger: PR opened/updated (`pull_request` events).
+- Scope: only changed files in the current PR (`base...head` diff).
+- If PR is blocked by docs contract or API/SDK drift, bot generates docs patch and commits to the same PR branch.
+- No commits to `main`.
+- Checks rerun automatically after bot commit.
+
+One-time repo setup (done during provisioning):
+
+1. Workflow file is generated in `.github/workflows/docsops-pr-autofix.yml`.
+1. Set GitHub Actions permissions to `Read and write`.
+1. Optional: set `DOCSOPS_BOT_TOKEN` for orgs that restrict default token pushes.
+
 ## 6. API-first configuration (one branch, not the whole product)
 
 ```yaml
@@ -185,8 +212,21 @@ runtime:
     update_regression_snapshot: false
     generate_from_notes: true
     verify_user_path: false
-    mock_base_url: "http://localhost:4010/v1"
+    sandbox_backend: "external"
+    mock_service: "custom"
+    mock_base_url: "https://sandbox-api.example.com/v1"
     sync_playground_endpoint: true
+    external_mock:
+      enabled: true
+      provider: "postman"
+      base_path: "/v1"
+      postman:
+        api_key_env: "POSTMAN_API_KEY"
+        workspace_id_env: "POSTMAN_WORKSPACE_ID"
+        collection_uid_env: "POSTMAN_COLLECTION_UID"
+        mock_server_id_env: "POSTMAN_MOCK_SERVER_ID"
+        mock_server_name: ""
+        private: false
     run_docs_lint: false
     auto_remediate: true
     max_attempts: 3
@@ -231,8 +271,39 @@ New advanced keys:
 - `manual_overrides_path`: YAML overlay file applied after generation for advanced schema blocks and `x-*` extensions.
 - `regression_snapshot_path`: JSON baseline for contract regression gate.
 - `update_regression_snapshot`: when `true`, refreshes baseline during run.
+- `sandbox_backend`: `docker`, `prism`, or `external`.
+- `mock_service`: informational provider marker for team ops (`postman`, `stoplight`, `mockoon`, `prism-hosted`, `custom`).
 - `mock_base_url`: sandbox endpoint used by API self-verification.
 - `sync_playground_endpoint`: when `true`, writes `mock_base_url` into `mkdocs.yml` API playground `sandbox_base_url`.
+- `external_mock.enabled`: when `true` and `sandbox_backend=external`, pipeline auto-prepares external mock before API-first checks.
+- `external_mock.provider`: currently `postman`.
+- `external_mock.base_path`: suffix appended to resolved mock URL (usually `/v1`).
+- `external_mock.postman.*`: env var names used by automation.
+
+External service behavior:
+
+- The pipeline is provider-agnostic: it does not lock to one vendor.
+- It uses `mock_base_url` as the source of truth for verification and Try-it requests.
+- Common setups: Postman Mock Servers, Stoplight-hosted Prism, Mockoon Cloud, or your own hosted Prism.
+
+In simple terms:
+
+- `mock_base_url` is the one URL the whole pipeline uses for API sandbox checks.
+- If that URL is public (`https://...`) and CORS is configured, Try-it works for every site visitor.
+
+Client input checklist (Postman, one-time):
+
+1. `POSTMAN_API_KEY`
+1. `POSTMAN_WORKSPACE_ID`
+1. optional `POSTMAN_COLLECTION_UID` (if missing, pipeline imports collection from generated OpenAPI)
+1. Optional: `POSTMAN_MOCK_SERVER_ID` (if reusing an existing mock)
+
+After these are set, pipeline does the rest automatically:
+
+1. Creates or reuses Postman mock server.
+1. Resolves final public mock URL.
+1. Uses it for API self-verification.
+1. Syncs docs playground endpoint automatically.
 
 ## 7. Module switches
 

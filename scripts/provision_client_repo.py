@@ -199,6 +199,98 @@ def _read_yaml(path: Path) -> dict[str, Any]:
     return payload
 
 
+def install_pr_autofix_workflow(client_repo: Path, docsops_dir: str) -> Path | None:
+    runtime_path = client_repo / docsops_dir / "config" / "client_runtime.yml"
+    if not runtime_path.exists():
+        return None
+    runtime = _read_yaml(runtime_path)
+    pr_cfg = runtime.get("pr_autofix", {})
+    if not isinstance(pr_cfg, dict) or not bool(pr_cfg.get("enabled", False)):
+        return None
+
+    workflow_filename = str(pr_cfg.get("workflow_filename", "docsops-pr-autofix.yml")).strip() or "docsops-pr-autofix.yml"
+    paths = runtime.get("paths", {})
+    if not isinstance(paths, dict):
+        paths = {}
+    docs_root = str(paths.get("docs_root", "docs")).strip() or "docs"
+    label_name = str(pr_cfg.get("label_name", "auto-doc-fix")).strip() or "auto-doc-fix"
+    require_label = "true" if bool(pr_cfg.get("require_label", False)) else "false"
+    enable_auto_merge = "true" if bool(pr_cfg.get("enable_auto_merge", False)) else "false"
+    commit_message = str(pr_cfg.get("commit_message", "docs: auto-sync PR docs")).replace('"', '\\"')
+
+    workflow_text = (
+        "name: DocsOps PR Auto Fix\n\n"
+        "on:\n"
+        "  pull_request:\n"
+        "    types: [opened, synchronize, reopened, labeled]\n\n"
+        "permissions:\n"
+        "  contents: write\n"
+        "  pull-requests: write\n\n"
+        "concurrency:\n"
+        "  group: docsops-pr-${{ github.event.pull_request.number }}\n"
+        "  cancel-in-progress: true\n\n"
+        "jobs:\n"
+        "  pr-doc-fix:\n"
+        "    if: ${{ github.event.pull_request.head.repo.fork == false }}\n"
+        "    runs-on: ubuntu-latest\n"
+        "    env:\n"
+        f"      DOCSOPS_DOCS_ROOT: \"{docs_root}\"\n"
+        "      DOCSOPS_PUSH_TOKEN: ${{ secrets.DOCSOPS_BOT_TOKEN != '' && secrets.DOCSOPS_BOT_TOKEN || github.token }}\n"
+        "    steps:\n"
+        "      - name: Checkout PR branch\n"
+        "        uses: actions/checkout@v4\n"
+        "        with:\n"
+        "          ref: ${{ github.event.pull_request.head.ref }}\n"
+        "          token: ${{ env.DOCSOPS_PUSH_TOKEN }}\n"
+        "          fetch-depth: 0\n\n"
+        "      - name: Setup Python\n"
+        "        uses: actions/setup-python@v5\n"
+        "        with:\n"
+        "          python-version: '3.11'\n\n"
+        "      - name: Apply docs auto-fix\n"
+        f"        env:\n          DOCSOPS_REQUIRE_LABEL: \"{require_label}\"\n          DOCSOPS_LABEL_NAME: \"{label_name}\"\n"
+        "        run: |\n"
+        "          set -e\n"
+        "          if [[ \"$DOCSOPS_REQUIRE_LABEL\" == \"true\" ]]; then\n"
+        "            LABELS=\"${{ join(github.event.pull_request.labels.*.name, ' ') }}\"\n"
+        "            if [[ \" $LABELS \" != *\" $DOCSOPS_LABEL_NAME \"* ]]; then\n"
+        "              echo \"[docsops] label '$DOCSOPS_LABEL_NAME' is required, skipping auto-fix\"\n"
+        "              exit 0\n"
+        "            fi\n"
+        "          fi\n"
+        f"          python3 {docsops_dir}/scripts/auto_fix_pr_docs.py \\\n"
+        "            --base \"${{ github.event.pull_request.base.sha }}\" \\\n"
+        "            --head \"${{ github.event.pull_request.head.sha }}\" \\\n"
+        "            --pr-number \"${{ github.event.pull_request.number }}\" \\\n"
+        "            --docs-root \"$DOCSOPS_DOCS_ROOT\"\n\n"
+        "      - name: Commit docs fix into PR branch\n"
+        "        run: |\n"
+        "          set -e\n"
+        "          if git diff --quiet; then\n"
+        "            echo \"[docsops] no generated changes\"\n"
+        "            exit 0\n"
+        "          fi\n"
+        "          git config user.name \"docsops-bot\"\n"
+        "          git config user.email \"docsops-bot@users.noreply.github.com\"\n"
+        "          git add \"$DOCSOPS_DOCS_ROOT/\"\n"
+        f"          git commit -m \"{commit_message}\"\n"
+        "          git push origin \"${{ github.event.pull_request.head.ref }}\"\n\n"
+        "      - name: Enable auto-merge\n"
+        f"        if: ${{ {enable_auto_merge} }}\n"
+        "        env:\n"
+        "          GH_TOKEN: ${{ env.DOCSOPS_PUSH_TOKEN }}\n"
+        "        run: |\n"
+        "          set -e\n"
+        "          gh pr merge \"${{ github.event.pull_request.number }}\" --auto --squash\n"
+    )
+
+    workflow_dir = client_repo / ".github" / "workflows"
+    workflow_dir.mkdir(parents=True, exist_ok=True)
+    output = workflow_dir / workflow_filename
+    output.write_text(workflow_text, encoding="utf-8")
+    return output
+
+
 def apply_integrations(client_repo: Path, docsops_dir: str) -> None:
     runtime_path = client_repo / docsops_dir / "config" / "client_runtime.yml"
     if not runtime_path.exists():
@@ -267,6 +359,9 @@ def generate_env_checklist(client_repo: Path, docsops_dir: str) -> Path | None:
     ask_ai = integrations.get("ask_ai", {})
     if not isinstance(ask_ai, dict):
         ask_ai = {}
+    api_first = runtime.get("api_first", {})
+    if not isinstance(api_first, dict):
+        api_first = {}
 
     lines: list[str] = [
         "# ENV_CHECKLIST",
@@ -303,6 +398,67 @@ def generate_env_checklist(client_repo: Path, docsops_dir: str) -> Path | None:
         lines.extend([f"- [ ] `{name}`" for name in provider_vars])
         lines.append("")
 
+    sandbox_backend = str(api_first.get("sandbox_backend", "")).strip().lower()
+    external_mock = api_first.get("external_mock", {})
+    if not isinstance(external_mock, dict):
+        external_mock = {}
+    if sandbox_backend == "external" and bool(external_mock.get("enabled", False)):
+        provider = str(external_mock.get("provider", "postman")).strip().lower()
+        lines.extend(
+                [
+                    "## API external sandbox",
+                "",
+                "- This is a one-time setup. After that, weekly/API-first flow updates mock automatically.",
+                f"- Provider: `{provider}`",
+                "",
+            ]
+        )
+        if provider == "postman":
+            postman = external_mock.get("postman", {})
+            if not isinstance(postman, dict):
+                postman = {}
+            api_key_env = str(postman.get("api_key_env", "POSTMAN_API_KEY"))
+            workspace_env = str(postman.get("workspace_id_env", "POSTMAN_WORKSPACE_ID"))
+            collection_env = str(postman.get("collection_uid_env", "POSTMAN_COLLECTION_UID"))
+            mock_id_env = str(postman.get("mock_server_id_env", "POSTMAN_MOCK_SERVER_ID"))
+            lines.extend(
+                [
+                    "Give these inputs to the pipeline:",
+                    f"- [ ] `{api_key_env}`: Postman API key (required)",
+                    f"- [ ] `{workspace_env}`: Postman workspace id (required for auto-create mode)",
+                    f"- [ ] `{collection_env}`: Postman collection uid (optional; if missing, pipeline imports collection from generated OpenAPI)",
+                    f"- [ ] `{mock_id_env}`: existing Postman mock id (optional, to reuse existing mock)",
+                    "",
+                    "How it works:",
+                    "- If mock id is provided, pipeline reuses that mock and resolves URL automatically.",
+                    "- If mock id is empty, pipeline creates/updates collection from generated OpenAPI, then creates mock.",
+                    "- Resolved URL is written into docs playground endpoint via `sync_playground_endpoint`.",
+                    "",
+                ]
+            )
+
+    pr_auto = runtime.get("pr_autofix", {})
+    if not isinstance(pr_auto, dict):
+        pr_auto = {}
+    if bool(pr_auto.get("enabled", False)):
+        lines.extend(
+            [
+                "## PR auto-doc workflow (GitHub)",
+                "",
+                "- This is a one-time repository setup.",
+                "- During provisioning, docsops installs `.github/workflows/docsops-pr-autofix.yml`.",
+                "- Workflow always commits to the same PR branch that triggered it (never to main).",
+                "",
+                "Required repository settings:",
+                "- [ ] Actions workflow permissions: `Read and write permissions`",
+                "- [ ] Pull requests: allow auto-merge (optional, if `enable_auto_merge=true`)",
+                "",
+                "Optional secret (only if default GITHUB_TOKEN cannot push in your org):",
+                "- [ ] `DOCSOPS_BOT_TOKEN` with scopes: `contents:write`, `pull_requests:write`",
+                "",
+            ]
+        )
+
     lines.extend(
         [
             "## Verification",
@@ -330,12 +486,15 @@ def execute_provision(args: argparse.Namespace) -> int:
 
     bundle_root = create_bundle(profile_path)
     installed_path = copy_bundle_to_repo(bundle_root, client_repo, args.docsops_dir)
+    workflow_path = install_pr_autofix_workflow(client_repo, args.docsops_dir)
     apply_integrations(client_repo, args.docsops_dir)
     checklist = generate_env_checklist(client_repo, args.docsops_dir)
     run_scheduler_install(client_repo, args.docsops_dir, args.install_scheduler)
 
     print(f"[ok] bundle built: {bundle_root}")
     print(f"[ok] bundle installed: {installed_path}")
+    if workflow_path:
+        print(f"[ok] pr auto-doc workflow installed: {workflow_path}")
     if checklist:
         print(f"[ok] env checklist: {checklist}")
     if args.install_scheduler != "none":

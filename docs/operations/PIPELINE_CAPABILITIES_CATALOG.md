@@ -32,12 +32,12 @@ runtime:
 | `agent:codex:auto` | Agent/Demo | `bash scripts/codex-auto.sh` |
 | `api-first-demo` | API-first | `bash scripts/api_first_demo_live.sh` |
 | `api-first-demo:stop` | API-first | `bash scripts/api_first_demo_stop.sh` |
-| `api-first:demo` | API-first | `bash -lc 'set -e; bash scripts/api_sandbox_project.sh up taskstream ./api/openapi.yaml 4010; trap "bash scripts/api_sandbox_project.sh down taskstream ./api/openapi.yaml 4010" EXIT; python3 scripts/run_api_first_flow.py --project-slug taskstream --notes demos/api-first/taskstream-planning-notes.md --spec api/openapi.yaml --spec-tree api/taskstream --docs-provider mkdocs --inject-demo-nav --verify-user-path --mock-base-url http://localhost:4010/v1 --auto-remediate --max-attempts 3'` |
+| `api-first:demo` | API-first | `bash -lc 'set -e; API_SANDBOX_EXTERNAL_BASE_URL=\"https://sandbox-api.example.com/v1\" bash scripts/api_sandbox_project.sh up taskstream ./api/openapi.yaml 4010 external; python3 scripts/run_api_first_flow.py --project-slug taskstream --notes demos/api-first/taskstream-planning-notes.md --spec api/openapi.yaml --spec-tree api/taskstream --docs-provider mkdocs --inject-demo-nav --verify-user-path --mock-base-url https://sandbox-api.example.com/v1 --sync-playground-endpoint --auto-remediate --max-attempts 3'` |
 | `api-first:demo:live` | API-first | `bash scripts/api_first_demo_live.sh` |
 | `api-first:demo:stop` | API-first | `bash scripts/api_first_demo_stop.sh` |
 | `api:first:flow:taskstream` | API-first | `python3 scripts/run_api_first_flow.py --project-slug taskstream --notes demos/api-first/taskstream-planning-notes.md --spec api/openapi.yaml --spec-tree api/taskstream --docs-provider mkdocs --inject-demo-nav --auto-remediate` |
 | `api:first:v0:taskstream` | API-first | `python3 scripts/run_api_first_flow.py --project-slug taskstream --notes demos/api-first/taskstream-planning-notes.md --spec api/openapi.yaml --spec-tree api/taskstream --docs-provider mkdocs --auto-remediate --max-attempts 3` |
-| `api:first:verify-user-path` | API-first | `python3 scripts/self_verify_api_user_path.py --base-url http://localhost:4010/v1` |
+| `api:first:verify-user-path` | API-first | `python3 scripts/self_verify_api_user_path.py --base-url https://sandbox-api.example.com/v1` |
 | `api:first:verify-user-path:prodlike` | API-first | `python3 scripts/self_verify_prodlike_user_path.py --base-url http://localhost:4011/v1` |
 | `api:sandbox:live` | API-first | `bash scripts/api_sandbox_live.sh up taskstream ./api/openapi.yaml 4010` |
 | `api:sandbox:live:logs` | API-first | `bash scripts/api_sandbox_live.sh logs taskstream ./api/openapi.yaml 4010` |
@@ -133,6 +133,37 @@ runtime:
 | `validate:full` | Validation | `npm run validate:minimal && npm run lint:layers && npm run lint:diagrams && npm run validate:knowledge && npm run docs-ops:e2e && npm run docs-ops:golden && npm run docs-ops:test-suite && python3 test_pipeline.py` |
 | `validate:knowledge` | Validation | `npm run lint:knowledge && npm run build:intent:all && npm run build:knowledge-index && npm run build:knowledge-graph && npm run eval:retrieval` |
 | `validate:minimal` | Validation | `npm run normalize:docs:check && npm run lint:md && npm run lint:frontmatter && npm run lint:geo && npm run lint:multilang && npm run lint:examples-smoke` |
+
+## API-first external sandbox note
+
+For public web playground usage, prefer `external` sandbox mode and a public HTTPS mock URL with CORS:
+
+```bash
+API_FIRST_DEMO_SANDBOX_BACKEND=external \
+API_FIRST_DEMO_MOCK_BASE_URL="https://sandbox-api.example.com/v1" \
+bash scripts/api_first_demo_live.sh
+```
+
+The pipeline is provider-agnostic. You can use Postman Mock Servers, Stoplight-hosted Prism, Mockoon Cloud, or your own hosted Prism-compatible endpoint.
+
+For Postman auto-prepare mode, provide:
+
+- `POSTMAN_API_KEY`
+- `POSTMAN_WORKSPACE_ID`
+- optional `POSTMAN_COLLECTION_UID` (if empty, pipeline imports collection from generated OpenAPI)
+- optional `POSTMAN_MOCK_SERVER_ID`
+
+## PR auto-doc workflow capability
+
+Enable in client profile with `runtime.pr_autofix`.
+
+Installed workflow behavior:
+
+1. Trigger on PR events (`opened`, `synchronize`, `reopened`, `labeled`).
+1. Analyze only current PR diff (`base...head`).
+1. Run docs auto-fix script if docs contract/drift gates require docs updates.
+1. Commit generated docs into the same PR branch.
+1. Rerun checks automatically.
 
 ## Templates
 

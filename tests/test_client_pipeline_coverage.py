@@ -51,6 +51,7 @@ class TestBuildClientBundle:
         (repo / "policy_packs" / "minimal.yml").write_text("docs_contract:\n  interface_patterns: ['^api/']\n  doc_patterns: ['^docs/']\n", encoding="utf-8")
         (repo / "scripts").mkdir()
         (repo / "scripts" / "gap_detector.py").write_text("print('ok')\n", encoding="utf-8")
+        (repo / "scripts" / "auto_fix_pr_docs.py").write_text("print('ok')\n", encoding="utf-8")
         (repo / "docs").mkdir()
         (repo / "docs" / "operations").mkdir(parents=True)
         (repo / "docs" / "operations" / "UNIFIED_CLIENT_CONFIG.md").write_text("x\n", encoding="utf-8")
@@ -108,6 +109,8 @@ class TestBuildClientBundle:
         assert runtime["api_first"]["manual_overrides_path"] == ""
         assert runtime["api_first"]["regression_snapshot_path"] == ""
         assert runtime["api_first"]["sync_playground_endpoint"] is True
+        assert runtime["api_first"]["external_mock"]["enabled"] is True
+        assert runtime["api_first"]["external_mock"]["provider"] == "postman"
         assert runtime["terminology"]["enabled"] is True
         assert runtime["terminology"]["glossary_path"] == "glossary.yml"
         assert runtime["retrieval_eval"]["enabled"] is True
@@ -116,6 +119,8 @@ class TestBuildClientBundle:
         assert runtime["knowledge_graph"]["output_path"] == "docs/assets/knowledge-graph.jsonld"
         assert runtime["git_sync"]["enabled"] is False
         assert runtime["git_sync"]["remote"] == "origin"
+        assert runtime["pr_autofix"]["enabled"] is True
+        assert runtime["pr_autofix"]["workflow_filename"] == "docsops-pr-autofix.yml"
         selected = yaml.safe_load((out / "policy_packs" / "selected.yml").read_text(encoding="utf-8"))
         assert selected["docs_contract"]["doc_patterns"] == ["^manual/"]
         assert (out / "scripts" / "gap_detector.py").exists()
@@ -319,7 +324,24 @@ class TestProvisionClientRepo:
                     "integrations": {
                         "algolia": {"enabled": True},
                         "ask_ai": {"enabled": True, "provider": "openai"},
-                    }
+                    },
+                    "api_first": {
+                        "sandbox_backend": "external",
+                        "external_mock": {
+                            "enabled": True,
+                            "provider": "postman",
+                            "postman": {
+                                "api_key_env": "POSTMAN_API_KEY",
+                                "workspace_id_env": "POSTMAN_WORKSPACE_ID",
+                                "collection_uid_env": "POSTMAN_COLLECTION_UID",
+                                "mock_server_id_env": "POSTMAN_MOCK_SERVER_ID",
+                            },
+                        },
+                    },
+                    "pr_autofix": {
+                        "enabled": True,
+                        "workflow_filename": "docsops-pr-autofix.yml",
+                    },
                 },
                 sort_keys=False,
             ),
@@ -331,6 +353,62 @@ class TestProvisionClientRepo:
         text = out.read_text(encoding="utf-8")
         assert "ALGOLIA_APP_ID" in text
         assert "OPENAI_API_KEY" in text
+        assert "POSTMAN_API_KEY" in text
+        assert "POSTMAN_WORKSPACE_ID" in text
+        assert "POSTMAN_COLLECTION_UID" in text
+        assert "docsops-pr-autofix.yml" in text
+        assert "DOCSOPS_BOT_TOKEN" in text
+
+    def test_install_pr_autofix_workflow(self, tmp_path: Path) -> None:
+        from scripts import provision_client_repo as mod
+
+        repo = tmp_path / "repo"
+        (repo / "docsops" / "config").mkdir(parents=True)
+        (repo / "docsops" / "config" / "client_runtime.yml").write_text(
+            yaml.safe_dump(
+                {
+                    "paths": {"docs_root": "manuals"},
+                    "pr_autofix": {
+                        "enabled": True,
+                        "require_label": False,
+                        "enable_auto_merge": False,
+                        "workflow_filename": "docsops-pr-autofix.yml",
+                    },
+                },
+                sort_keys=False,
+            ),
+            encoding="utf-8",
+        )
+
+        out = mod.install_pr_autofix_workflow(repo, "docsops")
+        assert out is not None
+        assert out.exists()
+        text = out.read_text(encoding="utf-8")
+        assert "name: DocsOps PR Auto Fix" in text
+        assert "python3 docsops/scripts/auto_fix_pr_docs.py" in text
+        assert "--docs-root \"$DOCSOPS_DOCS_ROOT\"" in text
+        assert "git add \"$DOCSOPS_DOCS_ROOT/\"" in text
+        assert 'DOCSOPS_DOCS_ROOT: "manuals"' in text
+
+    def test_install_pr_autofix_workflow_disabled(self, tmp_path: Path) -> None:
+        from scripts import provision_client_repo as mod
+
+        repo = tmp_path / "repo"
+        (repo / "docsops" / "config").mkdir(parents=True)
+        (repo / "docsops" / "config" / "client_runtime.yml").write_text(
+            yaml.safe_dump(
+                {
+                    "pr_autofix": {
+                        "enabled": False,
+                    },
+                },
+                sort_keys=False,
+            ),
+            encoding="utf-8",
+        )
+
+        out = mod.install_pr_autofix_workflow(repo, "docsops")
+        assert out is None
 
 
 class TestWeeklyBatch:
@@ -499,6 +577,20 @@ class TestWeeklyBatch:
                 "auto_remediate": True,
                 "verify_user_path": True,
                 "mock_base_url": "http://localhost:4010/v1",
+                "sandbox_backend": "external",
+                "external_mock": {
+                    "enabled": True,
+                    "provider": "postman",
+                    "base_path": "/v1",
+                    "postman": {
+                        "api_key_env": "POSTMAN_API_KEY",
+                        "workspace_id_env": "POSTMAN_WORKSPACE_ID",
+                        "collection_uid_env": "POSTMAN_COLLECTION_UID",
+                        "mock_server_id_env": "POSTMAN_MOCK_SERVER_ID",
+                        "mock_server_name": "demo-mock",
+                        "private": True,
+                    },
+                },
                 "sync_playground_endpoint": False,
                 "run_docs_lint": True,
                 "generate_from_notes": False,
@@ -523,6 +615,11 @@ class TestWeeklyBatch:
         assert "--verify-user-path" in cmd
         assert "--run-docs-lint" in cmd
         assert "--no-sync-playground-endpoint" in cmd
+        assert "--sandbox-backend" in cmd and "external" in cmd
+        assert "--auto-prepare-external-mock" in cmd
+        assert "--external-mock-provider" in cmd and "postman" in cmd
+        assert "--external-mock-postman-api-key-env" in cmd
+        assert "--external-mock-postman-private" in cmd
 
     def test_main_api_first_versions_branch(self, tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:
         from scripts import run_weekly_gap_batch as mod
