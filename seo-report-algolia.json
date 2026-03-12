@@ -2947,7 +2947,7 @@
       "objectID": "6b35bff89de1ffab99263ba98abeb4ca",
       "title": "Documentation Pipeline Demo",
       "heading": "What this demo shows",
-      "content": "This site is not a replacement for official docs. It demonstrates documentation infrastructure: how to organize, validate, and publish developer docs at scale using automation. The pipeline includes automated style checking with Vale, frontmatter validation for consistent metadata, GEO linting that optimizes content for AI-powered search engines, faceted search through Algolia DocSearch, and CI/CD workflows that monitor the upstream repository for documentation gaps. ",
+      "content": "This site is not a replacement for official docs. It demonstrates documentation infrastructure: how to organize, validate, and publish developer docs at scale using automation. The pipeline now covers the full docs lifecycle: multi-signal gap detection (codebase, community, and search analytics), template-driven generation with centralized variables, self-verification with executable code checks, seven documentation quality gates (including 22 SEO/GEO rules, style, metadata, and formatting), Mermaid plus embedded interactive diagrams, API-first documentation flows, dual site generators (MkDocs and Docusaurus), Algolia DocSearch indexing, and CI/CD automation from commit to published site. ",
       "description": "Automated documentation pipeline with GEO optimization, faceted search, and CI/CD quality gates for workflow automation platform.",
       "product": "both",
       "content_type": "concept",
@@ -2971,7 +2971,7 @@
       "path": "docs/index.md",
       "ranking_boost": 24,
       "heading_level": 2,
-      "word_count": 63,
+      "word_count": 88,
       "has_code": false,
       "code_snippets": []
     },
