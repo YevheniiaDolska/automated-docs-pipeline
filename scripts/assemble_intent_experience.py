@@ -48,9 +48,8 @@ def _sort_modules(modules: list[dict[str, Any]]) -> list[dict[str, Any]]:
         if module_id:
             by_id[module_id] = module
 
-    def _sort_key(module_id: str) -> tuple[int, str]:
-        module = by_id[module_id]
-        return (-int(module.get("priority", 0)), module_id)
+    def _sort_key(module_id: str) -> str:
+        return module_id
 
     indegree: dict[str, int] = {module_id: 0 for module_id in by_id}
     graph: dict[str, list[str]] = defaultdict(list)

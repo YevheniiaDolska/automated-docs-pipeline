@@ -333,7 +333,12 @@ def _is_network_bound(block: CodeBlock) -> bool:
     return False
 
 
-def _run_smoke_block(block: CodeBlock, timeout: int, allow_network: bool, execute: bool) -> tuple[bool, str]:
+def _run_smoke_block(
+    block: CodeBlock,
+    timeout: int,
+    allow_network: bool,
+    execute: bool = True,
+) -> tuple[bool, str]:
     language = block.language
     if language in {"python", "py"}:
         return _run_python(block.content, timeout, execute)

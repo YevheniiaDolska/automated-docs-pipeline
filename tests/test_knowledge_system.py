@@ -176,3 +176,24 @@ def test_sort_modules_raises_on_cycle() -> None:
         assert False, "Expected dependency cycle error"
     except ValueError as exc:
         assert "Dependency cycle detected" in str(exc)
+
+
+def test_sort_modules_does_not_use_priority_for_root_order() -> None:
+    from scripts.assemble_intent_experience import _sort_modules
+
+    modules = [
+        {
+            "id": "module-z",
+            "priority": 999,
+            "dependencies": [],
+        },
+        {
+            "id": "module-a",
+            "priority": 1,
+            "dependencies": [],
+        },
+    ]
+
+    sorted_modules = _sort_modules(modules)
+    sorted_ids = [module["id"] for module in sorted_modules]
+    assert sorted_ids == ["module-a", "module-z"]
