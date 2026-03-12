@@ -428,6 +428,8 @@ Verification summary:
 
 Say: "The document is self-verified. Code executed successfully, HMAC verification works, eight variables are validated, and zero hardcoded values were found. Now we run the seven linters."
 
+## PHASE 3B: Knowledge governance for RAG (1 minute)
+
 ### Step 6A. Glossary sync articulation
 
 Run terminology sync and show what changed:
@@ -450,6 +452,41 @@ else:
 ```
 
 Say: "This step keeps terminology governance explicit in the demo. New glossary markers are synchronized into glossary.yml before quality gates."
+
+### Step 6B. RAG and ontology articulation
+
+Run the unified knowledge loop and show metrics:
+
+```bash
+npm run build:knowledge-index
+npm run build:knowledge-graph
+npm run eval:retrieval
+python3 -c "
+import json
+from pathlib import Path
+rg = Path('reports/retrieval_evals_report.json')
+kg = Path('reports/knowledge_graph_report.json')
+print('=== RAG / ONTOLOGY REPORT ===')
+if rg.exists():
+    r = json.loads(rg.read_text(encoding='utf-8'))
+    m = r.get('metrics', {})
+    print('Retrieval status:', r.get('status', 'unknown'))
+    print('Precision@k:', m.get('precision_at_k', 'n/a'))
+    print('Recall@k:', m.get('recall_at_k', 'n/a'))
+    print('Hallucination rate:', m.get('hallucination_rate', 'n/a'))
+else:
+    print('Retrieval report not found')
+if kg.exists():
+    g = json.loads(kg.read_text(encoding='utf-8'))
+    print('Graph status:', g.get('status', 'unknown'))
+    print('Graph nodes:', g.get('graph_nodes', 'n/a'))
+    print('Graph edges:', g.get('edge_count', 'n/a'))
+else:
+    print('Knowledge graph report not found')
+"
+```
+
+Say: "This step proves that the same document source feeds RAG artifacts: retrieval index, retrieval quality evaluations, and JSON-LD knowledge graph."
 
 ---
 
