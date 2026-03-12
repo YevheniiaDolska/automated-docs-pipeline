@@ -10,7 +10,7 @@ tags:
 
 # [Resource] API
 
-The [Resource] API provides programmatic access to [capability]. Process up to [10,000] [operations] per minute with [sub-100ms] latency.
+The [Resource] API provides programmatic access to [capability]. Process up to [10,000] [operations] per minute with [sub-100 ms] latency.
 
 ## Quick start
 
@@ -21,7 +21,7 @@ curl https://{{ api_url }}/v1/[resources] \
   -d name="My First Resource" \
   -d type="production"
 
-# Response (23ms)
+# Response (23 ms)
 {
   "id": "res_1a2b3c4d5e",
   "name": "My First Resource",
@@ -169,7 +169,7 @@ resp, _ := client.Do(req)
 
 `POST /v1/[resources]`
 
-Creates a new [resource]. Returns immediately (< 100ms) while processing happens asynchronously.
+Creates a new [resource]. Returns immediately (< 100 ms) while processing happens asynchronously.
 
 #### Parameters
 
@@ -182,21 +182,54 @@ Creates a new [resource]. Returns immediately (< 100ms) while processing happens
 | `configuration.retry_count` | integer | No | Retry attempts (0-5, default: 3) |
 | `configuration.batch_size` | integer | No | Batch size (1-1000, default: 100) |
 | `metadata` | object | No | Key-value pairs (max 20 keys, 500 chars per value) |
-| `idempotency_key` | string | No | Ensure exactly-once execution |
+| `idempotency_key` | string | No | Ensure exactly once execution |
 
 #### Request
 
-```bash
-curl https://{{ api_url }}/v1/resources \
-  -H "Authorization: Bearer sk_live_..." \
-  -H "Idempotency-Key: unique_key_123" \
-  -d name="Production API Resource" \
-  -d type="production" \
-  -d "configuration[timeout_ms]=10000" \
-  -d "configuration[retry_count]=5" \
-  -d "metadata[team]"="platform" \
-  -d "metadata[environment]"="prod"
-```
+=== "cURL"
+
+    ```bash smoke
+    curl https://{{ api_url }}/v1/resources \
+      -H "Authorization: Bearer sk_live_..." \
+      -H "Idempotency-Key: unique_key_123" \
+      -d name="Production API Resource" \
+      -d type="production" \
+      -d "configuration[timeout_ms]=10000" \
+      -d "configuration[retry_count]=5" \
+      -d "metadata[team]"="platform" \
+      -d "metadata[environment]"="prod"
+    ```
+
+=== "JavaScript"
+
+    ```javascript smoke
+    const response = await fetch('https://{{', {
+      method: 'GET',
+      headers: {
+      'Authorization': 'Bearer sk_live_...',
+      'Idempotency-Key': 'unique_key_123',
+    },
+    body: JSON.stringify(metadata[environment]=prod),
+    });
+    const payload = await response.json();
+    console.log(payload);
+    ```
+
+=== "Python"
+
+    ```python smoke
+    import requests
+
+    response = requests.request(
+        'GET',
+        'https://{{',
+        headers={'Authorization': 'Bearer sk_live_...', 'Idempotency-Key': 'unique_key_123'},
+    json='metadata[environment]=prod',
+        timeout=30,
+    )
+    response.raise_for_status()
+    print(response.json())
+    ```
 
 #### Response
 
@@ -248,7 +281,7 @@ Retrieves a single [resource] with full details.
 
 | Parameter | Type | Description |
 | --- | --- | --- |
-| `id` | string | Resource ID (e.g., `res_1a2b3c4d5e`) |
+| `id` | string | Resource ID (for example, `res_1a2b3c4d5e`) |
 | `expand[]` | array | Expand nested objects: `metrics`, `logs`, `related_resources` |
 
 #### Response
@@ -310,13 +343,45 @@ Updates specified fields. Only include fields you want to change.
 
 #### Request
 
-```bash
-curl -X PATCH https://{{ api_url }}/v1/resources/res_1a2b3c4d5e \
-  -H "Authorization: Bearer sk_live_..." \
-  -d name="Updated Resource Name" \
-  -d "configuration[timeout_ms]=7500" \
-  -d status="paused"
-```
+=== "cURL"
+
+    ```bash smoke
+    curl -X PATCH https://{{ api_url }}/v1/resources/res_1a2b3c4d5e \
+      -H "Authorization: Bearer sk_live_..." \
+      -d name="Updated Resource Name" \
+      -d "configuration[timeout_ms]=7500" \
+      -d status="paused"
+    ```
+
+=== "JavaScript"
+
+    ```javascript smoke
+    const response = await fetch('https://{{', {
+      method: 'PATCH',
+      headers: {
+      'Authorization': 'Bearer sk_live_...',
+    },
+    body: JSON.stringify(status=paused),
+    });
+    const payload = await response.json();
+    console.log(payload);
+    ```
+
+=== "Python"
+
+    ```python smoke
+    import requests
+
+    response = requests.request(
+        'PATCH',
+        'https://{{',
+        headers={'Authorization': 'Bearer sk_live_...'},
+    json='status=paused',
+        timeout=30,
+    )
+    response.raise_for_status()
+    print(response.json())
+    ```
 
 #### Response
 
@@ -332,10 +397,40 @@ Permanently deletes a [resource]. This cannot be undone.
 
 #### Request
 
-```bash
-curl -X DELETE https://{{ api_url }}/v1/resources/res_1a2b3c4d5e \
-  -H "Authorization: Bearer sk_live_..."
-```
+=== "cURL"
+
+    ```bash smoke
+    curl -X DELETE https://{{ api_url }}/v1/resources/res_1a2b3c4d5e \
+      -H "Authorization: Bearer sk_live_..."
+    ```
+
+=== "JavaScript"
+
+    ```javascript smoke
+    const response = await fetch('https://{{', {
+      method: 'DELETE',
+      headers: {
+      'Authorization': 'Bearer sk_live_...',
+    },
+    });
+    const payload = await response.json();
+    console.log(payload);
+    ```
+
+=== "Python"
+
+    ```python smoke
+    import requests
+
+    response = requests.request(
+        'DELETE',
+        'https://{{',
+        headers={'Authorization': 'Bearer sk_live_...'},
+        timeout=30,
+    )
+    response.raise_for_status()
+    print(response.json())
+    ```
 
 #### Response
 
@@ -609,11 +704,11 @@ for await (const resource of getAllResources('sk_live_...')) {
 
 | Endpoint | P50 | P95 | P99 |
 |----------|-----|-----|-----|
-| List resources | 45ms | 120ms | 250ms |
-| Get resource | 23ms | 67ms | 145ms |
-| Create resource | 67ms | 189ms | 420ms |
-| Update resource | 54ms | 156ms | 340ms |
-| Delete resource | 31ms | 89ms | 180ms |
+| List resources | 45 ms | 120 ms | 250 ms |
+| Get resource | 23 ms | 67 ms | 145 ms |
+| Create resource | 67 ms | 189 ms | 420 ms |
+| Update resource | 54 ms | 156 ms | 340 ms |
+| Delete resource | 31 ms | 89 ms | 180 ms |
 
 ### Best practices
 
@@ -650,3 +745,7 @@ Official SDKs with full type safety and automatic retries:
 - **Status page**: <https://status.example.com>
 - **Support**: <support@example.com>
 - **Response time**: < 2 hours (business), < 30 min (enterprise)
+
+## Next steps
+
+- [Documentation index](../index.md)

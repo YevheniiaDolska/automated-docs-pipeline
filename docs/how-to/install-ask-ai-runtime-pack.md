@@ -81,9 +81,38 @@ uvicorn app.main:app --host 0.0.0.0 --port 8090
 
 Health check:
 
-```bash
-curl http://localhost:8090/healthz
-```
+=== "cURL"
+
+    ```bash smoke
+    curl http://localhost:8090/healthz
+    ```
+
+=== "JavaScript"
+
+    ```javascript smoke
+    const response = await fetch('http://localhost:8090/healthz', {
+      method: 'GET',
+      headers: {
+},
+    });
+    const payload = await response.json();
+    console.log(payload);
+    ```
+
+=== "Python"
+
+    ```python smoke
+    import requests
+
+    response = requests.request(
+        'GET',
+        'http://localhost:8090/healthz',
+        headers={},
+        timeout=30,
+    )
+    response.raise_for_status()
+    print(response.json())
+    ```
 
 ## Step 5: Embed the widget
 

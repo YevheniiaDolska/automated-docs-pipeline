@@ -77,11 +77,43 @@ Add authentication in the webhook node settings:
 
 Send a test request to verify your webhook works:
 
-```bash
-curl -X POST https://your-domain.example.com:5678/webhook/test \
-  -H "Content-Type: application/json" \
-  -d '{"event": "test", "timestamp": "2026-03-07T12:00:00Z"}'
-```
+=== "cURL"
+
+    ```bash smoke
+    curl -X POST https://your-domain.example.com:5678/webhook/test \
+      -H "Content-Type: application/json" \
+      -d '{"event": "test", "timestamp": "2026-03-07T12:00:00Z"}'
+    ```
+
+=== "JavaScript"
+
+    ```javascript smoke
+    const response = await fetch('https://your-domain.example.com:5678/webhook/test', {
+      method: 'POST',
+      headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({"event": "test", "timestamp": "2026-03-07T12:00:00Z"}),
+    });
+    const payload = await response.json();
+    console.log(payload);
+    ```
+
+=== "Python"
+
+    ```python smoke
+    import requests
+
+    response = requests.request(
+        'POST',
+        'https://your-domain.example.com:5678/webhook/test',
+        headers={'Content-Type': 'application/json'},
+    json='{"event": "test", "timestamp": "2026-03-07T12:00:00Z"}',
+        timeout=30,
+    )
+    response.raise_for_status()
+    print(response.json())
+    ```
 
 Expected response:
 

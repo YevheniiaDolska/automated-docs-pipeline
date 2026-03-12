@@ -15,11 +15,42 @@ Use this guide to implement authentication that is secure by default and easy to
 
 ## Quick start (first successful request)
 
-```bash
-curl -X GET https://api.example.com/v1/projects \
-  -H "Authorization: Bearer $API_TOKEN" \
-  -H "Content-Type: application/json"
-```
+=== "cURL"
+
+    ```bash smoke
+    curl -X GET https://api.example.com/v1/projects \
+      -H "Authorization: Bearer $API_TOKEN" \
+      -H "Content-Type: application/json"
+    ```
+
+=== "JavaScript"
+
+    ```javascript smoke
+    const response = await fetch('https://api.example.com/v1/projects', {
+      method: 'GET',
+      headers: {
+      'Authorization': 'Bearer $API_TOKEN',
+      'Content-Type': 'application/json',
+    },
+    });
+    const payload = await response.json();
+    console.log(payload);
+    ```
+
+=== "Python"
+
+    ```python smoke
+    import requests
+
+    response = requests.request(
+        'GET',
+        'https://api.example.com/v1/projects',
+        headers={'Authorization': 'Bearer $API_TOKEN', 'Content-Type': 'application/json'},
+        timeout=30,
+    )
+    response.raise_for_status()
+    print(response.json())
+    ```
 
 Expected response:
 
@@ -174,3 +205,7 @@ Replace placeholders before publishing:
 - `templates/security-guide.md`
 - `templates/error-handling-guide.md`
 - `templates/integration-guide.md`
+
+## Next steps
+
+- [Documentation index](../index.md)
