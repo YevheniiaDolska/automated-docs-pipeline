@@ -62,14 +62,18 @@ You are running a live demo of the Auto-Doc Pipeline for a potential client. You
 
 ```bash
 cd "/mnt/c/Users/Kroha/Documents/development/Auto-Doc Pipeline"
-export PATH=~/bin:$PATH
+export PATH="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:$HOME/bin:$PATH"
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"
+command -v npm
+command -v /usr/bin/tail
 ```
 
 Say: "Let us begin. First, I will show how the system FINDS documentation priorities from four signals: code analysis, community questions, search analytics, and stale-content freshness metrics."
 
 ```bash
-npm run gaps 2>&1 | tail -30
-npm run kpi-wall 2>&1 | tail -20
+npm run gaps 2>&1 | /usr/bin/tail -30
+npm run kpi-wall 2>&1 | /usr/bin/tail -20
 ```
 
 ### Step 2. Show consolidated report
@@ -686,7 +690,7 @@ while true; do
   echo "  Deploy failed. Starting remediation cycle..."
 
   # 1) Collect failure diagnostics
-  gh run view "$run_id" --log-failed 2>/dev/null | tail -200 || true
+  gh run view "$run_id" --log-failed 2>/dev/null | /usr/bin/tail -200 || true
 
   # 2) Reproduce locally and identify root cause
   npm run validate:full || true
