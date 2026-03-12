@@ -25,6 +25,7 @@ bundle:
     - "scripts/normalize_docs.py"
     - "scripts/lint_code_snippets.py"
     - "scripts/check_code_examples_smoke.py"
+    - "scripts/sync_project_glossary.py"
     - "scripts/generate_multilang_tabs.py"
     - "scripts/validate_multilang_examples.py"
     - "scripts/seo_geo_optimizer.py"
@@ -81,6 +82,7 @@ runtime:
     docs_contract: true
     kpi_sla: true
     rag_optimization: true
+    terminology_management: true
     multilang_examples: true
     normalization: true
     snippet_lint: true
@@ -90,6 +92,10 @@ runtime:
     knowledge_validation: true
     i18n_sync: true
     release_pack: true
+  terminology:
+    enabled: true
+    glossary_path: "glossary.yml"
+    auto_add_from_markers: true
   multilang_examples:
     enabled: true
     scope: "all"

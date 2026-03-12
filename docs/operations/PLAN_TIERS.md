@@ -29,6 +29,7 @@ Use this with:
 | KPI/SLA reports | No | Yes | Yes |
 | API-first flow | No | Optional | Full |
 | RAG/knowledge validation/index | No | Yes | Yes |
+| Terminology auto-sync (glossary markers) | Yes | Yes | Yes |
 | i18n sync | No | Optional | Yes |
 | SEO/GEO optimization weekly | Optional | Yes | Yes |
 | Custom weekly task slots | 2 | 6 | Unlimited |
@@ -51,6 +52,7 @@ runtime:
     docs_contract: false
     kpi_sla: false
     rag_optimization: false
+    terminology_management: true
     normalization: true
     snippet_lint: true
     self_checks: true
@@ -89,6 +91,7 @@ runtime:
     docs_contract: true
     kpi_sla: true
     rag_optimization: true
+    terminology_management: true
     normalization: true
     snippet_lint: true
     self_checks: true
@@ -139,6 +142,7 @@ runtime:
     docs_contract: true
     kpi_sla: true
     rag_optimization: true
+    terminology_management: true
     normalization: true
     snippet_lint: true
     self_checks: true

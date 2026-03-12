@@ -48,6 +48,7 @@ class HealthSummary:
     sla_breaches: list[str] = field(default_factory=list)
     total_action_items: int = 0
     translation_coverage: dict[str, float] = field(default_factory=dict)
+    terminology_new_terms: int = 0
 
 
 @dataclass
@@ -351,6 +352,75 @@ class ReportConsolidator:
             )
             self.action_items.append(action)
 
+    def _process_glossary(self) -> None:
+        """Process glossary_sync_report.json (terminology sync report)."""
+        data = self._read_json("glossary_sync_report.json")
+        if data is None:
+            self.input_statuses["glossary"] = InputReportStatus(found=False)
+            return
+
+        added_terms = data.get("added_terms", [])
+        updated_terms = data.get("updated_terms", [])
+        self.input_statuses["glossary"] = InputReportStatus(
+            found=True,
+            generated_at=data.get("generated_at", ""),
+            details={
+                "markers_found": data.get("markers_found", 0),
+                "added_count": data.get("added_count", 0),
+                "updated_count": data.get("updated_count", 0),
+            },
+        )
+        self.health.terminology_new_terms = int(data.get("added_count", 0))
+
+        for item in added_terms:
+            term = str(item.get("term", "")).strip()
+            source = str(item.get("source", "")).strip()
+            if not term:
+                continue
+            self.action_items.append(
+                ActionItem(
+                    id=self._next_id(),
+                    source_report="glossary",
+                    source_id=None,
+                    title=f"Review glossary term: {term}",
+                    category="terminology_governance",
+                    suggested_doc_type="reference",
+                    priority="low",
+                    frequency=0,
+                    action_required=(
+                        f"Review glossary entry '{term}' for exact wording and approved aliases."
+                    ),
+                    related_files=[path for path in [source, "glossary.yml"] if path],
+                    context={
+                        "terminology_related": True,
+                        "term": term,
+                        "source": source,
+                    },
+                )
+            )
+
+        if updated_terms:
+            self.action_items.append(
+                ActionItem(
+                    id=self._next_id(),
+                    source_report="glossary",
+                    source_id=None,
+                    title="Review updated glossary entries",
+                    category="terminology_governance",
+                    suggested_doc_type="reference",
+                    priority="low",
+                    frequency=0,
+                    action_required=(
+                        f"Review {len(updated_terms)} updated glossary entries for consistent terminology governance."
+                    ),
+                    related_files=["glossary.yml"],
+                    context={
+                        "terminology_related": True,
+                        "updated_count": len(updated_terms),
+                    },
+                )
+            )
+
     def _cross_reference_drift(self) -> None:
         """Аннотирует gap-элементы, связанные с дрифтом."""
         drift_data = self._read_json("api_sdk_drift_report.json")
@@ -381,6 +451,7 @@ class ReportConsolidator:
         self._process_kpi()
         self._process_sla()
         self._process_i18n()
+        self._process_glossary()
         self._cross_reference_drift()
 
         self.health.total_action_items = len(self.action_items)

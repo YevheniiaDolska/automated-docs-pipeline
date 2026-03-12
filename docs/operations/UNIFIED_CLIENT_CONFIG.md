@@ -241,6 +241,7 @@ runtime:
     docs_contract: true
     kpi_sla: true
     rag_optimization: true
+    terminology_management: true
     normalization: true
     snippet_lint: true
     self_checks: true
@@ -257,6 +258,7 @@ runtime:
 - `drift_detection` -> `scripts/check_api_sdk_drift.py`
 - `docs_contract` -> `scripts/check_docs_contract.py`
 - `kpi_sla` -> `scripts/evaluate_kpi_sla.py` + `scripts/generate_kpi_wall.py`
+- `terminology_management` -> `scripts/sync_project_glossary.py`
 - `normalization` -> `scripts/normalize_docs.py`
 - `snippet_lint` -> `scripts/lint_code_snippets.py`
 - `self_checks` -> `scripts/check_code_examples_smoke.py`
@@ -270,6 +272,14 @@ runtime:
 - `api-first/hybrid` -> `scripts/run_api_first_flow.py` + `scripts/generate_openapi_from_planning_notes.py` + `scripts/validate_openapi_contract.py` + `scripts/generate_fastapi_stubs_from_openapi.py` + `scripts/apply_openapi_overrides.py` + `scripts/check_openapi_regression.py`
 
 If script is missing in bundle, module is skipped or warned.
+
+Glossary marker format for new terms inside docs:
+
+```markdown
+<!-- glossary:add: Term | Description | alias-one, alias-two -->
+```
+
+`sync_project_glossary.py` reads markers and updates `glossary.yml`.
 
 Important: API-first is only one flow branch.
 The pipeline supports and generates all major doc types (tutorial/how-to/concept/reference/troubleshooting/release/security/sdk/api/user/admin/runbook), and quality automation applies across them.
@@ -619,6 +629,7 @@ Default automation order in weekly runner:
 \11. extract knowledge modules from docs (`extract_knowledge_modules_from_docs.py`)
 \11. validate modules (`validate_knowledge_modules.py`)
 \11. regenerate retrieval index (`generate_knowledge_retrieval_index.py`)
+\11. sync glossary markers to `glossary.yml` (`sync_project_glossary.py`)
 \11. generate multi-language tabs (`generate_multilang_tabs.py`)
 \11. validate multi-language tabs (`validate_multilang_examples.py`)
 \11. run smoke checks with optional `expected-output` matching (`check_code_examples_smoke.py`)

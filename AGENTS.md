@@ -479,6 +479,17 @@ markdownlint docs/path/to/file.md
 
 ## Creating new documents
 
+### Terminology governance (mandatory)
+
+For every document generation/update:
+
+\11. Read `glossary.yml` first and use preferred terms.
+\11. If you introduce a new project term, add marker in the document:
+   `<!-- glossary:add: Term | Description | alias-one, alias-two -->`
+\11. Run:
+   `python3 scripts/sync_project_glossary.py --paths docs --glossary glossary.yml --report reports/glossary_sync_report.json --write`
+\11. Keep marker descriptions concrete and product-specific.
+
 ### Use templates and snippets for consistency
 
 **ALWAYS use existing templates and snippets when creating new documentation:**

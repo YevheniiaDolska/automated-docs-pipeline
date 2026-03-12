@@ -107,6 +107,8 @@ class TestBuildClientBundle:
         assert runtime["api_first"]["openapi_version"] == "3.0.3"
         assert runtime["api_first"]["manual_overrides_path"] == ""
         assert runtime["api_first"]["regression_snapshot_path"] == ""
+        assert runtime["terminology"]["enabled"] is True
+        assert runtime["terminology"]["glossary_path"] == "glossary.yml"
         selected = yaml.safe_load((out / "policy_packs" / "selected.yml").read_text(encoding="utf-8"))
         assert selected["docs_contract"]["doc_patterns"] == ["^manual/"]
         assert (out / "scripts" / "gap_detector.py").exists()
@@ -369,6 +371,7 @@ class TestWeeklyBatch:
             "normalize_docs.py",
             "lint_code_snippets.py",
             "check_code_examples_smoke.py",
+            "sync_project_glossary.py",
             "seo_geo_optimizer.py",
             "doc_layers_validator.py",
             "validate_knowledge_modules.py",
@@ -393,6 +396,7 @@ class TestWeeklyBatch:
                 "fact_checks": True,
                 "knowledge_validation": True,
                 "rag_optimization": True,
+                "terminology_management": True,
                 "i18n_sync": True,
                 "release_pack": True,
                 "kpi_sla": True,

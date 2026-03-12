@@ -1,3 +1,14 @@
+---
+title: "Policy packs"
+description: "Reference guide for selecting, configuring, and enforcing policy packs across docs contract, drift, KPI/SLA, and terminology governance."
+content_type: reference
+product: both
+last_reviewed: "2026-03-12"
+tags:
+  - Operations
+  - Reference
+---
+
 # Policy packs
 
 This guide explains what policy packs are, how they work, and how to choose the right one for each company.
@@ -14,13 +25,14 @@ For example:
 
 ## What a policy pack controls
 
-Each policy pack defines up to four top-level sections:
+Each policy pack defines top-level sections:
 
 | Section | What it does | Used by |
 | --- | --- | --- |
 | `docs_contract` | Defines `interface_patterns` and `doc_patterns`. When a PR changes files matching interface patterns but does not change files matching doc patterns, the PR is blocked. | `check_docs_contract.py`, `pr-dod-contract.yml` |
 | `drift` | Defines `openapi_patterns`, `sdk_patterns`, and `reference_doc_patterns`. When OpenAPI or SDK files change without a corresponding reference doc update, drift is reported. | `check_api_sdk_drift.py`, `api-sdk-drift-gate.yml` |
 | `kpi_sla` | Defines numeric thresholds for quality score, stale percentage, gap count, and quality regression. Breaching any threshold fails the SLA check. | `evaluate_kpi_sla.py`, `kpi-wall.yml`, `weekly-consolidation.yml` |
+| `terminology` | Defines glossary governance thresholds (`glossary_sync_required`, max new terms per week) for project terminology growth. | `sync_project_glossary.py`, `run_weekly_gap_batch.py` |
 | `plg` | (PLG pack only) Controls API sandbox mode, value-first documentation requirements, and recommended sections. | Advisory guidance for PLG teams |
 
 When a developer changes a file matching `interface_patterns` but does not change any file matching `doc_patterns`, the PR fails. That is how the pipeline enforces documentation freshness.
@@ -544,3 +556,7 @@ A policy pack rollout is done when:
 1. Team understands why failures happen and how to fix them.
 1. Baseline and target thresholds are documented.
 1. Custom pack is created if built-in packs do not match.
+
+## Next steps
+
+- [Documentation index](../index.md)

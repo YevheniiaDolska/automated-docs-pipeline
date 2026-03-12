@@ -82,6 +82,7 @@ runtime:
     docs_contract: true
     kpi_sla: true
     rag_optimization: true
+    terminology_management: true
     lifecycle_management: true
 ```
 
@@ -104,6 +105,7 @@ bundle:
 - lifecycle checks/reports
 - SEO/GEO
 - RAG/knowledge index
+- terminology sync to glossary (`sync_project_glossary.py`)
 - drift/contract/KPI-SLA
 
 Ключевые возможности (ваше основное УТП) включаются через:
@@ -122,6 +124,7 @@ runtime:
 
 - SEO/GEO (`seo_geo_optimizer.py`)
 - RAG/knowledge index (`generate_knowledge_retrieval_index.py`)
+- glossary sync (`sync_project_glossary.py`)
 - интент-бандлы (`build_all_intent_experiences.py`)
 - мультиязычные табы кода (`generate_multilang_tabs.py` + `validate_multilang_examples.py`)
 - i18n sync/translate
@@ -431,10 +434,12 @@ runtime:
     docs_contract: true
     kpi_sla: true
     rag_optimization: true
+    terminology_management: true
 bundle:
   include_scripts:
     - "scripts/check_docs_contract.py"
     - "scripts/evaluate_kpi_sla.py"
+    - "scripts/sync_project_glossary.py"
 ```
 
 ### Клиент 2: ReadMe + GitHub, очень строгий quality bar

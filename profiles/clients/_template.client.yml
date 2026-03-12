@@ -48,6 +48,7 @@ bundle:
     - "scripts/extract_knowledge_modules_from_docs.py"
     - "scripts/validate_knowledge_modules.py"
     - "scripts/generate_knowledge_retrieval_index.py"
+    - "scripts/sync_project_glossary.py"
     - "scripts/build_all_intent_experiences.py"
     - "scripts/apply_openapi_overrides.py"
     - "scripts/check_openapi_regression.py"
@@ -130,6 +131,7 @@ runtime:
     docs_contract: true
     kpi_sla: true
     rag_optimization: true
+    terminology_management: true
     multilang_examples: true
     normalization: true
     snippet_lint: true
@@ -140,6 +142,10 @@ runtime:
     knowledge_validation: true
     i18n_sync: true
     release_pack: true
+  terminology:
+    enabled: true
+    glossary_path: "glossary.yml"
+    auto_add_from_markers: true
   multilang_examples:
     enabled: true
     scope: "all"

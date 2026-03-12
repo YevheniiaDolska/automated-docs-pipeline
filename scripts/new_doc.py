@@ -7,10 +7,12 @@ Follows Diátaxis framework and ensures all linting rules are met from the start
 
 import argparse
 import re
-import yaml
+import sys
 from datetime import date
 from pathlib import Path
 import subprocess
+
+import yaml
 
 class DocumentCreator:
     """Creates new documentation files from templates with all required metadata."""
@@ -885,6 +887,9 @@ If your docs site enables playground integration, add:
         # Validate with linters
         self.validate_document(output_path)
 
+        # Sync glossary markers from the new document into glossary.yml.
+        self.sync_glossary(output_path)
+
         return output_path
 
     def generate_frontmatter(
@@ -1024,6 +1029,39 @@ If your docs site enables playground integration, add:
 
         print(f"\n📄 Document created successfully!")
         print(f"   Edit your new document: {file_path}")
+
+    def sync_glossary(self, file_path: Path) -> None:
+        """Sync glossary markers from a generated document."""
+        sync_script = Path("scripts/sync_project_glossary.py")
+        glossary_path = Path("glossary.yml")
+        if not sync_script.exists() or not glossary_path.exists():
+            print("  ⏭️ Glossary sync script or glossary file is missing, skipping terminology sync")
+            return
+
+        try:
+            result = subprocess.run(
+                [
+                    sys.executable,
+                    str(sync_script),
+                    "--paths",
+                    str(file_path),
+                    "--glossary",
+                    str(glossary_path),
+                    "--report",
+                    "reports/glossary_sync_report.json",
+                    "--write",
+                ],
+                capture_output=True,
+                text=True,
+                timeout=20,
+                check=False,
+            )
+            if result.returncode == 0:
+                print("  ✅ Glossary sync completed")
+            else:
+                print("  ⚠️ Glossary sync failed (non-blocking)")
+        except Exception:
+            print("  ⚠️ Glossary sync failed (non-blocking)")
 
 def main():
     parser = argparse.ArgumentParser(

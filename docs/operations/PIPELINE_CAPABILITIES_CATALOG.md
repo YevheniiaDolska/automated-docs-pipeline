@@ -88,6 +88,7 @@ runtime:
 | `generate:multilang-tabs:all` | General | `python3 scripts/generate_multilang_tabs.py --paths docs templates --scope all --write` |
 | `generator:detect` | General | `python3 scripts/run_generator.py detect` |
 | `generator:info` | General | `python3 scripts/run_generator.py info` |
+| `glossary:sync` | General | `python3 scripts/sync_project_glossary.py --paths docs --glossary glossary.yml --report reports/glossary_sync_report.json --write` |
 | `i18n:migrate` | Localization | `python3 scripts/i18n_migrate.py` |
 | `i18n:sync` | Localization | `python3 scripts/i18n_sync.py` |
 | `i18n:translate` | Localization | `python3 scripts/i18n_translate.py` |

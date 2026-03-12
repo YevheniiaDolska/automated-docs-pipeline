@@ -49,6 +49,10 @@ kpi_sla:
   max_high_priority_gaps: 5
   max_quality_score_drop: 3
 
+terminology:
+  glossary_sync_required: true
+  max_new_terms_per_week: 50
+
 plg:
   mode: mixed
   # sandbox-only | real-api | mixed

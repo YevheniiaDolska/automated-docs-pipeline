@@ -13,6 +13,7 @@
     "lint:frontmatter": "python3 scripts/validate_frontmatter.py",
     "lint:geo": "python3 scripts/seo_geo_optimizer.py docs/",
     "lint:knowledge": "python3 scripts/validate_knowledge_modules.py",
+    "glossary:sync": "python3 scripts/sync_project_glossary.py --paths docs --glossary glossary.yml --report reports/glossary_sync_report.json --write",
     "lint:snippets": "python3 scripts/lint_code_snippets.py docs/",
     "lint:snippets:strict": "python3 scripts/lint_code_snippets.py docs/ templates/ --strict",
     "lint:multilang": "python3 scripts/validate_multilang_examples.py --docs-dir docs --scope api --required-languages curl,javascript,python",

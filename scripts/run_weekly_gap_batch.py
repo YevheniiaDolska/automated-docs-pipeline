@@ -130,6 +130,7 @@ def main() -> int:
     pipeline = runtime.get("pipeline", {})
     api_first = runtime.get("api_first", {})
     multilang_examples = runtime.get("multilang_examples", {})
+    terminology = runtime.get("terminology", {})
     custom_tasks = runtime.get("custom_tasks", {})
     integrations = runtime.get("integrations", {})
 
@@ -362,6 +363,28 @@ def main() -> int:
     release_pack = scripts_dir / "generate_release_docs_pack.py"
     if _is_enabled(modules, "release_pack", True) and release_pack.exists():
         _run_allow_fail([py, str(release_pack), "--output", str(reports_dir / "release-docs-pack.md")], cwd=repo_root)
+
+    glossary_sync = scripts_dir / "sync_project_glossary.py"
+    if (
+        flow_mode in {"code-first", "hybrid", "api-first"}
+        and _is_enabled(modules, "terminology_management", True)
+        and glossary_sync.exists()
+        and bool(terminology.get("enabled", True))
+    ):
+        _run_allow_fail(
+            [
+                py,
+                str(glossary_sync),
+                "--paths",
+                str(paths.get("docs_root", "docs")),
+                "--glossary",
+                str(terminology.get("glossary_path", "glossary.yml")),
+                "--report",
+                str(reports_dir / "glossary_sync_report.json"),
+                "--write",
+            ],
+            cwd=repo_root,
+        )
 
     # Optional KPI+SLA pass if scripts are present in the bundle.
     kpi_wall = scripts_dir / "generate_kpi_wall.py"
