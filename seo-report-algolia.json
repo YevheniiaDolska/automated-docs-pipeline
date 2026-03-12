@@ -2755,7 +2755,7 @@
       "objectID": "ef6bed7ec2c5e48a8171d3b241106cf7",
       "title": "Run API-first production flow",
       "heading": "Step 2: Run generation and verification",
-      "content": "Run the universal flow command: python3 scripts/run_api_first_flow.py \\   --project-slug taskstream \\   --notes demos/api-first/taskstream-planning-notes.md \\   --spec api/openapi.yaml \\   --spec-tree api/taskstream \\   --docs-provider mkdocs \\   --verify-user-path \\   --mock-base-url http://localhost:4010/v1 \\   --auto-remediate \\   --max-attempts 3 The runner performs: 1. OpenAPI generation from notes. 1. Contract validation. 1. Spectral, Redocly, and Swagger CLI lint checks. 1. FastAPI stub generation. 1. Self-verification of operation coverage and user-path calls. ",
+      "content": "Run the universal flow command: python3 scripts/run_api_first_flow.py \\   --project-slug taskstream \\   --notes demos/api-first/taskstream-planning-notes.md \\   --spec api/openapi.yaml \\   --spec-tree api/taskstream \\   --docs-provider mkdocs \\   --verify-user-path \\   --mock-base-url http://localhost:4010/v1 \\   --auto-remediate \\   --max-attempts 3 The runner performs: 1. OpenAPI generation from notes. 1. Contract validation. 1. Spectral, Redocly, and Swagger CLI lint checks. 1. FastAPI stub generation. 1. Self-verification of operation coverage and user-path calls. If you maintain multiple API versions, run one flow per version and publish to separate docs asset paths. Example layout: api/v1/openapi.yaml -> docs/assets/api/v1/ api/v2/openapi.yaml -> docs/assets/api/v2/ ",
       "description": "Generate OpenAPI from planning notes, run full lint and self-verification, publish playground assets, and keep a sandbox ready for client testing.",
       "product": "both",
       "content_type": "how-to",
@@ -2779,7 +2779,7 @@
       "path": "docs/how-to/run-api-first-production-flow.md",
       "ranking_boost": 6,
       "heading_level": 2,
-      "word_count": 63,
+      "word_count": 89,
       "has_code": false,
       "code_snippets": []
     },
@@ -2850,7 +2850,43 @@
     {
       "objectID": "751c8c6a5eaa1864332d53acc3098124",
       "title": "Run API-first production flow",
-      "heading": "Step 5: Stop sandbox when needed",
+      "heading": "Step 5: Apply multilingual examples baseline",
+      "content": "Run these commands to keep code snippets aligned with the new docs standard: python3 scripts/generate_multilang_tabs.py --paths docs templates --scope api --write python3 scripts/validate_multilang_examples.py --docs-dir docs --scope api --required-languages curl,javascript,python python3 scripts/check_code_examples_smoke.py --paths docs templates --allow-empty Use this API request tab set as the baseline format for executable examples: === \"cURL\"     ``bash     curl -sS http://localhost:4010/v1/healthz     ` === \"JavaScript\"     `javascript     const res = await fetch(\"http://localhost:4010/v1/healthz\");     console.log(await res.json());     ` === \"Python\"     `python     import requests     res = requests.get(\"http://localhost:4010/v1/healthz\", timeout=10)     print(res.json())     `` ",
+      "description": "Generate OpenAPI from planning notes, run full lint and self-verification, publish playground assets, and keep a sandbox ready for client testing.",
+      "product": "both",
+      "content_type": "how-to",
+      "component": "",
+      "version": "",
+      "maturity": "ga",
+      "tags": [
+        "How-To",
+        "Cloud",
+        "Self-hosted"
+      ],
+      "hierarchy": {
+        "lvl0": "both",
+        "lvl1": "how-to",
+        "lvl2": "Step 5: Apply multilingual examples baseline",
+        "lvl3": "",
+        "lvl4": ""
+      },
+      "url": "/how-to/run-api-first-production-flow#5",
+      "last_reviewed": "2026-03-09",
+      "path": "docs/how-to/run-api-first-production-flow.md",
+      "ranking_boost": 6,
+      "heading_level": 2,
+      "word_count": 77,
+      "has_code": true,
+      "code_snippets": [
+        "```bash     curl -sS http://localhost:4010/v1/healthz     ```",
+        "```javascript     const res = await fetch(\"http://localhost:4010/v1/healthz\");     console.log(await res.json());     ```",
+        "```python     import requests     res = requests.get(\"http://localhost:4010/v1/healthz\", timeout=10)     print(res.json())     ```"
+      ]
+    },
+    {
+      "objectID": "aadbd5415ec7057ab6bd73c9d9b0c887",
+      "title": "Run API-first production flow",
+      "heading": "Step 6: Stop sandbox when needed",
       "content": "bash scripts/api_sandbox_project.sh down taskstream ./api/openapi.yaml 4010 bash scripts/api_prodlike_project.sh down taskstream 4011 ",
       "description": "Generate OpenAPI from planning notes, run full lint and self-verification, publish playground assets, and keep a sandbox ready for client testing.",
       "product": "both",
@@ -2866,11 +2902,11 @@
       "hierarchy": {
         "lvl0": "both",
         "lvl1": "how-to",
-        "lvl2": "Step 5: Stop sandbox when needed",
+        "lvl2": "Step 6: Stop sandbox when needed",
         "lvl3": "",
         "lvl4": ""
       },
-      "url": "/how-to/run-api-first-production-flow#5",
+      "url": "/how-to/run-api-first-production-flow#6",
       "last_reviewed": "2026-03-09",
       "path": "docs/how-to/run-api-first-production-flow.md",
       "ranking_boost": 6,
@@ -2880,7 +2916,7 @@
       "code_snippets": []
     },
     {
-      "objectID": "aadbd5415ec7057ab6bd73c9d9b0c887",
+      "objectID": "1f4e7eca0358ab758c36cd64f6b36937",
       "title": "Run API-first production flow",
       "heading": "Next steps",
       "content": "- TaskStream API playground - TaskStream API planning notes ",
@@ -2902,7 +2938,7 @@
         "lvl3": "",
         "lvl4": ""
       },
-      "url": "/how-to/run-api-first-production-flow#6",
+      "url": "/how-to/run-api-first-production-flow#7",
       "last_reviewed": "2026-03-09",
       "path": "docs/how-to/run-api-first-production-flow.md",
       "ranking_boost": 6,
@@ -8140,7 +8176,7 @@
       "objectID": "86151fa48050ff94a93a90cd09b28b6a",
       "title": "TaskStream API playground",
       "heading": "Playground embed",
-      "content": "<div   id=\"api-playground-root\"   data-provider=\"swagger-ui\"   data-source-strategy=\"api-first\"   data-api-first-spec-url=\"/assets/api/openapi.yaml\"   data-try-it-enabled=\"true\"   data-try-it-mode=\"sandbox-only\"   data-sandbox-base-url=\"{{ docs_url }}/sandbox/taskstream/v1\"   data-production-base-url=\"{{ cloud_url }}/v1\" ></div> ",
+      "content": "<div   id=\"api-playground-root\"   data-provider=\"swagger-ui\"   data-source-strategy=\"api-first\"   data-api-first-spec-url=\"/assets/api/openapi.yaml\"   data-try-it-enabled=\"true\"   data-try-it-mode=\"sandbox-only\"   data-sandbox-base-url=\"{{ docs_url }}/sandbox/taskstream/v1\"   data-production-base-url=\"{{ cloud_url }}/v1\" ></div> For multi-version API docs, publish one spec per version and add separate playground blocks or tabs: - /assets/api/v1/openapi.yaml - /assets/api/v2/openapi.yaml ",
       "description": "Interactive TaskStream OpenAPI playground with Swagger UI or Redoc and try-it-out requests against mock or prod-like sandbox endpoints.",
       "product": "both",
       "content_type": "reference",
@@ -8164,12 +8200,48 @@
       "path": "docs/reference/taskstream-api-playground.md",
       "ranking_boost": 4,
       "heading_level": 2,
-      "word_count": 14,
+      "word_count": 34,
       "has_code": false,
       "code_snippets": []
     },
     {
       "objectID": "5b9654744dcdb696ac87a74a3abfc41e",
+      "title": "TaskStream API playground",
+      "heading": "Multi-language request examples",
+      "content": "=== \"cURL\"     ``bash     curl -sS \"{{ docs_url }}/sandbox/taskstream/v1/healthz\"     ` === \"JavaScript\"     `javascript     const res = await fetch(\"{{ docs_url }}/sandbox/taskstream/v1/healthz\");     console.log(await res.json());     ` === \"Python\"     `python     import requests     res = requests.get(\"{{ docs_url }}/sandbox/taskstream/v1/healthz\", timeout=10)     print(res.json())     `` ",
+      "description": "Interactive TaskStream OpenAPI playground with Swagger UI or Redoc and try-it-out requests against mock or prod-like sandbox endpoints.",
+      "product": "both",
+      "content_type": "reference",
+      "component": "",
+      "version": "",
+      "maturity": "ga",
+      "tags": [
+        "Reference",
+        "Cloud",
+        "Self-hosted"
+      ],
+      "hierarchy": {
+        "lvl0": "both",
+        "lvl1": "reference",
+        "lvl2": "Multi-language request examples",
+        "lvl3": "",
+        "lvl4": ""
+      },
+      "url": "/reference/taskstream-api-playground#3",
+      "last_reviewed": "2026-03-09",
+      "path": "docs/reference/taskstream-api-playground.md",
+      "ranking_boost": 4,
+      "heading_level": 2,
+      "word_count": 35,
+      "has_code": true,
+      "code_snippets": [
+        "```bash     curl -sS \"{{ docs_url }}/sandbox/taskstream/v1/healthz\"     ```",
+        "```javascript     const res = await fetch(\"{{ docs_url }}/sandbox/taskstream/v1/healthz\");     console.log(await res.json());     ```",
+        "```python     import requests     res = requests.get(\"{{ docs_url }}/sandbox/taskstream/v1/healthz\", timeout=10)     print(res.json())     ```"
+      ]
+    },
+    {
+      "objectID": "e32c50fe1baf3e97a3d464775f4f3dce",
       "title": "TaskStream API playground",
       "heading": "What this validates",
       "content": "1. Request and response schema compatibility. 1. Pagination, filtering, and sorting behavior. 1. Error envelope and request-id propagation. 1. Endpoint availability before backend merge. ",
@@ -8191,7 +8263,7 @@
         "lvl3": "",
         "lvl4": ""
       },
-      "url": "/reference/taskstream-api-playground#3",
+      "url": "/reference/taskstream-api-playground#4",
       "last_reviewed": "2026-03-09",
       "path": "docs/reference/taskstream-api-playground.md",
       "ranking_boost": 4,
@@ -8201,7 +8273,7 @@
       "code_snippets": []
     },
     {
-      "objectID": "e32c50fe1baf3e97a3d464775f4f3dce",
+      "objectID": "6d5de64eec57d3e18081174c064dbd6a",
       "title": "TaskStream API playground",
       "heading": "Related pages",
       "content": "- Run API-first production flow - TaskStream API planning notes ",
@@ -8223,7 +8295,7 @@
         "lvl3": "",
         "lvl4": ""
       },
-      "url": "/reference/taskstream-api-playground#4",
+      "url": "/reference/taskstream-api-playground#5",
       "last_reviewed": "2026-03-09",
       "path": "docs/reference/taskstream-api-playground.md",
       "ranking_boost": 4,
@@ -8233,7 +8305,7 @@
       "code_snippets": []
     },
     {
-      "objectID": "6d5de64eec57d3e18081174c064dbd6a",
+      "objectID": "2ef9a02ede16f7c181f53842b170ab5d",
       "title": "TaskStream API playground",
       "heading": "Next steps",
       "content": "- Documentation index ",
@@ -8255,7 +8327,7 @@
         "lvl3": "",
         "lvl4": ""
       },
-      "url": "/reference/taskstream-api-playground#5",
+      "url": "/reference/taskstream-api-playground#6",
       "last_reviewed": "2026-03-09",
       "path": "docs/reference/taskstream-api-playground.md",
       "ranking_boost": 4,
