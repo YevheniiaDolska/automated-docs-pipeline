@@ -1,6 +1,6 @@
 ## SEO/GEO Optimization Report
 
-**Date**: Thu Mar 12 10:24:10 UTC 2026
+**Date**: Thu Mar 12 10:56:44 UTC 2026
 **Branch**: main
 
 ### Findings Summary
@@ -15,5 +15,5 @@ GEO Findings: 0 errors, 27 warnings, 72 suggestions
 - High priority pages: 37
 
 ### Search Index Statistics
-- Total records: 283
+- Total records: 284
 
