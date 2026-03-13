@@ -553,6 +553,638 @@
       "code_snippets": []
     },
     {
+      "objectID": "8d4c93b6e31c6f0d4ffad1ad5ace7fcb",
+      "title": "Set up a real-time webhook processing pipeline",
+      "heading": "Set up a real-time webhook processing pipeline",
+      "content": "{{ product_name }} webhook processing pipeline enables real-time event ingestion with cryptographic signature verification, async queue processing, and automatic retry logic. This guide walks you through setting up a production-ready webhook receiver with HMAC-SHA256 authentication, BullMQ event queuing, and delivery guarantees supporting up to {{ rate_limit_requests_per_minute }} events per minute. ",
+      "description": "Configure end-to-end webhook ingestion with HMAC verification, async queue processing, and delivery guarantees in under 15 minutes.",
+      "product": "both",
+      "content_type": "how-to",
+      "component": "",
+      "version": "",
+      "maturity": "ga",
+      "tags": [
+        "Webhook",
+        "How-To",
+        "Cloud",
+        "Self-hosted"
+      ],
+      "hierarchy": {
+        "lvl0": "both",
+        "lvl1": "how-to",
+        "lvl2": "",
+        "lvl3": "",
+        "lvl4": ""
+      },
+      "url": "/en/how-to/set-up-real-time-webhook-processing-pipeline#0",
+      "last_reviewed": "2026-03-12",
+      "path": "docs/en/how-to/set-up-real-time-webhook-processing-pipeline.md",
+      "ranking_boost": 4,
+      "heading_level": 1,
+      "word_count": 50,
+      "has_code": false,
+      "code_snippets": []
+    },
+    {
+      "objectID": "04fde2f9ecbb4eebd03f78a38d280064",
+      "title": "Set up a real-time webhook processing pipeline",
+      "heading": "Prerequisites",
+      "content": "Before starting, ensure you have: - {{ product_name }} version {{ current_version }} or later - Admin access to the {{ product_name }} dashboard (verify access) - A valid {{ env_vars.encryption_key }} configured in your environment - Node.js 18+ and Python 3.10+ installed - 15 minutes for initial setup Run this version check to confirm your environment: ProductName --version ",
+      "description": "Configure end-to-end webhook ingestion with HMAC verification, async queue processing, and delivery guarantees in under 15 minutes.",
+      "product": "both",
+      "content_type": "how-to",
+      "component": "",
+      "version": "",
+      "maturity": "ga",
+      "tags": [
+        "Webhook",
+        "How-To",
+        "Cloud",
+        "Self-hosted"
+      ],
+      "hierarchy": {
+        "lvl0": "both",
+        "lvl1": "how-to",
+        "lvl2": "Prerequisites",
+        "lvl3": "",
+        "lvl4": ""
+      },
+      "url": "/en/how-to/set-up-real-time-webhook-processing-pipeline#1",
+      "last_reviewed": "2026-03-12",
+      "path": "docs/en/how-to/set-up-real-time-webhook-processing-pipeline.md",
+      "ranking_boost": 4,
+      "heading_level": 2,
+      "word_count": 59,
+      "has_code": false,
+      "code_snippets": []
+    },
+    {
+      "objectID": "0297057bd7e8b2fa163f1415500e6870",
+      "title": "Set up a real-time webhook processing pipeline",
+      "heading": "Expected: 1.50.0 or later",
+      "content": "node --version ",
+      "description": "Configure end-to-end webhook ingestion with HMAC verification, async queue processing, and delivery guarantees in under 15 minutes.",
+      "product": "both",
+      "content_type": "how-to",
+      "component": "",
+      "version": "",
+      "maturity": "ga",
+      "tags": [
+        "Webhook",
+        "How-To",
+        "Cloud",
+        "Self-hosted"
+      ],
+      "hierarchy": {
+        "lvl0": "both",
+        "lvl1": "how-to",
+        "lvl2": "",
+        "lvl3": "",
+        "lvl4": ""
+      },
+      "url": "/en/how-to/set-up-real-time-webhook-processing-pipeline#2",
+      "last_reviewed": "2026-03-12",
+      "path": "docs/en/how-to/set-up-real-time-webhook-processing-pipeline.md",
+      "ranking_boost": 4,
+      "heading_level": 1,
+      "word_count": 2,
+      "has_code": false,
+      "code_snippets": []
+    },
+    {
+      "objectID": "be7ca50c7ca457e06410be9418974aa1",
+      "title": "Set up a real-time webhook processing pipeline",
+      "heading": "Expected: v18.x or later",
+      "content": "python3 --version ",
+      "description": "Configure end-to-end webhook ingestion with HMAC verification, async queue processing, and delivery guarantees in under 15 minutes.",
+      "product": "both",
+      "content_type": "how-to",
+      "component": "",
+      "version": "",
+      "maturity": "ga",
+      "tags": [
+        "Webhook",
+        "How-To",
+        "Cloud",
+        "Self-hosted"
+      ],
+      "hierarchy": {
+        "lvl0": "both",
+        "lvl1": "how-to",
+        "lvl2": "",
+        "lvl3": "",
+        "lvl4": ""
+      },
+      "url": "/en/how-to/set-up-real-time-webhook-processing-pipeline#3",
+      "last_reviewed": "2026-03-12",
+      "path": "docs/en/how-to/set-up-real-time-webhook-processing-pipeline.md",
+      "ranking_boost": 4,
+      "heading_level": 1,
+      "word_count": 2,
+      "has_code": false,
+      "code_snippets": []
+    },
+    {
+      "objectID": "c418b6244d1ecf9bec117e68e051ee7f",
+      "title": "Set up a real-time webhook processing pipeline",
+      "heading": "Expected: 3.10 or later",
+      "content": "!!! info \"Already have a webhook endpoint running?\"     Skip to Configure HMAC-SHA256 signature verification for security hardening. ",
+      "description": "Configure end-to-end webhook ingestion with HMAC verification, async queue processing, and delivery guarantees in under 15 minutes.",
+      "product": "both",
+      "content_type": "how-to",
+      "component": "",
+      "version": "",
+      "maturity": "ga",
+      "tags": [
+        "Webhook",
+        "How-To",
+        "Cloud",
+        "Self-hosted"
+      ],
+      "hierarchy": {
+        "lvl0": "both",
+        "lvl1": "how-to",
+        "lvl2": "",
+        "lvl3": "",
+        "lvl4": ""
+      },
+      "url": "/en/how-to/set-up-real-time-webhook-processing-pipeline#4",
+      "last_reviewed": "2026-03-12",
+      "path": "docs/en/how-to/set-up-real-time-webhook-processing-pipeline.md",
+      "ranking_boost": 4,
+      "heading_level": 1,
+      "word_count": 17,
+      "has_code": false,
+      "code_snippets": []
+    },
+    {
+      "objectID": "c0afd4ec46d1442c230e252abca39fec",
+      "title": "Set up a real-time webhook processing pipeline",
+      "heading": "Configure the webhook receiver endpoint",
+      "content": "=== \"Cloud\"     Navigate to Settings > Webhooks in the {{ product_name }} Cloud dashboard at {{ cloud_url }}.     1. Click Add Endpoint and enter your receiver URL.     1. Select the events you want to subscribe to (up to 8 event types).     1. Copy the signing secret from the endpoint details panel.     1. Set the maximum payload size to {{ max_payload_size_mb }} MB in the advanced settings.     {{ product_name }} Cloud routes webhook traffic through a global edge network with automatic TLS termination and geographic load balancing. === \"Self-hosted\"     Configure the webhook receiver in your {{ product_name }} instance running on port {{ default_port }}:     ``bash     export {{ env_vars.webhook_url }}=\"https://your-domain.com/webhooks\"     export {{ env_vars.encryption_key }}=\"your-32-character-minimum-secret-key\"     export {{ env_vars.port }}={{ default_port }}     `     Start the webhook listener:     `bash     ProductName webhook:listen --port {{ default_port }} --max-payload {{",
+      "description": "Configure end-to-end webhook ingestion with HMAC verification, async queue processing, and delivery guarantees in under 15 minutes.",
+      "product": "both",
+      "content_type": "how-to",
+      "component": "",
+      "version": "",
+      "maturity": "ga",
+      "tags": [
+        "Webhook",
+        "How-To",
+        "Cloud",
+        "Self-hosted"
+      ],
+      "hierarchy": {
+        "lvl0": "both",
+        "lvl1": "how-to",
+        "lvl2": "Configure the webhook receiver endpoint",
+        "lvl3": "",
+        "lvl4": ""
+      },
+      "url": "/en/how-to/set-up-real-time-webhook-processing-pipeline#5",
+      "last_reviewed": "2026-03-12",
+      "path": "docs/en/how-to/set-up-real-time-webhook-processing-pipeline.md",
+      "ranking_boost": 4,
+      "heading_level": 2,
+      "word_count": 153,
+      "has_code": true,
+      "code_snippets": [
+        "```bash     export {{ env_vars.webhook_url }}=\"https://your-domain.com/webhooks\"     export {{ env_vars.encryption_key }}=\"your-32-character-minimum-secret-key\"     export {{ env_vars.port }}={{ default_port }}     ```",
+        "```bash     ProductName webhook:listen --port {{ default_port }} --max-payload {{ max_payload_size_mb }}     ```"
+      ]
+    },
+    {
+      "objectID": "d51a6120d554fb0fdef6566b4cf7f80f",
+      "title": "Set up a real-time webhook processing pipeline",
+      "heading": "Configure HMAC-SHA256 signature verification",
+      "content": "Verify every incoming webhook payload to prevent tampering and replay attacks. {{ product_name }} signs each payload with HMAC-SHA256 using your endpoint secret. ",
+      "description": "Configure end-to-end webhook ingestion with HMAC verification, async queue processing, and delivery guarantees in under 15 minutes.",
+      "product": "both",
+      "content_type": "how-to",
+      "component": "",
+      "version": "",
+      "maturity": "ga",
+      "tags": [
+        "Webhook",
+        "How-To",
+        "Cloud",
+        "Self-hosted"
+      ],
+      "hierarchy": {
+        "lvl0": "both",
+        "lvl1": "how-to",
+        "lvl2": "Configure HMAC-SHA256 signature verification",
+        "lvl3": "",
+        "lvl4": ""
+      },
+      "url": "/en/how-to/set-up-real-time-webhook-processing-pipeline#6",
+      "last_reviewed": "2026-03-12",
+      "path": "docs/en/how-to/set-up-real-time-webhook-processing-pipeline.md",
+      "ranking_boost": 4,
+      "heading_level": 2,
+      "word_count": 23,
+      "has_code": false,
+      "code_snippets": []
+    },
+    {
+      "objectID": "aa88dad14742df45d696083168b169eb",
+      "title": "Set up a real-time webhook processing pipeline",
+      "heading": "Python HMAC verification",
+      "content": "import hmac import hashlib import json import time def verify_webhook_signature(payload_body, signature_header, secret):     \"\"\"Verify HMAC-SHA256 webhook signature with replay protection.\"\"\"     if not signature_header:         return False     # Parse timestamp and signature from header     # Format: t=<timestamp>,v1=<signature>     parts = {}     for part in signature_header.split(\",\"):         key, _, value = part.partition(\"=\")         parts[key.strip()] = value.strip()     timestamp = parts.get(\"t\", \"\")     received_sig = parts.get(\"v1\", \"\")     if not timestamp or not received_sig:         return False     # Replay protection: reject events older than 5 minutes     try:         event_time = int(timestamp)     except ValueError:         return False     if abs(time.time() - event_time) > 300:         return False     # Compute expected signature     signed_payload = f\"{timestamp}.{payload_body}\"     expected_sig = hmac.new(         secret.encode(\"utf-8\"),         signed_payload.e",
+      "description": "Configure end-to-end webhook ingestion with HMAC verification, async queue processing, and delivery guarantees in under 15 minutes.",
+      "product": "both",
+      "content_type": "how-to",
+      "component": "",
+      "version": "",
+      "maturity": "ga",
+      "tags": [
+        "Webhook",
+        "How-To",
+        "Cloud",
+        "Self-hosted"
+      ],
+      "hierarchy": {
+        "lvl0": "both",
+        "lvl1": "how-to",
+        "lvl2": "",
+        "lvl3": "Python HMAC verification",
+        "lvl4": ""
+      },
+      "url": "/en/how-to/set-up-real-time-webhook-processing-pipeline#7",
+      "last_reviewed": "2026-03-12",
+      "path": "docs/en/how-to/set-up-real-time-webhook-processing-pipeline.md",
+      "ranking_boost": 4,
+      "heading_level": 3,
+      "word_count": 164,
+      "has_code": false,
+      "code_snippets": []
+    },
+    {
+      "objectID": "3d00511f2b502a83465d776bcf7b81f8",
+      "title": "Set up a real-time webhook processing pipeline",
+      "heading": "JavaScript HMAC verification",
+      "content": "const crypto = require('crypto'); function verifyWebhookSignature(payload, signatureHeader, secret) {   if (!signatureHeader) return false;   // Parse t=<timestamp>,v1=<signature>   const parts = {};   signatureHeader.split(',').forEach(part => {     const [key, ...rest] = part.split('=');     parts[key.trim()] = rest.join('=').trim();   });   const timestamp = parts.t;   const receivedSig = parts.v1;   if (!timestamp || !receivedSig) return false;   // Replay protection: reject events older than 5 minutes   const eventAge = Math.abs(Date.now() / 1000 - parseInt(timestamp, 10));   if (eventAge > 300) return false;   // Compute expected signature   const signedPayload = ${timestamp}.${payload};   const expectedSig = crypto     .createHmac('sha256', secret)     .update(signedPayload)     .digest('hex');   // Timing-safe comparison   return crypto.timingSafeEqual(     Buffer.from(expectedSig),     Buffer.from(receivedSig)   ); } module.exports = { verifyWebhookSignature }; !!! warning \"Si",
+      "description": "Configure end-to-end webhook ingestion with HMAC verification, async queue processing, and delivery guarantees in under 15 minutes.",
+      "product": "both",
+      "content_type": "how-to",
+      "component": "",
+      "version": "",
+      "maturity": "ga",
+      "tags": [
+        "Webhook",
+        "How-To",
+        "Cloud",
+        "Self-hosted"
+      ],
+      "hierarchy": {
+        "lvl0": "both",
+        "lvl1": "how-to",
+        "lvl2": "",
+        "lvl3": "JavaScript HMAC verification",
+        "lvl4": ""
+      },
+      "url": "/en/how-to/set-up-real-time-webhook-processing-pipeline#8",
+      "last_reviewed": "2026-03-12",
+      "path": "docs/en/how-to/set-up-real-time-webhook-processing-pipeline.md",
+      "ranking_boost": 4,
+      "heading_level": 3,
+      "word_count": 138,
+      "has_code": false,
+      "code_snippets": []
+    },
+    {
+      "objectID": "60f564f07f0f3941bba97f3f9d9582ea",
+      "title": "Set up a real-time webhook processing pipeline",
+      "heading": "Set up async event processing with BullMQ",
+      "content": "After signature verification, enqueue events for reliable async processing: const { Queue, Worker } = require('bullmq'); // Redis-backed event queue const webhookQueue = new Queue('webhooks', {   connection: { host: 'localhost', port: 6379 },   defaultJobOptions: {     attempts: 5,     backoff: { type: 'exponential', delay: 1000 },     removeOnComplete: 1000,     removeOnFail: 5000,   }, }); // Process events asynchronously const worker = new Worker('webhooks', async (job) => {   const { eventType, payload, receivedAt } = job.data;   console.log(Processing ${eventType} event from ${receivedAt});   switch (eventType) {     case 'order.completed':       await handleOrderCompleted(payload);       break;     case 'payment.failed':       await handlePaymentFailed(payload);       break;     default:       console.log(Unhandled event type: ${eventType});   } }, { connection: { host: 'localhost', port: 6379 }, concurrency: 10 }); !!! tip \"Replay protection\"     Include a timestamp in the signe",
+      "description": "Configure end-to-end webhook ingestion with HMAC verification, async queue processing, and delivery guarantees in under 15 minutes.",
+      "product": "both",
+      "content_type": "how-to",
+      "component": "",
+      "version": "",
+      "maturity": "ga",
+      "tags": [
+        "Webhook",
+        "How-To",
+        "Cloud",
+        "Self-hosted"
+      ],
+      "hierarchy": {
+        "lvl0": "both",
+        "lvl1": "how-to",
+        "lvl2": "Set up async event processing with BullMQ",
+        "lvl3": "",
+        "lvl4": ""
+      },
+      "url": "/en/how-to/set-up-real-time-webhook-processing-pipeline#9",
+      "last_reviewed": "2026-03-12",
+      "path": "docs/en/how-to/set-up-real-time-webhook-processing-pipeline.md",
+      "ranking_boost": 4,
+      "heading_level": 2,
+      "word_count": 135,
+      "has_code": false,
+      "code_snippets": []
+    },
+    {
+      "objectID": "39220d1d27084b244152360f75f9a002",
+      "title": "Set up a real-time webhook processing pipeline",
+      "heading": "Webhook configuration parameters",
+      "content": "| Parameter | Type | Default | Description | |-----------|------|---------|-------------| | webhook_secret | string | Required | HMAC signing secret (minimum 32 characters) | | max_payload_size | integer | {{ max_payload_size_mb }} MB | Maximum accepted webhook body size | | timeout_seconds | integer | 30 | Maximum time to acknowledge receipt | | retry_attempts | integer | 5 | Number of delivery retry attempts | | retry_backoff | string | exponential | Backoff strategy: exponential, linear, or fixed | | concurrency | integer | 10 | Parallel event processing workers | | event_retention_days | integer | 30 | Days to retain processed event logs | ",
+      "description": "Configure end-to-end webhook ingestion with HMAC verification, async queue processing, and delivery guarantees in under 15 minutes.",
+      "product": "both",
+      "content_type": "how-to",
+      "component": "",
+      "version": "",
+      "maturity": "ga",
+      "tags": [
+        "Webhook",
+        "How-To",
+        "Cloud",
+        "Self-hosted"
+      ],
+      "hierarchy": {
+        "lvl0": "both",
+        "lvl1": "how-to",
+        "lvl2": "Webhook configuration parameters",
+        "lvl3": "",
+        "lvl4": ""
+      },
+      "url": "/en/how-to/set-up-real-time-webhook-processing-pipeline#10",
+      "last_reviewed": "2026-03-12",
+      "path": "docs/en/how-to/set-up-real-time-webhook-processing-pipeline.md",
+      "ranking_boost": 4,
+      "heading_level": 2,
+      "word_count": 106,
+      "has_code": false,
+      "code_snippets": []
+    },
+    {
+      "objectID": "61851c5295fb78caf997b512a135a761",
+      "title": "Set up a real-time webhook processing pipeline",
+      "heading": "Verify the webhook data flow",
+      "content": "sequenceDiagram     participant C as Client     participant G as API Gateway     participant V as HMAC Validator     participant Q as Event Queue     participant P as Processor     participant D as Database     C->>G: POST /webhooks (signed payload)     G->>V: Validate HMAC-SHA256     V-->>G: Signature valid     G->>Q: Enqueue event     Q->>P: Process async     P->>D: Store result     P-->>C: 200 OK (acknowledged) ",
+      "description": "Configure end-to-end webhook ingestion with HMAC verification, async queue processing, and delivery guarantees in under 15 minutes.",
+      "product": "both",
+      "content_type": "how-to",
+      "component": "",
+      "version": "",
+      "maturity": "ga",
+      "tags": [
+        "Webhook",
+        "How-To",
+        "Cloud",
+        "Self-hosted"
+      ],
+      "hierarchy": {
+        "lvl0": "both",
+        "lvl1": "how-to",
+        "lvl2": "Verify the webhook data flow",
+        "lvl3": "",
+        "lvl4": ""
+      },
+      "url": "/en/how-to/set-up-real-time-webhook-processing-pipeline#11",
+      "last_reviewed": "2026-03-12",
+      "path": "docs/en/how-to/set-up-real-time-webhook-processing-pipeline.md",
+      "ranking_boost": 4,
+      "heading_level": 2,
+      "word_count": 52,
+      "has_code": false,
+      "code_snippets": []
+    },
+    {
+      "objectID": "986bcc61cf53dd926013c311fcb34d85",
+      "title": "Set up a real-time webhook processing pipeline",
+      "heading": "Monitor throughput and latency benchmarks",
+      "content": "{{ product_name }} webhook pipeline delivers these performance characteristics in production: - Ingestion throughput: 850 webhooks per second at P50 - HMAC verification latency: 1.2 ms per payload (SHA-256) - Queue processing rate: 420 events per second per worker (10 workers = 4,200 events per second) - End-to-end latency: 45 ms P50, 127 ms P99 - Retry intervals: 1 s, 5 s, 25 s, 125 s, 625 s (exponential backoff, base 5) - Event log retention: 30 days with automatic archival to cold storage - Queue memory footprint: 2.1 MB per 10,000 queued events (Redis) ",
+      "description": "Configure end-to-end webhook ingestion with HMAC verification, async queue processing, and delivery guarantees in under 15 minutes.",
+      "product": "both",
+      "content_type": "how-to",
+      "component": "",
+      "version": "",
+      "maturity": "ga",
+      "tags": [
+        "Webhook",
+        "How-To",
+        "Cloud",
+        "Self-hosted"
+      ],
+      "hierarchy": {
+        "lvl0": "both",
+        "lvl1": "how-to",
+        "lvl2": "Monitor throughput and latency benchmarks",
+        "lvl3": "",
+        "lvl4": ""
+      },
+      "url": "/en/how-to/set-up-real-time-webhook-processing-pipeline#12",
+      "last_reviewed": "2026-03-12",
+      "path": "docs/en/how-to/set-up-real-time-webhook-processing-pipeline.md",
+      "ranking_boost": 4,
+      "heading_level": 2,
+      "word_count": 95,
+      "has_code": false,
+      "code_snippets": []
+    },
+    {
+      "objectID": "70f529897d4a05472be717ce73da15fe",
+      "title": "Set up a real-time webhook processing pipeline",
+      "heading": "Signature mismatch returns 401",
+      "content": "Problem: The HMAC validator rejects payloads with a 401 Unauthorized response. Cause: The payload body was modified between signing and verification. Common culprits include proxies that re-encode the body, JSON parsers that reorder keys, or middleware that strips whitespace. Solution: 1. Capture the raw request body before any parsing:     ``javascript     app.use('/webhooks', express.raw({ type: 'application/json' }));     ` 1. Verify that your proxy does not modify Content-Encoding` headers. 1. Log both the received and computed signatures for comparison. ",
+      "description": "Configure end-to-end webhook ingestion with HMAC verification, async queue processing, and delivery guarantees in under 15 minutes.",
+      "product": "both",
+      "content_type": "how-to",
+      "component": "",
+      "version": "",
+      "maturity": "ga",
+      "tags": [
+        "Webhook",
+        "How-To",
+        "Cloud",
+        "Self-hosted"
+      ],
+      "hierarchy": {
+        "lvl0": "both",
+        "lvl1": "how-to",
+        "lvl2": "",
+        "lvl3": "Signature mismatch returns 401",
+        "lvl4": ""
+      },
+      "url": "/en/how-to/set-up-real-time-webhook-processing-pipeline#13",
+      "last_reviewed": "2026-03-12",
+      "path": "docs/en/how-to/set-up-real-time-webhook-processing-pipeline.md",
+      "ranking_boost": 4,
+      "heading_level": 3,
+      "word_count": 76,
+      "has_code": true,
+      "code_snippets": [
+        "```javascript     app.use('/webhooks', express.raw({ type: 'application/json' }));     ```"
+      ]
+    },
+    {
+      "objectID": "146153353d7c2af9e52f5f617eacd591",
+      "title": "Set up a real-time webhook processing pipeline",
+      "heading": "Replay attack detected returns 403",
+      "content": "Problem: Valid payloads are rejected with a 403 Forbidden and message \"timestamp expired.\" Cause: Clock skew between the sending and receiving servers exceeds the 5-minute tolerance window. Solution: 1. Synchronize both servers with NTP: sudo ntpdate pool.ntp.org 1. If clock skew persists, increase the tolerance window to 600 seconds (10 minutes) as a temporary measure. 1. Monitor the webhook.replay_rejected metric in Grafana to track occurrences. ",
+      "description": "Configure end-to-end webhook ingestion with HMAC verification, async queue processing, and delivery guarantees in under 15 minutes.",
+      "product": "both",
+      "content_type": "how-to",
+      "component": "",
+      "version": "",
+      "maturity": "ga",
+      "tags": [
+        "Webhook",
+        "How-To",
+        "Cloud",
+        "Self-hosted"
+      ],
+      "hierarchy": {
+        "lvl0": "both",
+        "lvl1": "how-to",
+        "lvl2": "",
+        "lvl3": "Replay attack detected returns 403",
+        "lvl4": ""
+      },
+      "url": "/en/how-to/set-up-real-time-webhook-processing-pipeline#14",
+      "last_reviewed": "2026-03-12",
+      "path": "docs/en/how-to/set-up-real-time-webhook-processing-pipeline.md",
+      "ranking_boost": 4,
+      "heading_level": 3,
+      "word_count": 65,
+      "has_code": false,
+      "code_snippets": []
+    },
+    {
+      "objectID": "796a5387063a4b18849474ceca577b24",
+      "title": "Set up a real-time webhook processing pipeline",
+      "heading": "Connection timeout returns 504",
+      "content": "Problem: The webhook sender receives a 504 Gateway Timeout after 30 seconds. Cause: Synchronous processing blocks the HTTP response. The handler performs database writes and external API calls before acknowledging receipt. Solution: 1. Return 200 OK immediately after signature verification. 1. Enqueue the event in BullMQ for async processing (see Set up async event processing). 1. Set timeout_seconds to 5 in the webhook configuration to fail fast. ",
+      "description": "Configure end-to-end webhook ingestion with HMAC verification, async queue processing, and delivery guarantees in under 15 minutes.",
+      "product": "both",
+      "content_type": "how-to",
+      "component": "",
+      "version": "",
+      "maturity": "ga",
+      "tags": [
+        "Webhook",
+        "How-To",
+        "Cloud",
+        "Self-hosted"
+      ],
+      "hierarchy": {
+        "lvl0": "both",
+        "lvl1": "how-to",
+        "lvl2": "",
+        "lvl3": "Connection timeout returns 504",
+        "lvl4": ""
+      },
+      "url": "/en/how-to/set-up-real-time-webhook-processing-pipeline#15",
+      "last_reviewed": "2026-03-12",
+      "path": "docs/en/how-to/set-up-real-time-webhook-processing-pipeline.md",
+      "ranking_boost": 4,
+      "heading_level": 3,
+      "word_count": 67,
+      "has_code": false,
+      "code_snippets": []
+    },
+    {
+      "objectID": "7a1a70df5681dfef5942e589bfd4f465",
+      "title": "Set up a real-time webhook processing pipeline",
+      "heading": "Explore the webhook pipeline architecture",
+      "content": "The interactive diagram below shows all 13 components across 5 layers. Click any component to see detailed metrics, technologies, and connections. <div class=\"interactive-diagram\" markdown> <iframe src=\"../../diagrams/demo-set-up-real-time-webhook-processing-pipeline.html\" title=\"Webhook processing pipeline architecture\"></iframe> </div> For static environments, refer to the Mermaid sequence diagram above. ",
+      "description": "Configure end-to-end webhook ingestion with HMAC verification, async queue processing, and delivery guarantees in under 15 minutes.",
+      "product": "both",
+      "content_type": "how-to",
+      "component": "",
+      "version": "",
+      "maturity": "ga",
+      "tags": [
+        "Webhook",
+        "How-To",
+        "Cloud",
+        "Self-hosted"
+      ],
+      "hierarchy": {
+        "lvl0": "both",
+        "lvl1": "how-to",
+        "lvl2": "Explore the webhook pipeline architecture",
+        "lvl3": "",
+        "lvl4": ""
+      },
+      "url": "/en/how-to/set-up-real-time-webhook-processing-pipeline#16",
+      "last_reviewed": "2026-03-12",
+      "path": "docs/en/how-to/set-up-real-time-webhook-processing-pipeline.md",
+      "ranking_boost": 4,
+      "heading_level": 2,
+      "word_count": 41,
+      "has_code": false,
+      "code_snippets": []
+    },
+    {
+      "objectID": "d87ecfabcf65737a23802708bda596ab",
+      "title": "Set up a real-time webhook processing pipeline",
+      "heading": "Related resources",
+      "content": "For API endpoint details, see the API reference. ",
+      "description": "Configure end-to-end webhook ingestion with HMAC verification, async queue processing, and delivery guarantees in under 15 minutes.",
+      "product": "both",
+      "content_type": "how-to",
+      "component": "",
+      "version": "",
+      "maturity": "ga",
+      "tags": [
+        "Webhook",
+        "How-To",
+        "Cloud",
+        "Self-hosted"
+      ],
+      "hierarchy": {
+        "lvl0": "both",
+        "lvl1": "how-to",
+        "lvl2": "Related resources",
+        "lvl3": "",
+        "lvl4": ""
+      },
+      "url": "/en/how-to/set-up-real-time-webhook-processing-pipeline#17",
+      "last_reviewed": "2026-03-12",
+      "path": "docs/en/how-to/set-up-real-time-webhook-processing-pipeline.md",
+      "ranking_boost": 4,
+      "heading_level": 2,
+      "word_count": 8,
+      "has_code": false,
+      "code_snippets": []
+    },
+    {
+      "objectID": "67f855deafb45491e446b75165e244fd",
+      "title": "Set up a real-time webhook processing pipeline",
+      "heading": "Next steps",
+      "content": "- Documentation index ",
+      "description": "Configure end-to-end webhook ingestion with HMAC verification, async queue processing, and delivery guarantees in under 15 minutes.",
+      "product": "both",
+      "content_type": "how-to",
+      "component": "",
+      "version": "",
+      "maturity": "ga",
+      "tags": [
+        "Webhook",
+        "How-To",
+        "Cloud",
+        "Self-hosted"
+      ],
+      "hierarchy": {
+        "lvl0": "both",
+        "lvl1": "how-to",
+        "lvl2": "Next steps",
+        "lvl3": "",
+        "lvl4": ""
+      },
+      "url": "/en/how-to/set-up-real-time-webhook-processing-pipeline#18",
+      "last_reviewed": "2026-03-12",
+      "path": "docs/en/how-to/set-up-real-time-webhook-processing-pipeline.md",
+      "ranking_boost": 4,
+      "heading_level": 2,
+      "word_count": 3,
+      "has_code": false,
+      "code_snippets": []
+    },
+    {
       "objectID": "3f4755258b5efeb93bed724133eb1dcd",
       "title": "Getting Started",
       "heading": "Getting Started",
@@ -2187,7 +2819,7 @@
         "lvl4": ""
       },
       "url": "/how-to/run-api-first-production-flow#0",
-      "last_reviewed": "2026-03-09",
+      "last_reviewed": "2026-03-12",
       "path": "docs/how-to/run-api-first-production-flow.md",
       "ranking_boost": 6,
       "heading_level": 1,
@@ -2219,7 +2851,7 @@
         "lvl4": ""
       },
       "url": "/how-to/run-api-first-production-flow#1",
-      "last_reviewed": "2026-03-09",
+      "last_reviewed": "2026-03-12",
       "path": "docs/how-to/run-api-first-production-flow.md",
       "ranking_boost": 6,
       "heading_level": 2,
@@ -2231,7 +2863,7 @@
       "objectID": "ef6bed7ec2c5e48a8171d3b241106cf7",
       "title": "Run API-first production flow",
       "heading": "Step 2: Run generation and verification",
-      "content": "Run the universal flow command: python3 scripts/run_api_first_flow.py \\   --project-slug taskstream \\   --notes demos/api-first/taskstream-planning-notes.md \\   --spec api/openapi.yaml \\   --spec-tree api/taskstream \\   --openapi-version 3.1.0 \\   --manual-overrides api/overrides/openapi.manual.yml \\   --regression-snapshot api/.openapi-regression.json \\   --docs-provider mkdocs \\   --verify-user-path \\   --mock-base-url http://localhost:4010/v1 \\   --auto-remediate \\   --max-attempts 3 The runner performs: 1. OpenAPI generation from notes. 1. Contract validation. 1. Spectral, Redocly, and Swagger CLI lint checks. 1. FastAPI stub generation. 1. Self-verification of operation coverage and user-path calls. If you maintain multiple API versions, run one flow per version and publish to separate docs asset paths. Example layout: api/v1/openapi.yaml -> docs/assets/api/v1/ api/v2/openapi.yaml -> docs/assets/api/v2/ Use overrides and regression snapshot as follows: - --manual-overrides: keep a",
+      "content": "Run the universal flow command: python3 scripts/run_api_first_flow.py \\   --project-slug taskstream \\   --notes demos/api-first/taskstream-planning-notes.md \\   --spec api/openapi.yaml \\   --spec-tree api/taskstream \\   --openapi-version 3.1.0 \\   --manual-overrides api/overrides/openapi.manual.yml \\   --regression-snapshot api/.openapi-regression.json \\   --docs-provider mkdocs \\   --verify-user-path \\   --mock-base-url https://sandbox-api.example.com/v1 \\   --auto-remediate \\   --max-attempts 3 The runner performs: 1. OpenAPI generation from notes. 1. Contract validation. 1. Spectral, Redocly, and Swagger CLI lint checks. 1. FastAPI stub generation. 1. Self-verification of operation coverage and user-path calls. If you maintain multiple API versions, run one flow per version and publish to separate docs asset paths. Example layout: api/v1/openapi.yaml -> docs/assets/api/v1/ api/v2/openapi.yaml -> docs/assets/api/v2/ Use overrides and regression snapshot as follows: - --manual-overrid",
       "description": "Generate OpenAPI from planning notes, run full lint and self-verification, publish playground assets, and keep a sandbox ready for client testing.",
       "product": "both",
       "content_type": "how-to",
@@ -2251,7 +2883,7 @@
         "lvl4": ""
       },
       "url": "/how-to/run-api-first-production-flow#2",
-      "last_reviewed": "2026-03-09",
+      "last_reviewed": "2026-03-12",
       "path": "docs/how-to/run-api-first-production-flow.md",
       "ranking_boost": 6,
       "heading_level": 2,
@@ -2263,7 +2895,7 @@
       "objectID": "a050485c79e70b3f866e528d510cd055",
       "title": "Run API-first production flow",
       "heading": "Step 3: Start sandbox for live testing",
-      "content": "For contract-mock mode: bash scripts/api_sandbox_project.sh up taskstream ./api/openapi.yaml 4010 For no-Docker mode (local Prism mock): bash scripts/api_sandbox_project.sh up taskstream ./api/openapi.yaml 4010 prism For public hosted sandbox mode (shared for all docs users): API_SANDBOX_EXTERNAL_BASE_URL=\"https://sandbox-api.example.com/v1\" \\ bash scripts/api_sandbox_project.sh up taskstream ./api/openapi.yaml 4010 external In external mode, run API-first verification against the same public URL: python3 scripts/run_api_first_flow.py \\   --project-slug taskstream \\   --notes demos/api-first/taskstream-planning-notes.md \\   --spec api/openapi.yaml \\   --spec-tree api/taskstream \\   --verify-user-path \\   --mock-base-url \"https://sandbox-api.example.com/v1\" For prod-like mode on VPS: bash scripts/api_prodlike_project.sh up taskstream 4011 ",
+      "content": "For contract-mock mode: bash scripts/api_sandbox_project.sh up taskstream ./api/openapi.yaml 4010 For no-Docker mode (local Prism mock): bash scripts/api_sandbox_project.sh up taskstream ./api/openapi.yaml 4010 prism For public hosted sandbox mode (shared for all docs users): API_SANDBOX_EXTERNAL_BASE_URL=\"https://sandbox-api.example.com/v1\" \\ bash scripts/api_sandbox_project.sh up taskstream ./api/openapi.yaml 4010 external Supported external services are provider-agnostic. You can use Postman Mock Servers, Stoplight-hosted Prism, Mockoon Cloud, or your own hosted Prism-compatible endpoint. In external mode, run API-first verification against the same public URL: python3 scripts/run_api_first_flow.py \\   --project-slug taskstream \\   --notes demos/api-first/taskstream-planning-notes.md \\   --spec api/openapi.yaml \\   --spec-tree api/taskstream \\   --verify-user-path \\   --mock-base-url \"https://sandbox-api.example.com/v1\" \\   --sync-playground-endpoint --sync-playground-endpoint keeps",
       "description": "Generate OpenAPI from planning notes, run full lint and self-verification, publish playground assets, and keep a sandbox ready for client testing.",
       "product": "both",
       "content_type": "how-to",
@@ -2283,16 +2915,48 @@
         "lvl4": ""
       },
       "url": "/how-to/run-api-first-production-flow#3",
-      "last_reviewed": "2026-03-09",
+      "last_reviewed": "2026-03-12",
       "path": "docs/how-to/run-api-first-production-flow.md",
       "ranking_boost": 6,
       "heading_level": 2,
-      "word_count": 81,
+      "word_count": 115,
       "has_code": false,
       "code_snippets": []
     },
     {
       "objectID": "b6e8ec0258048ff333d26cbec45dc5a3",
+      "title": "Run API-first production flow",
+      "heading": "optional: export POSTMAN_MOCK_SERVER_ID=\"YOUR_EXISTING_MOCK_ID\"",
+      "content": "Then add these flags to the same flow command: --sandbox-backend external --auto-prepare-external-mock --external-mock-provider postman --external-mock-base-path /v1 For prod-like mode on VPS: bash scripts/api_prodlike_project.sh up taskstream 4011 ",
+      "description": "Generate OpenAPI from planning notes, run full lint and self-verification, publish playground assets, and keep a sandbox ready for client testing.",
+      "product": "both",
+      "content_type": "how-to",
+      "component": "",
+      "version": "",
+      "maturity": "ga",
+      "tags": [
+        "How-To",
+        "Cloud",
+        "Self-hosted"
+      ],
+      "hierarchy": {
+        "lvl0": "both",
+        "lvl1": "how-to",
+        "lvl2": "",
+        "lvl3": "",
+        "lvl4": ""
+      },
+      "url": "/how-to/run-api-first-production-flow#4",
+      "last_reviewed": "2026-03-12",
+      "path": "docs/how-to/run-api-first-production-flow.md",
+      "ranking_boost": 6,
+      "heading_level": 1,
+      "word_count": 26,
+      "has_code": false,
+      "code_snippets": []
+    },
+    {
+      "objectID": "751c8c6a5eaa1864332d53acc3098124",
       "title": "Run API-first production flow",
       "heading": "Step 4: Keep sandbox always on",
       "content": "Use Docker restart policy and health checks through: - docker-compose.api-sandbox.prodlike.yml - restart: unless-stopped - built-in healthcheck on /v1/healthz ",
@@ -2314,8 +2978,8 @@
         "lvl3": "",
         "lvl4": ""
       },
-      "url": "/how-to/run-api-first-production-flow#4",
-      "last_reviewed": "2026-03-09",
+      "url": "/how-to/run-api-first-production-flow#5",
+      "last_reviewed": "2026-03-12",
       "path": "docs/how-to/run-api-first-production-flow.md",
       "ranking_boost": 6,
       "heading_level": 2,
@@ -2324,10 +2988,10 @@
       "code_snippets": []
     },
     {
-      "objectID": "751c8c6a5eaa1864332d53acc3098124",
+      "objectID": "aadbd5415ec7057ab6bd73c9d9b0c887",
       "title": "Run API-first production flow",
       "heading": "Step 5: Apply multilingual examples baseline",
-      "content": "Run these commands to keep code snippets aligned with the new docs standard: python3 scripts/generate_multilang_tabs.py --paths docs templates --scope api --write python3 scripts/validate_multilang_examples.py --docs-dir docs --scope api --required-languages curl,javascript,python python3 scripts/check_code_examples_smoke.py --paths docs templates --allow-empty python3 scripts/check_openapi_regression.py --spec api/openapi.yaml --spec-tree api/taskstream --snapshot api/.openapi-regression.json Use this API request tab set as the baseline format for executable examples: === \"cURL\"     ``bash     curl -sS http://localhost:4010/v1/healthz     ` === \"JavaScript\"     `javascript     const res = await fetch(\"http://localhost:4010/v1/healthz\");     console.log(await res.json());     ` === \"Python\"     `python     import requests     res = requests.get(\"http://localhost:4010/v1/healthz\", timeout=10)     print(res.json())     `` ",
+      "content": "Run these commands to keep code snippets aligned with the new docs standard: python3 scripts/generate_multilang_tabs.py --paths docs templates --scope api --write python3 scripts/validate_multilang_examples.py --docs-dir docs --scope api --required-languages curl,javascript,python python3 scripts/check_code_examples_smoke.py --paths docs templates --allow-empty python3 scripts/check_openapi_regression.py --spec api/openapi.yaml --spec-tree api/taskstream --snapshot api/.openapi-regression.json Use this API request tab set as the baseline format for executable examples: === \"cURL\"     ``bash     curl -sS https://sandbox-api.example.com/v1/healthz     ` === \"JavaScript\"     `javascript     const res = await fetch(\"https://sandbox-api.example.com/v1/healthz\");     console.log(await res.json());     ` === \"Python\"     `python     import requests     res = requests.get(\"https://sandbox-api.example.com/v1/healthz\", timeout=10)     print(res.json())     `` ",
       "description": "Generate OpenAPI from planning notes, run full lint and self-verification, publish playground assets, and keep a sandbox ready for client testing.",
       "product": "both",
       "content_type": "how-to",
@@ -2346,21 +3010,21 @@
         "lvl3": "",
         "lvl4": ""
       },
-      "url": "/how-to/run-api-first-production-flow#5",
-      "last_reviewed": "2026-03-09",
+      "url": "/how-to/run-api-first-production-flow#6",
+      "last_reviewed": "2026-03-12",
       "path": "docs/how-to/run-api-first-production-flow.md",
       "ranking_boost": 6,
       "heading_level": 2,
       "word_count": 85,
       "has_code": true,
       "code_snippets": [
-        "```bash     curl -sS http://localhost:4010/v1/healthz     ```",
-        "```javascript     const res = await fetch(\"http://localhost:4010/v1/healthz\");     console.log(await res.json());     ```",
-        "```python     import requests     res = requests.get(\"http://localhost:4010/v1/healthz\", timeout=10)     print(res.json())     ```"
+        "```bash     curl -sS https://sandbox-api.example.com/v1/healthz     ```",
+        "```javascript     const res = await fetch(\"https://sandbox-api.example.com/v1/healthz\");     console.log(await res.json());     ```",
+        "```python     import requests     res = requests.get(\"https://sandbox-api.example.com/v1/healthz\", timeout=10)     print(res.json())     ```"
       ]
     },
     {
-      "objectID": "aadbd5415ec7057ab6bd73c9d9b0c887",
+      "objectID": "1f4e7eca0358ab758c36cd64f6b36937",
       "title": "Run API-first production flow",
       "heading": "Step 6: Stop sandbox when needed",
       "content": "bash scripts/api_sandbox_project.sh down taskstream ./api/openapi.yaml 4010 bash scripts/api_prodlike_project.sh down taskstream 4011 ",
@@ -2382,8 +3046,8 @@
         "lvl3": "",
         "lvl4": ""
       },
-      "url": "/how-to/run-api-first-production-flow#6",
-      "last_reviewed": "2026-03-09",
+      "url": "/how-to/run-api-first-production-flow#7",
+      "last_reviewed": "2026-03-12",
       "path": "docs/how-to/run-api-first-production-flow.md",
       "ranking_boost": 6,
       "heading_level": 2,
@@ -2392,7 +3056,7 @@
       "code_snippets": []
     },
     {
-      "objectID": "1f4e7eca0358ab758c36cd64f6b36937",
+      "objectID": "c95ac0a4780fc9429888ae04074889f7",
       "title": "Run API-first production flow",
       "heading": "Next steps",
       "content": "- TaskStream API playground - TaskStream API planning notes ",
@@ -2414,8 +3078,8 @@
         "lvl3": "",
         "lvl4": ""
       },
-      "url": "/how-to/run-api-first-production-flow#7",
-      "last_reviewed": "2026-03-09",
+      "url": "/how-to/run-api-first-production-flow#8",
+      "last_reviewed": "2026-03-12",
       "path": "docs/how-to/run-api-first-production-flow.md",
       "ranking_boost": 6,
       "heading_level": 2,
@@ -2574,7 +3238,7 @@
         "lvl4": ""
       },
       "url": "/operations/CANONICAL_FLOW#0",
-      "last_reviewed": "2026-03-11",
+      "last_reviewed": "2026-03-12",
       "path": "docs/operations/CANONICAL_FLOW.md",
       "ranking_boost": 4,
       "heading_level": 1,
@@ -2605,7 +3269,7 @@
         "lvl4": ""
       },
       "url": "/operations/CANONICAL_FLOW#1",
-      "last_reviewed": "2026-03-11",
+      "last_reviewed": "2026-03-12",
       "path": "docs/operations/CANONICAL_FLOW.md",
       "ranking_boost": 4,
       "heading_level": 2,
@@ -2636,11 +3300,11 @@
         "lvl4": ""
       },
       "url": "/operations/CANONICAL_FLOW#2",
-      "last_reviewed": "2026-03-11",
+      "last_reviewed": "2026-03-12",
       "path": "docs/operations/CANONICAL_FLOW.md",
       "ranking_boost": 4,
       "heading_level": 2,
-      "word_count": 150,
+      "word_count": 158,
       "has_code": false,
       "code_snippets": []
     },
@@ -2648,7 +3312,7 @@
       "objectID": "1a609fe9e8cd39873cdac87ce6493b22",
       "title": "Canonical Flow (Sales + Delivery)",
       "heading": "3. Weekly automation (no manual commands)",
-      "content": "Scheduler runs: - docsops/scripts/run_weekly_gap_batch.py It executes: - gap detection - stale checks - drift + docs contract (if enabled) - KPI/SLA (if enabled) - API-first flow (if enabled)   - manual overrides apply (apply_openapi_overrides.py)   - regression gate (check_openapi_regression.py) - RAG/knowledge tasks:   - extract_knowledge_modules_from_docs.py   - validate_knowledge_modules.py   - generate_knowledge_retrieval_index.py   - generate_knowledge_graph_jsonld.py   - run_retrieval_evals.py (Precision/Recall/Hallucination-rate) - terminology governance:   - sync_project_glossary.py (syncs glossary markers to glossary.yml) - multi-language examples standard:   - generate_multilang_tabs.py   - validate_multilang_examples.py   - check_code_examples_smoke.py (including expected-output comparison for tagged blocks) - intent bundle assembly via build_all_intent_experiences.py when enabled in runtime.custom_tasks.weekly - custom_tasks.weekly commands - consolidated report generation",
+      "content": "Scheduler runs: - docsops/scripts/run_weekly_gap_batch.py It executes: - gap detection - stale checks - drift + docs contract (if enabled)   - docs contract is report-only by default (no hard weekly blocking)   - consolidated report includes only new/changed docs-contract mismatches, ignores closed ones, and deduplicates overlap with other gap sources - KPI/SLA (if enabled) - API-first flow (if enabled)   - supports docker, prism (no Docker), and external public sandbox URL   - if sync_playground_endpoint=true, sandbox URL is auto-synced into docs playground config   - manual overrides apply (apply_openapi_overrides.py)   - regression gate (check_openapi_regression.py) - RAG/knowledge tasks:   - extract_knowledge_modules_from_docs.py   - validate_knowledge_modules.py   - generate_knowledge_retrieval_index.py   - generate_knowledge_graph_jsonld.py   - run_retrieval_evals.py (Precision/Recall/Hallucination-rate) - terminology governance:   - sync_project_glossary.py (syncs glossary marke",
       "description": "Canonical sales and delivery flow for onboarding and operating client Auto-Doc Pipeline setups.",
       "product": "both",
       "content_type": "reference",
@@ -2667,11 +3331,11 @@
         "lvl4": ""
       },
       "url": "/operations/CANONICAL_FLOW#3",
-      "last_reviewed": "2026-03-11",
+      "last_reviewed": "2026-03-12",
       "path": "docs/operations/CANONICAL_FLOW.md",
       "ranking_boost": 4,
       "heading_level": 2,
-      "word_count": 125,
+      "word_count": 176,
       "has_code": false,
       "code_snippets": []
     },
@@ -2698,7 +3362,7 @@
         "lvl4": ""
       },
       "url": "/operations/CANONICAL_FLOW#4",
-      "last_reviewed": "2026-03-11",
+      "last_reviewed": "2026-03-12",
       "path": "docs/operations/CANONICAL_FLOW.md",
       "ranking_boost": 4,
       "heading_level": 2,
@@ -2729,7 +3393,7 @@
         "lvl4": ""
       },
       "url": "/operations/CANONICAL_FLOW#5",
-      "last_reviewed": "2026-03-11",
+      "last_reviewed": "2026-03-12",
       "path": "docs/operations/CANONICAL_FLOW.md",
       "ranking_boost": 4,
       "heading_level": 2,
@@ -2760,7 +3424,7 @@
         "lvl4": ""
       },
       "url": "/operations/CANONICAL_FLOW#6",
-      "last_reviewed": "2026-03-11",
+      "last_reviewed": "2026-03-12",
       "path": "docs/operations/CANONICAL_FLOW.md",
       "ranking_boost": 4,
       "heading_level": 2,
@@ -2791,7 +3455,7 @@
         "lvl4": ""
       },
       "url": "/operations/CANONICAL_FLOW#7",
-      "last_reviewed": "2026-03-11",
+      "last_reviewed": "2026-03-12",
       "path": "docs/operations/CANONICAL_FLOW.md",
       "ranking_boost": 4,
       "heading_level": 2,
@@ -2822,7 +3486,7 @@
         "lvl4": ""
       },
       "url": "/operations/CANONICAL_FLOW#8",
-      "last_reviewed": "2026-03-11",
+      "last_reviewed": "2026-03-12",
       "path": "docs/operations/CANONICAL_FLOW.md",
       "ranking_boost": 4,
       "heading_level": 2,
@@ -2853,7 +3517,7 @@
         "lvl4": ""
       },
       "url": "/operations/CANONICAL_FLOW#9",
-      "last_reviewed": "2026-03-11",
+      "last_reviewed": "2026-03-12",
       "path": "docs/operations/CANONICAL_FLOW.md",
       "ranking_boost": 4,
       "heading_level": 2,
@@ -2884,7 +3548,7 @@
         "lvl4": ""
       },
       "url": "/operations/CANONICAL_FLOW#10",
-      "last_reviewed": "2026-03-11",
+      "last_reviewed": "2026-03-12",
       "path": "docs/operations/CANONICAL_FLOW.md",
       "ranking_boost": 4,
       "heading_level": 2,
@@ -3174,6 +3838,37 @@
     {
       "objectID": "2b544ed41cb0d225bb8a3ca0009c065f",
       "title": "\u0426\u0435\u043d\u0442\u0440\u0430\u043b\u0438\u0437\u043e\u0432\u0430\u043d\u043d\u0430\u044f \u043d\u0430\u0441\u0442\u0440\u043e\u0439\u043a\u0430 \u043a\u043b\u0438\u0435\u043d\u0442\u043e\u0432",
+      "heading": "3.3) PR \u0430\u0432\u0442\u043e-\u0444\u0438\u043a\u0441 \u0434\u043e\u043a\u0443\u043c\u0435\u043d\u0442\u0430\u0446\u0438\u0438 (\u0432 \u0442\u0443 \u0436\u0435 PR-\u0432\u0435\u0442\u043a\u0443)",
+      "content": "runtime:   pr_autofix:     enabled: true     require_label: false     label_name: \"auto-doc-fix\"     enable_auto_merge: false     commit_message: \"docs: auto-sync PR docs\"     workflow_filename: \"docsops-pr-autofix.yml\" \u0427\u0442\u043e \u043f\u0440\u043e\u0438\u0441\u0445\u043e\u0434\u0438\u0442: \\11. Workflow \u0437\u0430\u043f\u0443\u0441\u043a\u0430\u0435\u0442\u0441\u044f \u043d\u0430 pull_request \u0441\u043e\u0431\u044b\u0442\u0438\u044f\u0445. \\11. \u0421\u043c\u043e\u0442\u0440\u0438\u0442 \u0442\u043e\u043b\u044c\u043a\u043e diff \u0442\u0435\u043a\u0443\u0449\u0435\u0433\u043e PR (base...head). \\11. \u0415\u0441\u043b\u0438 PR \u0437\u0430\u0431\u043b\u043e\u043a\u0438\u0440\u043e\u0432\u0430\u043d \u043f\u043e docs-contract/drift, \u0434\u043e\u0431\u0430\u0432\u043b\u044f\u0435\u0442 docs-\u043f\u0440\u0430\u0432\u043a\u0438. \\11. \u041a\u043e\u043c\u043c\u0438\u0442\u0438\u0442 \u043f\u0440\u0430\u0432\u043a\u0438 \u0432 \u0442\u0443 \u0436\u0435 PR-\u0432\u0435\u0442\u043a\u0443 (\u043d\u0435 \u0432 main). \\11. Checks \u043f\u0435\u0440\u0435\u0437\u0430\u043f\u0443\u0441\u043a\u0430\u044e\u0442\u0441\u044f \u0430\u0432\u0442\u043e\u043c\u0430\u0442\u0438\u0447\u0435\u0441\u043a\u0438. \u041e\u0434\u043d\u043e\u0440\u0430\u0437\u043e\u0432\u0430\u044f \u043d\u0430\u0441\u0442\u0440\u043e\u0439\u043a\u0430 \u0434\u043b\u044f \u043a\u043b\u0438\u0435\u043d\u0442\u0430: \\11. \u0412\u043a\u043b\u044e\u0447\u0438\u0442\u044c Read and write permissions \u0434\u043b\u044f GitHub Actions \u0432 \u0440\u0435\u043f\u043e\u0437\u0438\u0442\u043e\u0440\u0438\u0438. \\11. \u041e\u043f\u0446\u0438\u043e\u043d\u0430\u043b\u044c\u043d\u043e \u0434\u043e\u0431\u0430\u0432\u0438\u0442\u044c DOCSOPS_BOT_TOKEN (contents:write, pull_requests:write) \u0435\u0441\u043b\u0438 \u0432 \u043e\u0440\u0433\u0430\u043d\u0438\u0437\u0430\u0446\u0438\u0438 \u043e\u0433\u0440\u0430\u043d\u0438\u0447\u0435\u043d \u0441\u0442\u0430\u043d\u0434\u0430\u0440\u0442\u043d\u044b\u0439 \u0442\u043e\u043a\u0435\u043d. \\11. \u041f\u0440\u043e\u0433\u043d\u0430\u0442\u044c provisioning, \u0447\u0442\u043e\u0431\u044b \u0443\u0441\u0442\u0430\u043d\u043e\u0432\u0438\u0442\u044c .github/workflows/docsops-pr-autofix.yml. ",
+      "description": "\u041f\u0440\u0430\u043a\u0442\u0438\u0447\u0435\u0441\u043a\u0438\u0439 \u043f\u0443\u0442\u044c \u043d\u0430\u0441\u0442\u0440\u043e\u0439\u043a\u0438 \u043a\u043b\u0438\u0435\u043d\u0442\u0441\u043a\u0438\u0445 bundle \u0438 \u0430\u0432\u0442\u043e\u0437\u0430\u043f\u0443\u0441\u043a\u0430 pipeline \u0438\u0437 \u043e\u0434\u043d\u043e\u0433\u043e \u043c\u0435\u0441\u0442\u0430.",
+      "product": "both",
+      "content_type": "reference",
+      "component": "",
+      "version": "",
+      "maturity": "ga",
+      "tags": [
+        "Operations",
+        "Client Onboarding"
+      ],
+      "hierarchy": {
+        "lvl0": "both",
+        "lvl1": "reference",
+        "lvl2": "",
+        "lvl3": "3.3) PR \u0430\u0432\u0442\u043e-\u0444\u0438\u043a\u0441 \u0434\u043e\u043a\u0443\u043c\u0435\u043d\u0442\u0430\u0446\u0438\u0438 (\u0432 \u0442\u0443 \u0436\u0435 PR-\u0432\u0435\u0442\u043a\u0443)",
+        "lvl4": ""
+      },
+      "url": "/operations/CENTRALIZED_CLIENT_BUNDLES#9",
+      "last_reviewed": "2026-03-11",
+      "path": "docs/operations/CENTRALIZED_CLIENT_BUNDLES.md",
+      "ranking_boost": 4,
+      "heading_level": 3,
+      "word_count": 87,
+      "has_code": false,
+      "code_snippets": []
+    },
+    {
+      "objectID": "854bbebf8623506d55179b00b57d2bae",
+      "title": "\u0426\u0435\u043d\u0442\u0440\u0430\u043b\u0438\u0437\u043e\u0432\u0430\u043d\u043d\u0430\u044f \u043d\u0430\u0441\u0442\u0440\u043e\u0439\u043a\u0430 \u043a\u043b\u0438\u0435\u043d\u0442\u043e\u0432",
       "heading": "3.1) \u0426\u0435\u043d\u0442\u0440\u0430\u043b\u0438\u0437\u043e\u0432\u0430\u043d\u043d\u044b\u0435 \u0438\u043d\u0442\u0435\u0433\u0440\u0430\u0446\u0438\u0438 (Algolia + Ask AI)",
       "content": "runtime:   integrations:     algolia:       enabled: true       upload_on_weekly: true       app_id_env: \"ALGOLIA_APP_ID\"       api_key_env: \"ALGOLIA_API_KEY\"       index_name_env: \"ALGOLIA_INDEX_NAME\"     ask_ai:       enabled: true       auto_configure_on_provision: true       install_runtime_pack: false       provider: \"openai\"       billing_mode: \"user-subscription\"       model: \"gpt-4.1-mini\" \u0427\u0442\u043e \u044d\u0442\u043e \u0434\u0430\u0435\u0442: - Algolia \u0440\u0430\u0431\u043e\u0442\u0430\u0435\u0442 \u043e\u0434\u0438\u043d\u0430\u043a\u043e\u0432\u043e \u0434\u043b\u044f \u0432\u0441\u0435\u0445 \u043f\u043e\u0434\u0434\u0435\u0440\u0436\u0438\u0432\u0430\u0435\u043c\u044b\u0445 site generators. - Ask AI \u043d\u0430\u0441\u0442\u0440\u0430\u0438\u0432\u0430\u0435\u0442\u0441\u044f \u0430\u0432\u0442\u043e\u043c\u0430\u0442\u0438\u0447\u0435\u0441\u043a\u0438 \u0432\u043e \u0432\u0440\u0435\u043c\u044f provisioning (\u0431\u0435\u0437 \u0440\u0443\u0447\u043d\u044b\u0445 CLI-\u043a\u043e\u043c\u0430\u043d\u0434). ",
       "description": "\u041f\u0440\u0430\u043a\u0442\u0438\u0447\u0435\u0441\u043a\u0438\u0439 \u043f\u0443\u0442\u044c \u043d\u0430\u0441\u0442\u0440\u043e\u0439\u043a\u0438 \u043a\u043b\u0438\u0435\u043d\u0442\u0441\u043a\u0438\u0445 bundle \u0438 \u0430\u0432\u0442\u043e\u0437\u0430\u043f\u0443\u0441\u043a\u0430 pipeline \u0438\u0437 \u043e\u0434\u043d\u043e\u0433\u043e \u043c\u0435\u0441\u0442\u0430.",
@@ -3193,7 +3888,7 @@
         "lvl3": "3.1) \u0426\u0435\u043d\u0442\u0440\u0430\u043b\u0438\u0437\u043e\u0432\u0430\u043d\u043d\u044b\u0435 \u0438\u043d\u0442\u0435\u0433\u0440\u0430\u0446\u0438\u0438 (Algolia + Ask AI)",
         "lvl4": ""
       },
-      "url": "/operations/CENTRALIZED_CLIENT_BUNDLES#9",
+      "url": "/operations/CENTRALIZED_CLIENT_BUNDLES#10",
       "last_reviewed": "2026-03-11",
       "path": "docs/operations/CENTRALIZED_CLIENT_BUNDLES.md",
       "ranking_boost": 4,
@@ -3203,7 +3898,7 @@
       "code_snippets": []
     },
     {
-      "objectID": "854bbebf8623506d55179b00b57d2bae",
+      "objectID": "c39e4957a03350674ceb4f152ea52ec9",
       "title": "\u0426\u0435\u043d\u0442\u0440\u0430\u043b\u0438\u0437\u043e\u0432\u0430\u043d\u043d\u0430\u044f \u043d\u0430\u0441\u0442\u0440\u043e\u0439\u043a\u0430 \u043a\u043b\u0438\u0435\u043d\u0442\u043e\u0432",
       "heading": "4) \u041d\u0430\u0441\u043a\u043e\u043b\u044c\u043a\u043e \u0441\u0442\u0440\u043e\u0433\u0438\u0435 \u043f\u0440\u0430\u0432\u0438\u043b\u0430 \u043a\u0430\u0447\u0435\u0441\u0442\u0432\u0430",
       "content": "bundle:   base_policy_pack: \"multi-product\"   policy_overrides:     kpi_sla:       min_doc_coverage: 85 - base_policy_pack = \u0431\u0430\u0437\u043e\u0432\u044b\u0439 \u0440\u0435\u0436\u0438\u043c - policy_overrides = \u0442\u043e\u043d\u043a\u0430\u044f \u0434\u043e\u043a\u0440\u0443\u0442\u043a\u0430 \u043f\u043e\u0434 \u043a\u043b\u0438\u0435\u043d\u0442\u0430 ",
@@ -3224,7 +3919,7 @@
         "lvl3": "4) \u041d\u0430\u0441\u043a\u043e\u043b\u044c\u043a\u043e \u0441\u0442\u0440\u043e\u0433\u0438\u0435 \u043f\u0440\u0430\u0432\u0438\u043b\u0430 \u043a\u0430\u0447\u0435\u0441\u0442\u0432\u0430",
         "lvl4": ""
       },
-      "url": "/operations/CENTRALIZED_CLIENT_BUNDLES#10",
+      "url": "/operations/CENTRALIZED_CLIENT_BUNDLES#11",
       "last_reviewed": "2026-03-11",
       "path": "docs/operations/CENTRALIZED_CLIENT_BUNDLES.md",
       "ranking_boost": 4,
@@ -3234,7 +3929,7 @@
       "code_snippets": []
     },
     {
-      "objectID": "c39e4957a03350674ceb4f152ea52ec9",
+      "objectID": "108259b9b2dd67d8d7450dbfc649f51f",
       "title": "\u0426\u0435\u043d\u0442\u0440\u0430\u043b\u0438\u0437\u043e\u0432\u0430\u043d\u043d\u0430\u044f \u043d\u0430\u0441\u0442\u0440\u043e\u0439\u043a\u0430 \u043a\u043b\u0438\u0435\u043d\u0442\u043e\u0432",
       "heading": "4.1) \u041a\u0430\u043a \u0432\u044b\u0431\u0440\u0430\u0442\u044c style guide (Vale)",
       "content": "bundle:   style_guide: \"google\" # google | microsoft | hybrid \u0421\u0431\u043e\u0440\u0449\u0438\u043a \u0441\u0430\u043c \u043f\u043e\u043b\u043e\u0436\u0438\u0442 .vale.ini \u0432 bundle \u043f\u043e\u0434 \u0432\u044b\u0431\u0440\u0430\u043d\u043d\u044b\u0439 \u043f\u0440\u043e\u0444\u0438\u043b\u044c. ",
@@ -3255,7 +3950,7 @@
         "lvl3": "4.1) \u041a\u0430\u043a \u0432\u044b\u0431\u0440\u0430\u0442\u044c style guide (Vale)",
         "lvl4": ""
       },
-      "url": "/operations/CENTRALIZED_CLIENT_BUNDLES#11",
+      "url": "/operations/CENTRALIZED_CLIENT_BUNDLES#12",
       "last_reviewed": "2026-03-11",
       "path": "docs/operations/CENTRALIZED_CLIENT_BUNDLES.md",
       "ranking_boost": 4,
@@ -3265,7 +3960,7 @@
       "code_snippets": []
     },
     {
-      "objectID": "108259b9b2dd67d8d7450dbfc649f51f",
+      "objectID": "3db83a63846936cea9e180f4d4fc1e56",
       "title": "\u0426\u0435\u043d\u0442\u0440\u0430\u043b\u0438\u0437\u043e\u0432\u0430\u043d\u043d\u0430\u044f \u043d\u0430\u0441\u0442\u0440\u043e\u0439\u043a\u0430 \u043a\u043b\u0438\u0435\u043d\u0442\u043e\u0432",
       "heading": "5) \u0410\u0432\u0442\u043e\u0432\u0441\u0442\u0430\u0432\u043a\u0430 \u0431\u043b\u043e\u043a\u0430 \u0432 AGENTS/CLAUDE",
       "content": "bundle:   llm:     codex_instructions_source: \"AGENTS.md\"     claude_instructions_source: \"CLAUDE.md\"     inject_managed_block: true     docsops_root_in_client_repo: \"docsops\" \u0421\u0431\u043e\u0440\u0449\u0438\u043a \u0430\u0432\u0442\u043e\u043c\u0430\u0442\u0438\u0447\u0435\u0441\u043a\u0438 \u043f\u043e\u043b\u043e\u0436\u0438\u0442 \u0432 bundle: - AGENTS.md - CLAUDE.md \u0418 \u0434\u043e\u0431\u0430\u0432\u0438\u0442 \u0432 \u043e\u0431\u0430 \u0444\u0430\u0439\u043b\u0430 \u0443\u043f\u0440\u0430\u0432\u043b\u044f\u0435\u043c\u044b\u0439 \u0431\u043b\u043e\u043a \u0441 \u0438\u043d\u0441\u0442\u0440\u0443\u043a\u0446\u0438\u0435\u0439 \u0447\u0438\u0442\u0430\u0442\u044c: - docsops/config/client_runtime.yml - docsops/policy_packs/selected.yml ",
@@ -3286,7 +3981,7 @@
         "lvl3": "5) \u0410\u0432\u0442\u043e\u0432\u0441\u0442\u0430\u0432\u043a\u0430 \u0431\u043b\u043e\u043a\u0430 \u0432 AGENTS/CLAUDE",
         "lvl4": ""
       },
-      "url": "/operations/CENTRALIZED_CLIENT_BUNDLES#12",
+      "url": "/operations/CENTRALIZED_CLIENT_BUNDLES#13",
       "last_reviewed": "2026-03-11",
       "path": "docs/operations/CENTRALIZED_CLIENT_BUNDLES.md",
       "ranking_boost": 4,
@@ -3296,7 +3991,7 @@
       "code_snippets": []
     },
     {
-      "objectID": "3db83a63846936cea9e180f4d4fc1e56",
+      "objectID": "997f4a521d7803ece1e53084f0dbad21",
       "title": "\u0426\u0435\u043d\u0442\u0440\u0430\u043b\u0438\u0437\u043e\u0432\u0430\u043d\u043d\u0430\u044f \u043d\u0430\u0441\u0442\u0440\u043e\u0439\u043a\u0430 \u043a\u043b\u0438\u0435\u043d\u0442\u043e\u0432",
       "heading": "\u041a\u043e\u043c\u0430\u043d\u0434\u0430 \u0441\u0431\u043e\u0440\u043a\u0438",
       "content": "cd \"C:/Users/Kroha/Documents/development/Auto-Doc Pipeline\" python3 scripts/build_client_bundle.py --client profiles/clients/blockstream-demo.client.yml \u0420\u0435\u0437\u0443\u043b\u044c\u0442\u0430\u0442: generated/client_bundles/blockstream-demo/ ",
@@ -3317,7 +4012,7 @@
         "lvl3": "",
         "lvl4": ""
       },
-      "url": "/operations/CENTRALIZED_CLIENT_BUNDLES#13",
+      "url": "/operations/CENTRALIZED_CLIENT_BUNDLES#14",
       "last_reviewed": "2026-03-11",
       "path": "docs/operations/CENTRALIZED_CLIENT_BUNDLES.md",
       "ranking_boost": 4,
@@ -3327,7 +4022,7 @@
       "code_snippets": []
     },
     {
-      "objectID": "997f4a521d7803ece1e53084f0dbad21",
+      "objectID": "931f982ec45ae7294d60973ade74792b",
       "title": "\u0426\u0435\u043d\u0442\u0440\u0430\u043b\u0438\u0437\u043e\u0432\u0430\u043d\u043d\u0430\u044f \u043d\u0430\u0441\u0442\u0440\u043e\u0439\u043a\u0430 \u043a\u043b\u0438\u0435\u043d\u0442\u043e\u0432",
       "heading": "\u0414\u0432\u0430 \u0440\u0435\u0436\u0438\u043c\u0430 \u0443\u0441\u0442\u0430\u043d\u043e\u0432\u043a\u0438",
       "content": "1. \u041d\u0430 \u043e\u0434\u043d\u043e\u0439 \u043c\u0430\u0448\u0438\u043d\u0435 (\u0443 \u0432\u0430\u0441 \u0435\u0441\u0442\u044c \u043f\u0443\u0442\u044c \u043a \u043a\u043b\u0438\u0435\u043d\u0442\u0441\u043a\u043e\u043c\u0443 \u0440\u0435\u043f\u043e): \u0438\u0441\u043f\u043e\u043b\u044c\u0437\u0443\u0435\u0442\u0435 provision_client_repo.py, scheduler \u0441\u0442\u0430\u0432\u0438\u0442\u0441\u044f \u0441\u0440\u0430\u0437\u0443. 1. \u041d\u0430 \u0440\u0430\u0437\u043d\u044b\u0445 \u043d\u043e\u0443\u0442\u0431\u0443\u043a\u0430\u0445: \u0432\u044b \u0441\u043e\u0431\u0438\u0440\u0430\u0435\u0442\u0435 bundle \u043a\u043e\u043c\u0430\u043d\u0434\u043e\u0439 \u0432\u044b\u0448\u0435, \u043a\u043b\u0438\u0435\u043d\u0442 \u043a\u043b\u0430\u0434\u0435\u0442 bundle \u0432 <client-repo>/docsops, \u0437\u0430\u0442\u0435\u043c \u043a\u043b\u0438\u0435\u043d\u0442 \u0441\u0442\u0430\u0432\u0438\u0442 scheduler \u043b\u043e\u043a\u0430\u043b\u044c\u043d\u043e: bash docsops/ops/install_cron_weekly.sh Windows: powershell -ExecutionPolicy Bypass -File docsops/ops/install_windows_task.ps1 Scheduler \u0438\u0441\u043f\u043e\u043b\u044c\u0437\u0443\u0435\u0442 \u043b\u043e\u043a\u0430\u043b\u044c\u043d\u0443\u044e \u0442\u0430\u0439\u043c\u0437\u043e\u043d\u0443 \u043c\u0430\u0448\u0438\u043d\u044b, \u0433\u0434\u0435 \u0443\u0441\u0442\u0430\u043d\u043e\u0432\u043b\u0435\u043d. \u0415\u0441\u043b\u0438 \u0443\u0441\u0442\u0430\u043d\u043e\u0432\u043b\u0435\u043d \u043d\u0430 \u043a\u043b\u0438\u0435\u043d\u0442\u0441\u043a\u043e\u043c \u043d\u043e\u0443\u0442\u0431\u0443\u043a\u0435, Monday run \u0438\u0434\u0435\u0442 \u043f\u043e \u0432\u0440\u0435\u043c\u0435\u043d\u0438 \u043a\u043b\u0438\u0435\u043d\u0442\u0430. \u0411\u044b\u0441\u0442\u0440\u044b\u0439 \u0441\u0442\u0430\u0440\u0442 \u043f\u043e \u043f\u0440\u0435\u0441\u0435\u0442\u0430\u043c: - profiles/clients/presets/small.yml - profiles/clients/presets/startup.yml - profiles/clients/presets/enterprise.yml \u0421\u0430\u043c\u044b\u0439 \u0431\u044b\u0441\u0442\u0440\u044b\u0439 \u0437\u0430\u043f\u0443\u0441\u043a: python3 scripts/onboard_client.py \u0421\u043a\u0440\u0438\u043f\u0442 \u0437\u0430\u0434\u0430\u0435\u0442 \u0432\u043e\u043f\u0440\u043e\u0441\u044b, \u0441\u043e\u0437\u0434\u0430\u0435\u0442 \u043a\u043b\u0438\u0435\u043d\u0442\u0441\u043a\u0438\u0439 \u043f\u0440\u043e\u0444\u0438\u043b\u044c, \u0441\u043e\u0431\u0438\u0440\u0430\u0435\u0442 bundle, \u0441\u0442\u0430\u0432\u0438\u0442 \u0432 \u043a\u043b\u0438\u0435\u043d\u0442\u0441\u043a\u0438\u0439 \u0440\u0435\u043f\u043e\u0437\u0438\u0442\u043e\u0440\u0438\u0439 \u0438 \u0443\u0441\u0442\u0430\u043d\u0430\u0432\u043b\u0438\u0432\u0430\u0435\u0442 scheduler. onboard_client.py \u043e\u0441\u0442\u0430\u0435\u0442\u0441\u044f \u0432 \u0432\u0430\u0448\u0435\u043c \u043c\u0430\u0441\u0442\u0435\u0440-\u0440\u0435\u043f\u043e \u0438 \u043d\u0435 \u0432\u043a\u043b\u044e\u0447\u0430\u0435\u0442\u0441\u044f \u0432 \u043a\u043b\u0438\u0435\u043d\u0442\u0441\u043a\u0438\u0439 bundle \u043f\u043e \u0443\u043c\u043e\u043b\u0447\u0430\u043d\u0438\u044e. \u041f\u0435\u0440\u0435\u0434 \u0443\u0441\u0442\u0430\u043d\u043e\u0432\u043a\u043e\u0439 \u0432\u044b \u0432\u0438\u0434\u0438\u0442\u0435 preview \u043f\u0440\u043e\u0444\u0438\u043b\u044f",
@@ -3348,7 +4043,7 @@
         "lvl3": "\u0414\u0432\u0430 \u0440\u0435\u0436\u0438\u043c\u0430 \u0443\u0441\u0442\u0430\u043d\u043e\u0432\u043a\u0438",
         "lvl4": ""
       },
-      "url": "/operations/CENTRALIZED_CLIENT_BUNDLES#14",
+      "url": "/operations/CENTRALIZED_CLIENT_BUNDLES#15",
       "last_reviewed": "2026-03-11",
       "path": "docs/operations/CENTRALIZED_CLIENT_BUNDLES.md",
       "ranking_boost": 4,
@@ -3358,7 +4053,7 @@
       "code_snippets": []
     },
     {
-      "objectID": "931f982ec45ae7294d60973ade74792b",
+      "objectID": "4b0d665f11519a960a19b65422b4ad50",
       "title": "\u0426\u0435\u043d\u0442\u0440\u0430\u043b\u0438\u0437\u043e\u0432\u0430\u043d\u043d\u0430\u044f \u043d\u0430\u0441\u0442\u0440\u043e\u0439\u043a\u0430 \u043a\u043b\u0438\u0435\u043d\u0442\u043e\u0432",
       "heading": "\u041a\u043e\u043c\u0430\u043d\u0434\u0430 \"\u043f\u043e\u0434 \u043a\u043b\u044e\u0447\" (\u0431\u0435\u0437 \u0432\u043e\u0437\u043d\u0438 \u043a\u043b\u0438\u0435\u043d\u0442\u0430)",
       "content": "\u0415\u0441\u043b\u0438 \u0432\u044b \u0445\u043e\u0442\u0438\u0442\u0435 \u0441\u0440\u0430\u0437\u0443 \u043d\u0430\u0441\u0442\u0440\u043e\u0438\u0442\u044c \u0438 \u0437\u0430\u043f\u0443\u0441\u043a\u0430\u0442\u044c \u0437\u0430 \u043a\u043b\u0438\u0435\u043d\u0442\u0430, \u0438\u0441\u043f\u043e\u043b\u044c\u0437\u0443\u0439\u0442\u0435 provisioning: python3 scripts/provision_client_repo.py \\   --client profiles/clients/blockstream-demo.client.yml \\   --client-repo /path/to/client-repo \\   --docsops-dir docsops \\   --install-scheduler linux \u0414\u043b\u044f Windows: python3 scripts/provision_client_repo.py \\   --client profiles/clients/blockstream-demo.client.yml \\   --client-repo C:/path/to/client-repo \\   --docsops-dir docsops \\   --install-scheduler windows \u0427\u0442\u043e \u0434\u0435\u043b\u0430\u0435\u0442 \u043a\u043e\u043c\u0430\u043d\u0434\u0430: \\11. \u0421\u043e\u0431\u0438\u0440\u0430\u0435\u0442 bundle \u0438\u0437 \u043a\u043b\u0438\u0435\u043d\u0442\u0441\u043a\u043e\u0433\u043e \u043f\u0440\u043e\u0444\u0438\u043b\u044f. \\11. \u041a\u043e\u043f\u0438\u0440\u0443\u0435\u0442 bundle \u0432 \u0440\u0435\u043f\u043e\u0437\u0438\u0442\u043e\u0440\u0438\u0439 \u043a\u043b\u0438\u0435\u043d\u0442\u0430 (docsops/). \\11. \u0413\u0435\u043d\u0435\u0440\u0438\u0440\u0443\u0435\u0442 docsops/ENV_CHECKLIST.md \u0430\u0432\u0442\u043e\u043c\u0430\u0442\u0438\u0447\u0435\u0441\u043a\u0438. \\11. \u0421\u0442\u0430\u0432\u0438\u0442 weekly scheduler (cron \u0438\u043b\u0438 Task Scheduler). \\11. \u041a\u043b\u0438\u0435\u043d\u0442\u0443 \u043d\u0435 \u043d\u0443\u0436\u043d\u043e \u0440\u0443\u043a\u0430\u043c\u0438 \u043d\u0430\u0441\u0442\u0440\u0430\u0438\u0432\u0430\u0442\u044c pipeline. ",
@@ -3379,7 +4074,7 @@
         "lvl3": "",
         "lvl4": ""
       },
-      "url": "/operations/CENTRALIZED_CLIENT_BUNDLES#15",
+      "url": "/operations/CENTRALIZED_CLIENT_BUNDLES#16",
       "last_reviewed": "2026-03-11",
       "path": "docs/operations/CENTRALIZED_CLIENT_BUNDLES.md",
       "ranking_boost": 4,
@@ -3389,7 +4084,7 @@
       "code_snippets": []
     },
     {
-      "objectID": "4b0d665f11519a960a19b65422b4ad50",
+      "objectID": "edd7db693a5114819e37fcc64e139da2",
       "title": "\u0426\u0435\u043d\u0442\u0440\u0430\u043b\u0438\u0437\u043e\u0432\u0430\u043d\u043d\u0430\u044f \u043d\u0430\u0441\u0442\u0440\u043e\u0439\u043a\u0430 \u043a\u043b\u0438\u0435\u043d\u0442\u043e\u0432",
       "heading": "\u0420\u0443\u0447\u043d\u0430\u044f \u043f\u0440\u043e\u0432\u0435\u0440\u043a\u0430 \u043e\u043f\u0435\u0440\u0430\u0442\u043e\u0440\u0430 (\u043f\u043e\u0441\u043b\u0435 \u0443\u0441\u0442\u0430\u043d\u043e\u0432\u043a\u0438)",
       "content": "\\11. \u041f\u0440\u043e\u0432\u0435\u0440\u0438\u0442\u044c <client-repo>/docsops/config/client_runtime.yml. \\11. \u041f\u0440\u043e\u0432\u0435\u0440\u0438\u0442\u044c <client-repo>/docsops/policy_packs/selected.yml. \\11. \u041f\u0440\u043e\u0432\u0435\u0440\u0438\u0442\u044c <client-repo>/docsops/ENV_CHECKLIST.md \u0438 \u043f\u0435\u0440\u0435\u0434\u0430\u0442\u044c \u0441\u043f\u0438\u0441\u043e\u043a env/secrets \u043a\u043b\u0438\u0435\u043d\u0442\u0443. \\11. \u0423\u0431\u0435\u0434\u0438\u0442\u044c\u0441\u044f, \u0447\u0442\u043e scheduler \u0443\u0441\u0442\u0430\u043d\u043e\u0432\u043b\u0435\u043d (cron entry \u0438\u043b\u0438 Task Scheduler task). \\11. \u0417\u0430\u043f\u0443\u0441\u0442\u0438\u0442\u044c \u043e\u0434\u0438\u043d \u0442\u0435\u0441\u0442\u043e\u0432\u044b\u0439 weekly run \u0438 \u0443\u0431\u0435\u0434\u0438\u0442\u044c\u0441\u044f, \u0447\u0442\u043e reports/consolidated_report.json \u043e\u0431\u043d\u043e\u0432\u0438\u043b\u0441\u044f. ",
@@ -3410,7 +4105,7 @@
         "lvl3": "\u0420\u0443\u0447\u043d\u0430\u044f \u043f\u0440\u043e\u0432\u0435\u0440\u043a\u0430 \u043e\u043f\u0435\u0440\u0430\u0442\u043e\u0440\u0430 (\u043f\u043e\u0441\u043b\u0435 \u0443\u0441\u0442\u0430\u043d\u043e\u0432\u043a\u0438)",
         "lvl4": ""
       },
-      "url": "/operations/CENTRALIZED_CLIENT_BUNDLES#16",
+      "url": "/operations/CENTRALIZED_CLIENT_BUNDLES#17",
       "last_reviewed": "2026-03-11",
       "path": "docs/operations/CENTRALIZED_CLIENT_BUNDLES.md",
       "ranking_boost": 4,
@@ -3420,7 +4115,7 @@
       "code_snippets": []
     },
     {
-      "objectID": "edd7db693a5114819e37fcc64e139da2",
+      "objectID": "1c3b99edf7083f71e4976cbf8c58fdf0",
       "title": "\u0426\u0435\u043d\u0442\u0440\u0430\u043b\u0438\u0437\u043e\u0432\u0430\u043d\u043d\u0430\u044f \u043d\u0430\u0441\u0442\u0440\u043e\u0439\u043a\u0430 \u043a\u043b\u0438\u0435\u043d\u0442\u043e\u0432",
       "heading": "\u041a\u0430\u043a \u044d\u0442\u043e \u0441\u0442\u0430\u0432\u0438\u0442\u0441\u044f \u043a\u043b\u0438\u0435\u043d\u0442\u0443",
       "content": "\u041a\u043b\u0438\u0435\u043d\u0442 \u043a\u043b\u0430\u0434\u0435\u0442 \u043f\u0430\u043f\u043a\u0443 bundle \u0432 \u0441\u0432\u043e\u0439 \u0440\u0435\u043f\u043e, \u043d\u0430\u043f\u0440\u0438\u043c\u0435\u0440: <client-repo>/docsops/ \u0422\u0430\u043c \u0443\u0436\u0435 \u0431\u0443\u0434\u0443\u0442: - config/client_runtime.yml - policy_packs/selected.yml - scripts/... - AGENTS.md - CLAUDE.md - LICENSE-COMMERCIAL.md - NOTICE - ops/run_weekly_docsops.sh / ops/run_weekly_docsops.ps1 - ops/install_cron_weekly.sh / ops/install_windows_task.ps1 - ops/runbook.md ",
@@ -3441,7 +4136,7 @@
         "lvl3": "",
         "lvl4": ""
       },
-      "url": "/operations/CENTRALIZED_CLIENT_BUNDLES#17",
+      "url": "/operations/CENTRALIZED_CLIENT_BUNDLES#18",
       "last_reviewed": "2026-03-11",
       "path": "docs/operations/CENTRALIZED_CLIENT_BUNDLES.md",
       "ranking_boost": 4,
@@ -3451,7 +4146,7 @@
       "code_snippets": []
     },
     {
-      "objectID": "1c3b99edf7083f71e4976cbf8c58fdf0",
+      "objectID": "fcc85be170140641d351f3140e544bd1",
       "title": "\u0426\u0435\u043d\u0442\u0440\u0430\u043b\u0438\u0437\u043e\u0432\u0430\u043d\u043d\u0430\u044f \u043d\u0430\u0441\u0442\u0440\u043e\u0439\u043a\u0430 \u043a\u043b\u0438\u0435\u043d\u0442\u043e\u0432",
       "heading": "\u041d\u0435 \u043b\u043e\u043c\u0430\u0435\u0442 \u043b\u0438 \u044d\u0442\u043e \u043b\u043e\u043a\u0430\u043b\u044c\u043d\u044b\u0439 \u043e\u043f\u044b\u0442?",
       "content": "\u041d\u0435 \u043b\u043e\u043c\u0430\u0435\u0442. - \u041a\u043b\u0438\u0435\u043d\u0442 \u043f\u043e-\u043f\u0440\u0435\u0436\u043d\u0435\u043c\u0443 \u0440\u0430\u0431\u043e\u0442\u0430\u0435\u0442 \u043b\u043e\u043a\u0430\u043b\u044c\u043d\u043e. - LLM \u0447\u0438\u0442\u0430\u0435\u0442 \u043b\u043e\u043a\u0430\u043b\u044c\u043d\u044b\u0435 AGENTS.md/CLAUDE.md. - \u0412\u0441\u0435 \u043f\u0440\u043e\u0432\u0435\u0440\u043a\u0438 \u0438 \u0433\u0435\u043d\u0435\u0440\u0430\u0446\u0438\u044f \u0432\u044b\u043f\u043e\u043b\u043d\u044f\u044e\u0442\u0441\u044f \u043b\u043e\u043a\u0430\u043b\u044c\u043d\u043e \u0432 \u0440\u0435\u043f\u043e \u043a\u043b\u0438\u0435\u043d\u0442\u0430. - \u0415\u0436\u0435\u043d\u0435\u0434\u0435\u043b\u044c\u043d\u044b\u0439 \u043e\u0442\u0447\u0451\u0442 \u0444\u043e\u0440\u043c\u0438\u0440\u0443\u0435\u0442\u0441\u044f \u043f\u043e \u0440\u0430\u0441\u043f\u0438\u0441\u0430\u043d\u0438\u044e \u0430\u0432\u0442\u043e\u043c\u0430\u0442\u0438\u0447\u0435\u0441\u043a\u0438. ",
@@ -3472,7 +4167,7 @@
         "lvl3": "",
         "lvl4": ""
       },
-      "url": "/operations/CENTRALIZED_CLIENT_BUNDLES#18",
+      "url": "/operations/CENTRALIZED_CLIENT_BUNDLES#19",
       "last_reviewed": "2026-03-11",
       "path": "docs/operations/CENTRALIZED_CLIENT_BUNDLES.md",
       "ranking_boost": 4,
@@ -3482,10 +4177,10 @@
       "code_snippets": []
     },
     {
-      "objectID": "fcc85be170140641d351f3140e544bd1",
+      "objectID": "9518ede6c71f75e521490d38caed9cad",
       "title": "\u0426\u0435\u043d\u0442\u0440\u0430\u043b\u0438\u0437\u043e\u0432\u0430\u043d\u043d\u0430\u044f \u043d\u0430\u0441\u0442\u0440\u043e\u0439\u043a\u0430 \u043a\u043b\u0438\u0435\u043d\u0442\u043e\u0432",
       "heading": "\u0415\u0436\u0435\u043d\u0435\u0434\u0435\u043b\u044c\u043d\u044b\u0439 \u0430\u0432\u0442\u043e\u043c\u0430\u0442\u0438\u0447\u0435\u0441\u043a\u0438\u0439 \u043f\u043e\u0442\u043e\u043a",
-      "content": "\u0421\u043a\u0440\u0438\u043f\u0442 docsops/scripts/run_weekly_gap_batch.py \u043f\u043e \u0440\u0430\u0441\u043f\u0438\u0441\u0430\u043d\u0438\u044e: \\11. \u0421\u043e\u0431\u0438\u0440\u0430\u0435\u0442 gap report \u0437\u0430 \u043f\u043e\u0441\u043b\u0435\u0434\u043d\u0438\u0435 7 \u0434\u043d\u0435\u0439. \\11. \u041f\u0440\u043e\u0432\u0435\u0440\u044f\u0435\u0442 stale-\u0434\u043e\u043a\u0438 (\u043f\u043e \u0443\u043c\u043e\u043b\u0447\u0430\u043d\u0438\u044e 180 \u0434\u043d\u0435\u0439 \u0431\u0435\u0437 \u0438\u0437\u043c\u0435\u043d\u0435\u043d\u0438\u0439). \\11. \u0417\u0430\u043f\u0443\u0441\u043a\u0430\u0435\u0442 KPI/SLA (\u0435\u0441\u043b\u0438 \u0432\u043a\u043b\u044e\u0447\u0435\u043d\u043e \u0432 bundle). \\11. \u041f\u0440\u0438 mode=api-first|hybrid \u0437\u0430\u043f\u0443\u0441\u043a\u0430\u0435\u0442 API-first flow (\u0435\u0441\u043b\u0438 \u0432\u043a\u043b\u044e\u0447\u0435\u043d\u043e \u0432 runtime.api_first.enabled). \\11. \u041f\u0440\u0438\u043c\u0435\u043d\u044f\u0435\u0442 manual overrides \u043a OpenAPI \u0430\u0440\u0442\u0435\u0444\u0430\u043a\u0442\u0430\u043c (\u0435\u0441\u043b\u0438 \u0437\u0430\u0434\u0430\u043d manual_overrides_path). \\11. \u041f\u0440\u043e\u0432\u0435\u0440\u044f\u0435\u0442 regression snapshot (\u0435\u0441\u043b\u0438 \u0437\u0430\u0434\u0430\u043d regression_snapshot_path). \\11. \u0413\u0435\u043d\u0435\u0440\u0438\u0440\u0443\u0435\u0442 \u0438 \u0432\u0430\u043b\u0438\u0434\u0438\u0440\u0443\u0435\u0442 \u043c\u0443\u043b\u044c\u0442\u0438\u044f\u0437\u044b\u0447\u043d\u044b\u0435 \u0432\u043a\u043b\u0430\u0434\u043a\u0438 \u043a\u043e\u0434\u0430 (\u043d\u043e\u0432\u044b\u0439 \u0441\u0442\u0430\u043d\u0434\u0430\u0440\u0442). \\11. \u0412\u044b\u043f\u043e\u043b\u043d\u044f\u0435\u0442 smoke-\u043f\u0440\u043e\u0432\u0435\u0440\u043a\u0438 \u043a\u043e\u0434\u0430 \u0438 \u0441\u0432\u0435\u0440\u044f\u0435\u0442 expected-output (\u0435\u0441\u043b\u0438 \u0443\u043a\u0430\u0437\u0430\u043d). \\11. \u0417\u0430\u043f\u0443\u0441\u043a\u0430\u0435\u0442 runtime.custom_tasks.weekly (\u0435\u0441\u043b\u0438 \u0432\u043a\u043b\u044e\u0447\u0435\u043d\u044b). \\11. \u0421\u043e\u0437\u0434\u0430\u0435\u0442 reports/consolidated_report.json. \u0412\u0430\u0436\u043d\u043e: API-first \u0437\u0434\u0435\u0441\u044c \u0442\u043e\u043b\u044c\u043a\u043e \u043e\u0434\u0438\u043d \u0438\u0437 \u043f\u043e\u0434\u043f\u0440\u043e\u0446\u0435\u0441\u0441\u043e\u0432. \u0413\u043b\u0430\u0432\u043d\u044b\u0439 \u043a\u043e\u043d\u0442\u0443\u0440 \u043e\u0445\u0432\u0430\u0442\u044b\u0432\u0430\u0435\u0442 \u0432\u0441\u0435 \u0442\u0438\u043f\u044b \u0434\u043e\u043a\u0443\u043c\u0435\u043d\u0442\u0430\u0446\u0438\u0438 \u0438 quality automation \u0446\u0435\u043b\u0438\u043a\u043e\u043c. \u041f\u043e\u0440\u043e\u0433 stale \u043c\u043e\u0436\u043d\u043e \u043c\u0435\u043d\u044f\u0442\u044c \u0434\u043b\u044f \u043a\u0430\u0436\u0434\u043e\u0433\u043e \u043a\u043b\u0438\u0435\u043d\u0442\u0430: - private_tuning.weekly_stale_days \u0432 profiles/clients/<client>.client.yml \u0414\u0430\u043b\u044c\u0448\u0435 ",
+      "content": "\u0421\u043a\u0440\u0438\u043f\u0442 docsops/scripts/run_weekly_gap_batch.py \u043f\u043e \u0440\u0430\u0441\u043f\u0438\u0441\u0430\u043d\u0438\u044e: \\11. \u0421\u043e\u0431\u0438\u0440\u0430\u0435\u0442 gap report \u0437\u0430 \u043f\u043e\u0441\u043b\u0435\u0434\u043d\u0438\u0435 7 \u0434\u043d\u0435\u0439. \\11. \u041f\u0440\u043e\u0432\u0435\u0440\u044f\u0435\u0442 stale-\u0434\u043e\u043a\u0438 (\u043f\u043e \u0443\u043c\u043e\u043b\u0447\u0430\u043d\u0438\u044e 180 \u0434\u043d\u0435\u0439 \u0431\u0435\u0437 \u0438\u0437\u043c\u0435\u043d\u0435\u043d\u0438\u0439). \\11. \u0417\u0430\u043f\u0443\u0441\u043a\u0430\u0435\u0442 KPI/SLA (\u0435\u0441\u043b\u0438 \u0432\u043a\u043b\u044e\u0447\u0435\u043d\u043e \u0432 bundle). \\11. \u041f\u0440\u0438 mode=api-first|hybrid \u0437\u0430\u043f\u0443\u0441\u043a\u0430\u0435\u0442 API-first flow (\u0435\u0441\u043b\u0438 \u0432\u043a\u043b\u044e\u0447\u0435\u043d\u043e \u0432 runtime.api_first.enabled). \\11. \u0414\u043b\u044f API sandbox \u043f\u043e\u0434\u0434\u0435\u0440\u0436\u0438\u0432\u0430\u0435\u0442 3 \u0440\u0435\u0436\u0438\u043c\u0430: docker, prism (\u0431\u0435\u0437 Docker), external (\u043f\u0443\u0431\u043b\u0438\u0447\u043d\u044b\u0439 URL). \\11. \u0415\u0441\u043b\u0438 runtime.api_first.sync_playground_endpoint=true, URL \u043f\u0435\u0441\u043e\u0447\u043d\u0438\u0446\u044b \u0430\u0432\u0442\u043e\u043c\u0430\u0442\u0438\u0447\u0435\u0441\u043a\u0438 \u043f\u0438\u0448\u0435\u0442\u0441\u044f \u0432 mkdocs.yml. \\11. \u041f\u0440\u0438\u043c\u0435\u043d\u044f\u0435\u0442 manual overrides \u043a OpenAPI \u0430\u0440\u0442\u0435\u0444\u0430\u043a\u0442\u0430\u043c (\u0435\u0441\u043b\u0438 \u0437\u0430\u0434\u0430\u043d manual_overrides_path). \\11. \u041f\u0440\u043e\u0432\u0435\u0440\u044f\u0435\u0442 regression snapshot (\u0435\u0441\u043b\u0438 \u0437\u0430\u0434\u0430\u043d regression_snapshot_path). \\11. \u0413\u0435\u043d\u0435\u0440\u0438\u0440\u0443\u0435\u0442 \u0438 \u0432\u0430\u043b\u0438\u0434\u0438\u0440\u0443\u0435\u0442 \u043c\u0443\u043b\u044c\u0442\u0438\u044f\u0437\u044b\u0447\u043d\u044b\u0435 \u0432\u043a\u043b\u0430\u0434\u043a\u0438 \u043a\u043e\u0434\u0430 (\u043d\u043e\u0432\u044b\u0439 \u0441\u0442\u0430\u043d\u0434\u0430\u0440\u0442). \\11. \u0412\u044b\u043f\u043e\u043b\u043d\u044f\u0435\u0442 smoke-\u043f\u0440\u043e\u0432\u0435\u0440\u043a\u0438 \u043a\u043e\u0434\u0430 \u0438 \u0441\u0432\u0435\u0440\u044f\u0435\u0442 expected-output (\u0435\u0441\u043b\u0438 \u0443\u043a\u0430\u0437\u0430\u043d). \\11. \u0417\u0430\u043f\u0443\u0441\u043a\u0430\u0435\u0442 runtime.custom_tasks.weekly (\u0435\u0441\u043b\u0438 \u0432\u043a\u043b\u044e\u0447\u0435\u043d\u044b). \\11. \u0421\u043e\u0437\u0434\u0430\u0435\u0442 reports/consolidated_report.json. \u0412\u0430\u0436\u043d\u043e: API-first \u0437\u0434\u0435\u0441\u044c \u0442\u043e\u043b\u044c\u043a\u043e \u043e\u0434\u0438\u043d \u0438\u0437 \u043f\u043e\u0434\u043f\u0440\u043e\u0446\u0435\u0441\u0441\u043e\u0432",
       "description": "\u041f\u0440\u0430\u043a\u0442\u0438\u0447\u0435\u0441\u043a\u0438\u0439 \u043f\u0443\u0442\u044c \u043d\u0430\u0441\u0442\u0440\u043e\u0439\u043a\u0438 \u043a\u043b\u0438\u0435\u043d\u0442\u0441\u043a\u0438\u0445 bundle \u0438 \u0430\u0432\u0442\u043e\u0437\u0430\u043f\u0443\u0441\u043a\u0430 pipeline \u0438\u0437 \u043e\u0434\u043d\u043e\u0433\u043e \u043c\u0435\u0441\u0442\u0430.",
       "product": "both",
       "content_type": "reference",
@@ -3503,17 +4198,17 @@
         "lvl3": "",
         "lvl4": ""
       },
-      "url": "/operations/CENTRALIZED_CLIENT_BUNDLES#19",
+      "url": "/operations/CENTRALIZED_CLIENT_BUNDLES#20",
       "last_reviewed": "2026-03-11",
       "path": "docs/operations/CENTRALIZED_CLIENT_BUNDLES.md",
       "ranking_boost": 4,
       "heading_level": 2,
-      "word_count": 130,
+      "word_count": 170,
       "has_code": false,
       "code_snippets": []
     },
     {
-      "objectID": "9518ede6c71f75e521490d38caed9cad",
+      "objectID": "aa4468799a11445d3f853d9f4bf7d546",
       "title": "\u0426\u0435\u043d\u0442\u0440\u0430\u043b\u0438\u0437\u043e\u0432\u0430\u043d\u043d\u0430\u044f \u043d\u0430\u0441\u0442\u0440\u043e\u0439\u043a\u0430 \u043a\u043b\u0438\u0435\u043d\u0442\u043e\u0432",
       "heading": "\u0427\u0442\u043e \u0434\u043e\u0431\u0430\u0432\u0438\u0442\u044c \u0432 `.gitignore` \u043a\u043b\u0438\u0435\u043d\u0442\u0430",
       "content": "\u0420\u0435\u043a\u043e\u043c\u0435\u043d\u0434\u0443\u0435\u043c\u044b\u0439 \u043c\u0438\u043d\u0438\u043c\u0443\u043c: reports/docsops-weekly.log \u042d\u0442\u043e \u043b\u043e\u043a\u0430\u043b\u044c\u043d\u044b\u0439 \u043b\u043e\u0433 \u043f\u043b\u0430\u043d\u0438\u0440\u043e\u0432\u0449\u0438\u043a\u0430. \u0415\u0433\u043e \u043e\u0431\u044b\u0447\u043d\u043e \u043d\u0435 \u043a\u043e\u043c\u043c\u0438\u0442\u044f\u0442. JSON/Markdown \u043e\u0442\u0447\u0435\u0442\u044b (reports/consolidated_report.json \u0438 \u0441\u0432\u044f\u0437\u0430\u043d\u043d\u044b\u0435 \u043e\u0442\u0447\u0435\u0442\u044b) \u043e\u0431\u044b\u0447\u043d\u043e \u043e\u0441\u0442\u0430\u0432\u043b\u044f\u044e\u0442 \u0432 \u0440\u0435\u043f\u043e\u0437\u0438\u0442\u043e\u0440\u0438\u0438, \u0435\u0441\u043b\u0438 \u043a\u043e\u043c\u0430\u043d\u0434\u0430 \u0432\u0435\u0434\u0435\u0442 \u0438\u0441\u0442\u043e\u0440\u0438\u044e \u043e\u0442\u0447\u0435\u0442\u043e\u0432 \u0432 git. ",
@@ -3534,7 +4229,7 @@
         "lvl3": "",
         "lvl4": ""
       },
-      "url": "/operations/CENTRALIZED_CLIENT_BUNDLES#20",
+      "url": "/operations/CENTRALIZED_CLIENT_BUNDLES#21",
       "last_reviewed": "2026-03-11",
       "path": "docs/operations/CENTRALIZED_CLIENT_BUNDLES.md",
       "ranking_boost": 4,
@@ -3544,7 +4239,7 @@
       "code_snippets": []
     },
     {
-      "objectID": "aa4468799a11445d3f853d9f4bf7d546",
+      "objectID": "e62889ac5c9db30bde76544499d5481b",
       "title": "\u0426\u0435\u043d\u0442\u0440\u0430\u043b\u0438\u0437\u043e\u0432\u0430\u043d\u043d\u0430\u044f \u043d\u0430\u0441\u0442\u0440\u043e\u0439\u043a\u0430 \u043a\u043b\u0438\u0435\u043d\u0442\u043e\u0432",
       "heading": "RAG/knowledge \u0431\u0435\u0437 \u0440\u0443\u0447\u043d\u044b\u0445 \u0437\u0430\u043f\u0443\u0441\u043a\u043e\u0432",
       "content": "\u042d\u0442\u043e \u0443\u0436\u0435 \u0443\u043a\u043b\u0430\u0434\u044b\u0432\u0430\u0435\u0442\u0441\u044f \u0432 \u0442\u0435\u043a\u0443\u0449\u0438\u0439 smooth flow: \\11. \u041e\u0434\u0438\u043d \u0440\u0430\u0437 \u043d\u0430\u0441\u0442\u0440\u043e\u0438\u0442\u044c \u043f\u0440\u043e\u0444\u0438\u043b\u044c \u043a\u043b\u0438\u0435\u043d\u0442\u0430 (*.client.yml): - runtime.modules.knowledge_validation: true - runtime.modules.rag_optimization: true - runtime.modules.ontology_graph: true - runtime.modules.retrieval_evals: true - runtime.custom_tasks.weekly \u0434\u043b\u044f RAG-\u0437\u0430\u0434\u0430\u0447, \u0432\u043a\u043b\u044e\u0447\u0430\u044f build_all_intent_experiences.py - bundle.include_paths: [\"knowledge_modules\"] \\11. \u041e\u0434\u0438\u043d \u0440\u0430\u0437 \u0441\u0434\u0435\u043b\u0430\u0442\u044c provisioning: - provision_client_repo.py \u0441\u0442\u0430\u0432\u0438\u0442 docsops/ \u0432 \u043a\u043b\u0438\u0435\u043d\u0442\u0441\u043a\u0438\u0439 \u0440\u0435\u043f\u043e\u0437\u0438\u0442\u043e\u0440\u0438\u0439 - \u0441\u0440\u0430\u0437\u0443 \u0441\u0442\u0430\u0432\u0438\u0442\u0441\u044f \u0440\u0430\u0441\u043f\u0438\u0441\u0430\u043d\u0438\u0435 (cron \u0438\u043b\u0438 Task Scheduler) \\11. \u0414\u0430\u043b\u0435\u0435 weekly job \u0438\u0434\u0435\u0442 \u0430\u0432\u0442\u043e\u043c\u0430\u0442\u0438\u0447\u0435\u0441\u043a\u0438: - \u0437\u0430\u043f\u0443\u0441\u043a\u0430\u0435\u0442\u0441\u044f run_weekly_gap_batch.py - \u0432\u043d\u0443\u0442\u0440\u0438 \u0432\u044b\u043f\u043e\u043b\u043d\u044f\u044e\u0442\u0441\u044f:   - extract_knowledge_modules_from_docs.py   - validate_knowledge_modules.py   - generate_knowledge_retrieval_index.py   - generate_knowledge_graph_jsonld.py   - run_retrieval_evals.py   - \u043b\u044e\u0431\u044b\u0435 custom_tasks.weekly (\u043d\u0430\u043f\u0440\u0438\u043c\u0435\u0440 build_all_intent_experiences.py) - \u043e\u0442\u0447\u0435\u0442\u044b \u0444\u043e\u0440\u043c\u0438\u0440\u0443\u044e\u0442\u0441\u044f \u0430\u0432\u0442\u043e\u043c\u0430\u0442\u0438\u0447\u0435\u0441\u043a\u0438 \u0418\u0442\u043e\u0433: - \u043a\u043b\u0438\u0435\u043d\u0442\u0441\u043a\u0430\u044f \u043a\u043e\u043c\u0430\u043d\u0434\u0430 \u043d\u0435 \u0437\u0430\u043f\u0443\u0441\u043a\u0430\u0435\u0442 \u043a\u043e\u043c\u0430\u043d\u0434\u044b \u0432\u0440\u0443",
@@ -3565,7 +4260,7 @@
         "lvl3": "",
         "lvl4": ""
       },
-      "url": "/operations/CENTRALIZED_CLIENT_BUNDLES#21",
+      "url": "/operations/CENTRALIZED_CLIENT_BUNDLES#22",
       "last_reviewed": "2026-03-11",
       "path": "docs/operations/CENTRALIZED_CLIENT_BUNDLES.md",
       "ranking_boost": 4,
@@ -3575,7 +4270,7 @@
       "code_snippets": []
     },
     {
-      "objectID": "e62889ac5c9db30bde76544499d5481b",
+      "objectID": "078d443f13c82a779c35ed2b7032cf85",
       "title": "\u0426\u0435\u043d\u0442\u0440\u0430\u043b\u0438\u0437\u043e\u0432\u0430\u043d\u043d\u0430\u044f \u043d\u0430\u0441\u0442\u0440\u043e\u0439\u043a\u0430 \u043a\u043b\u0438\u0435\u043d\u0442\u043e\u0432",
       "heading": "\u041a\u043b\u0438\u0435\u043d\u0442 1: \u0442\u043e\u043b\u044c\u043a\u043e Sphinx, \u0431\u0435\u0437 drift",
       "content": "runtime:   output_targets: [\"sphinx\"]   modules:     gap_detection: true     drift_detection: false     docs_contract: true     kpi_sla: true     rag_optimization: true     ontology_graph: true     retrieval_evals: true     terminology_management: true bundle:   include_scripts:     - \"scripts/check_docs_contract.py\"     - \"scripts/evaluate_kpi_sla.py\"     - \"scripts/generate_knowledge_graph_jsonld.py\"     - \"scripts/run_retrieval_evals.py\"     - \"scripts/sync_project_glossary.py\" ",
@@ -3596,7 +4291,7 @@
         "lvl3": "\u041a\u043b\u0438\u0435\u043d\u0442 1: \u0442\u043e\u043b\u044c\u043a\u043e Sphinx, \u0431\u0435\u0437 drift",
         "lvl4": ""
       },
-      "url": "/operations/CENTRALIZED_CLIENT_BUNDLES#22",
+      "url": "/operations/CENTRALIZED_CLIENT_BUNDLES#23",
       "last_reviewed": "2026-03-11",
       "path": "docs/operations/CENTRALIZED_CLIENT_BUNDLES.md",
       "ranking_boost": 4,
@@ -3606,7 +4301,7 @@
       "code_snippets": []
     },
     {
-      "objectID": "078d443f13c82a779c35ed2b7032cf85",
+      "objectID": "bdbeb5e031f8f55c6fd138bffe64ba19",
       "title": "\u0426\u0435\u043d\u0442\u0440\u0430\u043b\u0438\u0437\u043e\u0432\u0430\u043d\u043d\u0430\u044f \u043d\u0430\u0441\u0442\u0440\u043e\u0439\u043a\u0430 \u043a\u043b\u0438\u0435\u043d\u0442\u043e\u0432",
       "heading": "\u041a\u043b\u0438\u0435\u043d\u0442 2: ReadMe + GitHub, \u043e\u0447\u0435\u043d\u044c \u0441\u0442\u0440\u043e\u0433\u0438\u0439 quality bar",
       "content": "runtime:   output_targets: [\"readme\", \"github\"] bundle:   base_policy_pack: \"plg\"   policy_overrides:     kpi_sla:       min_doc_coverage: 90       max_quality_score_drop: 2 \u0412\u044b \u043c\u0435\u043d\u044f\u0435\u0442\u0435 \u0442\u043e\u043b\u044c\u043a\u043e \u043f\u0440\u043e\u0444\u0438\u043b\u044c YAML. \u041a\u043e\u0434 \u043f\u0430\u0439\u043f\u043b\u0430\u0439\u043d\u0430 \u043d\u0435 \u0442\u0440\u043e\u0433\u0430\u0435\u0442\u0435. ",
@@ -3627,7 +4322,7 @@
         "lvl3": "\u041a\u043b\u0438\u0435\u043d\u0442 2: ReadMe + GitHub, \u043e\u0447\u0435\u043d\u044c \u0441\u0442\u0440\u043e\u0433\u0438\u0439 quality bar",
         "lvl4": ""
       },
-      "url": "/operations/CENTRALIZED_CLIENT_BUNDLES#23",
+      "url": "/operations/CENTRALIZED_CLIENT_BUNDLES#24",
       "last_reviewed": "2026-03-11",
       "path": "docs/operations/CENTRALIZED_CLIENT_BUNDLES.md",
       "ranking_boost": 4,
@@ -3637,7 +4332,7 @@
       "code_snippets": []
     },
     {
-      "objectID": "bdbeb5e031f8f55c6fd138bffe64ba19",
+      "objectID": "850d4edf72bc20fa0fb5af16d05781ea",
       "title": "\u0426\u0435\u043d\u0442\u0440\u0430\u043b\u0438\u0437\u043e\u0432\u0430\u043d\u043d\u0430\u044f \u043d\u0430\u0441\u0442\u0440\u043e\u0439\u043a\u0430 \u043a\u043b\u0438\u0435\u043d\u0442\u043e\u0432",
       "heading": "Next steps",
       "content": "- Documentation index ",
@@ -3658,7 +4353,7 @@
         "lvl3": "",
         "lvl4": ""
       },
-      "url": "/operations/CENTRALIZED_CLIENT_BUNDLES#24",
+      "url": "/operations/CENTRALIZED_CLIENT_BUNDLES#25",
       "last_reviewed": "2026-03-11",
       "path": "docs/operations/CENTRALIZED_CLIENT_BUNDLES.md",
       "ranking_boost": 4,
@@ -3702,7 +4397,7 @@
       "objectID": "12aad9d4e15b72307c5ae2a474d65ace",
       "title": "Pipeline Capabilities Catalog",
       "heading": "How to enable any capability for a client",
-      "content": "runtime:   custom_tasks:     weekly:       - id: \"my-task\"         enabled: true         command: \"npm run <script-name>\"         continue_on_error: true | Script | Category | Command | | --- | --- | --- | | agent:claude:auto | Agent/Demo | bash scripts/claude-auto.sh | | agent:codex:auto | Agent/Demo | bash scripts/codex-auto.sh | | api-first-demo | API-first | bash scripts/api_first_demo_live.sh | | api-first-demo:stop | API-first | bash scripts/api_first_demo_stop.sh | | api-first:demo | API-first | bash -lc 'set -e; bash scripts/api_sandbox_project.sh up taskstream ./api/openapi.yaml 4010; trap \"bash scripts/api_sandbox_project.sh down taskstream ./api/openapi.yaml 4010\" EXIT; python3 scripts/run_api_first_flow.py --project-slug taskstream --notes demos/api-first/taskstream-planning-notes.md --spec api/openapi.yaml --spec-tree api/taskstream --docs-provider mkdocs --inject-demo-nav --verify-user-path --mock-base-url http://localhost:4010/v1 --auto-remediate --max-attempts 3' | | ap",
+      "content": "runtime:   custom_tasks:     weekly:       - id: \"my-task\"         enabled: true         command: \"npm run <script-name>\"         continue_on_error: true | Script | Category | Command | | --- | --- | --- | | agent:claude:auto | Agent/Demo | bash scripts/claude-auto.sh | | agent:codex:auto | Agent/Demo | bash scripts/codex-auto.sh | | api-first-demo | API-first | bash scripts/api_first_demo_live.sh | | api-first-demo:stop | API-first | bash scripts/api_first_demo_stop.sh | | api-first:demo | API-first | bash -lc 'set -e; API_SANDBOX_EXTERNAL_BASE_URL=\\\"https://sandbox-api.example.com/v1\\\" bash scripts/api_sandbox_project.sh up taskstream ./api/openapi.yaml 4010 external; python3 scripts/run_api_first_flow.py --project-slug taskstream --notes demos/api-first/taskstream-planning-notes.md --spec api/openapi.yaml --spec-tree api/taskstream --docs-provider mkdocs --inject-demo-nav --verify-user-path --mock-base-url https://sandbox-api.example.com/v1 --sync-playground-endpoint --auto-remediat",
       "description": "Generated catalog of available pipeline commands, templates, policy packs, and assets for client configuration.",
       "product": "both",
       "content_type": "reference",
@@ -3725,12 +4420,74 @@
       "path": "docs/operations/PIPELINE_CAPABILITIES_CATALOG.md",
       "ranking_boost": 4,
       "heading_level": 2,
-      "word_count": 1289,
+      "word_count": 1284,
       "has_code": false,
       "code_snippets": []
     },
     {
       "objectID": "163e97999607b3efd585ab6b4cf692a0",
+      "title": "Pipeline Capabilities Catalog",
+      "heading": "API-first external sandbox note",
+      "content": "For public web playground usage, prefer external sandbox mode and a public HTTPS mock URL with CORS: API_FIRST_DEMO_SANDBOX_BACKEND=external \\ API_FIRST_DEMO_MOCK_BASE_URL=\"https://sandbox-api.example.com/v1\" \\ bash scripts/api_first_demo_live.sh The pipeline is provider-agnostic. You can use Postman Mock Servers, Stoplight-hosted Prism, Mockoon Cloud, or your own hosted Prism-compatible endpoint. For Postman auto-prepare mode, provide: - POSTMAN_API_KEY - POSTMAN_WORKSPACE_ID - optional POSTMAN_COLLECTION_UID (if empty, pipeline imports collection from generated OpenAPI) - optional POSTMAN_MOCK_SERVER_ID ",
+      "description": "Generated catalog of available pipeline commands, templates, policy packs, and assets for client configuration.",
+      "product": "both",
+      "content_type": "reference",
+      "component": "",
+      "version": "",
+      "maturity": "ga",
+      "tags": [
+        "Operations",
+        "Reference"
+      ],
+      "hierarchy": {
+        "lvl0": "both",
+        "lvl1": "reference",
+        "lvl2": "API-first external sandbox note",
+        "lvl3": "",
+        "lvl4": ""
+      },
+      "url": "/operations/PIPELINE_CAPABILITIES_CATALOG#2",
+      "last_reviewed": "",
+      "path": "docs/operations/PIPELINE_CAPABILITIES_CATALOG.md",
+      "ranking_boost": 4,
+      "heading_level": 2,
+      "word_count": 66,
+      "has_code": false,
+      "code_snippets": []
+    },
+    {
+      "objectID": "8b07c911cf94ce00ffa4a879f0d87424",
+      "title": "Pipeline Capabilities Catalog",
+      "heading": "PR auto-doc workflow capability",
+      "content": "Enable in client profile with runtime.pr_autofix. Installed workflow behavior: 1. Trigger on PR events (opened, synchronize, reopened, labeled). 1. Analyze only current PR diff (base...head). 1. Run docs auto-fix script if docs contract/drift gates require docs updates. 1. Commit generated docs into the same PR branch. 1. Rerun checks automatically. ",
+      "description": "Generated catalog of available pipeline commands, templates, policy packs, and assets for client configuration.",
+      "product": "both",
+      "content_type": "reference",
+      "component": "",
+      "version": "",
+      "maturity": "ga",
+      "tags": [
+        "Operations",
+        "Reference"
+      ],
+      "hierarchy": {
+        "lvl0": "both",
+        "lvl1": "reference",
+        "lvl2": "PR auto-doc workflow capability",
+        "lvl3": "",
+        "lvl4": ""
+      },
+      "url": "/operations/PIPELINE_CAPABILITIES_CATALOG#3",
+      "last_reviewed": "",
+      "path": "docs/operations/PIPELINE_CAPABILITIES_CATALOG.md",
+      "ranking_boost": 4,
+      "heading_level": 2,
+      "word_count": 50,
+      "has_code": false,
+      "code_snippets": []
+    },
+    {
+      "objectID": "ad3cf03de42afb8255f016ef34a740c4",
       "title": "Pipeline Capabilities Catalog",
       "heading": "Templates",
       "content": "These can be shipped via bundle.include_paths and used by LLM generation flow. - templates/admin-guide.md - templates/api-endpoint.md - templates/api-reference.md - templates/architecture-overview.md - templates/authentication-guide.md - templates/best-practices.md - templates/changelog.md - templates/concept.md - templates/configuration-guide.md - templates/configuration-reference.md - templates/deployment-guide.md - templates/error-handling-guide.md - templates/faq.md - templates/glossary-page.md - templates/how-to.md - templates/integration-guide.md - templates/interactive-diagram.html - templates/migration-guide.md - templates/plg-persona-guide.md - templates/plg-value-page.md - templates/quickstart.md - templates/reference.md - templates/release-note.md - templates/sdk-reference.md - templates/security-guide.md - templates/testing-guide.md - templates/troubleshooting.md - templates/tutorial.md - templates/upgrade-guide.md - templates/use-case.md - templates/user-guide.md - templat",
@@ -3751,7 +4508,7 @@
         "lvl3": "",
         "lvl4": ""
       },
-      "url": "/operations/PIPELINE_CAPABILITIES_CATALOG#2",
+      "url": "/operations/PIPELINE_CAPABILITIES_CATALOG#4",
       "last_reviewed": "",
       "path": "docs/operations/PIPELINE_CAPABILITIES_CATALOG.md",
       "ranking_boost": 4,
@@ -3761,7 +4518,7 @@
       "code_snippets": []
     },
     {
-      "objectID": "8b07c911cf94ce00ffa4a879f0d87424",
+      "objectID": "03de58dd9ce31e44288d058c157728d6",
       "title": "Pipeline Capabilities Catalog",
       "heading": "Policy Packs",
       "content": "- api-first.yml - minimal.yml - monorepo.yml - multi-product.yml - plg.yml ",
@@ -3782,7 +4539,7 @@
         "lvl3": "",
         "lvl4": ""
       },
-      "url": "/operations/PIPELINE_CAPABILITIES_CATALOG#3",
+      "url": "/operations/PIPELINE_CAPABILITIES_CATALOG#5",
       "last_reviewed": "",
       "path": "docs/operations/PIPELINE_CAPABILITIES_CATALOG.md",
       "ranking_boost": 4,
@@ -3792,7 +4549,7 @@
       "code_snippets": []
     },
     {
-      "objectID": "ad3cf03de42afb8255f016ef34a740c4",
+      "objectID": "57ec3721afbac456defdd6c0352b0b23",
       "title": "Pipeline Capabilities Catalog",
       "heading": "Knowledge Modules",
       "content": "Can be copied into client bundle with bundle.include_paths: ['knowledge_modules']. - webhook-auth-baseline.yml - webhook-retry-policy.yml ",
@@ -3813,7 +4570,7 @@
         "lvl3": "",
         "lvl4": ""
       },
-      "url": "/operations/PIPELINE_CAPABILITIES_CATALOG#4",
+      "url": "/operations/PIPELINE_CAPABILITIES_CATALOG#6",
       "last_reviewed": "",
       "path": "docs/operations/PIPELINE_CAPABILITIES_CATALOG.md",
       "ranking_boost": 4,
@@ -3823,7 +4580,7 @@
       "code_snippets": []
     },
     {
-      "objectID": "03de58dd9ce31e44288d058c157728d6",
+      "objectID": "d46905e7e7d2df34c90e9d7e2b7ff8fc",
       "title": "Pipeline Capabilities Catalog",
       "heading": "Docker Compose Profiles",
       "content": "- docker-compose.api-sandbox.live.yml - docker-compose.api-sandbox.prodlike.yml - docker-compose.api-sandbox.yml - docker-compose.docs-ops.yml ",
@@ -3844,7 +4601,7 @@
         "lvl3": "",
         "lvl4": ""
       },
-      "url": "/operations/PIPELINE_CAPABILITIES_CATALOG#5",
+      "url": "/operations/PIPELINE_CAPABILITIES_CATALOG#7",
       "last_reviewed": "",
       "path": "docs/operations/PIPELINE_CAPABILITIES_CATALOG.md",
       "ranking_boost": 4,
@@ -3854,7 +4611,7 @@
       "code_snippets": []
     },
     {
-      "objectID": "57ec3721afbac456defdd6c0352b0b23",
+      "objectID": "98a234d7a612d9d605aebbee5f32611f",
       "title": "Pipeline Capabilities Catalog",
       "heading": "Next steps",
       "content": "- Documentation index ",
@@ -3875,7 +4632,7 @@
         "lvl3": "",
         "lvl4": ""
       },
-      "url": "/operations/PIPELINE_CAPABILITIES_CATALOG#6",
+      "url": "/operations/PIPELINE_CAPABILITIES_CATALOG#8",
       "last_reviewed": "",
       "path": "docs/operations/PIPELINE_CAPABILITIES_CATALOG.md",
       "ranking_boost": 4,
@@ -3919,7 +4676,7 @@
       "objectID": "aa2dadc1f66586fe8c866ae8f0252ad0",
       "title": "Plan Tiers (Basic / Pro / Enterprise)",
       "heading": "1. Feature matrix",
-      "content": "| Capability | Basic | Pro | Enterprise | | --- | --- | --- | --- | | Core quality gates (normalize, snippets, smoke) | Yes | Yes | Yes | | Gap detection | Yes | Yes | Yes | | Weekly stale checks | Yes | Yes | Yes | | Drift + docs contract gates | No | Yes | Yes | | KPI/SLA reports | No | Yes | Yes | | API-first flow | No | Optional | Full | | RAG/knowledge validation/index | No | Yes | Yes | | JSON-LD ontology/graph layer | No | Yes | Yes | | Retrieval evals (Precision/Recall/Hallucination) | No | Yes | Yes | | Terminology auto-sync (glossary markers) | Yes | Yes | Yes | | i18n sync | No | Optional | Yes | | SEO/GEO optimization weekly | Optional | Yes | Yes | | Custom weekly task slots | 2 | 6 | Unlimited | | Strict policy profile | minimal | api-first/monorepo | multi-product/plg + overrides | ",
+      "content": "| Capability | Basic | Pro | Enterprise | | --- | --- | --- | --- | | Core quality gates (normalize, snippets, smoke) | Yes | Yes | Yes | | Gap detection | Yes | Yes | Yes | | Weekly stale checks | Yes | Yes | Yes | | Drift + docs contract gates | No | Yes | Yes | | KPI/SLA reports | No | Yes | Yes | | API-first flow | No | Optional | Full | | RAG/knowledge validation/index | No | Yes | Yes | | JSON-LD ontology/graph layer | No | Yes | Yes | | Retrieval evals (Precision/Recall/Hallucination) | No | Yes | Yes | | Terminology auto-sync (glossary markers) | Yes | Yes | Yes | | PR auto-doc fix to same PR branch | Optional | Yes | Yes | | i18n sync | No | Optional | Yes | | SEO/GEO optimization weekly | Optional | Yes | Yes | | Custom weekly task slots | 2 | 6 | Unlimited | | Strict policy profile | minimal | api-first/monorepo | multi-product/plg + overrides | ",
       "description": "Feature packaging matrix and defaults for Basic, Pro, and Enterprise client plans.",
       "product": "both",
       "content_type": "reference",
@@ -3942,7 +4699,7 @@
       "path": "docs/operations/PLAN_TIERS.md",
       "ranking_boost": 4,
       "heading_level": 2,
-      "word_count": 176,
+      "word_count": 191,
       "has_code": false,
       "code_snippets": []
     },
@@ -3950,7 +4707,7 @@
       "objectID": "9cfc2c85b5c9c6791fe804f0369f41a3",
       "title": "Plan Tiers (Basic / Pro / Enterprise)",
       "heading": "Basic preset",
-      "content": "bundle:   base_policy_pack: \"minimal\"   style_guide: \"google\" runtime:   docs_flow:     mode: \"code-first\"   modules:     gap_detection: true     drift_detection: false     docs_contract: false     kpi_sla: false     rag_optimization: false     ontology_graph: false     retrieval_evals: false     terminology_management: true     normalization: true     snippet_lint: true     self_checks: true     fact_checks: true     knowledge_validation: false     i18n_sync: false     release_pack: true   api_first:     enabled: false   custom_tasks:     weekly:       - id: \"seo-geo-lite\"         enabled: true         command: \"python3 docsops/scripts/seo_geo_optimizer.py docs/\"         continue_on_error: true       - id: \"max-two-tasks\"         enabled: false         command: \"\"         continue_on_error: true private_tuning:   weekly_stale_days: 180 ",
+      "content": "bundle:   base_policy_pack: \"minimal\"   style_guide: \"google\" runtime:   docs_flow:     mode: \"code-first\"   pr_autofix:     enabled: false   modules:     gap_detection: true     drift_detection: false     docs_contract: false     kpi_sla: false     rag_optimization: false     ontology_graph: false     retrieval_evals: false     terminology_management: true     normalization: true     snippet_lint: true     self_checks: true     fact_checks: true     knowledge_validation: false     i18n_sync: false     release_pack: true   api_first:     enabled: false   custom_tasks:     weekly:       - id: \"seo-geo-lite\"         enabled: true         command: \"python3 docsops/scripts/seo_geo_optimizer.py docs/\"         continue_on_error: true       - id: \"max-two-tasks\"         enabled: false         command: \"\"         continue_on_error: true private_tuning:   weekly_stale_days: 180 ",
       "description": "Feature packaging matrix and defaults for Basic, Pro, and Enterprise client plans.",
       "product": "both",
       "content_type": "reference",
@@ -3973,7 +4730,7 @@
       "path": "docs/operations/PLAN_TIERS.md",
       "ranking_boost": 4,
       "heading_level": 3,
-      "word_count": 68,
+      "word_count": 71,
       "has_code": false,
       "code_snippets": []
     },
@@ -3981,7 +4738,7 @@
       "objectID": "72e5681844f53102b5aea46d6731bd4f",
       "title": "Plan Tiers (Basic / Pro / Enterprise)",
       "heading": "Pro preset",
-      "content": "bundle:   base_policy_pack: \"api-first\"   style_guide: \"hybrid\" runtime:   docs_flow:     mode: \"hybrid\"   modules:     gap_detection: true     drift_detection: true     docs_contract: true     kpi_sla: true     rag_optimization: true     ontology_graph: true     retrieval_evals: true     terminology_management: true     normalization: true     snippet_lint: true     self_checks: true     fact_checks: true     knowledge_validation: true     i18n_sync: true     release_pack: true   api_first:     enabled: true     openapi_version: \"3.1.0\"     manual_overrides_path: \"api/overrides/openapi.manual.yml\"     regression_snapshot_path: \"api/.openapi-regression.json\"     update_regression_snapshot: false     generate_from_notes: true     auto_remediate: true     max_attempts: 3   custom_tasks:     weekly:       - id: \"seo-geo\"         enabled: true         command: \"python3 docsops/scripts/seo_geo_optimizer.py docs/\"         continue_on_error: true       - id: \"knowledge-index\"         enabled:",
+      "content": "bundle:   base_policy_pack: \"api-first\"   style_guide: \"hybrid\" runtime:   docs_flow:     mode: \"hybrid\"   pr_autofix:     enabled: true     require_label: false     label_name: \"auto-doc-fix\"     enable_auto_merge: false   modules:     gap_detection: true     drift_detection: true     docs_contract: true     kpi_sla: true     rag_optimization: true     ontology_graph: true     retrieval_evals: true     terminology_management: true     normalization: true     snippet_lint: true     self_checks: true     fact_checks: true     knowledge_validation: true     i18n_sync: true     release_pack: true   api_first:     enabled: true     openapi_version: \"3.1.0\"     manual_overrides_path: \"api/overrides/openapi.manual.yml\"     regression_snapshot_path: \"api/.openapi-regression.json\"     update_regression_snapshot: false     generate_from_notes: true     sandbox_backend: \"external\"     mock_service: \"custom\"     mock_base_url: \"https://sandbox-api.example.com/v1\"     sync_playground_endpoint: tru",
       "description": "Feature packaging matrix and defaults for Basic, Pro, and Enterprise client plans.",
       "product": "both",
       "content_type": "reference",
@@ -4004,7 +4761,7 @@
       "path": "docs/operations/PLAN_TIERS.md",
       "ranking_boost": 4,
       "heading_level": 3,
-      "word_count": 83,
+      "word_count": 107,
       "has_code": false,
       "code_snippets": []
     },
@@ -4012,7 +4769,7 @@
       "objectID": "37ad7a8d9669c2789bc14f9fde87172a",
       "title": "Plan Tiers (Basic / Pro / Enterprise)",
       "heading": "Enterprise preset",
-      "content": "bundle:   base_policy_pack: \"multi-product\"   style_guide: \"microsoft\"   policy_overrides:     kpi_sla:       min_doc_coverage: 90       max_stale_pct: 10       max_quality_score_drop: 2 runtime:   docs_flow:     mode: \"hybrid\"   modules:     gap_detection: true     drift_detection: true     docs_contract: true     kpi_sla: true     rag_optimization: true     ontology_graph: true     retrieval_evals: true     terminology_management: true     normalization: true     snippet_lint: true     self_checks: true     fact_checks: true     knowledge_validation: true     i18n_sync: true     release_pack: true   api_first:     enabled: true     openapi_version: \"3.1.0\"     manual_overrides_path: \"api/overrides/openapi.manual.yml\"     regression_snapshot_path: \"api/.openapi-regression.json\"     update_regression_snapshot: false     generate_from_notes: true     verify_user_path: true     run_docs_lint: true     auto_remediate: true     max_attempts: 5   custom_tasks:     weekly:       - id: \"seo-g",
+      "content": "bundle:   base_policy_pack: \"multi-product\"   style_guide: \"microsoft\"   policy_overrides:     kpi_sla:       min_doc_coverage: 90       max_stale_pct: 10       max_quality_score_drop: 2 runtime:   docs_flow:     mode: \"hybrid\"   pr_autofix:     enabled: true     require_label: false     label_name: \"auto-doc-fix\"     enable_auto_merge: false   modules:     gap_detection: true     drift_detection: true     docs_contract: true     kpi_sla: true     rag_optimization: true     ontology_graph: true     retrieval_evals: true     terminology_management: true     normalization: true     snippet_lint: true     self_checks: true     fact_checks: true     knowledge_validation: true     i18n_sync: true     release_pack: true   api_first:     enabled: true     openapi_version: \"3.1.0\"     manual_overrides_path: \"api/overrides/openapi.manual.yml\"     regression_snapshot_path: \"api/.openapi-regression.json\"     update_regression_snapshot: false     generate_from_notes: true     verify_user_path: tru",
       "description": "Feature packaging matrix and defaults for Basic, Pro, and Enterprise client plans.",
       "product": "both",
       "content_type": "reference",
@@ -4035,7 +4792,7 @@
       "path": "docs/operations/PLAN_TIERS.md",
       "ranking_boost": 4,
       "heading_level": 3,
-      "word_count": 115,
+      "word_count": 139,
       "has_code": false,
       "code_snippets": []
     },
@@ -4155,7 +4912,7 @@
         "lvl4": ""
       },
       "url": "/operations/UNIFIED_CLIENT_CONFIG#0",
-      "last_reviewed": "2026-03-11",
+      "last_reviewed": "2026-03-12",
       "path": "docs/operations/UNIFIED_CLIENT_CONFIG.md",
       "ranking_boost": 4,
       "heading_level": 1,
@@ -4186,7 +4943,7 @@
         "lvl4": ""
       },
       "url": "/operations/UNIFIED_CLIENT_CONFIG#1",
-      "last_reviewed": "2026-03-11",
+      "last_reviewed": "2026-03-12",
       "path": "docs/operations/UNIFIED_CLIENT_CONFIG.md",
       "ranking_boost": 4,
       "heading_level": 2,
@@ -4217,7 +4974,7 @@
         "lvl4": ""
       },
       "url": "/operations/UNIFIED_CLIENT_CONFIG#2",
-      "last_reviewed": "2026-03-11",
+      "last_reviewed": "2026-03-12",
       "path": "docs/operations/UNIFIED_CLIENT_CONFIG.md",
       "ranking_boost": 4,
       "heading_level": 2,
@@ -4248,7 +5005,7 @@
         "lvl4": ""
       },
       "url": "/operations/UNIFIED_CLIENT_CONFIG#3",
-      "last_reviewed": "2026-03-11",
+      "last_reviewed": "2026-03-12",
       "path": "docs/operations/UNIFIED_CLIENT_CONFIG.md",
       "ranking_boost": 4,
       "heading_level": 3,
@@ -4279,7 +5036,7 @@
         "lvl4": ""
       },
       "url": "/operations/UNIFIED_CLIENT_CONFIG#4",
-      "last_reviewed": "2026-03-11",
+      "last_reviewed": "2026-03-12",
       "path": "docs/operations/UNIFIED_CLIENT_CONFIG.md",
       "ranking_boost": 4,
       "heading_level": 3,
@@ -4310,7 +5067,7 @@
         "lvl4": ""
       },
       "url": "/operations/UNIFIED_CLIENT_CONFIG#5",
-      "last_reviewed": "2026-03-11",
+      "last_reviewed": "2026-03-12",
       "path": "docs/operations/UNIFIED_CLIENT_CONFIG.md",
       "ranking_boost": 4,
       "heading_level": 3,
@@ -4341,7 +5098,7 @@
         "lvl4": ""
       },
       "url": "/operations/UNIFIED_CLIENT_CONFIG#6",
-      "last_reviewed": "2026-03-11",
+      "last_reviewed": "2026-03-12",
       "path": "docs/operations/UNIFIED_CLIENT_CONFIG.md",
       "ranking_boost": 4,
       "heading_level": 3,
@@ -4372,7 +5129,7 @@
         "lvl4": ""
       },
       "url": "/operations/UNIFIED_CLIENT_CONFIG#7",
-      "last_reviewed": "2026-03-11",
+      "last_reviewed": "2026-03-12",
       "path": "docs/operations/UNIFIED_CLIENT_CONFIG.md",
       "ranking_boost": 4,
       "heading_level": 2,
@@ -4403,7 +5160,7 @@
         "lvl4": ""
       },
       "url": "/operations/UNIFIED_CLIENT_CONFIG#8",
-      "last_reviewed": "2026-03-11",
+      "last_reviewed": "2026-03-12",
       "path": "docs/operations/UNIFIED_CLIENT_CONFIG.md",
       "ranking_boost": 4,
       "heading_level": 2,
@@ -4434,7 +5191,7 @@
         "lvl4": ""
       },
       "url": "/operations/UNIFIED_CLIENT_CONFIG#9",
-      "last_reviewed": "2026-03-11",
+      "last_reviewed": "2026-03-12",
       "path": "docs/operations/UNIFIED_CLIENT_CONFIG.md",
       "ranking_boost": 4,
       "heading_level": 2,
@@ -4445,8 +5202,39 @@
     {
       "objectID": "af2758c52ee5757bf232eb31733382d1",
       "title": "Unified Client Configuration",
+      "heading": "5.1 PR auto-doc workflow",
+      "content": "runtime:   pr_autofix:     enabled: false     require_label: false     label_name: \"auto-doc-fix\"     enable_auto_merge: false     commit_message: \"docs: auto-sync PR docs\"     workflow_filename: \"docsops-pr-autofix.yml\" Behavior when enabled: - Trigger: PR opened/updated (pull_request events). - Scope: only changed files in the current PR (base...head diff). - If docs drift is detected, bot can generate docs patch and commit to the same PR branch. - No commits to main. - Checks rerun automatically after bot commit. Default policy: - pr_autofix is optional and disabled by default. - docs_contract is report-only by default in weekly flow and consolidated report. - Weekly consolidated report adds only new/changed docs-contract mismatches, ignores closed ones, and deduplicates with other gap sources. One-time repo setup (done during provisioning): 1. Workflow file is generated in .github/workflows/docsops-pr-autofix.yml. 1. Set GitHub Actions permissions to Read and write. 1. Optional: se",
+      "description": "Single source of truth for per-client Auto-Doc Pipeline configuration, modules, and automation.",
+      "product": "both",
+      "content_type": "reference",
+      "component": "",
+      "version": "",
+      "maturity": "ga",
+      "tags": [
+        "Operations",
+        "Configuration"
+      ],
+      "hierarchy": {
+        "lvl0": "both",
+        "lvl1": "reference",
+        "lvl2": "",
+        "lvl3": "5.1 PR auto-doc workflow",
+        "lvl4": ""
+      },
+      "url": "/operations/UNIFIED_CLIENT_CONFIG#10",
+      "last_reviewed": "2026-03-12",
+      "path": "docs/operations/UNIFIED_CLIENT_CONFIG.md",
+      "ranking_boost": 4,
+      "heading_level": 3,
+      "word_count": 140,
+      "has_code": false,
+      "code_snippets": []
+    },
+    {
+      "objectID": "7731c1fa0d7a522d6183bcd2df4f1e3d",
+      "title": "Unified Client Configuration",
       "heading": "6. API-first configuration (one branch, not the whole product)",
-      "content": "runtime:   api_first:     enabled: true     project_slug: \"acme\"     notes_path: \"notes/api-planning.md\"     spec_path: \"api/openapi.yaml\"     spec_tree_path: \"api/acme\"     docs_provider: \"mkdocs\"     docs_spec_target: \"docs/assets/api\"     stubs_output: \"generated/api-stubs/fastapi/app/main.py\"     openapi_version: \"3.0.3\"     manual_overrides_path: \"api/overrides/openapi.manual.yml\"     regression_snapshot_path: \"api/.openapi-regression.json\"     update_regression_snapshot: false     generate_from_notes: true     verify_user_path: false     mock_base_url: \"http://localhost:4010/v1\"     sync_playground_endpoint: true     run_docs_lint: false     auto_remediate: true     max_attempts: 3 Multi-version API docs (new standard): runtime:   api_first:     enabled: true     docs_provider: \"mkdocs\"     versions:       - version: \"v1\"         project_slug: \"acme-v1\"         notes_path: \"notes/api-v1-planning.md\"         spec_path: \"api/v1/openapi.yaml\"         spec_tree_path: \"api/v1\"        ",
+      "content": "runtime:   api_first:     enabled: true     project_slug: \"acme\"     notes_path: \"notes/api-planning.md\"     spec_path: \"api/openapi.yaml\"     spec_tree_path: \"api/acme\"     docs_provider: \"mkdocs\"     docs_spec_target: \"docs/assets/api\"     stubs_output: \"generated/api-stubs/fastapi/app/main.py\"     openapi_version: \"3.0.3\"     manual_overrides_path: \"api/overrides/openapi.manual.yml\"     regression_snapshot_path: \"api/.openapi-regression.json\"     update_regression_snapshot: false     generate_from_notes: true     verify_user_path: false     sandbox_backend: \"external\"     mock_service: \"custom\"     mock_base_url: \"https://sandbox-api.example.com/v1\"     sync_playground_endpoint: true     external_mock:       enabled: true       provider: \"postman\"       base_path: \"/v1\"       postman:         api_key_env: \"POSTMAN_API_KEY\"         workspace_id_env: \"POSTMAN_WORKSPACE_ID\"         collection_uid_env: \"POSTMAN_COLLECTION_UID\"         mock_server_id_env: \"POSTMAN_MOCK_SERVER_ID\"        ",
       "description": "Single source of truth for per-client Auto-Doc Pipeline configuration, modules, and automation.",
       "product": "both",
       "content_type": "reference",
@@ -4464,17 +5252,17 @@
         "lvl3": "",
         "lvl4": ""
       },
-      "url": "/operations/UNIFIED_CLIENT_CONFIG#10",
-      "last_reviewed": "2026-03-11",
+      "url": "/operations/UNIFIED_CLIENT_CONFIG#11",
+      "last_reviewed": "2026-03-12",
       "path": "docs/operations/UNIFIED_CLIENT_CONFIG.md",
       "ranking_boost": 4,
       "heading_level": 2,
-      "word_count": 181,
+      "word_count": 399,
       "has_code": false,
       "code_snippets": []
     },
     {
-      "objectID": "7731c1fa0d7a522d6183bcd2df4f1e3d",
+      "objectID": "f00b0ab36a0097fbfe40a3a319a8257f",
       "title": "Unified Client Configuration",
       "heading": "7. Module switches",
       "content": "runtime:   modules:     gap_detection: true     drift_detection: true     docs_contract: true     kpi_sla: true     rag_optimization: true     ontology_graph: true     retrieval_evals: true     terminology_management: true     normalization: true     snippet_lint: true     self_checks: true     fact_checks: true     lifecycle_management: true     knowledge_validation: true     i18n_sync: true     release_pack: true ",
@@ -4495,8 +5283,8 @@
         "lvl3": "",
         "lvl4": ""
       },
-      "url": "/operations/UNIFIED_CLIENT_CONFIG#11",
-      "last_reviewed": "2026-03-11",
+      "url": "/operations/UNIFIED_CLIENT_CONFIG#12",
+      "last_reviewed": "2026-03-12",
       "path": "docs/operations/UNIFIED_CLIENT_CONFIG.md",
       "ranking_boost": 4,
       "heading_level": 2,
@@ -4505,7 +5293,7 @@
       "code_snippets": []
     },
     {
-      "objectID": "f00b0ab36a0097fbfe40a3a319a8257f",
+      "objectID": "23b90363bb5502996ebb74233b7f46e5",
       "title": "Unified Client Configuration",
       "heading": "Module -> required script in bundle",
       "content": "- gap_detection -> scripts/gap_detector.py - drift_detection -> scripts/check_api_sdk_drift.py - docs_contract -> scripts/check_docs_contract.py - kpi_sla -> scripts/evaluate_kpi_sla.py + scripts/generate_kpi_wall.py - terminology_management -> scripts/sync_project_glossary.py - normalization -> scripts/normalize_docs.py - snippet_lint -> scripts/lint_code_snippets.py - self_checks -> scripts/check_code_examples_smoke.py - multilang_examples -> scripts/generate_multilang_tabs.py + scripts/validate_multilang_examples.py - fact_checks -> scripts/seo_geo_optimizer.py + scripts/doc_layers_validator.py - lifecycle_management -> scripts/lifecycle_manager.py (+ lifecycle report/redirect guidance) - knowledge_validation -> scripts/extract_knowledge_modules_from_docs.py + scripts/validate_knowledge_modules.py - rag_optimization -> scripts/generate_knowledge_retrieval_index.py - ontology_graph -> scripts/generate_knowledge_graph_jsonld.py - retrieval_evals -> scripts/run_retrieval_evals.py - i18",
@@ -4526,8 +5314,8 @@
         "lvl3": "Module -> required script in bundle",
         "lvl4": ""
       },
-      "url": "/operations/UNIFIED_CLIENT_CONFIG#12",
-      "last_reviewed": "2026-03-11",
+      "url": "/operations/UNIFIED_CLIENT_CONFIG#13",
+      "last_reviewed": "2026-03-12",
       "path": "docs/operations/UNIFIED_CLIENT_CONFIG.md",
       "ranking_boost": 4,
       "heading_level": 3,
@@ -4536,7 +5324,7 @@
       "code_snippets": []
     },
     {
-      "objectID": "23b90363bb5502996ebb74233b7f46e5",
+      "objectID": "e620f5a10a4ee037222dce37e2c3c254",
       "title": "Unified Client Configuration",
       "heading": "8. Universal tasks (core UTP, not optional extras)",
       "content": "Use runtime.custom_tasks.weekly to wire any command from the capabilities catalog. runtime:   custom_tasks:     weekly:       - id: \"geo-lint\"         enabled: true         command: \"python3 docsops/scripts/seo_geo_optimizer.py docs/\"         continue_on_error: true       - id: \"openapi-lint\"         enabled: true         command: \"npm run lint:openapi\"         continue_on_error: true     on_demand: [] Full list of available capabilities: - docs/operations/PIPELINE_CAPABILITIES_CATALOG.md - regenerate catalog: python3 scripts/generate_pipeline_capabilities_catalog.py Recommended default for smooth intent assembly: - Keep scripts/build_all_intent_experiences.py in bundle.include_scripts. - Keep python3 docsops/scripts/build_all_intent_experiences.py enabled in runtime.custom_tasks.weekly. - Keep knowledge_modules in bundle.include_paths (or store it directly in client repo). ",
@@ -4557,8 +5345,8 @@
         "lvl3": "",
         "lvl4": ""
       },
-      "url": "/operations/UNIFIED_CLIENT_CONFIG#13",
-      "last_reviewed": "2026-03-11",
+      "url": "/operations/UNIFIED_CLIENT_CONFIG#14",
+      "last_reviewed": "2026-03-12",
       "path": "docs/operations/UNIFIED_CLIENT_CONFIG.md",
       "ranking_boost": 4,
       "heading_level": 2,
@@ -4567,7 +5355,7 @@
       "code_snippets": []
     },
     {
-      "objectID": "e620f5a10a4ee037222dce37e2c3c254",
+      "objectID": "f9a228fe7c541d8530dc75d31432358d",
       "title": "Unified Client Configuration",
       "heading": "9. Integrations (single control point)",
       "content": "Use one section to configure cross-stack integrations for any supported generator. runtime:   integrations:     algolia:       enabled: true       docs_dir: \"docs\"       report_output: \"reports/seo-report.json\"       upload_on_weekly: true       app_id_env: \"ALGOLIA_APP_ID\"       api_key_env: \"ALGOLIA_API_KEY\"       index_name_env: \"ALGOLIA_INDEX_NAME\"       index_name_default: \"docs\"     ask_ai:       enabled: true       auto_configure_on_provision: true       install_runtime_pack: false       provider: \"openai\"       billing_mode: \"user-subscription\"       model: \"gpt-4.1-mini\"       base_url: \"https://api.openai.com/v1\" How it works: - algolia.enabled=true: weekly runner generates Algolia payload from docs. - algolia.upload_on_weekly=true: weekly runner also uploads to Algolia (if env credentials are set). - ask_ai.auto_configure_on_provision=true: provisioning auto-writes config/ask-ai.yml. - ask_ai.install_runtime_pack=true: provisioning auto-installs Ask AI runtime pack. Manual v",
@@ -4588,8 +5376,8 @@
         "lvl3": "",
         "lvl4": ""
       },
-      "url": "/operations/UNIFIED_CLIENT_CONFIG#14",
-      "last_reviewed": "2026-03-11",
+      "url": "/operations/UNIFIED_CLIENT_CONFIG#15",
+      "last_reviewed": "2026-03-12",
       "path": "docs/operations/UNIFIED_CLIENT_CONFIG.md",
       "ranking_boost": 4,
       "heading_level": 2,
@@ -4598,7 +5386,7 @@
       "code_snippets": []
     },
     {
-      "objectID": "f9a228fe7c541d8530dc75d31432358d",
+      "objectID": "634c4be5bfed3efbdaeef3f0aa690820",
       "title": "Unified Client Configuration",
       "heading": "Core UTP tasks (default-on baseline)",
       "content": "runtime:   custom_tasks:     weekly:       - id: \"seo-geo\"         enabled: true         command: \"python3 docsops/scripts/seo_geo_optimizer.py docs/\"         continue_on_error: true       - id: \"knowledge-validate\"         enabled: true         command: \"python3 docsops/scripts/validate_knowledge_modules.py\"         continue_on_error: true       - id: \"knowledge-index\"         enabled: true         command: \"python3 docsops/scripts/generate_knowledge_retrieval_index.py\"         continue_on_error: true       - id: \"intent-all\"         enabled: true         command: \"python3 docsops/scripts/build_all_intent_experiences.py\"         continue_on_error: true ",
@@ -4619,8 +5407,8 @@
         "lvl3": "Core UTP tasks (default-on baseline)",
         "lvl4": ""
       },
-      "url": "/operations/UNIFIED_CLIENT_CONFIG#15",
-      "last_reviewed": "2026-03-11",
+      "url": "/operations/UNIFIED_CLIENT_CONFIG#16",
+      "last_reviewed": "2026-03-12",
       "path": "docs/operations/UNIFIED_CLIENT_CONFIG.md",
       "ranking_boost": 4,
       "heading_level": 3,
@@ -4629,7 +5417,7 @@
       "code_snippets": []
     },
     {
-      "objectID": "634c4be5bfed3efbdaeef3f0aa690820",
+      "objectID": "7162e204b69072785941b7abe3a6cc7b",
       "title": "Unified Client Configuration",
       "heading": "Multi-language examples baseline (new standard)",
       "content": "runtime:   modules:     multilang_examples: true   multilang_examples:     enabled: true     scope: \"all\"     required_languages: [\"curl\", \"javascript\", \"python\"] Bundle requirements: bundle:   include_scripts:     - \"scripts/generate_multilang_tabs.py\"     - \"scripts/validate_multilang_examples.py\" How it works in weekly runner: - auto-generate tabbed examples from standalone cURL examples - validate required language tabs - run smoke execution and expected-output matching on tagged blocks ",
@@ -4650,8 +5438,8 @@
         "lvl3": "",
         "lvl4": "Multi-language examples baseline (new standard)"
       },
-      "url": "/operations/UNIFIED_CLIENT_CONFIG#16",
-      "last_reviewed": "2026-03-11",
+      "url": "/operations/UNIFIED_CLIENT_CONFIG#17",
+      "last_reviewed": "2026-03-12",
       "path": "docs/operations/UNIFIED_CLIENT_CONFIG.md",
       "ranking_boost": 4,
       "heading_level": 4,
@@ -4660,7 +5448,7 @@
       "code_snippets": []
     },
     {
-      "objectID": "7162e204b69072785941b7abe3a6cc7b",
+      "objectID": "6adf52d2be322b2a36aee7cbc93fe0df",
       "title": "Unified Client Configuration",
       "heading": "API-first advanced baseline (overrides + regression gate)",
       "content": "runtime:   api_first:     enabled: true     openapi_version: \"3.1.0\"     manual_overrides_path: \"api/overrides/openapi.manual.yml\"     regression_snapshot_path: \"api/.openapi-regression.json\"     update_regression_snapshot: false Bundle requirements: bundle:   include_scripts:     - \"scripts/apply_openapi_overrides.py\"     - \"scripts/check_openapi_regression.py\" ",
@@ -4681,8 +5469,8 @@
         "lvl3": "",
         "lvl4": "API-first advanced baseline (overrides + regression gate)"
       },
-      "url": "/operations/UNIFIED_CLIENT_CONFIG#17",
-      "last_reviewed": "2026-03-11",
+      "url": "/operations/UNIFIED_CLIENT_CONFIG#18",
+      "last_reviewed": "2026-03-12",
       "path": "docs/operations/UNIFIED_CLIENT_CONFIG.md",
       "ranking_boost": 4,
       "heading_level": 4,
@@ -4691,7 +5479,7 @@
       "code_snippets": []
     },
     {
-      "objectID": "6adf52d2be322b2a36aee7cbc93fe0df",
+      "objectID": "f6acad3a184439c186754bb5849b46cc",
       "title": "Unified Client Configuration",
       "heading": "SEO/GEO weekly",
       "content": "runtime:   custom_tasks:     weekly:       - id: \"seo-geo\"         enabled: true         command: \"python3 docsops/scripts/seo_geo_optimizer.py docs/\"         continue_on_error: true ",
@@ -4712,8 +5500,8 @@
         "lvl3": "",
         "lvl4": "SEO/GEO weekly"
       },
-      "url": "/operations/UNIFIED_CLIENT_CONFIG#18",
-      "last_reviewed": "2026-03-11",
+      "url": "/operations/UNIFIED_CLIENT_CONFIG#19",
+      "last_reviewed": "2026-03-12",
       "path": "docs/operations/UNIFIED_CLIENT_CONFIG.md",
       "ranking_boost": 4,
       "heading_level": 4,
@@ -4722,7 +5510,7 @@
       "code_snippets": []
     },
     {
-      "objectID": "f6acad3a184439c186754bb5849b46cc",
+      "objectID": "e948e1ea9d36aaf0c6671279ad0ff31d",
       "title": "Unified Client Configuration",
       "heading": "RAG / knowledge base weekly",
       "content": "runtime:   custom_tasks:     weekly:       - id: \"knowledge-validate\"         enabled: true         command: \"python3 docsops/scripts/validate_knowledge_modules.py\"         continue_on_error: true       - id: \"knowledge-index\"         enabled: true         command: \"python3 docsops/scripts/generate_knowledge_retrieval_index.py\"         continue_on_error: true       - id: \"intent-all\"         enabled: true         command: \"python3 docsops/scripts/build_all_intent_experiences.py\"         continue_on_error: true ",
@@ -4743,8 +5531,8 @@
         "lvl3": "",
         "lvl4": "RAG / knowledge base weekly"
       },
-      "url": "/operations/UNIFIED_CLIENT_CONFIG#19",
-      "last_reviewed": "2026-03-11",
+      "url": "/operations/UNIFIED_CLIENT_CONFIG#20",
+      "last_reviewed": "2026-03-12",
       "path": "docs/operations/UNIFIED_CLIENT_CONFIG.md",
       "ranking_boost": 4,
       "heading_level": 4,
@@ -4753,7 +5541,7 @@
       "code_snippets": []
     },
     {
-      "objectID": "e948e1ea9d36aaf0c6671279ad0ff31d",
+      "objectID": "e087134485283acb6709bd35fc950481",
       "title": "Unified Client Configuration",
       "heading": "Multilingual (i18n) baseline",
       "content": "runtime:   modules:     i18n_sync: true   custom_tasks:     weekly:       - id: \"i18n-translate-stale\"         enabled: false         command: \"python3 docsops/scripts/i18n_translate.py --stale-only\"         continue_on_error: true Bundle requirements: bundle:   include_scripts:     - \"scripts/i18n_sync.py\"     - \"scripts/i18n_translate.py\"     - \"scripts/i18n_migrate.py\"     - \"scripts/i18n_utils.py\" Practical mode: - Keep i18n_sync always on (checks coverage/drift for locales). - Keep auto-translation off by default (enabled: false) unless client explicitly wants it. ",
@@ -4774,8 +5562,8 @@
         "lvl3": "",
         "lvl4": "Multilingual (i18n) baseline"
       },
-      "url": "/operations/UNIFIED_CLIENT_CONFIG#20",
-      "last_reviewed": "2026-03-11",
+      "url": "/operations/UNIFIED_CLIENT_CONFIG#21",
+      "last_reviewed": "2026-03-12",
       "path": "docs/operations/UNIFIED_CLIENT_CONFIG.md",
       "ranking_boost": 4,
       "heading_level": 4,
@@ -4784,7 +5572,7 @@
       "code_snippets": []
     },
     {
-      "objectID": "e087134485283acb6709bd35fc950481",
+      "objectID": "cbd67003d87e22a740920f2c804d3a03",
       "title": "Unified Client Configuration",
       "heading": "Interactive diagrams assets",
       "content": "bundle:   include_paths:     - \"templates/interactive-diagram.html\" ",
@@ -4805,8 +5593,8 @@
         "lvl3": "",
         "lvl4": "Interactive diagrams assets"
       },
-      "url": "/operations/UNIFIED_CLIENT_CONFIG#21",
-      "last_reviewed": "2026-03-11",
+      "url": "/operations/UNIFIED_CLIENT_CONFIG#22",
+      "last_reviewed": "2026-03-12",
       "path": "docs/operations/UNIFIED_CLIENT_CONFIG.md",
       "ranking_boost": 4,
       "heading_level": 4,
@@ -4815,7 +5603,7 @@
       "code_snippets": []
     },
     {
-      "objectID": "cbd67003d87e22a740920f2c804d3a03",
+      "objectID": "55a9c713c72c4f8c7fc087609c012f41",
       "title": "Unified Client Configuration",
       "heading": "Search facets index",
       "content": "runtime:   custom_tasks:     weekly:       - id: \"facets-index\"         enabled: true         command: \"python3 docsops/scripts/generate_facets_index.py --docs-dir docs --output docs/assets/facets-index.json\"         continue_on_error: true ",
@@ -4836,8 +5624,8 @@
         "lvl3": "",
         "lvl4": "Search facets index"
       },
-      "url": "/operations/UNIFIED_CLIENT_CONFIG#22",
-      "last_reviewed": "2026-03-11",
+      "url": "/operations/UNIFIED_CLIENT_CONFIG#23",
+      "last_reviewed": "2026-03-12",
       "path": "docs/operations/UNIFIED_CLIENT_CONFIG.md",
       "ranking_boost": 4,
       "heading_level": 4,
@@ -4846,7 +5634,7 @@
       "code_snippets": []
     },
     {
-      "objectID": "55a9c713c72c4f8c7fc087609c012f41",
+      "objectID": "d96d6bdc1c564d297852b2280dd8475c",
       "title": "Unified Client Configuration",
       "heading": "Algolia push",
       "content": "runtime:   custom_tasks:     weekly:       - id: \"algolia-upload\"         enabled: true         command: \"python3 docsops/scripts/upload_to_algolia.py\"         continue_on_error: true ",
@@ -4867,8 +5655,8 @@
         "lvl3": "",
         "lvl4": "Algolia push"
       },
-      "url": "/operations/UNIFIED_CLIENT_CONFIG#23",
-      "last_reviewed": "2026-03-11",
+      "url": "/operations/UNIFIED_CLIENT_CONFIG#24",
+      "last_reviewed": "2026-03-12",
       "path": "docs/operations/UNIFIED_CLIENT_CONFIG.md",
       "ranking_boost": 4,
       "heading_level": 4,
@@ -4877,7 +5665,7 @@
       "code_snippets": []
     },
     {
-      "objectID": "d96d6bdc1c564d297852b2280dd8475c",
+      "objectID": "8e914b7bdcb4c6c4c6959aafb5ef4f4d",
       "title": "Unified Client Configuration",
       "heading": "9. Private tuning",
       "content": "private_tuning:   gap_priority_weights:     business_impact: 0.45     user_frequency: 0.35     implementation_cost: 0.20   stale_days: 21   weekly_stale_days: 180   rag_chunk_target_tokens: 420   verify_max_attempts: 3 weekly_stale_days default is 180 (half year), configurable per client. ",
@@ -4898,8 +5686,8 @@
         "lvl3": "",
         "lvl4": ""
       },
-      "url": "/operations/UNIFIED_CLIENT_CONFIG#24",
-      "last_reviewed": "2026-03-11",
+      "url": "/operations/UNIFIED_CLIENT_CONFIG#25",
+      "last_reviewed": "2026-03-12",
       "path": "docs/operations/UNIFIED_CLIENT_CONFIG.md",
       "ranking_boost": 4,
       "heading_level": 2,
@@ -4908,7 +5696,7 @@
       "code_snippets": []
     },
     {
-      "objectID": "8e914b7bdcb4c6c4c6959aafb5ef4f4d",
+      "objectID": "e5865baa1b89bf1c0a76645840fc7568",
       "title": "Unified Client Configuration",
       "heading": "10. Legal labeling",
       "content": "legal:   license_type: \"commercial\"   redistribution_allowed: false   reseller_allowed: false Builder generates: - LICENSE-COMMERCIAL.md - NOTICE ",
@@ -4929,8 +5717,8 @@
         "lvl3": "",
         "lvl4": ""
       },
-      "url": "/operations/UNIFIED_CLIENT_CONFIG#25",
-      "last_reviewed": "2026-03-11",
+      "url": "/operations/UNIFIED_CLIENT_CONFIG#26",
+      "last_reviewed": "2026-03-12",
       "path": "docs/operations/UNIFIED_CLIENT_CONFIG.md",
       "ranking_boost": 4,
       "heading_level": 2,
@@ -4939,7 +5727,7 @@
       "code_snippets": []
     },
     {
-      "objectID": "e5865baa1b89bf1c0a76645840fc7568",
+      "objectID": "cebf94773fd00d4fda5567889401ec08",
       "title": "Unified Client Configuration",
       "heading": "Code-first only",
       "content": "runtime:   docs_flow:     mode: \"code-first\"   modules:     gap_detection: true     drift_detection: true     docs_contract: true     kpi_sla: true ",
@@ -4960,8 +5748,8 @@
         "lvl3": "Code-first only",
         "lvl4": ""
       },
-      "url": "/operations/UNIFIED_CLIENT_CONFIG#26",
-      "last_reviewed": "2026-03-11",
+      "url": "/operations/UNIFIED_CLIENT_CONFIG#27",
+      "last_reviewed": "2026-03-12",
       "path": "docs/operations/UNIFIED_CLIENT_CONFIG.md",
       "ranking_boost": 4,
       "heading_level": 3,
@@ -4970,7 +5758,7 @@
       "code_snippets": []
     },
     {
-      "objectID": "cebf94773fd00d4fda5567889401ec08",
+      "objectID": "ba5187a423915cf697513893f0a09779",
       "title": "Unified Client Configuration",
       "heading": "API-first only",
       "content": "runtime:   docs_flow:     mode: \"api-first\"   api_first:     enabled: true     openapi_version: \"3.1.0\"     manual_overrides_path: \"api/overrides/openapi.manual.yml\"     regression_snapshot_path: \"api/.openapi-regression.json\"     generate_from_notes: true ",
@@ -4991,8 +5779,8 @@
         "lvl3": "API-first only",
         "lvl4": ""
       },
-      "url": "/operations/UNIFIED_CLIENT_CONFIG#27",
-      "last_reviewed": "2026-03-11",
+      "url": "/operations/UNIFIED_CLIENT_CONFIG#28",
+      "last_reviewed": "2026-03-12",
       "path": "docs/operations/UNIFIED_CLIENT_CONFIG.md",
       "ranking_boost": 4,
       "heading_level": 3,
@@ -5001,7 +5789,7 @@
       "code_snippets": []
     },
     {
-      "objectID": "ba5187a423915cf697513893f0a09779",
+      "objectID": "f050915b39aeec4b49942df9a014567a",
       "title": "Unified Client Configuration",
       "heading": "Hybrid",
       "content": "runtime:   docs_flow:     mode: \"hybrid\"   api_first:     enabled: true   modules:     gap_detection: true     drift_detection: true     docs_contract: true     kpi_sla: true ",
@@ -5022,8 +5810,8 @@
         "lvl3": "Hybrid",
         "lvl4": ""
       },
-      "url": "/operations/UNIFIED_CLIENT_CONFIG#28",
-      "last_reviewed": "2026-03-11",
+      "url": "/operations/UNIFIED_CLIENT_CONFIG#29",
+      "last_reviewed": "2026-03-12",
       "path": "docs/operations/UNIFIED_CLIENT_CONFIG.md",
       "ranking_boost": 4,
       "heading_level": 3,
@@ -5032,7 +5820,7 @@
       "code_snippets": []
     },
     {
-      "objectID": "f050915b39aeec4b49942df9a014567a",
+      "objectID": "d3b59e6f0d96d2a154aa6425100a3860",
       "title": "Unified Client Configuration",
       "heading": "Full UTP baseline (recommended)",
       "content": "runtime:   docs_flow:     mode: \"hybrid\"   modules:     gap_detection: true     drift_detection: true     docs_contract: true     kpi_sla: true     rag_optimization: true     multilang_examples: true     normalization: true     snippet_lint: true     knowledge_validation: true     i18n_sync: true     release_pack: true   custom_tasks:     weekly:       - id: \"seo-geo\"         enabled: true         command: \"python3 docsops/scripts/seo_geo_optimizer.py docs/\"         continue_on_error: true       - id: \"knowledge-index\"         enabled: true         command: \"python3 docsops/scripts/generate_knowledge_retrieval_index.py\"         continue_on_error: true Default automation order in weekly runner: \\11. extract knowledge modules from docs (extract_knowledge_modules_from_docs.py) \\11. validate modules (validate_knowledge_modules.py) \\11. regenerate retrieval index (generate_knowledge_retrieval_index.py) \\11. generate JSON-LD knowledge graph (generate_knowledge_graph_jsonld.py) \\11. run retri",
@@ -5053,8 +5841,8 @@
         "lvl3": "Full UTP baseline (recommended)",
         "lvl4": ""
       },
-      "url": "/operations/UNIFIED_CLIENT_CONFIG#29",
-      "last_reviewed": "2026-03-11",
+      "url": "/operations/UNIFIED_CLIENT_CONFIG#30",
+      "last_reviewed": "2026-03-12",
       "path": "docs/operations/UNIFIED_CLIENT_CONFIG.md",
       "ranking_boost": 4,
       "heading_level": 3,
@@ -5063,7 +5851,7 @@
       "code_snippets": []
     },
     {
-      "objectID": "d3b59e6f0d96d2a154aa6425100a3860",
+      "objectID": "3dc2817cc1c2c12ec4af5cc7358760ab",
       "title": "Unified Client Configuration",
       "heading": "9. Fully automated RAG/knowledge flow",
       "content": "To run RAG and knowledge base maintenance without manual commands: \\11. Configure once in client profile: - enable runtime.modules.knowledge_validation: true - enable runtime.modules.rag_optimization: true - enable runtime.modules.ontology_graph: true - enable runtime.modules.retrieval_evals: true - add runtime.custom_tasks.weekly entries (for example intent experiences) - include bundle.include_paths: [\"knowledge_modules\"] - include scripts:   - scripts/extract_knowledge_modules_from_docs.py   - scripts/validate_knowledge_modules.py   - scripts/generate_knowledge_retrieval_index.py   - scripts/generate_knowledge_graph_jsonld.py   - scripts/run_retrieval_evals.py \\11. Provision once: - install bundle with scripts/provision_client_repo.py - install scheduler with --install-scheduler linux or --install-scheduler windows \\11. Weekly automation then runs by itself: - scheduler triggers run_weekly_gap_batch.py - it runs extract_knowledge_modules_from_docs.py - it runs validate_knowledge_mod",
@@ -5084,8 +5872,8 @@
         "lvl3": "",
         "lvl4": ""
       },
-      "url": "/operations/UNIFIED_CLIENT_CONFIG#30",
-      "last_reviewed": "2026-03-11",
+      "url": "/operations/UNIFIED_CLIENT_CONFIG#31",
+      "last_reviewed": "2026-03-12",
       "path": "docs/operations/UNIFIED_CLIENT_CONFIG.md",
       "ranking_boost": 4,
       "heading_level": 2,
@@ -5094,7 +5882,7 @@
       "code_snippets": []
     },
     {
-      "objectID": "3dc2817cc1c2c12ec4af5cc7358760ab",
+      "objectID": "b945fb7fa863d05aaf20eb9a76749e53",
       "title": "Unified Client Configuration",
       "heading": "Next steps",
       "content": "- Documentation index ",
@@ -5115,8 +5903,8 @@
         "lvl3": "",
         "lvl4": ""
       },
-      "url": "/operations/UNIFIED_CLIENT_CONFIG#31",
-      "last_reviewed": "2026-03-11",
+      "url": "/operations/UNIFIED_CLIENT_CONFIG#32",
+      "last_reviewed": "2026-03-12",
       "path": "docs/operations/UNIFIED_CLIENT_CONFIG.md",
       "ranking_boost": 4,
       "heading_level": 2,
@@ -5756,7 +6544,7 @@
       "objectID": "7ea0df3fc0d97de6c5f2d2a4d4ab4bfa",
       "title": "Intent experience: configure for operator",
       "heading": "Configure HMAC authentication for inbound webhooks",
-      "content": "Covers secure webhook authentication setup for docs, assistant responses, in-product hints, and automation workflows with one reusable module. Use HMAC validation to reject spoofed webhook requests before your workflow executes. Set the shared secret in {{ env_vars.webhook_url }} settings, then verify the X-Signature header with SHA-256. Reject requests older than 300 seconds, and return HTTP 401 for invalid signatures. === \"cURL\"     ``bash smoke     curl -X POST \"http://localhost:{{ default_webhook_port }}/webhook/order-events\" \\\\       -H \"Content-Type: application/json\" \\\\       -H \"X-Signature: sha256=YOUR_CALCULATED_SIGNATURE\" \\\\       -d '{\"order_id\":\"ord_9482\",\"event\":\"order_paid\",\"amount\":129.99}'     ` === \"JavaScript\"     `javascript smoke     const response = await fetch('http://localhost:{{ default_webhook_port }}/webhook/order-events', {       method: 'POST',       headers: {       'Content-Type': 'application/json',       'X-Signature': 'sha256=YOUR_CALCULATED_SIGNATURE'",
+      "content": "Covers secure webhook authentication setup for docs, assistant responses, in-product hints, and automation workflows with one reusable module. Use HMAC validation to reject spoofed webhook requests before your workflow executes. Set the shared secret in {{ env_vars.webhook_url }} settings, then verify the X-Signature header with SHA-256. Reject requests older than 300 seconds, and return HTTP 401 for invalid signatures. curl -X POST \"http://localhost:{{ default_webhook_port }}/webhook/order-events\" \\\\   -H \"Content-Type: application/json\" \\\\   -H \"X-Signature: sha256=YOUR_CALCULATED_SIGNATURE\" \\\\   -d '{\"order_id\":\"ord_9482\",\"event\":\"order_paid\",\"amount\":129.99}' Keep replay protection enabled, rotate the secret every 90 days, and monitor 401 spikes for abuse detection. ",
       "description": "Assembled guidance for one intent and audience using reusable knowledge modules with verified metadata and channel-ready sections.",
       "product": "both",
       "content_type": "reference",
@@ -5779,13 +6567,9 @@
       "path": "docs/reference/intent-experiences/configure-operator.md",
       "ranking_boost": 2,
       "heading_level": 3,
-      "word_count": 152,
-      "has_code": true,
-      "code_snippets": [
-        "```bash smoke     curl -X POST \"http://localhost:{{ default_webhook_port }}/webhook/order-events\" \\\\       -H \"Content-Type: application/json\" \\\\       -H \"X-Signature: sha256=YOUR_CALCULATED_SIGNATURE\" \\\\       -d '{\"order_id\":\"ord_9482\",\"event\":\"order_paid\",\"amount\":129.99}'     ```",
-        "```javascript smoke     const response = await fetch('http://localhost:{{ default_webhook_port }}/webhook/order-events', {       method: 'POST',       headers: {       'Content-Type': 'application/json',       'X-Signature': 'sha256=YOUR_CALCULATED_SIGNATURE',     },     body: JSON.stringify({\"order_id\":\"ord_9482\",\"event\":\"order_paid\",\"amount\":129.99}),     });     const payload = await response.json();     console.log(payload);     ```",
-        "```python smoke     import requests     response = requests.request(         'POST',         'http://localhost:{{ default_webhook_port }}/webhook/order-events',         headers={'Content-Type': 'application/json', 'X-Signature': 'sha256=YOUR_CALCULATED_SIGNATURE'},     json='{\"order_id\":\"ord_9482\",\"event\":\"order_paid\",\"amount\":129.99}',         timeout=30,     )     response.raise_for_status()     print(response.json())     ```"
-      ]
+      "word_count": 93,
+      "has_code": false,
+      "code_snippets": []
     },
     {
       "objectID": "25b8577cdd76dde67e259baf11dc901f",
@@ -5853,7 +6637,7 @@
       "objectID": "617184f048e1a23b17c16495ce898632",
       "title": "Intent experience: configure for practitioner",
       "heading": "Configure HMAC authentication for inbound webhooks",
-      "content": "Covers secure webhook authentication setup for docs, assistant responses, in-product hints, and automation workflows with one reusable module. Use HMAC validation to reject spoofed webhook requests before your workflow executes. Set the shared secret in {{ env_vars.webhook_url }} settings, then verify the X-Signature header with SHA-256. Reject requests older than 300 seconds, and return HTTP 401 for invalid signatures. === \"cURL\"     ``bash smoke     curl -X POST \"http://localhost:{{ default_webhook_port }}/webhook/order-events\" \\\\       -H \"Content-Type: application/json\" \\\\       -H \"X-Signature: sha256=YOUR_CALCULATED_SIGNATURE\" \\\\       -d '{\"order_id\":\"ord_9482\",\"event\":\"order_paid\",\"amount\":129.99}'     ` === \"JavaScript\"     `javascript smoke     const response = await fetch('http://localhost:{{ default_webhook_port }}/webhook/order-events', {       method: 'POST',       headers: {       'Content-Type': 'application/json',       'X-Signature': 'sha256=YOUR_CALCULATED_SIGNATURE'",
+      "content": "Covers secure webhook authentication setup for docs, assistant responses, in-product hints, and automation workflows with one reusable module. Use HMAC validation to reject spoofed webhook requests before your workflow executes. Set the shared secret in {{ env_vars.webhook_url }} settings, then verify the X-Signature header with SHA-256. Reject requests older than 300 seconds, and return HTTP 401 for invalid signatures. curl -X POST \"http://localhost:{{ default_webhook_port }}/webhook/order-events\" \\\\   -H \"Content-Type: application/json\" \\\\   -H \"X-Signature: sha256=YOUR_CALCULATED_SIGNATURE\" \\\\   -d '{\"order_id\":\"ord_9482\",\"event\":\"order_paid\",\"amount\":129.99}' Keep replay protection enabled, rotate the secret every 90 days, and monitor 401 spikes for abuse detection. ",
       "description": "Assembled guidance for one intent and audience using reusable knowledge modules with verified metadata and channel-ready sections.",
       "product": "both",
       "content_type": "reference",
@@ -5876,13 +6660,9 @@
       "path": "docs/reference/intent-experiences/configure-practitioner.md",
       "ranking_boost": 2,
       "heading_level": 3,
-      "word_count": 152,
-      "has_code": true,
-      "code_snippets": [
-        "```bash smoke     curl -X POST \"http://localhost:{{ default_webhook_port }}/webhook/order-events\" \\\\       -H \"Content-Type: application/json\" \\\\       -H \"X-Signature: sha256=YOUR_CALCULATED_SIGNATURE\" \\\\       -d '{\"order_id\":\"ord_9482\",\"event\":\"order_paid\",\"amount\":129.99}'     ```",
-        "```javascript smoke     const response = await fetch('http://localhost:{{ default_webhook_port }}/webhook/order-events', {       method: 'POST',       headers: {       'Content-Type': 'application/json',       'X-Signature': 'sha256=YOUR_CALCULATED_SIGNATURE',     },     body: JSON.stringify({\"order_id\":\"ord_9482\",\"event\":\"order_paid\",\"amount\":129.99}),     });     const payload = await response.json();     console.log(payload);     ```",
-        "```python smoke     import requests     response = requests.request(         'POST',         'http://localhost:{{ default_webhook_port }}/webhook/order-events',         headers={'Content-Type': 'application/json', 'X-Signature': 'sha256=YOUR_CALCULATED_SIGNATURE'},     json='{\"order_id\":\"ord_9482\",\"event\":\"order_paid\",\"amount\":129.99}',         timeout=30,     )     response.raise_for_status()     print(response.json())     ```"
-      ]
+      "word_count": 93,
+      "has_code": false,
+      "code_snippets": []
     },
     {
       "objectID": "1d1567e9ab30122824018877c2cbd771",
@@ -5950,7 +6730,7 @@
       "objectID": "4184bd764e4875b1604f9acf840d415f",
       "title": "Intent experience: configure for support",
       "heading": "Configure HMAC authentication for inbound webhooks",
-      "content": "Covers secure webhook authentication setup for docs, assistant responses, in-product hints, and automation workflows with one reusable module. Use HMAC validation to reject spoofed webhook requests before your workflow executes. Set the shared secret in {{ env_vars.webhook_url }} settings, then verify the X-Signature header with SHA-256. Reject requests older than 300 seconds, and return HTTP 401 for invalid signatures. === \"cURL\"     ``bash smoke     curl -X POST \"http://localhost:{{ default_webhook_port }}/webhook/order-events\" \\\\       -H \"Content-Type: application/json\" \\\\       -H \"X-Signature: sha256=YOUR_CALCULATED_SIGNATURE\" \\\\       -d '{\"order_id\":\"ord_9482\",\"event\":\"order_paid\",\"amount\":129.99}'     ` === \"JavaScript\"     `javascript smoke     const response = await fetch('http://localhost:{{ default_webhook_port }}/webhook/order-events', {       method: 'POST',       headers: {       'Content-Type': 'application/json',       'X-Signature': 'sha256=YOUR_CALCULATED_SIGNATURE'",
+      "content": "Covers secure webhook authentication setup for docs, assistant responses, in-product hints, and automation workflows with one reusable module. Use HMAC validation to reject spoofed webhook requests before your workflow executes. Set the shared secret in {{ env_vars.webhook_url }} settings, then verify the X-Signature header with SHA-256. Reject requests older than 300 seconds, and return HTTP 401 for invalid signatures. curl -X POST \"http://localhost:{{ default_webhook_port }}/webhook/order-events\" \\\\   -H \"Content-Type: application/json\" \\\\   -H \"X-Signature: sha256=YOUR_CALCULATED_SIGNATURE\" \\\\   -d '{\"order_id\":\"ord_9482\",\"event\":\"order_paid\",\"amount\":129.99}' Keep replay protection enabled, rotate the secret every 90 days, and monitor 401 spikes for abuse detection. ",
       "description": "Assembled guidance for one intent and audience using reusable knowledge modules with verified metadata and channel-ready sections.",
       "product": "both",
       "content_type": "reference",
@@ -5973,13 +6753,9 @@
       "path": "docs/reference/intent-experiences/configure-support.md",
       "ranking_boost": 2,
       "heading_level": 3,
-      "word_count": 152,
-      "has_code": true,
-      "code_snippets": [
-        "```bash smoke     curl -X POST \"http://localhost:{{ default_webhook_port }}/webhook/order-events\" \\\\       -H \"Content-Type: application/json\" \\\\       -H \"X-Signature: sha256=YOUR_CALCULATED_SIGNATURE\" \\\\       -d '{\"order_id\":\"ord_9482\",\"event\":\"order_paid\",\"amount\":129.99}'     ```",
-        "```javascript smoke     const response = await fetch('http://localhost:{{ default_webhook_port }}/webhook/order-events', {       method: 'POST',       headers: {       'Content-Type': 'application/json',       'X-Signature': 'sha256=YOUR_CALCULATED_SIGNATURE',     },     body: JSON.stringify({\"order_id\":\"ord_9482\",\"event\":\"order_paid\",\"amount\":129.99}),     });     const payload = await response.json();     console.log(payload);     ```",
-        "```python smoke     import requests     response = requests.request(         'POST',         'http://localhost:{{ default_webhook_port }}/webhook/order-events',         headers={'Content-Type': 'application/json', 'X-Signature': 'sha256=YOUR_CALCULATED_SIGNATURE'},     json='{\"order_id\":\"ord_9482\",\"event\":\"order_paid\",\"amount\":129.99}',         timeout=30,     )     response.raise_for_status()     print(response.json())     ```"
-      ]
+      "word_count": 93,
+      "has_code": false,
+      "code_snippets": []
     },
     {
       "objectID": "6f7a0c374bd79fa42fbcf6afec677cd9",
@@ -6271,7 +7047,7 @@
       "objectID": "a166a6529b48ef6230882d6f925cacef",
       "title": "Intent experience: integrate for operator",
       "heading": "Configure HMAC authentication for inbound webhooks",
-      "content": "Covers secure webhook authentication setup for docs, assistant responses, in-product hints, and automation workflows with one reusable module. Use HMAC validation to reject spoofed webhook requests before your workflow executes. Set the shared secret in {{ env_vars.webhook_url }} settings, then verify the X-Signature header with SHA-256. Reject requests older than 300 seconds, and return HTTP 401 for invalid signatures. === \"cURL\"     ``bash smoke     curl -X POST \"http://localhost:{{ default_webhook_port }}/webhook/order-events\" \\\\       -H \"Content-Type: application/json\" \\\\       -H \"X-Signature: sha256=YOUR_CALCULATED_SIGNATURE\" \\\\       -d '{\"order_id\":\"ord_9482\",\"event\":\"order_paid\",\"amount\":129.99}'     ` === \"JavaScript\"     `javascript smoke     const response = await fetch('http://localhost:{{ default_webhook_port }}/webhook/order-events', {       method: 'POST',       headers: {       'Content-Type': 'application/json',       'X-Signature': 'sha256=YOUR_CALCULATED_SIGNATURE'",
+      "content": "Covers secure webhook authentication setup for docs, assistant responses, in-product hints, and automation workflows with one reusable module. Use HMAC validation to reject spoofed webhook requests before your workflow executes. Set the shared secret in {{ env_vars.webhook_url }} settings, then verify the X-Signature header with SHA-256. Reject requests older than 300 seconds, and return HTTP 401 for invalid signatures. curl -X POST \"http://localhost:{{ default_webhook_port }}/webhook/order-events\" \\\\   -H \"Content-Type: application/json\" \\\\   -H \"X-Signature: sha256=YOUR_CALCULATED_SIGNATURE\" \\\\   -d '{\"order_id\":\"ord_9482\",\"event\":\"order_paid\",\"amount\":129.99}' Keep replay protection enabled, rotate the secret every 90 days, and monitor 401 spikes for abuse detection. ",
       "description": "Assembled guidance for one intent and audience using reusable knowledge modules with verified metadata and channel-ready sections.",
       "product": "both",
       "content_type": "reference",
@@ -6294,13 +7070,9 @@
       "path": "docs/reference/intent-experiences/integrate-operator.md",
       "ranking_boost": 2,
       "heading_level": 3,
-      "word_count": 152,
-      "has_code": true,
-      "code_snippets": [
-        "```bash smoke     curl -X POST \"http://localhost:{{ default_webhook_port }}/webhook/order-events\" \\\\       -H \"Content-Type: application/json\" \\\\       -H \"X-Signature: sha256=YOUR_CALCULATED_SIGNATURE\" \\\\       -d '{\"order_id\":\"ord_9482\",\"event\":\"order_paid\",\"amount\":129.99}'     ```",
-        "```javascript smoke     const response = await fetch('http://localhost:{{ default_webhook_port }}/webhook/order-events', {       method: 'POST',       headers: {       'Content-Type': 'application/json',       'X-Signature': 'sha256=YOUR_CALCULATED_SIGNATURE',     },     body: JSON.stringify({\"order_id\":\"ord_9482\",\"event\":\"order_paid\",\"amount\":129.99}),     });     const payload = await response.json();     console.log(payload);     ```",
-        "```python smoke     import requests     response = requests.request(         'POST',         'http://localhost:{{ default_webhook_port }}/webhook/order-events',         headers={'Content-Type': 'application/json', 'X-Signature': 'sha256=YOUR_CALCULATED_SIGNATURE'},     json='{\"order_id\":\"ord_9482\",\"event\":\"order_paid\",\"amount\":129.99}',         timeout=30,     )     response.raise_for_status()     print(response.json())     ```"
-      ]
+      "word_count": 93,
+      "has_code": false,
+      "code_snippets": []
     },
     {
       "objectID": "4cbe352ef8d9eefaf23b671f9c62ba8a",
@@ -6368,7 +7140,7 @@
       "objectID": "5ca167b87955bc2f1e889ade122eecce",
       "title": "Intent experience: integrate for practitioner",
       "heading": "Configure HMAC authentication for inbound webhooks",
-      "content": "Covers secure webhook authentication setup for docs, assistant responses, in-product hints, and automation workflows with one reusable module. Use HMAC validation to reject spoofed webhook requests before your workflow executes. Set the shared secret in {{ env_vars.webhook_url }} settings, then verify the X-Signature header with SHA-256. Reject requests older than 300 seconds, and return HTTP 401 for invalid signatures. === \"cURL\"     ``bash smoke     curl -X POST \"http://localhost:{{ default_webhook_port }}/webhook/order-events\" \\\\       -H \"Content-Type: application/json\" \\\\       -H \"X-Signature: sha256=YOUR_CALCULATED_SIGNATURE\" \\\\       -d '{\"order_id\":\"ord_9482\",\"event\":\"order_paid\",\"amount\":129.99}'     ` === \"JavaScript\"     `javascript smoke     const response = await fetch('http://localhost:{{ default_webhook_port }}/webhook/order-events', {       method: 'POST',       headers: {       'Content-Type': 'application/json',       'X-Signature': 'sha256=YOUR_CALCULATED_SIGNATURE'",
+      "content": "Covers secure webhook authentication setup for docs, assistant responses, in-product hints, and automation workflows with one reusable module. Use HMAC validation to reject spoofed webhook requests before your workflow executes. Set the shared secret in {{ env_vars.webhook_url }} settings, then verify the X-Signature header with SHA-256. Reject requests older than 300 seconds, and return HTTP 401 for invalid signatures. curl -X POST \"http://localhost:{{ default_webhook_port }}/webhook/order-events\" \\\\   -H \"Content-Type: application/json\" \\\\   -H \"X-Signature: sha256=YOUR_CALCULATED_SIGNATURE\" \\\\   -d '{\"order_id\":\"ord_9482\",\"event\":\"order_paid\",\"amount\":129.99}' Keep replay protection enabled, rotate the secret every 90 days, and monitor 401 spikes for abuse detection. ",
       "description": "Assembled guidance for one intent and audience using reusable knowledge modules with verified metadata and channel-ready sections.",
       "product": "both",
       "content_type": "reference",
@@ -6391,13 +7163,9 @@
       "path": "docs/reference/intent-experiences/integrate-practitioner.md",
       "ranking_boost": 2,
       "heading_level": 3,
-      "word_count": 152,
-      "has_code": true,
-      "code_snippets": [
-        "```bash smoke     curl -X POST \"http://localhost:{{ default_webhook_port }}/webhook/order-events\" \\\\       -H \"Content-Type: application/json\" \\\\       -H \"X-Signature: sha256=YOUR_CALCULATED_SIGNATURE\" \\\\       -d '{\"order_id\":\"ord_9482\",\"event\":\"order_paid\",\"amount\":129.99}'     ```",
-        "```javascript smoke     const response = await fetch('http://localhost:{{ default_webhook_port }}/webhook/order-events', {       method: 'POST',       headers: {       'Content-Type': 'application/json',       'X-Signature': 'sha256=YOUR_CALCULATED_SIGNATURE',     },     body: JSON.stringify({\"order_id\":\"ord_9482\",\"event\":\"order_paid\",\"amount\":129.99}),     });     const payload = await response.json();     console.log(payload);     ```",
-        "```python smoke     import requests     response = requests.request(         'POST',         'http://localhost:{{ default_webhook_port }}/webhook/order-events',         headers={'Content-Type': 'application/json', 'X-Signature': 'sha256=YOUR_CALCULATED_SIGNATURE'},     json='{\"order_id\":\"ord_9482\",\"event\":\"order_paid\",\"amount\":129.99}',         timeout=30,     )     response.raise_for_status()     print(response.json())     ```"
-      ]
+      "word_count": 93,
+      "has_code": false,
+      "code_snippets": []
     },
     {
       "objectID": "2462ab0cab43c437d52553a32c88091c",
@@ -6465,7 +7233,7 @@
       "objectID": "6881eec09b82bde9f942f7d9f4e3394a",
       "title": "Intent experience: integrate for support",
       "heading": "Configure HMAC authentication for inbound webhooks",
-      "content": "Covers secure webhook authentication setup for docs, assistant responses, in-product hints, and automation workflows with one reusable module. Use HMAC validation to reject spoofed webhook requests before your workflow executes. Set the shared secret in {{ env_vars.webhook_url }} settings, then verify the X-Signature header with SHA-256. Reject requests older than 300 seconds, and return HTTP 401 for invalid signatures. === \"cURL\"     ``bash smoke     curl -X POST \"http://localhost:{{ default_webhook_port }}/webhook/order-events\" \\\\       -H \"Content-Type: application/json\" \\\\       -H \"X-Signature: sha256=YOUR_CALCULATED_SIGNATURE\" \\\\       -d '{\"order_id\":\"ord_9482\",\"event\":\"order_paid\",\"amount\":129.99}'     ` === \"JavaScript\"     `javascript smoke     const response = await fetch('http://localhost:{{ default_webhook_port }}/webhook/order-events', {       method: 'POST',       headers: {       'Content-Type': 'application/json',       'X-Signature': 'sha256=YOUR_CALCULATED_SIGNATURE'",
+      "content": "Covers secure webhook authentication setup for docs, assistant responses, in-product hints, and automation workflows with one reusable module. Use HMAC validation to reject spoofed webhook requests before your workflow executes. Set the shared secret in {{ env_vars.webhook_url }} settings, then verify the X-Signature header with SHA-256. Reject requests older than 300 seconds, and return HTTP 401 for invalid signatures. curl -X POST \"http://localhost:{{ default_webhook_port }}/webhook/order-events\" \\\\   -H \"Content-Type: application/json\" \\\\   -H \"X-Signature: sha256=YOUR_CALCULATED_SIGNATURE\" \\\\   -d '{\"order_id\":\"ord_9482\",\"event\":\"order_paid\",\"amount\":129.99}' Keep replay protection enabled, rotate the secret every 90 days, and monitor 401 spikes for abuse detection. ",
       "description": "Assembled guidance for one intent and audience using reusable knowledge modules with verified metadata and channel-ready sections.",
       "product": "both",
       "content_type": "reference",
@@ -6488,13 +7256,9 @@
       "path": "docs/reference/intent-experiences/integrate-support.md",
       "ranking_boost": 2,
       "heading_level": 3,
-      "word_count": 152,
-      "has_code": true,
-      "code_snippets": [
-        "```bash smoke     curl -X POST \"http://localhost:{{ default_webhook_port }}/webhook/order-events\" \\\\       -H \"Content-Type: application/json\" \\\\       -H \"X-Signature: sha256=YOUR_CALCULATED_SIGNATURE\" \\\\       -d '{\"order_id\":\"ord_9482\",\"event\":\"order_paid\",\"amount\":129.99}'     ```",
-        "```javascript smoke     const response = await fetch('http://localhost:{{ default_webhook_port }}/webhook/order-events', {       method: 'POST',       headers: {       'Content-Type': 'application/json',       'X-Signature': 'sha256=YOUR_CALCULATED_SIGNATURE',     },     body: JSON.stringify({\"order_id\":\"ord_9482\",\"event\":\"order_paid\",\"amount\":129.99}),     });     const payload = await response.json();     console.log(payload);     ```",
-        "```python smoke     import requests     response = requests.request(         'POST',         'http://localhost:{{ default_webhook_port }}/webhook/order-events',         headers={'Content-Type': 'application/json', 'X-Signature': 'sha256=YOUR_CALCULATED_SIGNATURE'},     json='{\"order_id\":\"ord_9482\",\"event\":\"order_paid\",\"amount\":129.99}',         timeout=30,     )     response.raise_for_status()     print(response.json())     ```"
-      ]
+      "word_count": 93,
+      "has_code": false,
+      "code_snippets": []
     },
     {
       "objectID": "d48fd71db90d217924d19482f27629f3",
@@ -6841,7 +7605,7 @@
       "objectID": "0ce26974edfb9aa78b7ae5d3a9cb0d8b",
       "title": "Intent experience: secure for operator",
       "heading": "Configure HMAC authentication for inbound webhooks",
-      "content": "Covers secure webhook authentication setup for docs, assistant responses, in-product hints, and automation workflows with one reusable module. Use HMAC validation to reject spoofed webhook requests before your workflow executes. Set the shared secret in {{ env_vars.webhook_url }} settings, then verify the X-Signature header with SHA-256. Reject requests older than 300 seconds, and return HTTP 401 for invalid signatures. === \"cURL\"     ``bash smoke     curl -X POST \"http://localhost:{{ default_webhook_port }}/webhook/order-events\" \\\\       -H \"Content-Type: application/json\" \\\\       -H \"X-Signature: sha256=YOUR_CALCULATED_SIGNATURE\" \\\\       -d '{\"order_id\":\"ord_9482\",\"event\":\"order_paid\",\"amount\":129.99}'     ` === \"JavaScript\"     `javascript smoke     const response = await fetch('http://localhost:{{ default_webhook_port }}/webhook/order-events', {       method: 'POST',       headers: {       'Content-Type': 'application/json',       'X-Signature': 'sha256=YOUR_CALCULATED_SIGNATURE'",
+      "content": "Covers secure webhook authentication setup for docs, assistant responses, in-product hints, and automation workflows with one reusable module. Use HMAC validation to reject spoofed webhook requests before your workflow executes. Set the shared secret in {{ env_vars.webhook_url }} settings, then verify the X-Signature header with SHA-256. Reject requests older than 300 seconds, and return HTTP 401 for invalid signatures. curl -X POST \"http://localhost:{{ default_webhook_port }}/webhook/order-events\" \\\\   -H \"Content-Type: application/json\" \\\\   -H \"X-Signature: sha256=YOUR_CALCULATED_SIGNATURE\" \\\\   -d '{\"order_id\":\"ord_9482\",\"event\":\"order_paid\",\"amount\":129.99}' Keep replay protection enabled, rotate the secret every 90 days, and monitor 401 spikes for abuse detection. ",
       "description": "Assembled guidance for one intent and audience using reusable knowledge modules with verified metadata and channel-ready sections.",
       "product": "both",
       "content_type": "reference",
@@ -6864,13 +7628,9 @@
       "path": "docs/reference/intent-experiences/secure-operator.md",
       "ranking_boost": 2,
       "heading_level": 3,
-      "word_count": 152,
-      "has_code": true,
-      "code_snippets": [
-        "```bash smoke     curl -X POST \"http://localhost:{{ default_webhook_port }}/webhook/order-events\" \\\\       -H \"Content-Type: application/json\" \\\\       -H \"X-Signature: sha256=YOUR_CALCULATED_SIGNATURE\" \\\\       -d '{\"order_id\":\"ord_9482\",\"event\":\"order_paid\",\"amount\":129.99}'     ```",
-        "```javascript smoke     const response = await fetch('http://localhost:{{ default_webhook_port }}/webhook/order-events', {       method: 'POST',       headers: {       'Content-Type': 'application/json',       'X-Signature': 'sha256=YOUR_CALCULATED_SIGNATURE',     },     body: JSON.stringify({\"order_id\":\"ord_9482\",\"event\":\"order_paid\",\"amount\":129.99}),     });     const payload = await response.json();     console.log(payload);     ```",
-        "```python smoke     import requests     response = requests.request(         'POST',         'http://localhost:{{ default_webhook_port }}/webhook/order-events',         headers={'Content-Type': 'application/json', 'X-Signature': 'sha256=YOUR_CALCULATED_SIGNATURE'},     json='{\"order_id\":\"ord_9482\",\"event\":\"order_paid\",\"amount\":129.99}',         timeout=30,     )     response.raise_for_status()     print(response.json())     ```"
-      ]
+      "word_count": 93,
+      "has_code": false,
+      "code_snippets": []
     },
     {
       "objectID": "7c8eabd61272c790140d12c53e6fbff5",
@@ -6938,7 +7698,7 @@
       "objectID": "e7d7cd2546924380a6a3b21765f76f01",
       "title": "Intent experience: secure for practitioner",
       "heading": "Configure HMAC authentication for inbound webhooks",
-      "content": "Covers secure webhook authentication setup for docs, assistant responses, in-product hints, and automation workflows with one reusable module. Use HMAC validation to reject spoofed webhook requests before your workflow executes. Set the shared secret in {{ env_vars.webhook_url }} settings, then verify the X-Signature header with SHA-256. Reject requests older than 300 seconds, and return HTTP 401 for invalid signatures. === \"cURL\"     ``bash smoke     curl -X POST \"http://localhost:{{ default_webhook_port }}/webhook/order-events\" \\\\       -H \"Content-Type: application/json\" \\\\       -H \"X-Signature: sha256=YOUR_CALCULATED_SIGNATURE\" \\\\       -d '{\"order_id\":\"ord_9482\",\"event\":\"order_paid\",\"amount\":129.99}'     ` === \"JavaScript\"     `javascript smoke     const response = await fetch('http://localhost:{{ default_webhook_port }}/webhook/order-events', {       method: 'POST',       headers: {       'Content-Type': 'application/json',       'X-Signature': 'sha256=YOUR_CALCULATED_SIGNATURE'",
+      "content": "Covers secure webhook authentication setup for docs, assistant responses, in-product hints, and automation workflows with one reusable module. Use HMAC validation to reject spoofed webhook requests before your workflow executes. Set the shared secret in {{ env_vars.webhook_url }} settings, then verify the X-Signature header with SHA-256. Reject requests older than 300 seconds, and return HTTP 401 for invalid signatures. curl -X POST \"http://localhost:{{ default_webhook_port }}/webhook/order-events\" \\\\   -H \"Content-Type: application/json\" \\\\   -H \"X-Signature: sha256=YOUR_CALCULATED_SIGNATURE\" \\\\   -d '{\"order_id\":\"ord_9482\",\"event\":\"order_paid\",\"amount\":129.99}' Keep replay protection enabled, rotate the secret every 90 days, and monitor 401 spikes for abuse detection. ",
       "description": "Assembled guidance for one intent and audience using reusable knowledge modules with verified metadata and channel-ready sections.",
       "product": "both",
       "content_type": "reference",
@@ -6961,13 +7721,9 @@
       "path": "docs/reference/intent-experiences/secure-practitioner.md",
       "ranking_boost": 2,
       "heading_level": 3,
-      "word_count": 152,
-      "has_code": true,
-      "code_snippets": [
-        "```bash smoke     curl -X POST \"http://localhost:{{ default_webhook_port }}/webhook/order-events\" \\\\       -H \"Content-Type: application/json\" \\\\       -H \"X-Signature: sha256=YOUR_CALCULATED_SIGNATURE\" \\\\       -d '{\"order_id\":\"ord_9482\",\"event\":\"order_paid\",\"amount\":129.99}'     ```",
-        "```javascript smoke     const response = await fetch('http://localhost:{{ default_webhook_port }}/webhook/order-events', {       method: 'POST',       headers: {       'Content-Type': 'application/json',       'X-Signature': 'sha256=YOUR_CALCULATED_SIGNATURE',     },     body: JSON.stringify({\"order_id\":\"ord_9482\",\"event\":\"order_paid\",\"amount\":129.99}),     });     const payload = await response.json();     console.log(payload);     ```",
-        "```python smoke     import requests     response = requests.request(         'POST',         'http://localhost:{{ default_webhook_port }}/webhook/order-events',         headers={'Content-Type': 'application/json', 'X-Signature': 'sha256=YOUR_CALCULATED_SIGNATURE'},     json='{\"order_id\":\"ord_9482\",\"event\":\"order_paid\",\"amount\":129.99}',         timeout=30,     )     response.raise_for_status()     print(response.json())     ```"
-      ]
+      "word_count": 93,
+      "has_code": false,
+      "code_snippets": []
     },
     {
       "objectID": "7b404529acc64b98298d9741f456b7c4",
@@ -7035,7 +7791,7 @@
       "objectID": "b622750e00156277bb296bac48bb2f63",
       "title": "Intent experience: secure for support",
       "heading": "Configure HMAC authentication for inbound webhooks",
-      "content": "Covers secure webhook authentication setup for docs, assistant responses, in-product hints, and automation workflows with one reusable module. Use HMAC validation to reject spoofed webhook requests before your workflow executes. Set the shared secret in {{ env_vars.webhook_url }} settings, then verify the X-Signature header with SHA-256. Reject requests older than 300 seconds, and return HTTP 401 for invalid signatures. === \"cURL\"     ``bash smoke     curl -X POST \"http://localhost:{{ default_webhook_port }}/webhook/order-events\" \\\\       -H \"Content-Type: application/json\" \\\\       -H \"X-Signature: sha256=YOUR_CALCULATED_SIGNATURE\" \\\\       -d '{\"order_id\":\"ord_9482\",\"event\":\"order_paid\",\"amount\":129.99}'     ` === \"JavaScript\"     `javascript smoke     const response = await fetch('http://localhost:{{ default_webhook_port }}/webhook/order-events', {       method: 'POST',       headers: {       'Content-Type': 'application/json',       'X-Signature': 'sha256=YOUR_CALCULATED_SIGNATURE'",
+      "content": "Covers secure webhook authentication setup for docs, assistant responses, in-product hints, and automation workflows with one reusable module. Use HMAC validation to reject spoofed webhook requests before your workflow executes. Set the shared secret in {{ env_vars.webhook_url }} settings, then verify the X-Signature header with SHA-256. Reject requests older than 300 seconds, and return HTTP 401 for invalid signatures. curl -X POST \"http://localhost:{{ default_webhook_port }}/webhook/order-events\" \\\\   -H \"Content-Type: application/json\" \\\\   -H \"X-Signature: sha256=YOUR_CALCULATED_SIGNATURE\" \\\\   -d '{\"order_id\":\"ord_9482\",\"event\":\"order_paid\",\"amount\":129.99}' Keep replay protection enabled, rotate the secret every 90 days, and monitor 401 spikes for abuse detection. ",
       "description": "Assembled guidance for one intent and audience using reusable knowledge modules with verified metadata and channel-ready sections.",
       "product": "both",
       "content_type": "reference",
@@ -7058,13 +7814,9 @@
       "path": "docs/reference/intent-experiences/secure-support.md",
       "ranking_boost": 2,
       "heading_level": 3,
-      "word_count": 152,
-      "has_code": true,
-      "code_snippets": [
-        "```bash smoke     curl -X POST \"http://localhost:{{ default_webhook_port }}/webhook/order-events\" \\\\       -H \"Content-Type: application/json\" \\\\       -H \"X-Signature: sha256=YOUR_CALCULATED_SIGNATURE\" \\\\       -d '{\"order_id\":\"ord_9482\",\"event\":\"order_paid\",\"amount\":129.99}'     ```",
-        "```javascript smoke     const response = await fetch('http://localhost:{{ default_webhook_port }}/webhook/order-events', {       method: 'POST',       headers: {       'Content-Type': 'application/json',       'X-Signature': 'sha256=YOUR_CALCULATED_SIGNATURE',     },     body: JSON.stringify({\"order_id\":\"ord_9482\",\"event\":\"order_paid\",\"amount\":129.99}),     });     const payload = await response.json();     console.log(payload);     ```",
-        "```python smoke     import requests     response = requests.request(         'POST',         'http://localhost:{{ default_webhook_port }}/webhook/order-events',         headers={'Content-Type': 'application/json', 'X-Signature': 'sha256=YOUR_CALCULATED_SIGNATURE'},     json='{\"order_id\":\"ord_9482\",\"event\":\"order_paid\",\"amount\":129.99}',         timeout=30,     )     response.raise_for_status()     print(response.json())     ```"
-      ]
+      "word_count": 93,
+      "has_code": false,
+      "code_snippets": []
     },
     {
       "objectID": "66c7536fe9ae865b789ddfdc7977e886",
@@ -7686,7 +8438,7 @@
       "objectID": "f955a49bdea6e8be87d2dafcaca21c8e",
       "title": "TaskStream API playground",
       "heading": "TaskStream API playground",
-      "content": "This page provides an interactive OpenAPI playground where users can send requests to the sandbox endpoint before production rollout. ",
+      "content": "This page provides an interactive OpenAPI playground where users can send requests to the configured sandbox endpoint before production rollout. ",
       "description": "Interactive TaskStream OpenAPI playground with Swagger UI or Redoc and try-it-out requests against mock or prod-like sandbox endpoints.",
       "product": "both",
       "content_type": "reference",
@@ -7706,11 +8458,11 @@
         "lvl4": ""
       },
       "url": "/reference/taskstream-api-playground#0",
-      "last_reviewed": "2026-03-09",
+      "last_reviewed": "2026-03-12",
       "path": "docs/reference/taskstream-api-playground.md",
       "ranking_boost": 4,
       "heading_level": 1,
-      "word_count": 19,
+      "word_count": 20,
       "has_code": false,
       "code_snippets": []
     },
@@ -7718,7 +8470,7 @@
       "objectID": "d7778bf5ff1415b13606a0adaefa10a5",
       "title": "TaskStream API playground",
       "heading": "Start a sandbox endpoint",
-      "content": "Mock mode: bash scripts/api_sandbox_project.sh up taskstream ./api/openapi.yaml 4010 Prod-like mode: bash scripts/api_prodlike_project.sh up taskstream 4011 ",
+      "content": "Mock mode: bash scripts/api_sandbox_project.sh up taskstream ./api/openapi.yaml 4010 No-Docker local mode: bash scripts/api_sandbox_project.sh up taskstream ./api/openapi.yaml 4010 prism External hosted mode (recommended for public docs): API_SANDBOX_EXTERNAL_BASE_URL=\"https://sandbox-api.example.com/v1\" \\ bash scripts/api_sandbox_project.sh up taskstream ./api/openapi.yaml 4010 external Prod-like mode: bash scripts/api_prodlike_project.sh up taskstream 4011 ",
       "description": "Interactive TaskStream OpenAPI playground with Swagger UI or Redoc and try-it-out requests against mock or prod-like sandbox endpoints.",
       "product": "both",
       "content_type": "reference",
@@ -7738,11 +8490,11 @@
         "lvl4": ""
       },
       "url": "/reference/taskstream-api-playground#1",
-      "last_reviewed": "2026-03-09",
+      "last_reviewed": "2026-03-12",
       "path": "docs/reference/taskstream-api-playground.md",
       "ranking_boost": 4,
       "heading_level": 2,
-      "word_count": 15,
+      "word_count": 41,
       "has_code": false,
       "code_snippets": []
     },
@@ -7750,7 +8502,7 @@
       "objectID": "86151fa48050ff94a93a90cd09b28b6a",
       "title": "TaskStream API playground",
       "heading": "Playground embed",
-      "content": "<div   id=\"api-playground-root\"   data-provider=\"swagger-ui\"   data-source-strategy=\"api-first\"   data-api-first-spec-url=\"/assets/api/openapi.yaml\"   data-try-it-enabled=\"true\"   data-try-it-mode=\"sandbox-only\"   data-sandbox-base-url=\"{{ docs_url }}/sandbox/taskstream/v1\"   data-production-base-url=\"{{ cloud_url }}/v1\" ></div> For multi-version API docs, publish one spec per version and add separate playground blocks or tabs: - /assets/api/v1/openapi.yaml - /assets/api/v2/openapi.yaml ",
+      "content": "<div   id=\"api-playground-root\"   data-provider=\"swagger-ui\"   data-source-strategy=\"api-first\"   data-api-first-spec-url=\"/assets/api/openapi.yaml\"   data-try-it-enabled=\"true\"   data-try-it-mode=\"sandbox-only\"   data-sandbox-base-url=\"{{ config.extra.plg.api_playground.endpoints.sandbox_base_url }}\"   data-production-base-url=\"{{ cloud_url }}/v1\" ></div> For multi-version API docs, publish one spec per version and add separate playground blocks or tabs: - /assets/api/v1/openapi.yaml - /assets/api/v2/openapi.yaml ",
       "description": "Interactive TaskStream OpenAPI playground with Swagger UI or Redoc and try-it-out requests against mock or prod-like sandbox endpoints.",
       "product": "both",
       "content_type": "reference",
@@ -7770,7 +8522,7 @@
         "lvl4": ""
       },
       "url": "/reference/taskstream-api-playground#2",
-      "last_reviewed": "2026-03-09",
+      "last_reviewed": "2026-03-12",
       "path": "docs/reference/taskstream-api-playground.md",
       "ranking_boost": 4,
       "heading_level": 2,
@@ -7782,7 +8534,7 @@
       "objectID": "5b9654744dcdb696ac87a74a3abfc41e",
       "title": "TaskStream API playground",
       "heading": "Multi-language request examples",
-      "content": "=== \"cURL\"     ``bash     curl -sS \"{{ docs_url }}/sandbox/taskstream/v1/healthz\"     ` === \"JavaScript\"     `javascript     const res = await fetch(\"{{ docs_url }}/sandbox/taskstream/v1/healthz\");     console.log(await res.json());     ` === \"Python\"     `python     import requests     res = requests.get(\"{{ docs_url }}/sandbox/taskstream/v1/healthz\", timeout=10)     print(res.json())     `` ",
+      "content": "=== \"cURL\"     ``bash     curl -sS \"{{ config.extra.plg.api_playground.endpoints.sandbox_base_url }}/healthz\"     ` === \"JavaScript\"     `javascript     const res = await fetch(\"{{ config.extra.plg.api_playground.endpoints.sandbox_base_url }}/healthz\");     console.log(await res.json());     ` === \"Python\"     `python     import requests     res = requests.get(\"{{ config.extra.plg.api_playground.endpoints.sandbox_base_url }}/healthz\", timeout=10)     print(res.json())     `` ",
       "description": "Interactive TaskStream OpenAPI playground with Swagger UI or Redoc and try-it-out requests against mock or prod-like sandbox endpoints.",
       "product": "both",
       "content_type": "reference",
@@ -7802,16 +8554,16 @@
         "lvl4": ""
       },
       "url": "/reference/taskstream-api-playground#3",
-      "last_reviewed": "2026-03-09",
+      "last_reviewed": "2026-03-12",
       "path": "docs/reference/taskstream-api-playground.md",
       "ranking_boost": 4,
       "heading_level": 2,
       "word_count": 35,
       "has_code": true,
       "code_snippets": [
-        "```bash     curl -sS \"{{ docs_url }}/sandbox/taskstream/v1/healthz\"     ```",
-        "```javascript     const res = await fetch(\"{{ docs_url }}/sandbox/taskstream/v1/healthz\");     console.log(await res.json());     ```",
-        "```python     import requests     res = requests.get(\"{{ docs_url }}/sandbox/taskstream/v1/healthz\", timeout=10)     print(res.json())     ```"
+        "```bash     curl -sS \"{{ config.extra.plg.api_playground.endpoints.sandbox_base_url }}/healthz\"     ```",
+        "```javascript     const res = await fetch(\"{{ config.extra.plg.api_playground.endpoints.sandbox_base_url }}/healthz\");     console.log(await res.json());     ```",
+        "```python     import requests     res = requests.get(\"{{ config.extra.plg.api_playground.endpoints.sandbox_base_url }}/healthz\", timeout=10)     print(res.json())     ```"
       ]
     },
     {
@@ -7838,7 +8590,7 @@
         "lvl4": ""
       },
       "url": "/reference/taskstream-api-playground#4",
-      "last_reviewed": "2026-03-09",
+      "last_reviewed": "2026-03-12",
       "path": "docs/reference/taskstream-api-playground.md",
       "ranking_boost": 4,
       "heading_level": 2,
@@ -7870,7 +8622,7 @@
         "lvl4": ""
       },
       "url": "/reference/taskstream-api-playground#5",
-      "last_reviewed": "2026-03-09",
+      "last_reviewed": "2026-03-12",
       "path": "docs/reference/taskstream-api-playground.md",
       "ranking_boost": 4,
       "heading_level": 2,
@@ -7902,7 +8654,7 @@
         "lvl4": ""
       },
       "url": "/reference/taskstream-api-playground#6",
-      "last_reviewed": "2026-03-09",
+      "last_reviewed": "2026-03-12",
       "path": "docs/reference/taskstream-api-playground.md",
       "ranking_boost": 4,
       "heading_level": 2,
@@ -7914,7 +8666,7 @@
       "objectID": "153f10b4e32f02240d33b546bdfbf1b7",
       "title": "TaskStream API planning notes",
       "heading": "TaskStream API planning notes",
-      "content": "This page provides the exact planning-notes input artifact used by the API-first flow before OpenAPI generation and validation. The pipeline treats these notes as the contract source of truth and derives endpoint shapes, resource lifecycles, filtering rules, sorting options, authentication requirements, and expected error envelopes. This input-first model keeps API design review aligned with technical writing and implementation planning. ",
+      "content": "This page provides the exact planning-notes input artifact used by the API-first flow before OpenAPI generation and validation. The pipeline treats these notes as the contract source of truth and derives endpoint shapes, resource life cycle behavior, filtering rules, sorting options, authentication requirements, and expected error envelopes. This input-first model keeps API design review aligned with technical writing and implementation planning. ",
       "description": "Input planning notes used by the API-first flow to generate and validate OpenAPI contracts for TaskStream demos.",
       "product": "both",
       "content_type": "reference",
@@ -7938,7 +8690,7 @@
       "path": "docs/reference/taskstream-planning-notes.md",
       "ranking_boost": 4,
       "heading_level": 1,
-      "word_count": 59,
+      "word_count": 61,
       "has_code": false,
       "code_snippets": []
     },
