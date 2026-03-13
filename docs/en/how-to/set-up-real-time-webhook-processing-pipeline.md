@@ -20,7 +20,7 @@ last_reviewed: "2026-03-12"
 Before starting, ensure you have:
 
 - {{ product_name }} version {{ current_version }} or later
-- Admin access to the {{ product_name }} dashboard ([verify access](../reference/api-reference.md))
+- Admin access to the {{ product_name }} dashboard ([verify access](../../reference/api-playground.md))
 - A valid `{{ env_vars.encryption_key }}` configured in your environment
 - Node.js 18+ and Python 3.10+ installed
 - 15 minutes for initial setup
@@ -324,7 +324,7 @@ For static environments, refer to the [Mermaid sequence diagram](#verify-the-web
 
 ## Related resources
 
-For API endpoint details, see the [API reference](../reference/api-reference.md).
+For API endpoint details, see the [API reference](../../reference/api-playground.md).
 
 ## Next steps
 
