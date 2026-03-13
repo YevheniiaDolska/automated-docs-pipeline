@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Webhook Processing Pipeline Architecture</title>
+<style>
+  /* Light theme (default) */
+  :root {
+    --bg: #ffffff;
+    --surface: #f8fafc;
+    --border: #e2e8f0;
+    --text: #1e293b;
+    --text-muted: #64748b;
+    --accent: #6366f1;
+    --accent-glow: rgba(99, 102, 241, 0.2);
+    --success: #10b981;
+    --warning: #f59e0b;
+    --danger: #ef4444;
+  }
+
+  /* Dark theme: auto-detect from parent page or OS preference */
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #0f172a;
+      --surface: #1e293b;
+      --border: #334155;
+      --text: #e2e8f0;
+      --text-muted: #94a3b8;
+      --accent: #818cf8;
+      --accent-glow: rgba(129, 140, 248, 0.3);
+      --success: #34d399;
+      --warning: #fbbf24;
+      --danger: #f87171;
+    }
+  }
+
+  /* Explicit dark theme (set by JS from parent page) */
+  [data-theme="dark"] {
+    --bg: #0f172a;
+    --surface: #1e293b;
+    --border: #334155;
+    --text: #e2e8f0;
+    --text-muted: #94a3b8;
+    --accent: #818cf8;
+    --accent-glow: rgba(129, 140, 248, 0.3);
+    --success: #34d399;
+    --warning: #fbbf24;
+    --danger: #f87171;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 2rem 1rem;
+  }
+
+  h1 {
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+    color: var(--text);
+  }
+
+  .subtitle {
+    color: var(--text-muted);
+    font-size: 0.875rem;
+    margin-bottom: 2rem;
+  }
+
+  .diagram {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    width: 100%;
+    max-width: 900px;
+  }
+
+  .layer {
+    display: flex;
+    gap: 0.75rem;
+    justify-content: center;
+    flex-wrap: wrap;
+    width: 100%;
+  }
+
+  .layer-label {
+    width: 100%;
+    text-align: center;
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--text-muted);
+    margin-bottom: -0.5rem;
+  }
+
+  .component {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 0.875rem 1.25rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    text-align: center;
+    min-width: 140px;
+    position: relative;
+  }
+
+  .component:hover {
+    border-color: var(--accent);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
+  }
+
+  .component.active {
+    border-color: var(--accent);
+    box-shadow: 0 0 20px var(--accent-glow);
+  }
+
+  .component .icon {
+    font-size: 1.5rem;
+    display: block;
+    margin-bottom: 0.375rem;
+  }
+
+  .component .name {
+    font-size: 0.8rem;
+    font-weight: 600;
+  }
+
+  .component .metric {
+    font-size: 0.65rem;
+    color: var(--text-muted);
+    margin-top: 0.25rem;
+  }
+
+  .arrow-row {
+    display: flex;
+    justify-content: center;
+    color: var(--text-muted);
+    font-size: 1.25rem;
+    animation: pulse-down 2s infinite;
+  }
+
+  @keyframes pulse-down {
+    0%, 100% { opacity: 0.4; }
+    50% { opacity: 1; }
+  }
+
+  .info-panel {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 1.25rem 1.5rem;
+    width: 100%;
+    max-width: 900px;
+    margin-top: 1.5rem;
+    min-height: 120px;
+    transition: all 0.2s ease;
+  }
+
+  .info-panel.active {
+    border-color: var(--accent);
+  }
+
+  .info-panel h3 {
+    font-size: 1rem;
+    margin-bottom: 0.5rem;
+    color: var(--accent);
+  }
+
+  .info-panel p {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    line-height: 1.6;
+  }
+
+  .info-panel .tag {
+    display: inline-block;
+    background: rgba(129, 140, 248, 0.15);
+    color: var(--accent);
+    padding: 0.15rem 0.5rem;
+    border-radius: 4px;
+    font-size: 0.7rem;
+    margin-top: 0.75rem;
+    margin-right: 0.375rem;
+  }
+
+  .info-default {
+    color: var(--text-muted);
+    font-style: italic;
+    font-size: 0.85rem;
+  }
+</style>
+</head>
+<body>
+
+<h1>Webhook Processing Pipeline Architecture</h1>
+<p class="subtitle">Click any component to see details</p>
+
+<!-- === EDIT THIS SECTION: Add/remove layers and components === -->
+<div class="diagram">
+
+  <div class="layer-label">Clients</div>
+  <div class="layer">
+    <div class="component" data-id="mobile" onclick="showInfo('mobile')">
+      <span class="icon">&#128241;</span>
+      <div class="name">Mobile App</div>
+      <div class="metric">2.1M users</div>
+    </div>
+    <div class="component" data-id="web" onclick="showInfo('web')">
+      <span class="icon">&#127760;</span>
+      <div class="name">Web Dashboard</div>
+      <div class="metric">450K DAU</div>
+    </div>
+    <div class="component" data-id="partner" onclick="showInfo('partner')">
+      <span class="icon">&#128268;</span>
+      <div class="name">Partner API</div>
+      <div class="metric">85 integrations</div>
+    </div>
+  </div>
+
+  <div class="arrow-row">&#8595; &#8595; &#8595;</div>
+
+  <div class="layer-label">Edge</div>
+  <div class="layer">
+    <div class="component" data-id="cdn" onclick="showInfo('cdn')">
+      <span class="icon">&#127758;</span>
+      <div class="name">CloudFlare CDN</div>
+      <div class="metric">99.99% uptime</div>
+    </div>
+    <div class="component" data-id="ratelimiter" onclick="showInfo('ratelimiter')">
+      <span class="icon">&#9201;</span>
+      <div class="name">Rate Limiter</div>
+      <div class="metric">60 req/min</div>
+    </div>
+  </div>
+
+  <div class="arrow-row">&#8595; &#8595;</div>
+
+  <div class="layer-label">Verification</div>
+  <div class="layer">
+    <div class="component" data-id="gateway" onclick="showInfo('gateway')">
+      <span class="icon">&#9878;</span>
+      <div class="name">API Gateway</div>
+      <div class="metric">12K req/sec</div>
+    </div>
+    <div class="component" data-id="hmac" onclick="showInfo('hmac')">
+      <span class="icon">&#128272;</span>
+      <div class="name">HMAC Validator</div>
+      <div class="metric">&lt;2 ms verify</div>
+    </div>
+  </div>
+
+  <div class="arrow-row">&#8595; &#8595;</div>
+
+  <div class="layer-label">Processing</div>
+  <div class="layer">
+    <div class="component" data-id="router" onclick="showInfo('router')">
+      <span class="icon">&#128256;</span>
+      <div class="name">Event Router</div>
+      <div class="metric">8 event types</div>
+    </div>
+    <div class="component" data-id="queue" onclick="showInfo('queue')">
+      <span class="icon">&#128218;</span>
+      <div class="name">BullMQ Queue</div>
+      <div class="metric">Redis-backed</div>
+    </div>
+    <div class="component" data-id="retry" onclick="showInfo('retry')">
+      <span class="icon">&#128260;</span>
+      <div class="name">Retry Engine</div>
+      <div class="metric">Exponential backoff</div>
+    </div>
+  </div>
+
+  <div class="arrow-row">&#8595; &#8595; &#8595;</div>
+
+  <div class="layer-label">Storage</div>
+  <div class="layer">
+    <div class="component" data-id="postgres" onclick="showInfo('postgres')">
+      <span class="icon">&#128451;</span>
+      <div class="name">PostgreSQL</div>
+      <div class="metric">2 read replicas</div>
+    </div>
+    <div class="component" data-id="eventlog" onclick="showInfo('eventlog')">
+      <span class="icon">&#128196;</span>
+      <div class="name">Event Log</div>
+      <div class="metric">30-day retention</div>
+    </div>
+    <div class="component" data-id="grafana" onclick="showInfo('grafana')">
+      <span class="icon">&#128200;</span>
+      <div class="name">Grafana Monitoring</div>
+      <div class="metric">Real-time alerts</div>
+    </div>
+  </div>
+
+</div>
+<!-- === END EDITABLE SECTION === -->
+
+<div class="info-panel" id="infoPanel">
+  <p class="info-default">Click any component to see its description, configuration, and key metrics.</p>
+</div>
+
+<script>
+// === EDIT THIS SECTION: descriptions for each component ===
+const descriptions = {
+  mobile: {
+    title: "Mobile App",
+    desc: "Native iOS and Android applications serving 2.1 million registered users. The mobile client sends webhook events for order completions, payment confirmations, and delivery status updates. Connects to the CloudFlare CDN edge layer for low-latency payload delivery across 190 countries.",
+    tags: ["iOS", "Android", "2.1M users"]
+  },
+  web: {
+    title: "Web Dashboard",
+    desc: "React-based administration dashboard with 450,000 daily active users. Provides real-time webhook monitoring, endpoint configuration, and delivery logs. Routes all outbound webhook traffic through the CloudFlare CDN for geographic load balancing and TLS termination.",
+    tags: ["React", "450K DAU", "Real-time"]
+  },
+  partner: {
+    title: "Partner API",
+    desc: "RESTful integration layer supporting 85 third-party partner connections. Each partner registers webhook endpoints via OAuth2 and receives signed payloads for subscribed event types. Authenticated requests flow through the Rate Limiter before reaching the API Gateway.",
+    tags: ["REST", "OAuth2", "85 integrations"]
+  },
+  cdn: {
+    title: "CloudFlare CDN",
+    desc: "Global content delivery network with 99.99% uptime SLA and 310 edge locations. Handles TLS termination, HTTP/2 multiplexing, and DDoS mitigation for all inbound webhook traffic. Forwards verified requests to the Rate Limiter for per-client throttling.",
+    tags: ["310 PoPs", "TLS", "99.99% uptime"]
+  },
+  ratelimiter: {
+    title: "Rate Limiter",
+    desc: "Token bucket rate limiter enforcing 60 requests per minute per API key. Backed by a Redis cluster with sub-millisecond lookups and shared state across all edge nodes. Returns HTTP 429 with Retry-After header when limits are exceeded, protecting the API Gateway from traffic spikes.",
+    tags: ["Token bucket", "Redis", "60 req/min"]
+  },
+  gateway: {
+    title: "API Gateway",
+    desc: "High-performance gateway processing 12,000 requests per second. Handles request routing, payload size validation (max 16 MB), and header normalization. Forwards authenticated requests to the HMAC Validator for cryptographic signature verification before queuing.",
+    tags: ["12K req/sec", "Nginx", "L7 routing"]
+  },
+  hmac: {
+    title: "HMAC Validator",
+    desc: "Cryptographic signature verifier completing HMAC-SHA256 validation in under 2 milliseconds. Implements timing-safe comparison to prevent side-channel attacks and 5-minute replay protection using signed timestamps. Passes verified payloads to the Event Router for type-based dispatching.",
+    tags: ["SHA-256", "<2 ms", "Replay protection"]
+  },
+  router: {
+    title: "Event Router",
+    desc: "Dispatches verified webhook events across 8 event types: order.completed, payment.failed, refund.created, subscription.updated, invoice.paid, dispute.opened, payout.sent, and customer.deleted. Routes each event to the appropriate BullMQ queue based on priority and processing requirements.",
+    tags: ["8 event types", "Priority routing", "Fan-out"]
+  },
+  queue: {
+    title: "BullMQ Queue",
+    desc: "Redis-backed job queue providing guaranteed at-least-once delivery for all webhook events. Supports priority levels, job deduplication, and configurable concurrency (10 workers default). Stores 2.1 MB per 10,000 queued events and connects to the Retry Engine for failed delivery handling.",
+    tags: ["Redis", "At-least-once", "10 workers"]
+  },
+  retry: {
+    title: "Retry Engine",
+    desc: "Exponential backoff retry system with intervals of 1s, 5s, 25s, 125s, and 625s (base 5). Tracks delivery attempts in PostgreSQL and triggers Grafana alerts after 3 consecutive failures. Supports configurable max attempts (default: 5) and dead-letter queue for permanently failed events.",
+    tags: ["Exponential backoff", "5 attempts", "Dead-letter queue"]
+  },
+  postgres: {
+    title: "PostgreSQL",
+    desc: "Primary database with 2 read replicas handling 8,500 queries per second (peak: 12,000). Stores webhook configurations, delivery history, and partner endpoint metadata. Uses PgBouncer connection pooling (max 500 connections) and automated daily backups with point-in-time recovery.",
+    tags: ["2 replicas", "8.5K qps", "PgBouncer"]
+  },
+  eventlog: {
+    title: "Event Log",
+    desc: "Append-only event store with 30-day retention policy for audit compliance. Records every webhook payload, signature verification result, and delivery attempt with microsecond timestamps. Feeds into Grafana dashboards for real-time throughput and error rate monitoring.",
+    tags: ["30-day retention", "Append-only", "Audit trail"]
+  },
+  grafana: {
+    title: "Grafana Monitoring",
+    desc: "Real-time observability dashboard tracking 12 key metrics: ingestion rate, verification latency, queue depth, processing throughput, error rate, retry count, P50/P99 latency, and partner-level SLA compliance. Triggers PagerDuty alerts when error rate exceeds 1% or queue depth exceeds 50,000 events.",
+    tags: ["Real-time", "PagerDuty", "12 metrics"]
+  }
+};
+// === END EDITABLE SECTION ===
+
+// Sync theme with parent page (MkDocs Material or Docusaurus)
+function syncTheme() {
+  try {
+    // MkDocs Material: parent body has data-md-color-scheme="slate" for dark
+    const parentScheme = window.parent.document.body.getAttribute('data-md-color-scheme');
+    if (parentScheme === 'slate') {
+      document.documentElement.setAttribute('data-theme', 'dark');
+      return;
+    }
+    // Docusaurus: parent html has data-theme="dark"
+    const parentTheme = window.parent.document.documentElement.getAttribute('data-theme');
+    if (parentTheme === 'dark') {
+      document.documentElement.setAttribute('data-theme', 'dark');
+      return;
+    }
+    // If parent is light or not detected, use OS preference (handled by CSS)
+  } catch (e) {
+    // Cross-origin: fall back to OS preference (handled by CSS media query)
+  }
+}
+syncTheme();
+// Re-sync when parent toggles theme
+try {
+  new MutationObserver(syncTheme).observe(
+    window.parent.document.documentElement,
+    { attributes: true, attributeFilter: ['data-md-color-scheme', 'data-theme'] }
+  );
+  new MutationObserver(syncTheme).observe(
+    window.parent.document.body,
+    { attributes: true, attributeFilter: ['data-md-color-scheme'] }
+  );
+} catch (e) { /* cross-origin, no sync possible */ }
+
+function showInfo(id) {
+  document.querySelectorAll('.component').forEach(el => el.classList.remove('active'));
+  const el = document.querySelector(`[data-id="${id}"]`);
+  if (el) el.classList.add('active');
+
+  const panel = document.getElementById('infoPanel');
+  const data = descriptions[id];
+  if (!data) return;
+
+  panel.classList.add('active');
+  panel.innerHTML = `
+    <h3>${data.title}</h3>
+    <p>${data.desc}</p>
+    <div>${data.tags.map(t => `<span class="tag">${t}</span>`).join('')}</div>
+  `;
+}
+</script>
+</body>
+</html>
