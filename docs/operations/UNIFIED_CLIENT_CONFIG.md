@@ -171,7 +171,7 @@ runtime:
 ```yaml
 runtime:
   pr_autofix:
-    enabled: true
+    enabled: false
     require_label: false
     label_name: "auto-doc-fix"
     enable_auto_merge: false
@@ -179,13 +179,19 @@ runtime:
     workflow_filename: "docsops-pr-autofix.yml"
 ```
 
-Behavior:
+Behavior when enabled:
 
 - Trigger: PR opened/updated (`pull_request` events).
 - Scope: only changed files in the current PR (`base...head` diff).
-- If PR is blocked by docs contract or API/SDK drift, bot generates docs patch and commits to the same PR branch.
+- If docs drift is detected, bot can generate docs patch and commit to the same PR branch.
 - No commits to `main`.
 - Checks rerun automatically after bot commit.
+
+Default policy:
+
+- `pr_autofix` is optional and disabled by default.
+- `docs_contract` is report-only by default in weekly flow and consolidated report.
+- Weekly consolidated report adds only new/changed docs-contract mismatches, ignores closed ones, and deduplicates with other gap sources.
 
 One-time repo setup (done during provisioning):
 

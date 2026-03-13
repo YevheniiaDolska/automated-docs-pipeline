@@ -228,6 +228,8 @@ def main() -> int:
                 head_ref,
                 "--json-output",
                 str(reports_dir / "pr_docs_contract.json"),
+                "--enforcement",
+                "report-only",
                 "--policy-pack",
                 str(policy_pack),
             ],

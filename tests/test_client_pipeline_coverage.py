@@ -119,7 +119,7 @@ class TestBuildClientBundle:
         assert runtime["knowledge_graph"]["output_path"] == "docs/assets/knowledge-graph.jsonld"
         assert runtime["git_sync"]["enabled"] is False
         assert runtime["git_sync"]["remote"] == "origin"
-        assert runtime["pr_autofix"]["enabled"] is True
+        assert runtime["pr_autofix"]["enabled"] is False
         assert runtime["pr_autofix"]["workflow_filename"] == "docsops-pr-autofix.yml"
         selected = yaml.safe_load((out / "policy_packs" / "selected.yml").read_text(encoding="utf-8"))
         assert selected["docs_contract"]["doc_patterns"] == ["^manual/"]

@@ -245,7 +245,7 @@ The `api-sdk-drift-gate.yml` workflow runs automatically on every pull request t
 
 ## Definition of Done contract
 
-The `check_docs_contract.py` script enforces a stricter rule than drift detection: any change to public interface files must include documentation changes in the same pull request. This prevents undocumented API changes from reaching production.
+The `check_docs_contract.py` script tracks when public interface files change without paired documentation changes in the same pull request. Default mode is report-only.
 
 ### How the DoD contract works
 
@@ -256,7 +256,7 @@ The script compares changed files against two pattern groups from `policy_packs/
 | `interface_patterns` | `api/**`, OpenAPI specs, `sdk/**`, `clients/**` |
 | `doc_patterns` | `docs/reference/**`, `docs/how-to/**`, API templates |
 
-If interface files changed but no doc files changed, the script returns exit code 1 and blocks the pull request.
+If interface files changed but no doc files changed, the script reports docs-contract drift. In strict mode, it can also fail the check.
 
 ### Running the DoD contract locally
 
@@ -270,6 +270,7 @@ Or with full arguments:
 python3 scripts/check_docs_contract.py \
   --base origin/main \
   --head HEAD \
+  --enforcement report-only \
   --policy-pack policy_packs/api-first.yml \
   --json-output reports/pr_docs_contract.json
 ```
@@ -279,9 +280,9 @@ python3 scripts/check_docs_contract.py \
 The `pr-dod-contract.yml` workflow runs on every pull request that touches `api/`, `sdk/`, `clients/`, `src/`, `docs/`, `templates/`, or policy packs. It runs two steps:
 
 1. `validate_pr_dod.py` -- validates the pull request template structure.
-1. `check_docs_contract.py` -- validates interface-to-docs pairing.
+1. `check_docs_contract.py` -- reports interface-to-docs drift (`report-only` by default).
 
-Both must pass for the pull request to proceed.
+By default this is an informational signal. Optional strict mode can be enabled per team.
 
 ## Spectral rules
 
@@ -404,7 +405,7 @@ npm run consolidate:reports-only
 | Workflow | File | Trigger | What it does |
 | --- | --- | --- | --- |
 | API/SDK drift gate | `api-sdk-drift-gate.yml` | PR touching API/SDK files | Blocks PR if docs are missing, creates issue |
-| PR DoD contract | `pr-dod-contract.yml` | PR touching interface or doc files | Blocks PR if interface changes lack docs |
+| PR DoD contract | `pr-dod-contract.yml` | PR touching interface or doc files | Reports interface/docs drift (report-only default) |
 | Code examples smoke | `code-examples-smoke.yml` | PR or push touching docs/templates | Executes tagged code blocks to verify they work |
 | OpenAPI source sync | `openapi-source-sync.yml` | Manual dispatch | Resolves spec from api-first or code-first strategy |
 | API-first full flow | `scripts/run_api_first_flow.py` | Local run / weekly automation | Generates contract + stubs + verification + sandbox endpoint sync |
@@ -490,14 +491,14 @@ Use the `templates/api-reference.md` template for new endpoint documentation.
 1. Update the corresponding files in `docs/reference/`.
 1. Re-run `npm run drift-check`.
 
-### DoD contract failed
+### DoD contract drift reported
 
-**What it means:** Public interface files changed (controllers, routes, models, API specs) without any documentation changes in the same pull request.
+**What it means:** Public interface files changed (controllers, routes, models, API specs) without paired documentation changes in the same pull request.
 
 **How to fix:**
 
-1. Add documentation files to the same pull request.
-1. Re-run `npm run docs-contract`.
+1. Add or update documentation files in the same pull request.
+1. Re-run `npm run docs-contract` to refresh the report.
 
 ### Smoke examples failed
 
@@ -534,7 +535,7 @@ Use the `templates/api-reference.md` template for new endpoint documentation.
 
 A pull request is ready to merge only when all of these are true:
 
-1. DoD contract check passes.
+1. DoD contract drift report is reviewed (or strict mode passes, if enabled).
 1. Drift gate check passes.
 1. Smoke examples check passes.
 1. Spectral lint passes on all OpenAPI specification files.

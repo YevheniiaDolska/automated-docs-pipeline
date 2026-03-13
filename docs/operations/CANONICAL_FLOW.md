@@ -102,6 +102,8 @@ It executes:
 - gap detection
 - stale checks
 - drift + docs contract (if enabled)
+  - docs contract is report-only by default (no hard weekly blocking)
+  - consolidated report includes only new/changed docs-contract mismatches, ignores closed ones, and deduplicates overlap with other gap sources
 - KPI/SLA (if enabled)
 - API-first flow (if enabled)
   - supports `docker`, `prism` (no Docker), and `external` public sandbox URL

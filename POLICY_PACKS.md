@@ -29,7 +29,7 @@ Each policy pack defines top-level sections:
 
 | Section | What it does | Used by |
 | --- | --- | --- |
-| `docs_contract` | Defines `interface_patterns` and `doc_patterns`. When a PR changes files matching interface patterns but does not change files matching doc patterns, the PR is blocked. | `check_docs_contract.py`, `pr-dod-contract.yml` |
+| `docs_contract` | Defines `interface_patterns` and `doc_patterns`. When interface files change without docs updates, docs-contract drift is reported (report-only by default). | `check_docs_contract.py`, `pr-dod-contract.yml` |
 | `drift` | Defines `openapi_patterns`, `sdk_patterns`, and `reference_doc_patterns`. When OpenAPI or SDK files change without a corresponding reference doc update, drift is reported. | `check_api_sdk_drift.py`, `api-sdk-drift-gate.yml` |
 | `kpi_sla` | Defines numeric thresholds for quality score, stale percentage, gap count, and quality regression. Breaching any threshold fails the SLA check. | `evaluate_kpi_sla.py`, `kpi-wall.yml`, `weekly-consolidation.yml` |
 | `terminology` | Defines glossary governance thresholds (`glossary_sync_required`, max new terms per week) for project terminology growth. | `sync_project_glossary.py`, `run_weekly_gap_batch.py` |
@@ -37,7 +37,7 @@ Each policy pack defines top-level sections:
 | `knowledge_graph` | Defines minimum node count for the generated JSON-LD knowledge graph. | `generate_knowledge_graph_jsonld.py`, `run_weekly_gap_batch.py` |
 | `plg` | (PLG pack only) Controls API sandbox mode, value-first documentation requirements, and recommended sections. | Advisory guidance for PLG teams |
 
-When a developer changes a file matching `interface_patterns` but does not change any file matching `doc_patterns`, the PR fails. That is how the pipeline enforces documentation freshness.
+When a developer changes a file matching `interface_patterns` but does not change any file matching `doc_patterns`, the pipeline records docs-contract drift. In default mode this is report-only.
 
 ## Available policy packs
 
@@ -467,10 +467,11 @@ The `check_docs_contract.py` script reads the `docs_contract` section from the s
 1. **`interface_patterns`** -- Regex patterns that identify public interface file changes (API routes, controllers, SDK code).
 1. **`doc_patterns`** -- Regex patterns that identify documentation file changes.
 
-The contract check compares changed files in a PR. If any file matches `interface_patterns` but no file matches `doc_patterns`, the PR is blocked with exit code 1, which:
+The contract check compares changed files in a PR. If any file matches `interface_patterns` but no file matches `doc_patterns`, docs-contract drift is recorded.
 
-- Fails the `pr-dod-contract.yml` workflow job.
-- Prevents merging until documentation is updated.
+- Default mode is `--enforcement report-only`.
+- Optional strict mode is `--enforcement blocking`.
+- Weekly consolidation keeps only new/changed mismatches, ignores closed ones, and deduplicates with other gap sources.
 
 **Impact of pack selection on DoD contract:**
 

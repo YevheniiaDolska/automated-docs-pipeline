@@ -209,7 +209,7 @@ def build_runtime_config(profile: dict[str, Any]) -> dict[str, Any]:
         "pr_autofix": runtime.get(
             "pr_autofix",
             {
-                "enabled": True,
+                "enabled": False,
                 "require_label": False,
                 "label_name": "auto-doc-fix",
                 "enable_auto_merge": False,

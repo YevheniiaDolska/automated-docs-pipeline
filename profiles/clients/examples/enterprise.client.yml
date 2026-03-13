@@ -70,7 +70,7 @@ runtime:
   preferred_llm: "claude"
   output_targets: ["sphinx", "readme", "github"]
   pr_autofix:
-    enabled: true
+    enabled: false
     require_label: false
     label_name: "auto-doc-fix"
     enable_auto_merge: false

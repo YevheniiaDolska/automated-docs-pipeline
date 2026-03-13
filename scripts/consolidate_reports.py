@@ -26,6 +26,7 @@ import sys
 from dataclasses import asdict, dataclass, field
 from datetime import datetime, timezone
 from pathlib import Path
+from typing import Any
 
 
 @dataclass
@@ -82,6 +83,7 @@ class ReportConsolidator:
         self.input_statuses: dict[str, InputReportStatus] = {}
         self.health = HealthSummary()
         self._counter = 0
+        self._dod_state_path = self.reports_dir / "dod_contract_state.json"
 
     def _next_id(self) -> str:
         """Генерирует следующий ID вида CONS-001."""
@@ -98,6 +100,136 @@ class ReportConsolidator:
         except (json.JSONDecodeError, OSError) as e:
             print(f"  Warning: cannot read {filepath}: {e}", file=sys.stderr)
             return None
+
+    def _read_json_path(self, path: Path) -> dict:
+        if not path.exists():
+            return {}
+        try:
+            payload = json.loads(path.read_text(encoding="utf-8"))
+            return payload if isinstance(payload, dict) else {}
+        except (json.JSONDecodeError, OSError):
+            return {}
+
+    def _write_json_path(self, path: Path, payload: dict) -> None:
+        path.parent.mkdir(parents=True, exist_ok=True)
+        path.write_text(json.dumps(payload, indent=2, ensure_ascii=True) + "\n", encoding="utf-8")
+
+    def _dod_duplicate_exists(self, doc_path: str) -> bool:
+        if not doc_path:
+            return False
+        normalized = doc_path.strip().lower()
+        for item in self.action_items:
+            for related in item.related_files:
+                if str(related).strip().lower() == normalized:
+                    return True
+        return False
+
+    def _process_docs_contract(self) -> None:
+        """Process pr_docs_contract.json as non-blocking drift signal."""
+        data = self._read_json("pr_docs_contract.json")
+        if data is None:
+            self.input_statuses["docs_contract"] = InputReportStatus(found=False)
+            return
+
+        raw_mismatches = data.get("mismatches", [])
+        mismatches: list[dict[str, str]] = []
+        if isinstance(raw_mismatches, list) and raw_mismatches:
+            for item in raw_mismatches:
+                if not isinstance(item, dict):
+                    continue
+                mismatch_id = str(item.get("id", "")).strip()
+                path = str(item.get("path", "")).strip()
+                signature = str(item.get("signature", "")).strip()
+                if mismatch_id and path:
+                    mismatches.append(
+                        {
+                            "id": mismatch_id,
+                            "path": path,
+                            "signature": signature,
+                        }
+                    )
+        else:
+            interface_changed = data.get("interface_changed", [])
+            docs_changed = data.get("docs_changed", [])
+            if isinstance(interface_changed, list) and not docs_changed:
+                for path in interface_changed:
+                    path_str = str(path).strip()
+                    if not path_str:
+                        continue
+                    mismatch_id = f"dod::{path_str.lower()}"
+                    mismatches.append(
+                        {
+                            "id": mismatch_id,
+                            "path": path_str,
+                            "signature": "",
+                        }
+                    )
+
+        current_active = {item["id"]: item for item in mismatches}
+        state = self._read_json_path(self._dod_state_path)
+        prev_active = state.get("active", {}) if isinstance(state.get("active"), dict) else {}
+
+        new_or_changed: list[dict[str, str]] = []
+        for mismatch_id, item in current_active.items():
+            previous = prev_active.get(mismatch_id, {})
+            prev_sig = str(previous.get("signature", "")).strip() if isinstance(previous, dict) else ""
+            if mismatch_id not in prev_active or prev_sig != item.get("signature", ""):
+                new_or_changed.append(item)
+
+        closed_ids = sorted(set(prev_active.keys()) - set(current_active.keys()))
+        deduplicated_count = 0
+        emitted_count = 0
+
+        for item in new_or_changed:
+            path = item.get("path", "")
+            if self._dod_duplicate_exists(path):
+                deduplicated_count += 1
+                continue
+            self.action_items.append(
+                ActionItem(
+                    id=self._next_id(),
+                    source_report="docs_contract",
+                    source_id=item.get("id"),
+                    title=f"Docs contract drift: {path}",
+                    category="docs_contract_drift",
+                    suggested_doc_type="reference",
+                    priority="medium",
+                    frequency=0,
+                    action_required=(
+                        f"Interface changed without paired docs update for {path}. "
+                        "Add or update relevant docs sections."
+                    ),
+                    related_files=[path],
+                    context={
+                        "docs_contract_related": True,
+                        "mismatch_id": item.get("id"),
+                        "signature": item.get("signature", ""),
+                        "status": "new_or_changed",
+                    },
+                )
+            )
+            emitted_count += 1
+
+        self.input_statuses["docs_contract"] = InputReportStatus(
+            found=True,
+            details={
+                "status": data.get("status", "unknown"),
+                "mismatch_count": len(mismatches),
+                "new_or_changed_count": len(new_or_changed),
+                "closed_count": len(closed_ids),
+                "emitted_count": emitted_count,
+                "deduplicated_count": deduplicated_count,
+            },
+        )
+
+        self._write_json_path(
+            self._dod_state_path,
+            {
+                "updated_at": datetime.now(timezone.utc).isoformat(),
+                "active": current_active,
+                "closed_ids": closed_ids,
+            },
+        )
 
     def _process_gaps(self) -> None:
         """Обрабатывает doc_gaps_report.json."""
@@ -516,6 +648,7 @@ class ReportConsolidator:
 
         self._process_gaps()
         self._process_drift()
+        self._process_docs_contract()
         self._process_kpi()
         self._process_sla()
         self._process_i18n()

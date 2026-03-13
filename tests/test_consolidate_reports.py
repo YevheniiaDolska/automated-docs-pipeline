@@ -117,6 +117,20 @@ def _make_graph_report() -> dict[str, Any]:
     }
 
 
+def _make_docs_contract_report(
+    status: str = "drift",
+    mismatches: list[dict[str, str]] | None = None,
+) -> dict[str, Any]:
+    return {
+        "status": status,
+        "interface_changed": ["src/api/routes.py"] if status == "drift" else [],
+        "docs_changed": [],
+        "blocked": status == "drift",
+        "mismatch_count": len(mismatches or []),
+        "mismatches": mismatches or [],
+    }
+
+
 # ---------------------------------------------------------------------------
 # ReportConsolidator._next_id
 # ---------------------------------------------------------------------------
@@ -378,6 +392,78 @@ class TestConsolidate:
         assert result["health_summary"]["total_action_items"] == 0
         for status in result["input_reports"].values():
             assert status["found"] is False
+
+
+class TestProcessDocsContract:
+    """Tests for docs contract report-only integration."""
+
+    def test_emits_only_new_or_changed_items(self, tmp_path: Path) -> None:
+        report = _make_docs_contract_report(
+            status="drift",
+            mismatches=[
+                {
+                    "id": "dod::src/api/routes.py",
+                    "path": "src/api/routes.py",
+                    "signature": "abc123",
+                },
+            ],
+        )
+        _write_json(tmp_path / "pr_docs_contract.json", report)
+        consolidator = ReportConsolidator(reports_dir=str(tmp_path))
+        consolidator._process_docs_contract()
+
+        assert consolidator.input_statuses["docs_contract"].found is True
+        assert consolidator.input_statuses["docs_contract"].details["new_or_changed_count"] == 1
+        assert consolidator.input_statuses["docs_contract"].details["emitted_count"] == 1
+        assert any(item.source_report == "docs_contract" for item in consolidator.action_items)
+
+        state_path = tmp_path / "dod_contract_state.json"
+        assert state_path.exists()
+        state = json.loads(state_path.read_text(encoding="utf-8"))
+        assert "dod::src/api/routes.py" in state["active"]
+
+        # Second run with same mismatch should emit nothing (not new/changed).
+        consolidator_2 = ReportConsolidator(reports_dir=str(tmp_path))
+        consolidator_2._process_docs_contract()
+        assert consolidator_2.input_statuses["docs_contract"].details["new_or_changed_count"] == 0
+        assert consolidator_2.input_statuses["docs_contract"].details["emitted_count"] == 0
+
+    def test_closed_and_deduplicated_mismatches(self, tmp_path: Path) -> None:
+        report = _make_docs_contract_report(
+            status="drift",
+            mismatches=[
+                {
+                    "id": "dod::api/openapi.yaml",
+                    "path": "api/openapi.yaml",
+                    "signature": "sig1",
+                },
+            ],
+        )
+        _write_json(tmp_path / "pr_docs_contract.json", report)
+        consolidator = ReportConsolidator(reports_dir=str(tmp_path))
+        consolidator.action_items.append(
+            ActionItem(
+                id="CONS-999",
+                source_report="drift",
+                source_id=None,
+                title="Existing drift item",
+                category="api_drift",
+                suggested_doc_type="reference",
+                priority="high",
+                frequency=0,
+                action_required="update docs",
+                related_files=["api/openapi.yaml"],
+            )
+        )
+        consolidator._process_docs_contract()
+        assert consolidator.input_statuses["docs_contract"].details["deduplicated_count"] == 1
+        assert consolidator.input_statuses["docs_contract"].details["emitted_count"] == 0
+
+        # Now mismatch disappears -> should be counted as closed.
+        _write_json(tmp_path / "pr_docs_contract.json", _make_docs_contract_report(status="ok", mismatches=[]))
+        consolidator_2 = ReportConsolidator(reports_dir=str(tmp_path))
+        consolidator_2._process_docs_contract()
+        assert consolidator_2.input_statuses["docs_contract"].details["closed_count"] == 1
 
 
 # ---------------------------------------------------------------------------

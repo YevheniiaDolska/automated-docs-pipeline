@@ -89,7 +89,7 @@ When Claude Code or Codex processes the consolidated report, it:
 1. Self-verifies: executes all code examples, checks shell commands, fact-checks assertions (versions, ports, paths, counts).
 1. Auto-corrects any mismatches found during verification.
 1. Runs lint/validation locally before commit (pre-commit and explicit lint commands).
-1. Runs the same checks again in CI on pull request; publish/merge stays blocked until green.
+1. Runs the same checks again in CI on pull request; publish/merge can be governed by your team policy.
 1. Publishes/syncs to configured targets (Sphinx, ReadMe, GitHub docs, optional adapters) according to client profile.
 
 Instructions live in `CLAUDE.md` (for Claude Code) and `AGENTS.md` (for Codex).
@@ -158,7 +158,7 @@ Why this section can look different from CI:
 | Workflow | Trigger | Purpose |
 | --- | --- | --- |
 | `weekly-consolidation.yml` | Cron Monday 09:00 UTC / manual | Generate consolidated report, open GitHub Issue |
-| `pr-dod-contract.yml` | PR | Block if interface changed but docs did not |
+| `pr-dod-contract.yml` | PR | Generate DoD drift report (report-only by default) |
 | `api-sdk-drift-gate.yml` | PR | Block if OpenAPI/SDK changed without doc updates |
 | `code-examples-smoke.yml` | PR | Execute all tagged code blocks |
 | `kpi-wall.yml` | Weekly | Quality score, staleness, gap count dashboard |
@@ -166,23 +166,23 @@ Why this section can look different from CI:
 | `lifecycle-management.yml` | Weekly | Scan for stale/deprecated pages, create issues |
 | `openapi-source-sync.yml` | Schedule | Resolve API spec (api-first or code-first strategy) |
 | `algolia-index.yml` | Deploy | Upload search index to Algolia |
-| `docsops-pr-autofix.yml` | PR opened/updated | Auto-generate missing docs patch into the same PR branch |
+| `docsops-pr-autofix.yml` | PR opened/updated | Optional auto-generate missing docs patch into the same PR branch |
 
 Note:
 
 - Recommended operating mode is local scheduler in client repo (`cron`/Task Scheduler), default Monday at `10:00` local time.
 - GitHub Actions weekly workflows remain compatibility mode only.
 
-### PR auto-doc workflow (one-time setup)
+### PR auto-doc workflow (optional, off by default)
 
-If you want blocked PRs to auto-recover when docs are missing:
+Enable this only if you explicitly want bot commits in PR branches:
 
 1. Enable in client profile:
 
 ```yaml
 runtime:
   pr_autofix:
-    enabled: true
+    enabled: false
     require_label: false
     label_name: "auto-doc-fix"
     enable_auto_merge: false
@@ -194,13 +194,20 @@ runtime:
 1. Set repository setting: Actions workflow permissions = `Read and write permissions`.
 1. Optional: add `DOCSOPS_BOT_TOKEN` (`contents:write`, `pull_requests:write`) for orgs where default token cannot push.
 
-How it works:
+How it works when enabled:
 
 - Trigger: `pull_request` events (`opened`, `synchronize`, `reopened`, `labeled`).
 - Scope: only the current PR (`base.sha...head.sha`).
 - Action: if API/docs contract or drift is missing docs updates, pipeline generates docs patch.
 - Commit target: same PR branch (`github.event.pull_request.head.ref`), never `main`.
 - Result: checks rerun automatically; if all green, PR can merge (optionally auto-merge).
+
+DoD drift behavior in consolidated weekly report:
+
+- `docs_contract` is report-only by default (no hard blocking in weekly flow).
+- Weekly consolidation includes only new/changed DoD mismatches (by `id/signature` state).
+- Closed mismatches are tracked and ignored in current action items.
+- DoD items are deduplicated against existing gap/drift action items.
 
 ## Templates (31)
 
