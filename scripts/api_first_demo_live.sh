@@ -16,6 +16,9 @@ fi
 SANDBOX_BACKEND="${API_FIRST_DEMO_SANDBOX_BACKEND:-docker}"
 MOCK_BASE_URL="${API_FIRST_DEMO_MOCK_BASE_URL:-}"
 AUTO_PREPARE_EXTERNAL_MOCK="${API_FIRST_DEMO_AUTO_PREPARE_EXTERNAL_MOCK:-true}"
+AUTO_DEPLOY="${API_FIRST_DEMO_AUTO_DEPLOY:-true}"
+DEPLOY_WORKFLOW="${API_FIRST_DEMO_DEPLOY_WORKFLOW:-deploy.yml}"
+DEPLOY_TIMEOUT_SECONDS="${API_FIRST_DEMO_DEPLOY_TIMEOUT_SECONDS:-1800}"
 
 if [[ "${SANDBOX_BACKEND}" == "external" && -z "${MOCK_BASE_URL}" ]]; then
   MOCK_BASE_URL="$(python3 - <<'PY'
@@ -65,9 +68,66 @@ say() {
   echo "[demo] $1"
 }
 
+require_cmd() {
+  local name="$1"
+  if ! command -v "$name" >/dev/null 2>&1; then
+    echo "[error] Required command is missing: $name"
+    exit 1
+  fi
+}
+
+build_playground_url() {
+  python3 - <<'PY'
+import yaml
+from pathlib import Path
+
+cfg = yaml.safe_load(Path("mkdocs.yml").read_text(encoding="utf-8")) or {}
+site_url = str(cfg.get("site_url", "")).strip().rstrip("/")
+if site_url:
+    print(f"{site_url}/reference/taskstream-api-playground/")
+else:
+    print("/reference/taskstream-api-playground/")
+PY
+}
+
+wait_for_deploy_success() {
+  local workflow="$1"
+  local head_sha="$2"
+  local timeout_seconds="$3"
+  local started elapsed run_id status conclusion run_sha
+  started="$(date +%s)"
+  while true; do
+    run_line="$(gh run list --workflow "$workflow" --branch main --limit 20 --json databaseId,status,conclusion,headSha --jq '.[] | "\(.databaseId)|\(.status)|\(.conclusion // "none")|\(.headSha)"' | grep "$head_sha" | head -n1 || true)"
+    if [[ -n "$run_line" ]]; then
+      run_id="$(echo "$run_line" | cut -d'|' -f1)"
+      status="$(echo "$run_line" | cut -d'|' -f2)"
+      conclusion="$(echo "$run_line" | cut -d'|' -f3)"
+      run_sha="$(echo "$run_line" | cut -d'|' -f4)"
+      echo "[demo] ${workflow} -> run=${run_id} status=${status} conclusion=${conclusion} sha=${run_sha}"
+      if [[ "$status" == "completed" && "$conclusion" == "success" ]]; then
+        return 0
+      fi
+      if [[ "$status" == "completed" && "$conclusion" != "success" ]]; then
+        echo "[error] ${workflow} failed for sha ${head_sha}"
+        gh run view "$run_id" --log-failed || true
+        return 1
+      fi
+    else
+      echo "[demo] waiting for ${workflow} run for sha ${head_sha}..."
+    fi
+    elapsed="$(( $(date +%s) - started ))"
+    if (( elapsed > timeout_seconds )); then
+      echo "[error] timed out waiting for ${workflow} success (${timeout_seconds}s)"
+      return 1
+    fi
+    sleep 20
+  done
+}
+
 stage "API-FIRST LIVE DEMO: TASKSTREAM"
-say "I will run a nine-stage API-first flow."
-say "You will see planning notes, OpenAPI generation, contract/lint checks, stub generation, user-path verification, multilingual examples, glossary sync, retrieval evals, and JSON-LD knowledge graph generation."
+say "I will run an end-to-end API-first flow with generation, validation, deployment, and published sandbox verification."
+say "You will see planning notes, OpenAPI generation, contract/lint checks, stub generation, user-path verification, and final MkDocs deployment with a working API sandbox."
+say "Knowledge, glossary, retrieval evals, and JSON-LD graph run as a separate platform layer, not as API page content."
 
 stage "INPUT ARTIFACT: PLANNING NOTES PREVIEW"
 say "This is the exact notes format the pipeline consumes."
@@ -128,12 +188,12 @@ fi
 "${api_flow_cmd[@]}"
 
 stage "STAGE 6/9: MULTI-LANGUAGE EXAMPLES BASELINE"
-say "Generating multilingual code tabs and validating required language coverage."
+say "Generating multilingual examples baseline for API usability."
 python3 -u scripts/generate_multilang_tabs.py --paths docs templates --scope api --write
 python3 -u scripts/validate_multilang_examples.py --docs-dir docs --scope api --required-languages curl,javascript,python
 
 stage "STAGE 7/9: GLOSSARY SYNC"
-say "Syncing glossary markers into glossary.yml for terminology governance."
+say "Running terminology governance sync as a platform-level quality layer."
 python3 -u scripts/sync_project_glossary.py \
   --paths docs \
   --glossary glossary.yml \
@@ -141,7 +201,7 @@ python3 -u scripts/sync_project_glossary.py \
   --write
 
 stage "STAGE 8/9: RETRIEVAL QUALITY EVALS"
-say "Running retrieval precision/recall/hallucination evals on the knowledge index."
+say "Running retrieval evals as separate knowledge-system quality telemetry."
 python3 -u scripts/generate_knowledge_retrieval_index.py --modules-dir knowledge_modules --output docs/assets/knowledge-retrieval-index.json
 python3 -u scripts/run_retrieval_evals.py \
   --index docs/assets/knowledge-retrieval-index.json \
@@ -154,18 +214,81 @@ python3 -u scripts/run_retrieval_evals.py \
   --max-hallucination-rate 0.5
 
 stage "STAGE 9/9: KNOWLEDGE GRAPH JSON-LD"
-say "Generating lightweight ontology/graph layer for RAG and discovery."
+say "Generating JSON-LD graph as a separate knowledge artifact, not injected into API document content."
 python3 -u scripts/generate_knowledge_graph_jsonld.py \
   --modules-dir knowledge_modules \
   --output docs/assets/knowledge-graph.jsonld \
   --report reports/knowledge_graph_report.json \
   --min-graph-nodes 5
 
+PLAYGROUND_URL="$(build_playground_url)"
+
+if [[ "${AUTO_DEPLOY}" == "true" ]]; then
+  stage "STAGE 10/12: COMMIT AND PUSH DEMO OUTPUT"
+  require_cmd git
+  require_cmd gh
+  current_branch="$(git rev-parse --abbrev-ref HEAD)"
+  if [[ "${current_branch}" != "main" ]]; then
+    echo "[error] API-first live deploy stage requires main branch. Current branch: ${current_branch}"
+    exit 1
+  fi
+
+  git add -A \
+    api/openapi.yaml \
+    api/taskstream \
+    generated/api-stubs \
+    docs/assets/api \
+    docs/reference/taskstream-api-playground.md \
+    mkdocs.yml \
+    reports/external_mock_resolution.json \
+    reports/glossary_sync_report.json \
+    reports/retrieval_eval_dataset.generated.yml \
+    reports/retrieval_evals_report.json \
+    reports/knowledge_graph_report.json \
+    docs/assets/knowledge-retrieval-index.json \
+    docs/assets/knowledge-graph.jsonld || true
+
+  if ! git diff --cached --quiet; then
+    git commit -m "docs(api-first): refresh taskstream playground and published sandbox"
+    git push origin main
+  else
+    say "No file changes to commit; continuing with deployed-site verification."
+  fi
+
+  stage "STAGE 11/12: WAIT FOR MKDOCS DEPLOY SUCCESS"
+  head_sha="$(git rev-parse HEAD)"
+  wait_for_deploy_success "${DEPLOY_WORKFLOW}" "${head_sha}" "${DEPLOY_TIMEOUT_SECONDS}"
+
+  stage "STAGE 12/12: VERIFY PUBLISHED SANDBOX PAGE"
+  if [[ "${PLAYGROUND_URL}" != /* ]]; then
+    say "Checking published page: ${PLAYGROUND_URL}"
+    page_html="$(curl -fsSL "${PLAYGROUND_URL}")"
+    if ! grep -q "/assets/api/openapi.yaml" <<<"${page_html}"; then
+      echo "[error] Published page does not include expected OpenAPI spec path."
+      exit 1
+    fi
+    if [[ -n "${MOCK_BASE_URL}" ]] && ! grep -q "${MOCK_BASE_URL}" <<<"${page_html}"; then
+      echo "[error] Published page does not include expected sandbox mock URL: ${MOCK_BASE_URL}"
+      exit 1
+    fi
+    say "Published MkDocs page contains OpenAPI spec and sandbox endpoint."
+  else
+    echo "[error] site_url is not configured in mkdocs.yml, cannot verify published page."
+    exit 1
+  fi
+else
+  say "AUTO_DEPLOY is disabled; skipping commit/push/deploy verification stages."
+fi
+
 stage "DEMO COMPLETE"
 if [[ "${SANDBOX_BACKEND}" == "external" ]]; then
-  say "External sandbox endpoint remains available for all users: ${MOCK_BASE_URL}"
+  say "External sandbox endpoint remains available for all users."
+  if [[ -n "${MOCK_BASE_URL}" ]]; then
+    say "Sandbox base URL: ${MOCK_BASE_URL}"
+  fi
   say "No local sandbox process to stop."
 else
   say "The mock server is still running for live client walkthrough."
   say "Use: bash scripts/api_first_demo_stop.sh after the meeting."
 fi
+say "Sandbox page: ${PLAYGROUND_URL}"

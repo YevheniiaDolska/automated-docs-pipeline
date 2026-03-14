@@ -18,8 +18,9 @@ Run autonomously. Do not ask for per-step confirmations.
 
 ## Stage script
 
-1. Say: "I will run a nine-stage API-first flow and narrate each stage in English."
-1. Say: "I will show the exact planning notes input format first, then run validation, linting, stub generation, user-path checks, multilingual examples, glossary sync, retrieval evals, and JSON-LD graph generation."
+1. Say: "I will run an end-to-end API-first flow and narrate each stage in English."
+1. Say: "I will show planning notes to OpenAPI generation, contract checks, mock-backed user-path verification, and published MkDocs sandbox verification."
+1. Say: "Knowledge/retrieval/graph stages are platform-level quality artifacts and are not injected into API page content."
 1. Run:
 
 ```bash
@@ -58,14 +59,17 @@ Optional:
    - Stage 0: planning notes to OpenAPI generation;
    - Stage 1: mock sandbox startup;
    - Stage 2-5: API-first flow (contract/lint/stubs/user-path checks/docs assets);
-   - Stage 6: multilingual examples baseline;
-   - Stage 7: glossary sync (`sync_project_glossary.py`);
-   - Stage 8: retrieval evals (Precision/Recall/Hallucination-rate);
-   - Stage 9: JSON-LD knowledge graph generation.
+   - Stage 6: multilingual API examples baseline;
+   - Stage 7: glossary sync as terminology governance layer;
+   - Stage 8: retrieval evals as knowledge-system quality telemetry;
+   - Stage 9: JSON-LD knowledge graph generation as separate artifact;
+   - Stage 10: commit and push generated API-first demo output;
+   - Stage 11: wait for successful `deploy.yml` run;
+   - Stage 12: verify published MkDocs sandbox page and endpoint wiring.
 1. End with:
    - sandbox page URL;
-   - confirmation that the mock server is still running for the client walkthrough;
-   - stop command.
+   - deploy success confirmation;
+   - mock status and stop command.
 
 ## Final message (required)
 
@@ -73,5 +77,6 @@ Use this exact operational close:
 
 - "Live API-first demo completed."
 - "Sandbox page: <printed URL>"
+- "Published deploy: success"
 - "Mock status: running"
 - "Stop command: `npm run api-first-demo:stop`"
