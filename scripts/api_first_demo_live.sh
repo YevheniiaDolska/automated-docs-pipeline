@@ -113,7 +113,7 @@ api_flow_cmd=(
   --sync-playground-endpoint
   --max-attempts 3
 )
-if [[ "${SANDBOX_BACKEND}" == "external" && "${AUTO_PREPARE_EXTERNAL_MOCK}" == "true" ]]; then
+if [[ "${SANDBOX_BACKEND}" == "external" && "${AUTO_PREPARE_EXTERNAL_MOCK}" == "true" && -z "${MOCK_BASE_URL}" ]]; then
   api_flow_cmd+=(
     --auto-prepare-external-mock
     --external-mock-provider postman
