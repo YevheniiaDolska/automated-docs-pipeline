@@ -33,11 +33,11 @@ For no-Docker/public sandbox mode:
 ```bash
 cd "/mnt/c/Users/Kroha/Documents/development/Auto-Doc Pipeline"
 API_FIRST_DEMO_SANDBOX_BACKEND=external \
-API_FIRST_DEMO_MOCK_BASE_URL="https://sandbox-api.example.com/v1" \
+API_FIRST_DEMO_MOCK_BASE_URL="https://<your-real-public-mock-url>/v1" \
 npm run api-first-demo
 ```
 
-If `API_FIRST_DEMO_MOCK_BASE_URL` is not set, demo auto-reads `mkdocs.yml` playground `sandbox_base_url`.
+If `API_FIRST_DEMO_MOCK_BASE_URL` is not set, use Postman auto-prepare mode below.
 
 For fully automated Postman external mock mode:
 

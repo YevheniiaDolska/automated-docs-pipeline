@@ -20,7 +20,7 @@ AUTO_DEPLOY="${API_FIRST_DEMO_AUTO_DEPLOY:-true}"
 DEPLOY_WORKFLOW="${API_FIRST_DEMO_DEPLOY_WORKFLOW:-deploy.yml}"
 DEPLOY_TIMEOUT_SECONDS="${API_FIRST_DEMO_DEPLOY_TIMEOUT_SECONDS:-1800}"
 
-if [[ "${SANDBOX_BACKEND}" == "external" && -z "${MOCK_BASE_URL}" ]]; then
+if [[ "${SANDBOX_BACKEND}" == "external" && "${AUTO_PREPARE_EXTERNAL_MOCK}" != "true" && -z "${MOCK_BASE_URL}" ]]; then
   MOCK_BASE_URL="$(python3 - <<'PY'
 import yaml
 from pathlib import Path
@@ -142,12 +142,15 @@ sed -n '145,175p' demos/api-first/taskstream-planning-notes.md
 
 stage "STAGE 0/5: GENERATE OPENAPI FROM PLANNING NOTES"
 say "Generating OpenAPI files from planning notes."
+say "What happens now: the notes are converted into a machine-readable OpenAPI contract and split spec tree."
 python3 -u scripts/generate_openapi_from_planning_notes.py \
   --notes demos/api-first/taskstream-planning-notes.md \
   --spec api/openapi.yaml \
   --spec-tree api/taskstream
+say "Stage result: OpenAPI source files were generated at api/openapi.yaml and api/taskstream/."
 
 stage "STAGE 1/5: START PROJECT MOCK SANDBOX"
+say "What happens now: the pipeline prepares a sandbox endpoint used by API Try-it-out checks."
 if [[ "${SANDBOX_BACKEND}" == "external" ]]; then
   if [[ "${AUTO_PREPARE_EXTERNAL_MOCK}" == "true" && -z "${MOCK_BASE_URL}" ]]; then
     say "External mock URL is not preset. It will be auto-prepared in Stage 2-5 via Postman API."
@@ -160,8 +163,10 @@ else
   bash scripts/api_sandbox_project.sh up taskstream ./api/openapi.yaml 4010 "${SANDBOX_BACKEND}"
   say "Mock server is running. I will now execute the production flow."
 fi
+say "Stage result: sandbox mode is selected and the next stage will run contract and behavior checks."
 
 stage "STAGE 2-5/6: RUN UNIVERSAL API-FIRST FLOW"
+say "What happens now: run_api_first_flow executes contract validation, lint stack, stub generation, stub coverage check, and user-path verification."
 api_flow_cmd=(
   python3 -u scripts/run_api_first_flow.py
   --project-slug taskstream
@@ -186,22 +191,48 @@ if [[ "${SANDBOX_BACKEND}" == "external" && "${AUTO_PREPARE_EXTERNAL_MOCK}" == "
   )
 fi
 "${api_flow_cmd[@]}"
+if [[ "${SANDBOX_BACKEND}" == "external" && "${AUTO_PREPARE_EXTERNAL_MOCK}" == "true" ]]; then
+  resolved_mock_url="$(python3 - <<'PY'
+import json
+from pathlib import Path
+p = Path("reports/external_mock_resolution.json")
+if p.exists():
+    data = json.loads(p.read_text(encoding="utf-8"))
+    print(str(data.get("mock_base_url", "")).strip())
+else:
+    print("")
+PY
+)"
+  if [[ -n "${resolved_mock_url}" ]]; then
+    MOCK_BASE_URL="${resolved_mock_url}"
+    say "Stage result: Postman external mock resolved at ${MOCK_BASE_URL}."
+  else
+    say "Stage result: API-first validation flow passed."
+  fi
+else
+  say "Stage result: API-first validation flow passed."
+fi
 
 stage "STAGE 6/9: MULTI-LANGUAGE EXAMPLES BASELINE"
 say "Generating multilingual examples baseline for API usability."
+say "What happens now: API examples are normalized into language tabs and validated for required language coverage."
 python3 -u scripts/generate_multilang_tabs.py --paths docs templates --scope api --write
 python3 -u scripts/validate_multilang_examples.py --docs-dir docs --scope api --required-languages curl,javascript,python
+say "Stage result: API examples are available and validated for cURL, JavaScript, and Python."
 
 stage "STAGE 7/9: GLOSSARY SYNC"
 say "Running terminology governance sync as a platform-level quality layer."
+say "What happens now: glossary markers from docs are synchronized into glossary.yml."
 python3 -u scripts/sync_project_glossary.py \
   --paths docs \
   --glossary glossary.yml \
   --report reports/glossary_sync_report.json \
   --write
+say "Stage result: terminology dictionary is synchronized."
 
 stage "STAGE 8/9: RETRIEVAL QUALITY EVALS"
 say "Running retrieval evals as separate knowledge-system quality telemetry."
+say "What happens now: retrieval index is rebuilt and tested for precision, recall, and hallucination rate."
 python3 -u scripts/generate_knowledge_retrieval_index.py --modules-dir knowledge_modules --output docs/assets/knowledge-retrieval-index.json
 python3 -u scripts/run_retrieval_evals.py \
   --index docs/assets/knowledge-retrieval-index.json \
@@ -212,19 +243,45 @@ python3 -u scripts/run_retrieval_evals.py \
   --min-precision 0.5 \
   --min-recall 0.5 \
   --max-hallucination-rate 0.5
+retrieval_summary="$(python3 - <<'PY'
+import json
+from pathlib import Path
+p = Path("reports/retrieval_evals_report.json")
+if not p.exists():
+    print("retrieval eval report not found")
+else:
+    d = json.loads(p.read_text(encoding="utf-8"))
+    print(f"precision={d.get('precision')} recall={d.get('recall')} hallucination_rate={d.get('hallucination_rate')}")
+PY
+)"
+say "Stage result: ${retrieval_summary}."
 
 stage "STAGE 9/9: KNOWLEDGE GRAPH JSON-LD"
 say "Generating JSON-LD graph as a separate knowledge artifact, not injected into API document content."
+say "What happens now: module relationships are exported into a lightweight JSON-LD graph file."
 python3 -u scripts/generate_knowledge_graph_jsonld.py \
   --modules-dir knowledge_modules \
   --output docs/assets/knowledge-graph.jsonld \
   --report reports/knowledge_graph_report.json \
   --min-graph-nodes 5
+graph_summary="$(python3 - <<'PY'
+import json
+from pathlib import Path
+p = Path("reports/knowledge_graph_report.json")
+if not p.exists():
+    print("graph report not found")
+else:
+    d = json.loads(p.read_text(encoding="utf-8"))
+    print(f"graph_nodes={d.get('graph_nodes')} edges={d.get('edge_count')} status={d.get('status')}")
+PY
+)"
+say "Stage result: ${graph_summary}."
 
 PLAYGROUND_URL="$(build_playground_url)"
 
 if [[ "${AUTO_DEPLOY}" == "true" ]]; then
   stage "STAGE 10/12: COMMIT AND PUSH DEMO OUTPUT"
+  say "What happens now: generated API-first artifacts are committed and pushed to main to trigger MkDocs deploy."
   require_cmd git
   require_cmd gh
   current_branch="$(git rev-parse --abbrev-ref HEAD)"
@@ -251,15 +308,19 @@ if [[ "${AUTO_DEPLOY}" == "true" ]]; then
   if ! git diff --cached --quiet; then
     git commit -m "docs(api-first): refresh taskstream playground and published sandbox"
     git push origin main
+    say "Stage result: changes committed and pushed."
   else
     say "No file changes to commit; continuing with deployed-site verification."
   fi
 
   stage "STAGE 11/12: WAIT FOR MKDOCS DEPLOY SUCCESS"
+  say "What happens now: waiting for GitHub Actions deploy workflow to finish successfully."
   head_sha="$(git rev-parse HEAD)"
   wait_for_deploy_success "${DEPLOY_WORKFLOW}" "${head_sha}" "${DEPLOY_TIMEOUT_SECONDS}"
+  say "Stage result: deploy workflow succeeded."
 
   stage "STAGE 12/12: VERIFY PUBLISHED SANDBOX PAGE"
+  say "What happens now: checking the published MkDocs page and confirming sandbox wiring on the live site."
   if [[ "${PLAYGROUND_URL}" != /* ]]; then
     say "Checking published page: ${PLAYGROUND_URL}"
     page_html="$(curl -fsSL "${PLAYGROUND_URL}")"
@@ -281,6 +342,7 @@ else
 fi
 
 stage "DEMO COMPLETE"
+say "Final summary: API-first document is generated, verified, deployed, and linked to a live sandbox endpoint."
 if [[ "${SANDBOX_BACKEND}" == "external" ]]; then
   say "External sandbox endpoint remains available for all users."
   if [[ -n "${MOCK_BASE_URL}" ]]; then
