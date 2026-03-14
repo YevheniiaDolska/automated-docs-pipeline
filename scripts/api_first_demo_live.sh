@@ -4,6 +4,15 @@ set -euo pipefail
 cd "$(dirname "$0")/.."
 export PYTHONUNBUFFERED=1
 
+# Load local docsops secrets automatically for demo runs.
+# This file is gitignored and intended for local operator credentials.
+if [[ -f ".env.docsops.local" ]]; then
+  set -a
+  # shellcheck disable=SC1091
+  . ".env.docsops.local"
+  set +a
+fi
+
 SANDBOX_BACKEND="${API_FIRST_DEMO_SANDBOX_BACKEND:-docker}"
 MOCK_BASE_URL="${API_FIRST_DEMO_MOCK_BASE_URL:-}"
 AUTO_PREPARE_EXTERNAL_MOCK="${API_FIRST_DEMO_AUTO_PREPARE_EXTERNAL_MOCK:-true}"
