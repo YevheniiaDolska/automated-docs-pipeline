@@ -49,6 +49,11 @@ if [[ "${SANDBOX_BACKEND}" == "external" && -n "${MOCK_BASE_URL}" ]]; then
   export API_SANDBOX_EXTERNAL_BASE_URL="${MOCK_BASE_URL}"
 fi
 
+if [[ "${SANDBOX_BACKEND}" == "external" && "${AUTO_PREPARE_EXTERNAL_MOCK}" != "true" && -z "${MOCK_BASE_URL}" ]]; then
+  echo "[error] External sandbox mode requires either API_FIRST_DEMO_MOCK_BASE_URL or API_FIRST_DEMO_AUTO_PREPARE_EXTERNAL_MOCK=true."
+  exit 1
+fi
+
 stage() {
   echo ""
   echo "============================================================"
@@ -107,7 +112,7 @@ api_flow_cmd=(
   --docs-provider mkdocs
   --inject-demo-nav
   --verify-user-path
-  --mock-base-url "${MOCK_BASE_URL:-https://sandbox-api.example.com/v1}"
+  --mock-base-url "${MOCK_BASE_URL:-}"
   --skip-generate-from-notes
   --auto-remediate
   --sync-playground-endpoint
