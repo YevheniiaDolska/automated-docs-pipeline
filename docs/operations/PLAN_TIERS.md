@@ -1,13 +1,16 @@
 ---
-title: "Plan Tiers (Basic / Pro / Enterprise)"
-description: "Feature packaging matrix and defaults for Basic, Pro, and Enterprise client plans."
+title: Plan Tiers (Basic / Pro / Enterprise)
+description: Feature packaging matrix and defaults for Basic, Pro, and Enterprise
+  client plans.
 content_type: reference
 product: both
-last_reviewed: "2026-03-11"
+last_reviewed: '2026-03-11'
 tags:
-  - Operations
-  - Pricing
+- Operations
+- Pricing
+original_author: Developer
 ---
+
 
 # Plan Tiers (Basic / Pro / Enterprise)
 

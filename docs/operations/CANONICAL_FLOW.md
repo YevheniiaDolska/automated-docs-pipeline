@@ -1,13 +1,16 @@
 ---
-title: "Canonical Flow (Sales + Delivery)"
-description: "Canonical sales and delivery flow for onboarding and operating client Auto-Doc Pipeline setups."
+title: Canonical Flow (Sales + Delivery)
+description: Canonical sales and delivery flow for onboarding and operating client
+  Auto-Doc Pipeline setups.
 content_type: reference
 product: both
-last_reviewed: "2026-03-12"
+last_reviewed: '2026-03-12'
 tags:
-  - Operations
-  - Client Onboarding
+- Operations
+- Client Onboarding
+original_author: Developer
 ---
+
 
 # Canonical Flow (Sales + Delivery)
 

@@ -1,14 +1,17 @@
 ---
-title: "TaskStream API playground"
-description: "Interactive TaskStream OpenAPI playground with Swagger UI or Redoc and try-it-out requests against mock or prod-like sandbox endpoints."
+title: TaskStream API playground
+description: Interactive TaskStream OpenAPI playground with Swagger UI or Redoc and
+  try-it-out requests against mock or prod-like sandbox endpoints.
 content_type: reference
 product: both
 tags:
-  - Reference
-  - Cloud
-  - Self-hosted
-last_reviewed: "2026-03-12"
+- Reference
+- Cloud
+- Self-hosted
+last_reviewed: '2026-03-12'
+original_author: Developer
 ---
+
 
 # TaskStream API playground
 

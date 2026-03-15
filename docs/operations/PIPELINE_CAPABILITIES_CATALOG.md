@@ -1,12 +1,16 @@
 ---
-title: "Pipeline Capabilities Catalog"
-description: "Generated catalog of available pipeline commands, templates, policy packs, and assets for client configuration."
+title: Pipeline Capabilities Catalog
+description: Generated catalog of available pipeline commands, templates, policy packs,
+  and assets for client configuration.
 content_type: reference
 product: both
 tags:
-  - Operations
-  - Reference
+- Operations
+- Reference
+last_reviewed: '2026-03-12'
+original_author: Developer
 ---
+
 
 # Pipeline Capabilities Catalog
 

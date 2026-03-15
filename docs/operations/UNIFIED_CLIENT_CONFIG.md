@@ -1,13 +1,16 @@
 ---
-title: "Unified Client Configuration"
-description: "Single source of truth for per-client Auto-Doc Pipeline configuration, modules, and automation."
+title: Unified Client Configuration
+description: Single source of truth for per-client Auto-Doc Pipeline configuration,
+  modules, and automation.
 content_type: reference
 product: both
-last_reviewed: "2026-03-12"
+last_reviewed: '2026-03-12'
 tags:
-  - Operations
-  - Configuration
+- Operations
+- Configuration
+original_author: Developer
 ---
+
 
 # Unified Client Configuration
 

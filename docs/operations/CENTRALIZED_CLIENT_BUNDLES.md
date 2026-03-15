@@ -1,13 +1,21 @@
 ---
-title: "Централизованная настройка клиентов"
-description: "Практический путь настройки клиентских bundle и автозапуска pipeline из одного места."
+title: "\u0426\u0435\u043D\u0442\u0440\u0430\u043B\u0438\u0437\u043E\u0432\u0430\u043D\
+  \u043D\u0430\u044F \u043D\u0430\u0441\u0442\u0440\u043E\u0439\u043A\u0430 \u043A\
+  \u043B\u0438\u0435\u043D\u0442\u043E\u0432"
+description: "\u041F\u0440\u0430\u043A\u0442\u0438\u0447\u0435\u0441\u043A\u0438\u0439\
+  \ \u043F\u0443\u0442\u044C \u043D\u0430\u0441\u0442\u0440\u043E\u0439\u043A\u0438\
+  \ \u043A\u043B\u0438\u0435\u043D\u0442\u0441\u043A\u0438\u0445 bundle \u0438 \u0430\
+  \u0432\u0442\u043E\u0437\u0430\u043F\u0443\u0441\u043A\u0430 pipeline \u0438\u0437\
+  \ \u043E\u0434\u043D\u043E\u0433\u043E \u043C\u0435\u0441\u0442\u0430."
 content_type: reference
 product: both
-last_reviewed: "2026-03-11"
+last_reviewed: '2026-03-11'
 tags:
-  - Operations
-  - Client Onboarding
+- Operations
+- Client Onboarding
+original_author: Developer
 ---
+
 
 <!-- cspell:disable -->
 # Централизованная настройка клиентов (очень просто)

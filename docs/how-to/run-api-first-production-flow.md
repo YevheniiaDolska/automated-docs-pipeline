@@ -1,14 +1,18 @@
 ---
-title: "Run API-first production flow"
-description: "Generate OpenAPI from planning notes, run full lint and self-verification, publish playground assets, and keep a sandbox ready for client testing."
+title: Run API-first production flow
+description: Generate OpenAPI from planning notes, run full lint and self-verification,
+  publish playground assets, and keep a sandbox ready for client testing.
 content_type: how-to
 product: both
 tags:
-  - How-To
-  - Cloud
-  - Self-hosted
-last_reviewed: "2026-03-12"
+- How-To
+- Cloud
+- Self-hosted
+last_reviewed: '2026-03-12'
+app_version: '3.1'
+original_author: Developer
 ---
+
 
 # Run API-first production flow
 

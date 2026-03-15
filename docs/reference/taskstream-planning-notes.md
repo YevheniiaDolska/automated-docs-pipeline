@@ -1,14 +1,17 @@
 ---
-title: "TaskStream API planning notes"
-description: "Input planning notes used by the API-first flow to generate and validate OpenAPI contracts for TaskStream demos."
+title: TaskStream API planning notes
+description: Input planning notes used by the API-first flow to generate and validate
+  OpenAPI contracts for TaskStream demos.
 content_type: reference
 product: both
 tags:
-  - Reference
-  - AI
-  - Cloud
-last_reviewed: "2026-03-09"
+- Reference
+- AI
+- Cloud
+last_reviewed: '2026-03-09'
+original_author: Developer
 ---
+
 
 # TaskStream API planning notes
 
