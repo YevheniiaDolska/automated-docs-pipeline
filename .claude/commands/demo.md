@@ -762,18 +762,23 @@ Say:
 
 1. Gap detection found documentation gaps from three sources
 1. The template produced the correct structure on the first attempt
+1. Glossary governance ran explicitly: pre-generation term check, then glossary sync
 1. The AI generated Stripe-quality content using variables instead of hardcoded values
-1. Self-verification executed code, checked facts, and found zero errors
+1. Self-verification executed code, checked facts, and compared expected output with real output
+1. Knowledge modules were extracted from generated docs and validated
+1. Retrieval index and JSON-LD knowledge graph were regenerated for RAG/GEO readiness
+1. Retrieval evals measured Precision, Recall, and Hallucination-rate as a quality gate
+1. Docs-code contract drift is tracked in report-only mode and feeds weekly consolidation without blocking
 1. Seven linters passed on the first attempt, including 22 SEO/GEO rules, style, and formatting
 1. The interactive diagram includes 13 clickable components
 1. Commit -> push -> five GitHub Actions workflows -> site built and published (verified by successful deploy)
 
-And all of this appears in one document: a Mermaid diagram, Cloud/Self-hosted tabs, admonitions, a parameter table, two working code examples in Python and JavaScript, troubleshooting guidance, performance metrics, and an embedded interactive diagram with 13 clickable components directly on the page. The document is already live on the MkDocs site:
+And all of this appears in one document plus the unified quality/data layer: a Mermaid diagram, Cloud/Self-hosted tabs, admonitions, a parameter table, multi-language code examples, troubleshooting guidance, performance metrics, an embedded interactive diagram with 13 clickable components, synchronized glossary terms, and refreshed knowledge artifacts for retrieval. The document is already live on the MkDocs site:
 `$DOC_URL`
 
 This is not a text generator. It is an operating system for documentation.
 
-The full path is automated: detect the gap -> generate -> verify -> publish.
+The full path is automated: detect -> generate -> verify -> enrich knowledge -> evaluate retrieval -> publish.
 
 Would you like to run this on your repository?"
 

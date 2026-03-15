@@ -1,126 +1,122 @@
-site_name: "Documentation (Pipeline Demo)"
-site_description: "Automated documentation pipeline with GEO optimization and faceted search"
-site_url: "https://yevheniiadolska.github.io/automated-docs-pipeline/"
-
+site_name: Documentation (Pipeline Demo)
+site_description: Automated documentation pipeline with GEO optimization and faceted
+  search
+site_url: https://yevheniiadolska.github.io/automated-docs-pipeline/
 theme:
   name: material
   custom_dir: overrides
   language: en
   features:
-    - navigation.tabs
-    - navigation.tabs.sticky
-    - navigation.sections
-    - navigation.top
-    - navigation.indexes
-    - search.suggest
-    - search.highlight
-    - search.share
-    - content.tabs.link
-    - content.code.copy
-    - content.code.annotate
+  - navigation.tabs
+  - navigation.tabs.sticky
+  - navigation.sections
+  - navigation.top
+  - navigation.indexes
+  - search.suggest
+  - search.highlight
+  - search.share
+  - content.tabs.link
+  - content.code.copy
+  - content.code.annotate
   palette:
-    - media: "(prefers-color-scheme: light)"
-      scheme: default
-      primary: deep purple
-      accent: amber
-      toggle:
-        icon: material/brightness-7
-        name: Switch to dark mode
-    - media: "(prefers-color-scheme: dark)"
-      scheme: slate
-      primary: deep purple
-      accent: amber
-      toggle:
-        icon: material/brightness-4
-        name: Switch to light mode
+  - media: '(prefers-color-scheme: light)'
+    scheme: default
+    primary: deep purple
+    accent: amber
+    toggle:
+      icon: material/brightness-7
+      name: Switch to dark mode
+  - media: '(prefers-color-scheme: dark)'
+    scheme: slate
+    primary: deep purple
+    accent: amber
+    toggle:
+      icon: material/brightness-4
+      name: Switch to light mode
   icon:
     repo: fontawesome/brands/github
-
 repo_url: https://github.com/YevheniiaDolska/automated-docs-pipeline
 repo_name: automated-docs-pipeline
 edit_uri: edit/main/docs/
-
 plugins:
-  - search
-  - i18n:
-      docs_structure: folder
-      fallback_to_default: true
-      languages:
-        - locale: en
-          default: true
-          name: English
-          build: true
-        - locale: ru
-          default: false
-          name: Russian
-          build: true
-  - tags
-  - meta-descriptions
-  - macros:
-      include_yaml:
-        - docs/_variables.yml
-
+- search
+- i18n:
+    docs_structure: folder
+    fallback_to_default: true
+    languages:
+    - locale: en
+      default: true
+      name: English
+      build: true
+    - locale: ru
+      default: false
+      name: Russian
+      build: true
+- tags
+- meta-descriptions
+- macros:
+    include_yaml:
+    - docs/_variables.yml
 markdown_extensions:
-  - admonition
-  - pymdownx.details
-  - pymdownx.superfences:
-      custom_fences:
-        - name: mermaid
-          class: mermaid
-  - pymdownx.tabbed:
-      alternate_style: true
-  - pymdownx.highlight:
-      anchor_linenums: true
-  - pymdownx.inlinehilite
-  - pymdownx.snippets
-  - pymdownx.mark
-  - pymdownx.keys
-  - attr_list
-  - md_in_html
-  - tables
-  - toc:
-      permalink: true
-
+- admonition
+- pymdownx.details
+- pymdownx.superfences:
+    custom_fences:
+    - name: mermaid
+      class: mermaid
+- pymdownx.tabbed:
+    alternate_style: true
+- pymdownx.highlight:
+    anchor_linenums: true
+- pymdownx.inlinehilite
+- pymdownx.snippets
+- pymdownx.mark
+- pymdownx.keys
+- attr_list
+- md_in_html
+- tables
+- toc:
+    permalink: true
 nav:
-  - Home: index.md
-  - Getting Started:
-    - getting-started/index.md
-    - "Quickstart: Your first workflow": getting-started/quickstart.md
-  - How-To Guides:
-    - how-to/index.md
-    - Assemble intent experiences: how-to/assemble-intent-experiences.md
-    - Configure Ask AI module: how-to/configure-ask-ai-module.md
-    - Install Ask AI runtime pack: how-to/install-ask-ai-runtime-pack.md
-    - Configure Webhook triggers: how-to/configure-webhook-trigger.md
+- Home: index.md
+- Getting Started:
+  - getting-started/index.md
+  - 'Quickstart: Your first workflow': getting-started/quickstart.md
+- How-To Guides:
+  - how-to/index.md
+  - Assemble intent experiences: how-to/assemble-intent-experiences.md
+  - Configure Ask AI module: how-to/configure-ask-ai-module.md
+  - Install Ask AI runtime pack: how-to/install-ask-ai-runtime-pack.md
+  - Configure Webhook triggers: how-to/configure-webhook-trigger.md
     - Run API-first production flow: how-to/run-api-first-production-flow.md
-  - Concepts:
-    - concepts/index.md
-    - Intelligent knowledge system architecture: concepts/intelligent-knowledge-system.md
-    - Workflow execution model: concepts/workflow-execution-model.md
-  - Reference:
-    - reference/index.md
-    - API playground: reference/api-playground.md
-    - TaskStream API playground: reference/taskstream-api-playground.md
+  - Run API-first production flow: how-to/run-api-first-production-flow.md
+- Concepts:
+  - concepts/index.md
+  - Intelligent knowledge system architecture: concepts/intelligent-knowledge-system.md
+  - Workflow execution model: concepts/workflow-execution-model.md
+- Reference:
+  - reference/index.md
+  - API playground: reference/api-playground.md
     - TaskStream API planning notes: reference/taskstream-planning-notes.md
-    - Deprecated examples: reference/deprecated-example.md
-    - Intent experiences:
-      - reference/intent-experiences/index.md
-    - Nodes:
-      - Webhook node: reference/nodes/webhook.md
-  - Troubleshooting:
-    - troubleshooting/index.md
-    - Webhook not firing: troubleshooting/webhook-not-firing.md
-  - Tags: tags.md
-  - Search: search-faceted.md
-
+    - TaskStream API playground: reference/taskstream-api-playground.md
+  - TaskStream API playground: reference/taskstream-api-playground.md
+  - TaskStream API planning notes: reference/taskstream-planning-notes.md
+  - Deprecated examples: reference/deprecated-example.md
+  - Intent experiences:
+    - reference/intent-experiences/index.md
+  - Nodes:
+    - Webhook node: reference/nodes/webhook.md
+- Troubleshooting:
+  - troubleshooting/index.md
+  - Webhook not firing: troubleshooting/webhook-not-firing.md
+- Tags: tags.md
+- Search: search-faceted.md
 extra_css:
-  - stylesheets/lifecycle.css
-  - stylesheets/diagrams.css
-
+- stylesheets/lifecycle.css
+- stylesheets/diagrams.css
 extra_javascript:
-  - assets/javascripts/faceted-search.js
-  - assets/javascripts/api-playground.js
-
+- assets/javascripts/faceted-search.js
+- assets/javascripts/api-playground.js
 extra:
   algolia:
     app_id: YOUR_ALGOLIA_APP_ID
@@ -139,14 +135,13 @@ extra:
         api_first_spec_url: /api/openapi.yaml
         code_first_spec_url: /api/openapi-generated.yaml
       endpoints:
-        sandbox_base_url: https://sandbox-api.example.com
+        sandbox_base_url: https://sandbox-api.example.com/v1
         production_base_url: https://api.example.com
-  # Backward compatibility for older docs pages/config readers.
   api_playground:
     provider: swagger-ui
     spec_url: /api/openapi.yaml
     try_it_enabled: false
-    sandbox_base_url: https://sandbox-api.example.com
+    sandbox_base_url: https://sandbox-api.example.com/v1
   tags:
     Tutorial: tutorial
     How-To: how-to
