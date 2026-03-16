@@ -16,8 +16,8 @@
       "authentication": 1,
       "public_function": 1,
       "database_schema": 1,
-      "removed_function": 1,
       "breaking_change": 1,
+      "removed_function": 1,
       "signature_change": 1,
       "api_endpoint": 1,
       "new_function": 1,
@@ -29,46 +29,46 @@
     "code_changes",
     "community"
   ],
-  "generated_at": "2026-03-16T08:43:38.930782",
+  "generated_at": "2026-03-16T10:04:37.812492",
   "gaps": [
     {
-      "id": "CODE-0055",
-      "title": "Webhook: webhook: webhook",
-      "description": "Update webhook documentation for changes in seo-report-algolia.json. Include payload examples and event types.",
+      "id": "CODE-0007",
+      "title": "Webhook: webhook: Webhook",
+      "description": "Update webhook documentation for changes in reports/doc_gaps_report.csv. Include payload examples and event types.",
       "source": "code",
       "category": "webhook",
       "suggested_doc_type": "how-to",
       "priority": "high",
-      "frequency": 3247,
+      "frequency": 3236,
       "keywords": [],
       "related_files": [
-        "seo-report-algolia.json"
+        "reports/doc_gaps_report.csv"
       ],
       "sample_queries": [],
-      "action_required": "Update webhook documentation for changes in seo-report-algolia.json. Include payload examples and event types.",
+      "action_required": "Update webhook documentation for changes in reports/doc_gaps_report.csv. Include payload examples and event types.",
       "status": "new",
-      "created_at": "2026-03-16T08:43:38.931232"
+      "created_at": "2026-03-16T10:04:37.812548"
     },
     {
-      "id": "CODE-0001",
+      "id": "CODE-0031",
       "title": "Authentication: authentication: Auth",
-      "description": "Update authentication documentation for changes in docs/how-to/run-api-first-production-flow.md. Include security considerations.",
+      "description": "Update authentication documentation for changes in reports/doc_gaps_report.csv. Include security considerations.",
       "source": "code",
       "category": "authentication",
       "suggested_doc_type": "how-to",
       "priority": "high",
-      "frequency": 1612,
+      "frequency": 1585,
       "keywords": [],
       "related_files": [
-        "docs/how-to/run-api-first-production-flow.md"
+        "reports/doc_gaps_report.csv"
       ],
       "sample_queries": [],
-      "action_required": "Update authentication documentation for changes in docs/how-to/run-api-first-production-flow.md. Include security considerations.",
+      "action_required": "Update authentication documentation for changes in reports/doc_gaps_report.csv. Include security considerations.",
       "status": "new",
-      "created_at": "2026-03-16T08:43:38.930816"
+      "created_at": "2026-03-16T10:04:37.812638"
     },
     {
-      "id": "CODE-0750",
+      "id": "CODE-0842",
       "title": "Public Function: public_function: verify_webhook_signature",
       "description": "Consider documenting public API: verify_webhook_signature. Include parameters, return value, and example usage.",
       "source": "code",
@@ -83,46 +83,28 @@
       "sample_queries": [],
       "action_required": "Consider documenting public API: verify_webhook_signature. Include parameters, return value, and example usage.",
       "status": "new",
-      "created_at": "2026-03-16T08:43:38.935675"
+      "created_at": "2026-03-16T10:04:37.816513"
     },
     {
-      "id": "CODE-0662",
+      "id": "CODE-0021",
       "title": "Database Schema: database_schema: migration",
-      "description": "Document database schema change in seo-report-algolia.json. Update data model documentation.",
+      "description": "Document database schema change in reports/doc_gaps_report.csv. Update data model documentation.",
       "source": "code",
       "category": "database_schema",
       "suggested_doc_type": "how-to",
       "priority": "high",
-      "frequency": 175,
+      "frequency": 174,
       "keywords": [],
       "related_files": [
-        "seo-report-algolia.json"
+        "reports/doc_gaps_report.csv"
       ],
       "sample_queries": [],
-      "action_required": "Document database schema change in seo-report-algolia.json. Update data model documentation.",
+      "action_required": "Document database schema change in reports/doc_gaps_report.csv. Update data model documentation.",
       "status": "new",
-      "created_at": "2026-03-16T08:43:38.934001"
+      "created_at": "2026-03-16T10:04:37.812607"
     },
     {
-      "id": "CODE-0237",
-      "title": "Removed Function: Function removed: if",
-      "description": "BREAKING: Function if was removed. Update documentation and add migration guide.",
-      "source": "code",
-      "category": "removed_function",
-      "suggested_doc_type": "how-to",
-      "priority": "high",
-      "frequency": 74,
-      "keywords": [],
-      "related_files": [
-        "docs/diagrams/demo-set-up-real-time-webhook-processing-pipeline.html"
-      ],
-      "sample_queries": [],
-      "action_required": "BREAKING: Function if was removed. Update documentation and add migration guide.",
-      "status": "new",
-      "created_at": "2026-03-16T08:43:38.932196"
-    },
-    {
-      "id": "CODE-1565",
+      "id": "CODE-0001",
       "title": "Breaking Change: breaking_change:  Change",
       "description": "URGENT: Document breaking change in reports/doc_gaps_report.csv. Update migration guide with before/after examples.",
       "source": "code",
@@ -137,10 +119,28 @@
       "sample_queries": [],
       "action_required": "URGENT: Document breaking change in reports/doc_gaps_report.csv. Update migration guide with before/after examples.",
       "status": "new",
-      "created_at": "2026-03-16T08:43:38.938376"
+      "created_at": "2026-03-16T10:04:37.812520"
     },
     {
-      "id": "CODE-0828",
+      "id": "CODE-0329",
+      "title": "Removed Function: Function removed: showInfo",
+      "description": "BREAKING: Function showInfo was removed. Update documentation and add migration guide.",
+      "source": "code",
+      "category": "removed_function",
+      "suggested_doc_type": "how-to",
+      "priority": "high",
+      "frequency": 74,
+      "keywords": [],
+      "related_files": [
+        "docs/diagrams/demo-set-up-real-time-webhook-processing-pipeline.html"
+      ],
+      "sample_queries": [],
+      "action_required": "BREAKING: Function showInfo was removed. Update documentation and add migration guide.",
+      "status": "new",
+      "created_at": "2026-03-16T10:04:37.813663"
+    },
+    {
+      "id": "CODE-0920",
       "title": "Signature Change: Function signature changed: print",
       "description": "UPDATE REQUIRED: Function print signature changed. Old: (\"Blocking PR: public interface changed but docs were not updated.\") → New: (\"Docs contract drift found (report-only mode). Update documentation and examples.",
       "source": "code",
@@ -155,10 +155,10 @@
       "sample_queries": [],
       "action_required": "UPDATE REQUIRED: Function print signature changed. Old: (\"Blocking PR: public interface changed but docs were not updated.\") → New: (\"Docs contract drift found (report-only mode). Update documentation and examples.",
       "status": "new",
-      "created_at": "2026-03-16T08:43:38.935925"
+      "created_at": "2026-03-16T10:04:37.816732"
     },
     {
-      "id": "CODE-5656",
+      "id": "CODE-5748",
       "title": "Api Endpoint: api_endpoint: /tasks",
       "description": "Document API endpoint: /tasks. Include request/response examples, parameters, authentication requirements.",
       "source": "code",
@@ -173,12 +173,12 @@
       "sample_queries": [],
       "action_required": "Document API endpoint: /tasks. Include request/response examples, parameters, authentication requirements.",
       "status": "new",
-      "created_at": "2026-03-16T08:43:38.952125"
+      "created_at": "2026-03-16T10:04:37.832129"
     },
     {
-      "id": "CODE-0718",
-      "title": "New Function: New function: if",
-      "description": "Document new function: if. Include parameters, return value, and usage example.",
+      "id": "CODE-0810",
+      "title": "New Function: New function: showInfo",
+      "description": "Document new function: showInfo. Include parameters, return value, and usage example.",
       "source": "code",
       "category": "new_function",
       "suggested_doc_type": "how-to",
@@ -189,12 +189,12 @@
         "docs/diagrams/demo-set-up-real-time-webhook-processing-pipeline.html"
       ],
       "sample_queries": [],
-      "action_required": "Document new function: if. Include parameters, return value, and usage example.",
+      "action_required": "Document new function: showInfo. Include parameters, return value, and usage example.",
       "status": "new",
-      "created_at": "2026-03-16T08:43:38.935578"
+      "created_at": "2026-03-16T10:04:37.816392"
     },
     {
-      "id": "CODE-1120",
+      "id": "CODE-1212",
       "title": "Error Handling: error_handling: RuntimeError",
       "description": "Document new error type: RuntimeError. Include cause, solution, and error code.",
       "source": "code",
@@ -209,17 +209,17 @@
       "sample_queries": [],
       "action_required": "Document new error type: RuntimeError. Include cause, solution, and error code.",
       "status": "new",
-      "created_at": "2026-03-16T08:43:38.936910"
+      "created_at": "2026-03-16T10:04:37.817635"
     },
     {
-      "id": "CODE-1712",
+      "id": "CODE-1804",
       "title": "Config Option: config_option: billing_mode",
       "description": "Document configuration option: billing_mode. Include allowed values and when to use.",
       "source": "code",
       "category": "config_option",
       "suggested_doc_type": "reference",
       "priority": "medium",
-      "frequency": 9,
+      "frequency": 8,
       "keywords": [],
       "related_files": [
         "scripts/configure_ask_ai.py"
@@ -227,7 +227,7 @@
       "sample_queries": [],
       "action_required": "Document configuration option: billing_mode. Include allowed values and when to use.",
       "status": "new",
-      "created_at": "2026-03-16T08:43:38.938815"
+      "created_at": "2026-03-16T10:04:37.819462"
     }
   ]
 }

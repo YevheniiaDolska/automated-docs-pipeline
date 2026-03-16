@@ -1,24 +1,31 @@
 {
-  "generated_at": "2026-03-11T11:41:53.379065+00:00",
+  "generated_at": "2026-03-16T10:04:38.149427+00:00",
   "input_reports": {
     "gaps": {
       "found": true,
-      "generated_at": "2026-03-11T12:38:39.383214",
+      "generated_at": "2026-03-16T10:04:37.812492",
       "details": {
-        "total_gaps": 12,
+        "total_gaps": 11,
         "high_priority": 8,
-        "medium_priority": 4,
+        "medium_priority": 3,
         "low_priority": 0
       }
     },
     "drift": {
+      "found": true,
+      "generated_at": "",
+      "details": {
+        "status": "ok"
+      }
+    },
+    "docs_contract": {
       "found": false,
       "generated_at": "",
       "details": {}
     },
     "kpi": {
       "found": true,
-      "generated_at": "2026-03-11T11:38:40Z",
+      "generated_at": "2026-03-16T10:04:37Z",
       "details": {
         "quality_score": 76,
         "stale_docs": 0,
@@ -59,37 +66,73 @@
           }
         }
       }
+    },
+    "glossary": {
+      "found": true,
+      "generated_at": "2026-03-12T11:14:56.776726+00:00",
+      "details": {
+        "markers_found": 0,
+        "added_count": 0,
+        "updated_count": 0
+      }
+    },
+    "retrieval_evals": {
+      "found": true,
+      "generated_at": "2026-03-12T11:31:43.202833+00:00",
+      "details": {
+        "status": "ok",
+        "precision_at_k": 0.5,
+        "recall_at_k": 1.0,
+        "hallucination_rate": 0.5,
+        "top_k": 3
+      }
+    },
+    "knowledge_graph": {
+      "found": true,
+      "generated_at": "2026-03-12T11:31:42.886813+00:00",
+      "details": {
+        "status": "ok",
+        "modules_count": 2,
+        "graph_nodes": 38,
+        "edge_count": 21,
+        "output_file": "docs/assets/knowledge-graph.jsonld"
+      }
     }
   },
   "health_summary": {
     "quality_score": 76,
     "stale_pct": 0.0,
-    "total_docs": 48,
+    "total_docs": 46,
     "metadata_completeness_pct": 100.0,
-    "drift_status": "unknown",
+    "drift_status": "ok",
     "sla_status": "breach",
     "sla_breaches": [
       "Quality score breach: 76 < 82.",
       "High-priority gap breach: 8 > 6."
     ],
-    "total_action_items": 14,
+    "total_action_items": 13,
     "translation_coverage": {
       "ru": 0.0
-    }
+    },
+    "terminology_new_terms": 0,
+    "retrieval_precision_at_k": 0.5,
+    "retrieval_recall_at_k": 1.0,
+    "retrieval_hallucination_rate": 0.5,
+    "knowledge_graph_nodes": 38
   },
   "action_items": [
     {
       "id": "CONS-001",
       "source_report": "gaps",
-      "source_id": "CODE-0001",
+      "source_id": "CODE-0007",
       "title": "Webhook: webhook: Webhook",
       "category": "webhook",
       "suggested_doc_type": "how-to",
       "priority": "high",
-      "frequency": 3064,
-      "action_required": "Update webhook documentation for changes in mkdocs.yml. Include payload examples and event types.",
+      "frequency": 3236,
+      "action_required": "Update webhook documentation for changes in reports/doc_gaps_report.csv. Include payload examples and event types.",
       "related_files": [
-        "mkdocs.yml"
+        "reports/doc_gaps_report.csv"
       ],
       "keywords": [],
       "sample_queries": [],
@@ -103,15 +146,15 @@
     {
       "id": "CONS-002",
       "source_report": "gaps",
-      "source_id": "CODE-0005",
+      "source_id": "CODE-0031",
       "title": "Authentication: authentication: Auth",
       "category": "authentication",
       "suggested_doc_type": "how-to",
       "priority": "high",
-      "frequency": 1813,
-      "action_required": "Update authentication documentation for changes in mkdocs.yml. Include security considerations.",
+      "frequency": 1585,
+      "action_required": "Update authentication documentation for changes in reports/doc_gaps_report.csv. Include security considerations.",
       "related_files": [
-        "mkdocs.yml"
+        "reports/doc_gaps_report.csv"
       ],
       "keywords": [],
       "sample_queries": [],
@@ -125,12 +168,12 @@
     {
       "id": "CONS-003",
       "source_report": "gaps",
-      "source_id": "CODE-0075",
+      "source_id": "CODE-0842",
       "title": "Public Function: public_function: verify_webhook_signature",
       "category": "public_function",
       "suggested_doc_type": "reference",
       "priority": "high",
-      "frequency": 965,
+      "frequency": 403,
       "action_required": "Consider documenting public API: verify_webhook_signature. Include parameters, return value, and example usage.",
       "related_files": [
         "docs/en/how-to/set-up-real-time-webhook-processing-pipeline.md"
@@ -147,15 +190,15 @@
     {
       "id": "CONS-004",
       "source_report": "gaps",
-      "source_id": "CODE-0147",
+      "source_id": "CODE-0021",
       "title": "Database Schema: database_schema: migration",
       "category": "database_schema",
       "suggested_doc_type": "how-to",
       "priority": "high",
-      "frequency": 205,
-      "action_required": "Document database schema change in seo-report-algolia.json. Update data model documentation.",
+      "frequency": 174,
+      "action_required": "Document database schema change in reports/doc_gaps_report.csv. Update data model documentation.",
       "related_files": [
-        "seo-report-algolia.json"
+        "reports/doc_gaps_report.csv"
       ],
       "keywords": [],
       "sample_queries": [],
@@ -169,15 +212,15 @@
     {
       "id": "CONS-005",
       "source_report": "gaps",
-      "source_id": "CODE-0684",
+      "source_id": "CODE-0001",
       "title": "Breaking Change: breaking_change:  Change",
       "category": "breaking_change",
       "suggested_doc_type": "how-to",
       "priority": "high",
-      "frequency": 77,
-      "action_required": "URGENT: Document breaking change in reports/consolidated_report.json. Update migration guide with before/after examples.",
+      "frequency": 74,
+      "action_required": "URGENT: Document breaking change in reports/doc_gaps_report.csv. Update migration guide with before/after examples.",
       "related_files": [
-        "reports/consolidated_report.json"
+        "reports/doc_gaps_report.csv"
       ],
       "keywords": [],
       "sample_queries": [],
@@ -191,15 +234,15 @@
     {
       "id": "CONS-006",
       "source_report": "gaps",
-      "source_id": "CODE-0006",
-      "title": "Removed Function: Function removed: if",
+      "source_id": "CODE-0329",
+      "title": "Removed Function: Function removed: showInfo",
       "category": "removed_function",
       "suggested_doc_type": "how-to",
       "priority": "high",
-      "frequency": 39,
-      "action_required": "BREAKING: Function if was removed. Update documentation and add migration guide.",
+      "frequency": 74,
+      "action_required": "BREAKING: Function showInfo was removed. Update documentation and add migration guide.",
       "related_files": [
-        "docs/diagrams/demo-webhook-pipeline.html"
+        "docs/diagrams/demo-set-up-real-time-webhook-processing-pipeline.html"
       ],
       "keywords": [],
       "sample_queries": [],
@@ -213,12 +256,34 @@
     {
       "id": "CONS-007",
       "source_report": "gaps",
-      "source_id": "CODE-1078",
+      "source_id": "CODE-0920",
+      "title": "Signature Change: Function signature changed: print",
+      "category": "signature_change",
+      "suggested_doc_type": "how-to",
+      "priority": "high",
+      "frequency": 12,
+      "action_required": "UPDATE REQUIRED: Function print signature changed. Old: (\"Blocking PR: public interface changed but docs were not updated.\") → New: (\"Docs contract drift found (report-only mode). Update documentation and examples.",
+      "related_files": [
+        "scripts/check_docs_contract.py"
+      ],
+      "keywords": [],
+      "sample_queries": [],
+      "context": {
+        "source": "code",
+        "status": "new",
+        "drift_related": false,
+        "sla_breach_related": false
+      }
+    },
+    {
+      "id": "CONS-008",
+      "source_report": "gaps",
+      "source_id": "CODE-5748",
       "title": "Api Endpoint: api_endpoint: /tasks",
       "category": "api_endpoint",
       "suggested_doc_type": "reference",
       "priority": "high",
-      "frequency": 10,
+      "frequency": 1,
       "action_required": "Document API endpoint: /tasks. Include request/response examples, parameters, authentication requirements.",
       "related_files": [
         "tests/test_client_pipeline_coverage.py"
@@ -233,39 +298,17 @@
       }
     },
     {
-      "id": "CONS-008",
-      "source_report": "gaps",
-      "source_id": "CODE-0859",
-      "title": "Signature Change: Function signature changed: __init__",
-      "category": "signature_change",
-      "suggested_doc_type": "how-to",
-      "priority": "high",
-      "frequency": 5,
-      "action_required": "UPDATE REQUIRED: Function __init__ signature changed. Old: (self, docs_dir: str = \"docs\") → New: (self, docs_dir: str = \"docs\", policy_pack_path: str | None = None). Update documentation and examples.",
-      "related_files": [
-        "scripts/doc_layers_validator.py"
-      ],
-      "keywords": [],
-      "sample_queries": [],
-      "context": {
-        "source": "code",
-        "status": "new",
-        "drift_related": false,
-        "sla_breach_related": false
-      }
-    },
-    {
       "id": "CONS-009",
       "source_report": "gaps",
-      "source_id": "CODE-0056",
-      "title": "New Function: New function: if",
+      "source_id": "CODE-0810",
+      "title": "New Function: New function: showInfo",
       "category": "new_function",
       "suggested_doc_type": "how-to",
       "priority": "medium",
-      "frequency": 1006,
-      "action_required": "Document new function: if. Include parameters, return value, and usage example.",
+      "frequency": 546,
+      "action_required": "Document new function: showInfo. Include parameters, return value, and usage example.",
       "related_files": [
-        "docs/diagrams/demo-webhook-pipeline.html"
+        "docs/diagrams/demo-set-up-real-time-webhook-processing-pipeline.html"
       ],
       "keywords": [],
       "sample_queries": [],
@@ -279,15 +322,15 @@
     {
       "id": "CONS-010",
       "source_report": "gaps",
-      "source_id": "CODE-0849",
-      "title": "Error Handling: error_handling: ValueError",
+      "source_id": "CODE-1212",
+      "title": "Error Handling: error_handling: RuntimeError",
       "category": "error_handling",
       "suggested_doc_type": "how-to",
       "priority": "medium",
-      "frequency": 61,
-      "action_required": "Document new error type: ValueError. Include cause, solution, and error code.",
+      "frequency": 71,
+      "action_required": "Document new error type: RuntimeError. Include cause, solution, and error code.",
       "related_files": [
-        "scripts/build_client_bundle.py"
+        "scripts/ensure_external_mock_server.py"
       ],
       "keywords": [],
       "sample_queries": [],
@@ -301,15 +344,15 @@
     {
       "id": "CONS-011",
       "source_report": "gaps",
-      "source_id": "CODE-0178",
-      "title": "Config Option: config_option: local",
+      "source_id": "CODE-1804",
+      "title": "Config Option: config_option: billing_mode",
       "category": "config_option",
       "suggested_doc_type": "reference",
       "priority": "medium",
-      "frequency": 39,
-      "action_required": "Document configuration option: local. Include allowed values and when to use.",
+      "frequency": 8,
+      "action_required": "Document configuration option: billing_mode. Include allowed values and when to use.",
       "related_files": [
-        ".claude/settings.local.json"
+        "scripts/configure_ask_ai.py"
       ],
       "keywords": [],
       "sample_queries": [],
@@ -322,28 +365,6 @@
     },
     {
       "id": "CONS-012",
-      "source_report": "gaps",
-      "source_id": "CODE-3228",
-      "title": "Env Var: env_var: ASK_AI_API_KEY",
-      "category": "env_var",
-      "suggested_doc_type": "reference",
-      "priority": "medium",
-      "frequency": 29,
-      "action_required": "Add environment variable ASK_AI_API_KEY to configuration reference. Include default value, description, and examples.",
-      "related_files": [
-        "runtime/ask-ai-pack/app/auth.py"
-      ],
-      "keywords": [],
-      "sample_queries": [],
-      "context": {
-        "source": "code",
-        "status": "new",
-        "drift_related": false,
-        "sla_breach_related": false
-      }
-    },
-    {
-      "id": "CONS-013",
       "source_report": "sla",
       "source_id": null,
       "title": "SLA breach: Quality score breach: 76 < 82.",
@@ -366,7 +387,7 @@
       }
     },
     {
-      "id": "CONS-014",
+      "id": "CONS-013",
       "source_report": "sla",
       "source_id": null,
       "title": "SLA breach: High-priority gap breach: 8 > 6.",
