@@ -54,19 +54,22 @@ Optional:
 
 - `POSTMAN_COLLECTION_UID` to reuse a specific collection (otherwise demo imports from generated OpenAPI).
 - `POSTMAN_MOCK_SERVER_ID` to reuse an existing mock.
+- `TESTRAIL_UPLOAD_ENABLED=true` + TestRail credentials to auto-push generated test cases.
+- `ZEPHYR_UPLOAD_ENABLED=true` + Zephyr credentials to auto-push generated test cases.
 
 1. While running, narrate the meaning of each stage in short English sentences:
    - Stage 0: planning notes to OpenAPI generation;
    - Stage 1: mock sandbox startup;
    - Stage 2-5: API-first flow (contract/lint/stubs/user-path checks/docs assets);
    - Stage 6: generate API test assets (TestRail CSV, Zephyr JSON, matrix/fuzz/property scenarios);
-   - Stage 7: multilingual API examples baseline;
-   - Stage 8: glossary sync as terminology governance layer;
-   - Stage 9: retrieval evals as knowledge-system quality telemetry;
-   - Stage 10: JSON-LD knowledge graph generation as separate artifact;
-   - Stage 11: commit and push generated API-first demo output;
-   - Stage 12: wait for successful `deploy.yml` run;
-   - Stage 13: verify published MkDocs sandbox page and endpoint wiring.
+   - Stage 7: optional upload of generated test assets to TestRail/Zephyr via API;
+   - Stage 8: multilingual API examples baseline;
+   - Stage 9: glossary sync as terminology governance layer;
+   - Stage 10: retrieval evals as knowledge-system quality telemetry;
+   - Stage 11: JSON-LD knowledge graph generation as separate artifact;
+   - Stage 12: commit and push generated API-first demo output;
+   - Stage 13: wait for successful `deploy.yml` run;
+   - Stage 14: verify published MkDocs sandbox page and endpoint wiring.
 1. End with:
    - sandbox page URL;
    - deploy success confirmation;

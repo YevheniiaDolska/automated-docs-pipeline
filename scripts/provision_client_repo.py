@@ -304,6 +304,33 @@ def _collect_secret_inputs(client_repo: Path, docsops_dir: str) -> Path | None:
             ("DOCSOPS_BOT_TOKEN", "GitHub token with contents:write,pull_requests:write (optional)", False)
         )
 
+    test_mgmt = api_first.get("test_management", {})
+    if not isinstance(test_mgmt, dict):
+        test_mgmt = {}
+    if bool(api_first.get("upload_test_assets", False)):
+        testrail = test_mgmt.get("testrail", {})
+        if not isinstance(testrail, dict):
+            testrail = {}
+        zephyr = test_mgmt.get("zephyr_scale", {})
+        if not isinstance(zephyr, dict):
+            zephyr = {}
+
+        needed_vars.extend(
+            [
+                (str(testrail.get("enabled_env", "TESTRAIL_UPLOAD_ENABLED")), "Set true to enable TestRail upload", False),
+                (str(testrail.get("base_url_env", "TESTRAIL_BASE_URL")), "TestRail base URL (required if enabled)", False),
+                (str(testrail.get("email_env", "TESTRAIL_EMAIL")), "TestRail account email (required if enabled)", False),
+                (str(testrail.get("api_key_env", "TESTRAIL_API_KEY")), "TestRail API key (required if enabled)", False),
+                (str(testrail.get("section_id_env", "TESTRAIL_SECTION_ID")), "TestRail section id (required if enabled)", False),
+                (str(testrail.get("suite_id_env", "TESTRAIL_SUITE_ID")), "TestRail suite id (optional)", False),
+                (str(zephyr.get("enabled_env", "ZEPHYR_UPLOAD_ENABLED")), "Set true to enable Zephyr upload", False),
+                (str(zephyr.get("base_url_env", "ZEPHYR_SCALE_BASE_URL")), "Zephyr Scale base URL (optional; default cloud URL)", False),
+                (str(zephyr.get("api_token_env", "ZEPHYR_SCALE_API_TOKEN")), "Zephyr Scale API token (required if enabled)", False),
+                (str(zephyr.get("project_key_env", "ZEPHYR_SCALE_PROJECT_KEY")), "Zephyr project key (required if enabled)", False),
+                (str(zephyr.get("folder_id_env", "ZEPHYR_SCALE_FOLDER_ID")), "Zephyr folder id (optional)", False),
+            ]
+        )
+
     if not needed_vars:
         return None
 
@@ -315,6 +342,8 @@ def _collect_secret_inputs(client_repo: Path, docsops_dir: str) -> Path | None:
     print("- Postman API Key: Postman -> Settings -> API Keys.")
     print("- Postman Workspace ID: workspace URL or Postman API workspace endpoint.")
     print("- Collection UID: optional; can be skipped because pipeline imports from generated OpenAPI.")
+    print("- TestRail: base URL + email + API key + section id from your TestRail project.")
+    print("- Zephyr Scale: API token + project key from Zephyr Scale Cloud.")
     print("- DOCSOPS_BOT_TOKEN: optional GitHub PAT for restricted orgs.\n")
 
     if not _prompt_yes_no("Configure .env secrets now?", default_yes=True):
@@ -582,6 +611,41 @@ def generate_env_checklist(client_repo: Path, docsops_dir: str) -> Path | None:
                     "",
                 ]
             )
+
+    test_mgmt = api_first.get("test_management", {})
+    if not isinstance(test_mgmt, dict):
+        test_mgmt = {}
+    if bool(api_first.get("upload_test_assets", False)):
+        testrail_cfg = test_mgmt.get("testrail", {})
+        if not isinstance(testrail_cfg, dict):
+            testrail_cfg = {}
+        zephyr_cfg = test_mgmt.get("zephyr_scale", {})
+        if not isinstance(zephyr_cfg, dict):
+            zephyr_cfg = {}
+        lines.extend(
+            [
+                "## API test management upload (TestRail/Zephyr)",
+                "",
+                "- Pipeline auto-generates test assets from OpenAPI and can auto-upload them.",
+                "- Upload runs during API-first flow when `upload_test_assets=true`.",
+                "",
+                "TestRail env vars:",
+                f"- [ ] `{testrail_cfg.get('enabled_env', 'TESTRAIL_UPLOAD_ENABLED')}` (`true` to enable upload)",
+                f"- [ ] `{testrail_cfg.get('base_url_env', 'TESTRAIL_BASE_URL')}`",
+                f"- [ ] `{testrail_cfg.get('email_env', 'TESTRAIL_EMAIL')}`",
+                f"- [ ] `{testrail_cfg.get('api_key_env', 'TESTRAIL_API_KEY')}`",
+                f"- [ ] `{testrail_cfg.get('section_id_env', 'TESTRAIL_SECTION_ID')}`",
+                f"- [ ] `{testrail_cfg.get('suite_id_env', 'TESTRAIL_SUITE_ID')}` (optional)",
+                "",
+                "Zephyr Scale env vars:",
+                f"- [ ] `{zephyr_cfg.get('enabled_env', 'ZEPHYR_UPLOAD_ENABLED')}` (`true` to enable upload)",
+                f"- [ ] `{zephyr_cfg.get('base_url_env', 'ZEPHYR_SCALE_BASE_URL')}` (optional; default cloud URL)",
+                f"- [ ] `{zephyr_cfg.get('api_token_env', 'ZEPHYR_SCALE_API_TOKEN')}`",
+                f"- [ ] `{zephyr_cfg.get('project_key_env', 'ZEPHYR_SCALE_PROJECT_KEY')}`",
+                f"- [ ] `{zephyr_cfg.get('folder_id_env', 'ZEPHYR_SCALE_FOLDER_ID')}` (optional)",
+                "",
+            ]
+        )
 
     pr_auto = runtime.get("pr_autofix", {})
     if not isinstance(pr_auto, dict):

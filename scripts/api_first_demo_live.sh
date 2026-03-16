@@ -223,14 +223,22 @@ python3 -u scripts/generate_api_test_assets.py \
   --zephyr-json reports/api-test-assets/zephyr_test_cases.json
 say "Stage result: TestRail CSV and Zephyr JSON assets are ready in reports/api-test-assets."
 
-stage "STAGE 7/10: MULTI-LANGUAGE EXAMPLES BASELINE"
+stage "STAGE 7/11: UPLOAD TEST ASSETS (OPTIONAL)"
+say "Uploading generated API test assets to TestRail and Zephyr when credentials are configured."
+say "What happens now: uploader checks env flags and either pushes cases via API or marks provider as skipped."
+python3 -u scripts/upload_api_test_assets.py \
+  --cases-json reports/api-test-assets/api_test_cases.json \
+  --report reports/api-test-assets/upload_report.json
+say "Stage result: test management upload step finished (check reports/api-test-assets/upload_report.json)."
+
+stage "STAGE 8/11: MULTI-LANGUAGE EXAMPLES BASELINE"
 say "Generating multilingual examples baseline for API usability."
 say "What happens now: API examples are normalized into language tabs and validated for required language coverage."
 python3 -u scripts/generate_multilang_tabs.py --paths docs templates --scope api --write
 python3 -u scripts/validate_multilang_examples.py --docs-dir docs --scope api --required-languages curl,javascript,python
 say "Stage result: API examples are available and validated for cURL, JavaScript, and Python."
 
-stage "STAGE 8/10: GLOSSARY SYNC"
+stage "STAGE 9/11: GLOSSARY SYNC"
 say "Running terminology governance sync as a platform-level quality layer."
 say "What happens now: glossary markers from docs are synchronized into glossary.yml."
 python3 -u scripts/sync_project_glossary.py \
@@ -240,7 +248,7 @@ python3 -u scripts/sync_project_glossary.py \
   --write
 say "Stage result: terminology dictionary is synchronized."
 
-stage "STAGE 9/10: RETRIEVAL QUALITY EVALS"
+stage "STAGE 10/11: RETRIEVAL QUALITY EVALS"
 say "Running retrieval evals as separate knowledge-system quality telemetry."
 say "What happens now: retrieval index is rebuilt and tested for precision, recall, and hallucination rate."
 python3 -u scripts/generate_knowledge_retrieval_index.py --modules-dir knowledge_modules --output docs/assets/knowledge-retrieval-index.json
@@ -266,7 +274,7 @@ PY
 )"
 say "Stage result: ${retrieval_summary}."
 
-stage "STAGE 10/10: KNOWLEDGE GRAPH JSON-LD"
+stage "STAGE 11/11: KNOWLEDGE GRAPH JSON-LD"
 say "Generating JSON-LD graph as a separate knowledge artifact, not injected into API document content."
 say "What happens now: module relationships are exported into a lightweight JSON-LD graph file."
 python3 -u scripts/generate_knowledge_graph_jsonld.py \
@@ -290,7 +298,7 @@ say "Stage result: ${graph_summary}."
 PLAYGROUND_URL="$(build_playground_url)"
 
 if [[ "${AUTO_DEPLOY}" == "true" ]]; then
-  stage "STAGE 11/13: COMMIT AND PUSH DEMO OUTPUT"
+  stage "STAGE 12/14: COMMIT AND PUSH DEMO OUTPUT"
   say "What happens now: generated API-first artifacts are committed and pushed to main to trigger MkDocs deploy."
   require_cmd git
   require_cmd gh
@@ -323,13 +331,13 @@ if [[ "${AUTO_DEPLOY}" == "true" ]]; then
     say "No file changes to commit; continuing with deployed-site verification."
   fi
 
-  stage "STAGE 12/13: WAIT FOR MKDOCS DEPLOY SUCCESS"
+  stage "STAGE 13/14: WAIT FOR MKDOCS DEPLOY SUCCESS"
   say "What happens now: waiting for GitHub Actions deploy workflow to finish successfully."
   head_sha="$(git rev-parse HEAD)"
   wait_for_deploy_success "${DEPLOY_WORKFLOW}" "${head_sha}" "${DEPLOY_TIMEOUT_SECONDS}"
   say "Stage result: deploy workflow succeeded."
 
-  stage "STAGE 13/13: VERIFY PUBLISHED SANDBOX PAGE"
+  stage "STAGE 14/14: VERIFY PUBLISHED SANDBOX PAGE"
   say "What happens now: checking the published MkDocs page and confirming sandbox wiring on the live site."
   if [[ "${PLAYGROUND_URL}" != /* ]]; then
     say "Checking published page: ${PLAYGROUND_URL}"

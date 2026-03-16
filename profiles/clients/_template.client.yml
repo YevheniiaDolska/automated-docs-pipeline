@@ -56,6 +56,8 @@ bundle:
     - "scripts/apply_openapi_overrides.py"
     - "scripts/check_openapi_regression.py"
     - "scripts/ensure_external_mock_server.py"
+    - "scripts/generate_api_test_assets.py"
+    - "scripts/upload_api_test_assets.py"
     - "scripts/i18n_sync.py"
     - "scripts/i18n_translate.py"
     - "scripts/i18n_migrate.py"
@@ -151,6 +153,27 @@ runtime:
         mock_server_name: ""
         private: false
     run_docs_lint: false
+    generate_test_assets: true
+    test_assets_output_dir: "reports/api-test-assets"
+    testrail_csv: "reports/api-test-assets/testrail_test_cases.csv"
+    zephyr_json: "reports/api-test-assets/zephyr_test_cases.json"
+    upload_test_assets: false
+    upload_test_assets_strict: false
+    test_assets_upload_report: "reports/api-test-assets/upload_report.json"
+    test_management:
+      testrail:
+        enabled_env: "TESTRAIL_UPLOAD_ENABLED"
+        base_url_env: "TESTRAIL_BASE_URL"
+        email_env: "TESTRAIL_EMAIL"
+        api_key_env: "TESTRAIL_API_KEY"
+        section_id_env: "TESTRAIL_SECTION_ID"
+        suite_id_env: "TESTRAIL_SUITE_ID"
+      zephyr_scale:
+        enabled_env: "ZEPHYR_UPLOAD_ENABLED"
+        base_url_env: "ZEPHYR_SCALE_BASE_URL"
+        api_token_env: "ZEPHYR_SCALE_API_TOKEN"
+        project_key_env: "ZEPHYR_SCALE_PROJECT_KEY"
+        folder_id_env: "ZEPHYR_SCALE_FOLDER_ID"
     auto_remediate: true
     max_attempts: 3
 

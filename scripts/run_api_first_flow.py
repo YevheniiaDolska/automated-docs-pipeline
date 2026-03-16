@@ -252,6 +252,20 @@ def run_one_attempt(
     test_assets_output_dir: Path,
     testrail_csv_path: Path,
     zephyr_json_path: Path,
+    upload_test_assets: bool,
+    upload_test_assets_strict: bool,
+    upload_report_path: Path,
+    upload_testrail_enabled_env: str,
+    upload_testrail_base_url_env: str,
+    upload_testrail_email_env: str,
+    upload_testrail_api_key_env: str,
+    upload_testrail_section_id_env: str,
+    upload_testrail_suite_id_env: str,
+    upload_zephyr_enabled_env: str,
+    upload_zephyr_base_url_env: str,
+    upload_zephyr_token_env: str,
+    upload_zephyr_project_key_env: str,
+    upload_zephyr_folder_id_env: str,
     regression_snapshot: Path | None,
     update_regression_snapshot: bool,
 ) -> None:
@@ -360,6 +374,46 @@ def run_one_attempt(
             compact=True,
             summary_label="API test assets generated",
         )
+        if upload_test_assets:
+            print("[demo] Step 4/5: Upload generated API test assets to TestRail/Zephyr.", flush=True)
+            upload_cmd = [
+                "python3",
+                "scripts/upload_api_test_assets.py",
+                "--cases-json",
+                str(test_assets_output_dir / "api_test_cases.json"),
+                "--report",
+                str(upload_report_path),
+                "--testrail-enabled-env",
+                upload_testrail_enabled_env,
+                "--testrail-base-url-env",
+                upload_testrail_base_url_env,
+                "--testrail-email-env",
+                upload_testrail_email_env,
+                "--testrail-api-key-env",
+                upload_testrail_api_key_env,
+                "--testrail-section-id-env",
+                upload_testrail_section_id_env,
+                "--testrail-suite-id-env",
+                upload_testrail_suite_id_env,
+                "--zephyr-enabled-env",
+                upload_zephyr_enabled_env,
+                "--zephyr-base-url-env",
+                upload_zephyr_base_url_env,
+                "--zephyr-token-env",
+                upload_zephyr_token_env,
+                "--zephyr-project-key-env",
+                upload_zephyr_project_key_env,
+                "--zephyr-folder-id-env",
+                upload_zephyr_folder_id_env,
+            ]
+            if upload_test_assets_strict:
+                upload_cmd.append("--strict")
+            run(
+                upload_cmd,
+                cwd=repo,
+                compact=True,
+                summary_label="API test assets upload finished",
+            )
 
     if run_docs_lint:
         print("[demo] Step 5/5: Run documentation quality checks (Vale, markdownlint, SEO/GEO, and more).", flush=True)
@@ -398,6 +452,20 @@ def main() -> int:
     parser.add_argument("--test-assets-output-dir", default="reports/api-test-assets")
     parser.add_argument("--testrail-csv", default="reports/api-test-assets/testrail_test_cases.csv")
     parser.add_argument("--zephyr-json", default="reports/api-test-assets/zephyr_test_cases.json")
+    parser.add_argument("--upload-test-assets", action="store_true")
+    parser.add_argument("--upload-test-assets-strict", action="store_true")
+    parser.add_argument("--test-assets-upload-report", default="reports/api-test-assets/upload_report.json")
+    parser.add_argument("--upload-testrail-enabled-env", default="TESTRAIL_UPLOAD_ENABLED")
+    parser.add_argument("--upload-testrail-base-url-env", default="TESTRAIL_BASE_URL")
+    parser.add_argument("--upload-testrail-email-env", default="TESTRAIL_EMAIL")
+    parser.add_argument("--upload-testrail-api-key-env", default="TESTRAIL_API_KEY")
+    parser.add_argument("--upload-testrail-section-id-env", default="TESTRAIL_SECTION_ID")
+    parser.add_argument("--upload-testrail-suite-id-env", default="TESTRAIL_SUITE_ID")
+    parser.add_argument("--upload-zephyr-enabled-env", default="ZEPHYR_UPLOAD_ENABLED")
+    parser.add_argument("--upload-zephyr-base-url-env", default="ZEPHYR_SCALE_BASE_URL")
+    parser.add_argument("--upload-zephyr-token-env", default="ZEPHYR_SCALE_API_TOKEN")
+    parser.add_argument("--upload-zephyr-project-key-env", default="ZEPHYR_SCALE_PROJECT_KEY")
+    parser.add_argument("--upload-zephyr-folder-id-env", default="ZEPHYR_SCALE_FOLDER_ID")
     parser.add_argument("--auto-remediate", action="store_true")
     parser.add_argument("--max-attempts", type=int, default=3)
     parser.add_argument("--inject-demo-nav", action="store_true")
@@ -442,6 +510,7 @@ def main() -> int:
     test_assets_output_dir = (repo / args.test_assets_output_dir).resolve()
     testrail_csv_path = (repo / args.testrail_csv).resolve()
     zephyr_json_path = (repo / args.zephyr_json).resolve()
+    upload_report_path = (repo / args.test_assets_upload_report).resolve()
     manual_overrides = (repo / args.manual_overrides).resolve() if args.manual_overrides else None
     regression_snapshot = (repo / args.regression_snapshot).resolve() if args.regression_snapshot else None
 
@@ -515,6 +584,20 @@ def main() -> int:
                 test_assets_output_dir,
                 testrail_csv_path,
                 zephyr_json_path,
+                args.upload_test_assets,
+                args.upload_test_assets_strict,
+                upload_report_path,
+                str(args.upload_testrail_enabled_env),
+                str(args.upload_testrail_base_url_env),
+                str(args.upload_testrail_email_env),
+                str(args.upload_testrail_api_key_env),
+                str(args.upload_testrail_section_id_env),
+                str(args.upload_testrail_suite_id_env),
+                str(args.upload_zephyr_enabled_env),
+                str(args.upload_zephyr_base_url_env),
+                str(args.upload_zephyr_token_env),
+                str(args.upload_zephyr_project_key_env),
+                str(args.upload_zephyr_folder_id_env),
                 regression_snapshot,
                 args.update_regression_snapshot,
             )

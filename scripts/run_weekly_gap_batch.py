@@ -590,6 +590,64 @@ def main() -> int:
                             str(api_cfg.get("mock_base_url", "http://localhost:4010/v1")),
                         ]
                     )
+                if bool(api_cfg.get("generate_test_assets", False)):
+                    cmd.append("--generate-test-assets")
+                    cmd.extend(
+                        [
+                            "--test-assets-output-dir",
+                            str(api_cfg.get("test_assets_output_dir", "reports/api-test-assets")),
+                            "--testrail-csv",
+                            str(api_cfg.get("testrail_csv", "reports/api-test-assets/testrail_test_cases.csv")),
+                            "--zephyr-json",
+                            str(api_cfg.get("zephyr_json", "reports/api-test-assets/zephyr_test_cases.json")),
+                        ]
+                    )
+                if bool(api_cfg.get("upload_test_assets", False)):
+                    cmd.append("--upload-test-assets")
+                    cmd.extend(
+                        [
+                            "--test-assets-upload-report",
+                            str(api_cfg.get("test_assets_upload_report", "reports/api-test-assets/upload_report.json")),
+                        ]
+                    )
+                    if bool(api_cfg.get("upload_test_assets_strict", False)):
+                        cmd.append("--upload-test-assets-strict")
+                    test_mgmt = api_cfg.get("test_management", {})
+                    if isinstance(test_mgmt, dict):
+                        testrail_cfg = test_mgmt.get("testrail", {})
+                        if isinstance(testrail_cfg, dict):
+                            cmd.extend(
+                                [
+                                    "--upload-testrail-enabled-env",
+                                    str(testrail_cfg.get("enabled_env", "TESTRAIL_UPLOAD_ENABLED")),
+                                    "--upload-testrail-base-url-env",
+                                    str(testrail_cfg.get("base_url_env", "TESTRAIL_BASE_URL")),
+                                    "--upload-testrail-email-env",
+                                    str(testrail_cfg.get("email_env", "TESTRAIL_EMAIL")),
+                                    "--upload-testrail-api-key-env",
+                                    str(testrail_cfg.get("api_key_env", "TESTRAIL_API_KEY")),
+                                    "--upload-testrail-section-id-env",
+                                    str(testrail_cfg.get("section_id_env", "TESTRAIL_SECTION_ID")),
+                                    "--upload-testrail-suite-id-env",
+                                    str(testrail_cfg.get("suite_id_env", "TESTRAIL_SUITE_ID")),
+                                ]
+                            )
+                        zephyr_cfg = test_mgmt.get("zephyr_scale", {})
+                        if isinstance(zephyr_cfg, dict):
+                            cmd.extend(
+                                [
+                                    "--upload-zephyr-enabled-env",
+                                    str(zephyr_cfg.get("enabled_env", "ZEPHYR_UPLOAD_ENABLED")),
+                                    "--upload-zephyr-base-url-env",
+                                    str(zephyr_cfg.get("base_url_env", "ZEPHYR_SCALE_BASE_URL")),
+                                    "--upload-zephyr-token-env",
+                                    str(zephyr_cfg.get("api_token_env", "ZEPHYR_SCALE_API_TOKEN")),
+                                    "--upload-zephyr-project-key-env",
+                                    str(zephyr_cfg.get("project_key_env", "ZEPHYR_SCALE_PROJECT_KEY")),
+                                    "--upload-zephyr-folder-id-env",
+                                    str(zephyr_cfg.get("folder_id_env", "ZEPHYR_SCALE_FOLDER_ID")),
+                                ]
+                            )
                 external_mock_cfg = api_cfg.get("external_mock", {})
                 if isinstance(external_mock_cfg, dict) and bool(external_mock_cfg.get("enabled", False)):
                     cmd.extend(

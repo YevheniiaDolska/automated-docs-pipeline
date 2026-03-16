@@ -129,6 +129,30 @@ def build_runtime_config(profile: dict[str, Any]) -> dict[str, Any]:
                     },
                 },
                 "run_docs_lint": False,
+                "generate_test_assets": True,
+                "test_assets_output_dir": "reports/api-test-assets",
+                "testrail_csv": "reports/api-test-assets/testrail_test_cases.csv",
+                "zephyr_json": "reports/api-test-assets/zephyr_test_cases.json",
+                "upload_test_assets": False,
+                "upload_test_assets_strict": False,
+                "test_assets_upload_report": "reports/api-test-assets/upload_report.json",
+                "test_management": {
+                    "testrail": {
+                        "enabled_env": "TESTRAIL_UPLOAD_ENABLED",
+                        "base_url_env": "TESTRAIL_BASE_URL",
+                        "email_env": "TESTRAIL_EMAIL",
+                        "api_key_env": "TESTRAIL_API_KEY",
+                        "section_id_env": "TESTRAIL_SECTION_ID",
+                        "suite_id_env": "TESTRAIL_SUITE_ID",
+                    },
+                    "zephyr_scale": {
+                        "enabled_env": "ZEPHYR_UPLOAD_ENABLED",
+                        "base_url_env": "ZEPHYR_SCALE_BASE_URL",
+                        "api_token_env": "ZEPHYR_SCALE_API_TOKEN",
+                        "project_key_env": "ZEPHYR_SCALE_PROJECT_KEY",
+                        "folder_id_env": "ZEPHYR_SCALE_FOLDER_ID",
+                    },
+                },
                 "auto_remediate": True,
                 "max_attempts": 3,
             },
@@ -533,6 +557,13 @@ def create_bundle(profile_path: Path) -> Path:
     if isinstance(api_first, Mapping):
         external_mock = api_first.get("external_mock", {})
         if bool(api_first.get("enabled", False)) and isinstance(external_mock, Mapping):
+            required_scripts.extend(
+                [
+                    "scripts/generate_api_test_assets.py",
+                ]
+            )
+            if bool(api_first.get("upload_test_assets", False)):
+                required_scripts.append("scripts/upload_api_test_assets.py")
             if str(api_first.get("sandbox_backend", "")).strip().lower() == "external" and bool(
                 external_mock.get("enabled", False)
             ):
