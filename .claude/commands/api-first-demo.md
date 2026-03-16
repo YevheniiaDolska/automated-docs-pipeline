@@ -59,13 +59,14 @@ Optional:
    - Stage 0: planning notes to OpenAPI generation;
    - Stage 1: mock sandbox startup;
    - Stage 2-5: API-first flow (contract/lint/stubs/user-path checks/docs assets);
-   - Stage 6: multilingual API examples baseline;
-   - Stage 7: glossary sync as terminology governance layer;
-   - Stage 8: retrieval evals as knowledge-system quality telemetry;
-   - Stage 9: JSON-LD knowledge graph generation as separate artifact;
-   - Stage 10: commit and push generated API-first demo output;
-   - Stage 11: wait for successful `deploy.yml` run;
-   - Stage 12: verify published MkDocs sandbox page and endpoint wiring.
+   - Stage 6: generate API test assets (TestRail CSV, Zephyr JSON, matrix/fuzz/property scenarios);
+   - Stage 7: multilingual API examples baseline;
+   - Stage 8: glossary sync as terminology governance layer;
+   - Stage 9: retrieval evals as knowledge-system quality telemetry;
+   - Stage 10: JSON-LD knowledge graph generation as separate artifact;
+   - Stage 11: commit and push generated API-first demo output;
+   - Stage 12: wait for successful `deploy.yml` run;
+   - Stage 13: verify published MkDocs sandbox page and endpoint wiring.
 1. End with:
    - sandbox page URL;
    - deploy success confirmation;

@@ -248,6 +248,10 @@ def run_one_attempt(
     verify_user_path: bool,
     mock_base_url: str,
     run_docs_lint: bool,
+    generate_test_assets: bool,
+    test_assets_output_dir: Path,
+    testrail_csv_path: Path,
+    zephyr_json_path: Path,
     regression_snapshot: Path | None,
     update_regression_snapshot: bool,
 ) -> None:
@@ -337,6 +341,26 @@ def run_one_attempt(
             summary_label="user-path self-verification finished",
         )
 
+    if generate_test_assets:
+        print("[demo] Step 4/5: Generate API test assets (TestRail/Zephyr + matrix/fuzz/property).", flush=True)
+        run(
+            [
+                "python3",
+                "scripts/generate_api_test_assets.py",
+                "--spec",
+                str(spec),
+                "--output-dir",
+                str(test_assets_output_dir),
+                "--testrail-csv",
+                str(testrail_csv_path),
+                "--zephyr-json",
+                str(zephyr_json_path),
+            ],
+            cwd=repo,
+            compact=True,
+            summary_label="API test assets generated",
+        )
+
     if run_docs_lint:
         print("[demo] Step 5/5: Run documentation quality checks (Vale, markdownlint, SEO/GEO, and more).", flush=True)
         run(
@@ -370,6 +394,10 @@ def main() -> int:
     parser.add_argument("--external-mock-postman-mock-server-name", default="")
     parser.add_argument("--external-mock-postman-private", action="store_true")
     parser.add_argument("--run-docs-lint", action="store_true")
+    parser.add_argument("--generate-test-assets", action="store_true")
+    parser.add_argument("--test-assets-output-dir", default="reports/api-test-assets")
+    parser.add_argument("--testrail-csv", default="reports/api-test-assets/testrail_test_cases.csv")
+    parser.add_argument("--zephyr-json", default="reports/api-test-assets/zephyr_test_cases.json")
     parser.add_argument("--auto-remediate", action="store_true")
     parser.add_argument("--max-attempts", type=int, default=3)
     parser.add_argument("--inject-demo-nav", action="store_true")
@@ -411,6 +439,9 @@ def main() -> int:
     spec_tree = (repo / args.spec_tree).resolve()
     docs_target = (repo / args.docs_spec_target).resolve()
     stubs_output = (repo / args.stubs_output).resolve()
+    test_assets_output_dir = (repo / args.test_assets_output_dir).resolve()
+    testrail_csv_path = (repo / args.testrail_csv).resolve()
+    zephyr_json_path = (repo / args.zephyr_json).resolve()
     manual_overrides = (repo / args.manual_overrides).resolve() if args.manual_overrides else None
     regression_snapshot = (repo / args.regression_snapshot).resolve() if args.regression_snapshot else None
 
@@ -480,6 +511,10 @@ def main() -> int:
                 args.verify_user_path,
                 resolved_mock_base_url,
                 args.run_docs_lint,
+                args.generate_test_assets,
+                test_assets_output_dir,
+                testrail_csv_path,
+                zephyr_json_path,
                 regression_snapshot,
                 args.update_regression_snapshot,
             )
