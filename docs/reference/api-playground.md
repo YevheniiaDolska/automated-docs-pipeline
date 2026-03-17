@@ -42,37 +42,35 @@ This works for both API-first and code-first teams.
 
 ## Playground
 
-<div
-  id="api-playground-root"
-  data-provider="{{ config.extra.plg.api_playground.provider }}"
-  data-source-strategy="{{ config.extra.plg.api_playground.source.strategy }}"
-  data-api-first-spec-url="{{ config.site_url }}{{ config.extra.plg.api_playground.source.api_first_spec_url }}"
-  data-code-first-spec-url="{{ config.site_url }}{{ config.extra.plg.api_playground.source.code_first_spec_url }}"
-  data-try-it-enabled="{{ config.extra.plg.api_playground.try_it_enabled }}"
-  data-try-it-mode="{{ config.extra.plg.api_playground.try_it_mode }}"
-  data-sandbox-base-url="{{ config.extra.plg.api_playground.endpoints.sandbox_base_url }}"
-  data-production-base-url="{{ config.extra.plg.api_playground.endpoints.production_base_url }}"
-></div>
-
+<link rel="stylesheet" href="https://unpkg.com/swagger-ui-dist/swagger-ui.css">
+<div id="api-playground-root"></div>
+<script src="https://unpkg.com/swagger-ui-dist/swagger-ui-bundle.js"></script>
 <script>
-  window.DOCS_PLG_CONFIG = {
-    mode: '{{ config.extra.plg.mode }}',
-    approach: '{{ config.extra.plg.approach }}',
-    api_playground: {
-      provider: '{{ config.extra.plg.api_playground.provider }}',
-      try_it_mode: '{{ config.extra.plg.api_playground.try_it_mode }}',
-      try_it_enabled: {{ config.extra.plg.api_playground.try_it_enabled }},
-      source: {
-        strategy: '{{ config.extra.plg.api_playground.source.strategy }}',
-        api_first_spec_url: '{{ config.extra.plg.api_playground.source.api_first_spec_url }}',
-        code_first_spec_url: '{{ config.extra.plg.api_playground.source.code_first_spec_url }}'
-      },
-      endpoints: {
-        sandbox_base_url: '{{ config.extra.plg.api_playground.endpoints.sandbox_base_url }}',
-        production_base_url: '{{ config.extra.plg.api_playground.endpoints.production_base_url }}'
-      }
+document.addEventListener("DOMContentLoaded", function () {
+  var el = document.getElementById("api-playground-root");
+  if (!el || el.dataset.swaggerLoaded) return;
+  el.dataset.swaggerLoaded = "1";
+  SwaggerUIBundle({
+    url: "{{ config.site_url }}{{ config.extra.plg.api_playground.source.api_first_spec_url }}",
+    dom_id: "#api-playground-root",
+    deepLinking: true,
+    docExpansion: "list",
+    defaultModelsExpandDepth: 1,
+    supportedSubmitMethods: [],
+    requestInterceptor: function (req) {
+      try {
+        var u = new URL(req.url, location.origin);
+        var t = new URL("{{ config.extra.plg.api_playground.endpoints.sandbox_base_url }}", location.origin);
+        u.protocol = t.protocol;
+        u.hostname = t.hostname;
+        u.port = t.port;
+        req.url = u.toString();
+      } catch (e) {}
+      return req;
     }
-  };
+  });
+});
+if (document.readyState !== "loading") { document.dispatchEvent(new Event("DOMContentLoaded")); }
 </script>
 
 ## Security guidance

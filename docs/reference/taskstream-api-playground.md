@@ -46,16 +46,36 @@ bash scripts/api_prodlike_project.sh up taskstream 4011
 
 ## Playground embed
 
-<div
-  id="api-playground-root"
-  data-provider="swagger-ui"
-  data-source-strategy="api-first"
-  data-api-first-spec-url="{{ config.site_url }}assets/api/openapi.bundled.json"
-  data-try-it-enabled="true"
-  data-try-it-mode="sandbox-only"
-  data-sandbox-base-url="{{ config.extra.plg.api_playground.endpoints.sandbox_base_url }}"
-  data-production-base-url="{{ cloud_url }}/v1"
-></div>
+<link rel="stylesheet" href="https://unpkg.com/swagger-ui-dist/swagger-ui.css">
+<div id="api-playground-root"></div>
+<script src="https://unpkg.com/swagger-ui-dist/swagger-ui-bundle.js"></script>
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+  var el = document.getElementById("api-playground-root");
+  if (!el || el.dataset.swaggerLoaded) return;
+  el.dataset.swaggerLoaded = "1";
+  SwaggerUIBundle({
+    url: "{{ config.site_url }}assets/api/openapi.bundled.json",
+    dom_id: "#api-playground-root",
+    deepLinking: true,
+    docExpansion: "list",
+    defaultModelsExpandDepth: 1,
+    supportedSubmitMethods: ["get","put","post","delete","options","head","patch","trace"],
+    requestInterceptor: function (req) {
+      try {
+        var u = new URL(req.url, location.origin);
+        var t = new URL("{{ config.extra.plg.api_playground.endpoints.sandbox_base_url }}", location.origin);
+        u.protocol = t.protocol;
+        u.hostname = t.hostname;
+        u.port = t.port;
+        req.url = u.toString();
+      } catch (e) {}
+      return req;
+    }
+  });
+});
+if (document.readyState !== "loading") { document.dispatchEvent(new Event("DOMContentLoaded")); }
+</script>
 
 For multi-version API docs, publish one spec per version and add separate playground blocks or tabs:
 

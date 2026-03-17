@@ -140,8 +140,8 @@
       return;
     }
 
-    // Prevent double-init on the same DOM element
-    if (root.dataset.playgroundInit === 'true') {
+    // Prevent double-init (inline scripts set swaggerLoaded, this file sets playgroundInit)
+    if (root.dataset.playgroundInit === 'true' || root.dataset.swaggerLoaded === '1') {
       return;
     }
     root.dataset.playgroundInit = 'true';
