@@ -1,8 +1,11 @@
 #!/usr/bin/env python3
 """Generate API test design assets from an OpenAPI specification.
 
+Supports smart merge: manual and customized test cases survive
+re-generation. Stale customized cases are flagged for review.
+
 Outputs:
-- machine-readable test cases JSON
+- machine-readable test cases JSON (with merge metadata)
 - test matrix JSON
 - property/fuzz scenario JSON
 - TestRail-compatible CSV
@@ -13,6 +16,7 @@ from __future__ import annotations
 
 import argparse
 import csv
+import hashlib
 import json
 from dataclasses import dataclass
 from pathlib import Path
@@ -36,6 +40,10 @@ class Operation:
     parameters: list[dict[str, Any]]
     security_required: bool
 
+
+# ---------------------------------------------------------------------------
+# OpenAPI parsing helpers
+# ---------------------------------------------------------------------------
 
 def _load_yaml(path: Path) -> dict[str, Any]:
     payload = yaml.safe_load(path.read_text(encoding="utf-8")) or {}
@@ -151,6 +159,29 @@ def _extract_operations(spec_path: Path) -> list[Operation]:
     return operations
 
 
+# ---------------------------------------------------------------------------
+# Spec hash for change detection
+# ---------------------------------------------------------------------------
+
+def _compute_spec_hash(operation: Operation) -> str:
+    """Deterministic hash of an operation's contract signature.
+
+    Changes when the method, path, operationId, response codes, or
+    request schema shape change -- i.e. when auto-generated test steps
+    would differ.
+    """
+    sig = f"{operation.method}|{operation.path}|{operation.operation_id}"
+    sig += "|" + ",".join(sorted(operation.responses.keys()))
+    if operation.request_schema:
+        props = sorted(operation.request_schema.get("properties", {}).keys())
+        sig += "|" + ",".join(props)
+    return hashlib.sha256(sig.encode()).hexdigest()[:12]
+
+
+# ---------------------------------------------------------------------------
+# Test case generation
+# ---------------------------------------------------------------------------
+
 def _response_codes(operation: Operation) -> set[str]:
     return {str(code) for code in operation.responses.keys()}
 
@@ -201,7 +232,12 @@ def _scenario_catalog(operation: Operation) -> list[str]:
 
 
 def _build_test_cases(operations: list[Operation]) -> list[dict[str, Any]]:
+    """Build test cases with merge metadata fields."""
     cases: list[dict[str, Any]] = []
+    op_hash_map: dict[str, str] = {}
+    for op in operations:
+        op_hash_map[op.operation_id] = _compute_spec_hash(op)
+
     for op in operations:
         for scenario in _scenario_catalog(op):
             case_id = f"TC-{op.operation_id}-{scenario}".replace("_", "-")
@@ -224,10 +260,132 @@ def _build_test_cases(operations: list[Operation]) -> list[dict[str, Any]]:
                     "expected_result": _build_expected(op, scenario),
                     "priority": "high" if scenario in {"positive", "auth_negative"} else "medium",
                     "type": "functional" if scenario != "fuzz_negative" else "fuzz",
+                    "origin": "auto",
+                    "customized": False,
+                    "needs_review": False,
+                    "review_reason": None,
+                    "spec_hash": op_hash_map[op.operation_id],
                 }
             )
     return cases
 
+
+# ---------------------------------------------------------------------------
+# Smart merge
+# ---------------------------------------------------------------------------
+
+def _load_existing_cases(cases_json_path: Path) -> list[dict[str, Any]]:
+    """Load previously generated cases JSON if it exists."""
+    if not cases_json_path.exists():
+        return []
+    try:
+        data = json.loads(cases_json_path.read_text(encoding="utf-8"))
+        cases = data.get("cases", []) if isinstance(data, dict) else []
+        return [c for c in cases if isinstance(c, dict) and "id" in c]
+    except (json.JSONDecodeError, KeyError):
+        return []
+
+
+def merge_cases(
+    new_cases: list[dict[str, Any]],
+    existing_cases: list[dict[str, Any]],
+) -> tuple[list[dict[str, Any]], dict[str, int]]:
+    """Merge new auto-generated cases with existing cases.
+
+    Rules:
+    - manual cases (origin=manual): always preserved
+    - customized auto cases (customized=true): preserved, flagged if spec changed
+    - pure auto cases: overwritten with new version
+    - stale auto cases (operation removed): dropped
+    - stale customized cases (operation removed): preserved with needs_review
+
+    Returns (merged_cases, merge_stats).
+    """
+    existing_by_id: dict[str, dict[str, Any]] = {}
+    for case in existing_cases:
+        existing_by_id[case["id"]] = case
+
+    new_by_id: dict[str, dict[str, Any]] = {}
+    for case in new_cases:
+        new_by_id[case["id"]] = case
+
+    merged: list[dict[str, Any]] = []
+    seen_ids: set[str] = set()
+    stats = {
+        "auto_kept": 0,
+        "auto_updated": 0,
+        "auto_new": 0,
+        "auto_dropped": 0,
+        "manual_preserved": 0,
+        "customized_preserved": 0,
+        "customized_flagged": 0,
+    }
+
+    # Process all new auto-generated cases
+    for case_id, new_case in new_by_id.items():
+        seen_ids.add(case_id)
+        if case_id in existing_by_id:
+            existing = existing_by_id[case_id]
+            origin = existing.get("origin", "auto")
+            customized = existing.get("customized", False)
+
+            if origin == "manual":
+                # Manual case with same ID as auto: keep manual
+                merged.append(existing)
+                stats["manual_preserved"] += 1
+            elif customized:
+                # QA customized this auto case: keep their version
+                old_hash = existing.get("spec_hash", "")
+                new_hash = new_case.get("spec_hash", "")
+                if old_hash and new_hash and old_hash != new_hash:
+                    existing["needs_review"] = True
+                    existing["review_reason"] = (
+                        f"API spec changed (hash {old_hash} -> {new_hash}). "
+                        f"Review steps and expected results."
+                    )
+                    stats["customized_flagged"] += 1
+                else:
+                    stats["customized_preserved"] += 1
+                merged.append(existing)
+            else:
+                # Pure auto case: overwrite with new version
+                merged.append(new_case)
+                old_hash = existing.get("spec_hash", "")
+                new_hash = new_case.get("spec_hash", "")
+                if old_hash != new_hash:
+                    stats["auto_updated"] += 1
+                else:
+                    stats["auto_kept"] += 1
+        else:
+            # Brand new case (new endpoint or new scenario)
+            merged.append(new_case)
+            stats["auto_new"] += 1
+
+    # Process existing cases NOT in new generation
+    for case_id, existing in existing_by_id.items():
+        if case_id in seen_ids:
+            continue
+        origin = existing.get("origin", "auto")
+        customized = existing.get("customized", False)
+
+        if origin == "manual":
+            merged.append(existing)
+            stats["manual_preserved"] += 1
+        elif customized:
+            existing["needs_review"] = True
+            existing["review_reason"] = "Operation removed from API spec. Verify if this test is still needed."
+            merged.append(existing)
+            stats["customized_flagged"] += 1
+        else:
+            # Stale auto case for removed operation: drop it
+            stats["auto_dropped"] += 1
+
+    return merged, stats
+
+
+# ---------------------------------------------------------------------------
+# Matrix, property scenarios, output writers
+# ---------------------------------------------------------------------------
 
 def _build_property_scenarios(operations: list[Operation]) -> list[dict[str, Any]]:
     scenarios: list[dict[str, Any]] = []
@@ -266,7 +424,7 @@ def _build_test_matrix(operations: list[Operation], cases: list[dict[str, Any]])
             "cases": [],
         }
     for case in cases:
-        op_id = str(case["operation_id"])
+        op_id = str(case.get("operation_id", ""))
         if op_id in by_operation:
             by_operation[op_id]["cases"].append(case["id"])
     return {
@@ -294,6 +452,7 @@ def _write_testrail_csv(path: Path, cases: list[dict[str, Any]]) -> None:
                 "Section",
                 "Type",
                 "Priority",
+                "Origin",
                 "Preconditions",
                 "Steps",
                 "Expected Result",
@@ -302,16 +461,25 @@ def _write_testrail_csv(path: Path, cases: list[dict[str, Any]]) -> None:
         )
         writer.writeheader()
         for case in cases:
+            title = case["title"]
+            if case.get("needs_review"):
+                title = f"[REVIEW] {title}"
+            origin = case.get("origin", "auto")
+            refs = ""
+            trace = case.get("traceability")
+            if isinstance(trace, dict):
+                refs = f"{trace.get('method', '')} {trace.get('path', '')} ({case.get('operation_id', '')})"
             writer.writerow(
                 {
-                    "Title": case["title"],
-                    "Section": case["suite"],
-                    "Type": case["type"],
-                    "Priority": case["priority"],
-                    "Preconditions": "\n".join(case["preconditions"]),
-                    "Steps": "\n".join(case["steps"]),
-                    "Expected Result": case["expected_result"],
-                    "Refs": f"{case['traceability']['method']} {case['traceability']['path']} ({case['operation_id']})",
+                    "Title": title,
+                    "Section": case.get("suite", "General API"),
+                    "Type": case.get("type", "functional"),
+                    "Priority": case.get("priority", "medium"),
+                    "Origin": origin,
+                    "Preconditions": "\n".join(case.get("preconditions", [])),
+                    "Steps": "\n".join(case.get("steps", [])),
+                    "Expected Result": case.get("expected_result", ""),
+                    "Refs": refs,
                 }
             )
 
@@ -319,49 +487,95 @@ def _write_testrail_csv(path: Path, cases: list[dict[str, Any]]) -> None:
 def _build_zephyr_payload(cases: list[dict[str, Any]]) -> dict[str, Any]:
     issues: list[dict[str, Any]] = []
     for case in cases:
+        labels = list(case.get("labels", ["api-first", "auto-generated", case.get("type", "functional")]))
+        if not labels:
+            labels = ["api-first"]
+        origin = case.get("origin", "auto")
+        if origin == "manual" and "manual" not in labels:
+            labels.append("manual")
+        if origin == "auto" and "auto-generated" not in labels:
+            labels.append("auto-generated")
+        if case.get("needs_review") and "needs-review" not in labels:
+            labels.append("needs-review")
+        if case.get("customized") and "customized" not in labels:
+            labels.append("customized")
+
+        trace = case.get("traceability", {})
         issues.append(
             {
                 "summary": case["title"],
                 "description": "\n".join(
                     [
-                        f"Operation: {case['traceability']['method']} {case['traceability']['path']}",
-                        f"Operation ID: {case['operation_id']}",
+                        f"Operation: {trace.get('method', '')} {trace.get('path', '')}",
+                        f"Operation ID: {case.get('operation_id', '')}",
                         "",
                         "Preconditions:",
-                        *case["preconditions"],
+                        *case.get("preconditions", []),
                         "",
                         "Steps:",
-                        *[f"- {step}" for step in case["steps"]],
+                        *[f"- {step}" for step in case.get("steps", [])],
                         "",
-                        f"Expected: {case['expected_result']}",
+                        f"Expected: {case.get('expected_result', '')}",
                     ]
                 ),
-                "labels": ["api-first", "auto-generated", case["type"]],
-                "priority": case["priority"],
-                "suite": case["suite"],
+                "labels": labels,
+                "priority": case.get("priority", "medium"),
+                "suite": case.get("suite", "General API"),
             }
         )
     return {"issues": issues, "count": len(issues)}
 
 
+# ---------------------------------------------------------------------------
+# Main entry point
+# ---------------------------------------------------------------------------
+
 def generate_assets(spec_path: Path, output_dir: Path, testrail_csv: Path, zephyr_json: Path) -> dict[str, Any]:
     operations = _extract_operations(spec_path)
-    cases = _build_test_cases(operations)
-    matrix = _build_test_matrix(operations, cases)
+    new_cases = _build_test_cases(operations)
+
+    # Smart merge with existing cases
+    cases_json_path = output_dir / "api_test_cases.json"
+    existing_cases = _load_existing_cases(cases_json_path)
+    if existing_cases:
+        merged_cases, merge_stats = merge_cases(new_cases, existing_cases)
+    else:
+        merged_cases = new_cases
+        merge_stats = {
+            "auto_kept": 0,
+            "auto_updated": 0,
+            "auto_new": len(new_cases),
+            "auto_dropped": 0,
+            "manual_preserved": 0,
+            "customized_preserved": 0,
+            "customized_flagged": 0,
+        }
+
+    matrix = _build_test_matrix(operations, merged_cases)
     property_scenarios = _build_property_scenarios(operations)
+
+    auto_count = sum(1 for c in merged_cases if c.get("origin", "auto") == "auto")
+    manual_count = sum(1 for c in merged_cases if c.get("origin") == "manual")
+    customized_count = sum(1 for c in merged_cases if c.get("customized"))
+    needs_review_count = sum(1 for c in merged_cases if c.get("needs_review"))
 
     assets = {
         "spec_path": str(spec_path),
         "operations_count": len(operations),
-        "test_cases_count": len(cases),
+        "test_cases_count": len(merged_cases),
+        "auto_cases": auto_count,
+        "manual_cases": manual_count,
+        "customized_cases": customized_count,
+        "needs_review_cases": needs_review_count,
         "property_scenarios_count": len(property_scenarios),
+        "merge_stats": merge_stats,
     }
 
-    _write_json(output_dir / "api_test_cases.json", {"cases": cases, "summary": assets})
+    _write_json(cases_json_path, {"cases": merged_cases, "summary": assets})
     _write_json(output_dir / "api_test_matrix.json", matrix)
     _write_json(output_dir / "api_property_fuzz_scenarios.json", {"scenarios": property_scenarios})
-    _write_testrail_csv(testrail_csv, cases)
-    _write_json(zephyr_json, _build_zephyr_payload(cases))
+    _write_testrail_csv(testrail_csv, merged_cases)
+    _write_json(zephyr_json, _build_zephyr_payload(merged_cases))
     _write_json(output_dir / "api_test_assets_report.json", assets)
     return assets
 
@@ -383,12 +597,18 @@ def main() -> int:
     zephyr_json = Path(args.zephyr_json).resolve()
 
     assets = generate_assets(spec_path, output_dir, testrail_csv, zephyr_json)
+    stats = assets.get("merge_stats", {})
     print(
         "Generated API test assets: "
         f"operations={assets['operations_count']} "
         f"cases={assets['test_cases_count']} "
+        f"(auto={assets['auto_cases']} manual={assets['manual_cases']} "
+        f"customized={assets['customized_cases']} needs_review={assets['needs_review_cases']}) "
         f"property_scenarios={assets['property_scenarios_count']}"
     )
+    if any(v for v in stats.values()):
+        parts = [f"{k}={v}" for k, v in stats.items() if v]
+        print(f"Merge: {', '.join(parts)}")
     return 0
 
 
