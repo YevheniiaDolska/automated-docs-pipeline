@@ -1,5 +1,7 @@
 # Codex instructions for documentation pipeline
 
+Plan scope: Enterprise (full-surface instructions).
+
 ## Write documents right the first time
 
 **Codex, you MUST follow ALL these rules to avoid 20 iterations of fixes.**
@@ -17,7 +19,7 @@ Required behavior:
 
 \11. Treat planning notes as source input artifact.
 \11. Generate OpenAPI from notes using pipeline scripts.
-\11. Run full API-first checks (contract validation, lint stack, stub generation, self-verification, sandbox/docs sync).
+\11. Run full API-first checks (contract validation, lint stack, stub generation, self-verification, sandbox/docs sync, API test assets generation, optional TestRail/Zephyr upload).
 \11. Report results and produced artifact paths.
 
 Hard rule:
@@ -2131,7 +2133,7 @@ The `.spectral.yml` configuration extends `spectral:oas` and enforces these 18 r
 
 ## Full SEO and GEO optimization rules
 
-**These are the exact 22 checks (8 GEO + 14 SEO) enforced by `scripts/seo_geo_optimizer.py`. Every document MUST pass all of them.**
+**These are the exact 24 checks (8 GEO + 16 SEO) enforced by `scripts/seo_geo_optimizer.py`. Every document MUST pass all of them.**
 
 ### GEO rules (LLM and AI search optimization)
 

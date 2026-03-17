@@ -524,7 +524,33 @@ Say: "This step proves that the same document source feeds RAG artifacts: retrie
 npm run validate:full 2>&1
 ```
 
-Say: "ALL checks passed on the first run. The 22 SEO/GEO rules, formatting, metadata, and style are all green. Linters are the highest-quality gate in this pipeline and enforce production-ready documentation standards."
+Say: "ALL checks passed on the first run. The 24 SEO/GEO rules, formatting, metadata, and style are all green. Linters are the highest-quality gate in this pipeline and enforce production-ready documentation standards."
+
+### Step 7A. Finalize gate (Before Yes / After Yes)
+
+Run finalize gate to enforce iterative fixes before approval:
+
+```bash
+python3 scripts/finalize_docs_gate.py \
+  --docs-root docs \
+  --reports-dir reports \
+  --runtime-config docsops/config/client_runtime.yml \
+  --continue-on-error
+```
+
+Optional interactive confirmation mode (GUI Yes/No dialog with CLI fallback):
+
+```bash
+python3 scripts/finalize_docs_gate.py \
+  --docs-root docs \
+  --reports-dir reports \
+  --ask-commit-confirmation \
+  --ui-confirmation auto \
+  --run-precommit-before-commit \
+  --precommit-max-iterations 3
+```
+
+Say: "Before Yes, finalize gate runs lint-fix loops. After Yes, pre-commit reruns with auto-fix loop to catch anything changed during human review."
 
 ### Step 8. Generate interactive diagram
 
@@ -586,7 +612,7 @@ echo "============================================"
 echo ""
 echo "   $(ls templates/*.md templates/*.html 2>/dev/null | wc -l) Stripe-quality templates"
 echo "   7 automated quality checks per PR"
-echo "   22 SEO/GEO rules (Google + ChatGPT + Perplexity)"
+echo "   24 SEO/GEO rules (Google + ChatGPT + Perplexity)"
 echo "   3 gap detection sources (code, community, search)"
 echo "   $(ls policy_packs/*.yml 2>/dev/null | wc -l) configurable policy packs"
 echo "   $(ls .github/workflows/*.yml 2>/dev/null | wc -l) CI/CD workflow automations"
@@ -649,7 +675,7 @@ docs: add webhook processing pipeline guide (demo)
 - Content tabs (Cloud / Self-hosted), Mermaid diagram, admonitions
 - Interactive 13-component architecture diagram (5 layers)
 - All values from _variables.yml, zero hardcoded values
-- Passed 7 linters and 22 SEO/GEO rules on first attempt
+- Passed 7 linters and 24 SEO/GEO rules on first attempt
 EOF
 )"
 ```
@@ -674,7 +700,7 @@ echo ""
 echo "Workflows triggered by this push:"
 echo "  1. ci-documentation.yml  — Vale + markdownlint + frontmatter + GEO lint"
 echo "  2. code-examples-smoke.yml — executes code blocks from the document"
-echo "  3. seo-optimization.yml — 22 SEO/GEO rules deep check"
+echo "  3. seo-optimization.yml — 24 SEO/GEO rules deep check"
 echo "  4. algolia-index.yml — updates Algolia search index"
 echo "  5. deploy.yml — builds MkDocs and deploys to GitHub Pages"
 echo ""
@@ -769,7 +795,7 @@ Say:
 1. Retrieval index and JSON-LD knowledge graph were regenerated for RAG/GEO readiness
 1. Retrieval evals measured Precision, Recall, and Hallucination-rate as a quality gate
 1. Docs-code contract drift is tracked in report-only mode and feeds weekly consolidation without blocking
-1. Seven linters passed on the first attempt, including 22 SEO/GEO rules, style, and formatting
+1. Seven linters passed on the first attempt, including 24 SEO/GEO rules, style, and formatting
 1. The interactive diagram includes 13 clickable components
 1. Commit -> push -> five GitHub Actions workflows -> site built and published (verified by successful deploy)
 
