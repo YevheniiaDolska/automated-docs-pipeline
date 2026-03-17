@@ -129,16 +129,16 @@ extra:
       try_it_enabled: false
       source:
         strategy: api-first
-        api_first_spec_url: /api/openapi.yaml
-        code_first_spec_url: /api/openapi-generated.yaml
+        api_first_spec_url: assets/api/openapi.yaml
+        code_first_spec_url: assets/api/openapi-generated.yaml
       endpoints:
-        sandbox_base_url: https://06f38cd3-a9a3-41ec-8cb6-75839a2aedea.mock.pstmn.io/v1
+        sandbox_base_url: https://81e1b5e6-ac40-4db9-bc31-24e4c415c3da.mock.pstmn.io/v1
         production_base_url: https://api.example.com
   api_playground:
     provider: swagger-ui
-    spec_url: /api/openapi.yaml
+    spec_url: assets/api/openapi.yaml
     try_it_enabled: false
-    sandbox_base_url: https://06f38cd3-a9a3-41ec-8cb6-75839a2aedea.mock.pstmn.io/v1
+    sandbox_base_url: https://81e1b5e6-ac40-4db9-bc31-24e4c415c3da.mock.pstmn.io/v1
   tags:
     Tutorial: tutorial
     How-To: how-to

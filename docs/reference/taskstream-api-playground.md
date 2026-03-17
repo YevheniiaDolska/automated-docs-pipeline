@@ -50,7 +50,7 @@ bash scripts/api_prodlike_project.sh up taskstream 4011
   id="api-playground-root"
   data-provider="swagger-ui"
   data-source-strategy="api-first"
-  data-api-first-spec-url="/assets/api/openapi.yaml"
+  data-api-first-spec-url="{{ config.site_url }}assets/api/openapi.yaml"
   data-try-it-enabled="true"
   data-try-it-mode="sandbox-only"
   data-sandbox-base-url="{{ config.extra.plg.api_playground.endpoints.sandbox_base_url }}"
