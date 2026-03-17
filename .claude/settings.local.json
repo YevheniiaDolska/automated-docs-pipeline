@@ -78,7 +78,18 @@
       "Bash(pytest:*)",
       "Bash(sed:*)",
       "Bash(bash:*)",
-      "Bash(docker:*)"
+      "Bash(docker:*)",
+      "Bash(API_FIRST_DEMO_SANDBOX_BACKEND=prism npm run:*)",
+      "WebFetch(domain:schema.postman.com)",
+      "WebFetch(domain:learning.postman.com)",
+      "WebFetch(domain:blog.postman.com)",
+      "WebFetch(domain:www.postmanlabs.com)",
+      "WebFetch(domain:github.com)",
+      "Bash(API_FIRST_DEMO_SANDBOX_BACKEND=external API_FIRST_DEMO_AUTO_PREPARE_EXTERNAL_MOCK=true npm run:*)",
+      "Bash(mkdir:*)",
+      "Bash(cp:*)",
+      "Bash(gh run:*)",
+      "WebFetch(domain:yevheniiadolska.github.io)"
     ],
     "deny": [],
     "ask": []

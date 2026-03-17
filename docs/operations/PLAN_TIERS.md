@@ -21,6 +21,29 @@ Use this with:
 - `profiles/clients/<client>.client.yml`
 - `docs/operations/UNIFIED_CLIENT_CONFIG.md`
 
+Important:
+
+- Basic/Pro/Enterprise are packaging presets, not hardcoded runtime limits.
+- They are starting points for profile generation and commercial scope design.
+- Pilot scope is defined separately by `profiles/clients/presets/pilot-evidence.yml`.
+- Full implementation usually starts from plan-level Pro/Enterprise.
+- In profile files, this is typically mapped to:
+  - `profiles/clients/presets/startup.yml` (Pro-equivalent)
+  - `profiles/clients/presets/enterprise.yml` (Enterprise-equivalent)
+
+Practical mapping:
+
+- Pilot -> `profiles/clients/presets/pilot-evidence.yml`
+- Full Basic -> `profiles/clients/presets/small.yml`
+- Full Pro -> `profiles/clients/presets/startup.yml`
+- Full Enterprise -> `profiles/clients/presets/enterprise.yml`
+
+In short:
+
+- Plan = business scope level
+- Preset = technical starting template
+- Pilot/Full = implementation format
+
 ## 1. Feature matrix
 
 | Capability | Basic | Pro | Enterprise |
@@ -31,11 +54,13 @@ Use this with:
 | Drift + docs contract gates | No | Yes | Yes |
 | KPI/SLA reports | No | Yes | Yes |
 | API-first flow | No | Optional | Full |
+| API test assets (cases/matrix/fuzz docs) | No | Yes | Yes |
+| TestRail/Zephyr upload from pipeline | No | Optional | Optional |
 | RAG/knowledge validation/index | No | Yes | Yes |
 | JSON-LD ontology/graph layer | No | Yes | Yes |
 | Retrieval evals (Precision/Recall/Hallucination) | No | Yes | Yes |
 | Terminology auto-sync (glossary markers) | Yes | Yes | Yes |
-| PR auto-doc fix to same PR branch | Optional | Yes | Yes |
+| PR auto-doc fix to same PR branch | Optional | Optional | Optional |
 | i18n sync | No | Optional | Yes |
 | SEO/GEO optimization weekly | Optional | Yes | Yes |
 | Custom weekly task slots | 2 | 6 | Unlimited |
@@ -96,7 +121,7 @@ runtime:
   docs_flow:
     mode: "hybrid"
   pr_autofix:
-    enabled: true
+    enabled: false
     require_label: false
     label_name: "auto-doc-fix"
     enable_auto_merge: false
@@ -125,8 +150,15 @@ runtime:
     generate_from_notes: true
     sandbox_backend: "external"
     mock_service: "custom"
-    mock_base_url: "https://sandbox-api.example.com/v1"
+    mock_base_url: "https://<your-real-public-mock-url>/v1"
     sync_playground_endpoint: true
+    generate_test_assets: true
+    test_assets_output_dir: "reports/api-test-assets"
+    testrail_csv: "reports/api-test-assets/testrail_test_cases.csv"
+    zephyr_json: "reports/api-test-assets/zephyr_test_cases.json"
+    upload_test_assets: false
+    upload_test_assets_strict: false
+    test_assets_upload_report: "reports/api-test-assets/upload_report.json"
     external_mock:
       enabled: true
       provider: "postman"
@@ -162,7 +194,7 @@ runtime:
   docs_flow:
     mode: "hybrid"
   pr_autofix:
-    enabled: true
+    enabled: false
     require_label: false
     label_name: "auto-doc-fix"
     enable_auto_merge: false
@@ -192,8 +224,15 @@ runtime:
     verify_user_path: true
     sandbox_backend: "external"
     mock_service: "custom"
-    mock_base_url: "https://sandbox-api.example.com/v1"
+    mock_base_url: "https://<your-real-public-mock-url>/v1"
     sync_playground_endpoint: true
+    generate_test_assets: true
+    test_assets_output_dir: "reports/api-test-assets"
+    testrail_csv: "reports/api-test-assets/testrail_test_cases.csv"
+    zephyr_json: "reports/api-test-assets/zephyr_test_cases.json"
+    upload_test_assets: false
+    upload_test_assets_strict: false
+    test_assets_upload_report: "reports/api-test-assets/upload_report.json"
     external_mock:
       enabled: true
       provider: "postman"

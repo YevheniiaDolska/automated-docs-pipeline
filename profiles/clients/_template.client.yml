@@ -215,7 +215,7 @@ runtime:
     modules_dir: "knowledge_modules"
     output_path: "docs/assets/knowledge-graph.jsonld"
   git_sync:
-    enabled: false
+    enabled: true
     repo_path: "."
     remote: "origin"
     branch: ""
@@ -223,6 +223,22 @@ runtime:
     rebase: true
     autostash: true
     continue_on_error: true
+  finalize_gate:
+    enabled: true
+    docs_root: "docs"
+    reports_dir: "reports"
+    lint_command: "npm run lint"
+    max_iterations: 5
+    continue_on_error: true
+    auto_fix_commands:
+      - "python3 scripts/normalize_docs.py {docs_root}"
+      - "python3 scripts/seo_geo_optimizer.py {docs_root} --fix"
+    llm_fix_command: ""
+    ask_commit_confirmation: false
+    run_precommit_before_commit: true
+    precommit_max_iterations: 3
+    commit_on_approve: false
+    push_on_commit: false
   multilang_examples:
     enabled: true
     scope: "all"

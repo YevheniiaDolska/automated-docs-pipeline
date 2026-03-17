@@ -3,7 +3,7 @@ title: "API-first and code-first playbook"
 description: "Practical guide for API-first and code-first workflows with sandbox modes, contract checks, and documentation gates."
 content_type: reference
 product: both
-last_reviewed: "2026-03-12"
+last_reviewed: "2026-03-17"
 tags:
   - Reference
   - API
@@ -47,13 +47,15 @@ python3 scripts/run_api_first_flow.py \
   --spec-tree api/taskstream \
   --docs-provider mkdocs \
   --verify-user-path \
-  --mock-base-url "https://sandbox-api.example.com/v1" \
+  --mock-base-url "https://<your-real-public-mock-url>/v1" \
+  --generate-test-assets \
+  --upload-test-assets \
   --sync-playground-endpoint \
   --auto-remediate \
   --max-attempts 3
 ```
 
-This generates OpenAPI artifacts, runs contract and lint checks, generates stubs, verifies user path, and syncs docs sandbox URL.
+This generates OpenAPI artifacts, runs contract and lint checks, generates stubs, verifies user path, syncs docs sandbox URL, generates API test assets, and can upload those assets to TestRail/Zephyr.
 
 ### Step 3: Start sandbox mode
 
@@ -72,7 +74,7 @@ bash scripts/api_sandbox_project.sh up taskstream ./api/openapi.yaml 4010 prism
 Public hosted mode:
 
 ```bash
-API_SANDBOX_EXTERNAL_BASE_URL="https://sandbox-api.example.com/v1" \
+API_SANDBOX_EXTERNAL_BASE_URL="https://<your-real-public-mock-url>/v1" \
 bash scripts/api_sandbox_project.sh up taskstream ./api/openapi.yaml 4010 external
 ```
 
@@ -86,6 +88,10 @@ Provide these environment variables once:
 1. `POSTMAN_WORKSPACE_ID`
 1. optional `POSTMAN_COLLECTION_UID` (if missing, pipeline imports collection from generated OpenAPI)
 1. Optional `POSTMAN_MOCK_SERVER_ID` (reuse existing mock)
+1. Optional TestRail upload vars:
+   `TESTRAIL_UPLOAD_ENABLED`, `TESTRAIL_BASE_URL`, `TESTRAIL_EMAIL`, `TESTRAIL_API_KEY`, `TESTRAIL_SECTION_ID`, optional `TESTRAIL_SUITE_ID`
+1. Optional Zephyr upload vars:
+   `ZEPHYR_UPLOAD_ENABLED`, `ZEPHYR_SCALE_API_TOKEN`, `ZEPHYR_SCALE_PROJECT_KEY`, optional `ZEPHYR_SCALE_BASE_URL`, optional `ZEPHYR_SCALE_FOLDER_ID`
 
 Then run API-first flow with external mock auto-prepare:
 
@@ -100,6 +106,8 @@ python3 scripts/run_api_first_flow.py \
   --external-mock-provider postman \
   --external-mock-base-path /v1 \
   --verify-user-path \
+  --generate-test-assets \
+  --upload-test-assets \
   --sync-playground-endpoint
 ```
 
@@ -120,6 +128,75 @@ Fix all errors before proceeding. See the Spectral rules section for the full ru
 ### Step 6: Write reference documentation
 
 Use `templates/api-reference.md` as the base template. Place the new file in `docs/reference/` and update `mkdocs.yml` navigation.
+
+## API test assets flow (OpenAPI -> TestRail/Zephyr)
+
+Use this flow when QA teams need import-ready artifacts generated from OpenAPI and optional direct upload into test management systems.
+
+### 1) Generate test assets from OpenAPI
+
+Run either the API-first full flow with flags:
+
+```bash
+python3 scripts/run_api_first_flow.py \
+  --project-slug taskstream \
+  --notes demos/api-first/taskstream-planning-notes.md \
+  --spec api/openapi.yaml \
+  --spec-tree api/taskstream \
+  --generate-test-assets
+```
+
+Or run the direct command:
+
+```bash
+npm run api:test:assets
+```
+
+Default outputs:
+
+- `reports/api-test-assets/api_test_cases.json`
+- `reports/api-test-assets/test_matrix.md`
+- `reports/api-test-assets/testrail_test_cases.csv`
+- `reports/api-test-assets/zephyr_test_cases.json`
+- `reports/api-test-assets/property_scenarios.md`
+- `reports/api-test-assets/fuzz_scenarios.md`
+
+### 2) Upload generated assets (optional)
+
+Enable credentials via environment variables:
+
+1. TestRail:
+   `TESTRAIL_UPLOAD_ENABLED`, `TESTRAIL_BASE_URL`, `TESTRAIL_EMAIL`, `TESTRAIL_API_KEY`, `TESTRAIL_SECTION_ID`, optional `TESTRAIL_SUITE_ID`
+1. Zephyr Scale:
+   `ZEPHYR_UPLOAD_ENABLED`, `ZEPHYR_SCALE_API_TOKEN`, `ZEPHYR_SCALE_PROJECT_KEY`, optional `ZEPHYR_SCALE_BASE_URL`, optional `ZEPHYR_SCALE_FOLDER_ID`
+
+Then run either:
+
+```bash
+python3 scripts/run_api_first_flow.py \
+  --project-slug taskstream \
+  --notes demos/api-first/taskstream-planning-notes.md \
+  --spec api/openapi.yaml \
+  --spec-tree api/taskstream \
+  --generate-test-assets \
+  --upload-test-assets
+```
+
+Or direct upload command:
+
+```bash
+npm run api:test:upload
+```
+
+Upload report:
+
+- `reports/api-test-assets/upload_report.json`
+
+### 3) Recommended verification
+
+1. Confirm generated files exist in `reports/api-test-assets/`.
+1. Check `upload_report.json` for per-system success/failure details.
+1. Verify imported cases in target TestRail/Zephyr section/folder.
 
 ## Code-first workflow
 
@@ -408,7 +485,7 @@ npm run consolidate:reports-only
 | PR DoD contract | `pr-dod-contract.yml` | PR touching interface or doc files | Reports interface/docs drift (report-only default) |
 | Code examples smoke | `code-examples-smoke.yml` | PR or push touching docs/templates | Executes tagged code blocks to verify they work |
 | OpenAPI source sync | `openapi-source-sync.yml` | Manual dispatch | Resolves spec from api-first or code-first strategy |
-| API-first full flow | `scripts/run_api_first_flow.py` | Local run / weekly automation | Generates contract + stubs + verification + sandbox endpoint sync |
+| API-first full flow | `scripts/run_api_first_flow.py` | Local run / weekly automation | Generates contract + stubs + verification + sandbox endpoint sync + test assets + finalize gate (lint/fix loop) |
 
 ## Enforcement scripts summary
 
@@ -446,9 +523,9 @@ npm run validate:minimal
 1. Edit `api/openapi.yaml` with the new or changed endpoint.
 1. Lint the spec: `npx @stoplight/spectral-cli lint api/openapi.yaml`.
 1. Start sandbox: `bash scripts/api_sandbox_project.sh up taskstream ./api/openapi.yaml 4010 prism`.
-1. For public docs sandbox use external mode: `API_SANDBOX_EXTERNAL_BASE_URL=\"https://sandbox-api.example.com/v1\" bash scripts/api_sandbox_project.sh up taskstream ./api/openapi.yaml 4010 external`.
+1. For public docs sandbox use external mode: `API_SANDBOX_EXTERNAL_BASE_URL=\"https://<your-real-public-mock-url>/v1\" bash scripts/api_sandbox_project.sh up taskstream ./api/openapi.yaml 4010 external`.
 1. Test requests against configured `mock_base_url`.
-1. Run API-first flow to regenerate and verify: `python3 scripts/run_api_first_flow.py ... --verify-user-path --mock-base-url https://sandbox-api.example.com/v1 --sync-playground-endpoint`.
+1. Run API-first flow to regenerate and verify: `python3 scripts/run_api_first_flow.py ... --verify-user-path --mock-base-url https://<your-real-public-mock-url>/v1 --generate-test-assets --upload-test-assets --sync-playground-endpoint --ask-commit-confirmation`.
 1. Update reference docs in `docs/reference/`.
 1. Run `npm run docs-contract` and `npm run drift-check`.
 1. Run `npm run lint:examples-smoke`.

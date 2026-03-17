@@ -14,7 +14,12 @@ original_author: Developer
 
 # Pipeline Capabilities Catalog
 
-This file is auto-generated from `package.json` scripts.
+This catalog has two layers:
+
+1. npm script entry points (from `package.json`)
+1. direct CLI entry points in `scripts/*.py` that are used by provisioning/operator flows and are not exposed as npm commands
+
+Non-script concepts (policy semantics, sales packaging, pilot/full scope) are documented in ops guides.
 
 Use this catalog with `runtime.custom_tasks.weekly` in client profiles to enable any capability.
 
@@ -36,13 +41,15 @@ runtime:
 | `agent:codex:auto` | Agent/Demo | `bash scripts/codex-auto.sh` |
 | `api-first-demo` | API-first | `bash scripts/api_first_demo_live.sh` |
 | `api-first-demo:stop` | API-first | `bash scripts/api_first_demo_stop.sh` |
-| `api-first:demo` | API-first | `bash -lc 'set -e; API_SANDBOX_EXTERNAL_BASE_URL=\"https://sandbox-api.example.com/v1\" bash scripts/api_sandbox_project.sh up taskstream ./api/openapi.yaml 4010 external; python3 scripts/run_api_first_flow.py --project-slug taskstream --notes demos/api-first/taskstream-planning-notes.md --spec api/openapi.yaml --spec-tree api/taskstream --docs-provider mkdocs --inject-demo-nav --verify-user-path --mock-base-url https://sandbox-api.example.com/v1 --sync-playground-endpoint --auto-remediate --max-attempts 3'` |
+| `api-first:demo` | API-first | `bash -lc 'set -e; API_SANDBOX_EXTERNAL_BASE_URL=\"https://<your-real-public-mock-url>/v1\" bash scripts/api_sandbox_project.sh up taskstream ./api/openapi.yaml 4010 external; python3 scripts/run_api_first_flow.py --project-slug taskstream --notes demos/api-first/taskstream-planning-notes.md --spec api/openapi.yaml --spec-tree api/taskstream --docs-provider mkdocs --inject-demo-nav --verify-user-path --mock-base-url https://<your-real-public-mock-url>/v1 --generate-test-assets --upload-test-assets --sync-playground-endpoint --auto-remediate --max-attempts 3'` |
 | `api-first:demo:live` | API-first | `bash scripts/api_first_demo_live.sh` |
 | `api-first:demo:stop` | API-first | `bash scripts/api_first_demo_stop.sh` |
 | `api:first:flow:taskstream` | API-first | `python3 scripts/run_api_first_flow.py --project-slug taskstream --notes demos/api-first/taskstream-planning-notes.md --spec api/openapi.yaml --spec-tree api/taskstream --docs-provider mkdocs --inject-demo-nav --auto-remediate` |
 | `api:first:v0:taskstream` | API-first | `python3 scripts/run_api_first_flow.py --project-slug taskstream --notes demos/api-first/taskstream-planning-notes.md --spec api/openapi.yaml --spec-tree api/taskstream --docs-provider mkdocs --auto-remediate --max-attempts 3` |
-| `api:first:verify-user-path` | API-first | `python3 scripts/self_verify_api_user_path.py --base-url https://sandbox-api.example.com/v1` |
+| `api:first:verify-user-path` | API-first | `python3 scripts/self_verify_api_user_path.py --base-url https://<your-real-public-mock-url>/v1` |
 | `api:first:verify-user-path:prodlike` | API-first | `python3 scripts/self_verify_prodlike_user_path.py --base-url http://localhost:4011/v1` |
+| `api:test:assets` | API-first | `python3 scripts/generate_api_test_assets.py --spec api/openapi.yaml --output-dir reports/api-test-assets --testrail-csv reports/api-test-assets/testrail_test_cases.csv --zephyr-json reports/api-test-assets/zephyr_test_cases.json` |
+| `api:test:upload` | API-first | `python3 scripts/upload_api_test_assets.py --cases-json reports/api-test-assets/api_test_cases.json --report reports/api-test-assets/upload_report.json` |
 | `api:sandbox:live` | API-first | `bash scripts/api_sandbox_live.sh up taskstream ./api/openapi.yaml 4010` |
 | `api:sandbox:live:logs` | API-first | `bash scripts/api_sandbox_live.sh logs taskstream ./api/openapi.yaml 4010` |
 | `api:sandbox:live:status` | API-first | `bash scripts/api_sandbox_live.sh status taskstream ./api/openapi.yaml 4010` |
@@ -138,13 +145,39 @@ runtime:
 | `validate:knowledge` | Validation | `npm run lint:knowledge && npm run build:intent:all && npm run build:knowledge-index && npm run build:knowledge-graph && npm run eval:retrieval` |
 | `validate:minimal` | Validation | `npm run normalize:docs:check && npm run lint:md && npm run lint:frontmatter && npm run lint:geo && npm run lint:multilang && npm run lint:examples-smoke` |
 
+## Direct CLI entry points (not exposed as npm scripts)
+
+These are part of the current implementation and are invoked directly by operator/provisioning/weekly flows.
+
+| Script | Purpose |
+| --- | --- |
+| `scripts/build_client_bundle.py` | Build client-specific bundle in `generated/client_bundles/<client_id>/`. |
+| `scripts/provision_client_repo.py` | One-shot install into client repo (bundle copy, config/policy, env checklist, scheduler install). |
+| `scripts/init_pipeline.py` | Bootstrap pipeline directly from source into another repo (self-install path). |
+| `scripts/run_weekly_gap_batch.py` | Main weekly local runner (gaps/stale/kpi/api-first/modules/custom tasks/consolidation). |
+| `scripts/auto_fix_pr_docs.py` | PR branch docs autofix helper for optional GitHub workflow. |
+| `scripts/ensure_external_mock_server.py` | Resolve/create external mock endpoint (Postman-supported flow). |
+| `scripts/extract_knowledge_modules_from_docs.py` | Auto-extract knowledge modules from docs markdown. |
+| `scripts/gap_detector.py` | Legacy/direct gap detector entry used in some compatibility paths. |
+| `scripts/generate_docusaurus_config.py` | Generate/update Docusaurus config in adapter flows. |
+| `scripts/generate_facets_index.py` | Build faceted search index artifacts. |
+| `scripts/generate_fastapi_stubs_from_openapi.py` | Generate FastAPI stubs from OpenAPI. |
+| `scripts/generate_openapi_from_planning_notes.py` | Generate OpenAPI root/tree from planning notes. |
+| `scripts/generate_pipeline_capabilities_catalog.py` | Regenerate this capabilities catalog file. |
+| `scripts/lifecycle_manager.py` | Lifecycle scan/report/redirect guidance generation. |
+| `scripts/manage_demo_nav.py` | Demo nav injection/removal helper. |
+| `scripts/pilot_analysis.py` | Pilot analysis/report helper. |
+| `scripts/preprocess_variables.py` | Variables pre-processing helper for docs generation flows. |
+| `scripts/upload_to_algolia.py` | Upload generated search records to Algolia. |
+| `scripts/validate_pr_dod.py` | DoD validation helper for PR workflows. |
+
 ## API-first external sandbox note
 
 For public web playground usage, prefer `external` sandbox mode and a public HTTPS mock URL with CORS:
 
 ```bash
 API_FIRST_DEMO_SANDBOX_BACKEND=external \
-API_FIRST_DEMO_MOCK_BASE_URL="https://sandbox-api.example.com/v1" \
+API_FIRST_DEMO_MOCK_BASE_URL="https://<your-real-public-mock-url>/v1" \
 bash scripts/api_first_demo_live.sh
 ```
 

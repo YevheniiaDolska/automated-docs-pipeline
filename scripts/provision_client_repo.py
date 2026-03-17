@@ -60,6 +60,13 @@ def _prompt_yes_no(prompt: str, default_yes: bool = True) -> bool:
     return raw in {"y", "yes"}
 
 
+def _prompt_csv(prompt: str, default_values: list[str]) -> list[str]:
+    default = ",".join(default_values)
+    raw = _prompt_with_default(prompt, default)
+    values = [x.strip() for x in raw.split(",") if x.strip()]
+    return values
+
+
 def _slugify_client_id(value: str) -> str:
     slug = re.sub(r"[^a-z0-9\-]+", "-", value.lower().strip())
     slug = re.sub(r"-{2,}", "-", slug).strip("-")
@@ -105,7 +112,7 @@ def _save_generated_profile(profile: dict[str, Any], client_id: str) -> Path:
 
 def _create_profile_via_wizard(default_scheduler: str) -> tuple[Path, str, str]:
     print("Preset-based profile creation")
-    preset = _prompt_choice("Choose preset", ["small", "startup", "enterprise"], "startup")
+    preset = _prompt_choice("Choose preset", ["small", "startup", "enterprise", "pilot-evidence"], "startup")
     profile = _build_profile_from_preset(preset)
 
     company_name = _prompt_with_default("Company name", str(profile["client"].get("company_name", "ACME Inc.")))
@@ -127,6 +134,151 @@ def _create_profile_via_wizard(default_scheduler: str) -> tuple[Path, str, str]:
         ["code-first", "api-first", "hybrid"],
         str(profile["runtime"]["docs_flow"].get("mode", "code-first")),
     )
+    style_guide = _prompt_choice(
+        "Vale style guide",
+        ["google", "microsoft", "hybrid"],
+        str(profile.get("bundle", {}).get("style_guide", "google")).strip().lower(),
+    )
+    output_targets = _prompt_csv(
+        "Publish targets (comma-separated, e.g. mkdocs,readme,github)",
+        [str(x) for x in profile["runtime"].get("output_targets", ["mkdocs"])],
+    )
+    if not output_targets:
+        output_targets = ["mkdocs"]
+
+    enable_pr_autofix = _prompt_yes_no("Enable optional PR auto-fix workflow?", default_yes=False)
+
+    sandbox_backend_default = str(profile["runtime"]["api_first"].get("sandbox_backend", "external"))
+    if flow_mode in {"api-first", "hybrid"}:
+        sandbox_backend = _prompt_choice(
+            "API sandbox backend",
+            ["docker", "prism", "external"],
+            sandbox_backend_default,
+        )
+        profile["runtime"]["api_first"]["sandbox_backend"] = sandbox_backend
+        if sandbox_backend == "external":
+            mock_default = str(profile["runtime"]["api_first"].get("mock_base_url", "https://<your-real-public-mock-url>/v1"))
+            profile["runtime"]["api_first"]["mock_base_url"] = _prompt_with_default("External mock base URL", mock_default)
+        upload_assets_default = bool(profile["runtime"]["api_first"].get("upload_test_assets", False))
+        profile["runtime"]["api_first"]["upload_test_assets"] = _prompt_yes_no(
+            "Enable API test asset upload (TestRail/Zephyr)?",
+            default_yes=upload_assets_default,
+        )
+
+    enable_algolia = _prompt_yes_no(
+        "Enable Algolia integration?",
+        default_yes=bool(profile["runtime"]["integrations"]["algolia"].get("enabled", False)),
+    )
+    enable_ask_ai = _prompt_yes_no(
+        "Enable Ask AI integration?",
+        default_yes=bool(profile["runtime"]["integrations"]["ask_ai"].get("enabled", False)),
+    )
+
+    enable_intent_weekly = _prompt_yes_no("Enable weekly intent experience build?", default_yes=True)
+    finalize_gate_cfg = profile["runtime"].get("finalize_gate", {})
+    enable_finalize_commit_confirmation = False
+    if isinstance(finalize_gate_cfg, dict):
+        enable_finalize_commit_confirmation = _prompt_yes_no(
+            "Finalize gate: ask interactive confirmation before commit?",
+            default_yes=bool(finalize_gate_cfg.get("ask_commit_confirmation", False)),
+        )
+
+    advanced_default = preset != "pilot-evidence"
+    if _prompt_yes_no("Configure full advanced options now?", default_yes=advanced_default):
+        modules = profile["runtime"].get("modules", {})
+        if isinstance(modules, dict):
+            print("Module toggles:")
+            for key in sorted(modules.keys()):
+                modules[key] = _prompt_yes_no(f"  Enable module '{key}'?", default_yes=bool(modules[key]))
+
+        bundle_cfg = profile.get("bundle", {})
+        include_paths = bundle_cfg.get("include_paths", [])
+        if isinstance(include_paths, list):
+            bundle_cfg["include_paths"] = _prompt_csv(
+                "Bundle include_paths (comma-separated)",
+                [str(x) for x in include_paths],
+            )
+
+        include_scripts = bundle_cfg.get("include_scripts", [])
+        if isinstance(include_scripts, list):
+            extra_scripts = _prompt_csv(
+                "Extra include_scripts to append (comma-separated, optional)",
+                [],
+            )
+            for script in extra_scripts:
+                if script not in include_scripts:
+                    include_scripts.append(script)
+            bundle_cfg["include_scripts"] = include_scripts
+
+        weekly_tasks = profile["runtime"].get("custom_tasks", {}).get("weekly", [])
+        if isinstance(weekly_tasks, list):
+            extra_tasks = _prompt_csv(
+                "Extra weekly task commands to append (comma-separated, optional)",
+                [],
+            )
+            for command in extra_tasks:
+                weekly_tasks.append(
+                    {
+                        "id": f"custom-{len(weekly_tasks) + 1}",
+                        "enabled": True,
+                        "command": command,
+                        "continue_on_error": True,
+                    }
+                )
+
+        if flow_mode in {"api-first", "hybrid"}:
+            api_first = profile["runtime"].get("api_first", {})
+            if isinstance(api_first, dict):
+                api_first["verify_user_path"] = _prompt_yes_no(
+                    "Enable API user-path verification?",
+                    default_yes=bool(api_first.get("verify_user_path", False)),
+                )
+                api_first["sync_playground_endpoint"] = _prompt_yes_no(
+                    "Sync sandbox URL into docs playground config?",
+                    default_yes=bool(api_first.get("sync_playground_endpoint", True)),
+                )
+                api_first["generate_test_assets"] = _prompt_yes_no(
+                    "Generate API test assets from OpenAPI?",
+                    default_yes=bool(api_first.get("generate_test_assets", True)),
+                )
+
+            git_sync = profile["runtime"].get("git_sync", {})
+            if isinstance(git_sync, dict):
+                git_sync["enabled"] = _prompt_yes_no(
+                    "Enable git sync (auto pull before weekly run)?",
+                    default_yes=bool(git_sync.get("enabled", True)),
+                )
+            if git_sync["enabled"]:
+                git_sync["repo_path"] = _prompt_with_default("Git sync repo path", str(git_sync.get("repo_path", ".")))
+                git_sync["remote"] = _prompt_with_default("Git sync remote", str(git_sync.get("remote", "origin")))
+                git_sync["branch"] = _prompt_with_default("Git sync branch (empty=detected)", str(git_sync.get("branch", "")))
+
+        integrations = profile["runtime"].get("integrations", {})
+        if isinstance(integrations, dict):
+            algolia = integrations.get("algolia", {})
+            if isinstance(algolia, dict) and bool(enable_algolia):
+                algolia["upload_on_weekly"] = _prompt_yes_no(
+                    "Algolia: upload index on weekly run?",
+                    default_yes=bool(algolia.get("upload_on_weekly", False)),
+                )
+
+            ask_ai = integrations.get("ask_ai", {})
+            if isinstance(ask_ai, dict) and bool(enable_ask_ai):
+                ask_ai["provider"] = _prompt_choice(
+                    "Ask AI provider",
+                    ["openai", "anthropic", "azure-openai", "custom"],
+                    str(ask_ai.get("provider", "openai")).strip().lower(),
+                )
+                ask_ai["billing_mode"] = _prompt_choice(
+                    "Ask AI billing mode",
+                    ["disabled", "user-subscription", "platform-paid"],
+                    str(ask_ai.get("billing_mode", "disabled")).strip().lower(),
+                )
+                ask_ai["install_runtime_pack"] = _prompt_yes_no(
+                    "Ask AI: install runtime pack during provisioning?",
+                    default_yes=bool(ask_ai.get("install_runtime_pack", False)),
+                )
+
     scheduler = _prompt_choice("Install scheduler mode", ["none", "linux", "windows"], default_scheduler)
 
     profile["client"]["id"] = client_id
@@ -136,6 +288,31 @@ def _create_profile_via_wizard(default_scheduler: str) -> tuple[Path, str, str]:
     profile["runtime"]["api_root"] = api_root
     profile["runtime"]["sdk_root"] = sdk_root
     profile["runtime"]["docs_flow"]["mode"] = flow_mode
+    profile["bundle"]["style_guide"] = style_guide
+    profile["runtime"]["output_targets"] = output_targets
+    profile["runtime"]["pr_autofix"]["enabled"] = enable_pr_autofix
+    profile["runtime"]["integrations"]["algolia"]["enabled"] = enable_algolia
+    profile["runtime"]["integrations"]["ask_ai"]["enabled"] = enable_ask_ai
+    if isinstance(finalize_gate_cfg, dict):
+        finalize_gate_cfg["ask_commit_confirmation"] = enable_finalize_commit_confirmation
+        if enable_finalize_commit_confirmation and "commit_on_approve" in finalize_gate_cfg:
+            finalize_gate_cfg["commit_on_approve"] = True
+    weekly_tasks = profile["runtime"].get("custom_tasks", {}).get("weekly", [])
+    if isinstance(weekly_tasks, list):
+        found = False
+        for task in weekly_tasks:
+            if isinstance(task, dict) and str(task.get("id", "")).strip() == "intent-experiences":
+                task["enabled"] = enable_intent_weekly
+                found = True
+        if enable_intent_weekly and not found:
+            weekly_tasks.append(
+                {
+                    "id": "intent-experiences",
+                    "enabled": True,
+                    "command": "python3 docsops/scripts/build_all_intent_experiences.py",
+                    "continue_on_error": True,
+                }
+            )
     if flow_mode == "api-first":
         profile["runtime"]["api_first"]["enabled"] = True
     elif flow_mode == "code-first":

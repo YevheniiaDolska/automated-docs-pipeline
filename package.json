@@ -113,6 +113,7 @@
     "i18n:translate:all": "python3 scripts/i18n_translate.py --all-missing",
     "i18n:translate:stale": "python3 scripts/i18n_translate.py --stale-only",
     "i18n:migrate": "python3 scripts/i18n_migrate.py",
+    "confluence:migrate": "python3 scripts/run_confluence_migration.py",
     "consolidate": "npm run gaps && npm run kpi-wall && npm run kpi-sla && npm run i18n:sync && npm run validate:knowledge && python3 scripts/consolidate_reports.py",
     "consolidate:reports-only": "python3 scripts/consolidate_reports.py"
   },

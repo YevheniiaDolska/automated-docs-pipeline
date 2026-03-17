@@ -1,0 +1,245 @@
+{
+  "generated_at": "2026-03-17T10:02:31.933240+00:00",
+  "score": {
+    "audit_score_0_100": 40.2,
+    "grade": "F"
+  },
+  "kpis": {
+    "api_coverage": {
+      "spec_found": true,
+      "spec_path": "api/openapi.yaml",
+      "total_operations": 0,
+      "documented_operations": 0,
+      "undocumented_operations": 0,
+      "undocumented_pct": 0.0,
+      "coverage_pct": 0.0,
+      "undocumented_samples": []
+    },
+    "example_reliability": {
+      "report_found": false,
+      "report_path": "reports/examples_smoke_report.json",
+      "executed_examples": 0,
+      "failed_examples": 0,
+      "example_reliability_pct": 0.0
+    },
+    "freshness": {
+      "total_docs": 48,
+      "dated_docs": 45,
+      "missing_date_docs": 3,
+      "average_age_days": 12.76,
+      "median_age_days": 6.0,
+      "stale_days_threshold": 180,
+      "stale_docs_count": 0,
+      "stale_docs_pct": 0.0
+    },
+    "drift": {
+      "docs_contract_report_found": false,
+      "api_drift_report_found": false,
+      "interface_changed_count": 0,
+      "docs_contract_mismatch_count": 0,
+      "docs_contract_drift_pct": 0.0,
+      "api_drift_status": "missing"
+    },
+    "layer_completeness": {
+      "required_layers": [
+        "concept",
+        "how-to",
+        "reference"
+      ],
+      "total_features": 48,
+      "features_missing_required_layers": 48,
+      "features_missing_required_layers_pct": 100.0,
+      "sample_missing_features": [
+        {
+          "feature": "advanced-search",
+          "missing_layers": [
+            "concept",
+            "how-to"
+          ],
+          "present_layers": [
+            "reference"
+          ]
+        },
+        {
+          "feature": "api-playground",
+          "missing_layers": [
+            "concept",
+            "how-to"
+          ],
+          "present_layers": [
+            "reference"
+          ]
+        },
+        {
+          "feature": "assemble-intent-experiences",
+          "missing_layers": [
+            "concept",
+            "reference"
+          ],
+          "present_layers": [
+            "how-to"
+          ]
+        },
+        {
+          "feature": "browse-by-tag",
+          "missing_layers": [
+            "concept",
+            "how-to"
+          ],
+          "present_layers": [
+            "reference"
+          ]
+        },
+        {
+          "feature": "build-your-first-workflow-in-5-minutes",
+          "missing_layers": [
+            "concept",
+            "how-to",
+            "reference"
+          ],
+          "present_layers": [
+            "tutorial"
+          ]
+        },
+        {
+          "feature": "canonical-flow-sales-delivery",
+          "missing_layers": [
+            "concept",
+            "how-to"
+          ],
+          "present_layers": [
+            "reference"
+          ]
+        },
+        {
+          "feature": "centralized_client_bundles",
+          "missing_layers": [
+            "concept",
+            "how-to"
+          ],
+          "present_layers": [
+            "reference"
+          ]
+        },
+        {
+          "feature": "concepts-and-architecture",
+          "missing_layers": [
+            "how-to",
+            "reference"
+          ],
+          "present_layers": [
+            "concept"
+          ]
+        },
+        {
+          "feature": "configure-ask-ai-module",
+          "missing_layers": [
+            "concept",
+            "reference"
+          ],
+          "present_layers": [
+            "how-to"
+          ]
+        },
+        {
+          "feature": "configure-webhook-triggers",
+          "missing_layers": [
+            "concept",
+            "reference"
+          ],
+          "present_layers": [
+            "how-to"
+          ]
+        }
+      ]
+    },
+    "retrieval_quality": {
+      "report_found": false,
+      "status": "missing",
+      "precision_at_k": 0.0,
+      "recall_at_k": 0.0,
+      "hallucination_rate": 0.0,
+      "top_k": 0
+    },
+    "terminology": {
+      "glossary_path": "glossary.yml",
+      "forbidden_terms_count": 5,
+      "glossary_terms_count": 17,
+      "docs_scanned": 48,
+      "docs_with_forbidden_terms": 0,
+      "forbidden_term_occurrences": 0,
+      "terminology_violation_pct": 0.0,
+      "terminology_consistency_pct": 100.0,
+      "offender_samples": [],
+      "glossary_sync_report_found": false
+    }
+  },
+  "business_impact": {
+    "risk_index_0_to_1": 0.2,
+    "engineering_support_hours_lost_estimate": {
+      "monthly_cost_usd": 5344.75,
+      "engineering_hours": 48.8,
+      "support_hours": 15.75,
+      "release_delay_hours": 2.4
+    },
+    "scenarios": {
+      "conservative": {
+        "monthly_cost_usd": 3741.32,
+        "engineering_hours": 34.16,
+        "support_hours": 11.02,
+        "release_delay_hours": 1.68
+      },
+      "base": {
+        "monthly_cost_usd": 5344.75,
+        "engineering_hours": 48.8,
+        "support_hours": 15.75,
+        "release_delay_hours": 2.4
+      },
+      "aggressive": {
+        "monthly_cost_usd": 7482.65,
+        "engineering_hours": 68.32,
+        "support_hours": 22.05,
+        "release_delay_hours": 3.36
+      }
+    },
+    "assumptions": {
+      "engineer_hourly_usd": 95.0,
+      "support_hourly_usd": 45.0,
+      "release_count_per_month": 4.0,
+      "baseline_manual_sync_hours_per_week": 8.0,
+      "avg_release_delay_hours": 3.0,
+      "monthly_support_tickets": 300.0,
+      "docs_related_ticket_share": 0.25,
+      "avg_ticket_handling_minutes": 18.0
+    }
+  },
+  "top_3_gaps": [
+    {
+      "id": "CODE-0042",
+      "title": "Webhook: webhook: POST",
+      "priority": "high",
+      "action_required": "Update webhook documentation for changes in scripts/upload_api_test_assets.py. Include payload examples and event types.",
+      "related_files": [
+        "scripts/upload_api_test_assets.py"
+      ]
+    },
+    {
+      "id": "CODE-0001",
+      "title": "Authentication: authentication: Auth",
+      "priority": "high",
+      "action_required": "Update authentication documentation for changes in .claude/commands/api-first-demo.md. Include security considerations.",
+      "related_files": [
+        ".claude/commands/api-first-demo.md"
+      ]
+    },
+    {
+      "id": "CODE-0100",
+      "title": "Database Schema: database_schema: schema(",
+      "priority": "high",
+      "action_required": "Document database schema change in scripts/generate_api_test_assets.py. Update data model documentation.",
+      "related_files": [
+        "scripts/generate_api_test_assets.py"
+      ]
+    }
+  ]
+}

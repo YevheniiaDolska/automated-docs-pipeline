@@ -4,6 +4,11 @@ overrides:
   bundle:
     base_policy_pack: "minimal"
     style_guide: "google"
+    llm:
+      codex_instructions_source: "instructions/llm_plans/basic/AGENTS.md"
+      claude_instructions_source: "instructions/llm_plans/basic/CLAUDE.md"
+      inject_managed_block: true
+      docsops_root_in_client_repo: "docsops"
   runtime:
     docs_flow:
       mode: "code-first"
@@ -26,6 +31,15 @@ overrides:
       knowledge_validation: true
       i18n_sync: false
       release_pack: false
+    git_sync:
+      enabled: true
+      repo_path: "."
+      remote: "origin"
+      branch: ""
+      fetch_first: true
+      rebase: true
+      autostash: true
+      continue_on_error: true
     integrations:
       algolia:
         enabled: false

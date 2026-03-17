@@ -33,6 +33,7 @@ One-time setup, then smooth weekly automation:
 - `profiles/clients/presets/small.yml`
 - `profiles/clients/presets/startup.yml`
 - `profiles/clients/presets/enterprise.yml`
+- `profiles/clients/presets/pilot-evidence.yml`
 
 \11. Fastest path:
 
@@ -113,6 +114,8 @@ It executes:
   - if `sync_playground_endpoint=true`, sandbox URL is auto-synced into docs playground config
   - manual overrides apply (`apply_openapi_overrides.py`)
   - regression gate (`check_openapi_regression.py`)
+  - generates API test assets from OpenAPI (`generate_api_test_assets.py`)
+  - optionally uploads test assets to TestRail/Zephyr (`upload_api_test_assets.py`)
 - RAG/knowledge tasks:
   - `extract_knowledge_modules_from_docs.py`
   - `validate_knowledge_modules.py`

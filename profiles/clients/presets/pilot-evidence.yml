@@ -1,0 +1,82 @@
+preset: pilot-evidence
+description: Proof-focused pilot preset that demonstrates end-to-end docs ops value in one week.
+overrides:
+  bundle:
+    base_policy_pack: "minimal"
+    style_guide: "google"
+    llm:
+      codex_instructions_source: "instructions/llm_plans/pilot/AGENTS.md"
+      claude_instructions_source: "instructions/llm_plans/pilot/CLAUDE.md"
+      inject_managed_block: true
+      docsops_root_in_client_repo: "docsops"
+    include_scripts:
+      - "scripts/run_weekly_gap_batch.py"
+      - "scripts/check_docs_contract.py"
+      - "scripts/check_api_sdk_drift.py"
+      - "scripts/generate_kpi_wall.py"
+      - "scripts/evaluate_kpi_sla.py"
+      - "scripts/consolidate_reports.py"
+      - "scripts/normalize_docs.py"
+      - "scripts/lint_code_snippets.py"
+      - "scripts/validate_frontmatter.py"
+      - "scripts/check_code_examples_smoke.py"
+      - "scripts/seo_geo_optimizer.py"
+      - "scripts/doc_layers_validator.py"
+    include_paths: []
+  runtime:
+    docs_flow:
+      mode: "hybrid"
+    output_targets:
+      - "mkdocs"
+    modules:
+      gap_detection: true
+      drift_detection: true
+      docs_contract: true
+      kpi_sla: true
+      rag_optimization: false
+      ontology_graph: false
+      retrieval_evals: false
+      terminology_management: false
+      multilang_examples: false
+      normalization: true
+      snippet_lint: true
+      diagram_validation: false
+      self_checks: true
+      fact_checks: true
+      lifecycle_management: false
+      knowledge_validation: false
+      i18n_sync: false
+      release_pack: false
+    api_first:
+      enabled: true
+      generate_from_notes: true
+      verify_user_path: false
+      sandbox_backend: "prism"
+      mock_service: "prism"
+      mock_base_url: "http://localhost:4010/v1"
+      sync_playground_endpoint: true
+      generate_test_assets: true
+      upload_test_assets: false
+      upload_test_assets_strict: false
+      external_mock:
+        enabled: false
+    custom_tasks:
+      weekly: []
+      on_demand: []
+    git_sync:
+      enabled: true
+      repo_path: "."
+      remote: "origin"
+      branch: ""
+      fetch_first: true
+      rebase: true
+      autostash: true
+      continue_on_error: true
+    integrations:
+      algolia:
+        enabled: false
+        upload_on_weekly: false
+      ask_ai:
+        enabled: false
+        auto_configure_on_provision: true
+        install_runtime_pack: false

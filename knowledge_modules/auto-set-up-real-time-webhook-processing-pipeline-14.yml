@@ -1,0 +1,91 @@
+id: auto-set-up-real-time-webhook-processing-pipeline-14
+title: Set up a real-time webhook processing pipeline (Part 14)
+summary: Configure end-to-end webhook ingestion with HMAC verification, async queue
+  processing, and delivery guarantees in under 15 minutes.
+intents:
+- configure
+- integrate
+- troubleshoot
+audiences:
+- practitioner
+- developer
+channels:
+- docs
+- assistant
+- automation
+priority: 60
+status: active
+owner: docsops-auto
+last_verified: '2026-03-17'
+dependencies: []
+tags:
+- auto-extracted
+- how-to
+- set-up-real-time-webhook-processing-pipeline
+content:
+  docs_markdown: '## Explore the webhook pipeline architecture
+
+
+    The production webhook pipeline spans 13 components across 5 layers:
+
+
+    - **Clients layer:** Mobile App (2.1M users), Web Dashboard (450K DAU), and Partner
+    API (85 integrations) generate webhook events via REST and WebSocket connections.
+
+    - **Edge layer:** CloudFlare CDN (99.99% uptime, TLS 1.3, DDoS protection) terminates
+    connections. The Rate Limiter enforces 60 req/min per API key using a Redis-backed
+    token bucket algorithm.
+
+    - **Verification layer:** The API Gateway routes 12K req/sec to the HMAC Validator,
+    which completes HMAC-SHA256 signature checks in under 2 ms with timing-safe comparison
+    and replay protection.
+
+    - **Processing layer:** The Event Router classifies payloads into 8 event types
+    and dispatches them to the Redis-backed BullMQ Queue (at-least-once delivery,
+    10 concurrent workers). The Retry Engine handles exponential backoff (1 s, 2 s,
+    4 s, 8 s, 16 s) across 5 attempts.
+
+    - **Storage layer:** PostgreSQL handles 2 replicas, 8.5K qps with PgBouncer connection
+    pooling and persists results. The Event Log provides 30-day retention with full-text
+    search. Grafana Monitoring delivers real-time alerts via PagerDuty and Prometheus
+    when error rates exceed 1%.
+
+
+    Click any component in the interactive diagram below to see detailed metrics and
+    technology tags.'
+  assistant_context: 'Use this module when answering questions related to: Set up
+    a real-time webhook processing pipeline (Part 14). Source path: docs/en/how-to/set-up-real-time-webhook-processing-pipeline.md.
+    Summary: Configure end-to-end webhook ingestion with HMAC verification, async
+    queue processing, and delivery guarantees in under 15 minutes.
+
+
+    ## Explore the webhook pipeline architecture
+
+
+    The production webhook pipeline spans 13 components across 5 layers:
+
+
+    - **Clients layer:** Mobile App (2.1M users), Web Dashboard (450K DAU), and Partner
+    API (85 integrations) generate webhook events via REST and WebSocket connections.
+
+    - **Edge layer:** CloudFlare CDN (99.99% uptime, TLS 1.3, DDoS protection) terminates
+    connections. The Rate Limiter enforces 60 req/min per API key using a Redis-backed
+    token bucket algorithm.
+
+    - **Verification layer:** The API Gateway routes 12K req/sec to the HMAC Validator,
+    which completes HMAC-SHA256 signature checks in under 2 ms with timing-safe comparison
+    and replay protection.
+
+    - **Processing layer:** The Event Router classifies payloads into 8 event types
+    and dispatches them to the Redis-backed BullMQ Queue (at-least-once delivery,
+    10 concurrent workers). The Retry Engine handles exponential backoff (1 s, 2 s,
+    4 s, 8 s, 16 s) across 5 attempts.
+
+    - **Storage layer:** PostgreSQL handles 2 replicas, 8.5K qps with PgBouncer connection
+    pooling and persists results. The Event Log provides 30-day retention with full-text
+    search. Grafana Monitoring delivers real-time alerts via PagerDuty and Prometheus
+    when error rates exceed 1%.
+
+
+    Click any component in the interactive diagram below to see detailed metrics and
+    technology tags.'

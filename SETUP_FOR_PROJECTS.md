@@ -192,6 +192,32 @@ These two files are the source of truth for your readout and recap offer.
 - `templates/legal/LICENSE-COMMERCIAL.template.md` and `templates/legal/NOTICE.template.md`:
   - legal templates for commercial delivery/license notices in client package.
 
+## Confluence migration (one-click for client)
+
+If client has a Confluence export ZIP, they can migrate pages in one command:
+
+```bash
+npm run confluence:migrate -- --export-zip /path/to/confluence-export.zip
+```
+
+What this command does:
+
+1. Imports pages from `entities.xml` into Markdown docs.
+1. Writes docs to `docs/imported/confluence/<timestamp>/` (default path).
+1. Runs docsops post-checks automatically:
+   - normalization check/fix,
+   - SEO/GEO check/fix,
+   - code examples smoke check.
+1. Generates migration report files:
+   - `reports/confluence_migration_report.json`,
+   - `reports/confluence_migration_report.md`.
+
+If client only wants raw import without post-checks:
+
+```bash
+npm run confluence:migrate -- --export-zip /path/to/confluence-export.zip --skip-post-checks
+```
+
 ## Operator flow (you)
 
 ### Goal

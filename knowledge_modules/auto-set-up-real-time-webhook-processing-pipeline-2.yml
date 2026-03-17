@@ -1,0 +1,56 @@
+id: auto-set-up-real-time-webhook-processing-pipeline-2
+title: Set up a real-time webhook processing pipeline (Part 2)
+summary: Configure end-to-end webhook ingestion with HMAC verification, async queue
+  processing, and delivery guarantees in under 15 minutes.
+intents:
+- configure
+audiences:
+- practitioner
+- developer
+channels:
+- docs
+- assistant
+- automation
+priority: 60
+status: active
+owner: docsops-auto
+last_verified: '2026-03-17'
+dependencies: []
+tags:
+- auto-extracted
+- how-to
+- set-up-real-time-webhook-processing-pipeline
+content:
+  docs_markdown: "## Configure the webhook listener endpoint\n\n=== \"Cloud\"\n\n\
+    \    Navigate to **Settings > Webhooks** in the {{ product_name }} dashboard at\
+    \ {{ cloud_url }}.\n\n    1. Select **Add endpoint**.\n    1. Enter your receiver\
+    \ URL: `https://your-app.example.com/webhooks`.\n    1. Select the event types\
+    \ you want to receive (for example, `order.completed`, `payment.failed`).\n  \
+    \  1. Copy the generated signing secret. Store it as the `{{ env_vars.encryption_key\
+    \ }}` environment variable.\n\n=== \"Self-hosted\"\n\n    Set the webhook listener\
+    \ port and URL in your environment:\n\n    ```bash\n    export {{ env_vars.port\
+    \ }}={{ default_port }}\n    export {{ env_vars.webhook_url }}=\"https://your-app.example.com/webhooks\"\
+    \n    export {{ env_vars.encryption_key }}=\"whsec_your_signing_secret_min_32_chars_long\"\
+    \n    ```\n\n    Start the {{ product_name }} webhook listener:\n\n    ```bash\n\
+    \    {{ product_name }} start --webhook-port {{ default_port }}\n    ```\n\n##\
+    \ Verify HMAC-SHA256 signatures\n\nEvery incoming webhook payload must pass cryptographic\
+    \ signature verification before processing. This prevents tampering and replay\
+    \ attacks."
+  assistant_context: "Use this module when answering questions related to: Set up\
+    \ a real-time webhook processing pipeline (Part 2). Source path: docs/en/how-to/set-up-real-time-webhook-processing-pipeline.md.\
+    \ Summary: Configure end-to-end webhook ingestion with HMAC verification, async\
+    \ queue processing, and delivery guarantees in under 15 minutes.\n\n## Configure\
+    \ the webhook listener endpoint\n\n=== \"Cloud\"\n\n    Navigate to **Settings\
+    \ > Webhooks** in the {{ product_name }} dashboard at {{ cloud_url }}.\n\n   \
+    \ 1. Select **Add endpoint**.\n    1. Enter your receiver URL: `https://your-app.example.com/webhooks`.\n\
+    \    1. Select the event types you want to receive (for example, `order.completed`,\
+    \ `payment.failed`).\n    1. Copy the generated signing secret. Store it as the\
+    \ `{{ env_vars.encryption_key }}` environment variable.\n\n=== \"Self-hosted\"\
+    \n\n    Set the webhook listener port and URL in your environment:\n\n    ```bash\n\
+    \    export {{ env_vars.port }}={{ default_port }}\n    export {{ env_vars.webhook_url\
+    \ }}=\"https://your-app.example.com/webhooks\"\n    export {{ env_vars.encryption_key\
+    \ }}=\"whsec_your_signing_secret_min_32_chars_long\"\n    ```\n\n    Start the\
+    \ {{ product_name }} webhook listener:\n\n    ```bash\n    {{ product_name }}\
+    \ start --webhook-port {{ default_port }}\n    ```\n\n## Verify HMAC-SHA256 signatures\n\
+    \nEvery incoming webhook payload must pass cryptographic signature verification\
+    \ before processing. This prevents tampering and replay attacks."

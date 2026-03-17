@@ -211,7 +211,7 @@ def build_runtime_config(profile: dict[str, Any]) -> dict[str, Any]:
         "git_sync": runtime.get(
             "git_sync",
             {
-                "enabled": False,
+                "enabled": True,
                 "repo_path": ".",
                 "remote": "origin",
                 "branch": "",
@@ -219,6 +219,27 @@ def build_runtime_config(profile: dict[str, Any]) -> dict[str, Any]:
                 "rebase": True,
                 "autostash": True,
                 "continue_on_error": True,
+            },
+        ),
+        "finalize_gate": runtime.get(
+            "finalize_gate",
+            {
+                "enabled": True,
+                "docs_root": str(runtime.get("docs_root", "docs")),
+                "reports_dir": "reports",
+                "lint_command": "npm run lint",
+                "max_iterations": 5,
+                "continue_on_error": True,
+                "auto_fix_commands": [
+                    "python3 scripts/normalize_docs.py {docs_root}",
+                    "python3 scripts/seo_geo_optimizer.py {docs_root} --fix",
+                ],
+                "llm_fix_command": "",
+                "ask_commit_confirmation": False,
+                "run_precommit_before_commit": True,
+                "precommit_max_iterations": 3,
+                "commit_on_approve": False,
+                "push_on_commit": False,
             },
         ),
         "multilang_examples": runtime.get(
@@ -452,6 +473,11 @@ set -euo pipefail
 REPO_ROOT=\"$(cd \"$(dirname \"${{BASH_SOURCE[0]}}\")/../..\" && pwd)\"
 cd \"$REPO_ROOT\"
 mkdir -p reports
+if [[ -f ".env.docsops.local" ]]; then
+  set -a
+  . ".env.docsops.local"
+  set +a
+fi
 while true; do
   if python3 {docsops_root}/scripts/run_weekly_gap_batch.py --docsops-root {docsops_root} --reports-dir reports --since {since_days}; then
     break
@@ -464,6 +490,15 @@ done
 $RepoRoot = (Resolve-Path (Join-Path $PSScriptRoot \"..\\..\" )).Path
 Set-Location $RepoRoot
 New-Item -ItemType Directory -Path \"reports\" -Force | Out-Null
+if (Test-Path \".env.docsops.local\") {{
+  Get-Content \".env.docsops.local\" | ForEach-Object {{
+    if ($_ -match '^\\s*$' -or $_ -match '^\\s*#') {{ return }}
+    $kv = $_.Split('=', 2)
+    if ($kv.Length -eq 2) {{
+      [Environment]::SetEnvironmentVariable($kv[0].Trim(), $kv[1].Trim(), \"Process\")
+    }}
+  }}
+}}
 while ($true) {{
   if (Get-Command py -ErrorAction SilentlyContinue) {{
     py -3 \"{docsops_root}/scripts/run_weekly_gap_batch.py\" --docsops-root \"{docsops_root}\" --reports-dir \"reports\" --since {since_days}
@@ -516,6 +551,154 @@ $Action = New-ScheduledTaskAction -Execute \"powershell.exe\" -Argument \"-NoPro
         f.chmod(0o755)
 
 
+def _append_env(lines: list[str], key: str, value: str, comment: str) -> None:
+    lines.append(f"# {comment}")
+    lines.append(f"{key}={value}")
+    lines.append("")
+
+
+def build_local_env_template(runtime_cfg: dict[str, Any], bundle_root: Path) -> None:
+    lines: list[str] = [
+        "# DocsOps local secrets template",
+        "# Rename/copy to .env.docsops.local in client repo root and fill real values.",
+        "# This file is generated from enabled features in client profile.",
+        "",
+    ]
+
+    integrations = runtime_cfg.get("integrations", {})
+    if isinstance(integrations, Mapping):
+        algolia = integrations.get("algolia", {})
+        if isinstance(algolia, Mapping) and bool(algolia.get("enabled", False)):
+            _append_env(lines, str(algolia.get("app_id_env", "ALGOLIA_APP_ID")), "YOUR_ALGOLIA_APP_ID", "Algolia app id")
+            _append_env(
+                lines,
+                str(algolia.get("api_key_env", "ALGOLIA_API_KEY")),
+                "YOUR_ALGOLIA_ADMIN_API_KEY",
+                "Algolia admin API key",
+            )
+            _append_env(
+                lines,
+                str(algolia.get("index_name_env", "ALGOLIA_INDEX_NAME")),
+                str(algolia.get("index_name_default", "docs")),
+                "Algolia index name",
+            )
+
+        ask_ai = integrations.get("ask_ai", {})
+        if isinstance(ask_ai, Mapping) and bool(ask_ai.get("enabled", False)):
+            provider = str(ask_ai.get("provider", "openai")).strip().lower()
+            if provider == "openai":
+                _append_env(lines, "OPENAI_API_KEY", "YOUR_OPENAI_API_KEY", "Ask AI: OpenAI API key")
+            elif provider == "anthropic":
+                _append_env(lines, "ANTHROPIC_API_KEY", "YOUR_ANTHROPIC_API_KEY", "Ask AI: Anthropic API key")
+            elif provider == "azure-openai":
+                _append_env(lines, "AZURE_OPENAI_API_KEY", "YOUR_AZURE_OPENAI_API_KEY", "Ask AI: Azure OpenAI key")
+                _append_env(lines, "AZURE_OPENAI_ENDPOINT", "https://YOUR_RESOURCE.openai.azure.com/", "Ask AI: Azure endpoint")
+            else:
+                _append_env(lines, "ASK_AI_API_KEY", "YOUR_ASK_AI_API_KEY", "Ask AI: custom provider key")
+                _append_env(lines, "ASK_AI_BASE_URL", "https://api.example.com/v1", "Ask AI: custom provider base URL")
+
+    api_first = runtime_cfg.get("api_first", {})
+    if isinstance(api_first, Mapping):
+        sandbox_backend = str(api_first.get("sandbox_backend", "")).strip().lower()
+        external_mock = api_first.get("external_mock", {})
+        if (
+            bool(api_first.get("enabled", False))
+            and sandbox_backend == "external"
+            and isinstance(external_mock, Mapping)
+            and bool(external_mock.get("enabled", False))
+        ):
+            provider = str(external_mock.get("provider", "postman")).strip().lower()
+            if provider == "postman":
+                postman = external_mock.get("postman", {})
+                if isinstance(postman, Mapping):
+                    _append_env(
+                        lines,
+                        str(postman.get("api_key_env", "POSTMAN_API_KEY")),
+                        "YOUR_POSTMAN_API_KEY",
+                        "Postman API key",
+                    )
+                    _append_env(
+                        lines,
+                        str(postman.get("workspace_id_env", "POSTMAN_WORKSPACE_ID")),
+                        "YOUR_POSTMAN_WORKSPACE_ID",
+                        "Postman workspace id",
+                    )
+                    _append_env(
+                        lines,
+                        str(postman.get("collection_uid_env", "POSTMAN_COLLECTION_UID")),
+                        "",
+                        "Postman collection uid (optional; leave empty to import from generated OpenAPI)",
+                    )
+                    _append_env(
+                        lines,
+                        str(postman.get("mock_server_id_env", "POSTMAN_MOCK_SERVER_ID")),
+                        "",
+                        "Postman mock server id (optional; leave empty to auto-create)",
+                    )
+
+        if bool(api_first.get("upload_test_assets", False)):
+            test_mgmt = api_first.get("test_management", {})
+            if isinstance(test_mgmt, Mapping):
+                testrail = test_mgmt.get("testrail", {})
+                if isinstance(testrail, Mapping):
+                    _append_env(
+                        lines,
+                        str(testrail.get("enabled_env", "TESTRAIL_UPLOAD_ENABLED")),
+                        "false",
+                        "Set true to enable TestRail upload",
+                    )
+                    _append_env(lines, str(testrail.get("base_url_env", "TESTRAIL_BASE_URL")), "", "TestRail base URL")
+                    _append_env(lines, str(testrail.get("email_env", "TESTRAIL_EMAIL")), "", "TestRail account email")
+                    _append_env(lines, str(testrail.get("api_key_env", "TESTRAIL_API_KEY")), "", "TestRail API key")
+                    _append_env(lines, str(testrail.get("section_id_env", "TESTRAIL_SECTION_ID")), "", "TestRail section id")
+                    _append_env(
+                        lines,
+                        str(testrail.get("suite_id_env", "TESTRAIL_SUITE_ID")),
+                        "",
+                        "TestRail suite id (optional)",
+                    )
+
+                zephyr = test_mgmt.get("zephyr_scale", {})
+                if isinstance(zephyr, Mapping):
+                    _append_env(
+                        lines,
+                        str(zephyr.get("enabled_env", "ZEPHYR_UPLOAD_ENABLED")),
+                        "false",
+                        "Set true to enable Zephyr upload",
+                    )
+                    _append_env(
+                        lines,
+                        str(zephyr.get("base_url_env", "ZEPHYR_SCALE_BASE_URL")),
+                        "https://api.zephyrscale.smartbear.com/v2",
+                        "Zephyr base URL (optional)",
+                    )
+                    _append_env(
+                        lines,
+                        str(zephyr.get("api_token_env", "ZEPHYR_SCALE_API_TOKEN")),
+                        "",
+                        "Zephyr API token",
+                    )
+                    _append_env(
+                        lines,
+                        str(zephyr.get("project_key_env", "ZEPHYR_SCALE_PROJECT_KEY")),
+                        "",
+                        "Zephyr project key",
+                    )
+                    _append_env(
+                        lines,
+                        str(zephyr.get("folder_id_env", "ZEPHYR_SCALE_FOLDER_ID")),
+                        "",
+                        "Zephyr folder id (optional)",
+                    )
+
+    pr_autofix = runtime_cfg.get("pr_autofix", {})
+    if isinstance(pr_autofix, Mapping) and bool(pr_autofix.get("enabled", False)):
+        _append_env(lines, "DOCSOPS_BOT_TOKEN", "", "Optional GitHub token if default GITHUB_TOKEN cannot push")
+
+    out = bundle_root / ".env.docsops.local.template"
+    out.write_text("\n".join(lines).rstrip() + "\n", encoding="utf-8")
+
+
 def create_bundle(profile_path: Path) -> Path:
     profile = read_yaml(profile_path)
     client = profile.get("client", {})
@@ -550,6 +733,7 @@ def create_bundle(profile_path: Path) -> Path:
 
     include_scripts = [str(rel) for rel in bundle_cfg.get("include_scripts", [])]
     required_scripts: list[str] = []
+    required_scripts.append("scripts/finalize_docs_gate.py")
     pr_autofix = runtime_cfg.get("pr_autofix", {})
     if isinstance(pr_autofix, Mapping) and bool(pr_autofix.get("enabled", False)):
         required_scripts.append("scripts/auto_fix_pr_docs.py")
@@ -559,6 +743,14 @@ def create_bundle(profile_path: Path) -> Path:
         if bool(api_first.get("enabled", False)) and isinstance(external_mock, Mapping):
             required_scripts.extend(
                 [
+                    "scripts/run_api_first_flow.py",
+                    "scripts/generate_openapi_from_planning_notes.py",
+                    "scripts/validate_openapi_contract.py",
+                    "scripts/generate_fastapi_stubs_from_openapi.py",
+                    "scripts/self_verify_api_user_path.py",
+                    "scripts/normalize_docs.py",
+                    "scripts/apply_openapi_overrides.py",
+                    "scripts/check_openapi_regression.py",
                     "scripts/generate_api_test_assets.py",
                 ]
             )
@@ -584,6 +776,7 @@ def create_bundle(profile_path: Path) -> Path:
 
     build_llm_instruction_files(profile, bundle_root)
     build_automation_files(profile, bundle_root)
+    build_local_env_template(runtime_cfg, bundle_root)
     build_vale_config(profile, bundle_root)
 
     operator_note = {
@@ -597,6 +790,7 @@ def create_bundle(profile_path: Path) -> Path:
             "runtime_config": "config/client_runtime.yml",
             "policy_pack": "policy_packs/selected.yml",
             "automation_runbook": "ops/runbook.md",
+            "local_env_template": ".env.docsops.local.template",
             "vale_config": ".vale.ini",
         },
     }

@@ -6,7 +6,7 @@
 echo "Running documentation quality checks..."
 
 # Get list of staged .md files (exclude non-doc paths: .claude/, .codex/, root reports)
-STAGED_MD=$(git diff --cached --name-only --diff-filter=ACM | grep '\.md$' | grep -v -E '^(\.claude/|\.codex/|lifecycle-report\.md|README\.md|AGENTS\.md|CLAUDE\.md|README_SETUP\.md|FULL_IMPLEMENTATION_START_HERE\.md|PILOT_START_HERE\.md|templates/legal/)' || true)
+STAGED_MD=$(git diff --cached --name-only --diff-filter=ACM | grep '\.md$' | grep -v -E '^(\.claude/|\.codex/|instructions/|lifecycle-report\.md|README\.md|AGENTS\.md|CLAUDE\.md|README_SETUP\.md|FULL_IMPLEMENTATION_START_HERE\.md|PILOT_START_HERE\.md|PILOT_VS_FULL_IMPLEMENTATION\.md|PILOT_WEEK_OFFER\.md|PRICING_CHEATSHEET_RU\.md|OPERATOR_QUESTIONNAIRE\.md|UPSELL_SALES_PLAYBOOK\.md|SETUP_FOR_PROJECTS\.md|CLIENT_HANDOFF\.md|templates/legal/)' || true)
 
 # Get list of staged API spec files (OpenAPI/Swagger)
 STAGED_API=$(git diff --cached --name-only --diff-filter=ACM | grep -E '(openapi|swagger|api-spec).*\.(yaml|yml|json)$' | grep -v '\.bundled\.' || true)

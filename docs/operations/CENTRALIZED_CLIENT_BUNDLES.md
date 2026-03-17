@@ -156,12 +156,21 @@ runtime:
     manual_overrides_path: "api/overrides/openapi.manual.yml"
     regression_snapshot_path: "api/.openapi-regression.json"
     update_regression_snapshot: false
+    generate_test_assets: true
+    test_assets_output_dir: "reports/api-test-assets"
+    testrail_csv: "reports/api-test-assets/testrail_test_cases.csv"
+    zephyr_json: "reports/api-test-assets/zephyr_test_cases.json"
+    upload_test_assets: false
+    upload_test_assets_strict: false
+    test_assets_upload_report: "reports/api-test-assets/upload_report.json"
 ```
 
 Для этого в `bundle.include_scripts` должны быть:
 
 - `scripts/apply_openapi_overrides.py`
 - `scripts/check_openapi_regression.py`
+- `scripts/generate_api_test_assets.py`
+- `scripts/upload_api_test_assets.py`
 
 ### 3.3) PR авто-фикс документации (в ту же PR-ветку)
 
@@ -294,6 +303,7 @@ Scheduler использует локальную таймзону машины,
 - `profiles/clients/presets/small.yml`
 - `profiles/clients/presets/startup.yml`
 - `profiles/clients/presets/enterprise.yml`
+- `profiles/clients/presets/pilot-evidence.yml`
 
 Самый быстрый запуск:
 
@@ -386,6 +396,8 @@ python3 scripts/provision_client_repo.py \
 \11. Если `runtime.api_first.sync_playground_endpoint=true`, URL песочницы автоматически пишется в `mkdocs.yml`.
 \11. Применяет manual overrides к OpenAPI артефактам (если задан `manual_overrides_path`).
 \11. Проверяет regression snapshot (если задан `regression_snapshot_path`).
+\11. Генерирует API test assets из OpenAPI (`generate_api_test_assets.py`).
+\11. Опционально загружает test assets в TestRail/Zephyr (`upload_api_test_assets.py`).
 \11. Генерирует и валидирует мультиязычные вкладки кода (новый стандарт).
 \11. Выполняет smoke-проверки кода и сверяет `expected-output` (если указан).
 \11. Запускает `runtime.custom_tasks.weekly` (если включены).
@@ -400,7 +412,7 @@ runtime:
   api_first:
     sandbox_backend: "external"
     mock_service: "custom"
-    mock_base_url: "https://sandbox-api.example.com/v1"
+    mock_base_url: "https://<your-real-public-mock-url>/v1"
     sync_playground_endpoint: true
 ```
 

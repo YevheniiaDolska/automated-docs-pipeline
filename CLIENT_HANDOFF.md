@@ -57,6 +57,20 @@ powershell -ExecutionPolicy Bypass -File docsops/ops/install_windows_task.ps1
 
 Default schedule: Monday 10:00 local machine time.
 
+## Optional: one-click Confluence migration
+
+If you export legacy docs from Confluence as ZIP:
+
+```bash
+npm run confluence:migrate -- --export-zip /path/to/confluence-export.zip
+```
+
+Result:
+
+1. Imported docs in `docs/imported/confluence/<timestamp>/`
+1. JSON report: `reports/confluence_migration_report.json`
+1. Human report: `reports/confluence_migration_report.md`
+
 ## Run generation correctly (short commands)
 
 Rule:

@@ -1,6 +1,6 @@
-# Start a 1-week pilot of this pipeline
+# Start a 10-14 day pilot of this pipeline
 
-This guide walks you through a 1-week pilot of the Auto-Doc Pipeline on your own repository. By the end, you have working quality gates, automated weekly reporting, and generated documentation.
+This guide walks you through a focused 10-14 calendar day pilot (typically 5-10 business days) of the Auto-Doc Pipeline on your own repository. By the end, you have working quality gates, automated weekly reporting, and generated documentation.
 
 ## Prerequisites
 
@@ -94,7 +94,7 @@ Review each document for factual accuracy. The pipeline handles formatting, styl
 
 ## Step 8: Decide on full implementation
 
-After the pilot week, you have:
+After the pilot, you have:
 
 \11. A working quality gate system.
 \11. A consolidated report showing documentation health.

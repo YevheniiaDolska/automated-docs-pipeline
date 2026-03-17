@@ -4,9 +4,9 @@ This document compares the two delivery modes for the Auto-Doc Pipeline. Both us
 
 ## Comparison table
 
-| Aspect | Pilot (1 week) | Full implementation (ongoing) |
+| Aspect | Pilot (10-14 days) | Full implementation (ongoing) |
 | --- | --- | --- |
-| **Duration** | 1 week | 2-4 weeks initial, then continuous |
+| **Duration** | 10-14 calendar days (typically 5-10 business days) | 3-6 weeks initial, then continuous |
 | **Policy pack** | `minimal.yml` | `api-first.yml`, `plg.yml`, or custom |
 | **Quality score threshold** | 75 | 82-84 |
 | **Max stale percentage** | 20% | 10-12% |

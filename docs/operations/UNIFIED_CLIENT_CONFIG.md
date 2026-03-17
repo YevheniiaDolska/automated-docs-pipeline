@@ -23,6 +23,7 @@ This file controls all client-specific behavior: repo paths, flow mode, modules,
 Operator-first setup path (recommended):
 \11. Run `python3 scripts/onboard_client.py`.
 \11. Answer wizard questions (preset + client data + repo path + scheduler).
+\11. Choose finalize gate interactive confirmation mode (`runtime.finalize_gate.ask_commit_confirmation`).
 \11. Review generated profile in `profiles/clients/generated/<client_id>.client.yml`.
 \11. Confirm install.
 \11. Verify outputs:
@@ -35,6 +36,7 @@ Different laptops setup path:
 \11. Build bundle on operator machine: `python3 scripts/build_client_bundle.py --client profiles/clients/<client>.client.yml`.
 \11. Copy generated bundle into client repo as `docsops/`.
 \11. Install scheduler on client machine:
+\11. Before scheduler install, verify git auth for the same user account (`git pull` from repo root must work for that user: SSH key or credential helper/PAT).
 
 ```bash
 bash docsops/ops/install_cron_weekly.sh
@@ -51,6 +53,13 @@ Scheduler uses local machine timezone. Monday schedule follows client local time
 Plan packaging reference:
 
 - `docs/operations/PLAN_TIERS.md` (Basic / Pro / Enterprise presets)
+
+Scope note:
+
+- `profiles/clients/presets/pilot-evidence.yml` is intentionally limited (core proof scope).
+- Use full-scope plan presets for full implementation coverage:
+  - `profiles/clients/presets/startup.yml` (Pro-equivalent)
+  - `profiles/clients/presets/enterprise.yml` (Enterprise-equivalent)
 
 ## 1. Client identity
 
@@ -112,6 +121,7 @@ Notes:
 - `google` -> Google-based lint profile
 - `microsoft` -> Microsoft-based lint profile
 - `hybrid` -> both style packs enabled
+- all profiles include `write-good` and `AmericanEnglish` checks by default
 - run `vale sync` in client repo after provisioning to fetch selected style packages
 
 ### `include_paths` (important for templates and knowledge)
@@ -131,6 +141,12 @@ Use this for:
 - knowledge modules
 - any custom assets
 
+Default behavior:
+
+- You normally do not need to edit `include_paths` manually.
+- Preset and profile defaults are already applied during bundle build.
+- Bundle is always created in `generated/client_bundles/<client_id>/`, so operator can inspect exact contents before handoff.
+
 ## 3. LLM instruction packaging
 
 ```yaml
@@ -143,6 +159,13 @@ bundle:
 ```
 
 When `inject_managed_block=true`, builder auto-inserts managed docsops block into bundled `AGENTS.md` and `CLAUDE.md`.
+
+Plan-level defaults:
+
+- Pilot preset -> `instructions/llm_plans/pilot/AGENTS.md`, `instructions/llm_plans/pilot/CLAUDE.md`
+- Basic preset -> `instructions/llm_plans/basic/AGENTS.md`, `instructions/llm_plans/basic/CLAUDE.md`
+- Pro preset -> `instructions/llm_plans/pro/AGENTS.md`, `instructions/llm_plans/pro/CLAUDE.md`
+- Enterprise preset -> `AGENTS.md`, `CLAUDE.md` (current full-scope instructions)
 
 ## 4. Automation schedule (weekly)
 
@@ -223,8 +246,29 @@ runtime:
     verify_user_path: false
     sandbox_backend: "external"
     mock_service: "custom"
-    mock_base_url: "https://sandbox-api.example.com/v1"
+    mock_base_url: "https://<your-real-public-mock-url>/v1"
     sync_playground_endpoint: true
+    generate_test_assets: true
+    test_assets_output_dir: "reports/api-test-assets"
+    testrail_csv: "reports/api-test-assets/testrail_test_cases.csv"
+    zephyr_json: "reports/api-test-assets/zephyr_test_cases.json"
+    upload_test_assets: false
+    upload_test_assets_strict: false
+    test_assets_upload_report: "reports/api-test-assets/upload_report.json"
+    test_management:
+      testrail:
+        enabled_env: "TESTRAIL_UPLOAD_ENABLED"
+        base_url_env: "TESTRAIL_BASE_URL"
+        email_env: "TESTRAIL_EMAIL"
+        api_key_env: "TESTRAIL_API_KEY"
+        section_id_env: "TESTRAIL_SECTION_ID"
+        suite_id_env: "TESTRAIL_SUITE_ID"
+      zephyr_scale:
+        enabled_env: "ZEPHYR_UPLOAD_ENABLED"
+        base_url_env: "ZEPHYR_SCALE_BASE_URL"
+        api_token_env: "ZEPHYR_SCALE_API_TOKEN"
+        project_key_env: "ZEPHYR_SCALE_PROJECT_KEY"
+        folder_id_env: "ZEPHYR_SCALE_FOLDER_ID"
     external_mock:
       enabled: true
       provider: "postman"
@@ -284,6 +328,10 @@ New advanced keys:
 - `mock_service`: informational provider marker for team ops (`postman`, `stoplight`, `mockoon`, `prism-hosted`, `custom`).
 - `mock_base_url`: sandbox endpoint used by API self-verification.
 - `sync_playground_endpoint`: when `true`, writes `mock_base_url` into `mkdocs.yml` API playground `sandbox_base_url`.
+- `generate_test_assets`: generate API test documentation assets from OpenAPI.
+- `upload_test_assets`: push generated assets to TestRail/Zephyr if credentials are enabled.
+- `upload_test_assets_strict`: fail run if upload is enabled and provider upload fails.
+- `test_management.*`: env var names for TestRail/Zephyr upload credentials.
 - `external_mock.enabled`: when `true` and `sandbox_backend=external`, pipeline auto-prepares external mock before API-first checks.
 - `external_mock.provider`: currently `postman`.
 - `external_mock.base_path`: suffix appended to resolved mock URL (usually `/v1`).
@@ -298,7 +346,7 @@ External service behavior:
 In simple terms:
 
 - `mock_base_url` is the one URL the whole pipeline uses for API sandbox checks.
-- If that URL is public (`https://...`) and CORS is configured, Try-it works for every site visitor.
+- If that URL is public (HTTPS) and CORS is configured, Try-it works for every site visitor.
 
 Client input checklist (Postman, one-time):
 
@@ -307,12 +355,21 @@ Client input checklist (Postman, one-time):
 1. optional `POSTMAN_COLLECTION_UID` (if missing, pipeline imports collection from generated OpenAPI)
 1. Optional: `POSTMAN_MOCK_SERVER_ID` (if reusing an existing mock)
 
+Optional test-management input checklist:
+
+1. TestRail:
+   `TESTRAIL_UPLOAD_ENABLED`, `TESTRAIL_BASE_URL`, `TESTRAIL_EMAIL`, `TESTRAIL_API_KEY`, `TESTRAIL_SECTION_ID`, optional `TESTRAIL_SUITE_ID`
+1. Zephyr Scale:
+   `ZEPHYR_UPLOAD_ENABLED`, `ZEPHYR_SCALE_API_TOKEN`, `ZEPHYR_SCALE_PROJECT_KEY`, optional `ZEPHYR_SCALE_BASE_URL`, optional `ZEPHYR_SCALE_FOLDER_ID`
+
 After these are set, pipeline does the rest automatically:
 
 1. Creates or reuses Postman mock server.
 1. Resolves final public mock URL.
 1. Uses it for API self-verification.
 1. Syncs docs playground endpoint automatically.
+1. Generates API test assets (cases, matrix, property/fuzz scenarios, CSV/JSON exports).
+1. Optionally uploads those assets to TestRail/Zephyr.
 
 ## 7. Module switches
 
@@ -339,7 +396,7 @@ runtime:
 
 ### Module -> required script in bundle
 
-- `gap_detection` -> `scripts/gap_detector.py`
+- `gap_detection` -> `scripts/run_weekly_gap_batch.py` + `python3 -m scripts.gap_detection.cli analyze` (runtime command)
 - `drift_detection` -> `scripts/check_api_sdk_drift.py`
 - `docs_contract` -> `scripts/check_docs_contract.py`
 - `kpi_sla` -> `scripts/evaluate_kpi_sla.py` + `scripts/generate_kpi_wall.py`
@@ -357,8 +414,15 @@ runtime:
 - `i18n_sync` -> `scripts/i18n_sync.py`
 - `release_pack` -> `scripts/generate_release_docs_pack.py`
 - `api-first/hybrid` -> `scripts/run_api_first_flow.py` + `scripts/generate_openapi_from_planning_notes.py` + `scripts/validate_openapi_contract.py` + `scripts/generate_fastapi_stubs_from_openapi.py` + `scripts/apply_openapi_overrides.py` + `scripts/check_openapi_regression.py`
+- `finalize_gate` -> `scripts/finalize_docs_gate.py` (iterative lint/fix gate + optional user commit confirmation flow)
 
 If script is missing in bundle, module is skipped or warned.
+
+Pilot note:
+
+- In `pilot-evidence` preset, script set is intentionally reduced.
+- Full-scope presets (`startup`/`enterprise`, mapped to Pro/Enterprise plan levels) include broader script surface.
+- Builder also auto-adds critical API-first dependencies when `runtime.api_first.enabled=true`.
 
 Glossary marker format for new terms inside docs:
 
@@ -386,7 +450,7 @@ runtime:
     modules_dir: "knowledge_modules"
     output_path: "docs/assets/knowledge-graph.jsonld"
   git_sync:
-    enabled: false
+    enabled: true
     repo_path: "."
     remote: "origin"
     branch: ""
@@ -394,10 +458,32 @@ runtime:
     rebase: true
     autostash: true
     continue_on_error: true
+  finalize_gate:
+    enabled: true
+    docs_root: "docs"
+    reports_dir: "reports"
+    lint_command: "npm run lint"
+    max_iterations: 5
+    continue_on_error: true
+    auto_fix_commands:
+      - "python3 scripts/normalize_docs.py {docs_root}"
+      - "python3 scripts/seo_geo_optimizer.py {docs_root} --fix"
+    llm_fix_command: ""
+    ask_commit_confirmation: false
+    run_precommit_before_commit: true
+    commit_on_approve: false
+    push_on_commit: false
 ```
 
-When `git_sync.enabled=true`, weekly runner executes `git fetch` + `git pull` before report generation.
+By default, `git_sync.enabled=true`: weekly runner executes `git fetch` + `git pull` before report generation.
 This lets the responsible person avoid manual pull steps.
+Scheduler must run under a user account that already has git access to the private repo (SSH key or credential helper/PAT).
+
+`finalize_gate` behavior:
+
+- runs after generation/refinement tasks in weekly flow,
+- runs lint/fix/lint loop (`scripts/finalize_docs_gate.py`),
+- can optionally ask user confirmation before commit in interactive mode.
 
 Important: API-first is only one flow branch.
 The pipeline supports and generates all major doc types (tutorial/how-to/concept/reference/troubleshooting/release/security/sdk/api/user/admin/runbook), and quality automation applies across them.

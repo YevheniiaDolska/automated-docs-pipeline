@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>DocsOps Audit Scorecard</title>
+<style>
+  :root {
+    --bg:#f7fafc;
+    --text:#1f2937;
+    --muted:#6b7280;
+    --surface:#ffffff;
+    --accent:#0f766e;
+    --accent-2:#1d4ed8;
+    --warn:#b45309;
+    --border:#e5e7eb;
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; font-family: "Segoe UI", Arial, sans-serif; background: linear-gradient(135deg,#ecfeff,#eef2ff 60%,#f8fafc); color: var(--text); }
+  .wrap { max-width: 1100px; margin: 0 auto; padding: 28px 18px 40px; }
+  .hero { background: var(--surface); border:1px solid var(--border); border-radius:16px; padding:22px; box-shadow: 0 8px 24px rgba(15,23,42,.06); }
+  h1 { margin:0 0 6px; font-size: 30px; }
+  .sub { color: var(--muted); margin:0; }
+  .score { margin-top:14px; display:flex; gap:16px; align-items: baseline; }
+  .score .big { font-size: 44px; font-weight: 800; color: var(--accent); }
+  .score .grade { font-size: 22px; font-weight: 700; color: var(--accent-2); }
+  .grid { margin-top: 18px; display:grid; grid-template-columns: repeat(auto-fit,minmax(220px,1fr)); gap:12px; }
+  .card { background: var(--surface); border:1px solid var(--border); border-radius:12px; padding:14px; }
+  .card h3 { margin:0; font-size:14px; color:var(--muted); font-weight:600; }
+  .card .value { margin-top:8px; font-size:28px; font-weight:700; }
+  .card p { margin:6px 0 0; font-size:13px; color:var(--muted); }
+  .section { margin-top: 18px; background: var(--surface); border:1px solid var(--border); border-radius:12px; padding:16px; }
+  .section h2 { margin:0 0 10px; font-size:20px; }
+  .kpi-table { width:100%; border-collapse: collapse; font-size:14px; }
+  .kpi-table th,.kpi-table td { border-bottom:1px solid var(--border); text-align:left; padding:9px 8px; }
+  .kpi-table th { color:var(--muted); font-weight:600; }
+  .top3 li { margin-bottom: 10px; }
+  .top3 span { color:var(--muted); font-size:13px; }
+  .foot { margin-top:14px; color:var(--muted); font-size:12px; }
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="hero">
+      <h1>DocsOps Audit Scorecard</h1>
+      <p class="sub">Generated at 2026-03-17T10:02:31.933240+00:00</p>
+      <div class="score">
+        <div class="big">40.2</div>
+        <div class="grade">Grade F</div>
+      </div>
+      <div class="grid">
+        <div class='card'><h3>API coverage</h3><div class='value'>0.0%</div><p>Undocumented: 0 / 0 operations</p></div>
+        <div class='card'><h3>Example reliability</h3><div class='value'>0.0%</div><p>Executed: 0, failed: 0</p></div>
+        <div class='card'><h3>Freshness (median age)</h3><div class='value'>6.0 days</div><p>Stale over threshold: 0.0%</p></div>
+        <div class='card'><h3>Docs contract drift</h3><div class='value'>0.0%</div><p>Mismatches: 0</p></div>
+        <div class='card'><h3>Layer completeness</h3><div class='value'>0.0%</div><p>Features missing layers: 48</p></div>
+        <div class='card'><h3>Terminology consistency</h3><div class='value'>100.0%</div><p>Forbidden term occurrences: 0</p></div>
+      </div>
+    </div>
+
+    <div class="section">
+      <h2>Business Impact Estimate (Monthly)</h2>
+      <table class="kpi-table">
+        <tr><th>Metric</th><th>Estimate</th></tr>
+        <tr><td>Engineering hours lost</td><td>48.8 h</td></tr>
+        <tr><td>Support hours burden</td><td>15.75 h</td></tr>
+        <tr><td>Release delay risk</td><td>2.4 h</td></tr>
+        <tr><td>Opportunity cost</td><td>$5344.75</td></tr>
+      </table>
+    </div>
+
+    <div class="section">
+      <h2>Top 3 Gaps To Fix First</h2>
+      <ol class="top3">
+        <li><strong>Webhook: webhook: POST</strong> (high)<br><span>Update webhook documentation for changes in scripts/upload_api_test_assets.py. Include payload examples and event types.</span></li><li><strong>Authentication: authentication: Auth</strong> (high)<br><span>Update authentication documentation for changes in .claude/commands/api-first-demo.md. Include security considerations.</span></li><li><strong>Database Schema: database_schema: schema(</strong> (high)<br><span>Document database schema change in scripts/generate_api_test_assets.py. Update data model documentation.</span></li>
+      </ol>
+    </div>
+
+    <div class="section">
+      <h2>Retrieval Quality</h2>
+      <table class="kpi-table">
+        <tr><th>Precision@k</th><th>Recall@k</th><th>Hallucination rate</th></tr>
+        <tr>
+          <td>0.0</td>
+          <td>0.0</td>
+          <td>0.0</td>
+        </tr>
+      </table>
+      <p class="foot">If retrieval report is missing, run: npm run eval:retrieval</p>
+    </div>
+  </div>
+</body>
+</html>

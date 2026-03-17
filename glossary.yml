@@ -90,6 +90,13 @@ terms:
     aliases:
     - retry logic
     - auto-retry
+  Term:
+    description: Description
+    aliases:
+    - alias-one
+    - alias-two
+    usage_context:
+    - docs/operations/UNIFIED_CLIENT_CONFIG.md
 forbidden:
 - term: simple
   reason: Subjective - what's simple to one user isn't to another

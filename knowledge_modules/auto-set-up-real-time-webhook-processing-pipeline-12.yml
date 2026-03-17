@@ -1,0 +1,61 @@
+id: auto-set-up-real-time-webhook-processing-pipeline-12
+title: Set up a real-time webhook processing pipeline (Part 12)
+summary: Configure end-to-end webhook ingestion with HMAC verification, async queue
+  processing, and delivery guarantees in under 15 minutes.
+intents:
+- configure
+audiences:
+- practitioner
+- developer
+channels:
+- docs
+- assistant
+- automation
+priority: 60
+status: active
+owner: docsops-auto
+last_verified: '2026-03-17'
+dependencies: []
+tags:
+- auto-extracted
+- how-to
+- set-up-real-time-webhook-processing-pipeline
+content:
+  docs_markdown: "### Problem: Replay attack detected (timestamp too old)\n\n**Cause:**\
+    \ Clock skew between the sending server and your receiver exceeds the 5-minute\
+    \ tolerance window. This happens when servers are not synchronized with NTP.\n\
+    \n**Solution:**\n\n1. Synchronize both servers with NTP: `sudo ntpdate -u pool.ntp.org`.\n\
+    1. If clock skew persists, increase the tolerance window from 300 to 600 seconds.\n\
+    1. Monitor the `t=` timestamp in signature headers to detect drift.\n\n### Problem:\
+    \ Connection timeout during webhook processing\n\n**Cause:** Synchronous processing\
+    \ blocks the HTTP response. The sender times out waiting for a 200 OK because\
+    \ your handler processes the event inline instead of enqueuing it.\n\n**Solution:**\n\
+    \n1. Return HTTP 200 immediately after signature verification.\n1. Enqueue the\
+    \ event for async processing using BullMQ or a similar queue.\n1. Set your HTTP\
+    \ server timeout to at least 30 seconds.\n\n```javascript\n// Return 200 immediately,\
+    \ process async\napp.post('/webhooks', async (req, res) => {\n  const isValid\
+    \ = verifyWebhookSignature(\n    req.rawBody, req.headers['x-webhook-signature'],\
+    \ SECRET\n  );\n  if (!isValid) return res.status(401).send('Invalid signature');\n\
+    \n  // Enqueue for background processing (non-blocking)\n  await enqueueWebhookEvent(req.body);\n\
+    \  res.status(200).send('OK');  // Respond within 2 ms\n});\n```"
+  assistant_context: "Use this module when answering questions related to: Set up\
+    \ a real-time webhook processing pipeline (Part 12). Source path: docs/en/how-to/set-up-real-time-webhook-processing-pipeline.md.\
+    \ Summary: Configure end-to-end webhook ingestion with HMAC verification, async\
+    \ queue processing, and delivery guarantees in under 15 minutes.\n\n### Problem:\
+    \ Replay attack detected (timestamp too old)\n\n**Cause:** Clock skew between\
+    \ the sending server and your receiver exceeds the 5-minute tolerance window.\
+    \ This happens when servers are not synchronized with NTP.\n\n**Solution:**\n\n\
+    1. Synchronize both servers with NTP: `sudo ntpdate -u pool.ntp.org`.\n1. If clock\
+    \ skew persists, increase the tolerance window from 300 to 600 seconds.\n1. Monitor\
+    \ the `t=` timestamp in signature headers to detect drift.\n\n### Problem: Connection\
+    \ timeout during webhook processing\n\n**Cause:** Synchronous processing blocks\
+    \ the HTTP response. The sender times out waiting for a 200 OK because your handler\
+    \ processes the event inline instead of enqueuing it.\n\n**Solution:**\n\n1. Return\
+    \ HTTP 200 immediately after signature verification.\n1. Enqueue the event for\
+    \ async processing using BullMQ or a similar queue.\n1. Set your HTTP server timeout\
+    \ to at least 30 seconds.\n\n```javascript\n// Return 200 immediately, process\
+    \ async\napp.post('/webhooks', async (req, res) => {\n  const isValid = verifyWebhookSignature(\n\
+    \    req.rawBody, req.headers['x-webhook-signature'], SECRET\n  );\n  if (!isValid)\
+    \ return res.status(401).send('Invalid signature');\n\n  // Enqueue for background\
+    \ processing (non-blocking)\n  await enqueueWebhookEvent(req.body);\n  res.status(200).send('OK');\
+    \  // Respond within 2 ms\n});\n```"

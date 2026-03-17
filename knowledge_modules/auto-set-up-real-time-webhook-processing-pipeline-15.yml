@@ -1,0 +1,49 @@
+id: auto-set-up-real-time-webhook-processing-pipeline-15
+title: Set up a real-time webhook processing pipeline (Part 15)
+summary: Configure end-to-end webhook ingestion with HMAC verification, async queue
+  processing, and delivery guarantees in under 15 minutes.
+intents:
+- configure
+audiences:
+- practitioner
+- developer
+channels:
+- docs
+- assistant
+- automation
+priority: 60
+status: active
+owner: docsops-auto
+last_verified: '2026-03-17'
+dependencies: []
+tags:
+- auto-extracted
+- how-to
+- set-up-real-time-webhook-processing-pipeline
+content:
+  docs_markdown: '<div class="interactive-diagram" markdown>
+
+    <iframe src="../../diagrams/demo-set-up-real-time-webhook-processing-pipeline.html"
+    title="Webhook processing pipeline architecture"></iframe>
+
+    </div>
+
+
+    For static environments, refer to the [Mermaid sequence diagram](#webhook-processing-data-flow)
+    above.'
+  assistant_context: 'Use this module when answering questions related to: Set up
+    a real-time webhook processing pipeline (Part 15). Source path: docs/en/how-to/set-up-real-time-webhook-processing-pipeline.md.
+    Summary: Configure end-to-end webhook ingestion with HMAC verification, async
+    queue processing, and delivery guarantees in under 15 minutes.
+
+
+    <div class="interactive-diagram" markdown>
+
+    <iframe src="../../diagrams/demo-set-up-real-time-webhook-processing-pipeline.html"
+    title="Webhook processing pipeline architecture"></iframe>
+
+    </div>
+
+
+    For static environments, refer to the [Mermaid sequence diagram](#webhook-processing-data-flow)
+    above.'

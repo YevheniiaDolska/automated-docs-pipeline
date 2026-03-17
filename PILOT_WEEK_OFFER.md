@@ -1,8 +1,8 @@
-# Pilot week service proposal
+# Pilot service proposal (10-14 days)
 
 ## What you get
 
-The pilot week is a 5-day engagement that installs the Auto-Doc Pipeline on your real repository and delivers measurable results. This is not a demo. You receive a working system, generated documentation, and data that proves the value.
+This pilot is a focused 10-14 calendar day engagement (typically 5-10 business days) that installs the Auto-Doc Pipeline on your real repository and delivers measurable results. This is not a demo. You receive a working system, generated documentation, and data that proves the value.
 
 ## Deliverables
 
@@ -35,7 +35,7 @@ Claude Code processes the consolidated report and generates 5-10 documents from 
 
 ### 4. Before/after KPI comparison
 
-Baseline measurements are captured on day 1 and final measurements on day 5:
+Baseline measurements are captured at kickoff and final measurements are captured at handoff:
 
 - Documentation quality score.
 - Stale documentation percentage.
@@ -59,13 +59,12 @@ If you stop after the pilot, you keep everything: CI checks, templates, analysis
 
 ## Timeline
 
-| Day | Focus |
+| Phase | Focus |
 | --- | --- |
-| 1 | Install pipeline, capture baseline, configure variables |
-| 2 | Customize templates, enable core quality gate |
-| 3 | Run consolidated report, process with Claude Code |
-| 4 | Generate remaining docs, fix quality issues |
-| 5 | Final measurement, team training, handoff |
+| Kickoff (Days 1-2) | Install pipeline, capture baseline, configure variables |
+| Build (Days 3-6) | Customize templates, enable core quality gate, run first consolidation |
+| Hardening (Days 7-10) | Generate/fix priority docs, run validations, stabilize outputs |
+| Handoff (Days 11-14) | Final measurement, team training, handoff |
 
 ## Next step
 

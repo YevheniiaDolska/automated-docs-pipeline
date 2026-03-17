@@ -1,118 +1,99 @@
 {
   "summary": {
-    "total_gaps": 12,
-    "high_priority": 8,
+    "total_gaps": 11,
+    "high_priority": 7,
     "medium_priority": 4,
     "low_priority": 0,
     "by_source": {
-      "code": 12
+      "code": 11
     },
     "by_doc_type": {
       "how-to": 8,
-      "reference": 4
+      "reference": 3
     },
     "by_category": {
       "webhook": 1,
       "authentication": 1,
-      "public_function": 1,
       "database_schema": 1,
       "breaking_change": 1,
       "removed_function": 1,
-      "signature_change": 1,
       "api_endpoint": 1,
+      "signature_change": 1,
       "new_function": 1,
+      "public_function": 1,
       "error_handling": 1,
-      "config_option": 1,
-      "env_var": 1
+      "config_option": 1
     }
   },
   "sources_analyzed": [
     "code_changes",
     "community"
   ],
-  "generated_at": "2026-03-13T16:02:56.954024",
+  "generated_at": "2026-03-17T15:41:33.465903",
   "gaps": [
     {
-      "id": "CODE-0029",
-      "title": "Webhook: webhook: pr_docs_contract.json",
-      "description": "Update webhook documentation for changes in scripts/consolidate_reports.py. Include payload examples and event types.",
+      "id": "CODE-0002",
+      "title": "Webhook: webhook: Webhook",
+      "description": "Update webhook documentation for changes in mkdocs.yml. Include payload examples and event types.",
       "source": "code",
       "category": "webhook",
       "suggested_doc_type": "how-to",
       "priority": "high",
-      "frequency": 4889,
+      "frequency": 3832,
       "keywords": [],
       "related_files": [
-        "scripts/consolidate_reports.py"
+        "mkdocs.yml"
       ],
       "sample_queries": [],
-      "action_required": "Update webhook documentation for changes in scripts/consolidate_reports.py. Include payload examples and event types.",
+      "action_required": "Update webhook documentation for changes in mkdocs.yml. Include payload examples and event types.",
       "status": "new",
-      "created_at": "2026-03-13T16:02:56.954880"
+      "created_at": "2026-03-17T15:41:33.466053"
     },
     {
       "id": "CODE-0001",
       "title": "Authentication: authentication: Auth",
-      "description": "Update authentication documentation for changes in .gitignore. Include security considerations.",
+      "description": "Update authentication documentation for changes in docs/reference/taskstream-api-playground.md. Include security considerations.",
       "source": "code",
       "category": "authentication",
       "suggested_doc_type": "how-to",
       "priority": "high",
-      "frequency": 2407,
+      "frequency": 1915,
       "keywords": [],
       "related_files": [
-        ".gitignore"
+        "docs/reference/taskstream-api-playground.md"
       ],
       "sample_queries": [],
-      "action_required": "Update authentication documentation for changes in .gitignore. Include security considerations.",
+      "action_required": "Update authentication documentation for changes in docs/reference/taskstream-api-playground.md. Include security considerations.",
       "status": "new",
-      "created_at": "2026-03-13T16:02:56.954642"
+      "created_at": "2026-03-17T15:41:33.466036"
     },
     {
-      "id": "CODE-0037",
-      "title": "Public Function: public_function: test_emits_only_new_or_changed...",
-      "description": "Consider documenting public API: test_emits_only_new_or_changed_items. Include parameters, return value, and example usage.",
-      "source": "code",
-      "category": "public_function",
-      "suggested_doc_type": "reference",
-      "priority": "high",
-      "frequency": 438,
-      "keywords": [],
-      "related_files": [
-        "tests/test_consolidate_reports.py"
-      ],
-      "sample_queries": [],
-      "action_required": "Consider documenting public API: test_emits_only_new_or_changed_items. Include parameters, return value, and example usage.",
-      "status": "new",
-      "created_at": "2026-03-13T16:02:56.954961"
-    },
-    {
-      "id": "CODE-0003",
-      "title": "Database Schema: database_schema: migration",
-      "description": "Document database schema change in API_FIRST_PLAYBOOK.md. Update data model documentation.",
+      "id": "CODE-0976",
+      "title": "Database Schema: database_schema: schema(",
+      "description": "Document database schema change in scripts/generate_api_test_assets.py. Update data model documentation.",
       "source": "code",
       "category": "database_schema",
       "suggested_doc_type": "how-to",
       "priority": "high",
-      "frequency": 227,
+      "frequency": 213,
       "keywords": [],
       "related_files": [
-        "API_FIRST_PLAYBOOK.md"
+        "scripts/generate_api_test_assets.py"
       ],
       "sample_queries": [],
-      "action_required": "Document database schema change in API_FIRST_PLAYBOOK.md. Update data model documentation.",
+      "action_required": "Document database schema change in scripts/generate_api_test_assets.py. Update data model documentation.",
       "status": "new",
-      "created_at": "2026-03-13T16:02:56.954680"
+      "created_at": "2026-03-17T15:41:33.473249"
     },
     {
-      "id": "CODE-0757",
+      "id": "CODE-1131",
       "title": "Breaking Change: breaking_change:  Change",
       "description": "URGENT: Document breaking change in reports/doc_gaps_report.csv. Update migration guide with before/after examples.",
       "source": "code",
       "category": "breaking_change",
       "suggested_doc_type": "how-to",
       "priority": "high",
-      "frequency": 107,
+      "frequency": 100,
       "keywords": [],
       "related_files": [
         "reports/doc_gaps_report.csv"
@@ -120,28 +101,46 @@
       "sample_queries": [],
       "action_required": "URGENT: Document breaking change in reports/doc_gaps_report.csv. Update migration guide with before/after examples.",
       "status": "new",
-      "created_at": "2026-03-13T16:02:56.960469"
+      "created_at": "2026-03-17T15:41:33.474341"
     },
     {
-      "id": "CODE-0134",
-      "title": "Removed Function: Function removed: print",
-      "description": "BREAKING: Function print was removed. Update documentation and add migration guide.",
+      "id": "CODE-0237",
+      "title": "Removed Function: Function removed: showInfo",
+      "description": "BREAKING: Function showInfo was removed. Update documentation and add migration guide.",
       "source": "code",
       "category": "removed_function",
       "suggested_doc_type": "how-to",
       "priority": "high",
-      "frequency": 93,
+      "frequency": 84,
       "keywords": [],
       "related_files": [
-        "docs/reference/intent-experiences/configure-operator.md"
+        "docs/diagrams/demo-set-up-real-time-webhook-processing-pipeline.html"
       ],
       "sample_queries": [],
-      "action_required": "BREAKING: Function print was removed. Update documentation and add migration guide.",
+      "action_required": "BREAKING: Function showInfo was removed. Update documentation and add migration guide.",
       "status": "new",
-      "created_at": "2026-03-13T16:02:56.955709"
+      "created_at": "2026-03-17T15:41:33.467897"
     },
     {
-      "id": "CODE-0022",
+      "id": "CODE-0268",
+      "title": "Api Endpoint: api_endpoint: /webhooks",
+      "description": "Document API endpoint: /webhooks. Include request/response examples, parameters, authentication requirements.",
+      "source": "code",
+      "category": "api_endpoint",
+      "suggested_doc_type": "reference",
+      "priority": "high",
+      "frequency": 35,
+      "keywords": [],
+      "related_files": [
+        "docs/en/how-to/set-up-real-time-webhook-processing-pipeline.md"
+      ],
+      "sample_queries": [],
+      "action_required": "Document API endpoint: /webhooks. Include request/response examples, parameters, authentication requirements.",
+      "status": "new",
+      "created_at": "2026-03-17T15:41:33.468095"
+    },
+    {
+      "id": "CODE-2304",
       "title": "Signature Change: Function signature changed: print",
       "description": "UPDATE REQUIRED: Function print signature changed. Old: (\"Blocking PR: public interface changed but docs were not updated.\") → New: (\"Docs contract drift found (report-only mode). Update documentation and examples.",
       "source": "code",
@@ -156,97 +155,79 @@
       "sample_queries": [],
       "action_required": "UPDATE REQUIRED: Function print signature changed. Old: (\"Blocking PR: public interface changed but docs were not updated.\") → New: (\"Docs contract drift found (report-only mode). Update documentation and examples.",
       "status": "new",
-      "created_at": "2026-03-13T16:02:56.954831"
+      "created_at": "2026-03-17T15:41:33.482308"
     },
     {
-      "id": "CODE-4848",
-      "title": "Api Endpoint: api_endpoint: /tasks",
-      "description": "Document API endpoint: /tasks. Include request/response examples, parameters, authentication requirements.",
-      "source": "code",
-      "category": "api_endpoint",
-      "suggested_doc_type": "reference",
-      "priority": "high",
-      "frequency": 8,
-      "keywords": [],
-      "related_files": [
-        "tests/test_client_pipeline_coverage.py"
-      ],
-      "sample_queries": [],
-      "action_required": "Document API endpoint: /tasks. Include request/response examples, parameters, authentication requirements.",
-      "status": "new",
-      "created_at": "2026-03-13T16:02:56.983019"
-    },
-    {
-      "id": "CODE-0024",
-      "title": "New Function: New function: _dod_duplicate_exists",
-      "description": "Document new function: _dod_duplicate_exists. Include parameters, return value, and usage example.",
+      "id": "CODE-0343",
+      "title": "New Function: New function: _not_implemented",
+      "description": "Document new function: _not_implemented. Include parameters, return value, and usage example.",
       "source": "code",
       "category": "new_function",
       "suggested_doc_type": "how-to",
       "priority": "medium",
-      "frequency": 649,
+      "frequency": 587,
       "keywords": [],
       "related_files": [
-        "scripts/consolidate_reports.py"
+        "generated/api-stubs/fastapi/app/main.py"
       ],
       "sample_queries": [],
-      "action_required": "Document new function: _dod_duplicate_exists. Include parameters, return value, and usage example.",
+      "action_required": "Document new function: _not_implemented. Include parameters, return value, and usage example.",
       "status": "new",
-      "created_at": "2026-03-13T16:02:56.954846"
+      "created_at": "2026-03-17T15:41:33.468620"
     },
     {
-      "id": "CODE-0314",
-      "title": "Error Handling: error_handling: RuntimeError",
-      "description": "Document new error type: RuntimeError. Include cause, solution, and error code.",
+      "id": "CODE-0634",
+      "title": "Public Function: public_function: verify_webhook_signature",
+      "description": "Consider documenting public API: verify_webhook_signature. Include parameters, return value, and example usage.",
+      "source": "code",
+      "category": "public_function",
+      "suggested_doc_type": "reference",
+      "priority": "medium",
+      "frequency": 349,
+      "keywords": [],
+      "related_files": [
+        "docs/en/how-to/set-up-real-time-webhook-processing-pipeline.md"
+      ],
+      "sample_queries": [],
+      "action_required": "Consider documenting public API: verify_webhook_signature. Include parameters, return value, and example usage.",
+      "status": "new",
+      "created_at": "2026-03-17T15:41:33.470678"
+    },
+    {
+      "id": "CODE-0341",
+      "title": "Error Handling: error_handling: 401",
+      "description": "Document new error type: 401. Include cause, solution, and error code.",
       "source": "code",
       "category": "error_handling",
       "suggested_doc_type": "how-to",
       "priority": "medium",
-      "frequency": 89,
+      "frequency": 92,
       "keywords": [],
       "related_files": [
-        "scripts/ensure_external_mock_server.py"
+        "docs/en/how-to/set-up-real-time-webhook-processing-pipeline.md"
       ],
       "sample_queries": [],
-      "action_required": "Document new error type: RuntimeError. Include cause, solution, and error code.",
+      "action_required": "Document new error type: 401. Include cause, solution, and error code.",
       "status": "new",
-      "created_at": "2026-03-13T16:02:56.957229"
+      "created_at": "2026-03-17T15:41:33.468607"
     },
     {
-      "id": "CODE-0904",
-      "title": "Config Option: config_option: billing_mode",
-      "description": "Document configuration option: billing_mode. Include allowed values and when to use.",
+      "id": "CODE-1256",
+      "title": "Config Option: config_option: local",
+      "description": "Document configuration option: local. Include allowed values and when to use.",
       "source": "code",
       "category": "config_option",
       "suggested_doc_type": "reference",
       "priority": "medium",
-      "frequency": 35,
+      "frequency": 9,
       "keywords": [],
       "related_files": [
-        "scripts/configure_ask_ai.py"
+        "reports/consolidated_report.json"
       ],
       "sample_queries": [],
-      "action_required": "Document configuration option: billing_mode. Include allowed values and when to use.",
+      "action_required": "Document configuration option: local. Include allowed values and when to use.",
       "status": "new",
-      "created_at": "2026-03-13T16:02:56.961393"
-    },
-    {
-      "id": "CODE-6998",
-      "title": "Env Var: env_var: ASK_AI_API_KEY",
-      "description": "Add environment variable ASK_AI_API_KEY to configuration reference. Include default value, description, and examples.",
-      "source": "code",
-      "category": "env_var",
-      "suggested_doc_type": "reference",
-      "priority": "medium",
-      "frequency": 28,
-      "keywords": [],
-      "related_files": [
-        "runtime/ask-ai-pack/app/auth.py"
-      ],
-      "sample_queries": [],
-      "action_required": "Add environment variable ASK_AI_API_KEY to configuration reference. Include default value, description, and examples.",
-      "status": "new",
-      "created_at": "2026-03-13T16:02:56.994825"
+      "created_at": "2026-03-17T15:41:33.475677"
     }
   ]
 }

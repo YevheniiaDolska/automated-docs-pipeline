@@ -24,7 +24,10 @@ reports/consolidated_report.json
 LLM: "Process reports/consolidated_report.json"
         |
         v
-LLM prioritizes (3 tiers), creates/updates docs, self-verifies, lints
+LLM prioritizes (3 tiers), creates/updates docs, self-verifies
+        |
+        v
+Finalize gate: lint -> auto-fix -> lint loop (optional user commit confirmation)
         |
         v
 User: reviews diffs (git diff), commits
@@ -34,25 +37,101 @@ Compatibility mode:
 
 - You can still run the same weekly flow via GitHub Actions cron (`weekly-consolidation.yml` and related workflows).
 
+## Installation Model (Operator vs Client)
+
+Use two-stage delivery by default.
+
+1. Operator side (your machine):
+   - collect client inputs,
+   - generate profile,
+   - build bundle.
+1. Client side (client machine/repo):
+   - copy bundle as `docsops/`,
+   - fill local secrets from generated template,
+   - ensure git auth is configured for the same user that runs scheduler (`git pull` must work),
+   - install scheduler once.
+
+Operator command (easy mode):
+
+```bash
+python3 scripts/onboard_client.py
+```
+
+Confluence import one-click (copy exporter ZIP and run):
+
+```bash
+npm run confluence:migrate -- --export-zip /path/to/confluence-export.zip
+```
+
+Outputs:
+
+1. Imported docs folder (default): `docs/imported/confluence/<timestamp>/`
+1. Migration report (JSON): `reports/confluence_migration_report.json`
+1. Human report (Markdown): `reports/confluence_migration_report.md`
+
+The one-click migration flow also runs docsops post-checks automatically (normalization, SEO/GEO fix pass, and example smoke checks) unless you pass `--skip-post-checks`.
+
+Primary outputs:
+
+1. `profiles/clients/generated/<client_id>.client.yml`
+1. `generated/client_bundles/<client_id>/`
+1. `generated/client_bundles/<client_id>/.env.docsops.local.template`
+
+Preset-aware behavior:
+
+- bundle includes plan-matched LLM instructions automatically (`pilot/basic/pro/enterprise` mapping).
+
+Client installs bundle locally and creates:
+
+- `/.env.docsops.local` (from template, kept in `.gitignore`)
+
+For same-machine provisioning (operator has local access to client repo), one-shot command is available:
+
+```bash
+python3 scripts/provision_client_repo.py --client <profile> --client-repo <path> --docsops-dir docsops --install-scheduler linux
+```
+
+Detailed role-separated setup guide:
+
+- `SETUP_FOR_PROJECTS.md`
+
 Current standard (as of 2026-03-12):
 
 - Weekly automation runs locally in client repo, default Monday at `10:00` local time.
-- Optional `git_sync` can pull the repo before weekly checks.
+- `git_sync` is enabled by default and pulls the repo before weekly checks.
+- Scheduler user must already have git access to the repository (SSH key or credential helper/PAT), otherwise pre-sync fails.
 - API-first sandbox supports `docker`, `prism`, and `external` modes.
 - In `external` mode, use any public HTTPS mock URL with CORS (for example Postman Mock Servers, Stoplight-hosted Prism, Mockoon Cloud, or self-hosted Prism).
 - API-first flow can auto-sync playground sandbox URL from `mock_base_url`.
 - External mock can be auto-prepared via Postman API (first built-in provider). This is optional and provider-agnostic overall.
+- API-first flow can auto-generate test assets from OpenAPI (cases, matrix, property/fuzz scenarios, TestRail CSV, Zephyr JSON).
+- Optional API upload can push generated test assets to TestRail and Zephyr Scale through API credentials.
 - Optional PR auto-doc workflow can update docs in the same PR branch when docs gates fail.
 
 Major updates (simple checklist):
 
 1. Local weekly scheduler is now the main mode (Monday 10:00 local time by default).
-1. Optional pre-run `git_sync` can auto-pull repo before weekly checks.
+1. Pre-run `git_sync` is default-on and auto-pulls repo before weekly checks.
 1. API-first supports no-Docker and public sandbox (`prism` and `external`).
 1. API playground endpoint is auto-synced from API-first `mock_base_url`.
+1. API-first can auto-generate QA-ready test assets from OpenAPI and optionally upload them into TestRail/Zephyr.
 1. Knowledge pipeline now includes JSON-LD graph generation and retrieval evals (Precision/Recall/Hallucination-rate).
 1. Glossary flow uses pre-generation term check plus post-generation glossary sync markers.
 1. Multi-language examples are generated/validated as a standard pattern, with smoke checks and expected-output comparison.
+1. Finalize gate is built-in across flows: iterative lint/fix loop, optional commit confirmation, optional pre-commit rerun.
+
+### Finalize Gate: Before Yes / After Yes
+
+Before `Yes`:
+
+1. Full finalize loop runs: `lint -> auto-fix -> lint` until green or max iterations.
+1. LLM/self-check fixes are applied from linter output.
+
+After `Yes` (after human review and optional manual edits):
+
+1. Pre-commit loop runs again: `pre-commit -> auto-fix -> pre-commit` (to catch regressions from manual edits).
+1. If green and commit flow is enabled, pipeline commits and pushes.
+1. CI reruns the same quality layer, then docs site build/deploy workflows continue.
 
 ### Consolidated weekly report
 
@@ -269,6 +348,7 @@ For teams that start with an OpenAPI spec:
 1. OpenAPI Generator produces SDK stubs and reference scaffolds.
 1. Sandbox endpoint can run in `docker`, `prism` (no Docker), or `external` (public hosted) mode.
 1. `run_api_first_flow.py` can auto-sync docs playground endpoint to `mock_base_url` (`sync_playground_endpoint=true`).
+1. `run_api_first_flow.py` can generate API test assets (`--generate-test-assets`) and optionally upload them (`--upload-test-assets`).
 1. `api-sdk-drift-gate.yml` blocks PRs if specs change without doc updates.
 
 If API specs and docs are maintained by different people:
@@ -276,6 +356,21 @@ If API specs and docs are maintained by different people:
 - Keep both changes in the same PR before merge (recommended).
 - Or use a short-lived "contract PR" and immediate linked docs PR, then merge only after both gates are green.
 - Gate behavior is intentional: it prevents shipping undocumented contract changes.
+
+### Why teams buy full implementation (not just AI drafts)
+
+Full implementation is valuable when it changes release behavior, not just writing speed:
+
+1. Fewer escaped doc errors: drift/contract/example checks catch mismatches before merge.
+1. Faster release cycles: one docs update path from gap detection to publish-ready PR.
+1. QA alignment: OpenAPI generates test assets and can sync them to TestRail/Zephyr.
+1. AI answer quality: retrieval index + JSON-LD graph + retrieval evals reduce wrong answers.
+
+Typical impact after stabilization:
+
+1. 40-65% time reduction in first cycles, then 60-80% on repeated cycles.
+1. 25-50% fewer doc-related support tickets.
+1. 2-4x more pages maintained per writer/operator with the same team size.
 
 ### Code-first workflow
 
@@ -431,6 +526,8 @@ Use `python3 -m pytest ...` (or `npm run test:all`) instead of bare `pytest ...`
 | Windows user starting from zero | `BEGINNER_GUIDE.md` |
 | Setting up for the first time | `README_SETUP.md` |
 | Installing into another repository | `SETUP_FOR_PROJECTS.md` |
+| Client-side install in 3 steps | `CLIENT_HANDOFF.md` |
+| Operator client-intake questionnaire | `OPERATOR_QUESTIONNAIRE.md` |
 | Private repository | `PRIVATE_REPO_SETUP.md` |
 | Running a pilot week for a client | `PILOT_VS_FULL_IMPLEMENTATION.md` |
 | Customizing for a specific company | `CUSTOMIZATION_PER_COMPANY.md` |
