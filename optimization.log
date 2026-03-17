@@ -1,7 +1,6 @@
 Processing docs/concepts/index.md...
 Processing docs/concepts/intelligent-knowledge-system.md...
 Processing docs/concepts/workflow-execution-model.md...
-Processing docs/en/how-to/set-up-real-time-webhook-processing-pipeline.md...
 Processing docs/getting-started/index.md...
 Processing docs/getting-started/quickstart.md...
 Processing docs/how-to/assemble-intent-experiences.md...
@@ -45,30 +44,30 @@ Processing docs/search-faceted.md...
 Processing docs/tags.md...
 Processing docs/troubleshooting/index.md...
 Processing docs/troubleshooting/webhook-not-firing.md...
-Generated sitemap with 47 URLs
-Saved 290 Algolia records
+Generated sitemap with 46 URLs
+Saved 272 Algolia records
 
 ============================================================
 SEO/GEO OPTIMIZATION REPORT
 ============================================================
 
-GEO Findings: 0 errors, 25 warnings, 53 suggestions
+GEO Findings: 0 errors, 24 warnings, 53 suggestions
   docs/concepts/index.md:1 [suggestion] seo-low-internal-links: Only 0 internal link(s). Add cross-references to improve SEO link graph.
   docs/concepts/index.md:1 [warning] seo-thin-content: Only 19 words. Pages under 100 words rank poorly.
   docs/concepts/index.md:1 [suggestion] seo-no-structured-data: No code blocks, tables, or lists found. Structured content improves search snippets.
   docs/concepts/intelligent-knowledge-system.md:1 [suggestion] seo-heading-keyword-gap: No H2 headings share keywords with the title. Align headings with title for better ranking.
-  docs/en/how-to/set-up-real-time-webhook-processing-pipeline.md:51 [warning] seo-bare-url: Bare URL found. Use [descriptive text](https://your-app.example.com/webhooks`.) instead.
   docs/getting-started/index.md:1 [suggestion] seo-low-internal-links: Only 0 internal link(s). Add cross-references to improve SEO link graph.
   docs/getting-started/index.md:1 [warning] seo-thin-content: Only 19 words. Pages under 100 words rank poorly.
   docs/getting-started/index.md:1 [suggestion] seo-no-structured-data: No code blocks, tables, or lists found. Structured content improves search snippets.
   docs/getting-started/quickstart.md:36 [warning] seo-bare-url: Bare URL found. Use [descriptive text](http://localhost:5678`.) instead.
   docs/how-to/assemble-intent-experiences.md:1 [suggestion] seo-heading-keyword-gap: No H2 headings share keywords with the title. Align headings with title for better ranking.
-  ... and 68 more findings
+  docs/how-to/index.md:1 [warning] seo-thin-content: Only 35 words. Pages under 100 words rank poorly.
+  ... and 67 more findings
 
-Search Records: 290 records generated
+Search Records: 272 records generated
   By content type:
     - concept: 21
-    - how-to: 68
+    - how-to: 50
     - reference: 183
     - troubleshooting: 9
     - tutorial: 9
