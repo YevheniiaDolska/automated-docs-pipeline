@@ -46,35 +46,35 @@ bash scripts/api_prodlike_project.sh up taskstream 4011
 
 ## Playground embed
 
-<link rel="stylesheet" href="https://unpkg.com/swagger-ui-dist/swagger-ui.css">
-<div id="api-playground-root"></div>
-<script src="https://unpkg.com/swagger-ui-dist/swagger-ui-bundle.js"></script>
+<div id="swagger-ui-taskstream"></div>
+<link rel="stylesheet" href="https://unpkg.com/swagger-ui-dist@5.18.2/swagger-ui.css">
+<script src="https://unpkg.com/swagger-ui-dist@5.18.2/swagger-ui-bundle.js"></script>
 <script>
-document.addEventListener("DOMContentLoaded", function () {
-  var el = document.getElementById("api-playground-root");
-  if (!el || el.dataset.swaggerLoaded) return;
-  el.dataset.swaggerLoaded = "1";
-  SwaggerUIBundle({
-    url: "{{ config.site_url }}assets/api/openapi.bundled.json",
-    dom_id: "#api-playground-root",
-    deepLinking: true,
-    docExpansion: "list",
-    defaultModelsExpandDepth: 1,
-    supportedSubmitMethods: ["get","put","post","delete","options","head","patch","trace"],
-    requestInterceptor: function (req) {
-      try {
-        var u = new URL(req.url, location.origin);
-        var t = new URL("{{ config.extra.plg.api_playground.endpoints.sandbox_base_url }}", location.origin);
-        u.protocol = t.protocol;
-        u.hostname = t.hostname;
-        u.port = t.port;
-        req.url = u.toString();
-      } catch (e) {}
-      return req;
-    }
-  });
-});
-if (document.readyState !== "loading") { document.dispatchEvent(new Event("DOMContentLoaded")); }
+(function() {
+  var specUrl = "{{ config.site_url }}assets/api/openapi.bundled.json";
+  var sandboxUrl = "{{ config.extra.plg.api_playground.endpoints.sandbox_base_url }}";
+  function boot() {
+    if (typeof SwaggerUIBundle === "undefined") { setTimeout(boot, 100); return; }
+    SwaggerUIBundle({
+      url: specUrl,
+      dom_id: "#swagger-ui-taskstream",
+      deepLinking: true,
+      docExpansion: "list",
+      defaultModelsExpandDepth: 1,
+      supportedSubmitMethods: ["get","put","post","delete","options","head","patch","trace"],
+      requestInterceptor: function (req) {
+        try {
+          var u = new URL(req.url, location.origin);
+          var t = new URL(sandboxUrl, location.origin);
+          u.protocol = t.protocol; u.hostname = t.hostname; u.port = t.port;
+          req.url = u.toString();
+        } catch (e) {}
+        return req;
+      }
+    });
+  }
+  boot();
+})();
 </script>
 
 For multi-version API docs, publish one spec per version and add separate playground blocks or tabs:
