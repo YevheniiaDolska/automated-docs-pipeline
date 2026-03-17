@@ -1,0 +1,12 @@
+.interactive-diagram iframe {
+  width: 100%;
+  height: 700px;
+  border: none;
+  border-radius: 8px;
+}
+
+@media (max-width: 768px) {
+  .interactive-diagram iframe {
+    height: 500px;
+  }
+}

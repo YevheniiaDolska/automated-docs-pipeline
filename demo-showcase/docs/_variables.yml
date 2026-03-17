@@ -1,0 +1,65 @@
+# =============================================================
+# PROJECT VARIABLES - Single source of truth
+# =============================================================
+# These variables are used across all documentation.
+# Change them here to update everywhere.
+# =============================================================
+
+# --- PRODUCT INFO ---
+product_name: "ProductName"
+product_full_name: "Product workflow automation"
+product_tagline: "Enterprise workflow automation platform"
+
+# --- VERSIONS ---
+current_version: "1.50.0"
+min_supported_version: "1.40.0"
+api_version: "v1"
+docs_version: "2.0"
+
+# --- URLS ---
+cloud_url: "https://app.example.com"
+cloud_signup_url: "https://app.example.com/register"
+docs_url: "https://docs.example.com"
+community_url: "https://community.example.com"
+github_url: "https://github.com/YOUR_ORG/YOUR_REPO"
+status_page_url: "https://status.example.com"
+api_url: "https://api.example.com"
+
+# --- SUPPORT ---
+support_email: "support@example.com"
+sales_email: "sales@example.com"
+
+# --- DEFAULT PORTS ---
+default_port: 5678
+default_webhook_port: 5678
+
+# --- DEFAULT PATHS ---
+default_data_folder: "~/.product"
+default_config_path: "~/.product/config"
+
+# --- ENVIRONMENT VARIABLES ---
+env_vars:
+  webhook_url: "WEBHOOK_URL"
+  data_folder: "PRODUCT_USER_FOLDER"
+  port: "PRODUCT_PORT"
+  basic_auth_user: "PRODUCT_BASIC_AUTH_USER"
+  basic_auth_password: "PRODUCT_BASIC_AUTH_PASSWORD"
+  encryption_key: "PRODUCT_ENCRYPTION_KEY"
+
+# --- LIMITS ---
+max_payload_size_mb: 16
+max_execution_timeout_seconds: 3600
+rate_limit_requests_per_minute: 60
+
+# --- COMMON TERMS (for consistency) ---
+terms:
+  workflow: "workflow"
+  node: "node"
+  trigger: "trigger"
+  execution: "execution"
+  credential: "credential"
+  expression: "expression"
+
+# --- BRANDING ---
+company_name: "Your Company"
+copyright_year: "2024"

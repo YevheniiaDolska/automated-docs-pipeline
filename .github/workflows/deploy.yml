@@ -30,6 +30,12 @@ jobs:
 
       - run: mkdocs build --strict
 
+      - name: Build demo-showcase sub-site
+        run: |
+          cd demo-showcase
+          mkdocs build --strict
+          cp -r site/ ../site/demo-showcase/
+
       - uses: actions/upload-pages-artifact@v3
         with:
           path: site/
