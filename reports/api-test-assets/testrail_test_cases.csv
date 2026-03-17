@@ -1,0 +1,573 @@
+Title,Section,Type,Priority,Preconditions,Steps,Expected Result,Refs
+delete_comments_by_comment_id: positive,Comments,functional,high,"Sandbox endpoint is available.
+OpenAPI contract version matches deployed mock.","Set base URL to sandbox endpoint for delete_comments_by_comment_id.
+Prepare DELETE request for /comments/{comment_id}.
+Send request with valid payload and required headers.",Response status is 204 and payload matches OpenAPI response schema.,DELETE /comments/{comment_id} (delete_comments_by_comment_id)
+delete_comments_by_comment_id: auth negative,Comments,functional,high,"Sandbox endpoint is available.
+OpenAPI contract version matches deployed mock.","Set base URL to sandbox endpoint for delete_comments_by_comment_id.
+Prepare DELETE request for /comments/{comment_id}.
+Send request without auth token or with invalid token.","Response status is 401 or 403, and error envelope matches documented schema.",DELETE /comments/{comment_id} (delete_comments_by_comment_id)
+delete_comments_by_comment_id: not found negative,Comments,functional,medium,"Sandbox endpoint is available.
+OpenAPI contract version matches deployed mock.","Set base URL to sandbox endpoint for delete_comments_by_comment_id.
+Prepare DELETE request for /comments/{comment_id}.
+Send request with non-existent resource identifier.",Response status is 404 with not-found error envelope.,DELETE /comments/{comment_id} (delete_comments_by_comment_id)
+delete_comments_by_comment_id: fuzz negative,Comments,fuzz,medium,"Sandbox endpoint is available.
+OpenAPI contract version matches deployed mock.","Set base URL to sandbox endpoint for delete_comments_by_comment_id.
+Prepare DELETE request for /comments/{comment_id}.
+Send request with malformed values and verify rejection.",Response status is 4xx and service remains stable without schema violations.,DELETE /comments/{comment_id} (delete_comments_by_comment_id)
+get_comments_by_comment_id: positive,Comments,functional,high,"Sandbox endpoint is available.
+OpenAPI contract version matches deployed mock.","Set base URL to sandbox endpoint for get_comments_by_comment_id.
+Prepare GET request for /comments/{comment_id}.
+Send request with valid payload and required headers.",Response status is 200 and payload matches OpenAPI response schema.,GET /comments/{comment_id} (get_comments_by_comment_id)
+get_comments_by_comment_id: auth negative,Comments,functional,high,"Sandbox endpoint is available.
+OpenAPI contract version matches deployed mock.","Set base URL to sandbox endpoint for get_comments_by_comment_id.
+Prepare GET request for /comments/{comment_id}.
+Send request without auth token or with invalid token.","Response status is 401 or 403, and error envelope matches documented schema.",GET /comments/{comment_id} (get_comments_by_comment_id)
+get_comments_by_comment_id: validation negative,Comments,functional,medium,"Sandbox endpoint is available.
+OpenAPI contract version matches deployed mock.","Set base URL to sandbox endpoint for get_comments_by_comment_id.
+Prepare GET request for /comments/{comment_id}.
+Send request with invalid payload shape or missing required field.","Response status is 400 or 422, and validation errors are returned.",GET /comments/{comment_id} (get_comments_by_comment_id)
+get_comments_by_comment_id: not found negative,Comments,functional,medium,"Sandbox endpoint is available.
+OpenAPI contract version matches deployed mock.","Set base URL to sandbox endpoint for get_comments_by_comment_id.
+Prepare GET request for /comments/{comment_id}.
+Send request with non-existent resource identifier.",Response status is 404 with not-found error envelope.,GET /comments/{comment_id} (get_comments_by_comment_id)
+get_comments_by_comment_id: fuzz negative,Comments,fuzz,medium,"Sandbox endpoint is available.
+OpenAPI contract version matches deployed mock.","Set base URL to sandbox endpoint for get_comments_by_comment_id.
+Prepare GET request for /comments/{comment_id}.
+Send request with malformed values and verify rejection.",Response status is 4xx and service remains stable without schema violations.,GET /comments/{comment_id} (get_comments_by_comment_id)
+patch_comments_by_comment_id: positive,Comments,functional,high,"Sandbox endpoint is available.
+OpenAPI contract version matches deployed mock.","Set base URL to sandbox endpoint for patch_comments_by_comment_id.
+Prepare PATCH request for /comments/{comment_id}.
+Send request with valid payload and required headers.",Response status is 200 and payload matches OpenAPI response schema.,PATCH /comments/{comment_id} (patch_comments_by_comment_id)
+patch_comments_by_comment_id: auth negative,Comments,functional,high,"Sandbox endpoint is available.
+OpenAPI contract version matches deployed mock.","Set base URL to sandbox endpoint for patch_comments_by_comment_id.
+Prepare PATCH request for /comments/{comment_id}.
+Send request without auth token or with invalid token.","Response status is 401 or 403, and error envelope matches documented schema.",PATCH /comments/{comment_id} (patch_comments_by_comment_id)
+patch_comments_by_comment_id: validation negative,Comments,functional,medium,"Sandbox endpoint is available.
+OpenAPI contract version matches deployed mock.","Set base URL to sandbox endpoint for patch_comments_by_comment_id.
+Prepare PATCH request for /comments/{comment_id}.
+Send request with invalid payload shape or missing required field.","Response status is 400 or 422, and validation errors are returned.",PATCH /comments/{comment_id} (patch_comments_by_comment_id)
+patch_comments_by_comment_id: not found negative,Comments,functional,medium,"Sandbox endpoint is available.
+OpenAPI contract version matches deployed mock.","Set base URL to sandbox endpoint for patch_comments_by_comment_id.
+Prepare PATCH request for /comments/{comment_id}.
+Send request with non-existent resource identifier.",Response status is 404 with not-found error envelope.,PATCH /comments/{comment_id} (patch_comments_by_comment_id)
+patch_comments_by_comment_id: fuzz negative,Comments,fuzz,medium,"Sandbox endpoint is available.
+OpenAPI contract version matches deployed mock.","Set base URL to sandbox endpoint for patch_comments_by_comment_id.
+Prepare PATCH request for /comments/{comment_id}.
+Send request with malformed values and verify rejection.",Response status is 4xx and service remains stable without schema violations.,PATCH /comments/{comment_id} (patch_comments_by_comment_id)
+get_projects: positive,Projects,functional,high,"Sandbox endpoint is available.
+OpenAPI contract version matches deployed mock.","Set base URL to sandbox endpoint for get_projects.
+Prepare GET request for /projects.
+Send request with valid payload and required headers.",Response status is 200 and payload matches OpenAPI response schema.,GET /projects (get_projects)
+get_projects: auth negative,Projects,functional,high,"Sandbox endpoint is available.
+OpenAPI contract version matches deployed mock.","Set base URL to sandbox endpoint for get_projects.
+Prepare GET request for /projects.
+Send request without auth token or with invalid token.","Response status is 401 or 403, and error envelope matches documented schema.",GET /projects (get_projects)
+get_projects: validation negative,Projects,functional,medium,"Sandbox endpoint is available.
+OpenAPI contract version matches deployed mock.","Set base URL to sandbox endpoint for get_projects.
+Prepare GET request for /projects.
+Send request with invalid payload shape or missing required field.","Response status is 400 or 422, and validation errors are returned.",GET /projects (get_projects)
+get_projects: fuzz negative,Projects,fuzz,medium,"Sandbox endpoint is available.
+OpenAPI contract version matches deployed mock.","Set base URL to sandbox endpoint for get_projects.
+Prepare GET request for /projects.
+Send request with malformed values and verify rejection.",Response status is 4xx and service remains stable without schema violations.,GET /projects (get_projects)
+post_projects: positive,Projects,functional,high,"Sandbox endpoint is available.
+OpenAPI contract version matches deployed mock.","Set base URL to sandbox endpoint for post_projects.
+Prepare POST request for /projects.
+Send request with valid payload and required headers.",Response status is 201 and payload matches OpenAPI response schema.,POST /projects (post_projects)
+post_projects: auth negative,Projects,functional,high,"Sandbox endpoint is available.
+OpenAPI contract version matches deployed mock.","Set base URL to sandbox endpoint for post_projects.
+Prepare POST request for /projects.
+Send request without auth token or with invalid token.","Response status is 401 or 403, and error envelope matches documented schema.",POST /projects (post_projects)
+post_projects: validation negative,Projects,functional,medium,"Sandbox endpoint is available.
+OpenAPI contract version matches deployed mock.","Set base URL to sandbox endpoint for post_projects.
+Prepare POST request for /projects.
+Send request with invalid payload shape or missing required field.","Response status is 400 or 422, and validation errors are returned.",POST /projects (post_projects)
+post_projects: fuzz negative,Projects,fuzz,medium,"Sandbox endpoint is available.
+OpenAPI contract version matches deployed mock.","Set base URL to sandbox endpoint for post_projects.
+Prepare POST request for /projects.
+Send request with malformed values and verify rejection.",Response status is 4xx and service remains stable without schema violations.,POST /projects (post_projects)
+delete_projects_by_project_id: positive,Projects,functional,high,"Sandbox endpoint is available.
+OpenAPI contract version matches deployed mock.","Set base URL to sandbox endpoint for delete_projects_by_project_id.
+Prepare DELETE request for /projects/{project_id}.
+Send request with valid payload and required headers.",Response status is 204 and payload matches OpenAPI response schema.,DELETE /projects/{project_id} (delete_projects_by_project_id)
+delete_projects_by_project_id: auth negative,Projects,functional,high,"Sandbox endpoint is available.
+OpenAPI contract version matches deployed mock.","Set base URL to sandbox endpoint for delete_projects_by_project_id.
+Prepare DELETE request for /projects/{project_id}.
+Send request without auth token or with invalid token.","Response status is 401 or 403, and error envelope matches documented schema.",DELETE /projects/{project_id} (delete_projects_by_project_id)
+delete_projects_by_project_id: not found negative,Projects,functional,medium,"Sandbox endpoint is available.
+OpenAPI contract version matches deployed mock.","Set base URL to sandbox endpoint for delete_projects_by_project_id.
+Prepare DELETE request for /projects/{project_id}.
+Send request with non-existent resource identifier.",Response status is 404 with not-found error envelope.,DELETE /projects/{project_id} (delete_projects_by_project_id)
+delete_projects_by_project_id: fuzz negative,Projects,fuzz,medium,"Sandbox endpoint is available.
+OpenAPI contract version matches deployed mock.","Set base URL to sandbox endpoint for delete_projects_by_project_id.
+Prepare DELETE request for /projects/{project_id}.
+Send request with malformed values and verify rejection.",Response status is 4xx and service remains stable without schema violations.,DELETE /projects/{project_id} (delete_projects_by_project_id)
+get_projects_by_project_id: positive,Projects,functional,high,"Sandbox endpoint is available.
+OpenAPI contract version matches deployed mock.","Set base URL to sandbox endpoint for get_projects_by_project_id.
+Prepare GET request for /projects/{project_id}.
+Send request with valid payload and required headers.",Response status is 200 and payload matches OpenAPI response schema.,GET /projects/{project_id} (get_projects_by_project_id)
+get_projects_by_project_id: auth negative,Projects,functional,high,"Sandbox endpoint is available.
+OpenAPI contract version matches deployed mock.","Set base URL to sandbox endpoint for get_projects_by_project_id.
+Prepare GET request for /projects/{project_id}.
+Send request without auth token or with invalid token.","Response status is 401 or 403, and error envelope matches documented schema.",GET /projects/{project_id} (get_projects_by_project_id)
+get_projects_by_project_id: validation negative,Projects,functional,medium,"Sandbox endpoint is available.
+OpenAPI contract version matches deployed mock.","Set base URL to sandbox endpoint for get_projects_by_project_id.
+Prepare GET request for /projects/{project_id}.
+Send request with invalid payload shape or missing required field.","Response status is 400 or 422, and validation errors are returned.",GET /projects/{project_id} (get_projects_by_project_id)
+get_projects_by_project_id: not found negative,Projects,functional,medium,"Sandbox endpoint is available.
+OpenAPI contract version matches deployed mock.","Set base URL to sandbox endpoint for get_projects_by_project_id.
+Prepare GET request for /projects/{project_id}.
+Send request with non-existent resource identifier.",Response status is 404 with not-found error envelope.,GET /projects/{project_id} (get_projects_by_project_id)
+get_projects_by_project_id: fuzz negative,Projects,fuzz,medium,"Sandbox endpoint is available.
+OpenAPI contract version matches deployed mock.","Set base URL to sandbox endpoint for get_projects_by_project_id.
+Prepare GET request for /projects/{project_id}.
+Send request with malformed values and verify rejection.",Response status is 4xx and service remains stable without schema violations.,GET /projects/{project_id} (get_projects_by_project_id)
+patch_projects_by_project_id: positive,Projects,functional,high,"Sandbox endpoint is available.
+OpenAPI contract version matches deployed mock.","Set base URL to sandbox endpoint for patch_projects_by_project_id.
+Prepare PATCH request for /projects/{project_id}.
+Send request with valid payload and required headers.",Response status is 200 and payload matches OpenAPI response schema.,PATCH /projects/{project_id} (patch_projects_by_project_id)
+patch_projects_by_project_id: auth negative,Projects,functional,high,"Sandbox endpoint is available.
+OpenAPI contract version matches deployed mock.","Set base URL to sandbox endpoint for patch_projects_by_project_id.
+Prepare PATCH request for /projects/{project_id}.
+Send request without auth token or with invalid token.","Response status is 401 or 403, and error envelope matches documented schema.",PATCH /projects/{project_id} (patch_projects_by_project_id)
+patch_projects_by_project_id: validation negative,Projects,functional,medium,"Sandbox endpoint is available.
+OpenAPI contract version matches deployed mock.","Set base URL to sandbox endpoint for patch_projects_by_project_id.
+Prepare PATCH request for /projects/{project_id}.
+Send request with invalid payload shape or missing required field.","Response status is 400 or 422, and validation errors are returned.",PATCH /projects/{project_id} (patch_projects_by_project_id)
+patch_projects_by_project_id: not found negative,Projects,functional,medium,"Sandbox endpoint is available.
+OpenAPI contract version matches deployed mock.","Set base URL to sandbox endpoint for patch_projects_by_project_id.
+Prepare PATCH request for /projects/{project_id}.
+Send request with non-existent resource identifier.",Response status is 404 with not-found error envelope.,PATCH /projects/{project_id} (patch_projects_by_project_id)
+patch_projects_by_project_id: fuzz negative,Projects,fuzz,medium,"Sandbox endpoint is available.
+OpenAPI contract version matches deployed mock.","Set base URL to sandbox endpoint for patch_projects_by_project_id.
+Prepare PATCH request for /projects/{project_id}.
+Send request with malformed values and verify rejection.",Response status is 4xx and service remains stable without schema violations.,PATCH /projects/{project_id} (patch_projects_by_project_id)
+post_projects_by_project_id_archive: positive,Projects,functional,high,"Sandbox endpoint is available.
+OpenAPI contract version matches deployed mock.","Set base URL to sandbox endpoint for post_projects_by_project_id_archive.
+Prepare POST request for /projects/{project_id}/archive.
+Send request with valid payload and required headers.",Response status is 201 and payload matches OpenAPI response schema.,POST /projects/{project_id}/archive (post_projects_by_project_id_archive)
+post_projects_by_project_id_archive: auth negative,Projects,functional,high,"Sandbox endpoint is available.
+OpenAPI contract version matches deployed mock.","Set base URL to sandbox endpoint for post_projects_by_project_id_archive.
+Prepare POST request for /projects/{project_id}/archive.
+Send request without auth token or with invalid token.","Response status is 401 or 403, and error envelope matches documented schema.",POST /projects/{project_id}/archive (post_projects_by_project_id_archive)
+post_projects_by_project_id_archive: validation negative,Projects,functional,medium,"Sandbox endpoint is available.
+OpenAPI contract version matches deployed mock.","Set base URL to sandbox endpoint for post_projects_by_project_id_archive.
+Prepare POST request for /projects/{project_id}/archive.
+Send request with invalid payload shape or missing required field.","Response status is 400 or 422, and validation errors are returned.",POST /projects/{project_id}/archive (post_projects_by_project_id_archive)
+post_projects_by_project_id_archive: not found negative,Projects,functional,medium,"Sandbox endpoint is available.
+OpenAPI contract version matches deployed mock.","Set base URL to sandbox endpoint for post_projects_by_project_id_archive.
+Prepare POST request for /projects/{project_id}/archive.
+Send request with non-existent resource identifier.",Response status is 404 with not-found error envelope.,POST /projects/{project_id}/archive (post_projects_by_project_id_archive)
+post_projects_by_project_id_archive: fuzz negative,Projects,fuzz,medium,"Sandbox endpoint is available.
+OpenAPI contract version matches deployed mock.","Set base URL to sandbox endpoint for post_projects_by_project_id_archive.
+Prepare POST request for /projects/{project_id}/archive.
+Send request with malformed values and verify rejection.",Response status is 4xx and service remains stable without schema violations.,POST /projects/{project_id}/archive (post_projects_by_project_id_archive)
+post_projects_by_project_id_restore: positive,Projects,functional,high,"Sandbox endpoint is available.
+OpenAPI contract version matches deployed mock.","Set base URL to sandbox endpoint for post_projects_by_project_id_restore.
+Prepare POST request for /projects/{project_id}/restore.
+Send request with valid payload and required headers.",Response status is 201 and payload matches OpenAPI response schema.,POST /projects/{project_id}/restore (post_projects_by_project_id_restore)
+post_projects_by_project_id_restore: auth negative,Projects,functional,high,"Sandbox endpoint is available.
+OpenAPI contract version matches deployed mock.","Set base URL to sandbox endpoint for post_projects_by_project_id_restore.
+Prepare POST request for /projects/{project_id}/restore.
+Send request without auth token or with invalid token.","Response status is 401 or 403, and error envelope matches documented schema.",POST /projects/{project_id}/restore (post_projects_by_project_id_restore)
+post_projects_by_project_id_restore: validation negative,Projects,functional,medium,"Sandbox endpoint is available.
+OpenAPI contract version matches deployed mock.","Set base URL to sandbox endpoint for post_projects_by_project_id_restore.
+Prepare POST request for /projects/{project_id}/restore.
+Send request with invalid payload shape or missing required field.","Response status is 400 or 422, and validation errors are returned.",POST /projects/{project_id}/restore (post_projects_by_project_id_restore)
+post_projects_by_project_id_restore: not found negative,Projects,functional,medium,"Sandbox endpoint is available.
+OpenAPI contract version matches deployed mock.","Set base URL to sandbox endpoint for post_projects_by_project_id_restore.
+Prepare POST request for /projects/{project_id}/restore.
+Send request with non-existent resource identifier.",Response status is 404 with not-found error envelope.,POST /projects/{project_id}/restore (post_projects_by_project_id_restore)
+post_projects_by_project_id_restore: fuzz negative,Projects,fuzz,medium,"Sandbox endpoint is available.
+OpenAPI contract version matches deployed mock.","Set base URL to sandbox endpoint for post_projects_by_project_id_restore.
+Prepare POST request for /projects/{project_id}/restore.
+Send request with malformed values and verify rejection.",Response status is 4xx and service remains stable without schema violations.,POST /projects/{project_id}/restore (post_projects_by_project_id_restore)
+get_tags: positive,Tags,functional,high,"Sandbox endpoint is available.
+OpenAPI contract version matches deployed mock.","Set base URL to sandbox endpoint for get_tags.
+Prepare GET request for /tags.
+Send request with valid payload and required headers.",Response status is 200 and payload matches OpenAPI response schema.,GET /tags (get_tags)
+get_tags: auth negative,Tags,functional,high,"Sandbox endpoint is available.
+OpenAPI contract version matches deployed mock.","Set base URL to sandbox endpoint for get_tags.
+Prepare GET request for /tags.
+Send request without auth token or with invalid token.","Response status is 401 or 403, and error envelope matches documented schema.",GET /tags (get_tags)
+get_tags: validation negative,Tags,functional,medium,"Sandbox endpoint is available.
+OpenAPI contract version matches deployed mock.","Set base URL to sandbox endpoint for get_tags.
+Prepare GET request for /tags.
+Send request with invalid payload shape or missing required field.","Response status is 400 or 422, and validation errors are returned.",GET /tags (get_tags)
+get_tags: not found negative,Tags,functional,medium,"Sandbox endpoint is available.
+OpenAPI contract version matches deployed mock.","Set base URL to sandbox endpoint for get_tags.
+Prepare GET request for /tags.
+Send request with non-existent resource identifier.",Response status is 404 with not-found error envelope.,GET /tags (get_tags)
+get_tags: fuzz negative,Tags,fuzz,medium,"Sandbox endpoint is available.
+OpenAPI contract version matches deployed mock.","Set base URL to sandbox endpoint for get_tags.
+Prepare GET request for /tags.
+Send request with malformed values and verify rejection.",Response status is 4xx and service remains stable without schema violations.,GET /tags (get_tags)
+post_tags: positive,Tags,functional,high,"Sandbox endpoint is available.
+OpenAPI contract version matches deployed mock.","Set base URL to sandbox endpoint for post_tags.
+Prepare POST request for /tags.
+Send request with valid payload and required headers.",Response status is 201 and payload matches OpenAPI response schema.,POST /tags (post_tags)
+post_tags: auth negative,Tags,functional,high,"Sandbox endpoint is available.
+OpenAPI contract version matches deployed mock.","Set base URL to sandbox endpoint for post_tags.
+Prepare POST request for /tags.
+Send request without auth token or with invalid token.","Response status is 401 or 403, and error envelope matches documented schema.",POST /tags (post_tags)
+post_tags: validation negative,Tags,functional,medium,"Sandbox endpoint is available.
+OpenAPI contract version matches deployed mock.","Set base URL to sandbox endpoint for post_tags.
+Prepare POST request for /tags.
+Send request with invalid payload shape or missing required field.","Response status is 400 or 422, and validation errors are returned.",POST /tags (post_tags)
+post_tags: fuzz negative,Tags,fuzz,medium,"Sandbox endpoint is available.
+OpenAPI contract version matches deployed mock.","Set base URL to sandbox endpoint for post_tags.
+Prepare POST request for /tags.
+Send request with malformed values and verify rejection.",Response status is 4xx and service remains stable without schema violations.,POST /tags (post_tags)
+delete_tags_by_tag_id: positive,Tags,functional,high,"Sandbox endpoint is available.
+OpenAPI contract version matches deployed mock.","Set base URL to sandbox endpoint for delete_tags_by_tag_id.
+Prepare DELETE request for /tags/{tag_id}.
+Send request with valid payload and required headers.",Response status is 204 and payload matches OpenAPI response schema.,DELETE /tags/{tag_id} (delete_tags_by_tag_id)
+delete_tags_by_tag_id: auth negative,Tags,functional,high,"Sandbox endpoint is available.
+OpenAPI contract version matches deployed mock.","Set base URL to sandbox endpoint for delete_tags_by_tag_id.
+Prepare DELETE request for /tags/{tag_id}.
+Send request without auth token or with invalid token.","Response status is 401 or 403, and error envelope matches documented schema.",DELETE /tags/{tag_id} (delete_tags_by_tag_id)
+delete_tags_by_tag_id: not found negative,Tags,functional,medium,"Sandbox endpoint is available.
+OpenAPI contract version matches deployed mock.","Set base URL to sandbox endpoint for delete_tags_by_tag_id.
+Prepare DELETE request for /tags/{tag_id}.
+Send request with non-existent resource identifier.",Response status is 404 with not-found error envelope.,DELETE /tags/{tag_id} (delete_tags_by_tag_id)
+delete_tags_by_tag_id: fuzz negative,Tags,fuzz,medium,"Sandbox endpoint is available.
+OpenAPI contract version matches deployed mock.","Set base URL to sandbox endpoint for delete_tags_by_tag_id.
+Prepare DELETE request for /tags/{tag_id}.
+Send request with malformed values and verify rejection.",Response status is 4xx and service remains stable without schema violations.,DELETE /tags/{tag_id} (delete_tags_by_tag_id)
+get_tags_by_tag_id: positive,Tags,functional,high,"Sandbox endpoint is available.
+OpenAPI contract version matches deployed mock.","Set base URL to sandbox endpoint for get_tags_by_tag_id.
+Prepare GET request for /tags/{tag_id}.
+Send request with valid payload and required headers.",Response status is 200 and payload matches OpenAPI response schema.,GET /tags/{tag_id} (get_tags_by_tag_id)
+get_tags_by_tag_id: auth negative,Tags,functional,high,"Sandbox endpoint is available.
+OpenAPI contract version matches deployed mock.","Set base URL to sandbox endpoint for get_tags_by_tag_id.
+Prepare GET request for /tags/{tag_id}.
+Send request without auth token or with invalid token.","Response status is 401 or 403, and error envelope matches documented schema.",GET /tags/{tag_id} (get_tags_by_tag_id)
+get_tags_by_tag_id: validation negative,Tags,functional,medium,"Sandbox endpoint is available.
+OpenAPI contract version matches deployed mock.","Set base URL to sandbox endpoint for get_tags_by_tag_id.
+Prepare GET request for /tags/{tag_id}.
+Send request with invalid payload shape or missing required field.","Response status is 400 or 422, and validation errors are returned.",GET /tags/{tag_id} (get_tags_by_tag_id)
+get_tags_by_tag_id: not found negative,Tags,functional,medium,"Sandbox endpoint is available.
+OpenAPI contract version matches deployed mock.","Set base URL to sandbox endpoint for get_tags_by_tag_id.
+Prepare GET request for /tags/{tag_id}.
+Send request with non-existent resource identifier.",Response status is 404 with not-found error envelope.,GET /tags/{tag_id} (get_tags_by_tag_id)
+get_tags_by_tag_id: fuzz negative,Tags,fuzz,medium,"Sandbox endpoint is available.
+OpenAPI contract version matches deployed mock.","Set base URL to sandbox endpoint for get_tags_by_tag_id.
+Prepare GET request for /tags/{tag_id}.
+Send request with malformed values and verify rejection.",Response status is 4xx and service remains stable without schema violations.,GET /tags/{tag_id} (get_tags_by_tag_id)
+patch_tags_by_tag_id: positive,Tags,functional,high,"Sandbox endpoint is available.
+OpenAPI contract version matches deployed mock.","Set base URL to sandbox endpoint for patch_tags_by_tag_id.
+Prepare PATCH request for /tags/{tag_id}.
+Send request with valid payload and required headers.",Response status is 200 and payload matches OpenAPI response schema.,PATCH /tags/{tag_id} (patch_tags_by_tag_id)
+patch_tags_by_tag_id: auth negative,Tags,functional,high,"Sandbox endpoint is available.
+OpenAPI contract version matches deployed mock.","Set base URL to sandbox endpoint for patch_tags_by_tag_id.
+Prepare PATCH request for /tags/{tag_id}.
+Send request without auth token or with invalid token.","Response status is 401 or 403, and error envelope matches documented schema.",PATCH /tags/{tag_id} (patch_tags_by_tag_id)
+patch_tags_by_tag_id: validation negative,Tags,functional,medium,"Sandbox endpoint is available.
+OpenAPI contract version matches deployed mock.","Set base URL to sandbox endpoint for patch_tags_by_tag_id.
+Prepare PATCH request for /tags/{tag_id}.
+Send request with invalid payload shape or missing required field.","Response status is 400 or 422, and validation errors are returned.",PATCH /tags/{tag_id} (patch_tags_by_tag_id)
+patch_tags_by_tag_id: not found negative,Tags,functional,medium,"Sandbox endpoint is available.
+OpenAPI contract version matches deployed mock.","Set base URL to sandbox endpoint for patch_tags_by_tag_id.
+Prepare PATCH request for /tags/{tag_id}.
+Send request with non-existent resource identifier.",Response status is 404 with not-found error envelope.,PATCH /tags/{tag_id} (patch_tags_by_tag_id)
+patch_tags_by_tag_id: fuzz negative,Tags,fuzz,medium,"Sandbox endpoint is available.
+OpenAPI contract version matches deployed mock.","Set base URL to sandbox endpoint for patch_tags_by_tag_id.
+Prepare PATCH request for /tags/{tag_id}.
+Send request with malformed values and verify rejection.",Response status is 4xx and service remains stable without schema violations.,PATCH /tags/{tag_id} (patch_tags_by_tag_id)
+get_tasks: positive,Tasks,functional,high,"Sandbox endpoint is available.
+OpenAPI contract version matches deployed mock.","Set base URL to sandbox endpoint for get_tasks.
+Prepare GET request for /tasks.
+Send request with valid payload and required headers.",Response status is 200 and payload matches OpenAPI response schema.,GET /tasks (get_tasks)
+get_tasks: auth negative,Tasks,functional,high,"Sandbox endpoint is available.
+OpenAPI contract version matches deployed mock.","Set base URL to sandbox endpoint for get_tasks.
+Prepare GET request for /tasks.
+Send request without auth token or with invalid token.","Response status is 401 or 403, and error envelope matches documented schema.",GET /tasks (get_tasks)
+get_tasks: validation negative,Tasks,functional,medium,"Sandbox endpoint is available.
+OpenAPI contract version matches deployed mock.","Set base URL to sandbox endpoint for get_tasks.
+Prepare GET request for /tasks.
+Send request with invalid payload shape or missing required field.","Response status is 400 or 422, and validation errors are returned.",GET /tasks (get_tasks)
+get_tasks: fuzz negative,Tasks,fuzz,medium,"Sandbox endpoint is available.
+OpenAPI contract version matches deployed mock.","Set base URL to sandbox endpoint for get_tasks.
+Prepare GET request for /tasks.
+Send request with malformed values and verify rejection.",Response status is 4xx and service remains stable without schema violations.,GET /tasks (get_tasks)
+post_tasks: positive,Tasks,functional,high,"Sandbox endpoint is available.
+OpenAPI contract version matches deployed mock.","Set base URL to sandbox endpoint for post_tasks.
+Prepare POST request for /tasks.
+Send request with valid payload and required headers.",Response status is 201 and payload matches OpenAPI response schema.,POST /tasks (post_tasks)
+post_tasks: auth negative,Tasks,functional,high,"Sandbox endpoint is available.
+OpenAPI contract version matches deployed mock.","Set base URL to sandbox endpoint for post_tasks.
+Prepare POST request for /tasks.
+Send request without auth token or with invalid token.","Response status is 401 or 403, and error envelope matches documented schema.",POST /tasks (post_tasks)
+post_tasks: validation negative,Tasks,functional,medium,"Sandbox endpoint is available.
+OpenAPI contract version matches deployed mock.","Set base URL to sandbox endpoint for post_tasks.
+Prepare POST request for /tasks.
+Send request with invalid payload shape or missing required field.","Response status is 400 or 422, and validation errors are returned.",POST /tasks (post_tasks)
+post_tasks: fuzz negative,Tasks,fuzz,medium,"Sandbox endpoint is available.
+OpenAPI contract version matches deployed mock.","Set base URL to sandbox endpoint for post_tasks.
+Prepare POST request for /tasks.
+Send request with malformed values and verify rejection.",Response status is 4xx and service remains stable without schema violations.,POST /tasks (post_tasks)
+delete_tasks_by_task_id: positive,Tasks,functional,high,"Sandbox endpoint is available.
+OpenAPI contract version matches deployed mock.","Set base URL to sandbox endpoint for delete_tasks_by_task_id.
+Prepare DELETE request for /tasks/{task_id}.
+Send request with valid payload and required headers.",Response status is 204 and payload matches OpenAPI response schema.,DELETE /tasks/{task_id} (delete_tasks_by_task_id)
+delete_tasks_by_task_id: auth negative,Tasks,functional,high,"Sandbox endpoint is available.
+OpenAPI contract version matches deployed mock.","Set base URL to sandbox endpoint for delete_tasks_by_task_id.
+Prepare DELETE request for /tasks/{task_id}.
+Send request without auth token or with invalid token.","Response status is 401 or 403, and error envelope matches documented schema.",DELETE /tasks/{task_id} (delete_tasks_by_task_id)
+delete_tasks_by_task_id: not found negative,Tasks,functional,medium,"Sandbox endpoint is available.
+OpenAPI contract version matches deployed mock.","Set base URL to sandbox endpoint for delete_tasks_by_task_id.
+Prepare DELETE request for /tasks/{task_id}.
+Send request with non-existent resource identifier.",Response status is 404 with not-found error envelope.,DELETE /tasks/{task_id} (delete_tasks_by_task_id)
+delete_tasks_by_task_id: fuzz negative,Tasks,fuzz,medium,"Sandbox endpoint is available.
+OpenAPI contract version matches deployed mock.","Set base URL to sandbox endpoint for delete_tasks_by_task_id.
+Prepare DELETE request for /tasks/{task_id}.
+Send request with malformed values and verify rejection.",Response status is 4xx and service remains stable without schema violations.,DELETE /tasks/{task_id} (delete_tasks_by_task_id)
+get_tasks_by_task_id: positive,Tasks,functional,high,"Sandbox endpoint is available.
+OpenAPI contract version matches deployed mock.","Set base URL to sandbox endpoint for get_tasks_by_task_id.
+Prepare GET request for /tasks/{task_id}.
+Send request with valid payload and required headers.",Response status is 200 and payload matches OpenAPI response schema.,GET /tasks/{task_id} (get_tasks_by_task_id)
+get_tasks_by_task_id: auth negative,Tasks,functional,high,"Sandbox endpoint is available.
+OpenAPI contract version matches deployed mock.","Set base URL to sandbox endpoint for get_tasks_by_task_id.
+Prepare GET request for /tasks/{task_id}.
+Send request without auth token or with invalid token.","Response status is 401 or 403, and error envelope matches documented schema.",GET /tasks/{task_id} (get_tasks_by_task_id)
+get_tasks_by_task_id: validation negative,Tasks,functional,medium,"Sandbox endpoint is available.
+OpenAPI contract version matches deployed mock.","Set base URL to sandbox endpoint for get_tasks_by_task_id.
+Prepare GET request for /tasks/{task_id}.
+Send request with invalid payload shape or missing required field.","Response status is 400 or 422, and validation errors are returned.",GET /tasks/{task_id} (get_tasks_by_task_id)
+get_tasks_by_task_id: not found negative,Tasks,functional,medium,"Sandbox endpoint is available.
+OpenAPI contract version matches deployed mock.","Set base URL to sandbox endpoint for get_tasks_by_task_id.
+Prepare GET request for /tasks/{task_id}.
+Send request with non-existent resource identifier.",Response status is 404 with not-found error envelope.,GET /tasks/{task_id} (get_tasks_by_task_id)
+get_tasks_by_task_id: fuzz negative,Tasks,fuzz,medium,"Sandbox endpoint is available.
+OpenAPI contract version matches deployed mock.","Set base URL to sandbox endpoint for get_tasks_by_task_id.
+Prepare GET request for /tasks/{task_id}.
+Send request with malformed values and verify rejection.",Response status is 4xx and service remains stable without schema violations.,GET /tasks/{task_id} (get_tasks_by_task_id)
+patch_tasks_by_task_id: positive,Tasks,functional,high,"Sandbox endpoint is available.
+OpenAPI contract version matches deployed mock.","Set base URL to sandbox endpoint for patch_tasks_by_task_id.
+Prepare PATCH request for /tasks/{task_id}.
+Send request with valid payload and required headers.",Response status is 200 and payload matches OpenAPI response schema.,PATCH /tasks/{task_id} (patch_tasks_by_task_id)
+patch_tasks_by_task_id: auth negative,Tasks,functional,high,"Sandbox endpoint is available.
+OpenAPI contract version matches deployed mock.","Set base URL to sandbox endpoint for patch_tasks_by_task_id.
+Prepare PATCH request for /tasks/{task_id}.
+Send request without auth token or with invalid token.","Response status is 401 or 403, and error envelope matches documented schema.",PATCH /tasks/{task_id} (patch_tasks_by_task_id)
+patch_tasks_by_task_id: validation negative,Tasks,functional,medium,"Sandbox endpoint is available.
+OpenAPI contract version matches deployed mock.","Set base URL to sandbox endpoint for patch_tasks_by_task_id.
+Prepare PATCH request for /tasks/{task_id}.
+Send request with invalid payload shape or missing required field.","Response status is 400 or 422, and validation errors are returned.",PATCH /tasks/{task_id} (patch_tasks_by_task_id)
+patch_tasks_by_task_id: not found negative,Tasks,functional,medium,"Sandbox endpoint is available.
+OpenAPI contract version matches deployed mock.","Set base URL to sandbox endpoint for patch_tasks_by_task_id.
+Prepare PATCH request for /tasks/{task_id}.
+Send request with non-existent resource identifier.",Response status is 404 with not-found error envelope.,PATCH /tasks/{task_id} (patch_tasks_by_task_id)
+patch_tasks_by_task_id: fuzz negative,Tasks,fuzz,medium,"Sandbox endpoint is available.
+OpenAPI contract version matches deployed mock.","Set base URL to sandbox endpoint for patch_tasks_by_task_id.
+Prepare PATCH request for /tasks/{task_id}.
+Send request with malformed values and verify rejection.",Response status is 4xx and service remains stable without schema violations.,PATCH /tasks/{task_id} (patch_tasks_by_task_id)
+get_tasks_by_task_id_comments: positive,Tasks,functional,high,"Sandbox endpoint is available.
+OpenAPI contract version matches deployed mock.","Set base URL to sandbox endpoint for get_tasks_by_task_id_comments.
+Prepare GET request for /tasks/{task_id}/comments.
+Send request with valid payload and required headers.",Response status is 200 and payload matches OpenAPI response schema.,GET /tasks/{task_id}/comments (get_tasks_by_task_id_comments)
+get_tasks_by_task_id_comments: auth negative,Tasks,functional,high,"Sandbox endpoint is available.
+OpenAPI contract version matches deployed mock.","Set base URL to sandbox endpoint for get_tasks_by_task_id_comments.
+Prepare GET request for /tasks/{task_id}/comments.
+Send request without auth token or with invalid token.","Response status is 401 or 403, and error envelope matches documented schema.",GET /tasks/{task_id}/comments (get_tasks_by_task_id_comments)
+get_tasks_by_task_id_comments: validation negative,Tasks,functional,medium,"Sandbox endpoint is available.
+OpenAPI contract version matches deployed mock.","Set base URL to sandbox endpoint for get_tasks_by_task_id_comments.
+Prepare GET request for /tasks/{task_id}/comments.
+Send request with invalid payload shape or missing required field.","Response status is 400 or 422, and validation errors are returned.",GET /tasks/{task_id}/comments (get_tasks_by_task_id_comments)
+get_tasks_by_task_id_comments: not found negative,Tasks,functional,medium,"Sandbox endpoint is available.
+OpenAPI contract version matches deployed mock.","Set base URL to sandbox endpoint for get_tasks_by_task_id_comments.
+Prepare GET request for /tasks/{task_id}/comments.
+Send request with non-existent resource identifier.",Response status is 404 with not-found error envelope.,GET /tasks/{task_id}/comments (get_tasks_by_task_id_comments)
+get_tasks_by_task_id_comments: fuzz negative,Tasks,fuzz,medium,"Sandbox endpoint is available.
+OpenAPI contract version matches deployed mock.","Set base URL to sandbox endpoint for get_tasks_by_task_id_comments.
+Prepare GET request for /tasks/{task_id}/comments.
+Send request with malformed values and verify rejection.",Response status is 4xx and service remains stable without schema violations.,GET /tasks/{task_id}/comments (get_tasks_by_task_id_comments)
+post_tasks_by_task_id_comments: positive,Tasks,functional,high,"Sandbox endpoint is available.
+OpenAPI contract version matches deployed mock.","Set base URL to sandbox endpoint for post_tasks_by_task_id_comments.
+Prepare POST request for /tasks/{task_id}/comments.
+Send request with valid payload and required headers.",Response status is 201 and payload matches OpenAPI response schema.,POST /tasks/{task_id}/comments (post_tasks_by_task_id_comments)
+post_tasks_by_task_id_comments: auth negative,Tasks,functional,high,"Sandbox endpoint is available.
+OpenAPI contract version matches deployed mock.","Set base URL to sandbox endpoint for post_tasks_by_task_id_comments.
+Prepare POST request for /tasks/{task_id}/comments.
+Send request without auth token or with invalid token.","Response status is 401 or 403, and error envelope matches documented schema.",POST /tasks/{task_id}/comments (post_tasks_by_task_id_comments)
+post_tasks_by_task_id_comments: validation negative,Tasks,functional,medium,"Sandbox endpoint is available.
+OpenAPI contract version matches deployed mock.","Set base URL to sandbox endpoint for post_tasks_by_task_id_comments.
+Prepare POST request for /tasks/{task_id}/comments.
+Send request with invalid payload shape or missing required field.","Response status is 400 or 422, and validation errors are returned.",POST /tasks/{task_id}/comments (post_tasks_by_task_id_comments)
+post_tasks_by_task_id_comments: not found negative,Tasks,functional,medium,"Sandbox endpoint is available.
+OpenAPI contract version matches deployed mock.","Set base URL to sandbox endpoint for post_tasks_by_task_id_comments.
+Prepare POST request for /tasks/{task_id}/comments.
+Send request with non-existent resource identifier.",Response status is 404 with not-found error envelope.,POST /tasks/{task_id}/comments (post_tasks_by_task_id_comments)
+post_tasks_by_task_id_comments: fuzz negative,Tasks,fuzz,medium,"Sandbox endpoint is available.
+OpenAPI contract version matches deployed mock.","Set base URL to sandbox endpoint for post_tasks_by_task_id_comments.
+Prepare POST request for /tasks/{task_id}/comments.
+Send request with malformed values and verify rejection.",Response status is 4xx and service remains stable without schema violations.,POST /tasks/{task_id}/comments (post_tasks_by_task_id_comments)
+post_tasks_by_task_id_complete: positive,Tasks,functional,high,"Sandbox endpoint is available.
+OpenAPI contract version matches deployed mock.","Set base URL to sandbox endpoint for post_tasks_by_task_id_complete.
+Prepare POST request for /tasks/{task_id}/complete.
+Send request with valid payload and required headers.",Response status is 201 and payload matches OpenAPI response schema.,POST /tasks/{task_id}/complete (post_tasks_by_task_id_complete)
+post_tasks_by_task_id_complete: auth negative,Tasks,functional,high,"Sandbox endpoint is available.
+OpenAPI contract version matches deployed mock.","Set base URL to sandbox endpoint for post_tasks_by_task_id_complete.
+Prepare POST request for /tasks/{task_id}/complete.
+Send request without auth token or with invalid token.","Response status is 401 or 403, and error envelope matches documented schema.",POST /tasks/{task_id}/complete (post_tasks_by_task_id_complete)
+post_tasks_by_task_id_complete: validation negative,Tasks,functional,medium,"Sandbox endpoint is available.
+OpenAPI contract version matches deployed mock.","Set base URL to sandbox endpoint for post_tasks_by_task_id_complete.
+Prepare POST request for /tasks/{task_id}/complete.
+Send request with invalid payload shape or missing required field.","Response status is 400 or 422, and validation errors are returned.",POST /tasks/{task_id}/complete (post_tasks_by_task_id_complete)
+post_tasks_by_task_id_complete: not found negative,Tasks,functional,medium,"Sandbox endpoint is available.
+OpenAPI contract version matches deployed mock.","Set base URL to sandbox endpoint for post_tasks_by_task_id_complete.
+Prepare POST request for /tasks/{task_id}/complete.
+Send request with non-existent resource identifier.",Response status is 404 with not-found error envelope.,POST /tasks/{task_id}/complete (post_tasks_by_task_id_complete)
+post_tasks_by_task_id_complete: fuzz negative,Tasks,fuzz,medium,"Sandbox endpoint is available.
+OpenAPI contract version matches deployed mock.","Set base URL to sandbox endpoint for post_tasks_by_task_id_complete.
+Prepare POST request for /tasks/{task_id}/complete.
+Send request with malformed values and verify rejection.",Response status is 4xx and service remains stable without schema violations.,POST /tasks/{task_id}/complete (post_tasks_by_task_id_complete)
+post_tasks_by_task_id_reopen: positive,Tasks,functional,high,"Sandbox endpoint is available.
+OpenAPI contract version matches deployed mock.","Set base URL to sandbox endpoint for post_tasks_by_task_id_reopen.
+Prepare POST request for /tasks/{task_id}/reopen.
+Send request with valid payload and required headers.",Response status is 201 and payload matches OpenAPI response schema.,POST /tasks/{task_id}/reopen (post_tasks_by_task_id_reopen)
+post_tasks_by_task_id_reopen: auth negative,Tasks,functional,high,"Sandbox endpoint is available.
+OpenAPI contract version matches deployed mock.","Set base URL to sandbox endpoint for post_tasks_by_task_id_reopen.
+Prepare POST request for /tasks/{task_id}/reopen.
+Send request without auth token or with invalid token.","Response status is 401 or 403, and error envelope matches documented schema.",POST /tasks/{task_id}/reopen (post_tasks_by_task_id_reopen)
+post_tasks_by_task_id_reopen: validation negative,Tasks,functional,medium,"Sandbox endpoint is available.
+OpenAPI contract version matches deployed mock.","Set base URL to sandbox endpoint for post_tasks_by_task_id_reopen.
+Prepare POST request for /tasks/{task_id}/reopen.
+Send request with invalid payload shape or missing required field.","Response status is 400 or 422, and validation errors are returned.",POST /tasks/{task_id}/reopen (post_tasks_by_task_id_reopen)
+post_tasks_by_task_id_reopen: not found negative,Tasks,functional,medium,"Sandbox endpoint is available.
+OpenAPI contract version matches deployed mock.","Set base URL to sandbox endpoint for post_tasks_by_task_id_reopen.
+Prepare POST request for /tasks/{task_id}/reopen.
+Send request with non-existent resource identifier.",Response status is 404 with not-found error envelope.,POST /tasks/{task_id}/reopen (post_tasks_by_task_id_reopen)
+post_tasks_by_task_id_reopen: fuzz negative,Tasks,fuzz,medium,"Sandbox endpoint is available.
+OpenAPI contract version matches deployed mock.","Set base URL to sandbox endpoint for post_tasks_by_task_id_reopen.
+Prepare POST request for /tasks/{task_id}/reopen.
+Send request with malformed values and verify rejection.",Response status is 4xx and service remains stable without schema violations.,POST /tasks/{task_id}/reopen (post_tasks_by_task_id_reopen)
+delete_tasks_by_task_id_tags_by_tag_id: positive,Tasks,functional,high,"Sandbox endpoint is available.
+OpenAPI contract version matches deployed mock.","Set base URL to sandbox endpoint for delete_tasks_by_task_id_tags_by_tag_id.
+Prepare DELETE request for /tasks/{task_id}/tags/{tag_id}.
+Send request with valid payload and required headers.",Response status is 204 and payload matches OpenAPI response schema.,DELETE /tasks/{task_id}/tags/{tag_id} (delete_tasks_by_task_id_tags_by_tag_id)
+delete_tasks_by_task_id_tags_by_tag_id: auth negative,Tasks,functional,high,"Sandbox endpoint is available.
+OpenAPI contract version matches deployed mock.","Set base URL to sandbox endpoint for delete_tasks_by_task_id_tags_by_tag_id.
+Prepare DELETE request for /tasks/{task_id}/tags/{tag_id}.
+Send request without auth token or with invalid token.","Response status is 401 or 403, and error envelope matches documented schema.",DELETE /tasks/{task_id}/tags/{tag_id} (delete_tasks_by_task_id_tags_by_tag_id)
+delete_tasks_by_task_id_tags_by_tag_id: not found negative,Tasks,functional,medium,"Sandbox endpoint is available.
+OpenAPI contract version matches deployed mock.","Set base URL to sandbox endpoint for delete_tasks_by_task_id_tags_by_tag_id.
+Prepare DELETE request for /tasks/{task_id}/tags/{tag_id}.
+Send request with non-existent resource identifier.",Response status is 404 with not-found error envelope.,DELETE /tasks/{task_id}/tags/{tag_id} (delete_tasks_by_task_id_tags_by_tag_id)
+delete_tasks_by_task_id_tags_by_tag_id: fuzz negative,Tasks,fuzz,medium,"Sandbox endpoint is available.
+OpenAPI contract version matches deployed mock.","Set base URL to sandbox endpoint for delete_tasks_by_task_id_tags_by_tag_id.
+Prepare DELETE request for /tasks/{task_id}/tags/{tag_id}.
+Send request with malformed values and verify rejection.",Response status is 4xx and service remains stable without schema violations.,DELETE /tasks/{task_id}/tags/{tag_id} (delete_tasks_by_task_id_tags_by_tag_id)
+post_tasks_by_task_id_tags_by_tag_id: positive,Tasks,functional,high,"Sandbox endpoint is available.
+OpenAPI contract version matches deployed mock.","Set base URL to sandbox endpoint for post_tasks_by_task_id_tags_by_tag_id.
+Prepare POST request for /tasks/{task_id}/tags/{tag_id}.
+Send request with valid payload and required headers.",Response status is 201 and payload matches OpenAPI response schema.,POST /tasks/{task_id}/tags/{tag_id} (post_tasks_by_task_id_tags_by_tag_id)
+post_tasks_by_task_id_tags_by_tag_id: auth negative,Tasks,functional,high,"Sandbox endpoint is available.
+OpenAPI contract version matches deployed mock.","Set base URL to sandbox endpoint for post_tasks_by_task_id_tags_by_tag_id.
+Prepare POST request for /tasks/{task_id}/tags/{tag_id}.
+Send request without auth token or with invalid token.","Response status is 401 or 403, and error envelope matches documented schema.",POST /tasks/{task_id}/tags/{tag_id} (post_tasks_by_task_id_tags_by_tag_id)
+post_tasks_by_task_id_tags_by_tag_id: validation negative,Tasks,functional,medium,"Sandbox endpoint is available.
+OpenAPI contract version matches deployed mock.","Set base URL to sandbox endpoint for post_tasks_by_task_id_tags_by_tag_id.
+Prepare POST request for /tasks/{task_id}/tags/{tag_id}.
+Send request with invalid payload shape or missing required field.","Response status is 400 or 422, and validation errors are returned.",POST /tasks/{task_id}/tags/{tag_id} (post_tasks_by_task_id_tags_by_tag_id)
+post_tasks_by_task_id_tags_by_tag_id: not found negative,Tasks,functional,medium,"Sandbox endpoint is available.
+OpenAPI contract version matches deployed mock.","Set base URL to sandbox endpoint for post_tasks_by_task_id_tags_by_tag_id.
+Prepare POST request for /tasks/{task_id}/tags/{tag_id}.
+Send request with non-existent resource identifier.",Response status is 404 with not-found error envelope.,POST /tasks/{task_id}/tags/{tag_id} (post_tasks_by_task_id_tags_by_tag_id)
+post_tasks_by_task_id_tags_by_tag_id: fuzz negative,Tasks,fuzz,medium,"Sandbox endpoint is available.
+OpenAPI contract version matches deployed mock.","Set base URL to sandbox endpoint for post_tasks_by_task_id_tags_by_tag_id.
+Prepare POST request for /tasks/{task_id}/tags/{tag_id}.
+Send request with malformed values and verify rejection.",Response status is 4xx and service remains stable without schema violations.,POST /tasks/{task_id}/tags/{tag_id} (post_tasks_by_task_id_tags_by_tag_id)
+get_users: positive,Users,functional,high,"Sandbox endpoint is available.
+OpenAPI contract version matches deployed mock.","Set base URL to sandbox endpoint for get_users.
+Prepare GET request for /users.
+Send request with valid payload and required headers.",Response status is 200 and payload matches OpenAPI response schema.,GET /users (get_users)
+get_users: auth negative,Users,functional,high,"Sandbox endpoint is available.
+OpenAPI contract version matches deployed mock.","Set base URL to sandbox endpoint for get_users.
+Prepare GET request for /users.
+Send request without auth token or with invalid token.","Response status is 401 or 403, and error envelope matches documented schema.",GET /users (get_users)
+get_users: validation negative,Users,functional,medium,"Sandbox endpoint is available.
+OpenAPI contract version matches deployed mock.","Set base URL to sandbox endpoint for get_users.
+Prepare GET request for /users.
+Send request with invalid payload shape or missing required field.","Response status is 400 or 422, and validation errors are returned.",GET /users (get_users)
+get_users: not found negative,Users,functional,medium,"Sandbox endpoint is available.
+OpenAPI contract version matches deployed mock.","Set base URL to sandbox endpoint for get_users.
+Prepare GET request for /users.
+Send request with non-existent resource identifier.",Response status is 404 with not-found error envelope.,GET /users (get_users)
+get_users: fuzz negative,Users,fuzz,medium,"Sandbox endpoint is available.
+OpenAPI contract version matches deployed mock.","Set base URL to sandbox endpoint for get_users.
+Prepare GET request for /users.
+Send request with malformed values and verify rejection.",Response status is 4xx and service remains stable without schema violations.,GET /users (get_users)
+get_users_me: positive,Users,functional,high,"Sandbox endpoint is available.
+OpenAPI contract version matches deployed mock.","Set base URL to sandbox endpoint for get_users_me.
+Prepare GET request for /users/me.
+Send request with valid payload and required headers.",Response status is 200 and payload matches OpenAPI response schema.,GET /users/me (get_users_me)
+get_users_me: auth negative,Users,functional,high,"Sandbox endpoint is available.
+OpenAPI contract version matches deployed mock.","Set base URL to sandbox endpoint for get_users_me.
+Prepare GET request for /users/me.
+Send request without auth token or with invalid token.","Response status is 401 or 403, and error envelope matches documented schema.",GET /users/me (get_users_me)
+get_users_me: fuzz negative,Users,fuzz,medium,"Sandbox endpoint is available.
+OpenAPI contract version matches deployed mock.","Set base URL to sandbox endpoint for get_users_me.
+Prepare GET request for /users/me.
+Send request with malformed values and verify rejection.",Response status is 4xx and service remains stable without schema violations.,GET /users/me (get_users_me)
+get_users_by_user_id: positive,Users,functional,high,"Sandbox endpoint is available.
+OpenAPI contract version matches deployed mock.","Set base URL to sandbox endpoint for get_users_by_user_id.
+Prepare GET request for /users/{user_id}.
+Send request with valid payload and required headers.",Response status is 200 and payload matches OpenAPI response schema.,GET /users/{user_id} (get_users_by_user_id)
+get_users_by_user_id: auth negative,Users,functional,high,"Sandbox endpoint is available.
+OpenAPI contract version matches deployed mock.","Set base URL to sandbox endpoint for get_users_by_user_id.
+Prepare GET request for /users/{user_id}.
+Send request without auth token or with invalid token.","Response status is 401 or 403, and error envelope matches documented schema.",GET /users/{user_id} (get_users_by_user_id)
+get_users_by_user_id: validation negative,Users,functional,medium,"Sandbox endpoint is available.
+OpenAPI contract version matches deployed mock.","Set base URL to sandbox endpoint for get_users_by_user_id.
+Prepare GET request for /users/{user_id}.
+Send request with invalid payload shape or missing required field.","Response status is 400 or 422, and validation errors are returned.",GET /users/{user_id} (get_users_by_user_id)
+get_users_by_user_id: not found negative,Users,functional,medium,"Sandbox endpoint is available.
+OpenAPI contract version matches deployed mock.","Set base URL to sandbox endpoint for get_users_by_user_id.
+Prepare GET request for /users/{user_id}.
+Send request with non-existent resource identifier.",Response status is 404 with not-found error envelope.,GET /users/{user_id} (get_users_by_user_id)
+get_users_by_user_id: fuzz negative,Users,fuzz,medium,"Sandbox endpoint is available.
+OpenAPI contract version matches deployed mock.","Set base URL to sandbox endpoint for get_users_by_user_id.
+Prepare GET request for /users/{user_id}.
+Send request with malformed values and verify rejection.",Response status is 4xx and service remains stable without schema violations.,GET /users/{user_id} (get_users_by_user_id)
+patch_users_by_user_id: positive,Users,functional,high,"Sandbox endpoint is available.
+OpenAPI contract version matches deployed mock.","Set base URL to sandbox endpoint for patch_users_by_user_id.
+Prepare PATCH request for /users/{user_id}.
+Send request with valid payload and required headers.",Response status is 200 and payload matches OpenAPI response schema.,PATCH /users/{user_id} (patch_users_by_user_id)
+patch_users_by_user_id: auth negative,Users,functional,high,"Sandbox endpoint is available.
+OpenAPI contract version matches deployed mock.","Set base URL to sandbox endpoint for patch_users_by_user_id.
+Prepare PATCH request for /users/{user_id}.
+Send request without auth token or with invalid token.","Response status is 401 or 403, and error envelope matches documented schema.",PATCH /users/{user_id} (patch_users_by_user_id)
+patch_users_by_user_id: validation negative,Users,functional,medium,"Sandbox endpoint is available.
+OpenAPI contract version matches deployed mock.","Set base URL to sandbox endpoint for patch_users_by_user_id.
+Prepare PATCH request for /users/{user_id}.
+Send request with invalid payload shape or missing required field.","Response status is 400 or 422, and validation errors are returned.",PATCH /users/{user_id} (patch_users_by_user_id)
+patch_users_by_user_id: not found negative,Users,functional,medium,"Sandbox endpoint is available.
+OpenAPI contract version matches deployed mock.","Set base URL to sandbox endpoint for patch_users_by_user_id.
+Prepare PATCH request for /users/{user_id}.
+Send request with non-existent resource identifier.",Response status is 404 with not-found error envelope.,PATCH /users/{user_id} (patch_users_by_user_id)
+patch_users_by_user_id: fuzz negative,Users,fuzz,medium,"Sandbox endpoint is available.
+OpenAPI contract version matches deployed mock.","Set base URL to sandbox endpoint for patch_users_by_user_id.
+Prepare PATCH request for /users/{user_id}.
+Send request with malformed values and verify rejection.",Response status is 4xx and service remains stable without schema violations.,PATCH /users/{user_id} (patch_users_by_user_id)
+get_users_by_user_id_tasks: positive,Users,functional,high,"Sandbox endpoint is available.
+OpenAPI contract version matches deployed mock.","Set base URL to sandbox endpoint for get_users_by_user_id_tasks.
+Prepare GET request for /users/{user_id}/tasks.
+Send request with valid payload and required headers.",Response status is 200 and payload matches OpenAPI response schema.,GET /users/{user_id}/tasks (get_users_by_user_id_tasks)
+get_users_by_user_id_tasks: auth negative,Users,functional,high,"Sandbox endpoint is available.
+OpenAPI contract version matches deployed mock.","Set base URL to sandbox endpoint for get_users_by_user_id_tasks.
+Prepare GET request for /users/{user_id}/tasks.
+Send request without auth token or with invalid token.","Response status is 401 or 403, and error envelope matches documented schema.",GET /users/{user_id}/tasks (get_users_by_user_id_tasks)
+get_users_by_user_id_tasks: validation negative,Users,functional,medium,"Sandbox endpoint is available.
+OpenAPI contract version matches deployed mock.","Set base URL to sandbox endpoint for get_users_by_user_id_tasks.
+Prepare GET request for /users/{user_id}/tasks.
+Send request with invalid payload shape or missing required field.","Response status is 400 or 422, and validation errors are returned.",GET /users/{user_id}/tasks (get_users_by_user_id_tasks)
+get_users_by_user_id_tasks: not found negative,Users,functional,medium,"Sandbox endpoint is available.
+OpenAPI contract version matches deployed mock.","Set base URL to sandbox endpoint for get_users_by_user_id_tasks.
+Prepare GET request for /users/{user_id}/tasks.
+Send request with non-existent resource identifier.",Response status is 404 with not-found error envelope.,GET /users/{user_id}/tasks (get_users_by_user_id_tasks)
+get_users_by_user_id_tasks: fuzz negative,Users,fuzz,medium,"Sandbox endpoint is available.
+OpenAPI contract version matches deployed mock.","Set base URL to sandbox endpoint for get_users_by_user_id_tasks.
+Prepare GET request for /users/{user_id}/tasks.
+Send request with malformed values and verify rejection.",Response status is 4xx and service remains stable without schema violations.,GET /users/{user_id}/tasks (get_users_by_user_id_tasks)

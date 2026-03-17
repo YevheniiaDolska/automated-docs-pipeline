@@ -9,10 +9,11 @@ from __future__ import annotations
 import argparse
 import json
 import os
+import re
 from pathlib import Path
 from typing import Any
 from urllib import error, request
-from urllib.parse import quote
+from urllib.parse import quote, urlparse
 
 import yaml
 
@@ -145,6 +146,255 @@ def _resolve_collection_id(base_url: str, api_key: str, token: str) -> str:
         return value
 
 
+def _extract_examples_from_spec(spec_path: str) -> dict[tuple[str, str], list[dict[str, Any]]]:
+    """Extract response examples from OpenAPI spec for each operation.
+
+    Returns a mapping of (METHOD, path) -> list of example responses
+    in Postman saved-example format.
+    """
+    spec_file = Path(spec_path)
+    if not spec_file.exists():
+        return {}
+
+    spec = yaml.safe_load(spec_file.read_text(encoding="utf-8"))
+    if not isinstance(spec, dict):
+        return {}
+
+    results: dict[tuple[str, str], list[dict[str, Any]]] = {}
+    paths = spec.get("paths", {})
+
+    # Resolve $ref'd path files relative to spec
+    spec_dir = spec_file.parent
+    resolved_paths: dict[str, dict[str, Any]] = {}
+    for path_key, path_val in paths.items():
+        if isinstance(path_val, dict) and "$ref" in path_val:
+            ref = path_val["$ref"]
+            if "#" in ref:
+                file_part, pointer = ref.split("#", 1)
+            else:
+                file_part, pointer = ref, ""
+            ref_file = (spec_dir / file_part).resolve()
+            if ref_file.exists():
+                ref_data = yaml.safe_load(ref_file.read_text(encoding="utf-8"))
+                if isinstance(ref_data, dict):
+                    node = ref_data
+                    if pointer:
+                        for seg in pointer.strip("/").split("/"):
+                            seg = seg.replace("~1", "/").replace("~0", "~")
+                            if isinstance(node, dict) and seg in node:
+                                node = node[seg]
+                            else:
+                                node = {}
+                                break
+                    if isinstance(node, dict):
+                        resolved_paths[path_key] = node
+        elif isinstance(path_val, dict):
+            resolved_paths[path_key] = path_val
+
+    http_methods = {"get", "post", "put", "patch", "delete", "head", "options"}
+    status_text_map = {
+        "200": "OK", "201": "Created", "204": "No Content",
+        "400": "Bad Request", "401": "Unauthorized",
+        "403": "Forbidden", "404": "Not Found",
+        "409": "Conflict", "422": "Unprocessable Entity",
+        "429": "Too Many Requests", "500": "Internal Server Error",
+    }
+    for path_key, path_obj in resolved_paths.items():
+        for method in http_methods:
+            op = path_obj.get(method)
+            if not isinstance(op, dict):
+                continue
+            examples: list[dict[str, Any]] = []
+            responses = op.get("responses", {})
+            for status_code, resp_obj in responses.items():
+                if not isinstance(resp_obj, dict):
+                    continue
+                content = resp_obj.get("content", {})
+                if not isinstance(content, dict):
+                    continue
+                for media_type, media_obj in content.items():
+                    if not isinstance(media_obj, dict):
+                        continue
+                    example_body = media_obj.get("example")
+                    if example_body is not None:
+                        status_text = status_text_map.get(str(status_code), "OK")
+                        examples.append({
+                            "name": f"{status_code} {status_text}",
+                            "code": int(status_code),
+                            "status": status_text,
+                            "header": [{"key": "Content-Type", "value": media_type}],
+                            "body": json.dumps(example_body, ensure_ascii=False),
+                            "_postman_previewlanguage": "json",
+                        })
+            if examples:
+                results[(method.upper(), path_key)] = examples
+    return results
+
+
+def _get_item_method_path(item: dict[str, Any]) -> tuple[str, str]:
+    """Extract HTTP method and normalized path from a Postman collection item."""
+    req = item.get("request", {})
+    if not isinstance(req, dict):
+        return "", ""
+    method = str(req.get("method", "")).upper()
+    url_obj = req.get("url", {})
+    url_path = ""
+    if isinstance(url_obj, dict):
+        path_parts = url_obj.get("path", [])
+        if isinstance(path_parts, list):
+            url_path = "/" + "/".join(str(p) for p in path_parts)
+    elif isinstance(url_obj, str):
+        url_path = urlparse(url_obj).path
+    if url_path:
+        # Normalize Postman :param to OpenAPI {param}
+        url_path = re.sub(r":(\w+)", r"{\1}", url_path)
+        # Remove base path prefix (e.g. /v1)
+        for prefix in ("/v1", "/v2", "/api/v1", "/api"):
+            if url_path.startswith(prefix + "/") or url_path == prefix:
+                url_path = url_path[len(prefix):]
+                break
+    return method, url_path or ""
+
+
+def _build_postman_collection(
+    spec_path: str,
+    collection_name: str,
+    server_url: str,
+) -> dict[str, Any]:
+    """Build a Postman Collection v2.1 from OpenAPI spec with saved examples."""
+    examples_map = _extract_examples_from_spec(spec_path)
+    spec_file = Path(spec_path)
+    spec = yaml.safe_load(spec_file.read_text(encoding="utf-8"))
+    if not isinstance(spec, dict):
+        spec = {}
+    paths = spec.get("paths", {})
+
+    # Resolve paths (same logic as _extract_examples_from_spec)
+    spec_dir = spec_file.parent
+    resolved_paths: dict[str, dict[str, Any]] = {}
+    for path_key, path_val in paths.items():
+        if isinstance(path_val, dict) and "$ref" in path_val:
+            ref = path_val["$ref"]
+            if "#" in ref:
+                file_part, pointer = ref.split("#", 1)
+            else:
+                file_part, pointer = ref, ""
+            ref_file = (spec_dir / file_part).resolve()
+            if ref_file.exists():
+                ref_data = yaml.safe_load(ref_file.read_text(encoding="utf-8"))
+                if isinstance(ref_data, dict):
+                    node = ref_data
+                    if pointer:
+                        for seg in pointer.strip("/").split("/"):
+                            seg = seg.replace("~1", "/").replace("~0", "~")
+                            if isinstance(node, dict) and seg in node:
+                                node = node[seg]
+                            else:
+                                node = {}
+                                break
+                    if isinstance(node, dict):
+                        resolved_paths[path_key] = node
+        elif isinstance(path_val, dict):
+            resolved_paths[path_key] = path_val
+
+    # Parse server URL
+    parsed = urlparse(server_url)
+    host_parts = parsed.hostname.split(".") if parsed.hostname else ["example", "com"]
+    protocol = parsed.scheme or "https"
+
+    items: list[dict[str, Any]] = []
+    http_methods = {"get", "post", "put", "patch", "delete", "head", "options"}
+
+    for path_key in sorted(resolved_paths):
+        path_obj = resolved_paths[path_key]
+        for method in http_methods:
+            op = path_obj.get(method)
+            if not isinstance(op, dict):
+                continue
+            op_id = op.get("operationId", f"{method}_{path_key}")
+            summary = op.get("summary", op_id)
+
+            # Build URL path parts
+            # path_key looks like /projects/{project_id}
+            path_segments = [seg for seg in path_key.strip("/").split("/") if seg]
+            # Replace {param} with :param for Postman
+            pm_path = [re.sub(r"\{(\w+)\}", r":\1", seg) for seg in path_segments]
+
+            url_obj: dict[str, Any] = {
+                "raw": f"{server_url.rstrip('/')}{path_key}",
+                "protocol": protocol,
+                "host": host_parts,
+                "path": ["v1"] + pm_path,
+            }
+
+            # Build variable entries for path params
+            variables = []
+            for seg in path_segments:
+                match = re.match(r"\{(\w+)\}", seg)
+                if match:
+                    param_name = match.group(1)
+                    variables.append({
+                        "key": param_name,
+                        "value": "00000000-0000-0000-0000-000000000001",
+                        "description": f"Path parameter: {param_name}",
+                    })
+            if variables:
+                url_obj["variable"] = variables
+
+            request_obj: dict[str, Any] = {
+                "method": method.upper(),
+                "header": [
+                    {"key": "Accept", "value": "application/json"},
+                    {"key": "Content-Type", "value": "application/json"},
+                ],
+                "url": url_obj,
+            }
+
+            # Add request body for POST/PUT/PATCH
+            if method in ("post", "put", "patch"):
+                rb = op.get("requestBody", {})
+                if isinstance(rb, dict):
+                    content = rb.get("content", {})
+                    for _, media_obj in content.items():
+                        if isinstance(media_obj, dict) and "example" in media_obj:
+                            request_obj["body"] = {
+                                "mode": "raw",
+                                "raw": json.dumps(media_obj["example"], ensure_ascii=False),
+                                "options": {"raw": {"language": "json"}},
+                            }
+                            break
+
+            # Build saved example responses
+            key = (method.upper(), path_key)
+            saved_responses = []
+            matched = examples_map.get(key, [])
+            for ex in matched:
+                saved_responses.append({
+                    "name": ex["name"],
+                    "originalRequest": request_obj,
+                    "status": ex["status"],
+                    "code": ex["code"],
+                    "header": ex["header"],
+                    "body": ex["body"],
+                    "_postman_previewlanguage": "json",
+                })
+
+            item: dict[str, Any] = {
+                "name": summary,
+                "request": request_obj,
+                "response": saved_responses,
+            }
+            items.append(item)
+
+    return {
+        "info": {
+            "name": collection_name,
+            "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+        },
+        "item": items,
+    }
+
+
 def _normalize_base_path(base_path: str) -> str:
     value = base_path.strip()
     if not value:
@@ -235,26 +485,30 @@ def _resolve_postman_mock(args: argparse.Namespace) -> dict[str, str]:
         spec_file = Path(args.spec_path)
         if not spec_file.exists():
             raise RuntimeError(f"Spec file for Postman import not found: {spec_file}")
+
+        # Build a Postman Collection v2.1 directly with saved examples
+        # so the mock server can serve proper responses.
         spec_obj = yaml.safe_load(spec_file.read_text(encoding="utf-8"))
-        import_payload = {
-            "type": "json",
-            "input": spec_obj,
-        }
-        imported = _http_json(
+        servers = spec_obj.get("servers", []) if isinstance(spec_obj, dict) else []
+        server_url = servers[0].get("url", "https://api.example.com/v1") if servers else "https://api.example.com/v1"
+        col_name = f"{args.project_slug}-docsops-api"
+        collection_body = _build_postman_collection(str(spec_file), col_name, server_url)
+
+        created_col = _http_json(
             "POST",
-            f"{base_url}/import/openapi",
+            f"{base_url}/collections?workspace={quote(workspace_id, safe='')}",
             api_key=api_key,
-            payload=import_payload,
+            payload={"collection": collection_body},
         )
         collection_uid = str(
-            (imported.get("collections") or [{}])[0].get("uid", "")
+            created_col.get("collection", {}).get("uid", "")
         ).strip()
         if not collection_uid:
-            found = _find_mock_node(imported)
-            if found is not None:
-                collection_uid = str(found.get("uid", "")).strip()
+            collection_uid = str(
+                created_col.get("collection", {}).get("id", "")
+            ).strip()
         if not collection_uid:
-            raise RuntimeError("Unable to resolve collection UID from Postman import response.")
+            raise RuntimeError("Unable to resolve collection UID from Postman create response.")
     collection_id = _resolve_collection_id(base_url, api_key, collection_uid)
 
     mock_name = args.postman_mock_server_name.strip() or f"{args.project_slug}-docsops-mock"

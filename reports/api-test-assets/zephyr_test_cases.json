@@ -1,0 +1,1578 @@
+{
+  "issues": [
+    {
+      "summary": "delete_comments_by_comment_id: positive",
+      "description": "Operation: DELETE /comments/{comment_id}\nOperation ID: delete_comments_by_comment_id\n\nPreconditions:\nSandbox endpoint is available.\nOpenAPI contract version matches deployed mock.\n\nSteps:\n- Set base URL to sandbox endpoint for delete_comments_by_comment_id.\n- Prepare DELETE request for /comments/{comment_id}.\n- Send request with valid payload and required headers.\n\nExpected: Response status is 204 and payload matches OpenAPI response schema.",
+      "labels": [
+        "api-first",
+        "auto-generated",
+        "functional"
+      ],
+      "priority": "high",
+      "suite": "Comments"
+    },
+    {
+      "summary": "delete_comments_by_comment_id: auth negative",
+      "description": "Operation: DELETE /comments/{comment_id}\nOperation ID: delete_comments_by_comment_id\n\nPreconditions:\nSandbox endpoint is available.\nOpenAPI contract version matches deployed mock.\n\nSteps:\n- Set base URL to sandbox endpoint for delete_comments_by_comment_id.\n- Prepare DELETE request for /comments/{comment_id}.\n- Send request without auth token or with invalid token.\n\nExpected: Response status is 401 or 403, and error envelope matches documented schema.",
+      "labels": [
+        "api-first",
+        "auto-generated",
+        "functional"
+      ],
+      "priority": "high",
+      "suite": "Comments"
+    },
+    {
+      "summary": "delete_comments_by_comment_id: not found negative",
+      "description": "Operation: DELETE /comments/{comment_id}\nOperation ID: delete_comments_by_comment_id\n\nPreconditions:\nSandbox endpoint is available.\nOpenAPI contract version matches deployed mock.\n\nSteps:\n- Set base URL to sandbox endpoint for delete_comments_by_comment_id.\n- Prepare DELETE request for /comments/{comment_id}.\n- Send request with non-existent resource identifier.\n\nExpected: Response status is 404 with not-found error envelope.",
+      "labels": [
+        "api-first",
+        "auto-generated",
+        "functional"
+      ],
+      "priority": "medium",
+      "suite": "Comments"
+    },
+    {
+      "summary": "delete_comments_by_comment_id: fuzz negative",
+      "description": "Operation: DELETE /comments/{comment_id}\nOperation ID: delete_comments_by_comment_id\n\nPreconditions:\nSandbox endpoint is available.\nOpenAPI contract version matches deployed mock.\n\nSteps:\n- Set base URL to sandbox endpoint for delete_comments_by_comment_id.\n- Prepare DELETE request for /comments/{comment_id}.\n- Send request with malformed values and verify rejection.\n\nExpected: Response status is 4xx and service remains stable without schema violations.",
+      "labels": [
+        "api-first",
+        "auto-generated",
+        "fuzz"
+      ],
+      "priority": "medium",
+      "suite": "Comments"
+    },
+    {
+      "summary": "get_comments_by_comment_id: positive",
+      "description": "Operation: GET /comments/{comment_id}\nOperation ID: get_comments_by_comment_id\n\nPreconditions:\nSandbox endpoint is available.\nOpenAPI contract version matches deployed mock.\n\nSteps:\n- Set base URL to sandbox endpoint for get_comments_by_comment_id.\n- Prepare GET request for /comments/{comment_id}.\n- Send request with valid payload and required headers.\n\nExpected: Response status is 200 and payload matches OpenAPI response schema.",
+      "labels": [
+        "api-first",
+        "auto-generated",
+        "functional"
+      ],
+      "priority": "high",
+      "suite": "Comments"
+    },
+    {
+      "summary": "get_comments_by_comment_id: auth negative",
+      "description": "Operation: GET /comments/{comment_id}\nOperation ID: get_comments_by_comment_id\n\nPreconditions:\nSandbox endpoint is available.\nOpenAPI contract version matches deployed mock.\n\nSteps:\n- Set base URL to sandbox endpoint for get_comments_by_comment_id.\n- Prepare GET request for /comments/{comment_id}.\n- Send request without auth token or with invalid token.\n\nExpected: Response status is 401 or 403, and error envelope matches documented schema.",
+      "labels": [
+        "api-first",
+        "auto-generated",
+        "functional"
+      ],
+      "priority": "high",
+      "suite": "Comments"
+    },
+    {
+      "summary": "get_comments_by_comment_id: validation negative",
+      "description": "Operation: GET /comments/{comment_id}\nOperation ID: get_comments_by_comment_id\n\nPreconditions:\nSandbox endpoint is available.\nOpenAPI contract version matches deployed mock.\n\nSteps:\n- Set base URL to sandbox endpoint for get_comments_by_comment_id.\n- Prepare GET request for /comments/{comment_id}.\n- Send request with invalid payload shape or missing required field.\n\nExpected: Response status is 400 or 422, and validation errors are returned.",
+      "labels": [
+        "api-first",
+        "auto-generated",
+        "functional"
+      ],
+      "priority": "medium",
+      "suite": "Comments"
+    },
+    {
+      "summary": "get_comments_by_comment_id: not found negative",
+      "description": "Operation: GET /comments/{comment_id}\nOperation ID: get_comments_by_comment_id\n\nPreconditions:\nSandbox endpoint is available.\nOpenAPI contract version matches deployed mock.\n\nSteps:\n- Set base URL to sandbox endpoint for get_comments_by_comment_id.\n- Prepare GET request for /comments/{comment_id}.\n- Send request with non-existent resource identifier.\n\nExpected: Response status is 404 with not-found error envelope.",
+      "labels": [
+        "api-first",
+        "auto-generated",
+        "functional"
+      ],
+      "priority": "medium",
+      "suite": "Comments"
+    },
+    {
+      "summary": "get_comments_by_comment_id: fuzz negative",
+      "description": "Operation: GET /comments/{comment_id}\nOperation ID: get_comments_by_comment_id\n\nPreconditions:\nSandbox endpoint is available.\nOpenAPI contract version matches deployed mock.\n\nSteps:\n- Set base URL to sandbox endpoint for get_comments_by_comment_id.\n- Prepare GET request for /comments/{comment_id}.\n- Send request with malformed values and verify rejection.\n\nExpected: Response status is 4xx and service remains stable without schema violations.",
+      "labels": [
+        "api-first",
+        "auto-generated",
+        "fuzz"
+      ],
+      "priority": "medium",
+      "suite": "Comments"
+    },
+    {
+      "summary": "patch_comments_by_comment_id: positive",
+      "description": "Operation: PATCH /comments/{comment_id}\nOperation ID: patch_comments_by_comment_id\n\nPreconditions:\nSandbox endpoint is available.\nOpenAPI contract version matches deployed mock.\n\nSteps:\n- Set base URL to sandbox endpoint for patch_comments_by_comment_id.\n- Prepare PATCH request for /comments/{comment_id}.\n- Send request with valid payload and required headers.\n\nExpected: Response status is 200 and payload matches OpenAPI response schema.",
+      "labels": [
+        "api-first",
+        "auto-generated",
+        "functional"
+      ],
+      "priority": "high",
+      "suite": "Comments"
+    },
+    {
+      "summary": "patch_comments_by_comment_id: auth negative",
+      "description": "Operation: PATCH /comments/{comment_id}\nOperation ID: patch_comments_by_comment_id\n\nPreconditions:\nSandbox endpoint is available.\nOpenAPI contract version matches deployed mock.\n\nSteps:\n- Set base URL to sandbox endpoint for patch_comments_by_comment_id.\n- Prepare PATCH request for /comments/{comment_id}.\n- Send request without auth token or with invalid token.\n\nExpected: Response status is 401 or 403, and error envelope matches documented schema.",
+      "labels": [
+        "api-first",
+        "auto-generated",
+        "functional"
+      ],
+      "priority": "high",
+      "suite": "Comments"
+    },
+    {
+      "summary": "patch_comments_by_comment_id: validation negative",
+      "description": "Operation: PATCH /comments/{comment_id}\nOperation ID: patch_comments_by_comment_id\n\nPreconditions:\nSandbox endpoint is available.\nOpenAPI contract version matches deployed mock.\n\nSteps:\n- Set base URL to sandbox endpoint for patch_comments_by_comment_id.\n- Prepare PATCH request for /comments/{comment_id}.\n- Send request with invalid payload shape or missing required field.\n\nExpected: Response status is 400 or 422, and validation errors are returned.",
+      "labels": [
+        "api-first",
+        "auto-generated",
+        "functional"
+      ],
+      "priority": "medium",
+      "suite": "Comments"
+    },
+    {
+      "summary": "patch_comments_by_comment_id: not found negative",
+      "description": "Operation: PATCH /comments/{comment_id}\nOperation ID: patch_comments_by_comment_id\n\nPreconditions:\nSandbox endpoint is available.\nOpenAPI contract version matches deployed mock.\n\nSteps:\n- Set base URL to sandbox endpoint for patch_comments_by_comment_id.\n- Prepare PATCH request for /comments/{comment_id}.\n- Send request with non-existent resource identifier.\n\nExpected: Response status is 404 with not-found error envelope.",
+      "labels": [
+        "api-first",
+        "auto-generated",
+        "functional"
+      ],
+      "priority": "medium",
+      "suite": "Comments"
+    },
+    {
+      "summary": "patch_comments_by_comment_id: fuzz negative",
+      "description": "Operation: PATCH /comments/{comment_id}\nOperation ID: patch_comments_by_comment_id\n\nPreconditions:\nSandbox endpoint is available.\nOpenAPI contract version matches deployed mock.\n\nSteps:\n- Set base URL to sandbox endpoint for patch_comments_by_comment_id.\n- Prepare PATCH request for /comments/{comment_id}.\n- Send request with malformed values and verify rejection.\n\nExpected: Response status is 4xx and service remains stable without schema violations.",
+      "labels": [
+        "api-first",
+        "auto-generated",
+        "fuzz"
+      ],
+      "priority": "medium",
+      "suite": "Comments"
+    },
+    {
+      "summary": "get_projects: positive",
+      "description": "Operation: GET /projects\nOperation ID: get_projects\n\nPreconditions:\nSandbox endpoint is available.\nOpenAPI contract version matches deployed mock.\n\nSteps:\n- Set base URL to sandbox endpoint for get_projects.\n- Prepare GET request for /projects.\n- Send request with valid payload and required headers.\n\nExpected: Response status is 200 and payload matches OpenAPI response schema.",
+      "labels": [
+        "api-first",
+        "auto-generated",
+        "functional"
+      ],
+      "priority": "high",
+      "suite": "Projects"
+    },
+    {
+      "summary": "get_projects: auth negative",
+      "description": "Operation: GET /projects\nOperation ID: get_projects\n\nPreconditions:\nSandbox endpoint is available.\nOpenAPI contract version matches deployed mock.\n\nSteps:\n- Set base URL to sandbox endpoint for get_projects.\n- Prepare GET request for /projects.\n- Send request without auth token or with invalid token.\n\nExpected: Response status is 401 or 403, and error envelope matches documented schema.",
+      "labels": [
+        "api-first",
+        "auto-generated",
+        "functional"
+      ],
+      "priority": "high",
+      "suite": "Projects"
+    },
+    {
+      "summary": "get_projects: validation negative",
+      "description": "Operation: GET /projects\nOperation ID: get_projects\n\nPreconditions:\nSandbox endpoint is available.\nOpenAPI contract version matches deployed mock.\n\nSteps:\n- Set base URL to sandbox endpoint for get_projects.\n- Prepare GET request for /projects.\n- Send request with invalid payload shape or missing required field.\n\nExpected: Response status is 400 or 422, and validation errors are returned.",
+      "labels": [
+        "api-first",
+        "auto-generated",
+        "functional"
+      ],
+      "priority": "medium",
+      "suite": "Projects"
+    },
+    {
+      "summary": "get_projects: fuzz negative",
+      "description": "Operation: GET /projects\nOperation ID: get_projects\n\nPreconditions:\nSandbox endpoint is available.\nOpenAPI contract version matches deployed mock.\n\nSteps:\n- Set base URL to sandbox endpoint for get_projects.\n- Prepare GET request for /projects.\n- Send request with malformed values and verify rejection.\n\nExpected: Response status is 4xx and service remains stable without schema violations.",
+      "labels": [
+        "api-first",
+        "auto-generated",
+        "fuzz"
+      ],
+      "priority": "medium",
+      "suite": "Projects"
+    },
+    {
+      "summary": "post_projects: positive",
+      "description": "Operation: POST /projects\nOperation ID: post_projects\n\nPreconditions:\nSandbox endpoint is available.\nOpenAPI contract version matches deployed mock.\n\nSteps:\n- Set base URL to sandbox endpoint for post_projects.\n- Prepare POST request for /projects.\n- Send request with valid payload and required headers.\n\nExpected: Response status is 201 and payload matches OpenAPI response schema.",
+      "labels": [
+        "api-first",
+        "auto-generated",
+        "functional"
+      ],
+      "priority": "high",
+      "suite": "Projects"
+    },
+    {
+      "summary": "post_projects: auth negative",
+      "description": "Operation: POST /projects\nOperation ID: post_projects\n\nPreconditions:\nSandbox endpoint is available.\nOpenAPI contract version matches deployed mock.\n\nSteps:\n- Set base URL to sandbox endpoint for post_projects.\n- Prepare POST request for /projects.\n- Send request without auth token or with invalid token.\n\nExpected: Response status is 401 or 403, and error envelope matches documented schema.",
+      "labels": [
+        "api-first",
+        "auto-generated",
+        "functional"
+      ],
+      "priority": "high",
+      "suite": "Projects"
+    },
+    {
+      "summary": "post_projects: validation negative",
+      "description": "Operation: POST /projects\nOperation ID: post_projects\n\nPreconditions:\nSandbox endpoint is available.\nOpenAPI contract version matches deployed mock.\n\nSteps:\n- Set base URL to sandbox endpoint for post_projects.\n- Prepare POST request for /projects.\n- Send request with invalid payload shape or missing required field.\n\nExpected: Response status is 400 or 422, and validation errors are returned.",
+      "labels": [
+        "api-first",
+        "auto-generated",
+        "functional"
+      ],
+      "priority": "medium",
+      "suite": "Projects"
+    },
+    {
+      "summary": "post_projects: fuzz negative",
+      "description": "Operation: POST /projects\nOperation ID: post_projects\n\nPreconditions:\nSandbox endpoint is available.\nOpenAPI contract version matches deployed mock.\n\nSteps:\n- Set base URL to sandbox endpoint for post_projects.\n- Prepare POST request for /projects.\n- Send request with malformed values and verify rejection.\n\nExpected: Response status is 4xx and service remains stable without schema violations.",
+      "labels": [
+        "api-first",
+        "auto-generated",
+        "fuzz"
+      ],
+      "priority": "medium",
+      "suite": "Projects"
+    },
+    {
+      "summary": "delete_projects_by_project_id: positive",
+      "description": "Operation: DELETE /projects/{project_id}\nOperation ID: delete_projects_by_project_id\n\nPreconditions:\nSandbox endpoint is available.\nOpenAPI contract version matches deployed mock.\n\nSteps:\n- Set base URL to sandbox endpoint for delete_projects_by_project_id.\n- Prepare DELETE request for /projects/{project_id}.\n- Send request with valid payload and required headers.\n\nExpected: Response status is 204 and payload matches OpenAPI response schema.",
+      "labels": [
+        "api-first",
+        "auto-generated",
+        "functional"
+      ],
+      "priority": "high",
+      "suite": "Projects"
+    },
+    {
+      "summary": "delete_projects_by_project_id: auth negative",
+      "description": "Operation: DELETE /projects/{project_id}\nOperation ID: delete_projects_by_project_id\n\nPreconditions:\nSandbox endpoint is available.\nOpenAPI contract version matches deployed mock.\n\nSteps:\n- Set base URL to sandbox endpoint for delete_projects_by_project_id.\n- Prepare DELETE request for /projects/{project_id}.\n- Send request without auth token or with invalid token.\n\nExpected: Response status is 401 or 403, and error envelope matches documented schema.",
+      "labels": [
+        "api-first",
+        "auto-generated",
+        "functional"
+      ],
+      "priority": "high",
+      "suite": "Projects"
+    },
+    {
+      "summary": "delete_projects_by_project_id: not found negative",
+      "description": "Operation: DELETE /projects/{project_id}\nOperation ID: delete_projects_by_project_id\n\nPreconditions:\nSandbox endpoint is available.\nOpenAPI contract version matches deployed mock.\n\nSteps:\n- Set base URL to sandbox endpoint for delete_projects_by_project_id.\n- Prepare DELETE request for /projects/{project_id}.\n- Send request with non-existent resource identifier.\n\nExpected: Response status is 404 with not-found error envelope.",
+      "labels": [
+        "api-first",
+        "auto-generated",
+        "functional"
+      ],
+      "priority": "medium",
+      "suite": "Projects"
+    },
+    {
+      "summary": "delete_projects_by_project_id: fuzz negative",
+      "description": "Operation: DELETE /projects/{project_id}\nOperation ID: delete_projects_by_project_id\n\nPreconditions:\nSandbox endpoint is available.\nOpenAPI contract version matches deployed mock.\n\nSteps:\n- Set base URL to sandbox endpoint for delete_projects_by_project_id.\n- Prepare DELETE request for /projects/{project_id}.\n- Send request with malformed values and verify rejection.\n\nExpected: Response status is 4xx and service remains stable without schema violations.",
+      "labels": [
+        "api-first",
+        "auto-generated",
+        "fuzz"
+      ],
+      "priority": "medium",
+      "suite": "Projects"
+    },
+    {
+      "summary": "get_projects_by_project_id: positive",
+      "description": "Operation: GET /projects/{project_id}\nOperation ID: get_projects_by_project_id\n\nPreconditions:\nSandbox endpoint is available.\nOpenAPI contract version matches deployed mock.\n\nSteps:\n- Set base URL to sandbox endpoint for get_projects_by_project_id.\n- Prepare GET request for /projects/{project_id}.\n- Send request with valid payload and required headers.\n\nExpected: Response status is 200 and payload matches OpenAPI response schema.",
+      "labels": [
+        "api-first",
+        "auto-generated",
+        "functional"
+      ],
+      "priority": "high",
+      "suite": "Projects"
+    },
+    {
+      "summary": "get_projects_by_project_id: auth negative",
+      "description": "Operation: GET /projects/{project_id}\nOperation ID: get_projects_by_project_id\n\nPreconditions:\nSandbox endpoint is available.\nOpenAPI contract version matches deployed mock.\n\nSteps:\n- Set base URL to sandbox endpoint for get_projects_by_project_id.\n- Prepare GET request for /projects/{project_id}.\n- Send request without auth token or with invalid token.\n\nExpected: Response status is 401 or 403, and error envelope matches documented schema.",
+      "labels": [
+        "api-first",
+        "auto-generated",
+        "functional"
+      ],
+      "priority": "high",
+      "suite": "Projects"
+    },
+    {
+      "summary": "get_projects_by_project_id: validation negative",
+      "description": "Operation: GET /projects/{project_id}\nOperation ID: get_projects_by_project_id\n\nPreconditions:\nSandbox endpoint is available.\nOpenAPI contract version matches deployed mock.\n\nSteps:\n- Set base URL to sandbox endpoint for get_projects_by_project_id.\n- Prepare GET request for /projects/{project_id}.\n- Send request with invalid payload shape or missing required field.\n\nExpected: Response status is 400 or 422, and validation errors are returned.",
+      "labels": [
+        "api-first",
+        "auto-generated",
+        "functional"
+      ],
+      "priority": "medium",
+      "suite": "Projects"
+    },
+    {
+      "summary": "get_projects_by_project_id: not found negative",
+      "description": "Operation: GET /projects/{project_id}\nOperation ID: get_projects_by_project_id\n\nPreconditions:\nSandbox endpoint is available.\nOpenAPI contract version matches deployed mock.\n\nSteps:\n- Set base URL to sandbox endpoint for get_projects_by_project_id.\n- Prepare GET request for /projects/{project_id}.\n- Send request with non-existent resource identifier.\n\nExpected: Response status is 404 with not-found error envelope.",
+      "labels": [
+        "api-first",
+        "auto-generated",
+        "functional"
+      ],
+      "priority": "medium",
+      "suite": "Projects"
+    },
+    {
+      "summary": "get_projects_by_project_id: fuzz negative",
+      "description": "Operation: GET /projects/{project_id}\nOperation ID: get_projects_by_project_id\n\nPreconditions:\nSandbox endpoint is available.\nOpenAPI contract version matches deployed mock.\n\nSteps:\n- Set base URL to sandbox endpoint for get_projects_by_project_id.\n- Prepare GET request for /projects/{project_id}.\n- Send request with malformed values and verify rejection.\n\nExpected: Response status is 4xx and service remains stable without schema violations.",
+      "labels": [
+        "api-first",
+        "auto-generated",
+        "fuzz"
+      ],
+      "priority": "medium",
+      "suite": "Projects"
+    },
+    {
+      "summary": "patch_projects_by_project_id: positive",
+      "description": "Operation: PATCH /projects/{project_id}\nOperation ID: patch_projects_by_project_id\n\nPreconditions:\nSandbox endpoint is available.\nOpenAPI contract version matches deployed mock.\n\nSteps:\n- Set base URL to sandbox endpoint for patch_projects_by_project_id.\n- Prepare PATCH request for /projects/{project_id}.\n- Send request with valid payload and required headers.\n\nExpected: Response status is 200 and payload matches OpenAPI response schema.",
+      "labels": [
+        "api-first",
+        "auto-generated",
+        "functional"
+      ],
+      "priority": "high",
+      "suite": "Projects"
+    },
+    {
+      "summary": "patch_projects_by_project_id: auth negative",
+      "description": "Operation: PATCH /projects/{project_id}\nOperation ID: patch_projects_by_project_id\n\nPreconditions:\nSandbox endpoint is available.\nOpenAPI contract version matches deployed mock.\n\nSteps:\n- Set base URL to sandbox endpoint for patch_projects_by_project_id.\n- Prepare PATCH request for /projects/{project_id}.\n- Send request without auth token or with invalid token.\n\nExpected: Response status is 401 or 403, and error envelope matches documented schema.",
+      "labels": [
+        "api-first",
+        "auto-generated",
+        "functional"
+      ],
+      "priority": "high",
+      "suite": "Projects"
+    },
+    {
+      "summary": "patch_projects_by_project_id: validation negative",
+      "description": "Operation: PATCH /projects/{project_id}\nOperation ID: patch_projects_by_project_id\n\nPreconditions:\nSandbox endpoint is available.\nOpenAPI contract version matches deployed mock.\n\nSteps:\n- Set base URL to sandbox endpoint for patch_projects_by_project_id.\n- Prepare PATCH request for /projects/{project_id}.\n- Send request with invalid payload shape or missing required field.\n\nExpected: Response status is 400 or 422, and validation errors are returned.",
+      "labels": [
+        "api-first",
+        "auto-generated",
+        "functional"
+      ],
+      "priority": "medium",
+      "suite": "Projects"
+    },
+    {
+      "summary": "patch_projects_by_project_id: not found negative",
+      "description": "Operation: PATCH /projects/{project_id}\nOperation ID: patch_projects_by_project_id\n\nPreconditions:\nSandbox endpoint is available.\nOpenAPI contract version matches deployed mock.\n\nSteps:\n- Set base URL to sandbox endpoint for patch_projects_by_project_id.\n- Prepare PATCH request for /projects/{project_id}.\n- Send request with non-existent resource identifier.\n\nExpected: Response status is 404 with not-found error envelope.",
+      "labels": [
+        "api-first",
+        "auto-generated",
+        "functional"
+      ],
+      "priority": "medium",
+      "suite": "Projects"
+    },
+    {
+      "summary": "patch_projects_by_project_id: fuzz negative",
+      "description": "Operation: PATCH /projects/{project_id}\nOperation ID: patch_projects_by_project_id\n\nPreconditions:\nSandbox endpoint is available.\nOpenAPI contract version matches deployed mock.\n\nSteps:\n- Set base URL to sandbox endpoint for patch_projects_by_project_id.\n- Prepare PATCH request for /projects/{project_id}.\n- Send request with malformed values and verify rejection.\n\nExpected: Response status is 4xx and service remains stable without schema violations.",
+      "labels": [
+        "api-first",
+        "auto-generated",
+        "fuzz"
+      ],
+      "priority": "medium",
+      "suite": "Projects"
+    },
+    {
+      "summary": "post_projects_by_project_id_archive: positive",
+      "description": "Operation: POST /projects/{project_id}/archive\nOperation ID: post_projects_by_project_id_archive\n\nPreconditions:\nSandbox endpoint is available.\nOpenAPI contract version matches deployed mock.\n\nSteps:\n- Set base URL to sandbox endpoint for post_projects_by_project_id_archive.\n- Prepare POST request for /projects/{project_id}/archive.\n- Send request with valid payload and required headers.\n\nExpected: Response status is 201 and payload matches OpenAPI response schema.",
+      "labels": [
+        "api-first",
+        "auto-generated",
+        "functional"
+      ],
+      "priority": "high",
+      "suite": "Projects"
+    },
+    {
+      "summary": "post_projects_by_project_id_archive: auth negative",
+      "description": "Operation: POST /projects/{project_id}/archive\nOperation ID: post_projects_by_project_id_archive\n\nPreconditions:\nSandbox endpoint is available.\nOpenAPI contract version matches deployed mock.\n\nSteps:\n- Set base URL to sandbox endpoint for post_projects_by_project_id_archive.\n- Prepare POST request for /projects/{project_id}/archive.\n- Send request without auth token or with invalid token.\n\nExpected: Response status is 401 or 403, and error envelope matches documented schema.",
+      "labels": [
+        "api-first",
+        "auto-generated",
+        "functional"
+      ],
+      "priority": "high",
+      "suite": "Projects"
+    },
+    {
+      "summary": "post_projects_by_project_id_archive: validation negative",
+      "description": "Operation: POST /projects/{project_id}/archive\nOperation ID: post_projects_by_project_id_archive\n\nPreconditions:\nSandbox endpoint is available.\nOpenAPI contract version matches deployed mock.\n\nSteps:\n- Set base URL to sandbox endpoint for post_projects_by_project_id_archive.\n- Prepare POST request for /projects/{project_id}/archive.\n- Send request with invalid payload shape or missing required field.\n\nExpected: Response status is 400 or 422, and validation errors are returned.",
+      "labels": [
+        "api-first",
+        "auto-generated",
+        "functional"
+      ],
+      "priority": "medium",
+      "suite": "Projects"
+    },
+    {
+      "summary": "post_projects_by_project_id_archive: not found negative",
+      "description": "Operation: POST /projects/{project_id}/archive\nOperation ID: post_projects_by_project_id_archive\n\nPreconditions:\nSandbox endpoint is available.\nOpenAPI contract version matches deployed mock.\n\nSteps:\n- Set base URL to sandbox endpoint for post_projects_by_project_id_archive.\n- Prepare POST request for /projects/{project_id}/archive.\n- Send request with non-existent resource identifier.\n\nExpected: Response status is 404 with not-found error envelope.",
+      "labels": [
+        "api-first",
+        "auto-generated",
+        "functional"
+      ],
+      "priority": "medium",
+      "suite": "Projects"
+    },
+    {
+      "summary": "post_projects_by_project_id_archive: fuzz negative",
+      "description": "Operation: POST /projects/{project_id}/archive\nOperation ID: post_projects_by_project_id_archive\n\nPreconditions:\nSandbox endpoint is available.\nOpenAPI contract version matches deployed mock.\n\nSteps:\n- Set base URL to sandbox endpoint for post_projects_by_project_id_archive.\n- Prepare POST request for /projects/{project_id}/archive.\n- Send request with malformed values and verify rejection.\n\nExpected: Response status is 4xx and service remains stable without schema violations.",
+      "labels": [
+        "api-first",
+        "auto-generated",
+        "fuzz"
+      ],
+      "priority": "medium",
+      "suite": "Projects"
+    },
+    {
+      "summary": "post_projects_by_project_id_restore: positive",
+      "description": "Operation: POST /projects/{project_id}/restore\nOperation ID: post_projects_by_project_id_restore\n\nPreconditions:\nSandbox endpoint is available.\nOpenAPI contract version matches deployed mock.\n\nSteps:\n- Set base URL to sandbox endpoint for post_projects_by_project_id_restore.\n- Prepare POST request for /projects/{project_id}/restore.\n- Send request with valid payload and required headers.\n\nExpected: Response status is 201 and payload matches OpenAPI response schema.",
+      "labels": [
+        "api-first",
+        "auto-generated",
+        "functional"
+      ],
+      "priority": "high",
+      "suite": "Projects"
+    },
+    {
+      "summary": "post_projects_by_project_id_restore: auth negative",
+      "description": "Operation: POST /projects/{project_id}/restore\nOperation ID: post_projects_by_project_id_restore\n\nPreconditions:\nSandbox endpoint is available.\nOpenAPI contract version matches deployed mock.\n\nSteps:\n- Set base URL to sandbox endpoint for post_projects_by_project_id_restore.\n- Prepare POST request for /projects/{project_id}/restore.\n- Send request without auth token or with invalid token.\n\nExpected: Response status is 401 or 403, and error envelope matches documented schema.",
+      "labels": [
+        "api-first",
+        "auto-generated",
+        "functional"
+      ],
+      "priority": "high",
+      "suite": "Projects"
+    },
+    {
+      "summary": "post_projects_by_project_id_restore: validation negative",
+      "description": "Operation: POST /projects/{project_id}/restore\nOperation ID: post_projects_by_project_id_restore\n\nPreconditions:\nSandbox endpoint is available.\nOpenAPI contract version matches deployed mock.\n\nSteps:\n- Set base URL to sandbox endpoint for post_projects_by_project_id_restore.\n- Prepare POST request for /projects/{project_id}/restore.\n- Send request with invalid payload shape or missing required field.\n\nExpected: Response status is 400 or 422, and validation errors are returned.",
+      "labels": [
+        "api-first",
+        "auto-generated",
+        "functional"
+      ],
+      "priority": "medium",
+      "suite": "Projects"
+    },
+    {
+      "summary": "post_projects_by_project_id_restore: not found negative",
+      "description": "Operation: POST /projects/{project_id}/restore\nOperation ID: post_projects_by_project_id_restore\n\nPreconditions:\nSandbox endpoint is available.\nOpenAPI contract version matches deployed mock.\n\nSteps:\n- Set base URL to sandbox endpoint for post_projects_by_project_id_restore.\n- Prepare POST request for /projects/{project_id}/restore.\n- Send request with non-existent resource identifier.\n\nExpected: Response status is 404 with not-found error envelope.",
+      "labels": [
+        "api-first",
+        "auto-generated",
+        "functional"
+      ],
+      "priority": "medium",
+      "suite": "Projects"
+    },
+    {
+      "summary": "post_projects_by_project_id_restore: fuzz negative",
+      "description": "Operation: POST /projects/{project_id}/restore\nOperation ID: post_projects_by_project_id_restore\n\nPreconditions:\nSandbox endpoint is available.\nOpenAPI contract version matches deployed mock.\n\nSteps:\n- Set base URL to sandbox endpoint for post_projects_by_project_id_restore.\n- Prepare POST request for /projects/{project_id}/restore.\n- Send request with malformed values and verify rejection.\n\nExpected: Response status is 4xx and service remains stable without schema violations.",
+      "labels": [
+        "api-first",
+        "auto-generated",
+        "fuzz"
+      ],
+      "priority": "medium",
+      "suite": "Projects"
+    },
+    {
+      "summary": "get_tags: positive",
+      "description": "Operation: GET /tags\nOperation ID: get_tags\n\nPreconditions:\nSandbox endpoint is available.\nOpenAPI contract version matches deployed mock.\n\nSteps:\n- Set base URL to sandbox endpoint for get_tags.\n- Prepare GET request for /tags.\n- Send request with valid payload and required headers.\n\nExpected: Response status is 200 and payload matches OpenAPI response schema.",
+      "labels": [
+        "api-first",
+        "auto-generated",
+        "functional"
+      ],
+      "priority": "high",
+      "suite": "Tags"
+    },
+    {
+      "summary": "get_tags: auth negative",
+      "description": "Operation: GET /tags\nOperation ID: get_tags\n\nPreconditions:\nSandbox endpoint is available.\nOpenAPI contract version matches deployed mock.\n\nSteps:\n- Set base URL to sandbox endpoint for get_tags.\n- Prepare GET request for /tags.\n- Send request without auth token or with invalid token.\n\nExpected: Response status is 401 or 403, and error envelope matches documented schema.",
+      "labels": [
+        "api-first",
+        "auto-generated",
+        "functional"
+      ],
+      "priority": "high",
+      "suite": "Tags"
+    },
+    {
+      "summary": "get_tags: validation negative",
+      "description": "Operation: GET /tags\nOperation ID: get_tags\n\nPreconditions:\nSandbox endpoint is available.\nOpenAPI contract version matches deployed mock.\n\nSteps:\n- Set base URL to sandbox endpoint for get_tags.\n- Prepare GET request for /tags.\n- Send request with invalid payload shape or missing required field.\n\nExpected: Response status is 400 or 422, and validation errors are returned.",
+      "labels": [
+        "api-first",
+        "auto-generated",
+        "functional"
+      ],
+      "priority": "medium",
+      "suite": "Tags"
+    },
+    {
+      "summary": "get_tags: not found negative",
+      "description": "Operation: GET /tags\nOperation ID: get_tags\n\nPreconditions:\nSandbox endpoint is available.\nOpenAPI contract version matches deployed mock.\n\nSteps:\n- Set base URL to sandbox endpoint for get_tags.\n- Prepare GET request for /tags.\n- Send request with non-existent resource identifier.\n\nExpected: Response status is 404 with not-found error envelope.",
+      "labels": [
+        "api-first",
+        "auto-generated",
+        "functional"
+      ],
+      "priority": "medium",
+      "suite": "Tags"
+    },
+    {
+      "summary": "get_tags: fuzz negative",
+      "description": "Operation: GET /tags\nOperation ID: get_tags\n\nPreconditions:\nSandbox endpoint is available.\nOpenAPI contract version matches deployed mock.\n\nSteps:\n- Set base URL to sandbox endpoint for get_tags.\n- Prepare GET request for /tags.\n- Send request with malformed values and verify rejection.\n\nExpected: Response status is 4xx and service remains stable without schema violations.",
+      "labels": [
+        "api-first",
+        "auto-generated",
+        "fuzz"
+      ],
+      "priority": "medium",
+      "suite": "Tags"
+    },
+    {
+      "summary": "post_tags: positive",
+      "description": "Operation: POST /tags\nOperation ID: post_tags\n\nPreconditions:\nSandbox endpoint is available.\nOpenAPI contract version matches deployed mock.\n\nSteps:\n- Set base URL to sandbox endpoint for post_tags.\n- Prepare POST request for /tags.\n- Send request with valid payload and required headers.\n\nExpected: Response status is 201 and payload matches OpenAPI response schema.",
+      "labels": [
+        "api-first",
+        "auto-generated",
+        "functional"
+      ],
+      "priority": "high",
+      "suite": "Tags"
+    },
+    {
+      "summary": "post_tags: auth negative",
+      "description": "Operation: POST /tags\nOperation ID: post_tags\n\nPreconditions:\nSandbox endpoint is available.\nOpenAPI contract version matches deployed mock.\n\nSteps:\n- Set base URL to sandbox endpoint for post_tags.\n- Prepare POST request for /tags.\n- Send request without auth token or with invalid token.\n\nExpected: Response status is 401 or 403, and error envelope matches documented schema.",
+      "labels": [
+        "api-first",
+        "auto-generated",
+        "functional"
+      ],
+      "priority": "high",
+      "suite": "Tags"
+    },
+    {
+      "summary": "post_tags: validation negative",
+      "description": "Operation: POST /tags\nOperation ID: post_tags\n\nPreconditions:\nSandbox endpoint is available.\nOpenAPI contract version matches deployed mock.\n\nSteps:\n- Set base URL to sandbox endpoint for post_tags.\n- Prepare POST request for /tags.\n- Send request with invalid payload shape or missing required field.\n\nExpected: Response status is 400 or 422, and validation errors are returned.",
+      "labels": [
+        "api-first",
+        "auto-generated",
+        "functional"
+      ],
+      "priority": "medium",
+      "suite": "Tags"
+    },
+    {
+      "summary": "post_tags: fuzz negative",
+      "description": "Operation: POST /tags\nOperation ID: post_tags\n\nPreconditions:\nSandbox endpoint is available.\nOpenAPI contract version matches deployed mock.\n\nSteps:\n- Set base URL to sandbox endpoint for post_tags.\n- Prepare POST request for /tags.\n- Send request with malformed values and verify rejection.\n\nExpected: Response status is 4xx and service remains stable without schema violations.",
+      "labels": [
+        "api-first",
+        "auto-generated",
+        "fuzz"
+      ],
+      "priority": "medium",
+      "suite": "Tags"
+    },
+    {
+      "summary": "delete_tags_by_tag_id: positive",
+      "description": "Operation: DELETE /tags/{tag_id}\nOperation ID: delete_tags_by_tag_id\n\nPreconditions:\nSandbox endpoint is available.\nOpenAPI contract version matches deployed mock.\n\nSteps:\n- Set base URL to sandbox endpoint for delete_tags_by_tag_id.\n- Prepare DELETE request for /tags/{tag_id}.\n- Send request with valid payload and required headers.\n\nExpected: Response status is 204 and payload matches OpenAPI response schema.",
+      "labels": [
+        "api-first",
+        "auto-generated",
+        "functional"
+      ],
+      "priority": "high",
+      "suite": "Tags"
+    },
+    {
+      "summary": "delete_tags_by_tag_id: auth negative",
+      "description": "Operation: DELETE /tags/{tag_id}\nOperation ID: delete_tags_by_tag_id\n\nPreconditions:\nSandbox endpoint is available.\nOpenAPI contract version matches deployed mock.\n\nSteps:\n- Set base URL to sandbox endpoint for delete_tags_by_tag_id.\n- Prepare DELETE request for /tags/{tag_id}.\n- Send request without auth token or with invalid token.\n\nExpected: Response status is 401 or 403, and error envelope matches documented schema.",
+      "labels": [
+        "api-first",
+        "auto-generated",
+        "functional"
+      ],
+      "priority": "high",
+      "suite": "Tags"
+    },
+    {
+      "summary": "delete_tags_by_tag_id: not found negative",
+      "description": "Operation: DELETE /tags/{tag_id}\nOperation ID: delete_tags_by_tag_id\n\nPreconditions:\nSandbox endpoint is available.\nOpenAPI contract version matches deployed mock.\n\nSteps:\n- Set base URL to sandbox endpoint for delete_tags_by_tag_id.\n- Prepare DELETE request for /tags/{tag_id}.\n- Send request with non-existent resource identifier.\n\nExpected: Response status is 404 with not-found error envelope.",
+      "labels": [
+        "api-first",
+        "auto-generated",
+        "functional"
+      ],
+      "priority": "medium",
+      "suite": "Tags"
+    },
+    {
+      "summary": "delete_tags_by_tag_id: fuzz negative",
+      "description": "Operation: DELETE /tags/{tag_id}\nOperation ID: delete_tags_by_tag_id\n\nPreconditions:\nSandbox endpoint is available.\nOpenAPI contract version matches deployed mock.\n\nSteps:\n- Set base URL to sandbox endpoint for delete_tags_by_tag_id.\n- Prepare DELETE request for /tags/{tag_id}.\n- Send request with malformed values and verify rejection.\n\nExpected: Response status is 4xx and service remains stable without schema violations.",
+      "labels": [
+        "api-first",
+        "auto-generated",
+        "fuzz"
+      ],
+      "priority": "medium",
+      "suite": "Tags"
+    },
+    {
+      "summary": "get_tags_by_tag_id: positive",
+      "description": "Operation: GET /tags/{tag_id}\nOperation ID: get_tags_by_tag_id\n\nPreconditions:\nSandbox endpoint is available.\nOpenAPI contract version matches deployed mock.\n\nSteps:\n- Set base URL to sandbox endpoint for get_tags_by_tag_id.\n- Prepare GET request for /tags/{tag_id}.\n- Send request with valid payload and required headers.\n\nExpected: Response status is 200 and payload matches OpenAPI response schema.",
+      "labels": [
+        "api-first",
+        "auto-generated",
+        "functional"
+      ],
+      "priority": "high",
+      "suite": "Tags"
+    },
+    {
+      "summary": "get_tags_by_tag_id: auth negative",
+      "description": "Operation: GET /tags/{tag_id}\nOperation ID: get_tags_by_tag_id\n\nPreconditions:\nSandbox endpoint is available.\nOpenAPI contract version matches deployed mock.\n\nSteps:\n- Set base URL to sandbox endpoint for get_tags_by_tag_id.\n- Prepare GET request for /tags/{tag_id}.\n- Send request without auth token or with invalid token.\n\nExpected: Response status is 401 or 403, and error envelope matches documented schema.",
+      "labels": [
+        "api-first",
+        "auto-generated",
+        "functional"
+      ],
+      "priority": "high",
+      "suite": "Tags"
+    },
+    {
+      "summary": "get_tags_by_tag_id: validation negative",
+      "description": "Operation: GET /tags/{tag_id}\nOperation ID: get_tags_by_tag_id\n\nPreconditions:\nSandbox endpoint is available.\nOpenAPI contract version matches deployed mock.\n\nSteps:\n- Set base URL to sandbox endpoint for get_tags_by_tag_id.\n- Prepare GET request for /tags/{tag_id}.\n- Send request with invalid payload shape or missing required field.\n\nExpected: Response status is 400 or 422, and validation errors are returned.",
+      "labels": [
+        "api-first",
+        "auto-generated",
+        "functional"
+      ],
+      "priority": "medium",
+      "suite": "Tags"
+    },
+    {
+      "summary": "get_tags_by_tag_id: not found negative",
+      "description": "Operation: GET /tags/{tag_id}\nOperation ID: get_tags_by_tag_id\n\nPreconditions:\nSandbox endpoint is available.\nOpenAPI contract version matches deployed mock.\n\nSteps:\n- Set base URL to sandbox endpoint for get_tags_by_tag_id.\n- Prepare GET request for /tags/{tag_id}.\n- Send request with non-existent resource identifier.\n\nExpected: Response status is 404 with not-found error envelope.",
+      "labels": [
+        "api-first",
+        "auto-generated",
+        "functional"
+      ],
+      "priority": "medium",
+      "suite": "Tags"
+    },
+    {
+      "summary": "get_tags_by_tag_id: fuzz negative",
+      "description": "Operation: GET /tags/{tag_id}\nOperation ID: get_tags_by_tag_id\n\nPreconditions:\nSandbox endpoint is available.\nOpenAPI contract version matches deployed mock.\n\nSteps:\n- Set base URL to sandbox endpoint for get_tags_by_tag_id.\n- Prepare GET request for /tags/{tag_id}.\n- Send request with malformed values and verify rejection.\n\nExpected: Response status is 4xx and service remains stable without schema violations.",
+      "labels": [
+        "api-first",
+        "auto-generated",
+        "fuzz"
+      ],
+      "priority": "medium",
+      "suite": "Tags"
+    },
+    {
+      "summary": "patch_tags_by_tag_id: positive",
+      "description": "Operation: PATCH /tags/{tag_id}\nOperation ID: patch_tags_by_tag_id\n\nPreconditions:\nSandbox endpoint is available.\nOpenAPI contract version matches deployed mock.\n\nSteps:\n- Set base URL to sandbox endpoint for patch_tags_by_tag_id.\n- Prepare PATCH request for /tags/{tag_id}.\n- Send request with valid payload and required headers.\n\nExpected: Response status is 200 and payload matches OpenAPI response schema.",
+      "labels": [
+        "api-first",
+        "auto-generated",
+        "functional"
+      ],
+      "priority": "high",
+      "suite": "Tags"
+    },
+    {
+      "summary": "patch_tags_by_tag_id: auth negative",
+      "description": "Operation: PATCH /tags/{tag_id}\nOperation ID: patch_tags_by_tag_id\n\nPreconditions:\nSandbox endpoint is available.\nOpenAPI contract version matches deployed mock.\n\nSteps:\n- Set base URL to sandbox endpoint for patch_tags_by_tag_id.\n- Prepare PATCH request for /tags/{tag_id}.\n- Send request without auth token or with invalid token.\n\nExpected: Response status is 401 or 403, and error envelope matches documented schema.",
+      "labels": [
+        "api-first",
+        "auto-generated",
+        "functional"
+      ],
+      "priority": "high",
+      "suite": "Tags"
+    },
+    {
+      "summary": "patch_tags_by_tag_id: validation negative",
+      "description": "Operation: PATCH /tags/{tag_id}\nOperation ID: patch_tags_by_tag_id\n\nPreconditions:\nSandbox endpoint is available.\nOpenAPI contract version matches deployed mock.\n\nSteps:\n- Set base URL to sandbox endpoint for patch_tags_by_tag_id.\n- Prepare PATCH request for /tags/{tag_id}.\n- Send request with invalid payload shape or missing required field.\n\nExpected: Response status is 400 or 422, and validation errors are returned.",
+      "labels": [
+        "api-first",
+        "auto-generated",
+        "functional"
+      ],
+      "priority": "medium",
+      "suite": "Tags"
+    },
+    {
+      "summary": "patch_tags_by_tag_id: not found negative",
+      "description": "Operation: PATCH /tags/{tag_id}\nOperation ID: patch_tags_by_tag_id\n\nPreconditions:\nSandbox endpoint is available.\nOpenAPI contract version matches deployed mock.\n\nSteps:\n- Set base URL to sandbox endpoint for patch_tags_by_tag_id.\n- Prepare PATCH request for /tags/{tag_id}.\n- Send request with non-existent resource identifier.\n\nExpected: Response status is 404 with not-found error envelope.",
+      "labels": [
+        "api-first",
+        "auto-generated",
+        "functional"
+      ],
+      "priority": "medium",
+      "suite": "Tags"
+    },
+    {
+      "summary": "patch_tags_by_tag_id: fuzz negative",
+      "description": "Operation: PATCH /tags/{tag_id}\nOperation ID: patch_tags_by_tag_id\n\nPreconditions:\nSandbox endpoint is available.\nOpenAPI contract version matches deployed mock.\n\nSteps:\n- Set base URL to sandbox endpoint for patch_tags_by_tag_id.\n- Prepare PATCH request for /tags/{tag_id}.\n- Send request with malformed values and verify rejection.\n\nExpected: Response status is 4xx and service remains stable without schema violations.",
+      "labels": [
+        "api-first",
+        "auto-generated",
+        "fuzz"
+      ],
+      "priority": "medium",
+      "suite": "Tags"
+    },
+    {
+      "summary": "get_tasks: positive",
+      "description": "Operation: GET /tasks\nOperation ID: get_tasks\n\nPreconditions:\nSandbox endpoint is available.\nOpenAPI contract version matches deployed mock.\n\nSteps:\n- Set base URL to sandbox endpoint for get_tasks.\n- Prepare GET request for /tasks.\n- Send request with valid payload and required headers.\n\nExpected: Response status is 200 and payload matches OpenAPI response schema.",
+      "labels": [
+        "api-first",
+        "auto-generated",
+        "functional"
+      ],
+      "priority": "high",
+      "suite": "Tasks"
+    },
+    {
+      "summary": "get_tasks: auth negative",
+      "description": "Operation: GET /tasks\nOperation ID: get_tasks\n\nPreconditions:\nSandbox endpoint is available.\nOpenAPI contract version matches deployed mock.\n\nSteps:\n- Set base URL to sandbox endpoint for get_tasks.\n- Prepare GET request for /tasks.\n- Send request without auth token or with invalid token.\n\nExpected: Response status is 401 or 403, and error envelope matches documented schema.",
+      "labels": [
+        "api-first",
+        "auto-generated",
+        "functional"
+      ],
+      "priority": "high",
+      "suite": "Tasks"
+    },
+    {
+      "summary": "get_tasks: validation negative",
+      "description": "Operation: GET /tasks\nOperation ID: get_tasks\n\nPreconditions:\nSandbox endpoint is available.\nOpenAPI contract version matches deployed mock.\n\nSteps:\n- Set base URL to sandbox endpoint for get_tasks.\n- Prepare GET request for /tasks.\n- Send request with invalid payload shape or missing required field.\n\nExpected: Response status is 400 or 422, and validation errors are returned.",
+      "labels": [
+        "api-first",
+        "auto-generated",
+        "functional"
+      ],
+      "priority": "medium",
+      "suite": "Tasks"
+    },
+    {
+      "summary": "get_tasks: fuzz negative",
+      "description": "Operation: GET /tasks\nOperation ID: get_tasks\n\nPreconditions:\nSandbox endpoint is available.\nOpenAPI contract version matches deployed mock.\n\nSteps:\n- Set base URL to sandbox endpoint for get_tasks.\n- Prepare GET request for /tasks.\n- Send request with malformed values and verify rejection.\n\nExpected: Response status is 4xx and service remains stable without schema violations.",
+      "labels": [
+        "api-first",
+        "auto-generated",
+        "fuzz"
+      ],
+      "priority": "medium",
+      "suite": "Tasks"
+    },
+    {
+      "summary": "post_tasks: positive",
+      "description": "Operation: POST /tasks\nOperation ID: post_tasks\n\nPreconditions:\nSandbox endpoint is available.\nOpenAPI contract version matches deployed mock.\n\nSteps:\n- Set base URL to sandbox endpoint for post_tasks.\n- Prepare POST request for /tasks.\n- Send request with valid payload and required headers.\n\nExpected: Response status is 201 and payload matches OpenAPI response schema.",
+      "labels": [
+        "api-first",
+        "auto-generated",
+        "functional"
+      ],
+      "priority": "high",
+      "suite": "Tasks"
+    },
+    {
+      "summary": "post_tasks: auth negative",
+      "description": "Operation: POST /tasks\nOperation ID: post_tasks\n\nPreconditions:\nSandbox endpoint is available.\nOpenAPI contract version matches deployed mock.\n\nSteps:\n- Set base URL to sandbox endpoint for post_tasks.\n- Prepare POST request for /tasks.\n- Send request without auth token or with invalid token.\n\nExpected: Response status is 401 or 403, and error envelope matches documented schema.",
+      "labels": [
+        "api-first",
+        "auto-generated",
+        "functional"
+      ],
+      "priority": "high",
+      "suite": "Tasks"
+    },
+    {
+      "summary": "post_tasks: validation negative",
+      "description": "Operation: POST /tasks\nOperation ID: post_tasks\n\nPreconditions:\nSandbox endpoint is available.\nOpenAPI contract version matches deployed mock.\n\nSteps:\n- Set base URL to sandbox endpoint for post_tasks.\n- Prepare POST request for /tasks.\n- Send request with invalid payload shape or missing required field.\n\nExpected: Response status is 400 or 422, and validation errors are returned.",
+      "labels": [
+        "api-first",
+        "auto-generated",
+        "functional"
+      ],
+      "priority": "medium",
+      "suite": "Tasks"
+    },
+    {
+      "summary": "post_tasks: fuzz negative",
+      "description": "Operation: POST /tasks\nOperation ID: post_tasks\n\nPreconditions:\nSandbox endpoint is available.\nOpenAPI contract version matches deployed mock.\n\nSteps:\n- Set base URL to sandbox endpoint for post_tasks.\n- Prepare POST request for /tasks.\n- Send request with malformed values and verify rejection.\n\nExpected: Response status is 4xx and service remains stable without schema violations.",
+      "labels": [
+        "api-first",
+        "auto-generated",
+        "fuzz"
+      ],
+      "priority": "medium",
+      "suite": "Tasks"
+    },
+    {
+      "summary": "delete_tasks_by_task_id: positive",
+      "description": "Operation: DELETE /tasks/{task_id}\nOperation ID: delete_tasks_by_task_id\n\nPreconditions:\nSandbox endpoint is available.\nOpenAPI contract version matches deployed mock.\n\nSteps:\n- Set base URL to sandbox endpoint for delete_tasks_by_task_id.\n- Prepare DELETE request for /tasks/{task_id}.\n- Send request with valid payload and required headers.\n\nExpected: Response status is 204 and payload matches OpenAPI response schema.",
+      "labels": [
+        "api-first",
+        "auto-generated",
+        "functional"
+      ],
+      "priority": "high",
+      "suite": "Tasks"
+    },
+    {
+      "summary": "delete_tasks_by_task_id: auth negative",
+      "description": "Operation: DELETE /tasks/{task_id}\nOperation ID: delete_tasks_by_task_id\n\nPreconditions:\nSandbox endpoint is available.\nOpenAPI contract version matches deployed mock.\n\nSteps:\n- Set base URL to sandbox endpoint for delete_tasks_by_task_id.\n- Prepare DELETE request for /tasks/{task_id}.\n- Send request without auth token or with invalid token.\n\nExpected: Response status is 401 or 403, and error envelope matches documented schema.",
+      "labels": [
+        "api-first",
+        "auto-generated",
+        "functional"
+      ],
+      "priority": "high",
+      "suite": "Tasks"
+    },
+    {
+      "summary": "delete_tasks_by_task_id: not found negative",
+      "description": "Operation: DELETE /tasks/{task_id}\nOperation ID: delete_tasks_by_task_id\n\nPreconditions:\nSandbox endpoint is available.\nOpenAPI contract version matches deployed mock.\n\nSteps:\n- Set base URL to sandbox endpoint for delete_tasks_by_task_id.\n- Prepare DELETE request for /tasks/{task_id}.\n- Send request with non-existent resource identifier.\n\nExpected: Response status is 404 with not-found error envelope.",
+      "labels": [
+        "api-first",
+        "auto-generated",
+        "functional"
+      ],
+      "priority": "medium",
+      "suite": "Tasks"
+    },
+    {
+      "summary": "delete_tasks_by_task_id: fuzz negative",
+      "description": "Operation: DELETE /tasks/{task_id}\nOperation ID: delete_tasks_by_task_id\n\nPreconditions:\nSandbox endpoint is available.\nOpenAPI contract version matches deployed mock.\n\nSteps:\n- Set base URL to sandbox endpoint for delete_tasks_by_task_id.\n- Prepare DELETE request for /tasks/{task_id}.\n- Send request with malformed values and verify rejection.\n\nExpected: Response status is 4xx and service remains stable without schema violations.",
+      "labels": [
+        "api-first",
+        "auto-generated",
+        "fuzz"
+      ],
+      "priority": "medium",
+      "suite": "Tasks"
+    },
+    {
+      "summary": "get_tasks_by_task_id: positive",
+      "description": "Operation: GET /tasks/{task_id}\nOperation ID: get_tasks_by_task_id\n\nPreconditions:\nSandbox endpoint is available.\nOpenAPI contract version matches deployed mock.\n\nSteps:\n- Set base URL to sandbox endpoint for get_tasks_by_task_id.\n- Prepare GET request for /tasks/{task_id}.\n- Send request with valid payload and required headers.\n\nExpected: Response status is 200 and payload matches OpenAPI response schema.",
+      "labels": [
+        "api-first",
+        "auto-generated",
+        "functional"
+      ],
+      "priority": "high",
+      "suite": "Tasks"
+    },
+    {
+      "summary": "get_tasks_by_task_id: auth negative",
+      "description": "Operation: GET /tasks/{task_id}\nOperation ID: get_tasks_by_task_id\n\nPreconditions:\nSandbox endpoint is available.\nOpenAPI contract version matches deployed mock.\n\nSteps:\n- Set base URL to sandbox endpoint for get_tasks_by_task_id.\n- Prepare GET request for /tasks/{task_id}.\n- Send request without auth token or with invalid token.\n\nExpected: Response status is 401 or 403, and error envelope matches documented schema.",
+      "labels": [
+        "api-first",
+        "auto-generated",
+        "functional"
+      ],
+      "priority": "high",
+      "suite": "Tasks"
+    },
+    {
+      "summary": "get_tasks_by_task_id: validation negative",
+      "description": "Operation: GET /tasks/{task_id}\nOperation ID: get_tasks_by_task_id\n\nPreconditions:\nSandbox endpoint is available.\nOpenAPI contract version matches deployed mock.\n\nSteps:\n- Set base URL to sandbox endpoint for get_tasks_by_task_id.\n- Prepare GET request for /tasks/{task_id}.\n- Send request with invalid payload shape or missing required field.\n\nExpected: Response status is 400 or 422, and validation errors are returned.",
+      "labels": [
+        "api-first",
+        "auto-generated",
+        "functional"
+      ],
+      "priority": "medium",
+      "suite": "Tasks"
+    },
+    {
+      "summary": "get_tasks_by_task_id: not found negative",
+      "description": "Operation: GET /tasks/{task_id}\nOperation ID: get_tasks_by_task_id\n\nPreconditions:\nSandbox endpoint is available.\nOpenAPI contract version matches deployed mock.\n\nSteps:\n- Set base URL to sandbox endpoint for get_tasks_by_task_id.\n- Prepare GET request for /tasks/{task_id}.\n- Send request with non-existent resource identifier.\n\nExpected: Response status is 404 with not-found error envelope.",
+      "labels": [
+        "api-first",
+        "auto-generated",
+        "functional"
+      ],
+      "priority": "medium",
+      "suite": "Tasks"
+    },
+    {
+      "summary": "get_tasks_by_task_id: fuzz negative",
+      "description": "Operation: GET /tasks/{task_id}\nOperation ID: get_tasks_by_task_id\n\nPreconditions:\nSandbox endpoint is available.\nOpenAPI contract version matches deployed mock.\n\nSteps:\n- Set base URL to sandbox endpoint for get_tasks_by_task_id.\n- Prepare GET request for /tasks/{task_id}.\n- Send request with malformed values and verify rejection.\n\nExpected: Response status is 4xx and service remains stable without schema violations.",
+      "labels": [
+        "api-first",
+        "auto-generated",
+        "fuzz"
+      ],
+      "priority": "medium",
+      "suite": "Tasks"
+    },
+    {
+      "summary": "patch_tasks_by_task_id: positive",
+      "description": "Operation: PATCH /tasks/{task_id}\nOperation ID: patch_tasks_by_task_id\n\nPreconditions:\nSandbox endpoint is available.\nOpenAPI contract version matches deployed mock.\n\nSteps:\n- Set base URL to sandbox endpoint for patch_tasks_by_task_id.\n- Prepare PATCH request for /tasks/{task_id}.\n- Send request with valid payload and required headers.\n\nExpected: Response status is 200 and payload matches OpenAPI response schema.",
+      "labels": [
+        "api-first",
+        "auto-generated",
+        "functional"
+      ],
+      "priority": "high",
+      "suite": "Tasks"
+    },
+    {
+      "summary": "patch_tasks_by_task_id: auth negative",
+      "description": "Operation: PATCH /tasks/{task_id}\nOperation ID: patch_tasks_by_task_id\n\nPreconditions:\nSandbox endpoint is available.\nOpenAPI contract version matches deployed mock.\n\nSteps:\n- Set base URL to sandbox endpoint for patch_tasks_by_task_id.\n- Prepare PATCH request for /tasks/{task_id}.\n- Send request without auth token or with invalid token.\n\nExpected: Response status is 401 or 403, and error envelope matches documented schema.",
+      "labels": [
+        "api-first",
+        "auto-generated",
+        "functional"
+      ],
+      "priority": "high",
+      "suite": "Tasks"
+    },
+    {
+      "summary": "patch_tasks_by_task_id: validation negative",
+      "description": "Operation: PATCH /tasks/{task_id}\nOperation ID: patch_tasks_by_task_id\n\nPreconditions:\nSandbox endpoint is available.\nOpenAPI contract version matches deployed mock.\n\nSteps:\n- Set base URL to sandbox endpoint for patch_tasks_by_task_id.\n- Prepare PATCH request for /tasks/{task_id}.\n- Send request with invalid payload shape or missing required field.\n\nExpected: Response status is 400 or 422, and validation errors are returned.",
+      "labels": [
+        "api-first",
+        "auto-generated",
+        "functional"
+      ],
+      "priority": "medium",
+      "suite": "Tasks"
+    },
+    {
+      "summary": "patch_tasks_by_task_id: not found negative",
+      "description": "Operation: PATCH /tasks/{task_id}\nOperation ID: patch_tasks_by_task_id\n\nPreconditions:\nSandbox endpoint is available.\nOpenAPI contract version matches deployed mock.\n\nSteps:\n- Set base URL to sandbox endpoint for patch_tasks_by_task_id.\n- Prepare PATCH request for /tasks/{task_id}.\n- Send request with non-existent resource identifier.\n\nExpected: Response status is 404 with not-found error envelope.",
+      "labels": [
+        "api-first",
+        "auto-generated",
+        "functional"
+      ],
+      "priority": "medium",
+      "suite": "Tasks"
+    },
+    {
+      "summary": "patch_tasks_by_task_id: fuzz negative",
+      "description": "Operation: PATCH /tasks/{task_id}\nOperation ID: patch_tasks_by_task_id\n\nPreconditions:\nSandbox endpoint is available.\nOpenAPI contract version matches deployed mock.\n\nSteps:\n- Set base URL to sandbox endpoint for patch_tasks_by_task_id.\n- Prepare PATCH request for /tasks/{task_id}.\n- Send request with malformed values and verify rejection.\n\nExpected: Response status is 4xx and service remains stable without schema violations.",
+      "labels": [
+        "api-first",
+        "auto-generated",
+        "fuzz"
+      ],
+      "priority": "medium",
+      "suite": "Tasks"
+    },
+    {
+      "summary": "get_tasks_by_task_id_comments: positive",
+      "description": "Operation: GET /tasks/{task_id}/comments\nOperation ID: get_tasks_by_task_id_comments\n\nPreconditions:\nSandbox endpoint is available.\nOpenAPI contract version matches deployed mock.\n\nSteps:\n- Set base URL to sandbox endpoint for get_tasks_by_task_id_comments.\n- Prepare GET request for /tasks/{task_id}/comments.\n- Send request with valid payload and required headers.\n\nExpected: Response status is 200 and payload matches OpenAPI response schema.",
+      "labels": [
+        "api-first",
+        "auto-generated",
+        "functional"
+      ],
+      "priority": "high",
+      "suite": "Tasks"
+    },
+    {
+      "summary": "get_tasks_by_task_id_comments: auth negative",
+      "description": "Operation: GET /tasks/{task_id}/comments\nOperation ID: get_tasks_by_task_id_comments\n\nPreconditions:\nSandbox endpoint is available.\nOpenAPI contract version matches deployed mock.\n\nSteps:\n- Set base URL to sandbox endpoint for get_tasks_by_task_id_comments.\n- Prepare GET request for /tasks/{task_id}/comments.\n- Send request without auth token or with invalid token.\n\nExpected: Response status is 401 or 403, and error envelope matches documented schema.",
+      "labels": [
+        "api-first",
+        "auto-generated",
+        "functional"
+      ],
+      "priority": "high",
+      "suite": "Tasks"
+    },
+    {
+      "summary": "get_tasks_by_task_id_comments: validation negative",
+      "description": "Operation: GET /tasks/{task_id}/comments\nOperation ID: get_tasks_by_task_id_comments\n\nPreconditions:\nSandbox endpoint is available.\nOpenAPI contract version matches deployed mock.\n\nSteps:\n- Set base URL to sandbox endpoint for get_tasks_by_task_id_comments.\n- Prepare GET request for /tasks/{task_id}/comments.\n- Send request with invalid payload shape or missing required field.\n\nExpected: Response status is 400 or 422, and validation errors are returned.",
+      "labels": [
+        "api-first",
+        "auto-generated",
+        "functional"
+      ],
+      "priority": "medium",
+      "suite": "Tasks"
+    },
+    {
+      "summary": "get_tasks_by_task_id_comments: not found negative",
+      "description": "Operation: GET /tasks/{task_id}/comments\nOperation ID: get_tasks_by_task_id_comments\n\nPreconditions:\nSandbox endpoint is available.\nOpenAPI contract version matches deployed mock.\n\nSteps:\n- Set base URL to sandbox endpoint for get_tasks_by_task_id_comments.\n- Prepare GET request for /tasks/{task_id}/comments.\n- Send request with non-existent resource identifier.\n\nExpected: Response status is 404 with not-found error envelope.",
+      "labels": [
+        "api-first",
+        "auto-generated",
+        "functional"
+      ],
+      "priority": "medium",
+      "suite": "Tasks"
+    },
+    {
+      "summary": "get_tasks_by_task_id_comments: fuzz negative",
+      "description": "Operation: GET /tasks/{task_id}/comments\nOperation ID: get_tasks_by_task_id_comments\n\nPreconditions:\nSandbox endpoint is available.\nOpenAPI contract version matches deployed mock.\n\nSteps:\n- Set base URL to sandbox endpoint for get_tasks_by_task_id_comments.\n- Prepare GET request for /tasks/{task_id}/comments.\n- Send request with malformed values and verify rejection.\n\nExpected: Response status is 4xx and service remains stable without schema violations.",
+      "labels": [
+        "api-first",
+        "auto-generated",
+        "fuzz"
+      ],
+      "priority": "medium",
+      "suite": "Tasks"
+    },
+    {
+      "summary": "post_tasks_by_task_id_comments: positive",
+      "description": "Operation: POST /tasks/{task_id}/comments\nOperation ID: post_tasks_by_task_id_comments\n\nPreconditions:\nSandbox endpoint is available.\nOpenAPI contract version matches deployed mock.\n\nSteps:\n- Set base URL to sandbox endpoint for post_tasks_by_task_id_comments.\n- Prepare POST request for /tasks/{task_id}/comments.\n- Send request with valid payload and required headers.\n\nExpected: Response status is 201 and payload matches OpenAPI response schema.",
+      "labels": [
+        "api-first",
+        "auto-generated",
+        "functional"
+      ],
+      "priority": "high",
+      "suite": "Tasks"
+    },
+    {
+      "summary": "post_tasks_by_task_id_comments: auth negative",
+      "description": "Operation: POST /tasks/{task_id}/comments\nOperation ID: post_tasks_by_task_id_comments\n\nPreconditions:\nSandbox endpoint is available.\nOpenAPI contract version matches deployed mock.\n\nSteps:\n- Set base URL to sandbox endpoint for post_tasks_by_task_id_comments.\n- Prepare POST request for /tasks/{task_id}/comments.\n- Send request without auth token or with invalid token.\n\nExpected: Response status is 401 or 403, and error envelope matches documented schema.",
+      "labels": [
+        "api-first",
+        "auto-generated",
+        "functional"
+      ],
+      "priority": "high",
+      "suite": "Tasks"
+    },
+    {
+      "summary": "post_tasks_by_task_id_comments: validation negative",
+      "description": "Operation: POST /tasks/{task_id}/comments\nOperation ID: post_tasks_by_task_id_comments\n\nPreconditions:\nSandbox endpoint is available.\nOpenAPI contract version matches deployed mock.\n\nSteps:\n- Set base URL to sandbox endpoint for post_tasks_by_task_id_comments.\n- Prepare POST request for /tasks/{task_id}/comments.\n- Send request with invalid payload shape or missing required field.\n\nExpected: Response status is 400 or 422, and validation errors are returned.",
+      "labels": [
+        "api-first",
+        "auto-generated",
+        "functional"
+      ],
+      "priority": "medium",
+      "suite": "Tasks"
+    },
+    {
+      "summary": "post_tasks_by_task_id_comments: not found negative",
+      "description": "Operation: POST /tasks/{task_id}/comments\nOperation ID: post_tasks_by_task_id_comments\n\nPreconditions:\nSandbox endpoint is available.\nOpenAPI contract version matches deployed mock.\n\nSteps:\n- Set base URL to sandbox endpoint for post_tasks_by_task_id_comments.\n- Prepare POST request for /tasks/{task_id}/comments.\n- Send request with non-existent resource identifier.\n\nExpected: Response status is 404 with not-found error envelope.",
+      "labels": [
+        "api-first",
+        "auto-generated",
+        "functional"
+      ],
+      "priority": "medium",
+      "suite": "Tasks"
+    },
+    {
+      "summary": "post_tasks_by_task_id_comments: fuzz negative",
+      "description": "Operation: POST /tasks/{task_id}/comments\nOperation ID: post_tasks_by_task_id_comments\n\nPreconditions:\nSandbox endpoint is available.\nOpenAPI contract version matches deployed mock.\n\nSteps:\n- Set base URL to sandbox endpoint for post_tasks_by_task_id_comments.\n- Prepare POST request for /tasks/{task_id}/comments.\n- Send request with malformed values and verify rejection.\n\nExpected: Response status is 4xx and service remains stable without schema violations.",
+      "labels": [
+        "api-first",
+        "auto-generated",
+        "fuzz"
+      ],
+      "priority": "medium",
+      "suite": "Tasks"
+    },
+    {
+      "summary": "post_tasks_by_task_id_complete: positive",
+      "description": "Operation: POST /tasks/{task_id}/complete\nOperation ID: post_tasks_by_task_id_complete\n\nPreconditions:\nSandbox endpoint is available.\nOpenAPI contract version matches deployed mock.\n\nSteps:\n- Set base URL to sandbox endpoint for post_tasks_by_task_id_complete.\n- Prepare POST request for /tasks/{task_id}/complete.\n- Send request with valid payload and required headers.\n\nExpected: Response status is 201 and payload matches OpenAPI response schema.",
+      "labels": [
+        "api-first",
+        "auto-generated",
+        "functional"
+      ],
+      "priority": "high",
+      "suite": "Tasks"
+    },
+    {
+      "summary": "post_tasks_by_task_id_complete: auth negative",
+      "description": "Operation: POST /tasks/{task_id}/complete\nOperation ID: post_tasks_by_task_id_complete\n\nPreconditions:\nSandbox endpoint is available.\nOpenAPI contract version matches deployed mock.\n\nSteps:\n- Set base URL to sandbox endpoint for post_tasks_by_task_id_complete.\n- Prepare POST request for /tasks/{task_id}/complete.\n- Send request without auth token or with invalid token.\n\nExpected: Response status is 401 or 403, and error envelope matches documented schema.",
+      "labels": [
+        "api-first",
+        "auto-generated",
+        "functional"
+      ],
+      "priority": "high",
+      "suite": "Tasks"
+    },
+    {
+      "summary": "post_tasks_by_task_id_complete: validation negative",
+      "description": "Operation: POST /tasks/{task_id}/complete\nOperation ID: post_tasks_by_task_id_complete\n\nPreconditions:\nSandbox endpoint is available.\nOpenAPI contract version matches deployed mock.\n\nSteps:\n- Set base URL to sandbox endpoint for post_tasks_by_task_id_complete.\n- Prepare POST request for /tasks/{task_id}/complete.\n- Send request with invalid payload shape or missing required field.\n\nExpected: Response status is 400 or 422, and validation errors are returned.",
+      "labels": [
+        "api-first",
+        "auto-generated",
+        "functional"
+      ],
+      "priority": "medium",
+      "suite": "Tasks"
+    },
+    {
+      "summary": "post_tasks_by_task_id_complete: not found negative",
+      "description": "Operation: POST /tasks/{task_id}/complete\nOperation ID: post_tasks_by_task_id_complete\n\nPreconditions:\nSandbox endpoint is available.\nOpenAPI contract version matches deployed mock.\n\nSteps:\n- Set base URL to sandbox endpoint for post_tasks_by_task_id_complete.\n- Prepare POST request for /tasks/{task_id}/complete.\n- Send request with non-existent resource identifier.\n\nExpected: Response status is 404 with not-found error envelope.",
+      "labels": [
+        "api-first",
+        "auto-generated",
+        "functional"
+      ],
+      "priority": "medium",
+      "suite": "Tasks"
+    },
+    {
+      "summary": "post_tasks_by_task_id_complete: fuzz negative",
+      "description": "Operation: POST /tasks/{task_id}/complete\nOperation ID: post_tasks_by_task_id_complete\n\nPreconditions:\nSandbox endpoint is available.\nOpenAPI contract version matches deployed mock.\n\nSteps:\n- Set base URL to sandbox endpoint for post_tasks_by_task_id_complete.\n- Prepare POST request for /tasks/{task_id}/complete.\n- Send request with malformed values and verify rejection.\n\nExpected: Response status is 4xx and service remains stable without schema violations.",
+      "labels": [
+        "api-first",
+        "auto-generated",
+        "fuzz"
+      ],
+      "priority": "medium",
+      "suite": "Tasks"
+    },
+    {
+      "summary": "post_tasks_by_task_id_reopen: positive",
+      "description": "Operation: POST /tasks/{task_id}/reopen\nOperation ID: post_tasks_by_task_id_reopen\n\nPreconditions:\nSandbox endpoint is available.\nOpenAPI contract version matches deployed mock.\n\nSteps:\n- Set base URL to sandbox endpoint for post_tasks_by_task_id_reopen.\n- Prepare POST request for /tasks/{task_id}/reopen.\n- Send request with valid payload and required headers.\n\nExpected: Response status is 201 and payload matches OpenAPI response schema.",
+      "labels": [
+        "api-first",
+        "auto-generated",
+        "functional"
+      ],
+      "priority": "high",
+      "suite": "Tasks"
+    },
+    {
+      "summary": "post_tasks_by_task_id_reopen: auth negative",
+      "description": "Operation: POST /tasks/{task_id}/reopen\nOperation ID: post_tasks_by_task_id_reopen\n\nPreconditions:\nSandbox endpoint is available.\nOpenAPI contract version matches deployed mock.\n\nSteps:\n- Set base URL to sandbox endpoint for post_tasks_by_task_id_reopen.\n- Prepare POST request for /tasks/{task_id}/reopen.\n- Send request without auth token or with invalid token.\n\nExpected: Response status is 401 or 403, and error envelope matches documented schema.",
+      "labels": [
+        "api-first",
+        "auto-generated",
+        "functional"
+      ],
+      "priority": "high",
+      "suite": "Tasks"
+    },
+    {
+      "summary": "post_tasks_by_task_id_reopen: validation negative",
+      "description": "Operation: POST /tasks/{task_id}/reopen\nOperation ID: post_tasks_by_task_id_reopen\n\nPreconditions:\nSandbox endpoint is available.\nOpenAPI contract version matches deployed mock.\n\nSteps:\n- Set base URL to sandbox endpoint for post_tasks_by_task_id_reopen.\n- Prepare POST request for /tasks/{task_id}/reopen.\n- Send request with invalid payload shape or missing required field.\n\nExpected: Response status is 400 or 422, and validation errors are returned.",
+      "labels": [
+        "api-first",
+        "auto-generated",
+        "functional"
+      ],
+      "priority": "medium",
+      "suite": "Tasks"
+    },
+    {
+      "summary": "post_tasks_by_task_id_reopen: not found negative",
+      "description": "Operation: POST /tasks/{task_id}/reopen\nOperation ID: post_tasks_by_task_id_reopen\n\nPreconditions:\nSandbox endpoint is available.\nOpenAPI contract version matches deployed mock.\n\nSteps:\n- Set base URL to sandbox endpoint for post_tasks_by_task_id_reopen.\n- Prepare POST request for /tasks/{task_id}/reopen.\n- Send request with non-existent resource identifier.\n\nExpected: Response status is 404 with not-found error envelope.",
+      "labels": [
+        "api-first",
+        "auto-generated",
+        "functional"
+      ],
+      "priority": "medium",
+      "suite": "Tasks"
+    },
+    {
+      "summary": "post_tasks_by_task_id_reopen: fuzz negative",
+      "description": "Operation: POST /tasks/{task_id}/reopen\nOperation ID: post_tasks_by_task_id_reopen\n\nPreconditions:\nSandbox endpoint is available.\nOpenAPI contract version matches deployed mock.\n\nSteps:\n- Set base URL to sandbox endpoint for post_tasks_by_task_id_reopen.\n- Prepare POST request for /tasks/{task_id}/reopen.\n- Send request with malformed values and verify rejection.\n\nExpected: Response status is 4xx and service remains stable without schema violations.",
+      "labels": [
+        "api-first",
+        "auto-generated",
+        "fuzz"
+      ],
+      "priority": "medium",
+      "suite": "Tasks"
+    },
+    {
+      "summary": "delete_tasks_by_task_id_tags_by_tag_id: positive",
+      "description": "Operation: DELETE /tasks/{task_id}/tags/{tag_id}\nOperation ID: delete_tasks_by_task_id_tags_by_tag_id\n\nPreconditions:\nSandbox endpoint is available.\nOpenAPI contract version matches deployed mock.\n\nSteps:\n- Set base URL to sandbox endpoint for delete_tasks_by_task_id_tags_by_tag_id.\n- Prepare DELETE request for /tasks/{task_id}/tags/{tag_id}.\n- Send request with valid payload and required headers.\n\nExpected: Response status is 204 and payload matches OpenAPI response schema.",
+      "labels": [
+        "api-first",
+        "auto-generated",
+        "functional"
+      ],
+      "priority": "high",
+      "suite": "Tasks"
+    },
+    {
+      "summary": "delete_tasks_by_task_id_tags_by_tag_id: auth negative",
+      "description": "Operation: DELETE /tasks/{task_id}/tags/{tag_id}\nOperation ID: delete_tasks_by_task_id_tags_by_tag_id\n\nPreconditions:\nSandbox endpoint is available.\nOpenAPI contract version matches deployed mock.\n\nSteps:\n- Set base URL to sandbox endpoint for delete_tasks_by_task_id_tags_by_tag_id.\n- Prepare DELETE request for /tasks/{task_id}/tags/{tag_id}.\n- Send request without auth token or with invalid token.\n\nExpected: Response status is 401 or 403, and error envelope matches documented schema.",
+      "labels": [
+        "api-first",
+        "auto-generated",
+        "functional"
+      ],
+      "priority": "high",
+      "suite": "Tasks"
+    },
+    {
+      "summary": "delete_tasks_by_task_id_tags_by_tag_id: not found negative",
+      "description": "Operation: DELETE /tasks/{task_id}/tags/{tag_id}\nOperation ID: delete_tasks_by_task_id_tags_by_tag_id\n\nPreconditions:\nSandbox endpoint is available.\nOpenAPI contract version matches deployed mock.\n\nSteps:\n- Set base URL to sandbox endpoint for delete_tasks_by_task_id_tags_by_tag_id.\n- Prepare DELETE request for /tasks/{task_id}/tags/{tag_id}.\n- Send request with non-existent resource identifier.\n\nExpected: Response status is 404 with not-found error envelope.",
+      "labels": [
+        "api-first",
+        "auto-generated",
+        "functional"
+      ],
+      "priority": "medium",
+      "suite": "Tasks"
+    },
+    {
+      "summary": "delete_tasks_by_task_id_tags_by_tag_id: fuzz negative",
+      "description": "Operation: DELETE /tasks/{task_id}/tags/{tag_id}\nOperation ID: delete_tasks_by_task_id_tags_by_tag_id\n\nPreconditions:\nSandbox endpoint is available.\nOpenAPI contract version matches deployed mock.\n\nSteps:\n- Set base URL to sandbox endpoint for delete_tasks_by_task_id_tags_by_tag_id.\n- Prepare DELETE request for /tasks/{task_id}/tags/{tag_id}.\n- Send request with malformed values and verify rejection.\n\nExpected: Response status is 4xx and service remains stable without schema violations.",
+      "labels": [
+        "api-first",
+        "auto-generated",
+        "fuzz"
+      ],
+      "priority": "medium",
+      "suite": "Tasks"
+    },
+    {
+      "summary": "post_tasks_by_task_id_tags_by_tag_id: positive",
+      "description": "Operation: POST /tasks/{task_id}/tags/{tag_id}\nOperation ID: post_tasks_by_task_id_tags_by_tag_id\n\nPreconditions:\nSandbox endpoint is available.\nOpenAPI contract version matches deployed mock.\n\nSteps:\n- Set base URL to sandbox endpoint for post_tasks_by_task_id_tags_by_tag_id.\n- Prepare POST request for /tasks/{task_id}/tags/{tag_id}.\n- Send request with valid payload and required headers.\n\nExpected: Response status is 201 and payload matches OpenAPI response schema.",
+      "labels": [
+        "api-first",
+        "auto-generated",
+        "functional"
+      ],
+      "priority": "high",
+      "suite": "Tasks"
+    },
+    {
+      "summary": "post_tasks_by_task_id_tags_by_tag_id: auth negative",
+      "description": "Operation: POST /tasks/{task_id}/tags/{tag_id}\nOperation ID: post_tasks_by_task_id_tags_by_tag_id\n\nPreconditions:\nSandbox endpoint is available.\nOpenAPI contract version matches deployed mock.\n\nSteps:\n- Set base URL to sandbox endpoint for post_tasks_by_task_id_tags_by_tag_id.\n- Prepare POST request for /tasks/{task_id}/tags/{tag_id}.\n- Send request without auth token or with invalid token.\n\nExpected: Response status is 401 or 403, and error envelope matches documented schema.",
+      "labels": [
+        "api-first",
+        "auto-generated",
+        "functional"
+      ],
+      "priority": "high",
+      "suite": "Tasks"
+    },
+    {
+      "summary": "post_tasks_by_task_id_tags_by_tag_id: validation negative",
+      "description": "Operation: POST /tasks/{task_id}/tags/{tag_id}\nOperation ID: post_tasks_by_task_id_tags_by_tag_id\n\nPreconditions:\nSandbox endpoint is available.\nOpenAPI contract version matches deployed mock.\n\nSteps:\n- Set base URL to sandbox endpoint for post_tasks_by_task_id_tags_by_tag_id.\n- Prepare POST request for /tasks/{task_id}/tags/{tag_id}.\n- Send request with invalid payload shape or missing required field.\n\nExpected: Response status is 400 or 422, and validation errors are returned.",
+      "labels": [
+        "api-first",
+        "auto-generated",
+        "functional"
+      ],
+      "priority": "medium",
+      "suite": "Tasks"
+    },
+    {
+      "summary": "post_tasks_by_task_id_tags_by_tag_id: not found negative",
+      "description": "Operation: POST /tasks/{task_id}/tags/{tag_id}\nOperation ID: post_tasks_by_task_id_tags_by_tag_id\n\nPreconditions:\nSandbox endpoint is available.\nOpenAPI contract version matches deployed mock.\n\nSteps:\n- Set base URL to sandbox endpoint for post_tasks_by_task_id_tags_by_tag_id.\n- Prepare POST request for /tasks/{task_id}/tags/{tag_id}.\n- Send request with non-existent resource identifier.\n\nExpected: Response status is 404 with not-found error envelope.",
+      "labels": [
+        "api-first",
+        "auto-generated",
+        "functional"
+      ],
+      "priority": "medium",
+      "suite": "Tasks"
+    },
+    {
+      "summary": "post_tasks_by_task_id_tags_by_tag_id: fuzz negative",
+      "description": "Operation: POST /tasks/{task_id}/tags/{tag_id}\nOperation ID: post_tasks_by_task_id_tags_by_tag_id\n\nPreconditions:\nSandbox endpoint is available.\nOpenAPI contract version matches deployed mock.\n\nSteps:\n- Set base URL to sandbox endpoint for post_tasks_by_task_id_tags_by_tag_id.\n- Prepare POST request for /tasks/{task_id}/tags/{tag_id}.\n- Send request with malformed values and verify rejection.\n\nExpected: Response status is 4xx and service remains stable without schema violations.",
+      "labels": [
+        "api-first",
+        "auto-generated",
+        "fuzz"
+      ],
+      "priority": "medium",
+      "suite": "Tasks"
+    },
+    {
+      "summary": "get_users: positive",
+      "description": "Operation: GET /users\nOperation ID: get_users\n\nPreconditions:\nSandbox endpoint is available.\nOpenAPI contract version matches deployed mock.\n\nSteps:\n- Set base URL to sandbox endpoint for get_users.\n- Prepare GET request for /users.\n- Send request with valid payload and required headers.\n\nExpected: Response status is 200 and payload matches OpenAPI response schema.",
+      "labels": [
+        "api-first",
+        "auto-generated",
+        "functional"
+      ],
+      "priority": "high",
+      "suite": "Users"
+    },
+    {
+      "summary": "get_users: auth negative",
+      "description": "Operation: GET /users\nOperation ID: get_users\n\nPreconditions:\nSandbox endpoint is available.\nOpenAPI contract version matches deployed mock.\n\nSteps:\n- Set base URL to sandbox endpoint for get_users.\n- Prepare GET request for /users.\n- Send request without auth token or with invalid token.\n\nExpected: Response status is 401 or 403, and error envelope matches documented schema.",
+      "labels": [
+        "api-first",
+        "auto-generated",
+        "functional"
+      ],
+      "priority": "high",
+      "suite": "Users"
+    },
+    {
+      "summary": "get_users: validation negative",
+      "description": "Operation: GET /users\nOperation ID: get_users\n\nPreconditions:\nSandbox endpoint is available.\nOpenAPI contract version matches deployed mock.\n\nSteps:\n- Set base URL to sandbox endpoint for get_users.\n- Prepare GET request for /users.\n- Send request with invalid payload shape or missing required field.\n\nExpected: Response status is 400 or 422, and validation errors are returned.",
+      "labels": [
+        "api-first",
+        "auto-generated",
+        "functional"
+      ],
+      "priority": "medium",
+      "suite": "Users"
+    },
+    {
+      "summary": "get_users: not found negative",
+      "description": "Operation: GET /users\nOperation ID: get_users\n\nPreconditions:\nSandbox endpoint is available.\nOpenAPI contract version matches deployed mock.\n\nSteps:\n- Set base URL to sandbox endpoint for get_users.\n- Prepare GET request for /users.\n- Send request with non-existent resource identifier.\n\nExpected: Response status is 404 with not-found error envelope.",
+      "labels": [
+        "api-first",
+        "auto-generated",
+        "functional"
+      ],
+      "priority": "medium",
+      "suite": "Users"
+    },
+    {
+      "summary": "get_users: fuzz negative",
+      "description": "Operation: GET /users\nOperation ID: get_users\n\nPreconditions:\nSandbox endpoint is available.\nOpenAPI contract version matches deployed mock.\n\nSteps:\n- Set base URL to sandbox endpoint for get_users.\n- Prepare GET request for /users.\n- Send request with malformed values and verify rejection.\n\nExpected: Response status is 4xx and service remains stable without schema violations.",
+      "labels": [
+        "api-first",
+        "auto-generated",
+        "fuzz"
+      ],
+      "priority": "medium",
+      "suite": "Users"
+    },
+    {
+      "summary": "get_users_me: positive",
+      "description": "Operation: GET /users/me\nOperation ID: get_users_me\n\nPreconditions:\nSandbox endpoint is available.\nOpenAPI contract version matches deployed mock.\n\nSteps:\n- Set base URL to sandbox endpoint for get_users_me.\n- Prepare GET request for /users/me.\n- Send request with valid payload and required headers.\n\nExpected: Response status is 200 and payload matches OpenAPI response schema.",
+      "labels": [
+        "api-first",
+        "auto-generated",
+        "functional"
+      ],
+      "priority": "high",
+      "suite": "Users"
+    },
+    {
+      "summary": "get_users_me: auth negative",
+      "description": "Operation: GET /users/me\nOperation ID: get_users_me\n\nPreconditions:\nSandbox endpoint is available.\nOpenAPI contract version matches deployed mock.\n\nSteps:\n- Set base URL to sandbox endpoint for get_users_me.\n- Prepare GET request for /users/me.\n- Send request without auth token or with invalid token.\n\nExpected: Response status is 401 or 403, and error envelope matches documented schema.",
+      "labels": [
+        "api-first",
+        "auto-generated",
+        "functional"
+      ],
+      "priority": "high",
+      "suite": "Users"
+    },
+    {
+      "summary": "get_users_me: fuzz negative",
+      "description": "Operation: GET /users/me\nOperation ID: get_users_me\n\nPreconditions:\nSandbox endpoint is available.\nOpenAPI contract version matches deployed mock.\n\nSteps:\n- Set base URL to sandbox endpoint for get_users_me.\n- Prepare GET request for /users/me.\n- Send request with malformed values and verify rejection.\n\nExpected: Response status is 4xx and service remains stable without schema violations.",
+      "labels": [
+        "api-first",
+        "auto-generated",
+        "fuzz"
+      ],
+      "priority": "medium",
+      "suite": "Users"
+    },
+    {
+      "summary": "get_users_by_user_id: positive",
+      "description": "Operation: GET /users/{user_id}\nOperation ID: get_users_by_user_id\n\nPreconditions:\nSandbox endpoint is available.\nOpenAPI contract version matches deployed mock.\n\nSteps:\n- Set base URL to sandbox endpoint for get_users_by_user_id.\n- Prepare GET request for /users/{user_id}.\n- Send request with valid payload and required headers.\n\nExpected: Response status is 200 and payload matches OpenAPI response schema.",
+      "labels": [
+        "api-first",
+        "auto-generated",
+        "functional"
+      ],
+      "priority": "high",
+      "suite": "Users"
+    },
+    {
+      "summary": "get_users_by_user_id: auth negative",
+      "description": "Operation: GET /users/{user_id}\nOperation ID: get_users_by_user_id\n\nPreconditions:\nSandbox endpoint is available.\nOpenAPI contract version matches deployed mock.\n\nSteps:\n- Set base URL to sandbox endpoint for get_users_by_user_id.\n- Prepare GET request for /users/{user_id}.\n- Send request without auth token or with invalid token.\n\nExpected: Response status is 401 or 403, and error envelope matches documented schema.",
+      "labels": [
+        "api-first",
+        "auto-generated",
+        "functional"
+      ],
+      "priority": "high",
+      "suite": "Users"
+    },
+    {
+      "summary": "get_users_by_user_id: validation negative",
+      "description": "Operation: GET /users/{user_id}\nOperation ID: get_users_by_user_id\n\nPreconditions:\nSandbox endpoint is available.\nOpenAPI contract version matches deployed mock.\n\nSteps:\n- Set base URL to sandbox endpoint for get_users_by_user_id.\n- Prepare GET request for /users/{user_id}.\n- Send request with invalid payload shape or missing required field.\n\nExpected: Response status is 400 or 422, and validation errors are returned.",
+      "labels": [
+        "api-first",
+        "auto-generated",
+        "functional"
+      ],
+      "priority": "medium",
+      "suite": "Users"
+    },
+    {
+      "summary": "get_users_by_user_id: not found negative",
+      "description": "Operation: GET /users/{user_id}\nOperation ID: get_users_by_user_id\n\nPreconditions:\nSandbox endpoint is available.\nOpenAPI contract version matches deployed mock.\n\nSteps:\n- Set base URL to sandbox endpoint for get_users_by_user_id.\n- Prepare GET request for /users/{user_id}.\n- Send request with non-existent resource identifier.\n\nExpected: Response status is 404 with not-found error envelope.",
+      "labels": [
+        "api-first",
+        "auto-generated",
+        "functional"
+      ],
+      "priority": "medium",
+      "suite": "Users"
+    },
+    {
+      "summary": "get_users_by_user_id: fuzz negative",
+      "description": "Operation: GET /users/{user_id}\nOperation ID: get_users_by_user_id\n\nPreconditions:\nSandbox endpoint is available.\nOpenAPI contract version matches deployed mock.\n\nSteps:\n- Set base URL to sandbox endpoint for get_users_by_user_id.\n- Prepare GET request for /users/{user_id}.\n- Send request with malformed values and verify rejection.\n\nExpected: Response status is 4xx and service remains stable without schema violations.",
+      "labels": [
+        "api-first",
+        "auto-generated",
+        "fuzz"
+      ],
+      "priority": "medium",
+      "suite": "Users"
+    },
+    {
+      "summary": "patch_users_by_user_id: positive",
+      "description": "Operation: PATCH /users/{user_id}\nOperation ID: patch_users_by_user_id\n\nPreconditions:\nSandbox endpoint is available.\nOpenAPI contract version matches deployed mock.\n\nSteps:\n- Set base URL to sandbox endpoint for patch_users_by_user_id.\n- Prepare PATCH request for /users/{user_id}.\n- Send request with valid payload and required headers.\n\nExpected: Response status is 200 and payload matches OpenAPI response schema.",
+      "labels": [
+        "api-first",
+        "auto-generated",
+        "functional"
+      ],
+      "priority": "high",
+      "suite": "Users"
+    },
+    {
+      "summary": "patch_users_by_user_id: auth negative",
+      "description": "Operation: PATCH /users/{user_id}\nOperation ID: patch_users_by_user_id\n\nPreconditions:\nSandbox endpoint is available.\nOpenAPI contract version matches deployed mock.\n\nSteps:\n- Set base URL to sandbox endpoint for patch_users_by_user_id.\n- Prepare PATCH request for /users/{user_id}.\n- Send request without auth token or with invalid token.\n\nExpected: Response status is 401 or 403, and error envelope matches documented schema.",
+      "labels": [
+        "api-first",
+        "auto-generated",
+        "functional"
+      ],
+      "priority": "high",
+      "suite": "Users"
+    },
+    {
+      "summary": "patch_users_by_user_id: validation negative",
+      "description": "Operation: PATCH /users/{user_id}\nOperation ID: patch_users_by_user_id\n\nPreconditions:\nSandbox endpoint is available.\nOpenAPI contract version matches deployed mock.\n\nSteps:\n- Set base URL to sandbox endpoint for patch_users_by_user_id.\n- Prepare PATCH request for /users/{user_id}.\n- Send request with invalid payload shape or missing required field.\n\nExpected: Response status is 400 or 422, and validation errors are returned.",
+      "labels": [
+        "api-first",
+        "auto-generated",
+        "functional"
+      ],
+      "priority": "medium",
+      "suite": "Users"
+    },
+    {
+      "summary": "patch_users_by_user_id: not found negative",
+      "description": "Operation: PATCH /users/{user_id}\nOperation ID: patch_users_by_user_id\n\nPreconditions:\nSandbox endpoint is available.\nOpenAPI contract version matches deployed mock.\n\nSteps:\n- Set base URL to sandbox endpoint for patch_users_by_user_id.\n- Prepare PATCH request for /users/{user_id}.\n- Send request with non-existent resource identifier.\n\nExpected: Response status is 404 with not-found error envelope.",
+      "labels": [
+        "api-first",
+        "auto-generated",
+        "functional"
+      ],
+      "priority": "medium",
+      "suite": "Users"
+    },
+    {
+      "summary": "patch_users_by_user_id: fuzz negative",
+      "description": "Operation: PATCH /users/{user_id}\nOperation ID: patch_users_by_user_id\n\nPreconditions:\nSandbox endpoint is available.\nOpenAPI contract version matches deployed mock.\n\nSteps:\n- Set base URL to sandbox endpoint for patch_users_by_user_id.\n- Prepare PATCH request for /users/{user_id}.\n- Send request with malformed values and verify rejection.\n\nExpected: Response status is 4xx and service remains stable without schema violations.",
+      "labels": [
+        "api-first",
+        "auto-generated",
+        "fuzz"
+      ],
+      "priority": "medium",
+      "suite": "Users"
+    },
+    {
+      "summary": "get_users_by_user_id_tasks: positive",
+      "description": "Operation: GET /users/{user_id}/tasks\nOperation ID: get_users_by_user_id_tasks\n\nPreconditions:\nSandbox endpoint is available.\nOpenAPI contract version matches deployed mock.\n\nSteps:\n- Set base URL to sandbox endpoint for get_users_by_user_id_tasks.\n- Prepare GET request for /users/{user_id}/tasks.\n- Send request with valid payload and required headers.\n\nExpected: Response status is 200 and payload matches OpenAPI response schema.",
+      "labels": [
+        "api-first",
+        "auto-generated",
+        "functional"
+      ],
+      "priority": "high",
+      "suite": "Users"
+    },
+    {
+      "summary": "get_users_by_user_id_tasks: auth negative",
+      "description": "Operation: GET /users/{user_id}/tasks\nOperation ID: get_users_by_user_id_tasks\n\nPreconditions:\nSandbox endpoint is available.\nOpenAPI contract version matches deployed mock.\n\nSteps:\n- Set base URL to sandbox endpoint for get_users_by_user_id_tasks.\n- Prepare GET request for /users/{user_id}/tasks.\n- Send request without auth token or with invalid token.\n\nExpected: Response status is 401 or 403, and error envelope matches documented schema.",
+      "labels": [
+        "api-first",
+        "auto-generated",
+        "functional"
+      ],
+      "priority": "high",
+      "suite": "Users"
+    },
+    {
+      "summary": "get_users_by_user_id_tasks: validation negative",
+      "description": "Operation: GET /users/{user_id}/tasks\nOperation ID: get_users_by_user_id_tasks\n\nPreconditions:\nSandbox endpoint is available.\nOpenAPI contract version matches deployed mock.\n\nSteps:\n- Set base URL to sandbox endpoint for get_users_by_user_id_tasks.\n- Prepare GET request for /users/{user_id}/tasks.\n- Send request with invalid payload shape or missing required field.\n\nExpected: Response status is 400 or 422, and validation errors are returned.",
+      "labels": [
+        "api-first",
+        "auto-generated",
+        "functional"
+      ],
+      "priority": "medium",
+      "suite": "Users"
+    },
+    {
+      "summary": "get_users_by_user_id_tasks: not found negative",
+      "description": "Operation: GET /users/{user_id}/tasks\nOperation ID: get_users_by_user_id_tasks\n\nPreconditions:\nSandbox endpoint is available.\nOpenAPI contract version matches deployed mock.\n\nSteps:\n- Set base URL to sandbox endpoint for get_users_by_user_id_tasks.\n- Prepare GET request for /users/{user_id}/tasks.\n- Send request with non-existent resource identifier.\n\nExpected: Response status is 404 with not-found error envelope.",
+      "labels": [
+        "api-first",
+        "auto-generated",
+        "functional"
+      ],
+      "priority": "medium",
+      "suite": "Users"
+    },
+    {
+      "summary": "get_users_by_user_id_tasks: fuzz negative",
+      "description": "Operation: GET /users/{user_id}/tasks\nOperation ID: get_users_by_user_id_tasks\n\nPreconditions:\nSandbox endpoint is available.\nOpenAPI contract version matches deployed mock.\n\nSteps:\n- Set base URL to sandbox endpoint for get_users_by_user_id_tasks.\n- Prepare GET request for /users/{user_id}/tasks.\n- Send request with malformed values and verify rejection.\n\nExpected: Response status is 4xx and service remains stable without schema violations.",
+      "labels": [
+        "api-first",
+        "auto-generated",
+        "fuzz"
+      ],
+      "priority": "medium",
+      "suite": "Users"
+    }
+  ],
+  "count": 143
+}

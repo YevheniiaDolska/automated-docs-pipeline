@@ -1,0 +1,5554 @@
+openapi: 3.0.3
+info:
+  title: API Project Public API
+  version: v1
+  description: API-first contract generated from planning notes for API Project.
+servers:
+- url: https://api.taskstream.example.com/v1
+security:
+- BearerAuth: []
+paths:
+  /comments/{comment_id}:
+    delete:
+      operationId: delete_comments_by_comment_id
+      tags:
+      - Comments
+      summary: delete comment.
+      description: delete comment.. Generated from planning notes.
+      security:
+      - BearerAuth: []
+      parameters:
+      - name: X-Request-Id
+        in: header
+        required: false
+        schema:
+          type: string
+          example: req_demo_user_path
+        description: Correlation ID for tracing.
+      - name: comment_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          example: 9f0fb1f6-d4b5-4680-a17f-fd63ed63c45a
+        description: Comment identifier.
+      responses:
+        '204':
+          description: No Content
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - error
+                - request_id
+                properties:
+                  error:
+                    type: object
+                    required:
+                    - code
+                    - message
+                    properties:
+                      code:
+                        type: string
+                        example: invalid_request
+                      message:
+                        type: string
+                        example: Invalid request
+                      details:
+                        type: array
+                        items:
+                          type: object
+                        example: []
+                  request_id:
+                    type: string
+                    example: req_demo_user_path
+              example:
+                error:
+                  code: unauthorized
+                  message: Missing or invalid token
+                  details: []
+                request_id: req_demo_user_path
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - error
+                - request_id
+                properties:
+                  error:
+                    type: object
+                    required:
+                    - code
+                    - message
+                    properties:
+                      code:
+                        type: string
+                        example: invalid_request
+                      message:
+                        type: string
+                        example: Invalid request
+                      details:
+                        type: array
+                        items:
+                          type: object
+                        example: []
+                  request_id:
+                    type: string
+                    example: req_demo_user_path
+              example:
+                error:
+                  code: not_found
+                  message: Resource not found
+                  details: []
+                request_id: req_demo_user_path
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - error
+                - request_id
+                properties:
+                  error:
+                    type: object
+                    required:
+                    - code
+                    - message
+                    properties:
+                      code:
+                        type: string
+                        example: invalid_request
+                      message:
+                        type: string
+                        example: Invalid request
+                      details:
+                        type: array
+                        items:
+                          type: object
+                        example: []
+                  request_id:
+                    type: string
+                    example: req_demo_user_path
+              example:
+                error:
+                  code: internal_error
+                  message: Unexpected error
+                  details: []
+                request_id: req_demo_user_path
+    get:
+      operationId: get_comments_by_comment_id
+      tags:
+      - Comments
+      summary: get comment.
+      description: get comment.. Generated from planning notes.
+      security:
+      - BearerAuth: []
+      parameters:
+      - name: X-Request-Id
+        in: header
+        required: false
+        schema:
+          type: string
+          example: req_demo_user_path
+        description: Correlation ID for tracing.
+      - name: comment_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          example: 9f0fb1f6-d4b5-4680-a17f-fd63ed63c45a
+        description: Comment identifier.
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: true
+              example:
+                ok: true
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - error
+                - request_id
+                properties:
+                  error:
+                    type: object
+                    required:
+                    - code
+                    - message
+                    properties:
+                      code:
+                        type: string
+                        example: invalid_request
+                      message:
+                        type: string
+                        example: Invalid request
+                      details:
+                        type: array
+                        items:
+                          type: object
+                        example: []
+                  request_id:
+                    type: string
+                    example: req_demo_user_path
+              example:
+                error:
+                  code: invalid_request
+                  message: Invalid query parameter
+                  details: []
+                request_id: req_demo_user_path
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - error
+                - request_id
+                properties:
+                  error:
+                    type: object
+                    required:
+                    - code
+                    - message
+                    properties:
+                      code:
+                        type: string
+                        example: invalid_request
+                      message:
+                        type: string
+                        example: Invalid request
+                      details:
+                        type: array
+                        items:
+                          type: object
+                        example: []
+                  request_id:
+                    type: string
+                    example: req_demo_user_path
+              example:
+                error:
+                  code: unauthorized
+                  message: Missing or invalid token
+                  details: []
+                request_id: req_demo_user_path
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - error
+                - request_id
+                properties:
+                  error:
+                    type: object
+                    required:
+                    - code
+                    - message
+                    properties:
+                      code:
+                        type: string
+                        example: invalid_request
+                      message:
+                        type: string
+                        example: Invalid request
+                      details:
+                        type: array
+                        items:
+                          type: object
+                        example: []
+                  request_id:
+                    type: string
+                    example: req_demo_user_path
+              example:
+                error:
+                  code: not_found
+                  message: Resource not found
+                  details: []
+                request_id: req_demo_user_path
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - error
+                - request_id
+                properties:
+                  error:
+                    type: object
+                    required:
+                    - code
+                    - message
+                    properties:
+                      code:
+                        type: string
+                        example: invalid_request
+                      message:
+                        type: string
+                        example: Invalid request
+                      details:
+                        type: array
+                        items:
+                          type: object
+                        example: []
+                  request_id:
+                    type: string
+                    example: req_demo_user_path
+              example:
+                error:
+                  code: internal_error
+                  message: Unexpected error
+                  details: []
+                request_id: req_demo_user_path
+    patch:
+      operationId: patch_comments_by_comment_id
+      tags:
+      - Comments
+      summary: update comment.
+      description: update comment.. Generated from planning notes.
+      security:
+      - BearerAuth: []
+      parameters:
+      - name: X-Request-Id
+        in: header
+        required: false
+        schema:
+          type: string
+          example: req_demo_user_path
+        description: Correlation ID for tracing.
+      - name: comment_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          example: 9f0fb1f6-d4b5-4680-a17f-fd63ed63c45a
+        description: Comment identifier.
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: true
+              example:
+                ok: true
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - error
+                - request_id
+                properties:
+                  error:
+                    type: object
+                    required:
+                    - code
+                    - message
+                    properties:
+                      code:
+                        type: string
+                        example: invalid_request
+                      message:
+                        type: string
+                        example: Invalid request
+                      details:
+                        type: array
+                        items:
+                          type: object
+                        example: []
+                  request_id:
+                    type: string
+                    example: req_demo_user_path
+              example:
+                error:
+                  code: invalid_request
+                  message: Invalid query parameter
+                  details: []
+                request_id: req_demo_user_path
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - error
+                - request_id
+                properties:
+                  error:
+                    type: object
+                    required:
+                    - code
+                    - message
+                    properties:
+                      code:
+                        type: string
+                        example: invalid_request
+                      message:
+                        type: string
+                        example: Invalid request
+                      details:
+                        type: array
+                        items:
+                          type: object
+                        example: []
+                  request_id:
+                    type: string
+                    example: req_demo_user_path
+              example:
+                error:
+                  code: unauthorized
+                  message: Missing or invalid token
+                  details: []
+                request_id: req_demo_user_path
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - error
+                - request_id
+                properties:
+                  error:
+                    type: object
+                    required:
+                    - code
+                    - message
+                    properties:
+                      code:
+                        type: string
+                        example: invalid_request
+                      message:
+                        type: string
+                        example: Invalid request
+                      details:
+                        type: array
+                        items:
+                          type: object
+                        example: []
+                  request_id:
+                    type: string
+                    example: req_demo_user_path
+              example:
+                error:
+                  code: not_found
+                  message: Resource not found
+                  details: []
+                request_id: req_demo_user_path
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - error
+                - request_id
+                properties:
+                  error:
+                    type: object
+                    required:
+                    - code
+                    - message
+                    properties:
+                      code:
+                        type: string
+                        example: invalid_request
+                      message:
+                        type: string
+                        example: Invalid request
+                      details:
+                        type: array
+                        items:
+                          type: object
+                        example: []
+                  request_id:
+                    type: string
+                    example: req_demo_user_path
+              example:
+                error:
+                  code: internal_error
+                  message: Unexpected error
+                  details: []
+                request_id: req_demo_user_path
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: true
+            example:
+              name: Sample value
+  /projects:
+    get:
+      operationId: get_projects
+      tags:
+      - Projects
+      summary: list projects (pagination/filter/sort).
+      description: list projects (pagination/filter/sort).. Generated from planning notes.
+      security:
+      - BearerAuth: []
+      parameters:
+      - name: X-Request-Id
+        in: header
+        required: false
+        schema:
+          type: string
+          example: req_demo_user_path
+        description: Correlation ID for tracing.
+      - name: limit
+        in: query
+        required: false
+        schema:
+          type: integer
+          minimum: 1
+          maximum: 100
+          default: 20
+          example: 20
+        description: Page size.
+      - name: cursor
+        in: query
+        required: false
+        schema:
+          type: string
+          example: eyJvZmZzZXQiOjEwfQ==
+        description: Opaque cursor token.
+      responses:
+        '200':
+          description: Projects list
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - data
+                - page
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Project'
+                  page:
+                    $ref: '#/components/schemas/CursorPage'
+              example:
+                data:
+                - id: 8de2f75f-ef78-44e8-ab42-7276f0462df9
+                  name: API-first rollout
+                  description: Planning and execution
+                  status: active
+                  owner_id: 1edd3e73-e605-4559-a6f9-dcd27f2f6488
+                  created_at: '2026-03-09T10:22:31Z'
+                  updated_at: '2026-03-09T10:22:31Z'
+                  archived_at: null
+                page:
+                  next_cursor: null
+                  has_more: false
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - error
+                - request_id
+                properties:
+                  error:
+                    type: object
+                    required:
+                    - code
+                    - message
+                    properties:
+                      code:
+                        type: string
+                        example: invalid_request
+                      message:
+                        type: string
+                        example: Invalid request
+                      details:
+                        type: array
+                        items:
+                          type: object
+                        example: []
+                  request_id:
+                    type: string
+                    example: req_demo_user_path
+              example:
+                error:
+                  code: invalid_request
+                  message: Invalid query parameter
+                  details: []
+                request_id: req_demo_user_path
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - error
+                - request_id
+                properties:
+                  error:
+                    type: object
+                    required:
+                    - code
+                    - message
+                    properties:
+                      code:
+                        type: string
+                        example: invalid_request
+                      message:
+                        type: string
+                        example: Invalid request
+                      details:
+                        type: array
+                        items:
+                          type: object
+                        example: []
+                  request_id:
+                    type: string
+                    example: req_demo_user_path
+              example:
+                error:
+                  code: unauthorized
+                  message: Missing or invalid token
+                  details: []
+                request_id: req_demo_user_path
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - error
+                - request_id
+                properties:
+                  error:
+                    type: object
+                    required:
+                    - code
+                    - message
+                    properties:
+                      code:
+                        type: string
+                        example: invalid_request
+                      message:
+                        type: string
+                        example: Invalid request
+                      details:
+                        type: array
+                        items:
+                          type: object
+                        example: []
+                  request_id:
+                    type: string
+                    example: req_demo_user_path
+              example:
+                error:
+                  code: internal_error
+                  message: Unexpected error
+                  details: []
+                request_id: req_demo_user_path
+    post:
+      operationId: post_projects
+      tags:
+      - Projects
+      summary: create project.
+      description: create project.. Generated from planning notes.
+      security:
+      - BearerAuth: []
+      parameters:
+      - name: X-Request-Id
+        in: header
+        required: false
+        schema:
+          type: string
+          example: req_demo_user_path
+        description: Correlation ID for tracing.
+      - name: Idempotency-Key
+        in: header
+        required: false
+        schema:
+          type: string
+          example: 7f0f3677-3d01-478f-8d0f-02ca9f07ed50
+        description: Idempotency key for safe retries.
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: true
+              example:
+                id: 2f2d41d5-9b6f-4d8b-b0fc-dcfef6d7e24f
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - error
+                - request_id
+                properties:
+                  error:
+                    type: object
+                    required:
+                    - code
+                    - message
+                    properties:
+                      code:
+                        type: string
+                        example: invalid_request
+                      message:
+                        type: string
+                        example: Invalid request
+                      details:
+                        type: array
+                        items:
+                          type: object
+                        example: []
+                  request_id:
+                    type: string
+                    example: req_demo_user_path
+              example:
+                error:
+                  code: invalid_request
+                  message: Invalid query parameter
+                  details: []
+                request_id: req_demo_user_path
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - error
+                - request_id
+                properties:
+                  error:
+                    type: object
+                    required:
+                    - code
+                    - message
+                    properties:
+                      code:
+                        type: string
+                        example: invalid_request
+                      message:
+                        type: string
+                        example: Invalid request
+                      details:
+                        type: array
+                        items:
+                          type: object
+                        example: []
+                  request_id:
+                    type: string
+                    example: req_demo_user_path
+              example:
+                error:
+                  code: unauthorized
+                  message: Missing or invalid token
+                  details: []
+                request_id: req_demo_user_path
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - error
+                - request_id
+                properties:
+                  error:
+                    type: object
+                    required:
+                    - code
+                    - message
+                    properties:
+                      code:
+                        type: string
+                        example: invalid_request
+                      message:
+                        type: string
+                        example: Invalid request
+                      details:
+                        type: array
+                        items:
+                          type: object
+                        example: []
+                  request_id:
+                    type: string
+                    example: req_demo_user_path
+              example:
+                error:
+                  code: internal_error
+                  message: Unexpected error
+                  details: []
+                request_id: req_demo_user_path
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: true
+            example:
+              name: Sample value
+  /projects/{project_id}:
+    delete:
+      operationId: delete_projects_by_project_id
+      tags:
+      - Projects
+      summary: soft delete.
+      description: soft delete.. Generated from planning notes.
+      security:
+      - BearerAuth: []
+      parameters:
+      - name: X-Request-Id
+        in: header
+        required: false
+        schema:
+          type: string
+          example: req_demo_user_path
+        description: Correlation ID for tracing.
+      - name: project_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          example: 8de2f75f-ef78-44e8-ab42-7276f0462df9
+        description: Project identifier.
+      responses:
+        '204':
+          description: No Content
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - error
+                - request_id
+                properties:
+                  error:
+                    type: object
+                    required:
+                    - code
+                    - message
+                    properties:
+                      code:
+                        type: string
+                        example: invalid_request
+                      message:
+                        type: string
+                        example: Invalid request
+                      details:
+                        type: array
+                        items:
+                          type: object
+                        example: []
+                  request_id:
+                    type: string
+                    example: req_demo_user_path
+              example:
+                error:
+                  code: unauthorized
+                  message: Missing or invalid token
+                  details: []
+                request_id: req_demo_user_path
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - error
+                - request_id
+                properties:
+                  error:
+                    type: object
+                    required:
+                    - code
+                    - message
+                    properties:
+                      code:
+                        type: string
+                        example: invalid_request
+                      message:
+                        type: string
+                        example: Invalid request
+                      details:
+                        type: array
+                        items:
+                          type: object
+                        example: []
+                  request_id:
+                    type: string
+                    example: req_demo_user_path
+              example:
+                error:
+                  code: not_found
+                  message: Resource not found
+                  details: []
+                request_id: req_demo_user_path
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - error
+                - request_id
+                properties:
+                  error:
+                    type: object
+                    required:
+                    - code
+                    - message
+                    properties:
+                      code:
+                        type: string
+                        example: invalid_request
+                      message:
+                        type: string
+                        example: Invalid request
+                      details:
+                        type: array
+                        items:
+                          type: object
+                        example: []
+                  request_id:
+                    type: string
+                    example: req_demo_user_path
+              example:
+                error:
+                  code: internal_error
+                  message: Unexpected error
+                  details: []
+                request_id: req_demo_user_path
+    get:
+      operationId: get_projects_by_project_id
+      tags:
+      - Projects
+      summary: get project.
+      description: get project.. Generated from planning notes.
+      security:
+      - BearerAuth: []
+      parameters:
+      - name: X-Request-Id
+        in: header
+        required: false
+        schema:
+          type: string
+          example: req_demo_user_path
+        description: Correlation ID for tracing.
+      - name: project_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          example: 8de2f75f-ef78-44e8-ab42-7276f0462df9
+        description: Project identifier.
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: true
+              example:
+                ok: true
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - error
+                - request_id
+                properties:
+                  error:
+                    type: object
+                    required:
+                    - code
+                    - message
+                    properties:
+                      code:
+                        type: string
+                        example: invalid_request
+                      message:
+                        type: string
+                        example: Invalid request
+                      details:
+                        type: array
+                        items:
+                          type: object
+                        example: []
+                  request_id:
+                    type: string
+                    example: req_demo_user_path
+              example:
+                error:
+                  code: invalid_request
+                  message: Invalid query parameter
+                  details: []
+                request_id: req_demo_user_path
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - error
+                - request_id
+                properties:
+                  error:
+                    type: object
+                    required:
+                    - code
+                    - message
+                    properties:
+                      code:
+                        type: string
+                        example: invalid_request
+                      message:
+                        type: string
+                        example: Invalid request
+                      details:
+                        type: array
+                        items:
+                          type: object
+                        example: []
+                  request_id:
+                    type: string
+                    example: req_demo_user_path
+              example:
+                error:
+                  code: unauthorized
+                  message: Missing or invalid token
+                  details: []
+                request_id: req_demo_user_path
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - error
+                - request_id
+                properties:
+                  error:
+                    type: object
+                    required:
+                    - code
+                    - message
+                    properties:
+                      code:
+                        type: string
+                        example: invalid_request
+                      message:
+                        type: string
+                        example: Invalid request
+                      details:
+                        type: array
+                        items:
+                          type: object
+                        example: []
+                  request_id:
+                    type: string
+                    example: req_demo_user_path
+              example:
+                error:
+                  code: not_found
+                  message: Resource not found
+                  details: []
+                request_id: req_demo_user_path
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - error
+                - request_id
+                properties:
+                  error:
+                    type: object
+                    required:
+                    - code
+                    - message
+                    properties:
+                      code:
+                        type: string
+                        example: invalid_request
+                      message:
+                        type: string
+                        example: Invalid request
+                      details:
+                        type: array
+                        items:
+                          type: object
+                        example: []
+                  request_id:
+                    type: string
+                    example: req_demo_user_path
+              example:
+                error:
+                  code: internal_error
+                  message: Unexpected error
+                  details: []
+                request_id: req_demo_user_path
+    patch:
+      operationId: patch_projects_by_project_id
+      tags:
+      - Projects
+      summary: partial update.
+      description: partial update.. Generated from planning notes.
+      security:
+      - BearerAuth: []
+      parameters:
+      - name: X-Request-Id
+        in: header
+        required: false
+        schema:
+          type: string
+          example: req_demo_user_path
+        description: Correlation ID for tracing.
+      - name: project_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          example: 8de2f75f-ef78-44e8-ab42-7276f0462df9
+        description: Project identifier.
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: true
+              example:
+                ok: true
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - error
+                - request_id
+                properties:
+                  error:
+                    type: object
+                    required:
+                    - code
+                    - message
+                    properties:
+                      code:
+                        type: string
+                        example: invalid_request
+                      message:
+                        type: string
+                        example: Invalid request
+                      details:
+                        type: array
+                        items:
+                          type: object
+                        example: []
+                  request_id:
+                    type: string
+                    example: req_demo_user_path
+              example:
+                error:
+                  code: invalid_request
+                  message: Invalid query parameter
+                  details: []
+                request_id: req_demo_user_path
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - error
+                - request_id
+                properties:
+                  error:
+                    type: object
+                    required:
+                    - code
+                    - message
+                    properties:
+                      code:
+                        type: string
+                        example: invalid_request
+                      message:
+                        type: string
+                        example: Invalid request
+                      details:
+                        type: array
+                        items:
+                          type: object
+                        example: []
+                  request_id:
+                    type: string
+                    example: req_demo_user_path
+              example:
+                error:
+                  code: unauthorized
+                  message: Missing or invalid token
+                  details: []
+                request_id: req_demo_user_path
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - error
+                - request_id
+                properties:
+                  error:
+                    type: object
+                    required:
+                    - code
+                    - message
+                    properties:
+                      code:
+                        type: string
+                        example: invalid_request
+                      message:
+                        type: string
+                        example: Invalid request
+                      details:
+                        type: array
+                        items:
+                          type: object
+                        example: []
+                  request_id:
+                    type: string
+                    example: req_demo_user_path
+              example:
+                error:
+                  code: not_found
+                  message: Resource not found
+                  details: []
+                request_id: req_demo_user_path
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - error
+                - request_id
+                properties:
+                  error:
+                    type: object
+                    required:
+                    - code
+                    - message
+                    properties:
+                      code:
+                        type: string
+                        example: invalid_request
+                      message:
+                        type: string
+                        example: Invalid request
+                      details:
+                        type: array
+                        items:
+                          type: object
+                        example: []
+                  request_id:
+                    type: string
+                    example: req_demo_user_path
+              example:
+                error:
+                  code: internal_error
+                  message: Unexpected error
+                  details: []
+                request_id: req_demo_user_path
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: true
+            example:
+              name: Sample value
+  /projects/{project_id}/archive:
+    post:
+      operationId: post_projects_by_project_id_archive
+      tags:
+      - Projects
+      summary: archive project.
+      description: archive project.. Generated from planning notes.
+      security:
+      - BearerAuth: []
+      parameters:
+      - name: X-Request-Id
+        in: header
+        required: false
+        schema:
+          type: string
+          example: req_demo_user_path
+        description: Correlation ID for tracing.
+      - name: project_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          example: 8de2f75f-ef78-44e8-ab42-7276f0462df9
+        description: Project identifier.
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: true
+              example:
+                id: 2f2d41d5-9b6f-4d8b-b0fc-dcfef6d7e24f
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - error
+                - request_id
+                properties:
+                  error:
+                    type: object
+                    required:
+                    - code
+                    - message
+                    properties:
+                      code:
+                        type: string
+                        example: invalid_request
+                      message:
+                        type: string
+                        example: Invalid request
+                      details:
+                        type: array
+                        items:
+                          type: object
+                        example: []
+                  request_id:
+                    type: string
+                    example: req_demo_user_path
+              example:
+                error:
+                  code: invalid_request
+                  message: Invalid query parameter
+                  details: []
+                request_id: req_demo_user_path
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - error
+                - request_id
+                properties:
+                  error:
+                    type: object
+                    required:
+                    - code
+                    - message
+                    properties:
+                      code:
+                        type: string
+                        example: invalid_request
+                      message:
+                        type: string
+                        example: Invalid request
+                      details:
+                        type: array
+                        items:
+                          type: object
+                        example: []
+                  request_id:
+                    type: string
+                    example: req_demo_user_path
+              example:
+                error:
+                  code: unauthorized
+                  message: Missing or invalid token
+                  details: []
+                request_id: req_demo_user_path
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - error
+                - request_id
+                properties:
+                  error:
+                    type: object
+                    required:
+                    - code
+                    - message
+                    properties:
+                      code:
+                        type: string
+                        example: invalid_request
+                      message:
+                        type: string
+                        example: Invalid request
+                      details:
+                        type: array
+                        items:
+                          type: object
+                        example: []
+                  request_id:
+                    type: string
+                    example: req_demo_user_path
+              example:
+                error:
+                  code: internal_error
+                  message: Unexpected error
+                  details: []
+                request_id: req_demo_user_path
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: true
+            example:
+              name: Sample value
+  /projects/{project_id}/restore:
+    post:
+      operationId: post_projects_by_project_id_restore
+      tags:
+      - Projects
+      summary: restore archived project.
+      description: restore archived project.. Generated from planning notes.
+      security:
+      - BearerAuth: []
+      parameters:
+      - name: X-Request-Id
+        in: header
+        required: false
+        schema:
+          type: string
+          example: req_demo_user_path
+        description: Correlation ID for tracing.
+      - name: project_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          example: 8de2f75f-ef78-44e8-ab42-7276f0462df9
+        description: Project identifier.
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: true
+              example:
+                id: 2f2d41d5-9b6f-4d8b-b0fc-dcfef6d7e24f
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - error
+                - request_id
+                properties:
+                  error:
+                    type: object
+                    required:
+                    - code
+                    - message
+                    properties:
+                      code:
+                        type: string
+                        example: invalid_request
+                      message:
+                        type: string
+                        example: Invalid request
+                      details:
+                        type: array
+                        items:
+                          type: object
+                        example: []
+                  request_id:
+                    type: string
+                    example: req_demo_user_path
+              example:
+                error:
+                  code: invalid_request
+                  message: Invalid query parameter
+                  details: []
+                request_id: req_demo_user_path
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - error
+                - request_id
+                properties:
+                  error:
+                    type: object
+                    required:
+                    - code
+                    - message
+                    properties:
+                      code:
+                        type: string
+                        example: invalid_request
+                      message:
+                        type: string
+                        example: Invalid request
+                      details:
+                        type: array
+                        items:
+                          type: object
+                        example: []
+                  request_id:
+                    type: string
+                    example: req_demo_user_path
+              example:
+                error:
+                  code: unauthorized
+                  message: Missing or invalid token
+                  details: []
+                request_id: req_demo_user_path
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - error
+                - request_id
+                properties:
+                  error:
+                    type: object
+                    required:
+                    - code
+                    - message
+                    properties:
+                      code:
+                        type: string
+                        example: invalid_request
+                      message:
+                        type: string
+                        example: Invalid request
+                      details:
+                        type: array
+                        items:
+                          type: object
+                        example: []
+                  request_id:
+                    type: string
+                    example: req_demo_user_path
+              example:
+                error:
+                  code: internal_error
+                  message: Unexpected error
+                  details: []
+                request_id: req_demo_user_path
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: true
+            example:
+              name: Sample value
+  /tags:
+    get:
+      operationId: get_tags
+      tags:
+      - Tags
+      summary: list tags.
+      description: list tags.. Generated from planning notes.
+      security:
+      - BearerAuth: []
+      parameters:
+      - name: X-Request-Id
+        in: header
+        required: false
+        schema:
+          type: string
+          example: req_demo_user_path
+        description: Correlation ID for tracing.
+      - name: limit
+        in: query
+        required: false
+        schema:
+          type: integer
+          minimum: 1
+          maximum: 100
+          default: 20
+          example: 20
+        description: Page size.
+      - name: cursor
+        in: query
+        required: false
+        schema:
+          type: string
+          example: eyJvZmZzZXQiOjEwfQ==
+        description: Opaque cursor token.
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: true
+              example:
+                ok: true
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - error
+                - request_id
+                properties:
+                  error:
+                    type: object
+                    required:
+                    - code
+                    - message
+                    properties:
+                      code:
+                        type: string
+                        example: invalid_request
+                      message:
+                        type: string
+                        example: Invalid request
+                      details:
+                        type: array
+                        items:
+                          type: object
+                        example: []
+                  request_id:
+                    type: string
+                    example: req_demo_user_path
+              example:
+                error:
+                  code: invalid_request
+                  message: Invalid query parameter
+                  details: []
+                request_id: req_demo_user_path
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - error
+                - request_id
+                properties:
+                  error:
+                    type: object
+                    required:
+                    - code
+                    - message
+                    properties:
+                      code:
+                        type: string
+                        example: invalid_request
+                      message:
+                        type: string
+                        example: Invalid request
+                      details:
+                        type: array
+                        items:
+                          type: object
+                        example: []
+                  request_id:
+                    type: string
+                    example: req_demo_user_path
+              example:
+                error:
+                  code: unauthorized
+                  message: Missing or invalid token
+                  details: []
+                request_id: req_demo_user_path
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - error
+                - request_id
+                properties:
+                  error:
+                    type: object
+                    required:
+                    - code
+                    - message
+                    properties:
+                      code:
+                        type: string
+                        example: invalid_request
+                      message:
+                        type: string
+                        example: Invalid request
+                      details:
+                        type: array
+                        items:
+                          type: object
+                        example: []
+                  request_id:
+                    type: string
+                    example: req_demo_user_path
+              example:
+                error:
+                  code: not_found
+                  message: Resource not found
+                  details: []
+                request_id: req_demo_user_path
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - error
+                - request_id
+                properties:
+                  error:
+                    type: object
+                    required:
+                    - code
+                    - message
+                    properties:
+                      code:
+                        type: string
+                        example: invalid_request
+                      message:
+                        type: string
+                        example: Invalid request
+                      details:
+                        type: array
+                        items:
+                          type: object
+                        example: []
+                  request_id:
+                    type: string
+                    example: req_demo_user_path
+              example:
+                error:
+                  code: internal_error
+                  message: Unexpected error
+                  details: []
+                request_id: req_demo_user_path
+    post:
+      operationId: post_tags
+      tags:
+      - Tags
+      summary: create tag.
+      description: create tag.. Generated from planning notes.
+      security:
+      - BearerAuth: []
+      parameters:
+      - name: X-Request-Id
+        in: header
+        required: false
+        schema:
+          type: string
+          example: req_demo_user_path
+        description: Correlation ID for tracing.
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: true
+              example:
+                id: 2f2d41d5-9b6f-4d8b-b0fc-dcfef6d7e24f
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - error
+                - request_id
+                properties:
+                  error:
+                    type: object
+                    required:
+                    - code
+                    - message
+                    properties:
+                      code:
+                        type: string
+                        example: invalid_request
+                      message:
+                        type: string
+                        example: Invalid request
+                      details:
+                        type: array
+                        items:
+                          type: object
+                        example: []
+                  request_id:
+                    type: string
+                    example: req_demo_user_path
+              example:
+                error:
+                  code: invalid_request
+                  message: Invalid query parameter
+                  details: []
+                request_id: req_demo_user_path
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - error
+                - request_id
+                properties:
+                  error:
+                    type: object
+                    required:
+                    - code
+                    - message
+                    properties:
+                      code:
+                        type: string
+                        example: invalid_request
+                      message:
+                        type: string
+                        example: Invalid request
+                      details:
+                        type: array
+                        items:
+                          type: object
+                        example: []
+                  request_id:
+                    type: string
+                    example: req_demo_user_path
+              example:
+                error:
+                  code: unauthorized
+                  message: Missing or invalid token
+                  details: []
+                request_id: req_demo_user_path
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - error
+                - request_id
+                properties:
+                  error:
+                    type: object
+                    required:
+                    - code
+                    - message
+                    properties:
+                      code:
+                        type: string
+                        example: invalid_request
+                      message:
+                        type: string
+                        example: Invalid request
+                      details:
+                        type: array
+                        items:
+                          type: object
+                        example: []
+                  request_id:
+                    type: string
+                    example: req_demo_user_path
+              example:
+                error:
+                  code: internal_error
+                  message: Unexpected error
+                  details: []
+                request_id: req_demo_user_path
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: true
+            example:
+              name: Sample value
+  /tags/{tag_id}:
+    delete:
+      operationId: delete_tags_by_tag_id
+      tags:
+      - Tags
+      summary: delete tag.
+      description: delete tag.. Generated from planning notes.
+      security:
+      - BearerAuth: []
+      parameters:
+      - name: X-Request-Id
+        in: header
+        required: false
+        schema:
+          type: string
+          example: req_demo_user_path
+        description: Correlation ID for tracing.
+      - name: tag_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          example: 0f5ce260-a1fd-49dc-b795-dc05f4bc4e69
+        description: Tag identifier.
+      responses:
+        '204':
+          description: No Content
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - error
+                - request_id
+                properties:
+                  error:
+                    type: object
+                    required:
+                    - code
+                    - message
+                    properties:
+                      code:
+                        type: string
+                        example: invalid_request
+                      message:
+                        type: string
+                        example: Invalid request
+                      details:
+                        type: array
+                        items:
+                          type: object
+                        example: []
+                  request_id:
+                    type: string
+                    example: req_demo_user_path
+              example:
+                error:
+                  code: unauthorized
+                  message: Missing or invalid token
+                  details: []
+                request_id: req_demo_user_path
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - error
+                - request_id
+                properties:
+                  error:
+                    type: object
+                    required:
+                    - code
+                    - message
+                    properties:
+                      code:
+                        type: string
+                        example: invalid_request
+                      message:
+                        type: string
+                        example: Invalid request
+                      details:
+                        type: array
+                        items:
+                          type: object
+                        example: []
+                  request_id:
+                    type: string
+                    example: req_demo_user_path
+              example:
+                error:
+                  code: not_found
+                  message: Resource not found
+                  details: []
+                request_id: req_demo_user_path
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - error
+                - request_id
+                properties:
+                  error:
+                    type: object
+                    required:
+                    - code
+                    - message
+                    properties:
+                      code:
+                        type: string
+                        example: invalid_request
+                      message:
+                        type: string
+                        example: Invalid request
+                      details:
+                        type: array
+                        items:
+                          type: object
+                        example: []
+                  request_id:
+                    type: string
+                    example: req_demo_user_path
+              example:
+                error:
+                  code: internal_error
+                  message: Unexpected error
+                  details: []
+                request_id: req_demo_user_path
+    get:
+      operationId: get_tags_by_tag_id
+      tags:
+      - Tags
+      summary: get tag.
+      description: get tag.. Generated from planning notes.
+      security:
+      - BearerAuth: []
+      parameters:
+      - name: X-Request-Id
+        in: header
+        required: false
+        schema:
+          type: string
+          example: req_demo_user_path
+        description: Correlation ID for tracing.
+      - name: tag_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          example: 0f5ce260-a1fd-49dc-b795-dc05f4bc4e69
+        description: Tag identifier.
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: true
+              example:
+                ok: true
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - error
+                - request_id
+                properties:
+                  error:
+                    type: object
+                    required:
+                    - code
+                    - message
+                    properties:
+                      code:
+                        type: string
+                        example: invalid_request
+                      message:
+                        type: string
+                        example: Invalid request
+                      details:
+                        type: array
+                        items:
+                          type: object
+                        example: []
+                  request_id:
+                    type: string
+                    example: req_demo_user_path
+              example:
+                error:
+                  code: invalid_request
+                  message: Invalid query parameter
+                  details: []
+                request_id: req_demo_user_path
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - error
+                - request_id
+                properties:
+                  error:
+                    type: object
+                    required:
+                    - code
+                    - message
+                    properties:
+                      code:
+                        type: string
+                        example: invalid_request
+                      message:
+                        type: string
+                        example: Invalid request
+                      details:
+                        type: array
+                        items:
+                          type: object
+                        example: []
+                  request_id:
+                    type: string
+                    example: req_demo_user_path
+              example:
+                error:
+                  code: unauthorized
+                  message: Missing or invalid token
+                  details: []
+                request_id: req_demo_user_path
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - error
+                - request_id
+                properties:
+                  error:
+                    type: object
+                    required:
+                    - code
+                    - message
+                    properties:
+                      code:
+                        type: string
+                        example: invalid_request
+                      message:
+                        type: string
+                        example: Invalid request
+                      details:
+                        type: array
+                        items:
+                          type: object
+                        example: []
+                  request_id:
+                    type: string
+                    example: req_demo_user_path
+              example:
+                error:
+                  code: not_found
+                  message: Resource not found
+                  details: []
+                request_id: req_demo_user_path
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - error
+                - request_id
+                properties:
+                  error:
+                    type: object
+                    required:
+                    - code
+                    - message
+                    properties:
+                      code:
+                        type: string
+                        example: invalid_request
+                      message:
+                        type: string
+                        example: Invalid request
+                      details:
+                        type: array
+                        items:
+                          type: object
+                        example: []
+                  request_id:
+                    type: string
+                    example: req_demo_user_path
+              example:
+                error:
+                  code: internal_error
+                  message: Unexpected error
+                  details: []
+                request_id: req_demo_user_path
+    patch:
+      operationId: patch_tags_by_tag_id
+      tags:
+      - Tags
+      summary: update tag.
+      description: update tag.. Generated from planning notes.
+      security:
+      - BearerAuth: []
+      parameters:
+      - name: X-Request-Id
+        in: header
+        required: false
+        schema:
+          type: string
+          example: req_demo_user_path
+        description: Correlation ID for tracing.
+      - name: tag_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          example: 0f5ce260-a1fd-49dc-b795-dc05f4bc4e69
+        description: Tag identifier.
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: true
+              example:
+                ok: true
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - error
+                - request_id
+                properties:
+                  error:
+                    type: object
+                    required:
+                    - code
+                    - message
+                    properties:
+                      code:
+                        type: string
+                        example: invalid_request
+                      message:
+                        type: string
+                        example: Invalid request
+                      details:
+                        type: array
+                        items:
+                          type: object
+                        example: []
+                  request_id:
+                    type: string
+                    example: req_demo_user_path
+              example:
+                error:
+                  code: invalid_request
+                  message: Invalid query parameter
+                  details: []
+                request_id: req_demo_user_path
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - error
+                - request_id
+                properties:
+                  error:
+                    type: object
+                    required:
+                    - code
+                    - message
+                    properties:
+                      code:
+                        type: string
+                        example: invalid_request
+                      message:
+                        type: string
+                        example: Invalid request
+                      details:
+                        type: array
+                        items:
+                          type: object
+                        example: []
+                  request_id:
+                    type: string
+                    example: req_demo_user_path
+              example:
+                error:
+                  code: unauthorized
+                  message: Missing or invalid token
+                  details: []
+                request_id: req_demo_user_path
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - error
+                - request_id
+                properties:
+                  error:
+                    type: object
+                    required:
+                    - code
+                    - message
+                    properties:
+                      code:
+                        type: string
+                        example: invalid_request
+                      message:
+                        type: string
+                        example: Invalid request
+                      details:
+                        type: array
+                        items:
+                          type: object
+                        example: []
+                  request_id:
+                    type: string
+                    example: req_demo_user_path
+              example:
+                error:
+                  code: not_found
+                  message: Resource not found
+                  details: []
+                request_id: req_demo_user_path
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - error
+                - request_id
+                properties:
+                  error:
+                    type: object
+                    required:
+                    - code
+                    - message
+                    properties:
+                      code:
+                        type: string
+                        example: invalid_request
+                      message:
+                        type: string
+                        example: Invalid request
+                      details:
+                        type: array
+                        items:
+                          type: object
+                        example: []
+                  request_id:
+                    type: string
+                    example: req_demo_user_path
+              example:
+                error:
+                  code: internal_error
+                  message: Unexpected error
+                  details: []
+                request_id: req_demo_user_path
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: true
+            example:
+              name: Sample value
+  /tasks:
+    get:
+      operationId: get_tasks
+      tags:
+      - Tasks
+      summary: list tasks.
+      description: list tasks.. Generated from planning notes.
+      security:
+      - BearerAuth: []
+      parameters:
+      - name: X-Request-Id
+        in: header
+        required: false
+        schema:
+          type: string
+          example: req_demo_user_path
+        description: Correlation ID for tracing.
+      - name: limit
+        in: query
+        required: false
+        schema:
+          type: integer
+          minimum: 1
+          maximum: 100
+          default: 20
+          example: 20
+        description: Page size.
+      - name: cursor
+        in: query
+        required: false
+        schema:
+          type: string
+          example: eyJvZmZzZXQiOjEwfQ==
+        description: Opaque cursor token.
+      responses:
+        '200':
+          description: Tasks list
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - data
+                - page
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Task'
+                  page:
+                    $ref: '#/components/schemas/CursorPage'
+              example:
+                data:
+                - id: 70d42a43-e224-4f72-9b95-53beea09b434
+                  project_id: 8de2f75f-ef78-44e8-ab42-7276f0462df9
+                  title: Create API-first demo
+                  description: Generate OpenAPI from planning notes
+                  status: in_progress
+                  priority: high
+                  assignee_id: 1edd3e73-e605-4559-a6f9-dcd27f2f6488
+                  due_date: '2026-03-12'
+                  created_at: '2026-03-09T10:22:31Z'
+                  updated_at: '2026-03-09T10:22:31Z'
+                  completed_at: null
+                page:
+                  next_cursor: null
+                  has_more: false
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - error
+                - request_id
+                properties:
+                  error:
+                    type: object
+                    required:
+                    - code
+                    - message
+                    properties:
+                      code:
+                        type: string
+                        example: invalid_request
+                      message:
+                        type: string
+                        example: Invalid request
+                      details:
+                        type: array
+                        items:
+                          type: object
+                        example: []
+                  request_id:
+                    type: string
+                    example: req_demo_user_path
+              example:
+                error:
+                  code: invalid_request
+                  message: Invalid query parameter
+                  details: []
+                request_id: req_demo_user_path
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - error
+                - request_id
+                properties:
+                  error:
+                    type: object
+                    required:
+                    - code
+                    - message
+                    properties:
+                      code:
+                        type: string
+                        example: invalid_request
+                      message:
+                        type: string
+                        example: Invalid request
+                      details:
+                        type: array
+                        items:
+                          type: object
+                        example: []
+                  request_id:
+                    type: string
+                    example: req_demo_user_path
+              example:
+                error:
+                  code: unauthorized
+                  message: Missing or invalid token
+                  details: []
+                request_id: req_demo_user_path
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - error
+                - request_id
+                properties:
+                  error:
+                    type: object
+                    required:
+                    - code
+                    - message
+                    properties:
+                      code:
+                        type: string
+                        example: invalid_request
+                      message:
+                        type: string
+                        example: Invalid request
+                      details:
+                        type: array
+                        items:
+                          type: object
+                        example: []
+                  request_id:
+                    type: string
+                    example: req_demo_user_path
+              example:
+                error:
+                  code: internal_error
+                  message: Unexpected error
+                  details: []
+                request_id: req_demo_user_path
+    post:
+      operationId: post_tasks
+      tags:
+      - Tasks
+      summary: create task.
+      description: create task.. Generated from planning notes.
+      security:
+      - BearerAuth: []
+      parameters:
+      - name: X-Request-Id
+        in: header
+        required: false
+        schema:
+          type: string
+          example: req_demo_user_path
+        description: Correlation ID for tracing.
+      - name: Idempotency-Key
+        in: header
+        required: false
+        schema:
+          type: string
+          example: 7f0f3677-3d01-478f-8d0f-02ca9f07ed50
+        description: Idempotency key for safe retries.
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: true
+              example:
+                id: 2f2d41d5-9b6f-4d8b-b0fc-dcfef6d7e24f
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - error
+                - request_id
+                properties:
+                  error:
+                    type: object
+                    required:
+                    - code
+                    - message
+                    properties:
+                      code:
+                        type: string
+                        example: invalid_request
+                      message:
+                        type: string
+                        example: Invalid request
+                      details:
+                        type: array
+                        items:
+                          type: object
+                        example: []
+                  request_id:
+                    type: string
+                    example: req_demo_user_path
+              example:
+                error:
+                  code: invalid_request
+                  message: Invalid query parameter
+                  details: []
+                request_id: req_demo_user_path
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - error
+                - request_id
+                properties:
+                  error:
+                    type: object
+                    required:
+                    - code
+                    - message
+                    properties:
+                      code:
+                        type: string
+                        example: invalid_request
+                      message:
+                        type: string
+                        example: Invalid request
+                      details:
+                        type: array
+                        items:
+                          type: object
+                        example: []
+                  request_id:
+                    type: string
+                    example: req_demo_user_path
+              example:
+                error:
+                  code: unauthorized
+                  message: Missing or invalid token
+                  details: []
+                request_id: req_demo_user_path
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - error
+                - request_id
+                properties:
+                  error:
+                    type: object
+                    required:
+                    - code
+                    - message
+                    properties:
+                      code:
+                        type: string
+                        example: invalid_request
+                      message:
+                        type: string
+                        example: Invalid request
+                      details:
+                        type: array
+                        items:
+                          type: object
+                        example: []
+                  request_id:
+                    type: string
+                    example: req_demo_user_path
+              example:
+                error:
+                  code: internal_error
+                  message: Unexpected error
+                  details: []
+                request_id: req_demo_user_path
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: true
+            example:
+              name: Sample value
+  /tasks/{task_id}:
+    delete:
+      operationId: delete_tasks_by_task_id
+      tags:
+      - Tasks
+      summary: soft delete.
+      description: soft delete.. Generated from planning notes.
+      security:
+      - BearerAuth: []
+      parameters:
+      - name: X-Request-Id
+        in: header
+        required: false
+        schema:
+          type: string
+          example: req_demo_user_path
+        description: Correlation ID for tracing.
+      - name: task_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          example: 70d42a43-e224-4f72-9b95-53beea09b434
+        description: Task identifier.
+      responses:
+        '204':
+          description: No Content
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - error
+                - request_id
+                properties:
+                  error:
+                    type: object
+                    required:
+                    - code
+                    - message
+                    properties:
+                      code:
+                        type: string
+                        example: invalid_request
+                      message:
+                        type: string
+                        example: Invalid request
+                      details:
+                        type: array
+                        items:
+                          type: object
+                        example: []
+                  request_id:
+                    type: string
+                    example: req_demo_user_path
+              example:
+                error:
+                  code: unauthorized
+                  message: Missing or invalid token
+                  details: []
+                request_id: req_demo_user_path
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - error
+                - request_id
+                properties:
+                  error:
+                    type: object
+                    required:
+                    - code
+                    - message
+                    properties:
+                      code:
+                        type: string
+                        example: invalid_request
+                      message:
+                        type: string
+                        example: Invalid request
+                      details:
+                        type: array
+                        items:
+                          type: object
+                        example: []
+                  request_id:
+                    type: string
+                    example: req_demo_user_path
+              example:
+                error:
+                  code: not_found
+                  message: Resource not found
+                  details: []
+                request_id: req_demo_user_path
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - error
+                - request_id
+                properties:
+                  error:
+                    type: object
+                    required:
+                    - code
+                    - message
+                    properties:
+                      code:
+                        type: string
+                        example: invalid_request
+                      message:
+                        type: string
+                        example: Invalid request
+                      details:
+                        type: array
+                        items:
+                          type: object
+                        example: []
+                  request_id:
+                    type: string
+                    example: req_demo_user_path
+              example:
+                error:
+                  code: internal_error
+                  message: Unexpected error
+                  details: []
+                request_id: req_demo_user_path
+    get:
+      operationId: get_tasks_by_task_id
+      tags:
+      - Tasks
+      summary: get task.
+      description: get task.. Generated from planning notes.
+      security:
+      - BearerAuth: []
+      parameters:
+      - name: X-Request-Id
+        in: header
+        required: false
+        schema:
+          type: string
+          example: req_demo_user_path
+        description: Correlation ID for tracing.
+      - name: task_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          example: 70d42a43-e224-4f72-9b95-53beea09b434
+        description: Task identifier.
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: true
+              example:
+                ok: true
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - error
+                - request_id
+                properties:
+                  error:
+                    type: object
+                    required:
+                    - code
+                    - message
+                    properties:
+                      code:
+                        type: string
+                        example: invalid_request
+                      message:
+                        type: string
+                        example: Invalid request
+                      details:
+                        type: array
+                        items:
+                          type: object
+                        example: []
+                  request_id:
+                    type: string
+                    example: req_demo_user_path
+              example:
+                error:
+                  code: invalid_request
+                  message: Invalid query parameter
+                  details: []
+                request_id: req_demo_user_path
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - error
+                - request_id
+                properties:
+                  error:
+                    type: object
+                    required:
+                    - code
+                    - message
+                    properties:
+                      code:
+                        type: string
+                        example: invalid_request
+                      message:
+                        type: string
+                        example: Invalid request
+                      details:
+                        type: array
+                        items:
+                          type: object
+                        example: []
+                  request_id:
+                    type: string
+                    example: req_demo_user_path
+              example:
+                error:
+                  code: unauthorized
+                  message: Missing or invalid token
+                  details: []
+                request_id: req_demo_user_path
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - error
+                - request_id
+                properties:
+                  error:
+                    type: object
+                    required:
+                    - code
+                    - message
+                    properties:
+                      code:
+                        type: string
+                        example: invalid_request
+                      message:
+                        type: string
+                        example: Invalid request
+                      details:
+                        type: array
+                        items:
+                          type: object
+                        example: []
+                  request_id:
+                    type: string
+                    example: req_demo_user_path
+              example:
+                error:
+                  code: not_found
+                  message: Resource not found
+                  details: []
+                request_id: req_demo_user_path
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - error
+                - request_id
+                properties:
+                  error:
+                    type: object
+                    required:
+                    - code
+                    - message
+                    properties:
+                      code:
+                        type: string
+                        example: invalid_request
+                      message:
+                        type: string
+                        example: Invalid request
+                      details:
+                        type: array
+                        items:
+                          type: object
+                        example: []
+                  request_id:
+                    type: string
+                    example: req_demo_user_path
+              example:
+                error:
+                  code: internal_error
+                  message: Unexpected error
+                  details: []
+                request_id: req_demo_user_path
+    patch:
+      operationId: patch_tasks_by_task_id
+      tags:
+      - Tasks
+      summary: update task.
+      description: update task.. Generated from planning notes.
+      security:
+      - BearerAuth: []
+      parameters:
+      - name: X-Request-Id
+        in: header
+        required: false
+        schema:
+          type: string
+          example: req_demo_user_path
+        description: Correlation ID for tracing.
+      - name: task_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          example: 70d42a43-e224-4f72-9b95-53beea09b434
+        description: Task identifier.
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: true
+              example:
+                ok: true
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - error
+                - request_id
+                properties:
+                  error:
+                    type: object
+                    required:
+                    - code
+                    - message
+                    properties:
+                      code:
+                        type: string
+                        example: invalid_request
+                      message:
+                        type: string
+                        example: Invalid request
+                      details:
+                        type: array
+                        items:
+                          type: object
+                        example: []
+                  request_id:
+                    type: string
+                    example: req_demo_user_path
+              example:
+                error:
+                  code: invalid_request
+                  message: Invalid query parameter
+                  details: []
+                request_id: req_demo_user_path
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - error
+                - request_id
+                properties:
+                  error:
+                    type: object
+                    required:
+                    - code
+                    - message
+                    properties:
+                      code:
+                        type: string
+                        example: invalid_request
+                      message:
+                        type: string
+                        example: Invalid request
+                      details:
+                        type: array
+                        items:
+                          type: object
+                        example: []
+                  request_id:
+                    type: string
+                    example: req_demo_user_path
+              example:
+                error:
+                  code: unauthorized
+                  message: Missing or invalid token
+                  details: []
+                request_id: req_demo_user_path
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - error
+                - request_id
+                properties:
+                  error:
+                    type: object
+                    required:
+                    - code
+                    - message
+                    properties:
+                      code:
+                        type: string
+                        example: invalid_request
+                      message:
+                        type: string
+                        example: Invalid request
+                      details:
+                        type: array
+                        items:
+                          type: object
+                        example: []
+                  request_id:
+                    type: string
+                    example: req_demo_user_path
+              example:
+                error:
+                  code: not_found
+                  message: Resource not found
+                  details: []
+                request_id: req_demo_user_path
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - error
+                - request_id
+                properties:
+                  error:
+                    type: object
+                    required:
+                    - code
+                    - message
+                    properties:
+                      code:
+                        type: string
+                        example: invalid_request
+                      message:
+                        type: string
+                        example: Invalid request
+                      details:
+                        type: array
+                        items:
+                          type: object
+                        example: []
+                  request_id:
+                    type: string
+                    example: req_demo_user_path
+              example:
+                error:
+                  code: internal_error
+                  message: Unexpected error
+                  details: []
+                request_id: req_demo_user_path
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: true
+            example:
+              name: Sample value
+  /tasks/{task_id}/comments:
+    get:
+      operationId: get_tasks_by_task_id_comments
+      tags:
+      - Tasks
+      summary: list task comments.
+      description: list task comments.. Generated from planning notes.
+      security:
+      - BearerAuth: []
+      parameters:
+      - name: X-Request-Id
+        in: header
+        required: false
+        schema:
+          type: string
+          example: req_demo_user_path
+        description: Correlation ID for tracing.
+      - name: task_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          example: 70d42a43-e224-4f72-9b95-53beea09b434
+        description: Task identifier.
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: true
+              example:
+                ok: true
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - error
+                - request_id
+                properties:
+                  error:
+                    type: object
+                    required:
+                    - code
+                    - message
+                    properties:
+                      code:
+                        type: string
+                        example: invalid_request
+                      message:
+                        type: string
+                        example: Invalid request
+                      details:
+                        type: array
+                        items:
+                          type: object
+                        example: []
+                  request_id:
+                    type: string
+                    example: req_demo_user_path
+              example:
+                error:
+                  code: invalid_request
+                  message: Invalid query parameter
+                  details: []
+                request_id: req_demo_user_path
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - error
+                - request_id
+                properties:
+                  error:
+                    type: object
+                    required:
+                    - code
+                    - message
+                    properties:
+                      code:
+                        type: string
+                        example: invalid_request
+                      message:
+                        type: string
+                        example: Invalid request
+                      details:
+                        type: array
+                        items:
+                          type: object
+                        example: []
+                  request_id:
+                    type: string
+                    example: req_demo_user_path
+              example:
+                error:
+                  code: unauthorized
+                  message: Missing or invalid token
+                  details: []
+                request_id: req_demo_user_path
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - error
+                - request_id
+                properties:
+                  error:
+                    type: object
+                    required:
+                    - code
+                    - message
+                    properties:
+                      code:
+                        type: string
+                        example: invalid_request
+                      message:
+                        type: string
+                        example: Invalid request
+                      details:
+                        type: array
+                        items:
+                          type: object
+                        example: []
+                  request_id:
+                    type: string
+                    example: req_demo_user_path
+              example:
+                error:
+                  code: not_found
+                  message: Resource not found
+                  details: []
+                request_id: req_demo_user_path
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - error
+                - request_id
+                properties:
+                  error:
+                    type: object
+                    required:
+                    - code
+                    - message
+                    properties:
+                      code:
+                        type: string
+                        example: invalid_request
+                      message:
+                        type: string
+                        example: Invalid request
+                      details:
+                        type: array
+                        items:
+                          type: object
+                        example: []
+                  request_id:
+                    type: string
+                    example: req_demo_user_path
+              example:
+                error:
+                  code: internal_error
+                  message: Unexpected error
+                  details: []
+                request_id: req_demo_user_path
+    post:
+      operationId: post_tasks_by_task_id_comments
+      tags:
+      - Tasks
+      summary: create comment.
+      description: create comment.. Generated from planning notes.
+      security:
+      - BearerAuth: []
+      parameters:
+      - name: X-Request-Id
+        in: header
+        required: false
+        schema:
+          type: string
+          example: req_demo_user_path
+        description: Correlation ID for tracing.
+      - name: task_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          example: 70d42a43-e224-4f72-9b95-53beea09b434
+        description: Task identifier.
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: true
+              example:
+                id: 2f2d41d5-9b6f-4d8b-b0fc-dcfef6d7e24f
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - error
+                - request_id
+                properties:
+                  error:
+                    type: object
+                    required:
+                    - code
+                    - message
+                    properties:
+                      code:
+                        type: string
+                        example: invalid_request
+                      message:
+                        type: string
+                        example: Invalid request
+                      details:
+                        type: array
+                        items:
+                          type: object
+                        example: []
+                  request_id:
+                    type: string
+                    example: req_demo_user_path
+              example:
+                error:
+                  code: invalid_request
+                  message: Invalid query parameter
+                  details: []
+                request_id: req_demo_user_path
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - error
+                - request_id
+                properties:
+                  error:
+                    type: object
+                    required:
+                    - code
+                    - message
+                    properties:
+                      code:
+                        type: string
+                        example: invalid_request
+                      message:
+                        type: string
+                        example: Invalid request
+                      details:
+                        type: array
+                        items:
+                          type: object
+                        example: []
+                  request_id:
+                    type: string
+                    example: req_demo_user_path
+              example:
+                error:
+                  code: unauthorized
+                  message: Missing or invalid token
+                  details: []
+                request_id: req_demo_user_path
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - error
+                - request_id
+                properties:
+                  error:
+                    type: object
+                    required:
+                    - code
+                    - message
+                    properties:
+                      code:
+                        type: string
+                        example: invalid_request
+                      message:
+                        type: string
+                        example: Invalid request
+                      details:
+                        type: array
+                        items:
+                          type: object
+                        example: []
+                  request_id:
+                    type: string
+                    example: req_demo_user_path
+              example:
+                error:
+                  code: internal_error
+                  message: Unexpected error
+                  details: []
+                request_id: req_demo_user_path
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: true
+            example:
+              name: Sample value
+  /tasks/{task_id}/complete:
+    post:
+      operationId: post_tasks_by_task_id_complete
+      tags:
+      - Tasks
+      summary: mark complete.
+      description: mark complete.. Generated from planning notes.
+      security:
+      - BearerAuth: []
+      parameters:
+      - name: X-Request-Id
+        in: header
+        required: false
+        schema:
+          type: string
+          example: req_demo_user_path
+        description: Correlation ID for tracing.
+      - name: task_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          example: 70d42a43-e224-4f72-9b95-53beea09b434
+        description: Task identifier.
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: true
+              example:
+                id: 2f2d41d5-9b6f-4d8b-b0fc-dcfef6d7e24f
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - error
+                - request_id
+                properties:
+                  error:
+                    type: object
+                    required:
+                    - code
+                    - message
+                    properties:
+                      code:
+                        type: string
+                        example: invalid_request
+                      message:
+                        type: string
+                        example: Invalid request
+                      details:
+                        type: array
+                        items:
+                          type: object
+                        example: []
+                  request_id:
+                    type: string
+                    example: req_demo_user_path
+              example:
+                error:
+                  code: invalid_request
+                  message: Invalid query parameter
+                  details: []
+                request_id: req_demo_user_path
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - error
+                - request_id
+                properties:
+                  error:
+                    type: object
+                    required:
+                    - code
+                    - message
+                    properties:
+                      code:
+                        type: string
+                        example: invalid_request
+                      message:
+                        type: string
+                        example: Invalid request
+                      details:
+                        type: array
+                        items:
+                          type: object
+                        example: []
+                  request_id:
+                    type: string
+                    example: req_demo_user_path
+              example:
+                error:
+                  code: unauthorized
+                  message: Missing or invalid token
+                  details: []
+                request_id: req_demo_user_path
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - error
+                - request_id
+                properties:
+                  error:
+                    type: object
+                    required:
+                    - code
+                    - message
+                    properties:
+                      code:
+                        type: string
+                        example: invalid_request
+                      message:
+                        type: string
+                        example: Invalid request
+                      details:
+                        type: array
+                        items:
+                          type: object
+                        example: []
+                  request_id:
+                    type: string
+                    example: req_demo_user_path
+              example:
+                error:
+                  code: internal_error
+                  message: Unexpected error
+                  details: []
+                request_id: req_demo_user_path
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: true
+            example:
+              name: Sample value
+  /tasks/{task_id}/reopen:
+    post:
+      operationId: post_tasks_by_task_id_reopen
+      tags:
+      - Tasks
+      summary: reopen task.
+      description: reopen task.. Generated from planning notes.
+      security:
+      - BearerAuth: []
+      parameters:
+      - name: X-Request-Id
+        in: header
+        required: false
+        schema:
+          type: string
+          example: req_demo_user_path
+        description: Correlation ID for tracing.
+      - name: task_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          example: 70d42a43-e224-4f72-9b95-53beea09b434
+        description: Task identifier.
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: true
+              example:
+                id: 2f2d41d5-9b6f-4d8b-b0fc-dcfef6d7e24f
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - error
+                - request_id
+                properties:
+                  error:
+                    type: object
+                    required:
+                    - code
+                    - message
+                    properties:
+                      code:
+                        type: string
+                        example: invalid_request
+                      message:
+                        type: string
+                        example: Invalid request
+                      details:
+                        type: array
+                        items:
+                          type: object
+                        example: []
+                  request_id:
+                    type: string
+                    example: req_demo_user_path
+              example:
+                error:
+                  code: invalid_request
+                  message: Invalid query parameter
+                  details: []
+                request_id: req_demo_user_path
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - error
+                - request_id
+                properties:
+                  error:
+                    type: object
+                    required:
+                    - code
+                    - message
+                    properties:
+                      code:
+                        type: string
+                        example: invalid_request
+                      message:
+                        type: string
+                        example: Invalid request
+                      details:
+                        type: array
+                        items:
+                          type: object
+                        example: []
+                  request_id:
+                    type: string
+                    example: req_demo_user_path
+              example:
+                error:
+                  code: unauthorized
+                  message: Missing or invalid token
+                  details: []
+                request_id: req_demo_user_path
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - error
+                - request_id
+                properties:
+                  error:
+                    type: object
+                    required:
+                    - code
+                    - message
+                    properties:
+                      code:
+                        type: string
+                        example: invalid_request
+                      message:
+                        type: string
+                        example: Invalid request
+                      details:
+                        type: array
+                        items:
+                          type: object
+                        example: []
+                  request_id:
+                    type: string
+                    example: req_demo_user_path
+              example:
+                error:
+                  code: internal_error
+                  message: Unexpected error
+                  details: []
+                request_id: req_demo_user_path
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: true
+            example:
+              name: Sample value
+  /tasks/{task_id}/tags/{tag_id}:
+    delete:
+      operationId: delete_tasks_by_task_id_tags_by_tag_id
+      tags:
+      - Tasks
+      summary: detach tag from task.
+      description: detach tag from task.. Generated from planning notes.
+      security:
+      - BearerAuth: []
+      parameters:
+      - name: X-Request-Id
+        in: header
+        required: false
+        schema:
+          type: string
+          example: req_demo_user_path
+        description: Correlation ID for tracing.
+      - name: task_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          example: 70d42a43-e224-4f72-9b95-53beea09b434
+        description: Task identifier.
+      - name: tag_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          example: 0f5ce260-a1fd-49dc-b795-dc05f4bc4e69
+        description: Tag identifier.
+      responses:
+        '204':
+          description: No Content
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - error
+                - request_id
+                properties:
+                  error:
+                    type: object
+                    required:
+                    - code
+                    - message
+                    properties:
+                      code:
+                        type: string
+                        example: invalid_request
+                      message:
+                        type: string
+                        example: Invalid request
+                      details:
+                        type: array
+                        items:
+                          type: object
+                        example: []
+                  request_id:
+                    type: string
+                    example: req_demo_user_path
+              example:
+                error:
+                  code: unauthorized
+                  message: Missing or invalid token
+                  details: []
+                request_id: req_demo_user_path
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - error
+                - request_id
+                properties:
+                  error:
+                    type: object
+                    required:
+                    - code
+                    - message
+                    properties:
+                      code:
+                        type: string
+                        example: invalid_request
+                      message:
+                        type: string
+                        example: Invalid request
+                      details:
+                        type: array
+                        items:
+                          type: object
+                        example: []
+                  request_id:
+                    type: string
+                    example: req_demo_user_path
+              example:
+                error:
+                  code: not_found
+                  message: Resource not found
+                  details: []
+                request_id: req_demo_user_path
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - error
+                - request_id
+                properties:
+                  error:
+                    type: object
+                    required:
+                    - code
+                    - message
+                    properties:
+                      code:
+                        type: string
+                        example: invalid_request
+                      message:
+                        type: string
+                        example: Invalid request
+                      details:
+                        type: array
+                        items:
+                          type: object
+                        example: []
+                  request_id:
+                    type: string
+                    example: req_demo_user_path
+              example:
+                error:
+                  code: internal_error
+                  message: Unexpected error
+                  details: []
+                request_id: req_demo_user_path
+    post:
+      operationId: post_tasks_by_task_id_tags_by_tag_id
+      tags:
+      - Tasks
+      summary: attach tag to task.
+      description: attach tag to task.. Generated from planning notes.
+      security:
+      - BearerAuth: []
+      parameters:
+      - name: X-Request-Id
+        in: header
+        required: false
+        schema:
+          type: string
+          example: req_demo_user_path
+        description: Correlation ID for tracing.
+      - name: task_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          example: 70d42a43-e224-4f72-9b95-53beea09b434
+        description: Task identifier.
+      - name: tag_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          example: 0f5ce260-a1fd-49dc-b795-dc05f4bc4e69
+        description: Tag identifier.
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: true
+              example:
+                id: 2f2d41d5-9b6f-4d8b-b0fc-dcfef6d7e24f
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - error
+                - request_id
+                properties:
+                  error:
+                    type: object
+                    required:
+                    - code
+                    - message
+                    properties:
+                      code:
+                        type: string
+                        example: invalid_request
+                      message:
+                        type: string
+                        example: Invalid request
+                      details:
+                        type: array
+                        items:
+                          type: object
+                        example: []
+                  request_id:
+                    type: string
+                    example: req_demo_user_path
+              example:
+                error:
+                  code: invalid_request
+                  message: Invalid query parameter
+                  details: []
+                request_id: req_demo_user_path
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - error
+                - request_id
+                properties:
+                  error:
+                    type: object
+                    required:
+                    - code
+                    - message
+                    properties:
+                      code:
+                        type: string
+                        example: invalid_request
+                      message:
+                        type: string
+                        example: Invalid request
+                      details:
+                        type: array
+                        items:
+                          type: object
+                        example: []
+                  request_id:
+                    type: string
+                    example: req_demo_user_path
+              example:
+                error:
+                  code: unauthorized
+                  message: Missing or invalid token
+                  details: []
+                request_id: req_demo_user_path
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - error
+                - request_id
+                properties:
+                  error:
+                    type: object
+                    required:
+                    - code
+                    - message
+                    properties:
+                      code:
+                        type: string
+                        example: invalid_request
+                      message:
+                        type: string
+                        example: Invalid request
+                      details:
+                        type: array
+                        items:
+                          type: object
+                        example: []
+                  request_id:
+                    type: string
+                    example: req_demo_user_path
+              example:
+                error:
+                  code: internal_error
+                  message: Unexpected error
+                  details: []
+                request_id: req_demo_user_path
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: true
+            example:
+              name: Sample value
+  /users:
+    get:
+      operationId: get_users
+      tags:
+      - Users
+      summary: list workspace users.
+      description: list workspace users.. Generated from planning notes.
+      security:
+      - BearerAuth: []
+      parameters:
+      - name: X-Request-Id
+        in: header
+        required: false
+        schema:
+          type: string
+          example: req_demo_user_path
+        description: Correlation ID for tracing.
+      - name: limit
+        in: query
+        required: false
+        schema:
+          type: integer
+          minimum: 1
+          maximum: 100
+          default: 20
+          example: 20
+        description: Page size.
+      - name: cursor
+        in: query
+        required: false
+        schema:
+          type: string
+          example: eyJvZmZzZXQiOjEwfQ==
+        description: Opaque cursor token.
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: true
+              example:
+                ok: true
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - error
+                - request_id
+                properties:
+                  error:
+                    type: object
+                    required:
+                    - code
+                    - message
+                    properties:
+                      code:
+                        type: string
+                        example: invalid_request
+                      message:
+                        type: string
+                        example: Invalid request
+                      details:
+                        type: array
+                        items:
+                          type: object
+                        example: []
+                  request_id:
+                    type: string
+                    example: req_demo_user_path
+              example:
+                error:
+                  code: invalid_request
+                  message: Invalid query parameter
+                  details: []
+                request_id: req_demo_user_path
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - error
+                - request_id
+                properties:
+                  error:
+                    type: object
+                    required:
+                    - code
+                    - message
+                    properties:
+                      code:
+                        type: string
+                        example: invalid_request
+                      message:
+                        type: string
+                        example: Invalid request
+                      details:
+                        type: array
+                        items:
+                          type: object
+                        example: []
+                  request_id:
+                    type: string
+                    example: req_demo_user_path
+              example:
+                error:
+                  code: unauthorized
+                  message: Missing or invalid token
+                  details: []
+                request_id: req_demo_user_path
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - error
+                - request_id
+                properties:
+                  error:
+                    type: object
+                    required:
+                    - code
+                    - message
+                    properties:
+                      code:
+                        type: string
+                        example: invalid_request
+                      message:
+                        type: string
+                        example: Invalid request
+                      details:
+                        type: array
+                        items:
+                          type: object
+                        example: []
+                  request_id:
+                    type: string
+                    example: req_demo_user_path
+              example:
+                error:
+                  code: not_found
+                  message: Resource not found
+                  details: []
+                request_id: req_demo_user_path
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - error
+                - request_id
+                properties:
+                  error:
+                    type: object
+                    required:
+                    - code
+                    - message
+                    properties:
+                      code:
+                        type: string
+                        example: invalid_request
+                      message:
+                        type: string
+                        example: Invalid request
+                      details:
+                        type: array
+                        items:
+                          type: object
+                        example: []
+                  request_id:
+                    type: string
+                    example: req_demo_user_path
+              example:
+                error:
+                  code: internal_error
+                  message: Unexpected error
+                  details: []
+                request_id: req_demo_user_path
+  /users/me:
+    get:
+      operationId: get_users_me
+      tags:
+      - Users
+      summary: current user profile.
+      description: current user profile.. Generated from planning notes.
+      security:
+      - BearerAuth: []
+      parameters:
+      - name: X-Request-Id
+        in: header
+        required: false
+        schema:
+          type: string
+          example: req_demo_user_path
+        description: Correlation ID for tracing.
+      - name: limit
+        in: query
+        required: false
+        schema:
+          type: integer
+          minimum: 1
+          maximum: 100
+          default: 20
+          example: 20
+        description: Page size.
+      - name: cursor
+        in: query
+        required: false
+        schema:
+          type: string
+          example: eyJvZmZzZXQiOjEwfQ==
+        description: Opaque cursor token.
+      responses:
+        '200':
+          description: Current user
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - id
+                - email
+                - full_name
+                - role
+                - status
+                - created_at
+                properties:
+                  id:
+                    type: string
+                    format: uuid
+                    example: 1edd3e73-e605-4559-a6f9-dcd27f2f6488
+                  email:
+                    type: string
+                    format: email
+                    example: alex@taskstream.example.com
+                  full_name:
+                    type: string
+                    example: Alex Rivera
+                  role:
+                    type: string
+                    enum:
+                    - admin
+                    - manager
+                    - member
+                    - guest
+                    example: admin
+                  status:
+                    type: string
+                    enum:
+                    - active
+                    - invited
+                    - suspended
+                    example: active
+                  created_at:
+                    type: string
+                    format: date-time
+                    example: '2026-01-15T09:00:00Z'
+              example:
+                id: 1edd3e73-e605-4559-a6f9-dcd27f2f6488
+                email: alex@taskstream.example.com
+                full_name: Alex Rivera
+                role: admin
+                status: active
+                created_at: '2026-01-15T09:00:00Z'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - error
+                - request_id
+                properties:
+                  error:
+                    type: object
+                    required:
+                    - code
+                    - message
+                    properties:
+                      code:
+                        type: string
+                        example: invalid_request
+                      message:
+                        type: string
+                        example: Invalid request
+                      details:
+                        type: array
+                        items:
+                          type: object
+                        example: []
+                  request_id:
+                    type: string
+                    example: req_demo_user_path
+              example:
+                error:
+                  code: unauthorized
+                  message: Missing or invalid token
+                  details: []
+                request_id: req_demo_user_path
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - error
+                - request_id
+                properties:
+                  error:
+                    type: object
+                    required:
+                    - code
+                    - message
+                    properties:
+                      code:
+                        type: string
+                        example: invalid_request
+                      message:
+                        type: string
+                        example: Invalid request
+                      details:
+                        type: array
+                        items:
+                          type: object
+                        example: []
+                  request_id:
+                    type: string
+                    example: req_demo_user_path
+              example:
+                error:
+                  code: internal_error
+                  message: Unexpected error
+                  details: []
+                request_id: req_demo_user_path
+  /users/{user_id}:
+    get:
+      operationId: get_users_by_user_id
+      tags:
+      - Users
+      summary: get user profile.
+      description: get user profile.. Generated from planning notes.
+      security:
+      - BearerAuth: []
+      parameters:
+      - name: X-Request-Id
+        in: header
+        required: false
+        schema:
+          type: string
+          example: req_demo_user_path
+        description: Correlation ID for tracing.
+      - name: user_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          example: 1edd3e73-e605-4559-a6f9-dcd27f2f6488
+        description: User identifier.
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: true
+              example:
+                ok: true
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - error
+                - request_id
+                properties:
+                  error:
+                    type: object
+                    required:
+                    - code
+                    - message
+                    properties:
+                      code:
+                        type: string
+                        example: invalid_request
+                      message:
+                        type: string
+                        example: Invalid request
+                      details:
+                        type: array
+                        items:
+                          type: object
+                        example: []
+                  request_id:
+                    type: string
+                    example: req_demo_user_path
+              example:
+                error:
+                  code: invalid_request
+                  message: Invalid query parameter
+                  details: []
+                request_id: req_demo_user_path
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - error
+                - request_id
+                properties:
+                  error:
+                    type: object
+                    required:
+                    - code
+                    - message
+                    properties:
+                      code:
+                        type: string
+                        example: invalid_request
+                      message:
+                        type: string
+                        example: Invalid request
+                      details:
+                        type: array
+                        items:
+                          type: object
+                        example: []
+                  request_id:
+                    type: string
+                    example: req_demo_user_path
+              example:
+                error:
+                  code: unauthorized
+                  message: Missing or invalid token
+                  details: []
+                request_id: req_demo_user_path
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - error
+                - request_id
+                properties:
+                  error:
+                    type: object
+                    required:
+                    - code
+                    - message
+                    properties:
+                      code:
+                        type: string
+                        example: invalid_request
+                      message:
+                        type: string
+                        example: Invalid request
+                      details:
+                        type: array
+                        items:
+                          type: object
+                        example: []
+                  request_id:
+                    type: string
+                    example: req_demo_user_path
+              example:
+                error:
+                  code: not_found
+                  message: Resource not found
+                  details: []
+                request_id: req_demo_user_path
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - error
+                - request_id
+                properties:
+                  error:
+                    type: object
+                    required:
+                    - code
+                    - message
+                    properties:
+                      code:
+                        type: string
+                        example: invalid_request
+                      message:
+                        type: string
+                        example: Invalid request
+                      details:
+                        type: array
+                        items:
+                          type: object
+                        example: []
+                  request_id:
+                    type: string
+                    example: req_demo_user_path
+              example:
+                error:
+                  code: internal_error
+                  message: Unexpected error
+                  details: []
+                request_id: req_demo_user_path
+    patch:
+      operationId: patch_users_by_user_id
+      tags:
+      - Users
+      summary: update profile (role-restricted).
+      description: update profile (role-restricted).. Generated from planning notes.
+      security:
+      - BearerAuth: []
+      parameters:
+      - name: X-Request-Id
+        in: header
+        required: false
+        schema:
+          type: string
+          example: req_demo_user_path
+        description: Correlation ID for tracing.
+      - name: user_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          example: 1edd3e73-e605-4559-a6f9-dcd27f2f6488
+        description: User identifier.
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: true
+              example:
+                ok: true
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - error
+                - request_id
+                properties:
+                  error:
+                    type: object
+                    required:
+                    - code
+                    - message
+                    properties:
+                      code:
+                        type: string
+                        example: invalid_request
+                      message:
+                        type: string
+                        example: Invalid request
+                      details:
+                        type: array
+                        items:
+                          type: object
+                        example: []
+                  request_id:
+                    type: string
+                    example: req_demo_user_path
+              example:
+                error:
+                  code: invalid_request
+                  message: Invalid query parameter
+                  details: []
+                request_id: req_demo_user_path
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - error
+                - request_id
+                properties:
+                  error:
+                    type: object
+                    required:
+                    - code
+                    - message
+                    properties:
+                      code:
+                        type: string
+                        example: invalid_request
+                      message:
+                        type: string
+                        example: Invalid request
+                      details:
+                        type: array
+                        items:
+                          type: object
+                        example: []
+                  request_id:
+                    type: string
+                    example: req_demo_user_path
+              example:
+                error:
+                  code: unauthorized
+                  message: Missing or invalid token
+                  details: []
+                request_id: req_demo_user_path
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - error
+                - request_id
+                properties:
+                  error:
+                    type: object
+                    required:
+                    - code
+                    - message
+                    properties:
+                      code:
+                        type: string
+                        example: invalid_request
+                      message:
+                        type: string
+                        example: Invalid request
+                      details:
+                        type: array
+                        items:
+                          type: object
+                        example: []
+                  request_id:
+                    type: string
+                    example: req_demo_user_path
+              example:
+                error:
+                  code: not_found
+                  message: Resource not found
+                  details: []
+                request_id: req_demo_user_path
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - error
+                - request_id
+                properties:
+                  error:
+                    type: object
+                    required:
+                    - code
+                    - message
+                    properties:
+                      code:
+                        type: string
+                        example: invalid_request
+                      message:
+                        type: string
+                        example: Invalid request
+                      details:
+                        type: array
+                        items:
+                          type: object
+                        example: []
+                  request_id:
+                    type: string
+                    example: req_demo_user_path
+              example:
+                error:
+                  code: internal_error
+                  message: Unexpected error
+                  details: []
+                request_id: req_demo_user_path
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: true
+            example:
+              name: Sample value
+  /users/{user_id}/tasks:
+    get:
+      operationId: get_users_by_user_id_tasks
+      tags:
+      - Users
+      summary: list user tasks.
+      description: list user tasks.. Generated from planning notes.
+      security:
+      - BearerAuth: []
+      parameters:
+      - name: X-Request-Id
+        in: header
+        required: false
+        schema:
+          type: string
+          example: req_demo_user_path
+        description: Correlation ID for tracing.
+      - name: user_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          example: 1edd3e73-e605-4559-a6f9-dcd27f2f6488
+        description: User identifier.
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: true
+              example:
+                ok: true
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - error
+                - request_id
+                properties:
+                  error:
+                    type: object
+                    required:
+                    - code
+                    - message
+                    properties:
+                      code:
+                        type: string
+                        example: invalid_request
+                      message:
+                        type: string
+                        example: Invalid request
+                      details:
+                        type: array
+                        items:
+                          type: object
+                        example: []
+                  request_id:
+                    type: string
+                    example: req_demo_user_path
+              example:
+                error:
+                  code: invalid_request
+                  message: Invalid query parameter
+                  details: []
+                request_id: req_demo_user_path
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - error
+                - request_id
+                properties:
+                  error:
+                    type: object
+                    required:
+                    - code
+                    - message
+                    properties:
+                      code:
+                        type: string
+                        example: invalid_request
+                      message:
+                        type: string
+                        example: Invalid request
+                      details:
+                        type: array
+                        items:
+                          type: object
+                        example: []
+                  request_id:
+                    type: string
+                    example: req_demo_user_path
+              example:
+                error:
+                  code: unauthorized
+                  message: Missing or invalid token
+                  details: []
+                request_id: req_demo_user_path
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - error
+                - request_id
+                properties:
+                  error:
+                    type: object
+                    required:
+                    - code
+                    - message
+                    properties:
+                      code:
+                        type: string
+                        example: invalid_request
+                      message:
+                        type: string
+                        example: Invalid request
+                      details:
+                        type: array
+                        items:
+                          type: object
+                        example: []
+                  request_id:
+                    type: string
+                    example: req_demo_user_path
+              example:
+                error:
+                  code: not_found
+                  message: Resource not found
+                  details: []
+                request_id: req_demo_user_path
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - error
+                - request_id
+                properties:
+                  error:
+                    type: object
+                    required:
+                    - code
+                    - message
+                    properties:
+                      code:
+                        type: string
+                        example: invalid_request
+                      message:
+                        type: string
+                        example: Invalid request
+                      details:
+                        type: array
+                        items:
+                          type: object
+                        example: []
+                  request_id:
+                    type: string
+                    example: req_demo_user_path
+              example:
+                error:
+                  code: internal_error
+                  message: Unexpected error
+                  details: []
+                request_id: req_demo_user_path
+components:
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+  parameters:
+    RequestId:
+      name: X-Request-Id
+      in: header
+      required: false
+      schema:
+        type: string
+        example: req_demo_user_path
+      description: Correlation ID for tracing.
+    IdempotencyKey:
+      name: Idempotency-Key
+      in: header
+      required: false
+      schema:
+        type: string
+        example: 7f0f3677-3d01-478f-8d0f-02ca9f07ed50
+      description: Idempotency key for safe retries.
+    Limit:
+      name: limit
+      in: query
+      required: false
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 100
+        default: 20
+        example: 20
+      description: Page size.
+    Cursor:
+      name: cursor
+      in: query
+      required: false
+      schema:
+        type: string
+        example: eyJvZmZzZXQiOjEwfQ==
+      description: Opaque cursor token.
+    ProjectId:
+      name: project_id
+      in: path
+      required: true
+      schema:
+        type: string
+        format: uuid
+        example: 8de2f75f-ef78-44e8-ab42-7276f0462df9
+      description: Project identifier.
+    TaskId:
+      name: task_id
+      in: path
+      required: true
+      schema:
+        type: string
+        format: uuid
+        example: 70d42a43-e224-4f72-9b95-53beea09b434
+      description: Task identifier.
+    CommentId:
+      name: comment_id
+      in: path
+      required: true
+      schema:
+        type: string
+        format: uuid
+        example: 9f0fb1f6-d4b5-4680-a17f-fd63ed63c45a
+      description: Comment identifier.
+    TagId:
+      name: tag_id
+      in: path
+      required: true
+      schema:
+        type: string
+        format: uuid
+        example: 0f5ce260-a1fd-49dc-b795-dc05f4bc4e69
+      description: Tag identifier.
+    UserId:
+      name: user_id
+      in: path
+      required: true
+      schema:
+        type: string
+        format: uuid
+        example: 1edd3e73-e605-4559-a6f9-dcd27f2f6488
+      description: User identifier.
+  responses:
+    Error400:
+      description: Bad Request
+      content:
+        application/json:
+          schema:
+            type: object
+            required:
+            - error
+            - request_id
+            properties:
+              error:
+                type: object
+                required:
+                - code
+                - message
+                properties:
+                  code:
+                    type: string
+                    example: invalid_request
+                  message:
+                    type: string
+                    example: Invalid request
+                  details:
+                    type: array
+                    items:
+                      type: object
+                    example: []
+              request_id:
+                type: string
+                example: req_demo_user_path
+          example:
+            error:
+              code: invalid_request
+              message: Invalid query parameter
+              details: []
+            request_id: req_demo_user_path
+    Error401:
+      description: Unauthorized
+      content:
+        application/json:
+          schema:
+            type: object
+            required:
+            - error
+            - request_id
+            properties:
+              error:
+                type: object
+                required:
+                - code
+                - message
+                properties:
+                  code:
+                    type: string
+                    example: invalid_request
+                  message:
+                    type: string
+                    example: Invalid request
+                  details:
+                    type: array
+                    items:
+                      type: object
+                    example: []
+              request_id:
+                type: string
+                example: req_demo_user_path
+          example:
+            error:
+              code: unauthorized
+              message: Missing or invalid token
+              details: []
+            request_id: req_demo_user_path
+    Error404:
+      description: Not Found
+      content:
+        application/json:
+          schema:
+            type: object
+            required:
+            - error
+            - request_id
+            properties:
+              error:
+                type: object
+                required:
+                - code
+                - message
+                properties:
+                  code:
+                    type: string
+                    example: invalid_request
+                  message:
+                    type: string
+                    example: Invalid request
+                  details:
+                    type: array
+                    items:
+                      type: object
+                    example: []
+              request_id:
+                type: string
+                example: req_demo_user_path
+          example:
+            error:
+              code: not_found
+              message: Resource not found
+              details: []
+            request_id: req_demo_user_path
+    Error500:
+      description: Internal Server Error
+      content:
+        application/json:
+          schema:
+            type: object
+            required:
+            - error
+            - request_id
+            properties:
+              error:
+                type: object
+                required:
+                - code
+                - message
+                properties:
+                  code:
+                    type: string
+                    example: invalid_request
+                  message:
+                    type: string
+                    example: Invalid request
+                  details:
+                    type: array
+                    items:
+                      type: object
+                    example: []
+              request_id:
+                type: string
+                example: req_demo_user_path
+          example:
+            error:
+              code: internal_error
+              message: Unexpected error
+              details: []
+            request_id: req_demo_user_path
+  schemas:
+    BaseResource:
+      type: object
+      required:
+      - id
+      - created_at
+      - updated_at
+      properties:
+        id:
+          type: string
+          format: uuid
+          example: 8de2f75f-ef78-44e8-ab42-7276f0462df9
+        created_at:
+          type: string
+          format: date-time
+          example: '2026-03-09T10:22:31Z'
+        updated_at:
+          type: string
+          format: date-time
+          example: '2026-03-09T10:22:31Z'
+    Project:
+      allOf:
+      - $ref: '#/components/schemas/BaseResource'
+      - type: object
+        properties:
+          name:
+            type: string
+            example: API-first rollout
+          description:
+            type: string
+            example: Planning and execution
+          status:
+            type: string
+            enum:
+            - active
+            - archived
+            example: active
+          owner_id:
+            type: string
+            format: uuid
+            example: 1edd3e73-e605-4559-a6f9-dcd27f2f6488
+          archived_at:
+            type: string
+            nullable: true
+            format: date-time
+            example: null
+    Task:
+      allOf:
+      - $ref: '#/components/schemas/BaseResource'
+      - type: object
+        properties:
+          project_id:
+            type: string
+            format: uuid
+            example: 8de2f75f-ef78-44e8-ab42-7276f0462df9
+          title:
+            type: string
+            example: Create API-first demo
+          description:
+            type: string
+            example: Generate OpenAPI from planning notes
+          status:
+            type: string
+            enum:
+            - todo
+            - in_progress
+            - done
+            - blocked
+            example: in_progress
+          priority:
+            type: string
+            enum:
+            - low
+            - medium
+            - high
+            - urgent
+            example: high
+          assignee_id:
+            type: string
+            format: uuid
+            example: 1edd3e73-e605-4559-a6f9-dcd27f2f6488
+          due_date:
+            type: string
+            format: date
+            example: '2026-03-12'
+          completed_at:
+            type: string
+            nullable: true
+            format: date-time
+            example: null
+    User:
+      type: object
+      required:
+      - id
+      - email
+      - full_name
+      - role
+      - status
+      - created_at
+      properties:
+        id:
+          type: string
+          format: uuid
+          example: 1edd3e73-e605-4559-a6f9-dcd27f2f6488
+        email:
+          type: string
+          format: email
+          example: alex@taskstream.example.com
+        full_name:
+          type: string
+          example: Alex Rivera
+        role:
+          type: string
+          enum:
+          - admin
+          - manager
+          - member
+          - guest
+          example: admin
+        status:
+          type: string
+          enum:
+          - active
+          - invited
+          - suspended
+          example: active
+        created_at:
+          type: string
+          format: date-time
+          example: '2026-01-15T09:00:00Z'
+    CursorPage:
+      type: object
+      required:
+      - next_cursor
+      - has_more
+      properties:
+        next_cursor:
+          type: string
+          nullable: true
+          example: null
+        has_more:
+          type: boolean
+          example: false
+    ProjectsListResponse:
+      type: object
+      required:
+      - data
+      - page
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/Project'
+        page:
+          $ref: '#/components/schemas/CursorPage'
+    TasksListResponse:
+      type: object
+      required:
+      - data
+      - page
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/Task'
+        page:
+          $ref: '#/components/schemas/CursorPage'
+    ErrorEnvelope:
+      type: object
+      required:
+      - error
+      - request_id
+      properties:
+        error:
+          type: object
+          required:
+          - code
+          - message
+          properties:
+            code:
+              type: string
+              example: invalid_request
+            message:
+              type: string
+              example: Invalid request
+            details:
+              type: array
+              items:
+                type: object
+              example: []
+        request_id:
+          type: string
+          example: req_demo_user_path
+    AnyResource:
+      oneOf:
+      - $ref: '#/components/schemas/Project'
+      - $ref: '#/components/schemas/Task'
+      - $ref: '#/components/schemas/User'

@@ -1,0 +1,369 @@
+{
+  "summary": {
+    "operations": 31,
+    "test_cases": 143,
+    "coverage_ratio": 1.0
+  },
+  "operations": [
+    {
+      "method": "DELETE",
+      "path": "/comments/{comment_id}",
+      "suite": "Comments",
+      "cases": [
+        "TC-delete-comments-by-comment-id-positive",
+        "TC-delete-comments-by-comment-id-auth-negative",
+        "TC-delete-comments-by-comment-id-not-found-negative",
+        "TC-delete-comments-by-comment-id-fuzz-negative"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/comments/{comment_id}",
+      "suite": "Comments",
+      "cases": [
+        "TC-get-comments-by-comment-id-positive",
+        "TC-get-comments-by-comment-id-auth-negative",
+        "TC-get-comments-by-comment-id-validation-negative",
+        "TC-get-comments-by-comment-id-not-found-negative",
+        "TC-get-comments-by-comment-id-fuzz-negative"
+      ]
+    },
+    {
+      "method": "PATCH",
+      "path": "/comments/{comment_id}",
+      "suite": "Comments",
+      "cases": [
+        "TC-patch-comments-by-comment-id-positive",
+        "TC-patch-comments-by-comment-id-auth-negative",
+        "TC-patch-comments-by-comment-id-validation-negative",
+        "TC-patch-comments-by-comment-id-not-found-negative",
+        "TC-patch-comments-by-comment-id-fuzz-negative"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/projects",
+      "suite": "Projects",
+      "cases": [
+        "TC-get-projects-positive",
+        "TC-get-projects-auth-negative",
+        "TC-get-projects-validation-negative",
+        "TC-get-projects-fuzz-negative"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/projects",
+      "suite": "Projects",
+      "cases": [
+        "TC-post-projects-positive",
+        "TC-post-projects-auth-negative",
+        "TC-post-projects-validation-negative",
+        "TC-post-projects-fuzz-negative"
+      ]
+    },
+    {
+      "method": "DELETE",
+      "path": "/projects/{project_id}",
+      "suite": "Projects",
+      "cases": [
+        "TC-delete-projects-by-project-id-positive",
+        "TC-delete-projects-by-project-id-auth-negative",
+        "TC-delete-projects-by-project-id-not-found-negative",
+        "TC-delete-projects-by-project-id-fuzz-negative"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/projects/{project_id}",
+      "suite": "Projects",
+      "cases": [
+        "TC-get-projects-by-project-id-positive",
+        "TC-get-projects-by-project-id-auth-negative",
+        "TC-get-projects-by-project-id-validation-negative",
+        "TC-get-projects-by-project-id-not-found-negative",
+        "TC-get-projects-by-project-id-fuzz-negative"
+      ]
+    },
+    {
+      "method": "PATCH",
+      "path": "/projects/{project_id}",
+      "suite": "Projects",
+      "cases": [
+        "TC-patch-projects-by-project-id-positive",
+        "TC-patch-projects-by-project-id-auth-negative",
+        "TC-patch-projects-by-project-id-validation-negative",
+        "TC-patch-projects-by-project-id-not-found-negative",
+        "TC-patch-projects-by-project-id-fuzz-negative"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/projects/{project_id}/archive",
+      "suite": "Projects",
+      "cases": [
+        "TC-post-projects-by-project-id-archive-positive",
+        "TC-post-projects-by-project-id-archive-auth-negative",
+        "TC-post-projects-by-project-id-archive-validation-negative",
+        "TC-post-projects-by-project-id-archive-not-found-negative",
+        "TC-post-projects-by-project-id-archive-fuzz-negative"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/projects/{project_id}/restore",
+      "suite": "Projects",
+      "cases": [
+        "TC-post-projects-by-project-id-restore-positive",
+        "TC-post-projects-by-project-id-restore-auth-negative",
+        "TC-post-projects-by-project-id-restore-validation-negative",
+        "TC-post-projects-by-project-id-restore-not-found-negative",
+        "TC-post-projects-by-project-id-restore-fuzz-negative"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/tags",
+      "suite": "Tags",
+      "cases": [
+        "TC-get-tags-positive",
+        "TC-get-tags-auth-negative",
+        "TC-get-tags-validation-negative",
+        "TC-get-tags-not-found-negative",
+        "TC-get-tags-fuzz-negative"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/tags",
+      "suite": "Tags",
+      "cases": [
+        "TC-post-tags-positive",
+        "TC-post-tags-auth-negative",
+        "TC-post-tags-validation-negative",
+        "TC-post-tags-fuzz-negative"
+      ]
+    },
+    {
+      "method": "DELETE",
+      "path": "/tags/{tag_id}",
+      "suite": "Tags",
+      "cases": [
+        "TC-delete-tags-by-tag-id-positive",
+        "TC-delete-tags-by-tag-id-auth-negative",
+        "TC-delete-tags-by-tag-id-not-found-negative",
+        "TC-delete-tags-by-tag-id-fuzz-negative"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/tags/{tag_id}",
+      "suite": "Tags",
+      "cases": [
+        "TC-get-tags-by-tag-id-positive",
+        "TC-get-tags-by-tag-id-auth-negative",
+        "TC-get-tags-by-tag-id-validation-negative",
+        "TC-get-tags-by-tag-id-not-found-negative",
+        "TC-get-tags-by-tag-id-fuzz-negative"
+      ]
+    },
+    {
+      "method": "PATCH",
+      "path": "/tags/{tag_id}",
+      "suite": "Tags",
+      "cases": [
+        "TC-patch-tags-by-tag-id-positive",
+        "TC-patch-tags-by-tag-id-auth-negative",
+        "TC-patch-tags-by-tag-id-validation-negative",
+        "TC-patch-tags-by-tag-id-not-found-negative",
+        "TC-patch-tags-by-tag-id-fuzz-negative"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/tasks",
+      "suite": "Tasks",
+      "cases": [
+        "TC-get-tasks-positive",
+        "TC-get-tasks-auth-negative",
+        "TC-get-tasks-validation-negative",
+        "TC-get-tasks-fuzz-negative"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/tasks",
+      "suite": "Tasks",
+      "cases": [
+        "TC-post-tasks-positive",
+        "TC-post-tasks-auth-negative",
+        "TC-post-tasks-validation-negative",
+        "TC-post-tasks-fuzz-negative"
+      ]
+    },
+    {
+      "method": "DELETE",
+      "path": "/tasks/{task_id}",
+      "suite": "Tasks",
+      "cases": [
+        "TC-delete-tasks-by-task-id-positive",
+        "TC-delete-tasks-by-task-id-auth-negative",
+        "TC-delete-tasks-by-task-id-not-found-negative",
+        "TC-delete-tasks-by-task-id-fuzz-negative"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/tasks/{task_id}",
+      "suite": "Tasks",
+      "cases": [
+        "TC-get-tasks-by-task-id-positive",
+        "TC-get-tasks-by-task-id-auth-negative",
+        "TC-get-tasks-by-task-id-validation-negative",
+        "TC-get-tasks-by-task-id-not-found-negative",
+        "TC-get-tasks-by-task-id-fuzz-negative"
+      ]
+    },
+    {
+      "method": "PATCH",
+      "path": "/tasks/{task_id}",
+      "suite": "Tasks",
+      "cases": [
+        "TC-patch-tasks-by-task-id-positive",
+        "TC-patch-tasks-by-task-id-auth-negative",
+        "TC-patch-tasks-by-task-id-validation-negative",
+        "TC-patch-tasks-by-task-id-not-found-negative",
+        "TC-patch-tasks-by-task-id-fuzz-negative"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/tasks/{task_id}/comments",
+      "suite": "Tasks",
+      "cases": [
+        "TC-get-tasks-by-task-id-comments-positive",
+        "TC-get-tasks-by-task-id-comments-auth-negative",
+        "TC-get-tasks-by-task-id-comments-validation-negative",
+        "TC-get-tasks-by-task-id-comments-not-found-negative",
+        "TC-get-tasks-by-task-id-comments-fuzz-negative"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/tasks/{task_id}/comments",
+      "suite": "Tasks",
+      "cases": [
+        "TC-post-tasks-by-task-id-comments-positive",
+        "TC-post-tasks-by-task-id-comments-auth-negative",
+        "TC-post-tasks-by-task-id-comments-validation-negative",
+        "TC-post-tasks-by-task-id-comments-not-found-negative",
+        "TC-post-tasks-by-task-id-comments-fuzz-negative"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/tasks/{task_id}/complete",
+      "suite": "Tasks",
+      "cases": [
+        "TC-post-tasks-by-task-id-complete-positive",
+        "TC-post-tasks-by-task-id-complete-auth-negative",
+        "TC-post-tasks-by-task-id-complete-validation-negative",
+        "TC-post-tasks-by-task-id-complete-not-found-negative",
+        "TC-post-tasks-by-task-id-complete-fuzz-negative"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/tasks/{task_id}/reopen",
+      "suite": "Tasks",
+      "cases": [
+        "TC-post-tasks-by-task-id-reopen-positive",
+        "TC-post-tasks-by-task-id-reopen-auth-negative",
+        "TC-post-tasks-by-task-id-reopen-validation-negative",
+        "TC-post-tasks-by-task-id-reopen-not-found-negative",
+        "TC-post-tasks-by-task-id-reopen-fuzz-negative"
+      ]
+    },
+    {
+      "method": "DELETE",
+      "path": "/tasks/{task_id}/tags/{tag_id}",
+      "suite": "Tasks",
+      "cases": [
+        "TC-delete-tasks-by-task-id-tags-by-tag-id-positive",
+        "TC-delete-tasks-by-task-id-tags-by-tag-id-auth-negative",
+        "TC-delete-tasks-by-task-id-tags-by-tag-id-not-found-negative",
+        "TC-delete-tasks-by-task-id-tags-by-tag-id-fuzz-negative"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/tasks/{task_id}/tags/{tag_id}",
+      "suite": "Tasks",
+      "cases": [
+        "TC-post-tasks-by-task-id-tags-by-tag-id-positive",
+        "TC-post-tasks-by-task-id-tags-by-tag-id-auth-negative",
+        "TC-post-tasks-by-task-id-tags-by-tag-id-validation-negative",
+        "TC-post-tasks-by-task-id-tags-by-tag-id-not-found-negative",
+        "TC-post-tasks-by-task-id-tags-by-tag-id-fuzz-negative"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/users",
+      "suite": "Users",
+      "cases": [
+        "TC-get-users-positive",
+        "TC-get-users-auth-negative",
+        "TC-get-users-validation-negative",
+        "TC-get-users-not-found-negative",
+        "TC-get-users-fuzz-negative"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/users/me",
+      "suite": "Users",
+      "cases": [
+        "TC-get-users-me-positive",
+        "TC-get-users-me-auth-negative",
+        "TC-get-users-me-fuzz-negative"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/users/{user_id}",
+      "suite": "Users",
+      "cases": [
+        "TC-get-users-by-user-id-positive",
+        "TC-get-users-by-user-id-auth-negative",
+        "TC-get-users-by-user-id-validation-negative",
+        "TC-get-users-by-user-id-not-found-negative",
+        "TC-get-users-by-user-id-fuzz-negative"
+      ]
+    },
+    {
+      "method": "PATCH",
+      "path": "/users/{user_id}",
+      "suite": "Users",
+      "cases": [
+        "TC-patch-users-by-user-id-positive",
+        "TC-patch-users-by-user-id-auth-negative",
+        "TC-patch-users-by-user-id-validation-negative",
+        "TC-patch-users-by-user-id-not-found-negative",
+        "TC-patch-users-by-user-id-fuzz-negative"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/users/{user_id}/tasks",
+      "suite": "Users",
+      "cases": [
+        "TC-get-users-by-user-id-tasks-positive",
+        "TC-get-users-by-user-id-tasks-auth-negative",
+        "TC-get-users-by-user-id-tasks-validation-negative",
+        "TC-get-users-by-user-id-tasks-not-found-negative",
+        "TC-get-users-by-user-id-tasks-fuzz-negative"
+      ]
+    }
+  ]
+}

@@ -9,6 +9,9 @@ import shutil
 import subprocess
 from pathlib import Path
 import shutil as sh
+from typing import Any
+
+import yaml
 
 
 def _print_compact_output(output: str, *, max_lines: int = 28) -> None:
@@ -93,6 +96,110 @@ def copy_spec_to_docs(spec_root: Path, docs_target: Path) -> None:
         shutil.rmtree(docs_target)
     shutil.copytree(spec_root, docs_target)
     print(f"[ok] copied spec assets to {docs_target}", flush=True)
+
+
+class _SpecBundler:
+    """Bundle a split OpenAPI spec into a single self-contained YAML."""
+
+    def __init__(self) -> None:
+        self._schemas: dict[str, Any] = {}
+        self._file_cache: dict[str, Any] = {}
+
+    def _load_yaml(self, path: Path) -> Any:
+        key = str(path.resolve())
+        if key not in self._file_cache:
+            self._file_cache[key] = yaml.safe_load(path.read_text(encoding="utf-8"))
+        return self._file_cache[key]
+
+    def _resolve_pointer(self, data: Any, pointer: str) -> Any:
+        parts = [p.replace("~1", "/").replace("~0", "~") for p in pointer.strip("/").split("/") if p]
+        node = data
+        for part in parts:
+            if isinstance(node, dict):
+                node = node[part]
+            elif isinstance(node, list):
+                node = node[int(part)]
+            else:
+                raise KeyError(f"Cannot traverse {type(node)} with key {part}")
+        return node
+
+    def _resolve_ref(self, ref_value: str, base_dir: Path) -> Any:
+        if "#" in ref_value:
+            file_part, pointer = ref_value.split("#", 1)
+        else:
+            file_part, pointer = ref_value, ""
+
+        # Internal ref within same file -> rewrite to #/components/schemas/Name
+        if not file_part and pointer:
+            schema_name = pointer.strip("/")
+            if "/" not in schema_name:
+                return {"$ref": f"#/components/schemas/{schema_name}"}
+
+        if not file_part:
+            return {"$ref": ref_value}
+
+        ref_path = (base_dir / file_part).resolve()
+        ref_data = self._load_yaml(ref_path)
+        ref_base = ref_path.parent
+
+        if pointer:
+            node = self._resolve_pointer(ref_data, pointer)
+        else:
+            node = ref_data
+
+        return self._deep_resolve(node, ref_base)
+
+    def _deep_resolve(self, obj: Any, base_dir: Path) -> Any:
+        if isinstance(obj, dict):
+            if "$ref" in obj and len(obj) == 1:
+                return self._resolve_ref(obj["$ref"], base_dir)
+            return {k: self._deep_resolve(v, base_dir) for k, v in obj.items()}
+        if isinstance(obj, list):
+            return [self._deep_resolve(item, base_dir) for item in obj]
+        return obj
+
+    def _collect_schemas_from_file(self, file_path: Path) -> None:
+        data = self._load_yaml(file_path)
+        if not isinstance(data, dict):
+            return
+        for key, value in data.items():
+            if isinstance(value, dict) and ("type" in value or "allOf" in value or "oneOf" in value or "anyOf" in value):
+                self._schemas[key] = self._deep_resolve(value, file_path.parent)
+
+    def bundle(self, spec_path: Path) -> dict[str, Any]:
+        spec = yaml.safe_load(spec_path.read_text(encoding="utf-8"))
+        base_dir = spec_path.parent
+
+        # Collect schemas from all referenced component files
+        schema_dir = base_dir
+        for root_dir, _dirs, files in __import__("os").walk(str(base_dir)):
+            for fname in files:
+                fpath = Path(root_dir) / fname
+                if fpath.suffix in (".yaml", ".yml") and "schemas" in str(fpath):
+                    self._collect_schemas_from_file(fpath)
+
+        bundled = self._deep_resolve(spec, base_dir)
+
+        # Inject collected schemas into components.schemas
+        if self._schemas:
+            components = bundled.setdefault("components", {})
+            schemas = components.setdefault("schemas", {})
+            for name, definition in self._schemas.items():
+                if name not in schemas:
+                    schemas[name] = definition
+
+        return bundled
+
+
+def bundle_openapi_spec(spec_path: Path, output_path: Path) -> None:
+    """Bundle a split OpenAPI spec with $ref into a single self-contained YAML."""
+    bundler = _SpecBundler()
+    bundled = bundler.bundle(spec_path)
+    output_path.write_text(
+        yaml.safe_dump(bundled, sort_keys=False, allow_unicode=True, width=120),
+        encoding="utf-8",
+    )
+    print(f"[ok] bundled spec written to {output_path}", flush=True)
 
 
 def build_sandbox_page_url(repo: Path, docs_provider: str) -> str:
@@ -326,6 +433,7 @@ def run_one_attempt(
     print("[demo] Step 4/5: Publish OpenAPI assets for the docs playground.", flush=True)
     copy_spec_to_docs(spec_tree, docs_target / project_slug)
     shutil.copy2(spec, docs_target / "openapi.yaml")
+    bundle_openapi_spec(docs_target / "openapi.yaml", docs_target / "openapi.bundled.yaml")
 
     print("[demo] Step 4/5: Verify that every operation is covered by a generated handler.", flush=True)
     self_verify_stub_coverage(spec, stubs_output)
@@ -348,12 +456,18 @@ def run_one_attempt(
 
     if verify_user_path:
         print("[demo] Step 4/5: Simulate end-user API calls against the live mock server.", flush=True)
-        run(
-            ["python3", "scripts/self_verify_api_user_path.py", "--base-url", mock_base_url],
-            cwd=repo,
-            compact=True,
-            summary_label="user-path self-verification finished",
-        )
+        try:
+            run(
+                ["python3", "scripts/self_verify_api_user_path.py", "--base-url", mock_base_url],
+                cwd=repo,
+                compact=True,
+                summary_label="user-path self-verification finished",
+            )
+        except Exception as error:
+            raise RuntimeError(
+                f"Step 4/5 failed: user-path verification against mock `{mock_base_url}`. "
+                f"Verify sandbox endpoint readiness and route mapping. Details: {error}"
+            ) from error
 
     if generate_test_assets:
         print("[demo] Step 4/5: Generate API test assets (TestRail/Zephyr + matrix/fuzz/property).", flush=True)
@@ -426,6 +540,21 @@ def run_one_attempt(
         run(["npm", "run", "lint"], cwd=repo, compact=True, summary_label="docs lint stack finished")
 
 
+def _read_yaml(path: Path) -> dict[str, Any]:
+    raw = yaml.safe_load(path.read_text(encoding="utf-8")) or {}
+    if not isinstance(raw, dict):
+        raise ValueError(f"Expected YAML mapping: {path}")
+    return raw
+
+
+def _resolve_docs_root(runtime_config: Path | None, fallback: str) -> str:
+    if runtime_config is None or not runtime_config.exists():
+        return fallback
+    payload = _read_yaml(runtime_config)
+    docs_root = payload.get("docs_root", fallback)
+    return str(docs_root).strip() or fallback
+
+
 def main() -> int:
     parser = argparse.ArgumentParser(description="Run universal API-first production flow")
     parser.add_argument("--project-slug", required=True)
@@ -448,6 +577,29 @@ def main() -> int:
     parser.add_argument("--external-mock-postman-mock-server-name", default="")
     parser.add_argument("--external-mock-postman-private", action="store_true")
     parser.add_argument("--run-docs-lint", action="store_true")
+    parser.add_argument(
+        "--finalize-gate",
+        dest="finalize_gate",
+        action="store_true",
+        default=True,
+        help="Run unified finalize gate (lint/fix loop) after API-first generation",
+    )
+    parser.add_argument(
+        "--no-finalize-gate",
+        dest="finalize_gate",
+        action="store_false",
+        help="Disable finalize gate",
+    )
+    parser.add_argument("--runtime-config", default="", help="Optional runtime config path for finalize gate settings")
+    parser.add_argument("--docs-root", default="docs", help="Docs root for finalize gate")
+    parser.add_argument("--finalize-continue-on-error", action="store_true")
+    parser.add_argument("--ask-commit-confirmation", action="store_true")
+    parser.add_argument(
+        "--ui-confirmation",
+        choices=["auto", "on", "off"],
+        default="auto",
+        help="Finalize gate confirmation UI mode",
+    )
     parser.add_argument("--generate-test-assets", action="store_true")
     parser.add_argument("--test-assets-output-dir", default="reports/api-test-assets")
     parser.add_argument("--testrail-csv", default="reports/api-test-assets/testrail_test_cases.csv")
@@ -513,6 +665,8 @@ def main() -> int:
     upload_report_path = (repo / args.test_assets_upload_report).resolve()
     manual_overrides = (repo / args.manual_overrides).resolve() if args.manual_overrides else None
     regression_snapshot = (repo / args.regression_snapshot).resolve() if args.regression_snapshot else None
+    runtime_config = (repo / args.runtime_config).resolve() if args.runtime_config else None
+    finalize_docs_root = _resolve_docs_root(runtime_config, str(args.docs_root))
 
     ensure_file(notes, "planning notes")
 
@@ -579,7 +733,7 @@ def main() -> int:
                 stubs_output,
                 args.verify_user_path,
                 resolved_mock_base_url,
-                args.run_docs_lint,
+                bool(args.run_docs_lint and not args.finalize_gate),
                 args.generate_test_assets,
                 test_assets_output_dir,
                 testrail_csv_path,
@@ -601,6 +755,24 @@ def main() -> int:
                 regression_snapshot,
                 args.update_regression_snapshot,
             )
+            if args.finalize_gate:
+                print("[demo] Step 5/5: Finalize docs gate (lint -> fix -> lint, optional commit confirmation).", flush=True)
+                finalize_cmd = [
+                    "python3",
+                    "scripts/finalize_docs_gate.py",
+                    "--docs-root",
+                    finalize_docs_root,
+                    "--reports-dir",
+                    "reports",
+                ]
+                if runtime_config is not None:
+                    finalize_cmd.extend(["--runtime-config", str(runtime_config)])
+                if args.finalize_continue_on_error:
+                    finalize_cmd.append("--continue-on-error")
+                if args.ask_commit_confirmation:
+                    finalize_cmd.append("--ask-commit-confirmation")
+                finalize_cmd.extend(["--ui-confirmation", str(args.ui_confirmation)])
+                run(finalize_cmd, cwd=repo, compact=True, summary_label="finalize docs gate finished")
             print(f"[demo] sandbox page URL: {build_sandbox_page_url(repo, args.docs_provider)}", flush=True)
             print("[ok] API-first production flow completed successfully", flush=True)
             return 0
@@ -611,6 +783,7 @@ def main() -> int:
             print(f"[warn] attempt failed, running remediation sync: {error}", flush=True)
             copy_spec_to_docs(spec_tree, docs_target / args.project_slug)
             shutil.copy2(spec, docs_target / "openapi.yaml")
+            bundle_openapi_spec(docs_target / "openapi.yaml", docs_target / "openapi.bundled.yaml")
 
     raise RuntimeError(f"API-first flow failed after {args.max_attempts} attempt(s): {last_error}")
 

@@ -412,7 +412,7 @@ if [[ "${AUTO_DEPLOY}" == "true" ]]; then
   if [[ "${PLAYGROUND_URL}" != /* ]]; then
     say "Checking published page: ${PLAYGROUND_URL}"
     page_html="$(curl -fsSL "${PLAYGROUND_URL}")"
-    if ! grep -q "/assets/api/openapi.yaml" <<<"${page_html}"; then
+    if ! grep -q "/assets/api/openapi.bundled.yaml" <<<"${page_html}"; then
       echo "[error] Published page does not include expected OpenAPI spec path."
       exit 1
     fi

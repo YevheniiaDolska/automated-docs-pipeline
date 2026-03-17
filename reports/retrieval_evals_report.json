@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-03-17T14:14:25.174118+00:00",
-  "status": "ok",
+  "generated_at": "2026-03-17T15:10:05.770677+00:00",
+  "status": "breach",
   "index_path": "docs/assets/knowledge-retrieval-index.json",
   "dataset_path": "reports/retrieval_eval_dataset.generated.yml",
   "thresholds": {
@@ -10,12 +10,222 @@
   },
   "metrics": {
     "status": "ok",
-    "precision_at_k": 0.5,
-    "recall_at_k": 1.0,
-    "hallucination_rate": 0.5,
-    "sample_count": 2,
+    "precision_at_k": 0.1373,
+    "recall_at_k": 0.4118,
+    "hallucination_rate": 0.8627,
+    "sample_count": 17,
     "top_k": 3,
     "samples": [
+      {
+        "query": "Set up a real-time webhook processing pipeline",
+        "expected_ids": [
+          "auto-set-up-real-time-webhook-processing-pipeline-1"
+        ],
+        "retrieved_ids": [
+          "auto-set-up-real-time-webhook-processing-pipeline-13",
+          "auto-set-up-real-time-webhook-processing-pipeline-1",
+          "auto-set-up-real-time-webhook-processing-pipeline-5"
+        ],
+        "hits": 1,
+        "precision": 0.3333,
+        "recall": 1.0
+      },
+      {
+        "query": "Set up a real-time webhook processing pipeline (Part 10)",
+        "expected_ids": [
+          "auto-set-up-real-time-webhook-processing-pipeline-10"
+        ],
+        "retrieved_ids": [
+          "auto-set-up-real-time-webhook-processing-pipeline-13",
+          "auto-set-up-real-time-webhook-processing-pipeline-8",
+          "auto-set-up-real-time-webhook-processing-pipeline-10"
+        ],
+        "hits": 1,
+        "precision": 0.3333,
+        "recall": 1.0
+      },
+      {
+        "query": "Set up a real-time webhook processing pipeline (Part 11)",
+        "expected_ids": [
+          "auto-set-up-real-time-webhook-processing-pipeline-11"
+        ],
+        "retrieved_ids": [
+          "auto-set-up-real-time-webhook-processing-pipeline-13",
+          "auto-set-up-real-time-webhook-processing-pipeline-5",
+          "auto-set-up-real-time-webhook-processing-pipeline-15"
+        ],
+        "hits": 0,
+        "precision": 0.0,
+        "recall": 0.0
+      },
+      {
+        "query": "Set up a real-time webhook processing pipeline (Part 12)",
+        "expected_ids": [
+          "auto-set-up-real-time-webhook-processing-pipeline-12"
+        ],
+        "retrieved_ids": [
+          "auto-set-up-real-time-webhook-processing-pipeline-13",
+          "auto-set-up-real-time-webhook-processing-pipeline-5",
+          "auto-set-up-real-time-webhook-processing-pipeline-15"
+        ],
+        "hits": 0,
+        "precision": 0.0,
+        "recall": 0.0
+      },
+      {
+        "query": "Set up a real-time webhook processing pipeline (Part 13)",
+        "expected_ids": [
+          "auto-set-up-real-time-webhook-processing-pipeline-13"
+        ],
+        "retrieved_ids": [
+          "auto-set-up-real-time-webhook-processing-pipeline-13",
+          "auto-set-up-real-time-webhook-processing-pipeline-5",
+          "auto-set-up-real-time-webhook-processing-pipeline-15"
+        ],
+        "hits": 1,
+        "precision": 0.3333,
+        "recall": 1.0
+      },
+      {
+        "query": "Set up a real-time webhook processing pipeline (Part 14)",
+        "expected_ids": [
+          "auto-set-up-real-time-webhook-processing-pipeline-14"
+        ],
+        "retrieved_ids": [
+          "auto-set-up-real-time-webhook-processing-pipeline-13",
+          "auto-set-up-real-time-webhook-processing-pipeline-5",
+          "auto-set-up-real-time-webhook-processing-pipeline-15"
+        ],
+        "hits": 0,
+        "precision": 0.0,
+        "recall": 0.0
+      },
+      {
+        "query": "Set up a real-time webhook processing pipeline (Part 15)",
+        "expected_ids": [
+          "auto-set-up-real-time-webhook-processing-pipeline-15"
+        ],
+        "retrieved_ids": [
+          "auto-set-up-real-time-webhook-processing-pipeline-13",
+          "auto-set-up-real-time-webhook-processing-pipeline-5",
+          "auto-set-up-real-time-webhook-processing-pipeline-15"
+        ],
+        "hits": 1,
+        "precision": 0.3333,
+        "recall": 1.0
+      },
+      {
+        "query": "Set up a real-time webhook processing pipeline (Part 2)",
+        "expected_ids": [
+          "auto-set-up-real-time-webhook-processing-pipeline-2"
+        ],
+        "retrieved_ids": [
+          "auto-set-up-real-time-webhook-processing-pipeline-13",
+          "auto-set-up-real-time-webhook-processing-pipeline-5",
+          "auto-set-up-real-time-webhook-processing-pipeline-15"
+        ],
+        "hits": 0,
+        "precision": 0.0,
+        "recall": 0.0
+      },
+      {
+        "query": "Set up a real-time webhook processing pipeline (Part 3)",
+        "expected_ids": [
+          "auto-set-up-real-time-webhook-processing-pipeline-3"
+        ],
+        "retrieved_ids": [
+          "auto-set-up-real-time-webhook-processing-pipeline-13",
+          "auto-set-up-real-time-webhook-processing-pipeline-5",
+          "auto-set-up-real-time-webhook-processing-pipeline-15"
+        ],
+        "hits": 0,
+        "precision": 0.0,
+        "recall": 0.0
+      },
+      {
+        "query": "Set up a real-time webhook processing pipeline (Part 4)",
+        "expected_ids": [
+          "auto-set-up-real-time-webhook-processing-pipeline-4"
+        ],
+        "retrieved_ids": [
+          "auto-set-up-real-time-webhook-processing-pipeline-13",
+          "auto-set-up-real-time-webhook-processing-pipeline-5",
+          "auto-set-up-real-time-webhook-processing-pipeline-15"
+        ],
+        "hits": 0,
+        "precision": 0.0,
+        "recall": 0.0
+      },
+      {
+        "query": "Set up a real-time webhook processing pipeline (Part 5)",
+        "expected_ids": [
+          "auto-set-up-real-time-webhook-processing-pipeline-5"
+        ],
+        "retrieved_ids": [
+          "auto-set-up-real-time-webhook-processing-pipeline-13",
+          "auto-set-up-real-time-webhook-processing-pipeline-5",
+          "auto-set-up-real-time-webhook-processing-pipeline-15"
+        ],
+        "hits": 1,
+        "precision": 0.3333,
+        "recall": 1.0
+      },
+      {
+        "query": "Set up a real-time webhook processing pipeline (Part 6)",
+        "expected_ids": [
+          "auto-set-up-real-time-webhook-processing-pipeline-6"
+        ],
+        "retrieved_ids": [
+          "auto-set-up-real-time-webhook-processing-pipeline-13",
+          "auto-set-up-real-time-webhook-processing-pipeline-5",
+          "auto-set-up-real-time-webhook-processing-pipeline-15"
+        ],
+        "hits": 0,
+        "precision": 0.0,
+        "recall": 0.0
+      },
+      {
+        "query": "Set up a real-time webhook processing pipeline (Part 7)",
+        "expected_ids": [
+          "auto-set-up-real-time-webhook-processing-pipeline-7"
+        ],
+        "retrieved_ids": [
+          "auto-set-up-real-time-webhook-processing-pipeline-13",
+          "auto-set-up-real-time-webhook-processing-pipeline-5",
+          "auto-set-up-real-time-webhook-processing-pipeline-15"
+        ],
+        "hits": 0,
+        "precision": 0.0,
+        "recall": 0.0
+      },
+      {
+        "query": "Set up a real-time webhook processing pipeline (Part 8)",
+        "expected_ids": [
+          "auto-set-up-real-time-webhook-processing-pipeline-8"
+        ],
+        "retrieved_ids": [
+          "auto-set-up-real-time-webhook-processing-pipeline-13",
+          "auto-set-up-real-time-webhook-processing-pipeline-5",
+          "auto-set-up-real-time-webhook-processing-pipeline-15"
+        ],
+        "hits": 0,
+        "precision": 0.0,
+        "recall": 0.0
+      },
+      {
+        "query": "Set up a real-time webhook processing pipeline (Part 9)",
+        "expected_ids": [
+          "auto-set-up-real-time-webhook-processing-pipeline-9"
+        ],
+        "retrieved_ids": [
+          "auto-set-up-real-time-webhook-processing-pipeline-13",
+          "auto-set-up-real-time-webhook-processing-pipeline-5",
+          "auto-set-up-real-time-webhook-processing-pipeline-15"
+        ],
+        "hits": 0,
+        "precision": 0.0,
+        "recall": 0.0
+      },
       {
         "query": "Configure HMAC authentication for inbound webhooks",
         "expected_ids": [
@@ -23,10 +233,11 @@
         ],
         "retrieved_ids": [
           "webhook-auth-baseline",
-          "webhook-retry-policy"
+          "auto-set-up-real-time-webhook-processing-pipeline-2",
+          "auto-set-up-real-time-webhook-processing-pipeline-13"
         ],
         "hits": 1,
-        "precision": 0.5,
+        "precision": 0.3333,
         "recall": 1.0
       },
       {
@@ -36,13 +247,18 @@
         ],
         "retrieved_ids": [
           "webhook-retry-policy",
-          "webhook-auth-baseline"
+          "auto-set-up-real-time-webhook-processing-pipeline-1",
+          "auto-set-up-real-time-webhook-processing-pipeline-13"
         ],
         "hits": 1,
-        "precision": 0.5,
+        "precision": 0.3333,
         "recall": 1.0
       }
     ]
   },
-  "breaches": []
+  "breaches": [
+    "precision_at_k=0.1373 < 0.5",
+    "recall_at_k=0.4118 < 0.5",
+    "hallucination_rate=0.8627 > 0.5"
+  ]
 }

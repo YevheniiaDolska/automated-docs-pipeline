@@ -7,10 +7,10 @@ import argparse
 from pathlib import Path
 
 
-HOWTO_LINE = "    - Run API-first production flow: how-to/run-api-first-production-flow.md\n"
+HOWTO_LINE = "  - Run API-first production flow: how-to/run-api-first-production-flow.md\n"
 REF_LINES = [
-    "    - TaskStream API playground: reference/taskstream-api-playground.md\n",
-    "    - TaskStream API planning notes: reference/taskstream-planning-notes.md\n",
+    "  - TaskStream API playground: reference/taskstream-api-playground.md\n",
+    "  - TaskStream API planning notes: reference/taskstream-planning-notes.md\n",
 ]
 
 
