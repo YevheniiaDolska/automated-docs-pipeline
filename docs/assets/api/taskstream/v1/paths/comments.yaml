@@ -1,0 +1,154 @@
+/comments/{comment_id}:
+  delete:
+    operationId: delete_comments_by_comment_id
+    tags:
+    - Comments
+    summary: delete comment.
+    description: delete comment.. Generated from planning notes.
+    security:
+    - BearerAuth: []
+    parameters:
+    - $ref: ../components/parameters/common.yaml#/RequestId
+    - $ref: ../components/parameters/common.yaml#/CommentId
+    responses:
+      '204':
+        description: No Content
+      '401':
+        $ref: ../components/responses/common.yaml#/Error401
+      '404':
+        $ref: ../components/responses/common.yaml#/Error404
+      '500':
+        $ref: ../components/responses/common.yaml#/Error500
+  get:
+    operationId: get_comments_by_comment_id
+    tags:
+    - Comments
+    summary: get comment.
+    description: get comment.. Generated from planning notes.
+    security:
+    - BearerAuth: []
+    parameters:
+    - $ref: ../components/parameters/common.yaml#/RequestId
+    - $ref: ../components/parameters/common.yaml#/CommentId
+    responses:
+      '200':
+        description: Success
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: true
+            example:
+              ok: true
+      '400':
+        $ref: ../components/responses/common.yaml#/Error400
+      '401':
+        $ref: ../components/responses/common.yaml#/Error401
+      '404':
+        $ref: ../components/responses/common.yaml#/Error404
+      '500':
+        $ref: ../components/responses/common.yaml#/Error500
+  patch:
+    operationId: patch_comments_by_comment_id
+    tags:
+    - Comments
+    summary: update comment.
+    description: update comment.. Generated from planning notes.
+    security:
+    - BearerAuth: []
+    parameters:
+    - $ref: ../components/parameters/common.yaml#/RequestId
+    - $ref: ../components/parameters/common.yaml#/CommentId
+    responses:
+      '200':
+        description: Success
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: true
+            example:
+              ok: true
+      '400':
+        $ref: ../components/responses/common.yaml#/Error400
+      '401':
+        $ref: ../components/responses/common.yaml#/Error401
+      '404':
+        $ref: ../components/responses/common.yaml#/Error404
+      '500':
+        $ref: ../components/responses/common.yaml#/Error500
+    requestBody:
+      required: false
+      content:
+        application/json:
+          schema:
+            type: object
+            additionalProperties: true
+          example:
+            name: Sample value
+/tasks/{task_id}/comments:
+  get:
+    operationId: get_tasks_by_task_id_comments
+    tags:
+    - Tasks
+    summary: list task comments.
+    description: list task comments.. Generated from planning notes.
+    security:
+    - BearerAuth: []
+    parameters:
+    - $ref: ../components/parameters/common.yaml#/RequestId
+    - $ref: ../components/parameters/common.yaml#/TaskId
+    responses:
+      '200':
+        description: Success
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: true
+            example:
+              ok: true
+      '400':
+        $ref: ../components/responses/common.yaml#/Error400
+      '401':
+        $ref: ../components/responses/common.yaml#/Error401
+      '404':
+        $ref: ../components/responses/common.yaml#/Error404
+      '500':
+        $ref: ../components/responses/common.yaml#/Error500
+  post:
+    operationId: post_tasks_by_task_id_comments
+    tags:
+    - Tasks
+    summary: create comment.
+    description: create comment.. Generated from planning notes.
+    security:
+    - BearerAuth: []
+    parameters:
+    - $ref: ../components/parameters/common.yaml#/RequestId
+    - $ref: ../components/parameters/common.yaml#/TaskId
+    responses:
+      '201':
+        description: Created
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: true
+            example:
+              id: 2f2d41d5-9b6f-4d8b-b0fc-dcfef6d7e24f
+      '400':
+        $ref: ../components/responses/common.yaml#/Error400
+      '401':
+        $ref: ../components/responses/common.yaml#/Error401
+      '500':
+        $ref: ../components/responses/common.yaml#/Error500
+    requestBody:
+      required: false
+      content:
+        application/json:
+          schema:
+            type: object
+            additionalProperties: true
+          example:
+            name: Sample value

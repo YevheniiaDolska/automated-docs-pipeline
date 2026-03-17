@@ -1,0 +1,80 @@
+RequestId:
+  name: X-Request-Id
+  in: header
+  required: false
+  schema:
+    type: string
+    example: req_demo_user_path
+  description: Correlation ID for tracing.
+IdempotencyKey:
+  name: Idempotency-Key
+  in: header
+  required: false
+  schema:
+    type: string
+    example: 7f0f3677-3d01-478f-8d0f-02ca9f07ed50
+  description: Idempotency key for safe retries.
+Limit:
+  name: limit
+  in: query
+  required: false
+  schema:
+    type: integer
+    minimum: 1
+    maximum: 100
+    default: 20
+    example: 20
+  description: Page size.
+Cursor:
+  name: cursor
+  in: query
+  required: false
+  schema:
+    type: string
+    example: eyJvZmZzZXQiOjEwfQ==
+  description: Opaque cursor token.
+ProjectId:
+  name: project_id
+  in: path
+  required: true
+  schema:
+    type: string
+    format: uuid
+    example: 8de2f75f-ef78-44e8-ab42-7276f0462df9
+  description: Project identifier.
+TaskId:
+  name: task_id
+  in: path
+  required: true
+  schema:
+    type: string
+    format: uuid
+    example: 70d42a43-e224-4f72-9b95-53beea09b434
+  description: Task identifier.
+CommentId:
+  name: comment_id
+  in: path
+  required: true
+  schema:
+    type: string
+    format: uuid
+    example: 9f0fb1f6-d4b5-4680-a17f-fd63ed63c45a
+  description: Comment identifier.
+TagId:
+  name: tag_id
+  in: path
+  required: true
+  schema:
+    type: string
+    format: uuid
+    example: 0f5ce260-a1fd-49dc-b795-dc05f4bc4e69
+  description: Tag identifier.
+UserId:
+  name: user_id
+  in: path
+  required: true
+  schema:
+    type: string
+    format: uuid
+    example: 1edd3e73-e605-4559-a6f9-dcd27f2f6488
+  description: User identifier.

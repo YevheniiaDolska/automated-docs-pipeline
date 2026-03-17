@@ -1,0 +1,160 @@
+/users:
+  get:
+    operationId: get_users
+    tags:
+    - Users
+    summary: list workspace users.
+    description: list workspace users.. Generated from planning notes.
+    security:
+    - BearerAuth: []
+    parameters:
+    - $ref: ../components/parameters/common.yaml#/RequestId
+    - $ref: ../components/parameters/common.yaml#/Limit
+    - $ref: ../components/parameters/common.yaml#/Cursor
+    responses:
+      '200':
+        description: Success
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: true
+            example:
+              ok: true
+      '400':
+        $ref: ../components/responses/common.yaml#/Error400
+      '401':
+        $ref: ../components/responses/common.yaml#/Error401
+      '404':
+        $ref: ../components/responses/common.yaml#/Error404
+      '500':
+        $ref: ../components/responses/common.yaml#/Error500
+/users/me:
+  get:
+    operationId: get_users_me
+    tags:
+    - Users
+    summary: current user profile.
+    description: current user profile.. Generated from planning notes.
+    security:
+    - BearerAuth: []
+    parameters:
+    - $ref: ../components/parameters/common.yaml#/RequestId
+    - $ref: ../components/parameters/common.yaml#/Limit
+    - $ref: ../components/parameters/common.yaml#/Cursor
+    responses:
+      '200':
+        description: Current user
+        content:
+          application/json:
+            schema:
+              $ref: ../components/schemas/common.yaml#/User
+            example:
+              id: 1edd3e73-e605-4559-a6f9-dcd27f2f6488
+              email: alex@taskstream.example.com
+              full_name: Alex Rivera
+              role: admin
+              status: active
+              created_at: '2026-01-15T09:00:00Z'
+      '401':
+        $ref: ../components/responses/common.yaml#/Error401
+      '500':
+        $ref: ../components/responses/common.yaml#/Error500
+/users/{user_id}:
+  get:
+    operationId: get_users_by_user_id
+    tags:
+    - Users
+    summary: get user profile.
+    description: get user profile.. Generated from planning notes.
+    security:
+    - BearerAuth: []
+    parameters:
+    - $ref: ../components/parameters/common.yaml#/RequestId
+    - $ref: ../components/parameters/common.yaml#/UserId
+    responses:
+      '200':
+        description: Success
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: true
+            example:
+              ok: true
+      '400':
+        $ref: ../components/responses/common.yaml#/Error400
+      '401':
+        $ref: ../components/responses/common.yaml#/Error401
+      '404':
+        $ref: ../components/responses/common.yaml#/Error404
+      '500':
+        $ref: ../components/responses/common.yaml#/Error500
+  patch:
+    operationId: patch_users_by_user_id
+    tags:
+    - Users
+    summary: update profile (role-restricted).
+    description: update profile (role-restricted).. Generated from planning notes.
+    security:
+    - BearerAuth: []
+    parameters:
+    - $ref: ../components/parameters/common.yaml#/RequestId
+    - $ref: ../components/parameters/common.yaml#/UserId
+    responses:
+      '200':
+        description: Success
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: true
+            example:
+              ok: true
+      '400':
+        $ref: ../components/responses/common.yaml#/Error400
+      '401':
+        $ref: ../components/responses/common.yaml#/Error401
+      '404':
+        $ref: ../components/responses/common.yaml#/Error404
+      '500':
+        $ref: ../components/responses/common.yaml#/Error500
+    requestBody:
+      required: false
+      content:
+        application/json:
+          schema:
+            type: object
+            additionalProperties: true
+          example:
+            name: Sample value
+/users/{user_id}/tasks:
+  get:
+    operationId: get_users_by_user_id_tasks
+    tags:
+    - Users
+    summary: list user tasks.
+    description: list user tasks.. Generated from planning notes.
+    security:
+    - BearerAuth: []
+    parameters:
+    - $ref: ../components/parameters/common.yaml#/RequestId
+    - $ref: ../components/parameters/common.yaml#/UserId
+    responses:
+      '200':
+        description: Success
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: true
+            example:
+              ok: true
+      '400':
+        $ref: ../components/responses/common.yaml#/Error400
+      '401':
+        $ref: ../components/responses/common.yaml#/Error401
+      '404':
+        $ref: ../components/responses/common.yaml#/Error404
+      '500':
+        $ref: ../components/responses/common.yaml#/Error500

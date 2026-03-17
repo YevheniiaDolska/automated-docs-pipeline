@@ -1,0 +1,213 @@
+/tags:
+  get:
+    operationId: get_tags
+    tags:
+    - Tags
+    summary: list tags.
+    description: list tags.. Generated from planning notes.
+    security:
+    - BearerAuth: []
+    parameters:
+    - $ref: ../components/parameters/common.yaml#/RequestId
+    - $ref: ../components/parameters/common.yaml#/Limit
+    - $ref: ../components/parameters/common.yaml#/Cursor
+    responses:
+      '200':
+        description: Success
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: true
+            example:
+              ok: true
+      '400':
+        $ref: ../components/responses/common.yaml#/Error400
+      '401':
+        $ref: ../components/responses/common.yaml#/Error401
+      '404':
+        $ref: ../components/responses/common.yaml#/Error404
+      '500':
+        $ref: ../components/responses/common.yaml#/Error500
+  post:
+    operationId: post_tags
+    tags:
+    - Tags
+    summary: create tag.
+    description: create tag.. Generated from planning notes.
+    security:
+    - BearerAuth: []
+    parameters:
+    - $ref: ../components/parameters/common.yaml#/RequestId
+    responses:
+      '201':
+        description: Created
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: true
+            example:
+              id: 2f2d41d5-9b6f-4d8b-b0fc-dcfef6d7e24f
+      '400':
+        $ref: ../components/responses/common.yaml#/Error400
+      '401':
+        $ref: ../components/responses/common.yaml#/Error401
+      '500':
+        $ref: ../components/responses/common.yaml#/Error500
+    requestBody:
+      required: false
+      content:
+        application/json:
+          schema:
+            type: object
+            additionalProperties: true
+          example:
+            name: Sample value
+/tags/{tag_id}:
+  delete:
+    operationId: delete_tags_by_tag_id
+    tags:
+    - Tags
+    summary: delete tag.
+    description: delete tag.. Generated from planning notes.
+    security:
+    - BearerAuth: []
+    parameters:
+    - $ref: ../components/parameters/common.yaml#/RequestId
+    - $ref: ../components/parameters/common.yaml#/TagId
+    responses:
+      '204':
+        description: No Content
+      '401':
+        $ref: ../components/responses/common.yaml#/Error401
+      '404':
+        $ref: ../components/responses/common.yaml#/Error404
+      '500':
+        $ref: ../components/responses/common.yaml#/Error500
+  get:
+    operationId: get_tags_by_tag_id
+    tags:
+    - Tags
+    summary: get tag.
+    description: get tag.. Generated from planning notes.
+    security:
+    - BearerAuth: []
+    parameters:
+    - $ref: ../components/parameters/common.yaml#/RequestId
+    - $ref: ../components/parameters/common.yaml#/TagId
+    responses:
+      '200':
+        description: Success
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: true
+            example:
+              ok: true
+      '400':
+        $ref: ../components/responses/common.yaml#/Error400
+      '401':
+        $ref: ../components/responses/common.yaml#/Error401
+      '404':
+        $ref: ../components/responses/common.yaml#/Error404
+      '500':
+        $ref: ../components/responses/common.yaml#/Error500
+  patch:
+    operationId: patch_tags_by_tag_id
+    tags:
+    - Tags
+    summary: update tag.
+    description: update tag.. Generated from planning notes.
+    security:
+    - BearerAuth: []
+    parameters:
+    - $ref: ../components/parameters/common.yaml#/RequestId
+    - $ref: ../components/parameters/common.yaml#/TagId
+    responses:
+      '200':
+        description: Success
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: true
+            example:
+              ok: true
+      '400':
+        $ref: ../components/responses/common.yaml#/Error400
+      '401':
+        $ref: ../components/responses/common.yaml#/Error401
+      '404':
+        $ref: ../components/responses/common.yaml#/Error404
+      '500':
+        $ref: ../components/responses/common.yaml#/Error500
+    requestBody:
+      required: false
+      content:
+        application/json:
+          schema:
+            type: object
+            additionalProperties: true
+          example:
+            name: Sample value
+/tasks/{task_id}/tags/{tag_id}:
+  delete:
+    operationId: delete_tasks_by_task_id_tags_by_tag_id
+    tags:
+    - Tasks
+    summary: detach tag from task.
+    description: detach tag from task.. Generated from planning notes.
+    security:
+    - BearerAuth: []
+    parameters:
+    - $ref: ../components/parameters/common.yaml#/RequestId
+    - $ref: ../components/parameters/common.yaml#/TaskId
+    - $ref: ../components/parameters/common.yaml#/TagId
+    responses:
+      '204':
+        description: No Content
+      '401':
+        $ref: ../components/responses/common.yaml#/Error401
+      '404':
+        $ref: ../components/responses/common.yaml#/Error404
+      '500':
+        $ref: ../components/responses/common.yaml#/Error500
+  post:
+    operationId: post_tasks_by_task_id_tags_by_tag_id
+    tags:
+    - Tasks
+    summary: attach tag to task.
+    description: attach tag to task.. Generated from planning notes.
+    security:
+    - BearerAuth: []
+    parameters:
+    - $ref: ../components/parameters/common.yaml#/RequestId
+    - $ref: ../components/parameters/common.yaml#/TaskId
+    - $ref: ../components/parameters/common.yaml#/TagId
+    responses:
+      '201':
+        description: Created
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: true
+            example:
+              id: 2f2d41d5-9b6f-4d8b-b0fc-dcfef6d7e24f
+      '400':
+        $ref: ../components/responses/common.yaml#/Error400
+      '401':
+        $ref: ../components/responses/common.yaml#/Error401
+      '500':
+        $ref: ../components/responses/common.yaml#/Error500
+    requestBody:
+      required: false
+      content:
+        application/json:
+          schema:
+            type: object
+            additionalProperties: true
+          example:
+            name: Sample value

@@ -1,0 +1,48 @@
+Error400:
+  description: Bad Request
+  content:
+    application/json:
+      schema:
+        $ref: ../schemas/common.yaml#/ErrorEnvelope
+      example:
+        error:
+          code: invalid_request
+          message: Invalid query parameter
+          details: []
+        request_id: req_demo_user_path
+Error401:
+  description: Unauthorized
+  content:
+    application/json:
+      schema:
+        $ref: ../schemas/common.yaml#/ErrorEnvelope
+      example:
+        error:
+          code: unauthorized
+          message: Missing or invalid token
+          details: []
+        request_id: req_demo_user_path
+Error404:
+  description: Not Found
+  content:
+    application/json:
+      schema:
+        $ref: ../schemas/common.yaml#/ErrorEnvelope
+      example:
+        error:
+          code: not_found
+          message: Resource not found
+          details: []
+        request_id: req_demo_user_path
+Error500:
+  description: Internal Server Error
+  content:
+    application/json:
+      schema:
+        $ref: ../schemas/common.yaml#/ErrorEnvelope
+      example:
+        error:
+          code: internal_error
+          message: Unexpected error
+          details: []
+        request_id: req_demo_user_path

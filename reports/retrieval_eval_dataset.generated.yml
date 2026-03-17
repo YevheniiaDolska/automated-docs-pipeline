@@ -1,0 +1,6 @@
+- query: Configure HMAC authentication for inbound webhooks
+  expected_ids:
+  - webhook-auth-baseline
+- query: Define idempotent webhook retry handling
+  expected_ids:
+  - webhook-retry-policy

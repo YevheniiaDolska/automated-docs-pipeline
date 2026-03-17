@@ -1,0 +1,197 @@
+BaseResource:
+  type: object
+  required:
+  - id
+  - created_at
+  - updated_at
+  properties:
+    id:
+      type: string
+      format: uuid
+      example: 8de2f75f-ef78-44e8-ab42-7276f0462df9
+    created_at:
+      type: string
+      format: date-time
+      example: '2026-03-09T10:22:31Z'
+    updated_at:
+      type: string
+      format: date-time
+      example: '2026-03-09T10:22:31Z'
+Project:
+  allOf:
+  - $ref: '#/BaseResource'
+  - type: object
+    properties:
+      name:
+        type: string
+        example: API-first rollout
+      description:
+        type: string
+        example: Planning and execution
+      status:
+        type: string
+        enum:
+        - active
+        - archived
+        example: active
+      owner_id:
+        type: string
+        format: uuid
+        example: 1edd3e73-e605-4559-a6f9-dcd27f2f6488
+      archived_at:
+        type: string
+        nullable: true
+        format: date-time
+        example: null
+Task:
+  allOf:
+  - $ref: '#/BaseResource'
+  - type: object
+    properties:
+      project_id:
+        type: string
+        format: uuid
+        example: 8de2f75f-ef78-44e8-ab42-7276f0462df9
+      title:
+        type: string
+        example: Create API-first demo
+      description:
+        type: string
+        example: Generate OpenAPI from planning notes
+      status:
+        type: string
+        enum:
+        - todo
+        - in_progress
+        - done
+        - blocked
+        example: in_progress
+      priority:
+        type: string
+        enum:
+        - low
+        - medium
+        - high
+        - urgent
+        example: high
+      assignee_id:
+        type: string
+        format: uuid
+        example: 1edd3e73-e605-4559-a6f9-dcd27f2f6488
+      due_date:
+        type: string
+        format: date
+        example: '2026-03-12'
+      completed_at:
+        type: string
+        nullable: true
+        format: date-time
+        example: null
+User:
+  type: object
+  required:
+  - id
+  - email
+  - full_name
+  - role
+  - status
+  - created_at
+  properties:
+    id:
+      type: string
+      format: uuid
+      example: 1edd3e73-e605-4559-a6f9-dcd27f2f6488
+    email:
+      type: string
+      format: email
+      example: alex@taskstream.example.com
+    full_name:
+      type: string
+      example: Alex Rivera
+    role:
+      type: string
+      enum:
+      - admin
+      - manager
+      - member
+      - guest
+      example: admin
+    status:
+      type: string
+      enum:
+      - active
+      - invited
+      - suspended
+      example: active
+    created_at:
+      type: string
+      format: date-time
+      example: '2026-01-15T09:00:00Z'
+CursorPage:
+  type: object
+  required:
+  - next_cursor
+  - has_more
+  properties:
+    next_cursor:
+      type: string
+      nullable: true
+      example: null
+    has_more:
+      type: boolean
+      example: false
+ProjectsListResponse:
+  type: object
+  required:
+  - data
+  - page
+  properties:
+    data:
+      type: array
+      items:
+        $ref: '#/Project'
+    page:
+      $ref: '#/CursorPage'
+TasksListResponse:
+  type: object
+  required:
+  - data
+  - page
+  properties:
+    data:
+      type: array
+      items:
+        $ref: '#/Task'
+    page:
+      $ref: '#/CursorPage'
+ErrorEnvelope:
+  type: object
+  required:
+  - error
+  - request_id
+  properties:
+    error:
+      type: object
+      required:
+      - code
+      - message
+      properties:
+        code:
+          type: string
+          example: invalid_request
+        message:
+          type: string
+          example: Invalid request
+        details:
+          type: array
+          items:
+            type: object
+          example: []
+    request_id:
+      type: string
+      example: req_demo_user_path
+AnyResource:
+  oneOf:
+  - $ref: '#/Project'
+  - $ref: '#/Task'
+  - $ref: '#/User'
