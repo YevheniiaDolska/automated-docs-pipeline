@@ -12,6 +12,7 @@ import os
 from pathlib import Path
 from typing import Any
 from urllib import error, request
+from urllib.parse import quote
 
 import yaml
 
@@ -72,11 +73,119 @@ def _find_mock_node(payload: Any) -> dict[str, Any] | None:
     return None
 
 
+def _find_mock_url(payload: Any) -> str:
+    if isinstance(payload, dict):
+        for key in ("mockUrl", "url"):
+            value = payload.get(key)
+            if isinstance(value, str) and value.strip():
+                return value.strip()
+        for value in payload.values():
+            found = _find_mock_url(value)
+            if found:
+                return found
+    elif isinstance(payload, list):
+        for item in payload:
+            found = _find_mock_url(item)
+            if found:
+                return found
+    return ""
+
+
+def _find_mock_id(payload: Any) -> str:
+    if isinstance(payload, dict):
+        value = payload.get("id")
+        if isinstance(value, str) and value.strip():
+            return value.strip()
+        for nested in payload.values():
+            found = _find_mock_id(nested)
+            if found:
+                return found
+    elif isinstance(payload, list):
+        for item in payload:
+            found = _find_mock_id(item)
+            if found:
+                return found
+    return ""
+
+
+def _extract_collection_id(payload: dict[str, Any]) -> str:
+    candidates: list[str] = []
+    collection = payload.get("collection")
+    if isinstance(collection, dict):
+        info = collection.get("info")
+        if isinstance(info, dict):
+            for key in ("_postman_id", "id", "uid"):
+                value = info.get(key)
+                if isinstance(value, str) and value.strip():
+                    candidates.append(value.strip())
+        for key in ("id", "uid"):
+            value = collection.get(key)
+            if isinstance(value, str) and value.strip():
+                candidates.append(value.strip())
+    for key in ("id", "uid"):
+        value = payload.get(key)
+        if isinstance(value, str) and value.strip():
+            candidates.append(value.strip())
+    return candidates[0] if candidates else ""
+
+
+def _resolve_collection_id(base_url: str, api_key: str, token: str) -> str:
+    value = token.strip()
+    if not value:
+        return ""
+    try:
+        payload = _http_json(
+            "GET",
+            f"{base_url}/collections/{quote(value, safe='')}",
+            api_key=api_key,
+        )
+        resolved = _extract_collection_id(payload)
+        return resolved or value
+    except Exception:
+        return value
+
+
 def _normalize_base_path(base_path: str) -> str:
     value = base_path.strip()
     if not value:
         return ""
     return "/" + value.strip("/")
+
+
+def _extract_mocks_list(payload: dict[str, Any]) -> list[dict[str, Any]]:
+    for key in ("mocks", "mockServers", "mockservers"):
+        value = payload.get(key)
+        if isinstance(value, list):
+            return [item for item in value if isinstance(item, dict)]
+    if isinstance(payload.get("mock"), dict):
+        return [payload["mock"]]
+    if isinstance(payload.get("mockServer"), dict):
+        return [payload["mockServer"]]
+    found = _find_mock_node(payload)
+    return [found] if isinstance(found, dict) else []
+
+
+def _find_existing_mock_by_name(base_url: str, api_key: str, workspace_id: str, mock_name: str) -> dict[str, str] | None:
+    candidates = [
+        f"{base_url}/mocks?workspace={quote(workspace_id, safe='')}",
+        f"{base_url}/mockservers?workspace={quote(workspace_id, safe='')}",
+        f"{base_url}/mock-servers?workspace={quote(workspace_id, safe='')}",
+    ]
+    wanted = mock_name.strip().lower()
+    for endpoint in candidates:
+        try:
+            payload = _http_json("GET", endpoint, api_key=api_key)
+        except Exception:
+            continue
+        for item in _extract_mocks_list(payload):
+            name = str(item.get("name", "")).strip().lower()
+            if not name or name != wanted:
+                continue
+            mock_id = _find_mock_id(item)
+            mock_url = _find_mock_url(item)
+            if mock_id and mock_url:
+                return {"mock_server_id": mock_id, "mock_url": mock_url}
+    return None
 
 
 def _resolve_postman_mock(args: argparse.Namespace) -> dict[str, str]:
@@ -85,20 +194,37 @@ def _resolve_postman_mock(args: argparse.Namespace) -> dict[str, str]:
     base_url = "https://api.getpostman.com"
 
     if mock_server_id:
-        payload = _http_json(
-            "GET",
-            f"{base_url}/mockservers/{mock_server_id}",
-            api_key=api_key,
-        )
-        node = _find_mock_node(payload)
-        if node is None:
-            raise RuntimeError("Unable to find mock server fields (id/url) in Postman response.")
-        return {
-            "mock_server_id": str(node["id"]),
-            "mock_url": str(node["url"]),
-        }
+        # Primary: current Postman endpoint /mocks/{id}. Fallback: legacy /mockservers/{id}.
+        last_error: Exception | None = None
+        for endpoint in (f"{base_url}/mocks/{quote(mock_server_id, safe='')}", f"{base_url}/mockservers/{quote(mock_server_id, safe='')}"):
+            try:
+                payload = _http_json("GET", endpoint, api_key=api_key)
+                resolved_id = _find_mock_id(payload) or mock_server_id
+                resolved_url = _find_mock_url(payload)
+                if not resolved_url:
+                    raise RuntimeError("mock URL is missing in Postman response")
+                return {
+                    "mock_server_id": resolved_id,
+                    "mock_url": resolved_url,
+                }
+            except Exception as exc:  # noqa: BLE001
+                last_error = exc
+                continue
+        raise RuntimeError(f"Unable to resolve existing Postman mock server ID `{mock_server_id}`: {last_error}")
 
     workspace_id = _read_env(args.postman_workspace_id_env, required=True)
+    try:
+        _http_json(
+            "GET",
+            f"{base_url}/workspaces/{workspace_id}",
+            api_key=api_key,
+        )
+    except RuntimeError as exc:
+        raise RuntimeError(
+            "Postman workspace preflight failed. "
+            "Check POSTMAN_WORKSPACE_ID and ensure POSTMAN_API_KEY has access to that workspace. "
+            f"Details: {exc}"
+        ) from exc
     collection_uid = _read_env(args.postman_collection_uid_env, required=False)
     if not collection_uid:
         if not args.spec_path:
@@ -129,28 +255,65 @@ def _resolve_postman_mock(args: argparse.Namespace) -> dict[str, str]:
                 collection_uid = str(found.get("uid", "")).strip()
         if not collection_uid:
             raise RuntimeError("Unable to resolve collection UID from Postman import response.")
+    collection_id = _resolve_collection_id(base_url, api_key, collection_uid)
+
     mock_name = args.postman_mock_server_name.strip() or f"{args.project_slug}-docsops-mock"
-    create_payload: dict[str, Any] = {
-        "mock": {
-            "name": mock_name,
-            "collection": collection_uid,
-            "private": bool(args.postman_private),
-        },
-        "workspace": {"id": workspace_id},
-    }
-    created = _http_json(
-        "POST",
-        f"{base_url}/mockservers",
-        api_key=api_key,
-        payload=create_payload,
-    )
-    node = _find_mock_node(created)
-    if node is None:
-        raise RuntimeError("Unable to parse created Postman mock server response.")
-    return {
-        "mock_server_id": str(node["id"]),
-        "mock_url": str(node["url"]),
-    }
+    collection_tokens = [token for token in [collection_uid, collection_id] if token]
+    if not collection_tokens:
+        raise RuntimeError("Unable to resolve Postman collection token (uid/id) for mock creation.")
+
+    last_error: Exception | None = None
+    errors: list[str] = []
+
+    # Try multiple endpoint + payload variations because Postman APIs changed across versions.
+    create_candidates: list[tuple[str, str, dict[str, Any]]] = []
+    for collection_token in collection_tokens:
+        create_payload_primary: dict[str, Any] = {
+            "mock": {
+                "name": mock_name,
+                "collection": collection_token,
+                "private": bool(args.postman_private),
+            }
+        }
+        create_payload_legacy: dict[str, Any] = {
+            "mock": {
+                "name": mock_name,
+                "collection": collection_token,
+                "private": bool(args.postman_private),
+            },
+            "workspace": {"id": workspace_id},
+        }
+        create_candidates.extend(
+            [
+                ("POST", f"{base_url}/mocks?workspace={quote(workspace_id, safe='')}", create_payload_primary),
+                ("POST", f"{base_url}/mockservers", create_payload_legacy),
+                ("POST", f"{base_url}/mock-servers", create_payload_legacy),
+            ]
+        )
+
+    for method, endpoint, payload in create_candidates:
+        try:
+            created = _http_json(method, endpoint, api_key=api_key, payload=payload)
+            resolved_id = _find_mock_id(created)
+            resolved_url = _find_mock_url(created)
+            if not resolved_id or not resolved_url:
+                raise RuntimeError("created mock payload does not include id/url")
+            return {
+                "mock_server_id": resolved_id,
+                "mock_url": resolved_url,
+            }
+        except Exception as exc:  # noqa: BLE001
+            last_error = exc
+            errors.append(f"{endpoint}: {exc}")
+            continue
+
+    # If creation endpoints fail, try to reuse existing mock with the same generated name.
+    existing = _find_existing_mock_by_name(base_url, api_key, workspace_id, mock_name)
+    if existing:
+        return existing
+
+    detail = "; ".join(errors[-6:])
+    raise RuntimeError(f"Unable to create or reuse Postman mock server: {last_error}. Attempts: {detail}")
 
 
 def main() -> int:
