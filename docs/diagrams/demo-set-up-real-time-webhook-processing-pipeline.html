@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Webhook Processing Pipeline Architecture</title>
+<style>
+  :root {
+    --bg: #ffffff;
+    --surface: #f8fafc;
+    --border: #e2e8f0;
+    --text: #1e293b;
+    --text-muted: #64748b;
+    --accent: #6366f1;
+    --accent-glow: rgba(99, 102, 241, 0.2);
+    --success: #10b981;
+    --warning: #f59e0b;
+    --danger: #ef4444;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #0f172a; --surface: #1e293b; --border: #334155;
+      --text: #e2e8f0; --text-muted: #94a3b8; --accent: #818cf8;
+      --accent-glow: rgba(129, 140, 248, 0.3);
+      --success: #34d399; --warning: #fbbf24; --danger: #f87171;
+    }
+  }
+  [data-theme="dark"] {
+    --bg: #0f172a; --surface: #1e293b; --border: #334155;
+    --text: #e2e8f0; --text-muted: #94a3b8; --accent: #818cf8;
+    --accent-glow: rgba(129, 140, 248, 0.3);
+    --success: #34d399; --warning: #fbbf24; --danger: #f87171;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    background: var(--bg); color: var(--text);
+    min-height: 100vh; display: flex; flex-direction: column;
+    align-items: center; padding: 2rem 1rem;
+  }
+  h1 { font-size: 1.5rem; font-weight: 600; margin-bottom: 0.5rem; color: var(--text); }
+  .subtitle { color: var(--text-muted); font-size: 0.875rem; margin-bottom: 2rem; }
+  .diagram { display: flex; flex-direction: column; align-items: center; gap: 1rem; width: 100%; max-width: 900px; }
+  .layer { display: flex; gap: 0.75rem; justify-content: center; flex-wrap: wrap; width: 100%; }
+  .layer-label { width: 100%; text-align: center; font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--text-muted); margin-bottom: -0.5rem; }
+  .component { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 0.875rem 1.25rem; cursor: pointer; transition: all 0.2s ease; text-align: center; min-width: 140px; position: relative; }
+  .component:hover { border-color: var(--accent); transform: translateY(-2px); box-shadow: 0 4px 16px rgba(0,0,0,0.3); }
+  .component.active { border-color: var(--accent); box-shadow: 0 0 20px var(--accent-glow); }
+  .component .icon { font-size: 1.5rem; display: block; margin-bottom: 0.375rem; }
+  .component .name { font-size: 0.8rem; font-weight: 600; }
+  .component .metric { font-size: 0.65rem; color: var(--text-muted); margin-top: 0.25rem; }
+  .arrow-row { display: flex; justify-content: center; color: var(--text-muted); font-size: 1.25rem; animation: pulse-down 2s infinite; }
+  @keyframes pulse-down { 0%, 100% { opacity: 0.4; } 50% { opacity: 1; } }
+  .info-panel { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 1.25rem 1.5rem; width: 100%; max-width: 900px; margin-top: 1.5rem; min-height: 120px; transition: all 0.2s ease; }
+  .info-panel.active { border-color: var(--accent); }
+  .info-panel h3 { font-size: 1rem; margin-bottom: 0.5rem; color: var(--accent); }
+  .info-panel p { font-size: 0.85rem; color: var(--text-muted); line-height: 1.6; }
+  .info-panel .tag { display: inline-block; background: rgba(129,140,248,0.15); color: var(--accent); padding: 0.15rem 0.5rem; border-radius: 4px; font-size: 0.7rem; margin-top: 0.75rem; margin-right: 0.375rem; }
+  .info-default { color: var(--text-muted); font-style: italic; font-size: 0.85rem; }
+</style>
+</head>
+<body>
+
+<h1>Webhook Processing Pipeline Architecture</h1>
+<p class="subtitle">Click any component to see details</p>
+
+<div class="diagram">
+  <div class="layer-label">Clients</div>
+  <div class="layer">
+    <div class="component" data-id="mobile" onclick="showInfo('mobile')">
+      <span class="icon">&#128241;</span>
+      <div class="name">Mobile App</div>
+      <div class="metric">2.1M users</div>
+    </div>
+    <div class="component" data-id="web" onclick="showInfo('web')">
+      <span class="icon">&#127760;</span>
+      <div class="name">Web Dashboard</div>
+      <div class="metric">450K DAU</div>
+    </div>
+    <div class="component" data-id="partner" onclick="showInfo('partner')">
+      <span class="icon">&#128268;</span>
+      <div class="name">Partner API</div>
+      <div class="metric">85 integrations</div>
+    </div>
+  </div>
+  <div class="arrow-row">&#8595; &#8595; &#8595;</div>
+  <div class="layer-label">Edge</div>
+  <div class="layer">
+    <div class="component" data-id="cdn" onclick="showInfo('cdn')">
+      <span class="icon">&#127758;</span>
+      <div class="name">CloudFlare CDN</div>
+      <div class="metric">99.99% uptime</div>
+    </div>
+    <div class="component" data-id="ratelimit" onclick="showInfo('ratelimit')">
+      <span class="icon">&#9201;</span>
+      <div class="name">Rate Limiter</div>
+      <div class="metric">60 req/min</div>
+    </div>
+  </div>
+  <div class="arrow-row">&#8595; &#8595;</div>
+  <div class="layer-label">Verification</div>
+  <div class="layer">
+    <div class="component" data-id="gateway" onclick="showInfo('gateway')">
+      <span class="icon">&#128737;</span>
+      <div class="name">API Gateway</div>
+      <div class="metric">12K req/sec</div>
+    </div>
+    <div class="component" data-id="hmac" onclick="showInfo('hmac')">
+      <span class="icon">&#128272;</span>
+      <div class="name">HMAC Validator</div>
+      <div class="metric">&lt;2 ms verify</div>
+    </div>
+  </div>
+  <div class="arrow-row">&#8595; &#8595;</div>
+  <div class="layer-label">Processing</div>
+  <div class="layer">
+    <div class="component" data-id="router" onclick="showInfo('router')">
+      <span class="icon">&#128256;</span>
+      <div class="name">Event Router</div>
+      <div class="metric">8 event types</div>
+    </div>
+    <div class="component" data-id="queue" onclick="showInfo('queue')">
+      <span class="icon">&#9889;</span>
+      <div class="name">BullMQ Queue</div>
+      <div class="metric">Redis-backed</div>
+    </div>
+    <div class="component" data-id="retry" onclick="showInfo('retry')">
+      <span class="icon">&#128260;</span>
+      <div class="name">Retry Engine</div>
+      <div class="metric">Exponential backoff</div>
+    </div>
+  </div>
+  <div class="arrow-row">&#8595; &#8595; &#8595;</div>
+  <div class="layer-label">Storage</div>
+  <div class="layer">
+    <div class="component" data-id="db" onclick="showInfo('db')">
+      <span class="icon">&#128451;</span>
+      <div class="name">PostgreSQL</div>
+      <div class="metric">2 replicas, 8.5K qps</div>
+    </div>
+    <div class="component" data-id="eventlog" onclick="showInfo('eventlog')">
+      <span class="icon">&#128203;</span>
+      <div class="name">Event Log</div>
+      <div class="metric">30-day retention</div>
+    </div>
+    <div class="component" data-id="grafana" onclick="showInfo('grafana')">
+      <span class="icon">&#128200;</span>
+      <div class="name">Grafana Monitoring</div>
+      <div class="metric">Real-time alerts</div>
+    </div>
+  </div>
+</div>
+
+<div class="info-panel" id="infoPanel">
+  <p class="info-default">Click any component to see its description, configuration, and key metrics.</p>
+</div>
+
+<script>
+const descriptions = {
+  mobile: {
+    title: "Mobile App",
+    desc: "Native iOS and Android applications serving 2.1 million registered users. Sends webhook events for order completions, payment confirmations, and shipping updates. Connects to the CloudFlare CDN edge layer for low-latency event delivery with automatic retry on network failures.",
+    tags: ["iOS", "Android", "2.1M users", "Push events"]
+  },
+  web: {
+    title: "Web Dashboard",
+    desc: "React-based single-page application with 450,000 daily active users. Provides real-time webhook monitoring, event replay controls, and delivery status visualization. Routes all webhook traffic through the CloudFlare CDN edge layer with WebSocket connections for live event streaming.",
+    tags: ["React", "450K DAU", "WebSocket", "Real-time"]
+  },
+  partner: {
+    title: "Partner API",
+    desc: "RESTful integration layer supporting 85 third-party partner integrations. Each partner receives a unique API key with configurable webhook subscriptions and per-partner rate limits. Connects to the CloudFlare CDN edge layer for TLS termination and geographic routing to the nearest API Gateway instance.",
+    tags: ["REST", "85 integrations", "Per-partner keys", "OAuth2"]
+  },
+  cdn: {
+    title: "CloudFlare CDN",
+    desc: "Global content delivery network with 99.99% uptime SLA across 300+ points of presence. Handles TLS termination, HTTP/2 multiplexing, and DDoS mitigation for all incoming webhook traffic from the Clients layer. Forwards verified requests to the Rate Limiter for throttling before reaching the API Gateway in the Verification layer.",
+    tags: ["300+ PoPs", "99.99% SLA", "TLS 1.3", "DDoS protection"]
+  },
+  ratelimit: {
+    title: "Rate Limiter",
+    desc: "Token bucket rate limiter enforcing 60 requests per minute per API key, backed by Redis for shared state across all edge nodes. Processes traffic from the CloudFlare CDN and returns 429 responses with Retry-After headers when limits are exceeded. Passes compliant requests to the API Gateway in the Verification layer.",
+    tags: ["Token bucket", "Redis", "60 req/min", "Retry-After"]
+  },
+  gateway: {
+    title: "API Gateway",
+    desc: "High-performance gateway handling 12,000 requests per second with sub-millisecond routing latency. Receives rate-limited traffic from the Edge layer and routes webhook payloads to the HMAC Validator for cryptographic signature verification. Supports path-based routing across 8 webhook event types with request logging and tracing.",
+    tags: ["12K req/sec", "Path routing", "OpenTelemetry", "Envoy"]
+  },
+  hmac: {
+    title: "HMAC Validator",
+    desc: "Cryptographic signature verification service completing HMAC-SHA256 validation in under 2 milliseconds per request. Receives payloads from the API Gateway, verifies signatures against per-client secrets, and enforces 5-minute replay protection windows. Forwards verified events to the Event Router in the Processing layer.",
+    tags: ["HMAC-SHA256", "<2 ms", "Replay protection", "Timing-safe"]
+  },
+  router: {
+    title: "Event Router",
+    desc: "Content-based message router that classifies incoming events into 8 types (order.completed, payment.failed, shipping.updated, and 5 others). Receives verified payloads from the HMAC Validator and dispatches each event to the appropriate BullMQ Queue channel with priority tagging. Handles 4,200 routing decisions per second.",
+    tags: ["8 event types", "Content routing", "Priority tagging", "4.2K/sec"]
+  },
+  queue: {
+    title: "BullMQ Queue",
+    desc: "Redis-backed job queue providing at-least-once delivery guarantees with configurable concurrency (10 parallel workers by default). Receives routed events from the Event Router and manages job lifecycle with automatic dead-letter routing after 5 failed attempts. Connects to the Retry Engine for exponential backoff scheduling.",
+    tags: ["Redis 7.0", "At-least-once", "Dead-letter queue", "10 workers"]
+  },
+  retry: {
+    title: "Retry Engine",
+    desc: "Exponential backoff retry manager with intervals of 1s, 2s, 4s, 8s, and 16s across 5 attempts. Works alongside the BullMQ Queue to reschedule failed jobs and track retry counts. After exhausting all attempts, moves failed events to the Event Log in the Storage layer for manual review and alerting via Grafana.",
+    tags: ["Exponential backoff", "5 attempts", "31s total", "Dead-letter"]
+  },
+  db: {
+    title: "PostgreSQL Database",
+    desc: "Primary database with 2 read replicas handling 8,500 queries per second (peak: 12,000). Stores processed webhook event results, delivery confirmations, and partner subscription state. Uses PgBouncer connection pooling (max 500 connections) with automated daily backups and 30-day point-in-time recovery. Receives writes from the BullMQ Queue workers in the Processing layer.",
+    tags: ["2 replicas", "8.5K qps", "PgBouncer", "PITR"]
+  },
+  eventlog: {
+    title: "Event Log",
+    desc: "Append-only event log retaining all webhook delivery records for 30 days. Stores raw payloads, delivery timestamps, processing results, and retry histories from the Processing layer. Supports full-text search for debugging failed deliveries and feeds dashboards in Grafana Monitoring for operational visibility.",
+    tags: ["30-day retention", "Append-only", "Full-text search", "Audit trail"]
+  },
+  grafana: {
+    title: "Grafana Monitoring",
+    desc: "Real-time observability dashboard tracking webhook throughput (850/sec), verification latency (1.2 ms P50), queue depth, and retry rates. Reads metrics from the Event Log and PostgreSQL in the Storage layer. Fires PagerDuty alerts when error rates exceed 1% or queue depth exceeds 10,000 pending events.",
+    tags: ["Real-time", "PagerDuty", "Prometheus", "Alert rules"]
+  }
+};
+
+function syncTheme() {
+  try {
+    const parentScheme = window.parent.document.body.getAttribute('data-md-color-scheme');
+    if (parentScheme === 'slate') { document.documentElement.setAttribute('data-theme', 'dark'); return; }
+    const parentTheme = window.parent.document.documentElement.getAttribute('data-theme');
+    if (parentTheme === 'dark') { document.documentElement.setAttribute('data-theme', 'dark'); return; }
+  } catch (e) { }
+}
+syncTheme();
+try {
+  new MutationObserver(syncTheme).observe(window.parent.document.documentElement, { attributes: true, attributeFilter: ['data-md-color-scheme', 'data-theme'] });
+  new MutationObserver(syncTheme).observe(window.parent.document.body, { attributes: true, attributeFilter: ['data-md-color-scheme'] });
+} catch (e) { }
+
+function showInfo(id) {
+  document.querySelectorAll('.component').forEach(el => el.classList.remove('active'));
+  const el = document.querySelector(`[data-id="${id}"]`);
+  if (el) el.classList.add('active');
+  const panel = document.getElementById('infoPanel');
+  const data = descriptions[id];
+  if (!data) return;
+  panel.classList.add('active');
+  panel.innerHTML = `<h3>${data.title}</h3><p>${data.desc}</p><div>${data.tags.map(t => `<span class="tag">${t}</span>`).join('')}</div>`;
+}
+</script>
+</body>
+</html>
