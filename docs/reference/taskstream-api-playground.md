@@ -63,6 +63,7 @@ bash scripts/api_prodlike_project.sh up taskstream 4011
       defaultModelsExpandDepth: 1,
       supportedSubmitMethods: ["get","put","post","delete","options","head","patch","trace"],
       requestInterceptor: function (req) {
+        if (req.url === specUrl || req.url.indexOf("openapi") !== -1) return req;
         try {
           var u = new URL(req.url, location.origin);
           var t = new URL(sandboxUrl, location.origin);

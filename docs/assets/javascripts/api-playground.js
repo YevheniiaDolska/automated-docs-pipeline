@@ -288,6 +288,9 @@
             ? ['get', 'put', 'post', 'delete', 'options', 'head', 'patch', 'trace']
             : [],
           requestInterceptor: function (request) {
+            if (request.url === specUrl || request.url.indexOf('openapi') !== -1) {
+              return request;
+            }
             request.url = normalizeUrl(request.url, selectedEndpointMode);
             return request;
           },

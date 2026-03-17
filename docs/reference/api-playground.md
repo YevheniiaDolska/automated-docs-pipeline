@@ -59,6 +59,7 @@ This works for both API-first and code-first teams.
       defaultModelsExpandDepth: 1,
       supportedSubmitMethods: [],
       requestInterceptor: function (req) {
+        if (req.url === specUrl || req.url.indexOf("openapi") !== -1) return req;
         try {
           var u = new URL(req.url, location.origin);
           var t = new URL(sandboxUrl, location.origin);
