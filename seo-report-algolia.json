@@ -8467,7 +8467,7 @@
       "objectID": "86151fa48050ff94a93a90cd09b28b6a",
       "title": "TaskStream API playground",
       "heading": "Playground embed",
-      "content": "<div   id=\"api-playground-root\"   data-provider=\"swagger-ui\"   data-source-strategy=\"api-first\"   data-api-first-spec-url=\"{{ config.site_url }}assets/api/openapi.bundled.yaml\"   data-try-it-enabled=\"true\"   data-try-it-mode=\"sandbox-only\"   data-sandbox-base-url=\"{{ config.extra.plg.api_playground.endpoints.sandbox_base_url }}\"   data-production-base-url=\"{{ cloud_url }}/v1\" ></div> For multi-version API docs, publish one spec per version and add separate playground blocks or tabs: - /assets/api/v1/openapi.yaml - /assets/api/v2/openapi.yaml ",
+      "content": "<div   id=\"api-playground-root\"   data-provider=\"swagger-ui\"   data-source-strategy=\"api-first\"   data-api-first-spec-url=\"{{ config.site_url }}assets/api/openapi.bundled.json\"   data-try-it-enabled=\"true\"   data-try-it-mode=\"sandbox-only\"   data-sandbox-base-url=\"{{ config.extra.plg.api_playground.endpoints.sandbox_base_url }}\"   data-production-base-url=\"{{ cloud_url }}/v1\" ></div> For multi-version API docs, publish one spec per version and add separate playground blocks or tabs: - /assets/api/v1/openapi.yaml - /assets/api/v2/openapi.yaml ",
       "description": "Interactive TaskStream OpenAPI playground with Swagger UI or Redoc and try-it-out requests against mock or prod-like sandbox endpoints.",
       "product": "both",
       "content_type": "reference",
