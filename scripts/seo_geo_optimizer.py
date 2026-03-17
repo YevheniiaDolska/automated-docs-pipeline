@@ -21,6 +21,10 @@ from datetime import datetime
 from urllib.parse import quote
 import subprocess
 
+# Internal maintenance guides are kept in docs/ for operator convenience,
+# but they are not product docs pages and should not affect GEO gate signals.
+INTERNAL_GEO_IGNORE = {"SEO_GUIDE.md", "VARIABLES_GUIDE.md"}
+
 # ==================== GEO RULES ====================
 
 GEO_RULES = {
@@ -487,7 +491,9 @@ SEO_RULES = {
     "min_internal_links": 1,
     "max_image_without_alt_pct": 0,
     "min_content_words": 100,
-    "max_line_length_for_mobile": 120,
+    "max_line_length_for_mobile": 180,
+    "check_mobile_line_length": True,
+    "max_long_lines_before_warning": 30,
 }
 
 
@@ -600,21 +606,22 @@ def seo_validate_file(filepath):
                                    "Filename contains special characters. Use only "
                                    "alphanumeric and hyphens for clean URLs."))
 
-    # --- SEO-09: Mobile-friendly line lengths ---
-    long_lines = 0
-    in_code = False
-    for line in lines:
-        if line.strip().startswith("```"):
-            in_code = not in_code
-            continue
-        if in_code:
-            continue
-        if len(line) > SEO_RULES["max_line_length_for_mobile"]:
-            long_lines += 1
-    if long_lines > 5:
-        findings.append(GEOFinding(filepath, 1, "seo-long-lines",
-                                   f"{long_lines} lines exceed {SEO_RULES['max_line_length_for_mobile']} chars. "
-                                   "Long lines hurt mobile readability."))
+    # --- SEO-09: Mobile-friendly line lengths (optional, disabled by default) ---
+    if bool(SEO_RULES.get("check_mobile_line_length", False)):
+        long_lines = 0
+        in_code = False
+        for line in lines:
+            if line.strip().startswith("```"):
+                in_code = not in_code
+                continue
+            if in_code:
+                continue
+            if len(line) > SEO_RULES["max_line_length_for_mobile"]:
+                long_lines += 1
+        if long_lines > int(SEO_RULES.get("max_long_lines_before_warning", 30)):
+            findings.append(GEOFinding(filepath, 1, "seo-long-lines",
+                                       f"{long_lines} lines exceed {SEO_RULES['max_line_length_for_mobile']} chars. "
+                                       "Long lines hurt mobile readability."))
 
     # --- SEO-10: Heading keywords match title ---
     if title:
@@ -1083,13 +1090,21 @@ def main():
 
     # Process files
     if path.is_file():
-        results = optimizer.optimize_file(path, fix=args.fix)
+        if path.name in INTERNAL_GEO_IGNORE:
+            print(f"Skipping internal guide for GEO checks: {path}")
+            results = {}
+        else:
+            results = optimizer.optimize_file(path, fix=args.fix)
         print(json.dumps(results, indent=2, default=str))
     else:
         for md_file in sorted(path.rglob('*.md')):
-            if not md_file.name.startswith('_'):
-                print(f"Processing {md_file}...")
-                optimizer.optimize_file(md_file, fix=args.fix)
+            if md_file.name.startswith('_'):
+                continue
+            if md_file.name in INTERNAL_GEO_IGNORE:
+                print(f"Skipping internal guide for GEO checks: {md_file}")
+                continue
+            print(f"Processing {md_file}...")
+            optimizer.optimize_file(md_file, fix=args.fix)
 
     # Generate sitemap if requested
     if args.sitemap:

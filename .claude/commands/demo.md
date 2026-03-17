@@ -526,32 +526,6 @@ npm run validate:full 2>&1
 
 Say: "ALL checks passed on the first run. The 24 SEO/GEO rules, formatting, metadata, and style are all green. Linters are the highest-quality gate in this pipeline and enforce production-ready documentation standards."
 
-### Step 7A. Finalize gate (Before Yes / After Yes)
-
-Run finalize gate to enforce iterative fixes before approval:
-
-```bash
-python3 scripts/finalize_docs_gate.py \
-  --docs-root docs \
-  --reports-dir reports \
-  --runtime-config docsops/config/client_runtime.yml \
-  --continue-on-error
-```
-
-Optional interactive confirmation mode (GUI Yes/No dialog with CLI fallback):
-
-```bash
-python3 scripts/finalize_docs_gate.py \
-  --docs-root docs \
-  --reports-dir reports \
-  --ask-commit-confirmation \
-  --ui-confirmation auto \
-  --run-precommit-before-commit \
-  --precommit-max-iterations 3
-```
-
-Say: "Before Yes, finalize gate runs lint-fix loops. After Yes, pre-commit reruns with auto-fix loop to catch anything changed during human review."
-
 ### Step 8. Generate interactive diagram
 
 Say: "One final touch: an interactive architecture diagram embedded directly in the generated document. The HTML asset is only a backing file; the deliverable is the document page with an inline interactive diagram."
@@ -596,9 +570,13 @@ echo "Broken list marker check (must be empty):"
 grep -n '\\11\\.' "$DOC_FILE" || true
 ```
 
-Say: "The diagram is embedded in the generated document. The page now includes a clickable diagram with 13 components across five layers, each with concrete metrics, technologies, and dependencies."
+Run diagram consistency self-check against document text:
 
----
+```bash
+python3 scripts/validate_diagram_content.py "$DOC_FILE" "$DIAGRAM_PATH" --strict
+```
+
+Say: "The diagram is embedded in the generated document. The page now includes a clickable diagram with 13 components across five layers, each with concrete metrics, technologies, and dependencies."
 
 ## PHASE 5: The numbers + Publish to MkDocs (2 minutes)
 

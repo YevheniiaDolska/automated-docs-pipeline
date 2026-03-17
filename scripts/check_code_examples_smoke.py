@@ -443,7 +443,12 @@ def _collect_output(block: CodeBlock, timeout: int, allow_network: bool) -> tupl
     return True, ""
 
 
-def run_smoke(paths: list[str], timeout: int, allow_empty: bool, allow_network: bool) -> int:
+def _run_smoke_with_metrics(
+    paths: list[str],
+    timeout: int,
+    allow_empty: bool,
+    allow_network: bool,
+) -> tuple[int, dict]:
     files = _iter_markdown_files(paths)
     blocks: list[CodeBlock] = []
     for file_path in files:
@@ -453,18 +458,25 @@ def run_smoke(paths: list[str], timeout: int, allow_empty: bool, allow_network: 
     print(f"Scanned markdown files: {len(files)}")
     print(f"Smoke-tagged code blocks: {len(smoke_blocks)}")
 
-    if not smoke_blocks and not allow_empty:
+    no_smoke_error = not smoke_blocks and not allow_empty
+    if no_smoke_error:
         print("No smoke-tagged code examples found. Add fenced blocks with a `smoke` tag.")
-        return 1
 
     failures: list[str] = []
+    skipped_placeholders = 0
+    skipped_network = 0
+    executed_blocks = 0
     for block in smoke_blocks:
         if _has_placeholders(block.content):
+            skipped_placeholders += 1
             continue
 
         execute_block = True
         if _is_network_bound(block) and not ("network" in block.tags and allow_network):
             execute_block = False
+            skipped_network += 1
+        else:
+            executed_blocks += 1
 
         ok, reason = _run_smoke_block(block, timeout, allow_network, execute=execute_block)
         if not ok:
@@ -480,14 +492,74 @@ def run_smoke(paths: list[str], timeout: int, allow_empty: bool, allow_network: 
                     f"{block.path}:{block.line} -> expected '{block.expected_output.strip()}', got '{actual.strip()}'"
                 )
 
+    return_code = 1 if failures else 0
+    return_code = 1 if no_smoke_error else return_code
+
+    payload = {
+        "summary": {
+            "valid": return_code == 0,
+            "smoke_blocks_total": len(smoke_blocks),
+            "smoke_blocks_executed": executed_blocks,
+            "smoke_blocks_failed": len(failures),
+            "smoke_blocks_skipped_placeholders": skipped_placeholders,
+            "smoke_blocks_skipped_network": skipped_network,
+            "example_reliability_pct": round(
+                100.0 if executed_blocks == 0 else ((executed_blocks - len(failures)) / executed_blocks) * 100.0,
+                2,
+            ),
+            "allow_empty": bool(allow_empty),
+            "allow_network": bool(allow_network),
+            "timeout_seconds": int(timeout),
+        },
+        "failures": failures,
+    }
+
+    return return_code, payload
+
+
+def run_smoke(paths: list[str], timeout: int, allow_empty: bool, allow_network: bool) -> int:
+    code, payload = _run_smoke_with_metrics(paths, timeout, allow_empty, allow_network)
+    failures = payload.get("failures", [])
     if failures:
         print("Smoke code example failures detected:")
         for failure in failures:
             print(f"- {failure}")
-        return 1
+        return code
+
+    if payload["summary"]["smoke_blocks_total"] == 0 and not allow_empty:
+        print("No smoke-tagged code examples found. Add fenced blocks with a `smoke` tag.")
+        return code
 
     print("Smoke code examples check passed.")
-    return 0
+    return code
+
+
+def run_smoke_with_report(
+    paths: list[str],
+    timeout: int,
+    allow_empty: bool,
+    allow_network: bool,
+    report_path: Path | None,
+) -> int:
+    code, payload = _run_smoke_with_metrics(paths, timeout, allow_empty, allow_network)
+
+    if report_path is not None:
+        report_path.parent.mkdir(parents=True, exist_ok=True)
+        report_path.write_text(json.dumps(payload, ensure_ascii=True, indent=2) + "\n", encoding="utf-8")
+
+    failures = payload.get("failures", [])
+    if failures:
+        print("Smoke code example failures detected:")
+        for failure in failures:
+            print(f"- {failure}")
+        return code
+
+    if payload["summary"]["smoke_blocks_total"] == 0 and not allow_empty:
+        print("No smoke-tagged code examples found. Add fenced blocks with a `smoke` tag.")
+        return code
+
+    print("Smoke code examples check passed.")
+    return code
 
 
 def main() -> int:
@@ -509,13 +581,19 @@ def main() -> int:
         action="store_true",
         help="Allow execution of smoke blocks tagged with `network`",
     )
+    parser.add_argument(
+        "--report",
+        default="",
+        help="Optional JSON report output path",
+    )
     args = parser.parse_args()
 
-    return run_smoke(
+    return run_smoke_with_report(
         paths=args.paths,
         timeout=args.timeout,
         allow_empty=args.allow_empty,
         allow_network=args.allow_network,
+        report_path=Path(args.report) if str(args.report).strip() else None,
     )
 
 

@@ -13,12 +13,25 @@ if [[ -f ".env.docsops.local" ]]; then
   set +a
 fi
 
-SANDBOX_BACKEND="${API_FIRST_DEMO_SANDBOX_BACKEND:-docker}"
+USER_SET_SANDBOX_BACKEND="${API_FIRST_DEMO_SANDBOX_BACKEND:-}"
+SANDBOX_BACKEND="${API_FIRST_DEMO_SANDBOX_BACKEND:-}"
 MOCK_BASE_URL="${API_FIRST_DEMO_MOCK_BASE_URL:-}"
 AUTO_PREPARE_EXTERNAL_MOCK="${API_FIRST_DEMO_AUTO_PREPARE_EXTERNAL_MOCK:-true}"
+DEMO_NO_QA_CREDENTIALS="${API_FIRST_DEMO_NO_QA_CREDENTIALS:-false}"
 AUTO_DEPLOY="${API_FIRST_DEMO_AUTO_DEPLOY:-true}"
 DEPLOY_WORKFLOW="${API_FIRST_DEMO_DEPLOY_WORKFLOW:-deploy.yml}"
 DEPLOY_TIMEOUT_SECONDS="${API_FIRST_DEMO_DEPLOY_TIMEOUT_SECONDS:-1800}"
+
+if [[ -z "${SANDBOX_BACKEND}" ]]; then
+  if [[ -n "${POSTMAN_API_KEY:-}" && -n "${POSTMAN_WORKSPACE_ID:-}" ]]; then
+    SANDBOX_BACKEND="external"
+    AUTO_PREPARE_EXTERNAL_MOCK="true"
+    echo "[demo] Auto mode: Postman credentials detected. Using external sandbox with auto-prepare."
+  else
+    SANDBOX_BACKEND="prism"
+    echo "[demo] Auto mode: Postman credentials not detected. Using prism backend (no Docker)."
+  fi
+fi
 
 if [[ "${SANDBOX_BACKEND}" == "external" && "${AUTO_PREPARE_EXTERNAL_MOCK}" != "true" && -z "${MOCK_BASE_URL}" ]]; then
   MOCK_BASE_URL="$(python3 - <<'PY'
@@ -128,6 +141,10 @@ stage "API-FIRST LIVE DEMO: TASKSTREAM"
 say "I will run an end-to-end API-first flow with generation, validation, deployment, and published sandbox verification."
 say "You will see planning notes, OpenAPI generation, contract/lint checks, stub generation, user-path verification, and final MkDocs deployment with a working API sandbox."
 say "Knowledge, glossary, retrieval evals, and JSON-LD graph run as a separate platform layer, not as API page content."
+say "Selected sandbox backend: ${SANDBOX_BACKEND}"
+if [[ "${SANDBOX_BACKEND}" == "external" ]]; then
+  say "External mock auto-prepare: ${AUTO_PREPARE_EXTERNAL_MOCK}"
+fi
 
 stage "INPUT ARTIFACT: PLANNING NOTES PREVIEW"
 say "This is the exact notes format the pipeline consumes."
@@ -213,6 +230,41 @@ else
   say "Stage result: API-first validation flow passed."
 fi
 
+say "Checking MkDocs navigation for API playground page."
+if python3 - <<'PY'
+import yaml
+from pathlib import Path
+
+mk = Path("mkdocs.yml")
+if not mk.exists():
+    raise SystemExit(1)
+cfg = yaml.safe_load(mk.read_text(encoding="utf-8")) or {}
+nav = cfg.get("nav", [])
+target = "reference/taskstream-api-playground.md"
+found = False
+
+def walk(node):
+    global found
+    if isinstance(node, list):
+        for item in node:
+            walk(item)
+    elif isinstance(node, dict):
+        for _, v in node.items():
+            walk(v)
+    elif isinstance(node, str):
+        if node.strip() == target:
+            found = True
+
+walk(nav)
+raise SystemExit(0 if found else 1)
+PY
+then
+  say "MkDocs navigation already includes API playground page."
+else
+  say "MkDocs navigation entry is missing. Adding it automatically."
+  python3 scripts/manage_demo_nav.py --mode add
+fi
+
 stage "STAGE 6/10: GENERATE API TEST ASSETS"
 say "Generating structured API test documentation from OpenAPI for QA tools."
 say "What happens now: test cases, suites, preconditions, steps, expected results, and endpoint traceability are exported."
@@ -226,10 +278,28 @@ say "Stage result: TestRail CSV and Zephyr JSON assets are ready in reports/api-
 stage "STAGE 7/11: UPLOAD TEST ASSETS (OPTIONAL)"
 say "Uploading generated API test assets to TestRail and Zephyr when credentials are configured."
 say "What happens now: uploader checks env flags and either pushes cases via API or marks provider as skipped."
-python3 -u scripts/upload_api_test_assets.py \
-  --cases-json reports/api-test-assets/api_test_cases.json \
-  --report reports/api-test-assets/upload_report.json
-say "Stage result: test management upload step finished (check reports/api-test-assets/upload_report.json)."
+if [[ "${DEMO_NO_QA_CREDENTIALS}" == "true" ]]; then
+  python3 - <<'PY'
+import json
+from pathlib import Path
+
+out = Path("reports/api-test-assets/upload_report.json")
+out.parent.mkdir(parents=True, exist_ok=True)
+payload = {
+    "status": "skipped_by_design",
+    "reason": "API_FIRST_DEMO_NO_QA_CREDENTIALS=true",
+    "message": "Upload intentionally skipped for demo without QA credentials. Test assets are generated and ready for import/upload.",
+}
+out.write_text(json.dumps(payload, ensure_ascii=True, indent=2) + "\n", encoding="utf-8")
+print(str(out))
+PY
+  say "Stage result: upload skipped by design (no QA credentials mode)."
+else
+  python3 -u scripts/upload_api_test_assets.py \
+    --cases-json reports/api-test-assets/api_test_cases.json \
+    --report reports/api-test-assets/upload_report.json
+  say "Stage result: test management upload step finished (check reports/api-test-assets/upload_report.json)."
+fi
 
 stage "STAGE 8/11: MULTI-LANGUAGE EXAMPLES BASELINE"
 say "Generating multilingual examples baseline for API usability."

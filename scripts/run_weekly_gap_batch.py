@@ -189,6 +189,7 @@ def main() -> int:
     git_sync = runtime.get("git_sync", {})
     custom_tasks = runtime.get("custom_tasks", {})
     integrations = runtime.get("integrations", {})
+    finalize_gate = runtime.get("finalize_gate", {})
 
     py = sys.executable
     scripts_dir = docsops_root / "scripts"
@@ -571,6 +572,7 @@ def main() -> int:
                     str(api_cfg.get("openapi_version", "3.0.3")),
                     "--sandbox-backend",
                     str(api_cfg.get("sandbox_backend", "docker")),
+                    "--no-finalize-gate",
                 ]
                 manual_overrides = str(api_cfg.get("manual_overrides_path", "")).strip()
                 if manual_overrides:
@@ -699,6 +701,35 @@ def main() -> int:
             cwd=repo_root,
         )
 
+    audit_scorecard = scripts_dir / "generate_audit_scorecard.py"
+    if audit_scorecard.exists():
+        _run_allow_fail(
+            [
+                py,
+                str(audit_scorecard),
+                "--docs-dir",
+                str(paths.get("docs_root", "docs")),
+                "--reports-dir",
+                str(reports_dir),
+                "--spec-path",
+                str(api_cfg.get("spec_path", "api/openapi.yaml")),
+                "--policy-pack",
+                str(policy_pack_path),
+                "--glossary-path",
+                str(terminology.get("glossary_path", "glossary.yml"))
+                if isinstance(terminology, dict)
+                else "glossary.yml",
+                "--stale-days",
+                str(int(private_tuning.get("weekly_stale_days", 180))),
+                "--auto-run-smoke",
+                "--json-output",
+                str(reports_dir / "audit_scorecard.json"),
+                "--html-output",
+                str(reports_dir / "audit_scorecard.html"),
+            ],
+            cwd=repo_root,
+        )
+
     weekly_tasks = custom_tasks.get("weekly", [])
     if isinstance(weekly_tasks, list):
         for task in weekly_tasks:
@@ -711,6 +742,23 @@ def main() -> int:
                 continue
             continue_on_error = bool(task.get("continue_on_error", True))
             _run_shell(command, cwd=repo_root, continue_on_error=continue_on_error)
+
+    finalize_script = scripts_dir / "finalize_docs_gate.py"
+    finalize_enabled = bool(finalize_gate.get("enabled", True)) if isinstance(finalize_gate, dict) else True
+    if finalize_enabled and finalize_script.exists():
+        finalize_cmd = [
+            py,
+            str(finalize_script),
+            "--docs-root",
+            str(finalize_gate.get("docs_root", paths.get("docs_root", "docs"))) if isinstance(finalize_gate, dict) else str(paths.get("docs_root", "docs")),
+            "--reports-dir",
+            str(finalize_gate.get("reports_dir", reports_dir)) if isinstance(finalize_gate, dict) else str(reports_dir),
+            "--runtime-config",
+            str(runtime_path),
+        ]
+        if isinstance(finalize_gate, dict) and bool(finalize_gate.get("continue_on_error", True)):
+            finalize_cmd.append("--continue-on-error")
+        _run_allow_fail(finalize_cmd, cwd=repo_root)
 
     status_path = reports_dir / "docsops_status.json"
     consolidated_path = reports_dir / "consolidated_report.json"

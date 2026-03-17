@@ -28,6 +28,11 @@ cd "/mnt/c/Users/Kroha/Documents/development/Auto-Doc Pipeline"
 npm run api-first-demo
 ```
 
+Default behavior of `npm run api-first-demo`:
+
+- if `.env.docsops.local` contains valid `POSTMAN_API_KEY` and `POSTMAN_WORKSPACE_ID`, demo auto-selects `external` backend with Postman auto-prepare;
+- otherwise it auto-selects `prism` (no Docker).
+
 For no-Docker/public sandbox mode:
 
 ```bash
@@ -56,6 +61,8 @@ Optional:
 - `POSTMAN_MOCK_SERVER_ID` to reuse an existing mock.
 - `TESTRAIL_UPLOAD_ENABLED=true` + TestRail credentials to auto-push generated test cases.
 - `ZEPHYR_UPLOAD_ENABLED=true` + Zephyr credentials to auto-push generated test cases.
+- `API_FIRST_DEMO_NO_QA_CREDENTIALS=true` to force a clean demo mode:
+  test assets are generated, and upload step is explicitly marked as `skipped_by_design`.
 
 1. While running, narrate the meaning of each stage in short English sentences:
    - Stage 0: planning notes to OpenAPI generation;
@@ -67,9 +74,12 @@ Optional:
    - Stage 9: glossary sync as terminology governance layer;
    - Stage 10: retrieval evals as knowledge-system quality telemetry;
    - Stage 11: JSON-LD knowledge graph generation as separate artifact;
+   - Nav check: verify API playground page is present in `mkdocs.yml`; if missing, add automatically;
    - Stage 12: commit and push generated API-first demo output;
    - Stage 13: wait for successful `deploy.yml` run;
    - Stage 14: verify published MkDocs sandbox page and endpoint wiring.
+1. Do not silently switch backend mid-run. If external/Postman fails, stop and report exact failing stage + error.
+   Switch to `prism` only when user explicitly asks for fallback.
 1. End with:
    - sandbox page URL;
    - deploy success confirmation;
