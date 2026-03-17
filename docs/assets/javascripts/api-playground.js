@@ -63,7 +63,30 @@
     (playgroundConfig.source && playgroundConfig.source.code_first_spec_url) ||
     '/api/openapi-generated.yaml';
 
-  var specUrl = strategy === 'code-first' ? codeFirstSpecUrl : apiFirstSpecUrl;
+  var rawSpecUrl = strategy === 'code-first' ? codeFirstSpecUrl : apiFirstSpecUrl;
+
+  // Resolve spec URL against site base path (handles GitHub Pages subdirectory deploys).
+  // Absolute URLs (https://...) pass through unchanged.
+  // Relative paths are resolved against the site root derived from <link rel="canonical">.
+  var specUrl = (function resolveSpecUrl(raw) {
+    if (/^https?:\/\//.test(raw)) {
+      return raw;
+    }
+    // Derive site root from canonical link (MkDocs Material always emits one)
+    var canonical = document.querySelector('link[rel="canonical"]');
+    if (canonical) {
+      try {
+        var href = canonical.getAttribute('href');
+        // Remove page-specific path segments to get site root
+        // canonical example: https://host/base-path/reference/page-name/
+        // site root: https://host/base-path/
+        var siteRoot = href.replace(/[^/]*\/[^/]*\/?$/, '');
+        var cleanRaw = raw.replace(/^\//, '');
+        return siteRoot + cleanRaw;
+      } catch (e) { /* fall through */ }
+    }
+    return raw;
+  })(rawSpecUrl);
 
   var tryItEnabled = parseBool(
     root.dataset.tryItEnabled !== undefined
