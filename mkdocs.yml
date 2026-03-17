@@ -88,8 +88,8 @@ nav:
   - Configure Ask AI module: how-to/configure-ask-ai-module.md
   - Install Ask AI runtime pack: how-to/install-ask-ai-runtime-pack.md
   - Configure Webhook triggers: how-to/configure-webhook-trigger.md
-    - Run API-first production flow: how-to/run-api-first-production-flow.md
   - Run API-first production flow: how-to/run-api-first-production-flow.md
+  - Set up webhook processing pipeline: en/how-to/set-up-real-time-webhook-processing-pipeline.md
 - Concepts:
   - concepts/index.md
   - Intelligent knowledge system architecture: concepts/intelligent-knowledge-system.md
@@ -97,10 +97,8 @@ nav:
 - Reference:
   - reference/index.md
   - API playground: reference/api-playground.md
-    - TaskStream API planning notes: reference/taskstream-planning-notes.md
-    - TaskStream API playground: reference/taskstream-api-playground.md
-  - TaskStream API playground: reference/taskstream-api-playground.md
   - TaskStream API planning notes: reference/taskstream-planning-notes.md
+  - TaskStream API playground: reference/taskstream-api-playground.md
   - Deprecated examples: reference/deprecated-example.md
   - Intent experiences:
     - reference/intent-experiences/index.md
@@ -135,13 +133,13 @@ extra:
         api_first_spec_url: /api/openapi.yaml
         code_first_spec_url: /api/openapi-generated.yaml
       endpoints:
-        sandbox_base_url: https://sandbox-api.example.com/v1
+        sandbox_base_url: https://06f38cd3-a9a3-41ec-8cb6-75839a2aedea.mock.pstmn.io/v1
         production_base_url: https://api.example.com
   api_playground:
     provider: swagger-ui
     spec_url: /api/openapi.yaml
     try_it_enabled: false
-    sandbox_base_url: https://sandbox-api.example.com/v1
+    sandbox_base_url: https://06f38cd3-a9a3-41ec-8cb6-75839a2aedea.mock.pstmn.io/v1
   tags:
     Tutorial: tutorial
     How-To: how-to
