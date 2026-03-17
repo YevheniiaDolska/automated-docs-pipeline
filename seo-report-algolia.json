@@ -5977,7 +5977,7 @@
       "objectID": "46a19224b117bd2e554fffc15f55da20",
       "title": "API playground",
       "heading": "Playground",
-      "content": "<div   id=\"api-playground-root\"   data-provider=\"{{ config.extra.plg.api_playground.provider }}\"   data-source-strategy=\"{{ config.extra.plg.api_playground.source.strategy }}\"   data-api-first-spec-url=\"{{ config.extra.plg.api_playground.source.api_first_spec_url }}\"   data-code-first-spec-url=\"{{ config.extra.plg.api_playground.source.code_first_spec_url }}\"   data-try-it-enabled=\"{{ config.extra.plg.api_playground.try_it_enabled }}\"   data-try-it-mode=\"{{ config.extra.plg.api_playground.try_it_mode }}\"   data-sandbox-base-url=\"{{ config.extra.plg.api_playground.endpoints.sandbox_base_url }}\"   data-production-base-url=\"{{ config.extra.plg.api_playground.endpoints.production_base_url }}\" ></div> <script>   window.DOCS_PLG_CONFIG = {     mode: '{{ config.extra.plg.mode }}',     approach: '{{ config.extra.plg.approach }}',     api_playground: {       provider: '{{ config.extra.plg.api_playground.provider }}',       try_it_mode: '{{ config.extra.plg.api_playground.try_it_mode }}',       ",
+      "content": "<div   id=\"api-playground-root\"   data-provider=\"{{ config.extra.plg.api_playground.provider }}\"   data-source-strategy=\"{{ config.extra.plg.api_playground.source.strategy }}\"   data-api-first-spec-url=\"{{ config.site_url }}{{ config.extra.plg.api_playground.source.api_first_spec_url }}\"   data-code-first-spec-url=\"{{ config.site_url }}{{ config.extra.plg.api_playground.source.code_first_spec_url }}\"   data-try-it-enabled=\"{{ config.extra.plg.api_playground.try_it_enabled }}\"   data-try-it-mode=\"{{ config.extra.plg.api_playground.try_it_mode }}\"   data-sandbox-base-url=\"{{ config.extra.plg.api_playground.endpoints.sandbox_base_url }}\"   data-production-base-url=\"{{ config.extra.plg.api_playground.endpoints.production_base_url }}\" ></div> <script>   window.DOCS_PLG_CONFIG = {     mode: '{{ config.extra.plg.mode }}',     approach: '{{ config.extra.plg.approach }}',     api_playground: {       provider: '{{ config.extra.plg.api_playground.provider }}',       try_it_mode: '{{ config.extra.",
       "description": "Interactive API reference with Swagger UI or Redoc and configurable sandbox behavior for product-led growth.",
       "product": "both",
       "content_type": "reference",
@@ -6001,7 +6001,7 @@
       "path": "docs/reference/api-playground.md",
       "ranking_boost": 4,
       "heading_level": 2,
-      "word_count": 82,
+      "word_count": 86,
       "has_code": false,
       "code_snippets": []
     },
