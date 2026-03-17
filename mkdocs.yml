@@ -129,14 +129,14 @@ extra:
       try_it_enabled: false
       source:
         strategy: api-first
-        api_first_spec_url: assets/api/openapi.bundled.yaml
+        api_first_spec_url: assets/api/openapi.bundled.json
         code_first_spec_url: assets/api/openapi-generated.yaml
       endpoints:
         sandbox_base_url: https://662b99a9-ac2a-4096-8a8e-480a73cef3e3.mock.pstmn.io/v1
         production_base_url: https://api.example.com
   api_playground:
     provider: swagger-ui
-    spec_url: assets/api/openapi.bundled.yaml
+    spec_url: assets/api/openapi.bundled.json
     try_it_enabled: false
     sandbox_base_url: https://662b99a9-ac2a-4096-8a8e-480a73cef3e3.mock.pstmn.io/v1
   tags:

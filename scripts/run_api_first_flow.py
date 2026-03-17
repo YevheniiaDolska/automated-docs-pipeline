@@ -192,14 +192,19 @@ class _SpecBundler:
 
 
 def bundle_openapi_spec(spec_path: Path, output_path: Path) -> None:
-    """Bundle a split OpenAPI spec with $ref into a single self-contained YAML."""
+    """Bundle a split OpenAPI spec with $ref into single YAML and JSON files."""
     bundler = _SpecBundler()
     bundled = bundler.bundle(spec_path)
     output_path.write_text(
         yaml.safe_dump(bundled, sort_keys=False, allow_unicode=True, width=120),
         encoding="utf-8",
     )
-    print(f"[ok] bundled spec written to {output_path}", flush=True)
+    json_path = output_path.with_suffix(".json")
+    json_path.write_text(
+        json.dumps(bundled, indent=2, ensure_ascii=False),
+        encoding="utf-8",
+    )
+    print(f"[ok] bundled spec written to {output_path} and {json_path}", flush=True)
 
 
 def build_sandbox_page_url(repo: Path, docs_provider: str) -> str:
