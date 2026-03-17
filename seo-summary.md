@@ -1,10 +1,10 @@
 ## SEO/GEO Optimization Report
 
-**Date**: Tue Mar 17 15:57:50 UTC 2026
+**Date**: Tue Mar 17 16:09:33 UTC 2026
 **Branch**: main
 
 ### Findings Summary
-GEO Findings: 0 errors, 25 warnings, 53 suggestions
+GEO Findings: 0 errors, 29 warnings, 53 suggestions
   docs/concepts/index.md:1 [suggestion] seo-low-internal-links: Only 0 internal link(s). Add cross-references to improve SEO link graph.
   docs/concepts/index.md:1 [warning] seo-thin-content: Only 19 words. Pages under 100 words rank poorly.
   docs/concepts/index.md:1 [suggestion] seo-no-structured-data: No code blocks, tables, or lists found. Structured content improves search snippets.
