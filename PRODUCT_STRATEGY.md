@@ -9,7 +9,7 @@ for the three-tier product architecture.
                      Customization
                           ^
                           |
-   Auto-Doc Pipeline      |   Premium consulting ($5K-25K + retainer)
+   VeriOps      |   VeriOps ($5K-25K + retainer)
                           |   For: regulated, complex, multi-repo
                           |
    VeriDoc Enterprise     |   Self-serve maximum ($49/seat/mo)
@@ -43,9 +43,9 @@ Runs in cloud with optional local mode.
 - **Revenue model:** seat-based subscription
 - **Value:** recurring revenue, large customer base, upsell funnel for premium
 
-### Auto-Doc Pipeline
+### VeriOps
 
-Premium consulting engagement. Full customization, local deployment, dedicated support.
+VeriOps engagement. Full customization, local deployment, dedicated support.
 
 - **Role:** high-touch revenue, case studies, credibility
 - **Revenue model:** project-based + monthly retainer
@@ -53,7 +53,7 @@ Premium consulting engagement. Full customization, local deployment, dedicated s
 
 ## Feature matrix by tier
 
-| Feature | Free | Pro $15 | Team $15/seat | Business $29/seat | Enterprise $49/seat | Premium consulting |
+| Feature | Free | Pro $15 | Team $15/seat | Business $29/seat | Enterprise $49/seat | VeriOps |
 | --- | --- | --- | --- | --- | --- | --- |
 | Git operations + NL interface | Y | Y | Y | Y | Y | Y |
 | Basic docs generation (README, changelog) | Y | Y | Y | Y | Y | Y |
@@ -95,7 +95,7 @@ Premium consulting engagement. Full customization, local deployment, dedicated s
 
 ### What Enterprise SaaS never gets
 
-These features remain exclusive to Premium consulting:
+These features remain exclusive to VeriOps:
 
 1. **Client bundle builder** — custom docsops/ directory generation for client repos.
 1. **Custom CLAUDE.md/AGENTS.md** — tailored agent contracts per client.
@@ -137,7 +137,7 @@ Atlassian is pushing Server/Data Center customers to Cloud. Many teams are dissa
 - Familiar editing experience through WYSIWYG + Markdown.
 - Lower total cost of ownership than Confluence Cloud.
 
-**Auto-Doc Pipeline** captures enterprise exodus:
+**VeriOps** captures enterprise exodus:
 
 - Full migration service with quality audit.
 - Content restructuring during migration.
@@ -167,7 +167,7 @@ Confluence user dissatisfied
     Needs: custom policies, on-prem, multi-repo fleet
         |
         v
-    Enterprise SaaS or Premium consulting engagement
+    Enterprise SaaS or VeriOps engagement
 ```
 
 ## Scaling model
@@ -307,7 +307,7 @@ high-value -- typically pre-IPO or post-acquisition documentation overhauls.
 
 - Premium clients generate case studies and testimonials.
 - Premium success stories drive SaaS adoption.
-- Premium consulting surfaces feature requests for SaaS roadmap.
+- VeriOps surfaces feature requests for SaaS roadmap.
 
 ### SaaS protects Premium
 
@@ -317,12 +317,12 @@ high-value -- typically pre-IPO or post-acquisition documentation overhauls.
 
 ## Technical sync rules
 
-### What flows from Auto-Doc Pipeline to VeriDoc
+### What flows from VeriOps to VeriDoc
 
 All scripts in `scripts/` are synced to `git_wrapper/scripts/`. The docs pipeline
 modules in `packages/core/gitspeak_core/docs/` wrap these scripts for the SaaS context.
 
-### What stays exclusive to Auto-Doc Pipeline
+### What stays exclusive to VeriOps
 
 - `profiles/clients/` — client-specific configuration profiles.
 - `instructions/llm_plans/` — tier-specific agent instructions for client repos.
@@ -331,9 +331,9 @@ modules in `packages/core/gitspeak_core/docs/` wrap these scripts for the SaaS c
 
 ### Sync cadence
 
-When a new feature is added to Auto-Doc Pipeline:
+When a new feature is added to VeriOps:
 
-1. Implement and test in Auto-Doc Pipeline.
+1. Implement and test in VeriOps.
 1. Copy the script to `git_wrapper/scripts/`.
 1. Add wrapper module in `gitspeak_core/docs/` if needed.
 1. Add feature gate in `gitspeak_core/saas/` for the correct tier.

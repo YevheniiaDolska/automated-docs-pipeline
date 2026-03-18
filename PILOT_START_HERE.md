@@ -1,6 +1,6 @@
 # Start a 10-14 day pilot of this pipeline
 
-This guide walks you through a focused 10-14 calendar day pilot (typically 5-10 business days) of the Auto-Doc Pipeline on your own repository. By the end, you have working quality gates, automated weekly reporting, and generated documentation.
+This guide walks you through a focused 10-14 calendar day pilot (typically 5-10 business days) of the VeriOps on your own repository. By the end, you have working quality gates, automated weekly reporting, and generated documentation.
 
 ## Prerequisites
 
@@ -8,11 +8,11 @@ You need Git, Node.js 18+, Python 3.11+, and npm installed. On Windows, use `py 
 
 ## Step 1: Fork the repository
 
-Fork or clone the Auto-Doc Pipeline repository:
+Fork or clone the VeriOps repository:
 
 ```bash
 git clone <your-fork-url>
-cd "Auto-Doc Pipeline"
+cd "VeriOps"
 python3 -m pip install -r requirements.txt
 npm install
 ```

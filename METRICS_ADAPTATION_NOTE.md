@@ -1,6 +1,6 @@
 # How to adapt KPI metrics for different products
 
-Each product has different documentation requirements. The Auto-Doc Pipeline provides configurable policy packs, staleness thresholds, interface patterns, and quality score targets that you adjust to match your team and product.
+Each product has different documentation requirements. The VeriOps provides configurable policy packs, staleness thresholds, interface patterns, and quality score targets that you adjust to match your team and product.
 
 ## Customize policy packs
 

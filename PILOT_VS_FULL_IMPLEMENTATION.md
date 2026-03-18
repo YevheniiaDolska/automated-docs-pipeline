@@ -1,6 +1,6 @@
 # Pilot vs full implementation
 
-This document compares the two delivery modes for the Auto-Doc Pipeline. Both use the same codebase. The difference is configuration scope and team involvement.
+This document compares the two delivery modes for the VeriOps. Both use the same codebase. The difference is configuration scope and team involvement.
 
 ## Comparison table
 

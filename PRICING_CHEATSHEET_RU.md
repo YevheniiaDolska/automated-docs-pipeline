@@ -1,4 +1,4 @@
-# Auto-Doc Pipeline - Pricing Cheatsheet (RU)
+# VeriOps - Pricing Cheatsheet (RU)
 
 Короткая шпаргалка, чтобы быстро ориентироваться в ценах и составе работ.
 

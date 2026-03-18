@@ -1,4 +1,4 @@
-# Auto-Doc Pipeline
+# VeriOps
 
 An automated documentation operations system for technical products.
 

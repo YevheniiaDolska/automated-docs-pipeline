@@ -2,7 +2,7 @@
 
 ## What you get
 
-This pilot is a focused 10-14 calendar day engagement (typically 5-10 business days) that installs the Auto-Doc Pipeline on your real repository and delivers measurable results. This is not a demo. You receive a working system, generated documentation, and data that proves the value.
+This pilot is a focused 10-14 calendar day engagement (typically 5-10 business days) that installs the VeriOps on your real repository and delivers measurable results. This is not a demo. You receive a working system, generated documentation, and data that proves the value.
 
 ## Deliverables
 

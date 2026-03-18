@@ -1,6 +1,6 @@
 ---
-title: "Auto-Doc Pipeline quick start"
-description: "Set up the Auto-Doc Pipeline in minutes, run gap analysis, and generate documentation with validation-ready commands."
+title: "VeriOps quick start"
+description: "Set up the VeriOps in minutes, run gap analysis, and generate documentation with validation-ready commands."
 content_type: tutorial
 product: both
 tags:
@@ -11,7 +11,7 @@ last_reviewed: "2026-03-07"
 
 # Quick start (5 minutes)
 
-This tutorial shows you how to install the Auto-Doc Pipeline, enable smooth weekly automation,
+This tutorial shows you how to install the VeriOps, enable smooth weekly automation,
 and produce docs updates that pass validation checks.
 
 ## Prerequisites
@@ -34,7 +34,7 @@ If anything is missing:
 
 ```bash
 git clone <repo-url>
-cd "Auto-Doc Pipeline"
+cd "VeriOps"
 npm install
 pip install -r requirements.txt
 ```

@@ -1,6 +1,6 @@
 ---
-title: "Auto-Doc Pipeline implementation summary"
-description: "Review the implemented architecture, scripts, templates, workflows, and policy packs in the Auto-Doc Pipeline."
+title: "VeriOps implementation summary"
+description: "Review the implemented architecture, scripts, templates, workflows, and policy packs in the VeriOps."
 content_type: reference
 product: both
 tags:
@@ -11,7 +11,7 @@ last_reviewed: "2026-03-07"
 
 # Implementation summary
 
-This reference summarizes what the Auto-Doc Pipeline currently implements across validation,
+This reference summarizes what the VeriOps currently implements across validation,
 gap detection, reporting, generation, and governance.
 
 ## Architecture

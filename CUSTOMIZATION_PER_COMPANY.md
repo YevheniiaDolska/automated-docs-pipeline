@@ -1,6 +1,6 @@
 # Customizing the pipeline per company
 
-This guide covers every customization point when adapting the Auto-Doc Pipeline for a specific company or product.
+This guide covers every customization point when adapting the VeriOps for a specific company or product.
 
 ## Variables customization
 

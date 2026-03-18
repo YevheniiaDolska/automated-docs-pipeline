@@ -1,6 +1,6 @@
 ---
 title: "Upsell Sales Playbook"
-description: "A practical, high-conversion upsell playbook for moving Auto-Doc Pipeline clients from pilot to rollout to retainer."
+description: "A practical, high-conversion upsell playbook for moving VeriOps clients from pilot to rollout to retainer."
 content_type: reference
 product: both
 last_reviewed: "2026-03-16"
@@ -13,7 +13,7 @@ tags:
 
 # Upsell Sales Playbook
 
-This playbook is the operating system for expanding accounts with Auto-Doc Pipeline.
+This playbook is the operating system for expanding accounts with VeriOps.
 It is built around one commercial path:
 
 Pilot -> Full Rollout -> Monthly Retainer
@@ -22,7 +22,7 @@ Use this document to qualify, position, propose, close, and expand with consiste
 
 ## 1) Positioning in one sentence
 
-Auto-Doc Pipeline turns documentation from manual overhead into a measurable operating system with quality gates, drift protection, and weekly automation.
+VeriOps turns documentation from manual overhead into a measurable operating system with quality gates, drift protection, and weekly automation.
 
 ## 2) Ideal customer profile (ICP)
 

@@ -1,6 +1,6 @@
 # Full implementation start here
 
-This guide is the exact order of actions for deploying the Auto-Doc Pipeline to a production repository. It covers installation, client profile provisioning, automation scheduling, CI setup (optional compatibility), consolidated reporting, and team onboarding.
+This guide is the exact order of actions for deploying the VeriOps to a production repository. It covers installation, client profile provisioning, automation scheduling, CI setup (optional compatibility), consolidated reporting, and team onboarding.
 
 For deeper detail on each area, see:
 

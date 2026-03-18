@@ -1,10 +1,10 @@
 # How to customize the README for your project
 
-When you fork or install the Auto-Doc Pipeline into a new repository, update the README to reflect your product. This guide covers what to change.
+When you fork or install the VeriOps into a new repository, update the README to reflect your product. This guide covers what to change.
 
 ## Replace product names
 
-Search for "Auto-Doc Pipeline" and replace with your product documentation name. Update these fields in the README:
+Search for "VeriOps" and replace with your product documentation name. Update these fields in the README:
 
 - Project title and description.
 - Any references to the pipeline name in badges or links.

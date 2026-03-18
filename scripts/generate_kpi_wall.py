@@ -809,7 +809,7 @@ def render_dashboard_html(metrics: KpiMetrics) -> str:
 
     <!-- Footer -->
     <div class="footer">
-      <div>Auto-Doc Pipeline &mdash; Documentation Operations System</div>
+      <div>VeriOps &mdash; Documentation Operations System</div>
       <div>Generated automatically by CI/CD</div>
     </div>
 

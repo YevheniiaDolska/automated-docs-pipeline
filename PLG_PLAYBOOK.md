@@ -1,6 +1,6 @@
 # PLG documentation playbook
 
-Product-led growth (PLG) documentation helps users activate themselves without talking to a salesperson. This playbook covers how the Auto-Doc Pipeline supports PLG documentation through dedicated templates, a strict policy pack, and consolidated reporting.
+Product-led growth (PLG) documentation helps users activate themselves without talking to a salesperson. This playbook covers how the VeriOps supports PLG documentation through dedicated templates, a strict policy pack, and consolidated reporting.
 
 ## PLG policy pack thresholds
 

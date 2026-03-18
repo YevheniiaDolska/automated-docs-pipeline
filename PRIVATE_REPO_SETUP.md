@@ -1,6 +1,6 @@
 # Private repository setup
 
-The Auto-Doc Pipeline works in private GitHub repositories with minimal additional configuration. This guide covers repository settings, secrets, workflow permissions, Algolia with a private index, and local-only AI processing.
+The VeriOps works in private GitHub repositories with minimal additional configuration. This guide covers repository settings, secrets, workflow permissions, Algolia with a private index, and local-only AI processing.
 
 ## GitHub Actions permissions
 

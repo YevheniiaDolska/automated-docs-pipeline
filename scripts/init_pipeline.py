@@ -387,7 +387,7 @@ def run_initial_validation(target_dir, generator="mkdocs"):
 
 def main():
     parser = argparse.ArgumentParser(
-        description="Initialize Auto-Doc Pipeline in your project",
+        description="Initialize VeriOps in your project",
         formatter_class=argparse.RawDescriptionHelpFormatter,
         epilog="""
 Examples:
@@ -484,7 +484,7 @@ Examples:
     step = 0
 
     print("=" * 60)
-    print(f"  Auto-Doc Pipeline Initializer")
+    print(f"  VeriOps Initializer")
     print(f"  Product:   {args.product_name}")
     print(f"  Generator: {args.generator}")
     print(f"  Target:    {target_dir}")

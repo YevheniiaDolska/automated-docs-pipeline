@@ -1,6 +1,6 @@
 ---
 title: "US Commercial One-Pager"
-description: "Service offer for Auto-Doc Pipeline: pilot, rollout, and retainer terms for US clients."
+description: "Service offer for VeriOps: pilot, rollout, and retainer terms for US clients."
 content_type: reference
 product: both
 last_reviewed: "2026-03-15"
@@ -10,13 +10,13 @@ tags:
   - Operations
 ---
 
-# Auto-Doc Pipeline
+# VeriOps
 
 ## US Commercial One-Pager (Pilot -> Rollout -> Retainer)
 
 ### 1) What this is
 
-Auto-Doc Pipeline is a documentation operations system for product teams.
+VeriOps is a documentation operations system for product teams.
 It reduces manual documentation work, adds quality gates, and keeps docs aligned
 with code, APIs, and release changes.
 
