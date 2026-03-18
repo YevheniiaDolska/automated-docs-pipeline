@@ -9,21 +9,37 @@ for the three-tier product architecture.
                      Customization
                           ^
                           |
-   VeriOps      |   VeriOps ($5K-25K + retainer)
+   VeriOps                |   Done-for-you service ($5K-25K + retainer)
                           |   For: regulated, complex, multi-repo
+                          |   Includes VeriDoc licenses for client team
                           |
-   VeriDoc Enterprise     |   Self-serve maximum ($49/seat/mo)
-   ($49/seat/mo)          |   For: mature teams who want full control
+   VeriDoc Enterprise     |   Self-serve full ($199/repo/mo, unlimited repos)
+                          |   For: mature teams, full feature parity
                           |
-   VeriDoc Business       |   Automation tier ($29/seat/mo)
-   ($29/seat/mo)          |   For: growing teams, CI gates, KPI
+   VeriDoc Business       |   Multi-repo automation ($99/repo/mo, 10 repos)
+                          |   For: growing teams, API-first, CI gates
                           |
-   VeriDoc Team/Pro       |   Entry tier ($15/seat/mo)
-   ($15/seat/mo)          |   For: startups, solo devs
+   VeriDoc Pro            |   Single-product ($49/repo/mo, 3 repos)
+                          |   For: startups, solo devs, power users
+                          |
+   VeriDoc Free           |   1 repo, basic linters, badge
+                          |   For: evaluation, open-source projects
                           |
                           +-------------------------------------> Scale
                      1 client                           10,000+ clients
 ```
+
+**Pricing model: per-repo, not per-seat.**
+
+One tech writer can manage docs for an entire team. Charging per-seat penalizes
+small teams. Per-repo naturally scales with company size: more products = more repos
+= higher plan. Team collaboration seats are an optional $15/seat/mo add-on.
+
+**Team packs for collaboration add-on:**
+
+- 5 seats: $59/mo (save 20%)
+- 10 seats: $99/mo (save 34%)
+- 20 seats: $179/mo (save 40%)
 
 ### docsops-core
 
@@ -40,85 +56,120 @@ SaaS product for mass market. Self-serve onboarding, Web UI, API, billing.
 Runs in cloud with optional local mode.
 
 - **Role:** scalable revenue engine
-- **Revenue model:** seat-based subscription
-- **Value:** recurring revenue, large customer base, upsell funnel for premium
+- **Revenue model:** per-repo subscription + optional team seat add-ons
+- **Value:** recurring revenue, large customer base, upsell funnel for VeriOps
 
 ### VeriOps
 
-VeriOps engagement. Full customization, local deployment, dedicated support.
+Done-for-you documentation operations service. Same automation engine as VeriDoc,
+deployed on client infrastructure with custom configuration, training, and retainer.
 
 - **Role:** high-touch revenue, case studies, credibility
-- **Revenue model:** project-based + monthly retainer
+- **Revenue model:** project-based ($5K-25K) + monthly retainer ($1,500-6,000)
 - **Value:** high margin, deep customer relationships, reference accounts
+- **Key difference from VeriDoc:** not functionality, but delivery model.
+  VeriOps clients pay for a human who sets up, trains, and maintains. VeriDoc
+  clients get the same features but configure and manage themselves.
 
 ## Feature matrix by tier
 
-| Feature | Free | Pro $15 | Team $15/seat | Business $29/seat | Enterprise $49/seat | VeriOps |
-| --- | --- | --- | --- | --- | --- | --- |
-| Git operations + NL interface | Y | Y | Y | Y | Y | Y |
-| Basic docs generation (README, changelog) | Y | Y | Y | Y | Y | Y |
-| Markdownlint + style linting | - | Y | Y | Y | Y | Y |
-| Vale integration (Google style guide) | - | Y | Y | Y | Y | Y |
-| Frontmatter validation | - | Y | Y | Y | Y | Y |
-| SEO/GEO optimization (24 checks) | - | view | auto-fix | auto-fix | auto-fix | auto-fix + custom rules |
-| Docs normalization | - | - | Y | Y | Y | Y |
-| Multi-language code tabs | - | - | Y | Y | Y | Y |
-| Gap analysis (community + code) | - | - | Y | Y | Y | Y |
-| Glossary sync | - | - | Y | Y | Y | Y |
-| Code example smoke tests | - | - | Y | Y | Y | Y |
-| Lifecycle management | - | - | Y | Y | Y | Y |
-| API-first flow (OpenAPI generation) | - | - | - | Y | Y | Y |
-| API contract validation + Spectral | - | - | - | Y | Y | Y |
-| API sandbox (Prism/external mock) | - | - | - | Y | Y | Y |
-| API playground (Swagger UI) | - | - | - | Y | Y | Y |
-| Drift detection (API/SDK) | - | - | - | Y | Y | Y |
-| Docs-in-PR contract | - | - | - | Y | Y | Y |
-| KPI wall + SLA dashboard | - | - | - | Y | Y | Y |
-| Test assets generation + smart merge | - | - | - | Y | Y | Y |
-| Consolidated reports | - | - | - | Y | Y | Y |
-| Knowledge modules extraction | - | - | - | - | Y | Y |
-| Knowledge graph (JSON-LD) | - | - | - | - | Y | Y |
-| Retrieval evals | - | - | - | - | Y | Y |
-| i18n system (sync + translate) | - | - | - | - | Y | Y |
-| Custom policy packs | - | - | - | - | Y | Y |
-| TestRail/Zephyr upload | - | - | - | - | Y | Y |
-| Confluence migration tools | - | - | - | - | Y | Y |
-| On-premises deployment | - | - | - | - | Y | Y |
-| Client bundle builder | - | - | - | - | - | Y |
-| Custom CLAUDE.md generation | - | - | - | - | - | Y |
-| Dedicated handover sessions | - | - | - | - | - | Y |
-| Custom gate/policy creation | - | - | - | - | - | Y |
-| Retainer with response SLA | - | - | - | - | - | Y |
-| Team training sessions | - | - | - | - | - | Y |
+| Feature | Free (1 repo) | Pro $49/mo (3 repos) | Business $99/mo (10 repos) | Enterprise $199/mo (unlimited) | VeriOps (done-for-you) |
+| --- | --- | --- | --- | --- | --- |
+| Git operations + NL interface | Y | Y | Y | Y | Y |
+| Basic docs generation (README, changelog) | Y | Y | Y | Y | Y |
+| Markdownlint + style linting | - | Y | Y | Y | Y |
+| Vale integration (Google style guide) | - | Y | Y | Y | Y |
+| Frontmatter validation | - | Y | Y | Y | Y |
+| SEO/GEO optimization (24 checks) | - | auto-fix | auto-fix | auto-fix | auto-fix + custom rules |
+| Gap analysis (community + code) | - | Y | Y | Y | Y |
+| Glossary sync | - | Y | Y | Y | Y |
+| Code example smoke tests | - | Y | Y | Y | Y |
+| Lifecycle management | - | Y | Y | Y | Y |
+| Docs normalization | - | Y | Y | Y | Y |
+| Multi-language code tabs | - | Y | Y | Y | Y |
+| API-first flow (OpenAPI generation) | - | - | Y | Y | Y |
+| API contract validation + Spectral | - | - | Y | Y | Y |
+| API sandbox (Prism/external mock) | - | - | Y | Y | Y |
+| API playground (Swagger UI) | - | - | Y | Y | Y |
+| Drift detection (API/SDK) | - | - | Y | Y | Y |
+| Docs-in-PR contract | - | - | Y | Y | Y |
+| KPI wall + SLA dashboard | - | - | Y | Y | Y |
+| Test assets generation + smart merge | - | - | Y | Y | Y |
+| Consolidated reports | - | - | Y | Y | Y |
+| Knowledge modules extraction | - | - | - | Y | Y |
+| Knowledge graph (JSON-LD) | - | - | - | Y | Y |
+| Retrieval evals | - | - | - | Y | Y |
+| i18n system (sync + translate) | - | - | - | Y | Y |
+| Custom policy packs | - | - | - | Y | Y |
+| TestRail/Zephyr upload | - | - | - | Y | Y |
+| Confluence migration tools | - | - | - | Y | Y |
+| On-premises deployment | - | - | - | Y | Y |
+| SSO + audit logs | - | - | Y | Y | Y |
+| API access | - | - | Y | Y | Y |
+| Client bundle builder | - | - | - | - | Y |
+| Custom CLAUDE.md generation | - | - | - | - | Y |
+| Dedicated handover sessions | - | - | - | - | Y |
+| Custom gate/policy creation | - | - | - | - | Y |
+| Retainer with response SLA | - | - | - | - | Y |
+| Team training sessions | - | - | - | - | Y |
+| VeriDoc licenses included | - | - | - | - | Y |
+
+**Note:** VeriDoc Enterprise has full feature parity with VeriOps automation.
+The difference is delivery: Enterprise is self-service, VeriOps is done-for-you.
+VeriOps exclusive items (bottom 7 rows) are services, not software features.
 
 ## Anti-cannibalization rules
 
-### What Enterprise SaaS never gets
+### Why VeriDoc and VeriOps do not cannibalize each other
 
-These features remain exclusive to VeriOps:
+The difference is **delivery model**, not functionality. VeriDoc Enterprise
+has full feature parity with VeriOps automation. Clients self-sort:
+
+- **Tech-savvy teams** with docs culture buy VeriDoc Enterprise ($199/mo).
+  They configure it themselves, use docs and tutorials, submit support tickets.
+  Zero operator time required.
+- **Teams without docs culture** buy VeriOps ($5K-25K + retainer). They need
+  a human to set up, train, and maintain. Self-service for them means "bought,
+  never configured, abandoned." They pay for results, not software.
+
+This is the Salesforce model: same product, but some buy licenses and self-manage,
+others pay Accenture $500K to configure it. Both are valid, non-competing segments.
+
+### What VeriOps delivers beyond VeriDoc Enterprise
+
+These are **services**, not software features:
 
 1. **Client bundle builder** — custom docsops/ directory generation for client repos.
 1. **Custom CLAUDE.md/AGENTS.md** — tailored agent contracts per client.
 1. **Dedicated handover sessions** — live training and knowledge transfer.
-1. **Custom gate creation** — bespoke quality gates beyond standard policy packs.
-1. **Response SLA retainer** — guaranteed response time for support.
+1. **Custom gate creation** — bespoke quality gates built for specific compliance needs.
+1. **Response SLA retainer** — guaranteed 4-48 hour response time.
 1. **Multi-repo fleet orchestration** — coordinated pipeline across 3+ repos.
+1. **VeriDoc licenses included** — client team gets VeriDoc access as part of the package.
 
-### When a customer chooses Premium over Enterprise SaaS
+### When a customer chooses VeriOps
 
 - Data cannot leave their infrastructure (banks, healthcare, defense).
-- Need custom gates or policies not available in SaaS.
-- Want team training and handover.
+- Docs are in chaos, no docs culture, no dedicated person.
+- Need custom gates or compliance policies built from scratch.
+- Want team training and live handover sessions.
 - Multi-repo with non-standard infrastructure.
 - Regulatory compliance requires on-site audit trail.
+- Pre-IPO or post-acquisition documentation overhaul.
 
-### When a customer chooses Enterprise SaaS over Premium
+### When a customer chooses VeriDoc Enterprise
 
-- Do not want to wait for a consulting engagement.
-- Budget is seat-based, not project-based.
-- Standard requirements, no deep customization needed.
+- Strong internal docs culture, technical team can self-manage.
 - Want to start today, not in two weeks.
-- Internal team can self-manage after initial setup.
+- Standard requirements, no deep customization needed.
+- Budget is per-repo, not project-based.
+
+### Natural upsell path
+
+VeriDoc Enterprise at 20+ repos ($199/mo = $2,388/year) starts to feel limited
+compared to VeriOps ($15K implementation + $1,500/mo retainer = $33K/year) which
+provides hands-on support plus local pipeline deployment on client infrastructure.
+Companies naturally upgrade when they outgrow self-serve.
 
 ## Confluence exit opportunity
 
@@ -189,11 +240,10 @@ Confluence user dissatisfied
 ## Upsell paths
 
 ```text
-Free -> Pro: "Unlock style linting and frontmatter validation"
-Pro -> Team: "Add SEO/GEO, gap analysis, and collaboration"
-Team -> Business: "Add API-first, drift detection, and KPI dashboard"
-Business -> Enterprise: "Add knowledge system, i18n, custom policies"
-Enterprise -> Premium: "Need custom setup, training, or fleet management?"
+Free -> Pro: "Unlock style linting, SEO/GEO, gap analysis, and lifecycle management"
+Pro -> Business: "Add API-first, drift detection, KPI dashboard, and CI gates"
+Business -> Enterprise: "Add knowledge system, i18n, custom policies, and on-prem"
+Enterprise -> VeriOps: "Need custom setup, training, or fleet management?"
 ```
 
 ## Premium retainer tiers
