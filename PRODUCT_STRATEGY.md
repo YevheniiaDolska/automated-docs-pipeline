@@ -196,6 +196,111 @@ Business -> Enterprise: "Add knowledge system, i18n, custom policies"
 Enterprise -> Premium: "Need custom setup, training, or fleet management?"
 ```
 
+## Premium retainer tiers
+
+After the initial project engagement ($5K-25K setup), clients transition to a monthly
+retainer for ongoing docs operations support. Three tiers based on involvement depth:
+
+### Retainer Lite ($1,500/month)
+
+**Docs health monitoring** -- analogous to DevOps infrastructure monitoring.
+
+Scope:
+
+- Weekly review of `consolidated_report.json` (gaps, drift, KPI, SLA).
+- Monitor KPI drift: quality score drops, new gaps, staleness growth.
+- Generate fixes for routine issues (stale docs, minor drift).
+- Provide recommendations for non-trivial issues requiring team input.
+- Monthly health summary report with trends.
+
+Deliverables:
+
+- Up to 8 hours/month of active work.
+- Response within 48 hours on routine issues.
+- Monthly health report email.
+
+Best fit: teams that completed initial setup and can self-manage day-to-day,
+but want a safety net and ongoing quality assurance.
+
+### Retainer Growth ($3,000/month)
+
+**Monitoring + expansion** -- everything in Lite plus proactive growth work.
+
+Scope:
+
+- Everything in Retainer Lite.
+- Expand pipeline to new repositories (up to 2 new repos/month).
+- Configure and maintain i18n system for new locales.
+- Build and update knowledge/RAG layer (knowledge modules, retrieval evals).
+- Update policy packs when product or compliance requirements change.
+- Quarterly pipeline audit and optimization.
+
+Deliverables:
+
+- Up to 20 hours/month of active work.
+- Response within 24 hours.
+- Quarterly audit report with pipeline improvements.
+
+Best fit: growing companies adding new products, entering new markets (i18n),
+or building out their knowledge management layer.
+
+### Retainer Critical ($6,000/month)
+
+**Acting Head of Docs Operations** -- full operational ownership.
+
+Scope:
+
+- Everything in Retainer Growth.
+- Full operational ownership of the documentation pipeline.
+- Decide what to generate, when to update, and how to prioritize.
+- Maintain and evolve pipeline infrastructure (scripts, templates, configs).
+- Own KPI SLA compliance: responsible for meeting quality targets.
+- Manage template library and update templates as product evolves.
+- Coordinate with engineering on API-first flow and drift resolution.
+- Attend weekly standups or async updates with engineering leads.
+- Train new team members on pipeline operations.
+
+Deliverables:
+
+- Up to 40 hours/month (effectively part-time embedded role).
+- Response within 4 hours during business hours.
+- Weekly status report and KPI dashboard update.
+- Direct Slack/Teams channel access.
+
+Best fit: companies without a dedicated docs lead, companies going through
+rapid growth or product launches, regulated industries requiring continuous
+compliance monitoring.
+
+### Retainer tier comparison
+
+| Aspect | Lite $1,500/mo | Growth $3,000/mo | Critical $6,000/mo |
+| --- | --- | --- | --- |
+| Hours/month | Up to 8 | Up to 20 | Up to 40 |
+| Response time | 48 hours | 24 hours | 4 hours (business) |
+| Weekly report review | Y | Y | Y |
+| Fix generation | Routine only | Routine + expansion | Full ownership |
+| New repo expansion | - | Up to 2/month | Unlimited |
+| i18n setup | - | Y | Y |
+| Knowledge/RAG layer | - | Y | Y |
+| Policy pack updates | - | Y | Y |
+| Pipeline maintenance | - | - | Y |
+| Template evolution | - | - | Y |
+| KPI SLA ownership | - | - | Y |
+| Team training | - | - | Y |
+| Direct channel access | - | - | Y |
+
+### Retainer revenue model
+
+Retainers are the most predictable revenue stream. Expected progression:
+
+- Year 1: 5-10 active retainers (mix of Lite and Growth) = $90K-270K ARR.
+- Year 2: 15-25 retainers + 2-5 Critical = $270K-750K ARR.
+- Year 3: 30-50 retainers via partners = $540K-1.5M ARR.
+
+Most clients start at Lite after project completion. Upsell to Growth happens
+when they add new repos or enter new markets. Critical is rare but
+high-value -- typically pre-IPO or post-acquisition documentation overhauls.
+
 ## Revenue protection
 
 ### Premium protects SaaS
