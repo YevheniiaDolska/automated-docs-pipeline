@@ -1,97 +1,43 @@
 openapi: 3.0.3
 info:
-  title: API Project Public API
-  version: v1
-  description: API-first contract generated from planning notes for API Project.
+  title: Acme API
+  description: API contract used by Acme demo sandbox and interactive Swagger.
+  version: 1.0.0
+  contact:
+    name: Acme API Support
+    email: support@acme.example
 servers:
-- url: https://api.taskstream.example.com/v1
-security:
-- BearerAuth: []
+  - url: https://api.acme.example/v1
 paths:
-  /comments/{comment_id}:
-    $ref: ./taskstream/v1/paths/comments.yaml#/~1comments~1{comment_id}
   /projects:
-    $ref: ./taskstream/v1/paths/projects.yaml#/~1projects
-  /projects/{project_id}:
-    $ref: ./taskstream/v1/paths/projects.yaml#/~1projects~1{project_id}
-  /projects/{project_id}/archive:
-    $ref: ./taskstream/v1/paths/projects.yaml#/~1projects~1{project_id}~1archive
-  /projects/{project_id}/restore:
-    $ref: ./taskstream/v1/paths/projects.yaml#/~1projects~1{project_id}~1restore
-  /tags:
-    $ref: ./taskstream/v1/paths/tags.yaml#/~1tags
-  /tags/{tag_id}:
-    $ref: ./taskstream/v1/paths/tags.yaml#/~1tags~1{tag_id}
-  /tasks:
-    $ref: ./taskstream/v1/paths/tasks.yaml#/~1tasks
-  /tasks/{task_id}:
-    $ref: ./taskstream/v1/paths/tasks.yaml#/~1tasks~1{task_id}
-  /tasks/{task_id}/comments:
-    $ref: ./taskstream/v1/paths/comments.yaml#/~1tasks~1{task_id}~1comments
-  /tasks/{task_id}/complete:
-    $ref: ./taskstream/v1/paths/tasks.yaml#/~1tasks~1{task_id}~1complete
-  /tasks/{task_id}/reopen:
-    $ref: ./taskstream/v1/paths/tasks.yaml#/~1tasks~1{task_id}~1reopen
-  /tasks/{task_id}/tags/{tag_id}:
-    $ref: ./taskstream/v1/paths/tags.yaml#/~1tasks~1{task_id}~1tags~1{tag_id}
-  /users:
-    $ref: ./taskstream/v1/paths/users.yaml#/~1users
-  /users/me:
-    $ref: ./taskstream/v1/paths/users.yaml#/~1users~1me
-  /users/{user_id}:
-    $ref: ./taskstream/v1/paths/users.yaml#/~1users~1{user_id}
-  /users/{user_id}/tasks:
-    $ref: ./taskstream/v1/paths/users.yaml#/~1users~1{user_id}~1tasks
+    get:
+      summary: List projects
+      description: Returns all projects available to the caller.
+      operationId: listProjects
+      tags:
+        - Projects
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProjectsList'
 components:
-  securitySchemes:
-    BearerAuth:
-      type: http
-      scheme: bearer
-      bearerFormat: JWT
-  parameters:
-    RequestId:
-      $ref: ./taskstream/v1/components/parameters/common.yaml#/RequestId
-    IdempotencyKey:
-      $ref: ./taskstream/v1/components/parameters/common.yaml#/IdempotencyKey
-    Limit:
-      $ref: ./taskstream/v1/components/parameters/common.yaml#/Limit
-    Cursor:
-      $ref: ./taskstream/v1/components/parameters/common.yaml#/Cursor
-    ProjectId:
-      $ref: ./taskstream/v1/components/parameters/common.yaml#/ProjectId
-    TaskId:
-      $ref: ./taskstream/v1/components/parameters/common.yaml#/TaskId
-    CommentId:
-      $ref: ./taskstream/v1/components/parameters/common.yaml#/CommentId
-    TagId:
-      $ref: ./taskstream/v1/components/parameters/common.yaml#/TagId
-    UserId:
-      $ref: ./taskstream/v1/components/parameters/common.yaml#/UserId
-  responses:
-    Error400:
-      $ref: ./taskstream/v1/components/responses/common.yaml#/Error400
-    Error401:
-      $ref: ./taskstream/v1/components/responses/common.yaml#/Error401
-    Error404:
-      $ref: ./taskstream/v1/components/responses/common.yaml#/Error404
-    Error500:
-      $ref: ./taskstream/v1/components/responses/common.yaml#/Error500
   schemas:
-    BaseResource:
-      $ref: ./taskstream/v1/components/schemas/common.yaml#/BaseResource
     Project:
-      $ref: ./taskstream/v1/components/schemas/common.yaml#/Project
-    Task:
-      $ref: ./taskstream/v1/components/schemas/common.yaml#/Task
-    User:
-      $ref: ./taskstream/v1/components/schemas/common.yaml#/User
-    CursorPage:
-      $ref: ./taskstream/v1/components/schemas/common.yaml#/CursorPage
-    ProjectsListResponse:
-      $ref: ./taskstream/v1/components/schemas/common.yaml#/ProjectsListResponse
-    TasksListResponse:
-      $ref: ./taskstream/v1/components/schemas/common.yaml#/TasksListResponse
-    ErrorEnvelope:
-      $ref: ./taskstream/v1/components/schemas/common.yaml#/ErrorEnvelope
-    AnyResource:
-      $ref: ./taskstream/v1/components/schemas/common.yaml#/AnyResource
+      type: object
+      required: [id, name, status]
+      properties:
+        id: { type: string }
+        name: { type: string }
+        status: { type: string }
+    ProjectsList:
+      type: object
+      required: [items]
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/Project'
+  responses: {}
