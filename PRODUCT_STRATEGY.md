@@ -13,33 +13,39 @@ for the three-tier product architecture.
                           |   For: regulated, complex, multi-repo
                           |   Includes VeriDoc licenses for client team
                           |
-   VeriDoc Enterprise     |   Self-serve full ($199/repo/mo, unlimited repos)
-                          |   For: mature teams, full feature parity
+   VeriDoc Enterprise     |   Full platform ($1,499/mo, unlimited repos/pages)
+                          |   For: mature teams, full feature parity, SSO, SLA
                           |
-   VeriDoc Business       |   Multi-repo automation ($99/repo/mo, 10 repos)
+   VeriDoc Business       |   Multi-repo automation ($799/mo, 15 repos, 5K pages)
                           |   For: growing teams, API-first, CI gates
                           |
-   VeriDoc Pro            |   Single-product ($49/repo/mo, 3 repos)
-                          |   For: startups, solo devs, power users
+   VeriDoc Pro            |   Growth tier ($399/mo, 5 repos, 1K pages)
+                          |   For: growing teams, full automation
                           |
-   VeriDoc Free           |   1 repo, basic linters, badge
-                          |   For: evaluation, open-source projects
+   VeriDoc Starter        |   Entry tier ($149/mo, 1 repo, 200 pages)
+                          |   For: solo writers, small projects
                           |
                           +-------------------------------------> Scale
                      1 client                           10,000+ clients
 ```
 
-**Pricing model: per-repo, not per-seat.**
+**Pricing rationale: value-based, not cost-based.**
 
-One tech writer can manage docs for an entire team. Charging per-seat penalizes
-small teams. Per-repo naturally scales with company size: more products = more repos
-= higher plan. Team collaboration seats are an optional $15/seat/mo add-on.
+A documentation team of 2-3 tech writers costs $14,000-36,000/month (salary + taxes
++ benefits). VeriDoc automates the bulk of their work: generation, linting, SEO/GEO,
+drift detection, lifecycle management, gap analysis, API docs, and quality gates.
+At Business tier ($799/mo), VeriDoc replaces most of the manual work that would
+require 2-3 writers at $8-12K each. That is a 20-30x ROI.
 
-**Team packs for collaboration add-on:**
+Even at Starter ($149/mo), a solo writer reclaims 60-70% of their time for strategic
+work instead of mechanical formatting, linting, and consistency checks.
 
-- 5 seats: $59/mo (save 20%)
-- 10 seats: $99/mo (save 34%)
-- 20 seats: $179/mo (save 40%)
+**Team collaboration seats** are included in the plan:
+
+- Starter: 1 seat included, additional seats $19/seat/mo
+- Pro: 5 seats included, additional seats $19/seat/mo
+- Business: 15 seats included, additional seats $15/seat/mo
+- Enterprise: unlimited seats
 
 ### docsops-core
 
@@ -73,29 +79,32 @@ deployed on client infrastructure with custom configuration, training, and retai
 
 ## Feature matrix by tier
 
-| Feature | Free (1 repo) | Pro $49/mo (3 repos) | Business $99/mo (10 repos) | Enterprise $199/mo (unlimited) | VeriOps (done-for-you) |
+| Feature | Starter $149/mo (1 repo, 200 pages) | Pro $399/mo (5 repos, 1K pages) | Business $799/mo (15 repos, 5K pages) | Enterprise $1,499/mo (unlimited) | VeriOps (done-for-you) |
 | --- | --- | --- | --- | --- | --- |
 | Git operations + NL interface | Y | Y | Y | Y | Y |
 | Basic docs generation (README, changelog) | Y | Y | Y | Y | Y |
-| Markdownlint + style linting | - | Y | Y | Y | Y |
-| Vale integration (Google style guide) | - | Y | Y | Y | Y |
-| Frontmatter validation | - | Y | Y | Y | Y |
-| SEO/GEO optimization (24 checks) | - | auto-fix | auto-fix | auto-fix | auto-fix + custom rules |
-| Gap analysis (community + code) | - | Y | Y | Y | Y |
-| Glossary sync | - | Y | Y | Y | Y |
-| Code example smoke tests | - | Y | Y | Y | Y |
-| Lifecycle management | - | Y | Y | Y | Y |
-| Docs normalization | - | Y | Y | Y | Y |
-| Multi-language code tabs | - | Y | Y | Y | Y |
-| API-first flow (OpenAPI generation) | - | - | Y | Y | Y |
-| API contract validation + Spectral | - | - | Y | Y | Y |
-| API sandbox (Prism/external mock) | - | - | Y | Y | Y |
-| API playground (Swagger UI) | - | - | Y | Y | Y |
-| Drift detection (API/SDK) | - | - | Y | Y | Y |
-| Docs-in-PR contract | - | - | Y | Y | Y |
+| Markdownlint + style linting | Y | Y | Y | Y | Y |
+| Vale integration (Google style guide) | Y | Y | Y | Y | Y |
+| Frontmatter validation | Y | Y | Y | Y | Y |
+| SEO/GEO optimization (24 checks) | auto-fix | auto-fix | auto-fix | auto-fix | auto-fix + custom rules |
+| Gap analysis (community + code) | Y | Y | Y | Y | Y |
+| Glossary sync | Y | Y | Y | Y | Y |
+| Code example smoke tests | Y | Y | Y | Y | Y |
+| Lifecycle management | Y | Y | Y | Y | Y |
+| Docs normalization | Y | Y | Y | Y | Y |
+| Multi-language code tabs | Y | Y | Y | Y | Y |
+| API-first flow (OpenAPI generation) | - | Y | Y | Y | Y |
+| API contract validation + Spectral | - | Y | Y | Y | Y |
+| API sandbox (Prism/external mock) | - | Y | Y | Y | Y |
+| API playground (Swagger UI) | - | Y | Y | Y | Y |
+| Drift detection (API/SDK) | - | Y | Y | Y | Y |
+| Docs-in-PR contract | - | Y | Y | Y | Y |
 | KPI wall + SLA dashboard | - | - | Y | Y | Y |
 | Test assets generation + smart merge | - | - | Y | Y | Y |
 | Consolidated reports | - | - | Y | Y | Y |
+| API access | - | - | Y | Y | Y |
+| SSO + audit logs | - | - | Y | Y | Y |
+| Priority support | - | - | Y | Y | Y |
 | Knowledge modules extraction | - | - | - | Y | Y |
 | Knowledge graph (JSON-LD) | - | - | - | Y | Y |
 | Retrieval evals | - | - | - | Y | Y |
@@ -104,8 +113,8 @@ deployed on client infrastructure with custom configuration, training, and retai
 | TestRail/Zephyr upload | - | - | - | Y | Y |
 | Confluence migration tools | - | - | - | Y | Y |
 | On-premises deployment | - | - | - | Y | Y |
-| SSO + audit logs | - | - | Y | Y | Y |
-| API access | - | - | Y | Y | Y |
+| Dedicated support channel | - | - | - | Y | Y |
+| SLA guarantee | - | - | - | Y | Y |
 | Client bundle builder | - | - | - | - | Y |
 | Custom CLAUDE.md generation | - | - | - | - | Y |
 | Dedicated handover sessions | - | - | - | - | Y |
@@ -125,7 +134,7 @@ VeriOps exclusive items (bottom 7 rows) are services, not software features.
 The difference is **delivery model**, not functionality. VeriDoc Enterprise
 has full feature parity with VeriOps automation. Clients self-sort:
 
-- **Tech-savvy teams** with docs culture buy VeriDoc Enterprise ($199/mo).
+- **Tech-savvy teams** with docs culture buy VeriDoc Enterprise ($1,499/mo).
   They configure it themselves, use docs and tutorials, submit support tickets.
   Zero operator time required.
 - **Teams without docs culture** buy VeriOps ($5K-25K + retainer). They need
@@ -166,10 +175,10 @@ These are **services**, not software features:
 
 ### Natural upsell path
 
-VeriDoc Enterprise at 20+ repos ($199/mo = $2,388/year) starts to feel limited
-compared to VeriOps ($15K implementation + $1,500/mo retainer = $33K/year) which
-provides hands-on support plus local pipeline deployment on client infrastructure.
-Companies naturally upgrade when they outgrow self-serve.
+VeriDoc Enterprise at $1,499/month ($17,988/year) covers unlimited repos with full
+automation. VeriOps ($15K implementation + $1,500/mo retainer = $33K/year) adds
+hands-on support plus local pipeline deployment on client infrastructure.
+Companies naturally upgrade when they need custom gates, compliance, or fleet management.
 
 ## Confluence exit opportunity
 
@@ -204,18 +213,18 @@ Confluence user dissatisfied
     Discovers VeriDoc (SEO, content marketing, referrals)
         |
         v
-    Free tier: tries Confluence migration tool
+    Starter: tries VeriDoc on one repo, runs migration tool
         |
         v
-    Team tier: migrates team docs, enables quality gates
+    Pro: expands to 5 repos, adds API-first, drift detection
         |
         v
-    Business tier: adds API-first, drift detection, KPI
+    Business: scales to 15 repos, KPI dashboard, SSO
         |
         +-------> Happy at Business tier (majority)
         |
         v
-    Needs: custom policies, on-prem, multi-repo fleet
+    Needs: custom policies, on-prem, unlimited repos
         |
         v
     Enterprise SaaS or VeriOps engagement
@@ -240,9 +249,9 @@ Confluence user dissatisfied
 ## Upsell paths
 
 ```text
-Free -> Pro: "Unlock style linting, SEO/GEO, gap analysis, and lifecycle management"
-Pro -> Business: "Add API-first, drift detection, KPI dashboard, and CI gates"
-Business -> Enterprise: "Add knowledge system, i18n, custom policies, and on-prem"
+Starter -> Pro: "Add API-first, drift detection, and scale to 5 repos"
+Pro -> Business: "Add KPI dashboard, test assets, SSO, and scale to 15 repos"
+Business -> Enterprise: "Add knowledge system, i18n, custom policies, on-prem, unlimited"
 Enterprise -> VeriOps: "Need custom setup, training, or fleet management?"
 ```
 
