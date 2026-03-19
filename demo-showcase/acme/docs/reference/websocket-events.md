@@ -210,7 +210,7 @@ client.subscribe('task.completed');
 Connect to the sandbox WebSocket endpoint, subscribe to channels, and send messages from the browser.
 
 !!! info "Sandbox mode"
-    The endpoint field below auto-fills with the Postman mock server URL.
+    The endpoint field below auto-fills with a public WebSocket echo sandbox URL.
     No API key is required for sandbox requests.
 
 <div style="border:1px solid #dbe2ea;border-radius:10px;padding:16px;background:#f8f9fa">

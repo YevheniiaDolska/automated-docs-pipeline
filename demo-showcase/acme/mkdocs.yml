@@ -37,7 +37,7 @@ markdown_extensions:
     custom_fences:
     - name: mermaid
       class: mermaid
-      format: '!!python/name:pymdownx.superfences.fence_code_format'
+      format: '!!python/name:pymdownx.superfences.fence_mermaid_format'
 - tables
 - toc:
     permalink: true
@@ -51,8 +51,8 @@ extra:
     rest_base_url: https://662b99a9-ac2a-4096-8a8e-480a73cef3e3.mock.pstmn.io/v1
     graphql_url: https://662b99a9-ac2a-4096-8a8e-480a73cef3e3.mock.pstmn.io/graphql
     grpc_gateway_url: https://662b99a9-ac2a-4096-8a8e-480a73cef3e3.mock.pstmn.io/grpc/invoke
-    asyncapi_ws_url: wss://662b99a9-ac2a-4096-8a8e-480a73cef3e3.mock.pstmn.io/ws
-    websocket_url: wss://662b99a9-ac2a-4096-8a8e-480a73cef3e3.mock.pstmn.io/realtime
+    asyncapi_ws_url: wss://socketsbay.com/wss/v2/1/demo/
+    websocket_url: wss://socketsbay.com/wss/v2/1/demo/
 extra_javascript:
 - assets/javascripts/sandbox-config.js
 - assets/javascripts/acme-sandbox.js

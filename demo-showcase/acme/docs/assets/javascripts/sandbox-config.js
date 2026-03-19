@@ -14,7 +14,7 @@
     rest_base_url:      MOCK_BASE + '/v1',
     graphql_url:        MOCK_BASE + '/graphql',
     grpc_gateway_url:   MOCK_BASE + '/grpc/invoke',
-    asyncapi_ws_url:    'wss://662b99a9-ac2a-4096-8a8e-480a73cef3e3.mock.pstmn.io/ws',
-    websocket_url:      'wss://662b99a9-ac2a-4096-8a8e-480a73cef3e3.mock.pstmn.io/realtime'
+    asyncapi_ws_url:    'wss://socketsbay.com/wss/v2/1/demo/',
+    websocket_url:      'wss://socketsbay.com/wss/v2/1/demo/'
   };
 })();

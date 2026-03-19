@@ -242,7 +242,7 @@ channel.start_consuming()
 Enter a test event payload and send it to the sandbox WebSocket bridge.
 
 !!! info "Sandbox mode"
-    Events route to the Postman mock server WebSocket bridge.
+    Events route to a public WebSocket echo sandbox.
     The endpoint field below auto-fills with the sandbox URL.
     No API key is required for sandbox requests.
 
