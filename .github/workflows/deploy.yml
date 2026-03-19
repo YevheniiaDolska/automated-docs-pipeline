@@ -36,6 +36,12 @@ jobs:
           mkdocs build --strict
           cp -r site/ ../site/demo-showcase/
 
+      - name: Build Acme demo sub-site
+        run: |
+          cd demo-showcase/acme
+          mkdocs build --strict
+          cp -r site/ ../../site/demo-showcase/acme/
+
       - uses: actions/upload-pages-artifact@v3
         with:
           path: site/

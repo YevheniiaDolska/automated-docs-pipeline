@@ -1,0 +1,210 @@
+[
+  {
+    "title": "SEO/GEO Optimization Guide",
+    "description": "Comprehensive guide to SEO and GEO optimization in the documentation pipeline",
+    "url": "SEO_GUIDE/",
+    "snippet": "",
+    "content_type": "reference"
+  },
+  {
+    "title": "Variables and Templates Guide",
+    "description": "How to use Jinja2 variables and templates in documentation for consistency",
+    "url": "VARIABLES_GUIDE/",
+    "snippet": "",
+    "content_type": "reference"
+  },
+  {
+    "title": "Concepts and Architecture",
+    "description": "Explanations of internals: workflow execution model, data flow, credential management, and security architecture.",
+    "url": "concepts/",
+    "snippet": "",
+    "content_type": "concept",
+    "product": "both",
+    "tags": [
+      "Concept",
+      "Cloud",
+      "Self-hosted"
+    ]
+  },
+  {
+    "title": "How the workflow execution model works",
+    "description": "processes workflows by executing nodes sequentially, passing data as arrays of JSON objects between each node in the chain.",
+    "url": "concepts/workflow-execution-model/",
+    "snippet": "",
+    "content_type": "concept",
+    "product": "both",
+    "app_component": "workflow-engine",
+    "tags": [
+      "Concept",
+      "Nodes",
+      "Cloud",
+      "Self-hosted"
+    ]
+  },
+  {
+    "title": "Getting Started",
+    "description": "Step-by-step tutorials to help you build your first workflow, from installation through your first automation.",
+    "url": "getting-started/",
+    "snippet": "",
+    "content_type": "tutorial",
+    "product": "both",
+    "tags": [
+      "Tutorial",
+      "Cloud",
+      "Self-hosted"
+    ]
+  },
+  {
+    "title": "Build your first workflow in 5 minutes",
+    "description": "Create a webhook-triggered workflow that receives HTTP requests and sends Slack notifications. No coding required.",
+    "url": "getting-started/quickstart/",
+    "snippet": "",
+    "content_type": "tutorial",
+    "product": "both",
+    "tags": [
+      "Tutorial",
+      "Webhook",
+      "Cloud",
+      "Self-hosted"
+    ]
+  },
+  {
+    "title": "Configure Webhook trigger authentication in",
+    "description": "Set up HMAC signature verification, basic auth, or header-based authentication for Webhook trigger nodes to secure incoming requests.",
+    "url": "how-to/configure-webhook-trigger/",
+    "snippet": "",
+    "content_type": "how-to",
+    "product": "both",
+    "app_component": "webhook",
+    "tags": [
+      "How-To",
+      "Webhook",
+      "Cloud",
+      "Self-hosted"
+    ]
+  },
+  {
+    "title": "How-To Guides for",
+    "description": "Step-by-step guides for specific tasks including webhook configuration, error handling, and API integration.",
+    "url": "how-to/",
+    "snippet": "",
+    "content_type": "how-to",
+    "product": "both",
+    "tags": [
+      "How-To",
+      "Cloud",
+      "Self-hosted"
+    ]
+  },
+  {
+    "title": "Documentation Pipeline Demo",
+    "description": "Automated documentation pipeline with GEO optimization, faceted search, and CI/CD quality gates for workflow automation platform.",
+    "url": "",
+    "snippet": "",
+    "content_type": "concept",
+    "product": "both",
+    "tags": [
+      "Concept",
+      "Cloud",
+      "Self-hosted"
+    ]
+  },
+  {
+    "title": "Old Webhook API (Deprecated)",
+    "description": "This API is deprecated. Use the new Webhook node instead.",
+    "url": "reference/deprecated-example/",
+    "snippet": "",
+    "content_type": "reference",
+    "maturity": "deprecated",
+    "deprecated_since": "2024-01-15",
+    "sunset_date": "2024-07-01",
+    "replaced_by": "/reference/nodes/webhook",
+    "tags": [
+      "Deprecated",
+      "Webhook"
+    ]
+  },
+  {
+    "title": "Reference Documentation",
+    "description": "Complete reference for nodes, parameters, environment variables, CLI commands, and REST API endpoints.",
+    "url": "reference/",
+    "snippet": "",
+    "content_type": "reference",
+    "product": "both",
+    "tags": [
+      "Reference",
+      "Nodes",
+      "Cloud",
+      "Self-hosted"
+    ]
+  },
+  {
+    "title": "Webhook node reference for",
+    "description": "Complete parameter reference for the Webhook trigger node including HTTP methods, authentication, response modes, and binary data handling.",
+    "url": "reference/nodes/webhook/",
+    "snippet": "",
+    "content_type": "reference",
+    "product": "both",
+    "app_component": "webhook",
+    "app_version": "2.0",
+    "tags": [
+      "Reference",
+      "Webhook",
+      "Nodes",
+      "Cloud",
+      "Self-hosted"
+    ]
+  },
+  {
+    "title": "Advanced Search",
+    "description": "Search and filter documentation using faceted navigation for quick discovery",
+    "url": "search-faceted/",
+    "snippet": "",
+    "content_type": "reference",
+    "product": "both",
+    "tags": [
+      "Reference",
+      "Search"
+    ]
+  },
+  {
+    "title": "Browse by tag",
+    "description": "Filter documentation by topic tags including tutorials, how-to guides, concepts, and component-specific content.",
+    "url": "tags/",
+    "snippet": "",
+    "content_type": "reference",
+    "product": "both",
+    "tags": [
+      "Reference"
+    ]
+  },
+  {
+    "title": "Troubleshooting Guide",
+    "description": "Solutions for common problems including webhook failures, credential errors, execution timeouts, and memory issues.",
+    "url": "troubleshooting/",
+    "snippet": "",
+    "content_type": "troubleshooting",
+    "product": "both",
+    "tags": [
+      "Troubleshooting",
+      "Cloud",
+      "Self-hosted"
+    ]
+  },
+  {
+    "title": "Fix: Webhook trigger not firing",
+    "description": "Troubleshoot Webhook nodes that do not receive requests. Common causes include inactive workflows, wrong URL type, and network configuration.",
+    "url": "troubleshooting/webhook-not-firing/",
+    "snippet": "",
+    "content_type": "troubleshooting",
+    "product": "both",
+    "app_component": "webhook",
+    "tags": [
+      "Troubleshooting",
+      "Webhook",
+      "Nodes",
+      "Cloud",
+      "Self-hosted"
+    ]
+  }
+]

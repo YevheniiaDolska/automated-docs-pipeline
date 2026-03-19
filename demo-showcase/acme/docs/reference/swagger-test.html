@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Swagger UI Test</title>
+  <link rel="stylesheet" href="https://unpkg.com/swagger-ui-dist/swagger-ui.css">
+</head>
+<body>
+  <div id="swagger-ui"></div>
+  <script src="https://unpkg.com/swagger-ui-dist/swagger-ui-bundle.js"></script>
+  <script>
+    var specUrl = "https://yevheniiadolska.github.io/automated-docs-pipeline/assets/api/openapi.bundled.json";
+    document.title = "Loading: " + specUrl;
+    SwaggerUIBundle({
+      url: specUrl,
+      dom_id: '#swagger-ui',
+      deepLinking: true,
+      docExpansion: 'list',
+    });
+  </script>
+</body>
+</html>

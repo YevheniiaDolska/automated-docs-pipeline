@@ -1,0 +1,38 @@
+site_name: Acme API Docs Demo (Powered by VeriDoc)
+site_description: Pipeline-generated multi-protocol documentation demo with interactive
+  API references and quality evidence.
+site_url: https://docs.acme-api.example/demo/
+theme:
+  name: material
+  language: en
+  features:
+  - navigation.top
+  - content.code.copy
+  - content.tabs.link
+  - search.highlight
+plugins:
+- search
+markdown_extensions:
+- admonition
+- pymdownx.details
+- pymdownx.tabbed
+- pymdownx.superfences
+- tables
+- toc
+- attr_list
+- md_in_html
+nav:
+- Acme API Overview: index.md
+- API:
+  - REST (Swagger): reference/rest-api.md
+  - GraphQL Playground: reference/graphql-playground.md
+  - gRPC Gateway Invoke: reference/grpc-gateway.md
+  - AsyncAPI Event Playground: reference/asyncapi-events.md
+  - WebSocket Event Playground: reference/websocket-events.md
+- Docs:
+  - Tutorial: guides/tutorial.md
+  - How-To: guides/how-to.md
+  - Concept: guides/concept.md
+  - Troubleshooting: guides/troubleshooting.md
+- Quality Evidence: quality/evidence.md
+- Review Manifest: quality/review-manifest.md
