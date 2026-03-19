@@ -1,19 +1,19 @@
 ## SEO/GEO Optimization Report
 
-**Date**: Thu Mar 19 16:13:09 UTC 2026
+**Date**: Thu Mar 19 16:23:05 UTC 2026
 **Branch**: main
 
 ### Findings Summary
-GEO Findings: 0 errors, 29 warnings, 58 suggestions
+GEO Findings: 0 errors, 31 warnings, 62 suggestions
   docs/assets/protocols/asyncapi/asyncapi-api.md:1 [suggestion] seo-no-freshness: No 'last_reviewed' or 'date' in frontmatter. Search engines favor dated content.
+  docs/assets/protocols/graphql/graphql-api.md:1 [suggestion] seo-no-freshness: No 'last_reviewed' or 'date' in frontmatter. Search engines favor dated content.
   docs/assets/protocols/grpc/grpc-api.md:1 [suggestion] seo-no-freshness: No 'last_reviewed' or 'date' in frontmatter. Search engines favor dated content.
-  docs/concepts/index.md:1 [suggestion] seo-low-internal-links: Only 0 internal link(s). Add cross-references to improve SEO link graph.
-  docs/concepts/index.md:1 [warning] seo-thin-content: Only 19 words. Pages under 100 words rank poorly.
+  docs/assets/protocols/rest/rest-api.md:23 [warning] heading-generic: Generic heading '## Notes'. Use descriptive headings for LLM retrieval (e.g., 'Configure SASL authentication' not 'Configuration').
 
 ### Sitemap Statistics
-- Total pages: 52
-- High priority pages: 41
+- Total pages: 55
+- High priority pages: 44
 
 ### Search Index Statistics
-- Total records: 319
+- Total records: 332
 

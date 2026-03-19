@@ -1,5 +1,8 @@
 Processing docs/assets/protocols/asyncapi/asyncapi-api.md...
+Processing docs/assets/protocols/graphql/graphql-api.md...
 Processing docs/assets/protocols/grpc/grpc-api.md...
+Processing docs/assets/protocols/rest/rest-api.md...
+Processing docs/assets/protocols/websocket/websocket-api.md...
 Processing docs/concepts/index.md...
 Processing docs/concepts/intelligent-knowledge-system.md...
 Processing docs/concepts/workflow-execution-model.md...
@@ -50,30 +53,30 @@ Processing docs/search-faceted.md...
 Processing docs/tags.md...
 Processing docs/troubleshooting/index.md...
 Processing docs/troubleshooting/webhook-not-firing.md...
-Generated sitemap with 52 URLs
-Saved 319 Algolia records
+Generated sitemap with 55 URLs
+Saved 332 Algolia records
 
 ============================================================
 SEO/GEO OPTIMIZATION REPORT
 ============================================================
 
-GEO Findings: 0 errors, 29 warnings, 58 suggestions
+GEO Findings: 0 errors, 31 warnings, 62 suggestions
   docs/assets/protocols/asyncapi/asyncapi-api.md:1 [suggestion] seo-no-freshness: No 'last_reviewed' or 'date' in frontmatter. Search engines favor dated content.
+  docs/assets/protocols/graphql/graphql-api.md:1 [suggestion] seo-no-freshness: No 'last_reviewed' or 'date' in frontmatter. Search engines favor dated content.
   docs/assets/protocols/grpc/grpc-api.md:1 [suggestion] seo-no-freshness: No 'last_reviewed' or 'date' in frontmatter. Search engines favor dated content.
+  docs/assets/protocols/rest/rest-api.md:23 [warning] heading-generic: Generic heading '## Notes'. Use descriptive headings for LLM retrieval (e.g., 'Configure SASL authentication' not 'Configuration').
+  docs/assets/protocols/rest/rest-api.md:1 [suggestion] seo-heading-keyword-gap: No H2 headings share keywords with the title. Align headings with title for better ranking.
+  docs/assets/protocols/rest/rest-api.md:1 [suggestion] seo-no-freshness: No 'last_reviewed' or 'date' in frontmatter. Search engines favor dated content.
+  docs/assets/protocols/rest/rest-api.md:1 [warning] seo-thin-content: Only 36 words. Pages under 100 words rank poorly.
+  docs/assets/protocols/websocket/websocket-api.md:1 [suggestion] seo-no-freshness: No 'last_reviewed' or 'date' in frontmatter. Search engines favor dated content.
   docs/concepts/index.md:1 [suggestion] seo-low-internal-links: Only 0 internal link(s). Add cross-references to improve SEO link graph.
   docs/concepts/index.md:1 [warning] seo-thin-content: Only 19 words. Pages under 100 words rank poorly.
-  docs/concepts/index.md:1 [suggestion] seo-no-structured-data: No code blocks, tables, or lists found. Structured content improves search snippets.
-  docs/concepts/intelligent-knowledge-system.md:1 [suggestion] seo-heading-keyword-gap: No H2 headings share keywords with the title. Align headings with title for better ranking.
-  docs/en/how-to/set-up-real-time-webhook-processing-pipeline.md:46 [warning] seo-bare-url: Bare URL found. Use [descriptive text](https://your-app.example.com/webhooks`.) instead.
-  docs/getting-started/index.md:1 [suggestion] seo-low-internal-links: Only 0 internal link(s). Add cross-references to improve SEO link graph.
-  docs/getting-started/index.md:1 [warning] seo-thin-content: Only 19 words. Pages under 100 words rank poorly.
-  docs/getting-started/index.md:1 [suggestion] seo-no-structured-data: No code blocks, tables, or lists found. Structured content improves search snippets.
-  ... and 77 more findings
+  ... and 83 more findings
 
-Search Records: 319 records generated
+Search Records: 332 records generated
   By content type:
     - concept: 21
     - how-to: 78
-    - reference: 202
+    - reference: 215
     - troubleshooting: 9
     - tutorial: 9
