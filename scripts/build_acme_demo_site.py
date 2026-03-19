@@ -564,6 +564,20 @@ def _validate_assets_contract(output_root: Path) -> None:
         raise FileNotFoundError(
             "Missing required pipeline assets in demo site:\n- " + "\n- ".join(missing)
         )
+    sandbox_cfg = docs_dir / "assets" / "javascripts" / "sandbox-config.js"
+    if sandbox_cfg.exists():
+        text = sandbox_cfg.read_text(encoding="utf-8", errors="ignore")
+        required_tokens = [
+            "asyncapi_ws_fallback_urls",
+            "websocket_fallback_urls",
+            "wss://echo.websocket.events",
+        ]
+        missing_tokens = [token for token in required_tokens if token not in text]
+        if missing_tokens:
+            raise ValueError(
+                "Sandbox config is missing required failover settings:\n- "
+                + "\n- ".join(missing_tokens)
+            )
 
 
 def _validate_built_site_contract(output_root: Path) -> None:

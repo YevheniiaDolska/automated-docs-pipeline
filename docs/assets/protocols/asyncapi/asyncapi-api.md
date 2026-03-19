@@ -36,6 +36,8 @@ Flow mode: `api-first`
 
 ## Interactive AsyncAPI Tester
 
+> Sandbox echo mode: this tester sends payloads to a public WebSocket echo endpoint.
+
 <div id="asyncapi-playground" style="border:1px solid #d1d5db; padding:12px; border-radius:8px;">
   <p><strong>WebSocket Endpoint:</strong> <code id="asyncapi-ws-view"></code></p>
   <p><strong>HTTP Publish Endpoint:</strong> <code id="asyncapi-http-view"></code></p>
@@ -50,7 +52,7 @@ Flow mode: `api-first`
   <pre id="asyncapi-output" style="margin-top:12px; max-height:320px; overflow:auto;"></pre>
 </div>
 <script>
-(function(){ const wsEndpoint = ""; const httpEndpoint = "";
+(function(){ const wsEndpoint = "wss://echo.websocket.events"; const httpEndpoint = "";
 const wsView = document.getElementById('asyncapi-ws-view');
 const httpView = document.getElementById('asyncapi-http-view');
 const sendWs = document.getElementById('asyncapi-send-ws');

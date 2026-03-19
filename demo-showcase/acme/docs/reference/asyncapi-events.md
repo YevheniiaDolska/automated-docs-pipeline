@@ -270,24 +270,80 @@ Enter a test event payload and send it to the sandbox WebSocket bridge.
 <script>
 (() => {
   var sandbox = (window.ACME_SANDBOX && window.ACME_SANDBOX.asyncapi_ws_url) || '';
+  var fallback = (window.ACME_SANDBOX && window.ACME_SANDBOX.asyncapi_ws_fallback_urls) || [];
   var epInput = document.getElementById('async-ep');
   if (sandbox && epInput) { epInput.value = sandbox; }
   var btn = document.getElementById('async-send');
   if (!btn) return;
+
+  function candidateEndpoints(primary, extras) {
+    var seen = {};
+    var out = [];
+    [primary].concat(Array.isArray(extras) ? extras : []).forEach(function (url) {
+      var v = String(url || '').trim();
+      if (!v || seen[v]) return;
+      seen[v] = true;
+      out.push(v);
+    });
+    return out;
+  }
+
   btn.onclick = function () {
     var out = document.getElementById('async-out');
-    var ep = document.getElementById('async-ep').value;
-    out.textContent = 'Connecting to ' + ep + '...';
-    try {
-      var ws = new WebSocket(ep);
-      ws.onopen = function () {
-        ws.send(document.getElementById('async-payload').value);
-        out.textContent = 'Event sent. Waiting for acknowledgement...';
-      };
-      ws.onmessage = function (e) { out.textContent = 'Response: ' + e.data; ws.close(); };
-      ws.onerror = function () { out.textContent = 'Connection error. Verify the endpoint and authentication token.'; };
-      ws.onclose = function () { if (out.textContent.startsWith('Connecting')) out.textContent = 'Connection closed before response.'; };
-    } catch (e) { out.textContent = 'Error: ' + String(e); }
+    var primary = document.getElementById('async-ep').value;
+    var payload = document.getElementById('async-payload').value;
+    var candidates = candidateEndpoints(primary, fallback);
+    var idx = 0;
+    out.textContent = 'Connecting to ' + (candidates[0] || 'N/A') + '...';
+
+    function tryNext(lastError) {
+      if (idx >= candidates.length) {
+        out.textContent = 'Connection failed for all sandbox endpoints.'
+          - '\nTried: ' + candidates.join(', ')
+          - (lastError ? '\nLast error: ' + lastError : '');
+        return;
+      }
+      var endpoint = candidates[idx++];
+      out.textContent = 'Connecting to ' + endpoint + '...';
+      try {
+        var settled = false;
+        var ws = new WebSocket(endpoint);
+        var timeout = setTimeout(function () {
+          if (settled) return;
+          settled = true;
+          try { ws.close(); } catch (e) {}
+          tryNext('timeout');
+        }, 6000);
+        ws.onopen = function () {
+          if (settled) return;
+          ws.send(payload);
+          out.textContent = 'Connected to ' + endpoint + '. Event sent. Waiting for acknowledgement...';
+        };
+        ws.onmessage = function (e) {
+          if (settled) return;
+          settled = true;
+          clearTimeout(timeout);
+          out.textContent = 'Endpoint: ' + endpoint + '\nResponse: ' + e.data;
+          ws.close();
+        };
+        ws.onerror = function () {
+          if (settled) return;
+          settled = true;
+          clearTimeout(timeout);
+          tryNext('handshake failed');
+        };
+        ws.onclose = function () {
+          if (settled) return;
+          settled = true;
+          clearTimeout(timeout);
+          tryNext('closed before response');
+        };
+      } catch (e) {
+        tryNext(String(e));
+      }
+    }
+
+    tryNext('');
   };
 })();
 </script>

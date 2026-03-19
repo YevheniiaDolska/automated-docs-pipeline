@@ -236,27 +236,81 @@ Connect to the sandbox WebSocket endpoint, subscribe to channels, and send messa
 <script>
 (() => {
   var sandbox = (window.ACME_SANDBOX && window.ACME_SANDBOX.websocket_url) || '';
+  var fallback = (window.ACME_SANDBOX && window.ACME_SANDBOX.websocket_fallback_urls) || [];
   var epInput = document.getElementById('ws-ep');
   if (sandbox && epInput) { epInput.value = sandbox; }
   var wsConn = null;
   var out = document.getElementById('ws-out');
   if (!out) return;
   function log(msg) { out.textContent += '\n[' + new Date().toLocaleTimeString() + '] ' + msg; out.scrollTop = out.scrollHeight; }
+  function candidateEndpoints(primary, extras) {
+    var seen = {};
+    var outList = [];
+    [primary].concat(Array.isArray(extras) ? extras : []).forEach(function (url) {
+      var v = String(url || '').trim();
+      if (!v || seen[v]) return;
+      seen[v] = true;
+      outList.push(v);
+    });
+    return outList;
+  }
 
   var connectBtn = document.getElementById('ws-connect');
   var sendBtn = document.getElementById('ws-send');
   var closeBtn = document.getElementById('ws-close');
 
   if (connectBtn) connectBtn.onclick = function () {
-    var ep = document.getElementById('ws-ep').value;
-    out.textContent = 'Connecting to ' + ep + '...';
-    try {
-      wsConn = new WebSocket(ep);
-      wsConn.onopen = function () { log('Connected.'); };
-      wsConn.onmessage = function (e) { log('Received: ' + e.data); };
-      wsConn.onclose = function (e) { log('Disconnected (code: ' + e.code + ')'); };
-      wsConn.onerror = function () { log('Connection error. Check endpoint and authentication.'); };
-    } catch (e) { log('Error: ' + String(e)); }
+    var primary = document.getElementById('ws-ep').value;
+    var endpoints = candidateEndpoints(primary, fallback);
+    var idx = 0;
+    out.textContent = '';
+
+    function connectNext(lastError) {
+      if (idx >= endpoints.length) {
+        log('Connection failed for all sandbox endpoints.');
+        log('Tried: ' + endpoints.join(', '));
+        if (lastError) log('Last error: ' + lastError);
+        return;
+      }
+      var ep = endpoints[idx++];
+      log('Connecting to ' + ep + '...');
+      try {
+        var settled = false;
+        wsConn = new WebSocket(ep);
+        var timeout = setTimeout(function () {
+          if (settled) return;
+          settled = true;
+          try { wsConn.close(); } catch (e) {}
+          connectNext('timeout');
+        }, 6000);
+        wsConn.onopen = function () {
+          if (settled) return;
+          settled = true;
+          clearTimeout(timeout);
+          log('Connected: ' + ep);
+        };
+        wsConn.onmessage = function (e) { log('Received: ' + e.data); };
+        wsConn.onclose = function (e) {
+          if (!settled) {
+            settled = true;
+            clearTimeout(timeout);
+            connectNext('closed before open/response (code ' + e.code + ')');
+            return;
+          }
+          log('Disconnected (code: ' + e.code + ')');
+        };
+        wsConn.onerror = function () {
+          if (settled) return;
+          settled = true;
+          clearTimeout(timeout);
+          connectNext('handshake failed');
+        };
+      } catch (e) {
+        connectNext(String(e));
+      }
+    }
+
+    connectNext('');
   };
 
   if (sendBtn) sendBtn.onclick = function () {

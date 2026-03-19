@@ -14,7 +14,15 @@
     rest_base_url:      MOCK_BASE + '/v1',
     graphql_url:        MOCK_BASE + '/graphql',
     grpc_gateway_url:   MOCK_BASE + '/grpc/invoke',
-    asyncapi_ws_url:    'wss://socketsbay.com/wss/v2/1/demo/',
-    websocket_url:      'wss://socketsbay.com/wss/v2/1/demo/'
+    asyncapi_ws_url:    'wss://echo.websocket.events',
+    websocket_url:      'wss://echo.websocket.events',
+    asyncapi_ws_fallback_urls: [
+      'wss://socketsbay.com/wss/v2/1/demo/',
+      'wss://echo.websocket.org'
+    ],
+    websocket_fallback_urls: [
+      'wss://socketsbay.com/wss/v2/1/demo/',
+      'wss://echo.websocket.org'
+    ]
   };
 })();
