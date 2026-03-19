@@ -65,4 +65,4 @@ run.onclick = async function(){
 
 ## Next steps
 
-- [Documentation index](index.md)
+- [Documentation index](../../../index.md)

@@ -162,7 +162,12 @@ Subscriptions require a WebSocket connection to `wss://api.acme.example/graphql/
 
 ## Live query editor
 
-Enter a GraphQL query and click **Run query** to execute it against the Acme API sandbox.
+Enter a GraphQL query and click **Run query** to execute it against the Postman mock sandbox.
+
+!!! info "Sandbox mode"
+    Queries route to the Postman mock server at
+    `https://662b99a9-ac2a-4096-8a8e-480a73cef3e3.mock.pstmn.io/graphql`.
+    No API key is required for sandbox requests.
 
 <div style="border:1px solid #dbe2ea;border-radius:10px;padding:16px;background:#f8f9fa">
 <label><strong>GraphQL query:</strong></label>
@@ -179,18 +184,20 @@ Enter a GraphQL query and click **Run query** to execute it against the Acme API
 
 <script>
 (() => {
-  const endpoint = 'https://api.acme.example/graphql';
-  const run = document.getElementById('gql-run');
-  const query = document.getElementById('gql-q');
-  const out = document.getElementById('gql-out');
+  var sandbox = (window.ACME_SANDBOX && window.ACME_SANDBOX.graphql_url) || '';
+  var endpoint = sandbox || 'https://api.acme.example/graphql';
+  var run = document.getElementById('gql-run');
+  var query = document.getElementById('gql-q');
+  var out = document.getElementById('gql-out');
   if (!run) return;
-  run.onclick = async () => {
-    out.textContent = 'Executing query...';
+  if (sandbox) { out.textContent = 'Sandbox: ' + sandbox; }
+  run.onclick = async function () {
+    out.textContent = 'Executing query against ' + (sandbox ? 'sandbox' : 'API') + '...';
     try {
-      const r = await fetch(endpoint, {
+      var r = await fetch(endpoint, {
         method: 'POST',
-        headers: {'content-type': 'application/json', 'Authorization': 'Bearer YOUR_API_KEY'},
-        body: JSON.stringify({query: query.value})
+        headers: { 'content-type': 'application/json' },
+        body: JSON.stringify({ query: query.value })
       });
       out.textContent = JSON.stringify(JSON.parse(await r.text()), null, 2);
     } catch (e) { out.textContent = 'Error: ' + String(e); }

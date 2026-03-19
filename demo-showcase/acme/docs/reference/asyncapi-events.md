@@ -238,7 +238,12 @@ channel.start_consuming()
 
 ## Interactive event tester
 
-Enter a test event payload and send it to the WebSocket bridge to verify your consumer handles it.
+Enter a test event payload and send it to the sandbox WebSocket bridge.
+
+!!! info "Sandbox mode"
+    Events route to the Postman mock server WebSocket bridge.
+    The endpoint field below auto-fills with the sandbox URL.
+    No API key is required for sandbox requests.
 
 <div style="border:1px solid #dbe2ea;border-radius:10px;padding:16px;background:#f8f9fa">
 <label><strong>WebSocket endpoint:</strong></label>
@@ -263,21 +268,24 @@ Enter a test event payload and send it to the WebSocket bridge to verify your co
 
 <script>
 (() => {
-  const btn = document.getElementById('async-send');
+  var sandbox = (window.ACME_SANDBOX && window.ACME_SANDBOX.asyncapi_ws_url) || '';
+  var epInput = document.getElementById('async-ep');
+  if (sandbox && epInput) { epInput.value = sandbox; }
+  var btn = document.getElementById('async-send');
   if (!btn) return;
-  btn.onclick = () => {
-    const out = document.getElementById('async-out');
-    const ep = document.getElementById('async-ep').value;
+  btn.onclick = function () {
+    var out = document.getElementById('async-out');
+    var ep = document.getElementById('async-ep').value;
     out.textContent = 'Connecting to ' + ep + '...';
     try {
-      const ws = new WebSocket(ep);
-      ws.onopen = () => {
+      var ws = new WebSocket(ep);
+      ws.onopen = function () {
         ws.send(document.getElementById('async-payload').value);
         out.textContent = 'Event sent. Waiting for acknowledgement...';
       };
-      ws.onmessage = (e) => { out.textContent = 'Response: ' + e.data; ws.close(); };
-      ws.onerror = () => { out.textContent = 'Connection error. Verify the endpoint and authentication token.'; };
-      ws.onclose = () => { if (out.textContent.startsWith('Connecting')) out.textContent = 'Connection closed before response.'; };
+      ws.onmessage = function (e) { out.textContent = 'Response: ' + e.data; ws.close(); };
+      ws.onerror = function () { out.textContent = 'Connection error. Verify the endpoint and authentication token.'; };
+      ws.onclose = function () { if (out.textContent.startsWith('Connecting')) out.textContent = 'Connection closed before response.'; };
     } catch (e) { out.textContent = 'Error: ' + String(e); }
   };
 })();

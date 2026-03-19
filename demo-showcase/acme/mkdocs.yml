@@ -1,38 +1,74 @@
-site_name: Acme API Docs Demo (Powered by VeriDoc)
-site_description: Pipeline-generated multi-protocol documentation demo with interactive
-  API references and quality evidence.
-site_url: https://docs.acme-api.example/demo/
+site_name: Acme API Docs (Powered by VeriDoc)
+site_description: Pipeline-generated multi-protocol API documentation with interactive
+  references and quality evidence.
+site_url: https://yevheniiadolska.github.io/automated-docs-pipeline/demo-showcase/acme/
 theme:
   name: material
   language: en
+  palette:
+  - scheme: default
+    primary: indigo
+    accent: blue
+    toggle:
+      icon: material/brightness-7
+      name: Switch to dark mode
+  - scheme: slate
+    primary: indigo
+    accent: blue
+    toggle:
+      icon: material/brightness-4
+      name: Switch to light mode
   features:
+  - navigation.tabs
   - navigation.top
+  - navigation.sections
   - content.code.copy
   - content.tabs.link
   - search.highlight
+  - search.suggest
 plugins:
 - search
 markdown_extensions:
 - admonition
 - pymdownx.details
-- pymdownx.tabbed
-- pymdownx.superfences
+- pymdownx.tabbed:
+    alternate_style: true
+- pymdownx.superfences:
+    custom_fences:
+    - name: mermaid
+      class: mermaid
+      format: '!!python/name:pymdownx.superfences.fence_code_format'
 - tables
-- toc
+- toc:
+    permalink: true
 - attr_list
 - md_in_html
+- pymdownx.highlight
+- pymdownx.inlinehilite
+extra:
+  sandbox:
+    mock_base: https://662b99a9-ac2a-4096-8a8e-480a73cef3e3.mock.pstmn.io
+    rest_base_url: https://662b99a9-ac2a-4096-8a8e-480a73cef3e3.mock.pstmn.io/v1
+    graphql_url: https://662b99a9-ac2a-4096-8a8e-480a73cef3e3.mock.pstmn.io/graphql
+    grpc_gateway_url: https://662b99a9-ac2a-4096-8a8e-480a73cef3e3.mock.pstmn.io/grpc/invoke
+    asyncapi_ws_url: wss://662b99a9-ac2a-4096-8a8e-480a73cef3e3.mock.pstmn.io/ws
+    websocket_url: wss://662b99a9-ac2a-4096-8a8e-480a73cef3e3.mock.pstmn.io/realtime
+extra_javascript:
+- assets/javascripts/sandbox-config.js
+- assets/javascripts/acme-sandbox.js
 nav:
-- Acme API Overview: index.md
-- API:
-  - REST (Swagger): reference/rest-api.md
-  - GraphQL Playground: reference/graphql-playground.md
-  - gRPC Gateway Invoke: reference/grpc-gateway.md
-  - AsyncAPI Event Playground: reference/asyncapi-events.md
-  - WebSocket Event Playground: reference/websocket-events.md
-- Docs:
-  - Tutorial: guides/tutorial.md
-  - How-To: guides/how-to.md
-  - Concept: guides/concept.md
-  - Troubleshooting: guides/troubleshooting.md
-- Quality Evidence: quality/evidence.md
-- Review Manifest: quality/review-manifest.md
+- Home: index.md
+- API Reference:
+  - REST API (Swagger): reference/rest-api.md
+  - GraphQL playground: reference/graphql-playground.md
+  - gRPC gateway invoke: reference/grpc-gateway.md
+  - AsyncAPI event docs: reference/asyncapi-events.md
+  - WebSocket event playground: reference/websocket-events.md
+- Guides:
+  - 'Tutorial: first integration': guides/tutorial.md
+  - 'How-to: release-day docs sync': guides/how-to.md
+  - 'Concept: pipeline-first lifecycle': guides/concept.md
+  - 'Troubleshooting: pipeline issues': guides/troubleshooting.md
+- Quality:
+  - Quality evidence: quality/evidence.md
+  - Review manifest: quality/review-manifest.md

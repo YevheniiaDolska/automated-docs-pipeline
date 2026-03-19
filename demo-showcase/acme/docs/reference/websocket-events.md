@@ -206,7 +206,11 @@ client.subscribe('task.completed');
 
 ## Interactive WebSocket tester
 
-Connect to the Acme WebSocket API, subscribe to channels, and send messages from the browser.
+Connect to the sandbox WebSocket endpoint, subscribe to channels, and send messages from the browser.
+
+!!! info "Sandbox mode"
+    The endpoint field below auto-fills with the Postman mock server URL.
+    No API key is required for sandbox requests.
 
 <div style="border:1px solid #dbe2ea;border-radius:10px;padding:16px;background:#f8f9fa">
 <label><strong>Endpoint:</strong></label>
@@ -230,36 +234,39 @@ Connect to the Acme WebSocket API, subscribe to channels, and send messages from
 
 <script>
 (() => {
-  let ws = null;
-  const out = document.getElementById('ws-out');
+  var sandbox = (window.ACME_SANDBOX && window.ACME_SANDBOX.websocket_url) || '';
+  var epInput = document.getElementById('ws-ep');
+  if (sandbox && epInput) { epInput.value = sandbox; }
+  var wsConn = null;
+  var out = document.getElementById('ws-out');
   if (!out) return;
-  const log = (msg) => { out.textContent += '\n[' + new Date().toLocaleTimeString() + '] ' + msg; out.scrollTop = out.scrollHeight; };
+  function log(msg) { out.textContent += '\n[' + new Date().toLocaleTimeString() + '] ' + msg; out.scrollTop = out.scrollHeight; }
 
-  const connectBtn = document.getElementById('ws-connect');
-  const sendBtn = document.getElementById('ws-send');
-  const closeBtn = document.getElementById('ws-close');
+  var connectBtn = document.getElementById('ws-connect');
+  var sendBtn = document.getElementById('ws-send');
+  var closeBtn = document.getElementById('ws-close');
 
-  if (connectBtn) connectBtn.onclick = () => {
-    const ep = document.getElementById('ws-ep').value;
+  if (connectBtn) connectBtn.onclick = function () {
+    var ep = document.getElementById('ws-ep').value;
     out.textContent = 'Connecting to ' + ep + '...';
     try {
-      ws = new WebSocket(ep);
-      ws.onopen = () => log('Connected.');
-      ws.onmessage = (e) => log('Received: ' + e.data);
-      ws.onclose = (e) => log('Disconnected (code: ' + e.code + ')');
-      ws.onerror = () => log('Connection error. Check endpoint and authentication.');
+      wsConn = new WebSocket(ep);
+      wsConn.onopen = function () { log('Connected.'); };
+      wsConn.onmessage = function (e) { log('Received: ' + e.data); };
+      wsConn.onclose = function (e) { log('Disconnected (code: ' + e.code + ')'); };
+      wsConn.onerror = function () { log('Connection error. Check endpoint and authentication.'); };
     } catch (e) { log('Error: ' + String(e)); }
   };
 
-  if (sendBtn) sendBtn.onclick = () => {
-    if (!ws || ws.readyState !== 1) { log('Not connected. Click Connect first.'); return; }
-    const msg = document.getElementById('ws-msg').value;
-    ws.send(msg);
+  if (sendBtn) sendBtn.onclick = function () {
+    if (!wsConn || wsConn.readyState !== 1) { log('Not connected. Click Connect first.'); return; }
+    var msg = document.getElementById('ws-msg').value;
+    wsConn.send(msg);
     log('Sent: ' + msg);
   };
 
-  if (closeBtn) closeBtn.onclick = () => {
-    if (ws) { ws.close(1000, 'User closed'); }
+  if (closeBtn) closeBtn.onclick = function () {
+    if (wsConn) { wsConn.close(1000, 'User closed'); }
   };
 })();
 </script>

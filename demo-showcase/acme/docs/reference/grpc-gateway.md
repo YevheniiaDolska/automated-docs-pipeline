@@ -156,7 +156,12 @@ curl -X POST https://api.acme.example/grpc/invoke \
 
 ## Interactive gateway tester
 
-Enter a service, method, and JSON payload to invoke an RPC through the HTTP gateway.
+Enter a service, method, and JSON payload to invoke an RPC through the sandbox gateway.
+
+!!! info "Sandbox mode"
+    RPC calls route to the Postman mock server at
+    `https://662b99a9-ac2a-4096-8a8e-480a73cef3e3.mock.pstmn.io/grpc/invoke`.
+    No API key is required for sandbox requests.
 
 <div style="border:1px solid #dbe2ea;border-radius:10px;padding:16px;background:#f8f9fa">
 <label><strong>Service:</strong></label>
@@ -171,21 +176,23 @@ Enter a service, method, and JSON payload to invoke an RPC through the HTTP gate
 
 <script>
 (() => {
-  const endpoint = 'https://api.acme.example/grpc/invoke';
-  const btn = document.getElementById('grpc-run');
+  var sandbox = (window.ACME_SANDBOX && window.ACME_SANDBOX.grpc_gateway_url) || '';
+  var endpoint = sandbox || 'https://api.acme.example/grpc/invoke';
+  var btn = document.getElementById('grpc-run');
   if (!btn) return;
-  btn.onclick = async () => {
-    const out = document.getElementById('grpc-out');
-    out.textContent = 'Invoking RPC...';
+  var out = document.getElementById('grpc-out');
+  if (sandbox) { out.textContent = 'Sandbox: ' + sandbox; }
+  btn.onclick = async function () {
+    out.textContent = 'Invoking RPC against ' + (sandbox ? 'sandbox' : 'gateway') + '...';
     try {
-      const body = {
+      var body = {
         service: document.getElementById('grpc-svc').value,
         method: document.getElementById('grpc-method').value,
         payload: JSON.parse(document.getElementById('grpc-payload').value)
       };
-      const r = await fetch(endpoint, {
+      var r = await fetch(endpoint, {
         method: 'POST',
-        headers: {'content-type': 'application/json', 'Authorization': 'Bearer YOUR_API_KEY'},
+        headers: { 'content-type': 'application/json' },
         body: JSON.stringify(body)
       });
       out.textContent = JSON.stringify(JSON.parse(await r.text()), null, 2);

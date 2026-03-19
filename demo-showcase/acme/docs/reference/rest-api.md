@@ -268,7 +268,12 @@ curl -X POST https://api.acme.example/v1/tasks \
 
 ## Interactive Swagger UI
 
-Explore and test all 14 endpoints in the embedded Swagger interface. Provide your Bearer token in the **Authorize** dialog to send live requests.
+Explore and test all 14 endpoints in the embedded Swagger interface. Requests route to the Postman mock server sandbox automatically.
+
+!!! info "Sandbox mode"
+    All Try-it requests from Swagger UI route to the Postman mock server at
+    `https://662b99a9-ac2a-4096-8a8e-480a73cef3e3.mock.pstmn.io/v1`.
+    No API key is required for sandbox requests.
 
 <div style="border:1px solid #dbe2ea;border-radius:12px;overflow:hidden;">
 <iframe src="swagger-test.html" width="100%" height="900" style="border:none;"></iframe>

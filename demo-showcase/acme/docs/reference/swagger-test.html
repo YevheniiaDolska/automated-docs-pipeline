@@ -1,20 +1,52 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Swagger UI Test</title>
+  <title>Acme REST API - Swagger UI</title>
   <link rel="stylesheet" href="https://unpkg.com/swagger-ui-dist/swagger-ui.css">
 </head>
 <body>
   <div id="swagger-ui"></div>
   <script src="https://unpkg.com/swagger-ui-dist/swagger-ui-bundle.js"></script>
   <script>
-    var specUrl = "https://yevheniiadolska.github.io/automated-docs-pipeline/assets/api/openapi.bundled.json";
-    document.title = "Loading: " + specUrl;
+    var specUrl = "../assets/api/openapi.bundled.json";
+    var sandboxBase = "https://662b99a9-ac2a-4096-8a8e-480a73cef3e3.mock.pstmn.io/v1";
+
+    // Allow parent page to override sandbox URL via query param
+    var params = new URLSearchParams(window.location.search);
+    if (params.get("sandbox")) {
+      sandboxBase = params.get("sandbox");
+    }
+
+    document.title = "Acme REST API - Swagger UI";
+
     SwaggerUIBundle({
       url: specUrl,
-      dom_id: '#swagger-ui',
+      dom_id: "#swagger-ui",
       deepLinking: true,
-      docExpansion: 'list',
+      docExpansion: "list",
+      defaultModelsExpandDepth: 1,
+      supportedSubmitMethods: ["get", "put", "post", "delete", "patch"],
+      requestInterceptor: function (request) {
+        // Do not rewrite spec fetches
+        if (request.url === specUrl || request.url.indexOf("openapi") !== -1) {
+          return request;
+        }
+        // Rewrite API calls to hit the Postman mock server
+        if (sandboxBase) {
+          try {
+            var parsed = new URL(request.url, window.location.origin);
+            var target = new URL(sandboxBase, window.location.origin);
+            parsed.protocol = target.protocol;
+            parsed.hostname = target.hostname;
+            parsed.port = target.port;
+            // Preserve the /v1/... path from the spec
+            request.url = parsed.toString();
+          } catch (e) {
+            // Fall through on parse errors
+          }
+        }
+        return request;
+      }
     });
   </script>
 </body>
