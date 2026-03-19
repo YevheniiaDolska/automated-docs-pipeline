@@ -12,27 +12,10 @@
   function getConfig() {
     var cfg = window.ACME_SANDBOX || {};
     return {
-      apiKey:    cfg.postman_api_key    || '',
       rest:      cfg.rest_base_url      || '',
-      graphql:   cfg.graphql_url        || '',
-      grpc:      cfg.grpc_gateway_url   || '',
       asyncapi:  cfg.asyncapi_ws_url    || '',
       websocket: cfg.websocket_url      || ''
     };
-  }
-
-  function sandboxHeaders(apiKey) {
-    var h = { 'content-type': 'application/json' };
-    if (apiKey) { h['x-api-key'] = apiKey; }
-    return h;
-  }
-
-  function safeParseJson(text) {
-    try {
-      return JSON.parse(text);
-    } catch (e) {
-      return null;
-    }
   }
 
   function normalize(str) {
@@ -41,19 +24,58 @@
 
   function graphqlFallback(queryText) {
     var q = normalize(queryText);
-    var idMatch = String(queryText || '').match(/project\s*\(\s*id\s*:\s*"([^"]+)"/i);
+    var idMatch = String(queryText || '').match(/id\s*:\s*"([^"]+)"/i);
     var projectId = idMatch ? idMatch[1] : 'prj_abc123';
+    var nameMatch = String(queryText || '').match(/name\s*:\s*"([^"]+)"/i);
+    var statusMatch = String(queryText || '').match(/status\s*:\s*"([^"]+)"/i);
     if (q.indexOf('health') !== -1) {
-      return { data: { health: { status: 'ok', version: '1.0.0', timestamp: new Date().toISOString() } } };
+      return { data: { health: { status: 'healthy', version: '2.4.1', uptime_seconds: 86400 } } };
+    }
+    if (q.indexOf('mutation') !== -1 && q.indexOf('updateproject') !== -1) {
+      return {
+        data: {
+          updateProject: {
+            id: projectId,
+            name: nameMatch ? nameMatch[1] : 'Website Redesign',
+            status: statusMatch ? statusMatch[1] : 'active',
+            createdAt: '2026-01-15T09:00:00Z',
+            updatedAt: new Date().toISOString()
+          }
+        }
+      };
     }
     if (q.indexOf('mutation') !== -1 && q.indexOf('createproject') !== -1) {
       return {
         data: {
           createProject: {
-            id: 'prj_new_' + Date.now(),
-            name: 'Demo Project',
-            status: 'active'
+            id: 'prj_' + Math.random().toString(36).slice(2, 8),
+            name: nameMatch ? nameMatch[1] : 'New Project',
+            status: statusMatch ? statusMatch[1] : 'draft',
+            createdAt: new Date().toISOString()
           }
+        }
+      };
+    }
+    if (q.indexOf('subscription') !== -1 && q.indexOf('projectupdated') !== -1) {
+      return {
+        data: {
+          projectUpdated: {
+            id: projectId,
+            name: 'Website Redesign',
+            status: 'active',
+            updatedAt: new Date().toISOString()
+          }
+        }
+      };
+    }
+    if (q.indexOf('projects') !== -1) {
+      return {
+        data: {
+          projects: [
+            { id: 'prj_abc123', name: 'Website Redesign', status: 'active', createdAt: '2026-01-15T09:00:00Z' },
+            { id: 'prj_def456', name: 'Mobile App Launch', status: 'active', createdAt: '2026-02-20T11:00:00Z' },
+            { id: 'prj_ghi789', name: 'API Documentation', status: 'draft', createdAt: '2026-03-01T14:30:00Z' }
+          ]
         }
       };
     }
@@ -62,81 +84,44 @@
         data: {
           project: {
             id: projectId,
-            name: 'Acme Demo Project',
+            name: 'Website Redesign',
             status: 'active',
-            owner: { id: 'usr_001', email: 'owner@acme.example' }
+            createdAt: '2026-01-15T09:00:00Z',
+            updatedAt: '2026-03-19T14:30:00Z'
           }
         }
       };
     }
-    return {
-      data: {
-        echo: {
-          note: 'Fallback sandbox response',
-          query: String(queryText || '').slice(0, 300)
-        }
-      }
-    };
+    return { data: null, errors: [{ message: 'Unknown query. Try: health, project, projects, createProject, updateProject, or projectUpdated.', extensions: { code: 'UNKNOWN_QUERY' } }] };
   }
 
-  function graphqlRelevant(queryText, payload) {
-    var q = normalize(queryText);
-    if (!payload || typeof payload !== 'object' || !payload.data) return false;
-    if (q.indexOf('health') !== -1) return !!(payload.data && payload.data.health);
-    if (q.indexOf('createproject') !== -1) return !!(payload.data && payload.data.createProject);
-    if (q.indexOf('project') !== -1) return !!(payload.data && payload.data.project);
-    return true;
-  }
 
   function grpcFallback(body) {
-    var service = String((body && body.service) || 'acme.project.v1.ProjectService');
     var method = String((body && body.method) || 'Unknown');
     var payload = (body && body.payload) || {};
     var methodLc = method.toLowerCase();
-    if (methodLc === 'createproject') {
-      return {
-        code: 0,
-        message: 'OK',
-        data: {
-          id: 'prj_new_' + Date.now(),
-          name: payload.name || 'Demo Project',
-          status: 'active'
-        }
-      };
-    }
     if (methodLc === 'getproject') {
       return {
-        code: 0,
-        message: 'OK',
-        data: {
-          id: payload.id || 'prj_abc123',
-          name: 'Acme Demo Project',
-          status: 'active'
-        }
+        id: payload.project_id || 'prj_abc123',
+        name: 'Website Redesign',
+        status: 'active'
+      };
+    }
+    if (methodLc === 'createproject') {
+      return {
+        id: 'prj_' + Math.random().toString(36).slice(2, 8),
+        name: payload.name || 'New Project',
+        status: payload.status || 'draft'
       };
     }
     if (methodLc === 'listprojects') {
-      return {
-        code: 0,
-        message: 'OK',
-        data: {
-          items: [
-            { id: 'prj_abc123', name: 'Alpha', status: 'active' },
-            { id: 'prj_def456', name: 'Beta', status: 'draft' }
-          ]
-        }
-      };
+      return [
+        { id: 'prj_abc123', name: 'Website Redesign', status: 'active' },
+        { id: 'prj_def456', name: 'Mobile App Launch', status: 'active' },
+        { id: 'prj_ghi789', name: 'API Documentation', status: 'draft' }
+      ];
     }
-    return { code: 0, message: 'OK', data: { service: service, method: method, echo: payload } };
-  }
-
-  function grpcRelevant(body, payload) {
-    if (!payload || typeof payload !== 'object') return false;
-    var method = String((body && body.method) || '').toLowerCase();
-    if (method === 'createproject') return !!(payload.data && payload.data.id);
-    if (method === 'getproject') return !!(payload.data && payload.data.id);
-    if (method === 'listprojects') return !!(payload.data && payload.data.items);
-    return true;
+    return { error: { code: 'UNIMPLEMENTED', message: 'Method ' + method + ' is not implemented. Try: GetProject, CreateProject, or ListProjects.' } };
   }
 
   /* REST: Swagger iframe gets sandbox URL via query param */
@@ -149,48 +134,30 @@
     }
   }
 
-  /* GraphQL: patch live query editor */
+  /* GraphQL: local mock responses for reliable demo */
   function initGraphQL(cfg) {
-    if (!cfg.graphql) return;
     var btn = document.getElementById('gql-run');
     if (!btn) return;
     var out = document.getElementById('gql-out');
     var query = document.getElementById('gql-q');
-    if (out && !out.textContent) { out.textContent = 'Sandbox ready: ' + cfg.graphql; }
-    btn.onclick = async function () {
-      out.textContent = 'Executing query against sandbox...';
-      try {
-        var queryText = query.value;
-        var r = await fetch(cfg.graphql, {
-          method: 'POST',
-          headers: sandboxHeaders(cfg.apiKey),
-          body: JSON.stringify({ query: queryText })
-        });
-        var raw = await r.text();
-        var parsed = safeParseJson(raw);
-        if (!graphqlRelevant(queryText, parsed)) {
-          parsed = graphqlFallback(queryText);
-          parsed.__source = 'local-fallback';
-        }
-        out.textContent = JSON.stringify(parsed || graphqlFallback(queryText), null, 2);
-      } catch (e) {
-        var fallback = graphqlFallback(query.value);
-        fallback.__source = 'local-fallback';
-        fallback.__error = String(e);
-        out.textContent = JSON.stringify(fallback, null, 2);
-      }
+    if (out && !out.textContent) { out.textContent = 'Sandbox ready'; }
+    btn.onclick = function () {
+      out.textContent = 'Executing query...';
+      var result = graphqlFallback(query.value);
+      setTimeout(function () {
+        out.textContent = JSON.stringify(result, null, 2);
+      }, 300);
     };
   }
 
-  /* gRPC: patch gateway invoker */
+  /* gRPC: local mock responses for reliable demo */
   function initGrpc(cfg) {
-    if (!cfg.grpc) return;
     var btn = document.getElementById('grpc-run');
     if (!btn) return;
     var out = document.getElementById('grpc-out');
-    if (out && !out.textContent) { out.textContent = 'Sandbox ready: ' + cfg.grpc; }
-    btn.onclick = async function () {
-      out.textContent = 'Invoking RPC against sandbox...';
+    if (out && !out.textContent) { out.textContent = 'Sandbox ready'; }
+    btn.onclick = function () {
+      out.textContent = 'Invoking RPC...';
       var body = null;
       try {
         body = {
@@ -198,24 +165,14 @@
           method: document.getElementById('grpc-method').value,
           payload: JSON.parse(document.getElementById('grpc-payload').value)
         };
-        var r = await fetch(cfg.grpc, {
-          method: 'POST',
-          headers: sandboxHeaders(cfg.apiKey),
-          body: JSON.stringify(body)
-        });
-        var raw = await r.text();
-        var parsed = safeParseJson(raw);
-        if (!grpcRelevant(body, parsed)) {
-          parsed = grpcFallback(body);
-          parsed.__source = 'local-fallback';
-        }
-        out.textContent = JSON.stringify(parsed || grpcFallback(body), null, 2);
       } catch (e) {
-        var fallback = grpcFallback(body || {});
-        fallback.__source = 'local-fallback';
-        fallback.__error = String(e);
-        out.textContent = JSON.stringify(fallback, null, 2);
+        out.textContent = 'Error: invalid JSON payload';
+        return;
       }
+      var result = grpcFallback(body);
+      setTimeout(function () {
+        out.textContent = JSON.stringify(result, null, 2);
+      }, 300);
     };
   }
 

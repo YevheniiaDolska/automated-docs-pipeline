@@ -176,30 +176,7 @@ Enter a service, method, and JSON payload to invoke an RPC through the sandbox g
 </div>
 
 <script>
-(() => {
-  var sandbox = (window.ACME_SANDBOX && window.ACME_SANDBOX.grpc_gateway_url) || '';
-  var endpoint = sandbox || 'https://api.acme.example/grpc/invoke';
-  var btn = document.getElementById('grpc-run');
-  if (!btn) return;
-  var out = document.getElementById('grpc-out');
-  if (sandbox) { out.textContent = 'Sandbox: ' + sandbox; }
-  btn.onclick = async function () {
-    out.textContent = 'Invoking RPC against ' + (sandbox ? 'sandbox' : 'gateway') + '...';
-    try {
-      var body = {
-        service: document.getElementById('grpc-svc').value,
-        method: document.getElementById('grpc-method').value,
-        payload: JSON.parse(document.getElementById('grpc-payload').value)
-      };
-      var r = await fetch(endpoint, {
-        method: 'POST',
-        headers: Object.assign({ 'content-type': 'application/json' }, (window.ACME_SANDBOX && window.ACME_SANDBOX.postman_api_key) ? { 'x-api-key': window.ACME_SANDBOX.postman_api_key } : {}),
-        body: JSON.stringify(body)
-      });
-      out.textContent = JSON.stringify(JSON.parse(await r.text()), null, 2);
-    } catch (e) { out.textContent = 'Error: ' + String(e); }
-  };
-})();
+/* Sandbox onclick is set by acme-sandbox.js with local mock responses */
 </script>
 
 ## Error handling and gRPC status codes

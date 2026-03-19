@@ -184,26 +184,7 @@ Enter a GraphQL query and click **Run query** to execute it against the Postman 
 </div>
 
 <script>
-(() => {
-  var sandbox = (window.ACME_SANDBOX && window.ACME_SANDBOX.graphql_url) || '';
-  var endpoint = sandbox || 'https://api.acme.example/graphql';
-  var run = document.getElementById('gql-run');
-  var query = document.getElementById('gql-q');
-  var out = document.getElementById('gql-out');
-  if (!run) return;
-  if (sandbox) { out.textContent = 'Sandbox: ' + sandbox; }
-  run.onclick = async function () {
-    out.textContent = 'Executing query against ' + (sandbox ? 'sandbox' : 'API') + '...';
-    try {
-      var r = await fetch(endpoint, {
-        method: 'POST',
-        headers: Object.assign({ 'content-type': 'application/json' }, (window.ACME_SANDBOX && window.ACME_SANDBOX.postman_api_key) ? { 'x-api-key': window.ACME_SANDBOX.postman_api_key } : {}),
-        body: JSON.stringify({ query: query.value })
-      });
-      out.textContent = JSON.stringify(JSON.parse(await r.text()), null, 2);
-    } catch (e) { out.textContent = 'Error: ' + String(e); }
-  };
-})();
+/* Sandbox onclick is set by acme-sandbox.js with local mock responses */
 </script>
 
 ## Error handling
