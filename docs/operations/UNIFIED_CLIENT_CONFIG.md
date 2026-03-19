@@ -371,6 +371,24 @@ After these are set, pipeline does the rest automatically:
 1. Generates API test assets (cases, matrix, property/fuzz scenarios, CSV/JSON exports).
 1. Optionally uploads those assets to TestRail/Zephyr.
 
+### 6.1 Strict default behavior for multi-protocol flows
+
+For GraphQL/gRPC/AsyncAPI/WebSocket, runtime uses strict defaults:
+
+- contract validation runs before protocol lint/docs generation.
+- semantic request/response relevance checks are mandatory in the protocol quality suite.
+- if any enabled stage fails, pipeline retries protocol flow in an autofix cycle.
+
+Runtime keys (per protocol under `runtime.api_protocol_settings.<protocol>`):
+
+```yaml
+autofix_cycle_enabled: true
+autofix_max_attempts: 3
+semantic_autofix_max_attempts: 3
+```
+
+These defaults are designed for smooth one-command autopipeline runs with minimal manual intervention.
+
 ## 7. Module switches
 
 ```yaml
