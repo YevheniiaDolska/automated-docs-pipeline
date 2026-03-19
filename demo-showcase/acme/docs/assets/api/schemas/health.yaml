@@ -1,0 +1,17 @@
+type: object
+required: [status, version, uptime_seconds]
+description: API health check response
+properties:
+  status:
+    type: string
+    description: Health status indicator
+    enum: [healthy, degraded, unhealthy]
+    example: healthy
+  version:
+    type: string
+    description: API version number
+    example: "1.2.0"
+  uptime_seconds:
+    type: integer
+    description: Server uptime in seconds
+    example: 86400

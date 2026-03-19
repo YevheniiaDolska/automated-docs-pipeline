@@ -1,43 +1,1426 @@
 openapi: 3.0.3
 info:
-  title: Acme API
-  description: API contract used by Acme demo sandbox and interactive Swagger.
-  version: 1.0.0
+  title: Acme Project Management API
+  description: >
+    The Acme API provides programmatic access to project management resources
+    including projects, tasks, users, tags, and comments. All endpoints require
+    Bearer JWT authentication and return JSON responses.
+  version: 1.2.0
   contact:
     name: Acme API Support
     email: support@acme.example
+    url: https://docs.acme.example
+
 servers:
   - url: https://api.acme.example/v1
+    description: Production
+  - url: https://662b99a9-ac2a-4096-8a8e-480a73cef3e3.mock.pstmn.io/v1
+    description: Sandbox (Postman mock)
+
+tags:
+  - name: Projects
+    description: Project lifecycle management
+  - name: Tasks
+    description: Task tracking within projects
+  - name: Users
+    description: User accounts and profiles
+  - name: Tags
+    description: Resource tagging and categorization
+  - name: Comments
+    description: Threaded comments on tasks
+
+security:
+  - bearerAuth: []
+
 paths:
-  /projects:
+  /health:
     get:
-      summary: List projects
-      description: Returns all projects available to the caller.
-      operationId: listProjects
-      tags:
-        - Projects
+      operationId: getHealth
+      summary: Check API health
+      description: >
+        Returns the current health status, API version, and server uptime.
+        This endpoint does not require authentication.
+      tags: [Projects]
+      security: []
       responses:
         '200':
-          description: OK
+          description: API health status
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ProjectsList'
+                $ref: ./schemas/health.yaml
+              example:
+                status: healthy
+                version: "1.2.0"
+                uptime_seconds: 86400
+
+  /projects:
+    get:
+      operationId: listProjects
+      summary: List all projects
+      description: >
+        Returns a paginated list of projects visible to the authenticated user.
+        Use query parameters to filter by status and control pagination.
+      tags: [Projects]
+      parameters:
+        - name: status
+          in: query
+          description: Filter projects by status
+          required: false
+          schema:
+            type: string
+            enum: [draft, active, archived]
+          example: active
+        - name: page
+          in: query
+          description: Page number (1-indexed)
+          required: false
+          schema:
+            type: integer
+            default: 1
+            minimum: 1
+          example: 1
+        - name: per_page
+          in: query
+          description: Results per page (max 100)
+          required: false
+          schema:
+            type: integer
+            default: 25
+            minimum: 1
+            maximum: 100
+          example: 25
+        - name: sort
+          in: query
+          description: Field to sort by
+          required: false
+          schema:
+            type: string
+            enum: [created_at, updated_at, name]
+            default: created_at
+          example: created_at
+        - name: order
+          in: query
+          description: Sort direction
+          required: false
+          schema:
+            type: string
+            enum: [asc, desc]
+            default: desc
+          example: desc
+      responses:
+        '200':
+          description: A paginated list of projects
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProjectListResponse'
+              example:
+                data:
+                  - id: prj_abc123
+                    name: Website Redesign
+                    status: active
+                    description: Q2 website refresh with new design system
+                    created_at: "2026-01-15T09:30:00Z"
+                    updated_at: "2026-03-10T14:22:00Z"
+                    task_count: 47
+                    owner_id: usr_456
+                  - id: prj_def456
+                    name: Mobile App Launch
+                    status: active
+                    description: iOS and Android app for Q3 release
+                    created_at: "2026-02-20T11:00:00Z"
+                    updated_at: "2026-03-15T16:45:00Z"
+                    task_count: 32
+                    owner_id: usr_789
+                pagination:
+                  page: 1
+                  per_page: 25
+                  total: 142
+                  total_pages: 6
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '429':
+          $ref: '#/components/responses/RateLimited'
+    post:
+      operationId: createProject
+      summary: Create a project
+      description: >
+        Creates a new project resource. The authenticated user becomes the owner.
+        Returns the created project with a generated ID.
+      tags: [Projects]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateProjectRequest'
+            example:
+              name: Mobile App Launch
+              description: iOS and Android app for Q3 release
+              status: active
+      responses:
+        '201':
+          description: Project created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Project'
+              example:
+                id: prj_def456
+                name: Mobile App Launch
+                description: iOS and Android app for Q3 release
+                status: active
+                created_at: "2026-03-19T10:00:00Z"
+                updated_at: "2026-03-19T10:00:00Z"
+                task_count: 0
+                owner_id: usr_789
+        '400':
+          $ref: '#/components/responses/ValidationError'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '409':
+          $ref: '#/components/responses/Conflict'
+        '429':
+          $ref: '#/components/responses/RateLimited'
+
+  /projects/{project_id}:
+    parameters:
+      - $ref: '#/components/parameters/ProjectId'
+    get:
+      operationId: getProject
+      summary: Get a project
+      description: Returns a single project by its unique ID.
+      tags: [Projects]
+      responses:
+        '200':
+          description: Project details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Project'
+              example:
+                id: prj_abc123
+                name: Website Redesign
+                description: Q2 website refresh with new design system
+                status: active
+                created_at: "2026-01-15T09:30:00Z"
+                updated_at: "2026-03-10T14:22:00Z"
+                task_count: 47
+                owner_id: usr_456
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    put:
+      operationId: updateProject
+      summary: Update a project
+      description: >
+        Updates an existing project. Send only the fields you want to change.
+        Returns the full updated project object.
+      tags: [Projects]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateProjectRequest'
+            example:
+              name: Website Redesign v2
+              status: archived
+      responses:
+        '200':
+          description: Project updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Project'
+              example:
+                id: prj_abc123
+                name: Website Redesign v2
+                description: Q2 website refresh with new design system
+                status: archived
+                created_at: "2026-01-15T09:30:00Z"
+                updated_at: "2026-03-19T14:30:00Z"
+                task_count: 47
+                owner_id: usr_456
+        '400':
+          $ref: '#/components/responses/ValidationError'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    delete:
+      operationId: deleteProject
+      summary: Delete a project
+      description: >
+        Deletes a project and all associated tasks, comments, and tag
+        associations. This action is irreversible.
+      tags: [Projects]
+      responses:
+        '204':
+          description: Project deleted
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+
+  /tasks:
+    get:
+      operationId: listTasks
+      summary: List tasks
+      description: >
+        Returns a paginated list of tasks. Supports filtering by project,
+        status, assignee, and priority.
+      tags: [Tasks]
+      parameters:
+        - name: project_id
+          in: query
+          description: Filter tasks by parent project ID
+          required: false
+          schema:
+            type: string
+          example: prj_abc123
+        - name: status
+          in: query
+          description: Filter tasks by status
+          required: false
+          schema:
+            type: string
+            enum: [todo, in_progress, done]
+          example: in_progress
+        - name: assignee_id
+          in: query
+          description: Filter tasks by assigned user ID
+          required: false
+          schema:
+            type: string
+          example: usr_456
+        - name: priority
+          in: query
+          description: Filter tasks by priority level
+          required: false
+          schema:
+            type: string
+            enum: [low, medium, high]
+          example: high
+        - name: page
+          in: query
+          description: Page number (1-indexed)
+          required: false
+          schema:
+            type: integer
+            default: 1
+          example: 1
+        - name: per_page
+          in: query
+          description: Results per page (max 100)
+          required: false
+          schema:
+            type: integer
+            default: 25
+            maximum: 100
+          example: 25
+      responses:
+        '200':
+          description: A paginated list of tasks
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TaskListResponse'
+              example:
+                data:
+                  - id: tsk_001
+                    title: Design homepage mockup
+                    project_id: prj_abc123
+                    assignee_id: usr_456
+                    status: in_progress
+                    priority: high
+                    created_at: "2026-02-01T10:00:00Z"
+                    updated_at: "2026-03-18T09:15:00Z"
+                  - id: tsk_002
+                    title: Implement user authentication
+                    project_id: prj_abc123
+                    assignee_id: usr_789
+                    status: done
+                    priority: high
+                    created_at: "2026-02-05T14:00:00Z"
+                    updated_at: "2026-03-12T11:30:00Z"
+                pagination:
+                  page: 1
+                  per_page: 25
+                  total: 47
+                  total_pages: 2
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '429':
+          $ref: '#/components/responses/RateLimited'
+    post:
+      operationId: createTask
+      summary: Create a task
+      description: >
+        Creates a new task within a project. Requires a valid project_id.
+        The task starts with status todo by default.
+      tags: [Tasks]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateTaskRequest'
+            example:
+              title: Design homepage mockup
+              project_id: prj_abc123
+              assignee_id: usr_456
+              priority: high
+              description: Create wireframes and high-fidelity mockups for the new homepage
+      responses:
+        '201':
+          description: Task created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Task'
+              example:
+                id: tsk_003
+                title: Design homepage mockup
+                project_id: prj_abc123
+                assignee_id: usr_456
+                status: todo
+                priority: high
+                description: Create wireframes and high-fidelity mockups for the new homepage
+                created_at: "2026-03-19T10:00:00Z"
+                updated_at: "2026-03-19T10:00:00Z"
+        '400':
+          $ref: '#/components/responses/ValidationError'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+
+  /tasks/{task_id}:
+    parameters:
+      - $ref: '#/components/parameters/TaskId'
+    get:
+      operationId: getTask
+      summary: Get a task
+      description: Returns a single task by its unique ID.
+      tags: [Tasks]
+      responses:
+        '200':
+          description: Task details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Task'
+              example:
+                id: tsk_001
+                title: Design homepage mockup
+                project_id: prj_abc123
+                assignee_id: usr_456
+                status: in_progress
+                priority: high
+                description: Create wireframes and high-fidelity mockups for the new homepage
+                created_at: "2026-02-01T10:00:00Z"
+                updated_at: "2026-03-18T09:15:00Z"
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    put:
+      operationId: updateTask
+      summary: Update a task
+      description: >
+        Updates an existing task. Send only the fields you want to change.
+        Changing status to done triggers a task.completed event.
+      tags: [Tasks]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateTaskRequest'
+            example:
+              status: done
+              priority: medium
+      responses:
+        '200':
+          description: Task updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Task'
+        '400':
+          $ref: '#/components/responses/ValidationError'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    delete:
+      operationId: deleteTask
+      summary: Delete a task
+      description: >
+        Deletes a task and all associated comments. This action is irreversible.
+      tags: [Tasks]
+      responses:
+        '204':
+          description: Task deleted
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+
+  /users:
+    get:
+      operationId: listUsers
+      summary: List users
+      description: >
+        Returns a paginated list of users in the organization.
+        Supports filtering by role.
+      tags: [Users]
+      parameters:
+        - name: role
+          in: query
+          description: Filter users by role
+          required: false
+          schema:
+            type: string
+            enum: [admin, member, viewer]
+          example: member
+        - name: page
+          in: query
+          description: Page number (1-indexed)
+          required: false
+          schema:
+            type: integer
+            default: 1
+          example: 1
+        - name: per_page
+          in: query
+          description: Results per page (max 100)
+          required: false
+          schema:
+            type: integer
+            default: 25
+            maximum: 100
+          example: 25
+      responses:
+        '200':
+          description: A paginated list of users
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserListResponse'
+              example:
+                data:
+                  - id: usr_456
+                    name: Alice Chen
+                    email: alice@acme.example
+                    role: admin
+                    avatar_url: https://api.acme.example/avatars/usr_456.png
+                    created_at: "2025-06-15T08:00:00Z"
+                  - id: usr_789
+                    name: Bob Martinez
+                    email: bob@acme.example
+                    role: member
+                    avatar_url: https://api.acme.example/avatars/usr_789.png
+                    created_at: "2025-09-20T12:00:00Z"
+                pagination:
+                  page: 1
+                  per_page: 25
+                  total: 18
+                  total_pages: 1
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+    post:
+      operationId: createUser
+      summary: Create a user
+      description: >
+        Invites a new user to the organization. Sends an invitation email
+        to the provided email address.
+      tags: [Users]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateUserRequest'
+            example:
+              name: Carol Williams
+              email: carol@acme.example
+              role: member
+      responses:
+        '201':
+          description: User created and invitation sent
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+              example:
+                id: usr_012
+                name: Carol Williams
+                email: carol@acme.example
+                role: member
+                avatar_url: https://api.acme.example/avatars/usr_012.png
+                created_at: "2026-03-19T10:00:00Z"
+        '400':
+          $ref: '#/components/responses/ValidationError'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '409':
+          $ref: '#/components/responses/Conflict'
+
+  /users/{user_id}:
+    parameters:
+      - $ref: '#/components/parameters/UserId'
+    get:
+      operationId: getUser
+      summary: Get a user
+      description: Returns a single user profile by their unique ID.
+      tags: [Users]
+      responses:
+        '200':
+          description: User details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+              example:
+                id: usr_456
+                name: Alice Chen
+                email: alice@acme.example
+                role: admin
+                avatar_url: https://api.acme.example/avatars/usr_456.png
+                created_at: "2025-06-15T08:00:00Z"
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+
+  /tags:
+    get:
+      operationId: listTags
+      summary: List tags
+      description: >
+        Returns all tags in the organization. Tags categorize
+        projects and tasks for filtering and reporting.
+      tags: [Tags]
+      responses:
+        '200':
+          description: List of all tags
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TagListResponse'
+              example:
+                data:
+                  - id: tag_001
+                    name: frontend
+                    color: "#3B82F6"
+                    usage_count: 24
+                  - id: tag_002
+                    name: backend
+                    color: "#10B981"
+                    usage_count: 31
+                  - id: tag_003
+                    name: urgent
+                    color: "#EF4444"
+                    usage_count: 8
+                  - id: tag_004
+                    name: documentation
+                    color: "#8B5CF6"
+                    usage_count: 12
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+    post:
+      operationId: createTag
+      summary: Create a tag
+      description: >
+        Creates a new tag for categorizing projects and tasks.
+        Tag names must be unique within the organization.
+      tags: [Tags]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateTagRequest'
+            example:
+              name: design-review
+              color: "#F59E0B"
+      responses:
+        '201':
+          description: Tag created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Tag'
+              example:
+                id: tag_005
+                name: design-review
+                color: "#F59E0B"
+                usage_count: 0
+        '400':
+          $ref: '#/components/responses/ValidationError'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '409':
+          $ref: '#/components/responses/Conflict'
+
+  /tags/{tag_id}:
+    parameters:
+      - $ref: '#/components/parameters/TagId'
+    get:
+      operationId: getTag
+      summary: Get a tag
+      description: Returns a single tag by its unique ID.
+      tags: [Tags]
+      responses:
+        '200':
+          description: Tag details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Tag'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    delete:
+      operationId: deleteTag
+      summary: Delete a tag
+      description: >
+        Deletes a tag and removes it from all associated resources.
+        This action is irreversible.
+      tags: [Tags]
+      responses:
+        '204':
+          description: Tag deleted
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+
+  /comments:
+    get:
+      operationId: listComments
+      summary: List comments on a task
+      description: >
+        Returns a paginated list of comments for a specific task.
+        The task_id query parameter is required.
+      tags: [Comments]
+      parameters:
+        - name: task_id
+          in: query
+          description: Task ID to list comments for
+          required: true
+          schema:
+            type: string
+          example: tsk_001
+        - name: page
+          in: query
+          description: Page number (1-indexed)
+          required: false
+          schema:
+            type: integer
+            default: 1
+          example: 1
+        - name: per_page
+          in: query
+          description: Results per page (max 100)
+          required: false
+          schema:
+            type: integer
+            default: 25
+            maximum: 100
+          example: 25
+      responses:
+        '200':
+          description: A paginated list of comments
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CommentListResponse'
+              example:
+                data:
+                  - id: cmt_001
+                    task_id: tsk_001
+                    author_id: usr_456
+                    author_name: Alice Chen
+                    body: The homepage mockup looks great.
+                    created_at: "2026-03-15T10:30:00Z"
+                    updated_at: "2026-03-15T10:30:00Z"
+                  - id: cmt_002
+                    task_id: tsk_001
+                    author_id: usr_789
+                    author_name: Bob Martinez
+                    body: Starting frontend work tomorrow morning.
+                    created_at: "2026-03-15T11:00:00Z"
+                    updated_at: "2026-03-15T11:00:00Z"
+                pagination:
+                  page: 1
+                  per_page: 25
+                  total: 5
+                  total_pages: 1
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+    post:
+      operationId: createComment
+      summary: Add a comment
+      description: >
+        Adds a comment to a task. The authenticated user becomes the author.
+        Supports plain text and Markdown formatting.
+      tags: [Comments]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateCommentRequest'
+            example:
+              task_id: tsk_001
+              body: Updated the color palette based on the brand guidelines.
+      responses:
+        '201':
+          description: Comment created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Comment'
+              example:
+                id: cmt_003
+                task_id: tsk_001
+                author_id: usr_456
+                author_name: Alice Chen
+                body: Updated the color palette based on the brand guidelines.
+                created_at: "2026-03-19T10:00:00Z"
+                updated_at: "2026-03-19T10:00:00Z"
+        '400':
+          $ref: '#/components/responses/ValidationError'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+
+  /comments/{comment_id}:
+    parameters:
+      - $ref: '#/components/parameters/CommentId'
+    get:
+      operationId: getComment
+      summary: Get a comment
+      description: Returns a single comment by its unique ID.
+      tags: [Comments]
+      responses:
+        '200':
+          description: Comment details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Comment'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    delete:
+      operationId: deleteComment
+      summary: Delete a comment
+      description: >
+        Deletes a comment. Only the comment author or an admin can delete
+        a comment. This action is irreversible.
+      tags: [Comments]
+      responses:
+        '204':
+          description: Comment deleted
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+
 components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: JWT token obtained from the authentication endpoint
+
+  parameters:
+    ProjectId:
+      name: project_id
+      in: path
+      description: Unique project identifier (format prj_*)
+      required: true
+      schema:
+        type: string
+        pattern: '^prj_[a-zA-Z0-9]+$'
+      example: prj_abc123
+    TaskId:
+      name: task_id
+      in: path
+      description: Unique task identifier (format tsk_*)
+      required: true
+      schema:
+        type: string
+        pattern: '^tsk_[a-zA-Z0-9]+$'
+      example: tsk_001
+    UserId:
+      name: user_id
+      in: path
+      description: Unique user identifier (format usr_*)
+      required: true
+      schema:
+        type: string
+        pattern: '^usr_[a-zA-Z0-9]+$'
+      example: usr_456
+    TagId:
+      name: tag_id
+      in: path
+      description: Unique tag identifier (format tag_*)
+      required: true
+      schema:
+        type: string
+        pattern: '^tag_[a-zA-Z0-9]+$'
+      example: tag_001
+    CommentId:
+      name: comment_id
+      in: path
+      description: Unique comment identifier (format cmt_*)
+      required: true
+      schema:
+        type: string
+        pattern: '^cmt_[a-zA-Z0-9]+$'
+      example: cmt_001
+
   schemas:
     Project:
       type: object
-      required: [id, name, status]
+      required: [id, name, status, created_at, updated_at]
       properties:
-        id: { type: string }
-        name: { type: string }
-        status: { type: string }
-    ProjectsList:
+        id:
+          type: string
+          description: Unique project identifier
+          example: prj_abc123
+        name:
+          type: string
+          description: Project name (3-100 characters)
+          example: Website Redesign
+        description:
+          type: string
+          description: Project description (max 500 characters)
+          example: Q2 website refresh with new design system
+        status:
+          type: string
+          description: Current project status
+          enum: [draft, active, archived]
+          example: active
+        created_at:
+          type: string
+          format: date-time
+          description: ISO 8601 creation timestamp
+          example: "2026-01-15T09:30:00Z"
+        updated_at:
+          type: string
+          format: date-time
+          description: ISO 8601 last update timestamp
+          example: "2026-03-10T14:22:00Z"
+        task_count:
+          type: integer
+          description: Number of tasks in this project
+          example: 47
+        owner_id:
+          type: string
+          description: User ID of the project owner
+          example: usr_456
+
+    CreateProjectRequest:
+      allOf:
+        - $ref: '#/components/schemas/BaseProjectInput'
+        - type: object
+          properties:
+            status:
+              type: string
+              description: Initial status (defaults to draft)
+              enum: [draft, active]
+              default: draft
+              example: active
+
+    BaseProjectInput:
       type: object
-      required: [items]
+      required: [name]
       properties:
-        items:
+        name:
+          type: string
+          description: Project name (3-100 characters)
+          minLength: 3
+          maxLength: 100
+          example: Mobile App Launch
+        description:
+          type: string
+          description: Project description (max 500 characters)
+          maxLength: 500
+          example: iOS and Android app for Q3 release
+
+    UpdateProjectRequest:
+      allOf:
+        - $ref: '#/components/schemas/BaseProjectInput'
+        - type: object
+          properties:
+            status:
+              type: string
+              description: New project status
+              enum: [draft, active, archived]
+              example: archived
+
+    ProjectListResponse:
+      type: object
+      required: [data, pagination]
+      properties:
+        data:
           type: array
           items:
             $ref: '#/components/schemas/Project'
-  responses: {}
+          description: Array of project objects
+        pagination:
+          $ref: '#/components/schemas/Pagination'
+
+    Task:
+      type: object
+      required: [id, title, project_id, status, created_at, updated_at]
+      properties:
+        id:
+          type: string
+          description: Unique task identifier
+          example: tsk_001
+        title:
+          type: string
+          description: Task title (3-200 characters)
+          example: Design homepage mockup
+        description:
+          type: string
+          description: Task description with details
+          example: Create wireframes and high-fidelity mockups for the new homepage
+        project_id:
+          type: string
+          description: Parent project ID
+          example: prj_abc123
+        assignee_id:
+          type: string
+          description: Assigned user ID
+          example: usr_456
+        status:
+          type: string
+          description: Current task status
+          enum: [todo, in_progress, done]
+          example: in_progress
+        priority:
+          type: string
+          description: Task priority level
+          enum: [low, medium, high]
+          example: high
+        created_at:
+          type: string
+          format: date-time
+          description: ISO 8601 creation timestamp
+          example: "2026-02-01T10:00:00Z"
+        updated_at:
+          type: string
+          format: date-time
+          description: ISO 8601 last update timestamp
+          example: "2026-03-18T09:15:00Z"
+
+    CreateTaskRequest:
+      type: object
+      required: [title, project_id]
+      properties:
+        title:
+          type: string
+          description: Task title (3-200 characters)
+          minLength: 3
+          maxLength: 200
+          example: Design homepage mockup
+        description:
+          type: string
+          description: Task description
+          maxLength: 2000
+          example: Create wireframes and high-fidelity mockups
+        project_id:
+          type: string
+          description: Parent project ID
+          example: prj_abc123
+        assignee_id:
+          type: string
+          description: User to assign the task to
+          example: usr_456
+        status:
+          type: string
+          description: Initial status (defaults to todo)
+          enum: [todo, in_progress]
+          default: todo
+          example: todo
+        priority:
+          type: string
+          description: Priority level (defaults to medium)
+          enum: [low, medium, high]
+          default: medium
+          example: high
+
+    UpdateTaskRequest:
+      type: object
+      properties:
+        title:
+          type: string
+          description: New task title
+          minLength: 3
+          maxLength: 200
+          example: Updated homepage mockup
+        description:
+          type: string
+          description: New task description
+          maxLength: 2000
+          example: Updated wireframes with feedback
+        assignee_id:
+          type: string
+          description: New assignee user ID
+          example: usr_789
+        status:
+          type: string
+          description: New task status
+          enum: [todo, in_progress, done]
+          example: done
+        priority:
+          type: string
+          description: New priority level
+          enum: [low, medium, high]
+          example: medium
+
+    TaskListResponse:
+      type: object
+      required: [data, pagination]
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/Task'
+          description: Array of task objects
+        pagination:
+          $ref: '#/components/schemas/Pagination'
+
+    User:
+      type: object
+      required: [id, name, email, role, created_at]
+      properties:
+        id:
+          type: string
+          description: Unique user identifier
+          example: usr_456
+        name:
+          type: string
+          description: Full name
+          example: Alice Chen
+        email:
+          type: string
+          format: email
+          description: Email address
+          example: alice@acme.example
+        role:
+          type: string
+          description: Organization role
+          enum: [admin, member, viewer]
+          example: admin
+        avatar_url:
+          type: string
+          format: uri
+          nullable: true
+          description: URL to avatar image or null if not set
+          example: https://api.acme.example/avatars/usr_456.png
+        created_at:
+          type: string
+          format: date-time
+          description: ISO 8601 creation timestamp
+          example: "2025-06-15T08:00:00Z"
+
+    CreateUserRequest:
+      type: object
+      required: [name, email]
+      properties:
+        name:
+          type: string
+          description: Full name (2-100 characters)
+          minLength: 2
+          maxLength: 100
+          example: Carol Williams
+        email:
+          type: string
+          format: email
+          description: Email address for invitation
+          example: carol@acme.example
+        role:
+          type: string
+          description: Organization role (defaults to member)
+          enum: [admin, member, viewer]
+          default: member
+          example: member
+
+    UserListResponse:
+      type: object
+      required: [data, pagination]
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/User'
+          description: Array of user objects
+        pagination:
+          $ref: '#/components/schemas/Pagination'
+
+    Tag:
+      type: object
+      required: [id, name]
+      properties:
+        id:
+          type: string
+          description: Unique tag identifier
+          example: tag_001
+        name:
+          type: string
+          description: Tag name (unique within organization)
+          example: frontend
+        color:
+          type: string
+          description: Hex color code for display
+          example: "#3B82F6"
+        usage_count:
+          type: integer
+          description: Number of resources with this tag
+          example: 24
+
+    CreateTagRequest:
+      type: object
+      required: [name]
+      properties:
+        name:
+          type: string
+          description: Tag name (2-50 characters, unique)
+          minLength: 2
+          maxLength: 50
+          example: design-review
+        color:
+          type: string
+          description: Hex color code (defaults to system-assigned)
+          pattern: '^#[0-9A-Fa-f]{6}$'
+          example: "#F59E0B"
+
+    TagListResponse:
+      type: object
+      required: [data]
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/Tag'
+          description: Array of tag objects
+
+    Comment:
+      type: object
+      required: [id, task_id, author_id, body, created_at]
+      properties:
+        id:
+          type: string
+          description: Unique comment identifier
+          example: cmt_001
+        task_id:
+          type: string
+          description: Parent task ID
+          example: tsk_001
+        author_id:
+          type: string
+          description: Author user ID
+          example: usr_456
+        author_name:
+          type: string
+          description: Author display name
+          example: Alice Chen
+        body:
+          type: string
+          description: Comment body (plain text or Markdown, max 5000 characters)
+          example: The homepage mockup looks great.
+        created_at:
+          type: string
+          format: date-time
+          description: ISO 8601 creation timestamp
+          example: "2026-03-15T10:30:00Z"
+        updated_at:
+          type: string
+          format: date-time
+          description: ISO 8601 last update timestamp
+          example: "2026-03-15T10:30:00Z"
+
+    CreateCommentRequest:
+      type: object
+      required: [task_id, body]
+      properties:
+        task_id:
+          type: string
+          description: Task ID to comment on
+          example: tsk_001
+        body:
+          type: string
+          description: Comment body (max 5000 characters)
+          minLength: 1
+          maxLength: 5000
+          example: Updated the color palette based on the brand guidelines.
+
+    CommentListResponse:
+      type: object
+      required: [data, pagination]
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/Comment'
+          description: Array of comment objects
+        pagination:
+          $ref: '#/components/schemas/Pagination'
+
+    Pagination:
+      type: object
+      required: [page, per_page, total, total_pages]
+      properties:
+        page:
+          type: integer
+          description: Current page number
+          example: 1
+        per_page:
+          type: integer
+          description: Results per page
+          example: 25
+        total:
+          type: integer
+          description: Total number of results
+          example: 142
+        total_pages:
+          type: integer
+          description: Total number of pages
+          example: 6
+
+    Error:
+      type: object
+      required: [error]
+      properties:
+        error:
+          type: object
+          required: [code, message]
+          properties:
+            code:
+              type: string
+              description: Machine-readable error code
+              example: validation_error
+            message:
+              type: string
+              description: Human-readable error description
+              example: The name field is required and must be 3-100 characters.
+            details:
+              description: Validation error details (array) or simple text message
+              oneOf:
+                - type: array
+                  items:
+                    type: object
+                    properties:
+                      field:
+                        type: string
+                        description: Field that failed validation
+                        example: name
+                      rule:
+                        type: string
+                        description: Validation rule that was violated
+                        example: required
+                      message:
+                        type: string
+                        description: Field-specific error message
+                        example: This field is required
+                - type: string
+                  description: Simple error detail message
+                  example: Invalid request format
+
+  responses:
+    Unauthorized:
+      description: Missing or invalid JWT token
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+          example:
+            error:
+              code: unauthorized
+              message: Missing or invalid JWT token.
+    Forbidden:
+      description: Token valid but lacks required permission
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+          example:
+            error:
+              code: forbidden
+              message: Your token does not have permission for this action.
+    NotFound:
+      description: Resource not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+          example:
+            error:
+              code: not_found
+              message: The requested resource does not exist.
+    ValidationError:
+      description: Request body fails validation
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+          example:
+            error:
+              code: validation_error
+              message: Request validation failed.
+              details:
+                - field: name
+                  rule: required
+                  message: This field is required
+    Conflict:
+      description: Duplicate resource
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+          example:
+            error:
+              code: conflict
+              message: A resource with that unique key already exists.
+    RateLimited:
+      description: Exceeded 60 requests per minute
+      headers:
+        Retry-After:
+          schema:
+            type: integer
+          description: Seconds to wait before retrying
+        X-RateLimit-Limit:
+          schema:
+            type: integer
+          description: Maximum requests per window
+        X-RateLimit-Remaining:
+          schema:
+            type: integer
+          description: Remaining requests in current window
+        X-RateLimit-Reset:
+          schema:
+            type: integer
+          description: Unix timestamp when the window resets
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+          example:
+            error:
+              code: rate_limited
+              message: Rate limit exceeded. Try again in 60 seconds.
