@@ -276,7 +276,7 @@ Explore and test all 14 endpoints in the embedded Swagger interface. Requests ro
     No API key is required for sandbox requests.
 
 <div style="border:1px solid #dbe2ea;border-radius:12px;overflow:hidden;">
-<iframe src="swagger-test.html" width="100%" height="900" style="border:none;"></iframe>
+<iframe src="../swagger-test.html" width="100%" height="900" style="border:none;"></iframe>
 </div>
 
 ## Error handling

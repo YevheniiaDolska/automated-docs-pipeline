@@ -37,9 +37,16 @@ jobs:
           cp -r site/ ../site/demo-showcase/
 
       - name: Build Acme demo sub-site
+        env:
+          POSTMAN_API_KEY: ${{ secrets.POSTMAN_API_KEY }}
         run: |
           cd demo-showcase/acme
           mkdocs build --strict
+          # Inject Postman API key into sandbox config files
+          if [ -n "$POSTMAN_API_KEY" ]; then
+            sed -i "s|__POSTMAN_API_KEY__|${POSTMAN_API_KEY}|g" site/assets/javascripts/sandbox-config.js
+            sed -i "s|__POSTMAN_API_KEY__|${POSTMAN_API_KEY}|g" site/reference/swagger-test.html
+          fi
           cp -r site/ ../../site/demo-showcase/acme/
 
       - uses: actions/upload-pages-artifact@v3

@@ -196,7 +196,7 @@ Enter a GraphQL query and click **Run query** to execute it against the Postman 
     try {
       var r = await fetch(endpoint, {
         method: 'POST',
-        headers: { 'content-type': 'application/json' },
+        headers: Object.assign({ 'content-type': 'application/json' }, (window.ACME_SANDBOX && window.ACME_SANDBOX.postman_api_key) ? { 'x-api-key': window.ACME_SANDBOX.postman_api_key } : {}),
         body: JSON.stringify({ query: query.value })
       });
       out.textContent = JSON.stringify(JSON.parse(await r.text()), null, 2);

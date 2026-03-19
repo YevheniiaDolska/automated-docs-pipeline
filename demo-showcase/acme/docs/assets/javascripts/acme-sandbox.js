@@ -1,66 +1,56 @@
 /*
- * Acme Demo Sandbox Configuration
+ * Acme Demo Sandbox Controller
  *
- * Provides sandbox endpoint URLs for all protocol testers
- * (REST, GraphQL, gRPC, AsyncAPI, WebSocket) in the Acme demo site.
+ * Patches all protocol interactive testers to use Postman mock
+ * server endpoints with proper authentication headers.
  *
- * Endpoints are read from window.ACME_SANDBOX (set by mkdocs.yml extra JS)
- * and injected into each interactive tester at page load.
+ * Reads config from window.ACME_SANDBOX (set by sandbox-config.js).
  */
 (function () {
   'use strict';
 
-  // Default config -- overridden by mkdocs.yml extra.sandbox
-  var defaults = {
-    rest_base_url: '',
-    graphql_url: '',
-    grpc_gateway_url: '',
-    asyncapi_ws_url: '',
-    websocket_url: ''
-  };
-
   function getConfig() {
-    // mkdocs.yml `extra` values are available in the page context.
-    // We read from a global that the extra_javascript block sets,
-    // or fall back to data attributes on a sentinel element.
     var cfg = window.ACME_SANDBOX || {};
     return {
-      rest:      cfg.rest_base_url      || defaults.rest_base_url,
-      graphql:   cfg.graphql_url        || defaults.graphql_url,
-      grpc:      cfg.grpc_gateway_url   || defaults.grpc_gateway_url,
-      asyncapi:  cfg.asyncapi_ws_url    || defaults.asyncapi_ws_url,
-      websocket: cfg.websocket_url      || defaults.websocket_url
+      apiKey:    cfg.postman_api_key    || '',
+      rest:      cfg.rest_base_url      || '',
+      graphql:   cfg.graphql_url        || '',
+      grpc:      cfg.grpc_gateway_url   || '',
+      asyncapi:  cfg.asyncapi_ws_url    || '',
+      websocket: cfg.websocket_url      || ''
     };
   }
 
-  /* ------------------------------------------------------------------ */
-  /*  REST: update Swagger UI iframe src with sandbox query param        */
-  /* ------------------------------------------------------------------ */
+  function sandboxHeaders(apiKey) {
+    var h = { 'content-type': 'application/json' };
+    if (apiKey) { h['x-api-key'] = apiKey; }
+    return h;
+  }
+
+  /* REST: Swagger iframe gets sandbox URL via query param */
   function initRest(cfg) {
     if (!cfg.rest) return;
     var iframe = document.querySelector('iframe[src*="swagger-test"]');
-    if (iframe) {
+    if (iframe && iframe.src.indexOf('sandbox=') === -1) {
       var sep = iframe.src.indexOf('?') === -1 ? '?' : '&';
       iframe.src = iframe.src + sep + 'sandbox=' + encodeURIComponent(cfg.rest);
     }
   }
 
-  /* ------------------------------------------------------------------ */
-  /*  GraphQL: patch the live query editor fetch URL                     */
-  /* ------------------------------------------------------------------ */
+  /* GraphQL: patch live query editor */
   function initGraphQL(cfg) {
     if (!cfg.graphql) return;
     var btn = document.getElementById('gql-run');
     if (!btn) return;
-    // Replace the existing onclick with one that hits the sandbox
+    var out = document.getElementById('gql-out');
+    var query = document.getElementById('gql-q');
+    if (out && !out.textContent) { out.textContent = 'Sandbox ready: ' + cfg.graphql; }
     btn.onclick = async function () {
-      var out = document.getElementById('gql-out');
-      var query = document.getElementById('gql-q');
       out.textContent = 'Executing query against sandbox...';
       try {
         var r = await fetch(cfg.graphql, {
           method: 'POST',
-          headers: { 'content-type': 'application/json' },
+          headers: sandboxHeaders(cfg.apiKey),
           body: JSON.stringify({ query: query.value })
         });
         out.textContent = JSON.stringify(JSON.parse(await r.text()), null, 2);
@@ -70,15 +60,14 @@
     };
   }
 
-  /* ------------------------------------------------------------------ */
-  /*  gRPC: patch the gateway tester fetch URL                           */
-  /* ------------------------------------------------------------------ */
+  /* gRPC: patch gateway invoker */
   function initGrpc(cfg) {
     if (!cfg.grpc) return;
     var btn = document.getElementById('grpc-run');
     if (!btn) return;
+    var out = document.getElementById('grpc-out');
+    if (out && !out.textContent) { out.textContent = 'Sandbox ready: ' + cfg.grpc; }
     btn.onclick = async function () {
-      var out = document.getElementById('grpc-out');
       out.textContent = 'Invoking RPC against sandbox...';
       try {
         var body = {
@@ -88,7 +77,7 @@
         };
         var r = await fetch(cfg.grpc, {
           method: 'POST',
-          headers: { 'content-type': 'application/json' },
+          headers: sandboxHeaders(cfg.apiKey),
           body: JSON.stringify(body)
         });
         out.textContent = JSON.stringify(JSON.parse(await r.text()), null, 2);
@@ -98,31 +87,20 @@
     };
   }
 
-  /* ------------------------------------------------------------------ */
-  /*  AsyncAPI: patch the WebSocket bridge tester endpoint               */
-  /* ------------------------------------------------------------------ */
+  /* AsyncAPI: set WebSocket bridge endpoint */
   function initAsyncAPI(cfg) {
     if (!cfg.asyncapi) return;
     var epInput = document.getElementById('async-ep');
-    if (epInput) {
-      epInput.value = cfg.asyncapi;
-    }
+    if (epInput) { epInput.value = cfg.asyncapi; }
   }
 
-  /* ------------------------------------------------------------------ */
-  /*  WebSocket: patch the WebSocket tester endpoint                     */
-  /* ------------------------------------------------------------------ */
+  /* WebSocket: set tester endpoint */
   function initWebSocket(cfg) {
     if (!cfg.websocket) return;
     var epInput = document.getElementById('ws-ep');
-    if (epInput) {
-      epInput.value = cfg.websocket;
-    }
+    if (epInput) { epInput.value = cfg.websocket; }
   }
 
-  /* ------------------------------------------------------------------ */
-  /*  Bootstrap                                                          */
-  /* ------------------------------------------------------------------ */
   function init() {
     var cfg = getConfig();
     initRest(cfg);
@@ -138,12 +116,10 @@
     init();
   }
 
-  // MkDocs Material instant navigation support
   document.addEventListener('DOMContentSwitch', init);
 
   if (typeof MutationObserver !== 'undefined') {
     var observer = new MutationObserver(function () {
-      // Re-init if new tester elements appear after SPA navigation
       if (document.getElementById('gql-run') ||
           document.getElementById('grpc-run') ||
           document.getElementById('async-ep') ||
