@@ -1,5 +1,5 @@
 ---
-title: "Acme API documentation"
+title: "Acme documentation"
 description: "Pipeline-generated multi-protocol API documentation for Acme with KPI dashboard, interactive references, and automated quality gates."
 content_type: reference
 product: both
@@ -9,7 +9,7 @@ tags:
 last_reviewed: "2026-03-19"
 ---
 
-# Acme API documentation
+# Acme documentation
 
 <div class="veriops-badges" markdown>
 
@@ -19,7 +19,7 @@ last_reviewed: "2026-03-19"
 
 </div>
 
-The Acme API documentation site is a pipeline-generated showcase that provides interactive references for five API protocols, automated quality evidence, and a KPI dashboard updated on every pipeline run.
+The Acme documentation site is a pipeline-generated showcase that provides interactive references for five API protocols, automated quality evidence, and a KPI dashboard updated on every pipeline run.
 
 ## KPI dashboard
 

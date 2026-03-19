@@ -27,7 +27,7 @@ The Acme API platform is a multi-protocol system that exposes 5 API interfaces (
 Click any component in the diagram to view its description, key metrics, and technology tags in the detail panel below.
 
 <div class="interactive-diagram" markdown>
-<iframe src="../diagrams/acme-architecture.html" title="Acme API platform architecture diagram"></iframe>
+<iframe src="../../diagrams/acme-architecture.html" title="Acme API platform architecture diagram"></iframe>
 </div>
 
 ## Layer breakdown
