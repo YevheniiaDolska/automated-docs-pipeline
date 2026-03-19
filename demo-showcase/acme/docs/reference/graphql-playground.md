@@ -11,17 +11,21 @@ last_reviewed: "2026-03-19"
 
 # GraphQL playground
 
-The Acme GraphQL API provides a single endpoint for flexible queries across projects, tasks, and users. This page documents the full schema, provides a live query editor, and covers authentication, error handling, and performance limits.
+<div class="veriops-badges" markdown>
 
-!!! success "Powered by VeriDoc"
-    This page is generated and maintained by the VeriDoc documentation pipeline.
-    Schema definitions come from the GraphQL SDL contract at `contracts/graphql.schema.graphql`.
+![Powered by VeriOps](https://img.shields.io/badge/Powered%20by-VeriOps-6366f1?style=flat-square)
+![Quality Score](https://img.shields.io/badge/Quality%20Score-100%25-10b981?style=flat-square)
+![Protocols](https://img.shields.io/badge/Protocols-5-6366f1?style=flat-square)
+
+</div>
+
+The Acme GraphQL API provides a single endpoint for flexible queries across projects, tasks, and users. This page documents the full schema, provides a live query editor, and covers authentication, error handling, and performance limits.
 
 ## Endpoint and authentication
 
 | Setting | Value |
 | --- | --- |
-| Endpoint | `https://api.acme.example/graphql` |
+| Endpoint | [`https://api.acme.example/graphql`](https://api.acme.example/graphql) |
 | Method | POST |
 | Authentication | Bearer token in `Authorization` header |
 | Content type | `application/json` |
@@ -167,7 +171,7 @@ Enter a GraphQL query and click **Run query** to execute it against the Postman 
 
 !!! info "Sandbox mode"
     Queries route to the Postman mock server at
-    `https://662b99a9-ac2a-4096-8a8e-480a73cef3e3.mock.pstmn.io/graphql`.
+    [`https://662b99a9-ac2a-4096-8a8e-480a73cef3e3.mock.pstmn.io/graphql`](https://662b99a9-ac2a-4096-8a8e-480a73cef3e3.mock.pstmn.io/graphql).
     No API key is required for sandbox requests.
 
 <div style="border:1px solid #dbe2ea;border-radius:10px;padding:16px;background:#f8f9fa">

@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Acme API Platform Architecture</title>
+<style>
+  :root {
+    --bg: #ffffff;
+    --surface: #f8fafc;
+    --border: #e2e8f0;
+    --text: #1e293b;
+    --text-muted: #64748b;
+    --accent: #6366f1;
+    --accent-glow: rgba(99, 102, 241, 0.2);
+    --success: #10b981;
+    --warning: #f59e0b;
+    --danger: #ef4444;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #0f172a;
+      --surface: #1e293b;
+      --border: #334155;
+      --text: #e2e8f0;
+      --text-muted: #94a3b8;
+      --accent: #818cf8;
+      --accent-glow: rgba(129, 140, 248, 0.3);
+      --success: #34d399;
+      --warning: #fbbf24;
+      --danger: #f87171;
+    }
+  }
+
+  [data-theme="dark"] {
+    --bg: #0f172a;
+    --surface: #1e293b;
+    --border: #334155;
+    --text: #e2e8f0;
+    --text-muted: #94a3b8;
+    --accent: #818cf8;
+    --accent-glow: rgba(129, 140, 248, 0.3);
+    --success: #34d399;
+    --warning: #fbbf24;
+    --danger: #f87171;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 2rem 1rem;
+  }
+
+  h1 { font-size: 1.5rem; font-weight: 600; margin-bottom: 0.5rem; color: var(--text); }
+  .subtitle { color: var(--text-muted); font-size: 0.875rem; margin-bottom: 2rem; }
+
+  .diagram {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    width: 100%;
+    max-width: 960px;
+  }
+
+  .layer {
+    display: flex;
+    gap: 0.75rem;
+    justify-content: center;
+    flex-wrap: wrap;
+    width: 100%;
+  }
+
+  .layer-label {
+    width: 100%;
+    text-align: center;
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--text-muted);
+    margin-bottom: -0.5rem;
+  }
+
+  .component {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 0.875rem 1.25rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    text-align: center;
+    min-width: 130px;
+    position: relative;
+  }
+
+  .component:hover {
+    border-color: var(--accent);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+  }
+
+  .component.active {
+    border-color: var(--accent);
+    box-shadow: 0 0 20px var(--accent-glow);
+  }
+
+  .component .icon { font-size: 1.5rem; display: block; margin-bottom: 0.375rem; }
+  .component .name { font-size: 0.8rem; font-weight: 600; }
+  .component .metric { font-size: 0.65rem; color: var(--text-muted); margin-top: 0.25rem; }
+
+  .arrow-row {
+    display: flex;
+    justify-content: center;
+    color: var(--text-muted);
+    font-size: 1.25rem;
+    animation: pulse-down 2s infinite;
+  }
+
+  @keyframes pulse-down {
+    0%, 100% { opacity: 0.4; }
+    50% { opacity: 1; }
+  }
+
+  .info-panel {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 1.25rem 1.5rem;
+    width: 100%;
+    max-width: 960px;
+    margin-top: 1.5rem;
+    min-height: 120px;
+    transition: all 0.2s ease;
+  }
+
+  .info-panel.active { border-color: var(--accent); }
+  .info-panel h3 { font-size: 1rem; margin-bottom: 0.5rem; color: var(--accent); }
+  .info-panel p { font-size: 0.85rem; color: var(--text-muted); line-height: 1.6; }
+
+  .info-panel .tag {
+    display: inline-block;
+    background: rgba(129, 140, 248, 0.15);
+    color: var(--accent);
+    padding: 0.15rem 0.5rem;
+    border-radius: 4px;
+    font-size: 0.7rem;
+    margin-top: 0.75rem;
+    margin-right: 0.375rem;
+  }
+
+  .info-default { color: var(--text-muted); font-style: italic; font-size: 0.85rem; }
+</style>
+</head>
+<body>
+
+<h1>Acme API Platform Architecture</h1>
+<p class="subtitle">Click any component to see details, metrics, and configuration</p>
+
+<div class="diagram">
+
+  <div class="layer-label">Clients</div>
+  <div class="layer">
+    <div class="component" data-id="sdk" onclick="showInfo('sdk')">
+      <span class="icon">&#128187;</span>
+      <div class="name">SDK Clients</div>
+      <div class="metric">4 languages</div>
+    </div>
+    <div class="component" data-id="web" onclick="showInfo('web')">
+      <span class="icon">&#127760;</span>
+      <div class="name">Web Dashboard</div>
+      <div class="metric">React SPA</div>
+    </div>
+    <div class="component" data-id="mobile" onclick="showInfo('mobile')">
+      <span class="icon">&#128241;</span>
+      <div class="name">Mobile Apps</div>
+      <div class="metric">iOS + Android</div>
+    </div>
+    <div class="component" data-id="webhooks" onclick="showInfo('webhooks')">
+      <span class="icon">&#128268;</span>
+      <div class="name">Webhook Consumers</div>
+      <div class="metric">At-least-once</div>
+    </div>
+  </div>
+
+  <div class="arrow-row">&#8595; &#8595; &#8595; &#8595;</div>
+
+  <div class="layer-label">Edge + Security</div>
+  <div class="layer">
+    <div class="component" data-id="cdn" onclick="showInfo('cdn')">
+      <span class="icon">&#127758;</span>
+      <div class="name">CDN</div>
+      <div class="metric">99.99% uptime</div>
+    </div>
+    <div class="component" data-id="waf" onclick="showInfo('waf')">
+      <span class="icon">&#128737;</span>
+      <div class="name">WAF</div>
+      <div class="metric">2M blocks/day</div>
+    </div>
+    <div class="component" data-id="ratelimit" onclick="showInfo('ratelimit')">
+      <span class="icon">&#9201;</span>
+      <div class="name">Rate Limiter</div>
+      <div class="metric">60 req/min</div>
+    </div>
+  </div>
+
+  <div class="arrow-row">&#8595; &#8595; &#8595;</div>
+
+  <div class="layer-label">API Gateway (5 protocols)</div>
+  <div class="layer">
+    <div class="component" data-id="rest" onclick="showInfo('rest')">
+      <span class="icon">&#128462;</span>
+      <div class="name">REST API</div>
+      <div class="metric">19 endpoints</div>
+    </div>
+    <div class="component" data-id="graphql" onclick="showInfo('graphql')">
+      <span class="icon">&#9670;</span>
+      <div class="name">GraphQL</div>
+      <div class="metric">3 operations</div>
+    </div>
+    <div class="component" data-id="grpc" onclick="showInfo('grpc')">
+      <span class="icon">&#9881;</span>
+      <div class="name">gRPC Gateway</div>
+      <div class="metric">HTTP/2 + Protobuf</div>
+    </div>
+    <div class="component" data-id="asyncapi" onclick="showInfo('asyncapi')">
+      <span class="icon">&#128232;</span>
+      <div class="name">AsyncAPI Events</div>
+      <div class="metric">3 channels</div>
+    </div>
+    <div class="component" data-id="websocket" onclick="showInfo('websocket')">
+      <span class="icon">&#128259;</span>
+      <div class="name">WebSocket</div>
+      <div class="metric">4 channels</div>
+    </div>
+  </div>
+
+  <div class="arrow-row">&#8595; &#8595; &#8595;</div>
+
+  <div class="layer-label">Services</div>
+  <div class="layer">
+    <div class="component" data-id="auth" onclick="showInfo('auth')">
+      <span class="icon">&#128272;</span>
+      <div class="name">Auth Service</div>
+      <div class="metric">JWT, 50ms</div>
+    </div>
+    <div class="component" data-id="projects" onclick="showInfo('projects')">
+      <span class="icon">&#128193;</span>
+      <div class="name">Project Service</div>
+      <div class="metric">CRUD + events</div>
+    </div>
+    <div class="component" data-id="tasks" onclick="showInfo('tasks')">
+      <span class="icon">&#9989;</span>
+      <div class="name">Task Service</div>
+      <div class="metric">Priority queue</div>
+    </div>
+    <div class="component" data-id="notifications" onclick="showInfo('notifications')">
+      <span class="icon">&#128276;</span>
+      <div class="name">Notifications</div>
+      <div class="metric">WebSocket + AMQP</div>
+    </div>
+  </div>
+
+  <div class="arrow-row">&#8595; &#8595; &#8595;</div>
+
+  <div class="layer-label">Data + Infrastructure</div>
+  <div class="layer">
+    <div class="component" data-id="postgres" onclick="showInfo('postgres')">
+      <span class="icon">&#128451;</span>
+      <div class="name">PostgreSQL</div>
+      <div class="metric">Primary + 2 replicas</div>
+    </div>
+    <div class="component" data-id="redis" onclick="showInfo('redis')">
+      <span class="icon">&#9889;</span>
+      <div class="name">Redis</div>
+      <div class="metric">Cache + sessions</div>
+    </div>
+    <div class="component" data-id="rabbitmq" onclick="showInfo('rabbitmq')">
+      <span class="icon">&#128048;</span>
+      <div class="name">RabbitMQ</div>
+      <div class="metric">Event broker</div>
+    </div>
+    <div class="component" data-id="s3" onclick="showInfo('s3')">
+      <span class="icon">&#128450;</span>
+      <div class="name">Object Storage</div>
+      <div class="metric">S3-compatible</div>
+    </div>
+  </div>
+
+</div>
+
+<div class="info-panel" id="infoPanel">
+  <p class="info-default">Click any component to see its description, configuration, and key metrics.</p>
+</div>
+
+<script>
+const descriptions = {
+  sdk: {
+    title: "SDK Clients (Python, JavaScript, Go, Java)",
+    desc: "Official client libraries auto-generated from the OpenAPI 3.0 specification. Each SDK handles Bearer JWT authentication, automatic retries with exponential backoff (3 attempts, 1s initial delay), and request/response serialization. Average latency: 45ms P50, 180ms P99.",
+    tags: ["Python", "JavaScript", "Go", "Java", "OpenAPI Generator"]
+  },
+  web: {
+    title: "Web Dashboard (React SPA)",
+    desc: "Single-page application providing project management, task boards, and real-time notifications via WebSocket. Communicates with the REST API for CRUD and the WebSocket endpoint for live updates. Served via CDN with 2-second TTL for dynamic content.",
+    tags: ["React", "TypeScript", "WebSocket", "REST"]
+  },
+  mobile: {
+    title: "Mobile Applications (iOS + Android)",
+    desc: "Native mobile apps using the REST API with offline-first architecture. Supports background sync for task updates and push notifications for project events. Uses the gRPC gateway for high-performance batch operations when available.",
+    tags: ["iOS (Swift)", "Android (Kotlin)", "Offline-first", "Push notifications"]
+  },
+  webhooks: {
+    title: "Webhook Consumers",
+    desc: "External integrations subscribe to project and task lifecycle events via HTTP webhooks. Events are delivered with at-least-once semantics, unique event_id for deduplication, and automatic retry (3 attempts with exponential backoff, initial delay 5 seconds). Dead-letter queue after all retries exhaust.",
+    tags: ["HTTP POST", "At-least-once", "Retry policy", "Dead-letter queue"]
+  },
+  cdn: {
+    title: "CDN (Content Delivery Network)",
+    desc: "Global CDN with 12 points of presence across North America, Europe, and Asia-Pacific. Caches static assets with 24-hour TTL and API responses with 5-second TTL. Handles TLS 1.3 termination and HTTP/2 multiplexing. 99.99% uptime SLA with automatic failover.",
+    tags: ["12 PoPs", "TLS 1.3", "HTTP/2", "99.99% SLA"]
+  },
+  waf: {
+    title: "Web Application Firewall",
+    desc: "Blocks SQL injection, XSS, and request flooding attempts. Processes 2 million malicious request blocks per day. Custom rules for API abuse detection including credential stuffing and enumeration attacks. Integrates with threat intelligence feeds for zero-day protection.",
+    tags: ["OWASP Top 10", "Rate abuse", "Threat intel", "2M blocks/day"]
+  },
+  ratelimit: {
+    title: "Rate Limiter (Redis-backed)",
+    desc: "Token bucket algorithm enforcing per-API-key limits: 60 requests per minute (default), configurable per plan tier. Returns HTTP 429 with Retry-After header and X-RateLimit-* headers on every response. Shared state across all gateway instances via Redis cluster.",
+    tags: ["Token bucket", "Redis", "60 req/min", "Per-key limits"]
+  },
+  rest: {
+    title: "REST API (OpenAPI 3.0)",
+    desc: "19 CRUD endpoints across 5 resources (projects, tasks, users, tags, comments) over HTTP/1.1 with JSON payloads. Bearer JWT authentication, cursor-based pagination (max 100 per page), and consistent error envelope. Interactive Swagger UI available at /reference/rest-api.",
+    tags: ["19 endpoints", "5 resources", "OpenAPI 3.0", "Swagger UI"]
+  },
+  graphql: {
+    title: "GraphQL API (SDL Schema)",
+    desc: "Single endpoint for flexible queries across projects with 3 operation types: Query (health, project, projects), Mutation (createProject, updateProject), and Subscription (projectUpdated). Max query depth: 10 levels, max complexity: 500 points. Live playground at /reference/graphql-playground.",
+    tags: ["Query", "Mutation", "Subscription", "Max depth: 10"]
+  },
+  grpc: {
+    title: "gRPC Gateway (Proto3)",
+    desc: "High-performance RPC access via HTTP/2 with Protocol Buffers serialization. ProjectService exposes 3 methods: GetProject (unary), ListProjects (server streaming), CreateProject (unary). HTTP gateway adapter translates JSON requests into gRPC calls for clients without a gRPC library.",
+    tags: ["HTTP/2", "Protobuf", "3 RPCs", "Gateway adapter"]
+  },
+  asyncapi: {
+    title: "AsyncAPI Event System (AMQP)",
+    desc: "Three event channels for asynchronous project lifecycle events: project.updated, project.created, task.completed. AMQP 0.9.1 (RabbitMQ) transport with at-least-once delivery, 7-day message retention, and dead-letter queues for failed delivery. WebSocket bridge available for browser clients.",
+    tags: ["AMQP 0.9.1", "3 channels", "At-least-once", "7-day retention"]
+  },
+  websocket: {
+    title: "WebSocket Real-time API (RFC 6455)",
+    desc: "Bidirectional real-time messaging with 4 channels: project.updated, project.created, task.completed, and presence. Heartbeat every 30 seconds, idle timeout 300 seconds, max 50 subscriptions per connection. Supports permessage-deflate compression and exponential reconnection backoff.",
+    tags: ["RFC 6455", "4 channels", "30s heartbeat", "50 max subscriptions"]
+  },
+  auth: {
+    title: "Authentication Service (JWT)",
+    desc: "Validates JWT Bearer tokens in 50ms average. Supports three auth flows: Bearer token, API key, and OAuth2 authorization code. Issues tokens with configurable TTL (default: 1 hour). Manages refresh token rotation, revocation lists, and scope-based access control (read, write, admin).",
+    tags: ["JWT", "OAuth2", "50ms validation", "RBAC"]
+  },
+  projects: {
+    title: "Project Service (Core Domain)",
+    desc: "Manages project lifecycle: create, read, update, delete, archive, and restore. Emits project.created and project.updated events to RabbitMQ on every state change. Supports status transitions: draft -> active -> archived. Enforces business rules: name uniqueness, 100-character name limit.",
+    tags: ["CRUD", "Event emission", "State machine", "Business rules"]
+  },
+  tasks: {
+    title: "Task Service",
+    desc: "Manages task lifecycle within projects: create, assign, update, complete, and delete. Supports priority levels (low, medium, high) and status transitions (todo -> in_progress -> done). Emits task.completed events when status changes to done. Cascading delete with parent project.",
+    tags: ["CRUD", "Priority queue", "Status transitions", "Cascading delete"]
+  },
+  notifications: {
+    title: "Notification Service",
+    desc: "Bridges event channels to client transports. Consumes from RabbitMQ and fans out to: WebSocket connections (real-time), webhook endpoints (HTTP POST), and email (for @mentions and assignments). Manages subscription state, connection lifecycle, and delivery tracking.",
+    tags: ["WebSocket fan-out", "Webhook delivery", "Email", "AMQP consumer"]
+  },
+  postgres: {
+    title: "PostgreSQL Database",
+    desc: "Primary relational database with 2 read replicas for query scaling. Handles 8,500 queries per second (peak: 12,000). Uses PgBouncer connection pooling with max 500 connections. Automated daily backups with 30-day retention and point-in-time recovery. Stores projects, tasks, users, tags, and comments.",
+    tags: ["Primary + 2 replicas", "PgBouncer", "8,500 qps", "30-day PITR"]
+  },
+  redis: {
+    title: "Redis Cache + Session Store",
+    desc: "In-memory data store serving three functions: response cache (94% hit rate, allkeys-lru eviction), rate limit counters (shared across gateway instances), and session storage (JWT blacklist, refresh tokens). 3-node cluster with 2 GB memory per node.",
+    tags: ["94% hit rate", "Rate limits", "Sessions", "3-node cluster"]
+  },
+  rabbitmq: {
+    title: "RabbitMQ Event Broker",
+    desc: "AMQP 0.9.1 message broker connecting the Project Service, Task Service, and Notification Service. Manages 3 exchanges (project.events, task.events, system.events) with topic-based routing. 7-day message retention, dead-letter queues for each channel, and manual consumer acknowledgment.",
+    tags: ["AMQP 0.9.1", "3 exchanges", "Topic routing", "7-day retention"]
+  },
+  s3: {
+    title: "Object Storage (S3-compatible)",
+    desc: "Stores file attachments, project exports, audit logs, and database backups. Lifecycle policy: hot storage for 30 days, then transition to cold storage tier. Server-side encryption with AES-256. Processes 2.5 TB per day across all storage classes.",
+    tags: ["S3-compatible", "AES-256", "Lifecycle policy", "2.5 TB/day"]
+  }
+};
+
+function syncTheme() {
+  try {
+    var parentScheme = window.parent.document.body.getAttribute('data-md-color-scheme');
+    if (parentScheme === 'slate') {
+      document.documentElement.setAttribute('data-theme', 'dark');
+      return;
+    }
+    var parentTheme = window.parent.document.documentElement.getAttribute('data-theme');
+    if (parentTheme === 'dark') {
+      document.documentElement.setAttribute('data-theme', 'dark');
+      return;
+    }
+  } catch (e) {}
+}
+syncTheme();
+try {
+  new MutationObserver(syncTheme).observe(
+    window.parent.document.documentElement,
+    { attributes: true, attributeFilter: ['data-md-color-scheme', 'data-theme'] }
+  );
+  new MutationObserver(syncTheme).observe(
+    window.parent.document.body,
+    { attributes: true, attributeFilter: ['data-md-color-scheme'] }
+  );
+} catch (e) {}
+
+function showInfo(id) {
+  document.querySelectorAll('.component').forEach(function(el) { el.classList.remove('active'); });
+  var el = document.querySelector('[data-id="' + id + '"]');
+  if (el) el.classList.add('active');
+
+  var panel = document.getElementById('infoPanel');
+  var data = descriptions[id];
+  if (!data) return;
+
+  panel.classList.add('active');
+  panel.innerHTML = '<h3>' + data.title + '</h3>' +
+    '<p>' + data.desc + '</p>' +
+    '<div>' + data.tags.map(function(t) { return '<span class="tag">' + t + '</span>'; }).join('') + '</div>';
+}
+</script>
+</body>
+</html>

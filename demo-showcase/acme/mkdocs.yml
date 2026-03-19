@@ -1,4 +1,4 @@
-site_name: Acme API Docs (Powered by VeriDoc)
+site_name: VeriOps Demo
 site_description: Pipeline-generated multi-protocol API documentation with interactive
   references and quality evidence.
 site_url: https://yevheniiadolska.github.io/automated-docs-pipeline/demo-showcase/acme/
@@ -53,6 +53,8 @@ extra:
     grpc_gateway_url: https://662b99a9-ac2a-4096-8a8e-480a73cef3e3.mock.pstmn.io/grpc/invoke
     asyncapi_ws_url: wss://echo.websocket.events
     websocket_url: wss://echo.websocket.events
+extra_css:
+- stylesheets/extra.css
 extra_javascript:
 - assets/javascripts/sandbox-config.js
 - assets/javascripts/acme-sandbox.js
@@ -64,6 +66,8 @@ nav:
   - gRPC gateway invoke: reference/grpc-gateway.md
   - AsyncAPI event docs: reference/asyncapi-events.md
   - WebSocket event playground: reference/websocket-events.md
+- Architecture:
+  - 'Platform overview': guides/architecture-overview.md
 - Guides:
   - 'Tutorial: first integration': guides/tutorial.md
   - 'How-to: release-day docs sync': guides/how-to.md

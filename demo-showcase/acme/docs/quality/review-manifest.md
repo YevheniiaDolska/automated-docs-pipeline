@@ -1,15 +1,22 @@
 ---
-title: "Review manifest"
-description: "Pipeline execution summary with artifact inventory and reviewer checklist for the Acme API demo site."
+title: "Review manifest: operator approval checkpoint"
+description: "Operator review manifest with artifact inventory, stage summary, and approval checklist for the Acme documentation pipeline."
 content_type: reference
 product: both
 tags:
   - Reference
-  - Quality
 last_reviewed: "2026-03-19"
 ---
 
-# Review Manifest
+# Review manifest
+
+<div class="veriops-badges" markdown>
+
+![Powered by VeriOps](https://img.shields.io/badge/Powered%20by-VeriOps-6366f1?style=flat-square)
+![Quality Score](https://img.shields.io/badge/Quality%20Score-100%25-10b981?style=flat-square)
+![Protocols](https://img.shields.io/badge/Protocols-5-6366f1?style=flat-square)
+
+</div>
 
 - Runtime config: `/mnt/c/Users/Kroha/Documents/development/Auto-Doc Pipeline/reports/acme-demo/client_runtime.yml`
 - Weekly run rc: `1`

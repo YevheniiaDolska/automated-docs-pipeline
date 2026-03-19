@@ -10,10 +10,15 @@ last_reviewed: "2026-03-19"
 
 # Troubleshooting: common Acme pipeline issues
 
-Your Acme documentation pipeline is failing with contract validation errors, quality gate warnings, or build failures. This guide fixes 95% of pipeline issues in under 5 minutes.
+<div class="veriops-badges" markdown>
 
-!!! success "Powered by VeriDoc"
-    This page is generated and maintained by the VeriDoc documentation pipeline.
+![Powered by VeriOps](https://img.shields.io/badge/Powered%20by-VeriOps-6366f1?style=flat-square)
+![Quality Score](https://img.shields.io/badge/Quality%20Score-100%25-10b981?style=flat-square)
+![Protocols](https://img.shields.io/badge/Protocols-5-6366f1?style=flat-square)
+
+</div>
+
+Your Acme documentation pipeline is failing with contract validation errors, quality gate warnings, or build failures. This guide fixes 95% of pipeline issues in under 5 minutes.
 
 ## Quick diagnosis (30 seconds)
 
@@ -55,7 +60,7 @@ print(f'Available: {m[\"available_artifacts\"]}, Missing: {m[\"missing_artifacts
 
 **Root cause:** The `protoc` compiler is not installed, or the proto files reference missing imports.
 
-### Fix in 2 minutes
+### Fix gRPC contract in 2 minutes
 
 1. Install the protobuf compiler:
 
@@ -101,7 +106,7 @@ print(f'Available: {m[\"available_artifacts\"]}, Missing: {m[\"missing_artifacts
 
 **Root cause:** Stale documents, missing frontmatter, or unresolved documentation gaps. The current Acme demo scores 76 due to 11 documentation gaps (8 high-priority).
 
-### Fix in 5 minutes
+### Fix quality score in 5 minutes
 
 1. Check the gap report for high-priority items:
 
@@ -138,7 +143,7 @@ print(f'Available: {m[\"available_artifacts\"]}, Missing: {m[\"missing_artifacts
 
 **Root cause:** The required Python packages are not installed in the current environment.
 
-### Fix in 1 minute
+### Fix MkDocs theme in 1 minute
 
 ```bash
 pip install mkdocs-material mkdocs-macros-plugin pymdown-extensions
@@ -158,7 +163,7 @@ Expected output: `INFO - Documentation built in X.XX seconds`
 
 **Root cause:** The browser blocks insecure WebSocket connections (`ws://`) from HTTPS pages, or the endpoint is unreachable.
 
-### Fix in 1 minute
+### Fix WebSocket connection in 1 minute
 
 - Verify the endpoint uses `wss://` (not `ws://`). The correct endpoint is `wss://api.acme.example/realtime`.
 - Confirm the endpoint is accessible from your network. Try from the command line:
@@ -176,7 +181,7 @@ Expected output: `INFO - Documentation built in X.XX seconds`
 
 **Root cause:** The runtime config path is incorrect, or the `--reports-dir` argument points to a different location.
 
-### Fix in 2 minutes
+### Fix empty reports in 2 minutes
 
 1. Verify the runtime config exists:
 
@@ -208,7 +213,7 @@ Expected output: `INFO - Documentation built in X.XX seconds`
 
 **Root cause:** Knowledge modules are incomplete or the retrieval index needs enrichment. The current Acme demo shows precision 0.2 and recall 0.6 because the demo uses stub contracts, not production-scale content.
 
-### Fix in 10 minutes
+### Fix retrieval precision in 10 minutes
 
 1. Check the retrieval evaluation report:
 

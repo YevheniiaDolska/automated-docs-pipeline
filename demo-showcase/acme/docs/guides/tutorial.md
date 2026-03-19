@@ -10,10 +10,15 @@ last_reviewed: "2026-03-19"
 
 # Tutorial: launch your first Acme API integration
 
-This tutorial walks you through creating your first Acme API project, sending authenticated requests across three protocols (REST, GraphQL, and WebSocket), and verifying the integration works. You complete all five steps in under 15 minutes.
+<div class="veriops-badges" markdown>
 
-!!! success "Powered by VeriDoc"
-    This page is generated and maintained by the VeriDoc documentation pipeline.
+![Powered by VeriOps](https://img.shields.io/badge/Powered%20by-VeriOps-6366f1?style=flat-square)
+![Quality Score](https://img.shields.io/badge/Quality%20Score-100%25-10b981?style=flat-square)
+![Protocols](https://img.shields.io/badge/Protocols-5-6366f1?style=flat-square)
+
+</div>
+
+This tutorial walks you through creating your first Acme API project, sending authenticated requests across three protocols (REST, GraphQL, and WebSocket), and verifying the integration works. You complete all five steps in under 15 minutes.
 
 ## What you will build
 

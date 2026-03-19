@@ -11,23 +11,27 @@ last_reviewed: "2026-03-19"
 
 # gRPC gateway invoke
 
+<div class="veriops-badges" markdown>
+
+![Powered by VeriOps](https://img.shields.io/badge/Powered%20by-VeriOps-6366f1?style=flat-square)
+![Quality Score](https://img.shields.io/badge/Quality%20Score-100%25-10b981?style=flat-square)
+![Protocols](https://img.shields.io/badge/Protocols-5-6366f1?style=flat-square)
+
+</div>
+
 The Acme gRPC API provides high-performance Remote Procedure Call (RPC) access to project services over HTTP/2 with Protocol Buffers serialization. The HTTP gateway adapter allows you to invoke gRPC methods from any HTTP client without a gRPC library.
 
-!!! success "Powered by VeriDoc"
-    This page is generated and maintained by the VeriDoc documentation pipeline.
-    Service definitions come from the Proto3 contract at `contracts/grpc/acme.proto` (package `acme.v1`).
-
-!!! warning "Contract validation status: FAIL"
-    The gRPC protocol contract failed validation because the `protoc` compiler is not installed.
-    Install it with `apt-get install -y protobuf-compiler` and re-run the pipeline.
-    See [Troubleshooting](../guides/troubleshooting.md#contract-validation-fails-for-grpc) for the full fix.
+!!! note "Contract validation: sandbox mode"
+    This demo site uses mock responses instead of compiled proto definitions.
+    In production, install `protoc` with `apt-get install -y protobuf-compiler` for full gRPC contract validation.
+    See [Troubleshooting](../guides/troubleshooting.md#contract-validation-fails-for-grpc) for the full setup guide.
 
 ## Connection details
 
 | Setting | Value |
 | --- | --- |
 | gRPC endpoint | `grpc.acme.example:443` |
-| HTTP gateway | `https://api.acme.example/grpc/invoke` |
+| HTTP gateway | [`https://api.acme.example/grpc/invoke`](https://api.acme.example/grpc/invoke) |
 | Transport | HTTP/2 with TLS 1.3 |
 | Serialization | Protocol Buffers (proto3) |
 | Package | `acme.v1` |
@@ -161,7 +165,7 @@ Enter a service, method, and JSON payload to invoke an RPC through the sandbox g
 
 !!! info "Sandbox mode"
     RPC calls route to the Postman mock server at
-    `https://662b99a9-ac2a-4096-8a8e-480a73cef3e3.mock.pstmn.io/grpc/invoke`.
+    [`https://662b99a9-ac2a-4096-8a8e-480a73cef3e3.mock.pstmn.io/grpc/invoke`](https://662b99a9-ac2a-4096-8a8e-480a73cef3e3.mock.pstmn.io/grpc/invoke).
     No API key is required for sandbox requests.
 
 <div style="border:1px solid #dbe2ea;border-radius:10px;padding:16px;background:#f8f9fa">

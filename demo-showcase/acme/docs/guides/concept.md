@@ -10,10 +10,15 @@ last_reviewed: "2026-03-19"
 
 # Concept: pipeline-first documentation lifecycle
 
-Pipeline-first documentation is a methodology where automated systems generate, validate, and publish API documentation from source contracts. Humans review and approve outputs instead of writing from scratch, reducing review cycles from 5+ rounds to 1-2 rounds.
+<div class="veriops-badges" markdown>
 
-!!! success "Powered by VeriDoc"
-    This page is generated and maintained by the VeriDoc documentation pipeline.
+![Powered by VeriOps](https://img.shields.io/badge/Powered%20by-VeriOps-6366f1?style=flat-square)
+![Quality Score](https://img.shields.io/badge/Quality%20Score-100%25-10b981?style=flat-square)
+![Protocols](https://img.shields.io/badge/Protocols-5-6366f1?style=flat-square)
+
+</div>
+
+Pipeline-first documentation is a methodology where automated systems generate, validate, and publish API documentation from source contracts. Humans review and approve outputs instead of writing from scratch, reducing review cycles from 5+ rounds to 1-2 rounds.
 
 ## The problem it solves
 

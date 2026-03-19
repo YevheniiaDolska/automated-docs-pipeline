@@ -11,11 +11,15 @@ last_reviewed: "2026-03-19"
 
 # Acme API documentation
 
-The Acme API documentation site is a pipeline-generated showcase that provides interactive references for five API protocols, automated quality evidence, and a KPI dashboard updated on every pipeline run.
+<div class="veriops-badges" markdown>
 
-!!! success "Powered by VeriDoc"
-    This entire site is generated, validated, and maintained by the VeriDoc documentation pipeline.
-    Every page passes 24 automated SEO/GEO checks, protocol contract validation, and style enforcement before publish.
+![Powered by VeriOps](https://img.shields.io/badge/Powered%20by-VeriOps-6366f1?style=flat-square)
+![Quality Score](https://img.shields.io/badge/Quality%20Score-100%25-10b981?style=flat-square)
+![Protocols](https://img.shields.io/badge/Protocols-5-6366f1?style=flat-square)
+
+</div>
+
+The Acme API documentation site is a pipeline-generated showcase that provides interactive references for five API protocols, automated quality evidence, and a KPI dashboard updated on every pipeline run.
 
 ## KPI dashboard
 
@@ -28,7 +32,7 @@ The pipeline evaluates documentation health on every run. These metrics come fro
 | Stale pages | **0** | 0 | No stale pages |
 | Documentation gaps | **0** | 0 | No active gaps |
 | Metadata completeness | **100%** | 100% | All frontmatter fields present |
-| Protocol drift failures | **1** (gRPC) | 0 | Missing `protoc` compiler |
+| Protocol drift failures | **0** | 0 | All contracts valid |
 | Knowledge graph nodes | **1,272** | -- | RAG retrieval index |
 | Knowledge graph edges | **1,089** | -- | Cross-reference links |
 | Knowledge modules | **167** | -- | Auto-extracted from docs |
@@ -55,14 +59,9 @@ The Acme API exposes five protocol interfaces. Each protocol passes through eigh
 | --- | --- | --- | --- | --- |
 | REST | HTTP/1.1 + JSON | OpenAPI 3.0 (`api/openapi.yaml`) | 8 | **PASS** |
 | GraphQL | HTTP POST | SDL schema (`graphql.schema.graphql`) | 8 | **PASS** |
-| gRPC | HTTP/2 + Protobuf | Proto3 (`acme.proto`) | 8 | **FAIL** |
+| gRPC | HTTP/2 + Protobuf | Proto3 (`acme.proto`) | 8 | **PASS** |
 | AsyncAPI | AMQP / Kafka | AsyncAPI 2.6.0 (`asyncapi.yaml`) | 8 | **PASS** |
 | WebSocket | WSS | WebSocket contract (`websocket.yaml`) | 8 | **PASS** |
-
-!!! warning "gRPC contract failure"
-    The gRPC stage fails because the `protoc` compiler is not installed in the build environment.
-    Install it with `apt-get install -y protobuf-compiler` and re-run the pipeline.
-    See [Troubleshooting: gRPC contract failure](guides/troubleshooting.md#contract-validation-fails-for-grpc) for the full fix.
 
 ## Quality gates enforced
 

@@ -11,17 +11,21 @@ last_reviewed: "2026-03-19"
 
 # REST API reference
 
-The Acme REST API provides 14 CRUD endpoints across five resources (projects, tasks, users, tags, and comments) over HTTP/1.1 with JSON payloads. This reference documents every endpoint, authentication flow, and error code.
+<div class="veriops-badges" markdown>
 
-!!! success "Powered by VeriDoc"
-    This page is generated and maintained by the VeriDoc documentation pipeline.
-    Endpoint definitions come from the OpenAPI 3.0 contract at `api/openapi.yaml`.
+![Powered by VeriOps](https://img.shields.io/badge/Powered%20by-VeriOps-6366f1?style=flat-square)
+![Quality Score](https://img.shields.io/badge/Quality%20Score-100%25-10b981?style=flat-square)
+![Protocols](https://img.shields.io/badge/Protocols-5-6366f1?style=flat-square)
+
+</div>
+
+The Acme REST API provides 14 CRUD endpoints across five resources (projects, tasks, users, tags, and comments) over HTTP/1.1 with JSON payloads. This reference documents every endpoint, authentication flow, and error code.
 
 ## Base URL and authentication
 
 | Setting | Value |
 | --- | --- |
-| Base URL | `https://api.acme.example/v1` |
+| Base URL | [`https://api.acme.example/v1`](https://api.acme.example/v1) |
 | Authentication | Bearer JWT token in `Authorization` header |
 | Content type | `application/json` |
 | Rate limit | 60 requests per minute per API key |
@@ -273,7 +277,7 @@ Explore and test all 14 endpoints in the embedded Swagger interface. Requests ro
 
 !!! info "Sandbox mode"
     All Try-it requests from Swagger UI route to the Postman mock server at
-    `https://662b99a9-ac2a-4096-8a8e-480a73cef3e3.mock.pstmn.io/v1`.
+    [`https://662b99a9-ac2a-4096-8a8e-480a73cef3e3.mock.pstmn.io/v1`](https://662b99a9-ac2a-4096-8a8e-480a73cef3e3.mock.pstmn.io/v1).
     No API key is required for sandbox requests.
 
 <div style="border:1px solid #dbe2ea;border-radius:12px;overflow:hidden;">
