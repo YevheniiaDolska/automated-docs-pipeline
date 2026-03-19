@@ -3,18 +3,59 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Acme Swagger UI</title>
+    <title>Acme REST API - Swagger UI</title>
     <link rel="stylesheet" href="https://unpkg.com/swagger-ui-dist@5/swagger-ui.css" />
   </head>
   <body>
     <div id="swagger-ui"></div>
     <script src="https://unpkg.com/swagger-ui-dist@5/swagger-ui-bundle.js"></script>
     <script>
+      var specUrl = '../assets/api/openapi.yaml';
+      var sandboxBase = 'https://662b99a9-ac2a-4096-8a8e-480a73cef3e3.mock.pstmn.io/v1';
+
+      // Allow parent page to override sandbox URL via query param
+      var params = new URLSearchParams(window.location.search);
+      if (params.get('sandbox')) {
+        sandboxBase = params.get('sandbox');
+      }
+
+      // Read Postman API key from parent sandbox config
+      var apiKey = '';
+      try {
+        if (window.parent && window.parent.ACME_SANDBOX) {
+          apiKey = window.parent.ACME_SANDBOX.postman_api_key || '';
+        }
+      } catch (e) { /* cross-origin blocked, use empty key */ }
+
       window.ui = SwaggerUIBundle({
-        url: '../assets/api/openapi.yaml',
+        url: specUrl,
         dom_id: '#swagger-ui',
         deepLinking: true,
+        docExpansion: 'list',
+        defaultModelsExpandDepth: 1,
         presets: [SwaggerUIBundle.presets.apis],
+        requestInterceptor: function (request) {
+          // Do not rewrite spec fetches
+          if (request.url === specUrl || request.url.indexOf('openapi') !== -1) {
+            return request;
+          }
+          // Add Postman API key header when available
+          if (apiKey && apiKey !== '__POSTMAN_API_KEY__') {
+            request.headers['x-api-key'] = apiKey;
+          }
+          // Rewrite API calls to hit the Postman mock server
+          if (sandboxBase) {
+            try {
+              var parsed = new URL(request.url, window.location.origin);
+              var target = new URL(sandboxBase, window.location.origin);
+              parsed.protocol = target.protocol;
+              parsed.hostname = target.hostname;
+              parsed.port = target.port;
+              request.url = parsed.toString();
+            } catch (e) { /* fall through on parse errors */ }
+          }
+          return request;
+        }
       });
     </script>
   </body>

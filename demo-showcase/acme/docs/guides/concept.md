@@ -5,6 +5,7 @@ content_type: concept
 product: both
 tags:
   - Concept
+last_reviewed: "2026-03-19"
 ---
 
 # Concept: pipeline-first documentation lifecycle

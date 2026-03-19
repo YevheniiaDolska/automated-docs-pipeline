@@ -6,6 +6,7 @@ product: both
 tags:
   - Reference
   - API
+last_reviewed: "2026-03-19"
 ---
 
 # Acme API documentation
@@ -22,10 +23,10 @@ The pipeline evaluates documentation health on every run. These metrics come fro
 
 | Metric | Value | Target | Status |
 | --- | --- | --- | --- |
-| Quality score | **76%** | 80% | Approaching target |
-| Total documents | **57** | -- | Indexed across all protocols |
-| Stale pages | **0** | 0 | No pages older than 90 days |
-| Documentation gaps | **11** total (8 high-priority) | 0 | Action items tracked |
+| Quality score | **100%** | 80% | Excellent |
+| Total documents | **12** | -- | Indexed across all protocols |
+| Stale pages | **0** | 0 | No stale pages |
+| Documentation gaps | **0** | 0 | No active gaps |
 | Metadata completeness | **100%** | 100% | All frontmatter fields present |
 | Protocol drift failures | **1** (gRPC) | 0 | Missing `protoc` compiler |
 | Knowledge graph nodes | **1,272** | -- | RAG retrieval index |

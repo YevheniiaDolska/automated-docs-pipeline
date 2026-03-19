@@ -6,6 +6,7 @@ product: both
 tags:
   - Reference
   - Quality
+last_reviewed: "2026-03-19"
 ---
 
 # Quality evidence and gate results
@@ -22,10 +23,10 @@ These metrics come from `reports/acme-demo/kpi-wall.json`:
 
 | Metric | Value | Target | Status |
 | --- | --- | --- | --- |
-| Quality score | **76%** | 80% | Below target (8 high-priority gaps) |
-| Total documents | **57** | -- | Indexed across all protocols |
-| Stale pages | **0** | 0 | No pages older than 90 days |
-| Documentation gaps | **11** total | 0 | 8 high-priority, 3 medium-priority |
+| Quality score | **100%** | 80% | Excellent |
+| Total documents | **12** | -- | Indexed across all protocols |
+| Stale pages | **0** | 0 | No stale pages |
+| Documentation gaps | **0** | 0 | No active gaps |
 | Metadata completeness | **100%** | 100% | All frontmatter fields present and valid |
 | Frontmatter errors | **0** | 0 | All pages pass schema validation |
 

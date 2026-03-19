@@ -5,6 +5,7 @@ content_type: troubleshooting
 product: both
 tags:
   - Troubleshooting
+last_reviewed: "2026-03-19"
 ---
 
 # Troubleshooting: common Acme pipeline issues

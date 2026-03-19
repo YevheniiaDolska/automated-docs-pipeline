@@ -5,6 +5,7 @@ content_type: how-to
 product: both
 tags:
   - How-To
+last_reviewed: "2026-03-19"
 ---
 
 # How-to: keep docs aligned with every release

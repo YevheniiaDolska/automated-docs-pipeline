@@ -6,6 +6,7 @@ product: both
 tags:
   - Reference
   - API
+last_reviewed: "2026-03-19"
 ---
 
 # gRPC gateway invoke
