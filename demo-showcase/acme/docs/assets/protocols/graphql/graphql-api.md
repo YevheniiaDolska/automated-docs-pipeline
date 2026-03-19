@@ -4,14 +4,14 @@ description: Auto-generated graphql reference from source contract.
 content_type: reference
 product: both
 tags:
-- C
-- Documents
-- Development
-- Auto Doc Pipeline
-- Users
-- Mnt
-- Docs
 - Kroha
+- Development
+- Mnt
+- Documents
+- Docs
+- Users
+- Auto Doc Pipeline
+- C
 last_reviewed: null
 original_author: null
 ---
