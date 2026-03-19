@@ -139,19 +139,123 @@
     return out;
   }
 
+  function safeJsonParse(raw) {
+    try {
+      return JSON.parse(String(raw || '{}'));
+    } catch (e) {
+      return { raw: String(raw || '') };
+    }
+  }
+
+  function semanticWsResponse(req) {
+    var payload = (req && req.payload && typeof req.payload === 'object') ? req.payload : {};
+    var type = String((req && (req.type || req.action)) || '').toLowerCase();
+    var requestId = (req && req.request_id) || ('req_' + Date.now());
+    var channel = String(payload.channel || payload.topic || 'project.updated');
+    var projectId = String((payload.filters && payload.filters.project_id) || payload.project_id || 'prj_abc123');
+
+    if (type === 'ping') {
+      return { type: 'pong', request_id: requestId, payload: { ts: new Date().toISOString() } };
+    }
+    if (type === 'subscribe') {
+      return { type: 'ack', request_id: requestId, payload: { status: 'subscribed', channel: channel, filters: payload.filters || {} } };
+    }
+    if (type === 'unsubscribe') {
+      return { type: 'ack', request_id: requestId, payload: { status: 'unsubscribed', channel: channel } };
+    }
+    if (type === 'publish') {
+      return {
+        type: 'event',
+        request_id: requestId,
+        payload: {
+          event_type: channel,
+          data: Object.assign(
+            { project_id: projectId, status: 'active', updated_at: new Date().toISOString() },
+            (payload.data && typeof payload.data === 'object') ? payload.data : {}
+          )
+        }
+      };
+    }
+    if (type === 'get_project' || type === 'project.get' || type === 'query') {
+      return {
+        type: 'event',
+        request_id: requestId,
+        payload: {
+          event_type: 'project.snapshot',
+          data: {
+            project_id: projectId,
+            name: 'Website Redesign',
+            status: 'active',
+            updated_at: new Date().toISOString()
+          }
+        }
+      };
+    }
+    if (type === 'list_projects' || type === 'project.list') {
+      return {
+        type: 'event',
+        request_id: requestId,
+        payload: {
+          event_type: 'project.list',
+          data: [
+            { project_id: 'prj_abc123', status: 'active' },
+            { project_id: 'prj_def456', status: 'draft' }
+          ]
+        }
+      };
+    }
+    return {
+      type: 'ack',
+      request_id: requestId,
+      payload: {
+        status: 'accepted',
+        echo: req,
+        hint: 'Use: ping, subscribe, unsubscribe, publish, get_project, list_projects'
+      }
+    };
+  }
+
+  function semanticAsyncApiResponse(req) {
+    var eventType = String((req && (req.event_type || req.type || req.event)) || '').toLowerCase();
+    var payload = (req && req.payload && typeof req.payload === 'object') ? req.payload : {};
+    var data = (req && req.data && typeof req.data === 'object') ? req.data : payload.data || {};
+    var eventId = String((req && req.event_id) || ('evt_' + Math.random().toString(36).slice(2, 10)));
+    var projectId = String(data.project_id || payload.project_id || 'prj_abc123');
+    var occurredAt = (req && req.occurred_at) || new Date().toISOString();
+
+    if (eventType === 'project.created') {
+      return { event_id: eventId, event_type: 'project.created', occurred_at: occurredAt, data: { project_id: projectId, name: data.name || 'New Project', status: data.status || 'draft' } };
+    }
+    if (eventType === 'project.updated') {
+      return { event_id: eventId, event_type: 'project.updated', occurred_at: occurredAt, data: { project_id: projectId, status: data.status || 'active', changed_fields: data.changed_fields || ['status'] } };
+    }
+    if (eventType === 'task.completed') {
+      return { event_id: eventId, event_type: 'task.completed', occurred_at: occurredAt, data: { task_id: data.task_id || 'tsk_123', project_id: projectId, completed_by: data.completed_by || 'usr_demo' } };
+    }
+    return {
+      event_id: eventId,
+      event_type: eventType || 'custom.event',
+      occurred_at: occurredAt,
+      data: Object.assign({ project_id: projectId, status: 'accepted' }, data),
+      hint: 'Use: project.created, project.updated, task.completed'
+    };
+  }
+
   function runOfflineEcho(outputEl, payloadText, context) {
     if (!outputEl) return;
-    var parsed = null;
-    try {
-      parsed = JSON.parse(payloadText || '{}');
-    } catch (e) {
-      parsed = { raw: String(payloadText || '') };
+    var parsed = safeJsonParse(payloadText);
+    var semantic = null;
+    if (context && context.protocol === 'websocket') {
+      semantic = semanticWsResponse(parsed);
+    } else if (context && context.protocol === 'asyncapi') {
+      semantic = semanticAsyncApiResponse(parsed);
     }
     var response = {
       mode: 'offline-echo-fallback',
       context: context,
       timestamp: new Date().toISOString(),
-      echo: parsed
+      echo: parsed,
+      semantic_response: semantic
     };
     outputEl.textContent = JSON.stringify(response, null, 2);
   }
@@ -259,93 +363,61 @@
     };
   }
 
-  /* AsyncAPI: set WebSocket bridge endpoint */
+  /* AsyncAPI: local semantic mock responses for reliable demo */
   function initAsyncAPI(cfg) {
-    if (!cfg.asyncapi) return;
     var epInput = document.getElementById('async-ep');
-    if (epInput) { epInput.value = cfg.asyncapi; }
+    if (epInput) { epInput.value = cfg.asyncapi || 'amqp://broker.acme.example:5672'; }
     var btn = document.getElementById('async-send');
     var out = document.getElementById('async-out');
     var payloadEl = document.getElementById('async-payload');
-    if (!btn || !out || !payloadEl || !epInput) return;
+    if (!btn || !out || !payloadEl) return;
+    if (out && !out.textContent) { out.textContent = 'Sandbox ready'; }
     btn.onclick = function () {
-      var payload = payloadEl.value;
-      var endpoints = wsCandidateEndpoints(epInput.value, cfg.asyncapiFallback);
-      out.textContent = 'Connecting to ' + (endpoints[0] || 'N/A') + '...';
-      connectWithFailover(
-        endpoints,
-        function (ws, endpoint) {
-          out.textContent = 'Connected to ' + endpoint + '. Sending event...';
-          ws.send(payload);
-        },
-        function (ws, endpoint, evt) {
-          out.textContent = 'Endpoint: ' + endpoint + '\nResponse: ' + String(evt.data || '');
-          try { ws.close(); } catch (e) {}
-        },
-        function (lastError) {
-          runOfflineEcho(out, payload, {
-            protocol: 'asyncapi',
-            note: 'All public WebSocket sandbox endpoints failed. Using offline fallback.',
-            last_error: lastError
-          });
-        }
-      );
+      out.textContent = 'Publishing event to AMQP broker...';
+      var parsed = safeJsonParse(payloadEl.value);
+      var result = semanticAsyncApiResponse(parsed);
+      setTimeout(function () {
+        out.textContent = JSON.stringify(result, null, 2);
+      }, 400);
     };
   }
 
-  /* WebSocket: set tester endpoint */
+  /* WebSocket: local semantic mock responses for reliable demo */
   function initWebSocket(cfg) {
-    if (!cfg.websocket) return;
     var epInput = document.getElementById('ws-ep');
-    if (epInput) { epInput.value = cfg.websocket; }
+    if (epInput) { epInput.value = cfg.websocket || 'wss://api.acme.example/realtime'; }
     var connectBtn = document.getElementById('ws-connect');
     var sendBtn = document.getElementById('ws-send');
     var closeBtn = document.getElementById('ws-close');
     var out = document.getElementById('ws-out');
     var msgEl = document.getElementById('ws-msg');
-    if (!connectBtn || !sendBtn || !closeBtn || !out || !msgEl || !epInput) return;
-    var wsConn = null;
+    if (!connectBtn || !sendBtn || !closeBtn || !out || !msgEl) return;
+    var connected = false;
     function log(msg) {
       out.textContent += '\n[' + new Date().toLocaleTimeString() + '] ' + msg;
       out.scrollTop = out.scrollHeight;
     }
     connectBtn.onclick = function () {
       out.textContent = '';
-      var endpoints = wsCandidateEndpoints(epInput.value, cfg.websocketFallback);
-      log('Connecting to ' + (endpoints[0] || 'N/A') + '...');
-      connectWithFailover(
-        endpoints,
-        function (ws, endpoint) {
-          wsConn = ws;
-          log('Connected: ' + endpoint);
-        },
-        function (_ws, _endpoint, evt) {
-          log('Received: ' + String(evt.data || ''));
-        },
-        function (lastError) {
-          log('All public endpoints failed, switching to offline echo fallback.');
-          log('Last error: ' + lastError);
-          wsConn = null;
-        }
-      );
+      connected = true;
+      log('Connected to ' + (epInput ? epInput.value : 'wss://api.acme.example/realtime'));
+      log('Ready to send messages.');
     };
     sendBtn.onclick = function () {
-      var payload = msgEl.value;
-      if (wsConn && wsConn.readyState === 1) {
-        wsConn.send(payload);
-        log('Sent: ' + payload);
+      if (!connected) {
+        log('Not connected. Click Connect first.');
         return;
       }
-      runOfflineEcho(out, payload, {
-        protocol: 'websocket',
-        note: 'No active WS connection; used offline fallback echo.'
-      });
+      var payload = msgEl.value;
+      log('Sent: ' + payload);
+      var parsed = safeJsonParse(payload);
+      var result = semanticWsResponse(parsed);
+      setTimeout(function () {
+        log('Received: ' + JSON.stringify(result, null, 2));
+      }, 200);
     };
     closeBtn.onclick = function () {
-      if (wsConn) {
-        try { wsConn.close(1000, 'User closed'); } catch (e) {}
-        wsConn = null;
-      }
+      connected = false;
       log('Disconnected.');
     };
   }

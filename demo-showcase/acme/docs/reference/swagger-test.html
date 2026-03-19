@@ -11,21 +11,149 @@
     <script src="https://unpkg.com/swagger-ui-dist@5/swagger-ui-bundle.js"></script>
     <script>
       var specUrl = '../assets/api/openapi.yaml';
-      var sandboxBase = 'https://662b99a9-ac2a-4096-8a8e-480a73cef3e3.mock.pstmn.io/v1';
 
-      // Allow parent page to override sandbox URL via query param
-      var params = new URLSearchParams(window.location.search);
-      if (params.get('sandbox')) {
-        sandboxBase = params.get('sandbox');
+      /* ---------- Local mock data for all 19 endpoints ---------- */
+      var mockDb = {
+        projects: [
+          { id: 'prj_abc123', name: 'Website Redesign', status: 'active', description: 'Redesign the main marketing website with new branding guidelines.', created_at: '2026-01-15T09:00:00Z', updated_at: '2026-03-19T14:30:00Z' },
+          { id: 'prj_def456', name: 'Mobile App Launch', status: 'active', description: 'Launch iOS and Android apps with offline-first architecture.', created_at: '2026-02-20T11:00:00Z', updated_at: '2026-03-18T10:15:00Z' },
+          { id: 'prj_ghi789', name: 'API Documentation', status: 'draft', description: 'Generate multi-protocol API reference from OpenAPI, GraphQL, and gRPC contracts.', created_at: '2026-03-01T14:30:00Z', updated_at: '2026-03-19T08:00:00Z' }
+        ],
+        tasks: [
+          { id: 'tsk_001', project_id: 'prj_abc123', title: 'Design homepage mockup', status: 'completed', priority: 'high', assignee_id: 'usr_012', created_at: '2026-01-16T10:00:00Z', completed_at: '2026-02-01T16:00:00Z' },
+          { id: 'tsk_002', project_id: 'prj_abc123', title: 'Implement responsive navigation', status: 'in_progress', priority: 'high', assignee_id: 'usr_034', created_at: '2026-02-02T09:00:00Z', completed_at: null },
+          { id: 'tsk_003', project_id: 'prj_def456', title: 'Set up CI/CD pipeline', status: 'in_progress', priority: 'medium', assignee_id: 'usr_012', created_at: '2026-02-21T08:30:00Z', completed_at: null },
+          { id: 'tsk_004', project_id: 'prj_def456', title: 'Configure push notifications', status: 'pending', priority: 'low', assignee_id: null, created_at: '2026-03-01T12:00:00Z', completed_at: null }
+        ],
+        users: [
+          { id: 'usr_012', name: 'Alice Chen', email: 'alice.chen@acme.example', role: 'admin', avatar_url: 'https://api.acme.example/avatars/usr_012.png', created_at: '2025-06-01T00:00:00Z' },
+          { id: 'usr_034', name: 'Bob Martinez', email: 'bob.martinez@acme.example', role: 'member', avatar_url: 'https://api.acme.example/avatars/usr_034.png', created_at: '2025-08-15T00:00:00Z' },
+          { id: 'usr_056', name: 'Carol Nakamura', email: 'carol.nakamura@acme.example', role: 'viewer', avatar_url: 'https://api.acme.example/avatars/usr_056.png', created_at: '2026-01-10T00:00:00Z' }
+        ],
+        tags: [
+          { id: 'tag_frontend', name: 'frontend', color: '#3b82f6' },
+          { id: 'tag_backend', name: 'backend', color: '#10b981' },
+          { id: 'tag_urgent', name: 'urgent', color: '#ef4444' },
+          { id: 'tag_design', name: 'design', color: '#8b5cf6' }
+        ],
+        comments: [
+          { id: 'cmt_a1', task_id: 'tsk_001', author_id: 'usr_012', body: 'Homepage mockup approved by stakeholders. Moving to implementation phase.', created_at: '2026-02-01T15:30:00Z' },
+          { id: 'cmt_b2', task_id: 'tsk_002', author_id: 'usr_034', body: 'Navigation component supports mobile breakpoints now. Need review on tablet layout.', created_at: '2026-03-18T11:00:00Z' },
+          { id: 'cmt_c3', task_id: 'tsk_003', author_id: 'usr_012', body: 'CI pipeline runs in 4 minutes. Added parallel test stages.', created_at: '2026-03-10T09:45:00Z' }
+        ]
+      };
+
+      function extractPathSegments(url) {
+        try {
+          var path = new URL(url, 'https://localhost').pathname;
+          // Remove /v1 prefix and leading/trailing slashes
+          path = path.replace(/^\/v1/, '').replace(/^\/+|\/+$/g, '');
+          return path.split('/').filter(Boolean);
+        } catch (e) {
+          return [];
+        }
       }
 
-      // Read Postman API key from parent sandbox config
-      var apiKey = '';
-      try {
-        if (window.parent && window.parent.ACME_SANDBOX) {
-          apiKey = window.parent.ACME_SANDBOX.postman_api_key || '';
+      function mockResponse(request) {
+        var segments = extractPathSegments(request.url);
+        var method = (request.method || 'GET').toUpperCase();
+        var resource = segments[0] || '';
+        var resourceId = segments[1] || null;
+        var body = null;
+        try { body = JSON.parse(request.body); } catch (e) { body = {}; }
+
+        // Health endpoint
+        if (resource === 'health') {
+          return { status: 'healthy', version: '1.2.0', uptime_seconds: 86400 };
         }
-      } catch (e) { /* cross-origin blocked, use empty key */ }
+
+        // Projects
+        if (resource === 'projects') {
+          if (!resourceId && method === 'GET') {
+            return mockDb.projects;
+          }
+          if (!resourceId && method === 'POST') {
+            return Object.assign({ id: 'prj_' + Math.random().toString(36).slice(2, 8), created_at: new Date().toISOString(), updated_at: new Date().toISOString() }, body);
+          }
+          if (resourceId && method === 'GET') {
+            return mockDb.projects.find(function(p) { return p.id === resourceId; }) || mockDb.projects[0];
+          }
+          if (resourceId && (method === 'PUT' || method === 'PATCH')) {
+            var proj = mockDb.projects.find(function(p) { return p.id === resourceId; }) || mockDb.projects[0];
+            return Object.assign({}, proj, body, { updated_at: new Date().toISOString() });
+          }
+          if (resourceId && method === 'DELETE') {
+            return null; // 204 no content
+          }
+        }
+
+        // Tasks
+        if (resource === 'tasks') {
+          if (!resourceId && method === 'GET') {
+            return mockDb.tasks;
+          }
+          if (!resourceId && method === 'POST') {
+            return Object.assign({ id: 'tsk_' + Math.random().toString(36).slice(2, 8), created_at: new Date().toISOString(), completed_at: null }, body);
+          }
+          if (resourceId && method === 'GET') {
+            return mockDb.tasks.find(function(t) { return t.id === resourceId; }) || mockDb.tasks[0];
+          }
+          if (resourceId && (method === 'PUT' || method === 'PATCH')) {
+            var task = mockDb.tasks.find(function(t) { return t.id === resourceId; }) || mockDb.tasks[0];
+            return Object.assign({}, task, body, { updated_at: new Date().toISOString() });
+          }
+          if (resourceId && method === 'DELETE') {
+            return null;
+          }
+        }
+
+        // Users
+        if (resource === 'users') {
+          if (!resourceId && method === 'GET') {
+            return mockDb.users;
+          }
+          if (!resourceId && method === 'POST') {
+            return Object.assign({ id: 'usr_' + Math.random().toString(36).slice(2, 8), created_at: new Date().toISOString() }, body);
+          }
+          if (resourceId && method === 'GET') {
+            return mockDb.users.find(function(u) { return u.id === resourceId; }) || mockDb.users[0];
+          }
+        }
+
+        // Tags
+        if (resource === 'tags') {
+          if (!resourceId && method === 'GET') {
+            return mockDb.tags;
+          }
+          if (!resourceId && method === 'POST') {
+            return Object.assign({ id: 'tag_' + (body.name || 'new').toLowerCase() }, body);
+          }
+          if (resourceId && method === 'GET') {
+            return mockDb.tags.find(function(t) { return t.id === resourceId; }) || mockDb.tags[0];
+          }
+          if (resourceId && method === 'DELETE') {
+            return null;
+          }
+        }
+
+        // Comments
+        if (resource === 'comments') {
+          if (!resourceId && method === 'GET') {
+            return mockDb.comments;
+          }
+          if (!resourceId && method === 'POST') {
+            return Object.assign({ id: 'cmt_' + Math.random().toString(36).slice(2, 6), created_at: new Date().toISOString() }, body);
+          }
+          if (resourceId && method === 'GET') {
+            return mockDb.comments.find(function(c) { return c.id === resourceId; }) || mockDb.comments[0];
+          }
+          if (resourceId && method === 'DELETE') {
+            return null;
+          }
+        }
+
+        return { error: { code: 'not_found', message: 'Endpoint not found: ' + method + ' /' + segments.join('/') } };
+      }
 
       window.ui = SwaggerUIBundle({
         url: specUrl,
@@ -35,28 +163,58 @@
         defaultModelsExpandDepth: 1,
         presets: [SwaggerUIBundle.presets.apis],
         requestInterceptor: function (request) {
-          // Do not rewrite spec fetches
+          // Allow spec fetches through unchanged
           if (request.url === specUrl || request.url.indexOf('openapi') !== -1) {
             return request;
           }
-          // Add Postman API key header when available
-          if (apiKey && apiKey !== '__POSTMAN_API_KEY__') {
-            request.headers['x-api-key'] = apiKey;
-          }
-          // Rewrite API calls to hit the Postman mock server
-          if (sandboxBase) {
-            try {
-              var parsed = new URL(request.url, window.location.origin);
-              var target = new URL(sandboxBase, window.location.origin);
-              parsed.protocol = target.protocol;
-              parsed.hostname = target.hostname;
-              parsed.port = target.port;
-              request.url = parsed.toString();
-            } catch (e) { /* fall through on parse errors */ }
-          }
+          // Tag non-spec requests for interception
+          request._isMockRequest = true;
+          request._originalUrl = request.url;
           return request;
+        },
+        responseInterceptor: function (response) {
+          // Only intercept API calls, not spec fetches
+          if (!response.obj && response.url && response.url.indexOf('openapi') === -1) {
+            // This response came from a network error or mock server mismatch
+            // Generate local mock data
+          }
+          return response;
         }
       });
+
+      /* Override Swagger UI fetch to return local mock data */
+      var originalFetch = window.fetch;
+      window.fetch = function (input, init) {
+        var url = typeof input === 'string' ? input : (input && input.url) || '';
+        var method = (init && init.method) || 'GET';
+
+        // Let spec and asset fetches pass through
+        if (url.indexOf('openapi') !== -1 || url.indexOf('.yaml') !== -1 ||
+            url.indexOf('.json') !== -1 && url.indexOf('/v1') === -1 ||
+            url.indexOf('swagger-ui') !== -1 || url.indexOf('unpkg.com') !== -1) {
+          return originalFetch.apply(this, arguments);
+        }
+
+        // Intercept API calls (anything with /v1/ or mock server URL)
+        if (url.indexOf('/v1') !== -1 || url.indexOf('mock.pstmn.io') !== -1 || url.indexOf('acme.example') !== -1) {
+          var mockResult = mockResponse({ url: url, method: method, body: init && init.body });
+          var statusCode = mockResult === null ? 204 : 200;
+          if (method === 'POST') statusCode = 201;
+          if (method === 'DELETE') statusCode = 204;
+          var responseBody = mockResult === null ? '' : JSON.stringify(mockResult, null, 2);
+          return new Promise(function (resolve) {
+            setTimeout(function () {
+              resolve(new Response(responseBody, {
+                status: statusCode,
+                statusText: statusCode === 200 ? 'OK' : statusCode === 201 ? 'Created' : 'No Content',
+                headers: { 'Content-Type': 'application/json', 'X-Sandbox': 'local-mock', 'X-RateLimit-Remaining': '57' }
+              }));
+            }, 150 + Math.random() * 200);
+          });
+        }
+
+        return originalFetch.apply(this, arguments);
+      };
     </script>
   </body>
 </html>
