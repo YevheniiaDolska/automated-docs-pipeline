@@ -16,6 +16,7 @@ SUPPORTED_API_PROTOCOLS: tuple[str, ...] = (
 ECHO_WS_PRIMARY = "wss://echo.websocket.events"
 ECHO_WS_FALLBACK = "wss://socketsbay.com/wss/v2/1/demo/"
 ECHO_WS_LEGACY = "wss://echo.websocket.org"
+ECHO_HTTP_POST = "https://postman-echo.com/post"
 
 
 def _clean_protocol(value: str) -> str:
@@ -43,6 +44,22 @@ def default_asyncapi_ws_endpoint() -> str:
 
 def default_websocket_endpoint() -> str:
     return ECHO_WS_PRIMARY
+
+
+def default_graphql_endpoint() -> str:
+    return ECHO_HTTP_POST
+
+
+def default_grpc_gateway_endpoint() -> str:
+    return ECHO_HTTP_POST
+
+
+def default_asyncapi_http_publish_endpoint() -> str:
+    return ECHO_HTTP_POST
+
+
+def default_websocket_http_bridge_endpoint() -> str:
+    return ECHO_HTTP_POST
 
 
 def normalize_protocols(raw: Any, default: list[str] | None = None) -> list[str]:
@@ -93,12 +110,13 @@ def default_api_protocol_settings() -> dict[str, dict[str, Any]]:
             "notes_path": "notes/graphql-api-planning.md",
             "generate_from_notes": True,
             "code_first_schema_export_cmd": "",
-            "graphql_endpoint": "",
+            "graphql_endpoint": default_graphql_endpoint(),
             "autofix_cycle_enabled": True,
             "autofix_max_attempts": 3,
             "semantic_autofix_max_attempts": 3,
             "self_verify_runtime": True,
-            "self_verify_require_endpoint": False,
+            "self_verify_require_endpoint": True,
+            "publish_requires_live_green": True,
             "generate_test_assets": True,
             "upload_test_assets": False,
         },
@@ -109,12 +127,13 @@ def default_api_protocol_settings() -> dict[str, dict[str, Any]]:
             "notes_path": "notes/grpc-api-planning.md",
             "generate_from_notes": True,
             "code_first_proto_export_cmd": "",
-            "grpc_gateway_endpoint": "",
+            "grpc_gateway_endpoint": default_grpc_gateway_endpoint(),
             "autofix_cycle_enabled": True,
             "autofix_max_attempts": 3,
             "semantic_autofix_max_attempts": 3,
             "self_verify_runtime": True,
-            "self_verify_require_endpoint": False,
+            "self_verify_require_endpoint": True,
+            "publish_requires_live_green": True,
             "generate_test_assets": True,
             "upload_test_assets": False,
         },
@@ -126,12 +145,13 @@ def default_api_protocol_settings() -> dict[str, dict[str, Any]]:
             "generate_from_notes": True,
             "code_first_contract_export_cmd": "",
             "asyncapi_ws_endpoint": default_asyncapi_ws_endpoint(),
-            "asyncapi_http_publish_endpoint": "",
+            "asyncapi_http_publish_endpoint": default_asyncapi_http_publish_endpoint(),
             "autofix_cycle_enabled": True,
             "autofix_max_attempts": 3,
             "semantic_autofix_max_attempts": 3,
             "self_verify_runtime": True,
-            "self_verify_require_endpoint": False,
+            "self_verify_require_endpoint": True,
+            "publish_requires_live_green": True,
             "generate_test_assets": True,
             "upload_test_assets": False,
         },
@@ -143,11 +163,13 @@ def default_api_protocol_settings() -> dict[str, dict[str, Any]]:
             "generate_from_notes": True,
             "code_first_contract_export_cmd": "",
             "websocket_endpoint": default_websocket_endpoint(),
+            "websocket_http_bridge_endpoint": default_websocket_http_bridge_endpoint(),
             "autofix_cycle_enabled": True,
             "autofix_max_attempts": 3,
             "semantic_autofix_max_attempts": 3,
             "self_verify_runtime": True,
-            "self_verify_require_endpoint": False,
+            "self_verify_require_endpoint": True,
+            "publish_requires_live_green": True,
             "generate_test_assets": True,
             "upload_test_assets": False,
         },
@@ -177,14 +199,30 @@ def merge_protocol_settings(
 
 def apply_realtime_sandbox_defaults(settings_map: dict[str, dict[str, Any]]) -> dict[str, dict[str, Any]]:
     """Ensure AsyncAPI/WebSocket testers have working echo endpoints by default."""
+    gql_cfg = settings_map.get("graphql")
+    if isinstance(gql_cfg, dict):
+        endpoint = str(gql_cfg.get("graphql_endpoint", "")).strip()
+        if not endpoint:
+            gql_cfg["graphql_endpoint"] = default_graphql_endpoint()
+    grpc_cfg = settings_map.get("grpc")
+    if isinstance(grpc_cfg, dict):
+        endpoint = str(grpc_cfg.get("grpc_gateway_endpoint", "")).strip()
+        if not endpoint:
+            grpc_cfg["grpc_gateway_endpoint"] = default_grpc_gateway_endpoint()
     async_cfg = settings_map.get("asyncapi")
     if isinstance(async_cfg, dict):
         ws = str(async_cfg.get("asyncapi_ws_endpoint", "")).strip()
         if not ws:
             async_cfg["asyncapi_ws_endpoint"] = default_asyncapi_ws_endpoint()
+        publish_endpoint = str(async_cfg.get("asyncapi_http_publish_endpoint", "")).strip()
+        if not publish_endpoint:
+            async_cfg["asyncapi_http_publish_endpoint"] = default_asyncapi_http_publish_endpoint()
     ws_cfg = settings_map.get("websocket")
     if isinstance(ws_cfg, dict):
         ws = str(ws_cfg.get("websocket_endpoint", "")).strip()
         if not ws:
             ws_cfg["websocket_endpoint"] = default_websocket_endpoint()
+        bridge_endpoint = str(ws_cfg.get("websocket_http_bridge_endpoint", "")).strip()
+        if not bridge_endpoint:
+            ws_cfg["websocket_http_bridge_endpoint"] = default_websocket_http_bridge_endpoint()
     return settings_map
