@@ -223,6 +223,20 @@ def main() -> int:
     custom_tasks = runtime.get("custom_tasks", {})
     integrations = runtime.get("integrations", {})
     finalize_gate = runtime.get("finalize_gate", {})
+    api_governance = runtime.get("api_governance", {})
+    api_protocols_raw = runtime.get("api_protocols", ["rest"])
+    api_protocol_settings = runtime.get("api_protocol_settings", {})
+
+    if isinstance(api_protocols_raw, str):
+        configured_protocols = [v.strip().lower() for v in api_protocols_raw.split(",") if v.strip()]
+    elif isinstance(api_protocols_raw, list):
+        configured_protocols = [str(v).strip().lower() for v in api_protocols_raw if str(v).strip()]
+    else:
+        configured_protocols = ["rest"]
+    if not configured_protocols:
+        configured_protocols = ["rest"]
+    if not isinstance(api_protocol_settings, dict):
+        api_protocol_settings = {}
 
     py = sys.executable
     scripts_dir = docsops_root / "scripts"
@@ -232,6 +246,49 @@ def main() -> int:
     policy_graph = policy.get("knowledge_graph", {}) if isinstance(policy.get("knowledge_graph"), dict) else {}
 
     _run_git_sync(repo_root, git_sync if isinstance(git_sync, dict) else {})
+
+    # Multi-protocol contract/docs flow for non-REST architectures.
+    non_rest_protocols: list[str] = []
+    for protocol in configured_protocols:
+        if protocol == "rest":
+            continue
+        cfg = api_protocol_settings.get(protocol, {})
+        enabled = bool(cfg.get("enabled", protocol in configured_protocols)) if isinstance(cfg, dict) else bool(protocol in configured_protocols)
+        if enabled and protocol not in non_rest_protocols:
+            non_rest_protocols.append(protocol)
+
+    multi_protocol_runner = scripts_dir / "run_multi_protocol_contract_flow.py"
+    strictness = str(api_governance.get("strictness", "standard")).strip().lower() if isinstance(api_governance, dict) else "standard"
+    if multi_protocol_runner.exists() and non_rest_protocols:
+        multi_cmd = [
+            py,
+            str(multi_protocol_runner),
+            "--runtime-config",
+            str(runtime_path),
+            "--reports-dir",
+            str(reports_dir),
+            "--protocols",
+            ",".join(non_rest_protocols),
+        ]
+        if strictness == "enterprise-strict":
+            multi_cmd.extend(["--strictness", "enterprise-strict"])
+        _run(multi_cmd, cwd=repo_root)
+    else:
+        # Keep autopipeline artifact contract stable when only REST is configured.
+        minimal_report = {
+            "strictness": strictness or "standard",
+            "strict_mode": bool(strictness == "enterprise-strict"),
+            "protocols": non_rest_protocols,
+            "failed_protocols": [],
+            "failed": False,
+            "stages": [],
+            "by_protocol": {},
+            "skipped_reason": "no_non_rest_protocols_selected_or_runner_missing",
+        }
+        (reports_dir / "multi_protocol_contract_report.json").write_text(
+            json.dumps(minimal_report, ensure_ascii=True, indent=2) + "\n",
+            encoding="utf-8",
+        )
 
     base_ref = _resolve_weekly_base_ref(repo_root, args.since)
     head_ref = "HEAD"

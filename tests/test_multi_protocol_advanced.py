@@ -454,3 +454,134 @@ def test_quality_suite_semantic_conflict_scan_blocks_raw_echo_patterns(tmp_path:
     assert conflicts
     assert conflicts[-1]["ok"] is False
     assert conflicts[-1]["forbidden_patterns_found"]
+
+
+@pytest.mark.parametrize(
+    ("protocol", "output_rel"),
+    [
+        ("graphql", "api/schema.graphql"),
+        ("grpc", "api/proto"),
+        ("asyncapi", "api/asyncapi.yaml"),
+        ("websocket", "api/websocket.yaml"),
+    ],
+)
+def test_generate_contract_from_planning_notes_for_non_rest(tmp_path: Path, protocol: str, output_rel: str) -> None:
+    notes = tmp_path / "notes.md"
+    notes.write_text(
+        "# Planning\n"
+        "- query: project\n"
+        "- mutation: create_project\n"
+        "- event: project.updated\n"
+        "- channel: task.completed\n",
+        encoding="utf-8",
+    )
+    output = tmp_path / output_rel
+    output.parent.mkdir(parents=True, exist_ok=True)
+
+    rc = __import__("subprocess").run(
+        [
+            sys.executable,
+            str(ROOT / "scripts" / "generate_protocol_contract_from_planning_notes.py"),
+            "--protocol",
+            protocol,
+            "--notes",
+            str(notes),
+            "--output",
+            str(output),
+            "--project-name",
+            "Acme API",
+        ],
+        check=False,
+    ).returncode
+    assert rc == 0
+    if protocol == "grpc":
+        proto_files = sorted((tmp_path / "api/proto").rglob("*.proto"))
+        assert proto_files
+        rendered = proto_files[0].read_text(encoding="utf-8")
+        assert 'syntax = "proto3";' in rendered
+        assert "service AcmeApiService" in rendered
+    else:
+        assert output.exists()
+        rendered = output.read_text(encoding="utf-8")
+        if protocol == "graphql":
+            assert "type Query" in rendered
+        if protocol == "asyncapi":
+            assert "channels:" in rendered and "publish:" in rendered
+        if protocol == "websocket":
+            assert "channels:" in rendered and "subscribe:" in rendered
+
+
+def test_multi_protocol_flow_generates_missing_contracts_from_notes(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:
+    from scripts import run_multi_protocol_contract_flow as mod
+
+    notes = tmp_path / "notes" / "api-planning.md"
+    notes.parent.mkdir(parents=True, exist_ok=True)
+    notes.write_text(
+        "# API planning\n"
+        "- query: health\n"
+        "- mutation: create_project\n"
+        "- event: project.updated\n",
+        encoding="utf-8",
+    )
+
+    runtime = {
+        "api_governance": {"strictness": "enterprise-strict"},
+        "api_protocols": ["graphql", "grpc", "asyncapi", "websocket"],
+        "api_protocol_settings": {
+            "graphql": {
+                "enabled": True,
+                "schema_path": str(tmp_path / "api/schema.graphql"),
+                "notes_path": str(notes),
+                "generate_from_notes": True,
+                "generated_docs_output": str(tmp_path / "docs/reference/graphql-api.md"),
+                "generate_test_assets": False,
+            },
+            "grpc": {
+                "enabled": True,
+                "proto_paths": [str(tmp_path / "api/proto")],
+                "notes_path": str(notes),
+                "generate_from_notes": True,
+                "generated_docs_output": str(tmp_path / "docs/reference/grpc-api.md"),
+                "generate_test_assets": False,
+            },
+            "asyncapi": {
+                "enabled": True,
+                "spec_path": str(tmp_path / "api/asyncapi.yaml"),
+                "notes_path": str(notes),
+                "generate_from_notes": True,
+                "generated_docs_output": str(tmp_path / "docs/reference/asyncapi-api.md"),
+                "generate_test_assets": False,
+            },
+            "websocket": {
+                "enabled": True,
+                "contract_path": str(tmp_path / "api/websocket.yaml"),
+                "notes_path": str(notes),
+                "generate_from_notes": True,
+                "generated_docs_output": str(tmp_path / "docs/reference/websocket-api.md"),
+                "generate_test_assets": False,
+            },
+        },
+    }
+    runtime_path = tmp_path / "runtime.yml"
+    runtime_path.write_text(yaml.safe_dump(runtime, sort_keys=False), encoding="utf-8")
+    reports = tmp_path / "reports"
+
+    monkeypatch.chdir(ROOT)
+    monkeypatch.setattr(
+        sys,
+        "argv",
+        [
+            "x",
+            "--runtime-config",
+            str(runtime_path),
+            "--reports-dir",
+            str(reports),
+        ],
+    )
+
+    rc = mod.main()
+    assert rc == 0
+    report = json.loads((reports / "multi_protocol_contract_report.json").read_text(encoding="utf-8"))
+    for protocol in ("graphql", "grpc", "asyncapi", "websocket"):
+        stages = report["by_protocol"][protocol]
+        assert any(s.get("stage") == "contract_from_notes_generation" for s in stages)

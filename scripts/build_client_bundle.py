@@ -16,6 +16,8 @@ from typing import Any
 
 import yaml
 
+from scripts.api_protocols import merge_protocol_settings, normalize_protocols
+
 REPO_ROOT = Path(__file__).resolve().parents[1]
 MANAGED_START = "<!-- DOCSOPS_MANAGED_BLOCK:START -->"
 MANAGED_END = "<!-- DOCSOPS_MANAGED_BLOCK:END -->"
@@ -80,6 +82,8 @@ def deep_merge(base: dict[str, Any], override: dict[str, Any]) -> dict[str, Any]
 def build_runtime_config(profile: dict[str, Any]) -> dict[str, Any]:
     runtime = profile.get("runtime", {})
     private = profile.get("private_tuning", {})
+    api_protocols = normalize_protocols(runtime.get("api_protocols", ["rest"]))
+    api_protocol_settings = merge_protocol_settings(runtime.get("api_protocol_settings", {}), api_protocols)
 
     return {
         "project": {
@@ -157,6 +161,8 @@ def build_runtime_config(profile: dict[str, Any]) -> dict[str, Any]:
                 "max_attempts": 3,
             },
         ),
+        "api_protocols": api_protocols,
+        "api_protocol_settings": api_protocol_settings,
         "modules": runtime.get(
             "modules",
             {
@@ -738,6 +744,18 @@ def create_bundle(profile_path: Path) -> Path:
     if isinstance(pr_autofix, Mapping) and bool(pr_autofix.get("enabled", False)):
         required_scripts.append("scripts/auto_fix_pr_docs.py")
     api_first = runtime_cfg.get("api_first", {})
+    api_protocols = runtime_cfg.get("api_protocols", [])
+    api_protocol_settings = runtime_cfg.get("api_protocol_settings", {})
+    non_rest_enabled = False
+    if isinstance(api_protocols, list):
+        for protocol in api_protocols:
+            key = str(protocol).strip().lower()
+            if key not in {"graphql", "grpc", "asyncapi", "websocket"}:
+                continue
+            cfg = api_protocol_settings.get(key, {}) if isinstance(api_protocol_settings, Mapping) else {}
+            if not isinstance(cfg, Mapping) or bool(cfg.get("enabled", True)):
+                non_rest_enabled = True
+                break
     if isinstance(api_first, Mapping):
         external_mock = api_first.get("external_mock", {})
         if bool(api_first.get("enabled", False)) and isinstance(external_mock, Mapping):
@@ -760,6 +778,27 @@ def create_bundle(profile_path: Path) -> Path:
                 external_mock.get("enabled", False)
             ):
                 required_scripts.append("scripts/ensure_external_mock_server.py")
+    if non_rest_enabled:
+        required_scripts.extend(
+            [
+                "scripts/run_multi_protocol_contract_flow.py",
+                "scripts/generate_protocol_contract_from_planning_notes.py",
+                "scripts/generate_protocol_docs.py",
+                "scripts/generate_protocol_test_assets.py",
+                "scripts/check_protocol_regression.py",
+                "scripts/validate_graphql_contract.py",
+                "scripts/validate_proto_contract.py",
+                "scripts/validate_asyncapi_contract.py",
+                "scripts/validate_websocket_contract.py",
+                "scripts/run_protocol_lint_stack.py",
+                "scripts/run_protocol_self_verify.py",
+                "scripts/run_protocol_docs_quality_suite.py",
+                "scripts/validate_protocol_test_coverage.py",
+                "scripts/publish_protocol_assets.py",
+                "scripts/multi_protocol_engine.py",
+                "scripts/api_protocols.py",
+            ]
+        )
 
     for req in required_scripts:
         if req not in include_scripts:

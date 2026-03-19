@@ -81,6 +81,67 @@ class ProtocolAdapter:
             return str(self.settings.get("contract_path", "api/websocket.yaml"))
         raise ValueError(f"Unsupported protocol: {self.protocol}")
 
+    def notes_path(self) -> str:
+        if self.protocol == "graphql":
+            return str(self.settings.get("notes_path", "notes/graphql-api-planning.md"))
+        if self.protocol == "grpc":
+            return str(self.settings.get("notes_path", "notes/grpc-api-planning.md"))
+        if self.protocol == "asyncapi":
+            return str(self.settings.get("notes_path", "notes/asyncapi-planning.md"))
+        if self.protocol == "websocket":
+            return str(self.settings.get("notes_path", "notes/websocket-api-planning.md"))
+        return str(self.settings.get("notes_path", "notes/api-planning.md"))
+
+    def maybe_generate_contract_from_notes(self, *, allow_fail: bool) -> StageResult | None:
+        if self.protocol == "rest":
+            return None
+        if not bool(self.settings.get("generate_from_notes", True)):
+            return None
+
+        source = (self.repo_root / self.source()).resolve()
+        source_exists = source.exists()
+        if source.is_dir():
+            source_exists = any(source.rglob("*.proto")) if self.protocol == "grpc" else source_exists
+        if source_exists:
+            return None
+
+        notes = (self.repo_root / self.notes_path()).resolve()
+        if not notes.exists():
+            if not allow_fail:
+                raise FileNotFoundError(f"{self.protocol}: planning notes not found: {notes}")
+            return StageResult(
+                stage="contract_from_notes_generation",
+                protocol=self.protocol,
+                ok=False,
+                rc=2,
+                command=["missing_notes", str(notes)],
+                details={"notes_path": str(notes), "source": str(source)},
+            )
+
+        project_name = str(
+            self.settings.get("project_name")
+            or self.settings.get("project_slug")
+            or self.repo_root.name
+        ).strip() or "API Project"
+
+        cmd = [
+            self.py,
+            str(self.scripts_dir / "generate_protocol_contract_from_planning_notes.py"),
+            "--protocol",
+            self.protocol,
+            "--notes",
+            str(notes),
+            "--output",
+            self.source(),
+            "--project-name",
+            project_name,
+        ]
+        result = self._run("contract_from_notes_generation", cmd, allow_fail=allow_fail)
+        result.details["notes_path"] = str(notes)
+        result.details["source"] = str(source)
+        result.details["project_name"] = project_name
+        return result
+
     def ingest(self, *, allow_fail: bool) -> StageResult:
         mode = self._mode()
         export_cmd = self._code_first_export_cmd()
@@ -160,7 +221,7 @@ class ProtocolAdapter:
         elif self.protocol == "graphql":
             cmd = [self.py, str(self.scripts_dir / "validate_graphql_contract.py"), self.source()]
         elif self.protocol == "grpc":
-            cmd = [self.py, str(self.scripts_dir / "validate_proto_contract.py"), "--paths", self.source()]
+            cmd = [self.py, str(self.scripts_dir / "validate_proto_contract.py"), "--proto", self.source()]
         elif self.protocol == "asyncapi":
             cmd = [self.py, str(self.scripts_dir / "validate_asyncapi_contract.py"), self.source()]
         elif self.protocol == "websocket":

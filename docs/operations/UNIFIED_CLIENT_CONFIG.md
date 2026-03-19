@@ -389,6 +389,35 @@ semantic_autofix_max_attempts: 3
 
 These defaults are designed for smooth one-command autopipeline runs with minimal manual intervention.
 
+### 6.2 Planning-notes generation for non-REST protocols
+
+You can generate non-REST contracts directly from planning notes in the same autopipeline run.
+
+```yaml
+runtime:
+  api_protocols: ["graphql", "grpc", "asyncapi", "websocket"]
+  api_protocol_settings:
+    graphql:
+      schema_path: "api/schema.graphql"
+      notes_path: "notes/graphql-api-planning.md"
+      generate_from_notes: true
+    grpc:
+      proto_paths: ["api/proto"]
+      notes_path: "notes/grpc-api-planning.md"
+      generate_from_notes: true
+    asyncapi:
+      spec_path: "api/asyncapi.yaml"
+      notes_path: "notes/asyncapi-planning.md"
+      generate_from_notes: true
+    websocket:
+      contract_path: "api/websocket.yaml"
+      notes_path: "notes/websocket-api-planning.md"
+      generate_from_notes: true
+```
+
+When source contract is missing, pipeline auto-generates it from notes and continues with:
+contract validation -> lint -> regression -> docs generation -> semantic quality -> test assets -> publish.
+
 ## 7. Module switches
 
 ```yaml

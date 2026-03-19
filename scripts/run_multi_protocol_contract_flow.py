@@ -101,6 +101,9 @@ def main() -> int:
             attempt = 1
             while True:
                 attempt_results: list[StageResult] = []
+                notes_gen = adapter.maybe_generate_contract_from_notes(allow_fail=True)
+                if notes_gen is not None:
+                    attempt_results.append(notes_gen)
                 attempt_results.append(adapter.ingest(allow_fail=True))
                 attempt_results.append(adapter.contract_validation(allow_fail=True))
                 attempt_results.append(adapter.lint(allow_fail=True))
