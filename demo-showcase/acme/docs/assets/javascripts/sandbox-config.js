@@ -17,12 +17,12 @@
     asyncapi_ws_url:    'wss://echo.websocket.events',
     websocket_url:      'wss://echo.websocket.events',
     asyncapi_ws_fallback_urls: [
-      'wss://socketsbay.com/wss/v2/1/demo/',
-      'wss://echo.websocket.org'
+      'wss://ws.ifelse.io',
+      'wss://ws.postman-echo.com/raw'
     ],
     websocket_fallback_urls: [
-      'wss://socketsbay.com/wss/v2/1/demo/',
-      'wss://echo.websocket.org'
+      'wss://ws.ifelse.io',
+      'wss://ws.postman-echo.com/raw'
     ]
   };
 })();

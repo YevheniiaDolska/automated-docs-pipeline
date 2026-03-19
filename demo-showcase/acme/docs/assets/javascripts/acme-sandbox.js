@@ -14,7 +14,9 @@
     return {
       rest:      cfg.rest_base_url      || '',
       asyncapi:  cfg.asyncapi_ws_url    || '',
-      websocket: cfg.websocket_url      || ''
+      websocket: cfg.websocket_url      || '',
+      asyncapiFallback: Array.isArray(cfg.asyncapi_ws_fallback_urls) ? cfg.asyncapi_ws_fallback_urls : [],
+      websocketFallback: Array.isArray(cfg.websocket_fallback_urls) ? cfg.websocket_fallback_urls : []
     };
   }
 
@@ -124,6 +126,87 @@
     return { error: { code: 'UNIMPLEMENTED', message: 'Method ' + method + ' is not implemented. Try: GetProject, CreateProject, or ListProjects.' } };
   }
 
+  function wsCandidateEndpoints(primary, extras) {
+    var all = [primary].concat(Array.isArray(extras) ? extras : []);
+    var seen = {};
+    var out = [];
+    for (var i = 0; i < all.length; i += 1) {
+      var v = String(all[i] || '').trim();
+      if (!v || seen[v]) continue;
+      seen[v] = true;
+      out.push(v);
+    }
+    return out;
+  }
+
+  function runOfflineEcho(outputEl, payloadText, context) {
+    if (!outputEl) return;
+    var parsed = null;
+    try {
+      parsed = JSON.parse(payloadText || '{}');
+    } catch (e) {
+      parsed = { raw: String(payloadText || '') };
+    }
+    var response = {
+      mode: 'offline-echo-fallback',
+      context: context,
+      timestamp: new Date().toISOString(),
+      echo: parsed
+    };
+    outputEl.textContent = JSON.stringify(response, null, 2);
+  }
+
+  function connectWithFailover(endpoints, onOpen, onMessage, onAllFailed) {
+    var idx = 0;
+    var lastError = '';
+    function tryNext() {
+      if (idx >= endpoints.length) {
+        onAllFailed(lastError);
+        return;
+      }
+      var endpoint = endpoints[idx++];
+      var settled = false;
+      try {
+        var ws = new WebSocket(endpoint);
+        var timeout = setTimeout(function () {
+          if (settled) return;
+          settled = true;
+          lastError = 'timeout on ' + endpoint;
+          try { ws.close(); } catch (e) {}
+          tryNext();
+        }, 6000);
+        ws.onopen = function () {
+          if (settled) return;
+          settled = true;
+          clearTimeout(timeout);
+          onOpen(ws, endpoint);
+        };
+        ws.onmessage = function (evt) {
+          onMessage(ws, endpoint, evt);
+        };
+        ws.onerror = function () {
+          if (settled) return;
+          settled = true;
+          clearTimeout(timeout);
+          lastError = 'handshake failed on ' + endpoint;
+          tryNext();
+        };
+        ws.onclose = function () {
+          if (!settled) {
+            settled = true;
+            clearTimeout(timeout);
+            lastError = 'closed before response on ' + endpoint;
+            tryNext();
+          }
+        };
+      } catch (e) {
+        lastError = String(e);
+        tryNext();
+      }
+    }
+    tryNext();
+  }
+
   /* REST: Swagger iframe gets sandbox URL via query param */
   function initRest(cfg) {
     if (!cfg.rest) return;
@@ -181,6 +264,33 @@
     if (!cfg.asyncapi) return;
     var epInput = document.getElementById('async-ep');
     if (epInput) { epInput.value = cfg.asyncapi; }
+    var btn = document.getElementById('async-send');
+    var out = document.getElementById('async-out');
+    var payloadEl = document.getElementById('async-payload');
+    if (!btn || !out || !payloadEl || !epInput) return;
+    btn.onclick = function () {
+      var payload = payloadEl.value;
+      var endpoints = wsCandidateEndpoints(epInput.value, cfg.asyncapiFallback);
+      out.textContent = 'Connecting to ' + (endpoints[0] || 'N/A') + '...';
+      connectWithFailover(
+        endpoints,
+        function (ws, endpoint) {
+          out.textContent = 'Connected to ' + endpoint + '. Sending event...';
+          ws.send(payload);
+        },
+        function (ws, endpoint, evt) {
+          out.textContent = 'Endpoint: ' + endpoint + '\nResponse: ' + String(evt.data || '');
+          try { ws.close(); } catch (e) {}
+        },
+        function (lastError) {
+          runOfflineEcho(out, payload, {
+            protocol: 'asyncapi',
+            note: 'All public WebSocket sandbox endpoints failed. Using offline fallback.',
+            last_error: lastError
+          });
+        }
+      );
+    };
   }
 
   /* WebSocket: set tester endpoint */
@@ -188,6 +298,56 @@
     if (!cfg.websocket) return;
     var epInput = document.getElementById('ws-ep');
     if (epInput) { epInput.value = cfg.websocket; }
+    var connectBtn = document.getElementById('ws-connect');
+    var sendBtn = document.getElementById('ws-send');
+    var closeBtn = document.getElementById('ws-close');
+    var out = document.getElementById('ws-out');
+    var msgEl = document.getElementById('ws-msg');
+    if (!connectBtn || !sendBtn || !closeBtn || !out || !msgEl || !epInput) return;
+    var wsConn = null;
+    function log(msg) {
+      out.textContent += '\n[' + new Date().toLocaleTimeString() + '] ' + msg;
+      out.scrollTop = out.scrollHeight;
+    }
+    connectBtn.onclick = function () {
+      out.textContent = '';
+      var endpoints = wsCandidateEndpoints(epInput.value, cfg.websocketFallback);
+      log('Connecting to ' + (endpoints[0] || 'N/A') + '...');
+      connectWithFailover(
+        endpoints,
+        function (ws, endpoint) {
+          wsConn = ws;
+          log('Connected: ' + endpoint);
+        },
+        function (_ws, _endpoint, evt) {
+          log('Received: ' + String(evt.data || ''));
+        },
+        function (lastError) {
+          log('All public endpoints failed, switching to offline echo fallback.');
+          log('Last error: ' + lastError);
+          wsConn = null;
+        }
+      );
+    };
+    sendBtn.onclick = function () {
+      var payload = msgEl.value;
+      if (wsConn && wsConn.readyState === 1) {
+        wsConn.send(payload);
+        log('Sent: ' + payload);
+        return;
+      }
+      runOfflineEcho(out, payload, {
+        protocol: 'websocket',
+        note: 'No active WS connection; used offline fallback echo.'
+      });
+    };
+    closeBtn.onclick = function () {
+      if (wsConn) {
+        try { wsConn.close(1000, 'User closed'); } catch (e) {}
+        wsConn = null;
+      }
+      log('Disconnected.');
+    };
   }
 
   function init() {
