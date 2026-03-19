@@ -4,6 +4,7 @@ import json
 import sys
 import time
 from pathlib import Path
+from typing import Any
 
 import pytest
 import yaml
@@ -126,8 +127,20 @@ def test_multi_protocol_flow_e2e_enterprise_strict(tmp_path: Path, monkeypatch: 
         "api_governance": {"strictness": "enterprise-strict"},
         "api_protocols": ["graphql", "asyncapi"],
         "api_protocol_settings": {
-            "graphql": {"enabled": True, "schema_path": str(schema), "generate_test_assets": True, "upload_test_assets": False},
-            "asyncapi": {"enabled": True, "spec_path": str(asyncapi), "generate_test_assets": True, "upload_test_assets": False},
+            "graphql": {
+                "enabled": True,
+                "schema_path": str(schema),
+                "generate_test_assets": True,
+                "upload_test_assets": False,
+                "self_verify_runtime": False,
+            },
+            "asyncapi": {
+                "enabled": True,
+                "spec_path": str(asyncapi),
+                "generate_test_assets": True,
+                "upload_test_assets": False,
+                "self_verify_runtime": False,
+            },
         },
     }
     runtime_path = tmp_path / "runtime.yml"
@@ -534,6 +547,7 @@ def test_multi_protocol_flow_generates_missing_contracts_from_notes(tmp_path: Pa
                 "notes_path": str(notes),
                 "generate_from_notes": True,
                 "generated_docs_output": str(tmp_path / "docs/reference/graphql-api.md"),
+                "self_verify_runtime": False,
                 "generate_test_assets": False,
             },
             "grpc": {
@@ -542,6 +556,7 @@ def test_multi_protocol_flow_generates_missing_contracts_from_notes(tmp_path: Pa
                 "notes_path": str(notes),
                 "generate_from_notes": True,
                 "generated_docs_output": str(tmp_path / "docs/reference/grpc-api.md"),
+                "self_verify_runtime": False,
                 "generate_test_assets": False,
             },
             "asyncapi": {
@@ -550,6 +565,7 @@ def test_multi_protocol_flow_generates_missing_contracts_from_notes(tmp_path: Pa
                 "notes_path": str(notes),
                 "generate_from_notes": True,
                 "generated_docs_output": str(tmp_path / "docs/reference/asyncapi-api.md"),
+                "self_verify_runtime": False,
                 "generate_test_assets": False,
             },
             "websocket": {
@@ -558,6 +574,7 @@ def test_multi_protocol_flow_generates_missing_contracts_from_notes(tmp_path: Pa
                 "notes_path": str(notes),
                 "generate_from_notes": True,
                 "generated_docs_output": str(tmp_path / "docs/reference/websocket-api.md"),
+                "self_verify_runtime": False,
                 "generate_test_assets": False,
             },
         },
@@ -585,3 +602,82 @@ def test_multi_protocol_flow_generates_missing_contracts_from_notes(tmp_path: Pa
     for protocol in ("graphql", "grpc", "asyncapi", "websocket"):
         stages = report["by_protocol"][protocol]
         assert any(s.get("stage") == "contract_from_notes_generation" for s in stages)
+
+
+def test_publish_blocked_when_live_self_verify_fails(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:
+    from scripts import run_multi_protocol_contract_flow as mod
+
+    schema = tmp_path / "api/schema.graphql"
+    schema.parent.mkdir(parents=True, exist_ok=True)
+    schema.write_text("type Query { health: String! }\n", encoding="utf-8")
+
+    runtime = {
+        "api_governance": {"strictness": "enterprise-strict"},
+        "api_protocols": ["graphql"],
+        "api_protocol_settings": {
+            "graphql": {
+                "enabled": True,
+                "schema_path": str(schema),
+                "graphql_endpoint": "http://127.0.0.1:9/graphql",
+                "publish_requires_live_green": True,
+                "self_verify_runtime": True,
+                "self_verify_require_endpoint": True,
+                "generate_test_assets": False,
+            }
+        },
+    }
+    runtime_path = tmp_path / "runtime.yml"
+    runtime_path.write_text(yaml.safe_dump(runtime, sort_keys=False), encoding="utf-8")
+    reports = tmp_path / "reports"
+
+    monkeypatch.chdir(ROOT)
+    monkeypatch.setattr(
+        sys,
+        "argv",
+        [
+            "x",
+            "--runtime-config",
+            str(runtime_path),
+            "--reports-dir",
+            str(reports),
+        ],
+    )
+
+    rc = mod.main()
+    assert rc == 1
+    report = json.loads((reports / "multi_protocol_contract_report.json").read_text(encoding="utf-8"))
+    stages = report["by_protocol"]["graphql"]
+    assert any(s.get("stage") == "quality_gate_self_verify" and not s.get("ok", True) for s in stages)
+    assert any(s.get("stage") == "publish_blocked_live_verify" for s in stages)
+
+
+def test_live_relevance_checks_for_graphql_and_grpc(monkeypatch: pytest.MonkeyPatch) -> None:
+    from scripts import run_protocol_self_verify as mod
+
+    responses = {
+        "HealthCheck": (200, json.dumps({"data": {"__typename": "Query", "health": {"status": "ok"}}})),
+        "ProjectById": (200, json.dumps({"data": {"project": {"id": "demo", "name": "Acme", "status": "active"}}})),
+        "GetProject": (200, json.dumps({"method": "GetProject", "project": {"id": "demo", "status": "active"}})),
+        "CreateProject": (200, json.dumps({"method": "CreateProject", "result": {"id": "p-1", "created": True}})),
+    }
+
+    def fake_post(url: str, payload: dict[str, Any], timeout_sec: float) -> tuple[int, str]:
+        _ = (url, timeout_sec)
+        if "query" in payload:
+            q = str(payload["query"])
+            if "HealthCheck" in q:
+                return responses["HealthCheck"]
+            return responses["ProjectById"]
+        method = str(payload.get("method", ""))
+        if method == "GetProject":
+            return responses["GetProject"]
+        return responses["CreateProject"]
+
+    monkeypatch.setattr(mod, "_post_json", fake_post)
+
+    ok_gql, detail_gql = mod._graphql_self_verify("https://example.com/graphql", 2.0)
+    ok_grpc, detail_grpc = mod._grpc_self_verify("https://example.com/grpc/invoke", 2.0)
+    assert ok_gql is True
+    assert "passed" in detail_gql
+    assert ok_grpc is True
+    assert "passed" in detail_grpc

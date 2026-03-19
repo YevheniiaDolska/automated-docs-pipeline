@@ -417,6 +417,9 @@ class ProtocolAdapter:
                 ws_endpoint = str(self.settings.get("websocket_endpoint", "")).strip() or default_websocket_endpoint()
                 if ws_endpoint:
                     verify_cmd.extend(["--ws-endpoint", ws_endpoint])
+                http_endpoint = str(self.settings.get("websocket_http_bridge_endpoint", "")).strip()
+                if http_endpoint:
+                    verify_cmd.extend(["--http-endpoint", http_endpoint])
             results.append(self._run("quality_gate_self_verify", verify_cmd, allow_fail=allow_fail))
         return results
 
