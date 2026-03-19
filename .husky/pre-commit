@@ -189,12 +189,23 @@ echo ""
 echo "5/7 SEO/GEO optimization..."
 if [ -n "$STAGED_MD" ] && [ -f "scripts/seo_geo_optimizer.py" ]; then
     if [ -n "$PYTHON_BIN" ]; then
+        SEO_GEO_FAILED_FILES=""
+        OLD_IFS=$IFS
+        IFS='
+'
         for file in $STAGED_MD; do
-            "$PYTHON_BIN" scripts/seo_geo_optimizer.py "$file"
-            if [ $? -ne 0 ]; then
-                FAILED="$FAILED seo-geo"
+            if [ -z "$file" ]; then
+                continue
+            fi
+            if ! "$PYTHON_BIN" scripts/seo_geo_optimizer.py "$file"; then
+                SEO_GEO_FAILED_FILES="$SEO_GEO_FAILED_FILES $file"
             fi
         done
+        IFS=$OLD_IFS
+        if [ -n "$SEO_GEO_FAILED_FILES" ]; then
+            FAILED="$FAILED seo-geo"
+            echo "SEO/GEO failed for:$SEO_GEO_FAILED_FILES"
+        fi
     else
         echo "python/python3 not found. Skipping SEO/GEO optimization."
     fi

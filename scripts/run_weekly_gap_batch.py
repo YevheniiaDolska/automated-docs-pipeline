@@ -18,6 +18,12 @@ from typing import Any
 
 import yaml
 
+REPO_ROOT = Path(__file__).resolve().parents[1]
+if str(REPO_ROOT) not in sys.path:
+    sys.path.insert(0, str(REPO_ROOT))
+
+from scripts.env_loader import load_local_env
+
 
 def _run(cmd: list[str], cwd: Path) -> None:
     print(f"[docsops] $ {' '.join(cmd)}")
@@ -103,6 +109,32 @@ def _read_yaml(path: Path) -> dict[str, Any]:
     return raw
 
 
+def _resolve_policy_pack(docsops_root: Path, runtime: dict[str, Any]) -> Path:
+    candidates: list[Path] = []
+    runtime_policy = runtime.get("policy_pack_path", "")
+    if isinstance(runtime_policy, str) and runtime_policy.strip():
+        p = Path(runtime_policy.strip()).expanduser()
+        if not p.is_absolute():
+            p = Path.cwd() / p
+        candidates.append(p.resolve())
+    candidates.extend(
+        [
+            docsops_root / "policy_packs" / "selected.yml",
+            docsops_root / "policy_packs" / "api-first.yml",
+            docsops_root / "policy_packs" / "baseline.yml",
+        ]
+    )
+    for candidate in candidates:
+        if candidate.exists():
+            return candidate
+    fallback = docsops_root / "policy_packs" / "selected.yml"
+    print(
+        "[docsops] warning: no policy pack found; proceeding in report-only best-effort mode. "
+        f"missing expected path: {fallback}"
+    )
+    return fallback
+
+
 def _is_enabled(modules: dict[str, Any], key: str, default: bool = True) -> bool:
     value = modules.get(key, default)
     return bool(value)
@@ -164,6 +196,7 @@ def parse_args() -> argparse.Namespace:
 
 
 def main() -> int:
+    load_local_env(REPO_ROOT)
     args = parse_args()
     repo_root = Path.cwd()
     docsops_root = (repo_root / args.docsops_root).resolve()
@@ -193,7 +226,7 @@ def main() -> int:
 
     py = sys.executable
     scripts_dir = docsops_root / "scripts"
-    policy_pack = docsops_root / "policy_packs" / "selected.yml"
+    policy_pack = _resolve_policy_pack(docsops_root, runtime)
     policy = _read_yaml(policy_pack) if policy_pack.exists() else {}
     policy_retrieval = policy.get("retrieval_evals", {}) if isinstance(policy.get("retrieval_evals"), dict) else {}
     policy_graph = policy.get("knowledge_graph", {}) if isinstance(policy.get("knowledge_graph"), dict) else {}

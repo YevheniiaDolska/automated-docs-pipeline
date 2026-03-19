@@ -7,11 +7,18 @@ import argparse
 import json
 import shutil
 import subprocess
+import sys
 from pathlib import Path
 import shutil as sh
 from typing import Any
 
 import yaml
+
+REPO_ROOT = Path(__file__).resolve().parents[1]
+if str(REPO_ROOT) not in sys.path:
+    sys.path.insert(0, str(REPO_ROOT))
+
+from scripts.env_loader import load_local_env
 
 
 def _print_compact_output(output: str, *, max_lines: int = 28) -> None:
@@ -561,6 +568,7 @@ def _resolve_docs_root(runtime_config: Path | None, fallback: str) -> str:
 
 
 def main() -> int:
+    load_local_env(REPO_ROOT)
     parser = argparse.ArgumentParser(description="Run universal API-first production flow")
     parser.add_argument("--project-slug", required=True)
     parser.add_argument("--notes", required=True, help="Planning notes markdown path")

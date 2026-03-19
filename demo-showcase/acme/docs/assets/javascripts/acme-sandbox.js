@@ -8,6 +8,7 @@
  */
 (function () {
   'use strict';
+  window.__ACME_SANDBOX_CONTROLLER__ = true;
 
   function getConfig() {
     var cfg = window.ACME_SANDBOX || {};

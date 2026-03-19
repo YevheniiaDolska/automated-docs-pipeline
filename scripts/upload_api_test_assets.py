@@ -12,11 +12,18 @@ import argparse
 import base64
 import json
 import os
+import sys
 import urllib.error
 import urllib.parse
 import urllib.request
 from pathlib import Path
 from typing import Any
+
+REPO_ROOT = Path(__file__).resolve().parents[1]
+if str(REPO_ROOT) not in sys.path:
+    sys.path.insert(0, str(REPO_ROOT))
+
+from scripts.env_loader import load_local_env
 
 
 def _read_env(name: str) -> str:
@@ -158,6 +165,7 @@ def _upload_zephyr_scale(
 
 
 def main() -> int:
+    load_local_env(REPO_ROOT)
     parser = argparse.ArgumentParser(description="Upload generated API test assets to TestRail/Zephyr")
     parser.add_argument("--cases-json", default="reports/api-test-assets/api_test_cases.json")
     parser.add_argument("--report", default="reports/api-test-assets/upload_report.json")

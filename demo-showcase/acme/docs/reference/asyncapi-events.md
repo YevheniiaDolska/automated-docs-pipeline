@@ -273,12 +273,27 @@ Enter a test event payload and send it to the sandbox WebSocket bridge.
 
 <script>
 (() => {
+  if (window.__ACME_SANDBOX_CONTROLLER__ === true) return;
   var sandbox = (window.ACME_SANDBOX && window.ACME_SANDBOX.asyncapi_ws_url) || '';
   var fallback = (window.ACME_SANDBOX && window.ACME_SANDBOX.asyncapi_ws_fallback_urls) || [];
   var epInput = document.getElementById('async-ep');
   if (sandbox && epInput) { epInput.value = sandbox; }
   var btn = document.getElementById('async-send');
   if (!btn) return;
+  function safeParse(raw) {
+    try { return JSON.parse(String(raw || '{}')); } catch (_) { return { raw: String(raw || '') }; }
+  }
+  function semanticAsync(req) {
+    var eventType = String((req && (req.event_type || req.type || req.event)) || '').toLowerCase();
+    var data = (req && req.data && typeof req.data === 'object') ? req.data : {};
+    var eventId = String((req && req.event_id) || ('evt_' + Math.random().toString(36).slice(2, 10)));
+    var projectId = String(data.project_id || 'prj_abc123');
+    var occurredAt = (req && req.occurred_at) || new Date().toISOString();
+    if (eventType === 'project.created') return { event_id: eventId, event_type: 'project.created', occurred_at: occurredAt, data: { project_id: projectId, name: data.name || 'New Project', status: data.status || 'draft' } };
+    if (eventType === 'project.updated') return { event_id: eventId, event_type: 'project.updated', occurred_at: occurredAt, data: { project_id: projectId, status: data.status || 'active', changed_fields: data.changed_fields || ['status'] } };
+    if (eventType === 'task.completed') return { event_id: eventId, event_type: 'task.completed', occurred_at: occurredAt, data: { task_id: data.task_id || 'tsk_123', project_id: projectId, completed_by: data.completed_by || 'usr_demo' } };
+    return { event_id: eventId, event_type: eventType || 'custom.event', occurred_at: occurredAt, data: Object.assign({ project_id: projectId, status: 'accepted' }, data), hint: 'Use: project.created, project.updated, task.completed' };
+  }
 
   function candidateEndpoints(primary, extras) {
     var seen = {};
@@ -302,9 +317,16 @@ Enter a test event payload and send it to the sandbox WebSocket bridge.
 
     function tryNext(lastError) {
       if (idx >= candidates.length) {
-        out.textContent = 'Connection failed for all sandbox endpoints.'
-          - '\nTried: ' + candidates.join(', ')
-          - (lastError ? '\nLast error: ' + lastError : '');
+        out.textContent = JSON.stringify(
+          {
+            mode: 'offline-semantic-fallback',
+            tried: candidates,
+            last_error: lastError || '',
+            simulated_response: semanticAsync(safeParse(payload))
+          },
+          null,
+          2
+        );
         return;
       }
       var endpoint = candidates[idx++];
@@ -327,7 +349,16 @@ Enter a test event payload and send it to the sandbox WebSocket bridge.
           if (settled) return;
           settled = true;
           clearTimeout(timeout);
-          out.textContent = 'Endpoint: ' + endpoint + '\nResponse: ' + e.data;
+          out.textContent = JSON.stringify(
+            {
+              endpoint: endpoint,
+              mode: 'live-echo-plus-semantic',
+              raw: String(e.data || ''),
+              simulated_response: semanticAsync(safeParse(e.data))
+            },
+            null,
+            2
+          );
           ws.close();
         };
         ws.onerror = function () {

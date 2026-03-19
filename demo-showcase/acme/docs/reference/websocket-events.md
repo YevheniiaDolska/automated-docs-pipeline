@@ -239,6 +239,7 @@ Connect to the sandbox WebSocket endpoint, subscribe to channels, and send messa
 
 <script>
 (() => {
+  if (window.__ACME_SANDBOX_CONTROLLER__ === true) return;
   var sandbox = (window.ACME_SANDBOX && window.ACME_SANDBOX.websocket_url) || '';
   var fallback = (window.ACME_SANDBOX && window.ACME_SANDBOX.websocket_fallback_urls) || [];
   var epInput = document.getElementById('ws-ep');
@@ -246,6 +247,23 @@ Connect to the sandbox WebSocket endpoint, subscribe to channels, and send messa
   var wsConn = null;
   var out = document.getElementById('ws-out');
   if (!out) return;
+  function safeParse(raw) {
+    try { return JSON.parse(String(raw || '{}')); } catch (_) { return { raw: String(raw || '') }; }
+  }
+  function semanticWs(req) {
+    var payload = (req && req.payload && typeof req.payload === 'object') ? req.payload : {};
+    var type = String((req && (req.type || req.action)) || '').toLowerCase();
+    var requestId = (req && req.request_id) || ('req_' + Date.now());
+    var channel = String(payload.channel || payload.topic || 'project.updated');
+    var projectId = String((payload.filters && payload.filters.project_id) || payload.project_id || 'prj_abc123');
+    if (type === 'ping') return { type: 'pong', request_id: requestId, payload: { ts: new Date().toISOString() } };
+    if (type === 'subscribe') return { type: 'ack', request_id: requestId, payload: { status: 'subscribed', channel: channel, filters: payload.filters || {} } };
+    if (type === 'unsubscribe') return { type: 'ack', request_id: requestId, payload: { status: 'unsubscribed', channel: channel } };
+    if (type === 'publish') return { type: 'event', request_id: requestId, payload: { event_type: channel, data: Object.assign({ project_id: projectId, status: 'active' }, (payload.data && typeof payload.data === 'object') ? payload.data : {}) } };
+    if (type === 'get_project' || type === 'project.get' || type === 'query') return { type: 'event', request_id: requestId, payload: { event_type: 'project.snapshot', data: { project_id: projectId, name: 'Website Redesign', status: 'active', updated_at: new Date().toISOString() } } };
+    if (type === 'list_projects' || type === 'project.list') return { type: 'event', request_id: requestId, payload: { event_type: 'project.list', data: [{ project_id: 'prj_abc123', status: 'active' }, { project_id: 'prj_def456', status: 'draft' }] } };
+    return { type: 'ack', request_id: requestId, payload: { status: 'accepted', echo: req, hint: 'Use: ping, subscribe, unsubscribe, publish, get_project, list_projects' } };
+  }
   function log(msg) { out.textContent += '\n[' + new Date().toLocaleTimeString() + '] ' + msg; out.scrollTop = out.scrollHeight; }
   function candidateEndpoints(primary, extras) {
     var seen = {};
@@ -271,9 +289,16 @@ Connect to the sandbox WebSocket endpoint, subscribe to channels, and send messa
 
     function connectNext(lastError) {
       if (idx >= endpoints.length) {
-        log('Connection failed for all sandbox endpoints.');
-        log('Tried: ' + endpoints.join(', '));
-        if (lastError) log('Last error: ' + lastError);
+        out.textContent = JSON.stringify(
+          {
+            mode: 'offline-semantic-fallback',
+            tried: endpoints,
+            last_error: lastError || '',
+            simulated_response: semanticWs(safeParse(document.getElementById('ws-msg').value))
+          },
+          null,
+          2
+        );
         return;
       }
       var ep = endpoints[idx++];
@@ -293,7 +318,17 @@ Connect to the sandbox WebSocket endpoint, subscribe to channels, and send messa
           clearTimeout(timeout);
           log('Connected: ' + ep);
         };
-        wsConn.onmessage = function (e) { log('Received: ' + e.data); };
+        wsConn.onmessage = function (e) {
+          out.textContent = JSON.stringify(
+            {
+              mode: 'live-echo-plus-semantic',
+              raw: String(e.data || ''),
+              simulated_response: semanticWs(safeParse(e.data))
+            },
+            null,
+            2
+          );
+        };
         wsConn.onclose = function (e) {
           if (!settled) {
             settled = true;
@@ -318,10 +353,17 @@ Connect to the sandbox WebSocket endpoint, subscribe to channels, and send messa
   };
 
   if (sendBtn) sendBtn.onclick = function () {
-    if (!wsConn || wsConn.readyState !== 1) { log('Not connected. Click Connect first.'); return; }
     var msg = document.getElementById('ws-msg').value;
-    wsConn.send(msg);
-    log('Sent: ' + msg);
+    if (wsConn && wsConn.readyState === 1) {
+      wsConn.send(msg);
+      log('Sent: ' + msg);
+      return;
+    }
+    out.textContent = JSON.stringify(
+      { mode: 'offline-semantic-fallback', simulated_response: semanticWs(safeParse(msg)) },
+      null,
+      2
+    );
   };
 
   if (closeBtn) closeBtn.onclick = function () {

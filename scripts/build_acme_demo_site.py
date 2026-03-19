@@ -578,6 +578,38 @@ def _validate_assets_contract(output_root: Path) -> None:
                 "Sandbox config is missing required failover settings:\n- "
                 + "\n- ".join(missing_tokens)
             )
+    ws_page = docs_dir / "reference" / "websocket-events.md"
+    async_page = docs_dir / "reference" / "asyncapi-events.md"
+    if ws_page.exists():
+        ws_text = ws_page.read_text(encoding="utf-8", errors="ignore")
+        ws_required = [
+            "__ACME_SANDBOX_CONTROLLER__",
+            "live-echo-plus-semantic",
+            "offline-semantic-fallback",
+            "simulated_response",
+        ]
+        ws_missing = [token for token in ws_required if token not in ws_text]
+        if ws_missing:
+            raise ValueError(
+                "WebSocket demo page is missing semantic response contract tokens:\n- "
+                + "\n- ".join(ws_missing)
+            )
+    if async_page.exists():
+        async_text = async_page.read_text(encoding="utf-8", errors="ignore")
+        async_required = [
+            "__ACME_SANDBOX_CONTROLLER__",
+            "live-echo-plus-semantic",
+            "offline-semantic-fallback",
+            "simulated_response",
+            "project.updated",
+            "task.completed",
+        ]
+        async_missing = [token for token in async_required if token not in async_text]
+        if async_missing:
+            raise ValueError(
+                "AsyncAPI demo page is missing semantic response contract tokens:\n- "
+                + "\n- ".join(async_missing)
+            )
 
 
 def _validate_built_site_contract(output_root: Path) -> None:
