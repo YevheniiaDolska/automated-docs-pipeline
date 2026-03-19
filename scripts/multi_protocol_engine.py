@@ -154,6 +154,21 @@ class ProtocolAdapter:
             raise ValueError(f"Unsupported protocol: {self.protocol}")
         return self._run("lint", cmd, allow_fail=allow_fail)
 
+    def contract_validation(self, *, allow_fail: bool) -> StageResult:
+        if self.protocol == "rest":
+            cmd = [self.py, str(self.scripts_dir / "validate_openapi_contract.py"), self.source()]
+        elif self.protocol == "graphql":
+            cmd = [self.py, str(self.scripts_dir / "validate_graphql_contract.py"), self.source()]
+        elif self.protocol == "grpc":
+            cmd = [self.py, str(self.scripts_dir / "validate_proto_contract.py"), "--paths", self.source()]
+        elif self.protocol == "asyncapi":
+            cmd = [self.py, str(self.scripts_dir / "validate_asyncapi_contract.py"), self.source()]
+        elif self.protocol == "websocket":
+            cmd = [self.py, str(self.scripts_dir / "validate_websocket_contract.py"), self.source()]
+        else:
+            raise ValueError(f"Unsupported protocol: {self.protocol}")
+        return self._run("contract_validation", cmd, allow_fail=allow_fail)
+
     def regression(self, *, allow_fail: bool) -> StageResult:
         source = self.source()
         snapshot = str(self.settings.get("regression_snapshot_path", "")).strip()
@@ -275,6 +290,7 @@ class ProtocolAdapter:
             attempt = 1
             while True:
                 suite_result = self._run("quality_suite", quality_cmd, allow_fail=True)
+                suite_result.stage = "semantic_lint_and_quality_suite"
                 suite_result.details["attempt"] = attempt
                 suite_result.details["max_attempts"] = autofix_attempts
                 results.append(suite_result)

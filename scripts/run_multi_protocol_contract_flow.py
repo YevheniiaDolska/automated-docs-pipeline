@@ -91,26 +91,63 @@ def main() -> int:
         adapter = ProtocolAdapter(protocol, settings, repo_root=repo_root, scripts_dir=scripts_dir)
         per_protocol: list[StageResult] = []
         protocol_failed = False
+        autofix_enabled = bool(settings.get("autofix_cycle_enabled", True))
+        try:
+            max_attempts = max(1, int(settings.get("autofix_max_attempts", 3)))
+        except Exception:  # noqa: BLE001
+            max_attempts = 3
 
         try:
-            per_protocol.append(adapter.ingest(allow_fail=not strict_mode))
-            per_protocol.append(adapter.lint(allow_fail=not strict_mode))
-            per_protocol.append(adapter.regression(allow_fail=not strict_mode))
-            docs_result = adapter.docs_generation(allow_fail=not strict_mode)
-            per_protocol.append(docs_result)
-            generated_doc = str(docs_result.details.get("generated_doc", ""))
-            per_protocol.extend(adapter.quality_gates(allow_fail=not strict_mode, generated_doc=generated_doc))
+            attempt = 1
+            while True:
+                attempt_results: list[StageResult] = []
+                attempt_results.append(adapter.ingest(allow_fail=True))
+                attempt_results.append(adapter.contract_validation(allow_fail=True))
+                attempt_results.append(adapter.lint(allow_fail=True))
+                attempt_results.append(adapter.regression(allow_fail=True))
+                docs_result = adapter.docs_generation(allow_fail=True)
+                attempt_results.append(docs_result)
+                generated_doc = str(docs_result.details.get("generated_doc", ""))
+                attempt_results.extend(adapter.quality_gates(allow_fail=True, generated_doc=generated_doc))
 
-            should_generate_assets = args.generate_test_assets or bool(settings.get("generate_test_assets", False))
-            if should_generate_assets:
-                assets_result = adapter.test_assets(allow_fail=not strict_mode)
-                per_protocol.append(assets_result)
-                should_upload = args.upload_test_assets or bool(settings.get("upload_test_assets", False))
-                if should_upload:
-                    per_protocol.append(adapter.upload(allow_fail=not strict_mode))
+                should_generate_assets = args.generate_test_assets or bool(settings.get("generate_test_assets", False))
+                if should_generate_assets:
+                    assets_result = adapter.test_assets(allow_fail=True)
+                    attempt_results.append(assets_result)
+                    should_upload = args.upload_test_assets or bool(settings.get("upload_test_assets", False))
+                    if should_upload:
+                        attempt_results.append(adapter.upload(allow_fail=True))
 
-            if not args.skip_publish:
-                per_protocol.append(adapter.publish(allow_fail=not strict_mode, generated_doc=generated_doc))
+                if not args.skip_publish:
+                    attempt_results.append(adapter.publish(allow_fail=True, generated_doc=generated_doc))
+
+                for result in attempt_results:
+                    result.details["attempt"] = attempt
+                per_protocol.extend(attempt_results)
+
+                attempt_failed = any(not result.ok for result in attempt_results)
+                if not attempt_failed:
+                    break
+                if not autofix_enabled or attempt >= max_attempts:
+                    protocol_failed = True
+                    break
+
+                per_protocol.append(
+                    StageResult(
+                        stage="autofix_retry",
+                        protocol=protocol,
+                        ok=True,
+                        rc=0,
+                        command=["auto-retry", str(attempt + 1)],
+                        details={
+                            "attempt": attempt,
+                            "next_attempt": attempt + 1,
+                            "max_attempts": max_attempts,
+                            "reason": "one or more stages failed; retrying full protocol flow",
+                        },
+                    )
+                )
+                attempt += 1
         except Exception as error:  # noqa: BLE001
             protocol_failed = True
             per_protocol.append(
