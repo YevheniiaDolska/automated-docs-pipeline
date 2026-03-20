@@ -1,0 +1,49 @@
+id: auto-evidence-9
+title: Quality evidence and gate results (Part 9)
+summary: Complete quality evidence from the VeriDoc pipeline for VeriOps docs, covering
+  KPI metrics, protocol gates, 24 automated checks, and RAG readiness.
+intents:
+- integrate
+audiences:
+- developer
+- operator
+channels:
+- docs
+- assistant
+- automation
+priority: 60
+status: active
+owner: docsops-auto
+last_verified: '2026-03-20'
+dependencies: []
+tags:
+- auto-extracted
+- evidence
+- reference
+content:
+  docs_markdown: "### Quality score formula\n\nQuality score measures documentation\
+    \ health and is independent of RAG retrieval metrics:\n\n`score = 100 - metadata_penalty\
+    \ - stale_penalty - gap_penalty`\n\n- **metadata_penalty**: deduction for missing\
+    \ or invalid frontmatter fields\n- **stale_penalty**: deduction for pages not\
+    \ reviewed within the freshness window\n- **gap_penalty**: deduction for documented\
+    \ gaps in coverage\n\n!!! info \"Baseline retrieval metrics\"\n    Retrieval precision\
+    \ (0.2) and recall (0.6) reflect the token-overlap baseline scorer, which runs\
+    \ without external dependencies.\n    Production deployments enable hybrid search\
+    \ with FAISS embeddings, HyDE query expansion, and cross-encoder reranking for\
+    \ significantly higher precision and recall.\n    Run `--mode all` to compare\
+    \ all four search strategies and select the optimal mode for your deployment."
+  assistant_context: "Use this module when answering questions related to: Quality\
+    \ evidence and gate results (Part 9). Source path: demo-showcase/acme/docs/quality/evidence.md.\
+    \ Summary: Complete quality evidence from the VeriDoc pipeline for VeriOps docs,\
+    \ covering KPI metrics, protocol gates, 24 automated checks, and RAG readiness.\n\
+    \n### Quality score formula\n\nQuality score measures documentation health and\
+    \ is independent of RAG retrieval metrics:\n\n`score = 100 - metadata_penalty\
+    \ - stale_penalty - gap_penalty`\n\n- **metadata_penalty**: deduction for missing\
+    \ or invalid frontmatter fields\n- **stale_penalty**: deduction for pages not\
+    \ reviewed within the freshness window\n- **gap_penalty**: deduction for documented\
+    \ gaps in coverage\n\n!!! info \"Baseline retrieval metrics\"\n    Retrieval precision\
+    \ (0.2) and recall (0.6) reflect the token-overlap baseline scorer, which runs\
+    \ without external dependencies.\n    Production deployments enable hybrid search\
+    \ with FAISS embeddings, HyDE query expansion, and cross-encoder reranking for\
+    \ significantly higher precision and recall.\n    Run `--mode all` to compare\
+    \ all four search strategies and select the optimal mode for your deployment."

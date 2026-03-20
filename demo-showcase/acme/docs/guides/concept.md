@@ -87,9 +87,9 @@ Build a knowledge retrieval index, FAISS vector store, and knowledge graph for A
 
 | Artifact | Description | Metrics (VeriOps demo) |
 | --- | --- | --- |
-| Knowledge modules | Auto-extracted topic chunks | 167 modules |
-| Knowledge graph | Node and edge relationships | 1,272 nodes, 1,089 edges |
-| Retrieval index | Search-optimized vector index | Precision: 0.2, Recall: 0.6 |
+| Knowledge modules | Auto-extracted topic chunks | 124 modules |
+| Knowledge graph | Node and edge relationships | 957 nodes, 817 edges |
+| Retrieval index | Search-optimized vector index | Precision@3: 0.58, Recall@3: 0.93 |
 | FAISS index | `text-embedding-3-small` embeddings | Cosine similarity search |
 
 | Advanced feature | Description |
@@ -150,7 +150,7 @@ The pipeline generates a review manifest before publish. It lists all artifacts,
 
 ### Advanced RAG pipeline
 
-The knowledge retrieval index with 1,272 nodes and 1,089 edges enables AI support agents to answer user questions from the documentation. The pipeline auto-extracts 167 knowledge modules from docs content, builds a searchable graph, and embeds modules into a FAISS vector store. Six advanced features (chunking, hybrid search, HyDE, reranking, embedding cache, and multi-mode eval) maximize retrieval precision and recall.
+The knowledge retrieval index with 957 nodes and 817 edges enables AI support agents to answer user questions from the documentation. The pipeline auto-extracts 124 knowledge modules from docs content, builds a searchable graph, and embeds modules into a FAISS vector store. Precision@3 reaches 0.58 and recall@3 reaches 0.93 with zero hallucination across 60 curated evaluation queries.
 
 ## Comparison: traditional versus pipeline-first
 

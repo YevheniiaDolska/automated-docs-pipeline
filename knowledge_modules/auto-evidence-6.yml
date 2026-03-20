@@ -1,0 +1,96 @@
+id: auto-evidence-6
+title: Quality evidence and gate results (Part 6)
+summary: Complete quality evidence from the VeriDoc pipeline for VeriOps docs, covering
+  KPI metrics, protocol gates, 24 automated checks, and RAG readiness.
+intents:
+- configure
+- integrate
+audiences:
+- developer
+- operator
+channels:
+- docs
+- assistant
+- automation
+priority: 60
+status: active
+owner: docsops-auto
+last_verified: '2026-03-20'
+dependencies: []
+tags:
+- auto-extracted
+- evidence
+- reference
+content:
+  docs_markdown: '### Style checks (automated)
+
+
+    <!-- vale AmericanEnglish.Spelling = NO -->
+
+    <!-- vale proselint.Spelling = NO -->
+
+
+    | Rule | Enforced by | Description |
+
+    | --- | --- | --- |
+
+    | American English | Vale + AmericanEnglish | Use "color" instead of British "colour"
+    and "optimize" instead of "optimise" |
+
+
+    <!-- vale AmericanEnglish.Spelling = YES -->
+
+    <!-- vale proselint.Spelling = YES -->
+
+    | Active voice | Vale + write-good | "Configure the webhook" not "The webhook
+    should be configured" |
+
+    | No weasel words | Vale + write-good | No "simple," "easy," "just," "many," "various"
+    |
+
+    | No contractions | Vale + Google style | "do not" not "don''t," "cannot" not
+    "can''t" |
+
+    | Second person | Vale + Google style | "you" not "the user" or "one" |
+
+    | Present tense | Vale + Google style | "sends" not "will send" for current features
+    |'
+  assistant_context: 'Use this module when answering questions related to: Quality
+    evidence and gate results (Part 6). Source path: demo-showcase/acme/docs/quality/evidence.md.
+    Summary: Complete quality evidence from the VeriDoc pipeline for VeriOps docs,
+    covering KPI metrics, protocol gates, 24 automated checks, and RAG readiness.
+
+
+    ### Style checks (automated)
+
+
+    <!-- vale AmericanEnglish.Spelling = NO -->
+
+    <!-- vale proselint.Spelling = NO -->
+
+
+    | Rule | Enforced by | Description |
+
+    | --- | --- | --- |
+
+    | American English | Vale + AmericanEnglish | Use "color" instead of British "colour"
+    and "optimize" instead of "optimise" |
+
+
+    <!-- vale AmericanEnglish.Spelling = YES -->
+
+    <!-- vale proselint.Spelling = YES -->
+
+    | Active voice | Vale + write-good | "Configure the webhook" not "The webhook
+    should be configured" |
+
+    | No weasel words | Vale + write-good | No "simple," "easy," "just," "many," "various"
+    |
+
+    | No contractions | Vale + Google style | "do not" not "don''t," "cannot" not
+    "can''t" |
+
+    | Second person | Vale + Google style | "you" not "the user" or "one" |
+
+    | Present tense | Vale + Google style | "sends" not "will send" for current features
+    |'

@@ -1,0 +1,60 @@
+id: auto-troubleshooting-4
+title: 'Troubleshooting: common VeriOps pipeline issues (Part 4)'
+summary: Fix common VeriOps documentation pipeline issues in under 5 minutes, covering
+  contract failures, quality gates, build errors, and WebSocket problems.
+intents:
+- secure
+- troubleshoot
+audiences:
+- support
+- operator
+channels:
+- docs
+- assistant
+- automation
+priority: 60
+status: active
+owner: docsops-auto
+last_verified: '2026-03-20'
+dependencies: []
+tags:
+- auto-extracted
+- troubleshooting
+content:
+  docs_markdown: "### Fix quality score in 5 minutes\n\n1. Check the gap report for\
+    \ high-priority items:\n\n    ```bash\n    python3 -c \"\n    import json\n  \
+    \  r = json.load(open('reports/acme-demo/doc_gaps_report.json'))\n    high = [g\
+    \ for g in r.get('gaps', []) if g.get('priority') == 'high']\n    print(f'{len(high)}\
+    \ high-priority gaps:')\n    for g in high:\n        print(f'  [{g[\\\"priority\\\
+    \"]}] {g[\\\"title\\\"]}')\"\n    ```\n\n1. Address each high-priority gap by\
+    \ creating or updating the relevant document. Common gaps include:\n\n    | Gap\
+    \ category | Typical fix |\n    | --- | --- |\n    | `authentication` | Add authentication\
+    \ guide with token management |\n    | `webhook` | Document webhook setup and\
+    \ payload schemas |\n    | `database_schema` | Add data model reference with field\
+    \ descriptions |\n    | `error_handling` | Create error code reference with resolution\
+    \ steps |\n\n1. Re-run the pipeline and verify the score:\n\n    ```bash\n   \
+    \ python3 -c \"\n    import json\n    print(json.load(open('reports/acme-demo/kpi-wall.json'))['quality_score'])\"\
+    \n    ```\n\n## MkDocs build fails with theme error\n\n**You see:** `mkdocs build`\
+    \ exits with `Theme 'material' not found` or `Module 'mkdocs_macros' not found`.\n\
+    \n**Root cause:** The required Python packages are not installed in the current\
+    \ environment."
+  assistant_context: "Use this module when answering questions related to: Troubleshooting:\
+    \ common VeriOps pipeline issues (Part 4). Source path: demo-showcase/acme/docs/guides/troubleshooting.md.\
+    \ Summary: Fix common VeriOps documentation pipeline issues in under 5 minutes,\
+    \ covering contract failures, quality gates, build errors, and WebSocket problems.\n\
+    \n### Fix quality score in 5 minutes\n\n1. Check the gap report for high-priority\
+    \ items:\n\n    ```bash\n    python3 -c \"\n    import json\n    r = json.load(open('reports/acme-demo/doc_gaps_report.json'))\n\
+    \    high = [g for g in r.get('gaps', []) if g.get('priority') == 'high']\n  \
+    \  print(f'{len(high)} high-priority gaps:')\n    for g in high:\n        print(f'\
+    \  [{g[\\\"priority\\\"]}] {g[\\\"title\\\"]}')\"\n    ```\n\n1. Address each\
+    \ high-priority gap by creating or updating the relevant document. Common gaps\
+    \ include:\n\n    | Gap category | Typical fix |\n    | --- | --- |\n    | `authentication`\
+    \ | Add authentication guide with token management |\n    | `webhook` | Document\
+    \ webhook setup and payload schemas |\n    | `database_schema` | Add data model\
+    \ reference with field descriptions |\n    | `error_handling` | Create error code\
+    \ reference with resolution steps |\n\n1. Re-run the pipeline and verify the score:\n\
+    \n    ```bash\n    python3 -c \"\n    import json\n    print(json.load(open('reports/acme-demo/kpi-wall.json'))['quality_score'])\"\
+    \n    ```\n\n## MkDocs build fails with theme error\n\n**You see:** `mkdocs build`\
+    \ exits with `Theme 'material' not found` or `Module 'mkdocs_macros' not found`.\n\
+    \n**Root cause:** The required Python packages are not installed in the current\
+    \ environment."

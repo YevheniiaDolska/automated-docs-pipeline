@@ -1,0 +1,75 @@
+id: auto-index-4
+title: VeriOps documentation (Part 4)
+summary: Pipeline-generated multi-protocol API documentation for VeriOps with KPI
+  dashboard, interactive references, and automated quality gates.
+intents:
+- integrate
+audiences:
+- developer
+- operator
+channels:
+- docs
+- assistant
+- automation
+priority: 60
+status: active
+owner: docsops-auto
+last_verified: '2026-03-20'
+dependencies: []
+tags:
+- auto-extracted
+- index
+- reference
+content:
+  docs_markdown: '## Quality gates enforced
+
+
+    Every document on this site passes through 24 automated checks before publish:
+
+
+    | Category | Checks | What they verify |
+
+    | --- | --- | --- |
+
+    | GEO (8 checks) | Meta description, first paragraph length, heading hierarchy,
+    fact density, definition patterns, heading specificity | LLM and AI search optimization
+    |
+
+    | SEO (14 checks) | Title length, URL depth, internal links, structured data,
+    image alt text, bare URLs, content depth, heading keywords | Traditional search
+    engine optimization |
+
+    | Style (automated) | American English, active voice, no weasel words, no contractions
+    | Consistent tone across all pages |
+
+    | Contract (per-protocol) | Schema validation, regression detection, snippet lint
+    | Technical accuracy against source contracts |'
+  assistant_context: 'Use this module when answering questions related to: VeriOps
+    documentation (Part 4). Source path: demo-showcase/acme/docs/index.md. Summary:
+    Pipeline-generated multi-protocol API documentation for VeriOps with KPI dashboard,
+    interactive references, and automated quality gates.
+
+
+    ## Quality gates enforced
+
+
+    Every document on this site passes through 24 automated checks before publish:
+
+
+    | Category | Checks | What they verify |
+
+    | --- | --- | --- |
+
+    | GEO (8 checks) | Meta description, first paragraph length, heading hierarchy,
+    fact density, definition patterns, heading specificity | LLM and AI search optimization
+    |
+
+    | SEO (14 checks) | Title length, URL depth, internal links, structured data,
+    image alt text, bare URLs, content depth, heading keywords | Traditional search
+    engine optimization |
+
+    | Style (automated) | American English, active voice, no weasel words, no contractions
+    | Consistent tone across all pages |
+
+    | Contract (per-protocol) | Schema validation, regression detection, snippet lint
+    | Technical accuracy against source contracts |'

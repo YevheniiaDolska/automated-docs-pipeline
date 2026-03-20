@@ -1,0 +1,124 @@
+id: auto-concept-5
+title: 'Concept: pipeline-first documentation lifecycle (Part 5)'
+summary: Pipeline-first documentation automates generation, validation, and publishing
+  of API docs from source contracts, reducing review cycles by 60%.
+intents:
+- integrate
+audiences:
+- developer
+- operator
+channels:
+- docs
+- assistant
+- automation
+priority: 60
+status: active
+owner: docsops-auto
+last_verified: '2026-03-20'
+dependencies: []
+tags:
+- auto-extracted
+- concept
+content:
+  docs_markdown: '### Stage 7: RAG optimize
+
+
+    Build a knowledge retrieval index, FAISS vector store, and knowledge graph for
+    AI-powered search. Six advanced retrieval features are available:
+
+
+    | Artifact | Description | Metrics (VeriOps demo) |
+
+    | --- | --- | --- |
+
+    | Knowledge modules | Auto-extracted topic chunks | 167 modules |
+
+    | Knowledge graph | Node and edge relationships | 1,272 nodes, 1,089 edges |
+
+    | Retrieval index | Search-optimized vector index | Precision: 0.2, Recall: 0.6
+    |
+
+    | FAISS index | `text-embedding-3-small` embeddings | Cosine similarity search
+    |
+
+
+    | Advanced feature | Description |
+
+    | --- | --- |
+
+    | Token-aware chunking | Splits modules into 750-token chunks with 100-token overlap
+    |
+
+    | Hybrid search (RRF) | Fuses semantic and token-overlap rankings (k=60) |
+
+    | HyDE query expansion | Generates hypothetical passage before embedding |
+
+    | Cross-encoder reranking | Rescores top 20 candidates with `ms-marco-MiniLM-L-6-v2`
+    |
+
+    | Embedding cache | In-memory LRU cache (TTL: 3,600 seconds, max: 512 entries)
+    |
+
+    | Multi-mode evaluation | Compares token, semantic, hybrid, and hybrid+rerank
+    modes |
+
+
+    ### Stage 8: publish
+
+
+    Copy verified artifacts to the documentation site. Only artifacts that pass all
+    quality gates reach the publish stage.'
+  assistant_context: 'Use this module when answering questions related to: Concept:
+    pipeline-first documentation lifecycle (Part 5). Source path: demo-showcase/acme/docs/guides/concept.md.
+    Summary: Pipeline-first documentation automates generation, validation, and publishing
+    of API docs from source contracts, reducing review cycles by 60%.
+
+
+    ### Stage 7: RAG optimize
+
+
+    Build a knowledge retrieval index, FAISS vector store, and knowledge graph for
+    AI-powered search. Six advanced retrieval features are available:
+
+
+    | Artifact | Description | Metrics (VeriOps demo) |
+
+    | --- | --- | --- |
+
+    | Knowledge modules | Auto-extracted topic chunks | 167 modules |
+
+    | Knowledge graph | Node and edge relationships | 1,272 nodes, 1,089 edges |
+
+    | Retrieval index | Search-optimized vector index | Precision: 0.2, Recall: 0.6
+    |
+
+    | FAISS index | `text-embedding-3-small` embeddings | Cosine similarity search
+    |
+
+
+    | Advanced feature | Description |
+
+    | --- | --- |
+
+    | Token-aware chunking | Splits modules into 750-token chunks with 100-token overlap
+    |
+
+    | Hybrid search (RRF) | Fuses semantic and token-overlap rankings (k=60) |
+
+    | HyDE query expansion | Generates hypothetical passage before embedding |
+
+    | Cross-encoder reranking | Rescores top 20 candidates with `ms-marco-MiniLM-L-6-v2`
+    |
+
+    | Embedding cache | In-memory LRU cache (TTL: 3,600 seconds, max: 512 entries)
+    |
+
+    | Multi-mode evaluation | Compares token, semantic, hybrid, and hybrid+rerank
+    modes |
+
+
+    ### Stage 8: publish
+
+
+    Copy verified artifacts to the documentation site. Only artifacts that pass all
+    quality gates reach the publish stage.'

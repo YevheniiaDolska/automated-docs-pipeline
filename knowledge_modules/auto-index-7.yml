@@ -1,0 +1,69 @@
+id: auto-index-7
+title: VeriOps documentation (Part 7)
+summary: Pipeline-generated multi-protocol API documentation for VeriOps with KPI
+  dashboard, interactive references, and automated quality gates.
+intents:
+- integrate
+audiences:
+- developer
+- operator
+channels:
+- docs
+- assistant
+- automation
+priority: 60
+status: active
+owner: docsops-auto
+last_verified: '2026-03-20'
+dependencies: []
+tags:
+- auto-extracted
+- index
+- reference
+content:
+  docs_markdown: '## What this demo proves
+
+
+    1. **One pipeline, five protocols.** A single docs-ops pipeline generates and
+    validates documentation across REST, GraphQL, gRPC, AsyncAPI, and WebSocket from
+    source contracts.
+
+
+    1. **Automated quality enforcement.** 24 SEO/GEO checks, style linting, and contract
+    validation run on every page before publish. No manual review of formatting or
+    metadata.
+
+
+    1. **Advanced RAG pipeline.** A knowledge graph with 1,272 nodes and 1,089 edges
+    powers AI search agents. Six retrieval features (chunking, hybrid search, HyDE,
+    reranking, embedding cache, multi-mode eval) maximize precision and recall.
+
+
+    1. **Real pipeline data.** Every metric on this site comes from actual pipeline
+    reports, not hardcoded values. Run the pipeline again and the numbers update.'
+  assistant_context: 'Use this module when answering questions related to: VeriOps
+    documentation (Part 7). Source path: demo-showcase/acme/docs/index.md. Summary:
+    Pipeline-generated multi-protocol API documentation for VeriOps with KPI dashboard,
+    interactive references, and automated quality gates.
+
+
+    ## What this demo proves
+
+
+    1. **One pipeline, five protocols.** A single docs-ops pipeline generates and
+    validates documentation across REST, GraphQL, gRPC, AsyncAPI, and WebSocket from
+    source contracts.
+
+
+    1. **Automated quality enforcement.** 24 SEO/GEO checks, style linting, and contract
+    validation run on every page before publish. No manual review of formatting or
+    metadata.
+
+
+    1. **Advanced RAG pipeline.** A knowledge graph with 1,272 nodes and 1,089 edges
+    powers AI search agents. Six retrieval features (chunking, hybrid search, HyDE,
+    reranking, embedding cache, multi-mode eval) maximize precision and recall.
+
+
+    1. **Real pipeline data.** Every metric on this site comes from actual pipeline
+    reports, not hardcoded values. Run the pipeline again and the numbers update.'

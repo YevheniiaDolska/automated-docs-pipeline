@@ -2,206 +2,233 @@
 # Each entry has a natural-language query and the module IDs that should appear
 # in the top-k results.  Used by scripts/run_retrieval_evals.py --mode all.
 
-- query: "How do I set up a WebSocket connection?"
+- query: WebSocket event playground bidirectional real-time messaging
   expected_ids:
-    - auto-websocket-api-1
-
-- query: "WebSocket subscribe and publish messages"
+  - auto-websocket-events-10
+  - auto-websocket-events-3
+  - auto-websocket-events-5
+- query: WebSocket subscribe project updates channels events
   expected_ids:
-    - auto-websocket-api-1
-
-- query: "Configure WebSocket sandbox semantic mode"
+  - auto-websocket-events-7
+- query: WebSocket connection sandbox send messages payload
   expected_ids:
-    - auto-websocket-api-1
-
-- query: "List projects over WebSocket"
+  - auto-websocket-events-7
+  - auto-websocket-events-6
+- query: WebSocket ping pong message types acknowledge
   expected_ids:
-    - auto-websocket-api-1
-
-- query: "WebSocket onmessage handler example"
+  - auto-websocket-events-10
+  - auto-websocket-events-4
+- query: WebSocket wss protocol VeriOps realtime channels
   expected_ids:
-    - auto-websocket-api-1
-
-- query: "How do I create a REST API endpoint?"
+  - auto-websocket-events-5
+- query: REST API reference Swagger endpoints projects tasks users tags
   expected_ids:
-    - auto-rest-api-1
-
-- query: "REST API authentication methods"
+  - auto-rest-api-2
+  - auto-rest-api-5
+- query: REST API interactive sandbox Try-it panel
   expected_ids:
-    - auto-rest-api-1
-
-- query: "REST API pagination and filtering"
+  - auto-rest-api-7
+- query: REST API projects resource create retrieve update delete
   expected_ids:
-    - auto-rest-api-1
-
-- query: "HTTP status codes for REST endpoints"
+  - auto-rest-api-2
+  - auto-rest-api-4
+- query: REST API tasks endpoints create update assign priority
   expected_ids:
-    - auto-rest-api-1
-
-- query: "REST API rate limiting configuration"
+  - auto-rest-api-6
+  - auto-rest-api-2
+  - auto-rest-api-5
+- query: REST API users tags comments resources endpoints
   expected_ids:
-    - auto-rest-api-1
-
-- query: "How to query data with GraphQL?"
+  - auto-rest-api-2
+  - auto-rest-api-7
+- query: GraphQL playground live query editor schema explorer
   expected_ids:
-    - auto-graphql-api-1
-
-- query: "GraphQL mutations and subscriptions"
+  - auto-graphql-playground-2
+  - auto-graphql-playground-1
+- query: GraphQL query projects tasks fields selection
   expected_ids:
-    - auto-graphql-api-1
-
-- query: "GraphQL schema definition"
+  - auto-graphql-playground-2
+- query: GraphQL mutations createProject updateProject
   expected_ids:
-    - auto-graphql-api-1
-
-- query: "GraphQL query variables and fragments"
+  - auto-graphql-playground-2
+- query: GraphQL schema types Project Task User Priority status
   expected_ids:
-    - auto-graphql-api-1
-
-- query: "GraphQL error handling and validation"
+  - auto-graphql-playground-2
+- query: GraphQL subscriptions real-time project notifications events
   expected_ids:
-    - auto-graphql-api-1
-
-- query: "How to define gRPC service methods?"
+  - auto-graphql-playground-9
+- query: gRPC gateway invoke HTTP adapter ProjectService VeriOps
   expected_ids:
-    - auto-grpc-api-1
-
-- query: "gRPC protobuf message definitions"
+  - auto-grpc-gateway-2
+  - auto-grpc-gateway-3
+- query: gRPC ListProjects GetProject CreateProject RPC methods
   expected_ids:
-    - auto-grpc-api-1
-
-- query: "gRPC streaming and unary calls"
+  - auto-grpc-gateway-2
+  - auto-grpc-gateway-3
+- query: gRPC proto3 service definition veriops protobuf
   expected_ids:
-    - auto-grpc-api-1
-
-- query: "gRPC server and client setup"
+  - auto-grpc-gateway-3
+  - auto-grpc-gateway-8
+- query: gRPC gateway sandbox interactive tester requests
   expected_ids:
-    - auto-grpc-api-1
-
-- query: "gRPC authentication and TLS"
+  - auto-grpc-gateway-5
+- query: gRPC protobuf request response messages encoding
   expected_ids:
-    - auto-grpc-api-1
-
-- query: "AsyncAPI event-driven architecture"
+  - auto-grpc-gateway-2
+  - auto-grpc-gateway-3
+  - auto-grpc-gateway-8
+- query: AsyncAPI event docs channels delivery semantics AMQP
   expected_ids:
-    - auto-asyncapi-1
-
-- query: "AsyncAPI message broker configuration"
+  - auto-asyncapi-events-7
+  - auto-asyncapi-events-2
+  - auto-asyncapi-events-10
+- query: AsyncAPI event-driven project updates messages broker
   expected_ids:
-    - auto-asyncapi-1
-
-- query: "AsyncAPI channel and subscription setup"
+  - auto-asyncapi-events-7
+  - auto-asyncapi-events-6
+- query: AsyncAPI message payload schema validation topics
   expected_ids:
-    - auto-asyncapi-1
-
-- query: "Publishing events with AsyncAPI"
+  - auto-asyncapi-events-4
+  - auto-asyncapi-events-5
+- query: AsyncAPI channel subscribe publish RabbitMQ exchange
   expected_ids:
-    - auto-asyncapi-1
-
-- query: "AsyncAPI payload schema validation"
+  - auto-asyncapi-events-6
+  - auto-asyncapi-events-2
+- query: AsyncAPI sandbox test event publishing payload
   expected_ids:
-    - auto-asyncapi-1
-
-- query: "Documentation quality checks and linting"
+  - auto-asyncapi-events-8
+  - auto-asyncapi-events-10
+  - auto-asyncapi-events-11
+- query: tutorial launch first VeriOps API integration 15 minutes
   expected_ids:
-    - auto-quality-1
-
-- query: "Run Vale style checks on documentation"
+  - auto-tutorial-1
+  - auto-tutorial-6
+  - auto-tutorial-4
+- query: tutorial verify API key authentication Bearer token
   expected_ids:
-    - auto-quality-1
-
-- query: "Frontmatter validation rules"
+  - auto-tutorial-3
+- query: tutorial create project REST POST endpoint response
   expected_ids:
-    - auto-quality-1
-
-- query: "SEO and GEO optimization for docs"
+  - auto-tutorial-4
+- query: tutorial query project GraphQL custom field selection
   expected_ids:
-    - auto-quality-1
-
-- query: "markdownlint configuration and rules"
+  - auto-tutorial-5
+- query: tutorial WebSocket subscribe real-time events Node.js script
   expected_ids:
-    - auto-quality-1
-
-- query: "Getting started quickstart guide"
+  - auto-tutorial-6
+  - auto-tutorial-7
+- query: concept pipeline-first documentation lifecycle automated generation
   expected_ids:
-    - auto-quickstart-1
-
-- query: "Initial project setup and installation"
+  - auto-concept-6
+  - auto-concept-9
+  - auto-concept-4
+- query: documentation drift quality inconsistency multi-protocol coverage
   expected_ids:
-    - auto-quickstart-1
-
-- query: "First steps and onboarding tutorial"
+  - auto-concept-9
+- query: pipeline stages ingest lint regression generate quality publish
   expected_ids:
-    - auto-quickstart-1
-
-- query: "How to configure webhooks?"
+  - auto-concept-10
+- query: quality gate 24 automated checks GEO SEO style contract
   expected_ids:
-    - auto-webhooks-1
-
-- query: "Webhook HMAC signature verification"
+  - auto-concept-4
+- query: RAG optimize knowledge retrieval FAISS vector hybrid search reranking
   expected_ids:
-    - auto-webhooks-1
-
-- query: "Webhook retry and delivery settings"
+  - auto-concept-5
+- query: how-to keep docs aligned every release pipeline workflow
   expected_ids:
-    - auto-webhooks-1
-
-- query: "Webhook event types and payloads"
+  - auto-how-to-3
+  - auto-how-to-5
+- query: how-to run pipeline release day validate contracts
   expected_ids:
-    - auto-webhooks-1
-
-- query: "Webhook endpoint security best practices"
+  - auto-how-to-3
+  - auto-how-to-5
+  - auto-how-to-4
+- query: how-to validate contracts five protocols lint check
   expected_ids:
-    - auto-webhooks-1
-
-- query: "API authentication with Bearer tokens"
+  - auto-how-to-5
+  - auto-how-to-6
+  - auto-how-to-1
+- query: how-to review manifest approve documentation artifacts
   expected_ids:
-    - auto-authentication-1
-
-- query: "OAuth2 flow configuration"
+  - auto-how-to-5
+  - auto-how-to-1
+- query: how-to publish pipeline artifacts documentation site deploy
   expected_ids:
-    - auto-authentication-1
-
-- query: "API key management and rotation"
+  - auto-how-to-5
+- query: troubleshooting common VeriOps pipeline issues failures errors
   expected_ids:
-    - auto-authentication-1
-
-- query: "Error handling and troubleshooting guide"
+  - auto-troubleshooting-1
+  - auto-troubleshooting-2
+  - auto-troubleshooting-7
+- query: troubleshooting pipeline stage fails contract validation error fix
   expected_ids:
-    - auto-troubleshooting-1
-
-- query: "Common API error codes and solutions"
+  - auto-troubleshooting-2
+  - auto-troubleshooting-5
+  - auto-troubleshooting-1
+- query: troubleshooting quality gate check failures GEO SEO heading
   expected_ids:
-    - auto-troubleshooting-1
-
-- query: "Debugging failed API requests"
+  - auto-troubleshooting-7
+  - auto-troubleshooting-4
+- query: troubleshooting retrieval precision recall low scores improve
   expected_ids:
-    - auto-troubleshooting-1
-
-- query: "SDK client library installation"
+  - auto-troubleshooting-7
+  - auto-troubleshooting-9
+- query: troubleshooting broken links stale pages detection scan
   expected_ids:
-    - auto-sdk-1
-
-- query: "SDK usage examples and quickstart"
+  - auto-troubleshooting-1
+- query: quality evidence gate results metrics documentation report
   expected_ids:
-    - auto-sdk-1
-
-- query: "Deployment and production configuration"
+  - auto-evidence-10
+- query: quality score metadata completeness freshness stale pages
   expected_ids:
-    - auto-deployment-1
-
-- query: "Environment variables and config reference"
+  - auto-evidence-9
+- query: GEO SEO check results per page evidence report scores
   expected_ids:
-    - auto-deployment-1
-
-- query: "Database migration and schema updates"
+  - auto-evidence-3
+  - auto-evidence-5
+- query: protocol gate validation REST GraphQL gRPC contract evidence
   expected_ids:
-    - auto-migration-1
-
-- query: "Version upgrade and breaking changes"
+  - auto-evidence-10
+- query: knowledge graph retrieval index evidence nodes edges modules
   expected_ids:
-    - auto-migration-1
-
-- query: "Performance optimization and caching"
+  - auto-evidence-7
+- query: VeriOps API platform architecture interactive diagram layers
   expected_ids:
-    - auto-performance-1
+  - auto-architecture-overview-5
+  - auto-architecture-overview-3
+  - auto-architecture-overview-1
+- query: architecture microservices Auth Project Task Notification Service
+  expected_ids:
+  - auto-architecture-overview-2
+  - auto-architecture-overview-5
+- query: architecture data layer PostgreSQL Redis RabbitMQ Object Storage
+  expected_ids:
+  - auto-architecture-overview-4
+  - auto-architecture-overview-3
+  - auto-architecture-overview-1
+- query: architecture API gateway layer five protocols endpoints
+  expected_ids:
+  - auto-architecture-overview-3
+  - auto-architecture-overview-1
+- query: architecture request flow layers CDN WAF Rate Limiter security
+  expected_ids:
+  - auto-architecture-overview-4
+  - auto-architecture-overview-5
+  - auto-architecture-overview-3
+- query: VeriOps documentation KPI dashboard quality score metrics
+  expected_ids:
+  - auto-index-2
+  - auto-index-1
+  - auto-index-3
+- query: VeriOps supported protocols REST GraphQL gRPC AsyncAPI WebSocket pipeline
+  expected_ids:
+  - auto-index-7
+- query: VeriOps pipeline execution summary completed stages artifacts
+  expected_ids:
+  - auto-index-3
+- query: VeriOps automated detection drift repair autofix regression
+  expected_ids:
+  - auto-index-5
+- query: VeriOps RAG retrieval pipeline knowledge graph modules embeddings
+  expected_ids:
+  - auto-index-6

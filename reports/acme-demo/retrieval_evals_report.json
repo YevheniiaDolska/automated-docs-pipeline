@@ -1,8 +1,9 @@
 {
-  "generated_at": "2026-03-19T15:15:05.824152+00:00",
-  "status": "breach",
+  "generated_at": "2026-03-20T16:17:40.471682+00:00",
+  "status": "ok",
+  "mode": "token",
   "index_path": "docs/assets/knowledge-retrieval-index.json",
-  "dataset_path": "/mnt/c/Users/Kroha/Documents/development/Auto-Doc Pipeline/reports/acme-demo/retrieval_eval_dataset.generated.yml",
+  "dataset_path": "config/retrieval_eval_dataset.yml",
   "thresholds": {
     "min_precision": 0.5,
     "min_recall": 0.5,
@@ -10,366 +11,903 @@
   },
   "metrics": {
     "status": "ok",
-    "precision_at_k": 0.2,
-    "recall_at_k": 0.6,
-    "hallucination_rate": 0.8,
-    "sample_count": 25,
+    "precision_at_k": 0.5778,
+    "recall_at_k": 0.9278,
+    "hallucination_rate": 0.0,
+    "sample_count": 60,
     "top_k": 3,
     "samples": [
       {
-        "query": "API playground",
+        "query": "WebSocket event playground bidirectional real-time messaging",
         "expected_ids": [
-          "auto-api-playground-1"
+          "auto-websocket-events-10",
+          "auto-websocket-events-3",
+          "auto-websocket-events-5"
         ],
         "retrieved_ids": [
-          "auto-run-api-first-production-flow-11",
-          "auto-set-up-real-time-webhook-processing-pipeline-13",
-          "auto-grpc-api-3"
+          "auto-websocket-events-10",
+          "auto-websocket-events-3",
+          "auto-websocket-events-5"
         ],
-        "hits": 0,
-        "precision": 0.0,
-        "recall": 0.0
+        "hits": 3,
+        "precision": 1.0,
+        "recall": 1.0
       },
       {
-        "query": "API playground (Part 2)",
+        "query": "WebSocket subscribe project updates channels events",
         "expected_ids": [
-          "auto-api-playground-2"
+          "auto-websocket-events-7"
         ],
         "retrieved_ids": [
-          "auto-run-api-first-production-flow-11",
-          "auto-set-up-real-time-webhook-processing-pipeline-13",
-          "auto-grpc-api-3"
-        ],
-        "hits": 0,
-        "precision": 0.0,
-        "recall": 0.0
-      },
-      {
-        "query": "API playground (Part 3)",
-        "expected_ids": [
-          "auto-api-playground-3"
-        ],
-        "retrieved_ids": [
-          "auto-run-api-first-production-flow-11",
-          "auto-set-up-real-time-webhook-processing-pipeline-13",
-          "auto-grpc-api-3"
-        ],
-        "hits": 0,
-        "precision": 0.0,
-        "recall": 0.0
-      },
-      {
-        "query": "Assemble intent experiences",
-        "expected_ids": [
-          "auto-assemble-intent-experiences-1"
-        ],
-        "retrieved_ids": [
-          "auto-configure-ask-ai-module-3",
-          "auto-install-ask-ai-runtime-pack-3",
-          "auto-assemble-intent-experiences-1"
+          "auto-tutorial-6",
+          "auto-websocket-events-7",
+          "auto-asyncapi-events-6"
         ],
         "hits": 1,
         "precision": 0.3333,
         "recall": 1.0
       },
       {
-        "query": "Assemble intent experiences (Part 2)",
+        "query": "WebSocket connection sandbox send messages payload",
         "expected_ids": [
-          "auto-assemble-intent-experiences-2"
+          "auto-websocket-events-6",
+          "auto-websocket-events-7"
         ],
         "retrieved_ids": [
-          "auto-configure-ask-ai-module-3",
-          "auto-install-ask-ai-runtime-pack-3",
-          "auto-assemble-intent-experiences-2"
+          "auto-websocket-events-7",
+          "auto-asyncapi-events-8",
+          "auto-websocket-events-6"
+        ],
+        "hits": 2,
+        "precision": 0.6667,
+        "recall": 1.0
+      },
+      {
+        "query": "WebSocket ping pong message types acknowledge",
+        "expected_ids": [
+          "auto-websocket-events-10",
+          "auto-websocket-events-4"
+        ],
+        "retrieved_ids": [
+          "auto-websocket-events-10",
+          "auto-asyncapi-api-3",
+          "auto-websocket-events-4"
+        ],
+        "hits": 2,
+        "precision": 0.6667,
+        "recall": 1.0
+      },
+      {
+        "query": "WebSocket wss protocol VeriOps realtime channels",
+        "expected_ids": [
+          "auto-websocket-events-5"
+        ],
+        "retrieved_ids": [
+          "auto-tutorial-8",
+          "auto-websocket-events-5",
+          "auto-tutorial-6"
         ],
         "hits": 1,
         "precision": 0.3333,
         "recall": 1.0
       },
       {
-        "query": "ASYNCAPI API Reference",
+        "query": "REST API reference Swagger endpoints projects tasks users tags",
         "expected_ids": [
+          "auto-rest-api-2",
+          "auto-rest-api-5"
+        ],
+        "retrieved_ids": [
+          "auto-index-8",
+          "auto-rest-api-2",
+          "auto-rest-api-5"
+        ],
+        "hits": 2,
+        "precision": 0.6667,
+        "recall": 1.0
+      },
+      {
+        "query": "REST API interactive sandbox Try-it panel",
+        "expected_ids": [
+          "auto-rest-api-7"
+        ],
+        "retrieved_ids": [
+          "auto-asyncapi-events-8",
+          "auto-rest-api-7",
+          "auto-graphql-playground-4"
+        ],
+        "hits": 1,
+        "precision": 0.3333,
+        "recall": 1.0
+      },
+      {
+        "query": "REST API projects resource create retrieve update delete",
+        "expected_ids": [
+          "auto-rest-api-2",
+          "auto-rest-api-4"
+        ],
+        "retrieved_ids": [
+          "auto-rest-api-2",
+          "auto-rest-api-4",
+          "auto-tutorial-4"
+        ],
+        "hits": 2,
+        "precision": 0.6667,
+        "recall": 1.0
+      },
+      {
+        "query": "REST API tasks endpoints create update assign priority",
+        "expected_ids": [
+          "auto-rest-api-2",
+          "auto-rest-api-5",
+          "auto-rest-api-6"
+        ],
+        "retrieved_ids": [
+          "auto-rest-api-6",
+          "auto-rest-api-2",
+          "auto-rest-api-5"
+        ],
+        "hits": 3,
+        "precision": 1.0,
+        "recall": 1.0
+      },
+      {
+        "query": "REST API users tags comments resources endpoints",
+        "expected_ids": [
+          "auto-rest-api-2",
+          "auto-rest-api-7"
+        ],
+        "retrieved_ids": [
+          "auto-index-8",
+          "auto-rest-api-2",
+          "auto-rest-api-7"
+        ],
+        "hits": 2,
+        "precision": 0.6667,
+        "recall": 1.0
+      },
+      {
+        "query": "GraphQL playground live query editor schema explorer",
+        "expected_ids": [
+          "auto-graphql-playground-1",
+          "auto-graphql-playground-2"
+        ],
+        "retrieved_ids": [
+          "auto-graphql-playground-2",
+          "auto-graphql-playground-3",
+          "auto-graphql-playground-1"
+        ],
+        "hits": 2,
+        "precision": 0.6667,
+        "recall": 1.0
+      },
+      {
+        "query": "GraphQL query projects tasks fields selection",
+        "expected_ids": [
+          "auto-graphql-playground-2"
+        ],
+        "retrieved_ids": [
+          "auto-index-8",
+          "auto-tutorial-5",
+          "auto-graphql-playground-2"
+        ],
+        "hits": 1,
+        "precision": 0.3333,
+        "recall": 1.0
+      },
+      {
+        "query": "GraphQL mutations createProject updateProject",
+        "expected_ids": [
+          "auto-graphql-playground-2"
+        ],
+        "retrieved_ids": [
+          "auto-graphql-api-1",
+          "auto-graphql-api-3",
+          "auto-concept-3"
+        ],
+        "hits": 0,
+        "precision": 0.0,
+        "recall": 0.0
+      },
+      {
+        "query": "GraphQL schema types Project Task User Priority status",
+        "expected_ids": [
+          "auto-graphql-playground-2"
+        ],
+        "retrieved_ids": [
+          "auto-rest-api-6",
+          "auto-index-5",
+          "auto-graphql-playground-2"
+        ],
+        "hits": 1,
+        "precision": 0.3333,
+        "recall": 1.0
+      },
+      {
+        "query": "GraphQL subscriptions real-time project notifications events",
+        "expected_ids": [
+          "auto-graphql-playground-9"
+        ],
+        "retrieved_ids": [
+          "auto-websocket-events-3",
+          "auto-websocket-events-4",
+          "auto-websocket-events-2"
+        ],
+        "hits": 0,
+        "precision": 0.0,
+        "recall": 0.0
+      },
+      {
+        "query": "gRPC gateway invoke HTTP adapter ProjectService VeriOps",
+        "expected_ids": [
+          "auto-grpc-gateway-2",
+          "auto-grpc-gateway-3"
+        ],
+        "retrieved_ids": [
+          "auto-index-8",
+          "auto-grpc-gateway-2",
+          "auto-grpc-gateway-6"
+        ],
+        "hits": 1,
+        "precision": 0.3333,
+        "recall": 0.5
+      },
+      {
+        "query": "gRPC ListProjects GetProject CreateProject RPC methods",
+        "expected_ids": [
+          "auto-grpc-gateway-2",
+          "auto-grpc-gateway-3"
+        ],
+        "retrieved_ids": [
+          "auto-grpc-gateway-2",
+          "auto-grpc-gateway-3",
+          "auto-architecture-overview-3"
+        ],
+        "hits": 2,
+        "precision": 0.6667,
+        "recall": 1.0
+      },
+      {
+        "query": "gRPC proto3 service definition veriops protobuf",
+        "expected_ids": [
+          "auto-grpc-gateway-3",
+          "auto-grpc-gateway-8"
+        ],
+        "retrieved_ids": [
+          "auto-grpc-gateway-3",
+          "auto-concept-3",
+          "auto-grpc-gateway-8"
+        ],
+        "hits": 2,
+        "precision": 0.6667,
+        "recall": 1.0
+      },
+      {
+        "query": "gRPC gateway sandbox interactive tester requests",
+        "expected_ids": [
+          "auto-grpc-gateway-5"
+        ],
+        "retrieved_ids": [
+          "auto-grpc-gateway-5",
+          "auto-asyncapi-events-8",
+          "auto-websocket-events-7"
+        ],
+        "hits": 1,
+        "precision": 0.3333,
+        "recall": 1.0
+      },
+      {
+        "query": "gRPC protobuf request response messages encoding",
+        "expected_ids": [
+          "auto-grpc-gateway-2",
+          "auto-grpc-gateway-3",
+          "auto-grpc-gateway-8"
+        ],
+        "retrieved_ids": [
+          "auto-grpc-gateway-2",
+          "auto-grpc-gateway-8",
+          "auto-grpc-gateway-3"
+        ],
+        "hits": 3,
+        "precision": 1.0,
+        "recall": 1.0
+      },
+      {
+        "query": "AsyncAPI event docs channels delivery semantics AMQP",
+        "expected_ids": [
+          "auto-asyncapi-events-10",
+          "auto-asyncapi-events-2",
+          "auto-asyncapi-events-7"
+        ],
+        "retrieved_ids": [
+          "auto-asyncapi-events-7",
+          "auto-asyncapi-events-2",
+          "auto-asyncapi-events-10"
+        ],
+        "hits": 3,
+        "precision": 1.0,
+        "recall": 1.0
+      },
+      {
+        "query": "AsyncAPI event-driven project updates messages broker",
+        "expected_ids": [
+          "auto-asyncapi-events-6",
+          "auto-asyncapi-events-7"
+        ],
+        "retrieved_ids": [
+          "auto-websocket-events-10",
+          "auto-asyncapi-events-7",
+          "auto-asyncapi-events-6"
+        ],
+        "hits": 2,
+        "precision": 0.6667,
+        "recall": 1.0
+      },
+      {
+        "query": "AsyncAPI message payload schema validation topics",
+        "expected_ids": [
+          "auto-asyncapi-events-4",
+          "auto-asyncapi-events-5"
+        ],
+        "retrieved_ids": [
+          "auto-concept-3",
+          "auto-asyncapi-events-4",
+          "auto-asyncapi-events-5"
+        ],
+        "hits": 2,
+        "precision": 0.6667,
+        "recall": 1.0
+      },
+      {
+        "query": "AsyncAPI channel subscribe publish RabbitMQ exchange",
+        "expected_ids": [
+          "auto-asyncapi-events-2",
+          "auto-asyncapi-events-6"
+        ],
+        "retrieved_ids": [
+          "auto-asyncapi-events-6",
+          "auto-asyncapi-events-2",
           "auto-asyncapi-api-1"
         ],
+        "hits": 2,
+        "precision": 0.6667,
+        "recall": 1.0
+      },
+      {
+        "query": "AsyncAPI sandbox test event publishing payload",
+        "expected_ids": [
+          "auto-asyncapi-events-10",
+          "auto-asyncapi-events-11",
+          "auto-asyncapi-events-8"
+        ],
         "retrieved_ids": [
-          "auto-asyncapi-api-2",
-          "auto-asyncapi-api-4",
-          "auto-asyncapi-api-1"
+          "auto-asyncapi-events-8",
+          "auto-asyncapi-events-10",
+          "auto-asyncapi-events-11"
+        ],
+        "hits": 3,
+        "precision": 1.0,
+        "recall": 1.0
+      },
+      {
+        "query": "tutorial launch first VeriOps API integration 15 minutes",
+        "expected_ids": [
+          "auto-tutorial-1",
+          "auto-tutorial-4",
+          "auto-tutorial-6"
+        ],
+        "retrieved_ids": [
+          "auto-tutorial-1",
+          "auto-tutorial-4",
+          "auto-tutorial-6"
+        ],
+        "hits": 3,
+        "precision": 1.0,
+        "recall": 1.0
+      },
+      {
+        "query": "tutorial verify API key authentication Bearer token",
+        "expected_ids": [
+          "auto-tutorial-3"
+        ],
+        "retrieved_ids": [
+          "auto-tutorial-3",
+          "auto-rest-api-5",
+          "auto-asyncapi-events-6"
         ],
         "hits": 1,
         "precision": 0.3333,
         "recall": 1.0
       },
       {
-        "query": "ASYNCAPI API Reference (Part 2)",
+        "query": "tutorial create project REST POST endpoint response",
         "expected_ids": [
-          "auto-asyncapi-api-2"
+          "auto-tutorial-4"
         ],
         "retrieved_ids": [
-          "auto-asyncapi-api-2",
-          "auto-asyncapi-api-4",
-          "auto-asyncapi-api-3"
+          "auto-tutorial-4",
+          "auto-rest-api-4",
+          "auto-rest-api-6"
         ],
         "hits": 1,
         "precision": 0.3333,
         "recall": 1.0
       },
       {
-        "query": "ASYNCAPI API Reference (Part 3)",
+        "query": "tutorial query project GraphQL custom field selection",
         "expected_ids": [
-          "auto-asyncapi-api-3"
+          "auto-tutorial-5"
         ],
         "retrieved_ids": [
-          "auto-asyncapi-api-2",
-          "auto-asyncapi-api-4",
-          "auto-asyncapi-api-3"
+          "auto-tutorial-5",
+          "auto-graphql-playground-2",
+          "auto-graphql-api-1"
         ],
         "hits": 1,
         "precision": 0.3333,
         "recall": 1.0
       },
       {
-        "query": "ASYNCAPI API Reference (Part 4)",
+        "query": "tutorial WebSocket subscribe real-time events Node.js script",
         "expected_ids": [
-          "auto-asyncapi-api-4"
+          "auto-tutorial-6",
+          "auto-tutorial-7"
         ],
         "retrieved_ids": [
-          "auto-asyncapi-api-2",
-          "auto-asyncapi-api-4",
-          "auto-asyncapi-api-3"
+          "auto-tutorial-6",
+          "auto-tutorial-7",
+          "auto-websocket-events-9"
+        ],
+        "hits": 2,
+        "precision": 0.6667,
+        "recall": 1.0
+      },
+      {
+        "query": "concept pipeline-first documentation lifecycle automated generation",
+        "expected_ids": [
+          "auto-concept-4",
+          "auto-concept-6",
+          "auto-concept-9"
+        ],
+        "retrieved_ids": [
+          "auto-concept-6",
+          "auto-concept-9",
+          "auto-concept-4"
+        ],
+        "hits": 3,
+        "precision": 1.0,
+        "recall": 1.0
+      },
+      {
+        "query": "documentation drift quality inconsistency multi-protocol coverage",
+        "expected_ids": [
+          "auto-concept-9"
+        ],
+        "retrieved_ids": [
+          "auto-concept-9",
+          "auto-index-5",
+          "auto-review-manifest-2"
         ],
         "hits": 1,
         "precision": 0.3333,
         "recall": 1.0
       },
       {
-        "query": "Canonical Flow (Sales + Delivery)",
+        "query": "pipeline stages ingest lint regression generate quality publish",
         "expected_ids": [
-          "auto-canonical-flow-1"
+          "auto-concept-10"
         ],
         "retrieved_ids": [
-          "auto-canonical-flow-4",
-          "auto-canonical-flow-3",
-          "auto-canonical-flow-2"
+          "auto-evidence-2",
+          "auto-review-manifest-7",
+          "auto-concept-10"
+        ],
+        "hits": 1,
+        "precision": 0.3333,
+        "recall": 1.0
+      },
+      {
+        "query": "quality gate 24 automated checks GEO SEO style contract",
+        "expected_ids": [
+          "auto-concept-4"
+        ],
+        "retrieved_ids": [
+          "auto-index-7",
+          "auto-concept-4",
+          "auto-evidence-4"
+        ],
+        "hits": 1,
+        "precision": 0.3333,
+        "recall": 1.0
+      },
+      {
+        "query": "RAG optimize knowledge retrieval FAISS vector hybrid search reranking",
+        "expected_ids": [
+          "auto-concept-5"
+        ],
+        "retrieved_ids": [
+          "auto-concept-5",
+          "auto-graphql-playground-7",
+          "auto-evidence-4"
+        ],
+        "hits": 1,
+        "precision": 0.3333,
+        "recall": 1.0
+      },
+      {
+        "query": "how-to keep docs aligned every release pipeline workflow",
+        "expected_ids": [
+          "auto-how-to-3",
+          "auto-how-to-5"
+        ],
+        "retrieved_ids": [
+          "auto-concept-10",
+          "auto-how-to-4",
+          "auto-how-to-5"
+        ],
+        "hits": 1,
+        "precision": 0.3333,
+        "recall": 0.5
+      },
+      {
+        "query": "how-to run pipeline release day validate contracts",
+        "expected_ids": [
+          "auto-how-to-3",
+          "auto-how-to-4",
+          "auto-how-to-5"
+        ],
+        "retrieved_ids": [
+          "auto-how-to-4",
+          "auto-how-to-5",
+          "auto-how-to-3"
+        ],
+        "hits": 3,
+        "precision": 1.0,
+        "recall": 1.0
+      },
+      {
+        "query": "how-to validate contracts five protocols lint check",
+        "expected_ids": [
+          "auto-how-to-1",
+          "auto-how-to-5",
+          "auto-how-to-6"
+        ],
+        "retrieved_ids": [
+          "auto-how-to-5",
+          "auto-how-to-6",
+          "auto-how-to-1"
+        ],
+        "hits": 3,
+        "precision": 1.0,
+        "recall": 1.0
+      },
+      {
+        "query": "how-to review manifest approve documentation artifacts",
+        "expected_ids": [
+          "auto-how-to-1",
+          "auto-how-to-5"
+        ],
+        "retrieved_ids": [
+          "auto-review-manifest-7",
+          "auto-how-to-5",
+          "auto-how-to-1"
+        ],
+        "hits": 2,
+        "precision": 0.6667,
+        "recall": 1.0
+      },
+      {
+        "query": "how-to publish pipeline artifacts documentation site deploy",
+        "expected_ids": [
+          "auto-how-to-5"
+        ],
+        "retrieved_ids": [
+          "auto-review-manifest-7",
+          "auto-how-to-5",
+          "auto-index-4"
+        ],
+        "hits": 1,
+        "precision": 0.3333,
+        "recall": 1.0
+      },
+      {
+        "query": "troubleshooting common VeriOps pipeline issues failures errors",
+        "expected_ids": [
+          "auto-troubleshooting-1",
+          "auto-troubleshooting-2",
+          "auto-troubleshooting-7"
+        ],
+        "retrieved_ids": [
+          "auto-troubleshooting-1",
+          "auto-troubleshooting-7",
+          "auto-troubleshooting-2"
+        ],
+        "hits": 3,
+        "precision": 1.0,
+        "recall": 1.0
+      },
+      {
+        "query": "troubleshooting pipeline stage fails contract validation error fix",
+        "expected_ids": [
+          "auto-troubleshooting-1",
+          "auto-troubleshooting-2",
+          "auto-troubleshooting-5"
+        ],
+        "retrieved_ids": [
+          "auto-troubleshooting-2",
+          "auto-troubleshooting-5",
+          "auto-concept-3"
+        ],
+        "hits": 2,
+        "precision": 0.6667,
+        "recall": 0.6667
+      },
+      {
+        "query": "troubleshooting quality gate check failures GEO SEO heading",
+        "expected_ids": [
+          "auto-troubleshooting-4",
+          "auto-troubleshooting-7"
+        ],
+        "retrieved_ids": [
+          "auto-concept-4",
+          "auto-troubleshooting-7",
+          "auto-troubleshooting-4"
+        ],
+        "hits": 2,
+        "precision": 0.6667,
+        "recall": 1.0
+      },
+      {
+        "query": "troubleshooting retrieval precision recall low scores improve",
+        "expected_ids": [
+          "auto-troubleshooting-7",
+          "auto-troubleshooting-9"
+        ],
+        "retrieved_ids": [
+          "auto-troubleshooting-7",
+          "auto-troubleshooting-9",
+          "auto-evidence-8"
+        ],
+        "hits": 2,
+        "precision": 0.6667,
+        "recall": 1.0
+      },
+      {
+        "query": "troubleshooting broken links stale pages detection scan",
+        "expected_ids": [
+          "auto-troubleshooting-1"
+        ],
+        "retrieved_ids": [
+          "auto-evidence-9",
+          "auto-index-5",
+          "auto-index-2"
         ],
         "hits": 0,
         "precision": 0.0,
         "recall": 0.0
       },
       {
-        "query": "Canonical Flow (Sales + Delivery) (Part 2)",
+        "query": "quality evidence gate results metrics documentation report",
         "expected_ids": [
-          "auto-canonical-flow-2"
+          "auto-evidence-10"
         ],
         "retrieved_ids": [
-          "auto-canonical-flow-4",
-          "auto-canonical-flow-3",
-          "auto-canonical-flow-2"
+          "auto-architecture-overview-5",
+          "auto-evidence-10",
+          "auto-concept-10"
         ],
         "hits": 1,
         "precision": 0.3333,
         "recall": 1.0
       },
       {
-        "query": "Canonical Flow (Sales + Delivery) (Part 3)",
+        "query": "quality score metadata completeness freshness stale pages",
         "expected_ids": [
-          "auto-canonical-flow-3"
+          "auto-evidence-9"
         ],
         "retrieved_ids": [
-          "auto-canonical-flow-4",
-          "auto-canonical-flow-3",
-          "auto-canonical-flow-2"
+          "auto-evidence-9",
+          "auto-index-2",
+          "auto-how-to-8"
         ],
         "hits": 1,
         "precision": 0.3333,
         "recall": 1.0
       },
       {
-        "query": "Canonical Flow (Sales + Delivery) (Part 4)",
+        "query": "GEO SEO check results per page evidence report scores",
         "expected_ids": [
-          "auto-canonical-flow-4"
+          "auto-evidence-3",
+          "auto-evidence-5"
         ],
         "retrieved_ids": [
-          "auto-canonical-flow-4",
-          "auto-canonical-flow-3",
-          "auto-canonical-flow-2"
+          "auto-evidence-3",
+          "auto-concept-4",
+          "auto-evidence-5"
+        ],
+        "hits": 2,
+        "precision": 0.6667,
+        "recall": 1.0
+      },
+      {
+        "query": "protocol gate validation REST GraphQL gRPC contract evidence",
+        "expected_ids": [
+          "auto-evidence-10"
+        ],
+        "retrieved_ids": [
+          "auto-concept-8",
+          "auto-index-7",
+          "auto-evidence-10"
         ],
         "hits": 1,
         "precision": 0.3333,
         "recall": 1.0
       },
       {
-        "query": "Canonical Flow (Sales + Delivery) (Part 5)",
+        "query": "knowledge graph retrieval index evidence nodes edges modules",
         "expected_ids": [
-          "auto-canonical-flow-5"
+          "auto-evidence-7"
         ],
         "retrieved_ids": [
-          "auto-canonical-flow-4",
-          "auto-canonical-flow-3",
-          "auto-canonical-flow-2"
-        ],
-        "hits": 0,
-        "precision": 0.0,
-        "recall": 0.0
-      },
-      {
-        "query": "Canonical Flow (Sales + Delivery) (Part 6)",
-        "expected_ids": [
-          "auto-canonical-flow-6"
-        ],
-        "retrieved_ids": [
-          "auto-canonical-flow-4",
-          "auto-canonical-flow-3",
-          "auto-canonical-flow-2"
-        ],
-        "hits": 0,
-        "precision": 0.0,
-        "recall": 0.0
-      },
-      {
-        "query": "Canonical Flow (Sales + Delivery) (Part 7)",
-        "expected_ids": [
-          "auto-canonical-flow-7"
-        ],
-        "retrieved_ids": [
-          "auto-canonical-flow-4",
-          "auto-canonical-flow-3",
-          "auto-canonical-flow-2"
-        ],
-        "hits": 0,
-        "precision": 0.0,
-        "recall": 0.0
-      },
-      {
-        "query": "\u0426\u0435\u043d\u0442\u0440\u0430\u043b\u0438\u0437\u043e\u0432\u0430\u043d\u043d\u0430\u044f \u043d\u0430\u0441\u0442\u0440\u043e\u0439\u043a\u0430 \u043a\u043b\u0438\u0435\u043d\u0442\u043e\u0432",
-        "expected_ids": [
-          "auto-centralized-client-bundles-1"
-        ],
-        "retrieved_ids": [
-          "auto-api-playground-1",
-          "auto-api-playground-2",
-          "auto-api-playground-3"
-        ],
-        "hits": 0,
-        "precision": 0.0,
-        "recall": 0.0
-      },
-      {
-        "query": "\u0426\u0435\u043d\u0442\u0440\u0430\u043b\u0438\u0437\u043e\u0432\u0430\u043d\u043d\u0430\u044f \u043d\u0430\u0441\u0442\u0440\u043e\u0439\u043a\u0430 \u043a\u043b\u0438\u0435\u043d\u0442\u043e\u0432 (Part 10)",
-        "expected_ids": [
-          "auto-centralized-client-bundles-10"
-        ],
-        "retrieved_ids": [
-          "auto-centralized-client-bundles-10",
-          "auto-canonical-flow-3",
-          "auto-unified-client-config-10"
+          "auto-index-6",
+          "auto-concept-5",
+          "auto-evidence-7"
         ],
         "hits": 1,
         "precision": 0.3333,
         "recall": 1.0
       },
       {
-        "query": "\u0426\u0435\u043d\u0442\u0440\u0430\u043b\u0438\u0437\u043e\u0432\u0430\u043d\u043d\u0430\u044f \u043d\u0430\u0441\u0442\u0440\u043e\u0439\u043a\u0430 \u043a\u043b\u0438\u0435\u043d\u0442\u043e\u0432 (Part 11)",
+        "query": "VeriOps API platform architecture interactive diagram layers",
         "expected_ids": [
-          "auto-centralized-client-bundles-11"
+          "auto-architecture-overview-1",
+          "auto-architecture-overview-3",
+          "auto-architecture-overview-5"
         ],
         "retrieved_ids": [
-          "auto-centralized-client-bundles-15",
-          "auto-centralized-client-bundles-12",
-          "auto-centralized-client-bundles-3"
+          "auto-architecture-overview-5",
+          "auto-architecture-overview-3",
+          "auto-architecture-overview-1"
         ],
-        "hits": 0,
-        "precision": 0.0,
-        "recall": 0.0
+        "hits": 3,
+        "precision": 1.0,
+        "recall": 1.0
       },
       {
-        "query": "\u0426\u0435\u043d\u0442\u0440\u0430\u043b\u0438\u0437\u043e\u0432\u0430\u043d\u043d\u0430\u044f \u043d\u0430\u0441\u0442\u0440\u043e\u0439\u043a\u0430 \u043a\u043b\u0438\u0435\u043d\u0442\u043e\u0432 (Part 12)",
+        "query": "architecture microservices Auth Project Task Notification Service",
         "expected_ids": [
-          "auto-centralized-client-bundles-12"
+          "auto-architecture-overview-2",
+          "auto-architecture-overview-5"
         ],
         "retrieved_ids": [
-          "auto-centralized-client-bundles-12",
-          "auto-graphql-api-2",
-          "auto-unified-client-config-12"
+          "auto-asyncapi-events-5",
+          "auto-architecture-overview-2",
+          "auto-architecture-overview-5"
+        ],
+        "hits": 2,
+        "precision": 0.6667,
+        "recall": 1.0
+      },
+      {
+        "query": "architecture data layer PostgreSQL Redis RabbitMQ Object Storage",
+        "expected_ids": [
+          "auto-architecture-overview-1",
+          "auto-architecture-overview-3",
+          "auto-architecture-overview-4"
+        ],
+        "retrieved_ids": [
+          "auto-architecture-overview-4",
+          "auto-architecture-overview-3",
+          "auto-architecture-overview-1"
+        ],
+        "hits": 3,
+        "precision": 1.0,
+        "recall": 1.0
+      },
+      {
+        "query": "architecture API gateway layer five protocols endpoints",
+        "expected_ids": [
+          "auto-architecture-overview-1",
+          "auto-architecture-overview-3"
+        ],
+        "retrieved_ids": [
+          "auto-architecture-overview-3",
+          "auto-rest-api-1",
+          "auto-architecture-overview-1"
+        ],
+        "hits": 2,
+        "precision": 0.6667,
+        "recall": 1.0
+      },
+      {
+        "query": "architecture request flow layers CDN WAF Rate Limiter security",
+        "expected_ids": [
+          "auto-architecture-overview-3",
+          "auto-architecture-overview-4",
+          "auto-architecture-overview-5"
+        ],
+        "retrieved_ids": [
+          "auto-architecture-overview-4",
+          "auto-architecture-overview-5",
+          "auto-architecture-overview-3"
+        ],
+        "hits": 3,
+        "precision": 1.0,
+        "recall": 1.0
+      },
+      {
+        "query": "VeriOps documentation KPI dashboard quality score metrics",
+        "expected_ids": [
+          "auto-index-1",
+          "auto-index-2",
+          "auto-index-3"
+        ],
+        "retrieved_ids": [
+          "auto-index-2",
+          "auto-index-1",
+          "auto-index-3"
+        ],
+        "hits": 3,
+        "precision": 1.0,
+        "recall": 1.0
+      },
+      {
+        "query": "VeriOps supported protocols REST GraphQL gRPC AsyncAPI WebSocket pipeline",
+        "expected_ids": [
+          "auto-index-7"
+        ],
+        "retrieved_ids": [
+          "auto-index-7",
+          "auto-concept-3",
+          "auto-graphql-playground-9"
         ],
         "hits": 1,
         "precision": 0.3333,
         "recall": 1.0
       },
       {
-        "query": "\u0426\u0435\u043d\u0442\u0440\u0430\u043b\u0438\u0437\u043e\u0432\u0430\u043d\u043d\u0430\u044f \u043d\u0430\u0441\u0442\u0440\u043e\u0439\u043a\u0430 \u043a\u043b\u0438\u0435\u043d\u0442\u043e\u0432 (Part 13)",
+        "query": "VeriOps pipeline execution summary completed stages artifacts",
         "expected_ids": [
-          "auto-centralized-client-bundles-13"
+          "auto-index-3"
         ],
         "retrieved_ids": [
-          "auto-set-up-real-time-webhook-processing-pipeline-13",
-          "auto-centralized-client-bundles-13",
-          "auto-unified-client-config-13"
+          "auto-index-3",
+          "auto-evidence-10",
+          "auto-evidence-2"
         ],
         "hits": 1,
         "precision": 0.3333,
         "recall": 1.0
       },
       {
-        "query": "\u0426\u0435\u043d\u0442\u0440\u0430\u043b\u0438\u0437\u043e\u0432\u0430\u043d\u043d\u0430\u044f \u043d\u0430\u0441\u0442\u0440\u043e\u0439\u043a\u0430 \u043a\u043b\u0438\u0435\u043d\u0442\u043e\u0432 (Part 14)",
+        "query": "VeriOps automated detection drift repair autofix regression",
         "expected_ids": [
-          "auto-centralized-client-bundles-14"
+          "auto-index-5"
         ],
         "retrieved_ids": [
-          "auto-centralized-client-bundles-14",
-          "auto-unified-client-config-14",
-          "auto-set-up-real-time-webhook-processing-pipeline-14"
+          "auto-index-5",
+          "auto-evidence-2",
+          "auto-evidence-4"
         ],
         "hits": 1,
         "precision": 0.3333,
         "recall": 1.0
       },
       {
-        "query": "\u0426\u0435\u043d\u0442\u0440\u0430\u043b\u0438\u0437\u043e\u0432\u0430\u043d\u043d\u0430\u044f \u043d\u0430\u0441\u0442\u0440\u043e\u0439\u043a\u0430 \u043a\u043b\u0438\u0435\u043d\u0442\u043e\u0432 (Part 15)",
+        "query": "VeriOps RAG retrieval pipeline knowledge graph modules embeddings",
         "expected_ids": [
-          "auto-centralized-client-bundles-15"
+          "auto-index-6"
         ],
         "retrieved_ids": [
-          "auto-centralized-client-bundles-15",
-          "auto-unified-client-config-15",
-          "auto-set-up-real-time-webhook-processing-pipeline-13"
+          "auto-index-6",
+          "auto-concept-5",
+          "auto-evidence-7"
         ],
         "hits": 1,
         "precision": 0.3333,
         "recall": 1.0
-      },
-      {
-        "query": "\u0426\u0435\u043d\u0442\u0440\u0430\u043b\u0438\u0437\u043e\u0432\u0430\u043d\u043d\u0430\u044f \u043d\u0430\u0441\u0442\u0440\u043e\u0439\u043a\u0430 \u043a\u043b\u0438\u0435\u043d\u0442\u043e\u0432 (Part 2)",
-        "expected_ids": [
-          "auto-centralized-client-bundles-2"
-        ],
-        "retrieved_ids": [
-          "auto-centralized-client-bundles-2",
-          "auto-centralized-client-bundles-15",
-          "auto-websocket-api-2"
-        ],
-        "hits": 1,
-        "precision": 0.3333,
-        "recall": 1.0
-      },
-      {
-        "query": "\u0426\u0435\u043d\u0442\u0440\u0430\u043b\u0438\u0437\u043e\u0432\u0430\u043d\u043d\u0430\u044f \u043d\u0430\u0441\u0442\u0440\u043e\u0439\u043a\u0430 \u043a\u043b\u0438\u0435\u043d\u0442\u043e\u0432 (Part 3)",
-        "expected_ids": [
-          "auto-centralized-client-bundles-3"
-        ],
-        "retrieved_ids": [
-          "auto-centralized-client-bundles-2",
-          "auto-centralized-client-bundles-15",
-          "auto-websocket-api-2"
-        ],
-        "hits": 0,
-        "precision": 0.0,
-        "recall": 0.0
       }
     ]
   },
-  "breaches": [
-    "precision_at_k=0.2 < 0.5",
-    "hallucination_rate=0.8 > 0.5"
-  ]
+  "breaches": []
 }

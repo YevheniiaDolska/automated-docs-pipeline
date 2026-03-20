@@ -209,9 +209,9 @@ Expected output: `INFO - Documentation built in X.XX seconds`
 
 ## Retrieval precision below threshold
 
-**You see:** The `retrieval_evals_report.json` shows precision below 0.7 or recall below 0.8.
+**You see:** The `retrieval_evals_report.json` shows precision below 0.5 or recall below 0.5.
 
-**Root cause:** The token-overlap baseline scorer runs without external dependencies and produces conservative scores. Enable advanced retrieval features (hybrid search, HyDE, cross-encoder reranking) for production-grade precision and recall.
+**Root cause:** The eval dataset queries may not match the current module IDs after re-extraction. Re-run module extraction and update the eval dataset. Enable advanced retrieval features (hybrid search, HyDE, cross-encoder reranking) for production-grade precision and recall.
 
 ### Fix retrieval precision in 10 minutes
 

@@ -1,0 +1,63 @@
+id: auto-tutorial-6
+title: 'Tutorial: launch your first VeriOps API integration (Part 6)'
+summary: Build a working VeriOps API integration in 15 minutes with authenticated
+  requests, project creation, and real-time WebSocket subscriptions.
+intents:
+- configure
+- integrate
+audiences:
+- beginner
+- practitioner
+channels:
+- docs
+- assistant
+- automation
+priority: 60
+status: active
+owner: docsops-auto
+last_verified: '2026-03-20'
+dependencies: []
+tags:
+- auto-extracted
+- tutorial
+content:
+  docs_markdown: "## Step 4: subscribe to real-time updates via WebSocket (5 minutes)\n\
+    \nOpen a WebSocket connection to receive live project change events. Create this\
+    \ Node.js script:\n\n```javascript\n// tutorial-websocket.js\n// Connect to VeriOps\
+    \ WebSocket API and subscribe to project updates\n// Requires: Node.js 18+ (built-in\
+    \ WebSocket support)\nconst ws = new WebSocket(\n  'wss://api.veriops.example/realtime?token=YOUR_API_KEY'\n\
+    );\n\nws.addEventListener('open', () => {\n  console.log('Connected to VeriOps\
+    \ WebSocket API');\n\n// Subscribe to updates for the project you created in Step\
+    \ 2\n  ws.send(JSON.stringify({\n    type: 'subscribe',\n    request_id: 'tutorial-001',\n\
+    \    sent_at: new Date().toISOString(),\n    payload: {\n      channel: 'project.updated',\n\
+    \      filters: { project_id: 'prj_abc123' }\n    }\n  }));\n});\n\nws.addEventListener('message',\
+    \ (event) => {\n  const msg = JSON.parse(event.data);\n  if (msg.type === 'ack')\
+    \ {\n    console.log('Subscription confirmed:', msg.request_id);\n  } else if\
+    \ (msg.type === 'event') {\n    console.log('Project update received:');\n   \
+    \ console.log('  Status:', msg.payload.data.status);\n    console.log('  Updated\
+    \ by:', msg.payload.data.updated_by);\n  } else if (msg.type === 'ping') {\n \
+    \   ws.send(JSON.stringify({ type: 'pong', request_id: msg.request_id }));\n \
+    \ }\n});\n\nws.addEventListener('close', (event) => {\n  console.log('Disconnected:',\
+    \ event.code, event.reason);\n});"
+  assistant_context: "Use this module when answering questions related to: Tutorial:\
+    \ launch your first VeriOps API integration (Part 6). Source path: demo-showcase/acme/docs/guides/tutorial.md.\
+    \ Summary: Build a working VeriOps API integration in 15 minutes with authenticated\
+    \ requests, project creation, and real-time WebSocket subscriptions.\n\n## Step\
+    \ 4: subscribe to real-time updates via WebSocket (5 minutes)\n\nOpen a WebSocket\
+    \ connection to receive live project change events. Create this Node.js script:\n\
+    \n```javascript\n// tutorial-websocket.js\n// Connect to VeriOps WebSocket API\
+    \ and subscribe to project updates\n// Requires: Node.js 18+ (built-in WebSocket\
+    \ support)\nconst ws = new WebSocket(\n  'wss://api.veriops.example/realtime?token=YOUR_API_KEY'\n\
+    );\n\nws.addEventListener('open', () => {\n  console.log('Connected to VeriOps\
+    \ WebSocket API');\n\n// Subscribe to updates for the project you created in Step\
+    \ 2\n  ws.send(JSON.stringify({\n    type: 'subscribe',\n    request_id: 'tutorial-001',\n\
+    \    sent_at: new Date().toISOString(),\n    payload: {\n      channel: 'project.updated',\n\
+    \      filters: { project_id: 'prj_abc123' }\n    }\n  }));\n});\n\nws.addEventListener('message',\
+    \ (event) => {\n  const msg = JSON.parse(event.data);\n  if (msg.type === 'ack')\
+    \ {\n    console.log('Subscription confirmed:', msg.request_id);\n  } else if\
+    \ (msg.type === 'event') {\n    console.log('Project update received:');\n   \
+    \ console.log('  Status:', msg.payload.data.status);\n    console.log('  Updated\
+    \ by:', msg.payload.data.updated_by);\n  } else if (msg.type === 'ping') {\n \
+    \   ws.send(JSON.stringify({ type: 'pong', request_id: msg.request_id }));\n \
+    \ }\n});\n\nws.addEventListener('close', (event) => {\n  console.log('Disconnected:',\
+    \ event.code, event.reason);\n});"

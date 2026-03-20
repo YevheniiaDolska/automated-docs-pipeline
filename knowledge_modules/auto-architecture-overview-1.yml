@@ -1,0 +1,107 @@
+id: auto-architecture-overview-1
+title: VeriOps API platform architecture
+summary: Interactive architecture diagram showing the VeriOps API platform with 5
+  protocol gateways, 4 microservices, and data infrastructure across 5 layers.
+intents:
+- integrate
+audiences:
+- developer
+- operator
+channels:
+- docs
+- assistant
+- automation
+priority: 60
+status: active
+owner: docsops-auto
+last_verified: '2026-03-20'
+dependencies: []
+tags:
+- architecture-overview
+- auto-extracted
+- concept
+content:
+  docs_markdown: '# VeriOps API platform architecture
+
+
+    The VeriOps API platform is a multi-protocol system that exposes 5 API interfaces
+    (REST, GraphQL, gRPC, AsyncAPI, WebSocket) through a unified gateway layer backed
+    by microservices and event-driven infrastructure.
+
+
+    <div class="veriops-badges" markdown>
+
+
+    ![Powered by VeriOps](https://img.shields.io/badge/Powered%20by-VeriOps-7c3aed?style=flat-square&logo=data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCI+PHBhdGggZmlsbD0id2hpdGUiIGQ9Ik0xMiAyTDEgMTJsNCA0IDctNyA3IDcgNC00TDEyIDJ6Ii8+PC9zdmc+)
+
+    ![Quality Score](https://img.shields.io/badge/Quality%20Score-100%25-10b981?style=flat-square)
+
+    ![Protocols](https://img.shields.io/badge/Protocols-5-7c3aed?style=flat-square)
+
+    ![Endpoints](https://img.shields.io/badge/Endpoints-19-3b82f6?style=flat-square)
+
+
+    </div>
+
+
+    ## Interactive platform diagram
+
+
+    Click any component in the diagram to view its description, key metrics, and technology
+    tags in the detail panel below.
+
+
+    <div class="interactive-diagram" markdown>
+
+    <iframe src="../../diagrams/acme-architecture.html" title="VeriOps platform architecture
+    diagram"></iframe>
+
+    </div>
+
+
+    ## Layer breakdown'
+  assistant_context: 'Use this module when answering questions related to: VeriOps
+    API platform architecture. Source path: demo-showcase/acme/docs/guides/architecture-overview.md.
+    Summary: Interactive architecture diagram showing the VeriOps API platform with
+    5 protocol gateways, 4 microservices, and data infrastructure across 5 layers.
+
+
+    # VeriOps API platform architecture
+
+
+    The VeriOps API platform is a multi-protocol system that exposes 5 API interfaces
+    (REST, GraphQL, gRPC, AsyncAPI, WebSocket) through a unified gateway layer backed
+    by microservices and event-driven infrastructure.
+
+
+    <div class="veriops-badges" markdown>
+
+
+    ![Powered by VeriOps](https://img.shields.io/badge/Powered%20by-VeriOps-7c3aed?style=flat-square&logo=data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCI+PHBhdGggZmlsbD0id2hpdGUiIGQ9Ik0xMiAyTDEgMTJsNCA0IDctNyA3IDcgNC00TDEyIDJ6Ii8+PC9zdmc+)
+
+    ![Quality Score](https://img.shields.io/badge/Quality%20Score-100%25-10b981?style=flat-square)
+
+    ![Protocols](https://img.shields.io/badge/Protocols-5-7c3aed?style=flat-square)
+
+    ![Endpoints](https://img.shields.io/badge/Endpoints-19-3b82f6?style=flat-square)
+
+
+    </div>
+
+
+    ## Interactive platform diagram
+
+
+    Click any component in the diagram to view its description, key metrics, and technology
+    tags in the detail panel below.
+
+
+    <div class="interactive-diagram" markdown>
+
+    <iframe src="../../diagrams/acme-architecture.html" title="VeriOps platform architecture
+    diagram"></iframe>
+
+    </div>
+
+
+    ## Layer breakdown'

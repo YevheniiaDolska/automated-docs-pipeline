@@ -1,0 +1,66 @@
+id: auto-grpc-gateway-4
+title: gRPC gateway invoke (Part 4)
+summary: Invoke VeriOps gRPC services through the HTTP gateway with service catalog,
+  proto definitions, and interactive request testing.
+intents:
+- integrate
+- secure
+audiences:
+- developer
+- operator
+channels:
+- docs
+- assistant
+- automation
+priority: 60
+status: active
+owner: docsops-auto
+last_verified: '2026-03-20'
+dependencies: []
+tags:
+- auto-extracted
+- grpc-gateway
+- reference
+content:
+  docs_markdown: "## Quick start: get a project via HTTP gateway\n\nThe HTTP gateway\
+    \ translates JSON requests into gRPC calls. You do not need a gRPC client library.\n\
+    \n```bash\ncurl -X POST https://api.veriops.example/grpc/invoke \\\n  -H \"Authorization:\
+    \ Bearer YOUR_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\n\
+    \    \"service\": \"veriops.v1.ProjectService\",\n    \"method\": \"GetProject\"\
+    ,\n    \"payload\": {\"project_id\": \"prj_abc123\"}\n  }'\n```\n\n<!-- requires:\
+    \ api-key -->\n\n**Expected response (HTTP 200):**\n\n```json\n{\n  \"id\": \"\
+    prj_abc123\",\n  \"name\": \"Website Redesign\",\n  \"status\": \"active\"\n}\n\
+    ```\n\n## Quick start: get a project via grpcurl\n\nUse `grpcurl` for direct gRPC\
+    \ access without the HTTP gateway:\n\n```bash\ngrpcurl -d '{\"project_id\": \"\
+    prj_abc123\"}' \\\n  -H \"Authorization: Bearer YOUR_API_KEY\" \\\n  grpc.veriops.example:443\
+    \ veriops.v1.ProjectService/GetProject\n```\n\n<!-- requires: api-key, grpcurl\
+    \ -->\n\n## Quick start: create a project\n\n```bash\ncurl -X POST https://api.veriops.example/grpc/invoke\
+    \ \\\n  -H \"Authorization: Bearer YOUR_API_KEY\" \\\n  -H \"Content-Type: application/json\"\
+    \ \\\n  -d '{\n    \"service\": \"veriops.v1.ProjectService\",\n    \"method\"\
+    : \"CreateProject\",\n    \"payload\": {\"name\": \"Mobile App Launch\", \"status\"\
+    : \"active\"}\n  }'\n```\n\n<!-- requires: api-key -->\n\n**Expected response\
+    \ (HTTP 200):**\n\n```json\n{\n  \"id\": \"prj_def456\",\n  \"name\": \"Mobile\
+    \ App Launch\",\n  \"status\": \"active\"\n}\n```"
+  assistant_context: "Use this module when answering questions related to: gRPC gateway\
+    \ invoke (Part 4). Source path: demo-showcase/acme/docs/reference/grpc-gateway.md.\
+    \ Summary: Invoke VeriOps gRPC services through the HTTP gateway with service\
+    \ catalog, proto definitions, and interactive request testing.\n\n## Quick start:\
+    \ get a project via HTTP gateway\n\nThe HTTP gateway translates JSON requests\
+    \ into gRPC calls. You do not need a gRPC client library.\n\n```bash\ncurl -X\
+    \ POST https://api.veriops.example/grpc/invoke \\\n  -H \"Authorization: Bearer\
+    \ YOUR_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\n   \
+    \ \"service\": \"veriops.v1.ProjectService\",\n    \"method\": \"GetProject\"\
+    ,\n    \"payload\": {\"project_id\": \"prj_abc123\"}\n  }'\n```\n\n<!-- requires:\
+    \ api-key -->\n\n**Expected response (HTTP 200):**\n\n```json\n{\n  \"id\": \"\
+    prj_abc123\",\n  \"name\": \"Website Redesign\",\n  \"status\": \"active\"\n}\n\
+    ```\n\n## Quick start: get a project via grpcurl\n\nUse `grpcurl` for direct gRPC\
+    \ access without the HTTP gateway:\n\n```bash\ngrpcurl -d '{\"project_id\": \"\
+    prj_abc123\"}' \\\n  -H \"Authorization: Bearer YOUR_API_KEY\" \\\n  grpc.veriops.example:443\
+    \ veriops.v1.ProjectService/GetProject\n```\n\n<!-- requires: api-key, grpcurl\
+    \ -->\n\n## Quick start: create a project\n\n```bash\ncurl -X POST https://api.veriops.example/grpc/invoke\
+    \ \\\n  -H \"Authorization: Bearer YOUR_API_KEY\" \\\n  -H \"Content-Type: application/json\"\
+    \ \\\n  -d '{\n    \"service\": \"veriops.v1.ProjectService\",\n    \"method\"\
+    : \"CreateProject\",\n    \"payload\": {\"name\": \"Mobile App Launch\", \"status\"\
+    : \"active\"}\n  }'\n```\n\n<!-- requires: api-key -->\n\n**Expected response\
+    \ (HTTP 200):**\n\n```json\n{\n  \"id\": \"prj_def456\",\n  \"name\": \"Mobile\
+    \ App Launch\",\n  \"status\": \"active\"\n}\n```"

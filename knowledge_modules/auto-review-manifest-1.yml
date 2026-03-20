@@ -1,0 +1,79 @@
+id: auto-review-manifest-1
+title: 'Review manifest: operator approval checkpoint'
+summary: Operator review manifest with artifact inventory, stage summary, and approval
+  checklist for the Acme documentation pipeline.
+intents:
+- integrate
+audiences:
+- developer
+- operator
+channels:
+- docs
+- assistant
+- automation
+priority: 60
+status: active
+owner: docsops-auto
+last_verified: '2026-03-20'
+dependencies: []
+tags:
+- auto-extracted
+- reference
+- review-manifest
+content:
+  docs_markdown: '# Review manifest
+
+
+    <div class="veriops-badges" markdown>
+
+
+    ![Powered by VeriOps](https://img.shields.io/badge/Powered%20by-VeriOps-6366f1?style=flat-square)
+
+    ![Quality Score](https://img.shields.io/badge/Quality%20Score-100%25-10b981?style=flat-square)
+
+    ![Protocols](https://img.shields.io/badge/Protocols-5-6366f1?style=flat-square)
+
+
+    </div>
+
+
+    - Runtime config: `/mnt/c/Users/Kroha/Documents/development/Auto-Doc Pipeline/reports/acme-demo/client_runtime.yml`
+
+    - Weekly run rc: `1`
+
+    - Strictness: `standard`
+
+    - Available artifacts: `15`
+
+    - Missing artifacts: `12`'
+  assistant_context: 'Use this module when answering questions related to: Review
+    manifest: operator approval checkpoint. Source path: demo-showcase/acme/docs/quality/review-manifest.md.
+    Summary: Operator review manifest with artifact inventory, stage summary, and
+    approval checklist for the Acme documentation pipeline.
+
+
+    # Review manifest
+
+
+    <div class="veriops-badges" markdown>
+
+
+    ![Powered by VeriOps](https://img.shields.io/badge/Powered%20by-VeriOps-6366f1?style=flat-square)
+
+    ![Quality Score](https://img.shields.io/badge/Quality%20Score-100%25-10b981?style=flat-square)
+
+    ![Protocols](https://img.shields.io/badge/Protocols-5-6366f1?style=flat-square)
+
+
+    </div>
+
+
+    - Runtime config: `/mnt/c/Users/Kroha/Documents/development/Auto-Doc Pipeline/reports/acme-demo/client_runtime.yml`
+
+    - Weekly run rc: `1`
+
+    - Strictness: `standard`
+
+    - Available artifacts: `15`
+
+    - Missing artifacts: `12`'

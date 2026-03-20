@@ -77,7 +77,7 @@ The pipeline runs seven stages. Expect 5-10 minutes depending on contract comple
 [autopipeline] Protocols enabled: rest, graphql, grpc, asyncapi, websocket
 [stage] multi_protocol_contract ... DONE (5 protocols, 0 failures)
 [stage] kpi_wall ... DONE (quality_score: 100)
-[stage] retrieval_evals ... DONE (167 modules indexed)
+[stage] retrieval_evals ... DONE (124 modules indexed)
 [autopipeline] Pipeline complete. Exit code: 0
 ```
 

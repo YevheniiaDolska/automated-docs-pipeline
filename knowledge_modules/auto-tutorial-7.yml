@@ -1,0 +1,45 @@
+id: auto-tutorial-7
+title: 'Tutorial: launch your first VeriOps API integration (Part 7)'
+summary: Build a working VeriOps API integration in 15 minutes with authenticated
+  requests, project creation, and real-time WebSocket subscriptions.
+intents:
+- configure
+- integrate
+- secure
+audiences:
+- beginner
+- practitioner
+channels:
+- docs
+- assistant
+- automation
+priority: 60
+status: active
+owner: docsops-auto
+last_verified: '2026-03-20'
+dependencies: []
+tags:
+- auto-extracted
+- tutorial
+content:
+  docs_markdown: "// Keep the script running for 60 seconds to receive events\nsetTimeout(()\
+    \ => {\n  ws.close(1000, 'Tutorial complete');\n  console.log('Tutorial WebSocket\
+    \ client closed');\n}, 60000);\n```\n\n<!-- requires: api-key -->\n\nRun the script:\n\
+    \n```bash\nnode tutorial-websocket.js\n```\n\nWhile the script runs, update the\
+    \ project status from another terminal to trigger an event:\n\n```bash\ncurl -X\
+    \ PUT https://api.veriops.example/v1/projects/prj_abc123 \\\n  -H \"Authorization:\
+    \ Bearer YOUR_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"\
+    status\": \"archived\"}'\n```\n\n<!-- requires: api-key -->\n\nThe WebSocket client\
+    \ prints the update event within 1-2 seconds."
+  assistant_context: "Use this module when answering questions related to: Tutorial:\
+    \ launch your first VeriOps API integration (Part 7). Source path: demo-showcase/acme/docs/guides/tutorial.md.\
+    \ Summary: Build a working VeriOps API integration in 15 minutes with authenticated\
+    \ requests, project creation, and real-time WebSocket subscriptions.\n\n// Keep\
+    \ the script running for 60 seconds to receive events\nsetTimeout(() => {\n  ws.close(1000,\
+    \ 'Tutorial complete');\n  console.log('Tutorial WebSocket client closed');\n\
+    }, 60000);\n```\n\n<!-- requires: api-key -->\n\nRun the script:\n\n```bash\n\
+    node tutorial-websocket.js\n```\n\nWhile the script runs, update the project status\
+    \ from another terminal to trigger an event:\n\n```bash\ncurl -X PUT https://api.veriops.example/v1/projects/prj_abc123\
+    \ \\\n  -H \"Authorization: Bearer YOUR_API_KEY\" \\\n  -H \"Content-Type: application/json\"\
+    \ \\\n  -d '{\"status\": \"archived\"}'\n```\n\n<!-- requires: api-key -->\n\n\
+    The WebSocket client prints the update event within 1-2 seconds."

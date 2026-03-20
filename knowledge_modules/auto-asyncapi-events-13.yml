@@ -1,0 +1,52 @@
+id: auto-asyncapi-events-13
+title: AsyncAPI event docs (Part 13)
+summary: AsyncAPI 2.6.0 event documentation for VeriOps with channel contracts, delivery
+  semantics, payload schemas, and interactive event tester.
+intents:
+- integrate
+- secure
+- troubleshoot
+audiences:
+- developer
+- operator
+channels:
+- docs
+- assistant
+- automation
+priority: 60
+status: active
+owner: docsops-auto
+last_verified: '2026-03-20'
+dependencies: []
+tags:
+- asyncapi-events
+- auto-extracted
+- reference
+content:
+  docs_markdown: "tryNext('');\n  };\n})();\n</script>\n\n## Error handling\n\n| Error\
+    \ | Cause | Resolution |\n| --- | --- | --- |\n| `CONNECTION_REFUSED` | Broker\
+    \ unreachable | Verify `events.veriops.example:5672` is accessible from your network\
+    \ |\n| `AUTH_FAILED` | Invalid credentials | Check bearer token or SASL credentials\
+    \ |\n| `CHANNEL_NOT_FOUND` | Invalid channel name | Use exact channel names from\
+    \ the catalog above |\n| `PAYLOAD_TOO_LARGE` | Message exceeds 256 KB | Reduce\
+    \ payload size or split into multiple events |\n| `CONSUMER_TIMEOUT` | No ACK\
+    \ within 300 seconds | Acknowledge messages faster or increase prefetch count\
+    \ |\n\n## Next steps\n\n- [WebSocket event playground](websocket-events.md) for\
+    \ bidirectional real-time messaging\n- [REST API reference](rest-api.md) for synchronous\
+    \ CRUD operations\n- [Tutorial: launch your first integration](../guides/tutorial.md)\
+    \ to subscribe to events end-to-end"
+  assistant_context: "Use this module when answering questions related to: AsyncAPI\
+    \ event docs (Part 13). Source path: demo-showcase/acme/docs/reference/asyncapi-events.md.\
+    \ Summary: AsyncAPI 2.6.0 event documentation for VeriOps with channel contracts,\
+    \ delivery semantics, payload schemas, and interactive event tester.\n\ntryNext('');\n\
+    \  };\n})();\n</script>\n\n## Error handling\n\n| Error | Cause | Resolution |\n\
+    | --- | --- | --- |\n| `CONNECTION_REFUSED` | Broker unreachable | Verify `events.veriops.example:5672`\
+    \ is accessible from your network |\n| `AUTH_FAILED` | Invalid credentials | Check\
+    \ bearer token or SASL credentials |\n| `CHANNEL_NOT_FOUND` | Invalid channel\
+    \ name | Use exact channel names from the catalog above |\n| `PAYLOAD_TOO_LARGE`\
+    \ | Message exceeds 256 KB | Reduce payload size or split into multiple events\
+    \ |\n| `CONSUMER_TIMEOUT` | No ACK within 300 seconds | Acknowledge messages faster\
+    \ or increase prefetch count |\n\n## Next steps\n\n- [WebSocket event playground](websocket-events.md)\
+    \ for bidirectional real-time messaging\n- [REST API reference](rest-api.md) for\
+    \ synchronous CRUD operations\n- [Tutorial: launch your first integration](../guides/tutorial.md)\
+    \ to subscribe to events end-to-end"

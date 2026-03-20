@@ -1,0 +1,41 @@
+id: auto-websocket-events-6
+title: WebSocket event playground (Part 6)
+summary: Interactive WebSocket playground for VeriOps real-time API with bidirectional
+  messaging, channel subscriptions, and connection lifecycle management.
+intents:
+- integrate
+audiences:
+- developer
+- operator
+channels:
+- docs
+- assistant
+- automation
+priority: 60
+status: active
+owner: docsops-auto
+last_verified: '2026-03-20'
+dependencies: []
+tags:
+- auto-extracted
+- reference
+- websocket-events
+content:
+  docs_markdown: "subscribe(channel) {\n    this.subscriptions.add(channel);\n   \
+    \ if (this.ws.readyState === WebSocket.OPEN) {\n      this.ws.send(JSON.stringify({\n\
+    \        type: 'subscribe',\n        request_id: `req_${Date.now()}`,\n      \
+    \  payload: { channel }\n      }));\n    }\n  }\n\nhandleEvent(payload) {\n  \
+    \  console.log(`[${payload.event_type}] ${JSON.stringify(payload.data)}`);\n \
+    \ }\n}\n\n// Usage:\nconst client = new VeriOpsWebSocket('YOUR_API_KEY');\nclient.subscribe('project.updated');\n\
+    client.subscribe('task.completed');\n```\n\n<!-- requires: api-key -->"
+  assistant_context: "Use this module when answering questions related to: WebSocket\
+    \ event playground (Part 6). Source path: demo-showcase/acme/docs/reference/websocket-events.md.\
+    \ Summary: Interactive WebSocket playground for VeriOps real-time API with bidirectional\
+    \ messaging, channel subscriptions, and connection lifecycle management.\n\nsubscribe(channel)\
+    \ {\n    this.subscriptions.add(channel);\n    if (this.ws.readyState === WebSocket.OPEN)\
+    \ {\n      this.ws.send(JSON.stringify({\n        type: 'subscribe',\n       \
+    \ request_id: `req_${Date.now()}`,\n        payload: { channel }\n      }));\n\
+    \    }\n  }\n\nhandleEvent(payload) {\n    console.log(`[${payload.event_type}]\
+    \ ${JSON.stringify(payload.data)}`);\n  }\n}\n\n// Usage:\nconst client = new\
+    \ VeriOpsWebSocket('YOUR_API_KEY');\nclient.subscribe('project.updated');\nclient.subscribe('task.completed');\n\
+    ```\n\n<!-- requires: api-key -->"

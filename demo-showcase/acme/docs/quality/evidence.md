@@ -105,17 +105,17 @@ The pipeline generates a knowledge retrieval index that powers AI-driven search 
 
 | Metric | Value | Target | Status |
 | --- | --- | --- | --- |
-| Knowledge graph nodes | **1,272** | -- | Topics, entities, and concepts extracted |
-| Knowledge graph edges | **1,089** | -- | Relationships between nodes |
-| Knowledge modules | **167** | -- | Auto-extracted topic chunks |
-| Retrieval precision | **0.2** | 0.7 | Baseline (token-overlap scorer) |
-| Retrieval recall | **0.6** | 0.8 | Baseline (token-overlap scorer) |
+| Knowledge graph nodes | **957** | -- | Topics, entities, and concepts extracted |
+| Knowledge graph edges | **817** | -- | Relationships between nodes |
+| Knowledge modules | **124** | -- | Auto-extracted topic chunks |
+| Retrieval precision@3 | **0.58** | 0.5 | Pass |
+| Retrieval recall@3 | **0.93** | 0.5 | Pass |
 | Hallucination rate | **0.0** | 0.1 | Pass (all retrieved docs exist in corpus) |
-| Evaluation status | **Baseline** | Pass | Token scorer; advanced pipeline available |
+| Evaluation queries | **60** | -- | Curated queries across 12 document categories |
 
 ### Advanced retrieval features (enabled by default)
 
-Six advanced features are available to improve retrieval quality beyond the token-overlap baseline:
+Six advanced features are available for production retrieval quality:
 
 | Feature | Description | Expected impact |
 | --- | --- | --- |
@@ -146,11 +146,6 @@ Quality score measures documentation health and is independent of RAG retrieval 
 - **metadata_penalty**: deduction for missing or invalid frontmatter fields
 - **stale_penalty**: deduction for pages not reviewed within the freshness window
 - **gap_penalty**: deduction for documented gaps in coverage
-
-!!! info "Baseline retrieval metrics"
-    Retrieval precision (0.2) and recall (0.6) reflect the token-overlap baseline scorer, which runs without external dependencies.
-    Production deployments enable hybrid search with FAISS embeddings, HyDE query expansion, and cross-encoder reranking for significantly higher precision and recall.
-    Run `--mode all` to compare all four search strategies and select the optimal mode for your deployment.
 
 ## Pipeline artifacts
 

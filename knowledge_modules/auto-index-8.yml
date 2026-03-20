@@ -1,0 +1,92 @@
+id: auto-index-8
+title: VeriOps documentation (Part 8)
+summary: Pipeline-generated multi-protocol API documentation for VeriOps with KPI
+  dashboard, interactive references, and automated quality gates.
+intents:
+- integrate
+- troubleshoot
+audiences:
+- developer
+- operator
+channels:
+- docs
+- assistant
+- automation
+priority: 60
+status: active
+owner: docsops-auto
+last_verified: '2026-03-20'
+dependencies: []
+tags:
+- auto-extracted
+- index
+- reference
+content:
+  docs_markdown: '## Quick links
+
+
+    - [REST API reference (Swagger)](reference/rest-api.md) -- 14 endpoints for projects,
+    tasks, users, tags, and comments
+
+    - [GraphQL playground](reference/graphql-playground.md) -- live query editor with
+    schema explorer
+
+    - [gRPC gateway invoke](reference/grpc-gateway.md) -- HTTP gateway adapter for
+    `ProjectService`
+
+    - [AsyncAPI event docs](reference/asyncapi-events.md) -- event-driven channels
+    with delivery semantics
+
+    - [WebSocket event playground](reference/websocket-events.md) -- bidirectional
+    real-time messaging
+
+    - [Tutorial: launch your first integration](guides/tutorial.md) -- zero to working
+    project in 15 minutes
+
+    - [How-to: keep docs aligned](guides/how-to.md) -- release-day pipeline workflow
+
+    - [Concept: pipeline-first lifecycle](guides/concept.md) -- why automated docs
+    beat manual writing
+
+    - [Troubleshooting: pipeline issues](guides/troubleshooting.md) -- diagnose and
+    fix common failures
+
+    - [Quality evidence and gate results](quality/evidence.md) -- KPI metrics and
+    protocol gate details'
+  assistant_context: 'Use this module when answering questions related to: VeriOps
+    documentation (Part 8). Source path: demo-showcase/acme/docs/index.md. Summary:
+    Pipeline-generated multi-protocol API documentation for VeriOps with KPI dashboard,
+    interactive references, and automated quality gates.
+
+
+    ## Quick links
+
+
+    - [REST API reference (Swagger)](reference/rest-api.md) -- 14 endpoints for projects,
+    tasks, users, tags, and comments
+
+    - [GraphQL playground](reference/graphql-playground.md) -- live query editor with
+    schema explorer
+
+    - [gRPC gateway invoke](reference/grpc-gateway.md) -- HTTP gateway adapter for
+    `ProjectService`
+
+    - [AsyncAPI event docs](reference/asyncapi-events.md) -- event-driven channels
+    with delivery semantics
+
+    - [WebSocket event playground](reference/websocket-events.md) -- bidirectional
+    real-time messaging
+
+    - [Tutorial: launch your first integration](guides/tutorial.md) -- zero to working
+    project in 15 minutes
+
+    - [How-to: keep docs aligned](guides/how-to.md) -- release-day pipeline workflow
+
+    - [Concept: pipeline-first lifecycle](guides/concept.md) -- why automated docs
+    beat manual writing
+
+    - [Troubleshooting: pipeline issues](guides/troubleshooting.md) -- diagnose and
+    fix common failures
+
+    - [Quality evidence and gate results](quality/evidence.md) -- KPI metrics and
+    protocol gate details'

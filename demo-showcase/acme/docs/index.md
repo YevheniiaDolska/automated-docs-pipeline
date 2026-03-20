@@ -36,9 +36,9 @@ The pipeline evaluates documentation health on every run. These metrics come fro
 Quality score measures documentation health: metadata completeness, content freshness, and documentation gap coverage. It is independent of RAG retrieval metrics. Formula: `score = 100 - metadata_penalty - stale_penalty - gap_penalty`.
 
 | Protocol drift failures | **0** | 0 | All contracts valid |
-| Knowledge graph nodes | **1,272** | -- | RAG retrieval index |
-| Knowledge graph edges | **1,089** | -- | Cross-reference links |
-| Knowledge modules | **167** | -- | Auto-extracted from docs |
+| Knowledge graph nodes | **957** | -- | RAG retrieval index |
+| Knowledge graph edges | **817** | -- | Cross-reference links |
+| Knowledge modules | **124** | -- | Auto-extracted from docs |
 
 ## Pipeline execution summary
 
@@ -95,15 +95,12 @@ The pipeline generates a knowledge retrieval index that powers AI-driven search 
 
 | Metric | Value |
 | --- | --- |
-| Knowledge graph nodes | **1,272** |
-| Knowledge graph edges | **1,089** |
-| Knowledge modules | **167** auto-extracted |
-| Retrieval precision | **0.2** (token-overlap baseline) |
-| Retrieval recall | **0.6** (token-overlap baseline) |
+| Knowledge graph nodes | **957** |
+| Knowledge graph edges | **817** |
+| Knowledge modules | **124** auto-extracted |
+| Retrieval precision@3 | **0.58** |
+| Retrieval recall@3 | **0.93** |
 | Hallucination rate | **0.0** (all retrieved documents exist in corpus) |
-
-!!! info "Baseline retrieval metrics"
-    Precision (0.2) and recall (0.6) reflect the token-overlap baseline scorer, which runs without external dependencies. Production deployments enable hybrid search with FAISS embeddings, HyDE query expansion, and cross-encoder reranking for significantly higher precision and recall. Run `--mode all` to compare all four search strategies.
 
 | Advanced feature | Status |
 | --- | --- |
@@ -120,7 +117,7 @@ The pipeline generates a knowledge retrieval index that powers AI-driven search 
 
 1. **Automated quality enforcement.** 24 SEO/GEO checks, style linting, and contract validation run on every page before publish. No manual review of formatting or metadata.
 
-1. **Advanced RAG pipeline.** A knowledge graph with 1,272 nodes and 1,089 edges powers AI search agents. Six retrieval features (chunking, hybrid search, HyDE, reranking, embedding cache, multi-mode eval) maximize precision and recall.
+1. **Advanced RAG pipeline.** A knowledge graph with 957 nodes and 817 edges powers AI search agents. Precision@3 reaches 0.58 and recall@3 reaches 0.93 with zero hallucination. Six retrieval features (chunking, hybrid search, HyDE, reranking, embedding cache, multi-mode eval) maximize retrieval quality.
 
 1. **Real pipeline data.** Every metric on this site comes from actual pipeline reports, not hardcoded values. Run the pipeline again and the numbers update.
 

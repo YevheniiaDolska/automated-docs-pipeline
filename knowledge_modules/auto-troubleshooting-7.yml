@@ -1,0 +1,60 @@
+id: auto-troubleshooting-7
+title: 'Troubleshooting: common VeriOps pipeline issues (Part 7)'
+summary: Fix common VeriOps documentation pipeline issues in under 5 minutes, covering
+  contract failures, quality gates, build errors, and WebSocket problems.
+intents:
+- troubleshoot
+audiences:
+- support
+- operator
+channels:
+- docs
+- assistant
+- automation
+priority: 60
+status: active
+owner: docsops-auto
+last_verified: '2026-03-20'
+dependencies: []
+tags:
+- auto-extracted
+- troubleshooting
+content:
+  docs_markdown: "### Fix retrieval precision in 10 minutes\n\n1. Check the retrieval\
+    \ evaluation report:\n\n```bash\n    python3 -c \"\n    import json\n    r = json.load(open('reports/acme-demo/retrieval_evals_report.json'))\n\
+    \    print(f'Status: {r[\\\"status\\\"]}')\n    print(f'Precision: {r[\\\"precision\\\
+    \"]}')\n    print(f'Recall: {r[\\\"recall\\\"]}')\n    print(f'Hallucination rate:\
+    \ {r[\\\"hallucination_rate\\\"]}')\"\n    ```\n\n1. Run a multi-mode comparison\
+    \ to identify the best search strategy:\n\n```bash\n    python3 scripts/run_retrieval_evals.py\
+    \ \\\n      --mode all \\\n      --dataset config/retrieval_eval_dataset.yml \\\
+    \n      --report reports/retrieval_comparison.json\n    ```\n\nThis compares token,\
+    \ semantic, hybrid, and hybrid+rerank modes side by side.\n\n1. Improve knowledge\
+    \ module coverage:\n\n- Add more detailed content to documentation pages (each\
+    \ page should have at least 100 words)\n    - Include code examples with inline\
+    \ comments (the knowledge extractor indexes code blocks)\n    - Add tables with\
+    \ specific values (the knowledge extractor indexes structured data)\n\n1. Rebuild\
+    \ the retrieval index with chunking:\n\n```bash\n    python3 scripts/validate_knowledge_modules.py\n\
+    \    python3 scripts/generate_knowledge_retrieval_index.py\n    python3 scripts/generate_embeddings.py\
+    \ --chunk \\\n      --index docs/assets/knowledge-retrieval-index.json \\\n  \
+    \    --output-dir docs/assets/\n    ```"
+  assistant_context: "Use this module when answering questions related to: Troubleshooting:\
+    \ common VeriOps pipeline issues (Part 7). Source path: demo-showcase/acme/docs/guides/troubleshooting.md.\
+    \ Summary: Fix common VeriOps documentation pipeline issues in under 5 minutes,\
+    \ covering contract failures, quality gates, build errors, and WebSocket problems.\n\
+    \n### Fix retrieval precision in 10 minutes\n\n1. Check the retrieval evaluation\
+    \ report:\n\n```bash\n    python3 -c \"\n    import json\n    r = json.load(open('reports/acme-demo/retrieval_evals_report.json'))\n\
+    \    print(f'Status: {r[\\\"status\\\"]}')\n    print(f'Precision: {r[\\\"precision\\\
+    \"]}')\n    print(f'Recall: {r[\\\"recall\\\"]}')\n    print(f'Hallucination rate:\
+    \ {r[\\\"hallucination_rate\\\"]}')\"\n    ```\n\n1. Run a multi-mode comparison\
+    \ to identify the best search strategy:\n\n```bash\n    python3 scripts/run_retrieval_evals.py\
+    \ \\\n      --mode all \\\n      --dataset config/retrieval_eval_dataset.yml \\\
+    \n      --report reports/retrieval_comparison.json\n    ```\n\nThis compares token,\
+    \ semantic, hybrid, and hybrid+rerank modes side by side.\n\n1. Improve knowledge\
+    \ module coverage:\n\n- Add more detailed content to documentation pages (each\
+    \ page should have at least 100 words)\n    - Include code examples with inline\
+    \ comments (the knowledge extractor indexes code blocks)\n    - Add tables with\
+    \ specific values (the knowledge extractor indexes structured data)\n\n1. Rebuild\
+    \ the retrieval index with chunking:\n\n```bash\n    python3 scripts/validate_knowledge_modules.py\n\
+    \    python3 scripts/generate_knowledge_retrieval_index.py\n    python3 scripts/generate_embeddings.py\
+    \ --chunk \\\n      --index docs/assets/knowledge-retrieval-index.json \\\n  \
+    \    --output-dir docs/assets/\n    ```"

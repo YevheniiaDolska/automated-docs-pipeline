@@ -1,0 +1,36 @@
+id: auto-concept-6
+title: 'Concept: pipeline-first documentation lifecycle (Part 6)'
+summary: Pipeline-first documentation automates generation, validation, and publishing
+  of API docs from source contracts, reducing review cycles by 60%.
+intents:
+- integrate
+audiences:
+- developer
+- operator
+channels:
+- docs
+- assistant
+- automation
+priority: 60
+status: active
+owner: docsops-auto
+last_verified: '2026-03-20'
+dependencies: []
+tags:
+- auto-extracted
+- concept
+content:
+  docs_markdown: '## Quality gate breakdown
+
+
+    The pipeline enforces 24 automated checks before any document reaches production:'
+  assistant_context: 'Use this module when answering questions related to: Concept:
+    pipeline-first documentation lifecycle (Part 6). Source path: demo-showcase/acme/docs/guides/concept.md.
+    Summary: Pipeline-first documentation automates generation, validation, and publishing
+    of API docs from source contracts, reducing review cycles by 60%.
+
+
+    ## Quality gate breakdown
+
+
+    The pipeline enforces 24 automated checks before any document reaches production:'

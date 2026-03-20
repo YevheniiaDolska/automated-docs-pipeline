@@ -1,0 +1,83 @@
+id: auto-grpc-gateway-8
+title: gRPC gateway invoke (Part 8)
+summary: Invoke VeriOps gRPC services through the HTTP gateway with service catalog,
+  proto definitions, and interactive request testing.
+intents:
+- integrate
+audiences:
+- developer
+- operator
+channels:
+- docs
+- assistant
+- automation
+priority: 60
+status: active
+owner: docsops-auto
+last_verified: '2026-03-20'
+dependencies: []
+tags:
+- auto-extracted
+- grpc-gateway
+- reference
+content:
+  docs_markdown: '## Performance characteristics
+
+
+    | Metric | HTTP gateway | Direct gRPC | Notes |
+
+    | --- | --- | --- | --- |
+
+    | Latency (P50) | 12 ms | 3 ms | Gateway adds JSON serialization overhead |
+
+    | Latency (P99) | 45 ms | 15 ms | Direct gRPC uses binary protobuf |
+
+    | Throughput | 2,000 req/s | 8,000 req/s | Per-connection limits |
+
+    | Max concurrent streams | 100 | 1,000 | HTTP/2 stream multiplexing |
+
+    | Max message size | 4 MB | 4 MB | Configurable per-service |
+
+
+    ## Next steps
+
+
+    - [AsyncAPI event docs](asyncapi-events.md) for event-driven architecture patterns
+
+    - [WebSocket event playground](websocket-events.md) for real-time bidirectional
+    messaging
+
+    - [REST API reference](rest-api.md) for standard HTTP CRUD operations'
+  assistant_context: 'Use this module when answering questions related to: gRPC gateway
+    invoke (Part 8). Source path: demo-showcase/acme/docs/reference/grpc-gateway.md.
+    Summary: Invoke VeriOps gRPC services through the HTTP gateway with service catalog,
+    proto definitions, and interactive request testing.
+
+
+    ## Performance characteristics
+
+
+    | Metric | HTTP gateway | Direct gRPC | Notes |
+
+    | --- | --- | --- | --- |
+
+    | Latency (P50) | 12 ms | 3 ms | Gateway adds JSON serialization overhead |
+
+    | Latency (P99) | 45 ms | 15 ms | Direct gRPC uses binary protobuf |
+
+    | Throughput | 2,000 req/s | 8,000 req/s | Per-connection limits |
+
+    | Max concurrent streams | 100 | 1,000 | HTTP/2 stream multiplexing |
+
+    | Max message size | 4 MB | 4 MB | Configurable per-service |
+
+
+    ## Next steps
+
+
+    - [AsyncAPI event docs](asyncapi-events.md) for event-driven architecture patterns
+
+    - [WebSocket event playground](websocket-events.md) for real-time bidirectional
+    messaging
+
+    - [REST API reference](rest-api.md) for standard HTTP CRUD operations'
