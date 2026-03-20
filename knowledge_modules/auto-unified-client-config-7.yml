@@ -1,0 +1,74 @@
+id: auto-unified-client-config-7
+title: Unified Client Configuration (Part 7)
+summary: Single source of truth for per-client Auto-Doc Pipeline configuration, modules,
+  and automation.
+intents:
+- integrate
+audiences:
+- developer
+- operator
+channels:
+- docs
+- assistant
+- automation
+priority: 60
+status: active
+owner: docsops-auto
+last_verified: '2026-03-19'
+dependencies: []
+tags:
+- auto-extracted
+- reference
+- unified-client-config
+content:
+  docs_markdown: "```yaml\nruntime:\n  api_protocols: [\"rest\", \"graphql\", \"grpc\"\
+    , \"asyncapi\", \"websocket\"]\n  api_governance:\n    strictness: \"standard\"\
+    \ # standard | enterprise-strict\n  api_stack:\n    backend: \"node\"        #\
+    \ node | python | go | java | dotnet | mixed\n    gateway: \"kong\"        # none\
+    \ | kong | apigee | aws-api-gateway | nginx | envoy | custom\n  api_protocol_settings:\n\
+    \    rest:\n      enabled: true\n      mode: \"api-first\"\n      spec_path: \"\
+    api/openapi.yaml\"\n    graphql:\n      enabled: true\n      mode: \"api-first\"\
+    \n      schema_path: \"api/schema.graphql\"\n      code_first_schema_export_cmd:\
+    \ \"\"\n      graphql_endpoint: \"https://api.example.com/graphql\"\n      self_verify_runtime:\
+    \ true\n      self_verify_require_endpoint: false\n      generate_test_assets:\
+    \ true\n      upload_test_assets: false\n    grpc:\n      enabled: true\n    \
+    \  mode: \"api-first\"\n      proto_paths: [\"api/proto\"]\n      code_first_proto_export_cmd:\
+    \ \"\"\n      grpc_gateway_endpoint: \"https://api.example.com/grpc-gateway/invoke\"\
+    \n      self_verify_runtime: true\n      self_verify_require_endpoint: false\n\
+    \      generate_test_assets: true\n      upload_test_assets: false\n    asyncapi:\n\
+    \      enabled: true\n      mode: \"api-first\"\n      spec_path: \"api/asyncapi.yaml\"\
+    \n      code_first_contract_export_cmd: \"\"\n      asyncapi_ws_endpoint: \"wss://events.example.com/stream\"\
+    \n      asyncapi_http_publish_endpoint: \"https://events.example.com/publish\"\
+    \n      self_verify_runtime: true\n      self_verify_require_endpoint: false\n\
+    \      generate_test_assets: true\n      upload_test_assets: false\n    websocket:\n\
+    \      enabled: true\n      mode: \"api-first\"\n      contract_path: \"api/websocket.yaml\"\
+    \n      code_first_contract_export_cmd: \"\"\n      websocket_endpoint: \"wss://ws.example.com/realtime\"\
+    \n      self_verify_runtime: true\n      self_verify_require_endpoint: false\n\
+    \      generate_test_assets: true\n      upload_test_assets: false\n```"
+  assistant_context: "Use this module when answering questions related to: Unified\
+    \ Client Configuration (Part 7). Source path: docs/operations/UNIFIED_CLIENT_CONFIG.md.\
+    \ Summary: Single source of truth for per-client Auto-Doc Pipeline configuration,\
+    \ modules, and automation.\n\n```yaml\nruntime:\n  api_protocols: [\"rest\", \"\
+    graphql\", \"grpc\", \"asyncapi\", \"websocket\"]\n  api_governance:\n    strictness:\
+    \ \"standard\" # standard | enterprise-strict\n  api_stack:\n    backend: \"node\"\
+    \        # node | python | go | java | dotnet | mixed\n    gateway: \"kong\" \
+    \       # none | kong | apigee | aws-api-gateway | nginx | envoy | custom\n  api_protocol_settings:\n\
+    \    rest:\n      enabled: true\n      mode: \"api-first\"\n      spec_path: \"\
+    api/openapi.yaml\"\n    graphql:\n      enabled: true\n      mode: \"api-first\"\
+    \n      schema_path: \"api/schema.graphql\"\n      code_first_schema_export_cmd:\
+    \ \"\"\n      graphql_endpoint: \"https://api.example.com/graphql\"\n      self_verify_runtime:\
+    \ true\n      self_verify_require_endpoint: false\n      generate_test_assets:\
+    \ true\n      upload_test_assets: false\n    grpc:\n      enabled: true\n    \
+    \  mode: \"api-first\"\n      proto_paths: [\"api/proto\"]\n      code_first_proto_export_cmd:\
+    \ \"\"\n      grpc_gateway_endpoint: \"https://api.example.com/grpc-gateway/invoke\"\
+    \n      self_verify_runtime: true\n      self_verify_require_endpoint: false\n\
+    \      generate_test_assets: true\n      upload_test_assets: false\n    asyncapi:\n\
+    \      enabled: true\n      mode: \"api-first\"\n      spec_path: \"api/asyncapi.yaml\"\
+    \n      code_first_contract_export_cmd: \"\"\n      asyncapi_ws_endpoint: \"wss://events.example.com/stream\"\
+    \n      asyncapi_http_publish_endpoint: \"https://events.example.com/publish\"\
+    \n      self_verify_runtime: true\n      self_verify_require_endpoint: false\n\
+    \      generate_test_assets: true\n      upload_test_assets: false\n    websocket:\n\
+    \      enabled: true\n      mode: \"api-first\"\n      contract_path: \"api/websocket.yaml\"\
+    \n      code_first_contract_export_cmd: \"\"\n      websocket_endpoint: \"wss://ws.example.com/realtime\"\
+    \n      self_verify_runtime: true\n      self_verify_require_endpoint: false\n\
+    \      generate_test_assets: true\n      upload_test_assets: false\n```"

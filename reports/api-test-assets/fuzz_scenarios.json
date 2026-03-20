@@ -1,0 +1,59 @@
+{
+  "scenarios": [
+    {
+      "scenario_id": "fuzz-tc-asyncapi-orders/created-invalid-payload",
+      "protocol": "asyncapi",
+      "entity": "orders/created",
+      "payload_mutations": [
+        "missing_required_fields",
+        "invalid_types",
+        "oversized_payload"
+      ],
+      "expected": "Contract validation rejects malformed payloads without undefined behavior."
+    },
+    {
+      "scenario_id": "fuzz-tc-asyncapi-orders/created-ordering-idempotency",
+      "protocol": "asyncapi",
+      "entity": "orders/created",
+      "payload_mutations": [
+        "missing_required_fields",
+        "invalid_types",
+        "oversized_payload"
+      ],
+      "expected": "Contract validation rejects malformed payloads without undefined behavior."
+    },
+    {
+      "scenario_id": "fuzz-tc-asyncapi-orders/created-performance-throughput",
+      "protocol": "asyncapi",
+      "entity": "orders/created",
+      "payload_mutations": [
+        "missing_required_fields",
+        "invalid_types",
+        "oversized_payload"
+      ],
+      "expected": "Contract validation rejects malformed payloads without undefined behavior."
+    },
+    {
+      "scenario_id": "fuzz-tc-asyncapi-orders/created-publish",
+      "protocol": "asyncapi",
+      "entity": "orders/created",
+      "payload_mutations": [
+        "missing_required_fields",
+        "invalid_types",
+        "oversized_payload"
+      ],
+      "expected": "Contract validation rejects malformed payloads without undefined behavior."
+    },
+    {
+      "scenario_id": "fuzz-tc-asyncapi-orders/created-security-signature",
+      "protocol": "asyncapi",
+      "entity": "orders/created",
+      "payload_mutations": [
+        "missing_required_fields",
+        "invalid_types",
+        "oversized_payload"
+      ],
+      "expected": "Contract validation rejects malformed payloads without undefined behavior."
+    }
+  ]
+}

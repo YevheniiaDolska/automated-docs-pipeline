@@ -1,0 +1,26 @@
+syntax = "proto3";
+
+package auto_doc_pipeline.v1;
+
+service AutoDocPipelineService {
+  rpc GetProject (GetProjectRequest) returns (GetProjectResponse);
+  rpc ListProjects (ListProjectsRequest) returns (ListProjectsResponse);
+  rpc CreateProject (CreateProjectRequest) returns (CreateProjectResponse);
+  rpc UpdateProject (UpdateProjectRequest) returns (UpdateProjectResponse);
+}
+
+message GetProjectRequest { string id = 1; string trace_id = 2; }
+
+message GetProjectResponse { string status = 1; string result_id = 2; }
+
+message ListProjectsRequest { string id = 1; string trace_id = 2; }
+
+message ListProjectsResponse { string status = 1; string result_id = 2; }
+
+message CreateProjectRequest { string id = 1; string trace_id = 2; }
+
+message CreateProjectResponse { string status = 1; string result_id = 2; }
+
+message UpdateProjectRequest { string id = 1; string trace_id = 2; }
+
+message UpdateProjectResponse { string status = 1; string result_id = 2; }

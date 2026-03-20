@@ -1,0 +1,46 @@
+id: auto-plan-tiers-8
+title: Plan Tiers (Basic / Pro / Enterprise) (Part 8)
+summary: Feature packaging matrix and defaults for Basic, Pro, and Enterprise client
+  plans.
+intents:
+- integrate
+audiences:
+- developer
+- operator
+channels:
+- docs
+- assistant
+- automation
+priority: 60
+status: active
+owner: docsops-auto
+last_verified: '2026-03-19'
+dependencies: []
+tags:
+- auto-extracted
+- plan-tiers
+- reference
+content:
+  docs_markdown: "## 3. How to apply a plan for a client\n\n\\11. Copy `profiles/clients/_template.client.yml`\
+    \ to `profiles/clients/<client>.client.yml`.\n\\11. Copy one preset from this\
+    \ page into the new profile.\n\\11. Adjust paths (`docs_root`, `api_root`, `sdk_root`)\
+    \ and output targets.\n\\11. Build/install:\n\n```bash\npython3 scripts/provision_client_repo.py\
+    \ \\\n  --client profiles/clients/<client>.client.yml \\\n  --client-repo /path/to/client-repo\
+    \ \\\n  --docsops-dir docsops \\\n  --install-scheduler linux\n```\n\n## 4. Plan\
+    \ upgrade path\n\n- `Basic -> Pro`: turn on `drift_detection`, `docs_contract`,\
+    \ `kpi_sla`, `rag_optimization`, `knowledge_validation`, set `api_first.enabled=true`.\n\
+    - `Pro -> Enterprise`: enable `verify_user_path`, `run_docs_lint`, stricter `policy_overrides.kpi_sla`,\
+    \ add full weekly custom tasks.\n\n## Next steps\n\n- [Documentation index](../index.md)"
+  assistant_context: "Use this module when answering questions related to: Plan Tiers\
+    \ (Basic / Pro / Enterprise) (Part 8). Source path: docs/operations/PLAN_TIERS.md.\
+    \ Summary: Feature packaging matrix and defaults for Basic, Pro, and Enterprise\
+    \ client plans.\n\n## 3. How to apply a plan for a client\n\n\\11. Copy `profiles/clients/_template.client.yml`\
+    \ to `profiles/clients/<client>.client.yml`.\n\\11. Copy one preset from this\
+    \ page into the new profile.\n\\11. Adjust paths (`docs_root`, `api_root`, `sdk_root`)\
+    \ and output targets.\n\\11. Build/install:\n\n```bash\npython3 scripts/provision_client_repo.py\
+    \ \\\n  --client profiles/clients/<client>.client.yml \\\n  --client-repo /path/to/client-repo\
+    \ \\\n  --docsops-dir docsops \\\n  --install-scheduler linux\n```\n\n## 4. Plan\
+    \ upgrade path\n\n- `Basic -> Pro`: turn on `drift_detection`, `docs_contract`,\
+    \ `kpi_sla`, `rag_optimization`, `knowledge_validation`, set `api_first.enabled=true`.\n\
+    - `Pro -> Enterprise`: enable `verify_user_path`, `run_docs_lint`, stricter `policy_overrides.kpi_sla`,\
+    \ add full weekly custom tasks.\n\n## Next steps\n\n- [Documentation index](../index.md)"

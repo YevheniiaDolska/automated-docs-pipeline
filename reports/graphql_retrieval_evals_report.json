@@ -1,0 +1,375 @@
+{
+  "generated_at": "2026-03-19T12:28:48.544576+00:00",
+  "status": "breach",
+  "index_path": "/mnt/c/Users/Kroha/Documents/development/Auto-Doc Pipeline/docs/assets/knowledge-retrieval-index.json",
+  "dataset_path": "/mnt/c/Users/Kroha/Documents/development/Auto-Doc Pipeline/reports/graphql_retrieval_eval_dataset.generated.yml",
+  "thresholds": {
+    "min_precision": 0.5,
+    "min_recall": 0.5,
+    "max_hallucination_rate": 0.5
+  },
+  "metrics": {
+    "status": "ok",
+    "precision_at_k": 0.1867,
+    "recall_at_k": 0.56,
+    "hallucination_rate": 0.8133,
+    "sample_count": 25,
+    "top_k": 3,
+    "samples": [
+      {
+        "query": "API playground",
+        "expected_ids": [
+          "auto-api-playground-1"
+        ],
+        "retrieved_ids": [
+          "auto-run-api-first-production-flow-11",
+          "auto-set-up-real-time-webhook-processing-pipeline-13",
+          "auto-centralized-client-bundles-13"
+        ],
+        "hits": 0,
+        "precision": 0.0,
+        "recall": 0.0
+      },
+      {
+        "query": "API playground (Part 2)",
+        "expected_ids": [
+          "auto-api-playground-2"
+        ],
+        "retrieved_ids": [
+          "auto-run-api-first-production-flow-11",
+          "auto-set-up-real-time-webhook-processing-pipeline-13",
+          "auto-centralized-client-bundles-13"
+        ],
+        "hits": 0,
+        "precision": 0.0,
+        "recall": 0.0
+      },
+      {
+        "query": "API playground (Part 3)",
+        "expected_ids": [
+          "auto-api-playground-3"
+        ],
+        "retrieved_ids": [
+          "auto-run-api-first-production-flow-11",
+          "auto-set-up-real-time-webhook-processing-pipeline-13",
+          "auto-centralized-client-bundles-13"
+        ],
+        "hits": 0,
+        "precision": 0.0,
+        "recall": 0.0
+      },
+      {
+        "query": "Assemble intent experiences",
+        "expected_ids": [
+          "auto-assemble-intent-experiences-1"
+        ],
+        "retrieved_ids": [
+          "auto-configure-ask-ai-module-3",
+          "auto-install-ask-ai-runtime-pack-3",
+          "auto-assemble-intent-experiences-1"
+        ],
+        "hits": 1,
+        "precision": 0.3333,
+        "recall": 1.0
+      },
+      {
+        "query": "Assemble intent experiences (Part 2)",
+        "expected_ids": [
+          "auto-assemble-intent-experiences-2"
+        ],
+        "retrieved_ids": [
+          "auto-configure-ask-ai-module-3",
+          "auto-install-ask-ai-runtime-pack-3",
+          "auto-assemble-intent-experiences-2"
+        ],
+        "hits": 1,
+        "precision": 0.3333,
+        "recall": 1.0
+      },
+      {
+        "query": "ASYNCAPI API Reference",
+        "expected_ids": [
+          "auto-asyncapi-api-1"
+        ],
+        "retrieved_ids": [
+          "auto-asyncapi-api-2",
+          "auto-asyncapi-api-1",
+          "auto-asyncapi-api-3"
+        ],
+        "hits": 1,
+        "precision": 0.3333,
+        "recall": 1.0
+      },
+      {
+        "query": "ASYNCAPI API Reference (Part 2)",
+        "expected_ids": [
+          "auto-asyncapi-api-2"
+        ],
+        "retrieved_ids": [
+          "auto-asyncapi-api-2",
+          "auto-asyncapi-api-3",
+          "auto-graphql-api-3"
+        ],
+        "hits": 1,
+        "precision": 0.3333,
+        "recall": 1.0
+      },
+      {
+        "query": "ASYNCAPI API Reference (Part 3)",
+        "expected_ids": [
+          "auto-asyncapi-api-3"
+        ],
+        "retrieved_ids": [
+          "auto-asyncapi-api-2",
+          "auto-asyncapi-api-3",
+          "auto-graphql-api-3"
+        ],
+        "hits": 1,
+        "precision": 0.3333,
+        "recall": 1.0
+      },
+      {
+        "query": "Canonical Flow (Sales + Delivery)",
+        "expected_ids": [
+          "auto-canonical-flow-1"
+        ],
+        "retrieved_ids": [
+          "auto-canonical-flow-4",
+          "auto-canonical-flow-3",
+          "auto-canonical-flow-2"
+        ],
+        "hits": 0,
+        "precision": 0.0,
+        "recall": 0.0
+      },
+      {
+        "query": "Canonical Flow (Sales + Delivery) (Part 2)",
+        "expected_ids": [
+          "auto-canonical-flow-2"
+        ],
+        "retrieved_ids": [
+          "auto-canonical-flow-4",
+          "auto-canonical-flow-3",
+          "auto-canonical-flow-2"
+        ],
+        "hits": 1,
+        "precision": 0.3333,
+        "recall": 1.0
+      },
+      {
+        "query": "Canonical Flow (Sales + Delivery) (Part 3)",
+        "expected_ids": [
+          "auto-canonical-flow-3"
+        ],
+        "retrieved_ids": [
+          "auto-canonical-flow-4",
+          "auto-canonical-flow-3",
+          "auto-canonical-flow-2"
+        ],
+        "hits": 1,
+        "precision": 0.3333,
+        "recall": 1.0
+      },
+      {
+        "query": "Canonical Flow (Sales + Delivery) (Part 4)",
+        "expected_ids": [
+          "auto-canonical-flow-4"
+        ],
+        "retrieved_ids": [
+          "auto-canonical-flow-4",
+          "auto-canonical-flow-3",
+          "auto-canonical-flow-2"
+        ],
+        "hits": 1,
+        "precision": 0.3333,
+        "recall": 1.0
+      },
+      {
+        "query": "Canonical Flow (Sales + Delivery) (Part 5)",
+        "expected_ids": [
+          "auto-canonical-flow-5"
+        ],
+        "retrieved_ids": [
+          "auto-canonical-flow-4",
+          "auto-canonical-flow-3",
+          "auto-canonical-flow-2"
+        ],
+        "hits": 0,
+        "precision": 0.0,
+        "recall": 0.0
+      },
+      {
+        "query": "Canonical Flow (Sales + Delivery) (Part 6)",
+        "expected_ids": [
+          "auto-canonical-flow-6"
+        ],
+        "retrieved_ids": [
+          "auto-canonical-flow-4",
+          "auto-canonical-flow-3",
+          "auto-canonical-flow-2"
+        ],
+        "hits": 0,
+        "precision": 0.0,
+        "recall": 0.0
+      },
+      {
+        "query": "Canonical Flow (Sales + Delivery) (Part 7)",
+        "expected_ids": [
+          "auto-canonical-flow-7"
+        ],
+        "retrieved_ids": [
+          "auto-canonical-flow-4",
+          "auto-canonical-flow-3",
+          "auto-canonical-flow-2"
+        ],
+        "hits": 0,
+        "precision": 0.0,
+        "recall": 0.0
+      },
+      {
+        "query": "\u0426\u0435\u043d\u0442\u0440\u0430\u043b\u0438\u0437\u043e\u0432\u0430\u043d\u043d\u0430\u044f \u043d\u0430\u0441\u0442\u0440\u043e\u0439\u043a\u0430 \u043a\u043b\u0438\u0435\u043d\u0442\u043e\u0432",
+        "expected_ids": [
+          "auto-centralized-client-bundles-1"
+        ],
+        "retrieved_ids": [
+          "auto-api-playground-1",
+          "auto-api-playground-2",
+          "auto-api-playground-3"
+        ],
+        "hits": 0,
+        "precision": 0.0,
+        "recall": 0.0
+      },
+      {
+        "query": "\u0426\u0435\u043d\u0442\u0440\u0430\u043b\u0438\u0437\u043e\u0432\u0430\u043d\u043d\u0430\u044f \u043d\u0430\u0441\u0442\u0440\u043e\u0439\u043a\u0430 \u043a\u043b\u0438\u0435\u043d\u0442\u043e\u0432 (Part 10)",
+        "expected_ids": [
+          "auto-centralized-client-bundles-10"
+        ],
+        "retrieved_ids": [
+          "auto-centralized-client-bundles-10",
+          "auto-canonical-flow-3",
+          "auto-unified-client-config-10"
+        ],
+        "hits": 1,
+        "precision": 0.3333,
+        "recall": 1.0
+      },
+      {
+        "query": "\u0426\u0435\u043d\u0442\u0440\u0430\u043b\u0438\u0437\u043e\u0432\u0430\u043d\u043d\u0430\u044f \u043d\u0430\u0441\u0442\u0440\u043e\u0439\u043a\u0430 \u043a\u043b\u0438\u0435\u043d\u0442\u043e\u0432 (Part 11)",
+        "expected_ids": [
+          "auto-centralized-client-bundles-11"
+        ],
+        "retrieved_ids": [
+          "auto-centralized-client-bundles-15",
+          "auto-centralized-client-bundles-12",
+          "auto-centralized-client-bundles-3"
+        ],
+        "hits": 0,
+        "precision": 0.0,
+        "recall": 0.0
+      },
+      {
+        "query": "\u0426\u0435\u043d\u0442\u0440\u0430\u043b\u0438\u0437\u043e\u0432\u0430\u043d\u043d\u0430\u044f \u043d\u0430\u0441\u0442\u0440\u043e\u0439\u043a\u0430 \u043a\u043b\u0438\u0435\u043d\u0442\u043e\u0432 (Part 12)",
+        "expected_ids": [
+          "auto-centralized-client-bundles-12"
+        ],
+        "retrieved_ids": [
+          "auto-centralized-client-bundles-12",
+          "auto-graphql-api-2",
+          "auto-unified-client-config-12"
+        ],
+        "hits": 1,
+        "precision": 0.3333,
+        "recall": 1.0
+      },
+      {
+        "query": "\u0426\u0435\u043d\u0442\u0440\u0430\u043b\u0438\u0437\u043e\u0432\u0430\u043d\u043d\u0430\u044f \u043d\u0430\u0441\u0442\u0440\u043e\u0439\u043a\u0430 \u043a\u043b\u0438\u0435\u043d\u0442\u043e\u0432 (Part 13)",
+        "expected_ids": [
+          "auto-centralized-client-bundles-13"
+        ],
+        "retrieved_ids": [
+          "auto-set-up-real-time-webhook-processing-pipeline-13",
+          "auto-centralized-client-bundles-13",
+          "auto-unified-client-config-13"
+        ],
+        "hits": 1,
+        "precision": 0.3333,
+        "recall": 1.0
+      },
+      {
+        "query": "\u0426\u0435\u043d\u0442\u0440\u0430\u043b\u0438\u0437\u043e\u0432\u0430\u043d\u043d\u0430\u044f \u043d\u0430\u0441\u0442\u0440\u043e\u0439\u043a\u0430 \u043a\u043b\u0438\u0435\u043d\u0442\u043e\u0432 (Part 14)",
+        "expected_ids": [
+          "auto-centralized-client-bundles-14"
+        ],
+        "retrieved_ids": [
+          "auto-centralized-client-bundles-14",
+          "auto-unified-client-config-14",
+          "auto-set-up-real-time-webhook-processing-pipeline-14"
+        ],
+        "hits": 1,
+        "precision": 0.3333,
+        "recall": 1.0
+      },
+      {
+        "query": "\u0426\u0435\u043d\u0442\u0440\u0430\u043b\u0438\u0437\u043e\u0432\u0430\u043d\u043d\u0430\u044f \u043d\u0430\u0441\u0442\u0440\u043e\u0439\u043a\u0430 \u043a\u043b\u0438\u0435\u043d\u0442\u043e\u0432 (Part 15)",
+        "expected_ids": [
+          "auto-centralized-client-bundles-15"
+        ],
+        "retrieved_ids": [
+          "auto-centralized-client-bundles-15",
+          "auto-unified-client-config-15",
+          "auto-set-up-real-time-webhook-processing-pipeline-13"
+        ],
+        "hits": 1,
+        "precision": 0.3333,
+        "recall": 1.0
+      },
+      {
+        "query": "\u0426\u0435\u043d\u0442\u0440\u0430\u043b\u0438\u0437\u043e\u0432\u0430\u043d\u043d\u0430\u044f \u043d\u0430\u0441\u0442\u0440\u043e\u0439\u043a\u0430 \u043a\u043b\u0438\u0435\u043d\u0442\u043e\u0432 (Part 2)",
+        "expected_ids": [
+          "auto-centralized-client-bundles-2"
+        ],
+        "retrieved_ids": [
+          "auto-centralized-client-bundles-2",
+          "auto-centralized-client-bundles-15",
+          "auto-asyncapi-api-2"
+        ],
+        "hits": 1,
+        "precision": 0.3333,
+        "recall": 1.0
+      },
+      {
+        "query": "\u0426\u0435\u043d\u0442\u0440\u0430\u043b\u0438\u0437\u043e\u0432\u0430\u043d\u043d\u0430\u044f \u043d\u0430\u0441\u0442\u0440\u043e\u0439\u043a\u0430 \u043a\u043b\u0438\u0435\u043d\u0442\u043e\u0432 (Part 3)",
+        "expected_ids": [
+          "auto-centralized-client-bundles-3"
+        ],
+        "retrieved_ids": [
+          "auto-centralized-client-bundles-2",
+          "auto-centralized-client-bundles-15",
+          "auto-asyncapi-api-2"
+        ],
+        "hits": 0,
+        "precision": 0.0,
+        "recall": 0.0
+      },
+      {
+        "query": "\u0426\u0435\u043d\u0442\u0440\u0430\u043b\u0438\u0437\u043e\u0432\u0430\u043d\u043d\u0430\u044f \u043d\u0430\u0441\u0442\u0440\u043e\u0439\u043a\u0430 \u043a\u043b\u0438\u0435\u043d\u0442\u043e\u0432 (Part 4)",
+        "expected_ids": [
+          "auto-centralized-client-bundles-4"
+        ],
+        "retrieved_ids": [
+          "auto-centralized-client-bundles-2",
+          "auto-centralized-client-bundles-15",
+          "auto-asyncapi-api-2"
+        ],
+        "hits": 0,
+        "precision": 0.0,
+        "recall": 0.0
+      }
+    ]
+  },
+  "breaches": [
+    "precision_at_k=0.1867 < 0.5",
+    "hallucination_rate=0.8133 > 0.5"
+  ]
+}

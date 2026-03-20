@@ -1,0 +1,189 @@
+id: auto-pipeline-capabilities-catalog-7
+title: Pipeline Capabilities Catalog (Part 7)
+summary: Generated catalog of available pipeline commands, templates, policy packs,
+  and assets for client configuration.
+intents:
+- integrate
+- secure
+- troubleshoot
+audiences:
+- developer
+- operator
+channels:
+- docs
+- assistant
+- automation
+priority: 60
+status: active
+owner: docsops-auto
+last_verified: '2026-03-19'
+dependencies: []
+tags:
+- auto-extracted
+- pipeline-capabilities-catalog
+- reference
+content:
+  docs_markdown: '## Templates
+
+
+    These can be shipped via `bundle.include_paths` and used by LLM generation flow.
+
+
+    - `templates/admin-guide.md`
+
+    - `templates/api-endpoint.md`
+
+    - `templates/protocols/api-protocol-snippets.md`
+
+    - `templates/protocols/asyncapi-reference.md`
+
+    - `templates/protocols/graphql-reference.md`
+
+    - `templates/protocols/grpc-reference.md`
+
+    - `templates/protocols/websocket-reference.md`
+
+    - `templates/api-reference.md`
+
+    - `templates/architecture-overview.md`
+
+    - `templates/authentication-guide.md`
+
+    - `templates/best-practices.md`
+
+    - `templates/changelog.md`
+
+    - `templates/concept.md`
+
+    - `templates/configuration-guide.md`
+
+    - `templates/configuration-reference.md`
+
+    - `templates/deployment-guide.md`
+
+    - `templates/error-handling-guide.md`
+
+    - `templates/faq.md`
+
+    - `templates/glossary-page.md`
+
+    - `templates/how-to.md`
+
+    - `templates/integration-guide.md`
+
+    - `templates/interactive-diagram.html`
+
+    - `templates/migration-guide.md`
+
+    - `templates/plg-persona-guide.md`
+
+    - `templates/plg-value-page.md`
+
+    - `templates/quickstart.md`
+
+    - `templates/reference.md`
+
+    - `templates/release-note.md`
+
+    - `templates/sdk-reference.md`
+
+    - `templates/security-guide.md`
+
+    - `templates/testing-guide.md`
+
+    - `templates/troubleshooting.md`
+
+    - `templates/tutorial.md`
+
+    - `templates/upgrade-guide.md`
+
+    - `templates/use-case.md`
+
+    - `templates/user-guide.md`
+
+    - `templates/webhooks-guide.md`'
+  assistant_context: 'Use this module when answering questions related to: Pipeline
+    Capabilities Catalog (Part 7). Source path: docs/operations/PIPELINE_CAPABILITIES_CATALOG.md.
+    Summary: Generated catalog of available pipeline commands, templates, policy packs,
+    and assets for client configuration.
+
+
+    ## Templates
+
+
+    These can be shipped via `bundle.include_paths` and used by LLM generation flow.
+
+
+    - `templates/admin-guide.md`
+
+    - `templates/api-endpoint.md`
+
+    - `templates/protocols/api-protocol-snippets.md`
+
+    - `templates/protocols/asyncapi-reference.md`
+
+    - `templates/protocols/graphql-reference.md`
+
+    - `templates/protocols/grpc-reference.md`
+
+    - `templates/protocols/websocket-reference.md`
+
+    - `templates/api-reference.md`
+
+    - `templates/architecture-overview.md`
+
+    - `templates/authentication-guide.md`
+
+    - `templates/best-practices.md`
+
+    - `templates/changelog.md`
+
+    - `templates/concept.md`
+
+    - `templates/configuration-guide.md`
+
+    - `templates/configuration-reference.md`
+
+    - `templates/deployment-guide.md`
+
+    - `templates/error-handling-guide.md`
+
+    - `templates/faq.md`
+
+    - `templates/glossary-page.md`
+
+    - `templates/how-to.md`
+
+    - `templates/integration-guide.md`
+
+    - `templates/interactive-diagram.html`
+
+    - `templates/migration-guide.md`
+
+    - `templates/plg-persona-guide.md`
+
+    - `templates/plg-value-page.md`
+
+    - `templates/quickstart.md`
+
+    - `templates/reference.md`
+
+    - `templates/release-note.md`
+
+    - `templates/sdk-reference.md`
+
+    - `templates/security-guide.md`
+
+    - `templates/testing-guide.md`
+
+    - `templates/troubleshooting.md`
+
+    - `templates/tutorial.md`
+
+    - `templates/upgrade-guide.md`
+
+    - `templates/use-case.md`
+
+    - `templates/user-guide.md`
+
+    - `templates/webhooks-guide.md`'

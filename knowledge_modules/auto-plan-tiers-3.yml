@@ -1,0 +1,53 @@
+id: auto-plan-tiers-3
+title: Plan Tiers (Basic / Pro / Enterprise) (Part 3)
+summary: Feature packaging matrix and defaults for Basic, Pro, and Enterprise client
+  plans.
+intents:
+- integrate
+- troubleshoot
+audiences:
+- developer
+- operator
+channels:
+- docs
+- assistant
+- automation
+priority: 60
+status: active
+owner: docsops-auto
+last_verified: '2026-03-19'
+dependencies: []
+tags:
+- auto-extracted
+- plan-tiers
+- reference
+content:
+  docs_markdown: "### Basic preset\n\n```yaml\nbundle:\n  base_policy_pack: \"minimal\"\
+    \n  style_guide: \"google\"\nruntime:\n  docs_flow:\n    mode: \"code-first\"\n\
+    \  pr_autofix:\n    enabled: false\n  modules:\n    gap_detection: true\n    drift_detection:\
+    \ false\n    docs_contract: false\n    kpi_sla: false\n    rag_optimization: false\n\
+    \    ontology_graph: false\n    retrieval_evals: false\n    terminology_management:\
+    \ true\n    normalization: true\n    snippet_lint: true\n    self_checks: true\n\
+    \    fact_checks: true\n    knowledge_validation: false\n    i18n_sync: false\n\
+    \    release_pack: true\n  api_first:\n    enabled: false\n  custom_tasks:\n \
+    \   weekly:\n      - id: \"seo-geo-lite\"\n        enabled: true\n        command:\
+    \ \"python3 docsops/scripts/seo_geo_optimizer.py docs/\"\n        continue_on_error:\
+    \ true\n      - id: \"max-two-tasks\"\n        enabled: false\n        command:\
+    \ \"\"\n        continue_on_error: true\nprivate_tuning:\n  weekly_stale_days:\
+    \ 180\n```"
+  assistant_context: "Use this module when answering questions related to: Plan Tiers\
+    \ (Basic / Pro / Enterprise) (Part 3). Source path: docs/operations/PLAN_TIERS.md.\
+    \ Summary: Feature packaging matrix and defaults for Basic, Pro, and Enterprise\
+    \ client plans.\n\n### Basic preset\n\n```yaml\nbundle:\n  base_policy_pack: \"\
+    minimal\"\n  style_guide: \"google\"\nruntime:\n  docs_flow:\n    mode: \"code-first\"\
+    \n  pr_autofix:\n    enabled: false\n  modules:\n    gap_detection: true\n   \
+    \ drift_detection: false\n    docs_contract: false\n    kpi_sla: false\n    rag_optimization:\
+    \ false\n    ontology_graph: false\n    retrieval_evals: false\n    terminology_management:\
+    \ true\n    normalization: true\n    snippet_lint: true\n    self_checks: true\n\
+    \    fact_checks: true\n    knowledge_validation: false\n    i18n_sync: false\n\
+    \    release_pack: true\n  api_first:\n    enabled: false\n  custom_tasks:\n \
+    \   weekly:\n      - id: \"seo-geo-lite\"\n        enabled: true\n        command:\
+    \ \"python3 docsops/scripts/seo_geo_optimizer.py docs/\"\n        continue_on_error:\
+    \ true\n      - id: \"max-two-tasks\"\n        enabled: false\n        command:\
+    \ \"\"\n        continue_on_error: true\nprivate_tuning:\n  weekly_stale_days:\
+    \ 180\n```"

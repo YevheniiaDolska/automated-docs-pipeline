@@ -1,0 +1,107 @@
+docs_flow:
+  mode: "hybrid"
+api_governance:
+  strictness: "standard"
+api_protocols:
+  - rest
+  - graphql
+  - grpc
+  - asyncapi
+  - websocket
+api_protocol_settings:
+  rest:
+    enabled: true
+    mode: api-first
+    spec_path: api/openapi.yaml
+    spec_tree_path: api/taskstream
+    generate_test_assets: true
+    upload_test_assets: false
+  graphql:
+    enabled: true
+    mode: api-first
+    schema_path: reports/acme-demo/contracts/graphql.schema.graphql
+    graphql_endpoint: ""
+    self_verify_runtime: false
+    generate_test_assets: true
+    upload_test_assets: false
+  grpc:
+    enabled: true
+    mode: api-first
+    proto_paths:
+      - reports/acme-demo/contracts/grpc
+    grpc_gateway_endpoint: ""
+    self_verify_runtime: false
+    generate_test_assets: true
+    upload_test_assets: false
+  asyncapi:
+    enabled: true
+    mode: api-first
+    spec_path: reports/acme-demo/contracts/asyncapi.yaml
+    asyncapi_ws_endpoint: ""
+    asyncapi_http_publish_endpoint: ""
+    self_verify_runtime: false
+    generate_test_assets: true
+    upload_test_assets: false
+  websocket:
+    enabled: true
+    mode: api-first
+    contract_path: reports/acme-demo/contracts/websocket.yaml
+    websocket_endpoint: ""
+    self_verify_runtime: false
+    generate_test_assets: true
+    upload_test_assets: false
+api_first:
+  enabled: true
+  project_slug: acme-demo
+  notes_path: demos/api-first/taskstream-planning-notes.md
+  spec_path: api/openapi.yaml
+  spec_tree_path: api/taskstream
+  docs_provider: mkdocs
+  docs_spec_target: docs/assets/api
+  stubs_output: generated/api-stubs/fastapi/app/main.py
+  openapi_version: "3.0.3"
+  regression_snapshot_path: api/.openapi-regression.json
+  generate_from_notes: true
+  verify_user_path: false
+  sandbox_backend: external
+  mock_base_url: "https://sandbox-api.example.com/v1"
+  sync_playground_endpoint: true
+  generate_test_assets: true
+  upload_test_assets: false
+  auto_remediate: true
+  max_attempts: 2
+paths:
+  docs_root: docs
+modules:
+  gap_detection: true
+  drift_detection: true
+  docs_contract: true
+  kpi_sla: true
+  rag_optimization: true
+  ontology_graph: true
+  retrieval_evals: true
+  terminology_management: true
+  multilang_examples: true
+  normalization: true
+  snippet_lint: true
+  self_checks: true
+  fact_checks: true
+  knowledge_validation: true
+  i18n_sync: true
+  release_pack: true
+custom_tasks:
+  weekly: []
+terminology:
+  enabled: true
+  glossary_path: glossary.yml
+retrieval_eval:
+  enabled: true
+  index_path: docs/assets/knowledge-retrieval-index.json
+knowledge_graph:
+  enabled: true
+  modules_dir: knowledge_modules
+  output_path: docs/assets/knowledge-graph.jsonld
+multilang_examples:
+  enabled: true
+  scope: all
+  required_languages: [curl, javascript, python]

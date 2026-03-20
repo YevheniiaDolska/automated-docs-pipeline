@@ -1,0 +1,72 @@
+id: auto-canonical-flow-1
+title: Canonical Flow (Sales + Delivery)
+summary: Canonical sales and delivery flow for onboarding and operating client Auto-Doc
+  Pipeline setups.
+intents:
+- configure
+- integrate
+audiences:
+- developer
+- operator
+channels:
+- docs
+- assistant
+- automation
+priority: 60
+status: active
+owner: docsops-auto
+last_verified: '2026-03-19'
+dependencies: []
+tags:
+- auto-extracted
+- canonical-flow
+- reference
+content:
+  docs_markdown: '# Canonical Flow (Sales + Delivery)
+
+
+    This is the single source of truth for how to sell and run the pipeline today.
+
+
+    ## 1. Core promise
+
+
+    One-time setup, then smooth weekly automation:
+
+
+    \11. Generate/configure client profile.
+
+    \11. Provision bundle into client repo.
+
+    \11. Install scheduler.
+
+    \11. Weekly reports and checks run automatically.
+
+    \11. Human only reviews report + final docs.'
+  assistant_context: 'Use this module when answering questions related to: Canonical
+    Flow (Sales + Delivery). Source path: docs/operations/CANONICAL_FLOW.md. Summary:
+    Canonical sales and delivery flow for onboarding and operating client Auto-Doc
+    Pipeline setups.
+
+
+    # Canonical Flow (Sales + Delivery)
+
+
+    This is the single source of truth for how to sell and run the pipeline today.
+
+
+    ## 1. Core promise
+
+
+    One-time setup, then smooth weekly automation:
+
+
+    \11. Generate/configure client profile.
+
+    \11. Provision bundle into client repo.
+
+    \11. Install scheduler.
+
+    \11. Weekly reports and checks run automatically.
+
+    \11. Human only reviews report + final docs.'

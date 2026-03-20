@@ -1,0 +1,266 @@
+{
+  "runtime_config": "/mnt/c/Users/Kroha/Documents/development/Auto-Doc Pipeline/reports/acme-demo/client_runtime.yml",
+  "stage_summary": {
+    "weekly_rc": 1,
+    "strictness": "standard",
+    "stages": [
+      {
+        "stage": "multi_protocol_contract",
+        "path": "/mnt/c/Users/Kroha/Documents/development/Auto-Doc Pipeline/reports/acme-demo/multi_protocol_contract_report.json",
+        "exists": true
+      },
+      {
+        "stage": "consolidated_report",
+        "path": "/mnt/c/Users/Kroha/Documents/development/Auto-Doc Pipeline/reports/acme-demo/consolidated_report.json",
+        "exists": false
+      },
+      {
+        "stage": "audit_scorecard",
+        "path": "/mnt/c/Users/Kroha/Documents/development/Auto-Doc Pipeline/reports/acme-demo/audit_scorecard.json",
+        "exists": false
+      },
+      {
+        "stage": "finalize_gate",
+        "path": "/mnt/c/Users/Kroha/Documents/development/Auto-Doc Pipeline/reports/acme-demo/finalize_gate_report.json",
+        "exists": false
+      },
+      {
+        "stage": "kpi_wall",
+        "path": "/mnt/c/Users/Kroha/Documents/development/Auto-Doc Pipeline/reports/acme-demo/kpi-wall.json",
+        "exists": true
+      },
+      {
+        "stage": "kpi_sla",
+        "path": "/mnt/c/Users/Kroha/Documents/development/Auto-Doc Pipeline/reports/acme-demo/kpi-sla-report.json",
+        "exists": false
+      },
+      {
+        "stage": "retrieval_evals",
+        "path": "/mnt/c/Users/Kroha/Documents/development/Auto-Doc Pipeline/reports/acme-demo/retrieval_evals_report.json",
+        "exists": true
+      }
+    ],
+    "ok": false
+  },
+  "artifacts": [
+    {
+      "title": "Consolidated report",
+      "category": "reports",
+      "module": "",
+      "required": true,
+      "path": "/mnt/c/Users/Kroha/Documents/development/Auto-Doc Pipeline/reports/acme-demo/consolidated_report.json",
+      "exists": false
+    },
+    {
+      "title": "Audit scorecard (JSON)",
+      "category": "reports",
+      "module": "",
+      "required": false,
+      "path": "/mnt/c/Users/Kroha/Documents/development/Auto-Doc Pipeline/reports/acme-demo/audit_scorecard.json",
+      "exists": false
+    },
+    {
+      "title": "Audit scorecard (HTML)",
+      "category": "reports",
+      "module": "",
+      "required": false,
+      "path": "/mnt/c/Users/Kroha/Documents/development/Auto-Doc Pipeline/reports/acme-demo/audit_scorecard.html",
+      "exists": false
+    },
+    {
+      "title": "Finalize gate report",
+      "category": "reports",
+      "module": "",
+      "required": false,
+      "path": "/mnt/c/Users/Kroha/Documents/development/Auto-Doc Pipeline/reports/acme-demo/finalize_gate_report.json",
+      "exists": false
+    },
+    {
+      "title": "DocsOps status",
+      "category": "reports",
+      "module": "",
+      "required": false,
+      "path": "/mnt/c/Users/Kroha/Documents/development/Auto-Doc Pipeline/reports/acme-demo/docsops_status.json",
+      "exists": false
+    },
+    {
+      "title": "Ready marker",
+      "category": "reports",
+      "module": "",
+      "required": false,
+      "path": "/mnt/c/Users/Kroha/Documents/development/Auto-Doc Pipeline/reports/acme-demo/READY_FOR_REVIEW.txt",
+      "exists": false
+    },
+    {
+      "title": "Docs index",
+      "category": "docs",
+      "module": "",
+      "required": true,
+      "path": "/mnt/c/Users/Kroha/Documents/development/Auto-Doc Pipeline/docs/index.md",
+      "exists": true
+    },
+    {
+      "title": "Faceted search page",
+      "category": "docs",
+      "module": "",
+      "required": false,
+      "path": "/mnt/c/Users/Kroha/Documents/development/Auto-Doc Pipeline/docs/search-faceted.md",
+      "exists": true
+    },
+    {
+      "title": "Facets index",
+      "category": "search",
+      "module": "",
+      "required": false,
+      "path": "/mnt/c/Users/Kroha/Documents/development/Auto-Doc Pipeline/docs/assets/facets-index.json",
+      "exists": true
+    },
+    {
+      "title": "Multi-protocol contract report",
+      "category": "protocols",
+      "module": "",
+      "required": false,
+      "path": "/mnt/c/Users/Kroha/Documents/development/Auto-Doc Pipeline/reports/acme-demo/multi_protocol_contract_report.json",
+      "exists": true
+    },
+    {
+      "title": "GraphQL reference",
+      "category": "protocols",
+      "module": "",
+      "required": false,
+      "path": "/mnt/c/Users/Kroha/Documents/development/Auto-Doc Pipeline/docs/reference/graphql-api.md",
+      "exists": true
+    },
+    {
+      "title": "AsyncAPI reference",
+      "category": "protocols",
+      "module": "",
+      "required": false,
+      "path": "/mnt/c/Users/Kroha/Documents/development/Auto-Doc Pipeline/docs/reference/asyncapi-api.md",
+      "exists": true
+    },
+    {
+      "title": "REST playground",
+      "category": "protocols",
+      "module": "",
+      "required": false,
+      "path": "/mnt/c/Users/Kroha/Documents/development/Auto-Doc Pipeline/docs/reference/taskstream-api-playground.md",
+      "exists": true
+    },
+    {
+      "title": "API test cases JSON",
+      "category": "tests",
+      "module": "",
+      "required": false,
+      "path": "/mnt/c/Users/Kroha/Documents/development/Auto-Doc Pipeline/reports/acme-demo/api-test-assets/api_test_cases.json",
+      "exists": false
+    },
+    {
+      "title": "TestRail CSV",
+      "category": "tests",
+      "module": "",
+      "required": false,
+      "path": "/mnt/c/Users/Kroha/Documents/development/Auto-Doc Pipeline/reports/acme-demo/api-test-assets/testrail_test_cases.csv",
+      "exists": false
+    },
+    {
+      "title": "Zephyr JSON",
+      "category": "tests",
+      "module": "",
+      "required": false,
+      "path": "/mnt/c/Users/Kroha/Documents/development/Auto-Doc Pipeline/reports/acme-demo/api-test-assets/zephyr_test_cases.json",
+      "exists": false
+    },
+    {
+      "title": "Test coverage report",
+      "category": "tests",
+      "module": "",
+      "required": false,
+      "path": "/mnt/c/Users/Kroha/Documents/development/Auto-Doc Pipeline/reports/acme-demo/api-test-assets/coverage_report.json",
+      "exists": false
+    },
+    {
+      "title": "Fuzz scenarios",
+      "category": "tests",
+      "module": "",
+      "required": false,
+      "path": "/mnt/c/Users/Kroha/Documents/development/Auto-Doc Pipeline/reports/acme-demo/api-test-assets/fuzz_scenarios.json",
+      "exists": false
+    },
+    {
+      "title": "Glossary source",
+      "category": "quality",
+      "module": "terminology_management",
+      "required": false,
+      "path": "/mnt/c/Users/Kroha/Documents/development/Auto-Doc Pipeline/glossary.yml",
+      "exists": true
+    },
+    {
+      "title": "Glossary sync report",
+      "category": "quality",
+      "module": "terminology_management",
+      "required": false,
+      "path": "/mnt/c/Users/Kroha/Documents/development/Auto-Doc Pipeline/reports/acme-demo/glossary_sync_report.json",
+      "exists": true
+    },
+    {
+      "title": "KPI wall",
+      "category": "quality",
+      "module": "kpi_sla",
+      "required": false,
+      "path": "/mnt/c/Users/Kroha/Documents/development/Auto-Doc Pipeline/reports/acme-demo/kpi-wall.json",
+      "exists": true
+    },
+    {
+      "title": "KPI SLA report",
+      "category": "quality",
+      "module": "kpi_sla",
+      "required": false,
+      "path": "/mnt/c/Users/Kroha/Documents/development/Auto-Doc Pipeline/reports/acme-demo/kpi-sla-report.json",
+      "exists": false
+    },
+    {
+      "title": "RAG retrieval index",
+      "category": "rag",
+      "module": "rag_optimization",
+      "required": false,
+      "path": "/mnt/c/Users/Kroha/Documents/development/Auto-Doc Pipeline/docs/assets/knowledge-retrieval-index.json",
+      "exists": true
+    },
+    {
+      "title": "RAG knowledge graph",
+      "category": "rag",
+      "module": "ontology_graph",
+      "required": false,
+      "path": "/mnt/c/Users/Kroha/Documents/development/Auto-Doc Pipeline/docs/assets/knowledge-graph.jsonld",
+      "exists": true
+    },
+    {
+      "title": "Knowledge graph report",
+      "category": "rag",
+      "module": "ontology_graph",
+      "required": false,
+      "path": "/mnt/c/Users/Kroha/Documents/development/Auto-Doc Pipeline/reports/acme-demo/knowledge_graph_report.json",
+      "exists": true
+    },
+    {
+      "title": "Retrieval eval report",
+      "category": "rag",
+      "module": "retrieval_evals",
+      "required": false,
+      "path": "/mnt/c/Users/Kroha/Documents/development/Auto-Doc Pipeline/reports/acme-demo/retrieval_evals_report.json",
+      "exists": true
+    },
+    {
+      "title": "Retrieval eval dataset",
+      "category": "rag",
+      "module": "retrieval_evals",
+      "required": false,
+      "path": "/mnt/c/Users/Kroha/Documents/development/Auto-Doc Pipeline/reports/acme-demo/retrieval_eval_dataset.generated.yml",
+      "exists": true
+    }
+  ],
+  "available_artifacts": 15,
+  "missing_artifacts": 12,
+  "rag_metadata": {}
+}

@@ -1,0 +1,9 @@
+channels:
+  project.updated:
+    payload:
+      type: object
+      properties:
+        project_id:
+          type: string
+        status:
+          type: string

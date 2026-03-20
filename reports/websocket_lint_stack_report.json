@@ -1,0 +1,49 @@
+{
+  "protocol": "websocket",
+  "source": "/tmp/pytest-of-eudo/pytest-2377/test_multi_protocol_flow_gener0/api/websocket.yaml",
+  "checks": [
+    {
+      "name": "source_exists",
+      "ok": true,
+      "detail": "/tmp/pytest-of-eudo/pytest-2377/test_multi_protocol_flow_gener0/api/websocket.yaml"
+    },
+    {
+      "name": "root_channels_present",
+      "ok": true,
+      "detail": "channels/topics/events/messages exists"
+    },
+    {
+      "name": "channels_non_empty",
+      "ok": true,
+      "detail": "at least one channel"
+    },
+    {
+      "name": "channel_objects",
+      "ok": true,
+      "detail": "channel entries are objects"
+    },
+    {
+      "name": "payload_schema_present",
+      "ok": true,
+      "detail": "payload/schema/message exists per channel"
+    },
+    {
+      "name": "direction_or_message_present",
+      "ok": true,
+      "detail": "directional blocks or message schema"
+    },
+    {
+      "name": "balanced_braces",
+      "ok": true,
+      "detail": "brace balance in raw contract"
+    },
+    {
+      "name": "json_yaml_mapping",
+      "ok": true,
+      "detail": "contract parsed as mapping"
+    }
+  ],
+  "failed": [],
+  "ok": true,
+  "checks_total": 8
+}

@@ -1,0 +1,61 @@
+id: auto-unified-client-config-23
+title: Unified Client Configuration (Part 23)
+summary: Single source of truth for per-client Auto-Doc Pipeline configuration, modules,
+  and automation.
+intents:
+- integrate
+- troubleshoot
+audiences:
+- developer
+- operator
+channels:
+- docs
+- assistant
+- automation
+priority: 60
+status: active
+owner: docsops-auto
+last_verified: '2026-03-19'
+dependencies: []
+tags:
+- auto-extracted
+- reference
+- unified-client-config
+content:
+  docs_markdown: "### Additional examples\n\n#### Multi-language examples baseline\
+    \ (new standard)\n\n```yaml\nruntime:\n  modules:\n    multilang_examples: true\n\
+    \  multilang_examples:\n    enabled: true\n    scope: \"all\"\n    required_languages:\
+    \ [\"curl\", \"javascript\", \"python\"]\n```\n\nBundle requirements:\n\n```yaml\n\
+    bundle:\n  include_scripts:\n    - \"scripts/generate_multilang_tabs.py\"\n  \
+    \  - \"scripts/validate_multilang_examples.py\"\n```\n\nHow it works in weekly\
+    \ runner:\n\n- auto-generate tabbed examples from standalone cURL examples\n-\
+    \ validate required language tabs\n- run smoke execution and `expected-output`\
+    \ matching on tagged blocks\n\n#### API-first advanced baseline (overrides + regression\
+    \ gate)\n\n```yaml\nruntime:\n  api_first:\n    enabled: true\n    openapi_version:\
+    \ \"3.1.0\"\n    manual_overrides_path: \"api/overrides/openapi.manual.yml\"\n\
+    \    regression_snapshot_path: \"api/.openapi-regression.json\"\n    update_regression_snapshot:\
+    \ false\n```\n\nBundle requirements:\n\n```yaml\nbundle:\n  include_scripts:\n\
+    \    - \"scripts/apply_openapi_overrides.py\"\n    - \"scripts/check_openapi_regression.py\"\
+    \n```\n\n#### SEO/GEO weekly\n\n```yaml\nruntime:\n  custom_tasks:\n    weekly:\n\
+    \      - id: \"seo-geo\"\n        enabled: true\n        command: \"python3 docsops/scripts/seo_geo_optimizer.py\
+    \ docs/\"\n        continue_on_error: true\n```\n\n#### RAG / knowledge base weekly"
+  assistant_context: "Use this module when answering questions related to: Unified\
+    \ Client Configuration (Part 23). Source path: docs/operations/UNIFIED_CLIENT_CONFIG.md.\
+    \ Summary: Single source of truth for per-client Auto-Doc Pipeline configuration,\
+    \ modules, and automation.\n\n### Additional examples\n\n#### Multi-language examples\
+    \ baseline (new standard)\n\n```yaml\nruntime:\n  modules:\n    multilang_examples:\
+    \ true\n  multilang_examples:\n    enabled: true\n    scope: \"all\"\n    required_languages:\
+    \ [\"curl\", \"javascript\", \"python\"]\n```\n\nBundle requirements:\n\n```yaml\n\
+    bundle:\n  include_scripts:\n    - \"scripts/generate_multilang_tabs.py\"\n  \
+    \  - \"scripts/validate_multilang_examples.py\"\n```\n\nHow it works in weekly\
+    \ runner:\n\n- auto-generate tabbed examples from standalone cURL examples\n-\
+    \ validate required language tabs\n- run smoke execution and `expected-output`\
+    \ matching on tagged blocks\n\n#### API-first advanced baseline (overrides + regression\
+    \ gate)\n\n```yaml\nruntime:\n  api_first:\n    enabled: true\n    openapi_version:\
+    \ \"3.1.0\"\n    manual_overrides_path: \"api/overrides/openapi.manual.yml\"\n\
+    \    regression_snapshot_path: \"api/.openapi-regression.json\"\n    update_regression_snapshot:\
+    \ false\n```\n\nBundle requirements:\n\n```yaml\nbundle:\n  include_scripts:\n\
+    \    - \"scripts/apply_openapi_overrides.py\"\n    - \"scripts/check_openapi_regression.py\"\
+    \n```\n\n#### SEO/GEO weekly\n\n```yaml\nruntime:\n  custom_tasks:\n    weekly:\n\
+    \      - id: \"seo-geo\"\n        enabled: true\n        command: \"python3 docsops/scripts/seo_geo_optimizer.py\
+    \ docs/\"\n        continue_on_error: true\n```\n\n#### RAG / knowledge base weekly"

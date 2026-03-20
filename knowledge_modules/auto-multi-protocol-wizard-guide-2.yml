@@ -1,0 +1,85 @@
+id: auto-multi-protocol-wizard-guide-2
+title: Multi-Protocol Wizard Guide (Part 2)
+summary: Wizard UX for protocol-aware provisioning in VeriDoc and VeriOps.
+intents:
+- configure
+audiences:
+- practitioner
+- developer
+channels:
+- docs
+- assistant
+- automation
+priority: 60
+status: active
+owner: docsops-auto
+last_verified: '2026-03-19'
+dependencies: []
+tags:
+- auto-extracted
+- how-to
+- multi-protocol-wizard-guide
+content:
+  docs_markdown: '- pipeline runs automatically,
+
+    - client only reviews generated report packet with local LLM (`reports/LOCAL_LLM_REVIEW_PACKET.md`)
+    and approves publish.
+
+
+    VeriDoc mode:
+
+
+    - fully automated run, no manual action required (optional post-publish review
+    only).
+
+
+    RAG prep behavior:
+
+
+    - multi-protocol docs are normalized and enriched before indexing,
+
+    - knowledge modules are refreshed from generated docs,
+
+    - retrieval index and knowledge graph are rebuilt in the same pipeline,
+
+    - retrieval evals are executed and reported as evidence for quality controls.
+
+
+    ## Next steps
+
+
+    - [Documentation index](../index.md)'
+  assistant_context: 'Use this module when answering questions related to: Multi-Protocol
+    Wizard Guide (Part 2). Source path: docs/operations/MULTI_PROTOCOL_WIZARD_GUIDE.md.
+    Summary: Wizard UX for protocol-aware provisioning in VeriDoc and VeriOps.
+
+
+    - pipeline runs automatically,
+
+    - client only reviews generated report packet with local LLM (`reports/LOCAL_LLM_REVIEW_PACKET.md`)
+    and approves publish.
+
+
+    VeriDoc mode:
+
+
+    - fully automated run, no manual action required (optional post-publish review
+    only).
+
+
+    RAG prep behavior:
+
+
+    - multi-protocol docs are normalized and enriched before indexing,
+
+    - knowledge modules are refreshed from generated docs,
+
+    - retrieval index and knowledge graph are rebuilt in the same pipeline,
+
+    - retrieval evals are executed and reported as evidence for quality controls.
+
+
+    ## Next steps
+
+
+    - [Documentation index](../index.md)'

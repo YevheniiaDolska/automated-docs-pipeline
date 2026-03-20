@@ -1,0 +1,59 @@
+id: auto-configure-ask-ai-module-1
+title: Configure Ask AI module
+summary: Enable or disable Ask AI, set provider and billing mode, and verify configuration
+  in five steps for beginner operators.
+intents:
+- configure
+audiences:
+- practitioner
+- developer
+channels:
+- docs
+- assistant
+- automation
+priority: 60
+status: active
+owner: docsops-auto
+last_verified: '2026-03-19'
+dependencies: []
+tags:
+- auto-extracted
+- configure-ask-ai-module
+- how-to
+content:
+  docs_markdown: "# Configure Ask AI module\n\nUse this guide to enable or disable\
+    \ Ask AI in the pipeline and set provider plus billing mode without editing multiple\
+    \ files manually.\n\n```bash\nnpm run askai:status\nnpm run askai:enable\nnpm\
+    \ run askai:configure -- --provider openai --billing-mode user-subscription --model\
+    \ gpt-4.1-mini\n```\n\n## Before you start\n\nYou need:\n\n- A working project\
+    \ setup (`npm install` completed)\n- Access to `config/ask-ai.yml`\n- A decision\
+    \ about billing mode:\n  - `disabled`\n  - `bring-your-own-key`\n  - `user-subscription`\n\
+    \n## Step 1: Check current status\n\nRun:\n\n```bash\nnpm run askai:status\n```\n\
+    \nThis prints the active Ask AI configuration from `config/ask-ai.yml`.\n\n##\
+    \ Step 2: Enable or disable Ask AI\n\nEnable:\n\n```bash\nnpm run askai:enable\n\
+    ```\n\nDisable:\n\n```bash\nnpm run askai:disable\n```\n\nUse disabled mode when\
+    \ a client does not want AI Q&A in their deployment.\n\n## Step 3: Set provider\
+    \ and billing mode\n\nExample for managed usage:\n\n```bash\nnpm run askai:configure\
+    \ -- --provider openai --billing-mode user-subscription --model gpt-4.1-mini\n\
+    ```\n\nExample for customer-provided key:\n\n```bash\nnpm run askai:configure\
+    \ -- --provider openai --billing-mode bring-your-own-key\n```"
+  assistant_context: "Use this module when answering questions related to: Configure\
+    \ Ask AI module. Source path: docs/how-to/configure-ask-ai-module.md. Summary:\
+    \ Enable or disable Ask AI, set provider and billing mode, and verify configuration\
+    \ in five steps for beginner operators.\n\n# Configure Ask AI module\n\nUse this\
+    \ guide to enable or disable Ask AI in the pipeline and set provider plus billing\
+    \ mode without editing multiple files manually.\n\n```bash\nnpm run askai:status\n\
+    npm run askai:enable\nnpm run askai:configure -- --provider openai --billing-mode\
+    \ user-subscription --model gpt-4.1-mini\n```\n\n## Before you start\n\nYou need:\n\
+    \n- A working project setup (`npm install` completed)\n- Access to `config/ask-ai.yml`\n\
+    - A decision about billing mode:\n  - `disabled`\n  - `bring-your-own-key`\n \
+    \ - `user-subscription`\n\n## Step 1: Check current status\n\nRun:\n\n```bash\n\
+    npm run askai:status\n```\n\nThis prints the active Ask AI configuration from\
+    \ `config/ask-ai.yml`.\n\n## Step 2: Enable or disable Ask AI\n\nEnable:\n\n```bash\n\
+    npm run askai:enable\n```\n\nDisable:\n\n```bash\nnpm run askai:disable\n```\n\
+    \nUse disabled mode when a client does not want AI Q&A in their deployment.\n\n\
+    ## Step 3: Set provider and billing mode\n\nExample for managed usage:\n\n```bash\n\
+    npm run askai:configure -- --provider openai --billing-mode user-subscription\
+    \ --model gpt-4.1-mini\n```\n\nExample for customer-provided key:\n\n```bash\n\
+    npm run askai:configure -- --provider openai --billing-mode bring-your-own-key\n\
+    ```"

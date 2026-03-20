@@ -1,0 +1,176 @@
+{
+  "summary": {
+    "total_gaps": 8,
+    "high_priority": 5,
+    "medium_priority": 3,
+    "low_priority": 0,
+    "by_source": {
+      "code": 8
+    },
+    "by_doc_type": {
+      "how-to": 6,
+      "reference": 2
+    },
+    "by_category": {
+      "authentication": 1,
+      "database_schema": 1,
+      "config_option": 1,
+      "signature_change": 1,
+      "removed_function": 1,
+      "webhook": 1,
+      "new_function": 1,
+      "public_function": 1
+    }
+  },
+  "sources_analyzed": [
+    "code_changes",
+    "community"
+  ],
+  "generated_at": "2026-03-19T17:03:53.676384",
+  "gaps": [
+    {
+      "id": "CODE-0001",
+      "title": "Authentication: authentication: Auth",
+      "description": "Update authentication documentation for changes in cspell.json. Include security considerations.",
+      "source": "code",
+      "category": "authentication",
+      "suggested_doc_type": "how-to",
+      "priority": "high",
+      "frequency": 327,
+      "keywords": [],
+      "related_files": [
+        "cspell.json"
+      ],
+      "sample_queries": [],
+      "action_required": "Update authentication documentation for changes in cspell.json. Include security considerations.",
+      "status": "new",
+      "created_at": "2026-03-19T17:03:53.676431"
+    },
+    {
+      "id": "CODE-0030",
+      "title": "Database Schema: database_schema: schema (",
+      "description": "Document database schema change in demo-showcase/acme/docs/index.md. Update data model documentation.",
+      "source": "code",
+      "category": "database_schema",
+      "suggested_doc_type": "how-to",
+      "priority": "high",
+      "frequency": 22,
+      "keywords": [],
+      "related_files": [
+        "demo-showcase/acme/docs/index.md"
+      ],
+      "sample_queries": [],
+      "action_required": "Document database schema change in demo-showcase/acme/docs/index.md. Update data model documentation.",
+      "status": "new",
+      "created_at": "2026-03-19T17:03:53.676605"
+    },
+    {
+      "id": "CODE-0135",
+      "title": "Config Option: config_option: asyncapi",
+      "description": "Document configuration option: asyncapi. Include allowed values and when to use.",
+      "source": "code",
+      "category": "config_option",
+      "suggested_doc_type": "reference",
+      "priority": "high",
+      "frequency": 9,
+      "keywords": [],
+      "related_files": [
+        "docs/assets/protocols/asyncapi/asyncapi-api.md"
+      ],
+      "sample_queries": [],
+      "action_required": "Document configuration option: asyncapi. Include allowed values and when to use.",
+      "status": "new",
+      "created_at": "2026-03-19T17:03:53.677332"
+    },
+    {
+      "id": "CODE-1201",
+      "title": "Signature Change: Function signature changed: Paragraph",
+      "description": "UPDATE REQUIRED: Function Paragraph signature changed. Old: (\"Top Risks (Deterministic + LLM Consolidated) → New: (\"Appendix B — Evidence Traceability\", section_style). Update documentation and examples.",
+      "source": "code",
+      "category": "signature_change",
+      "suggested_doc_type": "how-to",
+      "priority": "high",
+      "frequency": 3,
+      "keywords": [],
+      "related_files": [
+        "scripts/generate_executive_audit_pdf.py"
+      ],
+      "sample_queries": [],
+      "action_required": "UPDATE REQUIRED: Function Paragraph signature changed. Old: (\"Top Risks (Deterministic + LLM Consolidated) → New: (\"Appendix B — Evidence Traceability\", section_style). Update documentation and examples.",
+      "status": "new",
+      "created_at": "2026-03-19T17:03:53.686189"
+    },
+    {
+      "id": "CODE-0062",
+      "title": "Removed Function: Function removed: Endpoint",
+      "description": "BREAKING: Function Endpoint was removed. Update documentation and add migration guide.",
+      "source": "code",
+      "category": "removed_function",
+      "suggested_doc_type": "how-to",
+      "priority": "high",
+      "frequency": 1,
+      "keywords": [],
+      "related_files": [
+        "demo-showcase/acme/docs/reference/graphql-playground.md"
+      ],
+      "sample_queries": [],
+      "action_required": "BREAKING: Function Endpoint was removed. Update documentation and add migration guide.",
+      "status": "new",
+      "created_at": "2026-03-19T17:03:53.676843"
+    },
+    {
+      "id": "CODE-0010",
+      "title": "Webhook: webhook: webhook",
+      "description": "Update webhook documentation for changes in demo-showcase/acme/docs/guides/troubleshooting.md. Include payload examples and event types.",
+      "source": "code",
+      "category": "webhook",
+      "suggested_doc_type": "how-to",
+      "priority": "medium",
+      "frequency": 840,
+      "keywords": [],
+      "related_files": [
+        "demo-showcase/acme/docs/guides/troubleshooting.md"
+      ],
+      "sample_queries": [],
+      "action_required": "Update webhook documentation for changes in demo-showcase/acme/docs/guides/troubleshooting.md. Include payload examples and event types.",
+      "status": "new",
+      "created_at": "2026-03-19T17:03:53.676493"
+    },
+    {
+      "id": "CODE-0007",
+      "title": "New Function: New function: print",
+      "description": "Document new function: print. Include parameters, return value, and usage example.",
+      "source": "code",
+      "category": "new_function",
+      "suggested_doc_type": "how-to",
+      "priority": "medium",
+      "frequency": 44,
+      "keywords": [],
+      "related_files": [
+        "demo-showcase/acme/docs/guides/how-to.md"
+      ],
+      "sample_queries": [],
+      "action_required": "Document new function: print. Include parameters, return value, and usage example.",
+      "status": "new",
+      "created_at": "2026-03-19T17:03:53.676474"
+    },
+    {
+      "id": "CODE-0047",
+      "title": "Public Function: public_function: on_message",
+      "description": "Consider documenting public API: on_message. Include parameters, return value, and example usage.",
+      "source": "code",
+      "category": "public_function",
+      "suggested_doc_type": "reference",
+      "priority": "medium",
+      "frequency": 2,
+      "keywords": [],
+      "related_files": [
+        "demo-showcase/acme/docs/reference/asyncapi-events.md"
+      ],
+      "sample_queries": [],
+      "action_required": "Consider documenting public API: on_message. Include parameters, return value, and example usage.",
+      "status": "new",
+      "created_at": "2026-03-19T17:03:53.676698"
+    }
+  ]
+}

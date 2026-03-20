@@ -1,0 +1,107 @@
+id: auto-unified-client-config-12
+title: Unified Client Configuration (Part 12)
+summary: Single source of truth for per-client Auto-Doc Pipeline configuration, modules,
+  and automation.
+intents:
+- integrate
+- troubleshoot
+audiences:
+- developer
+- operator
+channels:
+- docs
+- assistant
+- automation
+priority: 60
+status: active
+owner: docsops-auto
+last_verified: '2026-03-19'
+dependencies: []
+tags:
+- auto-extracted
+- reference
+- unified-client-config
+content:
+  docs_markdown: '- `openapi_version`: OpenAPI version for generation from planning
+    notes.
+
+    - `manual_overrides_path`: YAML overlay file applied after generation for advanced
+    schema blocks and `x-*` extensions.
+
+    - `regression_snapshot_path`: JSON baseline for contract regression gate.
+
+    - `update_regression_snapshot`: when `true`, refreshes baseline during run.
+
+    - `sandbox_backend`: `docker`, `prism`, or `external`.
+
+    - `mock_service`: informational provider marker for team ops (`postman`, `stoplight`,
+    `mockoon`, `prism-hosted`, `custom`).
+
+    - `mock_base_url`: sandbox endpoint used by API self-verification.
+
+    - `sync_playground_endpoint`: when `true`, writes `mock_base_url` into `mkdocs.yml`
+    API playground `sandbox_base_url`.
+
+    - `generate_test_assets`: generate API test documentation assets from OpenAPI.
+
+    - `upload_test_assets`: push generated assets to TestRail/Zephyr if credentials
+    are enabled.
+
+    - `upload_test_assets_strict`: fail run if provider upload is enabled and upload
+    fails. If provider `*_UPLOAD_ENABLED` env is off, provider upload is skipped and
+    does not fail the run.
+
+    - `test_management.*`: env var names for TestRail/Zephyr upload credentials.
+
+    - `external_mock.enabled`: when `true` and `sandbox_backend=external`, pipeline
+    auto-prepares external mock before API-first checks.
+
+    - `external_mock.provider`: currently `postman`.
+
+    - `external_mock.base_path`: suffix appended to resolved mock URL (usually `/v1`).
+
+    - `external_mock.postman.*`: env var names used by automation.'
+  assistant_context: 'Use this module when answering questions related to: Unified
+    Client Configuration (Part 12). Source path: docs/operations/UNIFIED_CLIENT_CONFIG.md.
+    Summary: Single source of truth for per-client Auto-Doc Pipeline configuration,
+    modules, and automation.
+
+
+    - `openapi_version`: OpenAPI version for generation from planning notes.
+
+    - `manual_overrides_path`: YAML overlay file applied after generation for advanced
+    schema blocks and `x-*` extensions.
+
+    - `regression_snapshot_path`: JSON baseline for contract regression gate.
+
+    - `update_regression_snapshot`: when `true`, refreshes baseline during run.
+
+    - `sandbox_backend`: `docker`, `prism`, or `external`.
+
+    - `mock_service`: informational provider marker for team ops (`postman`, `stoplight`,
+    `mockoon`, `prism-hosted`, `custom`).
+
+    - `mock_base_url`: sandbox endpoint used by API self-verification.
+
+    - `sync_playground_endpoint`: when `true`, writes `mock_base_url` into `mkdocs.yml`
+    API playground `sandbox_base_url`.
+
+    - `generate_test_assets`: generate API test documentation assets from OpenAPI.
+
+    - `upload_test_assets`: push generated assets to TestRail/Zephyr if credentials
+    are enabled.
+
+    - `upload_test_assets_strict`: fail run if provider upload is enabled and upload
+    fails. If provider `*_UPLOAD_ENABLED` env is off, provider upload is skipped and
+    does not fail the run.
+
+    - `test_management.*`: env var names for TestRail/Zephyr upload credentials.
+
+    - `external_mock.enabled`: when `true` and `sandbox_backend=external`, pipeline
+    auto-prepares external mock before API-first checks.
+
+    - `external_mock.provider`: currently `postman`.
+
+    - `external_mock.base_path`: suffix appended to resolved mock URL (usually `/v1`).
+
+    - `external_mock.postman.*`: env var names used by automation.'

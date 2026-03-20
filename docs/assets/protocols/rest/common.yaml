@@ -1,0 +1,16 @@
+CursorPage:
+  type: object
+  description: Cursor-based pagination envelope
+  properties:
+    data:
+      type: array
+      items: {}
+      description: List of resources
+    next_cursor:
+      type: string
+      description: Cursor for the next page of results
+      example: cur_next_abc123
+    has_more:
+      type: boolean
+      description: Whether more results are available
+      example: true

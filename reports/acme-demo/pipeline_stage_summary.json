@@ -1,0 +1,42 @@
+{
+  "weekly_rc": 1,
+  "strictness": "standard",
+  "stages": [
+    {
+      "stage": "multi_protocol_contract",
+      "path": "/mnt/c/Users/Kroha/Documents/development/Auto-Doc Pipeline/reports/acme-demo/multi_protocol_contract_report.json",
+      "exists": true
+    },
+    {
+      "stage": "consolidated_report",
+      "path": "/mnt/c/Users/Kroha/Documents/development/Auto-Doc Pipeline/reports/acme-demo/consolidated_report.json",
+      "exists": false
+    },
+    {
+      "stage": "audit_scorecard",
+      "path": "/mnt/c/Users/Kroha/Documents/development/Auto-Doc Pipeline/reports/acme-demo/audit_scorecard.json",
+      "exists": false
+    },
+    {
+      "stage": "finalize_gate",
+      "path": "/mnt/c/Users/Kroha/Documents/development/Auto-Doc Pipeline/reports/acme-demo/finalize_gate_report.json",
+      "exists": false
+    },
+    {
+      "stage": "kpi_wall",
+      "path": "/mnt/c/Users/Kroha/Documents/development/Auto-Doc Pipeline/reports/acme-demo/kpi-wall.json",
+      "exists": true
+    },
+    {
+      "stage": "kpi_sla",
+      "path": "/mnt/c/Users/Kroha/Documents/development/Auto-Doc Pipeline/reports/acme-demo/kpi-sla-report.json",
+      "exists": false
+    },
+    {
+      "stage": "retrieval_evals",
+      "path": "/mnt/c/Users/Kroha/Documents/development/Auto-Doc Pipeline/reports/acme-demo/retrieval_evals_report.json",
+      "exists": true
+    }
+  ],
+  "ok": false
+}

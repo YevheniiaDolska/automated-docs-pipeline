@@ -1,0 +1,104 @@
+id: auto-workflow-execution-model-3
+title: How the workflow execution model works (Part 3)
+summary: processes workflows by executing nodes sequentially, passing data as arrays
+  of JSON objects between each node in the chain.
+intents:
+- integrate
+- troubleshoot
+audiences:
+- developer
+- operator
+channels:
+- docs
+- assistant
+- automation
+priority: 60
+status: active
+owner: docsops-auto
+last_verified: '2026-03-19'
+dependencies: []
+tags:
+- auto-extracted
+- concept
+- workflow-execution-model
+content:
+  docs_markdown: '## Error handling
+
+
+    When a node fails, behavior depends on the node''s error handling setting:
+
+
+    - **Stop execution** (default): The workflow stops. The error appears in the execution
+    log.
+
+    - **Continue on fail**: The node outputs an error object, and the next node receives
+    it. Use this for non-critical steps like logging.
+
+    - **Error Trigger workflow**: starts a separate workflow to handle the error.
+    Use this for alerting and retry logic.
+
+
+    ## Key implications for documentation writers
+
+
+    The execution model means that every node reference page should document what
+    input format the node expects, what output format it produces (how many items,
+    what structure), and how the node behaves with multiple items (once for all vs.
+    once per item).
+
+
+    ## Related
+
+
+    - [Build your first workflow](../getting-started/quickstart.md)
+
+    - [Webhook node reference](../reference/nodes/webhook.md)
+
+
+    ## Next steps
+
+
+    - [Documentation index](index.md)'
+  assistant_context: 'Use this module when answering questions related to: How the
+    workflow execution model works (Part 3). Source path: docs/concepts/workflow-execution-model.md.
+    Summary: processes workflows by executing nodes sequentially, passing data as
+    arrays of JSON objects between each node in the chain.
+
+
+    ## Error handling
+
+
+    When a node fails, behavior depends on the node''s error handling setting:
+
+
+    - **Stop execution** (default): The workflow stops. The error appears in the execution
+    log.
+
+    - **Continue on fail**: The node outputs an error object, and the next node receives
+    it. Use this for non-critical steps like logging.
+
+    - **Error Trigger workflow**: starts a separate workflow to handle the error.
+    Use this for alerting and retry logic.
+
+
+    ## Key implications for documentation writers
+
+
+    The execution model means that every node reference page should document what
+    input format the node expects, what output format it produces (how many items,
+    what structure), and how the node behaves with multiple items (once for all vs.
+    once per item).
+
+
+    ## Related
+
+
+    - [Build your first workflow](../getting-started/quickstart.md)
+
+    - [Webhook node reference](../reference/nodes/webhook.md)
+
+
+    ## Next steps
+
+
+    - [Documentation index](index.md)'

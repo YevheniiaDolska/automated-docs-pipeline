@@ -1,0 +1,63 @@
+id: auto-configure-webhook-trigger-3
+title: Configure webhook triggers (Part 3)
+summary: Set up and configure webhook trigger nodes to start workflows from incoming
+  HTTP requests with authentication.
+intents:
+- configure
+audiences:
+- practitioner
+- developer
+channels:
+- docs
+- assistant
+- automation
+priority: 60
+status: active
+owner: docsops-auto
+last_verified: '2026-03-19'
+dependencies: []
+tags:
+- auto-extracted
+- configure-webhook-trigger
+- how-to
+content:
+  docs_markdown: "## Test webhook delivery\n\nSend a test request to verify your webhook\
+    \ works:\n\n=== \"cURL\"\n\n    ```bash smoke\n    curl -X POST https://your-domain.example.com:5678/webhook/test\
+    \ \\\n      -H \"Content-Type: application/json\" \\\n      -d '{\"event\": \"\
+    test\", \"timestamp\": \"2026-03-07T12:00:00Z\"}'\n    ```\n\n=== \"JavaScript\"\
+    \n\n    ```javascript smoke\n    const response = await fetch('https://your-domain.example.com:5678/webhook/test',\
+    \ {\n      method: 'POST',\n      headers: {\n      'Content-Type': 'application/json',\n\
+    \    },\n    body: JSON.stringify({\"event\": \"test\", \"timestamp\": \"2026-03-07T12:00:00Z\"\
+    }),\n    });\n    const payload = await response.json();\n    console.log(payload);\n\
+    \    ```\n\n=== \"Python\"\n\n    ```python smoke\n    import requests\n\n   \
+    \ response = requests.request(\n        'POST',\n        'https://your-domain.example.com:5678/webhook/test',\n\
+    \        headers={'Content-Type': 'application/json'},\n    json='{\"event\":\
+    \ \"test\", \"timestamp\": \"2026-03-07T12:00:00Z\"}',\n        timeout=30,\n\
+    \    )\n    response.raise_for_status()\n    print(response.json())\n    ```\n\
+    \nExpected response:\n\n```json\n{\n  \"status\": \"accepted\",\n  \"executionId\"\
+    : \"exec_abc123\"\n}\n```\n\n!!! tip \"Use the test URL first\"\n    {{ product_name\
+    \ }} provides separate test and production webhook\n    URLs. Use the test URL\
+    \ during development to inspect payloads\n    without triggering downstream actions.\n\
+    \n## Troubleshoot webhook triggers"
+  assistant_context: "Use this module when answering questions related to: Configure\
+    \ webhook triggers (Part 3). Source path: docs/how-to/configure-webhook-trigger.md.\
+    \ Summary: Set up and configure webhook trigger nodes to start workflows from\
+    \ incoming HTTP requests with authentication.\n\n## Test webhook delivery\n\n\
+    Send a test request to verify your webhook works:\n\n=== \"cURL\"\n\n    ```bash\
+    \ smoke\n    curl -X POST https://your-domain.example.com:5678/webhook/test \\\
+    \n      -H \"Content-Type: application/json\" \\\n      -d '{\"event\": \"test\"\
+    , \"timestamp\": \"2026-03-07T12:00:00Z\"}'\n    ```\n\n=== \"JavaScript\"\n\n\
+    \    ```javascript smoke\n    const response = await fetch('https://your-domain.example.com:5678/webhook/test',\
+    \ {\n      method: 'POST',\n      headers: {\n      'Content-Type': 'application/json',\n\
+    \    },\n    body: JSON.stringify({\"event\": \"test\", \"timestamp\": \"2026-03-07T12:00:00Z\"\
+    }),\n    });\n    const payload = await response.json();\n    console.log(payload);\n\
+    \    ```\n\n=== \"Python\"\n\n    ```python smoke\n    import requests\n\n   \
+    \ response = requests.request(\n        'POST',\n        'https://your-domain.example.com:5678/webhook/test',\n\
+    \        headers={'Content-Type': 'application/json'},\n    json='{\"event\":\
+    \ \"test\", \"timestamp\": \"2026-03-07T12:00:00Z\"}',\n        timeout=30,\n\
+    \    )\n    response.raise_for_status()\n    print(response.json())\n    ```\n\
+    \nExpected response:\n\n```json\n{\n  \"status\": \"accepted\",\n  \"executionId\"\
+    : \"exec_abc123\"\n}\n```\n\n!!! tip \"Use the test URL first\"\n    {{ product_name\
+    \ }} provides separate test and production webhook\n    URLs. Use the test URL\
+    \ during development to inspect payloads\n    without triggering downstream actions.\n\
+    \n## Troubleshoot webhook triggers"

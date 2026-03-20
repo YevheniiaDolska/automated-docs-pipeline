@@ -384,6 +384,8 @@
   }
 
   /* WebSocket: local semantic mock responses for reliable demo */
+  var wsInitialized = false;
+  var wsConnected = false;
   function initWebSocket(cfg) {
     var epInput = document.getElementById('ws-ep');
     if (epInput) { epInput.value = cfg.websocket || 'wss://api.acme.example/realtime'; }
@@ -393,19 +395,20 @@
     var out = document.getElementById('ws-out');
     var msgEl = document.getElementById('ws-msg');
     if (!connectBtn || !sendBtn || !closeBtn || !out || !msgEl) return;
-    var connected = false;
+    if (wsInitialized) return;
+    wsInitialized = true;
     function log(msg) {
       out.textContent += '\n[' + new Date().toLocaleTimeString() + '] ' + msg;
       out.scrollTop = out.scrollHeight;
     }
     connectBtn.onclick = function () {
       out.textContent = '';
-      connected = true;
+      wsConnected = true;
       log('Connected to ' + (epInput ? epInput.value : 'wss://api.acme.example/realtime'));
       log('Ready to send messages.');
     };
     sendBtn.onclick = function () {
-      if (!connected) {
+      if (!wsConnected) {
         log('Not connected. Click Connect first.');
         return;
       }
@@ -418,7 +421,7 @@
       }, 200);
     };
     closeBtn.onclick = function () {
-      connected = false;
+      wsConnected = false;
       log('Disconnected.');
     };
   }

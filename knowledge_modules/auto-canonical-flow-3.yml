@@ -1,0 +1,71 @@
+id: auto-canonical-flow-3
+title: Canonical Flow (Sales + Delivery) (Part 3)
+summary: Canonical sales and delivery flow for onboarding and operating client Auto-Doc
+  Pipeline setups.
+intents:
+- integrate
+audiences:
+- developer
+- operator
+channels:
+- docs
+- assistant
+- automation
+priority: 60
+status: active
+owner: docsops-auto
+last_verified: '2026-03-19'
+dependencies: []
+tags:
+- auto-extracted
+- canonical-flow
+- reference
+content:
+  docs_markdown: '```bash
+
+    bash docsops/ops/install_cron_weekly.sh
+
+    ```
+
+
+    Windows:
+
+
+    ```bash
+
+    powershell -ExecutionPolicy Bypass -File docsops/ops/install_windows_task.ps1
+
+    ```
+
+
+    Scheduler timezone is local machine timezone. Monday schedule follows client local
+    time when installed on client machine.
+
+    Default schedule is Monday at `10:00` local time.'
+  assistant_context: 'Use this module when answering questions related to: Canonical
+    Flow (Sales + Delivery) (Part 3). Source path: docs/operations/CANONICAL_FLOW.md.
+    Summary: Canonical sales and delivery flow for onboarding and operating client
+    Auto-Doc Pipeline setups.
+
+
+    ```bash
+
+    bash docsops/ops/install_cron_weekly.sh
+
+    ```
+
+
+    Windows:
+
+
+    ```bash
+
+    powershell -ExecutionPolicy Bypass -File docsops/ops/install_windows_task.ps1
+
+    ```
+
+
+    Scheduler timezone is local machine timezone. Monday schedule follows client local
+    time when installed on client machine.
+
+    Default schedule is Monday at `10:00` local time.'

@@ -1,0 +1,70 @@
+id: auto-grpc-api-3
+title: GRPC API Reference (Part 3)
+summary: Auto-generated grpc reference from source contract.
+intents:
+- configure
+- integrate
+- troubleshoot
+audiences:
+- developer
+- operator
+channels:
+- docs
+- assistant
+- automation
+priority: 60
+status: active
+owner: docsops-auto
+last_verified: '2026-03-19'
+dependencies: []
+tags:
+- auto-extracted
+- grpc-api
+- reference
+content:
+  docs_markdown: "<div id=\"grpc-playground\" style=\"border:1px solid #d1d5db; padding:12px;\
+    \ border-radius:8px;\">\n  <p><strong>Gateway Endpoint:</strong> <code id=\"grpc-endpoint-view\"\
+    ></code></p>\n  <label>Service</label><br/><input id=\"grpc-service\" style=\"\
+    width:100%\" placeholder=\"GreeterService\"/><br/>\n  <label>Method</label><br/><input\
+    \ id=\"grpc-method\" style=\"width:100%\" placeholder=\"SayHello\"/><br/>\n  <label>Payload\
+    \ (JSON)</label><br/><textarea id=\"grpc-payload\" rows=\"8\" style=\"width:100%;\
+    \ font-family:monospace;\">{\n  \"name\": \"world\"\n}</textarea><br/>\n  <button\
+    \ id=\"grpc-run\">Invoke</button>\n  <pre id=\"grpc-output\" style=\"margin-top:12px;\
+    \ max-height:320px; overflow:auto;\"></pre>\n</div>\n<script>\n(function(){ const\
+    \ endpoint = \"\";\nconst view = document.getElementById('grpc-endpoint-view');\n\
+    const run = document.getElementById('grpc-run');\nconst service = document.getElementById('grpc-service');\n\
+    const method = document.getElementById('grpc-method');\nconst payload = document.getElementById('grpc-payload');\n\
+    const out = document.getElementById('grpc-output');\nif (!view || !run || !service\
+    \ || !method || !payload || !out) return;\nview.textContent = endpoint || 'not\
+    \ configured';\nrun.onclick = async function(){\n  if (!endpoint) { out.textContent\
+    \ = 'Gateway endpoint is not configured in runtime.api_protocol_settings.grpc.grpc_gateway_endpoint';\
+    \ return; }\n  out.textContent = 'Loading...';\n  try {\n    const body = { service:\
+    \ service.value.trim(), method: method.value.trim(), payload: JSON.parse(payload.value\
+    \ || '{}') };\n    const response = await fetch(endpoint, { method:'POST', headers:{'content-type':'application/json'},\
+    \ body: JSON.stringify(body) });\n    const text = await response.text();\n  \
+    \  out.textContent = text;\n  } catch (error) { out.textContent = String(error);\
+    \ }\n};\n})();\n</script>"
+  assistant_context: "Use this module when answering questions related to: GRPC API\
+    \ Reference (Part 3). Source path: docs/reference/grpc-api.md. Summary: Auto-generated\
+    \ grpc reference from source contract.\n\n<div id=\"grpc-playground\" style=\"\
+    border:1px solid #d1d5db; padding:12px; border-radius:8px;\">\n  <p><strong>Gateway\
+    \ Endpoint:</strong> <code id=\"grpc-endpoint-view\"></code></p>\n  <label>Service</label><br/><input\
+    \ id=\"grpc-service\" style=\"width:100%\" placeholder=\"GreeterService\"/><br/>\n\
+    \  <label>Method</label><br/><input id=\"grpc-method\" style=\"width:100%\" placeholder=\"\
+    SayHello\"/><br/>\n  <label>Payload (JSON)</label><br/><textarea id=\"grpc-payload\"\
+    \ rows=\"8\" style=\"width:100%; font-family:monospace;\">{\n  \"name\": \"world\"\
+    \n}</textarea><br/>\n  <button id=\"grpc-run\">Invoke</button>\n  <pre id=\"grpc-output\"\
+    \ style=\"margin-top:12px; max-height:320px; overflow:auto;\"></pre>\n</div>\n\
+    <script>\n(function(){ const endpoint = \"\";\nconst view = document.getElementById('grpc-endpoint-view');\n\
+    const run = document.getElementById('grpc-run');\nconst service = document.getElementById('grpc-service');\n\
+    const method = document.getElementById('grpc-method');\nconst payload = document.getElementById('grpc-payload');\n\
+    const out = document.getElementById('grpc-output');\nif (!view || !run || !service\
+    \ || !method || !payload || !out) return;\nview.textContent = endpoint || 'not\
+    \ configured';\nrun.onclick = async function(){\n  if (!endpoint) { out.textContent\
+    \ = 'Gateway endpoint is not configured in runtime.api_protocol_settings.grpc.grpc_gateway_endpoint';\
+    \ return; }\n  out.textContent = 'Loading...';\n  try {\n    const body = { service:\
+    \ service.value.trim(), method: method.value.trim(), payload: JSON.parse(payload.value\
+    \ || '{}') };\n    const response = await fetch(endpoint, { method:'POST', headers:{'content-type':'application/json'},\
+    \ body: JSON.stringify(body) });\n    const text = await response.text();\n  \
+    \  out.textContent = text;\n  } catch (error) { out.textContent = String(error);\
+    \ }\n};\n})();\n</script>"

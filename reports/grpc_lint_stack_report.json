@@ -1,0 +1,49 @@
+{
+  "protocol": "grpc",
+  "source": "/tmp/pytest-of-eudo/pytest-2377/test_multi_protocol_flow_gener0/api/proto",
+  "checks": [
+    {
+      "name": "source_exists",
+      "ok": true,
+      "detail": "/tmp/pytest-of-eudo/pytest-2377/test_multi_protocol_flow_gener0/api/proto"
+    },
+    {
+      "name": "proto_files_found",
+      "ok": true,
+      "detail": "files=1"
+    },
+    {
+      "name": "syntax_declared",
+      "ok": true,
+      "detail": "valid proto2/proto3 syntax declaration"
+    },
+    {
+      "name": "balanced_braces",
+      "ok": true,
+      "detail": "brace balance"
+    },
+    {
+      "name": "service_present",
+      "ok": true,
+      "detail": "at least one service"
+    },
+    {
+      "name": "rpc_present",
+      "ok": true,
+      "detail": "at least one rpc"
+    },
+    {
+      "name": "no_duplicate_rpc",
+      "ok": true,
+      "detail": "rpc duplicates inside service"
+    },
+    {
+      "name": "proto3_no_required",
+      "ok": true,
+      "detail": "required not used in proto3"
+    }
+  ],
+  "failed": [],
+  "ok": true,
+  "checks_total": 8
+}

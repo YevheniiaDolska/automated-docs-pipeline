@@ -1,0 +1,58 @@
+id: auto-unified-client-config-3
+title: Unified Client Configuration (Part 3)
+summary: Single source of truth for per-client Auto-Doc Pipeline configuration, modules,
+  and automation.
+intents:
+- integrate
+audiences:
+- developer
+- operator
+channels:
+- docs
+- assistant
+- automation
+priority: 60
+status: active
+owner: docsops-auto
+last_verified: '2026-03-19'
+dependencies: []
+tags:
+- auto-extracted
+- reference
+- unified-client-config
+content:
+  docs_markdown: "### `style_guide` (Vale style profile)\n\n```yaml\nbundle:\n  style_guide:\
+    \ \"google\" # google | microsoft | hybrid\n```\n\nBuilder writes `.vale.ini`\
+    \ in client bundle automatically based on this setting.\n\nNotes:\n\n- `google`\
+    \ -> Google-based lint profile\n- `microsoft` -> Microsoft-based lint profile\n\
+    - `hybrid` -> both style packs enabled\n- all profiles include `write-good` and\
+    \ `AmericanEnglish` checks by default\n- run `vale sync` in client repo after\
+    \ provisioning to fetch selected style packages\n\n### `include_paths` (important\
+    \ for templates and knowledge)\n\nAllows copying any extra files and folders into\
+    \ the bundle:\n\n```yaml\nbundle:\n  include_paths:\n    - \"templates/interactive-diagram.html\"\
+    \n    - \"templates/protocols\"\n    - \"knowledge_modules\"\n```\n\nUse this\
+    \ for:\n\n- interactive diagrams\n- protocol-specific API templates/snippets for\
+    \ REST/GraphQL/gRPC/AsyncAPI/WebSocket\n- knowledge modules\n- any custom assets\n\
+    \nDefault behavior:\n\n- You normally do not need to edit `include_paths` manually.\n\
+    - Preset and profile defaults are already applied during bundle build.\n- Bundle\
+    \ is always created in `generated/client_bundles/<client_id>/`, so operator can\
+    \ inspect exact contents before handoff."
+  assistant_context: "Use this module when answering questions related to: Unified\
+    \ Client Configuration (Part 3). Source path: docs/operations/UNIFIED_CLIENT_CONFIG.md.\
+    \ Summary: Single source of truth for per-client Auto-Doc Pipeline configuration,\
+    \ modules, and automation.\n\n### `style_guide` (Vale style profile)\n\n```yaml\n\
+    bundle:\n  style_guide: \"google\" # google | microsoft | hybrid\n```\n\nBuilder\
+    \ writes `.vale.ini` in client bundle automatically based on this setting.\n\n\
+    Notes:\n\n- `google` -> Google-based lint profile\n- `microsoft` -> Microsoft-based\
+    \ lint profile\n- `hybrid` -> both style packs enabled\n- all profiles include\
+    \ `write-good` and `AmericanEnglish` checks by default\n- run `vale sync` in client\
+    \ repo after provisioning to fetch selected style packages\n\n### `include_paths`\
+    \ (important for templates and knowledge)\n\nAllows copying any extra files and\
+    \ folders into the bundle:\n\n```yaml\nbundle:\n  include_paths:\n    - \"templates/interactive-diagram.html\"\
+    \n    - \"templates/protocols\"\n    - \"knowledge_modules\"\n```\n\nUse this\
+    \ for:\n\n- interactive diagrams\n- protocol-specific API templates/snippets for\
+    \ REST/GraphQL/gRPC/AsyncAPI/WebSocket\n- knowledge modules\n- any custom assets\n\
+    \nDefault behavior:\n\n- You normally do not need to edit `include_paths` manually.\n\
+    - Preset and profile defaults are already applied during bundle build.\n- Bundle\
+    \ is always created in `generated/client_bundles/<client_id>/`, so operator can\
+    \ inspect exact contents before handoff."

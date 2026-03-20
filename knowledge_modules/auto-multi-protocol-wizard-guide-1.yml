@@ -1,0 +1,59 @@
+id: auto-multi-protocol-wizard-guide-1
+title: Multi-Protocol Wizard Guide
+summary: Wizard UX for protocol-aware provisioning in VeriDoc and VeriOps.
+intents:
+- configure
+audiences:
+- practitioner
+- developer
+channels:
+- docs
+- assistant
+- automation
+priority: 60
+status: active
+owner: docsops-auto
+last_verified: '2026-03-19'
+dependencies: []
+tags:
+- auto-extracted
+- how-to
+- multi-protocol-wizard-guide
+content:
+  docs_markdown: "# Multi-Protocol Wizard Guide\n\nRun:\n\n```bash\npython3 scripts/provision_client_repo.py\
+    \ --interactive --generate-profile\n```\n\nUnified autopipeline run (single command,\
+    \ no standalone chain):\n\n```bash\npython3 scripts/run_autopipeline.py --docsops-root\
+    \ docsops --reports-dir reports\n```\n\nWizard includes:\n\n1. `What's your API\
+    \ architecture?`\n1. Multi-select protocols: `REST`, `GraphQL`, `gRPC`, `AsyncAPI`,\
+    \ `WebSocket`.\n1. Per selected protocol:\n\n- source-of-truth inputs\n    - mode\
+    \ (`api-first` / `code-first` / `hybrid`)\n\n1. Strictness profile:\n\n- `standard`\n\
+    \    - `enterprise-strict`\n\n1. Stack profile:\n\n- backend stack (`node/python/go/java/dotnet/mixed`)\n\
+    \    - API gateway (`none/kong/apigee/aws-api-gateway/nginx/envoy/custom`)\n\n\
+    Generated runtime fields:\n\n- `runtime.api_protocols`\n- `runtime.api_protocol_settings`\n\
+    - `runtime.api_governance.strictness`\n\nGenerated template/snippet library fields:\n\
+    \n- `templates/protocols/graphql-reference.md`\n- `templates/protocols/grpc-reference.md`\n\
+    - `templates/protocols/asyncapi-reference.md`\n- `templates/protocols/websocket-reference.md`\n\
+    - `templates/protocols/api-protocol-snippets.md`\n\nThese are used as LLM generation\
+    \ anchors for consistent formatting and Stripe-style\nquality across all protocol\
+    \ docs.\n\nIn `enterprise-strict`, multi-protocol flow exits non-zero on failed\
+    \ stage.\n\nOperator model:"
+  assistant_context: "Use this module when answering questions related to: Multi-Protocol\
+    \ Wizard Guide. Source path: docs/operations/MULTI_PROTOCOL_WIZARD_GUIDE.md. Summary:\
+    \ Wizard UX for protocol-aware provisioning in VeriDoc and VeriOps.\n\n# Multi-Protocol\
+    \ Wizard Guide\n\nRun:\n\n```bash\npython3 scripts/provision_client_repo.py --interactive\
+    \ --generate-profile\n```\n\nUnified autopipeline run (single command, no standalone\
+    \ chain):\n\n```bash\npython3 scripts/run_autopipeline.py --docsops-root docsops\
+    \ --reports-dir reports\n```\n\nWizard includes:\n\n1. `What's your API architecture?`\n\
+    1. Multi-select protocols: `REST`, `GraphQL`, `gRPC`, `AsyncAPI`, `WebSocket`.\n\
+    1. Per selected protocol:\n\n- source-of-truth inputs\n    - mode (`api-first`\
+    \ / `code-first` / `hybrid`)\n\n1. Strictness profile:\n\n- `standard`\n    -\
+    \ `enterprise-strict`\n\n1. Stack profile:\n\n- backend stack (`node/python/go/java/dotnet/mixed`)\n\
+    \    - API gateway (`none/kong/apigee/aws-api-gateway/nginx/envoy/custom`)\n\n\
+    Generated runtime fields:\n\n- `runtime.api_protocols`\n- `runtime.api_protocol_settings`\n\
+    - `runtime.api_governance.strictness`\n\nGenerated template/snippet library fields:\n\
+    \n- `templates/protocols/graphql-reference.md`\n- `templates/protocols/grpc-reference.md`\n\
+    - `templates/protocols/asyncapi-reference.md`\n- `templates/protocols/websocket-reference.md`\n\
+    - `templates/protocols/api-protocol-snippets.md`\n\nThese are used as LLM generation\
+    \ anchors for consistent formatting and Stripe-style\nquality across all protocol\
+    \ docs.\n\nIn `enterprise-strict`, multi-protocol flow exits non-zero on failed\
+    \ stage.\n\nOperator model:"

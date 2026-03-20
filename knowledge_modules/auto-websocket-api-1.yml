@@ -1,0 +1,69 @@
+id: auto-websocket-api-1
+title: WEBSOCKET API Reference
+summary: Auto-generated websocket reference from source contract.
+intents:
+- integrate
+audiences:
+- developer
+- operator
+channels:
+- docs
+- assistant
+- automation
+priority: 60
+status: active
+owner: docsops-auto
+last_verified: '2026-03-19'
+dependencies: []
+tags:
+- auto-extracted
+- reference
+- websocket-api
+content:
+  docs_markdown: '# WEBSOCKET Reference
+
+
+    Source: `reports/acme-demo/contracts/websocket.yaml`
+
+
+    Flow mode: `api-first`
+
+
+    ## Top-level Keys
+
+
+    - `channels`
+
+
+    ## Channels/Events
+
+
+    - Channel count: `1`
+
+    - `project.updated`'
+  assistant_context: 'Use this module when answering questions related to: WEBSOCKET
+    API Reference. Source path: docs/reference/websocket-api.md. Summary: Auto-generated
+    websocket reference from source contract.
+
+
+    # WEBSOCKET Reference
+
+
+    Source: `reports/acme-demo/contracts/websocket.yaml`
+
+
+    Flow mode: `api-first`
+
+
+    ## Top-level Keys
+
+
+    - `channels`
+
+
+    ## Channels/Events
+
+
+    - Channel count: `1`
+
+    - `project.updated`'

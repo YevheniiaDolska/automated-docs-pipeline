@@ -1,0 +1,58 @@
+id: auto-search-faceted-2
+title: Advanced Search (Part 2)
+summary: Search and filter documentation using faceted navigation for quick discovery
+intents:
+- integrate
+audiences:
+- developer
+- operator
+channels:
+- docs
+- assistant
+- automation
+priority: 60
+status: active
+owner: docsops-auto
+last_verified: '2026-03-19'
+dependencies: []
+tags:
+- auto-extracted
+- reference
+- search-faceted
+content:
+  docs_markdown: ".fs-facet-count {\n    margin-left: auto;\n    padding: 0 6px;\n\
+    \    font-size: 0.85rem;\n    color: var(--md-default-fg-color--lighter);\n  \
+    \  background: var(--md-default-bg-color--secondary);\n    border-radius: 10px;\n\
+    \  }\n\n.fs-clear-btn {\n    margin-top: 1rem;\n    padding: 8px 16px;\n    cursor:\
+    \ pointer;\n    border: 1px solid var(--md-default-fg-color--lighter);\n    border-radius:\
+    \ 6px;\n    background: var(--md-default-bg-color);\n    color: var(--md-default-fg-color);\n\
+    \    font-size: 0.9rem;\n    transition: all 0.2s;\n  }\n\n.fs-clear-btn:hover\
+    \ {\n    background: var(--md-default-fg-color--lightest);\n  }\n\n.fs-result-count\
+    \ {\n    color: var(--md-default-fg-color--light);\n    margin-bottom: 1.5rem;\n\
+    \    font-size: 0.95rem;\n  }\n\n.fs-result-item {\n    margin-bottom: 1.5rem;\n\
+    \    padding: 1.2rem;\n    border: 1px solid var(--md-default-fg-color--lightest);\n\
+    \    border-radius: 8px;\n    transition: all 0.2s;\n  }\n\n.fs-result-item:hover\
+    \ {\n    border-color: var(--md-primary-fg-color);\n    box-shadow: 0 2px 8px\
+    \ rgba(0,0,0,0.1);\n  }\n\n.fs-result-title {\n    font-size: 1.15rem;\n    font-weight:\
+    \ 600;\n    text-decoration: none;\n    color: var(--md-primary-fg-color);\n \
+    \ }\n\n.fs-result-title:hover {\n    text-decoration: underline;\n  }\n\n.fs-result-badges\
+    \ {\n    margin: 0.5rem 0;\n  }"
+  assistant_context: "Use this module when answering questions related to: Advanced\
+    \ Search (Part 2). Source path: docs/search-faceted.md. Summary: Search and filter\
+    \ documentation using faceted navigation for quick discovery\n\n.fs-facet-count\
+    \ {\n    margin-left: auto;\n    padding: 0 6px;\n    font-size: 0.85rem;\n  \
+    \  color: var(--md-default-fg-color--lighter);\n    background: var(--md-default-bg-color--secondary);\n\
+    \    border-radius: 10px;\n  }\n\n.fs-clear-btn {\n    margin-top: 1rem;\n   \
+    \ padding: 8px 16px;\n    cursor: pointer;\n    border: 1px solid var(--md-default-fg-color--lighter);\n\
+    \    border-radius: 6px;\n    background: var(--md-default-bg-color);\n    color:\
+    \ var(--md-default-fg-color);\n    font-size: 0.9rem;\n    transition: all 0.2s;\n\
+    \  }\n\n.fs-clear-btn:hover {\n    background: var(--md-default-fg-color--lightest);\n\
+    \  }\n\n.fs-result-count {\n    color: var(--md-default-fg-color--light);\n  \
+    \  margin-bottom: 1.5rem;\n    font-size: 0.95rem;\n  }\n\n.fs-result-item {\n\
+    \    margin-bottom: 1.5rem;\n    padding: 1.2rem;\n    border: 1px solid var(--md-default-fg-color--lightest);\n\
+    \    border-radius: 8px;\n    transition: all 0.2s;\n  }\n\n.fs-result-item:hover\
+    \ {\n    border-color: var(--md-primary-fg-color);\n    box-shadow: 0 2px 8px\
+    \ rgba(0,0,0,0.1);\n  }\n\n.fs-result-title {\n    font-size: 1.15rem;\n    font-weight:\
+    \ 600;\n    text-decoration: none;\n    color: var(--md-primary-fg-color);\n \
+    \ }\n\n.fs-result-title:hover {\n    text-decoration: underline;\n  }\n\n.fs-result-badges\
+    \ {\n    margin: 0.5rem 0;\n  }"

@@ -1,0 +1,233 @@
+{
+  "summary": {
+    "total_gaps": 11,
+    "high_priority": 8,
+    "medium_priority": 3,
+    "low_priority": 0,
+    "by_source": {
+      "code": 11
+    },
+    "by_doc_type": {
+      "how-to": 8,
+      "reference": 3
+    },
+    "by_category": {
+      "webhook": 1,
+      "authentication": 1,
+      "database_schema": 1,
+      "breaking_change": 1,
+      "api_endpoint": 1,
+      "removed_function": 1,
+      "signature_change": 1,
+      "config_option": 1,
+      "new_function": 1,
+      "public_function": 1,
+      "error_handling": 1
+    }
+  },
+  "sources_analyzed": [
+    "code_changes",
+    "community"
+  ],
+  "generated_at": "2026-03-19T16:14:40.301115",
+  "gaps": [
+    {
+      "id": "CODE-0006",
+      "title": "Webhook: webhook: webhook",
+      "description": "Update webhook documentation for changes in demo-showcase/acme/docs/assets/facets-index.json. Include payload examples and event types.",
+      "source": "code",
+      "category": "webhook",
+      "suggested_doc_type": "how-to",
+      "priority": "high",
+      "frequency": 3572,
+      "keywords": [],
+      "related_files": [
+        "demo-showcase/acme/docs/assets/facets-index.json"
+      ],
+      "sample_queries": [],
+      "action_required": "Update webhook documentation for changes in demo-showcase/acme/docs/assets/facets-index.json. Include payload examples and event types.",
+      "status": "new",
+      "created_at": "2026-03-19T16:14:40.301339"
+    },
+    {
+      "id": "CODE-0001",
+      "title": "Authentication: authentication: Auth",
+      "description": "Update authentication documentation for changes in .github/workflows/deploy.yml. Include security considerations.",
+      "source": "code",
+      "category": "authentication",
+      "suggested_doc_type": "how-to",
+      "priority": "high",
+      "frequency": 2498,
+      "keywords": [],
+      "related_files": [
+        ".github/workflows/deploy.yml"
+      ],
+      "sample_queries": [],
+      "action_required": "Update authentication documentation for changes in .github/workflows/deploy.yml. Include security considerations.",
+      "status": "new",
+      "created_at": "2026-03-19T16:14:40.301266"
+    },
+    {
+      "id": "CODE-0963",
+      "title": "Database Schema: database_schema: migration",
+      "description": "Document database schema change in PRODUCT_STRATEGY.md. Update data model documentation.",
+      "source": "code",
+      "category": "database_schema",
+      "suggested_doc_type": "how-to",
+      "priority": "high",
+      "frequency": 227,
+      "keywords": [],
+      "related_files": [
+        "PRODUCT_STRATEGY.md"
+      ],
+      "sample_queries": [],
+      "action_required": "Document database schema change in PRODUCT_STRATEGY.md. Update data model documentation.",
+      "status": "new",
+      "created_at": "2026-03-19T16:14:40.312434"
+    },
+    {
+      "id": "CODE-1601",
+      "title": "Breaking Change: breaking_change:  Change",
+      "description": "URGENT: Document breaking change in reports/doc_gaps_report.csv. Update migration guide with before/after examples.",
+      "source": "code",
+      "category": "breaking_change",
+      "suggested_doc_type": "how-to",
+      "priority": "high",
+      "frequency": 49,
+      "keywords": [],
+      "related_files": [
+        "reports/doc_gaps_report.csv"
+      ],
+      "sample_queries": [],
+      "action_required": "URGENT: Document breaking change in reports/doc_gaps_report.csv. Update migration guide with before/after examples.",
+      "status": "new",
+      "created_at": "2026-03-19T16:14:40.320419"
+    },
+    {
+      "id": "CODE-1304",
+      "title": "Api Endpoint: api_endpoint: /webhooks",
+      "description": "Document API endpoint: /webhooks. Include request/response examples, parameters, authentication requirements.",
+      "source": "code",
+      "category": "api_endpoint",
+      "suggested_doc_type": "reference",
+      "priority": "high",
+      "frequency": 40,
+      "keywords": [],
+      "related_files": [
+        "knowledge_modules/auto-set-up-real-time-webhook-processing-pipeline-12.yml"
+      ],
+      "sample_queries": [],
+      "action_required": "Document API endpoint: /webhooks. Include request/response examples, parameters, authentication requirements.",
+      "status": "new",
+      "created_at": "2026-03-19T16:14:40.316073"
+    },
+    {
+      "id": "CODE-2318",
+      "title": "Removed Function: Function removed: renderEndpointSwitcher",
+      "description": "BREAKING: Function renderEndpointSwitcher was removed. Update documentation and add migration guide.",
+      "source": "code",
+      "category": "removed_function",
+      "suggested_doc_type": "how-to",
+      "priority": "high",
+      "frequency": 28,
+      "keywords": [],
+      "related_files": [
+        "docs/assets/javascripts/api-playground.js"
+      ],
+      "sample_queries": [],
+      "action_required": "BREAKING: Function renderEndpointSwitcher was removed. Update documentation and add migration guide.",
+      "status": "new",
+      "created_at": "2026-03-19T16:14:40.326681"
+    },
+    {
+      "id": "CODE-1049",
+      "title": "Signature Change: Function signature changed: Spacer",
+      "description": "UPDATE REQUIRED: Function Spacer signature changed. Old: (1, 4 * mm) → New: (1, 2.4 * mm). Update documentation and examples.",
+      "source": "code",
+      "category": "signature_change",
+      "suggested_doc_type": "how-to",
+      "priority": "high",
+      "frequency": 12,
+      "keywords": [],
+      "related_files": [
+        "scripts/generate_executive_audit_pdf.py"
+      ],
+      "sample_queries": [],
+      "action_required": "UPDATE REQUIRED: Function Spacer signature changed. Old: (1, 4 * mm) → New: (1, 2.4 * mm). Update documentation and examples.",
+      "status": "new",
+      "created_at": "2026-03-19T16:14:40.313407"
+    },
+    {
+      "id": "CODE-0934",
+      "title": "Config Option: config_option: asyncapi",
+      "description": "Document configuration option: asyncapi. Include allowed values and when to use.",
+      "source": "code",
+      "category": "config_option",
+      "suggested_doc_type": "reference",
+      "priority": "high",
+      "frequency": 8,
+      "keywords": [],
+      "related_files": [
+        "demo-showcase/acme/docs/assets/protocols/asyncapi/asyncapi-api.md"
+      ],
+      "sample_queries": [],
+      "action_required": "Document configuration option: asyncapi. Include allowed values and when to use.",
+      "status": "new",
+      "created_at": "2026-03-19T16:14:40.312086"
+    },
+    {
+      "id": "CODE-0933",
+      "title": "New Function: New function: if",
+      "description": "Document new function: if. Include parameters, return value, and usage example.",
+      "source": "code",
+      "category": "new_function",
+      "suggested_doc_type": "how-to",
+      "priority": "medium",
+      "frequency": 352,
+      "keywords": [],
+      "related_files": [
+        "demo-showcase/acme/docs/assets/protocols/asyncapi/asyncapi-api.md"
+      ],
+      "sample_queries": [],
+      "action_required": "Document new function: if. Include parameters, return value, and usage example.",
+      "status": "new",
+      "created_at": "2026-03-19T16:14:40.312075"
+    },
+    {
+      "id": "CODE-1733",
+      "title": "Public Function: public_function: build_local_env_template",
+      "description": "Consider documenting public API: build_local_env_template. Include parameters, return value, and example usage.",
+      "source": "code",
+      "category": "public_function",
+      "suggested_doc_type": "reference",
+      "priority": "medium",
+      "frequency": 115,
+      "keywords": [],
+      "related_files": [
+        "scripts/build_client_bundle.py"
+      ],
+      "sample_queries": [],
+      "action_required": "Consider documenting public API: build_local_env_template. Include parameters, return value, and example usage.",
+      "status": "new",
+      "created_at": "2026-03-19T16:14:40.321798"
+    },
+    {
+      "id": "CODE-1329",
+      "title": "Error Handling: error_handling: 401",
+      "description": "Document new error type: 401. Include cause, solution, and error code.",
+      "source": "code",
+      "category": "error_handling",
+      "suggested_doc_type": "how-to",
+      "priority": "medium",
+      "frequency": 79,
+      "keywords": [],
+      "related_files": [
+        "knowledge_modules/auto-set-up-real-time-webhook-processing-pipeline-12.yml"
+      ],
+      "sample_queries": [],
+      "action_required": "Document new error type: 401. Include cause, solution, and error code.",
+      "status": "new",
+      "created_at": "2026-03-19T16:14:40.316341"
+    }
+  ]
+}

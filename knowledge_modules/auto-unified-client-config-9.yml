@@ -1,0 +1,80 @@
+id: auto-unified-client-config-9
+title: Unified Client Configuration (Part 9)
+summary: Single source of truth for per-client Auto-Doc Pipeline configuration, modules,
+  and automation.
+intents:
+- integrate
+audiences:
+- developer
+- operator
+channels:
+- docs
+- assistant
+- automation
+priority: 60
+status: active
+owner: docsops-auto
+last_verified: '2026-03-19'
+dependencies: []
+tags:
+- auto-extracted
+- reference
+- unified-client-config
+content:
+  docs_markdown: "- `run_multi_protocol_contract_flow.py` executes protocol-specific\
+    \ contract validation.\n- For `mode=code-first|hybrid`, non-REST adapters can\
+    \ run export hooks before validation:\n  - GraphQL: `code_first_schema_export_cmd`\n\
+    \  - gRPC: `code_first_proto_export_cmd`\n  - AsyncAPI/WebSocket: `code_first_contract_export_cmd`\n\
+    - Generated protocol docs include interactive testers:\n  - GraphQL query runner\
+    \ (`graphql_endpoint`)\n  - gRPC gateway invoker (`grpc_gateway_endpoint`)\n \
+    \ - AsyncAPI ws/http publisher (`asyncapi_ws_endpoint`, `asyncapi_http_publish_endpoint`)\n\
+    \  - WebSocket live tester (`websocket_endpoint`)\n- Non-REST test assets pass\
+    \ an additional depth gate (`validate_protocol_test_coverage.py`) before publish/upload.\n\
+    - Non-REST protocols run a deeper lint stack (`run_protocol_lint_stack.py`, 7+\
+    \ checks per protocol).\n- Non-REST protocols can run runtime self-verify against\
+    \ mock/real endpoints (`run_protocol_self_verify.py`).\n- Non-REST generated docs\
+    \ run protocol quality suite (`run_protocol_docs_quality_suite.py`) with:\n  -\
+    \ normalization\n  - snippet lint\n  - multilang tabs + validation\n  - smoke\
+    \ checks\n  - SEO/GEO metadata optimization\n  - glossary sync\n  - frontmatter\
+    \ validation\n  - RAG refresh (knowledge modules extraction/validation, retrieval\
+    \ index/graph rebuild, retrieval evals)\n- `run_api_first_flow.py` remains the\
+    \ REST/OpenAPI deep automation path.\n- Weekly runner launches multi-protocol\
+    \ contract checks first, then REST API-first flow if REST is enabled.\n- `enterprise-strict`\
+    \ makes protocol flow fail-fast and blocks publish on stage failures.\n- `run_autopipeline.py`\
+    \ is the single smooth entrypoint that runs the full cycle and prepares local-LLM\
+    \ review packet.\n- `run_autopipeline.py` now emits articulated stage outputs\
+    \ and review artifacts:\n  - `reports/pipeline_stage_summary.json`\n  - `reports/review_manifest.json`\n\
+    \  - `reports/REVIEW_MANIFEST.md`\n  - `reports/local_llm_review_packet.json`\n\
+    \  - `reports/LOCAL_LLM_REVIEW_PACKET.md`\n- Review manifest includes links to\
+    \ generated docs, protocol outputs, test assets, and RAG metadata when corresponding\
+    \ modules are enabled."
+  assistant_context: "Use this module when answering questions related to: Unified\
+    \ Client Configuration (Part 9). Source path: docs/operations/UNIFIED_CLIENT_CONFIG.md.\
+    \ Summary: Single source of truth for per-client Auto-Doc Pipeline configuration,\
+    \ modules, and automation.\n\n- `run_multi_protocol_contract_flow.py` executes\
+    \ protocol-specific contract validation.\n- For `mode=code-first|hybrid`, non-REST\
+    \ adapters can run export hooks before validation:\n  - GraphQL: `code_first_schema_export_cmd`\n\
+    \  - gRPC: `code_first_proto_export_cmd`\n  - AsyncAPI/WebSocket: `code_first_contract_export_cmd`\n\
+    - Generated protocol docs include interactive testers:\n  - GraphQL query runner\
+    \ (`graphql_endpoint`)\n  - gRPC gateway invoker (`grpc_gateway_endpoint`)\n \
+    \ - AsyncAPI ws/http publisher (`asyncapi_ws_endpoint`, `asyncapi_http_publish_endpoint`)\n\
+    \  - WebSocket live tester (`websocket_endpoint`)\n- Non-REST test assets pass\
+    \ an additional depth gate (`validate_protocol_test_coverage.py`) before publish/upload.\n\
+    - Non-REST protocols run a deeper lint stack (`run_protocol_lint_stack.py`, 7+\
+    \ checks per protocol).\n- Non-REST protocols can run runtime self-verify against\
+    \ mock/real endpoints (`run_protocol_self_verify.py`).\n- Non-REST generated docs\
+    \ run protocol quality suite (`run_protocol_docs_quality_suite.py`) with:\n  -\
+    \ normalization\n  - snippet lint\n  - multilang tabs + validation\n  - smoke\
+    \ checks\n  - SEO/GEO metadata optimization\n  - glossary sync\n  - frontmatter\
+    \ validation\n  - RAG refresh (knowledge modules extraction/validation, retrieval\
+    \ index/graph rebuild, retrieval evals)\n- `run_api_first_flow.py` remains the\
+    \ REST/OpenAPI deep automation path.\n- Weekly runner launches multi-protocol\
+    \ contract checks first, then REST API-first flow if REST is enabled.\n- `enterprise-strict`\
+    \ makes protocol flow fail-fast and blocks publish on stage failures.\n- `run_autopipeline.py`\
+    \ is the single smooth entrypoint that runs the full cycle and prepares local-LLM\
+    \ review packet.\n- `run_autopipeline.py` now emits articulated stage outputs\
+    \ and review artifacts:\n  - `reports/pipeline_stage_summary.json`\n  - `reports/review_manifest.json`\n\
+    \  - `reports/REVIEW_MANIFEST.md`\n  - `reports/local_llm_review_packet.json`\n\
+    \  - `reports/LOCAL_LLM_REVIEW_PACKET.md`\n- Review manifest includes links to\
+    \ generated docs, protocol outputs, test assets, and RAG metadata when corresponding\
+    \ modules are enabled."

@@ -18,5 +18,119 @@
       "@type": "@id"
     }
   },
-  "@graph": []
+  "@graph": [
+    {
+      "@id": "urn:module:auto-websocket-api-1",
+      "@type": "KnowledgeModule",
+      "name": "Websocket Api",
+      "description": "# WebSocket Sandbox semantic mode simulated_response subscribe publish list_projects wsConn.onmessage = function (e) { log('Received: ' + e.data); };",
+      "status": "active",
+      "priority": 60,
+      "intents": [
+        "configure"
+      ],
+      "audiences": [
+        "practitioner",
+        "developer"
+      ],
+      "channels": [
+        "docs",
+        "assistant",
+        "automation"
+      ],
+      "dependsOn": [],
+      "sourceFile": "/tmp/pytest-of-eudo/pytest-2377/test_quality_suite_semantic_co0/reports/knowledge_modules_auto/auto-websocket-api-1.yml",
+      "lastVerified": "2026-03-19"
+    },
+    {
+      "@id": "urn:intent:configure",
+      "@type": "Intent",
+      "name": "configure"
+    },
+    {
+      "@id": "urn:audience:developer",
+      "@type": "Audience",
+      "name": "developer"
+    },
+    {
+      "@id": "urn:audience:practitioner",
+      "@type": "Audience",
+      "name": "practitioner"
+    },
+    {
+      "@id": "urn:channel:assistant",
+      "@type": "Channel",
+      "name": "assistant"
+    },
+    {
+      "@id": "urn:channel:automation",
+      "@type": "Channel",
+      "name": "automation"
+    },
+    {
+      "@id": "urn:channel:docs",
+      "@type": "Channel",
+      "name": "docs"
+    },
+    {
+      "@id": "urn:module:auto-websocket-api-1#intent:configure",
+      "@type": "HasIntent",
+      "source": {
+        "@id": "urn:module:auto-websocket-api-1"
+      },
+      "target": {
+        "@id": "urn:intent:configure"
+      }
+    },
+    {
+      "@id": "urn:module:auto-websocket-api-1#audience:practitioner",
+      "@type": "HasAudience",
+      "source": {
+        "@id": "urn:module:auto-websocket-api-1"
+      },
+      "target": {
+        "@id": "urn:audience:practitioner"
+      }
+    },
+    {
+      "@id": "urn:module:auto-websocket-api-1#audience:developer",
+      "@type": "HasAudience",
+      "source": {
+        "@id": "urn:module:auto-websocket-api-1"
+      },
+      "target": {
+        "@id": "urn:audience:developer"
+      }
+    },
+    {
+      "@id": "urn:module:auto-websocket-api-1#channel:docs",
+      "@type": "HasChannel",
+      "source": {
+        "@id": "urn:module:auto-websocket-api-1"
+      },
+      "target": {
+        "@id": "urn:channel:docs"
+      }
+    },
+    {
+      "@id": "urn:module:auto-websocket-api-1#channel:assistant",
+      "@type": "HasChannel",
+      "source": {
+        "@id": "urn:module:auto-websocket-api-1"
+      },
+      "target": {
+        "@id": "urn:channel:assistant"
+      }
+    },
+    {
+      "@id": "urn:module:auto-websocket-api-1#channel:automation",
+      "@type": "HasChannel",
+      "source": {
+        "@id": "urn:module:auto-websocket-api-1"
+      },
+      "target": {
+        "@id": "urn:channel:automation"
+      }
+    }
+  ]
 }

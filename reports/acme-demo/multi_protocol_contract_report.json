@@ -1,0 +1,1559 @@
+{
+  "strictness": "standard",
+  "strict_mode": false,
+  "protocols": [
+    "rest",
+    "graphql",
+    "grpc",
+    "asyncapi",
+    "websocket"
+  ],
+  "failed_protocols": [
+    "grpc"
+  ],
+  "failed": true,
+  "stages": [
+    {
+      "stage": "ingest",
+      "protocol": "rest",
+      "ok": true,
+      "rc": 0,
+      "command": [
+        "exists",
+        "/mnt/c/Users/Kroha/Documents/development/Auto-Doc Pipeline/api/openapi.yaml"
+      ],
+      "details": {
+        "source": "/mnt/c/Users/Kroha/Documents/development/Auto-Doc Pipeline/api/openapi.yaml"
+      }
+    },
+    {
+      "stage": "lint",
+      "protocol": "rest",
+      "ok": true,
+      "rc": 0,
+      "command": [
+        "/usr/bin/python3",
+        "/mnt/c/Users/Kroha/Documents/development/Auto-Doc Pipeline/scripts/validate_openapi_contract.py",
+        "api/openapi.yaml"
+      ],
+      "details": {}
+    },
+    {
+      "stage": "regression",
+      "protocol": "rest",
+      "ok": true,
+      "rc": 0,
+      "command": [
+        "/usr/bin/python3",
+        "/mnt/c/Users/Kroha/Documents/development/Auto-Doc Pipeline/scripts/check_protocol_regression.py",
+        "--protocol",
+        "rest",
+        "--snapshot",
+        "api/.rest-regression.json",
+        "--input",
+        "api/openapi.yaml"
+      ],
+      "details": {}
+    },
+    {
+      "stage": "docs_generation",
+      "protocol": "rest",
+      "ok": true,
+      "rc": 0,
+      "command": [
+        "/usr/bin/python3",
+        "/mnt/c/Users/Kroha/Documents/development/Auto-Doc Pipeline/scripts/generate_protocol_docs.py",
+        "--protocol",
+        "rest",
+        "--source",
+        "api/openapi.yaml",
+        "--output",
+        "docs/reference/rest-api.md",
+        "--mode",
+        "api-first"
+      ],
+      "details": {
+        "generated_doc": "docs/reference/rest-api.md"
+      }
+    },
+    {
+      "stage": "quality_gate_frontmatter",
+      "protocol": "rest",
+      "ok": true,
+      "rc": 0,
+      "command": [
+        "/usr/bin/python3",
+        "/mnt/c/Users/Kroha/Documents/development/Auto-Doc Pipeline/scripts/validate_frontmatter.py"
+      ],
+      "details": {}
+    },
+    {
+      "stage": "quality_gate_snippets",
+      "protocol": "rest",
+      "ok": true,
+      "rc": 0,
+      "command": [
+        "/usr/bin/python3",
+        "/mnt/c/Users/Kroha/Documents/development/Auto-Doc Pipeline/scripts/lint_code_snippets.py",
+        "docs/reference/rest-api.md"
+      ],
+      "details": {}
+    },
+    {
+      "stage": "test_assets",
+      "protocol": "rest",
+      "ok": true,
+      "rc": 0,
+      "command": [
+        "/usr/bin/python3",
+        "/mnt/c/Users/Kroha/Documents/development/Auto-Doc Pipeline/scripts/generate_protocol_test_assets.py",
+        "--protocols",
+        "rest",
+        "--source",
+        "api/openapi.yaml",
+        "--output-dir",
+        "reports/api-test-assets",
+        "--testrail-csv",
+        "reports/api-test-assets/testrail_test_cases.csv",
+        "--zephyr-json",
+        "reports/api-test-assets/zephyr_test_cases.json"
+      ],
+      "details": {
+        "coverage_ok": true,
+        "coverage_rc": 0
+      }
+    },
+    {
+      "stage": "publish",
+      "protocol": "rest",
+      "ok": true,
+      "rc": 0,
+      "command": [
+        "/usr/bin/python3",
+        "/mnt/c/Users/Kroha/Documents/development/Auto-Doc Pipeline/scripts/publish_protocol_assets.py",
+        "--protocol",
+        "rest",
+        "--source",
+        "api/openapi.yaml",
+        "--generated-doc",
+        "docs/reference/rest-api.md",
+        "--target-root",
+        "docs/assets/protocols"
+      ],
+      "details": {}
+    },
+    {
+      "stage": "ingest",
+      "protocol": "graphql",
+      "ok": true,
+      "rc": 0,
+      "command": [
+        "exists",
+        "/mnt/c/Users/Kroha/Documents/development/Auto-Doc Pipeline/reports/acme-demo/contracts/graphql.schema.graphql"
+      ],
+      "details": {
+        "source": "/mnt/c/Users/Kroha/Documents/development/Auto-Doc Pipeline/reports/acme-demo/contracts/graphql.schema.graphql"
+      }
+    },
+    {
+      "stage": "lint",
+      "protocol": "graphql",
+      "ok": true,
+      "rc": 0,
+      "command": [
+        "/usr/bin/python3",
+        "/mnt/c/Users/Kroha/Documents/development/Auto-Doc Pipeline/scripts/run_protocol_lint_stack.py",
+        "--protocol",
+        "graphql",
+        "--source",
+        "reports/acme-demo/contracts/graphql.schema.graphql",
+        "--json-report",
+        "/mnt/c/Users/Kroha/Documents/development/Auto-Doc Pipeline/reports/graphql_lint_stack_report.json"
+      ],
+      "details": {}
+    },
+    {
+      "stage": "regression",
+      "protocol": "graphql",
+      "ok": true,
+      "rc": 0,
+      "command": [
+        "/usr/bin/python3",
+        "/mnt/c/Users/Kroha/Documents/development/Auto-Doc Pipeline/scripts/check_protocol_regression.py",
+        "--protocol",
+        "graphql",
+        "--snapshot",
+        "reports/acme-demo/contracts/.graphql-regression.json",
+        "--input",
+        "reports/acme-demo/contracts/graphql.schema.graphql"
+      ],
+      "details": {}
+    },
+    {
+      "stage": "docs_generation",
+      "protocol": "graphql",
+      "ok": true,
+      "rc": 0,
+      "command": [
+        "/usr/bin/python3",
+        "/mnt/c/Users/Kroha/Documents/development/Auto-Doc Pipeline/scripts/generate_protocol_docs.py",
+        "--protocol",
+        "graphql",
+        "--source",
+        "reports/acme-demo/contracts/graphql.schema.graphql",
+        "--output",
+        "docs/reference/graphql-api.md",
+        "--mode",
+        "api-first"
+      ],
+      "details": {
+        "generated_doc": "docs/reference/graphql-api.md"
+      }
+    },
+    {
+      "stage": "quality_suite",
+      "protocol": "graphql",
+      "ok": true,
+      "rc": 0,
+      "command": [
+        "/usr/bin/python3",
+        "/mnt/c/Users/Kroha/Documents/development/Auto-Doc Pipeline/scripts/run_protocol_docs_quality_suite.py",
+        "--protocol",
+        "graphql",
+        "--generated-doc",
+        "docs/reference/graphql-api.md",
+        "--docs-root",
+        "docs",
+        "--reports-dir",
+        "reports",
+        "--required-languages",
+        "curl,javascript,python",
+        "--glossary",
+        "glossary.yml",
+        "--json-report",
+        "reports/graphql_quality_suite_report.json"
+      ],
+      "details": {}
+    },
+    {
+      "stage": "quality_gate_frontmatter",
+      "protocol": "graphql",
+      "ok": true,
+      "rc": 0,
+      "command": [
+        "/usr/bin/python3",
+        "/mnt/c/Users/Kroha/Documents/development/Auto-Doc Pipeline/scripts/validate_frontmatter.py"
+      ],
+      "details": {}
+    },
+    {
+      "stage": "quality_gate_snippets",
+      "protocol": "graphql",
+      "ok": true,
+      "rc": 0,
+      "command": [
+        "/usr/bin/python3",
+        "/mnt/c/Users/Kroha/Documents/development/Auto-Doc Pipeline/scripts/lint_code_snippets.py",
+        "docs/reference/graphql-api.md"
+      ],
+      "details": {}
+    },
+    {
+      "stage": "test_assets",
+      "protocol": "graphql",
+      "ok": true,
+      "rc": 0,
+      "command": [
+        "/usr/bin/python3",
+        "/mnt/c/Users/Kroha/Documents/development/Auto-Doc Pipeline/scripts/generate_protocol_test_assets.py",
+        "--protocols",
+        "graphql",
+        "--source",
+        "reports/acme-demo/contracts/graphql.schema.graphql",
+        "--output-dir",
+        "reports/api-test-assets",
+        "--testrail-csv",
+        "reports/api-test-assets/testrail_test_cases.csv",
+        "--zephyr-json",
+        "reports/api-test-assets/zephyr_test_cases.json"
+      ],
+      "details": {
+        "coverage_ok": true,
+        "coverage_rc": 0
+      }
+    },
+    {
+      "stage": "publish",
+      "protocol": "graphql",
+      "ok": true,
+      "rc": 0,
+      "command": [
+        "/usr/bin/python3",
+        "/mnt/c/Users/Kroha/Documents/development/Auto-Doc Pipeline/scripts/publish_protocol_assets.py",
+        "--protocol",
+        "graphql",
+        "--source",
+        "reports/acme-demo/contracts/graphql.schema.graphql",
+        "--generated-doc",
+        "docs/reference/graphql-api.md",
+        "--target-root",
+        "docs/assets/protocols"
+      ],
+      "details": {}
+    },
+    {
+      "stage": "ingest",
+      "protocol": "grpc",
+      "ok": true,
+      "rc": 0,
+      "command": [
+        "exists",
+        "/mnt/c/Users/Kroha/Documents/development/Auto-Doc Pipeline/reports/acme-demo/contracts/grpc"
+      ],
+      "details": {
+        "source": "/mnt/c/Users/Kroha/Documents/development/Auto-Doc Pipeline/reports/acme-demo/contracts/grpc"
+      }
+    },
+    {
+      "stage": "lint",
+      "protocol": "grpc",
+      "ok": true,
+      "rc": 0,
+      "command": [
+        "/usr/bin/python3",
+        "/mnt/c/Users/Kroha/Documents/development/Auto-Doc Pipeline/scripts/run_protocol_lint_stack.py",
+        "--protocol",
+        "grpc",
+        "--source",
+        "reports/acme-demo/contracts/grpc",
+        "--json-report",
+        "/mnt/c/Users/Kroha/Documents/development/Auto-Doc Pipeline/reports/grpc_lint_stack_report.json"
+      ],
+      "details": {}
+    },
+    {
+      "stage": "regression",
+      "protocol": "grpc",
+      "ok": false,
+      "rc": 1,
+      "command": [
+        "/usr/bin/python3",
+        "/mnt/c/Users/Kroha/Documents/development/Auto-Doc Pipeline/scripts/check_protocol_regression.py",
+        "--protocol",
+        "grpc",
+        "--snapshot",
+        "reports/acme-demo/contracts/grpc/.grpc-regression.json",
+        "--input",
+        "reports/acme-demo/contracts/grpc"
+      ],
+      "details": {}
+    },
+    {
+      "stage": "docs_generation",
+      "protocol": "grpc",
+      "ok": true,
+      "rc": 0,
+      "command": [
+        "/usr/bin/python3",
+        "/mnt/c/Users/Kroha/Documents/development/Auto-Doc Pipeline/scripts/generate_protocol_docs.py",
+        "--protocol",
+        "grpc",
+        "--source",
+        "reports/acme-demo/contracts/grpc",
+        "--output",
+        "docs/reference/grpc-api.md",
+        "--mode",
+        "api-first"
+      ],
+      "details": {
+        "generated_doc": "docs/reference/grpc-api.md"
+      }
+    },
+    {
+      "stage": "quality_suite",
+      "protocol": "grpc",
+      "ok": true,
+      "rc": 0,
+      "command": [
+        "/usr/bin/python3",
+        "/mnt/c/Users/Kroha/Documents/development/Auto-Doc Pipeline/scripts/run_protocol_docs_quality_suite.py",
+        "--protocol",
+        "grpc",
+        "--generated-doc",
+        "docs/reference/grpc-api.md",
+        "--docs-root",
+        "docs",
+        "--reports-dir",
+        "reports",
+        "--required-languages",
+        "curl,javascript,python",
+        "--glossary",
+        "glossary.yml",
+        "--json-report",
+        "reports/grpc_quality_suite_report.json"
+      ],
+      "details": {}
+    },
+    {
+      "stage": "quality_gate_frontmatter",
+      "protocol": "grpc",
+      "ok": true,
+      "rc": 0,
+      "command": [
+        "/usr/bin/python3",
+        "/mnt/c/Users/Kroha/Documents/development/Auto-Doc Pipeline/scripts/validate_frontmatter.py"
+      ],
+      "details": {}
+    },
+    {
+      "stage": "quality_gate_snippets",
+      "protocol": "grpc",
+      "ok": true,
+      "rc": 0,
+      "command": [
+        "/usr/bin/python3",
+        "/mnt/c/Users/Kroha/Documents/development/Auto-Doc Pipeline/scripts/lint_code_snippets.py",
+        "docs/reference/grpc-api.md"
+      ],
+      "details": {}
+    },
+    {
+      "stage": "test_assets",
+      "protocol": "grpc",
+      "ok": true,
+      "rc": 0,
+      "command": [
+        "/usr/bin/python3",
+        "/mnt/c/Users/Kroha/Documents/development/Auto-Doc Pipeline/scripts/generate_protocol_test_assets.py",
+        "--protocols",
+        "grpc",
+        "--source",
+        "reports/acme-demo/contracts/grpc",
+        "--output-dir",
+        "reports/api-test-assets",
+        "--testrail-csv",
+        "reports/api-test-assets/testrail_test_cases.csv",
+        "--zephyr-json",
+        "reports/api-test-assets/zephyr_test_cases.json"
+      ],
+      "details": {
+        "coverage_ok": true,
+        "coverage_rc": 0
+      }
+    },
+    {
+      "stage": "publish",
+      "protocol": "grpc",
+      "ok": true,
+      "rc": 0,
+      "command": [
+        "/usr/bin/python3",
+        "/mnt/c/Users/Kroha/Documents/development/Auto-Doc Pipeline/scripts/publish_protocol_assets.py",
+        "--protocol",
+        "grpc",
+        "--source",
+        "reports/acme-demo/contracts/grpc",
+        "--generated-doc",
+        "docs/reference/grpc-api.md",
+        "--target-root",
+        "docs/assets/protocols"
+      ],
+      "details": {}
+    },
+    {
+      "stage": "ingest",
+      "protocol": "asyncapi",
+      "ok": true,
+      "rc": 0,
+      "command": [
+        "exists",
+        "/mnt/c/Users/Kroha/Documents/development/Auto-Doc Pipeline/reports/acme-demo/contracts/asyncapi.yaml"
+      ],
+      "details": {
+        "source": "/mnt/c/Users/Kroha/Documents/development/Auto-Doc Pipeline/reports/acme-demo/contracts/asyncapi.yaml"
+      }
+    },
+    {
+      "stage": "lint",
+      "protocol": "asyncapi",
+      "ok": true,
+      "rc": 0,
+      "command": [
+        "/usr/bin/python3",
+        "/mnt/c/Users/Kroha/Documents/development/Auto-Doc Pipeline/scripts/run_protocol_lint_stack.py",
+        "--protocol",
+        "asyncapi",
+        "--source",
+        "reports/acme-demo/contracts/asyncapi.yaml",
+        "--json-report",
+        "/mnt/c/Users/Kroha/Documents/development/Auto-Doc Pipeline/reports/asyncapi_lint_stack_report.json"
+      ],
+      "details": {}
+    },
+    {
+      "stage": "regression",
+      "protocol": "asyncapi",
+      "ok": true,
+      "rc": 0,
+      "command": [
+        "/usr/bin/python3",
+        "/mnt/c/Users/Kroha/Documents/development/Auto-Doc Pipeline/scripts/check_protocol_regression.py",
+        "--protocol",
+        "asyncapi",
+        "--snapshot",
+        "reports/acme-demo/contracts/.asyncapi-regression.json",
+        "--input",
+        "reports/acme-demo/contracts/asyncapi.yaml"
+      ],
+      "details": {}
+    },
+    {
+      "stage": "docs_generation",
+      "protocol": "asyncapi",
+      "ok": true,
+      "rc": 0,
+      "command": [
+        "/usr/bin/python3",
+        "/mnt/c/Users/Kroha/Documents/development/Auto-Doc Pipeline/scripts/generate_protocol_docs.py",
+        "--protocol",
+        "asyncapi",
+        "--source",
+        "reports/acme-demo/contracts/asyncapi.yaml",
+        "--output",
+        "docs/reference/asyncapi-api.md",
+        "--mode",
+        "api-first"
+      ],
+      "details": {
+        "generated_doc": "docs/reference/asyncapi-api.md"
+      }
+    },
+    {
+      "stage": "quality_suite",
+      "protocol": "asyncapi",
+      "ok": true,
+      "rc": 0,
+      "command": [
+        "/usr/bin/python3",
+        "/mnt/c/Users/Kroha/Documents/development/Auto-Doc Pipeline/scripts/run_protocol_docs_quality_suite.py",
+        "--protocol",
+        "asyncapi",
+        "--generated-doc",
+        "docs/reference/asyncapi-api.md",
+        "--docs-root",
+        "docs",
+        "--reports-dir",
+        "reports",
+        "--required-languages",
+        "curl,javascript,python",
+        "--glossary",
+        "glossary.yml",
+        "--json-report",
+        "reports/asyncapi_quality_suite_report.json"
+      ],
+      "details": {}
+    },
+    {
+      "stage": "quality_gate_frontmatter",
+      "protocol": "asyncapi",
+      "ok": true,
+      "rc": 0,
+      "command": [
+        "/usr/bin/python3",
+        "/mnt/c/Users/Kroha/Documents/development/Auto-Doc Pipeline/scripts/validate_frontmatter.py"
+      ],
+      "details": {}
+    },
+    {
+      "stage": "quality_gate_snippets",
+      "protocol": "asyncapi",
+      "ok": true,
+      "rc": 0,
+      "command": [
+        "/usr/bin/python3",
+        "/mnt/c/Users/Kroha/Documents/development/Auto-Doc Pipeline/scripts/lint_code_snippets.py",
+        "docs/reference/asyncapi-api.md"
+      ],
+      "details": {}
+    },
+    {
+      "stage": "test_assets",
+      "protocol": "asyncapi",
+      "ok": true,
+      "rc": 0,
+      "command": [
+        "/usr/bin/python3",
+        "/mnt/c/Users/Kroha/Documents/development/Auto-Doc Pipeline/scripts/generate_protocol_test_assets.py",
+        "--protocols",
+        "asyncapi",
+        "--source",
+        "reports/acme-demo/contracts/asyncapi.yaml",
+        "--output-dir",
+        "reports/api-test-assets",
+        "--testrail-csv",
+        "reports/api-test-assets/testrail_test_cases.csv",
+        "--zephyr-json",
+        "reports/api-test-assets/zephyr_test_cases.json"
+      ],
+      "details": {
+        "coverage_ok": true,
+        "coverage_rc": 0
+      }
+    },
+    {
+      "stage": "publish",
+      "protocol": "asyncapi",
+      "ok": true,
+      "rc": 0,
+      "command": [
+        "/usr/bin/python3",
+        "/mnt/c/Users/Kroha/Documents/development/Auto-Doc Pipeline/scripts/publish_protocol_assets.py",
+        "--protocol",
+        "asyncapi",
+        "--source",
+        "reports/acme-demo/contracts/asyncapi.yaml",
+        "--generated-doc",
+        "docs/reference/asyncapi-api.md",
+        "--target-root",
+        "docs/assets/protocols"
+      ],
+      "details": {}
+    },
+    {
+      "stage": "ingest",
+      "protocol": "websocket",
+      "ok": true,
+      "rc": 0,
+      "command": [
+        "exists",
+        "/mnt/c/Users/Kroha/Documents/development/Auto-Doc Pipeline/reports/acme-demo/contracts/websocket.yaml"
+      ],
+      "details": {
+        "source": "/mnt/c/Users/Kroha/Documents/development/Auto-Doc Pipeline/reports/acme-demo/contracts/websocket.yaml"
+      }
+    },
+    {
+      "stage": "lint",
+      "protocol": "websocket",
+      "ok": true,
+      "rc": 0,
+      "command": [
+        "/usr/bin/python3",
+        "/mnt/c/Users/Kroha/Documents/development/Auto-Doc Pipeline/scripts/run_protocol_lint_stack.py",
+        "--protocol",
+        "websocket",
+        "--source",
+        "reports/acme-demo/contracts/websocket.yaml",
+        "--json-report",
+        "/mnt/c/Users/Kroha/Documents/development/Auto-Doc Pipeline/reports/websocket_lint_stack_report.json"
+      ],
+      "details": {}
+    },
+    {
+      "stage": "regression",
+      "protocol": "websocket",
+      "ok": true,
+      "rc": 0,
+      "command": [
+        "/usr/bin/python3",
+        "/mnt/c/Users/Kroha/Documents/development/Auto-Doc Pipeline/scripts/check_protocol_regression.py",
+        "--protocol",
+        "websocket",
+        "--snapshot",
+        "reports/acme-demo/contracts/.websocket-regression.json",
+        "--input",
+        "reports/acme-demo/contracts/websocket.yaml"
+      ],
+      "details": {}
+    },
+    {
+      "stage": "docs_generation",
+      "protocol": "websocket",
+      "ok": true,
+      "rc": 0,
+      "command": [
+        "/usr/bin/python3",
+        "/mnt/c/Users/Kroha/Documents/development/Auto-Doc Pipeline/scripts/generate_protocol_docs.py",
+        "--protocol",
+        "websocket",
+        "--source",
+        "reports/acme-demo/contracts/websocket.yaml",
+        "--output",
+        "docs/reference/websocket-api.md",
+        "--mode",
+        "api-first"
+      ],
+      "details": {
+        "generated_doc": "docs/reference/websocket-api.md"
+      }
+    },
+    {
+      "stage": "quality_suite",
+      "protocol": "websocket",
+      "ok": true,
+      "rc": 0,
+      "command": [
+        "/usr/bin/python3",
+        "/mnt/c/Users/Kroha/Documents/development/Auto-Doc Pipeline/scripts/run_protocol_docs_quality_suite.py",
+        "--protocol",
+        "websocket",
+        "--generated-doc",
+        "docs/reference/websocket-api.md",
+        "--docs-root",
+        "docs",
+        "--reports-dir",
+        "reports",
+        "--required-languages",
+        "curl,javascript,python",
+        "--glossary",
+        "glossary.yml",
+        "--json-report",
+        "reports/websocket_quality_suite_report.json"
+      ],
+      "details": {}
+    },
+    {
+      "stage": "quality_gate_frontmatter",
+      "protocol": "websocket",
+      "ok": true,
+      "rc": 0,
+      "command": [
+        "/usr/bin/python3",
+        "/mnt/c/Users/Kroha/Documents/development/Auto-Doc Pipeline/scripts/validate_frontmatter.py"
+      ],
+      "details": {}
+    },
+    {
+      "stage": "quality_gate_snippets",
+      "protocol": "websocket",
+      "ok": true,
+      "rc": 0,
+      "command": [
+        "/usr/bin/python3",
+        "/mnt/c/Users/Kroha/Documents/development/Auto-Doc Pipeline/scripts/lint_code_snippets.py",
+        "docs/reference/websocket-api.md"
+      ],
+      "details": {}
+    },
+    {
+      "stage": "test_assets",
+      "protocol": "websocket",
+      "ok": true,
+      "rc": 0,
+      "command": [
+        "/usr/bin/python3",
+        "/mnt/c/Users/Kroha/Documents/development/Auto-Doc Pipeline/scripts/generate_protocol_test_assets.py",
+        "--protocols",
+        "websocket",
+        "--source",
+        "reports/acme-demo/contracts/websocket.yaml",
+        "--output-dir",
+        "reports/api-test-assets",
+        "--testrail-csv",
+        "reports/api-test-assets/testrail_test_cases.csv",
+        "--zephyr-json",
+        "reports/api-test-assets/zephyr_test_cases.json"
+      ],
+      "details": {
+        "coverage_ok": true,
+        "coverage_rc": 0
+      }
+    },
+    {
+      "stage": "publish",
+      "protocol": "websocket",
+      "ok": true,
+      "rc": 0,
+      "command": [
+        "/usr/bin/python3",
+        "/mnt/c/Users/Kroha/Documents/development/Auto-Doc Pipeline/scripts/publish_protocol_assets.py",
+        "--protocol",
+        "websocket",
+        "--source",
+        "reports/acme-demo/contracts/websocket.yaml",
+        "--generated-doc",
+        "docs/reference/websocket-api.md",
+        "--target-root",
+        "docs/assets/protocols"
+      ],
+      "details": {}
+    }
+  ],
+  "by_protocol": {
+    "rest": [
+      {
+        "stage": "ingest",
+        "protocol": "rest",
+        "ok": true,
+        "rc": 0,
+        "command": [
+          "exists",
+          "/mnt/c/Users/Kroha/Documents/development/Auto-Doc Pipeline/api/openapi.yaml"
+        ],
+        "details": {
+          "source": "/mnt/c/Users/Kroha/Documents/development/Auto-Doc Pipeline/api/openapi.yaml"
+        }
+      },
+      {
+        "stage": "lint",
+        "protocol": "rest",
+        "ok": true,
+        "rc": 0,
+        "command": [
+          "/usr/bin/python3",
+          "/mnt/c/Users/Kroha/Documents/development/Auto-Doc Pipeline/scripts/validate_openapi_contract.py",
+          "api/openapi.yaml"
+        ],
+        "details": {}
+      },
+      {
+        "stage": "regression",
+        "protocol": "rest",
+        "ok": true,
+        "rc": 0,
+        "command": [
+          "/usr/bin/python3",
+          "/mnt/c/Users/Kroha/Documents/development/Auto-Doc Pipeline/scripts/check_protocol_regression.py",
+          "--protocol",
+          "rest",
+          "--snapshot",
+          "api/.rest-regression.json",
+          "--input",
+          "api/openapi.yaml"
+        ],
+        "details": {}
+      },
+      {
+        "stage": "docs_generation",
+        "protocol": "rest",
+        "ok": true,
+        "rc": 0,
+        "command": [
+          "/usr/bin/python3",
+          "/mnt/c/Users/Kroha/Documents/development/Auto-Doc Pipeline/scripts/generate_protocol_docs.py",
+          "--protocol",
+          "rest",
+          "--source",
+          "api/openapi.yaml",
+          "--output",
+          "docs/reference/rest-api.md",
+          "--mode",
+          "api-first"
+        ],
+        "details": {
+          "generated_doc": "docs/reference/rest-api.md"
+        }
+      },
+      {
+        "stage": "quality_gate_frontmatter",
+        "protocol": "rest",
+        "ok": true,
+        "rc": 0,
+        "command": [
+          "/usr/bin/python3",
+          "/mnt/c/Users/Kroha/Documents/development/Auto-Doc Pipeline/scripts/validate_frontmatter.py"
+        ],
+        "details": {}
+      },
+      {
+        "stage": "quality_gate_snippets",
+        "protocol": "rest",
+        "ok": true,
+        "rc": 0,
+        "command": [
+          "/usr/bin/python3",
+          "/mnt/c/Users/Kroha/Documents/development/Auto-Doc Pipeline/scripts/lint_code_snippets.py",
+          "docs/reference/rest-api.md"
+        ],
+        "details": {}
+      },
+      {
+        "stage": "test_assets",
+        "protocol": "rest",
+        "ok": true,
+        "rc": 0,
+        "command": [
+          "/usr/bin/python3",
+          "/mnt/c/Users/Kroha/Documents/development/Auto-Doc Pipeline/scripts/generate_protocol_test_assets.py",
+          "--protocols",
+          "rest",
+          "--source",
+          "api/openapi.yaml",
+          "--output-dir",
+          "reports/api-test-assets",
+          "--testrail-csv",
+          "reports/api-test-assets/testrail_test_cases.csv",
+          "--zephyr-json",
+          "reports/api-test-assets/zephyr_test_cases.json"
+        ],
+        "details": {
+          "coverage_ok": true,
+          "coverage_rc": 0
+        }
+      },
+      {
+        "stage": "publish",
+        "protocol": "rest",
+        "ok": true,
+        "rc": 0,
+        "command": [
+          "/usr/bin/python3",
+          "/mnt/c/Users/Kroha/Documents/development/Auto-Doc Pipeline/scripts/publish_protocol_assets.py",
+          "--protocol",
+          "rest",
+          "--source",
+          "api/openapi.yaml",
+          "--generated-doc",
+          "docs/reference/rest-api.md",
+          "--target-root",
+          "docs/assets/protocols"
+        ],
+        "details": {}
+      }
+    ],
+    "graphql": [
+      {
+        "stage": "ingest",
+        "protocol": "graphql",
+        "ok": true,
+        "rc": 0,
+        "command": [
+          "exists",
+          "/mnt/c/Users/Kroha/Documents/development/Auto-Doc Pipeline/reports/acme-demo/contracts/graphql.schema.graphql"
+        ],
+        "details": {
+          "source": "/mnt/c/Users/Kroha/Documents/development/Auto-Doc Pipeline/reports/acme-demo/contracts/graphql.schema.graphql"
+        }
+      },
+      {
+        "stage": "lint",
+        "protocol": "graphql",
+        "ok": true,
+        "rc": 0,
+        "command": [
+          "/usr/bin/python3",
+          "/mnt/c/Users/Kroha/Documents/development/Auto-Doc Pipeline/scripts/run_protocol_lint_stack.py",
+          "--protocol",
+          "graphql",
+          "--source",
+          "reports/acme-demo/contracts/graphql.schema.graphql",
+          "--json-report",
+          "/mnt/c/Users/Kroha/Documents/development/Auto-Doc Pipeline/reports/graphql_lint_stack_report.json"
+        ],
+        "details": {}
+      },
+      {
+        "stage": "regression",
+        "protocol": "graphql",
+        "ok": true,
+        "rc": 0,
+        "command": [
+          "/usr/bin/python3",
+          "/mnt/c/Users/Kroha/Documents/development/Auto-Doc Pipeline/scripts/check_protocol_regression.py",
+          "--protocol",
+          "graphql",
+          "--snapshot",
+          "reports/acme-demo/contracts/.graphql-regression.json",
+          "--input",
+          "reports/acme-demo/contracts/graphql.schema.graphql"
+        ],
+        "details": {}
+      },
+      {
+        "stage": "docs_generation",
+        "protocol": "graphql",
+        "ok": true,
+        "rc": 0,
+        "command": [
+          "/usr/bin/python3",
+          "/mnt/c/Users/Kroha/Documents/development/Auto-Doc Pipeline/scripts/generate_protocol_docs.py",
+          "--protocol",
+          "graphql",
+          "--source",
+          "reports/acme-demo/contracts/graphql.schema.graphql",
+          "--output",
+          "docs/reference/graphql-api.md",
+          "--mode",
+          "api-first"
+        ],
+        "details": {
+          "generated_doc": "docs/reference/graphql-api.md"
+        }
+      },
+      {
+        "stage": "quality_suite",
+        "protocol": "graphql",
+        "ok": true,
+        "rc": 0,
+        "command": [
+          "/usr/bin/python3",
+          "/mnt/c/Users/Kroha/Documents/development/Auto-Doc Pipeline/scripts/run_protocol_docs_quality_suite.py",
+          "--protocol",
+          "graphql",
+          "--generated-doc",
+          "docs/reference/graphql-api.md",
+          "--docs-root",
+          "docs",
+          "--reports-dir",
+          "reports",
+          "--required-languages",
+          "curl,javascript,python",
+          "--glossary",
+          "glossary.yml",
+          "--json-report",
+          "reports/graphql_quality_suite_report.json"
+        ],
+        "details": {}
+      },
+      {
+        "stage": "quality_gate_frontmatter",
+        "protocol": "graphql",
+        "ok": true,
+        "rc": 0,
+        "command": [
+          "/usr/bin/python3",
+          "/mnt/c/Users/Kroha/Documents/development/Auto-Doc Pipeline/scripts/validate_frontmatter.py"
+        ],
+        "details": {}
+      },
+      {
+        "stage": "quality_gate_snippets",
+        "protocol": "graphql",
+        "ok": true,
+        "rc": 0,
+        "command": [
+          "/usr/bin/python3",
+          "/mnt/c/Users/Kroha/Documents/development/Auto-Doc Pipeline/scripts/lint_code_snippets.py",
+          "docs/reference/graphql-api.md"
+        ],
+        "details": {}
+      },
+      {
+        "stage": "test_assets",
+        "protocol": "graphql",
+        "ok": true,
+        "rc": 0,
+        "command": [
+          "/usr/bin/python3",
+          "/mnt/c/Users/Kroha/Documents/development/Auto-Doc Pipeline/scripts/generate_protocol_test_assets.py",
+          "--protocols",
+          "graphql",
+          "--source",
+          "reports/acme-demo/contracts/graphql.schema.graphql",
+          "--output-dir",
+          "reports/api-test-assets",
+          "--testrail-csv",
+          "reports/api-test-assets/testrail_test_cases.csv",
+          "--zephyr-json",
+          "reports/api-test-assets/zephyr_test_cases.json"
+        ],
+        "details": {
+          "coverage_ok": true,
+          "coverage_rc": 0
+        }
+      },
+      {
+        "stage": "publish",
+        "protocol": "graphql",
+        "ok": true,
+        "rc": 0,
+        "command": [
+          "/usr/bin/python3",
+          "/mnt/c/Users/Kroha/Documents/development/Auto-Doc Pipeline/scripts/publish_protocol_assets.py",
+          "--protocol",
+          "graphql",
+          "--source",
+          "reports/acme-demo/contracts/graphql.schema.graphql",
+          "--generated-doc",
+          "docs/reference/graphql-api.md",
+          "--target-root",
+          "docs/assets/protocols"
+        ],
+        "details": {}
+      }
+    ],
+    "grpc": [
+      {
+        "stage": "ingest",
+        "protocol": "grpc",
+        "ok": true,
+        "rc": 0,
+        "command": [
+          "exists",
+          "/mnt/c/Users/Kroha/Documents/development/Auto-Doc Pipeline/reports/acme-demo/contracts/grpc"
+        ],
+        "details": {
+          "source": "/mnt/c/Users/Kroha/Documents/development/Auto-Doc Pipeline/reports/acme-demo/contracts/grpc"
+        }
+      },
+      {
+        "stage": "lint",
+        "protocol": "grpc",
+        "ok": true,
+        "rc": 0,
+        "command": [
+          "/usr/bin/python3",
+          "/mnt/c/Users/Kroha/Documents/development/Auto-Doc Pipeline/scripts/run_protocol_lint_stack.py",
+          "--protocol",
+          "grpc",
+          "--source",
+          "reports/acme-demo/contracts/grpc",
+          "--json-report",
+          "/mnt/c/Users/Kroha/Documents/development/Auto-Doc Pipeline/reports/grpc_lint_stack_report.json"
+        ],
+        "details": {}
+      },
+      {
+        "stage": "regression",
+        "protocol": "grpc",
+        "ok": false,
+        "rc": 1,
+        "command": [
+          "/usr/bin/python3",
+          "/mnt/c/Users/Kroha/Documents/development/Auto-Doc Pipeline/scripts/check_protocol_regression.py",
+          "--protocol",
+          "grpc",
+          "--snapshot",
+          "reports/acme-demo/contracts/grpc/.grpc-regression.json",
+          "--input",
+          "reports/acme-demo/contracts/grpc"
+        ],
+        "details": {}
+      },
+      {
+        "stage": "docs_generation",
+        "protocol": "grpc",
+        "ok": true,
+        "rc": 0,
+        "command": [
+          "/usr/bin/python3",
+          "/mnt/c/Users/Kroha/Documents/development/Auto-Doc Pipeline/scripts/generate_protocol_docs.py",
+          "--protocol",
+          "grpc",
+          "--source",
+          "reports/acme-demo/contracts/grpc",
+          "--output",
+          "docs/reference/grpc-api.md",
+          "--mode",
+          "api-first"
+        ],
+        "details": {
+          "generated_doc": "docs/reference/grpc-api.md"
+        }
+      },
+      {
+        "stage": "quality_suite",
+        "protocol": "grpc",
+        "ok": true,
+        "rc": 0,
+        "command": [
+          "/usr/bin/python3",
+          "/mnt/c/Users/Kroha/Documents/development/Auto-Doc Pipeline/scripts/run_protocol_docs_quality_suite.py",
+          "--protocol",
+          "grpc",
+          "--generated-doc",
+          "docs/reference/grpc-api.md",
+          "--docs-root",
+          "docs",
+          "--reports-dir",
+          "reports",
+          "--required-languages",
+          "curl,javascript,python",
+          "--glossary",
+          "glossary.yml",
+          "--json-report",
+          "reports/grpc_quality_suite_report.json"
+        ],
+        "details": {}
+      },
+      {
+        "stage": "quality_gate_frontmatter",
+        "protocol": "grpc",
+        "ok": true,
+        "rc": 0,
+        "command": [
+          "/usr/bin/python3",
+          "/mnt/c/Users/Kroha/Documents/development/Auto-Doc Pipeline/scripts/validate_frontmatter.py"
+        ],
+        "details": {}
+      },
+      {
+        "stage": "quality_gate_snippets",
+        "protocol": "grpc",
+        "ok": true,
+        "rc": 0,
+        "command": [
+          "/usr/bin/python3",
+          "/mnt/c/Users/Kroha/Documents/development/Auto-Doc Pipeline/scripts/lint_code_snippets.py",
+          "docs/reference/grpc-api.md"
+        ],
+        "details": {}
+      },
+      {
+        "stage": "test_assets",
+        "protocol": "grpc",
+        "ok": true,
+        "rc": 0,
+        "command": [
+          "/usr/bin/python3",
+          "/mnt/c/Users/Kroha/Documents/development/Auto-Doc Pipeline/scripts/generate_protocol_test_assets.py",
+          "--protocols",
+          "grpc",
+          "--source",
+          "reports/acme-demo/contracts/grpc",
+          "--output-dir",
+          "reports/api-test-assets",
+          "--testrail-csv",
+          "reports/api-test-assets/testrail_test_cases.csv",
+          "--zephyr-json",
+          "reports/api-test-assets/zephyr_test_cases.json"
+        ],
+        "details": {
+          "coverage_ok": true,
+          "coverage_rc": 0
+        }
+      },
+      {
+        "stage": "publish",
+        "protocol": "grpc",
+        "ok": true,
+        "rc": 0,
+        "command": [
+          "/usr/bin/python3",
+          "/mnt/c/Users/Kroha/Documents/development/Auto-Doc Pipeline/scripts/publish_protocol_assets.py",
+          "--protocol",
+          "grpc",
+          "--source",
+          "reports/acme-demo/contracts/grpc",
+          "--generated-doc",
+          "docs/reference/grpc-api.md",
+          "--target-root",
+          "docs/assets/protocols"
+        ],
+        "details": {}
+      }
+    ],
+    "asyncapi": [
+      {
+        "stage": "ingest",
+        "protocol": "asyncapi",
+        "ok": true,
+        "rc": 0,
+        "command": [
+          "exists",
+          "/mnt/c/Users/Kroha/Documents/development/Auto-Doc Pipeline/reports/acme-demo/contracts/asyncapi.yaml"
+        ],
+        "details": {
+          "source": "/mnt/c/Users/Kroha/Documents/development/Auto-Doc Pipeline/reports/acme-demo/contracts/asyncapi.yaml"
+        }
+      },
+      {
+        "stage": "lint",
+        "protocol": "asyncapi",
+        "ok": true,
+        "rc": 0,
+        "command": [
+          "/usr/bin/python3",
+          "/mnt/c/Users/Kroha/Documents/development/Auto-Doc Pipeline/scripts/run_protocol_lint_stack.py",
+          "--protocol",
+          "asyncapi",
+          "--source",
+          "reports/acme-demo/contracts/asyncapi.yaml",
+          "--json-report",
+          "/mnt/c/Users/Kroha/Documents/development/Auto-Doc Pipeline/reports/asyncapi_lint_stack_report.json"
+        ],
+        "details": {}
+      },
+      {
+        "stage": "regression",
+        "protocol": "asyncapi",
+        "ok": true,
+        "rc": 0,
+        "command": [
+          "/usr/bin/python3",
+          "/mnt/c/Users/Kroha/Documents/development/Auto-Doc Pipeline/scripts/check_protocol_regression.py",
+          "--protocol",
+          "asyncapi",
+          "--snapshot",
+          "reports/acme-demo/contracts/.asyncapi-regression.json",
+          "--input",
+          "reports/acme-demo/contracts/asyncapi.yaml"
+        ],
+        "details": {}
+      },
+      {
+        "stage": "docs_generation",
+        "protocol": "asyncapi",
+        "ok": true,
+        "rc": 0,
+        "command": [
+          "/usr/bin/python3",
+          "/mnt/c/Users/Kroha/Documents/development/Auto-Doc Pipeline/scripts/generate_protocol_docs.py",
+          "--protocol",
+          "asyncapi",
+          "--source",
+          "reports/acme-demo/contracts/asyncapi.yaml",
+          "--output",
+          "docs/reference/asyncapi-api.md",
+          "--mode",
+          "api-first"
+        ],
+        "details": {
+          "generated_doc": "docs/reference/asyncapi-api.md"
+        }
+      },
+      {
+        "stage": "quality_suite",
+        "protocol": "asyncapi",
+        "ok": true,
+        "rc": 0,
+        "command": [
+          "/usr/bin/python3",
+          "/mnt/c/Users/Kroha/Documents/development/Auto-Doc Pipeline/scripts/run_protocol_docs_quality_suite.py",
+          "--protocol",
+          "asyncapi",
+          "--generated-doc",
+          "docs/reference/asyncapi-api.md",
+          "--docs-root",
+          "docs",
+          "--reports-dir",
+          "reports",
+          "--required-languages",
+          "curl,javascript,python",
+          "--glossary",
+          "glossary.yml",
+          "--json-report",
+          "reports/asyncapi_quality_suite_report.json"
+        ],
+        "details": {}
+      },
+      {
+        "stage": "quality_gate_frontmatter",
+        "protocol": "asyncapi",
+        "ok": true,
+        "rc": 0,
+        "command": [
+          "/usr/bin/python3",
+          "/mnt/c/Users/Kroha/Documents/development/Auto-Doc Pipeline/scripts/validate_frontmatter.py"
+        ],
+        "details": {}
+      },
+      {
+        "stage": "quality_gate_snippets",
+        "protocol": "asyncapi",
+        "ok": true,
+        "rc": 0,
+        "command": [
+          "/usr/bin/python3",
+          "/mnt/c/Users/Kroha/Documents/development/Auto-Doc Pipeline/scripts/lint_code_snippets.py",
+          "docs/reference/asyncapi-api.md"
+        ],
+        "details": {}
+      },
+      {
+        "stage": "test_assets",
+        "protocol": "asyncapi",
+        "ok": true,
+        "rc": 0,
+        "command": [
+          "/usr/bin/python3",
+          "/mnt/c/Users/Kroha/Documents/development/Auto-Doc Pipeline/scripts/generate_protocol_test_assets.py",
+          "--protocols",
+          "asyncapi",
+          "--source",
+          "reports/acme-demo/contracts/asyncapi.yaml",
+          "--output-dir",
+          "reports/api-test-assets",
+          "--testrail-csv",
+          "reports/api-test-assets/testrail_test_cases.csv",
+          "--zephyr-json",
+          "reports/api-test-assets/zephyr_test_cases.json"
+        ],
+        "details": {
+          "coverage_ok": true,
+          "coverage_rc": 0
+        }
+      },
+      {
+        "stage": "publish",
+        "protocol": "asyncapi",
+        "ok": true,
+        "rc": 0,
+        "command": [
+          "/usr/bin/python3",
+          "/mnt/c/Users/Kroha/Documents/development/Auto-Doc Pipeline/scripts/publish_protocol_assets.py",
+          "--protocol",
+          "asyncapi",
+          "--source",
+          "reports/acme-demo/contracts/asyncapi.yaml",
+          "--generated-doc",
+          "docs/reference/asyncapi-api.md",
+          "--target-root",
+          "docs/assets/protocols"
+        ],
+        "details": {}
+      }
+    ],
+    "websocket": [
+      {
+        "stage": "ingest",
+        "protocol": "websocket",
+        "ok": true,
+        "rc": 0,
+        "command": [
+          "exists",
+          "/mnt/c/Users/Kroha/Documents/development/Auto-Doc Pipeline/reports/acme-demo/contracts/websocket.yaml"
+        ],
+        "details": {
+          "source": "/mnt/c/Users/Kroha/Documents/development/Auto-Doc Pipeline/reports/acme-demo/contracts/websocket.yaml"
+        }
+      },
+      {
+        "stage": "lint",
+        "protocol": "websocket",
+        "ok": true,
+        "rc": 0,
+        "command": [
+          "/usr/bin/python3",
+          "/mnt/c/Users/Kroha/Documents/development/Auto-Doc Pipeline/scripts/run_protocol_lint_stack.py",
+          "--protocol",
+          "websocket",
+          "--source",
+          "reports/acme-demo/contracts/websocket.yaml",
+          "--json-report",
+          "/mnt/c/Users/Kroha/Documents/development/Auto-Doc Pipeline/reports/websocket_lint_stack_report.json"
+        ],
+        "details": {}
+      },
+      {
+        "stage": "regression",
+        "protocol": "websocket",
+        "ok": true,
+        "rc": 0,
+        "command": [
+          "/usr/bin/python3",
+          "/mnt/c/Users/Kroha/Documents/development/Auto-Doc Pipeline/scripts/check_protocol_regression.py",
+          "--protocol",
+          "websocket",
+          "--snapshot",
+          "reports/acme-demo/contracts/.websocket-regression.json",
+          "--input",
+          "reports/acme-demo/contracts/websocket.yaml"
+        ],
+        "details": {}
+      },
+      {
+        "stage": "docs_generation",
+        "protocol": "websocket",
+        "ok": true,
+        "rc": 0,
+        "command": [
+          "/usr/bin/python3",
+          "/mnt/c/Users/Kroha/Documents/development/Auto-Doc Pipeline/scripts/generate_protocol_docs.py",
+          "--protocol",
+          "websocket",
+          "--source",
+          "reports/acme-demo/contracts/websocket.yaml",
+          "--output",
+          "docs/reference/websocket-api.md",
+          "--mode",
+          "api-first"
+        ],
+        "details": {
+          "generated_doc": "docs/reference/websocket-api.md"
+        }
+      },
+      {
+        "stage": "quality_suite",
+        "protocol": "websocket",
+        "ok": true,
+        "rc": 0,
+        "command": [
+          "/usr/bin/python3",
+          "/mnt/c/Users/Kroha/Documents/development/Auto-Doc Pipeline/scripts/run_protocol_docs_quality_suite.py",
+          "--protocol",
+          "websocket",
+          "--generated-doc",
+          "docs/reference/websocket-api.md",
+          "--docs-root",
+          "docs",
+          "--reports-dir",
+          "reports",
+          "--required-languages",
+          "curl,javascript,python",
+          "--glossary",
+          "glossary.yml",
+          "--json-report",
+          "reports/websocket_quality_suite_report.json"
+        ],
+        "details": {}
+      },
+      {
+        "stage": "quality_gate_frontmatter",
+        "protocol": "websocket",
+        "ok": true,
+        "rc": 0,
+        "command": [
+          "/usr/bin/python3",
+          "/mnt/c/Users/Kroha/Documents/development/Auto-Doc Pipeline/scripts/validate_frontmatter.py"
+        ],
+        "details": {}
+      },
+      {
+        "stage": "quality_gate_snippets",
+        "protocol": "websocket",
+        "ok": true,
+        "rc": 0,
+        "command": [
+          "/usr/bin/python3",
+          "/mnt/c/Users/Kroha/Documents/development/Auto-Doc Pipeline/scripts/lint_code_snippets.py",
+          "docs/reference/websocket-api.md"
+        ],
+        "details": {}
+      },
+      {
+        "stage": "test_assets",
+        "protocol": "websocket",
+        "ok": true,
+        "rc": 0,
+        "command": [
+          "/usr/bin/python3",
+          "/mnt/c/Users/Kroha/Documents/development/Auto-Doc Pipeline/scripts/generate_protocol_test_assets.py",
+          "--protocols",
+          "websocket",
+          "--source",
+          "reports/acme-demo/contracts/websocket.yaml",
+          "--output-dir",
+          "reports/api-test-assets",
+          "--testrail-csv",
+          "reports/api-test-assets/testrail_test_cases.csv",
+          "--zephyr-json",
+          "reports/api-test-assets/zephyr_test_cases.json"
+        ],
+        "details": {
+          "coverage_ok": true,
+          "coverage_rc": 0
+        }
+      },
+      {
+        "stage": "publish",
+        "protocol": "websocket",
+        "ok": true,
+        "rc": 0,
+        "command": [
+          "/usr/bin/python3",
+          "/mnt/c/Users/Kroha/Documents/development/Auto-Doc Pipeline/scripts/publish_protocol_assets.py",
+          "--protocol",
+          "websocket",
+          "--source",
+          "reports/acme-demo/contracts/websocket.yaml",
+          "--generated-doc",
+          "docs/reference/websocket-api.md",
+          "--target-root",
+          "docs/assets/protocols"
+        ],
+        "details": {}
+      }
+    ]
+  }
+}

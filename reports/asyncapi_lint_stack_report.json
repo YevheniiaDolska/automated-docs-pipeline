@@ -1,0 +1,49 @@
+{
+  "protocol": "asyncapi",
+  "source": "/tmp/pytest-of-eudo/pytest-2377/test_multi_protocol_flow_gener0/api/asyncapi.yaml",
+  "checks": [
+    {
+      "name": "source_exists",
+      "ok": true,
+      "detail": "/tmp/pytest-of-eudo/pytest-2377/test_multi_protocol_flow_gener0/api/asyncapi.yaml"
+    },
+    {
+      "name": "top_level_keys",
+      "ok": true,
+      "detail": "asyncapi/info/channels"
+    },
+    {
+      "name": "info_title",
+      "ok": true,
+      "detail": "info.title"
+    },
+    {
+      "name": "info_version",
+      "ok": true,
+      "detail": "info.version"
+    },
+    {
+      "name": "channels_non_empty",
+      "ok": true,
+      "detail": "channels not empty"
+    },
+    {
+      "name": "operations_present",
+      "ok": true,
+      "detail": "publish/subscribe present per channel"
+    },
+    {
+      "name": "message_payload_present",
+      "ok": true,
+      "detail": "message payload present per operation"
+    },
+    {
+      "name": "version_string",
+      "ok": true,
+      "detail": "asyncapi version is string"
+    }
+  ],
+  "failed": [],
+  "ok": true,
+  "checks_total": 8
+}

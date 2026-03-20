@@ -1,0 +1,60 @@
+id: auto-canonical-flow-2
+title: Canonical Flow (Sales + Delivery) (Part 2)
+summary: Canonical sales and delivery flow for onboarding and operating client Auto-Doc
+  Pipeline setups.
+intents:
+- integrate
+audiences:
+- developer
+- operator
+channels:
+- docs
+- assistant
+- automation
+priority: 60
+status: active
+owner: docsops-auto
+last_verified: '2026-03-19'
+dependencies: []
+tags:
+- auto-extracted
+- canonical-flow
+- reference
+content:
+  docs_markdown: "## 2. One-time setup (you do this)\n\n\\11. Pick preset:\n\n- `profiles/clients/presets/small.yml`\n\
+    - `profiles/clients/presets/startup.yml`\n- `profiles/clients/presets/enterprise.yml`\n\
+    - `profiles/clients/presets/pilot-evidence.yml`\n\n\\11. Fastest path:\n\n```bash\n\
+    python3 scripts/onboard_client.py\n```\n\n\\11. If you use manual mode, customize\
+    \ client profile:\n\n- client identity\n- repo paths (`docs_root`, `api_root`,\
+    \ `sdk_root`)\n- output targets\n- module toggles\n- policy/plan strictness\n\n\
+    \\11. Choose delivery mode:\n\n- Same machine mode (you can access client repo\
+    \ path directly): use provisioning.\n- Different laptops mode: build bundle on\
+    \ your machine, then client installs scheduler locally.\n\n\\11. Provision (same\
+    \ machine mode):\n\n```bash\npython3 scripts/provision_client_repo.py \\\n  --client\
+    \ profiles/clients/<client>.client.yml \\\n  --client-repo /path/to/client-repo\
+    \ \\\n  --docsops-dir docsops \\\n  --install-scheduler linux\n```\n\nWindows:\n\
+    \n```bash\npython3 scripts/provision_client_repo.py \\\n  --client profiles/clients/<client>.client.yml\
+    \ \\\n  --client-repo C:/path/to/client-repo \\\n  --docsops-dir docsops \\\n\
+    \  --install-scheduler windows\n```\n\n\\11. Build + handoff (different laptops\
+    \ mode):\n\n```bash\npython3 scripts/build_client_bundle.py --client profiles/clients/<client>.client.yml\n\
+    ```\n\nClient installs scheduler after copying bundle into `<client-repo>/docsops`:"
+  assistant_context: "Use this module when answering questions related to: Canonical\
+    \ Flow (Sales + Delivery) (Part 2). Source path: docs/operations/CANONICAL_FLOW.md.\
+    \ Summary: Canonical sales and delivery flow for onboarding and operating client\
+    \ Auto-Doc Pipeline setups.\n\n## 2. One-time setup (you do this)\n\n\\11. Pick\
+    \ preset:\n\n- `profiles/clients/presets/small.yml`\n- `profiles/clients/presets/startup.yml`\n\
+    - `profiles/clients/presets/enterprise.yml`\n- `profiles/clients/presets/pilot-evidence.yml`\n\
+    \n\\11. Fastest path:\n\n```bash\npython3 scripts/onboard_client.py\n```\n\n\\\
+    11. If you use manual mode, customize client profile:\n\n- client identity\n-\
+    \ repo paths (`docs_root`, `api_root`, `sdk_root`)\n- output targets\n- module\
+    \ toggles\n- policy/plan strictness\n\n\\11. Choose delivery mode:\n\n- Same machine\
+    \ mode (you can access client repo path directly): use provisioning.\n- Different\
+    \ laptops mode: build bundle on your machine, then client installs scheduler locally.\n\
+    \n\\11. Provision (same machine mode):\n\n```bash\npython3 scripts/provision_client_repo.py\
+    \ \\\n  --client profiles/clients/<client>.client.yml \\\n  --client-repo /path/to/client-repo\
+    \ \\\n  --docsops-dir docsops \\\n  --install-scheduler linux\n```\n\nWindows:\n\
+    \n```bash\npython3 scripts/provision_client_repo.py \\\n  --client profiles/clients/<client>.client.yml\
+    \ \\\n  --client-repo C:/path/to/client-repo \\\n  --docsops-dir docsops \\\n\
+    \  --install-scheduler windows\n```\n\n\\11. Build + handoff (different laptops\
+    \ mode):\n\n```bash\npython3 scripts/build_client_bundle.py --client profiles/clients/<client>.client.yml\n\
+    ```\n\nClient installs scheduler after copying bundle into `<client-repo>/docsops`:"

@@ -1,0 +1,60 @@
+id: auto-workflow-execution-model-2
+title: How the workflow execution model works (Part 2)
+summary: processes workflows by executing nodes sequentially, passing data as arrays
+  of JSON objects between each node in the chain.
+intents:
+- integrate
+- troubleshoot
+audiences:
+- developer
+- operator
+channels:
+- docs
+- assistant
+- automation
+priority: 60
+status: active
+owner: docsops-auto
+last_verified: '2026-03-19'
+dependencies: []
+tags:
+- auto-extracted
+- concept
+- workflow-execution-model
+content:
+  docs_markdown: "## Execution flow\n\n```mermaid\nflowchart LR\n A[Trigger] -->|items|\
+    \ B[Node 1]\n B -->|transformed items| C[Node 2]\n C -->|items| D{IF condition}\n\
+    \ D -->|true| E[Branch A]\n D -->|false| F[Branch B]\n```\n\nfollows these rules\
+    \ during execution:\n\n1. The **trigger node** starts the workflow and produces\
+    \ the initial items.\n1. Each subsequent node receives all output items from the\
+    \ previous node.\n1. A node processes items either **once for all items** or **once\
+    \ per item**, depending on the node type and configuration.\n1. **Branch nodes**\
+    \ (IF, Switch) route items to different paths based on conditions.\n1. Execution\
+    \ stops when all branches reach their final nodes.\n\n## Execution modes\n\nsupports\
+    \ two execution modes that affect error handling and performance.\n\n=== \"Regular\
+    \ mode (default)\"\n\n Nodes execute one at a time. If a node fails, execution\
+    \ stops and the workflow reports an error. This mode is predictable and easier\
+    \ to debug.\n\n Set in environment: `EXECUTIONS_MODE=regular`\n\n=== \"Queue mode\
+    \ (production)\"\n\n Workflow executions are distributed across worker processes.\
+    \ This mode handles high-volume workloads (hundreds of concurrent executions)\
+    \ and requires a Redis instance for coordination.\n\n Set in environment: `EXECUTIONS_MODE=queue`"
+  assistant_context: "Use this module when answering questions related to: How the\
+    \ workflow execution model works (Part 2). Source path: docs/concepts/workflow-execution-model.md.\
+    \ Summary: processes workflows by executing nodes sequentially, passing data as\
+    \ arrays of JSON objects between each node in the chain.\n\n## Execution flow\n\
+    \n```mermaid\nflowchart LR\n A[Trigger] -->|items| B[Node 1]\n B -->|transformed\
+    \ items| C[Node 2]\n C -->|items| D{IF condition}\n D -->|true| E[Branch A]\n\
+    \ D -->|false| F[Branch B]\n```\n\nfollows these rules during execution:\n\n1.\
+    \ The **trigger node** starts the workflow and produces the initial items.\n1.\
+    \ Each subsequent node receives all output items from the previous node.\n1. A\
+    \ node processes items either **once for all items** or **once per item**, depending\
+    \ on the node type and configuration.\n1. **Branch nodes** (IF, Switch) route\
+    \ items to different paths based on conditions.\n1. Execution stops when all branches\
+    \ reach their final nodes.\n\n## Execution modes\n\nsupports two execution modes\
+    \ that affect error handling and performance.\n\n=== \"Regular mode (default)\"\
+    \n\n Nodes execute one at a time. If a node fails, execution stops and the workflow\
+    \ reports an error. This mode is predictable and easier to debug.\n\n Set in environment:\
+    \ `EXECUTIONS_MODE=regular`\n\n=== \"Queue mode (production)\"\n\n Workflow executions\
+    \ are distributed across worker processes. This mode handles high-volume workloads\
+    \ (hundreds of concurrent executions) and requires a Redis instance for coordination.\n\
+    \n Set in environment: `EXECUTIONS_MODE=queue`"

@@ -290,7 +290,7 @@ Use these templates based on `content_type`:
 **Vale Configuration:**
 
 - **American English** - Use American spelling only
-- **Google Developer Style Guide** - Primary style guide for the documentation
+- **Style guide** - Primary style guide is configured per project (Google Developer Style Guide or Microsoft Style Guide). Check `.vale.ini` for the active style package.
 - **write-good** - Clear, concise writing rules
 
 **Specific Vale Rules to Follow:**
@@ -302,7 +302,7 @@ Use these templates based on `content_type`:
 - Use "license" (verb and noun)
 - Use "canceled" instead of British spelling
 
-**Google Style Guide Requirements:**
+**Google Style Guide Requirements** (when Google is the active style):
 
 - **Acronyms**: Write out on first use: "Application Programming Interface (API)"
 - **Contractions**: Avoid them. Use "do not" instead of "don't"
@@ -310,6 +310,16 @@ Use these templates based on `content_type`:
 - **Oxford comma**: Always use it: "red, white, and blue"
 - **Headings**: Use sentence case, not Title Case
 - **Lists**: Use parallel structure (all items start with same part of speech)
+
+**Microsoft Style Guide Requirements** (when Microsoft is the active style):
+
+- **Acronyms**: Spell out on first mention, then use the acronym: "representational state transfer (REST)"
+- **Contractions**: Use them for a conversational tone: "don't," "isn't," "you'll"
+- **Numbers**: Use numerals for all numbers, including 1-9
+- **Oxford comma**: Always use it
+- **Headings**: Use sentence case
+- **Bias-free language**: Use gender-neutral terms ("they" instead of "he/she")
+- **Active voice**: Required ("Select the menu" not "The menu is selected")
 
 **write-good Rules:**
 
@@ -357,26 +367,32 @@ Use these templates based on `content_type`:
 
 ```
 
-**Content tabs:**
+**Content tabs** (tab names are project-specific, defined in project configuration):
 
 ```markdown
-=== "Cloud"
+=== "Tab A"
 
-    Cloud-specific content
+    Content for variant A
 
-=== "Self-hosted"
+=== "Tab B"
 
-    Self-hosted content
+    Content for variant B
 
 ```
 
+Use content tabs when readers need to choose between mutually exclusive variants (deployment modes, operating systems, programming languages, plan tiers). Tab names must match the project's configured variants.
+
 ### Allowed tags
 
-Use only these tags (defined in `mkdocs.yml`):
+Tags are project-specific. Check the `tags` section in `mkdocs.yml` for the list of allowed tags for the current project. Every tag you use in a document's frontmatter MUST exist in that list.
+
+Standard content-type tags available in all projects:
 
 - Tutorial, How-To, Concept, Reference, Troubleshooting
-- Cloud, Self-hosted
-- Webhook, Nodes, AI
+
+Domain-specific tags (vary by project, check `mkdocs.yml`):
+
+- Examples: API, Architecture, Operations, Quality, Deployment, Security, Webhook, GraphQL, gRPC, AsyncAPI, WebSocket
 
 ### File naming
 
@@ -541,7 +557,7 @@ For every document generation/update:
   - `doc-troubleshoot` - Troubleshooting guide
   - `fm` - Basic frontmatter only
   - `note`, `warning`, `tip` - Admonition blocks
-  - `tabs` - Content tabs for cloud and self-hosted versions
+  - `tabs` - Content tabs for project-specific variants
   - `mermaid-flow` - Flow diagrams
   - `table-params` - Parameter tables
 

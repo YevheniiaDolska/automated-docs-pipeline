@@ -1,0 +1,23 @@
+{
+  "generated_at": "2026-03-19T15:14:55.911681Z",
+  "required_layers": [],
+  "violations_count": 2,
+  "violations": [
+    {
+      "file": "concepts/intelligent-knowledge-system.md",
+      "content_type": "concept",
+      "violation": "Contains pattern inappropriate for concept",
+      "pattern": "```[a-z]+\\n.*?\\n```",
+      "occurrences": 1,
+      "recommendation": "Concept documentation should explain 'what' and 'why', not 'how'"
+    },
+    {
+      "file": "concepts/workflow-execution-model.md",
+      "content_type": "concept",
+      "violation": "Contains pattern inappropriate for concept",
+      "pattern": "```[a-z]+\\n.*?\\n```",
+      "occurrences": 2,
+      "recommendation": "Concept documentation should explain 'what' and 'why', not 'how'"
+    }
+  ]
+}

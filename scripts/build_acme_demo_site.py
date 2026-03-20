@@ -531,12 +531,41 @@ def _slug(text: str) -> str:
     return value or "doc"
 
 
+def _generate_embeddings_if_available(output_root: Path) -> None:
+    """Generate FAISS embeddings if OPENAI_API_KEY is set. Optional step."""
+    import os
+
+    if not os.getenv("OPENAI_API_KEY", "").strip():
+        print("[acme-build] Skipping embedding generation (OPENAI_API_KEY not set)")
+        return
+    assets_dir = output_root / "docs" / "assets"
+    index_file = assets_dir / "knowledge-retrieval-index.json"
+    if not index_file.exists():
+        return
+    embed_script = SCRIPT_ROOT / "scripts" / "generate_embeddings.py"
+    if not embed_script.exists():
+        return
+    _run_allow_fail(
+        [
+            "python3",
+            str(embed_script),
+            "--index",
+            str(index_file),
+            "--output-dir",
+            str(assets_dir),
+        ],
+        cwd=SCRIPT_ROOT,
+        label="generate_embeddings",
+    )
+
+
 def _sync_pipeline_assets(output_root: Path, reports_dir: Path) -> None:
     docs_dir = output_root / "docs"
 
     _ensure_openapi(output_root)
     _ensure_swagger_html(output_root)
     _build_demo_rag_assets(output_root)
+    _generate_embeddings_if_available(output_root)
 
     review_md = reports_dir / "REVIEW_MANIFEST.md"
     if review_md.exists():

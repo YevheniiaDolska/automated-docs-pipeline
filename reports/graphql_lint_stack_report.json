@@ -1,0 +1,49 @@
+{
+  "protocol": "graphql",
+  "source": "/tmp/pytest-of-eudo/pytest-2377/test_publish_blocked_when_live0/api/schema.graphql",
+  "checks": [
+    {
+      "name": "source_exists",
+      "ok": true,
+      "detail": "/tmp/pytest-of-eudo/pytest-2377/test_publish_blocked_when_live0/api/schema.graphql"
+    },
+    {
+      "name": "non_empty",
+      "ok": true,
+      "detail": "schema is not empty"
+    },
+    {
+      "name": "root_declared",
+      "ok": true,
+      "detail": "query root or schema block exists"
+    },
+    {
+      "name": "balanced_braces",
+      "ok": true,
+      "detail": "brace balance"
+    },
+    {
+      "name": "balanced_parentheses",
+      "ok": true,
+      "detail": "parentheses balance"
+    },
+    {
+      "name": "no_duplicate_types",
+      "ok": true,
+      "detail": "duplicate type declarations"
+    },
+    {
+      "name": "no_duplicate_fields",
+      "ok": true,
+      "detail": "duplicate fields in object/input/interface"
+    },
+    {
+      "name": "schema_root_references",
+      "ok": true,
+      "detail": "schema block references existing types"
+    }
+  ],
+  "failed": [],
+  "ok": true,
+  "checks_total": 8
+}

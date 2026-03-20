@@ -1,0 +1,64 @@
+id: auto-canonical-flow-5
+title: Canonical Flow (Sales + Delivery) (Part 5)
+summary: Canonical sales and delivery flow for onboarding and operating client Auto-Doc
+  Pipeline setups.
+intents:
+- integrate
+audiences:
+- developer
+- operator
+channels:
+- docs
+- assistant
+- automation
+priority: 60
+status: active
+owner: docsops-auto
+last_verified: '2026-03-19'
+dependencies: []
+tags:
+- auto-extracted
+- canonical-flow
+- reference
+content:
+  docs_markdown: "- gap detection\n- stale checks\n- drift + docs contract (if enabled)\n\
+    \  - docs contract is report-only by default (no hard weekly blocking)\n  - consolidated\
+    \ report includes only new/changed docs-contract mismatches, ignores closed ones,\
+    \ and deduplicates overlap with other gap sources\n- KPI/SLA (if enabled)\n- API-first\
+    \ flow (if enabled)\n  - supports `docker`, `prism` (no Docker), and `external`\
+    \ public sandbox URL\n  - if `sync_playground_endpoint=true`, sandbox URL is auto-synced\
+    \ into docs playground config\n  - manual overrides apply (`apply_openapi_overrides.py`)\n\
+    \  - regression gate (`check_openapi_regression.py`)\n  - generates API test assets\
+    \ from OpenAPI (`generate_api_test_assets.py`)\n  - optionally uploads test assets\
+    \ to TestRail/Zephyr (`upload_api_test_assets.py`)\n- RAG/knowledge tasks:\n \
+    \ - `extract_knowledge_modules_from_docs.py`\n  - `validate_knowledge_modules.py`\n\
+    \  - `generate_knowledge_retrieval_index.py`\n  - `generate_knowledge_graph_jsonld.py`\n\
+    \  - `run_retrieval_evals.py` (Precision/Recall/Hallucination-rate)\n- terminology\
+    \ governance:\n  - `sync_project_glossary.py` (syncs glossary markers to `glossary.yml`)\n\
+    - multi-language examples standard:\n  - `generate_multilang_tabs.py`\n  - `validate_multilang_examples.py`\n\
+    \  - `check_code_examples_smoke.py` (including `expected-output` comparison for\
+    \ tagged blocks)\n- intent bundle assembly via `build_all_intent_experiences.py`\
+    \ when enabled in `runtime.custom_tasks.weekly`\n- `custom_tasks.weekly` commands\n\
+    - consolidated report generation"
+  assistant_context: "Use this module when answering questions related to: Canonical\
+    \ Flow (Sales + Delivery) (Part 5). Source path: docs/operations/CANONICAL_FLOW.md.\
+    \ Summary: Canonical sales and delivery flow for onboarding and operating client\
+    \ Auto-Doc Pipeline setups.\n\n- gap detection\n- stale checks\n- drift + docs\
+    \ contract (if enabled)\n  - docs contract is report-only by default (no hard\
+    \ weekly blocking)\n  - consolidated report includes only new/changed docs-contract\
+    \ mismatches, ignores closed ones, and deduplicates overlap with other gap sources\n\
+    - KPI/SLA (if enabled)\n- API-first flow (if enabled)\n  - supports `docker`,\
+    \ `prism` (no Docker), and `external` public sandbox URL\n  - if `sync_playground_endpoint=true`,\
+    \ sandbox URL is auto-synced into docs playground config\n  - manual overrides\
+    \ apply (`apply_openapi_overrides.py`)\n  - regression gate (`check_openapi_regression.py`)\n\
+    \  - generates API test assets from OpenAPI (`generate_api_test_assets.py`)\n\
+    \  - optionally uploads test assets to TestRail/Zephyr (`upload_api_test_assets.py`)\n\
+    - RAG/knowledge tasks:\n  - `extract_knowledge_modules_from_docs.py`\n  - `validate_knowledge_modules.py`\n\
+    \  - `generate_knowledge_retrieval_index.py`\n  - `generate_knowledge_graph_jsonld.py`\n\
+    \  - `run_retrieval_evals.py` (Precision/Recall/Hallucination-rate)\n- terminology\
+    \ governance:\n  - `sync_project_glossary.py` (syncs glossary markers to `glossary.yml`)\n\
+    - multi-language examples standard:\n  - `generate_multilang_tabs.py`\n  - `validate_multilang_examples.py`\n\
+    \  - `check_code_examples_smoke.py` (including `expected-output` comparison for\
+    \ tagged blocks)\n- intent bundle assembly via `build_all_intent_experiences.py`\
+    \ when enabled in `runtime.custom_tasks.weekly`\n- `custom_tasks.weekly` commands\n\
+    - consolidated report generation"

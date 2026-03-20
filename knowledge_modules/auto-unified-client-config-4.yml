@@ -1,0 +1,56 @@
+id: auto-unified-client-config-4
+title: Unified Client Configuration (Part 4)
+summary: Single source of truth for per-client Auto-Doc Pipeline configuration, modules,
+  and automation.
+intents:
+- integrate
+audiences:
+- developer
+- operator
+channels:
+- docs
+- assistant
+- automation
+priority: 60
+status: active
+owner: docsops-auto
+last_verified: '2026-03-19'
+dependencies: []
+tags:
+- auto-extracted
+- reference
+- unified-client-config
+content:
+  docs_markdown: "## 3. LLM instruction packaging\n\n```yaml\nbundle:\n  llm:\n  \
+    \  codex_instructions_source: \"AGENTS.md\"\n    claude_instructions_source: \"\
+    CLAUDE.md\"\n    inject_managed_block: true\n    docsops_root_in_client_repo:\
+    \ \"docsops\"\n```\n\nWhen `inject_managed_block=true`, builder auto-inserts managed\
+    \ docsops block into bundled `AGENTS.md` and `CLAUDE.md`.\n\nPlan-level defaults:\n\
+    \n- Pilot preset -> `instructions/llm_plans/pilot/AGENTS.md`, `instructions/llm_plans/pilot/CLAUDE.md`\n\
+    - Basic preset -> `instructions/llm_plans/basic/AGENTS.md`, `instructions/llm_plans/basic/CLAUDE.md`\n\
+    - Pro preset -> `instructions/llm_plans/pro/AGENTS.md`, `instructions/llm_plans/pro/CLAUDE.md`\n\
+    - Enterprise preset -> `AGENTS.md`, `CLAUDE.md` (current full-scope instructions)\n\
+    \n## 4. Automation schedule (weekly)\n\n```yaml\nbundle:\n  automation:\n    weekly_gap_report:\n\
+    \      enabled: true\n      since_days: 7\n      day_of_week: \"monday\"\n   \
+    \   time_24h: \"10:00\"\n```\n\n## 5. Runtime behavior\n\n```yaml\nruntime:\n\
+    \  docs_flow:\n    mode: \"code-first\" # code-first | api-first | hybrid\n  docs_root:\
+    \ \"docs\"\n  api_root: \"api\"\n  sdk_root: \"sdk\"\n  preferred_llm: \"claude\"\
+    \n  output_targets: [\"sphinx\", \"readme\"]\n```"
+  assistant_context: "Use this module when answering questions related to: Unified\
+    \ Client Configuration (Part 4). Source path: docs/operations/UNIFIED_CLIENT_CONFIG.md.\
+    \ Summary: Single source of truth for per-client Auto-Doc Pipeline configuration,\
+    \ modules, and automation.\n\n## 3. LLM instruction packaging\n\n```yaml\nbundle:\n\
+    \  llm:\n    codex_instructions_source: \"AGENTS.md\"\n    claude_instructions_source:\
+    \ \"CLAUDE.md\"\n    inject_managed_block: true\n    docsops_root_in_client_repo:\
+    \ \"docsops\"\n```\n\nWhen `inject_managed_block=true`, builder auto-inserts managed\
+    \ docsops block into bundled `AGENTS.md` and `CLAUDE.md`.\n\nPlan-level defaults:\n\
+    \n- Pilot preset -> `instructions/llm_plans/pilot/AGENTS.md`, `instructions/llm_plans/pilot/CLAUDE.md`\n\
+    - Basic preset -> `instructions/llm_plans/basic/AGENTS.md`, `instructions/llm_plans/basic/CLAUDE.md`\n\
+    - Pro preset -> `instructions/llm_plans/pro/AGENTS.md`, `instructions/llm_plans/pro/CLAUDE.md`\n\
+    - Enterprise preset -> `AGENTS.md`, `CLAUDE.md` (current full-scope instructions)\n\
+    \n## 4. Automation schedule (weekly)\n\n```yaml\nbundle:\n  automation:\n    weekly_gap_report:\n\
+    \      enabled: true\n      since_days: 7\n      day_of_week: \"monday\"\n   \
+    \   time_24h: \"10:00\"\n```\n\n## 5. Runtime behavior\n\n```yaml\nruntime:\n\
+    \  docs_flow:\n    mode: \"code-first\" # code-first | api-first | hybrid\n  docs_root:\
+    \ \"docs\"\n  api_root: \"api\"\n  sdk_root: \"sdk\"\n  preferred_llm: \"claude\"\
+    \n  output_targets: [\"sphinx\", \"readme\"]\n```"

@@ -1,0 +1,13 @@
+syntax = "proto3";
+package acme.v1;
+
+service ProjectService {
+  rpc GetProject(GetProjectRequest) returns (GetProjectResponse);
+}
+
+message GetProjectRequest { string project_id = 1; }
+message GetProjectResponse {
+  string project_id = 1;
+  string name = 2;
+  string status = 3;
+}

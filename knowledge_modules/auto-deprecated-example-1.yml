@@ -1,0 +1,39 @@
+id: auto-deprecated-example-1
+title: Old Webhook API (Deprecated)
+summary: This API is deprecated. Use the new Webhook node instead.
+intents:
+- integrate
+audiences:
+- developer
+- operator
+channels:
+- docs
+- assistant
+- automation
+priority: 60
+status: active
+owner: docsops-auto
+last_verified: '2026-03-19'
+dependencies: []
+tags:
+- auto-extracted
+- deprecated-example
+- reference
+content:
+  docs_markdown: "## Old Webhook API\n\nThis is an example of a deprecated page. When\
+    \ you build the site with MkDocs, it will automatically:\n\n\\11. Show a deprecation\
+    \ warning banner at the top\n\\11. Lower its ranking in search results\n\\11.\
+    \ Add a canonical tag pointing to the replacement page\n\n## Example Code\n\n\
+    ```javascript\n// OLD WAY (deprecated)\nconst webhook = new OldWebhook({\n port:\
+    \ 5678\n});\n\n// NEW WAY\nconst webhook = new WebhookNode({\n port: {{ default_port\
+    \ }}\n});\n```\n\n## Next steps\n\n- [Documentation index](index.md)"
+  assistant_context: "Use this module when answering questions related to: Old Webhook\
+    \ API (Deprecated). Source path: docs/reference/deprecated-example.md. Summary:\
+    \ This API is deprecated. Use the new Webhook node instead.\n\n## Old Webhook\
+    \ API\n\nThis is an example of a deprecated page. When you build the site with\
+    \ MkDocs, it will automatically:\n\n\\11. Show a deprecation warning banner at\
+    \ the top\n\\11. Lower its ranking in search results\n\\11. Add a canonical tag\
+    \ pointing to the replacement page\n\n## Example Code\n\n```javascript\n// OLD\
+    \ WAY (deprecated)\nconst webhook = new OldWebhook({\n port: 5678\n});\n\n// NEW\
+    \ WAY\nconst webhook = new WebhookNode({\n port: {{ default_port }}\n});\n```\n\
+    \n## Next steps\n\n- [Documentation index](index.md)"

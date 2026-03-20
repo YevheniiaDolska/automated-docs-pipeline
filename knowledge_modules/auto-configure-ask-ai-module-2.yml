@@ -1,0 +1,60 @@
+id: auto-configure-ask-ai-module-2
+title: Configure Ask AI module (Part 2)
+summary: Enable or disable Ask AI, set provider and billing mode, and verify configuration
+  in five steps for beginner operators.
+intents:
+- configure
+- troubleshoot
+audiences:
+- practitioner
+- developer
+channels:
+- docs
+- assistant
+- automation
+priority: 60
+status: active
+owner: docsops-auto
+last_verified: '2026-03-19'
+dependencies: []
+tags:
+- auto-extracted
+- configure-ask-ai-module
+- how-to
+content:
+  docs_markdown: "## Step 4: Set access and safety limits\n\nExample:\n\n```bash\n\
+    npm run askai:configure -- \\\n  --allowed-roles admin,support \\\n  --rate-limit-per-user-per-minute\
+    \ 20 \\\n  --retention-days 30 \\\n  --audit-logging\n```\n\nThis keeps Ask AI\
+    \ restricted to approved roles with audit logging enabled.\n\n## Step 5: Validate\
+    \ and commit\n\nRun:\n\n```bash\nnpm run lint\nnpm run askai:status\n```\n\nConfirm:\n\
+    \n- `enabled` matches client request\n- `billing_mode` matches contract\n- `provider`\
+    \ and `model` match the planned setup\n- `knowledge_index_path`, `knowledge_graph_path`,\
+    \ and `retrieval_eval_report_path` point to current RAG artifacts\n- weekly pipeline\
+    \ refresh keeps those three artifacts up to date before assistant runs\n\n## Troubleshooting\n\
+    \n### Error: unsupported provider or billing mode\n\nCause: the value is outside\
+    \ allowed options.\n\nFix:\n\n```bash\nnpm run askai:configure -- --help\n```\n\
+    \nUse only:\n\n- Provider: `openai`, `anthropic`, `azure-openai`, `custom`\n-\
+    \ Billing: `disabled`, `bring-your-own-key`, `user-subscription`\n\n### Configuration\
+    \ changed but team does not see it\n\nCause: local branch mismatch or uncommitted\
+    \ config.\n\nFix:\n\n```bash\ngit status\ngit add config/ask-ai.yml reports/ask-ai-config.json\n\
+    git commit -m \"docs-ops: update Ask AI configuration\"\n```"
+  assistant_context: "Use this module when answering questions related to: Configure\
+    \ Ask AI module (Part 2). Source path: docs/how-to/configure-ask-ai-module.md.\
+    \ Summary: Enable or disable Ask AI, set provider and billing mode, and verify\
+    \ configuration in five steps for beginner operators.\n\n## Step 4: Set access\
+    \ and safety limits\n\nExample:\n\n```bash\nnpm run askai:configure -- \\\n  --allowed-roles\
+    \ admin,support \\\n  --rate-limit-per-user-per-minute 20 \\\n  --retention-days\
+    \ 30 \\\n  --audit-logging\n```\n\nThis keeps Ask AI restricted to approved roles\
+    \ with audit logging enabled.\n\n## Step 5: Validate and commit\n\nRun:\n\n```bash\n\
+    npm run lint\nnpm run askai:status\n```\n\nConfirm:\n\n- `enabled` matches client\
+    \ request\n- `billing_mode` matches contract\n- `provider` and `model` match the\
+    \ planned setup\n- `knowledge_index_path`, `knowledge_graph_path`, and `retrieval_eval_report_path`\
+    \ point to current RAG artifacts\n- weekly pipeline refresh keeps those three\
+    \ artifacts up to date before assistant runs\n\n## Troubleshooting\n\n### Error:\
+    \ unsupported provider or billing mode\n\nCause: the value is outside allowed\
+    \ options.\n\nFix:\n\n```bash\nnpm run askai:configure -- --help\n```\n\nUse only:\n\
+    \n- Provider: `openai`, `anthropic`, `azure-openai`, `custom`\n- Billing: `disabled`,\
+    \ `bring-your-own-key`, `user-subscription`\n\n### Configuration changed but team\
+    \ does not see it\n\nCause: local branch mismatch or uncommitted config.\n\nFix:\n\
+    \n```bash\ngit status\ngit add config/ask-ai.yml reports/ask-ai-config.json\n\
+    git commit -m \"docs-ops: update Ask AI configuration\"\n```"

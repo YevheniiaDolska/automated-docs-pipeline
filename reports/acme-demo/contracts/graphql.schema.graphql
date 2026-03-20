@@ -1,0 +1,18 @@
+type Query {
+  health: String!
+  project(id: ID!): Project
+}
+
+type Mutation {
+  createProject(name: String!): Project!
+}
+
+type Subscription {
+  projectUpdated(id: ID!): Project!
+}
+
+type Project {
+  id: ID!
+  name: String!
+  status: String!
+}

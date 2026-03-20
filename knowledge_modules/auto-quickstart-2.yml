@@ -1,0 +1,62 @@
+id: auto-quickstart-2
+title: Build your first workflow in 5 minutes (Part 2)
+summary: Create a webhook-triggered workflow that receives HTTP requests and sends
+  Slack notifications. No coding required.
+intents:
+- configure
+- secure
+audiences:
+- beginner
+- practitioner
+channels:
+- docs
+- assistant
+- automation
+priority: 60
+status: active
+owner: docsops-auto
+last_verified: '2026-03-19'
+dependencies: []
+tags:
+- auto-extracted
+- quickstart
+- tutorial
+content:
+  docs_markdown: "## Step 3: Add a Slack node\n\n1. Select the **+** button after\
+    \ the Webhook node.\n1. Search for **Slack** and select it.\n1. Set **Operation**\
+    \ to **Send a Message**.\n1. Select your Slack credential or create one (requires\
+    \ a Slack Bot Token with `chat:write` scope).\n1. Set **Channel** to your target\
+    \ channel name or ID.\n1. Set **Text** to an expression:\n\n```text\nNew webhook\
+    \ received: {% raw %}{{ $json.body.message }}{% endraw %}\n```\n\n## Step 4: Test\
+    \ the workflow\n\n1. Select **Test Workflow** in the top bar.\n1. In a terminal,\
+    \ send a test request:\n\n```bash\ncurl -X POST YOUR_TEST_URL \\\n -H \"Content-Type:\
+    \ application/json\" \\\n -d '{\"message\": \"Hello from my first workflow!\"\
+    }'\n```\n\n1. Check your Slack channel\u2014the message appears within 2 seconds.\n\
+    \n## Step 5: Activate the workflow\n\n1. Toggle the workflow to **Active** in\
+    \ the top-right corner.\n1. Replace the Test URL with the **Production URL** in\
+    \ your application.\n\nThe workflow now runs automatically for every incoming\
+    \ request, without the editor open.\n\n## Next steps\n\n- [Configure Webhook authentication](../how-to/configure-webhook-trigger.md)\
+    \ to secure your endpoint\n- [Understand the execution model](../concepts/workflow-execution-model.md)\
+    \ to learn how workflows process data\n- [Webhook node reference](../reference/nodes/webhook.md)\
+    \ for all available parameters"
+  assistant_context: "Use this module when answering questions related to: Build your\
+    \ first workflow in 5 minutes (Part 2). Source path: docs/getting-started/quickstart.md.\
+    \ Summary: Create a webhook-triggered workflow that receives HTTP requests and\
+    \ sends Slack notifications. No coding required.\n\n## Step 3: Add a Slack node\n\
+    \n1. Select the **+** button after the Webhook node.\n1. Search for **Slack**\
+    \ and select it.\n1. Set **Operation** to **Send a Message**.\n1. Select your\
+    \ Slack credential or create one (requires a Slack Bot Token with `chat:write`\
+    \ scope).\n1. Set **Channel** to your target channel name or ID.\n1. Set **Text**\
+    \ to an expression:\n\n```text\nNew webhook received: {% raw %}{{ $json.body.message\
+    \ }}{% endraw %}\n```\n\n## Step 4: Test the workflow\n\n1. Select **Test Workflow**\
+    \ in the top bar.\n1. In a terminal, send a test request:\n\n```bash\ncurl -X\
+    \ POST YOUR_TEST_URL \\\n -H \"Content-Type: application/json\" \\\n -d '{\"message\"\
+    : \"Hello from my first workflow!\"}'\n```\n\n1. Check your Slack channel\u2014\
+    the message appears within 2 seconds.\n\n## Step 5: Activate the workflow\n\n\
+    1. Toggle the workflow to **Active** in the top-right corner.\n1. Replace the\
+    \ Test URL with the **Production URL** in your application.\n\nThe workflow now\
+    \ runs automatically for every incoming request, without the editor open.\n\n\
+    ## Next steps\n\n- [Configure Webhook authentication](../how-to/configure-webhook-trigger.md)\
+    \ to secure your endpoint\n- [Understand the execution model](../concepts/workflow-execution-model.md)\
+    \ to learn how workflows process data\n- [Webhook node reference](../reference/nodes/webhook.md)\
+    \ for all available parameters"

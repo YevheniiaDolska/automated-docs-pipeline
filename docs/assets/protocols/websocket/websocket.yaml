@@ -1,0 +1,41 @@
+info:
+  title: Auto-Doc Pipeline WebSocket API
+  version: 1.0.0
+  description: Generated from planning notes for Auto-Doc Pipeline.
+channels:
+  project.updated:
+    description: Real-time stream for project.updated
+    publish:
+      message:
+        name: project_updated_publish
+        payload:
+          type: object
+          properties:
+            action:
+              type: string
+              example: publish
+            channel:
+              type: string
+              example: project.updated
+            data:
+              type: object
+    subscribe:
+      message:
+        name: project_updated_subscribe
+        payload:
+          type: object
+          properties:
+            action:
+              type: string
+              example: subscribe
+            channel:
+              type: string
+              example: project.updated
+    payload:
+      type: object
+      properties:
+        event_type:
+          type: string
+          example: project.updated
+        payload:
+          type: object

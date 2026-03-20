@@ -1,0 +1,4161 @@
+openapi: 3.0.3
+info:
+  title: TaskStream Public API
+  version: v1
+  description: >-
+    TaskStream is a project and task management API that enables teams to
+    organize work into projects, track tasks, collaborate through comments,
+    and categorize items with tags. This specification provides the complete
+    REST contract for the TaskStream platform.
+  contact:
+    email: support@example.com
+servers:
+  - url: https://api.taskstream.example.com/v1
+security:
+  - BearerAuth: []
+tags:
+  - name: Comments
+    description: Manage task comments
+  - name: Projects
+    description: Manage projects and their lifecycle
+  - name: Tags
+    description: Manage tags for categorizing tasks
+  - name: Tasks
+    description: Manage tasks, their lifecycle, comments, and tags
+  - name: Users
+    description: Retrieve and update user profiles and their tasks
+paths:
+  /comments/{comment_id}:
+    get:
+      operationId: getComment
+      tags:
+        - Comments
+      summary: Retrieve a comment by ID
+      description: >-
+        Returns a single comment identified by its unique ID. Use this
+        endpoint to fetch the full content and metadata of a specific
+        comment.
+      parameters:
+        - name: comment_id
+          in: path
+          required: true
+          description: Unique identifier of the comment to retrieve
+          example: cmt_abc123
+          schema:
+            type: string
+        - name: X-Request-Id
+          in: header
+          required: false
+          description: Client-generated UUID for request tracing and idempotency checks
+          example: 550e8400-e29b-41d4-a716-446655440000
+          schema:
+            type: string
+            format: uuid
+      responses:
+        "200":
+          description: Comment retrieved successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: string
+                    description: Unique identifier of the comment
+                    example: cmt_abc123
+                  task_id:
+                    type: string
+                    description: Identifier of the task this comment belongs to
+                    example: tsk_xyz789
+                  author_id:
+                    type: string
+                    description: Identifier of the user who authored the comment
+                    example: usr_def456
+                  body:
+                    type: string
+                    description: Markdown content of the comment
+                    example: "Looks good, ready for review."
+                  created_at:
+                    type: string
+                    format: date-time
+                    description: Timestamp when the comment was created
+                    example: "2025-09-15T10:30:00Z"
+                  updated_at:
+                    type: string
+                    format: date-time
+                    description: Timestamp when the comment was last updated
+                    example: "2025-09-15T11:00:00Z"
+              example:
+                id: cmt_abc123
+                task_id: tsk_xyz789
+                author_id: usr_def456
+                body: "Looks good, ready for review."
+                created_at: "2025-09-15T10:30:00Z"
+                updated_at: "2025-09-15T11:00:00Z"
+        "400":
+          description: Invalid request parameters
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: Machine-readable error code
+                    example: invalid_parameter
+                  message:
+                    type: string
+                    description: Human-readable error message
+                    example: "comment_id must be a non-empty string"
+              example:
+                error: invalid_parameter
+                message: "comment_id must be a non-empty string"
+        "401":
+          description: Authentication credentials are missing or invalid
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: Machine-readable error code
+                    example: unauthorized
+                  message:
+                    type: string
+                    description: Human-readable error message
+                    example: "Bearer token is missing or expired"
+              example:
+                error: unauthorized
+                message: "Bearer token is missing or expired"
+        "404":
+          description: Comment not found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: Machine-readable error code
+                    example: not_found
+                  message:
+                    type: string
+                    description: Human-readable error message
+                    example: "Comment cmt_abc123 does not exist"
+              example:
+                error: not_found
+                message: "Comment cmt_abc123 does not exist"
+        "500":
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: Machine-readable error code
+                    example: internal_error
+                  message:
+                    type: string
+                    description: Human-readable error message
+                    example: "An unexpected error occurred. Please try again later."
+              example:
+                error: internal_error
+                message: "An unexpected error occurred. Please try again later."
+    put:
+      operationId: updateComment
+      tags:
+        - Comments
+      summary: Update a comment
+      description: >-
+        Replaces the body of an existing comment. Only the comment author
+        or a project admin can update a comment. Returns the updated
+        comment object.
+      parameters:
+        - name: comment_id
+          in: path
+          required: true
+          description: Unique identifier of the comment to update
+          example: cmt_abc123
+          schema:
+            type: string
+        - name: X-Request-Id
+          in: header
+          required: false
+          description: Client-generated UUID for request tracing and idempotency checks
+          example: 550e8400-e29b-41d4-a716-446655440000
+          schema:
+            type: string
+            format: uuid
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - body
+              properties:
+                body:
+                  type: string
+                  description: Updated markdown content of the comment
+                  example: "Updated review notes: approved with minor changes."
+            example:
+              body: "Updated review notes: approved with minor changes."
+      responses:
+        "200":
+          description: Comment updated successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: string
+                    description: Unique identifier of the comment
+                    example: cmt_abc123
+                  task_id:
+                    type: string
+                    description: Identifier of the task this comment belongs to
+                    example: tsk_xyz789
+                  author_id:
+                    type: string
+                    description: Identifier of the user who authored the comment
+                    example: usr_def456
+                  body:
+                    type: string
+                    description: Markdown content of the comment
+                    example: "Updated review notes: approved with minor changes."
+                  created_at:
+                    type: string
+                    format: date-time
+                    description: Timestamp when the comment was created
+                    example: "2025-09-15T10:30:00Z"
+                  updated_at:
+                    type: string
+                    format: date-time
+                    description: Timestamp when the comment was last updated
+                    example: "2025-09-16T09:15:00Z"
+              example:
+                id: cmt_abc123
+                task_id: tsk_xyz789
+                author_id: usr_def456
+                body: "Updated review notes: approved with minor changes."
+                created_at: "2025-09-15T10:30:00Z"
+                updated_at: "2025-09-16T09:15:00Z"
+        "400":
+          description: Invalid request body
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: Machine-readable error code
+                    example: validation_error
+                  message:
+                    type: string
+                    description: Human-readable error message
+                    example: "body is required and must be a non-empty string"
+              example:
+                error: validation_error
+                message: "body is required and must be a non-empty string"
+        "401":
+          description: Authentication credentials are missing or invalid
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: Machine-readable error code
+                    example: unauthorized
+                  message:
+                    type: string
+                    description: Human-readable error message
+                    example: "Bearer token is missing or expired"
+              example:
+                error: unauthorized
+                message: "Bearer token is missing or expired"
+        "404":
+          description: Comment not found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: Machine-readable error code
+                    example: not_found
+                  message:
+                    type: string
+                    description: Human-readable error message
+                    example: "Comment cmt_abc123 does not exist"
+              example:
+                error: not_found
+                message: "Comment cmt_abc123 does not exist"
+        "500":
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: Machine-readable error code
+                    example: internal_error
+                  message:
+                    type: string
+                    description: Human-readable error message
+                    example: "An unexpected error occurred. Please try again later."
+              example:
+                error: internal_error
+                message: "An unexpected error occurred. Please try again later."
+    delete:
+      operationId: deleteComment
+      tags:
+        - Comments
+      summary: Delete a comment
+      description: >-
+        Permanently removes a comment. Only the comment author or a
+        project admin can delete a comment. This action cannot be undone.
+      parameters:
+        - name: comment_id
+          in: path
+          required: true
+          description: Unique identifier of the comment to delete
+          example: cmt_abc123
+          schema:
+            type: string
+        - name: X-Request-Id
+          in: header
+          required: false
+          description: Client-generated UUID for request tracing and idempotency checks
+          example: 550e8400-e29b-41d4-a716-446655440000
+          schema:
+            type: string
+            format: uuid
+      responses:
+        "204":
+          description: Comment deleted successfully
+        "401":
+          description: Authentication credentials are missing or invalid
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: Machine-readable error code
+                    example: unauthorized
+                  message:
+                    type: string
+                    description: Human-readable error message
+                    example: "Bearer token is missing or expired"
+              example:
+                error: unauthorized
+                message: "Bearer token is missing or expired"
+        "404":
+          description: Comment not found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: Machine-readable error code
+                    example: not_found
+                  message:
+                    type: string
+                    description: Human-readable error message
+                    example: "Comment cmt_abc123 does not exist"
+              example:
+                error: not_found
+                message: "Comment cmt_abc123 does not exist"
+        "500":
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: Machine-readable error code
+                    example: internal_error
+                  message:
+                    type: string
+                    description: Human-readable error message
+                    example: "An unexpected error occurred. Please try again later."
+              example:
+                error: internal_error
+                message: "An unexpected error occurred. Please try again later."
+
+  /projects:
+    get:
+      operationId: listProjects
+      tags:
+        - Projects
+      summary: List all projects
+      description: >-
+        Returns a paginated list of projects accessible to the authenticated
+        user. Use the limit and cursor parameters to paginate through results.
+      parameters:
+        - name: limit
+          in: query
+          required: false
+          description: Maximum number of projects to return per page (1-100)
+          example: 20
+          schema:
+            type: integer
+            minimum: 1
+            maximum: 100
+            default: 20
+        - name: cursor
+          in: query
+          required: false
+          description: Opaque pagination cursor returned from a previous list request
+          example: eyJpZCI6InByal8wNTAifQ
+          schema:
+            type: string
+        - name: X-Request-Id
+          in: header
+          required: false
+          description: Client-generated UUID for request tracing and idempotency checks
+          example: 550e8400-e29b-41d4-a716-446655440000
+          schema:
+            type: string
+            format: uuid
+      responses:
+        "200":
+          description: Paginated list of projects
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    description: List of project objects on this page
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: string
+                          description: Unique identifier of the project
+                          example: prj_001
+                        name:
+                          type: string
+                          description: Display name of the project
+                          example: Website Redesign
+                        description:
+                          type: string
+                          description: Detailed description of the project goals
+                          example: "Redesign the marketing website for Q3 launch"
+                        status:
+                          type: string
+                          enum:
+                            - active
+                            - archived
+                          description: Current lifecycle status of the project
+                          example: active
+                        created_at:
+                          type: string
+                          format: date-time
+                          description: Timestamp when the project was created
+                          example: "2025-08-01T08:00:00Z"
+                        updated_at:
+                          type: string
+                          format: date-time
+                          description: Timestamp when the project was last updated
+                          example: "2025-09-10T14:30:00Z"
+                  next_cursor:
+                    type: string
+                    nullable: true
+                    description: Cursor for the next page, null if no more results
+                    example: eyJpZCI6InByal8wMjAifQ
+              example:
+                data:
+                  - id: prj_001
+                    name: Website Redesign
+                    description: "Redesign the marketing website for Q3 launch"
+                    status: active
+                    created_at: "2025-08-01T08:00:00Z"
+                    updated_at: "2025-09-10T14:30:00Z"
+                next_cursor: eyJpZCI6InByal8wMjAifQ
+        "400":
+          description: Invalid query parameters
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: Machine-readable error code
+                    example: invalid_parameter
+                  message:
+                    type: string
+                    description: Human-readable error message
+                    example: "limit must be between 1 and 100"
+              example:
+                error: invalid_parameter
+                message: "limit must be between 1 and 100"
+        "401":
+          description: Authentication credentials are missing or invalid
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: Machine-readable error code
+                    example: unauthorized
+                  message:
+                    type: string
+                    description: Human-readable error message
+                    example: "Bearer token is missing or expired"
+              example:
+                error: unauthorized
+                message: "Bearer token is missing or expired"
+        "500":
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: Machine-readable error code
+                    example: internal_error
+                  message:
+                    type: string
+                    description: Human-readable error message
+                    example: "An unexpected error occurred. Please try again later."
+              example:
+                error: internal_error
+                message: "An unexpected error occurred. Please try again later."
+    post:
+      operationId: createProject
+      tags:
+        - Projects
+      summary: Create a new project
+      description: >-
+        Creates a new project with the given name and description. The
+        authenticated user becomes the project owner. Returns the created
+        project object.
+      parameters:
+        - name: X-Request-Id
+          in: header
+          required: false
+          description: Client-generated UUID for request tracing and idempotency checks
+          example: 550e8400-e29b-41d4-a716-446655440000
+          schema:
+            type: string
+            format: uuid
+        - name: Idempotency-Key
+          in: header
+          required: false
+          description: Unique key to ensure the request is processed only once
+          example: ik_create_prj_20250915
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - name
+              properties:
+                name:
+                  type: string
+                  description: Display name of the project (1-255 characters)
+                  example: Mobile App v2
+                description:
+                  type: string
+                  description: Detailed description of the project goals
+                  example: "Build the next-generation mobile application"
+            example:
+              name: Mobile App v2
+              description: "Build the next-generation mobile application"
+      responses:
+        "201":
+          description: Project created successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: string
+                    description: Unique identifier of the newly created project
+                    example: prj_002
+                  name:
+                    type: string
+                    description: Display name of the project
+                    example: Mobile App v2
+                  description:
+                    type: string
+                    description: Detailed description of the project goals
+                    example: "Build the next-generation mobile application"
+                  status:
+                    type: string
+                    enum:
+                      - active
+                      - archived
+                    description: Current lifecycle status of the project
+                    example: active
+                  created_at:
+                    type: string
+                    format: date-time
+                    description: Timestamp when the project was created
+                    example: "2025-09-15T12:00:00Z"
+                  updated_at:
+                    type: string
+                    format: date-time
+                    description: Timestamp when the project was last updated
+                    example: "2025-09-15T12:00:00Z"
+              example:
+                id: prj_002
+                name: Mobile App v2
+                description: "Build the next-generation mobile application"
+                status: active
+                created_at: "2025-09-15T12:00:00Z"
+                updated_at: "2025-09-15T12:00:00Z"
+        "400":
+          description: Invalid request body
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: Machine-readable error code
+                    example: validation_error
+                  message:
+                    type: string
+                    description: Human-readable error message
+                    example: "name is required and must be 1-255 characters"
+              example:
+                error: validation_error
+                message: "name is required and must be 1-255 characters"
+        "401":
+          description: Authentication credentials are missing or invalid
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: Machine-readable error code
+                    example: unauthorized
+                  message:
+                    type: string
+                    description: Human-readable error message
+                    example: "Bearer token is missing or expired"
+              example:
+                error: unauthorized
+                message: "Bearer token is missing or expired"
+        "500":
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: Machine-readable error code
+                    example: internal_error
+                  message:
+                    type: string
+                    description: Human-readable error message
+                    example: "An unexpected error occurred. Please try again later."
+              example:
+                error: internal_error
+                message: "An unexpected error occurred. Please try again later."
+
+  /projects/{project_id}:
+    get:
+      operationId: getProject
+      tags:
+        - Projects
+      summary: Retrieve a project by ID
+      description: >-
+        Returns a single project identified by its unique ID. Use this
+        endpoint to fetch full project details including status and
+        timestamps.
+      parameters:
+        - name: project_id
+          in: path
+          required: true
+          description: Unique identifier of the project to retrieve
+          example: prj_001
+          schema:
+            type: string
+        - name: X-Request-Id
+          in: header
+          required: false
+          description: Client-generated UUID for request tracing and idempotency checks
+          example: 550e8400-e29b-41d4-a716-446655440000
+          schema:
+            type: string
+            format: uuid
+      responses:
+        "200":
+          description: Project retrieved successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: string
+                    description: Unique identifier of the project
+                    example: prj_001
+                  name:
+                    type: string
+                    description: Display name of the project
+                    example: Website Redesign
+                  description:
+                    type: string
+                    description: Detailed description of the project goals
+                    example: "Redesign the marketing website for Q3 launch"
+                  status:
+                    type: string
+                    enum:
+                      - active
+                      - archived
+                    description: Current lifecycle status of the project
+                    example: active
+                  created_at:
+                    type: string
+                    format: date-time
+                    description: Timestamp when the project was created
+                    example: "2025-08-01T08:00:00Z"
+                  updated_at:
+                    type: string
+                    format: date-time
+                    description: Timestamp when the project was last updated
+                    example: "2025-09-10T14:30:00Z"
+              example:
+                id: prj_001
+                name: Website Redesign
+                description: "Redesign the marketing website for Q3 launch"
+                status: active
+                created_at: "2025-08-01T08:00:00Z"
+                updated_at: "2025-09-10T14:30:00Z"
+        "401":
+          description: Authentication credentials are missing or invalid
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: Machine-readable error code
+                    example: unauthorized
+                  message:
+                    type: string
+                    description: Human-readable error message
+                    example: "Bearer token is missing or expired"
+              example:
+                error: unauthorized
+                message: "Bearer token is missing or expired"
+        "404":
+          description: Project not found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: Machine-readable error code
+                    example: not_found
+                  message:
+                    type: string
+                    description: Human-readable error message
+                    example: "Project prj_001 does not exist"
+              example:
+                error: not_found
+                message: "Project prj_001 does not exist"
+        "500":
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: Machine-readable error code
+                    example: internal_error
+                  message:
+                    type: string
+                    description: Human-readable error message
+                    example: "An unexpected error occurred. Please try again later."
+              example:
+                error: internal_error
+                message: "An unexpected error occurred. Please try again later."
+    put:
+      operationId: updateProject
+      tags:
+        - Projects
+      summary: Update a project
+      description: >-
+        Updates the name or description of an existing project. Only project
+        owners and admins can update projects. Returns the updated project
+        object.
+      parameters:
+        - name: project_id
+          in: path
+          required: true
+          description: Unique identifier of the project to update
+          example: prj_001
+          schema:
+            type: string
+        - name: X-Request-Id
+          in: header
+          required: false
+          description: Client-generated UUID for request tracing and idempotency checks
+          example: 550e8400-e29b-41d4-a716-446655440000
+          schema:
+            type: string
+            format: uuid
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  description: Updated display name of the project
+                  example: Website Redesign v2
+                description:
+                  type: string
+                  description: Updated description of the project goals
+                  example: "Complete redesign with new branding for Q4 launch"
+            example:
+              name: Website Redesign v2
+              description: "Complete redesign with new branding for Q4 launch"
+      responses:
+        "200":
+          description: Project updated successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: string
+                    description: Unique identifier of the project
+                    example: prj_001
+                  name:
+                    type: string
+                    description: Display name of the project
+                    example: Website Redesign v2
+                  description:
+                    type: string
+                    description: Detailed description of the project goals
+                    example: "Complete redesign with new branding for Q4 launch"
+                  status:
+                    type: string
+                    enum:
+                      - active
+                      - archived
+                    description: Current lifecycle status of the project
+                    example: active
+                  created_at:
+                    type: string
+                    format: date-time
+                    description: Timestamp when the project was created
+                    example: "2025-08-01T08:00:00Z"
+                  updated_at:
+                    type: string
+                    format: date-time
+                    description: Timestamp when the project was last updated
+                    example: "2025-09-16T10:00:00Z"
+              example:
+                id: prj_001
+                name: Website Redesign v2
+                description: "Complete redesign with new branding for Q4 launch"
+                status: active
+                created_at: "2025-08-01T08:00:00Z"
+                updated_at: "2025-09-16T10:00:00Z"
+        "400":
+          description: Invalid request body
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: Machine-readable error code
+                    example: validation_error
+                  message:
+                    type: string
+                    description: Human-readable error message
+                    example: "name must be 1-255 characters"
+              example:
+                error: validation_error
+                message: "name must be 1-255 characters"
+        "401":
+          description: Authentication credentials are missing or invalid
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: Machine-readable error code
+                    example: unauthorized
+                  message:
+                    type: string
+                    description: Human-readable error message
+                    example: "Bearer token is missing or expired"
+              example:
+                error: unauthorized
+                message: "Bearer token is missing or expired"
+        "404":
+          description: Project not found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: Machine-readable error code
+                    example: not_found
+                  message:
+                    type: string
+                    description: Human-readable error message
+                    example: "Project prj_001 does not exist"
+              example:
+                error: not_found
+                message: "Project prj_001 does not exist"
+        "500":
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: Machine-readable error code
+                    example: internal_error
+                  message:
+                    type: string
+                    description: Human-readable error message
+                    example: "An unexpected error occurred. Please try again later."
+              example:
+                error: internal_error
+                message: "An unexpected error occurred. Please try again later."
+    delete:
+      operationId: deleteProject
+      tags:
+        - Projects
+      summary: Delete a project
+      description: >-
+        Permanently deletes a project and all associated tasks, comments,
+        and tag assignments. This action cannot be undone. Only the project
+        owner can delete a project.
+      parameters:
+        - name: project_id
+          in: path
+          required: true
+          description: Unique identifier of the project to delete
+          example: prj_001
+          schema:
+            type: string
+        - name: X-Request-Id
+          in: header
+          required: false
+          description: Client-generated UUID for request tracing and idempotency checks
+          example: 550e8400-e29b-41d4-a716-446655440000
+          schema:
+            type: string
+            format: uuid
+      responses:
+        "204":
+          description: Project deleted successfully
+        "401":
+          description: Authentication credentials are missing or invalid
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: Machine-readable error code
+                    example: unauthorized
+                  message:
+                    type: string
+                    description: Human-readable error message
+                    example: "Bearer token is missing or expired"
+              example:
+                error: unauthorized
+                message: "Bearer token is missing or expired"
+        "404":
+          description: Project not found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: Machine-readable error code
+                    example: not_found
+                  message:
+                    type: string
+                    description: Human-readable error message
+                    example: "Project prj_001 does not exist"
+              example:
+                error: not_found
+                message: "Project prj_001 does not exist"
+        "500":
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: Machine-readable error code
+                    example: internal_error
+                  message:
+                    type: string
+                    description: Human-readable error message
+                    example: "An unexpected error occurred. Please try again later."
+              example:
+                error: internal_error
+                message: "An unexpected error occurred. Please try again later."
+
+  /projects/{project_id}/archive:
+    post:
+      operationId: archiveProject
+      tags:
+        - Projects
+      summary: Archive a project
+      description: >-
+        Sets the project status to archived. Archived projects are read-only
+        and hidden from default list views. Use the restore endpoint to
+        reactivate an archived project.
+      parameters:
+        - name: project_id
+          in: path
+          required: true
+          description: Unique identifier of the project to archive
+          example: prj_001
+          schema:
+            type: string
+        - name: X-Request-Id
+          in: header
+          required: false
+          description: Client-generated UUID for request tracing and idempotency checks
+          example: 550e8400-e29b-41d4-a716-446655440000
+          schema:
+            type: string
+            format: uuid
+      responses:
+        "200":
+          description: Project archived successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: string
+                    description: Unique identifier of the project
+                    example: prj_001
+                  name:
+                    type: string
+                    description: Display name of the project
+                    example: Website Redesign
+                  status:
+                    type: string
+                    enum:
+                      - archived
+                    description: Updated lifecycle status of the project
+                    example: archived
+                  updated_at:
+                    type: string
+                    format: date-time
+                    description: Timestamp when the project was archived
+                    example: "2025-09-16T10:00:00Z"
+              example:
+                id: prj_001
+                name: Website Redesign
+                status: archived
+                updated_at: "2025-09-16T10:00:00Z"
+        "401":
+          description: Authentication credentials are missing or invalid
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: Machine-readable error code
+                    example: unauthorized
+                  message:
+                    type: string
+                    description: Human-readable error message
+                    example: "Bearer token is missing or expired"
+              example:
+                error: unauthorized
+                message: "Bearer token is missing or expired"
+        "404":
+          description: Project not found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: Machine-readable error code
+                    example: not_found
+                  message:
+                    type: string
+                    description: Human-readable error message
+                    example: "Project prj_001 does not exist"
+              example:
+                error: not_found
+                message: "Project prj_001 does not exist"
+        "500":
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: Machine-readable error code
+                    example: internal_error
+                  message:
+                    type: string
+                    description: Human-readable error message
+                    example: "An unexpected error occurred. Please try again later."
+              example:
+                error: internal_error
+                message: "An unexpected error occurred. Please try again later."
+
+  /projects/{project_id}/restore:
+    post:
+      operationId: restoreProject
+      tags:
+        - Projects
+      summary: Restore an archived project
+      description: >-
+        Restores a previously archived project back to active status. All
+        tasks and comments become editable again after restoration.
+      parameters:
+        - name: project_id
+          in: path
+          required: true
+          description: Unique identifier of the archived project to restore
+          example: prj_001
+          schema:
+            type: string
+        - name: X-Request-Id
+          in: header
+          required: false
+          description: Client-generated UUID for request tracing and idempotency checks
+          example: 550e8400-e29b-41d4-a716-446655440000
+          schema:
+            type: string
+            format: uuid
+      responses:
+        "200":
+          description: Project restored successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: string
+                    description: Unique identifier of the project
+                    example: prj_001
+                  name:
+                    type: string
+                    description: Display name of the project
+                    example: Website Redesign
+                  status:
+                    type: string
+                    enum:
+                      - active
+                    description: Updated lifecycle status of the project
+                    example: active
+                  updated_at:
+                    type: string
+                    format: date-time
+                    description: Timestamp when the project was restored
+                    example: "2025-09-17T08:00:00Z"
+              example:
+                id: prj_001
+                name: Website Redesign
+                status: active
+                updated_at: "2025-09-17T08:00:00Z"
+        "401":
+          description: Authentication credentials are missing or invalid
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: Machine-readable error code
+                    example: unauthorized
+                  message:
+                    type: string
+                    description: Human-readable error message
+                    example: "Bearer token is missing or expired"
+              example:
+                error: unauthorized
+                message: "Bearer token is missing or expired"
+        "404":
+          description: Project not found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: Machine-readable error code
+                    example: not_found
+                  message:
+                    type: string
+                    description: Human-readable error message
+                    example: "Project prj_001 does not exist"
+              example:
+                error: not_found
+                message: "Project prj_001 does not exist"
+        "500":
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: Machine-readable error code
+                    example: internal_error
+                  message:
+                    type: string
+                    description: Human-readable error message
+                    example: "An unexpected error occurred. Please try again later."
+              example:
+                error: internal_error
+                message: "An unexpected error occurred. Please try again later."
+
+  /tags:
+    get:
+      operationId: listTags
+      tags:
+        - Tags
+      summary: List all tags
+      description: >-
+        Returns a paginated list of all tags available in the workspace.
+        Tags are used to categorize and filter tasks across projects.
+      parameters:
+        - name: limit
+          in: query
+          required: false
+          description: Maximum number of tags to return per page (1-100)
+          example: 20
+          schema:
+            type: integer
+            minimum: 1
+            maximum: 100
+            default: 20
+        - name: cursor
+          in: query
+          required: false
+          description: Opaque pagination cursor returned from a previous list request
+          example: eyJpZCI6InRhZ18wNTAifQ
+          schema:
+            type: string
+        - name: X-Request-Id
+          in: header
+          required: false
+          description: Client-generated UUID for request tracing and idempotency checks
+          example: 550e8400-e29b-41d4-a716-446655440000
+          schema:
+            type: string
+            format: uuid
+      responses:
+        "200":
+          description: Paginated list of tags
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    description: List of tag objects on this page
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: string
+                          description: Unique identifier of the tag
+                          example: tag_001
+                        name:
+                          type: string
+                          description: Display name of the tag
+                          example: bug
+                        color:
+                          type: string
+                          description: Hex color code for the tag label
+                          example: "#e74c3c"
+                        created_at:
+                          type: string
+                          format: date-time
+                          description: Timestamp when the tag was created
+                          example: "2025-07-01T09:00:00Z"
+                  next_cursor:
+                    type: string
+                    nullable: true
+                    description: Cursor for the next page, null if no more results
+                    example: eyJpZCI6InRhZ18wMjAifQ
+              example:
+                data:
+                  - id: tag_001
+                    name: bug
+                    color: "#e74c3c"
+                    created_at: "2025-07-01T09:00:00Z"
+                next_cursor: eyJpZCI6InRhZ18wMjAifQ
+        "400":
+          description: Invalid query parameters
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: Machine-readable error code
+                    example: invalid_parameter
+                  message:
+                    type: string
+                    description: Human-readable error message
+                    example: "limit must be between 1 and 100"
+              example:
+                error: invalid_parameter
+                message: "limit must be between 1 and 100"
+        "401":
+          description: Authentication credentials are missing or invalid
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: Machine-readable error code
+                    example: unauthorized
+                  message:
+                    type: string
+                    description: Human-readable error message
+                    example: "Bearer token is missing or expired"
+              example:
+                error: unauthorized
+                message: "Bearer token is missing or expired"
+        "500":
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: Machine-readable error code
+                    example: internal_error
+                  message:
+                    type: string
+                    description: Human-readable error message
+                    example: "An unexpected error occurred. Please try again later."
+              example:
+                error: internal_error
+                message: "An unexpected error occurred. Please try again later."
+    post:
+      operationId: createTag
+      tags:
+        - Tags
+      summary: Create a new tag
+      description: >-
+        Creates a new tag with the given name and optional color. Tags
+        enable categorization and filtering of tasks across projects.
+        Returns the created tag object.
+      parameters:
+        - name: X-Request-Id
+          in: header
+          required: false
+          description: Client-generated UUID for request tracing and idempotency checks
+          example: 550e8400-e29b-41d4-a716-446655440000
+          schema:
+            type: string
+            format: uuid
+        - name: Idempotency-Key
+          in: header
+          required: false
+          description: Unique key to ensure the request is processed only once
+          example: ik_create_tag_20250915
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - name
+              properties:
+                name:
+                  type: string
+                  description: Display name of the tag (1-50 characters, unique)
+                  example: enhancement
+                color:
+                  type: string
+                  description: Hex color code for the tag label
+                  example: "#2ecc71"
+            example:
+              name: enhancement
+              color: "#2ecc71"
+      responses:
+        "201":
+          description: Tag created successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: string
+                    description: Unique identifier of the newly created tag
+                    example: tag_002
+                  name:
+                    type: string
+                    description: Display name of the tag
+                    example: enhancement
+                  color:
+                    type: string
+                    description: Hex color code for the tag label
+                    example: "#2ecc71"
+                  created_at:
+                    type: string
+                    format: date-time
+                    description: Timestamp when the tag was created
+                    example: "2025-09-15T12:00:00Z"
+              example:
+                id: tag_002
+                name: enhancement
+                color: "#2ecc71"
+                created_at: "2025-09-15T12:00:00Z"
+        "400":
+          description: Invalid request body
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: Machine-readable error code
+                    example: validation_error
+                  message:
+                    type: string
+                    description: Human-readable error message
+                    example: "name is required and must be 1-50 characters"
+              example:
+                error: validation_error
+                message: "name is required and must be 1-50 characters"
+        "401":
+          description: Authentication credentials are missing or invalid
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: Machine-readable error code
+                    example: unauthorized
+                  message:
+                    type: string
+                    description: Human-readable error message
+                    example: "Bearer token is missing or expired"
+              example:
+                error: unauthorized
+                message: "Bearer token is missing or expired"
+        "500":
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: Machine-readable error code
+                    example: internal_error
+                  message:
+                    type: string
+                    description: Human-readable error message
+                    example: "An unexpected error occurred. Please try again later."
+              example:
+                error: internal_error
+                message: "An unexpected error occurred. Please try again later."
+
+  /tags/{tag_id}:
+    get:
+      operationId: getTag
+      tags:
+        - Tags
+      summary: Retrieve a tag by ID
+      description: >-
+        Returns a single tag identified by its unique ID. Use this endpoint
+        to fetch the full details of a specific tag.
+      parameters:
+        - name: tag_id
+          in: path
+          required: true
+          description: Unique identifier of the tag to retrieve
+          example: tag_001
+          schema:
+            type: string
+        - name: X-Request-Id
+          in: header
+          required: false
+          description: Client-generated UUID for request tracing and idempotency checks
+          example: 550e8400-e29b-41d4-a716-446655440000
+          schema:
+            type: string
+            format: uuid
+      responses:
+        "200":
+          description: Tag retrieved successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: string
+                    description: Unique identifier of the tag
+                    example: tag_001
+                  name:
+                    type: string
+                    description: Display name of the tag
+                    example: bug
+                  color:
+                    type: string
+                    description: Hex color code for the tag label
+                    example: "#e74c3c"
+                  created_at:
+                    type: string
+                    format: date-time
+                    description: Timestamp when the tag was created
+                    example: "2025-07-01T09:00:00Z"
+              example:
+                id: tag_001
+                name: bug
+                color: "#e74c3c"
+                created_at: "2025-07-01T09:00:00Z"
+        "401":
+          description: Authentication credentials are missing or invalid
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: Machine-readable error code
+                    example: unauthorized
+                  message:
+                    type: string
+                    description: Human-readable error message
+                    example: "Bearer token is missing or expired"
+              example:
+                error: unauthorized
+                message: "Bearer token is missing or expired"
+        "404":
+          description: Tag not found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: Machine-readable error code
+                    example: not_found
+                  message:
+                    type: string
+                    description: Human-readable error message
+                    example: "Tag tag_001 does not exist"
+              example:
+                error: not_found
+                message: "Tag tag_001 does not exist"
+        "500":
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: Machine-readable error code
+                    example: internal_error
+                  message:
+                    type: string
+                    description: Human-readable error message
+                    example: "An unexpected error occurred. Please try again later."
+              example:
+                error: internal_error
+                message: "An unexpected error occurred. Please try again later."
+    put:
+      operationId: updateTag
+      tags:
+        - Tags
+      summary: Update a tag
+      description: >-
+        Updates the name or color of an existing tag. Changes propagate
+        to all tasks that use this tag. Returns the updated tag object.
+      parameters:
+        - name: tag_id
+          in: path
+          required: true
+          description: Unique identifier of the tag to update
+          example: tag_001
+          schema:
+            type: string
+        - name: X-Request-Id
+          in: header
+          required: false
+          description: Client-generated UUID for request tracing and idempotency checks
+          example: 550e8400-e29b-41d4-a716-446655440000
+          schema:
+            type: string
+            format: uuid
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  description: Updated display name of the tag
+                  example: critical-bug
+                color:
+                  type: string
+                  description: Updated hex color code for the tag label
+                  example: "#c0392b"
+            example:
+              name: critical-bug
+              color: "#c0392b"
+      responses:
+        "200":
+          description: Tag updated successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: string
+                    description: Unique identifier of the tag
+                    example: tag_001
+                  name:
+                    type: string
+                    description: Display name of the tag
+                    example: critical-bug
+                  color:
+                    type: string
+                    description: Hex color code for the tag label
+                    example: "#c0392b"
+                  created_at:
+                    type: string
+                    format: date-time
+                    description: Timestamp when the tag was created
+                    example: "2025-07-01T09:00:00Z"
+              example:
+                id: tag_001
+                name: critical-bug
+                color: "#c0392b"
+                created_at: "2025-07-01T09:00:00Z"
+        "400":
+          description: Invalid request body
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: Machine-readable error code
+                    example: validation_error
+                  message:
+                    type: string
+                    description: Human-readable error message
+                    example: "name must be 1-50 characters"
+              example:
+                error: validation_error
+                message: "name must be 1-50 characters"
+        "401":
+          description: Authentication credentials are missing or invalid
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: Machine-readable error code
+                    example: unauthorized
+                  message:
+                    type: string
+                    description: Human-readable error message
+                    example: "Bearer token is missing or expired"
+              example:
+                error: unauthorized
+                message: "Bearer token is missing or expired"
+        "404":
+          description: Tag not found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: Machine-readable error code
+                    example: not_found
+                  message:
+                    type: string
+                    description: Human-readable error message
+                    example: "Tag tag_001 does not exist"
+              example:
+                error: not_found
+                message: "Tag tag_001 does not exist"
+        "500":
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: Machine-readable error code
+                    example: internal_error
+                  message:
+                    type: string
+                    description: Human-readable error message
+                    example: "An unexpected error occurred. Please try again later."
+              example:
+                error: internal_error
+                message: "An unexpected error occurred. Please try again later."
+    delete:
+      operationId: deleteTag
+      tags:
+        - Tags
+      summary: Delete a tag
+      description: >-
+        Permanently removes a tag and detaches it from all tasks. This
+        action cannot be undone. Tasks previously tagged retain their
+        other tags.
+      parameters:
+        - name: tag_id
+          in: path
+          required: true
+          description: Unique identifier of the tag to delete
+          example: tag_001
+          schema:
+            type: string
+        - name: X-Request-Id
+          in: header
+          required: false
+          description: Client-generated UUID for request tracing and idempotency checks
+          example: 550e8400-e29b-41d4-a716-446655440000
+          schema:
+            type: string
+            format: uuid
+      responses:
+        "204":
+          description: Tag deleted successfully
+        "401":
+          description: Authentication credentials are missing or invalid
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: Machine-readable error code
+                    example: unauthorized
+                  message:
+                    type: string
+                    description: Human-readable error message
+                    example: "Bearer token is missing or expired"
+              example:
+                error: unauthorized
+                message: "Bearer token is missing or expired"
+        "404":
+          description: Tag not found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: Machine-readable error code
+                    example: not_found
+                  message:
+                    type: string
+                    description: Human-readable error message
+                    example: "Tag tag_001 does not exist"
+              example:
+                error: not_found
+                message: "Tag tag_001 does not exist"
+        "500":
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: Machine-readable error code
+                    example: internal_error
+                  message:
+                    type: string
+                    description: Human-readable error message
+                    example: "An unexpected error occurred. Please try again later."
+              example:
+                error: internal_error
+                message: "An unexpected error occurred. Please try again later."
+
+  /tasks:
+    get:
+      operationId: listTasks
+      tags:
+        - Tasks
+      summary: List all tasks
+      description: >-
+        Returns a paginated list of tasks accessible to the authenticated
+        user. Supports filtering and cursor-based pagination for efficient
+        retrieval of large task lists.
+      parameters:
+        - name: limit
+          in: query
+          required: false
+          description: Maximum number of tasks to return per page (1-100)
+          example: 20
+          schema:
+            type: integer
+            minimum: 1
+            maximum: 100
+            default: 20
+        - name: cursor
+          in: query
+          required: false
+          description: Opaque pagination cursor returned from a previous list request
+          example: eyJpZCI6InRza18wNTAifQ
+          schema:
+            type: string
+        - name: X-Request-Id
+          in: header
+          required: false
+          description: Client-generated UUID for request tracing and idempotency checks
+          example: 550e8400-e29b-41d4-a716-446655440000
+          schema:
+            type: string
+            format: uuid
+      responses:
+        "200":
+          description: Paginated list of tasks
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    description: List of task objects on this page
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: string
+                          description: Unique identifier of the task
+                          example: tsk_001
+                        project_id:
+                          type: string
+                          description: Identifier of the project this task belongs to
+                          example: prj_001
+                        title:
+                          type: string
+                          description: Short summary of the task
+                          example: "Fix login page layout on mobile"
+                        description:
+                          type: string
+                          description: Detailed description of the work required
+                          example: "The login button overlaps the password field on screens narrower than 375px"
+                        status:
+                          type: string
+                          enum:
+                            - open
+                            - in_progress
+                            - completed
+                          description: Current status of the task
+                          example: open
+                        assignee_id:
+                          type: string
+                          nullable: true
+                          description: Identifier of the user assigned to this task
+                          example: usr_def456
+                        created_at:
+                          type: string
+                          format: date-time
+                          description: Timestamp when the task was created
+                          example: "2025-09-10T08:00:00Z"
+                        updated_at:
+                          type: string
+                          format: date-time
+                          description: Timestamp when the task was last updated
+                          example: "2025-09-14T16:45:00Z"
+                  next_cursor:
+                    type: string
+                    nullable: true
+                    description: Cursor for the next page, null if no more results
+                    example: eyJpZCI6InRza18wMjAifQ
+              example:
+                data:
+                  - id: tsk_001
+                    project_id: prj_001
+                    title: "Fix login page layout on mobile"
+                    description: "The login button overlaps the password field on screens narrower than 375px"
+                    status: open
+                    assignee_id: usr_def456
+                    created_at: "2025-09-10T08:00:00Z"
+                    updated_at: "2025-09-14T16:45:00Z"
+                next_cursor: eyJpZCI6InRza18wMjAifQ
+        "400":
+          description: Invalid query parameters
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: Machine-readable error code
+                    example: invalid_parameter
+                  message:
+                    type: string
+                    description: Human-readable error message
+                    example: "limit must be between 1 and 100"
+              example:
+                error: invalid_parameter
+                message: "limit must be between 1 and 100"
+        "401":
+          description: Authentication credentials are missing or invalid
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: Machine-readable error code
+                    example: unauthorized
+                  message:
+                    type: string
+                    description: Human-readable error message
+                    example: "Bearer token is missing or expired"
+              example:
+                error: unauthorized
+                message: "Bearer token is missing or expired"
+        "500":
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: Machine-readable error code
+                    example: internal_error
+                  message:
+                    type: string
+                    description: Human-readable error message
+                    example: "An unexpected error occurred. Please try again later."
+              example:
+                error: internal_error
+                message: "An unexpected error occurred. Please try again later."
+    post:
+      operationId: createTask
+      tags:
+        - Tasks
+      summary: Create a new task
+      description: >-
+        Creates a new task in the specified project. The task starts in
+        open status. Assign it to a user and attach tags as needed.
+        Returns the created task object.
+      parameters:
+        - name: X-Request-Id
+          in: header
+          required: false
+          description: Client-generated UUID for request tracing and idempotency checks
+          example: 550e8400-e29b-41d4-a716-446655440000
+          schema:
+            type: string
+            format: uuid
+        - name: Idempotency-Key
+          in: header
+          required: false
+          description: Unique key to ensure the request is processed only once
+          example: ik_create_tsk_20250915
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - project_id
+                - title
+              properties:
+                project_id:
+                  type: string
+                  description: Identifier of the project to create the task in
+                  example: prj_001
+                title:
+                  type: string
+                  description: Short summary of the task (1-255 characters)
+                  example: "Add dark mode support"
+                description:
+                  type: string
+                  description: Detailed description of the work required
+                  example: "Implement dark mode toggle in user settings and apply theme across all pages"
+                assignee_id:
+                  type: string
+                  description: Identifier of the user to assign this task to
+                  example: usr_def456
+            example:
+              project_id: prj_001
+              title: "Add dark mode support"
+              description: "Implement dark mode toggle in user settings and apply theme across all pages"
+              assignee_id: usr_def456
+      responses:
+        "201":
+          description: Task created successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: string
+                    description: Unique identifier of the newly created task
+                    example: tsk_002
+                  project_id:
+                    type: string
+                    description: Identifier of the project this task belongs to
+                    example: prj_001
+                  title:
+                    type: string
+                    description: Short summary of the task
+                    example: "Add dark mode support"
+                  description:
+                    type: string
+                    description: Detailed description of the work required
+                    example: "Implement dark mode toggle in user settings and apply theme across all pages"
+                  status:
+                    type: string
+                    enum:
+                      - open
+                    description: Initial status of the task
+                    example: open
+                  assignee_id:
+                    type: string
+                    nullable: true
+                    description: Identifier of the user assigned to this task
+                    example: usr_def456
+                  created_at:
+                    type: string
+                    format: date-time
+                    description: Timestamp when the task was created
+                    example: "2025-09-15T12:00:00Z"
+                  updated_at:
+                    type: string
+                    format: date-time
+                    description: Timestamp when the task was last updated
+                    example: "2025-09-15T12:00:00Z"
+              example:
+                id: tsk_002
+                project_id: prj_001
+                title: "Add dark mode support"
+                description: "Implement dark mode toggle in user settings and apply theme across all pages"
+                status: open
+                assignee_id: usr_def456
+                created_at: "2025-09-15T12:00:00Z"
+                updated_at: "2025-09-15T12:00:00Z"
+        "400":
+          description: Invalid request body
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: Machine-readable error code
+                    example: validation_error
+                  message:
+                    type: string
+                    description: Human-readable error message
+                    example: "project_id and title are required"
+              example:
+                error: validation_error
+                message: "project_id and title are required"
+        "401":
+          description: Authentication credentials are missing or invalid
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: Machine-readable error code
+                    example: unauthorized
+                  message:
+                    type: string
+                    description: Human-readable error message
+                    example: "Bearer token is missing or expired"
+              example:
+                error: unauthorized
+                message: "Bearer token is missing or expired"
+        "500":
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: Machine-readable error code
+                    example: internal_error
+                  message:
+                    type: string
+                    description: Human-readable error message
+                    example: "An unexpected error occurred. Please try again later."
+              example:
+                error: internal_error
+                message: "An unexpected error occurred. Please try again later."
+
+  /tasks/{task_id}:
+    get:
+      operationId: getTask
+      tags:
+        - Tasks
+      summary: Retrieve a task by ID
+      description: >-
+        Returns a single task identified by its unique ID. Use this endpoint
+        to fetch full task details including status, assignee, and
+        timestamps.
+      parameters:
+        - name: task_id
+          in: path
+          required: true
+          description: Unique identifier of the task to retrieve
+          example: tsk_001
+          schema:
+            type: string
+        - name: X-Request-Id
+          in: header
+          required: false
+          description: Client-generated UUID for request tracing and idempotency checks
+          example: 550e8400-e29b-41d4-a716-446655440000
+          schema:
+            type: string
+            format: uuid
+      responses:
+        "200":
+          description: Task retrieved successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: string
+                    description: Unique identifier of the task
+                    example: tsk_001
+                  project_id:
+                    type: string
+                    description: Identifier of the project this task belongs to
+                    example: prj_001
+                  title:
+                    type: string
+                    description: Short summary of the task
+                    example: "Fix login page layout on mobile"
+                  description:
+                    type: string
+                    description: Detailed description of the work required
+                    example: "The login button overlaps the password field on screens narrower than 375px"
+                  status:
+                    type: string
+                    enum:
+                      - open
+                      - in_progress
+                      - completed
+                    description: Current status of the task
+                    example: open
+                  assignee_id:
+                    type: string
+                    nullable: true
+                    description: Identifier of the user assigned to this task
+                    example: usr_def456
+                  created_at:
+                    type: string
+                    format: date-time
+                    description: Timestamp when the task was created
+                    example: "2025-09-10T08:00:00Z"
+                  updated_at:
+                    type: string
+                    format: date-time
+                    description: Timestamp when the task was last updated
+                    example: "2025-09-14T16:45:00Z"
+              example:
+                id: tsk_001
+                project_id: prj_001
+                title: "Fix login page layout on mobile"
+                description: "The login button overlaps the password field on screens narrower than 375px"
+                status: open
+                assignee_id: usr_def456
+                created_at: "2025-09-10T08:00:00Z"
+                updated_at: "2025-09-14T16:45:00Z"
+        "401":
+          description: Authentication credentials are missing or invalid
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: Machine-readable error code
+                    example: unauthorized
+                  message:
+                    type: string
+                    description: Human-readable error message
+                    example: "Bearer token is missing or expired"
+              example:
+                error: unauthorized
+                message: "Bearer token is missing or expired"
+        "404":
+          description: Task not found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: Machine-readable error code
+                    example: not_found
+                  message:
+                    type: string
+                    description: Human-readable error message
+                    example: "Task tsk_001 does not exist"
+              example:
+                error: not_found
+                message: "Task tsk_001 does not exist"
+        "500":
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: Machine-readable error code
+                    example: internal_error
+                  message:
+                    type: string
+                    description: Human-readable error message
+                    example: "An unexpected error occurred. Please try again later."
+              example:
+                error: internal_error
+                message: "An unexpected error occurred. Please try again later."
+    put:
+      operationId: updateTask
+      tags:
+        - Tasks
+      summary: Update a task
+      description: >-
+        Updates the title, description, status, or assignee of an existing
+        task. Only project members can update tasks. Returns the updated
+        task object.
+      parameters:
+        - name: task_id
+          in: path
+          required: true
+          description: Unique identifier of the task to update
+          example: tsk_001
+          schema:
+            type: string
+        - name: X-Request-Id
+          in: header
+          required: false
+          description: Client-generated UUID for request tracing and idempotency checks
+          example: 550e8400-e29b-41d4-a716-446655440000
+          schema:
+            type: string
+            format: uuid
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                title:
+                  type: string
+                  description: Updated short summary of the task
+                  example: "Fix login page layout on all mobile devices"
+                description:
+                  type: string
+                  description: Updated detailed description of the work required
+                  example: "Address layout issues on iOS and Android devices with screens narrower than 375px"
+                status:
+                  type: string
+                  enum:
+                    - open
+                    - in_progress
+                    - completed
+                  description: Updated status of the task
+                  example: in_progress
+                assignee_id:
+                  type: string
+                  nullable: true
+                  description: Identifier of the user to reassign this task to, or null to unassign
+                  example: usr_ghi789
+            example:
+              title: "Fix login page layout on all mobile devices"
+              status: in_progress
+              assignee_id: usr_ghi789
+      responses:
+        "200":
+          description: Task updated successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: string
+                    description: Unique identifier of the task
+                    example: tsk_001
+                  project_id:
+                    type: string
+                    description: Identifier of the project this task belongs to
+                    example: prj_001
+                  title:
+                    type: string
+                    description: Short summary of the task
+                    example: "Fix login page layout on all mobile devices"
+                  description:
+                    type: string
+                    description: Detailed description of the work required
+                    example: "Address layout issues on iOS and Android devices with screens narrower than 375px"
+                  status:
+                    type: string
+                    enum:
+                      - open
+                      - in_progress
+                      - completed
+                    description: Current status of the task
+                    example: in_progress
+                  assignee_id:
+                    type: string
+                    nullable: true
+                    description: Identifier of the user assigned to this task
+                    example: usr_ghi789
+                  created_at:
+                    type: string
+                    format: date-time
+                    description: Timestamp when the task was created
+                    example: "2025-09-10T08:00:00Z"
+                  updated_at:
+                    type: string
+                    format: date-time
+                    description: Timestamp when the task was last updated
+                    example: "2025-09-16T11:30:00Z"
+              example:
+                id: tsk_001
+                project_id: prj_001
+                title: "Fix login page layout on all mobile devices"
+                description: "Address layout issues on iOS and Android devices with screens narrower than 375px"
+                status: in_progress
+                assignee_id: usr_ghi789
+                created_at: "2025-09-10T08:00:00Z"
+                updated_at: "2025-09-16T11:30:00Z"
+        "400":
+          description: Invalid request body
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: Machine-readable error code
+                    example: validation_error
+                  message:
+                    type: string
+                    description: Human-readable error message
+                    example: "status must be one of: open, in_progress, completed"
+              example:
+                error: validation_error
+                message: "status must be one of: open, in_progress, completed"
+        "401":
+          description: Authentication credentials are missing or invalid
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: Machine-readable error code
+                    example: unauthorized
+                  message:
+                    type: string
+                    description: Human-readable error message
+                    example: "Bearer token is missing or expired"
+              example:
+                error: unauthorized
+                message: "Bearer token is missing or expired"
+        "404":
+          description: Task not found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: Machine-readable error code
+                    example: not_found
+                  message:
+                    type: string
+                    description: Human-readable error message
+                    example: "Task tsk_001 does not exist"
+              example:
+                error: not_found
+                message: "Task tsk_001 does not exist"
+        "500":
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: Machine-readable error code
+                    example: internal_error
+                  message:
+                    type: string
+                    description: Human-readable error message
+                    example: "An unexpected error occurred. Please try again later."
+              example:
+                error: internal_error
+                message: "An unexpected error occurred. Please try again later."
+    delete:
+      operationId: deleteTask
+      tags:
+        - Tasks
+      summary: Delete a task
+      description: >-
+        Permanently deletes a task and all its comments. This action cannot
+        be undone. Tag assignments are also removed. Only the task creator
+        or a project admin can delete a task.
+      parameters:
+        - name: task_id
+          in: path
+          required: true
+          description: Unique identifier of the task to delete
+          example: tsk_001
+          schema:
+            type: string
+        - name: X-Request-Id
+          in: header
+          required: false
+          description: Client-generated UUID for request tracing and idempotency checks
+          example: 550e8400-e29b-41d4-a716-446655440000
+          schema:
+            type: string
+            format: uuid
+      responses:
+        "204":
+          description: Task deleted successfully
+        "401":
+          description: Authentication credentials are missing or invalid
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: Machine-readable error code
+                    example: unauthorized
+                  message:
+                    type: string
+                    description: Human-readable error message
+                    example: "Bearer token is missing or expired"
+              example:
+                error: unauthorized
+                message: "Bearer token is missing or expired"
+        "404":
+          description: Task not found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: Machine-readable error code
+                    example: not_found
+                  message:
+                    type: string
+                    description: Human-readable error message
+                    example: "Task tsk_001 does not exist"
+              example:
+                error: not_found
+                message: "Task tsk_001 does not exist"
+        "500":
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: Machine-readable error code
+                    example: internal_error
+                  message:
+                    type: string
+                    description: Human-readable error message
+                    example: "An unexpected error occurred. Please try again later."
+              example:
+                error: internal_error
+                message: "An unexpected error occurred. Please try again later."
+
+  /tasks/{task_id}/comments:
+    get:
+      operationId: listTaskComments
+      tags:
+        - Tasks
+      summary: List comments on a task
+      description: >-
+        Returns a paginated list of comments attached to the specified task.
+        Comments appear in chronological order. Use cursor-based pagination
+        for tasks with many comments.
+      parameters:
+        - name: task_id
+          in: path
+          required: true
+          description: Unique identifier of the task whose comments to list
+          example: tsk_001
+          schema:
+            type: string
+        - name: limit
+          in: query
+          required: false
+          description: Maximum number of comments to return per page (1-100)
+          example: 20
+          schema:
+            type: integer
+            minimum: 1
+            maximum: 100
+            default: 20
+        - name: cursor
+          in: query
+          required: false
+          description: Opaque pagination cursor returned from a previous list request
+          example: eyJpZCI6ImNtdF8wNTAifQ
+          schema:
+            type: string
+        - name: X-Request-Id
+          in: header
+          required: false
+          description: Client-generated UUID for request tracing and idempotency checks
+          example: 550e8400-e29b-41d4-a716-446655440000
+          schema:
+            type: string
+            format: uuid
+      responses:
+        "200":
+          description: Paginated list of comments
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    description: List of comment objects on this page
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: string
+                          description: Unique identifier of the comment
+                          example: cmt_001
+                        task_id:
+                          type: string
+                          description: Identifier of the task this comment belongs to
+                          example: tsk_001
+                        author_id:
+                          type: string
+                          description: Identifier of the user who authored the comment
+                          example: usr_def456
+                        body:
+                          type: string
+                          description: Markdown content of the comment
+                          example: "I can reproduce this on iPhone 14. Attaching screenshot."
+                        created_at:
+                          type: string
+                          format: date-time
+                          description: Timestamp when the comment was created
+                          example: "2025-09-11T09:00:00Z"
+                        updated_at:
+                          type: string
+                          format: date-time
+                          description: Timestamp when the comment was last updated
+                          example: "2025-09-11T09:00:00Z"
+                  next_cursor:
+                    type: string
+                    nullable: true
+                    description: Cursor for the next page, null if no more results
+                    example: eyJpZCI6ImNtdF8wMjAifQ
+              example:
+                data:
+                  - id: cmt_001
+                    task_id: tsk_001
+                    author_id: usr_def456
+                    body: "I can reproduce this on iPhone 14. Attaching screenshot."
+                    created_at: "2025-09-11T09:00:00Z"
+                    updated_at: "2025-09-11T09:00:00Z"
+                next_cursor: eyJpZCI6ImNtdF8wMjAifQ
+        "401":
+          description: Authentication credentials are missing or invalid
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: Machine-readable error code
+                    example: unauthorized
+                  message:
+                    type: string
+                    description: Human-readable error message
+                    example: "Bearer token is missing or expired"
+              example:
+                error: unauthorized
+                message: "Bearer token is missing or expired"
+        "404":
+          description: Task not found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: Machine-readable error code
+                    example: not_found
+                  message:
+                    type: string
+                    description: Human-readable error message
+                    example: "Task tsk_001 does not exist"
+              example:
+                error: not_found
+                message: "Task tsk_001 does not exist"
+        "500":
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: Machine-readable error code
+                    example: internal_error
+                  message:
+                    type: string
+                    description: Human-readable error message
+                    example: "An unexpected error occurred. Please try again later."
+              example:
+                error: internal_error
+                message: "An unexpected error occurred. Please try again later."
+    post:
+      operationId: createTaskComment
+      tags:
+        - Tasks
+      summary: Add a comment to a task
+      description: >-
+        Creates a new comment on the specified task. The authenticated user
+        becomes the comment author. Returns the created comment object with
+        its assigned identifier.
+      parameters:
+        - name: task_id
+          in: path
+          required: true
+          description: Unique identifier of the task to comment on
+          example: tsk_001
+          schema:
+            type: string
+        - name: X-Request-Id
+          in: header
+          required: false
+          description: Client-generated UUID for request tracing and idempotency checks
+          example: 550e8400-e29b-41d4-a716-446655440000
+          schema:
+            type: string
+            format: uuid
+        - name: Idempotency-Key
+          in: header
+          required: false
+          description: Unique key to ensure the request is processed only once
+          example: ik_create_cmt_20250915
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - body
+              properties:
+                body:
+                  type: string
+                  description: Markdown content of the comment
+                  example: "Fixed in commit abc1234. Ready for QA testing."
+            example:
+              body: "Fixed in commit abc1234. Ready for QA testing."
+      responses:
+        "201":
+          description: Comment created successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: string
+                    description: Unique identifier of the newly created comment
+                    example: cmt_002
+                  task_id:
+                    type: string
+                    description: Identifier of the task this comment belongs to
+                    example: tsk_001
+                  author_id:
+                    type: string
+                    description: Identifier of the user who authored the comment
+                    example: usr_abc123
+                  body:
+                    type: string
+                    description: Markdown content of the comment
+                    example: "Fixed in commit abc1234. Ready for QA testing."
+                  created_at:
+                    type: string
+                    format: date-time
+                    description: Timestamp when the comment was created
+                    example: "2025-09-15T14:00:00Z"
+                  updated_at:
+                    type: string
+                    format: date-time
+                    description: Timestamp when the comment was last updated
+                    example: "2025-09-15T14:00:00Z"
+              example:
+                id: cmt_002
+                task_id: tsk_001
+                author_id: usr_abc123
+                body: "Fixed in commit abc1234. Ready for QA testing."
+                created_at: "2025-09-15T14:00:00Z"
+                updated_at: "2025-09-15T14:00:00Z"
+        "400":
+          description: Invalid request body
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: Machine-readable error code
+                    example: validation_error
+                  message:
+                    type: string
+                    description: Human-readable error message
+                    example: "body is required and must be a non-empty string"
+              example:
+                error: validation_error
+                message: "body is required and must be a non-empty string"
+        "401":
+          description: Authentication credentials are missing or invalid
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: Machine-readable error code
+                    example: unauthorized
+                  message:
+                    type: string
+                    description: Human-readable error message
+                    example: "Bearer token is missing or expired"
+              example:
+                error: unauthorized
+                message: "Bearer token is missing or expired"
+        "404":
+          description: Task not found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: Machine-readable error code
+                    example: not_found
+                  message:
+                    type: string
+                    description: Human-readable error message
+                    example: "Task tsk_001 does not exist"
+              example:
+                error: not_found
+                message: "Task tsk_001 does not exist"
+        "500":
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: Machine-readable error code
+                    example: internal_error
+                  message:
+                    type: string
+                    description: Human-readable error message
+                    example: "An unexpected error occurred. Please try again later."
+              example:
+                error: internal_error
+                message: "An unexpected error occurred. Please try again later."
+
+  /tasks/{task_id}/complete:
+    post:
+      operationId: completeTask
+      tags:
+        - Tasks
+      summary: Mark a task as completed
+      description: >-
+        Transitions a task to completed status. The task must be in open
+        or in_progress status. Returns the updated task object with the
+        new status and timestamp.
+      parameters:
+        - name: task_id
+          in: path
+          required: true
+          description: Unique identifier of the task to mark as completed
+          example: tsk_001
+          schema:
+            type: string
+        - name: X-Request-Id
+          in: header
+          required: false
+          description: Client-generated UUID for request tracing and idempotency checks
+          example: 550e8400-e29b-41d4-a716-446655440000
+          schema:
+            type: string
+            format: uuid
+      responses:
+        "200":
+          description: Task marked as completed
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: string
+                    description: Unique identifier of the task
+                    example: tsk_001
+                  status:
+                    type: string
+                    enum:
+                      - completed
+                    description: Updated status of the task
+                    example: completed
+                  updated_at:
+                    type: string
+                    format: date-time
+                    description: Timestamp when the task was completed
+                    example: "2025-09-16T15:00:00Z"
+              example:
+                id: tsk_001
+                status: completed
+                updated_at: "2025-09-16T15:00:00Z"
+        "400":
+          description: Task cannot be completed from its current status
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: Machine-readable error code
+                    example: invalid_state_transition
+                  message:
+                    type: string
+                    description: Human-readable error message
+                    example: "Task is already completed"
+              example:
+                error: invalid_state_transition
+                message: "Task is already completed"
+        "401":
+          description: Authentication credentials are missing or invalid
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: Machine-readable error code
+                    example: unauthorized
+                  message:
+                    type: string
+                    description: Human-readable error message
+                    example: "Bearer token is missing or expired"
+              example:
+                error: unauthorized
+                message: "Bearer token is missing or expired"
+        "404":
+          description: Task not found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: Machine-readable error code
+                    example: not_found
+                  message:
+                    type: string
+                    description: Human-readable error message
+                    example: "Task tsk_001 does not exist"
+              example:
+                error: not_found
+                message: "Task tsk_001 does not exist"
+        "500":
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: Machine-readable error code
+                    example: internal_error
+                  message:
+                    type: string
+                    description: Human-readable error message
+                    example: "An unexpected error occurred. Please try again later."
+              example:
+                error: internal_error
+                message: "An unexpected error occurred. Please try again later."
+
+  /tasks/{task_id}/reopen:
+    post:
+      operationId: reopenTask
+      tags:
+        - Tasks
+      summary: Reopen a completed task
+      description: >-
+        Transitions a completed task back to open status. Use this endpoint
+        when additional work is needed on a previously completed task.
+        Returns the updated task object.
+      parameters:
+        - name: task_id
+          in: path
+          required: true
+          description: Unique identifier of the completed task to reopen
+          example: tsk_001
+          schema:
+            type: string
+        - name: X-Request-Id
+          in: header
+          required: false
+          description: Client-generated UUID for request tracing and idempotency checks
+          example: 550e8400-e29b-41d4-a716-446655440000
+          schema:
+            type: string
+            format: uuid
+      responses:
+        "200":
+          description: Task reopened successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: string
+                    description: Unique identifier of the task
+                    example: tsk_001
+                  status:
+                    type: string
+                    enum:
+                      - open
+                    description: Updated status of the task
+                    example: open
+                  updated_at:
+                    type: string
+                    format: date-time
+                    description: Timestamp when the task was reopened
+                    example: "2025-09-17T09:00:00Z"
+              example:
+                id: tsk_001
+                status: open
+                updated_at: "2025-09-17T09:00:00Z"
+        "400":
+          description: Task cannot be reopened from its current status
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: Machine-readable error code
+                    example: invalid_state_transition
+                  message:
+                    type: string
+                    description: Human-readable error message
+                    example: "Task is not in completed status"
+              example:
+                error: invalid_state_transition
+                message: "Task is not in completed status"
+        "401":
+          description: Authentication credentials are missing or invalid
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: Machine-readable error code
+                    example: unauthorized
+                  message:
+                    type: string
+                    description: Human-readable error message
+                    example: "Bearer token is missing or expired"
+              example:
+                error: unauthorized
+                message: "Bearer token is missing or expired"
+        "404":
+          description: Task not found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: Machine-readable error code
+                    example: not_found
+                  message:
+                    type: string
+                    description: Human-readable error message
+                    example: "Task tsk_001 does not exist"
+              example:
+                error: not_found
+                message: "Task tsk_001 does not exist"
+        "500":
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: Machine-readable error code
+                    example: internal_error
+                  message:
+                    type: string
+                    description: Human-readable error message
+                    example: "An unexpected error occurred. Please try again later."
+              example:
+                error: internal_error
+                message: "An unexpected error occurred. Please try again later."
+
+  /tasks/{task_id}/tags/{tag_id}:
+    put:
+      operationId: addTagToTask
+      tags:
+        - Tasks
+      summary: Attach a tag to a task
+      description: >-
+        Associates a tag with the specified task. If the tag is already
+        attached, the operation is idempotent and returns the current
+        state. A task can have multiple tags.
+      parameters:
+        - name: task_id
+          in: path
+          required: true
+          description: Unique identifier of the task to tag
+          example: tsk_001
+          schema:
+            type: string
+        - name: tag_id
+          in: path
+          required: true
+          description: Unique identifier of the tag to attach
+          example: tag_001
+          schema:
+            type: string
+        - name: X-Request-Id
+          in: header
+          required: false
+          description: Client-generated UUID for request tracing and idempotency checks
+          example: 550e8400-e29b-41d4-a716-446655440000
+          schema:
+            type: string
+            format: uuid
+      responses:
+        "200":
+          description: Tag attached to the task
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  task_id:
+                    type: string
+                    description: Identifier of the task
+                    example: tsk_001
+                  tag_id:
+                    type: string
+                    description: Identifier of the attached tag
+                    example: tag_001
+                  attached_at:
+                    type: string
+                    format: date-time
+                    description: Timestamp when the tag was attached
+                    example: "2025-09-15T13:00:00Z"
+              example:
+                task_id: tsk_001
+                tag_id: tag_001
+                attached_at: "2025-09-15T13:00:00Z"
+        "401":
+          description: Authentication credentials are missing or invalid
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: Machine-readable error code
+                    example: unauthorized
+                  message:
+                    type: string
+                    description: Human-readable error message
+                    example: "Bearer token is missing or expired"
+              example:
+                error: unauthorized
+                message: "Bearer token is missing or expired"
+        "404":
+          description: Task or tag not found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: Machine-readable error code
+                    example: not_found
+                  message:
+                    type: string
+                    description: Human-readable error message
+                    example: "Task tsk_001 or tag tag_001 does not exist"
+              example:
+                error: not_found
+                message: "Task tsk_001 or tag tag_001 does not exist"
+        "500":
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: Machine-readable error code
+                    example: internal_error
+                  message:
+                    type: string
+                    description: Human-readable error message
+                    example: "An unexpected error occurred. Please try again later."
+              example:
+                error: internal_error
+                message: "An unexpected error occurred. Please try again later."
+    delete:
+      operationId: removeTagFromTask
+      tags:
+        - Tasks
+      summary: Detach a tag from a task
+      description: >-
+        Removes the association between a tag and the specified task. The
+        tag itself is not deleted and remains available for other tasks.
+      parameters:
+        - name: task_id
+          in: path
+          required: true
+          description: Unique identifier of the task to detach the tag from
+          example: tsk_001
+          schema:
+            type: string
+        - name: tag_id
+          in: path
+          required: true
+          description: Unique identifier of the tag to detach
+          example: tag_001
+          schema:
+            type: string
+        - name: X-Request-Id
+          in: header
+          required: false
+          description: Client-generated UUID for request tracing and idempotency checks
+          example: 550e8400-e29b-41d4-a716-446655440000
+          schema:
+            type: string
+            format: uuid
+      responses:
+        "204":
+          description: Tag detached from the task
+        "401":
+          description: Authentication credentials are missing or invalid
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: Machine-readable error code
+                    example: unauthorized
+                  message:
+                    type: string
+                    description: Human-readable error message
+                    example: "Bearer token is missing or expired"
+              example:
+                error: unauthorized
+                message: "Bearer token is missing or expired"
+        "404":
+          description: Task or tag not found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: Machine-readable error code
+                    example: not_found
+                  message:
+                    type: string
+                    description: Human-readable error message
+                    example: "Task tsk_001 or tag tag_001 does not exist"
+              example:
+                error: not_found
+                message: "Task tsk_001 or tag tag_001 does not exist"
+        "500":
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: Machine-readable error code
+                    example: internal_error
+                  message:
+                    type: string
+                    description: Human-readable error message
+                    example: "An unexpected error occurred. Please try again later."
+              example:
+                error: internal_error
+                message: "An unexpected error occurred. Please try again later."
+
+  /users:
+    get:
+      operationId: listUsers
+      tags:
+        - Users
+      summary: List all users
+      description: >-
+        Returns a paginated list of users in the workspace. Use this
+        endpoint to browse team members and their profiles for task
+        assignment or collaboration.
+      parameters:
+        - name: limit
+          in: query
+          required: false
+          description: Maximum number of users to return per page (1-100)
+          example: 20
+          schema:
+            type: integer
+            minimum: 1
+            maximum: 100
+            default: 20
+        - name: cursor
+          in: query
+          required: false
+          description: Opaque pagination cursor returned from a previous list request
+          example: eyJpZCI6InVzcl8wNTAifQ
+          schema:
+            type: string
+        - name: X-Request-Id
+          in: header
+          required: false
+          description: Client-generated UUID for request tracing and idempotency checks
+          example: 550e8400-e29b-41d4-a716-446655440000
+          schema:
+            type: string
+            format: uuid
+      responses:
+        "200":
+          description: Paginated list of users
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    description: List of user objects on this page
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: string
+                          description: Unique identifier of the user
+                          example: usr_abc123
+                        email:
+                          type: string
+                          format: email
+                          description: Email address of the user
+                          example: alice@example.com
+                        display_name:
+                          type: string
+                          description: Display name shown in the UI
+                          example: Alice Johnson
+                        role:
+                          type: string
+                          enum:
+                            - admin
+                            - member
+                            - viewer
+                          description: Role of the user in the workspace
+                          example: member
+                        created_at:
+                          type: string
+                          format: date-time
+                          description: Timestamp when the user account was created
+                          example: "2025-06-01T10:00:00Z"
+                  next_cursor:
+                    type: string
+                    nullable: true
+                    description: Cursor for the next page, null if no more results
+                    example: eyJpZCI6InVzcl8wMjAifQ
+              example:
+                data:
+                  - id: usr_abc123
+                    email: alice@example.com
+                    display_name: Alice Johnson
+                    role: member
+                    created_at: "2025-06-01T10:00:00Z"
+                next_cursor: eyJpZCI6InVzcl8wMjAifQ
+        "400":
+          description: Invalid query parameters
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: Machine-readable error code
+                    example: invalid_parameter
+                  message:
+                    type: string
+                    description: Human-readable error message
+                    example: "limit must be between 1 and 100"
+              example:
+                error: invalid_parameter
+                message: "limit must be between 1 and 100"
+        "401":
+          description: Authentication credentials are missing or invalid
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: Machine-readable error code
+                    example: unauthorized
+                  message:
+                    type: string
+                    description: Human-readable error message
+                    example: "Bearer token is missing or expired"
+              example:
+                error: unauthorized
+                message: "Bearer token is missing or expired"
+        "500":
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: Machine-readable error code
+                    example: internal_error
+                  message:
+                    type: string
+                    description: Human-readable error message
+                    example: "An unexpected error occurred. Please try again later."
+              example:
+                error: internal_error
+                message: "An unexpected error occurred. Please try again later."
+
+  /users/me:
+    get:
+      operationId: getCurrentUser
+      tags:
+        - Users
+      summary: Retrieve the authenticated user profile
+      description: >-
+        Returns the profile of the user identified by the Bearer token.
+        Use this endpoint to display the current user's information in
+        the application UI or to verify authentication.
+      parameters:
+        - name: X-Request-Id
+          in: header
+          required: false
+          description: Client-generated UUID for request tracing and idempotency checks
+          example: 550e8400-e29b-41d4-a716-446655440000
+          schema:
+            type: string
+            format: uuid
+      responses:
+        "200":
+          description: Authenticated user profile retrieved
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: string
+                    description: Unique identifier of the user
+                    example: usr_abc123
+                  email:
+                    type: string
+                    format: email
+                    description: Email address of the user
+                    example: alice@example.com
+                  display_name:
+                    type: string
+                    description: Display name shown in the UI
+                    example: Alice Johnson
+                  role:
+                    type: string
+                    enum:
+                      - admin
+                      - member
+                      - viewer
+                    description: Role of the user in the workspace
+                    example: admin
+                  created_at:
+                    type: string
+                    format: date-time
+                    description: Timestamp when the user account was created
+                    example: "2025-06-01T10:00:00Z"
+              example:
+                id: usr_abc123
+                email: alice@example.com
+                display_name: Alice Johnson
+                role: admin
+                created_at: "2025-06-01T10:00:00Z"
+        "401":
+          description: Authentication credentials are missing or invalid
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: Machine-readable error code
+                    example: unauthorized
+                  message:
+                    type: string
+                    description: Human-readable error message
+                    example: "Bearer token is missing or expired"
+              example:
+                error: unauthorized
+                message: "Bearer token is missing or expired"
+        "500":
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: Machine-readable error code
+                    example: internal_error
+                  message:
+                    type: string
+                    description: Human-readable error message
+                    example: "An unexpected error occurred. Please try again later."
+              example:
+                error: internal_error
+                message: "An unexpected error occurred. Please try again later."
+
+  /users/{user_id}:
+    get:
+      operationId: getUser
+      tags:
+        - Users
+      summary: Retrieve a user by ID
+      description: >-
+        Returns a single user profile identified by its unique ID. Use
+        this endpoint to look up team member details for task assignment
+        or collaboration.
+      parameters:
+        - name: user_id
+          in: path
+          required: true
+          description: Unique identifier of the user to retrieve
+          example: usr_def456
+          schema:
+            type: string
+        - name: X-Request-Id
+          in: header
+          required: false
+          description: Client-generated UUID for request tracing and idempotency checks
+          example: 550e8400-e29b-41d4-a716-446655440000
+          schema:
+            type: string
+            format: uuid
+      responses:
+        "200":
+          description: User profile retrieved successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: string
+                    description: Unique identifier of the user
+                    example: usr_def456
+                  email:
+                    type: string
+                    format: email
+                    description: Email address of the user
+                    example: bob@example.com
+                  display_name:
+                    type: string
+                    description: Display name shown in the UI
+                    example: Bob Smith
+                  role:
+                    type: string
+                    enum:
+                      - admin
+                      - member
+                      - viewer
+                    description: Role of the user in the workspace
+                    example: member
+                  created_at:
+                    type: string
+                    format: date-time
+                    description: Timestamp when the user account was created
+                    example: "2025-07-15T14:00:00Z"
+              example:
+                id: usr_def456
+                email: bob@example.com
+                display_name: Bob Smith
+                role: member
+                created_at: "2025-07-15T14:00:00Z"
+        "401":
+          description: Authentication credentials are missing or invalid
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: Machine-readable error code
+                    example: unauthorized
+                  message:
+                    type: string
+                    description: Human-readable error message
+                    example: "Bearer token is missing or expired"
+              example:
+                error: unauthorized
+                message: "Bearer token is missing or expired"
+        "404":
+          description: User not found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: Machine-readable error code
+                    example: not_found
+                  message:
+                    type: string
+                    description: Human-readable error message
+                    example: "User usr_def456 does not exist"
+              example:
+                error: not_found
+                message: "User usr_def456 does not exist"
+        "500":
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: Machine-readable error code
+                    example: internal_error
+                  message:
+                    type: string
+                    description: Human-readable error message
+                    example: "An unexpected error occurred. Please try again later."
+              example:
+                error: internal_error
+                message: "An unexpected error occurred. Please try again later."
+    put:
+      operationId: updateUser
+      tags:
+        - Users
+      summary: Update a user profile
+      description: >-
+        Updates the display name or role of an existing user. Only workspace
+        admins can change roles. Users can update their own display name.
+        Returns the updated user object.
+      parameters:
+        - name: user_id
+          in: path
+          required: true
+          description: Unique identifier of the user to update
+          example: usr_def456
+          schema:
+            type: string
+        - name: X-Request-Id
+          in: header
+          required: false
+          description: Client-generated UUID for request tracing and idempotency checks
+          example: 550e8400-e29b-41d4-a716-446655440000
+          schema:
+            type: string
+            format: uuid
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                display_name:
+                  type: string
+                  description: Updated display name shown in the UI
+                  example: Robert Smith
+                role:
+                  type: string
+                  enum:
+                    - admin
+                    - member
+                    - viewer
+                  description: Updated role of the user in the workspace (admin-only operation)
+                  example: admin
+            example:
+              display_name: Robert Smith
+              role: admin
+      responses:
+        "200":
+          description: User profile updated successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: string
+                    description: Unique identifier of the user
+                    example: usr_def456
+                  email:
+                    type: string
+                    format: email
+                    description: Email address of the user
+                    example: bob@example.com
+                  display_name:
+                    type: string
+                    description: Display name shown in the UI
+                    example: Robert Smith
+                  role:
+                    type: string
+                    enum:
+                      - admin
+                      - member
+                      - viewer
+                    description: Role of the user in the workspace
+                    example: admin
+                  created_at:
+                    type: string
+                    format: date-time
+                    description: Timestamp when the user account was created
+                    example: "2025-07-15T14:00:00Z"
+              example:
+                id: usr_def456
+                email: bob@example.com
+                display_name: Robert Smith
+                role: admin
+                created_at: "2025-07-15T14:00:00Z"
+        "400":
+          description: Invalid request body
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: Machine-readable error code
+                    example: validation_error
+                  message:
+                    type: string
+                    description: Human-readable error message
+                    example: "role must be one of: admin, member, viewer"
+              example:
+                error: validation_error
+                message: "role must be one of: admin, member, viewer"
+        "401":
+          description: Authentication credentials are missing or invalid
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: Machine-readable error code
+                    example: unauthorized
+                  message:
+                    type: string
+                    description: Human-readable error message
+                    example: "Bearer token is missing or expired"
+              example:
+                error: unauthorized
+                message: "Bearer token is missing or expired"
+        "404":
+          description: User not found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: Machine-readable error code
+                    example: not_found
+                  message:
+                    type: string
+                    description: Human-readable error message
+                    example: "User usr_def456 does not exist"
+              example:
+                error: not_found
+                message: "User usr_def456 does not exist"
+        "500":
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: Machine-readable error code
+                    example: internal_error
+                  message:
+                    type: string
+                    description: Human-readable error message
+                    example: "An unexpected error occurred. Please try again later."
+              example:
+                error: internal_error
+                message: "An unexpected error occurred. Please try again later."
+
+  /users/{user_id}/tasks:
+    get:
+      operationId: listUserTasks
+      tags:
+        - Users
+      summary: List tasks assigned to a user
+      description: >-
+        Returns a paginated list of tasks assigned to the specified user.
+        Use this endpoint to display a user's workload or to find tasks
+        that need reassignment.
+      parameters:
+        - name: user_id
+          in: path
+          required: true
+          description: Unique identifier of the user whose tasks to list
+          example: usr_def456
+          schema:
+            type: string
+        - name: limit
+          in: query
+          required: false
+          description: Maximum number of tasks to return per page (1-100)
+          example: 20
+          schema:
+            type: integer
+            minimum: 1
+            maximum: 100
+            default: 20
+        - name: cursor
+          in: query
+          required: false
+          description: Opaque pagination cursor returned from a previous list request
+          example: eyJpZCI6InRza18wNTAifQ
+          schema:
+            type: string
+        - name: X-Request-Id
+          in: header
+          required: false
+          description: Client-generated UUID for request tracing and idempotency checks
+          example: 550e8400-e29b-41d4-a716-446655440000
+          schema:
+            type: string
+            format: uuid
+      responses:
+        "200":
+          description: Paginated list of tasks assigned to the user
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    description: List of task objects assigned to the user on this page
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: string
+                          description: Unique identifier of the task
+                          example: tsk_001
+                        project_id:
+                          type: string
+                          description: Identifier of the project this task belongs to
+                          example: prj_001
+                        title:
+                          type: string
+                          description: Short summary of the task
+                          example: "Fix login page layout on mobile"
+                        status:
+                          type: string
+                          enum:
+                            - open
+                            - in_progress
+                            - completed
+                          description: Current status of the task
+                          example: in_progress
+                        assignee_id:
+                          type: string
+                          description: Identifier of the user assigned to this task
+                          example: usr_def456
+                        created_at:
+                          type: string
+                          format: date-time
+                          description: Timestamp when the task was created
+                          example: "2025-09-10T08:00:00Z"
+                        updated_at:
+                          type: string
+                          format: date-time
+                          description: Timestamp when the task was last updated
+                          example: "2025-09-14T16:45:00Z"
+                  next_cursor:
+                    type: string
+                    nullable: true
+                    description: Cursor for the next page, null if no more results
+                    example: eyJpZCI6InRza18wMjAifQ
+              example:
+                data:
+                  - id: tsk_001
+                    project_id: prj_001
+                    title: "Fix login page layout on mobile"
+                    status: in_progress
+                    assignee_id: usr_def456
+                    created_at: "2025-09-10T08:00:00Z"
+                    updated_at: "2025-09-14T16:45:00Z"
+                next_cursor: eyJpZCI6InRza18wMjAifQ
+        "401":
+          description: Authentication credentials are missing or invalid
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: Machine-readable error code
+                    example: unauthorized
+                  message:
+                    type: string
+                    description: Human-readable error message
+                    example: "Bearer token is missing or expired"
+              example:
+                error: unauthorized
+                message: "Bearer token is missing or expired"
+        "404":
+          description: User not found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: Machine-readable error code
+                    example: not_found
+                  message:
+                    type: string
+                    description: Human-readable error message
+                    example: "User usr_def456 does not exist"
+              example:
+                error: not_found
+                message: "User usr_def456 does not exist"
+        "500":
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: Machine-readable error code
+                    example: internal_error
+                  message:
+                    type: string
+                    description: Human-readable error message
+                    example: "An unexpected error occurred. Please try again later."
+              example:
+                error: internal_error
+                message: "An unexpected error occurred. Please try again later."
+
+components:
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+  schemas:
+    BaseResource:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Unique resource identifier
+          example: res_abc123
+        created_at:
+          type: string
+          format: date-time
+          description: Timestamp when the resource was created
+          example: "2026-01-15T10:30:00Z"
+        updated_at:
+          type: string
+          format: date-time
+          description: Timestamp when the resource was last updated
+          example: "2026-03-19T14:22:00Z"
+    Project:
+      allOf:
+        - $ref: "#/components/schemas/BaseResource"
+        - type: object
+          properties:
+            name:
+              type: string
+              description: Project name
+              example: Website Redesign
+            description:
+              type: string
+              description: Project description
+              example: Redesign the marketing website
+            status:
+              type: string
+              enum: [active, archived, draft]
+              description: Current project status
+              example: active
+    Task:
+      allOf:
+        - $ref: "#/components/schemas/BaseResource"
+        - type: object
+          properties:
+            title:
+              type: string
+              description: Task title
+              example: Update landing page
+            project_id:
+              type: string
+              description: Parent project identifier
+              example: prj_abc123
+            status:
+              type: string
+              enum: [open, in_progress, completed]
+              description: Current task status
+              example: open
+            assignee_id:
+              type: string
+              description: Assigned user identifier
+              example: usr_abc123
+    ErrorEnvelope:
+      type: object
+      properties:
+        error:
+          type: string
+          description: Machine-readable error code
+          example: validation_error
+        message:
+          type: string
+          description: Human-readable error message
+          example: "Invalid request parameters"
+    CursorPage:
+      $ref: ./common.yaml#/CursorPage
+    ResourceRef:
+      oneOf:
+        - $ref: "#/components/schemas/Project"
+        - $ref: "#/components/schemas/Task"
+      description: Reference to any top-level resource
+  responses:
+    Error400:
+      description: Bad request
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/ErrorEnvelope"
+    Error401:
+      description: Unauthorized
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/ErrorEnvelope"
+    Error404:
+      description: Not found
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/ErrorEnvelope"
+    Error500:
+      description: Internal server error
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/ErrorEnvelope"

@@ -1,0 +1,131 @@
+name: Multi-Protocol Release Gates
+
+on:
+  pull_request:
+    paths:
+      - 'scripts/api_protocols.py'
+      - 'scripts/multi_protocol_engine.py'
+      - 'scripts/run_multi_protocol_contract_flow.py'
+      - 'scripts/run_autopipeline.py'
+      - 'scripts/check_protocol_regression.py'
+      - 'scripts/generate_protocol_docs.py'
+      - 'scripts/publish_protocol_assets.py'
+      - 'scripts/generate_protocol_test_assets.py'
+      - 'scripts/run_protocol_lint_stack.py'
+      - 'scripts/run_protocol_self_verify.py'
+      - 'scripts/provision_client_repo.py'
+      - 'scripts/build_client_bundle.py'
+      - 'scripts/run_weekly_gap_batch.py'
+      - 'profiles/clients/**'
+      - 'docs/operations/MULTI_PROTOCOL_ARCHITECTURE.md'
+      - 'docs/operations/MULTI_PROTOCOL_WIZARD_GUIDE.md'
+      - 'docs/operations/SMART_MERGE_REVIEW.md'
+      - 'GRAPHQL_PLAYBOOK.md'
+      - 'GRPC_PLAYBOOK.md'
+      - 'ASYNCAPI_PLAYBOOK.md'
+      - 'WEBSOCKET_PLAYBOOK.md'
+      - 'tests/test_multi_protocol_docsops.py'
+      - 'tests/test_multi_protocol_advanced.py'
+      - 'tests/test_run_autopipeline.py'
+      - 'tests/test_protocol_parity_stack.py'
+      - 'tests/test_client_pipeline_coverage.py'
+
+permissions:
+  contents: read
+
+jobs:
+  functional-gates:
+    name: Functional Gates
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install test deps
+        run: |
+          python -m pip install --upgrade pip
+          pip install pyyaml pytest
+      - name: Run functional tests
+        run: |
+          python3 -m pytest -q tests/test_multi_protocol_docsops.py tests/test_run_autopipeline.py tests/test_protocol_parity_stack.py
+
+  integration-e2e-gates:
+    name: Integration + E2E Gates
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install test deps
+        run: |
+          python -m pip install --upgrade pip
+          pip install pyyaml pytest
+      - name: Run integration/e2e tests
+        run: |
+          python3 -m pytest -q tests/test_multi_protocol_advanced.py -k "multi_protocol_flow_e2e_enterprise_strict"
+
+  security-gates:
+    name: Security Gates
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install test deps
+        run: |
+          python -m pip install --upgrade pip
+          pip install pyyaml pytest
+      - name: Run security-focused checks
+        run: |
+          python3 -m pytest -q tests/test_multi_protocol_advanced.py -k "publish_protocol_assets_blocks_absolute_target"
+
+  performance-gates:
+    name: Performance Gates
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install test deps
+        run: |
+          python -m pip install --upgrade pip
+          pip install pyyaml pytest
+      - name: Run performance/load checks
+        run: |
+          python3 -m pytest -q tests/test_multi_protocol_advanced.py -k "protocol_helper_performance"
+
+  regression-gates:
+    name: Regression Snapshot Gates
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install test deps
+        run: |
+          python -m pip install --upgrade pip
+          pip install pyyaml pytest
+      - name: Run regression checks
+        run: |
+          python3 -m pytest -q tests/test_multi_protocol_advanced.py -k "regression_snapshot_detects_change or protocol_test_assets_smart_merge_needs_review"
+
+  docs-sync-gates:
+    name: Docs + Positioning Sync Gates
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Verify required docs artifacts
+        run: |
+          test -f docs/operations/MULTI_PROTOCOL_ARCHITECTURE.md
+          test -f docs/operations/MULTI_PROTOCOL_WIZARD_GUIDE.md
+          test -f docs/operations/SMART_MERGE_REVIEW.md
+          test -f GRAPHQL_PLAYBOOK.md
+          test -f GRPC_PLAYBOOK.md
+          test -f ASYNCAPI_PLAYBOOK.md
+          test -f WEBSOCKET_PLAYBOOK.md
+          test -f MULTI_PROTOCOL_SALES_DECK.md

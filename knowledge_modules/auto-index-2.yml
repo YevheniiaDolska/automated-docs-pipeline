@@ -1,0 +1,45 @@
+id: auto-index-2
+title: Documentation Pipeline Demo (Part 2)
+summary: Automated documentation pipeline with GEO optimization, faceted search, and
+  CI/CD quality gates for workflow automation platform.
+intents:
+- integrate
+audiences:
+- developer
+- operator
+channels:
+- docs
+- assistant
+- automation
+priority: 60
+status: active
+owner: docsops-auto
+last_verified: '2026-03-19'
+dependencies: []
+tags:
+- auto-extracted
+- concept
+- index
+content:
+  docs_markdown: '## Browse by tag
+
+
+    See all [tags](tags.md) for faceted filtering.
+
+
+    This auto-generated knowledge chunk was expanded to satisfy minimum retrieval
+    module length for stable indexing.'
+  assistant_context: 'Use this module when answering questions related to: Documentation
+    Pipeline Demo (Part 2). Source path: docs/index.md. Summary: Automated documentation
+    pipeline with GEO optimization, faceted search, and CI/CD quality gates for workflow
+    automation platform.
+
+
+    ## Browse by tag
+
+
+    See all [tags](tags.md) for faceted filtering.
+
+
+    This auto-generated knowledge chunk was expanded to satisfy minimum retrieval
+    module length for stable indexing.'

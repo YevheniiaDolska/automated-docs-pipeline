@@ -1,0 +1,62 @@
+id: auto-unified-client-config-24
+title: Unified Client Configuration (Part 24)
+summary: Single source of truth for per-client Auto-Doc Pipeline configuration, modules,
+  and automation.
+intents:
+- integrate
+- troubleshoot
+audiences:
+- developer
+- operator
+channels:
+- docs
+- assistant
+- automation
+priority: 60
+status: active
+owner: docsops-auto
+last_verified: '2026-03-19'
+dependencies: []
+tags:
+- auto-extracted
+- reference
+- unified-client-config
+content:
+  docs_markdown: "```yaml\nruntime:\n  custom_tasks:\n    weekly:\n      - id: \"\
+    knowledge-validate\"\n        enabled: true\n        command: \"python3 docsops/scripts/validate_knowledge_modules.py\"\
+    \n        continue_on_error: true\n      - id: \"knowledge-index\"\n        enabled:\
+    \ true\n        command: \"python3 docsops/scripts/generate_knowledge_retrieval_index.py\"\
+    \n        continue_on_error: true\n      - id: \"intent-all\"\n        enabled:\
+    \ true\n        command: \"python3 docsops/scripts/build_all_intent_experiences.py\"\
+    \n        continue_on_error: true\n```\n\n#### Multilingual (i18n) baseline\n\n\
+    ```yaml\nruntime:\n  modules:\n    i18n_sync: true\n  custom_tasks:\n    weekly:\n\
+    \      - id: \"i18n-translate-stale\"\n        enabled: false\n        command:\
+    \ \"python3 docsops/scripts/i18n_translate.py --stale-only\"\n        continue_on_error:\
+    \ true\n```\n\nBundle requirements:\n\n```yaml\nbundle:\n  include_scripts:\n\
+    \    - \"scripts/i18n_sync.py\"\n    - \"scripts/i18n_translate.py\"\n    - \"\
+    scripts/i18n_migrate.py\"\n    - \"scripts/i18n_utils.py\"\n```\n\nPractical mode:\n\
+    \n- Keep `i18n_sync` always on (checks coverage/drift for locales).\n- Keep auto-translation\
+    \ off by default (`enabled: false`) unless client explicitly wants it.\n\n####\
+    \ Interactive diagrams assets\n\n```yaml\nbundle:\n  include_paths:\n    - \"\
+    templates/interactive-diagram.html\"\n```\n\n#### Search facets index"
+  assistant_context: "Use this module when answering questions related to: Unified\
+    \ Client Configuration (Part 24). Source path: docs/operations/UNIFIED_CLIENT_CONFIG.md.\
+    \ Summary: Single source of truth for per-client Auto-Doc Pipeline configuration,\
+    \ modules, and automation.\n\n```yaml\nruntime:\n  custom_tasks:\n    weekly:\n\
+    \      - id: \"knowledge-validate\"\n        enabled: true\n        command: \"\
+    python3 docsops/scripts/validate_knowledge_modules.py\"\n        continue_on_error:\
+    \ true\n      - id: \"knowledge-index\"\n        enabled: true\n        command:\
+    \ \"python3 docsops/scripts/generate_knowledge_retrieval_index.py\"\n        continue_on_error:\
+    \ true\n      - id: \"intent-all\"\n        enabled: true\n        command: \"\
+    python3 docsops/scripts/build_all_intent_experiences.py\"\n        continue_on_error:\
+    \ true\n```\n\n#### Multilingual (i18n) baseline\n\n```yaml\nruntime:\n  modules:\n\
+    \    i18n_sync: true\n  custom_tasks:\n    weekly:\n      - id: \"i18n-translate-stale\"\
+    \n        enabled: false\n        command: \"python3 docsops/scripts/i18n_translate.py\
+    \ --stale-only\"\n        continue_on_error: true\n```\n\nBundle requirements:\n\
+    \n```yaml\nbundle:\n  include_scripts:\n    - \"scripts/i18n_sync.py\"\n    -\
+    \ \"scripts/i18n_translate.py\"\n    - \"scripts/i18n_migrate.py\"\n    - \"scripts/i18n_utils.py\"\
+    \n```\n\nPractical mode:\n\n- Keep `i18n_sync` always on (checks coverage/drift\
+    \ for locales).\n- Keep auto-translation off by default (`enabled: false`) unless\
+    \ client explicitly wants it.\n\n#### Interactive diagrams assets\n\n```yaml\n\
+    bundle:\n  include_paths:\n    - \"templates/interactive-diagram.html\"\n```\n\
+    \n#### Search facets index"
