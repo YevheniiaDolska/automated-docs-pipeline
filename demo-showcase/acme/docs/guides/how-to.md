@@ -190,6 +190,7 @@ After verifying all gates pass, complete the reviewer checklist from the manifes
 - [ ] Review quality and retrieval reports before publish.
 - [ ] Approve publish only if critical findings are resolved.
 - [ ] Verify RAG retrieval index is current and complete.
+- [ ] Confirm advanced retrieval features are enabled (hybrid search, HyDE, reranking, embedding cache).
 
 ## Validation checklist
 
@@ -201,6 +202,7 @@ Before considering the release complete:
 - [ ] Review manifest approved by operator
 - [ ] MkDocs site builds without errors
 - [ ] Knowledge graph and retrieval index are current
+- [ ] Advanced retrieval features enabled (hybrid, HyDE, reranking, cache)
 
 ## Common issues and solutions
 

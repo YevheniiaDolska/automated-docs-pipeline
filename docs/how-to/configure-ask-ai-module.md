@@ -9,7 +9,7 @@ tags:
 - AI
 - Cloud
 app_component: ai-agent
-last_reviewed: '2026-03-07'
+last_reviewed: '2026-03-20'
 original_author: Developer
 ---
 
@@ -75,7 +75,40 @@ Example for customer-provided key:
 npm run askai:configure -- --provider openai --billing-mode bring-your-own-key
 ```
 
-## Step 4: Set access and safety limits
+## Step 4: Configure advanced retrieval features
+
+All six advanced retrieval features are enabled by default. Override individual features with environment variables or by editing `config/ask-ai.yml` directly:
+
+```bash
+npm run askai:configure -- \
+  --hybrid-search \
+  --hyde \
+  --reranking \
+  --embedding-cache
+```
+
+| Feature | Config key | Env var | Default |
+| --- | --- | --- | --- |
+| Token-aware chunking | `chunking.enabled` | -- (build-time only) | `true` |
+| Hybrid search (RRF) | `hybrid_search.enabled` | `ASK_AI_HYBRID_ENABLED` | `true` |
+| HyDE query expansion | `hyde.enabled` | `ASK_AI_HYDE_ENABLED` | `true` |
+| Cross-encoder reranking | `reranking.enabled` | `ASK_AI_RERANK_ENABLED` | `true` |
+| Embedding cache | `embedding_cache.enabled` | `ASK_AI_EMBED_CACHE_ENABLED` | `true` |
+
+Advanced tuning parameters:
+
+| Parameter | Env var | Default | Description |
+| --- | --- | --- | --- |
+| Rerank model | `ASK_AI_RERANK_MODEL` | `cross-encoder/ms-marco-MiniLM-L-6-v2` | Cross-encoder model |
+| Rerank candidates | `ASK_AI_RERANK_CANDIDATES` | `20` | Candidates fetched before reranking |
+| RRF k | `ASK_AI_RRF_K` | `60` | Reciprocal Rank Fusion parameter |
+| HyDE model | `ASK_AI_HYDE_MODEL` | `gpt-4.1-mini` | Model for hypothetical document generation |
+| Cache TTL | `ASK_AI_EMBED_CACHE_TTL` | `3600` | Cache time-to-live in seconds |
+| Cache max size | `ASK_AI_EMBED_CACHE_MAX_SIZE` | `512` | Maximum cached embeddings |
+| Chunk max tokens | `chunking.max_tokens` | `750` | Maximum tokens per chunk |
+| Chunk overlap | `chunking.overlap_tokens` | `100` | Overlap tokens between chunks |
+
+## Step 5: Set access and safety limits
 
 Example:
 
@@ -89,7 +122,7 @@ npm run askai:configure -- \
 
 This keeps Ask AI restricted to approved roles with audit logging enabled.
 
-## Step 5: Validate and commit
+## Step 6: Validate and commit
 
 Run:
 
@@ -104,7 +137,9 @@ Confirm:
 - `billing_mode` matches contract
 - `provider` and `model` match the planned setup
 - `knowledge_index_path`, `knowledge_graph_path`, and `retrieval_eval_report_path` point to current RAG artifacts
-- weekly pipeline refresh keeps those three artifacts up to date before assistant runs
+- `faiss_index_path` and `faiss_metadata_path` point to FAISS embedding assets
+- advanced retrieval features (hybrid search, HyDE, reranking, embedding cache) are enabled
+- weekly pipeline refresh keeps RAG artifacts up to date before assistant runs
 
 ## Troubleshooting
 

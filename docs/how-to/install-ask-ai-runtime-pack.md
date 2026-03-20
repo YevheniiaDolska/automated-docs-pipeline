@@ -9,7 +9,7 @@ tags:
 - AI
 - Cloud
 app_component: ai-agent
-last_reviewed: '2026-03-07'
+last_reviewed: '2026-03-20'
 original_author: Developer
 ---
 
@@ -41,12 +41,14 @@ npm run askai:runtime:install
 
 This creates `ask-ai-runtime/` with:
 
-- FastAPI server (`app/main.py`)
+- FastAPI server (`app/main.py`) with advanced retrieval config
 - auth guards (`app/auth.py`)
 - billing hooks (`app/billing_hooks.py`)
-- retrieval helpers (`app/retrieval.py`)
+- retrieval helpers (`app/retrieval.py`) with hybrid search, HyDE, reranking, embedding cache, and chunk deduplication
 - widget script (`public/ask-ai-widget.js`)
 - `.env.example` and runtime `README.md`
+
+Runtime dependencies include `faiss-cpu`, `numpy`, `sentence-transformers` (for cross-encoder reranking), and `tiktoken` (for token-aware chunking).
 
 ## Step 2: Configure Ask AI module
 
@@ -69,6 +71,15 @@ Fill these values in `.env`:
 - `ASK_AI_API_KEY`
 - `ASK_AI_PROVIDER_API_KEY`
 - `ASK_AI_WEBHOOK_SECRET`
+
+The following advanced retrieval features are enabled by default and require no additional configuration:
+
+| Feature | Env var override | Default |
+| --- | --- | --- |
+| Hybrid search (RRF) | `ASK_AI_HYBRID_ENABLED` | `true` |
+| HyDE query expansion | `ASK_AI_HYDE_ENABLED` | `true` |
+| Cross-encoder reranking | `ASK_AI_RERANK_ENABLED` | `true` |
+| Embedding cache | `ASK_AI_EMBED_CACHE_ENABLED` | `true` |
 
 ## Step 4: Start runtime server
 
@@ -147,7 +158,24 @@ Check `X-Ask-AI-Key` header and `ASK_AI_API_KEY` value.
 
 The current user plan is not entitled by billing mode logic. Confirm `ASK_AI_BILLING_MODE` and user plan header.
 
+The `/healthz` endpoint reports the status of all advanced retrieval features:
+
+```json
+{
+  "ok": true,
+  "enabled": true,
+  "provider": "openai",
+  "billing_mode": "disabled",
+  "semantic_retrieval": true,
+  "reranking": true,
+  "hybrid_search": true,
+  "hyde": true,
+  "embedding_cache": true
+}
+```
+
 ## Next steps
 
 - [Configure Ask AI module](configure-ask-ai-module.md)
 - [Assemble intent experiences](assemble-intent-experiences.md)
+- [Intelligent knowledge system architecture](../concepts/intelligent-knowledge-system.md)

@@ -15,7 +15,7 @@ from pydantic import BaseModel, Field
 
 from app.auth import parse_auth_context, require_runtime_api_key, validate_role
 from app.billing_hooks import can_use_ask_ai, verify_webhook_signature
-from app.retrieval import build_context, load_assistant_bundles, load_knowledge_index
+from app.retrieval import build_context, load_assistant_bundles, load_faiss_index, load_knowledge_index
 
 load_dotenv()
 
@@ -54,6 +54,18 @@ def _load_runtime_config() -> dict[str, Any]:
         "webhook_secret": os.getenv("ASK_AI_WEBHOOK_SECRET", "").strip(),
         "knowledge_index_path": os.getenv("ASK_AI_KNOWLEDGE_INDEX_PATH", "docs/assets/knowledge-retrieval-index.json"),
         "assistant_bundle_glob": os.getenv("ASK_AI_ASSISTANT_BUNDLE_GLOB", "reports/intent-bundles/*-assistant.json"),
+        "faiss_index_path": os.getenv("ASK_AI_FAISS_INDEX_PATH", "docs/assets/retrieval.faiss"),
+        "faiss_metadata_path": os.getenv("ASK_AI_FAISS_METADATA_PATH", "docs/assets/retrieval-metadata.json"),
+        "rerank_enabled": _bool_env("ASK_AI_RERANK_ENABLED", True),
+        "rerank_model": os.getenv("ASK_AI_RERANK_MODEL", "cross-encoder/ms-marco-MiniLM-L-6-v2"),
+        "rerank_candidates": int(os.getenv("ASK_AI_RERANK_CANDIDATES", "20")),
+        "hybrid_enabled": _bool_env("ASK_AI_HYBRID_ENABLED", True),
+        "rrf_k": int(os.getenv("ASK_AI_RRF_K", "60")),
+        "hyde_enabled": _bool_env("ASK_AI_HYDE_ENABLED", True),
+        "hyde_model": os.getenv("ASK_AI_HYDE_MODEL", "gpt-4.1-mini"),
+        "embed_cache_enabled": _bool_env("ASK_AI_EMBED_CACHE_ENABLED", True),
+        "embed_cache_ttl": int(os.getenv("ASK_AI_EMBED_CACHE_TTL", "3600")),
+        "embed_cache_max_size": int(os.getenv("ASK_AI_EMBED_CACHE_MAX_SIZE", "512")),
     }
 
 
@@ -115,6 +127,17 @@ async def _ask_provider(config: dict[str, Any], context: dict[str, Any]) -> str:
 app = FastAPI(title="Ask AI Runtime", version="1.0.0")
 app.mount("/public", StaticFiles(directory=str(Path(__file__).resolve().parents[1] / "public")), name="public")
 
+_faiss_data: tuple[Any, list[dict[str, Any]]] | None = None
+
+
+def _init_faiss() -> None:
+    global _faiss_data  # noqa: PLW0603
+    cfg = _load_runtime_config()
+    _faiss_data = load_faiss_index(cfg["faiss_index_path"], cfg["faiss_metadata_path"])
+
+
+_init_faiss()
+
 
 @app.get("/healthz")
 def healthz() -> dict[str, Any]:
@@ -124,6 +147,11 @@ def healthz() -> dict[str, Any]:
         "enabled": cfg["enabled"],
         "provider": cfg["provider"],
         "billing_mode": cfg["billing_mode"],
+        "semantic_retrieval": _faiss_data is not None,
+        "reranking": cfg["rerank_enabled"],
+        "hybrid_search": cfg["hybrid_enabled"],
+        "hyde": cfg["hyde_enabled"],
+        "embedding_cache": cfg["embed_cache_enabled"],
     }
 
 
@@ -159,7 +187,22 @@ async def ask(
     # Keep bundles loaded for future adapter extensions.
     _ = bundles
 
-    context = build_context(payload.question, modules, config["max_context_modules"])
+    context = build_context(
+        payload.question,
+        modules,
+        config["max_context_modules"],
+        faiss_data=_faiss_data,
+        rerank_enabled=config["rerank_enabled"],
+        rerank_candidates=config["rerank_candidates"],
+        rerank_model=config["rerank_model"],
+        hybrid_enabled=config["hybrid_enabled"],
+        rrf_k=config["rrf_k"],
+        hyde_enabled=config["hyde_enabled"],
+        hyde_model=config["hyde_model"],
+        cache_enabled=config["embed_cache_enabled"],
+        cache_ttl=config["embed_cache_ttl"],
+        cache_max_size=config["embed_cache_max_size"],
+    )
     answer = await _ask_provider(config, context)
 
     citations = [

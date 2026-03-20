@@ -1,12 +1,12 @@
 ---
 title: "GraphQL playground"
-description: "Interactive GraphQL playground for Acme API with schema explorer, live query editor, and subscription support for real-time events."
+description: "Interactive GraphQL playground for Acme API with schema explorer, live query editor, subscription support, and advanced RAG retrieval pipeline."
 content_type: reference
 product: both
 tags:
   - Reference
   - API
-last_reviewed: "2026-03-19"
+last_reviewed: "2026-03-20"
 ---
 
 # GraphQL playground
@@ -19,7 +19,7 @@ last_reviewed: "2026-03-19"
 
 </div>
 
-The Acme GraphQL API provides a single endpoint for flexible queries across projects, tasks, and users. This page documents the full schema, provides a live query editor, and covers authentication, error handling, and performance limits.
+The Acme GraphQL API provides a single endpoint for flexible queries across projects, tasks, and users. This page documents the full schema, provides a live query editor, covers authentication, error handling, performance limits, and the advanced RAG retrieval pipeline that powers AI-driven search across GraphQL documentation.
 
 ## Endpoint and authentication
 
@@ -191,6 +191,64 @@ Enter a GraphQL query and click **Run query** to execute it against the Postman 
 /* Sandbox onclick is set by acme-sandbox.js with local mock responses */
 </script>
 
+## Advanced RAG retrieval pipeline
+
+The pipeline uses six advanced retrieval features to power AI-driven search across GraphQL and all five protocol documentation sets. These features are enabled by default in `config/ask-ai.yml`.
+
+### Token-aware chunking
+
+The pipeline splits long documentation modules into overlapping chunks of 750 tokens each (100-token overlap) using the `cl100k_base` tokenizer. This matches the `text-embedding-3-small` embedding model tokenization. Short modules that fit within the token limit remain as single chunks.
+
+| Parameter | Default | Description |
+| --- | --- | --- |
+| `chunking.max_tokens` | 750 | Maximum tokens per chunk |
+| `chunking.overlap_tokens` | 100 | Overlap between consecutive chunks |
+| Tokenizer | `cl100k_base` | Matches OpenAI embedding models |
+
+### Hybrid search with Reciprocal Rank Fusion
+
+The retrieval pipeline combines two search strategies using Reciprocal Rank Fusion (RRF, k=60):
+
+1. **Semantic search** queries the FAISS vector index with cosine similarity over `text-embedding-3-small` embeddings
+1. **Token-overlap search** scores modules by keyword overlap between query and document text
+
+RRF merges both rankings into a single fused list. This improves recall for queries that combine specific terminology (matched by tokens) with conceptual intent (matched by embeddings).
+
+### HyDE query expansion
+
+When HyDE is enabled, the pipeline generates a hypothetical documentation passage using `gpt-4.1-mini` (temperature 0.0, max 300 tokens) before embedding the query. The generated passage captures domain-specific vocabulary that the raw user question may lack. The pipeline embeds this hypothetical document instead of the raw query, which improves retrieval for vague or high-level questions.
+
+### Cross-encoder reranking
+
+After initial retrieval returns 20 candidates, a cross-encoder model (`cross-encoder/ms-marco-MiniLM-L-6-v2`) reranks them by scoring (query, document) pairs. The reranker uses the concatenation of each candidate's title, summary, and assistant excerpt. This reduces false positives and surfaces the most relevant modules for the final top-N context window.
+
+### Embedding cache
+
+An in-memory LRU cache stores embedding vectors with a 3,600-second TTL and a maximum of 512 entries. Repeated queries skip the OpenAI embedding API call entirely, reducing latency and API costs. The cache evicts the oldest entry when full.
+
+### Multi-mode retrieval evaluation
+
+The `run_retrieval_evals.py` script supports four search modes for comparison:
+
+| Mode | Strategy | Use case |
+| --- | --- | --- |
+| `token` | Token-overlap scoring | Baseline, no API key required |
+| `semantic` | FAISS cosine similarity | Embedding-based retrieval |
+| `hybrid` | RRF fusion of token + semantic | Best recall for mixed queries |
+| `hybrid+rerank` | Hybrid + cross-encoder reranking | Highest precision for production |
+
+Run a full comparison:
+
+```bash
+python3 scripts/run_retrieval_evals.py \
+  --mode all \
+  --use-embeddings \
+  --dataset config/retrieval_eval_dataset.yml \
+  --report reports/retrieval_comparison.json
+```
+
+<!-- requires: OPENAI_API_KEY, faiss-cpu, sentence-transformers -->
+
 ## Error handling
 
 GraphQL errors appear in the `errors` array alongside partial `data`:
@@ -205,7 +263,7 @@ GraphQL errors appear in the `errors` array alongside partial `data`:
       "path": ["project"],
       "extensions": {
         "code": "NOT_FOUND",
-        "timestamp": "2026-03-19T14:30:00Z"
+        "timestamp": "2026-03-20T14:30:00Z"
       }
     }
   ]
@@ -238,4 +296,6 @@ GraphQL errors appear in the `errors` array alongside partial `data`:
 
 - [REST API reference](rest-api.md) for standard CRUD operations
 - [gRPC gateway invoke](grpc-gateway.md) for high-performance Remote Procedure Calls
+- [AsyncAPI event docs](asyncapi-events.md) for event-driven channels
+- [WebSocket event playground](websocket-events.md) for bidirectional real-time messaging
 - [Tutorial: launch your first integration](../guides/tutorial.md) to use GraphQL in practice

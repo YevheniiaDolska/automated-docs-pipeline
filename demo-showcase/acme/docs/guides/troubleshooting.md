@@ -227,17 +227,44 @@ Expected output: `INFO - Documentation built in X.XX seconds`
     print(f'Hallucination rate: {r[\"hallucination_rate\"]}')"
     ```
 
+1. Run a multi-mode comparison to identify the best search strategy:
+
+    ```bash
+    python3 scripts/run_retrieval_evals.py \
+      --mode all \
+      --dataset config/retrieval_eval_dataset.yml \
+      --report reports/retrieval_comparison.json
+    ```
+
+    This compares token, semantic, hybrid, and hybrid+rerank modes side by side.
+
 1. Improve knowledge module coverage:
 
     - Add more detailed content to documentation pages (each page should have at least 100 words)
     - Include code examples with inline comments (the knowledge extractor indexes code blocks)
     - Add tables with specific values (the knowledge extractor indexes structured data)
 
-1. Rebuild the retrieval index:
+1. Rebuild the retrieval index with chunking:
 
     ```bash
     python3 scripts/validate_knowledge_modules.py
     python3 scripts/generate_knowledge_retrieval_index.py
+    python3 scripts/generate_embeddings.py --chunk \
+      --index docs/assets/knowledge-retrieval-index.json \
+      --output-dir docs/assets/
+    ```
+
+1. Verify advanced retrieval features are enabled in `config/ask-ai.yml`:
+
+    ```yaml
+    hybrid_search:
+      enabled: true
+    hyde:
+      enabled: true
+    reranking:
+      enabled: true
+    embedding_cache:
+      enabled: true
     ```
 
 1. Re-run retrieval evaluations:

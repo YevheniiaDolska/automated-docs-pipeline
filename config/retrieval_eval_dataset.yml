@@ -1,0 +1,207 @@
+# Retrieval evaluation dataset -- curated queries with expected module IDs.
+# Each entry has a natural-language query and the module IDs that should appear
+# in the top-k results.  Used by scripts/run_retrieval_evals.py --mode all.
+
+- query: "How do I set up a WebSocket connection?"
+  expected_ids:
+    - auto-websocket-api-1
+
+- query: "WebSocket subscribe and publish messages"
+  expected_ids:
+    - auto-websocket-api-1
+
+- query: "Configure WebSocket sandbox semantic mode"
+  expected_ids:
+    - auto-websocket-api-1
+
+- query: "List projects over WebSocket"
+  expected_ids:
+    - auto-websocket-api-1
+
+- query: "WebSocket onmessage handler example"
+  expected_ids:
+    - auto-websocket-api-1
+
+- query: "How do I create a REST API endpoint?"
+  expected_ids:
+    - auto-rest-api-1
+
+- query: "REST API authentication methods"
+  expected_ids:
+    - auto-rest-api-1
+
+- query: "REST API pagination and filtering"
+  expected_ids:
+    - auto-rest-api-1
+
+- query: "HTTP status codes for REST endpoints"
+  expected_ids:
+    - auto-rest-api-1
+
+- query: "REST API rate limiting configuration"
+  expected_ids:
+    - auto-rest-api-1
+
+- query: "How to query data with GraphQL?"
+  expected_ids:
+    - auto-graphql-api-1
+
+- query: "GraphQL mutations and subscriptions"
+  expected_ids:
+    - auto-graphql-api-1
+
+- query: "GraphQL schema definition"
+  expected_ids:
+    - auto-graphql-api-1
+
+- query: "GraphQL query variables and fragments"
+  expected_ids:
+    - auto-graphql-api-1
+
+- query: "GraphQL error handling and validation"
+  expected_ids:
+    - auto-graphql-api-1
+
+- query: "How to define gRPC service methods?"
+  expected_ids:
+    - auto-grpc-api-1
+
+- query: "gRPC protobuf message definitions"
+  expected_ids:
+    - auto-grpc-api-1
+
+- query: "gRPC streaming and unary calls"
+  expected_ids:
+    - auto-grpc-api-1
+
+- query: "gRPC server and client setup"
+  expected_ids:
+    - auto-grpc-api-1
+
+- query: "gRPC authentication and TLS"
+  expected_ids:
+    - auto-grpc-api-1
+
+- query: "AsyncAPI event-driven architecture"
+  expected_ids:
+    - auto-asyncapi-1
+
+- query: "AsyncAPI message broker configuration"
+  expected_ids:
+    - auto-asyncapi-1
+
+- query: "AsyncAPI channel and subscription setup"
+  expected_ids:
+    - auto-asyncapi-1
+
+- query: "Publishing events with AsyncAPI"
+  expected_ids:
+    - auto-asyncapi-1
+
+- query: "AsyncAPI payload schema validation"
+  expected_ids:
+    - auto-asyncapi-1
+
+- query: "Documentation quality checks and linting"
+  expected_ids:
+    - auto-quality-1
+
+- query: "Run Vale style checks on documentation"
+  expected_ids:
+    - auto-quality-1
+
+- query: "Frontmatter validation rules"
+  expected_ids:
+    - auto-quality-1
+
+- query: "SEO and GEO optimization for docs"
+  expected_ids:
+    - auto-quality-1
+
+- query: "markdownlint configuration and rules"
+  expected_ids:
+    - auto-quality-1
+
+- query: "Getting started quickstart guide"
+  expected_ids:
+    - auto-quickstart-1
+
+- query: "Initial project setup and installation"
+  expected_ids:
+    - auto-quickstart-1
+
+- query: "First steps and onboarding tutorial"
+  expected_ids:
+    - auto-quickstart-1
+
+- query: "How to configure webhooks?"
+  expected_ids:
+    - auto-webhooks-1
+
+- query: "Webhook HMAC signature verification"
+  expected_ids:
+    - auto-webhooks-1
+
+- query: "Webhook retry and delivery settings"
+  expected_ids:
+    - auto-webhooks-1
+
+- query: "Webhook event types and payloads"
+  expected_ids:
+    - auto-webhooks-1
+
+- query: "Webhook endpoint security best practices"
+  expected_ids:
+    - auto-webhooks-1
+
+- query: "API authentication with Bearer tokens"
+  expected_ids:
+    - auto-authentication-1
+
+- query: "OAuth2 flow configuration"
+  expected_ids:
+    - auto-authentication-1
+
+- query: "API key management and rotation"
+  expected_ids:
+    - auto-authentication-1
+
+- query: "Error handling and troubleshooting guide"
+  expected_ids:
+    - auto-troubleshooting-1
+
+- query: "Common API error codes and solutions"
+  expected_ids:
+    - auto-troubleshooting-1
+
+- query: "Debugging failed API requests"
+  expected_ids:
+    - auto-troubleshooting-1
+
+- query: "SDK client library installation"
+  expected_ids:
+    - auto-sdk-1
+
+- query: "SDK usage examples and quickstart"
+  expected_ids:
+    - auto-sdk-1
+
+- query: "Deployment and production configuration"
+  expected_ids:
+    - auto-deployment-1
+
+- query: "Environment variables and config reference"
+  expected_ids:
+    - auto-deployment-1
+
+- query: "Database migration and schema updates"
+  expected_ids:
+    - auto-migration-1
+
+- query: "Version upgrade and breaking changes"
+  expected_ids:
+    - auto-migration-1
+
+- query: "Performance optimization and caching"
+  expected_ids:
+    - auto-performance-1

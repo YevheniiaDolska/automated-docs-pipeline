@@ -8,7 +8,7 @@ tags:
 - Concept
 - AI
 - Reference
-last_reviewed: '2026-03-07'
+last_reviewed: '2026-03-20'
 original_author: Developer
 ---
 
@@ -65,10 +65,65 @@ Each module defines:
 Ask AI reads the same artifacts that the weekly knowledge pipeline refreshes.
 
 - `docs/assets/knowledge-retrieval-index.json` is the primary retrieval index.
+- `docs/assets/retrieval.faiss` is the FAISS vector index with `text-embedding-3-small` embeddings.
+- `docs/assets/retrieval-metadata.json` is the metadata sidecar for the FAISS index.
 - `docs/assets/knowledge-graph.jsonld` adds relationship context for retrieval and reasoning.
 - `reports/retrieval_evals_report.json` provides retrieval quality gates (Precision, Recall, Hallucination-rate).
 
 This shared contract keeps documentation generation, knowledge base updates, and RAG runtime aligned.
+
+## Advanced retrieval pipeline
+
+The RAG runtime uses six features that work together to maximize retrieval precision and recall:
+
+1. **Token-aware chunking** splits long modules into 750-token chunks with 100-token overlap using the `cl100k_base` tokenizer. Short modules remain as single chunks. The embedding pipeline (`scripts/generate_embeddings.py --chunk`) embeds each chunk independently and stores chunk metadata (`chunk_id`, `parent_id`, `chunk_index`) in the FAISS sidecar.
+
+1. **Hybrid search (RRF)** combines FAISS cosine similarity with token-overlap scoring. Reciprocal Rank Fusion (k=60) merges both rankings into a single list. This approach captures queries that mix specific terminology (tokens) with conceptual intent (embeddings).
+
+1. **HyDE query expansion** generates a hypothetical documentation passage using `gpt-4.1-mini` before embedding the query. The generated passage captures domain vocabulary that the raw question may lack. The pipeline embeds the hypothetical document instead of the raw query text.
+
+1. **Cross-encoder reranking** scores the top 20 candidates using `cross-encoder/ms-marco-MiniLM-L-6-v2`. The reranker evaluates (query, document) pairs and reorders results by relevance. This step reduces false positives before the final context window.
+
+1. **Embedding cache** stores query embeddings in an in-memory LRU cache (TTL: 3,600 seconds, max: 512 entries). Repeated queries skip the OpenAI embedding API call.
+
+1. **Multi-mode evaluation** compares token, semantic, hybrid, and hybrid+rerank search modes against a curated 50-query dataset (`config/retrieval_eval_dataset.yml`). Run `python3 scripts/run_retrieval_evals.py --mode all` to generate a comparison report.
+
+### Retrieval orchestration flow
+
+```text
+Question
+  |
+  v
+FAISS available AND hybrid enabled?
+  YES -> Hybrid search (RRF fusion of semantic + token)
+  NO  -> FAISS available? -> Semantic search (with HyDE if enabled)
+  NO  -> Token-overlap fallback
+  |
+  v
+Deduplicate chunks by parent_id
+  |
+  v
+Rerank enabled AND enough candidates?
+  YES -> Cross-encoder reranks to top-N
+  NO  -> Truncate to top-N
+  |
+  v
+Return context modules
+```
+
+### Configuration
+
+All features are enabled by default in `config/ask-ai.yml`:
+
+| Feature | Config key | Default |
+| --- | --- | --- |
+| Chunking | `chunking.enabled` | `true` |
+| Hybrid search | `hybrid_search.enabled` | `true` |
+| HyDE | `hyde.enabled` | `true` |
+| Reranking | `reranking.enabled` | `true` |
+| Embedding cache | `embedding_cache.enabled` | `true` |
+
+Environment variable overrides: `ASK_AI_HYBRID_ENABLED`, `ASK_AI_HYDE_ENABLED`, `ASK_AI_RERANK_ENABLED`, `ASK_AI_EMBED_CACHE_ENABLED`.
 
 ## Security and governance
 

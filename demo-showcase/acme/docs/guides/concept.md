@@ -83,13 +83,23 @@ Generate API test cases for integration testing frameworks. The pipeline produce
 
 ### Stage 7: RAG optimize
 
-Build a knowledge retrieval index and knowledge graph for AI-powered search:
+Build a knowledge retrieval index, FAISS vector store, and knowledge graph for AI-powered search. Six advanced retrieval features are available:
 
 | Artifact | Description | Metrics (Acme demo) |
 | --- | --- | --- |
 | Knowledge modules | Auto-extracted topic chunks | 167 modules |
 | Knowledge graph | Node and edge relationships | 1,272 nodes, 1,089 edges |
 | Retrieval index | Search-optimized vector index | Precision: 0.2, Recall: 0.6 |
+| FAISS index | `text-embedding-3-small` embeddings | Cosine similarity search |
+
+| Advanced feature | Description |
+| --- | --- |
+| Token-aware chunking | Splits modules into 750-token chunks with 100-token overlap |
+| Hybrid search (RRF) | Fuses semantic and token-overlap rankings (k=60) |
+| HyDE query expansion | Generates hypothetical passage before embedding |
+| Cross-encoder reranking | Rescores top 20 candidates with `ms-marco-MiniLM-L-6-v2` |
+| Embedding cache | In-memory LRU cache (TTL: 3,600 seconds, max: 512 entries) |
+| Multi-mode evaluation | Compares token, semantic, hybrid, and hybrid+rerank modes |
 
 ### Stage 8: publish
 
@@ -138,9 +148,9 @@ REST, GraphQL, gRPC, AsyncAPI, and WebSocket documentation follow the same quali
 
 The [review manifest](../quality/review-manifest.md) provides a single checkpoint before publish. It lists all artifacts, their availability status, and provides an approval checklist. Operators approve or reject the entire batch instead of reviewing individual pages.
 
-### RAG readiness
+### Advanced RAG pipeline
 
-The knowledge retrieval index with 1,272 nodes and 1,089 edges enables AI support agents to answer user questions from the documentation. The pipeline auto-extracts 167 knowledge modules from docs content and builds a searchable graph.
+The knowledge retrieval index with 1,272 nodes and 1,089 edges enables AI support agents to answer user questions from the documentation. The pipeline auto-extracts 167 knowledge modules from docs content, builds a searchable graph, and embeds modules into a FAISS vector store. Six advanced features (chunking, hybrid search, HyDE, reranking, embedding cache, and multi-mode eval) maximize retrieval precision and recall.
 
 ## Comparison: traditional versus pipeline-first
 
