@@ -157,11 +157,11 @@ try {
 - Type snippet prefix (doc-tutorial, doc-howto, etc.) and press Tab
 - Ensures consistent structure across documentation
 
-\11. **If no template matches, create carefully:**
+\11. **If no template matches, create one first:**
 
-- Follow the structure from similar existing documents
-- Include all required frontmatter fields
-- Follow all formatting and SEO/GEO rules
+- Create a new Stripe-quality template with formatting consistent with existing templates in `templates/`
+- Save the template to the `templates/` directory with a descriptive name
+- Then use the saved template to create the actual document
 
 \11. **ALWAYS update `mkdocs.yml` navigation:**
 
