@@ -1,6 +1,6 @@
 ---
 title: "AsyncAPI event docs"
-description: "AsyncAPI 2.6.0 event documentation for Acme with channel contracts, delivery semantics, payload schemas, and interactive event tester."
+description: "AsyncAPI 2.6.0 event documentation for VeriOps with channel contracts, delivery semantics, payload schemas, and interactive event tester."
 content_type: reference
 product: both
 tags:
@@ -13,13 +13,13 @@ last_reviewed: "2026-03-19"
 
 <div class="veriops-badges" markdown>
 
-![Powered by VeriOps](https://img.shields.io/badge/Powered%20by-VeriOps-6366f1?style=flat-square)
+![Powered by VeriOps](https://img.shields.io/badge/Powered%20by-VeriOps-7c3aed?style=flat-square)
 ![Quality Score](https://img.shields.io/badge/Quality%20Score-100%25-10b981?style=flat-square)
-![Protocols](https://img.shields.io/badge/Protocols-5-6366f1?style=flat-square)
+![Protocols](https://img.shields.io/badge/Protocols-5-7c3aed?style=flat-square)
 
 </div>
 
-The Acme event system provides asynchronous, event-driven communication for project lifecycle changes. AsyncAPI 2.6.0 contracts define channel schemas, delivery guarantees, and payload formats for three event channels.
+The VeriOps event system provides asynchronous, event-driven communication for project lifecycle changes. AsyncAPI 2.6.0 contracts define channel schemas, delivery guarantees, and payload formats for three event channels.
 
 ## Broker and transport
 
@@ -27,18 +27,18 @@ The Acme event system provides asynchronous, event-driven communication for proj
 | --- | --- |
 | AsyncAPI version | 2.6.0 |
 | Protocol | AMQP 0.9.1 (RabbitMQ) |
-| Broker | `amqp://events.acme.example:5672` |
-| WebSocket bridge | `wss://events.acme.example/ws` |
+| Broker | `amqp://events.veriops.example:5672` |
+| WebSocket bridge | `wss://events.veriops.example/ws` |
 | Authentication | Bearer token in connection header or SASL PLAIN |
 | Delivery guarantee | At-least-once |
 | Message retention | 7 days |
 | Max payload size | 256 KB |
-| Default consumer group | `acme-consumers` |
+| Default consumer group | `veriops-consumers` |
 | Heartbeat interval | 60 seconds |
 
 ## Channel catalog
 
-The Acme event system publishes events on three channels. All channels use JSON-encoded payloads with a standard envelope format.
+The VeriOps event system publishes events on three channels. All channels use JSON-encoded payloads with a standard envelope format.
 
 | Channel | Direction | Payload type | Trigger | Description |
 | --- | --- | --- | --- | --- |
@@ -55,7 +55,7 @@ Every event uses a standard envelope that wraps the domain-specific payload:
   "event_id": "evt_01abc789",
   "event_type": "project.updated",
   "occurred_at": "2026-03-19T14:30:00Z",
-  "producer": "acme-core-service",
+  "producer": "veriops-core-service",
   "trace_id": "tr_abc123def456",
   "schema_version": "1.0.0",
   "data": {}
@@ -85,7 +85,7 @@ Fires when a project status or name changes.
   "event_id": "evt_01abc789",
   "event_type": "project.updated",
   "occurred_at": "2026-03-19T14:30:00Z",
-  "producer": "acme-core-service",
+  "producer": "veriops-core-service",
   "trace_id": "tr_abc123def456",
   "schema_version": "1.0.0",
   "data": {
@@ -119,7 +119,7 @@ Fires when a new project is created.
   "event_id": "evt_02ABCD456",
   "event_type": "project.created",
   "occurred_at": "2026-03-19T15:00:00Z",
-  "producer": "acme-core-service",
+  "producer": "veriops-core-service",
   "trace_id": "tr_def456ghi789",
   "schema_version": "1.0.0",
   "data": {
@@ -142,7 +142,7 @@ Fires when a task status changes to `done`.
   "event_id": "evt_03cde789",
   "event_type": "task.completed",
   "occurred_at": "2026-03-19T16:00:00Z",
-  "producer": "acme-task-service",
+  "producer": "veriops-task-service",
   "trace_id": "tr_ghi789jkl012",
   "schema_version": "1.0.0",
   "data": {
@@ -174,7 +174,7 @@ Fires when a task status changes to `done`.
 ```javascript
 // Subscribe to project update events via WebSocket bridge
 // Requires: valid bearer token and active WebSocket connection
-const ws = new WebSocket('wss://events.acme.example/ws', [], {
+const ws = new WebSocket('wss://events.veriops.example/ws', [], {
   headers: { 'Authorization': 'Bearer YOUR_API_KEY' }
 });
 
@@ -215,14 +215,14 @@ import pika
 # Requires: pika library (pip install pika) and valid credentials
 connection = pika.BlockingConnection(
     pika.ConnectionParameters(
-        host='events.acme.example',
+        host='events.veriops.example',
         port=5672,
         credentials=pika.PlainCredentials('YOUR_USERNAME', 'YOUR_PASSWORD')
     )
 )
 channel = connection.channel()
 channel.queue_declare(queue='my-consumer', durable=True)
-channel.queue_bind(queue='my-consumer', exchange='acme.events', routing_key='project.updated')
+channel.queue_bind(queue='my-consumer', exchange='veriops.events', routing_key='project.updated')
 
 processed_ids = set()
 
@@ -252,7 +252,7 @@ Enter a test event payload and send it to the sandbox WebSocket bridge.
 
 <div style="border:1px solid #dbe2ea;border-radius:10px;padding:16px;background:#f8f9fa">
 <label><strong>WebSocket endpoint:</strong></label>
-<input id="async-ep" value="wss://events.acme.example/ws" style="width:100%;padding:6px;margin:4px 0 8px;border:1px solid #ccc;border-radius:4px;font-family:monospace;">
+<input id="async-ep" value="wss://events.veriops.example/ws" style="width:100%;padding:6px;margin:4px 0 8px;border:1px solid #ccc;border-radius:4px;font-family:monospace;">
 <label><strong>Event payload (JSON):</strong></label>
 <!-- vale Google.Quotes = NO -->
 <textarea id="async-payload" rows="8" style="width:100%;font-family:monospace;padding:8px;border:1px solid #ccc;border-radius:4px;">{
@@ -387,7 +387,7 @@ Enter a test event payload and send it to the sandbox WebSocket bridge.
 
 | Error | Cause | Resolution |
 | --- | --- | --- |
-| `CONNECTION_REFUSED` | Broker unreachable | Verify `events.acme.example:5672` is accessible from your network |
+| `CONNECTION_REFUSED` | Broker unreachable | Verify `events.veriops.example:5672` is accessible from your network |
 | `AUTH_FAILED` | Invalid credentials | Check bearer token or SASL credentials |
 | `CHANNEL_NOT_FOUND` | Invalid channel name | Use exact channel names from the catalog above |
 | `PAYLOAD_TOO_LARGE` | Message exceeds 256 KB | Reduce payload size or split into multiple events |

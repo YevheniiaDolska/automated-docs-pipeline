@@ -12,9 +12,9 @@ last_reviewed: "2026-03-19"
 
 <div class="veriops-badges" markdown>
 
-![Powered by VeriOps](https://img.shields.io/badge/Powered%20by-VeriOps-6366f1?style=flat-square)
+![Powered by VeriOps](https://img.shields.io/badge/Powered%20by-VeriOps-7c3aed?style=flat-square)
 ![Quality Score](https://img.shields.io/badge/Quality%20Score-100%25-10b981?style=flat-square)
-![Protocols](https://img.shields.io/badge/Protocols-5-6366f1?style=flat-square)
+![Protocols](https://img.shields.io/badge/Protocols-5-7c3aed?style=flat-square)
 
 </div>
 
@@ -44,7 +44,7 @@ Read source contracts from the repository:
 | --- | --- | --- |
 | REST | OpenAPI 3.0 YAML | `api/openapi.yaml` |
 | GraphQL | SDL schema | `contracts/graphql.schema.graphql` |
-| gRPC | Proto3 definition | `contracts/grpc/acme.proto` |
+| gRPC | Proto3 definition | `contracts/grpc/veriops.proto` |
 | AsyncAPI | AsyncAPI 2.6.0 YAML | `contracts/asyncapi.yaml` |
 | WebSocket | WebSocket contract YAML | `contracts/websocket.yaml` |
 
@@ -85,7 +85,7 @@ Generate API test cases for integration testing frameworks. The pipeline produce
 
 Build a knowledge retrieval index, FAISS vector store, and knowledge graph for AI-powered search. Six advanced retrieval features are available:
 
-| Artifact | Description | Metrics (Acme demo) |
+| Artifact | Description | Metrics (VeriOps demo) |
 | --- | --- | --- |
 | Knowledge modules | Auto-extracted topic chunks | 167 modules |
 | Knowledge graph | Node and edge relationships | 1,272 nodes, 1,089 edges |
@@ -146,7 +146,7 @@ REST, GraphQL, gRPC, AsyncAPI, and WebSocket documentation follow the same quali
 
 ### Operator review checkpoint
 
-The [review manifest](../quality/review-manifest.md) provides a single checkpoint before publish. It lists all artifacts, their availability status, and provides an approval checklist. Operators approve or reject the entire batch instead of reviewing individual pages.
+The pipeline generates a review manifest before publish. It lists all artifacts, their availability status, and provides an approval checklist. Operators approve or reject the entire batch instead of reviewing individual pages.
 
 ### Advanced RAG pipeline
 
@@ -183,4 +183,4 @@ Do not use pipeline-first documentation when:
 - [How-to: keep docs aligned with every release](how-to.md) for the operational workflow
 - [Quality evidence and gate results](../quality/evidence.md) for the latest pipeline metrics
 - [Troubleshooting: common pipeline issues](troubleshooting.md) if pipeline stages fail
-- [Review manifest](../quality/review-manifest.md) for the operator approval checkpoint
+- [Quality evidence](../quality/evidence.md) for the latest gate results

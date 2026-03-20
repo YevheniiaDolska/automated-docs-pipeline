@@ -12,6 +12,9 @@ pyyaml>=6.0
 # Gap detection (optional - for Excel reports)
 openpyxl>=3.1.0
 
+# PDF report generation
+reportlab>=4.0.0
+
 # Semantic retrieval (optional - for FAISS embeddings)
 faiss-cpu>=1.7.4
 numpy>=1.24.0

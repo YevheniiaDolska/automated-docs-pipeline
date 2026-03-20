@@ -3,10 +3,18 @@
 
 from __future__ import annotations
 
+import re
 import shlex
 import subprocess
 import sys
 from pathlib import Path
+
+
+def _slugify(text: str) -> str:
+    """Convert text to a filesystem-safe slug (lowercase, hyphens)."""
+    slug = text.lower().strip()
+    slug = re.sub(r"[^a-z0-9]+", "-", slug)
+    return slug.strip("-") or "client"
 
 
 def _ask(prompt: str, default: str = "") -> str:
@@ -43,11 +51,6 @@ def main() -> int:
 
     max_pages = _ask("Max pages per site", "120")
     timeout = _ask("Request timeout seconds", "15")
-    report_style = _ask("Executive PDF style (board-memo|one-pager)", "board-memo")
-    if report_style not in {"board-memo", "one-pager"}:
-        print("Invalid report style. Use board-memo or one-pager.")
-        return 2
-
     llm_enabled = _ask_yes_no("Enable LLM executive analysis", True)
     llm_model = "claude-sonnet-4-5"
     llm_env_file = "/mnt/c/Users/Kroha/Documents/development/forge-marketing/.env"
@@ -126,6 +129,7 @@ def main() -> int:
     _run(public_cmd, cwd=repo)
 
     # 3) Premium executive PDF
+    pdf_path = f"reports/{_slugify(company_name)}-executive-audit.pdf"
     _run(
         [
             "python3",
@@ -138,10 +142,8 @@ def main() -> int:
             "reports/public_docs_audit_llm_summary.json",
             "--company-name",
             company_name,
-            "--report-style",
-            report_style,
             "--output",
-            "reports/executive_audit_one_pager.pdf",
+            pdf_path,
         ],
         cwd=repo,
     )
@@ -149,7 +151,7 @@ def main() -> int:
     print("\n[ok] Full audit flow complete.")
     print("[ok] reports/audit_scorecard.html")
     print("[ok] reports/public_docs_audit.html")
-    print("[ok] reports/executive_audit_one_pager.pdf")
+    print(f"[ok] {pdf_path}")
     return 0
 
 

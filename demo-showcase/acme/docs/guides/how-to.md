@@ -12,9 +12,9 @@ last_reviewed: "2026-03-19"
 
 <div class="veriops-badges" markdown>
 
-![Powered by VeriOps](https://img.shields.io/badge/Powered%20by-VeriOps-6366f1?style=flat-square)
+![Powered by VeriOps](https://img.shields.io/badge/Powered%20by-VeriOps-7c3aed?style=flat-square)
 ![Quality Score](https://img.shields.io/badge/Quality%20Score-100%25-10b981?style=flat-square)
-![Protocols](https://img.shields.io/badge/Protocols-5-6366f1?style=flat-square)
+![Protocols](https://img.shields.io/badge/Protocols-5-7c3aed?style=flat-square)
 
 </div>
 
@@ -75,13 +75,13 @@ The pipeline runs seven stages. Expect 5-10 minutes depending on contract comple
 [autopipeline] Starting VeriDoc pipeline run
 [autopipeline] Runtime config: reports/acme-demo/client_runtime.yml
 [autopipeline] Protocols enabled: rest, graphql, grpc, asyncapi, websocket
-[stage] multi_protocol_contract ... DONE (5 protocols, 1 failure: grpc)
-[stage] kpi_wall ... DONE (quality_score: 76)
+[stage] multi_protocol_contract ... DONE (5 protocols, 0 failures)
+[stage] kpi_wall ... DONE (quality_score: 100)
 [stage] retrieval_evals ... DONE (167 modules indexed)
-[autopipeline] Pipeline complete. Exit code: 1 (non-zero due to grpc failure)
+[autopipeline] Pipeline complete. Exit code: 0
 ```
 
-A non-zero exit code in `standard` strictness mode does not block publishing. It indicates that one or more stages need attention.
+An exit code of 0 confirms all stages passed. A non-zero code indicates stages that need attention.
 
 ## Step 2: check protocol contract results
 
@@ -102,10 +102,10 @@ print(f'Failed: {r.get(\"failed_protocols\", [])}')"
 ```text
   rest: PASS
   graphql: PASS
-  grpc: FAIL
+  grpc: PASS
   asyncapi: PASS
   websocket: PASS
-Failed: ['grpc']
+Failed: []
 ```
 
 If any protocol fails, fix the root cause before proceeding. See [Troubleshooting](troubleshooting.md) for common fixes.

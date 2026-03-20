@@ -1,6 +1,6 @@
 ---
 title: "WebSocket event playground"
-description: "Interactive WebSocket playground for Acme real-time API with bidirectional messaging, channel subscriptions, and connection lifecycle management."
+description: "Interactive WebSocket playground for VeriOps real-time API with bidirectional messaging, channel subscriptions, and connection lifecycle management."
 content_type: reference
 product: both
 tags:
@@ -13,19 +13,19 @@ last_reviewed: "2026-03-19"
 
 <div class="veriops-badges" markdown>
 
-![Powered by VeriOps](https://img.shields.io/badge/Powered%20by-VeriOps-6366f1?style=flat-square)
+![Powered by VeriOps](https://img.shields.io/badge/Powered%20by-VeriOps-7c3aed?style=flat-square)
 ![Quality Score](https://img.shields.io/badge/Quality%20Score-100%25-10b981?style=flat-square)
-![Protocols](https://img.shields.io/badge/Protocols-5-6366f1?style=flat-square)
+![Protocols](https://img.shields.io/badge/Protocols-5-7c3aed?style=flat-square)
 
 </div>
 
-The Acme WebSocket API provides real-time, bidirectional communication for project updates and task notifications over a persistent connection. This playground allows you to connect, subscribe to channels, send messages, and observe server-pushed events.
+The VeriOps WebSocket API provides real-time, bidirectional communication for project updates and task notifications over a persistent connection. This playground allows you to connect, subscribe to channels, send messages, and observe server-pushed events.
 
 ## Connection details
 
 | Setting | Value |
 | --- | --- |
-| Endpoint | `wss://api.acme.example/realtime` |
+| Endpoint | `wss://api.veriops.example/realtime` |
 | Authentication | Bearer token as `token` query parameter |
 | Protocol | WebSocket (RFC 6455) over TLS 1.3 |
 | Heartbeat interval | 30 seconds (server sends `ping`, client responds `pong`) |
@@ -86,12 +86,12 @@ Every client-to-server and server-to-client message uses this JSON envelope:
 ### Step 1: establish connection
 
 ```javascript
-// Connect to the Acme WebSocket API
+// Connect to the VeriOps WebSocket API
 // Pass your API key as a query parameter for authentication
-const ws = new WebSocket('wss://api.acme.example/realtime?token=YOUR_API_KEY');
+const ws = new WebSocket('wss://api.veriops.example/realtime?token=YOUR_API_KEY');
 
 ws.addEventListener('open', () => {
-  console.log('Connected to Acme WebSocket API');
+  console.log('Connected to VeriOps WebSocket API');
 });
 
 ws.addEventListener('close', (event) => {
@@ -147,10 +147,10 @@ ws.addEventListener('message', (event) => {
 ```javascript
 // Production-ready WebSocket client with automatic reconnection
 // Handles heartbeats, subscription restoration, and exponential backoff
-class AcmeWebSocket {
+class VeriOpsWebSocket {
   constructor(apiKey) {
     this.apiKey = apiKey;
-    this.endpoint = 'wss://api.acme.example/realtime';
+    this.endpoint = 'wss://api.veriops.example/realtime';
     this.subscriptions = new Set();
     this.reconnectDelay = 1000;
     this.maxReconnectDelay = 30000;
@@ -202,7 +202,7 @@ class AcmeWebSocket {
 }
 
 // Usage:
-const client = new AcmeWebSocket('YOUR_API_KEY');
+const client = new VeriOpsWebSocket('YOUR_API_KEY');
 client.subscribe('project.updated');
 client.subscribe('task.completed');
 ```
@@ -219,7 +219,7 @@ Connect to the sandbox WebSocket endpoint, subscribe to channels, and send messa
 
 <div style="border:1px solid #dbe2ea;border-radius:10px;padding:16px;background:#f8f9fa">
 <label><strong>Endpoint:</strong></label>
-<input id="ws-ep" value="wss://api.acme.example/realtime" style="width:100%;padding:6px;margin:4px 0 8px;border:1px solid #ccc;border-radius:4px;font-family:monospace;">
+<input id="ws-ep" value="wss://api.veriops.example/realtime" style="width:100%;padding:6px;margin:4px 0 8px;border:1px solid #ccc;border-radius:4px;font-family:monospace;">
 <label><strong>Message (JSON):</strong></label>
 <!-- vale Google.Quotes = NO -->
 <textarea id="ws-msg" rows="6" style="width:100%;font-family:monospace;padding:8px;border:1px solid #ccc;border-radius:4px;">{
@@ -238,138 +238,7 @@ Connect to the sandbox WebSocket endpoint, subscribe to channels, and send messa
 </div>
 
 <script>
-(() => {
-  if (window.__ACME_SANDBOX_CONTROLLER__ === true) return;
-  var sandbox = (window.ACME_SANDBOX && window.ACME_SANDBOX.websocket_url) || '';
-  var fallback = (window.ACME_SANDBOX && window.ACME_SANDBOX.websocket_fallback_urls) || [];
-  var epInput = document.getElementById('ws-ep');
-  if (sandbox && epInput) { epInput.value = sandbox; }
-  var wsConn = null;
-  var out = document.getElementById('ws-out');
-  if (!out) return;
-  function safeParse(raw) {
-    try { return JSON.parse(String(raw || '{}')); } catch (_) { return { raw: String(raw || '') }; }
-  }
-  function semanticWs(req) {
-    var payload = (req && req.payload && typeof req.payload === 'object') ? req.payload : {};
-    var type = String((req && (req.type || req.action)) || '').toLowerCase();
-    var requestId = (req && req.request_id) || ('req_' + Date.now());
-    var channel = String(payload.channel || payload.topic || 'project.updated');
-    var projectId = String((payload.filters && payload.filters.project_id) || payload.project_id || 'prj_abc123');
-    if (type === 'ping') return { type: 'pong', request_id: requestId, payload: { ts: new Date().toISOString() } };
-    if (type === 'subscribe') return { type: 'ack', request_id: requestId, payload: { status: 'subscribed', channel: channel, filters: payload.filters || {} } };
-    if (type === 'unsubscribe') return { type: 'ack', request_id: requestId, payload: { status: 'unsubscribed', channel: channel } };
-    if (type === 'publish') return { type: 'event', request_id: requestId, payload: { event_type: channel, data: Object.assign({ project_id: projectId, status: 'active' }, (payload.data && typeof payload.data === 'object') ? payload.data : {}) } };
-    if (type === 'get_project' || type === 'project.get' || type === 'query') return { type: 'event', request_id: requestId, payload: { event_type: 'project.snapshot', data: { project_id: projectId, name: 'Website Redesign', status: 'active', updated_at: new Date().toISOString() } } };
-    if (type === 'list_projects' || type === 'project.list') return { type: 'event', request_id: requestId, payload: { event_type: 'project.list', data: [{ project_id: 'prj_abc123', status: 'active' }, { project_id: 'prj_def456', status: 'draft' }] } };
-    return { type: 'ack', request_id: requestId, payload: { status: 'accepted', echo: req, hint: 'Use: ping, subscribe, unsubscribe, publish, get_project, list_projects' } };
-  }
-  function log(msg) { out.textContent += '\n[' + new Date().toLocaleTimeString() + '] ' + msg; out.scrollTop = out.scrollHeight; }
-  function candidateEndpoints(primary, extras) {
-    var seen = {};
-    var outList = [];
-    [primary].concat(Array.isArray(extras) ? extras : []).forEach(function (url) {
-      var v = String(url || '').trim();
-      if (!v || seen[v]) return;
-      seen[v] = true;
-      outList.push(v);
-    });
-    return outList;
-  }
-
-  var connectBtn = document.getElementById('ws-connect');
-  var sendBtn = document.getElementById('ws-send');
-  var closeBtn = document.getElementById('ws-close');
-
-  if (connectBtn) connectBtn.onclick = function () {
-    var primary = document.getElementById('ws-ep').value;
-    var endpoints = candidateEndpoints(primary, fallback);
-    var idx = 0;
-    out.textContent = '';
-
-    function connectNext(lastError) {
-      if (idx >= endpoints.length) {
-        out.textContent = JSON.stringify(
-          {
-            mode: 'offline-semantic-fallback',
-            tried: endpoints,
-            last_error: lastError || '',
-            simulated_response: semanticWs(safeParse(document.getElementById('ws-msg').value))
-          },
-          null,
-          2
-        );
-        return;
-      }
-      var ep = endpoints[idx++];
-      log('Connecting to ' + ep + '...');
-      try {
-        var settled = false;
-        wsConn = new WebSocket(ep);
-        var timeout = setTimeout(function () {
-          if (settled) return;
-          settled = true;
-          try { wsConn.close(); } catch (e) {}
-          connectNext('timeout');
-        }, 6000);
-        wsConn.onopen = function () {
-          if (settled) return;
-          settled = true;
-          clearTimeout(timeout);
-          log('Connected: ' + ep);
-        };
-        wsConn.onmessage = function (e) {
-          out.textContent = JSON.stringify(
-            {
-              mode: 'live-echo-plus-semantic',
-              raw: String(e.data || ''),
-              simulated_response: semanticWs(safeParse(e.data))
-            },
-            null,
-            2
-          );
-        };
-        wsConn.onclose = function (e) {
-          if (!settled) {
-            settled = true;
-            clearTimeout(timeout);
-            connectNext('closed before open/response (code ' + e.code + ')');
-            return;
-          }
-          log('Disconnected (code: ' + e.code + ')');
-        };
-        wsConn.onerror = function () {
-          if (settled) return;
-          settled = true;
-          clearTimeout(timeout);
-          connectNext('handshake failed');
-        };
-      } catch (e) {
-        connectNext(String(e));
-      }
-    }
-
-    connectNext('');
-  };
-
-  if (sendBtn) sendBtn.onclick = function () {
-    var msg = document.getElementById('ws-msg').value;
-    if (wsConn && wsConn.readyState === 1) {
-      wsConn.send(msg);
-      log('Sent: ' + msg);
-      return;
-    }
-    out.textContent = JSON.stringify(
-      { mode: 'offline-semantic-fallback', simulated_response: semanticWs(safeParse(msg)) },
-      null,
-      2
-    );
-  };
-
-  if (closeBtn) closeBtn.onclick = function () {
-    if (wsConn) { wsConn.close(1000, 'User closed'); }
-  };
-})();
+/* Sandbox onclick is set by acme-sandbox.js with local mock responses */
 </script>
 
 ## Error handling

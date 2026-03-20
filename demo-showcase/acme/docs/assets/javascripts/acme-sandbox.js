@@ -1,5 +1,5 @@
 /*
- * Acme Demo Sandbox Controller
+ * VeriOps Demo Sandbox Controller
  *
  * Patches all protocol interactive testers to use Postman mock
  * server endpoints with proper authentication headers.
@@ -367,7 +367,7 @@
   /* AsyncAPI: local semantic mock responses for reliable demo */
   function initAsyncAPI(cfg) {
     var epInput = document.getElementById('async-ep');
-    if (epInput) { epInput.value = cfg.asyncapi || 'amqp://broker.acme.example:5672'; }
+    if (epInput) { epInput.value = cfg.asyncapi || 'amqp://broker.veriops.example:5672'; }
     var btn = document.getElementById('async-send');
     var out = document.getElementById('async-out');
     var payloadEl = document.getElementById('async-payload');
@@ -384,19 +384,19 @@
   }
 
   /* WebSocket: local semantic mock responses for reliable demo */
-  var wsInitialized = false;
   var wsConnected = false;
   function initWebSocket(cfg) {
     var epInput = document.getElementById('ws-ep');
-    if (epInput) { epInput.value = cfg.websocket || 'wss://api.acme.example/realtime'; }
+    if (epInput) { epInput.value = cfg.websocket || 'wss://api.veriops.example/realtime'; }
     var connectBtn = document.getElementById('ws-connect');
     var sendBtn = document.getElementById('ws-send');
     var closeBtn = document.getElementById('ws-close');
     var out = document.getElementById('ws-out');
     var msgEl = document.getElementById('ws-msg');
     if (!connectBtn || !sendBtn || !closeBtn || !out || !msgEl) return;
-    if (wsInitialized) return;
-    wsInitialized = true;
+    if (connectBtn.__veriops_bound) return;
+    connectBtn.__veriops_bound = true;
+    wsConnected = false;
     function log(msg) {
       out.textContent += '\n[' + new Date().toLocaleTimeString() + '] ' + msg;
       out.scrollTop = out.scrollHeight;
@@ -404,7 +404,7 @@
     connectBtn.onclick = function () {
       out.textContent = '';
       wsConnected = true;
-      log('Connected to ' + (epInput ? epInput.value : 'wss://api.acme.example/realtime'));
+      log('Connected to ' + (epInput ? epInput.value : 'wss://api.veriops.example/realtime'));
       log('Ready to send messages.');
     };
     sendBtn.onclick = function () {

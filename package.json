@@ -77,7 +77,7 @@
     "audit:public:wizard": "python3 scripts/generate_public_docs_audit.py --interactive",
     "audit:public:llm": "python3 scripts/generate_public_docs_audit.py --llm-enabled --llm-model claude-sonnet-4-5 --llm-env-file /mnt/c/Users/Kroha/Documents/development/forge-marketing/.env --llm-api-key-env-name ANTHROPIC_API_KEY",
     "audit:public:llm-summary": "python3 scripts/generate_public_docs_audit.py --llm-enabled --llm-summary-only --llm-model claude-sonnet-4-5 --llm-env-file /mnt/c/Users/Kroha/Documents/development/forge-marketing/.env --llm-api-key-env-name ANTHROPIC_API_KEY",
-    "audit:executive-pdf": "python3 scripts/generate_executive_audit_pdf.py --scorecard-json reports/audit_scorecard.json --public-audit-json reports/public_docs_audit.json --llm-summary-json reports/public_docs_audit_llm_summary.json --company-name \"Client\" --output reports/executive_audit_one_pager.pdf",
+    "audit:executive-pdf": "python3 scripts/generate_executive_audit_pdf.py --scorecard-json reports/audit_scorecard.json --public-audit-json reports/public_docs_audit.json --llm-summary-json reports/public_docs_audit_llm_summary.json --company-name \"Client\"",
     "api:sandbox:mock": "docker compose -f docker-compose.api-sandbox.yml up -d",
     "api:sandbox:stop": "docker compose -f docker-compose.api-sandbox.yml down",
     "api:sandbox:project": "bash scripts/api_sandbox_project.sh",

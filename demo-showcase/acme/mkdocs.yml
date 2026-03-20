@@ -7,14 +7,14 @@ theme:
   language: en
   palette:
   - scheme: default
-    primary: indigo
-    accent: blue
+    primary: deep purple
+    accent: amber
     toggle:
       icon: material/brightness-7
       name: Switch to dark mode
   - scheme: slate
-    primary: indigo
-    accent: blue
+    primary: deep purple
+    accent: amber
     toggle:
       icon: material/brightness-4
       name: Switch to light mode
@@ -75,4 +75,3 @@ nav:
   - 'Troubleshooting: pipeline issues': guides/troubleshooting.md
 - Quality:
   - Quality evidence: quality/evidence.md
-  - Review manifest: quality/review-manifest.md

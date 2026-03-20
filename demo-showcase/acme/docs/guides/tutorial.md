@@ -1,6 +1,6 @@
 ---
-title: "Tutorial: launch your first Acme API integration"
-description: "Build a working Acme API integration in 15 minutes with authenticated requests, project creation, and real-time WebSocket subscriptions."
+title: "Tutorial: launch your first VeriOps API integration"
+description: "Build a working VeriOps API integration in 15 minutes with authenticated requests, project creation, and real-time WebSocket subscriptions."
 content_type: tutorial
 product: both
 tags:
@@ -8,17 +8,17 @@ tags:
 last_reviewed: "2026-03-19"
 ---
 
-# Tutorial: launch your first Acme API integration
+# Tutorial: launch your first VeriOps API integration
 
 <div class="veriops-badges" markdown>
 
-![Powered by VeriOps](https://img.shields.io/badge/Powered%20by-VeriOps-6366f1?style=flat-square)
+![Powered by VeriOps](https://img.shields.io/badge/Powered%20by-VeriOps-7c3aed?style=flat-square)
 ![Quality Score](https://img.shields.io/badge/Quality%20Score-100%25-10b981?style=flat-square)
-![Protocols](https://img.shields.io/badge/Protocols-5-6366f1?style=flat-square)
+![Protocols](https://img.shields.io/badge/Protocols-5-7c3aed?style=flat-square)
 
 </div>
 
-This tutorial walks you through creating your first Acme API project, sending authenticated requests across three protocols (REST, GraphQL, and WebSocket), and verifying the integration works. You complete all five steps in under 15 minutes.
+This tutorial walks you through creating your first VeriOps API project, sending authenticated requests across three protocols (REST, GraphQL, and WebSocket), and verifying the integration works. You complete all five steps in under 15 minutes.
 
 ## What you will build
 
@@ -35,7 +35,7 @@ By the end of this tutorial, you will have:
 
 You need:
 
-- An Acme API key from the [developer dashboard](https://app.acme.example/settings/api)
+- An VeriOps API key from the [developer dashboard](https://app.veriops.example/settings/api)
 - `curl` version 7.68 or later (run `curl --version` to verify)
 - Node.js version 18 or later for the WebSocket client (run `node --version` to verify)
 - A terminal with internet access
@@ -43,26 +43,26 @@ You need:
 
 !!! tip "Save time"
     Export your API key as an environment variable to avoid repeating it in every command:
-    `export ACME_API_KEY="YOUR_API_KEY"`
+    `export VERIOPS_API_KEY="YOUR_API_KEY"`
 
 ## Step 1: verify your API key (2 minutes)
 
-Run this command to confirm your API key authenticates against the Acme REST API:
+Run this command to confirm your API key authenticates against the VeriOps REST API:
 
 ```bash
 curl -s -o /dev/null -w "%{http_code}" \
   -H "Authorization: Bearer YOUR_API_KEY" \
-  https://api.acme.example/v1/projects
+  https://api.veriops.example/v1/projects
 ```
 
 <!-- requires: api-key -->
 
-A `200` response confirms your key works. A `401` response means the key is invalid or expired. Generate a new key in the [dashboard](https://app.acme.example/settings/api) if you receive `401`.
+A `200` response confirms your key works. A `401` response means the key is invalid or expired. Generate a new key in the [dashboard](https://app.veriops.example/settings/api) if you receive `401`.
 
 Next, verify the GraphQL endpoint:
 
 ```bash
-curl -s -X POST https://api.acme.example/graphql \
+curl -s -X POST https://api.veriops.example/graphql \
   -H "Authorization: Bearer YOUR_API_KEY" \
   -H "Content-Type: application/json" \
   -d '{"query": "{ health { status version } }"}' \
@@ -89,12 +89,12 @@ curl -s -X POST https://api.acme.example/graphql \
 Create your first project resource using the REST API:
 
 ```bash
-curl -X POST https://api.acme.example/v1/projects \
+curl -X POST https://api.veriops.example/v1/projects \
   -H "Authorization: Bearer YOUR_API_KEY" \
   -H "Content-Type: application/json" \
   -d '{
     "name": "Tutorial Integration Project",
-    "description": "Created during the Acme API tutorial",
+    "description": "Created during the VeriOps API tutorial",
     "status": "active"
   }'
 ```
@@ -107,7 +107,7 @@ curl -X POST https://api.acme.example/v1/projects \
 {
   "id": "prj_abc123",
   "name": "Tutorial Integration Project",
-  "description": "Created during the Acme API tutorial",
+  "description": "Created during the VeriOps API tutorial",
   "status": "active",
   "created_at": "2026-03-19T10:00:00Z",
   "updated_at": "2026-03-19T10:00:00Z",
@@ -123,7 +123,7 @@ Save the `id` value (for example, `prj_abc123`). You need it for steps 3 and 4.
 Use GraphQL to fetch the project you created with custom field selection. GraphQL returns only the fields you request, which reduces payload size.
 
 ```bash
-curl -s -X POST https://api.acme.example/graphql \
+curl -s -X POST https://api.veriops.example/graphql \
   -H "Authorization: Bearer YOUR_API_KEY" \
   -H "Content-Type: application/json" \
   -d '{
@@ -158,14 +158,14 @@ Open a WebSocket connection to receive live project change events. Create this N
 
 ```javascript
 // tutorial-websocket.js
-// Connect to Acme WebSocket API and subscribe to project updates
+// Connect to VeriOps WebSocket API and subscribe to project updates
 // Requires: Node.js 18+ (built-in WebSocket support)
 const ws = new WebSocket(
-  'wss://api.acme.example/realtime?token=YOUR_API_KEY'
+  'wss://api.veriops.example/realtime?token=YOUR_API_KEY'
 );
 
 ws.addEventListener('open', () => {
-  console.log('Connected to Acme WebSocket API');
+  console.log('Connected to VeriOps WebSocket API');
 
   // Subscribe to updates for the project you created in Step 2
   ws.send(JSON.stringify({
@@ -214,7 +214,7 @@ node tutorial-websocket.js
 While the script runs, update the project status from another terminal to trigger an event:
 
 ```bash
-curl -X PUT https://api.acme.example/v1/projects/prj_abc123 \
+curl -X PUT https://api.veriops.example/v1/projects/prj_abc123 \
   -H "Authorization: Bearer YOUR_API_KEY" \
   -H "Content-Type: application/json" \
   -d '{"status": "archived"}'
@@ -232,11 +232,11 @@ Run this checklist to confirm all three protocols work:
 | --- | --- | --- |
 | REST | `GET /v1/projects` | HTTP 200 with project list |
 | GraphQL | `query { health { status } }` | `{"data": {"health": {"status": "ok"}}}` |
-| WebSocket | Connect to `wss://api.acme.example/realtime` | Connection opens, subscription confirmed |
+| WebSocket | Connect to `wss://api.veriops.example/realtime` | Connection opens, subscription confirmed |
 
 If any step fails:
 
-- **HTTP 401 on REST or GraphQL**: Your API key is invalid. Generate a new one in the [dashboard](https://app.acme.example/settings/api).
+- **HTTP 401 on REST or GraphQL**: Your API key is invalid. Generate a new one in the [dashboard](https://app.veriops.example/settings/api).
 - **WebSocket connection error**: Verify you use `wss://` (not `ws://`) and the key is passed as `?token=` query parameter.
 - **Timeout on any request**: Check your network allows outbound connections on port 443.
 

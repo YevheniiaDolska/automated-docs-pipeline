@@ -8,7 +8,9 @@ import html
 import json
 import os
 import re
+import sys
 from collections import deque
+from concurrent.futures import ThreadPoolExecutor, as_completed
 from dataclasses import dataclass
 from datetime import datetime, timezone
 from html.parser import HTMLParser
@@ -24,6 +26,13 @@ CODE_PLACEHOLDER_PATTERN = re.compile(
     flags=re.IGNORECASE,
 )
 ENDPOINT_PATTERN = re.compile(r"(/v\d+)?/[a-z0-9_\-/{}/]+")
+
+
+def _slugify(text: str) -> str:
+    """Convert text to a filesystem-safe slug (lowercase, hyphens)."""
+    slug = text.lower().strip()
+    slug = re.sub(r"[^a-z0-9]+", "-", slug)
+    return slug.strip("-") or "client"
 
 
 def _normalize_url(raw: str) -> str:
@@ -53,23 +62,83 @@ def _safe_pct(numerator: float, denominator: float) -> float:
     return round((numerator / denominator) * 100.0, 2)
 
 
-def _fetch(url: str, timeout: int) -> tuple[int, str, str]:
+def _sanitize_url(url: str) -> str:
+    """Percent-encode non-ASCII characters so urllib can handle the URL.
+
+    Some pages contain malformed hrefs with Unicode characters such as
+    right/left quotes, em-dashes, or accented letters.  ``urllib`` raises
+    ``UnicodeEncodeError`` when such a URL is fed to ``http.client``.
+    """
+    # Strip leading/trailing whitespace and common stray quotes
+    url = url.strip().strip("\u201c\u201d\u2018\u2019\"'")
+    parsed = urlparse(url)
+    # Re-encode path and query: quote non-ASCII but keep already-encoded %XX
+    from urllib.parse import quote, quote_plus  # noqa: E402
+    clean_path = quote(parsed.path, safe="/:@!$&'()*+,;=-._~")
+    clean_query = quote(parsed.query, safe="/:@!$&'()*+,;=-._~?=")
+    clean_fragment = quote(parsed.fragment, safe="/:@!$&'()*+,;=-._~")
+    try:
+        clean_netloc = parsed.netloc.encode("idna").decode("ascii") if parsed.netloc else ""
+    except (UnicodeError, UnicodeDecodeError):
+        clean_netloc = parsed.netloc.encode("ascii", errors="ignore").decode("ascii")
+    sanitized = urlunparse((
+        parsed.scheme,
+        clean_netloc,
+        clean_path,
+        parsed.params,
+        clean_query,
+        clean_fragment,
+    ))
+    return sanitized
+
+
+_USER_AGENTS = [
+    "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36",
+    "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/18.2 Safari/605.1.15",
+    "Mozilla/5.0 (X11; Linux x86_64; rv:133.0) Gecko/20100101 Firefox/133.0",
+]
+
+
+def _fetch(url: str, timeout: int, head_only: bool = False, _ua_idx: int = 0) -> tuple[int, str, str]:
+    url = _sanitize_url(url)
+    ua = _USER_AGENTS[min(_ua_idx, len(_USER_AGENTS) - 1)]
     req = Request(
         url=url,
+        method="HEAD" if head_only else "GET",
         headers={
-            "User-Agent": "DocsOps-Public-Audit/1.0 (+https://docsops.local)",
-            "Accept": "text/html,application/xhtml+xml",
+            "User-Agent": ua,
+            "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
+            "Accept-Language": "en-US,en;q=0.9",
         },
     )
     try:
         with urlopen(req, timeout=timeout) as resp:
             status = int(getattr(resp, "status", 200) or 200)
             content_type = str(resp.headers.get("Content-Type", ""))
+            if head_only:
+                return status, content_type, ""
             body = resp.read().decode("utf-8", errors="ignore")
             return status, content_type, body
     except HTTPError as exc:
-        return int(exc.code), "text/html", exc.read().decode("utf-8", errors="ignore")
-    except URLError:
+        code = int(exc.code)
+        # Follow 3xx redirects that urllib does not handle (e.g. 308)
+        if 300 <= code < 400:
+            location = exc.headers.get("Location", "") if exc.headers else ""
+            if location and head_only:
+                return 200, "text/html", ""  # redirect = alive
+            if location and not head_only:
+                try:
+                    return _fetch(location, timeout, head_only=False, _ua_idx=_ua_idx)
+                except Exception:  # noqa: BLE001
+                    pass
+            return code, "text/html", ""
+        try:
+            return code, "text/html", exc.read().decode("utf-8", errors="ignore")
+        except Exception:  # noqa: BLE001
+            return code, "text/html", ""
+    except (URLError, OSError, TimeoutError):
+        return 0, "", ""
+    except Exception:  # noqa: BLE001 -- SSL, socket, redirect loops, etc.
         return 0, "", ""
 
 
@@ -86,6 +155,24 @@ class PageData:
     code_blocks: list[dict[str, str]]
     text: str
     last_updated_hint: str
+
+
+_DATE_PATTERN = re.compile(
+    r"\b\d{4}[-/]\d{2}[-/]\d{2}\b"
+    r"|\b(?:Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)[a-z]*\s+\d{1,2},?\s+\d{4}\b"
+    r"|\b\d{1,2}\s+(?:Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)[a-z]*\s+\d{4}\b",
+    flags=re.IGNORECASE,
+)
+
+_UPDATED_TEXT_PATTERN = re.compile(
+    r"(?:last\s+(?:updated|modified|edited|reviewed)|updated\s+on|modified\s+on|edited\s+on)",
+    flags=re.IGNORECASE,
+)
+
+_HIGHLIGHT_CLASS_PATTERN = re.compile(
+    r"highlight|codehilite|prism-code|hljs|shiki|code-block|sourceCode",
+    flags=re.IGNORECASE,
+)
 
 
 class _DocsHTMLParser(HTMLParser):
@@ -105,25 +192,40 @@ class _DocsHTMLParser(HTMLParser):
         self._in_title = False
         self._in_code = False
         self._in_pre = False
+        self._in_highlight_div = 0  # nesting counter for highlight wrappers
         self._code_lang = ""
         self._code_buf: list[str] = []
 
     def handle_starttag(self, tag: str, attrs: list[tuple[str, str | None]]) -> None:
         attrs_map = dict(attrs)
+        cls = str(attrs_map.get("class", "")).lower()
+
         if tag == "title":
             self._in_title = True
             return
+
         if tag == "meta":
             name = str(attrs_map.get("name", "")).strip().lower()
+            prop = str(attrs_map.get("property", "")).strip().lower()
+            content = str(attrs_map.get("content", "")).strip()
             if name == "description":
-                self.meta_description = str(attrs_map.get("content", "")).strip()
+                self.meta_description = content
+            # Detect last-modified from <meta property="article:modified_time">
+            # or <meta name="revised"> or <meta http-equiv="last-modified">
+            if not self.last_updated_hint and content:
+                if prop in ("article:modified_time", "og:updated_time"):
+                    self.last_updated_hint = content
+                elif name in ("revised", "last-modified", "dcterms.modified"):
+                    self.last_updated_hint = content
             return
+
         if tag in {"h1", "h2", "h3", "h4", "h5", "h6"}:
             level = int(tag[1])
             self.heading_levels.append(level)
             if level == 1:
                 self.h1_count += 1
             return
+
         if tag == "a":
             href = str(attrs_map.get("href", "")).strip()
             if href:
@@ -134,50 +236,145 @@ class _DocsHTMLParser(HTMLParser):
                     else:
                         self.external_links.append(absolute)
             return
+
         if tag == "pre":
             self._in_pre = True
             self._code_lang = ""
             self._code_buf = []
+            # Some renderers put language class on <pre> directly
+            m = re.search(r"language-([a-z0-9_+-]+)", cls)
+            if m:
+                self._code_lang = m.group(1)
             return
+
         if tag == "code":
             self._in_code = True
-            cls = str(attrs_map.get("class", "")).lower()
             m = re.search(r"language-([a-z0-9_+-]+)", cls)
             self._code_lang = m.group(1) if m else self._code_lang
+            # Detect data-lang attribute (used by some SSGs)
+            data_lang = str(attrs_map.get("data-lang", "") or attrs_map.get("data-language", "") or "").strip()
+            if data_lang and not self._code_lang:
+                self._code_lang = data_lang.lower()
             return
+
+        # Detect highlight wrapper divs (MkDocs Material, Sphinx, etc.)
+        if tag == "div" and _HIGHLIGHT_CLASS_PATTERN.search(cls):
+            self._in_highlight_div += 1
+            # Extract language from class like "highlight-python" or "language-js"
+            m = re.search(r"(?:highlight|language)-([a-z0-9_+-]+)", cls)
+            if m and m.group(1) not in ("highlight", "code"):
+                self._code_lang = m.group(1)
+            return
+
         if tag == "time":
             dt = str(attrs_map.get("datetime", "")).strip()
-            if dt:
+            if dt and not self.last_updated_hint:
                 self.last_updated_hint = dt
+            return
+
+        # Universal date attribute detection on any element
+        if not self.last_updated_hint:
+            for attr_name in ("data-updated", "data-modified", "data-last-updated",
+                              "data-date", "data-timestamp", "data-last-modified"):
+                val = str(attrs_map.get(attr_name, "")).strip()
+                if val:
+                    self.last_updated_hint = val
+                    break
+
+        # Detect date-related CSS classes on any element (span, div, p, footer)
+        if not self.last_updated_hint and cls:
+            if re.search(r"git-revision-date|last[-_]?(?:updated|modified)|date[-_]?modified"
+                         r"|revision[-_]?date|page[-_]?date|article[-_]?date|updated[-_]?at"
+                         r"|modified[-_]?date|publish[-_]?date|doc[-_]?date", cls):
+                # The date text will arrive in handle_data; flag detection
+                pass
 
     def handle_endtag(self, tag: str) -> None:
         if tag == "title":
             self._in_title = False
             return
         if tag == "code":
+            # If <code> was standalone (not inside <pre>) but had language class
+            # and accumulated content, treat as code block
+            if not self._in_pre and self._code_buf:
+                code = "".join(self._code_buf).strip()
+                if code and self._code_lang:
+                    self.code_blocks.append({"language": self._code_lang, "code": code})
+                self._code_buf = []
             self._in_code = False
             return
         if tag == "pre":
             self._in_pre = False
             code = "".join(self._code_buf).strip()
-            if code:
+            if code and not self._is_line_numbers_only(code):
                 self.code_blocks.append({"language": self._code_lang or "text", "code": code})
             self._code_buf = []
             self._code_lang = ""
+            return
+        if tag == "div" and self._in_highlight_div > 0:
+            self._in_highlight_div -= 1
+            # Flush accumulated code when outermost highlight div closes
+            # (only if not already flushed by a nested <pre> end)
+            if self._in_highlight_div == 0 and not self._in_pre and not self._in_code and self._code_buf:
+                code = "".join(self._code_buf).strip()
+                if code:
+                    self.code_blocks.append({"language": self._code_lang or "text", "code": code})
+                self._code_buf = []
+                self._code_lang = ""
+
+    @staticmethod
+    def _is_line_numbers_only(code: str) -> bool:
+        """Return True if code is just line numbers (MkDocs Material table layout)."""
+        stripped = code.strip()
+        if not stripped:
+            return False
+        # Line numbers: all tokens are digits
+        tokens = stripped.split()
+        if not tokens:
+            return False
+        if all(t.isdigit() for t in tokens):
+            return True
+        # Sometimes digits are concatenated without spaces: "12345678"
+        if stripped.isdigit() and len(stripped) <= 50:
+            return True
+        return False
 
     def handle_data(self, data: str) -> None:
+        # Always collect raw data into code buffers (preserve whitespace)
+        if self._in_pre or self._in_code:
+            self._code_buf.append(data)
+        elif self._in_highlight_div > 0:
+            self._code_buf.append(data)
+
         text = data.strip()
         if not text:
             return
         if self._in_title and not self.title:
             self.title = text
-        if self._in_pre or self._in_code:
-            self._code_buf.append(data)
         self.text_chunks.append(text)
-        if not self.last_updated_hint and re.search(r"last\s+updated", text, flags=re.IGNORECASE):
-            self.last_updated_hint = text
+        # Detect last-updated from text content
+        if not self.last_updated_hint:
+            if _UPDATED_TEXT_PATTERN.search(text):
+                m = _DATE_PATTERN.search(text)
+                if m:
+                    self.last_updated_hint = text
+                else:
+                    # Mark that we saw the label; date might be in a sibling element
+                    self.last_updated_hint = text
+            elif _DATE_PATTERN.search(text) and len(text) < 60:
+                # Short text that is just a date (common in footer/sidebar)
+                # Only capture if it looks like a standalone date element
+                pass
 
     def as_page(self, url: str, status: int) -> PageData:
+        # Deduplicate code blocks (MkDocs Material tabs often repeat same content)
+        seen: set[str] = set()
+        unique_blocks: list[dict[str, str]] = []
+        for block in self.code_blocks:
+            key = block.get("code", "").strip()
+            if key and key not in seen:
+                seen.add(key)
+                unique_blocks.append(block)
         return PageData(
             url=url,
             status=status,
@@ -187,7 +384,7 @@ class _DocsHTMLParser(HTMLParser):
             heading_levels=self.heading_levels[:],
             internal_links=sorted(set(self.internal_links)),
             external_links=sorted(set(self.external_links)),
-            code_blocks=self.code_blocks[:],
+            code_blocks=unique_blocks,
             text=" ".join(self.text_chunks),
             last_updated_hint=self.last_updated_hint,
         )
@@ -257,7 +454,8 @@ def _api_coverage_from_public_docs(pages: list[PageData]) -> dict[str, Any]:
         "reference_endpoint_count": total_ref,
         "endpoints_with_usage_docs": matched,
         "reference_endpoints_without_usage_docs": uncovered,
-        "reference_coverage_pct": _safe_pct(matched, total_ref),
+        "reference_coverage_pct": _safe_pct(matched, total_ref) if total_ref > 0 else -1.0,
+        "no_api_pages_found": total_ref == 0,
         "uncovered_endpoint_samples": sorted(list(reference_endpoints - non_reference_endpoints))[:20],
     }
 
@@ -283,11 +481,14 @@ def _link_health(pages: list[PageData], status_map: dict[str, int]) -> dict[str,
     internal_links = set()
     for page in pages:
         internal_links.update(page.internal_links)
-    broken = [url for url in sorted(internal_links) if status_map.get(url, 0) >= 400 or status_map.get(url, 0) == 0]
+    # Only count confirmed 4xx/5xx as broken; exclude timeouts (0) and redirects (3xx)
+    broken = [url for url in sorted(internal_links) if status_map.get(url, 0) >= 400]
+    unreachable = [url for url in sorted(internal_links) if status_map.get(url, 0) == 0]
     return {
         "internal_links_checked": len(internal_links),
         "broken_internal_links_count": len(broken),
         "broken_internal_link_samples": broken[:30],
+        "unreachable_links_count": len(unreachable),
     }
 
 
@@ -302,39 +503,107 @@ def _last_updated_metrics(pages: list[PageData]) -> dict[str, Any]:
 
 
 def _crawl_site(start_url: str, max_pages: int, timeout: int) -> tuple[list[PageData], dict[str, int]]:
-    queue = deque([start_url])
-    seen: set[str] = set()
-    pages: list[PageData] = []
-    status_map: dict[str, int] = {}
+    """Crawl *start_url* up to *max_pages* with parallel BFS + parallel link check.
 
-    while queue and len(seen) < int(max_pages):
-        current = queue.popleft()
-        if current in seen:
-            continue
-        seen.add(current)
+    If the first attempt yields zero pages (site blocks requests), automatically
+    retries with alternative User-Agent strings before giving up.
+    """
 
-        status, content_type, body = _fetch(current, int(timeout))
-        status_map[current] = status
-        if status < 200 or status >= 400:
-            continue
-        if "html" not in content_type.lower():
-            continue
+    max_pages = int(max_pages)
+    timeout = int(timeout)
+    workers = min(max_pages, 10)  # parallel crawl workers
 
-        parser_html = _DocsHTMLParser(current)
-        parser_html.feed(body)
-        page = parser_html.as_page(current, status)
-        pages.append(page)
+    # Try up to len(_USER_AGENTS) User-Agent variants for the start page
+    for ua_attempt in range(len(_USER_AGENTS)):
+        seen: set[str] = set()
+        pages: list[PageData] = []
+        status_map: dict[str, int] = {}
+        queue: list[str] = [start_url]
 
-        for link in page.internal_links:
-            if link not in seen and len(seen) + len(queue) < int(max_pages) * 3:
-                queue.append(link)
+        if ua_attempt > 0:
+            print("[audit] retry with alternative User-Agent ({}/{})...".format(
+                ua_attempt + 1, len(_USER_AGENTS)), flush=True)
+        else:
+            print("[audit] crawling up to {} pages ({} workers)...".format(max_pages, workers), flush=True)
 
+        def _crawl_one(url: str, _ua: int = ua_attempt) -> tuple[str, int, PageData | None, list[str]]:
+            """Fetch + parse one page.  Returns (url, status, page_or_None, new_links)."""
+            st, ct, body = _fetch(url, timeout, _ua_idx=_ua)
+            if st < 200 or st >= 400 or "html" not in ct.lower():
+                return url, st, None, []
+            parser_html = _DocsHTMLParser(url)
+            parser_html.feed(body)
+            page = parser_html.as_page(url, st)
+            return url, st, page, page.internal_links
+
+        with ThreadPoolExecutor(max_workers=workers) as pool:
+            while queue and len(seen) < max_pages:
+                # Submit a batch of URLs (up to remaining budget)
+                batch: list[str] = []
+                while queue and len(seen) + len(batch) < max_pages:
+                    candidate = queue.pop(0)
+                    if candidate not in seen:
+                        seen.add(candidate)
+                        batch.append(candidate)
+                if not batch:
+                    break
+
+                futures = {pool.submit(_crawl_one, u): u for u in batch}
+                for future in as_completed(futures):
+                    url, st, page, new_links = future.result()
+                    status_map[url] = st
+                    if page is not None:
+                        pages.append(page)
+                        print(
+                            "[audit] page {}/{}: {}".format(len(pages), max_pages, url[:80]),
+                            flush=True,
+                        )
+                        for link in new_links:
+                            if link not in seen and len(seen) + len(queue) < max_pages * 3:
+                                queue.append(link)
+
+        # If we got at least 1 page, stop retrying
+        if pages:
+            break
+        # Log what happened with the start URL
+        start_status = status_map.get(start_url, 0)
+        print("[warn] 0 pages fetched (start URL status={}). ".format(start_status), end="", flush=True)
+        if ua_attempt < len(_USER_AGENTS) - 1:
+            print("Retrying...", flush=True)
+        else:
+            print("All User-Agent variants exhausted.", flush=True)
+
+    # -- Parallel link-health check (HEAD-only, short timeout, 50 workers) ------
+    link_timeout = min(timeout, 3)
+    link_workers = 50
+    unchecked: set[str] = set()
     for page in pages:
         for link in page.internal_links:
-            if link in status_map:
-                continue
-            status, _, _ = _fetch(link, int(timeout))
-            status_map[link] = status
+            if link not in status_map:
+                unchecked.add(link)
+
+    if unchecked:
+        done = 0
+        total = len(unchecked)
+        print("[audit] checking {} unique links ({} workers)...".format(total, link_workers), flush=True)
+
+        def _check_one(link: str) -> tuple[str, int]:
+            st, _, _ = _fetch(link, link_timeout, head_only=True)
+            # Many SPA/SSG sites return 404 for HEAD but 200 for GET; retry
+            if st >= 400 or st == 0:
+                st2, ct2, _ = _fetch(link, link_timeout)
+                if 200 <= st2 < 400:
+                    st = st2
+            return link, st
+
+        with ThreadPoolExecutor(max_workers=link_workers) as pool:
+            futures = {pool.submit(_check_one, lnk): lnk for lnk in unchecked}
+            for future in as_completed(futures):
+                link, st = future.result()
+                status_map[link] = st
+                done += 1
+                if done % 100 == 0 or done == total:
+                    print("[audit] links: {}/{}".format(done, total), flush=True)
 
     return pages, status_map
 
@@ -363,6 +632,23 @@ def _site_payload(site_url: str, max_pages: int, timeout: int) -> dict[str, Any]
     }
 
 
+def _aggregate_api_coverage(sites: list[dict[str, Any]]) -> dict[str, Any]:
+    """Aggregate API coverage across sites, treating -1.0 (N/A) correctly."""
+    total_ref = 0
+    total_usage = 0
+    all_na = True
+    for s in sites:
+        ac = s["metrics"]["api_coverage"]
+        if not ac.get("no_api_pages_found"):
+            all_na = False
+            total_ref += int(ac.get("reference_endpoint_count", 0))
+            total_usage += int(ac.get("endpoints_with_usage_docs", 0))
+    if all_na:
+        return {"reference_coverage_pct": -1.0, "no_api_pages_found": True}
+    pct = round(total_usage / max(1, total_ref) * 100, 2) if total_ref else 0.0
+    return {"reference_coverage_pct": pct, "no_api_pages_found": False}
+
+
 def _aggregate_sites(sites: list[dict[str, Any]]) -> dict[str, Any]:
     def wavg(key_path: list[str]) -> float:
         acc = 0.0
@@ -388,9 +674,7 @@ def _aggregate_sites(sites: list[dict[str, Any]]) -> dict[str, Any]:
         "seo_geo": {
             "seo_geo_issue_rate_pct": wavg(["seo_geo", "seo_geo_issue_rate_pct"]),
         },
-        "api_coverage": {
-            "reference_coverage_pct": wavg(["api_coverage", "reference_coverage_pct"]),
-        },
+        "api_coverage": _aggregate_api_coverage(sites),
         "examples": {
             "example_reliability_estimate_pct": wavg(["examples", "example_reliability_estimate_pct"]),
         },
@@ -401,7 +685,28 @@ def _aggregate_sites(sites: list[dict[str, Any]]) -> dict[str, Any]:
     return {"metrics": metrics}
 
 
-def _read_dotenv_value(env_file: Path, key: str) -> str:
+def _resolve_cross_platform_path(p: Path) -> Path:
+    """Convert between WSL and Windows paths if needed."""
+    s = str(p)
+    if not p.exists():
+        # WSL path on Windows: /mnt/c/Users/... -> C:\Users\...
+        if s.startswith("/mnt/") and len(s) > 6 and s[5].isalpha() and s[6] == "/":
+            win = "{}:{}".format(s[5].upper(), s[6:].replace("/", "\\"))
+            candidate = Path(win)
+            if candidate.exists():
+                return candidate
+        # Windows path on WSL: C:\Users\... -> /mnt/c/Users/...
+        if len(s) >= 3 and s[1] == ":" and s[2] in ("/", "\\"):
+            wsl = "/mnt/{}/{}".format(s[0].lower(), s[3:].replace("\\", "/"))
+            candidate = Path(wsl)
+            if candidate.exists():
+                return candidate
+    return p
+
+
+def _read_dotenv_value_from_file(env_file: Path, key: str) -> str:
+    """Read a single key from a .env file, return empty string if not found."""
+    env_file = _resolve_cross_platform_path(env_file)
     if not env_file.exists():
         return ""
     for raw in env_file.read_text(encoding="utf-8", errors="ignore").splitlines():
@@ -413,6 +718,39 @@ def _read_dotenv_value(env_file: Path, key: str) -> str:
             continue
         value = v.strip().strip("'").strip('"')
         return value
+    return ""
+
+
+def _read_dotenv_value(env_file_hint: str, key: str) -> str:
+    """Search for *key* across multiple .env locations.
+
+    Search order:
+    1. The explicit path provided via ``--llm-env-file``.
+    2. ``.env`` in the script's own repository root (Auto-Doc Pipeline).
+    3. ``.env`` in the current working directory.
+    4. Common sibling project location (forge-marketing).
+
+    Each candidate is tried with cross-platform path resolution so the
+    same invocation works from both WSL and native Windows Python.
+    """
+    script_dir = Path(__file__).resolve().parent
+    repo_root = script_dir.parent  # Auto-Doc Pipeline root
+
+    candidates: list[Path] = []
+    # Explicit user-provided path always first
+    if env_file_hint:
+        candidates.append(Path(env_file_hint))
+    # Repo-local .env (user copied it here)
+    candidates.append(repo_root / ".env")
+    # CWD .env
+    candidates.append(Path.cwd() / ".env")
+    # Legacy fallback: forge-marketing sibling
+    candidates.append(repo_root.parent / "forge-marketing" / ".env")
+
+    for candidate in candidates:
+        val = _read_dotenv_value_from_file(candidate, key)
+        if val:
+            return val
     return ""
 
 
@@ -622,8 +960,8 @@ def main() -> int:
     )
     parser.add_argument(
         "--llm-env-file",
-        default="/mnt/c/Users/Kroha/Documents/development/forge-marketing/.env",
-        help="Path to .env file containing ANTHROPIC_API_KEY",
+        default="",
+        help="Path to .env file containing ANTHROPIC_API_KEY (auto-searches repo root and common locations if empty)",
     )
     parser.add_argument(
         "--llm-api-key-env-name",
@@ -663,8 +1001,8 @@ def main() -> int:
     )
     parser.add_argument(
         "--pdf-output",
-        default="reports/executive_audit_one_pager.pdf",
-        help="Output path for executive PDF",
+        default=None,
+        help="Output path for executive PDF. Defaults to reports/{company-slug}-executive-audit.pdf",
     )
     parser.add_argument(
         "--scorecard-json",
@@ -736,9 +1074,9 @@ def main() -> int:
         pdf_raw = input("Generate executive PDF after audit? [Y/n]: ").strip().lower()
         args.generate_pdf = pdf_raw not in {"n", "no"}
         if args.generate_pdf:
-            pdf_out_raw = input(f"PDF output path (default: {args.pdf_output}): ").strip()
-            if pdf_out_raw:
-                args.pdf_output = pdf_out_raw
+            default_pdf = "reports/{}-executive-audit.pdf".format(_slugify(args.company_name))
+            pdf_out_raw = input(f"PDF output path (default: {default_pdf}): ").strip()
+            args.pdf_output = pdf_out_raw if pdf_out_raw else default_pdf
 
     if not site_urls:
         raise SystemExit("No --site-url provided. Use --interactive or pass one or more --site-url values.")
@@ -751,17 +1089,39 @@ def main() -> int:
         if u not in normalized_urls:
             normalized_urls.append(u)
 
-    sites = [_site_payload(url, int(args.max_pages), int(args.timeout)) for url in normalized_urls]
+    # Process sites in parallel when multiple URLs are provided.
+    if len(normalized_urls) == 1:
+        sites = [_site_payload(normalized_urls[0], int(args.max_pages), int(args.timeout))]
+    else:
+        print("[audit] processing {} sites in parallel...".format(len(normalized_urls)), flush=True)
+        sites = []
+        with ThreadPoolExecutor(max_workers=min(len(normalized_urls), 4)) as pool:
+            futures = {
+                pool.submit(_site_payload, url, int(args.max_pages), int(args.timeout)): url
+                for url in normalized_urls
+            }
+            for future in as_completed(futures):
+                sites.append(future.result())
     aggregate = _aggregate_sites(sites)
     m = aggregate["metrics"]
 
     findings = []
+    total_pages = m["crawl"]["pages_crawled"]
+    if total_pages == 0:
+        findings.append(
+            "Crawler could not fetch any pages. The site may block automated "
+            "requests, require JavaScript rendering, or be temporarily unavailable. "
+            "Metrics below are unavailable."
+        )
     if m["links"]["broken_internal_links_count"] > 0:
         findings.append(f"Broken internal links: {m['links']['broken_internal_links_count']}")
     if m["seo_geo"]["seo_geo_issue_rate_pct"] > 10:
         findings.append(f"SEO/GEO issue rate is high: {m['seo_geo']['seo_geo_issue_rate_pct']}%")
-    if m["api_coverage"]["reference_coverage_pct"] < 70:
-        findings.append(f"API usage-doc coverage is low: {m['api_coverage']['reference_coverage_pct']}%")
+    api_cov = m["api_coverage"]["reference_coverage_pct"]
+    if m["api_coverage"].get("no_api_pages_found"):
+        findings.append("No API reference pages found in crawled sample (increase max_pages or verify site has /api/ or /reference/ paths)")
+    elif api_cov < 70:
+        findings.append(f"API usage-doc coverage is low: {api_cov}%")
     if m["examples"]["example_reliability_estimate_pct"] < 60:
         findings.append(f"Example reliability estimate is low: {m['examples']['example_reliability_estimate_pct']}%")
     if m["freshness"]["last_updated_coverage_pct"] < 50:
@@ -787,13 +1147,13 @@ def main() -> int:
     if bool(args.llm_enabled):
         llm_api_key = os.environ.get(str(args.llm_api_key_env_name), "").strip()
         if not llm_api_key:
-            llm_api_key = _read_dotenv_value(Path(args.llm_env_file), str(args.llm_api_key_env_name))
+            llm_api_key = _read_dotenv_value(str(args.llm_env_file), str(args.llm_api_key_env_name))
         if not llm_api_key:
             payload["llm_analysis"] = {
                 "status": "skipped",
                 "reason": (
                     f"Missing {args.llm_api_key_env_name}. "
-                    f"Set env var or add it to {args.llm_env_file}."
+                    "Set env var or place .env in the repo root."
                 ),
             }
         else:
@@ -847,23 +1207,27 @@ def main() -> int:
         f"sites={len(sites)} "
         f"pages={m['crawl']['pages_crawled']} "
         f"broken_links={m['links']['broken_internal_links_count']} "
-        f"api_coverage={m['api_coverage']['reference_coverage_pct']}%"
+        "api_coverage={}".format("N/A (no API pages in sample)" if m["api_coverage"].get("no_api_pages_found") else f"{m['api_coverage']['reference_coverage_pct']}%")
     )
 
     if bool(getattr(args, "generate_pdf", False)):
         print("\n[pdf] generating executive PDF...")
         import subprocess
+        company = str(getattr(args, "company_name", "Client"))
+        pdf_output = getattr(args, "pdf_output", None)
+        if not pdf_output:
+            pdf_output = "reports/{}-executive-audit.pdf".format(_slugify(company))
         pdf_cmd = [
             "python3", "scripts/generate_executive_audit_pdf.py",
             "--scorecard-json", str(getattr(args, "scorecard_json", "reports/audit_scorecard.json")),
             "--public-audit-json", str(args.json_output),
             "--llm-summary-json", str(args.llm_summary_output),
-            "--company-name", str(getattr(args, "company_name", "Client")),
-            "--output", str(getattr(args, "pdf_output", "reports/executive_audit_one_pager.pdf")),
+            "--company-name", company,
+            "--output", str(pdf_output),
         ]
         result = subprocess.run(pdf_cmd, capture_output=True, text=True)
         if result.returncode == 0:
-            pdf_path = Path(getattr(args, "pdf_output", "reports/executive_audit_one_pager.pdf"))
+            pdf_path = Path(pdf_output)
             print(f"[ok] executive PDF: {pdf_path}")
             print(f"[ok] executive PDF (absolute): {pdf_path.resolve()}")
         else:

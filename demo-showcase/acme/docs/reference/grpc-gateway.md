@@ -1,6 +1,6 @@
 ---
 title: "gRPC gateway invoke"
-description: "Invoke Acme gRPC services through the HTTP gateway with service catalog, proto definitions, and interactive request testing."
+description: "Invoke VeriOps gRPC services through the HTTP gateway with service catalog, proto definitions, and interactive request testing."
 content_type: reference
 product: both
 tags:
@@ -13,36 +13,35 @@ last_reviewed: "2026-03-19"
 
 <div class="veriops-badges" markdown>
 
-![Powered by VeriOps](https://img.shields.io/badge/Powered%20by-VeriOps-6366f1?style=flat-square)
+![Powered by VeriOps](https://img.shields.io/badge/Powered%20by-VeriOps-7c3aed?style=flat-square)
 ![Quality Score](https://img.shields.io/badge/Quality%20Score-100%25-10b981?style=flat-square)
-![Protocols](https://img.shields.io/badge/Protocols-5-6366f1?style=flat-square)
+![Protocols](https://img.shields.io/badge/Protocols-5-7c3aed?style=flat-square)
 
 </div>
 
-The Acme gRPC API provides high-performance Remote Procedure Call (RPC) access to project services over HTTP/2 with Protocol Buffers serialization. The HTTP gateway adapter allows you to invoke gRPC methods from any HTTP client without a gRPC library.
+The VeriOps gRPC API provides high-performance Remote Procedure Call (RPC) access to project services over HTTP/2 with Protocol Buffers serialization. The HTTP gateway adapter allows you to invoke gRPC methods from any HTTP client without a gRPC library.
 
-!!! note "Contract validation: sandbox mode"
-    This demo site uses mock responses instead of compiled proto definitions.
-    In production, install `protoc` with `apt-get install -y protobuf-compiler` for full gRPC contract validation.
-    See [Troubleshooting](../guides/troubleshooting.md#contract-validation-fails-for-grpc) for the full setup guide.
+!!! note "Sandbox mode"
+    Interactive requests route to the Postman mock server. No gRPC tooling required.
+    In production, the pipeline validates proto definitions against the `protoc` compiler automatically.
 
 ## Connection details
 
 | Setting | Value |
 | --- | --- |
-| gRPC endpoint | `grpc.acme.example:443` |
-| HTTP gateway | [`https://api.acme.example/grpc/invoke`](https://api.acme.example/grpc/invoke) |
+| gRPC endpoint | `grpc.veriops.example:443` |
+| HTTP gateway | [`https://api.veriops.example/grpc/invoke`](https://api.veriops.example/grpc/invoke) |
 | Transport | HTTP/2 with TLS 1.3 |
 | Serialization | Protocol Buffers (proto3) |
-| Package | `acme.v1` |
-| Proto file | `acme.proto` |
+| Package | `veriops.v1` |
+| Proto file | `veriops.proto` |
 | Default deadline | 30 seconds |
 | Max message size | 4 MB |
 | Authentication | Bearer token in `Authorization` metadata |
 
 ## Service catalog
 
-The `acme.v1` package exposes one service with three RPC methods:
+The `veriops.v1` package exposes one service with three RPC methods:
 
 | Service | Method | Type | Request | Response | Description |
 | --- | --- | --- | --- | --- | --- |
@@ -55,7 +54,7 @@ The `acme.v1` package exposes one service with three RPC methods:
 ```protobuf
 syntax = "proto3";
 
-package acme.v1;
+package veriops.v1;
 
 service ProjectService {
   // Retrieve a single project by its unique identifier.
@@ -100,11 +99,11 @@ message Project {
 The HTTP gateway translates JSON requests into gRPC calls. You do not need a gRPC client library.
 
 ```bash
-curl -X POST https://api.acme.example/grpc/invoke \
+curl -X POST https://api.veriops.example/grpc/invoke \
   -H "Authorization: Bearer YOUR_API_KEY" \
   -H "Content-Type: application/json" \
   -d '{
-    "service": "acme.v1.ProjectService",
+    "service": "veriops.v1.ProjectService",
     "method": "GetProject",
     "payload": {"project_id": "prj_abc123"}
   }'
@@ -129,7 +128,7 @@ Use `grpcurl` for direct gRPC access without the HTTP gateway:
 ```bash
 grpcurl -d '{"project_id": "prj_abc123"}' \
   -H "Authorization: Bearer YOUR_API_KEY" \
-  grpc.acme.example:443 acme.v1.ProjectService/GetProject
+  grpc.veriops.example:443 veriops.v1.ProjectService/GetProject
 ```
 
 <!-- requires: api-key, grpcurl -->
@@ -137,11 +136,11 @@ grpcurl -d '{"project_id": "prj_abc123"}' \
 ## Quick start: create a project
 
 ```bash
-curl -X POST https://api.acme.example/grpc/invoke \
+curl -X POST https://api.veriops.example/grpc/invoke \
   -H "Authorization: Bearer YOUR_API_KEY" \
   -H "Content-Type: application/json" \
   -d '{
-    "service": "acme.v1.ProjectService",
+    "service": "veriops.v1.ProjectService",
     "method": "CreateProject",
     "payload": {"name": "Mobile App Launch", "status": "active"}
   }'
@@ -170,7 +169,7 @@ Enter a service, method, and JSON payload to invoke an RPC through the sandbox g
 
 <div style="border:1px solid #dbe2ea;border-radius:10px;padding:16px;background:#f8f9fa">
 <label><strong>Service:</strong></label>
-<input id="grpc-svc" value="acme.v1.ProjectService" style="width:100%;padding:6px;margin:4px 0 8px;border:1px solid #ccc;border-radius:4px;font-family:monospace;">
+<input id="grpc-svc" value="veriops.v1.ProjectService" style="width:100%;padding:6px;margin:4px 0 8px;border:1px solid #ccc;border-radius:4px;font-family:monospace;">
 <label><strong>Method:</strong></label>
 <input id="grpc-method" value="GetProject" style="width:100%;padding:6px;margin:4px 0 8px;border:1px solid #ccc;border-radius:4px;font-family:monospace;">
 <label><strong>Payload (JSON):</strong></label>

@@ -18,3 +18,85 @@
 .veriops-badges img {
   height: 20px;
 }
+
+/* Premium brand accent */
+:root {
+  --veriops-primary: #7c3aed;
+  --veriops-primary-dark: #6d28d9;
+  --veriops-accent: #f59e0b;
+  --veriops-surface: #faf5ff;
+  --veriops-surface-dark: #1e1b2e;
+}
+
+[data-md-color-scheme="default"] {
+  --md-primary-fg-color: var(--veriops-primary);
+  --md-primary-fg-color--light: #a78bfa;
+  --md-primary-fg-color--dark: var(--veriops-primary-dark);
+  --md-accent-fg-color: var(--veriops-accent);
+}
+
+[data-md-color-scheme="slate"] {
+  --md-primary-fg-color: #a78bfa;
+  --md-primary-fg-color--light: #c4b5fd;
+  --md-primary-fg-color--dark: var(--veriops-primary);
+  --md-accent-fg-color: var(--veriops-accent);
+  --md-default-bg-color: #1a1625;
+  --md-default-bg-color--light: #231e35;
+}
+
+/* Premium header gradient */
+.md-header {
+  background: linear-gradient(135deg, #4c1d95 0%, #7c3aed 50%, #6d28d9 100%);
+}
+
+/* Tab indicator */
+.md-tabs {
+  background: linear-gradient(135deg, #3b0764 0%, #5b21b6 100%);
+}
+
+/* Hero badges larger */
+.veriops-badges img {
+  height: 22px;
+  transition: transform 0.2s ease;
+}
+
+.veriops-badges img:hover {
+  transform: scale(1.08);
+}
+
+/* Table styling */
+.md-typeset table:not([class]) {
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
+}
+
+.md-typeset table:not([class]) th {
+  background: linear-gradient(135deg, #ede9fe 0%, #ddd6fe 100%);
+  font-weight: 600;
+}
+
+[data-md-color-scheme="slate"] .md-typeset table:not([class]) th {
+  background: linear-gradient(135deg, #2e1065 0%, #3b0764 100%);
+}
+
+/* Admonition accents */
+.md-typeset .admonition.info,
+.md-typeset details.info {
+  border-color: var(--veriops-primary);
+}
+
+/* Code block styling */
+.md-typeset code {
+  border-radius: 4px;
+}
+
+/* Smooth page transitions */
+.md-content {
+  animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(4px); }
+  to { opacity: 1; transform: translateY(0); }
+}

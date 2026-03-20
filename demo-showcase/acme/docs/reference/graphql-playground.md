@@ -1,6 +1,6 @@
 ---
 title: "GraphQL playground"
-description: "Interactive GraphQL playground for Acme API with schema explorer, live query editor, subscription support, and advanced RAG retrieval pipeline."
+description: "Interactive GraphQL playground for VeriOps API with schema explorer, live query editor, subscription support, and advanced RAG retrieval pipeline."
 content_type: reference
 product: both
 tags:
@@ -13,19 +13,19 @@ last_reviewed: "2026-03-20"
 
 <div class="veriops-badges" markdown>
 
-![Powered by VeriOps](https://img.shields.io/badge/Powered%20by-VeriOps-6366f1?style=flat-square)
+![Powered by VeriOps](https://img.shields.io/badge/Powered%20by-VeriOps-7c3aed?style=flat-square)
 ![Quality Score](https://img.shields.io/badge/Quality%20Score-100%25-10b981?style=flat-square)
-![Protocols](https://img.shields.io/badge/Protocols-5-6366f1?style=flat-square)
+![Protocols](https://img.shields.io/badge/Protocols-5-7c3aed?style=flat-square)
 
 </div>
 
-The Acme GraphQL API provides a single endpoint for flexible queries across projects, tasks, and users. This page documents the full schema, provides a live query editor, covers authentication, error handling, performance limits, and the advanced RAG retrieval pipeline that powers AI-driven search across GraphQL documentation.
+The VeriOps GraphQL API provides a single endpoint for flexible queries across projects, tasks, and users. This page documents the full schema, provides a live query editor, covers authentication, error handling, performance limits, and the advanced RAG retrieval pipeline that powers AI-driven search across GraphQL documentation.
 
 ## Endpoint and authentication
 
 | Setting | Value |
 | --- | --- |
-| Endpoint | [`https://api.acme.example/graphql`](https://api.acme.example/graphql) |
+| Endpoint | [`https://api.veriops.example/graphql`](https://api.veriops.example/graphql) |
 | Method | POST |
 | Authentication | Bearer token in `Authorization` header |
 | Content type | `application/json` |
@@ -36,7 +36,7 @@ The Acme GraphQL API provides a single endpoint for flexible queries across proj
 
 ## Schema overview
 
-The Acme GraphQL schema exposes three operation types and one core object type:
+The VeriOps GraphQL schema exposes three operation types and one core object type:
 
 ### Query type
 
@@ -86,7 +86,7 @@ query GetProject {
 Send this query with curl:
 
 ```bash
-curl -X POST https://api.acme.example/graphql \
+curl -X POST https://api.veriops.example/graphql \
   -H "Authorization: Bearer YOUR_API_KEY" \
   -H "Content-Type: application/json" \
   -d '{
@@ -163,7 +163,7 @@ subscription WatchProject {
 }
 ```
 
-Subscriptions require a WebSocket connection to `wss://api.acme.example/graphql/ws`.
+Subscriptions require a WebSocket connection to `wss://api.veriops.example/graphql/ws`.
 
 ## Live query editor
 

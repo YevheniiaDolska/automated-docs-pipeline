@@ -1,5 +1,5 @@
 /*
- * Sandbox endpoint configuration for Acme demo site.
+ * Sandbox endpoint configuration for VeriOps demo site.
  *
  * The __POSTMAN_API_KEY__ placeholder is replaced at build time
  * by the deploy workflow with the actual key from GitHub Secrets.

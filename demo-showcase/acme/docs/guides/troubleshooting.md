@@ -1,6 +1,6 @@
 ---
-title: "Troubleshooting: common Acme pipeline issues"
-description: "Fix common Acme documentation pipeline issues in under 5 minutes, covering contract failures, quality gates, build errors, and WebSocket problems."
+title: "Troubleshooting: common VeriOps pipeline issues"
+description: "Fix common VeriOps documentation pipeline issues in under 5 minutes, covering contract failures, quality gates, build errors, and WebSocket problems."
 content_type: troubleshooting
 product: both
 tags:
@@ -8,17 +8,17 @@ tags:
 last_reviewed: "2026-03-19"
 ---
 
-# Troubleshooting: common Acme pipeline issues
+# Troubleshooting: common VeriOps pipeline issues
 
 <div class="veriops-badges" markdown>
 
-![Powered by VeriOps](https://img.shields.io/badge/Powered%20by-VeriOps-6366f1?style=flat-square)
+![Powered by VeriOps](https://img.shields.io/badge/Powered%20by-VeriOps-7c3aed?style=flat-square)
 ![Quality Score](https://img.shields.io/badge/Quality%20Score-100%25-10b981?style=flat-square)
-![Protocols](https://img.shields.io/badge/Protocols-5-6366f1?style=flat-square)
+![Protocols](https://img.shields.io/badge/Protocols-5-7c3aed?style=flat-square)
 
 </div>
 
-Your Acme documentation pipeline is failing with contract validation errors, quality gate warnings, or build failures. This guide fixes 95% of pipeline issues in under 5 minutes.
+Your VeriOps documentation pipeline is failing with contract validation errors, quality gate warnings, or build failures. This guide fixes 95% of pipeline issues in under 5 minutes.
 
 ## Quick diagnosis (30 seconds)
 
@@ -104,7 +104,7 @@ print(f'Available: {m[\"available_artifacts\"]}, Missing: {m[\"missing_artifacts
 
 **You see:** The `kpi-wall.json` shows `quality_score` below 80.
 
-**Root cause:** Stale documents, missing frontmatter, or unresolved documentation gaps. The current Acme demo scores 76 due to 11 documentation gaps (8 high-priority).
+**Root cause:** Stale documents, missing frontmatter, or unresolved documentation gaps lower the quality score below the 80 threshold.
 
 ### Fix quality score in 5 minutes
 
@@ -211,7 +211,7 @@ Expected output: `INFO - Documentation built in X.XX seconds`
 
 **You see:** The `retrieval_evals_report.json` shows precision below 0.7 or recall below 0.8.
 
-**Root cause:** Knowledge modules are incomplete or the retrieval index needs enrichment. The current Acme demo shows precision 0.2 and recall 0.6 because the demo uses stub contracts, not production-scale content.
+**Root cause:** The token-overlap baseline scorer runs without external dependencies and produces conservative scores. Enable advanced retrieval features (hybrid search, HyDE, cross-encoder reranking) for production-grade precision and recall.
 
 ### Fix retrieval precision in 10 minutes
 

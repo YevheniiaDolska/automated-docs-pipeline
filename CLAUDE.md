@@ -23,14 +23,16 @@ Required behavior:
 1. Generate the contract from notes using pipeline scripts.
 1. For REST-only changes, run the API-first flow (`scripts/run_api_first_flow.py`).
 1. For multi-protocol changes, run the multi-protocol contract flow (`scripts/run_multi_protocol_contract_flow.py --runtime-config docsops/config/client_runtime.yml --reports-dir reports`).
-1. Run full checks per protocol (contract validation, lint stack, regression, docs generation, quality gates, test assets generation, optional TestRail/Zephyr upload).
+1. Run full checks per protocol (contract validation, lint stack, regression, docs generation, quality gates, test assets generation with smart merge, optional TestRail/Zephyr upload).
 1. Report results and produced artifact paths.
+1. After any contract change, regenerate test assets (`scripts/generate_protocol_test_assets.py`) and check `needs_review_ids` in merge output for stale custom cases.
 
 Hard rules:
 
 - If request intent is `generate OpenAPI`, `API-first`, or `planning notes -> spec`, always use pipeline entry points (`scripts/run_api_first_flow.py` and related scripts), not freeform one-off generation.
 - If the request involves GraphQL, gRPC, AsyncAPI, or WebSocket contracts, use the multi-protocol pipeline entry point (`scripts/run_multi_protocol_contract_flow.py`).
 - Protocol-specific validators: REST (`scripts/validate_openapi_contract.py`), GraphQL (`scripts/validate_graphql_contract.py`), gRPC (`scripts/validate_proto_contract.py`), AsyncAPI (`scripts/validate_asyncapi_contract.py`), WebSocket (`scripts/validate_websocket_contract.py`).
+- After generating or updating any document, run the knowledge module pipeline (extract, validate, rebuild index). See "Knowledge module pipeline (RAG preparation)" section below.
 
 ## Stripe-level documentation quality principles
 
@@ -663,13 +665,27 @@ For every document generation/update:
 - Confirm code examples are complete and runnable
 - Check for hardcoded values that should use variables
 
-1. **RAG preparation:**
+1. **RAG preparation (knowledge module pipeline):**
 
-- Ensure the document has a clear, descriptive `title` and `description` in frontmatter
-- Use semantic headings (H2/H3) that describe the content (not generic like "Overview")
-- Keep sections focused on a single topic for better chunking
-- Add `tags` in frontmatter for discoverability
-- Run `python3 scripts/validate_knowledge_modules.py` to verify module structure
+- Ensure the document has a clear, descriptive `title` and `description` in frontmatter -- these become the module's `title` and `summary` fields
+- Use semantic headings (H2/H3) that describe the content (not generic like "Overview") -- headings drive chunking boundaries
+- Keep sections focused on a single topic -- the extractor chunks at ~1400 characters per section, splitting on H2/H3 headers first, then paragraphs
+- Add `tags` in frontmatter for discoverability -- tags propagate to the knowledge module and are used for retrieval filtering
+- Set `content_type` correctly -- it drives automatic intent inference (`tutorial/how-to` -> `configure`, `troubleshooting` -> `troubleshoot`, `reference/concept` -> `integrate`)
+- Run the full knowledge pipeline after document changes:
+
+   ```bash
+   # 1. Extract modules from docs (auto-chunks, infers intents/audiences)
+   python3 scripts/extract_knowledge_modules_from_docs.py \
+     --docs-dir docs --modules-dir knowledge_modules \
+     --report reports/knowledge_auto_extract_report.json
+
+   # 2. Validate module schema (required fields, no duplicate IDs, no circular deps)
+   python3 scripts/validate_knowledge_modules.py
+
+   # 3. Rebuild retrieval index (JSON records for Algolia + FAISS)
+   python3 scripts/generate_knowledge_retrieval_index.py
+   ```
 
 1. **Validate before committing:**
 
@@ -1097,11 +1113,20 @@ When user asks to create new documentation, Claude MUST follow all steps in this
    - If linting fails, fix issues and re-run (max 5 retries)
    - If all 5 retries fail, log the document as blocked and report to user
 
-1. **RAG preparation:**
-   - Use semantic headings (H2/H3) that describe the content, not generic ones
-   - Keep sections focused on a single topic for better chunking
-   - Ensure `tags` in frontmatter aid discoverability
-   - Run `python3 scripts/validate_knowledge_modules.py`
+1. **RAG preparation (full knowledge module pipeline):**
+   - Use semantic headings (H2/H3) that describe the content -- these drive chunk boundaries (extractor splits at ~1400 chars on H2/H3 first)
+   - Keep sections focused on a single topic for better chunking -- each chunk becomes a separate knowledge module
+   - Ensure `tags` in frontmatter aid discoverability -- tags propagate to knowledge modules for retrieval filtering
+   - Set `content_type` correctly -- drives intent inference (`tutorial` -> `configure`, `troubleshooting` -> `troubleshoot`)
+   - Run the full extraction + validation + index rebuild:
+
+     ```bash
+     python3 scripts/extract_knowledge_modules_from_docs.py \
+       --docs-dir docs --modules-dir knowledge_modules \
+       --report reports/knowledge_auto_extract_report.json
+     python3 scripts/validate_knowledge_modules.py
+     python3 scripts/generate_knowledge_retrieval_index.py
+     ```
 
 1. **Glossary sync:**
    - Run `python3 scripts/sync_project_glossary.py --paths docs --glossary glossary.yml --report reports/glossary_sync_report.json --write`
@@ -1600,7 +1625,7 @@ Verification summary:
 1. **Self-verify -- walk through as user:** read the document step by step as if following the instructions. Fix anything unclear, incomplete, or producing unexpected results.
 1. **Update `mkdocs.yml`** navigation with the new page. Descriptive title, logical order.
 1. **Run validation:** `npm run lint` (all 8 pre-commit stages). Fix all errors AND warnings. If linting fails, fix and re-run (max 5 retries). If all retries fail, log as blocked and report to user.
-1. **RAG preparation:** semantic headings (H2/H3) describing content, focused sections for chunking, tags for discoverability. Run `python3 scripts/validate_knowledge_modules.py`.
+1. **RAG preparation:** semantic headings (H2/H3) drive chunk boundaries (~1400 chars). Keep sections single-topic. Set `content_type` for intent inference. Set `tags` for retrieval filtering. Run full pipeline: `python3 scripts/extract_knowledge_modules_from_docs.py --docs-dir docs --modules-dir knowledge_modules --report reports/knowledge_auto_extract_report.json && python3 scripts/validate_knowledge_modules.py && python3 scripts/generate_knowledge_retrieval_index.py`.
 1. **Glossary sync:** run `python3 scripts/sync_project_glossary.py --paths docs --glossary glossary.yml --report reports/glossary_sync_report.json --write`.
 1. **Translation (only if user requests non-English version):** translate only AFTER English version passes all checks. Copy to `docs/{locale}/{content_type_dir}/{slug}.md`. Merge locale variables. Set i18n frontmatter (`language`, `translation_of`, `source_hash`). Apply locale word limits (ru: 80, de: 70). Run translation quality checklist. Re-run all validation steps.
 1. **Log verification summary (MANDATORY):**
@@ -2015,212 +2040,277 @@ After processing the entire queue:
    git diff --staged --stat  # shows summary of changed files
    ```
 
-## Code-first API documentation workflow
+## Multi-protocol API documentation workflows
 
-**Use this workflow when the API code already exists and you need to generate documentation from it.**
+The pipeline supports **five API protocols**, each with its own contract format, validator, reference template, test generator, and sandbox mode:
 
-Code-first means the source code (controllers, routes, models) is the source of truth. The OpenAPI spec and reference docs are derived from the code.
+| Protocol | Contract format | Validator | Reference template | Sandbox fallback |
+| --- | --- | --- | --- | --- |
+| REST | OpenAPI 3.0.3 YAML | `validate_openapi_contract.py` + Spectral + Redocly | `templates/api-reference.md` | Prism / postman-echo.com |
+| GraphQL | SDL (`.graphql`) | `validate_graphql_contract.py` | `templates/protocols/graphql-reference.md` | postman-echo.com/post |
+| gRPC | Proto3 (`.proto`) | `validate_proto_contract.py` | `templates/protocols/grpc-reference.md` | postman-echo.com/post |
+| AsyncAPI | AsyncAPI YAML | `validate_asyncapi_contract.py` | `templates/protocols/asyncapi-reference.md` | echo.websocket.events |
+| WebSocket | Channel YAML | `validate_websocket_contract.py` | `templates/protocols/websocket-reference.md` | echo.websocket.events |
 
-### 10-step code-first flow
+**Protocol aliases** (normalized by `scripts/api_protocols.py`): `"openapi"` -> `"rest"`, `"gql"` -> `"graphql"`, `"proto"` -> `"grpc"`, `"events"` -> `"asyncapi"`, `"ws"` -> `"websocket"`.
 
-1. **Detect undocumented endpoints:**
+### Choosing the right entry point
 
-   ```bash
-   npm run gaps:code
-   ```
+| Scenario | Entry point | Command |
+| --- | --- | --- |
+| REST-only, API-first (no code yet) | `run_api_first_flow.py` | `python3 scripts/run_api_first_flow.py --project-slug myapi --spec api/openapi.yaml` |
+| REST-only, code-first (code exists) | Manual spec + `run_api_first_flow.py` step 1-5 | Write/update spec, then run validation + docs |
+| Any non-REST protocol | `run_multi_protocol_contract_flow.py` | `python3 scripts/run_multi_protocol_contract_flow.py --runtime-config docsops/config/client_runtime.yml --reports-dir reports` |
+| Multiple protocols at once | `run_multi_protocol_contract_flow.py` | Add `--protocols graphql,grpc,asyncapi,websocket` |
 
-   This runs `python3 -m scripts.gap_detection.cli code` and produces a report of endpoints found in code but missing from documentation.
+### Multi-protocol contract flow (all protocols)
 
-1. **Read the source code:**
+**Script:** `scripts/run_multi_protocol_contract_flow.py`
 
-- Locate controllers, routes, and model files
-- Extract endpoint details: HTTP method, path, request body schema, response schema, authentication requirements, rate limits
-- Note any middleware (validation, auth, logging)
+This is the **unified orchestrator** for all protocol documentation. It runs these stages in order:
 
-1. **Generate or update the OpenAPI spec:**
+1. **Contract generation from notes** (optional) -- generates protocol specs from planning markdown
+1. **Ingest** -- verifies source contract file exists
+1. **Contract validation** -- protocol-specific syntax and semantic checks
+1. **Lint** -- protocol-specific quality linting
+1. **Regression** -- detects breaking changes against the snapshot baseline
+1. **Docs generation** -- auto-generates reference documentation from the protocol-specific template
+1. **Quality gates** -- semantic lint, frontmatter validation, code snippet linting, self-verification against live/mock endpoints
+1. **Test assets generation** -- protocol-aware test cases with smart merge (see below)
+1. **Upload test assets** (optional) -- push to TestRail or Zephyr Scale
+1. **Publish** -- move generated docs to publication target
 
-- Create or update `api/openapi.yaml` as the root spec file
-- Use `$ref` pointers to per-resource files under `api/paths/`
-- Place shared schemas under `api/components/schemas/`
-- Place shared responses under `api/components/responses/`
+**Autofix cycle:** the flow supports up to 3 attempts (configurable `autofix_max_attempts`). On failure, it auto-regenerates docs and retries semantic consistency. Fails fast if `strict_mode` is enabled.
 
-1. **Apply Stripe-quality descriptions:**
+**Non-REST endpoint resolution:** if no endpoint is configured, the flow auto-prepares fallback endpoints per protocol:
 
-- Active voice, present tense
-- Concrete examples with realistic data
-- Every parameter has a description and example
-- Every response code has a description and example body
-- Follow all rules from the "OpenAPI spec quality rules" section below
+- GraphQL: `postman-echo.com/post` (echo for payload inspection)
+- gRPC: `postman-echo.com/post` (JSON-over-HTTP gateway)
+- AsyncAPI: HTTP publish via `postman-echo.com/post`, WS subscribe via `echo.websocket.events`
+- WebSocket: `echo.websocket.events` (public WS echo), HTTP bridge via `postman-echo.com/post`
 
-1. **Organize for maintainability:**
+**Self-verification** (`scripts/run_protocol_self_verify.py`) performs runtime validation against live/mock endpoints: GraphQL introspection, gRPC method invocation, AsyncAPI event publish, WebSocket connection and message routing.
 
-   ```text
-   api/
-     openapi.yaml              # Root spec with $ref to paths and components
-     paths/
-       users.yaml              # /users endpoints
-       orders.yaml             # /orders endpoints
-       webhooks.yaml           # /webhooks endpoints
-     components/
-       schemas/
-         User.yaml
-         Order.yaml
-         Error.yaml
-       responses/
-         NotFound.yaml
-         Unauthorized.yaml
-         ValidationError.yaml
-   ```
+### API-first flow (REST-only)
 
-1. **Use discriminator for polymorphic types:**
+**Script:** `scripts/run_api_first_flow.py`
 
-- Add `discriminator` with `propertyName` for union types
-- Use `allOf` with a base `$ref` for inheritance hierarchies
+Use this when designing a new REST API from scratch (no code exists yet). The OpenAPI spec is the single source of truth.
 
-1. **Test against real endpoints:**
+**5-step execution:**
 
-- Send actual HTTP requests to the running API
-- Compare response status codes, headers, and body shapes against the spec
-- Fix any mismatches in the spec
-
-1. **Compare responses with spec descriptions:**
-
-- Verify that every field in the actual response appears in the schema
-- Verify that example values match realistic data types
-- Fix discrepancies in the spec, not in the code
-
-1. **Run Spectral lint:**
+1. **Generate OpenAPI from planning notes** (optional):
 
    ```bash
-   npx spectral lint api/openapi.yaml --ruleset .spectral.yml
+   python3 scripts/run_api_first_flow.py \
+     --project-slug myapi \
+     --notes notes/api-planning.md \
+     --spec api/openapi.yaml \
+     --spec-tree api/project \
+     --verify-user-path \
+     --generate-test-assets
    ```
 
-   The spec MUST pass with zero errors and zero warnings. See the "OpenAPI spec quality rules" section for all 18 rules.
+1. **Validate contract** with Spectral + Redocly + swagger-cli + `validate_openapi_contract.py`
+1. **Start mock server** -- the primary sandbox mode is **external (Postman)**, which provisions a shared mock server for Try-it panels in public docs. Docker/Prism modes are fallbacks for local development only.
+1. **Publish to docs playground** -- copies spec to `docs/assets/api/`, bundles split specs
+1. **Quality checks** -- regression testing, code examples smoke tests, test assets generation
 
-1. **Update reference docs and build:**
-    - Generate or update reference docs using `templates/api-reference.md`
-    - Run `npm run validate:minimal` on all changed docs
-    - Run `npm run build` to verify the full site builds
+**Sandbox modes for REST (ordered by priority):**
 
-**Key difference from API-first:** In code-first, you test against real running endpoints. You do NOT use a Prism mock server. Prism is only for the API-first workflow when code does not exist yet.
+```bash
+# PRIMARY: Public external mode (Postman mock server, shared, for Try-it in public docs)
+API_SANDBOX_EXTERNAL_BASE_URL="https://sandbox-api.example.com/v1" \
+bash scripts/api_sandbox_project.sh up myapi ./api/openapi.yaml 4010 external
 
-## API-first documentation workflow
+# Fallback 1: Docker mode (Prism mock server, local dev only)
+bash scripts/api_sandbox_project.sh up myapi ./api/openapi.yaml 4010 docker
 
-**Use this workflow when you are designing a new API from scratch (no code exists yet).**
+# Fallback 2: No-Docker local mode (Prism, local dev only)
+bash scripts/api_sandbox_project.sh up myapi ./api/openapi.yaml 4010 prism
+```
 
-API-first means the OpenAPI specification is written first, and code is generated from it. The spec is the single source of truth.
+**Default sandbox selection:** when no mode is specified, the pipeline checks for `API_SANDBOX_EXTERNAL_BASE_URL` environment variable first. If set, it uses `external` mode automatically. Otherwise, it falls back to `docker` or `prism` depending on Docker availability.
 
-### 11-step API-first flow
+### Code-first flow (REST-only)
 
-1. **Parse the user brief:**
+Use this when the API code already exists. The source code (controllers, routes, models) is the source of truth.
 
-- Extract resources (nouns: users, orders, payments)
-- Extract operations (verbs: create, list, update, delete)
-- Extract schemas (data shapes, required fields, validation rules)
-- Extract constraints (authentication, rate limits, pagination)
+1. **Detect undocumented endpoints:** `npm run gaps:code`
+1. **Read source code** -- extract endpoints, schemas, auth, rate limits from controllers
+1. **Generate or update the OpenAPI spec** -- create `api/openapi.yaml` with `$ref` pointers to per-resource files under `api/paths/` and shared schemas under `api/components/schemas/`
+1. **Apply Stripe-quality descriptions** -- active voice, concrete examples, every parameter has description + example, every response code has description + example body
+1. **Validate** -- `npx spectral lint api/openapi.yaml --ruleset .spectral.yml` (must pass with zero errors and zero warnings)
+1. **Test against real endpoints** -- send actual HTTP requests, compare against spec, fix discrepancies in the spec
+1. **Generate reference docs** -- use `templates/api-reference.md`, run `npm run validate:minimal`, run `npm run build`
+1. **Generate test assets** -- `python3 scripts/generate_protocol_test_assets.py --protocols rest --source api/openapi.yaml --output-dir reports/api-test-assets`
 
-1. **Map operations to HTTP methods:**
+**Key difference from API-first:** in code-first you test against real running endpoints, not Prism mocks.
 
-   | Operation | HTTP method | Path pattern | Success code |
-   | --- | --- | --- | --- |
-   | Create | POST | `/resources` | 201 |
-   | List | GET | `/resources` | 200 |
-   | Get one | GET | `/resources/{id}` | 200 |
-   | Update (full) | PUT | `/resources/{id}` | 200 |
-   | Update (partial) | PATCH | `/resources/{id}` | 200 |
-   | Delete | DELETE | `/resources/{id}` | 204 |
+### Contract file organization
 
-1. **Generate the root OpenAPI spec:**
+**REST (OpenAPI):**
 
-- Create `api/openapi.yaml` with full `info` block (title, description, version, contact, license)
-- Set `servers` array with at least mock and production URLs
-- Define `security` schemes (Bearer token, API key, OAuth2)
+```text
+api/
+  openapi.yaml                    # Root spec - $ref to paths and components
+  paths/
+    users.yaml                    # All /users endpoints
+    orders.yaml                   # All /orders endpoints
+  components/
+    schemas/
+      User.yaml
+      Order.yaml
+      Error.yaml
+      Pagination.yaml             # Shared cursor/offset pagination envelope
+      Money.yaml                  # Currency + amount pair
+      Address.yaml                # Postal address
+      DateRange.yaml              # start_date / end_date pair
+    parameters/
+      PageSize.yaml               # ?page_size= query parameter
+      PageToken.yaml              # ?page_token= cursor parameter
+      SortOrder.yaml              # ?sort= asc|desc parameter
+      FieldMask.yaml              # ?fields= sparse fieldset parameter
+      IdempotencyKey.yaml         # Idempotency-Key header
+      AcceptLanguage.yaml         # Accept-Language header
+    responses/
+      NotFound.yaml               # 404
+      Unauthorized.yaml           # 401
+      Forbidden.yaml              # 403
+      ValidationError.yaml        # 400
+      Conflict.yaml               # 409
+      RateLimited.yaml            # 429
+      InternalError.yaml          # 500
+    headers/
+      RateLimit.yaml              # X-RateLimit-Limit, -Remaining, -Reset bundle
+      RequestId.yaml              # X-Request-Id trace header
+      Pagination.yaml             # Link, X-Total-Count pagination headers
+    securitySchemes/
+      BearerAuth.yaml             # Bearer JWT token
+      ApiKeyAuth.yaml             # X-API-Key header
+    examples/
+      UserExample.yaml            # Realistic User object example
+      ErrorExample.yaml           # Realistic Error object example
+```
 
-1. **Create per-resource path files:**
+**Rule:** every reusable element (schemas, parameters, responses, headers, security schemes, examples) MUST live in its own file under `components/` and be referenced via `$ref`. Do not inline shared definitions -- duplication causes drift.
 
-- One file per resource under `api/paths/`
-- Use `$ref` from root spec to each path file
-- Apply `discriminator` for polymorphic types
-- Use `allOf` for inheritance
+**Non-REST protocols:** place contracts under `docs/assets/protocols/`:
 
-1. **Apply all quality rules:**
+```text
+docs/assets/protocols/
+  rest/openapi.yaml
+  graphql/schema.graphql
+  grpc/service.proto
+  asyncapi/asyncapi.yaml
+  websocket/channels.yaml
+```
 
-- Follow every rule from the "OpenAPI spec quality rules" section below
-- Every operation has `operationId`, `summary`, `description`, `tags`
-- Every parameter has `description`, `example`, explicit `required`
-- Every schema property has `description`, `type`, `example`
-- All possible response codes are defined (200/201, 400, 401, 403, 404, 409, 429, 500)
+### Protocol-specific validation
 
-1. **Generate endpoint code with OpenAPI Generator:**
+Each protocol has a dedicated validator. Claude MUST run the correct validator before generating docs:
 
-- Use the API-first flow entry point: `python3 scripts/run_api_first_flow.py ...`
-- Or run generator locally with Docker:
+```bash
+# REST
+python3 scripts/validate_openapi_contract.py api/openapi.yaml
 
-     ```bash
-     docker run --rm -v "${PWD}:/local" \
-       openapitools/openapi-generator-cli:v7.7.0 generate \
-       -i /local/api/openapi.yaml \
-       -g typescript-express-server \
-       -o /local/generated/server
-     ```
+# GraphQL
+python3 scripts/validate_graphql_contract.py docs/assets/protocols/graphql/schema.graphql
 
-- Generate client SDK:
+# gRPC
+python3 scripts/validate_proto_contract.py --proto docs/assets/protocols/grpc/service.proto
 
-     ```bash
-     docker run --rm -v "${PWD}:/local" \
-       openapitools/openapi-generator-cli:v7.7.0 generate \
-       -i /local/api/openapi.yaml \
-       -g typescript-axios \
-       -o /local/generated/client
-     ```
+# AsyncAPI
+python3 scripts/validate_asyncapi_contract.py docs/assets/protocols/asyncapi/asyncapi.yaml
 
-1. **Start API sandbox (choose one mode):**
+# WebSocket
+python3 scripts/validate_websocket_contract.py docs/assets/protocols/websocket/channels.yaml
+```
 
-   ```bash
-   # Docker mode
-   bash scripts/api_sandbox_project.sh up taskstream ./api/openapi.yaml 4010 docker
+### Test assets generation and smart merge
 
-   # No-Docker local mode
-   bash scripts/api_sandbox_project.sh up taskstream ./api/openapi.yaml 4010 prism
+**Script:** `scripts/generate_protocol_test_assets.py`
 
-   # Public external mode
-   API_SANDBOX_EXTERNAL_BASE_URL="https://sandbox-api.example.com/v1" \
-   bash scripts/api_sandbox_project.sh up taskstream ./api/openapi.yaml 4010 external
-   ```
+Generates protocol-aware test cases for all five protocols. Claude MUST run this after any contract change.
 
-   Use external mode for public docs sandbox so Try-it works for all visitors.
+```bash
+python3 scripts/generate_protocol_test_assets.py \
+  --protocols graphql,grpc,asyncapi,websocket \
+  --source docs/assets/protocols/graphql/schema.graphql \
+  --output-dir reports/api-test-assets
+```
 
-1. **Test all endpoints against the mock:**
+**Test case types per protocol:**
 
-- Send requests to each endpoint
-- Verify response status codes match the spec
-- Verify response body shapes match schema definitions
-- Verify example values are realistic and consistent
+| Protocol | Test categories |
+| --- | --- |
+| GraphQL | Happy path query/mutation/subscription, invalid input, auth policy, injection hardening, latency budget |
+| gRPC | Positive unary/streaming, status code semantics, deadline/retry, authorization, latency SLO |
+| AsyncAPI | Publish contract validation, invalid payload rejection, ordering/idempotency, security policy, throughput |
+| WebSocket | Connection/auth, message envelope validation, reconnect behavior, security, concurrency |
+| REST | CRUD happy paths, validation errors, auth, rate limiting, pagination |
 
-1. **Fix discrepancies:**
+**Output formats:**
 
-- If mock responses do not match spec expectations, fix the spec
-- Re-run Prism to confirm fixes
-- For local modes, stop when done:
+- `api_test_cases.json` -- full case objects with merge stats
+- `testrail_test_cases.csv` -- TestRail upload format
+- `zephyr_test_cases.json` -- Zephyr Scale upload format
+- `test_matrix.json` -- case matrix for test selection
+- `fuzz_scenarios.json` -- payload mutation scenarios
 
-  ```bash
-  bash scripts/api_sandbox_project.sh down taskstream ./api/openapi.yaml 4010 prism
-  ```
+### Smart merge: how tests survive API changes
 
-1. **Run Spectral lint and all doc linters:**
+When the contract changes, the test generator uses **signature-based smart merge** to reconcile new auto-generated cases with existing customized and manual cases.
 
-    ```bash
-    npx spectral lint api/openapi.yaml --ruleset .spectral.yml
-    npm run validate:minimal
-    ```
+**Source signature:** SHA-256 hash of the contract source file. Every generated test case carries the `spec_signature` of the contract version it was generated from.
 
-    Both MUST pass with zero errors and zero warnings.
+**Merge rules:**
 
-1. **Generate reference docs, build, and publish:**
-    - Generate reference docs using `templates/api-reference.md` template
-    - Update `mkdocs.yml` navigation
-    - Run `npm run build` to verify the full site builds
-    - Create a pull request with all changes
+| Existing case state | Signature changed? | Action |
+| --- | --- | --- |
+| Missing (new endpoint) | n/a | ADD new case |
+| Auto-generated, not customized | No | REPLACE with regenerated version |
+| Auto-generated, not customized | Yes | REPLACE with regenerated version |
+| Customized (`customized: true`) | No | PRESERVE custom version |
+| Customized (`customized: true`) | Yes | PRESERVE + mark `needs_review: true` |
+| Manual (`origin: "manual"`) | Any | NEVER overwrite, always preserve |
+
+**Merge stats in output:**
+
+```json
+{
+  "merge_stats": {
+    "new": 5,
+    "updated": 3,
+    "preserved_custom": 2,
+    "preserved_manual": 1,
+    "stale_custom_needs_review": 1
+  },
+  "needs_review_ids": ["TC-graphql-mutation-create-auth"],
+  "source_signature": "abc123..."
+}
+```
+
+**Claude MUST after every contract change:**
+
+1. Run `generate_protocol_test_assets.py` to regenerate test cases
+1. Check `merge_stats` in the output -- report `stale_custom_needs_review` count to the user
+1. If `needs_review_ids` is non-empty, list the case IDs and explain that these custom test cases may need updating because the contract signature changed
+1. Never modify cases with `origin: "manual"` -- these are human-authored and must be preserved exactly
+
+### When the API changes: full update checklist
+
+When a user modifies any API contract (adds endpoints, changes schemas, removes operations), Claude MUST execute this sequence:
+
+1. **Update the contract** -- edit the spec/schema/proto file
+1. **Validate the contract** -- run the protocol-specific validator (see above)
+1. **Check for breaking changes** -- the multi-protocol flow runs regression checks automatically; for manual runs: compare against the previous snapshot in `reports/`
+1. **Regenerate reference docs** -- run `scripts/generate_protocol_docs.py` or the full flow
+1. **Regenerate test assets** -- run `scripts/generate_protocol_test_assets.py`
+1. **Review smart merge output** -- check `needs_review_ids`, report stale custom cases
+1. **Update navigation** -- if new endpoints/operations were added, update `mkdocs.yml`
+1. **Run self-verification** -- `scripts/run_protocol_self_verify.py` against live/mock endpoints
+1. **Run full lint** -- `npm run validate:minimal`
 
 ## Interactive diagrams
 
@@ -2423,6 +2513,175 @@ The `.spectral.yml` configuration extends `spectral:oas` and enforces these 18 r
 | `schema-properties-example` | warn | Schema properties have example values |
 
 **Target: zero errors AND zero warnings.**
+
+## Knowledge module pipeline (RAG preparation)
+
+**Every document change triggers the knowledge module pipeline.** This pipeline extracts intent-driven knowledge modules from docs, validates them, builds retrieval indexes, and optionally runs quality evaluations. Claude MUST understand and execute this pipeline after creating or updating documentation.
+
+### Pipeline overview
+
+```text
+docs/                               # Source documents
+    |
+    v
+[extract_knowledge_modules_from_docs.py]
+    | Parse frontmatter, auto-detect intents/audiences
+    | Smart paragraph chunking (~1400 chars, split on H2/H3)
+    v
+knowledge_modules/                  # YAML knowledge modules
+    |
+    v
+[validate_knowledge_modules.py]
+    | Check YAML syntax, validate schema
+    | Detect duplicate IDs, check dependency graph (no cycles)
+    v
+reports/knowledge_modules_report.json
+    |
+    v
+[generate_knowledge_retrieval_index.py]
+    | Load active modules, create retrieval records
+    | Include metadata (intents, audiences, channels, tags)
+    v
+docs/assets/knowledge-retrieval-index.json    # JSON index (Algolia + FAISS input)
+    |
+    v (optional)
+[generate_embeddings.py]
+    | Embed each module/chunk (text-embedding-3-small, 1536 dims)
+    | Normalize vectors (L2), build FAISS IndexFlatIP
+    v
+docs/assets/retrieval.faiss                   # FAISS binary index
+docs/assets/retrieval-metadata.json           # Metadata sidecar
+    |
+    v (optional)
+[run_retrieval_evals.py]
+    | Evaluate precision@k, recall@k, hallucination rate
+    | Compare against golden dataset (config/retrieval_eval_dataset.yml)
+    v
+reports/retrieval_evals_report.json
+```
+
+### Knowledge module schema
+
+Every module (auto-extracted or manual) follows the schema in `knowledge-module-schema.yml`:
+
+| Field | Required | Constraints |
+| --- | --- | --- |
+| `id` | Yes | Kebab-case, pattern `^[a-z0-9-]+$`, unique across all modules |
+| `title` | Yes | 10-90 characters |
+| `summary` | Yes | 30-240 characters (maps to document `description` in frontmatter) |
+| `intents` | Yes | Non-empty list: `install`, `configure`, `troubleshoot`, `optimize`, `secure`, `migrate`, `automate`, `compare`, `integrate` |
+| `audiences` | Yes | Non-empty list: `beginner`, `practitioner`, `operator`, `developer`, `architect`, `sales`, `support`, `all` |
+| `channels` | Yes | Non-empty list: `docs`, `in-product`, `assistant`, `automation`, `field`, `sales` |
+| `priority` | Yes | Integer 1-100 |
+| `status` | Yes | `active` or `deprecated` |
+| `owner` | Yes | 3-120 characters |
+| `last_verified` | Yes | Date `YYYY-MM-DD` |
+| `dependencies` | No | List of module IDs (acyclic graph enforced) |
+| `tags` | No | Max 8 tags |
+| `content.docs_markdown` | Yes | Min 80 characters -- the documentation chunk |
+| `content.assistant_context` | Yes | Min 60 characters -- LLM context for retrieval |
+
+### How extraction maps documents to modules
+
+The extractor (`extract_knowledge_modules_from_docs.py`) makes these automatic decisions:
+
+**Intent inference from content_type and content:**
+
+| Signal | Inferred intent |
+| --- | --- |
+| `content_type: tutorial` or `content_type: how-to` | `configure` |
+| `content_type: troubleshooting` or content contains "error"/"fix" | `troubleshoot` |
+| `content_type: reference` or `content_type: concept` | `integrate` |
+| Content contains "secure"/"auth" | `secure` |
+| No match | `configure` (fallback) |
+
+**Audience inference from content_type:**
+
+| Content type | Audiences |
+| --- | --- |
+| `tutorial` | `[beginner, practitioner]` |
+| `reference`, `concept` | `[developer, operator]` |
+| `troubleshooting` | `[support, operator]` |
+| Default | `[practitioner, developer]` |
+
+**Chunking rules:**
+
+- Max chunk size: ~1400 characters
+- Split priority: H2 headers first, then H3 headers, then paragraphs
+- Each chunk becomes a separate module with ID: `auto-{filename}-{chunk-index}`
+- Multi-chunk documents get "Part N" appended to title
+
+### Writing docs for optimal RAG extraction
+
+Claude MUST follow these rules to produce documents that extract into high-quality knowledge modules:
+
+1. **Use descriptive H2/H3 headings** -- they become chunk boundaries. "Configure HMAC authentication" extracts better than "Configuration"
+1. **Keep sections under 1400 characters** -- prevents mid-paragraph splitting that degrades retrieval quality
+1. **Set `content_type` accurately** -- drives intent inference. A troubleshooting guide tagged as `reference` gets wrong intents
+1. **Write informative first paragraphs** -- the document `description` becomes the module `summary` (30-240 chars), used in retrieval ranking
+1. **Add specific `tags`** -- tags propagate to modules and enable filtered retrieval queries
+1. **Include concrete facts in every section** -- facts (numbers, code, config values) improve both GEO scores and retrieval relevance
+1. **One topic per section** -- sections that cover multiple topics produce unfocused chunks that match too many queries
+
+### Running the pipeline
+
+**After every document create/update, Claude MUST run these three commands in order:**
+
+```bash
+# Step 1: Extract modules from docs (removes old auto-modules, creates new ones)
+python3 scripts/extract_knowledge_modules_from_docs.py \
+  --docs-dir docs --modules-dir knowledge_modules \
+  --report reports/knowledge_auto_extract_report.json
+
+# Step 2: Validate all modules (schema, uniqueness, dependency graph)
+python3 scripts/validate_knowledge_modules.py
+
+# Step 3: Rebuild the retrieval index
+python3 scripts/generate_knowledge_retrieval_index.py
+```
+
+**Optional advanced steps (run in weekly batch or on-demand):**
+
+```bash
+# Build FAISS embeddings (requires OpenAI API key for text-embedding-3-small)
+python3 scripts/generate_embeddings.py
+
+# Build knowledge graph (JSON-LD)
+python3 scripts/generate_knowledge_graph_jsonld.py \
+  --modules-dir knowledge_modules \
+  --output docs/assets/knowledge-graph.jsonld \
+  --report reports/knowledge_graph_report.json
+
+# Evaluate retrieval quality (precision, recall, hallucination rate)
+python3 scripts/run_retrieval_evals.py \
+  --index docs/assets/knowledge-retrieval-index.json \
+  --report reports/retrieval_evals_report.json \
+  --top-k 3 --min-precision 0.5 --min-recall 0.5 --max-hallucination-rate 0.5
+```
+
+### Retrieval strategies at runtime
+
+The Ask AI runtime (`runtime/ask-ai-pack/app/retrieval.py`) supports three retrieval strategies. Claude should understand these to write docs that perform well across all modes:
+
+1. **Token-overlap search (baseline fallback):** counts question tokens found in module title + summary + assistant_excerpt + intents. Modules with higher overlap and priority rank higher. Works without embeddings.
+1. **Semantic search (FAISS):** embeds the question, finds nearest neighbors in the FAISS index. Optional HyDE (Hypothetical Document Embeddings) generates a hypothetical answer first, then embeds that instead.
+1. **Hybrid search (RRF -- Reciprocal Rank Fusion):** combines semantic and token-overlap rankings. Optional cross-encoder reranking refines top candidates.
+
+**Chunk deduplication:** when chunked retrieval is active, only the highest-ranked chunk per parent module is returned (prevents flooding context with chunks from a single document).
+
+### Configuration
+
+RAG pipeline behavior is controlled by `config/ask-ai.yml`:
+
+| Setting | Default | Purpose |
+| --- | --- | --- |
+| `semantic_retrieval` | `true` | Use FAISS or fall back to token-overlap |
+| `max_context_modules` | `6` | Max modules included in LLM context |
+| `chunking.max_tokens` | `750` | Per-chunk token limit for embedding |
+| `chunking.overlap_tokens` | `100` | Token overlap between consecutive chunks |
+| `reranking.enabled` | `true` | Cross-encoder reranking of top candidates |
+| `hybrid_search.enabled` | `true` | RRF fusion of semantic + token-overlap |
+| `hyde.enabled` | `true` | Hypothetical Document Embeddings |
 
 ## Full SEO and GEO optimization rules
 

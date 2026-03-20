@@ -1,6 +1,6 @@
 ---
 title: "REST API reference"
-description: "Interactive REST API reference for Acme with 14 endpoints across five resources, Bearer JWT authentication, and Swagger UI."
+description: "Interactive REST API reference for VeriOps with 14 endpoints across five resources, Bearer JWT authentication, and Swagger UI."
 content_type: reference
 product: both
 tags:
@@ -13,19 +13,19 @@ last_reviewed: "2026-03-19"
 
 <div class="veriops-badges" markdown>
 
-![Powered by VeriOps](https://img.shields.io/badge/Powered%20by-VeriOps-6366f1?style=flat-square)
+![Powered by VeriOps](https://img.shields.io/badge/Powered%20by-VeriOps-7c3aed?style=flat-square)
 ![Quality Score](https://img.shields.io/badge/Quality%20Score-100%25-10b981?style=flat-square)
-![Protocols](https://img.shields.io/badge/Protocols-5-6366f1?style=flat-square)
+![Protocols](https://img.shields.io/badge/Protocols-5-7c3aed?style=flat-square)
 
 </div>
 
-The Acme REST API provides 14 CRUD endpoints across five resources (projects, tasks, users, tags, and comments) over HTTP/1.1 with JSON payloads. This reference documents every endpoint, authentication flow, and error code.
+The VeriOps REST API provides 14 CRUD endpoints across five resources (projects, tasks, users, tags, and comments) over HTTP/1.1 with JSON payloads. This reference documents every endpoint, authentication flow, and error code.
 
 ## Base URL and authentication
 
 | Setting | Value |
 | --- | --- |
-| Base URL | [`https://api.acme.example/v1`](https://api.acme.example/v1) |
+| Base URL | [`https://api.veriops.example/v1`](https://api.veriops.example/v1) |
 | Authentication | Bearer JWT token in `Authorization` header |
 | Content type | `application/json` |
 | Rate limit | 60 requests per minute per API key |
@@ -35,7 +35,7 @@ The Acme REST API provides 14 CRUD endpoints across five resources (projects, ta
 All requests require a valid JWT token:
 
 ```bash
-curl -X GET https://api.acme.example/v1/projects \
+curl -X GET https://api.veriops.example/v1/projects \
   -H "Authorization: Bearer YOUR_API_KEY" \
   -H "Content-Type: application/json"
 ```
@@ -77,7 +77,7 @@ Returns a paginated list of projects. Supports filtering by `status` and sorting
 **Example request:**
 
 ```bash
-curl -X GET "https://api.acme.example/v1/projects?status=active&per_page=10" \
+curl -X GET "https://api.veriops.example/v1/projects?status=active&per_page=10" \
   -H "Authorization: Bearer YOUR_API_KEY"
 ```
 
@@ -127,7 +127,7 @@ Creates a new project resource. Returns the created project with a generated `id
 **Example request:**
 
 ```bash
-curl -X POST https://api.acme.example/v1/projects \
+curl -X POST https://api.veriops.example/v1/projects \
   -H "Authorization: Bearer YOUR_API_KEY" \
   -H "Content-Type: application/json" \
   -d '{
@@ -171,7 +171,7 @@ Returns a single project by ID.
 **Example request:**
 
 ```bash
-curl https://api.acme.example/v1/projects/prj_abc123 \
+curl https://api.veriops.example/v1/projects/prj_abc123 \
   -H "Authorization: Bearer YOUR_API_KEY"
 ```
 
@@ -232,7 +232,7 @@ POST /v1/tasks
 **Example request:**
 
 ```bash
-curl -X POST https://api.acme.example/v1/tasks \
+curl -X POST https://api.veriops.example/v1/tasks \
   -H "Authorization: Bearer YOUR_API_KEY" \
   -H "Content-Type: application/json" \
   -d '{
@@ -309,7 +309,7 @@ Every error response uses a consistent envelope:
 | Status | Code | Meaning | Resolution |
 | --- | --- | --- | --- |
 | 400 | `validation_error` | Request body fails validation | Check the `details` array for specific field errors |
-| 401 | `unauthorized` | Missing or invalid JWT token | Regenerate your token in the [dashboard](https://app.acme.example/settings/api) |
+| 401 | `unauthorized` | Missing or invalid JWT token | Regenerate your token in the [dashboard](https://app.veriops.example/settings/api) |
 | 403 | `forbidden` | Token valid but lacks permission | Request the required scope from your admin |
 | 404 | `not_found` | Resource does not exist | Verify the resource ID in the URL path |
 | 409 | `conflict` | Duplicate resource | A resource with that unique key already exists |
