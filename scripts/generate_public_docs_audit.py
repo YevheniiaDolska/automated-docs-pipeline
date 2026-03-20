@@ -651,6 +651,26 @@ def main() -> int:
         default="",
         help="Optional public base URL to build report link (example: https://docsops.company.com/reports)",
     )
+    parser.add_argument(
+        "--generate-pdf",
+        action="store_true",
+        help="Automatically generate executive PDF after audit completes",
+    )
+    parser.add_argument(
+        "--company-name",
+        default="Client",
+        help="Company name for executive PDF report",
+    )
+    parser.add_argument(
+        "--pdf-output",
+        default="reports/executive_audit_one_pager.pdf",
+        help="Output path for executive PDF",
+    )
+    parser.add_argument(
+        "--scorecard-json",
+        default="reports/audit_scorecard.json",
+        help="Path to audit scorecard JSON (for PDF generation)",
+    )
     args = parser.parse_args()
 
     site_urls = list(args.site_url or [])
@@ -710,6 +730,15 @@ def main() -> int:
                 args.llm_env_file = env_file_raw
         else:
             args.llm_enabled = False
+        company_raw = input("Company name for PDF report (default: Client): ").strip()
+        if company_raw:
+            args.company_name = company_raw
+        pdf_raw = input("Generate executive PDF after audit? [Y/n]: ").strip().lower()
+        args.generate_pdf = pdf_raw not in {"n", "no"}
+        if args.generate_pdf:
+            pdf_out_raw = input(f"PDF output path (default: {args.pdf_output}): ").strip()
+            if pdf_out_raw:
+                args.pdf_output = pdf_out_raw
 
     if not site_urls:
         raise SystemExit("No --site-url provided. Use --interactive or pass one or more --site-url values.")
@@ -820,6 +849,27 @@ def main() -> int:
         f"broken_links={m['links']['broken_internal_links_count']} "
         f"api_coverage={m['api_coverage']['reference_coverage_pct']}%"
     )
+
+    if bool(getattr(args, "generate_pdf", False)):
+        print("\n[pdf] generating executive PDF...")
+        import subprocess
+        pdf_cmd = [
+            "python3", "scripts/generate_executive_audit_pdf.py",
+            "--scorecard-json", str(getattr(args, "scorecard_json", "reports/audit_scorecard.json")),
+            "--public-audit-json", str(args.json_output),
+            "--llm-summary-json", str(args.llm_summary_output),
+            "--company-name", str(getattr(args, "company_name", "Client")),
+            "--output", str(getattr(args, "pdf_output", "reports/executive_audit_one_pager.pdf")),
+        ]
+        result = subprocess.run(pdf_cmd, capture_output=True, text=True)
+        if result.returncode == 0:
+            pdf_path = Path(getattr(args, "pdf_output", "reports/executive_audit_one_pager.pdf"))
+            print(f"[ok] executive PDF: {pdf_path}")
+            print(f"[ok] executive PDF (absolute): {pdf_path.resolve()}")
+        else:
+            print(f"[warn] PDF generation failed: {result.stderr.strip()}")
+            print("[hint] install reportlab: pip install reportlab")
+
     return 0
 
 
