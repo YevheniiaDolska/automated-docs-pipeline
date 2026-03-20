@@ -13,18 +13,24 @@ This is an automated documentation pipeline for technical products. When writing
 
 ## Mandatory pipeline execution for API docs
 
-When a user asks to generate or update OpenAPI from planning notes, you MUST run the API-first pipeline flow. Do not generate ad-hoc API files without running the flow.
+The pipeline supports five API protocols: REST (OpenAPI), GraphQL (SDL/introspection), gRPC (Proto/descriptor), AsyncAPI (event-driven specs), and WebSocket (channel/message contracts).
+
+When a user asks to generate or update API contracts from planning notes, you MUST run the appropriate pipeline flow. Do not generate ad-hoc API files without running the flow.
 
 Required behavior:
 
 \11. Treat planning notes as source input artifact.
-\11. Generate OpenAPI from notes using pipeline scripts.
-\11. Run full API-first checks (contract validation, lint stack, stub generation, self-verification, sandbox/docs sync, API test assets generation, optional TestRail/Zephyr upload).
+\11. Generate the contract from notes using pipeline scripts.
+\11. For REST-only changes, run the API-first flow (`scripts/run_api_first_flow.py`).
+\11. For multi-protocol changes, run the multi-protocol contract flow (`scripts/run_multi_protocol_contract_flow.py --runtime-config docsops/config/client_runtime.yml --reports-dir reports`).
+\11. Run full checks per protocol (contract validation, lint stack, regression, docs generation, quality gates, test assets generation, optional TestRail/Zephyr upload).
 \11. Report results and produced artifact paths.
 
-Hard rule:
+Hard rules:
 
 - If request intent is `generate OpenAPI`, `API-first`, or `planning notes -> spec`, always use pipeline entry points (`scripts/run_api_first_flow.py` and related scripts), not freeform one-off generation.
+- If the request involves GraphQL, gRPC, AsyncAPI, or WebSocket contracts, use the multi-protocol pipeline entry point (`scripts/run_multi_protocol_contract_flow.py`).
+- Protocol-specific validators: REST (`scripts/validate_openapi_contract.py`), GraphQL (`scripts/validate_graphql_contract.py`), gRPC (`scripts/validate_proto_contract.py`), AsyncAPI (`scripts/validate_asyncapi_contract.py`), WebSocket (`scripts/validate_websocket_contract.py`).
 
 ## Stripe-level documentation quality principles
 

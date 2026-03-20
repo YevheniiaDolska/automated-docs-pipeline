@@ -110,6 +110,8 @@ def _upload_testrail(
             path = str(refs.get("path", "")).strip()
             op_id = str(case.get("operation_id", "")).strip()
             payload["refs"] = ", ".join([item for item in [f"{method} {path}".strip(), op_id] if item]).strip(", ")
+        if case.get("needs_review"):
+            payload["custom_needs_review"] = True
 
         try:
             _http_json("POST", section_url, headers=headers, payload=payload)
@@ -144,12 +146,15 @@ def _upload_zephyr_scale(
         objective = str(case.get("expected_result", "")).strip()
         preconditions = "\n".join(str(item) for item in case.get("preconditions", []))
         steps = [{"inline": {"description": str(step), "expectedResult": objective}} for step in case.get("steps", [])]
+        labels = ["api-first", "auto-generated"]
+        if case.get("needs_review"):
+            labels.append("needs-review")
         payload: dict[str, Any] = {
             "projectKey": project_key,
             "name": title,
             "objective": objective,
             "precondition": preconditions,
-            "labels": ["api-first", "auto-generated"],
+            "labels": labels,
             "statusName": "Draft",
             "priorityName": "Normal",
             "testScript": {"type": "STEP_BY_STEP", "steps": steps},
