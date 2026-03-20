@@ -1,0 +1,143 @@
+{
+  "generated_at": "2026-03-20T15:25:42.125913+00:00",
+  "site_url": "https://docs.n8n.io/",
+  "site_urls": [
+    "https://docs.n8n.io/"
+  ],
+  "topology_mode": "single-product",
+  "sites": [
+    {
+      "site_url": "https://docs.n8n.io/",
+      "metrics": {
+        "crawl": {
+          "pages_crawled": 10,
+          "requested_pages": 1287,
+          "max_pages": 10
+        },
+        "links": {
+          "internal_links_checked": 1287,
+          "broken_internal_links_count": 23,
+          "broken_internal_link_samples": [
+            "https://docs.n8n.io/accessing-n8n-mcp-server",
+            "https://docs.n8n.io/advanced-ai/evaluations",
+            "https://docs.n8n.io/advanced-ai/metric-based-evaluations",
+            "https://docs.n8n.io/advanced-ai/overview",
+            "https://docs.n8n.io/advanced-ai/tips-and-common-issues",
+            "https://docs.n8n.io/ai-workflow-builder",
+            "https://docs.n8n.io/chat-hub",
+            "https://docs.n8n.io/credentials/add-edit-credentials",
+            "https://docs.n8n.io/credentials/credential-sharing",
+            "https://docs.n8n.io/evaluations/light-evaluations",
+            "https://docs.n8n.io/evaluations/metric-based-evaluations",
+            "https://docs.n8n.io/evaluations/overview",
+            "https://docs.n8n.io/evaluations/tips-and-common-issues",
+            "https://docs.n8n.io/examples/data-google-sheets",
+            "https://docs.n8n.io/examples/human-fallback",
+            "https://docs.n8n.io/examples/understand-agents",
+            "https://docs.n8n.io/examples/understand-memory",
+            "https://docs.n8n.io/examples/understand-tools",
+            "https://docs.n8n.io/examples/understand-vector-databases",
+            "https://docs.n8n.io/examples/vector-store-website",
+            "https://docs.n8n.io/langchain/langchain-learning-resources",
+            "https://docs.n8n.io/langchain/langchain-n8n",
+            "https://docs.n8n.io/langchain/overview"
+          ],
+          "unreachable_links_count": 144
+        },
+        "seo_geo": {
+          "pages_scanned": 10,
+          "missing_title_count": 0,
+          "missing_description_count": 0,
+          "multiple_h1_count": 0,
+          "heading_hierarchy_jump_count": 2,
+          "seo_geo_issue_rate_pct": 5.0
+        },
+        "api_coverage": {
+          "reference_endpoint_count": 0,
+          "endpoints_with_usage_docs": 0,
+          "reference_endpoints_without_usage_docs": 0,
+          "reference_coverage_pct": -1.0,
+          "no_api_pages_found": true,
+          "uncovered_endpoint_samples": []
+        },
+        "examples": {
+          "total_code_examples": 0,
+          "runnable_without_env": 0,
+          "blocked_by_placeholders": 0,
+          "network_bound_examples": 0,
+          "example_reliability_estimate_pct": 0.0
+        },
+        "freshness": {
+          "pages_with_last_updated_hint": 0,
+          "pages_without_last_updated_hint": 10,
+          "last_updated_coverage_pct": 0.0,
+          "samples_with_last_updated": []
+        }
+      },
+      "samples": {
+        "broken_links": [
+          "https://docs.n8n.io/accessing-n8n-mcp-server",
+          "https://docs.n8n.io/advanced-ai/evaluations",
+          "https://docs.n8n.io/advanced-ai/metric-based-evaluations",
+          "https://docs.n8n.io/advanced-ai/overview",
+          "https://docs.n8n.io/advanced-ai/tips-and-common-issues",
+          "https://docs.n8n.io/ai-workflow-builder",
+          "https://docs.n8n.io/chat-hub",
+          "https://docs.n8n.io/credentials/add-edit-credentials",
+          "https://docs.n8n.io/credentials/credential-sharing",
+          "https://docs.n8n.io/evaluations/light-evaluations",
+          "https://docs.n8n.io/evaluations/metric-based-evaluations",
+          "https://docs.n8n.io/evaluations/overview",
+          "https://docs.n8n.io/evaluations/tips-and-common-issues",
+          "https://docs.n8n.io/examples/data-google-sheets",
+          "https://docs.n8n.io/examples/human-fallback",
+          "https://docs.n8n.io/examples/understand-agents",
+          "https://docs.n8n.io/examples/understand-memory",
+          "https://docs.n8n.io/examples/understand-tools",
+          "https://docs.n8n.io/examples/understand-vector-databases",
+          "https://docs.n8n.io/examples/vector-store-website",
+          "https://docs.n8n.io/langchain/langchain-learning-resources",
+          "https://docs.n8n.io/langchain/langchain-n8n",
+          "https://docs.n8n.io/langchain/overview"
+        ],
+        "api_uncovered_samples": []
+      }
+    }
+  ],
+  "aggregate": {
+    "metrics": {
+      "crawl": {
+        "pages_crawled": 10,
+        "requested_pages": 1287,
+        "max_pages_total": 10
+      },
+      "links": {
+        "broken_internal_links_count": 23
+      },
+      "seo_geo": {
+        "seo_geo_issue_rate_pct": 5.0
+      },
+      "api_coverage": {
+        "reference_coverage_pct": -1.0,
+        "no_api_pages_found": true
+      },
+      "examples": {
+        "example_reliability_estimate_pct": 0.0
+      },
+      "freshness": {
+        "last_updated_coverage_pct": 0.0
+      }
+    }
+  },
+  "top_findings": [
+    "Broken internal links: 23",
+    "No API reference pages found in crawled sample (increase max_pages or verify site has /api/ or /reference/ paths)",
+    "Example reliability estimate is low: 0.0%",
+    "Freshness visibility is weak: only 0.0% pages show last updated"
+  ],
+  "llm_analysis": {
+    "status": "failed",
+    "model": "claude-sonnet-4-5",
+    "error": "LLM returned non-JSON content: ```json\n{\n  \"executive_summary\": \"Documentation audit of n8n.io covered 10 of 1,287 requested pages due to crawl limits, representing less than 1% sample coverage. Critical infrastructure issues identified: 23 broken internal links across sampled pages, 0% of pages display last-updated timestamps, a"
+  }
+}

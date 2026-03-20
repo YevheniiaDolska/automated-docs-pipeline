@@ -818,8 +818,16 @@ def _run_llm_analysis(
                     break
     if not text:
         raise RuntimeError("LLM response has no text content.")
+    # Strip markdown code fences (```json ... ```) that Claude sometimes wraps around JSON
+    stripped = text.strip()
+    if stripped.startswith("```"):
+        first_nl = stripped.find("\n")
+        if first_nl != -1:
+            stripped = stripped[first_nl + 1:]
+        if stripped.endswith("```"):
+            stripped = stripped[:-3].strip()
     try:
-        parsed = json.loads(text)
+        parsed = json.loads(stripped)
     except Exception as exc:  # noqa: BLE001
         raise RuntimeError(f"LLM returned non-JSON content: {text[:300]}") from exc
     if not isinstance(parsed, dict):
