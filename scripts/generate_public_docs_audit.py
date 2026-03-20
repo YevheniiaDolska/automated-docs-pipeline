@@ -416,7 +416,17 @@ def _read_dotenv_value(env_file: Path, key: str) -> str:
     return ""
 
 
-def _build_llm_prompt(payload: dict[str, Any]) -> str:
+def _build_llm_prompt(payload: dict[str, Any], summary_only: bool = False) -> str:
+    if summary_only:
+        compact = {
+            "site_urls": payload.get("site_urls", []),
+            "topology_mode": payload.get("topology_mode", ""),
+            "aggregate": payload.get("aggregate", {}),
+            "top_findings": payload.get("top_findings", []),
+        }
+        audit_json = json.dumps(compact, ensure_ascii=True)
+    else:
+        audit_json = json.dumps(payload, ensure_ascii=True)
     return (
         "You are a strict documentation auditor.\\n"
         "Input is a structured public-docs audit JSON.\\n"
@@ -429,7 +439,7 @@ def _build_llm_prompt(payload: dict[str, Any]) -> str:
         "- prioritized_actions: array of exactly 5 actions, each action includes impact and effort.\\n"
         "- limitations: 3-5 bullets explaining what external audit cannot guarantee.\\n"
         "Do not output markdown. Do not output commentary.\\n\\n"
-        f"Audit JSON:\\n{json.dumps(payload, ensure_ascii=True)}"
+        f"Audit JSON:\\n{audit_json}"
     )
 
 
@@ -438,8 +448,9 @@ def _run_llm_analysis(
     model: str,
     api_key: str,
     timeout: int,
+    summary_only: bool = False,
 ) -> dict[str, Any]:
-    prompt = _build_llm_prompt(payload)
+    prompt = _build_llm_prompt(payload, summary_only=summary_only)
     body = {
         "model": model,
         "max_tokens": 1600,
@@ -626,6 +637,11 @@ def main() -> int:
         help="LLM request timeout in seconds",
     )
     parser.add_argument(
+        "--llm-summary-only",
+        action="store_true",
+        help="Send only aggregate metrics to LLM (not per-page data). Much cheaper and faster.",
+    )
+    parser.add_argument(
         "--llm-summary-output",
         default="reports/public_docs_audit_llm_summary.json",
         help="Optional JSON file with LLM executive analysis",
@@ -671,14 +687,29 @@ def main() -> int:
             args.json_output = str(out_dir / "public_docs_audit.json")
             args.html_output = str(out_dir / "public_docs_audit.html")
             args.llm_summary_output = str(out_dir / "public_docs_audit_llm_summary.json")
-        llm_raw = input("Enable Claude Sonnet executive analysis? [y/N]: ").strip().lower()
-        if llm_raw in {"y", "yes"}:
+        print("Claude Sonnet executive analysis options:")
+        print("  1) Summary only -- LLM gets aggregate metrics only (fast, ~$0.05)")
+        print("  2) Full -- LLM gets all per-site data (slower, ~$3-4/site)")
+        print("  3) None -- no LLM analysis")
+        llm_raw = input("Choice [1/2/3] (default: 1): ").strip()
+        if llm_raw in {"1", ""}:
             args.llm_enabled = True
+            args.llm_summary_only = True
             env_file_raw = input(
                 f"LLM .env path (default: {args.llm_env_file}): "
             ).strip()
             if env_file_raw:
                 args.llm_env_file = env_file_raw
+        elif llm_raw == "2":
+            args.llm_enabled = True
+            args.llm_summary_only = False
+            env_file_raw = input(
+                f"LLM .env path (default: {args.llm_env_file}): "
+            ).strip()
+            if env_file_raw:
+                args.llm_env_file = env_file_raw
+        else:
+            args.llm_enabled = False
 
     if not site_urls:
         raise SystemExit("No --site-url provided. Use --interactive or pass one or more --site-url values.")
@@ -743,6 +774,7 @@ def main() -> int:
                     model=str(args.llm_model),
                     api_key=llm_api_key,
                     timeout=int(args.llm_timeout),
+                    summary_only=bool(getattr(args, "llm_summary_only", False)),
                 )
                 payload["llm_analysis"] = {
                     "status": "ok",
