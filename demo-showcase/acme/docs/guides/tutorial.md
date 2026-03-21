@@ -5,16 +5,16 @@ content_type: tutorial
 product: both
 tags:
   - Tutorial
-last_reviewed: "2026-03-19"
+last_reviewed: "2026-03-21"
 ---
 
 # Tutorial: launch your first VeriOps API integration
 
 <div class="veriops-badges" markdown>
 
-![Powered by VeriOps](https://img.shields.io/badge/Powered%20by-VeriOps-7c3aed?style=flat-square)
+![Powered by VeriOps](https://img.shields.io/badge/Powered%20by-VeriOps-0b6bcb?style=flat-square)
 ![Quality Score](https://img.shields.io/badge/Quality%20Score-100%25-10b981?style=flat-square)
-![Protocols](https://img.shields.io/badge/Protocols-5-7c3aed?style=flat-square)
+![Protocols](https://img.shields.io/badge/Protocols-5-0b6bcb?style=flat-square)
 
 </div>
 
@@ -35,7 +35,7 @@ By the end of this tutorial, you will have:
 
 You need:
 
-- An VeriOps API key from the [developer dashboard](https://app.veriops.example/settings/api)
+- A VeriOps API key from the [developer dashboard](https://app.veriops.example/settings/api)
 - `curl` version 7.68 or later (run `curl --version` to verify)
 - Node.js version 18 or later for the WebSocket client (run `node --version` to verify)
 - A terminal with internet access

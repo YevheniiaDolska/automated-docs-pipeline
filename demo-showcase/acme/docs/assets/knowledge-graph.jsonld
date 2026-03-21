@@ -1,8 +1,8 @@
 {
   "nodes": [
     {
-      "@id": "urn:acme:doc:index",
-      "title": "Acme documentation",
+      "@id": "urn:veriops:doc:index",
+      "title": "VeriOps documentation",
       "sourceFile": "demo-showcase/acme/docs/index.md",
       "tags": [
         "Reference",
@@ -11,7 +11,7 @@
       "url": "index/"
     },
     {
-      "@id": "urn:acme:doc:reference-rest-api",
+      "@id": "urn:veriops:doc:reference-rest-api",
       "title": "REST API reference",
       "sourceFile": "demo-showcase/acme/docs/reference/rest-api.md",
       "tags": [
@@ -21,7 +21,7 @@
       "url": "reference/rest-api/"
     },
     {
-      "@id": "urn:acme:doc:reference-graphql-playground",
+      "@id": "urn:veriops:doc:reference-graphql-playground",
       "title": "GraphQL playground",
       "sourceFile": "demo-showcase/acme/docs/reference/graphql-playground.md",
       "tags": [
@@ -31,7 +31,7 @@
       "url": "reference/graphql-playground/"
     },
     {
-      "@id": "urn:acme:doc:reference-grpc-gateway",
+      "@id": "urn:veriops:doc:reference-grpc-gateway",
       "title": "gRPC gateway invoke",
       "sourceFile": "demo-showcase/acme/docs/reference/grpc-gateway.md",
       "tags": [
@@ -41,7 +41,7 @@
       "url": "reference/grpc-gateway/"
     },
     {
-      "@id": "urn:acme:doc:reference-asyncapi-events",
+      "@id": "urn:veriops:doc:reference-asyncapi-events",
       "title": "AsyncAPI event docs",
       "sourceFile": "demo-showcase/acme/docs/reference/asyncapi-events.md",
       "tags": [
@@ -51,7 +51,7 @@
       "url": "reference/asyncapi-events/"
     },
     {
-      "@id": "urn:acme:doc:reference-websocket-events",
+      "@id": "urn:veriops:doc:reference-websocket-events",
       "title": "WebSocket event playground",
       "sourceFile": "demo-showcase/acme/docs/reference/websocket-events.md",
       "tags": [
@@ -61,8 +61,8 @@
       "url": "reference/websocket-events/"
     },
     {
-      "@id": "urn:acme:doc:guides-tutorial",
-      "title": "Tutorial: launch your first Acme API integration",
+      "@id": "urn:veriops:doc:guides-tutorial",
+      "title": "Tutorial: launch your first VeriOps API integration",
       "sourceFile": "demo-showcase/acme/docs/guides/tutorial.md",
       "tags": [
         "Tutorial"
@@ -70,7 +70,7 @@
       "url": "guides/tutorial/"
     },
     {
-      "@id": "urn:acme:doc:guides-how-to",
+      "@id": "urn:veriops:doc:guides-how-to",
       "title": "How-to: keep docs aligned with every release",
       "sourceFile": "demo-showcase/acme/docs/guides/how-to.md",
       "tags": [
@@ -79,7 +79,7 @@
       "url": "guides/how-to/"
     },
     {
-      "@id": "urn:acme:doc:guides-concept",
+      "@id": "urn:veriops:doc:guides-concept",
       "title": "Concept: pipeline-first documentation lifecycle",
       "sourceFile": "demo-showcase/acme/docs/guides/concept.md",
       "tags": [
@@ -88,8 +88,8 @@
       "url": "guides/concept/"
     },
     {
-      "@id": "urn:acme:doc:guides-troubleshooting",
-      "title": "Troubleshooting: common Acme pipeline issues",
+      "@id": "urn:veriops:doc:guides-troubleshooting",
+      "title": "Troubleshooting: common VeriOps pipeline issues",
       "sourceFile": "demo-showcase/acme/docs/guides/troubleshooting.md",
       "tags": [
         "Troubleshooting"
@@ -97,7 +97,7 @@
       "url": "guides/troubleshooting/"
     },
     {
-      "@id": "urn:acme:doc:quality-evidence",
+      "@id": "urn:veriops:doc:quality-evidence",
       "title": "Quality evidence and gate results",
       "sourceFile": "demo-showcase/acme/docs/quality/evidence.md",
       "tags": [
@@ -107,7 +107,7 @@
       "url": "quality/evidence/"
     },
     {
-      "@id": "urn:acme:doc:quality-review-manifest",
+      "@id": "urn:veriops:doc:quality-review-manifest",
       "title": "quality/review-manifest.md",
       "sourceFile": "demo-showcase/acme/docs/quality/review-manifest.md",
       "tags": [],
@@ -116,273 +116,273 @@
   ],
   "edges": [
     {
-      "from": "urn:acme:doc:index",
-      "to": "urn:acme:doc:quality-review-manifest",
+      "from": "urn:veriops:doc:index",
+      "to": "urn:veriops:doc:quality-review-manifest",
       "type": "links_to"
     },
     {
-      "from": "urn:acme:doc:index",
-      "to": "urn:acme:doc:reference-rest-api",
+      "from": "urn:veriops:doc:index",
+      "to": "urn:veriops:doc:reference-rest-api",
       "type": "links_to"
     },
     {
-      "from": "urn:acme:doc:index",
-      "to": "urn:acme:doc:reference-graphql-playground",
+      "from": "urn:veriops:doc:index",
+      "to": "urn:veriops:doc:reference-graphql-playground",
       "type": "links_to"
     },
     {
-      "from": "urn:acme:doc:index",
-      "to": "urn:acme:doc:reference-grpc-gateway",
+      "from": "urn:veriops:doc:index",
+      "to": "urn:veriops:doc:reference-grpc-gateway",
       "type": "links_to"
     },
     {
-      "from": "urn:acme:doc:index",
-      "to": "urn:acme:doc:reference-asyncapi-events",
+      "from": "urn:veriops:doc:index",
+      "to": "urn:veriops:doc:reference-asyncapi-events",
       "type": "links_to"
     },
     {
-      "from": "urn:acme:doc:index",
-      "to": "urn:acme:doc:reference-websocket-events",
+      "from": "urn:veriops:doc:index",
+      "to": "urn:veriops:doc:reference-websocket-events",
       "type": "links_to"
     },
     {
-      "from": "urn:acme:doc:index",
-      "to": "urn:acme:doc:guides-tutorial",
+      "from": "urn:veriops:doc:index",
+      "to": "urn:veriops:doc:guides-tutorial",
       "type": "links_to"
     },
     {
-      "from": "urn:acme:doc:index",
-      "to": "urn:acme:doc:guides-how-to",
+      "from": "urn:veriops:doc:index",
+      "to": "urn:veriops:doc:guides-how-to",
       "type": "links_to"
     },
     {
-      "from": "urn:acme:doc:index",
-      "to": "urn:acme:doc:guides-concept",
+      "from": "urn:veriops:doc:index",
+      "to": "urn:veriops:doc:guides-concept",
       "type": "links_to"
     },
     {
-      "from": "urn:acme:doc:index",
-      "to": "urn:acme:doc:guides-troubleshooting",
+      "from": "urn:veriops:doc:index",
+      "to": "urn:veriops:doc:guides-troubleshooting",
       "type": "links_to"
     },
     {
-      "from": "urn:acme:doc:index",
-      "to": "urn:acme:doc:quality-evidence",
+      "from": "urn:veriops:doc:index",
+      "to": "urn:veriops:doc:quality-evidence",
       "type": "links_to"
     },
     {
-      "from": "urn:acme:doc:index",
-      "to": "urn:acme:doc:quality-review-manifest",
+      "from": "urn:veriops:doc:index",
+      "to": "urn:veriops:doc:quality-review-manifest",
       "type": "links_to"
     },
     {
-      "from": "urn:acme:doc:reference-rest-api",
-      "to": "urn:acme:doc:graphql-playground",
+      "from": "urn:veriops:doc:reference-rest-api",
+      "to": "urn:veriops:doc:graphql-playground",
       "type": "links_to"
     },
     {
-      "from": "urn:acme:doc:reference-rest-api",
-      "to": "urn:acme:doc:guides-tutorial",
+      "from": "urn:veriops:doc:reference-rest-api",
+      "to": "urn:veriops:doc:guides-tutorial",
       "type": "links_to"
     },
     {
-      "from": "urn:acme:doc:reference-rest-api",
-      "to": "urn:acme:doc:asyncapi-events",
+      "from": "urn:veriops:doc:reference-rest-api",
+      "to": "urn:veriops:doc:asyncapi-events",
       "type": "links_to"
     },
     {
-      "from": "urn:acme:doc:reference-graphql-playground",
-      "to": "urn:acme:doc:rest-api",
+      "from": "urn:veriops:doc:reference-graphql-playground",
+      "to": "urn:veriops:doc:rest-api",
       "type": "links_to"
     },
     {
-      "from": "urn:acme:doc:reference-graphql-playground",
-      "to": "urn:acme:doc:grpc-gateway",
+      "from": "urn:veriops:doc:reference-graphql-playground",
+      "to": "urn:veriops:doc:grpc-gateway",
       "type": "links_to"
     },
     {
-      "from": "urn:acme:doc:reference-graphql-playground",
-      "to": "urn:acme:doc:guides-tutorial",
+      "from": "urn:veriops:doc:reference-graphql-playground",
+      "to": "urn:veriops:doc:guides-tutorial",
       "type": "links_to"
     },
     {
-      "from": "urn:acme:doc:reference-grpc-gateway",
-      "to": "urn:acme:doc:asyncapi-events",
+      "from": "urn:veriops:doc:reference-grpc-gateway",
+      "to": "urn:veriops:doc:asyncapi-events",
       "type": "links_to"
     },
     {
-      "from": "urn:acme:doc:reference-grpc-gateway",
-      "to": "urn:acme:doc:websocket-events",
+      "from": "urn:veriops:doc:reference-grpc-gateway",
+      "to": "urn:veriops:doc:websocket-events",
       "type": "links_to"
     },
     {
-      "from": "urn:acme:doc:reference-grpc-gateway",
-      "to": "urn:acme:doc:rest-api",
+      "from": "urn:veriops:doc:reference-grpc-gateway",
+      "to": "urn:veriops:doc:rest-api",
       "type": "links_to"
     },
     {
-      "from": "urn:acme:doc:reference-asyncapi-events",
-      "to": "urn:acme:doc:websocket-events",
+      "from": "urn:veriops:doc:reference-asyncapi-events",
+      "to": "urn:veriops:doc:websocket-events",
       "type": "links_to"
     },
     {
-      "from": "urn:acme:doc:reference-asyncapi-events",
-      "to": "urn:acme:doc:rest-api",
+      "from": "urn:veriops:doc:reference-asyncapi-events",
+      "to": "urn:veriops:doc:rest-api",
       "type": "links_to"
     },
     {
-      "from": "urn:acme:doc:reference-asyncapi-events",
-      "to": "urn:acme:doc:guides-tutorial",
+      "from": "urn:veriops:doc:reference-asyncapi-events",
+      "to": "urn:veriops:doc:guides-tutorial",
       "type": "links_to"
     },
     {
-      "from": "urn:acme:doc:reference-websocket-events",
-      "to": "urn:acme:doc:asyncapi-events",
+      "from": "urn:veriops:doc:reference-websocket-events",
+      "to": "urn:veriops:doc:asyncapi-events",
       "type": "links_to"
     },
     {
-      "from": "urn:acme:doc:reference-websocket-events",
-      "to": "urn:acme:doc:rest-api",
+      "from": "urn:veriops:doc:reference-websocket-events",
+      "to": "urn:veriops:doc:rest-api",
       "type": "links_to"
     },
     {
-      "from": "urn:acme:doc:reference-websocket-events",
-      "to": "urn:acme:doc:quality-evidence",
+      "from": "urn:veriops:doc:reference-websocket-events",
+      "to": "urn:veriops:doc:quality-evidence",
       "type": "links_to"
     },
     {
-      "from": "urn:acme:doc:guides-tutorial",
-      "to": "urn:acme:doc:reference-rest-api",
+      "from": "urn:veriops:doc:guides-tutorial",
+      "to": "urn:veriops:doc:reference-rest-api",
       "type": "links_to"
     },
     {
-      "from": "urn:acme:doc:guides-tutorial",
-      "to": "urn:acme:doc:reference-graphql-playground",
+      "from": "urn:veriops:doc:guides-tutorial",
+      "to": "urn:veriops:doc:reference-graphql-playground",
       "type": "links_to"
     },
     {
-      "from": "urn:acme:doc:guides-tutorial",
-      "to": "urn:acme:doc:reference-grpc-gateway",
+      "from": "urn:veriops:doc:guides-tutorial",
+      "to": "urn:veriops:doc:reference-grpc-gateway",
       "type": "links_to"
     },
     {
-      "from": "urn:acme:doc:guides-tutorial",
-      "to": "urn:acme:doc:how-to",
+      "from": "urn:veriops:doc:guides-tutorial",
+      "to": "urn:veriops:doc:how-to",
       "type": "links_to"
     },
     {
-      "from": "urn:acme:doc:guides-tutorial",
-      "to": "urn:acme:doc:troubleshooting",
+      "from": "urn:veriops:doc:guides-tutorial",
+      "to": "urn:veriops:doc:troubleshooting",
       "type": "links_to"
     },
     {
-      "from": "urn:acme:doc:guides-how-to",
-      "to": "urn:acme:doc:troubleshooting",
+      "from": "urn:veriops:doc:guides-how-to",
+      "to": "urn:veriops:doc:troubleshooting",
       "type": "links_to"
     },
     {
-      "from": "urn:acme:doc:guides-how-to",
-      "to": "urn:acme:doc:concept",
+      "from": "urn:veriops:doc:guides-how-to",
+      "to": "urn:veriops:doc:concept",
       "type": "links_to"
     },
     {
-      "from": "urn:acme:doc:guides-how-to",
-      "to": "urn:acme:doc:quality-evidence",
+      "from": "urn:veriops:doc:guides-how-to",
+      "to": "urn:veriops:doc:quality-evidence",
       "type": "links_to"
     },
     {
-      "from": "urn:acme:doc:guides-how-to",
-      "to": "urn:acme:doc:troubleshooting",
+      "from": "urn:veriops:doc:guides-how-to",
+      "to": "urn:veriops:doc:troubleshooting",
       "type": "links_to"
     },
     {
-      "from": "urn:acme:doc:guides-concept",
-      "to": "urn:acme:doc:quality-review-manifest",
+      "from": "urn:veriops:doc:guides-concept",
+      "to": "urn:veriops:doc:quality-review-manifest",
       "type": "links_to"
     },
     {
-      "from": "urn:acme:doc:guides-concept",
-      "to": "urn:acme:doc:how-to",
+      "from": "urn:veriops:doc:guides-concept",
+      "to": "urn:veriops:doc:how-to",
       "type": "links_to"
     },
     {
-      "from": "urn:acme:doc:guides-concept",
-      "to": "urn:acme:doc:quality-evidence",
+      "from": "urn:veriops:doc:guides-concept",
+      "to": "urn:veriops:doc:quality-evidence",
       "type": "links_to"
     },
     {
-      "from": "urn:acme:doc:guides-concept",
-      "to": "urn:acme:doc:troubleshooting",
+      "from": "urn:veriops:doc:guides-concept",
+      "to": "urn:veriops:doc:troubleshooting",
       "type": "links_to"
     },
     {
-      "from": "urn:acme:doc:guides-concept",
-      "to": "urn:acme:doc:quality-review-manifest",
+      "from": "urn:veriops:doc:guides-concept",
+      "to": "urn:veriops:doc:quality-review-manifest",
       "type": "links_to"
     },
     {
-      "from": "urn:acme:doc:guides-troubleshooting",
-      "to": "urn:acme:doc:reference-websocket-events",
+      "from": "urn:veriops:doc:guides-troubleshooting",
+      "to": "urn:veriops:doc:reference-websocket-events",
       "type": "links_to"
     },
     {
-      "from": "urn:acme:doc:guides-troubleshooting",
-      "to": "urn:acme:doc:reference-asyncapi-events",
+      "from": "urn:veriops:doc:guides-troubleshooting",
+      "to": "urn:veriops:doc:reference-asyncapi-events",
       "type": "links_to"
     },
     {
-      "from": "urn:acme:doc:guides-troubleshooting",
-      "to": "urn:acme:doc:how-to",
+      "from": "urn:veriops:doc:guides-troubleshooting",
+      "to": "urn:veriops:doc:how-to",
       "type": "links_to"
     },
     {
-      "from": "urn:acme:doc:guides-troubleshooting",
-      "to": "urn:acme:doc:quality-evidence",
+      "from": "urn:veriops:doc:guides-troubleshooting",
+      "to": "urn:veriops:doc:quality-evidence",
       "type": "links_to"
     },
     {
-      "from": "urn:acme:doc:guides-troubleshooting",
-      "to": "urn:acme:doc:concept",
+      "from": "urn:veriops:doc:guides-troubleshooting",
+      "to": "urn:veriops:doc:concept",
       "type": "links_to"
     },
     {
-      "from": "urn:acme:doc:quality-evidence",
-      "to": "urn:acme:doc:review-manifest",
+      "from": "urn:veriops:doc:quality-evidence",
+      "to": "urn:veriops:doc:review-manifest",
       "type": "links_to"
     },
     {
-      "from": "urn:acme:doc:quality-evidence",
-      "to": "urn:acme:doc:guides-how-to",
+      "from": "urn:veriops:doc:quality-evidence",
+      "to": "urn:veriops:doc:guides-how-to",
       "type": "links_to"
     },
     {
-      "from": "urn:acme:doc:quality-evidence",
-      "to": "urn:acme:doc:guides-troubleshooting",
+      "from": "urn:veriops:doc:quality-evidence",
+      "to": "urn:veriops:doc:guides-troubleshooting",
       "type": "links_to"
     },
     {
-      "from": "urn:acme:doc:quality-review-manifest",
-      "to": "urn:acme:doc:index",
+      "from": "urn:veriops:doc:quality-review-manifest",
+      "to": "urn:veriops:doc:index",
       "type": "links_to"
     },
     {
-      "from": "urn:acme:doc:quality-review-manifest",
-      "to": "urn:acme:doc:search-faceted",
+      "from": "urn:veriops:doc:quality-review-manifest",
+      "to": "urn:veriops:doc:search-faceted",
       "type": "links_to"
     },
     {
-      "from": "urn:acme:doc:quality-review-manifest",
-      "to": "urn:acme:doc:reference-graphql-api",
+      "from": "urn:veriops:doc:quality-review-manifest",
+      "to": "urn:veriops:doc:reference-graphql-api",
       "type": "links_to"
     },
     {
-      "from": "urn:acme:doc:quality-review-manifest",
-      "to": "urn:acme:doc:reference-asyncapi-api",
+      "from": "urn:veriops:doc:quality-review-manifest",
+      "to": "urn:veriops:doc:reference-asyncapi-api",
       "type": "links_to"
     },
     {
-      "from": "urn:acme:doc:quality-review-manifest",
-      "to": "urn:acme:doc:reference-taskstream-api-playground",
+      "from": "urn:veriops:doc:quality-review-manifest",
+      "to": "urn:veriops:doc:reference-taskstream-api-playground",
       "type": "links_to"
     }
   ]

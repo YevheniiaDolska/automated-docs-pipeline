@@ -6,24 +6,23 @@ product: both
 tags:
   - Reference
   - API
-last_reviewed: "2026-03-19"
+last_reviewed: "2026-03-21"
 ---
 
 # gRPC gateway invoke
 
 <div class="veriops-badges" markdown>
 
-![Powered by VeriOps](https://img.shields.io/badge/Powered%20by-VeriOps-7c3aed?style=flat-square)
+![Powered by VeriOps](https://img.shields.io/badge/Powered%20by-VeriOps-0b6bcb?style=flat-square)
 ![Quality Score](https://img.shields.io/badge/Quality%20Score-100%25-10b981?style=flat-square)
-![Protocols](https://img.shields.io/badge/Protocols-5-7c3aed?style=flat-square)
+![Protocols](https://img.shields.io/badge/Protocols-5-0b6bcb?style=flat-square)
 
 </div>
 
 The VeriOps gRPC API provides high-performance Remote Procedure Call (RPC) access to project services over HTTP/2 with Protocol Buffers serialization. The HTTP gateway adapter allows you to invoke gRPC methods from any HTTP client without a gRPC library.
 
-!!! note "Sandbox mode"
+!!! info "Sandbox mode"
     Interactive requests route to the Postman mock server. No gRPC tooling required.
-    In production, the pipeline validates proto definitions against the `protoc` compiler automatically.
 
 ## Connection details
 

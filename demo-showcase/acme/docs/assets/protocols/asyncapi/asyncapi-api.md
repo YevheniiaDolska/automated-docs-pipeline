@@ -19,7 +19,7 @@ original_author: null
 
 # ASYNCAPI Reference
 
-Source: `reports/acme-demo/contracts/asyncapi.yaml`
+Source: `reports/contracts/asyncapi.yaml`
 
 Flow mode: `api-first`
 

@@ -1,4 +1,177 @@
-/* Interactive diagram iframe styling */
+/* ============================================================
+   VeriOps Premium Theme -- Consulting-grade documentation site
+   ============================================================ */
+
+/* --- Brand palette --- */
+:root {
+  --veriops-navy:     #0f172a;
+  --veriops-primary:  #0b6bcb;
+  --veriops-primary-l:#3b94e0;
+  --veriops-primary-d:#0a4f9a;
+  --veriops-accent:   #f59e0b;
+  --veriops-ok:       #10b981;
+  --veriops-surface:  #f8fafc;
+  --veriops-muted:    #475569;
+}
+
+/* --- Light scheme overrides --- */
+[data-md-color-scheme="default"] {
+  --md-primary-fg-color:        var(--veriops-primary);
+  --md-primary-fg-color--light: var(--veriops-primary-l);
+  --md-primary-fg-color--dark:  var(--veriops-primary-d);
+  --md-accent-fg-color:         var(--veriops-accent);
+  --md-default-bg-color:        #ffffff;
+  --md-default-bg-color--light: var(--veriops-surface);
+}
+
+/* --- Dark scheme overrides --- */
+[data-md-color-scheme="slate"] {
+  --md-primary-fg-color:        var(--veriops-primary-l);
+  --md-primary-fg-color--light: #60a5fa;
+  --md-primary-fg-color--dark:  var(--veriops-primary);
+  --md-accent-fg-color:         var(--veriops-accent);
+  --md-default-bg-color:        #0f172a;
+  --md-default-bg-color--light: #1e293b;
+}
+
+/* --- Premium header --- */
+.md-header {
+  background: linear-gradient(135deg, #0a4f9a 0%, #0b6bcb 50%, #0ea5e9 100%);
+  box-shadow: 0 2px 12px rgba(11, 107, 203, 0.25);
+}
+
+.md-tabs {
+  background: linear-gradient(135deg, #083c75 0%, #0a4f9a 100%);
+}
+
+/* --- Typography polish --- */
+.md-typeset h1 {
+  font-weight: 800;
+  letter-spacing: -0.3px;
+  color: var(--veriops-navy);
+}
+
+[data-md-color-scheme="slate"] .md-typeset h1 {
+  color: #f1f5f9;
+}
+
+.md-typeset h2 {
+  font-weight: 700;
+  border-bottom: 2px solid #e2e8f0;
+  padding-bottom: 6px;
+  margin-top: 2rem;
+}
+
+[data-md-color-scheme="slate"] .md-typeset h2 {
+  border-bottom-color: #334155;
+}
+
+/* --- Table styling --- */
+.md-typeset table:not([class]) {
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.06);
+  border: 1px solid #e2e8f0;
+}
+
+[data-md-color-scheme="slate"] .md-typeset table:not([class]) {
+  border-color: #334155;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3);
+}
+
+.md-typeset table:not([class]) th {
+  background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%);
+  font-weight: 700;
+  font-size: 0.82rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: #1e40af;
+}
+
+[data-md-color-scheme="slate"] .md-typeset table:not([class]) th {
+  background: linear-gradient(135deg, #1e3a5f 0%, #1e40af33 100%);
+  color: #93c5fd;
+}
+
+.md-typeset table:not([class]) td {
+  padding: 10px 14px;
+}
+
+.md-typeset table:not([class]) tbody tr:nth-child(even) {
+  background: #f8fafc;
+}
+
+[data-md-color-scheme="slate"] .md-typeset table:not([class]) tbody tr:nth-child(even) {
+  background: #1e293b;
+}
+
+/* --- VeriOps shield badges --- */
+.veriops-badges {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-bottom: 1.2rem;
+}
+
+.veriops-badges img {
+  height: 24px;
+  transition: transform 0.2s ease;
+}
+
+.veriops-badges img:hover {
+  transform: scale(1.08);
+}
+
+/* --- Admonition accents --- */
+.md-typeset .admonition.info,
+.md-typeset details.info {
+  border-color: var(--veriops-primary);
+}
+
+.md-typeset .admonition.note,
+.md-typeset details.note {
+  border-color: var(--veriops-primary-l);
+}
+
+.md-typeset .admonition.example,
+.md-typeset details.example {
+  border-color: var(--veriops-accent);
+}
+
+/* --- Code block polish --- */
+.md-typeset code {
+  border-radius: 4px;
+  font-size: 0.82em;
+}
+
+.md-typeset pre > code {
+  border-radius: 8px;
+}
+
+/* --- Sandbox testers: premium look --- */
+.md-typeset div[style*="border:1px solid #dbe2ea"] {
+  border: 1px solid #cbd5e1 !important;
+  border-radius: 12px !important;
+  background: #f8fafc !important;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04) !important;
+}
+
+[data-md-color-scheme="slate"] .md-typeset div[style*="border:1px solid #dbe2ea"] {
+  border-color: #334155 !important;
+  background: #1e293b !important;
+}
+
+/* --- Smooth page transitions --- */
+.md-content {
+  animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(4px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* --- Interactive diagram iframe --- */
 .interactive-diagram iframe {
   width: 100%;
   height: 700px;
@@ -7,96 +180,24 @@
   background: transparent;
 }
 
-/* VeriOps shield badges */
-.veriops-badges {
-  display: flex;
-  gap: 6px;
-  flex-wrap: wrap;
-  margin-bottom: 1rem;
+/* --- Footer accent --- */
+.md-footer {
+  background: var(--veriops-navy);
 }
 
-.veriops-badges img {
-  height: 20px;
+/* --- Navigation polish --- */
+.md-nav__link--active {
+  font-weight: 700;
 }
 
-/* Premium brand accent */
-:root {
-  --veriops-primary: #7c3aed;
-  --veriops-primary-dark: #6d28d9;
-  --veriops-accent: #f59e0b;
-  --veriops-surface: #faf5ff;
-  --veriops-surface-dark: #1e1b2e;
+/* --- Scrollbar polish (webkit) --- */
+::-webkit-scrollbar {
+  width: 6px;
 }
-
-[data-md-color-scheme="default"] {
-  --md-primary-fg-color: var(--veriops-primary);
-  --md-primary-fg-color--light: #a78bfa;
-  --md-primary-fg-color--dark: var(--veriops-primary-dark);
-  --md-accent-fg-color: var(--veriops-accent);
+::-webkit-scrollbar-track {
+  background: transparent;
 }
-
-[data-md-color-scheme="slate"] {
-  --md-primary-fg-color: #a78bfa;
-  --md-primary-fg-color--light: #c4b5fd;
-  --md-primary-fg-color--dark: var(--veriops-primary);
-  --md-accent-fg-color: var(--veriops-accent);
-  --md-default-bg-color: #1a1625;
-  --md-default-bg-color--light: #231e35;
-}
-
-/* Premium header gradient */
-.md-header {
-  background: linear-gradient(135deg, #4c1d95 0%, #7c3aed 50%, #6d28d9 100%);
-}
-
-/* Tab indicator */
-.md-tabs {
-  background: linear-gradient(135deg, #3b0764 0%, #5b21b6 100%);
-}
-
-/* Hero badges larger */
-.veriops-badges img {
-  height: 22px;
-  transition: transform 0.2s ease;
-}
-
-.veriops-badges img:hover {
-  transform: scale(1.08);
-}
-
-/* Table styling */
-.md-typeset table:not([class]) {
-  border-radius: 8px;
-  overflow: hidden;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
-}
-
-.md-typeset table:not([class]) th {
-  background: linear-gradient(135deg, #ede9fe 0%, #ddd6fe 100%);
-  font-weight: 600;
-}
-
-[data-md-color-scheme="slate"] .md-typeset table:not([class]) th {
-  background: linear-gradient(135deg, #2e1065 0%, #3b0764 100%);
-}
-
-/* Admonition accents */
-.md-typeset .admonition.info,
-.md-typeset details.info {
-  border-color: var(--veriops-primary);
-}
-
-/* Code block styling */
-.md-typeset code {
-  border-radius: 4px;
-}
-
-/* Smooth page transitions */
-.md-content {
-  animation: fadeIn 0.3s ease;
-}
-
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(4px); }
-  to { opacity: 1; transform: translateY(0); }
+::-webkit-scrollbar-thumb {
+  background: #94a3b8;
+  border-radius: 3px;
 }

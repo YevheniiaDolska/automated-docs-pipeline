@@ -6,7 +6,7 @@ product: both
 tags:
   - Concept
   - Reference
-last_reviewed: "2026-03-19"
+last_reviewed: "2026-03-21"
 ---
 
 # VeriOps API platform architecture
@@ -15,9 +15,9 @@ The VeriOps API platform is a multi-protocol system that exposes 5 API interface
 
 <div class="veriops-badges" markdown>
 
-![Powered by VeriOps](https://img.shields.io/badge/Powered%20by-VeriOps-7c3aed?style=flat-square&logo=data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCI+PHBhdGggZmlsbD0id2hpdGUiIGQ9Ik0xMiAyTDEgMTJsNCA0IDctNyA3IDcgNC00TDEyIDJ6Ii8+PC9zdmc+)
+![Powered by VeriOps](https://img.shields.io/badge/Powered%20by-VeriOps-0b6bcb?style=flat-square&logo=data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCI+PHBhdGggZmlsbD0id2hpdGUiIGQ9Ik0xMiAyTDEgMTJsNCA0IDctNyA3IDcgNC00TDEyIDJ6Ii8+PC9zdmc+)
 ![Quality Score](https://img.shields.io/badge/Quality%20Score-100%25-10b981?style=flat-square)
-![Protocols](https://img.shields.io/badge/Protocols-5-7c3aed?style=flat-square)
+![Protocols](https://img.shields.io/badge/Protocols-5-0b6bcb?style=flat-square)
 ![Endpoints](https://img.shields.io/badge/Endpoints-19-3b82f6?style=flat-square)
 
 </div>
@@ -27,7 +27,7 @@ The VeriOps API platform is a multi-protocol system that exposes 5 API interface
 Click any component in the diagram to view its description, key metrics, and technology tags in the detail panel below.
 
 <div class="interactive-diagram" markdown>
-<iframe src="../../diagrams/acme-architecture.html" title="VeriOps platform architecture diagram"></iframe>
+<iframe src="../../diagrams/veriops-architecture.html" title="VeriOps platform architecture diagram"></iframe>
 </div>
 
 ## Layer breakdown

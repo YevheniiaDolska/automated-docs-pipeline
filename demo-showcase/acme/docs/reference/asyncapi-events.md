@@ -6,16 +6,16 @@ product: both
 tags:
   - Reference
   - API
-last_reviewed: "2026-03-19"
+last_reviewed: "2026-03-21"
 ---
 
 # AsyncAPI event docs
 
 <div class="veriops-badges" markdown>
 
-![Powered by VeriOps](https://img.shields.io/badge/Powered%20by-VeriOps-7c3aed?style=flat-square)
+![Powered by VeriOps](https://img.shields.io/badge/Powered%20by-VeriOps-0b6bcb?style=flat-square)
 ![Quality Score](https://img.shields.io/badge/Quality%20Score-100%25-10b981?style=flat-square)
-![Protocols](https://img.shields.io/badge/Protocols-5-7c3aed?style=flat-square)
+![Protocols](https://img.shields.io/badge/Protocols-5-0b6bcb?style=flat-square)
 
 </div>
 
@@ -273,9 +273,9 @@ Enter a test event payload and send it to the sandbox WebSocket bridge.
 
 <script>
 (() => {
-  if (window.__ACME_SANDBOX_CONTROLLER__ === true) return;
-  var sandbox = (window.ACME_SANDBOX && window.ACME_SANDBOX.asyncapi_ws_url) || '';
-  var fallback = (window.ACME_SANDBOX && window.ACME_SANDBOX.asyncapi_ws_fallback_urls) || [];
+  if (window.__VERIOPS_SANDBOX_CONTROLLER__ === true) return;
+  var sandbox = (window.VERIOPS_SANDBOX && window.VERIOPS_SANDBOX.asyncapi_ws_url) || '';
+  var fallback = (window.VERIOPS_SANDBOX && window.VERIOPS_SANDBOX.asyncapi_ws_fallback_urls) || [];
   var epInput = document.getElementById('async-ep');
   if (sandbox && epInput) { epInput.value = sandbox; }
   var btn = document.getElementById('async-send');

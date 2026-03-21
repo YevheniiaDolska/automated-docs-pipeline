@@ -5,16 +5,16 @@ content_type: how-to
 product: both
 tags:
   - How-To
-last_reviewed: "2026-03-19"
+last_reviewed: "2026-03-21"
 ---
 
 # How-to: keep docs aligned with every release
 
 <div class="veriops-badges" markdown>
 
-![Powered by VeriOps](https://img.shields.io/badge/Powered%20by-VeriOps-7c3aed?style=flat-square)
+![Powered by VeriOps](https://img.shields.io/badge/Powered%20by-VeriOps-0b6bcb?style=flat-square)
 ![Quality Score](https://img.shields.io/badge/Quality%20Score-100%25-10b981?style=flat-square)
-![Protocols](https://img.shields.io/badge/Protocols-5-7c3aed?style=flat-square)
+![Protocols](https://img.shields.io/badge/Protocols-5-0b6bcb?style=flat-square)
 
 </div>
 
@@ -49,8 +49,8 @@ Run the unified pipeline from the repository root. This command executes gap det
 ```bash
 python3 scripts/run_autopipeline.py \
   --docsops-root . \
-  --reports-dir reports/acme-demo \
-  --runtime-config reports/acme-demo/client_runtime.yml \
+  --reports-dir reports \
+  --runtime-config reports/client_runtime.yml \
   --mode veridoc \
   --since 7
 ```
@@ -62,8 +62,8 @@ python3 scripts/run_autopipeline.py \
 | Flag | Value | Purpose |
 | --- | --- | --- |
 | `--docsops-root` | `.` | Root directory of the docs-ops repository |
-| `--reports-dir` | `reports/acme-demo` | Where pipeline writes output artifacts |
-| `--runtime-config` | `reports/acme-demo/client_runtime.yml` | Client-specific protocol and module settings |
+| `--reports-dir` | `reports` | Where pipeline writes output artifacts |
+| `--runtime-config` | `reports/client_runtime.yml` | Client-specific protocol and module settings |
 | `--mode` | `veridoc` | Full pipeline mode with all quality gates |
 | `--since` | `7` | Analyze changes from the last 7 days |
 
@@ -73,7 +73,7 @@ The pipeline runs seven stages. Expect 5-10 minutes depending on contract comple
 
 ```text
 [autopipeline] Starting VeriDoc pipeline run
-[autopipeline] Runtime config: reports/acme-demo/client_runtime.yml
+[autopipeline] Runtime config: reports/client_runtime.yml
 [autopipeline] Protocols enabled: rest, graphql, grpc, asyncapi, websocket
 [stage] multi_protocol_contract ... DONE (5 protocols, 0 failures)
 [stage] kpi_wall ... DONE (quality_score: 100)
@@ -90,7 +90,7 @@ After the pipeline completes, verify which protocols passed contract validation:
 ```bash
 python3 -c "
 import json
-r = json.load(open('reports/acme-demo/multi_protocol_contract_report.json'))
+r = json.load(open('reports/multi_protocol_contract_report.json'))
 for p in r.get('protocols', []):
     status = 'PASS' if p not in r.get('failed_protocols', []) else 'FAIL'
     print(f'  {p}: {status}')
@@ -115,7 +115,7 @@ If any protocol fails, fix the root cause before proceeding. See [Troubleshootin
 Open the review manifest to see all generated artifacts and their availability:
 
 ```bash
-cat reports/acme-demo/REVIEW_MANIFEST.md
+cat reports/REVIEW_MANIFEST.md
 ```
 
 The manifest lists every artifact, stage status, and provides a reviewer checklist. Key sections:
@@ -131,7 +131,7 @@ You can also check the machine-readable manifest:
 ```bash
 python3 -c "
 import json
-m = json.load(open('reports/acme-demo/review_manifest.json'))
+m = json.load(open('reports/review_manifest.json'))
 print(f'Available: {m[\"available_artifacts\"]}')
 print(f'Missing: {m[\"missing_artifacts\"]}')
 print(f'Strictness: {m[\"strictness\"]}')"
@@ -143,7 +143,7 @@ Check that quality metrics meet your thresholds:
 
 | Gate | Command | Expected result |
 | --- | --- | --- |
-| Quality score | `python3 -c "import json; print(json.load(open('reports/acme-demo/kpi-wall.json'))['quality_score'])"` | 80 or higher |
+| Quality score | `python3 -c "import json; print(json.load(open('reports/kpi-wall.json'))['quality_score'])"` | 80 or higher |
 | Contract validation | Check `multi_protocol_contract_report.json` | Zero failed protocols |
 | Stage summary | Check `pipeline_stage_summary.json` | All required stages exist |
 | Frontmatter | All docs have valid frontmatter | 100% metadata completeness |
@@ -155,7 +155,7 @@ If the quality score is below 80:
     ```bash
     python3 -c "
     import json
-    r = json.load(open('reports/acme-demo/doc_gaps_report.json'))
+    r = json.load(open('reports/doc_gaps_report.json'))
     high = [g for g in r.get('gaps', []) if g.get('priority') == 'high']
     print(f'{len(high)} high-priority gaps')
     for g in high[:5]:
@@ -171,9 +171,9 @@ If the quality score is below 80:
 Generate the browsable MkDocs documentation site:
 
 ```bash
-python3 scripts/build_acme_demo_site.py \
+python3 scripts/build_demo_site.py \
   --output-root demo-showcase/acme \
-  --reports-dir reports/acme-demo \
+  --reports-dir reports \
   --build
 ```
 
@@ -225,7 +225,7 @@ Stale documents, missing frontmatter, or unresolved documentation gaps.
 
 **Solution:**
 
-1. Run `python3 -c "import json; r=json.load(open('reports/acme-demo/doc_gaps_report.json')); print(len([g for g in r.get('gaps',[]) if g.get('priority')=='high']), 'high-priority gaps')"` to count gaps.
+1. Run `python3 -c "import json; r=json.load(open('reports/doc_gaps_report.json')); print(len([g for g in r.get('gaps',[]) if g.get('priority')=='high']), 'high-priority gaps')"` to count gaps.
 1. Address each gap by creating or updating documents.
 1. Re-run the pipeline.
 

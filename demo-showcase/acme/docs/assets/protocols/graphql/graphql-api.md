@@ -19,7 +19,7 @@ original_author: null
 
 # GRAPHQL Reference
 
-Source: `reports/acme-demo/contracts/graphql.schema.graphql`
+Source: `reports/contracts/graphql.schema.graphql`
 
 Flow mode: `api-first`
 

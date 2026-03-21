@@ -5,16 +5,16 @@ content_type: concept
 product: both
 tags:
   - Concept
-last_reviewed: "2026-03-19"
+last_reviewed: "2026-03-21"
 ---
 
 # Concept: pipeline-first documentation lifecycle
 
 <div class="veriops-badges" markdown>
 
-![Powered by VeriOps](https://img.shields.io/badge/Powered%20by-VeriOps-7c3aed?style=flat-square)
+![Powered by VeriOps](https://img.shields.io/badge/Powered%20by-VeriOps-0b6bcb?style=flat-square)
 ![Quality Score](https://img.shields.io/badge/Quality%20Score-100%25-10b981?style=flat-square)
-![Protocols](https://img.shields.io/badge/Protocols-5-7c3aed?style=flat-square)
+![Protocols](https://img.shields.io/badge/Protocols-5-0b6bcb?style=flat-square)
 
 </div>
 
@@ -62,14 +62,14 @@ Produce reference documentation from validated contracts. Each protocol generate
 
 ### Stage 5: quality gate
 
-Run 24 automated checks on every generated page:
+Run **32 automated checks** on every generated page:
 
 | Category | Check count | What they verify |
 | --- | --- | --- |
-| GEO (8 checks) | 8 | LLM and AI search optimization: meta descriptions, first paragraph length, heading hierarchy, fact density |
-| SEO (14 checks) | 14 | Traditional search optimization: title length, URL depth, internal links, structured data |
-| Style (automated) | Per-page | American English, active voice, no weasel words, no contractions |
-| Contract (per-protocol) | Per-endpoint | Schema validation, regression detection, snippet lint |
+| GEO checks | 8 | LLM and AI search optimization: meta descriptions, first paragraph length, heading hierarchy, fact density |
+| SEO checks | 14 | Traditional search optimization: title length, URL depth, internal links, structured data |
+| Style checks | 6 | American English, active voice, no weasel words, no contractions, second person, present tense |
+| Contract checks | 4 | Schema validation, regression detection, snippet lint, self-verification against endpoints |
 
 ### Stage 6: test assets
 
@@ -107,7 +107,7 @@ Copy verified artifacts to the documentation site. Only artifacts that pass all 
 
 ## Quality gate breakdown
 
-The pipeline enforces 24 automated checks before any document reaches production:
+The pipeline enforces 32 automated checks before any document reaches production:
 
 | Check ID | Rule | Severity | Threshold |
 | --- | --- | --- | --- |
@@ -157,7 +157,7 @@ The knowledge retrieval index with 957 nodes and 817 edges enables AI support ag
 | Dimension | Traditional docs | Pipeline-first docs | Improvement |
 | --- | --- | --- | --- |
 | Drift window | 2-4 weeks | 0 days (auto-generated) | Eliminated |
-| Quality checks | Manual review | 24 automated checks | Consistent |
+| Quality checks | Manual review | 32 automated checks | Consistent |
 | Review cycles | 5+ rounds | 1-2 rounds | 60% reduction |
 | Protocol coverage | 1-2 protocols | 5 protocols | Full parity |
 | Time to publish | 2-3 days | 20 minutes | 95% faster |

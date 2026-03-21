@@ -3,13 +3,13 @@
     {
       "objectID": "index",
       "id": "index",
-      "title": "Acme documentation",
+      "title": "VeriOps documentation",
       "url": "index/",
       "tags": [
         "Reference",
         "API"
       ],
-      "assistant_excerpt": "The Acme documentation site is a pipeline-generated showcase that provides interactive references for five API protocols, automated quality evidence, and a KPI dashboard updated on every pipeline run.",
+      "assistant_excerpt": "The VeriOps documentation site is a pipeline-generated showcase that provides interactive references for five API protocols, automated quality evidence, and a KPI dashboard updated on every pipeline run.",
       "source_file": "demo-showcase/acme/docs/index.md"
     },
     {
@@ -21,7 +21,7 @@
         "Reference",
         "API"
       ],
-      "assistant_excerpt": "The Acme REST API provides 14 CRUD endpoints across five resources (projects, tasks, users, tags, and comments) over HTTP/1.1 with JSON payloads. This reference documents every endpoint, authentication flow, and error code.",
+      "assistant_excerpt": "The VeriOps REST API provides 14 CRUD endpoints across five resources (projects, tasks, users, tags, and comments) over HTTP/1.1 with JSON payloads. This reference documents every endpoint, authentication flow, and error code.",
       "source_file": "demo-showcase/acme/docs/reference/rest-api.md"
     },
     {
@@ -33,7 +33,7 @@
         "Reference",
         "API"
       ],
-      "assistant_excerpt": "The Acme GraphQL API provides a single endpoint for flexible queries across projects, tasks, and users. This page documents the full schema, provides a live query editor, and covers authentication, error handling, and performance limits.",
+      "assistant_excerpt": "The VeriOps GraphQL API provides a single endpoint for flexible queries across projects, tasks, and users. This page documents the full schema, provides a live query editor, and covers authentication, error handling, and performance limits.",
       "source_file": "demo-showcase/acme/docs/reference/graphql-playground.md"
     },
     {
@@ -45,7 +45,7 @@
         "Reference",
         "API"
       ],
-      "assistant_excerpt": "The Acme gRPC API provides high-performance Remote Procedure Call (RPC) access to project services over HTTP/2 with Protocol Buffers serialization. The HTTP gateway adapter allows you to invoke gRPC methods from any HTTP client without a gRPC library.",
+      "assistant_excerpt": "The VeriOps gRPC API provides high-performance Remote Procedure Call (RPC) access to project services over HTTP/2 with Protocol Buffers serialization. The HTTP gateway adapter allows you to invoke gRPC methods from any HTTP client without a gRPC library.",
       "source_file": "demo-showcase/acme/docs/reference/grpc-gateway.md"
     },
     {
@@ -57,7 +57,7 @@
         "Reference",
         "API"
       ],
-      "assistant_excerpt": "The Acme event system provides asynchronous, event-driven communication for project lifecycle changes. AsyncAPI 2.6.0 contracts define channel schemas, delivery guarantees, and payload formats for three event channels.",
+      "assistant_excerpt": "The VeriOps event system provides asynchronous, event-driven communication for project lifecycle changes. AsyncAPI 2.6.0 contracts define channel schemas, delivery guarantees, and payload formats for three event channels.",
       "source_file": "demo-showcase/acme/docs/reference/asyncapi-events.md"
     },
     {
@@ -69,18 +69,18 @@
         "Reference",
         "API"
       ],
-      "assistant_excerpt": "The Acme WebSocket API provides real-time, bidirectional communication for project updates and task notifications over a persistent connection. This playground allows you to connect, subscribe to channels, send messages, and observe server-pushed events.",
+      "assistant_excerpt": "The VeriOps WebSocket API provides real-time, bidirectional communication for project updates and task notifications over a persistent connection. This playground allows you to connect, subscribe to channels, send messages, and observe server-pushed events.",
       "source_file": "demo-showcase/acme/docs/reference/websocket-events.md"
     },
     {
       "objectID": "guides-tutorial",
       "id": "guides-tutorial",
-      "title": "Tutorial: launch your first Acme API integration",
+      "title": "Tutorial: launch your first VeriOps API integration",
       "url": "guides/tutorial/",
       "tags": [
         "Tutorial"
       ],
-      "assistant_excerpt": "This tutorial walks you through creating your first Acme API project, sending authenticated requests across three protocols (REST, GraphQL, and WebSocket), and verifying the integration works. You complete all five steps in under 15 minutes.",
+      "assistant_excerpt": "This tutorial walks you through creating your first VeriOps API project, sending authenticated requests across three protocols (REST, GraphQL, and WebSocket), and verifying the integration works. You complete all five steps in under 15 minutes.",
       "source_file": "demo-showcase/acme/docs/guides/tutorial.md"
     },
     {
@@ -108,12 +108,12 @@
     {
       "objectID": "guides-troubleshooting",
       "id": "guides-troubleshooting",
-      "title": "Troubleshooting: common Acme pipeline issues",
+      "title": "Troubleshooting: common VeriOps pipeline issues",
       "url": "guides/troubleshooting/",
       "tags": [
         "Troubleshooting"
       ],
-      "assistant_excerpt": "Your Acme documentation pipeline is failing with contract validation errors, quality gate warnings, or build failures. This guide fixes 95% of pipeline issues in under 5 minutes.",
+      "assistant_excerpt": "Your VeriOps documentation pipeline is failing with contract validation errors, quality gate warnings, or build failures. This guide fixes 95% of pipeline issues in under 5 minutes.",
       "source_file": "demo-showcase/acme/docs/guides/troubleshooting.md"
     },
     {
@@ -125,7 +125,7 @@
         "Reference",
         "Quality"
       ],
-      "assistant_excerpt": "This page provides the complete quality evidence generated by the VeriDoc pipeline for the Acme documentation site. It covers KPI metrics, protocol gate results, 24 automated quality checks, RAG retrieval readiness, and all pipeline artifacts.",
+      "assistant_excerpt": "This page provides the complete quality evidence generated by the VeriDoc pipeline for the VeriOps documentation site. It covers KPI metrics, protocol gate results, 32 automated quality checks, RAG retrieval readiness, and all pipeline artifacts.",
       "source_file": "demo-showcase/acme/docs/quality/evidence.md"
     },
     {
@@ -134,7 +134,7 @@
       "title": "quality/review-manifest.md",
       "url": "quality/review-manifest/",
       "tags": [],
-      "assistant_excerpt": "- Runtime config: `/mnt/c/Users/Kroha/Documents/development/Auto-Doc Pipeline/reports/acme-demo/client_runtime.yml` - Weekly run rc: `1` - Strictness: `standard` - Available artifacts: `15` - Missing artifacts: `12`",
+      "assistant_excerpt": "- Runtime config: `/mnt/c/Users/Kroha/Documents/development/Auto-Doc Pipeline/reports/veriops/client_runtime.yml` - Weekly run rc: `1` - Strictness: `standard` - Available artifacts: `15` - Missing artifacts: `12`",
       "source_file": "demo-showcase/acme/docs/quality/review-manifest.md"
     }
   ]

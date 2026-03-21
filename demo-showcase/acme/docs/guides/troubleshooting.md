@@ -5,16 +5,16 @@ content_type: troubleshooting
 product: both
 tags:
   - Troubleshooting
-last_reviewed: "2026-03-19"
+last_reviewed: "2026-03-21"
 ---
 
 # Troubleshooting: common VeriOps pipeline issues
 
 <div class="veriops-badges" markdown>
 
-![Powered by VeriOps](https://img.shields.io/badge/Powered%20by-VeriOps-7c3aed?style=flat-square)
+![Powered by VeriOps](https://img.shields.io/badge/Powered%20by-VeriOps-0b6bcb?style=flat-square)
 ![Quality Score](https://img.shields.io/badge/Quality%20Score-100%25-10b981?style=flat-square)
-![Protocols](https://img.shields.io/badge/Protocols-5-7c3aed?style=flat-square)
+![Protocols](https://img.shields.io/badge/Protocols-5-0b6bcb?style=flat-square)
 
 </div>
 
@@ -27,11 +27,11 @@ Check the pipeline exit code and stage summary first:
 ```bash
 python3 -c "
 import json
-s = json.load(open('reports/acme-demo/pipeline_stage_summary.json'))
+s = json.load(open('reports/pipeline_stage_summary.json'))
 for stage in s.get('stages', []):
     status = 'EXISTS' if stage.get('exists') else 'MISSING'
     print(f'  {stage[\"name\"]}: {status}')
-m = json.load(open('reports/acme-demo/review_manifest.json'))
+m = json.load(open('reports/review_manifest.json'))
 print(f'Exit code: {m[\"weekly_rc\"]}')
 print(f'Available: {m[\"available_artifacts\"]}, Missing: {m[\"missing_artifacts\"]}')"
 ```
@@ -76,7 +76,7 @@ print(f'Available: {m[\"available_artifacts\"]}, Missing: {m[\"missing_artifacts
     ```yaml
     grpc:
       proto_paths:
-        - reports/acme-demo/contracts/grpc
+        - reports/contracts/grpc
     ```
 
 1. Re-run the pipeline:
@@ -84,8 +84,8 @@ print(f'Available: {m[\"available_artifacts\"]}, Missing: {m[\"missing_artifacts
     ```bash
     python3 scripts/run_autopipeline.py \
       --docsops-root . \
-      --reports-dir reports/acme-demo \
-      --runtime-config reports/acme-demo/client_runtime.yml \
+      --reports-dir reports \
+      --runtime-config reports/client_runtime.yml \
       --mode veridoc
     ```
 
@@ -94,7 +94,7 @@ print(f'Available: {m[\"available_artifacts\"]}, Missing: {m[\"missing_artifacts
     ```bash
     python3 -c "
     import json
-    r = json.load(open('reports/acme-demo/multi_protocol_contract_report.json'))
+    r = json.load(open('reports/multi_protocol_contract_report.json'))
     print('Failed:', r.get('failed_protocols', []))"
     ```
 
@@ -113,7 +113,7 @@ print(f'Available: {m[\"available_artifacts\"]}, Missing: {m[\"missing_artifacts
     ```bash
     python3 -c "
     import json
-    r = json.load(open('reports/acme-demo/doc_gaps_report.json'))
+    r = json.load(open('reports/doc_gaps_report.json'))
     high = [g for g in r.get('gaps', []) if g.get('priority') == 'high']
     print(f'{len(high)} high-priority gaps:')
     for g in high:
@@ -134,7 +134,7 @@ print(f'Available: {m[\"available_artifacts\"]}, Missing: {m[\"missing_artifacts
     ```bash
     python3 -c "
     import json
-    print(json.load(open('reports/acme-demo/kpi-wall.json'))['quality_score'])"
+    print(json.load(open('reports/kpi-wall.json'))['quality_score'])"
     ```
 
 ## MkDocs build fails with theme error
@@ -165,11 +165,11 @@ Expected output: `INFO - Documentation built in X.XX seconds`
 
 ### Fix WebSocket connection in 1 minute
 
-- Verify the endpoint uses `wss://` (not `ws://`). The correct endpoint is `wss://api.acme.example/realtime`.
+- Verify the endpoint uses `wss://` (not `ws://`). The correct endpoint is `wss://api.veriops.example/realtime`.
 - Confirm the endpoint is accessible from your network. Try from the command line:
 
     ```bash
-    curl -s -o /dev/null -w "%{http_code}" https://api.acme.example/realtime
+    curl -s -o /dev/null -w "%{http_code}" https://api.veriops.example/realtime
     ```
 
 - Check browser developer tools (Console tab) for specific error messages.
@@ -177,7 +177,7 @@ Expected output: `INFO - Documentation built in X.XX seconds`
 
 ## Pipeline reports directory is empty
 
-**You see:** The `reports/acme-demo/` directory contains no JSON files after running the autopipeline.
+**You see:** The `reports/` directory contains no JSON files after running the autopipeline.
 
 **Root cause:** The runtime config path is incorrect, or the `--reports-dir` argument points to a different location.
 
@@ -186,7 +186,7 @@ Expected output: `INFO - Documentation built in X.XX seconds`
 1. Verify the runtime config exists:
 
     ```bash
-    ls -la reports/acme-demo/client_runtime.yml
+    ls -la reports/client_runtime.yml
     ```
 
 1. Run the pipeline with explicit paths:
@@ -194,15 +194,15 @@ Expected output: `INFO - Documentation built in X.XX seconds`
     ```bash
     python3 scripts/run_autopipeline.py \
       --docsops-root . \
-      --reports-dir reports/acme-demo \
-      --runtime-config reports/acme-demo/client_runtime.yml \
+      --reports-dir reports \
+      --runtime-config reports/client_runtime.yml \
       --mode veridoc
     ```
 
 1. Verify reports are generated:
 
     ```bash
-    ls reports/acme-demo/*.json | head -10
+    ls reports/*.json | head -10
     ```
 
     Expected output: at least 5 JSON report files.
@@ -220,7 +220,7 @@ Expected output: `INFO - Documentation built in X.XX seconds`
     ```bash
     python3 -c "
     import json
-    r = json.load(open('reports/acme-demo/retrieval_evals_report.json'))
+    r = json.load(open('reports/retrieval_evals_report.json'))
     print(f'Status: {r[\"status\"]}')
     print(f'Precision: {r[\"precision\"]}')
     print(f'Recall: {r[\"recall\"]}')
@@ -272,8 +272,8 @@ Expected output: `INFO - Documentation built in X.XX seconds`
     ```bash
     python3 scripts/run_autopipeline.py \
       --docsops-root . \
-      --reports-dir reports/acme-demo \
-      --runtime-config reports/acme-demo/client_runtime.yml \
+      --reports-dir reports \
+      --runtime-config reports/client_runtime.yml \
       --mode veridoc
     ```
 

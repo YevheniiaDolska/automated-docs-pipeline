@@ -9,7 +9,7 @@
 
   var MOCK_BASE = 'https://662b99a9-ac2a-4096-8a8e-480a73cef3e3.mock.pstmn.io';
 
-  window.ACME_SANDBOX = {
+  window.VERIOPS_SANDBOX = {
     postman_api_key:    '__POSTMAN_API_KEY__',
     rest_base_url:      MOCK_BASE + '/v1',
     graphql_url:        MOCK_BASE + '/graphql',

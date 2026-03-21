@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Acme REST API - Swagger UI</title>
+    <title>VeriOps REST API - Swagger UI</title>
     <link rel="stylesheet" href="https://unpkg.com/swagger-ui-dist@5/swagger-ui.css" />
   </head>
   <body>
@@ -26,9 +26,9 @@
           { id: 'tsk_004', project_id: 'prj_def456', title: 'Configure push notifications', status: 'pending', priority: 'low', assignee_id: null, created_at: '2026-03-01T12:00:00Z', completed_at: null }
         ],
         users: [
-          { id: 'usr_012', name: 'Alice Chen', email: 'alice.chen@acme.example', role: 'admin', avatar_url: 'https://api.acme.example/avatars/usr_012.png', created_at: '2025-06-01T00:00:00Z' },
-          { id: 'usr_034', name: 'Bob Martinez', email: 'bob.martinez@acme.example', role: 'member', avatar_url: 'https://api.acme.example/avatars/usr_034.png', created_at: '2025-08-15T00:00:00Z' },
-          { id: 'usr_056', name: 'Carol Nakamura', email: 'carol.nakamura@acme.example', role: 'viewer', avatar_url: 'https://api.acme.example/avatars/usr_056.png', created_at: '2026-01-10T00:00:00Z' }
+          { id: 'usr_012', name: 'Alice Chen', email: 'alice.chen@veriops.example', role: 'admin', avatar_url: 'https://api.veriops.example/avatars/usr_012.png', created_at: '2025-06-01T00:00:00Z' },
+          { id: 'usr_034', name: 'Bob Martinez', email: 'bob.martinez@veriops.example', role: 'member', avatar_url: 'https://api.veriops.example/avatars/usr_034.png', created_at: '2025-08-15T00:00:00Z' },
+          { id: 'usr_056', name: 'Carol Nakamura', email: 'carol.nakamura@veriops.example', role: 'viewer', avatar_url: 'https://api.veriops.example/avatars/usr_056.png', created_at: '2026-01-10T00:00:00Z' }
         ],
         tags: [
           { id: 'tag_frontend', name: 'frontend', color: '#3b82f6' },
@@ -196,7 +196,7 @@
         }
 
         // Intercept API calls (anything with /v1/ or mock server URL)
-        if (url.indexOf('/v1') !== -1 || url.indexOf('mock.pstmn.io') !== -1 || url.indexOf('acme.example') !== -1) {
+        if (url.indexOf('/v1') !== -1 || url.indexOf('mock.pstmn.io') !== -1 || url.indexOf('veriops.example') !== -1) {
           var mockResult = mockResponse({ url: url, method: method, body: init && init.body });
           var statusCode = mockResult === null ? 204 : 200;
           if (method === 'POST') statusCode = 201;

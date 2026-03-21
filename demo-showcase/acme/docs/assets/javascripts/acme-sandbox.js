@@ -4,14 +4,14 @@
  * Patches all protocol interactive testers to use Postman mock
  * server endpoints with proper authentication headers.
  *
- * Reads config from window.ACME_SANDBOX (set by sandbox-config.js).
+ * Reads config from window.VERIOPS_SANDBOX (populated by sandbox-config.js).
  */
 (function () {
   'use strict';
-  window.__ACME_SANDBOX_CONTROLLER__ = true;
+  window.__VERIOPS_SANDBOX_CONTROLLER__ = true;
 
   function getConfig() {
-    var cfg = window.ACME_SANDBOX || {};
+    var cfg = window.VERIOPS_SANDBOX || {};
     return {
       rest:      cfg.rest_base_url      || '',
       asyncapi:  cfg.asyncapi_ws_url    || '',
@@ -384,7 +384,6 @@
   }
 
   /* WebSocket: local semantic mock responses for reliable demo */
-  var wsConnected = false;
   function initWebSocket(cfg) {
     var epInput = document.getElementById('ws-ep');
     if (epInput) { epInput.value = cfg.websocket || 'wss://api.veriops.example/realtime'; }
@@ -394,21 +393,23 @@
     var out = document.getElementById('ws-out');
     var msgEl = document.getElementById('ws-msg');
     if (!connectBtn || !sendBtn || !closeBtn || !out || !msgEl) return;
-    if (connectBtn.__veriops_bound) return;
-    connectBtn.__veriops_bound = true;
-    wsConnected = false;
+    /* Use a data attribute on the output element to track connection state.
+       This survives MkDocs instant-loading page swaps because we always
+       rebind to the NEW DOM elements on every init() call. */
+    function isConnected() { return out.dataset.wsConnected === '1'; }
+    function setConnected(v) { out.dataset.wsConnected = v ? '1' : '0'; }
     function log(msg) {
       out.textContent += '\n[' + new Date().toLocaleTimeString() + '] ' + msg;
       out.scrollTop = out.scrollHeight;
     }
     connectBtn.onclick = function () {
       out.textContent = '';
-      wsConnected = true;
+      setConnected(true);
       log('Connected to ' + (epInput ? epInput.value : 'wss://api.veriops.example/realtime'));
       log('Ready to send messages.');
     };
     sendBtn.onclick = function () {
-      if (!wsConnected) {
+      if (!isConnected()) {
         log('Not connected. Click Connect first.');
         return;
       }
@@ -421,7 +422,7 @@
       }, 200);
     };
     closeBtn.onclick = function () {
-      wsConnected = false;
+      setConnected(false);
       log('Disconnected.');
     };
   }

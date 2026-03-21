@@ -1,18 +1,18 @@
 openapi: 3.0.3
 info:
-  title: Acme Project Management API
+  title: VeriOps Project Management API
   description: >
-    The Acme API provides programmatic access to project management resources
+    The VeriOps API provides programmatic access to project management resources
     including projects, tasks, users, tags, and comments. All endpoints require
     Bearer JWT authentication and return JSON responses.
   version: 1.2.0
   contact:
-    name: Acme API Support
-    email: support@acme.example
-    url: https://docs.acme.example
+    name: VeriOps API Support
+    email: support@veriops.example
+    url: https://docs.veriops.example
 
 servers:
-  - url: https://api.acme.example/v1
+  - url: https://api.veriops.example/v1
     description: Production
   - url: https://662b99a9-ac2a-4096-8a8e-480a73cef3e3.mock.pstmn.io/v1
     description: Sandbox (Postman mock)
@@ -513,15 +513,15 @@ paths:
                 data:
                   - id: usr_456
                     name: Alice Chen
-                    email: alice@acme.example
+                    email: alice@veriops.example
                     role: admin
-                    avatar_url: https://api.acme.example/avatars/usr_456.png
+                    avatar_url: https://api.veriops.example/avatars/usr_456.png
                     created_at: "2025-06-15T08:00:00Z"
                   - id: usr_789
                     name: Bob Martinez
-                    email: bob@acme.example
+                    email: bob@veriops.example
                     role: member
-                    avatar_url: https://api.acme.example/avatars/usr_789.png
+                    avatar_url: https://api.veriops.example/avatars/usr_789.png
                     created_at: "2025-09-20T12:00:00Z"
                 pagination:
                   page: 1
@@ -545,7 +545,7 @@ paths:
               $ref: '#/components/schemas/CreateUserRequest'
             example:
               name: Carol Williams
-              email: carol@acme.example
+              email: carol@veriops.example
               role: member
       responses:
         '201':
@@ -557,9 +557,9 @@ paths:
               example:
                 id: usr_012
                 name: Carol Williams
-                email: carol@acme.example
+                email: carol@veriops.example
                 role: member
-                avatar_url: https://api.acme.example/avatars/usr_012.png
+                avatar_url: https://api.veriops.example/avatars/usr_012.png
                 created_at: "2026-03-19T10:00:00Z"
         '400':
           $ref: '#/components/responses/ValidationError'
@@ -588,9 +588,9 @@ paths:
               example:
                 id: usr_456
                 name: Alice Chen
-                email: alice@acme.example
+                email: alice@veriops.example
                 role: admin
-                avatar_url: https://api.acme.example/avatars/usr_456.png
+                avatar_url: https://api.veriops.example/avatars/usr_456.png
                 created_at: "2025-06-15T08:00:00Z"
         '401':
           $ref: '#/components/responses/Unauthorized'
@@ -1121,7 +1121,7 @@ components:
           type: string
           format: email
           description: Email address
-          example: alice@acme.example
+          example: alice@veriops.example
         role:
           type: string
           description: Organization role
@@ -1132,7 +1132,7 @@ components:
           format: uri
           nullable: true
           description: URL to avatar image or null if not set
-          example: https://api.acme.example/avatars/usr_456.png
+          example: https://api.veriops.example/avatars/usr_456.png
         created_at:
           type: string
           format: date-time
@@ -1153,7 +1153,7 @@ components:
           type: string
           format: email
           description: Email address for invitation
-          example: carol@acme.example
+          example: carol@veriops.example
         role:
           type: string
           description: Organization role (defaults to member)
