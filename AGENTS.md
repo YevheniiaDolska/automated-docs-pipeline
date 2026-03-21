@@ -13,18 +13,26 @@ This is an automated documentation pipeline for technical products. When writing
 
 ## Mandatory pipeline execution for API docs
 
-When a user asks to generate or update OpenAPI from planning notes, you MUST run the API-first pipeline flow. Do not generate ad-hoc API files without running the flow.
+The pipeline supports five API protocols: REST (OpenAPI), GraphQL (SDL/introspection), gRPC (Proto/descriptor), AsyncAPI (event-driven specs), and WebSocket (channel/message contracts).
+
+When a user asks to generate or update API contracts from planning notes, you MUST run the appropriate pipeline flow. Do not generate ad-hoc API files without running the flow.
 
 Required behavior:
 
-\11. Treat planning notes as source input artifact.
-\11. Generate OpenAPI from notes using pipeline scripts.
-\11. Run full API-first checks (contract validation, lint stack, stub generation, self-verification, sandbox/docs sync, API test assets generation, optional TestRail/Zephyr upload).
-\11. Report results and produced artifact paths.
+1. Treat planning notes as source input artifact.
+1. Generate the contract from notes using pipeline scripts.
+1. For REST-only changes, run the API-first flow (`scripts/run_api_first_flow.py`).
+1. For multi-protocol changes, run the multi-protocol contract flow (`scripts/run_multi_protocol_contract_flow.py --runtime-config docsops/config/client_runtime.yml --reports-dir reports`).
+1. Run full checks per protocol (contract validation, lint stack, regression, docs generation, quality gates, test assets generation with smart merge, optional TestRail/Zephyr upload).
+1. Report results and produced artifact paths.
+1. After any contract change, regenerate test assets (`scripts/generate_protocol_test_assets.py`) and check `needs_review_ids` in merge output for stale custom cases.
 
-Hard rule:
+Hard rules:
 
 - If request intent is `generate OpenAPI`, `API-first`, or `planning notes -> spec`, always use pipeline entry points (`scripts/run_api_first_flow.py` and related scripts), not freeform one-off generation.
+- If the request involves GraphQL, gRPC, AsyncAPI, or WebSocket contracts, use the multi-protocol pipeline entry point (`scripts/run_multi_protocol_contract_flow.py`).
+- Protocol-specific validators: REST (`scripts/validate_openapi_contract.py`), GraphQL (`scripts/validate_graphql_contract.py`), gRPC (`scripts/validate_proto_contract.py`), AsyncAPI (`scripts/validate_asyncapi_contract.py`), WebSocket (`scripts/validate_websocket_contract.py`).
+- After generating or updating any document, run the knowledge module pipeline (extract, validate, rebuild index). See "Knowledge module pipeline (RAG preparation)" section below.
 
 ## Stripe-level documentation quality principles
 
@@ -34,11 +42,11 @@ Hard rule:
 
 **Every document MUST:**
 
-\11. **Start with the user's goal** - What are they trying to achieve?
-\11. **Provide working code immediately** - Show, don't tell
-\11. **Explain the why, not just the how** - Context matters
-\11. **Include realistic examples** - Not "foo/bar" but actual use cases
-\11. **Anticipate next steps** - What will they need after this?
+1. **Start with the user's goal** - What are they trying to achieve?
+1. **Provide working code immediately** - Show, don't tell
+1. **Explain the why, not just the how** - Context matters
+1. **Include realistic examples** - Not "foo/bar" but actual use cases
+1. **Anticipate next steps** - What will they need after this?
 
 ### The Stripe documentation formula
 
@@ -62,9 +70,9 @@ const result = await stripe.charges.create({
 
 **Progressive disclosure:**
 
-\11. Simple case first (80% of users)
-\11. Common variations (15% of users)
-\11. Advanced scenarios (5% of users)
+1. Simple case first (80% of users)
+1. Common variations (15% of users)
+1. Advanced scenarios (5% of users)
 
 ### Quality checklist for every document
 
@@ -140,28 +148,28 @@ try {
 
 **When creating documentation, ensure consistency:**
 
-\11. **Check for relevant templates in `templates/` directory:**
+1. **Check for relevant templates in `templates/` directory:**
 
 - If a matching template exists, use it as base
 - Copy it: `cp templates/[template] docs/[section]/[new-file].md`
 - Edit content while keeping structure
 
-\11. **OR use VS Code snippets from `.vscode/docs.code-snippets`:**
+1. **OR use VS Code snippets from `.vscode/docs.code-snippets`:**
 
 - Type snippet prefix (doc-tutorial, doc-howto, etc.) and press Tab
 - Ensures consistent structure across documentation
 
-\11. **If no template matches, create carefully:**
+1. **If no template matches, create one first:**
 
-- Follow the structure from similar existing documents
-- Include all required frontmatter fields
-- Follow all formatting and SEO/GEO rules
+- Create a new Stripe-quality template with formatting consistent with existing templates in `templates/`
+- Save the template to the `templates/` directory with a descriptive name
+- Then use the saved template to create the actual document
 
-\11. **ALWAYS update `mkdocs.yml` navigation:**
+1. **ALWAYS update `mkdocs.yml` navigation:**
 
 - Add new document to appropriate section in nav
 - Use descriptive titles, maintain logical order
-- Claude should ALWAYS update mkdocs.yml when adding docs
+- Codex should ALWAYS update mkdocs.yml when adding docs
 
 **Why this matters:** templates and snippets ensure:
 
@@ -284,7 +292,7 @@ Use these templates based on `content_type`:
 **Vale Configuration:**
 
 - **American English** - Use American spelling only
-- **Google Developer Style Guide** - Primary style guide for the documentation
+- **Style guide** - Primary style guide is configured per project (Google Developer Style Guide or Microsoft Style Guide). Check `.vale.ini` for the active style package.
 - **write-good** - Clear, concise writing rules
 
 **Specific Vale Rules to Follow:**
@@ -296,7 +304,7 @@ Use these templates based on `content_type`:
 - Use "license" (verb and noun)
 - Use "canceled" instead of British spelling
 
-**Google Style Guide Requirements:**
+**Google Style Guide Requirements** (when Google is the active style):
 
 - **Acronyms**: Write out on first use: "Application Programming Interface (API)"
 - **Contractions**: Avoid them. Use "do not" instead of "don't"
@@ -304,6 +312,16 @@ Use these templates based on `content_type`:
 - **Oxford comma**: Always use it: "red, white, and blue"
 - **Headings**: Use sentence case, not Title Case
 - **Lists**: Use parallel structure (all items start with same part of speech)
+
+**Microsoft Style Guide Requirements** (when Microsoft is the active style):
+
+- **Acronyms**: Spell out on first mention, then use the acronym: "representational state transfer (REST)"
+- **Contractions**: Use them for a conversational tone: "don't," "isn't," "you'll"
+- **Numbers**: Use numerals for all numbers, including 1-9
+- **Oxford comma**: Always use it
+- **Headings**: Use sentence case
+- **Bias-free language**: Use gender-neutral terms ("they" instead of "he/she")
+- **Active voice**: Required ("Select the menu" not "The menu is selected")
 
 **write-good Rules:**
 
@@ -351,26 +369,32 @@ Use these templates based on `content_type`:
 
 ```
 
-**Content tabs:**
+**Content tabs** (tab names are project-specific, defined in project configuration):
 
 ```markdown
-=== "Cloud"
+=== "Tab A"
 
-    Cloud-specific content
+    Content for variant A
 
-=== "Self-hosted"
+=== "Tab B"
 
-    Self-hosted content
+    Content for variant B
 
 ```
 
+Use content tabs when readers need to choose between mutually exclusive variants (deployment modes, operating systems, programming languages, plan tiers). Tab names must match the project's configured variants.
+
 ### Allowed tags
 
-Use only these tags (defined in `mkdocs.yml`):
+Tags are project-specific. Check the `tags` section in `mkdocs.yml` for the list of allowed tags for the current project. Every tag you use in a document's frontmatter MUST exist in that list.
+
+Standard content-type tags available in all projects:
 
 - Tutorial, How-To, Concept, Reference, Troubleshooting
-- Cloud, Self-hosted
-- Webhook, Nodes, AI
+
+Domain-specific tags (vary by project, check `mkdocs.yml`):
+
+- Examples: API, Architecture, Operations, Quality, Deployment, Security, Webhook, GraphQL, gRPC, AsyncAPI, WebSocket
 
 ### File naming
 
@@ -399,6 +423,8 @@ Configure {{ product_name }} using environment variable {{ env_vars.port }}.
 
 ### Available variables in `_variables.yml`
 
+This is a snapshot example. Any project-specific variables can be added to `_variables.yml` as needed. The list below is not restrictive; it shows common categories.
+
 ```yaml
 # Product info
 product_name: "ProductName"
@@ -424,6 +450,8 @@ env_vars:
 # Limits
 max_payload_size_mb: 16
 rate_limit_requests_per_minute: 60
+
+# Add any project-specific variables here
 ```
 
 ### Examples of proper usage
@@ -446,15 +474,18 @@ Set the port using PRODUCT_PORT  # Should use env_vars.port
 
 ## Pre-commit checks
 
-Before committing, these checks run automatically:
+Before committing, these checks run automatically in order (8 stages):
 
-\11. **Vale** (style - American English, Google/Microsoft Style Guide, write-good)
-\11. **markdownlint** (formatting)
-\11. **cspell** (spelling)
-\11. **validate_frontmatter.py** (metadata)
-\11. **seo_geo_optimizer.py** (comprehensive SEO/GEO optimization)
+1. **Stage 0a: normalize_docs.py** (normalizes whitespace, trailing newlines, UTF-8 encoding)
+1. **Stage 0: API contract validation** (REST: Spectral + Redocly + swagger-cli + `validate_openapi_contract.py`; GraphQL: `validate_graphql_contract.py`; gRPC: `validate_proto_contract.py`; AsyncAPI: `validate_asyncapi_contract.py`; WebSocket: `validate_websocket_contract.py`)
+1. **Stage 1: Vale** (style - American English, Google/Microsoft Style Guide, write-good)
+1. **Stage 2: markdownlint** (Markdown formatting)
+1. **Stage 3: cspell** (spelling)
+1. **Stage 4: validate_frontmatter.py** (YAML frontmatter metadata)
+1. **Stage 5: seo_geo_optimizer.py** (comprehensive SEO/GEO optimization)
+1. **Stage 6: validate_knowledge_modules.py** (knowledge-retrieval module structure)
 
-**Vale runs with strict configuration - no --no-exit flag.**
+**All stages block commits on failure. Write correctly the first time.**
 
 - ALL Vale errors and warnings block commits
 - Write correctly the first time to avoid iterations
@@ -463,48 +494,53 @@ Before committing, these checks run automatically:
 To run manually:
 
 ```bash
-# Run Vale style checks (MUST pass!)
-vale docs/path/to/file.md
-
-# Run all SEO/GEO checks
-python3 scripts/seo_geo_optimizer.py docs/
-
-# Run with auto-fix
-python3 scripts/seo_geo_optimizer.py docs/ --fix
-
 # Run all checks at once
 npm run lint
 
 # Individual checks
+vale docs/path/to/file.md
 markdownlint docs/path/to/file.md
+npx cspell docs/path/to/file.md
+python3 scripts/validate_frontmatter.py
+python3 scripts/seo_geo_optimizer.py docs/
+python3 scripts/seo_geo_optimizer.py docs/ --fix
+python3 scripts/validate_knowledge_modules.py
+python3 scripts/normalize_docs.py docs/
+python3 scripts/validate_openapi_contract.py docs/assets/protocols/rest/openapi.yaml
 ```
 
 ## Creating new documents
+
+### When to create a new document vs update an existing one
+
+- **Create new** when: a new feature/API/concept has no existing doc; a new content type is needed (for example, tutorial for a feature that only has a reference page); a new version requires a separate migration guide.
+- **Update existing** when: code changes affect behavior already documented; a bug fix changes documented steps; an API endpoint adds new parameters or fields; configuration options change.
+- **Rule of thumb:** Search `docs/` for the topic first. If a doc exists and covers the subject, update it. If the subject is new or a different content type is needed, create a new doc from a template.
 
 ### Terminology governance (mandatory)
 
 For every document generation/update:
 
-\11. Read `glossary.yml` first and use preferred terms.
-\11. If a term already exists in `glossary.yml`, use that preferred term exactly and do not replace it with a synonym.
-\11. If you introduce a new project term, add marker in the document:
+1. Read `glossary.yml` first and use preferred terms.
+1. If a term already exists in `glossary.yml`, use that preferred term exactly and do not replace it with a synonym.
+1. If you introduce a new project term, add marker in the document:
    `<!-- glossary:add: Term | Description | alias-one, alias-two -->`
-\11. Run:
+1. Run:
    `python3 scripts/sync_project_glossary.py --paths docs --glossary glossary.yml --report reports/glossary_sync_report.json --write`
-\11. Keep marker descriptions concrete and product-specific.
+1. Keep marker descriptions concrete and product-specific.
 
 ### Use templates and snippets for consistency
 
 **ALWAYS use existing templates and snippets when creating new documentation:**
 
-\11. **Check for existing templates first:**
+1. **Check for existing templates first:**
 
    ```bash
    ls templates/
 
 ```bash
 
-   Available templates include:
+   Available templates:
 
    - `tutorial.md` - Step-by-step learning guides
    - `how-to.md` - Task-oriented guides
@@ -513,10 +549,35 @@ For every document generation/update:
    - `troubleshooting.md` - Problem-solving guides
    - `quickstart.md` - Getting started quickly
    - `api-reference.md` - API documentation
+   - `api-endpoint.md` - Single API endpoint reference
    - `webhooks-guide.md` - Webhook-specific docs
-   - And many more specialized templates
+   - `admin-guide.md` - Administration guides
+   - `architecture-overview.md` - Architecture documentation
+   - `authentication-guide.md` - Auth flow documentation
+   - `best-practices.md` - Best practices guides
+   - `changelog.md` - Changelog entries
+   - `configuration-guide.md` - Configuration how-to
+   - `configuration-reference.md` - Configuration reference
+   - `deployment-guide.md` - Deployment instructions
+   - `error-handling-guide.md` - Error handling docs
+   - `faq.md` - FAQ pages
+   - `glossary-page.md` - Glossary page
+   - `integration-guide.md` - Integration guides
+   - `migration-guide.md` - Migration guides
+   - `plg-persona-guide.md` - PLG persona guide
+   - `plg-value-page.md` - PLG value page
+   - `release-note.md` - Release notes
+   - `sdk-reference.md` - SDK reference docs
+   - `security-guide.md` - Security documentation
+   - `testing-guide.md` - Testing guides
+   - `upgrade-guide.md` - Upgrade instructions
+   - `use-case.md` - Use case documentation
+   - `user-guide.md` - End-user guides
+   - `interactive-diagram.html` - Interactive diagram template
+   - `protocols/` - Protocol-specific templates (AsyncAPI, GraphQL, gRPC, WebSocket)
+   - `legal/` - Legal templates (LICENSE-COMMERCIAL, NOTICE)
 
-\11. **Copy the most relevant template:**
+1. **Copy the most relevant template:**
 
    ```bash
    # Example: Creating a new webhook how-to guide
@@ -524,22 +585,21 @@ For every document generation/update:
 
 ```
 
-\11. **OR use VS Code snippets (preferred for consistency):**
+1. **OR use VS Code snippets (preferred for consistency):**
 
 - Type the snippet prefix and press Tab
-- Available snippets:
+- Available snippets: see the full list in [Snippet prefixes for VS Code](#snippet-prefixes-for-vs-code) below. Common ones:
   - `doc-tutorial` - Full tutorial with all sections
   - `doc-howto` - How-to guide structure
   - `doc-concept` - Concept explanation
   - `doc-reference` - Reference documentation
-  - `doc-troubleshoot` - Troubleshooting guide
-  - `fm` - Basic frontmatter only
-  - `note`, `warning`, `tip` - Admonition blocks
-  - `tabs` - Content tabs for cloud and self-hosted versions
-  - `mermaid-flow` - Flow diagrams
-  - `table-params` - Parameter tables
+  - `trouble-guide` - Troubleshooting guide
+  - `api-endpoint` - API endpoint block
+  - `doc-webhooks` - Webhooks guide
+  - `doc-config-guide` - Configuration guide
+  - `stripe-perf`, `stripe-errors` - Quick Stripe-style blocks
 
-\11. **Determine the correct location:**
+1. **Determine the correct location:**
 
 - `docs/getting-started/` - Tutorials and quickstarts
 - `docs/how-to/` - Step-by-step task guides
@@ -549,7 +609,7 @@ For every document generation/update:
 - `docs/troubleshooting/` - Problem resolution
 - `docs/` - Top-level pages (index, tags, etc.)
 
-\11. **Update navigation in mkdocs.yml:**
+1. **Update navigation in mkdocs.yml:**
 
    ```yaml
    nav:
@@ -577,20 +637,57 @@ For every document generation/update:
 
 ```
 
-\11. **File naming conventions:**
+1. **File naming conventions:**
 
 - Use kebab-case: `configure-webhook-trigger.md`
 - Be descriptive: `webhook-hmac-authentication.md` not `auth.md`
 - Match the title (slugified)
 
-\11. **Content requirements:**
+1. **Content requirements:**
 
 - Fill in all required frontmatter fields
 - Keep first paragraph under 60 words
 - Include concrete examples and code
 - Follow GEO and style rules
 
-\11. **Validate before committing:**
+1. **Use variables from `_variables.yml`:**
+
+- Never hardcode product names, URLs, ports, versions, or limits
+- Use `{{ variable_name }}` syntax (MkDocs macros plugin)
+- If a value might change across deployments, add it to `_variables.yml`
+
+1. **Self-verification before saving:**
+
+- Run `vale` on the file and fix all errors/warnings
+- Run `markdownlint` and fix formatting issues
+- Check frontmatter against `docs-schema.yml`
+- Verify all links point to existing files
+- Confirm code examples are complete and runnable
+- Check for hardcoded values that should use variables
+
+1. **RAG preparation (knowledge module pipeline):**
+
+- Ensure the document has a clear, descriptive `title` and `description` in frontmatter -- these become the module's `title` and `summary` fields
+- Use semantic headings (H2/H3) that describe the content (not generic like "Overview") -- headings drive chunking boundaries
+- Keep sections focused on a single topic -- the extractor chunks at ~1400 characters per section, splitting on H2/H3 headers first, then paragraphs
+- Add `tags` in frontmatter for discoverability -- tags propagate to the knowledge module and are used for retrieval filtering
+- Set `content_type` correctly -- it drives automatic intent inference (`tutorial/how-to` -> `configure`, `troubleshooting` -> `troubleshoot`, `reference/concept` -> `integrate`)
+- Run the full knowledge pipeline after document changes:
+
+   ```bash
+   # 1. Extract modules from docs (auto-chunks, infers intents/audiences)
+   python3 scripts/extract_knowledge_modules_from_docs.py \
+     --docs-dir docs --modules-dir knowledge_modules \
+     --report reports/knowledge_auto_extract_report.json
+
+   # 2. Validate module schema (required fields, no duplicate IDs, no circular deps)
+   python3 scripts/validate_knowledge_modules.py
+
+   # 3. Rebuild retrieval index (JSON records for Algolia + FAISS)
+   python3 scripts/generate_knowledge_retrieval_index.py
+   ```
+
+1. **Validate before committing:**
 
    ```bash
    # Run all checks
@@ -599,6 +696,7 @@ For every document generation/update:
    # Or individual checks
    python3 scripts/validate_frontmatter.py
    python3 scripts/seo_geo_optimizer.py docs/your-new-file.md
+   python3 scripts/validate_knowledge_modules.py
 
 ```bash
 
@@ -611,10 +709,27 @@ For every document generation/update:
 | Specific task | `how-to.md` | `docs/how-to/` | `doc-howto` |
 | Architecture/theory | `concept.md` | `docs/concepts/` | `doc-concept` |
 | API endpoints | `api-reference.md` | `docs/reference/` | `doc-reference` |
+| Single endpoint | `api-endpoint.md` | `docs/reference/` | `api-endpoint` |
 | Node details | `reference.md` | `docs/reference/nodes/` | `doc-reference` |
-| Webhook features | `webhooks-guide.md` | Appropriate section | `doc-howto` |
-| Common problems | `troubleshooting.md` | `docs/troubleshooting/` | `doc-troubleshoot` |
-| Version changes | `release-note.md` | `docs/releases/` | `doc-release` |
+| Webhook features | `webhooks-guide.md` | Appropriate section | `doc-webhooks` |
+| Authentication | `authentication-guide.md` | `docs/how-to/` | `doc-auth` |
+| Configuration how-to | `configuration-guide.md` | `docs/how-to/` | `doc-config-guide` |
+| Configuration ref | `configuration-reference.md` | `docs/reference/` | `doc-config-ref` |
+| Deployment | `deployment-guide.md` | `docs/how-to/` | `deploy-guide` |
+| Error handling | `error-handling-guide.md` | `docs/reference/` | `doc-error-guide` |
+| Integration guide | `integration-guide.md` | `docs/how-to/` | `doc-integration-guide` |
+| Migration | `migration-guide.md` | `docs/how-to/` | `doc-howto` |
+| SDK reference | `sdk-reference.md` | `docs/reference/` | `doc-sdk-ref` |
+| Security | `security-guide.md` | `docs/reference/` | `doc-security-guide` |
+| Testing | `testing-guide.md` | `docs/how-to/` | `doc-testing-guide` |
+| FAQ | `faq.md` | `docs/` | `doc-faq` |
+| Glossary | `glossary-page.md` | `docs/` | `doc-glossary` |
+| Use cases | `use-case.md` | `docs/concepts/` | `doc-usecase` |
+| Common problems | `troubleshooting.md` | `docs/troubleshooting/` | `trouble-guide` |
+| Version changes | `release-note.md` | `docs/releases/` | `doc-changelog` |
+| Upgrade steps | `upgrade-guide.md` | `docs/how-to/` | `doc-howto` |
+| Admin guide | `admin-guide.md` | `docs/how-to/` | `doc-howto` |
+| Best practices | `best-practices.md` | `docs/concepts/` | `doc-concept` |
 
 ### Navigation Update Checklist
 
@@ -630,9 +745,9 @@ When adding a new document:
 
 ### Automated Navigation Management
 
-**How Claude should handle document placement:**
+**How Codex should handle document placement:**
 
-\11. **Automatic location selection based on content_type:**
+1. **Automatic location selection based on content_type:**
 
 ```text
    content_type: tutorial → docs/getting-started/
@@ -643,7 +758,7 @@ When adding a new document:
 
 ```
 
-\11. **Automatic mkdocs.yml update - Claude MUST:**
+1. **Automatic mkdocs.yml update - Codex MUST:**
 
 - Read current mkdocs.yml structure
 - Find the appropriate nav section based on content_type
@@ -651,24 +766,24 @@ When adding a new document:
 - Maintain logical ordering (alphabetical or by complexity)
 - Example commit message: "Add webhook authentication guide to how-to section"
 
-\11. **Smart placement logic Claude should follow:**
+1. **Smart placement logic Codex should follow:**
 
    ```yaml
    # If adding a new webhook how-to:
 
-\11. File goes in: docs/how-to/configure-webhook-auth.md
-\11. Update mkdocs.yml nav section "How-To Guides"
-\11. Place alphabetically or after related webhook docs
-\11. Use descriptive title: "Configure webhook authentication"
+1. File goes in: docs/how-to/configure-webhook-auth.md
+1. Update mkdocs.yml nav section "How-To Guides"
+1. Place alphabetically or after related webhook docs
+1. Use descriptive title: "Configure webhook authentication"
 
 ```yaml
 
-\11. **GitHub Actions will verify:**
+1. **GitHub Actions will verify:**
    - No orphaned pages (files not in nav)
    - Proper categorization
    - Creates issues if navigation needs fixing
 
-\11. **Example nav update:**
+1. **Example nav update:**
 
    ```yaml
    # When adding a new webhook authentication guide:
@@ -685,26 +800,71 @@ When adding a new document:
 
 ### Snippet prefixes for VS Code
 
+**Document templates:**
+
 - `doc-tutorial` - Full tutorial template
 - `doc-howto` - How-to guide template
 - `doc-concept` - Concept explanation template
 - `doc-reference` - Reference page template
-- `doc-troubleshoot` - Troubleshooting template
-- `doc-release` - Release note template
-- `fm` - Basic frontmatter
-- `note`, `warning`, `tip` - Admonition blocks
-- `tabs` - Content tabs
-- `mermaid-flow`, `mermaid-seq` - Diagrams
-- `table-params`, `table-compare` - Tables
+- `doc-webhooks` - Webhooks guide template
+- `doc-auth` - Authentication guide template
+- `doc-changelog` - Changelog template
+- `doc-config-guide` - Configuration guide template
+- `doc-config-ref` - Configuration reference template
+- `doc-error-guide` - Error handling guide template
+- `doc-faq` - FAQ template
+- `doc-glossary` - Glossary page template
+- `doc-integration-guide` - Integration guide template
+- `doc-sdk-ref` - SDK reference template
+- `doc-security-guide` - Security guide template
+- `doc-testing-guide` - Testing guide template
+- `doc-usecase` - Use case template
+- `doc-hook` - Doc hook template
+- `doc-quality` - Quality checklist template
+
+**API snippets:**
+
+- `api-endpoint` - API endpoint block
+- `api-error` - API error block
+- `api-auth` - API authentication block
+- `api-pagination` - API pagination block
+- `api-webhook` - API webhook block
+- `api-ratelimit` - API rate limit block
+
+**Troubleshooting:**
+
+- `trouble-guide` - Troubleshooting guide template
+- `trouble-error` - Error troubleshooting block
+
+**Quick inserts:**
+
+- `stripe-perf` - Performance metrics block
+- `stripe-errors` - Error handling block
+- `stripe-config` - Configuration block
+- `stripe-metric` - Single metric block
+
+**Architecture and deployment:**
+
+- `deploy-guide` - Deployment guide block
+- `arch-diagram` - Architecture diagram block
+- `monitor-dash` - Monitoring dashboard block
+- `sdk-example` - SDK example block
+
+**Comparison and decision:**
+
+- `code-output` - Code with output block
+- `perf-compare` - Performance comparison block
+- `decision-matrix` - Decision matrix table
 
 ### Config files
 
-- `.vale.ini` - Style linting rules
+- `.vale.ini` - Vale style linting configuration (selects Google or Microsoft style guide)
 - `.markdownlint.yml` - Markdown formatting rules
-- `cspell.json` - Spelling dictionary
-- `docs-schema.yml` - Frontmatter schema
-- `glossary.yml` - Terminology glossary
-- `mkdocs.yml` - Site configuration
+- `.spectral.yml` - OpenAPI/AsyncAPI contract linting rules (Spectral)
+- `cspell.json` - Spelling dictionary and word lists
+- `docs-schema.yml` - Frontmatter validation schema
+- `glossary.yml` - Terminology glossary (preferred terms and aliases)
+- `mkdocs.yml` - MkDocs site configuration, navigation, allowed tags
 
 ## Important linting rules to follow
 
@@ -738,9 +898,9 @@ When adding a new document:
 
   ```markdown
 
-\11. First item
-\11. Second item
-\11. Third item
+1. First item
+1. Second item
+1. Third item
 
 ```javascript
 
@@ -815,10 +975,10 @@ When adding a new document:
 
 **ALWAYS use existing templates:**
 
-\11. Check `templates/` directory for matching template
-\11. Copy the template structure exactly
-\11. Templates are PRE-VALIDATED to pass all checks
-\11. DO NOT modify the formatting structure
+1. Check `templates/` directory for matching template
+1. Copy the template structure exactly
+1. Templates are PRE-VALIDATED to pass all checks
+1. DO NOT modify the formatting structure
 
 Available templates in `templates/`:
 
@@ -832,52 +992,176 @@ Available templates in `templates/`:
 - migration-guide.md
 - And more templates.
 
-## Claude's Step-by-Step Process for New Documentation
+## Codex step-by-step Process for New Documentation
 
-When user asks to create new documentation, Claude MUST:
+When user asks to create new documentation, Codex MUST follow all steps in this order:
 
-\11. **Select template/snippet:**
-   - Check `templates/` for matching template
+1. **Determine new vs update:**
+   - Search `docs/` for existing coverage of the topic
+   - If a doc exists and covers the subject, update it instead of creating a new one
+   - If the subject is new or a different content type is needed, create a new doc
+
+1. **Identify document type:**
+   - Determine content_type (tutorial, how-to, concept, reference, troubleshooting, etc.)
+   - This decides template, location, and style rules
+   - Documents are always written in English first; translations are done separately after all checks pass
+
+1. **Read glossary:**
+   - Read `glossary.yml` and use preferred terms throughout the document
+   - If introducing a new term, add a glossary marker: `<!-- glossary:add: Term | Description | aliases -->`
+
+1. **Select template:**
+   - Check `templates/` for matching template (see Template Selection Guide)
    - OR use VS Code snippet (doc-tutorial, doc-howto, etc.)
-   - NEVER write from scratch when a suitable template exists; if none exists, create a new template first
+   - NEVER write from scratch when a suitable template exists; if none exists, create a new template in project format first
 
-\11. **Choose location:**
-   - Based on content_type in frontmatter
-   - Place in correct folder (getting-started/, how-to/, etc.)
+1. **Copy template to correct location:**
+   - Path: `docs/{locale}/{content_type_dir}/{slug}.md` (for `en`, omit locale prefix)
+   - Use kebab-case filename matching the title
 
-\11. **Update mkdocs.yml:**
+1. **Read variables:**
+   - Load `docs/_variables.yml`
+   - Use `{{ variable_name }}` for all product names, URLs, ports, versions, limits
+   - Never hardcode values that exist as variables
+
+1. **Fill template with content:**
+   - Follow Stripe-quality standards (hook, code, progressive disclosure)
+   - Include realistic, complete code examples (not "foo/bar" but actual use cases)
+   - Every code block must be complete and runnable
+   - Anticipate next steps: what will the user need after this?
+
+1. **Keep first paragraph under 60 words:**
+   - Must include a clear definition using "is," "enables," "provides," "allows"
+   - Answer the implied question directly
+   - For translations, locale-specific limits apply (ru: 80, de: 70) but that is handled during the translation step
+
+1. **Apply GEO optimization:**
+   - Descriptive headings, NOT generic (not "Overview," "Configuration," "Setup")
+   - Concrete facts every 200 words (numbers, code, config values)
+   - Structured data: tables, code blocks, parameter lists
+   - Authoritative citations where applicable
+
+1. **Apply SEO optimization:**
+   - Title under 70 characters
+   - Description 50-160 characters
+   - No bare URLs -- use `[text](url)` format
+   - Internal links to related docs
+   - No dollar signs before commands in code blocks
+
+1. **Follow formatting rules:**
+   - Blank lines around headings, lists, and code blocks
+   - Only one H1 (from frontmatter title)
+   - Code blocks with language tag (```python, ```bash, etc.)
+   - No emoji or special Unicode in Python scripts
+   - Ordered lists use `1.` for all items
+   - No trailing whitespace
+
+1. **Apply style rules:**
+   - American English, active voice, no weasel words
+   - Follow configured style guide (Google or Microsoft, per `.vale.ini`)
+   - Contractions policy per style guide
+   - Second person "you," not "the user" or "users"
+   - Present tense for current features
+   - Oxford comma in lists, sentence case in headings
+
+1. **Set frontmatter:**
+   - Fill all required fields (title, description, content_type, product, tags)
+   - Tags must be from the project's allowed set (check `mkdocs.yml`)
+   - Title under 70 characters, description 50-160 characters
+
+1. **Scan and replace hardcoded values:**
+   - Scan entire document for hardcoded product names, URLs, ports, versions, limits, emails
+   - Replace each with the corresponding `{{ variable }}` from `_variables.yml`
+   - If a variable does not exist yet, add it to `_variables.yml` first, then use it
+
+1. **Self-verify -- execute code blocks (MANDATORY):**
+   - Execute every fenced code block tagged `python`, `javascript`, `bash`, `shell`, `typescript`, `curl`, etc.
+   - Compare actual output against documented output; if mismatch, replace with actual output
+   - Skip non-executable blocks (`yaml`, `json`, `xml`, `text`, `markdown`, `graphql`, etc.)
+   - Skip blocks with `# do-not-execute` or that require external services (mark with `<!-- requires: service-name -->`)
+
+1. **Self-verify -- run shell commands (MANDATORY):**
+   - Run every documented shell command and verify exit code and output
+   - Read-only commands: execute directly
+   - Write commands: execute in temp directory
+   - Destructive commands: NEVER execute, verify syntax only
+   - Commands with placeholders: skip execution, verify syntax
+
+1. **Self-verify -- fact-check assertions (MANDATORY):**
+   - Verify every version number, port number, file path, URL, count, limit
+   - Cross-reference with `_variables.yml` and source config files
+   - If incorrect, replace with verified correct value
+
+1. **Self-verify -- check internal consistency:**
+   - No contradictions within the document (for example, port 5678 in one section and 8080 in another)
+   - Code and text must agree (if text says "returns a list" but code shows a dict, fix the text)
+   - Cross-reference with other docs if this document links to them
+
+1. **Self-verify -- walk through as user:**
+   - Read the document as if you are the user following the instructions step by step
+   - If any step is unclear, incomplete, or produces unexpected results, fix it
+
+1. **Update mkdocs.yml:**
    - Add to appropriate nav section
-   - Use descriptive title
-   - Maintain logical order
+   - Use descriptive title (not just filename)
+   - Maintain logical order (alphabetical or by complexity)
 
-\11. **Follow formatting rules:**
-   - Blank lines around headings/lists/code
-   - Only one H1
-   - Code blocks with language
-   - No emoji in Python
+1. **Validate (all linters):**
+   - Run `npm run lint` (runs all 8 pre-commit stages)
+   - Ensure Vale, markdownlint, cspell, frontmatter, SEO/GEO, knowledge modules all pass
+   - Fix all errors AND warnings
+   - If linting fails, fix issues and re-run (max 5 retries)
+   - If all 5 retries fail, log the document as blocked and report to user
 
-\11. **Validate:**
-   - Run linting checks
-   - Ensure frontmatter complete
-   - First paragraph under 60 words
+1. **RAG preparation (full knowledge module pipeline):**
+   - Use semantic headings (H2/H3) that describe the content -- these drive chunk boundaries (extractor splits at ~1400 chars on H2/H3 first)
+   - Keep sections focused on a single topic for better chunking -- each chunk becomes a separate knowledge module
+   - Ensure `tags` in frontmatter aid discoverability -- tags propagate to knowledge modules for retrieval filtering
+   - Set `content_type` correctly -- drives intent inference (`tutorial` -> `configure`, `troubleshooting` -> `troubleshoot`)
+   - Run the full extraction + validation + index rebuild:
 
-\11. **Self-verify (MANDATORY):**
-   - Execute all code blocks and verify output matches
-   - Run all shell commands and verify results
-   - Fact-check all specific claims (versions, ports, paths, counts)
-   - Replace any mismatches with verified correct values
-   - Use standard placeholders for environment-specific values
-   - Log verification summary (X blocks executed, Y facts checked, Z corrections)
+     ```bash
+     python3 scripts/extract_knowledge_modules_from_docs.py \
+       --docs-dir docs --modules-dir knowledge_modules \
+       --report reports/knowledge_auto_extract_report.json
+     python3 scripts/validate_knowledge_modules.py
+     python3 scripts/generate_knowledge_retrieval_index.py
+     ```
+
+1. **Glossary sync:**
+   - Run `python3 scripts/sync_project_glossary.py --paths docs --glossary glossary.yml --report reports/glossary_sync_report.json --write`
+
+1. **Translation (only if user requests non-English version):**
+   - Translate only AFTER the English version passes all checks
+   - Copy to `docs/{locale}/{content_type_dir}/{slug}.md`
+   - Merge `docs/{locale}/_variables.yml` if it exists
+   - Set i18n frontmatter: `language`, `translation_of`, `source_hash`
+   - Apply locale word limits (ru: 80, de: 70)
+   - Run translation quality checklist (active voice, weasel words, terminology, spelling)
+   - Apply locale-specific Vale rules if configured
+   - Re-run all validation steps on the translated document
+
+1. **Log verification summary (MANDATORY):**
+
+   ```text
+   Verification summary:
+   - Code blocks: N executed, N passed, N fixed
+   - Shell commands: N executed, N passed, N fixed
+   - Fact-checks: N assertions, N correct, N fixed
+   - Variables: N hardcoded values replaced
+   - Consistency: [status]
+   - Lint: passed on attempt N
+   ```
 
 ## Pull Request Reviews
 
 ### 🔴 CRITICAL: Fix BOTH Errors AND Warnings
 
-**When reviewing pull requests or fixing linting issues, Claude MUST:**
+**When reviewing pull requests or fixing linting issues, Codex MUST:**
 
-\11. **Fix ALL errors (red)** - These block commits and merges
-\11. **Fix ALL warnings (yellow)** - These indicate quality issues
-\11. **Not ignore any linting output** - Both errors and warnings need attention
+1. **Fix ALL errors (red)** - These block commits and merges
+1. **Fix ALL warnings (yellow)** - These indicate quality issues
+1. **Not ignore any linting output** - Both errors and warnings need attention
 
 **Why this matters:**
 - Warnings today become technical debt tomorrow
@@ -895,15 +1179,15 @@ npm run lint
 # ⚠️ WARNING: Passive voice detected
 # ⚠️ WARNING: Line too long
 
-# Claude MUST fix ALL three issues, not just the error
+# Codex MUST fix ALL three issues, not just the error
 ```
 
 ## Automatic validation
 
 **TWO layers of protection ensure quality:**
 
-\11. **Pre-commit hooks** (local) - Run automatically before commit
-\11. **CI/CD checks** (GitHub) - Same checks run on PR/push
+1. **Pre-commit hooks** (local) - Run automatically before commit
+1. **CI/CD checks** (GitHub) - Same checks run on PR/push
 
 Both use IDENTICAL rules, so if it passes locally, it passes in CI.
 
@@ -925,12 +1209,12 @@ This verification layer catches errors that linting tools cannot detect: wrong c
 
 **For every fenced code block with a language tag, Codex MUST:**
 
-\11. **Identify executable blocks** -- blocks tagged `python`, `javascript`, `bash`, `shell`, `typescript`, `ruby`, `go`, `java`, `curl`
-\11. **Execute each block** in a sandboxed environment (no network calls, no filesystem writes outside temp)
-\11. **Capture stdout and stderr** from execution
-\11. **Compare actual output against documented output** (the `<!-- expected-output: ... -->` comment or output block that follows the code block)
-\11. **If output mismatches:** replace the documented output with the actual output
-\11. **If execution fails:** fix the code so it runs, or add a comment explaining why it cannot run in isolation (for example, requires API key)
+1. **Identify executable blocks** -- blocks tagged `python`, `javascript`, `bash`, `shell`, `typescript`, `ruby`, `go`, `java`, `curl`
+1. **Execute each block** in a sandboxed environment (no network calls, no filesystem writes outside temp)
+1. **Capture stdout and stderr** from execution
+1. **Compare actual output against documented output** (the `<!-- expected-output: ... -->` comment or output block that follows the code block)
+1. **If output mismatches:** replace the documented output with the actual output
+1. **If execution fails:** fix the code so it runs, or add a comment explaining why it cannot run in isolation (for example, requires API key)
 
 **Execution rules by language:**
 
@@ -970,10 +1254,10 @@ AFTER verification:
 
 **For every bash/shell command documented, Codex MUST:**
 
-\11. **Run the command** (with safe substitutions for destructive commands)
-\11. **Verify the exit code** matches expectations (0 for success)
-\11. **Compare output** against what the document claims
-\11. **Fix discrepancies** -- update the documented output to match reality
+1. **Run the command** (with safe substitutions for destructive commands)
+1. **Verify the exit code** matches expectations (0 for success)
+1. **Compare output** against what the document claims
+1. **Fix discrepancies** -- update the documented output to match reality
 
 **Safe execution rules:**
 
@@ -987,14 +1271,14 @@ AFTER verification:
 
 **Codex MUST verify every specific claim in the document:**
 
-\11. **Version numbers** -- check against actual installed versions or official documentation
-\11. **Port numbers** -- verify against default configuration files or `_variables.yml`
-\11. **File paths** -- verify that referenced files and directories exist in the project
-\11. **URL paths** -- verify that linked documentation pages exist
-\11. **Configuration values** -- verify against actual config files (`.vale.ini`, `mkdocs.yml`, `package.json`)
-\11. **CLI flags and options** -- verify with `--help` output
-\11. **Error messages** -- verify they match actual error output
-\11. **Numeric claims** -- verify counts ("supports 5 methods" -- count them)
+1. **Version numbers** -- check against actual installed versions or official documentation
+1. **Port numbers** -- verify against default configuration files or `_variables.yml`
+1. **File paths** -- verify that referenced files and directories exist in the project
+1. **URL paths** -- verify that linked documentation pages exist
+1. **Configuration values** -- verify against actual config files (`.vale.ini`, `mkdocs.yml`, `package.json`)
+1. **CLI flags and options** -- verify with `--help` output
+1. **Error messages** -- verify they match actual error output
+1. **Numeric claims** -- verify counts ("supports 5 methods" -- count them)
 
 **Fact-check categories:**
 
@@ -1011,16 +1295,16 @@ AFTER verification:
 
 **When verification finds a discrepancy, Codex MUST:**
 
-\11. **Replace the incorrect value** with the verified correct value
-\11. **Use placeholders** for environment-specific values:
+1. **Replace the incorrect value** with the verified correct value
+1. **Use placeholders** for environment-specific values:
 
 - API keys: `YOUR_API_KEY`
 - Tokens: `YOUR_TOKEN`
 - User-specific paths: `~/.config/your-app/`
 - Domain names: `your-domain.example.com`
 - IP addresses: `192.0.2.1` (documentation range per RFC 5737)
-\11. **Add a comment** if the original value was intentionally approximate (for example, "approximately 100 ms" does not need exact verification)
-\11. **Log all changes** -- after verification, list what was corrected:
+1. **Add a comment** if the original value was intentionally approximate (for example, "approximately 100 ms" does not need exact verification)
+1. **Log all changes** -- after verification, list what was corrected:
 
 ```text
 Verification summary:
@@ -1035,10 +1319,10 @@ Verification summary:
 
 **Codex MUST check that the document does not contradict itself:**
 
-\11. **Cross-reference within the document** -- if section 1 says "port 5678" and section 3 says "port 8080," flag and fix
-\11. **Cross-reference with `_variables.yml`** -- all hardcoded values that exist in variables must use the variable
-\11. **Cross-reference with other docs** -- if this document links to another, verify the linked content is consistent
-\11. **Verify code and text agree** -- if text says "returns a list" but code shows a dict, fix the text
+1. **Cross-reference within the document** -- if section 1 says "port 5678" and section 3 says "port 8080," flag and fix
+1. **Cross-reference with `_variables.yml`** -- all hardcoded values that exist in variables must use the variable
+1. **Cross-reference with other docs** -- if this document links to another, verify the linked content is consistent
+1. **Verify code and text agree** -- if text says "returns a list" but code shows a dict, fix the text
 
 ### Verification checklist (run after every generation)
 
@@ -1073,7 +1357,7 @@ Verification summary:
 
 ## Quick checklist for new documents
 
-**Claude, VERIFY each point before saving ANY file:**
+**Codex, VERIFY each point before saving ANY file:**
 
 **Content & Style (Vale):**
 
@@ -1115,7 +1399,7 @@ Verification summary:
 
 Templates are pre-validated to pass all linters. When you write from scratch, you introduce formatting errors, missing sections, and inconsistent structure. Templates eliminate this entirely.
 
-### Complete template inventory (27 templates)
+### Complete template inventory (38 templates)
 
 Before creating ANY document, check `templates/` for a matching template:
 
@@ -1125,42 +1409,50 @@ Before creating ANY document, check `templates/` for a matching template:
 | Task-oriented guide | `how-to.md` | `doc-howto` |
 | Explanation page | `concept.md` | `doc-concept` |
 | Technical specification | `reference.md` | `doc-reference` |
-| Problem-solution | `troubleshooting.md` | `doc-troubleshoot` |
+| Problem-solution | `troubleshooting.md` | `trouble-guide` |
 | Quick onboarding | `quickstart.md` | `doc-tutorial` |
 | API endpoint docs | `api-reference.md` | `doc-reference` |
-| Auth patterns | `authentication-guide.md` | `doc-howto` |
+| Single API endpoint | `api-endpoint.md` | `api-endpoint` |
+| Auth patterns | `authentication-guide.md` | `doc-auth` |
 | Version upgrade | `migration-guide.md` | `doc-howto` |
-| Production setup | `deployment-guide.md` | `doc-howto` |
-| Webhook integration | `webhooks-guide.md` | `doc-howto` |
-| SDK client library | `sdk-reference.md` | `doc-reference` |
-| Security policy | `security-guide.md` | `doc-reference` |
-| Config setup | `configuration-guide.md` | `doc-howto` |
-| Config options table | `configuration-reference.md` | `doc-reference` |
-| Third-party integration | `integration-guide.md` | `doc-howto` |
-| Testing approach | `testing-guide.md` | `doc-howto` |
-| Error codes/recovery | `error-handling-guide.md` | `doc-reference` |
-| System architecture | `architecture-overview.md` | `doc-concept` |
+| Production setup | `deployment-guide.md` | `deploy-guide` |
+| Webhook integration | `webhooks-guide.md` | `doc-webhooks` |
+| SDK client library | `sdk-reference.md` | `doc-sdk-ref` |
+| Security policy | `security-guide.md` | `doc-security-guide` |
+| Config setup | `configuration-guide.md` | `doc-config-guide` |
+| Config options table | `configuration-reference.md` | `doc-config-ref` |
+| Third-party integration | `integration-guide.md` | `doc-integration-guide` |
+| Testing approach | `testing-guide.md` | `doc-testing-guide` |
+| Error codes/recovery | `error-handling-guide.md` | `doc-error-guide` |
+| System architecture | `architecture-overview.md` | `arch-diagram` |
 | Guidelines/patterns | `best-practices.md` | `doc-concept` |
-| Business use-case | `use-case.md` | `doc-concept` |
-| Version changelog | `release-note.md` | `doc-release` |
-| Release notes | `changelog.md` | `doc-release` |
-| FAQ page | `faq.md` | `doc-reference` |
-| Terminology | `glossary-page.md` | `doc-reference` |
+| Business use-case | `use-case.md` | `doc-usecase` |
+| Version changelog | `release-note.md` | `doc-changelog` |
+| Release notes | `changelog.md` | `doc-changelog` |
+| FAQ page | `faq.md` | `doc-faq` |
+| Terminology | `glossary-page.md` | `doc-glossary` |
 | PLG persona page | `plg-persona-guide.md` | `doc-tutorial` |
 | PLG value page | `plg-value-page.md` | `doc-concept` |
 | User guide | `user-guide.md` | `doc-howto` |
 | Administration guide | `admin-guide.md` | `doc-howto` |
 | Upgrade guide | `upgrade-guide.md` | `doc-howto` |
-| Single API endpoint | `api-endpoint.md` | `doc-reference` |
+| Interactive diagram | `interactive-diagram.html` | -- |
+| GraphQL API reference | `protocols/graphql-reference.md` | `doc-reference` |
+| gRPC API reference | `protocols/grpc-reference.md` | `doc-reference` |
+| AsyncAPI reference | `protocols/asyncapi-reference.md` | `doc-reference` |
+| WebSocket reference | `protocols/websocket-reference.md` | `doc-reference` |
+| Protocol snippet pack | `protocols/api-protocol-snippets.md` | -- |
+| Commercial license | `legal/LICENSE-COMMERCIAL.template.md` | -- |
+| Notice file | `legal/NOTICE.template.md` | -- |
 
 ### Template selection process
 
-\11. Read the user's request. Identify the document type.
-\11. Find the matching template from the table above.
-\11. Copy the template: `cp templates/[template] docs/[section]/[filename].md`
-\11. Edit the content while preserving the template structure.
-\11. Do NOT add sections that are not in the template.
-\11. Do NOT remove required sections from the template.
+1. Read the user's request. Identify the document type.
+1. Find the matching template from the table above.
+1. Copy the template: `cp templates/[template] docs/[section]/[filename].md`
+1. Edit the content while preserving the template structure.
+1. Do NOT add sections that are not in the template.
+1. Do NOT remove required sections from the template.
 
 ## MANDATORY: Shared variables for all factual values
 
@@ -1191,17 +1483,17 @@ Current version: {{ current_version }}.
 ### Variable naming rules
 
 - Use snake_case: `product_name`, not `productName`.
-- Be descriptive: `max_payload_size_mb`, not `payload_size`.
+- Be descriptive and project-scoped: `acme_api_max_payload_size_mb`, not `payload_size`. In multi-project setups, prefix with the project or service name to avoid ambiguity (for example, `billing_api_rate_limit` vs `auth_api_rate_limit`).
 - Include units in the name: `request_timeout_seconds`, `rate_limit_requests_per_minute`.
-- Group related variables with YAML nesting: `env_vars.port`, `env_vars.api_key`.
-- NEVER use generic names: `port` is bad, `default_port` is good, `webhook_listener_port` is better.
+- Group related variables with YAML nesting: `acme.env_vars.port`, `acme.env_vars.api_key`.
+- NEVER use generic names: `port` is bad, `default_port` is better, `acme_webhook_listener_port` is best.
 
 ### What to do if a variable does not exist
 
-\11. Check `docs/_variables.yml` for the value.
-\11. If it does not exist, add it with a descriptive name.
-\11. Use the new variable in the document.
-\11. Document the new variable with a comment in `_variables.yml`.
+1. Check `docs/_variables.yml` for the value.
+1. If it does not exist, add it with a descriptive name.
+1. Use the new variable in the document.
+1. Document the new variable with a comment in `_variables.yml`.
 
 ### Detection of hardcoded values
 
@@ -1310,29 +1602,43 @@ Verification summary:
 
 ## Complete AI documentation generation flow
 
-**This is the full step-by-step process Codex MUST follow for every document:**
+**This is the full step-by-step process Codex MUST follow for every document. Documents are always written in English first; translations are done separately after all checks pass.**
 
-\11. **Identify document type and locale** from user request. Default locale: `en`.
-\11. **Select matching template** from `templates/`; if none exists, create a new template in the same project format first.
-\11. **Copy template** to correct location: `docs/{locale}/{content_type_dir}/{slug}.md`.
-\11. **Read variables** -- use `docs/_variables.yml` merged with `docs/{locale}/_variables.yml` if it exists.
-\11. **Fill template** with actual content, following Stripe-quality standards.
-\11. **Format correctly**: blank lines around headings, lists, code blocks. One H1 only.
-\11. **Apply style rules**:
+1. **Determine new vs update:** search `docs/` for existing coverage. Update existing docs when possible; create new only when the subject is new or a different content type is needed.
+1. **Identify document type:** determine content_type (tutorial, how-to, concept, reference, troubleshooting, etc.) to decide template, location, and style rules.
+1. **Read glossary:** read `glossary.yml` and use preferred terms. If introducing a new term, add marker: `<!-- glossary:add: Term | Description | aliases -->`.
+1. **Select matching template** from `templates/` (38 templates available); if none exists, create a new template in project format first.
+1. **Copy template** to correct location: `docs/{content_type_dir}/{slug}.md`. Use kebab-case filename matching the title.
+1. **Read variables:** load `docs/_variables.yml`. Use `{{ variable_name }}` for all product names, URLs, ports, versions, limits. Never hardcode values that exist as variables.
+1. **Fill template** with actual content, following Stripe-quality standards (hook, code, progressive disclosure). Include realistic, complete code examples. Anticipate next steps.
+1. **Keep first paragraph under 60 words** with a clear definition using "is," "enables," "provides," "allows." Answer the implied question directly.
+1. **Apply GEO optimization:** descriptive headings (not generic), concrete facts every 200 words, structured data (tables, code blocks, parameter lists), authoritative citations.
+1. **Apply SEO optimization:** title under 70 characters, description 50-160 characters, no bare URLs, internal links to related docs, no dollar signs before commands.
+1. **Format correctly:** blank lines around headings, lists, code blocks. One H1 only. Code blocks with language tag. No emoji in Python scripts. Ordered lists use `1.` for all items. No trailing whitespace.
+1. **Apply style rules:** American English, active voice, no weasel words. Follow configured style guide (Google or Microsoft, per `.vale.ini`). Second person "you." Present tense. Oxford comma. Sentence case in headings.
+1. **Set frontmatter:** fill all required fields (title, description, content_type, product, tags). Tags from the project's allowed set (check `mkdocs.yml`). Title under 70 characters, description 50-160 characters.
+1. **Scan and replace hardcoded values:** scan entire document for hardcoded product names, URLs, ports, versions, limits, emails. Replace with `{{ variable }}`. If variable does not exist, add it to `_variables.yml` first.
+1. **Self-verify -- execute code blocks (MANDATORY):** run every executable fenced code block, compare output against documented output, fix mismatches. Skip non-executable blocks (yaml, json, xml, text, etc.) and blocks with `# do-not-execute`.
+1. **Self-verify -- run shell commands (MANDATORY):** run every documented command, verify exit code and output. Read-only commands: execute directly. Write commands: temp directory. Destructive commands: verify syntax only.
+1. **Self-verify -- fact-check assertions (MANDATORY):** verify every version, port, path, URL, count, limit against `_variables.yml` and source configs. Replace incorrect values.
+1. **Self-verify -- check internal consistency:** no contradictions within the document. Code and text must agree. Cross-reference with `_variables.yml` and linked docs.
+1. **Self-verify -- walk through as user:** read the document step by step as if following the instructions. Fix anything unclear, incomplete, or producing unexpected results.
+1. **Update `mkdocs.yml`** navigation with the new page. Descriptive title, logical order.
+1. **Run validation:** `npm run lint` (all 8 pre-commit stages). Fix all errors AND warnings. If linting fails, fix and re-run (max 5 retries). If all retries fail, log as blocked and report to user.
+1. **RAG preparation:** semantic headings (H2/H3) drive chunk boundaries (~1400 chars). Keep sections single-topic. Set `content_type` for intent inference. Set `tags` for retrieval filtering. Run full pipeline: `python3 scripts/extract_knowledge_modules_from_docs.py --docs-dir docs --modules-dir knowledge_modules --report reports/knowledge_auto_extract_report.json && python3 scripts/validate_knowledge_modules.py && python3 scripts/generate_knowledge_retrieval_index.py`.
+1. **Glossary sync:** run `python3 scripts/sync_project_glossary.py --paths docs --glossary glossary.yml --report reports/glossary_sync_report.json --write`.
+1. **Translation (only if user requests non-English version):** translate only AFTER English version passes all checks. Copy to `docs/{locale}/{content_type_dir}/{slug}.md`. Merge locale variables. Set i18n frontmatter (`language`, `translation_of`, `source_hash`). Apply locale word limits (ru: 80, de: 70). Run translation quality checklist. Re-run all validation steps.
+1. **Log verification summary (MANDATORY):**
 
-- English: American English, active voice, no weasel words, no contractions.
-- Non-English: apply equivalent rules manually (see "Quality enforcement for non-English documentation").
-\11. **Keep first paragraph under locale word limit** (en: 60, ru: 80, de: 70) with a clear definition.
-\11. **Set i18n frontmatter fields** if locale is not `en`: `language`, `translation_of`, `source_hash`.
-\11. **Execute all code blocks** and verify output matches.
-\11. **Run all shell commands** and verify results.
-\11. **Fact-check all assertions** (versions, ports, paths, URLs, counts).
-\11. **Replace hardcoded values** with variables from `_variables.yml`.
-\11. **Check internal consistency** (no contradictions within the document).
-\11. **Update `mkdocs.yml`** navigation with the new page.
-\11. **Run validation**: `npm run validate:minimal`.
-\11. **For non-English docs**: run the translation quality checklist (active voice, weasel words, terminology, spelling).
-\11. **Log verification summary** with counts of blocks executed, facts checked, corrections made.
+   ```text
+   Verification summary:
+   - Code blocks: N executed, N passed, N fixed
+   - Shell commands: N executed, N passed, N fixed
+   - Fact-checks: N assertions, N correct, N fixed
+   - Variables: N hardcoded values replaced
+   - Consistency: [status]
+   - Lint: passed on attempt N
+   ```
 
 ## i18n: Multi-language documentation
 
@@ -1376,7 +1682,17 @@ source_hash: "abc123..."
 
 - `language`: ISO 639-1 code matching the folder (for example, `ru` for `docs/ru/`)
 - `translation_of`: path to the source document relative to `docs/`
-- `source_hash`: SHA-256 of the source document body at translation time
+- `source_hash`: SHA-256 of the source document body at translation time. When the source document changes and `source_hash` no longer matches, all translations are considered stale and MUST be updated.
+
+### Automatic propagation of changes to translations
+
+**When Codex edits the English (source) document, Codex MUST automatically update all its localized versions:**
+
+1. After saving the English document, find all translations by searching for files with `translation_of` pointing to this document.
+1. For each translation: apply the same structural and content changes, keeping the translated language.
+1. Update `source_hash` in each translation to the new SHA-256 of the updated English document body.
+1. Re-run all validation steps (linting, self-verification) on each updated translation.
+1. If a change cannot be auto-applied (for example, new prose that requires human translation), mark the translation as stale by leaving the old `source_hash` and adding a comment: `<!-- i18n:needs-update: [description of change] -->`.
 
 ### Locale-aware variables
 
@@ -1387,9 +1703,11 @@ source_hash: "abc123..."
 product_tagline: "Platform avtomatizatsii rabochikh protsessov"
 ```
 
-Technical values (ports, URLs, versions) stay shared.
+Technical values (ports, URLs, versions) stay shared. **All localized documents MUST use `{{ variable }}` syntax, not hardcoded values.** Variables resolve from the locale-specific file first, then fall back to the base `_variables.yml`.
 
 ## MANDATORY: Quality enforcement for non-English documentation
+
+**Translations are supported for any language** (configured in `i18n.yml`). Russian and German are used as examples below, but the same rules apply to every target language.
 
 **Vale, write-good, proselint, and cspell do NOT support non-English languages.** For English docs these tools enforce quality automatically. For all other languages, **Codex IS the quality linter.** Codex MUST apply equivalent quality rules manually when writing or reviewing non-English documentation.
 
@@ -1408,7 +1726,7 @@ Technical values (ports, URLs, versions) stay shared.
 
 ### Rules Codex MUST enforce for non-English documentation
 
-**When writing or editing ANY non-English document, Codex MUST apply ALL of the following rules.** These are the same rules that Vale, write-good, and proselint enforce for English, adapted for the target language.
+**When writing or editing ANY non-English document, Codex MUST apply ALL of the following rules.** These are the same rules that Vale, write-good, and proselint enforce for English, adapted for the target language. Examples below use Russian and German for illustration, but Codex MUST apply equivalent rules for any target language.
 
 **1. Active voice (equivalent of write-good passive voice check):**
 
@@ -1422,7 +1740,7 @@ Technical values (ports, URLs, versions) stay shared.
 - Do not use vague qualifiers in any language
 - Banned in Russian: "prosto" (just/simple), "legko" (easy), "bystro" (quickly), "mnogo" (many/various), "razlichnye" (various), "nekotorye" (some), "obychno" (usually)
 - Banned in German: "einfach" (simple), "schnell" (quickly), "verschiedene" (various), "einige" (some)
-- Replace with specific values: "za 5 sekund" not "bystro," "3 metoda" not "neskolko metodov"
+- Replace with specific values: "za 5 sekund" not "bystro," "3 metoda" not "neskolko metodov."
 
 **3. Direct, imperative style (equivalent of Google style guide):**
 
@@ -1505,13 +1823,13 @@ Translation quality check:
 
 In recommended mode, scheduler runs `docsops/scripts/run_weekly_gap_batch.py` in the client repository and:
 
-\11. Runs gap analysis (`doc_gaps_report.json`)
-\11. Runs KPI wall + SLA evaluation (`kpi-wall.json`, `kpi-sla-report.json`)
-\11. Runs drift checks (`api_sdk_drift_report.json`)
-\11. Runs `scripts/consolidate_reports.py` to produce `reports/consolidated_report.json`
-\11. Auto-extracts knowledge modules from docs (`extract_knowledge_modules_from_docs.py`)
-\11. Validates modules and rebuilds retrieval index (`validate_knowledge_modules.py`, `generate_knowledge_retrieval_index.py`)
-\11. Runs any enabled `custom_tasks.weekly`
+1. Runs gap analysis (`doc_gaps_report.json`)
+1. Runs KPI wall + SLA evaluation (`kpi-wall.json`, `kpi-sla-report.json`)
+1. Runs drift checks (`api_sdk_drift_report.json`)
+1. Runs `scripts/consolidate_reports.py` to produce `reports/consolidated_report.json`
+1. Auto-extracts knowledge modules from docs (`extract_knowledge_modules_from_docs.py`)
+1. Validates modules and rebuilds retrieval index (`validate_knowledge_modules.py`, `generate_knowledge_retrieval_index.py`)
+1. Runs any enabled `custom_tasks.weekly`
 
 Compatibility mode: GitHub Actions cron can run equivalent jobs via `.github/workflows/weekly-consolidation.yml` and companion workflows.
 
@@ -1630,8 +1948,8 @@ When processing action items that involve **removed features, deprecated endpoin
 
 **For deprecated features:**
 
-\11. Set frontmatter: `status: deprecated`, `deprecated_since: "YYYY-MM-DD"`, `replacement_url: "/path/to/new-doc"`
-\11. Add a warning admonition at the top of the document body:
+1. Set frontmatter: `status: deprecated`, `deprecated_since: "YYYY-MM-DD"`, `replacement_url: "/path/to/new-doc"`
+1. Add a warning admonition at the top of the document body:
 
    ```markdown
    !!! warning "Deprecated"
@@ -1639,12 +1957,12 @@ When processing action items that involve **removed features, deprecated endpoin
        Use [new feature](/path/to/new-doc) instead.
    ```
 
-\11. Do NOT delete the document—users may still reference it
+1. Do NOT delete the document—users may still reference it
 
 **For removed features:**
 
-\11. Set frontmatter: `status: removed`, `removal_date: "YYYY-MM-DD"`, `replacement_url: "/path/to/migration"`, `noindex: true`
-\11. Replace the document body with a redirect notice:
+1. Set frontmatter: `status: removed`, `removal_date: "YYYY-MM-DD"`, `replacement_url: "/path/to/migration"`, `noindex: true`
+1. Replace the document body with a redirect notice:
 
    ```markdown
    !!! danger "Removed"
@@ -1652,8 +1970,8 @@ When processing action items that involve **removed features, deprecated endpoin
        See the [migration guide](/path/to/migration) for alternatives.
    ```
 
-\11. The `noindex: true` flag prevents search engines from indexing the page
-\11. The `lifecycle_manager.py` script automatically adds CSS classes and banners for these states
+1. The `noindex: true` flag prevents search engines from indexing the page
+1. The `lifecycle_manager.py` script automatically adds CSS classes and banners for these states
 
 **When to set lifecycle status:**
 
@@ -1665,8 +1983,8 @@ When processing action items that involve **removed features, deprecated endpoin
 
 For each document (new or updated):
 
-\11. Write or update content following all rules in this file
-\11. **Run self-verification (MANDATORY before linting):**
+1. Write or update content following all rules in this file
+1. **Run self-verification (MANDATORY before linting):**
 
 - Execute every code block in the document and verify the output matches what is documented. If the output differs, fix the documented output to match reality.
 - Run every shell command in the document and verify it succeeds. If a command fails, fix the command or update the documented result.
@@ -1674,11 +1992,11 @@ For each document (new or updated):
 - Replace any mismatched values with verified correct values. Use variables from `docs/_variables.yml` instead of hardcoded values.
 - Check internal consistency: if the document says "port 5678" in one section and "port 8080" in another, fix the contradiction.
 - Walk through the document as if you are the user following the instructions step by step. If any step is unclear, incomplete, or produces unexpected results, fix it.
-\11. Run `npm run validate:minimal`
-\11. If linting fails, fix the issues and re-run (max 5 retries)
-\11. If all 5 retries fail, log the document as blocked and move to the next item
-\11. Update `mkdocs.yml` navigation if a new document was created
-\11. Log a verification summary for this document:
+1. Run `npm run validate:minimal`
+1. If linting fails, fix the issues and re-run (max 5 retries)
+1. If all 5 retries fail, log the document as blocked and move to the next item
+1. Update `mkdocs.yml` navigation if a new document was created
+1. Log a verification summary for this document:
 
    ```text
    [CONS-001] configure-webhook-auth.md:
@@ -1693,13 +2011,13 @@ For each document (new or updated):
 
 After processing the entire queue:
 
-\11. Stage all created and modified files so the user can review with `git diff --staged`:
+1. Stage all created and modified files so the user can review with `git diff --staged`:
 
    ```bash
    git add docs/ mkdocs.yml
    ```
 
-\11. Produce a batch summary:
+1. Produce a batch summary:
 
    ```text
    Consolidated report processing summary:
@@ -1715,219 +2033,284 @@ After processing the entire queue:
    - Blocked items (need manual review): [list with CONS-IDs]
    ```
 
-\11. Tell the user to review with:
+1. Tell the user to review with:
 
    ```bash
    git diff --staged       # shows all changes including new files
    git diff --staged --stat  # shows summary of changed files
    ```
 
-## Code-first API documentation workflow
+## Multi-protocol API documentation workflows
 
-**Use this workflow when the API code already exists and you need to generate documentation from it.**
+The pipeline supports **five API protocols**, each with its own contract format, validator, reference template, test generator, and sandbox mode:
 
-Code-first means the source code (controllers, routes, models) is the source of truth. The OpenAPI spec and reference docs are derived from the code.
+| Protocol | Contract format | Validator | Reference template | Sandbox fallback |
+| --- | --- | --- | --- | --- |
+| REST | OpenAPI 3.0.3 YAML | `validate_openapi_contract.py` + Spectral + Redocly | `templates/api-reference.md` | Prism / postman-echo.com |
+| GraphQL | SDL (`.graphql`) | `validate_graphql_contract.py` | `templates/protocols/graphql-reference.md` | postman-echo.com/post |
+| gRPC | Proto3 (`.proto`) | `validate_proto_contract.py` | `templates/protocols/grpc-reference.md` | postman-echo.com/post |
+| AsyncAPI | AsyncAPI YAML | `validate_asyncapi_contract.py` | `templates/protocols/asyncapi-reference.md` | echo.websocket.events |
+| WebSocket | Channel YAML | `validate_websocket_contract.py` | `templates/protocols/websocket-reference.md` | echo.websocket.events |
 
-### 10-step code-first flow
+**Protocol aliases** (normalized by `scripts/api_protocols.py`): `"openapi"` -> `"rest"`, `"gql"` -> `"graphql"`, `"proto"` -> `"grpc"`, `"events"` -> `"asyncapi"`, `"ws"` -> `"websocket"`.
 
-\11. **Detect undocumented endpoints:**
+### Choosing the right entry point
 
-   ```bash
-   npm run gaps:code
-   ```
+| Scenario | Entry point | Command |
+| --- | --- | --- |
+| REST-only, API-first (no code yet) | `run_api_first_flow.py` | `python3 scripts/run_api_first_flow.py --project-slug myapi --spec api/openapi.yaml` |
+| REST-only, code-first (code exists) | Manual spec + `run_api_first_flow.py` step 1-5 | Write/update spec, then run validation + docs |
+| Any non-REST protocol | `run_multi_protocol_contract_flow.py` | `python3 scripts/run_multi_protocol_contract_flow.py --runtime-config docsops/config/client_runtime.yml --reports-dir reports` |
+| Multiple protocols at once | `run_multi_protocol_contract_flow.py` | Add `--protocols graphql,grpc,asyncapi,websocket` |
 
-   This runs `python3 -m scripts.gap_detection.cli code` and produces a report of endpoints found in code but missing from documentation.
+### Multi-protocol contract flow (all protocols)
 
-\11. **Read the source code:**
+**Script:** `scripts/run_multi_protocol_contract_flow.py`
 
-- Locate controllers, routes, and model files
-- Extract endpoint details: HTTP method, path, request body schema, response schema, authentication requirements, rate limits
-- Note any middleware (validation, auth, logging)
+This is the **unified orchestrator** for all protocol documentation. It runs these stages in order:
 
-\11. **Generate or update the OpenAPI spec:**
+1. **Contract generation from notes** (optional) -- generates protocol specs from planning markdown
+1. **Ingest** -- verifies source contract file exists
+1. **Contract validation** -- protocol-specific syntax and semantic checks
+1. **Lint** -- protocol-specific quality linting
+1. **Regression** -- detects breaking changes against the snapshot baseline
+1. **Docs generation** -- auto-generates reference documentation from the protocol-specific template
+1. **Quality gates** -- semantic lint, frontmatter validation, code snippet linting, self-verification against live/mock endpoints
+1. **Test assets generation** -- protocol-aware test cases with smart merge (see below)
+1. **Upload test assets** (optional) -- push to TestRail or Zephyr Scale
+1. **Publish** -- move generated docs to publication target
 
-- Create or update `api/openapi.yaml` as the root spec file
-- Use `$ref` pointers to per-resource files under `api/paths/`
-- Place shared schemas under `api/components/schemas/`
-- Place shared responses under `api/components/responses/`
+**Autofix cycle:** the flow supports up to 3 attempts (configurable `autofix_max_attempts`). On failure, it auto-regenerates docs and retries semantic consistency. Fails fast if `strict_mode` is enabled.
 
-\11. **Apply Stripe-quality descriptions:**
+**Non-REST endpoint resolution:** if no endpoint is configured, the flow auto-prepares fallback endpoints per protocol:
 
-- Active voice, present tense
-- Concrete examples with realistic data
-- Every parameter has a description and example
-- Every response code has a description and example body
-- Follow all rules from the "OpenAPI spec quality rules" section below
+- GraphQL: `postman-echo.com/post` (echo for payload inspection)
+- gRPC: `postman-echo.com/post` (JSON-over-HTTP gateway)
+- AsyncAPI: HTTP publish via `postman-echo.com/post`, WS subscribe via `echo.websocket.events`
+- WebSocket: `echo.websocket.events` (public WS echo), HTTP bridge via `postman-echo.com/post`
 
-\11. **Organize for maintainability:**
+**Self-verification** (`scripts/run_protocol_self_verify.py`) performs runtime validation against live/mock endpoints: GraphQL introspection, gRPC method invocation, AsyncAPI event publish, WebSocket connection and message routing.
 
-   ```text
-   api/
-     openapi.yaml              # Root spec with $ref to paths and components
-     paths/
-       users.yaml              # /users endpoints
-       orders.yaml             # /orders endpoints
-       webhooks.yaml           # /webhooks endpoints
-     components/
-       schemas/
-         User.yaml
-         Order.yaml
-         Error.yaml
-       responses/
-         NotFound.yaml
-         Unauthorized.yaml
-         ValidationError.yaml
-   ```
+### API-first flow (REST-only)
 
-\11. **Use discriminator for polymorphic types:**
+**Script:** `scripts/run_api_first_flow.py`
 
-- Add `discriminator` with `propertyName` for union types
-- Use `allOf` with a base `$ref` for inheritance hierarchies
+Use this when designing a new REST API from scratch (no code exists yet). The OpenAPI spec is the single source of truth.
 
-\11. **Test against real endpoints:**
+**5-step execution:**
 
-- Send actual HTTP requests to the running API
-- Compare response status codes, headers, and body shapes against the spec
-- Fix any mismatches in the spec
-
-\11. **Compare responses with spec descriptions:**
-
-- Verify that every field in the actual response appears in the schema
-- Verify that example values match realistic data types
-- Fix discrepancies in the spec, not in the code
-
-\11. **Run Spectral lint:**
+1. **Generate OpenAPI from planning notes** (optional):
 
    ```bash
-   npx spectral lint api/openapi.yaml --ruleset .spectral.yml
+   python3 scripts/run_api_first_flow.py \
+     --project-slug myapi \
+     --notes notes/api-planning.md \
+     --spec api/openapi.yaml \
+     --spec-tree api/project \
+     --verify-user-path \
+     --generate-test-assets
    ```
 
-   The spec MUST pass with zero errors and zero warnings. See the "OpenAPI spec quality rules" section for all 18 rules.
+1. **Validate contract** with Spectral + Redocly + swagger-cli + `validate_openapi_contract.py`
+1. **Start mock server** -- the primary sandbox mode is **external (Postman)**, which provisions a shared mock server for Try-it panels in public docs. Docker/Prism modes are fallbacks for local development only.
+1. **Publish to docs playground** -- copies spec to `docs/assets/api/`, bundles split specs
+1. **Quality checks** -- regression testing, code examples smoke tests, test assets generation
 
-\11. **Update reference docs and build:**
-    - Generate or update reference docs using `templates/api-reference.md`
-    - Run `npm run validate:minimal` on all changed docs
-    - Run `npm run build` to verify the full site builds
+**Sandbox modes for REST (ordered by priority):**
 
-**Key difference from API-first:** In code-first, you test against real running endpoints. You do NOT use a Prism mock server. Prism is only for the API-first workflow when code does not exist yet.
+```bash
+# PRIMARY: Public external mode (Postman mock server, shared, for Try-it in public docs)
+API_SANDBOX_EXTERNAL_BASE_URL="https://sandbox-api.example.com/v1" \
+bash scripts/api_sandbox_project.sh up myapi ./api/openapi.yaml 4010 external
 
-## API-first documentation workflow
+# Fallback 1: Docker mode (Prism mock server, local dev only)
+bash scripts/api_sandbox_project.sh up myapi ./api/openapi.yaml 4010 docker
 
-**Use this workflow when you are designing a new API from scratch (no code exists yet).**
+# Fallback 2: No-Docker local mode (Prism, local dev only)
+bash scripts/api_sandbox_project.sh up myapi ./api/openapi.yaml 4010 prism
+```
 
-API-first means the OpenAPI specification is written first, and code is generated from it. The spec is the single source of truth.
+**Default sandbox selection:** when no mode is specified, the pipeline checks for `API_SANDBOX_EXTERNAL_BASE_URL` environment variable first. If set, it uses `external` mode automatically. Otherwise, it falls back to `docker` or `prism` depending on Docker availability.
 
-### 11-step API-first flow
+### Code-first flow (REST-only)
 
-\11. **Parse the user brief:**
+Use this when the API code already exists. The source code (controllers, routes, models) is the source of truth.
 
-- Extract resources (nouns: users, orders, payments)
-- Extract operations (verbs: create, list, update, delete)
-- Extract schemas (data shapes, required fields, validation rules)
-- Extract constraints (authentication, rate limits, pagination)
+1. **Detect undocumented endpoints:** `npm run gaps:code`
+1. **Read source code** -- extract endpoints, schemas, auth, rate limits from controllers
+1. **Generate or update the OpenAPI spec** -- create `api/openapi.yaml` with `$ref` pointers to per-resource files under `api/paths/` and shared schemas under `api/components/schemas/`
+1. **Apply Stripe-quality descriptions** -- active voice, concrete examples, every parameter has description + example, every response code has description + example body
+1. **Validate** -- `npx spectral lint api/openapi.yaml --ruleset .spectral.yml` (must pass with zero errors and zero warnings)
+1. **Test against real endpoints** -- send actual HTTP requests, compare against spec, fix discrepancies in the spec
+1. **Generate reference docs** -- use `templates/api-reference.md`, run `npm run validate:minimal`, run `npm run build`
+1. **Generate test assets** -- `python3 scripts/generate_protocol_test_assets.py --protocols rest --source api/openapi.yaml --output-dir reports/api-test-assets`
 
-\11. **Map operations to HTTP methods:**
+**Key difference from API-first:** in code-first you test against real running endpoints, not Prism mocks.
 
-   | Operation | HTTP method | Path pattern | Success code |
-   | --- | --- | --- | --- |
-   | Create | POST | `/resources` | 201 |
-   | List | GET | `/resources` | 200 |
-   | Get one | GET | `/resources/{id}` | 200 |
-   | Update (full) | PUT | `/resources/{id}` | 200 |
-   | Update (partial) | PATCH | `/resources/{id}` | 200 |
-   | Delete | DELETE | `/resources/{id}` | 204 |
+### Contract file organization
 
-\11. **Generate the root OpenAPI spec:**
+**REST (OpenAPI):**
 
-- Create `api/openapi.yaml` with full `info` block (title, description, version, contact, license)
-- Set `servers` array with at least mock and production URLs
-- Define `security` schemes (Bearer token, API key, OAuth2)
+```text
+api/
+  openapi.yaml                    # Root spec - $ref to paths and components
+  paths/
+    users.yaml                    # All /users endpoints
+    orders.yaml                   # All /orders endpoints
+  components/
+    schemas/
+      User.yaml
+      Order.yaml
+      Error.yaml
+      Pagination.yaml             # Shared cursor/offset pagination envelope
+      Money.yaml                  # Currency + amount pair
+      Address.yaml                # Postal address
+      DateRange.yaml              # start_date / end_date pair
+    parameters/
+      PageSize.yaml               # ?page_size= query parameter
+      PageToken.yaml              # ?page_token= cursor parameter
+      SortOrder.yaml              # ?sort= asc|desc parameter
+      FieldMask.yaml              # ?fields= sparse fieldset parameter
+      IdempotencyKey.yaml         # Idempotency-Key header
+      AcceptLanguage.yaml         # Accept-Language header
+    responses/
+      NotFound.yaml               # 404
+      Unauthorized.yaml           # 401
+      Forbidden.yaml              # 403
+      ValidationError.yaml        # 400
+      Conflict.yaml               # 409
+      RateLimited.yaml            # 429
+      InternalError.yaml          # 500
+    headers/
+      RateLimit.yaml              # X-RateLimit-Limit, -Remaining, -Reset bundle
+      RequestId.yaml              # X-Request-Id trace header
+      Pagination.yaml             # Link, X-Total-Count pagination headers
+    securitySchemes/
+      BearerAuth.yaml             # Bearer JWT token
+      ApiKeyAuth.yaml             # X-API-Key header
+    examples/
+      UserExample.yaml            # Realistic User object example
+      ErrorExample.yaml           # Realistic Error object example
+```
 
-\11. **Create per-resource path files:**
+**Rule:** every reusable element (schemas, parameters, responses, headers, security schemes, examples) MUST live in its own file under `components/` and be referenced via `$ref`. Do not inline shared definitions -- duplication causes drift.
 
-- One file per resource under `api/paths/`
-- Use `$ref` from root spec to each path file
-- Apply `discriminator` for polymorphic types
-- Use `allOf` for inheritance
+**Non-REST protocols:** place contracts under `docs/assets/protocols/`:
 
-\11. **Apply all quality rules:**
+```text
+docs/assets/protocols/
+  rest/openapi.yaml
+  graphql/schema.graphql
+  grpc/service.proto
+  asyncapi/asyncapi.yaml
+  websocket/channels.yaml
+```
 
-- Follow every rule from the "OpenAPI spec quality rules" section below
-- Every operation has `operationId`, `summary`, `description`, `tags`
-- Every parameter has `description`, `example`, explicit `required`
-- Every schema property has `description`, `type`, `example`
-- All possible response codes are defined (200/201, 400, 401, 403, 404, 409, 429, 500)
+### Protocol-specific validation
 
-\11. **Generate endpoint code with OpenAPI Generator:**
+Each protocol has a dedicated validator. Codex MUST run the correct validator before generating docs:
 
-- Use the API-first flow entry point: `python3 scripts/run_api_first_flow.py ...`
-- Or run generator locally with Docker:
+```bash
+# REST
+python3 scripts/validate_openapi_contract.py api/openapi.yaml
 
-     ```bash
-     docker run --rm -v "${PWD}:/local" \
-       openapitools/openapi-generator-cli:v7.7.0 generate \
-       -i /local/api/openapi.yaml \
-       -g typescript-express-server \
-       -o /local/generated/server
-     ```
+# GraphQL
+python3 scripts/validate_graphql_contract.py docs/assets/protocols/graphql/schema.graphql
 
-- Generate client SDK:
+# gRPC
+python3 scripts/validate_proto_contract.py --proto docs/assets/protocols/grpc/service.proto
 
-     ```bash
-     docker run --rm -v "${PWD}:/local" \
-       openapitools/openapi-generator-cli:v7.7.0 generate \
-       -i /local/api/openapi.yaml \
-       -g typescript-axios \
-       -o /local/generated/client
-     ```
+# AsyncAPI
+python3 scripts/validate_asyncapi_contract.py docs/assets/protocols/asyncapi/asyncapi.yaml
 
-\11. **Start API sandbox (choose one mode):**
+# WebSocket
+python3 scripts/validate_websocket_contract.py docs/assets/protocols/websocket/channels.yaml
+```
 
-   ```bash
-   # Docker mode
-   bash scripts/api_sandbox_project.sh up taskstream ./api/openapi.yaml 4010 docker
+### Test assets generation and smart merge
 
-   # No-Docker local mode
-   bash scripts/api_sandbox_project.sh up taskstream ./api/openapi.yaml 4010 prism
+**Script:** `scripts/generate_protocol_test_assets.py`
 
-   # Public external mode
-   API_SANDBOX_EXTERNAL_BASE_URL="https://sandbox-api.example.com/v1" \
-   bash scripts/api_sandbox_project.sh up taskstream ./api/openapi.yaml 4010 external
-   ```
+Generates protocol-aware test cases for all five protocols. Codex MUST run this after any contract change.
 
-   Use external mode for public docs sandbox so Try-it works for all visitors.
+```bash
+python3 scripts/generate_protocol_test_assets.py \
+  --protocols graphql,grpc,asyncapi,websocket \
+  --source docs/assets/protocols/graphql/schema.graphql \
+  --output-dir reports/api-test-assets
+```
 
-\11. **Test all endpoints against the mock:**
+**Test case types per protocol:**
 
-- Send requests to each endpoint
-- Verify response status codes match the spec
-- Verify response body shapes match schema definitions
-- Verify example values are realistic and consistent
+| Protocol | Test categories |
+| --- | --- |
+| GraphQL | Happy path query/mutation/subscription, invalid input, auth policy, injection hardening, latency budget |
+| gRPC | Positive unary/streaming, status code semantics, deadline/retry, authorization, latency SLO |
+| AsyncAPI | Publish contract validation, invalid payload rejection, ordering/idempotency, security policy, throughput |
+| WebSocket | Connection/auth, message envelope validation, reconnect behavior, security, concurrency |
+| REST | CRUD happy paths, validation errors, auth, rate limiting, pagination |
 
-\11. **Fix discrepancies:**
+**Output formats:**
 
-- If mock responses do not match spec expectations, fix the spec
-- Re-run Prism to confirm fixes
-- For local modes, stop when done:
+- `api_test_cases.json` -- full case objects with merge stats
+- `testrail_test_cases.csv` -- TestRail upload format
+- `zephyr_test_cases.json` -- Zephyr Scale upload format
+- `test_matrix.json` -- case matrix for test selection
+- `fuzz_scenarios.json` -- payload mutation scenarios
 
-  ```bash
-  bash scripts/api_sandbox_project.sh down taskstream ./api/openapi.yaml 4010 prism
-  ```
+### Smart merge: how tests survive API changes
 
-\11. **Run Spectral lint and all doc linters:**
+When the contract changes, the test generator uses **signature-based smart merge** to reconcile new auto-generated cases with existing customized and manual cases.
 
-    ```bash
-    npx spectral lint api/openapi.yaml --ruleset .spectral.yml
-    npm run validate:minimal
-    ```
+**Source signature:** SHA-256 hash of the contract source file. Every generated test case carries the `spec_signature` of the contract version it was generated from.
 
-    Both MUST pass with zero errors and zero warnings.
+**Merge rules:**
 
-\11. **Generate reference docs, build, and publish:**
-    - Generate reference docs using `templates/api-reference.md` template
-    - Update `mkdocs.yml` navigation
-    - Run `npm run build` to verify the full site builds
-    - Create a pull request with all changes
+| Existing case state | Signature changed? | Action |
+| --- | --- | --- |
+| Missing (new endpoint) | n/a | ADD new case |
+| Auto-generated, not customized | No | REPLACE with regenerated version |
+| Auto-generated, not customized | Yes | REPLACE with regenerated version |
+| Customized (`customized: true`) | No | PRESERVE custom version |
+| Customized (`customized: true`) | Yes | PRESERVE + mark `needs_review: true` |
+| Manual (`origin: "manual"`) | Any | NEVER overwrite, always preserve |
+
+**Merge stats in output:**
+
+```json
+{
+  "merge_stats": {
+    "new": 5,
+    "updated": 3,
+    "preserved_custom": 2,
+    "preserved_manual": 1,
+    "stale_custom_needs_review": 1
+  },
+  "needs_review_ids": ["TC-graphql-mutation-create-auth"],
+  "source_signature": "abc123..."
+}
+```
+
+**Codex MUST after every contract change:**
+
+1. Run `generate_protocol_test_assets.py` to regenerate test cases
+1. Check `merge_stats` in the output -- report `stale_custom_needs_review` count to the user
+1. If `needs_review_ids` is non-empty, list the case IDs and explain that these custom test cases may need updating because the contract signature changed
+1. Never modify cases with `origin: "manual"` -- these are human-authored and must be preserved exactly
+
+### When the API changes: full update checklist
+
+When a user modifies any API contract (adds endpoints, changes schemas, removes operations), Codex MUST execute this sequence:
+
+1. **Update the contract** -- edit the spec/schema/proto file
+1. **Validate the contract** -- run the protocol-specific validator (see above)
+1. **Check for breaking changes** -- the multi-protocol flow runs regression checks automatically; for manual runs: compare against the previous snapshot in `reports/`
+1. **Regenerate reference docs** -- run `scripts/generate_protocol_docs.py` or the full flow
+1. **Regenerate test assets** -- run `scripts/generate_protocol_test_assets.py`
+1. **Review smart merge output** -- check `needs_review_ids`, report stale custom cases
+1. **Update navigation** -- if new endpoints/operations were added, update `mkdocs.yml`
+1. **Run self-verification** -- `scripts/run_protocol_self_verify.py` against live/mock endpoints
+1. **Run full lint** -- `npm run validate:minimal`
 
 ## Interactive diagrams
 
@@ -1952,9 +2335,9 @@ This applies to **any document type** (how-to, concept, reference, troubleshooti
 
 ### How to create an interactive diagram
 
-\11. Copy the template: `cp templates/interactive-diagram.html docs/diagrams/[name].html`
-\11. Edit the HTML structure: add/remove layers and components (the `<!-- EDIT THIS SECTION -->` comments mark editable areas)
-\11. Edit the `descriptions` object in the `<script>` section. Every component MUST have a rich description that appears in the info panel when the user clicks on it:
+1. Copy the template: `cp templates/interactive-diagram.html docs/diagrams/[name].html`
+1. Edit the HTML structure: add/remove layers and components (the `<!-- EDIT THIS SECTION -->` comments mark editable areas)
+1. Edit the `descriptions` object in the `<script>` section. Every component MUST have a rich description that appears in the info panel when the user clicks on it:
 
 - `title`: Component name with context (for example, "PostgreSQL Database" not just "Database")
 - `desc`: 2-3 sentences with concrete metrics, specific technologies, and how this component connects to others. Write as if explaining to an engineer who needs to understand the system in 30 seconds.
@@ -1974,9 +2357,9 @@ This applies to **any document type** (how-to, concept, reference, troubleshooti
    "The database stores data."
    ```
 
-\11. Each component needs a `data-id` attribute that matches a key in `descriptions`
-\11. Embed in the Markdown document using iframe (see below)
-\11. **Immediately after creating/editing the diagram and embedding it, run validation:**
+1. Each component needs a `data-id` attribute that matches a key in `descriptions`
+1. Embed in the Markdown document using iframe (see below)
+1. **Immediately after creating/editing the diagram and embedding it, run validation:**
 
 ```bash
 python3 scripts/validate_diagram_content.py docs/diagrams/[name].html docs/[path-to-md]
@@ -2130,6 +2513,175 @@ The `.spectral.yml` configuration extends `spectral:oas` and enforces these 18 r
 | `schema-properties-example` | warn | Schema properties have example values |
 
 **Target: zero errors AND zero warnings.**
+
+## Knowledge module pipeline (RAG preparation)
+
+**Every document change triggers the knowledge module pipeline.** This pipeline extracts intent-driven knowledge modules from docs, validates them, builds retrieval indexes, and optionally runs quality evaluations. Codex MUST understand and execute this pipeline after creating or updating documentation.
+
+### Pipeline overview
+
+```text
+docs/                               # Source documents
+    |
+    v
+[extract_knowledge_modules_from_docs.py]
+    | Parse frontmatter, auto-detect intents/audiences
+    | Smart paragraph chunking (~1400 chars, split on H2/H3)
+    v
+knowledge_modules/                  # YAML knowledge modules
+    |
+    v
+[validate_knowledge_modules.py]
+    | Check YAML syntax, validate schema
+    | Detect duplicate IDs, check dependency graph (no cycles)
+    v
+reports/knowledge_modules_report.json
+    |
+    v
+[generate_knowledge_retrieval_index.py]
+    | Load active modules, create retrieval records
+    | Include metadata (intents, audiences, channels, tags)
+    v
+docs/assets/knowledge-retrieval-index.json    # JSON index (Algolia + FAISS input)
+    |
+    v (optional)
+[generate_embeddings.py]
+    | Embed each module/chunk (text-embedding-3-small, 1536 dims)
+    | Normalize vectors (L2), build FAISS IndexFlatIP
+    v
+docs/assets/retrieval.faiss                   # FAISS binary index
+docs/assets/retrieval-metadata.json           # Metadata sidecar
+    |
+    v (optional)
+[run_retrieval_evals.py]
+    | Evaluate precision@k, recall@k, hallucination rate
+    | Compare against golden dataset (config/retrieval_eval_dataset.yml)
+    v
+reports/retrieval_evals_report.json
+```
+
+### Knowledge module schema
+
+Every module (auto-extracted or manual) follows the schema in `knowledge-module-schema.yml`:
+
+| Field | Required | Constraints |
+| --- | --- | --- |
+| `id` | Yes | Kebab-case, pattern `^[a-z0-9-]+$`, unique across all modules |
+| `title` | Yes | 10-90 characters |
+| `summary` | Yes | 30-240 characters (maps to document `description` in frontmatter) |
+| `intents` | Yes | Non-empty list: `install`, `configure`, `troubleshoot`, `optimize`, `secure`, `migrate`, `automate`, `compare`, `integrate` |
+| `audiences` | Yes | Non-empty list: `beginner`, `practitioner`, `operator`, `developer`, `architect`, `sales`, `support`, `all` |
+| `channels` | Yes | Non-empty list: `docs`, `in-product`, `assistant`, `automation`, `field`, `sales` |
+| `priority` | Yes | Integer 1-100 |
+| `status` | Yes | `active` or `deprecated` |
+| `owner` | Yes | 3-120 characters |
+| `last_verified` | Yes | Date `YYYY-MM-DD` |
+| `dependencies` | No | List of module IDs (acyclic graph enforced) |
+| `tags` | No | Max 8 tags |
+| `content.docs_markdown` | Yes | Min 80 characters -- the documentation chunk |
+| `content.assistant_context` | Yes | Min 60 characters -- LLM context for retrieval |
+
+### How extraction maps documents to modules
+
+The extractor (`extract_knowledge_modules_from_docs.py`) makes these automatic decisions:
+
+**Intent inference from content_type and content:**
+
+| Signal | Inferred intent |
+| --- | --- |
+| `content_type: tutorial` or `content_type: how-to` | `configure` |
+| `content_type: troubleshooting` or content contains "error"/"fix" | `troubleshoot` |
+| `content_type: reference` or `content_type: concept` | `integrate` |
+| Content contains "secure"/"auth" | `secure` |
+| No match | `configure` (fallback) |
+
+**Audience inference from content_type:**
+
+| Content type | Audiences |
+| --- | --- |
+| `tutorial` | `[beginner, practitioner]` |
+| `reference`, `concept` | `[developer, operator]` |
+| `troubleshooting` | `[support, operator]` |
+| Default | `[practitioner, developer]` |
+
+**Chunking rules:**
+
+- Max chunk size: ~1400 characters
+- Split priority: H2 headers first, then H3 headers, then paragraphs
+- Each chunk becomes a separate module with ID: `auto-{filename}-{chunk-index}`
+- Multi-chunk documents get "Part N" appended to title
+
+### Writing docs for optimal RAG extraction
+
+Codex MUST follow these rules to produce documents that extract into high-quality knowledge modules:
+
+1. **Use descriptive H2/H3 headings** -- they become chunk boundaries. "Configure HMAC authentication" extracts better than "Configuration"
+1. **Keep sections under 1400 characters** -- prevents mid-paragraph splitting that degrades retrieval quality
+1. **Set `content_type` accurately** -- drives intent inference. A troubleshooting guide tagged as `reference` gets wrong intents
+1. **Write informative first paragraphs** -- the document `description` becomes the module `summary` (30-240 chars), used in retrieval ranking
+1. **Add specific `tags`** -- tags propagate to modules and enable filtered retrieval queries
+1. **Include concrete facts in every section** -- facts (numbers, code, config values) improve both GEO scores and retrieval relevance
+1. **One topic per section** -- sections that cover multiple topics produce unfocused chunks that match too many queries
+
+### Running the pipeline
+
+**After every document create/update, Codex MUST run these three commands in order:**
+
+```bash
+# Step 1: Extract modules from docs (removes old auto-modules, creates new ones)
+python3 scripts/extract_knowledge_modules_from_docs.py \
+  --docs-dir docs --modules-dir knowledge_modules \
+  --report reports/knowledge_auto_extract_report.json
+
+# Step 2: Validate all modules (schema, uniqueness, dependency graph)
+python3 scripts/validate_knowledge_modules.py
+
+# Step 3: Rebuild the retrieval index
+python3 scripts/generate_knowledge_retrieval_index.py
+```
+
+**Optional advanced steps (run in weekly batch or on-demand):**
+
+```bash
+# Build FAISS embeddings (requires OpenAI API key for text-embedding-3-small)
+python3 scripts/generate_embeddings.py
+
+# Build knowledge graph (JSON-LD)
+python3 scripts/generate_knowledge_graph_jsonld.py \
+  --modules-dir knowledge_modules \
+  --output docs/assets/knowledge-graph.jsonld \
+  --report reports/knowledge_graph_report.json
+
+# Evaluate retrieval quality (precision, recall, hallucination rate)
+python3 scripts/run_retrieval_evals.py \
+  --index docs/assets/knowledge-retrieval-index.json \
+  --report reports/retrieval_evals_report.json \
+  --top-k 3 --min-precision 0.5 --min-recall 0.5 --max-hallucination-rate 0.5
+```
+
+### Retrieval strategies at runtime
+
+The Ask AI runtime (`runtime/ask-ai-pack/app/retrieval.py`) supports three retrieval strategies. Codex should understand these to write docs that perform well across all modes:
+
+1. **Token-overlap search (baseline fallback):** counts question tokens found in module title + summary + assistant_excerpt + intents. Modules with higher overlap and priority rank higher. Works without embeddings.
+1. **Semantic search (FAISS):** embeds the question, finds nearest neighbors in the FAISS index. Optional HyDE (Hypothetical Document Embeddings) generates a hypothetical answer first, then embeds that instead.
+1. **Hybrid search (RRF -- Reciprocal Rank Fusion):** combines semantic and token-overlap rankings. Optional cross-encoder reranking refines top candidates.
+
+**Chunk deduplication:** when chunked retrieval is active, only the highest-ranked chunk per parent module is returned (prevents flooding context with chunks from a single document).
+
+### Configuration
+
+RAG pipeline behavior is controlled by `config/ask-ai.yml`:
+
+| Setting | Default | Purpose |
+| --- | --- | --- |
+| `semantic_retrieval` | `true` | Use FAISS or fall back to token-overlap |
+| `max_context_modules` | `6` | Max modules included in LLM context |
+| `chunking.max_tokens` | `750` | Per-chunk token limit for embedding |
+| `chunking.overlap_tokens` | `100` | Token overlap between consecutive chunks |
+| `reranking.enabled` | `true` | Cross-encoder reranking of top candidates |
+| `hybrid_search.enabled` | `true` | RRF fusion of semantic + token-overlap |
+| `hyde.enabled` | `true` | Hypothetical Document Embeddings |
 
 ## Full SEO and GEO optimization rules
 
