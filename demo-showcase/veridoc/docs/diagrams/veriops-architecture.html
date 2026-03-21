@@ -411,11 +411,16 @@ function syncTheme() {
       document.documentElement.setAttribute('data-theme', 'dark');
       return;
     }
+    if (parentScheme === 'default') {
+      document.documentElement.removeAttribute('data-theme');
+      return;
+    }
     var parentTheme = window.parent.document.documentElement.getAttribute('data-theme');
     if (parentTheme === 'dark') {
       document.documentElement.setAttribute('data-theme', 'dark');
       return;
     }
+    document.documentElement.removeAttribute('data-theme');
   } catch (e) {}
 }
 syncTheme();

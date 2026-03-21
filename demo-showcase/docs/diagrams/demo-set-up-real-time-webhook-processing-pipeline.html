@@ -228,8 +228,10 @@ function syncTheme() {
   try {
     const parentScheme = window.parent.document.body.getAttribute('data-md-color-scheme');
     if (parentScheme === 'slate') { document.documentElement.setAttribute('data-theme', 'dark'); return; }
+    if (parentScheme === 'default') { document.documentElement.removeAttribute('data-theme'); return; }
     const parentTheme = window.parent.document.documentElement.getAttribute('data-theme');
     if (parentTheme === 'dark') { document.documentElement.setAttribute('data-theme', 'dark'); return; }
+    document.documentElement.removeAttribute('data-theme');
   } catch (e) { }
 }
 syncTheme();
