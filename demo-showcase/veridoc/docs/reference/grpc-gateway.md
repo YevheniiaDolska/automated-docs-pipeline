@@ -178,7 +178,7 @@ Enter a service, method, and JSON payload to invoke an RPC through the sandbox g
 </div>
 
 <script>
-/* Sandbox onclick is set by acme-sandbox.js with local mock responses */
+/* Sandbox onclick is set by veriops-sandbox.js with local mock responses */
 </script>
 
 ## Error handling and gRPC status codes

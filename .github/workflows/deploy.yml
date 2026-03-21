@@ -40,7 +40,7 @@ jobs:
         env:
           POSTMAN_API_KEY: ${{ secrets.POSTMAN_API_KEY }}
         run: |
-          cd demo-showcase/acme
+          cd demo-showcase/veridoc
           mkdocs build --strict
           # Inject Postman API key into sandbox config files
           if [ -n "$POSTMAN_API_KEY" ]; then

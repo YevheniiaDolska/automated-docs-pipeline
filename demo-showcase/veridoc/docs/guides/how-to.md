@@ -172,14 +172,14 @@ Generate the browsable MkDocs documentation site:
 
 ```bash
 python3 scripts/build_demo_site.py \
-  --output-root demo-showcase/acme \
+  --output-root demo-showcase/veridoc \
   --reports-dir reports \
   --build
 ```
 
 <!-- requires: python3, mkdocs -->
 
-This command copies documentation pages, updates the `mkdocs.yml` navigation, and runs `mkdocs build` to produce the final HTML site in `demo-showcase/acme/site/`.
+This command copies documentation pages, updates the `mkdocs.yml` navigation, and runs `mkdocs build` to produce the final HTML site in `demo-showcase/veridoc/site/`.
 
 ## Step 6: approve and publish
 

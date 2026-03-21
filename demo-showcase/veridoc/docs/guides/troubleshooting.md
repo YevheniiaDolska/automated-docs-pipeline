@@ -152,7 +152,7 @@ pip install mkdocs-material mkdocs-macros-plugin pymdown-extensions
 Verify the build succeeds:
 
 ```bash
-cd demo-showcase/acme && mkdocs build --strict
+cd demo-showcase/veridoc && mkdocs build --strict
 ```
 
 Expected output: `INFO - Documentation built in X.XX seconds`

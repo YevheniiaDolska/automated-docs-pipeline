@@ -10,7 +10,7 @@
         "API"
       ],
       "assistant_excerpt": "The VeriOps documentation site is a pipeline-generated showcase that provides interactive references for five API protocols, automated quality evidence, and a KPI dashboard updated on every pipeline run.",
-      "source_file": "demo-showcase/acme/docs/index.md"
+      "source_file": "demo-showcase/veridoc/docs/index.md"
     },
     {
       "objectID": "reference-rest-api",
@@ -22,7 +22,7 @@
         "API"
       ],
       "assistant_excerpt": "The VeriOps REST API provides 14 CRUD endpoints across five resources (projects, tasks, users, tags, and comments) over HTTP/1.1 with JSON payloads. This reference documents every endpoint, authentication flow, and error code.",
-      "source_file": "demo-showcase/acme/docs/reference/rest-api.md"
+      "source_file": "demo-showcase/veridoc/docs/reference/rest-api.md"
     },
     {
       "objectID": "reference-graphql-playground",
@@ -34,7 +34,7 @@
         "API"
       ],
       "assistant_excerpt": "The VeriOps GraphQL API provides a single endpoint for flexible queries across projects, tasks, and users. This page documents the full schema, provides a live query editor, and covers authentication, error handling, and performance limits.",
-      "source_file": "demo-showcase/acme/docs/reference/graphql-playground.md"
+      "source_file": "demo-showcase/veridoc/docs/reference/graphql-playground.md"
     },
     {
       "objectID": "reference-grpc-gateway",
@@ -46,7 +46,7 @@
         "API"
       ],
       "assistant_excerpt": "The VeriOps gRPC API provides high-performance Remote Procedure Call (RPC) access to project services over HTTP/2 with Protocol Buffers serialization. The HTTP gateway adapter allows you to invoke gRPC methods from any HTTP client without a gRPC library.",
-      "source_file": "demo-showcase/acme/docs/reference/grpc-gateway.md"
+      "source_file": "demo-showcase/veridoc/docs/reference/grpc-gateway.md"
     },
     {
       "objectID": "reference-asyncapi-events",
@@ -58,7 +58,7 @@
         "API"
       ],
       "assistant_excerpt": "The VeriOps event system provides asynchronous, event-driven communication for project lifecycle changes. AsyncAPI 2.6.0 contracts define channel schemas, delivery guarantees, and payload formats for three event channels.",
-      "source_file": "demo-showcase/acme/docs/reference/asyncapi-events.md"
+      "source_file": "demo-showcase/veridoc/docs/reference/asyncapi-events.md"
     },
     {
       "objectID": "reference-websocket-events",
@@ -70,7 +70,7 @@
         "API"
       ],
       "assistant_excerpt": "The VeriOps WebSocket API provides real-time, bidirectional communication for project updates and task notifications over a persistent connection. This playground allows you to connect, subscribe to channels, send messages, and observe server-pushed events.",
-      "source_file": "demo-showcase/acme/docs/reference/websocket-events.md"
+      "source_file": "demo-showcase/veridoc/docs/reference/websocket-events.md"
     },
     {
       "objectID": "guides-tutorial",
@@ -81,7 +81,7 @@
         "Tutorial"
       ],
       "assistant_excerpt": "This tutorial walks you through creating your first VeriOps API project, sending authenticated requests across three protocols (REST, GraphQL, and WebSocket), and verifying the integration works. You complete all five steps in under 15 minutes.",
-      "source_file": "demo-showcase/acme/docs/guides/tutorial.md"
+      "source_file": "demo-showcase/veridoc/docs/guides/tutorial.md"
     },
     {
       "objectID": "guides-how-to",
@@ -92,7 +92,7 @@
         "How-To"
       ],
       "assistant_excerpt": "This guide shows you how to run the unified autopipeline on release day to ensure API documentation matches the latest contracts, passes quality gates, and generates a review manifest for operator approval. You complete the full flow in approximately 20 minutes.",
-      "source_file": "demo-showcase/acme/docs/guides/how-to.md"
+      "source_file": "demo-showcase/veridoc/docs/guides/how-to.md"
     },
     {
       "objectID": "guides-concept",
@@ -103,7 +103,7 @@
         "Concept"
       ],
       "assistant_excerpt": "Pipeline-first documentation is a methodology where automated systems generate, validate, and publish API documentation from source contracts. Humans review and approve outputs instead of writing from scratch, reducing review cycles from 5+ rounds to 1-2 rounds.",
-      "source_file": "demo-showcase/acme/docs/guides/concept.md"
+      "source_file": "demo-showcase/veridoc/docs/guides/concept.md"
     },
     {
       "objectID": "guides-troubleshooting",
@@ -114,7 +114,7 @@
         "Troubleshooting"
       ],
       "assistant_excerpt": "Your VeriOps documentation pipeline is failing with contract validation errors, quality gate warnings, or build failures. This guide fixes 95% of pipeline issues in under 5 minutes.",
-      "source_file": "demo-showcase/acme/docs/guides/troubleshooting.md"
+      "source_file": "demo-showcase/veridoc/docs/guides/troubleshooting.md"
     },
     {
       "objectID": "quality-evidence",
@@ -126,7 +126,7 @@
         "Quality"
       ],
       "assistant_excerpt": "This page provides the complete quality evidence generated by the VeriDoc pipeline for the VeriOps documentation site. It covers KPI metrics, protocol gate results, 32 automated quality checks, RAG retrieval readiness, and all pipeline artifacts.",
-      "source_file": "demo-showcase/acme/docs/quality/evidence.md"
+      "source_file": "demo-showcase/veridoc/docs/quality/evidence.md"
     },
     {
       "objectID": "quality-review-manifest",
@@ -135,7 +135,7 @@
       "url": "quality/review-manifest/",
       "tags": [],
       "assistant_excerpt": "- Runtime config: `/mnt/c/Users/Kroha/Documents/development/Auto-Doc Pipeline/reports/veriops/client_runtime.yml` - Weekly run rc: `1` - Strictness: `standard` - Available artifacts: `15` - Missing artifacts: `12`",
-      "source_file": "demo-showcase/acme/docs/quality/review-manifest.md"
+      "source_file": "demo-showcase/veridoc/docs/quality/review-manifest.md"
     }
   ]
 }

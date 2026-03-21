@@ -188,7 +188,7 @@ Enter a GraphQL query and click **Run query** to execute it against the Postman 
 </div>
 
 <script>
-/* Sandbox onclick is set by acme-sandbox.js with local mock responses */
+/* Sandbox onclick is set by veriops-sandbox.js with local mock responses */
 </script>
 
 ## Advanced RAG retrieval pipeline
