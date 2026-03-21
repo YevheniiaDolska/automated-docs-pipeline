@@ -7,7 +7,7 @@ product: both
 tags:
 - Operations
 - Reference
-last_reviewed: '2026-03-12'
+last_reviewed: '2026-03-21'
 original_author: Developer
 ---
 
@@ -50,6 +50,12 @@ runtime:
 | `api:first:verify-user-path:prodlike` | API-first | `python3 scripts/self_verify_prodlike_user_path.py --base-url http://localhost:4011/v1` |
 | `api:test:assets` | API-first | `python3 scripts/generate_api_test_assets.py --spec api/openapi.yaml --output-dir reports/api-test-assets --testrail-csv reports/api-test-assets/testrail_test_cases.csv --zephyr-json reports/api-test-assets/zephyr_test_cases.json` |
 | `api:test:upload` | API-first | `python3 scripts/upload_api_test_assets.py --cases-json reports/api-test-assets/api_test_cases.json --report reports/api-test-assets/upload_report.json` |
+| `audit:public` | Audit | `python3 scripts/generate_public_docs_audit.py` |
+| `audit:public:wizard` | Audit | `python3 scripts/generate_public_docs_audit.py --interactive` |
+| `audit:public:llm` | Audit | `python3 scripts/generate_public_docs_audit.py --llm-enabled --llm-model claude-sonnet-4-5` |
+| `audit:public:llm-summary` | Audit | `python3 scripts/generate_public_docs_audit.py --llm-enabled --llm-summary-only --llm-model claude-sonnet-4-5` |
+| `audit:executive-pdf` | Audit | `python3 scripts/generate_executive_audit_pdf.py --scorecard-json reports/audit_scorecard.json --public-audit-json reports/public_docs_audit.json --company-name "Client"` |
+| `audit:scorecard` | Audit | `python3 scripts/generate_audit_scorecard.py --docs-dir docs --reports-dir reports --spec-path api/openapi.yaml --policy-pack policy_packs/api-first.yml --glossary-path glossary.yml --stale-days 180 --auto-run-smoke --json-output reports/audit_scorecard.json --html-output reports/audit_scorecard.html` |
 | `api:sandbox:live` | API-first | `bash scripts/api_sandbox_live.sh up taskstream ./api/openapi.yaml 4010` |
 | `api:sandbox:live:logs` | API-first | `bash scripts/api_sandbox_live.sh logs taskstream ./api/openapi.yaml 4010` |
 | `api:sandbox:live:status` | API-first | `bash scripts/api_sandbox_live.sh status taskstream ./api/openapi.yaml 4010` |
@@ -170,6 +176,111 @@ These are part of the current implementation and are invoked directly by operato
 | `scripts/preprocess_variables.py` | Variables pre-processing helper for docs generation flows. |
 | `scripts/upload_to_algolia.py` | Upload generated search records to Algolia. |
 | `scripts/validate_pr_dod.py` | DoD validation helper for PR workflows. |
+| `scripts/run_multi_protocol_contract_flow.py` | Unified orchestrator for all 5 protocol documentation flows (REST, GraphQL, gRPC, AsyncAPI, WebSocket). Runs 8 stages: ingest, validate, lint, regression, docs generation, quality gates, test assets, publish. |
+| `scripts/generate_protocol_contract_from_planning_notes.py` | Generate protocol contracts (GraphQL SDL, Proto3, AsyncAPI YAML, WebSocket YAML) from planning notes markdown. |
+| `scripts/generate_protocol_docs.py` | Auto-generate reference documentation from protocol contracts using protocol-specific templates. |
+| `scripts/generate_protocol_test_assets.py` | Generate protocol-aware test cases with signature-based smart merge. Outputs JSON, TestRail CSV, Zephyr JSON, test matrix, and fuzz scenarios. |
+| `scripts/run_protocol_self_verify.py` | Runtime validation against live/mock endpoints: GraphQL introspection, gRPC invocation, AsyncAPI event publish, WebSocket connection and message routing. |
+| `scripts/validate_graphql_contract.py` | GraphQL SDL contract validation (syntax, semantics, operation types). |
+| `scripts/validate_proto_contract.py` | Proto3 contract validation (syntax, service definitions, RPC methods). |
+| `scripts/validate_asyncapi_contract.py` | AsyncAPI contract validation (channels, schemas, delivery guarantees). |
+| `scripts/validate_websocket_contract.py` | WebSocket channel contract validation (message schemas, connection lifecycle). |
+| `scripts/generate_public_docs_audit.py` | Public documentation site auditor: crawls live sites, evaluates broken links, SEO/GEO, API coverage, code examples, freshness. Supports interactive wizard and LLM-powered expert analysis. |
+| `scripts/generate_audit_scorecard.py` | Comprehensive audit scorecard generator combining docs quality, API coverage, code examples, glossary health, and policy compliance into a single score. |
+| `scripts/generate_executive_audit_pdf.py` | Consulting-grade executive PDF report from audit scorecard and public docs audit results. Includes score gauges, risk matrices, financial impact tables, and methodology appendix. |
+| `scripts/generate_embeddings.py` | Generate FAISS vector index from knowledge modules using `text-embedding-3-small` (1536 dimensions). Builds `retrieval.faiss` and `retrieval-metadata.json`. |
+
+## Multi-protocol contract pipeline
+
+The pipeline supports five API protocols with a unified orchestrator (`run_multi_protocol_contract_flow.py`). Each protocol has its own contract format, validator, reference template, test generator, and sandbox fallback.
+
+| Protocol | Contract format | Validator | Sandbox fallback |
+| --- | --- | --- | --- |
+| REST | OpenAPI 3.0 YAML | `validate_openapi_contract.py` + Spectral + Redocly | Prism / Postman mock server |
+| GraphQL | SDL (`.graphql`) | `validate_graphql_contract.py` | `postman-echo.com/post` |
+| gRPC | Proto3 (`.proto`) | `validate_proto_contract.py` | `postman-echo.com/post` (JSON-over-HTTP) |
+| AsyncAPI | AsyncAPI 2.6 YAML | `validate_asyncapi_contract.py` | `postman-echo.com/post` + `echo.websocket.events` |
+| WebSocket | Channel YAML | `validate_websocket_contract.py` | `echo.websocket.events` |
+
+**8 pipeline stages per protocol:** ingest, contract validation, lint, regression detection, docs generation, quality gates (frontmatter + snippet lint + self-verification), test assets generation with smart merge, publish.
+
+**Autofix cycle:** up to 3 auto-remediation attempts per protocol. Regenerates docs and retries semantic consistency checks on failure.
+
+**Contract generation from planning notes:** `generate_protocol_contract_from_planning_notes.py` generates protocol specs from markdown planning notes.
+
+**Self-verification:** `run_protocol_self_verify.py` validates generated docs against live/mock endpoints (GraphQL introspection, gRPC method invocation, AsyncAPI event publish, WebSocket connection routing).
+
+## Test assets generation and smart merge
+
+`generate_protocol_test_assets.py` generates protocol-aware test cases for all five protocols with signature-based smart merge to preserve custom and manual test cases across contract changes.
+
+**Test categories per protocol:**
+
+| Protocol | Categories |
+| --- | --- |
+| REST | CRUD happy paths, validation errors, auth, rate limiting, pagination |
+| GraphQL | Query/mutation/subscription happy path, invalid input, auth, injection, latency |
+| gRPC | Unary/streaming positive, status codes, deadline/retry, authorization, latency SLO |
+| AsyncAPI | Publish validation, invalid payload, ordering/idempotency, security, throughput |
+| WebSocket | Connection/auth, message envelope, reconnect, security, concurrency |
+
+**Output formats:** `api_test_cases.json`, `testrail_test_cases.csv` (TestRail), `zephyr_test_cases.json` (Zephyr Scale), `test_matrix.json`, `fuzz_scenarios.json`.
+
+**Smart merge rules:** auto-generated cases are replaced on contract change; customized cases (`customized: true`) are preserved and flagged `needs_review: true` when the contract signature changes; manual cases (`origin: "manual"`) are never overwritten.
+
+**TestRail/Zephyr upload:** `upload_api_test_assets.py` pushes generated cases to TestRail or Zephyr Scale. The `needs_review` flag propagates to both platforms so QA teams can triage stale custom cases.
+
+## Quality checks (32 automated)
+
+The pipeline enforces 32 automated checks on every documentation page across four categories:
+
+| Category | Count | What they verify |
+| --- | --- | --- |
+| GEO checks | 8 | LLM and AI search optimization: meta descriptions, first paragraph length, heading hierarchy, fact density |
+| SEO checks | 14 | Traditional search optimization: title length, URL depth, internal links, image alt text, structured data |
+| Style checks | 6 | American English, active voice, no weasel words, no contractions, second person, present tense |
+| Contract checks | 4 | Schema validation, regression detection, snippet lint, self-verification against endpoints |
+
+## RAG retrieval pipeline
+
+The pipeline generates a knowledge retrieval layer with six advanced features:
+
+| Feature | Description |
+| --- | --- |
+| Token-aware chunking | Splits modules into 750-token chunks with 100-token overlap (`cl100k_base`) |
+| Hybrid search (RRF) | Fuses semantic (FAISS) and token-overlap rankings with Reciprocal Rank Fusion (k=60) |
+| HyDE query expansion | Generates hypothetical doc passage via LLM before embedding for better retrieval on vague queries |
+| Cross-encoder reranking | Rescores top 20 candidates with `cross-encoder/ms-marco-MiniLM-L-6-v2` |
+| Embedding cache | In-memory LRU cache (TTL 3,600 seconds, max 512 entries) for query embeddings |
+| Multi-mode evaluation | Compares token, semantic, hybrid, and hybrid+rerank modes across curated queries |
+
+**Pipeline scripts:**
+
+1. `extract_knowledge_modules_from_docs.py` -- auto-chunk docs into knowledge modules
+1. `validate_knowledge_modules.py` -- schema validation, duplicate ID detection, cycle check
+1. `generate_knowledge_retrieval_index.py` -- JSON index for Algolia + FAISS input
+1. `generate_embeddings.py` -- FAISS vector index (`text-embedding-3-small`, 1536 dims)
+1. `generate_knowledge_graph_jsonld.py` -- JSON-LD knowledge graph
+1. `run_retrieval_evals.py` -- precision@k, recall@k, hallucination rate evaluation
+
+## Public docs auditor and executive PDF
+
+The public docs auditor crawls live documentation sites and generates a comprehensive quality assessment.
+
+**Audit modes:**
+
+| Mode | Command | Description |
+| --- | --- | --- |
+| Basic | `npm run audit:public` | Crawl + evaluate (no LLM) |
+| Interactive wizard | `npm run audit:public:wizard` | Step-by-step guided audit |
+| LLM-powered | `npm run audit:public:llm` | Full expert analysis with Claude |
+| LLM summary only | `npm run audit:public:llm-summary` | Quick LLM summary without full crawl |
+| Executive PDF | `npm run audit:executive-pdf` | Consulting-grade PDF from audit results |
+| Scorecard | `npm run audit:scorecard` | Comprehensive scoring across all quality dimensions |
+
+**Executive PDF contents:** cover page with headline findings, executive summary with score gauge and grade, per-site metrics table, board-level KPI bars with financial impact, risk matrix with priority actions, expert analysis (LLM or data-driven fallback), methodology appendix, evidence appendix.
+
+**Audit scorecard dimensions:** docs quality (SEO/GEO), API coverage, code example reliability, glossary health, content freshness, policy compliance.
 
 ## API-first external sandbox note
 

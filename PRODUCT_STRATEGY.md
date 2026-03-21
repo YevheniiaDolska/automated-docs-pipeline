@@ -86,7 +86,7 @@ deployed on client infrastructure with custom configuration, training, and retai
 | Markdownlint + style linting | Y | Y | Y | Y | Y |
 | Vale integration (Google style guide) | Y | Y | Y | Y | Y |
 | Frontmatter validation | Y | Y | Y | Y | Y |
-| SEO/GEO optimization (24 checks) | auto-fix | auto-fix | auto-fix | auto-fix | auto-fix + custom rules |
+| SEO/GEO optimization (32 checks: 8 GEO + 14 SEO + 6 Style + 4 Contract) | auto-fix | auto-fix | auto-fix | auto-fix | auto-fix + custom rules |
 | Gap analysis (community + code) | Y | Y | Y | Y | Y |
 | Glossary sync | Y | Y | Y | Y | Y |
 | Code example smoke tests | Y | Y | Y | Y | Y |
@@ -99,18 +99,26 @@ deployed on client infrastructure with custom configuration, training, and retai
 | API playground (Swagger UI) | - | Y | Y | Y | Y |
 | Drift detection (API/SDK) | - | Y | Y | Y | Y |
 | Docs-in-PR contract | - | Y | Y | Y | Y |
+| Multi-protocol pipeline (GraphQL, gRPC, AsyncAPI, WebSocket) | - | - | Y | Y | Y |
+| Protocol contract generation from planning notes | - | - | Y | Y | Y |
+| Protocol self-verification against live/mock endpoints | - | - | Y | Y | Y |
 | KPI wall + SLA dashboard | - | - | Y | Y | Y |
-| Test assets generation + smart merge | - | - | Y | Y | Y |
+| Test assets generation + smart merge (5 protocols) | - | - | Y | Y | Y |
 | Consolidated reports | - | - | Y | Y | Y |
+| Public docs auditor (site crawl + quality assessment) | - | - | Y | Y | Y |
 | API access | - | - | Y | Y | Y |
 | SSO + audit logs | - | - | Y | Y | Y |
 | Priority support | - | - | Y | Y | Y |
 | Knowledge modules extraction | - | - | - | Y | Y |
 | Knowledge graph (JSON-LD) | - | - | - | Y | Y |
-| Retrieval evals | - | - | - | Y | Y |
+| RAG pipeline (HyDE, hybrid search, cross-encoder reranking) | - | - | - | Y | Y |
+| FAISS vector index + embedding cache | - | - | - | Y | Y |
+| Retrieval evals (precision, recall, hallucination rate) | - | - | - | Y | Y |
+| Executive audit PDF (consulting-grade reports) | - | - | - | Y | Y |
+| LLM-powered expert analysis (audit + docs generation) | - | - | - | Y | Y |
 | i18n system (sync + translate) | - | - | - | Y | Y |
 | Custom policy packs | - | - | - | Y | Y |
-| TestRail/Zephyr upload | - | - | - | Y | Y |
+| TestRail/Zephyr upload (with needs_review propagation) | - | - | - | Y | Y |
 | Confluence migration tools | - | - | - | Y | Y |
 | On-premises deployment | - | - | - | Y | Y |
 | Dedicated support channel | - | - | - | Y | Y |
@@ -250,8 +258,8 @@ Confluence user dissatisfied
 
 ```text
 Starter -> Pro: "Add API-first, drift detection, and scale to 5 repos"
-Pro -> Business: "Add KPI dashboard, test assets, SSO, and scale to 15 repos"
-Business -> Enterprise: "Add knowledge system, i18n, custom policies, on-prem, unlimited"
+Pro -> Business: "Add multi-protocol pipeline, test assets with smart merge, public docs auditor, KPI dashboard, SSO, and scale to 15 repos"
+Business -> Enterprise: "Add RAG pipeline with HyDE/reranking, knowledge graph, executive PDF reports, LLM expert analysis, i18n, TestRail/Zephyr upload, custom policies, on-prem, unlimited"
 Enterprise -> VeriOps: "Need custom setup, training, or fleet management?"
 ```
 
@@ -378,8 +386,14 @@ high-value -- typically pre-IPO or post-acquisition documentation overhauls.
 
 ### What flows from VeriOps to VeriDoc
 
-All scripts in `scripts/` are synced to `git_wrapper/scripts/`. The docs pipeline
-modules in `packages/core/gitspeak_core/docs/` wrap these scripts for the SaaS context.
+All scripts in `scripts/` are synced to `git_wrapper/scripts/`. This includes
+the multi-protocol pipeline (`run_multi_protocol_contract_flow.py`, protocol validators,
+`generate_protocol_test_assets.py`, `run_protocol_self_verify.py`), the RAG pipeline
+(`generate_embeddings.py`, `run_retrieval_evals.py`, `generate_knowledge_graph_jsonld.py`),
+the public docs auditor (`generate_public_docs_audit.py`, `generate_executive_audit_pdf.py`,
+`generate_audit_scorecard.py`), and the test upload flow (`upload_api_test_assets.py`).
+The docs pipeline modules in `packages/core/gitspeak_core/docs/` wrap these scripts
+for the SaaS context.
 
 ### What stays exclusive to VeriOps
 

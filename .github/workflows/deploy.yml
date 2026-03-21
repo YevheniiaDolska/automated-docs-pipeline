@@ -36,7 +36,7 @@ jobs:
           mkdocs build --strict
           cp -r site/ ../site/demo-showcase/
 
-      - name: Build Acme demo sub-site
+      - name: Build VeriOps demo sub-site
         env:
           POSTMAN_API_KEY: ${{ secrets.POSTMAN_API_KEY }}
         run: |
@@ -47,7 +47,8 @@ jobs:
             sed -i "s|__POSTMAN_API_KEY__|${POSTMAN_API_KEY}|g" site/assets/javascripts/sandbox-config.js
             sed -i "s|__POSTMAN_API_KEY__|${POSTMAN_API_KEY}|g" site/reference/swagger-test.html
           fi
-          cp -r site/ ../../site/demo-showcase/acme/
+          # Copy into demo-showcase/ root (not acme/ subfolder)
+          cp -rT site/ ../../site/demo-showcase/
 
       - uses: actions/upload-pages-artifact@v3
         with:
