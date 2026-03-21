@@ -4,15 +4,17 @@ description: Auto-generated websocket reference from source contract.
 content_type: reference
 product: both
 tags:
-- API
-- WebSocket
-- Reference
+- Test_Multi_Protocol_Flow_Gener0
+- Pytest Of Eudo
+- Pytest 2398
+- Docs
+- Tmp
 ---
 
 
 # WEBSOCKET Reference
 
-Source: `contracts/websocket.yaml`
+Source: `/tmp/pytest-of-eudo/pytest-2398/test_multi_protocol_flow_gener0/api/websocket.yaml`
 
 Flow mode: `api-first`
 
@@ -30,7 +32,6 @@ Flow mode: `api-first`
 
 > Sandbox semantic mode: this tester returns protocol-aware responses based on message type/action.
 
-<!-- vale off -->
 <div id="websocket-playground" style="border:1px solid #d1d5db; padding:12px; border-radius:8px;">
   <p><strong>Endpoint:</strong> <code id="websocket-endpoint-view"></code></p>
   <textarea id="websocket-message" rows="8" style="width:100%; font-family:monospace;">{
@@ -92,8 +93,7 @@ send.onclick = function(){
 };
 })();
 </script>
-<!-- vale on -->
 
 ## Next steps
 
-- [Documentation index](../index.md)
+- [Documentation index](../../../index.md)

@@ -4,19 +4,22 @@ description: Auto-generated grpc reference from source contract.
 content_type: reference
 product: both
 tags:
-- API
-- gRPC
-- Reference
+- Test_Multi_Protocol_Flow_Gener0
+- Pytest 2398
+- Pytest Of Eudo
+- Tmp
+- Docs
 ---
 
 
 # GRPC Reference
 
-Source: `contracts/grpc/acme.proto`
+Source: `/tmp/pytest-of-eudo/pytest-2398/test_multi_protocol_flow_gener0/api/proto`
 
 Flow mode: `api-first`
 
 ## Top-level Keys
+
 
 ## Service Methods
 
@@ -80,4 +83,4 @@ run.onclick = async function(){
 
 ## Next steps
 
-- [Documentation index](../index.md)
+- [Documentation index](../../../index.md)

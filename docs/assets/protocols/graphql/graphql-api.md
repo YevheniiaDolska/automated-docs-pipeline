@@ -4,26 +4,31 @@ description: Auto-generated graphql reference from source contract.
 content_type: reference
 product: both
 tags:
-- API
-- GraphQL
-- Reference
+- Auto Doc Pipeline
+- Mnt
+- C
+- Development
+- Docs
+- Kroha
+- Users
+- Documents
+last_reviewed: '2026-03-20'
+original_author: Kroha
 ---
 
 
 # GRAPHQL Reference
 
-Source: `contracts/graphql.schema.graphql`
+Source: `/tmp/pytest-of-eudo/pytest-2398/test_multi_protocol_contract_f0/schema.graphql`
 
 Flow mode: `api-first`
 
 ## Operations
 
-- Query count: `2`
-- Mutation count: `1`
-- Subscription count: `2`
-- Queries: `health`, `project`
-- Mutations: `create_project`
-- Subscriptions: `project_updated`, `task_completed`
+- Query count: `1`
+- Mutation count: `0`
+- Subscription count: `0`
+- Queries: `health`
 
 ## Interactive GraphQL Playground
 
@@ -75,4 +80,4 @@ run.onclick = async function(){
 
 ## Next steps
 
-- [Documentation index](../index.md)
+- [Documentation index](../../../index.md)

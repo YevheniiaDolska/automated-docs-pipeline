@@ -4,15 +4,17 @@ description: Auto-generated asyncapi reference from source contract.
 content_type: reference
 product: both
 tags:
-- API
-- AsyncAPI
-- Reference
+- Docs
+- Test_Multi_Protocol_Flow_Gener0
+- Pytest 2398
+- Pytest Of Eudo
+- Tmp
 ---
 
 
 # ASYNCAPI Reference
 
-Source: `contracts/asyncapi.yaml`
+Source: `/tmp/pytest-of-eudo/pytest-2398/test_multi_protocol_flow_gener0/api/asyncapi.yaml`
 
 Flow mode: `api-first`
 
@@ -31,7 +33,6 @@ Flow mode: `api-first`
 
 > Sandbox semantic mode: this tester returns event-aware responses by `event_type` and payload fields.
 
-<!-- vale off -->
 <div id="asyncapi-playground" style="border:1px solid #d1d5db; padding:12px; border-radius:8px;">
   <p><strong>WebSocket Endpoint:</strong> <code id="asyncapi-ws-view"></code></p>
   <p><strong>HTTP Publish Endpoint:</strong> <code id="asyncapi-http-view"></code></p>
@@ -109,8 +110,7 @@ sendHttp.onclick = async function(){
 };
 })();
 </script>
-<!-- vale on -->
 
 ## Next steps
 
-- [Documentation index](../index.md)
+- [Documentation index](../../../index.md)
