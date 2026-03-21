@@ -4,7 +4,7 @@
       "objectID": "fc139a50fdb1460eccf3849af0cd2115",
       "title": "ASYNCAPI API Reference",
       "heading": "ASYNCAPI Reference",
-      "content": "Source: contracts/asyncapi.yaml Flow mode: api-first ",
+      "content": "Source: /tmp/pytest-of-eudo/pytest-2398/test_multi_protocol_flow_gener0/api/asyncapi.yaml Flow mode: api-first ",
       "description": "Auto-generated asyncapi reference from source contract.",
       "product": "both",
       "content_type": "reference",
@@ -12,9 +12,11 @@
       "version": "",
       "maturity": "ga",
       "tags": [
-        "API",
-        "AsyncAPI",
-        "Reference"
+        "Docs",
+        "Test_Multi_Protocol_Flow_Gener0",
+        "Pytest 2398",
+        "Pytest Of Eudo",
+        "Tmp"
       ],
       "hierarchy": {
         "lvl0": "both",
@@ -44,9 +46,11 @@
       "version": "",
       "maturity": "ga",
       "tags": [
-        "API",
-        "AsyncAPI",
-        "Reference"
+        "Docs",
+        "Test_Multi_Protocol_Flow_Gener0",
+        "Pytest 2398",
+        "Pytest Of Eudo",
+        "Tmp"
       ],
       "hierarchy": {
         "lvl0": "both",
@@ -76,9 +80,11 @@
       "version": "",
       "maturity": "ga",
       "tags": [
-        "API",
-        "AsyncAPI",
-        "Reference"
+        "Docs",
+        "Test_Multi_Protocol_Flow_Gener0",
+        "Pytest 2398",
+        "Pytest Of Eudo",
+        "Tmp"
       ],
       "hierarchy": {
         "lvl0": "both",
@@ -100,7 +106,7 @@
       "objectID": "50187e629304ae9fae86ba69fb2a0e6c",
       "title": "ASYNCAPI API Reference",
       "heading": "Interactive AsyncAPI Tester",
-      "content": "> Sandbox semantic mode: this tester returns event-aware responses by event_type and payload fields. <!-- vale off --> <div id=\"asyncapi-playground\" style=\"border:1px solid #d1d5db; padding:12px; border-radius:8px;\">   <p><strong>WebSocket Endpoint:</strong> <code id=\"asyncapi-ws-view\"></code></p>   <p><strong>HTTP Publish Endpoint:</strong> <code id=\"asyncapi-http-view\"></code></p>   <textarea id=\"asyncapi-message\" rows=\"8\" style=\"width:100%; font-family:monospace;\">{   \"event_type\": \"project.updated\",   \"event_id\": \"evt_001\",   \"data\": {\"project_id\": \"prj_abc123\", \"status\": \"active\"} }</textarea><br/>   <button id=\"asyncapi-send-ws\">Send via WebSocket</button>   <button id=\"asyncapi-send-http\">Send via HTTP</button>   <pre id=\"asyncapi-output\" style=\"margin-top:12px; max-height:320px; overflow:auto;\"></pre> </div> <script> (function(){ const wsEndpoint = \"wss://echo.websocket.events\"; const httpEndpoint = \"https://postman-echo.com/post\"; const wsView = document.getElementById('asynca",
+      "content": "> Sandbox semantic mode: this tester returns event-aware responses by event_type and payload fields. <div id=\"asyncapi-playground\" style=\"border:1px solid #d1d5db; padding:12px; border-radius:8px;\">   <p><strong>WebSocket Endpoint:</strong> <code id=\"asyncapi-ws-view\"></code></p>   <p><strong>HTTP Publish Endpoint:</strong> <code id=\"asyncapi-http-view\"></code></p>   <textarea id=\"asyncapi-message\" rows=\"8\" style=\"width:100%; font-family:monospace;\">{   \"event_type\": \"project.updated\",   \"event_id\": \"evt_001\",   \"data\": {\"project_id\": \"prj_abc123\", \"status\": \"active\"} }</textarea><br/>   <button id=\"asyncapi-send-ws\">Send via WebSocket</button>   <button id=\"asyncapi-send-http\">Send via HTTP</button>   <pre id=\"asyncapi-output\" style=\"margin-top:12px; max-height:320px; overflow:auto;\"></pre> </div> <script> (function(){ const wsEndpoint = \"wss://echo.websocket.events\"; const httpEndpoint = \"https://postman-echo.com/post\"; const wsView = document.getElementById('asyncapi-ws-view'); cons",
       "description": "Auto-generated asyncapi reference from source contract.",
       "product": "both",
       "content_type": "reference",
@@ -108,9 +114,11 @@
       "version": "",
       "maturity": "ga",
       "tags": [
-        "API",
-        "AsyncAPI",
-        "Reference"
+        "Docs",
+        "Test_Multi_Protocol_Flow_Gener0",
+        "Pytest 2398",
+        "Pytest Of Eudo",
+        "Tmp"
       ],
       "hierarchy": {
         "lvl0": "both",
@@ -124,7 +132,7 @@
       "path": "docs/assets/protocols/asyncapi/asyncapi-api.md",
       "ranking_boost": 0,
       "heading_level": 2,
-      "word_count": 505,
+      "word_count": 497,
       "has_code": false,
       "code_snippets": []
     },
@@ -140,9 +148,11 @@
       "version": "",
       "maturity": "ga",
       "tags": [
-        "API",
-        "AsyncAPI",
-        "Reference"
+        "Docs",
+        "Test_Multi_Protocol_Flow_Gener0",
+        "Pytest 2398",
+        "Pytest Of Eudo",
+        "Tmp"
       ],
       "hierarchy": {
         "lvl0": "both",
@@ -164,7 +174,7 @@
       "objectID": "b18ad18dc9182940142995b734a8e2c4",
       "title": "GRAPHQL API Reference",
       "heading": "GRAPHQL Reference",
-      "content": "Source: contracts/graphql.schema.graphql Flow mode: api-first ",
+      "content": "Source: /tmp/pytest-of-eudo/pytest-2398/test_multi_protocol_contract_f0/schema.graphql Flow mode: api-first ",
       "description": "Auto-generated graphql reference from source contract.",
       "product": "both",
       "content_type": "reference",
@@ -172,9 +182,14 @@
       "version": "",
       "maturity": "ga",
       "tags": [
-        "API",
-        "GraphQL",
-        "Reference"
+        "Auto Doc Pipeline",
+        "Mnt",
+        "C",
+        "Development",
+        "Docs",
+        "Kroha",
+        "Users",
+        "Documents"
       ],
       "hierarchy": {
         "lvl0": "both",
@@ -184,7 +199,7 @@
         "lvl4": ""
       },
       "url": "/assets/protocols/graphql/graphql-api#0",
-      "last_reviewed": "",
+      "last_reviewed": "2026-03-20",
       "path": "docs/assets/protocols/graphql/graphql-api.md",
       "ranking_boost": 0,
       "heading_level": 1,
@@ -196,7 +211,7 @@
       "objectID": "c02392a049e7fb511f1dc2ff82fc6ccf",
       "title": "GRAPHQL API Reference",
       "heading": "Operations",
-      "content": "- Query count: 2 - Mutation count: 1 - Subscription count: 2 - Queries: health, project - Mutations: create_project - Subscriptions: project_updated, task_completed ",
+      "content": "- Query count: 1 - Mutation count: 0 - Subscription count: 0 - Queries: health ",
       "description": "Auto-generated graphql reference from source contract.",
       "product": "both",
       "content_type": "reference",
@@ -204,9 +219,14 @@
       "version": "",
       "maturity": "ga",
       "tags": [
-        "API",
-        "GraphQL",
-        "Reference"
+        "Auto Doc Pipeline",
+        "Mnt",
+        "C",
+        "Development",
+        "Docs",
+        "Kroha",
+        "Users",
+        "Documents"
       ],
       "hierarchy": {
         "lvl0": "both",
@@ -216,11 +236,11 @@
         "lvl4": ""
       },
       "url": "/assets/protocols/graphql/graphql-api#1",
-      "last_reviewed": "",
+      "last_reviewed": "2026-03-20",
       "path": "docs/assets/protocols/graphql/graphql-api.md",
       "ranking_boost": 0,
       "heading_level": 2,
-      "word_count": 23,
+      "word_count": 15,
       "has_code": false,
       "code_snippets": []
     },
@@ -236,9 +256,14 @@
       "version": "",
       "maturity": "ga",
       "tags": [
-        "API",
-        "GraphQL",
-        "Reference"
+        "Auto Doc Pipeline",
+        "Mnt",
+        "C",
+        "Development",
+        "Docs",
+        "Kroha",
+        "Users",
+        "Documents"
       ],
       "hierarchy": {
         "lvl0": "both",
@@ -248,7 +273,7 @@
         "lvl4": ""
       },
       "url": "/assets/protocols/graphql/graphql-api#2",
-      "last_reviewed": "",
+      "last_reviewed": "2026-03-20",
       "path": "docs/assets/protocols/graphql/graphql-api.md",
       "ranking_boost": 0,
       "heading_level": 2,
@@ -268,9 +293,14 @@
       "version": "",
       "maturity": "ga",
       "tags": [
-        "API",
-        "GraphQL",
-        "Reference"
+        "Auto Doc Pipeline",
+        "Mnt",
+        "C",
+        "Development",
+        "Docs",
+        "Kroha",
+        "Users",
+        "Documents"
       ],
       "hierarchy": {
         "lvl0": "both",
@@ -280,7 +310,7 @@
         "lvl4": ""
       },
       "url": "/assets/protocols/graphql/graphql-api#3",
-      "last_reviewed": "",
+      "last_reviewed": "2026-03-20",
       "path": "docs/assets/protocols/graphql/graphql-api.md",
       "ranking_boost": 0,
       "heading_level": 2,
@@ -292,7 +322,7 @@
       "objectID": "87c25d54ae4edfee0ad335af85ced3f9",
       "title": "GRPC API Reference",
       "heading": "GRPC Reference",
-      "content": "Source: contracts/grpc/acme.proto Flow mode: api-first ",
+      "content": "Source: /tmp/pytest-of-eudo/pytest-2398/test_multi_protocol_flow_gener0/api/proto Flow mode: api-first ",
       "description": "Auto-generated grpc reference from source contract.",
       "product": "both",
       "content_type": "reference",
@@ -300,9 +330,11 @@
       "version": "",
       "maturity": "ga",
       "tags": [
-        "API",
-        "gRPC",
-        "Reference"
+        "Test_Multi_Protocol_Flow_Gener0",
+        "Pytest 2398",
+        "Pytest Of Eudo",
+        "Tmp",
+        "Docs"
       ],
       "hierarchy": {
         "lvl0": "both",
@@ -332,9 +364,11 @@
       "version": "",
       "maturity": "ga",
       "tags": [
-        "API",
-        "gRPC",
-        "Reference"
+        "Test_Multi_Protocol_Flow_Gener0",
+        "Pytest 2398",
+        "Pytest Of Eudo",
+        "Tmp",
+        "Docs"
       ],
       "hierarchy": {
         "lvl0": "both",
@@ -364,9 +398,11 @@
       "version": "",
       "maturity": "ga",
       "tags": [
-        "API",
-        "gRPC",
-        "Reference"
+        "Test_Multi_Protocol_Flow_Gener0",
+        "Pytest 2398",
+        "Pytest Of Eudo",
+        "Tmp",
+        "Docs"
       ],
       "hierarchy": {
         "lvl0": "both",
@@ -396,9 +432,11 @@
       "version": "",
       "maturity": "ga",
       "tags": [
-        "API",
-        "gRPC",
-        "Reference"
+        "Test_Multi_Protocol_Flow_Gener0",
+        "Pytest 2398",
+        "Pytest Of Eudo",
+        "Tmp",
+        "Docs"
       ],
       "hierarchy": {
         "lvl0": "both",
@@ -532,7 +570,7 @@
       "objectID": "445aafd2940659dc2f307c496335e3e2",
       "title": "WEBSOCKET API Reference",
       "heading": "WEBSOCKET Reference",
-      "content": "Source: contracts/websocket.yaml Flow mode: api-first ",
+      "content": "Source: /tmp/pytest-of-eudo/pytest-2398/test_multi_protocol_flow_gener0/api/websocket.yaml Flow mode: api-first ",
       "description": "Auto-generated websocket reference from source contract.",
       "product": "both",
       "content_type": "reference",
@@ -540,9 +578,11 @@
       "version": "",
       "maturity": "ga",
       "tags": [
-        "API",
-        "WebSocket",
-        "Reference"
+        "Test_Multi_Protocol_Flow_Gener0",
+        "Pytest Of Eudo",
+        "Pytest 2398",
+        "Docs",
+        "Tmp"
       ],
       "hierarchy": {
         "lvl0": "both",
@@ -572,9 +612,11 @@
       "version": "",
       "maturity": "ga",
       "tags": [
-        "API",
-        "WebSocket",
-        "Reference"
+        "Test_Multi_Protocol_Flow_Gener0",
+        "Pytest Of Eudo",
+        "Pytest 2398",
+        "Docs",
+        "Tmp"
       ],
       "hierarchy": {
         "lvl0": "both",
@@ -604,9 +646,11 @@
       "version": "",
       "maturity": "ga",
       "tags": [
-        "API",
-        "WebSocket",
-        "Reference"
+        "Test_Multi_Protocol_Flow_Gener0",
+        "Pytest Of Eudo",
+        "Pytest 2398",
+        "Docs",
+        "Tmp"
       ],
       "hierarchy": {
         "lvl0": "both",
@@ -628,7 +672,7 @@
       "objectID": "5fcf80dc80a9d43ace42a95edf633789",
       "title": "WEBSOCKET API Reference",
       "heading": "Interactive WebSocket Tester",
-      "content": "> Sandbox semantic mode: this tester returns protocol-aware responses based on message type/action. <!-- vale off --> <div id=\"websocket-playground\" style=\"border:1px solid #d1d5db; padding:12px; border-radius:8px;\">   <p><strong>Endpoint:</strong> <code id=\"websocket-endpoint-view\"></code></p>   <textarea id=\"websocket-message\" rows=\"8\" style=\"width:100%; font-family:monospace;\">{   \"type\": \"subscribe\",   \"request_id\": \"req_001\",   \"payload\": {\"channel\": \"project.updated\", \"filters\": {\"project_id\": \"prj_abc123\"}} }</textarea><br/>   <button id=\"websocket-send\">Connect + Send</button>   <pre id=\"websocket-output\" style=\"margin-top:12px; max-height:320px; overflow:auto;\"></pre> </div> <script> (function(){ const endpoint = \"wss://echo.websocket.events\"; const view = document.getElementById('websocket-endpoint-view'); const send = document.getElementById('websocket-send'); const msg = document.getElementById('websocket-message'); const out = document.getElementById('websocket-output'); i",
+      "content": "> Sandbox semantic mode: this tester returns protocol-aware responses based on message type/action. <div id=\"websocket-playground\" style=\"border:1px solid #d1d5db; padding:12px; border-radius:8px;\">   <p><strong>Endpoint:</strong> <code id=\"websocket-endpoint-view\"></code></p>   <textarea id=\"websocket-message\" rows=\"8\" style=\"width:100%; font-family:monospace;\">{   \"type\": \"subscribe\",   \"request_id\": \"req_001\",   \"payload\": {\"channel\": \"project.updated\", \"filters\": {\"project_id\": \"prj_abc123\"}} }</textarea><br/>   <button id=\"websocket-send\">Connect + Send</button>   <pre id=\"websocket-output\" style=\"margin-top:12px; max-height:320px; overflow:auto;\"></pre> </div> <script> (function(){ const endpoint = \"wss://echo.websocket.events\"; const view = document.getElementById('websocket-endpoint-view'); const send = document.getElementById('websocket-send'); const msg = document.getElementById('websocket-message'); const out = document.getElementById('websocket-output'); if (!view || !send ",
       "description": "Auto-generated websocket reference from source contract.",
       "product": "both",
       "content_type": "reference",
@@ -636,9 +680,11 @@
       "version": "",
       "maturity": "ga",
       "tags": [
-        "API",
-        "WebSocket",
-        "Reference"
+        "Test_Multi_Protocol_Flow_Gener0",
+        "Pytest Of Eudo",
+        "Pytest 2398",
+        "Docs",
+        "Tmp"
       ],
       "hierarchy": {
         "lvl0": "both",
@@ -652,7 +698,7 @@
       "path": "docs/assets/protocols/websocket/websocket-api.md",
       "ranking_boost": 0,
       "heading_level": 2,
-      "word_count": 472,
+      "word_count": 464,
       "has_code": false,
       "code_snippets": []
     },
@@ -668,9 +714,11 @@
       "version": "",
       "maturity": "ga",
       "tags": [
-        "API",
-        "WebSocket",
-        "Reference"
+        "Test_Multi_Protocol_Flow_Gener0",
+        "Pytest Of Eudo",
+        "Pytest 2398",
+        "Docs",
+        "Tmp"
       ],
       "hierarchy": {
         "lvl0": "both",
