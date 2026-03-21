@@ -4,7 +4,7 @@
       "objectID": "fc139a50fdb1460eccf3849af0cd2115",
       "title": "ASYNCAPI API Reference",
       "heading": "ASYNCAPI Reference",
-      "content": "Source: reports/acme-demo/contracts/asyncapi.yaml Flow mode: api-first ",
+      "content": "Source: contracts/asyncapi.yaml Flow mode: api-first ",
       "description": "Auto-generated asyncapi reference from source contract.",
       "product": "both",
       "content_type": "reference",
@@ -12,14 +12,9 @@
       "version": "",
       "maturity": "ga",
       "tags": [
-        "Development",
-        "Documents",
-        "Auto Doc Pipeline",
-        "C",
-        "Mnt",
-        "Docs",
-        "Users",
-        "Kroha"
+        "API",
+        "AsyncAPI",
+        "Reference"
       ],
       "hierarchy": {
         "lvl0": "both",
@@ -29,7 +24,7 @@
         "lvl4": ""
       },
       "url": "/assets/protocols/asyncapi/asyncapi-api#0",
-      "last_reviewed": null,
+      "last_reviewed": "",
       "path": "docs/assets/protocols/asyncapi/asyncapi-api.md",
       "ranking_boost": 0,
       "heading_level": 1,
@@ -49,14 +44,9 @@
       "version": "",
       "maturity": "ga",
       "tags": [
-        "Development",
-        "Documents",
-        "Auto Doc Pipeline",
-        "C",
-        "Mnt",
-        "Docs",
-        "Users",
-        "Kroha"
+        "API",
+        "AsyncAPI",
+        "Reference"
       ],
       "hierarchy": {
         "lvl0": "both",
@@ -66,7 +56,7 @@
         "lvl4": ""
       },
       "url": "/assets/protocols/asyncapi/asyncapi-api#1",
-      "last_reviewed": null,
+      "last_reviewed": "",
       "path": "docs/assets/protocols/asyncapi/asyncapi-api.md",
       "ranking_boost": 0,
       "heading_level": 2,
@@ -86,14 +76,9 @@
       "version": "",
       "maturity": "ga",
       "tags": [
-        "Development",
-        "Documents",
-        "Auto Doc Pipeline",
-        "C",
-        "Mnt",
-        "Docs",
-        "Users",
-        "Kroha"
+        "API",
+        "AsyncAPI",
+        "Reference"
       ],
       "hierarchy": {
         "lvl0": "both",
@@ -103,7 +88,7 @@
         "lvl4": ""
       },
       "url": "/assets/protocols/asyncapi/asyncapi-api#2",
-      "last_reviewed": null,
+      "last_reviewed": "",
       "path": "docs/assets/protocols/asyncapi/asyncapi-api.md",
       "ranking_boost": 0,
       "heading_level": 2,
@@ -115,7 +100,7 @@
       "objectID": "50187e629304ae9fae86ba69fb2a0e6c",
       "title": "ASYNCAPI API Reference",
       "heading": "Interactive AsyncAPI Tester",
-      "content": "> Sandbox echo mode: this tester sends payloads to a public WebSocket echo endpoint. <div id=\"asyncapi-playground\" style=\"border:1px solid #d1d5db; padding:12px; border-radius:8px;\">   <p><strong>WebSocket Endpoint:</strong> <code id=\"asyncapi-ws-view\"></code></p>   <p><strong>HTTP Publish Endpoint:</strong> <code id=\"asyncapi-http-view\"></code></p>   <!-- vale Google.Quotes = NO -->   <textarea id=\"asyncapi-message\" rows=\"8\" style=\"width:100%; font-family:monospace;\">{   \"event\": \"health\",   \"value\": \"ok\" }</textarea><br/>   <!-- vale Google.Quotes = YES -->   <button id=\"asyncapi-send-ws\">Send via WebSocket</button>   <button id=\"asyncapi-send-http\">Send via HTTP</button>   <pre id=\"asyncapi-output\" style=\"margin-top:12px; max-height:320px; overflow:auto;\"></pre> </div> <script> (function(){ const wsEndpoint = \"wss://echo.websocket.events\"; const httpEndpoint = \"\"; const wsView = document.getElementById('asyncapi-ws-view'); const httpView = document.getElementById('asyncapi-http-view",
+      "content": "> Sandbox semantic mode: this tester returns event-aware responses by event_type and payload fields. <!-- vale off --> <div id=\"asyncapi-playground\" style=\"border:1px solid #d1d5db; padding:12px; border-radius:8px;\">   <p><strong>WebSocket Endpoint:</strong> <code id=\"asyncapi-ws-view\"></code></p>   <p><strong>HTTP Publish Endpoint:</strong> <code id=\"asyncapi-http-view\"></code></p>   <textarea id=\"asyncapi-message\" rows=\"8\" style=\"width:100%; font-family:monospace;\">{   \"event_type\": \"project.updated\",   \"event_id\": \"evt_001\",   \"data\": {\"project_id\": \"prj_abc123\", \"status\": \"active\"} }</textarea><br/>   <button id=\"asyncapi-send-ws\">Send via WebSocket</button>   <button id=\"asyncapi-send-http\">Send via HTTP</button>   <pre id=\"asyncapi-output\" style=\"margin-top:12px; max-height:320px; overflow:auto;\"></pre> </div> <script> (function(){ const wsEndpoint = \"wss://echo.websocket.events\"; const httpEndpoint = \"https://postman-echo.com/post\"; const wsView = document.getElementById('asynca",
       "description": "Auto-generated asyncapi reference from source contract.",
       "product": "both",
       "content_type": "reference",
@@ -123,14 +108,9 @@
       "version": "",
       "maturity": "ga",
       "tags": [
-        "Development",
-        "Documents",
-        "Auto Doc Pipeline",
-        "C",
-        "Mnt",
-        "Docs",
-        "Users",
-        "Kroha"
+        "API",
+        "AsyncAPI",
+        "Reference"
       ],
       "hierarchy": {
         "lvl0": "both",
@@ -140,11 +120,11 @@
         "lvl4": ""
       },
       "url": "/assets/protocols/asyncapi/asyncapi-api#3",
-      "last_reviewed": null,
+      "last_reviewed": "",
       "path": "docs/assets/protocols/asyncapi/asyncapi-api.md",
       "ranking_boost": 0,
       "heading_level": 2,
-      "word_count": 241,
+      "word_count": 505,
       "has_code": false,
       "code_snippets": []
     },
@@ -160,14 +140,9 @@
       "version": "",
       "maturity": "ga",
       "tags": [
-        "Development",
-        "Documents",
-        "Auto Doc Pipeline",
-        "C",
-        "Mnt",
-        "Docs",
-        "Users",
-        "Kroha"
+        "API",
+        "AsyncAPI",
+        "Reference"
       ],
       "hierarchy": {
         "lvl0": "both",
@@ -177,7 +152,7 @@
         "lvl4": ""
       },
       "url": "/assets/protocols/asyncapi/asyncapi-api#4",
-      "last_reviewed": null,
+      "last_reviewed": "",
       "path": "docs/assets/protocols/asyncapi/asyncapi-api.md",
       "ranking_boost": 0,
       "heading_level": 2,
@@ -189,7 +164,7 @@
       "objectID": "b18ad18dc9182940142995b734a8e2c4",
       "title": "GRAPHQL API Reference",
       "heading": "GRAPHQL Reference",
-      "content": "Source: reports/acme-demo/contracts/graphql.schema.graphql Flow mode: api-first ",
+      "content": "Source: contracts/graphql.schema.graphql Flow mode: api-first ",
       "description": "Auto-generated graphql reference from source contract.",
       "product": "both",
       "content_type": "reference",
@@ -197,14 +172,9 @@
       "version": "",
       "maturity": "ga",
       "tags": [
-        "Kroha",
-        "Development",
-        "Mnt",
-        "Documents",
-        "Docs",
-        "Users",
-        "Auto Doc Pipeline",
-        "C"
+        "API",
+        "GraphQL",
+        "Reference"
       ],
       "hierarchy": {
         "lvl0": "both",
@@ -214,7 +184,7 @@
         "lvl4": ""
       },
       "url": "/assets/protocols/graphql/graphql-api#0",
-      "last_reviewed": null,
+      "last_reviewed": "",
       "path": "docs/assets/protocols/graphql/graphql-api.md",
       "ranking_boost": 0,
       "heading_level": 1,
@@ -226,7 +196,7 @@
       "objectID": "c02392a049e7fb511f1dc2ff82fc6ccf",
       "title": "GRAPHQL API Reference",
       "heading": "Operations",
-      "content": "- Query count: 2 - Mutation count: 1 - Subscription count: 1 - Queries: health, project - Mutations: createProject - Subscriptions: projectUpdated ",
+      "content": "- Query count: 2 - Mutation count: 1 - Subscription count: 2 - Queries: health, project - Mutations: create_project - Subscriptions: project_updated, task_completed ",
       "description": "Auto-generated graphql reference from source contract.",
       "product": "both",
       "content_type": "reference",
@@ -234,14 +204,9 @@
       "version": "",
       "maturity": "ga",
       "tags": [
-        "Kroha",
-        "Development",
-        "Mnt",
-        "Documents",
-        "Docs",
-        "Users",
-        "Auto Doc Pipeline",
-        "C"
+        "API",
+        "GraphQL",
+        "Reference"
       ],
       "hierarchy": {
         "lvl0": "both",
@@ -251,11 +216,11 @@
         "lvl4": ""
       },
       "url": "/assets/protocols/graphql/graphql-api#1",
-      "last_reviewed": null,
+      "last_reviewed": "",
       "path": "docs/assets/protocols/graphql/graphql-api.md",
       "ranking_boost": 0,
       "heading_level": 2,
-      "word_count": 22,
+      "word_count": 23,
       "has_code": false,
       "code_snippets": []
     },
@@ -263,7 +228,7 @@
       "objectID": "989e77b328c54444545910c499847279",
       "title": "GRAPHQL API Reference",
       "heading": "Interactive GraphQL Playground",
-      "content": "<div id=\"graphql-playground\" style=\"border:1px solid #d1d5db; padding:12px; border-radius:8px;\">   <p><strong>Endpoint:</strong> <code id=\"graphql-endpoint-view\"></code></p>   <textarea id=\"graphql-query\" rows=\"12\" style=\"width:100%; font-family:monospace;\">query HealthCheck {   __typename }</textarea>   <br/>   <button id=\"graphql-run\">Run Query</button>   <pre id=\"graphql-output\" style=\"margin-top:12px; max-height:320px; overflow:auto;\"></pre> </div> <script> (function(){ const endpoint = \"\"; const view = document.getElementById('graphql-endpoint-view'); const run = document.getElementById('graphql-run'); const query = document.getElementById('graphql-query'); const out = document.getElementById('graphql-output'); if (!view || !run || !query || !out) return; view.textContent = endpoint || 'not configured'; run.onclick = async function(){   if (!endpoint) { out.textContent = 'Endpoint is not configured in runtime.api_protocol_settings.graphql.graphql_endpoint'; return; }   out.textCon",
+      "content": "<div id=\"graphql-playground\" style=\"border:1px solid #d1d5db; padding:12px; border-radius:8px;\">   <p><strong>Endpoint:</strong> <code id=\"graphql-endpoint-view\"></code></p>   <textarea id=\"graphql-query\" rows=\"12\" style=\"width:100%; font-family:monospace;\">query HealthCheck {   __typename }</textarea>   <br/>   <button id=\"graphql-run\">Run Query</button>   <pre id=\"graphql-output\" style=\"margin-top:12px; max-height:320px; overflow:auto;\"></pre> </div> <script> (function(){ const endpoint = \"https://postman-echo.com/post\"; const view = document.getElementById('graphql-endpoint-view'); const run = document.getElementById('graphql-run'); const query = document.getElementById('graphql-query'); const out = document.getElementById('graphql-output'); if (!view || !run || !query || !out) return; view.textContent = endpoint || 'not configured'; function normalize(v){ return String(v || '').replace(/\\s+/g, ' ').trim().toLowerCase(); } function fallback(queryText){   const q = normalize(queryTex",
       "description": "Auto-generated graphql reference from source contract.",
       "product": "both",
       "content_type": "reference",
@@ -271,14 +236,9 @@
       "version": "",
       "maturity": "ga",
       "tags": [
-        "Kroha",
-        "Development",
-        "Mnt",
-        "Documents",
-        "Docs",
-        "Users",
-        "Auto Doc Pipeline",
-        "C"
+        "API",
+        "GraphQL",
+        "Reference"
       ],
       "hierarchy": {
         "lvl0": "both",
@@ -288,11 +248,11 @@
         "lvl4": ""
       },
       "url": "/assets/protocols/graphql/graphql-api#2",
-      "last_reviewed": null,
+      "last_reviewed": "",
       "path": "docs/assets/protocols/graphql/graphql-api.md",
       "ranking_boost": 0,
       "heading_level": 2,
-      "word_count": 121,
+      "word_count": 296,
       "has_code": false,
       "code_snippets": []
     },
@@ -308,14 +268,9 @@
       "version": "",
       "maturity": "ga",
       "tags": [
-        "Kroha",
-        "Development",
-        "Mnt",
-        "Documents",
-        "Docs",
-        "Users",
-        "Auto Doc Pipeline",
-        "C"
+        "API",
+        "GraphQL",
+        "Reference"
       ],
       "hierarchy": {
         "lvl0": "both",
@@ -325,7 +280,7 @@
         "lvl4": ""
       },
       "url": "/assets/protocols/graphql/graphql-api#3",
-      "last_reviewed": null,
+      "last_reviewed": "",
       "path": "docs/assets/protocols/graphql/graphql-api.md",
       "ranking_boost": 0,
       "heading_level": 2,
@@ -337,7 +292,7 @@
       "objectID": "87c25d54ae4edfee0ad335af85ced3f9",
       "title": "GRPC API Reference",
       "heading": "GRPC Reference",
-      "content": "Source: reports/acme-demo/contracts/grpc Flow mode: api-first ",
+      "content": "Source: contracts/grpc/acme.proto Flow mode: api-first ",
       "description": "Auto-generated grpc reference from source contract.",
       "product": "both",
       "content_type": "reference",
@@ -345,14 +300,9 @@
       "version": "",
       "maturity": "ga",
       "tags": [
-        "Documents",
-        "C",
-        "Mnt",
-        "Development",
-        "Docs",
-        "Kroha",
-        "Auto Doc Pipeline",
-        "Users"
+        "API",
+        "gRPC",
+        "Reference"
       ],
       "hierarchy": {
         "lvl0": "both",
@@ -362,7 +312,7 @@
         "lvl4": ""
       },
       "url": "/assets/protocols/grpc/grpc-api#0",
-      "last_reviewed": null,
+      "last_reviewed": "",
       "path": "docs/assets/protocols/grpc/grpc-api.md",
       "ranking_boost": 0,
       "heading_level": 1,
@@ -374,7 +324,7 @@
       "objectID": "cdf1079485de89de9b13c8b735daa216",
       "title": "GRPC API Reference",
       "heading": "Service Methods",
-      "content": "- RPC method count: 1 - ProjectService.GetProject ",
+      "content": "- RPC method count: 4 - AutoDocPipelineService.CreateProject - AutoDocPipelineService.GetProject - AutoDocPipelineService.ListProjects - AutoDocPipelineService.UpdateProject ",
       "description": "Auto-generated grpc reference from source contract.",
       "product": "both",
       "content_type": "reference",
@@ -382,14 +332,9 @@
       "version": "",
       "maturity": "ga",
       "tags": [
-        "Documents",
-        "C",
-        "Mnt",
-        "Development",
-        "Docs",
-        "Kroha",
-        "Auto Doc Pipeline",
-        "Users"
+        "API",
+        "gRPC",
+        "Reference"
       ],
       "hierarchy": {
         "lvl0": "both",
@@ -399,11 +344,11 @@
         "lvl4": ""
       },
       "url": "/assets/protocols/grpc/grpc-api#1",
-      "last_reviewed": null,
+      "last_reviewed": "",
       "path": "docs/assets/protocols/grpc/grpc-api.md",
       "ranking_boost": 0,
       "heading_level": 2,
-      "word_count": 7,
+      "word_count": 13,
       "has_code": false,
       "code_snippets": []
     },
@@ -411,7 +356,7 @@
       "objectID": "4067e3421f4e27a771203e175051fe63",
       "title": "GRPC API Reference",
       "heading": "Interactive gRPC Tester",
-      "content": "This tester uses an HTTP gateway/adapter endpoint, so docs users can trigger gRPC methods from browser. <div id=\"grpc-playground\" style=\"border:1px solid #d1d5db; padding:12px; border-radius:8px;\">   <p><strong>Gateway Endpoint:</strong> <code id=\"grpc-endpoint-view\"></code></p>   <label>Service</label><br/><input id=\"grpc-service\" style=\"width:100%\" placeholder=\"GreeterService\"/><br/>   <label>Method</label><br/><input id=\"grpc-method\" style=\"width:100%\" placeholder=\"SayHello\"/><br/>   <label>Payload (JSON)</label><br/><textarea id=\"grpc-payload\" rows=\"8\" style=\"width:100%; font-family:monospace;\">{   \"name\": \"world\" }</textarea><br/>   <button id=\"grpc-run\">Invoke</button>   <pre id=\"grpc-output\" style=\"margin-top:12px; max-height:320px; overflow:auto;\"></pre> </div> <script> (function(){ const endpoint = \"\"; const view = document.getElementById('grpc-endpoint-view'); const run = document.getElementById('grpc-run'); const service = document.getElementById('grpc-service'); const metho",
+      "content": "This tester uses an HTTP gateway/adapter endpoint, so docs users can trigger gRPC methods from browser. <div id=\"grpc-playground\" style=\"border:1px solid #d1d5db; padding:12px; border-radius:8px;\">   <p><strong>Gateway Endpoint:</strong> <code id=\"grpc-endpoint-view\"></code></p>   <label>Service</label><br/><input id=\"grpc-service\" style=\"width:100%\" placeholder=\"GreeterService\"/><br/>   <label>Method</label><br/><input id=\"grpc-method\" style=\"width:100%\" placeholder=\"SayHello\"/><br/>   <label>Payload (JSON)</label><br/><textarea id=\"grpc-payload\" rows=\"8\" style=\"width:100%; font-family:monospace;\">{   \"name\": \"world\" }</textarea><br/>   <button id=\"grpc-run\">Invoke</button>   <pre id=\"grpc-output\" style=\"margin-top:12px; max-height:320px; overflow:auto;\"></pre> </div> <script> (function(){ const endpoint = \"https://postman-echo.com/post\"; const view = document.getElementById('grpc-endpoint-view'); const run = document.getElementById('grpc-run'); const service = document.getElementById",
       "description": "Auto-generated grpc reference from source contract.",
       "product": "both",
       "content_type": "reference",
@@ -419,14 +364,9 @@
       "version": "",
       "maturity": "ga",
       "tags": [
-        "Documents",
-        "C",
-        "Mnt",
-        "Development",
-        "Docs",
-        "Kroha",
-        "Auto Doc Pipeline",
-        "Users"
+        "API",
+        "gRPC",
+        "Reference"
       ],
       "hierarchy": {
         "lvl0": "both",
@@ -436,11 +376,11 @@
         "lvl4": ""
       },
       "url": "/assets/protocols/grpc/grpc-api#2",
-      "last_reviewed": null,
+      "last_reviewed": "",
       "path": "docs/assets/protocols/grpc/grpc-api.md",
       "ranking_boost": 0,
       "heading_level": 2,
-      "word_count": 167,
+      "word_count": 297,
       "has_code": false,
       "code_snippets": []
     },
@@ -456,14 +396,9 @@
       "version": "",
       "maturity": "ga",
       "tags": [
-        "Documents",
-        "C",
-        "Mnt",
-        "Development",
-        "Docs",
-        "Kroha",
-        "Auto Doc Pipeline",
-        "Users"
+        "API",
+        "gRPC",
+        "Reference"
       ],
       "hierarchy": {
         "lvl0": "both",
@@ -473,7 +408,7 @@
         "lvl4": ""
       },
       "url": "/assets/protocols/grpc/grpc-api#3",
-      "last_reviewed": null,
+      "last_reviewed": "",
       "path": "docs/assets/protocols/grpc/grpc-api.md",
       "ranking_boost": 0,
       "heading_level": 2,
@@ -597,7 +532,7 @@
       "objectID": "445aafd2940659dc2f307c496335e3e2",
       "title": "WEBSOCKET API Reference",
       "heading": "WEBSOCKET Reference",
-      "content": "Source: reports/acme-demo/contracts/websocket.yaml Flow mode: api-first ",
+      "content": "Source: contracts/websocket.yaml Flow mode: api-first ",
       "description": "Auto-generated websocket reference from source contract.",
       "product": "both",
       "content_type": "reference",
@@ -605,14 +540,9 @@
       "version": "",
       "maturity": "ga",
       "tags": [
-        "Mnt",
-        "Development",
-        "Users",
-        "Auto Doc Pipeline",
-        "Kroha",
-        "Documents",
-        "Docs",
-        "C"
+        "API",
+        "WebSocket",
+        "Reference"
       ],
       "hierarchy": {
         "lvl0": "both",
@@ -622,7 +552,7 @@
         "lvl4": ""
       },
       "url": "/assets/protocols/websocket/websocket-api#0",
-      "last_reviewed": null,
+      "last_reviewed": "",
       "path": "docs/assets/protocols/websocket/websocket-api.md",
       "ranking_boost": 0,
       "heading_level": 1,
@@ -634,7 +564,7 @@
       "objectID": "36ed5e9b455b67541f3e1b47bc6c9ffd",
       "title": "WEBSOCKET API Reference",
       "heading": "Top-level Keys",
-      "content": "- channels ",
+      "content": "- channels - info ",
       "description": "Auto-generated websocket reference from source contract.",
       "product": "both",
       "content_type": "reference",
@@ -642,14 +572,9 @@
       "version": "",
       "maturity": "ga",
       "tags": [
-        "Mnt",
-        "Development",
-        "Users",
-        "Auto Doc Pipeline",
-        "Kroha",
-        "Documents",
-        "Docs",
-        "C"
+        "API",
+        "WebSocket",
+        "Reference"
       ],
       "hierarchy": {
         "lvl0": "both",
@@ -659,11 +584,11 @@
         "lvl4": ""
       },
       "url": "/assets/protocols/websocket/websocket-api#1",
-      "last_reviewed": null,
+      "last_reviewed": "",
       "path": "docs/assets/protocols/websocket/websocket-api.md",
       "ranking_boost": 0,
       "heading_level": 2,
-      "word_count": 2,
+      "word_count": 4,
       "has_code": false,
       "code_snippets": []
     },
@@ -679,14 +604,9 @@
       "version": "",
       "maturity": "ga",
       "tags": [
-        "Mnt",
-        "Development",
-        "Users",
-        "Auto Doc Pipeline",
-        "Kroha",
-        "Documents",
-        "Docs",
-        "C"
+        "API",
+        "WebSocket",
+        "Reference"
       ],
       "hierarchy": {
         "lvl0": "both",
@@ -696,7 +616,7 @@
         "lvl4": ""
       },
       "url": "/assets/protocols/websocket/websocket-api#2",
-      "last_reviewed": null,
+      "last_reviewed": "",
       "path": "docs/assets/protocols/websocket/websocket-api.md",
       "ranking_boost": 0,
       "heading_level": 2,
@@ -708,7 +628,7 @@
       "objectID": "5fcf80dc80a9d43ace42a95edf633789",
       "title": "WEBSOCKET API Reference",
       "heading": "Interactive WebSocket Tester",
-      "content": "> Sandbox echo mode: this tester sends payloads to a public WebSocket echo endpoint. <div id=\"websocket-playground\" style=\"border:1px solid #d1d5db; padding:12px; border-radius:8px;\">   <p><strong>Endpoint:</strong> <code id=\"websocket-endpoint-view\"></code></p>   <textarea id=\"websocket-message\" rows=\"8\" style=\"width:100%; font-family:monospace;\">{   \"action\": \"ping\" }</textarea><br/>   <button id=\"websocket-send\">Connect + Send</button>   <pre id=\"websocket-output\" style=\"margin-top:12px; max-height:320px; overflow:auto;\"></pre> </div> <script> (function(){ const endpoint = \"wss://echo.websocket.events\"; const view = document.getElementById('websocket-endpoint-view'); const send = document.getElementById('websocket-send'); const msg = document.getElementById('websocket-message'); const out = document.getElementById('websocket-output'); if (!view || !send || !msg || !out) return; view.textContent = endpoint || 'not configured'; send.onclick = function(){   if (!endpoint) { out.textCon",
+      "content": "> Sandbox semantic mode: this tester returns protocol-aware responses based on message type/action. <!-- vale off --> <div id=\"websocket-playground\" style=\"border:1px solid #d1d5db; padding:12px; border-radius:8px;\">   <p><strong>Endpoint:</strong> <code id=\"websocket-endpoint-view\"></code></p>   <textarea id=\"websocket-message\" rows=\"8\" style=\"width:100%; font-family:monospace;\">{   \"type\": \"subscribe\",   \"request_id\": \"req_001\",   \"payload\": {\"channel\": \"project.updated\", \"filters\": {\"project_id\": \"prj_abc123\"}} }</textarea><br/>   <button id=\"websocket-send\">Connect + Send</button>   <pre id=\"websocket-output\" style=\"margin-top:12px; max-height:320px; overflow:auto;\"></pre> </div> <script> (function(){ const endpoint = \"wss://echo.websocket.events\"; const view = document.getElementById('websocket-endpoint-view'); const send = document.getElementById('websocket-send'); const msg = document.getElementById('websocket-message'); const out = document.getElementById('websocket-output'); i",
       "description": "Auto-generated websocket reference from source contract.",
       "product": "both",
       "content_type": "reference",
@@ -716,14 +636,9 @@
       "version": "",
       "maturity": "ga",
       "tags": [
-        "Mnt",
-        "Development",
-        "Users",
-        "Auto Doc Pipeline",
-        "Kroha",
-        "Documents",
-        "Docs",
-        "C"
+        "API",
+        "WebSocket",
+        "Reference"
       ],
       "hierarchy": {
         "lvl0": "both",
@@ -733,11 +648,11 @@
         "lvl4": ""
       },
       "url": "/assets/protocols/websocket/websocket-api#3",
-      "last_reviewed": null,
+      "last_reviewed": "",
       "path": "docs/assets/protocols/websocket/websocket-api.md",
       "ranking_boost": 0,
       "heading_level": 2,
-      "word_count": 137,
+      "word_count": 472,
       "has_code": false,
       "code_snippets": []
     },
@@ -753,14 +668,9 @@
       "version": "",
       "maturity": "ga",
       "tags": [
-        "Mnt",
-        "Development",
-        "Users",
-        "Auto Doc Pipeline",
-        "Kroha",
-        "Documents",
-        "Docs",
-        "C"
+        "API",
+        "WebSocket",
+        "Reference"
       ],
       "hierarchy": {
         "lvl0": "both",
@@ -770,7 +680,7 @@
         "lvl4": ""
       },
       "url": "/assets/protocols/websocket/websocket-api#4",
-      "last_reviewed": null,
+      "last_reviewed": "",
       "path": "docs/assets/protocols/websocket/websocket-api.md",
       "ranking_boost": 0,
       "heading_level": 2,
@@ -834,7 +744,7 @@
         "lvl4": ""
       },
       "url": "/concepts/intelligent-knowledge-system#0",
-      "last_reviewed": "2026-03-07",
+      "last_reviewed": "2026-03-20",
       "path": "docs/concepts/intelligent-knowledge-system.md",
       "ranking_boost": 2,
       "heading_level": 1,
@@ -866,7 +776,7 @@
         "lvl4": ""
       },
       "url": "/concepts/intelligent-knowledge-system#1",
-      "last_reviewed": "2026-03-07",
+      "last_reviewed": "2026-03-20",
       "path": "docs/concepts/intelligent-knowledge-system.md",
       "ranking_boost": 2,
       "heading_level": 2,
@@ -898,7 +808,7 @@
         "lvl4": ""
       },
       "url": "/concepts/intelligent-knowledge-system#2",
-      "last_reviewed": "2026-03-07",
+      "last_reviewed": "2026-03-20",
       "path": "docs/concepts/intelligent-knowledge-system.md",
       "ranking_boost": 2,
       "heading_level": 2,
@@ -930,7 +840,7 @@
         "lvl4": ""
       },
       "url": "/concepts/intelligent-knowledge-system#3",
-      "last_reviewed": "2026-03-07",
+      "last_reviewed": "2026-03-20",
       "path": "docs/concepts/intelligent-knowledge-system.md",
       "ranking_boost": 2,
       "heading_level": 2,
@@ -962,7 +872,7 @@
         "lvl4": ""
       },
       "url": "/concepts/intelligent-knowledge-system#4",
-      "last_reviewed": "2026-03-07",
+      "last_reviewed": "2026-03-20",
       "path": "docs/concepts/intelligent-knowledge-system.md",
       "ranking_boost": 2,
       "heading_level": 2,
@@ -974,7 +884,7 @@
       "objectID": "bc21261c7c7fa2787a0773e9b73e7847",
       "title": "Intelligent knowledge system architecture",
       "heading": "RAG integration contract",
-      "content": "Ask AI reads the same artifacts that the weekly knowledge pipeline refreshes. - docs/assets/knowledge-retrieval-index.json is the primary retrieval index. - docs/assets/knowledge-graph.jsonld adds relationship context for retrieval and reasoning. - reports/retrieval_evals_report.json provides retrieval quality gates (Precision, Recall, Hallucination-rate). This shared contract keeps documentation generation, knowledge base updates, and RAG runtime aligned. ",
+      "content": "Ask AI reads the same artifacts that the weekly knowledge pipeline refreshes. - docs/assets/knowledge-retrieval-index.json is the primary retrieval index. - docs/assets/retrieval.faiss is the FAISS vector index with text-embedding-3-small embeddings. - docs/assets/retrieval-metadata.json is the metadata sidecar for the FAISS index. - docs/assets/knowledge-graph.jsonld adds relationship context for retrieval and reasoning. - reports/retrieval_evals_report.json provides retrieval quality gates (Precision, Recall, Hallucination-rate). This shared contract keeps documentation generation, knowledge base updates, and RAG runtime aligned. ",
       "description": "Learn how the pipeline models reusable knowledge modules for AI retrieval, dynamic assembly, and multi-channel documentation delivery.",
       "product": "both",
       "content_type": "concept",
@@ -994,16 +904,112 @@
         "lvl4": ""
       },
       "url": "/concepts/intelligent-knowledge-system#5",
-      "last_reviewed": "2026-03-07",
+      "last_reviewed": "2026-03-20",
       "path": "docs/concepts/intelligent-knowledge-system.md",
       "ranking_boost": 2,
       "heading_level": 2,
-      "word_count": 50,
+      "word_count": 70,
       "has_code": false,
       "code_snippets": []
     },
     {
       "objectID": "b67d0babd0e59be53a9ed909c00cca2d",
+      "title": "Intelligent knowledge system architecture",
+      "heading": "Advanced retrieval pipeline",
+      "content": "The RAG runtime uses six features that work together to maximize retrieval precision and recall: 1. Token-aware chunking splits long modules into 750-token chunks with 100-token overlap using the cl100k_base tokenizer. Short modules remain as single chunks. The embedding pipeline (scripts/generate_embeddings.py --chunk) embeds each chunk independently and stores chunk metadata (chunk_id, parent_id, chunk_index) in the FAISS sidecar. 1. Hybrid search (RRF) combines FAISS cosine similarity with token-overlap scoring. Reciprocal Rank Fusion (k=60) merges both rankings into a single list. This approach captures queries that mix specific terminology (tokens) with conceptual intent (embeddings). 1. HyDE query expansion generates a hypothetical documentation passage using gpt-4.1-mini before embedding the query. The generated passage captures domain vocabulary that the raw question may lack. The pipeline embeds the hypothetical document instead of the raw query text. 1. Cross-encoder rerankin",
+      "description": "Learn how the pipeline models reusable knowledge modules for AI retrieval, dynamic assembly, and multi-channel documentation delivery.",
+      "product": "both",
+      "content_type": "concept",
+      "component": "",
+      "version": "",
+      "maturity": "ga",
+      "tags": [
+        "Concept",
+        "AI",
+        "Reference"
+      ],
+      "hierarchy": {
+        "lvl0": "both",
+        "lvl1": "concept",
+        "lvl2": "Advanced retrieval pipeline",
+        "lvl3": "",
+        "lvl4": ""
+      },
+      "url": "/concepts/intelligent-knowledge-system#6",
+      "last_reviewed": "2026-03-20",
+      "path": "docs/concepts/intelligent-knowledge-system.md",
+      "ranking_boost": 2,
+      "heading_level": 2,
+      "word_count": 214,
+      "has_code": false,
+      "code_snippets": []
+    },
+    {
+      "objectID": "49bb509e14b7fd2ea4a4d5853be4073c",
+      "title": "Intelligent knowledge system architecture",
+      "heading": "Retrieval orchestration flow",
+      "content": "Question   |   v FAISS available AND hybrid enabled?   YES -> Hybrid search (RRF fusion of semantic + token)   NO  -> FAISS available? -> Semantic search (with HyDE if enabled)   NO  -> Token-overlap fallback   |   v Deduplicate chunks by parent_id   |   v Rerank enabled AND enough candidates?   YES -> Cross-encoder reranks to top-N   NO  -> Truncate to top-N   |   v Return context modules ",
+      "description": "Learn how the pipeline models reusable knowledge modules for AI retrieval, dynamic assembly, and multi-channel documentation delivery.",
+      "product": "both",
+      "content_type": "concept",
+      "component": "",
+      "version": "",
+      "maturity": "ga",
+      "tags": [
+        "Concept",
+        "AI",
+        "Reference"
+      ],
+      "hierarchy": {
+        "lvl0": "both",
+        "lvl1": "concept",
+        "lvl2": "",
+        "lvl3": "Retrieval orchestration flow",
+        "lvl4": ""
+      },
+      "url": "/concepts/intelligent-knowledge-system#7",
+      "last_reviewed": "2026-03-20",
+      "path": "docs/concepts/intelligent-knowledge-system.md",
+      "ranking_boost": 2,
+      "heading_level": 3,
+      "word_count": 62,
+      "has_code": false,
+      "code_snippets": []
+    },
+    {
+      "objectID": "7b77060a9e26b9697d0f88805efbb920",
+      "title": "Intelligent knowledge system architecture",
+      "heading": "Configuration",
+      "content": "All features are enabled by default in config/ask-ai.yml: | Feature | Config key | Default | | --- | --- | --- | | Chunking | chunking.enabled | true | | Hybrid search | hybrid_search.enabled | true | | HyDE | hyde.enabled | true | | Reranking | reranking.enabled | true | | Embedding cache | embedding_cache.enabled | true | Environment variable overrides: ASK_AI_HYBRID_ENABLED, ASK_AI_HYDE_ENABLED, ASK_AI_RERANK_ENABLED, ASK_AI_EMBED_CACHE_ENABLED. ",
+      "description": "Learn how the pipeline models reusable knowledge modules for AI retrieval, dynamic assembly, and multi-channel documentation delivery.",
+      "product": "both",
+      "content_type": "concept",
+      "component": "",
+      "version": "",
+      "maturity": "ga",
+      "tags": [
+        "Concept",
+        "AI",
+        "Reference"
+      ],
+      "hierarchy": {
+        "lvl0": "both",
+        "lvl1": "concept",
+        "lvl2": "",
+        "lvl3": "Configuration",
+        "lvl4": ""
+      },
+      "url": "/concepts/intelligent-knowledge-system#8",
+      "last_reviewed": "2026-03-20",
+      "path": "docs/concepts/intelligent-knowledge-system.md",
+      "ranking_boost": 2,
+      "heading_level": 3,
+      "word_count": 67,
+      "has_code": false,
+      "code_snippets": []
+    },
+    {
+      "objectID": "f84f1757c71a567568bf2e32b39d2805",
       "title": "Intelligent knowledge system architecture",
       "heading": "Security and governance",
       "content": "Use owner fields and verification dates to enforce accountability. - Assign one owner per module. - Verify security-sensitive modules every 30 days. - Deprecate stale modules by changing status to deprecated. ",
@@ -1025,8 +1031,8 @@
         "lvl3": "",
         "lvl4": ""
       },
-      "url": "/concepts/intelligent-knowledge-system#6",
-      "last_reviewed": "2026-03-07",
+      "url": "/concepts/intelligent-knowledge-system#9",
+      "last_reviewed": "2026-03-20",
       "path": "docs/concepts/intelligent-knowledge-system.md",
       "ranking_boost": 2,
       "heading_level": 2,
@@ -1035,7 +1041,7 @@
       "code_snippets": []
     },
     {
-      "objectID": "49bb509e14b7fd2ea4a4d5853be4073c",
+      "objectID": "9d6df99cbe1d2a80fbc0c1b5d46c40ec",
       "title": "Intelligent knowledge system architecture",
       "heading": "Next steps",
       "content": "- Assemble intent experiences - Intent experiences reference - Workflow execution model ",
@@ -1057,8 +1063,8 @@
         "lvl3": "",
         "lvl4": ""
       },
-      "url": "/concepts/intelligent-knowledge-system#7",
-      "last_reviewed": "2026-03-07",
+      "url": "/concepts/intelligent-knowledge-system#10",
+      "last_reviewed": "2026-03-20",
       "path": "docs/concepts/intelligent-knowledge-system.md",
       "ranking_boost": 2,
       "heading_level": 2,
@@ -2567,7 +2573,7 @@
         "lvl4": ""
       },
       "url": "/how-to/configure-ask-ai-module#0",
-      "last_reviewed": "2026-03-07",
+      "last_reviewed": "2026-03-20",
       "path": "docs/how-to/configure-ask-ai-module.md",
       "ranking_boost": 6,
       "heading_level": 1,
@@ -2599,7 +2605,7 @@
         "lvl4": ""
       },
       "url": "/how-to/configure-ask-ai-module#1",
-      "last_reviewed": "2026-03-07",
+      "last_reviewed": "2026-03-20",
       "path": "docs/how-to/configure-ask-ai-module.md",
       "ranking_boost": 6,
       "heading_level": 2,
@@ -2631,7 +2637,7 @@
         "lvl4": ""
       },
       "url": "/how-to/configure-ask-ai-module#2",
-      "last_reviewed": "2026-03-07",
+      "last_reviewed": "2026-03-20",
       "path": "docs/how-to/configure-ask-ai-module.md",
       "ranking_boost": 6,
       "heading_level": 2,
@@ -2663,7 +2669,7 @@
         "lvl4": ""
       },
       "url": "/how-to/configure-ask-ai-module#3",
-      "last_reviewed": "2026-03-07",
+      "last_reviewed": "2026-03-20",
       "path": "docs/how-to/configure-ask-ai-module.md",
       "ranking_boost": 6,
       "heading_level": 2,
@@ -2695,7 +2701,7 @@
         "lvl4": ""
       },
       "url": "/how-to/configure-ask-ai-module#4",
-      "last_reviewed": "2026-03-07",
+      "last_reviewed": "2026-03-20",
       "path": "docs/how-to/configure-ask-ai-module.md",
       "ranking_boost": 6,
       "heading_level": 2,
@@ -2706,7 +2712,39 @@
     {
       "objectID": "ed2d1a099ee64f8804de82e82c9e0b34",
       "title": "Configure Ask AI module",
-      "heading": "Step 4: Set access and safety limits",
+      "heading": "Step 4: Configure advanced retrieval features",
+      "content": "All six advanced retrieval features are enabled by default. Override individual features with environment variables or by editing config/ask-ai.yml directly: npm run askai:configure -- \\   --hybrid-search \\   --hyde \\   --reranking \\   --embedding-cache | Feature | Config key | Env var | Default | | --- | --- | --- | --- | | Token-aware chunking | chunking.enabled | -- (build-time only) | true | | Hybrid search (RRF) | hybrid_search.enabled | ASK_AI_HYBRID_ENABLED | true | | HyDE query expansion | hyde.enabled | ASK_AI_HYDE_ENABLED | true | | Cross-encoder reranking | reranking.enabled | ASK_AI_RERANK_ENABLED | true | | Embedding cache | embedding_cache.enabled | ASK_AI_EMBED_CACHE_ENABLED | true | Advanced tuning parameters: | Parameter | Env var | Default | Description | | --- | --- | --- | --- | | Rerank model | ASK_AI_RERANK_MODEL | cross-encoder/ms-marco-MiniLM-L-6-v2 | Cross-encoder model | | Rerank candidates | ASK_AI_RERANK_CANDIDATES | 20 | Candidates fetched before reranking ",
+      "description": "Enable or disable Ask AI, set provider and billing mode, and verify configuration in five steps for beginner operators.",
+      "product": "both",
+      "content_type": "how-to",
+      "component": "ai-agent",
+      "version": "",
+      "maturity": "ga",
+      "tags": [
+        "How-To",
+        "AI",
+        "Cloud"
+      ],
+      "hierarchy": {
+        "lvl0": "both",
+        "lvl1": "how-to",
+        "lvl2": "Step 4: Configure advanced retrieval features",
+        "lvl3": "",
+        "lvl4": ""
+      },
+      "url": "/how-to/configure-ask-ai-module#5",
+      "last_reviewed": "2026-03-20",
+      "path": "docs/how-to/configure-ask-ai-module.md",
+      "ranking_boost": 6,
+      "heading_level": 2,
+      "word_count": 232,
+      "has_code": false,
+      "code_snippets": []
+    },
+    {
+      "objectID": "e16ba523ef08d9cafa109729d94dea0a",
+      "title": "Configure Ask AI module",
+      "heading": "Step 5: Set access and safety limits",
       "content": "Example: npm run askai:configure -- \\   --allowed-roles admin,support \\   --rate-limit-per-user-per-minute 20 \\   --retention-days 30 \\   --audit-logging This keeps Ask AI restricted to approved roles with audit logging enabled. ",
       "description": "Enable or disable Ask AI, set provider and billing mode, and verify configuration in five steps for beginner operators.",
       "product": "both",
@@ -2722,12 +2760,12 @@
       "hierarchy": {
         "lvl0": "both",
         "lvl1": "how-to",
-        "lvl2": "Step 4: Set access and safety limits",
+        "lvl2": "Step 5: Set access and safety limits",
         "lvl3": "",
         "lvl4": ""
       },
-      "url": "/how-to/configure-ask-ai-module#5",
-      "last_reviewed": "2026-03-07",
+      "url": "/how-to/configure-ask-ai-module#6",
+      "last_reviewed": "2026-03-20",
       "path": "docs/how-to/configure-ask-ai-module.md",
       "ranking_boost": 6,
       "heading_level": 2,
@@ -2736,10 +2774,10 @@
       "code_snippets": []
     },
     {
-      "objectID": "e16ba523ef08d9cafa109729d94dea0a",
+      "objectID": "335dda13cc0148cf339c0e7e9201ead6",
       "title": "Configure Ask AI module",
-      "heading": "Step 5: Validate and commit",
-      "content": "Run: npm run lint npm run askai:status Confirm: - enabled matches client request - billing_mode matches contract - provider and model match the planned setup - knowledge_index_path, knowledge_graph_path, and retrieval_eval_report_path point to current RAG artifacts - weekly pipeline refresh keeps those three artifacts up to date before assistant runs ",
+      "heading": "Step 6: Validate and commit",
+      "content": "Run: npm run lint npm run askai:status Confirm: - enabled matches client request - billing_mode matches contract - provider and model match the planned setup - knowledge_index_path, knowledge_graph_path, and retrieval_eval_report_path point to current RAG artifacts - faiss_index_path and faiss_metadata_path point to FAISS embedding assets - advanced retrieval features (hybrid search, HyDE, reranking, embedding cache) are enabled - weekly pipeline refresh keeps RAG artifacts up to date before assistant runs ",
       "description": "Enable or disable Ask AI, set provider and billing mode, and verify configuration in five steps for beginner operators.",
       "product": "both",
       "content_type": "how-to",
@@ -2754,21 +2792,21 @@
       "hierarchy": {
         "lvl0": "both",
         "lvl1": "how-to",
-        "lvl2": "Step 5: Validate and commit",
+        "lvl2": "Step 6: Validate and commit",
         "lvl3": "",
         "lvl4": ""
       },
-      "url": "/how-to/configure-ask-ai-module#6",
-      "last_reviewed": "2026-03-07",
+      "url": "/how-to/configure-ask-ai-module#7",
+      "last_reviewed": "2026-03-20",
       "path": "docs/how-to/configure-ask-ai-module.md",
       "ranking_boost": 6,
       "heading_level": 2,
-      "word_count": 49,
+      "word_count": 69,
       "has_code": false,
       "code_snippets": []
     },
     {
-      "objectID": "335dda13cc0148cf339c0e7e9201ead6",
+      "objectID": "c22f165c37486ce91c4f1be18ac83633",
       "title": "Configure Ask AI module",
       "heading": "Error: unsupported provider or billing mode",
       "content": "Cause: the value is outside allowed options. Fix: npm run askai:configure -- --help Use only: - Provider: openai, anthropic, azure-openai, custom - Billing: disabled, bring-your-own-key, user-subscription ",
@@ -2790,8 +2828,8 @@
         "lvl3": "Error: unsupported provider or billing mode",
         "lvl4": ""
       },
-      "url": "/how-to/configure-ask-ai-module#7",
-      "last_reviewed": "2026-03-07",
+      "url": "/how-to/configure-ask-ai-module#8",
+      "last_reviewed": "2026-03-20",
       "path": "docs/how-to/configure-ask-ai-module.md",
       "ranking_boost": 6,
       "heading_level": 3,
@@ -2800,7 +2838,7 @@
       "code_snippets": []
     },
     {
-      "objectID": "c22f165c37486ce91c4f1be18ac83633",
+      "objectID": "8912df4bf564d93d4d15444547b413f2",
       "title": "Configure Ask AI module",
       "heading": "Configuration changed but team does not see it",
       "content": "Cause: local branch mismatch or uncommitted config. Fix: git status git add config/ask-ai.yml reports/ask-ai-config.json git commit -m \"docs-ops: update Ask AI configuration\" ",
@@ -2822,8 +2860,8 @@
         "lvl3": "Configuration changed but team does not see it",
         "lvl4": ""
       },
-      "url": "/how-to/configure-ask-ai-module#8",
-      "last_reviewed": "2026-03-07",
+      "url": "/how-to/configure-ask-ai-module#9",
+      "last_reviewed": "2026-03-20",
       "path": "docs/how-to/configure-ask-ai-module.md",
       "ranking_boost": 6,
       "heading_level": 3,
@@ -2832,7 +2870,7 @@
       "code_snippets": []
     },
     {
-      "objectID": "8912df4bf564d93d4d15444547b413f2",
+      "objectID": "b60a13639762c4d009c567e298c6cacd",
       "title": "Configure Ask AI module",
       "heading": "Next steps",
       "content": "- Quick start - Assemble intent experiences - Intelligent knowledge system architecture ",
@@ -2854,8 +2892,8 @@
         "lvl3": "",
         "lvl4": ""
       },
-      "url": "/how-to/configure-ask-ai-module#9",
-      "last_reviewed": "2026-03-07",
+      "url": "/how-to/configure-ask-ai-module#10",
+      "last_reviewed": "2026-03-20",
       "path": "docs/how-to/configure-ask-ai-module.md",
       "ranking_boost": 6,
       "heading_level": 2,
@@ -3206,7 +3244,7 @@
         "lvl4": ""
       },
       "url": "/how-to/install-ask-ai-runtime-pack#0",
-      "last_reviewed": "2026-03-07",
+      "last_reviewed": "2026-03-20",
       "path": "docs/how-to/install-ask-ai-runtime-pack.md",
       "ranking_boost": 6,
       "heading_level": 1,
@@ -3238,7 +3276,7 @@
         "lvl4": ""
       },
       "url": "/how-to/install-ask-ai-runtime-pack#1",
-      "last_reviewed": "2026-03-07",
+      "last_reviewed": "2026-03-20",
       "path": "docs/how-to/install-ask-ai-runtime-pack.md",
       "ranking_boost": 6,
       "heading_level": 2,
@@ -3250,7 +3288,7 @@
       "objectID": "8c0e599c060c3c71034b947235635fa2",
       "title": "Install Ask AI runtime pack",
       "heading": "Step 1: Install the runtime pack",
-      "content": "Run: npm run askai:runtime:install This creates ask-ai-runtime/ with: - FastAPI server (app/main.py) - auth guards (app/auth.py) - billing hooks (app/billing_hooks.py) - retrieval helpers (app/retrieval.py) - widget script (public/ask-ai-widget.js) - .env.example and runtime README.md ",
+      "content": "Run: npm run askai:runtime:install This creates ask-ai-runtime/ with: - FastAPI server (app/main.py) with advanced retrieval config - auth guards (app/auth.py) - billing hooks (app/billing_hooks.py) - retrieval helpers (app/retrieval.py) with hybrid search, HyDE, reranking, embedding cache, and chunk deduplication - widget script (public/ask-ai-widget.js) - .env.example and runtime README.md Runtime dependencies include faiss-cpu, numpy, sentence-transformers (for cross-encoder reranking), and tiktoken (for token-aware chunking). ",
       "description": "Install the optional Ask AI runtime pack with API endpoint, widget, auth checks, and billing hooks in a few commands.",
       "product": "both",
       "content_type": "how-to",
@@ -3270,11 +3308,11 @@
         "lvl4": ""
       },
       "url": "/how-to/install-ask-ai-runtime-pack#2",
-      "last_reviewed": "2026-03-07",
+      "last_reviewed": "2026-03-20",
       "path": "docs/how-to/install-ask-ai-runtime-pack.md",
       "ranking_boost": 6,
       "heading_level": 2,
-      "word_count": 33,
+      "word_count": 61,
       "has_code": false,
       "code_snippets": []
     },
@@ -3302,7 +3340,7 @@
         "lvl4": ""
       },
       "url": "/how-to/install-ask-ai-runtime-pack#3",
-      "last_reviewed": "2026-03-07",
+      "last_reviewed": "2026-03-20",
       "path": "docs/how-to/install-ask-ai-runtime-pack.md",
       "ranking_boost": 6,
       "heading_level": 2,
@@ -3314,7 +3352,7 @@
       "objectID": "96e0fca452a070a6265f947e2fcc257a",
       "title": "Install Ask AI runtime pack",
       "heading": "Step 3: Configure runtime environment",
-      "content": "cd ask-ai-runtime cp .env.example .env Fill these values in .env: - ASK_AI_API_KEY - ASK_AI_PROVIDER_API_KEY - ASK_AI_WEBHOOK_SECRET ",
+      "content": "cd ask-ai-runtime cp .env.example .env Fill these values in .env: - ASK_AI_API_KEY - ASK_AI_PROVIDER_API_KEY - ASK_AI_WEBHOOK_SECRET The following advanced retrieval features are enabled by default and require no additional configuration: | Feature | Env var override | Default | | --- | --- | --- | | Hybrid search (RRF) | ASK_AI_HYBRID_ENABLED | true | | HyDE query expansion | ASK_AI_HYDE_ENABLED | true | | Cross-encoder reranking | ASK_AI_RERANK_ENABLED | true | | Embedding cache | ASK_AI_EMBED_CACHE_ENABLED | true | ",
       "description": "Install the optional Ask AI runtime pack with API endpoint, widget, auth checks, and billing hooks in a few commands.",
       "product": "both",
       "content_type": "how-to",
@@ -3334,11 +3372,11 @@
         "lvl4": ""
       },
       "url": "/how-to/install-ask-ai-runtime-pack#4",
-      "last_reviewed": "2026-03-07",
+      "last_reviewed": "2026-03-20",
       "path": "docs/how-to/install-ask-ai-runtime-pack.md",
       "ranking_boost": 6,
       "heading_level": 2,
-      "word_count": 16,
+      "word_count": 80,
       "has_code": false,
       "code_snippets": []
     },
@@ -3366,7 +3404,7 @@
         "lvl4": ""
       },
       "url": "/how-to/install-ask-ai-runtime-pack#5",
-      "last_reviewed": "2026-03-07",
+      "last_reviewed": "2026-03-20",
       "path": "docs/how-to/install-ask-ai-runtime-pack.md",
       "ranking_boost": 6,
       "heading_level": 2,
@@ -3402,7 +3440,7 @@
         "lvl4": ""
       },
       "url": "/how-to/install-ask-ai-runtime-pack#6",
-      "last_reviewed": "2026-03-07",
+      "last_reviewed": "2026-03-20",
       "path": "docs/how-to/install-ask-ai-runtime-pack.md",
       "ranking_boost": 6,
       "heading_level": 2,
@@ -3434,7 +3472,7 @@
         "lvl4": ""
       },
       "url": "/how-to/install-ask-ai-runtime-pack#7",
-      "last_reviewed": "2026-03-07",
+      "last_reviewed": "2026-03-20",
       "path": "docs/how-to/install-ask-ai-runtime-pack.md",
       "ranking_boost": 6,
       "heading_level": 3,
@@ -3466,7 +3504,7 @@
         "lvl4": ""
       },
       "url": "/how-to/install-ask-ai-runtime-pack#8",
-      "last_reviewed": "2026-03-07",
+      "last_reviewed": "2026-03-20",
       "path": "docs/how-to/install-ask-ai-runtime-pack.md",
       "ranking_boost": 6,
       "heading_level": 3,
@@ -3478,7 +3516,7 @@
       "objectID": "8e9515a949a49c05e18b830cc5e9f17d",
       "title": "Install Ask AI runtime pack",
       "heading": "Ask endpoint returns 402",
-      "content": "The current user plan is not entitled by billing mode logic. Confirm ASK_AI_BILLING_MODE and user plan header. ",
+      "content": "The current user plan is not entitled by billing mode logic. Confirm ASK_AI_BILLING_MODE and user plan header. The /healthz endpoint reports the status of all advanced retrieval features: {   \"ok\": true,   \"enabled\": true,   \"provider\": \"openai\",   \"billing_mode\": \"disabled\",   \"semantic_retrieval\": true,   \"reranking\": true,   \"hybrid_search\": true,   \"hyde\": true,   \"embedding_cache\": true } ",
       "description": "Install the optional Ask AI runtime pack with API endpoint, widget, auth checks, and billing hooks in a few commands.",
       "product": "both",
       "content_type": "how-to",
@@ -3498,11 +3536,11 @@
         "lvl4": ""
       },
       "url": "/how-to/install-ask-ai-runtime-pack#9",
-      "last_reviewed": "2026-03-07",
+      "last_reviewed": "2026-03-20",
       "path": "docs/how-to/install-ask-ai-runtime-pack.md",
       "ranking_boost": 6,
       "heading_level": 3,
-      "word_count": 17,
+      "word_count": 48,
       "has_code": false,
       "code_snippets": []
     },
@@ -3510,7 +3548,7 @@
       "objectID": "c7d0413428f07f11127f45984cf39c8e",
       "title": "Install Ask AI runtime pack",
       "heading": "Next steps",
-      "content": "- Configure Ask AI module - Assemble intent experiences ",
+      "content": "- Configure Ask AI module - Assemble intent experiences - Intelligent knowledge system architecture ",
       "description": "Install the optional Ask AI runtime pack with API endpoint, widget, auth checks, and billing hooks in a few commands.",
       "product": "both",
       "content_type": "how-to",
@@ -3530,11 +3568,11 @@
         "lvl4": ""
       },
       "url": "/how-to/install-ask-ai-runtime-pack#10",
-      "last_reviewed": "2026-03-07",
+      "last_reviewed": "2026-03-20",
       "path": "docs/how-to/install-ask-ai-runtime-pack.md",
       "ranking_boost": 6,
       "heading_level": 2,
-      "word_count": 9,
+      "word_count": 14,
       "has_code": false,
       "code_snippets": []
     },
@@ -5362,6 +5400,454 @@
       "code_snippets": []
     },
     {
+      "objectID": "729250b0bcda90fc60eca54458ed42d2",
+      "title": "Multi-Protocol Architecture",
+      "heading": "VeriDoc/VeriOps Multi-Protocol Architecture",
+      "content": "Positioning statement: VeriDoc/VeriOps: one docs-ops pipeline for REST, GraphQL, gRPC, AsyncAPI, and WebSocket. ",
+      "description": "Unified docs-ops pipeline for REST, GraphQL, gRPC, AsyncAPI, and WebSocket.",
+      "product": "both",
+      "content_type": "reference",
+      "component": "",
+      "version": "",
+      "maturity": "ga",
+      "tags": [
+        "Architecture",
+        "API",
+        "Operations"
+      ],
+      "hierarchy": {
+        "lvl0": "both",
+        "lvl1": "reference",
+        "lvl2": "",
+        "lvl3": "",
+        "lvl4": ""
+      },
+      "url": "/operations/MULTI_PROTOCOL_ARCHITECTURE#0",
+      "last_reviewed": "2026-03-19",
+      "path": "docs/operations/MULTI_PROTOCOL_ARCHITECTURE.md",
+      "ranking_boost": 4,
+      "heading_level": 1,
+      "word_count": 13,
+      "has_code": false,
+      "code_snippets": []
+    },
+    {
+      "objectID": "5827851fe732060e166a3877dec9a2e9",
+      "title": "Multi-Protocol Architecture",
+      "heading": "Supported protocols (core-5)",
+      "content": "1. REST (OpenAPI) 1. GraphQL (SDL/introspection) 1. gRPC (Proto/descriptor) 1. AsyncAPI (event-driven specs) 1. WebSocket (channel/message contracts) ",
+      "description": "Unified docs-ops pipeline for REST, GraphQL, gRPC, AsyncAPI, and WebSocket.",
+      "product": "both",
+      "content_type": "reference",
+      "component": "",
+      "version": "",
+      "maturity": "ga",
+      "tags": [
+        "Architecture",
+        "API",
+        "Operations"
+      ],
+      "hierarchy": {
+        "lvl0": "both",
+        "lvl1": "reference",
+        "lvl2": "Supported protocols (core-5)",
+        "lvl3": "",
+        "lvl4": ""
+      },
+      "url": "/operations/MULTI_PROTOCOL_ARCHITECTURE#1",
+      "last_reviewed": "2026-03-19",
+      "path": "docs/operations/MULTI_PROTOCOL_ARCHITECTURE.md",
+      "ranking_boost": 4,
+      "heading_level": 2,
+      "word_count": 17,
+      "has_code": false,
+      "code_snippets": []
+    },
+    {
+      "objectID": "6f355c6690406963ac0bc29ced361807",
+      "title": "Multi-Protocol Architecture",
+      "heading": "Unified stage flow",
+      "content": "ingest -> lint -> regression -> docs generation -> quality gates -> test assets -> upload -> publish Implementation entrypoint: python3 scripts/run_multi_protocol_contract_flow.py \\   --runtime-config docsops/config/client_runtime.yml \\   --reports-dir reports ",
+      "description": "Unified docs-ops pipeline for REST, GraphQL, gRPC, AsyncAPI, and WebSocket.",
+      "product": "both",
+      "content_type": "reference",
+      "component": "",
+      "version": "",
+      "maturity": "ga",
+      "tags": [
+        "Architecture",
+        "API",
+        "Operations"
+      ],
+      "hierarchy": {
+        "lvl0": "both",
+        "lvl1": "reference",
+        "lvl2": "Unified stage flow",
+        "lvl3": "",
+        "lvl4": ""
+      },
+      "url": "/operations/MULTI_PROTOCOL_ARCHITECTURE#2",
+      "last_reviewed": "2026-03-19",
+      "path": "docs/operations/MULTI_PROTOCOL_ARCHITECTURE.md",
+      "ranking_boost": 4,
+      "heading_level": 2,
+      "word_count": 28,
+      "has_code": false,
+      "code_snippets": []
+    },
+    {
+      "objectID": "d89d3bb115bcab51c7de15df5a1b1615",
+      "title": "Multi-Protocol Architecture",
+      "heading": "Engine and adapters",
+      "content": "- scripts/multi_protocol_engine.py - stage adapter orchestration. - scripts/run_multi_protocol_contract_flow.py - flow runner + report output. - scripts/api_protocols.py - protocol normalization, aliases, defaults. ",
+      "description": "Unified docs-ops pipeline for REST, GraphQL, gRPC, AsyncAPI, and WebSocket.",
+      "product": "both",
+      "content_type": "reference",
+      "component": "",
+      "version": "",
+      "maturity": "ga",
+      "tags": [
+        "Architecture",
+        "API",
+        "Operations"
+      ],
+      "hierarchy": {
+        "lvl0": "both",
+        "lvl1": "reference",
+        "lvl2": "Engine and adapters",
+        "lvl3": "",
+        "lvl4": ""
+      },
+      "url": "/operations/MULTI_PROTOCOL_ARCHITECTURE#3",
+      "last_reviewed": "2026-03-19",
+      "path": "docs/operations/MULTI_PROTOCOL_ARCHITECTURE.md",
+      "ranking_boost": 4,
+      "heading_level": 2,
+      "word_count": 21,
+      "has_code": false,
+      "code_snippets": []
+    },
+    {
+      "objectID": "9f6da42227655e870055aecf2497a2ec",
+      "title": "Multi-Protocol Architecture",
+      "heading": "Protocol-specific validators",
+      "content": "- REST: scripts/validate_openapi_contract.py - GraphQL: scripts/validate_graphql_contract.py (root/schema checks, duplicate types/fields, root-type references) - gRPC: scripts/validate_proto_contract.py (syntax checks, duplicate declarations/rpcs, proto3 required guard) - AsyncAPI: scripts/validate_asyncapi_contract.py (channel operations + message payload semantics) - WebSocket: scripts/validate_websocket_contract.py (channel/event presence + payload/schema semantics) - Deep protocol lint stack (7+ checks): scripts/run_protocol_lint_stack.py ",
+      "description": "Unified docs-ops pipeline for REST, GraphQL, gRPC, AsyncAPI, and WebSocket.",
+      "product": "both",
+      "content_type": "reference",
+      "component": "",
+      "version": "",
+      "maturity": "ga",
+      "tags": [
+        "Architecture",
+        "API",
+        "Operations"
+      ],
+      "hierarchy": {
+        "lvl0": "both",
+        "lvl1": "reference",
+        "lvl2": "Protocol-specific validators",
+        "lvl3": "",
+        "lvl4": ""
+      },
+      "url": "/operations/MULTI_PROTOCOL_ARCHITECTURE#4",
+      "last_reviewed": "2026-03-19",
+      "path": "docs/operations/MULTI_PROTOCOL_ARCHITECTURE.md",
+      "ranking_boost": 4,
+      "heading_level": 2,
+      "word_count": 47,
+      "has_code": false,
+      "code_snippets": []
+    },
+    {
+      "objectID": "4123e060e63b25b1763a18bae0d90a1c",
+      "title": "Multi-Protocol Architecture",
+      "heading": "Regression",
+      "content": "- Generic snapshot gate: scripts/check_protocol_regression.py - Per-protocol snapshot path is runtime-configurable. ",
+      "description": "Unified docs-ops pipeline for REST, GraphQL, gRPC, AsyncAPI, and WebSocket.",
+      "product": "both",
+      "content_type": "reference",
+      "component": "",
+      "version": "",
+      "maturity": "ga",
+      "tags": [
+        "Architecture",
+        "API",
+        "Operations"
+      ],
+      "hierarchy": {
+        "lvl0": "both",
+        "lvl1": "reference",
+        "lvl2": "Regression",
+        "lvl3": "",
+        "lvl4": ""
+      },
+      "url": "/operations/MULTI_PROTOCOL_ARCHITECTURE#5",
+      "last_reviewed": "2026-03-19",
+      "path": "docs/operations/MULTI_PROTOCOL_ARCHITECTURE.md",
+      "ranking_boost": 4,
+      "heading_level": 2,
+      "word_count": 11,
+      "has_code": false,
+      "code_snippets": []
+    },
+    {
+      "objectID": "214d0940a68fdb1efa57ab76259f348f",
+      "title": "Multi-Protocol Architecture",
+      "heading": "Docs + publish",
+      "content": "- Generate protocol docs: scripts/generate_protocol_docs.py - Publish protocol assets: scripts/publish_protocol_assets.py - Generated protocol docs include interactive testers:   - GraphQL query execution (mock/real endpoint)   - gRPC via HTTP gateway adapter   - AsyncAPI ws/http publish checks   - WebSocket live connect/send checks ",
+      "description": "Unified docs-ops pipeline for REST, GraphQL, gRPC, AsyncAPI, and WebSocket.",
+      "product": "both",
+      "content_type": "reference",
+      "component": "",
+      "version": "",
+      "maturity": "ga",
+      "tags": [
+        "Architecture",
+        "API",
+        "Operations"
+      ],
+      "hierarchy": {
+        "lvl0": "both",
+        "lvl1": "reference",
+        "lvl2": "Docs + publish",
+        "lvl3": "",
+        "lvl4": ""
+      },
+      "url": "/operations/MULTI_PROTOCOL_ARCHITECTURE#6",
+      "last_reviewed": "2026-03-19",
+      "path": "docs/operations/MULTI_PROTOCOL_ARCHITECTURE.md",
+      "ranking_boost": 4,
+      "heading_level": 2,
+      "word_count": 39,
+      "has_code": false,
+      "code_snippets": []
+    },
+    {
+      "objectID": "73c28d62ad3641449010f46a188a4d0c",
+      "title": "Multi-Protocol Architecture",
+      "heading": "Test assets and smart-merge",
+      "content": "- Generator: scripts/generate_protocol_test_assets.py - Upload: scripts/upload_api_test_assets.py - Coverage gate: scripts/validate_protocol_test_coverage.py - Runtime self-verify (mock/real endpoint): scripts/run_protocol_self_verify.py - Protocol docs quality + lifecycle suite: scripts/run_protocol_docs_quality_suite.py   - applies docs normalization, metadata optimization, multilang/smoke checks   - updates glossary markers   - refreshes RAG assets (knowledge modules, retrieval index, knowledge graph, retrieval evals) - Smart-merge preserves manual/customized cases and sets needs_review on drift/stale entities. - Non-REST generator emits richer artifacts: cases JSON, TestRail CSV, Zephyr JSON, test_matrix.json, fuzz_scenarios.json. ",
+      "description": "Unified docs-ops pipeline for REST, GraphQL, gRPC, AsyncAPI, and WebSocket.",
+      "product": "both",
+      "content_type": "reference",
+      "component": "",
+      "version": "",
+      "maturity": "ga",
+      "tags": [
+        "Architecture",
+        "API",
+        "Operations"
+      ],
+      "hierarchy": {
+        "lvl0": "both",
+        "lvl1": "reference",
+        "lvl2": "Test assets and smart-merge",
+        "lvl3": "",
+        "lvl4": ""
+      },
+      "url": "/operations/MULTI_PROTOCOL_ARCHITECTURE#7",
+      "last_reviewed": "2026-03-19",
+      "path": "docs/operations/MULTI_PROTOCOL_ARCHITECTURE.md",
+      "ranking_boost": 4,
+      "heading_level": 2,
+      "word_count": 73,
+      "has_code": false,
+      "code_snippets": []
+    },
+    {
+      "objectID": "82f7acc9a45cc1e7c894e24d0a5481c7",
+      "title": "Multi-Protocol Architecture",
+      "heading": "Advanced RAG retrieval pipeline",
+      "content": "The multi-protocol quality suite (run_protocol_docs_quality_suite.py) refreshes RAG assets including FAISS embeddings. Six advanced retrieval features are available: | Feature | Module | Description | | --- | --- | --- | | Token-aware chunking | scripts/chunker.py | Splits modules into 750-token chunks with 100-token overlap (cl100k_base) | | FAISS embeddings | scripts/generate_embeddings.py --chunk | Embeds chunks with text-embedding-3-small, builds FAISS index | | Hybrid search (RRF) | runtime/.../retrieval.py | Fuses semantic and token-overlap rankings (k=60) | | HyDE query expansion | runtime/.../retrieval.py | Generates hypothetical passage via gpt-4.1-mini before embedding | | Cross-encoder reranking | scripts/vector_store.py, runtime/.../retrieval.py | Rescores top 20 candidates with ms-marco-MiniLM-L-6-v2 | | Embedding cache | runtime/.../retrieval.py | In-memory LRU cache (TTL: 3,600 seconds, max: 512) | | Multi-mode evaluation | scripts/run_retrieval_evals.py --mode all | Com",
+      "description": "Unified docs-ops pipeline for REST, GraphQL, gRPC, AsyncAPI, and WebSocket.",
+      "product": "both",
+      "content_type": "reference",
+      "component": "",
+      "version": "",
+      "maturity": "ga",
+      "tags": [
+        "Architecture",
+        "API",
+        "Operations"
+      ],
+      "hierarchy": {
+        "lvl0": "both",
+        "lvl1": "reference",
+        "lvl2": "Advanced RAG retrieval pipeline",
+        "lvl3": "",
+        "lvl4": ""
+      },
+      "url": "/operations/MULTI_PROTOCOL_ARCHITECTURE#8",
+      "last_reviewed": "2026-03-19",
+      "path": "docs/operations/MULTI_PROTOCOL_ARCHITECTURE.md",
+      "ranking_boost": 4,
+      "heading_level": 2,
+      "word_count": 136,
+      "has_code": false,
+      "code_snippets": []
+    },
+    {
+      "objectID": "f612c1ff130a6fd336d43bcb4e5c22ae",
+      "title": "Multi-Protocol Architecture",
+      "heading": "RAG prep behavior on pipeline run",
+      "content": "1. Extract knowledge modules from docs 1. Validate modules and rebuild retrieval index 1. Generate FAISS embeddings with optional chunking (--chunk) 1. Run retrieval evals (single-mode or multi-mode comparison) 1. Output comparison report to reports/retrieval_comparison.json ",
+      "description": "Unified docs-ops pipeline for REST, GraphQL, gRPC, AsyncAPI, and WebSocket.",
+      "product": "both",
+      "content_type": "reference",
+      "component": "",
+      "version": "",
+      "maturity": "ga",
+      "tags": [
+        "Architecture",
+        "API",
+        "Operations"
+      ],
+      "hierarchy": {
+        "lvl0": "both",
+        "lvl1": "reference",
+        "lvl2": "",
+        "lvl3": "RAG prep behavior on pipeline run",
+        "lvl4": ""
+      },
+      "url": "/operations/MULTI_PROTOCOL_ARCHITECTURE#9",
+      "last_reviewed": "2026-03-19",
+      "path": "docs/operations/MULTI_PROTOCOL_ARCHITECTURE.md",
+      "ranking_boost": 4,
+      "heading_level": 3,
+      "word_count": 35,
+      "has_code": false,
+      "code_snippets": []
+    },
+    {
+      "objectID": "3780bc37821a10b594e46d8d8b48433b",
+      "title": "Multi-Protocol Architecture",
+      "heading": "Configuration",
+      "content": "All features are enabled by default in config/ask-ai.yml. Runtime overrides via environment variables: ASK_AI_HYBRID_ENABLED, ASK_AI_HYDE_ENABLED, ASK_AI_RERANK_ENABLED, ASK_AI_EMBED_CACHE_ENABLED. ",
+      "description": "Unified docs-ops pipeline for REST, GraphQL, gRPC, AsyncAPI, and WebSocket.",
+      "product": "both",
+      "content_type": "reference",
+      "component": "",
+      "version": "",
+      "maturity": "ga",
+      "tags": [
+        "Architecture",
+        "API",
+        "Operations"
+      ],
+      "hierarchy": {
+        "lvl0": "both",
+        "lvl1": "reference",
+        "lvl2": "",
+        "lvl3": "Configuration",
+        "lvl4": ""
+      },
+      "url": "/operations/MULTI_PROTOCOL_ARCHITECTURE#10",
+      "last_reviewed": "2026-03-19",
+      "path": "docs/operations/MULTI_PROTOCOL_ARCHITECTURE.md",
+      "ranking_boost": 4,
+      "heading_level": 3,
+      "word_count": 17,
+      "has_code": false,
+      "code_snippets": []
+    },
+    {
+      "objectID": "35ef30cccacff5faf7013c0afc39fad0",
+      "title": "Multi-Protocol Architecture",
+      "heading": "Eval dataset",
+      "content": "A curated 50-query eval dataset is maintained at config/retrieval_eval_dataset.yml. It covers queries across all five protocols (REST, GraphQL, gRPC, AsyncAPI, WebSocket). ",
+      "description": "Unified docs-ops pipeline for REST, GraphQL, gRPC, AsyncAPI, and WebSocket.",
+      "product": "both",
+      "content_type": "reference",
+      "component": "",
+      "version": "",
+      "maturity": "ga",
+      "tags": [
+        "Architecture",
+        "API",
+        "Operations"
+      ],
+      "hierarchy": {
+        "lvl0": "both",
+        "lvl1": "reference",
+        "lvl2": "",
+        "lvl3": "Eval dataset",
+        "lvl4": ""
+      },
+      "url": "/operations/MULTI_PROTOCOL_ARCHITECTURE#11",
+      "last_reviewed": "2026-03-19",
+      "path": "docs/operations/MULTI_PROTOCOL_ARCHITECTURE.md",
+      "ranking_boost": 4,
+      "heading_level": 3,
+      "word_count": 21,
+      "has_code": false,
+      "code_snippets": []
+    },
+    {
+      "objectID": "5ed82fb1f2491923974597cd0947a3bc",
+      "title": "Multi-Protocol Architecture",
+      "heading": "Template and snippet parity",
+      "content": "- Protocol-specific templates are part of the default library:   - templates/protocols/graphql-reference.md   - templates/protocols/grpc-reference.md   - templates/protocols/asyncapi-reference.md   - templates/protocols/websocket-reference.md - Reusable blocks are centralized in templates/protocols/api-protocol-snippets.md. - LLM generation uses these assets to keep structure, terminology, and formatting consistent with REST-grade docs. ",
+      "description": "Unified docs-ops pipeline for REST, GraphQL, gRPC, AsyncAPI, and WebSocket.",
+      "product": "both",
+      "content_type": "reference",
+      "component": "",
+      "version": "",
+      "maturity": "ga",
+      "tags": [
+        "Architecture",
+        "API",
+        "Operations"
+      ],
+      "hierarchy": {
+        "lvl0": "both",
+        "lvl1": "reference",
+        "lvl2": "Template and snippet parity",
+        "lvl3": "",
+        "lvl4": ""
+      },
+      "url": "/operations/MULTI_PROTOCOL_ARCHITECTURE#12",
+      "last_reviewed": "2026-03-19",
+      "path": "docs/operations/MULTI_PROTOCOL_ARCHITECTURE.md",
+      "ranking_boost": 4,
+      "heading_level": 2,
+      "word_count": 40,
+      "has_code": false,
+      "code_snippets": []
+    },
+    {
+      "objectID": "b17b08fa6d03216ff1fd9156906afdd4",
+      "title": "Multi-Protocol Architecture",
+      "heading": "Next steps",
+      "content": "- Documentation index ",
+      "description": "Unified docs-ops pipeline for REST, GraphQL, gRPC, AsyncAPI, and WebSocket.",
+      "product": "both",
+      "content_type": "reference",
+      "component": "",
+      "version": "",
+      "maturity": "ga",
+      "tags": [
+        "Architecture",
+        "API",
+        "Operations"
+      ],
+      "hierarchy": {
+        "lvl0": "both",
+        "lvl1": "reference",
+        "lvl2": "Next steps",
+        "lvl3": "",
+        "lvl4": ""
+      },
+      "url": "/operations/MULTI_PROTOCOL_ARCHITECTURE#13",
+      "last_reviewed": "2026-03-19",
+      "path": "docs/operations/MULTI_PROTOCOL_ARCHITECTURE.md",
+      "ranking_boost": 4,
+      "heading_level": 2,
+      "word_count": 3,
+      "has_code": false,
+      "code_snippets": []
+    },
+    {
       "objectID": "0de0787479416e8eea4caf7fc2d98378",
       "title": "Multi-Protocol Wizard Guide",
       "heading": "Multi-Protocol Wizard Guide",
@@ -5448,7 +5934,7 @@
         "lvl4": ""
       },
       "url": "/operations/PIPELINE_CAPABILITIES_CATALOG#0",
-      "last_reviewed": "2026-03-12",
+      "last_reviewed": "2026-03-21",
       "path": "docs/operations/PIPELINE_CAPABILITIES_CATALOG.md",
       "ranking_boost": 4,
       "heading_level": 1,
@@ -5479,11 +5965,11 @@
         "lvl4": ""
       },
       "url": "/operations/PIPELINE_CAPABILITIES_CATALOG#1",
-      "last_reviewed": "2026-03-12",
+      "last_reviewed": "2026-03-21",
       "path": "docs/operations/PIPELINE_CAPABILITIES_CATALOG.md",
       "ranking_boost": 4,
       "heading_level": 2,
-      "word_count": 1314,
+      "word_count": 1393,
       "has_code": false,
       "code_snippets": []
     },
@@ -5510,16 +5996,171 @@
         "lvl4": ""
       },
       "url": "/operations/PIPELINE_CAPABILITIES_CATALOG#2",
-      "last_reviewed": "2026-03-12",
+      "last_reviewed": "2026-03-21",
       "path": "docs/operations/PIPELINE_CAPABILITIES_CATALOG.md",
       "ranking_boost": 4,
       "heading_level": 2,
-      "word_count": 220,
+      "word_count": 470,
       "has_code": false,
       "code_snippets": []
     },
     {
       "objectID": "8b07c911cf94ce00ffa4a879f0d87424",
+      "title": "Pipeline Capabilities Catalog",
+      "heading": "Multi-protocol contract pipeline",
+      "content": "The pipeline supports five API protocols with a unified orchestrator (run_multi_protocol_contract_flow.py). Each protocol has its own contract format, validator, reference template, test generator, and sandbox fallback. | Protocol | Contract format | Validator | Sandbox fallback | | --- | --- | --- | --- | | REST | OpenAPI 3.0 YAML | validate_openapi_contract.py + Spectral + Redocly | Prism / Postman mock server | | GraphQL | SDL (.graphql) | validate_graphql_contract.py | postman-echo.com/post | | gRPC | Proto3 (.proto) | validate_proto_contract.py | postman-echo.com/post (JSON-over-HTTP) | | AsyncAPI | AsyncAPI 2.6 YAML | validate_asyncapi_contract.py | postman-echo.com/post + echo.websocket.events | | WebSocket | Channel YAML | validate_websocket_contract.py | echo.websocket.events | 8 pipeline stages per protocol: ingest, contract validation, lint, regression detection, docs generation, quality gates (frontmatter + snippet lint + self-verification), test assets generation with smar",
+      "description": "Generated catalog of available pipeline commands, templates, policy packs, and assets for client configuration.",
+      "product": "both",
+      "content_type": "reference",
+      "component": "",
+      "version": "",
+      "maturity": "ga",
+      "tags": [
+        "Operations",
+        "Reference"
+      ],
+      "hierarchy": {
+        "lvl0": "both",
+        "lvl1": "reference",
+        "lvl2": "Multi-protocol contract pipeline",
+        "lvl3": "",
+        "lvl4": ""
+      },
+      "url": "/operations/PIPELINE_CAPABILITIES_CATALOG#3",
+      "last_reviewed": "2026-03-21",
+      "path": "docs/operations/PIPELINE_CAPABILITIES_CATALOG.md",
+      "ranking_boost": 4,
+      "heading_level": 2,
+      "word_count": 187,
+      "has_code": false,
+      "code_snippets": []
+    },
+    {
+      "objectID": "ad3cf03de42afb8255f016ef34a740c4",
+      "title": "Pipeline Capabilities Catalog",
+      "heading": "Test assets generation and smart merge",
+      "content": "generate_protocol_test_assets.py generates protocol-aware test cases for all five protocols with signature-based smart merge to preserve custom and manual test cases across contract changes. Test categories per protocol: | Protocol | Categories | | --- | --- | | REST | CRUD happy paths, validation errors, auth, rate limiting, pagination | | GraphQL | Query/mutation/subscription happy path, invalid input, auth, injection, latency | | gRPC | Unary/streaming positive, status codes, deadline/retry, authorization, latency SLO | | AsyncAPI | Publish validation, invalid payload, ordering/idempotency, security, throughput | | WebSocket | Connection/auth, message envelope, reconnect, security, concurrency | Output formats: api_test_cases.json, testrail_test_cases.csv (TestRail), zephyr_test_cases.json (Zephyr Scale), test_matrix.json, fuzz_scenarios.json. Smart merge rules: auto-generated cases are replaced on contract change; customized cases (customized: true) are preserved and flagged needs_",
+      "description": "Generated catalog of available pipeline commands, templates, policy packs, and assets for client configuration.",
+      "product": "both",
+      "content_type": "reference",
+      "component": "",
+      "version": "",
+      "maturity": "ga",
+      "tags": [
+        "Operations",
+        "Reference"
+      ],
+      "hierarchy": {
+        "lvl0": "both",
+        "lvl1": "reference",
+        "lvl2": "Test assets generation and smart merge",
+        "lvl3": "",
+        "lvl4": ""
+      },
+      "url": "/operations/PIPELINE_CAPABILITIES_CATALOG#4",
+      "last_reviewed": "2026-03-21",
+      "path": "docs/operations/PIPELINE_CAPABILITIES_CATALOG.md",
+      "ranking_boost": 4,
+      "heading_level": 2,
+      "word_count": 163,
+      "has_code": false,
+      "code_snippets": []
+    },
+    {
+      "objectID": "03de58dd9ce31e44288d058c157728d6",
+      "title": "Pipeline Capabilities Catalog",
+      "heading": "Quality checks (32 automated)",
+      "content": "The pipeline enforces 32 automated checks on every documentation page across four categories: | Category | Count | What they verify | | --- | --- | --- | | GEO checks | 8 | LLM and AI search optimization: meta descriptions, first paragraph length, heading hierarchy, fact density | | SEO checks | 14 | Traditional search optimization: title length, URL depth, internal links, image alt text, structured data | | Style checks | 6 | American English, active voice, no weasel words, no contractions, second person, present tense | | Contract checks | 4 | Schema validation, regression detection, snippet lint, self-verification against endpoints | ",
+      "description": "Generated catalog of available pipeline commands, templates, policy packs, and assets for client configuration.",
+      "product": "both",
+      "content_type": "reference",
+      "component": "",
+      "version": "",
+      "maturity": "ga",
+      "tags": [
+        "Operations",
+        "Reference"
+      ],
+      "hierarchy": {
+        "lvl0": "both",
+        "lvl1": "reference",
+        "lvl2": "Quality checks (32 automated)",
+        "lvl3": "",
+        "lvl4": ""
+      },
+      "url": "/operations/PIPELINE_CAPABILITIES_CATALOG#5",
+      "last_reviewed": "2026-03-21",
+      "path": "docs/operations/PIPELINE_CAPABILITIES_CATALOG.md",
+      "ranking_boost": 4,
+      "heading_level": 2,
+      "word_count": 107,
+      "has_code": false,
+      "code_snippets": []
+    },
+    {
+      "objectID": "57ec3721afbac456defdd6c0352b0b23",
+      "title": "Pipeline Capabilities Catalog",
+      "heading": "RAG retrieval pipeline",
+      "content": "The pipeline generates a knowledge retrieval layer with six advanced features: | Feature | Description | | --- | --- | | Token-aware chunking | Splits modules into 750-token chunks with 100-token overlap (cl100k_base) | | Hybrid search (RRF) | Fuses semantic (FAISS) and token-overlap rankings with Reciprocal Rank Fusion (k=60) | | HyDE query expansion | Generates hypothetical doc passage via LLM before embedding for better retrieval on vague queries | | Cross-encoder reranking | Rescores top 20 candidates with cross-encoder/ms-marco-MiniLM-L-6-v2 | | Embedding cache | In-memory LRU cache (TTL 3,600 seconds, max 512 entries) for query embeddings | | Multi-mode evaluation | Compares token, semantic, hybrid, and hybrid+rerank modes across curated queries | Pipeline scripts: 1. extract_knowledge_modules_from_docs.py -- auto-chunk docs into knowledge modules 1. validate_knowledge_modules.py -- schema validation, duplicate ID detection, cycle check 1. generate_knowledge_retrieval_index.py --",
+      "description": "Generated catalog of available pipeline commands, templates, policy packs, and assets for client configuration.",
+      "product": "both",
+      "content_type": "reference",
+      "component": "",
+      "version": "",
+      "maturity": "ga",
+      "tags": [
+        "Operations",
+        "Reference"
+      ],
+      "hierarchy": {
+        "lvl0": "both",
+        "lvl1": "reference",
+        "lvl2": "RAG retrieval pipeline",
+        "lvl3": "",
+        "lvl4": ""
+      },
+      "url": "/operations/PIPELINE_CAPABILITIES_CATALOG#6",
+      "last_reviewed": "2026-03-21",
+      "path": "docs/operations/PIPELINE_CAPABILITIES_CATALOG.md",
+      "ranking_boost": 4,
+      "heading_level": 2,
+      "word_count": 168,
+      "has_code": false,
+      "code_snippets": []
+    },
+    {
+      "objectID": "d46905e7e7d2df34c90e9d7e2b7ff8fc",
+      "title": "Pipeline Capabilities Catalog",
+      "heading": "Public docs auditor and executive PDF",
+      "content": "The public docs auditor crawls live documentation sites and generates a comprehensive quality assessment. Audit modes: | Mode | Command | Description | | --- | --- | --- | | Basic | npm run audit:public | Crawl + evaluate (no LLM) | | Interactive wizard | npm run audit:public:wizard | Step-by-step guided audit | | LLM-powered | npm run audit:public:llm | Full expert analysis with Claude | | LLM summary only | npm run audit:public:llm-summary | Quick LLM summary without full crawl | | Executive PDF | npm run audit:executive-pdf | Consulting-grade PDF from audit results | | Scorecard | npm run audit:scorecard | Comprehensive scoring across all quality dimensions | Executive PDF contents: cover page with headline findings, executive summary with score gauge and grade, per-site metrics table, board-level KPI bars with financial impact, risk matrix with priority actions, expert analysis (LLM or data-driven fallback), methodology appendix, evidence appendix. Audit scorecard dimensions: docs ",
+      "description": "Generated catalog of available pipeline commands, templates, policy packs, and assets for client configuration.",
+      "product": "both",
+      "content_type": "reference",
+      "component": "",
+      "version": "",
+      "maturity": "ga",
+      "tags": [
+        "Operations",
+        "Reference"
+      ],
+      "hierarchy": {
+        "lvl0": "both",
+        "lvl1": "reference",
+        "lvl2": "Public docs auditor and executive PDF",
+        "lvl3": "",
+        "lvl4": ""
+      },
+      "url": "/operations/PIPELINE_CAPABILITIES_CATALOG#7",
+      "last_reviewed": "2026-03-21",
+      "path": "docs/operations/PIPELINE_CAPABILITIES_CATALOG.md",
+      "ranking_boost": 4,
+      "heading_level": 2,
+      "word_count": 168,
+      "has_code": false,
+      "code_snippets": []
+    },
+    {
+      "objectID": "98a234d7a612d9d605aebbee5f32611f",
       "title": "Pipeline Capabilities Catalog",
       "heading": "API-first external sandbox note",
       "content": "For public web playground usage, prefer external sandbox mode and a public HTTPS mock URL with CORS: API_FIRST_DEMO_SANDBOX_BACKEND=external \\ API_FIRST_DEMO_MOCK_BASE_URL=\"https://<your-real-public-mock-url>/v1\" \\ bash scripts/api_first_demo_live.sh The pipeline is provider-agnostic. You can use Postman Mock Servers, Stoplight-hosted Prism, Mockoon Cloud, or your own hosted Prism-compatible endpoint. For Postman auto-prepare mode, provide: - POSTMAN_API_KEY - POSTMAN_WORKSPACE_ID - optional POSTMAN_COLLECTION_UID (if empty, pipeline imports collection from generated OpenAPI) - optional POSTMAN_MOCK_SERVER_ID ",
@@ -5540,8 +6181,8 @@
         "lvl3": "",
         "lvl4": ""
       },
-      "url": "/operations/PIPELINE_CAPABILITIES_CATALOG#3",
-      "last_reviewed": "2026-03-12",
+      "url": "/operations/PIPELINE_CAPABILITIES_CATALOG#8",
+      "last_reviewed": "2026-03-21",
       "path": "docs/operations/PIPELINE_CAPABILITIES_CATALOG.md",
       "ranking_boost": 4,
       "heading_level": 2,
@@ -5550,7 +6191,7 @@
       "code_snippets": []
     },
     {
-      "objectID": "ad3cf03de42afb8255f016ef34a740c4",
+      "objectID": "5083f95b8874d9547efa2e6a7e1545b8",
       "title": "Pipeline Capabilities Catalog",
       "heading": "PR auto-doc workflow capability",
       "content": "Enable in client profile with runtime.pr_autofix. Installed workflow behavior: 1. Trigger on PR events (opened, synchronize, reopened, labeled). 1. Analyze only current PR diff (base...head). 1. Run docs auto-fix script if docs contract/drift gates require docs updates. 1. Commit generated docs into the same PR branch. 1. Rerun checks automatically. ",
@@ -5571,8 +6212,8 @@
         "lvl3": "",
         "lvl4": ""
       },
-      "url": "/operations/PIPELINE_CAPABILITIES_CATALOG#4",
-      "last_reviewed": "2026-03-12",
+      "url": "/operations/PIPELINE_CAPABILITIES_CATALOG#9",
+      "last_reviewed": "2026-03-21",
       "path": "docs/operations/PIPELINE_CAPABILITIES_CATALOG.md",
       "ranking_boost": 4,
       "heading_level": 2,
@@ -5581,7 +6222,7 @@
       "code_snippets": []
     },
     {
-      "objectID": "03de58dd9ce31e44288d058c157728d6",
+      "objectID": "a77495d628ba7647b15aaeb787ecfea0",
       "title": "Pipeline Capabilities Catalog",
       "heading": "Templates",
       "content": "These can be shipped via bundle.include_paths and used by LLM generation flow. - templates/admin-guide.md - templates/api-endpoint.md - templates/api-reference.md - templates/architecture-overview.md - templates/authentication-guide.md - templates/best-practices.md - templates/changelog.md - templates/concept.md - templates/configuration-guide.md - templates/configuration-reference.md - templates/deployment-guide.md - templates/error-handling-guide.md - templates/faq.md - templates/glossary-page.md - templates/how-to.md - templates/integration-guide.md - templates/interactive-diagram.html - templates/migration-guide.md - templates/plg-persona-guide.md - templates/plg-value-page.md - templates/quickstart.md - templates/reference.md - templates/release-note.md - templates/sdk-reference.md - templates/security-guide.md - templates/testing-guide.md - templates/troubleshooting.md - templates/tutorial.md - templates/upgrade-guide.md - templates/use-case.md - templates/user-guide.md - templat",
@@ -5602,8 +6243,8 @@
         "lvl3": "",
         "lvl4": ""
       },
-      "url": "/operations/PIPELINE_CAPABILITIES_CATALOG#5",
-      "last_reviewed": "2026-03-12",
+      "url": "/operations/PIPELINE_CAPABILITIES_CATALOG#10",
+      "last_reviewed": "2026-03-21",
       "path": "docs/operations/PIPELINE_CAPABILITIES_CATALOG.md",
       "ranking_boost": 4,
       "heading_level": 2,
@@ -5612,7 +6253,7 @@
       "code_snippets": []
     },
     {
-      "objectID": "57ec3721afbac456defdd6c0352b0b23",
+      "objectID": "880d8fbf5079734d1523e1bf77da96a1",
       "title": "Pipeline Capabilities Catalog",
       "heading": "Policy Packs",
       "content": "- api-first.yml - minimal.yml - monorepo.yml - multi-product.yml - plg.yml ",
@@ -5633,8 +6274,8 @@
         "lvl3": "",
         "lvl4": ""
       },
-      "url": "/operations/PIPELINE_CAPABILITIES_CATALOG#6",
-      "last_reviewed": "2026-03-12",
+      "url": "/operations/PIPELINE_CAPABILITIES_CATALOG#11",
+      "last_reviewed": "2026-03-21",
       "path": "docs/operations/PIPELINE_CAPABILITIES_CATALOG.md",
       "ranking_boost": 4,
       "heading_level": 2,
@@ -5643,7 +6284,7 @@
       "code_snippets": []
     },
     {
-      "objectID": "d46905e7e7d2df34c90e9d7e2b7ff8fc",
+      "objectID": "563b99799ab3e556ed19cfa567271c47",
       "title": "Pipeline Capabilities Catalog",
       "heading": "Knowledge Modules",
       "content": "Can be copied into client bundle with bundle.include_paths: ['knowledge_modules']. - webhook-auth-baseline.yml - webhook-retry-policy.yml ",
@@ -5664,8 +6305,8 @@
         "lvl3": "",
         "lvl4": ""
       },
-      "url": "/operations/PIPELINE_CAPABILITIES_CATALOG#7",
-      "last_reviewed": "2026-03-12",
+      "url": "/operations/PIPELINE_CAPABILITIES_CATALOG#12",
+      "last_reviewed": "2026-03-21",
       "path": "docs/operations/PIPELINE_CAPABILITIES_CATALOG.md",
       "ranking_boost": 4,
       "heading_level": 2,
@@ -5674,7 +6315,7 @@
       "code_snippets": []
     },
     {
-      "objectID": "98a234d7a612d9d605aebbee5f32611f",
+      "objectID": "5f2ce836663bc6c5c38a0659c3e228e5",
       "title": "Pipeline Capabilities Catalog",
       "heading": "Docker Compose Profiles",
       "content": "- docker-compose.api-sandbox.live.yml - docker-compose.api-sandbox.prodlike.yml - docker-compose.api-sandbox.yml - docker-compose.docs-ops.yml ",
@@ -5695,8 +6336,8 @@
         "lvl3": "",
         "lvl4": ""
       },
-      "url": "/operations/PIPELINE_CAPABILITIES_CATALOG#8",
-      "last_reviewed": "2026-03-12",
+      "url": "/operations/PIPELINE_CAPABILITIES_CATALOG#13",
+      "last_reviewed": "2026-03-21",
       "path": "docs/operations/PIPELINE_CAPABILITIES_CATALOG.md",
       "ranking_boost": 4,
       "heading_level": 2,
@@ -5705,7 +6346,7 @@
       "code_snippets": []
     },
     {
-      "objectID": "5083f95b8874d9547efa2e6a7e1545b8",
+      "objectID": "c38ccf76323286b1074b971ed439d898",
       "title": "Pipeline Capabilities Catalog",
       "heading": "Next steps",
       "content": "- Documentation index ",
@@ -5726,8 +6367,8 @@
         "lvl3": "",
         "lvl4": ""
       },
-      "url": "/operations/PIPELINE_CAPABILITIES_CATALOG#9",
-      "last_reviewed": "2026-03-12",
+      "url": "/operations/PIPELINE_CAPABILITIES_CATALOG#14",
+      "last_reviewed": "2026-03-21",
       "path": "docs/operations/PIPELINE_CAPABILITIES_CATALOG.md",
       "ranking_boost": 4,
       "heading_level": 2,
@@ -5978,6 +6619,134 @@
       "last_reviewed": "2026-03-11",
       "path": "docs/operations/PLAN_TIERS.md",
       "ranking_boost": 4,
+      "heading_level": 2,
+      "word_count": 3,
+      "has_code": false,
+      "code_snippets": []
+    },
+    {
+      "objectID": "fd0924f8e6f68ce9ee7989effa429e34",
+      "title": "Smart Merge and Manual Review",
+      "heading": "Where smart-merge runs",
+      "content": "- scripts/generate_protocol_test_assets.py - reports/api-test-assets/api_test_cases.json ",
+      "description": "How needs_review works for protocol test assets and where operators review flagged cases.",
+      "product": "both",
+      "content_type": "how-to",
+      "component": "",
+      "version": "",
+      "maturity": "ga",
+      "tags": [
+        "Testing",
+        "Operations",
+        "API"
+      ],
+      "hierarchy": {
+        "lvl0": "both",
+        "lvl1": "how-to",
+        "lvl2": "Where smart-merge runs",
+        "lvl3": "",
+        "lvl4": ""
+      },
+      "url": "/operations/SMART_MERGE_REVIEW#0",
+      "last_reviewed": "2026-03-19",
+      "path": "docs/operations/SMART_MERGE_REVIEW.md",
+      "ranking_boost": 6,
+      "heading_level": 2,
+      "word_count": 4,
+      "has_code": false,
+      "code_snippets": []
+    },
+    {
+      "objectID": "85a93ae1149cd0a87fcdb2138dbef8f8",
+      "title": "Smart Merge and Manual Review",
+      "heading": "Merge rules",
+      "content": "1. origin=manual cases are always preserved. 1. customized=true auto cases are preserved. 1. If contract signature changed, customized cases get needs_review=true. 1. Removed contract entities keep customized/manual cases with needs_review=true and review_reason=contract_entity_removed. 1. Non-customized auto cases are regenerated. ",
+      "description": "How needs_review works for protocol test assets and where operators review flagged cases.",
+      "product": "both",
+      "content_type": "how-to",
+      "component": "",
+      "version": "",
+      "maturity": "ga",
+      "tags": [
+        "Testing",
+        "Operations",
+        "API"
+      ],
+      "hierarchy": {
+        "lvl0": "both",
+        "lvl1": "how-to",
+        "lvl2": "Merge rules",
+        "lvl3": "",
+        "lvl4": ""
+      },
+      "url": "/operations/SMART_MERGE_REVIEW#1",
+      "last_reviewed": "2026-03-19",
+      "path": "docs/operations/SMART_MERGE_REVIEW.md",
+      "ranking_boost": 6,
+      "heading_level": 2,
+      "word_count": 38,
+      "has_code": false,
+      "code_snippets": []
+    },
+    {
+      "objectID": "75f1eb832222046f0931de7b00be8fc8",
+      "title": "Smart Merge and Manual Review",
+      "heading": "Where reviewer sees required edits",
+      "content": "Review queue is in generated JSON: - needs_review_count - needs_review_ids - per-case needs_review, review_reason, last_generated_signature Suggested operator flow: 1. Open reports/api-test-assets/api_test_cases.json. 1. Filter by needs_review=true. 1. Update cases and set customized=true for intentional overrides. 1. Re-run protocol test-asset generation. ",
+      "description": "How needs_review works for protocol test assets and where operators review flagged cases.",
+      "product": "both",
+      "content_type": "how-to",
+      "component": "",
+      "version": "",
+      "maturity": "ga",
+      "tags": [
+        "Testing",
+        "Operations",
+        "API"
+      ],
+      "hierarchy": {
+        "lvl0": "both",
+        "lvl1": "how-to",
+        "lvl2": "Where reviewer sees required edits",
+        "lvl3": "",
+        "lvl4": ""
+      },
+      "url": "/operations/SMART_MERGE_REVIEW#2",
+      "last_reviewed": "2026-03-19",
+      "path": "docs/operations/SMART_MERGE_REVIEW.md",
+      "ranking_boost": 6,
+      "heading_level": 2,
+      "word_count": 39,
+      "has_code": false,
+      "code_snippets": []
+    },
+    {
+      "objectID": "476628b14e1920e7b1175a44ee5049b2",
+      "title": "Smart Merge and Manual Review",
+      "heading": "Next steps",
+      "content": "- Documentation index ",
+      "description": "How needs_review works for protocol test assets and where operators review flagged cases.",
+      "product": "both",
+      "content_type": "how-to",
+      "component": "",
+      "version": "",
+      "maturity": "ga",
+      "tags": [
+        "Testing",
+        "Operations",
+        "API"
+      ],
+      "hierarchy": {
+        "lvl0": "both",
+        "lvl1": "how-to",
+        "lvl2": "Next steps",
+        "lvl3": "",
+        "lvl4": ""
+      },
+      "url": "/operations/SMART_MERGE_REVIEW#3",
+      "last_reviewed": "2026-03-19",
+      "path": "docs/operations/SMART_MERGE_REVIEW.md",
+      "ranking_boost": 6,
       "heading_level": 2,
       "word_count": 3,
       "has_code": false,
@@ -6358,6 +7127,68 @@
     {
       "objectID": "f00b0ab36a0097fbfe40a3a319a8257f",
       "title": "Unified Client Configuration",
+      "heading": "6.1 Strict default behavior for multi-protocol flows",
+      "content": "For GraphQL/gRPC/AsyncAPI/WebSocket, runtime uses strict defaults: - contract validation runs before protocol lint/docs generation. - semantic request/response relevance checks are mandatory in the protocol quality suite. - if any enabled stage fails, pipeline retries protocol flow in an autofix cycle. Runtime keys (per protocol under runtime.api_protocol_settings.<protocol>): autofix_cycle_enabled: true autofix_max_attempts: 3 semantic_autofix_max_attempts: 3 These defaults are designed for smooth one-command autopipeline runs with minimal manual intervention. ",
+      "description": "Single source of truth for per-client Auto-Doc Pipeline configuration, modules, and automation.",
+      "product": "both",
+      "content_type": "reference",
+      "component": "",
+      "version": "",
+      "maturity": "ga",
+      "tags": [
+        "Operations",
+        "Configuration"
+      ],
+      "hierarchy": {
+        "lvl0": "both",
+        "lvl1": "reference",
+        "lvl2": "",
+        "lvl3": "6.1 Strict default behavior for multi-protocol flows",
+        "lvl4": ""
+      },
+      "url": "/operations/UNIFIED_CLIENT_CONFIG#12",
+      "last_reviewed": "2026-03-12",
+      "path": "docs/operations/UNIFIED_CLIENT_CONFIG.md",
+      "ranking_boost": 4,
+      "heading_level": 3,
+      "word_count": 65,
+      "has_code": false,
+      "code_snippets": []
+    },
+    {
+      "objectID": "23b90363bb5502996ebb74233b7f46e5",
+      "title": "Unified Client Configuration",
+      "heading": "6.2 Planning-notes generation for non-REST protocols",
+      "content": "You can generate non-REST contracts directly from planning notes in the same autopipeline run. runtime:   api_protocols: [\"graphql\", \"grpc\", \"asyncapi\", \"websocket\"]   api_protocol_settings:     graphql:       schema_path: \"api/schema.graphql\"       notes_path: \"notes/graphql-api-planning.md\"       generate_from_notes: true     grpc:       proto_paths: [\"api/proto\"]       notes_path: \"notes/grpc-api-planning.md\"       generate_from_notes: true     asyncapi:       spec_path: \"api/asyncapi.yaml\"       notes_path: \"notes/asyncapi-planning.md\"       generate_from_notes: true     websocket:       contract_path: \"api/websocket.yaml\"       notes_path: \"notes/websocket-api-planning.md\"       generate_from_notes: true When source contract is missing, pipeline auto-generates it from notes and continues with: contract validation -> lint -> regression -> docs generation -> semantic quality -> test assets -> publish. ",
+      "description": "Single source of truth for per-client Auto-Doc Pipeline configuration, modules, and automation.",
+      "product": "both",
+      "content_type": "reference",
+      "component": "",
+      "version": "",
+      "maturity": "ga",
+      "tags": [
+        "Operations",
+        "Configuration"
+      ],
+      "hierarchy": {
+        "lvl0": "both",
+        "lvl1": "reference",
+        "lvl2": "",
+        "lvl3": "6.2 Planning-notes generation for non-REST protocols",
+        "lvl4": ""
+      },
+      "url": "/operations/UNIFIED_CLIENT_CONFIG#13",
+      "last_reviewed": "2026-03-12",
+      "path": "docs/operations/UNIFIED_CLIENT_CONFIG.md",
+      "ranking_boost": 4,
+      "heading_level": 3,
+      "word_count": 79,
+      "has_code": false,
+      "code_snippets": []
+    },
+    {
+      "objectID": "e620f5a10a4ee037222dce37e2c3c254",
+      "title": "Unified Client Configuration",
       "heading": "7. Module switches",
       "content": "runtime:   modules:     gap_detection: true     drift_detection: true     docs_contract: true     kpi_sla: true     rag_optimization: true     ontology_graph: true     retrieval_evals: true     terminology_management: true     normalization: true     snippet_lint: true     self_checks: true     fact_checks: true     lifecycle_management: true     knowledge_validation: true     i18n_sync: true     release_pack: true ",
       "description": "Single source of truth for per-client Auto-Doc Pipeline configuration, modules, and automation.",
@@ -6377,7 +7208,7 @@
         "lvl3": "",
         "lvl4": ""
       },
-      "url": "/operations/UNIFIED_CLIENT_CONFIG#12",
+      "url": "/operations/UNIFIED_CLIENT_CONFIG#14",
       "last_reviewed": "2026-03-12",
       "path": "docs/operations/UNIFIED_CLIENT_CONFIG.md",
       "ranking_boost": 4,
@@ -6387,7 +7218,7 @@
       "code_snippets": []
     },
     {
-      "objectID": "23b90363bb5502996ebb74233b7f46e5",
+      "objectID": "f9a228fe7c541d8530dc75d31432358d",
       "title": "Unified Client Configuration",
       "heading": "Module -> required script in bundle",
       "content": "- gap_detection -> scripts/run_weekly_gap_batch.py + python3 -m scripts.gap_detection.cli analyze (runtime command) - drift_detection -> scripts/check_api_sdk_drift.py - docs_contract -> scripts/check_docs_contract.py - kpi_sla -> scripts/evaluate_kpi_sla.py + scripts/generate_kpi_wall.py - terminology_management -> scripts/sync_project_glossary.py - normalization -> scripts/normalize_docs.py - snippet_lint -> scripts/lint_code_snippets.py - self_checks -> scripts/check_code_examples_smoke.py - multilang_examples -> scripts/generate_multilang_tabs.py + scripts/validate_multilang_examples.py - fact_checks -> scripts/seo_geo_optimizer.py + scripts/doc_layers_validator.py - lifecycle_management -> scripts/lifecycle_manager.py (+ lifecycle report/redirect guidance) - knowledge_validation -> scripts/extract_knowledge_modules_from_docs.py + scripts/validate_knowledge_modules.py - rag_optimization -> scripts/generate_knowledge_retrieval_index.py - ontology_graph -> scripts/generate_knowledge_",
@@ -6408,7 +7239,7 @@
         "lvl3": "Module -> required script in bundle",
         "lvl4": ""
       },
-      "url": "/operations/UNIFIED_CLIENT_CONFIG#13",
+      "url": "/operations/UNIFIED_CLIENT_CONFIG#15",
       "last_reviewed": "2026-03-12",
       "path": "docs/operations/UNIFIED_CLIENT_CONFIG.md",
       "ranking_boost": 4,
@@ -6418,7 +7249,7 @@
       "code_snippets": []
     },
     {
-      "objectID": "e620f5a10a4ee037222dce37e2c3c254",
+      "objectID": "634c4be5bfed3efbdaeef3f0aa690820",
       "title": "Unified Client Configuration",
       "heading": "8. Universal tasks (core UTP, not optional extras)",
       "content": "Use runtime.custom_tasks.weekly to wire any command from the capabilities catalog. runtime:   custom_tasks:     weekly:       - id: \"geo-lint\"         enabled: true         command: \"python3 docsops/scripts/seo_geo_optimizer.py docs/\"         continue_on_error: true       - id: \"openapi-lint\"         enabled: true         command: \"npm run lint:openapi\"         continue_on_error: true     on_demand: [] Full list of available capabilities: - docs/operations/PIPELINE_CAPABILITIES_CATALOG.md - regenerate catalog: python3 scripts/generate_pipeline_capabilities_catalog.py Recommended default for smooth intent assembly: - Keep scripts/build_all_intent_experiences.py in bundle.include_scripts. - Keep python3 docsops/scripts/build_all_intent_experiences.py enabled in runtime.custom_tasks.weekly. - Keep knowledge_modules in bundle.include_paths (or store it directly in client repo). ",
@@ -6439,7 +7270,7 @@
         "lvl3": "",
         "lvl4": ""
       },
-      "url": "/operations/UNIFIED_CLIENT_CONFIG#14",
+      "url": "/operations/UNIFIED_CLIENT_CONFIG#16",
       "last_reviewed": "2026-03-12",
       "path": "docs/operations/UNIFIED_CLIENT_CONFIG.md",
       "ranking_boost": 4,
@@ -6449,7 +7280,7 @@
       "code_snippets": []
     },
     {
-      "objectID": "f9a228fe7c541d8530dc75d31432358d",
+      "objectID": "7162e204b69072785941b7abe3a6cc7b",
       "title": "Unified Client Configuration",
       "heading": "9. Integrations (single control point)",
       "content": "Use one section to configure cross-stack integrations for any supported generator. runtime:   integrations:     algolia:       enabled: true       docs_dir: \"docs\"       report_output: \"reports/seo-report.json\"       upload_on_weekly: true       app_id_env: \"ALGOLIA_APP_ID\"       api_key_env: \"ALGOLIA_API_KEY\"       index_name_env: \"ALGOLIA_INDEX_NAME\"       index_name_default: \"docs\"     ask_ai:       enabled: true       auto_configure_on_provision: true       install_runtime_pack: false       provider: \"openai\"       billing_mode: \"user-subscription\"       model: \"gpt-4.1-mini\"       base_url: \"https://api.openai.com/v1\" How it works: - algolia.enabled=true: weekly runner generates Algolia payload from docs. - algolia.upload_on_weekly=true: weekly runner also uploads to Algolia (if env credentials are set). - ask_ai.auto_configure_on_provision=true: provisioning auto-writes config/ask-ai.yml. - ask_ai.install_runtime_pack=true: provisioning auto-installs Ask AI runtime pack. Manual v",
@@ -6470,7 +7301,7 @@
         "lvl3": "",
         "lvl4": ""
       },
-      "url": "/operations/UNIFIED_CLIENT_CONFIG#15",
+      "url": "/operations/UNIFIED_CLIENT_CONFIG#17",
       "last_reviewed": "2026-03-12",
       "path": "docs/operations/UNIFIED_CLIENT_CONFIG.md",
       "ranking_boost": 4,
@@ -6480,7 +7311,7 @@
       "code_snippets": []
     },
     {
-      "objectID": "634c4be5bfed3efbdaeef3f0aa690820",
+      "objectID": "6adf52d2be322b2a36aee7cbc93fe0df",
       "title": "Unified Client Configuration",
       "heading": "Core UTP tasks (default-on baseline)",
       "content": "runtime:   custom_tasks:     weekly:       - id: \"seo-geo\"         enabled: true         command: \"python3 docsops/scripts/seo_geo_optimizer.py docs/\"         continue_on_error: true       - id: \"knowledge-validate\"         enabled: true         command: \"python3 docsops/scripts/validate_knowledge_modules.py\"         continue_on_error: true       - id: \"knowledge-index\"         enabled: true         command: \"python3 docsops/scripts/generate_knowledge_retrieval_index.py\"         continue_on_error: true       - id: \"intent-all\"         enabled: true         command: \"python3 docsops/scripts/build_all_intent_experiences.py\"         continue_on_error: true ",
@@ -6501,7 +7332,7 @@
         "lvl3": "Core UTP tasks (default-on baseline)",
         "lvl4": ""
       },
-      "url": "/operations/UNIFIED_CLIENT_CONFIG#16",
+      "url": "/operations/UNIFIED_CLIENT_CONFIG#18",
       "last_reviewed": "2026-03-12",
       "path": "docs/operations/UNIFIED_CLIENT_CONFIG.md",
       "ranking_boost": 4,
@@ -6511,7 +7342,7 @@
       "code_snippets": []
     },
     {
-      "objectID": "7162e204b69072785941b7abe3a6cc7b",
+      "objectID": "f6acad3a184439c186754bb5849b46cc",
       "title": "Unified Client Configuration",
       "heading": "Multi-language examples baseline (new standard)",
       "content": "runtime:   modules:     multilang_examples: true   multilang_examples:     enabled: true     scope: \"all\"     required_languages: [\"curl\", \"javascript\", \"python\"] Bundle requirements: bundle:   include_scripts:     - \"scripts/generate_multilang_tabs.py\"     - \"scripts/validate_multilang_examples.py\" How it works in weekly runner: - auto-generate tabbed examples from standalone cURL examples - validate required language tabs - run smoke execution and expected-output matching on tagged blocks ",
@@ -6532,7 +7363,7 @@
         "lvl3": "",
         "lvl4": "Multi-language examples baseline (new standard)"
       },
-      "url": "/operations/UNIFIED_CLIENT_CONFIG#17",
+      "url": "/operations/UNIFIED_CLIENT_CONFIG#19",
       "last_reviewed": "2026-03-12",
       "path": "docs/operations/UNIFIED_CLIENT_CONFIG.md",
       "ranking_boost": 4,
@@ -6542,7 +7373,7 @@
       "code_snippets": []
     },
     {
-      "objectID": "6adf52d2be322b2a36aee7cbc93fe0df",
+      "objectID": "e948e1ea9d36aaf0c6671279ad0ff31d",
       "title": "Unified Client Configuration",
       "heading": "API-first advanced baseline (overrides + regression gate)",
       "content": "runtime:   api_first:     enabled: true     openapi_version: \"3.1.0\"     manual_overrides_path: \"api/overrides/openapi.manual.yml\"     regression_snapshot_path: \"api/.openapi-regression.json\"     update_regression_snapshot: false Bundle requirements: bundle:   include_scripts:     - \"scripts/apply_openapi_overrides.py\"     - \"scripts/check_openapi_regression.py\" ",
@@ -6563,7 +7394,7 @@
         "lvl3": "",
         "lvl4": "API-first advanced baseline (overrides + regression gate)"
       },
-      "url": "/operations/UNIFIED_CLIENT_CONFIG#18",
+      "url": "/operations/UNIFIED_CLIENT_CONFIG#20",
       "last_reviewed": "2026-03-12",
       "path": "docs/operations/UNIFIED_CLIENT_CONFIG.md",
       "ranking_boost": 4,
@@ -6573,7 +7404,7 @@
       "code_snippets": []
     },
     {
-      "objectID": "f6acad3a184439c186754bb5849b46cc",
+      "objectID": "e087134485283acb6709bd35fc950481",
       "title": "Unified Client Configuration",
       "heading": "SEO/GEO weekly",
       "content": "runtime:   custom_tasks:     weekly:       - id: \"seo-geo\"         enabled: true         command: \"python3 docsops/scripts/seo_geo_optimizer.py docs/\"         continue_on_error: true ",
@@ -6594,7 +7425,7 @@
         "lvl3": "",
         "lvl4": "SEO/GEO weekly"
       },
-      "url": "/operations/UNIFIED_CLIENT_CONFIG#19",
+      "url": "/operations/UNIFIED_CLIENT_CONFIG#21",
       "last_reviewed": "2026-03-12",
       "path": "docs/operations/UNIFIED_CLIENT_CONFIG.md",
       "ranking_boost": 4,
@@ -6604,7 +7435,7 @@
       "code_snippets": []
     },
     {
-      "objectID": "e948e1ea9d36aaf0c6671279ad0ff31d",
+      "objectID": "cbd67003d87e22a740920f2c804d3a03",
       "title": "Unified Client Configuration",
       "heading": "RAG / knowledge base weekly",
       "content": "runtime:   custom_tasks:     weekly:       - id: \"knowledge-validate\"         enabled: true         command: \"python3 docsops/scripts/validate_knowledge_modules.py\"         continue_on_error: true       - id: \"knowledge-index\"         enabled: true         command: \"python3 docsops/scripts/generate_knowledge_retrieval_index.py\"         continue_on_error: true       - id: \"intent-all\"         enabled: true         command: \"python3 docsops/scripts/build_all_intent_experiences.py\"         continue_on_error: true ",
@@ -6625,7 +7456,7 @@
         "lvl3": "",
         "lvl4": "RAG / knowledge base weekly"
       },
-      "url": "/operations/UNIFIED_CLIENT_CONFIG#20",
+      "url": "/operations/UNIFIED_CLIENT_CONFIG#22",
       "last_reviewed": "2026-03-12",
       "path": "docs/operations/UNIFIED_CLIENT_CONFIG.md",
       "ranking_boost": 4,
@@ -6635,7 +7466,7 @@
       "code_snippets": []
     },
     {
-      "objectID": "e087134485283acb6709bd35fc950481",
+      "objectID": "55a9c713c72c4f8c7fc087609c012f41",
       "title": "Unified Client Configuration",
       "heading": "Multilingual (i18n) baseline",
       "content": "runtime:   modules:     i18n_sync: true   custom_tasks:     weekly:       - id: \"i18n-translate-stale\"         enabled: false         command: \"python3 docsops/scripts/i18n_translate.py --stale-only\"         continue_on_error: true Bundle requirements: bundle:   include_scripts:     - \"scripts/i18n_sync.py\"     - \"scripts/i18n_translate.py\"     - \"scripts/i18n_migrate.py\"     - \"scripts/i18n_utils.py\" Practical mode: - Keep i18n_sync always on (checks coverage/drift for locales). - Keep auto-translation off by default (enabled: false) unless client explicitly wants it. ",
@@ -6656,7 +7487,7 @@
         "lvl3": "",
         "lvl4": "Multilingual (i18n) baseline"
       },
-      "url": "/operations/UNIFIED_CLIENT_CONFIG#21",
+      "url": "/operations/UNIFIED_CLIENT_CONFIG#23",
       "last_reviewed": "2026-03-12",
       "path": "docs/operations/UNIFIED_CLIENT_CONFIG.md",
       "ranking_boost": 4,
@@ -6666,7 +7497,7 @@
       "code_snippets": []
     },
     {
-      "objectID": "cbd67003d87e22a740920f2c804d3a03",
+      "objectID": "d96d6bdc1c564d297852b2280dd8475c",
       "title": "Unified Client Configuration",
       "heading": "Interactive diagrams assets",
       "content": "bundle:   include_paths:     - \"templates/interactive-diagram.html\" ",
@@ -6687,7 +7518,7 @@
         "lvl3": "",
         "lvl4": "Interactive diagrams assets"
       },
-      "url": "/operations/UNIFIED_CLIENT_CONFIG#22",
+      "url": "/operations/UNIFIED_CLIENT_CONFIG#24",
       "last_reviewed": "2026-03-12",
       "path": "docs/operations/UNIFIED_CLIENT_CONFIG.md",
       "ranking_boost": 4,
@@ -6697,7 +7528,7 @@
       "code_snippets": []
     },
     {
-      "objectID": "55a9c713c72c4f8c7fc087609c012f41",
+      "objectID": "8e914b7bdcb4c6c4c6959aafb5ef4f4d",
       "title": "Unified Client Configuration",
       "heading": "Search facets index",
       "content": "runtime:   custom_tasks:     weekly:       - id: \"facets-index\"         enabled: true         command: \"python3 docsops/scripts/generate_facets_index.py --docs-dir docs --output docs/assets/facets-index.json\"         continue_on_error: true ",
@@ -6718,7 +7549,7 @@
         "lvl3": "",
         "lvl4": "Search facets index"
       },
-      "url": "/operations/UNIFIED_CLIENT_CONFIG#23",
+      "url": "/operations/UNIFIED_CLIENT_CONFIG#25",
       "last_reviewed": "2026-03-12",
       "path": "docs/operations/UNIFIED_CLIENT_CONFIG.md",
       "ranking_boost": 4,
@@ -6728,7 +7559,7 @@
       "code_snippets": []
     },
     {
-      "objectID": "d96d6bdc1c564d297852b2280dd8475c",
+      "objectID": "e5865baa1b89bf1c0a76645840fc7568",
       "title": "Unified Client Configuration",
       "heading": "Algolia push",
       "content": "runtime:   custom_tasks:     weekly:       - id: \"algolia-upload\"         enabled: true         command: \"python3 docsops/scripts/upload_to_algolia.py\"         continue_on_error: true ",
@@ -6749,7 +7580,7 @@
         "lvl3": "",
         "lvl4": "Algolia push"
       },
-      "url": "/operations/UNIFIED_CLIENT_CONFIG#24",
+      "url": "/operations/UNIFIED_CLIENT_CONFIG#26",
       "last_reviewed": "2026-03-12",
       "path": "docs/operations/UNIFIED_CLIENT_CONFIG.md",
       "ranking_boost": 4,
@@ -6759,7 +7590,7 @@
       "code_snippets": []
     },
     {
-      "objectID": "8e914b7bdcb4c6c4c6959aafb5ef4f4d",
+      "objectID": "cebf94773fd00d4fda5567889401ec08",
       "title": "Unified Client Configuration",
       "heading": "9. Private tuning",
       "content": "private_tuning:   gap_priority_weights:     business_impact: 0.45     user_frequency: 0.35     implementation_cost: 0.20   stale_days: 21   weekly_stale_days: 180   rag_chunk_target_tokens: 420   verify_max_attempts: 3 weekly_stale_days default is 180 (half year), configurable per client. ",
@@ -6780,7 +7611,7 @@
         "lvl3": "",
         "lvl4": ""
       },
-      "url": "/operations/UNIFIED_CLIENT_CONFIG#25",
+      "url": "/operations/UNIFIED_CLIENT_CONFIG#27",
       "last_reviewed": "2026-03-12",
       "path": "docs/operations/UNIFIED_CLIENT_CONFIG.md",
       "ranking_boost": 4,
@@ -6790,7 +7621,7 @@
       "code_snippets": []
     },
     {
-      "objectID": "e5865baa1b89bf1c0a76645840fc7568",
+      "objectID": "ba5187a423915cf697513893f0a09779",
       "title": "Unified Client Configuration",
       "heading": "10. Legal labeling",
       "content": "legal:   license_type: \"commercial\"   redistribution_allowed: false   reseller_allowed: false Builder generates: - LICENSE-COMMERCIAL.md - NOTICE ",
@@ -6811,7 +7642,7 @@
         "lvl3": "",
         "lvl4": ""
       },
-      "url": "/operations/UNIFIED_CLIENT_CONFIG#26",
+      "url": "/operations/UNIFIED_CLIENT_CONFIG#28",
       "last_reviewed": "2026-03-12",
       "path": "docs/operations/UNIFIED_CLIENT_CONFIG.md",
       "ranking_boost": 4,
@@ -6821,7 +7652,7 @@
       "code_snippets": []
     },
     {
-      "objectID": "cebf94773fd00d4fda5567889401ec08",
+      "objectID": "f050915b39aeec4b49942df9a014567a",
       "title": "Unified Client Configuration",
       "heading": "Code-first only",
       "content": "runtime:   docs_flow:     mode: \"code-first\"   modules:     gap_detection: true     drift_detection: true     docs_contract: true     kpi_sla: true ",
@@ -6842,7 +7673,7 @@
         "lvl3": "Code-first only",
         "lvl4": ""
       },
-      "url": "/operations/UNIFIED_CLIENT_CONFIG#27",
+      "url": "/operations/UNIFIED_CLIENT_CONFIG#29",
       "last_reviewed": "2026-03-12",
       "path": "docs/operations/UNIFIED_CLIENT_CONFIG.md",
       "ranking_boost": 4,
@@ -6852,7 +7683,7 @@
       "code_snippets": []
     },
     {
-      "objectID": "ba5187a423915cf697513893f0a09779",
+      "objectID": "d3b59e6f0d96d2a154aa6425100a3860",
       "title": "Unified Client Configuration",
       "heading": "API-first only",
       "content": "runtime:   docs_flow:     mode: \"api-first\"   api_first:     enabled: true     openapi_version: \"3.1.0\"     manual_overrides_path: \"api/overrides/openapi.manual.yml\"     regression_snapshot_path: \"api/.openapi-regression.json\"     generate_from_notes: true ",
@@ -6873,7 +7704,7 @@
         "lvl3": "API-first only",
         "lvl4": ""
       },
-      "url": "/operations/UNIFIED_CLIENT_CONFIG#28",
+      "url": "/operations/UNIFIED_CLIENT_CONFIG#30",
       "last_reviewed": "2026-03-12",
       "path": "docs/operations/UNIFIED_CLIENT_CONFIG.md",
       "ranking_boost": 4,
@@ -6883,7 +7714,7 @@
       "code_snippets": []
     },
     {
-      "objectID": "f050915b39aeec4b49942df9a014567a",
+      "objectID": "3dc2817cc1c2c12ec4af5cc7358760ab",
       "title": "Unified Client Configuration",
       "heading": "Hybrid",
       "content": "runtime:   docs_flow:     mode: \"hybrid\"   api_first:     enabled: true   modules:     gap_detection: true     drift_detection: true     docs_contract: true     kpi_sla: true ",
@@ -6904,7 +7735,7 @@
         "lvl3": "Hybrid",
         "lvl4": ""
       },
-      "url": "/operations/UNIFIED_CLIENT_CONFIG#29",
+      "url": "/operations/UNIFIED_CLIENT_CONFIG#31",
       "last_reviewed": "2026-03-12",
       "path": "docs/operations/UNIFIED_CLIENT_CONFIG.md",
       "ranking_boost": 4,
@@ -6914,7 +7745,7 @@
       "code_snippets": []
     },
     {
-      "objectID": "d3b59e6f0d96d2a154aa6425100a3860",
+      "objectID": "b945fb7fa863d05aaf20eb9a76749e53",
       "title": "Unified Client Configuration",
       "heading": "Full UTP baseline (recommended)",
       "content": "runtime:   docs_flow:     mode: \"hybrid\"   modules:     gap_detection: true     drift_detection: true     docs_contract: true     kpi_sla: true     rag_optimization: true     multilang_examples: true     normalization: true     snippet_lint: true     knowledge_validation: true     i18n_sync: true     release_pack: true   custom_tasks:     weekly:       - id: \"seo-geo\"         enabled: true         command: \"python3 docsops/scripts/seo_geo_optimizer.py docs/\"         continue_on_error: true       - id: \"knowledge-index\"         enabled: true         command: \"python3 docsops/scripts/generate_knowledge_retrieval_index.py\"         continue_on_error: true Default automation order in weekly runner: \\11. extract knowledge modules from docs (extract_knowledge_modules_from_docs.py) \\11. validate modules (validate_knowledge_modules.py) \\11. regenerate retrieval index (generate_knowledge_retrieval_index.py) \\11. generate JSON-LD knowledge graph (generate_knowledge_graph_jsonld.py) \\11. run retri",
@@ -6935,7 +7766,7 @@
         "lvl3": "Full UTP baseline (recommended)",
         "lvl4": ""
       },
-      "url": "/operations/UNIFIED_CLIENT_CONFIG#30",
+      "url": "/operations/UNIFIED_CLIENT_CONFIG#32",
       "last_reviewed": "2026-03-12",
       "path": "docs/operations/UNIFIED_CLIENT_CONFIG.md",
       "ranking_boost": 4,
@@ -6945,7 +7776,7 @@
       "code_snippets": []
     },
     {
-      "objectID": "3dc2817cc1c2c12ec4af5cc7358760ab",
+      "objectID": "db80ef6987f19be6f06c117fd1e98b69",
       "title": "Unified Client Configuration",
       "heading": "9. Fully automated RAG/knowledge flow",
       "content": "To run RAG and knowledge base maintenance without manual commands: \\11. Configure once in client profile: - enable runtime.modules.knowledge_validation: true - enable runtime.modules.rag_optimization: true - enable runtime.modules.ontology_graph: true - enable runtime.modules.retrieval_evals: true - add runtime.custom_tasks.weekly entries (for example intent experiences) - include bundle.include_paths: [\"knowledge_modules\"] - include scripts:   - scripts/extract_knowledge_modules_from_docs.py   - scripts/validate_knowledge_modules.py   - scripts/generate_knowledge_retrieval_index.py   - scripts/generate_knowledge_graph_jsonld.py   - scripts/run_retrieval_evals.py \\11. Provision once: - install bundle with scripts/provision_client_repo.py - install scheduler with --install-scheduler linux or --install-scheduler windows \\11. Weekly automation then runs by itself: - scheduler triggers run_weekly_gap_batch.py - it runs extract_knowledge_modules_from_docs.py - it runs validate_knowledge_mod",
@@ -6966,7 +7797,7 @@
         "lvl3": "",
         "lvl4": ""
       },
-      "url": "/operations/UNIFIED_CLIENT_CONFIG#31",
+      "url": "/operations/UNIFIED_CLIENT_CONFIG#33",
       "last_reviewed": "2026-03-12",
       "path": "docs/operations/UNIFIED_CLIENT_CONFIG.md",
       "ranking_boost": 4,
@@ -6976,7 +7807,7 @@
       "code_snippets": []
     },
     {
-      "objectID": "b945fb7fa863d05aaf20eb9a76749e53",
+      "objectID": "0059d64c76d35cfc35da39fd9f920fdb",
       "title": "Unified Client Configuration",
       "heading": "Next steps",
       "content": "- Documentation index ",
@@ -6997,7 +7828,7 @@
         "lvl3": "",
         "lvl4": ""
       },
-      "url": "/operations/UNIFIED_CLIENT_CONFIG#32",
+      "url": "/operations/UNIFIED_CLIENT_CONFIG#34",
       "last_reviewed": "2026-03-12",
       "path": "docs/operations/UNIFIED_CLIENT_CONFIG.md",
       "ranking_boost": 4,
@@ -7202,7 +8033,7 @@
       "objectID": "598c7fb20598c22b7627ba17e969d07e",
       "title": "ASYNCAPI API Reference",
       "heading": "ASYNCAPI Reference",
-      "content": "Source: reports/acme-demo/contracts/asyncapi.yaml Flow mode: api-first ",
+      "content": "Source: contracts/asyncapi.yaml Flow mode: api-first ",
       "description": "Auto-generated asyncapi reference from source contract.",
       "product": "both",
       "content_type": "reference",
@@ -7210,14 +8041,9 @@
       "version": "",
       "maturity": "ga",
       "tags": [
-        "Development",
-        "Documents",
-        "Auto Doc Pipeline",
-        "C",
-        "Mnt",
-        "Docs",
-        "Users",
-        "Kroha"
+        "API",
+        "AsyncAPI",
+        "Reference"
       ],
       "hierarchy": {
         "lvl0": "both",
@@ -7227,7 +8053,7 @@
         "lvl4": ""
       },
       "url": "/reference/asyncapi-api#0",
-      "last_reviewed": null,
+      "last_reviewed": "2026-03-19",
       "path": "docs/reference/asyncapi-api.md",
       "ranking_boost": 4,
       "heading_level": 1,
@@ -7247,14 +8073,9 @@
       "version": "",
       "maturity": "ga",
       "tags": [
-        "Development",
-        "Documents",
-        "Auto Doc Pipeline",
-        "C",
-        "Mnt",
-        "Docs",
-        "Users",
-        "Kroha"
+        "API",
+        "AsyncAPI",
+        "Reference"
       ],
       "hierarchy": {
         "lvl0": "both",
@@ -7264,7 +8085,7 @@
         "lvl4": ""
       },
       "url": "/reference/asyncapi-api#1",
-      "last_reviewed": null,
+      "last_reviewed": "2026-03-19",
       "path": "docs/reference/asyncapi-api.md",
       "ranking_boost": 4,
       "heading_level": 2,
@@ -7276,7 +8097,7 @@
       "objectID": "c2c406b86f43f187afc099f3d38902b4",
       "title": "ASYNCAPI API Reference",
       "heading": "Channels",
-      "content": "- Channel count: 1 - project.updated ",
+      "content": "- Channel count: 1 - orders/created ",
       "description": "Auto-generated asyncapi reference from source contract.",
       "product": "both",
       "content_type": "reference",
@@ -7284,14 +8105,9 @@
       "version": "",
       "maturity": "ga",
       "tags": [
-        "Development",
-        "Documents",
-        "Auto Doc Pipeline",
-        "C",
-        "Mnt",
-        "Docs",
-        "Users",
-        "Kroha"
+        "API",
+        "AsyncAPI",
+        "Reference"
       ],
       "hierarchy": {
         "lvl0": "both",
@@ -7301,7 +8117,7 @@
         "lvl4": ""
       },
       "url": "/reference/asyncapi-api#2",
-      "last_reviewed": null,
+      "last_reviewed": "2026-03-19",
       "path": "docs/reference/asyncapi-api.md",
       "ranking_boost": 4,
       "heading_level": 2,
@@ -7313,7 +8129,7 @@
       "objectID": "6c4cca1e6fcf8c98bf20c10a8a59d3fe",
       "title": "ASYNCAPI API Reference",
       "heading": "Interactive AsyncAPI Tester",
-      "content": "> Sandbox echo mode: this tester sends payloads to a public WebSocket echo endpoint. <div id=\"asyncapi-playground\" style=\"border:1px solid #d1d5db; padding:12px; border-radius:8px;\">   <p><strong>WebSocket Endpoint:</strong> <code id=\"asyncapi-ws-view\"></code></p>   <p><strong>HTTP Publish Endpoint:</strong> <code id=\"asyncapi-http-view\"></code></p>   <!-- vale Google.Quotes = NO -->   <textarea id=\"asyncapi-message\" rows=\"8\" style=\"width:100%; font-family:monospace;\">{   \"event\": \"health\",   \"value\": \"ok\" }</textarea><br/>   <!-- vale Google.Quotes = YES -->   <button id=\"asyncapi-send-ws\">Send via WebSocket</button>   <button id=\"asyncapi-send-http\">Send via HTTP</button>   <pre id=\"asyncapi-output\" style=\"margin-top:12px; max-height:320px; overflow:auto;\"></pre> </div> <script> (function(){ const wsEndpoint = \"wss://echo.websocket.events\"; const httpEndpoint = \"\"; const wsView = document.getElementById('asyncapi-ws-view'); const httpView = document.getElementById('asyncapi-http-view",
+      "content": "> Sandbox semantic mode: this tester returns event-aware responses by event_type and payload fields. <!-- vale off --> <div id=\"asyncapi-playground\" style=\"border:1px solid #d1d5db; padding:12px; border-radius:8px;\">   <p><strong>WebSocket Endpoint:</strong> <code id=\"asyncapi-ws-view\"></code></p>   <p><strong>HTTP Publish Endpoint:</strong> <code id=\"asyncapi-http-view\"></code></p>   <textarea id=\"asyncapi-message\" rows=\"8\" style=\"width:100%; font-family:monospace;\">{   \"event_type\": \"project.updated\",   \"event_id\": \"evt_001\",   \"data\": {\"project_id\": \"prj_abc123\", \"status\": \"active\"} }</textarea><br/>   <button id=\"asyncapi-send-ws\">Send via WebSocket</button>   <button id=\"asyncapi-send-http\">Send via HTTP</button>   <pre id=\"asyncapi-output\" style=\"margin-top:12px; max-height:320px; overflow:auto;\"></pre> </div> <script> (function(){ const wsEndpoint = \"wss://echo.websocket.events\"; const httpEndpoint = \"https://postman-echo.com/post\"; const wsView = document.getElementById('asynca",
       "description": "Auto-generated asyncapi reference from source contract.",
       "product": "both",
       "content_type": "reference",
@@ -7321,14 +8137,9 @@
       "version": "",
       "maturity": "ga",
       "tags": [
-        "Development",
-        "Documents",
-        "Auto Doc Pipeline",
-        "C",
-        "Mnt",
-        "Docs",
-        "Users",
-        "Kroha"
+        "API",
+        "AsyncAPI",
+        "Reference"
       ],
       "hierarchy": {
         "lvl0": "both",
@@ -7338,11 +8149,11 @@
         "lvl4": ""
       },
       "url": "/reference/asyncapi-api#3",
-      "last_reviewed": null,
+      "last_reviewed": "2026-03-19",
       "path": "docs/reference/asyncapi-api.md",
       "ranking_boost": 4,
       "heading_level": 2,
-      "word_count": 241,
+      "word_count": 505,
       "has_code": false,
       "code_snippets": []
     },
@@ -7358,14 +8169,9 @@
       "version": "",
       "maturity": "ga",
       "tags": [
-        "Development",
-        "Documents",
-        "Auto Doc Pipeline",
-        "C",
-        "Mnt",
-        "Docs",
-        "Users",
-        "Kroha"
+        "API",
+        "AsyncAPI",
+        "Reference"
       ],
       "hierarchy": {
         "lvl0": "both",
@@ -7375,7 +8181,7 @@
         "lvl4": ""
       },
       "url": "/reference/asyncapi-api#4",
-      "last_reviewed": null,
+      "last_reviewed": "2026-03-19",
       "path": "docs/reference/asyncapi-api.md",
       "ranking_boost": 4,
       "heading_level": 2,
@@ -7477,10 +8283,138 @@
       "code_snippets": []
     },
     {
+      "objectID": "8346a16cfde5011ea4bb6ea713f207e3",
+      "title": "GRAPHQL API Reference",
+      "heading": "GRAPHQL Reference",
+      "content": "Source: contracts/graphql.schema.graphql Flow mode: api-first ",
+      "description": "Auto-generated graphql reference from source contract.",
+      "product": "both",
+      "content_type": "reference",
+      "component": "",
+      "version": "",
+      "maturity": "ga",
+      "tags": [
+        "API",
+        "GraphQL",
+        "Reference"
+      ],
+      "hierarchy": {
+        "lvl0": "both",
+        "lvl1": "reference",
+        "lvl2": "",
+        "lvl3": "",
+        "lvl4": ""
+      },
+      "url": "/reference/graphql-api#0",
+      "last_reviewed": "2026-03-19",
+      "path": "docs/reference/graphql-api.md",
+      "ranking_boost": 4,
+      "heading_level": 1,
+      "word_count": 5,
+      "has_code": false,
+      "code_snippets": []
+    },
+    {
+      "objectID": "dfb1bf4ae70ef1044542758834b32f93",
+      "title": "GRAPHQL API Reference",
+      "heading": "Operations",
+      "content": "- Query count: 1 - Mutation count: 0 - Subscription count: 0 - Queries: health ",
+      "description": "Auto-generated graphql reference from source contract.",
+      "product": "both",
+      "content_type": "reference",
+      "component": "",
+      "version": "",
+      "maturity": "ga",
+      "tags": [
+        "API",
+        "GraphQL",
+        "Reference"
+      ],
+      "hierarchy": {
+        "lvl0": "both",
+        "lvl1": "reference",
+        "lvl2": "Operations",
+        "lvl3": "",
+        "lvl4": ""
+      },
+      "url": "/reference/graphql-api#1",
+      "last_reviewed": "2026-03-19",
+      "path": "docs/reference/graphql-api.md",
+      "ranking_boost": 4,
+      "heading_level": 2,
+      "word_count": 15,
+      "has_code": false,
+      "code_snippets": []
+    },
+    {
+      "objectID": "0d84132f002ee24f0c271633c54ebc99",
+      "title": "GRAPHQL API Reference",
+      "heading": "Interactive GraphQL Playground",
+      "content": "<div id=\"graphql-playground\" style=\"border:1px solid #d1d5db; padding:12px; border-radius:8px;\">   <p><strong>Endpoint:</strong> <code id=\"graphql-endpoint-view\"></code></p>   <textarea id=\"graphql-query\" rows=\"12\" style=\"width:100%; font-family:monospace;\">query HealthCheck {   __typename }</textarea>   <br/>   <button id=\"graphql-run\">Run Query</button>   <pre id=\"graphql-output\" style=\"margin-top:12px; max-height:320px; overflow:auto;\"></pre> </div> <script> (function(){ const endpoint = \"http://127.0.0.1:9/graphql\"; const view = document.getElementById('graphql-endpoint-view'); const run = document.getElementById('graphql-run'); const query = document.getElementById('graphql-query'); const out = document.getElementById('graphql-output'); if (!view || !run || !query || !out) return; view.textContent = endpoint || 'not configured'; function normalize(v){ return String(v || '').replace(/\\s+/g, ' ').trim().toLowerCase(); } function fallback(queryText){   const q = normalize(queryText);",
+      "description": "Auto-generated graphql reference from source contract.",
+      "product": "both",
+      "content_type": "reference",
+      "component": "",
+      "version": "",
+      "maturity": "ga",
+      "tags": [
+        "API",
+        "GraphQL",
+        "Reference"
+      ],
+      "hierarchy": {
+        "lvl0": "both",
+        "lvl1": "reference",
+        "lvl2": "Interactive GraphQL Playground",
+        "lvl3": "",
+        "lvl4": ""
+      },
+      "url": "/reference/graphql-api#2",
+      "last_reviewed": "2026-03-19",
+      "path": "docs/reference/graphql-api.md",
+      "ranking_boost": 4,
+      "heading_level": 2,
+      "word_count": 296,
+      "has_code": false,
+      "code_snippets": []
+    },
+    {
+      "objectID": "d7d339b3122c638a6ec5b6727ad957b9",
+      "title": "GRAPHQL API Reference",
+      "heading": "Next steps",
+      "content": "- Documentation index ",
+      "description": "Auto-generated graphql reference from source contract.",
+      "product": "both",
+      "content_type": "reference",
+      "component": "",
+      "version": "",
+      "maturity": "ga",
+      "tags": [
+        "API",
+        "GraphQL",
+        "Reference"
+      ],
+      "hierarchy": {
+        "lvl0": "both",
+        "lvl1": "reference",
+        "lvl2": "Next steps",
+        "lvl3": "",
+        "lvl4": ""
+      },
+      "url": "/reference/graphql-api#3",
+      "last_reviewed": "2026-03-19",
+      "path": "docs/reference/graphql-api.md",
+      "ranking_boost": 4,
+      "heading_level": 2,
+      "word_count": 3,
+      "has_code": false,
+      "code_snippets": []
+    },
+    {
       "objectID": "5c31dca74421bfa34c5d931e8c8f2699",
       "title": "GRPC API Reference",
       "heading": "GRPC Reference",
-      "content": "Source: reports/acme-demo/contracts/grpc Flow mode: api-first ",
+      "content": "Source: contracts/grpc/acme.proto Flow mode: api-first ",
       "description": "Auto-generated grpc reference from source contract.",
       "product": "both",
       "content_type": "reference",
@@ -7488,14 +8422,9 @@
       "version": "",
       "maturity": "ga",
       "tags": [
-        "Documents",
-        "C",
-        "Mnt",
-        "Development",
-        "Docs",
-        "Kroha",
-        "Auto Doc Pipeline",
-        "Users"
+        "API",
+        "gRPC",
+        "Reference"
       ],
       "hierarchy": {
         "lvl0": "both",
@@ -7505,7 +8434,7 @@
         "lvl4": ""
       },
       "url": "/reference/grpc-api#0",
-      "last_reviewed": null,
+      "last_reviewed": "2026-03-19",
       "path": "docs/reference/grpc-api.md",
       "ranking_boost": 4,
       "heading_level": 1,
@@ -7517,7 +8446,7 @@
       "objectID": "11c1db4f6c02cac0edf068e6d02ff4be",
       "title": "GRPC API Reference",
       "heading": "Service Methods",
-      "content": "- RPC method count: 1 - ProjectService.GetProject ",
+      "content": "- RPC method count: 4 - AutoDocPipelineService.CreateProject - AutoDocPipelineService.GetProject - AutoDocPipelineService.ListProjects - AutoDocPipelineService.UpdateProject ",
       "description": "Auto-generated grpc reference from source contract.",
       "product": "both",
       "content_type": "reference",
@@ -7525,14 +8454,9 @@
       "version": "",
       "maturity": "ga",
       "tags": [
-        "Documents",
-        "C",
-        "Mnt",
-        "Development",
-        "Docs",
-        "Kroha",
-        "Auto Doc Pipeline",
-        "Users"
+        "API",
+        "gRPC",
+        "Reference"
       ],
       "hierarchy": {
         "lvl0": "both",
@@ -7542,11 +8466,11 @@
         "lvl4": ""
       },
       "url": "/reference/grpc-api#1",
-      "last_reviewed": null,
+      "last_reviewed": "2026-03-19",
       "path": "docs/reference/grpc-api.md",
       "ranking_boost": 4,
       "heading_level": 2,
-      "word_count": 7,
+      "word_count": 13,
       "has_code": false,
       "code_snippets": []
     },
@@ -7562,14 +8486,9 @@
       "version": "",
       "maturity": "ga",
       "tags": [
-        "Documents",
-        "C",
-        "Mnt",
-        "Development",
-        "Docs",
-        "Kroha",
-        "Auto Doc Pipeline",
-        "Users"
+        "API",
+        "gRPC",
+        "Reference"
       ],
       "hierarchy": {
         "lvl0": "both",
@@ -7579,11 +8498,11 @@
         "lvl4": ""
       },
       "url": "/reference/grpc-api#2",
-      "last_reviewed": null,
+      "last_reviewed": "2026-03-19",
       "path": "docs/reference/grpc-api.md",
       "ranking_boost": 4,
       "heading_level": 2,
-      "word_count": 167,
+      "word_count": 297,
       "has_code": false,
       "code_snippets": []
     },
@@ -7599,14 +8518,9 @@
       "version": "",
       "maturity": "ga",
       "tags": [
-        "Documents",
-        "C",
-        "Mnt",
-        "Development",
-        "Docs",
-        "Kroha",
-        "Auto Doc Pipeline",
-        "Users"
+        "API",
+        "gRPC",
+        "Reference"
       ],
       "hierarchy": {
         "lvl0": "both",
@@ -7616,7 +8530,7 @@
         "lvl4": ""
       },
       "url": "/reference/grpc-api#3",
-      "last_reviewed": null,
+      "last_reviewed": "2026-03-19",
       "path": "docs/reference/grpc-api.md",
       "ranking_boost": 4,
       "heading_level": 2,
@@ -9862,6 +10776,118 @@
       "code_snippets": []
     },
     {
+      "objectID": "5b98d4fa2a636aa3951bc813f0b3e262",
+      "title": "REST API Reference",
+      "heading": "REST Reference",
+      "content": "Source: api/openapi.yaml Flow mode: api-first ",
+      "description": "Auto-generated rest reference from source contract.",
+      "product": "both",
+      "content_type": "reference",
+      "component": "",
+      "version": "",
+      "maturity": "ga",
+      "tags": [],
+      "hierarchy": {
+        "lvl0": "both",
+        "lvl1": "reference",
+        "lvl2": "",
+        "lvl3": "",
+        "lvl4": ""
+      },
+      "url": "/reference/rest-api#0",
+      "last_reviewed": "",
+      "path": "docs/reference/rest-api.md",
+      "ranking_boost": 4,
+      "heading_level": 1,
+      "word_count": 5,
+      "has_code": false,
+      "code_snippets": []
+    },
+    {
+      "objectID": "621e2017680264aa5151a5c5205583db",
+      "title": "REST API Reference",
+      "heading": "Top-level Keys",
+      "content": "- components - info - openapi - paths - security - servers ",
+      "description": "Auto-generated rest reference from source contract.",
+      "product": "both",
+      "content_type": "reference",
+      "component": "",
+      "version": "",
+      "maturity": "ga",
+      "tags": [],
+      "hierarchy": {
+        "lvl0": "both",
+        "lvl1": "reference",
+        "lvl2": "Top-level Keys",
+        "lvl3": "",
+        "lvl4": ""
+      },
+      "url": "/reference/rest-api#1",
+      "last_reviewed": "",
+      "path": "docs/reference/rest-api.md",
+      "ranking_boost": 4,
+      "heading_level": 2,
+      "word_count": 12,
+      "has_code": false,
+      "code_snippets": []
+    },
+    {
+      "objectID": "e0ddb642fc9981177d39bc75f7b167d4",
+      "title": "REST API Reference",
+      "heading": "Notes",
+      "content": "- Generated from source contract. ",
+      "description": "Auto-generated rest reference from source contract.",
+      "product": "both",
+      "content_type": "reference",
+      "component": "",
+      "version": "",
+      "maturity": "ga",
+      "tags": [],
+      "hierarchy": {
+        "lvl0": "both",
+        "lvl1": "reference",
+        "lvl2": "Notes",
+        "lvl3": "",
+        "lvl4": ""
+      },
+      "url": "/reference/rest-api#2",
+      "last_reviewed": "",
+      "path": "docs/reference/rest-api.md",
+      "ranking_boost": 4,
+      "heading_level": 2,
+      "word_count": 5,
+      "has_code": false,
+      "code_snippets": []
+    },
+    {
+      "objectID": "13f39f65f629ddf37b0dea90ee0c1cd4",
+      "title": "REST API Reference",
+      "heading": "Next steps",
+      "content": "- Documentation index ",
+      "description": "Auto-generated rest reference from source contract.",
+      "product": "both",
+      "content_type": "reference",
+      "component": "",
+      "version": "",
+      "maturity": "ga",
+      "tags": [],
+      "hierarchy": {
+        "lvl0": "both",
+        "lvl1": "reference",
+        "lvl2": "Next steps",
+        "lvl3": "",
+        "lvl4": ""
+      },
+      "url": "/reference/rest-api#3",
+      "last_reviewed": "",
+      "path": "docs/reference/rest-api.md",
+      "ranking_boost": 4,
+      "heading_level": 2,
+      "word_count": 3,
+      "has_code": false,
+      "code_snippets": []
+    },
+    {
       "objectID": "f955a49bdea6e8be87d2dafcaca21c8e",
       "title": "TaskStream API playground",
       "heading": "TaskStream API playground",
@@ -10260,16 +11286,7 @@
       "component": "",
       "version": "",
       "maturity": "ga",
-      "tags": [
-        "Mnt",
-        "Development",
-        "Users",
-        "Auto Doc Pipeline",
-        "Kroha",
-        "Documents",
-        "Docs",
-        "C"
-      ],
+      "tags": [],
       "hierarchy": {
         "lvl0": "both",
         "lvl1": "reference",
@@ -10278,7 +11295,7 @@
         "lvl4": ""
       },
       "url": "/reference/websocket-api#0",
-      "last_reviewed": null,
+      "last_reviewed": "",
       "path": "docs/reference/websocket-api.md",
       "ranking_boost": 4,
       "heading_level": 1,
@@ -10297,16 +11314,7 @@
       "component": "",
       "version": "",
       "maturity": "ga",
-      "tags": [
-        "Mnt",
-        "Development",
-        "Users",
-        "Auto Doc Pipeline",
-        "Kroha",
-        "Documents",
-        "Docs",
-        "C"
-      ],
+      "tags": [],
       "hierarchy": {
         "lvl0": "both",
         "lvl1": "reference",
@@ -10315,7 +11323,7 @@
         "lvl4": ""
       },
       "url": "/reference/websocket-api#1",
-      "last_reviewed": null,
+      "last_reviewed": "",
       "path": "docs/reference/websocket-api.md",
       "ranking_boost": 4,
       "heading_level": 2,
@@ -10334,16 +11342,7 @@
       "component": "",
       "version": "",
       "maturity": "ga",
-      "tags": [
-        "Mnt",
-        "Development",
-        "Users",
-        "Auto Doc Pipeline",
-        "Kroha",
-        "Documents",
-        "Docs",
-        "C"
-      ],
+      "tags": [],
       "hierarchy": {
         "lvl0": "both",
         "lvl1": "reference",
@@ -10352,7 +11351,7 @@
         "lvl4": ""
       },
       "url": "/reference/websocket-api#2",
-      "last_reviewed": null,
+      "last_reviewed": "",
       "path": "docs/reference/websocket-api.md",
       "ranking_boost": 4,
       "heading_level": 2,
@@ -10364,23 +11363,14 @@
       "objectID": "bd81f37b30139e47453fa5177ce9ddfb",
       "title": "WEBSOCKET API Reference",
       "heading": "Interactive WebSocket Tester",
-      "content": "> Sandbox echo mode: this tester sends payloads to a public WebSocket echo endpoint. <div id=\"websocket-playground\" style=\"border:1px solid #d1d5db; padding:12px; border-radius:8px;\">   <p><strong>Endpoint:</strong> <code id=\"websocket-endpoint-view\"></code></p>   <textarea id=\"websocket-message\" rows=\"8\" style=\"width:100%; font-family:monospace;\">{   \"action\": \"ping\" }</textarea><br/>   <button id=\"websocket-send\">Connect + Send</button>   <pre id=\"websocket-output\" style=\"margin-top:12px; max-height:320px; overflow:auto;\"></pre> </div> <script> (function(){ const endpoint = \"wss://echo.websocket.events\"; const view = document.getElementById('websocket-endpoint-view'); const send = document.getElementById('websocket-send'); const msg = document.getElementById('websocket-message'); const out = document.getElementById('websocket-output'); if (!view || !send || !msg || !out) return; view.textContent = endpoint || 'not configured'; send.onclick = function(){   if (!endpoint) { out.textCon",
+      "content": "> Sandbox semantic mode: this tester returns protocol-aware responses based on message type/action. <!-- vale off --> <div id=\"websocket-playground\" style=\"border:1px solid #d1d5db; padding:12px; border-radius:8px;\">   <p><strong>Endpoint:</strong> <code id=\"websocket-endpoint-view\"></code></p>   <textarea id=\"websocket-message\" rows=\"8\" style=\"width:100%; font-family:monospace;\">{   \"type\": \"subscribe\",   \"request_id\": \"req_001\",   \"payload\": {\"channel\": \"project.updated\", \"filters\": {\"project_id\": \"prj_abc123\"}} }</textarea><br/>   <button id=\"websocket-send\">Connect + Send</button>   <pre id=\"websocket-output\" style=\"margin-top:12px; max-height:320px; overflow:auto;\"></pre> </div> <script> (function(){ const endpoint = \"wss://echo.websocket.events\"; const view = document.getElementById('websocket-endpoint-view'); const send = document.getElementById('websocket-send'); const msg = document.getElementById('websocket-message'); const out = document.getElementById('websocket-output'); i",
       "description": "Auto-generated websocket reference from source contract.",
       "product": "both",
       "content_type": "reference",
       "component": "",
       "version": "",
       "maturity": "ga",
-      "tags": [
-        "Mnt",
-        "Development",
-        "Users",
-        "Auto Doc Pipeline",
-        "Kroha",
-        "Documents",
-        "Docs",
-        "C"
-      ],
+      "tags": [],
       "hierarchy": {
         "lvl0": "both",
         "lvl1": "reference",
@@ -10389,11 +11379,11 @@
         "lvl4": ""
       },
       "url": "/reference/websocket-api#3",
-      "last_reviewed": null,
+      "last_reviewed": "",
       "path": "docs/reference/websocket-api.md",
       "ranking_boost": 4,
       "heading_level": 2,
-      "word_count": 137,
+      "word_count": 472,
       "has_code": false,
       "code_snippets": []
     },
@@ -10408,16 +11398,7 @@
       "component": "",
       "version": "",
       "maturity": "ga",
-      "tags": [
-        "Mnt",
-        "Development",
-        "Users",
-        "Auto Doc Pipeline",
-        "Kroha",
-        "Documents",
-        "Docs",
-        "C"
-      ],
+      "tags": [],
       "hierarchy": {
         "lvl0": "both",
         "lvl1": "reference",
@@ -10426,7 +11407,7 @@
         "lvl4": ""
       },
       "url": "/reference/websocket-api#4",
-      "last_reviewed": null,
+      "last_reviewed": "",
       "path": "docs/reference/websocket-api.md",
       "ranking_boost": 4,
       "heading_level": 2,
