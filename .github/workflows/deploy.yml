@@ -47,8 +47,9 @@ jobs:
             sed -i "s|__POSTMAN_API_KEY__|${POSTMAN_API_KEY}|g" site/assets/javascripts/sandbox-config.js
             sed -i "s|__POSTMAN_API_KEY__|${POSTMAN_API_KEY}|g" site/reference/swagger-test.html
           fi
-          # Copy into demo-showcase/ root (not acme/ subfolder)
-          cp -rT site/ ../../site/demo-showcase/
+          # Copy into demo-showcase/veridoc/ subfolder
+          mkdir -p ../../site/demo-showcase/veridoc
+          cp -rT site/ ../../site/demo-showcase/veridoc/
 
       - uses: actions/upload-pages-artifact@v3
         with:
