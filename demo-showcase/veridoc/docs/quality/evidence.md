@@ -84,11 +84,11 @@ The pipeline runs **32 automated checks** on every documentation page. These che
 
 ### Style checks (6 checks -- tone and voice consistency)
 
-| Rule | Enforced by | Description |
-| --- | --- | --- |
 <!-- vale AmericanEnglish.Spelling = NO -->
 <!-- vale proselint.Spelling = NO -->
 
+| Rule | Enforced by | Description |
+| --- | --- | --- |
 | American English | Vale + AmericanEnglish | Use "color" not "colour," "optimize" not "optimise" |
 | Active voice | Vale + write-good | "Configure the webhook" not "The webhook should be configured" |
 | No weasel words | Vale + write-good | No "simple," "easy," "just," "many," "various" |
