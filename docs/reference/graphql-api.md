@@ -8,7 +8,9 @@ tags:
 - GraphQL
 - Reference
 last_reviewed: '2026-03-19'
+original_author: Kroha
 ---
+
 
 
 # GRAPHQL Reference

@@ -1,9 +1,12 @@
 ---
-title: "WEBSOCKET API Reference"
-description: "Auto-generated websocket reference from source contract."
+title: WEBSOCKET API Reference
+description: Auto-generated websocket reference from source contract.
 content_type: reference
 product: both
+last_reviewed: '2026-03-20'
+original_author: Kroha
 ---
+
 
 # WEBSOCKET Reference
 

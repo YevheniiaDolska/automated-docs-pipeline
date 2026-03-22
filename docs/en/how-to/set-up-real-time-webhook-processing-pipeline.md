@@ -1,15 +1,20 @@
 ---
-title: "Set up a real-time webhook processing pipeline"
-description: "Configure end-to-end webhook ingestion with HMAC verification, async queue processing, and delivery guarantees in under 15 minutes."
+title: Set up a real-time webhook processing pipeline
+description: Configure end-to-end webhook ingestion with HMAC verification, async
+  queue processing, and delivery guarantees in under 15 minutes.
 content_type: how-to
 product: both
 tags:
-  - Webhook
-  - How-To
-  - Cloud
-  - Self-hosted
-last_reviewed: "2026-03-17"
+- Webhook
+- How-To
+- Cloud
+- Self-hosted
+last_reviewed: '2026-03-17'
+app_component: webhook
+app_version: '18.0'
+original_author: Developer
 ---
+
 
 # Set up a real-time webhook processing pipeline
 

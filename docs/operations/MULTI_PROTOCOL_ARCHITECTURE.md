@@ -1,14 +1,16 @@
 ---
-title: "Multi-Protocol Architecture"
-description: "Unified docs-ops pipeline for REST, GraphQL, gRPC, AsyncAPI, and WebSocket."
+title: Multi-Protocol Architecture
+description: Unified docs-ops pipeline for REST, GraphQL, gRPC, AsyncAPI, and WebSocket.
 content_type: reference
 product: both
-last_reviewed: "2026-03-19"
+last_reviewed: '2026-03-19'
 tags:
-  - Architecture
-  - API
-  - Operations
+- Architecture
+- API
+- Operations
+original_author: Kroha
 ---
+
 
 # VeriDoc/VeriOps Multi-Protocol Architecture
 

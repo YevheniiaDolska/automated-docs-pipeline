@@ -1,14 +1,16 @@
 ---
-title: "Multi-Protocol Wizard Guide"
-description: "Wizard UX for protocol-aware provisioning in VeriDoc and VeriOps."
+title: Multi-Protocol Wizard Guide
+description: Wizard UX for protocol-aware provisioning in VeriDoc and VeriOps.
 content_type: how-to
 product: both
-last_reviewed: "2026-03-19"
+last_reviewed: '2026-03-19'
 tags:
-  - Wizard
-  - Provisioning
-  - Operations
+- Wizard
+- Provisioning
+- Operations
+original_author: Kroha
 ---
+
 
 # Multi-Protocol Wizard Guide
 

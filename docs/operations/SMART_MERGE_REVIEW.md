@@ -1,14 +1,17 @@
 ---
-title: "Smart Merge and Manual Review"
-description: "How needs_review works for protocol test assets and where operators review flagged cases."
+title: Smart Merge and Manual Review
+description: How needs_review works for protocol test assets and where operators review
+  flagged cases.
 content_type: how-to
 product: both
-last_reviewed: "2026-03-19"
+last_reviewed: '2026-03-19'
 tags:
-  - Testing
-  - Operations
-  - API
+- Testing
+- Operations
+- API
+original_author: Kroha
 ---
+
 
 # Smart Merge and Manual Review
 
