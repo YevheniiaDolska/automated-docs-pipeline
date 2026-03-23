@@ -65,6 +65,8 @@ bundle:
     - "scripts/configure_ask_ai.py"
     - "scripts/install_ask_ai_runtime.py"
     - "scripts/auto_fix_pr_docs.py"
+    - "scripts/generate_algolia_widget.py"
+    - "scripts/generate_tests_from_rag.py"
 
   include_docs:
     - "README_SETUP.md"
@@ -255,6 +257,9 @@ runtime:
       api_key_env: "ALGOLIA_API_KEY"
       index_name_env: "ALGOLIA_INDEX_NAME"
       index_name_default: "docs"
+      # Site generator for search widget: mkdocs | docusaurus | hugo | vitepress | custom
+      site_generator: "mkdocs"
+      generate_search_widget: true
     ask_ai:
       enabled: false
       auto_configure_on_provision: true
@@ -293,6 +298,14 @@ private_tuning:
   weekly_stale_days: 180
   rag_chunk_target_tokens: 420
   verify_max_attempts: 3
+
+# License tier for this client.
+# JWT is auto-generated during bundle build if Ed25519 private key exists.
+# Plan: pilot | professional | enterprise
+licensing:
+  plan: "professional"
+  days: 365
+  max_docs: 0
 
 legal:
   license_type: "commercial"

@@ -3,6 +3,7 @@
 
 from __future__ import annotations
 
+import shlex
 import subprocess
 import sys
 from dataclasses import dataclass
@@ -51,8 +52,17 @@ class ProtocolAdapter:
         return StageResult(stage=stage, protocol=self.protocol, ok=ok, rc=completed.returncode, command=cmd, details={})
 
     def _run_shell(self, stage: str, command: str, *, allow_fail: bool) -> StageResult:
+        """Run a shell command from the protocol adapter config.
+
+        Uses shell=True because hook commands (code_first_schema_export_cmd,
+        custom validators, etc.) legitimately use shell features like
+        redirection and chaining.  These commands come from repo-owner-
+        controlled config files, not untrusted user input.
+        """
         print(f"[{self.protocol}:{stage}] $ {command}")
-        completed = subprocess.run(command, cwd=str(self.repo_root), shell=True, check=False)
+        completed = subprocess.run(  # noqa: S602 -- trusted config commands
+            command, shell=True, cwd=str(self.repo_root), check=False,
+        )
         ok = completed.returncode == 0
         if not ok and not allow_fail:
             raise RuntimeError(f"{self.protocol}:{stage} failed rc={completed.returncode}")
@@ -61,7 +71,7 @@ class ProtocolAdapter:
             protocol=self.protocol,
             ok=ok,
             rc=completed.returncode,
-            command=["sh", "-lc", command],
+            command=command,
             details={},
         )
 

@@ -55,3 +55,10 @@ reports/pr_docs_contract.json
 
 .env*
 !.env.example
+
+# Licensing private key (NEVER commit)
+docsops/keys/veriops-licensing.key
+docsops/license.jwt
+
+# Generated client bundles
+generated/

@@ -1,6 +1,9 @@
 preset: startup
 description: Balanced defaults for growing teams with docs-as-product focus.
 overrides:
+  licensing:
+    plan: "professional"
+    days: 365
   bundle:
     base_policy_pack: "multi-product"
     style_guide: "hybrid"

@@ -144,9 +144,13 @@ class TestEnsureExternalMockServer:
 
         def fake_http(method: str, url: str, **kwargs):  # type: ignore[no-untyped-def]
             calls.append((method, url))
-            if url.endswith("/import/openapi"):
-                return {"collections": [{"uid": "c123"}]}
-            return {"mock": {"id": "m123", "url": "https://mock.example.com"}}
+            if "/workspaces/" in url:
+                return {"workspace": {"id": "w"}}
+            if "/collections" in url and method == "POST":
+                return {"collection": {"uid": "c123", "id": "c123"}}
+            if "/mocks" in url and method == "POST":
+                return {"mock": {"id": "m123", "mockUrl": "https://mock.example.com"}}
+            return {"mock": {"id": "m123", "mockUrl": "https://mock.example.com"}}
 
         monkeypatch.setattr(mod, "_http_json", fake_http)
         args = type(
@@ -167,8 +171,8 @@ class TestEnsureExternalMockServer:
         resolved = mod._resolve_postman_mock(args)
         assert resolved["mock_server_id"] == "m123"
         assert resolved["mock_url"].startswith("https://mock.")
-        assert any(url.endswith("/import/openapi") for _, url in calls)
-        assert any(url.endswith("/mockservers") for _, url in calls)
+        assert any("/collections" in url for _, url in calls)
+        assert any("/mocks" in url for _, url in calls)
 
     def test_main_writes_output(self, tmp_path: Path, monkeypatch: pytest.MonkeyPatch, capsys: pytest.CaptureFixture[str]) -> None:
         from scripts import ensure_external_mock_server as mod

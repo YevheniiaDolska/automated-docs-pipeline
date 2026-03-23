@@ -1,56 +1,65 @@
 {
-  "generated_at": "2026-03-20T15:25:42.125913+00:00",
-  "site_url": "https://docs.n8n.io/",
+  "generated_at": "2026-03-21T11:41:41.122080+00:00",
+  "site_url": "multiple-sites",
   "site_urls": [
-    "https://docs.n8n.io/"
+    "https://docs.n8n.io/",
+    "https://n8n-docs.teamlab.info/code/builtin/overview",
+    "https://github.com/n8n-io/n8n-docs"
   ],
   "topology_mode": "single-product",
   "sites": [
     {
-      "site_url": "https://docs.n8n.io/",
+      "site_url": "https://n8n-docs.teamlab.info/code/builtin/overview",
       "metrics": {
         "crawl": {
-          "pages_crawled": 10,
-          "requested_pages": 1287,
-          "max_pages": 10
+          "pages_crawled": 1129,
+          "requested_pages": 4672,
+          "max_pages": 1500
         },
         "links": {
-          "internal_links_checked": 1287,
-          "broken_internal_links_count": 23,
+          "internal_links_checked": 4672,
+          "broken_internal_links_count": 2710,
           "broken_internal_link_samples": [
-            "https://docs.n8n.io/accessing-n8n-mcp-server",
-            "https://docs.n8n.io/advanced-ai/evaluations",
-            "https://docs.n8n.io/advanced-ai/metric-based-evaluations",
-            "https://docs.n8n.io/advanced-ai/overview",
-            "https://docs.n8n.io/advanced-ai/tips-and-common-issues",
-            "https://docs.n8n.io/ai-workflow-builder",
-            "https://docs.n8n.io/chat-hub",
-            "https://docs.n8n.io/credentials/add-edit-credentials",
-            "https://docs.n8n.io/credentials/credential-sharing",
-            "https://docs.n8n.io/evaluations/light-evaluations",
-            "https://docs.n8n.io/evaluations/metric-based-evaluations",
-            "https://docs.n8n.io/evaluations/overview",
-            "https://docs.n8n.io/evaluations/tips-and-common-issues",
-            "https://docs.n8n.io/examples/data-google-sheets",
-            "https://docs.n8n.io/examples/human-fallback",
-            "https://docs.n8n.io/examples/understand-agents",
-            "https://docs.n8n.io/examples/understand-memory",
-            "https://docs.n8n.io/examples/understand-tools",
-            "https://docs.n8n.io/examples/understand-vector-databases",
-            "https://docs.n8n.io/examples/vector-store-website",
-            "https://docs.n8n.io/langchain/langchain-learning-resources",
-            "https://docs.n8n.io/langchain/langchain-n8n",
-            "https://docs.n8n.io/langchain/overview"
+            "https://n8n-docs.teamlab.info/0-x",
+            "https://n8n-docs.teamlab.info/_workflows//advanced-ai/tutorials/chat_02.json",
+            "https://n8n-docs.teamlab.info/_workflows//advanced-ai/tutorials/chat_complete.json",
+            "https://n8n-docs.teamlab.info/_workflows//courses/level-one/chapter-5/chapter-5.3.json",
+            "https://n8n-docs.teamlab.info/_workflows//courses/level-one/chapter-5/chapter-5.4.json",
+            "https://n8n-docs.teamlab.info/_workflows//courses/level-one/chapter-5/chapter-5.5.json",
+            "https://n8n-docs.teamlab.info/_workflows//courses/level-one/finished.json",
+            "https://n8n-docs.teamlab.info/add-edit-credentials",
+            "https://n8n-docs.teamlab.info/advanced-ai/agent-chain-comparison",
+            "https://n8n-docs.teamlab.info/advanced-ai/api-workflow-tool",
+            "https://n8n-docs.teamlab.info/advanced-ai/data-google-sheets",
+            "https://n8n-docs.teamlab.info/advanced-ai/evaluations",
+            "https://n8n-docs.teamlab.info/advanced-ai/examples",
+            "https://n8n-docs.teamlab.info/advanced-ai/human-fallback",
+            "https://n8n-docs.teamlab.info/advanced-ai/introduction",
+            "https://n8n-docs.teamlab.info/advanced-ai/langchain",
+            "https://n8n-docs.teamlab.info/advanced-ai/langchain-n8n",
+            "https://n8n-docs.teamlab.info/advanced-ai/langsmith",
+            "https://n8n-docs.teamlab.info/advanced-ai/light-evaluations",
+            "https://n8n-docs.teamlab.info/advanced-ai/metric-based-evaluations",
+            "https://n8n-docs.teamlab.info/advanced-ai/overview",
+            "https://n8n-docs.teamlab.info/advanced-ai/tips-and-common-issues",
+            "https://n8n-docs.teamlab.info/advanced-ai/understand-agents",
+            "https://n8n-docs.teamlab.info/advanced-ai/understand-chains",
+            "https://n8n-docs.teamlab.info/advanced-ai/understand-memory",
+            "https://n8n-docs.teamlab.info/advanced-ai/understand-tools",
+            "https://n8n-docs.teamlab.info/advanced-ai/understand-vector-databases",
+            "https://n8n-docs.teamlab.info/advanced-ai/using-the-fromai-function",
+            "https://n8n-docs.teamlab.info/advanced-ai/vector-store-website",
+            "https://n8n-docs.teamlab.info/ai-code"
           ],
-          "unreachable_links_count": 144
+          "unreachable_links_count": 816
         },
         "seo_geo": {
-          "pages_scanned": 10,
+          "pages_scanned": 1129,
           "missing_title_count": 0,
           "missing_description_count": 0,
-          "multiple_h1_count": 0,
-          "heading_hierarchy_jump_count": 2,
-          "seo_geo_issue_rate_pct": 5.0
+          "multiple_h1_count": 1,
+          "heading_hierarchy_jump_count": 1032,
+          "seo_geo_issue_rate_pct": 22.87
         },
         "api_coverage": {
           "reference_endpoint_count": 0,
@@ -68,37 +77,329 @@
           "example_reliability_estimate_pct": 0.0
         },
         "freshness": {
-          "pages_with_last_updated_hint": 0,
-          "pages_without_last_updated_hint": 10,
-          "last_updated_coverage_pct": 0.0,
-          "samples_with_last_updated": []
+          "pages_with_last_updated_hint": 2,
+          "pages_without_last_updated_hint": 1127,
+          "last_updated_coverage_pct": 0.18,
+          "samples_with_last_updated": [
+            {
+              "url": "https://n8n-docs.teamlab.info/integrations/builtin/trigger-nodes/n8n-nodes-base.airtabletrigger",
+              "hint": "A created or last modified field in your table. The Airtable Trigger node uses this to determine what updates occurred s"
+            },
+            {
+              "url": "https://n8n-docs.teamlab.info/integrations/creating-nodes/build/reference/ui-elements",
+              "hint": "'The date and time when the file was last modified'"
+            }
+          ]
         }
       },
       "samples": {
         "broken_links": [
+          "https://n8n-docs.teamlab.info/0-x",
+          "https://n8n-docs.teamlab.info/_workflows//advanced-ai/tutorials/chat_02.json",
+          "https://n8n-docs.teamlab.info/_workflows//advanced-ai/tutorials/chat_complete.json",
+          "https://n8n-docs.teamlab.info/_workflows//courses/level-one/chapter-5/chapter-5.3.json",
+          "https://n8n-docs.teamlab.info/_workflows//courses/level-one/chapter-5/chapter-5.4.json",
+          "https://n8n-docs.teamlab.info/_workflows//courses/level-one/chapter-5/chapter-5.5.json",
+          "https://n8n-docs.teamlab.info/_workflows//courses/level-one/finished.json",
+          "https://n8n-docs.teamlab.info/add-edit-credentials",
+          "https://n8n-docs.teamlab.info/advanced-ai/agent-chain-comparison",
+          "https://n8n-docs.teamlab.info/advanced-ai/api-workflow-tool",
+          "https://n8n-docs.teamlab.info/advanced-ai/data-google-sheets",
+          "https://n8n-docs.teamlab.info/advanced-ai/evaluations",
+          "https://n8n-docs.teamlab.info/advanced-ai/examples",
+          "https://n8n-docs.teamlab.info/advanced-ai/human-fallback",
+          "https://n8n-docs.teamlab.info/advanced-ai/introduction",
+          "https://n8n-docs.teamlab.info/advanced-ai/langchain",
+          "https://n8n-docs.teamlab.info/advanced-ai/langchain-n8n",
+          "https://n8n-docs.teamlab.info/advanced-ai/langsmith",
+          "https://n8n-docs.teamlab.info/advanced-ai/light-evaluations",
+          "https://n8n-docs.teamlab.info/advanced-ai/metric-based-evaluations",
+          "https://n8n-docs.teamlab.info/advanced-ai/overview",
+          "https://n8n-docs.teamlab.info/advanced-ai/tips-and-common-issues",
+          "https://n8n-docs.teamlab.info/advanced-ai/understand-agents",
+          "https://n8n-docs.teamlab.info/advanced-ai/understand-chains",
+          "https://n8n-docs.teamlab.info/advanced-ai/understand-memory",
+          "https://n8n-docs.teamlab.info/advanced-ai/understand-tools",
+          "https://n8n-docs.teamlab.info/advanced-ai/understand-vector-databases",
+          "https://n8n-docs.teamlab.info/advanced-ai/using-the-fromai-function",
+          "https://n8n-docs.teamlab.info/advanced-ai/vector-store-website",
+          "https://n8n-docs.teamlab.info/ai-code"
+        ],
+        "api_uncovered_samples": []
+      }
+    },
+    {
+      "site_url": "https://docs.n8n.io/",
+      "metrics": {
+        "crawl": {
+          "pages_crawled": 1197,
+          "requested_pages": 5736,
+          "max_pages": 1500
+        },
+        "links": {
+          "internal_links_checked": 5736,
+          "broken_internal_links_count": 2140,
+          "broken_internal_link_samples": [
+            "https://docs.n8n.io/0-x",
+            "https://docs.n8n.io/1-x",
+            "https://docs.n8n.io/accessing-n8n-mcp-server",
+            "https://docs.n8n.io/activecampaign",
+            "https://docs.n8n.io/advanced-ai/agent-chain-comparison",
+            "https://docs.n8n.io/advanced-ai/api-workflow-tool",
+            "https://docs.n8n.io/advanced-ai/data-google-sheets",
+            "https://docs.n8n.io/advanced-ai/evaluations",
+            "https://docs.n8n.io/advanced-ai/examples",
+            "https://docs.n8n.io/advanced-ai/langchain-learning-resources",
+            "https://docs.n8n.io/advanced-ai/langsmith",
+            "https://docs.n8n.io/advanced-ai/light-evaluations",
+            "https://docs.n8n.io/advanced-ai/metric-based-evaluations",
+            "https://docs.n8n.io/advanced-ai/overview",
+            "https://docs.n8n.io/advanced-ai/tips-and-common-issues",
+            "https://docs.n8n.io/advanced-ai/understand-chains",
+            "https://docs.n8n.io/advanced-ai/understand-vector-databases",
+            "https://docs.n8n.io/advanced-ai/using-the-fromai-function",
+            "https://docs.n8n.io/affinity",
+            "https://docs.n8n.io/agilecrm",
+            "https://docs.n8n.io/ai-workflow-builder",
+            "https://docs.n8n.io/airtable",
+            "https://docs.n8n.io/airtop",
+            "https://docs.n8n.io/alienvault",
+            "https://docs.n8n.io/amqp",
+            "https://docs.n8n.io/app-nodes",
+            "https://docs.n8n.io/app-nodes/n8n-nodes-base.activecampaign",
+            "https://docs.n8n.io/app-nodes/n8n-nodes-base.adalo",
+            "https://docs.n8n.io/app-nodes/n8n-nodes-base.affinity",
+            "https://docs.n8n.io/app-nodes/n8n-nodes-base.airtable/common-issues"
+          ],
+          "unreachable_links_count": 2183
+        },
+        "seo_geo": {
+          "pages_scanned": 1197,
+          "missing_title_count": 0,
+          "missing_description_count": 0,
+          "multiple_h1_count": 1,
+          "heading_hierarchy_jump_count": 11,
+          "seo_geo_issue_rate_pct": 0.25
+        },
+        "api_coverage": {
+          "reference_endpoint_count": 0,
+          "endpoints_with_usage_docs": 0,
+          "reference_endpoints_without_usage_docs": 0,
+          "reference_coverage_pct": -1.0,
+          "no_api_pages_found": true,
+          "uncovered_endpoint_samples": []
+        },
+        "examples": {
+          "total_code_examples": 0,
+          "runnable_without_env": 0,
+          "blocked_by_placeholders": 0,
+          "network_bound_examples": 0,
+          "example_reliability_estimate_pct": 0.0
+        },
+        "freshness": {
+          "pages_with_last_updated_hint": 3,
+          "pages_without_last_updated_hint": 1194,
+          "last_updated_coverage_pct": 0.25,
+          "samples_with_last_updated": [
+            {
+              "url": "https://docs.n8n.io/integrations/creating-nodes/build/reference/ui-elements",
+              "hint": "'The date and time when the file was last modified'"
+            },
+            {
+              "url": "https://docs.n8n.io/migration-tool-v2",
+              "hint": "Last updated:"
+            },
+            {
+              "url": "https://docs.n8n.io/release-notes/0-x",
+              "hint": "Fixed an issue with parsing the last edited time"
+            }
+          ]
+        }
+      },
+      "samples": {
+        "broken_links": [
+          "https://docs.n8n.io/0-x",
+          "https://docs.n8n.io/1-x",
           "https://docs.n8n.io/accessing-n8n-mcp-server",
+          "https://docs.n8n.io/activecampaign",
+          "https://docs.n8n.io/advanced-ai/agent-chain-comparison",
+          "https://docs.n8n.io/advanced-ai/api-workflow-tool",
+          "https://docs.n8n.io/advanced-ai/data-google-sheets",
           "https://docs.n8n.io/advanced-ai/evaluations",
+          "https://docs.n8n.io/advanced-ai/examples",
+          "https://docs.n8n.io/advanced-ai/langchain-learning-resources",
+          "https://docs.n8n.io/advanced-ai/langsmith",
+          "https://docs.n8n.io/advanced-ai/light-evaluations",
           "https://docs.n8n.io/advanced-ai/metric-based-evaluations",
           "https://docs.n8n.io/advanced-ai/overview",
           "https://docs.n8n.io/advanced-ai/tips-and-common-issues",
+          "https://docs.n8n.io/advanced-ai/understand-chains",
+          "https://docs.n8n.io/advanced-ai/understand-vector-databases",
+          "https://docs.n8n.io/advanced-ai/using-the-fromai-function",
+          "https://docs.n8n.io/affinity",
+          "https://docs.n8n.io/agilecrm",
           "https://docs.n8n.io/ai-workflow-builder",
-          "https://docs.n8n.io/chat-hub",
-          "https://docs.n8n.io/credentials/add-edit-credentials",
-          "https://docs.n8n.io/credentials/credential-sharing",
-          "https://docs.n8n.io/evaluations/light-evaluations",
-          "https://docs.n8n.io/evaluations/metric-based-evaluations",
-          "https://docs.n8n.io/evaluations/overview",
-          "https://docs.n8n.io/evaluations/tips-and-common-issues",
-          "https://docs.n8n.io/examples/data-google-sheets",
-          "https://docs.n8n.io/examples/human-fallback",
-          "https://docs.n8n.io/examples/understand-agents",
-          "https://docs.n8n.io/examples/understand-memory",
-          "https://docs.n8n.io/examples/understand-tools",
-          "https://docs.n8n.io/examples/understand-vector-databases",
-          "https://docs.n8n.io/examples/vector-store-website",
-          "https://docs.n8n.io/langchain/langchain-learning-resources",
-          "https://docs.n8n.io/langchain/langchain-n8n",
-          "https://docs.n8n.io/langchain/overview"
+          "https://docs.n8n.io/airtable",
+          "https://docs.n8n.io/airtop",
+          "https://docs.n8n.io/alienvault",
+          "https://docs.n8n.io/amqp",
+          "https://docs.n8n.io/app-nodes",
+          "https://docs.n8n.io/app-nodes/n8n-nodes-base.activecampaign",
+          "https://docs.n8n.io/app-nodes/n8n-nodes-base.adalo",
+          "https://docs.n8n.io/app-nodes/n8n-nodes-base.affinity",
+          "https://docs.n8n.io/app-nodes/n8n-nodes-base.airtable/common-issues"
+        ],
+        "api_uncovered_samples": []
+      }
+    },
+    {
+      "site_url": "https://github.com/n8n-io/n8n-docs",
+      "metrics": {
+        "crawl": {
+          "pages_crawled": 1240,
+          "requested_pages": 20556,
+          "max_pages": 1500
+        },
+        "links": {
+          "internal_links_checked": 20556,
+          "broken_internal_links_count": 12260,
+          "broken_internal_link_samples": [
+            "http://github.com/",
+            "http://github.com/about/diversity",
+            "http://github.com/enterprise/premium-support",
+            "http://github.com/features/copilot",
+            "http://github.com/git-guides",
+            "http://github.com/login",
+            "http://github.com/logseq/logseq/releases",
+            "http://github.com/newsroom",
+            "http://github.com/pricing",
+            "http://github.com/security",
+            "http://github.com/signup",
+            "http://github.com/team",
+            "https://github.com/07SD",
+            "https://github.com/0utkarsh",
+            "https://github.com/0xdevalias",
+            "https://github.com/1-ARIjitS",
+            "https://github.com/11ty/.github/blob/main/profile/%60@eleventy%60",
+            "https://github.com/11ty/.github/tree/main/profile/README.md",
+            "https://github.com/11ty/11ty-website",
+            "https://github.com/11ty/11ty-website/forks",
+            "https://github.com/11ty/awesome-base-blog",
+            "https://github.com/11ty/awesome-base-blog/pulls",
+            "https://github.com/11ty/eleventy",
+            "https://github.com/11ty/eleventy-base-blog",
+            "https://github.com/11ty/eleventy-base-blog/forks",
+            "https://github.com/11ty/eleventy-base-blog/stargazers",
+            "https://github.com/11ty/eleventy-fetch",
+            "https://github.com/11ty/eleventy-fetch/graphs/commit-activity",
+            "https://github.com/11ty/eleventy-fetch/pulls",
+            "https://github.com/11ty/eleventy-fetch/stargazers"
+          ],
+          "unreachable_links_count": 3094
+        },
+        "seo_geo": {
+          "pages_scanned": 1240,
+          "missing_title_count": 1,
+          "missing_description_count": 2,
+          "multiple_h1_count": 1226,
+          "heading_hierarchy_jump_count": 99,
+          "seo_geo_issue_rate_pct": 26.77
+        },
+        "api_coverage": {
+          "reference_endpoint_count": 0,
+          "endpoints_with_usage_docs": 0,
+          "reference_endpoints_without_usage_docs": 0,
+          "reference_coverage_pct": -1.0,
+          "no_api_pages_found": true,
+          "uncovered_endpoint_samples": []
+        },
+        "examples": {
+          "total_code_examples": 0,
+          "runnable_without_env": 0,
+          "blocked_by_placeholders": 0,
+          "network_bound_examples": 0,
+          "example_reliability_estimate_pct": 0.0
+        },
+        "freshness": {
+          "pages_with_last_updated_hint": 176,
+          "pages_without_last_updated_hint": 1064,
+          "last_updated_coverage_pct": 14.19,
+          "samples_with_last_updated": [
+            {
+              "url": "https://github.com/enterprise/startups",
+              "hint": "2026"
+            },
+            {
+              "url": "https://github.com/features/actions",
+              "hint": "2026"
+            },
+            {
+              "url": "https://github.com/",
+              "hint": "2026"
+            },
+            {
+              "url": "https://github.com/accelerator",
+              "hint": "2026"
+            },
+            {
+              "url": "https://github.com/features/copilot/copilot-business",
+              "hint": "2026"
+            },
+            {
+              "url": "https://github.com/features",
+              "hint": "2026"
+            },
+            {
+              "url": "https://github.com/features/codespaces",
+              "hint": "2026"
+            },
+            {
+              "url": "https://github.com/features/copilot",
+              "hint": "2026"
+            },
+            {
+              "url": "https://github.com/features/spark",
+              "hint": "2026"
+            },
+            {
+              "url": "https://github.com/features/models",
+              "hint": "2026"
+            }
+          ]
+        }
+      },
+      "samples": {
+        "broken_links": [
+          "http://github.com/",
+          "http://github.com/about/diversity",
+          "http://github.com/enterprise/premium-support",
+          "http://github.com/features/copilot",
+          "http://github.com/git-guides",
+          "http://github.com/login",
+          "http://github.com/logseq/logseq/releases",
+          "http://github.com/newsroom",
+          "http://github.com/pricing",
+          "http://github.com/security",
+          "http://github.com/signup",
+          "http://github.com/team",
+          "https://github.com/07SD",
+          "https://github.com/0utkarsh",
+          "https://github.com/0xdevalias",
+          "https://github.com/1-ARIjitS",
+          "https://github.com/11ty/.github/blob/main/profile/%60@eleventy%60",
+          "https://github.com/11ty/.github/tree/main/profile/README.md",
+          "https://github.com/11ty/11ty-website",
+          "https://github.com/11ty/11ty-website/forks",
+          "https://github.com/11ty/awesome-base-blog",
+          "https://github.com/11ty/awesome-base-blog/pulls",
+          "https://github.com/11ty/eleventy",
+          "https://github.com/11ty/eleventy-base-blog",
+          "https://github.com/11ty/eleventy-base-blog/forks",
+          "https://github.com/11ty/eleventy-base-blog/stargazers",
+          "https://github.com/11ty/eleventy-fetch",
+          "https://github.com/11ty/eleventy-fetch/graphs/commit-activity",
+          "https://github.com/11ty/eleventy-fetch/pulls",
+          "https://github.com/11ty/eleventy-fetch/stargazers"
         ],
         "api_uncovered_samples": []
       }
@@ -107,15 +408,15 @@
   "aggregate": {
     "metrics": {
       "crawl": {
-        "pages_crawled": 10,
-        "requested_pages": 1287,
-        "max_pages_total": 10
+        "pages_crawled": 3566,
+        "requested_pages": 30964,
+        "max_pages_total": 4500
       },
       "links": {
-        "broken_internal_links_count": 23
+        "broken_internal_links_count": 17110
       },
       "seo_geo": {
-        "seo_geo_issue_rate_pct": 5.0
+        "seo_geo_issue_rate_pct": 16.63
       },
       "api_coverage": {
         "reference_coverage_pct": -1.0,
@@ -125,19 +426,71 @@
         "example_reliability_estimate_pct": 0.0
       },
       "freshness": {
-        "last_updated_coverage_pct": 0.0
+        "last_updated_coverage_pct": 5.08
       }
     }
   },
   "top_findings": [
-    "Broken internal links: 23",
+    "Broken internal links: 17110",
+    "SEO/GEO issue rate is high: 16.63%",
     "No API reference pages found in crawled sample (increase max_pages or verify site has /api/ or /reference/ paths)",
     "Example reliability estimate is low: 0.0%",
-    "Freshness visibility is weak: only 0.0% pages show last updated"
+    "Freshness visibility is weak: only 5.08% pages show last updated",
+    "Documentation is split across multiple sites for one product; this is likely a discoverability/consistency risk."
   ],
   "llm_analysis": {
-    "status": "failed",
+    "status": "ok",
     "model": "claude-sonnet-4-5",
-    "error": "LLM returned non-JSON content: ```json\n{\n  \"executive_summary\": \"Documentation audit of n8n.io covered 10 of 1,287 requested pages due to crawl limits, representing less than 1% sample coverage. Critical infrastructure issues identified: 23 broken internal links across sampled pages, 0% of pages display last-updated timestamps, a"
+    "analysis": {
+      "executive_summary": "Audit crawled 3,566 pages from 3 documentation sites for a single product. Critical infrastructure issues identified: 17,110 broken internal links creating severe navigation failures. SEO and geo-targeting problems affect 16.63% of pages. Zero API reference pages detected in sample, indicating missing or inaccessible technical documentation. Only 5.08% of pages display freshness metadata, obscuring content currency for users.",
+      "strengths": [
+        "Large documentation corpus with 3,566 pages crawled indicates substantial content investment",
+        "Multi-site presence suggests community and official documentation efforts",
+        "Topology identified as single-product focus enables coherent user journey design"
+      ],
+      "risks": [
+        "17,110 broken internal links represent catastrophic navigation failure and user abandonment risk",
+        "No API reference pages found threatens developer adoption and integration success",
+        "16.63% SEO/geo issue rate damages discoverability and organic search performance",
+        "5.08% freshness coverage prevents users from assessing content reliability and currency",
+        "0.0% example reliability estimate indicates code samples may be untested or non-functional",
+        "Multi-site documentation architecture for single product creates fragmentation and version confusion",
+        "Crawl reached only 3,566 of 30,964 requested pages, suggesting deep structural or performance issues"
+      ],
+      "prioritized_actions": [
+        {
+          "action": "Execute broken link remediation campaign: audit all 17,110 broken links, fix or redirect top 500 by traffic impact within 30 days",
+          "impact": "critical",
+          "effort": "high"
+        },
+        {
+          "action": "Locate or create API reference documentation; if exists, fix discoverability and crawlability; if missing, prioritize creation",
+          "impact": "critical",
+          "effort": "high"
+        },
+        {
+          "action": "Consolidate multi-site documentation into single authoritative domain with clear versioning and redirect strategy",
+          "impact": "high",
+          "effort": "high"
+        },
+        {
+          "action": "Implement automated last-updated timestamps on all pages and establish content review SLA",
+          "impact": "medium",
+          "effort": "low"
+        },
+        {
+          "action": "Resolve SEO/geo issues on affected 16.63% of pages: audit meta tags, hreflang, and indexing directives",
+          "impact": "medium",
+          "effort": "medium"
+        }
+      ],
+      "limitations": [
+        "External crawl cannot verify accuracy of technical content, code functionality, or instructional correctness",
+        "Authentication-gated or dynamically rendered content may be underrepresented in crawl results",
+        "User behavior, satisfaction, and task completion rates require separate analytics and user research",
+        "Competitive positioning and feature parity assessment not included in technical documentation audit",
+        "Crawl limited to 4,500 max pages may not represent full documentation estate or deep hierarchy"
+      ]
+    }
   }
 }

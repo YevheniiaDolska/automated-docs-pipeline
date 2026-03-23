@@ -21,76 +21,96 @@ from datetime import datetime
 from urllib.parse import quote
 import subprocess
 
+# -- Pack runtime integration (optional) --------------------------------------
+try:
+    from scripts import pack_runtime as _pack_rt
+    _pack = _pack_rt.get_pack()
+except Exception:
+    _pack_rt = None  # type: ignore[assignment]
+    _pack = None
+
 # Internal maintenance guides are kept in docs/ for operator convenience,
 # but they are not product docs pages and should not affect GEO gate signals.
 INTERNAL_GEO_IGNORE = {"SEO_GUIDE.md", "VARIABLES_GUIDE.md"}
 
 # ==================== GEO RULES ====================
 
-GEO_RULES = {
-    "first_para_max_words": 60,
-    "max_words_without_fact": 200,
-    "meta_desc_min_chars": 50,
-    "meta_desc_max_chars": 160,
-    "min_heading_words": 3,
-    "generic_headings": [
-        "overview", "introduction", "configuration", "setup",
-        "details", "information", "general", "notes", "summary"
-    ],
-    "definition_patterns": [
-        r"\bis\b", r"\benables?\b", r"\bprovides?\b", r"\ballows?\b",
-        r"\bcreates?\b", r"\bprocesses?\b", r"\bexecutes?\b"
-    ],
-    "fact_patterns": [
-        r"\d+", r"`[^`]+`", r"\bdefault\b", r"\bport\b",
-        r"\bversion\b", r"\bMB\b", r"\bGB\b", r"\bms\b",
-        r"```", r"\bhttp[s]?://\b"
-    ]
-}
+
+def _get_effective_geo_rules() -> dict:
+    """Load GEO rules from capability pack or use hardcoded defaults."""
+    if _pack_rt is not None:
+        return _pack_rt.get_geo_rules(_pack)
+    return {
+        "first_para_max_words": 60,
+        "max_words_without_fact": 200,
+        "meta_desc_min_chars": 50,
+        "meta_desc_max_chars": 160,
+        "min_heading_words": 3,
+        "generic_headings": [
+            "overview", "introduction", "configuration", "setup",
+            "details", "information", "general", "notes", "summary",
+        ],
+        "definition_patterns": [
+            r"\bis\b", r"\benables?\b", r"\bprovides?\b", r"\ballows?\b",
+            r"\bcreates?\b", r"\bprocesses?\b", r"\bexecutes?\b",
+        ],
+        "fact_patterns": [
+            r"\d+", r"`[^`]+`", r"\bdefault\b", r"\bport\b",
+            r"\bversion\b", r"\bMB\b", r"\bGB\b", r"\bms\b",
+            r"```", r"\bhttp[s]?://\b",
+        ],
+    }
+
+
+GEO_RULES = _get_effective_geo_rules()
+
+def _get_effective_geo_rules_by_locale() -> dict[str, dict]:
+    """Load locale-specific GEO overrides from pack or use hardcoded defaults."""
+    if _pack_rt is not None:
+        return _pack_rt.get_geo_rules_by_locale(_pack)
+    return {
+        "ru": {
+            "first_para_max_words": 80,
+            "meta_desc_max_chars": 200,
+            "generic_headings": [
+                "overview", "introduction", "configuration", "setup",
+                "details", "information", "general", "notes", "summary",
+                "obzor", "vvedenie", "nastroyka", "nastrojka",
+                "podrobnosti", "informatsiya", "obshchee", "zametki",
+            ],
+            "definition_patterns": [
+                r"\bis\b", r"\benables?\b", r"\bprovides?\b", r"\ballows?\b",
+                r"\bcreates?\b", r"\bprocesses?\b", r"\bexecutes?\b",
+                r"\beto\b", r"\byavlyaetsya\b", r"\bpozvolyaet\b",
+                r"\bobespechivae?t\b", r"\bsozdae?t\b",
+                r"\b\u044d\u0442\u043e\b",
+                r"\b\u044f\u0432\u043b\u044f\u0435\u0442\u0441\u044f\b",
+                r"\b\u043f\u043e\u0437\u0432\u043e\u043b\u044f\u0435\u0442\b",
+                r"\b\u043e\u0431\u0435\u0441\u043f\u0435\u0447\u0438\u0432\u0430\u0435\u0442\b",
+            ],
+        },
+        "de": {
+            "first_para_max_words": 70,
+            "meta_desc_max_chars": 180,
+            "generic_headings": [
+                "overview", "introduction", "configuration", "setup",
+                "details", "information", "general", "notes", "summary",
+                "ueberblick", "uebersicht", "einleitung", "konfiguration",
+                "einrichtung", "details", "informationen", "allgemein",
+            ],
+            "definition_patterns": [
+                r"\bis\b", r"\benables?\b", r"\bprovides?\b", r"\ballows?\b",
+                r"\bcreates?\b", r"\bprocesses?\b", r"\bexecutes?\b",
+                r"\bist\b", r"\bermoeglicht\b", r"\bbietet\b", r"\berlaubt\b",
+            ],
+        },
+    }
+
 
 # Per-locale GEO rule overrides.
 # Keys are locale codes; values override the corresponding GEO_RULES entries.
 # Languages not listed here fall back to the default English rules above.
-GEO_RULES_BY_LOCALE: dict[str, dict] = {
-    "ru": {
-        "first_para_max_words": 80,
-        "meta_desc_max_chars": 200,
-        "generic_headings": [
-            "overview", "introduction", "configuration", "setup",
-            "details", "information", "general", "notes", "summary",
-            # Russian generic headings
-            "obzor", "vvedenie", "nastroyka", "nastrojka",
-            "podrobnosti", "informatsiya", "obshchee", "zametki",
-        ],
-        "definition_patterns": [
-            r"\bis\b", r"\benables?\b", r"\bprovides?\b", r"\ballows?\b",
-            r"\bcreates?\b", r"\bprocesses?\b", r"\bexecutes?\b",
-            # Russian definition patterns
-            r"\beto\b", r"\byavlyaetsya\b", r"\bpozvolyaet\b",
-            r"\bobespechivae?t\b", r"\bsozdae?t\b",
-            # Cyrillic patterns
-            r"\b\u044d\u0442\u043e\b",  # eto
-            r"\b\u044f\u0432\u043b\u044f\u0435\u0442\u0441\u044f\b",  # yavlyaetsya
-            r"\b\u043f\u043e\u0437\u0432\u043e\u043b\u044f\u0435\u0442\b",  # pozvolyaet
-            r"\b\u043e\u0431\u0435\u0441\u043f\u0435\u0447\u0438\u0432\u0430\u0435\u0442\b",  # obespechvaet
-        ],
-    },
-    "de": {
-        "first_para_max_words": 70,
-        "meta_desc_max_chars": 180,
-        "generic_headings": [
-            "overview", "introduction", "configuration", "setup",
-            "details", "information", "general", "notes", "summary",
-            "ueberblick", "uebersicht", "einleitung", "konfiguration",
-            "einrichtung", "details", "informationen", "allgemein",
-        ],
-        "definition_patterns": [
-            r"\bis\b", r"\benables?\b", r"\bprovides?\b", r"\ballows?\b",
-            r"\bcreates?\b", r"\bprocesses?\b", r"\bexecutes?\b",
-            r"\bist\b", r"\bermoeglicht\b", r"\bbietet\b", r"\berlaubt\b",
-        ],
-    },
-}
+GEO_RULES_BY_LOCALE: dict[str, dict] = _get_effective_geo_rules_by_locale()
 
 
 def _get_geo_rules_for_locale(locale: str | None) -> dict:
@@ -484,17 +504,24 @@ class SEOEnhancer:
 
 # ==================== SEO VALIDATION ====================
 
-SEO_RULES = {
-    "title_min_chars": 10,
-    "title_max_chars": 70,
-    "max_url_depth": 4,
-    "min_internal_links": 1,
-    "max_image_without_alt_pct": 0,
-    "min_content_words": 100,
-    "max_line_length_for_mobile": 180,
-    "check_mobile_line_length": True,
-    "max_long_lines_before_warning": 30,
-}
+def _get_effective_seo_rules() -> dict:
+    """Load SEO rules from capability pack or use hardcoded defaults."""
+    if _pack_rt is not None:
+        return _pack_rt.get_seo_rules(_pack)
+    return {
+        "title_min_chars": 10,
+        "title_max_chars": 70,
+        "max_url_depth": 4,
+        "min_internal_links": 1,
+        "max_image_without_alt_pct": 0,
+        "min_content_words": 100,
+        "max_line_length_for_mobile": 180,
+        "check_mobile_line_length": True,
+        "max_long_lines_before_warning": 30,
+    }
+
+
+SEO_RULES = _get_effective_seo_rules()
 
 
 def seo_validate_file(filepath):

@@ -402,18 +402,30 @@ def _heading_violations(levels: list[int]) -> int:
     return violations
 
 
+_DATA_ONLY_LANGS = {"text", "yaml", "json", "toml", "ini", "xml", "csv", "diff",
+                     "log", "plaintext", "txt", "properties", "env", "conf", "cfg"}
+
+
 def _estimate_example_reliability(pages: list[PageData]) -> dict[str, Any]:
     total = 0
     runnable = 0
     blocked_by_placeholders = 0
     network_bound = 0
+    total_all_blocks = 0  # including data-only blocks, for detection quality metric
 
     for page in pages:
         for block in page.code_blocks:
-            lang = str(block.get("language", "text")).lower()
+            total_all_blocks += 1
+            lang = str(block.get("language", "")).lower()
             code = str(block.get("code", ""))
-            if lang in {"text", "yaml", "json", "toml", "ini"}:
+            # Skip data-only formats (not executable code examples)
+            if lang in _DATA_ONLY_LANGS:
                 continue
+            # Heuristic: unlabeled blocks with code-like content count as examples
+            if not lang or lang == "nohighlight":
+                # Check if it looks like code (has function calls, assignments, imports)
+                if not re.search(r"[=();{}]|import |require\(|def |function |class |const |let |var ", code):
+                    continue
             total += 1
             if CODE_PLACEHOLDER_PATTERN.search(code):
                 blocked_by_placeholders += 1
@@ -424,21 +436,74 @@ def _estimate_example_reliability(pages: list[PageData]) -> dict[str, Any]:
             runnable += 1
 
     reliability = _safe_pct(runnable, total) if total else 0.0
+    # If we found no executable examples but did find code blocks, it is
+    # likely a detection issue rather than truly 0% reliability.
+    detection_note = ""
+    if total == 0 and total_all_blocks > 0:
+        detection_note = (
+            "No executable code blocks detected ({} data-only blocks found). "
+            "Site may use non-standard code rendering that the auditor does not "
+            "recognize, or all examples are in data formats (YAML/JSON)."
+        ).format(total_all_blocks)
+    elif total == 0 and total_all_blocks == 0:
+        detection_note = (
+            "No code blocks detected in crawled pages. The site may use "
+            "JavaScript-rendered code blocks invisible to the HTML parser."
+        )
     return {
         "total_code_examples": total,
+        "total_code_blocks_all": total_all_blocks,
         "runnable_without_env": runnable,
         "blocked_by_placeholders": blocked_by_placeholders,
         "network_bound_examples": network_bound,
         "example_reliability_estimate_pct": reliability,
+        "detection_note": detection_note,
     }
+
+
+_API_URL_PATTERN = re.compile(
+    r"(reference|api|endpoint|method|operation|resource|rest|graphql|sdk|swagger|openapi|redoc)",
+    flags=re.IGNORECASE,
+)
+
+# Content-based heuristics: HTTP methods, status codes, request/response blocks
+_API_CONTENT_INDICATORS = re.compile(
+    r"\b(GET|POST|PUT|PATCH|DELETE|HEAD|OPTIONS)\s+/[a-z]"
+    r"|\bHTTP/[12]\.\d\b"
+    r"|\b[2345]\d{2}\s"
+    r"|\bcurl\s"
+    r"|\bRequest\s+body\b"
+    r"|\bResponse\s+body\b"
+    r"|\bapplication/json\b"
+    r"|\bAuthorization:\s"
+    r"|\bContent-Type:\s",
+    flags=re.IGNORECASE,
+)
+
+
+def _is_api_page(page: PageData) -> bool:
+    """Detect API reference pages via URL patterns AND content heuristics."""
+    # URL-based detection (expanded patterns)
+    if _API_URL_PATTERN.search(page.url):
+        return True
+    # Content-based detection: if page has 3+ HTTP method / status code indicators
+    text_sample = page.text[:5000]
+    code_sample = " ".join(b.get("code", "") for b in page.code_blocks[:10])
+    combined = text_sample + " " + code_sample
+    matches = _API_CONTENT_INDICATORS.findall(combined)
+    return len(matches) >= 3
 
 
 def _api_coverage_from_public_docs(pages: list[PageData]) -> dict[str, Any]:
     reference_endpoints: set[str] = set()
     non_reference_endpoints: set[str] = set()
 
+    api_page_count = 0
     for page in pages:
-        bucket = reference_endpoints if re.search(r"(reference|api)", page.url, flags=re.IGNORECASE) else non_reference_endpoints
+        is_api = _is_api_page(page)
+        if is_api:
+            api_page_count += 1
+        bucket = reference_endpoints if is_api else non_reference_endpoints
         sources = [page.text] + [block.get("code", "") for block in page.code_blocks]
         for src in sources:
             for match in ENDPOINT_PATTERN.findall(src.lower()):
@@ -452,10 +517,11 @@ def _api_coverage_from_public_docs(pages: list[PageData]) -> dict[str, Any]:
 
     return {
         "reference_endpoint_count": total_ref,
+        "api_pages_detected": api_page_count,
         "endpoints_with_usage_docs": matched,
         "reference_endpoints_without_usage_docs": uncovered,
         "reference_coverage_pct": _safe_pct(matched, total_ref) if total_ref > 0 else -1.0,
-        "no_api_pages_found": total_ref == 0,
+        "no_api_pages_found": total_ref == 0 and api_page_count == 0,
         "uncovered_endpoint_samples": sorted(list(reference_endpoints - non_reference_endpoints))[:20],
     }
 
@@ -477,6 +543,26 @@ def _seo_geo_metrics(pages: list[PageData]) -> dict[str, Any]:
     }
 
 
+_REPO_HOST_PATTERNS = re.compile(
+    r"github\.com|gitlab\.com|bitbucket\.org|codeberg\.org",
+    flags=re.IGNORECASE,
+)
+
+
+def _is_repo_link(url: str) -> bool:
+    """Return True if *url* points to a code repository (not user-facing docs)."""
+    parsed = urlparse(url)
+    host = parsed.netloc.lower()
+    if not _REPO_HOST_PATTERNS.search(host):
+        return False
+    path = parsed.path.lower()
+    # Repo navigation: /tree/, /blob/, /commit/, /pull/, /issues/, /raw/, /compare/
+    repo_segments = ("/tree/", "/blob/", "/commit/", "/commits/", "/pull/",
+                     "/issues/", "/raw/", "/compare/", "/actions/", "/releases/tag/",
+                     "/blame/", "/edit/", "/delete/", "/find/", "/archive/")
+    return any(seg in path for seg in repo_segments)
+
+
 def _link_health(pages: list[PageData], status_map: dict[str, int]) -> dict[str, Any]:
     internal_links = set()
     for page in pages:
@@ -484,10 +570,17 @@ def _link_health(pages: list[PageData], status_map: dict[str, int]) -> dict[str,
     # Only count confirmed 4xx/5xx as broken; exclude timeouts (0) and redirects (3xx)
     broken = [url for url in sorted(internal_links) if status_map.get(url, 0) >= 400]
     unreachable = [url for url in sorted(internal_links) if status_map.get(url, 0) == 0]
+    # Separate docs-site broken links from repository navigation broken links
+    docs_broken = [u for u in broken if not _is_repo_link(u)]
+    repo_broken = [u for u in broken if _is_repo_link(u)]
     return {
         "internal_links_checked": len(internal_links),
         "broken_internal_links_count": len(broken),
-        "broken_internal_link_samples": broken[:30],
+        "docs_broken_links_count": len(docs_broken),
+        "repo_broken_links_count": len(repo_broken),
+        "broken_internal_link_samples": docs_broken[:20] + repo_broken[:10],
+        "docs_broken_link_samples": docs_broken[:30],
+        "repo_broken_link_samples": repo_broken[:30],
         "unreachable_links_count": len(unreachable),
     }
 
@@ -627,6 +720,8 @@ def _site_payload(site_url: str, max_pages: int, timeout: int) -> dict[str, Any]
         "metrics": metrics,
         "samples": {
             "broken_links": metrics["links"]["broken_internal_link_samples"],
+            "docs_broken_link_samples": metrics["links"].get("docs_broken_link_samples", []),
+            "repo_broken_link_samples": metrics["links"].get("repo_broken_link_samples", []),
             "api_uncovered_samples": metrics["api_coverage"]["uncovered_endpoint_samples"],
         },
     }
@@ -670,6 +765,8 @@ def _aggregate_sites(sites: list[dict[str, Any]]) -> dict[str, Any]:
         },
         "links": {
             "broken_internal_links_count": sum(int(s["metrics"]["links"]["broken_internal_links_count"]) for s in sites),
+            "docs_broken_links_count": sum(int(s["metrics"]["links"].get("docs_broken_links_count", 0)) for s in sites),
+            "repo_broken_links_count": sum(int(s["metrics"]["links"].get("repo_broken_links_count", 0)) for s in sites),
         },
         "seo_geo": {
             "seo_geo_issue_rate_pct": wavg(["seo_geo", "seo_geo_issue_rate_pct"]),
@@ -772,10 +869,17 @@ def _build_llm_prompt(payload: dict[str, Any], summary_only: bool = False) -> st
         "Return JSON only with keys: executive_summary, strengths, risks, prioritized_actions, limitations.\\n"
         "Rules:\\n"
         "- executive_summary: 4-6 sentences, concrete numbers only.\\n"
-        "- strengths: array of max 5 bullets.\\n"
-        "- risks: array of max 7 bullets.\\n"
-        "- prioritized_actions: array of exactly 5 actions, each action includes impact and effort.\\n"
+        "- strengths: array of max 5 bullets (strings).\\n"
+        "- risks: array of max 7 bullets (strings).\\n"
+        "- prioritized_actions: array of exactly 5 objects, each with keys "
+        "{\\\"action\\\": \\\"text\\\", \\\"impact\\\": \\\"critical|high|medium|low\\\", "
+        "\\\"effort\\\": \\\"high|medium|low\\\"}.\\n"
         "- limitations: 3-5 bullets explaining what external audit cannot guarantee.\\n"
+        "IMPORTANT context notes:\\n"
+        "- If broken links include repo_broken_links_count, those are repository "
+        "navigation links (GitHub/GitLab), not user-facing docs. Separate them in analysis.\\n"
+        "- If detection_note is set on examples or api_coverage shows no_api_pages_found "
+        "on large samples (500+ pages), flag as potential detection limitation.\\n"
         "Do not output markdown. Do not output commentary.\\n\\n"
         f"Audit JSON:\\n{audit_json}"
     )
@@ -867,7 +971,17 @@ def _build_html(payload: dict[str, Any]) -> str:
                 + "</ul><h3>Risks</h3><ul>"
                 + "".join(f"<li>{html.escape(str(item))}</li>" for item in risks[:7])
                 + "</ul><h3>Prioritized actions</h3><ul>"
-                + "".join(f"<li>{html.escape(str(item))}</li>" for item in actions[:5])
+                + "".join(
+                    "<li>{}</li>".format(
+                        html.escape(str(item.get("action", "")))
+                        + (" <em>[{}, {}]</em>".format(
+                            html.escape(str(item.get("impact", ""))),
+                            html.escape(str(item.get("effort", "")))
+                        ) if isinstance(item, dict) and item.get("impact") else "")
+                        if isinstance(item, dict) else html.escape(str(item))
+                    )
+                    for item in actions[:5]
+                )
                 + "</ul></div>"
             )
         elif status:
@@ -907,7 +1021,8 @@ def _build_html(payload: dict[str, Any]) -> str:
       <p class=\"sub\">Generated: {html.escape(payload['generated_at'])}</p>
       <div class=\"grid\">
         <div class=\"card\"><div class=\"label\">Pages crawled</div><div class=\"value\">{m['crawl']['pages_crawled']}</div></div>
-        <div class=\"card\"><div class=\"label\">Broken internal links</div><div class=\"value\">{m['links']['broken_internal_links_count']}</div></div>
+        <div class=\"card\"><div class=\"label\">Broken links (docs)</div><div class=\"value\">{m['links'].get('docs_broken_links_count', m['links']['broken_internal_links_count'])}</div></div>
+        <div class=\"card\"><div class=\"label\">Broken links (repo nav)</div><div class=\"value\">{m['links'].get('repo_broken_links_count', 0)}</div></div>
         <div class=\"card\"><div class=\"label\">SEO/GEO issue rate</div><div class=\"value\">{m['seo_geo']['seo_geo_issue_rate_pct']}%</div></div>
         <div class=\"card\"><div class=\"label\">API reference coverage</div><div class=\"value\">{m['api_coverage']['reference_coverage_pct']}%</div></div>
         <div class=\"card\"><div class=\"label\">Example reliability (estimate)</div><div class=\"value\">{m['examples']['example_reliability_estimate_pct']}%</div></div>
@@ -1019,6 +1134,13 @@ def main() -> int:
     )
     args = parser.parse_args()
 
+    # -- License gate: public docs audit requires enterprise plan --
+    try:
+        from scripts.license_gate import require
+        require("executive_audit_pdf")
+    except ImportError:
+        pass
+
     site_urls = list(args.site_url or [])
     if args.interactive:
         print("Public docs audit wizard")
@@ -1121,17 +1243,49 @@ def main() -> int:
             "requests, require JavaScript rendering, or be temporarily unavailable. "
             "Metrics below are unavailable."
         )
-    if m["links"]["broken_internal_links_count"] > 0:
-        findings.append(f"Broken internal links: {m['links']['broken_internal_links_count']}")
+    docs_broken = int(m["links"].get("docs_broken_links_count", 0))
+    repo_broken = int(m["links"].get("repo_broken_links_count", 0))
+    total_broken = int(m["links"]["broken_internal_links_count"])
+    if total_broken > 0:
+        if repo_broken > 0 and docs_broken > 0:
+            findings.append(
+                "Broken links: {} on docs sites, {} in repository navigation "
+                "(repo links are not user-facing documentation)".format(docs_broken, repo_broken)
+            )
+        elif repo_broken > 0 and docs_broken == 0:
+            findings.append(
+                "Broken links: {} in repository navigation only "
+                "(not user-facing documentation)".format(repo_broken)
+            )
+        else:
+            findings.append("Broken internal links: {}".format(total_broken))
     if m["seo_geo"]["seo_geo_issue_rate_pct"] > 10:
         findings.append(f"SEO/GEO issue rate is high: {m['seo_geo']['seo_geo_issue_rate_pct']}%")
     api_cov = m["api_coverage"]["reference_coverage_pct"]
+    api_pages = int(m["api_coverage"].get("api_pages_detected", 0))
     if m["api_coverage"].get("no_api_pages_found"):
-        findings.append("No API reference pages found in crawled sample (increase max_pages or verify site has /api/ or /reference/ paths)")
+        if total_pages >= 500:
+            findings.append(
+                "API reference pages not detected in {} crawled pages "
+                "(possible detection limitation -- site may use non-standard URL patterns)".format(total_pages)
+            )
+        else:
+            findings.append(
+                "No API reference pages found in {} crawled pages "
+                "(increase max_pages or check site URL structure)".format(total_pages)
+            )
     elif api_cov < 70:
-        findings.append(f"API usage-doc coverage is low: {api_cov}%")
-    if m["examples"]["example_reliability_estimate_pct"] < 60:
-        findings.append(f"Example reliability estimate is low: {m['examples']['example_reliability_estimate_pct']}%")
+        findings.append("API usage-doc coverage is low: {}% ({} API pages detected)".format(api_cov, api_pages))
+    ex_pct = m["examples"]["example_reliability_estimate_pct"]
+    ex_note = str(m["examples"].get("detection_note", "") or "")
+    if ex_pct < 60:
+        if ex_pct < 0.1 and total_pages >= 500:
+            findings.append(
+                "Example reliability: 0% on {} pages (likely detection limitation). {}".format(
+                    total_pages, ex_note or "Site may use JS-rendered code blocks.")
+            )
+        else:
+            findings.append("Example reliability estimate is low: {}%".format(ex_pct))
     if m["freshness"]["last_updated_coverage_pct"] < 50:
         findings.append(f"Freshness visibility is weak: only {m['freshness']['last_updated_coverage_pct']}% pages show last updated")
     if len(sites) > 1:

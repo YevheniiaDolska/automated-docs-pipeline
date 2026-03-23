@@ -74,6 +74,16 @@ class ActionItem:
     context: dict = field(default_factory=dict)
 
 
+def _check_consolidate_license() -> None:
+    """Check that consolidated_reports feature is available."""
+    try:
+        from scripts.license_gate import require
+        require("consolidated_reports")
+    except (ImportError, SystemExit):
+        print("[consolidate] WARNING: consolidated_reports feature requires Professional+ license.", file=sys.stderr)
+        raise SystemExit(1)
+
+
 class ReportConsolidator:
     """Объединяет 4 отчёта документации в один консолидированный файл."""
 
@@ -754,6 +764,9 @@ def main():
         help="Output path for consolidated report (default: reports/consolidated_report.json)",
     )
     args = parser.parse_args()
+
+    # -- License gate --
+    _check_consolidate_license()
 
     consolidator = ReportConsolidator(reports_dir=args.reports_dir)
     consolidator.save(output_path=args.output)

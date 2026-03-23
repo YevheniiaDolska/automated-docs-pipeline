@@ -4,7 +4,7 @@ description: Canonical sales and delivery flow for onboarding and operating clie
   Auto-Doc Pipeline setups.
 content_type: reference
 product: both
-last_reviewed: '2026-03-12'
+last_reviewed: '2026-03-21'
 tags:
 - Operations
 - Client Onboarding
@@ -156,9 +156,26 @@ reports/docsops-weekly.log
 \11. Check `<client-repo>/docsops/config/client_runtime.yml` for correct client values.
 \11. Check `<client-repo>/docsops/policy_packs/selected.yml` for expected policy pack/overrides.
 \11. Check `<client-repo>/docsops/ENV_CHECKLIST.md` and align secrets with client.
+\11. Check `<client-repo>/docsops/license.jwt` exists and is valid: `python3 docsops/scripts/license_gate.py`.
 \11. Run one smoke weekly cycle and ensure `reports/consolidated_report.json` is refreshed.
 
-## 6. Plan packaging
+## 6. Licensing
+
+Every pipeline run validates the license locally using an Ed25519-signed JWT. No client data is ever sent to any server.
+
+- License file: `<client-repo>/docsops/license.jwt`
+- Public key: `<client-repo>/docsops/keys/veriops-licensing.pub`
+- Capability pack: `<client-repo>/docsops/.capability_pack.enc` (encrypted scoring weights)
+
+Plan tiers control feature access (Pilot, Professional, Enterprise). Without a valid license, the pipeline runs in community mode (degraded: lint-only, no scoring, no drift, REST only).
+
+Check license status: `python3 docsops/scripts/license_gate.py`.
+
+Dev/test bypass: `export VERIOPS_LICENSE_PLAN=enterprise`.
+
+Details: `docs/operations/PLAN_TIERS.md`, `docs/operations/OPERATOR_RUNBOOK.md`.
+
+## 7. Plan packaging
 
 - Basic: essential quality + gaps + stale.
 - Pro: adds drift/contract, KPI/SLA, RAG/knowledge, hybrid/API-first.
@@ -166,20 +183,20 @@ reports/docsops-weekly.log
 
 Details: `docs/operations/PLAN_TIERS.md`.
 
-## 7. What to say in sales calls
+## 8. What to say in sales calls
 
 \11. "You get one-time setup, then weekly documentation ops on autopilot."
 \11. "Your team stops doing doc plumbing and only reviews final output."
 \11. "Quality is controlled by policy packs and automated gates."
 \11. "RAG/knowledge is maintained automatically, so AI outputs stay grounded."
 
-## 8. Compatibility mode
+## 9. Compatibility mode
 
 If needed, run equivalent weekly flow via GitHub Actions cron (`weekly-consolidation.yml` and companion workflows). Recommended mode remains local scheduler automation in client repo.
 
-## 9. Deep references
+## 10. Deep references
 
-- `SETUP_FOR_PROJECTS.md`
+- `docs/operations/OPERATOR_RUNBOOK.md`
 - `docs/operations/CENTRALIZED_CLIENT_BUNDLES.md`
 - `docs/operations/UNIFIED_CLIENT_CONFIG.md`
 - `docs/operations/PLAN_TIERS.md`

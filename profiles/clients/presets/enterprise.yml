@@ -1,6 +1,9 @@
 preset: enterprise
 description: Strict quality and full automation for enterprise multi-product programs.
 overrides:
+  licensing:
+    plan: "enterprise"
+    days: 365
   bundle:
     base_policy_pack: "plg"
     style_guide: "hybrid"

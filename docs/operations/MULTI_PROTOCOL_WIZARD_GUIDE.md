@@ -78,6 +78,9 @@ RAG prep behavior:
 - retrieval index and knowledge graph are rebuilt in the same pipeline,
 - retrieval evals are executed and reported as evidence for quality controls.
 
+Licensing note: Multi-protocol support (GraphQL, gRPC, AsyncAPI, WebSocket) requires an Enterprise license. The wizard generates the appropriate `licensing.plan` in the profile. See `docs/operations/PLAN_TIERS.md` for the full feature matrix.
+
 ## Next steps
 
+- [Operator Runbook](OPERATOR_RUNBOOK.md) -- step-by-step retainer procedures
 - [Documentation index](../index.md)

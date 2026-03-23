@@ -19,6 +19,7 @@ if str(REPO_ROOT) not in sys.path:
     sys.path.insert(0, str(REPO_ROOT))
 
 from scripts.env_loader import load_local_env
+from scripts.license_gate import require as _license_require
 
 
 def _print_compact_output(output: str, *, max_lines: int = 28) -> None:
@@ -665,6 +666,9 @@ def main() -> int:
         help="Refresh regression snapshot during this run",
     )
     args = parser.parse_args()
+
+    # -- License gate: API-first flow requires professional+ plan --
+    _license_require("api_first_flow")
 
     repo = Path(__file__).resolve().parents[1]
     notes = (repo / args.notes).resolve()

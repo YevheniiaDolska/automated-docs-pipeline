@@ -19,6 +19,7 @@ if str(REPO_ROOT) not in sys.path:
 
 from scripts.env_loader import load_local_env
 from scripts.api_protocols import apply_realtime_sandbox_defaults, merge_protocol_settings, normalize_protocols
+from scripts.license_gate import require as _license_require, require_protocol as _license_require_protocol
 from scripts.multi_protocol_engine import ProtocolAdapter, StageResult
 
 
@@ -193,9 +194,17 @@ def main() -> int:
         runtime_path = (Path.cwd() / runtime_path).resolve()
     runtime = _read_yaml(runtime_path)
 
+    # -- License gate: multi-protocol requires enterprise plan --
+    _license_require("multi_protocol_pipeline")
+
     runtime_protocols = runtime.get("api_protocols", ["rest"])
     requested_protocols = args.protocols if args.protocols else runtime_protocols
     protocols = normalize_protocols(requested_protocols)
+
+    # -- License gate: check each requested protocol --
+    for proto in protocols:
+        if proto != "rest":
+            _license_require_protocol(proto)
 
     governance = runtime.get("api_governance", {})
     strictness = args.strictness or str(governance.get("strictness", "standard")).strip().lower() or "standard"

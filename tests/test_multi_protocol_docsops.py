@@ -62,6 +62,9 @@ def test_build_runtime_config_contains_protocol_settings() -> None:
 def test_multi_protocol_contract_flow_runs_graphql(tmp_path: Path, monkeypatch) -> None:
     from scripts import run_multi_protocol_contract_flow as mod
 
+    monkeypatch.setattr(mod, "_license_require", lambda f: None)
+    monkeypatch.setattr(mod, "_license_require_protocol", lambda p: None)
+
     schema = tmp_path / "schema.graphql"
     schema.write_text("type Query { health: String! }\n", encoding="utf-8")
 
@@ -73,6 +76,8 @@ def test_multi_protocol_contract_flow_runs_graphql(tmp_path: Path, monkeypatch) 
                 "schema_path": str(schema),
                 "generate_test_assets": False,
                 "upload_test_assets": False,
+                "self_verify_runtime": False,
+                "publish_requires_live_green": False,
             }
         },
     }

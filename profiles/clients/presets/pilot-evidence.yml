@@ -1,6 +1,9 @@
 preset: pilot-evidence
 description: Proof-focused pilot preset that demonstrates end-to-end docs ops value in one week.
 overrides:
+  licensing:
+    plan: "pilot"
+    days: 30
   bundle:
     base_policy_pack: "minimal"
     style_guide: "google"

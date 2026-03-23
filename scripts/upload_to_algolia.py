@@ -1,10 +1,15 @@
 #!/usr/bin/env python3
-"""Upload SEO-optimized records to Algolia."""
+"""Upload SEO-optimized records to Algolia.
+
+Uses the Algolia REST API directly (no SDK dependency) so the script
+works with any Python 3.8+ installation.
+"""
 
 import argparse
 import json
 import os
 import sys
+import urllib.request
 from pathlib import Path
 
 
@@ -38,11 +43,22 @@ def parse_args() -> argparse.Namespace:
     return parser.parse_args()
 
 
+def _algolia_request(app_id: str, api_key: str, method: str, path: str, body=None):
+    """Send a request to the Algolia REST API."""
+    url = f"https://{app_id}-dsn.algolia.net{path}"
+    data = json.dumps(body).encode("utf-8") if body else None
+    req = urllib.request.Request(url, data=data, method=method)
+    req.add_header("X-Algolia-Application-Id", app_id)
+    req.add_header("X-Algolia-API-Key", api_key)
+    req.add_header("Content-Type", "application/json")
+    with urllib.request.urlopen(req, timeout=30) as resp:
+        return json.loads(resp.read())
+
+
 def main():
-    """Upload records to Algolia if available."""
+    """Upload records to Algolia."""
     args = parse_args()
 
-    # Check for required environment variables
     app_id = os.environ.get(args.app_id_env)
     api_key = os.environ.get(args.api_key_env)
     index_name = os.environ.get(args.index_name_env, args.index_name_default)
@@ -51,42 +67,53 @@ def main():
         print("Algolia credentials not found, skipping upload")
         return 0
 
-    # Check for records file
     records_file = Path(args.records_file)
     if not records_file.exists():
         print(f"No Algolia records file found: {records_file}")
         return 0
 
-    # Import Algolia client (may not be installed)
-    try:
-        from algoliasearch.search_client import SearchClient
-    except ImportError:
-        print("Algolia client not installed, skipping upload")
-        return 0
-
-    # Load records
-    with records_file.open('r', encoding='utf-8') as f:
+    with records_file.open("r", encoding="utf-8") as f:
         data = json.load(f)
-        records = data.get('records', [])
-        config = data.get('config', {})
+
+    if isinstance(data, dict):
+        records = data.get("records", [])
+        config = data.get("config", {})
+    elif isinstance(data, list):
+        records = data
+        config = {}
+    else:
+        print(f"Unsupported payload format in {records_file}")
+        return 1
 
     if not records:
         print("No records to upload")
         return 0
 
-    # Initialize client and upload
-    client = SearchClient.create(app_id, api_key)
-    index = client.init_index(index_name)
+    base = f"/1/indexes/{index_name}"
 
-    # Update settings
+    # Update index settings
     if config:
-        index.set_settings(config)
+        result = _algolia_request(app_id, api_key, "PUT", f"{base}/settings", config)
+        print(f"Index settings updated (taskID={result.get('taskID')})")
 
-    # Clear and upload records
-    index.clear_objects()
-    response = index.save_objects(records)
+    # Clear existing records
+    result = _algolia_request(app_id, api_key, "POST", f"{base}/clear", {})
+    print(f"Index cleared (taskID={result.get('taskID')})")
 
-    print(f"Uploaded {len(records)} records to Algolia index '{index_name}'")
+    # Upload records in batches
+    batch_size = 1000
+    total = 0
+    for i in range(0, len(records), batch_size):
+        batch = records[i : i + batch_size]
+        body = {"requests": [{"action": "addObject", "body": r} for r in batch]}
+        result = _algolia_request(app_id, api_key, "POST", f"{base}/batch", body)
+        total += len(batch)
+        print(
+            f"Batch {i // batch_size + 1}: "
+            f"{len(batch)} records (taskID={result.get('taskID')})"
+        )
+
+    print(f"Uploaded {total} records to Algolia index '{index_name}'")
     return 0
 
 

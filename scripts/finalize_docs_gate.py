@@ -22,6 +22,8 @@ from typing import Any
 
 import yaml
 
+from scripts.license_gate import check as _license_check, get_license
+
 
 @dataclass
 class CommandResult:
@@ -94,9 +96,8 @@ def _read_yaml(path: Path) -> dict[str, Any]:
 
 def _run(command: str, cwd: Path) -> CommandResult:
     completed = subprocess.run(
-        command,
+        shlex.split(command),
         cwd=str(cwd),
-        shell=True,
         check=False,
         text=True,
         capture_output=True,
@@ -230,6 +231,11 @@ def main() -> int:
 
     history: list[dict[str, Any]] = []
     success = False
+
+    # -- License gate: scoring/auto-fix requires seo_geo_scoring feature --
+    lic = get_license()
+    if not _license_check("seo_geo_scoring", lic):
+        print("[finalize] License: SEO/GEO scoring disabled. Running lint-only (no auto-fix scoring).")
 
     print("[finalize] Step 7A: Finalize Gate started.")
     print("[finalize] Step 7A.1: Run lint and quality checks.")

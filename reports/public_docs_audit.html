@@ -22,32 +22,30 @@
   <div class="wrap">
     <div class="hero">
       <h1>Public Documentation Audit</h1>
-      <p class="sub">Sites: 1 | topology: single-product</p>
-      <p class="sub">Generated: 2026-03-20T15:25:42.125913+00:00</p>
+      <p class="sub">Sites: 3 | topology: single-product</p>
+      <p class="sub">Generated: 2026-03-21T11:41:41.122080+00:00</p>
       <div class="grid">
-        <div class="card"><div class="label">Pages crawled</div><div class="value">10</div></div>
-        <div class="card"><div class="label">Broken internal links</div><div class="value">23</div></div>
-        <div class="card"><div class="label">SEO/GEO issue rate</div><div class="value">5.0%</div></div>
+        <div class="card"><div class="label">Pages crawled</div><div class="value">3566</div></div>
+        <div class="card"><div class="label">Broken internal links</div><div class="value">17110</div></div>
+        <div class="card"><div class="label">SEO/GEO issue rate</div><div class="value">16.63%</div></div>
         <div class="card"><div class="label">API reference coverage</div><div class="value">-1.0%</div></div>
         <div class="card"><div class="label">Example reliability (estimate)</div><div class="value">0.0%</div></div>
-        <div class="card"><div class="label">Last-updated coverage</div><div class="value">0.0%</div></div>
+        <div class="card"><div class="label">Last-updated coverage</div><div class="value">5.08%</div></div>
       </div>
     </div>
     <div class="section">
       <h2>Top Findings</h2>
       <ul>
-        <li>Broken internal links: 23</li><li>No API reference pages found in crawled sample (increase max_pages or verify site has /api/ or /reference/ paths)</li><li>Example reliability estimate is low: 0.0%</li><li>Freshness visibility is weak: only 0.0% pages show last updated</li>
+        <li>Broken internal links: 17110</li><li>SEO/GEO issue rate is high: 16.63%</li><li>No API reference pages found in crawled sample (increase max_pages or verify site has /api/ or /reference/ paths)</li><li>Example reliability estimate is low: 0.0%</li><li>Freshness visibility is weak: only 5.08% pages show last updated</li><li>Documentation is split across multiple sites for one product; this is likely a discoverability/consistency risk.</li>
       </ul>
     </div>
     <div class="section">
       <h2>Per-site Summary</h2>
       <ul>
-        <li><strong>https://docs.n8n.io/</strong>: pages=10, broken_links=23, api_coverage=-1.0%, examples=0.0%</li>
+        <li><strong>https://n8n-docs.teamlab.info/code/builtin/overview</strong>: pages=1129, broken_links=2710, api_coverage=-1.0%, examples=0.0%</li><li><strong>https://docs.n8n.io/</strong>: pages=1197, broken_links=2140, api_coverage=-1.0%, examples=0.0%</li><li><strong>https://github.com/n8n-io/n8n-docs</strong>: pages=1240, broken_links=12260, api_coverage=-1.0%, examples=0.0%</li>
       </ul>
     </div>
-    <div class="section"><h2>LLM Executive Analysis (Claude Sonnet)</h2><p>Status: failed. LLM returned non-JSON content: ```json
-{
-  &quot;executive_summary&quot;: &quot;Documentation audit of n8n.io covered 10 of 1,287 requested pages due to crawl limits, representing less than 1% sample coverage. Critical infrastructure issues identified: 23 broken internal links across sampled pages, 0% of pages display last-updated timestamps, a</p></div>
+    <div class="section"><h2>LLM Executive Analysis (Claude Sonnet)</h2><p>Audit crawled 3,566 pages from 3 documentation sites for a single product. Critical infrastructure issues identified: 17,110 broken internal links creating severe navigation failures. SEO and geo-targeting problems affect 16.63% of pages. Zero API reference pages detected in sample, indicating missing or inaccessible technical documentation. Only 5.08% of pages display freshness metadata, obscuring content currency for users.</p><h3>Strengths</h3><ul><li>Large documentation corpus with 3,566 pages crawled indicates substantial content investment</li><li>Multi-site presence suggests community and official documentation efforts</li><li>Topology identified as single-product focus enables coherent user journey design</li></ul><h3>Risks</h3><ul><li>17,110 broken internal links represent catastrophic navigation failure and user abandonment risk</li><li>No API reference pages found threatens developer adoption and integration success</li><li>16.63% SEO/geo issue rate damages discoverability and organic search performance</li><li>5.08% freshness coverage prevents users from assessing content reliability and currency</li><li>0.0% example reliability estimate indicates code samples may be untested or non-functional</li><li>Multi-site documentation architecture for single product creates fragmentation and version confusion</li><li>Crawl reached only 3,566 of 30,964 requested pages, suggesting deep structural or performance issues</li></ul><h3>Prioritized actions</h3><ul><li>{&#x27;action&#x27;: &#x27;Execute broken link remediation campaign: audit all 17,110 broken links, fix or redirect top 500 by traffic impact within 30 days&#x27;, &#x27;impact&#x27;: &#x27;critical&#x27;, &#x27;effort&#x27;: &#x27;high&#x27;}</li><li>{&#x27;action&#x27;: &#x27;Locate or create API reference documentation; if exists, fix discoverability and crawlability; if missing, prioritize creation&#x27;, &#x27;impact&#x27;: &#x27;critical&#x27;, &#x27;effort&#x27;: &#x27;high&#x27;}</li><li>{&#x27;action&#x27;: &#x27;Consolidate multi-site documentation into single authoritative domain with clear versioning and redirect strategy&#x27;, &#x27;impact&#x27;: &#x27;high&#x27;, &#x27;effort&#x27;: &#x27;high&#x27;}</li><li>{&#x27;action&#x27;: &#x27;Implement automated last-updated timestamps on all pages and establish content review SLA&#x27;, &#x27;impact&#x27;: &#x27;medium&#x27;, &#x27;effort&#x27;: &#x27;low&#x27;}</li><li>{&#x27;action&#x27;: &#x27;Resolve SEO/geo issues on affected 16.63% of pages: audit meta tags, hreflang, and indexing directives&#x27;, &#x27;impact&#x27;: &#x27;medium&#x27;, &#x27;effort&#x27;: &#x27;medium&#x27;}</li></ul></div>
   </div>
 </body>
 </html>

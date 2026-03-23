@@ -52,6 +52,13 @@ class TestBuildClientBundle:
         (repo / "scripts").mkdir()
         (repo / "scripts" / "gap_detector.py").write_text("print('ok')\n", encoding="utf-8")
         (repo / "scripts" / "auto_fix_pr_docs.py").write_text("print('ok')\n", encoding="utf-8")
+        (repo / "scripts" / "finalize_docs_gate.py").write_text("print('ok')\n", encoding="utf-8")
+        (repo / "scripts" / "license_gate.py").write_text("print('ok')\n", encoding="utf-8")
+        (repo / "scripts" / "pack_runtime.py").write_text("print('ok')\n", encoding="utf-8")
+        (repo / "scripts" / "check_updates.py").write_text("print('ok')\n", encoding="utf-8")
+        (repo / "scripts" / "rollback.py").write_text("print('ok')\n", encoding="utf-8")
+        (repo / "docsops" / "keys").mkdir(parents=True)
+        (repo / "docsops" / "keys" / "veriops-licensing.pub").write_text("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=\n", encoding="utf-8")
         (repo / "docs").mkdir()
         (repo / "docs" / "operations").mkdir(parents=True)
         (repo / "docs" / "operations" / "UNIFIED_CLIENT_CONFIG.md").write_text("x\n", encoding="utf-8")
@@ -129,6 +136,76 @@ class TestBuildClientBundle:
         assert (out / "ops" / "run_weekly_docsops.sh").exists()
         assert "DocsOps Managed Local Workflow" in (out / "AGENTS.md").read_text(encoding="utf-8")
         assert "BasedOnStyles = Google, Microsoft" in (out / ".vale.ini").read_text(encoding="utf-8")
+        # Licensing infrastructure
+        assert (out / "scripts" / "license_gate.py").exists()
+        assert (out / "scripts" / "pack_runtime.py").exists()
+        assert (out / "scripts" / "check_updates.py").exists()
+        assert (out / "scripts" / "rollback.py").exists()
+        assert (out / "docsops" / "keys" / "veriops-licensing.pub").exists()
+        assert (out / "docsops" / "license.jwt").exists()
+        bundle_info = yaml.safe_load((out / "BUNDLE_INFO.yml").read_text(encoding="utf-8"))
+        assert "licensing" in bundle_info
+        assert bundle_info["licensing"]["public_key"] == "docsops/keys/veriops-licensing.pub"
+        env_template = (out / ".env.docsops.local.template").read_text(encoding="utf-8")
+        assert "VERIOPS_LICENSE_KEY" in env_template
+        assert "VERIOPS_LICENSE_PLAN" in env_template
+
+    def test_licensing_auto_generates_jwt_with_private_key(self, tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:
+        """When Ed25519 private key exists, JWT is auto-generated in the bundle."""
+        from scripts import build_client_bundle as mod
+
+        repo = tmp_path / "repo"
+        repo.mkdir()
+        monkeypatch.setattr(mod, "REPO_ROOT", repo)
+
+        # Minimal repo structure
+        (repo / "policy_packs").mkdir()
+        (repo / "policy_packs" / "minimal.yml").write_text("docs_contract: {}\n", encoding="utf-8")
+        (repo / "scripts").mkdir()
+        for s in ["finalize_docs_gate.py", "license_gate.py", "pack_runtime.py", "check_updates.py", "rollback.py"]:
+            (repo / "scripts" / s).write_text("print('ok')\n", encoding="utf-8")
+        (repo / "templates" / "legal").mkdir(parents=True)
+        (repo / "templates" / "legal" / "LICENSE-COMMERCIAL.template.md").write_text("{{COMPANY_NAME}}\n", encoding="utf-8")
+        (repo / "templates" / "legal" / "NOTICE.template.md").write_text("{{COMPANY_NAME}}\n", encoding="utf-8")
+        (repo / "AGENTS.md").write_text("x\n", encoding="utf-8")
+        (repo / "CLAUDE.md").write_text("x\n", encoding="utf-8")
+
+        # Generate a real keypair
+        import base64
+        build_dir = str(ROOT / "build")
+        if build_dir not in sys.path:
+            sys.path.insert(0, build_dir)
+        try:
+            from generate_license import _generate_ed25519_keypair
+        except ImportError:
+            pytest.skip("No Ed25519 library available")
+
+        priv_key, pub_key = _generate_ed25519_keypair()
+        keys_dir = repo / "docsops" / "keys"
+        keys_dir.mkdir(parents=True)
+        (keys_dir / "veriops-licensing.key").write_bytes(base64.b64encode(priv_key))
+        (keys_dir / "veriops-licensing.pub").write_bytes(base64.b64encode(pub_key))
+
+        profile = {
+            "client": {"id": "testcorp", "company_name": "Test Corp"},
+            "licensing": {"plan": "enterprise", "days": 90},
+            "bundle": {"output_dir": "out"},
+        }
+        profile_path = repo / "profile.yml"
+        profile_path.write_text(yaml.safe_dump(profile, sort_keys=False), encoding="utf-8")
+
+        out = mod.create_bundle(profile_path)
+
+        jwt_file = out / "docsops" / "license.jwt"
+        assert jwt_file.exists()
+        jwt_text = jwt_file.read_text(encoding="utf-8").strip()
+        # A real JWT has 3 dot-separated parts
+        assert jwt_text.count(".") == 2, f"Expected JWT format, got: {jwt_text[:80]}"
+        # Verify it validates
+        from scripts.license_gate import _parse_jwt_parts
+        _, claims, _ = _parse_jwt_parts(jwt_text)
+        assert claims["sub"] == "testcorp"
+        assert claims["plan"] == "enterprise"
 
     def test_build_vale_invalid_style(self, tmp_path: Path) -> None:
         from scripts import build_client_bundle as mod
@@ -428,6 +505,163 @@ class TestProvisionClientRepo:
 
         out = mod.install_pr_autofix_workflow(repo, "docsops")
         assert out is None
+
+
+class TestAlgoliaWidgetGenerator:
+    def test_generate_widget_mkdocs(self, tmp_path: Path) -> None:
+        from scripts.generate_algolia_widget import generate_widget
+
+        created = generate_widget("mkdocs", "APP123", "KEY456", "my_index", tmp_path)
+        assert "docs/assets/javascripts/algolia-search.js" in created
+        assert "docs/stylesheets/algolia-search.css" in created
+        assert "docs/_algolia_mkdocs_patch.yml" in created
+        patch = (tmp_path / "docs/_algolia_mkdocs_patch.yml").read_text(encoding="utf-8")
+        assert "APP123" in patch
+        assert "KEY456" in patch
+        assert "my_index" in patch
+
+    def test_generate_widget_docusaurus(self, tmp_path: Path) -> None:
+        from scripts.generate_algolia_widget import generate_widget
+
+        created = generate_widget("docusaurus", "APP123", "KEY456", "my_index", tmp_path)
+        assert "_algolia_docusaurus_patch.js" in created
+        text = (tmp_path / "_algolia_docusaurus_patch.js").read_text(encoding="utf-8")
+        assert "APP123" in text
+        assert "@docusaurus/theme-search-algolia" in text
+
+    def test_generate_widget_hugo(self, tmp_path: Path) -> None:
+        from scripts.generate_algolia_widget import generate_widget
+
+        created = generate_widget("hugo", "APP123", "KEY456", "my_index", tmp_path)
+        assert "_algolia_hugo_patch.toml" in created
+        assert "layouts/partials/algolia-search.html" in created
+        html = (tmp_path / "layouts/partials/algolia-search.html").read_text(encoding="utf-8")
+        assert "APP123" in html
+        assert "instantsearch" in html
+
+    def test_generate_widget_vitepress(self, tmp_path: Path) -> None:
+        from scripts.generate_algolia_widget import generate_widget
+
+        created = generate_widget("vitepress", "APP123", "KEY456", "my_index", tmp_path)
+        assert "_algolia_vitepress_patch.mts" in created
+        text = (tmp_path / "_algolia_vitepress_patch.mts").read_text(encoding="utf-8")
+        assert "provider: 'algolia'" in text
+        assert "APP123" in text
+
+    def test_generate_widget_custom(self, tmp_path: Path) -> None:
+        from scripts.generate_algolia_widget import generate_widget
+
+        created = generate_widget("custom", "APP123", "KEY456", "my_index", tmp_path)
+        assert "algolia-search-widget.html" in created
+        assert "algolia-search.css" in created
+        html = (tmp_path / "algolia-search-widget.html").read_text(encoding="utf-8")
+        assert "APP123" in html
+        assert "algolia-search-overlay" in html
+
+    def test_generate_widget_unknown_generator(self, tmp_path: Path) -> None:
+        from scripts.generate_algolia_widget import generate_widget
+
+        with pytest.raises(ValueError, match="Unknown generator"):
+            generate_widget("unknown", "APP123", "KEY456", "my_index", tmp_path)
+
+    def test_supported_generators_list(self) -> None:
+        from scripts.generate_algolia_widget import GENERATORS
+
+        assert set(GENERATORS.keys()) == {"mkdocs", "docusaurus", "hugo", "vitepress", "custom"}
+
+
+class TestApplyAlgoliaWidget:
+    def test_algolia_widget_creates_setup_script(self, tmp_path: Path) -> None:
+        from scripts import provision_client_repo as mod
+
+        repo = tmp_path / "repo"
+        scripts_dir = repo / "docsops" / "scripts"
+        scripts_dir.mkdir(parents=True)
+        (scripts_dir / "generate_algolia_widget.py").write_text("# placeholder", encoding="utf-8")
+
+        runtime = {
+            "paths": {"docs_root": "docs"},
+            "integrations": {
+                "algolia": {
+                    "enabled": True,
+                    "site_generator": "docusaurus",
+                    "generate_search_widget": True,
+                    "app_id_env": "ALGOLIA_APP_ID",
+                    "api_key_env": "ALGOLIA_API_KEY",
+                    "index_name_env": "ALGOLIA_INDEX_NAME",
+                    "index_name_default": "docs",
+                },
+            },
+        }
+        mod._apply_algolia_widget(repo, "docsops", runtime)
+
+        helper = scripts_dir / "setup_algolia_widget.sh"
+        assert helper.exists()
+        text = helper.read_text(encoding="utf-8")
+        assert "docusaurus" in text
+        assert "ALGOLIA_APP_ID" in text
+        assert "generate_algolia_widget.py" in text
+
+    def test_algolia_widget_skips_when_disabled(self, tmp_path: Path) -> None:
+        from scripts import provision_client_repo as mod
+
+        repo = tmp_path / "repo"
+        scripts_dir = repo / "docsops" / "scripts"
+        scripts_dir.mkdir(parents=True)
+
+        runtime = {
+            "integrations": {
+                "algolia": {"enabled": False},
+            },
+        }
+        mod._apply_algolia_widget(repo, "docsops", runtime)
+
+        helper = scripts_dir / "setup_algolia_widget.sh"
+        assert not helper.exists()
+
+    def test_algolia_widget_skips_when_no_script(self, tmp_path: Path) -> None:
+        from scripts import provision_client_repo as mod
+
+        repo = tmp_path / "repo"
+        (repo / "docsops" / "scripts").mkdir(parents=True)
+
+        runtime = {
+            "integrations": {
+                "algolia": {
+                    "enabled": True,
+                    "generate_search_widget": True,
+                    "site_generator": "mkdocs",
+                },
+            },
+        }
+        mod._apply_algolia_widget(repo, "docsops", runtime)
+        assert not (repo / "docsops" / "scripts" / "setup_algolia_widget.sh").exists()
+
+    def test_env_checklist_includes_algolia_widget_info(self, tmp_path: Path) -> None:
+        from scripts import provision_client_repo as mod
+
+        repo = tmp_path / "repo"
+        (repo / "docsops" / "config").mkdir(parents=True)
+        (repo / "docsops" / "config" / "client_runtime.yml").write_text(
+            yaml.safe_dump(
+                {
+                    "integrations": {
+                        "algolia": {
+                            "enabled": True,
+                            "site_generator": "hugo",
+                        },
+                        "ask_ai": {"enabled": False},
+                    },
+                },
+                sort_keys=False,
+            ),
+            encoding="utf-8",
+        )
+        out = mod.generate_env_checklist(repo, "docsops")
+        assert out is not None
+        text = out.read_text(encoding="utf-8")
+        assert "hugo" in text
+        assert "setup_algolia_widget.sh" in text
 
 
 class TestWeeklyBatch:
@@ -978,6 +1212,8 @@ class TestRunApiFirstFlow:
     def test_main_success_with_remediation(self, tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:
         from scripts import run_api_first_flow as mod
 
+        monkeypatch.setattr(mod, "_license_require", lambda f: None)
+
         repo = tmp_path
         scripts_dir = repo / "scripts"
         scripts_dir.mkdir()
@@ -997,6 +1233,7 @@ class TestRunApiFirstFlow:
         monkeypatch.setattr(mod.shutil, "copy2", lambda *a, **k: None)
         monkeypatch.setattr(mod, "self_verify_stub_coverage", lambda *a, **k: None)
         monkeypatch.setattr(mod, "build_sandbox_page_url", lambda *a, **k: "/reference/taskstream-api-playground/")
+        monkeypatch.setattr(mod, "bundle_openapi_spec", lambda *a, **k: None)
 
         def fake_attempt(*args, **kwargs):  # type: ignore[no-untyped-def]
             attempts["n"] += 1
@@ -1029,6 +1266,8 @@ class TestRunApiFirstFlow:
     def test_main_fail_exit(self, tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:
         from scripts import run_api_first_flow as mod
 
+        monkeypatch.setattr(mod, "_license_require", lambda f: None)
+
         repo = tmp_path
         scripts_dir = repo / "scripts"
         scripts_dir.mkdir()
@@ -1059,6 +1298,8 @@ class TestRunApiFirstFlow:
 
     def test_main_forwards_overrides_and_openapi_version(self, tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:
         from scripts import run_api_first_flow as mod
+
+        monkeypatch.setattr(mod, "_license_require", lambda f: None)
 
         repo = tmp_path
         scripts_dir = repo / "scripts"

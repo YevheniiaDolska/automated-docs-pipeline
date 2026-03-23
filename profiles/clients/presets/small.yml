@@ -1,6 +1,9 @@
 preset: small
 description: Minimal onboarding for small teams and one-repo docs.
 overrides:
+  licensing:
+    plan: "pilot"
+    days: 90
   bundle:
     base_policy_pack: "minimal"
     style_guide: "google"

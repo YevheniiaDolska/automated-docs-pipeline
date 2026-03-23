@@ -16,6 +16,12 @@ OPENAPI_PATTERNS = (
     r"openapi.*\.(ya?ml|json)$",
     r"swagger.*\.(ya?ml|json)$",
     r"api-spec.*\.(ya?ml|json)$",
+    # Multi-protocol contracts: gRPC, GraphQL, AsyncAPI, WebSocket
+    r"\.proto$",
+    r"\.graphql$",
+    r"\.gql$",
+    r"asyncapi.*\.(ya?ml|json)$",
+    r"channels.*\.(ya?ml|json)$",
 )
 
 SDK_PATTERNS = (
@@ -132,6 +138,13 @@ def _render_markdown(report: DriftReport) -> str:
 
 
 def main() -> int:
+    # -- License gate: drift detection requires professional+ plan --
+    try:
+        from scripts.license_gate import require
+        require("drift_detection")
+    except ImportError:
+        pass
+
     parser = argparse.ArgumentParser(description="Check API/SDK drift versus reference docs")
     parser.add_argument("--base", required=True, help="Base commit/branch")
     parser.add_argument("--head", required=True, help="Head commit/branch")

@@ -1,0 +1,104 @@
+# VeriOps Protected Modules Manifest
+# Defines which modules are compiled to .so/.pyd (Tier A)
+# vs distributed as readable Python (Tier B).
+
+format_version: 1
+
+# Tier A: Compiled to .so/.pyd via Cython
+# Contains proprietary scoring intelligence
+tier_a:
+  - module: license_gate
+    source: scripts/license_gate.py
+    contains: JWT validation, feature gating, plan tiers
+
+  - module: pack_runtime
+    source: scripts/pack_runtime.py
+    contains: Pack decryption, HKDF, AES-GCM, caching
+
+  - module: _scoring_engine
+    source: scripts/_scoring_engine.py
+    extracted_from: scripts/generate_kpi_wall.py
+    contains: Quality score formula, KPI weights
+
+  - module: _seo_geo_engine
+    source: scripts/_seo_geo_engine.py
+    extracted_from: scripts/seo_geo_optimizer.py
+    contains: 24-check scoring engine, locale rules
+
+  - module: _priority_ranker
+    source: scripts/_priority_ranker.py
+    extracted_from: scripts/consolidate_reports.py
+    contains: Gap priority weights, tier classification
+
+  - module: _audit_scorer
+    source: scripts/_audit_scorer.py
+    extracted_from: scripts/generate_audit_scorecard.py
+    contains: 7-pillar formula, financial model
+
+  - module: _smart_merge
+    source: scripts/_smart_merge.py
+    extracted_from: scripts/generate_protocol_test_assets.py
+    contains: Signature-based test asset merge
+
+  - module: _retrieval_core
+    source: scripts/_retrieval_core.py
+    extracted_from: runtime/ask-ai-pack/app/retrieval.py
+    contains: HyDE, RRF fusion, cross-encoder
+
+  - module: _executive_pdf
+    source: scripts/_executive_pdf.py
+    extracted_from: scripts/generate_executive_audit_pdf.py
+    contains: Gauge rendering, branded PDF layout
+
+  - module: _protocol_quality
+    source: scripts/_protocol_quality.py
+    extracted_from: scripts/run_protocol_docs_quality_suite.py
+    contains: Cross-protocol quality gate logic
+
+# Tier B: Readable Python (utilities, client debugging)
+# Not compiled -- distributed as .py source
+tier_b:
+  - scripts/validate_frontmatter.py
+  - scripts/validate_openapi_contract.py
+  - scripts/validate_graphql_contract.py
+  - scripts/validate_proto_contract.py
+  - scripts/validate_asyncapi_contract.py
+  - scripts/validate_websocket_contract.py
+  - scripts/normalize_docs.py
+  - scripts/sync_project_glossary.py
+  - scripts/lifecycle_manager.py
+  - scripts/i18n_utils.py
+  - scripts/i18n_sync.py
+  - scripts/i18n_translate.py
+  - scripts/i18n_migrate.py
+  - scripts/api_protocols.py
+  - scripts/env_loader.py
+  - scripts/new_doc.py
+  - scripts/preprocess_variables.py
+
+# Tier C: Server-only (never distributed)
+tier_c:
+  - build/generate_license.py
+  - build/generate_pack.py
+  - build/compile_protected.py
+  - scripts/build_client_bundle.py
+  - scripts/provision_client_repo.py
+  - scripts/generate_sales_cheatsheet_pdf.py
+  - scripts/generate_public_docs_audit.py
+  - profiles/
+
+# Build settings
+compilation:
+  cython_flags:
+    embedsignature: false
+    binding: false
+  strip_debug: true
+  platforms:
+    - linux-x86_64
+    - macos-arm64
+    - macos-x86_64
+    - windows-x64
+  python_versions:
+    - "3.11"
+    - "3.12"
+    - "3.13"

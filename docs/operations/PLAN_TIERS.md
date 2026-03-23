@@ -4,7 +4,7 @@ description: Feature packaging matrix and defaults for Basic, Pro, and Enterpris
   client plans.
 content_type: reference
 product: both
-last_reviewed: '2026-03-11'
+last_reviewed: '2026-03-21'
 tags:
 - Operations
 - Pricing
@@ -277,11 +277,51 @@ python3 scripts/provision_client_repo.py \
   --install-scheduler linux
 ```
 
-## 4. Plan upgrade path
+## 4. License enforcement
 
-- `Basic -> Pro`: turn on `drift_detection`, `docs_contract`, `kpi_sla`, `rag_optimization`, `knowledge_validation`, set `api_first.enabled=true`.
-- `Pro -> Enterprise`: enable `verify_user_path`, `run_docs_lint`, stricter `policy_overrides.kpi_sla`, add full weekly custom tasks.
+Plan tiers are enforced at runtime by `scripts/license_gate.py`. Every gated script calls `license_gate.require("feature_name")` before executing protected logic. The license is validated offline using an Ed25519-signed JWT stored at `docsops/license.jwt`.
+
+Without a valid license, the pipeline runs in **community mode** (degraded):
+
+- Markdown lint, frontmatter validation, SEO/GEO report-only, gap detection code-only, glossary sync, lifecycle management, REST protocol.
+- No scoring, no auto-fix, no drift detection, no KPI/SLA, no PDF reports, no multi-protocol.
+- Quality gates warn-only (never block).
+
+License features per plan:
+
+| Feature gate | Pilot | Professional | Enterprise |
+| --- | --- | --- | --- |
+| `seo_geo_scoring` | No | Yes | Yes |
+| `api_first_flow` | No | Yes | Yes |
+| `drift_detection` | No | Yes | Yes |
+| `kpi_wall_sla` | No | Yes | Yes |
+| `test_assets_generation` | No | Yes | Yes |
+| `consolidated_reports` | No | Yes | Yes |
+| `multi_protocol_pipeline` | No | No | Yes |
+| `knowledge_modules` | No | No | Yes |
+| `knowledge_graph` | No | No | Yes |
+| `faiss_retrieval` | No | No | Yes |
+| `executive_audit_pdf` | No | No | Yes |
+| `i18n_system` | No | No | Yes |
+| `custom_policy_packs` | No | No | Yes |
+| `testrail_zephyr_upload` | No | No | Yes |
+
+Protocols per plan: Pilot and Professional allow REST only. Enterprise allows all 5 protocols.
+
+Offline grace period: Pilot 3 days, Professional 7 days, Enterprise 30 days.
+
+Check license status: `python3 docsops/scripts/license_gate.py`.
+
+Dev/test bypass: `export VERIOPS_LICENSE_PLAN=enterprise`.
+
+## 5. Plan upgrade path
+
+- `Basic -> Pro`: turn on `drift_detection`, `docs_contract`, `kpi_sla`, `rag_optimization`, `knowledge_validation`, set `api_first.enabled=true`. Update `licensing.plan` to `professional`.
+- `Pro -> Enterprise`: enable `verify_user_path`, `run_docs_lint`, stricter `policy_overrides.kpi_sla`, add full weekly custom tasks. Update `licensing.plan` to `enterprise`.
+
+After any plan change, rebuild the bundle and re-provision.
 
 ## Next steps
 
+- [Operator Runbook](OPERATOR_RUNBOOK.md) -- step-by-step retainer procedures
 - [Documentation index](../index.md)

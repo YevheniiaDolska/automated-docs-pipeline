@@ -1,0 +1,159 @@
+# VeriOps Capability Pack Schema v1
+# Defines the structure of decrypted pack JSON payload.
+
+type: object
+required:
+  - plan
+  - version
+  - created_at
+  - expires_at
+  - sections
+
+properties:
+  plan:
+    type: string
+    enum: [pilot, professional, enterprise]
+    description: Plan tier this pack was built for.
+
+  version:
+    type: string
+    pattern: "^\\d+\\.\\d+\\.\\d+$"
+    description: Pack format version (semver).
+
+  created_at:
+    type: number
+    description: Unix timestamp when the pack was built.
+
+  expires_at:
+    type: number
+    description: Unix timestamp when the pack expires.
+
+  sections:
+    type: object
+    required:
+      - scoring
+      - priority
+      - prompts
+      - policies
+
+    properties:
+      scoring:
+        type: object
+        description: Proprietary scoring weights and thresholds.
+        properties:
+          geo_rules:
+            type: object
+            description: GEO optimization thresholds (8 checks).
+            properties:
+              first_para_max_words:
+                type: integer
+              max_words_without_fact:
+                type: integer
+              meta_desc_min_chars:
+                type: integer
+              meta_desc_max_chars:
+                type: integer
+              min_heading_words:
+                type: integer
+              generic_headings:
+                type: array
+                items:
+                  type: string
+              definition_patterns:
+                type: array
+                items:
+                  type: string
+              fact_patterns:
+                type: array
+                items:
+                  type: string
+
+          geo_rules_by_locale:
+            type: object
+            description: Per-locale GEO rule overrides.
+            additionalProperties:
+              type: object
+
+          kpi_weights:
+            type: object
+            description: Quality score formula weights.
+            properties:
+              metadata_weight:
+                type: number
+              stale_weight:
+                type: number
+              gap_weight_per_item:
+                type: number
+              gap_weight_max:
+                type: number
+
+          audit_weights:
+            type: object
+            description: 7-pillar audit scorecard weights.
+            properties:
+              content_quality:
+                type: number
+              technical_accuracy:
+                type: number
+              seo_optimization:
+                type: number
+              structure_navigation:
+                type: number
+              completeness:
+                type: number
+              accessibility:
+                type: number
+              freshness:
+                type: number
+
+          sla_thresholds:
+            type: object
+            description: SLA breach detection thresholds.
+
+      priority:
+        type: object
+        description: Tier classification for action item prioritization.
+        properties:
+          tier1_categories:
+            type: array
+            items:
+              type: string
+          tier1_sources:
+            type: array
+            items:
+              type: string
+          tier2_categories:
+            type: array
+            items:
+              type: string
+          stale_doc_threshold_days:
+            type: integer
+
+      prompts:
+        type: object
+        description: Prompt templates for doc generation quality.
+        additionalProperties:
+          type: string
+
+      policies:
+        type: object
+        description: Policy rule sets for quality gates and drift.
+        properties:
+          drift_severity:
+            type: object
+            additionalProperties:
+              type: string
+          quality_gates:
+            type: object
+            additionalProperties:
+              type: boolean
+
+# Binary file format:
+#   4 bytes: magic "VPAK"
+#   2 bytes: format version (uint16 big-endian, currently 1)
+#  12 bytes: AES-GCM nonce
+#  16 bytes: AES-GCM authentication tag
+#   N bytes: AES-GCM ciphertext (JSON payload above)
+#
+# Encryption: AES-256-GCM
+# Key derivation: HKDF-SHA256(salt="veriops-pack-v2", IKM=license_key, info="veriops-pack-key-"+client_id)

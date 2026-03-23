@@ -108,6 +108,9 @@ def test_protocol_test_assets_smart_merge_needs_review(tmp_path: Path) -> None:
 def test_multi_protocol_flow_e2e_enterprise_strict(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:
     from scripts import run_multi_protocol_contract_flow as mod
 
+    monkeypatch.setattr(mod, "_license_require", lambda f: None)
+    monkeypatch.setattr(mod, "_license_require_protocol", lambda p: None)
+
     schema = tmp_path / "schema.graphql"
     schema.write_text("type Query { health: String! }\n", encoding="utf-8")
     asyncapi = tmp_path / "asyncapi.yaml"
@@ -527,6 +530,9 @@ def test_generate_contract_from_planning_notes_for_non_rest(tmp_path: Path, prot
 def test_multi_protocol_flow_generates_missing_contracts_from_notes(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:
     from scripts import run_multi_protocol_contract_flow as mod
 
+    monkeypatch.setattr(mod, "_license_require", lambda f: None)
+    monkeypatch.setattr(mod, "_license_require_protocol", lambda p: None)
+
     notes = tmp_path / "notes" / "api-planning.md"
     notes.parent.mkdir(parents=True, exist_ok=True)
     notes.write_text(
@@ -606,6 +612,9 @@ def test_multi_protocol_flow_generates_missing_contracts_from_notes(tmp_path: Pa
 
 def test_publish_blocked_when_live_self_verify_fails(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:
     from scripts import run_multi_protocol_contract_flow as mod
+
+    monkeypatch.setattr(mod, "_license_require", lambda f: None)
+    monkeypatch.setattr(mod, "_license_require_protocol", lambda p: None)
 
     schema = tmp_path / "api/schema.graphql"
     schema.parent.mkdir(parents=True, exist_ok=True)

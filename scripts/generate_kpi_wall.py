@@ -13,6 +13,14 @@ from typing import Any
 import yaml
 from yaml import YAMLError
 
+# -- Pack runtime integration (optional) --------------------------------------
+try:
+    from scripts import pack_runtime as _pack_rt
+    _pack = _pack_rt.get_pack()
+except Exception:
+    _pack_rt = None  # type: ignore[assignment]
+    _pack = None
+
 
 @dataclass
 class KpiMetrics:
@@ -98,10 +106,19 @@ def _load_before_after_note(reports_dir: Path) -> str:
 
 
 def _compute_quality_score(metadata_pct: float, stale_pct: float, gap_high: int) -> int:
+    weights = _pack_rt.get_kpi_weights(_pack) if _pack_rt is not None else None
+    if weights is None:
+        w_meta, w_stale = 0.35, 0.30
+        gap_mult, gap_cap = 3, 25
+    else:
+        w_meta = weights.get("metadata_weight", 0.35)
+        w_stale = weights.get("stale_weight", 0.30)
+        gap_mult = weights.get("gap_penalty_per_item", 3)
+        gap_cap = weights.get("gap_penalty_cap", 25)
     score = 100
-    score -= int(round((100 - metadata_pct) * 0.35))
-    score -= int(round(stale_pct * 0.30))
-    score -= min(gap_high * 3, 25)
+    score -= int(round((100 - metadata_pct) * w_meta))
+    score -= int(round(stale_pct * w_stale))
+    score -= min(gap_high * gap_mult, gap_cap)
     return max(0, min(100, score))
 
 
@@ -820,6 +837,13 @@ def render_dashboard_html(metrics: KpiMetrics) -> str:
 
 
 def main() -> int:
+    # -- License gate: KPI wall requires professional+ plan --
+    try:
+        from scripts.license_gate import require
+        require("kpi_wall_sla")
+    except ImportError:
+        pass
+
     parser = argparse.ArgumentParser(description="Generate weekly docs KPI wall and dashboard")
     parser.add_argument("--docs-dir", default="docs", help="Docs directory")
     parser.add_argument("--reports-dir", default="reports", help="Reports directory")

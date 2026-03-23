@@ -4,7 +4,7 @@ description: Single source of truth for per-client Auto-Doc Pipeline configurati
   modules, and automation.
 content_type: reference
 product: both
-last_reviewed: '2026-03-12'
+last_reviewed: '2026-03-21'
 tags:
 - Operations
 - Configuration
@@ -787,7 +787,20 @@ private_tuning:
 
 `weekly_stale_days` default is 180 (half year), configurable per client.
 
-## 10. Legal labeling
+## 10. Licensing
+
+```yaml
+licensing:
+  plan: "professional"   # pilot | professional | enterprise
+  days: 365              # License validity in days
+  max_docs: 1000         # Page limit (0 = unlimited)
+```
+
+Builder generates a signed JWT license at `docsops/license.jwt` (if the Ed25519 private key is available at `docsops/keys/veriops-licensing.key`). If the private key is absent, a placeholder is written.
+
+Plan tiers control feature access at runtime. See `docs/operations/PLAN_TIERS.md` for the full feature matrix and license enforcement details.
+
+## 11. Legal labeling
 
 ```yaml
 legal:
@@ -801,7 +814,7 @@ Builder generates:
 - `LICENSE-COMMERCIAL.md`
 - `NOTICE`
 
-## 11. Flow presets (copy-paste)
+## 12. Flow presets (copy-paste)
 
 ### Code-first only
 

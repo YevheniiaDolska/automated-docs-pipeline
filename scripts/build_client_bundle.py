@@ -10,6 +10,7 @@ from __future__ import annotations
 import argparse
 import datetime as dt
 import shutil
+import sys
 from collections.abc import Mapping
 from pathlib import Path
 from typing import Any
@@ -217,7 +218,7 @@ def build_runtime_config(profile: dict[str, Any]) -> dict[str, Any]:
         "git_sync": runtime.get(
             "git_sync",
             {
-                "enabled": True,
+                "enabled": False,
                 "repo_path": ".",
                 "remote": "origin",
                 "branch": "",
@@ -280,6 +281,8 @@ def build_runtime_config(profile: dict[str, Any]) -> dict[str, Any]:
                     "api_key_env": "ALGOLIA_API_KEY",
                     "index_name_env": "ALGOLIA_INDEX_NAME",
                     "index_name_default": "docs",
+                    "site_generator": "mkdocs",
+                    "generate_search_widget": True,
                 },
                 "ask_ai": {
                     "enabled": False,
@@ -307,6 +310,75 @@ def build_runtime_config(profile: dict[str, Any]) -> dict[str, Any]:
             ),
         },
     }
+
+
+def build_licensing_infrastructure(profile: dict[str, Any], bundle_root: Path) -> None:
+    """Set up the licensing directory structure in the bundle.
+
+    If an Ed25519 private key is available locally, generates a signed JWT
+    automatically based on the licensing section in the client profile.
+    Otherwise copies a placeholder.
+    """
+    keys_dir = bundle_root / "docsops" / "keys"
+    keys_dir.mkdir(parents=True, exist_ok=True)
+    docsops_dir = bundle_root / "docsops"
+
+    # Copy the Ed25519 public key for offline JWT verification
+    pub_key_src = REPO_ROOT / "docsops" / "keys" / "veriops-licensing.pub"
+    if pub_key_src.exists():
+        shutil.copy2(pub_key_src, keys_dir / "veriops-licensing.pub")
+
+    # Try to auto-generate JWT if private key is available
+    priv_key_path = REPO_ROOT / "docsops" / "keys" / "veriops-licensing.key"
+    licensing = profile.get("licensing", {})
+    plan = str(licensing.get("plan", "professional")).strip().lower()
+    days = int(licensing.get("days", 365))
+    max_docs = int(licensing.get("max_docs", 0))
+    client_id = str(profile.get("client", {}).get("id", "")).strip()
+
+    jwt_path = docsops_dir / "license.jwt"
+
+    if priv_key_path.exists() and client_id:
+        try:
+            import base64 as _b64
+
+            sys_path_orig = list(sys.path)
+            build_dir = str(REPO_ROOT / "build")
+            if build_dir not in sys.path:
+                sys.path.insert(0, build_dir)
+            try:
+                from generate_license import generate_jwt
+            finally:
+                sys.path[:] = sys_path_orig
+
+            priv_key = _b64.b64decode(priv_key_path.read_bytes().strip())
+            token = generate_jwt(
+                client_id=client_id,
+                plan=plan,
+                days=days,
+                private_key=priv_key,
+                max_docs=max_docs,
+            )
+            jwt_path.write_text(token + "\n", encoding="utf-8")
+            print(f"[license] JWT auto-generated: plan={plan}, days={days}, client={client_id}")
+        except Exception as exc:
+            print(f"[license] JWT auto-generation failed ({exc}), writing placeholder")
+            jwt_path.write_text(
+                "# Auto-generation failed. Generate manually:\n"
+                f"#   python3 build/generate_license.py --client-id {client_id} "
+                f"--plan {plan} --days {days}\n",
+                encoding="utf-8",
+            )
+    else:
+        reason = "no private key" if not priv_key_path.exists() else "no client_id"
+        print(f"[license] Skipping JWT auto-generation ({reason}), writing placeholder")
+        jwt_path.write_text(
+            "# Placeholder: generate a license JWT with:\n"
+            f"#   python3 build/generate_license.py --client-id {client_id or 'CLIENT'} "
+            f"--plan {plan} --days {days}\n"
+            "# Then copy the .jwt file here.\n",
+            encoding="utf-8",
+        )
 
 
 def build_licensed_files(profile: dict[str, Any], bundle_root: Path) -> None:
@@ -701,6 +773,22 @@ def build_local_env_template(runtime_cfg: dict[str, Any], bundle_root: Path) -> 
     if isinstance(pr_autofix, Mapping) and bool(pr_autofix.get("enabled", False)):
         _append_env(lines, "DOCSOPS_BOT_TOKEN", "", "Optional GitHub token if default GITHUB_TOKEN cannot push")
 
+    # Licensing (always included -- license key determines features)
+    lines.append("# --- Licensing ---")
+    lines.append("")
+    _append_env(
+        lines,
+        "VERIOPS_LICENSE_KEY",
+        "VDOC-PLAN-clientid-xxxxxxxx",
+        "License key (provided by VeriOps sales). Used for activation and pack decryption.",
+    )
+    _append_env(
+        lines,
+        "VERIOPS_LICENSE_PLAN",
+        "",
+        "Dev/test override: set to pilot|professional|enterprise to bypass JWT validation.",
+    )
+
     out = bundle_root / ".env.docsops.local.template"
     out.write_text("\n".join(lines).rstrip() + "\n", encoding="utf-8")
 
@@ -739,6 +827,11 @@ def create_bundle(profile_path: Path) -> Path:
 
     include_scripts = [str(rel) for rel in bundle_cfg.get("include_scripts", [])]
     required_scripts: list[str] = []
+    # License gate and pack runtime are always required (all gated scripts depend on them)
+    required_scripts.append("scripts/license_gate.py")
+    required_scripts.append("scripts/pack_runtime.py")
+    required_scripts.append("scripts/check_updates.py")
+    required_scripts.append("scripts/rollback.py")
     required_scripts.append("scripts/finalize_docs_gate.py")
     pr_autofix = runtime_cfg.get("pr_autofix", {})
     if isinstance(pr_autofix, Mapping) and bool(pr_autofix.get("enabled", False)):
@@ -800,6 +893,13 @@ def create_bundle(profile_path: Path) -> Path:
             ]
         )
 
+    # Algolia widget generator when Algolia is enabled
+    integrations = runtime_cfg.get("integrations", {})
+    if isinstance(integrations, Mapping):
+        algolia_cfg = integrations.get("algolia", {})
+        if isinstance(algolia_cfg, Mapping) and bool(algolia_cfg.get("enabled", False)):
+            required_scripts.append("scripts/generate_algolia_widget.py")
+
     for req in required_scripts:
         if req not in include_scripts:
             include_scripts.append(req)
@@ -817,6 +917,7 @@ def create_bundle(profile_path: Path) -> Path:
     build_automation_files(profile, bundle_root)
     build_local_env_template(runtime_cfg, bundle_root)
     build_vale_config(profile, bundle_root)
+    build_licensing_infrastructure(profile, bundle_root)
 
     operator_note = {
         "client": {
@@ -831,6 +932,13 @@ def create_bundle(profile_path: Path) -> Path:
             "automation_runbook": "ops/runbook.md",
             "local_env_template": ".env.docsops.local.template",
             "vale_config": ".vale.ini",
+        },
+        "licensing": {
+            "public_key": "docsops/keys/veriops-licensing.pub",
+            "license_jwt": "docsops/license.jwt",
+            "capability_pack": "docsops/.capability_pack.enc",
+            "activation": "License key activates features. "
+                          "All plans use the same bundle.",
         },
     }
     write_yaml(bundle_root / "BUNDLE_INFO.yml", operator_note)

@@ -21,6 +21,14 @@ from typing import Any
 
 import yaml
 
+# -- Pack runtime integration (optional) --------------------------------------
+try:
+    from scripts import pack_runtime as _pack_rt
+    _pack = _pack_rt.get_pack()
+except Exception:
+    _pack_rt = None  # type: ignore[assignment]
+    _pack = None
+
 HTTP_METHODS = {"get", "post", "put", "patch", "delete", "options", "head", "trace"}
 
 # Explicit coverage map: only capabilities the pipeline can actually remediate.
@@ -492,12 +500,22 @@ def _business_impact(kpis: dict[str, Any], assumptions: CostAssumptions) -> dict
     example_reliability = float(kpis["example_reliability"]["example_reliability_pct"])
     terminology_violation_pct = float(kpis["terminology"]["terminology_violation_pct"])
 
+    rw = _pack_rt.get_risk_weights(_pack) if _pack_rt is not None else None
+    if rw is None:
+        w_undoc, w_stale, w_drift, w_ex, w_term = 0.30, 0.20, 0.20, 0.20, 0.10
+    else:
+        w_undoc = rw.get("undocumented", 0.30)
+        w_stale = rw.get("stale", 0.20)
+        w_drift = rw.get("drift", 0.20)
+        w_ex = rw.get("example_gap", 0.20)
+        w_term = rw.get("terminology", 0.10)
+
     risk_index = (
-        0.30 * (undocumented_pct / 100.0)
-        + 0.20 * (stale_pct / 100.0)
-        + 0.20 * (drift_pct / 100.0)
-        + 0.20 * ((100.0 - example_reliability) / 100.0)
-        + 0.10 * (terminology_violation_pct / 100.0)
+        w_undoc * (undocumented_pct / 100.0)
+        + w_stale * (stale_pct / 100.0)
+        + w_drift * (drift_pct / 100.0)
+        + w_ex * ((100.0 - example_reliability) / 100.0)
+        + w_term * (terminology_violation_pct / 100.0)
     )
     risk_index = min(max(risk_index, 0.0), 1.0)
 
@@ -552,25 +570,43 @@ def _overall_score(kpis: dict[str, Any]) -> dict[str, Any]:
     )
     hallucination_penalty = float(retrieval["hallucination_rate"]) * 100.0 if retrieval["report_found"] else 10.0
 
+    aw = _pack_rt.get_audit_weights(_pack) if _pack_rt is not None else None
+    if aw is None:
+        w_api, w_ex, w_fresh, w_drift, w_layers = 0.22, 0.20, 0.14, 0.12, 0.12
+        w_term, w_retr, w_halluc = 0.10, 0.10, 0.08
+    else:
+        w_api = aw.get("api_coverage", 0.22)
+        w_ex = aw.get("example_reliability", 0.20)
+        w_fresh = aw.get("freshness", 0.14)
+        w_drift = aw.get("drift", 0.12)
+        w_layers = aw.get("layers", 0.12)
+        w_term = aw.get("terminology", 0.10)
+        w_retr = aw.get("retrieval", 0.10)
+        w_halluc = aw.get("hallucination_deduction", 0.08)
+
     score = (
-        0.22 * api_cov
-        + 0.20 * ex_rel
-        + 0.14 * (100.0 - stale_penalty)
-        + 0.12 * (100.0 - drift_penalty)
-        + 0.12 * (100.0 - layers_penalty)
-        + 0.10 * term_consistency
-        + 0.10 * retrieval_score
-    ) - (0.08 * hallucination_penalty)
+        w_api * api_cov
+        + w_ex * ex_rel
+        + w_fresh * (100.0 - stale_penalty)
+        + w_drift * (100.0 - drift_penalty)
+        + w_layers * (100.0 - layers_penalty)
+        + w_term * term_consistency
+        + w_retr * retrieval_score
+    ) - (w_halluc * hallucination_penalty)
     score = round(max(0.0, min(100.0, score)), 2)
 
+    gt = _pack_rt.get_grade_thresholds(_pack) if _pack_rt is not None else None
+    if gt is None:
+        gt = {"A": 90, "B": 80, "C": 70, "D": 60}
+
     grade = "A"
-    if score < 90:
+    if score < gt.get("A", 90):
         grade = "B"
-    if score < 80:
+    if score < gt.get("B", 80):
         grade = "C"
-    if score < 70:
+    if score < gt.get("C", 70):
         grade = "D"
-    if score < 60:
+    if score < gt.get("D", 60):
         grade = "F"
     return {"audit_score_0_100": score, "grade": grade}
 

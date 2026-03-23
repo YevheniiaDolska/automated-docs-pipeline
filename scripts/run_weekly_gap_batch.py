@@ -23,6 +23,7 @@ if str(REPO_ROOT) not in sys.path:
     sys.path.insert(0, str(REPO_ROOT))
 
 from scripts.env_loader import load_local_env
+from scripts.license_gate import get_license, get_license_summary
 
 
 def _run(cmd: list[str], cwd: Path) -> None:
@@ -198,6 +199,11 @@ def parse_args() -> argparse.Namespace:
 def main() -> int:
     load_local_env(REPO_ROOT)
     args = parse_args()
+
+    # -- License gate --
+    lic = get_license()
+    print(f"[docsops] License: {get_license_summary(lic)}")
+
     repo_root = Path.cwd()
     docsops_root = (repo_root / args.docsops_root).resolve()
     reports_dir = (repo_root / args.reports_dir).resolve()

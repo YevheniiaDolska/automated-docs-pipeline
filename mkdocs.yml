@@ -96,6 +96,7 @@ nav:
 - Reference:
   - reference/index.md
   - API playground: reference/api-playground.md
+  - Network transparency: reference/network-transparency.md
   - TaskStream API planning notes: reference/taskstream-planning-notes.md
   - TaskStream API playground: reference/taskstream-api-playground.md
   - Deprecated examples: reference/deprecated-example.md
@@ -111,14 +112,16 @@ nav:
 extra_css:
 - stylesheets/lifecycle.css
 - stylesheets/diagrams.css
+- stylesheets/algolia-search.css
 extra_javascript:
+- assets/javascripts/algolia-search.js
 - assets/javascripts/faceted-search.js
 - assets/javascripts/api-playground.js
 extra:
   algolia:
-    app_id: YOUR_ALGOLIA_APP_ID
-    api_key: YOUR_ALGOLIA_SEARCH_ONLY_KEY
-    index_name: YOUR_ALGOLIA_INDEX_NAME
+    app_id: 68IGGT3CVI
+    api_key: 12bd532b0a8c9dd7405a892e365c9e6b
+    index_name: veridoc_docs
   plg:
     mode: mixed
     approach: hybrid

@@ -1,0 +1,55 @@
+{
+  "status": "ok",
+  "model": "claude-sonnet-4-5",
+  "analysis": {
+    "executive_summary": "Audit crawled 3,566 pages from 3 documentation sites for a single product. Critical infrastructure issues identified: 17,110 broken internal links creating severe navigation failures. SEO and geo-targeting problems affect 16.63% of pages. Zero API reference pages detected in sample, indicating missing or inaccessible technical documentation. Only 5.08% of pages display freshness metadata, obscuring content currency for users.",
+    "strengths": [
+      "Large documentation corpus with 3,566 pages crawled indicates substantial content investment",
+      "Multi-site presence suggests community and official documentation efforts",
+      "Topology identified as single-product focus enables coherent user journey design"
+    ],
+    "risks": [
+      "17,110 broken internal links represent catastrophic navigation failure and user abandonment risk",
+      "No API reference pages found threatens developer adoption and integration success",
+      "16.63% SEO/geo issue rate damages discoverability and organic search performance",
+      "5.08% freshness coverage prevents users from assessing content reliability and currency",
+      "0.0% example reliability estimate indicates code samples may be untested or non-functional",
+      "Multi-site documentation architecture for single product creates fragmentation and version confusion",
+      "Crawl reached only 3,566 of 30,964 requested pages, suggesting deep structural or performance issues"
+    ],
+    "prioritized_actions": [
+      {
+        "action": "Execute broken link remediation campaign: audit all 17,110 broken links, fix or redirect top 500 by traffic impact within 30 days",
+        "impact": "critical",
+        "effort": "high"
+      },
+      {
+        "action": "Locate or create API reference documentation; if exists, fix discoverability and crawlability; if missing, prioritize creation",
+        "impact": "critical",
+        "effort": "high"
+      },
+      {
+        "action": "Consolidate multi-site documentation into single authoritative domain with clear versioning and redirect strategy",
+        "impact": "high",
+        "effort": "high"
+      },
+      {
+        "action": "Implement automated last-updated timestamps on all pages and establish content review SLA",
+        "impact": "medium",
+        "effort": "low"
+      },
+      {
+        "action": "Resolve SEO/geo issues on affected 16.63% of pages: audit meta tags, hreflang, and indexing directives",
+        "impact": "medium",
+        "effort": "medium"
+      }
+    ],
+    "limitations": [
+      "External crawl cannot verify accuracy of technical content, code functionality, or instructional correctness",
+      "Authentication-gated or dynamically rendered content may be underrepresented in crawl results",
+      "User behavior, satisfaction, and task completion rates require separate analytics and user research",
+      "Competitive positioning and feature parity assessment not included in technical documentation audit",
+      "Crawl limited to 4,500 max pages may not represent full documentation estate or deep hierarchy"
+    ]
+  }
+}
