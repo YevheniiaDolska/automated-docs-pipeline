@@ -1,0 +1,1077 @@
+{
+  "modality": "doc_critique",
+  "output": "reports/doc_compiler_critique.json",
+  "total_issues": 128,
+  "issues_by_check": {
+    "high_reading_level": 26,
+    "boilerplate_detected": 6,
+    "thin_content": 9,
+    "missing_code_examples": 3,
+    "orphaned_doc": 46,
+    "duplicate_coverage": 5,
+    "missing_doc_type_for_feature": 33
+  },
+  "issues_by_severity": {
+    "suggestion": 105,
+    "warning": 23
+  },
+  "issues": [
+    {
+      "check": "high_reading_level",
+      "severity": "suggestion",
+      "doc": "SEO_GUIDE.md",
+      "reading_level": 16.6,
+      "message": "Reading level is grade 16.6 (target: below 14)."
+    },
+    {
+      "check": "high_reading_level",
+      "severity": "suggestion",
+      "doc": "VARIABLES_GUIDE.md",
+      "reading_level": 16.7,
+      "message": "Reading level is grade 16.7 (target: below 14)."
+    },
+    {
+      "check": "boilerplate_detected",
+      "severity": "warning",
+      "doc": "assets/protocols/grpc/grpc-api.md",
+      "phrase": "todo",
+      "message": "Boilerplate phrase 'todo' found in assets/protocols/grpc/grpc-api.md."
+    },
+    {
+      "check": "boilerplate_detected",
+      "severity": "warning",
+      "doc": "assets/protocols/grpc/grpc-api.md",
+      "phrase": "placeholder",
+      "message": "Boilerplate phrase 'placeholder' found in assets/protocols/grpc/grpc-api.md."
+    },
+    {
+      "check": "thin_content",
+      "severity": "warning",
+      "doc": "assets/protocols/rest/rest-api.md",
+      "message": "Only 30 words (minimum recommended: 100)."
+    },
+    {
+      "check": "thin_content",
+      "severity": "warning",
+      "doc": "concepts/index.md",
+      "message": "Only 18 words (minimum recommended: 100)."
+    },
+    {
+      "check": "missing_code_examples",
+      "severity": "warning",
+      "doc": "getting-started/index.md",
+      "message": "tutorial 'Getting Started' has no code examples."
+    },
+    {
+      "check": "thin_content",
+      "severity": "warning",
+      "doc": "getting-started/index.md",
+      "message": "Only 18 words (minimum recommended: 100)."
+    },
+    {
+      "check": "high_reading_level",
+      "severity": "suggestion",
+      "doc": "how-to/configure-ask-ai-module.md",
+      "reading_level": 15.1,
+      "message": "Reading level is grade 15.1 (target: below 14)."
+    },
+    {
+      "check": "missing_code_examples",
+      "severity": "warning",
+      "doc": "how-to/index.md",
+      "message": "how-to 'How-To Guides for' has no code examples."
+    },
+    {
+      "check": "thin_content",
+      "severity": "warning",
+      "doc": "how-to/index.md",
+      "message": "Only 50 words (minimum recommended: 100)."
+    },
+    {
+      "check": "high_reading_level",
+      "severity": "suggestion",
+      "doc": "index.md",
+      "reading_level": 15.0,
+      "message": "Reading level is grade 15.0 (target: below 14)."
+    },
+    {
+      "check": "high_reading_level",
+      "severity": "suggestion",
+      "doc": "operations/MULTI_PROTOCOL_ARCHITECTURE.md",
+      "reading_level": 14.3,
+      "message": "Reading level is grade 14.3 (target: below 14)."
+    },
+    {
+      "check": "boilerplate_detected",
+      "severity": "warning",
+      "doc": "operations/OPERATOR_RUNBOOK.md",
+      "phrase": "placeholder",
+      "message": "Boilerplate phrase 'placeholder' found in operations/OPERATOR_RUNBOOK.md."
+    },
+    {
+      "check": "high_reading_level",
+      "severity": "suggestion",
+      "doc": "operations/PLAN_TIERS.md",
+      "reading_level": 15.5,
+      "message": "Reading level is grade 15.5 (target: below 14)."
+    },
+    {
+      "check": "missing_code_examples",
+      "severity": "warning",
+      "doc": "operations/SMART_MERGE_REVIEW.md",
+      "message": "how-to 'Smart Merge and Manual Review' has no code examples."
+    },
+    {
+      "check": "boilerplate_detected",
+      "severity": "warning",
+      "doc": "operations/UNIFIED_CLIENT_CONFIG.md",
+      "phrase": "placeholder",
+      "message": "Boilerplate phrase 'placeholder' found in operations/UNIFIED_CLIENT_CONFIG.md."
+    },
+    {
+      "check": "high_reading_level",
+      "severity": "suggestion",
+      "doc": "operations/UNIFIED_CLIENT_CONFIG.md",
+      "reading_level": 14.6,
+      "message": "Reading level is grade 14.6 (target: below 14)."
+    },
+    {
+      "check": "thin_content",
+      "severity": "warning",
+      "doc": "reference/deprecated-example.md",
+      "message": "Only 73 words (minimum recommended: 100)."
+    },
+    {
+      "check": "boilerplate_detected",
+      "severity": "warning",
+      "doc": "reference/grpc-api.md",
+      "phrase": "todo",
+      "message": "Boilerplate phrase 'todo' found in reference/grpc-api.md."
+    },
+    {
+      "check": "boilerplate_detected",
+      "severity": "warning",
+      "doc": "reference/grpc-api.md",
+      "phrase": "placeholder",
+      "message": "Boilerplate phrase 'placeholder' found in reference/grpc-api.md."
+    },
+    {
+      "check": "thin_content",
+      "severity": "warning",
+      "doc": "reference/index.md",
+      "message": "Only 10 words (minimum recommended: 100)."
+    },
+    {
+      "check": "high_reading_level",
+      "severity": "suggestion",
+      "doc": "reference/index.md",
+      "reading_level": 15.9,
+      "message": "Reading level is grade 15.9 (target: below 14)."
+    },
+    {
+      "check": "high_reading_level",
+      "severity": "suggestion",
+      "doc": "reference/intent-experiences/automate-developer.md",
+      "reading_level": 14.7,
+      "message": "Reading level is grade 14.7 (target: below 14)."
+    },
+    {
+      "check": "high_reading_level",
+      "severity": "suggestion",
+      "doc": "reference/intent-experiences/automate-operator.md",
+      "reading_level": 14.7,
+      "message": "Reading level is grade 14.7 (target: below 14)."
+    },
+    {
+      "check": "high_reading_level",
+      "severity": "suggestion",
+      "doc": "reference/intent-experiences/automate-support.md",
+      "reading_level": 14.2,
+      "message": "Reading level is grade 14.2 (target: below 14)."
+    },
+    {
+      "check": "high_reading_level",
+      "severity": "suggestion",
+      "doc": "reference/intent-experiences/configure-operator.md",
+      "reading_level": 15.4,
+      "message": "Reading level is grade 15.4 (target: below 14)."
+    },
+    {
+      "check": "high_reading_level",
+      "severity": "suggestion",
+      "doc": "reference/intent-experiences/configure-practitioner.md",
+      "reading_level": 15.4,
+      "message": "Reading level is grade 15.4 (target: below 14)."
+    },
+    {
+      "check": "high_reading_level",
+      "severity": "suggestion",
+      "doc": "reference/intent-experiences/configure-support.md",
+      "reading_level": 15.0,
+      "message": "Reading level is grade 15.0 (target: below 14)."
+    },
+    {
+      "check": "high_reading_level",
+      "severity": "suggestion",
+      "doc": "reference/intent-experiences/integrate-operator.md",
+      "reading_level": 15.4,
+      "message": "Reading level is grade 15.4 (target: below 14)."
+    },
+    {
+      "check": "high_reading_level",
+      "severity": "suggestion",
+      "doc": "reference/intent-experiences/integrate-practitioner.md",
+      "reading_level": 15.4,
+      "message": "Reading level is grade 15.4 (target: below 14)."
+    },
+    {
+      "check": "high_reading_level",
+      "severity": "suggestion",
+      "doc": "reference/intent-experiences/integrate-support.md",
+      "reading_level": 15.0,
+      "message": "Reading level is grade 15.0 (target: below 14)."
+    },
+    {
+      "check": "high_reading_level",
+      "severity": "suggestion",
+      "doc": "reference/intent-experiences/optimize-developer.md",
+      "reading_level": 14.7,
+      "message": "Reading level is grade 14.7 (target: below 14)."
+    },
+    {
+      "check": "high_reading_level",
+      "severity": "suggestion",
+      "doc": "reference/intent-experiences/optimize-operator.md",
+      "reading_level": 14.7,
+      "message": "Reading level is grade 14.7 (target: below 14)."
+    },
+    {
+      "check": "high_reading_level",
+      "severity": "suggestion",
+      "doc": "reference/intent-experiences/optimize-support.md",
+      "reading_level": 14.2,
+      "message": "Reading level is grade 14.2 (target: below 14)."
+    },
+    {
+      "check": "high_reading_level",
+      "severity": "suggestion",
+      "doc": "reference/intent-experiences/secure-operator.md",
+      "reading_level": 15.2,
+      "message": "Reading level is grade 15.2 (target: below 14)."
+    },
+    {
+      "check": "high_reading_level",
+      "severity": "suggestion",
+      "doc": "reference/intent-experiences/secure-practitioner.md",
+      "reading_level": 15.2,
+      "message": "Reading level is grade 15.2 (target: below 14)."
+    },
+    {
+      "check": "high_reading_level",
+      "severity": "suggestion",
+      "doc": "reference/intent-experiences/secure-support.md",
+      "reading_level": 14.8,
+      "message": "Reading level is grade 14.8 (target: below 14)."
+    },
+    {
+      "check": "high_reading_level",
+      "severity": "suggestion",
+      "doc": "reference/intent-experiences/troubleshoot-developer.md",
+      "reading_level": 14.5,
+      "message": "Reading level is grade 14.5 (target: below 14)."
+    },
+    {
+      "check": "high_reading_level",
+      "severity": "suggestion",
+      "doc": "reference/intent-experiences/troubleshoot-operator.md",
+      "reading_level": 14.5,
+      "message": "Reading level is grade 14.5 (target: below 14)."
+    },
+    {
+      "check": "high_reading_level",
+      "severity": "suggestion",
+      "doc": "reference/intent-experiences/troubleshoot-support.md",
+      "reading_level": 14.0,
+      "message": "Reading level is grade 14.0 (target: below 14)."
+    },
+    {
+      "check": "thin_content",
+      "severity": "warning",
+      "doc": "reference/rest-api.md",
+      "message": "Only 30 words (minimum recommended: 100)."
+    },
+    {
+      "check": "thin_content",
+      "severity": "warning",
+      "doc": "tags.md",
+      "message": "Only 24 words (minimum recommended: 100)."
+    },
+    {
+      "check": "thin_content",
+      "severity": "warning",
+      "doc": "troubleshooting/index.md",
+      "message": "Only 9 words (minimum recommended: 100)."
+    },
+    {
+      "check": "orphaned_doc",
+      "severity": "suggestion",
+      "doc": "SEO_GUIDE.md",
+      "message": "No internal links point to SEO_GUIDE.md."
+    },
+    {
+      "check": "orphaned_doc",
+      "severity": "suggestion",
+      "doc": "VARIABLES_GUIDE.md",
+      "message": "No internal links point to VARIABLES_GUIDE.md."
+    },
+    {
+      "check": "orphaned_doc",
+      "severity": "suggestion",
+      "doc": "assets/protocols/asyncapi/asyncapi-api.md",
+      "message": "No internal links point to assets/protocols/asyncapi/asyncapi-api.md."
+    },
+    {
+      "check": "orphaned_doc",
+      "severity": "suggestion",
+      "doc": "assets/protocols/graphql/graphql-api.md",
+      "message": "No internal links point to assets/protocols/graphql/graphql-api.md."
+    },
+    {
+      "check": "orphaned_doc",
+      "severity": "suggestion",
+      "doc": "assets/protocols/grpc/grpc-api.md",
+      "message": "No internal links point to assets/protocols/grpc/grpc-api.md."
+    },
+    {
+      "check": "orphaned_doc",
+      "severity": "suggestion",
+      "doc": "assets/protocols/rest/rest-api.md",
+      "message": "No internal links point to assets/protocols/rest/rest-api.md."
+    },
+    {
+      "check": "orphaned_doc",
+      "severity": "suggestion",
+      "doc": "assets/protocols/websocket/websocket-api.md",
+      "message": "No internal links point to assets/protocols/websocket/websocket-api.md."
+    },
+    {
+      "check": "orphaned_doc",
+      "severity": "suggestion",
+      "doc": "en/how-to/set-up-real-time-webhook-processing-pipeline.md",
+      "message": "No internal links point to en/how-to/set-up-real-time-webhook-processing-pipeline.md."
+    },
+    {
+      "check": "orphaned_doc",
+      "severity": "suggestion",
+      "doc": "how-to/configure-ask-ai-module.md",
+      "message": "No internal links point to how-to/configure-ask-ai-module.md."
+    },
+    {
+      "check": "orphaned_doc",
+      "severity": "suggestion",
+      "doc": "how-to/install-ask-ai-runtime-pack.md",
+      "message": "No internal links point to how-to/install-ask-ai-runtime-pack.md."
+    },
+    {
+      "check": "orphaned_doc",
+      "severity": "suggestion",
+      "doc": "operations/CANONICAL_FLOW.md",
+      "message": "No internal links point to operations/CANONICAL_FLOW.md."
+    },
+    {
+      "check": "orphaned_doc",
+      "severity": "suggestion",
+      "doc": "operations/CENTRALIZED_CLIENT_BUNDLES.md",
+      "message": "No internal links point to operations/CENTRALIZED_CLIENT_BUNDLES.md."
+    },
+    {
+      "check": "orphaned_doc",
+      "severity": "suggestion",
+      "doc": "operations/MULTI_PROTOCOL_ARCHITECTURE.md",
+      "message": "No internal links point to operations/MULTI_PROTOCOL_ARCHITECTURE.md."
+    },
+    {
+      "check": "orphaned_doc",
+      "severity": "suggestion",
+      "doc": "operations/MULTI_PROTOCOL_WIZARD_GUIDE.md",
+      "message": "No internal links point to operations/MULTI_PROTOCOL_WIZARD_GUIDE.md."
+    },
+    {
+      "check": "orphaned_doc",
+      "severity": "suggestion",
+      "doc": "operations/OPERATOR_RUNBOOK.md",
+      "message": "No internal links point to operations/OPERATOR_RUNBOOK.md."
+    },
+    {
+      "check": "orphaned_doc",
+      "severity": "suggestion",
+      "doc": "operations/PIPELINE_CAPABILITIES_CATALOG.md",
+      "message": "No internal links point to operations/PIPELINE_CAPABILITIES_CATALOG.md."
+    },
+    {
+      "check": "orphaned_doc",
+      "severity": "suggestion",
+      "doc": "operations/PLAN_TIERS.md",
+      "message": "No internal links point to operations/PLAN_TIERS.md."
+    },
+    {
+      "check": "orphaned_doc",
+      "severity": "suggestion",
+      "doc": "operations/SMART_MERGE_REVIEW.md",
+      "message": "No internal links point to operations/SMART_MERGE_REVIEW.md."
+    },
+    {
+      "check": "orphaned_doc",
+      "severity": "suggestion",
+      "doc": "operations/UNIFIED_CLIENT_CONFIG.md",
+      "message": "No internal links point to operations/UNIFIED_CLIENT_CONFIG.md."
+    },
+    {
+      "check": "orphaned_doc",
+      "severity": "suggestion",
+      "doc": "reference/api-playground.md",
+      "message": "No internal links point to reference/api-playground.md."
+    },
+    {
+      "check": "orphaned_doc",
+      "severity": "suggestion",
+      "doc": "reference/asyncapi-api.md",
+      "message": "No internal links point to reference/asyncapi-api.md."
+    },
+    {
+      "check": "orphaned_doc",
+      "severity": "suggestion",
+      "doc": "reference/deprecated-example.md",
+      "message": "No internal links point to reference/deprecated-example.md."
+    },
+    {
+      "check": "orphaned_doc",
+      "severity": "suggestion",
+      "doc": "reference/graphql-api.md",
+      "message": "No internal links point to reference/graphql-api.md."
+    },
+    {
+      "check": "orphaned_doc",
+      "severity": "suggestion",
+      "doc": "reference/grpc-api.md",
+      "message": "No internal links point to reference/grpc-api.md."
+    },
+    {
+      "check": "orphaned_doc",
+      "severity": "suggestion",
+      "doc": "reference/intent-experiences/automate-developer.md",
+      "message": "No internal links point to reference/intent-experiences/automate-developer.md."
+    },
+    {
+      "check": "orphaned_doc",
+      "severity": "suggestion",
+      "doc": "reference/intent-experiences/automate-operator.md",
+      "message": "No internal links point to reference/intent-experiences/automate-operator.md."
+    },
+    {
+      "check": "orphaned_doc",
+      "severity": "suggestion",
+      "doc": "reference/intent-experiences/automate-support.md",
+      "message": "No internal links point to reference/intent-experiences/automate-support.md."
+    },
+    {
+      "check": "orphaned_doc",
+      "severity": "suggestion",
+      "doc": "reference/intent-experiences/configure-operator.md",
+      "message": "No internal links point to reference/intent-experiences/configure-operator.md."
+    },
+    {
+      "check": "orphaned_doc",
+      "severity": "suggestion",
+      "doc": "reference/intent-experiences/configure-practitioner.md",
+      "message": "No internal links point to reference/intent-experiences/configure-practitioner.md."
+    },
+    {
+      "check": "orphaned_doc",
+      "severity": "suggestion",
+      "doc": "reference/intent-experiences/configure-support.md",
+      "message": "No internal links point to reference/intent-experiences/configure-support.md."
+    },
+    {
+      "check": "orphaned_doc",
+      "severity": "suggestion",
+      "doc": "reference/intent-experiences/integrate-operator.md",
+      "message": "No internal links point to reference/intent-experiences/integrate-operator.md."
+    },
+    {
+      "check": "orphaned_doc",
+      "severity": "suggestion",
+      "doc": "reference/intent-experiences/integrate-practitioner.md",
+      "message": "No internal links point to reference/intent-experiences/integrate-practitioner.md."
+    },
+    {
+      "check": "orphaned_doc",
+      "severity": "suggestion",
+      "doc": "reference/intent-experiences/integrate-support.md",
+      "message": "No internal links point to reference/intent-experiences/integrate-support.md."
+    },
+    {
+      "check": "orphaned_doc",
+      "severity": "suggestion",
+      "doc": "reference/intent-experiences/optimize-developer.md",
+      "message": "No internal links point to reference/intent-experiences/optimize-developer.md."
+    },
+    {
+      "check": "orphaned_doc",
+      "severity": "suggestion",
+      "doc": "reference/intent-experiences/optimize-operator.md",
+      "message": "No internal links point to reference/intent-experiences/optimize-operator.md."
+    },
+    {
+      "check": "orphaned_doc",
+      "severity": "suggestion",
+      "doc": "reference/intent-experiences/optimize-support.md",
+      "message": "No internal links point to reference/intent-experiences/optimize-support.md."
+    },
+    {
+      "check": "orphaned_doc",
+      "severity": "suggestion",
+      "doc": "reference/intent-experiences/secure-operator.md",
+      "message": "No internal links point to reference/intent-experiences/secure-operator.md."
+    },
+    {
+      "check": "orphaned_doc",
+      "severity": "suggestion",
+      "doc": "reference/intent-experiences/secure-practitioner.md",
+      "message": "No internal links point to reference/intent-experiences/secure-practitioner.md."
+    },
+    {
+      "check": "orphaned_doc",
+      "severity": "suggestion",
+      "doc": "reference/intent-experiences/secure-support.md",
+      "message": "No internal links point to reference/intent-experiences/secure-support.md."
+    },
+    {
+      "check": "orphaned_doc",
+      "severity": "suggestion",
+      "doc": "reference/intent-experiences/troubleshoot-developer.md",
+      "message": "No internal links point to reference/intent-experiences/troubleshoot-developer.md."
+    },
+    {
+      "check": "orphaned_doc",
+      "severity": "suggestion",
+      "doc": "reference/intent-experiences/troubleshoot-operator.md",
+      "message": "No internal links point to reference/intent-experiences/troubleshoot-operator.md."
+    },
+    {
+      "check": "orphaned_doc",
+      "severity": "suggestion",
+      "doc": "reference/intent-experiences/troubleshoot-support.md",
+      "message": "No internal links point to reference/intent-experiences/troubleshoot-support.md."
+    },
+    {
+      "check": "orphaned_doc",
+      "severity": "suggestion",
+      "doc": "reference/network-transparency.md",
+      "message": "No internal links point to reference/network-transparency.md."
+    },
+    {
+      "check": "orphaned_doc",
+      "severity": "suggestion",
+      "doc": "reference/rest-api.md",
+      "message": "No internal links point to reference/rest-api.md."
+    },
+    {
+      "check": "orphaned_doc",
+      "severity": "suggestion",
+      "doc": "reference/websocket-api.md",
+      "message": "No internal links point to reference/websocket-api.md."
+    },
+    {
+      "check": "orphaned_doc",
+      "severity": "suggestion",
+      "doc": "search-faceted.md",
+      "message": "No internal links point to search-faceted.md."
+    },
+    {
+      "check": "duplicate_coverage",
+      "severity": "warning",
+      "docs": [
+        "assets/protocols/asyncapi/asyncapi-api.md",
+        "reference/asyncapi-api.md"
+      ],
+      "title_key": "asyncapi api reference",
+      "message": "Possible duplicate coverage: assets/protocols/asyncapi/asyncapi-api.md, reference/asyncapi-api.md have similar titles."
+    },
+    {
+      "check": "duplicate_coverage",
+      "severity": "warning",
+      "docs": [
+        "assets/protocols/graphql/graphql-api.md",
+        "reference/graphql-api.md"
+      ],
+      "title_key": "graphql api reference",
+      "message": "Possible duplicate coverage: assets/protocols/graphql/graphql-api.md, reference/graphql-api.md have similar titles."
+    },
+    {
+      "check": "duplicate_coverage",
+      "severity": "warning",
+      "docs": [
+        "assets/protocols/grpc/grpc-api.md",
+        "reference/grpc-api.md"
+      ],
+      "title_key": "grpc api reference",
+      "message": "Possible duplicate coverage: assets/protocols/grpc/grpc-api.md, reference/grpc-api.md have similar titles."
+    },
+    {
+      "check": "duplicate_coverage",
+      "severity": "warning",
+      "docs": [
+        "assets/protocols/rest/rest-api.md",
+        "reference/rest-api.md"
+      ],
+      "title_key": "rest api reference",
+      "message": "Possible duplicate coverage: assets/protocols/rest/rest-api.md, reference/rest-api.md have similar titles."
+    },
+    {
+      "check": "duplicate_coverage",
+      "severity": "warning",
+      "docs": [
+        "assets/protocols/websocket/websocket-api.md",
+        "reference/websocket-api.md"
+      ],
+      "title_key": "websocket api reference",
+      "message": "Possible duplicate coverage: assets/protocols/websocket/websocket-api.md, reference/websocket-api.md have similar titles."
+    },
+    {
+      "check": "missing_doc_type_for_feature",
+      "severity": "suggestion",
+      "tag": "Kroha",
+      "existing_types": [
+        "reference"
+      ],
+      "missing_types": [
+        "how-to",
+        "tutorial"
+      ],
+      "message": "Tag 'Kroha' has reference but no how-to, tutorial."
+    },
+    {
+      "check": "missing_doc_type_for_feature",
+      "severity": "suggestion",
+      "tag": "Docs",
+      "existing_types": [
+        "reference"
+      ],
+      "missing_types": [
+        "how-to",
+        "tutorial"
+      ],
+      "message": "Tag 'Docs' has reference but no how-to, tutorial."
+    },
+    {
+      "check": "missing_doc_type_for_feature",
+      "severity": "suggestion",
+      "tag": "Development",
+      "existing_types": [
+        "reference"
+      ],
+      "missing_types": [
+        "how-to",
+        "tutorial"
+      ],
+      "message": "Tag 'Development' has reference but no how-to, tutorial."
+    },
+    {
+      "check": "missing_doc_type_for_feature",
+      "severity": "suggestion",
+      "tag": "C",
+      "existing_types": [
+        "reference"
+      ],
+      "missing_types": [
+        "how-to",
+        "tutorial"
+      ],
+      "message": "Tag 'C' has reference but no how-to, tutorial."
+    },
+    {
+      "check": "missing_doc_type_for_feature",
+      "severity": "suggestion",
+      "tag": "Mnt",
+      "existing_types": [
+        "reference"
+      ],
+      "missing_types": [
+        "how-to",
+        "tutorial"
+      ],
+      "message": "Tag 'Mnt' has reference but no how-to, tutorial."
+    },
+    {
+      "check": "missing_doc_type_for_feature",
+      "severity": "suggestion",
+      "tag": "Users",
+      "existing_types": [
+        "reference"
+      ],
+      "missing_types": [
+        "how-to",
+        "tutorial"
+      ],
+      "message": "Tag 'Users' has reference but no how-to, tutorial."
+    },
+    {
+      "check": "missing_doc_type_for_feature",
+      "severity": "suggestion",
+      "tag": "Documents",
+      "existing_types": [
+        "reference"
+      ],
+      "missing_types": [
+        "how-to",
+        "tutorial"
+      ],
+      "message": "Tag 'Documents' has reference but no how-to, tutorial."
+    },
+    {
+      "check": "missing_doc_type_for_feature",
+      "severity": "suggestion",
+      "tag": "Auto Doc Pipeline",
+      "existing_types": [
+        "reference"
+      ],
+      "missing_types": [
+        "how-to",
+        "tutorial"
+      ],
+      "message": "Tag 'Auto Doc Pipeline' has reference but no how-to, tutorial."
+    },
+    {
+      "check": "missing_doc_type_for_feature",
+      "severity": "suggestion",
+      "tag": "Pytest Of Eudo",
+      "existing_types": [
+        "reference"
+      ],
+      "missing_types": [
+        "how-to",
+        "tutorial"
+      ],
+      "message": "Tag 'Pytest Of Eudo' has reference but no how-to, tutorial."
+    },
+    {
+      "check": "missing_doc_type_for_feature",
+      "severity": "suggestion",
+      "tag": "Test_Multi_Protocol_Flow_Gener0",
+      "existing_types": [
+        "reference"
+      ],
+      "missing_types": [
+        "how-to",
+        "tutorial"
+      ],
+      "message": "Tag 'Test_Multi_Protocol_Flow_Gener0' has reference but no how-to, tutorial."
+    },
+    {
+      "check": "missing_doc_type_for_feature",
+      "severity": "suggestion",
+      "tag": "Tmp",
+      "existing_types": [
+        "reference"
+      ],
+      "missing_types": [
+        "how-to",
+        "tutorial"
+      ],
+      "message": "Tag 'Tmp' has reference but no how-to, tutorial."
+    },
+    {
+      "check": "missing_doc_type_for_feature",
+      "severity": "suggestion",
+      "tag": "Pytest 2467",
+      "existing_types": [
+        "reference"
+      ],
+      "missing_types": [
+        "how-to",
+        "tutorial"
+      ],
+      "message": "Tag 'Pytest 2467' has reference but no how-to, tutorial."
+    },
+    {
+      "check": "missing_doc_type_for_feature",
+      "severity": "suggestion",
+      "tag": "Concept",
+      "existing_types": [
+        "concept"
+      ],
+      "missing_types": [
+        "how-to",
+        "reference",
+        "tutorial"
+      ],
+      "message": "Tag 'Concept' has concept but no how-to, reference, tutorial."
+    },
+    {
+      "check": "missing_doc_type_for_feature",
+      "severity": "suggestion",
+      "tag": "AI",
+      "existing_types": [
+        "concept",
+        "how-to",
+        "reference"
+      ],
+      "missing_types": [
+        "tutorial"
+      ],
+      "message": "Tag 'AI' has concept, how-to, reference but no tutorial."
+    },
+    {
+      "check": "missing_doc_type_for_feature",
+      "severity": "suggestion",
+      "tag": "Reference",
+      "existing_types": [
+        "concept",
+        "how-to",
+        "reference"
+      ],
+      "missing_types": [
+        "tutorial"
+      ],
+      "message": "Tag 'Reference' has concept, how-to, reference but no tutorial."
+    },
+    {
+      "check": "missing_doc_type_for_feature",
+      "severity": "suggestion",
+      "tag": "Nodes",
+      "existing_types": [
+        "concept",
+        "reference",
+        "troubleshooting"
+      ],
+      "missing_types": [
+        "how-to",
+        "tutorial"
+      ],
+      "message": "Tag 'Nodes' has concept, reference, troubleshooting but no how-to, tutorial."
+    },
+    {
+      "check": "missing_doc_type_for_feature",
+      "severity": "suggestion",
+      "tag": "How-To",
+      "existing_types": [
+        "how-to",
+        "reference"
+      ],
+      "missing_types": [
+        "tutorial"
+      ],
+      "message": "Tag 'How-To' has how-to, reference but no tutorial."
+    },
+    {
+      "check": "missing_doc_type_for_feature",
+      "severity": "suggestion",
+      "tag": "Tutorial",
+      "existing_types": [
+        "tutorial"
+      ],
+      "missing_types": [
+        "how-to",
+        "reference"
+      ],
+      "message": "Tag 'Tutorial' has tutorial but no how-to, reference."
+    },
+    {
+      "check": "missing_doc_type_for_feature",
+      "severity": "suggestion",
+      "tag": "Operations",
+      "existing_types": [
+        "how-to",
+        "reference"
+      ],
+      "missing_types": [
+        "tutorial"
+      ],
+      "message": "Tag 'Operations' has how-to, reference but no tutorial."
+    },
+    {
+      "check": "missing_doc_type_for_feature",
+      "severity": "suggestion",
+      "tag": "Client Onboarding",
+      "existing_types": [
+        "reference"
+      ],
+      "missing_types": [
+        "how-to",
+        "tutorial"
+      ],
+      "message": "Tag 'Client Onboarding' has reference but no how-to, tutorial."
+    },
+    {
+      "check": "missing_doc_type_for_feature",
+      "severity": "suggestion",
+      "tag": "Architecture",
+      "existing_types": [
+        "reference"
+      ],
+      "missing_types": [
+        "how-to",
+        "tutorial"
+      ],
+      "message": "Tag 'Architecture' has reference but no how-to, tutorial."
+    },
+    {
+      "check": "missing_doc_type_for_feature",
+      "severity": "suggestion",
+      "tag": "API",
+      "existing_types": [
+        "how-to",
+        "reference"
+      ],
+      "missing_types": [
+        "tutorial"
+      ],
+      "message": "Tag 'API' has how-to, reference but no tutorial."
+    },
+    {
+      "check": "missing_doc_type_for_feature",
+      "severity": "suggestion",
+      "tag": "Wizard",
+      "existing_types": [
+        "how-to"
+      ],
+      "missing_types": [
+        "reference",
+        "tutorial"
+      ],
+      "message": "Tag 'Wizard' has how-to but no reference, tutorial."
+    },
+    {
+      "check": "missing_doc_type_for_feature",
+      "severity": "suggestion",
+      "tag": "Provisioning",
+      "existing_types": [
+        "how-to"
+      ],
+      "missing_types": [
+        "reference",
+        "tutorial"
+      ],
+      "message": "Tag 'Provisioning' has how-to but no reference, tutorial."
+    },
+    {
+      "check": "missing_doc_type_for_feature",
+      "severity": "suggestion",
+      "tag": "Retainer",
+      "existing_types": [
+        "how-to"
+      ],
+      "missing_types": [
+        "reference",
+        "tutorial"
+      ],
+      "message": "Tag 'Retainer' has how-to but no reference, tutorial."
+    },
+    {
+      "check": "missing_doc_type_for_feature",
+      "severity": "suggestion",
+      "tag": "Pricing",
+      "existing_types": [
+        "reference"
+      ],
+      "missing_types": [
+        "how-to",
+        "tutorial"
+      ],
+      "message": "Tag 'Pricing' has reference but no how-to, tutorial."
+    },
+    {
+      "check": "missing_doc_type_for_feature",
+      "severity": "suggestion",
+      "tag": "Testing",
+      "existing_types": [
+        "how-to"
+      ],
+      "missing_types": [
+        "reference",
+        "tutorial"
+      ],
+      "message": "Tag 'Testing' has how-to but no reference, tutorial."
+    },
+    {
+      "check": "missing_doc_type_for_feature",
+      "severity": "suggestion",
+      "tag": "Configuration",
+      "existing_types": [
+        "reference"
+      ],
+      "missing_types": [
+        "how-to",
+        "tutorial"
+      ],
+      "message": "Tag 'Configuration' has reference but no how-to, tutorial."
+    },
+    {
+      "check": "missing_doc_type_for_feature",
+      "severity": "suggestion",
+      "tag": "Playground",
+      "existing_types": [
+        "reference"
+      ],
+      "missing_types": [
+        "how-to",
+        "tutorial"
+      ],
+      "message": "Tag 'Playground' has reference but no how-to, tutorial."
+    },
+    {
+      "check": "missing_doc_type_for_feature",
+      "severity": "suggestion",
+      "tag": "Deprecated",
+      "existing_types": [
+        "reference"
+      ],
+      "missing_types": [
+        "how-to",
+        "tutorial"
+      ],
+      "message": "Tag 'Deprecated' has reference but no how-to, tutorial."
+    },
+    {
+      "check": "missing_doc_type_for_feature",
+      "severity": "suggestion",
+      "tag": "gRPC",
+      "existing_types": [
+        "reference"
+      ],
+      "missing_types": [
+        "how-to",
+        "tutorial"
+      ],
+      "message": "Tag 'gRPC' has reference but no how-to, tutorial."
+    },
+    {
+      "check": "missing_doc_type_for_feature",
+      "severity": "suggestion",
+      "tag": "Search",
+      "existing_types": [
+        "reference"
+      ],
+      "missing_types": [
+        "how-to",
+        "tutorial"
+      ],
+      "message": "Tag 'Search' has reference but no how-to, tutorial."
+    },
+    {
+      "check": "missing_doc_type_for_feature",
+      "severity": "suggestion",
+      "tag": "Troubleshooting",
+      "existing_types": [
+        "troubleshooting"
+      ],
+      "missing_types": [
+        "how-to",
+        "reference",
+        "tutorial"
+      ],
+      "message": "Tag 'Troubleshooting' has troubleshooting but no how-to, reference, tutorial."
+    }
+  ]
+}

@@ -1,0 +1,639 @@
+{
+  "modality": "cross_doc_consistency",
+  "output": "reports/doc_compiler_consistency.json",
+  "total_issues": 76,
+  "issues_by_type": {
+    "port_not_in_variables": 5,
+    "hardcoded_variable": 71
+  },
+  "issues": [
+    {
+      "type": "port_not_in_variables",
+      "severity": "warning",
+      "port": "100",
+      "docs": [
+        "assets/protocols/asyncapi/asyncapi-api.md",
+        "assets/protocols/graphql/graphql-api.md",
+        "assets/protocols/grpc/grpc-api.md",
+        "assets/protocols/websocket/websocket-api.md",
+        "reference/asyncapi-api.md",
+        "reference/graphql-api.md",
+        "reference/grpc-api.md",
+        "reference/websocket-api.md"
+      ],
+      "message": "Port 100 found in docs but not in _variables.yml. Consider using a variable."
+    },
+    {
+      "type": "port_not_in_variables",
+      "severity": "warning",
+      "port": "8090",
+      "docs": [
+        "how-to/install-ask-ai-runtime-pack.md"
+      ],
+      "message": "Port 8090 found in docs but not in _variables.yml. Consider using a variable."
+    },
+    {
+      "type": "port_not_in_variables",
+      "severity": "warning",
+      "port": "4011",
+      "docs": [
+        "operations/PIPELINE_CAPABILITIES_CATALOG.md"
+      ],
+      "message": "Port 4011 found in docs but not in _variables.yml. Consider using a variable."
+    },
+    {
+      "type": "port_not_in_variables",
+      "severity": "warning",
+      "port": "129",
+      "docs": [
+        "reference/intent-experiences/configure-operator.md",
+        "reference/intent-experiences/configure-practitioner.md",
+        "reference/intent-experiences/configure-support.md",
+        "reference/intent-experiences/integrate-operator.md",
+        "reference/intent-experiences/integrate-practitioner.md",
+        "reference/intent-experiences/integrate-support.md",
+        "reference/intent-experiences/secure-operator.md",
+        "reference/intent-experiences/secure-practitioner.md",
+        "reference/intent-experiences/secure-support.md"
+      ],
+      "message": "Port 129 found in docs but not in _variables.yml. Consider using a variable."
+    },
+    {
+      "type": "port_not_in_variables",
+      "severity": "warning",
+      "port": "443",
+      "docs": [
+        "reference/network-transparency.md"
+      ],
+      "message": "Port 443 found in docs but not in _variables.yml. Consider using a variable."
+    },
+    {
+      "type": "hardcoded_variable",
+      "severity": "suggestion",
+      "variable": "docs_version",
+      "value": "2.0",
+      "doc": "SEO_GUIDE.md",
+      "message": "Hardcoded value '2.0' in SEO_GUIDE.md could use variable '{{ docs_version }}'."
+    },
+    {
+      "type": "hardcoded_variable",
+      "severity": "suggestion",
+      "variable": "terms.node",
+      "value": "node",
+      "doc": "SEO_GUIDE.md",
+      "message": "Hardcoded value 'node' in SEO_GUIDE.md could use variable '{{ terms.node }}'."
+    },
+    {
+      "type": "hardcoded_variable",
+      "severity": "suggestion",
+      "variable": "terms.trigger",
+      "value": "trigger",
+      "doc": "SEO_GUIDE.md",
+      "message": "Hardcoded value 'trigger' in SEO_GUIDE.md could use variable '{{ terms.trigger }}'."
+    },
+    {
+      "type": "hardcoded_variable",
+      "severity": "suggestion",
+      "variable": "copyright_year",
+      "value": "2024",
+      "doc": "SEO_GUIDE.md",
+      "message": "Hardcoded value '2024' in SEO_GUIDE.md could use variable '{{ copyright_year }}'."
+    },
+    {
+      "type": "hardcoded_variable",
+      "severity": "suggestion",
+      "variable": "default_port",
+      "value": "5678",
+      "doc": "VARIABLES_GUIDE.md",
+      "message": "Hardcoded value '5678' in VARIABLES_GUIDE.md could use variable '{{ default_port }}'."
+    },
+    {
+      "type": "hardcoded_variable",
+      "severity": "suggestion",
+      "variable": "default_webhook_port",
+      "value": "5678",
+      "doc": "VARIABLES_GUIDE.md",
+      "message": "Hardcoded value '5678' in VARIABLES_GUIDE.md could use variable '{{ default_webhook_port }}'."
+    },
+    {
+      "type": "hardcoded_variable",
+      "severity": "suggestion",
+      "variable": "terms.trigger",
+      "value": "trigger",
+      "doc": "assets/protocols/grpc/grpc-api.md",
+      "message": "Hardcoded value 'trigger' in assets/protocols/grpc/grpc-api.md could use variable '{{ terms.trigger }}'."
+    },
+    {
+      "type": "hardcoded_variable",
+      "severity": "suggestion",
+      "variable": "terms.workflow",
+      "value": "workflow",
+      "doc": "concepts/intelligent-knowledge-system.md",
+      "message": "Hardcoded value 'workflow' in concepts/intelligent-knowledge-system.md could use variable '{{ terms.workflow }}'."
+    },
+    {
+      "type": "hardcoded_variable",
+      "severity": "suggestion",
+      "variable": "terms.execution",
+      "value": "execution",
+      "doc": "concepts/intelligent-knowledge-system.md",
+      "message": "Hardcoded value 'execution' in concepts/intelligent-knowledge-system.md could use variable '{{ terms.execution }}'."
+    },
+    {
+      "type": "hardcoded_variable",
+      "severity": "suggestion",
+      "variable": "terms.workflow",
+      "value": "workflow",
+      "doc": "concepts/workflow-execution-model.md",
+      "message": "Hardcoded value 'workflow' in concepts/workflow-execution-model.md could use variable '{{ terms.workflow }}'."
+    },
+    {
+      "type": "hardcoded_variable",
+      "severity": "suggestion",
+      "variable": "terms.node",
+      "value": "node",
+      "doc": "concepts/workflow-execution-model.md",
+      "message": "Hardcoded value 'node' in concepts/workflow-execution-model.md could use variable '{{ terms.node }}'."
+    },
+    {
+      "type": "hardcoded_variable",
+      "severity": "suggestion",
+      "variable": "terms.trigger",
+      "value": "trigger",
+      "doc": "concepts/workflow-execution-model.md",
+      "message": "Hardcoded value 'trigger' in concepts/workflow-execution-model.md could use variable '{{ terms.trigger }}'."
+    },
+    {
+      "type": "hardcoded_variable",
+      "severity": "suggestion",
+      "variable": "terms.execution",
+      "value": "execution",
+      "doc": "concepts/workflow-execution-model.md",
+      "message": "Hardcoded value 'execution' in concepts/workflow-execution-model.md could use variable '{{ terms.execution }}'."
+    },
+    {
+      "type": "hardcoded_variable",
+      "severity": "suggestion",
+      "variable": "terms.node",
+      "value": "node",
+      "doc": "en/how-to/set-up-real-time-webhook-processing-pipeline.md",
+      "message": "Hardcoded value 'node' in en/how-to/set-up-real-time-webhook-processing-pipeline.md could use variable '{{ terms.node }}'."
+    },
+    {
+      "type": "hardcoded_variable",
+      "severity": "suggestion",
+      "variable": "default_port",
+      "value": "5678",
+      "doc": "getting-started/quickstart.md",
+      "message": "Hardcoded value '5678' in getting-started/quickstart.md could use variable '{{ default_port }}'."
+    },
+    {
+      "type": "hardcoded_variable",
+      "severity": "suggestion",
+      "variable": "default_webhook_port",
+      "value": "5678",
+      "doc": "getting-started/quickstart.md",
+      "message": "Hardcoded value '5678' in getting-started/quickstart.md could use variable '{{ default_webhook_port }}'."
+    },
+    {
+      "type": "hardcoded_variable",
+      "severity": "suggestion",
+      "variable": "terms.workflow",
+      "value": "workflow",
+      "doc": "getting-started/quickstart.md",
+      "message": "Hardcoded value 'workflow' in getting-started/quickstart.md could use variable '{{ terms.workflow }}'."
+    },
+    {
+      "type": "hardcoded_variable",
+      "severity": "suggestion",
+      "variable": "terms.node",
+      "value": "node",
+      "doc": "getting-started/quickstart.md",
+      "message": "Hardcoded value 'node' in getting-started/quickstart.md could use variable '{{ terms.node }}'."
+    },
+    {
+      "type": "hardcoded_variable",
+      "severity": "suggestion",
+      "variable": "terms.trigger",
+      "value": "trigger",
+      "doc": "getting-started/quickstart.md",
+      "message": "Hardcoded value 'trigger' in getting-started/quickstart.md could use variable '{{ terms.trigger }}'."
+    },
+    {
+      "type": "hardcoded_variable",
+      "severity": "suggestion",
+      "variable": "terms.execution",
+      "value": "execution",
+      "doc": "getting-started/quickstart.md",
+      "message": "Hardcoded value 'execution' in getting-started/quickstart.md could use variable '{{ terms.execution }}'."
+    },
+    {
+      "type": "hardcoded_variable",
+      "severity": "suggestion",
+      "variable": "terms.credential",
+      "value": "credential",
+      "doc": "getting-started/quickstart.md",
+      "message": "Hardcoded value 'credential' in getting-started/quickstart.md could use variable '{{ terms.credential }}'."
+    },
+    {
+      "type": "hardcoded_variable",
+      "severity": "suggestion",
+      "variable": "terms.expression",
+      "value": "expression",
+      "doc": "getting-started/quickstart.md",
+      "message": "Hardcoded value 'expression' in getting-started/quickstart.md could use variable '{{ terms.expression }}'."
+    },
+    {
+      "type": "hardcoded_variable",
+      "severity": "suggestion",
+      "variable": "terms.workflow",
+      "value": "workflow",
+      "doc": "how-to/assemble-intent-experiences.md",
+      "message": "Hardcoded value 'workflow' in how-to/assemble-intent-experiences.md could use variable '{{ terms.workflow }}'."
+    },
+    {
+      "type": "hardcoded_variable",
+      "severity": "suggestion",
+      "variable": "max_execution_timeout_seconds",
+      "value": "3600",
+      "doc": "how-to/configure-ask-ai-module.md",
+      "message": "Hardcoded value '3600' in how-to/configure-ask-ai-module.md could use variable '{{ max_execution_timeout_seconds }}'."
+    },
+    {
+      "type": "hardcoded_variable",
+      "severity": "suggestion",
+      "variable": "default_port",
+      "value": "5678",
+      "doc": "how-to/configure-webhook-trigger.md",
+      "message": "Hardcoded value '5678' in how-to/configure-webhook-trigger.md could use variable '{{ default_port }}'."
+    },
+    {
+      "type": "hardcoded_variable",
+      "severity": "suggestion",
+      "variable": "default_webhook_port",
+      "value": "5678",
+      "doc": "how-to/configure-webhook-trigger.md",
+      "message": "Hardcoded value '5678' in how-to/configure-webhook-trigger.md could use variable '{{ default_webhook_port }}'."
+    },
+    {
+      "type": "hardcoded_variable",
+      "severity": "suggestion",
+      "variable": "terms.workflow",
+      "value": "workflow",
+      "doc": "how-to/configure-webhook-trigger.md",
+      "message": "Hardcoded value 'workflow' in how-to/configure-webhook-trigger.md could use variable '{{ terms.workflow }}'."
+    },
+    {
+      "type": "hardcoded_variable",
+      "severity": "suggestion",
+      "variable": "terms.node",
+      "value": "node",
+      "doc": "how-to/configure-webhook-trigger.md",
+      "message": "Hardcoded value 'node' in how-to/configure-webhook-trigger.md could use variable '{{ terms.node }}'."
+    },
+    {
+      "type": "hardcoded_variable",
+      "severity": "suggestion",
+      "variable": "terms.trigger",
+      "value": "trigger",
+      "doc": "how-to/configure-webhook-trigger.md",
+      "message": "Hardcoded value 'trigger' in how-to/configure-webhook-trigger.md could use variable '{{ terms.trigger }}'."
+    },
+    {
+      "type": "hardcoded_variable",
+      "severity": "suggestion",
+      "variable": "terms.execution",
+      "value": "execution",
+      "doc": "how-to/configure-webhook-trigger.md",
+      "message": "Hardcoded value 'execution' in how-to/configure-webhook-trigger.md could use variable '{{ terms.execution }}'."
+    },
+    {
+      "type": "hardcoded_variable",
+      "severity": "suggestion",
+      "variable": "terms.credential",
+      "value": "credential",
+      "doc": "how-to/configure-webhook-trigger.md",
+      "message": "Hardcoded value 'credential' in how-to/configure-webhook-trigger.md could use variable '{{ terms.credential }}'."
+    },
+    {
+      "type": "hardcoded_variable",
+      "severity": "suggestion",
+      "variable": "terms.trigger",
+      "value": "trigger",
+      "doc": "how-to/index.md",
+      "message": "Hardcoded value 'trigger' in how-to/index.md could use variable '{{ terms.trigger }}'."
+    },
+    {
+      "type": "hardcoded_variable",
+      "severity": "suggestion",
+      "variable": "docs_url",
+      "value": "https://docs.example.com",
+      "doc": "how-to/install-ask-ai-runtime-pack.md",
+      "message": "Hardcoded value 'https://docs.example.com' in how-to/install-ask-ai-runtime-pack.md could use variable '{{ docs_url }}'."
+    },
+    {
+      "type": "hardcoded_variable",
+      "severity": "suggestion",
+      "variable": "terms.workflow",
+      "value": "workflow",
+      "doc": "operations/CANONICAL_FLOW.md",
+      "message": "Hardcoded value 'workflow' in operations/CANONICAL_FLOW.md could use variable '{{ terms.workflow }}'."
+    },
+    {
+      "type": "hardcoded_variable",
+      "severity": "suggestion",
+      "variable": "terms.workflow",
+      "value": "workflow",
+      "doc": "operations/CENTRALIZED_CLIENT_BUNDLES.md",
+      "message": "Hardcoded value 'workflow' in operations/CENTRALIZED_CLIENT_BUNDLES.md could use variable '{{ terms.workflow }}'."
+    },
+    {
+      "type": "hardcoded_variable",
+      "severity": "suggestion",
+      "variable": "terms.execution",
+      "value": "execution",
+      "doc": "operations/MULTI_PROTOCOL_ARCHITECTURE.md",
+      "message": "Hardcoded value 'execution' in operations/MULTI_PROTOCOL_ARCHITECTURE.md could use variable '{{ terms.execution }}'."
+    },
+    {
+      "type": "hardcoded_variable",
+      "severity": "suggestion",
+      "variable": "terms.node",
+      "value": "node",
+      "doc": "operations/MULTI_PROTOCOL_WIZARD_GUIDE.md",
+      "message": "Hardcoded value 'node' in operations/MULTI_PROTOCOL_WIZARD_GUIDE.md could use variable '{{ terms.node }}'."
+    },
+    {
+      "type": "hardcoded_variable",
+      "severity": "suggestion",
+      "variable": "terms.credential",
+      "value": "credential",
+      "doc": "operations/OPERATOR_RUNBOOK.md",
+      "message": "Hardcoded value 'credential' in operations/OPERATOR_RUNBOOK.md could use variable '{{ terms.credential }}'."
+    },
+    {
+      "type": "hardcoded_variable",
+      "severity": "suggestion",
+      "variable": "terms.workflow",
+      "value": "workflow",
+      "doc": "operations/PIPELINE_CAPABILITIES_CATALOG.md",
+      "message": "Hardcoded value 'workflow' in operations/PIPELINE_CAPABILITIES_CATALOG.md could use variable '{{ terms.workflow }}'."
+    },
+    {
+      "type": "hardcoded_variable",
+      "severity": "suggestion",
+      "variable": "terms.workflow",
+      "value": "workflow",
+      "doc": "operations/UNIFIED_CLIENT_CONFIG.md",
+      "message": "Hardcoded value 'workflow' in operations/UNIFIED_CLIENT_CONFIG.md could use variable '{{ terms.workflow }}'."
+    },
+    {
+      "type": "hardcoded_variable",
+      "severity": "suggestion",
+      "variable": "terms.trigger",
+      "value": "trigger",
+      "doc": "operations/UNIFIED_CLIENT_CONFIG.md",
+      "message": "Hardcoded value 'trigger' in operations/UNIFIED_CLIENT_CONFIG.md could use variable '{{ terms.trigger }}'."
+    },
+    {
+      "type": "hardcoded_variable",
+      "severity": "suggestion",
+      "variable": "terms.execution",
+      "value": "execution",
+      "doc": "operations/UNIFIED_CLIENT_CONFIG.md",
+      "message": "Hardcoded value 'execution' in operations/UNIFIED_CLIENT_CONFIG.md could use variable '{{ terms.execution }}'."
+    },
+    {
+      "type": "hardcoded_variable",
+      "severity": "suggestion",
+      "variable": "terms.credential",
+      "value": "credential",
+      "doc": "operations/UNIFIED_CLIENT_CONFIG.md",
+      "message": "Hardcoded value 'credential' in operations/UNIFIED_CLIENT_CONFIG.md could use variable '{{ terms.credential }}'."
+    },
+    {
+      "type": "hardcoded_variable",
+      "severity": "suggestion",
+      "variable": "default_port",
+      "value": "5678",
+      "doc": "reference/deprecated-example.md",
+      "message": "Hardcoded value '5678' in reference/deprecated-example.md could use variable '{{ default_port }}'."
+    },
+    {
+      "type": "hardcoded_variable",
+      "severity": "suggestion",
+      "variable": "default_webhook_port",
+      "value": "5678",
+      "doc": "reference/deprecated-example.md",
+      "message": "Hardcoded value '5678' in reference/deprecated-example.md could use variable '{{ default_webhook_port }}'."
+    },
+    {
+      "type": "hardcoded_variable",
+      "severity": "suggestion",
+      "variable": "terms.trigger",
+      "value": "trigger",
+      "doc": "reference/grpc-api.md",
+      "message": "Hardcoded value 'trigger' in reference/grpc-api.md could use variable '{{ terms.trigger }}'."
+    },
+    {
+      "type": "hardcoded_variable",
+      "severity": "suggestion",
+      "variable": "terms.workflow",
+      "value": "workflow",
+      "doc": "reference/intent-experiences/configure-operator.md",
+      "message": "Hardcoded value 'workflow' in reference/intent-experiences/configure-operator.md could use variable '{{ terms.workflow }}'."
+    },
+    {
+      "type": "hardcoded_variable",
+      "severity": "suggestion",
+      "variable": "terms.workflow",
+      "value": "workflow",
+      "doc": "reference/intent-experiences/configure-practitioner.md",
+      "message": "Hardcoded value 'workflow' in reference/intent-experiences/configure-practitioner.md could use variable '{{ terms.workflow }}'."
+    },
+    {
+      "type": "hardcoded_variable",
+      "severity": "suggestion",
+      "variable": "terms.workflow",
+      "value": "workflow",
+      "doc": "reference/intent-experiences/configure-support.md",
+      "message": "Hardcoded value 'workflow' in reference/intent-experiences/configure-support.md could use variable '{{ terms.workflow }}'."
+    },
+    {
+      "type": "hardcoded_variable",
+      "severity": "suggestion",
+      "variable": "terms.workflow",
+      "value": "workflow",
+      "doc": "reference/intent-experiences/integrate-operator.md",
+      "message": "Hardcoded value 'workflow' in reference/intent-experiences/integrate-operator.md could use variable '{{ terms.workflow }}'."
+    },
+    {
+      "type": "hardcoded_variable",
+      "severity": "suggestion",
+      "variable": "terms.workflow",
+      "value": "workflow",
+      "doc": "reference/intent-experiences/integrate-practitioner.md",
+      "message": "Hardcoded value 'workflow' in reference/intent-experiences/integrate-practitioner.md could use variable '{{ terms.workflow }}'."
+    },
+    {
+      "type": "hardcoded_variable",
+      "severity": "suggestion",
+      "variable": "terms.workflow",
+      "value": "workflow",
+      "doc": "reference/intent-experiences/integrate-support.md",
+      "message": "Hardcoded value 'workflow' in reference/intent-experiences/integrate-support.md could use variable '{{ terms.workflow }}'."
+    },
+    {
+      "type": "hardcoded_variable",
+      "severity": "suggestion",
+      "variable": "terms.workflow",
+      "value": "workflow",
+      "doc": "reference/intent-experiences/secure-operator.md",
+      "message": "Hardcoded value 'workflow' in reference/intent-experiences/secure-operator.md could use variable '{{ terms.workflow }}'."
+    },
+    {
+      "type": "hardcoded_variable",
+      "severity": "suggestion",
+      "variable": "terms.workflow",
+      "value": "workflow",
+      "doc": "reference/intent-experiences/secure-practitioner.md",
+      "message": "Hardcoded value 'workflow' in reference/intent-experiences/secure-practitioner.md could use variable '{{ terms.workflow }}'."
+    },
+    {
+      "type": "hardcoded_variable",
+      "severity": "suggestion",
+      "variable": "terms.workflow",
+      "value": "workflow",
+      "doc": "reference/intent-experiences/secure-support.md",
+      "message": "Hardcoded value 'workflow' in reference/intent-experiences/secure-support.md could use variable '{{ terms.workflow }}'."
+    },
+    {
+      "type": "hardcoded_variable",
+      "severity": "suggestion",
+      "variable": "docs_version",
+      "value": "2.0",
+      "doc": "reference/network-transparency.md",
+      "message": "Hardcoded value '2.0' in reference/network-transparency.md could use variable '{{ docs_version }}'."
+    },
+    {
+      "type": "hardcoded_variable",
+      "severity": "suggestion",
+      "variable": "max_execution_timeout_seconds",
+      "value": "3600",
+      "doc": "reference/network-transparency.md",
+      "message": "Hardcoded value '3600' in reference/network-transparency.md could use variable '{{ max_execution_timeout_seconds }}'."
+    },
+    {
+      "type": "hardcoded_variable",
+      "severity": "suggestion",
+      "variable": "terms.node",
+      "value": "node",
+      "doc": "reference/network-transparency.md",
+      "message": "Hardcoded value 'node' in reference/network-transparency.md could use variable '{{ terms.node }}'."
+    },
+    {
+      "type": "hardcoded_variable",
+      "severity": "suggestion",
+      "variable": "default_port",
+      "value": "5678",
+      "doc": "reference/nodes/webhook.md",
+      "message": "Hardcoded value '5678' in reference/nodes/webhook.md could use variable '{{ default_port }}'."
+    },
+    {
+      "type": "hardcoded_variable",
+      "severity": "suggestion",
+      "variable": "default_webhook_port",
+      "value": "5678",
+      "doc": "reference/nodes/webhook.md",
+      "message": "Hardcoded value '5678' in reference/nodes/webhook.md could use variable '{{ default_webhook_port }}'."
+    },
+    {
+      "type": "hardcoded_variable",
+      "severity": "suggestion",
+      "variable": "env_vars.webhook_url",
+      "value": "WEBHOOK_URL",
+      "doc": "reference/nodes/webhook.md",
+      "message": "Hardcoded value 'WEBHOOK_URL' in reference/nodes/webhook.md could use variable '{{ env_vars.webhook_url }}'."
+    },
+    {
+      "type": "hardcoded_variable",
+      "severity": "suggestion",
+      "variable": "terms.workflow",
+      "value": "workflow",
+      "doc": "reference/nodes/webhook.md",
+      "message": "Hardcoded value 'workflow' in reference/nodes/webhook.md could use variable '{{ terms.workflow }}'."
+    },
+    {
+      "type": "hardcoded_variable",
+      "severity": "suggestion",
+      "variable": "terms.node",
+      "value": "node",
+      "doc": "reference/nodes/webhook.md",
+      "message": "Hardcoded value 'node' in reference/nodes/webhook.md could use variable '{{ terms.node }}'."
+    },
+    {
+      "type": "hardcoded_variable",
+      "severity": "suggestion",
+      "variable": "terms.trigger",
+      "value": "trigger",
+      "doc": "reference/nodes/webhook.md",
+      "message": "Hardcoded value 'trigger' in reference/nodes/webhook.md could use variable '{{ terms.trigger }}'."
+    },
+    {
+      "type": "hardcoded_variable",
+      "severity": "suggestion",
+      "variable": "terms.execution",
+      "value": "execution",
+      "doc": "reference/nodes/webhook.md",
+      "message": "Hardcoded value 'execution' in reference/nodes/webhook.md could use variable '{{ terms.execution }}'."
+    },
+    {
+      "type": "hardcoded_variable",
+      "severity": "suggestion",
+      "variable": "default_port",
+      "value": "5678",
+      "doc": "troubleshooting/webhook-not-firing.md",
+      "message": "Hardcoded value '5678' in troubleshooting/webhook-not-firing.md could use variable '{{ default_port }}'."
+    },
+    {
+      "type": "hardcoded_variable",
+      "severity": "suggestion",
+      "variable": "default_webhook_port",
+      "value": "5678",
+      "doc": "troubleshooting/webhook-not-firing.md",
+      "message": "Hardcoded value '5678' in troubleshooting/webhook-not-firing.md could use variable '{{ default_webhook_port }}'."
+    },
+    {
+      "type": "hardcoded_variable",
+      "severity": "suggestion",
+      "variable": "env_vars.webhook_url",
+      "value": "WEBHOOK_URL",
+      "doc": "troubleshooting/webhook-not-firing.md",
+      "message": "Hardcoded value 'WEBHOOK_URL' in troubleshooting/webhook-not-firing.md could use variable '{{ env_vars.webhook_url }}'."
+    },
+    {
+      "type": "hardcoded_variable",
+      "severity": "suggestion",
+      "variable": "terms.workflow",
+      "value": "workflow",
+      "doc": "troubleshooting/webhook-not-firing.md",
+      "message": "Hardcoded value 'workflow' in troubleshooting/webhook-not-firing.md could use variable '{{ terms.workflow }}'."
+    },
+    {
+      "type": "hardcoded_variable",
+      "severity": "suggestion",
+      "variable": "terms.node",
+      "value": "node",
+      "doc": "troubleshooting/webhook-not-firing.md",
+      "message": "Hardcoded value 'node' in troubleshooting/webhook-not-firing.md could use variable '{{ terms.node }}'."
+    },
+    {
+      "type": "hardcoded_variable",
+      "severity": "suggestion",
+      "variable": "terms.trigger",
+      "value": "trigger",
+      "doc": "troubleshooting/webhook-not-firing.md",
+      "message": "Hardcoded value 'trigger' in troubleshooting/webhook-not-firing.md could use variable '{{ terms.trigger }}'."
+    }
+  ]
+}

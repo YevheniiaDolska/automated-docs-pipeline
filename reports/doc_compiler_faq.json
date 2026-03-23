@@ -1,0 +1,816 @@
+{
+  "modality": "auto_faq",
+  "output": "reports/doc_compiler_faq.json",
+  "total_faqs": 69,
+  "faqs_by_category": {
+    "reference": 46,
+    "concept": 4,
+    "how-to": 10,
+    "tutorial": 2,
+    "troubleshooting": 7
+  },
+  "tag_groups": {
+    "Kroha": 4,
+    "Docs": 8,
+    "Development": 4,
+    "C": 4,
+    "Mnt": 4,
+    "Users": 4,
+    "Documents": 4,
+    "Auto Doc Pipeline": 4,
+    "Pytest Of Eudo": 4,
+    "Test_Multi_Protocol_Flow_Gener0": 4,
+    "Tmp": 4,
+    "Pytest 2467": 4,
+    "Concept": 4,
+    "Cloud": 21,
+    "Self-hosted": 18,
+    "AI": 24,
+    "Reference": 31,
+    "Nodes": 10,
+    "Webhook": 12,
+    "How-To": 8,
+    "Tutorial": 2,
+    "Operations": 9,
+    "Client Onboarding": 2,
+    "Architecture": 1,
+    "API": 4,
+    "Wizard": 1,
+    "Provisioning": 1,
+    "Retainer": 1,
+    "Pricing": 1,
+    "Testing": 1,
+    "Configuration": 1,
+    "Playground": 1,
+    "Deprecated": 1,
+    "gRPC": 1,
+    "Search": 1,
+    "Troubleshooting": 7
+  },
+  "faqs": [
+    {
+      "question": "What is SEO/GEO Optimization Guide?",
+      "answer": "Comprehensive guide to SEO and GEO optimization in the documentation pipeline",
+      "source": "SEO_GUIDE.md",
+      "tags": [
+        "Kroha",
+        "Docs",
+        "Development",
+        "C",
+        "Mnt",
+        "Users",
+        "Documents",
+        "Auto Doc Pipeline"
+      ],
+      "category": "reference"
+    },
+    {
+      "question": "What is Variables and Templates Guide?",
+      "answer": "How to use Jinja2 variables and templates in documentation for consistency",
+      "source": "VARIABLES_GUIDE.md",
+      "tags": [
+        "Kroha",
+        "Docs",
+        "Development",
+        "C",
+        "Mnt",
+        "Users",
+        "Documents",
+        "Auto Doc Pipeline"
+      ],
+      "category": "reference"
+    },
+    {
+      "question": "What is ASYNCAPI API Reference?",
+      "answer": "Auto-generated asyncapi reference from source contract.",
+      "source": "assets/protocols/asyncapi/asyncapi-api.md",
+      "tags": [
+        "Pytest Of Eudo",
+        "Test_Multi_Protocol_Flow_Gener0",
+        "Tmp",
+        "Docs",
+        "Pytest 2467"
+      ],
+      "category": "reference"
+    },
+    {
+      "question": "What is GRAPHQL API Reference?",
+      "answer": "Auto-generated graphql reference from source contract.",
+      "source": "assets/protocols/graphql/graphql-api.md",
+      "tags": [
+        "Pytest Of Eudo",
+        "Pytest 2467",
+        "Tmp",
+        "Test_Multi_Protocol_Flow_Gener0",
+        "Docs"
+      ],
+      "category": "reference"
+    },
+    {
+      "question": "What is GRPC API Reference?",
+      "answer": "Auto-generated grpc reference from source contract.",
+      "source": "assets/protocols/grpc/grpc-api.md",
+      "tags": [
+        "Pytest Of Eudo",
+        "Test_Multi_Protocol_Flow_Gener0",
+        "Tmp",
+        "Docs",
+        "Pytest 2467"
+      ],
+      "category": "reference"
+    },
+    {
+      "question": "What is REST API Reference?",
+      "answer": "Auto-generated rest reference from source contract.",
+      "source": "assets/protocols/rest/rest-api.md",
+      "tags": [],
+      "category": "reference"
+    },
+    {
+      "question": "What is WEBSOCKET API Reference?",
+      "answer": "Auto-generated websocket reference from source contract.",
+      "source": "assets/protocols/websocket/websocket-api.md",
+      "tags": [
+        "Pytest Of Eudo",
+        "Tmp",
+        "Pytest 2467",
+        "Docs",
+        "Test_Multi_Protocol_Flow_Gener0"
+      ],
+      "category": "reference"
+    },
+    {
+      "question": "What is Concepts and Architecture?",
+      "answer": "Explanations of internals: workflow execution model, data flow, credential management, and security architecture.",
+      "source": "concepts/index.md",
+      "tags": [
+        "Concept",
+        "Cloud",
+        "Self-hosted"
+      ],
+      "category": "concept"
+    },
+    {
+      "question": "What is Intelligent knowledge system architecture?",
+      "answer": "Learn how the pipeline models reusable knowledge modules for AI retrieval, dynamic assembly, and multi-channel documentation delivery.",
+      "source": "concepts/intelligent-knowledge-system.md",
+      "tags": [
+        "Concept",
+        "AI",
+        "Reference"
+      ],
+      "category": "concept"
+    },
+    {
+      "question": "What is How the workflow execution model works?",
+      "answer": "processes workflows by executing nodes sequentially, passing data as arrays of JSON objects between each node in the chain.",
+      "source": "concepts/workflow-execution-model.md",
+      "tags": [
+        "Concept",
+        "Nodes",
+        "Cloud",
+        "Self-hosted"
+      ],
+      "category": "concept"
+    },
+    {
+      "question": "How do I set up a real-time webhook processing pipeline?",
+      "answer": "Configure end-to-end webhook ingestion with HMAC verification, async queue processing, and delivery guarantees in under 15 minutes.",
+      "source": "en/how-to/set-up-real-time-webhook-processing-pipeline.md",
+      "tags": [
+        "Webhook",
+        "How-To",
+        "Cloud",
+        "Self-hosted"
+      ],
+      "category": "how-to"
+    },
+    {
+      "question": "How do I get started with Getting Started?",
+      "answer": "Step-by-step tutorials to help you build your first workflow, from installation through your first automation.",
+      "source": "getting-started/index.md",
+      "tags": [
+        "Tutorial",
+        "Cloud",
+        "Self-hosted"
+      ],
+      "category": "tutorial"
+    },
+    {
+      "question": "How do I get started with Build your first workflow in 5 minutes?",
+      "answer": "Create a webhook-triggered workflow that receives HTTP requests and sends Slack notifications. No coding required.",
+      "source": "getting-started/quickstart.md",
+      "tags": [
+        "Tutorial",
+        "Webhook",
+        "Cloud",
+        "Self-hosted"
+      ],
+      "category": "tutorial"
+    },
+    {
+      "question": "How do I assemble intent experiences?",
+      "answer": "Build user-intent documentation and channel bundles from reusable knowledge modules with validation, indexing, and consistent outputs.",
+      "source": "how-to/assemble-intent-experiences.md",
+      "tags": [
+        "How-To",
+        "AI",
+        "Reference"
+      ],
+      "category": "how-to"
+    },
+    {
+      "question": "How do I configure ask ai module?",
+      "answer": "Enable or disable Ask AI, set provider and billing mode, and verify configuration in five steps for beginner operators.",
+      "source": "how-to/configure-ask-ai-module.md",
+      "tags": [
+        "How-To",
+        "AI",
+        "Cloud"
+      ],
+      "category": "how-to"
+    },
+    {
+      "question": "How do I configure webhook triggers?",
+      "answer": "Set up and configure webhook trigger nodes to start workflows from incoming HTTP requests with authentication.",
+      "source": "how-to/configure-webhook-trigger.md",
+      "tags": [
+        "Webhook",
+        "How-To"
+      ],
+      "category": "how-to"
+    },
+    {
+      "question": "How do I how-to guides for?",
+      "answer": "Step-by-step guides for specific tasks including webhook configuration, error handling, and API integration.",
+      "source": "how-to/index.md",
+      "tags": [
+        "How-To",
+        "Cloud",
+        "Self-hosted"
+      ],
+      "category": "how-to"
+    },
+    {
+      "question": "How do I install ask ai runtime pack?",
+      "answer": "Install the optional Ask AI runtime pack with API endpoint, widget, auth checks, and billing hooks in a few commands.",
+      "source": "how-to/install-ask-ai-runtime-pack.md",
+      "tags": [
+        "How-To",
+        "AI",
+        "Cloud"
+      ],
+      "category": "how-to"
+    },
+    {
+      "question": "How do I run api-first production flow?",
+      "answer": "Generate OpenAPI from planning notes, run full lint and self-verification, publish playground assets, and keep a sandbox ready for client testing.",
+      "source": "how-to/run-api-first-production-flow.md",
+      "tags": [
+        "How-To",
+        "Cloud",
+        "Self-hosted"
+      ],
+      "category": "how-to"
+    },
+    {
+      "question": "What is Documentation Pipeline Demo?",
+      "answer": "Automated documentation pipeline with GEO optimization, faceted search, and CI/CD quality gates for workflow automation platform.",
+      "source": "index.md",
+      "tags": [
+        "Concept",
+        "Cloud",
+        "Self-hosted"
+      ],
+      "category": "concept"
+    },
+    {
+      "question": "What is Canonical Flow (Sales + Delivery)?",
+      "answer": "Canonical sales and delivery flow for onboarding and operating client Auto-Doc Pipeline setups.",
+      "source": "operations/CANONICAL_FLOW.md",
+      "tags": [
+        "Operations",
+        "Client Onboarding"
+      ],
+      "category": "reference"
+    },
+    {
+      "question": "What is Централизованная настройка клиентов?",
+      "answer": "Практический путь настройки клиентских bundle и автозапуска pipeline из одного места.",
+      "source": "operations/CENTRALIZED_CLIENT_BUNDLES.md",
+      "tags": [
+        "Operations",
+        "Client Onboarding"
+      ],
+      "category": "reference"
+    },
+    {
+      "question": "What is Multi-Protocol Architecture?",
+      "answer": "Unified docs-ops pipeline for REST, GraphQL, gRPC, AsyncAPI, and WebSocket.",
+      "source": "operations/MULTI_PROTOCOL_ARCHITECTURE.md",
+      "tags": [
+        "Architecture",
+        "API",
+        "Operations"
+      ],
+      "category": "reference"
+    },
+    {
+      "question": "How do I multi-protocol wizard guide?",
+      "answer": "Wizard UX for protocol-aware provisioning in VeriDoc and VeriOps.",
+      "source": "operations/MULTI_PROTOCOL_WIZARD_GUIDE.md",
+      "tags": [
+        "Wizard",
+        "Provisioning",
+        "Operations"
+      ],
+      "category": "how-to"
+    },
+    {
+      "question": "How do I operator runbook (retainer operations)?",
+      "answer": "Step-by-step instructions for weekly report review, client questions, new repo setup, and profile tuning.",
+      "source": "operations/OPERATOR_RUNBOOK.md",
+      "tags": [
+        "Operations",
+        "Retainer"
+      ],
+      "category": "how-to"
+    },
+    {
+      "question": "What is Pipeline Capabilities Catalog?",
+      "answer": "Generated catalog of available pipeline commands, templates, policy packs, and assets for client configuration.",
+      "source": "operations/PIPELINE_CAPABILITIES_CATALOG.md",
+      "tags": [
+        "Operations",
+        "Reference"
+      ],
+      "category": "reference"
+    },
+    {
+      "question": "What is Plan Tiers (Basic / Pro / Enterprise)?",
+      "answer": "Feature packaging matrix and defaults for Basic, Pro, and Enterprise client plans.",
+      "source": "operations/PLAN_TIERS.md",
+      "tags": [
+        "Operations",
+        "Pricing"
+      ],
+      "category": "reference"
+    },
+    {
+      "question": "How do I smart merge and manual review?",
+      "answer": "How needs_review works for protocol test assets and where operators review flagged cases.",
+      "source": "operations/SMART_MERGE_REVIEW.md",
+      "tags": [
+        "Testing",
+        "Operations",
+        "API"
+      ],
+      "category": "how-to"
+    },
+    {
+      "question": "What is Unified Client Configuration?",
+      "answer": "Single source of truth for per-client Auto-Doc Pipeline configuration, modules, and automation.",
+      "source": "operations/UNIFIED_CLIENT_CONFIG.md",
+      "tags": [
+        "Operations",
+        "Configuration"
+      ],
+      "category": "reference"
+    },
+    {
+      "question": "What is API playground?",
+      "answer": "Interactive API reference with Swagger UI or Redoc and configurable sandbox behavior for product-led growth.",
+      "source": "reference/api-playground.md",
+      "tags": [
+        "Reference",
+        "API",
+        "Playground"
+      ],
+      "category": "reference"
+    },
+    {
+      "question": "What is ASYNCAPI API Reference?",
+      "answer": "Auto-generated asyncapi reference from source contract.",
+      "source": "reference/asyncapi-api.md",
+      "tags": [
+        "C",
+        "Auto Doc Pipeline",
+        "Users",
+        "Kroha",
+        "Mnt",
+        "Development",
+        "Documents",
+        "Docs"
+      ],
+      "category": "reference"
+    },
+    {
+      "question": "What is Old Webhook API (Deprecated)?",
+      "answer": "This API is deprecated. Use the new Webhook node instead.",
+      "source": "reference/deprecated-example.md",
+      "tags": [
+        "Deprecated",
+        "Webhook"
+      ],
+      "category": "reference"
+    },
+    {
+      "question": "What is GRAPHQL API Reference?",
+      "answer": "Auto-generated graphql reference from source contract.",
+      "source": "reference/graphql-api.md",
+      "tags": [
+        "Mnt",
+        "Docs",
+        "Auto Doc Pipeline",
+        "Users",
+        "C",
+        "Kroha",
+        "Documents",
+        "Development"
+      ],
+      "category": "reference"
+    },
+    {
+      "question": "What is GRPC API Reference?",
+      "answer": "Auto-generated grpc reference from source contract.",
+      "source": "reference/grpc-api.md",
+      "tags": [
+        "API",
+        "gRPC",
+        "Reference"
+      ],
+      "category": "reference"
+    },
+    {
+      "question": "What is Reference Documentation?",
+      "answer": "Complete reference for nodes, parameters, environment variables, CLI commands, and REST API endpoints.",
+      "source": "reference/index.md",
+      "tags": [
+        "Reference",
+        "Nodes",
+        "Cloud",
+        "Self-hosted"
+      ],
+      "category": "reference"
+    },
+    {
+      "question": "What is Intent experience: automate for developer?",
+      "answer": "Assembled guidance for one intent and audience using reusable knowledge modules with verified metadata and channel-ready sections.",
+      "source": "reference/intent-experiences/automate-developer.md",
+      "tags": [
+        "Reference",
+        "AI"
+      ],
+      "category": "reference"
+    },
+    {
+      "question": "What is Intent experience: automate for operator?",
+      "answer": "Assembled guidance for one intent and audience using reusable knowledge modules with verified metadata and channel-ready sections.",
+      "source": "reference/intent-experiences/automate-operator.md",
+      "tags": [
+        "Reference",
+        "AI"
+      ],
+      "category": "reference"
+    },
+    {
+      "question": "What is Intent experience: automate for support?",
+      "answer": "Assembled guidance for one intent and audience using reusable knowledge modules with verified metadata and channel-ready sections.",
+      "source": "reference/intent-experiences/automate-support.md",
+      "tags": [
+        "Reference",
+        "AI"
+      ],
+      "category": "reference"
+    },
+    {
+      "question": "What is Intent experience: configure for operator?",
+      "answer": "Assembled guidance for one intent and audience using reusable knowledge modules with verified metadata and channel-ready sections.",
+      "source": "reference/intent-experiences/configure-operator.md",
+      "tags": [
+        "Reference",
+        "AI"
+      ],
+      "category": "reference"
+    },
+    {
+      "question": "What is Intent experience: configure for practitioner?",
+      "answer": "Assembled guidance for one intent and audience using reusable knowledge modules with verified metadata and channel-ready sections.",
+      "source": "reference/intent-experiences/configure-practitioner.md",
+      "tags": [
+        "Reference",
+        "AI"
+      ],
+      "category": "reference"
+    },
+    {
+      "question": "What is Intent experience: configure for support?",
+      "answer": "Assembled guidance for one intent and audience using reusable knowledge modules with verified metadata and channel-ready sections.",
+      "source": "reference/intent-experiences/configure-support.md",
+      "tags": [
+        "Reference",
+        "AI"
+      ],
+      "category": "reference"
+    },
+    {
+      "question": "What is Intent experiences reference?",
+      "answer": "Reference for generated intent experience pages and multi-channel bundles assembled from reusable knowledge modules.",
+      "source": "reference/intent-experiences/index.md",
+      "tags": [
+        "Reference",
+        "AI",
+        "How-To"
+      ],
+      "category": "reference"
+    },
+    {
+      "question": "What is Intent experience: integrate for operator?",
+      "answer": "Assembled guidance for one intent and audience using reusable knowledge modules with verified metadata and channel-ready sections.",
+      "source": "reference/intent-experiences/integrate-operator.md",
+      "tags": [
+        "Reference",
+        "AI"
+      ],
+      "category": "reference"
+    },
+    {
+      "question": "What is Intent experience: integrate for practitioner?",
+      "answer": "Assembled guidance for one intent and audience using reusable knowledge modules with verified metadata and channel-ready sections.",
+      "source": "reference/intent-experiences/integrate-practitioner.md",
+      "tags": [
+        "Reference",
+        "AI"
+      ],
+      "category": "reference"
+    },
+    {
+      "question": "What is Intent experience: integrate for support?",
+      "answer": "Assembled guidance for one intent and audience using reusable knowledge modules with verified metadata and channel-ready sections.",
+      "source": "reference/intent-experiences/integrate-support.md",
+      "tags": [
+        "Reference",
+        "AI"
+      ],
+      "category": "reference"
+    },
+    {
+      "question": "What is Intent experience: optimize for developer?",
+      "answer": "Assembled guidance for one intent and audience using reusable knowledge modules with verified metadata and channel-ready sections.",
+      "source": "reference/intent-experiences/optimize-developer.md",
+      "tags": [
+        "Reference",
+        "AI"
+      ],
+      "category": "reference"
+    },
+    {
+      "question": "What is Intent experience: optimize for operator?",
+      "answer": "Assembled guidance for one intent and audience using reusable knowledge modules with verified metadata and channel-ready sections.",
+      "source": "reference/intent-experiences/optimize-operator.md",
+      "tags": [
+        "Reference",
+        "AI"
+      ],
+      "category": "reference"
+    },
+    {
+      "question": "What is Intent experience: optimize for support?",
+      "answer": "Assembled guidance for one intent and audience using reusable knowledge modules with verified metadata and channel-ready sections.",
+      "source": "reference/intent-experiences/optimize-support.md",
+      "tags": [
+        "Reference",
+        "AI"
+      ],
+      "category": "reference"
+    },
+    {
+      "question": "What is Intent experience: secure for operator?",
+      "answer": "Assembled guidance for one intent and audience using reusable knowledge modules with verified metadata and channel-ready sections.",
+      "source": "reference/intent-experiences/secure-operator.md",
+      "tags": [
+        "Reference",
+        "AI"
+      ],
+      "category": "reference"
+    },
+    {
+      "question": "What is Intent experience: secure for practitioner?",
+      "answer": "Assembled guidance for one intent and audience using reusable knowledge modules with verified metadata and channel-ready sections.",
+      "source": "reference/intent-experiences/secure-practitioner.md",
+      "tags": [
+        "Reference",
+        "AI"
+      ],
+      "category": "reference"
+    },
+    {
+      "question": "What is Intent experience: secure for support?",
+      "answer": "Assembled guidance for one intent and audience using reusable knowledge modules with verified metadata and channel-ready sections.",
+      "source": "reference/intent-experiences/secure-support.md",
+      "tags": [
+        "Reference",
+        "AI"
+      ],
+      "category": "reference"
+    },
+    {
+      "question": "What is Intent experience: troubleshoot for developer?",
+      "answer": "Assembled guidance for one intent and audience using reusable knowledge modules with verified metadata and channel-ready sections.",
+      "source": "reference/intent-experiences/troubleshoot-developer.md",
+      "tags": [
+        "Reference",
+        "AI"
+      ],
+      "category": "reference"
+    },
+    {
+      "question": "What is Intent experience: troubleshoot for operator?",
+      "answer": "Assembled guidance for one intent and audience using reusable knowledge modules with verified metadata and channel-ready sections.",
+      "source": "reference/intent-experiences/troubleshoot-operator.md",
+      "tags": [
+        "Reference",
+        "AI"
+      ],
+      "category": "reference"
+    },
+    {
+      "question": "What is Intent experience: troubleshoot for support?",
+      "answer": "Assembled guidance for one intent and audience using reusable knowledge modules with verified metadata and channel-ready sections.",
+      "source": "reference/intent-experiences/troubleshoot-support.md",
+      "tags": [
+        "Reference",
+        "AI"
+      ],
+      "category": "reference"
+    },
+    {
+      "question": "What is Network transparency reference?",
+      "answer": "Complete list of all outgoing network requests the pipeline makes, with exact payload schemas. No client data leaves your network.",
+      "source": "reference/network-transparency.md",
+      "tags": [
+        "Reference"
+      ],
+      "category": "reference"
+    },
+    {
+      "question": "What is Webhook node reference for?",
+      "answer": "Complete parameter reference for the Webhook trigger node including HTTP methods, authentication, response modes, and binary data handling.",
+      "source": "reference/nodes/webhook.md",
+      "tags": [
+        "Reference",
+        "Webhook",
+        "Nodes",
+        "Cloud",
+        "Self-hosted"
+      ],
+      "category": "reference"
+    },
+    {
+      "question": "What is REST API Reference?",
+      "answer": "Auto-generated rest reference from source contract.",
+      "source": "reference/rest-api.md",
+      "tags": [],
+      "category": "reference"
+    },
+    {
+      "question": "What is TaskStream API playground?",
+      "answer": "Interactive TaskStream OpenAPI playground with Swagger UI or Redoc and try-it-out requests against mock or prod-like sandbox endpoints.",
+      "source": "reference/taskstream-api-playground.md",
+      "tags": [
+        "Reference",
+        "Cloud",
+        "Self-hosted"
+      ],
+      "category": "reference"
+    },
+    {
+      "question": "What is TaskStream API planning notes?",
+      "answer": "Input planning notes used by the API-first flow to generate and validate OpenAPI contracts for TaskStream demos.",
+      "source": "reference/taskstream-planning-notes.md",
+      "tags": [
+        "Reference",
+        "AI",
+        "Cloud"
+      ],
+      "category": "reference"
+    },
+    {
+      "question": "What is WEBSOCKET API Reference?",
+      "answer": "Auto-generated websocket reference from source contract.",
+      "source": "reference/websocket-api.md",
+      "tags": [],
+      "category": "reference"
+    },
+    {
+      "question": "What is Advanced Search?",
+      "answer": "Search and filter documentation using faceted navigation for quick discovery",
+      "source": "search-faceted.md",
+      "tags": [
+        "Reference",
+        "Search"
+      ],
+      "category": "reference"
+    },
+    {
+      "question": "What is Browse by tag?",
+      "answer": "Filter documentation by topic tags including tutorials, how-to guides, concepts, and component-specific content.",
+      "source": "tags.md",
+      "tags": [
+        "Reference"
+      ],
+      "category": "reference"
+    },
+    {
+      "question": "Cause 1: Using Test URL with an inactive editor?",
+      "answer": "**Symptom:** Requests to the Test URL return a timeout or 404 after you close the editor tab.",
+      "source": "troubleshooting/webhook-not-firing.md",
+      "tags": [
+        "Troubleshooting",
+        "Webhook",
+        "Nodes",
+        "Cloud",
+        "Self-hosted"
+      ],
+      "category": "troubleshooting"
+    },
+    {
+      "question": "Cause 2: Workflow not activated?",
+      "answer": "**Symptom:** Requests to the Production URL return 404 Not Found.",
+      "source": "troubleshooting/webhook-not-firing.md",
+      "tags": [
+        "Troubleshooting",
+        "Webhook",
+        "Nodes",
+        "Cloud",
+        "Self-hosted"
+      ],
+      "category": "troubleshooting"
+    },
+    {
+      "question": "Cause 3: Firewall or reverse proxy blocking requests?",
+      "answer": "**Symptom:** Requests from external services timeout. Local `curl` requests work fine.",
+      "source": "troubleshooting/webhook-not-firing.md",
+      "tags": [
+        "Troubleshooting",
+        "Webhook",
+        "Nodes",
+        "Cloud",
+        "Self-hosted"
+      ],
+      "category": "troubleshooting"
+    },
+    {
+      "question": "Cause 4: Incorrect WEBHOOK_URL environment variable?",
+      "answer": "**Symptom:** The Webhook node shows a URL that does not match your domain. External services cannot reach it.",
+      "source": "troubleshooting/webhook-not-firing.md",
+      "tags": [
+        "Troubleshooting",
+        "Webhook",
+        "Nodes",
+        "Cloud",
+        "Self-hosted"
+      ],
+      "category": "troubleshooting"
+    },
+    {
+      "question": "Still not working?",
+      "answer": "1. Check the logs for errors: `docker logs` or the process output.\n1. Test with a minimal `curl` command from the same network as the service.\n1. Verify the HTTP method matches (the Webhook node only responds to the configured method).",
+      "source": "troubleshooting/webhook-not-firing.md",
+      "tags": [
+        "Troubleshooting",
+        "Webhook",
+        "Nodes",
+        "Cloud",
+        "Self-hosted"
+      ],
+      "category": "troubleshooting"
+    },
+    {
+      "question": "Related?",
+      "answer": "- [Webhook node reference](../reference/nodes/webhook.md)\n- [Configure Webhook authentication](../how-to/configure-webhook-trigger.md)",
+      "source": "troubleshooting/webhook-not-firing.md",
+      "tags": [
+        "Troubleshooting",
+        "Webhook",
+        "Nodes",
+        "Cloud",
+        "Self-hosted"
+      ],
+      "category": "troubleshooting"
+    },
+    {
+      "question": "Next steps?",
+      "answer": "- [Documentation index](index.md)",
+      "source": "troubleshooting/webhook-not-firing.md",
+      "tags": [
+        "Troubleshooting",
+        "Webhook",
+        "Nodes",
+        "Cloud",
+        "Self-hosted"
+      ],
+      "category": "troubleshooting"
+    }
+  ]
+}

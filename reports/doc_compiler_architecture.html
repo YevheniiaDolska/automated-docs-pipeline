@@ -1,0 +1,1792 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Documentation Architecture</title>
+<style>
+  /* Light theme (default) */
+  :root {
+    --bg: #ffffff;
+    --surface: #f8fafc;
+    --border: #e2e8f0;
+    --text: #1e293b;
+    --text-muted: #64748b;
+    --accent: #6366f1;
+    --accent-glow: rgba(99, 102, 241, 0.2);
+    --success: #10b981;
+    --warning: #f59e0b;
+    --danger: #ef4444;
+  }
+
+  /* Dark theme: auto-detect from parent page or OS preference */
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #0f172a;
+      --surface: #1e293b;
+      --border: #334155;
+      --text: #e2e8f0;
+      --text-muted: #94a3b8;
+      --accent: #818cf8;
+      --accent-glow: rgba(129, 140, 248, 0.3);
+      --success: #34d399;
+      --warning: #fbbf24;
+      --danger: #f87171;
+    }
+  }
+
+  /* Explicit dark theme (set by JS from parent page) */
+  [data-theme="dark"] {
+    --bg: #0f172a;
+    --surface: #1e293b;
+    --border: #334155;
+    --text: #e2e8f0;
+    --text-muted: #94a3b8;
+    --accent: #818cf8;
+    --accent-glow: rgba(129, 140, 248, 0.3);
+    --success: #34d399;
+    --warning: #fbbf24;
+    --danger: #f87171;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 2rem 1rem;
+  }
+
+  h1 {
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+    color: var(--text);
+  }
+
+  .subtitle {
+    color: var(--text-muted);
+    font-size: 0.875rem;
+    margin-bottom: 2rem;
+  }
+
+  .diagram {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    width: 100%;
+    max-width: 900px;
+  }
+
+  .layer {
+    display: flex;
+    gap: 0.75rem;
+    justify-content: center;
+    flex-wrap: wrap;
+    width: 100%;
+  }
+
+  .layer-label {
+    width: 100%;
+    text-align: center;
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--text-muted);
+    margin-bottom: -0.5rem;
+  }
+
+  .component {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 0.875rem 1.25rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    text-align: center;
+    min-width: 140px;
+    position: relative;
+  }
+
+  .component:hover {
+    border-color: var(--accent);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
+  }
+
+  .component.active {
+    border-color: var(--accent);
+    box-shadow: 0 0 20px var(--accent-glow);
+  }
+
+  .component .icon {
+    font-size: 1.5rem;
+    display: block;
+    margin-bottom: 0.375rem;
+  }
+
+  .component .name {
+    font-size: 0.8rem;
+    font-weight: 600;
+  }
+
+  .component .metric {
+    font-size: 0.65rem;
+    color: var(--text-muted);
+    margin-top: 0.25rem;
+  }
+
+  .arrow-row {
+    display: flex;
+    justify-content: center;
+    color: var(--text-muted);
+    font-size: 1.25rem;
+    animation: pulse-down 2s infinite;
+  }
+
+  @keyframes pulse-down {
+    0%, 100% { opacity: 0.4; }
+    50% { opacity: 1; }
+  }
+
+  .info-panel {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 1.25rem 1.5rem;
+    width: 100%;
+    max-width: 900px;
+    margin-top: 1.5rem;
+    min-height: 120px;
+    transition: all 0.2s ease;
+  }
+
+  .info-panel.active {
+    border-color: var(--accent);
+  }
+
+  .info-panel h3 {
+    font-size: 1rem;
+    margin-bottom: 0.5rem;
+    color: var(--accent);
+  }
+
+  .info-panel p {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    line-height: 1.6;
+  }
+
+  .info-panel .tag {
+    display: inline-block;
+    background: rgba(129, 140, 248, 0.15);
+    color: var(--accent);
+    padding: 0.15rem 0.5rem;
+    border-radius: 4px;
+    font-size: 0.7rem;
+    margin-top: 0.75rem;
+    margin-right: 0.375rem;
+  }
+
+  .info-default {
+    color: var(--text-muted);
+    font-style: italic;
+    font-size: 0.85rem;
+  }
+</style>
+</head>
+<body>
+
+<h1>Documentation Architecture</h1>
+<p class="subtitle">Click any component to see details</p>
+
+<!-- === EDIT THIS SECTION: Add/remove layers and components === -->
+<div class="diagram">
+
+  <div class="layer-label">Concept</div>
+  <div class="layer">
+    <div class="component" data-id="Concepts" onclick="showInfo('Concepts')">
+      <span class="icon">&#9881;</span>
+      <div class="name">Concepts</div>
+      <div class="metric">concepts/index.md</div>
+    </div>
+    <div class="component" data-id="Core_components" onclick="showInfo('Core_components')">
+      <span class="icon">&#9881;</span>
+      <div class="name">Core components</div>
+      <div class="metric">concepts/intelligent-knowledge-system.md</div>
+    </div>
+    <div class="component" data-id="Why_this_improves_documentatio" onclick="showInfo('Why_this_improves_documentatio')">
+      <span class="icon">&#9881;</span>
+      <div class="name">Why this improves documentation quality</div>
+      <div class="metric">concepts/intelligent-knowledge-system.md</div>
+    </div>
+    <div class="component" data-id="Data_model" onclick="showInfo('Data_model')">
+      <span class="icon">&#9881;</span>
+      <div class="name">Data model</div>
+      <div class="metric">concepts/intelligent-knowledge-system.md</div>
+    </div>
+    <div class="component" data-id="Operational_flow" onclick="showInfo('Operational_flow')">
+      <span class="icon">&#9881;</span>
+      <div class="name">Operational flow</div>
+      <div class="metric">concepts/intelligent-knowledge-system.md</div>
+    </div>
+    <div class="component" data-id="RAG_integration_contract" onclick="showInfo('RAG_integration_contract')">
+      <span class="icon">&#9881;</span>
+      <div class="name">RAG integration contract</div>
+      <div class="metric">concepts/intelligent-knowledge-system.md</div>
+    </div>
+    <div class="component" data-id="Advanced_retrieval_pipeline" onclick="showInfo('Advanced_retrieval_pipeline')">
+      <span class="icon">&#9881;</span>
+      <div class="name">Advanced retrieval pipeline</div>
+      <div class="metric">concepts/intelligent-knowledge-system.md</div>
+    </div>
+    <div class="component" data-id="Security_and_governance" onclick="showInfo('Security_and_governance')">
+      <span class="icon">&#9881;</span>
+      <div class="name">Security and governance</div>
+      <div class="metric">concepts/intelligent-knowledge-system.md</div>
+    </div>
+    <div class="component" data-id="How_the_workflow_execution_mod" onclick="showInfo('How_the_workflow_execution_mod')">
+      <span class="icon">&#9881;</span>
+      <div class="name">How the workflow execution model works</div>
+      <div class="metric">concepts/workflow-execution-model.md</div>
+    </div>
+    <div class="component" data-id="Data_structure_between_nodes" onclick="showInfo('Data_structure_between_nodes')">
+      <span class="icon">&#9881;</span>
+      <div class="name">Data structure between nodes</div>
+      <div class="metric">concepts/workflow-execution-model.md</div>
+    </div>
+    <div class="component" data-id="Execution_flow" onclick="showInfo('Execution_flow')">
+      <span class="icon">&#9881;</span>
+      <div class="name">Execution flow</div>
+      <div class="metric">concepts/workflow-execution-model.md</div>
+    </div>
+    <div class="component" data-id="Execution_modes" onclick="showInfo('Execution_modes')">
+      <span class="icon">&#9881;</span>
+      <div class="name">Execution modes</div>
+      <div class="metric">concepts/workflow-execution-model.md</div>
+    </div>
+    <div class="component" data-id="Error_handling" onclick="showInfo('Error_handling')">
+      <span class="icon">&#9881;</span>
+      <div class="name">Error handling</div>
+      <div class="metric">concepts/workflow-execution-model.md</div>
+    </div>
+    <div class="component" data-id="Key_implications_for_documenta" onclick="showInfo('Key_implications_for_documenta')">
+      <span class="icon">&#9881;</span>
+      <div class="name">Key implications for documentation writers</div>
+      <div class="metric">concepts/workflow-execution-model.md</div>
+    </div>
+    <div class="component" data-id="Related" onclick="showInfo('Related')">
+      <span class="icon">&#9881;</span>
+      <div class="name">Related</div>
+      <div class="metric">concepts/workflow-execution-model.md</div>
+    </div>
+    <div class="component" data-id="Documentation_Pipeline_Demo" onclick="showInfo('Documentation_Pipeline_Demo')">
+      <span class="icon">&#9881;</span>
+      <div class="name">Documentation Pipeline Demo</div>
+      <div class="metric">index.md</div>
+    </div>
+    <div class="component" data-id="What_this_demo_shows" onclick="showInfo('What_this_demo_shows')">
+      <span class="icon">&#9881;</span>
+      <div class="name">What this demo shows</div>
+      <div class="metric">index.md</div>
+    </div>
+    <div class="component" data-id="Browse_by_type" onclick="showInfo('Browse_by_type')">
+      <span class="icon">&#9881;</span>
+      <div class="name">Browse by type</div>
+      <div class="metric">index.md</div>
+    </div>
+    <div class="component" data-id="Browse_by_tag" onclick="showInfo('Browse_by_tag')">
+      <span class="icon">&#9881;</span>
+      <div class="name">Browse by tag</div>
+      <div class="metric">index.md</div>
+    </div>
+  </div>
+
+  <div class="arrow-row">&#8595; &#8595; &#8595; &#8595; &#8595;</div>
+
+  <div class="layer-label">How To</div>
+  <div class="layer">
+    <div class="component" data-id="Where_smart_merge_runs" onclick="showInfo('Where_smart_merge_runs')">
+      <span class="icon">&#9881;</span>
+      <div class="name">Where smart-merge runs</div>
+      <div class="metric">operations/SMART_MERGE_REVIEW.md</div>
+    </div>
+    <div class="component" data-id="Merge_rules" onclick="showInfo('Merge_rules')">
+      <span class="icon">&#9881;</span>
+      <div class="name">Merge rules</div>
+      <div class="metric">operations/SMART_MERGE_REVIEW.md</div>
+    </div>
+    <div class="component" data-id="Where_reviewer_sees_required_e" onclick="showInfo('Where_reviewer_sees_required_e')">
+      <span class="icon">&#9881;</span>
+      <div class="name">Where reviewer sees required edits</div>
+      <div class="metric">operations/SMART_MERGE_REVIEW.md</div>
+    </div>
+  </div>
+
+  <div class="arrow-row">&#8595; &#8595; &#8595;</div>
+
+  <div class="layer-label">Reference</div>
+  <div class="layer">
+    <div class="component" data-id="Overview" onclick="showInfo('Overview')">
+      <span class="icon">&#9881;</span>
+      <div class="name">Overview</div>
+      <div class="metric">SEO_GUIDE.md</div>
+    </div>
+    <div class="component" data-id="Features" onclick="showInfo('Features')">
+      <span class="icon">&#9881;</span>
+      <div class="name">Features</div>
+      <div class="metric">SEO_GUIDE.md</div>
+    </div>
+    <div class="component" data-id="Usage" onclick="showInfo('Usage')">
+      <span class="icon">&#9881;</span>
+      <div class="name">Usage</div>
+      <div class="metric">SEO_GUIDE.md</div>
+    </div>
+    <div class="component" data-id="GitHub_Actions" onclick="showInfo('GitHub_Actions')">
+      <span class="icon">&#9881;</span>
+      <div class="name">GitHub Actions</div>
+      <div class="metric">SEO_GUIDE.md</div>
+    </div>
+    <div class="component" data-id="Configuration" onclick="showInfo('Configuration')">
+      <span class="icon">&#9881;</span>
+      <div class="name">Configuration</div>
+      <div class="metric">SEO_GUIDE.md</div>
+    </div>
+    <div class="component" data-id="Validation_Rules" onclick="showInfo('Validation_Rules')">
+      <span class="icon">&#9881;</span>
+      <div class="name">Validation Rules</div>
+      <div class="metric">SEO_GUIDE.md</div>
+    </div>
+    <div class="component" data-id="Lifecycle_Management" onclick="showInfo('Lifecycle_Management')">
+      <span class="icon">&#9881;</span>
+      <div class="name">Lifecycle Management</div>
+      <div class="metric">SEO_GUIDE.md</div>
+    </div>
+    <div class="component" data-id="Search_Ranking_Factors" onclick="showInfo('Search_Ranking_Factors')">
+      <span class="icon">&#9881;</span>
+      <div class="name">Search Ranking Factors</div>
+      <div class="metric">SEO_GUIDE.md</div>
+    </div>
+    <div class="component" data-id="Monitoring" onclick="showInfo('Monitoring')">
+      <span class="icon">&#9881;</span>
+      <div class="name">Monitoring</div>
+      <div class="metric">SEO_GUIDE.md</div>
+    </div>
+    <div class="component" data-id="Best_Practices" onclick="showInfo('Best_Practices')">
+      <span class="icon">&#9881;</span>
+      <div class="name">Best Practices</div>
+      <div class="metric">SEO_GUIDE.md</div>
+    </div>
+    <div class="component" data-id="Troubleshooting" onclick="showInfo('Troubleshooting')">
+      <span class="icon">&#9881;</span>
+      <div class="name">Troubleshooting</div>
+      <div class="metric">SEO_GUIDE.md</div>
+    </div>
+    <div class="component" data-id="Integration_with_Other_Tools" onclick="showInfo('Integration_with_Other_Tools')">
+      <span class="icon">&#9881;</span>
+      <div class="name">Integration with Other Tools</div>
+      <div class="metric">SEO_GUIDE.md</div>
+    </div>
+    <div class="component" data-id="Next_steps" onclick="showInfo('Next_steps')">
+      <span class="icon">&#9881;</span>
+      <div class="name">Next steps</div>
+      <div class="metric">SEO_GUIDE.md</div>
+    </div>
+    <div class="component" data-id="How_to_Use_Variables" onclick="showInfo('How_to_Use_Variables')">
+      <span class="icon">&#9881;</span>
+      <div class="name">How to Use Variables</div>
+      <div class="metric">VARIABLES_GUIDE.md</div>
+    </div>
+    <div class="component" data-id="Cloud_specific_Instructions" onclick="showInfo('Cloud_specific_Instructions')">
+      <span class="icon">&#9881;</span>
+      <div class="name">Cloud-specific Instructions</div>
+      <div class="metric">VARIABLES_GUIDE.md</div>
+    </div>
+    <div class="component" data-id="Self_hosted_Instructions" onclick="showInfo('Self_hosted_Instructions')">
+      <span class="icon">&#9881;</span>
+      <div class="name">Self-hosted Instructions</div>
+      <div class="metric">VARIABLES_GUIDE.md</div>
+    </div>
+    <div class="component" data-id="Available_Variables" onclick="showInfo('Available_Variables')">
+      <span class="icon">&#9881;</span>
+      <div class="name">Available Variables</div>
+      <div class="metric">VARIABLES_GUIDE.md</div>
+    </div>
+    <div class="component" data-id="Setup_Requirements" onclick="showInfo('Setup_Requirements')">
+      <span class="icon">&#9881;</span>
+      <div class="name">Setup Requirements</div>
+      <div class="metric">VARIABLES_GUIDE.md</div>
+    </div>
+    <div class="component" data-id="Adding_New_Variables" onclick="showInfo('Adding_New_Variables')">
+      <span class="icon">&#9881;</span>
+      <div class="name">Adding New Variables</div>
+      <div class="metric">VARIABLES_GUIDE.md</div>
+    </div>
+    <div class="component" data-id="Examples" onclick="showInfo('Examples')">
+      <span class="icon">&#9881;</span>
+      <div class="name">Examples</div>
+      <div class="metric">VARIABLES_GUIDE.md</div>
+    </div>
+    <div class="component" data-id="Prerequisites" onclick="showInfo('Prerequisites')">
+      <span class="icon">&#9881;</span>
+      <div class="name">Prerequisites</div>
+      <div class="metric">VARIABLES_GUIDE.md</div>
+    </div>
+    <div class="component" data-id="Limits" onclick="showInfo('Limits')">
+      <span class="icon">&#9881;</span>
+      <div class="name">Limits</div>
+      <div class="metric">VARIABLES_GUIDE.md</div>
+    </div>
+    <div class="component" data-id="Support" onclick="showInfo('Support')">
+      <span class="icon">&#9881;</span>
+      <div class="name">Support</div>
+      <div class="metric">VARIABLES_GUIDE.md</div>
+    </div>
+    <div class="component" data-id="Variable_Categories_Reference" onclick="showInfo('Variable_Categories_Reference')">
+      <span class="icon">&#9881;</span>
+      <div class="name">Variable Categories Reference</div>
+      <div class="metric">VARIABLES_GUIDE.md</div>
+    </div>
+    <div class="component" data-id="Top_level_Keys" onclick="showInfo('Top_level_Keys')">
+      <span class="icon">&#9881;</span>
+      <div class="name">Top-level Keys</div>
+      <div class="metric">assets/protocols/asyncapi/asyncapi-api.md</div>
+    </div>
+    <div class="component" data-id="Channels" onclick="showInfo('Channels')">
+      <span class="icon">&#9881;</span>
+      <div class="name">Channels</div>
+      <div class="metric">assets/protocols/asyncapi/asyncapi-api.md</div>
+    </div>
+    <div class="component" data-id="Interactive_AsyncAPI_Tester" onclick="showInfo('Interactive_AsyncAPI_Tester')">
+      <span class="icon">&#128268;</span>
+      <div class="name">Interactive AsyncAPI Tester</div>
+      <div class="metric">assets/protocols/asyncapi/asyncapi-api.md</div>
+    </div>
+    <div class="component" data-id="Operations" onclick="showInfo('Operations')">
+      <span class="icon">&#9881;</span>
+      <div class="name">Operations</div>
+      <div class="metric">assets/protocols/graphql/graphql-api.md</div>
+    </div>
+    <div class="component" data-id="Interactive_GraphQL_Playground" onclick="showInfo('Interactive_GraphQL_Playground')">
+      <span class="icon">&#9881;</span>
+      <div class="name">Interactive GraphQL Playground</div>
+      <div class="metric">assets/protocols/graphql/graphql-api.md</div>
+    </div>
+    <div class="component" data-id="Service_Methods" onclick="showInfo('Service_Methods')">
+      <span class="icon">&#9881;</span>
+      <div class="name">Service Methods</div>
+      <div class="metric">assets/protocols/grpc/grpc-api.md</div>
+    </div>
+    <div class="component" data-id="Interactive_gRPC_Tester" onclick="showInfo('Interactive_gRPC_Tester')">
+      <span class="icon">&#9881;</span>
+      <div class="name">Interactive gRPC Tester</div>
+      <div class="metric">assets/protocols/grpc/grpc-api.md</div>
+    </div>
+    <div class="component" data-id="Notes" onclick="showInfo('Notes')">
+      <span class="icon">&#9881;</span>
+      <div class="name">Notes</div>
+      <div class="metric">assets/protocols/rest/rest-api.md</div>
+    </div>
+    <div class="component" data-id="Channels_Events" onclick="showInfo('Channels_Events')">
+      <span class="icon">&#9881;</span>
+      <div class="name">Channels/Events</div>
+      <div class="metric">assets/protocols/websocket/websocket-api.md</div>
+    </div>
+    <div class="component" data-id="Interactive_WebSocket_Tester" onclick="showInfo('Interactive_WebSocket_Tester')">
+      <span class="icon">&#127760;</span>
+      <div class="name">Interactive WebSocket Tester</div>
+      <div class="metric">assets/protocols/websocket/websocket-api.md</div>
+    </div>
+    <div class="component" data-id="1__Core_promise" onclick="showInfo('1__Core_promise')">
+      <span class="icon">&#9881;</span>
+      <div class="name">1. Core promise</div>
+      <div class="metric">operations/CANONICAL_FLOW.md</div>
+    </div>
+    <div class="component" data-id="2__One_time_setup__you_do_this" onclick="showInfo('2__One_time_setup__you_do_this')">
+      <span class="icon">&#9881;</span>
+      <div class="name">2. One-time setup (you do this)</div>
+      <div class="metric">operations/CANONICAL_FLOW.md</div>
+    </div>
+    <div class="component" data-id="3__Weekly_automation__no_manua" onclick="showInfo('3__Weekly_automation__no_manua')">
+      <span class="icon">&#9881;</span>
+      <div class="name">3. Weekly automation (no manual commands)</div>
+      <div class="metric">operations/CANONICAL_FLOW.md</div>
+    </div>
+    <div class="component" data-id="4__Human_role" onclick="showInfo('4__Human_role')">
+      <span class="icon">&#9881;</span>
+      <div class="name">4. Human role</div>
+      <div class="metric">operations/CANONICAL_FLOW.md</div>
+    </div>
+    <div class="component" data-id="5__Operator_manual_checks_afte" onclick="showInfo('5__Operator_manual_checks_afte')">
+      <span class="icon">&#9881;</span>
+      <div class="name">5. Operator manual checks after setup</div>
+      <div class="metric">operations/CANONICAL_FLOW.md</div>
+    </div>
+    <div class="component" data-id="6__Licensing" onclick="showInfo('6__Licensing')">
+      <span class="icon">&#9881;</span>
+      <div class="name">6. Licensing</div>
+      <div class="metric">operations/CANONICAL_FLOW.md</div>
+    </div>
+    <div class="component" data-id="7__Plan_packaging" onclick="showInfo('7__Plan_packaging')">
+      <span class="icon">&#9881;</span>
+      <div class="name">7. Plan packaging</div>
+      <div class="metric">operations/CANONICAL_FLOW.md</div>
+    </div>
+    <div class="component" data-id="8__What_to_say_in_sales_calls" onclick="showInfo('8__What_to_say_in_sales_calls')">
+      <span class="icon">&#9881;</span>
+      <div class="name">8. What to say in sales calls</div>
+      <div class="metric">operations/CANONICAL_FLOW.md</div>
+    </div>
+    <div class="component" data-id="9__Compatibility_mode" onclick="showInfo('9__Compatibility_mode')">
+      <span class="icon">&#9881;</span>
+      <div class="name">9. Compatibility mode</div>
+      <div class="metric">operations/CANONICAL_FLOW.md</div>
+    </div>
+    <div class="component" data-id="10__Deep_references" onclick="showInfo('10__Deep_references')">
+      <span class="icon">&#9881;</span>
+      <div class="name">10. Deep references</div>
+      <div class="metric">operations/CANONICAL_FLOW.md</div>
+    </div>
+    <div class="component" data-id="_______________" onclick="showInfo('_______________')">
+      <span class="icon">&#9881;</span>
+      <div class="name">Главное правило</div>
+      <div class="metric">operations/CENTRALIZED_CLIENT_BUNDLES.md</div>
+    </div>
+    <div class="component" data-id="______________________________" onclick="showInfo('______________________________')">
+      <span class="icon">&#9881;</span>
+      <div class="name">Что именно вы настраиваете (и где)</div>
+      <div class="metric">operations/CENTRALIZED_CLIENT_BUNDLES.md</div>
+    </div>
+    <div class="component" data-id="______________" onclick="showInfo('______________')">
+      <span class="icon">&#9881;</span>
+      <div class="name">Команда сборки</div>
+      <div class="metric">operations/CENTRALIZED_CLIENT_BUNDLES.md</div>
+    </div>
+    <div class="component" data-id="________________________" onclick="showInfo('________________________')">
+      <span class="icon">&#9881;</span>
+      <div class="name">Как это ставится клиенту</div>
+      <div class="metric">operations/CENTRALIZED_CLIENT_BUNDLES.md</div>
+    </div>
+    <div class="component" data-id="_________________gitignore____" onclick="showInfo('_________________gitignore____')">
+      <span class="icon">&#9881;</span>
+      <div class="name">Что добавить в `.gitignore` клиента</div>
+      <div class="metric">operations/CENTRALIZED_CLIENT_BUNDLES.md</div>
+    </div>
+    <div class="component" data-id="RAG_knowledge_________________" onclick="showInfo('RAG_knowledge_________________')">
+      <span class="icon">&#9881;</span>
+      <div class="name">RAG/knowledge без ручных запусков</div>
+      <div class="metric">operations/CENTRALIZED_CLIENT_BUNDLES.md</div>
+    </div>
+    <div class="component" data-id="___________________" onclick="showInfo('___________________')">
+      <span class="icon">&#9881;</span>
+      <div class="name">Два простых примера</div>
+      <div class="metric">operations/CENTRALIZED_CLIENT_BUNDLES.md</div>
+    </div>
+    <div class="component" data-id="Supported_protocols__core_5_" onclick="showInfo('Supported_protocols__core_5_')">
+      <span class="icon">&#9881;</span>
+      <div class="name">Supported protocols (core-5)</div>
+      <div class="metric">operations/MULTI_PROTOCOL_ARCHITECTURE.md</div>
+    </div>
+    <div class="component" data-id="Unified_stage_flow" onclick="showInfo('Unified_stage_flow')">
+      <span class="icon">&#9881;</span>
+      <div class="name">Unified stage flow</div>
+      <div class="metric">operations/MULTI_PROTOCOL_ARCHITECTURE.md</div>
+    </div>
+    <div class="component" data-id="Engine_and_adapters" onclick="showInfo('Engine_and_adapters')">
+      <span class="icon">&#9881;</span>
+      <div class="name">Engine and adapters</div>
+      <div class="metric">operations/MULTI_PROTOCOL_ARCHITECTURE.md</div>
+    </div>
+    <div class="component" data-id="Protocol_specific_validators" onclick="showInfo('Protocol_specific_validators')">
+      <span class="icon">&#9881;</span>
+      <div class="name">Protocol-specific validators</div>
+      <div class="metric">operations/MULTI_PROTOCOL_ARCHITECTURE.md</div>
+    </div>
+    <div class="component" data-id="Regression" onclick="showInfo('Regression')">
+      <span class="icon">&#9881;</span>
+      <div class="name">Regression</div>
+      <div class="metric">operations/MULTI_PROTOCOL_ARCHITECTURE.md</div>
+    </div>
+    <div class="component" data-id="Docs___publish" onclick="showInfo('Docs___publish')">
+      <span class="icon">&#9881;</span>
+      <div class="name">Docs + publish</div>
+      <div class="metric">operations/MULTI_PROTOCOL_ARCHITECTURE.md</div>
+    </div>
+    <div class="component" data-id="Test_assets_and_smart_merge" onclick="showInfo('Test_assets_and_smart_merge')">
+      <span class="icon">&#9881;</span>
+      <div class="name">Test assets and smart-merge</div>
+      <div class="metric">operations/MULTI_PROTOCOL_ARCHITECTURE.md</div>
+    </div>
+    <div class="component" data-id="Advanced_RAG_retrieval_pipelin" onclick="showInfo('Advanced_RAG_retrieval_pipelin')">
+      <span class="icon">&#9881;</span>
+      <div class="name">Advanced RAG retrieval pipeline</div>
+      <div class="metric">operations/MULTI_PROTOCOL_ARCHITECTURE.md</div>
+    </div>
+    <div class="component" data-id="Template_and_snippet_parity" onclick="showInfo('Template_and_snippet_parity')">
+      <span class="icon">&#9881;</span>
+      <div class="name">Template and snippet parity</div>
+      <div class="metric">operations/MULTI_PROTOCOL_ARCHITECTURE.md</div>
+    </div>
+    <div class="component" data-id="How_to_enable_any_capability_f" onclick="showInfo('How_to_enable_any_capability_f')">
+      <span class="icon">&#128187;</span>
+      <div class="name">How to enable any capability for a client</div>
+      <div class="metric">operations/PIPELINE_CAPABILITIES_CATALOG.md</div>
+    </div>
+    <div class="component" data-id="Direct_CLI_entry_points__not_e" onclick="showInfo('Direct_CLI_entry_points__not_e')">
+      <span class="icon">&#9881;</span>
+      <div class="name">Direct CLI entry points (not exposed as npm scripts)</div>
+      <div class="metric">operations/PIPELINE_CAPABILITIES_CATALOG.md</div>
+    </div>
+    <div class="component" data-id="Multi_protocol_contract_pipeli" onclick="showInfo('Multi_protocol_contract_pipeli')">
+      <span class="icon">&#9881;</span>
+      <div class="name">Multi-protocol contract pipeline</div>
+      <div class="metric">operations/PIPELINE_CAPABILITIES_CATALOG.md</div>
+    </div>
+    <div class="component" data-id="Test_assets_generation_and_sma" onclick="showInfo('Test_assets_generation_and_sma')">
+      <span class="icon">&#9881;</span>
+      <div class="name">Test assets generation and smart merge</div>
+      <div class="metric">operations/PIPELINE_CAPABILITIES_CATALOG.md</div>
+    </div>
+    <div class="component" data-id="Quality_checks__32_automated_" onclick="showInfo('Quality_checks__32_automated_')">
+      <span class="icon">&#9881;</span>
+      <div class="name">Quality checks (32 automated)</div>
+      <div class="metric">operations/PIPELINE_CAPABILITIES_CATALOG.md</div>
+    </div>
+    <div class="component" data-id="RAG_retrieval_pipeline" onclick="showInfo('RAG_retrieval_pipeline')">
+      <span class="icon">&#9881;</span>
+      <div class="name">RAG retrieval pipeline</div>
+      <div class="metric">operations/PIPELINE_CAPABILITIES_CATALOG.md</div>
+    </div>
+    <div class="component" data-id="Public_docs_auditor_and_execut" onclick="showInfo('Public_docs_auditor_and_execut')">
+      <span class="icon">&#9881;</span>
+      <div class="name">Public docs auditor and executive PDF</div>
+      <div class="metric">operations/PIPELINE_CAPABILITIES_CATALOG.md</div>
+    </div>
+    <div class="component" data-id="API_first_external_sandbox_not" onclick="showInfo('API_first_external_sandbox_not')">
+      <span class="icon">&#128268;</span>
+      <div class="name">API-first external sandbox note</div>
+      <div class="metric">operations/PIPELINE_CAPABILITIES_CATALOG.md</div>
+    </div>
+    <div class="component" data-id="PR_auto_doc_workflow_capabilit" onclick="showInfo('PR_auto_doc_workflow_capabilit')">
+      <span class="icon">&#9881;</span>
+      <div class="name">PR auto-doc workflow capability</div>
+      <div class="metric">operations/PIPELINE_CAPABILITIES_CATALOG.md</div>
+    </div>
+    <div class="component" data-id="Templates" onclick="showInfo('Templates')">
+      <span class="icon">&#9881;</span>
+      <div class="name">Templates</div>
+      <div class="metric">operations/PIPELINE_CAPABILITIES_CATALOG.md</div>
+    </div>
+    <div class="component" data-id="Policy_Packs" onclick="showInfo('Policy_Packs')">
+      <span class="icon">&#9881;</span>
+      <div class="name">Policy Packs</div>
+      <div class="metric">operations/PIPELINE_CAPABILITIES_CATALOG.md</div>
+    </div>
+    <div class="component" data-id="Knowledge_Modules" onclick="showInfo('Knowledge_Modules')">
+      <span class="icon">&#9881;</span>
+      <div class="name">Knowledge Modules</div>
+      <div class="metric">operations/PIPELINE_CAPABILITIES_CATALOG.md</div>
+    </div>
+    <div class="component" data-id="Docker_Compose_Profiles" onclick="showInfo('Docker_Compose_Profiles')">
+      <span class="icon">&#9881;</span>
+      <div class="name">Docker Compose Profiles</div>
+      <div class="metric">operations/PIPELINE_CAPABILITIES_CATALOG.md</div>
+    </div>
+    <div class="component" data-id="1__Feature_matrix" onclick="showInfo('1__Feature_matrix')">
+      <span class="icon">&#9881;</span>
+      <div class="name">1. Feature matrix</div>
+      <div class="metric">operations/PLAN_TIERS.md</div>
+    </div>
+    <div class="component" data-id="2__Default_plan_presets" onclick="showInfo('2__Default_plan_presets')">
+      <span class="icon">&#9881;</span>
+      <div class="name">2. Default plan presets</div>
+      <div class="metric">operations/PLAN_TIERS.md</div>
+    </div>
+    <div class="component" data-id="3__How_to_apply_a_plan_for_a_c" onclick="showInfo('3__How_to_apply_a_plan_for_a_c')">
+      <span class="icon">&#128187;</span>
+      <div class="name">3. How to apply a plan for a client</div>
+      <div class="metric">operations/PLAN_TIERS.md</div>
+    </div>
+    <div class="component" data-id="4__License_enforcement" onclick="showInfo('4__License_enforcement')">
+      <span class="icon">&#9881;</span>
+      <div class="name">4. License enforcement</div>
+      <div class="metric">operations/PLAN_TIERS.md</div>
+    </div>
+    <div class="component" data-id="5__Plan_upgrade_path" onclick="showInfo('5__Plan_upgrade_path')">
+      <span class="icon">&#9881;</span>
+      <div class="name">5. Plan upgrade path</div>
+      <div class="metric">operations/PLAN_TIERS.md</div>
+    </div>
+    <div class="component" data-id="1__Client_identity" onclick="showInfo('1__Client_identity')">
+      <span class="icon">&#128187;</span>
+      <div class="name">1. Client identity</div>
+      <div class="metric">operations/UNIFIED_CLIENT_CONFIG.md</div>
+    </div>
+    <div class="component" data-id="2__Bundle_packaging" onclick="showInfo('2__Bundle_packaging')">
+      <span class="icon">&#9881;</span>
+      <div class="name">2. Bundle packaging</div>
+      <div class="metric">operations/UNIFIED_CLIENT_CONFIG.md</div>
+    </div>
+    <div class="component" data-id="3__LLM_instruction_packaging" onclick="showInfo('3__LLM_instruction_packaging')">
+      <span class="icon">&#9881;</span>
+      <div class="name">3. LLM instruction packaging</div>
+      <div class="metric">operations/UNIFIED_CLIENT_CONFIG.md</div>
+    </div>
+    <div class="component" data-id="4__Automation_schedule__weekly" onclick="showInfo('4__Automation_schedule__weekly')">
+      <span class="icon">&#9881;</span>
+      <div class="name">4. Automation schedule (weekly)</div>
+      <div class="metric">operations/UNIFIED_CLIENT_CONFIG.md</div>
+    </div>
+    <div class="component" data-id="5__Runtime_behavior" onclick="showInfo('5__Runtime_behavior')">
+      <span class="icon">&#9881;</span>
+      <div class="name">5. Runtime behavior</div>
+      <div class="metric">operations/UNIFIED_CLIENT_CONFIG.md</div>
+    </div>
+    <div class="component" data-id="6__API_first_configuration__on" onclick="showInfo('6__API_first_configuration__on')">
+      <span class="icon">&#128268;</span>
+      <div class="name">6. API-first configuration (one branch, not the whole product)</div>
+      <div class="metric">operations/UNIFIED_CLIENT_CONFIG.md</div>
+    </div>
+    <div class="component" data-id="7__Module_switches" onclick="showInfo('7__Module_switches')">
+      <span class="icon">&#9881;</span>
+      <div class="name">7. Module switches</div>
+      <div class="metric">operations/UNIFIED_CLIENT_CONFIG.md</div>
+    </div>
+    <div class="component" data-id="8__Universal_tasks__core_UTP__" onclick="showInfo('8__Universal_tasks__core_UTP__')">
+      <span class="icon">&#9881;</span>
+      <div class="name">8. Universal tasks (core UTP, not optional extras)</div>
+      <div class="metric">operations/UNIFIED_CLIENT_CONFIG.md</div>
+    </div>
+    <div class="component" data-id="9__Integrations__single_contro" onclick="showInfo('9__Integrations__single_contro')">
+      <span class="icon">&#9881;</span>
+      <div class="name">9. Integrations (single control point)</div>
+      <div class="metric">operations/UNIFIED_CLIENT_CONFIG.md</div>
+    </div>
+    <div class="component" data-id="9__Private_tuning" onclick="showInfo('9__Private_tuning')">
+      <span class="icon">&#9881;</span>
+      <div class="name">9. Private tuning</div>
+      <div class="metric">operations/UNIFIED_CLIENT_CONFIG.md</div>
+    </div>
+    <div class="component" data-id="10__Licensing" onclick="showInfo('10__Licensing')">
+      <span class="icon">&#9881;</span>
+      <div class="name">10. Licensing</div>
+      <div class="metric">operations/UNIFIED_CLIENT_CONFIG.md</div>
+    </div>
+    <div class="component" data-id="11__Legal_labeling" onclick="showInfo('11__Legal_labeling')">
+      <span class="icon">&#9881;</span>
+      <div class="name">11. Legal labeling</div>
+      <div class="metric">operations/UNIFIED_CLIENT_CONFIG.md</div>
+    </div>
+    <div class="component" data-id="12__Flow_presets__copy_paste_" onclick="showInfo('12__Flow_presets__copy_paste_')">
+      <span class="icon">&#9881;</span>
+      <div class="name">12. Flow presets (copy-paste)</div>
+      <div class="metric">operations/UNIFIED_CLIENT_CONFIG.md</div>
+    </div>
+    <div class="component" data-id="9__Fully_automated_RAG_knowled" onclick="showInfo('9__Fully_automated_RAG_knowled')">
+      <span class="icon">&#9881;</span>
+      <div class="name">9. Fully automated RAG/knowledge flow</div>
+      <div class="metric">operations/UNIFIED_CLIENT_CONFIG.md</div>
+    </div>
+    <div class="component" data-id="Provider_options" onclick="showInfo('Provider_options')">
+      <span class="icon">&#9881;</span>
+      <div class="name">Provider options</div>
+      <div class="metric">reference/api-playground.md</div>
+    </div>
+    <div class="component" data-id="Configure_this_page" onclick="showInfo('Configure_this_page')">
+      <span class="icon">&#9881;</span>
+      <div class="name">Configure this page</div>
+      <div class="metric">reference/api-playground.md</div>
+    </div>
+    <div class="component" data-id="Playground" onclick="showInfo('Playground')">
+      <span class="icon">&#9881;</span>
+      <div class="name">Playground</div>
+      <div class="metric">reference/api-playground.md</div>
+    </div>
+    <div class="component" data-id="Security_guidance" onclick="showInfo('Security_guidance')">
+      <span class="icon">&#9881;</span>
+      <div class="name">Security guidance</div>
+      <div class="metric">reference/api-playground.md</div>
+    </div>
+    <div class="component" data-id="Old_Webhook_API" onclick="showInfo('Old_Webhook_API')">
+      <span class="icon">&#128268;</span>
+      <div class="name">Old Webhook API</div>
+      <div class="metric">reference/deprecated-example.md</div>
+    </div>
+    <div class="component" data-id="Example_Code" onclick="showInfo('Example_Code')">
+      <span class="icon">&#9881;</span>
+      <div class="name">Example Code</div>
+      <div class="metric">reference/deprecated-example.md</div>
+    </div>
+    <div class="component" data-id="Reference" onclick="showInfo('Reference')">
+      <span class="icon">&#9881;</span>
+      <div class="name">Reference</div>
+      <div class="metric">reference/index.md</div>
+    </div>
+    <div class="component" data-id="Included_modules" onclick="showInfo('Included_modules')">
+      <span class="icon">&#9881;</span>
+      <div class="name">Included modules</div>
+      <div class="metric">reference/intent-experiences/automate-developer.md</div>
+    </div>
+    <div class="component" data-id="Generated_docs_pages" onclick="showInfo('Generated_docs_pages')">
+      <span class="icon">&#9881;</span>
+      <div class="name">Generated docs pages</div>
+      <div class="metric">reference/intent-experiences/index.md</div>
+    </div>
+    <div class="component" data-id="Generated_bundle_outputs" onclick="showInfo('Generated_bundle_outputs')">
+      <span class="icon">&#9881;</span>
+      <div class="name">Generated bundle outputs</div>
+      <div class="metric">reference/intent-experiences/index.md</div>
+    </div>
+    <div class="component" data-id="Retrieval_artifact" onclick="showInfo('Retrieval_artifact')">
+      <span class="icon">&#9881;</span>
+      <div class="name">Retrieval artifact</div>
+      <div class="metric">reference/intent-experiences/index.md</div>
+    </div>
+    <div class="component" data-id="Source_of_truth" onclick="showInfo('Source_of_truth')">
+      <span class="icon">&#9881;</span>
+      <div class="name">Source of truth</div>
+      <div class="metric">reference/intent-experiences/index.md</div>
+    </div>
+    <div class="component" data-id="Validation_commands" onclick="showInfo('Validation_commands')">
+      <span class="icon">&#9881;</span>
+      <div class="name">Validation commands</div>
+      <div class="metric">reference/intent-experiences/index.md</div>
+    </div>
+    <div class="component" data-id="Related_pages" onclick="showInfo('Related_pages')">
+      <span class="icon">&#9881;</span>
+      <div class="name">Related pages</div>
+      <div class="metric">reference/intent-experiences/index.md</div>
+    </div>
+    <div class="component" data-id="Zero_client_data_guarantee" onclick="showInfo('Zero_client_data_guarantee')">
+      <span class="icon">&#128187;</span>
+      <div class="name">Zero client data guarantee</div>
+      <div class="metric">reference/network-transparency.md</div>
+    </div>
+    <div class="component" data-id="Complete_outgoing_request_inve" onclick="showInfo('Complete_outgoing_request_inve')">
+      <span class="icon">&#9881;</span>
+      <div class="name">Complete outgoing request inventory</div>
+      <div class="metric">reference/network-transparency.md</div>
+    </div>
+    <div class="component" data-id="Requests_the_pipeline_never_ma" onclick="showInfo('Requests_the_pipeline_never_ma')">
+      <span class="icon">&#9881;</span>
+      <div class="name">Requests the pipeline never makes</div>
+      <div class="metric">reference/network-transparency.md</div>
+    </div>
+    <div class="component" data-id="How_to_audit_the_pipeline_your" onclick="showInfo('How_to_audit_the_pipeline_your')">
+      <span class="icon">&#9881;</span>
+      <div class="name">How to audit the pipeline yourself</div>
+      <div class="metric">reference/network-transparency.md</div>
+    </div>
+    <div class="component" data-id="Machine_fingerprint_details" onclick="showInfo('Machine_fingerprint_details')">
+      <span class="icon">&#9881;</span>
+      <div class="name">Machine fingerprint details</div>
+      <div class="metric">reference/network-transparency.md</div>
+    </div>
+    <div class="component" data-id="Capability_pack_contents" onclick="showInfo('Capability_pack_contents')">
+      <span class="icon">&#9881;</span>
+      <div class="name">Capability pack contents</div>
+      <div class="metric">reference/network-transparency.md</div>
+    </div>
+    <div class="component" data-id="Summary_of_data_flow" onclick="showInfo('Summary_of_data_flow')">
+      <span class="icon">&#9881;</span>
+      <div class="name">Summary of data flow</div>
+      <div class="metric">reference/network-transparency.md</div>
+    </div>
+    <div class="component" data-id="Webhook_node_reference" onclick="showInfo('Webhook_node_reference')">
+      <span class="icon">&#127760;</span>
+      <div class="name">Webhook node reference</div>
+      <div class="metric">reference/nodes/webhook.md</div>
+    </div>
+    <div class="component" data-id="Parameters" onclick="showInfo('Parameters')">
+      <span class="icon">&#9881;</span>
+      <div class="name">Parameters</div>
+      <div class="metric">reference/nodes/webhook.md</div>
+    </div>
+    <div class="component" data-id="Authentication_options" onclick="showInfo('Authentication_options')">
+      <span class="icon">&#128272;</span>
+      <div class="name">Authentication options</div>
+      <div class="metric">reference/nodes/webhook.md</div>
+    </div>
+    <div class="component" data-id="URLs" onclick="showInfo('URLs')">
+      <span class="icon">&#9881;</span>
+      <div class="name">URLs</div>
+      <div class="metric">reference/nodes/webhook.md</div>
+    </div>
+    <div class="component" data-id="Output" onclick="showInfo('Output')">
+      <span class="icon">&#9881;</span>
+      <div class="name">Output</div>
+      <div class="metric">reference/nodes/webhook.md</div>
+    </div>
+    <div class="component" data-id="Smoke_checked_examples" onclick="showInfo('Smoke_checked_examples')">
+      <span class="icon">&#9881;</span>
+      <div class="name">Smoke-checked examples</div>
+      <div class="metric">reference/nodes/webhook.md</div>
+    </div>
+    <div class="component" data-id="Environment_variables" onclick="showInfo('Environment_variables')">
+      <span class="icon">&#9881;</span>
+      <div class="name">Environment variables</div>
+      <div class="metric">reference/nodes/webhook.md</div>
+    </div>
+    <div class="component" data-id="Start_a_sandbox_endpoint" onclick="showInfo('Start_a_sandbox_endpoint')">
+      <span class="icon">&#9881;</span>
+      <div class="name">Start a sandbox endpoint</div>
+      <div class="metric">reference/taskstream-api-playground.md</div>
+    </div>
+    <div class="component" data-id="Playground_embed" onclick="showInfo('Playground_embed')">
+      <span class="icon">&#9881;</span>
+      <div class="name">Playground embed</div>
+      <div class="metric">reference/taskstream-api-playground.md</div>
+    </div>
+    <div class="component" data-id="Multi_language_request_example" onclick="showInfo('Multi_language_request_example')">
+      <span class="icon">&#9881;</span>
+      <div class="name">Multi-language request examples</div>
+      <div class="metric">reference/taskstream-api-playground.md</div>
+    </div>
+    <div class="component" data-id="What_this_validates" onclick="showInfo('What_this_validates')">
+      <span class="icon">&#9881;</span>
+      <div class="name">What this validates</div>
+      <div class="metric">reference/taskstream-api-playground.md</div>
+    </div>
+    <div class="component" data-id="Input_artifact_location" onclick="showInfo('Input_artifact_location')">
+      <span class="icon">&#9881;</span>
+      <div class="name">Input artifact location</div>
+      <div class="metric">reference/taskstream-planning-notes.md</div>
+    </div>
+    <div class="component" data-id="How_the_pipeline_uses_this_inp" onclick="showInfo('How_the_pipeline_uses_this_inp')">
+      <span class="icon">&#9881;</span>
+      <div class="name">How the pipeline uses this input</div>
+      <div class="metric">reference/taskstream-planning-notes.md</div>
+    </div>
+    <div class="component" data-id="Notes_format__demo_excerpt_" onclick="showInfo('Notes_format__demo_excerpt_')">
+      <span class="icon">&#9881;</span>
+      <div class="name">Notes format (demo excerpt)</div>
+      <div class="metric">reference/taskstream-planning-notes.md</div>
+    </div>
+    <div class="component" data-id="Browse_documentation_by_tag" onclick="showInfo('Browse_documentation_by_tag')">
+      <span class="icon">&#9881;</span>
+      <div class="name">Browse documentation by tag</div>
+      <div class="metric">tags.md</div>
+    </div>
+  </div>
+
+</div>
+<!-- === END EDITABLE SECTION === -->
+
+<div class="info-panel" id="infoPanel">
+  <p class="info-default">Click any component to see its description, configuration, and key metrics.</p>
+</div>
+
+<script>
+// === EDIT THIS SECTION: descriptions for each component ===
+const descriptions = {
+  Overview: {
+    title: "Overview",
+    desc: "Component from SEO_GUIDE.md. Content type: reference.",
+    tags: ["reference"]
+  },
+  Features: {
+    title: "Features",
+    desc: "Component from SEO_GUIDE.md. Content type: reference.",
+    tags: ["reference"]
+  },
+  Usage: {
+    title: "Usage",
+    desc: "Component from SEO_GUIDE.md. Content type: reference.",
+    tags: ["reference"]
+  },
+  GitHub_Actions: {
+    title: "GitHub Actions",
+    desc: "Component from SEO_GUIDE.md. Content type: reference.",
+    tags: ["reference"]
+  },
+  Configuration: {
+    title: "Configuration",
+    desc: "Component from SEO_GUIDE.md. Content type: reference.",
+    tags: ["reference"]
+  },
+  Validation_Rules: {
+    title: "Validation Rules",
+    desc: "Component from SEO_GUIDE.md. Content type: reference.",
+    tags: ["reference"]
+  },
+  Lifecycle_Management: {
+    title: "Lifecycle Management",
+    desc: "Component from SEO_GUIDE.md. Content type: reference.",
+    tags: ["reference"]
+  },
+  Search_Ranking_Factors: {
+    title: "Search Ranking Factors",
+    desc: "Component from SEO_GUIDE.md. Content type: reference.",
+    tags: ["reference"]
+  },
+  Monitoring: {
+    title: "Monitoring",
+    desc: "Component from SEO_GUIDE.md. Content type: reference.",
+    tags: ["reference"]
+  },
+  Best_Practices: {
+    title: "Best Practices",
+    desc: "Component from SEO_GUIDE.md. Content type: reference.",
+    tags: ["reference"]
+  },
+  Troubleshooting: {
+    title: "Troubleshooting",
+    desc: "Component from SEO_GUIDE.md. Content type: reference.",
+    tags: ["reference"]
+  },
+  Integration_with_Other_Tools: {
+    title: "Integration with Other Tools",
+    desc: "Component from SEO_GUIDE.md. Content type: reference.",
+    tags: ["reference"]
+  },
+  Next_steps: {
+    title: "Next steps",
+    desc: "Component from SEO_GUIDE.md. Content type: reference.",
+    tags: ["reference"]
+  },
+  How_to_Use_Variables: {
+    title: "How to Use Variables",
+    desc: "Component from VARIABLES_GUIDE.md. Content type: reference.",
+    tags: ["reference"]
+  },
+  Cloud_specific_Instructions: {
+    title: "Cloud-specific Instructions",
+    desc: "Component from VARIABLES_GUIDE.md. Content type: reference.",
+    tags: ["reference"]
+  },
+  Self_hosted_Instructions: {
+    title: "Self-hosted Instructions",
+    desc: "Component from VARIABLES_GUIDE.md. Content type: reference.",
+    tags: ["reference"]
+  },
+  Available_Variables: {
+    title: "Available Variables",
+    desc: "Component from VARIABLES_GUIDE.md. Content type: reference.",
+    tags: ["reference"]
+  },
+  Setup_Requirements: {
+    title: "Setup Requirements",
+    desc: "Component from VARIABLES_GUIDE.md. Content type: reference.",
+    tags: ["reference"]
+  },
+  Adding_New_Variables: {
+    title: "Adding New Variables",
+    desc: "Component from VARIABLES_GUIDE.md. Content type: reference.",
+    tags: ["reference"]
+  },
+  Examples: {
+    title: "Examples",
+    desc: "Component from VARIABLES_GUIDE.md. Content type: reference.",
+    tags: ["reference"]
+  },
+  Prerequisites: {
+    title: "Prerequisites",
+    desc: "Component from VARIABLES_GUIDE.md. Content type: reference.",
+    tags: ["reference"]
+  },
+  Limits: {
+    title: "Limits",
+    desc: "Component from VARIABLES_GUIDE.md. Content type: reference.",
+    tags: ["reference"]
+  },
+  Support: {
+    title: "Support",
+    desc: "Component from VARIABLES_GUIDE.md. Content type: reference.",
+    tags: ["reference"]
+  },
+  Variable_Categories_Reference: {
+    title: "Variable Categories Reference",
+    desc: "Component from VARIABLES_GUIDE.md. Content type: reference.",
+    tags: ["reference"]
+  },
+  Top_level_Keys: {
+    title: "Top-level Keys",
+    desc: "Component from assets/protocols/asyncapi/asyncapi-api.md. Content type: reference.",
+    tags: ["reference"]
+  },
+  Channels: {
+    title: "Channels",
+    desc: "Component from assets/protocols/asyncapi/asyncapi-api.md. Content type: reference.",
+    tags: ["reference"]
+  },
+  Interactive_AsyncAPI_Tester: {
+    title: "Interactive AsyncAPI Tester",
+    desc: "Component from assets/protocols/asyncapi/asyncapi-api.md. Content type: reference.",
+    tags: ["reference"]
+  },
+  Operations: {
+    title: "Operations",
+    desc: "Component from assets/protocols/graphql/graphql-api.md. Content type: reference.",
+    tags: ["reference"]
+  },
+  Interactive_GraphQL_Playground: {
+    title: "Interactive GraphQL Playground",
+    desc: "Component from assets/protocols/graphql/graphql-api.md. Content type: reference.",
+    tags: ["reference"]
+  },
+  Service_Methods: {
+    title: "Service Methods",
+    desc: "Component from assets/protocols/grpc/grpc-api.md. Content type: reference.",
+    tags: ["reference"]
+  },
+  Interactive_gRPC_Tester: {
+    title: "Interactive gRPC Tester",
+    desc: "Component from assets/protocols/grpc/grpc-api.md. Content type: reference.",
+    tags: ["reference"]
+  },
+  Notes: {
+    title: "Notes",
+    desc: "Component from assets/protocols/rest/rest-api.md. Content type: reference.",
+    tags: ["reference"]
+  },
+  Channels_Events: {
+    title: "Channels/Events",
+    desc: "Component from assets/protocols/websocket/websocket-api.md. Content type: reference.",
+    tags: ["reference"]
+  },
+  Interactive_WebSocket_Tester: {
+    title: "Interactive WebSocket Tester",
+    desc: "Component from assets/protocols/websocket/websocket-api.md. Content type: reference.",
+    tags: ["reference"]
+  },
+  Concepts: {
+    title: "Concepts",
+    desc: "Component from concepts/index.md. Content type: concept.",
+    tags: ["concept"]
+  },
+  Core_components: {
+    title: "Core components",
+    desc: "Component from concepts/intelligent-knowledge-system.md. Content type: concept.",
+    tags: ["concept"]
+  },
+  Why_this_improves_documentatio: {
+    title: "Why this improves documentation quality",
+    desc: "Component from concepts/intelligent-knowledge-system.md. Content type: concept.",
+    tags: ["concept"]
+  },
+  Data_model: {
+    title: "Data model",
+    desc: "Component from concepts/intelligent-knowledge-system.md. Content type: concept.",
+    tags: ["concept"]
+  },
+  Operational_flow: {
+    title: "Operational flow",
+    desc: "Component from concepts/intelligent-knowledge-system.md. Content type: concept.",
+    tags: ["concept"]
+  },
+  RAG_integration_contract: {
+    title: "RAG integration contract",
+    desc: "Component from concepts/intelligent-knowledge-system.md. Content type: concept.",
+    tags: ["concept"]
+  },
+  Advanced_retrieval_pipeline: {
+    title: "Advanced retrieval pipeline",
+    desc: "Component from concepts/intelligent-knowledge-system.md. Content type: concept.",
+    tags: ["concept"]
+  },
+  Security_and_governance: {
+    title: "Security and governance",
+    desc: "Component from concepts/intelligent-knowledge-system.md. Content type: concept.",
+    tags: ["concept"]
+  },
+  How_the_workflow_execution_mod: {
+    title: "How the workflow execution model works",
+    desc: "Component from concepts/workflow-execution-model.md. Content type: concept.",
+    tags: ["concept"]
+  },
+  Data_structure_between_nodes: {
+    title: "Data structure between nodes",
+    desc: "Component from concepts/workflow-execution-model.md. Content type: concept.",
+    tags: ["concept"]
+  },
+  Execution_flow: {
+    title: "Execution flow",
+    desc: "Component from concepts/workflow-execution-model.md. Content type: concept.",
+    tags: ["concept"]
+  },
+  Execution_modes: {
+    title: "Execution modes",
+    desc: "Component from concepts/workflow-execution-model.md. Content type: concept.",
+    tags: ["concept"]
+  },
+  Error_handling: {
+    title: "Error handling",
+    desc: "Component from concepts/workflow-execution-model.md. Content type: concept.",
+    tags: ["concept"]
+  },
+  Key_implications_for_documenta: {
+    title: "Key implications for documentation writers",
+    desc: "Component from concepts/workflow-execution-model.md. Content type: concept.",
+    tags: ["concept"]
+  },
+  Related: {
+    title: "Related",
+    desc: "Component from concepts/workflow-execution-model.md. Content type: concept.",
+    tags: ["concept"]
+  },
+  Documentation_Pipeline_Demo: {
+    title: "Documentation Pipeline Demo",
+    desc: "Component from index.md. Content type: concept.",
+    tags: ["concept"]
+  },
+  What_this_demo_shows: {
+    title: "What this demo shows",
+    desc: "Component from index.md. Content type: concept.",
+    tags: ["concept"]
+  },
+  Browse_by_type: {
+    title: "Browse by type",
+    desc: "Component from index.md. Content type: concept.",
+    tags: ["concept"]
+  },
+  Browse_by_tag: {
+    title: "Browse by tag",
+    desc: "Component from index.md. Content type: concept.",
+    tags: ["concept"]
+  },
+  1__Core_promise: {
+    title: "1. Core promise",
+    desc: "Component from operations/CANONICAL_FLOW.md. Content type: reference.",
+    tags: ["reference"]
+  },
+  2__One_time_setup__you_do_this: {
+    title: "2. One-time setup (you do this)",
+    desc: "Component from operations/CANONICAL_FLOW.md. Content type: reference.",
+    tags: ["reference"]
+  },
+  3__Weekly_automation__no_manua: {
+    title: "3. Weekly automation (no manual commands)",
+    desc: "Component from operations/CANONICAL_FLOW.md. Content type: reference.",
+    tags: ["reference"]
+  },
+  4__Human_role: {
+    title: "4. Human role",
+    desc: "Component from operations/CANONICAL_FLOW.md. Content type: reference.",
+    tags: ["reference"]
+  },
+  5__Operator_manual_checks_afte: {
+    title: "5. Operator manual checks after setup",
+    desc: "Component from operations/CANONICAL_FLOW.md. Content type: reference.",
+    tags: ["reference"]
+  },
+  6__Licensing: {
+    title: "6. Licensing",
+    desc: "Component from operations/CANONICAL_FLOW.md. Content type: reference.",
+    tags: ["reference"]
+  },
+  7__Plan_packaging: {
+    title: "7. Plan packaging",
+    desc: "Component from operations/CANONICAL_FLOW.md. Content type: reference.",
+    tags: ["reference"]
+  },
+  8__What_to_say_in_sales_calls: {
+    title: "8. What to say in sales calls",
+    desc: "Component from operations/CANONICAL_FLOW.md. Content type: reference.",
+    tags: ["reference"]
+  },
+  9__Compatibility_mode: {
+    title: "9. Compatibility mode",
+    desc: "Component from operations/CANONICAL_FLOW.md. Content type: reference.",
+    tags: ["reference"]
+  },
+  10__Deep_references: {
+    title: "10. Deep references",
+    desc: "Component from operations/CANONICAL_FLOW.md. Content type: reference.",
+    tags: ["reference"]
+  },
+  _______________: {
+    title: "Главное правило",
+    desc: "Component from operations/CENTRALIZED_CLIENT_BUNDLES.md. Content type: reference.",
+    tags: ["reference"]
+  },
+  ______________________________: {
+    title: "Что именно вы настраиваете (и где)",
+    desc: "Component from operations/CENTRALIZED_CLIENT_BUNDLES.md. Content type: reference.",
+    tags: ["reference"]
+  },
+  ______________: {
+    title: "Команда сборки",
+    desc: "Component from operations/CENTRALIZED_CLIENT_BUNDLES.md. Content type: reference.",
+    tags: ["reference"]
+  },
+  ________________________: {
+    title: "Как это ставится клиенту",
+    desc: "Component from operations/CENTRALIZED_CLIENT_BUNDLES.md. Content type: reference.",
+    tags: ["reference"]
+  },
+  _________________gitignore____: {
+    title: "Что добавить в `.gitignore` клиента",
+    desc: "Component from operations/CENTRALIZED_CLIENT_BUNDLES.md. Content type: reference.",
+    tags: ["reference"]
+  },
+  RAG_knowledge_________________: {
+    title: "RAG/knowledge без ручных запусков",
+    desc: "Component from operations/CENTRALIZED_CLIENT_BUNDLES.md. Content type: reference.",
+    tags: ["reference"]
+  },
+  ___________________: {
+    title: "Два простых примера",
+    desc: "Component from operations/CENTRALIZED_CLIENT_BUNDLES.md. Content type: reference.",
+    tags: ["reference"]
+  },
+  Supported_protocols__core_5_: {
+    title: "Supported protocols (core-5)",
+    desc: "Component from operations/MULTI_PROTOCOL_ARCHITECTURE.md. Content type: reference.",
+    tags: ["reference"]
+  },
+  Unified_stage_flow: {
+    title: "Unified stage flow",
+    desc: "Component from operations/MULTI_PROTOCOL_ARCHITECTURE.md. Content type: reference.",
+    tags: ["reference"]
+  },
+  Engine_and_adapters: {
+    title: "Engine and adapters",
+    desc: "Component from operations/MULTI_PROTOCOL_ARCHITECTURE.md. Content type: reference.",
+    tags: ["reference"]
+  },
+  Protocol_specific_validators: {
+    title: "Protocol-specific validators",
+    desc: "Component from operations/MULTI_PROTOCOL_ARCHITECTURE.md. Content type: reference.",
+    tags: ["reference"]
+  },
+  Regression: {
+    title: "Regression",
+    desc: "Component from operations/MULTI_PROTOCOL_ARCHITECTURE.md. Content type: reference.",
+    tags: ["reference"]
+  },
+  Docs___publish: {
+    title: "Docs + publish",
+    desc: "Component from operations/MULTI_PROTOCOL_ARCHITECTURE.md. Content type: reference.",
+    tags: ["reference"]
+  },
+  Test_assets_and_smart_merge: {
+    title: "Test assets and smart-merge",
+    desc: "Component from operations/MULTI_PROTOCOL_ARCHITECTURE.md. Content type: reference.",
+    tags: ["reference"]
+  },
+  Advanced_RAG_retrieval_pipelin: {
+    title: "Advanced RAG retrieval pipeline",
+    desc: "Component from operations/MULTI_PROTOCOL_ARCHITECTURE.md. Content type: reference.",
+    tags: ["reference"]
+  },
+  Template_and_snippet_parity: {
+    title: "Template and snippet parity",
+    desc: "Component from operations/MULTI_PROTOCOL_ARCHITECTURE.md. Content type: reference.",
+    tags: ["reference"]
+  },
+  How_to_enable_any_capability_f: {
+    title: "How to enable any capability for a client",
+    desc: "Component from operations/PIPELINE_CAPABILITIES_CATALOG.md. Content type: reference.",
+    tags: ["reference"]
+  },
+  Direct_CLI_entry_points__not_e: {
+    title: "Direct CLI entry points (not exposed as npm scripts)",
+    desc: "Component from operations/PIPELINE_CAPABILITIES_CATALOG.md. Content type: reference.",
+    tags: ["reference"]
+  },
+  Multi_protocol_contract_pipeli: {
+    title: "Multi-protocol contract pipeline",
+    desc: "Component from operations/PIPELINE_CAPABILITIES_CATALOG.md. Content type: reference.",
+    tags: ["reference"]
+  },
+  Test_assets_generation_and_sma: {
+    title: "Test assets generation and smart merge",
+    desc: "Component from operations/PIPELINE_CAPABILITIES_CATALOG.md. Content type: reference.",
+    tags: ["reference"]
+  },
+  Quality_checks__32_automated_: {
+    title: "Quality checks (32 automated)",
+    desc: "Component from operations/PIPELINE_CAPABILITIES_CATALOG.md. Content type: reference.",
+    tags: ["reference"]
+  },
+  RAG_retrieval_pipeline: {
+    title: "RAG retrieval pipeline",
+    desc: "Component from operations/PIPELINE_CAPABILITIES_CATALOG.md. Content type: reference.",
+    tags: ["reference"]
+  },
+  Public_docs_auditor_and_execut: {
+    title: "Public docs auditor and executive PDF",
+    desc: "Component from operations/PIPELINE_CAPABILITIES_CATALOG.md. Content type: reference.",
+    tags: ["reference"]
+  },
+  API_first_external_sandbox_not: {
+    title: "API-first external sandbox note",
+    desc: "Component from operations/PIPELINE_CAPABILITIES_CATALOG.md. Content type: reference.",
+    tags: ["reference"]
+  },
+  PR_auto_doc_workflow_capabilit: {
+    title: "PR auto-doc workflow capability",
+    desc: "Component from operations/PIPELINE_CAPABILITIES_CATALOG.md. Content type: reference.",
+    tags: ["reference"]
+  },
+  Templates: {
+    title: "Templates",
+    desc: "Component from operations/PIPELINE_CAPABILITIES_CATALOG.md. Content type: reference.",
+    tags: ["reference"]
+  },
+  Policy_Packs: {
+    title: "Policy Packs",
+    desc: "Component from operations/PIPELINE_CAPABILITIES_CATALOG.md. Content type: reference.",
+    tags: ["reference"]
+  },
+  Knowledge_Modules: {
+    title: "Knowledge Modules",
+    desc: "Component from operations/PIPELINE_CAPABILITIES_CATALOG.md. Content type: reference.",
+    tags: ["reference"]
+  },
+  Docker_Compose_Profiles: {
+    title: "Docker Compose Profiles",
+    desc: "Component from operations/PIPELINE_CAPABILITIES_CATALOG.md. Content type: reference.",
+    tags: ["reference"]
+  },
+  1__Feature_matrix: {
+    title: "1. Feature matrix",
+    desc: "Component from operations/PLAN_TIERS.md. Content type: reference.",
+    tags: ["reference"]
+  },
+  2__Default_plan_presets: {
+    title: "2. Default plan presets",
+    desc: "Component from operations/PLAN_TIERS.md. Content type: reference.",
+    tags: ["reference"]
+  },
+  3__How_to_apply_a_plan_for_a_c: {
+    title: "3. How to apply a plan for a client",
+    desc: "Component from operations/PLAN_TIERS.md. Content type: reference.",
+    tags: ["reference"]
+  },
+  4__License_enforcement: {
+    title: "4. License enforcement",
+    desc: "Component from operations/PLAN_TIERS.md. Content type: reference.",
+    tags: ["reference"]
+  },
+  5__Plan_upgrade_path: {
+    title: "5. Plan upgrade path",
+    desc: "Component from operations/PLAN_TIERS.md. Content type: reference.",
+    tags: ["reference"]
+  },
+  Where_smart_merge_runs: {
+    title: "Where smart-merge runs",
+    desc: "Component from operations/SMART_MERGE_REVIEW.md. Content type: how-to.",
+    tags: ["how-to"]
+  },
+  Merge_rules: {
+    title: "Merge rules",
+    desc: "Component from operations/SMART_MERGE_REVIEW.md. Content type: how-to.",
+    tags: ["how-to"]
+  },
+  Where_reviewer_sees_required_e: {
+    title: "Where reviewer sees required edits",
+    desc: "Component from operations/SMART_MERGE_REVIEW.md. Content type: how-to.",
+    tags: ["how-to"]
+  },
+  1__Client_identity: {
+    title: "1. Client identity",
+    desc: "Component from operations/UNIFIED_CLIENT_CONFIG.md. Content type: reference.",
+    tags: ["reference"]
+  },
+  2__Bundle_packaging: {
+    title: "2. Bundle packaging",
+    desc: "Component from operations/UNIFIED_CLIENT_CONFIG.md. Content type: reference.",
+    tags: ["reference"]
+  },
+  3__LLM_instruction_packaging: {
+    title: "3. LLM instruction packaging",
+    desc: "Component from operations/UNIFIED_CLIENT_CONFIG.md. Content type: reference.",
+    tags: ["reference"]
+  },
+  4__Automation_schedule__weekly: {
+    title: "4. Automation schedule (weekly)",
+    desc: "Component from operations/UNIFIED_CLIENT_CONFIG.md. Content type: reference.",
+    tags: ["reference"]
+  },
+  5__Runtime_behavior: {
+    title: "5. Runtime behavior",
+    desc: "Component from operations/UNIFIED_CLIENT_CONFIG.md. Content type: reference.",
+    tags: ["reference"]
+  },
+  6__API_first_configuration__on: {
+    title: "6. API-first configuration (one branch, not the whole product)",
+    desc: "Component from operations/UNIFIED_CLIENT_CONFIG.md. Content type: reference.",
+    tags: ["reference"]
+  },
+  7__Module_switches: {
+    title: "7. Module switches",
+    desc: "Component from operations/UNIFIED_CLIENT_CONFIG.md. Content type: reference.",
+    tags: ["reference"]
+  },
+  8__Universal_tasks__core_UTP__: {
+    title: "8. Universal tasks (core UTP, not optional extras)",
+    desc: "Component from operations/UNIFIED_CLIENT_CONFIG.md. Content type: reference.",
+    tags: ["reference"]
+  },
+  9__Integrations__single_contro: {
+    title: "9. Integrations (single control point)",
+    desc: "Component from operations/UNIFIED_CLIENT_CONFIG.md. Content type: reference.",
+    tags: ["reference"]
+  },
+  9__Private_tuning: {
+    title: "9. Private tuning",
+    desc: "Component from operations/UNIFIED_CLIENT_CONFIG.md. Content type: reference.",
+    tags: ["reference"]
+  },
+  10__Licensing: {
+    title: "10. Licensing",
+    desc: "Component from operations/UNIFIED_CLIENT_CONFIG.md. Content type: reference.",
+    tags: ["reference"]
+  },
+  11__Legal_labeling: {
+    title: "11. Legal labeling",
+    desc: "Component from operations/UNIFIED_CLIENT_CONFIG.md. Content type: reference.",
+    tags: ["reference"]
+  },
+  12__Flow_presets__copy_paste_: {
+    title: "12. Flow presets (copy-paste)",
+    desc: "Component from operations/UNIFIED_CLIENT_CONFIG.md. Content type: reference.",
+    tags: ["reference"]
+  },
+  9__Fully_automated_RAG_knowled: {
+    title: "9. Fully automated RAG/knowledge flow",
+    desc: "Component from operations/UNIFIED_CLIENT_CONFIG.md. Content type: reference.",
+    tags: ["reference"]
+  },
+  Provider_options: {
+    title: "Provider options",
+    desc: "Component from reference/api-playground.md. Content type: reference.",
+    tags: ["reference"]
+  },
+  Configure_this_page: {
+    title: "Configure this page",
+    desc: "Component from reference/api-playground.md. Content type: reference.",
+    tags: ["reference"]
+  },
+  Playground: {
+    title: "Playground",
+    desc: "Component from reference/api-playground.md. Content type: reference.",
+    tags: ["reference"]
+  },
+  Security_guidance: {
+    title: "Security guidance",
+    desc: "Component from reference/api-playground.md. Content type: reference.",
+    tags: ["reference"]
+  },
+  Old_Webhook_API: {
+    title: "Old Webhook API",
+    desc: "Component from reference/deprecated-example.md. Content type: reference.",
+    tags: ["reference"]
+  },
+  Example_Code: {
+    title: "Example Code",
+    desc: "Component from reference/deprecated-example.md. Content type: reference.",
+    tags: ["reference"]
+  },
+  Reference: {
+    title: "Reference",
+    desc: "Component from reference/index.md. Content type: reference.",
+    tags: ["reference"]
+  },
+  Included_modules: {
+    title: "Included modules",
+    desc: "Component from reference/intent-experiences/automate-developer.md. Content type: reference.",
+    tags: ["reference"]
+  },
+  Generated_docs_pages: {
+    title: "Generated docs pages",
+    desc: "Component from reference/intent-experiences/index.md. Content type: reference.",
+    tags: ["reference"]
+  },
+  Generated_bundle_outputs: {
+    title: "Generated bundle outputs",
+    desc: "Component from reference/intent-experiences/index.md. Content type: reference.",
+    tags: ["reference"]
+  },
+  Retrieval_artifact: {
+    title: "Retrieval artifact",
+    desc: "Component from reference/intent-experiences/index.md. Content type: reference.",
+    tags: ["reference"]
+  },
+  Source_of_truth: {
+    title: "Source of truth",
+    desc: "Component from reference/intent-experiences/index.md. Content type: reference.",
+    tags: ["reference"]
+  },
+  Validation_commands: {
+    title: "Validation commands",
+    desc: "Component from reference/intent-experiences/index.md. Content type: reference.",
+    tags: ["reference"]
+  },
+  Related_pages: {
+    title: "Related pages",
+    desc: "Component from reference/intent-experiences/index.md. Content type: reference.",
+    tags: ["reference"]
+  },
+  Zero_client_data_guarantee: {
+    title: "Zero client data guarantee",
+    desc: "Component from reference/network-transparency.md. Content type: reference.",
+    tags: ["reference"]
+  },
+  Complete_outgoing_request_inve: {
+    title: "Complete outgoing request inventory",
+    desc: "Component from reference/network-transparency.md. Content type: reference.",
+    tags: ["reference"]
+  },
+  Requests_the_pipeline_never_ma: {
+    title: "Requests the pipeline never makes",
+    desc: "Component from reference/network-transparency.md. Content type: reference.",
+    tags: ["reference"]
+  },
+  How_to_audit_the_pipeline_your: {
+    title: "How to audit the pipeline yourself",
+    desc: "Component from reference/network-transparency.md. Content type: reference.",
+    tags: ["reference"]
+  },
+  Machine_fingerprint_details: {
+    title: "Machine fingerprint details",
+    desc: "Component from reference/network-transparency.md. Content type: reference.",
+    tags: ["reference"]
+  },
+  Capability_pack_contents: {
+    title: "Capability pack contents",
+    desc: "Component from reference/network-transparency.md. Content type: reference.",
+    tags: ["reference"]
+  },
+  Summary_of_data_flow: {
+    title: "Summary of data flow",
+    desc: "Component from reference/network-transparency.md. Content type: reference.",
+    tags: ["reference"]
+  },
+  Webhook_node_reference: {
+    title: "Webhook node reference",
+    desc: "Component from reference/nodes/webhook.md. Content type: reference.",
+    tags: ["reference"]
+  },
+  Parameters: {
+    title: "Parameters",
+    desc: "Component from reference/nodes/webhook.md. Content type: reference.",
+    tags: ["reference"]
+  },
+  Authentication_options: {
+    title: "Authentication options",
+    desc: "Component from reference/nodes/webhook.md. Content type: reference.",
+    tags: ["reference"]
+  },
+  URLs: {
+    title: "URLs",
+    desc: "Component from reference/nodes/webhook.md. Content type: reference.",
+    tags: ["reference"]
+  },
+  Output: {
+    title: "Output",
+    desc: "Component from reference/nodes/webhook.md. Content type: reference.",
+    tags: ["reference"]
+  },
+  Smoke_checked_examples: {
+    title: "Smoke-checked examples",
+    desc: "Component from reference/nodes/webhook.md. Content type: reference.",
+    tags: ["reference"]
+  },
+  Environment_variables: {
+    title: "Environment variables",
+    desc: "Component from reference/nodes/webhook.md. Content type: reference.",
+    tags: ["reference"]
+  },
+  Start_a_sandbox_endpoint: {
+    title: "Start a sandbox endpoint",
+    desc: "Component from reference/taskstream-api-playground.md. Content type: reference.",
+    tags: ["reference"]
+  },
+  Playground_embed: {
+    title: "Playground embed",
+    desc: "Component from reference/taskstream-api-playground.md. Content type: reference.",
+    tags: ["reference"]
+  },
+  Multi_language_request_example: {
+    title: "Multi-language request examples",
+    desc: "Component from reference/taskstream-api-playground.md. Content type: reference.",
+    tags: ["reference"]
+  },
+  What_this_validates: {
+    title: "What this validates",
+    desc: "Component from reference/taskstream-api-playground.md. Content type: reference.",
+    tags: ["reference"]
+  },
+  Input_artifact_location: {
+    title: "Input artifact location",
+    desc: "Component from reference/taskstream-planning-notes.md. Content type: reference.",
+    tags: ["reference"]
+  },
+  How_the_pipeline_uses_this_inp: {
+    title: "How the pipeline uses this input",
+    desc: "Component from reference/taskstream-planning-notes.md. Content type: reference.",
+    tags: ["reference"]
+  },
+  Notes_format__demo_excerpt_: {
+    title: "Notes format (demo excerpt)",
+    desc: "Component from reference/taskstream-planning-notes.md. Content type: reference.",
+    tags: ["reference"]
+  },
+  Browse_documentation_by_tag: {
+    title: "Browse documentation by tag",
+    desc: "Component from tags.md. Content type: reference.",
+    tags: ["reference"]
+  }
+};
+// === END EDITABLE SECTION ===
+
+// Sync theme with parent page (MkDocs Material or Docusaurus)
+function syncTheme() {
+  try {
+    // MkDocs Material: parent body has data-md-color-scheme="slate" for dark
+    const parentScheme = window.parent.document.body.getAttribute('data-md-color-scheme');
+    if (parentScheme === 'slate') {
+      document.documentElement.setAttribute('data-theme', 'dark');
+      return;
+    }
+    // Docusaurus: parent html has data-theme="dark"
+    const parentTheme = window.parent.document.documentElement.getAttribute('data-theme');
+    if (parentTheme === 'dark') {
+      document.documentElement.setAttribute('data-theme', 'dark');
+      return;
+    }
+    // If parent is light or not detected, use OS preference (handled by CSS)
+  } catch (e) {
+    // Cross-origin: fall back to OS preference (handled by CSS media query)
+  }
+}
+syncTheme();
+// Re-sync when parent toggles theme
+try {
+  new MutationObserver(syncTheme).observe(
+    window.parent.document.documentElement,
+    { attributes: true, attributeFilter: ['data-md-color-scheme', 'data-theme'] }
+  );
+  new MutationObserver(syncTheme).observe(
+    window.parent.document.body,
+    { attributes: true, attributeFilter: ['data-md-color-scheme'] }
+  );
+} catch (e) { /* cross-origin, no sync possible */ }
+
+function showInfo(id) {
+  document.querySelectorAll('.component').forEach(el => el.classList.remove('active'));
+  const el = document.querySelector(`[data-id="${id}"]`);
+  if (el) el.classList.add('active');
+
+  const panel = document.getElementById('infoPanel');
+  const data = descriptions[id];
+  if (!data) return;
+
+  panel.classList.add('active');
+  panel.innerHTML = `
+    <h3>${data.title}</h3>
+    <p>${data.desc}</p>
+    <div>${data.tags.map(t => `<span class="tag">${t}</span>`).join('')}</div>
+  `;
+}
+</script>
+</body>
+</html>
