@@ -56,6 +56,7 @@ PLAN_FEATURES: dict[str, dict[str, bool]] = {
         "i18n_system": False,
         "custom_policy_packs": False,
         "testrail_zephyr_upload": False,
+        "doc_compiler": False,
     },
     "professional": {
         "markdown_lint": True,
@@ -79,6 +80,7 @@ PLAN_FEATURES: dict[str, dict[str, bool]] = {
         "i18n_system": False,
         "custom_policy_packs": False,
         "testrail_zephyr_upload": False,
+        "doc_compiler": False,
     },
     "enterprise": {
         "markdown_lint": True,
@@ -102,6 +104,7 @@ PLAN_FEATURES: dict[str, dict[str, bool]] = {
         "i18n_system": True,
         "custom_policy_packs": True,
         "testrail_zephyr_upload": True,
+        "doc_compiler": True,
     },
 }
 

@@ -66,6 +66,7 @@ class PlanFeatures:
     sso: bool = False
     audit_log: bool = False
     priority_support: bool = False
+    doc_compiler: bool = False
 
 
 @dataclass
@@ -197,6 +198,7 @@ BUSINESS_PLAN = PricingPlan(
         rag_test_generation=True,
         algolia_search=True,
         custom_branding=True,
+        doc_compiler=True,
     ),
 )
 
@@ -234,6 +236,7 @@ ENTERPRISE_PLAN = PricingPlan(
         sso=True,
         audit_log=True,
         priority_support=True,
+        doc_compiler=True,
     ),
 )
 

@@ -122,6 +122,31 @@ class AlgoliaWidgetResponse(BaseModel):
     error: str | None = None
 
 
+class DocCompilerRequest(BaseModel):
+    """Request body for the doc compiler endpoint."""
+
+    repo_path: str = Field(description="Path to the repository root")
+    modalities: str = Field(
+        default="all",
+        description=(
+            "Comma-separated modalities: executive_briefing, "
+            "cross_doc_consistency, auto_faq, architecture_diagram, "
+            "doc_critique, or 'all'"
+        ),
+    )
+    generate_faq_doc: bool = Field(
+        default=False,
+        description="Generate a FAQ markdown file in docs/",
+    )
+
+
+class DocCompilerResponse(BaseModel):
+    status: str
+    modalities_run: list[str] = Field(default_factory=list)
+    report: dict[str, Any] | None = None
+    error: str | None = None
+
+
 # ---------------------------------------------------------------------------
 # Feature gate helper
 # ---------------------------------------------------------------------------
@@ -169,6 +194,23 @@ def handle_run_pipeline(
         messages.append("Algolia search enabled")
     if request.sandbox_backend:
         messages.append(f"Sandbox: {request.sandbox_backend}")
+
+    # Auto-run doc compiler if tier supports it (non-blocking)
+    if not _check_feature_gate(user_tier, "doc_compiler"):
+        try:
+            from compile_doc_overview import ALL_MODALITIES, run_doc_compiler
+
+            repo = Path(request.repo_path)
+            result = run_doc_compiler(
+                docs_dir=repo / "docs",
+                reports_dir=repo / "reports",
+                glossary_path=repo / "glossary.yml",
+                modalities=list(ALL_MODALITIES),
+            )
+            artifacts.append(str(repo / "reports" / "doc_compiler_report.json"))
+            messages.append("Docs health reports generated")
+        except Exception:
+            pass  # Non-blocking: doc compiler failure never blocks pipeline
 
     return RunPipelineResponse(
         status="ok",
@@ -294,4 +336,50 @@ def handle_algolia_widget(
         return AlgoliaWidgetResponse(
             status="error",
             error=f"Widget generation failed: {exc}",
+        )
+
+
+def handle_doc_compiler(
+    request: DocCompilerRequest,
+    user_tier: str = "free",
+) -> DocCompilerResponse:
+    """Run the doc compiler to produce overview artifacts."""
+    gate = _check_feature_gate(user_tier, "doc_compiler")
+    if gate:
+        return DocCompilerResponse(status="error", error=gate["error"])
+
+    try:
+        from compile_doc_overview import ALL_MODALITIES, run_doc_compiler
+
+        repo = Path(request.repo_path)
+        docs_dir = repo / "docs"
+        reports_dir = repo / "reports"
+        glossary_path = repo / "glossary.yml"
+
+        if request.modalities.strip().lower() == "all":
+            modalities = list(ALL_MODALITIES)
+        else:
+            modalities = [
+                m.strip()
+                for m in request.modalities.split(",")
+                if m.strip()
+            ]
+
+        result = run_doc_compiler(
+            docs_dir=docs_dir,
+            reports_dir=reports_dir,
+            glossary_path=glossary_path,
+            modalities=modalities,
+            generate_faq_doc=request.generate_faq_doc,
+        )
+
+        return DocCompilerResponse(
+            status="ok",
+            modalities_run=result.get("modalities_run", []),
+            report=result,
+        )
+    except Exception as exc:
+        return DocCompilerResponse(
+            status="error",
+            error=f"Doc compiler failed: {exc}",
         )

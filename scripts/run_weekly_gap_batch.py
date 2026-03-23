@@ -826,6 +826,30 @@ def main() -> int:
             cwd=repo_root,
         )
 
+    doc_compiler = scripts_dir / "compile_doc_overview.py"
+    if _is_enabled(modules, "doc_compiler", True) and doc_compiler.exists():
+        dc_config = runtime.get("doc_compiler", {})
+        if not isinstance(dc_config, dict):
+            dc_config = {}
+        dc_modalities = str(dc_config.get("modalities", "all")).strip() or "all"
+        dc_cmd = [
+            py,
+            str(doc_compiler),
+            "--docs-dir",
+            str(paths.get("docs_root", "docs")),
+            "--reports-dir",
+            str(reports_dir),
+            "--glossary-path",
+            str(terminology.get("glossary_path", "glossary.yml"))
+            if isinstance(terminology, dict)
+            else "glossary.yml",
+            "--modalities",
+            dc_modalities,
+        ]
+        if bool(dc_config.get("generate_faq_doc", False)):
+            dc_cmd.append("--generate-faq-doc")
+        _run_allow_fail(dc_cmd, cwd=repo_root)
+
     weekly_tasks = custom_tasks.get("weekly", [])
     if isinstance(weekly_tasks, list):
         for task in weekly_tasks:

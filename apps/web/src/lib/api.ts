@@ -102,6 +102,19 @@ export interface AlgoliaWidgetResponse {
   error?: string;
 }
 
+export interface DocCompilerRequest {
+  repo_path: string;
+  modalities?: string;
+  generate_faq_doc?: boolean;
+}
+
+export interface DocCompilerResponse {
+  status: string;
+  modalities_run: string[];
+  report?: Record<string, unknown>;
+  error?: string;
+}
+
 // ---------------------------------------------------------------------------
 // API client
 // ---------------------------------------------------------------------------
@@ -127,6 +140,13 @@ export const pipeline = {
     request: AlgoliaWidgetRequest,
   ): Promise<AlgoliaWidgetResponse> {
     return post("/pipeline/algolia-widget", request);
+  },
+
+  /** Run doc compiler to produce documentation overview artifacts. */
+  compileDocOverview(
+    request: DocCompilerRequest,
+  ): Promise<DocCompilerResponse> {
+    return post("/pipeline/doc-compiler", request);
   },
 };
 
