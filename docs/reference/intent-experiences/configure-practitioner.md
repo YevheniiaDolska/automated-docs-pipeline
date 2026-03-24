@@ -23,7 +23,7 @@ python3 scripts/assemble_intent_experience.py \
 
 Run the unified autopipeline on release day to synchronize API documentation across five protocols with quality gates and review manifests.
 
-# How-to: keep docs aligned with every release
+## How-to: keep docs aligned with every release
 
 <div class="veriops-badges" markdown>
 
@@ -290,7 +290,7 @@ pip install mkdocs-material mkdocs-macros-plugin
 
 Build a working VeriOps API integration in 15 minutes with authenticated requests, project creation, and real-time WebSocket subscriptions.
 
-# Tutorial: launch your first VeriOps API integration
+## Tutorial: launch your first VeriOps API integration
 
 <div class="veriops-badges" markdown>
 
@@ -564,7 +564,7 @@ If any step fails:
 
 Build a working VeriOps API integration in 15 minutes with authenticated requests, project creation, and real-time WebSocket subscriptions.
 
-## Next steps
+## Next steps (2)
 
 - [REST API reference](../reference/rest-api.md) for all 14 endpoints across five resources
 - [GraphQL playground](../reference/graphql-playground.md) to explore the full schema interactively
@@ -587,7 +587,7 @@ curl -X POST "http://localhost:{{ default_webhook_port }}/webhook/order-events" 
 
 Keep replay protection enabled, rotate the secret every 90 days, and monitor 401 spikes for abuse detection.
 
-## Next steps
+## Next steps (3)
 
 - Validate modules: `npm run lint:knowledge`
 - Rebuild retrieval index: `npm run build:knowledge-index`

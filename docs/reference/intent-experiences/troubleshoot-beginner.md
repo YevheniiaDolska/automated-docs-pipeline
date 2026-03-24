@@ -61,7 +61,7 @@ Build a working VeriOps API integration in 15 minutes with authenticated request
 - [How-to: keep docs aligned with every release](how-to.md) for the operator workflow
 - [Troubleshooting: common pipeline issues](troubleshooting.md) if you encounter errors
 
-## Next steps
+## Next steps (2)
 
 - Validate modules: `npm run lint:knowledge`
 - Rebuild retrieval index: `npm run build:knowledge-index`

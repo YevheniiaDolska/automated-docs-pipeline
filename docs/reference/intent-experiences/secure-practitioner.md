@@ -23,7 +23,7 @@ python3 scripts/assemble_intent_experience.py \
 
 Build a working VeriOps API integration in 15 minutes with authenticated requests, project creation, and real-time WebSocket subscriptions.
 
-# Tutorial: launch your first VeriOps API integration
+## Tutorial: launch your first VeriOps API integration
 
 <div class="veriops-badges" markdown>
 
@@ -169,6 +169,7 @@ Notice that the response contains only the four fields you requested (`id`, `nam
 
 Build a working VeriOps API integration in 15 minutes with authenticated requests, project creation, and real-time WebSocket subscriptions.
 
+```javascript
 // Keep the script running for 60 seconds to receive events
 setTimeout(() => {
   ws.close(1000, 'Tutorial complete');

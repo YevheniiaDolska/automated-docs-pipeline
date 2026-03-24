@@ -129,7 +129,7 @@ run.onclick = async function(){
 
 Run the unified autopipeline on release day to synchronize API documentation across five protocols with quality gates and review manifests.
 
-# How-to: keep docs aligned with every release
+## How-to: keep docs aligned with every release
 
 <div class="veriops-badges" markdown>
 
@@ -392,7 +392,7 @@ pip install mkdocs-material mkdocs-macros-plugin
 - [Quality evidence and gate results](../quality/evidence.md) for the latest KPI metrics
 - [Troubleshooting: common pipeline issues](troubleshooting.md) for detailed fix procedures
 
-## Next steps
+## Next steps (2)
 
 - Validate modules: `npm run lint:knowledge`
 - Rebuild retrieval index: `npm run build:knowledge-index`

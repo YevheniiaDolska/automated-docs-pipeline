@@ -23,7 +23,7 @@ python3 scripts/assemble_intent_experience.py \
 
 Build a working VeriOps API integration in 15 minutes with authenticated requests, project creation, and real-time WebSocket subscriptions.
 
-# Tutorial: launch your first VeriOps API integration
+## Tutorial: launch your first VeriOps API integration
 
 <div class="veriops-badges" markdown>
 
@@ -320,7 +320,7 @@ curl -X POST "http://localhost:{{ default_webhook_port }}/webhook/order-events" 
 
 Keep replay protection enabled, rotate the secret every 90 days, and monitor 401 spikes for abuse detection.
 
-## Next steps
+## Next steps (2)
 
 - Validate modules: `npm run lint:knowledge`
 - Rebuild retrieval index: `npm run build:knowledge-index`

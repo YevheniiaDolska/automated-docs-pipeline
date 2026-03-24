@@ -23,7 +23,7 @@ python3 scripts/assemble_intent_experience.py \
 
 Fix common VeriOps documentation pipeline issues in under 5 minutes, covering contract failures, quality gates, build errors, and WebSocket problems.
 
-# Troubleshooting: common VeriOps pipeline issues
+## Troubleshooting: common VeriOps pipeline issues
 
 <div class="veriops-badges" markdown>
 
@@ -372,7 +372,7 @@ function shouldProcess(eventId, cache) {
 
 Alert when retry rate exceeds 5% for 15 minutes. This threshold usually indicates downstream instability.
 
-## Next steps
+## Next steps (2)
 
 - Validate modules: `npm run lint:knowledge`
 - Rebuild retrieval index: `npm run build:knowledge-index`
