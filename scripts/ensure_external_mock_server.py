@@ -8,12 +8,15 @@ from __future__ import annotations
 
 import argparse
 import json
+import logging
 import os
 import re
 from pathlib import Path
 from typing import Any
 from urllib import error, request
 from urllib.parse import quote, urlparse
+
+logger = logging.getLogger(__name__)
 
 import yaml
 
@@ -142,7 +145,10 @@ def _resolve_collection_id(base_url: str, api_key: str, token: str) -> str:
         )
         resolved = _extract_collection_id(payload)
         return resolved or value
-    except Exception:
+    except (OSError, ValueError, KeyError) as exc:
+        logger.debug(
+            "Could not resolve collection ID for '%s': %s", value, exc,
+        )
         return value
 
 
@@ -425,7 +431,10 @@ def _find_existing_mock_by_name(base_url: str, api_key: str, workspace_id: str, 
     for endpoint in candidates:
         try:
             payload = _http_json("GET", endpoint, api_key=api_key)
-        except Exception:
+        except Exception as exc:  # noqa: BLE001
+            logger.debug(
+                "Mock server lookup failed for endpoint %s: %s", endpoint, exc,
+            )
             continue
         for item in _extract_mocks_list(payload):
             name = str(item.get("name", "")).strip().lower()

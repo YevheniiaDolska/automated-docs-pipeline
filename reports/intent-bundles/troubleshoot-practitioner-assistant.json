@@ -1,0 +1,53 @@
+{
+  "intent": "troubleshoot",
+  "audience": "practitioner",
+  "channel": "assistant",
+  "module_count": 5,
+  "modules": [
+    {
+      "module_id": "auto-how-to-4",
+      "title": "How-to: keep docs aligned with every release (Part 4)",
+      "priority": 60,
+      "intent": "troubleshoot",
+      "audience": "practitioner",
+      "channel": "assistant",
+      "content": "Use this module when answering questions related to: How-to: keep docs aligned with every release (Part 4). Source path: demo-showcase/acme/docs/guides/how-to.md. Summary: Run the unified autopipeline on release day to synchronize API documentation across five protocols with quality gates and review manifests.\n\n```text\n[autopipeline] Starting VeriDoc pipeline run\n[autopipeline] Runtime config: reports/acme-demo/client_runtime.yml\n[autopipeline] Protocols enabled: rest, graphql, grpc, asyncapi, websocket\n[stage] multi_protocol_contract ... DONE (5 protocols, 0 failures)\n[stage] kpi_wall ... DONE (quality_score: 100)\n[stage] retrieval_evals ... DONE (167 modules indexed)\n[autopipeline] Pipeline complete. Exit code: 0\n```\n\nAn exit code of 0 confirms all stages passed. A non-zero code indicates stages that need attention.\n\n## Step 2: check protocol contract results\n\nAfter the pipeline completes, verify which protocols passed contract validation:\n\n```bash\npython3 -c \"\nimport json\nr = json.load(open('reports/acme-demo/multi_protocol_contract_report.json'))\nfor p in r.get('protocols', []):\n    status = 'PASS' if p not in r.get('failed_protocols', []) else 'FAIL'\n    print(f'  {p}: {status}')\nprint(f'Failed: {r.get(\\\"failed_protocols\\\", [])}')\"\n```\n\n**Expected output:**\n\n```text\n  rest: PASS\n  graphql: PASS\n  grpc: PASS\n  asyncapi: PASS\n  websocket: PASS\nFailed: []\n```\n\nIf any protocol fails, fix the root cause before proceeding. See [Troubleshooting](troubleshooting.md) for common fixes."
+    },
+    {
+      "module_id": "auto-how-to-7",
+      "title": "How-to: keep docs aligned with every release (Part 7)",
+      "priority": 60,
+      "intent": "troubleshoot",
+      "audience": "practitioner",
+      "channel": "assistant",
+      "content": "Use this module when answering questions related to: How-to: keep docs aligned with every release (Part 7). Source path: demo-showcase/acme/docs/guides/how-to.md. Summary: Run the unified autopipeline on release day to synchronize API documentation across five protocols with quality gates and review manifests.\n\n## Step 5: build the demo site\n\nGenerate the browsable MkDocs documentation site:\n\n```bash\npython3 scripts/build_acme_demo_site.py \\\n  --output-root demo-showcase/acme \\\n  --reports-dir reports/acme-demo \\\n  --build\n```\n\n<!-- requires: python3, mkdocs -->\n\nThis command copies documentation pages, updates the `mkdocs.yml` navigation, and runs `mkdocs build` to produce the final HTML site in `demo-showcase/acme/site/`.\n\n## Step 6: approve and publish\n\nAfter verifying all gates pass, complete the reviewer checklist from the manifest:\n\n- [ ] Confirm stage summary has no missing required artifacts.\n- [ ] Review protocol docs and test asset links.\n- [ ] Review quality and retrieval reports before publish.\n- [ ] Approve publish only if critical findings are resolved.\n- [ ] Verify RAG retrieval index is current and complete.\n- [ ] Confirm advanced retrieval features are enabled (hybrid search, HyDE, reranking, embedding cache).\n\n## Validation checklist\n\nBefore considering the release complete:\n\n- [ ] All five protocol contracts validated (zero failures)\n- [ ] Quality score at or above 80\n- [ ] No high-priority documentation gaps remain\n- [ ] Review manifest approved by operator\n- [ ] MkDocs site builds without errors\n- [ ] Knowledge graph and retrieval index are current\n- [ ] Advanced retrieval features enabled (hybrid, HyDE, reranking, cache)\n\n## Common issues and solutions"
+    },
+    {
+      "module_id": "auto-how-to-8",
+      "title": "How-to: keep docs aligned with every release (Part 8)",
+      "priority": 60,
+      "intent": "troubleshoot",
+      "audience": "practitioner",
+      "channel": "assistant",
+      "content": "Use this module when answering questions related to: How-to: keep docs aligned with every release (Part 8). Source path: demo-showcase/acme/docs/guides/how-to.md. Summary: Run the unified autopipeline on release day to synchronize API documentation across five protocols with quality gates and review manifests.\n\n### Issue: gRPC stage fails\n\nThe `protoc` compiler is not installed.\n\n**Solution:**\n\n```bash\napt-get install -y protobuf-compiler\nprotoc --version\n```\n\nThen re-run the pipeline.\n\n### Issue: quality score below 80\n\nStale documents, missing frontmatter, or unresolved documentation gaps.\n\n**Solution:**\n\n1. Run `python3 -c \"import json; r=json.load(open('reports/acme-demo/doc_gaps_report.json')); print(len([g for g in r.get('gaps',[]) if g.get('priority')=='high']), 'high-priority gaps')\"` to count gaps.\n1. Address each gap by creating or updating documents.\n1. Re-run the pipeline.\n\n### Issue: MkDocs build fails with theme error\n\n**Solution:**\n\n```bash\npip install mkdocs-material mkdocs-macros-plugin\n```\n\n## Next steps\n\n- [Concept: pipeline-first documentation lifecycle](concept.md) to understand why this workflow matters\n- [Quality evidence and gate results](../quality/evidence.md) for the latest KPI metrics\n- [Troubleshooting: common pipeline issues](troubleshooting.md) for detailed fix procedures"
+    },
+    {
+      "module_id": "auto-tutorial-8",
+      "title": "Tutorial: launch your first VeriOps API integration (Part 8)",
+      "priority": 60,
+      "intent": "troubleshoot",
+      "audience": "practitioner",
+      "channel": "assistant",
+      "content": "Use this module when answering questions related to: Tutorial: launch your first VeriOps API integration (Part 8). Source path: demo-showcase/acme/docs/guides/tutorial.md. Summary: Build a working VeriOps API integration in 15 minutes with authenticated requests, project creation, and real-time WebSocket subscriptions.\n\n## Step 5: verify the integration (2 minutes)\n\nRun this checklist to confirm all three protocols work:\n\n| Protocol | Test command | Expected result |\n| --- | --- | --- |\n| REST | `GET /v1/projects` | HTTP 200 with project list |\n| GraphQL | `query { health { status } }` | `{\"data\": {\"health\": {\"status\": \"ok\"}}}` |\n| WebSocket | Connect to `wss://api.veriops.example/realtime` | Connection opens, subscription confirmed |\n\nIf any step fails:\n\n- **HTTP 401 on REST or GraphQL**: Your API key is invalid. Generate a new one in the [dashboard](https://app.veriops.example/settings/api).\n- **WebSocket connection error**: Verify you use `wss://` (not `ws://`) and the key is passed as `?token=` query parameter.\n- **Timeout on any request**: Check your network allows outbound connections on port 443.\n\n## What you accomplished\n\n| Step | Protocol | Outcome |\n| --- | --- | --- |\n| Verify API key | REST + GraphQL | Confirmed authentication across two protocols |\n| Create project | REST | Created a project resource via `POST /v1/projects` |\n| Query project | GraphQL | Fetched project with custom field selection |\n| Subscribe to events | WebSocket | Received real-time project update events |\n| Verify integration | All three | Confirmed multi-protocol integration works end-to-end |"
+    },
+    {
+      "module_id": "auto-tutorial-9",
+      "title": "Tutorial: launch your first VeriOps API integration (Part 9)",
+      "priority": 60,
+      "intent": "troubleshoot",
+      "audience": "practitioner",
+      "channel": "assistant",
+      "content": "Use this module when answering questions related to: Tutorial: launch your first VeriOps API integration (Part 9). Source path: demo-showcase/acme/docs/guides/tutorial.md. Summary: Build a working VeriOps API integration in 15 minutes with authenticated requests, project creation, and real-time WebSocket subscriptions.\n\n## Next steps\n\n- [REST API reference](../reference/rest-api.md) for all 14 endpoints across five resources\n- [GraphQL playground](../reference/graphql-playground.md) to explore the full schema interactively\n- [gRPC gateway invoke](../reference/grpc-gateway.md) for high-performance RPC calls\n- [How-to: keep docs aligned with every release](how-to.md) for the operator workflow\n- [Troubleshooting: common pipeline issues](troubleshooting.md) if you encounter errors"
+    }
+  ]
+}

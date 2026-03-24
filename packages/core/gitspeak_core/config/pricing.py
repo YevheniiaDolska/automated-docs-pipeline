@@ -61,6 +61,9 @@ class PlanFeatures:
     rag_test_generation: bool = False
     algolia_search: bool = False
 
+    # i18n
+    i18n_system: bool = False
+
     # Advanced
     custom_branding: bool = False
     sso: bool = False
@@ -189,16 +192,13 @@ BUSINESS_PLAN = PricingPlan(
         doc_generation=True,
         template_library=True,
         api_docs=True,
-        multi_protocol=True,
         vale_linting=True,
         seo_optimization=True,
         geo_optimization=True,
         ai_review=True,
-        ai_translation=True,
         rag_test_generation=True,
         algolia_search=True,
         custom_branding=True,
-        doc_compiler=True,
     ),
 )
 
@@ -230,6 +230,7 @@ ENTERPRISE_PLAN = PricingPlan(
         geo_optimization=True,
         ai_review=True,
         ai_translation=True,
+        i18n_system=True,
         rag_test_generation=True,
         algolia_search=True,
         custom_branding=True,

@@ -1,6 +1,6 @@
 ---
 title: Intelligent knowledge system architecture
-description: Learn how the pipeline models reusable knowledge modules for AI retrieval,
+description: Explains how the pipeline models reusable knowledge modules for AI retrieval,
   dynamic assembly, and multi-channel documentation delivery.
 content_type: concept
 product: both
@@ -16,10 +16,6 @@ original_author: Developer
 # Intelligent knowledge system architecture
 
 The intelligent knowledge system is a structured layer that stores reusable modules, metadata, and intent mappings so humans and AI can retrieve the same trusted product knowledge.
-
-```bash
-python3 scripts/validate_knowledge_modules.py
-```
 
 The pipeline keeps authored modules in `knowledge_modules/*.yml`, validates them, and assembles clean output documents and channel bundles. This preserves normal documentation readability while enabling AI-native retrieval and reuse.
 
@@ -51,14 +47,16 @@ Each module defines:
 - `dependencies` for module composition order
 - `content` blocks for each channel output
 
-## Operational flow
+## Operational lifecycle
 
-1. Validate modules with `npm run lint:knowledge`.
-1. Assemble docs and bundles with `npm run build:intent`.
-1. Generate retrieval artifacts with `npm run build:knowledge-index`.
-1. Generate graph artifact with `npm run build:knowledge-graph`.
-1. Run retrieval eval gate with `npm run eval:retrieval`.
-1. Run `npm run validate:knowledge` as a pre-release gate.
+The knowledge lifecycle has six phases:
+
+1. Schema and integrity validation (`npm run lint:knowledge`).
+1. Intent assembly for channel outputs (`npm run build:intent`).
+1. Retrieval index generation (`npm run build:knowledge-index`).
+1. Graph generation for relationship context (`npm run build:knowledge-graph`).
+1. Retrieval quality evaluation (`npm run eval:retrieval`).
+1. Release gate consolidation (`npm run validate:knowledge`).
 
 ## RAG integration contract
 
@@ -90,26 +88,7 @@ The RAG runtime uses six features that work together to maximize retrieval preci
 
 ### Retrieval orchestration flow
 
-```text
-Question
-  |
-  v
-FAISS available AND hybrid enabled?
-  YES -> Hybrid search (RRF fusion of semantic + token)
-  NO  -> FAISS available? -> Semantic search (with HyDE if enabled)
-  NO  -> Token-overlap fallback
-  |
-  v
-Deduplicate chunks by parent_id
-  |
-  v
-Rerank enabled AND enough candidates?
-  YES -> Cross-encoder reranks to top-N
-  NO  -> Truncate to top-N
-  |
-  v
-Return context modules
-```
+The retrieval flow starts with a question, chooses hybrid search when FAISS and hybrid mode are available, falls back to semantic or token overlap when needed, deduplicates by `parent_id`, optionally reranks with the cross-encoder, and returns top context modules.
 
 ### Configuration
 

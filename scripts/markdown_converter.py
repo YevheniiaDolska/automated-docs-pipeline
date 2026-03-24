@@ -11,6 +11,7 @@ Tracks fenced code block state to avoid converting syntax inside code.
 
 from __future__ import annotations
 
+import argparse
 import re
 import shutil
 from pathlib import Path
@@ -429,8 +430,6 @@ def convert_directory(
 # ---------------------------------------------------------------------------
 
 def main() -> None:
-    import argparse
-
     parser = argparse.ArgumentParser(
         description="Convert markdown between MkDocs and Docusaurus formats"
     )

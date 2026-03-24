@@ -49,7 +49,7 @@
     "build:knowledge-index": "python3 scripts/generate_knowledge_retrieval_index.py",
     "build:knowledge-graph": "python3 scripts/generate_knowledge_graph_jsonld.py --modules-dir knowledge_modules --output docs/assets/knowledge-graph.jsonld --report reports/knowledge_graph_report.json",
     "build:intent:all": "python3 scripts/build_all_intent_experiences.py",
-    "eval:retrieval": "python3 scripts/run_retrieval_evals.py --index docs/assets/knowledge-retrieval-index.json --auto-generate-dataset --dataset-out reports/retrieval_eval_dataset.generated.yml --report reports/retrieval_evals_report.json --top-k 3 --min-precision 0.5 --min-recall 0.5 --max-hallucination-rate 0.5",
+    "eval:retrieval": "python3 scripts/run_retrieval_evals_gate.py",
     "validate:knowledge": "npm run lint:knowledge && npm run build:intent:all && npm run build:knowledge-index && npm run build:knowledge-graph && npm run eval:retrieval",
     "configurator": "python3 scripts/generate_configurator.py",
     "onboard:client": "python3 scripts/onboard_client.py",
@@ -75,8 +75,8 @@
     "audit:scorecard": "python3 scripts/generate_audit_scorecard.py --docs-dir docs --reports-dir reports --spec-path api/openapi.yaml --policy-pack policy_packs/api-first.yml --glossary-path glossary.yml --stale-days 180 --auto-run-smoke --json-output reports/audit_scorecard.json --html-output reports/audit_scorecard.html",
     "audit:public": "python3 scripts/generate_public_docs_audit.py",
     "audit:public:wizard": "python3 scripts/generate_public_docs_audit.py --interactive",
-    "audit:public:llm": "python3 scripts/generate_public_docs_audit.py --llm-enabled --llm-model claude-sonnet-4-5 --llm-env-file /mnt/c/Users/Kroha/Documents/development/forge-marketing/.env --llm-api-key-env-name ANTHROPIC_API_KEY",
-    "audit:public:llm-summary": "python3 scripts/generate_public_docs_audit.py --llm-enabled --llm-summary-only --llm-model claude-sonnet-4-5 --llm-env-file /mnt/c/Users/Kroha/Documents/development/forge-marketing/.env --llm-api-key-env-name ANTHROPIC_API_KEY",
+    "audit:public:llm": "python3 scripts/generate_public_docs_audit.py --llm-enabled --llm-model claude-sonnet-4-5 --llm-api-key-env-name ANTHROPIC_API_KEY",
+    "audit:public:llm-summary": "python3 scripts/generate_public_docs_audit.py --llm-enabled --llm-summary-only --llm-model claude-sonnet-4-5 --llm-api-key-env-name ANTHROPIC_API_KEY",
     "audit:executive-pdf": "python3 scripts/generate_executive_audit_pdf.py --scorecard-json reports/audit_scorecard.json --public-audit-json reports/public_docs_audit.json --llm-summary-json reports/public_docs_audit_llm_summary.json --company-name \"Client\"",
     "api:sandbox:mock": "docker compose -f docker-compose.api-sandbox.yml up -d",
     "api:sandbox:stop": "docker compose -f docker-compose.api-sandbox.yml down",
@@ -117,7 +117,11 @@
     "confluence:migrate": "python3 scripts/run_confluence_migration.py",
     "doc:compile": "python3 scripts/compile_doc_overview.py --docs-dir docs --reports-dir reports --modalities all",
     "consolidate": "npm run gaps && npm run kpi-wall && npm run kpi-sla && npm run i18n:sync && npm run validate:knowledge && python3 scripts/consolidate_reports.py",
-    "consolidate:reports-only": "python3 scripts/consolidate_reports.py"
+    "consolidate:reports-only": "python3 scripts/consolidate_reports.py",
+    "docsops:generate": "python3 scripts/docsops_generate.py generate --mode operator --trigger always",
+    "docsops:generate:auto": "python3 scripts/docsops_generate.py generate --mode operator --trigger always --auto",
+    "docsops:generate:policy": "python3 scripts/docsops_generate.py generate --mode operator --trigger policy --auto",
+    "docsops:generate:veridoc": "python3 scripts/docsops_generate.py generate --mode veridoc --trigger policy --auto"
   },
   "devDependencies": {
     "husky": "^8.0.3",

@@ -6,7 +6,13 @@ local_only=True is only for VeriOps (self-hosted) deployments.
 
 from __future__ import annotations
 
-from pydantic import BaseModel, Field, SecretStr
+import logging
+
+from pydantic import BaseModel, Field, SecretStr, model_validator
+
+logger = logging.getLogger(__name__)
+
+_DEFAULT_SECRET = "change-me-in-production"
 
 
 class LLMSettings(BaseModel):
@@ -119,7 +125,7 @@ class AppSettings(BaseModel):
 
     # Auth
     secret_key: SecretStr = Field(
-        default=SecretStr("change-me-in-production"),
+        default=SecretStr(_DEFAULT_SECRET),
         description="Secret key for JWT token signing",
     )
     access_token_expire_minutes: int = Field(default=60, ge=5)
@@ -127,6 +133,45 @@ class AppSettings(BaseModel):
     # Server
     host: str = "0.0.0.0"
     port: int = Field(default=8000, ge=1024, le=65535)
+
+    @model_validator(mode="after")
+    def _guard_default_jwt_secret(self) -> "AppSettings":
+        """Reject the default JWT secret in production environments.
+
+        In staging and production, using the placeholder secret key
+        is a critical security vulnerability. This validator raises
+        a ValueError for production and logs a critical warning for
+        staging. Development mode logs a warning for awareness.
+
+        Returns:
+            The validated AppSettings instance.
+
+        Raises:
+            ValueError: When the default secret is used in production.
+        """
+        secret_value = self.secret_key.get_secret_value()
+        if secret_value == _DEFAULT_SECRET:
+            if self.environment == "production":
+                raise ValueError(
+                    "FATAL: secret_key is set to the default placeholder value "
+                    f"'{_DEFAULT_SECRET}'. You MUST set a unique, cryptographically "
+                    "random secret before running in production. Generate one with: "
+                    "python -c \"import secrets; print(secrets.token_urlsafe(64))\""
+                )
+            if self.environment == "staging":
+                logger.critical(
+                    "secret_key is the default placeholder '%s' in a staging "
+                    "environment. Set a unique secret before promoting to production.",
+                    _DEFAULT_SECRET,
+                )
+            else:
+                logger.warning(
+                    "secret_key is the default placeholder '%s'. "
+                    "This is acceptable in development but must be changed "
+                    "before deploying to staging or production.",
+                    _DEFAULT_SECRET,
+                )
+        return self
 
 
 def get_default_settings() -> AppSettings:

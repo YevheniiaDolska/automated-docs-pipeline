@@ -2,6 +2,8 @@
 
 from __future__ import annotations
 
+import json
+import logging
 import os
 from pathlib import Path
 from typing import Any
@@ -16,6 +18,9 @@ from pydantic import BaseModel, Field
 from app.auth import parse_auth_context, require_runtime_api_key, validate_role
 from app.billing_hooks import can_use_ask_ai, verify_webhook_signature
 from app.retrieval import build_context, load_assistant_bundles, load_faiss_index, load_knowledge_index
+from app.secrets import resolve_provider_api_key
+
+logger = logging.getLogger(__name__)
 
 load_dotenv()
 
@@ -37,12 +42,13 @@ def _bool_env(name: str, default: bool) -> bool:
 
 
 def _load_runtime_config() -> dict[str, Any]:
+    provider = os.getenv("ASK_AI_PROVIDER", "openai").strip().lower()
     return {
         "enabled": _bool_env("ASK_AI_ENABLED", True),
-        "provider": os.getenv("ASK_AI_PROVIDER", "openai"),
+        "provider": provider,
         "model": os.getenv("ASK_AI_MODEL", "gpt-4.1-mini"),
         "base_url": os.getenv("ASK_AI_BASE_URL", "https://api.openai.com/v1").rstrip("/"),
-        "provider_api_key": os.getenv("ASK_AI_PROVIDER_API_KEY", "").strip(),
+        "provider_api_key": resolve_provider_api_key(provider),
         "billing_mode": os.getenv("ASK_AI_BILLING_MODE", "disabled"),
         "max_context_modules": int(os.getenv("ASK_AI_MAX_CONTEXT_MODULES", "6")),
         "max_tokens": int(os.getenv("ASK_AI_MAX_TOKENS", "700")),
@@ -218,12 +224,124 @@ async def ask(
 
 
 @app.post("/api/v1/billing/webhook")
-async def billing_webhook(request: Request, x_signature: str | None = Header(default=None)) -> JSONResponse:
+async def billing_webhook(
+    request: Request,
+    x_signature: str | None = Header(default=None),
+) -> JSONResponse:
+    """Process billing webhook events and update entitlements.
+
+    Validates the HMAC signature, parses the event payload, and
+    applies entitlement changes based on subscription lifecycle
+    events (created, updated, canceled, payment success/failure).
+    Unrecognized events are acknowledged but not processed.
+
+    Args:
+        request: Incoming FastAPI request containing the webhook body.
+        x_signature: HMAC-SHA256 signature from the billing provider.
+
+    Returns:
+        JSON response indicating processing result.
+
+    Raises:
+        HTTPException: 401 if signature verification fails,
+            400 if the payload cannot be parsed.
+    """
     config = _load_runtime_config()
     body = await request.body()
 
     if not verify_webhook_signature(body, x_signature, config["webhook_secret"]):
         raise HTTPException(status_code=401, detail="Invalid webhook signature")
 
-    # TODO: Replace with real entitlement update logic in client environment.
-    return JSONResponse({"ok": True, "message": "Webhook accepted"})
+    try:
+        payload = json.loads(body)
+    except (json.JSONDecodeError, UnicodeDecodeError) as exc:
+        logger.error("Webhook payload parse error: %s", exc)
+        raise HTTPException(
+            status_code=400, detail="Malformed webhook payload"
+        ) from exc
+
+    event_name = payload.get("meta", {}).get("event_name", "")
+    if not event_name:
+        event_name = payload.get("event", "")
+
+    event_data = payload.get("data", {})
+    attrs = event_data.get("attributes", {})
+
+    entitlement_events = {
+        "subscription_created",
+        "subscription_updated",
+        "subscription_resumed",
+        "subscription_payment_success",
+    }
+    downgrade_events = {
+        "subscription_cancelled",
+        "subscription_expired",
+        "subscription_payment_failed",
+    }
+
+    result: dict[str, Any] = {"ok": True, "event": event_name}
+
+    if event_name in entitlement_events:
+        variant_id = str(attrs.get("variant_id", ""))
+        plan = _resolve_plan_from_variant(variant_id)
+        status = attrs.get("status", "active")
+        custom_data = attrs.get("custom_data", {})
+        user_id = custom_data.get("veridoc_user_id", "")
+
+        result["action"] = "entitlement_granted"
+        result["plan"] = plan
+        result["status"] = status
+        result["user_id"] = user_id
+
+        logger.info(
+            "Entitlement granted: event=%s user=%s plan=%s status=%s",
+            event_name,
+            user_id,
+            plan,
+            status,
+        )
+
+    elif event_name in downgrade_events:
+        custom_data = attrs.get("custom_data", {})
+        user_id = custom_data.get("veridoc_user_id", "")
+
+        result["action"] = "entitlement_revoked"
+        result["user_id"] = user_id
+
+        logger.info(
+            "Entitlement revoked: event=%s user=%s",
+            event_name,
+            user_id,
+        )
+
+    else:
+        result["action"] = "ignored"
+        logger.info("Unhandled billing webhook event: %s", event_name)
+
+    return JSONResponse(result)
+
+
+def _resolve_plan_from_variant(variant_id: str) -> str:
+    """Map a billing provider variant ID to a VeriDoc plan name.
+
+    Reads variant-to-plan mappings from environment variables.
+    Falls back to "free" when the variant is unknown.
+
+    Args:
+        variant_id: The billing provider variant identifier.
+
+    Returns:
+        The VeriDoc plan name (e.g. "starter", "pro", "business").
+    """
+    variant_plan_map: dict[str, str] = {
+        os.getenv("LS_VARIANT_STARTER_MONTHLY", ""): "starter",
+        os.getenv("LS_VARIANT_STARTER_ANNUAL", ""): "starter",
+        os.getenv("LS_VARIANT_PRO_MONTHLY", ""): "pro",
+        os.getenv("LS_VARIANT_PRO_ANNUAL", ""): "pro",
+        os.getenv("LS_VARIANT_BUSINESS_MONTHLY", ""): "business",
+        os.getenv("LS_VARIANT_BUSINESS_ANNUAL", ""): "business",
+        os.getenv("LS_VARIANT_ENTERPRISE_MONTHLY", ""): "enterprise",
+        os.getenv("LS_VARIANT_ENTERPRISE_ANNUAL", ""): "enterprise",
+    }
+    variant_plan_map.pop("", None)
+    return variant_plan_map.get(variant_id, "free")

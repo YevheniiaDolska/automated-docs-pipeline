@@ -2,8 +2,17 @@
   "intent": "configure",
   "audience": "support",
   "channel": "assistant",
-  "module_count": 1,
+  "module_count": 2,
   "modules": [
+    {
+      "module_id": "auto-troubleshooting-5",
+      "title": "Troubleshooting: common VeriOps pipeline issues (Part 5)",
+      "priority": 60,
+      "intent": "configure",
+      "audience": "support",
+      "channel": "assistant",
+      "content": "Use this module when answering questions related to: Troubleshooting: common VeriOps pipeline issues (Part 5). Source path: demo-showcase/acme/docs/guides/troubleshooting.md. Summary: Fix common VeriOps documentation pipeline issues in under 5 minutes, covering contract failures, quality gates, build errors, and WebSocket problems.\n\n### Fix MkDocs theme in 1 minute\n\n```bash\npip install mkdocs-material mkdocs-macros-plugin pymdown-extensions\n```\n\nVerify the build succeeds:\n\n```bash\ncd demo-showcase/acme && mkdocs build --strict\n```\n\nExpected output: `INFO - Documentation built in X.XX seconds`\n\n## WebSocket tester shows connection error\n\n**You see:** The interactive WebSocket tester on the [WebSocket event playground](../reference/websocket-events.md) displays \"Connection error.\"\n\n**Root cause:** The browser blocks insecure WebSocket connections (`ws://`) from HTTPS pages, or the endpoint is unreachable.\n\n### Fix WebSocket connection in 1 minute\n\n- Verify the endpoint uses `wss://` (not `ws://`). The correct endpoint is `wss://api.acme.example/realtime`.\n- Confirm the endpoint is accessible from your network. Try from the command line:\n\n    ```bash\n    curl -s -o /dev/null -w \"%{http_code}\" https://api.acme.example/realtime\n    ```\n\n- Check browser developer tools (Console tab) for specific error messages.\n- If you use a corporate proxy, configure WebSocket passthrough or use the [AsyncAPI event docs](../reference/asyncapi-events.md) with direct AMQP instead."
+    },
     {
       "module_id": "webhook-auth-baseline",
       "title": "Configure HMAC authentication for inbound webhooks",

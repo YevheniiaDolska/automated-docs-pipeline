@@ -1,0 +1,26 @@
+{
+  "intent": "troubleshoot",
+  "audience": "beginner",
+  "channel": "assistant",
+  "module_count": 2,
+  "modules": [
+    {
+      "module_id": "auto-tutorial-8",
+      "title": "Tutorial: launch your first VeriOps API integration (Part 8)",
+      "priority": 60,
+      "intent": "troubleshoot",
+      "audience": "beginner",
+      "channel": "assistant",
+      "content": "Use this module when answering questions related to: Tutorial: launch your first VeriOps API integration (Part 8). Source path: demo-showcase/acme/docs/guides/tutorial.md. Summary: Build a working VeriOps API integration in 15 minutes with authenticated requests, project creation, and real-time WebSocket subscriptions.\n\n## Step 5: verify the integration (2 minutes)\n\nRun this checklist to confirm all three protocols work:\n\n| Protocol | Test command | Expected result |\n| --- | --- | --- |\n| REST | `GET /v1/projects` | HTTP 200 with project list |\n| GraphQL | `query { health { status } }` | `{\"data\": {\"health\": {\"status\": \"ok\"}}}` |\n| WebSocket | Connect to `wss://api.veriops.example/realtime` | Connection opens, subscription confirmed |\n\nIf any step fails:\n\n- **HTTP 401 on REST or GraphQL**: Your API key is invalid. Generate a new one in the [dashboard](https://app.veriops.example/settings/api).\n- **WebSocket connection error**: Verify you use `wss://` (not `ws://`) and the key is passed as `?token=` query parameter.\n- **Timeout on any request**: Check your network allows outbound connections on port 443.\n\n## What you accomplished\n\n| Step | Protocol | Outcome |\n| --- | --- | --- |\n| Verify API key | REST + GraphQL | Confirmed authentication across two protocols |\n| Create project | REST | Created a project resource via `POST /v1/projects` |\n| Query project | GraphQL | Fetched project with custom field selection |\n| Subscribe to events | WebSocket | Received real-time project update events |\n| Verify integration | All three | Confirmed multi-protocol integration works end-to-end |"
+    },
+    {
+      "module_id": "auto-tutorial-9",
+      "title": "Tutorial: launch your first VeriOps API integration (Part 9)",
+      "priority": 60,
+      "intent": "troubleshoot",
+      "audience": "beginner",
+      "channel": "assistant",
+      "content": "Use this module when answering questions related to: Tutorial: launch your first VeriOps API integration (Part 9). Source path: demo-showcase/acme/docs/guides/tutorial.md. Summary: Build a working VeriOps API integration in 15 minutes with authenticated requests, project creation, and real-time WebSocket subscriptions.\n\n## Next steps\n\n- [REST API reference](../reference/rest-api.md) for all 14 endpoints across five resources\n- [GraphQL playground](../reference/graphql-playground.md) to explore the full schema interactively\n- [gRPC gateway invoke](../reference/grpc-gateway.md) for high-performance RPC calls\n- [How-to: keep docs aligned with every release](how-to.md) for the operator workflow\n- [Troubleshooting: common pipeline issues](troubleshooting.md) if you encounter errors"
+    }
+  ]
+}

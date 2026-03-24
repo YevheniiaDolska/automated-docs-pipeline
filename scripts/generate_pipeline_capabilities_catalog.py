@@ -35,7 +35,7 @@ def classify(name: str) -> str:
     if name.startswith("build"):
         return "Build/Generate"
     if name.startswith("docs-ops"):
-        return "DocsOps tests"
+        return "VeriOps tests"
     if name.startswith("agent:") or name.startswith("demo:"):
         return "Agent/Demo"
     return "General"

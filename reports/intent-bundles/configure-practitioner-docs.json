@@ -2,8 +2,161 @@
   "intent": "configure",
   "audience": "practitioner",
   "channel": "docs",
-  "module_count": 1,
+  "module_count": 18,
   "modules": [
+    {
+      "module_id": "auto-how-to-1",
+      "title": "How-to: keep docs aligned with every release",
+      "priority": 60,
+      "intent": "configure",
+      "audience": "practitioner",
+      "channel": "docs",
+      "content": "# How-to: keep docs aligned with every release\n\n<div class=\"veriops-badges\" markdown>\n\n![Powered by VeriOps](https://img.shields.io/badge/Powered%20by-VeriOps-7c3aed?style=flat-square)\n![Quality Score](https://img.shields.io/badge/Quality%20Score-100%25-10b981?style=flat-square)\n![Protocols](https://img.shields.io/badge/Protocols-5-7c3aed?style=flat-square)\n\n</div>\n\nThis guide shows you how to run the unified autopipeline on release day to ensure API documentation matches the latest contracts, passes quality gates, and generates a review manifest for operator approval. You complete the full flow in approximately 20 minutes.\n\n## Prerequisites\n\nBefore starting, ensure you have:\n\n- Python 3.9 or later installed (run `python3 --version` to verify)\n- Node.js 18 or later for MkDocs plugins (run `node --version` to verify)\n- `pip install mkdocs-material mkdocs-macros-plugin` for site building\n- Write access to the documentation repository\n- About 20 minutes for the full pipeline run\n\n!!! info \"Already have the pipeline running?\"\n    Skip to [Step 3: review the manifest](#step-3-review-the-manifest) to check results from a previous run."
+    },
+    {
+      "module_id": "auto-how-to-2",
+      "title": "How-to: keep docs aligned with every release (Part 2)",
+      "priority": 60,
+      "intent": "configure",
+      "audience": "practitioner",
+      "channel": "docs",
+      "content": "## When to run this flow\n\nRun the autopipeline when any of these conditions apply:\n\n- A new API version ships to production\n- A protocol contract file changes (OpenAPI, GraphQL schema, proto, AsyncAPI spec, WebSocket contract)\n- The weekly automation schedule triggers (configured in `client_runtime.yml`)\n- Documentation gaps exceed the SLA threshold (default: 10 high-priority gaps)"
+    },
+    {
+      "module_id": "auto-how-to-3",
+      "title": "How-to: keep docs aligned with every release (Part 3)",
+      "priority": 60,
+      "intent": "configure",
+      "audience": "practitioner",
+      "channel": "docs",
+      "content": "## Step 1: trigger the autopipeline\n\nRun the unified pipeline from the repository root. This command executes gap detection, drift analysis, contract validation for all five protocols, KPI evaluation, and RAG metadata generation.\n\n```bash\npython3 scripts/run_autopipeline.py \\\n  --docsops-root . \\\n  --reports-dir reports/acme-demo \\\n  --runtime-config reports/acme-demo/client_runtime.yml \\\n  --mode veridoc \\\n  --since 7\n```\n\n<!-- requires: python3, pipeline-scripts -->\n\n**What each flag does:**\n\n| Flag | Value | Purpose |\n| --- | --- | --- |\n| `--docsops-root` | `.` | Root directory of the docs-ops repository |\n| `--reports-dir` | `reports/acme-demo` | Where pipeline writes output artifacts |\n| `--runtime-config` | `reports/acme-demo/client_runtime.yml` | Client-specific protocol and module settings |\n| `--mode` | `veridoc` | Full pipeline mode with all quality gates |\n| `--since` | `7` | Analyze changes from the last 7 days |\n\nThe pipeline runs seven stages. Expect 5-10 minutes depending on contract complexity.\n\n**Expected output (summary):**"
+    },
+    {
+      "module_id": "auto-how-to-4",
+      "title": "How-to: keep docs aligned with every release (Part 4)",
+      "priority": 60,
+      "intent": "configure",
+      "audience": "practitioner",
+      "channel": "docs",
+      "content": "```text\n[autopipeline] Starting VeriDoc pipeline run\n[autopipeline] Runtime config: reports/acme-demo/client_runtime.yml\n[autopipeline] Protocols enabled: rest, graphql, grpc, asyncapi, websocket\n[stage] multi_protocol_contract ... DONE (5 protocols, 0 failures)\n[stage] kpi_wall ... DONE (quality_score: 100)\n[stage] retrieval_evals ... DONE (167 modules indexed)\n[autopipeline] Pipeline complete. Exit code: 0\n```\n\nAn exit code of 0 confirms all stages passed. A non-zero code indicates stages that need attention.\n\n## Step 2: check protocol contract results\n\nAfter the pipeline completes, verify which protocols passed contract validation:\n\n```bash\npython3 -c \"\nimport json\nr = json.load(open('reports/acme-demo/multi_protocol_contract_report.json'))\nfor p in r.get('protocols', []):\n    status = 'PASS' if p not in r.get('failed_protocols', []) else 'FAIL'\n    print(f'  {p}: {status}')\nprint(f'Failed: {r.get(\\\"failed_protocols\\\", [])}')\"\n```\n\n**Expected output:**\n\n```text\n  rest: PASS\n  graphql: PASS\n  grpc: PASS\n  asyncapi: PASS\n  websocket: PASS\nFailed: []\n```\n\nIf any protocol fails, fix the root cause before proceeding. See [Troubleshooting](troubleshooting.md) for common fixes."
+    },
+    {
+      "module_id": "auto-how-to-5",
+      "title": "How-to: keep docs aligned with every release (Part 5)",
+      "priority": 60,
+      "intent": "configure",
+      "audience": "practitioner",
+      "channel": "docs",
+      "content": "## Step 3: review the manifest\n\nOpen the review manifest to see all generated artifacts and their availability:\n\n```bash\ncat reports/acme-demo/REVIEW_MANIFEST.md\n```\n\nThe manifest lists every artifact, stage status, and provides a reviewer checklist. Key sections:\n\n| Section | What to check |\n| --- | --- |\n| Pipeline execution summary | Exit code, strictness mode, artifact counts |\n| Stage availability | Which stages produced artifacts, which are missing |\n| Reviewer checklist | Approval gates before publish |\n\nYou can also check the machine-readable manifest:\n\n```bash\npython3 -c \"\nimport json\nm = json.load(open('reports/acme-demo/review_manifest.json'))\nprint(f'Available: {m[\\\"available_artifacts\\\"]}')\nprint(f'Missing: {m[\\\"missing_artifacts\\\"]}')\nprint(f'Strictness: {m[\\\"strictness\\\"]}')\"\n```"
+    },
+    {
+      "module_id": "auto-how-to-6",
+      "title": "How-to: keep docs aligned with every release (Part 6)",
+      "priority": 60,
+      "intent": "configure",
+      "audience": "practitioner",
+      "channel": "docs",
+      "content": "## Step 4: verify quality gates\n\nCheck that quality metrics meet your thresholds:\n\n| Gate | Command | Expected result |\n| --- | --- | --- |\n| Quality score | `python3 -c \"import json; print(json.load(open('reports/acme-demo/kpi-wall.json'))['quality_score'])\"` | 80 or higher |\n| Contract validation | Check `multi_protocol_contract_report.json` | Zero failed protocols |\n| Stage summary | Check `pipeline_stage_summary.json` | All required stages exist |\n| Frontmatter | All docs have valid frontmatter | 100% metadata completeness |\n\nIf the quality score is below 80:\n\n1. Check the gap report for high-priority items:\n\n    ```bash\n    python3 -c \"\n    import json\n    r = json.load(open('reports/acme-demo/doc_gaps_report.json'))\n    high = [g for g in r.get('gaps', []) if g.get('priority') == 'high']\n    print(f'{len(high)} high-priority gaps')\n    for g in high[:5]:\n        print(f'  - {g[\\\"title\\\"]}')\"\n    ```\n\n1. Address each high-priority gap by creating or updating the relevant document.\n\n1. Re-run the pipeline and verify the score improves."
+    },
+    {
+      "module_id": "auto-how-to-7",
+      "title": "How-to: keep docs aligned with every release (Part 7)",
+      "priority": 60,
+      "intent": "configure",
+      "audience": "practitioner",
+      "channel": "docs",
+      "content": "## Step 5: build the demo site\n\nGenerate the browsable MkDocs documentation site:\n\n```bash\npython3 scripts/build_acme_demo_site.py \\\n  --output-root demo-showcase/acme \\\n  --reports-dir reports/acme-demo \\\n  --build\n```\n\n<!-- requires: python3, mkdocs -->\n\nThis command copies documentation pages, updates the `mkdocs.yml` navigation, and runs `mkdocs build` to produce the final HTML site in `demo-showcase/acme/site/`.\n\n## Step 6: approve and publish\n\nAfter verifying all gates pass, complete the reviewer checklist from the manifest:\n\n- [ ] Confirm stage summary has no missing required artifacts.\n- [ ] Review protocol docs and test asset links.\n- [ ] Review quality and retrieval reports before publish.\n- [ ] Approve publish only if critical findings are resolved.\n- [ ] Verify RAG retrieval index is current and complete.\n- [ ] Confirm advanced retrieval features are enabled (hybrid search, HyDE, reranking, embedding cache).\n\n## Validation checklist\n\nBefore considering the release complete:\n\n- [ ] All five protocol contracts validated (zero failures)\n- [ ] Quality score at or above 80\n- [ ] No high-priority documentation gaps remain\n- [ ] Review manifest approved by operator\n- [ ] MkDocs site builds without errors\n- [ ] Knowledge graph and retrieval index are current\n- [ ] Advanced retrieval features enabled (hybrid, HyDE, reranking, cache)\n\n## Common issues and solutions"
+    },
+    {
+      "module_id": "auto-how-to-8",
+      "title": "How-to: keep docs aligned with every release (Part 8)",
+      "priority": 60,
+      "intent": "configure",
+      "audience": "practitioner",
+      "channel": "docs",
+      "content": "### Issue: gRPC stage fails\n\nThe `protoc` compiler is not installed.\n\n**Solution:**\n\n```bash\napt-get install -y protobuf-compiler\nprotoc --version\n```\n\nThen re-run the pipeline.\n\n### Issue: quality score below 80\n\nStale documents, missing frontmatter, or unresolved documentation gaps.\n\n**Solution:**\n\n1. Run `python3 -c \"import json; r=json.load(open('reports/acme-demo/doc_gaps_report.json')); print(len([g for g in r.get('gaps',[]) if g.get('priority')=='high']), 'high-priority gaps')\"` to count gaps.\n1. Address each gap by creating or updating documents.\n1. Re-run the pipeline.\n\n### Issue: MkDocs build fails with theme error\n\n**Solution:**\n\n```bash\npip install mkdocs-material mkdocs-macros-plugin\n```\n\n## Next steps\n\n- [Concept: pipeline-first documentation lifecycle](concept.md) to understand why this workflow matters\n- [Quality evidence and gate results](../quality/evidence.md) for the latest KPI metrics\n- [Troubleshooting: common pipeline issues](troubleshooting.md) for detailed fix procedures"
+    },
+    {
+      "module_id": "auto-tutorial-1",
+      "title": "Tutorial: launch your first VeriOps API integration",
+      "priority": 60,
+      "intent": "configure",
+      "audience": "practitioner",
+      "channel": "docs",
+      "content": "# Tutorial: launch your first VeriOps API integration\n\n<div class=\"veriops-badges\" markdown>\n\n![Powered by VeriOps](https://img.shields.io/badge/Powered%20by-VeriOps-7c3aed?style=flat-square)\n![Quality Score](https://img.shields.io/badge/Quality%20Score-100%25-10b981?style=flat-square)\n![Protocols](https://img.shields.io/badge/Protocols-5-7c3aed?style=flat-square)\n\n</div>\n\nThis tutorial walks you through creating your first VeriOps API project, sending authenticated requests across three protocols (REST, GraphQL, and WebSocket), and verifying the integration works. You complete all five steps in under 15 minutes.\n\n## What you will build\n\nBy the end of this tutorial, you will have:\n\n- A working REST API client that creates and retrieves projects\n- A GraphQL query that fetches project data with custom field selection\n- A WebSocket subscription that receives real-time project update events\n- A test script that verifies all three protocols work together\n\n**Time to first success:** 5 minutes for REST, 15 minutes for the complete multi-protocol integration."
+    },
+    {
+      "module_id": "auto-tutorial-2",
+      "title": "Tutorial: launch your first VeriOps API integration (Part 2)",
+      "priority": 60,
+      "intent": "configure",
+      "audience": "practitioner",
+      "channel": "docs",
+      "content": "## Before you start\n\nYou need:\n\n- An VeriOps API key from the [developer dashboard](https://app.veriops.example/settings/api)\n- `curl` version 7.68 or later (run `curl --version` to verify)\n- Node.js version 18 or later for the WebSocket client (run `node --version` to verify)\n- A terminal with internet access\n- About 15 minutes\n\n!!! tip \"Save time\"\n    Export your API key as an environment variable to avoid repeating it in every command:\n    `export VERIOPS_API_KEY=\"YOUR_API_KEY\"`"
+    },
+    {
+      "module_id": "auto-tutorial-3",
+      "title": "Tutorial: launch your first VeriOps API integration (Part 3)",
+      "priority": 60,
+      "intent": "configure",
+      "audience": "practitioner",
+      "channel": "docs",
+      "content": "## Step 1: verify your API key (2 minutes)\n\nRun this command to confirm your API key authenticates against the VeriOps REST API:\n\n```bash\ncurl -s -o /dev/null -w \"%{http_code}\" \\\n  -H \"Authorization: Bearer YOUR_API_KEY\" \\\n  https://api.veriops.example/v1/projects\n```\n\n<!-- requires: api-key -->\n\nA `200` response confirms your key works. A `401` response means the key is invalid or expired. Generate a new key in the [dashboard](https://app.veriops.example/settings/api) if you receive `401`.\n\nNext, verify the GraphQL endpoint:\n\n```bash\ncurl -s -X POST https://api.veriops.example/graphql \\\n  -H \"Authorization: Bearer YOUR_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"query\": \"{ health { status version } }\"}' \\\n  | python3 -m json.tool\n```\n\n<!-- requires: api-key -->\n\n**Expected response:**\n\n```json\n{\n    \"data\": {\n        \"health\": {\n            \"status\": \"ok\",\n            \"version\": \"1.0.0\"\n        }\n    }\n}\n```"
+    },
+    {
+      "module_id": "auto-tutorial-4",
+      "title": "Tutorial: launch your first VeriOps API integration (Part 4)",
+      "priority": 60,
+      "intent": "configure",
+      "audience": "practitioner",
+      "channel": "docs",
+      "content": "## Step 2: create a project via REST (3 minutes)\n\nCreate your first project resource using the REST API:\n\n```bash\ncurl -X POST https://api.veriops.example/v1/projects \\\n  -H \"Authorization: Bearer YOUR_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\n    \"name\": \"Tutorial Integration Project\",\n    \"description\": \"Created during the VeriOps API tutorial\",\n    \"status\": \"active\"\n  }'\n```\n\n<!-- requires: api-key -->\n\n**Expected response (HTTP 201):**\n\n```json\n{\n  \"id\": \"prj_abc123\",\n  \"name\": \"Tutorial Integration Project\",\n  \"description\": \"Created during the VeriOps API tutorial\",\n  \"status\": \"active\",\n  \"created_at\": \"2026-03-19T10:00:00Z\",\n  \"updated_at\": \"2026-03-19T10:00:00Z\",\n  \"task_count\": 0,\n  \"owner_id\": \"usr_789\"\n}\n```\n\nSave the `id` value (for example, `prj_abc123`). You need it for steps 3 and 4."
+    },
+    {
+      "module_id": "auto-tutorial-5",
+      "title": "Tutorial: launch your first VeriOps API integration (Part 5)",
+      "priority": 60,
+      "intent": "configure",
+      "audience": "practitioner",
+      "channel": "docs",
+      "content": "## Step 3: query the project via GraphQL (3 minutes)\n\nUse GraphQL to fetch the project you created with custom field selection. GraphQL returns only the fields you request, which reduces payload size.\n\n```bash\ncurl -s -X POST https://api.veriops.example/graphql \\\n  -H \"Authorization: Bearer YOUR_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\n    \"query\": \"query GetProject($id: ID!) { project(id: $id) { id name status createdAt } }\",\n    \"variables\": {\"id\": \"prj_abc123\"}\n  }' \\\n  | python3 -m json.tool\n```\n\n<!-- requires: api-key -->\n\n**Expected response:**\n\n```json\n{\n    \"data\": {\n        \"project\": {\n            \"id\": \"prj_abc123\",\n            \"name\": \"Tutorial Integration Project\",\n            \"status\": \"active\",\n            \"createdAt\": \"2026-03-19T10:00:00Z\"\n        }\n    }\n}\n```\n\nNotice that the response contains only the four fields you requested (`id`, `name`, `status`, `createdAt`), not the full project object. This is a key advantage of GraphQL over REST for bandwidth-sensitive clients."
+    },
+    {
+      "module_id": "auto-tutorial-6",
+      "title": "Tutorial: launch your first VeriOps API integration (Part 6)",
+      "priority": 60,
+      "intent": "configure",
+      "audience": "practitioner",
+      "channel": "docs",
+      "content": "## Step 4: subscribe to real-time updates via WebSocket (5 minutes)\n\nOpen a WebSocket connection to receive live project change events. Create this Node.js script:\n\n```javascript\n// tutorial-websocket.js\n// Connect to VeriOps WebSocket API and subscribe to project updates\n// Requires: Node.js 18+ (built-in WebSocket support)\nconst ws = new WebSocket(\n  'wss://api.veriops.example/realtime?token=YOUR_API_KEY'\n);\n\nws.addEventListener('open', () => {\n  console.log('Connected to VeriOps WebSocket API');\n\n// Subscribe to updates for the project you created in Step 2\n  ws.send(JSON.stringify({\n    type: 'subscribe',\n    request_id: 'tutorial-001',\n    sent_at: new Date().toISOString(),\n    payload: {\n      channel: 'project.updated',\n      filters: { project_id: 'prj_abc123' }\n    }\n  }));\n});\n\nws.addEventListener('message', (event) => {\n  const msg = JSON.parse(event.data);\n  if (msg.type === 'ack') {\n    console.log('Subscription confirmed:', msg.request_id);\n  } else if (msg.type === 'event') {\n    console.log('Project update received:');\n    console.log('  Status:', msg.payload.data.status);\n    console.log('  Updated by:', msg.payload.data.updated_by);\n  } else if (msg.type === 'ping') {\n    ws.send(JSON.stringify({ type: 'pong', request_id: msg.request_id }));\n  }\n});\n\nws.addEventListener('close', (event) => {\n  console.log('Disconnected:', event.code, event.reason);\n});"
+    },
+    {
+      "module_id": "auto-tutorial-7",
+      "title": "Tutorial: launch your first VeriOps API integration (Part 7)",
+      "priority": 60,
+      "intent": "configure",
+      "audience": "practitioner",
+      "channel": "docs",
+      "content": "// Keep the script running for 60 seconds to receive events\nsetTimeout(() => {\n  ws.close(1000, 'Tutorial complete');\n  console.log('Tutorial WebSocket client closed');\n}, 60000);\n```\n\n<!-- requires: api-key -->\n\nRun the script:\n\n```bash\nnode tutorial-websocket.js\n```\n\nWhile the script runs, update the project status from another terminal to trigger an event:\n\n```bash\ncurl -X PUT https://api.veriops.example/v1/projects/prj_abc123 \\\n  -H \"Authorization: Bearer YOUR_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"status\": \"archived\"}'\n```\n\n<!-- requires: api-key -->\n\nThe WebSocket client prints the update event within 1-2 seconds."
+    },
+    {
+      "module_id": "auto-tutorial-8",
+      "title": "Tutorial: launch your first VeriOps API integration (Part 8)",
+      "priority": 60,
+      "intent": "configure",
+      "audience": "practitioner",
+      "channel": "docs",
+      "content": "## Step 5: verify the integration (2 minutes)\n\nRun this checklist to confirm all three protocols work:\n\n| Protocol | Test command | Expected result |\n| --- | --- | --- |\n| REST | `GET /v1/projects` | HTTP 200 with project list |\n| GraphQL | `query { health { status } }` | `{\"data\": {\"health\": {\"status\": \"ok\"}}}` |\n| WebSocket | Connect to `wss://api.veriops.example/realtime` | Connection opens, subscription confirmed |\n\nIf any step fails:\n\n- **HTTP 401 on REST or GraphQL**: Your API key is invalid. Generate a new one in the [dashboard](https://app.veriops.example/settings/api).\n- **WebSocket connection error**: Verify you use `wss://` (not `ws://`) and the key is passed as `?token=` query parameter.\n- **Timeout on any request**: Check your network allows outbound connections on port 443.\n\n## What you accomplished\n\n| Step | Protocol | Outcome |\n| --- | --- | --- |\n| Verify API key | REST + GraphQL | Confirmed authentication across two protocols |\n| Create project | REST | Created a project resource via `POST /v1/projects` |\n| Query project | GraphQL | Fetched project with custom field selection |\n| Subscribe to events | WebSocket | Received real-time project update events |\n| Verify integration | All three | Confirmed multi-protocol integration works end-to-end |"
+    },
+    {
+      "module_id": "auto-tutorial-9",
+      "title": "Tutorial: launch your first VeriOps API integration (Part 9)",
+      "priority": 60,
+      "intent": "configure",
+      "audience": "practitioner",
+      "channel": "docs",
+      "content": "## Next steps\n\n- [REST API reference](../reference/rest-api.md) for all 14 endpoints across five resources\n- [GraphQL playground](../reference/graphql-playground.md) to explore the full schema interactively\n- [gRPC gateway invoke](../reference/grpc-gateway.md) for high-performance RPC calls\n- [How-to: keep docs aligned with every release](how-to.md) for the operator workflow\n- [Troubleshooting: common pipeline issues](troubleshooting.md) if you encounter errors"
+    },
     {
       "module_id": "webhook-auth-baseline",
       "title": "Configure HMAC authentication for inbound webhooks",

@@ -5,7 +5,7 @@ content_type: reference
 product: both
 tags:
   - Reference
-  - DocsOps
+  - VeriOps
   - Setup
 last_reviewed: "2026-03-17"
 ---
@@ -204,7 +204,7 @@ What this command does:
 
 1. Imports pages from `entities.xml` into Markdown docs.
 1. Writes docs to `docs/imported/confluence/<timestamp>/` (default path).
-1. Runs docsops post-checks automatically:
+1. Runs veriops post-checks automatically:
    - normalization check/fix,
    - SEO/GEO check/fix,
    - code examples smoke check.

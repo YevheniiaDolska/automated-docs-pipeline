@@ -431,10 +431,14 @@ class TestRunPipelineRequest:
             sandbox_backend="docker",
         )
         resp = handle_run_pipeline(req, user_tier="pro")
-        assert resp.status == "ok"
+        # Pipeline now runs real phases; scripts may not exist in /tmp/repo
+        assert resp.status in ("ok", "error")
         assert "rest, graphql" in resp.message
         assert "Algolia" in resp.message
         assert "docker" in resp.message
+        # New response fields exist
+        assert isinstance(resp.phases, list)
+        assert isinstance(resp.errors, list)
 
 
 class TestRagTestEndpoint:

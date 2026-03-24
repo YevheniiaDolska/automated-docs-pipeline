@@ -1,6 +1,6 @@
 ---
-title: How the workflow execution model works
-description: processes workflows by executing nodes sequentially, passing data as
+title: Workflow execution model
+description: The workflow engine processes workflows by executing nodes sequentially, passing data as
   arrays of JSON objects between each node in the chain.
 content_type: concept
 product: both
@@ -10,41 +10,24 @@ tags:
 - Nodes
 - Cloud
 - Self-hosted
-app_component: workflow-engine
 last_reviewed: '2026-02-16'
 original_author: JaneDo
 ---
 
 
-## How the workflow execution model works
+## Workflow execution model overview
 
-The execution model determines how data flows from one node to the next within a workflow. executes nodes sequentially, passing data as arrays of JSON objects. Understanding this model helps you build reliable workflows and debug unexpected behavior.
+The execution model determines how data flows from one node to the next within a workflow. The engine executes nodes sequentially and passes data as arrays of JSON objects. This model explains why node behavior is predictable across branches, retries, and failures.
 
 ## Data structure between nodes
 
-Every node in receives and outputs data in the same format: an array of items, where each item is a JSON object wrapped in a `json` key.
-
-```json
-[
- { "json": { "name": "Alice", "email": "alice@example.com" } },
- { "json": { "name": "Bob", "email": "bob@example.com" } }
-]
-```
+Every node receives and outputs data in the same format: an array of items, where each item is a JSON object wrapped in a `json` key (for example, user records and event payloads).
 
 When a node receives 5 items, it processes each item independently. The Slack node, for example, sends 5 separate messages—one per item.
 
 ## Execution flow
 
-```mermaid
-flowchart LR
- A[Trigger] -->|items| B[Node 1]
- B -->|transformed items| C[Node 2]
- C -->|items| D{IF condition}
- D -->|true| E[Branch A]
- D -->|false| F[Branch B]
-```
-
-follows these rules during execution:
+The engine follows these rules during execution:
 
 1. The **trigger node** starts the workflow and produces the initial items.
 1. Each subsequent node receives all output items from the previous node.
@@ -54,19 +37,19 @@ follows these rules during execution:
 
 ## Execution modes
 
-supports two execution modes that affect error handling and performance.
+The platform supports two execution modes that affect error handling and performance.
 
 === "Regular mode (default)"
 
  Nodes execute one at a time. If a node fails, execution stops and the workflow reports an error. This mode is predictable and easier to debug.
 
- Set in environment: `EXECUTIONS_MODE=regular`
+ Typical setting: `EXECUTIONS_MODE=regular`
 
 === "Queue mode (production)"
 
  Workflow executions are distributed across worker processes. This mode handles high-volume workloads (hundreds of concurrent executions) and requires a Redis instance for coordination.
 
- Set in environment: `EXECUTIONS_MODE=queue`
+ Typical setting: `EXECUTIONS_MODE=queue`
 
 ## Error handling
 
@@ -74,7 +57,7 @@ When a node fails, behavior depends on the node's error handling setting:
 
 - **Stop execution** (default): The workflow stops. The error appears in the execution log.
 - **Continue on fail**: The node outputs an error object, and the next node receives it. Use this for non-critical steps like logging.
-- **Error Trigger workflow**: starts a separate workflow to handle the error. Use this for alerting and retry logic.
+- **Error Trigger workflow**: A separate workflow handles the error path. This pattern is common for alerting and retry logic.
 
 ## Key implications for documentation writers
 

@@ -93,9 +93,9 @@ runtime:
 | `demo:codex` | Agent/Demo | `bash scripts/codex-demo.sh` |
 | `demo:codex:loop` | Agent/Demo | `bash scripts/codex-demo-loop.sh` |
 | `docs-contract` | General | `python3 scripts/check_docs_contract.py --base origin/main --head HEAD --json-output reports/pr_docs_contract.json` |
-| `docs-ops:e2e` | DocsOps tests | `python3 scripts/test_docs_ops_e2e.py` |
-| `docs-ops:golden` | DocsOps tests | `python3 scripts/test_golden_reports_and_workflows.py` |
-| `docs-ops:test-suite` | DocsOps tests | `python3 -m pytest -q tests/test_autopipeline_suite.py` |
+| `docs-ops:e2e` | VeriOps tests | `python3 scripts/test_docs_ops_e2e.py` |
+| `docs-ops:golden` | VeriOps tests | `python3 scripts/test_golden_reports_and_workflows.py` |
+| `docs-ops:test-suite` | VeriOps tests | `python3 -m pytest -q tests/test_autopipeline_suite.py` |
 | `drift-check` | General | `python3 scripts/check_api_sdk_drift.py --base origin/main --head HEAD --json-output reports/api_sdk_drift_report.json --md-output reports/api_sdk_drift_report.md` |
 | `eval:retrieval` | General | `python3 scripts/run_retrieval_evals.py --index docs/assets/knowledge-retrieval-index.json --auto-generate-dataset --dataset-out reports/retrieval_eval_dataset.generated.yml --report reports/retrieval_evals_report.json --top-k 3 --min-precision 0.5 --min-recall 0.5 --max-hallucination-rate 0.5` |
 | `gaps` | Gap detection | `python3 -m scripts.gap_detection.cli analyze` |

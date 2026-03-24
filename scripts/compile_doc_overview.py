@@ -13,6 +13,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import logging
 import re
 import sys
 import textwrap
@@ -20,6 +21,8 @@ from dataclasses import asdict, dataclass, field
 from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
+
+logger = logging.getLogger(__name__)
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
 _scripts_dir = str(REPO_ROOT / "scripts")
@@ -46,7 +49,8 @@ def _load_yaml(path: Path) -> Any:
     # Minimal JSON fallback (handles simple cases)
     try:
         return json.loads(text)
-    except Exception:
+    except (json.JSONDecodeError, ValueError) as exc:
+        logger.debug("Failed to parse %s as JSON fallback: %s", path, exc)
         return {}
 
 
@@ -56,7 +60,8 @@ def _load_json(path: Path) -> Any:
         return {}
     try:
         return json.loads(path.read_text(encoding="utf-8"))
-    except Exception:
+    except (json.JSONDecodeError, ValueError, OSError) as exc:
+        logger.debug("Failed to load JSON from %s: %s", path, exc)
         return {}
 
 
@@ -102,7 +107,8 @@ def _parse_frontmatter(text: str) -> dict[str, Any]:
     if yaml is not None:
         try:
             return yaml.safe_load(raw) or {}
-        except Exception:
+        except (yaml.YAMLError, ValueError) as exc:
+            logger.debug("Failed to parse YAML frontmatter: %s", exc)
             return {}
     # Minimal key: value parser
     result: dict[str, Any] = {}
@@ -114,8 +120,11 @@ def _parse_frontmatter(text: str) -> dict[str, Any]:
             if value.startswith("["):
                 try:
                     value = json.loads(value)  # type: ignore[assignment]
-                except Exception:
-                    pass
+                except (json.JSONDecodeError, ValueError) as exc:
+                    logger.debug(
+                        "Failed to parse inline JSON value for key '%s': %s",
+                        key, exc,
+                    )
             result[key] = value
     return result
 
@@ -188,7 +197,8 @@ def load_all_docs(docs_dir: Path) -> list[DocInfo]:
     for md_file in sorted(docs_dir.rglob("*.md")):
         try:
             docs.append(load_doc(md_file, docs_dir))
-        except Exception:
+        except (OSError, UnicodeDecodeError, ValueError) as exc:
+            logger.warning("Skipping %s: %s", md_file, exc)
             continue
     return docs
 

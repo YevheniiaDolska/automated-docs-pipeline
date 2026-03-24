@@ -11,6 +11,7 @@ Combines all SEO/GEO functionality:
 - Algolia search optimization
 """
 
+import argparse
 import json
 import yaml
 import re
@@ -1098,7 +1099,6 @@ class ComprehensiveSEOOptimizer:
         return errors
 
 def main():
-    import argparse
     parser = argparse.ArgumentParser(description='Comprehensive SEO/GEO Optimizer for Documentation')
     parser.add_argument('path', nargs='?', default='docs',
                        help='Path to process (file or directory)')

@@ -241,7 +241,7 @@ def _collect_artifacts(
     add_artifact("Audit scorecard (JSON)", str(reports_dir / "audit_scorecard.json"), "reports")
     add_artifact("Audit scorecard (HTML)", str(reports_dir / "audit_scorecard.html"), "reports")
     add_artifact("Finalize gate report", str(reports_dir / "finalize_gate_report.json"), "reports")
-    add_artifact("DocsOps status", str(reports_dir / "docsops_status.json"), "reports")
+    add_artifact("VeriOps status", str(reports_dir / "docsops_status.json"), "reports")
     add_artifact("Ready marker", str(reports_dir / "READY_FOR_REVIEW.txt"), "reports")
 
     # Docs browse entrypoints

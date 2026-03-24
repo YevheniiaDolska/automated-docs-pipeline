@@ -58,7 +58,7 @@ def _ask_confirmation(prompt: str, ui_confirmation: str) -> bool:
             return None
         if subprocess.run(["which", "zenity"], check=False, capture_output=True).returncode != 0:
             return None
-        result = subprocess.run(["zenity", "--question", "--title=DocsOps", f"--text={prompt}"], check=False)
+        result = subprocess.run(["zenity", "--question", "--title=VeriOps", f"--text={prompt}"], check=False)
         return result.returncode == 0
 
     def _try_windows_msgbox() -> bool | None:
@@ -68,7 +68,7 @@ def _ask_confirmation(prompt: str, ui_confirmation: str) -> bool:
             return None
         cmd = (
             "Add-Type -AssemblyName PresentationFramework; "
-            f"$r=[System.Windows.MessageBox]::Show('{prompt}','DocsOps confirmation','YesNo','Question'); "
+            f"$r=[System.Windows.MessageBox]::Show('{prompt}','VeriOps confirmation','YesNo','Question'); "
             "if($r -eq 'Yes'){exit 0}else{exit 1}"
         )
         result = subprocess.run(["powershell", "-NoProfile", "-Command", cmd], check=False)

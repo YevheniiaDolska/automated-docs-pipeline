@@ -2,8 +2,872 @@
   "intent": "integrate",
   "audience": "operator",
   "channel": "assistant",
-  "module_count": 1,
+  "module_count": 97,
   "modules": [
+    {
+      "module_id": "auto-architecture-overview-1",
+      "title": "VeriOps API platform architecture",
+      "priority": 60,
+      "intent": "integrate",
+      "audience": "operator",
+      "channel": "assistant",
+      "content": "Use this module when answering questions related to: VeriOps API platform architecture. Source path: demo-showcase/acme/docs/guides/architecture-overview.md. Summary: Interactive architecture diagram showing the VeriOps API platform with 5 protocol gateways, 4 microservices, and data infrastructure across 5 layers.\n\n# VeriOps API platform architecture\n\nThe VeriOps API platform is a multi-protocol system that exposes 5 API interfaces (REST, GraphQL, gRPC, AsyncAPI, WebSocket) through a unified gateway layer backed by microservices and event-driven infrastructure.\n\n<div class=\"veriops-badges\" markdown>\n\n![Powered by VeriOps](https://img.shields.io/badge/Powered%20by-VeriOps-7c3aed?style=flat-square&logo=data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCI+PHBhdGggZmlsbD0id2hpdGUiIGQ9Ik0xMiAyTDEgMTJsNCA0IDctNyA3IDcgNC00TDEyIDJ6Ii8+PC9zdmc+)\n![Quality Score](https://img.shields.io/badge/Quality%20Score-100%25-10b981?style=flat-square)\n![Protocols](https://img.shields.io/badge/Protocols-5-7c3aed?style=flat-square)\n![Endpoints](https://img.shields.io/badge/Endpoints-19-3b82f6?style=flat-square)\n\n</div>\n\n## Interactive platform diagram\n\nClick any component in the diagram to view its description, key metrics, and technology tags in the detail panel below.\n\n<div class=\"interactive-diagram\" markdown>\n<iframe src=\"../../diagrams/acme-architecture.html\" title=\"VeriOps platform architecture diagram\"></iframe>\n</div>\n\n## Layer breakdown"
+    },
+    {
+      "module_id": "auto-architecture-overview-2",
+      "title": "VeriOps API platform architecture (Part 2)",
+      "priority": 60,
+      "intent": "integrate",
+      "audience": "operator",
+      "channel": "assistant",
+      "content": "Use this module when answering questions related to: VeriOps API platform architecture (Part 2). Source path: demo-showcase/acme/docs/guides/architecture-overview.md. Summary: Interactive architecture diagram showing the VeriOps API platform with 5 protocol gateways, 4 microservices, and data infrastructure across 5 layers.\n\n### Clients layer (4 components)\n\n| Client | Protocol | Description |\n| --- | --- | --- |\n| SDK Clients | REST, gRPC | Auto-generated libraries for Python, JavaScript, Go, and Java |\n| Web Dashboard | REST, WebSocket | React SPA with real-time project boards and notifications |\n| Mobile Apps | REST, gRPC | iOS (Swift) and Android (Kotlin) with offline-first architecture |\n| Webhook Consumers | HTTP POST | External integrations receiving at-least-once event delivery |\n\n### Edge and security layer (3 components)\n\n| Component | Function | Key metric |\n| --- | --- | --- |\n| CDN | Content delivery, TLS termination, HTTP/2 | 99.99% uptime SLA, 12 points of presence |\n| WAF | SQL injection, XSS, DDoS protection | 2 million malicious request blocks per day |\n| Rate Limiter | Per-key request throttling via Redis | 60 requests per minute default, configurable per plan |"
+    },
+    {
+      "module_id": "auto-architecture-overview-3",
+      "title": "VeriOps API platform architecture (Part 3)",
+      "priority": 60,
+      "intent": "integrate",
+      "audience": "operator",
+      "channel": "assistant",
+      "content": "Use this module when answering questions related to: VeriOps API platform architecture (Part 3). Source path: demo-showcase/acme/docs/guides/architecture-overview.md. Summary: Interactive architecture diagram showing the VeriOps API platform with 5 protocol gateways, 4 microservices, and data infrastructure across 5 layers.\n\n### API gateway layer (5 protocols)\n\n| Protocol | Transport | Endpoints | Interactive reference |\n| --- | --- | --- | --- |\n| REST | HTTP/1.1 + JSON | 19 endpoints across 5 resources | [Swagger UI](../reference/rest-api.md) |\n| GraphQL | HTTP POST | 3 operation types (Query, Mutation, Subscription) | [Live playground](../reference/graphql-playground.md) |\n| gRPC | HTTP/2 + Protobuf | 3 RPC methods on ProjectService | [Gateway tester](../reference/grpc-gateway.md) |\n| AsyncAPI | AMQP 0.9.1 | 3 event channels | [Event tester](../reference/asyncapi-events.md) |\n| WebSocket | WSS (RFC 6455) | 4 real-time channels | [WS playground](../reference/websocket-events.md) |\n\n### Services layer (4 microservices)\n\n| Service | Responsibility | Key capability |\n| --- | --- | --- |\n| Auth Service | JWT validation, OAuth2 flows, RBAC | 50&nbsp;ms average token validation |\n| Project Service | Project CRUD, status transitions, event emission | Emits project.created and project.updated events |\n| Task Service | Task lifecycle, priority queue, assignment | Cascading delete with parent project |\n| Notification Service | Fan-out to WebSocket, webhooks, and email | Bridges AMQP events to client transports |"
+    },
+    {
+      "module_id": "auto-architecture-overview-4",
+      "title": "VeriOps API platform architecture (Part 4)",
+      "priority": 60,
+      "intent": "integrate",
+      "audience": "operator",
+      "channel": "assistant",
+      "content": "Use this module when answering questions related to: VeriOps API platform architecture (Part 4). Source path: demo-showcase/acme/docs/guides/architecture-overview.md. Summary: Interactive architecture diagram showing the VeriOps API platform with 5 protocol gateways, 4 microservices, and data infrastructure across 5 layers.\n\n### Data and infrastructure layer (4 components)\n\n| Component | Role | Key metric |\n| --- | --- | --- |\n| PostgreSQL | Primary relational database | 8,500 queries per second, primary + 2 read replicas |\n| Redis | Cache, rate limits, sessions | 94% cache hit rate, 3-node cluster |\n| RabbitMQ | Event broker (AMQP 0.9.1) | 3 exchanges, 7-day message retention |\n| Object Storage | File attachments, backups, audit logs | S3-compatible, AES-256 encryption, 2.5 TB per day |\n\n## Request flow\n\nA typical API request traverses 5 layers in sequence:\n\n1. **Client sends request** to one of the 5 protocol endpoints\n1. **CDN caches** static content (24-hour TTL) and forward dynamic requests\n1. **WAF inspects** the request payload against OWASP Top 10 rules\n1. **Rate Limiter checks** the API key's remaining quota in Redis\n1. **API Gateway routes** to the appropriate protocol handler\n1. **Auth Service validates** the JWT Bearer token (50&nbsp;ms average)\n1. **Domain Service processes** the business logic (Project or Task Service)\n1. **PostgreSQL persists** the state change, Redis updates the cache\n1. **RabbitMQ publishes** lifecycle events to subscribed channels\n1. **Notification Service fans out** events to WebSocket clients and webhook endpoints"
+    },
+    {
+      "module_id": "auto-architecture-overview-5",
+      "title": "VeriOps API platform architecture (Part 5)",
+      "priority": 60,
+      "intent": "integrate",
+      "audience": "operator",
+      "channel": "assistant",
+      "content": "Use this module when answering questions related to: VeriOps API platform architecture (Part 5). Source path: demo-showcase/acme/docs/guides/architecture-overview.md. Summary: Interactive architecture diagram showing the VeriOps API platform with 5 protocol gateways, 4 microservices, and data infrastructure across 5 layers.\n\n## Next steps\n\n- [REST API reference](../reference/rest-api.md) for the full 19-endpoint specification\n- [Concept: pipeline-first lifecycle](concept.md) for how the documentation pipeline works\n- [Quality evidence](../quality/evidence.md) for gate results and metrics"
+    },
+    {
+      "module_id": "auto-asyncapi-api-1",
+      "title": "ASYNCAPI API Reference",
+      "priority": 60,
+      "intent": "integrate",
+      "audience": "operator",
+      "channel": "assistant",
+      "content": "Use this module when answering questions related to: ASYNCAPI API Reference. Source path: demo-showcase/acme/docs/assets/protocols/asyncapi/asyncapi-api.md. Summary: Auto-generated asyncapi reference from source contract.\n\n# ASYNCAPI Reference\n\nSource: `reports/acme-demo/contracts/asyncapi.yaml`\n\nFlow mode: `api-first`\n\n## Top-level Keys\n\n- `asyncapi`\n- `channels`\n- `info`\n\n## Channels\n\n- Channel count: `1`\n- `project.updated`"
+    },
+    {
+      "module_id": "auto-asyncapi-api-2",
+      "title": "ASYNCAPI API Reference (Part 2)",
+      "priority": 60,
+      "intent": "integrate",
+      "audience": "operator",
+      "channel": "assistant",
+      "content": "Use this module when answering questions related to: ASYNCAPI API Reference (Part 2). Source path: demo-showcase/acme/docs/assets/protocols/asyncapi/asyncapi-api.md. Summary: Auto-generated asyncapi reference from source contract.\n\n## Interactive AsyncAPI Tester\n\nThis auto-generated knowledge chunk was expanded to satisfy minimum retrieval module length for stable indexing."
+    },
+    {
+      "module_id": "auto-asyncapi-api-3",
+      "title": "ASYNCAPI API Reference (Part 3)",
+      "priority": 60,
+      "intent": "integrate",
+      "audience": "operator",
+      "channel": "assistant",
+      "content": "Use this module when answering questions related to: ASYNCAPI API Reference (Part 3). Source path: demo-showcase/acme/docs/assets/protocols/asyncapi/asyncapi-api.md. Summary: Auto-generated asyncapi reference from source contract.\n\n<div id=\"asyncapi-playground\" style=\"border:1px solid #d1d5db; padding:12px; border-radius:8px;\">\n  <p><strong>WebSocket Endpoint:</strong> <code id=\"asyncapi-ws-view\"></code></p>\n  <p><strong>HTTP Publish Endpoint:</strong> <code id=\"asyncapi-http-view\"></code></p>\n  <!-- vale Google.Quotes = NO -->\n  <textarea id=\"asyncapi-message\" rows=\"8\" style=\"width:100%; font-family:monospace;\">{\n  \"event\": \"health\",\n  \"value\": \"ok\"\n}</textarea><br/>\n  <!-- vale Google.Quotes = YES -->\n  <button id=\"asyncapi-send-ws\">Send via WebSocket</button>\n  <button id=\"asyncapi-send-http\">Send via HTTP</button>\n  <pre id=\"asyncapi-output\" style=\"margin-top:12px; max-height:320px; overflow:auto;\"></pre>\n</div>\n<script>\n(function(){ const wsEndpoint = \"\"; const httpEndpoint = \"\";\nconst wsView = document.getElementById('asyncapi-ws-view');\nconst httpView = document.getElementById('asyncapi-http-view');\nconst sendWs = document.getElementById('asyncapi-send-ws');\nconst sendHttp = document.getElementById('asyncapi-send-http');\nconst msg = document.getElementById('asyncapi-message');\nconst out = document.getElementById('asyncapi-output');\nif (!wsView || !httpView || !sendWs || !sendHttp || !msg || !out) return;\nwsView.textContent = wsEndpoint || 'not configured';\nhttpView.textContent = httpEndpoint || 'not configured';\nsendWs.onclick = function(){\n  if (!wsEndpoint) { out.textContent = 'WebSocket endpoint is not configured (runtime.api_protocol_settings.asyncapi.asyncapi_ws_endpoint)'; return; }\n  try {\n    const socket = new WebSocket(wsEndpoint);\n    socket.onopen = function(){ socket.send(msg.value); out.textContent = 'sent over websocket'; socket.close(); };\n    socket.onerror = function(e){ out.textContent = String(e); };\n    socket.onmessage = function(e){ out.textContent = String(e.data); };\n  } catch (error) { out.textContent = String(error); }\n};\nsendHttp.onclick = async function(){\n  if (!httpEndpoint) { out.textContent = 'HTTP publish endpoint is not configured (runtime.api_protocol_settings.asyncapi.asyncapi_http_publish_endpoint)'; return; }\n  out.textContent = 'Loading...';\n  try {\n    const body = JSON.parse(msg.value || '{}');\n    const response = await fetch(httpEndpoint, { method:'POST', headers:{'content-type':'application/json'}, body: JSON.stringify(body) });\n    const text = await response.text();\n    out.textContent = text;\n  } catch (error) { out.textContent = String(error); }\n};\n})();\n</script>"
+    },
+    {
+      "module_id": "auto-asyncapi-api-4",
+      "title": "ASYNCAPI API Reference (Part 4)",
+      "priority": 60,
+      "intent": "integrate",
+      "audience": "operator",
+      "channel": "assistant",
+      "content": "Use this module when answering questions related to: ASYNCAPI API Reference (Part 4). Source path: demo-showcase/acme/docs/assets/protocols/asyncapi/asyncapi-api.md. Summary: Auto-generated asyncapi reference from source contract.\n\n## Next steps\n\n- [Documentation index](../../../index.md)\n\nThis auto-generated knowledge chunk was expanded to satisfy minimum retrieval module length for stable indexing."
+    },
+    {
+      "module_id": "auto-asyncapi-events-1",
+      "title": "AsyncAPI event docs",
+      "priority": 60,
+      "intent": "integrate",
+      "audience": "operator",
+      "channel": "assistant",
+      "content": "Use this module when answering questions related to: AsyncAPI event docs. Source path: demo-showcase/acme/docs/reference/asyncapi-events.md. Summary: AsyncAPI 2.6.0 event documentation for VeriOps with channel contracts, delivery semantics, payload schemas, and interactive event tester.\n\n# AsyncAPI event docs\n\n<div class=\"veriops-badges\" markdown>\n\n![Powered by VeriOps](https://img.shields.io/badge/Powered%20by-VeriOps-7c3aed?style=flat-square)\n![Quality Score](https://img.shields.io/badge/Quality%20Score-100%25-10b981?style=flat-square)\n![Protocols](https://img.shields.io/badge/Protocols-5-7c3aed?style=flat-square)\n\n</div>\n\nThe VeriOps event system provides asynchronous, event-driven communication for project lifecycle changes. AsyncAPI 2.6.0 contracts define channel schemas, delivery guarantees, and payload formats for three event channels.\n\n## Broker and transport\n\n| Setting | Value |\n| --- | --- |\n| AsyncAPI version | 2.6.0 |\n| Protocol | AMQP 0.9.1 (RabbitMQ) |\n| Broker | `amqp://events.veriops.example:5672` |\n| WebSocket bridge | `wss://events.veriops.example/ws` |\n| Authentication | Bearer token in connection header or SASL PLAIN |\n| Delivery guarantee | At-least-once |\n| Message retention | 7 days |\n| Max payload size | 256 KB |\n| Default consumer group | `veriops-consumers` |\n| Heartbeat interval | 60 seconds |"
+    },
+    {
+      "module_id": "auto-asyncapi-events-10",
+      "title": "AsyncAPI event docs (Part 10)",
+      "priority": 60,
+      "intent": "integrate",
+      "audience": "operator",
+      "channel": "assistant",
+      "content": "Use this module when answering questions related to: AsyncAPI event docs (Part 10). Source path: demo-showcase/acme/docs/reference/asyncapi-events.md. Summary: AsyncAPI 2.6.0 event documentation for VeriOps with channel contracts, delivery semantics, payload schemas, and interactive event tester.\n\n<script>\n(() => {\n  if (window.__ACME_SANDBOX_CONTROLLER__ === true) return;\n  var sandbox = (window.ACME_SANDBOX && window.ACME_SANDBOX.asyncapi_ws_url) || '';\n  var fallback = (window.ACME_SANDBOX && window.ACME_SANDBOX.asyncapi_ws_fallback_urls) || [];\n  var epInput = document.getElementById('async-ep');\n  if (sandbox && epInput) { epInput.value = sandbox; }\n  var btn = document.getElementById('async-send');\n  if (!btn) return;\n  function safeParse(raw) {\n    try { return JSON.parse(String(raw || '{}')); } catch (_) { return { raw: String(raw || '') }; }\n  }\n  function semanticAsync(req) {\n    var eventType = String((req && (req.event_type || req.type || req.event)) || '').toLowerCase();\n    var data = (req && req.data && typeof req.data === 'object') ? req.data : {};\n    var eventId = String((req && req.event_id) || ('evt_' + Math.random().toString(36).slice(2, 10)));\n    var projectId = String(data.project_id || 'prj_abc123');\n    var occurredAt = (req && req.occurred_at) || new Date().toISOString();\n    if (eventType === 'project.created') return { event_id: eventId, event_type: 'project.created', occurred_at: occurredAt, data: { project_id: projectId, name: data.name || 'New Project', status: data.status || 'draft' } };\n    if (eventType === 'project.updated') return { event_id: eventId, event_type: 'project.updated', occurred_at: occurredAt, data: { project_id: projectId, status: data.status || 'active', changed_fields: data.changed_fields || ['status'] } };\n    if (eventType === 'task.completed') return { event_id: eventId, event_type: 'task.completed', occurred_at: occurredAt, data: { task_id: data.task_id || 'tsk_123', project_id: projectId, completed_by: data.completed_by || 'usr_demo' } };\n    return { event_id: eventId, event_type: eventType || 'custom.event', occurred_at: occurredAt, data: Object.assign({ project_id: projectId, status: 'accepted' }, data), hint: 'Use: project.created, project.updated, task.completed' };\n  }"
+    },
+    {
+      "module_id": "auto-asyncapi-events-11",
+      "title": "AsyncAPI event docs (Part 11)",
+      "priority": 60,
+      "intent": "integrate",
+      "audience": "operator",
+      "channel": "assistant",
+      "content": "Use this module when answering questions related to: AsyncAPI event docs (Part 11). Source path: demo-showcase/acme/docs/reference/asyncapi-events.md. Summary: AsyncAPI 2.6.0 event documentation for VeriOps with channel contracts, delivery semantics, payload schemas, and interactive event tester.\n\nfunction candidateEndpoints(primary, extras) {\n    var seen = {};\n    var out = [];\n    [primary].concat(Array.isArray(extras) ? extras : []).forEach(function (url) {\n      var v = String(url || '').trim();\n      if (!v || seen[v]) return;\n      seen[v] = true;\n      out.push(v);\n    });\n    return out;\n  }\n\nbtn.onclick = function () {\n    var out = document.getElementById('async-out');\n    var primary = document.getElementById('async-ep').value;\n    var payload = document.getElementById('async-payload').value;\n    var candidates = candidateEndpoints(primary, fallback);\n    var idx = 0;\n    out.textContent = 'Connecting to ' + (candidates[0] || 'N/A') + '...';"
+    },
+    {
+      "module_id": "auto-asyncapi-events-12",
+      "title": "AsyncAPI event docs (Part 12)",
+      "priority": 60,
+      "intent": "integrate",
+      "audience": "operator",
+      "channel": "assistant",
+      "content": "Use this module when answering questions related to: AsyncAPI event docs (Part 12). Source path: demo-showcase/acme/docs/reference/asyncapi-events.md. Summary: AsyncAPI 2.6.0 event documentation for VeriOps with channel contracts, delivery semantics, payload schemas, and interactive event tester.\n\nfunction tryNext(lastError) {\n      if (idx >= candidates.length) {\n        out.textContent = JSON.stringify(\n          {\n            mode: 'offline-semantic-fallback',\n            tried: candidates,\n            last_error: lastError || '',\n            simulated_response: semanticAsync(safeParse(payload))\n          },\n          null,\n          2\n        );\n        return;\n      }\n      var endpoint = candidates[idx++];\n      out.textContent = 'Connecting to ' + endpoint + '...';\n      try {\n        var settled = false;\n        var ws = new WebSocket(endpoint);\n        var timeout = setTimeout(function () {\n          if (settled) return;\n          settled = true;\n          try { ws.close(); } catch (e) {}\n          tryNext('timeout');\n        }, 6000);\n        ws.onopen = function () {\n          if (settled) return;\n          ws.send(payload);\n          out.textContent = 'Connected to ' + endpoint + '. Event sent. Waiting for acknowledgement...';\n        };\n        ws.onmessage = function (e) {\n          if (settled) return;\n          settled = true;\n          clearTimeout(timeout);\n          out.textContent = JSON.stringify(\n            {\n              endpoint: endpoint,\n              mode: 'live-echo-plus-semantic',\n              raw: String(e.data || ''),\n              simulated_response: semanticAsync(safeParse(e.data))\n            },\n            null,\n            2\n          );\n          ws.close();\n        };\n        ws.onerror = function () {\n          if (settled) return;\n          settled = true;\n          clearTimeout(timeout);\n          tryNext('handshake failed');\n        };\n        ws.onclose = function () {\n          if (settled) return;\n          settled = true;\n          clearTimeout(timeout);\n          tryNext('closed before response');\n        };\n      } catch (e) {\n        tryNext(String(e));\n      }\n    }"
+    },
+    {
+      "module_id": "auto-asyncapi-events-13",
+      "title": "AsyncAPI event docs (Part 13)",
+      "priority": 60,
+      "intent": "integrate",
+      "audience": "operator",
+      "channel": "assistant",
+      "content": "Use this module when answering questions related to: AsyncAPI event docs (Part 13). Source path: demo-showcase/acme/docs/reference/asyncapi-events.md. Summary: AsyncAPI 2.6.0 event documentation for VeriOps with channel contracts, delivery semantics, payload schemas, and interactive event tester.\n\ntryNext('');\n  };\n})();\n</script>\n\n## Error handling\n\n| Error | Cause | Resolution |\n| --- | --- | --- |\n| `CONNECTION_REFUSED` | Broker unreachable | Verify `events.veriops.example:5672` is accessible from your network |\n| `AUTH_FAILED` | Invalid credentials | Check bearer token or SASL credentials |\n| `CHANNEL_NOT_FOUND` | Invalid channel name | Use exact channel names from the catalog above |\n| `PAYLOAD_TOO_LARGE` | Message exceeds 256 KB | Reduce payload size or split into multiple events |\n| `CONSUMER_TIMEOUT` | No ACK within 300 seconds | Acknowledge messages faster or increase prefetch count |\n\n## Next steps\n\n- [WebSocket event playground](websocket-events.md) for bidirectional real-time messaging\n- [REST API reference](rest-api.md) for synchronous CRUD operations\n- [Tutorial: launch your first integration](../guides/tutorial.md) to subscribe to events end-to-end"
+    },
+    {
+      "module_id": "auto-asyncapi-events-2",
+      "title": "AsyncAPI event docs (Part 2)",
+      "priority": 60,
+      "intent": "integrate",
+      "audience": "operator",
+      "channel": "assistant",
+      "content": "Use this module when answering questions related to: AsyncAPI event docs (Part 2). Source path: demo-showcase/acme/docs/reference/asyncapi-events.md. Summary: AsyncAPI 2.6.0 event documentation for VeriOps with channel contracts, delivery semantics, payload schemas, and interactive event tester.\n\n## Channel catalog\n\nThe VeriOps event system publishes events on three channels. All channels use JSON-encoded payloads with a standard envelope format.\n\n| Channel | Direction | Payload type | Trigger | Description |\n| --- | --- | --- | --- | --- |\n| `project.updated` | Publish (server to client) | `ProjectUpdatedEvent` | Project status or name changes | Fires on every `PUT /v1/projects/{id}` that modifies the resource |\n| `project.created` | Publish (server to client) | `ProjectCreatedEvent` | New project created | Fires on every `POST /v1/projects` |\n| `task.completed` | Publish (server to client) | `TaskCompletedEvent` | Task status changes to `done` | Fires when a task reaches terminal status |\n\n## Event envelope format\n\nEvery event uses a standard envelope that wraps the domain-specific payload:\n\n```json\n{\n  \"event_id\": \"evt_01abc789\",\n  \"event_type\": \"project.updated\",\n  \"occurred_at\": \"2026-03-19T14:30:00Z\",\n  \"producer\": \"veriops-core-service\",\n  \"trace_id\": \"tr_abc123def456\",\n  \"schema_version\": \"1.0.0\",\n  \"data\": {}\n}\n```"
+    },
+    {
+      "module_id": "auto-asyncapi-events-3",
+      "title": "AsyncAPI event docs (Part 3)",
+      "priority": 60,
+      "intent": "integrate",
+      "audience": "operator",
+      "channel": "assistant",
+      "content": "Use this module when answering questions related to: AsyncAPI event docs (Part 3). Source path: demo-showcase/acme/docs/reference/asyncapi-events.md. Summary: AsyncAPI 2.6.0 event documentation for VeriOps with channel contracts, delivery semantics, payload schemas, and interactive event tester.\n\n### Envelope fields\n\n| Field | Type | Description |\n| --- | --- | --- |\n| `event_id` | string | Unique event identifier for idempotency (format: `evt_*`) |\n| `event_type` | string | Channel name matching the AsyncAPI contract |\n| `occurred_at` | string (ISO 8601) | Timestamp when the event occurred |\n| `producer` | string | Service that emitted the event |\n| `trace_id` | string | Distributed tracing ID for correlation |\n| `schema_version` | string | Payload schema version (semver) |\n| `data` | object | Domain-specific payload (see below) |"
+    },
+    {
+      "module_id": "auto-asyncapi-events-4",
+      "title": "AsyncAPI event docs (Part 4)",
+      "priority": 60,
+      "intent": "integrate",
+      "audience": "operator",
+      "channel": "assistant",
+      "content": "Use this module when answering questions related to: AsyncAPI event docs (Part 4). Source path: demo-showcase/acme/docs/reference/asyncapi-events.md. Summary: AsyncAPI 2.6.0 event documentation for VeriOps with channel contracts, delivery semantics, payload schemas, and interactive event tester.\n\n## Channel: project.updated\n\nFires when a project status or name changes.\n\n**Payload schema:**\n\n```json\n{\n  \"event_id\": \"evt_01abc789\",\n  \"event_type\": \"project.updated\",\n  \"occurred_at\": \"2026-03-19T14:30:00Z\",\n  \"producer\": \"veriops-core-service\",\n  \"trace_id\": \"tr_abc123def456\",\n  \"schema_version\": \"1.0.0\",\n  \"data\": {\n    \"project_id\": \"prj_abc123\",\n    \"status\": \"active\",\n    \"previous_status\": \"draft\",\n    \"updated_by\": \"usr_456\",\n    \"updated_fields\": [\"status\"]\n  }\n}\n```\n\n**Payload fields (`data`):**\n\n| Field | Type | Description |\n| --- | --- | --- |\n| `project_id` | string | Project ID (format: `prj_*`) |\n| `status` | string | New status: `draft`, `active`, `archived` |\n| `previous_status` | string | Status before the change |\n| `updated_by` | string | User ID who made the change |\n| `updated_fields` | array of strings | List of fields that changed |\n\n## Channel: project.created\n\nFires when a new project is created.\n\n**Payload schema:**\n\n```json\n{\n  \"event_id\": \"evt_02ABCD456\",\n  \"event_type\": \"project.created\",\n  \"occurred_at\": \"2026-03-19T15:00:00Z\",\n  \"producer\": \"veriops-core-service\",\n  \"trace_id\": \"tr_def456ghi789\",\n  \"schema_version\": \"1.0.0\",\n  \"data\": {\n    \"project_id\": \"prj_def456\",\n    \"name\": \"Mobile App Launch\",\n    \"status\": \"active\",\n    \"created_by\": \"usr_789\"\n  }\n}\n```"
+    },
+    {
+      "module_id": "auto-asyncapi-events-5",
+      "title": "AsyncAPI event docs (Part 5)",
+      "priority": 60,
+      "intent": "integrate",
+      "audience": "operator",
+      "channel": "assistant",
+      "content": "Use this module when answering questions related to: AsyncAPI event docs (Part 5). Source path: demo-showcase/acme/docs/reference/asyncapi-events.md. Summary: AsyncAPI 2.6.0 event documentation for VeriOps with channel contracts, delivery semantics, payload schemas, and interactive event tester.\n\n## Channel: task.completed\n\nFires when a task status changes to `done`.\n\n**Payload schema:**\n\n```json\n{\n  \"event_id\": \"evt_03cde789\",\n  \"event_type\": \"task.completed\",\n  \"occurred_at\": \"2026-03-19T16:00:00Z\",\n  \"producer\": \"veriops-task-service\",\n  \"trace_id\": \"tr_ghi789jkl012\",\n  \"schema_version\": \"1.0.0\",\n  \"data\": {\n    \"task_id\": \"tsk_abc123\",\n    \"project_id\": \"prj_abc123\",\n    \"title\": \"Design homepage mockup\",\n    \"completed_by\": \"usr_456\",\n    \"duration_seconds\": 7200\n  }\n}\n```\n\n## Delivery semantics\n\n| Property | Value | Notes |\n| --- | --- | --- |\n| Guarantee | At-least-once | Events may be delivered more than once |\n| Ordering key | `data.project_id` | Events for the same project arrive in order |\n| Deduplication | Use `event_id` | Store processed event IDs for idempotency checks |\n| Retry policy | 3 retries with exponential backoff | Initial delay 5 seconds, max delay 60 seconds |\n| Dead-letter queue | `{channel}.dlq` | Failed events route here after 3 retries |\n| Consumer acknowledgment | Manual ACK required | Unacknowledged messages redeliver after 300 seconds |\n| Message TTL | 7 days | Messages expire from the queue after 7 days |\n\n## Consumer code examples"
+    },
+    {
+      "module_id": "auto-asyncapi-events-6",
+      "title": "AsyncAPI event docs (Part 6)",
+      "priority": 60,
+      "intent": "integrate",
+      "audience": "operator",
+      "channel": "assistant",
+      "content": "Use this module when answering questions related to: AsyncAPI event docs (Part 6). Source path: demo-showcase/acme/docs/reference/asyncapi-events.md. Summary: AsyncAPI 2.6.0 event documentation for VeriOps with channel contracts, delivery semantics, payload schemas, and interactive event tester.\n\n### JavaScript (WebSocket bridge)\n\n```javascript\n// Subscribe to project update events via WebSocket bridge\n// Requires: valid bearer token and active WebSocket connection\nconst ws = new WebSocket('wss://events.veriops.example/ws', [], {\n  headers: { 'Authorization': 'Bearer YOUR_API_KEY' }\n});\n\nconst processedEvents = new Set();\n\nws.addEventListener('open', () => {\n  ws.send(JSON.stringify({\n    action: 'subscribe',\n    channels: ['project.updated', 'project.created']\n  }));\n  console.log('Subscribed to project event channels');\n});\n\nws.addEventListener('message', (event) => {\n  const payload = JSON.parse(event.data);\n\n  // Idempotency check: skip duplicate events\n  if (processedEvents.has(payload.event_id)) {\n    console.log('Skipping duplicate event:', payload.event_id);\n    return;\n  }\n  processedEvents.add(payload.event_id);\n\n  console.log('Event received:', payload.event_type, payload.data.project_id);\n  // Process the event here\n});\n```\n\n<!-- requires: api-key -->"
+    },
+    {
+      "module_id": "auto-asyncapi-events-7",
+      "title": "AsyncAPI event docs (Part 7)",
+      "priority": 60,
+      "intent": "integrate",
+      "audience": "operator",
+      "channel": "assistant",
+      "content": "Use this module when answering questions related to: AsyncAPI event docs (Part 7). Source path: demo-showcase/acme/docs/reference/asyncapi-events.md. Summary: AsyncAPI 2.6.0 event documentation for VeriOps with channel contracts, delivery semantics, payload schemas, and interactive event tester.\n\n### Python (AMQP direct)\n\n```python\nimport json\nimport pika\n\n# Connect to the AMQP broker\n# Requires: pika library (pip install pika) and valid credentials\nconnection = pika.BlockingConnection(\n    pika.ConnectionParameters(\n        host='events.veriops.example',\n        port=5672,\n        credentials=pika.PlainCredentials('YOUR_USERNAME', 'YOUR_PASSWORD')\n    )\n)\nchannel = connection.channel()\nchannel.queue_declare(queue='my-consumer', durable=True)\nchannel.queue_bind(queue='my-consumer', exchange='veriops.events', routing_key='project.updated')\n\nprocessed_ids = set()\n\ndef on_message(ch, method, properties, body):\n    event = json.loads(body)\n    if event['event_id'] in processed_ids:\n        ch.basic_ack(delivery_tag=method.delivery_tag)\n        return\n    processed_ids.add(event['event_id'])\n    print(f\"Project {event['data']['project_id']} status: {event['data']['status']}\")\n    ch.basic_ack(delivery_tag=method.delivery_tag)\n\nchannel.basic_consume(queue='my-consumer', on_message_callback=on_message)\nchannel.start_consuming()\n```\n\n<!-- requires: pika, amqp-credentials -->"
+    },
+    {
+      "module_id": "auto-asyncapi-events-8",
+      "title": "AsyncAPI event docs (Part 8)",
+      "priority": 60,
+      "intent": "integrate",
+      "audience": "operator",
+      "channel": "assistant",
+      "content": "Use this module when answering questions related to: AsyncAPI event docs (Part 8). Source path: demo-showcase/acme/docs/reference/asyncapi-events.md. Summary: AsyncAPI 2.6.0 event documentation for VeriOps with channel contracts, delivery semantics, payload schemas, and interactive event tester.\n\n## Interactive event tester\n\nEnter a test event payload and send it to the sandbox WebSocket bridge.\n\n!!! info \"Sandbox mode\"\n    Events route to a public WebSocket echo sandbox.\n    The endpoint field below auto-fills with the sandbox URL.\n    No API key is required for sandbox requests."
+    },
+    {
+      "module_id": "auto-asyncapi-events-9",
+      "title": "AsyncAPI event docs (Part 9)",
+      "priority": 60,
+      "intent": "integrate",
+      "audience": "operator",
+      "channel": "assistant",
+      "content": "Use this module when answering questions related to: AsyncAPI event docs (Part 9). Source path: demo-showcase/acme/docs/reference/asyncapi-events.md. Summary: AsyncAPI 2.6.0 event documentation for VeriOps with channel contracts, delivery semantics, payload schemas, and interactive event tester.\n\n<div style=\"border:1px solid #dbe2ea;border-radius:10px;padding:16px;background:#f8f9fa\">\n<label><strong>WebSocket endpoint:</strong></label>\n<input id=\"async-ep\" value=\"wss://events.veriops.example/ws\" style=\"width:100%;padding:6px;margin:4px 0 8px;border:1px solid #ccc;border-radius:4px;font-family:monospace;\">\n<label><strong>Event payload (JSON):</strong></label>\n<!-- vale Google.Quotes = NO -->\n<textarea id=\"async-payload\" rows=\"8\" style=\"width:100%;font-family:monospace;padding:8px;border:1px solid #ccc;border-radius:4px;\">{\n  \"event_id\": \"evt_test_01\",\n  \"event_type\": \"project.updated\",\n  \"occurred_at\": \"2026-03-19T14:30:00Z\",\n  \"producer\": \"test-client\",\n  \"data\": {\n    \"project_id\": \"prj_abc123\",\n    \"status\": \"active\",\n    \"previous_status\": \"draft\"\n  }\n}</textarea>\n<!-- vale Google.Quotes = YES -->\n<button id=\"async-send\" style=\"margin:8px 0;padding:8px 24px;background:#1a73e8;color:#fff;border:none;border-radius:6px;cursor:pointer;font-size:14px;\">Send event</button>\n<pre id=\"async-out\" style=\"max-height:280px;overflow:auto;border:1px solid #dbe2ea;padding:12px;border-radius:8px;background:#fff;margin-top:8px;\"></pre>\n</div>"
+    },
+    {
+      "module_id": "auto-concept-1",
+      "title": "Concept: pipeline-first documentation lifecycle",
+      "priority": 60,
+      "intent": "integrate",
+      "audience": "operator",
+      "channel": "assistant",
+      "content": "Use this module when answering questions related to: Concept: pipeline-first documentation lifecycle. Source path: demo-showcase/acme/docs/guides/concept.md. Summary: Pipeline-first documentation automates generation, validation, and publishing of API docs from source contracts, reducing review cycles by 60%.\n\n# Concept: pipeline-first documentation lifecycle\n\n<div class=\"veriops-badges\" markdown>\n\n![Powered by VeriOps](https://img.shields.io/badge/Powered%20by-VeriOps-7c3aed?style=flat-square)\n![Quality Score](https://img.shields.io/badge/Quality%20Score-100%25-10b981?style=flat-square)\n![Protocols](https://img.shields.io/badge/Protocols-5-7c3aed?style=flat-square)\n\n</div>\n\nPipeline-first documentation is a methodology where automated systems generate, validate, and publish API documentation from source contracts. Humans review and approve outputs instead of writing from scratch, reducing review cycles from 5+ rounds to 1-2 rounds."
+    },
+    {
+      "module_id": "auto-concept-10",
+      "title": "Concept: pipeline-first documentation lifecycle (Part 10)",
+      "priority": 60,
+      "intent": "integrate",
+      "audience": "operator",
+      "channel": "assistant",
+      "content": "Use this module when answering questions related to: Concept: pipeline-first documentation lifecycle (Part 10). Source path: demo-showcase/acme/docs/guides/concept.md. Summary: Pipeline-first documentation automates generation, validation, and publishing of API docs from source contracts, reducing review cycles by 60%.\n\n## Next steps\n\n- [How-to: keep docs aligned with every release](how-to.md) for the operational workflow\n- [Quality evidence and gate results](../quality/evidence.md) for the latest pipeline metrics\n- [Troubleshooting: common pipeline issues](troubleshooting.md) if pipeline stages fail\n- [Quality evidence](../quality/evidence.md) for the latest gate results"
+    },
+    {
+      "module_id": "auto-concept-2",
+      "title": "Concept: pipeline-first documentation lifecycle (Part 2)",
+      "priority": 60,
+      "intent": "integrate",
+      "audience": "operator",
+      "channel": "assistant",
+      "content": "Use this module when answering questions related to: Concept: pipeline-first documentation lifecycle (Part 2). Source path: demo-showcase/acme/docs/guides/concept.md. Summary: Pipeline-first documentation automates generation, validation, and publishing of API docs from source contracts, reducing review cycles by 60%.\n\n## The problem it solves\n\nWithout pipeline-first documentation, engineering teams face three critical challenges:\n\n1. **Documentation drift**: API code changes ship to production while docs remain stuck on the previous version. The average drift window is 2-4 weeks, during which users encounter incorrect information.\n\n1. **Inconsistent quality**: Documentation quality depends on individual writers. One team produces excellent guides while another produces minimal stubs. No enforced quality bar exists across the organization.\n\n1. **Multi-protocol coverage gaps**: Teams that support REST, GraphQL, gRPC, AsyncAPI, and WebSocket must maintain five separate documentation sets. Without automation, at least two protocols fall behind on every release.\n\nTraditional approaches like wiki-based documentation or manual Markdown editing fail because they rely on human memory to trigger updates. When the OpenAPI spec changes, nobody remembers to update the corresponding tutorial.\n\n## How the pipeline works\n\nThe VeriDoc pipeline follows an eight-stage execution order. Each stage reads the output of the previous stage and produces artifacts for the next."
+    },
+    {
+      "module_id": "auto-concept-3",
+      "title": "Concept: pipeline-first documentation lifecycle (Part 3)",
+      "priority": 60,
+      "intent": "integrate",
+      "audience": "operator",
+      "channel": "assistant",
+      "content": "Use this module when answering questions related to: Concept: pipeline-first documentation lifecycle (Part 3). Source path: demo-showcase/acme/docs/guides/concept.md. Summary: Pipeline-first documentation automates generation, validation, and publishing of API docs from source contracts, reducing review cycles by 60%.\n\n### Stage 1: ingest\n\nRead source contracts from the repository:\n\n| Contract type | Format | Example path |\n| --- | --- | --- |\n| REST | OpenAPI 3.0 YAML | `api/openapi.yaml` |\n| GraphQL | SDL schema | `contracts/graphql.schema.graphql` |\n| gRPC | Proto3 definition | `contracts/grpc/veriops.proto` |\n| AsyncAPI | AsyncAPI 2.6.0 YAML | `contracts/asyncapi.yaml` |\n| WebSocket | WebSocket contract YAML | `contracts/websocket.yaml` |\n\n### Stage 2: lint\n\nValidate each contract against protocol-specific rules. REST uses Spectral with 18 rules, GraphQL uses schema validation, gRPC uses `protoc` compilation, AsyncAPI uses the AsyncAPI parser, and WebSocket uses custom schema validation.\n\n### Stage 3: regression\n\nCompare the current contract against the previous snapshot to detect breaking changes. Breaking changes (removed endpoints, renamed fields, changed types) trigger warnings in the review manifest.\n\n### Stage 4: generate\n\nProduce reference documentation from validated contracts. Each protocol generates endpoint tables, payload schemas, code examples, and interactive testers."
+    },
+    {
+      "module_id": "auto-concept-4",
+      "title": "Concept: pipeline-first documentation lifecycle (Part 4)",
+      "priority": 60,
+      "intent": "integrate",
+      "audience": "operator",
+      "channel": "assistant",
+      "content": "Use this module when answering questions related to: Concept: pipeline-first documentation lifecycle (Part 4). Source path: demo-showcase/acme/docs/guides/concept.md. Summary: Pipeline-first documentation automates generation, validation, and publishing of API docs from source contracts, reducing review cycles by 60%.\n\n### Stage 5: quality gate\n\nRun 24 automated checks on every generated page:\n\n| Category | Check count | What they verify |\n| --- | --- | --- |\n| GEO (8 checks) | 8 | LLM and AI search optimization: meta descriptions, first paragraph length, heading hierarchy, fact density |\n| SEO (14 checks) | 14 | Traditional search optimization: title length, URL depth, internal links, structured data |\n| Style (automated) | Per-page | American English, active voice, no weasel words, no contractions |\n| Contract (per-protocol) | Per-endpoint | Schema validation, regression detection, snippet lint |\n\n### Stage 6: test assets\n\nGenerate API test cases for integration testing frameworks. The pipeline produces test cases in three formats:\n\n| Format | Output path | Purpose |\n| --- | --- | --- |\n| JSON (generic) | `reports/api_test_cases.json` | Framework-agnostic test definitions |\n| CSV (TestRail) | `reports/testrail_test_cases.csv` | Import into TestRail test management |\n| JSON (Zephyr) | `reports/zephyr_test_cases.json` | Import into Zephyr Scale for Jira |"
+    },
+    {
+      "module_id": "auto-concept-5",
+      "title": "Concept: pipeline-first documentation lifecycle (Part 5)",
+      "priority": 60,
+      "intent": "integrate",
+      "audience": "operator",
+      "channel": "assistant",
+      "content": "Use this module when answering questions related to: Concept: pipeline-first documentation lifecycle (Part 5). Source path: demo-showcase/acme/docs/guides/concept.md. Summary: Pipeline-first documentation automates generation, validation, and publishing of API docs from source contracts, reducing review cycles by 60%.\n\n### Stage 7: RAG optimize\n\nBuild a knowledge retrieval index, FAISS vector store, and knowledge graph for AI-powered search. Six advanced retrieval features are available:\n\n| Artifact | Description | Metrics (VeriOps demo) |\n| --- | --- | --- |\n| Knowledge modules | Auto-extracted topic chunks | 167 modules |\n| Knowledge graph | Node and edge relationships | 1,272 nodes, 1,089 edges |\n| Retrieval index | Search-optimized vector index | Precision: 0.2, Recall: 0.6 |\n| FAISS index | `text-embedding-3-small` embeddings | Cosine similarity search |\n\n| Advanced feature | Description |\n| --- | --- |\n| Token-aware chunking | Splits modules into 750-token chunks with 100-token overlap |\n| Hybrid search (RRF) | Fuses semantic and token-overlap rankings (k=60) |\n| HyDE query expansion | Generates hypothetical passage before embedding |\n| Cross-encoder reranking | Rescores top 20 candidates with `ms-marco-MiniLM-L-6-v2` |\n| Embedding cache | In-memory LRU cache (TTL: 3,600 seconds, max: 512 entries) |\n| Multi-mode evaluation | Compares token, semantic, hybrid, and hybrid+rerank modes |\n\n### Stage 8: publish\n\nCopy verified artifacts to the documentation site. Only artifacts that pass all quality gates reach the publish stage."
+    },
+    {
+      "module_id": "auto-concept-6",
+      "title": "Concept: pipeline-first documentation lifecycle (Part 6)",
+      "priority": 60,
+      "intent": "integrate",
+      "audience": "operator",
+      "channel": "assistant",
+      "content": "Use this module when answering questions related to: Concept: pipeline-first documentation lifecycle (Part 6). Source path: demo-showcase/acme/docs/guides/concept.md. Summary: Pipeline-first documentation automates generation, validation, and publishing of API docs from source contracts, reducing review cycles by 60%.\n\n## Quality gate breakdown\n\nThe pipeline enforces 24 automated checks before any document reaches production:"
+    },
+    {
+      "module_id": "auto-concept-7",
+      "title": "Concept: pipeline-first documentation lifecycle (Part 7)",
+      "priority": 60,
+      "intent": "integrate",
+      "audience": "operator",
+      "channel": "assistant",
+      "content": "Use this module when answering questions related to: Concept: pipeline-first documentation lifecycle (Part 7). Source path: demo-showcase/acme/docs/guides/concept.md. Summary: Pipeline-first documentation automates generation, validation, and publishing of API docs from source contracts, reducing review cycles by 60%.\n\n| Check ID | Rule | Severity | Threshold |\n| --- | --- | --- | --- |\n| GEO-1 | Meta description present | Error | Must exist |\n| GEO-1b | Meta description length (minimum) | Warning | 50 characters minimum |\n| GEO-1c | Meta description length (maximum) | Warning | 160 characters maximum |\n| GEO-2 | First paragraph length | Warning | 60 words maximum |\n| GEO-3 | First paragraph definition pattern | Suggestion | Contains \"is,\" \"enables,\" \"provides,\" or \"allows\" |\n| GEO-4 | Heading specificity | Warning | No generic headings (overview, setup, configuration) |\n| GEO-5 | Heading hierarchy | Error | No skipped levels (H2 to H4 is invalid) |\n| GEO-6 | Fact density | Warning | At least one fact per 200 words |\n| SEO-01 | Title length | Error/Warning | 10-70 characters |\n| SEO-02 | Title keyword match | Suggestion | 50% overlap with filename keywords |\n| SEO-03 | URL depth | Warning | Max 4 directory levels |\n| SEO-04 | URL naming | Warning | Kebab-case only |\n| SEO-05 | Image alt text | Warning | 100% of images must have alt text |\n| SEO-06 | Internal links | Suggestion | At least 1 per page |\n| SEO-07 | Bare URLs | Warning | All URLs must use `[text](url)` format |\n| SEO-08 | Path special characters | Warning | Alphanumeric and hyphens only |\n| SEO-09 | Line length | Warning | Max 120 characters outside code blocks |\n| SEO-10 | Heading keyword overlap | Suggestion | H2 headings share keywords with title |\n| SEO-11 | Freshness signal | Suggestion | `last_reviewed` or `date` in frontmatter |\n| SEO-12 | Content depth | Warning | Minimum 100 words |\n| SEO-13 | Duplicate headings | Warning | No two headings share the same text |\n| SEO-14 | Structured data | Suggestion | At least 1 table, code block, or list |"
+    },
+    {
+      "module_id": "auto-concept-8",
+      "title": "Concept: pipeline-first documentation lifecycle (Part 8)",
+      "priority": 60,
+      "intent": "integrate",
+      "audience": "operator",
+      "channel": "assistant",
+      "content": "Use this module when answering questions related to: Concept: pipeline-first documentation lifecycle (Part 8). Source path: demo-showcase/acme/docs/guides/concept.md. Summary: Pipeline-first documentation automates generation, validation, and publishing of API docs from source contracts, reducing review cycles by 60%.\n\n## Key benefits\n\n### Zero-drift guarantee\n\nDocumentation updates when contracts change, not weeks later. The pipeline detects drift by comparing the current contract hash against the last published snapshot. When drift is detected, the pipeline regenerates the affected pages automatically.\n\n### Protocol parity\n\nREST, GraphQL, gRPC, AsyncAPI, and WebSocket documentation follow the same quality bar. All five protocols pass through identical pipeline stages with protocol-specific validation at each stage.\n\n### Operator review checkpoint\n\nThe pipeline generates a review manifest before publish. It lists all artifacts, their availability status, and provides an approval checklist. Operators approve or reject the entire batch instead of reviewing individual pages.\n\n### Advanced RAG pipeline\n\nThe knowledge retrieval index with 1,272 nodes and 1,089 edges enables AI support agents to answer user questions from the documentation. The pipeline auto-extracts 167 knowledge modules from docs content, builds a searchable graph, and embeds modules into a FAISS vector store. Six advanced features (chunking, hybrid search, HyDE, reranking, embedding cache, and multi-mode eval) maximize retrieval precision and recall."
+    },
+    {
+      "module_id": "auto-concept-9",
+      "title": "Concept: pipeline-first documentation lifecycle (Part 9)",
+      "priority": 60,
+      "intent": "integrate",
+      "audience": "operator",
+      "channel": "assistant",
+      "content": "Use this module when answering questions related to: Concept: pipeline-first documentation lifecycle (Part 9). Source path: demo-showcase/acme/docs/guides/concept.md. Summary: Pipeline-first documentation automates generation, validation, and publishing of API docs from source contracts, reducing review cycles by 60%.\n\n## Comparison: traditional versus pipeline-first\n\n| Dimension | Traditional docs | Pipeline-first docs | Improvement |\n| --- | --- | --- | --- |\n| Drift window | 2-4 weeks | 0 days (auto-generated) | Eliminated |\n| Quality checks | Manual review | 24 automated checks | Consistent |\n| Review cycles | 5+ rounds | 1-2 rounds | 60% reduction |\n| Protocol coverage | 1-2 protocols | 5 protocols | Full parity |\n| Time to publish | 2-3 days | 20 minutes | 95% faster |\n| Stale page detection | Discovered by users | Weekly automated scan | Proactive |\n| RAG readiness | Manual tagging | Auto-generated index | Automated |\n\n## When to use pipeline-first documentation\n\nUse pipeline-first documentation when you have:\n\n- More than 2 API protocols to document (REST + GraphQL + gRPC is the common starting point)\n- Release cadence faster than monthly (weekly or biweekly releases benefit most)\n- Quality requirements that exceed what manual review can sustain\n- AI-powered support agents that need structured knowledge for retrieval\n\nDo not use pipeline-first documentation when:\n\n- You have a single, stable API with infrequent changes (manual docs are sufficient)\n- Your documentation is primarily conceptual, not API reference (the pipeline focuses on contract-driven content)"
+    },
+    {
+      "module_id": "auto-evidence-1",
+      "title": "Quality evidence and gate results",
+      "priority": 60,
+      "intent": "integrate",
+      "audience": "operator",
+      "channel": "assistant",
+      "content": "Use this module when answering questions related to: Quality evidence and gate results. Source path: demo-showcase/acme/docs/quality/evidence.md. Summary: Complete quality evidence from the VeriDoc pipeline for VeriOps docs, covering KPI metrics, protocol gates, 24 automated checks, and RAG readiness.\n\n# Quality evidence and gate results\n\n<div class=\"veriops-badges\" markdown>\n\n![Powered by VeriOps](https://img.shields.io/badge/Powered%20by-VeriOps-7c3aed?style=flat-square)\n![Quality Score](https://img.shields.io/badge/Quality%20Score-100%25-10b981?style=flat-square)\n![Protocols](https://img.shields.io/badge/Protocols-5-7c3aed?style=flat-square)\n\n</div>\n\nThis page provides the complete quality evidence generated by the VeriDoc pipeline for the VeriOps documentation site. It covers KPI metrics, protocol gate results, 24 automated quality checks, RAG retrieval readiness, and all pipeline artifacts.\n\n## KPI metrics\n\nThese metrics come from `reports/acme-demo/kpi-wall.json`:\n\n| Metric | Value | Target | Status |\n| --- | --- | --- | --- |\n| Quality score | **100%** | 80% | Excellent |\n| Total documents | **12** | -- | Indexed across all protocols |\n| Stale pages | **0** | 0 | No stale pages |\n| Documentation gaps | **0** | 0 | No active gaps |\n| Metadata completeness | **100%** | 100% | All frontmatter fields present and valid |\n| Frontmatter errors | **0** | 0 | All pages pass schema validation |"
+    },
+    {
+      "module_id": "auto-evidence-10",
+      "title": "Quality evidence and gate results (Part 10)",
+      "priority": 60,
+      "intent": "integrate",
+      "audience": "operator",
+      "channel": "assistant",
+      "content": "Use this module when answering questions related to: Quality evidence and gate results (Part 10). Source path: demo-showcase/acme/docs/quality/evidence.md. Summary: Complete quality evidence from the VeriDoc pipeline for VeriOps docs, covering KPI metrics, protocol gates, 24 automated checks, and RAG readiness.\n\n## Pipeline artifacts\n\nAll artifacts generated by the pipeline for this demo:\n\n| Artifact | Status | Path | Description |\n| --- | --- | --- | --- |\n| Multi-protocol contract report | Generated | `reports/acme-demo/multi_protocol_contract_report.json` | Protocol validation results |\n| KPI wall | Generated | `reports/acme-demo/kpi-wall.json` | Quality metrics dashboard |\n| Gap analysis | Generated | `reports/acme-demo/doc_gaps_report.json` | Missing documentation topics |\n| Lifecycle report | Generated | `reports/acme-demo/lifecycle-report.json` | Document freshness and staleness |\n| Glossary sync report | Generated | `reports/acme-demo/glossary_sync_report.json` | Terminology consistency |\n| Retrieval eval report | Generated | `reports/acme-demo/retrieval_evals_report.json` | RAG precision and recall |\n| Knowledge graph report | Generated | `reports/acme-demo/knowledge_graph_report.json` | Node and edge counts |\n| Pipeline stage summary | Generated | `reports/acme-demo/pipeline_stage_summary.json` | Stage execution details |\n\n## Next steps\n\n- [How-to: keep docs aligned with every release](../guides/how-to.md) for the release-day workflow\n- [Troubleshooting: common pipeline issues](../guides/troubleshooting.md) if pipeline stages fail"
+    },
+    {
+      "module_id": "auto-evidence-2",
+      "title": "Quality evidence and gate results (Part 2)",
+      "priority": 60,
+      "intent": "integrate",
+      "audience": "operator",
+      "channel": "assistant",
+      "content": "Use this module when answering questions related to: Quality evidence and gate results (Part 2). Source path: demo-showcase/acme/docs/quality/evidence.md. Summary: Complete quality evidence from the VeriDoc pipeline for VeriOps docs, covering KPI metrics, protocol gates, 24 automated checks, and RAG readiness.\n\n## Protocol contract gate results\n\nEach protocol passes through eight pipeline stages: ingest, lint, regression, docs generation, frontmatter gate, snippet lint, test assets, and publish. Results come from `reports/acme-demo/multi_protocol_contract_report.json`.\n\n| Protocol | Contract source | Status | Stages passed | Notes |\n| --- | --- | --- | --- | --- |\n| REST | `api/openapi.yaml` (OpenAPI 3.0) | **PASS** | 8/8 | 14 endpoints validated |\n| GraphQL | `contracts/graphql.schema.graphql` | **PASS** | 8/8 | 3 operation types validated |\n| gRPC | `contracts/grpc/acme.proto` (Proto3) | **PASS** | 8/8 | 3 RPC methods validated |\n| AsyncAPI | `contracts/asyncapi.yaml` (v2.6.0) | **PASS** | 8/8 | 3 channels validated |\n| WebSocket | `contracts/websocket.yaml` | **PASS** | 8/8 | 3 channels validated |\n\n## Quality checks enforced\n\nThe pipeline runs 24 automated checks on every documentation page. These are the same checks described in `scripts/seo_geo_optimizer.py`."
+    },
+    {
+      "module_id": "auto-evidence-3",
+      "title": "Quality evidence and gate results (Part 3)",
+      "priority": 60,
+      "intent": "integrate",
+      "audience": "operator",
+      "channel": "assistant",
+      "content": "Use this module when answering questions related to: Quality evidence and gate results (Part 3). Source path: demo-showcase/acme/docs/quality/evidence.md. Summary: Complete quality evidence from the VeriDoc pipeline for VeriOps docs, covering KPI metrics, protocol gates, 24 automated checks, and RAG readiness.\n\n### GEO checks (8 checks -- LLM and AI search optimization)\n\n| Check ID | Rule | Severity | Threshold | Purpose |\n| --- | --- | --- | --- | --- |\n| GEO-1 | Meta description present | Error | Must exist | Ensures every page has a description for search snippets |\n| GEO-1b | Meta description minimum length | Warning | 50 characters | Prevents truncated search snippets |\n| GEO-1c | Meta description maximum length | Warning | 160 characters | Prevents overflow in search results |\n| GEO-2 | First paragraph length | Warning | 60 words max | Ensures concise opening for LLM extraction |\n| GEO-3 | First paragraph definition | Suggestion | Contains definition verb | Helps LLMs identify what the page is about |\n| GEO-4 | Heading specificity | Warning | No generic headings | Prevents vague headings like \"Overview\" or \"Setup\" |\n| GEO-5 | Heading hierarchy | Error | No skipped levels | Ensures proper H2-H3-H4 nesting |\n| GEO-6 | Fact density | Warning | 1 fact per 200 words | Keeps content information-rich |"
+    },
+    {
+      "module_id": "auto-evidence-4",
+      "title": "Quality evidence and gate results (Part 4)",
+      "priority": 60,
+      "intent": "integrate",
+      "audience": "operator",
+      "channel": "assistant",
+      "content": "Use this module when answering questions related to: Quality evidence and gate results (Part 4). Source path: demo-showcase/acme/docs/quality/evidence.md. Summary: Complete quality evidence from the VeriDoc pipeline for VeriOps docs, covering KPI metrics, protocol gates, 24 automated checks, and RAG readiness.\n\n### SEO checks (14 checks -- search engine optimization)\n\nThis auto-generated knowledge chunk was expanded to satisfy minimum retrieval module length for stable indexing."
+    },
+    {
+      "module_id": "auto-evidence-5",
+      "title": "Quality evidence and gate results (Part 5)",
+      "priority": 60,
+      "intent": "integrate",
+      "audience": "operator",
+      "channel": "assistant",
+      "content": "Use this module when answering questions related to: Quality evidence and gate results (Part 5). Source path: demo-showcase/acme/docs/quality/evidence.md. Summary: Complete quality evidence from the VeriDoc pipeline for VeriOps docs, covering KPI metrics, protocol gates, 24 automated checks, and RAG readiness.\n\n| Check ID | Rule | Severity | Threshold | Purpose |\n| --- | --- | --- | --- | --- |\n| SEO-01 | Title length | Error/Warning | 10-70 characters | Optimal title display in search results |\n| SEO-02 | Title keyword match | Suggestion | 50% overlap | Aligns title with filename keywords |\n| SEO-03 | URL depth | Warning | Max 4 levels | Prevents deep URLs that search engines deprioritize |\n| SEO-04 | URL naming | Warning | Kebab-case | Consistent, readable URL structure |\n| SEO-05 | Image alt text | Warning | 100% coverage | Accessibility and image search visibility |\n| SEO-06 | Internal links | Suggestion | Min 1 link | Cross-references improve crawlability |\n| SEO-07 | Bare URLs | Warning | Zero bare URLs | Requires descriptive link text |\n| SEO-08 | Path characters | Warning | Alphanumeric + hyphens | Prevents encoding issues in URLs |\n| SEO-09 | Line length | Warning | Max 120 characters | Mobile readability |\n| SEO-10 | Heading keywords | Suggestion | Shared with title | Signals relevance to search engines |\n| SEO-11 | Freshness signal | Suggestion | Date in frontmatter | Indicates content currency |\n| SEO-12 | Content depth | Warning | Min 100 words | Prevents thin content penalties |\n| SEO-13 | Duplicate headings | Warning | Zero duplicates | Unique headings for anchor links |\n| SEO-14 | Structured data | Suggestion | Min 1 element | Tables, code blocks, or lists |"
+    },
+    {
+      "module_id": "auto-evidence-6",
+      "title": "Quality evidence and gate results (Part 6)",
+      "priority": 60,
+      "intent": "integrate",
+      "audience": "operator",
+      "channel": "assistant",
+      "content": "Use this module when answering questions related to: Quality evidence and gate results (Part 6). Source path: demo-showcase/acme/docs/quality/evidence.md. Summary: Complete quality evidence from the VeriDoc pipeline for VeriOps docs, covering KPI metrics, protocol gates, 24 automated checks, and RAG readiness.\n\n### Style checks (automated)\n\n<!-- vale AmericanEnglish.Spelling = NO -->\n<!-- vale proselint.Spelling = NO -->\n\n| Rule | Enforced by | Description |\n| --- | --- | --- |\n| American English | Vale + AmericanEnglish | Use \"color\" instead of British \"colour\" and \"optimize\" instead of \"optimise\" |\n\n<!-- vale AmericanEnglish.Spelling = YES -->\n<!-- vale proselint.Spelling = YES -->\n| Active voice | Vale + write-good | \"Configure the webhook\" not \"The webhook should be configured\" |\n| No weasel words | Vale + write-good | No \"simple,\" \"easy,\" \"just,\" \"many,\" \"various\" |\n| No contractions | Vale + Google style | \"do not\" not \"don't,\" \"cannot\" not \"can't\" |\n| Second person | Vale + Google style | \"you\" not \"the user\" or \"one\" |\n| Present tense | Vale + Google style | \"sends\" not \"will send\" for current features |"
+    },
+    {
+      "module_id": "auto-evidence-7",
+      "title": "Quality evidence and gate results (Part 7)",
+      "priority": 60,
+      "intent": "integrate",
+      "audience": "operator",
+      "channel": "assistant",
+      "content": "Use this module when answering questions related to: Quality evidence and gate results (Part 7). Source path: demo-showcase/acme/docs/quality/evidence.md. Summary: Complete quality evidence from the VeriDoc pipeline for VeriOps docs, covering KPI metrics, protocol gates, 24 automated checks, and RAG readiness.\n\n## RAG retrieval pipeline\n\nThe pipeline generates a knowledge retrieval index that powers AI-driven search and support agents. Results come from `reports/acme-demo/knowledge_graph_report.json` and `reports/acme-demo/retrieval_evals_report.json`.\n\n| Metric | Value | Target | Status |\n| --- | --- | --- | --- |\n| Knowledge graph nodes | **1,272** | -- | Topics, entities, and concepts extracted |\n| Knowledge graph edges | **1,089** | -- | Relationships between nodes |\n| Knowledge modules | **167** | -- | Auto-extracted topic chunks |\n| Retrieval precision | **0.2** | 0.7 | Baseline (token-overlap scorer) |\n| Retrieval recall | **0.6** | 0.8 | Baseline (token-overlap scorer) |\n| Hallucination rate | **0.0** | 0.1 | Pass (all retrieved docs exist in corpus) |\n| Evaluation status | **Baseline** | Pass | Token scorer; advanced pipeline available |"
+    },
+    {
+      "module_id": "auto-evidence-8",
+      "title": "Quality evidence and gate results (Part 8)",
+      "priority": 60,
+      "intent": "integrate",
+      "audience": "operator",
+      "channel": "assistant",
+      "content": "Use this module when answering questions related to: Quality evidence and gate results (Part 8). Source path: demo-showcase/acme/docs/quality/evidence.md. Summary: Complete quality evidence from the VeriDoc pipeline for VeriOps docs, covering KPI metrics, protocol gates, 24 automated checks, and RAG readiness.\n\n### Advanced retrieval features (enabled by default)\n\nSix advanced features are available to improve retrieval quality beyond the token-overlap baseline:\n\n| Feature | Description | Expected impact |\n| --- | --- | --- |\n| Token-aware chunking | Splits modules into 750-token chunks with 100-token overlap (`cl100k_base`) | Improves recall for long documents |\n| Hybrid search (RRF) | Fuses semantic (FAISS) and token-overlap rankings with Reciprocal Rank Fusion (k=60) | Higher recall for mixed queries |\n| HyDE query expansion | Generates hypothetical doc passage via `gpt-4.1-mini` before embedding | Better retrieval for vague queries |\n| Cross-encoder reranking | Rescores top 20 candidates with `cross-encoder/ms-marco-MiniLM-L-6-v2` | Higher precision in top-N |\n| Embedding cache | In-memory LRU cache (TTL: 3,600 seconds, max: 512 entries) for query embeddings | Reduced latency and API costs |\n| Multi-mode evaluation | Compares token, semantic, hybrid, and hybrid+rerank modes across 50 curated queries | Data-driven mode selection |\n\nRun a full retrieval comparison across all four modes:\n\n```bash\npython3 scripts/run_retrieval_evals.py \\\n  --mode all \\\n  --dataset config/retrieval_eval_dataset.yml \\\n  --report reports/retrieval_comparison.json\n```\n\n<!-- requires: OPENAI_API_KEY, faiss-cpu, sentence-transformers -->"
+    },
+    {
+      "module_id": "auto-evidence-9",
+      "title": "Quality evidence and gate results (Part 9)",
+      "priority": 60,
+      "intent": "integrate",
+      "audience": "operator",
+      "channel": "assistant",
+      "content": "Use this module when answering questions related to: Quality evidence and gate results (Part 9). Source path: demo-showcase/acme/docs/quality/evidence.md. Summary: Complete quality evidence from the VeriDoc pipeline for VeriOps docs, covering KPI metrics, protocol gates, 24 automated checks, and RAG readiness.\n\n### Quality score formula\n\nQuality score measures documentation health and is independent of RAG retrieval metrics:\n\n`score = 100 - metadata_penalty - stale_penalty - gap_penalty`\n\n- **metadata_penalty**: deduction for missing or invalid frontmatter fields\n- **stale_penalty**: deduction for pages not reviewed within the freshness window\n- **gap_penalty**: deduction for documented gaps in coverage\n\n!!! info \"Baseline retrieval metrics\"\n    Retrieval precision (0.2) and recall (0.6) reflect the token-overlap baseline scorer, which runs without external dependencies.\n    Production deployments enable hybrid search with FAISS embeddings, HyDE query expansion, and cross-encoder reranking for significantly higher precision and recall.\n    Run `--mode all` to compare all four search strategies and select the optimal mode for your deployment."
+    },
+    {
+      "module_id": "auto-graphql-api-1",
+      "title": "GRAPHQL API Reference",
+      "priority": 60,
+      "intent": "integrate",
+      "audience": "operator",
+      "channel": "assistant",
+      "content": "Use this module when answering questions related to: GRAPHQL API Reference. Source path: demo-showcase/acme/docs/assets/protocols/graphql/graphql-api.md. Summary: Auto-generated graphql reference from source contract.\n\n# GRAPHQL Reference\n\nSource: `reports/acme-demo/contracts/graphql.schema.graphql`\n\nFlow mode: `api-first`\n\n## Operations\n\n- Query count: `2`\n- Mutation count: `1`\n- Subscription count: `1`\n- Queries: `health`, `project`\n- Mutations: `createProject`\n- Subscriptions: `projectUpdated`"
+    },
+    {
+      "module_id": "auto-graphql-api-2",
+      "title": "GRAPHQL API Reference (Part 2)",
+      "priority": 60,
+      "intent": "integrate",
+      "audience": "operator",
+      "channel": "assistant",
+      "content": "Use this module when answering questions related to: GRAPHQL API Reference (Part 2). Source path: demo-showcase/acme/docs/assets/protocols/graphql/graphql-api.md. Summary: Auto-generated graphql reference from source contract.\n\n## Interactive GraphQL Playground\n\n<div id=\"graphql-playground\" style=\"border:1px solid #d1d5db; padding:12px; border-radius:8px;\">\n  <p><strong>Endpoint:</strong> <code id=\"graphql-endpoint-view\"></code></p>\n  <textarea id=\"graphql-query\" rows=\"12\" style=\"width:100%; font-family:monospace;\">query HealthCheck {\n  __typename\n}</textarea>\n  <br/>\n  <button id=\"graphql-run\">Run Query</button>\n  <pre id=\"graphql-output\" style=\"margin-top:12px; max-height:320px; overflow:auto;\"></pre>\n</div>\n<script>\n(function(){ const endpoint = \"\";\nconst view = document.getElementById('graphql-endpoint-view');\nconst run = document.getElementById('graphql-run');\nconst query = document.getElementById('graphql-query');\nconst out = document.getElementById('graphql-output');\nif (!view || !run || !query || !out) return;\nview.textContent = endpoint || 'not configured';\nrun.onclick = async function(){\n  if (!endpoint) { out.textContent = 'Endpoint is not configured in runtime.api_protocol_settings.graphql.graphql_endpoint'; return; }\n  out.textContent = 'Loading...';\n  try {\n    const response = await fetch(endpoint, { method:'POST', headers:{'content-type':'application/json'}, body: JSON.stringify({ query: query.value }) });\n    const text = await response.text();\n    out.textContent = text;\n  } catch (error) { out.textContent = String(error); }\n};\n})();\n</script>"
+    },
+    {
+      "module_id": "auto-graphql-api-3",
+      "title": "GRAPHQL API Reference (Part 3)",
+      "priority": 60,
+      "intent": "integrate",
+      "audience": "operator",
+      "channel": "assistant",
+      "content": "Use this module when answering questions related to: GRAPHQL API Reference (Part 3). Source path: demo-showcase/acme/docs/assets/protocols/graphql/graphql-api.md. Summary: Auto-generated graphql reference from source contract.\n\n## Next steps\n\n- [Documentation index](../../../index.md)\n\nThis auto-generated knowledge chunk was expanded to satisfy minimum retrieval module length for stable indexing."
+    },
+    {
+      "module_id": "auto-graphql-playground-1",
+      "title": "GraphQL playground",
+      "priority": 60,
+      "intent": "integrate",
+      "audience": "operator",
+      "channel": "assistant",
+      "content": "Use this module when answering questions related to: GraphQL playground. Source path: demo-showcase/acme/docs/reference/graphql-playground.md. Summary: Interactive GraphQL playground for VeriOps API with schema explorer, live query editor, subscription support, and advanced RAG retrieval pipeline.\n\n# GraphQL playground\n\n<div class=\"veriops-badges\" markdown>\n\n![Powered by VeriOps](https://img.shields.io/badge/Powered%20by-VeriOps-7c3aed?style=flat-square)\n![Quality Score](https://img.shields.io/badge/Quality%20Score-100%25-10b981?style=flat-square)\n![Protocols](https://img.shields.io/badge/Protocols-5-7c3aed?style=flat-square)\n\n</div>\n\nThe VeriOps GraphQL API provides a single endpoint for flexible queries across projects, tasks, and users. This page documents the full schema, provides a live query editor, covers authentication, error handling, performance limits, and the advanced RAG retrieval pipeline that powers AI-driven search across GraphQL documentation.\n\n## Endpoint and authentication\n\n| Setting | Value |\n| --- | --- |\n| Endpoint | [`https://api.veriops.example/graphql`](https://api.veriops.example/graphql) |\n| Method | POST |\n| Authentication | Bearer token in `Authorization` header |\n| Content type | `application/json` |\n| Max query depth | 10 levels |\n| Max query complexity | 500 points |\n| Rate limit | 60 requests per minute |\n| Introspection | Enabled in development, disabled in production |\n\n## Schema overview\n\nThe VeriOps GraphQL schema exposes three operation types and one core object type:"
+    },
+    {
+      "module_id": "auto-graphql-playground-2",
+      "title": "GraphQL playground (Part 2)",
+      "priority": 60,
+      "intent": "integrate",
+      "audience": "operator",
+      "channel": "assistant",
+      "content": "Use this module when answering questions related to: GraphQL playground (Part 2). Source path: demo-showcase/acme/docs/reference/graphql-playground.md. Summary: Interactive GraphQL playground for VeriOps API with schema explorer, live query editor, subscription support, and advanced RAG retrieval pipeline.\n\n### Query type\n\n| Field | Arguments | Return type | Description |\n| --- | --- | --- | --- |\n| `health` | -- | `Health!` | Returns API health status, version, and uptime |\n| `project` | `id: ID!` | `Project` | Fetch a single project by ID |\n| `projects` | `status: String`, `limit: Int` | `[Project!]!` | List projects with optional status filter |\n\n### Mutation type\n\n| Field | Arguments | Return type | Description |\n| --- | --- | --- | --- |\n| `createProject` | `name: String!`, `status: String` | `Project!` | Create a new project resource |\n| `updateProject` | `id: ID!`, `name: String`, `status: String` | `Project!` | Update an existing project |\n\n### Subscription type\n\n| Field | Arguments | Return type | Description |\n| --- | --- | --- | --- |\n| `projectUpdated` | `projectId: ID` | `Project!` | Real-time stream of project changes |\n\n### Project type\n\n| Field | Type | Description |\n| --- | --- | --- |\n| `id` | `ID!` | Unique project identifier (format: `prj_*`) |\n| `name` | `String!` | Project name (3-100 characters) |\n| `status` | `String!` | Current status: `draft`, `active`, `archived` |\n| `createdAt` | `DateTime` | ISO 8601 creation timestamp |\n| `updatedAt` | `DateTime` | ISO 8601 last update timestamp |"
+    },
+    {
+      "module_id": "auto-graphql-playground-3",
+      "title": "GraphQL playground (Part 3)",
+      "priority": 60,
+      "intent": "integrate",
+      "audience": "operator",
+      "channel": "assistant",
+      "content": "Use this module when answering questions related to: GraphQL playground (Part 3). Source path: demo-showcase/acme/docs/reference/graphql-playground.md. Summary: Interactive GraphQL playground for VeriOps API with schema explorer, live query editor, subscription support, and advanced RAG retrieval pipeline.\n\n## Quick start: query a project\n\n```graphql\nquery GetProject {\n  project(id: \"prj_abc123\") {\n    id\n    name\n    status\n    createdAt\n    updatedAt\n  }\n}\n```\n\nSend this query with curl:\n\n```bash\ncurl -X POST https://api.veriops.example/graphql \\\n  -H \"Authorization: Bearer YOUR_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\n    \"query\": \"query GetProject { project(id: \\\"prj_abc123\\\") { id name status } }\"\n  }'\n```\n\n<!-- requires: api-key -->\n\n**Example response:**\n\n```json\n{\n  \"data\": {\n    \"project\": {\n      \"id\": \"prj_abc123\",\n      \"name\": \"Website Redesign\",\n      \"status\": \"active\"\n    }\n  }\n}\n```\n\n## Query examples\n\n### Check API health\n\n```graphql\nquery Health {\n  health {\n    status\n    version\n    uptime_seconds\n  }\n}\n```\n\n### List active projects\n\n```graphql\nquery ActiveProjects {\n  projects(status: \"active\", limit: 10) {\n    id\n    name\n    status\n    createdAt\n  }\n}\n```\n\n### Create a project (mutation)\n\n```graphql\nmutation CreateProject {\n  createProject(name: \"Mobile App Launch\", status: \"active\") {\n    id\n    name\n    status\n    createdAt\n  }\n}\n```\n\n### Subscribe to project updates\n\n```graphql\nsubscription WatchProject {\n  projectUpdated(projectId: \"prj_abc123\") {\n    id\n    name\n    status\n    updatedAt\n  }\n}\n```\n\nSubscriptions require a WebSocket connection to `wss://api.veriops.example/graphql/ws`."
+    },
+    {
+      "module_id": "auto-graphql-playground-4",
+      "title": "GraphQL playground (Part 4)",
+      "priority": 60,
+      "intent": "integrate",
+      "audience": "operator",
+      "channel": "assistant",
+      "content": "Use this module when answering questions related to: GraphQL playground (Part 4). Source path: demo-showcase/acme/docs/reference/graphql-playground.md. Summary: Interactive GraphQL playground for VeriOps API with schema explorer, live query editor, subscription support, and advanced RAG retrieval pipeline.\n\n## Live query editor\n\nEnter a GraphQL query and click **Run query** to execute it against the Postman mock sandbox.\n\n!!! info \"Sandbox mode\"\n    Queries route to the Postman mock server at\n    [`https://662b99a9-ac2a-4096-8a8e-480a73cef3e3.mock.pstmn.io/graphql`](https://662b99a9-ac2a-4096-8a8e-480a73cef3e3.mock.pstmn.io/graphql).\n    No API key is required for sandbox requests.\n\n<div style=\"border:1px solid #dbe2ea;border-radius:10px;padding:16px;background:#f8f9fa\">\n<label><strong>GraphQL query:</strong></label>\n<textarea id=\"gql-q\" rows=\"10\" style=\"width:100%;font-family:monospace;padding:12px;border:1px solid #ccc;border-radius:8px;font-size:14px;margin:4px 0 8px;\">query Health {\n  health {\n    status\n    version\n    uptime_seconds\n  }\n}</textarea>\n<button id=\"gql-run\" style=\"margin:8px 0;padding:8px 24px;background:#1a73e8;color:#fff;border:none;border-radius:6px;cursor:pointer;font-size:14px\">Run query</button>\n<pre id=\"gql-out\" style=\"max-height:320px;overflow:auto;border:1px solid #dbe2ea;padding:12px;border-radius:10px;background:#fff;margin-top:8px;\"></pre>\n</div>\n\n<script>\n/* Sandbox onclick is set by acme-sandbox.js with local mock responses */\n</script>"
+    },
+    {
+      "module_id": "auto-graphql-playground-5",
+      "title": "GraphQL playground (Part 5)",
+      "priority": 60,
+      "intent": "integrate",
+      "audience": "operator",
+      "channel": "assistant",
+      "content": "Use this module when answering questions related to: GraphQL playground (Part 5). Source path: demo-showcase/acme/docs/reference/graphql-playground.md. Summary: Interactive GraphQL playground for VeriOps API with schema explorer, live query editor, subscription support, and advanced RAG retrieval pipeline.\n\n## Advanced RAG retrieval pipeline\n\nThe pipeline uses six advanced retrieval features to power AI-driven search across GraphQL and all five protocol documentation sets. These features are enabled by default in `config/ask-ai.yml`.\n\n### Token-aware chunking\n\nThe pipeline splits long documentation modules into overlapping chunks of 750 tokens each (100-token overlap) using the `cl100k_base` tokenizer. This matches the `text-embedding-3-small` embedding model tokenization. Short modules that fit within the token limit remain as single chunks.\n\n| Parameter | Default | Description |\n| --- | --- | --- |\n| `chunking.max_tokens` | 750 | Maximum tokens per chunk |\n| `chunking.overlap_tokens` | 100 | Overlap between consecutive chunks |\n| Tokenizer | `cl100k_base` | Matches OpenAI embedding models |\n\n### Hybrid search with Reciprocal Rank Fusion\n\nThe retrieval pipeline combines two search strategies using Reciprocal Rank Fusion (RRF, k=60):\n\n1. **Semantic search** queries the FAISS vector index with cosine similarity over `text-embedding-3-small` embeddings\n1. **Token-overlap search** scores modules by keyword overlap between query and document text\n\nRRF merges both rankings into a single fused list. This improves recall for queries that combine specific terminology (matched by tokens) with conceptual intent (matched by embeddings)."
+    },
+    {
+      "module_id": "auto-graphql-playground-6",
+      "title": "GraphQL playground (Part 6)",
+      "priority": 60,
+      "intent": "integrate",
+      "audience": "operator",
+      "channel": "assistant",
+      "content": "Use this module when answering questions related to: GraphQL playground (Part 6). Source path: demo-showcase/acme/docs/reference/graphql-playground.md. Summary: Interactive GraphQL playground for VeriOps API with schema explorer, live query editor, subscription support, and advanced RAG retrieval pipeline.\n\n### HyDE query expansion\n\nWhen HyDE is enabled, the pipeline generates a hypothetical documentation passage using `gpt-4.1-mini` (temperature 0.0, max 300 tokens) before embedding the query. The generated passage captures domain-specific vocabulary that the raw user question may lack. The pipeline embeds this hypothetical document instead of the raw query, which improves retrieval for vague or high-level questions.\n\n### Cross-encoder reranking\n\nAfter initial retrieval returns 20 candidates, a cross-encoder model (`cross-encoder/ms-marco-MiniLM-L-6-v2`) reranks them by scoring (query, document) pairs. The reranker uses the concatenation of each candidate's title, summary, and assistant excerpt. This reduces false positives and surfaces the most relevant modules for the final top-N context window.\n\n### Embedding cache\n\nAn in-memory LRU cache stores embedding vectors with a 3,600-second TTL and a maximum of 512 entries. Repeated queries skip the OpenAI embedding API call entirely, reducing latency and API costs. The cache evicts the oldest entry when full."
+    },
+    {
+      "module_id": "auto-graphql-playground-7",
+      "title": "GraphQL playground (Part 7)",
+      "priority": 60,
+      "intent": "integrate",
+      "audience": "operator",
+      "channel": "assistant",
+      "content": "Use this module when answering questions related to: GraphQL playground (Part 7). Source path: demo-showcase/acme/docs/reference/graphql-playground.md. Summary: Interactive GraphQL playground for VeriOps API with schema explorer, live query editor, subscription support, and advanced RAG retrieval pipeline.\n\n### Multi-mode retrieval evaluation\n\nThe `run_retrieval_evals.py` script supports four search modes for comparison:\n\n| Mode | Strategy | Use case |\n| --- | --- | --- |\n| `token` | Token-overlap scoring | Baseline, no API key required |\n| `semantic` | FAISS cosine similarity | Embedding-based retrieval |\n| `hybrid` | RRF fusion of token + semantic | Best recall for mixed queries |\n| `hybrid+rerank` | Hybrid + cross-encoder reranking | Highest precision for production |\n\nRun a full comparison:\n\n```bash\npython3 scripts/run_retrieval_evals.py \\\n  --mode all \\\n  --use-embeddings \\\n  --dataset config/retrieval_eval_dataset.yml \\\n  --report reports/retrieval_comparison.json\n```\n\n<!-- requires: OPENAI_API_KEY, faiss-cpu, sentence-transformers -->\n\n## Error handling\n\nGraphQL errors appear in the `errors` array alongside partial `data`:\n\n```json\n{\n  \"data\": null,\n  \"errors\": [\n    {\n      \"message\": \"Project not found\",\n      \"locations\": [{\"line\": 2, \"column\": 3}],\n      \"path\": [\"project\"],\n      \"extensions\": {\n        \"code\": \"NOT_FOUND\",\n        \"timestamp\": \"2026-03-20T14:30:00Z\"\n      }\n    }\n  ]\n}\n```"
+    },
+    {
+      "module_id": "auto-graphql-playground-8",
+      "title": "GraphQL playground (Part 8)",
+      "priority": 60,
+      "intent": "integrate",
+      "audience": "operator",
+      "channel": "assistant",
+      "content": "Use this module when answering questions related to: GraphQL playground (Part 8). Source path: demo-showcase/acme/docs/reference/graphql-playground.md. Summary: Interactive GraphQL playground for VeriOps API with schema explorer, live query editor, subscription support, and advanced RAG retrieval pipeline.\n\n### Error codes\n\n| Code | HTTP equivalent | Meaning | Resolution |\n| --- | --- | --- | --- |\n| `UNAUTHENTICATED` | 401 | Missing or invalid bearer token | Provide a valid `Authorization: Bearer` header |\n| `FORBIDDEN` | 403 | Token valid but lacks required scope | Request the `graphql:read` or `graphql:write` scope |\n| `NOT_FOUND` | 404 | Requested resource does not exist | Verify the resource ID |\n| `QUERY_TOO_COMPLEX` | 400 | Query exceeds 500 complexity points | Reduce nesting depth or remove unnecessary fields |\n| `QUERY_TOO_DEEP` | 400 | Query exceeds 10 levels of nesting | Flatten the query or use separate requests |\n| `RATE_LIMITED` | 429 | Exceeded 60 requests per minute | Implement request throttling on the client |\n| `INTERNAL_ERROR` | 500 | Server error | Retry with exponential backoff (max 3 attempts) |\n\n## Performance limits\n\n| Limit | Value | Notes |\n| --- | --- | --- |\n| Max query depth | 10 levels | Nested field resolution depth |\n| Max complexity | 500 points | Each field costs 1 point, lists cost 10 points |\n| Max query size | 10 KB | Request body size limit |\n| Timeout | 30 seconds | Per-query execution timeout |\n| Batch queries | Up to 5 | Multiple queries in one request |"
+    },
+    {
+      "module_id": "auto-graphql-playground-9",
+      "title": "GraphQL playground (Part 9)",
+      "priority": 60,
+      "intent": "integrate",
+      "audience": "operator",
+      "channel": "assistant",
+      "content": "Use this module when answering questions related to: GraphQL playground (Part 9). Source path: demo-showcase/acme/docs/reference/graphql-playground.md. Summary: Interactive GraphQL playground for VeriOps API with schema explorer, live query editor, subscription support, and advanced RAG retrieval pipeline.\n\n## Next steps\n\n- [REST API reference](rest-api.md) for standard CRUD operations\n- [gRPC gateway invoke](grpc-gateway.md) for high-performance Remote Procedure Calls\n- [AsyncAPI event docs](asyncapi-events.md) for event-driven channels\n- [WebSocket event playground](websocket-events.md) for bidirectional real-time messaging\n- [Tutorial: launch your first integration](../guides/tutorial.md) to use GraphQL in practice"
+    },
+    {
+      "module_id": "auto-grpc-gateway-1",
+      "title": "gRPC gateway invoke",
+      "priority": 60,
+      "intent": "integrate",
+      "audience": "operator",
+      "channel": "assistant",
+      "content": "Use this module when answering questions related to: gRPC gateway invoke. Source path: demo-showcase/acme/docs/reference/grpc-gateway.md. Summary: Invoke VeriOps gRPC services through the HTTP gateway with service catalog, proto definitions, and interactive request testing.\n\n# gRPC gateway invoke\n\n<div class=\"veriops-badges\" markdown>\n\n![Powered by VeriOps](https://img.shields.io/badge/Powered%20by-VeriOps-7c3aed?style=flat-square)\n![Quality Score](https://img.shields.io/badge/Quality%20Score-100%25-10b981?style=flat-square)\n![Protocols](https://img.shields.io/badge/Protocols-5-7c3aed?style=flat-square)\n\n</div>\n\nThe VeriOps gRPC API provides high-performance Remote Procedure Call (RPC) access to project services over HTTP/2 with Protocol Buffers serialization. The HTTP gateway adapter allows you to invoke gRPC methods from any HTTP client without a gRPC library.\n\n!!! note \"Sandbox mode\"\n    Interactive requests route to the Postman mock server. No gRPC tooling required.\n    In production, the pipeline validates proto definitions against the `protoc` compiler automatically.\n\n## Connection details\n\n| Setting | Value |\n| --- | --- |\n| gRPC endpoint | `grpc.veriops.example:443` |\n| HTTP gateway | [`https://api.veriops.example/grpc/invoke`](https://api.veriops.example/grpc/invoke) |\n| Transport | HTTP/2 with TLS 1.3 |\n| Serialization | Protocol Buffers (proto3) |\n| Package | `veriops.v1` |\n| Proto file | `veriops.proto` |\n| Default deadline | 30 seconds |\n| Max message size | 4 MB |\n| Authentication | Bearer token in `Authorization` metadata |"
+    },
+    {
+      "module_id": "auto-grpc-gateway-2",
+      "title": "gRPC gateway invoke (Part 2)",
+      "priority": 60,
+      "intent": "integrate",
+      "audience": "operator",
+      "channel": "assistant",
+      "content": "Use this module when answering questions related to: gRPC gateway invoke (Part 2). Source path: demo-showcase/acme/docs/reference/grpc-gateway.md. Summary: Invoke VeriOps gRPC services through the HTTP gateway with service catalog, proto definitions, and interactive request testing.\n\n## Service catalog\n\nThe `veriops.v1` package exposes one service with three RPC methods:\n\n| Service | Method | Type | Request | Response | Description |\n| --- | --- | --- | --- | --- | --- |\n| `ProjectService` | `GetProject` | Unary | `GetProjectRequest` | `GetProjectResponse` | Retrieve a project by ID |\n| `ProjectService` | `ListProjects` | Server streaming | `ListProjectsRequest` | `stream Project` | Stream project list with pagination |\n| `ProjectService` | `CreateProject` | Unary | `CreateProjectRequest` | `Project` | Create a new project resource |"
+    },
+    {
+      "module_id": "auto-grpc-gateway-3",
+      "title": "gRPC gateway invoke (Part 3)",
+      "priority": 60,
+      "intent": "integrate",
+      "audience": "operator",
+      "channel": "assistant",
+      "content": "Use this module when answering questions related to: gRPC gateway invoke (Part 3). Source path: demo-showcase/acme/docs/reference/grpc-gateway.md. Summary: Invoke VeriOps gRPC services through the HTTP gateway with service catalog, proto definitions, and interactive request testing.\n\n## Proto definition\n\n```protobuf\nsyntax = \"proto3\";\n\npackage veriops.v1;\n\nservice ProjectService {\n  // Retrieve a single project by its unique identifier.\n  rpc GetProject(GetProjectRequest) returns (GetProjectResponse);\n\n  // Stream a paginated list of all projects.\n  rpc ListProjects(ListProjectsRequest) returns (stream Project);\n\n  // Create a new project resource with the given name and status.\n  rpc CreateProject(CreateProjectRequest) returns (Project);\n}\n\nmessage GetProjectRequest {\n  string project_id = 1;  // Required. Format: prj_*\n}\n\nmessage GetProjectResponse {\n  string id = 1;\n  string name = 2;\n  string status = 3;      // draft, active, archived\n}\n\nmessage ListProjectsRequest {\n  int32 page_size = 1;    // Max 100, default 25\n  string page_token = 2;  // Token from previous response\n}\n\nmessage CreateProjectRequest {\n  string name = 1;        // Required. 3-100 characters.\n  string status = 2;      // Optional. Default: draft\n}\n\nmessage Project {\n  string id = 1;\n  string name = 2;\n  string status = 3;\n}\n```"
+    },
+    {
+      "module_id": "auto-grpc-gateway-4",
+      "title": "gRPC gateway invoke (Part 4)",
+      "priority": 60,
+      "intent": "integrate",
+      "audience": "operator",
+      "channel": "assistant",
+      "content": "Use this module when answering questions related to: gRPC gateway invoke (Part 4). Source path: demo-showcase/acme/docs/reference/grpc-gateway.md. Summary: Invoke VeriOps gRPC services through the HTTP gateway with service catalog, proto definitions, and interactive request testing.\n\n## Quick start: get a project via HTTP gateway\n\nThe HTTP gateway translates JSON requests into gRPC calls. You do not need a gRPC client library.\n\n```bash\ncurl -X POST https://api.veriops.example/grpc/invoke \\\n  -H \"Authorization: Bearer YOUR_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\n    \"service\": \"veriops.v1.ProjectService\",\n    \"method\": \"GetProject\",\n    \"payload\": {\"project_id\": \"prj_abc123\"}\n  }'\n```\n\n<!-- requires: api-key -->\n\n**Expected response (HTTP 200):**\n\n```json\n{\n  \"id\": \"prj_abc123\",\n  \"name\": \"Website Redesign\",\n  \"status\": \"active\"\n}\n```\n\n## Quick start: get a project via grpcurl\n\nUse `grpcurl` for direct gRPC access without the HTTP gateway:\n\n```bash\ngrpcurl -d '{\"project_id\": \"prj_abc123\"}' \\\n  -H \"Authorization: Bearer YOUR_API_KEY\" \\\n  grpc.veriops.example:443 veriops.v1.ProjectService/GetProject\n```\n\n<!-- requires: api-key, grpcurl -->\n\n## Quick start: create a project\n\n```bash\ncurl -X POST https://api.veriops.example/grpc/invoke \\\n  -H \"Authorization: Bearer YOUR_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\n    \"service\": \"veriops.v1.ProjectService\",\n    \"method\": \"CreateProject\",\n    \"payload\": {\"name\": \"Mobile App Launch\", \"status\": \"active\"}\n  }'\n```\n\n<!-- requires: api-key -->\n\n**Expected response (HTTP 200):**\n\n```json\n{\n  \"id\": \"prj_def456\",\n  \"name\": \"Mobile App Launch\",\n  \"status\": \"active\"\n}\n```"
+    },
+    {
+      "module_id": "auto-grpc-gateway-5",
+      "title": "gRPC gateway invoke (Part 5)",
+      "priority": 60,
+      "intent": "integrate",
+      "audience": "operator",
+      "channel": "assistant",
+      "content": "Use this module when answering questions related to: gRPC gateway invoke (Part 5). Source path: demo-showcase/acme/docs/reference/grpc-gateway.md. Summary: Invoke VeriOps gRPC services through the HTTP gateway with service catalog, proto definitions, and interactive request testing.\n\n## Interactive gateway tester\n\nEnter a service, method, and JSON payload to invoke an RPC through the sandbox gateway.\n\n!!! info \"Sandbox mode\"\n    RPC calls route to the Postman mock server at\n    [`https://662b99a9-ac2a-4096-8a8e-480a73cef3e3.mock.pstmn.io/grpc/invoke`](https://662b99a9-ac2a-4096-8a8e-480a73cef3e3.mock.pstmn.io/grpc/invoke).\n    No API key is required for sandbox requests."
+    },
+    {
+      "module_id": "auto-grpc-gateway-6",
+      "title": "gRPC gateway invoke (Part 6)",
+      "priority": 60,
+      "intent": "integrate",
+      "audience": "operator",
+      "channel": "assistant",
+      "content": "Use this module when answering questions related to: gRPC gateway invoke (Part 6). Source path: demo-showcase/acme/docs/reference/grpc-gateway.md. Summary: Invoke VeriOps gRPC services through the HTTP gateway with service catalog, proto definitions, and interactive request testing.\n\n<div style=\"border:1px solid #dbe2ea;border-radius:10px;padding:16px;background:#f8f9fa\">\n<label><strong>Service:</strong></label>\n<input id=\"grpc-svc\" value=\"veriops.v1.ProjectService\" style=\"width:100%;padding:6px;margin:4px 0 8px;border:1px solid #ccc;border-radius:4px;font-family:monospace;\">\n<label><strong>Method:</strong></label>\n<input id=\"grpc-method\" value=\"GetProject\" style=\"width:100%;padding:6px;margin:4px 0 8px;border:1px solid #ccc;border-radius:4px;font-family:monospace;\">\n<label><strong>Payload (JSON):</strong></label>\n<textarea id=\"grpc-payload\" rows=\"4\" style=\"width:100%;font-family:monospace;padding:8px;border:1px solid #ccc;border-radius:4px;\">{\"project_id\": \"prj_abc123\"}</textarea>\n<button id=\"grpc-run\" style=\"margin:8px 0;padding:8px 24px;background:#1a73e8;color:#fff;border:none;border-radius:6px;cursor:pointer;font-size:14px;\">Invoke RPC</button>\n<pre id=\"grpc-out\" style=\"max-height:280px;overflow:auto;border:1px solid #dbe2ea;padding:12px;border-radius:8px;background:#fff;margin-top:8px;\"></pre>\n</div>\n\n<script>\n/* Sandbox onclick is set by acme-sandbox.js with local mock responses */\n</script>"
+    },
+    {
+      "module_id": "auto-grpc-gateway-7",
+      "title": "gRPC gateway invoke (Part 7)",
+      "priority": 60,
+      "intent": "integrate",
+      "audience": "operator",
+      "channel": "assistant",
+      "content": "Use this module when answering questions related to: gRPC gateway invoke (Part 7). Source path: demo-showcase/acme/docs/reference/grpc-gateway.md. Summary: Invoke VeriOps gRPC services through the HTTP gateway with service catalog, proto definitions, and interactive request testing.\n\n## Error handling and gRPC status codes\n\nThe HTTP gateway maps gRPC status codes to HTTP status codes:\n\n| gRPC status | HTTP status | Description | Resolution |\n| --- | --- | --- | --- |\n| `OK` (0) | 200 | Success | -- |\n| `INVALID_ARGUMENT` (3) | 400 | Malformed request or invalid field | Check the `payload` JSON matches the proto message |\n| `UNAUTHENTICATED` (16) | 401 | Missing or invalid bearer token | Provide a valid `Authorization` header |\n| `PERMISSION_DENIED` (7) | 403 | Token valid but lacks scope | Request `grpc:invoke` scope from admin |\n| `NOT_FOUND` (5) | 404 | Resource does not exist | Verify the project ID format (`prj_*`) |\n| `DEADLINE_EXCEEDED` (4) | 504 | RPC took longer than 30 seconds | Increase deadline or optimize the query |\n| `UNAVAILABLE` (14) | 503 | Service temporarily unavailable | Retry with exponential backoff (3 attempts, initial 1 second) |\n| `INTERNAL` (13) | 500 | Server error | Retry with exponential backoff |"
+    },
+    {
+      "module_id": "auto-grpc-gateway-8",
+      "title": "gRPC gateway invoke (Part 8)",
+      "priority": 60,
+      "intent": "integrate",
+      "audience": "operator",
+      "channel": "assistant",
+      "content": "Use this module when answering questions related to: gRPC gateway invoke (Part 8). Source path: demo-showcase/acme/docs/reference/grpc-gateway.md. Summary: Invoke VeriOps gRPC services through the HTTP gateway with service catalog, proto definitions, and interactive request testing.\n\n## Performance characteristics\n\n| Metric | HTTP gateway | Direct gRPC | Notes |\n| --- | --- | --- | --- |\n| Latency (P50) | 12 ms | 3 ms | Gateway adds JSON serialization overhead |\n| Latency (P99) | 45 ms | 15 ms | Direct gRPC uses binary protobuf |\n| Throughput | 2,000 req/s | 8,000 req/s | Per-connection limits |\n| Max concurrent streams | 100 | 1,000 | HTTP/2 stream multiplexing |\n| Max message size | 4 MB | 4 MB | Configurable per-service |\n\n## Next steps\n\n- [AsyncAPI event docs](asyncapi-events.md) for event-driven architecture patterns\n- [WebSocket event playground](websocket-events.md) for real-time bidirectional messaging\n- [REST API reference](rest-api.md) for standard HTTP CRUD operations"
+    },
+    {
+      "module_id": "auto-index-1",
+      "title": "VeriOps documentation",
+      "priority": 60,
+      "intent": "integrate",
+      "audience": "operator",
+      "channel": "assistant",
+      "content": "Use this module when answering questions related to: VeriOps documentation. Source path: demo-showcase/acme/docs/index.md. Summary: Pipeline-generated multi-protocol API documentation for VeriOps with KPI dashboard, interactive references, and automated quality gates.\n\n# VeriOps documentation\n\n<div class=\"veriops-badges\" markdown>\n\n![Powered by VeriOps](https://img.shields.io/badge/Powered%20by-VeriOps-7c3aed?style=flat-square)\n![Quality Score](https://img.shields.io/badge/Quality%20Score-100%25-10b981?style=flat-square)\n![Protocols](https://img.shields.io/badge/Protocols-5-7c3aed?style=flat-square)\n\n</div>\n\nThe VeriOps documentation site is a pipeline-generated showcase that provides interactive references for five API protocols, automated quality evidence, and a KPI dashboard updated on every pipeline run."
+    },
+    {
+      "module_id": "auto-index-2",
+      "title": "VeriOps documentation (Part 2)",
+      "priority": 60,
+      "intent": "integrate",
+      "audience": "operator",
+      "channel": "assistant",
+      "content": "Use this module when answering questions related to: VeriOps documentation (Part 2). Source path: demo-showcase/acme/docs/index.md. Summary: Pipeline-generated multi-protocol API documentation for VeriOps with KPI dashboard, interactive references, and automated quality gates.\n\n## KPI dashboard\n\nThe pipeline evaluates documentation health on every run. These metrics come from `reports/acme-demo/kpi-wall.json`, generated by the autopipeline on 2026-03-20.\n\n| Metric | Value | Target | Status |\n| --- | --- | --- | --- |\n| Quality score | **100%** | 80% | Excellent |\n| Total documents | **12** | -- | Indexed across all protocols |\n| Stale pages | **0** | 0 | No stale pages |\n| Documentation gaps | **0** | 0 | No active gaps |\n| Metadata completeness | **100%** | 100% | All frontmatter fields present |\n\nQuality score measures documentation health: metadata completeness, content freshness, and documentation gap coverage. It is independent of RAG retrieval metrics. Formula: `score = 100 - metadata_penalty - stale_penalty - gap_penalty`.\n\n| Protocol drift failures | **0** | 0 | All contracts valid |\n| Knowledge graph nodes | **1,272** | -- | RAG retrieval index |\n| Knowledge graph edges | **1,089** | -- | Cross-reference links |\n| Knowledge modules | **167** | -- | Auto-extracted from docs |"
+    },
+    {
+      "module_id": "auto-index-3",
+      "title": "VeriOps documentation (Part 3)",
+      "priority": 60,
+      "intent": "integrate",
+      "audience": "operator",
+      "channel": "assistant",
+      "content": "Use this module when answering questions related to: VeriOps documentation (Part 3). Source path: demo-showcase/acme/docs/index.md. Summary: Pipeline-generated multi-protocol API documentation for VeriOps with KPI dashboard, interactive references, and automated quality gates.\n\n## Pipeline execution summary\n\nThe autopipeline completed three stages with full artifacts for this demo. Enterprise deployment cycles add consolidated reporting, audit scorecards, SLA evaluation, and finalize gates.\n\n| Stage | Status | Description |\n| --- | --- | --- |\n| `multi_protocol_contract` | Completed | Contract validation for all five protocols |\n| `kpi_wall` | Completed | KPI metrics and quality scoring |\n| `retrieval_evals` | Completed | RAG retrieval precision and recall |\n\nAll five interactive protocol sandboxes (REST, GraphQL, gRPC, AsyncAPI, WebSocket) work without additional tooling.\n\n## Supported protocols\n\nThe VeriOps API exposes five protocol interfaces. Each protocol passes through eight pipeline stages: ingest, lint, regression, docs generation, frontmatter gate, snippet lint, test assets, and publish.\n\n| Protocol | Transport | Contract source | Stages | Status |\n| --- | --- | --- | --- | --- |\n| REST | HTTP/1.1 + JSON | OpenAPI 3.0 (`api/openapi.yaml`) | 8 | **PASS** |\n| GraphQL | HTTP POST | SDL schema (`graphql.schema.graphql`) | 8 | **PASS** |\n| gRPC | HTTP/2 + Protobuf | Proto3 (`veriops.proto`) | 8 | **PASS** |\n| AsyncAPI | AMQP / Kafka | AsyncAPI 2.6.0 (`asyncapi.yaml`) | 8 | **PASS** |\n| WebSocket | WSS | WebSocket contract (`websocket.yaml`) | 8 | **PASS** |"
+    },
+    {
+      "module_id": "auto-index-4",
+      "title": "VeriOps documentation (Part 4)",
+      "priority": 60,
+      "intent": "integrate",
+      "audience": "operator",
+      "channel": "assistant",
+      "content": "Use this module when answering questions related to: VeriOps documentation (Part 4). Source path: demo-showcase/acme/docs/index.md. Summary: Pipeline-generated multi-protocol API documentation for VeriOps with KPI dashboard, interactive references, and automated quality gates.\n\n## Quality gates enforced\n\nEvery document on this site passes through 24 automated checks before publish:\n\n| Category | Checks | What they verify |\n| --- | --- | --- |\n| GEO (8 checks) | Meta description, first paragraph length, heading hierarchy, fact density, definition patterns, heading specificity | LLM and AI search optimization |\n| SEO (14 checks) | Title length, URL depth, internal links, structured data, image alt text, bare URLs, content depth, heading keywords | Traditional search engine optimization |\n| Style (automated) | American English, active voice, no weasel words, no contractions | Consistent tone across all pages |\n| Contract (per-protocol) | Schema validation, regression detection, snippet lint | Technical accuracy against source contracts |"
+    },
+    {
+      "module_id": "auto-index-5",
+      "title": "VeriOps documentation (Part 5)",
+      "priority": 60,
+      "intent": "integrate",
+      "audience": "operator",
+      "channel": "assistant",
+      "content": "Use this module when answering questions related to: VeriOps documentation (Part 5). Source path: demo-showcase/acme/docs/index.md. Summary: Pipeline-generated multi-protocol API documentation for VeriOps with KPI dashboard, interactive references, and automated quality gates.\n\n## Automated detection and repair\n\nThe pipeline detects documentation drift when source contracts change and regenerates affected pages automatically.\n\n!!! example \"Protocol drift detected and repaired\"\n\n    **Before:** The GraphQL schema added a new `priority` field to the `Project` type, but the GraphQL playground docs still listed only `id`, `name`, `status`, and `createdAt`.\n\n    **Detection:** The `multi_protocol_contract` stage compared `contracts/graphql.schema.graphql` against the generated docs and flagged the missing field as a regression.\n\n    **Autofix:** The pipeline regenerated the GraphQL reference page, added the `priority` field to the schema explorer table and query examples, and re-ran all 24 quality checks.\n\n    **Result:** Re-validation passed. No manual editing required."
+    },
+    {
+      "module_id": "auto-index-6",
+      "title": "VeriOps documentation (Part 6)",
+      "priority": 60,
+      "intent": "integrate",
+      "audience": "operator",
+      "channel": "assistant",
+      "content": "Use this module when answering questions related to: VeriOps documentation (Part 6). Source path: demo-showcase/acme/docs/index.md. Summary: Pipeline-generated multi-protocol API documentation for VeriOps with KPI dashboard, interactive references, and automated quality gates.\n\n## RAG retrieval pipeline\n\nThe pipeline generates a knowledge retrieval index that powers AI-driven search and support agents. Six advanced retrieval features are enabled by default.\n\n| Metric | Value |\n| --- | --- |\n| Knowledge graph nodes | **1,272** |\n| Knowledge graph edges | **1,089** |\n| Knowledge modules | **167** auto-extracted |\n| Retrieval precision | **0.2** (token-overlap baseline) |\n| Retrieval recall | **0.6** (token-overlap baseline) |\n| Hallucination rate | **0.0** (all retrieved documents exist in corpus) |\n\n!!! info \"Baseline retrieval metrics\"\n    Precision (0.2) and recall (0.6) reflect the token-overlap baseline scorer, which runs without external dependencies. Production deployments enable hybrid search with FAISS embeddings, HyDE query expansion, and cross-encoder reranking for significantly higher precision and recall. Run `--mode all` to compare all four search strategies.\n\n| Advanced feature | Status |\n| --- | --- |\n| Token-aware chunking (750 tokens, 100 overlap) | Enabled |\n| Hybrid search (RRF, k=60) | Enabled |\n| HyDE query expansion (`gpt-4.1-mini`) | Enabled |\n| Cross-encoder reranking (`ms-marco-MiniLM-L-6-v2`) | Enabled |\n| Embedding cache (TTL: 3,600 seconds, max: 512) | Enabled |\n| Multi-mode eval (token/semantic/hybrid/hybrid+rerank) | Available |"
+    },
+    {
+      "module_id": "auto-index-7",
+      "title": "VeriOps documentation (Part 7)",
+      "priority": 60,
+      "intent": "integrate",
+      "audience": "operator",
+      "channel": "assistant",
+      "content": "Use this module when answering questions related to: VeriOps documentation (Part 7). Source path: demo-showcase/acme/docs/index.md. Summary: Pipeline-generated multi-protocol API documentation for VeriOps with KPI dashboard, interactive references, and automated quality gates.\n\n## What this demo proves\n\n1. **One pipeline, five protocols.** A single docs-ops pipeline generates and validates documentation across REST, GraphQL, gRPC, AsyncAPI, and WebSocket from source contracts.\n\n1. **Automated quality enforcement.** 24 SEO/GEO checks, style linting, and contract validation run on every page before publish. No manual review of formatting or metadata.\n\n1. **Advanced RAG pipeline.** A knowledge graph with 1,272 nodes and 1,089 edges powers AI search agents. Six retrieval features (chunking, hybrid search, HyDE, reranking, embedding cache, multi-mode eval) maximize precision and recall.\n\n1. **Real pipeline data.** Every metric on this site comes from actual pipeline reports, not hardcoded values. Run the pipeline again and the numbers update."
+    },
+    {
+      "module_id": "auto-index-8",
+      "title": "VeriOps documentation (Part 8)",
+      "priority": 60,
+      "intent": "integrate",
+      "audience": "operator",
+      "channel": "assistant",
+      "content": "Use this module when answering questions related to: VeriOps documentation (Part 8). Source path: demo-showcase/acme/docs/index.md. Summary: Pipeline-generated multi-protocol API documentation for VeriOps with KPI dashboard, interactive references, and automated quality gates.\n\n## Quick links\n\n- [REST API reference (Swagger)](reference/rest-api.md) -- 14 endpoints for projects, tasks, users, tags, and comments\n- [GraphQL playground](reference/graphql-playground.md) -- live query editor with schema explorer\n- [gRPC gateway invoke](reference/grpc-gateway.md) -- HTTP gateway adapter for `ProjectService`\n- [AsyncAPI event docs](reference/asyncapi-events.md) -- event-driven channels with delivery semantics\n- [WebSocket event playground](reference/websocket-events.md) -- bidirectional real-time messaging\n- [Tutorial: launch your first integration](guides/tutorial.md) -- zero to working project in 15 minutes\n- [How-to: keep docs aligned](guides/how-to.md) -- release-day pipeline workflow\n- [Concept: pipeline-first lifecycle](guides/concept.md) -- why automated docs beat manual writing\n- [Troubleshooting: pipeline issues](guides/troubleshooting.md) -- diagnose and fix common failures\n- [Quality evidence and gate results](quality/evidence.md) -- KPI metrics and protocol gate details"
+    },
+    {
+      "module_id": "auto-rest-api-1",
+      "title": "REST API reference",
+      "priority": 60,
+      "intent": "integrate",
+      "audience": "operator",
+      "channel": "assistant",
+      "content": "Use this module when answering questions related to: REST API reference. Source path: demo-showcase/acme/docs/reference/rest-api.md. Summary: Interactive REST API reference for VeriOps with 14 endpoints across five resources, Bearer JWT authentication, and Swagger UI.\n\n# REST API reference\n\n<div class=\"veriops-badges\" markdown>\n\n![Powered by VeriOps](https://img.shields.io/badge/Powered%20by-VeriOps-7c3aed?style=flat-square)\n![Quality Score](https://img.shields.io/badge/Quality%20Score-100%25-10b981?style=flat-square)\n![Protocols](https://img.shields.io/badge/Protocols-5-7c3aed?style=flat-square)\n\n</div>\n\nThe VeriOps REST API provides 14 CRUD endpoints across five resources (projects, tasks, users, tags, and comments) over HTTP/1.1 with JSON payloads. This reference documents every endpoint, authentication flow, and error code.\n\n## Base URL and authentication\n\n| Setting | Value |\n| --- | --- |\n| Base URL | [`https://api.veriops.example/v1`](https://api.veriops.example/v1) |\n| Authentication | Bearer JWT token in `Authorization` header |\n| Content type | `application/json` |\n| Rate limit | 60 requests per minute per API key |\n| OpenAPI spec version | 3.0.3 |\n| API version | v1 |\n\nAll requests require a valid JWT token:\n\n```bash\ncurl -X GET https://api.veriops.example/v1/projects \\\n  -H \"Authorization: Bearer YOUR_API_KEY\" \\\n  -H \"Content-Type: application/json\"\n```\n\n<!-- requires: api-key -->"
+    },
+    {
+      "module_id": "auto-rest-api-2",
+      "title": "REST API reference (Part 2)",
+      "priority": 60,
+      "intent": "integrate",
+      "audience": "operator",
+      "channel": "assistant",
+      "content": "Use this module when answering questions related to: REST API reference (Part 2). Source path: demo-showcase/acme/docs/reference/rest-api.md. Summary: Interactive REST API reference for VeriOps with 14 endpoints across five resources, Bearer JWT authentication, and Swagger UI.\n\n## Resource catalog\n\nThe API exposes five resources with standard CRUD operations:\n\n| Resource | Endpoints | Methods | Description |\n| --- | --- | --- | --- |\n| Projects | `/v1/projects`, `/v1/projects/{id}` | GET, POST, PUT, DELETE | Project management with status tracking |\n| Tasks | `/v1/tasks`, `/v1/tasks/{id}` | GET, POST, PUT, DELETE | Task CRUD within projects |\n| Users | `/v1/users`, `/v1/users/{id}` | GET, POST | User management and profiles |\n| Tags | `/v1/tags`, `/v1/tags/{id}` | GET, POST, DELETE | Resource tagging and categorization |\n| Comments | `/v1/comments`, `/v1/comments/{id}` | GET, POST, DELETE | Threaded comments on tasks |\n\n## Endpoints: projects"
+    },
+    {
+      "module_id": "auto-rest-api-3",
+      "title": "REST API reference (Part 3)",
+      "priority": 60,
+      "intent": "integrate",
+      "audience": "operator",
+      "channel": "assistant",
+      "content": "Use this module when answering questions related to: REST API reference (Part 3). Source path: demo-showcase/acme/docs/reference/rest-api.md. Summary: Interactive REST API reference for VeriOps with 14 endpoints across five resources, Bearer JWT authentication, and Swagger UI.\n\n### List all projects\n\n```\nGET /v1/projects\n```\n\nReturns a paginated list of projects. Supports filtering by `status` and sorting by `created_at`.\n\n**Query parameters:**\n\n| Parameter | Type | Default | Description |\n| --- | --- | --- | --- |\n| `page` | integer | `1` | Page number (1-indexed) |\n| `per_page` | integer | `25` | Results per page (max 100) |\n| `status` | string | -- | Filter by status: `active`, `archived`, `draft` |\n| `sort` | string | `created_at` | Sort field: `created_at`, `updated_at`, `name` |\n| `order` | string | `desc` | Sort order: `asc`, `desc` |\n\n**Example request:**\n\n```bash\ncurl -X GET \"https://api.veriops.example/v1/projects?status=active&per_page=10\" \\\n  -H \"Authorization: Bearer YOUR_API_KEY\"\n```\n\n<!-- requires: api-key -->\n\n**Example response (HTTP 200):**\n\n```json\n{\n  \"data\": [\n    {\n      \"id\": \"prj_abc123\",\n      \"name\": \"Website Redesign\",\n      \"status\": \"active\",\n      \"description\": \"Q2 website refresh with new design system\",\n      \"created_at\": \"2026-01-15T09:30:00Z\",\n      \"updated_at\": \"2026-03-10T14:22:00Z\",\n      \"task_count\": 47,\n      \"owner_id\": \"usr_456\"\n    }\n  ],\n  \"pagination\": {\n    \"page\": 1,\n    \"per_page\": 10,\n    \"total\": 142,\n    \"total_pages\": 15\n  }\n}\n```"
+    },
+    {
+      "module_id": "auto-rest-api-4",
+      "title": "REST API reference (Part 4)",
+      "priority": 60,
+      "intent": "integrate",
+      "audience": "operator",
+      "channel": "assistant",
+      "content": "Use this module when answering questions related to: REST API reference (Part 4). Source path: demo-showcase/acme/docs/reference/rest-api.md. Summary: Interactive REST API reference for VeriOps with 14 endpoints across five resources, Bearer JWT authentication, and Swagger UI.\n\n### Create a project\n\n```\nPOST /v1/projects\n```\n\nCreates a new project resource. Returns the created project with a generated `id`.\n\n**Request body:**\n\n| Field | Type | Required | Description |\n| --- | --- | --- | --- |\n| `name` | string | Yes | Project name (3-100 characters) |\n| `description` | string | No | Project description (max 500 characters) |\n| `status` | string | No | Initial status: `draft` (default), `active` |\n\n**Example request:**\n\n```bash\ncurl -X POST https://api.veriops.example/v1/projects \\\n  -H \"Authorization: Bearer YOUR_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\n    \"name\": \"Mobile App Launch\",\n    \"description\": \"iOS and Android app for Q3 release\",\n    \"status\": \"active\"\n  }'\n```\n\n<!-- requires: api-key -->\n\n**Example response (HTTP 201):**\n\n```json\n{\n  \"id\": \"prj_def456\",\n  \"name\": \"Mobile App Launch\",\n  \"description\": \"iOS and Android app for Q3 release\",\n  \"status\": \"active\",\n  \"created_at\": \"2026-03-19T10:00:00Z\",\n  \"updated_at\": \"2026-03-19T10:00:00Z\",\n  \"task_count\": 0,\n  \"owner_id\": \"usr_789\"\n}\n```"
+    },
+    {
+      "module_id": "auto-rest-api-5",
+      "title": "REST API reference (Part 5)",
+      "priority": 60,
+      "intent": "integrate",
+      "audience": "operator",
+      "channel": "assistant",
+      "content": "Use this module when answering questions related to: REST API reference (Part 5). Source path: demo-showcase/acme/docs/reference/rest-api.md. Summary: Interactive REST API reference for VeriOps with 14 endpoints across five resources, Bearer JWT authentication, and Swagger UI.\n\n### Get a project\n\n```\nGET /v1/projects/{id}\n```\n\nReturns a single project by ID.\n\n**Path parameters:**\n\n| Parameter | Type | Description |\n| --- | --- | --- |\n| `id` | string | Project ID (format: `prj_*`) |\n\n**Example request:**\n\n```bash\ncurl https://api.veriops.example/v1/projects/prj_abc123 \\\n  -H \"Authorization: Bearer YOUR_API_KEY\"\n```\n\n<!-- requires: api-key -->\n\n### Update a project\n\n```\nPUT /v1/projects/{id}\n```\n\nUpdates an existing project. Send only the fields you want to change.\n\n### Delete a project\n\n```\nDELETE /v1/projects/{id}\n```\n\nDeletes a project and all associated tasks. This action is irreversible. Returns HTTP 204 on success.\n\n## Endpoints: tasks\n\n### List tasks\n\n```\nGET /v1/tasks\n```\n\nReturns tasks with optional filtering by `project_id`, `status`, and `assignee_id`.\n\n**Query parameters:**\n\n| Parameter | Type | Default | Description |\n| --- | --- | --- | --- |\n| `project_id` | string | -- | Filter by project |\n| `status` | string | -- | Filter: `todo`, `in_progress`, `done` |\n| `assignee_id` | string | -- | Filter by assigned user |\n| `page` | integer | `1` | Page number |\n| `per_page` | integer | `25` | Results per page (max 100) |"
+    },
+    {
+      "module_id": "auto-rest-api-6",
+      "title": "REST API reference (Part 6)",
+      "priority": 60,
+      "intent": "integrate",
+      "audience": "operator",
+      "channel": "assistant",
+      "content": "Use this module when answering questions related to: REST API reference (Part 6). Source path: demo-showcase/acme/docs/reference/rest-api.md. Summary: Interactive REST API reference for VeriOps with 14 endpoints across five resources, Bearer JWT authentication, and Swagger UI.\n\n### Create a task\n\n```\nPOST /v1/tasks\n```\n\n**Request body:**\n\n| Field | Type | Required | Description |\n| --- | --- | --- | --- |\n| `title` | string | Yes | Task title (3-200 characters) |\n| `project_id` | string | Yes | Parent project ID |\n| `assignee_id` | string | No | User to assign |\n| `status` | string | No | Initial status: `todo` (default) |\n| `priority` | string | No | Priority: `low`, `medium`, `high` |\n\n**Example request:**\n\n```bash\ncurl -X POST https://api.veriops.example/v1/tasks \\\n  -H \"Authorization: Bearer YOUR_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\n    \"title\": \"Design homepage mockup\",\n    \"project_id\": \"prj_abc123\",\n    \"assignee_id\": \"usr_456\",\n    \"priority\": \"high\"\n  }'\n```\n\n<!-- requires: api-key -->\n\n## Endpoints: users, tags, and comments\n\n### Users\n\n| Method | Path | Description |\n| --- | --- | --- |\n| `GET` | `/v1/users` | List all users (paginated) |\n| `GET` | `/v1/users/{id}` | Get user by ID |\n| `POST` | `/v1/users` | Create a new user |\n\n### Tags\n\n| Method | Path | Description |\n| --- | --- | --- |\n| `GET` | `/v1/tags` | List all tags |\n| `POST` | `/v1/tags` | Create a tag |\n| `DELETE` | `/v1/tags/{id}` | Delete a tag |"
+    },
+    {
+      "module_id": "auto-rest-api-7",
+      "title": "REST API reference (Part 7)",
+      "priority": 60,
+      "intent": "integrate",
+      "audience": "operator",
+      "channel": "assistant",
+      "content": "Use this module when answering questions related to: REST API reference (Part 7). Source path: demo-showcase/acme/docs/reference/rest-api.md. Summary: Interactive REST API reference for VeriOps with 14 endpoints across five resources, Bearer JWT authentication, and Swagger UI.\n\n### Comments\n\n| Method | Path | Description |\n| --- | --- | --- |\n| `GET` | `/v1/comments?task_id={id}` | List comments on a task |\n| `POST` | `/v1/comments` | Add a comment to a task |\n| `DELETE` | `/v1/comments/{id}` | Delete a comment |\n\n## Interactive Swagger UI\n\nExplore and test all 14 endpoints in the embedded Swagger interface. Requests route to the Postman mock server sandbox automatically.\n\n!!! info \"Sandbox mode\"\n    All Try-it requests from Swagger UI route to the Postman mock server at\n    [`https://662b99a9-ac2a-4096-8a8e-480a73cef3e3.mock.pstmn.io/v1`](https://662b99a9-ac2a-4096-8a8e-480a73cef3e3.mock.pstmn.io/v1).\n    No API key is required for sandbox requests.\n\n<div style=\"border:1px solid #dbe2ea;border-radius:12px;overflow:hidden;\">\n<iframe src=\"../swagger-test.html\" width=\"100%\" height=\"900\" style=\"border:none;\"></iframe>\n</div>\n\n## Error handling\n\nEvery error response uses a consistent envelope:\n\n```json\n{\n  \"error\": {\n    \"code\": \"validation_error\",\n    \"message\": \"The 'name' field is required and must be 3-100 characters.\",\n    \"details\": [\n      {\n        \"field\": \"name\",\n        \"rule\": \"required\",\n        \"message\": \"This field is required\"\n      }\n    ]\n  }\n}\n```"
+    },
+    {
+      "module_id": "auto-rest-api-8",
+      "title": "REST API reference (Part 8)",
+      "priority": 60,
+      "intent": "integrate",
+      "audience": "operator",
+      "channel": "assistant",
+      "content": "Use this module when answering questions related to: REST API reference (Part 8). Source path: demo-showcase/acme/docs/reference/rest-api.md. Summary: Interactive REST API reference for VeriOps with 14 endpoints across five resources, Bearer JWT authentication, and Swagger UI.\n\n### Error codes\n\n| Status | Code | Meaning | Resolution |\n| --- | --- | --- | --- |\n| 400 | `validation_error` | Request body fails validation | Check the `details` array for specific field errors |\n| 401 | `unauthorized` | Missing or invalid JWT token | Regenerate your token in the [dashboard](https://app.veriops.example/settings/api) |\n| 403 | `forbidden` | Token valid but lacks permission | Request the required scope from your admin |\n| 404 | `not_found` | Resource does not exist | Verify the resource ID in the URL path |\n| 409 | `conflict` | Duplicate resource | A resource with that unique key already exists |\n| 429 | `rate_limited` | Exceeded 60 requests per minute | Wait 60 seconds or implement request queuing |\n| 500 | `internal_error` | Server error | Retry with exponential backoff (max 3 attempts, initial delay 1 second) |\n\n## Rate limiting\n\nThe API enforces a limit of 60 requests per minute per API key. Rate limit headers appear on every response:\n\n| Header | Description |\n| --- | --- |\n| `X-RateLimit-Limit` | Maximum requests per window (60) |\n| `X-RateLimit-Remaining` | Requests remaining in current window |\n| `X-RateLimit-Reset` | Unix timestamp when the window resets |\n\nWhen you exceed the limit, the API returns HTTP 429 with a `Retry-After` header indicating seconds to wait."
+    },
+    {
+      "module_id": "auto-rest-api-9",
+      "title": "REST API reference (Part 9)",
+      "priority": 60,
+      "intent": "integrate",
+      "audience": "operator",
+      "channel": "assistant",
+      "content": "Use this module when answering questions related to: REST API reference (Part 9). Source path: demo-showcase/acme/docs/reference/rest-api.md. Summary: Interactive REST API reference for VeriOps with 14 endpoints across five resources, Bearer JWT authentication, and Swagger UI.\n\n## Pagination\n\nAll list endpoints support cursor-based pagination:\n\n| Parameter | Type | Default | Description |\n| --- | --- | --- | --- |\n| `page` | integer | `1` | Page number (1-indexed) |\n| `per_page` | integer | `25` | Results per page (range: 1-100) |\n\nThe response includes a `pagination` object with `total`, `total_pages`, `page`, and `per_page` fields.\n\n## Next steps\n\n- [GraphQL playground](graphql-playground.md) for flexible queries across resources\n- [Tutorial: launch your first integration](../guides/tutorial.md) to create a project end-to-end\n- [AsyncAPI event docs](asyncapi-events.md) for real-time event notifications"
+    },
+    {
+      "module_id": "auto-review-manifest-1",
+      "title": "Review manifest: operator approval checkpoint",
+      "priority": 60,
+      "intent": "integrate",
+      "audience": "operator",
+      "channel": "assistant",
+      "content": "Use this module when answering questions related to: Review manifest: operator approval checkpoint. Source path: demo-showcase/acme/docs/quality/review-manifest.md. Summary: Operator review manifest with artifact inventory, stage summary, and approval checklist for the Acme documentation pipeline.\n\n# Review manifest\n\n<div class=\"veriops-badges\" markdown>\n\n![Powered by VeriOps](https://img.shields.io/badge/Powered%20by-VeriOps-6366f1?style=flat-square)\n![Quality Score](https://img.shields.io/badge/Quality%20Score-100%25-10b981?style=flat-square)\n![Protocols](https://img.shields.io/badge/Protocols-5-6366f1?style=flat-square)\n\n</div>\n\n- Runtime config: `/mnt/c/Users/Kroha/Documents/development/Auto-Doc Pipeline/reports/acme-demo/client_runtime.yml`\n- Weekly run rc: `1`\n- Strictness: `standard`\n- Available artifacts: `15`\n- Missing artifacts: `12`"
+    },
+    {
+      "module_id": "auto-review-manifest-2",
+      "title": "Review manifest: operator approval checkpoint (Part 2)",
+      "priority": 60,
+      "intent": "integrate",
+      "audience": "operator",
+      "channel": "assistant",
+      "content": "Use this module when answering questions related to: Review manifest: operator approval checkpoint (Part 2). Source path: demo-showcase/acme/docs/quality/review-manifest.md. Summary: Operator review manifest with artifact inventory, stage summary, and approval checklist for the Acme documentation pipeline.\n\n## Stage Summary\n\n- `multi_protocol_contract`: **OK** (`/mnt/c/Users/Kroha/Documents/development/Auto-Doc Pipeline/reports/acme-demo/multi_protocol_contract_report.json`)\n- `consolidated_report`: **MISSING** (`/mnt/c/Users/Kroha/Documents/development/Auto-Doc Pipeline/reports/acme-demo/consolidated_report.json`)\n- `audit_scorecard`: **MISSING** (`/mnt/c/Users/Kroha/Documents/development/Auto-Doc Pipeline/reports/acme-demo/audit_scorecard.json`)\n- `finalize_gate`: **MISSING** (`/mnt/c/Users/Kroha/Documents/development/Auto-Doc Pipeline/reports/acme-demo/finalize_gate_report.json`)\n- `kpi_wall`: **OK** (`/mnt/c/Users/Kroha/Documents/development/Auto-Doc Pipeline/reports/acme-demo/kpi-wall.json`)\n- `kpi_sla`: **MISSING** (`/mnt/c/Users/Kroha/Documents/development/Auto-Doc Pipeline/reports/acme-demo/kpi-sla-report.json`)\n- `retrieval_evals`: **OK** (`/mnt/c/Users/Kroha/Documents/development/Auto-Doc Pipeline/reports/acme-demo/retrieval_evals_report.json`)"
+    },
+    {
+      "module_id": "auto-review-manifest-3",
+      "title": "Review manifest: operator approval checkpoint (Part 3)",
+      "priority": 60,
+      "intent": "integrate",
+      "audience": "operator",
+      "channel": "assistant",
+      "content": "Use this module when answering questions related to: Review manifest: operator approval checkpoint (Part 3). Source path: demo-showcase/acme/docs/quality/review-manifest.md. Summary: Operator review manifest with artifact inventory, stage summary, and approval checklist for the Acme documentation pipeline.\n\n## Review Links (Available)\n\nThis auto-generated knowledge chunk was expanded to satisfy minimum retrieval module length for stable indexing."
+    },
+    {
+      "module_id": "auto-review-manifest-4",
+      "title": "Review manifest: operator approval checkpoint (Part 4)",
+      "priority": 60,
+      "intent": "integrate",
+      "audience": "operator",
+      "channel": "assistant",
+      "content": "Use this module when answering questions related to: Review manifest: operator approval checkpoint (Part 4). Source path: demo-showcase/acme/docs/quality/review-manifest.md. Summary: Operator review manifest with artifact inventory, stage summary, and approval checklist for the Acme documentation pipeline.\n\n- [Docs index](/mnt/c/Users/Kroha/Documents/development/Auto-Doc Pipeline/docs/index.md) - `docs`\n- [Faceted search page](/mnt/c/Users/Kroha/Documents/development/Auto-Doc Pipeline/docs/search-faceted.md) - `docs`\n- [Facets index](/mnt/c/Users/Kroha/Documents/development/Auto-Doc Pipeline/docs/assets/facets-index.json) - `search`\n- [Multi-protocol contract report](/mnt/c/Users/Kroha/Documents/development/Auto-Doc Pipeline/reports/acme-demo/multi_protocol_contract_report.json) - `protocols`\n- [GraphQL reference](/mnt/c/Users/Kroha/Documents/development/Auto-Doc Pipeline/docs/reference/graphql-api.md) - `protocols`\n- [AsyncAPI reference](/mnt/c/Users/Kroha/Documents/development/Auto-Doc Pipeline/docs/reference/asyncapi-api.md) - `protocols`\n- [REST playground](/mnt/c/Users/Kroha/Documents/development/Auto-Doc Pipeline/docs/reference/taskstream-api-playground.md) - `protocols`\n- [Glossary source](/mnt/c/Users/Kroha/Documents/development/Auto-Doc Pipeline/glossary.yml) - `quality`\n- [Glossary sync report](/mnt/c/Users/Kroha/Documents/development/Auto-Doc Pipeline/reports/acme-demo/glossary_sync_report.json) - `quality`\n- [KPI wall](/mnt/c/Users/Kroha/Documents/development/Auto-Doc Pipeline/reports/acme-demo/kpi-wall.json) - `quality`\n- [RAG retrieval index](/mnt/c/Users/Kroha/Documents/development/Auto-Doc Pipeline/docs/assets/knowledge-retrieval-index.json) - `rag`\n- [RAG knowledge graph](/mnt/c/Users/Kroha/Documents/development/Auto-Doc Pipeline/docs/assets/knowledge-graph.jsonld) - `rag`\n- [Knowledge graph report](/mnt/c/Users/Kroha/Documents/development/Auto-Doc Pipeline/reports/acme-demo/knowledge_graph_report.json) - `rag`\n- [Retrieval eval report](/mnt/c/Users/Kroha/Documents/development/Auto-Doc Pipeline/reports/acme-demo/retrieval_evals_report.json) - `rag`\n- [Retrieval eval dataset](/mnt/c/Users/Kroha/Documents/development/Auto-Doc Pipeline/reports/acme-demo/retrieval_eval_dataset.generated.yml) - `rag`"
+    },
+    {
+      "module_id": "auto-review-manifest-5",
+      "title": "Review manifest: operator approval checkpoint (Part 5)",
+      "priority": 60,
+      "intent": "integrate",
+      "audience": "operator",
+      "channel": "assistant",
+      "content": "Use this module when answering questions related to: Review manifest: operator approval checkpoint (Part 5). Source path: demo-showcase/acme/docs/quality/review-manifest.md. Summary: Operator review manifest with artifact inventory, stage summary, and approval checklist for the Acme documentation pipeline.\n\n## Expected But Missing\n\nThis auto-generated knowledge chunk was expanded to satisfy minimum retrieval module length for stable indexing."
+    },
+    {
+      "module_id": "auto-review-manifest-6",
+      "title": "Review manifest: operator approval checkpoint (Part 6)",
+      "priority": 60,
+      "intent": "integrate",
+      "audience": "operator",
+      "channel": "assistant",
+      "content": "Use this module when answering questions related to: Review manifest: operator approval checkpoint (Part 6). Source path: demo-showcase/acme/docs/quality/review-manifest.md. Summary: Operator review manifest with artifact inventory, stage summary, and approval checklist for the Acme documentation pipeline.\n\n- `Consolidated report` -> `/mnt/c/Users/Kroha/Documents/development/Auto-Doc Pipeline/reports/acme-demo/consolidated_report.json`\n- `Audit scorecard (JSON)` -> `/mnt/c/Users/Kroha/Documents/development/Auto-Doc Pipeline/reports/acme-demo/audit_scorecard.json`\n- `Audit scorecard (HTML)` -> `/mnt/c/Users/Kroha/Documents/development/Auto-Doc Pipeline/reports/acme-demo/audit_scorecard.html`\n- `Finalize gate report` -> `/mnt/c/Users/Kroha/Documents/development/Auto-Doc Pipeline/reports/acme-demo/finalize_gate_report.json`\n- `VeriOps status` -> `/mnt/c/Users/Kroha/Documents/development/Auto-Doc Pipeline/reports/acme-demo/docsops_status.json`\n- `Ready marker` -> `/mnt/c/Users/Kroha/Documents/development/Auto-Doc Pipeline/reports/acme-demo/READY_FOR_REVIEW.txt`\n- `API test cases JSON` -> `/mnt/c/Users/Kroha/Documents/development/Auto-Doc Pipeline/reports/acme-demo/api-test-assets/api_test_cases.json`\n- `TestRail CSV` -> `/mnt/c/Users/Kroha/Documents/development/Auto-Doc Pipeline/reports/acme-demo/api-test-assets/testrail_test_cases.csv`\n- `Zephyr JSON` -> `/mnt/c/Users/Kroha/Documents/development/Auto-Doc Pipeline/reports/acme-demo/api-test-assets/zephyr_test_cases.json`\n- `Test coverage report` -> `/mnt/c/Users/Kroha/Documents/development/Auto-Doc Pipeline/reports/acme-demo/api-test-assets/coverage_report.json`\n- `Fuzz scenarios` -> `/mnt/c/Users/Kroha/Documents/development/Auto-Doc Pipeline/reports/acme-demo/api-test-assets/fuzz_scenarios.json`\n- `KPI SLA report` -> `/mnt/c/Users/Kroha/Documents/development/Auto-Doc Pipeline/reports/acme-demo/kpi-sla-report.json` (module: `kpi_sla`)"
+    },
+    {
+      "module_id": "auto-review-manifest-7",
+      "title": "Review manifest: operator approval checkpoint (Part 7)",
+      "priority": 60,
+      "intent": "integrate",
+      "audience": "operator",
+      "channel": "assistant",
+      "content": "Use this module when answering questions related to: Review manifest: operator approval checkpoint (Part 7). Source path: demo-showcase/acme/docs/quality/review-manifest.md. Summary: Operator review manifest with artifact inventory, stage summary, and approval checklist for the Acme documentation pipeline.\n\n## Reviewer Checklist\n\n- Confirm stage summary has no missing required artifacts.\n- Review protocol docs and test assets links.\n- Review quality and retrieval reports before publish.\n- Approve publish only if critical findings are resolved.\n\n## Next steps\n\n- [Documentation index](../index.md)"
+    },
+    {
+      "module_id": "auto-websocket-events-1",
+      "title": "WebSocket event playground",
+      "priority": 60,
+      "intent": "integrate",
+      "audience": "operator",
+      "channel": "assistant",
+      "content": "Use this module when answering questions related to: WebSocket event playground. Source path: demo-showcase/acme/docs/reference/websocket-events.md. Summary: Interactive WebSocket playground for VeriOps real-time API with bidirectional messaging, channel subscriptions, and connection lifecycle management.\n\n# WebSocket event playground\n\n<div class=\"veriops-badges\" markdown>\n\n![Powered by VeriOps](https://img.shields.io/badge/Powered%20by-VeriOps-7c3aed?style=flat-square)\n![Quality Score](https://img.shields.io/badge/Quality%20Score-100%25-10b981?style=flat-square)\n![Protocols](https://img.shields.io/badge/Protocols-5-7c3aed?style=flat-square)\n\n</div>\n\nThe VeriOps WebSocket API provides real-time, bidirectional communication for project updates and task notifications over a persistent connection. This playground allows you to connect, subscribe to channels, send messages, and observe server-pushed events.\n\n## Connection details\n\n| Setting | Value |\n| --- | --- |\n| Endpoint | `wss://api.veriops.example/realtime` |\n| Authentication | Bearer token as `token` query parameter |\n| Protocol | WebSocket (RFC 6455) over TLS 1.3 |\n| Heartbeat interval | 30 seconds (server sends `ping`, client responds `pong`) |\n| Reconnect strategy | Exponential backoff: 1 second, 2 seconds, 4 seconds, 8 seconds, 16 seconds, max 30 seconds |\n| Max message size | 64 KB |\n| Idle timeout | 300 seconds (5 minutes) without messages |\n| Max subscriptions per connection | 50 channels |\n| Compression | `permessage-deflate` supported |"
+    },
+    {
+      "module_id": "auto-websocket-events-10",
+      "title": "WebSocket event playground (Part 10)",
+      "priority": 60,
+      "intent": "integrate",
+      "audience": "operator",
+      "channel": "assistant",
+      "content": "Use this module when answering questions related to: WebSocket event playground (Part 10). Source path: demo-showcase/acme/docs/reference/websocket-events.md. Summary: Interactive WebSocket playground for VeriOps real-time API with bidirectional messaging, channel subscriptions, and connection lifecycle management.\n\n## Next steps\n\n- [AsyncAPI event docs](asyncapi-events.md) for message broker patterns with AMQP\n- [REST API reference](rest-api.md) for synchronous CRUD operations\n- [Quality evidence](../quality/evidence.md) for pipeline gate results"
+    },
+    {
+      "module_id": "auto-websocket-events-2",
+      "title": "WebSocket event playground (Part 2)",
+      "priority": 60,
+      "intent": "integrate",
+      "audience": "operator",
+      "channel": "assistant",
+      "content": "Use this module when answering questions related to: WebSocket event playground (Part 2). Source path: demo-showcase/acme/docs/reference/websocket-events.md. Summary: Interactive WebSocket playground for VeriOps real-time API with bidirectional messaging, channel subscriptions, and connection lifecycle management.\n\n## Message envelope\n\nEvery client-to-server and server-to-client message uses this JSON envelope:\n\n```json\n{\n  \"type\": \"subscribe\",\n  \"request_id\": \"req_001\",\n  \"sent_at\": \"2026-03-19T14:30:00Z\",\n  \"payload\": {\n    \"channel\": \"project.updated\",\n    \"filters\": {\"project_id\": \"prj_abc123\"}\n  }\n}\n```\n\n### Envelope fields\n\n| Field | Type | Required | Description |\n| --- | --- | --- | --- |\n| `type` | string | Yes | Message type: `subscribe`, `unsubscribe`, `publish`, `ping`, `ack`, `event` |\n| `request_id` | string | Yes | Client-generated ID for request/response correlation |\n| `sent_at` | string (ISO 8601) | No | Timestamp when the message was sent |\n| `payload` | object | Varies | Message-specific data |\n\n### Message types\n\n| Type | Direction | Description |\n| --- | --- | --- |\n| `subscribe` | Client to server | Subscribe to a channel with optional filters |\n| `unsubscribe` | Client to server | Unsubscribe from a channel |\n| `publish` | Client to server | Send a message to a channel |\n| `ping` | Bidirectional | Heartbeat ping (server sends every 30 seconds) |\n| `pong` | Client to server | Response to server ping |\n| `ack` | Server to client | Acknowledgment of a client request |\n| `event` | Server to client | Channel event pushed by the server |"
+    },
+    {
+      "module_id": "auto-websocket-events-3",
+      "title": "WebSocket event playground (Part 3)",
+      "priority": 60,
+      "intent": "integrate",
+      "audience": "operator",
+      "channel": "assistant",
+      "content": "Use this module when answering questions related to: WebSocket event playground (Part 3). Source path: demo-showcase/acme/docs/reference/websocket-events.md. Summary: Interactive WebSocket playground for VeriOps real-time API with bidirectional messaging, channel subscriptions, and connection lifecycle management.\n\n## Channel catalog\n\n| Channel | Direction | Filters | Description |\n| --- | --- | --- | --- |\n| `project.updated` | Server to client | `project_id` (optional) | Project status change events |\n| `project.created` | Server to client | -- | New project creation events |\n| `task.completed` | Server to client | `project_id` (optional) | Task completion notifications |\n| `presence` | Bidirectional | -- | User online/offline status |\n\n## Quick start: connect and subscribe\n\n### Step 1: establish connection\n\n```javascript\n// Connect to the VeriOps WebSocket API\n// Pass your API key as a query parameter for authentication\nconst ws = new WebSocket('wss://api.veriops.example/realtime?token=YOUR_API_KEY');\n\nws.addEventListener('open', () => {\n  console.log('Connected to VeriOps WebSocket API');\n});\n\nws.addEventListener('close', (event) => {\n  console.log('Disconnected:', event.code, event.reason);\n});\n```\n\n<!-- requires: api-key -->\n\n### Step 2: subscribe to a channel\n\n```javascript\n// Subscribe to project update events for a specific project\nws.send(JSON.stringify({\n  type: 'subscribe',\n  request_id: 'req_001',\n  sent_at: new Date().toISOString(),\n  payload: {\n    channel: 'project.updated',\n    filters: { project_id: 'prj_abc123' }\n  }\n}));\n```\n\n<!-- requires: api-key -->"
+    },
+    {
+      "module_id": "auto-websocket-events-4",
+      "title": "WebSocket event playground (Part 4)",
+      "priority": 60,
+      "intent": "integrate",
+      "audience": "operator",
+      "channel": "assistant",
+      "content": "Use this module when answering questions related to: WebSocket event playground (Part 4). Source path: demo-showcase/acme/docs/reference/websocket-events.md. Summary: Interactive WebSocket playground for VeriOps real-time API with bidirectional messaging, channel subscriptions, and connection lifecycle management.\n\n### Step 3: handle incoming events\n\n```javascript\nws.addEventListener('message', (event) => {\n  const msg = JSON.parse(event.data);\n\n  switch (msg.type) {\n    case 'ack':\n      console.log('Subscription confirmed:', msg.request_id);\n      break;\n    case 'event':\n      console.log('Event received:', msg.payload.event_type);\n      console.log('Project:', msg.payload.data.project_id);\n      console.log('Status:', msg.payload.data.status);\n      break;\n    case 'ping':\n      ws.send(JSON.stringify({ type: 'pong', request_id: msg.request_id }));\n      break;\n  }\n});\n```\n\n<!-- requires: api-key -->"
+    },
+    {
+      "module_id": "auto-websocket-events-5",
+      "title": "WebSocket event playground (Part 5)",
+      "priority": 60,
+      "intent": "integrate",
+      "audience": "operator",
+      "channel": "assistant",
+      "content": "Use this module when answering questions related to: WebSocket event playground (Part 5). Source path: demo-showcase/acme/docs/reference/websocket-events.md. Summary: Interactive WebSocket playground for VeriOps real-time API with bidirectional messaging, channel subscriptions, and connection lifecycle management.\n\n## Complete client example with reconnection\n\n```javascript\n// Production-ready WebSocket client with automatic reconnection\n// Handles heartbeats, subscription restoration, and exponential backoff\nclass VeriOpsWebSocket {\n  constructor(apiKey) {\n    this.apiKey = apiKey;\n    this.endpoint = 'wss://api.veriops.example/realtime';\n    this.subscriptions = new Set();\n    this.reconnectDelay = 1000;\n    this.maxReconnectDelay = 30000;\n    this.connect();\n  }\n\nconnect() {\n    this.ws = new WebSocket(`${this.endpoint}?token=${this.apiKey}`);\n\nthis.ws.onopen = () => {\n      console.log('Connected');\n      this.reconnectDelay = 1000;\n      // Restore subscriptions after reconnect\n      for (const channel of this.subscriptions) {\n        this.subscribe(channel);\n      }\n    };\n\nthis.ws.onmessage = (event) => {\n      const msg = JSON.parse(event.data);\n      if (msg.type === 'ping') {\n        this.ws.send(JSON.stringify({ type: 'pong', request_id: msg.request_id }));\n      } else if (msg.type === 'event') {\n        this.handleEvent(msg.payload);\n      }\n    };\n\nthis.ws.onclose = () => {\n      console.log(`Reconnecting in ${this.reconnectDelay}ms...`);\n      setTimeout(() => this.connect(), this.reconnectDelay);\n      this.reconnectDelay = Math.min(this.reconnectDelay * 2, this.maxReconnectDelay);\n    };\n  }"
+    },
+    {
+      "module_id": "auto-websocket-events-6",
+      "title": "WebSocket event playground (Part 6)",
+      "priority": 60,
+      "intent": "integrate",
+      "audience": "operator",
+      "channel": "assistant",
+      "content": "Use this module when answering questions related to: WebSocket event playground (Part 6). Source path: demo-showcase/acme/docs/reference/websocket-events.md. Summary: Interactive WebSocket playground for VeriOps real-time API with bidirectional messaging, channel subscriptions, and connection lifecycle management.\n\nsubscribe(channel) {\n    this.subscriptions.add(channel);\n    if (this.ws.readyState === WebSocket.OPEN) {\n      this.ws.send(JSON.stringify({\n        type: 'subscribe',\n        request_id: `req_${Date.now()}`,\n        payload: { channel }\n      }));\n    }\n  }\n\nhandleEvent(payload) {\n    console.log(`[${payload.event_type}] ${JSON.stringify(payload.data)}`);\n  }\n}\n\n// Usage:\nconst client = new VeriOpsWebSocket('YOUR_API_KEY');\nclient.subscribe('project.updated');\nclient.subscribe('task.completed');\n```\n\n<!-- requires: api-key -->"
+    },
+    {
+      "module_id": "auto-websocket-events-7",
+      "title": "WebSocket event playground (Part 7)",
+      "priority": 60,
+      "intent": "integrate",
+      "audience": "operator",
+      "channel": "assistant",
+      "content": "Use this module when answering questions related to: WebSocket event playground (Part 7). Source path: demo-showcase/acme/docs/reference/websocket-events.md. Summary: Interactive WebSocket playground for VeriOps real-time API with bidirectional messaging, channel subscriptions, and connection lifecycle management.\n\n## Interactive WebSocket tester\n\nConnect to the sandbox WebSocket endpoint, subscribe to channels, and send messages from the browser.\n\n!!! info \"Sandbox mode\"\n    The endpoint field below auto-fills with a public WebSocket echo sandbox URL.\n    No API key is required for sandbox requests."
+    },
+    {
+      "module_id": "auto-websocket-events-8",
+      "title": "WebSocket event playground (Part 8)",
+      "priority": 60,
+      "intent": "integrate",
+      "audience": "operator",
+      "channel": "assistant",
+      "content": "Use this module when answering questions related to: WebSocket event playground (Part 8). Source path: demo-showcase/acme/docs/reference/websocket-events.md. Summary: Interactive WebSocket playground for VeriOps real-time API with bidirectional messaging, channel subscriptions, and connection lifecycle management.\n\n<div style=\"border:1px solid #dbe2ea;border-radius:10px;padding:16px;background:#f8f9fa\">\n<label><strong>Endpoint:</strong></label>\n<input id=\"ws-ep\" value=\"wss://api.veriops.example/realtime\" style=\"width:100%;padding:6px;margin:4px 0 8px;border:1px solid #ccc;border-radius:4px;font-family:monospace;\">\n<label><strong>Message (JSON):</strong></label>\n<!-- vale Google.Quotes = NO -->\n<textarea id=\"ws-msg\" rows=\"6\" style=\"width:100%;font-family:monospace;padding:8px;border:1px solid #ccc;border-radius:4px;\">{\n  \"type\": \"subscribe\",\n  \"request_id\": \"req_test_01\",\n  \"payload\": {\n    \"channel\": \"project.updated\",\n    \"filters\": {\"project_id\": \"prj_abc123\"}\n  }\n}</textarea>\n<!-- vale Google.Quotes = YES -->\n<button id=\"ws-connect\" style=\"margin:8px 4px 8px 0;padding:8px 20px;background:#1a73e8;color:#fff;border:none;border-radius:6px;cursor:pointer;font-size:14px;\">Connect</button>\n<button id=\"ws-send\" style=\"margin:8px 0;padding:8px 20px;background:#34a853;color:#fff;border:none;border-radius:6px;cursor:pointer;font-size:14px;\">Send</button>\n<button id=\"ws-close\" style=\"margin:8px 0 8px 4px;padding:8px 20px;background:#ea4335;color:#fff;border:none;border-radius:6px;cursor:pointer;font-size:14px;\">Disconnect</button>\n<pre id=\"ws-out\" style=\"max-height:300px;overflow:auto;border:1px solid #dbe2ea;padding:12px;border-radius:8px;background:#fff;margin-top:8px;\">Not connected</pre>\n</div>"
+    },
+    {
+      "module_id": "auto-websocket-events-9",
+      "title": "WebSocket event playground (Part 9)",
+      "priority": 60,
+      "intent": "integrate",
+      "audience": "operator",
+      "channel": "assistant",
+      "content": "Use this module when answering questions related to: WebSocket event playground (Part 9). Source path: demo-showcase/acme/docs/reference/websocket-events.md. Summary: Interactive WebSocket playground for VeriOps real-time API with bidirectional messaging, channel subscriptions, and connection lifecycle management.\n\n<script>\n/* Sandbox onclick is set by acme-sandbox.js with local mock responses */\n</script>\n\n## Error handling\n\n### WebSocket close codes\n\n| Close code | Meaning | Client action |\n| --- | --- | --- |\n| 1000 | Normal closure | No action required |\n| 1001 | Server going away | Reconnect with exponential backoff |\n| 1006 | Abnormal close (no close frame) | Reconnect with exponential backoff |\n| 1008 | Policy violation | Check message format and size |\n| 4001 | Authentication failed | Verify your API key is valid and not expired |\n| 4002 | Subscription limit reached | Unsubscribe from unused channels (max 50) |\n| 4008 | Rate limited | Wait 60 seconds before reconnecting |\n| 4009 | Message too large | Reduce message size to under 64 KB |\n\n### Common issues\n\n| Symptom | Cause | Resolution |\n| --- | --- | --- |\n| Connection drops every 30 seconds | Client not responding to `ping` | Implement `pong` response handler |\n| Connection drops after 5 minutes | No messages sent or received | Send periodic messages or respond to pings |\n| `Connection error` in browser | Mixed content (`ws://` on HTTPS page) | Use `wss://` endpoint |\n| Missed events after reconnect | Subscriptions not restored | Re-subscribe to all channels on `open` event |"
+    },
     {
       "module_id": "webhook-auth-baseline",
       "title": "Configure HMAC authentication for inbound webhooks",

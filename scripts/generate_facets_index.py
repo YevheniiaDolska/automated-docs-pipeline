@@ -4,11 +4,13 @@ Generate facets-index.json for client-side faceted search.
 Configurable for any project - reads frontmatter fields dynamically.
 """
 
+import argparse
 import json
-import yaml
-from pathlib import Path
-import sys
 import re
+import sys
+from pathlib import Path
+
+import yaml
 
 def extract_frontmatter(file_path):
     """Extract frontmatter from a markdown file."""
@@ -196,8 +198,6 @@ def generate_facets_index(docs_dir="docs", output_file="docs/assets/facets-index
 
 def main():
     """CLI interface."""
-    import argparse
-
     parser = argparse.ArgumentParser(description="Generate facets index for client-side search")
     parser.add_argument(
         "--docs-dir",

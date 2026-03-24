@@ -12,6 +12,7 @@ Gap Aggregator
 
 import csv
 import json
+import sys
 from dataclasses import dataclass, field, asdict
 from datetime import datetime
 from pathlib import Path
@@ -476,8 +477,6 @@ class GapAggregator:
 
 
 if __name__ == '__main__':
-    import sys
-
     if len(sys.argv) > 1 and sys.argv[1] in ("-h", "--help"):
         print("Usage: python scripts/gap_detection/gap_aggregator.py")
         print("Runs a full gap analysis and writes reports to ./reports")

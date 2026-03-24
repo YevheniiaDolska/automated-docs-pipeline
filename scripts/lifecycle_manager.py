@@ -5,10 +5,12 @@ Handles maturity states and automatic actions for deprecated/removed content
 Works with GitHub Pages, MkDocs, and Docusaurus
 """
 
-import yaml
+import argparse
 import json
-from pathlib import Path
 from datetime import datetime
+from pathlib import Path
+
+import yaml
 
 class LifecycleManager:
     """Manages content lifecycle (preview, beta, ga, deprecated, removed)"""
@@ -374,7 +376,6 @@ export function LifecycleBanner() {
         return '\n'.join(report) + '\n'
 
 def main():
-    import argparse
     parser = argparse.ArgumentParser(description='Manage documentation lifecycle')
     parser.add_argument('--docs-dir', type=str, default='docs', help='Docs directory to scan')
     parser.add_argument('--scan', action='store_true', help='Scan for lifecycle states')

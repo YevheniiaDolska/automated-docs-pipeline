@@ -2,8 +2,251 @@
   "intent": "troubleshoot",
   "audience": "operator",
   "channel": "docs",
-  "module_count": 1,
+  "module_count": 28,
   "modules": [
+    {
+      "module_id": "auto-asyncapi-api-3",
+      "title": "ASYNCAPI API Reference (Part 3)",
+      "priority": 60,
+      "intent": "troubleshoot",
+      "audience": "operator",
+      "channel": "docs",
+      "content": "<div id=\"asyncapi-playground\" style=\"border:1px solid #d1d5db; padding:12px; border-radius:8px;\">\n  <p><strong>WebSocket Endpoint:</strong> <code id=\"asyncapi-ws-view\"></code></p>\n  <p><strong>HTTP Publish Endpoint:</strong> <code id=\"asyncapi-http-view\"></code></p>\n  <!-- vale Google.Quotes = NO -->\n  <textarea id=\"asyncapi-message\" rows=\"8\" style=\"width:100%; font-family:monospace;\">{\n  \"event\": \"health\",\n  \"value\": \"ok\"\n}</textarea><br/>\n  <!-- vale Google.Quotes = YES -->\n  <button id=\"asyncapi-send-ws\">Send via WebSocket</button>\n  <button id=\"asyncapi-send-http\">Send via HTTP</button>\n  <pre id=\"asyncapi-output\" style=\"margin-top:12px; max-height:320px; overflow:auto;\"></pre>\n</div>\n<script>\n(function(){ const wsEndpoint = \"\"; const httpEndpoint = \"\";\nconst wsView = document.getElementById('asyncapi-ws-view');\nconst httpView = document.getElementById('asyncapi-http-view');\nconst sendWs = document.getElementById('asyncapi-send-ws');\nconst sendHttp = document.getElementById('asyncapi-send-http');\nconst msg = document.getElementById('asyncapi-message');\nconst out = document.getElementById('asyncapi-output');\nif (!wsView || !httpView || !sendWs || !sendHttp || !msg || !out) return;\nwsView.textContent = wsEndpoint || 'not configured';\nhttpView.textContent = httpEndpoint || 'not configured';\nsendWs.onclick = function(){\n  if (!wsEndpoint) { out.textContent = 'WebSocket endpoint is not configured (runtime.api_protocol_settings.asyncapi.asyncapi_ws_endpoint)'; return; }\n  try {\n    const socket = new WebSocket(wsEndpoint);\n    socket.onopen = function(){ socket.send(msg.value); out.textContent = 'sent over websocket'; socket.close(); };\n    socket.onerror = function(e){ out.textContent = String(e); };\n    socket.onmessage = function(e){ out.textContent = String(e.data); };\n  } catch (error) { out.textContent = String(error); }\n};\nsendHttp.onclick = async function(){\n  if (!httpEndpoint) { out.textContent = 'HTTP publish endpoint is not configured (runtime.api_protocol_settings.asyncapi.asyncapi_http_publish_endpoint)'; return; }\n  out.textContent = 'Loading...';\n  try {\n    const body = JSON.parse(msg.value || '{}');\n    const response = await fetch(httpEndpoint, { method:'POST', headers:{'content-type':'application/json'}, body: JSON.stringify(body) });\n    const text = await response.text();\n    out.textContent = text;\n  } catch (error) { out.textContent = String(error); }\n};\n})();\n</script>"
+    },
+    {
+      "module_id": "auto-asyncapi-events-12",
+      "title": "AsyncAPI event docs (Part 12)",
+      "priority": 60,
+      "intent": "troubleshoot",
+      "audience": "operator",
+      "channel": "docs",
+      "content": "function tryNext(lastError) {\n      if (idx >= candidates.length) {\n        out.textContent = JSON.stringify(\n          {\n            mode: 'offline-semantic-fallback',\n            tried: candidates,\n            last_error: lastError || '',\n            simulated_response: semanticAsync(safeParse(payload))\n          },\n          null,\n          2\n        );\n        return;\n      }\n      var endpoint = candidates[idx++];\n      out.textContent = 'Connecting to ' + endpoint + '...';\n      try {\n        var settled = false;\n        var ws = new WebSocket(endpoint);\n        var timeout = setTimeout(function () {\n          if (settled) return;\n          settled = true;\n          try { ws.close(); } catch (e) {}\n          tryNext('timeout');\n        }, 6000);\n        ws.onopen = function () {\n          if (settled) return;\n          ws.send(payload);\n          out.textContent = 'Connected to ' + endpoint + '. Event sent. Waiting for acknowledgement...';\n        };\n        ws.onmessage = function (e) {\n          if (settled) return;\n          settled = true;\n          clearTimeout(timeout);\n          out.textContent = JSON.stringify(\n            {\n              endpoint: endpoint,\n              mode: 'live-echo-plus-semantic',\n              raw: String(e.data || ''),\n              simulated_response: semanticAsync(safeParse(e.data))\n            },\n            null,\n            2\n          );\n          ws.close();\n        };\n        ws.onerror = function () {\n          if (settled) return;\n          settled = true;\n          clearTimeout(timeout);\n          tryNext('handshake failed');\n        };\n        ws.onclose = function () {\n          if (settled) return;\n          settled = true;\n          clearTimeout(timeout);\n          tryNext('closed before response');\n        };\n      } catch (e) {\n        tryNext(String(e));\n      }\n    }"
+    },
+    {
+      "module_id": "auto-asyncapi-events-13",
+      "title": "AsyncAPI event docs (Part 13)",
+      "priority": 60,
+      "intent": "troubleshoot",
+      "audience": "operator",
+      "channel": "docs",
+      "content": "tryNext('');\n  };\n})();\n</script>\n\n## Error handling\n\n| Error | Cause | Resolution |\n| --- | --- | --- |\n| `CONNECTION_REFUSED` | Broker unreachable | Verify `events.veriops.example:5672` is accessible from your network |\n| `AUTH_FAILED` | Invalid credentials | Check bearer token or SASL credentials |\n| `CHANNEL_NOT_FOUND` | Invalid channel name | Use exact channel names from the catalog above |\n| `PAYLOAD_TOO_LARGE` | Message exceeds 256 KB | Reduce payload size or split into multiple events |\n| `CONSUMER_TIMEOUT` | No ACK within 300 seconds | Acknowledge messages faster or increase prefetch count |\n\n## Next steps\n\n- [WebSocket event playground](websocket-events.md) for bidirectional real-time messaging\n- [REST API reference](rest-api.md) for synchronous CRUD operations\n- [Tutorial: launch your first integration](../guides/tutorial.md) to subscribe to events end-to-end"
+    },
+    {
+      "module_id": "auto-concept-7",
+      "title": "Concept: pipeline-first documentation lifecycle (Part 7)",
+      "priority": 60,
+      "intent": "troubleshoot",
+      "audience": "operator",
+      "channel": "docs",
+      "content": "| Check ID | Rule | Severity | Threshold |\n| --- | --- | --- | --- |\n| GEO-1 | Meta description present | Error | Must exist |\n| GEO-1b | Meta description length (minimum) | Warning | 50 characters minimum |\n| GEO-1c | Meta description length (maximum) | Warning | 160 characters maximum |\n| GEO-2 | First paragraph length | Warning | 60 words maximum |\n| GEO-3 | First paragraph definition pattern | Suggestion | Contains \"is,\" \"enables,\" \"provides,\" or \"allows\" |\n| GEO-4 | Heading specificity | Warning | No generic headings (overview, setup, configuration) |\n| GEO-5 | Heading hierarchy | Error | No skipped levels (H2 to H4 is invalid) |\n| GEO-6 | Fact density | Warning | At least one fact per 200 words |\n| SEO-01 | Title length | Error/Warning | 10-70 characters |\n| SEO-02 | Title keyword match | Suggestion | 50% overlap with filename keywords |\n| SEO-03 | URL depth | Warning | Max 4 directory levels |\n| SEO-04 | URL naming | Warning | Kebab-case only |\n| SEO-05 | Image alt text | Warning | 100% of images must have alt text |\n| SEO-06 | Internal links | Suggestion | At least 1 per page |\n| SEO-07 | Bare URLs | Warning | All URLs must use `[text](url)` format |\n| SEO-08 | Path special characters | Warning | Alphanumeric and hyphens only |\n| SEO-09 | Line length | Warning | Max 120 characters outside code blocks |\n| SEO-10 | Heading keyword overlap | Suggestion | H2 headings share keywords with title |\n| SEO-11 | Freshness signal | Suggestion | `last_reviewed` or `date` in frontmatter |\n| SEO-12 | Content depth | Warning | Minimum 100 words |\n| SEO-13 | Duplicate headings | Warning | No two headings share the same text |\n| SEO-14 | Structured data | Suggestion | At least 1 table, code block, or list |"
+    },
+    {
+      "module_id": "auto-evidence-1",
+      "title": "Quality evidence and gate results",
+      "priority": 60,
+      "intent": "troubleshoot",
+      "audience": "operator",
+      "channel": "docs",
+      "content": "# Quality evidence and gate results\n\n<div class=\"veriops-badges\" markdown>\n\n![Powered by VeriOps](https://img.shields.io/badge/Powered%20by-VeriOps-7c3aed?style=flat-square)\n![Quality Score](https://img.shields.io/badge/Quality%20Score-100%25-10b981?style=flat-square)\n![Protocols](https://img.shields.io/badge/Protocols-5-7c3aed?style=flat-square)\n\n</div>\n\nThis page provides the complete quality evidence generated by the VeriDoc pipeline for the VeriOps documentation site. It covers KPI metrics, protocol gate results, 24 automated quality checks, RAG retrieval readiness, and all pipeline artifacts.\n\n## KPI metrics\n\nThese metrics come from `reports/acme-demo/kpi-wall.json`:\n\n| Metric | Value | Target | Status |\n| --- | --- | --- | --- |\n| Quality score | **100%** | 80% | Excellent |\n| Total documents | **12** | -- | Indexed across all protocols |\n| Stale pages | **0** | 0 | No stale pages |\n| Documentation gaps | **0** | 0 | No active gaps |\n| Metadata completeness | **100%** | 100% | All frontmatter fields present and valid |\n| Frontmatter errors | **0** | 0 | All pages pass schema validation |"
+    },
+    {
+      "module_id": "auto-evidence-3",
+      "title": "Quality evidence and gate results (Part 3)",
+      "priority": 60,
+      "intent": "troubleshoot",
+      "audience": "operator",
+      "channel": "docs",
+      "content": "### GEO checks (8 checks -- LLM and AI search optimization)\n\n| Check ID | Rule | Severity | Threshold | Purpose |\n| --- | --- | --- | --- | --- |\n| GEO-1 | Meta description present | Error | Must exist | Ensures every page has a description for search snippets |\n| GEO-1b | Meta description minimum length | Warning | 50 characters | Prevents truncated search snippets |\n| GEO-1c | Meta description maximum length | Warning | 160 characters | Prevents overflow in search results |\n| GEO-2 | First paragraph length | Warning | 60 words max | Ensures concise opening for LLM extraction |\n| GEO-3 | First paragraph definition | Suggestion | Contains definition verb | Helps LLMs identify what the page is about |\n| GEO-4 | Heading specificity | Warning | No generic headings | Prevents vague headings like \"Overview\" or \"Setup\" |\n| GEO-5 | Heading hierarchy | Error | No skipped levels | Ensures proper H2-H3-H4 nesting |\n| GEO-6 | Fact density | Warning | 1 fact per 200 words | Keeps content information-rich |"
+    },
+    {
+      "module_id": "auto-evidence-5",
+      "title": "Quality evidence and gate results (Part 5)",
+      "priority": 60,
+      "intent": "troubleshoot",
+      "audience": "operator",
+      "channel": "docs",
+      "content": "| Check ID | Rule | Severity | Threshold | Purpose |\n| --- | --- | --- | --- | --- |\n| SEO-01 | Title length | Error/Warning | 10-70 characters | Optimal title display in search results |\n| SEO-02 | Title keyword match | Suggestion | 50% overlap | Aligns title with filename keywords |\n| SEO-03 | URL depth | Warning | Max 4 levels | Prevents deep URLs that search engines deprioritize |\n| SEO-04 | URL naming | Warning | Kebab-case | Consistent, readable URL structure |\n| SEO-05 | Image alt text | Warning | 100% coverage | Accessibility and image search visibility |\n| SEO-06 | Internal links | Suggestion | Min 1 link | Cross-references improve crawlability |\n| SEO-07 | Bare URLs | Warning | Zero bare URLs | Requires descriptive link text |\n| SEO-08 | Path characters | Warning | Alphanumeric + hyphens | Prevents encoding issues in URLs |\n| SEO-09 | Line length | Warning | Max 120 characters | Mobile readability |\n| SEO-10 | Heading keywords | Suggestion | Shared with title | Signals relevance to search engines |\n| SEO-11 | Freshness signal | Suggestion | Date in frontmatter | Indicates content currency |\n| SEO-12 | Content depth | Warning | Min 100 words | Prevents thin content penalties |\n| SEO-13 | Duplicate headings | Warning | Zero duplicates | Unique headings for anchor links |\n| SEO-14 | Structured data | Suggestion | Min 1 element | Tables, code blocks, or lists |"
+    },
+    {
+      "module_id": "auto-graphql-api-2",
+      "title": "GRAPHQL API Reference (Part 2)",
+      "priority": 60,
+      "intent": "troubleshoot",
+      "audience": "operator",
+      "channel": "docs",
+      "content": "## Interactive GraphQL Playground\n\n<div id=\"graphql-playground\" style=\"border:1px solid #d1d5db; padding:12px; border-radius:8px;\">\n  <p><strong>Endpoint:</strong> <code id=\"graphql-endpoint-view\"></code></p>\n  <textarea id=\"graphql-query\" rows=\"12\" style=\"width:100%; font-family:monospace;\">query HealthCheck {\n  __typename\n}</textarea>\n  <br/>\n  <button id=\"graphql-run\">Run Query</button>\n  <pre id=\"graphql-output\" style=\"margin-top:12px; max-height:320px; overflow:auto;\"></pre>\n</div>\n<script>\n(function(){ const endpoint = \"\";\nconst view = document.getElementById('graphql-endpoint-view');\nconst run = document.getElementById('graphql-run');\nconst query = document.getElementById('graphql-query');\nconst out = document.getElementById('graphql-output');\nif (!view || !run || !query || !out) return;\nview.textContent = endpoint || 'not configured';\nrun.onclick = async function(){\n  if (!endpoint) { out.textContent = 'Endpoint is not configured in runtime.api_protocol_settings.graphql.graphql_endpoint'; return; }\n  out.textContent = 'Loading...';\n  try {\n    const response = await fetch(endpoint, { method:'POST', headers:{'content-type':'application/json'}, body: JSON.stringify({ query: query.value }) });\n    const text = await response.text();\n    out.textContent = text;\n  } catch (error) { out.textContent = String(error); }\n};\n})();\n</script>"
+    },
+    {
+      "module_id": "auto-graphql-playground-1",
+      "title": "GraphQL playground",
+      "priority": 60,
+      "intent": "troubleshoot",
+      "audience": "operator",
+      "channel": "docs",
+      "content": "# GraphQL playground\n\n<div class=\"veriops-badges\" markdown>\n\n![Powered by VeriOps](https://img.shields.io/badge/Powered%20by-VeriOps-7c3aed?style=flat-square)\n![Quality Score](https://img.shields.io/badge/Quality%20Score-100%25-10b981?style=flat-square)\n![Protocols](https://img.shields.io/badge/Protocols-5-7c3aed?style=flat-square)\n\n</div>\n\nThe VeriOps GraphQL API provides a single endpoint for flexible queries across projects, tasks, and users. This page documents the full schema, provides a live query editor, covers authentication, error handling, performance limits, and the advanced RAG retrieval pipeline that powers AI-driven search across GraphQL documentation.\n\n## Endpoint and authentication\n\n| Setting | Value |\n| --- | --- |\n| Endpoint | [`https://api.veriops.example/graphql`](https://api.veriops.example/graphql) |\n| Method | POST |\n| Authentication | Bearer token in `Authorization` header |\n| Content type | `application/json` |\n| Max query depth | 10 levels |\n| Max query complexity | 500 points |\n| Rate limit | 60 requests per minute |\n| Introspection | Enabled in development, disabled in production |\n\n## Schema overview\n\nThe VeriOps GraphQL schema exposes three operation types and one core object type:"
+    },
+    {
+      "module_id": "auto-graphql-playground-7",
+      "title": "GraphQL playground (Part 7)",
+      "priority": 60,
+      "intent": "troubleshoot",
+      "audience": "operator",
+      "channel": "docs",
+      "content": "### Multi-mode retrieval evaluation\n\nThe `run_retrieval_evals.py` script supports four search modes for comparison:\n\n| Mode | Strategy | Use case |\n| --- | --- | --- |\n| `token` | Token-overlap scoring | Baseline, no API key required |\n| `semantic` | FAISS cosine similarity | Embedding-based retrieval |\n| `hybrid` | RRF fusion of token + semantic | Best recall for mixed queries |\n| `hybrid+rerank` | Hybrid + cross-encoder reranking | Highest precision for production |\n\nRun a full comparison:\n\n```bash\npython3 scripts/run_retrieval_evals.py \\\n  --mode all \\\n  --use-embeddings \\\n  --dataset config/retrieval_eval_dataset.yml \\\n  --report reports/retrieval_comparison.json\n```\n\n<!-- requires: OPENAI_API_KEY, faiss-cpu, sentence-transformers -->\n\n## Error handling\n\nGraphQL errors appear in the `errors` array alongside partial `data`:\n\n```json\n{\n  \"data\": null,\n  \"errors\": [\n    {\n      \"message\": \"Project not found\",\n      \"locations\": [{\"line\": 2, \"column\": 3}],\n      \"path\": [\"project\"],\n      \"extensions\": {\n        \"code\": \"NOT_FOUND\",\n        \"timestamp\": \"2026-03-20T14:30:00Z\"\n      }\n    }\n  ]\n}\n```"
+    },
+    {
+      "module_id": "auto-graphql-playground-8",
+      "title": "GraphQL playground (Part 8)",
+      "priority": 60,
+      "intent": "troubleshoot",
+      "audience": "operator",
+      "channel": "docs",
+      "content": "### Error codes\n\n| Code | HTTP equivalent | Meaning | Resolution |\n| --- | --- | --- | --- |\n| `UNAUTHENTICATED` | 401 | Missing or invalid bearer token | Provide a valid `Authorization: Bearer` header |\n| `FORBIDDEN` | 403 | Token valid but lacks required scope | Request the `graphql:read` or `graphql:write` scope |\n| `NOT_FOUND` | 404 | Requested resource does not exist | Verify the resource ID |\n| `QUERY_TOO_COMPLEX` | 400 | Query exceeds 500 complexity points | Reduce nesting depth or remove unnecessary fields |\n| `QUERY_TOO_DEEP` | 400 | Query exceeds 10 levels of nesting | Flatten the query or use separate requests |\n| `RATE_LIMITED` | 429 | Exceeded 60 requests per minute | Implement request throttling on the client |\n| `INTERNAL_ERROR` | 500 | Server error | Retry with exponential backoff (max 3 attempts) |\n\n## Performance limits\n\n| Limit | Value | Notes |\n| --- | --- | --- |\n| Max query depth | 10 levels | Nested field resolution depth |\n| Max complexity | 500 points | Each field costs 1 point, lists cost 10 points |\n| Max query size | 10 KB | Request body size limit |\n| Timeout | 30 seconds | Per-query execution timeout |\n| Batch queries | Up to 5 | Multiple queries in one request |"
+    },
+    {
+      "module_id": "auto-grpc-gateway-7",
+      "title": "gRPC gateway invoke (Part 7)",
+      "priority": 60,
+      "intent": "troubleshoot",
+      "audience": "operator",
+      "channel": "docs",
+      "content": "## Error handling and gRPC status codes\n\nThe HTTP gateway maps gRPC status codes to HTTP status codes:\n\n| gRPC status | HTTP status | Description | Resolution |\n| --- | --- | --- | --- |\n| `OK` (0) | 200 | Success | -- |\n| `INVALID_ARGUMENT` (3) | 400 | Malformed request or invalid field | Check the `payload` JSON matches the proto message |\n| `UNAUTHENTICATED` (16) | 401 | Missing or invalid bearer token | Provide a valid `Authorization` header |\n| `PERMISSION_DENIED` (7) | 403 | Token valid but lacks scope | Request `grpc:invoke` scope from admin |\n| `NOT_FOUND` (5) | 404 | Resource does not exist | Verify the project ID format (`prj_*`) |\n| `DEADLINE_EXCEEDED` (4) | 504 | RPC took longer than 30 seconds | Increase deadline or optimize the query |\n| `UNAVAILABLE` (14) | 503 | Service temporarily unavailable | Retry with exponential backoff (3 attempts, initial 1 second) |\n| `INTERNAL` (13) | 500 | Server error | Retry with exponential backoff |"
+    },
+    {
+      "module_id": "auto-index-5",
+      "title": "VeriOps documentation (Part 5)",
+      "priority": 60,
+      "intent": "troubleshoot",
+      "audience": "operator",
+      "channel": "docs",
+      "content": "## Automated detection and repair\n\nThe pipeline detects documentation drift when source contracts change and regenerates affected pages automatically.\n\n!!! example \"Protocol drift detected and repaired\"\n\n    **Before:** The GraphQL schema added a new `priority` field to the `Project` type, but the GraphQL playground docs still listed only `id`, `name`, `status`, and `createdAt`.\n\n    **Detection:** The `multi_protocol_contract` stage compared `contracts/graphql.schema.graphql` against the generated docs and flagged the missing field as a regression.\n\n    **Autofix:** The pipeline regenerated the GraphQL reference page, added the `priority` field to the schema explorer table and query examples, and re-ran all 24 quality checks.\n\n    **Result:** Re-validation passed. No manual editing required."
+    },
+    {
+      "module_id": "auto-index-8",
+      "title": "VeriOps documentation (Part 8)",
+      "priority": 60,
+      "intent": "troubleshoot",
+      "audience": "operator",
+      "channel": "docs",
+      "content": "## Quick links\n\n- [REST API reference (Swagger)](reference/rest-api.md) -- 14 endpoints for projects, tasks, users, tags, and comments\n- [GraphQL playground](reference/graphql-playground.md) -- live query editor with schema explorer\n- [gRPC gateway invoke](reference/grpc-gateway.md) -- HTTP gateway adapter for `ProjectService`\n- [AsyncAPI event docs](reference/asyncapi-events.md) -- event-driven channels with delivery semantics\n- [WebSocket event playground](reference/websocket-events.md) -- bidirectional real-time messaging\n- [Tutorial: launch your first integration](guides/tutorial.md) -- zero to working project in 15 minutes\n- [How-to: keep docs aligned](guides/how-to.md) -- release-day pipeline workflow\n- [Concept: pipeline-first lifecycle](guides/concept.md) -- why automated docs beat manual writing\n- [Troubleshooting: pipeline issues](guides/troubleshooting.md) -- diagnose and fix common failures\n- [Quality evidence and gate results](quality/evidence.md) -- KPI metrics and protocol gate details"
+    },
+    {
+      "module_id": "auto-rest-api-1",
+      "title": "REST API reference",
+      "priority": 60,
+      "intent": "troubleshoot",
+      "audience": "operator",
+      "channel": "docs",
+      "content": "# REST API reference\n\n<div class=\"veriops-badges\" markdown>\n\n![Powered by VeriOps](https://img.shields.io/badge/Powered%20by-VeriOps-7c3aed?style=flat-square)\n![Quality Score](https://img.shields.io/badge/Quality%20Score-100%25-10b981?style=flat-square)\n![Protocols](https://img.shields.io/badge/Protocols-5-7c3aed?style=flat-square)\n\n</div>\n\nThe VeriOps REST API provides 14 CRUD endpoints across five resources (projects, tasks, users, tags, and comments) over HTTP/1.1 with JSON payloads. This reference documents every endpoint, authentication flow, and error code.\n\n## Base URL and authentication\n\n| Setting | Value |\n| --- | --- |\n| Base URL | [`https://api.veriops.example/v1`](https://api.veriops.example/v1) |\n| Authentication | Bearer JWT token in `Authorization` header |\n| Content type | `application/json` |\n| Rate limit | 60 requests per minute per API key |\n| OpenAPI spec version | 3.0.3 |\n| API version | v1 |\n\nAll requests require a valid JWT token:\n\n```bash\ncurl -X GET https://api.veriops.example/v1/projects \\\n  -H \"Authorization: Bearer YOUR_API_KEY\" \\\n  -H \"Content-Type: application/json\"\n```\n\n<!-- requires: api-key -->"
+    },
+    {
+      "module_id": "auto-rest-api-7",
+      "title": "REST API reference (Part 7)",
+      "priority": 60,
+      "intent": "troubleshoot",
+      "audience": "operator",
+      "channel": "docs",
+      "content": "### Comments\n\n| Method | Path | Description |\n| --- | --- | --- |\n| `GET` | `/v1/comments?task_id={id}` | List comments on a task |\n| `POST` | `/v1/comments` | Add a comment to a task |\n| `DELETE` | `/v1/comments/{id}` | Delete a comment |\n\n## Interactive Swagger UI\n\nExplore and test all 14 endpoints in the embedded Swagger interface. Requests route to the Postman mock server sandbox automatically.\n\n!!! info \"Sandbox mode\"\n    All Try-it requests from Swagger UI route to the Postman mock server at\n    [`https://662b99a9-ac2a-4096-8a8e-480a73cef3e3.mock.pstmn.io/v1`](https://662b99a9-ac2a-4096-8a8e-480a73cef3e3.mock.pstmn.io/v1).\n    No API key is required for sandbox requests.\n\n<div style=\"border:1px solid #dbe2ea;border-radius:12px;overflow:hidden;\">\n<iframe src=\"../swagger-test.html\" width=\"100%\" height=\"900\" style=\"border:none;\"></iframe>\n</div>\n\n## Error handling\n\nEvery error response uses a consistent envelope:\n\n```json\n{\n  \"error\": {\n    \"code\": \"validation_error\",\n    \"message\": \"The 'name' field is required and must be 3-100 characters.\",\n    \"details\": [\n      {\n        \"field\": \"name\",\n        \"rule\": \"required\",\n        \"message\": \"This field is required\"\n      }\n    ]\n  }\n}\n```"
+    },
+    {
+      "module_id": "auto-rest-api-8",
+      "title": "REST API reference (Part 8)",
+      "priority": 60,
+      "intent": "troubleshoot",
+      "audience": "operator",
+      "channel": "docs",
+      "content": "### Error codes\n\n| Status | Code | Meaning | Resolution |\n| --- | --- | --- | --- |\n| 400 | `validation_error` | Request body fails validation | Check the `details` array for specific field errors |\n| 401 | `unauthorized` | Missing or invalid JWT token | Regenerate your token in the [dashboard](https://app.veriops.example/settings/api) |\n| 403 | `forbidden` | Token valid but lacks permission | Request the required scope from your admin |\n| 404 | `not_found` | Resource does not exist | Verify the resource ID in the URL path |\n| 409 | `conflict` | Duplicate resource | A resource with that unique key already exists |\n| 429 | `rate_limited` | Exceeded 60 requests per minute | Wait 60 seconds or implement request queuing |\n| 500 | `internal_error` | Server error | Retry with exponential backoff (max 3 attempts, initial delay 1 second) |\n\n## Rate limiting\n\nThe API enforces a limit of 60 requests per minute per API key. Rate limit headers appear on every response:\n\n| Header | Description |\n| --- | --- |\n| `X-RateLimit-Limit` | Maximum requests per window (60) |\n| `X-RateLimit-Remaining` | Requests remaining in current window |\n| `X-RateLimit-Reset` | Unix timestamp when the window resets |\n\nWhen you exceed the limit, the API returns HTTP 429 with a `Retry-After` header indicating seconds to wait."
+    },
+    {
+      "module_id": "auto-troubleshooting-1",
+      "title": "Troubleshooting: common VeriOps pipeline issues",
+      "priority": 60,
+      "intent": "troubleshoot",
+      "audience": "operator",
+      "channel": "docs",
+      "content": "# Troubleshooting: common VeriOps pipeline issues\n\n<div class=\"veriops-badges\" markdown>\n\n![Powered by VeriOps](https://img.shields.io/badge/Powered%20by-VeriOps-7c3aed?style=flat-square)\n![Quality Score](https://img.shields.io/badge/Quality%20Score-100%25-10b981?style=flat-square)\n![Protocols](https://img.shields.io/badge/Protocols-5-7c3aed?style=flat-square)\n\n</div>\n\nYour VeriOps documentation pipeline is failing with contract validation errors, quality gate warnings, or build failures. This guide fixes 95% of pipeline issues in under 5 minutes.\n\n## Quick diagnosis (30 seconds)\n\nCheck the pipeline exit code and stage summary first:\n\n```bash\npython3 -c \"\nimport json\ns = json.load(open('reports/acme-demo/pipeline_stage_summary.json'))\nfor stage in s.get('stages', []):\n    status = 'EXISTS' if stage.get('exists') else 'MISSING'\n    print(f'  {stage[\\\"name\\\"]}: {status}')\nm = json.load(open('reports/acme-demo/review_manifest.json'))\nprint(f'Exit code: {m[\\\"weekly_rc\\\"]}')\nprint(f'Available: {m[\\\"available_artifacts\\\"]}, Missing: {m[\\\"missing_artifacts\\\"]}')\"\n```"
+    },
+    {
+      "module_id": "auto-troubleshooting-2",
+      "title": "Troubleshooting: common VeriOps pipeline issues (Part 2)",
+      "priority": 60,
+      "intent": "troubleshoot",
+      "audience": "operator",
+      "channel": "docs",
+      "content": "## Diagnosis table\n\n| Symptom | Frequency | Fix time | Solution |\n| --- | --- | --- | --- |\n| gRPC contract fails | 40% | 2 min | [Contract validation fails for gRPC](#contract-validation-fails-for-grpc) |\n| Quality score below 80 | 25% | 5 min | [Quality score drops below 80](#quality-score-drops-below-80) |\n| MkDocs build fails | 15% | 1 min | [MkDocs build fails with theme error](#mkdocs-build-fails-with-theme-error) |\n| WebSocket tester error | 10% | 1 min | [WebSocket tester shows connection error](#websocket-tester-shows-connection-error) |\n| Reports directory empty | 5% | 2 min | [Pipeline reports directory is empty](#pipeline-reports-directory-is-empty) |\n| RAG retrieval low precision | 5% | 10 min | [Retrieval precision below threshold](#retrieval-precision-below-threshold) |\n\n## Contract validation fails for gRPC\n\n**You see:** The `multi_protocol_contract_report.json` shows `grpc` in `failed_protocols`.\n\n```json\n{\n  \"failed_protocols\": [\"grpc\"],\n  \"protocols\": [\"rest\", \"graphql\", \"grpc\", \"asyncapi\", \"websocket\"]\n}\n```\n\n**Root cause:** The `protoc` compiler is not installed, or the proto files reference missing imports."
+    },
+    {
+      "module_id": "auto-troubleshooting-3",
+      "title": "Troubleshooting: common VeriOps pipeline issues (Part 3)",
+      "priority": 60,
+      "intent": "troubleshoot",
+      "audience": "operator",
+      "channel": "docs",
+      "content": "### Fix gRPC contract in 2 minutes\n\n1. Install the protobuf compiler:\n\n    ```bash\n    apt-get install -y protobuf-compiler\n    protoc --version\n    ```\n\n    Expected output: `libprotoc 3.21.x` or later.\n\n1. Verify proto file paths match `client_runtime.yml`:\n\n    ```yaml\n    grpc:\n      proto_paths:\n        - reports/acme-demo/contracts/grpc\n    ```\n\n1. Re-run the pipeline:\n\n    ```bash\n    python3 scripts/run_autopipeline.py \\\n      --docsops-root . \\\n      --reports-dir reports/acme-demo \\\n      --runtime-config reports/acme-demo/client_runtime.yml \\\n      --mode veridoc\n    ```\n\n1. Verify gRPC passes:\n\n    ```bash\n    python3 -c \"\n    import json\n    r = json.load(open('reports/acme-demo/multi_protocol_contract_report.json'))\n    print('Failed:', r.get('failed_protocols', []))\"\n    ```\n\n    Expected output: `Failed: []`\n\n## Quality score drops below 80\n\n**You see:** The `kpi-wall.json` shows `quality_score` below 80.\n\n**Root cause:** Stale documents, missing frontmatter, or unresolved documentation gaps lower the quality score below the 80 threshold."
+    },
+    {
+      "module_id": "auto-troubleshooting-4",
+      "title": "Troubleshooting: common VeriOps pipeline issues (Part 4)",
+      "priority": 60,
+      "intent": "troubleshoot",
+      "audience": "operator",
+      "channel": "docs",
+      "content": "### Fix quality score in 5 minutes\n\n1. Check the gap report for high-priority items:\n\n    ```bash\n    python3 -c \"\n    import json\n    r = json.load(open('reports/acme-demo/doc_gaps_report.json'))\n    high = [g for g in r.get('gaps', []) if g.get('priority') == 'high']\n    print(f'{len(high)} high-priority gaps:')\n    for g in high:\n        print(f'  [{g[\\\"priority\\\"]}] {g[\\\"title\\\"]}')\"\n    ```\n\n1. Address each high-priority gap by creating or updating the relevant document. Common gaps include:\n\n    | Gap category | Typical fix |\n    | --- | --- |\n    | `authentication` | Add authentication guide with token management |\n    | `webhook` | Document webhook setup and payload schemas |\n    | `database_schema` | Add data model reference with field descriptions |\n    | `error_handling` | Create error code reference with resolution steps |\n\n1. Re-run the pipeline and verify the score:\n\n    ```bash\n    python3 -c \"\n    import json\n    print(json.load(open('reports/acme-demo/kpi-wall.json'))['quality_score'])\"\n    ```\n\n## MkDocs build fails with theme error\n\n**You see:** `mkdocs build` exits with `Theme 'material' not found` or `Module 'mkdocs_macros' not found`.\n\n**Root cause:** The required Python packages are not installed in the current environment."
+    },
+    {
+      "module_id": "auto-troubleshooting-5",
+      "title": "Troubleshooting: common VeriOps pipeline issues (Part 5)",
+      "priority": 60,
+      "intent": "troubleshoot",
+      "audience": "operator",
+      "channel": "docs",
+      "content": "### Fix MkDocs theme in 1 minute\n\n```bash\npip install mkdocs-material mkdocs-macros-plugin pymdown-extensions\n```\n\nVerify the build succeeds:\n\n```bash\ncd demo-showcase/acme && mkdocs build --strict\n```\n\nExpected output: `INFO - Documentation built in X.XX seconds`\n\n## WebSocket tester shows connection error\n\n**You see:** The interactive WebSocket tester on the [WebSocket event playground](../reference/websocket-events.md) displays \"Connection error.\"\n\n**Root cause:** The browser blocks insecure WebSocket connections (`ws://`) from HTTPS pages, or the endpoint is unreachable.\n\n### Fix WebSocket connection in 1 minute\n\n- Verify the endpoint uses `wss://` (not `ws://`). The correct endpoint is `wss://api.acme.example/realtime`.\n- Confirm the endpoint is accessible from your network. Try from the command line:\n\n    ```bash\n    curl -s -o /dev/null -w \"%{http_code}\" https://api.acme.example/realtime\n    ```\n\n- Check browser developer tools (Console tab) for specific error messages.\n- If you use a corporate proxy, configure WebSocket passthrough or use the [AsyncAPI event docs](../reference/asyncapi-events.md) with direct AMQP instead."
+    },
+    {
+      "module_id": "auto-troubleshooting-6",
+      "title": "Troubleshooting: common VeriOps pipeline issues (Part 6)",
+      "priority": 60,
+      "intent": "troubleshoot",
+      "audience": "operator",
+      "channel": "docs",
+      "content": "## Pipeline reports directory is empty\n\n**You see:** The `reports/acme-demo/` directory contains no JSON files after running the autopipeline.\n\n**Root cause:** The runtime config path is incorrect, or the `--reports-dir` argument points to a different location.\n\n### Fix empty reports in 2 minutes\n\n1. Verify the runtime config exists:\n\n    ```bash\n    ls -la reports/acme-demo/client_runtime.yml\n    ```\n\n1. Run the pipeline with explicit paths:\n\n    ```bash\n    python3 scripts/run_autopipeline.py \\\n      --docsops-root . \\\n      --reports-dir reports/acme-demo \\\n      --runtime-config reports/acme-demo/client_runtime.yml \\\n      --mode veridoc\n    ```\n\n1. Verify reports are generated:\n\n    ```bash\n    ls reports/acme-demo/*.json | head -10\n    ```\n\n    Expected output: at least 5 JSON report files.\n\n## Retrieval precision below threshold\n\n**You see:** The `retrieval_evals_report.json` shows precision below 0.7 or recall below 0.8.\n\n**Root cause:** The token-overlap baseline scorer runs without external dependencies and produces conservative scores. Enable advanced retrieval features (hybrid search, HyDE, cross-encoder reranking) for production-grade precision and recall."
+    },
+    {
+      "module_id": "auto-troubleshooting-7",
+      "title": "Troubleshooting: common VeriOps pipeline issues (Part 7)",
+      "priority": 60,
+      "intent": "troubleshoot",
+      "audience": "operator",
+      "channel": "docs",
+      "content": "### Fix retrieval precision in 10 minutes\n\n1. Check the retrieval evaluation report:\n\n```bash\n    python3 -c \"\n    import json\n    r = json.load(open('reports/acme-demo/retrieval_evals_report.json'))\n    print(f'Status: {r[\\\"status\\\"]}')\n    print(f'Precision: {r[\\\"precision\\\"]}')\n    print(f'Recall: {r[\\\"recall\\\"]}')\n    print(f'Hallucination rate: {r[\\\"hallucination_rate\\\"]}')\"\n    ```\n\n1. Run a multi-mode comparison to identify the best search strategy:\n\n```bash\n    python3 scripts/run_retrieval_evals.py \\\n      --mode all \\\n      --dataset config/retrieval_eval_dataset.yml \\\n      --report reports/retrieval_comparison.json\n    ```\n\nThis compares token, semantic, hybrid, and hybrid+rerank modes side by side.\n\n1. Improve knowledge module coverage:\n\n- Add more detailed content to documentation pages (each page should have at least 100 words)\n    - Include code examples with inline comments (the knowledge extractor indexes code blocks)\n    - Add tables with specific values (the knowledge extractor indexes structured data)\n\n1. Rebuild the retrieval index with chunking:\n\n```bash\n    python3 scripts/validate_knowledge_modules.py\n    python3 scripts/generate_knowledge_retrieval_index.py\n    python3 scripts/generate_embeddings.py --chunk \\\n      --index docs/assets/knowledge-retrieval-index.json \\\n      --output-dir docs/assets/\n    ```"
+    },
+    {
+      "module_id": "auto-troubleshooting-8",
+      "title": "Troubleshooting: common VeriOps pipeline issues (Part 8)",
+      "priority": 60,
+      "intent": "troubleshoot",
+      "audience": "operator",
+      "channel": "docs",
+      "content": "1. Verify advanced retrieval features are enabled in `config/ask-ai.yml`:\n\n```yaml\n    hybrid_search:\n      enabled: true\n    hyde:\n      enabled: true\n    reranking:\n      enabled: true\n    embedding_cache:\n      enabled: true\n    ```\n\n1. Re-run retrieval evaluations:\n\n```bash\n    python3 scripts/run_autopipeline.py \\\n      --docsops-root . \\\n      --reports-dir reports/acme-demo \\\n      --runtime-config reports/acme-demo/client_runtime.yml \\\n      --mode veridoc\n    ```\n\n## Prevention checklist\n\nPrevent 90% of pipeline issues with these practices:\n\n- [ ] **Install all dependencies**: `protoc`, `mkdocs-material`, `pymdown-extensions`\n- [ ] **Run the pipeline before every release**: Do not wait for the weekly schedule\n- [ ] **Address high-priority gaps immediately**: They compound and lower the quality score\n- [ ] **Keep contract files current**: Update OpenAPI, GraphQL schema, and proto files with every API change\n- [ ] **Monitor the KPI dashboard**: Check `kpi-wall.json` quality score after every run"
+    },
+    {
+      "module_id": "auto-troubleshooting-9",
+      "title": "Troubleshooting: common VeriOps pipeline issues (Part 9)",
+      "priority": 60,
+      "intent": "troubleshoot",
+      "audience": "operator",
+      "channel": "docs",
+      "content": "## Performance baseline\n\nAfter resolving issues, your pipeline should show:\n\n| Metric | Good | Warning | Critical |\n| --- | --- | --- | --- |\n| Quality score | 80+ | 70-79 | Below 70 |\n| Failed protocols | 0 | 1 | 2 or more |\n| High-priority gaps | 0-2 | 3-5 | 6 or more |\n| Pipeline exit code | 0 | 1 (non-critical) | 2 (critical failure) |\n| Retrieval precision | 0.7+ | 0.5-0.69 | Below 0.5 |\n\n## Next steps\n\n- [How-to: keep docs aligned with every release](how-to.md) for the operational workflow\n- [Quality evidence and gate results](../quality/evidence.md) for current gate status\n- [Concept: pipeline-first documentation lifecycle](concept.md) to understand the pipeline architecture"
+    },
+    {
+      "module_id": "auto-websocket-events-9",
+      "title": "WebSocket event playground (Part 9)",
+      "priority": 60,
+      "intent": "troubleshoot",
+      "audience": "operator",
+      "channel": "docs",
+      "content": "<script>\n/* Sandbox onclick is set by acme-sandbox.js with local mock responses */\n</script>\n\n## Error handling\n\n### WebSocket close codes\n\n| Close code | Meaning | Client action |\n| --- | --- | --- |\n| 1000 | Normal closure | No action required |\n| 1001 | Server going away | Reconnect with exponential backoff |\n| 1006 | Abnormal close (no close frame) | Reconnect with exponential backoff |\n| 1008 | Policy violation | Check message format and size |\n| 4001 | Authentication failed | Verify your API key is valid and not expired |\n| 4002 | Subscription limit reached | Unsubscribe from unused channels (max 50) |\n| 4008 | Rate limited | Wait 60 seconds before reconnecting |\n| 4009 | Message too large | Reduce message size to under 64 KB |\n\n### Common issues\n\n| Symptom | Cause | Resolution |\n| --- | --- | --- |\n| Connection drops every 30 seconds | Client not responding to `ping` | Implement `pong` response handler |\n| Connection drops after 5 minutes | No messages sent or received | Send periodic messages or respond to pings |\n| `Connection error` in browser | Mixed content (`ws://` on HTTPS page) | Use `wss://` endpoint |\n| Missed events after reconnect | Subscriptions not restored | Re-subscribe to all channels on `open` event |"
+    },
     {
       "module_id": "webhook-retry-policy",
       "title": "Define idempotent webhook retry handling",

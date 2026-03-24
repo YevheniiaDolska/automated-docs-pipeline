@@ -1,0 +1,188 @@
+{
+  "intent": "secure",
+  "audience": "developer",
+  "channel": "docs",
+  "module_count": 20,
+  "modules": [
+    {
+      "module_id": "auto-architecture-overview-3",
+      "title": "VeriOps API platform architecture (Part 3)",
+      "priority": 60,
+      "intent": "secure",
+      "audience": "developer",
+      "channel": "docs",
+      "content": "### API gateway layer (5 protocols)\n\n| Protocol | Transport | Endpoints | Interactive reference |\n| --- | --- | --- | --- |\n| REST | HTTP/1.1 + JSON | 19 endpoints across 5 resources | [Swagger UI](../reference/rest-api.md) |\n| GraphQL | HTTP POST | 3 operation types (Query, Mutation, Subscription) | [Live playground](../reference/graphql-playground.md) |\n| gRPC | HTTP/2 + Protobuf | 3 RPC methods on ProjectService | [Gateway tester](../reference/grpc-gateway.md) |\n| AsyncAPI | AMQP 0.9.1 | 3 event channels | [Event tester](../reference/asyncapi-events.md) |\n| WebSocket | WSS (RFC 6455) | 4 real-time channels | [WS playground](../reference/websocket-events.md) |\n\n### Services layer (4 microservices)\n\n| Service | Responsibility | Key capability |\n| --- | --- | --- |\n| Auth Service | JWT validation, OAuth2 flows, RBAC | 50&nbsp;ms average token validation |\n| Project Service | Project CRUD, status transitions, event emission | Emits project.created and project.updated events |\n| Task Service | Task lifecycle, priority queue, assignment | Cascading delete with parent project |\n| Notification Service | Fan-out to WebSocket, webhooks, and email | Bridges AMQP events to client transports |"
+    },
+    {
+      "module_id": "auto-architecture-overview-4",
+      "title": "VeriOps API platform architecture (Part 4)",
+      "priority": 60,
+      "intent": "secure",
+      "audience": "developer",
+      "channel": "docs",
+      "content": "### Data and infrastructure layer (4 components)\n\n| Component | Role | Key metric |\n| --- | --- | --- |\n| PostgreSQL | Primary relational database | 8,500 queries per second, primary + 2 read replicas |\n| Redis | Cache, rate limits, sessions | 94% cache hit rate, 3-node cluster |\n| RabbitMQ | Event broker (AMQP 0.9.1) | 3 exchanges, 7-day message retention |\n| Object Storage | File attachments, backups, audit logs | S3-compatible, AES-256 encryption, 2.5 TB per day |\n\n## Request flow\n\nA typical API request traverses 5 layers in sequence:\n\n1. **Client sends request** to one of the 5 protocol endpoints\n1. **CDN caches** static content (24-hour TTL) and forward dynamic requests\n1. **WAF inspects** the request payload against OWASP Top 10 rules\n1. **Rate Limiter checks** the API key's remaining quota in Redis\n1. **API Gateway routes** to the appropriate protocol handler\n1. **Auth Service validates** the JWT Bearer token (50&nbsp;ms average)\n1. **Domain Service processes** the business logic (Project or Task Service)\n1. **PostgreSQL persists** the state change, Redis updates the cache\n1. **RabbitMQ publishes** lifecycle events to subscribed channels\n1. **Notification Service fans out** events to WebSocket clients and webhook endpoints"
+    },
+    {
+      "module_id": "auto-asyncapi-events-1",
+      "title": "AsyncAPI event docs",
+      "priority": 60,
+      "intent": "secure",
+      "audience": "developer",
+      "channel": "docs",
+      "content": "# AsyncAPI event docs\n\n<div class=\"veriops-badges\" markdown>\n\n![Powered by VeriOps](https://img.shields.io/badge/Powered%20by-VeriOps-7c3aed?style=flat-square)\n![Quality Score](https://img.shields.io/badge/Quality%20Score-100%25-10b981?style=flat-square)\n![Protocols](https://img.shields.io/badge/Protocols-5-7c3aed?style=flat-square)\n\n</div>\n\nThe VeriOps event system provides asynchronous, event-driven communication for project lifecycle changes. AsyncAPI 2.6.0 contracts define channel schemas, delivery guarantees, and payload formats for three event channels.\n\n## Broker and transport\n\n| Setting | Value |\n| --- | --- |\n| AsyncAPI version | 2.6.0 |\n| Protocol | AMQP 0.9.1 (RabbitMQ) |\n| Broker | `amqp://events.veriops.example:5672` |\n| WebSocket bridge | `wss://events.veriops.example/ws` |\n| Authentication | Bearer token in connection header or SASL PLAIN |\n| Delivery guarantee | At-least-once |\n| Message retention | 7 days |\n| Max payload size | 256 KB |\n| Default consumer group | `veriops-consumers` |\n| Heartbeat interval | 60 seconds |"
+    },
+    {
+      "module_id": "auto-asyncapi-events-13",
+      "title": "AsyncAPI event docs (Part 13)",
+      "priority": 60,
+      "intent": "secure",
+      "audience": "developer",
+      "channel": "docs",
+      "content": "tryNext('');\n  };\n})();\n</script>\n\n## Error handling\n\n| Error | Cause | Resolution |\n| --- | --- | --- |\n| `CONNECTION_REFUSED` | Broker unreachable | Verify `events.veriops.example:5672` is accessible from your network |\n| `AUTH_FAILED` | Invalid credentials | Check bearer token or SASL credentials |\n| `CHANNEL_NOT_FOUND` | Invalid channel name | Use exact channel names from the catalog above |\n| `PAYLOAD_TOO_LARGE` | Message exceeds 256 KB | Reduce payload size or split into multiple events |\n| `CONSUMER_TIMEOUT` | No ACK within 300 seconds | Acknowledge messages faster or increase prefetch count |\n\n## Next steps\n\n- [WebSocket event playground](websocket-events.md) for bidirectional real-time messaging\n- [REST API reference](rest-api.md) for synchronous CRUD operations\n- [Tutorial: launch your first integration](../guides/tutorial.md) to subscribe to events end-to-end"
+    },
+    {
+      "module_id": "auto-asyncapi-events-6",
+      "title": "AsyncAPI event docs (Part 6)",
+      "priority": 60,
+      "intent": "secure",
+      "audience": "developer",
+      "channel": "docs",
+      "content": "### JavaScript (WebSocket bridge)\n\n```javascript\n// Subscribe to project update events via WebSocket bridge\n// Requires: valid bearer token and active WebSocket connection\nconst ws = new WebSocket('wss://events.veriops.example/ws', [], {\n  headers: { 'Authorization': 'Bearer YOUR_API_KEY' }\n});\n\nconst processedEvents = new Set();\n\nws.addEventListener('open', () => {\n  ws.send(JSON.stringify({\n    action: 'subscribe',\n    channels: ['project.updated', 'project.created']\n  }));\n  console.log('Subscribed to project event channels');\n});\n\nws.addEventListener('message', (event) => {\n  const payload = JSON.parse(event.data);\n\n  // Idempotency check: skip duplicate events\n  if (processedEvents.has(payload.event_id)) {\n    console.log('Skipping duplicate event:', payload.event_id);\n    return;\n  }\n  processedEvents.add(payload.event_id);\n\n  console.log('Event received:', payload.event_type, payload.data.project_id);\n  // Process the event here\n});\n```\n\n<!-- requires: api-key -->"
+    },
+    {
+      "module_id": "auto-graphql-playground-1",
+      "title": "GraphQL playground",
+      "priority": 60,
+      "intent": "secure",
+      "audience": "developer",
+      "channel": "docs",
+      "content": "# GraphQL playground\n\n<div class=\"veriops-badges\" markdown>\n\n![Powered by VeriOps](https://img.shields.io/badge/Powered%20by-VeriOps-7c3aed?style=flat-square)\n![Quality Score](https://img.shields.io/badge/Quality%20Score-100%25-10b981?style=flat-square)\n![Protocols](https://img.shields.io/badge/Protocols-5-7c3aed?style=flat-square)\n\n</div>\n\nThe VeriOps GraphQL API provides a single endpoint for flexible queries across projects, tasks, and users. This page documents the full schema, provides a live query editor, covers authentication, error handling, performance limits, and the advanced RAG retrieval pipeline that powers AI-driven search across GraphQL documentation.\n\n## Endpoint and authentication\n\n| Setting | Value |\n| --- | --- |\n| Endpoint | [`https://api.veriops.example/graphql`](https://api.veriops.example/graphql) |\n| Method | POST |\n| Authentication | Bearer token in `Authorization` header |\n| Content type | `application/json` |\n| Max query depth | 10 levels |\n| Max query complexity | 500 points |\n| Rate limit | 60 requests per minute |\n| Introspection | Enabled in development, disabled in production |\n\n## Schema overview\n\nThe VeriOps GraphQL schema exposes three operation types and one core object type:"
+    },
+    {
+      "module_id": "auto-graphql-playground-3",
+      "title": "GraphQL playground (Part 3)",
+      "priority": 60,
+      "intent": "secure",
+      "audience": "developer",
+      "channel": "docs",
+      "content": "## Quick start: query a project\n\n```graphql\nquery GetProject {\n  project(id: \"prj_abc123\") {\n    id\n    name\n    status\n    createdAt\n    updatedAt\n  }\n}\n```\n\nSend this query with curl:\n\n```bash\ncurl -X POST https://api.veriops.example/graphql \\\n  -H \"Authorization: Bearer YOUR_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\n    \"query\": \"query GetProject { project(id: \\\"prj_abc123\\\") { id name status } }\"\n  }'\n```\n\n<!-- requires: api-key -->\n\n**Example response:**\n\n```json\n{\n  \"data\": {\n    \"project\": {\n      \"id\": \"prj_abc123\",\n      \"name\": \"Website Redesign\",\n      \"status\": \"active\"\n    }\n  }\n}\n```\n\n## Query examples\n\n### Check API health\n\n```graphql\nquery Health {\n  health {\n    status\n    version\n    uptime_seconds\n  }\n}\n```\n\n### List active projects\n\n```graphql\nquery ActiveProjects {\n  projects(status: \"active\", limit: 10) {\n    id\n    name\n    status\n    createdAt\n  }\n}\n```\n\n### Create a project (mutation)\n\n```graphql\nmutation CreateProject {\n  createProject(name: \"Mobile App Launch\", status: \"active\") {\n    id\n    name\n    status\n    createdAt\n  }\n}\n```\n\n### Subscribe to project updates\n\n```graphql\nsubscription WatchProject {\n  projectUpdated(projectId: \"prj_abc123\") {\n    id\n    name\n    status\n    updatedAt\n  }\n}\n```\n\nSubscriptions require a WebSocket connection to `wss://api.veriops.example/graphql/ws`."
+    },
+    {
+      "module_id": "auto-graphql-playground-8",
+      "title": "GraphQL playground (Part 8)",
+      "priority": 60,
+      "intent": "secure",
+      "audience": "developer",
+      "channel": "docs",
+      "content": "### Error codes\n\n| Code | HTTP equivalent | Meaning | Resolution |\n| --- | --- | --- | --- |\n| `UNAUTHENTICATED` | 401 | Missing or invalid bearer token | Provide a valid `Authorization: Bearer` header |\n| `FORBIDDEN` | 403 | Token valid but lacks required scope | Request the `graphql:read` or `graphql:write` scope |\n| `NOT_FOUND` | 404 | Requested resource does not exist | Verify the resource ID |\n| `QUERY_TOO_COMPLEX` | 400 | Query exceeds 500 complexity points | Reduce nesting depth or remove unnecessary fields |\n| `QUERY_TOO_DEEP` | 400 | Query exceeds 10 levels of nesting | Flatten the query or use separate requests |\n| `RATE_LIMITED` | 429 | Exceeded 60 requests per minute | Implement request throttling on the client |\n| `INTERNAL_ERROR` | 500 | Server error | Retry with exponential backoff (max 3 attempts) |\n\n## Performance limits\n\n| Limit | Value | Notes |\n| --- | --- | --- |\n| Max query depth | 10 levels | Nested field resolution depth |\n| Max complexity | 500 points | Each field costs 1 point, lists cost 10 points |\n| Max query size | 10 KB | Request body size limit |\n| Timeout | 30 seconds | Per-query execution timeout |\n| Batch queries | Up to 5 | Multiple queries in one request |"
+    },
+    {
+      "module_id": "auto-grpc-gateway-1",
+      "title": "gRPC gateway invoke",
+      "priority": 60,
+      "intent": "secure",
+      "audience": "developer",
+      "channel": "docs",
+      "content": "# gRPC gateway invoke\n\n<div class=\"veriops-badges\" markdown>\n\n![Powered by VeriOps](https://img.shields.io/badge/Powered%20by-VeriOps-7c3aed?style=flat-square)\n![Quality Score](https://img.shields.io/badge/Quality%20Score-100%25-10b981?style=flat-square)\n![Protocols](https://img.shields.io/badge/Protocols-5-7c3aed?style=flat-square)\n\n</div>\n\nThe VeriOps gRPC API provides high-performance Remote Procedure Call (RPC) access to project services over HTTP/2 with Protocol Buffers serialization. The HTTP gateway adapter allows you to invoke gRPC methods from any HTTP client without a gRPC library.\n\n!!! note \"Sandbox mode\"\n    Interactive requests route to the Postman mock server. No gRPC tooling required.\n    In production, the pipeline validates proto definitions against the `protoc` compiler automatically.\n\n## Connection details\n\n| Setting | Value |\n| --- | --- |\n| gRPC endpoint | `grpc.veriops.example:443` |\n| HTTP gateway | [`https://api.veriops.example/grpc/invoke`](https://api.veriops.example/grpc/invoke) |\n| Transport | HTTP/2 with TLS 1.3 |\n| Serialization | Protocol Buffers (proto3) |\n| Package | `veriops.v1` |\n| Proto file | `veriops.proto` |\n| Default deadline | 30 seconds |\n| Max message size | 4 MB |\n| Authentication | Bearer token in `Authorization` metadata |"
+    },
+    {
+      "module_id": "auto-grpc-gateway-4",
+      "title": "gRPC gateway invoke (Part 4)",
+      "priority": 60,
+      "intent": "secure",
+      "audience": "developer",
+      "channel": "docs",
+      "content": "## Quick start: get a project via HTTP gateway\n\nThe HTTP gateway translates JSON requests into gRPC calls. You do not need a gRPC client library.\n\n```bash\ncurl -X POST https://api.veriops.example/grpc/invoke \\\n  -H \"Authorization: Bearer YOUR_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\n    \"service\": \"veriops.v1.ProjectService\",\n    \"method\": \"GetProject\",\n    \"payload\": {\"project_id\": \"prj_abc123\"}\n  }'\n```\n\n<!-- requires: api-key -->\n\n**Expected response (HTTP 200):**\n\n```json\n{\n  \"id\": \"prj_abc123\",\n  \"name\": \"Website Redesign\",\n  \"status\": \"active\"\n}\n```\n\n## Quick start: get a project via grpcurl\n\nUse `grpcurl` for direct gRPC access without the HTTP gateway:\n\n```bash\ngrpcurl -d '{\"project_id\": \"prj_abc123\"}' \\\n  -H \"Authorization: Bearer YOUR_API_KEY\" \\\n  grpc.veriops.example:443 veriops.v1.ProjectService/GetProject\n```\n\n<!-- requires: api-key, grpcurl -->\n\n## Quick start: create a project\n\n```bash\ncurl -X POST https://api.veriops.example/grpc/invoke \\\n  -H \"Authorization: Bearer YOUR_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\n    \"service\": \"veriops.v1.ProjectService\",\n    \"method\": \"CreateProject\",\n    \"payload\": {\"name\": \"Mobile App Launch\", \"status\": \"active\"}\n  }'\n```\n\n<!-- requires: api-key -->\n\n**Expected response (HTTP 200):**\n\n```json\n{\n  \"id\": \"prj_def456\",\n  \"name\": \"Mobile App Launch\",\n  \"status\": \"active\"\n}\n```"
+    },
+    {
+      "module_id": "auto-grpc-gateway-7",
+      "title": "gRPC gateway invoke (Part 7)",
+      "priority": 60,
+      "intent": "secure",
+      "audience": "developer",
+      "channel": "docs",
+      "content": "## Error handling and gRPC status codes\n\nThe HTTP gateway maps gRPC status codes to HTTP status codes:\n\n| gRPC status | HTTP status | Description | Resolution |\n| --- | --- | --- | --- |\n| `OK` (0) | 200 | Success | -- |\n| `INVALID_ARGUMENT` (3) | 400 | Malformed request or invalid field | Check the `payload` JSON matches the proto message |\n| `UNAUTHENTICATED` (16) | 401 | Missing or invalid bearer token | Provide a valid `Authorization` header |\n| `PERMISSION_DENIED` (7) | 403 | Token valid but lacks scope | Request `grpc:invoke` scope from admin |\n| `NOT_FOUND` (5) | 404 | Resource does not exist | Verify the project ID format (`prj_*`) |\n| `DEADLINE_EXCEEDED` (4) | 504 | RPC took longer than 30 seconds | Increase deadline or optimize the query |\n| `UNAVAILABLE` (14) | 503 | Service temporarily unavailable | Retry with exponential backoff (3 attempts, initial 1 second) |\n| `INTERNAL` (13) | 500 | Server error | Retry with exponential backoff |"
+    },
+    {
+      "module_id": "auto-rest-api-1",
+      "title": "REST API reference",
+      "priority": 60,
+      "intent": "secure",
+      "audience": "developer",
+      "channel": "docs",
+      "content": "# REST API reference\n\n<div class=\"veriops-badges\" markdown>\n\n![Powered by VeriOps](https://img.shields.io/badge/Powered%20by-VeriOps-7c3aed?style=flat-square)\n![Quality Score](https://img.shields.io/badge/Quality%20Score-100%25-10b981?style=flat-square)\n![Protocols](https://img.shields.io/badge/Protocols-5-7c3aed?style=flat-square)\n\n</div>\n\nThe VeriOps REST API provides 14 CRUD endpoints across five resources (projects, tasks, users, tags, and comments) over HTTP/1.1 with JSON payloads. This reference documents every endpoint, authentication flow, and error code.\n\n## Base URL and authentication\n\n| Setting | Value |\n| --- | --- |\n| Base URL | [`https://api.veriops.example/v1`](https://api.veriops.example/v1) |\n| Authentication | Bearer JWT token in `Authorization` header |\n| Content type | `application/json` |\n| Rate limit | 60 requests per minute per API key |\n| OpenAPI spec version | 3.0.3 |\n| API version | v1 |\n\nAll requests require a valid JWT token:\n\n```bash\ncurl -X GET https://api.veriops.example/v1/projects \\\n  -H \"Authorization: Bearer YOUR_API_KEY\" \\\n  -H \"Content-Type: application/json\"\n```\n\n<!-- requires: api-key -->"
+    },
+    {
+      "module_id": "auto-rest-api-3",
+      "title": "REST API reference (Part 3)",
+      "priority": 60,
+      "intent": "secure",
+      "audience": "developer",
+      "channel": "docs",
+      "content": "### List all projects\n\n```\nGET /v1/projects\n```\n\nReturns a paginated list of projects. Supports filtering by `status` and sorting by `created_at`.\n\n**Query parameters:**\n\n| Parameter | Type | Default | Description |\n| --- | --- | --- | --- |\n| `page` | integer | `1` | Page number (1-indexed) |\n| `per_page` | integer | `25` | Results per page (max 100) |\n| `status` | string | -- | Filter by status: `active`, `archived`, `draft` |\n| `sort` | string | `created_at` | Sort field: `created_at`, `updated_at`, `name` |\n| `order` | string | `desc` | Sort order: `asc`, `desc` |\n\n**Example request:**\n\n```bash\ncurl -X GET \"https://api.veriops.example/v1/projects?status=active&per_page=10\" \\\n  -H \"Authorization: Bearer YOUR_API_KEY\"\n```\n\n<!-- requires: api-key -->\n\n**Example response (HTTP 200):**\n\n```json\n{\n  \"data\": [\n    {\n      \"id\": \"prj_abc123\",\n      \"name\": \"Website Redesign\",\n      \"status\": \"active\",\n      \"description\": \"Q2 website refresh with new design system\",\n      \"created_at\": \"2026-01-15T09:30:00Z\",\n      \"updated_at\": \"2026-03-10T14:22:00Z\",\n      \"task_count\": 47,\n      \"owner_id\": \"usr_456\"\n    }\n  ],\n  \"pagination\": {\n    \"page\": 1,\n    \"per_page\": 10,\n    \"total\": 142,\n    \"total_pages\": 15\n  }\n}\n```"
+    },
+    {
+      "module_id": "auto-rest-api-4",
+      "title": "REST API reference (Part 4)",
+      "priority": 60,
+      "intent": "secure",
+      "audience": "developer",
+      "channel": "docs",
+      "content": "### Create a project\n\n```\nPOST /v1/projects\n```\n\nCreates a new project resource. Returns the created project with a generated `id`.\n\n**Request body:**\n\n| Field | Type | Required | Description |\n| --- | --- | --- | --- |\n| `name` | string | Yes | Project name (3-100 characters) |\n| `description` | string | No | Project description (max 500 characters) |\n| `status` | string | No | Initial status: `draft` (default), `active` |\n\n**Example request:**\n\n```bash\ncurl -X POST https://api.veriops.example/v1/projects \\\n  -H \"Authorization: Bearer YOUR_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\n    \"name\": \"Mobile App Launch\",\n    \"description\": \"iOS and Android app for Q3 release\",\n    \"status\": \"active\"\n  }'\n```\n\n<!-- requires: api-key -->\n\n**Example response (HTTP 201):**\n\n```json\n{\n  \"id\": \"prj_def456\",\n  \"name\": \"Mobile App Launch\",\n  \"description\": \"iOS and Android app for Q3 release\",\n  \"status\": \"active\",\n  \"created_at\": \"2026-03-19T10:00:00Z\",\n  \"updated_at\": \"2026-03-19T10:00:00Z\",\n  \"task_count\": 0,\n  \"owner_id\": \"usr_789\"\n}\n```"
+    },
+    {
+      "module_id": "auto-rest-api-5",
+      "title": "REST API reference (Part 5)",
+      "priority": 60,
+      "intent": "secure",
+      "audience": "developer",
+      "channel": "docs",
+      "content": "### Get a project\n\n```\nGET /v1/projects/{id}\n```\n\nReturns a single project by ID.\n\n**Path parameters:**\n\n| Parameter | Type | Description |\n| --- | --- | --- |\n| `id` | string | Project ID (format: `prj_*`) |\n\n**Example request:**\n\n```bash\ncurl https://api.veriops.example/v1/projects/prj_abc123 \\\n  -H \"Authorization: Bearer YOUR_API_KEY\"\n```\n\n<!-- requires: api-key -->\n\n### Update a project\n\n```\nPUT /v1/projects/{id}\n```\n\nUpdates an existing project. Send only the fields you want to change.\n\n### Delete a project\n\n```\nDELETE /v1/projects/{id}\n```\n\nDeletes a project and all associated tasks. This action is irreversible. Returns HTTP 204 on success.\n\n## Endpoints: tasks\n\n### List tasks\n\n```\nGET /v1/tasks\n```\n\nReturns tasks with optional filtering by `project_id`, `status`, and `assignee_id`.\n\n**Query parameters:**\n\n| Parameter | Type | Default | Description |\n| --- | --- | --- | --- |\n| `project_id` | string | -- | Filter by project |\n| `status` | string | -- | Filter: `todo`, `in_progress`, `done` |\n| `assignee_id` | string | -- | Filter by assigned user |\n| `page` | integer | `1` | Page number |\n| `per_page` | integer | `25` | Results per page (max 100) |"
+    },
+    {
+      "module_id": "auto-rest-api-6",
+      "title": "REST API reference (Part 6)",
+      "priority": 60,
+      "intent": "secure",
+      "audience": "developer",
+      "channel": "docs",
+      "content": "### Create a task\n\n```\nPOST /v1/tasks\n```\n\n**Request body:**\n\n| Field | Type | Required | Description |\n| --- | --- | --- | --- |\n| `title` | string | Yes | Task title (3-200 characters) |\n| `project_id` | string | Yes | Parent project ID |\n| `assignee_id` | string | No | User to assign |\n| `status` | string | No | Initial status: `todo` (default) |\n| `priority` | string | No | Priority: `low`, `medium`, `high` |\n\n**Example request:**\n\n```bash\ncurl -X POST https://api.veriops.example/v1/tasks \\\n  -H \"Authorization: Bearer YOUR_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\n    \"title\": \"Design homepage mockup\",\n    \"project_id\": \"prj_abc123\",\n    \"assignee_id\": \"usr_456\",\n    \"priority\": \"high\"\n  }'\n```\n\n<!-- requires: api-key -->\n\n## Endpoints: users, tags, and comments\n\n### Users\n\n| Method | Path | Description |\n| --- | --- | --- |\n| `GET` | `/v1/users` | List all users (paginated) |\n| `GET` | `/v1/users/{id}` | Get user by ID |\n| `POST` | `/v1/users` | Create a new user |\n\n### Tags\n\n| Method | Path | Description |\n| --- | --- | --- |\n| `GET` | `/v1/tags` | List all tags |\n| `POST` | `/v1/tags` | Create a tag |\n| `DELETE` | `/v1/tags/{id}` | Delete a tag |"
+    },
+    {
+      "module_id": "auto-rest-api-8",
+      "title": "REST API reference (Part 8)",
+      "priority": 60,
+      "intent": "secure",
+      "audience": "developer",
+      "channel": "docs",
+      "content": "### Error codes\n\n| Status | Code | Meaning | Resolution |\n| --- | --- | --- | --- |\n| 400 | `validation_error` | Request body fails validation | Check the `details` array for specific field errors |\n| 401 | `unauthorized` | Missing or invalid JWT token | Regenerate your token in the [dashboard](https://app.veriops.example/settings/api) |\n| 403 | `forbidden` | Token valid but lacks permission | Request the required scope from your admin |\n| 404 | `not_found` | Resource does not exist | Verify the resource ID in the URL path |\n| 409 | `conflict` | Duplicate resource | A resource with that unique key already exists |\n| 429 | `rate_limited` | Exceeded 60 requests per minute | Wait 60 seconds or implement request queuing |\n| 500 | `internal_error` | Server error | Retry with exponential backoff (max 3 attempts, initial delay 1 second) |\n\n## Rate limiting\n\nThe API enforces a limit of 60 requests per minute per API key. Rate limit headers appear on every response:\n\n| Header | Description |\n| --- | --- |\n| `X-RateLimit-Limit` | Maximum requests per window (60) |\n| `X-RateLimit-Remaining` | Requests remaining in current window |\n| `X-RateLimit-Reset` | Unix timestamp when the window resets |\n\nWhen you exceed the limit, the API returns HTTP 429 with a `Retry-After` header indicating seconds to wait."
+    },
+    {
+      "module_id": "auto-websocket-events-1",
+      "title": "WebSocket event playground",
+      "priority": 60,
+      "intent": "secure",
+      "audience": "developer",
+      "channel": "docs",
+      "content": "# WebSocket event playground\n\n<div class=\"veriops-badges\" markdown>\n\n![Powered by VeriOps](https://img.shields.io/badge/Powered%20by-VeriOps-7c3aed?style=flat-square)\n![Quality Score](https://img.shields.io/badge/Quality%20Score-100%25-10b981?style=flat-square)\n![Protocols](https://img.shields.io/badge/Protocols-5-7c3aed?style=flat-square)\n\n</div>\n\nThe VeriOps WebSocket API provides real-time, bidirectional communication for project updates and task notifications over a persistent connection. This playground allows you to connect, subscribe to channels, send messages, and observe server-pushed events.\n\n## Connection details\n\n| Setting | Value |\n| --- | --- |\n| Endpoint | `wss://api.veriops.example/realtime` |\n| Authentication | Bearer token as `token` query parameter |\n| Protocol | WebSocket (RFC 6455) over TLS 1.3 |\n| Heartbeat interval | 30 seconds (server sends `ping`, client responds `pong`) |\n| Reconnect strategy | Exponential backoff: 1 second, 2 seconds, 4 seconds, 8 seconds, 16 seconds, max 30 seconds |\n| Max message size | 64 KB |\n| Idle timeout | 300 seconds (5 minutes) without messages |\n| Max subscriptions per connection | 50 channels |\n| Compression | `permessage-deflate` supported |"
+    },
+    {
+      "module_id": "auto-websocket-events-3",
+      "title": "WebSocket event playground (Part 3)",
+      "priority": 60,
+      "intent": "secure",
+      "audience": "developer",
+      "channel": "docs",
+      "content": "## Channel catalog\n\n| Channel | Direction | Filters | Description |\n| --- | --- | --- | --- |\n| `project.updated` | Server to client | `project_id` (optional) | Project status change events |\n| `project.created` | Server to client | -- | New project creation events |\n| `task.completed` | Server to client | `project_id` (optional) | Task completion notifications |\n| `presence` | Bidirectional | -- | User online/offline status |\n\n## Quick start: connect and subscribe\n\n### Step 1: establish connection\n\n```javascript\n// Connect to the VeriOps WebSocket API\n// Pass your API key as a query parameter for authentication\nconst ws = new WebSocket('wss://api.veriops.example/realtime?token=YOUR_API_KEY');\n\nws.addEventListener('open', () => {\n  console.log('Connected to VeriOps WebSocket API');\n});\n\nws.addEventListener('close', (event) => {\n  console.log('Disconnected:', event.code, event.reason);\n});\n```\n\n<!-- requires: api-key -->\n\n### Step 2: subscribe to a channel\n\n```javascript\n// Subscribe to project update events for a specific project\nws.send(JSON.stringify({\n  type: 'subscribe',\n  request_id: 'req_001',\n  sent_at: new Date().toISOString(),\n  payload: {\n    channel: 'project.updated',\n    filters: { project_id: 'prj_abc123' }\n  }\n}));\n```\n\n<!-- requires: api-key -->"
+    },
+    {
+      "module_id": "auto-websocket-events-9",
+      "title": "WebSocket event playground (Part 9)",
+      "priority": 60,
+      "intent": "secure",
+      "audience": "developer",
+      "channel": "docs",
+      "content": "<script>\n/* Sandbox onclick is set by acme-sandbox.js with local mock responses */\n</script>\n\n## Error handling\n\n### WebSocket close codes\n\n| Close code | Meaning | Client action |\n| --- | --- | --- |\n| 1000 | Normal closure | No action required |\n| 1001 | Server going away | Reconnect with exponential backoff |\n| 1006 | Abnormal close (no close frame) | Reconnect with exponential backoff |\n| 1008 | Policy violation | Check message format and size |\n| 4001 | Authentication failed | Verify your API key is valid and not expired |\n| 4002 | Subscription limit reached | Unsubscribe from unused channels (max 50) |\n| 4008 | Rate limited | Wait 60 seconds before reconnecting |\n| 4009 | Message too large | Reduce message size to under 64 KB |\n\n### Common issues\n\n| Symptom | Cause | Resolution |\n| --- | --- | --- |\n| Connection drops every 30 seconds | Client not responding to `ping` | Implement `pong` response handler |\n| Connection drops after 5 minutes | No messages sent or received | Send periodic messages or respond to pings |\n| `Connection error` in browser | Mixed content (`ws://` on HTTPS page) | Use `wss://` endpoint |\n| Missed events after reconnect | Subscriptions not restored | Re-subscribe to all channels on `open` event |"
+    }
+  ]
+}

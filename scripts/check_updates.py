@@ -14,6 +14,7 @@ Usage:
 from __future__ import annotations
 
 import argparse
+import base64
 import hashlib
 import json
 import os
@@ -101,7 +102,6 @@ def _verify_bundle_signature(bundle_path: Path, signature: str) -> bool:
         if pub_key is None:
             print("[update] No public key found for verification.", file=sys.stderr)
             return False
-        import base64
         sig_bytes = base64.b64decode(signature)
         data = bundle_path.read_bytes()
         return _verify_ed25519(data, sig_bytes, pub_key)

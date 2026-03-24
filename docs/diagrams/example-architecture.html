@@ -314,67 +314,67 @@
 const descriptions = {
   sdk: {
     title: "SDK Clients",
-    desc: "Official client libraries for Python, JavaScript, Go, and Java. Each SDK handles authentication, retries with exponential backoff, and request signing. Average response time: 45ms P50, 180ms P99.",
+    desc: "Connected to adjacent components (SDK Clients, Web Dashboard, REST API, CDN, WAF, Load Balancer, Rate Limiter, Auth Service, Core API, Worker Pool, PostgreSQL, Redis Cache, Object Storage). Official client libraries for Python, JavaScript, Go, and Java. Each SDK handles authentication, retries with exponential backoff, and request signing. Average response time: 45ms P50, 180ms P99.",
     tags: ["Python", "JavaScript", "Go", "Java"]
   },
   web: {
     title: "Web Dashboard",
-    desc: "Single-page application built with React. Provides real-time monitoring, configuration management, and API key administration. Served via CDN with 2-second TTL for dynamic content.",
+    desc: "Connected to adjacent components (SDK Clients, Web Dashboard, REST API, CDN, WAF, Load Balancer, Rate Limiter, Auth Service, Core API, Worker Pool, PostgreSQL, Redis Cache, Object Storage). Single-page application built with React. Provides real-time monitoring, configuration management, and API key administration. Served via CDN with 2-second TTL for dynamic content.",
     tags: ["React", "SPA", "Real-time"]
   },
   api: {
     title: "REST API",
-    desc: "RESTful API following OpenAPI 3.1 specification. Supports JSON request/response bodies, Bearer token authentication, and pagination via cursor-based tokens. Rate limited to 60 requests per minute per API key.",
+    desc: "Connected to adjacent components (SDK Clients, Web Dashboard, REST API, CDN, WAF, Load Balancer, Rate Limiter, Auth Service, Core API, Worker Pool, PostgreSQL, Redis Cache, Object Storage). RESTful API following OpenAPI 3.1 specification. Supports JSON request/response bodies, Bearer token authentication, and pagination via cursor-based tokens. Rate limited to 60 requests per minute per API key.",
     tags: ["REST", "OpenAPI 3.1", "JSON"]
   },
   cdn: {
     title: "CDN (Content Delivery Network)",
-    desc: "Global CDN with 12 points of presence. Caches static assets with 24-hour TTL and API responses with 5-second TTL. Handles TLS termination and HTTP/2 multiplexing. 99.99% uptime SLA.",
+    desc: "Connected to adjacent components (SDK Clients, Web Dashboard, REST API, CDN, WAF, Load Balancer, Rate Limiter, Auth Service, Core API, Worker Pool, PostgreSQL, Redis Cache, Object Storage). Global CDN with 12 points of presence. Caches static assets with 24-hour TTL and API responses with 5-second TTL. Handles TLS termination and HTTP/2 multiplexing. 99.99% uptime SLA.",
     tags: ["12 PoPs", "TLS", "HTTP/2"]
   },
   waf: {
     title: "Web Application Firewall",
-    desc: "Blocks SQL injection, XSS, and request flooding. Processes 2 million malicious requests per day. Custom rules for API abuse detection. Integrates with threat intelligence feeds for zero-day protection.",
+    desc: "Connected to adjacent components (SDK Clients, Web Dashboard, REST API, CDN, WAF, Load Balancer, Rate Limiter, Auth Service, Core API, Worker Pool, PostgreSQL, Redis Cache, Object Storage). Blocks SQL injection, XSS, and request flooding. Processes 2 million malicious requests per day. Custom rules for API abuse detection. Integrates with threat intelligence feeds for zero-day protection.",
     tags: ["SQL injection", "XSS", "DDoS"]
   },
   lb: {
     title: "Load Balancer",
-    desc: "Layer 7 load balancer with health checks every 5 seconds. Distributes traffic using least-connections algorithm across 30 backend instances. Supports blue-green deployments with zero-downtime switchover.",
+    desc: "Connected to adjacent components (SDK Clients, Web Dashboard, REST API, CDN, WAF, Load Balancer, Rate Limiter, Auth Service, Core API, Worker Pool, PostgreSQL, Redis Cache, Object Storage). Layer 7 load balancer with health checks every 5 seconds. Distributes traffic using least-connections algorithm across 30 backend instances. Supports blue-green deployments with zero-downtime switchover.",
     tags: ["L7", "Health checks", "Blue-green"]
   },
   ratelimit: {
     title: "Rate Limiter",
-    desc: "Token bucket algorithm backed by Redis. Enforces per-API-key limits (60 req/min default, configurable per plan). Returns 429 with Retry-After header. Shared state across all gateway instances.",
+    desc: "Connected to adjacent components (SDK Clients, Web Dashboard, REST API, CDN, WAF, Load Balancer, Rate Limiter, Auth Service, Core API, Worker Pool, PostgreSQL, Redis Cache, Object Storage). Token bucket algorithm backed by Redis. Enforces per-API-key limits (60 req/min default, configurable per plan). Returns 429 with Retry-After header. Shared state across all gateway instances.",
     tags: ["Token bucket", "Redis", "Per-key"]
   },
   auth: {
     title: "Auth Service",
-    desc: "Validates JWT tokens in 50ms. Supports Bearer tokens, API keys, and OAuth2 flows. Issues tokens with configurable TTL (default: 1 hour). Manages refresh token rotation and revocation lists.",
+    desc: "Connected to adjacent components (SDK Clients, Web Dashboard, REST API, CDN, WAF, Load Balancer, Rate Limiter, Auth Service, Core API, Worker Pool, PostgreSQL, Redis Cache, Object Storage). Validates JWT tokens in 50ms. Supports Bearer tokens, API keys, and OAuth2 flows. Issues tokens with configurable TTL (default: 1 hour). Manages refresh token rotation and revocation lists.",
     tags: ["JWT", "OAuth2", "50ms"]
   },
   core: {
     title: "Core API Service",
-    desc: "Main business logic layer. Runs 30 instances with 4 GB RAM each. Handles CRUD operations, workflow orchestration, and event emission. Horizontally scalable with stateless design.",
+    desc: "Connected to adjacent components (SDK Clients, Web Dashboard, REST API, CDN, WAF, Load Balancer, Rate Limiter, Auth Service, Core API, Worker Pool, PostgreSQL, Redis Cache, Object Storage). Main business logic layer. Runs 30 instances with 4 GB RAM each. Handles CRUD operations, workflow orchestration, and event emission. Horizontally scalable with stateless design.",
     tags: ["30 instances", "Stateless", "4 GB each"]
   },
   worker: {
     title: "Background Workers",
-    desc: "Processes asynchronous jobs: webhook delivery, email notifications, data transformations. Uses a priority queue with 3 levels. Processes 100 jobs per second with automatic retry (max 3 attempts, exponential backoff).",
+    desc: "Connected to adjacent components (SDK Clients, Web Dashboard, REST API, CDN, WAF, Load Balancer, Rate Limiter, Auth Service, Core API, Worker Pool, PostgreSQL, Redis Cache, Object Storage). Processes asynchronous jobs: webhook delivery, email notifications, data transformations. Uses a priority queue with 3 levels. Processes 100 jobs per second with automatic retry (max 3 attempts, exponential backoff).",
     tags: ["Async", "Priority queue", "100 jobs/sec"]
   },
   db: {
     title: "PostgreSQL Database",
-    desc: "Primary database with 2 read replicas. Handles 8,500 queries per second (peak: 12,000). Uses connection pooling via PgBouncer (max 500 connections). Automated daily backups with 30-day retention and point-in-time recovery.",
+    desc: "Connected to adjacent components (SDK Clients, Web Dashboard, REST API, CDN, WAF, Load Balancer, Rate Limiter, Auth Service, Core API, Worker Pool, PostgreSQL, Redis Cache, Object Storage). Primary database with 2 read replicas. Handles 8,500 queries per second (peak: 12,000). Uses connection pooling via PgBouncer (max 500 connections). Automated daily backups with 30-day retention and point-in-time recovery.",
     tags: ["Primary + 2 replicas", "PgBouncer", "PITR"]
   },
   cache: {
     title: "Redis Cache",
-    desc: "In-memory cache with 94% hit rate. Stores session data, rate limit counters, and frequently accessed query results. Configured with allkeys-lru eviction policy. 2 GB memory limit per node, 3-node cluster.",
+    desc: "Connected to adjacent components (SDK Clients, Web Dashboard, REST API, CDN, WAF, Load Balancer, Rate Limiter, Auth Service, Core API, Worker Pool, PostgreSQL, Redis Cache, Object Storage). In-memory cache with 94% hit rate. Stores session data, rate limit counters, and frequently accessed query results. Configured with allkeys-lru eviction policy. 2 GB memory limit per node, 3-node cluster.",
     tags: ["94% hit rate", "LRU", "3-node cluster"]
   },
   storage: {
     title: "Object Storage",
-    desc: "S3-compatible object storage for file uploads, logs, and backups. Processes 2.5 TB per day. Lifecycle policy: hot storage for 30 days, then transition to cold storage. Server-side encryption with AES-256.",
+    desc: "Connected to adjacent components (SDK Clients, Web Dashboard, REST API, CDN, WAF, Load Balancer, Rate Limiter, Auth Service, Core API, Worker Pool, PostgreSQL, Redis Cache, Object Storage). S3-compatible object storage for file uploads, logs, and backups. Processes 2.5 TB per day. Lifecycle policy: hot storage for 30 days, then transition to cold storage. Server-side encryption with AES-256.",
     tags: ["S3-compatible", "2.5 TB/day", "AES-256"]
   }
 };

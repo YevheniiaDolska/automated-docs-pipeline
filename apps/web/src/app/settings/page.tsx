@@ -1,0 +1,278 @@
+"use client";
+
+import { useCallback, useEffect, useState } from "react";
+import {
+  type ModuleInfo,
+  type PipelineSettings,
+  type SettingsResponse,
+  settings as settingsApi,
+} from "@/lib/api";
+
+// ---------------------------------------------------------------------------
+// Constants
+// ---------------------------------------------------------------------------
+
+const FLOW_MODES = [
+  { value: "hybrid", label: "Hybrid", desc: "API-first + code-first combined" },
+  { value: "api-first", label: "API-first", desc: "OpenAPI spec is source of truth" },
+  { value: "code-first", label: "Code-first", desc: "Source code is source of truth" },
+];
+
+const SANDBOX_BACKENDS = [
+  { value: "external", label: "External (Postman)" },
+  { value: "docker", label: "Docker (Prism)" },
+  { value: "prism", label: "Local Prism" },
+];
+
+const PROTOCOL_OPTIONS = [
+  { value: "rest", label: "REST (OpenAPI)" },
+  { value: "graphql", label: "GraphQL" },
+  { value: "grpc", label: "gRPC" },
+  { value: "asyncapi", label: "AsyncAPI" },
+  { value: "websocket", label: "WebSocket" },
+];
+
+const TIER_LABELS: Record<string, string> = {
+  starter: "Starter",
+  pro: "Pro",
+  business: "Business",
+  enterprise: "Enterprise",
+};
+
+// ---------------------------------------------------------------------------
+// Component
+// ---------------------------------------------------------------------------
+
+export default function SettingsPage() {
+  const [data, setData] = useState<SettingsResponse | null>(null);
+  const [saving, setSaving] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+  const [success, setSuccess] = useState(false);
+
+  const load = useCallback(async () => {
+    try {
+      const res = await settingsApi.get();
+      setData(res);
+      setError(null);
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "Failed to load settings");
+    }
+  }, []);
+
+  useEffect(() => {
+    load();
+  }, [load]);
+
+  const toggleModule = useCallback(
+    async (key: string, enabled: boolean) => {
+      setSaving(true);
+      setSuccess(false);
+      try {
+        const res = await settingsApi.update({ modules: { [key]: enabled } });
+        setData(res);
+        setSuccess(true);
+        setError(null);
+      } catch (err) {
+        setError(err instanceof Error ? err.message : "Failed to update");
+      } finally {
+        setSaving(false);
+      }
+    },
+    [],
+  );
+
+  const updateSetting = useCallback(
+    async (updates: Record<string, unknown>) => {
+      setSaving(true);
+      setSuccess(false);
+      try {
+        const res = await settingsApi.update(updates);
+        setData(res);
+        setSuccess(true);
+        setError(null);
+      } catch (err) {
+        setError(err instanceof Error ? err.message : "Failed to update");
+      } finally {
+        setSaving(false);
+      }
+    },
+    [],
+  );
+
+  const toggleProtocol = useCallback(
+    (protocol: string) => {
+      if (!data) return;
+      const current = data.settings.default_protocols;
+      const next = current.includes(protocol)
+        ? current.filter((p) => p !== protocol)
+        : [...current, protocol];
+      updateSetting({ default_protocols: next });
+    },
+    [data, updateSetting],
+  );
+
+  if (!data) {
+    return (
+      <div className="mx-auto max-w-3xl px-4 py-12">
+        {error ? (
+          <div className="rounded border border-red-200 bg-red-50 p-4 text-red-700">
+            {error}
+          </div>
+        ) : (
+          <p className="text-gray-500">Loading settings...</p>
+        )}
+      </div>
+    );
+  }
+
+  // Group modules by tier for display
+  const tierGroups: Record<string, ModuleInfo[]> = {};
+  for (const mod of data.modules) {
+    const tier = mod.min_tier;
+    if (!tierGroups[tier]) tierGroups[tier] = [];
+    tierGroups[tier].push(mod);
+  }
+
+  return (
+    <div className="mx-auto max-w-3xl px-4 py-12">
+      <h1 className="text-2xl font-bold">Pipeline Settings</h1>
+      <p className="mt-1 text-gray-600">
+        Configure which pipeline modules run and how the pipeline behaves.
+      </p>
+
+      {error && (
+        <div className="mt-4 rounded border border-red-200 bg-red-50 p-3 text-sm text-red-700">
+          {error}
+        </div>
+      )}
+      {success && (
+        <div className="mt-4 rounded border border-green-200 bg-green-50 p-3 text-sm text-green-700">
+          Settings saved.
+        </div>
+      )}
+
+      {/* Flow mode */}
+      <section className="mt-8">
+        <h2 className="text-lg font-semibold">Flow mode</h2>
+        <div className="mt-3 space-y-2">
+          {FLOW_MODES.map((fm) => (
+            <label
+              key={fm.value}
+              className="flex cursor-pointer items-start gap-3 rounded border p-3 hover:bg-gray-50"
+            >
+              <input
+                type="radio"
+                name="flowMode"
+                value={fm.value}
+                checked={data.settings.flow_mode === fm.value}
+                onChange={() => updateSetting({ flow_mode: fm.value })}
+                disabled={saving}
+                className="mt-0.5"
+              />
+              <div>
+                <div className="font-medium">{fm.label}</div>
+                <div className="text-sm text-gray-500">{fm.desc}</div>
+              </div>
+            </label>
+          ))}
+        </div>
+      </section>
+
+      {/* Protocols */}
+      <section className="mt-8">
+        <h2 className="text-lg font-semibold">Default protocols</h2>
+        <div className="mt-3 space-y-2">
+          {PROTOCOL_OPTIONS.map((p) => (
+            <label key={p.value} className="flex items-center gap-2">
+              <input
+                type="checkbox"
+                checked={data.settings.default_protocols.includes(p.value)}
+                onChange={() => toggleProtocol(p.value)}
+                disabled={saving}
+              />
+              {p.label}
+            </label>
+          ))}
+        </div>
+      </section>
+
+      {/* Sandbox backend */}
+      <section className="mt-8">
+        <h2 className="text-lg font-semibold">Sandbox backend</h2>
+        <select
+          className="mt-2 rounded border px-3 py-2"
+          value={data.settings.sandbox_backend}
+          onChange={(e) => updateSetting({ sandbox_backend: e.target.value })}
+          disabled={saving}
+        >
+          {SANDBOX_BACKENDS.map((sb) => (
+            <option key={sb.value} value={sb.value}>
+              {sb.label}
+            </option>
+          ))}
+        </select>
+      </section>
+
+      {/* Algolia */}
+      <section className="mt-8">
+        <label className="flex items-center gap-3">
+          <input
+            type="checkbox"
+            checked={data.settings.algolia_enabled}
+            onChange={(e) => updateSetting({ algolia_enabled: e.target.checked })}
+            disabled={saving}
+            className="h-4 w-4"
+          />
+          <span className="font-semibold">Algolia search integration</span>
+        </label>
+      </section>
+
+      {/* Pipeline modules */}
+      <section className="mt-10">
+        <h2 className="text-lg font-semibold">Pipeline modules</h2>
+        <p className="mt-1 text-sm text-gray-500">
+          Toggle individual pipeline phases. Locked modules require a plan
+          upgrade.
+        </p>
+
+        {["starter", "pro", "business", "enterprise"].map((tier) => {
+          const mods = tierGroups[tier];
+          if (!mods || mods.length === 0) return null;
+          return (
+            <div key={tier} className="mt-6">
+              <h3 className="text-sm font-semibold uppercase tracking-wider text-gray-400">
+                {TIER_LABELS[tier]} tier
+              </h3>
+              <div className="mt-2 space-y-1">
+                {mods.map((mod) => (
+                  <label
+                    key={mod.key}
+                    className={`flex items-center gap-3 rounded px-3 py-2 ${
+                      mod.available
+                        ? "cursor-pointer hover:bg-gray-50"
+                        : "cursor-not-allowed opacity-50"
+                    }`}
+                  >
+                    <input
+                      type="checkbox"
+                      checked={mod.enabled}
+                      onChange={(e) => toggleModule(mod.key, e.target.checked)}
+                      disabled={!mod.available || saving}
+                      className="h-4 w-4"
+                    />
+                    <span>{mod.label}</span>
+                    {!mod.available && (
+                      <span className="ml-auto text-xs text-gray-400">
+                        Requires {TIER_LABELS[mod.min_tier]}
+                      </span>
+                    )}
+                  </label>
+                ))}
+              </div>
+            </div>
+          );
+        })}
+      </section>
+    </div>
+  );
+}

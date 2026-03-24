@@ -13,6 +13,7 @@ Algolia Search Analytics Parser
 import csv
 import json
 import re
+import sys
 from collections import Counter
 from dataclasses import dataclass, field
 from datetime import datetime
@@ -374,8 +375,6 @@ def create_sample_data(output_path: str = 'sample_algolia_data.json'):
 
 
 if __name__ == '__main__':
-    import sys
-
     if len(sys.argv) > 1 and sys.argv[1] == '--create-sample':
         create_sample_data()
     else:

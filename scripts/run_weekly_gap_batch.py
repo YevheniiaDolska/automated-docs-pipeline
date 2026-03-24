@@ -9,12 +9,15 @@ from __future__ import annotations
 
 import argparse
 import json
+import logging
 import shlex
 import subprocess
 import sys
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
 from typing import Any
+
+logger = logging.getLogger(__name__)
 
 import yaml
 
@@ -890,8 +893,11 @@ def main() -> int:
                 value = payload.get("generated_at")
                 if isinstance(value, str) and value.strip():
                     generated_at = value.strip()
-        except Exception:  # noqa: BLE001
-            pass
+        except (json.JSONDecodeError, OSError) as exc:
+            logger.warning(
+                "Failed to read generated_at from %s: %s",
+                consolidated_path, exc,
+            )
     status_payload = {
         "status": "ok",
         "last_run_at": datetime.now(timezone.utc).isoformat(),

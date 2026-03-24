@@ -1025,7 +1025,7 @@ def _build_html(payload: dict[str, Any]) -> str:
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>DocsOps Audit Scorecard</title>
+<title>VeriOps Audit Scorecard</title>
 <style>
   :root {{
     --bg:#f7fafc;
@@ -1064,7 +1064,7 @@ def _build_html(payload: dict[str, Any]) -> str:
 <body>
   <div class="wrap">
     <div class="hero">
-      <h1>DocsOps Audit Scorecard</h1>
+      <h1>VeriOps Audit Scorecard</h1>
       <p class="sub">Generated at {generated_at}</p>
       <div class="score">
         <div class="big">{score}</div>

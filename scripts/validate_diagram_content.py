@@ -420,7 +420,20 @@ def _metric_matches(diagram_metric: str, doc_text: str) -> bool:
     for m in re.finditer(r'[\d][,\d]*\.?\d*\s*[kKmMbB]?', doc_text):
         doc_numbers.add(_normalize_metric(m.group(0)))
 
-    return norm in doc_numbers
+    if norm in doc_numbers:
+        return True
+
+    # Composite metrics like "2 replicas, 8.5K qps" include multiple numeric tokens.
+    # Treat as matched when all normalized numeric parts are present in document text.
+    metric_parts: list[str] = []
+    for m in re.finditer(r'[\d][,\d]*\.?\d*\s*[kKmMbB]?', diagram_metric):
+        part = _normalize_metric(m.group(0))
+        if part:
+            metric_parts.append(part)
+    if metric_parts and all(part in doc_numbers for part in metric_parts):
+        return True
+
+    return False
 
 
 # ---------------------------------------------------------------------------

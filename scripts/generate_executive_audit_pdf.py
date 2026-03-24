@@ -468,7 +468,7 @@ def _header_footer(canvas, doc, company_name: str, gen_date: str) -> None:
     canvas.line(MARGIN, 9 * mm, w - MARGIN, 9 * mm)
     canvas.setFont("Helvetica", 7)
     canvas.setFillColor(GREY_500)
-    canvas.drawString(MARGIN, 5.5 * mm, "CONFIDENTIAL  |  DocsOps Platform")
+    canvas.drawString(MARGIN, 5.5 * mm, "CONFIDENTIAL  |  VeriOps Platform")
     canvas.drawCentredString(w / 2, 5.5 * mm, "Page {}".format(page_num))
     canvas.drawRightString(w - MARGIN, 5.5 * mm, gen_date)
 
@@ -556,7 +556,7 @@ def _cover_page(company_name: str, score: float, risk_band_label: str, gen_date:
             # Subtitle
             c.setFont("Helvetica", 12)
             c.setFillColor(colors.HexColor("#94a3b8"))
-            c.drawString(30, h - 165, "Prepared by DocsOps Automation Platform")
+            c.drawString(30, h - 165, "Prepared by VeriOps")
 
             # Date
             c.setFont("Helvetica", 10)
@@ -627,7 +627,7 @@ def _cover_page(company_name: str, score: float, risk_band_label: str, gen_date:
             c.setFillColor(GREY_500)
             c.setFont("Helvetica", 8)
             c.drawString(30, 20,
-                         "This report is generated automatically by the DocsOps platform. "
+                         "This report is generated automatically by the VeriOps platform. "
                          "Estimates are directional.")
 
     return [CoverDrawing(), PageBreak()]
@@ -1919,7 +1919,7 @@ def _build_pdf(
         topMargin=18 * mm,
         bottomMargin=16 * mm,
         title="Executive Documentation Audit",
-        author="DocsOps",
+        author="VeriOps",
     )
 
     content: list[Flowable] = []

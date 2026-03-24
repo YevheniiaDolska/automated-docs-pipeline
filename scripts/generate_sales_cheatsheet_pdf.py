@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
-"""Generate DocsOps Sales Cheat Sheet PDF.
+"""Generate VeriOps Sales Cheat Sheet PDF.
 
-A memorization-friendly sales reference for pitching the DocsOps
+A memorization-friendly sales reference for pitching the VeriOps
 Automation Platform to VP Engineering, VP Product, and Head of DevRel.
 """
 
@@ -73,7 +73,7 @@ class CoverPage(Flowable):
         # Title block
         c.setFillColor(WHITE)
         c.setFont("Helvetica-Bold", 13)
-        c.drawString(30, h - 40, "DocsOps Automation Platform")
+        c.drawString(30, h - 40, "VeriOps Automation Platform")
 
         c.setFont("Helvetica-Bold", 26)
         c.drawString(30, h - 80, "Sales Cheat Sheet")
@@ -160,7 +160,7 @@ def _header_footer(canvas, doc) -> None:
     canvas.line(MARGIN, h - 10 * mm, w - MARGIN, h - 10 * mm)
     canvas.setFont("Helvetica", 7)
     canvas.setFillColor(GREY6)
-    canvas.drawString(MARGIN, h - 9 * mm, "DocsOps Sales Cheat Sheet")
+    canvas.drawString(MARGIN, h - 9 * mm, "VeriOps Sales Cheat Sheet")
     canvas.drawRightString(w - MARGIN, h - 9 * mm, "Page {}".format(page))
     canvas.setStrokeColor(colors.HexColor("#e5e7eb"))
     canvas.setLineWidth(0.5)
@@ -295,7 +295,7 @@ def _build_pdf(output: Path) -> None:
     content.append(Spacer(1, 5 * mm))
     content.extend(_section("Our Solution (one paragraph)", sec))
     content.append(Paragraph(
-        "DocsOps is a documentation operating system that runs in your CI/CD pipeline. "
+        "VeriOps is a documentation operating system that runs in your CI/CD pipeline. "
         "It automatically detects what docs are missing or stale, generates drafts from "
         "AI-powered templates, enforces quality with 8 automated gates, and monitors "
         "documentation health weekly -- just like you monitor uptime. "
@@ -413,7 +413,7 @@ def _build_pdf(output: Path) -> None:
     comp_data = [
         ["They say...", "You say..."],
         ["\"We will hire a tech writer\"",
-         "\"Great -- DocsOps makes one writer 3-4x more productive. "
+         "\"Great -- VeriOps makes one writer 3-4x more productive. "
          "The $20K implementation costs less than 2 months of a writer's salary, "
          "and the system scales with your team.\""],
         ["\"We will build it in-house\"",
@@ -508,7 +508,7 @@ def _build_pdf(output: Path) -> None:
         ["Their cost", "Our cost", "Math"],
         ["Tech writer: $150K/year\n(salary + benefits)",
          "Full implementation: $20-40K\n(one-time)",
-         "Break-even in 2 months.\nWriter + DocsOps = 3-4x output."],
+         "Break-even in 2 months.\nWriter + VeriOps = 3-4x output."],
         ["In-house build: 2 engineers\nx 6 months = $300K+",
          "Full implementation: $20-40K\n+ $3-8K/mo retainer",
          "10x cheaper. Production-ready\nin 3-6 weeks, not 6-12 months."],
@@ -723,8 +723,8 @@ def _build_pdf(output: Path) -> None:
         pagesize=A4,
         leftMargin=MARGIN, rightMargin=MARGIN,
         topMargin=14 * mm, bottomMargin=14 * mm,
-        title="DocsOps Sales Cheat Sheet",
-        author="DocsOps",
+        title="VeriOps Sales Cheat Sheet",
+        author="VeriOps",
     )
     doc.build(content, onFirstPage=_header_footer, onLaterPages=_header_footer)
 

@@ -4,22 +4,22 @@ description: Auto-generated asyncapi reference from source contract.
 content_type: reference
 product: both
 tags:
-- C
-- Auto Doc Pipeline
-- Users
-- Kroha
-- Mnt
 - Development
 - Documents
+- Mnt
+- Users
+- Auto Doc Pipeline
 - Docs
-last_reviewed: '2026-03-20'
+- Kroha
+- C
+last_reviewed: '2026-03-23'
 original_author: Kroha
 ---
 
 
 # ASYNCAPI Reference
 
-Source: `/tmp/pytest-of-eudo/pytest-2467/test_multi_protocol_flow_e2e_e0/asyncapi.yaml`
+Source: `/tmp/pytest-of-eudo/pytest-2489/test_multi_protocol_flow_e2e_e0/asyncapi.yaml`
 
 Flow mode: `api-first`
 
@@ -41,13 +41,11 @@ Flow mode: `api-first`
 <div id="asyncapi-playground" style="border:1px solid #d1d5db; padding:12px; border-radius:8px;">
   <p><strong>WebSocket Endpoint:</strong> <code id="asyncapi-ws-view"></code></p>
   <p><strong>HTTP Publish Endpoint:</strong> <code id="asyncapi-http-view"></code></p>
-  <!-- vale off -->
   <textarea id="asyncapi-message" rows="8" style="width:100%; font-family:monospace;">{
   "event_type": "project.updated",
   "event_id": "evt_001",
   "data": {"project_id": "prj_abc123", "status": "active"}
 }</textarea><br/>
-  <!-- vale on -->
   <button id="asyncapi-send-ws">Send via WebSocket</button>
   <button id="asyncapi-send-http">Send via HTTP</button>
   <pre id="asyncapi-output" style="margin-top:12px; max-height:320px; overflow:auto;"></pre>

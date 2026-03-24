@@ -1,0 +1,107 @@
+{
+  "intent": "configure",
+  "audience": "developer",
+  "channel": "assistant",
+  "module_count": 11,
+  "modules": [
+    {
+      "module_id": "auto-asyncapi-api-3",
+      "title": "ASYNCAPI API Reference (Part 3)",
+      "priority": 60,
+      "intent": "configure",
+      "audience": "developer",
+      "channel": "assistant",
+      "content": "Use this module when answering questions related to: ASYNCAPI API Reference (Part 3). Source path: demo-showcase/acme/docs/assets/protocols/asyncapi/asyncapi-api.md. Summary: Auto-generated asyncapi reference from source contract.\n\n<div id=\"asyncapi-playground\" style=\"border:1px solid #d1d5db; padding:12px; border-radius:8px;\">\n  <p><strong>WebSocket Endpoint:</strong> <code id=\"asyncapi-ws-view\"></code></p>\n  <p><strong>HTTP Publish Endpoint:</strong> <code id=\"asyncapi-http-view\"></code></p>\n  <!-- vale Google.Quotes = NO -->\n  <textarea id=\"asyncapi-message\" rows=\"8\" style=\"width:100%; font-family:monospace;\">{\n  \"event\": \"health\",\n  \"value\": \"ok\"\n}</textarea><br/>\n  <!-- vale Google.Quotes = YES -->\n  <button id=\"asyncapi-send-ws\">Send via WebSocket</button>\n  <button id=\"asyncapi-send-http\">Send via HTTP</button>\n  <pre id=\"asyncapi-output\" style=\"margin-top:12px; max-height:320px; overflow:auto;\"></pre>\n</div>\n<script>\n(function(){ const wsEndpoint = \"\"; const httpEndpoint = \"\";\nconst wsView = document.getElementById('asyncapi-ws-view');\nconst httpView = document.getElementById('asyncapi-http-view');\nconst sendWs = document.getElementById('asyncapi-send-ws');\nconst sendHttp = document.getElementById('asyncapi-send-http');\nconst msg = document.getElementById('asyncapi-message');\nconst out = document.getElementById('asyncapi-output');\nif (!wsView || !httpView || !sendWs || !sendHttp || !msg || !out) return;\nwsView.textContent = wsEndpoint || 'not configured';\nhttpView.textContent = httpEndpoint || 'not configured';\nsendWs.onclick = function(){\n  if (!wsEndpoint) { out.textContent = 'WebSocket endpoint is not configured (runtime.api_protocol_settings.asyncapi.asyncapi_ws_endpoint)'; return; }\n  try {\n    const socket = new WebSocket(wsEndpoint);\n    socket.onopen = function(){ socket.send(msg.value); out.textContent = 'sent over websocket'; socket.close(); };\n    socket.onerror = function(e){ out.textContent = String(e); };\n    socket.onmessage = function(e){ out.textContent = String(e.data); };\n  } catch (error) { out.textContent = String(error); }\n};\nsendHttp.onclick = async function(){\n  if (!httpEndpoint) { out.textContent = 'HTTP publish endpoint is not configured (runtime.api_protocol_settings.asyncapi.asyncapi_http_publish_endpoint)'; return; }\n  out.textContent = 'Loading...';\n  try {\n    const body = JSON.parse(msg.value || '{}');\n    const response = await fetch(httpEndpoint, { method:'POST', headers:{'content-type':'application/json'}, body: JSON.stringify(body) });\n    const text = await response.text();\n    out.textContent = text;\n  } catch (error) { out.textContent = String(error); }\n};\n})();\n</script>"
+    },
+    {
+      "module_id": "auto-evidence-6",
+      "title": "Quality evidence and gate results (Part 6)",
+      "priority": 60,
+      "intent": "configure",
+      "audience": "developer",
+      "channel": "assistant",
+      "content": "Use this module when answering questions related to: Quality evidence and gate results (Part 6). Source path: demo-showcase/acme/docs/quality/evidence.md. Summary: Complete quality evidence from the VeriDoc pipeline for VeriOps docs, covering KPI metrics, protocol gates, 24 automated checks, and RAG readiness.\n\n### Style checks (automated)\n\n<!-- vale AmericanEnglish.Spelling = NO -->\n<!-- vale proselint.Spelling = NO -->\n\n| Rule | Enforced by | Description |\n| --- | --- | --- |\n| American English | Vale + AmericanEnglish | Use \"color\" instead of British \"colour\" and \"optimize\" instead of \"optimise\" |\n\n<!-- vale AmericanEnglish.Spelling = YES -->\n<!-- vale proselint.Spelling = YES -->\n| Active voice | Vale + write-good | \"Configure the webhook\" not \"The webhook should be configured\" |\n| No weasel words | Vale + write-good | No \"simple,\" \"easy,\" \"just,\" \"many,\" \"various\" |\n| No contractions | Vale + Google style | \"do not\" not \"don't,\" \"cannot\" not \"can't\" |\n| Second person | Vale + Google style | \"you\" not \"the user\" or \"one\" |\n| Present tense | Vale + Google style | \"sends\" not \"will send\" for current features |"
+    },
+    {
+      "module_id": "auto-graphql-api-2",
+      "title": "GRAPHQL API Reference (Part 2)",
+      "priority": 60,
+      "intent": "configure",
+      "audience": "developer",
+      "channel": "assistant",
+      "content": "Use this module when answering questions related to: GRAPHQL API Reference (Part 2). Source path: demo-showcase/acme/docs/assets/protocols/graphql/graphql-api.md. Summary: Auto-generated graphql reference from source contract.\n\n## Interactive GraphQL Playground\n\n<div id=\"graphql-playground\" style=\"border:1px solid #d1d5db; padding:12px; border-radius:8px;\">\n  <p><strong>Endpoint:</strong> <code id=\"graphql-endpoint-view\"></code></p>\n  <textarea id=\"graphql-query\" rows=\"12\" style=\"width:100%; font-family:monospace;\">query HealthCheck {\n  __typename\n}</textarea>\n  <br/>\n  <button id=\"graphql-run\">Run Query</button>\n  <pre id=\"graphql-output\" style=\"margin-top:12px; max-height:320px; overflow:auto;\"></pre>\n</div>\n<script>\n(function(){ const endpoint = \"\";\nconst view = document.getElementById('graphql-endpoint-view');\nconst run = document.getElementById('graphql-run');\nconst query = document.getElementById('graphql-query');\nconst out = document.getElementById('graphql-output');\nif (!view || !run || !query || !out) return;\nview.textContent = endpoint || 'not configured';\nrun.onclick = async function(){\n  if (!endpoint) { out.textContent = 'Endpoint is not configured in runtime.api_protocol_settings.graphql.graphql_endpoint'; return; }\n  out.textContent = 'Loading...';\n  try {\n    const response = await fetch(endpoint, { method:'POST', headers:{'content-type':'application/json'}, body: JSON.stringify({ query: query.value }) });\n    const text = await response.text();\n    out.textContent = text;\n  } catch (error) { out.textContent = String(error); }\n};\n})();\n</script>"
+    },
+    {
+      "module_id": "auto-how-to-1",
+      "title": "How-to: keep docs aligned with every release",
+      "priority": 60,
+      "intent": "configure",
+      "audience": "developer",
+      "channel": "assistant",
+      "content": "Use this module when answering questions related to: How-to: keep docs aligned with every release. Source path: demo-showcase/acme/docs/guides/how-to.md. Summary: Run the unified autopipeline on release day to synchronize API documentation across five protocols with quality gates and review manifests.\n\n# How-to: keep docs aligned with every release\n\n<div class=\"veriops-badges\" markdown>\n\n![Powered by VeriOps](https://img.shields.io/badge/Powered%20by-VeriOps-7c3aed?style=flat-square)\n![Quality Score](https://img.shields.io/badge/Quality%20Score-100%25-10b981?style=flat-square)\n![Protocols](https://img.shields.io/badge/Protocols-5-7c3aed?style=flat-square)\n\n</div>\n\nThis guide shows you how to run the unified autopipeline on release day to ensure API documentation matches the latest contracts, passes quality gates, and generates a review manifest for operator approval. You complete the full flow in approximately 20 minutes.\n\n## Prerequisites\n\nBefore starting, ensure you have:\n\n- Python 3.9 or later installed (run `python3 --version` to verify)\n- Node.js 18 or later for MkDocs plugins (run `node --version` to verify)\n- `pip install mkdocs-material mkdocs-macros-plugin` for site building\n- Write access to the documentation repository\n- About 20 minutes for the full pipeline run\n\n!!! info \"Already have the pipeline running?\"\n    Skip to [Step 3: review the manifest](#step-3-review-the-manifest) to check results from a previous run."
+    },
+    {
+      "module_id": "auto-how-to-2",
+      "title": "How-to: keep docs aligned with every release (Part 2)",
+      "priority": 60,
+      "intent": "configure",
+      "audience": "developer",
+      "channel": "assistant",
+      "content": "Use this module when answering questions related to: How-to: keep docs aligned with every release (Part 2). Source path: demo-showcase/acme/docs/guides/how-to.md. Summary: Run the unified autopipeline on release day to synchronize API documentation across five protocols with quality gates and review manifests.\n\n## When to run this flow\n\nRun the autopipeline when any of these conditions apply:\n\n- A new API version ships to production\n- A protocol contract file changes (OpenAPI, GraphQL schema, proto, AsyncAPI spec, WebSocket contract)\n- The weekly automation schedule triggers (configured in `client_runtime.yml`)\n- Documentation gaps exceed the SLA threshold (default: 10 high-priority gaps)"
+    },
+    {
+      "module_id": "auto-how-to-3",
+      "title": "How-to: keep docs aligned with every release (Part 3)",
+      "priority": 60,
+      "intent": "configure",
+      "audience": "developer",
+      "channel": "assistant",
+      "content": "Use this module when answering questions related to: How-to: keep docs aligned with every release (Part 3). Source path: demo-showcase/acme/docs/guides/how-to.md. Summary: Run the unified autopipeline on release day to synchronize API documentation across five protocols with quality gates and review manifests.\n\n## Step 1: trigger the autopipeline\n\nRun the unified pipeline from the repository root. This command executes gap detection, drift analysis, contract validation for all five protocols, KPI evaluation, and RAG metadata generation.\n\n```bash\npython3 scripts/run_autopipeline.py \\\n  --docsops-root . \\\n  --reports-dir reports/acme-demo \\\n  --runtime-config reports/acme-demo/client_runtime.yml \\\n  --mode veridoc \\\n  --since 7\n```\n\n<!-- requires: python3, pipeline-scripts -->\n\n**What each flag does:**\n\n| Flag | Value | Purpose |\n| --- | --- | --- |\n| `--docsops-root` | `.` | Root directory of the docs-ops repository |\n| `--reports-dir` | `reports/acme-demo` | Where pipeline writes output artifacts |\n| `--runtime-config` | `reports/acme-demo/client_runtime.yml` | Client-specific protocol and module settings |\n| `--mode` | `veridoc` | Full pipeline mode with all quality gates |\n| `--since` | `7` | Analyze changes from the last 7 days |\n\nThe pipeline runs seven stages. Expect 5-10 minutes depending on contract complexity.\n\n**Expected output (summary):**"
+    },
+    {
+      "module_id": "auto-how-to-4",
+      "title": "How-to: keep docs aligned with every release (Part 4)",
+      "priority": 60,
+      "intent": "configure",
+      "audience": "developer",
+      "channel": "assistant",
+      "content": "Use this module when answering questions related to: How-to: keep docs aligned with every release (Part 4). Source path: demo-showcase/acme/docs/guides/how-to.md. Summary: Run the unified autopipeline on release day to synchronize API documentation across five protocols with quality gates and review manifests.\n\n```text\n[autopipeline] Starting VeriDoc pipeline run\n[autopipeline] Runtime config: reports/acme-demo/client_runtime.yml\n[autopipeline] Protocols enabled: rest, graphql, grpc, asyncapi, websocket\n[stage] multi_protocol_contract ... DONE (5 protocols, 0 failures)\n[stage] kpi_wall ... DONE (quality_score: 100)\n[stage] retrieval_evals ... DONE (167 modules indexed)\n[autopipeline] Pipeline complete. Exit code: 0\n```\n\nAn exit code of 0 confirms all stages passed. A non-zero code indicates stages that need attention.\n\n## Step 2: check protocol contract results\n\nAfter the pipeline completes, verify which protocols passed contract validation:\n\n```bash\npython3 -c \"\nimport json\nr = json.load(open('reports/acme-demo/multi_protocol_contract_report.json'))\nfor p in r.get('protocols', []):\n    status = 'PASS' if p not in r.get('failed_protocols', []) else 'FAIL'\n    print(f'  {p}: {status}')\nprint(f'Failed: {r.get(\\\"failed_protocols\\\", [])}')\"\n```\n\n**Expected output:**\n\n```text\n  rest: PASS\n  graphql: PASS\n  grpc: PASS\n  asyncapi: PASS\n  websocket: PASS\nFailed: []\n```\n\nIf any protocol fails, fix the root cause before proceeding. See [Troubleshooting](troubleshooting.md) for common fixes."
+    },
+    {
+      "module_id": "auto-how-to-5",
+      "title": "How-to: keep docs aligned with every release (Part 5)",
+      "priority": 60,
+      "intent": "configure",
+      "audience": "developer",
+      "channel": "assistant",
+      "content": "Use this module when answering questions related to: How-to: keep docs aligned with every release (Part 5). Source path: demo-showcase/acme/docs/guides/how-to.md. Summary: Run the unified autopipeline on release day to synchronize API documentation across five protocols with quality gates and review manifests.\n\n## Step 3: review the manifest\n\nOpen the review manifest to see all generated artifacts and their availability:\n\n```bash\ncat reports/acme-demo/REVIEW_MANIFEST.md\n```\n\nThe manifest lists every artifact, stage status, and provides a reviewer checklist. Key sections:\n\n| Section | What to check |\n| --- | --- |\n| Pipeline execution summary | Exit code, strictness mode, artifact counts |\n| Stage availability | Which stages produced artifacts, which are missing |\n| Reviewer checklist | Approval gates before publish |\n\nYou can also check the machine-readable manifest:\n\n```bash\npython3 -c \"\nimport json\nm = json.load(open('reports/acme-demo/review_manifest.json'))\nprint(f'Available: {m[\\\"available_artifacts\\\"]}')\nprint(f'Missing: {m[\\\"missing_artifacts\\\"]}')\nprint(f'Strictness: {m[\\\"strictness\\\"]}')\"\n```"
+    },
+    {
+      "module_id": "auto-how-to-6",
+      "title": "How-to: keep docs aligned with every release (Part 6)",
+      "priority": 60,
+      "intent": "configure",
+      "audience": "developer",
+      "channel": "assistant",
+      "content": "Use this module when answering questions related to: How-to: keep docs aligned with every release (Part 6). Source path: demo-showcase/acme/docs/guides/how-to.md. Summary: Run the unified autopipeline on release day to synchronize API documentation across five protocols with quality gates and review manifests.\n\n## Step 4: verify quality gates\n\nCheck that quality metrics meet your thresholds:\n\n| Gate | Command | Expected result |\n| --- | --- | --- |\n| Quality score | `python3 -c \"import json; print(json.load(open('reports/acme-demo/kpi-wall.json'))['quality_score'])\"` | 80 or higher |\n| Contract validation | Check `multi_protocol_contract_report.json` | Zero failed protocols |\n| Stage summary | Check `pipeline_stage_summary.json` | All required stages exist |\n| Frontmatter | All docs have valid frontmatter | 100% metadata completeness |\n\nIf the quality score is below 80:\n\n1. Check the gap report for high-priority items:\n\n    ```bash\n    python3 -c \"\n    import json\n    r = json.load(open('reports/acme-demo/doc_gaps_report.json'))\n    high = [g for g in r.get('gaps', []) if g.get('priority') == 'high']\n    print(f'{len(high)} high-priority gaps')\n    for g in high[:5]:\n        print(f'  - {g[\\\"title\\\"]}')\"\n    ```\n\n1. Address each high-priority gap by creating or updating the relevant document.\n\n1. Re-run the pipeline and verify the score improves."
+    },
+    {
+      "module_id": "auto-how-to-7",
+      "title": "How-to: keep docs aligned with every release (Part 7)",
+      "priority": 60,
+      "intent": "configure",
+      "audience": "developer",
+      "channel": "assistant",
+      "content": "Use this module when answering questions related to: How-to: keep docs aligned with every release (Part 7). Source path: demo-showcase/acme/docs/guides/how-to.md. Summary: Run the unified autopipeline on release day to synchronize API documentation across five protocols with quality gates and review manifests.\n\n## Step 5: build the demo site\n\nGenerate the browsable MkDocs documentation site:\n\n```bash\npython3 scripts/build_acme_demo_site.py \\\n  --output-root demo-showcase/acme \\\n  --reports-dir reports/acme-demo \\\n  --build\n```\n\n<!-- requires: python3, mkdocs -->\n\nThis command copies documentation pages, updates the `mkdocs.yml` navigation, and runs `mkdocs build` to produce the final HTML site in `demo-showcase/acme/site/`.\n\n## Step 6: approve and publish\n\nAfter verifying all gates pass, complete the reviewer checklist from the manifest:\n\n- [ ] Confirm stage summary has no missing required artifacts.\n- [ ] Review protocol docs and test asset links.\n- [ ] Review quality and retrieval reports before publish.\n- [ ] Approve publish only if critical findings are resolved.\n- [ ] Verify RAG retrieval index is current and complete.\n- [ ] Confirm advanced retrieval features are enabled (hybrid search, HyDE, reranking, embedding cache).\n\n## Validation checklist\n\nBefore considering the release complete:\n\n- [ ] All five protocol contracts validated (zero failures)\n- [ ] Quality score at or above 80\n- [ ] No high-priority documentation gaps remain\n- [ ] Review manifest approved by operator\n- [ ] MkDocs site builds without errors\n- [ ] Knowledge graph and retrieval index are current\n- [ ] Advanced retrieval features enabled (hybrid, HyDE, reranking, cache)\n\n## Common issues and solutions"
+    },
+    {
+      "module_id": "auto-how-to-8",
+      "title": "How-to: keep docs aligned with every release (Part 8)",
+      "priority": 60,
+      "intent": "configure",
+      "audience": "developer",
+      "channel": "assistant",
+      "content": "Use this module when answering questions related to: How-to: keep docs aligned with every release (Part 8). Source path: demo-showcase/acme/docs/guides/how-to.md. Summary: Run the unified autopipeline on release day to synchronize API documentation across five protocols with quality gates and review manifests.\n\n### Issue: gRPC stage fails\n\nThe `protoc` compiler is not installed.\n\n**Solution:**\n\n```bash\napt-get install -y protobuf-compiler\nprotoc --version\n```\n\nThen re-run the pipeline.\n\n### Issue: quality score below 80\n\nStale documents, missing frontmatter, or unresolved documentation gaps.\n\n**Solution:**\n\n1. Run `python3 -c \"import json; r=json.load(open('reports/acme-demo/doc_gaps_report.json')); print(len([g for g in r.get('gaps',[]) if g.get('priority')=='high']), 'high-priority gaps')\"` to count gaps.\n1. Address each gap by creating or updating documents.\n1. Re-run the pipeline.\n\n### Issue: MkDocs build fails with theme error\n\n**Solution:**\n\n```bash\npip install mkdocs-material mkdocs-macros-plugin\n```\n\n## Next steps\n\n- [Concept: pipeline-first documentation lifecycle](concept.md) to understand why this workflow matters\n- [Quality evidence and gate results](../quality/evidence.md) for the latest KPI metrics\n- [Troubleshooting: common pipeline issues](troubleshooting.md) for detailed fix procedures"
+    }
+  ]
+}

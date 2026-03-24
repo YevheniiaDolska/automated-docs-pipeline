@@ -453,6 +453,7 @@ No generator-specific `mkdocs.yml` edits are required for pipeline indexing/uplo
 # Weekly consolidation (the main pipeline command)
 npm run consolidate          # Run gaps + KPI + SLA + consolidate into one report
 npm run consolidate:reports-only  # Consolidate existing reports without regenerating
+npm run docsops:generate:policy   # Policy-triggered generation (operator mode, local CLI only)
 
 # Gap detection
 npm run gaps                 # Analyze documentation gaps
@@ -488,6 +489,20 @@ npm run askai:configure -- --provider openai --billing-mode user-subscription
 npm run askai:runtime:install # Install optional Ask AI runtime pack (API + widget)
 ```
 
+DocsOps generation orchestration:
+
+```bash
+# Operator mode (Auto-Doc/VeriOps): local CLI only (Codex/Claude), no API calls
+# Default: fail-closed egress guard is enabled (network namespace via unshare -n)
+npm run docsops:generate
+npm run docsops:generate:auto
+npm run docsops:generate:policy
+
+# Explicit veridoc mode (API command must be provided)
+python3 scripts/docsops_generate.py generate --mode veridoc --api-generate-command "<your-api-command>"
+# or set VERIDOC_API_GENERATE_COMMAND / veridoc.api_generate_command in runtime config
+```
+
 Operator verification after onboarding:
 
 1. Check generated profile: `profiles/clients/generated/<client_id>.client.yml`.
@@ -500,6 +515,7 @@ For client bundles, configure it centrally in `runtime.integrations.ask_ai` (cli
 
 - provisioning auto-applies `config/ask-ai.yml`
 - optional runtime pack install is controlled by `install_runtime_pack`
+- for `billing_mode: user-subscription`, you can use a centralized provider key via `DOCSOPS_SHARED_OPENAI_API_KEY` (fallback), while keeping per-client `OPENAI_API_KEY` support
 
 Manual CLI setup remains available with `npm run askai:configure -- --help`.
 

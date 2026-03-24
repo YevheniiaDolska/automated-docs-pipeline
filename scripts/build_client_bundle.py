@@ -8,6 +8,7 @@ Usage:
 from __future__ import annotations
 
 import argparse
+import base64
 import datetime as dt
 import shutil
 import sys
@@ -20,8 +21,8 @@ import yaml
 from scripts.api_protocols import merge_protocol_settings, normalize_protocols
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
-MANAGED_START = "<!-- DOCSOPS_MANAGED_BLOCK:START -->"
-MANAGED_END = "<!-- DOCSOPS_MANAGED_BLOCK:END -->"
+MANAGED_START = "<!-- VERIOPS_MANAGED_BLOCK:START -->"
+MANAGED_END = "<!-- VERIOPS_MANAGED_BLOCK:END -->"
 
 
 def read_yaml(path: Path) -> dict[str, Any]:
@@ -340,8 +341,6 @@ def build_licensing_infrastructure(profile: dict[str, Any], bundle_root: Path) -
 
     if priv_key_path.exists() and client_id:
         try:
-            import base64 as _b64
-
             sys_path_orig = list(sys.path)
             build_dir = str(REPO_ROOT / "build")
             if build_dir not in sys.path:
@@ -351,7 +350,7 @@ def build_licensing_infrastructure(profile: dict[str, Any], bundle_root: Path) -
             finally:
                 sys.path[:] = sys_path_orig
 
-            priv_key = _b64.b64decode(priv_key_path.read_bytes().strip())
+            priv_key = base64.b64decode(priv_key_path.read_bytes().strip())
             token = generate_jwt(
                 client_id=client_id,
                 plan=plan,
@@ -449,7 +448,7 @@ def build_managed_instruction_block(docsops_root: str) -> str:
     root = docsops_root.strip("/")
     lines = [
         MANAGED_START,
-        "## DocsOps Managed Local Workflow",
+        "## VeriOps Managed Local Workflow",
         "",
         "When user asks to run documentation automation, ALWAYS:",
         f"1. Read `{root}/config/client_runtime.yml`.",
@@ -541,7 +540,7 @@ def build_automation_files(profile: dict[str, Any], bundle_root: Path) -> None:
     hh, mm = time_24h.split(":")
     cron_day = _cron_day_to_number(day)
     client_id = str(profile.get("client", {}).get("id", "client")).strip()
-    task_name = f"DocsOpsWeekly-{client_id}"
+    task_name = f"VeriOpsWeekly-{client_id}"
 
     ops_dir = bundle_root / "ops"
     ops_dir.mkdir(parents=True, exist_ok=True)
@@ -637,7 +636,7 @@ def _append_env(lines: list[str], key: str, value: str, comment: str) -> None:
 
 def build_local_env_template(runtime_cfg: dict[str, Any], bundle_root: Path) -> None:
     lines: list[str] = [
-        "# DocsOps local secrets template",
+        "# VeriOps local secrets template",
         "# Rename/copy to .env.docsops.local in client repo root and fill real values.",
         "# This file is generated from enabled features in client profile.",
         "",
@@ -664,8 +663,16 @@ def build_local_env_template(runtime_cfg: dict[str, Any], bundle_root: Path) -> 
         ask_ai = integrations.get("ask_ai", {})
         if isinstance(ask_ai, Mapping) and bool(ask_ai.get("enabled", False)):
             provider = str(ask_ai.get("provider", "openai")).strip().lower()
+            billing_mode = str(ask_ai.get("billing_mode", "disabled")).strip().lower()
             if provider == "openai":
                 _append_env(lines, "OPENAI_API_KEY", "YOUR_OPENAI_API_KEY", "Ask AI: OpenAI API key")
+                if billing_mode == "user-subscription":
+                    _append_env(
+                        lines,
+                        "DOCSOPS_SHARED_OPENAI_API_KEY",
+                        "",
+                        "Ask AI: optional shared OpenAI key for centrally managed entitlement mode",
+                    )
             elif provider == "anthropic":
                 _append_env(lines, "ANTHROPIC_API_KEY", "YOUR_ANTHROPIC_API_KEY", "Ask AI: Anthropic API key")
             elif provider == "azure-openai":

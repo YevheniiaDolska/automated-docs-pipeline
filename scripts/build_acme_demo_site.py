@@ -9,6 +9,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import os
 import re
 import subprocess
 from pathlib import Path
@@ -533,8 +534,6 @@ def _slug(text: str) -> str:
 
 def _generate_embeddings_if_available(output_root: Path) -> None:
     """Generate FAISS embeddings if OPENAI_API_KEY is set. Optional step."""
-    import os
-
     if not os.getenv("OPENAI_API_KEY", "").strip():
         print("[acme-build] Skipping embedding generation (OPENAI_API_KEY not set)")
         return

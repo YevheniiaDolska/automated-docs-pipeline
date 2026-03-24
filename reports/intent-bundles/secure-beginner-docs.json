@@ -1,0 +1,62 @@
+{
+  "intent": "secure",
+  "audience": "beginner",
+  "channel": "docs",
+  "module_count": 6,
+  "modules": [
+    {
+      "module_id": "auto-tutorial-1",
+      "title": "Tutorial: launch your first VeriOps API integration",
+      "priority": 60,
+      "intent": "secure",
+      "audience": "beginner",
+      "channel": "docs",
+      "content": "# Tutorial: launch your first VeriOps API integration\n\n<div class=\"veriops-badges\" markdown>\n\n![Powered by VeriOps](https://img.shields.io/badge/Powered%20by-VeriOps-7c3aed?style=flat-square)\n![Quality Score](https://img.shields.io/badge/Quality%20Score-100%25-10b981?style=flat-square)\n![Protocols](https://img.shields.io/badge/Protocols-5-7c3aed?style=flat-square)\n\n</div>\n\nThis tutorial walks you through creating your first VeriOps API project, sending authenticated requests across three protocols (REST, GraphQL, and WebSocket), and verifying the integration works. You complete all five steps in under 15 minutes.\n\n## What you will build\n\nBy the end of this tutorial, you will have:\n\n- A working REST API client that creates and retrieves projects\n- A GraphQL query that fetches project data with custom field selection\n- A WebSocket subscription that receives real-time project update events\n- A test script that verifies all three protocols work together\n\n**Time to first success:** 5 minutes for REST, 15 minutes for the complete multi-protocol integration."
+    },
+    {
+      "module_id": "auto-tutorial-3",
+      "title": "Tutorial: launch your first VeriOps API integration (Part 3)",
+      "priority": 60,
+      "intent": "secure",
+      "audience": "beginner",
+      "channel": "docs",
+      "content": "## Step 1: verify your API key (2 minutes)\n\nRun this command to confirm your API key authenticates against the VeriOps REST API:\n\n```bash\ncurl -s -o /dev/null -w \"%{http_code}\" \\\n  -H \"Authorization: Bearer YOUR_API_KEY\" \\\n  https://api.veriops.example/v1/projects\n```\n\n<!-- requires: api-key -->\n\nA `200` response confirms your key works. A `401` response means the key is invalid or expired. Generate a new key in the [dashboard](https://app.veriops.example/settings/api) if you receive `401`.\n\nNext, verify the GraphQL endpoint:\n\n```bash\ncurl -s -X POST https://api.veriops.example/graphql \\\n  -H \"Authorization: Bearer YOUR_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"query\": \"{ health { status version } }\"}' \\\n  | python3 -m json.tool\n```\n\n<!-- requires: api-key -->\n\n**Expected response:**\n\n```json\n{\n    \"data\": {\n        \"health\": {\n            \"status\": \"ok\",\n            \"version\": \"1.0.0\"\n        }\n    }\n}\n```"
+    },
+    {
+      "module_id": "auto-tutorial-4",
+      "title": "Tutorial: launch your first VeriOps API integration (Part 4)",
+      "priority": 60,
+      "intent": "secure",
+      "audience": "beginner",
+      "channel": "docs",
+      "content": "## Step 2: create a project via REST (3 minutes)\n\nCreate your first project resource using the REST API:\n\n```bash\ncurl -X POST https://api.veriops.example/v1/projects \\\n  -H \"Authorization: Bearer YOUR_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\n    \"name\": \"Tutorial Integration Project\",\n    \"description\": \"Created during the VeriOps API tutorial\",\n    \"status\": \"active\"\n  }'\n```\n\n<!-- requires: api-key -->\n\n**Expected response (HTTP 201):**\n\n```json\n{\n  \"id\": \"prj_abc123\",\n  \"name\": \"Tutorial Integration Project\",\n  \"description\": \"Created during the VeriOps API tutorial\",\n  \"status\": \"active\",\n  \"created_at\": \"2026-03-19T10:00:00Z\",\n  \"updated_at\": \"2026-03-19T10:00:00Z\",\n  \"task_count\": 0,\n  \"owner_id\": \"usr_789\"\n}\n```\n\nSave the `id` value (for example, `prj_abc123`). You need it for steps 3 and 4."
+    },
+    {
+      "module_id": "auto-tutorial-5",
+      "title": "Tutorial: launch your first VeriOps API integration (Part 5)",
+      "priority": 60,
+      "intent": "secure",
+      "audience": "beginner",
+      "channel": "docs",
+      "content": "## Step 3: query the project via GraphQL (3 minutes)\n\nUse GraphQL to fetch the project you created with custom field selection. GraphQL returns only the fields you request, which reduces payload size.\n\n```bash\ncurl -s -X POST https://api.veriops.example/graphql \\\n  -H \"Authorization: Bearer YOUR_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\n    \"query\": \"query GetProject($id: ID!) { project(id: $id) { id name status createdAt } }\",\n    \"variables\": {\"id\": \"prj_abc123\"}\n  }' \\\n  | python3 -m json.tool\n```\n\n<!-- requires: api-key -->\n\n**Expected response:**\n\n```json\n{\n    \"data\": {\n        \"project\": {\n            \"id\": \"prj_abc123\",\n            \"name\": \"Tutorial Integration Project\",\n            \"status\": \"active\",\n            \"createdAt\": \"2026-03-19T10:00:00Z\"\n        }\n    }\n}\n```\n\nNotice that the response contains only the four fields you requested (`id`, `name`, `status`, `createdAt`), not the full project object. This is a key advantage of GraphQL over REST for bandwidth-sensitive clients."
+    },
+    {
+      "module_id": "auto-tutorial-7",
+      "title": "Tutorial: launch your first VeriOps API integration (Part 7)",
+      "priority": 60,
+      "intent": "secure",
+      "audience": "beginner",
+      "channel": "docs",
+      "content": "// Keep the script running for 60 seconds to receive events\nsetTimeout(() => {\n  ws.close(1000, 'Tutorial complete');\n  console.log('Tutorial WebSocket client closed');\n}, 60000);\n```\n\n<!-- requires: api-key -->\n\nRun the script:\n\n```bash\nnode tutorial-websocket.js\n```\n\nWhile the script runs, update the project status from another terminal to trigger an event:\n\n```bash\ncurl -X PUT https://api.veriops.example/v1/projects/prj_abc123 \\\n  -H \"Authorization: Bearer YOUR_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"status\": \"archived\"}'\n```\n\n<!-- requires: api-key -->\n\nThe WebSocket client prints the update event within 1-2 seconds."
+    },
+    {
+      "module_id": "auto-tutorial-8",
+      "title": "Tutorial: launch your first VeriOps API integration (Part 8)",
+      "priority": 60,
+      "intent": "secure",
+      "audience": "beginner",
+      "channel": "docs",
+      "content": "## Step 5: verify the integration (2 minutes)\n\nRun this checklist to confirm all three protocols work:\n\n| Protocol | Test command | Expected result |\n| --- | --- | --- |\n| REST | `GET /v1/projects` | HTTP 200 with project list |\n| GraphQL | `query { health { status } }` | `{\"data\": {\"health\": {\"status\": \"ok\"}}}` |\n| WebSocket | Connect to `wss://api.veriops.example/realtime` | Connection opens, subscription confirmed |\n\nIf any step fails:\n\n- **HTTP 401 on REST or GraphQL**: Your API key is invalid. Generate a new one in the [dashboard](https://app.veriops.example/settings/api).\n- **WebSocket connection error**: Verify you use `wss://` (not `ws://`) and the key is passed as `?token=` query parameter.\n- **Timeout on any request**: Check your network allows outbound connections on port 443.\n\n## What you accomplished\n\n| Step | Protocol | Outcome |\n| --- | --- | --- |\n| Verify API key | REST + GraphQL | Confirmed authentication across two protocols |\n| Create project | REST | Created a project resource via `POST /v1/projects` |\n| Query project | GraphQL | Fetched project with custom field selection |\n| Subscribe to events | WebSocket | Received real-time project update events |\n| Verify integration | All three | Confirmed multi-protocol integration works end-to-end |"
+    }
+  ]
+}

@@ -47,7 +47,7 @@ product: both
 - `Audit scorecard (JSON)` -> `/mnt/c/Users/Kroha/Documents/development/Auto-Doc Pipeline/reports/acme-demo/audit_scorecard.json`
 - `Audit scorecard (HTML)` -> `/mnt/c/Users/Kroha/Documents/development/Auto-Doc Pipeline/reports/acme-demo/audit_scorecard.html`
 - `Finalize gate report` -> `/mnt/c/Users/Kroha/Documents/development/Auto-Doc Pipeline/reports/acme-demo/finalize_gate_report.json`
-- `DocsOps status` -> `/mnt/c/Users/Kroha/Documents/development/Auto-Doc Pipeline/reports/acme-demo/docsops_status.json`
+- `VeriOps status` -> `/mnt/c/Users/Kroha/Documents/development/Auto-Doc Pipeline/reports/acme-demo/docsops_status.json`
 - `Ready marker` -> `/mnt/c/Users/Kroha/Documents/development/Auto-Doc Pipeline/reports/acme-demo/READY_FOR_REVIEW.txt`
 - `API test cases JSON` -> `/mnt/c/Users/Kroha/Documents/development/Auto-Doc Pipeline/reports/acme-demo/api-test-assets/api_test_cases.json`
 - `TestRail CSV` -> `/mnt/c/Users/Kroha/Documents/development/Auto-Doc Pipeline/reports/acme-demo/api-test-assets/testrail_test_cases.csv`

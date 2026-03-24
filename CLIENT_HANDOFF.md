@@ -5,7 +5,7 @@ content_type: reference
 product: both
 tags:
   - Reference
-  - DocsOps
+  - VeriOps
   - Setup
 last_reviewed: "2026-03-17"
 ---

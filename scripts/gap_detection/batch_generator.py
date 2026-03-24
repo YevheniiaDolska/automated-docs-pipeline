@@ -12,7 +12,9 @@ Batch Document Generator
 
 import json
 import os
+import re
 import subprocess
+import sys
 from dataclasses import dataclass, field
 from datetime import datetime
 from pathlib import Path
@@ -395,7 +397,6 @@ Requirements:
 
     def _slugify(self, text: str) -> str:
         """Преобразует текст в slug для filename."""
-        import re
         # Удаляем префиксы типа "CODE-0001:" или "Webhook:"
         text = re.sub(r'^[A-Z]+-\d+:\s*', '', text)
         text = re.sub(r'^[A-Za-z]+:\s*', '', text)
@@ -409,7 +410,6 @@ Requirements:
 
     def _clean_title(self, title: str) -> str:
         """Очищает title от лишних префиксов."""
-        import re
         # Удаляем ID префиксы
         title = re.sub(r'^[A-Z]+-\d+:\s*', '', title)
         # Удаляем категорию если она дублирует
@@ -472,8 +472,6 @@ def run_batch_generation(
 
 
 if __name__ == '__main__':
-    import sys
-
     if len(sys.argv) > 1 and sys.argv[1] in ("-h", "--help"):
         print("Usage: python scripts/gap_detection/batch_generator.py <report.json> [max_tasks]")
         print("\nExample:")

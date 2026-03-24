@@ -13,6 +13,7 @@ Code Change Analyzer (Enhanced)
 - Контекстный анализ diff (что вокруг изменений)
 """
 
+import json
 import re
 import subprocess
 from dataclasses import dataclass, field
@@ -719,8 +720,6 @@ class CodeChangeAnalyzer:
 
 if __name__ == '__main__':
     # Пример использования
-    import json
-
     analyzer = CodeChangeAnalyzer('.')
 
     # Анализ последних 10 коммитов

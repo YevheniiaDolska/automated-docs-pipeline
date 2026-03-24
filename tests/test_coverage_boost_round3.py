@@ -2212,7 +2212,7 @@ class TestProvisionInstallPrAutofix:
         assert result is not None
         assert result.exists()
         text = result.read_text(encoding="utf-8")
-        assert "DocsOps PR Auto Fix" in text
+        assert "VeriOps PR Auto Fix" in text
 
 
 class TestProvisionApplyIntegrations:

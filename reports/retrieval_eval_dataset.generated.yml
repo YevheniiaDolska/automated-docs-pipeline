@@ -1,6 +1,75 @@
-- query: Webhook auth
+- query: VeriOps API platform architecture
   expected_ids:
-  - m1
-- query: Retry policy
+  - auto-architecture-overview-1
+- query: VeriOps API platform architecture (Part 2)
   expected_ids:
-  - m2
+  - auto-architecture-overview-2
+- query: VeriOps API platform architecture (Part 3)
+  expected_ids:
+  - auto-architecture-overview-3
+- query: VeriOps API platform architecture (Part 4)
+  expected_ids:
+  - auto-architecture-overview-4
+- query: VeriOps API platform architecture (Part 5)
+  expected_ids:
+  - auto-architecture-overview-5
+- query: ASYNCAPI API Reference
+  expected_ids:
+  - auto-asyncapi-api-1
+- query: ASYNCAPI API Reference (Part 2)
+  expected_ids:
+  - auto-asyncapi-api-2
+- query: ASYNCAPI API Reference (Part 3)
+  expected_ids:
+  - auto-asyncapi-api-3
+- query: ASYNCAPI API Reference (Part 4)
+  expected_ids:
+  - auto-asyncapi-api-4
+- query: AsyncAPI event docs
+  expected_ids:
+  - auto-asyncapi-events-1
+- query: AsyncAPI event docs (Part 10)
+  expected_ids:
+  - auto-asyncapi-events-10
+- query: AsyncAPI event docs (Part 11)
+  expected_ids:
+  - auto-asyncapi-events-11
+- query: AsyncAPI event docs (Part 12)
+  expected_ids:
+  - auto-asyncapi-events-12
+- query: AsyncAPI event docs (Part 13)
+  expected_ids:
+  - auto-asyncapi-events-13
+- query: AsyncAPI event docs (Part 2)
+  expected_ids:
+  - auto-asyncapi-events-2
+- query: AsyncAPI event docs (Part 3)
+  expected_ids:
+  - auto-asyncapi-events-3
+- query: AsyncAPI event docs (Part 4)
+  expected_ids:
+  - auto-asyncapi-events-4
+- query: AsyncAPI event docs (Part 5)
+  expected_ids:
+  - auto-asyncapi-events-5
+- query: AsyncAPI event docs (Part 6)
+  expected_ids:
+  - auto-asyncapi-events-6
+- query: AsyncAPI event docs (Part 7)
+  expected_ids:
+  - auto-asyncapi-events-7
+- query: AsyncAPI event docs (Part 8)
+  expected_ids:
+  - auto-asyncapi-events-8
+- query: AsyncAPI event docs (Part 9)
+  expected_ids:
+  - auto-asyncapi-events-9
+- query: 'Concept: pipeline-first documentation lifecycle'
+  expected_ids:
+  - auto-concept-1
+- query: 'Concept: pipeline-first documentation lifecycle (Part 10)'
+  expected_ids:
+  - auto-concept-10
+- query: 'Concept: pipeline-first documentation lifecycle (Part 2)'
+  expected_ids:
+  - auto-concept-2

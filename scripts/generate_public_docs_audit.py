@@ -6,8 +6,10 @@ from __future__ import annotations
 import argparse
 import html
 import json
+import logging
 import os
 import re
+import subprocess
 import sys
 from collections import deque
 from concurrent.futures import ThreadPoolExecutor, as_completed
@@ -19,6 +21,8 @@ from typing import Any
 from urllib.error import HTTPError, URLError
 from urllib.parse import urljoin, urlparse, urlunparse
 from urllib.request import Request, urlopen
+
+logger = logging.getLogger(__name__)
 
 
 CODE_PLACEHOLDER_PATTERN = re.compile(
@@ -47,7 +51,8 @@ def _normalize_url(raw: str) -> str:
 def _is_http_url(raw: str) -> bool:
     try:
         parsed = urlparse(raw)
-    except Exception:  # noqa: BLE001
+    except (ValueError, TypeError) as exc:  # noqa: BLE001
+        logger.debug("URL parse failed for '%s': %s", raw, exc)
         return False
     return parsed.scheme in {"http", "https"} and bool(parsed.netloc)
 
@@ -129,16 +134,20 @@ def _fetch(url: str, timeout: int, head_only: bool = False, _ua_idx: int = 0) ->
             if location and not head_only:
                 try:
                     return _fetch(location, timeout, head_only=False, _ua_idx=_ua_idx)
-                except Exception:  # noqa: BLE001
-                    pass
+                except Exception as redir_exc:  # noqa: BLE001
+                    logger.debug(
+                        "Redirect fetch failed for %s: %s", location, redir_exc,
+                    )
             return code, "text/html", ""
         try:
             return code, "text/html", exc.read().decode("utf-8", errors="ignore")
-        except Exception:  # noqa: BLE001
+        except Exception as read_exc:  # noqa: BLE001
+            logger.debug("Failed to read HTTP error body (code=%d): %s", code, read_exc)
             return code, "text/html", ""
     except (URLError, OSError, TimeoutError):
         return 0, "", ""
-    except Exception:  # noqa: BLE001 -- SSL, socket, redirect loops, etc.
+    except Exception as exc:  # noqa: BLE001 -- SSL, socket, redirect loops, etc.
+        logger.debug("Unexpected fetch error: %s", exc)
         return 0, "", ""
 
 
@@ -1374,7 +1383,6 @@ def main() -> int:
 
     if bool(getattr(args, "generate_pdf", False)):
         print("\n[pdf] generating executive PDF...")
-        import subprocess
         company = str(getattr(args, "company_name", "Client"))
         pdf_output = getattr(args, "pdf_output", None)
         if not pdf_output:

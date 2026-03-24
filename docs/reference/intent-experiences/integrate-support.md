@@ -1,16 +1,12 @@
 ---
-title: 'Intent experience: integrate for support'
-description: Assembled guidance for one intent and audience using reusable knowledge
-  modules with verified metadata and channel-ready sections.
+title: "Intent experience: integrate for support"
+description: "Assembled guidance for one intent and audience using reusable knowledge modules with verified metadata and channel-ready sections."
 content_type: reference
 product: both
 tags:
-- Reference
-- AI
-last_reviewed: '2026-03-12'
-original_author: Developer
+  - Reference
+  - AI
 ---
-
 
 # Intent experience: integrate for support
 

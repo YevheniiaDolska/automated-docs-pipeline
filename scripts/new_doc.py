@@ -6,13 +6,16 @@ Follows Diátaxis framework and ensures all linting rules are met from the start
 """
 
 import argparse
+import logging
 import re
+import subprocess
 import sys
 from datetime import date
 from pathlib import Path
-import subprocess
 
 import yaml
+
+logger = logging.getLogger(__name__)
 
 class DocumentCreator:
     """Creates new documentation files from templates with all required metadata."""
@@ -36,8 +39,10 @@ class DocumentCreator:
                 self.i18n_config = load_i18n_config(i18n_path)
                 if not self.locale:
                     self.locale = self.i18n_config.default_language
-            except (ImportError, Exception):
-                pass
+            except ImportError as exc:
+                logger.debug("i18n_utils not available: %s", exc)
+            except (OSError, ValueError) as exc:
+                logger.warning("Failed to load i18n config from %s: %s", i18n_path, exc)
 
         # Load variables (locale-aware if possible)
         if self.locale and self.i18n_config:
@@ -1017,8 +1022,14 @@ If your docs site enables playground integration, add:
                 print("  ✅ Vale validation passed")
             else:
                 print(f"  ⚠️ Vale found issues (fix these later):\n{result.stdout[:500]}")
-        except:
-            print("  ⏭️ Vale not available, skipping style check")
+        except FileNotFoundError:
+            logger.info("Vale binary not found on PATH, skipping style check")
+        except subprocess.TimeoutExpired:
+            logger.warning("Vale validation timed out for %s", file_path.name)
+        except subprocess.SubprocessError as exc:
+            logger.warning("Vale subprocess error for %s: %s", file_path.name, exc)
+        except OSError as exc:
+            logger.warning("OS error running Vale for %s: %s", file_path.name, exc)
 
         # Check frontmatter
         content = file_path.read_text(encoding='utf-8')
@@ -1060,8 +1071,9 @@ If your docs site enables playground integration, add:
                 print("  ✅ Glossary sync completed")
             else:
                 print("  ⚠️ Glossary sync failed (non-blocking)")
-        except Exception:
-            print("  ⚠️ Glossary sync failed (non-blocking)")
+        except (OSError, subprocess.SubprocessError) as exc:
+            logger.warning("Glossary sync failed (non-blocking): %s", exc)
+            print("  Warning: Glossary sync failed (non-blocking)")
 
 def main():
     parser = argparse.ArgumentParser(

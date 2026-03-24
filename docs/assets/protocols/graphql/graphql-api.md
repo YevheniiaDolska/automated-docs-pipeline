@@ -4,28 +4,31 @@ description: Auto-generated graphql reference from source contract.
 content_type: reference
 product: both
 tags:
-- Pytest Of Eudo
-- Pytest 2467
-- Tmp
-- Test_Multi_Protocol_Flow_Gener0
+- Kroha
+- Documents
+- C
+- Auto Doc Pipeline
+- Development
+- Mnt
+- Users
 - Docs
+last_reviewed: '2026-03-23'
+original_author: Kroha
 ---
 
 
 # GRAPHQL Reference
 
-Source: `/tmp/pytest-of-eudo/pytest-2467/test_multi_protocol_flow_gener0/api/schema.graphql`
+Source: `/tmp/pytest-of-eudo/pytest-2489/test_multi_protocol_contract_f0/schema.graphql`
 
 Flow mode: `api-first`
 
 ## Operations
 
-- Query count: `2`
-- Mutation count: `1`
-- Subscription count: `2`
-- Queries: `health`, `project`
-- Mutations: `create_project`
-- Subscriptions: `project_updated`, `task_completed`
+- Query count: `1`
+- Mutation count: `0`
+- Subscription count: `0`
+- Queries: `health`
 
 ## Interactive GraphQL Playground
 
@@ -77,4 +80,4 @@ run.onclick = async function(){
 
 ## Next steps
 
-- [Documentation index](../index.md)
+- [Documentation index](index.md)

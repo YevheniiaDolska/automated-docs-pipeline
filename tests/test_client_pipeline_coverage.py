@@ -36,9 +36,9 @@ class TestBuildClientBundle:
         first = fp.read_text(encoding="utf-8")
         assert mod.MANAGED_START in first
 
-        mod.upsert_managed_block(fp, block.replace("DocsOps", "DocsOpsX"))
+        mod.upsert_managed_block(fp, block.replace("VeriOps", "VeriOpsX"))
         second = fp.read_text(encoding="utf-8")
-        assert "DocsOpsX" in second
+        assert "VeriOpsX" in second
 
     def test_create_bundle_end_to_end(self, tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:
         from scripts import build_client_bundle as mod
@@ -134,7 +134,7 @@ class TestBuildClientBundle:
         assert (out / "docs" / "operations" / "UNIFIED_CLIENT_CONFIG.md").exists()
         assert (out / "templates" / "legal" / "NOTICE.template.md").exists()
         assert (out / "ops" / "run_weekly_docsops.sh").exists()
-        assert "DocsOps Managed Local Workflow" in (out / "AGENTS.md").read_text(encoding="utf-8")
+        assert "VeriOps Managed Local Workflow" in (out / "AGENTS.md").read_text(encoding="utf-8")
         assert "BasedOnStyles = Google, Microsoft" in (out / ".vale.ini").read_text(encoding="utf-8")
         # Licensing infrastructure
         assert (out / "scripts" / "license_gate.py").exists()
@@ -480,7 +480,7 @@ class TestProvisionClientRepo:
         assert out is not None
         assert out.exists()
         text = out.read_text(encoding="utf-8")
-        assert "name: DocsOps PR Auto Fix" in text
+        assert "name: VeriOps PR Auto Fix" in text
         assert "python3 docsops/scripts/auto_fix_pr_docs.py" in text
         assert "--docs-root \"$DOCSOPS_DOCS_ROOT\"" in text
         assert "git add \"$DOCSOPS_DOCS_ROOT/\"" in text

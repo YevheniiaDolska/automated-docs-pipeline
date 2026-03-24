@@ -24,6 +24,7 @@ from __future__ import annotations
 
 import argparse
 import asyncio
+import hashlib
 import json
 import sys
 from pathlib import Path
@@ -206,7 +207,6 @@ SOURCE DOCUMENT:
             if len(parts) >= 3:
                 source_body = parts[2].strip()
 
-        import hashlib
         source_hash = hashlib.sha256(source_body.encode("utf-8")).hexdigest()
         fm["source_hash"] = source_hash
 

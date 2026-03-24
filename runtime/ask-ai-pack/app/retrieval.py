@@ -9,6 +9,8 @@ import time
 from pathlib import Path
 from typing import Any
 
+from app.secrets import resolve_provider_api_key
+
 try:
     import faiss
     import numpy as np
@@ -125,7 +127,8 @@ def _embed_query(text: str) -> Any:
     """Embed a query using the OpenAI embeddings API."""
     import httpx
 
-    api_key = os.getenv("ASK_AI_PROVIDER_API_KEY", "").strip()
+    provider = os.getenv("ASK_AI_PROVIDER", "openai").strip().lower()
+    api_key = resolve_provider_api_key(provider)
     if not api_key:
         return None
     model = os.getenv("ASK_AI_EMBEDDING_MODEL", "text-embedding-3-small")
@@ -254,7 +257,8 @@ def rank_modules_semantic(
     embed_text = question
 
     if hyde_enabled:
-        api_key = os.getenv("ASK_AI_PROVIDER_API_KEY", "").strip()
+        provider = os.getenv("ASK_AI_PROVIDER", "openai").strip().lower()
+        api_key = resolve_provider_api_key(provider)
         base_url = os.getenv("ASK_AI_BASE_URL", "https://api.openai.com/v1")
         if api_key:
             hypo = _generate_hypothetical_document(question, api_key, hyde_model, base_url)

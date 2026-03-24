@@ -93,7 +93,16 @@
       "Bash(gh secret:*)",
       "Bash(source:*)",
       "Bash(__NEW_LINE_7f7003a771c2add7__ curl:*)",
-      "Bash(npx spectral:*)"
+      "Bash(npx spectral:*)",
+      "Bash(VERIOPS_LICENSE_PLAN=enterprise python3:*)",
+      "Bash(VERIOPS_LICENSE_PLAN=enterprise python:*)",
+      "Bash(pip3 show:*)",
+      "Bash(pip3 install:*)",
+      "Bash(touch:*)",
+      "Bash(VERIOPS_LICENSE_PLAN=pilot python3:*)",
+      "Bash(do echo:*)",
+      "Bash(PYTHONPATH=\"packages/core:scripts\" VERIOPS_LICENSE_PLAN=enterprise python:*)",
+      "Bash(PYTHONPATH=\"packages/core:scripts\" VERIOPS_LICENSE_PLAN=enterprise python3:*)"
     ],
     "deny": [],
     "ask": []

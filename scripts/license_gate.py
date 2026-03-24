@@ -14,6 +14,7 @@ from __future__ import annotations
 import base64
 import hashlib
 import json
+import logging
 import os
 import platform
 import struct
@@ -22,6 +23,8 @@ import time
 from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Any
+
+logger = logging.getLogger(__name__)
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
 
@@ -202,7 +205,8 @@ def _verify_ed25519(message: bytes, signature: bytes, public_key: bytes) -> bool
         return True
     except ImportError:
         pass
-    except Exception:
+    except Exception as exc:
+        logger.debug("Ed25519 verification failed (PyNaCl): %s", exc)
         return False
 
     # Attempt 2: cryptography
@@ -213,7 +217,8 @@ def _verify_ed25519(message: bytes, signature: bytes, public_key: bytes) -> bool
         return True
     except ImportError:
         pass
-    except Exception:
+    except Exception as exc:
+        logger.debug("Ed25519 verification failed (cryptography): %s", exc)
         return False
 
     # Attempt 3: if no crypto lib available, reject
@@ -233,15 +238,15 @@ def _load_public_key(path: Path | None = None) -> bytes | None:
         decoded = base64.b64decode(raw)
         if len(decoded) == 32:
             return decoded
-    except Exception:
-        pass
+    except Exception as exc:
+        logger.debug("base64 standard decode failed for %s: %s", key_path, exc)
     # Try base64url
     try:
         decoded = base64.urlsafe_b64decode(raw + b"=" * (4 - len(raw) % 4))
         if len(decoded) == 32:
             return decoded
-    except Exception:
-        pass
+    except Exception as exc:
+        logger.debug("base64url decode failed for %s: %s", key_path, exc)
     return None
 
 

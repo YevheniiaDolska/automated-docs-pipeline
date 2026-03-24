@@ -10,8 +10,10 @@ All decryption happens locally. No client data leaves the network.
 
 from __future__ import annotations
 
+import argparse
 import base64
 import hashlib
+import hmac
 import json
 import os
 import time
@@ -170,7 +172,6 @@ def _degraded_pack(error: str = "") -> CapabilityPack:
 
 
 def _hmac_sha256(key: bytes, data: bytes) -> bytes:
-    import hmac
     return hmac.new(key, data, hashlib.sha256).digest()
 
 
@@ -468,8 +469,6 @@ def reset_cache() -> None:
 
 def main() -> int:
     """CLI entry point: attempt to load and display pack info."""
-    import argparse
-
     parser = argparse.ArgumentParser(description="VeriOps capability pack loader")
     parser.add_argument("--pack", default=str(PACK_PATH), help="Path to .capability_pack.enc")
     parser.add_argument("--license-key", default="", help="License key for decryption")

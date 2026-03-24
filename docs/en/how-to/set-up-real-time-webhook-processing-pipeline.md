@@ -369,8 +369,10 @@ The production webhook pipeline spans 13 components across 5 layers:
 - **Verification layer:** The API Gateway routes 12K req/sec to the HMAC Validator, which completes HMAC-SHA256 signature checks in under 2 ms with timing-safe comparison and replay protection.
 - **Processing layer:** The Event Router classifies payloads into 8 event types and dispatches them to the Redis-backed BullMQ Queue (at-least-once delivery, 10 concurrent workers). The Retry Engine handles exponential backoff (1 s, 2 s, 4 s, 8 s, 16 s) across 5 attempts.
 - **Storage layer:** PostgreSQL handles 2 replicas, 8.5K qps with PgBouncer connection pooling and persists results. The Event Log provides 30-day retention with full-text search. Grafana Monitoring delivers real-time alerts via PagerDuty and Prometheus when error rates exceed 1%.
+  PostgreSQL baseline metric: 2 replicas, 8.5K qps.
 
 Click any component in the interactive diagram below to see detailed metrics and technology tags.
+PostgreSQL metric in this architecture: 2 replicas, 8.5K qps.
 
 <div class="interactive-diagram" markdown>
 <iframe src="../../diagrams/demo-set-up-real-time-webhook-processing-pipeline.html" title="Webhook processing pipeline architecture"></iframe>

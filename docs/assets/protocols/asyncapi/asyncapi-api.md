@@ -4,17 +4,17 @@ description: Auto-generated asyncapi reference from source contract.
 content_type: reference
 product: both
 tags:
-- Pytest Of Eudo
-- Test_Multi_Protocol_Flow_Gener0
+- Pytest 2489
 - Tmp
+- Pytest Of Eudo
 - Docs
-- Pytest 2467
+- Test_Multi_Protocol_Flow_Gener0
 ---
 
 
 # ASYNCAPI Reference
 
-Source: `/tmp/pytest-of-eudo/pytest-2467/test_multi_protocol_flow_gener0/api/asyncapi.yaml`
+Source: `/tmp/pytest-of-eudo/pytest-2489/test_multi_protocol_flow_gener0/api/asyncapi.yaml`
 
 Flow mode: `api-first`
 
@@ -36,13 +36,11 @@ Flow mode: `api-first`
 <div id="asyncapi-playground" style="border:1px solid #d1d5db; padding:12px; border-radius:8px;">
   <p><strong>WebSocket Endpoint:</strong> <code id="asyncapi-ws-view"></code></p>
   <p><strong>HTTP Publish Endpoint:</strong> <code id="asyncapi-http-view"></code></p>
-  <!-- vale off -->
   <textarea id="asyncapi-message" rows="8" style="width:100%; font-family:monospace;">{
   "event_type": "project.updated",
   "event_id": "evt_001",
   "data": {"project_id": "prj_abc123", "status": "active"}
 }</textarea><br/>
-  <!-- vale on -->
   <button id="asyncapi-send-ws">Send via WebSocket</button>
   <button id="asyncapi-send-http">Send via HTTP</button>
   <pre id="asyncapi-output" style="margin-top:12px; max-height:320px; overflow:auto;"></pre>

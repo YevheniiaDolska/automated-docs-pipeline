@@ -338,6 +338,71 @@ def _llm_preference(provider: str) -> list[str]:
     return order.get(provider, ["groq", "deepseek", "ollama"])
 
 
+def save_onboarding_config(
+    answers: OnboardingAnswers,
+    user_id: str = "default",
+) -> dict[str, Any]:
+    """Persist onboarding answers as pipeline settings.
+
+    Converts onboarding answers into pipeline module toggles and
+    saves them via the settings API.  Returns the recommended config
+    dict (same as ``get_recommended_config``) with an extra
+    ``settings_saved: True`` key.
+    """
+    from gitspeak_core.api.settings import (
+        UpdateSettingsRequest,
+        handle_update_settings,
+    )
+
+    config = get_recommended_config(answers)
+    recommended_tier = config.get("recommended_plan", "starter")
+
+    # Build module toggles from answers
+    modules: dict[str, bool] = {}
+    if answers.doc_need != DocNeed.NONE.value:
+        modules["gap_detection"] = True
+        modules["normalization"] = True
+        modules["snippet_lint"] = True
+        modules["fact_checks"] = True
+        modules["self_checks"] = True
+        modules["lifecycle_management"] = True
+        modules["terminology_management"] = True
+
+    if answers.api_protocols:
+        modules["drift_detection"] = True
+        modules["docs_contract"] = True
+        modules["test_assets_generation"] = True
+
+    if answers.doc_need == DocNeed.FULL.value:
+        modules["kpi_sla"] = True
+        modules["release_pack"] = True
+        modules["multilang_examples"] = True
+        modules["knowledge_validation"] = True
+        modules["rag_optimization"] = True
+
+    # Determine flow mode
+    protocols = answers.api_protocols or []
+    non_rest = [p for p in protocols if p != "rest"]
+    if non_rest:
+        flow_mode = "hybrid"
+    elif protocols:
+        flow_mode = "api-first"
+    else:
+        flow_mode = "hybrid"
+
+    update_req = UpdateSettingsRequest(
+        modules=modules,
+        flow_mode=flow_mode,
+        default_protocols=protocols,
+        algolia_enabled=answers.enable_algolia,
+    )
+
+    handle_update_settings(update_req, user_id=user_id, user_tier=recommended_tier)
+
+    config["settings_saved"] = True
+    return config
+
+
 def _recommend_plan(answers: OnboardingAnswers) -> str:
     """Suggest a plan tier based on onboarding answers."""
     if answers.doc_need == DocNeed.NONE.value:
