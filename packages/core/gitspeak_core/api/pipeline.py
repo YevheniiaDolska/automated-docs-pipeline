@@ -463,7 +463,7 @@ def _run_discovery(
     if _is_enabled("kpi_sla", user_tier, modules):
         phase = _run_allow_fail(
             "generate_kpi_wall.py",
-            ["--docs-dir", str(repo / "docs"), "--output", str(reports_dir / "kpi-wall.json")],
+            ["--docs-dir", str(repo / "docs"), "--reports-dir", str(reports_dir)],
             repo_path, "kpi_wall",
         )
         phases.append(phase)
