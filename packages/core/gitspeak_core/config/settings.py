@@ -7,6 +7,7 @@ local_only=True is only for VeriOps (self-hosted) deployments.
 from __future__ import annotations
 
 import logging
+import os
 
 from pydantic import BaseModel, Field, SecretStr, model_validator
 
@@ -133,6 +134,7 @@ class AppSettings(BaseModel):
     # Server
     host: str = "0.0.0.0"
     port: int = Field(default=8000, ge=1024, le=65535)
+    cors_origins: list[str] = Field(default_factory=lambda: ["http://localhost:3000"])
 
     @model_validator(mode="after")
     def _guard_default_jwt_secret(self) -> "AppSettings":
@@ -171,12 +173,59 @@ class AppSettings(BaseModel):
                     "before deploying to staging or production.",
                     _DEFAULT_SECRET,
                 )
+        if self.environment in {"staging", "production"} and (
+            not self.cors_origins or "*" in self.cors_origins
+        ):
+            raise ValueError(
+                "FATAL: cors_origins must be an explicit allowlist in staging/production. "
+                "Set VERIDOC_CORS_ORIGINS to comma-separated HTTPS origins."
+            )
         return self
 
 
+def _get_env(name: str, default: str = "") -> str:
+    value = os.getenv(name)
+    if value is not None:
+        return value
+    return default
+
+
+def _get_env_int(name: str, default: int) -> int:
+    raw = _get_env(name, str(default)).strip()
+    try:
+        return int(raw)
+    except ValueError:
+        logger.warning("Invalid integer for %s=%r. Using default=%s", name, raw, default)
+        return default
+
+
+def _parse_csv_env(value: str, fallback: list[str]) -> list[str]:
+    parsed = [item.strip() for item in value.split(",") if item.strip()]
+    return parsed or fallback
+
+
 def get_default_settings() -> AppSettings:
-    """Return default application settings."""
-    return AppSettings()
+    """Return application settings with environment variable overrides."""
+    cors_raw = _get_env("VERIDOC_CORS_ORIGINS", "http://localhost:3000")
+    cors_origins = _parse_csv_env(cors_raw, ["http://localhost:3000"])
+
+    return AppSettings(
+        environment=_get_env("VERIDOC_ENVIRONMENT", _get_env("ENVIRONMENT", "development")),
+        debug=_get_env("VERIDOC_DEBUG", "false").lower() in {"1", "true", "yes", "on"},
+        database_url=_get_env("VERIDOC_DATABASE_URL", "sqlite:///./veridoc.db"),
+        secret_key=SecretStr(_get_env("VERIDOC_SECRET_KEY", _DEFAULT_SECRET)),
+        access_token_expire_minutes=_get_env_int("VERIDOC_ACCESS_TOKEN_EXPIRE_MINUTES", 60),
+        host=_get_env("VERIDOC_HOST", "0.0.0.0"),
+        port=_get_env_int("VERIDOC_PORT", 8000),
+        cors_origins=cors_origins,
+        llm=LLMSettings(
+            groq_api_key=SecretStr(_get_env("GROQ_API_KEY", "")),
+            deepseek_api_key=SecretStr(_get_env("DEEPSEEK_API_KEY", "")),
+            openai_api_key=SecretStr(_get_env("OPENAI_API_KEY", "")),
+            ollama_base_url=_get_env("OLLAMA_BASE_URL", "http://localhost:11434"),
+            ollama_model=_get_env("OLLAMA_MODEL", "llama3"),
+        ),
+    )
 
 
 def get_veriops_settings() -> AppSettings:

@@ -12,7 +12,6 @@ Production:
 from __future__ import annotations
 
 import logging
-import os
 import time
 from collections import defaultdict
 from contextlib import asynccontextmanager
@@ -246,9 +245,10 @@ app = FastAPI(
 )
 
 # CORS
+app_settings = get_settings()
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=os.environ.get("VERIDOC_CORS_ORIGINS", "*").split(","),
+    allow_origins=app_settings.cors_origins,
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],

@@ -121,7 +121,8 @@
     "docsops:generate": "python3 scripts/docsops_generate.py generate --mode operator --trigger always",
     "docsops:generate:auto": "python3 scripts/docsops_generate.py generate --mode operator --trigger always --auto",
     "docsops:generate:policy": "python3 scripts/docsops_generate.py generate --mode operator --trigger policy --auto",
-    "docsops:generate:veridoc": "python3 scripts/docsops_generate.py generate --mode veridoc --trigger policy --auto"
+    "docsops:generate:veridoc": "python3 scripts/docsops_generate.py generate --mode veridoc --trigger policy --auto",
+    "smoke:prod": "python3 scripts/production_smoke.py"
   },
   "devDependencies": {
     "husky": "^8.0.3",
