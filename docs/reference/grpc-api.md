@@ -8,7 +8,9 @@ tags:
 - gRPC
 - Reference
 last_reviewed: '2026-03-19'
+original_author: Kroha
 ---
+
 
 
 # GRPC Reference

@@ -1,9 +1,12 @@
 ---
-title: "REST API Reference"
-description: "Auto-generated rest reference from source contract."
+title: REST API Reference
+description: Auto-generated rest reference from source contract.
 content_type: reference
 product: both
+last_reviewed: '2026-03-20'
+original_author: Kroha
 ---
+
 
 # REST Reference
 
