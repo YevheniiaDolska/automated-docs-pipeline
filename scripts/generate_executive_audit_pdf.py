@@ -10,6 +10,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import logging
 import math
 import re
 from datetime import datetime, timezone
@@ -32,6 +33,8 @@ from reportlab.platypus import (
     Table,
     TableStyle,
 )
+
+logger = logging.getLogger(__name__)
 
 # ---------------------------------------------------------------------------
 # Color palette
@@ -84,7 +87,7 @@ def _read_json(path: Path) -> dict[str, Any]:
     try:
         payload = json.loads(path.read_text(encoding="utf-8"))
         return payload if isinstance(payload, dict) else {}
-    except Exception:  # noqa: BLE001
+    except (Exception,):  # noqa: BLE001
         return {}
 
 
@@ -100,7 +103,7 @@ def _pick_llm_block(public_payload: dict[str, Any], llm_payload: dict[str, Any])
 def _format_money(value: Any) -> str:
     try:
         amount = float(value)
-    except Exception:  # noqa: BLE001
+    except (Exception,):  # noqa: BLE001
         amount = 0.0
     return "${:,.0f}".format(amount)
 
@@ -2331,7 +2334,7 @@ def main() -> int:
         from scripts.license_gate import require
         require("executive_audit_pdf")
     except ImportError:
-        pass
+        logger.warning("license_gate unavailable; continuing without plan enforcement")
 
     parser = argparse.ArgumentParser(description="Generate premium executive audit PDF")
     parser.add_argument("--scorecard-json", default="reports/audit_scorecard.json")

@@ -7,12 +7,25 @@ product: both
 tags:
 - Operations
 - Reference
-last_reviewed: '2026-03-21'
+last_reviewed: '2026-03-24'
 original_author: Developer
 ---
 
 
 # Pipeline Capabilities Catalog
+
+## Current product definition (2026-03-25)
+
+This content follows the active implementation baseline:
+
+1. The platform is docs-first and also supports `code-first`, `api-first`, and `hybrid` modes.
+1. The smooth autopipeline covers all five API protocols (REST, GraphQL, gRPC, AsyncAPI, and WebSocket) in one operational model.
+1. Non-REST flow includes generated server stubs with business-logic placeholders.
+1. External mock sandbox resolution is integrated, with Postman-supported auto-prepare in external mode.
+1. Contract test assets are generated automatically and merged with smart-merge so manual/customized cases are preserved and flagged for review when needed.
+1. Knowledge/RAG maintenance, terminology sync, and quality/compliance gates run through the same automation surface when enabled.
+1. Plan tiers gate advanced capabilities; higher plans include broader non-REST and governance scope.
+
 
 This catalog has two layers:
 
@@ -22,6 +35,18 @@ This catalog has two layers:
 Non-script concepts (policy semantics, sales packaging, pilot/full scope) are documented in ops guides.
 
 Use this catalog with `runtime.custom_tasks.weekly` in client profiles to enable any capability.
+
+
+## Non-API documentation flows (docs-first scope)
+
+The platform is not limited to API-first automation. In active production usage, it also runs full docs-first and code-first documentation operations for non-API content:
+
+1. Detects content gaps, stale pages, and drift across product docs, runbooks, admin guides, troubleshooting, and release notes.
+1. Generates and updates documentation types beyond API references (tutorial, how-to, concept, reference, troubleshooting, release-note, security, SDK, user/admin, and operations docs).
+1. Applies normalization, style, metadata/frontmatter, SEO/GEO, terminology governance, and snippet validation to all documentation categories.
+1. Executes lifecycle controls (active/deprecated/removed states, replacement links, and freshness cadence).
+1. Runs knowledge extraction and retrieval preparation for all docs, not only API pages.
+1. Produces consolidated review artifacts so human input is focused on approval and business accuracy, not repetitive formatting and synchronization work.
 
 ## How to enable any capability for a client
 
@@ -169,6 +194,7 @@ These are part of the current implementation and are invoked directly by operato
 | `scripts/generate_facets_index.py` | Build faceted search index artifacts. |
 | `scripts/generate_fastapi_stubs_from_openapi.py` | Generate FastAPI stubs from OpenAPI. |
 | `scripts/generate_openapi_from_planning_notes.py` | Generate OpenAPI root/tree from planning notes. |
+| `scripts/generate_protocol_server_stubs.py` | Generate protocol server stubs with business-logic placeholders for REST, GraphQL, gRPC, AsyncAPI, and WebSocket. |
 | `scripts/generate_pipeline_capabilities_catalog.py` | Regenerate this capabilities catalog file. |
 | `scripts/lifecycle_manager.py` | Lifecycle scan/report/redirect guidance generation. |
 | `scripts/manage_demo_nav.py` | Demo nav injection/removal helper. |
@@ -176,7 +202,7 @@ These are part of the current implementation and are invoked directly by operato
 | `scripts/preprocess_variables.py` | Variables pre-processing helper for docs generation flows. |
 | `scripts/upload_to_algolia.py` | Upload generated search records to Algolia. |
 | `scripts/validate_pr_dod.py` | DoD validation helper for PR workflows. |
-| `scripts/run_multi_protocol_contract_flow.py` | Unified orchestrator for all 5 protocol documentation flows (REST, GraphQL, gRPC, AsyncAPI, WebSocket). Runs 8 stages: ingest, validate, lint, regression, docs generation, quality gates, test assets, publish. |
+| `scripts/run_multi_protocol_contract_flow.py` | Unified orchestrator for all 5 protocol documentation flows (REST, GraphQL, gRPC, AsyncAPI, WebSocket). Runs 9 stages: ingest, contract validation, server stub generation, lint, regression, docs generation, quality gates, test assets, publish. |
 | `scripts/generate_protocol_contract_from_planning_notes.py` | Generate protocol contracts (GraphQL SDL, Proto3, AsyncAPI YAML, WebSocket YAML) from planning notes markdown. |
 | `scripts/generate_protocol_docs.py` | Auto-generate reference documentation from protocol contracts using protocol-specific templates. |
 | `scripts/generate_protocol_test_assets.py` | Generate protocol-aware test cases with signature-based smart merge. Outputs JSON, TestRail CSV, Zephyr JSON, test matrix, and fuzz scenarios. |
@@ -202,7 +228,7 @@ The pipeline supports five API protocols with a unified orchestrator (`run_multi
 | AsyncAPI | AsyncAPI 2.6 YAML | `validate_asyncapi_contract.py` | `postman-echo.com/post` + `echo.websocket.events` |
 | WebSocket | Channel YAML | `validate_websocket_contract.py` | `echo.websocket.events` |
 
-**8 pipeline stages per protocol:** ingest, contract validation, lint, regression detection, docs generation, quality gates (frontmatter + snippet lint + self-verification), test assets generation with smart merge, publish.
+**9 pipeline stages per protocol:** ingest, contract validation, server stub generation, lint, regression detection, docs generation, quality gates (frontmatter + snippet lint + self-verification), test assets generation with smart merge, publish.
 
 **Autofix cycle:** up to 3 auto-remediation attempts per protocol. Regenerates docs and retries semantic consistency checks on failure.
 
@@ -375,3 +401,27 @@ Can be copied into client bundle with `bundle.include_paths: ['knowledge_modules
 ## Next steps
 
 - [Documentation index](../index.md)
+
+## Implementation status (2026-03-25)
+
+This document is aligned to the current production implementation baseline.
+
+Current baseline:
+
+1. The platform is docs-first and also supports `code-first`, `api-first`, and `hybrid` flows.
+1. REST and non-REST protocols are supported in one automation model: REST, GraphQL, gRPC, AsyncAPI, and WebSocket.
+1. Non-REST automation includes server stubs with business-logic placeholders.
+1. External mock sandbox resolution is integrated into the smooth autopipeline, including Postman-supported auto-prepare mode.
+1. Contract test assets are generated automatically and merged with smart-merge rules so manual/customized cases are preserved.
+1. Knowledge/RAG tasks run as part of automation when enabled (module extraction, validation, retrieval index, graph, evals).
+1. Plan gating is enforced by configuration and policy packs; advanced non-REST automation is reserved for higher plans.
+
+Canonical execution order reference:
+
+- `docs/operations/CANONICAL_FLOW.md`
+- `docs/operations/UNIFIED_CLIENT_CONFIG.md`
+- `README.md`
+
+Commercial note:
+
+- Where commercial packaging is discussed, recurring service terms (retainer/licensing) are part of the active go-to-market model.

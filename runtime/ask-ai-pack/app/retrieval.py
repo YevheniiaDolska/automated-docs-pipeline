@@ -115,7 +115,7 @@ def load_faiss_index(
         if not isinstance(metadata, list):
             return None
         return index, metadata
-    except Exception:  # noqa: BLE001
+    except (Exception,):  # noqa: BLE001
         return None
 
 
@@ -192,7 +192,7 @@ def _generate_hypothetical_document(
             return None
         content = choices[0].get("message", {}).get("content", "")
         return content.strip() or None
-    except Exception:  # noqa: BLE001
+    except (Exception,):  # noqa: BLE001
         return None
 
 
@@ -272,7 +272,7 @@ def rank_modules_semantic(
             cache_ttl=cache_ttl,
             cache_max_size=cache_max_size,
         )
-    except Exception:  # noqa: BLE001
+    except (Exception,):  # noqa: BLE001
         return []
     if query_vec is None:
         return []
@@ -438,7 +438,7 @@ def build_context(
     if rerank_enabled and top and len(top) > max_context_modules and _HAS_CROSS_ENCODER:
         try:
             top = _rerank(question, top, top_n=max_context_modules, model_name=rerank_model)
-        except Exception:  # noqa: BLE001
+        except (Exception,):  # noqa: BLE001
             top = top[:max_context_modules]
     elif top:
         top = top[:max_context_modules]

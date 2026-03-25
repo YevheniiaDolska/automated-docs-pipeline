@@ -32,7 +32,7 @@ class PipelineTestRunner:
                 cwd=cwd or self.root_dir
             )
             return result.returncode, result.stdout, result.stderr
-        except Exception as e:
+        except (Exception,) as e:
             return 1, "", str(e)
 
     def test_python_scripts_syntax(self) -> bool:
@@ -65,7 +65,7 @@ class PipelineTestRunner:
             try:
                 with open(yaml_file, 'r', encoding='utf-8') as f:
                     yaml.safe_load(f)
-            except Exception as e:
+            except (Exception,) as e:
                 self.failed_tests.append(f"Invalid YAML in {yaml_file}: {e}")
                 return False
 
@@ -141,7 +141,7 @@ class PipelineTestRunner:
                     self.failed_tests.append(f"Missing required section in mkdocs.yml: {req}")
                     return False
 
-        except Exception as e:
+        except (Exception,) as e:
             self.failed_tests.append(f"Invalid mkdocs.yml: {e}")
             return False
 
@@ -168,7 +168,7 @@ class PipelineTestRunner:
                     self.failed_tests.append(f"Missing variable: {var}")
                     return False
 
-        except Exception as e:
+        except (Exception,) as e:
             self.failed_tests.append(f"Invalid variables file: {e}")
             return False
 
@@ -212,7 +212,7 @@ class PipelineTestRunner:
                     self.failed_tests.append(f"Missing snippet: {snippet}")
                     return False
 
-        except Exception as e:
+        except (Exception,) as e:
             self.failed_tests.append(f"Invalid snippets file: {e}")
             return False
 
@@ -240,7 +240,7 @@ class PipelineTestRunner:
                     self.failed_tests.append(f"Workflow missing 'on' trigger: {workflow}")
                     return False
 
-            except Exception as e:
+            except (Exception,) as e:
                 self.failed_tests.append(f"Invalid workflow {workflow}: {e}")
                 return False
 
@@ -279,7 +279,7 @@ class PipelineTestRunner:
                     if 'content_type' not in fm:
                         issues.append(f"{md_file}: Missing 'content_type' in frontmatter")
 
-            except Exception as e:
+            except (Exception,) as e:
                 issues.append(f"{md_file}: Invalid frontmatter - {e}")
 
         if issues:
@@ -322,7 +322,7 @@ class PipelineTestRunner:
                 else:
                     failed += 1
                     self.test_results.append((test_name, "FAILED"))
-            except Exception as e:
+            except (Exception,) as e:
                 failed += 1
                 self.test_results.append((test_name, f"ERROR: {e}"))
                 self.failed_tests.append(f"{test_name}: {e}")

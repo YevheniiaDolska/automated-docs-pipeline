@@ -941,7 +941,7 @@ If your docs site enables playground integration, add:
                     from i18n_utils import compute_content_hash
                     frontmatter["source_hash"] = compute_content_hash(source_path)
                 except ImportError:
-                    pass
+                    frontmatter["source_hash"] = ""
 
         return frontmatter
 

@@ -54,6 +54,7 @@ class LLMProvider:
         openai_api_key: str = "",
         preference: list[str] | None = None,
     ) -> None:
+        """Initialize provider credentials and backend preference order."""
         self.groq_api_key = groq_api_key or os.environ.get("GROQ_API_KEY", "")
         self.deepseek_api_key = deepseek_api_key or os.environ.get("DEEPSEEK_API_KEY", "")
         self.anthropic_api_key = anthropic_api_key or os.environ.get("ANTHROPIC_API_KEY", "")
@@ -96,7 +97,7 @@ class LLMProvider:
                 return self._call_openai(prompt, system, max_tokens, temperature)
             else:
                 return LLMResponse(error=f"No provider available (tried: {self.preference})")
-        except Exception as exc:
+        except (Exception,) as exc:
             duration = time.monotonic() - start
             logger.error("LLM call failed (%s): %s", provider, exc)
             return LLMResponse(
@@ -297,6 +298,7 @@ class GSDDocExecutor:
         verify_provider: str = "anthropic",
         max_retries: int = 2,
     ) -> None:
+        """Configure GSD executor with provider routing and retry policy."""
         self.llm = llm
         self.repo_root = Path(repo_root)
         self.plan_provider = plan_provider

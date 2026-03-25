@@ -181,7 +181,7 @@ If any step fails:
 
 Build a working VeriOps API integration in 15 minutes with authenticated requests, project creation, and real-time WebSocket subscriptions.
 
-## Next steps (2)
+## Next steps
 
 - [REST API reference](../reference/rest-api.md) for all 14 endpoints across five resources
 - [GraphQL playground](../reference/graphql-playground.md) to explore the full schema interactively
@@ -189,7 +189,7 @@ Build a working VeriOps API integration in 15 minutes with authenticated request
 - [How-to: keep docs aligned with every release](how-to.md) for the operator workflow
 - [Troubleshooting: common pipeline issues](troubleshooting.md) if you encounter errors
 
-## Next steps (3)
+## Next steps
 
 - Validate modules: `npm run lint:knowledge`
 - Rebuild retrieval index: `npm run build:knowledge-index`

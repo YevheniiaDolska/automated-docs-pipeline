@@ -236,7 +236,7 @@ def _validate_i18n_fields(
                         f"folder locale '{folder_locale}'"
                     )
         except ValueError:
-            pass
+            errors.append(f"{filepath}: invalid locale path structure")
 
     # Check translation_of target exists
     if translation_of:

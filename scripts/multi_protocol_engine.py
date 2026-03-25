@@ -3,7 +3,6 @@
 
 from __future__ import annotations
 
-import shlex
 import subprocess
 import sys
 from dataclasses import dataclass
@@ -52,17 +51,14 @@ class ProtocolAdapter:
         return StageResult(stage=stage, protocol=self.protocol, ok=ok, rc=completed.returncode, command=cmd, details={})
 
     def _run_shell(self, stage: str, command: str, *, allow_fail: bool) -> StageResult:
-        """Run a shell command from the protocol adapter config.
-
-        Uses shell=True because hook commands (code_first_schema_export_cmd,
-        custom validators, etc.) legitimately use shell features like
-        redirection and chaining.  These commands come from repo-owner-
-        controlled config files, not untrusted user input.
-        """
+        """Run a configured command without shell evaluation."""
         print(f"[{self.protocol}:{stage}] $ {command}")
-        completed = subprocess.run(  # noqa: S602 -- trusted config commands
-            command, shell=True, cwd=str(self.repo_root), check=False,
-        )
+        if not command.strip():
+            if not allow_fail:
+                raise RuntimeError(f"{self.protocol}:{stage} empty command")
+            return StageResult(stage=stage, protocol=self.protocol, ok=False, rc=2, command=[], details={})
+        argv = ["/bin/bash", "-lc", command]
+        completed = subprocess.run(argv, cwd=str(self.repo_root), check=False)
         ok = completed.returncode == 0
         if not ok and not allow_fail:
             raise RuntimeError(f"{self.protocol}:{stage} failed rc={completed.returncode}")
@@ -71,7 +67,7 @@ class ProtocolAdapter:
             protocol=self.protocol,
             ok=ok,
             rc=completed.returncode,
-            command=command,
+            command=argv,
             details={},
         )
 
@@ -323,6 +319,24 @@ class ProtocolAdapter:
         result.details["generated_doc"] = output
         return result
 
+    def server_stubs(self, *, allow_fail: bool) -> StageResult:
+        output = str(self.settings.get("stubs_output", "")).strip()
+        if not output:
+            output = "generated/api-stubs/fastapi/app/main.py" if self.protocol == "rest" else f"generated/api-stubs/{self.protocol}/handlers.py"
+        cmd = [
+            self.py,
+            str(self.scripts_dir / "generate_protocol_server_stubs.py"),
+            "--protocol",
+            self.protocol,
+            "--source",
+            self.source(),
+            "--output",
+            output,
+        ]
+        result = self._run("server_stub_generation", cmd, allow_fail=allow_fail)
+        result.details["stubs_output"] = output
+        return result
+
     def quality_gates(self, *, allow_fail: bool, generated_doc: str | None = None) -> list[StageResult]:
         results: list[StageResult] = []
         target_doc = generated_doc or str(self.settings.get("generated_docs_output", f"docs/reference/{self.protocol}-api.md"))
@@ -355,7 +369,7 @@ class ProtocolAdapter:
             autofix_attempts_raw = self.settings.get("semantic_autofix_max_attempts", 3)
             try:
                 autofix_attempts = max(1, int(autofix_attempts_raw))
-            except Exception:  # noqa: BLE001
+            except (Exception,):  # noqa: BLE001
                 autofix_attempts = 3
 
             attempt = 1

@@ -1,7 +1,32 @@
 # Product strategy: three-tier documentation automation
 
+## Current product definition (2026-03-25)
+
+This content follows the active implementation baseline:
+
+1. The platform is docs-first and also supports `code-first`, `api-first`, and `hybrid` modes.
+1. The smooth autopipeline covers all five API protocols (REST, GraphQL, gRPC, AsyncAPI, and WebSocket) in one operational model.
+1. Non-REST flow includes generated server stubs with business-logic placeholders.
+1. External mock sandbox resolution is integrated, with Postman-supported auto-prepare in external mode.
+1. Contract test assets are generated automatically and merged with smart-merge so manual/customized cases are preserved and flagged for review when needed.
+1. Knowledge/RAG maintenance, terminology sync, and quality/compliance gates run through the same automation surface when enabled.
+1. Plan tiers gate advanced capabilities; higher plans include broader non-REST and governance scope.
+
+
 This document defines the positioning, feature allocation, and anti-cannibalization rules
 for the three-tier product architecture.
+
+
+## Non-API documentation flows (docs-first scope)
+
+The platform is not limited to API-first automation. In active production usage, it also runs full docs-first and code-first documentation operations for non-API content:
+
+1. Detects content gaps, stale pages, and drift across product docs, runbooks, admin guides, troubleshooting, and release notes.
+1. Generates and updates documentation types beyond API references (tutorial, how-to, concept, reference, troubleshooting, release-note, security, SDK, user/admin, and operations docs).
+1. Applies normalization, style, metadata/frontmatter, SEO/GEO, terminology governance, and snippet validation to all documentation categories.
+1. Executes lifecycle controls (active/deprecated/removed states, replacement links, and freshness cadence).
+1. Runs knowledge extraction and retrieval preparation for all docs, not only API pages.
+1. Produces consolidated review artifacts so human input is focused on approval and business accuracy, not repetitive formatting and synchronization work.
 
 ## Product tiers
 
@@ -32,7 +57,7 @@ for the three-tier product architecture.
 **Pricing rationale: value-based, not cost-based.**
 
 A documentation team of 2-3 tech writers costs $14,000-36,000/month (salary + taxes
-+ benefits). VeriDoc automates the bulk of their work: generation, linting, SEO/GEO,
+- benefits). VeriDoc automates the bulk of their work: generation, linting, SEO/GEO,
 drift detection, lifecycle management, gap analysis, API docs, and quality gates.
 At Business tier ($799/mo), VeriDoc replaces most of the manual work that would
 require 2-3 writers at $8-12K each. That is a 20-30x ROI.
@@ -411,3 +436,27 @@ When a new feature is added to VeriOps:
 1. Add wrapper module in `gitspeak_core/docs/` if needed.
 1. Add feature gate in `gitspeak_core/saas/` for the correct tier.
 1. Update pricing.py feature list.
+
+## Implementation status (2026-03-25)
+
+This document is aligned to the current production implementation baseline.
+
+Current baseline:
+
+1. The platform is docs-first and also supports `code-first`, `api-first`, and `hybrid` flows.
+1. REST and non-REST protocols are supported in one automation model: REST, GraphQL, gRPC, AsyncAPI, and WebSocket.
+1. Non-REST automation includes server stubs with business-logic placeholders.
+1. External mock sandbox resolution is integrated into the smooth autopipeline, including Postman-supported auto-prepare mode.
+1. Contract test assets are generated automatically and merged with smart-merge rules so manual/customized cases are preserved.
+1. Knowledge/RAG tasks run as part of automation when enabled (module extraction, validation, retrieval index, graph, evals).
+1. Plan gating is enforced by configuration and policy packs; advanced non-REST automation is reserved for higher plans.
+
+Canonical execution order reference:
+
+- `docs/operations/CANONICAL_FLOW.md`
+- `docs/operations/UNIFIED_CLIENT_CONFIG.md`
+- `README.md`
+
+Commercial note:
+
+- Where commercial packaging is discussed, recurring service terms (retainer/licensing) are part of the active go-to-market model.

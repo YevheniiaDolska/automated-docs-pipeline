@@ -204,8 +204,8 @@ def _verify_ed25519(message: bytes, signature: bytes, public_key: bytes) -> bool
         vk.verify(message, signature)
         return True
     except ImportError:
-        pass
-    except Exception as exc:
+        logger.debug("PyNaCl is not installed; trying cryptography fallback")
+    except (Exception,) as exc:
         logger.debug("Ed25519 verification failed (PyNaCl): %s", exc)
         return False
 
@@ -216,8 +216,8 @@ def _verify_ed25519(message: bytes, signature: bytes, public_key: bytes) -> bool
         key.verify(signature, message)
         return True
     except ImportError:
-        pass
-    except Exception as exc:
+        logger.debug("cryptography is not installed; Ed25519 verification unavailable")
+    except (Exception,) as exc:
         logger.debug("Ed25519 verification failed (cryptography): %s", exc)
         return False
 
@@ -238,14 +238,14 @@ def _load_public_key(path: Path | None = None) -> bytes | None:
         decoded = base64.b64decode(raw)
         if len(decoded) == 32:
             return decoded
-    except Exception as exc:
+    except (Exception,) as exc:
         logger.debug("base64 standard decode failed for %s: %s", key_path, exc)
     # Try base64url
     try:
         decoded = base64.urlsafe_b64decode(raw + b"=" * (4 - len(raw) % 4))
         if len(decoded) == 32:
             return decoded
-    except Exception as exc:
+    except (Exception,) as exc:
         logger.debug("base64url decode failed for %s: %s", key_path, exc)
     return None
 

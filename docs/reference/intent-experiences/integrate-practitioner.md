@@ -1,5 +1,4 @@
----
-title: "Intent experience: integrate for practitioner"
+---title: "Intent experience: integrate for practitioner"
 description: "Assembled guidance for one intent and audience using reusable knowledge modules with verified metadata and channel-ready sections."
 content_type: reference
 product: both
@@ -23,7 +22,7 @@ python3 scripts/assemble_intent_experience.py \
 
 Build a working VeriOps API integration in 15 minutes with authenticated requests, project creation, and real-time WebSocket subscriptions.
 
-## Tutorial: launch your first VeriOps API integration
+# Tutorial: launch your first VeriOps API integration
 
 <div class="veriops-badges" markdown>
 
@@ -231,10 +230,13 @@ ws.addEventListener('close', (event) => {
   console.log('Disconnected:', event.code, event.reason);
 });
 
+```
+
 ### Tutorial: launch your first VeriOps API integration (Part 7)
 
 Build a working VeriOps API integration in 15 minutes with authenticated requests, project creation, and real-time WebSocket subscriptions.
 
+```javascript
 // Keep the script running for 60 seconds to receive events
 setTimeout(() => {
   ws.close(1000, 'Tutorial complete');
@@ -320,7 +322,7 @@ curl -X POST "http://localhost:{{ default_webhook_port }}/webhook/order-events" 
 
 Keep replay protection enabled, rotate the secret every 90 days, and monitor 401 spikes for abuse detection.
 
-## Next steps (2)
+## Next steps
 
 - Validate modules: `npm run lint:knowledge`
 - Rebuild retrieval index: `npm run build:knowledge-index`

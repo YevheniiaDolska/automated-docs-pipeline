@@ -3,7 +3,7 @@ title: "Multi-Protocol Architecture"
 description: "Unified docs-ops pipeline for REST, GraphQL, gRPC, AsyncAPI, and WebSocket."
 content_type: reference
 product: both
-last_reviewed: "2026-03-19"
+last_reviewed: "2026-03-24"
 tags:
   - Architecture
   - API
@@ -26,7 +26,7 @@ Positioning statement:
 
 ## Unified stage flow
 
-`ingest -> lint -> regression -> docs generation -> quality gates -> test assets -> upload -> publish`
+`ingest -> contract validation -> server stub generation -> lint -> regression -> docs generation -> quality gates -> test assets -> upload -> publish`
 
 Implementation entrypoint:
 
@@ -41,6 +41,7 @@ python3 scripts/run_multi_protocol_contract_flow.py \
 - `scripts/multi_protocol_engine.py` - stage adapter orchestration.
 - `scripts/run_multi_protocol_contract_flow.py` - flow runner + report output.
 - `scripts/api_protocols.py` - protocol normalization, aliases, defaults.
+- `scripts/generate_protocol_server_stubs.py` - protocol-specific server stubs with business-logic placeholders.
 
 ## Protocol-specific validators
 
@@ -72,6 +73,9 @@ python3 scripts/run_multi_protocol_contract_flow.py \
 - Upload: `scripts/upload_api_test_assets.py`
 - Coverage gate: `scripts/validate_protocol_test_coverage.py`
 - Runtime self-verify (mock/real endpoint): `scripts/run_protocol_self_verify.py`
+- Endpoint auto-resolution for non-REST testers:
+  - preferred: Postman external mock (`scripts/ensure_external_mock_server.py`)
+  - fallback: public echo endpoints (`https://postman-echo.com/post`, `wss://echo.websocket.events`)
 - Protocol docs quality + lifecycle suite: `scripts/run_protocol_docs_quality_suite.py`
   - applies docs normalization, metadata optimization, multilang/smoke checks
   - updates glossary markers
@@ -122,3 +126,27 @@ A curated 50-query eval dataset is maintained at `config/retrieval_eval_dataset.
 ## Next steps
 
 - [Documentation index](../index.md)
+
+## Implementation status (2026-03-25)
+
+This document is aligned to the current production implementation baseline.
+
+Current baseline:
+
+1. The platform is docs-first and also supports `code-first`, `api-first`, and `hybrid` flows.
+1. REST and non-REST protocols are supported in one automation model: REST, GraphQL, gRPC, AsyncAPI, and WebSocket.
+1. Non-REST automation includes server stubs with business-logic placeholders.
+1. External mock sandbox resolution is integrated into the smooth autopipeline, including Postman-supported auto-prepare mode.
+1. Contract test assets are generated automatically and merged with smart-merge rules so manual/customized cases are preserved.
+1. Knowledge/RAG tasks run as part of automation when enabled (module extraction, validation, retrieval index, graph, evals).
+1. Plan gating is enforced by configuration and policy packs; advanced non-REST automation is reserved for higher plans.
+
+Canonical execution order reference:
+
+- `docs/operations/CANONICAL_FLOW.md`
+- `docs/operations/UNIFIED_CLIENT_CONFIG.md`
+- `README.md`
+
+Commercial note:
+
+- Where commercial packaging is discussed, recurring service terms (retainer/licensing) are part of the active go-to-market model.

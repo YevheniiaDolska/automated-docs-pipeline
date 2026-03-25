@@ -2,54 +2,56 @@
   "status": "ok",
   "model": "claude-sonnet-4-5",
   "analysis": {
-    "executive_summary": "Audit crawled 3,566 pages from 3 documentation sites for a single product. Critical infrastructure issues identified: 17,110 broken internal links creating severe navigation failures. SEO and geo-targeting problems affect 16.63% of pages. Zero API reference pages detected in sample, indicating missing or inaccessible technical documentation. Only 5.08% of pages display freshness metadata, obscuring content currency for users.",
+    "executive_summary": "Documentation audit of docs.databricks.com covered 13,280 pages from a requested 27,525 (capped at 20,000 max). Critical issue: 6,512 confirmed broken internal documentation links detected across the site. API reference coverage is strong at 84.21% (3,572 API pages detected). Example code reliability estimated at 94.45% and freshness coverage at 96.19%. Overall audit confidence is 83.43%, with crawl confidence limited to 63.95% due to page cap constraints.",
     "strengths": [
-      "Large documentation corpus with 3,566 pages crawled indicates substantial content investment",
-      "Multi-site presence suggests community and official documentation efforts",
-      "Topology identified as single-product focus enables coherent user journey design"
+      "Strong API reference coverage at 84.21% with 3,572 API pages successfully detected",
+      "High example code reliability estimate of 94.45%",
+      "Excellent freshness metadata coverage at 96.19% of pages",
+      "Low SEO/geo issue rate of 2.53%",
+      "High link verification confidence at 94.22%"
     ],
     "risks": [
-      "17,110 broken internal links represent catastrophic navigation failure and user abandonment risk",
-      "No API reference pages found threatens developer adoption and integration success",
-      "16.63% SEO/geo issue rate damages discoverability and organic search performance",
-      "5.08% freshness coverage prevents users from assessing content reliability and currency",
-      "0.0% example reliability estimate indicates code samples may be untested or non-functional",
-      "Multi-site documentation architecture for single product creates fragmentation and version confusion",
-      "Crawl reached only 3,566 of 30,964 requested pages, suggesting deep structural or performance issues"
+      "6,512 confirmed broken internal documentation links create severe user navigation and trust issues",
+      "Crawl covered only 13,280 of 27,525 requested pages (48% coverage) due to 20,000 page limit",
+      "Crawl confidence at 63.95% indicates incomplete site coverage and potential blind spots",
+      "51 links unverified due to authentication, rate-limiting, or server blocks\u2014may hide additional broken links",
+      "456 links excluded from analysis; exclusion criteria may mask documentation quality issues",
+      "Large gap between pages crawled and requested suggests significant uncrawled content areas",
+      "Multi-project topology mode may indicate fragmented documentation requiring cross-project link maintenance"
     ],
     "prioritized_actions": [
       {
-        "action": "Execute broken link remediation campaign: audit all 17,110 broken links, fix or redirect top 500 by traffic impact within 30 days",
+        "action": "Execute emergency broken link remediation campaign for 6,512 confirmed broken internal links",
         "impact": "critical",
         "effort": "high"
       },
       {
-        "action": "Locate or create API reference documentation; if exists, fix discoverability and crawlability; if missing, prioritize creation",
+        "action": "Investigate and resolve crawl limitations to cover remaining 14,245 requested pages beyond the cap",
         "impact": "critical",
-        "effort": "high"
+        "effort": "medium"
       },
       {
-        "action": "Consolidate multi-site documentation into single authoritative domain with clear versioning and redirect strategy",
+        "action": "Implement automated link validation in CI/CD pipeline to prevent future link rot",
         "impact": "high",
-        "effort": "high"
+        "effort": "medium"
       },
       {
-        "action": "Implement automated last-updated timestamps on all pages and establish content review SLA",
+        "action": "Review and resolve 51 unverified links blocked by auth/rate-limits to confirm actual status",
         "impact": "medium",
         "effort": "low"
       },
       {
-        "action": "Resolve SEO/geo issues on affected 16.63% of pages: audit meta tags, hreflang, and indexing directives",
+        "action": "Audit 456 excluded links to validate exclusion criteria and ensure no critical links are ignored",
         "impact": "medium",
-        "effort": "medium"
+        "effort": "low"
       }
     ],
     "limitations": [
-      "External crawl cannot verify accuracy of technical content, code functionality, or instructional correctness",
-      "Authentication-gated or dynamically rendered content may be underrepresented in crawl results",
-      "User behavior, satisfaction, and task completion rates require separate analytics and user research",
-      "Competitive positioning and feature parity assessment not included in technical documentation audit",
-      "Crawl limited to 4,500 max pages may not represent full documentation estate or deep hierarchy"
+      "External audit cannot verify links behind authentication walls or rate-limited endpoints (51 unverified links)",
+      "Crawl capped at 20,000 pages maximum; 14,245 requested pages remain unaudited and may contain additional issues",
+      "Cannot validate runtime correctness of code examples; 94.45% reliability is static analysis estimate only",
+      "Multi-project topology may have cross-project dependencies not fully captured in single audit pass",
+      "Confidence scores indicate incomplete coverage; actual documentation quality in uncrawled areas is unknown"
     ]
   }
 }

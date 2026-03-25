@@ -5,6 +5,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import logging
 from dataclasses import dataclass, field
 from datetime import date, datetime, timedelta
 from pathlib import Path
@@ -13,11 +14,13 @@ from typing import Any
 import yaml
 from yaml import YAMLError
 
+logger = logging.getLogger(__name__)
+
 # -- Pack runtime integration (optional) --------------------------------------
 try:
     from scripts import pack_runtime as _pack_rt
     _pack = _pack_rt.get_pack()
-except Exception:
+except (Exception,):
     _pack_rt = None  # type: ignore[assignment]
     _pack = None
 
@@ -193,7 +196,7 @@ def build_metrics(
                     i18n_stale += stats.get("stale", 0)
                     i18n_missing += stats.get("missing", 0)
         except (json.JSONDecodeError, OSError):
-            pass
+            i18n_enabled = False
 
     return KpiMetrics(
         generated_at=generated_at or datetime.utcnow().replace(microsecond=0).isoformat() + "Z",
@@ -842,7 +845,7 @@ def main() -> int:
         from scripts.license_gate import require
         require("kpi_wall_sla")
     except ImportError:
-        pass
+        logger.warning("license_gate unavailable; continuing without plan enforcement")
 
     parser = argparse.ArgumentParser(description="Generate weekly docs KPI wall and dashboard")
     parser.add_argument("--docs-dir", default="docs", help="Docs directory")

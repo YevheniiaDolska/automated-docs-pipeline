@@ -13,6 +13,7 @@ from __future__ import annotations
 
 import argparse
 import getpass
+import logging
 import os
 import re
 import shutil
@@ -22,6 +23,7 @@ from pathlib import Path
 from typing import Any
 
 import yaml
+logger = logging.getLogger(__name__)
 REPO_ROOT = Path(__file__).resolve().parents[1]
 if str(REPO_ROOT) not in sys.path:
     sys.path.insert(0, str(REPO_ROOT))
@@ -722,7 +724,7 @@ echo "[algolia] Search widget generated for {generator}"
     try:
         helper_script.chmod(0o755)
     except OSError:
-        pass
+        logger.warning("Could not set executable bit on %s", helper_script)
     print(f"[algolia] widget setup script: {helper_script}")
     print(f"[algolia] site generator: {generator}")
 

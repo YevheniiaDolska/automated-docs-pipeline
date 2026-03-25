@@ -38,7 +38,7 @@ def decode_cursor(cursor: str | None) -> int:
     try:
         data = json.loads(base64.urlsafe_b64decode(cursor.encode("utf-8")).decode("utf-8"))
         return int(data.get("offset", 0))
-    except Exception:
+    except (Exception,):
         raise HTTPException(status_code=400, detail="Invalid cursor")
 
 

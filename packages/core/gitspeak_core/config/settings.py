@@ -79,6 +79,7 @@ class LLMSettings(BaseModel):
         return "ollama"
 
     def _get_key_for_backend(self, backend: str) -> SecretStr | None:
+        """Return API key object corresponding to backend identifier."""
         key_map = {
             "groq": self.groq_api_key,
             "deepseek": self.deepseek_api_key,
@@ -184,6 +185,7 @@ class AppSettings(BaseModel):
 
 
 def _get_env(name: str, default: str = "") -> str:
+    """Return environment variable value or default when missing."""
     value = os.getenv(name)
     if value is not None:
         return value
@@ -191,6 +193,7 @@ def _get_env(name: str, default: str = "") -> str:
 
 
 def _get_env_int(name: str, default: int) -> int:
+    """Read integer env var with a validated fallback value."""
     raw = _get_env(name, str(default)).strip()
     try:
         return int(raw)
@@ -200,6 +203,7 @@ def _get_env_int(name: str, default: int) -> int:
 
 
 def _parse_csv_env(value: str, fallback: list[str]) -> list[str]:
+    """Parse comma-separated env var into a non-empty list."""
     parsed = [item.strip() for item in value.split(",") if item.strip()]
     return parsed or fallback
 

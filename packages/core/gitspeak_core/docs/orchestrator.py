@@ -675,7 +675,7 @@ class DocOrchestrator:
                 min_score=80.0,
             )
             return [p.code_snippet for p in patterns]
-        except Exception:
+        except (Exception,):
             logger.debug("Failed to load patterns for category %s", category)
             return []
 
@@ -697,7 +697,7 @@ class DocOrchestrator:
                 limit=3,
             )
             return [a.code_snippet for a in antipatterns]
-        except Exception:
+        except (Exception,):
             logger.debug("Failed to load antipatterns for category %s", category)
             return []
 
@@ -729,7 +729,7 @@ class DocOrchestrator:
                     "tier": task.get("tier", 2),
                 },
             )
-        except Exception:
+        except (Exception,):
             logger.debug("Failed to store success pattern for %s", task["task_id"])
 
     def _store_failure_pattern(
@@ -759,5 +759,5 @@ class DocOrchestrator:
                     "tier": task.get("tier", 2),
                 },
             )
-        except Exception:
+        except (Exception,):
             logger.debug("Failed to store failure pattern for %s", task["task_id"])

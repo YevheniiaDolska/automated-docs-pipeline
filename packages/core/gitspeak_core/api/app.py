@@ -16,7 +16,7 @@ import time
 from collections import defaultdict
 from contextlib import asynccontextmanager
 from datetime import datetime, timezone
-from typing import Any
+from typing import Any, AsyncGenerator, Callable, Generator
 
 import jwt
 
@@ -37,6 +37,7 @@ _settings: AppSettings | None = None
 
 
 def get_settings() -> AppSettings:
+    """Return cached application settings singleton."""
     global _settings
     if _settings is None:
         _settings = get_default_settings()
@@ -48,7 +49,7 @@ def get_settings() -> AppSettings:
 # ---------------------------------------------------------------------------
 
 
-def get_db():
+def get_db() -> Generator[Any, None, None]:
     """FastAPI dependency: yield a DB session, auto-close after request."""
     from gitspeak_core.db.engine import get_session
 
@@ -69,9 +70,9 @@ MAX_TOKEN_LENGTH_BYTES: int = 8192
 
 def get_current_user(
     request: Request,
-    authorization: str = Header(None),
+    authorization: str | None = Header(None),
     settings: AppSettings = Depends(get_settings),
-    db=Depends(get_db),
+    db: Any = Depends(get_db),
 ) -> dict[str, Any]:
     """Extract and validate JWT token from Authorization header.
 
@@ -209,7 +210,7 @@ def check_rate_limit(user: dict[str, Any]) -> None:
 
 
 @asynccontextmanager
-async def lifespan(app: FastAPI):
+async def lifespan(app: FastAPI) -> AsyncGenerator[None, None]:
     """Application startup and shutdown."""
     settings = get_settings()
     logger.info(
@@ -261,7 +262,11 @@ app.add_middleware(
 
 
 @app.middleware("http")
-async def log_requests(request: Request, call_next):
+async def log_requests(
+    request: Request,
+    call_next: Callable[[Request], Any],
+) -> Response:
+    """Log request method/path, response code, and duration."""
     start = time.time()
     response = await call_next(request)
     duration = time.time() - start
@@ -281,7 +286,8 @@ async def log_requests(request: Request, call_next):
 
 
 @app.get("/health")
-async def health_check():
+async def health_check() -> dict[str, str]:
+    """Return liveness signal for load balancers and uptime checks."""
     return {
         "status": "healthy",
         "service": "veridoc-api",
@@ -290,14 +296,14 @@ async def health_check():
 
 
 @app.get("/health/ready")
-async def readiness_check(db=Depends(get_db)):
+async def readiness_check(db: Any = Depends(get_db)) -> dict[str, str]:
     """Check database connectivity."""
     try:
         from sqlalchemy import text
 
         db.execute(text("SELECT 1"))
         return {"status": "ready", "database": "connected"}
-    except Exception as exc:
+    except (Exception,) as exc:
         return JSONResponse(
             status_code=503,
             content={"status": "not_ready", "database": str(exc)},
@@ -310,7 +316,7 @@ async def readiness_check(db=Depends(get_db)):
 
 
 @app.post("/auth/register", tags=["auth"])
-async def register_user(request: Request, db=Depends(get_db)):
+async def register_user(request: Request, db: Any = Depends(get_db)) -> dict[str, Any]:
     """Register a new user."""
     from gitspeak_core.api.auth import RegisterRequest, handle_register
 
@@ -324,7 +330,7 @@ async def register_user(request: Request, db=Depends(get_db)):
 
 
 @app.post("/auth/login", tags=["auth"])
-async def login_user(request: Request, db=Depends(get_db)):
+async def login_user(request: Request, db: Any = Depends(get_db)) -> dict[str, Any]:
     """Authenticate and receive JWT token."""
     from gitspeak_core.api.auth import LoginRequest, handle_login
 
@@ -339,9 +345,9 @@ async def login_user(request: Request, db=Depends(get_db)):
 
 @app.get("/auth/me", tags=["auth"])
 async def get_me(
-    user: dict = Depends(get_current_user),
-    db=Depends(get_db),
-):
+    user: dict[str, Any] = Depends(get_current_user),
+    db: Any = Depends(get_db),
+) -> dict[str, Any]:
     """Get current user profile."""
     from gitspeak_core.api.auth import handle_get_profile
 
@@ -372,9 +378,9 @@ class PipelineRunRequest(BaseModel):
 @app.post("/pipeline/run", tags=["pipeline"])
 async def start_pipeline_run(
     request: PipelineRunRequest,
-    user: dict = Depends(get_current_user),
-    db=Depends(get_db),
-):
+    user: dict[str, Any] = Depends(get_current_user),
+    db: Any = Depends(get_db),
+) -> dict[str, str]:
     """Start an async pipeline run. Returns run_id for status polling."""
     check_rate_limit(user)
 
@@ -411,7 +417,7 @@ async def start_pipeline_run(
         )
         run.celery_task_id = task.id
         db.commit()
-    except Exception:
+    except (Exception,):
         # Celery not available -- run synchronously as fallback
         logger.warning("Celery not available, running pipeline synchronously")
         from gitspeak_core.api.pipeline import RunPipelineRequest, handle_run_pipeline
@@ -440,11 +446,11 @@ async def start_pipeline_run(
 
 @app.get("/pipeline/runs", tags=["pipeline"])
 async def list_pipeline_runs(
-    user: dict = Depends(get_current_user),
-    db=Depends(get_db),
+    user: dict[str, Any] = Depends(get_current_user),
+    db: Any = Depends(get_db),
     limit: int = 20,
     offset: int = 0,
-):
+) -> dict[str, list[dict[str, Any]]]:
     """List pipeline runs for current user."""
     from gitspeak_core.db.models import PipelineRun
 
@@ -477,9 +483,9 @@ async def list_pipeline_runs(
 @app.get("/pipeline/runs/{run_id}", tags=["pipeline"])
 async def get_pipeline_run(
     run_id: str,
-    user: dict = Depends(get_current_user),
-    db=Depends(get_db),
-):
+    user: dict[str, Any] = Depends(get_current_user),
+    db: Any = Depends(get_db),
+) -> dict[str, Any]:
     """Get details of a specific pipeline run."""
     from gitspeak_core.db.models import PipelineRun
 
@@ -515,9 +521,9 @@ async def get_pipeline_run(
 
 @app.get("/settings", tags=["settings"])
 async def get_pipeline_settings(
-    user: dict = Depends(get_current_user),
-    db=Depends(get_db),
-):
+    user: dict[str, Any] = Depends(get_current_user),
+    db: Any = Depends(get_db),
+) -> dict[str, Any]:
     """Get pipeline settings for current user."""
     from gitspeak_core.db.models import PipelineSettings as PipelineSettingsModel
 
@@ -551,9 +557,9 @@ async def get_pipeline_settings(
 @app.put("/settings", tags=["settings"])
 async def update_pipeline_settings(
     request: Request,
-    user: dict = Depends(get_current_user),
-    db=Depends(get_db),
-):
+    user: dict[str, Any] = Depends(get_current_user),
+    db: Any = Depends(get_db),
+) -> dict[str, str]:
     """Update pipeline settings."""
     body = await request.json()
 
@@ -606,7 +612,7 @@ async def update_pipeline_settings(
 
 
 @app.get("/settings/modules", tags=["settings"])
-async def list_modules(user: dict = Depends(get_current_user)):
+async def list_modules(user: dict[str, Any] = Depends(get_current_user)) -> dict[str, Any]:
     """List available modules with tier gating info."""
     from gitspeak_core.api.settings import AVAILABLE_MODULES
 
@@ -645,9 +651,9 @@ class CreateScheduleRequest(BaseModel):
 @app.post("/automation/schedules", tags=["automation"])
 async def create_schedule(
     request: CreateScheduleRequest,
-    user: dict = Depends(get_current_user),
-    db=Depends(get_db),
-):
+    user: dict[str, Any] = Depends(get_current_user),
+    db: Any = Depends(get_db),
+) -> dict[str, Any]:
     """Create a new automation schedule (Pro+ tier)."""
     tier_order = ["free", "starter", "pro", "business", "enterprise"]
     if tier_order.index(user.get("tier", "free")) < 2:  # pro = index 2
@@ -677,9 +683,9 @@ async def create_schedule(
 
 @app.get("/automation/schedules", tags=["automation"])
 async def list_schedules(
-    user: dict = Depends(get_current_user),
-    db=Depends(get_db),
-):
+    user: dict[str, Any] = Depends(get_current_user),
+    db: Any = Depends(get_db),
+) -> dict[str, list[dict[str, Any]]]:
     """List automation schedules."""
     from gitspeak_core.db.models import AutomationSchedule
 
@@ -708,9 +714,9 @@ async def list_schedules(
 async def update_schedule(
     schedule_id: str,
     request: Request,
-    user: dict = Depends(get_current_user),
-    db=Depends(get_db),
-):
+    user: dict[str, Any] = Depends(get_current_user),
+    db: Any = Depends(get_db),
+) -> dict[str, str]:
     """Update an automation schedule."""
     from gitspeak_core.db.models import AutomationSchedule
 
@@ -742,9 +748,9 @@ async def update_schedule(
 @app.delete("/automation/schedules/{schedule_id}", tags=["automation"])
 async def delete_schedule(
     schedule_id: str,
-    user: dict = Depends(get_current_user),
-    db=Depends(get_db),
-):
+    user: dict[str, Any] = Depends(get_current_user),
+    db: Any = Depends(get_db),
+) -> dict[str, str]:
     """Delete an automation schedule."""
     from gitspeak_core.db.models import AutomationSchedule
 
@@ -772,9 +778,9 @@ async def delete_schedule(
 @app.post("/billing/checkout", tags=["billing"])
 async def create_checkout(
     request: Request,
-    user: dict = Depends(get_current_user),
-    db=Depends(get_db),
-):
+    user: dict[str, Any] = Depends(get_current_user),
+    db: Any = Depends(get_db),
+) -> dict[str, Any]:
     """Create a LemonSqueezy checkout URL."""
     from gitspeak_core.api.billing import CreateCheckoutRequest, handle_create_checkout
 
@@ -783,15 +789,15 @@ async def create_checkout(
         req = CreateCheckoutRequest(**body)
         result = handle_create_checkout(req, user["user_id"], user["email"], db)
         return result.model_dump()
-    except Exception as exc:
+    except (Exception,) as exc:
         raise HTTPException(status_code=400, detail=str(exc))
 
 
 @app.get("/billing/portal", tags=["billing"])
 async def get_portal(
-    user: dict = Depends(get_current_user),
-    db=Depends(get_db),
-):
+    user: dict[str, Any] = Depends(get_current_user),
+    db: Any = Depends(get_db),
+) -> dict[str, Any]:
     """Get LemonSqueezy customer portal URL."""
     from gitspeak_core.api.billing import handle_get_portal_url
 
@@ -804,9 +810,9 @@ async def get_portal(
 
 @app.get("/billing/usage", tags=["billing"])
 async def get_usage(
-    user: dict = Depends(get_current_user),
-    db=Depends(get_db),
-):
+    user: dict[str, Any] = Depends(get_current_user),
+    db: Any = Depends(get_db),
+) -> dict[str, Any]:
     """Get current billing period usage."""
     from gitspeak_core.api.billing import handle_get_usage
 
@@ -818,7 +824,10 @@ async def get_usage(
 
 
 @app.post("/billing/webhooks/lemonsqueezy", tags=["billing"])
-async def lemonsqueezy_webhook(request: Request, db=Depends(get_db)):
+async def lemonsqueezy_webhook(
+    request: Request,
+    db: Any = Depends(get_db),
+) -> dict[str, Any]:
     """Handle LemonSqueezy webhook events.
 
     Verifies HMAC signature and processes subscription lifecycle events.
@@ -846,11 +855,11 @@ async def lemonsqueezy_webhook(request: Request, db=Depends(get_db)):
 
 @app.get("/audit-log", tags=["admin"])
 async def get_audit_log(
-    user: dict = Depends(get_current_user),
-    db=Depends(get_db),
+    user: dict[str, Any] = Depends(get_current_user),
+    db: Any = Depends(get_db),
     limit: int = 50,
     offset: int = 0,
-):
+) -> dict[str, list[dict[str, Any]]]:
     """Get audit log entries for current user."""
     from gitspeak_core.db.models import AuditLog
 
@@ -884,12 +893,12 @@ async def get_audit_log(
 
 
 def log_audit(
-    db,
+    db: Any,
     user_id: str | None,
     action: str,
     resource_type: str | None = None,
     resource_id: str | None = None,
-    details: dict | None = None,
+    details: dict[str, Any] | None = None,
     ip_address: str | None = None,
 ) -> None:
     """Write an audit log entry."""

@@ -101,7 +101,7 @@ def main() -> int:
 
     try:
         root_applied, file_applied = apply_overrides(spec_path, spec_tree, overrides_path)
-    except Exception as error:  # noqa: BLE001
+    except (Exception,) as error:  # noqa: BLE001
         print(f"Failed to apply overrides: {error}")
         return 1
 

@@ -29,7 +29,7 @@ def _post_json(url: str, payload: dict[str, Any], timeout_sec: float) -> tuple[i
 def _parse_json(raw: str) -> dict[str, Any] | None:
     try:
         payload = json.loads(raw)
-    except Exception:  # noqa: BLE001
+    except (Exception,):  # noqa: BLE001
         return None
     return payload if isinstance(payload, dict) else None
 

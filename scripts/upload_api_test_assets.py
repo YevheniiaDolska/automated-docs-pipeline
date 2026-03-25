@@ -116,12 +116,12 @@ def _upload_testrail(
         try:
             _http_json("POST", section_url, headers=headers, payload=payload)
             created += 1
-        except Exception as error:  # noqa: BLE001
+        except (Exception,) as error:  # noqa: BLE001
             # Fallback for TestRail instances without custom fields configured.
             try:
                 _http_json("POST", section_url, headers=headers, payload={"title": title})
                 created += 1
-            except Exception as fallback_error:  # noqa: BLE001
+            except (Exception,) as fallback_error:  # noqa: BLE001
                 errors.append(f"{title}: {error}; fallback failed: {fallback_error}")
     return {"provider": "testrail", "created": created, "errors": errors}
 
@@ -164,7 +164,7 @@ def _upload_zephyr_scale(
         try:
             _http_json("POST", endpoint, headers=headers, payload=payload)
             created += 1
-        except Exception as error:  # noqa: BLE001
+        except (Exception,) as error:  # noqa: BLE001
             errors.append(f"{title}: {error}")
     return {"provider": "zephyr_scale", "created": created, "errors": errors}
 

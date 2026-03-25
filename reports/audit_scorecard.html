@@ -43,17 +43,17 @@
   <div class="wrap">
     <div class="hero">
       <h1>VeriOps Audit Scorecard</h1>
-      <p class="sub">Generated at 2026-03-17T10:02:31.933240+00:00</p>
+      <p class="sub">Generated at 2026-03-25T17:55:54.958047+00:00</p>
       <div class="score">
-        <div class="big">40.2</div>
-        <div class="grade">Grade F</div>
+        <div class="big">63.53</div>
+        <div class="grade">Grade D</div>
       </div>
       <div class="grid">
         <div class='card'><h3>API coverage</h3><div class='value'>0.0%</div><p>Undocumented: 0 / 0 operations</p></div>
-        <div class='card'><h3>Example reliability</h3><div class='value'>0.0%</div><p>Executed: 0, failed: 0</p></div>
-        <div class='card'><h3>Freshness (median age)</h3><div class='value'>6.0 days</div><p>Stale over threshold: 0.0%</p></div>
+        <div class='card'><h3>Example reliability</h3><div class='value'>100.0%</div><p>Executed: 2, failed: 0</p></div>
+        <div class='card'><h3>Freshness (median age)</h3><div class='value'>13.0 days</div><p>Stale over threshold: 0.0%</p></div>
         <div class='card'><h3>Docs contract drift</h3><div class='value'>0.0%</div><p>Mismatches: 0</p></div>
-        <div class='card'><h3>Layer completeness</h3><div class='value'>0.0%</div><p>Features missing layers: 48</p></div>
+        <div class='card'><h3>Layer completeness</h3><div class='value'>0.0%</div><p>Features missing layers: 68</p></div>
         <div class='card'><h3>Terminology consistency</h3><div class='value'>100.0%</div><p>Forbidden term occurrences: 0</p></div>
       </div>
     </div>
@@ -62,17 +62,37 @@
       <h2>Business Impact Estimate (Monthly)</h2>
       <table class="kpi-table">
         <tr><th>Metric</th><th>Estimate</th></tr>
-        <tr><td>Engineering hours lost</td><td>48.8 h</td></tr>
-        <tr><td>Support hours burden</td><td>15.75 h</td></tr>
-        <tr><td>Release delay risk</td><td>2.4 h</td></tr>
-        <tr><td>Opportunity cost</td><td>$5344.75</td></tr>
+        <tr><td>Engineering hours lost</td><td>111.8 h</td></tr>
+        <tr><td>Support hours burden</td><td>220.88 h</td></tr>
+        <tr><td>Release delay risk</td><td>0.0 h</td></tr>
+        <tr><td>Opportunity cost</td><td>$33466.5</td></tr>
+      </table>
+      <p class="foot">Per-finding totals (low/base/high): remediation $3217.5 / $8332.5 / $13530.0, monthly loss $6261.75 / $19536.0 / $42174.0.</p>
+      <p class="foot">Fixability coverage: pilot can close 8 of 8 findings; full implementation can close 8 of 8.</p>
+    </div>
+
+    <div class="section">
+      <h2>Findings Matrix (Fixability + Cost per Issue)</h2>
+      <table class="kpi-table">
+        <tr>
+          <th>ID</th><th>Issue</th><th>Severity</th><th>Capability</th><th>Gap</th><th>Pilot/Full</th><th>Effort (L/B/H)</th><th>Fix Cost (L/B/H)</th><th>Monthly Loss (L/B/H)</th><th>Confidence</th>
+        </tr>
+        <tr><td>F-LAYERS</td><td>Missing required doc layers</td><td>high</td><td>Doc layer completeness</td><td>Features missing required layers %: 100.0 -> 5.0 %</td><td>Yes / Yes</td><td>3.0 / 7.5 / 12.0h</td><td>$495.0 / $1237.5 / $1980.0</td><td>$891.0 / $2673.0 / $5702.4</td><td>high</td></tr><tr><td>F-FRESHNESS</td><td>Documentation freshness debt</td><td>medium</td><td>Freshness + lifecycle management</td><td>Stale docs %: 0.0 -> 10.0 %</td><td>Yes / Yes</td><td>2.0 / 5.0 / 8.0h</td><td>$330.0 / $825.0 / $1320.0</td><td>$561.0 / $1683.0 / $3590.4</td><td>high</td></tr><tr><td>F-RETRIEVAL</td><td>RAG retrieval quality risk</td><td>medium</td><td>RAG retrieval quality control</td><td>Hallucination rate %: 0.0 -> 10.0 %</td><td>Yes / Yes</td><td>4.0 / 9.0 / 14.0h</td><td>$660.0 / $1485.0 / $2310.0</td><td>$1254.0 / $3385.8 / $7022.4</td><td>high</td></tr><tr><td>F-EVIDENCE-DRIFT-MISSING</td><td>Drift evidence report is missing</td><td>medium</td><td>Code/docs drift contract visibility</td><td>Docs-contract report availability: 0 -> 1 binary</td><td>Yes / Yes</td><td>0.5 / 1.0 / 2.0h</td><td>$82.5 / $165.0 / $330.0</td><td>$74.25 / $181.5 / $462.0</td><td>medium</td></tr><tr><td>F-API-COVERAGE</td><td>Undocumented API operations</td><td>low</td><td>API coverage sync</td><td>API undocumented %: 0.0 -> 5.0 %</td><td>Yes / Yes</td><td>4.0 / 10.0 / 16.0h</td><td>$660.0 / $1650.0 / $2640.0</td><td>$1452.0 / $4356.0 / $9292.8</td><td>high</td></tr><tr><td>F-EXAMPLES-RELIABILITY</td><td>Code examples fail or are non-runnable</td><td>low</td><td>Executable examples quality</td><td>Example reliability %: 0.0 -> 5.0 % shortfall</td><td>Yes / Yes</td><td>3.0 / 8.5 / 14.0h</td><td>$495.0 / $1402.5 / $2310.0</td><td>$990.0 / $3366.0 / $7392.0</td><td>high</td></tr><tr><td>F-DRIFT</td><td>Code/docs contract drift</td><td>low</td><td>Code/docs drift contract visibility</td><td>Drift %: 0.0 -> 2.0 %</td><td>Yes / Yes</td><td>2.0 / 6.0 / 10.0h</td><td>$330.0 / $990.0 / $1650.0</td><td>$792.0 / $2851.2 / $6336.0</td><td>low</td></tr><tr><td>F-TERMINOLOGY</td><td>Terminology inconsistency</td><td>low</td><td>Terminology governance</td><td>Terminology violations %: 0.0 -> 3.0 %</td><td>Yes / Yes</td><td>1.0 / 3.5 / 6.0h</td><td>$165.0 / $577.5 / $990.0</td><td>$247.5 / $1039.5 / $2376.0</td><td>high</td></tr>
+      </table>
+    </div>
+
+    <div class="section">
+      <h2>Pipeline Coverage Matrix (What can be fixed)</h2>
+      <table class="kpi-table">
+        <tr><th>Capability ID</th><th>Capability</th><th>Modules</th><th>Flow</th><th>Pilot/Full</th></tr>
+        <tr><td>api_coverage_sync</td><td>API coverage sync</td><td>drift_detection, docs_contract</td><td>api_first</td><td>Yes / Yes</td></tr><tr><td>drift_contract_visibility</td><td>Code/docs drift contract visibility</td><td>drift_detection, docs_contract</td><td>weekly</td><td>Yes / Yes</td></tr><tr><td>example_execution_quality</td><td>Executable examples quality</td><td>self_checks, snippet_lint, normalization</td><td>docs_flow</td><td>Yes / Yes</td></tr><tr><td>freshness_lifecycle</td><td>Freshness + lifecycle management</td><td>kpi_sla, release_pack</td><td>weekly</td><td>Yes / Yes</td></tr><tr><td>layer_completeness</td><td>Doc layer completeness</td><td>gap_detection, fact_checks</td><td>docs_flow</td><td>Yes / Yes</td></tr><tr><td>retrieval_quality_control</td><td>RAG retrieval quality control</td><td>rag_optimization, ontology_graph, retrieval_evals</td><td>knowledge</td><td>Yes / Yes</td></tr><tr><td>terminology_governance</td><td>Terminology governance</td><td>terminology_management, normalization</td><td>docs_flow</td><td>Yes / Yes</td></tr>
       </table>
     </div>
 
     <div class="section">
       <h2>Top 3 Gaps To Fix First</h2>
       <ol class="top3">
-        <li><strong>Webhook: webhook: POST</strong> (high)<br><span>Update webhook documentation for changes in scripts/upload_api_test_assets.py. Include payload examples and event types.</span></li><li><strong>Authentication: authentication: Auth</strong> (high)<br><span>Update authentication documentation for changes in .claude/commands/api-first-demo.md. Include security considerations.</span></li><li><strong>Database Schema: database_schema: schema(</strong> (high)<br><span>Document database schema change in scripts/generate_api_test_assets.py. Update data model documentation.</span></li>
+        <li><strong>Webhook: webhook: Webhook</strong> (high)<br><span>Update webhook documentation for changes in mkdocs.yml. Include payload examples and event types.</span></li><li><strong>Authentication: authentication: Auth</strong> (high)<br><span>Update authentication documentation for changes in docs/reference/taskstream-api-playground.md. Include security considerations.</span></li><li><strong>Database Schema: database_schema: schema(</strong> (high)<br><span>Document database schema change in scripts/generate_api_test_assets.py. Update data model documentation.</span></li>
       </ol>
     </div>
 
@@ -81,8 +101,8 @@
       <table class="kpi-table">
         <tr><th>Precision@k</th><th>Recall@k</th><th>Hallucination rate</th></tr>
         <tr>
-          <td>0.0</td>
-          <td>0.0</td>
+          <td>0.5778</td>
+          <td>0.9278</td>
           <td>0.0</td>
         </tr>
       </table>

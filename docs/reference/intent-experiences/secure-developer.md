@@ -74,7 +74,7 @@ A typical API request traverses 5 layers in sequence:
 
 AsyncAPI 2.6.0 event documentation for VeriOps with channel contracts, delivery semantics, payload schemas, and interactive event tester.
 
-## AsyncAPI event docs
+# AsyncAPI event docs
 
 <div class="veriops-badges" markdown>
 
@@ -170,7 +170,7 @@ ws.addEventListener('message', (event) => {
 
 Interactive GraphQL playground for VeriOps API with schema explorer, live query editor, subscription support, and advanced RAG retrieval pipeline.
 
-## GraphQL playground
+# GraphQL playground
 
 <div class="veriops-badges" markdown>
 
@@ -329,7 +329,7 @@ Interactive GraphQL playground for VeriOps API with schema explorer, live query 
 
 Invoke VeriOps gRPC services through the HTTP gateway with service catalog, proto definitions, and interactive request testing.
 
-## gRPC gateway invoke
+# gRPC gateway invoke
 
 <div class="veriops-badges" markdown>
 
@@ -450,7 +450,7 @@ The HTTP gateway maps gRPC status codes to HTTP status codes:
 
 Interactive REST API reference for VeriOps with 14 endpoints across five resources, Bearer JWT authentication, and Swagger UI.
 
-## REST API reference
+# REST API reference
 
 <div class="veriops-badges" markdown>
 
@@ -710,7 +710,7 @@ curl -X POST https://api.veriops.example/v1/tasks \
 
 Interactive REST API reference for VeriOps with 14 endpoints across five resources, Bearer JWT authentication, and Swagger UI.
 
-### Error codes (2)
+### Error codes
 
 | Status | Code | Meaning | Resolution |
 | --- | --- | --- | --- |
@@ -738,7 +738,7 @@ When you exceed the limit, the API returns HTTP 429 with a `Retry-After` header 
 
 Interactive WebSocket playground for VeriOps real-time API with bidirectional messaging, channel subscriptions, and connection lifecycle management.
 
-## WebSocket event playground
+# WebSocket event playground
 
 <div class="veriops-badges" markdown>
 
@@ -750,7 +750,7 @@ Interactive WebSocket playground for VeriOps real-time API with bidirectional me
 
 The VeriOps WebSocket API provides real-time, bidirectional communication for project updates and task notifications over a persistent connection. This playground allows you to connect, subscribe to channels, send messages, and observe server-pushed events.
 
-## Connection details (2)
+## Connection details
 
 | Setting | Value |
 | --- | --- |
@@ -822,7 +822,7 @@ Interactive WebSocket playground for VeriOps real-time API with bidirectional me
 /* Sandbox onclick is set by acme-sandbox.js with local mock responses */
 </script>
 
-## Error handling (2)
+## Error handling
 
 ### WebSocket close codes
 
@@ -846,7 +846,7 @@ Interactive WebSocket playground for VeriOps real-time API with bidirectional me
 | `Connection error` in browser | Mixed content (`ws://` on HTTPS page) | Use `wss://` endpoint |
 | Missed events after reconnect | Subscriptions not restored | Re-subscribe to all channels on `open` event |
 
-## Next steps (2)
+## Next steps
 
 - Validate modules: `npm run lint:knowledge`
 - Rebuild retrieval index: `npm run build:knowledge-index`

@@ -26,7 +26,7 @@ import subprocess
 try:
     from scripts import pack_runtime as _pack_rt
     _pack = _pack_rt.get_pack()
-except Exception:
+except (Exception,):
     _pack_rt = None  # type: ignore[assignment]
     _pack = None
 
@@ -746,9 +746,9 @@ class AlgoliaOptimizer:
         """Create an Algolia record from a document section."""
 
         # Generate unique objectID
-        object_id = hashlib.md5(
+        object_id = hashlib.sha256(
             f"{filepath}#{section_index}".encode()
-        ).hexdigest()
+        ).hexdigest()[:32]
 
         # Clean content for search
         content = section['content']

@@ -3,7 +3,7 @@ title: "API-first and code-first playbook"
 description: "Practical guide for API-first and code-first workflows with sandbox modes, contract checks, and documentation gates."
 content_type: reference
 product: both
-last_reviewed: "2026-03-17"
+last_reviewed: "2026-03-24"
 tags:
   - Reference
   - API
@@ -56,6 +56,25 @@ python3 scripts/run_api_first_flow.py \
 ```
 
 This generates OpenAPI artifacts, runs contract and lint checks, generates stubs, verifies user path, syncs docs sandbox URL, generates API test assets, and can upload those assets to TestRail/Zephyr.
+
+### Multi-protocol API-first (GraphQL, gRPC, AsyncAPI, WebSocket)
+
+Use this entry point when non-REST protocols are in scope:
+
+```bash
+python3 scripts/run_multi_protocol_contract_flow.py \
+  --runtime-config docsops/config/client_runtime.yml \
+  --reports-dir reports \
+  --protocols graphql,grpc,asyncapi,websocket
+```
+
+The flow automatically:
+
+1. Ingests protocol contracts (or generates them from planning notes when configured).
+1. Validates contracts and runs protocol lint stack.
+1. Generates server stubs with business-logic placeholders via `scripts/generate_protocol_server_stubs.py`.
+1. Resolves and enforces live/mock endpoints for docs self-verification. In `external` sandbox mode with `api_first.external_mock.enabled=true`, it auto-prepares Postman mock server through `scripts/ensure_external_mock_server.py`.
+1. Generates protocol docs, runs quality gates, produces test assets, and publishes protocol assets.
 
 ### Step 3: Start sandbox mode
 

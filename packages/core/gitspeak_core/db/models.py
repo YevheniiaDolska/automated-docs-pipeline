@@ -13,6 +13,7 @@ from __future__ import annotations
 
 import uuid
 from datetime import datetime, timezone
+from typing import Any
 
 from sqlalchemy import (
     JSON,
@@ -30,10 +31,12 @@ from sqlalchemy.orm import DeclarativeBase, relationship
 
 
 def _utcnow() -> datetime:
+    """Return current UTC timestamp for ORM default fields."""
     return datetime.now(timezone.utc)
 
 
 def _new_id() -> str:
+    """Generate compact random hex identifier for primary keys."""
     return uuid.uuid4().hex
 
 
@@ -242,6 +245,6 @@ class AuditLog(Base):
 # -----------------------------------------------------------------------
 
 
-def create_all_tables(engine) -> None:
+def create_all_tables(engine: Any) -> None:
     """Create all tables (for development/testing). Use Alembic in production."""
     Base.metadata.create_all(engine)

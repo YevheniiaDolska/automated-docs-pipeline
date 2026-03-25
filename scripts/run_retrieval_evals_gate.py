@@ -21,7 +21,7 @@ def _has_sentence_transformers() -> bool:
     try:
         __import__("sentence_transformers")
         return True
-    except Exception:  # noqa: BLE001
+    except (Exception,):  # noqa: BLE001
         return False
 
 

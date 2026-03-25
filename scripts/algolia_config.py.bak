@@ -55,9 +55,9 @@ class AlgoliaIndexer:
         """Create an Algolia record from a document section."""
 
         # Generate unique objectID
-        object_id = hashlib.md5(
+        object_id = hashlib.sha256(
             f"{filepath}#{section_index}".encode()
-        ).hexdigest()
+        ).hexdigest()[:32]
 
         # Clean content for search
         content = section['content']

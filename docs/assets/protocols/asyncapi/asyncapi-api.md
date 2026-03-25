@@ -4,9 +4,9 @@ description: Auto-generated asyncapi reference from source contract.
 content_type: reference
 product: both
 tags:
-- Pytest 2489
-- Tmp
 - Pytest Of Eudo
+- Tmp
+- Pytest 2625
 - Docs
 - Test_Multi_Protocol_Flow_Gener0
 ---
@@ -14,7 +14,7 @@ tags:
 
 # ASYNCAPI Reference
 
-Source: `/tmp/pytest-of-eudo/pytest-2489/test_multi_protocol_flow_gener0/api/asyncapi.yaml`
+Source: `/tmp/pytest-of-eudo/pytest-2625/test_multi_protocol_flow_gener0/api/asyncapi.yaml`
 
 Flow mode: `api-first`
 

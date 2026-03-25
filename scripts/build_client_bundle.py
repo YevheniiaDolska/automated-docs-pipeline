@@ -360,7 +360,7 @@ def build_licensing_infrastructure(profile: dict[str, Any], bundle_root: Path) -
             )
             jwt_path.write_text(token + "\n", encoding="utf-8")
             print(f"[license] JWT auto-generated: plan={plan}, days={days}, client={client_id}")
-        except Exception as exc:
+        except (Exception,) as exc:
             print(f"[license] JWT auto-generation failed ({exc}), writing placeholder")
             jwt_path.write_text(
                 "# Auto-generation failed. Generate manually:\n"
@@ -883,6 +883,7 @@ def create_bundle(profile_path: Path) -> Path:
             [
                 "scripts/run_multi_protocol_contract_flow.py",
                 "scripts/generate_protocol_contract_from_planning_notes.py",
+                "scripts/generate_protocol_server_stubs.py",
                 "scripts/generate_protocol_docs.py",
                 "scripts/generate_protocol_test_assets.py",
                 "scripts/check_protocol_regression.py",

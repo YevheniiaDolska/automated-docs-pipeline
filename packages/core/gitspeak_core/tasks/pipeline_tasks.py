@@ -27,7 +27,7 @@ def run_pipeline_async(
     modules: dict[str, bool] | None = None,
     protocols: list[str] | None = None,
     user_tier: str = "free",
-):
+) -> dict[str, str | int | float]:
     """Execute the full pipeline asynchronously.
 
     Updates PipelineRun record in DB with progress and results.
@@ -86,7 +86,7 @@ def run_pipeline_async(
             "duration": duration,
         }
 
-    except Exception as exc:
+    except (Exception,) as exc:
         logger.exception("Pipeline task failed: run_id=%s", run_id)
         if run:
             run.status = "failed"
@@ -106,7 +106,7 @@ def run_llm_generation(
     repo_path: str,
     consolidated_report_path: str,
     user_tier: str = "free",
-):
+) -> dict[str, str | int]:
     """Phase 2: LLM-powered doc generation using orchestrator.
 
     Uses Claude as planner/verifier, Groq/DeepSeek as content generators.
@@ -155,7 +155,7 @@ def run_llm_generation(
             "docs_generated": summary.docs_generated,
         }
 
-    except Exception as exc:
+    except (Exception,) as exc:
         logger.exception("LLM generation failed: run_id=%s", run_id)
         raise
     finally:
@@ -163,7 +163,7 @@ def run_llm_generation(
 
 
 @app.task(name="gitspeak_core.tasks.pipeline_tasks.check_scheduled_runs")
-def check_scheduled_runs():
+def check_scheduled_runs() -> dict[str, int]:
     """Periodic task: check automation schedules and trigger due pipelines.
 
     Runs every 60 seconds via Celery beat.
@@ -242,7 +242,7 @@ def check_scheduled_runs():
 
         return {"triggered": triggered}
 
-    except Exception:
+    except (Exception,):
         logger.exception("Failed to check scheduled runs")
         session.rollback()
         raise

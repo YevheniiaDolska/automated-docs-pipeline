@@ -31,7 +31,7 @@ def _parse_frontmatter(text: str) -> tuple[dict[str, Any], str]:
         if isinstance(payload, dict):
             return payload, body
     except yaml.YAMLError:
-        pass
+        return {}, body
     return {}, body
 
 

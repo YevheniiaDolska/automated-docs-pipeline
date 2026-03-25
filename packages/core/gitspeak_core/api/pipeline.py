@@ -367,7 +367,7 @@ def _run_script(
         return result.returncode == 0, output.strip()
     except subprocess.TimeoutExpired:
         return False, f"Script timed out after {timeout}s: {script_name}"
-    except Exception as exc:
+    except (Exception,) as exc:
         return False, f"Script execution failed: {exc}"
 
 
@@ -957,7 +957,7 @@ def handle_rag_test_generate(
                 "frameworks": index.framework_stats,
             },
         )
-    except Exception as exc:
+    except (Exception,) as exc:
         return RagTestResponse(
             status="error",
             error=f"RAG test generation failed: {exc}",
@@ -987,7 +987,7 @@ def handle_rag_test_index(
                 "frameworks": index.framework_stats,
             },
         )
-    except Exception as exc:
+    except (Exception,) as exc:
         return RagTestIndexResponse(
             status="error",
             error=f"Index build failed: {exc}",
@@ -1028,7 +1028,7 @@ def handle_algolia_widget(
             status="ok",
             files_generated=files,
         )
-    except Exception as exc:
+    except (Exception,) as exc:
         return AlgoliaWidgetResponse(
             status="error",
             error=f"Widget generation failed: {exc}",
@@ -1074,7 +1074,7 @@ def handle_doc_compiler(
             modalities_run=result.get("modalities_run", []),
             report=result,
         )
-    except Exception as exc:
+    except (Exception,) as exc:
         return DocCompilerResponse(
             status="error",
             error=f"Doc compiler failed: {exc}",

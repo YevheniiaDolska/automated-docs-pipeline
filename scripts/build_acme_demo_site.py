@@ -137,7 +137,7 @@ def _validate_page_contract(output_root: Path) -> None:
                 missing_keys = sorted(FRONTMATTER_REQUIRED_KEYS - set(fm.keys()))
                 if missing_keys:
                     frontmatter_errors.append(f"{rel}: missing keys {', '.join(missing_keys)}")
-            except Exception as exc:  # noqa: BLE001
+            except (Exception,) as exc:  # noqa: BLE001
                 frontmatter_errors.append(f"{rel}: {exc}")
 
     if missing_files:
@@ -314,7 +314,7 @@ def _compute_demo_kpi(output_root: Path, reports_dir: Path) -> dict[str, Any]:
         return {}
     try:
         payload = json.loads(kpi_path.read_text(encoding="utf-8"))
-    except Exception:  # noqa: BLE001
+    except (Exception,):  # noqa: BLE001
         return {}
     return payload if isinstance(payload, dict) else {}
 
@@ -458,7 +458,7 @@ def _build_demo_rag_assets(output_root: Path) -> None:
         fm: dict[str, Any] = {}
         try:
             fm = _parse_frontmatter(text, rel)
-        except Exception:  # noqa: BLE001
+        except (Exception,):  # noqa: BLE001
             fm = {}
         title = str(fm.get("title", rel))
         tags = fm.get("tags", []) if isinstance(fm, dict) else []

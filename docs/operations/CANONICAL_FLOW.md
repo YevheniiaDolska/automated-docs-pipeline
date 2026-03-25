@@ -4,7 +4,7 @@ description: Canonical sales and delivery flow for onboarding and operating clie
   Auto-Doc Pipeline setups.
 content_type: reference
 product: both
-last_reviewed: '2026-03-21'
+last_reviewed: '2026-03-24'
 tags:
 - Operations
 - Client Onboarding
@@ -116,6 +116,11 @@ It executes:
   - regression gate (`check_openapi_regression.py`)
   - generates API test assets from OpenAPI (`generate_api_test_assets.py`)
   - optionally uploads test assets to TestRail/Zephyr (`upload_api_test_assets.py`)
+- Multi-protocol API-first flow (if non-REST protocols are enabled)
+  - runs `run_multi_protocol_contract_flow.py` for GraphQL, gRPC, AsyncAPI, and WebSocket
+  - auto-generates server stubs with business-logic placeholders (`generate_protocol_server_stubs.py`)
+  - auto-resolves runtime endpoints for self-verification and docs testers
+  - in `external` sandbox mode with `external_mock.enabled=true`, auto-prepares Postman mock endpoint
 - RAG/knowledge tasks:
   - `extract_knowledge_modules_from_docs.py`
   - `validate_knowledge_modules.py`
@@ -205,3 +210,27 @@ If needed, run equivalent weekly flow via GitHub Actions cron (`weekly-consolida
 ## Next steps
 
 - [Documentation index](../index.md)
+
+## Implementation status (2026-03-25)
+
+This document is aligned to the current production implementation baseline.
+
+Current baseline:
+
+1. The platform is docs-first and also supports `code-first`, `api-first`, and `hybrid` flows.
+1. REST and non-REST protocols are supported in one automation model: REST, GraphQL, gRPC, AsyncAPI, and WebSocket.
+1. Non-REST automation includes server stubs with business-logic placeholders.
+1. External mock sandbox resolution is integrated into the smooth autopipeline, including Postman-supported auto-prepare mode.
+1. Contract test assets are generated automatically and merged with smart-merge rules so manual/customized cases are preserved.
+1. Knowledge/RAG tasks run as part of automation when enabled (module extraction, validation, retrieval index, graph, evals).
+1. Plan gating is enforced by configuration and policy packs; advanced non-REST automation is reserved for higher plans.
+
+Canonical execution order reference:
+
+- `docs/operations/CANONICAL_FLOW.md`
+- `docs/operations/UNIFIED_CLIENT_CONFIG.md`
+- `README.md`
+
+Commercial note:
+
+- Where commercial packaging is discussed, recurring service terms (retainer/licensing) are part of the active go-to-market model.

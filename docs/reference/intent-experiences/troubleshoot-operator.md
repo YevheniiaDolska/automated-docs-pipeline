@@ -58,7 +58,7 @@ sendWs.onclick = function(){
 };
 sendHttp.onclick = async function(){
   if (!httpEndpoint) { out.textContent = 'HTTP publish endpoint is not configured (runtime.api_protocol_settings.asyncapi.asyncapi_http_publish_endpoint)'; return; }
-  out.textContent = 'Loading…';
+  out.textContent = 'Loading...';
   try {
     const body = JSON.parse(msg.value || '{}');
     const response = await fetch(httpEndpoint, { method:'POST', headers:{'content-type':'application/json'}, body: JSON.stringify(body) });
@@ -88,7 +88,7 @@ function tryNext(lastError) {
         return;
       }
       var endpoint = candidates[idx++];
-      out.textContent = 'Connecting to ' + endpoint + '…';
+      out.textContent = 'Connecting to ' + endpoint + '...';
       try {
         var settled = false;
         var ws = new WebSocket(endpoint);
@@ -101,7 +101,7 @@ function tryNext(lastError) {
         ws.onopen = function () {
           if (settled) return;
           ws.send(payload);
-          out.textContent = 'Connected to ' + endpoint + '. Event sent. Waiting for acknowledgement…';
+          out.textContent = 'Connected to ' + endpoint + '. Event sent. Waiting for acknowledgement...';
         };
         ws.onmessage = function (e) {
           if (settled) return;
@@ -194,7 +194,7 @@ Pipeline-first documentation automates generation, validation, and publishing of
 
 Complete quality evidence from the VeriDoc pipeline for VeriOps docs, covering KPI metrics, protocol gates, 24 automated checks, and RAG readiness.
 
-## Quality evidence and gate results
+# Quality evidence and gate results
 
 <div class="veriops-badges" markdown>
 
@@ -282,7 +282,7 @@ if (!view || !run || !query || !out) return;
 view.textContent = endpoint || 'not configured';
 run.onclick = async function(){
   if (!endpoint) { out.textContent = 'Endpoint is not configured in runtime.api_protocol_settings.graphql.graphql_endpoint'; return; }
-  out.textContent = 'Loading…';
+  out.textContent = 'Loading...';
   try {
     const response = await fetch(endpoint, { method:'POST', headers:{'content-type':'application/json'}, body: JSON.stringify({ query: query.value }) });
     const text = await response.text();
@@ -296,7 +296,7 @@ run.onclick = async function(){
 
 Interactive GraphQL playground for VeriOps API with schema explorer, live query editor, subscription support, and advanced RAG retrieval pipeline.
 
-## GraphQL playground
+# GraphQL playground
 
 <div class="veriops-badges" markdown>
 
@@ -352,7 +352,7 @@ python3 scripts/run_retrieval_evals.py \
 
 <!-- requires: OPENAI_API_KEY, faiss-cpu, sentence-transformers -->
 
-## Error handling (2)
+## Error handling
 
 GraphQL errors appear in the `errors` array alongside partial `data`:
 
@@ -457,7 +457,7 @@ Pipeline-generated multi-protocol API documentation for VeriOps with KPI dashboa
 
 Interactive REST API reference for VeriOps with 14 endpoints across five resources, Bearer JWT authentication, and Swagger UI.
 
-## REST API reference
+# REST API reference
 
 <div class="veriops-badges" markdown>
 
@@ -515,7 +515,7 @@ Explore and test all 14 endpoints in the embedded Swagger interface. Requests ro
 <iframe src="../swagger-test.html" width="100%" height="900" style="border:none;"></iframe>
 </div>
 
-## Error handling (3)
+## Error handling
 
 Every error response uses a consistent envelope:
 
@@ -539,7 +539,7 @@ Every error response uses a consistent envelope:
 
 Interactive REST API reference for VeriOps with 14 endpoints across five resources, Bearer JWT authentication, and Swagger UI.
 
-### Error codes (2)
+### Error codes
 
 | Status | Code | Meaning | Resolution |
 | --- | --- | --- | --- |
@@ -567,7 +567,7 @@ When you exceed the limit, the API returns HTTP 429 with a `Retry-After` header 
 
 Fix common VeriOps documentation pipeline issues in under 5 minutes, covering contract failures, quality gates, build errors, and WebSocket problems.
 
-## Troubleshooting: common VeriOps pipeline issues
+# Troubleshooting: common VeriOps pipeline issues
 
 <div class="veriops-badges" markdown>
 
@@ -890,7 +890,7 @@ After resolving issues, your pipeline should show:
 | Pipeline exit code | 0 | 1 (non-critical) | 2 (critical failure) |
 | Retrieval precision | 0.7+ | 0.5-0.69 | Below 0.5 |
 
-## Next steps (2)
+## Next steps
 
 - [How-to: keep docs aligned with every release](how-to.md) for the operational workflow
 - [Quality evidence and gate results](../quality/evidence.md) for current gate status
@@ -904,7 +904,7 @@ Interactive WebSocket playground for VeriOps real-time API with bidirectional me
 /* Sandbox onclick is set by acme-sandbox.js with local mock responses */
 </script>
 
-## Error handling (4)
+## Error handling
 
 ### WebSocket close codes
 
@@ -948,7 +948,7 @@ function shouldProcess(eventId, cache) {
 
 Alert when retry rate exceeds 5% for 15 minutes. This threshold usually indicates downstream instability.
 
-## Next steps (3)
+## Next steps
 
 - Validate modules: `npm run lint:knowledge`
 - Rebuild retrieval index: `npm run build:knowledge-index`

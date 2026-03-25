@@ -27,7 +27,7 @@ def extract_frontmatter(file_path):
             return yaml.safe_load(parts[1])
         except yaml.YAMLError:
             return None
-    except Exception as e:
+    except (Exception,) as e:
         print(f"Error reading {file_path}: {e}", file=sys.stderr)
         return None
 
@@ -88,7 +88,7 @@ def build_url_from_path(file_path, docs_dir, generator=None):
         gen = SiteGenerator.detect()
         return gen.build_url_from_path(file_path, docs_dir)
     except ImportError:
-        pass
+        gen = None
 
     # Fallback: MkDocs conventions
     rel_path = file_path.relative_to(docs_dir)

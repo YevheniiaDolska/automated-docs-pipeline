@@ -63,7 +63,8 @@ def verify_password(password: str, hashed: str) -> bool:
 _jwt = None
 
 
-def _get_jwt():
+def _get_jwt() -> Any:
+    """Lazily import and cache the `jwt` module."""
     global _jwt
     if _jwt is None:
         try:
@@ -305,5 +306,5 @@ def get_current_user_id(token: str, secret_key: str) -> str:
         if not user_id:
             raise ValueError("Invalid token: missing subject")
         return user_id
-    except Exception as exc:
+    except (Exception,) as exc:
         raise ValueError(f"Invalid token: {exc}") from exc

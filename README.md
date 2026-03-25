@@ -1,8 +1,33 @@
 # VeriOps
 
-An automated documentation operations system for technical products.
+## Current product definition (2026-03-25)
 
-Install it into a company repository. It enforces documentation quality, detects when docs fall behind code, generates consolidated reports, and enables LLM assistants (Claude Code, Codex) to produce high-quality documentation from the first draft with built-in self-verification.
+This content follows the active implementation baseline:
+
+1. The platform is docs-first and also supports `code-first`, `api-first`, and `hybrid` modes.
+1. The smooth autopipeline covers all five API protocols (REST, GraphQL, gRPC, AsyncAPI, and WebSocket) in one operational model.
+1. Non-REST flow includes generated server stubs with business-logic placeholders.
+1. External mock sandbox resolution is integrated, with Postman-supported auto-prepare in external mode.
+1. Contract test assets are generated automatically and merged with smart-merge so manual/customized cases are preserved and flagged for review when needed.
+1. Knowledge/RAG maintenance, terminology sync, and quality/compliance gates run through the same automation surface when enabled.
+1. Plan tiers gate advanced capabilities; higher plans include broader non-REST and governance scope.
+
+
+An automated documentation operations system for technical products with docs-first, code-first, and API-first flows.
+
+Install it into a company repository. It enforces documentation quality, detects when docs fall behind code, generates consolidated reports, and enables LLM assistants (Claude Code, Codex) to produce high-quality documentation from the first draft with built-in self-verification. API-first and multi-protocol branches are integrated into the same smooth autopipeline, including non-REST stub generation, Postman-ready mock sandbox resolution, and contract-test smart merge.
+
+
+## Non-API documentation flows (docs-first scope)
+
+The platform is not limited to API-first automation. In active production usage, it also runs full docs-first and code-first documentation operations for non-API content:
+
+1. Detects content gaps, stale pages, and drift across product docs, runbooks, admin guides, troubleshooting, and release notes.
+1. Generates and updates documentation types beyond API references (tutorial, how-to, concept, reference, troubleshooting, release-note, security, SDK, user/admin, and operations docs).
+1. Applies normalization, style, metadata/frontmatter, SEO/GEO, terminology governance, and snippet validation to all documentation categories.
+1. Executes lifecycle controls (active/deprecated/removed states, replacement links, and freshness cadence).
+1. Runs knowledge extraction and retrieval preparation for all docs, not only API pages.
+1. Produces consolidated review artifacts so human input is focused on approval and business accuracy, not repetitive formatting and synchronization work.
 
 ## How the pipeline works
 
@@ -106,6 +131,7 @@ Current standard (as of 2026-03-12):
 - External mock can be auto-prepared via Postman API (first built-in provider). This is optional and provider-agnostic overall.
 - API-first flow can auto-generate test assets from OpenAPI (cases, matrix, property/fuzz scenarios, TestRail CSV, Zephyr JSON).
 - Optional API upload can push generated test assets to TestRail and Zephyr Scale through API credentials.
+- Multi-protocol API-first flow (GraphQL, gRPC, AsyncAPI, WebSocket) now auto-generates server stubs with business-logic placeholders and resolves live/mock endpoints for interactive docs checks.
 - Optional PR auto-doc workflow can update docs in the same PR branch when docs gates fail.
 
 Major updates (simple checklist):
@@ -115,6 +141,7 @@ Major updates (simple checklist):
 1. API-first supports no-Docker and public sandbox (`prism` and `external`).
 1. API playground endpoint is auto-synced from API-first `mock_base_url`.
 1. API-first can auto-generate QA-ready test assets from OpenAPI and optionally upload them into TestRail/Zephyr.
+1. Enterprise multi-protocol API-first can auto-generate non-REST server stubs (`generated/api-stubs/<protocol>/handlers.py`) and wire Postman-backed sandbox endpoints for GraphQL, gRPC, AsyncAPI, and WebSocket docs testers.
 1. Knowledge pipeline now includes JSON-LD graph generation and retrieval evals (Precision/Recall/Hallucination-rate).
 1. Glossary flow uses pre-generation term check plus post-generation glossary sync markers.
 1. Multi-language examples are generated/validated as a standard pattern, with smoke checks and expected-output comparison.
@@ -559,3 +586,27 @@ Use `python3 -m pytest ...` (or `npm run test:all`) instead of bare `pytest ...`
 Read `SECURITY_OPERATIONS.md` before enabling automation in a company repository.
 
 Key rule: secrets live only in CI secret stores, never in code or config files.
+
+## Implementation status (2026-03-25)
+
+This document is aligned to the current production implementation baseline.
+
+Current baseline:
+
+1. The platform is docs-first and also supports `code-first`, `api-first`, and `hybrid` flows.
+1. REST and non-REST protocols are supported in one automation model: REST, GraphQL, gRPC, AsyncAPI, and WebSocket.
+1. Non-REST automation includes server stubs with business-logic placeholders.
+1. External mock sandbox resolution is integrated into the smooth autopipeline, including Postman-supported auto-prepare mode.
+1. Contract test assets are generated automatically and merged with smart-merge rules so manual/customized cases are preserved.
+1. Knowledge/RAG tasks run as part of automation when enabled (module extraction, validation, retrieval index, graph, evals).
+1. Plan gating is enforced by configuration and policy packs; advanced non-REST automation is reserved for higher plans.
+
+Canonical execution order reference:
+
+- `docs/operations/CANONICAL_FLOW.md`
+- `docs/operations/UNIFIED_CLIENT_CONFIG.md`
+- `README.md`
+
+Commercial note:
+
+- Where commercial packaging is discussed, recurring service terms (retainer/licensing) are part of the active go-to-market model.

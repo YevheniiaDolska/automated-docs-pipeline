@@ -7,9 +7,12 @@ All templates support variable substitution and multiple style guides.
 
 from dataclasses import dataclass
 from enum import Enum
+import logging
 from pathlib import Path
 from typing import Any, Dict, List, Optional
 from datetime import datetime
+
+logger = logging.getLogger(__name__)
 
 
 class TemplateCategory(Enum):
@@ -3738,7 +3741,7 @@ graph TB
                 for vd in shared_vars.list_all():
                     merged[vd.name] = vd.value
             except (AttributeError, TypeError):
-                pass
+                logger.debug("Shared variables object does not expose list_all(); skipping merge")
 
         # Template defaults
         merged.update(template.variables)
@@ -3750,12 +3753,15 @@ graph TB
         class _SilentUndefined(Undefined):
             """Return empty string for missing variables instead of raising."""
             def __str__(self) -> str:
+                """Render missing values as empty strings."""
                 return ""
 
-            def __iter__(self):
+            def __iter__(self) -> Any:
+                """Iterate as an empty sequence for undefined values."""
                 return iter([])
 
             def __bool__(self) -> bool:
+                """Treat undefined values as falsy."""
                 return False
 
         env = Environment(loader=BaseLoader(), undefined=_SilentUndefined)
@@ -3841,7 +3847,7 @@ graph TB
             with open(output_path, 'w', encoding='utf-8') as f:
                 f.write(template.content)
             return True
-        except Exception:
+        except (Exception,):
             return False
 
     def validate_variables(self, template_id: str, variables: Dict[str, Any]) -> List[str]:

@@ -89,7 +89,7 @@ def _check_for_update(current: dict[str, Any]) -> dict[str, Any] | None:
             data = json.loads(resp.read().decode("utf-8"))
             return data if data.get("update_available") else None
 
-    except Exception as exc:
+    except (Exception,) as exc:
         print(f"[update] Cannot reach update server: {exc}", file=sys.stderr)
         return None
 
@@ -149,7 +149,7 @@ def _apply_update(update_info: dict[str, Any]) -> bool:
             tmp_path = Path(tmp.name)
             with urlopen(download_url, timeout=120) as resp:
                 tmp.write(resp.read())
-    except Exception as exc:
+    except (Exception,) as exc:
         print(f"[update] Download failed: {exc}", file=sys.stderr)
         return False
 
@@ -178,7 +178,7 @@ def _apply_update(update_info: dict[str, Any]) -> bool:
                     print(f"[update] REJECTED: suspicious path in bundle: {member.name}")
                     return False
             tar.extractall(path=str(REPO_ROOT))
-    except Exception as exc:
+    except (Exception,) as exc:
         print(f"[update] Extraction failed: {exc}", file=sys.stderr)
         return False
     finally:

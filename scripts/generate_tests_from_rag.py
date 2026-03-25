@@ -243,7 +243,7 @@ def scan_python_file(file_path: Path, base_dir: Path) -> list[CodeRecord]:
         # Extract source code for this function
         try:
             func_source = ast.get_source_segment(source, node) or ""
-        except Exception:
+        except (Exception,):
             func_source = ""
 
         if not func_source:
@@ -463,11 +463,6 @@ def validate_generated_test(source_code: str) -> tuple[bool, list[str]]:
     )
     if not has_imports:
         errors.append("No import statements found")
-
-    # Check for forbidden patterns
-    if "\\U" in source_code or "\\u" in source_code:
-        # Could be emoji escapes
-        pass  # Allow unicode escapes in strings
 
     return len(errors) == 0, errors
 

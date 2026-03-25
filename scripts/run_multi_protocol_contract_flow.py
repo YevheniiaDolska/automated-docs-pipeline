@@ -119,7 +119,7 @@ def _prepare_non_rest_live_endpoints(
             if completed.returncode == 0 and out_path.exists():
                 try:
                     payload = json.loads(out_path.read_text(encoding="utf-8"))
-                except Exception:  # noqa: BLE001
+                except (Exception,):  # noqa: BLE001
                     payload = {}
                 resolved = str(payload.get("mock_base_url", "")).strip()
                 if resolved:
@@ -242,7 +242,7 @@ def main() -> int:
         autofix_enabled = bool(settings.get("autofix_cycle_enabled", True))
         try:
             max_attempts = max(1, int(settings.get("autofix_max_attempts", 3)))
-        except Exception:  # noqa: BLE001
+        except (Exception,):  # noqa: BLE001
             max_attempts = 3
 
         try:
@@ -254,6 +254,8 @@ def main() -> int:
                     attempt_results.append(notes_gen)
                 attempt_results.append(adapter.ingest(allow_fail=True))
                 attempt_results.append(adapter.contract_validation(allow_fail=True))
+                if bool(settings.get("generate_server_stubs", True)):
+                    attempt_results.append(adapter.server_stubs(allow_fail=True))
                 attempt_results.append(adapter.lint(allow_fail=True))
                 attempt_results.append(adapter.regression(allow_fail=True))
                 docs_result = adapter.docs_generation(allow_fail=True)
@@ -318,7 +320,7 @@ def main() -> int:
                     )
                 )
                 attempt += 1
-        except Exception as error:  # noqa: BLE001
+        except (Exception,) as error:  # noqa: BLE001
             protocol_failed = True
             per_protocol.append(
                 StageResult(

@@ -24,6 +24,7 @@ from __future__ import annotations
 import argparse
 import base64
 import json
+import logging
 import os
 import sys
 import time
@@ -32,6 +33,8 @@ from pathlib import Path
 REPO_ROOT = Path(__file__).resolve().parents[1]
 if str(REPO_ROOT) not in sys.path:
     sys.path.insert(0, str(REPO_ROOT))
+
+logger = logging.getLogger(__name__)
 
 from scripts.license_gate import (
     DEFAULT_GRACE_DAYS,
@@ -52,7 +55,7 @@ def _generate_ed25519_keypair() -> tuple[bytes, bytes]:
         sk = SigningKey.generate()
         return bytes(sk), bytes(sk.verify_key)
     except ImportError:
-        pass
+        logger.debug("PyNaCl unavailable; trying cryptography for key generation")
 
     try:
         from cryptography.hazmat.primitives.asymmetric.ed25519 import Ed25519PrivateKey
@@ -64,7 +67,7 @@ def _generate_ed25519_keypair() -> tuple[bytes, bytes]:
         pub_bytes = private_key.public_key().public_bytes(Encoding.Raw, PublicFormat.Raw)
         return priv_bytes, pub_bytes
     except ImportError:
-        pass
+        logger.debug("cryptography unavailable for Ed25519 key generation")
 
     raise RuntimeError("No Ed25519 library available. Install 'PyNaCl' or 'cryptography'.")
 
@@ -77,14 +80,14 @@ def _sign_ed25519(message: bytes, private_key: bytes) -> bytes:
         signed = sk.sign(message)
         return signed.signature
     except ImportError:
-        pass
+        logger.debug("PyNaCl unavailable; trying cryptography for signing")
 
     try:
         from cryptography.hazmat.primitives.asymmetric.ed25519 import Ed25519PrivateKey
         key = Ed25519PrivateKey.from_private_bytes(private_key)
         return key.sign(message)
     except ImportError:
-        pass
+        logger.debug("cryptography unavailable for Ed25519 signing")
 
     raise RuntimeError("No Ed25519 library available. Install 'PyNaCl' or 'cryptography'.")
 

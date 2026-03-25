@@ -86,7 +86,7 @@ def run_first_available(
         try:
             run(cmd, cwd=cwd, compact=compact, summary_label=summary_label)
             return
-        except Exception as error:  # noqa: BLE001
+        except (Exception,) as error:  # noqa: BLE001
             last_error = error
             continue
     if last_error:
@@ -476,7 +476,7 @@ def run_one_attempt(
                 compact=True,
                 summary_label="user-path self-verification finished",
             )
-        except Exception as error:
+        except (Exception,) as error:
             raise RuntimeError(
                 f"Step 4/5 failed: user-path verification against mock `{mock_base_url}`. "
                 f"Verify sandbox endpoint readiness and route mapping. Details: {error}"
@@ -793,7 +793,7 @@ def main() -> int:
             print(f"[demo] sandbox page URL: {build_sandbox_page_url(repo, args.docs_provider)}", flush=True)
             print("[ok] API-first production flow completed successfully", flush=True)
             return 0
-        except Exception as error:
+        except (Exception,) as error:
             last_error = error
             if not args.auto_remediate or attempt >= args.max_attempts:
                 break
@@ -811,6 +811,6 @@ if __name__ == "__main__":
     except subprocess.CalledProcessError as error:
         print(f"[error] command failed with exit code {error.returncode}")
         raise SystemExit(error.returncode)
-    except Exception as error:  # pragma: no cover
+    except (Exception,) as error:  # pragma: no cover
         print(f"[error] {error}")
         raise SystemExit(1)

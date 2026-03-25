@@ -2072,6 +2072,7 @@ This is the **unified orchestrator** for all protocol documentation. It runs the
 1. **Contract generation from notes** (optional) -- generates protocol specs from planning markdown
 1. **Ingest** -- verifies source contract file exists
 1. **Contract validation** -- protocol-specific syntax and semantic checks
+1. **Server stub generation** -- creates business-logic placeholder handlers via `scripts/generate_protocol_server_stubs.py`
 1. **Lint** -- protocol-specific quality linting
 1. **Regression** -- detects breaking changes against the snapshot baseline
 1. **Docs generation** -- auto-generates reference documentation from the protocol-specific template

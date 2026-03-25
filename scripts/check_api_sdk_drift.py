@@ -5,12 +5,15 @@ from __future__ import annotations
 
 import argparse
 import json
+import logging
 import re
 import subprocess
 from dataclasses import asdict, dataclass
 from pathlib import Path
 
 import yaml
+
+logger = logging.getLogger(__name__)
 
 OPENAPI_PATTERNS = (
     r"openapi.*\.(ya?ml|json)$",
@@ -143,7 +146,7 @@ def main() -> int:
         from scripts.license_gate import require
         require("drift_detection")
     except ImportError:
-        pass
+        logger.warning("license_gate unavailable; continuing without plan enforcement")
 
     parser = argparse.ArgumentParser(description="Check API/SDK drift versus reference docs")
     parser.add_argument("--base", required=True, help="Base commit/branch")

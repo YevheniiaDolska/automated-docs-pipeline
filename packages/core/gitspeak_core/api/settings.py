@@ -48,6 +48,7 @@ TIER_ORDER = ["free", "starter", "pro", "business", "enterprise"]
 
 
 def _tier_index(tier: str) -> int:
+    """Map tier name to ordinal index; unknown tiers default to free."""
     try:
         return TIER_ORDER.index(tier.lower())
     except ValueError:

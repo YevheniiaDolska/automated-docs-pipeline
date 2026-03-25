@@ -15,11 +15,14 @@ import base64
 import hashlib
 import hmac
 import json
+import logging
 import os
 import time
 from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Any
+
+logger = logging.getLogger(__name__)
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
 PACK_PATH = REPO_ROOT / "docsops" / ".capability_pack.enc"
@@ -210,7 +213,7 @@ def _aes_gcm_decrypt(key: bytes, nonce: bytes, ciphertext: bytes, tag: bytes) ->
         # cryptography expects ciphertext + tag concatenated
         return aes.decrypt(nonce, ciphertext + tag, None)
     except ImportError:
-        pass
+        logger.debug("cryptography is not installed; trying PyCryptodome for AES-GCM decrypt")
 
     # Fallback: PyCryptodome
     try:
@@ -218,7 +221,7 @@ def _aes_gcm_decrypt(key: bytes, nonce: bytes, ciphertext: bytes, tag: bytes) ->
         cipher = AES.new(key, AES.MODE_GCM, nonce=nonce)
         return cipher.decrypt_and_verify(ciphertext, tag)
     except ImportError:
-        pass
+        logger.debug("PyCryptodome is not installed; AES-GCM decrypt fallback unavailable")
 
     raise RuntimeError(
         "No AES-GCM library available. Install 'cryptography' or 'pycryptodome'."
@@ -237,7 +240,7 @@ def _aes_gcm_encrypt(key: bytes, plaintext: bytes) -> tuple[bytes, bytes, bytes]
         tag = ct_with_tag[-16:]
         return nonce, ciphertext, tag
     except ImportError:
-        pass
+        logger.debug("cryptography is not installed; trying PyCryptodome for AES-GCM encrypt")
 
     try:
         from Crypto.Cipher import AES
@@ -246,7 +249,7 @@ def _aes_gcm_encrypt(key: bytes, plaintext: bytes) -> tuple[bytes, bytes, bytes]
         ciphertext, tag = cipher.encrypt_and_digest(plaintext)
         return nonce, ciphertext, tag
     except ImportError:
-        pass
+        logger.debug("PyCryptodome is not installed; AES-GCM encrypt fallback unavailable")
 
     raise RuntimeError(
         "No AES-GCM library available. Install 'cryptography' or 'pycryptodome'."
@@ -324,7 +327,7 @@ def load_pack(
     aes_key = derive_pack_key(license_key, client_id)
     try:
         plaintext = _aes_gcm_decrypt(aes_key, nonce, ciphertext, tag)
-    except Exception as exc:
+    except (Exception,) as exc:
         return _degraded_pack(f"Pack decryption failed: {exc}")
 
     try:
