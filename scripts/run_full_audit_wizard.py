@@ -53,7 +53,7 @@ def main() -> int:
     timeout = _ask("Request timeout seconds", "15")
     llm_enabled = _ask_yes_no("Enable LLM executive analysis", True)
     llm_model = "claude-sonnet-4-5"
-    llm_env_file = "/mnt/c/Users/Kroha/Documents/development/forge-marketing/.env"
+    llm_env_file = str(repo / ".env")
     llm_env_name = "ANTHROPIC_API_KEY"
     if llm_enabled:
         llm_model = _ask("LLM model", llm_model)
@@ -109,8 +109,12 @@ def main() -> int:
         str(max_pages),
         "--timeout",
         str(timeout),
-        "--internal-scorecard-json",
-        "reports/audit_scorecard.json",
+        "--verification-modes",
+        "bot,browser,authenticated",
+        "--auto-scorecard",
+        "--assumptions-profiles-dir",
+        "config/company_assumptions",
+        "--assumptions-autofill",
     ]
     for url in site_urls:
         public_cmd.extend(["--site-url", url])
@@ -161,7 +165,6 @@ if __name__ == "__main__":
     except KeyboardInterrupt:
         print("\nInterrupted.")
         raise SystemExit(130)
-    except Exception as error:  # noqa: BLE001
+    except (Exception,) as error:  # noqa: BLE001
         print(f"\n[error] {error}", file=sys.stderr)
         raise SystemExit(1)
-

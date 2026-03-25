@@ -1835,6 +1835,39 @@ class TestPublicDocsAuditApiCoverage:
         result = _api_coverage_from_public_docs([api_page])
         assert result["api_pages_detected"] >= 1
 
+    def test_api_identifier_variants_detected(self) -> None:
+        """Databricks-style paths and protocol operation IDs are extracted."""
+        from scripts.generate_public_docs_audit import _api_coverage_from_public_docs, PageData
+
+        api_page = PageData(
+            url="https://docs.example.com/api/reference",
+            status=200, title="API reference", meta_description="", h1_count=1,
+            heading_levels=[1], internal_links=[], external_links=[],
+            code_blocks=[{
+                "language": "yaml",
+                "code": (
+                    "paths:\n"
+                    "  /api/2.0/jobs/runs/submit:\n"
+                    "    post:\n"
+                    "      operationId: submitRun\n"
+                    "rpc GetJob(GetJobRequest) returns (GetJobResponse);\n"
+                    "query ListWarehouses { warehouses { id } }\n"
+                ),
+            }],
+            text="POST /api/2.0/jobs/runs/submit", last_updated_hint="",
+        )
+        usage_page = PageData(
+            url="https://docs.example.com/how-to/run-jobs",
+            status=200, title="Use jobs API", meta_description="", h1_count=1,
+            heading_levels=[1], internal_links=[], external_links=[],
+            code_blocks=[],
+            text="Workflow guide: submit jobs via /api/2.0/jobs/runs/submit endpoint.", last_updated_hint="",
+        )
+        result = _api_coverage_from_public_docs([api_page, usage_page])
+        assert result["reference_endpoint_count"] >= 1
+        assert result["endpoints_with_usage_docs"] >= 1
+        assert result["coverage_determined"] is True
+
 
 class TestPublicDocsAuditLastUpdated:
     """Tests for _last_updated_metrics."""
@@ -1882,6 +1915,23 @@ class TestPublicDocsAuditAggregate:
         ]
         result = _aggregate_api_coverage(sites)
         assert result["reference_coverage_pct"] == 50.0
+
+    def test_aggregate_api_coverage_identifier_gap(self) -> None:
+        """API pages without extracted identifiers remain N/A, not 0%."""
+        from scripts.generate_public_docs_audit import _aggregate_api_coverage
+
+        sites = [
+            {"metrics": {"api_coverage": {
+                "no_api_pages_found": False,
+                "reference_endpoint_count": 0,
+                "endpoints_with_usage_docs": 0,
+                "api_pages_detected": 12,
+            }}},
+        ]
+        result = _aggregate_api_coverage(sites)
+        assert result["reference_coverage_pct"] == -1.0
+        assert result["api_pages_detected"] == 12
+        assert result["coverage_determined"] is False
 
     def test_aggregate_sites(self) -> None:
         """Full site aggregation computes weighted averages."""

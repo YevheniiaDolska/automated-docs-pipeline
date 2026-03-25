@@ -11,6 +11,7 @@ import os
 import re
 import subprocess
 import sys
+import statistics
 from collections import deque
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from dataclasses import dataclass
@@ -21,6 +22,10 @@ from typing import Any
 from urllib.error import HTTPError, URLError
 from urllib.parse import urljoin, urlparse, urlunparse
 from urllib.request import Request, urlopen
+try:
+    import yaml  # type: ignore
+except Exception:  # noqa: BLE001
+    yaml = None  # type: ignore
 
 logger = logging.getLogger(__name__)
 
@@ -29,7 +34,35 @@ CODE_PLACEHOLDER_PATTERN = re.compile(
     r"(<your-|YOUR_|{{|}}|api\.example\.com|your-domain\.example\.com)",
     flags=re.IGNORECASE,
 )
-ENDPOINT_PATTERN = re.compile(r"(/v\d+)?/[a-z0-9_\-/{}/]+")
+ENDPOINT_PATTERN = re.compile(
+    r"(?<![a-z0-9])"
+    r"(/(?:[a-z0-9._~!$&'()*+,;=:@%-]+|\{[a-z0-9._~-]+\})"
+    r"(?:/(?:[a-z0-9._~!$&'()*+,;=:@%-]+|\{[a-z0-9._~-]+\}))*)",
+    flags=re.IGNORECASE,
+)
+_CLOUD_PROVIDER_PATTERN = re.compile(r"^(aws|azure|gcp)$", flags=re.IGNORECASE)
+_LOCALE_PATTERN = re.compile(r"^[a-z]{2}(?:-[a-z]{2})?$", flags=re.IGNORECASE)
+_INCONCLUSIVE_HTTP_STATUSES = {0, -2, 401, 403, 405, 406, 408, 425, 429, 500, 502, 503, 504}
+_LINK_STATUS_ALIVE = "alive"
+_LINK_STATUS_CONFIRMED_BROKEN = "confirmed_broken"
+_LINK_STATUS_UNVERIFIED = "unverified"
+_LINK_STATUS_EXCLUDED = "excluded"
+_EXCLUDED_PATH_EXTENSIONS = (
+    ".css", ".js", ".mjs", ".map", ".png", ".jpg", ".jpeg", ".gif", ".svg", ".ico",
+    ".woff", ".woff2", ".ttf", ".eot", ".pdf", ".zip", ".tar", ".gz", ".bz2", ".7z",
+)
+_EXCLUDED_PATH_SEGMENTS = (
+    "/assets/", "/static/", "/_static/", "/images/", "/img/", "/fonts/", "/scripts/",
+    "/search", "/sitemap", "/rss", "/feed",
+)
+_CONTRACT_PATH_CANDIDATES = (
+    "/openapi.json", "/openapi.yaml", "/openapi.yml",
+    "/swagger.json", "/swagger.yaml", "/swagger.yml",
+    "/api-docs", "/v1/api-docs", "/v2/api-docs",
+    "/graphql", "/graphql/schema", "/schema.graphql",
+    "/asyncapi.json", "/asyncapi.yaml", "/asyncapi.yml",
+    "/ws", "/websocket",
+)
 
 
 def _slugify(text: str) -> str:
@@ -42,10 +75,85 @@ def _slugify(text: str) -> str:
 def _normalize_url(raw: str) -> str:
     parsed = urlparse(raw.strip())
     path = parsed.path or "/"
+    parts = [p for p in path.split("/") if p]
+    if len(parts) >= 4:
+        p0, p1, p2, p3 = parts[0], parts[1], parts[2], parts[3]
+        if (
+            _CLOUD_PROVIDER_PATTERN.match(p0)
+            and _LOCALE_PATTERN.match(p1)
+            and _CLOUD_PROVIDER_PATTERN.match(p2)
+            and _LOCALE_PATTERN.match(p3)
+            and p0.lower() == p2.lower()
+        ):
+            fixed_parts = [p0, p3] + parts[4:]
+            path = "/" + "/".join(fixed_parts)
     if path != "/" and path.endswith("/"):
         path = path[:-1]
     clean = parsed._replace(fragment="", query="", path=path)
     return urlunparse(clean)
+
+
+def _normalize_relative_locale_href(base_url: str, href: str) -> str:
+    """Fix locale-switcher relative links like `aws/ja` on `/aws/en/...` pages."""
+    href = href.strip()
+    if (
+        not href
+        or href.startswith(("#", "/", "http://", "https://", "mailto:", "tel:", "javascript:"))
+    ):
+        return href
+    base_parts = [p for p in (urlparse(base_url).path or "/").split("/") if p]
+    href_parts = [p for p in href.split("/") if p]
+    if len(base_parts) >= 2 and len(href_parts) >= 2:
+        base_provider = base_parts[0]
+        if (
+            _CLOUD_PROVIDER_PATTERN.match(base_provider)
+            and _LOCALE_PATTERN.match(base_parts[1])
+            and href_parts[0].lower() == base_provider.lower()
+            and _LOCALE_PATTERN.match(href_parts[1])
+        ):
+            return "/" + "/".join(href_parts)
+    return href
+
+
+def _canonical_link_variants(url: str) -> list[str]:
+    """Return canonical variants to validate suspicious broken links."""
+    parsed = urlparse(url)
+    path = parsed.path or "/"
+    parts = [p for p in path.split("/") if p]
+    candidates: list[str] = []
+
+    def _add_path(new_path: str) -> None:
+        if not new_path.startswith("/"):
+            new_path = "/" + new_path
+        if new_path != "/" and new_path.endswith("/"):
+            new_path = new_path[:-1]
+        candidate = urlunparse(parsed._replace(path=new_path, query="", fragment=""))
+        candidate = _normalize_url(candidate)
+        if candidate not in candidates:
+            candidates.append(candidate)
+
+    _add_path(path)
+
+    # index.html variations
+    if path.lower().endswith("/index.html"):
+        _add_path(path[:-len("/index.html")] or "/")
+    elif path.lower().endswith("index.html"):
+        _add_path(path[:-len("index.html")] or "/")
+
+    # Trailing slash toggles (when path looks like a section, not a file)
+    has_ext = bool(re.search(r"/[^/]+\.[a-z0-9]{1,6}$", path.lower()))
+    if not has_ext and path != "/":
+        _add_path(path + "/")
+        _add_path(path.rstrip("/"))
+
+    # Provider/locale crossover variants: /aws/en/gcp/en/... -> test both prefixes.
+    if len(parts) >= 4 and _LOCALE_PATTERN.match(parts[1]) and _LOCALE_PATTERN.match(parts[3]):
+        if _CLOUD_PROVIDER_PATTERN.match(parts[0]) and _CLOUD_PROVIDER_PATTERN.match(parts[2]):
+            rest = parts[4:]
+            _add_path("/".join([parts[0], parts[1], *rest]))
+            _add_path("/".join([parts[2], parts[3], *rest]))
+
+    return candidates
 
 
 def _is_http_url(raw: str) -> bool:
@@ -104,17 +212,28 @@ _USER_AGENTS = [
 ]
 
 
-def _fetch(url: str, timeout: int, head_only: bool = False, _ua_idx: int = 0) -> tuple[int, str, str]:
+def _fetch(
+    url: str,
+    timeout: int,
+    head_only: bool = False,
+    _ua_idx: int = 0,
+    extra_headers: dict[str, str] | None = None,
+) -> tuple[int, str, str]:
     url = _sanitize_url(url)
     ua = _USER_AGENTS[min(_ua_idx, len(_USER_AGENTS) - 1)]
+    headers = {
+        "User-Agent": ua,
+        "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
+        "Accept-Language": "en-US,en;q=0.9",
+    }
+    if extra_headers:
+        for k, v in extra_headers.items():
+            if str(k).strip() and str(v).strip():
+                headers[str(k)] = str(v)
     req = Request(
         url=url,
         method="HEAD" if head_only else "GET",
-        headers={
-            "User-Agent": ua,
-            "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
-            "Accept-Language": "en-US,en;q=0.9",
-        },
+        headers=headers,
     )
     try:
         with urlopen(req, timeout=timeout) as resp:
@@ -133,20 +252,20 @@ def _fetch(url: str, timeout: int, head_only: bool = False, _ua_idx: int = 0) ->
                 return 200, "text/html", ""  # redirect = alive
             if location and not head_only:
                 try:
-                    return _fetch(location, timeout, head_only=False, _ua_idx=_ua_idx)
-                except Exception as redir_exc:  # noqa: BLE001
+                    return _fetch(location, timeout, head_only=False, _ua_idx=_ua_idx, extra_headers=extra_headers)
+                except (Exception,) as redir_exc:  # noqa: BLE001
                     logger.debug(
                         "Redirect fetch failed for %s: %s", location, redir_exc,
                     )
             return code, "text/html", ""
         try:
             return code, "text/html", exc.read().decode("utf-8", errors="ignore")
-        except Exception as read_exc:  # noqa: BLE001
+        except (Exception,) as read_exc:  # noqa: BLE001
             logger.debug("Failed to read HTTP error body (code=%d): %s", code, read_exc)
             return code, "text/html", ""
     except (URLError, OSError, TimeoutError):
         return 0, "", ""
-    except Exception as exc:  # noqa: BLE001 -- SSL, socket, redirect loops, etc.
+    except (Exception,) as exc:  # noqa: BLE001 -- SSL, socket, redirect loops, etc.
         logger.debug("Unexpected fetch error: %s", exc)
         return 0, "", ""
 
@@ -204,6 +323,7 @@ class _DocsHTMLParser(HTMLParser):
         self._in_highlight_div = 0  # nesting counter for highlight wrappers
         self._code_lang = ""
         self._code_buf: list[str] = []
+        self._date_class_detected = False
 
     def handle_starttag(self, tag: str, attrs: list[tuple[str, str | None]]) -> None:
         attrs_map = dict(attrs)
@@ -238,6 +358,7 @@ class _DocsHTMLParser(HTMLParser):
         if tag == "a":
             href = str(attrs_map.get("href", "")).strip()
             if href:
+                href = _normalize_relative_locale_href(self.base_url, href)
                 absolute = _normalize_url(urljoin(self.base_url, href))
                 if _is_http_url(absolute):
                     if _same_host(absolute, self.base_url):
@@ -295,8 +416,8 @@ class _DocsHTMLParser(HTMLParser):
             if re.search(r"git-revision-date|last[-_]?(?:updated|modified)|date[-_]?modified"
                          r"|revision[-_]?date|page[-_]?date|article[-_]?date|updated[-_]?at"
                          r"|modified[-_]?date|publish[-_]?date|doc[-_]?date", cls):
-                # The date text will arrive in handle_data; flag detection
-                pass
+                # Date text may be emitted in a nested node; track context.
+                self._date_class_detected = True
 
     def handle_endtag(self, tag: str) -> None:
         if tag == "title":
@@ -363,6 +484,10 @@ class _DocsHTMLParser(HTMLParser):
         self.text_chunks.append(text)
         # Detect last-updated from text content
         if not self.last_updated_hint:
+            if self._date_class_detected and _DATE_PATTERN.search(text):
+                self.last_updated_hint = text
+                self._date_class_detected = False
+                return
             if _UPDATED_TEXT_PATTERN.search(text):
                 m = _DATE_PATTERN.search(text)
                 if m:
@@ -373,7 +498,7 @@ class _DocsHTMLParser(HTMLParser):
             elif _DATE_PATTERN.search(text) and len(text) < 60:
                 # Short text that is just a date (common in footer/sidebar)
                 # Only capture if it looks like a standalone date element
-                pass
+                self.last_updated_hint = text
 
     def as_page(self, url: str, status: int) -> PageData:
         # Deduplicate code blocks (MkDocs Material tabs often repeat same content)
@@ -471,23 +596,96 @@ def _estimate_example_reliability(pages: list[PageData]) -> dict[str, Any]:
 
 
 _API_URL_PATTERN = re.compile(
-    r"(reference|api|endpoint|method|operation|resource|rest|graphql|sdk|swagger|openapi|redoc)",
+    r"(?:^|[\/._-])("
+    r"api|apis|reference|references|endpoint|endpoints|method|methods|operation|operations|"
+    r"resource|resources|rest|graphql|graphiql|grpc|proto|protobuf|asyncapi|event|events|"
+    r"websocket|web-socket|ws|rpc|sdk|swagger|openapi|redoc|postman|schema|spec|specs"
+    r")(?:$|[\/._-])",
     flags=re.IGNORECASE,
 )
 
 # Content-based heuristics: HTTP methods, status codes, request/response blocks
-_API_CONTENT_INDICATORS = re.compile(
-    r"\b(GET|POST|PUT|PATCH|DELETE|HEAD|OPTIONS)\s+/[a-z]"
-    r"|\bHTTP/[12]\.\d\b"
-    r"|\b[2345]\d{2}\s"
-    r"|\bcurl\s"
-    r"|\bRequest\s+body\b"
-    r"|\bResponse\s+body\b"
-    r"|\bapplication/json\b"
-    r"|\bAuthorization:\s"
-    r"|\bContent-Type:\s",
+_API_SIGNAL_PATTERNS: tuple[re.Pattern[str], ...] = (
+    re.compile(r"\b(?:GET|POST|PUT|PATCH|DELETE|HEAD|OPTIONS)\s+/[a-z0-9]", flags=re.IGNORECASE),
+    re.compile(r"\bHTTP/[12]\.\d\b", flags=re.IGNORECASE),
+    re.compile(r"\b(?:[2345]\d{2})\b", flags=re.IGNORECASE),
+    re.compile(r"\bcurl\s", flags=re.IGNORECASE),
+    re.compile(r"\bRequest\s+body\b|\bResponse\s+body\b", flags=re.IGNORECASE),
+    re.compile(r"\bapplication/json\b|\bContent-Type:\s|\bAuthorization:\s", flags=re.IGNORECASE),
+    re.compile(r"\bopenapi\s*:\s*3|\bswagger\s*:\s*['\"]?2", flags=re.IGNORECASE),
+    re.compile(r"\boperationId\s*[:=]\s*['\"]?[a-z_][a-z0-9_.-]*", flags=re.IGNORECASE),
+    re.compile(r"\bquery\s+[A-Za-z_][A-Za-z0-9_]*|\bmutation\s+[A-Za-z_][A-Za-z0-9_]*|\bsubscription\s+[A-Za-z_][A-Za-z0-9_]*", flags=re.IGNORECASE),
+    re.compile(r"\btype\s+Query\b|\btype\s+Mutation\b|\b__schema\b|\bgraphql\b", flags=re.IGNORECASE),
+    re.compile(r"\bsyntax\s*=\s*['\"]proto3['\"]|\bservice\s+[A-Za-z_][A-Za-z0-9_]*\s*\{|\brpc\s+[A-Za-z_][A-Za-z0-9_]*\s*\(", flags=re.IGNORECASE),
+    re.compile(r"\basyncapi\s*:\s*[0-9]|\bchannels\s*:\s|\bpublish\s*:\s|\bsubscribe\s*:\s", flags=re.IGNORECASE),
+    re.compile(r"\bwebsocket\b|\bws://|\bwss://|\bevent\s+payload\b", flags=re.IGNORECASE),
+    re.compile(r"\bjsonrpc\b\s*:\s*['\"]2\.0['\"]", flags=re.IGNORECASE),
+)
+
+_OPERATION_ID_PATTERN = re.compile(
+    r"\boperationId\s*[:=]\s*['\"]?([A-Za-z_][A-Za-z0-9_.-]*)",
     flags=re.IGNORECASE,
 )
+_RPC_PATTERN = re.compile(r"\brpc\s+([A-Za-z_][A-Za-z0-9_]*)\s*\(", flags=re.IGNORECASE)
+_GQL_OPERATION_PATTERN = re.compile(
+    r"\b(?:query|mutation|subscription)\s+([A-Za-z_][A-Za-z0-9_]*)",
+    flags=re.IGNORECASE,
+)
+_ASYNC_CHANNEL_PATTERN = re.compile(
+    r"(?im)^\s*([A-Za-z0-9_./{}-]+)\s*:\s*(?:\n\s+(?:publish|subscribe)\s*:)",
+    flags=re.MULTILINE,
+)
+_WEBSOCKET_EVENT_PATTERN = re.compile(
+    r"\b(?:event|topic|channel)\s*[:=]\s*['\"]?([A-Za-z0-9_./:-]+)",
+    flags=re.IGNORECASE,
+)
+_METHOD_PATH_PATTERN = re.compile(
+    r"\b(?:GET|POST|PUT|PATCH|DELETE|HEAD|OPTIONS)\s+"
+    r"(/(?:[a-z0-9._~!$&'()*+,;=:@%-]+|\{[a-z0-9._~-]+\})"
+    r"(?:/(?:[a-z0-9._~!$&'()*+,;=:@%-]+|\{[a-z0-9._~-]+\}))*)",
+    flags=re.IGNORECASE,
+)
+
+
+def _api_signal_score(text: str) -> int:
+    score = 0
+    for pattern in _API_SIGNAL_PATTERNS:
+        if pattern.search(text):
+            score += 1
+    return score
+
+
+def _extract_api_identifiers(text: str) -> set[str]:
+    identifiers: set[str] = set()
+    for match in ENDPOINT_PATTERN.findall(text.lower()):
+        cleaned = str(match).strip().rstrip(".,;:)]}\"'")
+        if cleaned and cleaned.count("/") >= 1 and len(cleaned) > 3:
+            identifiers.add(f"ep:{cleaned}")
+    for match in _METHOD_PATH_PATTERN.findall(text):
+        cleaned = str(match).lower().strip().rstrip(".,;:)]}\"'")
+        if cleaned:
+            identifiers.add(f"ep:{cleaned}")
+    for match in _OPERATION_ID_PATTERN.findall(text):
+        cleaned = str(match).lower().strip()
+        if cleaned:
+            identifiers.add(f"op:{cleaned}")
+    for match in _RPC_PATTERN.findall(text):
+        cleaned = str(match).lower().strip()
+        if cleaned:
+            identifiers.add(f"rpc:{cleaned}")
+    for match in _GQL_OPERATION_PATTERN.findall(text):
+        cleaned = str(match).lower().strip()
+        if cleaned:
+            identifiers.add(f"gql:{cleaned}")
+    for match in _ASYNC_CHANNEL_PATTERN.findall(text):
+        cleaned = str(match).lower().strip()
+        if cleaned:
+            identifiers.add(f"ch:{cleaned}")
+    for match in _WEBSOCKET_EVENT_PATTERN.findall(text):
+        cleaned = str(match).lower().strip()
+        if cleaned:
+            identifiers.add(f"ev:{cleaned}")
+    return identifiers
 
 
 def _is_api_page(page: PageData) -> bool:
@@ -495,34 +693,181 @@ def _is_api_page(page: PageData) -> bool:
     # URL-based detection (expanded patterns)
     if _API_URL_PATTERN.search(page.url):
         return True
-    # Content-based detection: if page has 3+ HTTP method / status code indicators
+    # Content-based detection: independent signal types (protocol-agnostic)
     text_sample = page.text[:5000]
     code_sample = " ".join(b.get("code", "") for b in page.code_blocks[:10])
     combined = text_sample + " " + code_sample
-    matches = _API_CONTENT_INDICATORS.findall(combined)
-    return len(matches) >= 3
+    return _api_signal_score(combined) >= 2
 
 
-def _api_coverage_from_public_docs(pages: list[PageData]) -> dict[str, Any]:
-    reference_endpoints: set[str] = set()
-    non_reference_endpoints: set[str] = set()
+def _discover_contract_urls(pages: list[PageData]) -> list[str]:
+    pattern = re.compile(
+        r"(openapi|swagger|api-docs|graphql|schema|asyncapi|\.proto|protobuf|descriptor)",
+        flags=re.IGNORECASE,
+    )
+    urls: list[str] = []
+    for page in pages:
+        for link in page.internal_links:
+            if pattern.search(link):
+                norm = _normalize_url(link)
+                if norm not in urls:
+                    urls.append(norm)
+        for match in re.findall(r"https?://[^\s)\"'>]+", page.text):
+            if pattern.search(match):
+                norm = _normalize_url(match)
+                if norm not in urls:
+                    urls.append(norm)
+        parsed = urlparse(page.url)
+        root = f"{parsed.scheme}://{parsed.netloc}"
+        for suffix in _CONTRACT_PATH_CANDIDATES:
+            candidate = _normalize_url(root + suffix)
+            if candidate not in urls:
+                urls.append(candidate)
+    return urls[:120]
+
+
+def _extract_contract_identifiers(contract_text: str) -> set[str]:
+    ids: set[str] = set()
+    # OpenAPI/Swagger paths
+    for m in re.findall(r"\"(/[^\"\\s]+)\"\\s*:\\s*\\{", contract_text):
+        ids.add(f"ep:{m.lower()}")
+    for m in re.findall(r"(?m)^\\s{0,8}(/[^:\\s]+)\\s*:\\s*$", contract_text):
+        if "/" in m:
+            ids.add(f"ep:{m.lower()}")
+    for m in _OPERATION_ID_PATTERN.findall(contract_text):
+        ids.add(f"op:{m.lower()}")
+    for m in _RPC_PATTERN.findall(contract_text):
+        ids.add(f"rpc:{m.lower()}")
+    for m in _GQL_OPERATION_PATTERN.findall(contract_text):
+        ids.add(f"gql:{m.lower()}")
+    for m in _ASYNC_CHANNEL_PATTERN.findall(contract_text):
+        ids.add(f"ch:{str(m).lower()}")
+    for m in _WEBSOCKET_EVENT_PATTERN.findall(contract_text):
+        ids.add(f"ev:{str(m).lower()}")
+    return ids
+
+
+def _parse_structured_contract_identifiers(contract_text: str) -> set[str]:
+    ids: set[str] = set()
+    payload: Any = None
+    stripped = contract_text.strip()
+    if not stripped:
+        return ids
+    try:
+        payload = json.loads(stripped)
+    except Exception:  # noqa: BLE001
+        if yaml is not None:
+            try:
+                payload = yaml.safe_load(stripped)
+            except Exception:  # noqa: BLE001
+                payload = None
+    if not isinstance(payload, dict):
+        return ids
+
+    paths = payload.get("paths")
+    if isinstance(paths, dict):
+        for pth, pdef in paths.items():
+            if isinstance(pth, str):
+                ids.add(f"ep:{pth.lower()}")
+            if isinstance(pdef, dict):
+                for _, op in pdef.items():
+                    if isinstance(op, dict):
+                        op_id = op.get("operationId")
+                        if isinstance(op_id, str) and op_id.strip():
+                            ids.add(f"op:{op_id.lower().strip()}")
+
+    channels = payload.get("channels")
+    if isinstance(channels, dict):
+        for ch in channels.keys():
+            if isinstance(ch, str):
+                ids.add(f"ch:{ch.lower()}")
+
+    data = payload.get("data")
+    if isinstance(data, dict):
+        schema = data.get("__schema")
+        if isinstance(schema, dict):
+            query_type = schema.get("queryType")
+            mutation_type = schema.get("mutationType")
+            if isinstance(query_type, dict) and isinstance(query_type.get("name"), str):
+                ids.add(f"gql:{query_type['name'].lower()}")
+            if isinstance(mutation_type, dict) and isinstance(mutation_type.get("name"), str):
+                ids.add(f"gql:{mutation_type['name'].lower()}")
+
+    services = payload.get("services")
+    if isinstance(services, list):
+        for svc in services:
+            if isinstance(svc, dict):
+                methods = svc.get("methods")
+                if isinstance(methods, list):
+                    for method in methods:
+                        if isinstance(method, dict) and isinstance(method.get("name"), str):
+                            ids.add(f"rpc:{method['name'].lower()}")
+    return ids
+
+
+def _source_of_truth_identifiers(
+    pages: list[PageData],
+    timeout: int,
+    auth_headers: dict[str, str] | None = None,
+) -> tuple[set[str], str]:
+    candidates = _discover_contract_urls(pages)
+    if not candidates:
+        return set(), "No contract URLs discovered in crawled pages"
+    ids: set[str] = set()
+    for url in candidates:
+        st, ct, body = _fetch(url, max(4, int(timeout)), extra_headers=auth_headers or {})
+        if st < 200 or st >= 400:
+            continue
+        text = body or ""
+        if not text and "json" not in ct.lower() and "yaml" not in ct.lower() and "text" not in ct.lower():
+            continue
+        ids.update(_parse_structured_contract_identifiers(text))
+        ids.update(_extract_contract_identifiers(text))
+    if not ids:
+        return set(), "Contract URLs found but no operations parsed"
+    return ids, ""
+
+
+def _api_coverage_from_public_docs(
+    pages: list[PageData],
+    timeout: int = 15,
+    auth_headers: dict[str, str] | None = None,
+) -> dict[str, Any]:
+    reference_ids: set[str] = set()
+    non_reference_ids: set[str] = set()
 
     api_page_count = 0
     for page in pages:
         is_api = _is_api_page(page)
         if is_api:
             api_page_count += 1
-        bucket = reference_endpoints if is_api else non_reference_endpoints
+        bucket = reference_ids if is_api else non_reference_ids
         sources = [page.text] + [block.get("code", "") for block in page.code_blocks]
         for src in sources:
-            for match in ENDPOINT_PATTERN.findall(src.lower()):
-                cleaned = match.strip()
-                if cleaned and len(cleaned) > 3 and cleaned.count("/") >= 1:
-                    bucket.add(cleaned)
+            bucket.update(_extract_api_identifiers(src))
 
-    total_ref = len(reference_endpoints)
-    matched = len(reference_endpoints & non_reference_endpoints)
+    source_ids, source_note = _source_of_truth_identifiers(
+        pages=pages,
+        timeout=int(timeout),
+        auth_headers=auth_headers or {},
+    )
+    coverage_method = "heuristic"
+    if source_ids:
+        reference_ids = source_ids
+        coverage_method = "source_of_truth"
+
+    total_ref = len(reference_ids)
+    matched = len(reference_ids & non_reference_ids)
     uncovered = max(0, total_ref - matched)
+    no_identifiers = total_ref == 0 and api_page_count > 0
+    detection_note = ""
+    if no_identifiers:
+        detection_note = (
+            "API-like pages were detected, but no endpoint or operation "
+            "identifiers could be extracted. Coverage is shown as N/A."
+        )
+    if source_note:
+        detection_note = (detection_note + " " + source_note).strip()
 
     return {
         "reference_endpoint_count": total_ref,
@@ -531,7 +876,10 @@ def _api_coverage_from_public_docs(pages: list[PageData]) -> dict[str, Any]:
         "reference_endpoints_without_usage_docs": uncovered,
         "reference_coverage_pct": _safe_pct(matched, total_ref) if total_ref > 0 else -1.0,
         "no_api_pages_found": total_ref == 0 and api_page_count == 0,
-        "uncovered_endpoint_samples": sorted(list(reference_endpoints - non_reference_endpoints))[:20],
+        "coverage_determined": total_ref > 0,
+        "coverage_method": coverage_method,
+        "detection_note": detection_note,
+        "uncovered_endpoint_samples": sorted(list(reference_ids - non_reference_ids))[:20],
     }
 
 
@@ -572,16 +920,43 @@ def _is_repo_link(url: str) -> bool:
     return any(seg in path for seg in repo_segments)
 
 
+def _is_excluded_link(url: str) -> bool:
+    """Return True for internal URLs outside documentation page scope."""
+    parsed = urlparse(url)
+    path = (parsed.path or "/").lower()
+    if any(path.endswith(ext) for ext in _EXCLUDED_PATH_EXTENSIONS):
+        return True
+    if any(seg in path for seg in _EXCLUDED_PATH_SEGMENTS):
+        return True
+    if path.startswith("/api/") and ("openapi" not in path and "swagger" not in path):
+        return True
+    return False
+
+
 def _link_health(pages: list[PageData], status_map: dict[str, int]) -> dict[str, Any]:
     internal_links = set()
     for page in pages:
         internal_links.update(page.internal_links)
-    # Only count confirmed 4xx/5xx as broken; exclude timeouts (0) and redirects (3xx)
-    broken = [url for url in sorted(internal_links) if status_map.get(url, 0) >= 400]
+    # Count only confirmed broken links; treat transient/auth/rate-limit statuses as unverified.
+    broken = []
+    unverified = []
+    excluded = []
+    for url in sorted(internal_links):
+        if _is_excluded_link(url):
+            excluded.append(url)
+            continue
+        st = int(status_map.get(url, 0) or 0)
+        if st in _INCONCLUSIVE_HTTP_STATUSES:
+            unverified.append(url)
+            continue
+        if st >= 400:
+            broken.append(url)
     unreachable = [url for url in sorted(internal_links) if status_map.get(url, 0) == 0]
     # Separate docs-site broken links from repository navigation broken links
     docs_broken = [u for u in broken if not _is_repo_link(u)]
     repo_broken = [u for u in broken if _is_repo_link(u)]
+    docs_unverified = [u for u in unverified if not _is_repo_link(u)]
+    repo_unverified = [u for u in unverified if _is_repo_link(u)]
     return {
         "internal_links_checked": len(internal_links),
         "broken_internal_links_count": len(broken),
@@ -591,6 +966,16 @@ def _link_health(pages: list[PageData], status_map: dict[str, int]) -> dict[str,
         "docs_broken_link_samples": docs_broken[:30],
         "repo_broken_link_samples": repo_broken[:30],
         "unreachable_links_count": len(unreachable),
+        "unverified_links_count": len(unverified),
+        "unverified_link_samples": unverified[:30],
+        "confirmed_broken_links_count": len(broken),
+        "excluded_links_count": len(excluded),
+        "excluded_link_samples": excluded[:30],
+        "_all_confirmed_broken_links": broken,
+        "_all_unverified_links": unverified,
+        "_all_excluded_links": excluded,
+        "_all_docs_unverified_links": docs_unverified,
+        "_all_repo_unverified_links": repo_unverified,
     }
 
 
@@ -604,7 +989,198 @@ def _last_updated_metrics(pages: list[PageData]) -> dict[str, Any]:
     }
 
 
-def _crawl_site(start_url: str, max_pages: int, timeout: int) -> tuple[list[PageData], dict[str, int]]:
+def _browser_verify_links(
+    urls: list[str],
+    timeout: int,
+    auth_headers: dict[str, str] | None = None,
+    storage_state_path: str = "",
+) -> dict[str, int]:
+    """Best-effort browser verification using Playwright if available."""
+    if not urls:
+        return {}
+    try:
+        from playwright.sync_api import Error as PlaywrightError  # type: ignore
+        from playwright.sync_api import sync_playwright  # type: ignore
+    except ImportError:
+        return {}
+    result: dict[str, int] = {}
+    try:
+        with sync_playwright() as pw:
+            browser = pw.chromium.launch(headless=True)
+            kwargs: dict[str, Any] = {}
+            if auth_headers:
+                kwargs["extra_http_headers"] = auth_headers
+            if storage_state_path and Path(storage_state_path).exists():
+                kwargs["storage_state"] = storage_state_path
+            context = browser.new_context(**kwargs)
+            page = context.new_page()
+            page.set_default_navigation_timeout(max(1000, int(timeout * 1000)))
+            for url in urls:
+                try:
+                    resp = page.goto(url, wait_until="domcontentloaded")
+                    status = int(resp.status) if resp is not None else 0
+                except (PlaywrightError, OSError, RuntimeError, ValueError, TypeError):
+                    status = 0
+                result[url] = status
+            context.close()
+            browser.close()
+    except (PlaywrightError, OSError, RuntimeError, ValueError, TypeError):
+        return {}
+    return result
+
+
+def _browser_discover_pages(
+    start_url: str,
+    max_pages: int,
+    timeout: int,
+    auth_headers: dict[str, str] | None = None,
+    storage_state_path: str = "",
+) -> tuple[list[PageData], dict[str, int]]:
+    """Discover pages via browser rendering for JS-heavy docs."""
+    try:
+        from playwright.sync_api import sync_playwright  # type: ignore
+    except Exception:  # noqa: BLE001
+        return [], {}
+
+    auth_headers = auth_headers or {}
+    seen: set[str] = set()
+    queue: deque[str] = deque([start_url])
+    pages: list[PageData] = []
+    status_map: dict[str, int] = {}
+    host = urlparse(start_url).netloc.lower()
+
+    try:
+        with sync_playwright() as pw:
+            browser = pw.chromium.launch(headless=True)
+            kwargs: dict[str, Any] = {}
+            if auth_headers:
+                kwargs["extra_http_headers"] = auth_headers
+            if storage_state_path and Path(storage_state_path).exists():
+                kwargs["storage_state"] = storage_state_path
+            context = browser.new_context(**kwargs)
+            page = context.new_page()
+            page.set_default_navigation_timeout(max(1500, int(timeout * 1000)))
+
+            while queue and len(seen) < max_pages:
+                url = _normalize_url(queue.popleft())
+                if url in seen:
+                    continue
+                seen.add(url)
+                try:
+                    resp = page.goto(url, wait_until="domcontentloaded")
+                    st = int(resp.status) if resp is not None else 0
+                    status_map[url] = st
+                    if st < 200 or st >= 400:
+                        continue
+                    html_body = page.content()
+                    parser_html = _DocsHTMLParser(url)
+                    parser_html.feed(html_body)
+                    parsed = parser_html.as_page(url, st)
+                    pages.append(parsed)
+                    for link in parsed.internal_links:
+                        if urlparse(link).netloc.lower() == host and link not in seen and len(queue) < max_pages * 3:
+                            queue.append(link)
+                except Exception:  # noqa: BLE001
+                    status_map[url] = 0
+            context.close()
+            browser.close()
+    except Exception:  # noqa: BLE001
+        return [], {}
+    return pages, status_map
+
+
+def _ensure_playwright_storage_state(
+    *,
+    storage_state_path: str,
+    login_url: str,
+    username: str,
+    password: str,
+    username_selector: str,
+    password_selector: str,
+    submit_selector: str,
+    success_wait_url_pattern: str,
+    timeout: int,
+    auth_headers: dict[str, str] | None = None,
+) -> str:
+    """Create Playwright storage state by logging in once, if needed."""
+    if not storage_state_path:
+        return ""
+    state_path = _resolve_cross_platform_path(Path(storage_state_path))
+    if state_path.exists():
+        return str(state_path)
+    if not (login_url and username and password and username_selector and password_selector and submit_selector):
+        return ""
+    try:
+        from playwright.sync_api import sync_playwright  # type: ignore
+    except Exception:  # noqa: BLE001
+        return ""
+
+    state_path.parent.mkdir(parents=True, exist_ok=True)
+    try:
+        with sync_playwright() as pw:
+            browser = pw.chromium.launch(headless=True)
+            kwargs: dict[str, Any] = {}
+            if auth_headers:
+                kwargs["extra_http_headers"] = auth_headers
+            context = browser.new_context(**kwargs)
+            page = context.new_page()
+            page.set_default_navigation_timeout(max(1500, int(timeout * 1000)))
+            page.goto(login_url, wait_until="domcontentloaded")
+            page.fill(username_selector, username)
+            page.fill(password_selector, password)
+            page.click(submit_selector)
+            if success_wait_url_pattern.strip():
+                page.wait_for_url(re.compile(success_wait_url_pattern), timeout=max(3000, int(timeout * 1000)))
+            else:
+                page.wait_for_load_state("networkidle", timeout=max(3000, int(timeout * 1000)))
+            context.storage_state(path=str(state_path))
+            context.close()
+            browser.close()
+        return str(state_path)
+    except Exception:  # noqa: BLE001
+        return ""
+
+
+def _cookie_header_from_storage_state(storage_state_path: str, target_host: str) -> str:
+    if not storage_state_path:
+        return ""
+    p = _resolve_cross_platform_path(Path(storage_state_path))
+    if not p.exists():
+        return ""
+    try:
+        payload = json.loads(p.read_text(encoding="utf-8", errors="ignore"))
+    except Exception:  # noqa: BLE001
+        return ""
+    cookies = payload.get("cookies", []) if isinstance(payload, dict) else []
+    if not isinstance(cookies, list):
+        return ""
+    host = target_host.lower()
+    pairs: list[str] = []
+    for c in cookies:
+        if not isinstance(c, dict):
+            continue
+        domain = str(c.get("domain", "")).lstrip(".").lower()
+        if not domain:
+            continue
+        if host != domain and not host.endswith("." + domain):
+            continue
+        name = str(c.get("name", "")).strip()
+        value = str(c.get("value", "")).strip()
+        if name and value:
+            pairs.append(f"{name}={value}")
+    return "; ".join(pairs)
+
+
+def _crawl_site(
+    start_url: str,
+    max_pages: int,
+    timeout: int,
+    verification_modes: set[str] | None = None,
+    auth_headers: dict[str, str] | None = None,
+    browser_verify_sample: int = 100,
+    browser_discovery_pages: int = 300,
+    storage_state_path: str = "",
+) -> tuple[list[PageData], dict[str, int]]:
     """Crawl *start_url* up to *max_pages* with parallel BFS + parallel link check.
 
     If the first attempt yields zero pages (site blocks requests), automatically
@@ -614,6 +1190,9 @@ def _crawl_site(start_url: str, max_pages: int, timeout: int) -> tuple[list[Page
     max_pages = int(max_pages)
     timeout = int(timeout)
     workers = min(max_pages, 10)  # parallel crawl workers
+
+    verification_modes = verification_modes or {"bot"}
+    auth_headers = auth_headers or {}
 
     # Try up to len(_USER_AGENTS) User-Agent variants for the start page
     for ua_attempt in range(len(_USER_AGENTS)):
@@ -630,7 +1209,7 @@ def _crawl_site(start_url: str, max_pages: int, timeout: int) -> tuple[list[Page
 
         def _crawl_one(url: str, _ua: int = ua_attempt) -> tuple[str, int, PageData | None, list[str]]:
             """Fetch + parse one page.  Returns (url, status, page_or_None, new_links)."""
-            st, ct, body = _fetch(url, timeout, _ua_idx=_ua)
+            st, ct, body = _fetch(url, timeout, _ua_idx=_ua, extra_headers=auth_headers)
             if st < 200 or st >= 400 or "html" not in ct.lower():
                 return url, st, None, []
             parser_html = _DocsHTMLParser(url)
@@ -675,6 +1254,24 @@ def _crawl_site(start_url: str, max_pages: int, timeout: int) -> tuple[list[Page
         else:
             print("All User-Agent variants exhausted.", flush=True)
 
+    # Browser discovery pass to include JS-rendered docs pages.
+    if "browser" in verification_modes and int(browser_discovery_pages) > 0:
+        b_pages, b_status = _browser_discover_pages(
+            start_url=start_url,
+            max_pages=min(max_pages, int(browser_discovery_pages)),
+            timeout=max(6, timeout),
+            auth_headers=auth_headers,
+            storage_state_path=storage_state_path,
+        )
+        if b_pages:
+            by_url = {p.url: p for p in pages}
+            for p in b_pages:
+                by_url[p.url] = p
+            pages = list(by_url.values())
+            for u, st in b_status.items():
+                if u not in status_map or status_map.get(u, 0) in {0, -2}:
+                    status_map[u] = st
+
     # -- Parallel link-health check (HEAD-only, short timeout, 50 workers) ------
     link_timeout = min(timeout, 3)
     link_workers = 50
@@ -690,12 +1287,30 @@ def _crawl_site(start_url: str, max_pages: int, timeout: int) -> tuple[list[Page
         print("[audit] checking {} unique links ({} workers)...".format(total, link_workers), flush=True)
 
         def _check_one(link: str) -> tuple[str, int]:
-            st, _, _ = _fetch(link, link_timeout, head_only=True)
+            st, _, _ = _fetch(link, link_timeout, head_only=True, extra_headers=auth_headers)
             # Many SPA/SSG sites return 404 for HEAD but 200 for GET; retry
             if st >= 400 or st == 0:
-                st2, ct2, _ = _fetch(link, link_timeout)
+                st2, _, _ = _fetch(link, link_timeout, extra_headers=auth_headers)
                 if 200 <= st2 < 400:
                     st = st2
+                else:
+                    st = st2
+            # Canonical variant validation: if original URL appears broken, try likely normalized paths.
+            if st in {404, 410}:
+                for candidate in _canonical_link_variants(link):
+                    if candidate == _normalize_url(link):
+                        continue
+                    st3, _, _ = _fetch(candidate, link_timeout, extra_headers=auth_headers)
+                    if 200 <= st3 < 400:
+                        return link, 200
+            # Authenticated fallback pass
+            if st >= 400 and "authenticated" in verification_modes and auth_headers:
+                st_auth, _, _ = _fetch(link, max(link_timeout, 8), extra_headers=auth_headers)
+                if 200 <= st_auth < 400:
+                    return link, 200
+            # Treat transient/blocked statuses as inconclusive, not broken.
+            if st in _INCONCLUSIVE_HTTP_STATUSES:
+                return link, -2
             return link, st
 
         with ThreadPoolExecutor(max_workers=link_workers) as pool:
@@ -707,11 +1322,49 @@ def _crawl_site(start_url: str, max_pages: int, timeout: int) -> tuple[list[Page
                 if done % 100 == 0 or done == total:
                     print("[audit] links: {}/{}".format(done, total), flush=True)
 
+        # Browser verification pass for a sample of remaining broken candidates
+        if "browser" in verification_modes:
+            candidates = [
+                link for link in sorted(unchecked)
+                if int(status_map.get(link, 0) or 0) >= 400
+            ][: max(0, int(browser_verify_sample))]
+            if candidates:
+                print("[audit] browser-verifying {} broken-link candidates...".format(len(candidates)), flush=True)
+                browser_status = _browser_verify_links(
+                    candidates,
+                    timeout=max(6, timeout),
+                    auth_headers=auth_headers,
+                    storage_state_path=storage_state_path,
+                )
+                for link, st in browser_status.items():
+                    if 200 <= int(st or 0) < 400:
+                        status_map[link] = int(st)
+                    elif int(st or 0) == 0:
+                        status_map[link] = -2
+
     return pages, status_map
 
 
-def _site_payload(site_url: str, max_pages: int, timeout: int) -> dict[str, Any]:
-    pages, status_map = _crawl_site(site_url, max_pages, timeout)
+def _site_payload(
+    site_url: str,
+    max_pages: int,
+    timeout: int,
+    verification_modes: set[str] | None = None,
+    auth_headers: dict[str, str] | None = None,
+    browser_verify_sample: int = 100,
+    browser_discovery_pages: int = 300,
+    storage_state_path: str = "",
+) -> dict[str, Any]:
+    pages, status_map = _crawl_site(
+        site_url,
+        max_pages,
+        timeout,
+        verification_modes=verification_modes,
+        auth_headers=auth_headers,
+        browser_verify_sample=browser_verify_sample,
+        browser_discovery_pages=browser_discovery_pages,
+        storage_state_path=storage_state_path,
+    )
     metrics = {
         "crawl": {
             "pages_crawled": len(pages),
@@ -720,7 +1373,11 @@ def _site_payload(site_url: str, max_pages: int, timeout: int) -> dict[str, Any]
         },
         "links": _link_health(pages, status_map),
         "seo_geo": _seo_geo_metrics(pages),
-        "api_coverage": _api_coverage_from_public_docs(pages),
+        "api_coverage": _api_coverage_from_public_docs(
+            pages,
+            timeout=int(timeout),
+            auth_headers=auth_headers or {},
+        ),
         "examples": _estimate_example_reliability(pages),
         "freshness": _last_updated_metrics(pages),
     }
@@ -731,6 +1388,7 @@ def _site_payload(site_url: str, max_pages: int, timeout: int) -> dict[str, Any]
             "broken_links": metrics["links"]["broken_internal_link_samples"],
             "docs_broken_link_samples": metrics["links"].get("docs_broken_link_samples", []),
             "repo_broken_link_samples": metrics["links"].get("repo_broken_link_samples", []),
+            "unverified_link_samples": metrics["links"].get("unverified_link_samples", []),
             "api_uncovered_samples": metrics["api_coverage"]["uncovered_endpoint_samples"],
         },
     }
@@ -740,17 +1398,118 @@ def _aggregate_api_coverage(sites: list[dict[str, Any]]) -> dict[str, Any]:
     """Aggregate API coverage across sites, treating -1.0 (N/A) correctly."""
     total_ref = 0
     total_usage = 0
+    total_api_pages = 0
     all_na = True
     for s in sites:
         ac = s["metrics"]["api_coverage"]
+        total_api_pages += int(ac.get("api_pages_detected", 0))
         if not ac.get("no_api_pages_found"):
             all_na = False
             total_ref += int(ac.get("reference_endpoint_count", 0))
             total_usage += int(ac.get("endpoints_with_usage_docs", 0))
     if all_na:
-        return {"reference_coverage_pct": -1.0, "no_api_pages_found": True}
+        return {
+            "reference_coverage_pct": -1.0,
+            "no_api_pages_found": True,
+            "api_pages_detected": total_api_pages,
+            "coverage_determined": False,
+            "detection_note": "",
+        }
+    if total_ref == 0:
+        return {
+            "reference_coverage_pct": -1.0,
+            "no_api_pages_found": False,
+            "api_pages_detected": total_api_pages,
+            "coverage_determined": False,
+            "detection_note": (
+                "API-like pages were detected, but no endpoint or operation "
+                "identifiers could be extracted in aggregate."
+            ),
+        }
     pct = round(total_usage / max(1, total_ref) * 100, 2) if total_ref else 0.0
-    return {"reference_coverage_pct": pct, "no_api_pages_found": False}
+    return {
+        "reference_coverage_pct": pct,
+        "no_api_pages_found": False,
+        "api_pages_detected": total_api_pages,
+        "coverage_determined": True,
+        "detection_note": "",
+    }
+
+
+def _merge_site_runs(site_runs: list[dict[str, Any]]) -> dict[str, Any]:
+    """Merge repeated runs for one site; links use intersection for confirmed breaks."""
+    if not site_runs:
+        return {}
+    if len(site_runs) == 1:
+        return site_runs[0]
+
+    merged = dict(site_runs[0])
+    metrics_runs = [r.get("metrics", {}) for r in site_runs if isinstance(r.get("metrics"), dict)]
+    if not metrics_runs:
+        return merged
+
+    link_runs = [m.get("links", {}) for m in metrics_runs]
+    confirmed_sets = [
+        set(l.get("_all_confirmed_broken_links", []))
+        for l in link_runs
+    ]
+    intersection_confirmed = set.intersection(*confirmed_sets) if confirmed_sets else set()
+    unverified_union: set[str] = set()
+    excluded_union: set[str] = set()
+    for l in link_runs:
+        unverified_union.update(l.get("_all_unverified_links", []))
+        excluded_union.update(l.get("_all_excluded_links", []))
+    unverified_union -= intersection_confirmed
+
+    docs_confirmed = [u for u in sorted(intersection_confirmed) if not _is_repo_link(u)]
+    repo_confirmed = [u for u in sorted(intersection_confirmed) if _is_repo_link(u)]
+
+    link_merged = merged.setdefault("metrics", {}).setdefault("links", {})
+    link_merged["broken_internal_links_count"] = len(intersection_confirmed)
+    link_merged["confirmed_broken_links_count"] = len(intersection_confirmed)
+    link_merged["docs_broken_links_count"] = len(docs_confirmed)
+    link_merged["repo_broken_links_count"] = len(repo_confirmed)
+    link_merged["broken_internal_link_samples"] = docs_confirmed[:20] + repo_confirmed[:10]
+    link_merged["docs_broken_link_samples"] = docs_confirmed[:30]
+    link_merged["repo_broken_link_samples"] = repo_confirmed[:30]
+    link_merged["unverified_links_count"] = len(unverified_union)
+    link_merged["unverified_link_samples"] = sorted(list(unverified_union))[:30]
+    link_merged["excluded_links_count"] = len(excluded_union)
+    link_merged["excluded_link_samples"] = sorted(list(excluded_union))[:30]
+    link_merged["_all_confirmed_broken_links"] = sorted(list(intersection_confirmed))
+    link_merged["_all_unverified_links"] = sorted(list(unverified_union))
+    link_merged["_all_excluded_links"] = sorted(list(excluded_union))
+
+    # Median for volatile percentages
+    def _median_metric(path: list[str], default: float = 0.0) -> float:
+        vals: list[float] = []
+        for m in metrics_runs:
+            cur: Any = m
+            ok = True
+            for k in path:
+                if not isinstance(cur, dict) or k not in cur:
+                    ok = False
+                    break
+                cur = cur[k]
+            if ok:
+                try:
+                    vals.append(float(cur))
+                except (TypeError, ValueError):
+                    logger.debug("Skipping non-numeric metric value at path=%s: %r", path, cur)
+        if not vals:
+            return default
+        return round(float(statistics.median(vals)), 2)
+
+    merged["metrics"]["examples"]["example_reliability_estimate_pct"] = _median_metric(
+        ["examples", "example_reliability_estimate_pct"], 0.0,
+    )
+    merged["metrics"]["seo_geo"]["seo_geo_issue_rate_pct"] = _median_metric(
+        ["seo_geo", "seo_geo_issue_rate_pct"], 0.0,
+    )
+    merged["metrics"]["freshness"]["last_updated_coverage_pct"] = _median_metric(
+        ["freshness", "last_updated_coverage_pct"], 0.0,
+    )
+    return merged
 
 
 def _aggregate_sites(sites: list[dict[str, Any]]) -> dict[str, Any]:
@@ -776,6 +1535,9 @@ def _aggregate_sites(sites: list[dict[str, Any]]) -> dict[str, Any]:
             "broken_internal_links_count": sum(int(s["metrics"]["links"]["broken_internal_links_count"]) for s in sites),
             "docs_broken_links_count": sum(int(s["metrics"]["links"].get("docs_broken_links_count", 0)) for s in sites),
             "repo_broken_links_count": sum(int(s["metrics"]["links"].get("repo_broken_links_count", 0)) for s in sites),
+            "unverified_links_count": sum(int(s["metrics"]["links"].get("unverified_links_count", 0)) for s in sites),
+            "confirmed_broken_links_count": sum(int(s["metrics"]["links"].get("confirmed_broken_links_count", 0)) for s in sites),
+            "excluded_links_count": sum(int(s["metrics"]["links"].get("excluded_links_count", 0)) for s in sites),
         },
         "seo_geo": {
             "seo_geo_issue_rate_pct": wavg(["seo_geo", "seo_geo_issue_rate_pct"]),
@@ -788,7 +1550,24 @@ def _aggregate_sites(sites: list[dict[str, Any]]) -> dict[str, Any]:
             "last_updated_coverage_pct": wavg(["freshness", "last_updated_coverage_pct"]),
         },
     }
-    return {"metrics": metrics}
+    pages = int(metrics["crawl"]["pages_crawled"] or 0)
+    requested = int(metrics["crawl"]["requested_pages"] or 0)
+    docs_broken = int(metrics["links"].get("docs_broken_links_count", 0))
+    unverified = int(metrics["links"].get("unverified_links_count", 0))
+    api_cov = float(metrics["api_coverage"].get("reference_coverage_pct", -1.0) or -1.0)
+    api_pages = int(metrics["api_coverage"].get("api_pages_detected", 0) or 0)
+    crawl_ratio = 0.0 if requested <= 0 else min(1.0, pages / requested)
+    link_conf = max(20.0, 95.0 - min(70.0, (unverified / max(1, docs_broken + unverified)) * 100.0))
+    api_conf = 85.0 if api_cov >= 0 else (55.0 if api_pages > 0 else 35.0)
+    crawl_conf = 35.0 + crawl_ratio * 60.0
+    overall_conf = round((link_conf * 0.4) + (api_conf * 0.35) + (crawl_conf * 0.25), 2)
+    confidence = {
+        "overall_confidence_pct": overall_conf,
+        "links_confidence_pct": round(link_conf, 2),
+        "api_confidence_pct": round(api_conf, 2),
+        "crawl_confidence_pct": round(crawl_conf, 2),
+    }
+    return {"metrics": metrics, "confidence": confidence}
 
 
 def _resolve_cross_platform_path(p: Path) -> Path:
@@ -857,6 +1636,148 @@ def _read_dotenv_value(env_file_hint: str, key: str) -> str:
         val = _read_dotenv_value_from_file(candidate, key)
         if val:
             return val
+    return ""
+
+
+def _run_llm_json_prompt(
+    *,
+    api_key: str,
+    model: str,
+    timeout: int,
+    prompt: str,
+    max_tokens: int = 1200,
+) -> dict[str, Any]:
+    """Run Anthropic LLM and return parsed JSON object."""
+    body = {
+        "model": model,
+        "max_tokens": int(max_tokens),
+        "temperature": 0.1,
+        "messages": [{"role": "user", "content": prompt}],
+    }
+    req = Request(
+        url="https://api.anthropic.com/v1/messages",
+        data=json.dumps(body).encode("utf-8"),
+        headers={
+            "x-api-key": api_key,
+            "anthropic-version": "2023-06-01",
+            "content-type": "application/json",
+        },
+        method="POST",
+    )
+    with urlopen(req, timeout=timeout) as resp:
+        raw = resp.read().decode("utf-8", errors="ignore")
+    data = json.loads(raw or "{}")
+    text = ""
+    for part in data.get("content", []) if isinstance(data.get("content"), list) else []:
+        if isinstance(part, dict) and part.get("type") == "text":
+            text = str(part.get("text", "")).strip()
+            if text:
+                break
+    if not text:
+        raise RuntimeError("LLM returned empty response")
+    stripped = text.strip()
+    if stripped.startswith("```"):
+        first_nl = stripped.find("\n")
+        if first_nl != -1:
+            stripped = stripped[first_nl + 1:]
+        if stripped.endswith("```"):
+            stripped = stripped[:-3].strip()
+    parsed = json.loads(stripped)
+    if not isinstance(parsed, dict):
+        raise RuntimeError("LLM response is not JSON object")
+    return parsed
+
+
+def _clamp(v: Any, low: float, high: float, default: float) -> float:
+    try:
+        n = float(v)
+    except (TypeError, ValueError):
+        n = float(default)
+    return max(low, min(high, n))
+
+
+def _autofill_assumptions_with_llm(
+    *,
+    company_name: str,
+    site_urls: list[str],
+    aggregate_metrics: dict[str, Any],
+    llm_api_key: str,
+    llm_model: str,
+    llm_timeout: int,
+) -> dict[str, Any]:
+    """Generate assumptions profile from available public signals."""
+    prompt = (
+        "Return JSON only with keys: "
+        "engineer_hourly_usd,support_hourly_usd,release_count_per_month,"
+        "baseline_manual_sync_hours_per_week,avg_release_delay_hours,"
+        "monthly_support_tickets,docs_related_ticket_share,avg_ticket_handling_minutes,"
+        "assumptions_confidence_pct,provenance. "
+        "Use realistic enterprise software ranges, do not invent precise facts. "
+        "Prefer conservative base-case values for B2B SaaS docs operations. "
+        "provenance must be an array of short strings describing rationale. "
+        f"Company: {company_name}. Sites: {site_urls}. "
+        f"Audit metrics: {json.dumps(aggregate_metrics, ensure_ascii=True)}"
+    )
+    out = _run_llm_json_prompt(
+        api_key=llm_api_key,
+        model=llm_model,
+        timeout=llm_timeout,
+        prompt=prompt,
+        max_tokens=1000,
+    )
+    return {
+        "engineer_hourly_usd": round(_clamp(out.get("engineer_hourly_usd"), 50, 400, 120), 2),
+        "support_hourly_usd": round(_clamp(out.get("support_hourly_usd"), 20, 180, 55), 2),
+        "release_count_per_month": round(_clamp(out.get("release_count_per_month"), 1, 30, 8), 2),
+        "baseline_manual_sync_hours_per_week": round(_clamp(out.get("baseline_manual_sync_hours_per_week"), 2, 80, 16), 2),
+        "avg_release_delay_hours": round(_clamp(out.get("avg_release_delay_hours"), 0.5, 72, 6), 2),
+        "monthly_support_tickets": round(_clamp(out.get("monthly_support_tickets"), 20, 50000, 1200), 2),
+        "docs_related_ticket_share": round(_clamp(out.get("docs_related_ticket_share"), 0.02, 0.8, 0.22), 4),
+        "avg_ticket_handling_minutes": round(_clamp(out.get("avg_ticket_handling_minutes"), 5, 240, 25), 2),
+        "assumptions_confidence_pct": round(_clamp(out.get("assumptions_confidence_pct"), 20, 90, 55), 2),
+        "provenance": out.get("provenance", []) if isinstance(out.get("provenance"), list) else [],
+    }
+
+
+def _resolve_company_assumptions_path(
+    explicit_path: str,
+    company_name: str,
+    site_urls: list[str],
+    profiles_dir: str,
+) -> str:
+    """Resolve company assumptions profile path for financial model overrides."""
+    if str(explicit_path).strip():
+        p = _resolve_cross_platform_path(Path(str(explicit_path).strip()))
+        return str(p) if p.exists() else ""
+    base_dir = _resolve_cross_platform_path(Path(str(profiles_dir).strip()))
+    if not base_dir.exists():
+        return ""
+
+    candidates: list[Path] = []
+    company_slug = _slugify(company_name)
+    if company_slug:
+        candidates.append(base_dir / f"{company_slug}.json")
+
+    for raw in site_urls:
+        parsed = urlparse(raw)
+        host = parsed.netloc.lower()
+        host = re.sub(r"^docs\.", "", host)
+        host_slug = _slugify(host.replace(".", "-"))
+        domain_slug = _slugify(host.split(".")[0]) if host else ""
+        if host_slug:
+            candidates.append(base_dir / f"{host_slug}.json")
+        if domain_slug:
+            candidates.append(base_dir / f"{domain_slug}.json")
+
+    candidates.append(base_dir / "default.json")
+    seen: set[str] = set()
+    for candidate in candidates:
+        key = str(candidate)
+        if key in seen:
+            continue
+        seen.add(key)
+        if candidate.exists():
+            return str(candidate)
     return ""
 
 
@@ -941,7 +1862,7 @@ def _run_llm_analysis(
             stripped = stripped[:-3].strip()
     try:
         parsed = json.loads(stripped)
-    except Exception as exc:  # noqa: BLE001
+    except (Exception,) as exc:  # noqa: BLE001
         raise RuntimeError(f"LLM returned non-JSON content: {text[:300]}") from exc
     if not isinstance(parsed, dict):
         raise RuntimeError("LLM response JSON root is not an object.")
@@ -950,13 +1871,19 @@ def _run_llm_analysis(
 
 def _build_html(payload: dict[str, Any]) -> str:
     m = payload["aggregate"]["metrics"]
+    conf = payload.get("confidence", {}) if isinstance(payload.get("confidence"), dict) else {}
     sites = payload.get("sites", [])
+    def _fmt_api_cov(ac: dict[str, Any]) -> str:
+        raw = float(ac.get("reference_coverage_pct", -1.0) or -1.0)
+        if raw < 0:
+            return "N/A"
+        return f"{raw}%"
     sites_list = "".join(
-        "<li><strong>{}</strong>: pages={}, broken_links={}, api_coverage={}%, examples={}%</li>".format(
+        "<li><strong>{}</strong>: pages={}, broken_links={}, api_coverage={}, examples={}%</li>".format(
             html.escape(str(site.get("site_url", ""))),
             site.get("metrics", {}).get("crawl", {}).get("pages_crawled", 0),
             site.get("metrics", {}).get("links", {}).get("broken_internal_links_count", 0),
-            site.get("metrics", {}).get("api_coverage", {}).get("reference_coverage_pct", 0.0),
+            _fmt_api_cov(site.get("metrics", {}).get("api_coverage", {})),
             site.get("metrics", {}).get("examples", {}).get("example_reliability_estimate_pct", 0.0),
         )
         for site in sites
@@ -1032,10 +1959,12 @@ def _build_html(payload: dict[str, Any]) -> str:
         <div class=\"card\"><div class=\"label\">Pages crawled</div><div class=\"value\">{m['crawl']['pages_crawled']}</div></div>
         <div class=\"card\"><div class=\"label\">Broken links (docs)</div><div class=\"value\">{m['links'].get('docs_broken_links_count', m['links']['broken_internal_links_count'])}</div></div>
         <div class=\"card\"><div class=\"label\">Broken links (repo nav)</div><div class=\"value\">{m['links'].get('repo_broken_links_count', 0)}</div></div>
+        <div class=\"card\"><div class=\"label\">Unverified links</div><div class=\"value\">{m['links'].get('unverified_links_count', 0)}</div></div>
         <div class=\"card\"><div class=\"label\">SEO/GEO issue rate</div><div class=\"value\">{m['seo_geo']['seo_geo_issue_rate_pct']}%</div></div>
-        <div class=\"card\"><div class=\"label\">API reference coverage</div><div class=\"value\">{m['api_coverage']['reference_coverage_pct']}%</div></div>
+        <div class=\"card\"><div class=\"label\">API reference coverage</div><div class=\"value\">{_fmt_api_cov(m['api_coverage'])}</div></div>
         <div class=\"card\"><div class=\"label\">Example reliability (estimate)</div><div class=\"value\">{m['examples']['example_reliability_estimate_pct']}%</div></div>
         <div class=\"card\"><div class=\"label\">Last-updated coverage</div><div class=\"value\">{m['freshness']['last_updated_coverage_pct']}%</div></div>
+        <div class=\"card\"><div class=\"label\">Audit confidence</div><div class=\"value\">{conf.get('overall_confidence_pct', 0)}%</div></div>
       </div>
     </div>
     <div class=\"section\">
@@ -1073,6 +2002,79 @@ def main() -> int:
     parser.add_argument("--max-pages", type=int, default=120)
     parser.add_argument("--timeout", type=int, default=15)
     parser.add_argument(
+        "--verification-runs",
+        type=int,
+        default=3,
+        help="Number of full crawl+verification runs; broken links use intersection across runs",
+    )
+    parser.add_argument(
+        "--verification-modes",
+        default="bot,browser,authenticated",
+        help="Comma-separated: bot,browser,authenticated",
+    )
+    parser.add_argument(
+        "--browser-verify-sample",
+        type=int,
+        default=120,
+        help="How many broken-link candidates to verify in browser mode",
+    )
+    parser.add_argument(
+        "--browser-discovery-pages",
+        type=int,
+        default=400,
+        help="How many pages browser mode may discover for JS-heavy docs",
+    )
+    parser.add_argument(
+        "--auth-headers-json",
+        default="",
+        help="JSON file path or raw JSON object with auth headers for authenticated checks",
+    )
+    parser.add_argument(
+        "--auth-headers-env-name",
+        default="DOCS_AUDIT_AUTH_HEADERS_JSON",
+        help="Environment variable that may contain JSON object with auth headers",
+    )
+    parser.add_argument(
+        "--auth-storage-state",
+        default="reports/playwright_storage_state.json",
+        help="Playwright storage state file used for authenticated browser checks",
+    )
+    parser.add_argument(
+        "--auth-login-url",
+        default="",
+        help="Login URL for automatic storage-state generation",
+    )
+    parser.add_argument(
+        "--auth-username-env-name",
+        default="DOCS_AUDIT_LOGIN_USERNAME",
+        help="Environment variable for login username",
+    )
+    parser.add_argument(
+        "--auth-password-env-name",
+        default="DOCS_AUDIT_LOGIN_PASSWORD",
+        help="Environment variable for login password",
+    )
+    parser.add_argument(
+        "--auth-username-selector",
+        default="input[name='username'], input[type='email']",
+        help="CSS selector for username/email input on login page",
+    )
+    parser.add_argument(
+        "--auth-password-selector",
+        default="input[type='password']",
+        help="CSS selector for password input on login page",
+    )
+    parser.add_argument(
+        "--auth-submit-selector",
+        default="button[type='submit'], input[type='submit']",
+        help="CSS selector for submit button on login page",
+    )
+    parser.add_argument(
+        "--auth-success-url-pattern",
+        default="",
+        help="Optional regex URL pattern indicating successful login",
+    )
+    parser.add_argument(
         "--topology-mode",
         choices=["single-product", "multi-project"],
         default="single-product",
@@ -1092,8 +2094,8 @@ def main() -> int:
     )
     parser.add_argument(
         "--llm-env-file",
-        default="",
-        help="Path to .env file containing ANTHROPIC_API_KEY (auto-searches repo root and common locations if empty)",
+        default=".env",
+        help="Path to .env file containing ANTHROPIC_API_KEY (defaults to repo .env; also searches common fallback locations)",
     )
     parser.add_argument(
         "--llm-api-key-env-name",
@@ -1141,6 +2143,31 @@ def main() -> int:
         default="reports/audit_scorecard.json",
         help="Path to audit scorecard JSON (for PDF generation)",
     )
+    parser.add_argument(
+        "--auto-scorecard",
+        action="store_true",
+        help="Automatically regenerate scorecard before PDF using company assumptions profile",
+    )
+    parser.add_argument(
+        "--assumptions-json",
+        default="",
+        help="Explicit assumptions JSON for financial model (overrides profile auto-detection)",
+    )
+    parser.add_argument(
+        "--assumptions-profiles-dir",
+        default="config/company_assumptions",
+        help="Directory with company assumptions profiles (example: databricks.json, default.json)",
+    )
+    parser.add_argument(
+        "--assumptions-autofill",
+        action="store_true",
+        help="Use LLM to generate assumptions when profile is not found",
+    )
+    parser.add_argument(
+        "--assumptions-autofill-output",
+        default="reports/company_assumptions.autofill.json",
+        help="Path to save LLM-generated assumptions profile",
+    )
     args = parser.parse_args()
 
     # -- License gate: public docs audit requires enterprise plan --
@@ -1148,7 +2175,7 @@ def main() -> int:
         from scripts.license_gate import require
         require("executive_audit_pdf")
     except ImportError:
-        pass
+        logger.warning("license_gate unavailable; continuing without plan enforcement")
 
     site_urls = list(args.site_url or [])
     if args.interactive:
@@ -1228,17 +2255,88 @@ def main() -> int:
         if u not in normalized_urls:
             normalized_urls.append(u)
 
+    verification_modes = {
+        part.strip().lower()
+        for part in str(getattr(args, "verification_modes", "bot,browser,authenticated")).split(",")
+        if part.strip()
+    }
+    if not verification_modes:
+        verification_modes = {"bot"}
+    allowed_modes = {"bot", "browser", "authenticated"}
+    verification_modes = {m for m in verification_modes if m in allowed_modes} or {"bot"}
+
+    auth_headers: dict[str, str] = {}
+    auth_raw = ""
+    env_name = str(getattr(args, "auth_headers_env_name", "DOCS_AUDIT_AUTH_HEADERS_JSON")).strip()
+    if env_name:
+        auth_raw = str(os.environ.get(env_name, "")).strip()
+    if not auth_raw:
+        auth_src = str(getattr(args, "auth_headers_json", "")).strip()
+        if auth_src:
+            maybe_path = _resolve_cross_platform_path(Path(auth_src))
+            if maybe_path.exists():
+                auth_raw = maybe_path.read_text(encoding="utf-8", errors="ignore").strip()
+            else:
+                auth_raw = auth_src
+    if auth_raw:
+        try:
+            parsed_auth = json.loads(auth_raw)
+            if isinstance(parsed_auth, dict):
+                auth_headers = {
+                    str(k): str(v)
+                    for k, v in parsed_auth.items()
+                    if str(k).strip() and str(v).strip()
+                }
+        except (Exception,):  # noqa: BLE001
+            auth_headers = {}
+
+    storage_state_path = _ensure_playwright_storage_state(
+        storage_state_path=str(getattr(args, "auth_storage_state", "")),
+        login_url=str(getattr(args, "auth_login_url", "")).strip(),
+        username=str(os.environ.get(str(getattr(args, "auth_username_env_name", "DOCS_AUDIT_LOGIN_USERNAME")), "")).strip(),
+        password=str(os.environ.get(str(getattr(args, "auth_password_env_name", "DOCS_AUDIT_LOGIN_PASSWORD")), "")).strip(),
+        username_selector=str(getattr(args, "auth_username_selector", "")).strip(),
+        password_selector=str(getattr(args, "auth_password_selector", "")).strip(),
+        submit_selector=str(getattr(args, "auth_submit_selector", "")).strip(),
+        success_wait_url_pattern=str(getattr(args, "auth_success_url_pattern", "")).strip(),
+        timeout=max(8, int(args.timeout)),
+        auth_headers=auth_headers,
+    )
+    if storage_state_path:
+        parsed_host = urlparse(normalized_urls[0]).netloc if normalized_urls else ""
+        cookie_header = _cookie_header_from_storage_state(storage_state_path, parsed_host)
+        if cookie_header and "Cookie" not in auth_headers:
+            auth_headers["Cookie"] = cookie_header
+
+    verification_runs = max(1, int(getattr(args, "verification_runs", 3)))
+
+    def _run_site(url: str) -> dict[str, Any]:
+        runs: list[dict[str, Any]] = []
+        for run_idx in range(verification_runs):
+            if verification_runs > 1:
+                print(f"[audit] run {run_idx + 1}/{verification_runs} for {url}", flush=True)
+            runs.append(_site_payload(
+                url,
+                int(args.max_pages),
+                int(args.timeout),
+                verification_modes=verification_modes,
+                auth_headers=auth_headers,
+                browser_verify_sample=int(getattr(args, "browser_verify_sample", 120)),
+                browser_discovery_pages=int(getattr(args, "browser_discovery_pages", 400)),
+                storage_state_path=storage_state_path,
+            ))
+        merged = _merge_site_runs(runs)
+        merged["run_count"] = verification_runs
+        return merged
+
     # Process sites in parallel when multiple URLs are provided.
     if len(normalized_urls) == 1:
-        sites = [_site_payload(normalized_urls[0], int(args.max_pages), int(args.timeout))]
+        sites = [_run_site(normalized_urls[0])]
     else:
         print("[audit] processing {} sites in parallel...".format(len(normalized_urls)), flush=True)
         sites = []
         with ThreadPoolExecutor(max_workers=min(len(normalized_urls), 4)) as pool:
-            futures = {
-                pool.submit(_site_payload, url, int(args.max_pages), int(args.timeout)): url
-                for url in normalized_urls
-            }
+            futures = {pool.submit(_run_site, url): url for url in normalized_urls}
             for future in as_completed(futures):
                 sites.append(future.result())
     aggregate = _aggregate_sites(sites)
@@ -1254,6 +2352,7 @@ def main() -> int:
         )
     docs_broken = int(m["links"].get("docs_broken_links_count", 0))
     repo_broken = int(m["links"].get("repo_broken_links_count", 0))
+    unverified_links = int(m["links"].get("unverified_links_count", 0))
     total_broken = int(m["links"]["broken_internal_links_count"])
     if total_broken > 0:
         if repo_broken > 0 and docs_broken > 0:
@@ -1268,10 +2367,16 @@ def main() -> int:
             )
         else:
             findings.append("Broken internal links: {}".format(total_broken))
+    if unverified_links > 0:
+        findings.append(
+            "Link verification inconclusive for {} URLs (auth/rate-limit/server block); "
+            "these are excluded from broken-link counts.".format(unverified_links)
+        )
     if m["seo_geo"]["seo_geo_issue_rate_pct"] > 10:
         findings.append(f"SEO/GEO issue rate is high: {m['seo_geo']['seo_geo_issue_rate_pct']}%")
     api_cov = m["api_coverage"]["reference_coverage_pct"]
     api_pages = int(m["api_coverage"].get("api_pages_detected", 0))
+    api_detection_note = str(m["api_coverage"].get("detection_note", "") or "")
     if m["api_coverage"].get("no_api_pages_found"):
         if total_pages >= 500:
             findings.append(
@@ -1283,6 +2388,11 @@ def main() -> int:
                 "No API reference pages found in {} crawled pages "
                 "(increase max_pages or check site URL structure)".format(total_pages)
             )
+    elif float(api_cov) < 0:
+        findings.append(
+            "API pages detected ({}), but coverage is N/A because endpoint/operation "
+            "identifiers were not extracted. {}".format(api_pages, api_detection_note)
+        )
     elif api_cov < 70:
         findings.append("API usage-doc coverage is low: {}% ({} API pages detected)".format(api_cov, api_pages))
     ex_pct = m["examples"]["example_reliability_estimate_pct"]
@@ -1310,8 +2420,10 @@ def main() -> int:
         "site_url": normalized_urls[0] if len(normalized_urls) == 1 else "multiple-sites",
         "site_urls": normalized_urls,
         "topology_mode": str(args.topology_mode),
+        "verification_modes": sorted(list(verification_modes)),
         "sites": sites,
         "aggregate": aggregate,
+        "confidence": aggregate.get("confidence", {}),
         "top_findings": findings,
     }
 
@@ -1344,7 +2456,7 @@ def main() -> int:
                 llm_path = Path(args.llm_summary_output)
                 llm_path.parent.mkdir(parents=True, exist_ok=True)
                 llm_path.write_text(json.dumps(payload["llm_analysis"], ensure_ascii=True, indent=2) + "\n", encoding="utf-8")
-            except Exception as exc:  # noqa: BLE001
+            except (Exception,) as exc:  # noqa: BLE001
                 payload["llm_analysis"] = {
                     "status": "failed",
                     "model": str(args.llm_model),
@@ -1378,7 +2490,11 @@ def main() -> int:
         f"sites={len(sites)} "
         f"pages={m['crawl']['pages_crawled']} "
         f"broken_links={m['links']['broken_internal_links_count']} "
-        "api_coverage={}".format("N/A (no API pages in sample)" if m["api_coverage"].get("no_api_pages_found") else f"{m['api_coverage']['reference_coverage_pct']}%")
+        "api_coverage={}".format(
+            "N/A (no API pages in sample)"
+            if m["api_coverage"].get("no_api_pages_found")
+            else ("N/A (identifier extraction incomplete)" if float(m["api_coverage"].get("reference_coverage_pct", -1) or -1) < 0 else f"{m['api_coverage']['reference_coverage_pct']}%")
+        )
     )
 
     if bool(getattr(args, "generate_pdf", False)):
@@ -1387,9 +2503,64 @@ def main() -> int:
         pdf_output = getattr(args, "pdf_output", None)
         if not pdf_output:
             pdf_output = "reports/{}-executive-audit.pdf".format(_slugify(company))
+        scorecard_json = str(getattr(args, "scorecard_json", "reports/audit_scorecard.json"))
+
+        auto_scorecard_enabled = bool(getattr(args, "auto_scorecard", False) or bool(getattr(args, "generate_pdf", False)))
+        if auto_scorecard_enabled:
+            assumptions_path = _resolve_company_assumptions_path(
+                explicit_path=str(getattr(args, "assumptions_json", "")),
+                company_name=company,
+                site_urls=normalized_urls,
+                profiles_dir=str(getattr(args, "assumptions_profiles_dir", "config/company_assumptions")),
+            )
+            assumptions_autofill_enabled = bool(getattr(args, "assumptions_autofill", False) or bool(getattr(args, "generate_pdf", False)))
+            if not assumptions_path and assumptions_autofill_enabled:
+                llm_api_key = os.environ.get(str(args.llm_api_key_env_name), "").strip()
+                if not llm_api_key:
+                    llm_api_key = _read_dotenv_value(str(args.llm_env_file), str(args.llm_api_key_env_name))
+                if llm_api_key:
+                    try:
+                        auto_profile = _autofill_assumptions_with_llm(
+                            company_name=company,
+                            site_urls=normalized_urls,
+                            aggregate_metrics=m,
+                            llm_api_key=llm_api_key,
+                            llm_model=str(args.llm_model),
+                            llm_timeout=int(args.llm_timeout),
+                        )
+                        auto_path = Path(str(getattr(args, "assumptions_autofill_output", "reports/company_assumptions.autofill.json")))
+                        auto_path.parent.mkdir(parents=True, exist_ok=True)
+                        auto_path.write_text(json.dumps(auto_profile, ensure_ascii=True, indent=2) + "\n", encoding="utf-8")
+                        assumptions_path = str(auto_path)
+                        print(f"[pdf] assumptions autofill generated: {auto_path}")
+                    except (Exception,) as exc:  # noqa: BLE001
+                        print(f"[warn] assumptions autofill failed: {exc}")
+                else:
+                    print("[warn] assumptions autofill requested but LLM API key is missing")
+            scorecard_cmd = [
+                "python3", "scripts/generate_audit_scorecard.py",
+                "--docs-dir", "docs",
+                "--reports-dir", "reports",
+                "--spec-path", "api/openapi.yaml",
+                "--policy-pack", "policy_packs/api-first.yml",
+                "--glossary-path", "glossary.yml",
+                "--json-output", scorecard_json,
+                "--html-output", "reports/audit_scorecard.html",
+            ]
+            if assumptions_path:
+                scorecard_cmd.extend(["--assumptions-json", assumptions_path])
+                print(f"[pdf] scorecard assumptions profile: {assumptions_path}")
+            else:
+                print("[pdf] scorecard assumptions profile not found; using built-in defaults")
+            scorecard_res = subprocess.run(scorecard_cmd, capture_output=True, text=True)
+            if scorecard_res.returncode == 0:
+                print(f"[ok] auto-scorecard json: {scorecard_json}")
+            else:
+                print(f"[warn] auto-scorecard failed: {scorecard_res.stderr.strip()}")
+
         pdf_cmd = [
             "python3", "scripts/generate_executive_audit_pdf.py",
-            "--scorecard-json", str(getattr(args, "scorecard_json", "reports/audit_scorecard.json")),
+            "--scorecard-json", scorecard_json,
             "--public-audit-json", str(args.json_output),
             "--llm-summary-json", str(args.llm_summary_output),
             "--company-name", company,

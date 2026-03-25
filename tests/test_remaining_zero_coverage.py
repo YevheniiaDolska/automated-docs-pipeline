@@ -65,6 +65,19 @@ class TestPublicDocsAuditHelpers:
         result = _normalize_url("https://example.com/")
         assert result == "https://example.com/"
 
+    def test_normalize_url_collapses_provider_locale_duplication(self) -> None:
+        """Normalize URL fixes duplicated provider/locale path segments."""
+        from scripts.generate_public_docs_audit import _normalize_url
+        result = _normalize_url("https://docs.example.com/aws/en/aws/ja/admin/system-tables")
+        assert result == "https://docs.example.com/aws/ja/admin/system-tables"
+
+    def test_canonical_link_variants_cross_provider(self) -> None:
+        """Canonical variants include both provider-locale branches."""
+        from scripts.generate_public_docs_audit import _canonical_link_variants
+        variants = _canonical_link_variants("https://docs.example.com/aws/en/gcp/en/admin")
+        assert "https://docs.example.com/aws/en/admin" in variants
+        assert "https://docs.example.com/gcp/en/admin" in variants
+
     def test_is_http_url_valid(self) -> None:
         """HTTP and HTTPS URLs return True."""
         from scripts.generate_public_docs_audit import _is_http_url
@@ -198,6 +211,14 @@ class TestPublicDocsAuditHTMLParser:
         assert len(page.internal_links) == 1
         assert len(page.external_links) == 1
 
+    def test_parser_normalizes_relative_locale_href(self) -> None:
+        """Parser fixes locale-switcher links that otherwise look broken."""
+        from scripts.generate_public_docs_audit import _DocsHTMLParser
+        parser = _DocsHTMLParser("https://docs.example.com/aws/en/admin")
+        parser.feed('<html><body><a href="aws/ja/admin">JA</a></body></html>')
+        page = parser.as_page("https://docs.example.com/aws/en/admin", 200)
+        assert "https://docs.example.com/aws/ja/admin" in page.internal_links
+
     def test_parser_extracts_code_blocks(self) -> None:
         """Parser extracts code blocks from pre tags."""
         from scripts.generate_public_docs_audit import _DocsHTMLParser
@@ -281,6 +302,15 @@ class TestPublicDocsAuditMetrics:
         }
         result = _link_health(pages, status_map)
         assert result["broken_internal_links_count"] == 1
+
+    def test_link_health_inconclusive_not_broken(self) -> None:
+        """Inconclusive statuses are not counted as broken links."""
+        from scripts.generate_public_docs_audit import _link_health
+        pages = [self._make_page(internal_links=["https://example.com/rate-limited"])]
+        status_map = {"https://example.com/rate-limited": -2}
+        result = _link_health(pages, status_map)
+        assert result["broken_internal_links_count"] == 0
+        assert result["unverified_links_count"] == 1
 
     def test_link_health_no_broken(self) -> None:
         """No broken links when all return 200."""
