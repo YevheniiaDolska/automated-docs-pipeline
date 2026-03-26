@@ -3,8 +3,8 @@
     {
       "objectID": "e69add76d0c538f8137cc2931a4569b6",
       "title": "ASYNCAPI API Reference",
-      "heading": "",
-      "content": "<!-- VERIDOC_POWERED_BADGE:START --> ![Powered by VeriDoc](https://veridoc.app) <!-- VERIDOC_POWERED_BADGE:END --> ",
+      "heading": "ASYNCAPI Reference",
+      "content": "Source: /tmp/pytest-of-eudo/pytest-2642/test_multi_protocol_flow_e2e_e0/asyncapi.yaml Flow mode: api-first ",
       "description": "Auto-generated asyncapi reference from source contract.",
       "product": "both",
       "content_type": "reference",
@@ -12,11 +12,14 @@
       "version": "",
       "maturity": "ga",
       "tags": [
-        "Pytest Of Eudo",
-        "Tmp",
-        "Pytest 2625",
         "Docs",
-        "Test_Multi_Protocol_Flow_Gener0"
+        "Mnt",
+        "Documents",
+        "Development",
+        "Kroha",
+        "Auto Doc Pipeline",
+        "C",
+        "Users"
       ],
       "hierarchy": {
         "lvl0": "both",
@@ -26,41 +29,7 @@
         "lvl4": ""
       },
       "url": "/assets/protocols/asyncapi/asyncapi-api#0",
-      "last_reviewed": "",
-      "path": "docs/assets/protocols/asyncapi/asyncapi-api.md",
-      "ranking_boost": 0,
-      "heading_level": 0,
-      "word_count": 9,
-      "has_code": false,
-      "code_snippets": []
-    },
-    {
-      "objectID": "14a7de85b3797e8bf8e8dafad853e7ca",
-      "title": "ASYNCAPI API Reference",
-      "heading": "ASYNCAPI Reference",
-      "content": "Source: /tmp/pytest-of-eudo/pytest-2625/test_multi_protocol_flow_gener0/api/asyncapi.yaml Flow mode: api-first ",
-      "description": "Auto-generated asyncapi reference from source contract.",
-      "product": "both",
-      "content_type": "reference",
-      "component": "",
-      "version": "",
-      "maturity": "ga",
-      "tags": [
-        "Pytest Of Eudo",
-        "Tmp",
-        "Pytest 2625",
-        "Docs",
-        "Test_Multi_Protocol_Flow_Gener0"
-      ],
-      "hierarchy": {
-        "lvl0": "both",
-        "lvl1": "reference",
-        "lvl2": "",
-        "lvl3": "",
-        "lvl4": ""
-      },
-      "url": "/assets/protocols/asyncapi/asyncapi-api#1",
-      "last_reviewed": "",
+      "last_reviewed": "2026-03-26",
       "path": "docs/assets/protocols/asyncapi/asyncapi-api.md",
       "ranking_boost": 0,
       "heading_level": 1,
@@ -69,7 +38,7 @@
       "code_snippets": []
     },
     {
-      "objectID": "fb2af2059d4146e00b7776fad59c34ea",
+      "objectID": "14a7de85b3797e8bf8e8dafad853e7ca",
       "title": "ASYNCAPI API Reference",
       "heading": "Top-level Keys",
       "content": "- asyncapi - channels - info ",
@@ -80,11 +49,14 @@
       "version": "",
       "maturity": "ga",
       "tags": [
-        "Pytest Of Eudo",
-        "Tmp",
-        "Pytest 2625",
         "Docs",
-        "Test_Multi_Protocol_Flow_Gener0"
+        "Mnt",
+        "Documents",
+        "Development",
+        "Kroha",
+        "Auto Doc Pipeline",
+        "C",
+        "Users"
       ],
       "hierarchy": {
         "lvl0": "both",
@@ -93,8 +65,45 @@
         "lvl3": "",
         "lvl4": ""
       },
+      "url": "/assets/protocols/asyncapi/asyncapi-api#1",
+      "last_reviewed": "2026-03-26",
+      "path": "docs/assets/protocols/asyncapi/asyncapi-api.md",
+      "ranking_boost": 0,
+      "heading_level": 2,
+      "word_count": 6,
+      "has_code": false,
+      "code_snippets": []
+    },
+    {
+      "objectID": "fb2af2059d4146e00b7776fad59c34ea",
+      "title": "ASYNCAPI API Reference",
+      "heading": "Channels",
+      "content": "- Channel count: 1 - orders/created ",
+      "description": "Auto-generated asyncapi reference from source contract.",
+      "product": "both",
+      "content_type": "reference",
+      "component": "",
+      "version": "",
+      "maturity": "ga",
+      "tags": [
+        "Docs",
+        "Mnt",
+        "Documents",
+        "Development",
+        "Kroha",
+        "Auto Doc Pipeline",
+        "C",
+        "Users"
+      ],
+      "hierarchy": {
+        "lvl0": "both",
+        "lvl1": "reference",
+        "lvl2": "Channels",
+        "lvl3": "",
+        "lvl4": ""
+      },
       "url": "/assets/protocols/asyncapi/asyncapi-api#2",
-      "last_reviewed": "",
+      "last_reviewed": "2026-03-26",
       "path": "docs/assets/protocols/asyncapi/asyncapi-api.md",
       "ranking_boost": 0,
       "heading_level": 2,
@@ -105,42 +114,8 @@
     {
       "objectID": "6f0f51e59f6bb9bb30400b69f438dd8e",
       "title": "ASYNCAPI API Reference",
-      "heading": "Channels",
-      "content": "- Channel count: 1 - project.updated ",
-      "description": "Auto-generated asyncapi reference from source contract.",
-      "product": "both",
-      "content_type": "reference",
-      "component": "",
-      "version": "",
-      "maturity": "ga",
-      "tags": [
-        "Pytest Of Eudo",
-        "Tmp",
-        "Pytest 2625",
-        "Docs",
-        "Test_Multi_Protocol_Flow_Gener0"
-      ],
-      "hierarchy": {
-        "lvl0": "both",
-        "lvl1": "reference",
-        "lvl2": "Channels",
-        "lvl3": "",
-        "lvl4": ""
-      },
-      "url": "/assets/protocols/asyncapi/asyncapi-api#3",
-      "last_reviewed": "",
-      "path": "docs/assets/protocols/asyncapi/asyncapi-api.md",
-      "ranking_boost": 0,
-      "heading_level": 2,
-      "word_count": 6,
-      "has_code": false,
-      "code_snippets": []
-    },
-    {
-      "objectID": "ec9eb14374abd57a39846e97ece5a55a",
-      "title": "ASYNCAPI API Reference",
       "heading": "Interactive AsyncAPI Tester",
-      "content": "> Sandbox semantic mode: this tester returns event-aware responses by event_type and payload fields. <div id=\"asyncapi-playground\" style=\"border:1px solid #d1d5db; padding:12px; border-radius:8px;\">   <p><strong>WebSocket Endpoint:</strong> <code id=\"asyncapi-ws-view\"></code></p>   <p><strong>HTTP Publish Endpoint:</strong> <code id=\"asyncapi-http-view\"></code></p>   <!-- vale off -->   <textarea id=\"asyncapi-message\" rows=\"8\" style=\"width:100%; font-family:monospace;\">{   \"event_type\": \"project.updated\",   \"event_id\": \"evt_001\",   \"data\": {\"project_id\": \"prj_abc123\", \"status\": \"active\"} }</textarea><br/>   <!-- vale on -->   <button id=\"asyncapi-send-ws\">Send via WebSocket</button>   <button id=\"asyncapi-send-http\">Send via HTTP</button>   <pre id=\"asyncapi-output\" style=\"margin-top:12px; max-height:320px; overflow:auto;\"></pre> </div> <script> (function(){ const wsEndpoint = \"wss://echo.websocket.events\"; const httpEndpoint = \"https://postman-echo.com/post\"; const wsView = document.g",
+      "content": "> Sandbox semantic mode: this tester returns event-aware responses by event_type and payload fields. <div id=\"asyncapi-playground\" style=\"border:1px solid #d1d5db; padding:12px; border-radius:8px;\">   <p><strong>WebSocket Endpoint:</strong> <code id=\"asyncapi-ws-view\"></code></p>   <p><strong>HTTP Publish Endpoint:</strong> <code id=\"asyncapi-http-view\"></code></p>   <textarea id=\"asyncapi-message\" rows=\"8\" style=\"width:100%; font-family:monospace;\">{   \"event_type\": \"project.updated\",   \"event_id\": \"evt_001\",   \"data\": {\"project_id\": \"prj_abc123\", \"status\": \"active\"} }</textarea><br/>   <button id=\"asyncapi-send-ws\">Send via WebSocket</button>   <button id=\"asyncapi-send-http\">Send via HTTP</button>   <pre id=\"asyncapi-output\" style=\"margin-top:12px; max-height:320px; overflow:auto;\"></pre> </div> <script> (function(){ const wsEndpoint = \"wss://echo.websocket.events\"; const httpEndpoint = \"https://postman-echo.com/post\"; const wsView = document.getElementById('asyncapi-ws-view'); cons",
       "description": "Auto-generated asyncapi reference from source contract.",
       "product": "both",
       "content_type": "reference",
@@ -148,11 +123,14 @@
       "version": "",
       "maturity": "ga",
       "tags": [
-        "Pytest Of Eudo",
-        "Tmp",
-        "Pytest 2625",
         "Docs",
-        "Test_Multi_Protocol_Flow_Gener0"
+        "Mnt",
+        "Documents",
+        "Development",
+        "Kroha",
+        "Auto Doc Pipeline",
+        "C",
+        "Users"
       ],
       "hierarchy": {
         "lvl0": "both",
@@ -161,17 +139,17 @@
         "lvl3": "",
         "lvl4": ""
       },
-      "url": "/assets/protocols/asyncapi/asyncapi-api#4",
-      "last_reviewed": "",
+      "url": "/assets/protocols/asyncapi/asyncapi-api#3",
+      "last_reviewed": "2026-03-26",
       "path": "docs/assets/protocols/asyncapi/asyncapi-api.md",
       "ranking_boost": 0,
       "heading_level": 2,
-      "word_count": 505,
+      "word_count": 497,
       "has_code": false,
       "code_snippets": []
     },
     {
-      "objectID": "1be6142a3ed145d64f0811053448a66a",
+      "objectID": "ec9eb14374abd57a39846e97ece5a55a",
       "title": "ASYNCAPI API Reference",
       "heading": "Next steps",
       "content": "- Documentation index ",
@@ -182,11 +160,14 @@
       "version": "",
       "maturity": "ga",
       "tags": [
-        "Pytest Of Eudo",
-        "Tmp",
-        "Pytest 2625",
         "Docs",
-        "Test_Multi_Protocol_Flow_Gener0"
+        "Mnt",
+        "Documents",
+        "Development",
+        "Kroha",
+        "Auto Doc Pipeline",
+        "C",
+        "Users"
       ],
       "hierarchy": {
         "lvl0": "both",
@@ -195,8 +176,8 @@
         "lvl3": "",
         "lvl4": ""
       },
-      "url": "/assets/protocols/asyncapi/asyncapi-api#5",
-      "last_reviewed": "",
+      "url": "/assets/protocols/asyncapi/asyncapi-api#4",
+      "last_reviewed": "2026-03-26",
       "path": "docs/assets/protocols/asyncapi/asyncapi-api.md",
       "ranking_boost": 0,
       "heading_level": 2,
@@ -207,8 +188,8 @@
     {
       "objectID": "12829d221ea8193a1371559296d85f30",
       "title": "GRAPHQL API Reference",
-      "heading": "",
-      "content": "<!-- VERIDOC_POWERED_BADGE:START --> ![Powered by VeriDoc](https://veridoc.app) <!-- VERIDOC_POWERED_BADGE:END --> ",
+      "heading": "GRAPHQL Reference",
+      "content": "Source: /tmp/pytest-of-eudo/pytest-2642/test_multi_protocol_flow_e2e_e0/schema.graphql Flow mode: api-first ",
       "description": "Auto-generated graphql reference from source contract.",
       "product": "both",
       "content_type": "reference",
@@ -216,13 +197,13 @@
       "version": "",
       "maturity": "ga",
       "tags": [
+        "Kroha",
         "Docs",
-        "C",
         "Users",
         "Development",
-        "Auto Doc Pipeline",
-        "Kroha",
         "Mnt",
+        "C",
+        "Auto Doc Pipeline",
         "Documents"
       ],
       "hierarchy": {
@@ -233,44 +214,7 @@
         "lvl4": ""
       },
       "url": "/assets/protocols/graphql/graphql-api#0",
-      "last_reviewed": "2026-03-24",
-      "path": "docs/assets/protocols/graphql/graphql-api.md",
-      "ranking_boost": 0,
-      "heading_level": 0,
-      "word_count": 9,
-      "has_code": false,
-      "code_snippets": []
-    },
-    {
-      "objectID": "2a29e101676312ba8c5d0141e7ef017f",
-      "title": "GRAPHQL API Reference",
-      "heading": "GRAPHQL Reference",
-      "content": "Source: /tmp/pytest-of-eudo/pytest-2625/test_multi_protocol_contract_f0/schema.graphql Flow mode: api-first ",
-      "description": "Auto-generated graphql reference from source contract.",
-      "product": "both",
-      "content_type": "reference",
-      "component": "",
-      "version": "",
-      "maturity": "ga",
-      "tags": [
-        "Docs",
-        "C",
-        "Users",
-        "Development",
-        "Auto Doc Pipeline",
-        "Kroha",
-        "Mnt",
-        "Documents"
-      ],
-      "hierarchy": {
-        "lvl0": "both",
-        "lvl1": "reference",
-        "lvl2": "",
-        "lvl3": "",
-        "lvl4": ""
-      },
-      "url": "/assets/protocols/graphql/graphql-api#1",
-      "last_reviewed": "2026-03-24",
+      "last_reviewed": "2026-03-26",
       "path": "docs/assets/protocols/graphql/graphql-api.md",
       "ranking_boost": 0,
       "heading_level": 1,
@@ -279,7 +223,7 @@
       "code_snippets": []
     },
     {
-      "objectID": "6f3bd96ba785fda87749ae0a9753caca",
+      "objectID": "2a29e101676312ba8c5d0141e7ef017f",
       "title": "GRAPHQL API Reference",
       "heading": "Operations",
       "content": "- Query count: 1 - Mutation count: 0 - Subscription count: 0 - Queries: health ",
@@ -290,13 +234,13 @@
       "version": "",
       "maturity": "ga",
       "tags": [
+        "Kroha",
         "Docs",
-        "C",
         "Users",
         "Development",
-        "Auto Doc Pipeline",
-        "Kroha",
         "Mnt",
+        "C",
+        "Auto Doc Pipeline",
         "Documents"
       ],
       "hierarchy": {
@@ -306,8 +250,8 @@
         "lvl3": "",
         "lvl4": ""
       },
-      "url": "/assets/protocols/graphql/graphql-api#2",
-      "last_reviewed": "2026-03-24",
+      "url": "/assets/protocols/graphql/graphql-api#1",
+      "last_reviewed": "2026-03-26",
       "path": "docs/assets/protocols/graphql/graphql-api.md",
       "ranking_boost": 0,
       "heading_level": 2,
@@ -316,7 +260,7 @@
       "code_snippets": []
     },
     {
-      "objectID": "2910743634954b458ff0f8227ef7f44d",
+      "objectID": "6f3bd96ba785fda87749ae0a9753caca",
       "title": "GRAPHQL API Reference",
       "heading": "Interactive GraphQL Playground",
       "content": "<div id=\"graphql-playground\" style=\"border:1px solid #d1d5db; padding:12px; border-radius:8px;\">   <p><strong>Endpoint:</strong> <code id=\"graphql-endpoint-view\"></code></p>   <textarea id=\"graphql-query\" rows=\"12\" style=\"width:100%; font-family:monospace;\">query HealthCheck {   __typename }</textarea>   <br/>   <button id=\"graphql-run\">Run Query</button>   <pre id=\"graphql-output\" style=\"margin-top:12px; max-height:320px; overflow:auto;\"></pre> </div> <script> (function(){ const endpoint = \"https://postman-echo.com/post\"; const view = document.getElementById('graphql-endpoint-view'); const run = document.getElementById('graphql-run'); const query = document.getElementById('graphql-query'); const out = document.getElementById('graphql-output'); if (!view || !run || !query || !out) return; view.textContent = endpoint || 'not configured'; function normalize(v){ return String(v || '').replace(/\\s+/g, ' ').trim().toLowerCase(); } function fallback(queryText){   const q = normalize(queryTex",
@@ -327,13 +271,13 @@
       "version": "",
       "maturity": "ga",
       "tags": [
+        "Kroha",
         "Docs",
-        "C",
         "Users",
         "Development",
-        "Auto Doc Pipeline",
-        "Kroha",
         "Mnt",
+        "C",
+        "Auto Doc Pipeline",
         "Documents"
       ],
       "hierarchy": {
@@ -343,8 +287,8 @@
         "lvl3": "",
         "lvl4": ""
       },
-      "url": "/assets/protocols/graphql/graphql-api#3",
-      "last_reviewed": "2026-03-24",
+      "url": "/assets/protocols/graphql/graphql-api#2",
+      "last_reviewed": "2026-03-26",
       "path": "docs/assets/protocols/graphql/graphql-api.md",
       "ranking_boost": 0,
       "heading_level": 2,
@@ -353,7 +297,7 @@
       "code_snippets": []
     },
     {
-      "objectID": "7821ff31eb6aae9f7a80047b6af695a4",
+      "objectID": "2910743634954b458ff0f8227ef7f44d",
       "title": "GRAPHQL API Reference",
       "heading": "Next steps",
       "content": "- Documentation index ",
@@ -364,13 +308,13 @@
       "version": "",
       "maturity": "ga",
       "tags": [
+        "Kroha",
         "Docs",
-        "C",
         "Users",
         "Development",
-        "Auto Doc Pipeline",
-        "Kroha",
         "Mnt",
+        "C",
+        "Auto Doc Pipeline",
         "Documents"
       ],
       "hierarchy": {
@@ -380,8 +324,8 @@
         "lvl3": "",
         "lvl4": ""
       },
-      "url": "/assets/protocols/graphql/graphql-api#4",
-      "last_reviewed": "2026-03-24",
+      "url": "/assets/protocols/graphql/graphql-api#3",
+      "last_reviewed": "2026-03-26",
       "path": "docs/assets/protocols/graphql/graphql-api.md",
       "ranking_boost": 0,
       "heading_level": 2,
@@ -392,8 +336,8 @@
     {
       "objectID": "3ecafa1dd982d962776ee1e03c3467d1",
       "title": "GRPC API Reference",
-      "heading": "",
-      "content": "<!-- VERIDOC_POWERED_BADGE:START --> ![Powered by VeriDoc](https://veridoc.app) <!-- VERIDOC_POWERED_BADGE:END --> ",
+      "heading": "GRPC Reference",
+      "content": "Source: /tmp/pytest-of-eudo/pytest-2641/test_multi_protocol_flow_gener0/api/proto Flow mode: api-first ",
       "description": "Auto-generated grpc reference from source contract.",
       "product": "both",
       "content_type": "reference",
@@ -401,11 +345,11 @@
       "version": "",
       "maturity": "ga",
       "tags": [
+        "Tmp",
         "Test_Multi_Protocol_Flow_Gener0",
+        "Pytest 2641",
         "Pytest Of Eudo",
-        "Pytest 2625",
-        "Docs",
-        "Tmp"
+        "Docs"
       ],
       "hierarchy": {
         "lvl0": "both",
@@ -418,47 +362,13 @@
       "last_reviewed": "",
       "path": "docs/assets/protocols/grpc/grpc-api.md",
       "ranking_boost": 0,
-      "heading_level": 0,
-      "word_count": 9,
-      "has_code": false,
-      "code_snippets": []
-    },
-    {
-      "objectID": "2b67278f4f529336ba1cafb7df26eb5b",
-      "title": "GRPC API Reference",
-      "heading": "GRPC Reference",
-      "content": "Source: /tmp/pytest-of-eudo/pytest-2625/test_multi_protocol_flow_gener0/api/proto Flow mode: api-first ",
-      "description": "Auto-generated grpc reference from source contract.",
-      "product": "both",
-      "content_type": "reference",
-      "component": "",
-      "version": "",
-      "maturity": "ga",
-      "tags": [
-        "Test_Multi_Protocol_Flow_Gener0",
-        "Pytest Of Eudo",
-        "Pytest 2625",
-        "Docs",
-        "Tmp"
-      ],
-      "hierarchy": {
-        "lvl0": "both",
-        "lvl1": "reference",
-        "lvl2": "",
-        "lvl3": "",
-        "lvl4": ""
-      },
-      "url": "/assets/protocols/grpc/grpc-api#1",
-      "last_reviewed": "",
-      "path": "docs/assets/protocols/grpc/grpc-api.md",
-      "ranking_boost": 0,
       "heading_level": 1,
       "word_count": 5,
       "has_code": false,
       "code_snippets": []
     },
     {
-      "objectID": "08038cc3ef47658630b0737dd4cc33e2",
+      "objectID": "2b67278f4f529336ba1cafb7df26eb5b",
       "title": "GRPC API Reference",
       "heading": "Service Methods",
       "content": "- RPC method count: 4 - AutoDocPipelineService.CreateProject - AutoDocPipelineService.GetProject - AutoDocPipelineService.ListProjects - AutoDocPipelineService.UpdateProject ",
@@ -469,11 +379,11 @@
       "version": "",
       "maturity": "ga",
       "tags": [
+        "Tmp",
         "Test_Multi_Protocol_Flow_Gener0",
+        "Pytest 2641",
         "Pytest Of Eudo",
-        "Pytest 2625",
-        "Docs",
-        "Tmp"
+        "Docs"
       ],
       "hierarchy": {
         "lvl0": "both",
@@ -482,7 +392,7 @@
         "lvl3": "",
         "lvl4": ""
       },
-      "url": "/assets/protocols/grpc/grpc-api#2",
+      "url": "/assets/protocols/grpc/grpc-api#1",
       "last_reviewed": "",
       "path": "docs/assets/protocols/grpc/grpc-api.md",
       "ranking_boost": 0,
@@ -492,7 +402,7 @@
       "code_snippets": []
     },
     {
-      "objectID": "403b563cdd26b44964942d6f6d4de687",
+      "objectID": "08038cc3ef47658630b0737dd4cc33e2",
       "title": "GRPC API Reference",
       "heading": "Interactive gRPC Tester",
       "content": "This tester uses an HTTP gateway/adapter endpoint, so docs users can trigger gRPC methods from browser. <div id=\"grpc-playground\" style=\"border:1px solid #d1d5db; padding:12px; border-radius:8px;\">   <p><strong>Gateway Endpoint:</strong> <code id=\"grpc-endpoint-view\"></code></p>   <label>Service</label><br/><input id=\"grpc-service\" style=\"width:100%\" placeholder=\"GreeterService\"/><br/>   <label>Method</label><br/><input id=\"grpc-method\" style=\"width:100%\" placeholder=\"SayHello\"/><br/>   <label>Payload (JSON)</label><br/><textarea id=\"grpc-payload\" rows=\"8\" style=\"width:100%; font-family:monospace;\">{   \"name\": \"world\" }</textarea><br/>   <button id=\"grpc-run\">Invoke</button>   <pre id=\"grpc-output\" style=\"margin-top:12px; max-height:320px; overflow:auto;\"></pre> </div> <script> (function(){ const endpoint = \"https://postman-echo.com/post\"; const view = document.getElementById('grpc-endpoint-view'); const run = document.getElementById('grpc-run'); const service = document.getElementById",
@@ -503,11 +413,11 @@
       "version": "",
       "maturity": "ga",
       "tags": [
+        "Tmp",
         "Test_Multi_Protocol_Flow_Gener0",
+        "Pytest 2641",
         "Pytest Of Eudo",
-        "Pytest 2625",
-        "Docs",
-        "Tmp"
+        "Docs"
       ],
       "hierarchy": {
         "lvl0": "both",
@@ -516,7 +426,7 @@
         "lvl3": "",
         "lvl4": ""
       },
-      "url": "/assets/protocols/grpc/grpc-api#3",
+      "url": "/assets/protocols/grpc/grpc-api#2",
       "last_reviewed": "",
       "path": "docs/assets/protocols/grpc/grpc-api.md",
       "ranking_boost": 0,
@@ -526,7 +436,7 @@
       "code_snippets": []
     },
     {
-      "objectID": "bb0af8ba6cce5ab0443b05cc2a3b4617",
+      "objectID": "403b563cdd26b44964942d6f6d4de687",
       "title": "GRPC API Reference",
       "heading": "Next steps",
       "content": "- Documentation index ",
@@ -537,11 +447,11 @@
       "version": "",
       "maturity": "ga",
       "tags": [
+        "Tmp",
         "Test_Multi_Protocol_Flow_Gener0",
+        "Pytest 2641",
         "Pytest Of Eudo",
-        "Pytest 2625",
-        "Docs",
-        "Tmp"
+        "Docs"
       ],
       "hierarchy": {
         "lvl0": "both",
@@ -550,7 +460,7 @@
         "lvl3": "",
         "lvl4": ""
       },
-      "url": "/assets/protocols/grpc/grpc-api#4",
+      "url": "/assets/protocols/grpc/grpc-api#3",
       "last_reviewed": "",
       "path": "docs/assets/protocols/grpc/grpc-api.md",
       "ranking_boost": 0,
@@ -722,8 +632,8 @@
     {
       "objectID": "42f5f1afb4ed82323fd28299e0fb3b38",
       "title": "WEBSOCKET API Reference",
-      "heading": "",
-      "content": "<!-- VERIDOC_POWERED_BADGE:START --> ![Powered by VeriDoc](https://veridoc.app) <!-- VERIDOC_POWERED_BADGE:END --> ",
+      "heading": "WEBSOCKET Reference",
+      "content": "Source: /tmp/pytest-of-eudo/pytest-2641/test_multi_protocol_flow_gener0/api/websocket.yaml Flow mode: api-first ",
       "description": "Auto-generated websocket reference from source contract.",
       "product": "both",
       "content_type": "reference",
@@ -731,11 +641,11 @@
       "version": "",
       "maturity": "ga",
       "tags": [
-        "Test_Multi_Protocol_Flow_Gener0",
-        "Tmp",
-        "Pytest 2625",
+        "Pytest 2641",
         "Pytest Of Eudo",
-        "Docs"
+        "Docs",
+        "Tmp",
+        "Test_Multi_Protocol_Flow_Gener0"
       ],
       "hierarchy": {
         "lvl0": "both",
@@ -748,47 +658,13 @@
       "last_reviewed": "",
       "path": "docs/assets/protocols/websocket/websocket-api.md",
       "ranking_boost": 0,
-      "heading_level": 0,
-      "word_count": 9,
-      "has_code": false,
-      "code_snippets": []
-    },
-    {
-      "objectID": "b3ea3f6b2468585647a8d6b50e7fcd60",
-      "title": "WEBSOCKET API Reference",
-      "heading": "WEBSOCKET Reference",
-      "content": "Source: /tmp/pytest-of-eudo/pytest-2625/test_multi_protocol_flow_gener0/api/websocket.yaml Flow mode: api-first ",
-      "description": "Auto-generated websocket reference from source contract.",
-      "product": "both",
-      "content_type": "reference",
-      "component": "",
-      "version": "",
-      "maturity": "ga",
-      "tags": [
-        "Test_Multi_Protocol_Flow_Gener0",
-        "Tmp",
-        "Pytest 2625",
-        "Pytest Of Eudo",
-        "Docs"
-      ],
-      "hierarchy": {
-        "lvl0": "both",
-        "lvl1": "reference",
-        "lvl2": "",
-        "lvl3": "",
-        "lvl4": ""
-      },
-      "url": "/assets/protocols/websocket/websocket-api#1",
-      "last_reviewed": "",
-      "path": "docs/assets/protocols/websocket/websocket-api.md",
-      "ranking_boost": 0,
       "heading_level": 1,
       "word_count": 5,
       "has_code": false,
       "code_snippets": []
     },
     {
-      "objectID": "7b06253a44d801c1ff1c5b912c21b7b7",
+      "objectID": "b3ea3f6b2468585647a8d6b50e7fcd60",
       "title": "WEBSOCKET API Reference",
       "heading": "Top-level Keys",
       "content": "- channels - info ",
@@ -799,11 +675,11 @@
       "version": "",
       "maturity": "ga",
       "tags": [
-        "Test_Multi_Protocol_Flow_Gener0",
-        "Tmp",
-        "Pytest 2625",
+        "Pytest 2641",
         "Pytest Of Eudo",
-        "Docs"
+        "Docs",
+        "Tmp",
+        "Test_Multi_Protocol_Flow_Gener0"
       ],
       "hierarchy": {
         "lvl0": "both",
@@ -812,7 +688,7 @@
         "lvl3": "",
         "lvl4": ""
       },
-      "url": "/assets/protocols/websocket/websocket-api#2",
+      "url": "/assets/protocols/websocket/websocket-api#1",
       "last_reviewed": "",
       "path": "docs/assets/protocols/websocket/websocket-api.md",
       "ranking_boost": 0,
@@ -822,7 +698,7 @@
       "code_snippets": []
     },
     {
-      "objectID": "c38c7b42eba482fb7d8fa7d237b92339",
+      "objectID": "7b06253a44d801c1ff1c5b912c21b7b7",
       "title": "WEBSOCKET API Reference",
       "heading": "Channels/Events",
       "content": "- Channel count: 1 - project.updated ",
@@ -833,11 +709,11 @@
       "version": "",
       "maturity": "ga",
       "tags": [
-        "Test_Multi_Protocol_Flow_Gener0",
-        "Tmp",
-        "Pytest 2625",
+        "Pytest 2641",
         "Pytest Of Eudo",
-        "Docs"
+        "Docs",
+        "Tmp",
+        "Test_Multi_Protocol_Flow_Gener0"
       ],
       "hierarchy": {
         "lvl0": "both",
@@ -846,7 +722,7 @@
         "lvl3": "",
         "lvl4": ""
       },
-      "url": "/assets/protocols/websocket/websocket-api#3",
+      "url": "/assets/protocols/websocket/websocket-api#2",
       "last_reviewed": "",
       "path": "docs/assets/protocols/websocket/websocket-api.md",
       "ranking_boost": 0,
@@ -856,10 +732,10 @@
       "code_snippets": []
     },
     {
-      "objectID": "2d1635372b8172dd898cbebe98ed8cd3",
+      "objectID": "c38c7b42eba482fb7d8fa7d237b92339",
       "title": "WEBSOCKET API Reference",
       "heading": "Interactive WebSocket Tester",
-      "content": "> Sandbox semantic mode: this tester returns protocol-aware responses based on message type/action. <div id=\"websocket-playground\" style=\"border:1px solid #d1d5db; padding:12px; border-radius:8px;\">   <p><strong>Endpoint:</strong> <code id=\"websocket-endpoint-view\"></code></p>   <!-- vale off -->   <textarea id=\"websocket-message\" rows=\"8\" style=\"width:100%; font-family:monospace;\">{   \"type\": \"subscribe\",   \"request_id\": \"req_001\",   \"payload\": {\"channel\": \"project.updated\", \"filters\": {\"project_id\": \"prj_abc123\"}} }</textarea><br/>   <!-- vale on -->   <button id=\"websocket-send\">Connect + Send</button>   <pre id=\"websocket-output\" style=\"margin-top:12px; max-height:320px; overflow:auto;\"></pre> </div> <script> (function(){ const endpoint = \"wss://echo.websocket.events\"; const view = document.getElementById('websocket-endpoint-view'); const send = document.getElementById('websocket-send'); const msg = document.getElementById('websocket-message'); const out = document.getElementById('",
+      "content": "> Sandbox semantic mode: this tester returns protocol-aware responses based on message type/action. <div id=\"websocket-playground\" style=\"border:1px solid #d1d5db; padding:12px; border-radius:8px;\">   <p><strong>Endpoint:</strong> <code id=\"websocket-endpoint-view\"></code></p>   <textarea id=\"websocket-message\" rows=\"8\" style=\"width:100%; font-family:monospace;\">{   \"type\": \"subscribe\",   \"request_id\": \"req_001\",   \"payload\": {\"channel\": \"project.updated\", \"filters\": {\"project_id\": \"prj_abc123\"}} }</textarea><br/>   <button id=\"websocket-send\">Connect + Send</button>   <pre id=\"websocket-output\" style=\"margin-top:12px; max-height:320px; overflow:auto;\"></pre> </div> <script> (function(){ const endpoint = \"wss://echo.websocket.events\"; const view = document.getElementById('websocket-endpoint-view'); const send = document.getElementById('websocket-send'); const msg = document.getElementById('websocket-message'); const out = document.getElementById('websocket-output'); if (!view || !send ",
       "description": "Auto-generated websocket reference from source contract.",
       "product": "both",
       "content_type": "reference",
@@ -867,11 +743,11 @@
       "version": "",
       "maturity": "ga",
       "tags": [
-        "Test_Multi_Protocol_Flow_Gener0",
-        "Tmp",
-        "Pytest 2625",
+        "Pytest 2641",
         "Pytest Of Eudo",
-        "Docs"
+        "Docs",
+        "Tmp",
+        "Test_Multi_Protocol_Flow_Gener0"
       ],
       "hierarchy": {
         "lvl0": "both",
@@ -880,17 +756,17 @@
         "lvl3": "",
         "lvl4": ""
       },
-      "url": "/assets/protocols/websocket/websocket-api#4",
+      "url": "/assets/protocols/websocket/websocket-api#3",
       "last_reviewed": "",
       "path": "docs/assets/protocols/websocket/websocket-api.md",
       "ranking_boost": 0,
       "heading_level": 2,
-      "word_count": 472,
+      "word_count": 464,
       "has_code": false,
       "code_snippets": []
     },
     {
-      "objectID": "19a9977635049ad315c5d3613c4d99c7",
+      "objectID": "2d1635372b8172dd898cbebe98ed8cd3",
       "title": "WEBSOCKET API Reference",
       "heading": "Next steps",
       "content": "- Documentation index ",
@@ -901,11 +777,11 @@
       "version": "",
       "maturity": "ga",
       "tags": [
-        "Test_Multi_Protocol_Flow_Gener0",
-        "Tmp",
-        "Pytest 2625",
+        "Pytest 2641",
         "Pytest Of Eudo",
-        "Docs"
+        "Docs",
+        "Tmp",
+        "Test_Multi_Protocol_Flow_Gener0"
       ],
       "hierarchy": {
         "lvl0": "both",
@@ -914,7 +790,7 @@
         "lvl3": "",
         "lvl4": ""
       },
-      "url": "/assets/protocols/websocket/websocket-api#5",
+      "url": "/assets/protocols/websocket/websocket-api#4",
       "last_reviewed": "",
       "path": "docs/assets/protocols/websocket/websocket-api.md",
       "ranking_boost": 0,
@@ -9470,8 +9346,8 @@
     {
       "objectID": "5e33ae0e926d1f3bba3b2c5c58f76e17",
       "title": "ASYNCAPI API Reference",
-      "heading": "",
-      "content": "<!-- VERIDOC_POWERED_BADGE:START --> ![Powered by VeriDoc](https://veridoc.app) <!-- VERIDOC_POWERED_BADGE:END --> ",
+      "heading": "ASYNCAPI Reference",
+      "content": "Source: /tmp/pytest-of-eudo/pytest-2642/test_multi_protocol_flow_e2e_e0/asyncapi.yaml Flow mode: api-first ",
       "description": "Auto-generated asyncapi reference from source contract.",
       "product": "both",
       "content_type": "reference",
@@ -9479,14 +9355,14 @@
       "version": "",
       "maturity": "ga",
       "tags": [
-        "Documents",
         "Docs",
+        "Mnt",
+        "Documents",
+        "Development",
+        "Kroha",
         "Auto Doc Pipeline",
         "C",
-        "Users",
-        "Mnt",
-        "Development",
-        "Kroha"
+        "Users"
       ],
       "hierarchy": {
         "lvl0": "both",
@@ -9496,44 +9372,7 @@
         "lvl4": ""
       },
       "url": "/reference/asyncapi-api#0",
-      "last_reviewed": "2026-03-24",
-      "path": "docs/reference/asyncapi-api.md",
-      "ranking_boost": 4,
-      "heading_level": 0,
-      "word_count": 9,
-      "has_code": false,
-      "code_snippets": []
-    },
-    {
-      "objectID": "6f7ee39fe973d5c8f5d68d1069700b62",
-      "title": "ASYNCAPI API Reference",
-      "heading": "ASYNCAPI Reference",
-      "content": "Source: /tmp/pytest-of-eudo/pytest-2625/test_multi_protocol_flow_e2e_e0/asyncapi.yaml Flow mode: api-first ",
-      "description": "Auto-generated asyncapi reference from source contract.",
-      "product": "both",
-      "content_type": "reference",
-      "component": "",
-      "version": "",
-      "maturity": "ga",
-      "tags": [
-        "Documents",
-        "Docs",
-        "Auto Doc Pipeline",
-        "C",
-        "Users",
-        "Mnt",
-        "Development",
-        "Kroha"
-      ],
-      "hierarchy": {
-        "lvl0": "both",
-        "lvl1": "reference",
-        "lvl2": "",
-        "lvl3": "",
-        "lvl4": ""
-      },
-      "url": "/reference/asyncapi-api#1",
-      "last_reviewed": "2026-03-24",
+      "last_reviewed": "2026-03-26",
       "path": "docs/reference/asyncapi-api.md",
       "ranking_boost": 4,
       "heading_level": 1,
@@ -9542,7 +9381,7 @@
       "code_snippets": []
     },
     {
-      "objectID": "791d97fad07ad16dadc8f512d484dd7a",
+      "objectID": "6f7ee39fe973d5c8f5d68d1069700b62",
       "title": "ASYNCAPI API Reference",
       "heading": "Top-level Keys",
       "content": "- asyncapi - channels - info ",
@@ -9553,14 +9392,14 @@
       "version": "",
       "maturity": "ga",
       "tags": [
-        "Documents",
         "Docs",
+        "Mnt",
+        "Documents",
+        "Development",
+        "Kroha",
         "Auto Doc Pipeline",
         "C",
-        "Users",
-        "Mnt",
-        "Development",
-        "Kroha"
+        "Users"
       ],
       "hierarchy": {
         "lvl0": "both",
@@ -9569,8 +9408,8 @@
         "lvl3": "",
         "lvl4": ""
       },
-      "url": "/reference/asyncapi-api#2",
-      "last_reviewed": "2026-03-24",
+      "url": "/reference/asyncapi-api#1",
+      "last_reviewed": "2026-03-26",
       "path": "docs/reference/asyncapi-api.md",
       "ranking_boost": 4,
       "heading_level": 2,
@@ -9579,7 +9418,7 @@
       "code_snippets": []
     },
     {
-      "objectID": "b8cd7a25cf9a0b685875ad4c63ce7aa0",
+      "objectID": "791d97fad07ad16dadc8f512d484dd7a",
       "title": "ASYNCAPI API Reference",
       "heading": "Channels",
       "content": "- Channel count: 1 - orders/created ",
@@ -9590,14 +9429,14 @@
       "version": "",
       "maturity": "ga",
       "tags": [
-        "Documents",
         "Docs",
+        "Mnt",
+        "Documents",
+        "Development",
+        "Kroha",
         "Auto Doc Pipeline",
         "C",
-        "Users",
-        "Mnt",
-        "Development",
-        "Kroha"
+        "Users"
       ],
       "hierarchy": {
         "lvl0": "both",
@@ -9606,8 +9445,8 @@
         "lvl3": "",
         "lvl4": ""
       },
-      "url": "/reference/asyncapi-api#3",
-      "last_reviewed": "2026-03-24",
+      "url": "/reference/asyncapi-api#2",
+      "last_reviewed": "2026-03-26",
       "path": "docs/reference/asyncapi-api.md",
       "ranking_boost": 4,
       "heading_level": 2,
@@ -9616,10 +9455,10 @@
       "code_snippets": []
     },
     {
-      "objectID": "d04653ec752f2965a30574cbc4858175",
+      "objectID": "b8cd7a25cf9a0b685875ad4c63ce7aa0",
       "title": "ASYNCAPI API Reference",
       "heading": "Interactive AsyncAPI Tester",
-      "content": "> Sandbox semantic mode: this tester returns event-aware responses by event_type and payload fields. <div id=\"asyncapi-playground\" style=\"border:1px solid #d1d5db; padding:12px; border-radius:8px;\">   <p><strong>WebSocket Endpoint:</strong> <code id=\"asyncapi-ws-view\"></code></p>   <p><strong>HTTP Publish Endpoint:</strong> <code id=\"asyncapi-http-view\"></code></p>   <!-- vale off -->   <textarea id=\"asyncapi-message\" rows=\"8\" style=\"width:100%; font-family:monospace;\">{   \"event_type\": \"project.updated\",   \"event_id\": \"evt_001\",   \"data\": {\"project_id\": \"prj_abc123\", \"status\": \"active\"} }</textarea><br/>   <!-- vale on -->   <button id=\"asyncapi-send-ws\">Send via WebSocket</button>   <button id=\"asyncapi-send-http\">Send via HTTP</button>   <pre id=\"asyncapi-output\" style=\"margin-top:12px; max-height:320px; overflow:auto;\"></pre> </div> <script> (function(){ const wsEndpoint = \"wss://echo.websocket.events\"; const httpEndpoint = \"https://postman-echo.com/post\"; const wsView = document.g",
+      "content": "> Sandbox semantic mode: this tester returns event-aware responses by event_type and payload fields. <div id=\"asyncapi-playground\" style=\"border:1px solid #d1d5db; padding:12px; border-radius:8px;\">   <p><strong>WebSocket Endpoint:</strong> <code id=\"asyncapi-ws-view\"></code></p>   <p><strong>HTTP Publish Endpoint:</strong> <code id=\"asyncapi-http-view\"></code></p>   <textarea id=\"asyncapi-message\" rows=\"8\" style=\"width:100%; font-family:monospace;\">{   \"event_type\": \"project.updated\",   \"event_id\": \"evt_001\",   \"data\": {\"project_id\": \"prj_abc123\", \"status\": \"active\"} }</textarea><br/>   <button id=\"asyncapi-send-ws\">Send via WebSocket</button>   <button id=\"asyncapi-send-http\">Send via HTTP</button>   <pre id=\"asyncapi-output\" style=\"margin-top:12px; max-height:320px; overflow:auto;\"></pre> </div> <script> (function(){ const wsEndpoint = \"wss://echo.websocket.events\"; const httpEndpoint = \"https://postman-echo.com/post\"; const wsView = document.getElementById('asyncapi-ws-view'); cons",
       "description": "Auto-generated asyncapi reference from source contract.",
       "product": "both",
       "content_type": "reference",
@@ -9627,14 +9466,14 @@
       "version": "",
       "maturity": "ga",
       "tags": [
-        "Documents",
         "Docs",
+        "Mnt",
+        "Documents",
+        "Development",
+        "Kroha",
         "Auto Doc Pipeline",
         "C",
-        "Users",
-        "Mnt",
-        "Development",
-        "Kroha"
+        "Users"
       ],
       "hierarchy": {
         "lvl0": "both",
@@ -9643,17 +9482,17 @@
         "lvl3": "",
         "lvl4": ""
       },
-      "url": "/reference/asyncapi-api#4",
-      "last_reviewed": "2026-03-24",
+      "url": "/reference/asyncapi-api#3",
+      "last_reviewed": "2026-03-26",
       "path": "docs/reference/asyncapi-api.md",
       "ranking_boost": 4,
       "heading_level": 2,
-      "word_count": 505,
+      "word_count": 497,
       "has_code": false,
       "code_snippets": []
     },
     {
-      "objectID": "a9a71c88134899f56f63593bdf3a75e3",
+      "objectID": "d04653ec752f2965a30574cbc4858175",
       "title": "ASYNCAPI API Reference",
       "heading": "Next steps",
       "content": "- Documentation index ",
@@ -9664,14 +9503,14 @@
       "version": "",
       "maturity": "ga",
       "tags": [
-        "Documents",
         "Docs",
+        "Mnt",
+        "Documents",
+        "Development",
+        "Kroha",
         "Auto Doc Pipeline",
         "C",
-        "Users",
-        "Mnt",
-        "Development",
-        "Kroha"
+        "Users"
       ],
       "hierarchy": {
         "lvl0": "both",
@@ -9680,8 +9519,8 @@
         "lvl3": "",
         "lvl4": ""
       },
-      "url": "/reference/asyncapi-api#5",
-      "last_reviewed": "2026-03-24",
+      "url": "/reference/asyncapi-api#4",
+      "last_reviewed": "2026-03-26",
       "path": "docs/reference/asyncapi-api.md",
       "ranking_boost": 4,
       "heading_level": 2,
@@ -10994,8 +10833,8 @@
     {
       "objectID": "46c7727287ef2aab8638701178e5a7c1",
       "title": "GRAPHQL API Reference",
-      "heading": "",
-      "content": "<!-- VERIDOC_POWERED_BADGE:START --> ![Powered by VeriDoc](https://veridoc.app) <!-- VERIDOC_POWERED_BADGE:END --> ",
+      "heading": "GRAPHQL Reference",
+      "content": "Source: /tmp/pytest-of-eudo/pytest-2642/test_multi_protocol_flow_e2e_e0/schema.graphql Flow mode: api-first ",
       "description": "Auto-generated graphql reference from source contract.",
       "product": "both",
       "content_type": "reference",
@@ -11003,13 +10842,13 @@
       "version": "",
       "maturity": "ga",
       "tags": [
+        "Kroha",
         "Docs",
-        "C",
         "Users",
         "Development",
-        "Auto Doc Pipeline",
-        "Kroha",
         "Mnt",
+        "C",
+        "Auto Doc Pipeline",
         "Documents"
       ],
       "hierarchy": {
@@ -11020,44 +10859,7 @@
         "lvl4": ""
       },
       "url": "/reference/graphql-api#0",
-      "last_reviewed": "2026-03-24",
-      "path": "docs/reference/graphql-api.md",
-      "ranking_boost": 4,
-      "heading_level": 0,
-      "word_count": 9,
-      "has_code": false,
-      "code_snippets": []
-    },
-    {
-      "objectID": "b17497bd298628432c45c62091712050",
-      "title": "GRAPHQL API Reference",
-      "heading": "GRAPHQL Reference",
-      "content": "Source: /tmp/pytest-of-eudo/pytest-2625/test_multi_protocol_contract_f0/schema.graphql Flow mode: api-first ",
-      "description": "Auto-generated graphql reference from source contract.",
-      "product": "both",
-      "content_type": "reference",
-      "component": "",
-      "version": "",
-      "maturity": "ga",
-      "tags": [
-        "Docs",
-        "C",
-        "Users",
-        "Development",
-        "Auto Doc Pipeline",
-        "Kroha",
-        "Mnt",
-        "Documents"
-      ],
-      "hierarchy": {
-        "lvl0": "both",
-        "lvl1": "reference",
-        "lvl2": "",
-        "lvl3": "",
-        "lvl4": ""
-      },
-      "url": "/reference/graphql-api#1",
-      "last_reviewed": "2026-03-24",
+      "last_reviewed": "2026-03-26",
       "path": "docs/reference/graphql-api.md",
       "ranking_boost": 4,
       "heading_level": 1,
@@ -11066,7 +10868,7 @@
       "code_snippets": []
     },
     {
-      "objectID": "4a8199a7c3605912f02a5255da2dbcd5",
+      "objectID": "b17497bd298628432c45c62091712050",
       "title": "GRAPHQL API Reference",
       "heading": "Operations",
       "content": "- Query count: 1 - Mutation count: 0 - Subscription count: 0 - Queries: health ",
@@ -11077,13 +10879,13 @@
       "version": "",
       "maturity": "ga",
       "tags": [
+        "Kroha",
         "Docs",
-        "C",
         "Users",
         "Development",
-        "Auto Doc Pipeline",
-        "Kroha",
         "Mnt",
+        "C",
+        "Auto Doc Pipeline",
         "Documents"
       ],
       "hierarchy": {
@@ -11093,8 +10895,8 @@
         "lvl3": "",
         "lvl4": ""
       },
-      "url": "/reference/graphql-api#2",
-      "last_reviewed": "2026-03-24",
+      "url": "/reference/graphql-api#1",
+      "last_reviewed": "2026-03-26",
       "path": "docs/reference/graphql-api.md",
       "ranking_boost": 4,
       "heading_level": 2,
@@ -11103,7 +10905,7 @@
       "code_snippets": []
     },
     {
-      "objectID": "560f98b8da67e9896a7d68c549c11585",
+      "objectID": "4a8199a7c3605912f02a5255da2dbcd5",
       "title": "GRAPHQL API Reference",
       "heading": "Interactive GraphQL Playground",
       "content": "<div id=\"graphql-playground\" style=\"border:1px solid #d1d5db; padding:12px; border-radius:8px;\">   <p><strong>Endpoint:</strong> <code id=\"graphql-endpoint-view\"></code></p>   <textarea id=\"graphql-query\" rows=\"12\" style=\"width:100%; font-family:monospace;\">query HealthCheck {   __typename }</textarea>   <br/>   <button id=\"graphql-run\">Run Query</button>   <pre id=\"graphql-output\" style=\"margin-top:12px; max-height:320px; overflow:auto;\"></pre> </div> <script> (function(){ const endpoint = \"https://postman-echo.com/post\"; const view = document.getElementById('graphql-endpoint-view'); const run = document.getElementById('graphql-run'); const query = document.getElementById('graphql-query'); const out = document.getElementById('graphql-output'); if (!view || !run || !query || !out) return; view.textContent = endpoint || 'not configured'; function normalize(v){ return String(v || '').replace(/\\s+/g, ' ').trim().toLowerCase(); } function fallback(queryText){   const q = normalize(queryTex",
@@ -11114,13 +10916,13 @@
       "version": "",
       "maturity": "ga",
       "tags": [
+        "Kroha",
         "Docs",
-        "C",
         "Users",
         "Development",
-        "Auto Doc Pipeline",
-        "Kroha",
         "Mnt",
+        "C",
+        "Auto Doc Pipeline",
         "Documents"
       ],
       "hierarchy": {
@@ -11130,8 +10932,8 @@
         "lvl3": "",
         "lvl4": ""
       },
-      "url": "/reference/graphql-api#3",
-      "last_reviewed": "2026-03-24",
+      "url": "/reference/graphql-api#2",
+      "last_reviewed": "2026-03-26",
       "path": "docs/reference/graphql-api.md",
       "ranking_boost": 4,
       "heading_level": 2,
@@ -11140,7 +10942,7 @@
       "code_snippets": []
     },
     {
-      "objectID": "d3f123e8a21ece786ccc3f788b578486",
+      "objectID": "560f98b8da67e9896a7d68c549c11585",
       "title": "GRAPHQL API Reference",
       "heading": "Next steps",
       "content": "- Documentation index ",
@@ -11151,13 +10953,13 @@
       "version": "",
       "maturity": "ga",
       "tags": [
+        "Kroha",
         "Docs",
-        "C",
         "Users",
         "Development",
-        "Auto Doc Pipeline",
-        "Kroha",
         "Mnt",
+        "C",
+        "Auto Doc Pipeline",
         "Documents"
       ],
       "hierarchy": {
@@ -11167,8 +10969,8 @@
         "lvl3": "",
         "lvl4": ""
       },
-      "url": "/reference/graphql-api#4",
-      "last_reviewed": "2026-03-24",
+      "url": "/reference/graphql-api#3",
+      "last_reviewed": "2026-03-26",
       "path": "docs/reference/graphql-api.md",
       "ranking_boost": 4,
       "heading_level": 2,
