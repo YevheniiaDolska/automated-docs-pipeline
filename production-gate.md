@@ -68,7 +68,7 @@ Use it together with [Deployment Runbook](deploy/production-runbook.md).
 
 ## 9. Quality gates
 
-- [ ] Pre-commit checks pass without `--no-verify`.
+- [x] Pre-commit checks pass without `--no-verify`.
 - [ ] Docs pipeline passes on staging.
 - [x] End-to-end smoke scenario passes:
   `onboarding -> settings -> run pipeline -> artifacts -> executive report`.
