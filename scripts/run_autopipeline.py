@@ -37,6 +37,26 @@ def _run(cmd: list[str], cwd: Path) -> int:
     return completed.returncode
 
 
+def _git_changed_files(cwd: Path) -> list[str]:
+    completed = subprocess.run(
+        ["git", "status", "--porcelain"],
+        cwd=str(cwd),
+        check=False,
+        capture_output=True,
+        text=True,
+    )
+    if completed.returncode != 0:
+        return []
+    changed: list[str] = []
+    for raw_line in completed.stdout.splitlines():
+        line = raw_line.rstrip()
+        if not line:
+            continue
+        if len(line) > 3:
+            changed.append(line[3:])
+    return changed
+
+
 def _safe_load_json(path: Path) -> dict[str, Any]:
     if not path.exists():
         return {}
@@ -243,6 +263,7 @@ def _collect_artifacts(
     add_artifact("Finalize gate report", str(reports_dir / "finalize_gate_report.json"), "reports")
     add_artifact("VeriOps status", str(reports_dir / "docsops_status.json"), "reports")
     add_artifact("Ready marker", str(reports_dir / "READY_FOR_REVIEW.txt"), "reports")
+    add_artifact("Generated changes list", str(reports_dir / "generated_changes.json"), "reports")
 
     # Docs browse entrypoints
     add_artifact("Docs index", f"{docs_root}/index.md", "docs", required=True)
@@ -569,6 +590,34 @@ def main() -> int:
         action="store_true",
         help="Allow skipping consolidated report stage for non-cron/manual runs",
     )
+    parser.add_argument(
+        "--auto-generate",
+        action="store_true",
+        help="Run docsops_generate automatically after weekly/report stages.",
+    )
+    parser.add_argument(
+        "--generate-trigger",
+        choices=["always", "policy"],
+        default="policy",
+        help="Trigger mode for docsops_generate (default: policy).",
+    )
+    parser.add_argument(
+        "--local-engine",
+        choices=["auto", "codex", "claude"],
+        default="auto",
+        help="Local CLI engine for operator mode generation.",
+    )
+    parser.add_argument(
+        "--egress-guard",
+        choices=["required", "off"],
+        default="required",
+        help="Network egress guard mode for operator generation.",
+    )
+    parser.add_argument(
+        "--allow-api-env",
+        action="store_true",
+        help="Allow API key environment variables in operator generation mode.",
+    )
     args = parser.parse_args()
 
     repo_root = Path.cwd()
@@ -613,6 +662,8 @@ def main() -> int:
     execution_stages.extend(["stage summary", "review manifest"])
     if not args.skip_local_llm_packet and args.mode == "operator":
         execution_stages.append("local review packet")
+    if args.auto_generate:
+        execution_stages.append("automatic docs generation")
     execution_stages.extend(["output index and links", "publish docs review index"])
     total_stages = len(execution_stages)
 
@@ -712,6 +763,52 @@ def main() -> int:
         _say(f"Stage {stage_no}/{total_stages} done", str(packet_path))
     elif args.mode == "veridoc":
         _say("Stage local review packet", "skipped in veridoc mode")
+
+    if args.auto_generate:
+        stage_no += 1
+        _say(f"Stage {stage_no}/{total_stages}", execution_stages[stage_no - 1])
+        before = set(_git_changed_files(repo_root))
+        generate_cmd = [
+            sys.executable,
+            str(REPO_ROOT / "scripts" / "docsops_generate.py"),
+            "generate",
+            "--reports-dir",
+            str(reports_dir),
+            "--runtime-config",
+            str(runtime_path),
+            "--mode",
+            args.mode,
+            "--trigger",
+            args.generate_trigger,
+            "--auto",
+        ]
+        if args.mode == "operator":
+            generate_cmd.extend(["--local-engine", args.local_engine, "--egress-guard", args.egress_guard])
+            if args.allow_api_env:
+                generate_cmd.append("--allow-api-env")
+        generate_rc = _run(generate_cmd, cwd=repo_root)
+        after = set(_git_changed_files(repo_root))
+        new_or_updated = sorted(after - before)
+        changes_path = reports_dir / "generated_changes.json"
+        changes_payload = {
+            "auto_generate_enabled": True,
+            "generate_rc": int(generate_rc),
+            "mode": args.mode,
+            "trigger": args.generate_trigger,
+            "changed_files": new_or_updated,
+            "changed_files_count": len(new_or_updated),
+        }
+        changes_path.write_text(
+            json.dumps(changes_payload, ensure_ascii=True, indent=2) + "\n",
+            encoding="utf-8",
+        )
+        _say(
+            f"Stage {stage_no}/{total_stages} done",
+            f"rc={generate_rc}, changed_files={len(new_or_updated)}, {changes_path}",
+        )
+        if generate_rc != 0 and strictness == "enterprise-strict":
+            print("[autopipeline] automatic docs generation failed in enterprise-strict mode")
+            return int(generate_rc)
 
     stage_no += 1
     _say(f"Stage {stage_no}/{total_stages}", execution_stages[stage_no - 1])
