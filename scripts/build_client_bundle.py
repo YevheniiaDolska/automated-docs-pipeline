@@ -10,6 +10,7 @@ from __future__ import annotations
 import argparse
 import base64
 import datetime as dt
+import os
 import shutil
 import sys
 from collections.abc import Mapping
@@ -392,6 +393,58 @@ def build_licensing_infrastructure(profile: dict[str, Any], bundle_root: Path) -
             "# Then copy the .jwt file here.\n",
             encoding="utf-8",
         )
+
+    # Optional encrypted capability pack generation at bundle build time.
+    # This keeps repository sources unencrypted while delivering encrypted packs to clients.
+    pack_path = docsops_dir / ".capability_pack.enc"
+    auto_pack = bool(licensing.get("auto_generate_capability_pack", True))
+    license_key_env = str(licensing.get("license_key_env", "VERIOPS_LICENSE_KEY")).strip() or "VERIOPS_LICENSE_KEY"
+    license_key = str(licensing.get("license_key", "")).strip() or str(os.environ.get(license_key_env, "")).strip()
+    if auto_pack and client_id and license_key:
+        generate_pack_script = REPO_ROOT / "build" / "generate_pack.py"
+        if generate_pack_script.exists():
+            try:
+                import subprocess
+
+                cmd = [
+                    sys.executable,
+                    str(generate_pack_script),
+                    "--client-id",
+                    client_id,
+                    "--plan",
+                    plan,
+                    "--license-key",
+                    license_key,
+                    "--days",
+                    str(days),
+                    "--output",
+                    str(pack_path),
+                ]
+                completed = subprocess.run(cmd, cwd=str(REPO_ROOT), check=False, capture_output=True, text=True)
+                if completed.returncode == 0 and pack_path.exists():
+                    print(f"[license] capability pack generated: {pack_path}")
+                else:
+                    print("[license] capability pack generation failed; writing placeholder")
+                    (docsops_dir / ".capability_pack.README.txt").write_text(
+                        "Capability pack was not generated automatically.\n"
+                        "To generate manually on operator machine:\n"
+                        f"  python3 build/generate_pack.py --client-id {client_id} --plan {plan} "
+                        f"--license-key <KEY> --days {days} --output docsops/.capability_pack.enc\n",
+                        encoding="utf-8",
+                    )
+            except (Exception,) as exc:
+                print(f"[license] capability pack generation error ({exc}); writing placeholder")
+        else:
+            print("[license] build/generate_pack.py not found; skipping capability pack generation")
+    else:
+        reason = []
+        if not auto_pack:
+            reason.append("disabled")
+        if not client_id:
+            reason.append("no client_id")
+        if not license_key:
+            reason.append(f"missing {license_key_env}")
+        print(f"[license] capability pack skipped ({', '.join(reason)})")
 
 
 def build_licensed_files(profile: dict[str, Any], bundle_root: Path) -> None:
