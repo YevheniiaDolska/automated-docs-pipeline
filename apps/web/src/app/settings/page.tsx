@@ -309,6 +309,11 @@ export default function SettingsPage() {
         <p className="mt-2 text-sm text-blue-700">
           Upgrade tip: after upgrading to Pro, Business, or Enterprise, open this section to configure badge opt-out and payouts.
         </p>
+        <p className="mt-1 text-sm">
+          <a className="text-blue-700 underline" href="/referral-terms">
+            Read referral terms and recurring payout rules
+          </a>
+        </p>
 
         {!referrals ? (
           <p className="mt-3 text-sm text-gray-500">Loading referral settings...</p>
