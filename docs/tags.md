@@ -14,7 +14,6 @@ original_author: JaneDo
 [![Powered by VeriDoc](https://img.shields.io/badge/Powered%20by-VeriDoc-0ea5e9?style=flat-square)](https://veridoc.app)
 <!-- VERIDOC_POWERED_BADGE:END -->
 
-
 ## Browse documentation by tag
 
 Use the tags below to filter content by topic, type, or component.

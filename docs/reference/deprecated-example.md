@@ -20,7 +20,6 @@ original_author: JaneDo
 [![Powered by VeriDoc](https://img.shields.io/badge/Powered%20by-VeriDoc-0ea5e9?style=flat-square)](https://veridoc.app)
 <!-- VERIDOC_POWERED_BADGE:END -->
 
-
 ## Old Webhook API
 
 This is an example of a deprecated page. When you build the site with MkDocs, it will automatically:

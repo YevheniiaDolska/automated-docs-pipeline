@@ -16,7 +16,6 @@ original_author: Developer
 [![Powered by VeriDoc](https://img.shields.io/badge/Powered%20by-VeriDoc-0ea5e9?style=flat-square)](https://veridoc.app)
 <!-- VERIDOC_POWERED_BADGE:END -->
 
-
 # Assemble intent experiences
 
 Use this workflow to build a clean docs page and channel-ready AI bundle for one user intent from reusable knowledge modules.

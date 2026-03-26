@@ -703,7 +703,7 @@ Interactive WebSocket playground for VeriOps real-time API with bidirectional me
 /* Sandbox onclick is set by acme-sandbox.js with local mock responses */
 </script>
 
-## Error handling
+## WebSocket error handling
 
 ### WebSocket close codes
 

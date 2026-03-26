@@ -16,7 +16,6 @@ original_author: JaneDo
 [![Powered by VeriDoc](https://img.shields.io/badge/Powered%20by-VeriDoc-0ea5e9?style=flat-square)](https://veridoc.app)
 <!-- VERIDOC_POWERED_BADGE:END -->
 
-
 ## Documentation Pipeline Demo
 
 This is a prototype documentation site demonstrating an automated documentation pipeline with GEO (Generative Engine Optimization), faceted search via Algolia, and CI/CD quality gates.

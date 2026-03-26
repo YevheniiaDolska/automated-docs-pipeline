@@ -178,6 +178,7 @@ setTimeout(() => {
   ws.close(1000, 'Tutorial complete');
   console.log('Tutorial WebSocket client closed');
 }, 60000);
+
 ```
 
 <!-- requires: api-key -->

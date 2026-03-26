@@ -396,7 +396,7 @@ pip install mkdocs-material mkdocs-macros-plugin
 - [Quality evidence and gate results](../quality/evidence.md) for the latest KPI metrics
 - [Troubleshooting: common pipeline issues](troubleshooting.md) for detailed fix procedures
 
-## Next steps
+## Knowledge module pipeline steps
 
 - Validate modules: `npm run lint:knowledge`
 - Rebuild retrieval index: `npm run build:knowledge-index`

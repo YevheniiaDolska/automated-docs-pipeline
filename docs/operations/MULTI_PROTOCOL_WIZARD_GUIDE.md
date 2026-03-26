@@ -28,7 +28,6 @@ This content follows the active implementation baseline:
 1. Knowledge/RAG maintenance, terminology sync, and quality/compliance gates run through the same automation surface when enabled.
 1. Plan tiers gate advanced capabilities; higher plans include broader non-REST and governance scope.
 
-
 Run:
 
 ```bash
@@ -102,7 +101,6 @@ RAG prep behavior:
 - retrieval evals are executed and reported as evidence for quality controls.
 
 Licensing note: Multi-protocol support (GraphQL, gRPC, AsyncAPI, WebSocket) requires an Enterprise license. The wizard generates the appropriate `licensing.plan` in the profile. See `docs/operations/PLAN_TIERS.md` for the full feature matrix.
-
 
 ## Non-API documentation flows (docs-first scope)
 

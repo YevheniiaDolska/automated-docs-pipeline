@@ -15,7 +15,6 @@ original_author: Developer
 [![Powered by VeriDoc](https://img.shields.io/badge/Powered%20by-VeriDoc-0ea5e9?style=flat-square)](https://veridoc.app)
 <!-- VERIDOC_POWERED_BADGE:END -->
 
-
 # Canonical Flow (Sales + Delivery)
 
 This is the single source of truth for how to sell and run the pipeline today.

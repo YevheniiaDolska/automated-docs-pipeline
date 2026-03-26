@@ -17,7 +17,6 @@ original_author: Developer
 [![Powered by VeriDoc](https://img.shields.io/badge/Powered%20by-VeriDoc-0ea5e9?style=flat-square)](https://veridoc.app)
 <!-- VERIDOC_POWERED_BADGE:END -->
 
-
 # Configure Ask AI module
 
 Use this guide to enable or disable Ask AI in the pipeline and set provider plus billing mode without editing multiple files manually.

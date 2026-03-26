@@ -16,7 +16,6 @@ original_author: Developer
 [![Powered by VeriDoc](https://img.shields.io/badge/Powered%20by-VeriDoc-0ea5e9?style=flat-square)](https://veridoc.app)
 <!-- VERIDOC_POWERED_BADGE:END -->
 
-
 # TaskStream API planning notes
 
 This page provides the exact planning-notes input artifact used by the API-first flow before OpenAPI generation and validation.

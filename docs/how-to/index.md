@@ -16,7 +16,6 @@ original_author: JaneDo
 [![Powered by VeriDoc](https://img.shields.io/badge/Powered%20by-VeriDoc-0ea5e9?style=flat-square)](https://veridoc.app)
 <!-- VERIDOC_POWERED_BADGE:END -->
 
-
 ## How-To Guides
 
 Each guide solves a specific task. You need basic knowledge before using these.

@@ -15,7 +15,6 @@ original_author: Developer
 [![Powered by VeriDoc](https://img.shields.io/badge/Powered%20by-VeriDoc-0ea5e9?style=flat-square)](https://veridoc.app)
 <!-- VERIDOC_POWERED_BADGE:END -->
 
-
 # Unified Client Configuration
 
 ## Current product definition (2026-03-25)
@@ -29,7 +28,6 @@ This content follows the active implementation baseline:
 1. Contract test assets are generated automatically and merged with smart-merge so manual/customized cases are preserved and flagged for review when needed.
 1. Knowledge/RAG maintenance, terminology sync, and quality/compliance gates run through the same automation surface when enabled.
 1. Plan tiers gate advanced capabilities; higher plans include broader non-REST and governance scope.
-
 
 Single source of truth for per-client setup:
 
@@ -77,7 +75,6 @@ Scope note:
 - Use full-scope plan presets for full implementation coverage:
   - `profiles/clients/presets/startup.yml` (Pro-equivalent)
   - `profiles/clients/presets/enterprise.yml` (Enterprise-equivalent)
-
 
 ## Non-API documentation flows (docs-first scope)
 

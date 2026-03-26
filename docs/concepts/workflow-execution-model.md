@@ -18,7 +18,6 @@ original_author: JaneDo
 [![Powered by VeriDoc](https://img.shields.io/badge/Powered%20by-VeriDoc-0ea5e9?style=flat-square)](https://veridoc.app)
 <!-- VERIDOC_POWERED_BADGE:END -->
 
-
 ## Workflow execution model overview
 
 The execution model determines how data flows from one node to the next within a workflow. The engine executes nodes sequentially and passes data as arrays of JSON objects. This model explains why node behavior is predictable across branches, retries, and failures.

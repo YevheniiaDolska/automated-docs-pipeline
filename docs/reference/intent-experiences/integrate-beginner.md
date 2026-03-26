@@ -1,7 +1,5 @@
-<!-- VERIDOC_POWERED_BADGE:START -->
-[![Powered by VeriDoc](https://img.shields.io/badge/Powered%20by-VeriDoc-0ea5e9?style=flat-square)](https://veridoc.app)
-<!-- VERIDOC_POWERED_BADGE:END -->
----title: "Intent experience: integrate for beginner"
+---
+title: "Intent experience: integrate for beginner"
 description: "Assembled guidance for one intent and audience using reusable knowledge modules with verified metadata and channel-ready sections."
 content_type: reference
 product: both
@@ -9,6 +7,10 @@ tags:
   - Reference
   - AI
 ---
+
+<!-- VERIDOC_POWERED_BADGE:START -->
+[![Powered by VeriDoc](https://img.shields.io/badge/Powered%20by-VeriDoc-0ea5e9?style=flat-square)](https://veridoc.app)
+<!-- VERIDOC_POWERED_BADGE:END -->
 
 # Intent experience: integrate for beginner
 
@@ -310,7 +312,7 @@ Build a working VeriOps API integration in 15 minutes with authenticated request
 - [How-to: keep docs aligned with every release](how-to.md) for the operator workflow
 - [Troubleshooting: common pipeline issues](troubleshooting.md) if you encounter errors
 
-## Next steps
+## Knowledge module pipeline steps
 
 - Validate modules: `npm run lint:knowledge`
 - Rebuild retrieval index: `npm run build:knowledge-index`

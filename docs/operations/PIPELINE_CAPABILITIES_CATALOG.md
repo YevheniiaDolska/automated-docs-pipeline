@@ -15,7 +15,6 @@ original_author: Developer
 [![Powered by VeriDoc](https://img.shields.io/badge/Powered%20by-VeriDoc-0ea5e9?style=flat-square)](https://veridoc.app)
 <!-- VERIDOC_POWERED_BADGE:END -->
 
-
 # Pipeline Capabilities Catalog
 
 ## Current product definition (2026-03-25)
@@ -30,7 +29,6 @@ This content follows the active implementation baseline:
 1. Knowledge/RAG maintenance, terminology sync, and quality/compliance gates run through the same automation surface when enabled.
 1. Plan tiers gate advanced capabilities; higher plans include broader non-REST and governance scope.
 
-
 This catalog has two layers:
 
 1. npm script entry points (from `package.json`)
@@ -39,7 +37,6 @@ This catalog has two layers:
 Non-script concepts (policy semantics, sales packaging, pilot/full scope) are documented in ops guides.
 
 Use this catalog with `runtime.custom_tasks.weekly` in client profiles to enable any capability.
-
 
 ## Non-API documentation flows (docs-first scope)
 

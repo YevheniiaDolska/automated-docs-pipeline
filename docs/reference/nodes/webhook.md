@@ -21,7 +21,6 @@ original_author: JaneDo
 [![Powered by VeriDoc](https://img.shields.io/badge/Powered%20by-VeriDoc-0ea5e9?style=flat-square)](https://veridoc.app)
 <!-- VERIDOC_POWERED_BADGE:END -->
 
-
 ## Webhook node reference
 
 The Webhook node is a trigger node that starts a workflow when it receives an HTTP request at a unique URL. It supports GET, POST, PUT, PATCH, DELETE, and HEAD methods.

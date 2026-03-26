@@ -16,7 +16,6 @@ original_author: Developer
 [![Powered by VeriDoc](https://img.shields.io/badge/Powered%20by-VeriDoc-0ea5e9?style=flat-square)](https://veridoc.app)
 <!-- VERIDOC_POWERED_BADGE:END -->
 
-
 # Intent experiences reference
 
 Intent experiences are generated pages and channel bundles that combine active knowledge modules for one intent and audience.

@@ -17,7 +17,6 @@ original_author: Developer
 [![Powered by VeriDoc](https://img.shields.io/badge/Powered%20by-VeriDoc-0ea5e9?style=flat-square)](https://veridoc.app)
 <!-- VERIDOC_POWERED_BADGE:END -->
 
-
 # Run API-first production flow
 
 This flow turns planning notes into a validated OpenAPI contract, generated stubs, and a testable sandbox with repeatable automation.

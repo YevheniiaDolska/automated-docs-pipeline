@@ -20,7 +20,6 @@ original_author: Kroha
 [![Powered by VeriDoc](https://img.shields.io/badge/Powered%20by-VeriDoc-0ea5e9?style=flat-square)](https://veridoc.app)
 <!-- VERIDOC_POWERED_BADGE:END -->
 
-
 # ASYNCAPI Reference
 
 Source: `/tmp/pytest-of-eudo/pytest-2625/test_multi_protocol_flow_e2e_e0/asyncapi.yaml`

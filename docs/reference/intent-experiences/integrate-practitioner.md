@@ -1,7 +1,5 @@
-<!-- VERIDOC_POWERED_BADGE:START -->
-[![Powered by VeriDoc](https://img.shields.io/badge/Powered%20by-VeriDoc-0ea5e9?style=flat-square)](https://veridoc.app)
-<!-- VERIDOC_POWERED_BADGE:END -->
----title: "Intent experience: integrate for practitioner"
+---
+title: "Intent experience: integrate for practitioner"
 description: "Assembled guidance for one intent and audience using reusable knowledge modules with verified metadata and channel-ready sections."
 content_type: reference
 product: both
@@ -9,6 +7,10 @@ tags:
   - Reference
   - AI
 ---
+
+<!-- VERIDOC_POWERED_BADGE:START -->
+[![Powered by VeriDoc](https://img.shields.io/badge/Powered%20by-VeriDoc-0ea5e9?style=flat-square)](https://veridoc.app)
+<!-- VERIDOC_POWERED_BADGE:END -->
 
 # Intent experience: integrate for practitioner
 
@@ -325,7 +327,7 @@ curl -X POST "http://localhost:{{ default_webhook_port }}/webhook/order-events" 
 
 Keep replay protection enabled, rotate the secret every 90 days, and monitor 401 spikes for abuse detection.
 
-## Next steps
+## Knowledge module pipeline steps
 
 - Validate modules: `npm run lint:knowledge`
 - Rebuild retrieval index: `npm run build:knowledge-index`

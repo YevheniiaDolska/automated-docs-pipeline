@@ -679,7 +679,7 @@ Pipeline-first documentation automates generation, validation, and publishing of
 
 Pipeline-first documentation is a methodology where automated systems generate, validate, and publish API documentation from source contracts. Humans review and approve outputs instead of writing from scratch, reducing review cycles from 5+ rounds to 1-2 rounds.
 
-### Concept: pipeline-first documentation lifecycle (Part 10)
+## Concept: pipeline-first documentation lifecycle (Part 10)
 
 Pipeline-first documentation automates generation, validation, and publishing of API docs from source contracts, reducing review cycles by 60%.
 
@@ -1728,7 +1728,7 @@ Pipeline-generated multi-protocol API documentation for VeriOps with KPI dashboa
 
 The VeriOps documentation site is a pipeline-generated showcase that provides interactive references for five API protocols, automated quality evidence, and a KPI dashboard updated on every pipeline run.
 
-### VeriOps documentation (Part 2)
+## VeriOps documentation (Part 2)
 
 Pipeline-generated multi-protocol API documentation for VeriOps with KPI dashboard, interactive references, and automated quality gates.
 
@@ -2264,7 +2264,7 @@ Operator review manifest with artifact inventory, stage summary, and approval ch
 - Available artifacts: `15`
 - Missing artifacts: `12`
 
-### Review manifest: operator approval checkpoint (Part 2)
+## Review manifest: operator approval checkpoint (Part 2)
 
 Operator review manifest with artifact inventory, stage summary, and approval checklist for the Acme documentation pipeline.
 
@@ -2663,7 +2663,7 @@ curl -X POST "http://localhost:{{ default_webhook_port }}/webhook/order-events" 
 
 Keep replay protection enabled, rotate the secret every 90 days, and monitor 401 spikes for abuse detection.
 
-## Next steps
+## Knowledge module pipeline steps
 
 - Validate modules: `npm run lint:knowledge`
 - Rebuild retrieval index: `npm run build:knowledge-index`

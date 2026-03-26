@@ -15,7 +15,6 @@ original_author: Developer
 [![Powered by VeriDoc](https://img.shields.io/badge/Powered%20by-VeriDoc-0ea5e9?style=flat-square)](https://veridoc.app)
 <!-- VERIDOC_POWERED_BADGE:END -->
 
-
 # Plan Tiers (Basic / Pro / Enterprise)
 
 ## Current product definition (2026-03-25)
@@ -29,7 +28,6 @@ This content follows the active implementation baseline:
 1. Contract test assets are generated automatically and merged with smart-merge so manual/customized cases are preserved and flagged for review when needed.
 1. Knowledge/RAG maintenance, terminology sync, and quality/compliance gates run through the same automation surface when enabled.
 1. Plan tiers gate advanced capabilities; higher plans include broader non-REST and governance scope.
-
 
 This document defines how pipeline functionality is packaged by client plan.
 
@@ -60,7 +58,6 @@ In short:
 - Plan = business scope level
 - Preset = technical starting template
 - Pilot/Full = implementation format
-
 
 ## Non-API documentation flows (docs-first scope)
 
