@@ -1,0 +1,58 @@
+id: auto-rest-api-7
+title: REST API reference (Part 7)
+summary: Interactive REST API reference for VeriOps with 14 endpoints across five
+  resources, Bearer JWT authentication, and Swagger UI.
+intents:
+- integrate
+- troubleshoot
+audiences:
+- developer
+- operator
+channels:
+- docs
+- assistant
+- automation
+priority: 60
+status: active
+owner: docsops-auto
+last_verified: '2026-03-20'
+dependencies: []
+tags:
+- auto-extracted
+- reference
+- rest-api
+content:
+  docs_markdown: "### Comments\n\n| Method | Path | Description |\n| --- | --- | ---\
+    \ |\n| `GET` | `/v1/comments?task_id={id}` | List comments on a task |\n| `POST`\
+    \ | `/v1/comments` | Add a comment to a task |\n| `DELETE` | `/v1/comments/{id}`\
+    \ | Delete a comment |\n\n## Interactive Swagger UI\n\nExplore and test all 14\
+    \ endpoints in the embedded Swagger interface. Requests route to the Postman mock\
+    \ server sandbox automatically.\n\n!!! info \"Sandbox mode\"\n    All Try-it requests\
+    \ from Swagger UI route to the Postman mock server at\n    [`https://662b99a9-ac2a-4096-8a8e-480a73cef3e3.mock.pstmn.io/v1`](https://662b99a9-ac2a-4096-8a8e-480a73cef3e3.mock.pstmn.io/v1).\n\
+    \    No API key is required for sandbox requests.\n\n<div style=\"border:1px solid\
+    \ #dbe2ea;border-radius:12px;overflow:hidden;\">\n<iframe src=\"../swagger-test.html\"\
+    \ width=\"100%\" height=\"900\" style=\"border:none;\"></iframe>\n</div>\n\n##\
+    \ Error handling\n\nEvery error response uses a consistent envelope:\n\n```json\n\
+    {\n  \"error\": {\n    \"code\": \"validation_error\",\n    \"message\": \"The\
+    \ 'name' field is required and must be 3-100 characters.\",\n    \"details\":\
+    \ [\n      {\n        \"field\": \"name\",\n        \"rule\": \"required\",\n\
+    \        \"message\": \"This field is required\"\n      }\n    ]\n  }\n}\n```"
+  assistant_context: "Use this module when answering questions related to: REST API\
+    \ reference (Part 7). Source path: demo-showcase/acme/docs/reference/rest-api.md.\
+    \ Summary: Interactive REST API reference for VeriOps with 14 endpoints across\
+    \ five resources, Bearer JWT authentication, and Swagger UI.\n\n### Comments\n\
+    \n| Method | Path | Description |\n| --- | --- | --- |\n| `GET` | `/v1/comments?task_id={id}`\
+    \ | List comments on a task |\n| `POST` | `/v1/comments` | Add a comment to a\
+    \ task |\n| `DELETE` | `/v1/comments/{id}` | Delete a comment |\n\n## Interactive\
+    \ Swagger UI\n\nExplore and test all 14 endpoints in the embedded Swagger interface.\
+    \ Requests route to the Postman mock server sandbox automatically.\n\n!!! info\
+    \ \"Sandbox mode\"\n    All Try-it requests from Swagger UI route to the Postman\
+    \ mock server at\n    [`https://662b99a9-ac2a-4096-8a8e-480a73cef3e3.mock.pstmn.io/v1`](https://662b99a9-ac2a-4096-8a8e-480a73cef3e3.mock.pstmn.io/v1).\n\
+    \    No API key is required for sandbox requests.\n\n<div style=\"border:1px solid\
+    \ #dbe2ea;border-radius:12px;overflow:hidden;\">\n<iframe src=\"../swagger-test.html\"\
+    \ width=\"100%\" height=\"900\" style=\"border:none;\"></iframe>\n</div>\n\n##\
+    \ Error handling\n\nEvery error response uses a consistent envelope:\n\n```json\n\
+    {\n  \"error\": {\n    \"code\": \"validation_error\",\n    \"message\": \"The\
+    \ 'name' field is required and must be 3-100 characters.\",\n    \"details\":\
+    \ [\n      {\n        \"field\": \"name\",\n        \"rule\": \"required\",\n\
+    \        \"message\": \"This field is required\"\n      }\n    ]\n  }\n}\n```"

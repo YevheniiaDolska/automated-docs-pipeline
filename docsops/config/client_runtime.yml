@@ -1,0 +1,291 @@
+project:
+  client_id: auto-doc-pipeline
+  company_name: Auto-Doc Pipeline
+  preferred_llm: claude
+  output_targets:
+  - mkdocs
+docs_flow:
+  mode: hybrid
+paths:
+  docs_root: docs
+  api_root: api
+  sdk_root: sdk
+api_first:
+  enabled: false
+  project_slug: acme
+  notes_path: notes/api-planning.md
+  spec_path: api/openapi.yaml
+  spec_tree_path: api/acme
+  docs_provider: mkdocs
+  docs_spec_target: docs/assets/api
+  stubs_output: generated/api-stubs/fastapi/app/main.py
+  openapi_version: 3.0.3
+  manual_overrides_path: ''
+  regression_snapshot_path: ''
+  update_regression_snapshot: false
+  generate_from_notes: true
+  verify_user_path: false
+  sandbox_backend: external
+  mock_service: custom
+  mock_base_url: https://sandbox-api.example.com/v1
+  sync_playground_endpoint: true
+  external_mock:
+    enabled: true
+    provider: postman
+    base_path: /v1
+    postman:
+      api_key_env: POSTMAN_API_KEY
+      workspace_id_env: POSTMAN_WORKSPACE_ID
+      collection_uid_env: POSTMAN_COLLECTION_UID
+      mock_server_id_env: POSTMAN_MOCK_SERVER_ID
+      mock_server_name: ''
+      private: false
+  run_docs_lint: false
+  generate_test_assets: true
+  test_assets_output_dir: reports/api-test-assets
+  testrail_csv: reports/api-test-assets/testrail_test_cases.csv
+  zephyr_json: reports/api-test-assets/zephyr_test_cases.json
+  upload_test_assets: false
+  upload_test_assets_strict: false
+  test_assets_upload_report: reports/api-test-assets/upload_report.json
+  test_management:
+    testrail:
+      enabled_env: TESTRAIL_UPLOAD_ENABLED
+      base_url_env: TESTRAIL_BASE_URL
+      email_env: TESTRAIL_EMAIL
+      api_key_env: TESTRAIL_API_KEY
+      section_id_env: TESTRAIL_SECTION_ID
+      suite_id_env: TESTRAIL_SUITE_ID
+    zephyr_scale:
+      enabled_env: ZEPHYR_UPLOAD_ENABLED
+      base_url_env: ZEPHYR_SCALE_BASE_URL
+      api_token_env: ZEPHYR_SCALE_API_TOKEN
+      project_key_env: ZEPHYR_SCALE_PROJECT_KEY
+      folder_id_env: ZEPHYR_SCALE_FOLDER_ID
+  auto_remediate: true
+  max_attempts: 3
+api_protocols:
+- rest
+api_protocol_settings:
+  rest:
+    enabled: true
+    mode: api-first
+    spec_path: api/openapi.yaml
+    spec_tree_path: api/project
+    generate_server_stubs: true
+    stubs_output: generated/api-stubs/fastapi/app/main.py
+    autofix_cycle_enabled: true
+    autofix_max_attempts: 3
+    generate_test_assets: true
+    upload_test_assets: false
+  graphql:
+    enabled: false
+    mode: api-first
+    schema_path: api/schema.graphql
+    notes_path: notes/graphql-api-planning.md
+    generate_from_notes: true
+    code_first_schema_export_cmd: ''
+    graphql_endpoint: https://postman-echo.com/post
+    generate_server_stubs: true
+    stubs_output: generated/api-stubs/graphql/handlers.py
+    autofix_cycle_enabled: true
+    autofix_max_attempts: 3
+    semantic_autofix_max_attempts: 3
+    self_verify_runtime: true
+    self_verify_require_endpoint: true
+    publish_requires_live_green: true
+    generate_test_assets: true
+    upload_test_assets: false
+  grpc:
+    enabled: false
+    mode: api-first
+    proto_paths:
+    - api/proto
+    notes_path: notes/grpc-api-planning.md
+    generate_from_notes: true
+    code_first_proto_export_cmd: ''
+    grpc_gateway_endpoint: https://postman-echo.com/post
+    generate_server_stubs: true
+    stubs_output: generated/api-stubs/grpc/handlers.py
+    autofix_cycle_enabled: true
+    autofix_max_attempts: 3
+    semantic_autofix_max_attempts: 3
+    self_verify_runtime: true
+    self_verify_require_endpoint: true
+    publish_requires_live_green: true
+    generate_test_assets: true
+    upload_test_assets: false
+  asyncapi:
+    enabled: false
+    mode: api-first
+    spec_path: api/asyncapi.yaml
+    notes_path: notes/asyncapi-planning.md
+    generate_from_notes: true
+    code_first_contract_export_cmd: ''
+    asyncapi_ws_endpoint: wss://echo.websocket.events
+    asyncapi_http_publish_endpoint: https://postman-echo.com/post
+    generate_server_stubs: true
+    stubs_output: generated/api-stubs/asyncapi/handlers.py
+    autofix_cycle_enabled: true
+    autofix_max_attempts: 3
+    semantic_autofix_max_attempts: 3
+    self_verify_runtime: true
+    self_verify_require_endpoint: true
+    publish_requires_live_green: true
+    generate_test_assets: true
+    upload_test_assets: false
+  websocket:
+    enabled: false
+    mode: api-first
+    contract_path: api/websocket.yaml
+    notes_path: notes/websocket-api-planning.md
+    generate_from_notes: true
+    code_first_contract_export_cmd: ''
+    websocket_endpoint: wss://echo.websocket.events
+    websocket_http_bridge_endpoint: https://postman-echo.com/post
+    generate_server_stubs: true
+    stubs_output: generated/api-stubs/websocket/handlers.py
+    autofix_cycle_enabled: true
+    autofix_max_attempts: 3
+    semantic_autofix_max_attempts: 3
+    self_verify_runtime: true
+    self_verify_require_endpoint: true
+    publish_requires_live_green: true
+    generate_test_assets: true
+    upload_test_assets: false
+modules:
+  gap_detection: true
+  drift_detection: true
+  docs_contract: true
+  kpi_sla: true
+  rag_optimization: true
+  ontology_graph: true
+  retrieval_evals: true
+  terminology_management: true
+  multilang_examples: true
+  normalization: true
+  snippet_lint: true
+  diagram_validation: true
+  self_checks: true
+  fact_checks: true
+  lifecycle_management: true
+  knowledge_validation: true
+  i18n_sync: true
+  release_pack: true
+terminology:
+  enabled: true
+  glossary_path: glossary.yml
+  auto_add_from_markers: true
+retrieval_eval:
+  enabled: true
+  index_path: docs/assets/knowledge-retrieval-index.json
+  dataset_path: ''
+  top_k: 3
+  min_precision: 0.5
+  min_recall: 0.5
+  max_hallucination_rate: 0.5
+  auto_samples: 25
+knowledge_graph:
+  enabled: true
+  modules_dir: knowledge_modules
+  output_path: docs/assets/knowledge-graph.jsonld
+git_sync:
+  enabled: true
+  repo_path: .
+  remote: origin
+  branch: ''
+  fetch_first: true
+  rebase: true
+  autostash: true
+  continue_on_error: true
+finalize_gate:
+  enabled: true
+  docs_root: docs
+  reports_dir: reports
+  lint_command: npm run lint
+  max_iterations: 5
+  continue_on_error: true
+  auto_fix_commands:
+  - python3 scripts/normalize_docs.py {docs_root}
+  - python3 scripts/seo_geo_optimizer.py {docs_root} --fix
+  llm_fix_command: ''
+  ask_commit_confirmation: false
+  run_precommit_before_commit: true
+  precommit_max_iterations: 3
+  commit_on_approve: false
+  push_on_commit: false
+multilang_examples:
+  enabled: true
+  scope: all
+  required_languages:
+  - curl
+  - javascript
+  - python
+custom_tasks:
+  weekly:
+  - id: geo-lint
+    enabled: true
+    command: python3 docsops/scripts/seo_geo_optimizer.py docs/
+    continue_on_error: true
+  - id: knowledge-index
+    enabled: true
+    command: python3 docsops/scripts/generate_knowledge_retrieval_index.py
+    continue_on_error: true
+  - id: intent-experiences
+    enabled: true
+    command: python3 docsops/scripts/build_all_intent_experiences.py
+    continue_on_error: true
+  - id: veridoc-branding-policy
+    enabled: true
+    command: python3 docsops/scripts/apply_veridoc_branding_policy.py --repo-root
+      . --docs-root docs --landing-url https://veridoc.app --plan starter --cheapest-paid-plan
+      starter --report reports/veridoc_branding_policy_report.json --referral-code
+      "${VERIDOC_REFERRAL_CODE:-}"
+    continue_on_error: false
+  on_demand: []
+veridoc_branding:
+  enabled: true
+  landing_url: https://veridoc.app
+  plan: starter
+  cheapest_paid_plan: starter
+  badge_opt_out: false
+  referral_code_env: VERIDOC_REFERRAL_CODE
+  docs_root: docs
+  report_path: reports/veridoc_branding_policy_report.json
+  apply_on_weekly: true
+pr_autofix:
+  enabled: false
+  require_label: false
+  label_name: auto-doc-fix
+  enable_auto_merge: false
+  commit_message: 'docs: auto-sync PR docs'
+  workflow_filename: docsops-pr-autofix.yml
+integrations:
+  algolia:
+    enabled: false
+    docs_dir: docs
+    report_output: reports/seo-report.json
+    upload_on_weekly: false
+    app_id_env: ALGOLIA_APP_ID
+    api_key_env: ALGOLIA_API_KEY
+    index_name_env: ALGOLIA_INDEX_NAME
+    index_name_default: docs
+    site_generator: mkdocs
+    generate_search_widget: true
+  ask_ai:
+    enabled: false
+    auto_configure_on_provision: true
+    install_runtime_pack: false
+    provider: openai
+    billing_mode: disabled
+    model: gpt-4.1-mini
+    base_url: https://api.openai.com/v1
+pipeline:
+  stale_days: 21
+  weekly_stale_days: 180
+  rag_chunk_target_tokens: 420
+  verify_max_attempts: 3
+  gap_priority_weights:
+    business_impact: 0.45
+    user_frequency: 0.35
+    implementation_cost: 0.2

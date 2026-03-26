@@ -9,6 +9,10 @@ tags:
 last_reviewed: '2026-03-25'
 ---
 
+<!-- VERIDOC_POWERED_BADGE:START -->
+[![Powered by VeriDoc](https://img.shields.io/badge/Powered%20by-VeriDoc-0ea5e9?style=flat-square)](https://veridoc.app)
+<!-- VERIDOC_POWERED_BADGE:END -->
+
 # Auto-Doc Pipeline study guide
 
 Auto-Doc Pipeline is a docs-first platform that also supports code-first and API-first delivery. It enables teams to generate, verify, and publish documentation, non-REST stubs, mock sandboxes, and contract tests in one smooth automation flow.

@@ -1,0 +1,118 @@
+id: auto-evidence-5
+title: Quality evidence and gate results (Part 5)
+summary: Complete quality evidence from the VeriDoc pipeline for VeriOps docs, covering
+  KPI metrics, protocol gates, 24 automated checks, and RAG readiness.
+intents:
+- integrate
+- troubleshoot
+audiences:
+- developer
+- operator
+channels:
+- docs
+- assistant
+- automation
+priority: 60
+status: active
+owner: docsops-auto
+last_verified: '2026-03-20'
+dependencies: []
+tags:
+- auto-extracted
+- evidence
+- reference
+content:
+  docs_markdown: '| Check ID | Rule | Severity | Threshold | Purpose |
+
+    | --- | --- | --- | --- | --- |
+
+    | SEO-01 | Title length | Error/Warning | 10-70 characters | Optimal title display
+    in search results |
+
+    | SEO-02 | Title keyword match | Suggestion | 50% overlap | Aligns title with
+    filename keywords |
+
+    | SEO-03 | URL depth | Warning | Max 4 levels | Prevents deep URLs that search
+    engines deprioritize |
+
+    | SEO-04 | URL naming | Warning | Kebab-case | Consistent, readable URL structure
+    |
+
+    | SEO-05 | Image alt text | Warning | 100% coverage | Accessibility and image
+    search visibility |
+
+    | SEO-06 | Internal links | Suggestion | Min 1 link | Cross-references improve
+    crawlability |
+
+    | SEO-07 | Bare URLs | Warning | Zero bare URLs | Requires descriptive link text
+    |
+
+    | SEO-08 | Path characters | Warning | Alphanumeric + hyphens | Prevents encoding
+    issues in URLs |
+
+    | SEO-09 | Line length | Warning | Max 120 characters | Mobile readability |
+
+    | SEO-10 | Heading keywords | Suggestion | Shared with title | Signals relevance
+    to search engines |
+
+    | SEO-11 | Freshness signal | Suggestion | Date in frontmatter | Indicates content
+    currency |
+
+    | SEO-12 | Content depth | Warning | Min 100 words | Prevents thin content penalties
+    |
+
+    | SEO-13 | Duplicate headings | Warning | Zero duplicates | Unique headings for
+    anchor links |
+
+    | SEO-14 | Structured data | Suggestion | Min 1 element | Tables, code blocks,
+    or lists |'
+  assistant_context: 'Use this module when answering questions related to: Quality
+    evidence and gate results (Part 5). Source path: demo-showcase/acme/docs/quality/evidence.md.
+    Summary: Complete quality evidence from the VeriDoc pipeline for VeriOps docs,
+    covering KPI metrics, protocol gates, 24 automated checks, and RAG readiness.
+
+
+    | Check ID | Rule | Severity | Threshold | Purpose |
+
+    | --- | --- | --- | --- | --- |
+
+    | SEO-01 | Title length | Error/Warning | 10-70 characters | Optimal title display
+    in search results |
+
+    | SEO-02 | Title keyword match | Suggestion | 50% overlap | Aligns title with
+    filename keywords |
+
+    | SEO-03 | URL depth | Warning | Max 4 levels | Prevents deep URLs that search
+    engines deprioritize |
+
+    | SEO-04 | URL naming | Warning | Kebab-case | Consistent, readable URL structure
+    |
+
+    | SEO-05 | Image alt text | Warning | 100% coverage | Accessibility and image
+    search visibility |
+
+    | SEO-06 | Internal links | Suggestion | Min 1 link | Cross-references improve
+    crawlability |
+
+    | SEO-07 | Bare URLs | Warning | Zero bare URLs | Requires descriptive link text
+    |
+
+    | SEO-08 | Path characters | Warning | Alphanumeric + hyphens | Prevents encoding
+    issues in URLs |
+
+    | SEO-09 | Line length | Warning | Max 120 characters | Mobile readability |
+
+    | SEO-10 | Heading keywords | Suggestion | Shared with title | Signals relevance
+    to search engines |
+
+    | SEO-11 | Freshness signal | Suggestion | Date in frontmatter | Indicates content
+    currency |
+
+    | SEO-12 | Content depth | Warning | Min 100 words | Prevents thin content penalties
+    |
+
+    | SEO-13 | Duplicate headings | Warning | Zero duplicates | Unique headings for
+    anchor links |
+
+    | SEO-14 | Structured data | Suggestion | Min 1 element | Tables, code blocks,
+    or lists |'

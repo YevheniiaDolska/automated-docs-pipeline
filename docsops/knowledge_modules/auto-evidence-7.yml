@@ -1,0 +1,85 @@
+id: auto-evidence-7
+title: Quality evidence and gate results (Part 7)
+summary: Complete quality evidence from the VeriDoc pipeline for VeriOps docs, covering
+  KPI metrics, protocol gates, 24 automated checks, and RAG readiness.
+intents:
+- integrate
+audiences:
+- developer
+- operator
+channels:
+- docs
+- assistant
+- automation
+priority: 60
+status: active
+owner: docsops-auto
+last_verified: '2026-03-20'
+dependencies: []
+tags:
+- auto-extracted
+- evidence
+- reference
+content:
+  docs_markdown: '## RAG retrieval pipeline
+
+
+    The pipeline generates a knowledge retrieval index that powers AI-driven search
+    and support agents. Results come from `reports/acme-demo/knowledge_graph_report.json`
+    and `reports/acme-demo/retrieval_evals_report.json`.
+
+
+    | Metric | Value | Target | Status |
+
+    | --- | --- | --- | --- |
+
+    | Knowledge graph nodes | **1,272** | -- | Topics, entities, and concepts extracted
+    |
+
+    | Knowledge graph edges | **1,089** | -- | Relationships between nodes |
+
+    | Knowledge modules | **167** | -- | Auto-extracted topic chunks |
+
+    | Retrieval precision | **0.2** | 0.7 | Baseline (token-overlap scorer) |
+
+    | Retrieval recall | **0.6** | 0.8 | Baseline (token-overlap scorer) |
+
+    | Hallucination rate | **0.0** | 0.1 | Pass (all retrieved docs exist in corpus)
+    |
+
+    | Evaluation status | **Baseline** | Pass | Token scorer; advanced pipeline available
+    |'
+  assistant_context: 'Use this module when answering questions related to: Quality
+    evidence and gate results (Part 7). Source path: demo-showcase/acme/docs/quality/evidence.md.
+    Summary: Complete quality evidence from the VeriDoc pipeline for VeriOps docs,
+    covering KPI metrics, protocol gates, 24 automated checks, and RAG readiness.
+
+
+    ## RAG retrieval pipeline
+
+
+    The pipeline generates a knowledge retrieval index that powers AI-driven search
+    and support agents. Results come from `reports/acme-demo/knowledge_graph_report.json`
+    and `reports/acme-demo/retrieval_evals_report.json`.
+
+
+    | Metric | Value | Target | Status |
+
+    | --- | --- | --- | --- |
+
+    | Knowledge graph nodes | **1,272** | -- | Topics, entities, and concepts extracted
+    |
+
+    | Knowledge graph edges | **1,089** | -- | Relationships between nodes |
+
+    | Knowledge modules | **167** | -- | Auto-extracted topic chunks |
+
+    | Retrieval precision | **0.2** | 0.7 | Baseline (token-overlap scorer) |
+
+    | Retrieval recall | **0.6** | 0.8 | Baseline (token-overlap scorer) |
+
+    | Hallucination rate | **0.0** | 0.1 | Pass (all retrieved docs exist in corpus)
+    |
+
+    | Evaluation status | **Baseline** | Pass | Token scorer; advanced pipeline available
+    |'

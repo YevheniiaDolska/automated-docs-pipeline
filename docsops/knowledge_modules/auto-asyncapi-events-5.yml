@@ -1,0 +1,60 @@
+id: auto-asyncapi-events-5
+title: AsyncAPI event docs (Part 5)
+summary: AsyncAPI 2.6.0 event documentation for VeriOps with channel contracts, delivery
+  semantics, payload schemas, and interactive event tester.
+intents:
+- integrate
+audiences:
+- developer
+- operator
+channels:
+- docs
+- assistant
+- automation
+priority: 60
+status: active
+owner: docsops-auto
+last_verified: '2026-03-20'
+dependencies: []
+tags:
+- asyncapi-events
+- auto-extracted
+- reference
+content:
+  docs_markdown: "## Channel: task.completed\n\nFires when a task status changes to\
+    \ `done`.\n\n**Payload schema:**\n\n```json\n{\n  \"event_id\": \"evt_03cde789\"\
+    ,\n  \"event_type\": \"task.completed\",\n  \"occurred_at\": \"2026-03-19T16:00:00Z\"\
+    ,\n  \"producer\": \"veriops-task-service\",\n  \"trace_id\": \"tr_ghi789jkl012\"\
+    ,\n  \"schema_version\": \"1.0.0\",\n  \"data\": {\n    \"task_id\": \"tsk_abc123\"\
+    ,\n    \"project_id\": \"prj_abc123\",\n    \"title\": \"Design homepage mockup\"\
+    ,\n    \"completed_by\": \"usr_456\",\n    \"duration_seconds\": 7200\n  }\n}\n\
+    ```\n\n## Delivery semantics\n\n| Property | Value | Notes |\n| --- | --- | ---\
+    \ |\n| Guarantee | At-least-once | Events may be delivered more than once |\n\
+    | Ordering key | `data.project_id` | Events for the same project arrive in order\
+    \ |\n| Deduplication | Use `event_id` | Store processed event IDs for idempotency\
+    \ checks |\n| Retry policy | 3 retries with exponential backoff | Initial delay\
+    \ 5 seconds, max delay 60 seconds |\n| Dead-letter queue | `{channel}.dlq` | Failed\
+    \ events route here after 3 retries |\n| Consumer acknowledgment | Manual ACK\
+    \ required | Unacknowledged messages redeliver after 300 seconds |\n| Message\
+    \ TTL | 7 days | Messages expire from the queue after 7 days |\n\n## Consumer\
+    \ code examples"
+  assistant_context: "Use this module when answering questions related to: AsyncAPI\
+    \ event docs (Part 5). Source path: demo-showcase/acme/docs/reference/asyncapi-events.md.\
+    \ Summary: AsyncAPI 2.6.0 event documentation for VeriOps with channel contracts,\
+    \ delivery semantics, payload schemas, and interactive event tester.\n\n## Channel:\
+    \ task.completed\n\nFires when a task status changes to `done`.\n\n**Payload schema:**\n\
+    \n```json\n{\n  \"event_id\": \"evt_03cde789\",\n  \"event_type\": \"task.completed\"\
+    ,\n  \"occurred_at\": \"2026-03-19T16:00:00Z\",\n  \"producer\": \"veriops-task-service\"\
+    ,\n  \"trace_id\": \"tr_ghi789jkl012\",\n  \"schema_version\": \"1.0.0\",\n  \"\
+    data\": {\n    \"task_id\": \"tsk_abc123\",\n    \"project_id\": \"prj_abc123\"\
+    ,\n    \"title\": \"Design homepage mockup\",\n    \"completed_by\": \"usr_456\"\
+    ,\n    \"duration_seconds\": 7200\n  }\n}\n```\n\n## Delivery semantics\n\n| Property\
+    \ | Value | Notes |\n| --- | --- | --- |\n| Guarantee | At-least-once | Events\
+    \ may be delivered more than once |\n| Ordering key | `data.project_id` | Events\
+    \ for the same project arrive in order |\n| Deduplication | Use `event_id` | Store\
+    \ processed event IDs for idempotency checks |\n| Retry policy | 3 retries with\
+    \ exponential backoff | Initial delay 5 seconds, max delay 60 seconds |\n| Dead-letter\
+    \ queue | `{channel}.dlq` | Failed events route here after 3 retries |\n| Consumer\
+    \ acknowledgment | Manual ACK required | Unacknowledged messages redeliver after\
+    \ 300 seconds |\n| Message TTL | 7 days | Messages expire from the queue after\
+    \ 7 days |\n\n## Consumer code examples"

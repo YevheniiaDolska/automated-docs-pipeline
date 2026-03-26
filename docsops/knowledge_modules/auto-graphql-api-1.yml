@@ -1,0 +1,73 @@
+id: auto-graphql-api-1
+title: GRAPHQL API Reference
+summary: Auto-generated graphql reference from source contract.
+intents:
+- integrate
+audiences:
+- developer
+- operator
+channels:
+- docs
+- assistant
+- automation
+priority: 60
+status: active
+owner: docsops-auto
+last_verified: '2026-03-20'
+dependencies: []
+tags:
+- auto-extracted
+- graphql-api
+- reference
+content:
+  docs_markdown: '# GRAPHQL Reference
+
+
+    Source: `reports/acme-demo/contracts/graphql.schema.graphql`
+
+
+    Flow mode: `api-first`
+
+
+    ## Operations
+
+
+    - Query count: `2`
+
+    - Mutation count: `1`
+
+    - Subscription count: `1`
+
+    - Queries: `health`, `project`
+
+    - Mutations: `createProject`
+
+    - Subscriptions: `projectUpdated`'
+  assistant_context: 'Use this module when answering questions related to: GRAPHQL
+    API Reference. Source path: demo-showcase/acme/docs/assets/protocols/graphql/graphql-api.md.
+    Summary: Auto-generated graphql reference from source contract.
+
+
+    # GRAPHQL Reference
+
+
+    Source: `reports/acme-demo/contracts/graphql.schema.graphql`
+
+
+    Flow mode: `api-first`
+
+
+    ## Operations
+
+
+    - Query count: `2`
+
+    - Mutation count: `1`
+
+    - Subscription count: `1`
+
+    - Queries: `health`, `project`
+
+    - Mutations: `createProject`
+
+    - Subscriptions: `projectUpdated`'

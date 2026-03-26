@@ -4,11 +4,9 @@ billing_mode: disabled
 model: gpt-4.1-mini
 base_url: https://api.openai.com/v1
 knowledge_index_path: docs/assets/knowledge-retrieval-index.json
+knowledge_graph_path: docs/assets/knowledge-graph.jsonld
+retrieval_eval_report_path: reports/retrieval_evals_report.json
 assistant_bundle_glob: reports/intent-bundles/*-assistant.json
-embedding_model: text-embedding-3-small
-faiss_index_path: docs/assets/retrieval.faiss
-faiss_metadata_path: docs/assets/retrieval-metadata.json
-semantic_retrieval: true
 max_context_modules: 6
 temperature: 0.2
 top_p: 1.0
@@ -20,6 +18,10 @@ allowed_roles:
 rate_limit_per_user_per_minute: 20
 retention_days: 30
 audit_logging: true
+embedding_model: text-embedding-3-small
+faiss_index_path: docs/assets/retrieval.faiss
+faiss_metadata_path: docs/assets/retrieval-metadata.json
+semantic_retrieval: true
 chunking:
   enabled: true
   max_tokens: 750

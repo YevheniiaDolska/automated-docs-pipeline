@@ -1,0 +1,112 @@
+id: auto-concept-3
+title: 'Concept: pipeline-first documentation lifecycle (Part 3)'
+summary: Pipeline-first documentation automates generation, validation, and publishing
+  of API docs from source contracts, reducing review cycles by 60%.
+intents:
+- integrate
+audiences:
+- developer
+- operator
+channels:
+- docs
+- assistant
+- automation
+priority: 60
+status: active
+owner: docsops-auto
+last_verified: '2026-03-20'
+dependencies: []
+tags:
+- auto-extracted
+- concept
+content:
+  docs_markdown: '### Stage 1: ingest
+
+
+    Read source contracts from the repository:
+
+
+    | Contract type | Format | Example path |
+
+    | --- | --- | --- |
+
+    | REST | OpenAPI 3.0 YAML | `api/openapi.yaml` |
+
+    | GraphQL | SDL schema | `contracts/graphql.schema.graphql` |
+
+    | gRPC | Proto3 definition | `contracts/grpc/veriops.proto` |
+
+    | AsyncAPI | AsyncAPI 2.6.0 YAML | `contracts/asyncapi.yaml` |
+
+    | WebSocket | WebSocket contract YAML | `contracts/websocket.yaml` |
+
+
+    ### Stage 2: lint
+
+
+    Validate each contract against protocol-specific rules. REST uses Spectral with
+    18 rules, GraphQL uses schema validation, gRPC uses `protoc` compilation, AsyncAPI
+    uses the AsyncAPI parser, and WebSocket uses custom schema validation.
+
+
+    ### Stage 3: regression
+
+
+    Compare the current contract against the previous snapshot to detect breaking
+    changes. Breaking changes (removed endpoints, renamed fields, changed types) trigger
+    warnings in the review manifest.
+
+
+    ### Stage 4: generate
+
+
+    Produce reference documentation from validated contracts. Each protocol generates
+    endpoint tables, payload schemas, code examples, and interactive testers.'
+  assistant_context: 'Use this module when answering questions related to: Concept:
+    pipeline-first documentation lifecycle (Part 3). Source path: demo-showcase/acme/docs/guides/concept.md.
+    Summary: Pipeline-first documentation automates generation, validation, and publishing
+    of API docs from source contracts, reducing review cycles by 60%.
+
+
+    ### Stage 1: ingest
+
+
+    Read source contracts from the repository:
+
+
+    | Contract type | Format | Example path |
+
+    | --- | --- | --- |
+
+    | REST | OpenAPI 3.0 YAML | `api/openapi.yaml` |
+
+    | GraphQL | SDL schema | `contracts/graphql.schema.graphql` |
+
+    | gRPC | Proto3 definition | `contracts/grpc/veriops.proto` |
+
+    | AsyncAPI | AsyncAPI 2.6.0 YAML | `contracts/asyncapi.yaml` |
+
+    | WebSocket | WebSocket contract YAML | `contracts/websocket.yaml` |
+
+
+    ### Stage 2: lint
+
+
+    Validate each contract against protocol-specific rules. REST uses Spectral with
+    18 rules, GraphQL uses schema validation, gRPC uses `protoc` compilation, AsyncAPI
+    uses the AsyncAPI parser, and WebSocket uses custom schema validation.
+
+
+    ### Stage 3: regression
+
+
+    Compare the current contract against the previous snapshot to detect breaking
+    changes. Breaking changes (removed endpoints, renamed fields, changed types) trigger
+    warnings in the review manifest.
+
+
+    ### Stage 4: generate
+
+
+    Produce reference documentation from validated contracts. Each protocol generates
+    endpoint tables, payload schemas, code examples, and interactive testers.'

@@ -1,0 +1,58 @@
+id: auto-how-to-4
+title: 'How-to: keep docs aligned with every release (Part 4)'
+summary: Run the unified autopipeline on release day to synchronize API documentation
+  across five protocols with quality gates and review manifests.
+intents:
+- configure
+- troubleshoot
+audiences:
+- practitioner
+- developer
+channels:
+- docs
+- assistant
+- automation
+priority: 60
+status: active
+owner: docsops-auto
+last_verified: '2026-03-20'
+dependencies: []
+tags:
+- auto-extracted
+- how-to
+content:
+  docs_markdown: "```text\n[autopipeline] Starting VeriDoc pipeline run\n[autopipeline]\
+    \ Runtime config: reports/acme-demo/client_runtime.yml\n[autopipeline] Protocols\
+    \ enabled: rest, graphql, grpc, asyncapi, websocket\n[stage] multi_protocol_contract\
+    \ ... DONE (5 protocols, 0 failures)\n[stage] kpi_wall ... DONE (quality_score:\
+    \ 100)\n[stage] retrieval_evals ... DONE (167 modules indexed)\n[autopipeline]\
+    \ Pipeline complete. Exit code: 0\n```\n\nAn exit code of 0 confirms all stages\
+    \ passed. A non-zero code indicates stages that need attention.\n\n## Step 2:\
+    \ check protocol contract results\n\nAfter the pipeline completes, verify which\
+    \ protocols passed contract validation:\n\n```bash\npython3 -c \"\nimport json\n\
+    r = json.load(open('reports/acme-demo/multi_protocol_contract_report.json'))\n\
+    for p in r.get('protocols', []):\n    status = 'PASS' if p not in r.get('failed_protocols',\
+    \ []) else 'FAIL'\n    print(f'  {p}: {status}')\nprint(f'Failed: {r.get(\\\"\
+    failed_protocols\\\", [])}')\"\n```\n\n**Expected output:**\n\n```text\n  rest:\
+    \ PASS\n  graphql: PASS\n  grpc: PASS\n  asyncapi: PASS\n  websocket: PASS\nFailed:\
+    \ []\n```\n\nIf any protocol fails, fix the root cause before proceeding. See\
+    \ [Troubleshooting](troubleshooting.md) for common fixes."
+  assistant_context: "Use this module when answering questions related to: How-to:\
+    \ keep docs aligned with every release (Part 4). Source path: demo-showcase/acme/docs/guides/how-to.md.\
+    \ Summary: Run the unified autopipeline on release day to synchronize API documentation\
+    \ across five protocols with quality gates and review manifests.\n\n```text\n\
+    [autopipeline] Starting VeriDoc pipeline run\n[autopipeline] Runtime config: reports/acme-demo/client_runtime.yml\n\
+    [autopipeline] Protocols enabled: rest, graphql, grpc, asyncapi, websocket\n[stage]\
+    \ multi_protocol_contract ... DONE (5 protocols, 0 failures)\n[stage] kpi_wall\
+    \ ... DONE (quality_score: 100)\n[stage] retrieval_evals ... DONE (167 modules\
+    \ indexed)\n[autopipeline] Pipeline complete. Exit code: 0\n```\n\nAn exit code\
+    \ of 0 confirms all stages passed. A non-zero code indicates stages that need\
+    \ attention.\n\n## Step 2: check protocol contract results\n\nAfter the pipeline\
+    \ completes, verify which protocols passed contract validation:\n\n```bash\npython3\
+    \ -c \"\nimport json\nr = json.load(open('reports/acme-demo/multi_protocol_contract_report.json'))\n\
+    for p in r.get('protocols', []):\n    status = 'PASS' if p not in r.get('failed_protocols',\
+    \ []) else 'FAIL'\n    print(f'  {p}: {status}')\nprint(f'Failed: {r.get(\\\"\
+    failed_protocols\\\", [])}')\"\n```\n\n**Expected output:**\n\n```text\n  rest:\
+    \ PASS\n  graphql: PASS\n  grpc: PASS\n  asyncapi: PASS\n  websocket: PASS\nFailed:\
+    \ []\n```\n\nIf any protocol fails, fix the root cause before proceeding. See\
+    \ [Troubleshooting](troubleshooting.md) for common fixes."

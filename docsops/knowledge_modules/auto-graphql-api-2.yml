@@ -1,0 +1,59 @@
+id: auto-graphql-api-2
+title: GRAPHQL API Reference (Part 2)
+summary: Auto-generated graphql reference from source contract.
+intents:
+- configure
+- integrate
+- troubleshoot
+audiences:
+- developer
+- operator
+channels:
+- docs
+- assistant
+- automation
+priority: 60
+status: active
+owner: docsops-auto
+last_verified: '2026-03-20'
+dependencies: []
+tags:
+- auto-extracted
+- graphql-api
+- reference
+content:
+  docs_markdown: "## Interactive GraphQL Playground\n\n<div id=\"graphql-playground\"\
+    \ style=\"border:1px solid #d1d5db; padding:12px; border-radius:8px;\">\n  <p><strong>Endpoint:</strong>\
+    \ <code id=\"graphql-endpoint-view\"></code></p>\n  <textarea id=\"graphql-query\"\
+    \ rows=\"12\" style=\"width:100%; font-family:monospace;\">query HealthCheck {\n\
+    \  __typename\n}</textarea>\n  <br/>\n  <button id=\"graphql-run\">Run Query</button>\n\
+    \  <pre id=\"graphql-output\" style=\"margin-top:12px; max-height:320px; overflow:auto;\"\
+    ></pre>\n</div>\n<script>\n(function(){ const endpoint = \"\";\nconst view = document.getElementById('graphql-endpoint-view');\n\
+    const run = document.getElementById('graphql-run');\nconst query = document.getElementById('graphql-query');\n\
+    const out = document.getElementById('graphql-output');\nif (!view || !run || !query\
+    \ || !out) return;\nview.textContent = endpoint || 'not configured';\nrun.onclick\
+    \ = async function(){\n  if (!endpoint) { out.textContent = 'Endpoint is not configured\
+    \ in runtime.api_protocol_settings.graphql.graphql_endpoint'; return; }\n  out.textContent\
+    \ = 'Loading...';\n  try {\n    const response = await fetch(endpoint, { method:'POST',\
+    \ headers:{'content-type':'application/json'}, body: JSON.stringify({ query: query.value\
+    \ }) });\n    const text = await response.text();\n    out.textContent = text;\n\
+    \  } catch (error) { out.textContent = String(error); }\n};\n})();\n</script>"
+  assistant_context: "Use this module when answering questions related to: GRAPHQL\
+    \ API Reference (Part 2). Source path: demo-showcase/acme/docs/assets/protocols/graphql/graphql-api.md.\
+    \ Summary: Auto-generated graphql reference from source contract.\n\n## Interactive\
+    \ GraphQL Playground\n\n<div id=\"graphql-playground\" style=\"border:1px solid\
+    \ #d1d5db; padding:12px; border-radius:8px;\">\n  <p><strong>Endpoint:</strong>\
+    \ <code id=\"graphql-endpoint-view\"></code></p>\n  <textarea id=\"graphql-query\"\
+    \ rows=\"12\" style=\"width:100%; font-family:monospace;\">query HealthCheck {\n\
+    \  __typename\n}</textarea>\n  <br/>\n  <button id=\"graphql-run\">Run Query</button>\n\
+    \  <pre id=\"graphql-output\" style=\"margin-top:12px; max-height:320px; overflow:auto;\"\
+    ></pre>\n</div>\n<script>\n(function(){ const endpoint = \"\";\nconst view = document.getElementById('graphql-endpoint-view');\n\
+    const run = document.getElementById('graphql-run');\nconst query = document.getElementById('graphql-query');\n\
+    const out = document.getElementById('graphql-output');\nif (!view || !run || !query\
+    \ || !out) return;\nview.textContent = endpoint || 'not configured';\nrun.onclick\
+    \ = async function(){\n  if (!endpoint) { out.textContent = 'Endpoint is not configured\
+    \ in runtime.api_protocol_settings.graphql.graphql_endpoint'; return; }\n  out.textContent\
+    \ = 'Loading...';\n  try {\n    const response = await fetch(endpoint, { method:'POST',\
+    \ headers:{'content-type':'application/json'}, body: JSON.stringify({ query: query.value\
+    \ }) });\n    const text = await response.text();\n    out.textContent = text;\n\
+    \  } catch (error) { out.textContent = String(error); }\n};\n})();\n</script>"

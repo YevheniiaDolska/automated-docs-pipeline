@@ -1,0 +1,40 @@
+id: auto-tutorial-2
+title: 'Tutorial: launch your first VeriOps API integration (Part 2)'
+summary: Build a working VeriOps API integration in 15 minutes with authenticated
+  requests, project creation, and real-time WebSocket subscriptions.
+intents:
+- configure
+- integrate
+audiences:
+- beginner
+- practitioner
+channels:
+- docs
+- assistant
+- automation
+priority: 60
+status: active
+owner: docsops-auto
+last_verified: '2026-03-20'
+dependencies: []
+tags:
+- auto-extracted
+- tutorial
+content:
+  docs_markdown: "## Before you start\n\nYou need:\n\n- An VeriOps API key from the\
+    \ [developer dashboard](https://app.veriops.example/settings/api)\n- `curl` version\
+    \ 7.68 or later (run `curl --version` to verify)\n- Node.js version 18 or later\
+    \ for the WebSocket client (run `node --version` to verify)\n- A terminal with\
+    \ internet access\n- About 15 minutes\n\n!!! tip \"Save time\"\n    Export your\
+    \ API key as an environment variable to avoid repeating it in every command:\n\
+    \    `export VERIOPS_API_KEY=\"YOUR_API_KEY\"`"
+  assistant_context: "Use this module when answering questions related to: Tutorial:\
+    \ launch your first VeriOps API integration (Part 2). Source path: demo-showcase/acme/docs/guides/tutorial.md.\
+    \ Summary: Build a working VeriOps API integration in 15 minutes with authenticated\
+    \ requests, project creation, and real-time WebSocket subscriptions.\n\n## Before\
+    \ you start\n\nYou need:\n\n- An VeriOps API key from the [developer dashboard](https://app.veriops.example/settings/api)\n\
+    - `curl` version 7.68 or later (run `curl --version` to verify)\n- Node.js version\
+    \ 18 or later for the WebSocket client (run `node --version` to verify)\n- A terminal\
+    \ with internet access\n- About 15 minutes\n\n!!! tip \"Save time\"\n    Export\
+    \ your API key as an environment variable to avoid repeating it in every command:\n\
+    \    `export VERIOPS_API_KEY=\"YOUR_API_KEY\"`"

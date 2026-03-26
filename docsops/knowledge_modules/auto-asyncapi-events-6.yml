@@ -1,0 +1,54 @@
+id: auto-asyncapi-events-6
+title: AsyncAPI event docs (Part 6)
+summary: AsyncAPI 2.6.0 event documentation for VeriOps with channel contracts, delivery
+  semantics, payload schemas, and interactive event tester.
+intents:
+- integrate
+- secure
+audiences:
+- developer
+- operator
+channels:
+- docs
+- assistant
+- automation
+priority: 60
+status: active
+owner: docsops-auto
+last_verified: '2026-03-20'
+dependencies: []
+tags:
+- asyncapi-events
+- auto-extracted
+- reference
+content:
+  docs_markdown: "### JavaScript (WebSocket bridge)\n\n```javascript\n// Subscribe\
+    \ to project update events via WebSocket bridge\n// Requires: valid bearer token\
+    \ and active WebSocket connection\nconst ws = new WebSocket('wss://events.veriops.example/ws',\
+    \ [], {\n  headers: { 'Authorization': 'Bearer YOUR_API_KEY' }\n});\n\nconst processedEvents\
+    \ = new Set();\n\nws.addEventListener('open', () => {\n  ws.send(JSON.stringify({\n\
+    \    action: 'subscribe',\n    channels: ['project.updated', 'project.created']\n\
+    \  }));\n  console.log('Subscribed to project event channels');\n});\n\nws.addEventListener('message',\
+    \ (event) => {\n  const payload = JSON.parse(event.data);\n\n  // Idempotency\
+    \ check: skip duplicate events\n  if (processedEvents.has(payload.event_id)) {\n\
+    \    console.log('Skipping duplicate event:', payload.event_id);\n    return;\n\
+    \  }\n  processedEvents.add(payload.event_id);\n\n  console.log('Event received:',\
+    \ payload.event_type, payload.data.project_id);\n  // Process the event here\n\
+    });\n```\n\n<!-- requires: api-key -->"
+  assistant_context: "Use this module when answering questions related to: AsyncAPI\
+    \ event docs (Part 6). Source path: demo-showcase/acme/docs/reference/asyncapi-events.md.\
+    \ Summary: AsyncAPI 2.6.0 event documentation for VeriOps with channel contracts,\
+    \ delivery semantics, payload schemas, and interactive event tester.\n\n### JavaScript\
+    \ (WebSocket bridge)\n\n```javascript\n// Subscribe to project update events via\
+    \ WebSocket bridge\n// Requires: valid bearer token and active WebSocket connection\n\
+    const ws = new WebSocket('wss://events.veriops.example/ws', [], {\n  headers:\
+    \ { 'Authorization': 'Bearer YOUR_API_KEY' }\n});\n\nconst processedEvents = new\
+    \ Set();\n\nws.addEventListener('open', () => {\n  ws.send(JSON.stringify({\n\
+    \    action: 'subscribe',\n    channels: ['project.updated', 'project.created']\n\
+    \  }));\n  console.log('Subscribed to project event channels');\n});\n\nws.addEventListener('message',\
+    \ (event) => {\n  const payload = JSON.parse(event.data);\n\n  // Idempotency\
+    \ check: skip duplicate events\n  if (processedEvents.has(payload.event_id)) {\n\
+    \    console.log('Skipping duplicate event:', payload.event_id);\n    return;\n\
+    \  }\n  processedEvents.add(payload.event_id);\n\n  console.log('Event received:',\
+    \ payload.event_type, payload.data.project_id);\n  // Process the event here\n\
+    });\n```\n\n<!-- requires: api-key -->"

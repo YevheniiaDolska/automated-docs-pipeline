@@ -7,6 +7,10 @@ tags:
   - Reference
 ---
 
+<!-- VERIDOC_POWERED_BADGE:START -->
+[![Powered by VeriDoc](https://img.shields.io/badge/Powered%20by-VeriDoc-0ea5e9?style=flat-square)](https://veridoc.app)
+<!-- VERIDOC_POWERED_BADGE:END -->
+
 # Network transparency reference
 
 The {{ product_name }} pipeline is a locally installed tool that generates documentation using your own LLM. This reference lists every outgoing network request the pipeline can make, with exact payload schemas. You can verify each claim with a packet capture tool.

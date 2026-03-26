@@ -1,0 +1,87 @@
+id: auto-asyncapi-api-3
+title: ASYNCAPI API Reference (Part 3)
+summary: Auto-generated asyncapi reference from source contract.
+intents:
+- configure
+- integrate
+- troubleshoot
+audiences:
+- developer
+- operator
+channels:
+- docs
+- assistant
+- automation
+priority: 60
+status: active
+owner: docsops-auto
+last_verified: '2026-03-20'
+dependencies: []
+tags:
+- asyncapi-api
+- auto-extracted
+- reference
+content:
+  docs_markdown: "<div id=\"asyncapi-playground\" style=\"border:1px solid #d1d5db;\
+    \ padding:12px; border-radius:8px;\">\n  <p><strong>WebSocket Endpoint:</strong>\
+    \ <code id=\"asyncapi-ws-view\"></code></p>\n  <p><strong>HTTP Publish Endpoint:</strong>\
+    \ <code id=\"asyncapi-http-view\"></code></p>\n  <!-- vale Google.Quotes = NO\
+    \ -->\n  <textarea id=\"asyncapi-message\" rows=\"8\" style=\"width:100%; font-family:monospace;\"\
+    >{\n  \"event\": \"health\",\n  \"value\": \"ok\"\n}</textarea><br/>\n  <!-- vale\
+    \ Google.Quotes = YES -->\n  <button id=\"asyncapi-send-ws\">Send via WebSocket</button>\n\
+    \  <button id=\"asyncapi-send-http\">Send via HTTP</button>\n  <pre id=\"asyncapi-output\"\
+    \ style=\"margin-top:12px; max-height:320px; overflow:auto;\"></pre>\n</div>\n\
+    <script>\n(function(){ const wsEndpoint = \"\"; const httpEndpoint = \"\";\nconst\
+    \ wsView = document.getElementById('asyncapi-ws-view');\nconst httpView = document.getElementById('asyncapi-http-view');\n\
+    const sendWs = document.getElementById('asyncapi-send-ws');\nconst sendHttp =\
+    \ document.getElementById('asyncapi-send-http');\nconst msg = document.getElementById('asyncapi-message');\n\
+    const out = document.getElementById('asyncapi-output');\nif (!wsView || !httpView\
+    \ || !sendWs || !sendHttp || !msg || !out) return;\nwsView.textContent = wsEndpoint\
+    \ || 'not configured';\nhttpView.textContent = httpEndpoint || 'not configured';\n\
+    sendWs.onclick = function(){\n  if (!wsEndpoint) { out.textContent = 'WebSocket\
+    \ endpoint is not configured (runtime.api_protocol_settings.asyncapi.asyncapi_ws_endpoint)';\
+    \ return; }\n  try {\n    const socket = new WebSocket(wsEndpoint);\n    socket.onopen\
+    \ = function(){ socket.send(msg.value); out.textContent = 'sent over websocket';\
+    \ socket.close(); };\n    socket.onerror = function(e){ out.textContent = String(e);\
+    \ };\n    socket.onmessage = function(e){ out.textContent = String(e.data); };\n\
+    \  } catch (error) { out.textContent = String(error); }\n};\nsendHttp.onclick\
+    \ = async function(){\n  if (!httpEndpoint) { out.textContent = 'HTTP publish\
+    \ endpoint is not configured (runtime.api_protocol_settings.asyncapi.asyncapi_http_publish_endpoint)';\
+    \ return; }\n  out.textContent = 'Loading...';\n  try {\n    const body = JSON.parse(msg.value\
+    \ || '{}');\n    const response = await fetch(httpEndpoint, { method:'POST', headers:{'content-type':'application/json'},\
+    \ body: JSON.stringify(body) });\n    const text = await response.text();\n  \
+    \  out.textContent = text;\n  } catch (error) { out.textContent = String(error);\
+    \ }\n};\n})();\n</script>"
+  assistant_context: "Use this module when answering questions related to: ASYNCAPI\
+    \ API Reference (Part 3). Source path: demo-showcase/acme/docs/assets/protocols/asyncapi/asyncapi-api.md.\
+    \ Summary: Auto-generated asyncapi reference from source contract.\n\n<div id=\"\
+    asyncapi-playground\" style=\"border:1px solid #d1d5db; padding:12px; border-radius:8px;\"\
+    >\n  <p><strong>WebSocket Endpoint:</strong> <code id=\"asyncapi-ws-view\"></code></p>\n\
+    \  <p><strong>HTTP Publish Endpoint:</strong> <code id=\"asyncapi-http-view\"\
+    ></code></p>\n  <!-- vale Google.Quotes = NO -->\n  <textarea id=\"asyncapi-message\"\
+    \ rows=\"8\" style=\"width:100%; font-family:monospace;\">{\n  \"event\": \"health\"\
+    ,\n  \"value\": \"ok\"\n}</textarea><br/>\n  <!-- vale Google.Quotes = YES -->\n\
+    \  <button id=\"asyncapi-send-ws\">Send via WebSocket</button>\n  <button id=\"\
+    asyncapi-send-http\">Send via HTTP</button>\n  <pre id=\"asyncapi-output\" style=\"\
+    margin-top:12px; max-height:320px; overflow:auto;\"></pre>\n</div>\n<script>\n\
+    (function(){ const wsEndpoint = \"\"; const httpEndpoint = \"\";\nconst wsView\
+    \ = document.getElementById('asyncapi-ws-view');\nconst httpView = document.getElementById('asyncapi-http-view');\n\
+    const sendWs = document.getElementById('asyncapi-send-ws');\nconst sendHttp =\
+    \ document.getElementById('asyncapi-send-http');\nconst msg = document.getElementById('asyncapi-message');\n\
+    const out = document.getElementById('asyncapi-output');\nif (!wsView || !httpView\
+    \ || !sendWs || !sendHttp || !msg || !out) return;\nwsView.textContent = wsEndpoint\
+    \ || 'not configured';\nhttpView.textContent = httpEndpoint || 'not configured';\n\
+    sendWs.onclick = function(){\n  if (!wsEndpoint) { out.textContent = 'WebSocket\
+    \ endpoint is not configured (runtime.api_protocol_settings.asyncapi.asyncapi_ws_endpoint)';\
+    \ return; }\n  try {\n    const socket = new WebSocket(wsEndpoint);\n    socket.onopen\
+    \ = function(){ socket.send(msg.value); out.textContent = 'sent over websocket';\
+    \ socket.close(); };\n    socket.onerror = function(e){ out.textContent = String(e);\
+    \ };\n    socket.onmessage = function(e){ out.textContent = String(e.data); };\n\
+    \  } catch (error) { out.textContent = String(error); }\n};\nsendHttp.onclick\
+    \ = async function(){\n  if (!httpEndpoint) { out.textContent = 'HTTP publish\
+    \ endpoint is not configured (runtime.api_protocol_settings.asyncapi.asyncapi_http_publish_endpoint)';\
+    \ return; }\n  out.textContent = 'Loading...';\n  try {\n    const body = JSON.parse(msg.value\
+    \ || '{}');\n    const response = await fetch(httpEndpoint, { method:'POST', headers:{'content-type':'application/json'},\
+    \ body: JSON.stringify(body) });\n    const text = await response.text();\n  \
+    \  out.textContent = text;\n  } catch (error) { out.textContent = String(error);\
+    \ }\n};\n})();\n</script>"

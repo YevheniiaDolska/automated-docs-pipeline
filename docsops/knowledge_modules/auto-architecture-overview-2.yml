@@ -1,0 +1,99 @@
+id: auto-architecture-overview-2
+title: VeriOps API platform architecture (Part 2)
+summary: Interactive architecture diagram showing the VeriOps API platform with 5
+  protocol gateways, 4 microservices, and data infrastructure across 5 layers.
+intents:
+- integrate
+audiences:
+- developer
+- operator
+channels:
+- docs
+- assistant
+- automation
+priority: 60
+status: active
+owner: docsops-auto
+last_verified: '2026-03-20'
+dependencies: []
+tags:
+- architecture-overview
+- auto-extracted
+- concept
+content:
+  docs_markdown: '### Clients layer (4 components)
+
+
+    | Client | Protocol | Description |
+
+    | --- | --- | --- |
+
+    | SDK Clients | REST, gRPC | Auto-generated libraries for Python, JavaScript,
+    Go, and Java |
+
+    | Web Dashboard | REST, WebSocket | React SPA with real-time project boards and
+    notifications |
+
+    | Mobile Apps | REST, gRPC | iOS (Swift) and Android (Kotlin) with offline-first
+    architecture |
+
+    | Webhook Consumers | HTTP POST | External integrations receiving at-least-once
+    event delivery |
+
+
+    ### Edge and security layer (3 components)
+
+
+    | Component | Function | Key metric |
+
+    | --- | --- | --- |
+
+    | CDN | Content delivery, TLS termination, HTTP/2 | 99.99% uptime SLA, 12 points
+    of presence |
+
+    | WAF | SQL injection, XSS, DDoS protection | 2 million malicious request blocks
+    per day |
+
+    | Rate Limiter | Per-key request throttling via Redis | 60 requests per minute
+    default, configurable per plan |'
+  assistant_context: 'Use this module when answering questions related to: VeriOps
+    API platform architecture (Part 2). Source path: demo-showcase/acme/docs/guides/architecture-overview.md.
+    Summary: Interactive architecture diagram showing the VeriOps API platform with
+    5 protocol gateways, 4 microservices, and data infrastructure across 5 layers.
+
+
+    ### Clients layer (4 components)
+
+
+    | Client | Protocol | Description |
+
+    | --- | --- | --- |
+
+    | SDK Clients | REST, gRPC | Auto-generated libraries for Python, JavaScript,
+    Go, and Java |
+
+    | Web Dashboard | REST, WebSocket | React SPA with real-time project boards and
+    notifications |
+
+    | Mobile Apps | REST, gRPC | iOS (Swift) and Android (Kotlin) with offline-first
+    architecture |
+
+    | Webhook Consumers | HTTP POST | External integrations receiving at-least-once
+    event delivery |
+
+
+    ### Edge and security layer (3 components)
+
+
+    | Component | Function | Key metric |
+
+    | --- | --- | --- |
+
+    | CDN | Content delivery, TLS termination, HTTP/2 | 99.99% uptime SLA, 12 points
+    of presence |
+
+    | WAF | SQL injection, XSS, DDoS protection | 2 million malicious request blocks
+    per day |
+
+    | Rate Limiter | Per-key request throttling via Redis | 60 requests per minute
+    default, configurable per plan |'

@@ -1,0 +1,61 @@
+id: auto-websocket-events-2
+title: WebSocket event playground (Part 2)
+summary: Interactive WebSocket playground for VeriOps real-time API with bidirectional
+  messaging, channel subscriptions, and connection lifecycle management.
+intents:
+- integrate
+audiences:
+- developer
+- operator
+channels:
+- docs
+- assistant
+- automation
+priority: 60
+status: active
+owner: docsops-auto
+last_verified: '2026-03-20'
+dependencies: []
+tags:
+- auto-extracted
+- reference
+- websocket-events
+content:
+  docs_markdown: "## Message envelope\n\nEvery client-to-server and server-to-client\
+    \ message uses this JSON envelope:\n\n```json\n{\n  \"type\": \"subscribe\",\n\
+    \  \"request_id\": \"req_001\",\n  \"sent_at\": \"2026-03-19T14:30:00Z\",\n  \"\
+    payload\": {\n    \"channel\": \"project.updated\",\n    \"filters\": {\"project_id\"\
+    : \"prj_abc123\"}\n  }\n}\n```\n\n### Envelope fields\n\n| Field | Type | Required\
+    \ | Description |\n| --- | --- | --- | --- |\n| `type` | string | Yes | Message\
+    \ type: `subscribe`, `unsubscribe`, `publish`, `ping`, `ack`, `event` |\n| `request_id`\
+    \ | string | Yes | Client-generated ID for request/response correlation |\n| `sent_at`\
+    \ | string (ISO 8601) | No | Timestamp when the message was sent |\n| `payload`\
+    \ | object | Varies | Message-specific data |\n\n### Message types\n\n| Type |\
+    \ Direction | Description |\n| --- | --- | --- |\n| `subscribe` | Client to server\
+    \ | Subscribe to a channel with optional filters |\n| `unsubscribe` | Client to\
+    \ server | Unsubscribe from a channel |\n| `publish` | Client to server | Send\
+    \ a message to a channel |\n| `ping` | Bidirectional | Heartbeat ping (server\
+    \ sends every 30 seconds) |\n| `pong` | Client to server | Response to server\
+    \ ping |\n| `ack` | Server to client | Acknowledgment of a client request |\n\
+    | `event` | Server to client | Channel event pushed by the server |"
+  assistant_context: "Use this module when answering questions related to: WebSocket\
+    \ event playground (Part 2). Source path: demo-showcase/acme/docs/reference/websocket-events.md.\
+    \ Summary: Interactive WebSocket playground for VeriOps real-time API with bidirectional\
+    \ messaging, channel subscriptions, and connection lifecycle management.\n\n##\
+    \ Message envelope\n\nEvery client-to-server and server-to-client message uses\
+    \ this JSON envelope:\n\n```json\n{\n  \"type\": \"subscribe\",\n  \"request_id\"\
+    : \"req_001\",\n  \"sent_at\": \"2026-03-19T14:30:00Z\",\n  \"payload\": {\n \
+    \   \"channel\": \"project.updated\",\n    \"filters\": {\"project_id\": \"prj_abc123\"\
+    }\n  }\n}\n```\n\n### Envelope fields\n\n| Field | Type | Required | Description\
+    \ |\n| --- | --- | --- | --- |\n| `type` | string | Yes | Message type: `subscribe`,\
+    \ `unsubscribe`, `publish`, `ping`, `ack`, `event` |\n| `request_id` | string\
+    \ | Yes | Client-generated ID for request/response correlation |\n| `sent_at`\
+    \ | string (ISO 8601) | No | Timestamp when the message was sent |\n| `payload`\
+    \ | object | Varies | Message-specific data |\n\n### Message types\n\n| Type |\
+    \ Direction | Description |\n| --- | --- | --- |\n| `subscribe` | Client to server\
+    \ | Subscribe to a channel with optional filters |\n| `unsubscribe` | Client to\
+    \ server | Unsubscribe from a channel |\n| `publish` | Client to server | Send\
+    \ a message to a channel |\n| `ping` | Bidirectional | Heartbeat ping (server\
+    \ sends every 30 seconds) |\n| `pong` | Client to server | Response to server\
+    \ ping |\n| `ack` | Server to client | Acknowledgment of a client request |\n\
+    | `event` | Server to client | Channel event pushed by the server |"

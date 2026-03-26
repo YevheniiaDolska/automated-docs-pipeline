@@ -1,0 +1,89 @@
+id: auto-review-manifest-6
+title: 'Review manifest: operator approval checkpoint (Part 6)'
+summary: Operator review manifest with artifact inventory, stage summary, and approval
+  checklist for the Acme documentation pipeline.
+intents:
+- integrate
+audiences:
+- developer
+- operator
+channels:
+- docs
+- assistant
+- automation
+priority: 60
+status: active
+owner: docsops-auto
+last_verified: '2026-03-20'
+dependencies: []
+tags:
+- auto-extracted
+- reference
+- review-manifest
+content:
+  docs_markdown: '- `Consolidated report` -> `/mnt/c/Users/Kroha/Documents/development/Auto-Doc
+    Pipeline/reports/acme-demo/consolidated_report.json`
+
+    - `Audit scorecard (JSON)` -> `/mnt/c/Users/Kroha/Documents/development/Auto-Doc
+    Pipeline/reports/acme-demo/audit_scorecard.json`
+
+    - `Audit scorecard (HTML)` -> `/mnt/c/Users/Kroha/Documents/development/Auto-Doc
+    Pipeline/reports/acme-demo/audit_scorecard.html`
+
+    - `Finalize gate report` -> `/mnt/c/Users/Kroha/Documents/development/Auto-Doc
+    Pipeline/reports/acme-demo/finalize_gate_report.json`
+
+    - `VeriOps status` -> `/mnt/c/Users/Kroha/Documents/development/Auto-Doc Pipeline/reports/acme-demo/docsops_status.json`
+
+    - `Ready marker` -> `/mnt/c/Users/Kroha/Documents/development/Auto-Doc Pipeline/reports/acme-demo/READY_FOR_REVIEW.txt`
+
+    - `API test cases JSON` -> `/mnt/c/Users/Kroha/Documents/development/Auto-Doc
+    Pipeline/reports/acme-demo/api-test-assets/api_test_cases.json`
+
+    - `TestRail CSV` -> `/mnt/c/Users/Kroha/Documents/development/Auto-Doc Pipeline/reports/acme-demo/api-test-assets/testrail_test_cases.csv`
+
+    - `Zephyr JSON` -> `/mnt/c/Users/Kroha/Documents/development/Auto-Doc Pipeline/reports/acme-demo/api-test-assets/zephyr_test_cases.json`
+
+    - `Test coverage report` -> `/mnt/c/Users/Kroha/Documents/development/Auto-Doc
+    Pipeline/reports/acme-demo/api-test-assets/coverage_report.json`
+
+    - `Fuzz scenarios` -> `/mnt/c/Users/Kroha/Documents/development/Auto-Doc Pipeline/reports/acme-demo/api-test-assets/fuzz_scenarios.json`
+
+    - `KPI SLA report` -> `/mnt/c/Users/Kroha/Documents/development/Auto-Doc Pipeline/reports/acme-demo/kpi-sla-report.json`
+    (module: `kpi_sla`)'
+  assistant_context: 'Use this module when answering questions related to: Review
+    manifest: operator approval checkpoint (Part 6). Source path: demo-showcase/acme/docs/quality/review-manifest.md.
+    Summary: Operator review manifest with artifact inventory, stage summary, and
+    approval checklist for the Acme documentation pipeline.
+
+
+    - `Consolidated report` -> `/mnt/c/Users/Kroha/Documents/development/Auto-Doc
+    Pipeline/reports/acme-demo/consolidated_report.json`
+
+    - `Audit scorecard (JSON)` -> `/mnt/c/Users/Kroha/Documents/development/Auto-Doc
+    Pipeline/reports/acme-demo/audit_scorecard.json`
+
+    - `Audit scorecard (HTML)` -> `/mnt/c/Users/Kroha/Documents/development/Auto-Doc
+    Pipeline/reports/acme-demo/audit_scorecard.html`
+
+    - `Finalize gate report` -> `/mnt/c/Users/Kroha/Documents/development/Auto-Doc
+    Pipeline/reports/acme-demo/finalize_gate_report.json`
+
+    - `VeriOps status` -> `/mnt/c/Users/Kroha/Documents/development/Auto-Doc Pipeline/reports/acme-demo/docsops_status.json`
+
+    - `Ready marker` -> `/mnt/c/Users/Kroha/Documents/development/Auto-Doc Pipeline/reports/acme-demo/READY_FOR_REVIEW.txt`
+
+    - `API test cases JSON` -> `/mnt/c/Users/Kroha/Documents/development/Auto-Doc
+    Pipeline/reports/acme-demo/api-test-assets/api_test_cases.json`
+
+    - `TestRail CSV` -> `/mnt/c/Users/Kroha/Documents/development/Auto-Doc Pipeline/reports/acme-demo/api-test-assets/testrail_test_cases.csv`
+
+    - `Zephyr JSON` -> `/mnt/c/Users/Kroha/Documents/development/Auto-Doc Pipeline/reports/acme-demo/api-test-assets/zephyr_test_cases.json`
+
+    - `Test coverage report` -> `/mnt/c/Users/Kroha/Documents/development/Auto-Doc
+    Pipeline/reports/acme-demo/api-test-assets/coverage_report.json`
+
+    - `Fuzz scenarios` -> `/mnt/c/Users/Kroha/Documents/development/Auto-Doc Pipeline/reports/acme-demo/api-test-assets/fuzz_scenarios.json`
+
+    - `KPI SLA report` -> `/mnt/c/Users/Kroha/Documents/development/Auto-Doc Pipeline/reports/acme-demo/kpi-sla-report.json`
+    (module: `kpi_sla`)'

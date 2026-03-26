@@ -1,0 +1,56 @@
+id: auto-how-to-2
+title: 'How-to: keep docs aligned with every release (Part 2)'
+summary: Run the unified autopipeline on release day to synchronize API documentation
+  across five protocols with quality gates and review manifests.
+intents:
+- configure
+audiences:
+- practitioner
+- developer
+channels:
+- docs
+- assistant
+- automation
+priority: 60
+status: active
+owner: docsops-auto
+last_verified: '2026-03-20'
+dependencies: []
+tags:
+- auto-extracted
+- how-to
+content:
+  docs_markdown: '## When to run this flow
+
+
+    Run the autopipeline when any of these conditions apply:
+
+
+    - A new API version ships to production
+
+    - A protocol contract file changes (OpenAPI, GraphQL schema, proto, AsyncAPI spec,
+    WebSocket contract)
+
+    - The weekly automation schedule triggers (configured in `client_runtime.yml`)
+
+    - Documentation gaps exceed the SLA threshold (default: 10 high-priority gaps)'
+  assistant_context: 'Use this module when answering questions related to: How-to:
+    keep docs aligned with every release (Part 2). Source path: demo-showcase/acme/docs/guides/how-to.md.
+    Summary: Run the unified autopipeline on release day to synchronize API documentation
+    across five protocols with quality gates and review manifests.
+
+
+    ## When to run this flow
+
+
+    Run the autopipeline when any of these conditions apply:
+
+
+    - A new API version ships to production
+
+    - A protocol contract file changes (OpenAPI, GraphQL schema, proto, AsyncAPI spec,
+    WebSocket contract)
+
+    - The weekly automation schedule triggers (configured in `client_runtime.yml`)
+
+    - Documentation gaps exceed the SLA threshold (default: 10 high-priority gaps)'

@@ -1,0 +1,67 @@
+id: auto-index-1
+title: VeriOps documentation
+summary: Pipeline-generated multi-protocol API documentation for VeriOps with KPI
+  dashboard, interactive references, and automated quality gates.
+intents:
+- integrate
+audiences:
+- developer
+- operator
+channels:
+- docs
+- assistant
+- automation
+priority: 60
+status: active
+owner: docsops-auto
+last_verified: '2026-03-20'
+dependencies: []
+tags:
+- auto-extracted
+- index
+- reference
+content:
+  docs_markdown: '# VeriOps documentation
+
+
+    <div class="veriops-badges" markdown>
+
+
+    ![Powered by VeriOps](https://img.shields.io/badge/Powered%20by-VeriOps-7c3aed?style=flat-square)
+
+    ![Quality Score](https://img.shields.io/badge/Quality%20Score-100%25-10b981?style=flat-square)
+
+    ![Protocols](https://img.shields.io/badge/Protocols-5-7c3aed?style=flat-square)
+
+
+    </div>
+
+
+    The VeriOps documentation site is a pipeline-generated showcase that provides
+    interactive references for five API protocols, automated quality evidence, and
+    a KPI dashboard updated on every pipeline run.'
+  assistant_context: 'Use this module when answering questions related to: VeriOps
+    documentation. Source path: demo-showcase/acme/docs/index.md. Summary: Pipeline-generated
+    multi-protocol API documentation for VeriOps with KPI dashboard, interactive references,
+    and automated quality gates.
+
+
+    # VeriOps documentation
+
+
+    <div class="veriops-badges" markdown>
+
+
+    ![Powered by VeriOps](https://img.shields.io/badge/Powered%20by-VeriOps-7c3aed?style=flat-square)
+
+    ![Quality Score](https://img.shields.io/badge/Quality%20Score-100%25-10b981?style=flat-square)
+
+    ![Protocols](https://img.shields.io/badge/Protocols-5-7c3aed?style=flat-square)
+
+
+    </div>
+
+
+    The VeriOps documentation site is a pipeline-generated showcase that provides
+    interactive references for five API protocols, automated quality evidence, and
+    a KPI dashboard updated on every pipeline run.'

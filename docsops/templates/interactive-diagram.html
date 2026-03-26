@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>[System] Architecture</title>
+<style>
+  /* Light theme (default) */
+  :root {
+    --bg: #ffffff;
+    --surface: #f8fafc;
+    --border: #e2e8f0;
+    --text: #1e293b;
+    --text-muted: #64748b;
+    --accent: #6366f1;
+    --accent-glow: rgba(99, 102, 241, 0.2);
+    --success: #10b981;
+    --warning: #f59e0b;
+    --danger: #ef4444;
+  }
+
+  /* Dark theme: auto-detect from parent page or OS preference */
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #0f172a;
+      --surface: #1e293b;
+      --border: #334155;
+      --text: #e2e8f0;
+      --text-muted: #94a3b8;
+      --accent: #818cf8;
+      --accent-glow: rgba(129, 140, 248, 0.3);
+      --success: #34d399;
+      --warning: #fbbf24;
+      --danger: #f87171;
+    }
+  }
+
+  /* Explicit dark theme (set by JS from parent page) */
+  [data-theme="dark"] {
+    --bg: #0f172a;
+    --surface: #1e293b;
+    --border: #334155;
+    --text: #e2e8f0;
+    --text-muted: #94a3b8;
+    --accent: #818cf8;
+    --accent-glow: rgba(129, 140, 248, 0.3);
+    --success: #34d399;
+    --warning: #fbbf24;
+    --danger: #f87171;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 2rem 1rem;
+  }
+
+  h1 {
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+    color: var(--text);
+  }
+
+  .subtitle {
+    color: var(--text-muted);
+    font-size: 0.875rem;
+    margin-bottom: 2rem;
+  }
+
+  .diagram {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    width: 100%;
+    max-width: 900px;
+  }
+
+  .layer {
+    display: flex;
+    gap: 0.75rem;
+    justify-content: center;
+    flex-wrap: wrap;
+    width: 100%;
+  }
+
+  .layer-label {
+    width: 100%;
+    text-align: center;
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--text-muted);
+    margin-bottom: -0.5rem;
+  }
+
+  .component {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 0.875rem 1.25rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    text-align: center;
+    min-width: 140px;
+    position: relative;
+  }
+
+  .component:hover {
+    border-color: var(--accent);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
+  }
+
+  .component.active {
+    border-color: var(--accent);
+    box-shadow: 0 0 20px var(--accent-glow);
+  }
+
+  .component .icon {
+    font-size: 1.5rem;
+    display: block;
+    margin-bottom: 0.375rem;
+  }
+
+  .component .name {
+    font-size: 0.8rem;
+    font-weight: 600;
+  }
+
+  .component .metric {
+    font-size: 0.65rem;
+    color: var(--text-muted);
+    margin-top: 0.25rem;
+  }
+
+  .arrow-row {
+    display: flex;
+    justify-content: center;
+    color: var(--text-muted);
+    font-size: 1.25rem;
+    animation: pulse-down 2s infinite;
+  }
+
+  @keyframes pulse-down {
+    0%, 100% { opacity: 0.4; }
+    50% { opacity: 1; }
+  }
+
+  .info-panel {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 1.25rem 1.5rem;
+    width: 100%;
+    max-width: 900px;
+    margin-top: 1.5rem;
+    min-height: 120px;
+    transition: all 0.2s ease;
+  }
+
+  .info-panel.active {
+    border-color: var(--accent);
+  }
+
+  .info-panel h3 {
+    font-size: 1rem;
+    margin-bottom: 0.5rem;
+    color: var(--accent);
+  }
+
+  .info-panel p {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    line-height: 1.6;
+  }
+
+  .info-panel .tag {
+    display: inline-block;
+    background: rgba(129, 140, 248, 0.15);
+    color: var(--accent);
+    padding: 0.15rem 0.5rem;
+    border-radius: 4px;
+    font-size: 0.7rem;
+    margin-top: 0.75rem;
+    margin-right: 0.375rem;
+  }
+
+  .info-default {
+    color: var(--text-muted);
+    font-style: italic;
+    font-size: 0.85rem;
+  }
+</style>
+</head>
+<body>
+
+<h1>[System] Architecture</h1>
+<p class="subtitle">Click any component to see details</p>
+
+<!-- === EDIT THIS SECTION: Add/remove layers and components === -->
+<div class="diagram">
+
+  <div class="layer-label">Clients</div>
+  <div class="layer">
+    <div class="component" data-id="sdk" onclick="showInfo('sdk')">
+      <span class="icon">&#128187;</span>
+      <div class="name">SDK Clients</div>
+      <div class="metric">500K daily</div>
+    </div>
+    <div class="component" data-id="web" onclick="showInfo('web')">
+      <span class="icon">&#127760;</span>
+      <div class="name">Web Dashboard</div>
+      <div class="metric">200K daily</div>
+    </div>
+    <div class="component" data-id="api" onclick="showInfo('api')">
+      <span class="icon">&#128268;</span>
+      <div class="name">REST API</div>
+      <div class="metric">300K daily</div>
+    </div>
+  </div>
+
+  <div class="arrow-row">&#8595; &#8595; &#8595;</div>
+
+  <div class="layer-label">Edge</div>
+  <div class="layer">
+    <div class="component" data-id="cdn" onclick="showInfo('cdn')">
+      <span class="icon">&#127758;</span>
+      <div class="name">CDN</div>
+      <div class="metric">99.99% uptime</div>
+    </div>
+    <div class="component" data-id="waf" onclick="showInfo('waf')">
+      <span class="icon">&#128737;</span>
+      <div class="name">WAF</div>
+      <div class="metric">2M blocks/day</div>
+    </div>
+  </div>
+
+  <div class="arrow-row">&#8595; &#8595;</div>
+
+  <div class="layer-label">Gateway</div>
+  <div class="layer">
+    <div class="component" data-id="lb" onclick="showInfo('lb')">
+      <span class="icon">&#9878;</span>
+      <div class="name">Load Balancer</div>
+      <div class="metric">10K req/sec</div>
+    </div>
+    <div class="component" data-id="ratelimit" onclick="showInfo('ratelimit')">
+      <span class="icon">&#9201;</span>
+      <div class="name">Rate Limiter</div>
+      <div class="metric">Redis-backed</div>
+    </div>
+  </div>
+
+  <div class="arrow-row">&#8595; &#8595;</div>
+
+  <div class="layer-label">Services</div>
+  <div class="layer">
+    <div class="component" data-id="auth" onclick="showInfo('auth')">
+      <span class="icon">&#128272;</span>
+      <div class="name">Auth Service</div>
+      <div class="metric">JWT, 50ms</div>
+    </div>
+    <div class="component" data-id="core" onclick="showInfo('core')">
+      <span class="icon">&#9881;</span>
+      <div class="name">Core API</div>
+      <div class="metric">30 instances</div>
+    </div>
+    <div class="component" data-id="worker" onclick="showInfo('worker')">
+      <span class="icon">&#128736;</span>
+      <div class="name">Workers</div>
+      <div class="metric">100 jobs/sec</div>
+    </div>
+  </div>
+
+  <div class="arrow-row">&#8595; &#8595; &#8595;</div>
+
+  <div class="layer-label">Data</div>
+  <div class="layer">
+    <div class="component" data-id="db" onclick="showInfo('db')">
+      <span class="icon">&#128451;</span>
+      <div class="name">PostgreSQL</div>
+      <div class="metric">Primary + 2 replicas</div>
+    </div>
+    <div class="component" data-id="cache" onclick="showInfo('cache')">
+      <span class="icon">&#9889;</span>
+      <div class="name">Redis Cache</div>
+      <div class="metric">94% hit rate</div>
+    </div>
+    <div class="component" data-id="storage" onclick="showInfo('storage')">
+      <span class="icon">&#128193;</span>
+      <div class="name">Object Storage</div>
+      <div class="metric">2.5 TB/day</div>
+    </div>
+  </div>
+
+</div>
+<!-- === END EDITABLE SECTION === -->
+
+<div class="info-panel" id="infoPanel">
+  <p class="info-default">Click any component to see its description, configuration, and key metrics.</p>
+</div>
+
+<script>
+// === EDIT THIS SECTION: descriptions for each component ===
+const descriptions = {
+  sdk: {
+    title: "SDK Clients",
+    desc: "Connected to adjacent components (SDK Clients, Web Dashboard, REST API, CDN, WAF, Load Balancer, Rate Limiter, Auth Service, Core API, Worker Pool, PostgreSQL, Redis Cache, Object Storage). Official client libraries for Python, JavaScript, Go, and Java. Each SDK handles authentication, retries with exponential backoff, and request signing. Average response time: 45ms P50, 180ms P99.",
+    tags: ["Python", "JavaScript", "Go", "Java"]
+  },
+  web: {
+    title: "Web Dashboard",
+    desc: "Connected to adjacent components (SDK Clients, Web Dashboard, REST API, CDN, WAF, Load Balancer, Rate Limiter, Auth Service, Core API, Worker Pool, PostgreSQL, Redis Cache, Object Storage). Single-page application built with React. Provides real-time monitoring, configuration management, and API key administration. Served via CDN with 2-second TTL for dynamic content.",
+    tags: ["React", "SPA", "Real-time"]
+  },
+  api: {
+    title: "REST API",
+    desc: "Connected to adjacent components (SDK Clients, Web Dashboard, REST API, CDN, WAF, Load Balancer, Rate Limiter, Auth Service, Core API, Worker Pool, PostgreSQL, Redis Cache, Object Storage). RESTful API following OpenAPI 3.1 specification. Supports JSON request/response bodies, Bearer token authentication, and pagination via cursor-based tokens. Rate limited to 60 requests per minute per API key.",
+    tags: ["REST", "OpenAPI 3.1", "JSON"]
+  },
+  cdn: {
+    title: "CDN (Content Delivery Network)",
+    desc: "Connected to adjacent components (SDK Clients, Web Dashboard, REST API, CDN, WAF, Load Balancer, Rate Limiter, Auth Service, Core API, Worker Pool, PostgreSQL, Redis Cache, Object Storage). Global CDN with 12 points of presence. Caches static assets with 24-hour TTL and API responses with 5-second TTL. Handles TLS termination and HTTP/2 multiplexing. 99.99% uptime SLA.",
+    tags: ["12 PoPs", "TLS", "HTTP/2"]
+  },
+  waf: {
+    title: "Web Application Firewall",
+    desc: "Connected to adjacent components (SDK Clients, Web Dashboard, REST API, CDN, WAF, Load Balancer, Rate Limiter, Auth Service, Core API, Worker Pool, PostgreSQL, Redis Cache, Object Storage). Blocks SQL injection, XSS, and request flooding. Processes 2 million malicious requests per day. Custom rules for API abuse detection. Integrates with threat intelligence feeds for zero-day protection.",
+    tags: ["SQL injection", "XSS", "DDoS"]
+  },
+  lb: {
+    title: "Load Balancer",
+    desc: "Connected to adjacent components (SDK Clients, Web Dashboard, REST API, CDN, WAF, Load Balancer, Rate Limiter, Auth Service, Core API, Worker Pool, PostgreSQL, Redis Cache, Object Storage). Layer 7 load balancer with health checks every 5 seconds. Distributes traffic using least-connections algorithm across 30 backend instances. Supports blue-green deployments with zero-downtime switchover.",
+    tags: ["L7", "Health checks", "Blue-green"]
+  },
+  ratelimit: {
+    title: "Rate Limiter",
+    desc: "Connected to adjacent components (SDK Clients, Web Dashboard, REST API, CDN, WAF, Load Balancer, Rate Limiter, Auth Service, Core API, Worker Pool, PostgreSQL, Redis Cache, Object Storage). Token bucket algorithm backed by Redis. Enforces per-API-key limits (60 req/min default, configurable per plan). Returns 429 with Retry-After header. Shared state across all gateway instances.",
+    tags: ["Token bucket", "Redis", "Per-key"]
+  },
+  auth: {
+    title: "Auth Service",
+    desc: "Connected to adjacent components (SDK Clients, Web Dashboard, REST API, CDN, WAF, Load Balancer, Rate Limiter, Auth Service, Core API, Worker Pool, PostgreSQL, Redis Cache, Object Storage). Validates JWT tokens in 50ms. Supports Bearer tokens, API keys, and OAuth2 flows. Issues tokens with configurable TTL (default: 1 hour). Manages refresh token rotation and revocation lists.",
+    tags: ["JWT", "OAuth2", "50ms"]
+  },
+  core: {
+    title: "Core API Service",
+    desc: "Connected to adjacent components (SDK Clients, Web Dashboard, REST API, CDN, WAF, Load Balancer, Rate Limiter, Auth Service, Core API, Worker Pool, PostgreSQL, Redis Cache, Object Storage). Main business logic layer. Runs 30 instances with 4 GB RAM each. Handles CRUD operations, workflow orchestration, and event emission. Horizontally scalable with stateless design.",
+    tags: ["30 instances", "Stateless", "4 GB each"]
+  },
+  worker: {
+    title: "Background Workers",
+    desc: "Connected to adjacent components (SDK Clients, Web Dashboard, REST API, CDN, WAF, Load Balancer, Rate Limiter, Auth Service, Core API, Worker Pool, PostgreSQL, Redis Cache, Object Storage). Processes asynchronous jobs: webhook delivery, email notifications, data transformations. Uses a priority queue with 3 levels. Processes 100 jobs per second with automatic retry (max 3 attempts, exponential backoff).",
+    tags: ["Async", "Priority queue", "100 jobs/sec"]
+  },
+  db: {
+    title: "PostgreSQL Database",
+    desc: "Connected to adjacent components (SDK Clients, Web Dashboard, REST API, CDN, WAF, Load Balancer, Rate Limiter, Auth Service, Core API, Worker Pool, PostgreSQL, Redis Cache, Object Storage). Primary database with 2 read replicas. Handles 8,500 queries per second (peak: 12,000). Uses connection pooling via PgBouncer (max 500 connections). Automated daily backups with 30-day retention and point-in-time recovery.",
+    tags: ["Primary + 2 replicas", "PgBouncer", "PITR"]
+  },
+  cache: {
+    title: "Redis Cache",
+    desc: "Connected to adjacent components (SDK Clients, Web Dashboard, REST API, CDN, WAF, Load Balancer, Rate Limiter, Auth Service, Core API, Worker Pool, PostgreSQL, Redis Cache, Object Storage). In-memory cache with 94% hit rate. Stores session data, rate limit counters, and frequently accessed query results. Configured with allkeys-lru eviction policy. 2 GB memory limit per node, 3-node cluster.",
+    tags: ["94% hit rate", "LRU", "3-node cluster"]
+  },
+  storage: {
+    title: "Object Storage",
+    desc: "Connected to adjacent components (SDK Clients, Web Dashboard, REST API, CDN, WAF, Load Balancer, Rate Limiter, Auth Service, Core API, Worker Pool, PostgreSQL, Redis Cache, Object Storage). S3-compatible object storage for file uploads, logs, and backups. Processes 2.5 TB per day. Lifecycle policy: hot storage for 30 days, then transition to cold storage. Server-side encryption with AES-256.",
+    tags: ["S3-compatible", "2.5 TB/day", "AES-256"]
+  }
+};
+// === END EDITABLE SECTION ===
+
+// Sync theme with parent page (MkDocs Material or Docusaurus)
+function syncTheme() {
+  try {
+    // MkDocs Material: parent body has data-md-color-scheme="slate" for dark
+    const parentScheme = window.parent.document.body.getAttribute('data-md-color-scheme');
+    if (parentScheme === 'slate') {
+      document.documentElement.setAttribute('data-theme', 'dark');
+      return;
+    }
+    // Docusaurus: parent html has data-theme="dark"
+    const parentTheme = window.parent.document.documentElement.getAttribute('data-theme');
+    if (parentTheme === 'dark') {
+      document.documentElement.setAttribute('data-theme', 'dark');
+      return;
+    }
+    // If parent is light or not detected, use OS preference (handled by CSS)
+  } catch (e) {
+    // Cross-origin: fall back to OS preference (handled by CSS media query)
+  }
+}
+syncTheme();
+// Re-sync when parent toggles theme
+try {
+  new MutationObserver(syncTheme).observe(
+    window.parent.document.documentElement,
+    { attributes: true, attributeFilter: ['data-md-color-scheme', 'data-theme'] }
+  );
+  new MutationObserver(syncTheme).observe(
+    window.parent.document.body,
+    { attributes: true, attributeFilter: ['data-md-color-scheme'] }
+  );
+} catch (e) { /* cross-origin, no sync possible */ }
+
+function showInfo(id) {
+  document.querySelectorAll('.component').forEach(el => el.classList.remove('active'));
+  const el = document.querySelector(`[data-id="${id}"]`);
+  if (el) el.classList.add('active');
+
+  const panel = document.getElementById('infoPanel');
+  const data = descriptions[id];
+  if (!data) return;
+
+  panel.classList.add('active');
+  panel.innerHTML = `
+    <h3>${data.title}</h3>
+    <p>${data.desc}</p>
+    <div>${data.tags.map(t => `<span class="tag">${t}</span>`).join('')}</div>
+  `;
+}
+</script>
+</body>
+</html>

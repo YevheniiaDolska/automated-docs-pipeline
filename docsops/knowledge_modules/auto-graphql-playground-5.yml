@@ -1,0 +1,119 @@
+id: auto-graphql-playground-5
+title: GraphQL playground (Part 5)
+summary: Interactive GraphQL playground for VeriOps API with schema explorer, live
+  query editor, subscription support, and advanced RAG retrieval pipeline.
+intents:
+- integrate
+audiences:
+- developer
+- operator
+channels:
+- docs
+- assistant
+- automation
+priority: 60
+status: active
+owner: docsops-auto
+last_verified: '2026-03-20'
+dependencies: []
+tags:
+- auto-extracted
+- graphql-playground
+- reference
+content:
+  docs_markdown: '## Advanced RAG retrieval pipeline
+
+
+    The pipeline uses six advanced retrieval features to power AI-driven search across
+    GraphQL and all five protocol documentation sets. These features are enabled by
+    default in `config/ask-ai.yml`.
+
+
+    ### Token-aware chunking
+
+
+    The pipeline splits long documentation modules into overlapping chunks of 750
+    tokens each (100-token overlap) using the `cl100k_base` tokenizer. This matches
+    the `text-embedding-3-small` embedding model tokenization. Short modules that
+    fit within the token limit remain as single chunks.
+
+
+    | Parameter | Default | Description |
+
+    | --- | --- | --- |
+
+    | `chunking.max_tokens` | 750 | Maximum tokens per chunk |
+
+    | `chunking.overlap_tokens` | 100 | Overlap between consecutive chunks |
+
+    | Tokenizer | `cl100k_base` | Matches OpenAI embedding models |
+
+
+    ### Hybrid search with Reciprocal Rank Fusion
+
+
+    The retrieval pipeline combines two search strategies using Reciprocal Rank Fusion
+    (RRF, k=60):
+
+
+    1. **Semantic search** queries the FAISS vector index with cosine similarity over
+    `text-embedding-3-small` embeddings
+
+    1. **Token-overlap search** scores modules by keyword overlap between query and
+    document text
+
+
+    RRF merges both rankings into a single fused list. This improves recall for queries
+    that combine specific terminology (matched by tokens) with conceptual intent (matched
+    by embeddings).'
+  assistant_context: 'Use this module when answering questions related to: GraphQL
+    playground (Part 5). Source path: demo-showcase/acme/docs/reference/graphql-playground.md.
+    Summary: Interactive GraphQL playground for VeriOps API with schema explorer,
+    live query editor, subscription support, and advanced RAG retrieval pipeline.
+
+
+    ## Advanced RAG retrieval pipeline
+
+
+    The pipeline uses six advanced retrieval features to power AI-driven search across
+    GraphQL and all five protocol documentation sets. These features are enabled by
+    default in `config/ask-ai.yml`.
+
+
+    ### Token-aware chunking
+
+
+    The pipeline splits long documentation modules into overlapping chunks of 750
+    tokens each (100-token overlap) using the `cl100k_base` tokenizer. This matches
+    the `text-embedding-3-small` embedding model tokenization. Short modules that
+    fit within the token limit remain as single chunks.
+
+
+    | Parameter | Default | Description |
+
+    | --- | --- | --- |
+
+    | `chunking.max_tokens` | 750 | Maximum tokens per chunk |
+
+    | `chunking.overlap_tokens` | 100 | Overlap between consecutive chunks |
+
+    | Tokenizer | `cl100k_base` | Matches OpenAI embedding models |
+
+
+    ### Hybrid search with Reciprocal Rank Fusion
+
+
+    The retrieval pipeline combines two search strategies using Reciprocal Rank Fusion
+    (RRF, k=60):
+
+
+    1. **Semantic search** queries the FAISS vector index with cosine similarity over
+    `text-embedding-3-small` embeddings
+
+    1. **Token-overlap search** scores modules by keyword overlap between query and
+    document text
+
+
+    RRF merges both rankings into a single fused list. This improves recall for queries
+    that combine specific terminology (matched by tokens) with conceptual intent (matched
+    by embeddings).'

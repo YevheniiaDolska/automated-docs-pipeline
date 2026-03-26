@@ -1,0 +1,61 @@
+id: auto-review-manifest-7
+title: 'Review manifest: operator approval checkpoint (Part 7)'
+summary: Operator review manifest with artifact inventory, stage summary, and approval
+  checklist for the Acme documentation pipeline.
+intents:
+- integrate
+audiences:
+- developer
+- operator
+channels:
+- docs
+- assistant
+- automation
+priority: 60
+status: active
+owner: docsops-auto
+last_verified: '2026-03-20'
+dependencies: []
+tags:
+- auto-extracted
+- reference
+- review-manifest
+content:
+  docs_markdown: '## Reviewer Checklist
+
+
+    - Confirm stage summary has no missing required artifacts.
+
+    - Review protocol docs and test assets links.
+
+    - Review quality and retrieval reports before publish.
+
+    - Approve publish only if critical findings are resolved.
+
+
+    ## Next steps
+
+
+    - [Documentation index](../index.md)'
+  assistant_context: 'Use this module when answering questions related to: Review
+    manifest: operator approval checkpoint (Part 7). Source path: demo-showcase/acme/docs/quality/review-manifest.md.
+    Summary: Operator review manifest with artifact inventory, stage summary, and
+    approval checklist for the Acme documentation pipeline.
+
+
+    ## Reviewer Checklist
+
+
+    - Confirm stage summary has no missing required artifacts.
+
+    - Review protocol docs and test assets links.
+
+    - Review quality and retrieval reports before publish.
+
+    - Approve publish only if critical findings are resolved.
+
+
+    ## Next steps
+
+
+    - [Documentation index](../index.md)'

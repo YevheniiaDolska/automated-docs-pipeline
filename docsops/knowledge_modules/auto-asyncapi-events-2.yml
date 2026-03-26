@@ -1,0 +1,56 @@
+id: auto-asyncapi-events-2
+title: AsyncAPI event docs (Part 2)
+summary: AsyncAPI 2.6.0 event documentation for VeriOps with channel contracts, delivery
+  semantics, payload schemas, and interactive event tester.
+intents:
+- integrate
+audiences:
+- developer
+- operator
+channels:
+- docs
+- assistant
+- automation
+priority: 60
+status: active
+owner: docsops-auto
+last_verified: '2026-03-20'
+dependencies: []
+tags:
+- asyncapi-events
+- auto-extracted
+- reference
+content:
+  docs_markdown: "## Channel catalog\n\nThe VeriOps event system publishes events\
+    \ on three channels. All channels use JSON-encoded payloads with a standard envelope\
+    \ format.\n\n| Channel | Direction | Payload type | Trigger | Description |\n\
+    | --- | --- | --- | --- | --- |\n| `project.updated` | Publish (server to client)\
+    \ | `ProjectUpdatedEvent` | Project status or name changes | Fires on every `PUT\
+    \ /v1/projects/{id}` that modifies the resource |\n| `project.created` | Publish\
+    \ (server to client) | `ProjectCreatedEvent` | New project created | Fires on\
+    \ every `POST /v1/projects` |\n| `task.completed` | Publish (server to client)\
+    \ | `TaskCompletedEvent` | Task status changes to `done` | Fires when a task reaches\
+    \ terminal status |\n\n## Event envelope format\n\nEvery event uses a standard\
+    \ envelope that wraps the domain-specific payload:\n\n```json\n{\n  \"event_id\"\
+    : \"evt_01abc789\",\n  \"event_type\": \"project.updated\",\n  \"occurred_at\"\
+    : \"2026-03-19T14:30:00Z\",\n  \"producer\": \"veriops-core-service\",\n  \"trace_id\"\
+    : \"tr_abc123def456\",\n  \"schema_version\": \"1.0.0\",\n  \"data\": {}\n}\n\
+    ```"
+  assistant_context: "Use this module when answering questions related to: AsyncAPI\
+    \ event docs (Part 2). Source path: demo-showcase/acme/docs/reference/asyncapi-events.md.\
+    \ Summary: AsyncAPI 2.6.0 event documentation for VeriOps with channel contracts,\
+    \ delivery semantics, payload schemas, and interactive event tester.\n\n## Channel\
+    \ catalog\n\nThe VeriOps event system publishes events on three channels. All\
+    \ channels use JSON-encoded payloads with a standard envelope format.\n\n| Channel\
+    \ | Direction | Payload type | Trigger | Description |\n| --- | --- | --- | ---\
+    \ | --- |\n| `project.updated` | Publish (server to client) | `ProjectUpdatedEvent`\
+    \ | Project status or name changes | Fires on every `PUT /v1/projects/{id}` that\
+    \ modifies the resource |\n| `project.created` | Publish (server to client) |\
+    \ `ProjectCreatedEvent` | New project created | Fires on every `POST /v1/projects`\
+    \ |\n| `task.completed` | Publish (server to client) | `TaskCompletedEvent` |\
+    \ Task status changes to `done` | Fires when a task reaches terminal status |\n\
+    \n## Event envelope format\n\nEvery event uses a standard envelope that wraps\
+    \ the domain-specific payload:\n\n```json\n{\n  \"event_id\": \"evt_01abc789\"\
+    ,\n  \"event_type\": \"project.updated\",\n  \"occurred_at\": \"2026-03-19T14:30:00Z\"\
+    ,\n  \"producer\": \"veriops-core-service\",\n  \"trace_id\": \"tr_abc123def456\"\
+    ,\n  \"schema_version\": \"1.0.0\",\n  \"data\": {}\n}\n```"

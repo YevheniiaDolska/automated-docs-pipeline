@@ -1,0 +1,93 @@
+id: auto-grpc-gateway-7
+title: gRPC gateway invoke (Part 7)
+summary: Invoke VeriOps gRPC services through the HTTP gateway with service catalog,
+  proto definitions, and interactive request testing.
+intents:
+- integrate
+- secure
+- troubleshoot
+audiences:
+- developer
+- operator
+channels:
+- docs
+- assistant
+- automation
+priority: 60
+status: active
+owner: docsops-auto
+last_verified: '2026-03-20'
+dependencies: []
+tags:
+- auto-extracted
+- grpc-gateway
+- reference
+content:
+  docs_markdown: '## Error handling and gRPC status codes
+
+
+    The HTTP gateway maps gRPC status codes to HTTP status codes:
+
+
+    | gRPC status | HTTP status | Description | Resolution |
+
+    | --- | --- | --- | --- |
+
+    | `OK` (0) | 200 | Success | -- |
+
+    | `INVALID_ARGUMENT` (3) | 400 | Malformed request or invalid field | Check the
+    `payload` JSON matches the proto message |
+
+    | `UNAUTHENTICATED` (16) | 401 | Missing or invalid bearer token | Provide a valid
+    `Authorization` header |
+
+    | `PERMISSION_DENIED` (7) | 403 | Token valid but lacks scope | Request `grpc:invoke`
+    scope from admin |
+
+    | `NOT_FOUND` (5) | 404 | Resource does not exist | Verify the project ID format
+    (`prj_*`) |
+
+    | `DEADLINE_EXCEEDED` (4) | 504 | RPC took longer than 30 seconds | Increase deadline
+    or optimize the query |
+
+    | `UNAVAILABLE` (14) | 503 | Service temporarily unavailable | Retry with exponential
+    backoff (3 attempts, initial 1 second) |
+
+    | `INTERNAL` (13) | 500 | Server error | Retry with exponential backoff |'
+  assistant_context: 'Use this module when answering questions related to: gRPC gateway
+    invoke (Part 7). Source path: demo-showcase/acme/docs/reference/grpc-gateway.md.
+    Summary: Invoke VeriOps gRPC services through the HTTP gateway with service catalog,
+    proto definitions, and interactive request testing.
+
+
+    ## Error handling and gRPC status codes
+
+
+    The HTTP gateway maps gRPC status codes to HTTP status codes:
+
+
+    | gRPC status | HTTP status | Description | Resolution |
+
+    | --- | --- | --- | --- |
+
+    | `OK` (0) | 200 | Success | -- |
+
+    | `INVALID_ARGUMENT` (3) | 400 | Malformed request or invalid field | Check the
+    `payload` JSON matches the proto message |
+
+    | `UNAUTHENTICATED` (16) | 401 | Missing or invalid bearer token | Provide a valid
+    `Authorization` header |
+
+    | `PERMISSION_DENIED` (7) | 403 | Token valid but lacks scope | Request `grpc:invoke`
+    scope from admin |
+
+    | `NOT_FOUND` (5) | 404 | Resource does not exist | Verify the project ID format
+    (`prj_*`) |
+
+    | `DEADLINE_EXCEEDED` (4) | 504 | RPC took longer than 30 seconds | Increase deadline
+    or optimize the query |
+
+    | `UNAVAILABLE` (14) | 503 | Service temporarily unavailable | Retry with exponential
+    backoff (3 attempts, initial 1 second) |
+
+    | `INTERNAL` (13) | 500 | Server error | Retry with exponential backoff |'

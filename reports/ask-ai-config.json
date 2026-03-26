@@ -1,0 +1,60 @@
+{
+  "enabled": false,
+  "provider": "openai",
+  "billing_mode": "disabled",
+  "model": "gpt-4.1-mini",
+  "base_url": "https://api.openai.com/v1",
+  "knowledge_index_path": "docs/assets/knowledge-retrieval-index.json",
+  "knowledge_graph_path": "docs/assets/knowledge-graph.jsonld",
+  "retrieval_eval_report_path": "reports/retrieval_evals_report.json",
+  "assistant_bundle_glob": "reports/intent-bundles/*-assistant.json",
+  "max_context_modules": 6,
+  "temperature": 0.2,
+  "top_p": 1.0,
+  "max_tokens": 700,
+  "require_user_auth": true,
+  "allowed_roles": [
+    "admin",
+    "support"
+  ],
+  "rate_limit_per_user_per_minute": 20,
+  "retention_days": 30,
+  "audit_logging": true,
+  "embedding_model": "text-embedding-3-small",
+  "faiss_index_path": "docs/assets/retrieval.faiss",
+  "faiss_metadata_path": "docs/assets/retrieval-metadata.json",
+  "semantic_retrieval": true,
+  "chunking": {
+    "enabled": true,
+    "max_tokens": 750,
+    "overlap_tokens": 100
+  },
+  "reranking": {
+    "enabled": true,
+    "model": "cross-encoder/ms-marco-MiniLM-L-6-v2",
+    "candidates": 20
+  },
+  "hybrid_search": {
+    "enabled": true,
+    "rrf_k": 60
+  },
+  "hyde": {
+    "enabled": true,
+    "model": "gpt-4.1-mini"
+  },
+  "embedding_cache": {
+    "enabled": true,
+    "ttl_seconds": 3600,
+    "max_size": 512
+  },
+  "eval_dataset_path": "config/retrieval_eval_dataset.yml",
+  "runtime": {
+    "enabled": false,
+    "base_url": "http://localhost:8090",
+    "ask_endpoint": "/api/v1/ask",
+    "health_endpoint": "/healthz",
+    "billing_webhook_endpoint": "/api/v1/billing/webhook",
+    "widget_script_path": "/public/ask-ai-widget.js",
+    "runtime_dir": "ask-ai-runtime"
+  }
+}

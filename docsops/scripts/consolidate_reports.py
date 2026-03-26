@@ -1,0 +1,776 @@
+#!/usr/bin/env python3
+"""
+Consolidated Report Generator
+
+Объединяет 4 отдельных отчёта документации в один консолидированный файл.
+LLM (Claude Code / Codex) читает этот один файл и приоритизирует работу
+на основе правил из CLAUDE.md / AGENTS.md.
+
+Входные отчёты:
+  - reports/doc_gaps_report.json     (gap analysis)
+  - reports/api_sdk_drift_report.json (API/SDK drift)
+  - reports/kpi-wall.json            (quality KPIs)
+  - reports/kpi-sla-report.json      (SLA violations)
+
+Выходной файл:
+  - reports/consolidated_report.json
+
+Запуск:
+  python3 scripts/consolidate_reports.py
+  python3 scripts/consolidate_reports.py --reports-dir reports --output reports/consolidated_report.json
+"""
+
+import argparse
+import json
+import sys
+from dataclasses import asdict, dataclass, field
+from datetime import datetime, timezone
+from pathlib import Path
+from typing import Any
+
+
+@dataclass
+class InputReportStatus:
+    """Статус одного входного отчёта."""
+    found: bool
+    generated_at: str = ""
+    details: dict = field(default_factory=dict)
+
+
+@dataclass
+class HealthSummary:
+    """Сводка здоровья документации."""
+    quality_score: int = 0
+    stale_pct: float = 0.0
+    total_docs: int = 0
+    metadata_completeness_pct: float = 0.0
+    drift_status: str = "unknown"
+    sla_status: str = "unknown"
+    sla_breaches: list[str] = field(default_factory=list)
+    total_action_items: int = 0
+    translation_coverage: dict[str, float] = field(default_factory=dict)
+    terminology_new_terms: int = 0
+    retrieval_precision_at_k: float = 0.0
+    retrieval_recall_at_k: float = 0.0
+    retrieval_hallucination_rate: float = 0.0
+    knowledge_graph_nodes: int = 0
+
+
+@dataclass
+class ActionItem:
+    """Один элемент действия для LLM."""
+    id: str
+    source_report: str
+    source_id: str | None
+    title: str
+    category: str
+    suggested_doc_type: str | None
+    priority: str
+    frequency: int
+    action_required: str
+    related_files: list[str] = field(default_factory=list)
+    keywords: list[str] = field(default_factory=list)
+    sample_queries: list[str] = field(default_factory=list)
+    context: dict = field(default_factory=dict)
+
+
+def _check_consolidate_license() -> None:
+    """Check that consolidated_reports feature is available."""
+    try:
+        from scripts.license_gate import require
+        require("consolidated_reports")
+    except (ImportError, SystemExit):
+        print("[consolidate] WARNING: consolidated_reports feature requires Professional+ license.", file=sys.stderr)
+        raise SystemExit(1)
+
+
+class ReportConsolidator:
+    """Объединяет 4 отчёта документации в один консолидированный файл."""
+
+    def __init__(self, reports_dir: str = "reports"):
+        self.reports_dir = Path(reports_dir)
+        self.action_items: list[ActionItem] = []
+        self.input_statuses: dict[str, InputReportStatus] = {}
+        self.health = HealthSummary()
+        self._counter = 0
+        self._dod_state_path = self.reports_dir / "dod_contract_state.json"
+
+    def _next_id(self) -> str:
+        """Генерирует следующий ID вида CONS-001."""
+        self._counter += 1
+        return f"CONS-{self._counter:03d}"
+
+    def _read_json(self, filename: str) -> dict | None:
+        """Читает JSON-файл, возвращает None если файл не найден."""
+        filepath = self.reports_dir / filename
+        if not filepath.exists():
+            return None
+        try:
+            return json.loads(filepath.read_text(encoding="utf-8"))
+        except (json.JSONDecodeError, OSError) as e:
+            print(f"  Warning: cannot read {filepath}: {e}", file=sys.stderr)
+            return None
+
+    def _read_json_path(self, path: Path) -> dict:
+        if not path.exists():
+            return {}
+        try:
+            payload = json.loads(path.read_text(encoding="utf-8"))
+            return payload if isinstance(payload, dict) else {}
+        except (json.JSONDecodeError, OSError):
+            return {}
+
+    def _write_json_path(self, path: Path, payload: dict) -> None:
+        path.parent.mkdir(parents=True, exist_ok=True)
+        path.write_text(json.dumps(payload, indent=2, ensure_ascii=True) + "\n", encoding="utf-8")
+
+    def _dod_duplicate_exists(self, doc_path: str) -> bool:
+        if not doc_path:
+            return False
+        normalized = doc_path.strip().lower()
+        for item in self.action_items:
+            for related in item.related_files:
+                if str(related).strip().lower() == normalized:
+                    return True
+        return False
+
+    def _process_docs_contract(self) -> None:
+        """Process pr_docs_contract.json as non-blocking drift signal."""
+        data = self._read_json("pr_docs_contract.json")
+        if data is None:
+            self.input_statuses["docs_contract"] = InputReportStatus(found=False)
+            return
+
+        raw_mismatches = data.get("mismatches", [])
+        mismatches: list[dict[str, str]] = []
+        if isinstance(raw_mismatches, list) and raw_mismatches:
+            for item in raw_mismatches:
+                if not isinstance(item, dict):
+                    continue
+                mismatch_id = str(item.get("id", "")).strip()
+                path = str(item.get("path", "")).strip()
+                signature = str(item.get("signature", "")).strip()
+                if mismatch_id and path:
+                    mismatches.append(
+                        {
+                            "id": mismatch_id,
+                            "path": path,
+                            "signature": signature,
+                        }
+                    )
+        else:
+            interface_changed = data.get("interface_changed", [])
+            docs_changed = data.get("docs_changed", [])
+            if isinstance(interface_changed, list) and not docs_changed:
+                for path in interface_changed:
+                    path_str = str(path).strip()
+                    if not path_str:
+                        continue
+                    mismatch_id = f"dod::{path_str.lower()}"
+                    mismatches.append(
+                        {
+                            "id": mismatch_id,
+                            "path": path_str,
+                            "signature": "",
+                        }
+                    )
+
+        current_active = {item["id"]: item for item in mismatches}
+        state = self._read_json_path(self._dod_state_path)
+        prev_active = state.get("active", {}) if isinstance(state.get("active"), dict) else {}
+
+        new_or_changed: list[dict[str, str]] = []
+        for mismatch_id, item in current_active.items():
+            previous = prev_active.get(mismatch_id, {})
+            prev_sig = str(previous.get("signature", "")).strip() if isinstance(previous, dict) else ""
+            if mismatch_id not in prev_active or prev_sig != item.get("signature", ""):
+                new_or_changed.append(item)
+
+        closed_ids = sorted(set(prev_active.keys()) - set(current_active.keys()))
+        deduplicated_count = 0
+        emitted_count = 0
+
+        for item in new_or_changed:
+            path = item.get("path", "")
+            if self._dod_duplicate_exists(path):
+                deduplicated_count += 1
+                continue
+            self.action_items.append(
+                ActionItem(
+                    id=self._next_id(),
+                    source_report="docs_contract",
+                    source_id=item.get("id"),
+                    title=f"Docs contract drift: {path}",
+                    category="docs_contract_drift",
+                    suggested_doc_type="reference",
+                    priority="medium",
+                    frequency=0,
+                    action_required=(
+                        f"Interface changed without paired docs update for {path}. "
+                        "Add or update relevant docs sections."
+                    ),
+                    related_files=[path],
+                    context={
+                        "docs_contract_related": True,
+                        "mismatch_id": item.get("id"),
+                        "signature": item.get("signature", ""),
+                        "status": "new_or_changed",
+                    },
+                )
+            )
+            emitted_count += 1
+
+        self.input_statuses["docs_contract"] = InputReportStatus(
+            found=True,
+            details={
+                "status": data.get("status", "unknown"),
+                "mismatch_count": len(mismatches),
+                "new_or_changed_count": len(new_or_changed),
+                "closed_count": len(closed_ids),
+                "emitted_count": emitted_count,
+                "deduplicated_count": deduplicated_count,
+            },
+        )
+
+        self._write_json_path(
+            self._dod_state_path,
+            {
+                "updated_at": datetime.now(timezone.utc).isoformat(),
+                "active": current_active,
+                "closed_ids": closed_ids,
+            },
+        )
+
+    def _process_gaps(self) -> None:
+        """Обрабатывает doc_gaps_report.json."""
+        data = self._read_json("doc_gaps_report.json")
+        if data is None:
+            self.input_statuses["gaps"] = InputReportStatus(found=False)
+            return
+
+        summary = data.get("summary", {})
+        self.input_statuses["gaps"] = InputReportStatus(
+            found=True,
+            generated_at=data.get("generated_at", ""),
+            details={
+                "total_gaps": summary.get("total_gaps", 0),
+                "high_priority": summary.get("high_priority", 0),
+                "medium_priority": summary.get("medium_priority", 0),
+                "low_priority": summary.get("low_priority", 0),
+            },
+        )
+
+        for gap in data.get("gaps", []):
+            item = ActionItem(
+                id=self._next_id(),
+                source_report="gaps",
+                source_id=gap.get("id"),
+                title=gap.get("title", ""),
+                category=gap.get("category", ""),
+                suggested_doc_type=gap.get("suggested_doc_type"),
+                priority=gap.get("priority", "medium"),
+                frequency=gap.get("frequency", 1),
+                action_required=gap.get("action_required", ""),
+                related_files=gap.get("related_files", []),
+                keywords=gap.get("keywords", []),
+                sample_queries=gap.get("sample_queries", []),
+                context={
+                    "source": gap.get("source", ""),
+                    "status": gap.get("status", "new"),
+                    "drift_related": False,
+                    "sla_breach_related": False,
+                },
+            )
+            self.action_items.append(item)
+
+    def _process_drift(self) -> None:
+        """Обрабатывает api_sdk_drift_report.json."""
+        data = self._read_json("api_sdk_drift_report.json")
+        if data is None:
+            self.input_statuses["drift"] = InputReportStatus(found=False)
+            return
+
+        status = data.get("status", "ok")
+        self.input_statuses["drift"] = InputReportStatus(
+            found=True,
+            details={"status": status},
+        )
+        self.health.drift_status = status
+
+        if status != "drift":
+            return
+
+        # Создаём action_items для каждой группы дрифта
+        openapi_changed = data.get("openapi_changed", [])
+        sdk_changed = data.get("sdk_changed", [])
+
+        if openapi_changed:
+            item = ActionItem(
+                id=self._next_id(),
+                source_report="drift",
+                source_id=None,
+                title="API spec changed without documentation update",
+                category="api_drift",
+                suggested_doc_type="reference",
+                priority="high",
+                frequency=0,
+                action_required=(
+                    "Update reference docs to match API spec changes. "
+                    f"Changed files: {', '.join(openapi_changed)}"
+                ),
+                related_files=openapi_changed,
+                context={
+                    "drift_related": True,
+                    "drift_type": "openapi",
+                    "changed_files": openapi_changed,
+                },
+            )
+            self.action_items.append(item)
+
+        if sdk_changed:
+            item = ActionItem(
+                id=self._next_id(),
+                source_report="drift",
+                source_id=None,
+                title="SDK changed without documentation update",
+                category="sdk_drift",
+                suggested_doc_type="reference",
+                priority="high",
+                frequency=0,
+                action_required=(
+                    "Update SDK reference docs to match code changes. "
+                    f"Changed files: {', '.join(sdk_changed)}"
+                ),
+                related_files=sdk_changed,
+                context={
+                    "drift_related": True,
+                    "drift_type": "sdk",
+                    "changed_files": sdk_changed,
+                },
+            )
+            self.action_items.append(item)
+
+    def _process_kpi(self) -> None:
+        """Обрабатывает kpi-wall.json (метаданные + stale docs как action_items)."""
+        data = self._read_json("kpi-wall.json")
+        if data is None:
+            self.input_statuses["kpi"] = InputReportStatus(found=False)
+            return
+
+        stale_files = data.get("stale_files", [])
+        self.input_statuses["kpi"] = InputReportStatus(
+            found=True,
+            generated_at=data.get("generated_at", ""),
+            details={
+                "quality_score": data.get("quality_score", 0),
+                "stale_docs": data.get("stale_docs", 0),
+                "stale_files_count": len(stale_files),
+            },
+        )
+
+        self.health.quality_score = data.get("quality_score", 0)
+        self.health.stale_pct = data.get("stale_pct", 0.0)
+        self.health.total_docs = data.get("total_docs", 0)
+        self.health.metadata_completeness_pct = data.get("metadata_completeness_pct", 0.0)
+
+        # Создаём action_item для каждого stale документа
+        for filepath in stale_files:
+            item = ActionItem(
+                id=self._next_id(),
+                source_report="kpi",
+                source_id=None,
+                title=f"Stale document needs review: {filepath}",
+                category="stale_doc",
+                suggested_doc_type=None,
+                priority="medium",
+                frequency=0,
+                action_required=(
+                    f"Review {filepath} (not updated in 90+ days). "
+                    "Read the document and assess: (1) if content is outdated, "
+                    "update it and set last_reviewed to today; (2) if content is "
+                    "still accurate, only update last_reviewed to today."
+                ),
+                related_files=[filepath],
+                context={
+                    "stale_related": True,
+                },
+            )
+            self.action_items.append(item)
+
+    def _process_sla(self) -> None:
+        """Обрабатывает kpi-sla-report.json."""
+        data = self._read_json("kpi-sla-report.json")
+        if data is None:
+            self.input_statuses["sla"] = InputReportStatus(found=False)
+            return
+
+        status = data.get("status", "ok")
+        breaches = data.get("breaches", [])
+        self.input_statuses["sla"] = InputReportStatus(
+            found=True,
+            details={
+                "status": status,
+                "breaches": breaches,
+                "metrics": data.get("metrics", {}),
+            },
+        )
+        self.health.sla_status = status
+        self.health.sla_breaches = breaches
+
+        if status != "breach":
+            return
+
+        # Создаём action_item для каждого нарушения SLA
+        for breach_text in breaches:
+            item = ActionItem(
+                id=self._next_id(),
+                source_report="sla",
+                source_id=None,
+                title=f"SLA breach: {breach_text}",
+                category="sla_breach",
+                suggested_doc_type=None,
+                priority="high",
+                frequency=0,
+                action_required=breach_text,
+                context={
+                    "sla_breach_related": True,
+                    "breach_details": breach_text,
+                    "metrics": data.get("metrics", {}),
+                },
+            )
+            self.action_items.append(item)
+
+    def _process_i18n(self) -> None:
+        """Process i18n_sync_report.json (5th input)."""
+        data = self._read_json("i18n_sync_report.json")
+        if data is None:
+            self.input_statuses["i18n"] = InputReportStatus(found=False)
+            return
+
+        coverage = data.get("coverage", {})
+        self.input_statuses["i18n"] = InputReportStatus(
+            found=True,
+            generated_at=data.get("generated_at", ""),
+            details={
+                "total_source_docs": data.get("total_source_docs", 0),
+                "languages": data.get("languages", []),
+                "coverage": coverage,
+            },
+        )
+
+        # Store coverage in health summary
+        for locale, stats in coverage.items():
+            self.health.translation_coverage[locale] = stats.get("coverage_pct", 0.0)
+
+        # Create action items for missing and stale translations
+        for item in data.get("items", []):
+            status = item.get("status", "")
+            if status not in ("missing", "stale"):
+                continue
+
+            category = f"{status}_translation"
+            priority = "medium" if status == "missing" else "low"
+
+            action = ActionItem(
+                id=self._next_id(),
+                source_report="i18n",
+                source_id=None,
+                title=f"{status.capitalize()} translation: {item.get('target_path', '')}",
+                category=category,
+                suggested_doc_type=None,
+                priority=priority,
+                frequency=0,
+                action_required=(
+                    f"{'Create' if status == 'missing' else 'Update'} translation "
+                    f"at {item.get('target_path', '')} "
+                    f"from source {item.get('source_path', '')}"
+                ),
+                related_files=[
+                    item.get("source_path", ""),
+                    item.get("target_path", ""),
+                ],
+                context={
+                    "i18n_related": True,
+                    "translation_status": status,
+                    "target_locale": item.get("target_locale", ""),
+                    "source_hash": item.get("source_hash", ""),
+                },
+            )
+            self.action_items.append(action)
+
+    def _process_glossary(self) -> None:
+        """Process glossary_sync_report.json (terminology sync report)."""
+        data = self._read_json("glossary_sync_report.json")
+        if data is None:
+            self.input_statuses["glossary"] = InputReportStatus(found=False)
+            return
+
+        added_terms = data.get("added_terms", [])
+        updated_terms = data.get("updated_terms", [])
+        self.input_statuses["glossary"] = InputReportStatus(
+            found=True,
+            generated_at=data.get("generated_at", ""),
+            details={
+                "markers_found": data.get("markers_found", 0),
+                "added_count": data.get("added_count", 0),
+                "updated_count": data.get("updated_count", 0),
+            },
+        )
+        self.health.terminology_new_terms = int(data.get("added_count", 0))
+
+        for item in added_terms:
+            term = str(item.get("term", "")).strip()
+            source = str(item.get("source", "")).strip()
+            if not term:
+                continue
+            self.action_items.append(
+                ActionItem(
+                    id=self._next_id(),
+                    source_report="glossary",
+                    source_id=None,
+                    title=f"Review glossary term: {term}",
+                    category="terminology_governance",
+                    suggested_doc_type="reference",
+                    priority="low",
+                    frequency=0,
+                    action_required=(
+                        f"Review glossary entry '{term}' for exact wording and approved aliases."
+                    ),
+                    related_files=[path for path in [source, "glossary.yml"] if path],
+                    context={
+                        "terminology_related": True,
+                        "term": term,
+                        "source": source,
+                    },
+                )
+            )
+
+        if updated_terms:
+            self.action_items.append(
+                ActionItem(
+                    id=self._next_id(),
+                    source_report="glossary",
+                    source_id=None,
+                    title="Review updated glossary entries",
+                    category="terminology_governance",
+                    suggested_doc_type="reference",
+                    priority="low",
+                    frequency=0,
+                    action_required=(
+                        f"Review {len(updated_terms)} updated glossary entries for consistent terminology governance."
+                    ),
+                    related_files=["glossary.yml"],
+                    context={
+                        "terminology_related": True,
+                        "updated_count": len(updated_terms),
+                    },
+                )
+            )
+
+    def _process_retrieval_evals(self) -> None:
+        """Process retrieval_evals_report.json."""
+        data = self._read_json("retrieval_evals_report.json")
+        if data is None:
+            self.input_statuses["retrieval_evals"] = InputReportStatus(found=False)
+            return
+
+        metrics = data.get("metrics", {}) if isinstance(data.get("metrics"), dict) else {}
+        self.input_statuses["retrieval_evals"] = InputReportStatus(
+            found=True,
+            generated_at=data.get("generated_at", ""),
+            details={
+                "status": data.get("status", "unknown"),
+                "precision_at_k": metrics.get("precision_at_k", 0.0),
+                "recall_at_k": metrics.get("recall_at_k", 0.0),
+                "hallucination_rate": metrics.get("hallucination_rate", 1.0),
+                "top_k": metrics.get("top_k", 0),
+            },
+        )
+        self.health.retrieval_precision_at_k = float(metrics.get("precision_at_k", 0.0) or 0.0)
+        self.health.retrieval_recall_at_k = float(metrics.get("recall_at_k", 0.0) or 0.0)
+        self.health.retrieval_hallucination_rate = float(metrics.get("hallucination_rate", 0.0) or 0.0)
+
+        if str(data.get("status", "")).strip().lower() == "breach":
+            for breach in data.get("breaches", []):
+                self.action_items.append(
+                    ActionItem(
+                        id=self._next_id(),
+                        source_report="retrieval_evals",
+                        source_id=None,
+                        title=f"Retrieval quality breach: {breach}",
+                        category="retrieval_quality",
+                        suggested_doc_type="reference",
+                        priority="high",
+                        frequency=0,
+                        action_required=(
+                            "Improve module summaries/intents/aliases and rerun retrieval evals "
+                            f"until thresholds pass. Breach: {breach}"
+                        ),
+                        related_files=["docs/assets/knowledge-retrieval-index.json", "reports/retrieval_evals_report.json"],
+                        context={"retrieval_eval_related": True, "breach": breach},
+                    )
+                )
+
+    def _process_knowledge_graph(self) -> None:
+        """Process knowledge_graph_report.json."""
+        data = self._read_json("knowledge_graph_report.json")
+        if data is None:
+            self.input_statuses["knowledge_graph"] = InputReportStatus(found=False)
+            return
+
+        self.input_statuses["knowledge_graph"] = InputReportStatus(
+            found=True,
+            generated_at=data.get("generated_at", ""),
+            details={
+                "status": data.get("status", "unknown"),
+                "modules_count": data.get("modules_count", 0),
+                "graph_nodes": data.get("graph_nodes", 0),
+                "edge_count": data.get("edge_count", 0),
+                "output_file": data.get("output_file", ""),
+            },
+        )
+        self.health.knowledge_graph_nodes = int(data.get("graph_nodes", 0) or 0)
+
+    def _cross_reference_drift(self) -> None:
+        """Аннотирует gap-элементы, связанные с дрифтом."""
+        drift_data = self._read_json("api_sdk_drift_report.json")
+        if drift_data is None or drift_data.get("status") != "drift":
+            return
+
+        drift_files = set(
+            drift_data.get("openapi_changed", [])
+            + drift_data.get("sdk_changed", [])
+        )
+        if not drift_files:
+            return
+
+        for item in self.action_items:
+            if item.source_report != "gaps":
+                continue
+            overlap = drift_files & set(item.related_files)
+            if overlap:
+                item.context["drift_related"] = True
+                item.context["drift_overlapping_files"] = list(overlap)
+
+    def consolidate(self) -> dict:
+        """Запускает полную консолидацию и возвращает результат."""
+        print("Consolidating reports...")
+
+        self._process_gaps()
+        self._process_drift()
+        self._process_docs_contract()
+        self._process_kpi()
+        self._process_sla()
+        self._process_i18n()
+        self._process_glossary()
+        self._process_retrieval_evals()
+        self._process_knowledge_graph()
+        self._cross_reference_drift()
+
+        self.health.total_action_items = len(self.action_items)
+
+        result = {
+            "generated_at": datetime.now(timezone.utc).isoformat(),
+            "input_reports": {
+                k: asdict(v) for k, v in self.input_statuses.items()
+            },
+            "health_summary": asdict(self.health),
+            "action_items": [asdict(item) for item in self.action_items],
+        }
+
+        return result
+
+    def save(self, output_path: str = "reports/consolidated_report.json") -> Path:
+        """Консолидирует и сохраняет результат."""
+        result = self.consolidate()
+        out = Path(output_path)
+        out.parent.mkdir(parents=True, exist_ok=True)
+        out.write_text(
+            json.dumps(result, indent=2, ensure_ascii=False),
+            encoding="utf-8",
+        )
+        self._print_summary(result)
+        return out
+
+    def _print_summary(self, result: dict) -> None:
+        """Выводит сводку в stdout."""
+        health = result["health_summary"]
+        inputs = result["input_reports"]
+        items = result["action_items"]
+
+        print()
+        print("=" * 60)
+        print("  CONSOLIDATED REPORT SUMMARY")
+        print("=" * 60)
+        print()
+
+        # Статус входных отчётов
+        for name, info in inputs.items():
+            status_mark = "[OK]" if info["found"] else "[MISSING]"
+            print(f"  {status_mark} {name}")
+
+        print()
+        print(f"  Quality score:    {health['quality_score']}")
+        print(f"  Drift status:     {health['drift_status']}")
+        print(f"  SLA status:       {health['sla_status']}")
+        print(f"  Total docs:       {health['total_docs']}")
+        print(f"  Stale docs:       {health['stale_pct']:.1f}%")
+        print(
+            f"  Retrieval P/R/H:  {health['retrieval_precision_at_k']:.2f} / "
+            f"{health['retrieval_recall_at_k']:.2f} / {health['retrieval_hallucination_rate']:.2f}"
+        )
+        print(f"  Graph nodes:      {health['knowledge_graph_nodes']}")
+        print()
+        print(f"  Total action items: {len(items)}")
+
+        # Подсчёт по source_report
+        by_source: dict[str, int] = {}
+        by_priority: dict[str, int] = {}
+        for item in items:
+            by_source[item["source_report"]] = by_source.get(item["source_report"], 0) + 1
+            by_priority[item["priority"]] = by_priority.get(item["priority"], 0) + 1
+
+        if by_source:
+            print("  By source:")
+            for src, cnt in sorted(by_source.items()):
+                print(f"    {src}: {cnt}")
+
+        if by_priority:
+            print("  By priority:")
+            for pri, cnt in sorted(by_priority.items()):
+                print(f"    {pri}: {cnt}")
+
+        print()
+        print(f"  Output: {self.reports_dir / 'consolidated_report.json'}")
+        print("=" * 60)
+        print()
+        print("Next step: open Claude Code in the project directory and say:")
+        print('  "Process reports/consolidated_report.json"')
+        print()
+
+
+def main():
+    parser = argparse.ArgumentParser(
+        description="Consolidate 4 documentation reports into one prioritized file."
+    )
+    parser.add_argument(
+        "--reports-dir",
+        default="reports",
+        help="Directory containing input reports (default: reports)",
+    )
+    parser.add_argument(
+        "--output",
+        default="reports/consolidated_report.json",
+        help="Output path for consolidated report (default: reports/consolidated_report.json)",
+    )
+    args = parser.parse_args()
+
+    # -- License gate --
+    _check_consolidate_license()
+
+    consolidator = ReportConsolidator(reports_dir=args.reports_dir)
+    consolidator.save(output_path=args.output)
+
+
+if __name__ == "__main__":
+    main()

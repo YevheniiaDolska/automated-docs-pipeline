@@ -1,0 +1,35 @@
+id: auto-websocket-events-7
+title: WebSocket event playground (Part 7)
+summary: Interactive WebSocket playground for VeriOps real-time API with bidirectional
+  messaging, channel subscriptions, and connection lifecycle management.
+intents:
+- integrate
+audiences:
+- developer
+- operator
+channels:
+- docs
+- assistant
+- automation
+priority: 60
+status: active
+owner: docsops-auto
+last_verified: '2026-03-20'
+dependencies: []
+tags:
+- auto-extracted
+- reference
+- websocket-events
+content:
+  docs_markdown: "## Interactive WebSocket tester\n\nConnect to the sandbox WebSocket\
+    \ endpoint, subscribe to channels, and send messages from the browser.\n\n!!!\
+    \ info \"Sandbox mode\"\n    The endpoint field below auto-fills with a public\
+    \ WebSocket echo sandbox URL.\n    No API key is required for sandbox requests."
+  assistant_context: "Use this module when answering questions related to: WebSocket\
+    \ event playground (Part 7). Source path: demo-showcase/acme/docs/reference/websocket-events.md.\
+    \ Summary: Interactive WebSocket playground for VeriOps real-time API with bidirectional\
+    \ messaging, channel subscriptions, and connection lifecycle management.\n\n##\
+    \ Interactive WebSocket tester\n\nConnect to the sandbox WebSocket endpoint, subscribe\
+    \ to channels, and send messages from the browser.\n\n!!! info \"Sandbox mode\"\
+    \n    The endpoint field below auto-fills with a public WebSocket echo sandbox\
+    \ URL.\n    No API key is required for sandbox requests."

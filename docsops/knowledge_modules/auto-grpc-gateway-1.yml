@@ -1,0 +1,59 @@
+id: auto-grpc-gateway-1
+title: gRPC gateway invoke
+summary: Invoke VeriOps gRPC services through the HTTP gateway with service catalog,
+  proto definitions, and interactive request testing.
+intents:
+- integrate
+- secure
+audiences:
+- developer
+- operator
+channels:
+- docs
+- assistant
+- automation
+priority: 60
+status: active
+owner: docsops-auto
+last_verified: '2026-03-20'
+dependencies: []
+tags:
+- auto-extracted
+- grpc-gateway
+- reference
+content:
+  docs_markdown: "# gRPC gateway invoke\n\n<div class=\"veriops-badges\" markdown>\n\
+    \n![Powered by VeriOps](https://img.shields.io/badge/Powered%20by-VeriOps-7c3aed?style=flat-square)\n\
+    ![Quality Score](https://img.shields.io/badge/Quality%20Score-100%25-10b981?style=flat-square)\n\
+    ![Protocols](https://img.shields.io/badge/Protocols-5-7c3aed?style=flat-square)\n\
+    \n</div>\n\nThe VeriOps gRPC API provides high-performance Remote Procedure Call\
+    \ (RPC) access to project services over HTTP/2 with Protocol Buffers serialization.\
+    \ The HTTP gateway adapter allows you to invoke gRPC methods from any HTTP client\
+    \ without a gRPC library.\n\n!!! note \"Sandbox mode\"\n    Interactive requests\
+    \ route to the Postman mock server. No gRPC tooling required.\n    In production,\
+    \ the pipeline validates proto definitions against the `protoc` compiler automatically.\n\
+    \n## Connection details\n\n| Setting | Value |\n| --- | --- |\n| gRPC endpoint\
+    \ | `grpc.veriops.example:443` |\n| HTTP gateway | [`https://api.veriops.example/grpc/invoke`](https://api.veriops.example/grpc/invoke)\
+    \ |\n| Transport | HTTP/2 with TLS 1.3 |\n| Serialization | Protocol Buffers (proto3)\
+    \ |\n| Package | `veriops.v1` |\n| Proto file | `veriops.proto` |\n| Default deadline\
+    \ | 30 seconds |\n| Max message size | 4 MB |\n| Authentication | Bearer token\
+    \ in `Authorization` metadata |"
+  assistant_context: "Use this module when answering questions related to: gRPC gateway\
+    \ invoke. Source path: demo-showcase/acme/docs/reference/grpc-gateway.md. Summary:\
+    \ Invoke VeriOps gRPC services through the HTTP gateway with service catalog,\
+    \ proto definitions, and interactive request testing.\n\n# gRPC gateway invoke\n\
+    \n<div class=\"veriops-badges\" markdown>\n\n![Powered by VeriOps](https://img.shields.io/badge/Powered%20by-VeriOps-7c3aed?style=flat-square)\n\
+    ![Quality Score](https://img.shields.io/badge/Quality%20Score-100%25-10b981?style=flat-square)\n\
+    ![Protocols](https://img.shields.io/badge/Protocols-5-7c3aed?style=flat-square)\n\
+    \n</div>\n\nThe VeriOps gRPC API provides high-performance Remote Procedure Call\
+    \ (RPC) access to project services over HTTP/2 with Protocol Buffers serialization.\
+    \ The HTTP gateway adapter allows you to invoke gRPC methods from any HTTP client\
+    \ without a gRPC library.\n\n!!! note \"Sandbox mode\"\n    Interactive requests\
+    \ route to the Postman mock server. No gRPC tooling required.\n    In production,\
+    \ the pipeline validates proto definitions against the `protoc` compiler automatically.\n\
+    \n## Connection details\n\n| Setting | Value |\n| --- | --- |\n| gRPC endpoint\
+    \ | `grpc.veriops.example:443` |\n| HTTP gateway | [`https://api.veriops.example/grpc/invoke`](https://api.veriops.example/grpc/invoke)\
+    \ |\n| Transport | HTTP/2 with TLS 1.3 |\n| Serialization | Protocol Buffers (proto3)\
+    \ |\n| Package | `veriops.v1` |\n| Proto file | `veriops.proto` |\n| Default deadline\
+    \ | 30 seconds |\n| Max message size | 4 MB |\n| Authentication | Bearer token\
+    \ in `Authorization` metadata |"

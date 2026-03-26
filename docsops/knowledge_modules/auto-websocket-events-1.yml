@@ -1,0 +1,126 @@
+id: auto-websocket-events-1
+title: WebSocket event playground
+summary: Interactive WebSocket playground for VeriOps real-time API with bidirectional
+  messaging, channel subscriptions, and connection lifecycle management.
+intents:
+- integrate
+- secure
+audiences:
+- developer
+- operator
+channels:
+- docs
+- assistant
+- automation
+priority: 60
+status: active
+owner: docsops-auto
+last_verified: '2026-03-20'
+dependencies: []
+tags:
+- auto-extracted
+- reference
+- websocket-events
+content:
+  docs_markdown: '# WebSocket event playground
+
+
+    <div class="veriops-badges" markdown>
+
+
+    ![Powered by VeriOps](https://img.shields.io/badge/Powered%20by-VeriOps-7c3aed?style=flat-square)
+
+    ![Quality Score](https://img.shields.io/badge/Quality%20Score-100%25-10b981?style=flat-square)
+
+    ![Protocols](https://img.shields.io/badge/Protocols-5-7c3aed?style=flat-square)
+
+
+    </div>
+
+
+    The VeriOps WebSocket API provides real-time, bidirectional communication for
+    project updates and task notifications over a persistent connection. This playground
+    allows you to connect, subscribe to channels, send messages, and observe server-pushed
+    events.
+
+
+    ## Connection details
+
+
+    | Setting | Value |
+
+    | --- | --- |
+
+    | Endpoint | `wss://api.veriops.example/realtime` |
+
+    | Authentication | Bearer token as `token` query parameter |
+
+    | Protocol | WebSocket (RFC 6455) over TLS 1.3 |
+
+    | Heartbeat interval | 30 seconds (server sends `ping`, client responds `pong`)
+    |
+
+    | Reconnect strategy | Exponential backoff: 1 second, 2 seconds, 4 seconds, 8
+    seconds, 16 seconds, max 30 seconds |
+
+    | Max message size | 64 KB |
+
+    | Idle timeout | 300 seconds (5 minutes) without messages |
+
+    | Max subscriptions per connection | 50 channels |
+
+    | Compression | `permessage-deflate` supported |'
+  assistant_context: 'Use this module when answering questions related to: WebSocket
+    event playground. Source path: demo-showcase/acme/docs/reference/websocket-events.md.
+    Summary: Interactive WebSocket playground for VeriOps real-time API with bidirectional
+    messaging, channel subscriptions, and connection lifecycle management.
+
+
+    # WebSocket event playground
+
+
+    <div class="veriops-badges" markdown>
+
+
+    ![Powered by VeriOps](https://img.shields.io/badge/Powered%20by-VeriOps-7c3aed?style=flat-square)
+
+    ![Quality Score](https://img.shields.io/badge/Quality%20Score-100%25-10b981?style=flat-square)
+
+    ![Protocols](https://img.shields.io/badge/Protocols-5-7c3aed?style=flat-square)
+
+
+    </div>
+
+
+    The VeriOps WebSocket API provides real-time, bidirectional communication for
+    project updates and task notifications over a persistent connection. This playground
+    allows you to connect, subscribe to channels, send messages, and observe server-pushed
+    events.
+
+
+    ## Connection details
+
+
+    | Setting | Value |
+
+    | --- | --- |
+
+    | Endpoint | `wss://api.veriops.example/realtime` |
+
+    | Authentication | Bearer token as `token` query parameter |
+
+    | Protocol | WebSocket (RFC 6455) over TLS 1.3 |
+
+    | Heartbeat interval | 30 seconds (server sends `ping`, client responds `pong`)
+    |
+
+    | Reconnect strategy | Exponential backoff: 1 second, 2 seconds, 4 seconds, 8
+    seconds, 16 seconds, max 30 seconds |
+
+    | Max message size | 64 KB |
+
+    | Idle timeout | 300 seconds (5 minutes) without messages |
+
+    | Max subscriptions per connection | 50 channels |
+
+    | Compression | `permessage-deflate` supported |'

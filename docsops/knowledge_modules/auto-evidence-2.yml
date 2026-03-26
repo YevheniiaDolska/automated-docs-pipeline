@@ -1,0 +1,95 @@
+id: auto-evidence-2
+title: Quality evidence and gate results (Part 2)
+summary: Complete quality evidence from the VeriDoc pipeline for VeriOps docs, covering
+  KPI metrics, protocol gates, 24 automated checks, and RAG readiness.
+intents:
+- integrate
+audiences:
+- developer
+- operator
+channels:
+- docs
+- assistant
+- automation
+priority: 60
+status: active
+owner: docsops-auto
+last_verified: '2026-03-20'
+dependencies: []
+tags:
+- auto-extracted
+- evidence
+- reference
+content:
+  docs_markdown: '## Protocol contract gate results
+
+
+    Each protocol passes through eight pipeline stages: ingest, lint, regression,
+    docs generation, frontmatter gate, snippet lint, test assets, and publish. Results
+    come from `reports/acme-demo/multi_protocol_contract_report.json`.
+
+
+    | Protocol | Contract source | Status | Stages passed | Notes |
+
+    | --- | --- | --- | --- | --- |
+
+    | REST | `api/openapi.yaml` (OpenAPI 3.0) | **PASS** | 8/8 | 14 endpoints validated
+    |
+
+    | GraphQL | `contracts/graphql.schema.graphql` | **PASS** | 8/8 | 3 operation
+    types validated |
+
+    | gRPC | `contracts/grpc/acme.proto` (Proto3) | **PASS** | 8/8 | 3 RPC methods
+    validated |
+
+    | AsyncAPI | `contracts/asyncapi.yaml` (v2.6.0) | **PASS** | 8/8 | 3 channels
+    validated |
+
+    | WebSocket | `contracts/websocket.yaml` | **PASS** | 8/8 | 3 channels validated
+    |
+
+
+    ## Quality checks enforced
+
+
+    The pipeline runs 24 automated checks on every documentation page. These are the
+    same checks described in `scripts/seo_geo_optimizer.py`.'
+  assistant_context: 'Use this module when answering questions related to: Quality
+    evidence and gate results (Part 2). Source path: demo-showcase/acme/docs/quality/evidence.md.
+    Summary: Complete quality evidence from the VeriDoc pipeline for VeriOps docs,
+    covering KPI metrics, protocol gates, 24 automated checks, and RAG readiness.
+
+
+    ## Protocol contract gate results
+
+
+    Each protocol passes through eight pipeline stages: ingest, lint, regression,
+    docs generation, frontmatter gate, snippet lint, test assets, and publish. Results
+    come from `reports/acme-demo/multi_protocol_contract_report.json`.
+
+
+    | Protocol | Contract source | Status | Stages passed | Notes |
+
+    | --- | --- | --- | --- | --- |
+
+    | REST | `api/openapi.yaml` (OpenAPI 3.0) | **PASS** | 8/8 | 14 endpoints validated
+    |
+
+    | GraphQL | `contracts/graphql.schema.graphql` | **PASS** | 8/8 | 3 operation
+    types validated |
+
+    | gRPC | `contracts/grpc/acme.proto` (Proto3) | **PASS** | 8/8 | 3 RPC methods
+    validated |
+
+    | AsyncAPI | `contracts/asyncapi.yaml` (v2.6.0) | **PASS** | 8/8 | 3 channels
+    validated |
+
+    | WebSocket | `contracts/websocket.yaml` | **PASS** | 8/8 | 3 channels validated
+    |
+
+
+    ## Quality checks enforced
+
+
+    The pipeline runs 24 automated checks on every documentation page. These are the
+    same checks described in `scripts/seo_geo_optimizer.py`.'

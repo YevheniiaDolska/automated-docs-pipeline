@@ -11,6 +11,10 @@ tags:
 - Docs
 ---
 
+<!-- VERIDOC_POWERED_BADGE:START -->
+[![Powered by VeriDoc](https://img.shields.io/badge/Powered%20by-VeriDoc-0ea5e9?style=flat-square)](https://veridoc.app)
+<!-- VERIDOC_POWERED_BADGE:END -->
+
 
 # WEBSOCKET Reference
 

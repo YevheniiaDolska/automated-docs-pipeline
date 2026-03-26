@@ -1,0 +1,141 @@
+id: auto-graphql-playground-2
+title: GraphQL playground (Part 2)
+summary: Interactive GraphQL playground for VeriOps API with schema explorer, live
+  query editor, subscription support, and advanced RAG retrieval pipeline.
+intents:
+- integrate
+audiences:
+- developer
+- operator
+channels:
+- docs
+- assistant
+- automation
+priority: 60
+status: active
+owner: docsops-auto
+last_verified: '2026-03-20'
+dependencies: []
+tags:
+- auto-extracted
+- graphql-playground
+- reference
+content:
+  docs_markdown: '### Query type
+
+
+    | Field | Arguments | Return type | Description |
+
+    | --- | --- | --- | --- |
+
+    | `health` | -- | `Health!` | Returns API health status, version, and uptime |
+
+    | `project` | `id: ID!` | `Project` | Fetch a single project by ID |
+
+    | `projects` | `status: String`, `limit: Int` | `[Project!]!` | List projects
+    with optional status filter |
+
+
+    ### Mutation type
+
+
+    | Field | Arguments | Return type | Description |
+
+    | --- | --- | --- | --- |
+
+    | `createProject` | `name: String!`, `status: String` | `Project!` | Create a
+    new project resource |
+
+    | `updateProject` | `id: ID!`, `name: String`, `status: String` | `Project!` |
+    Update an existing project |
+
+
+    ### Subscription type
+
+
+    | Field | Arguments | Return type | Description |
+
+    | --- | --- | --- | --- |
+
+    | `projectUpdated` | `projectId: ID` | `Project!` | Real-time stream of project
+    changes |
+
+
+    ### Project type
+
+
+    | Field | Type | Description |
+
+    | --- | --- | --- |
+
+    | `id` | `ID!` | Unique project identifier (format: `prj_*`) |
+
+    | `name` | `String!` | Project name (3-100 characters) |
+
+    | `status` | `String!` | Current status: `draft`, `active`, `archived` |
+
+    | `createdAt` | `DateTime` | ISO 8601 creation timestamp |
+
+    | `updatedAt` | `DateTime` | ISO 8601 last update timestamp |'
+  assistant_context: 'Use this module when answering questions related to: GraphQL
+    playground (Part 2). Source path: demo-showcase/acme/docs/reference/graphql-playground.md.
+    Summary: Interactive GraphQL playground for VeriOps API with schema explorer,
+    live query editor, subscription support, and advanced RAG retrieval pipeline.
+
+
+    ### Query type
+
+
+    | Field | Arguments | Return type | Description |
+
+    | --- | --- | --- | --- |
+
+    | `health` | -- | `Health!` | Returns API health status, version, and uptime |
+
+    | `project` | `id: ID!` | `Project` | Fetch a single project by ID |
+
+    | `projects` | `status: String`, `limit: Int` | `[Project!]!` | List projects
+    with optional status filter |
+
+
+    ### Mutation type
+
+
+    | Field | Arguments | Return type | Description |
+
+    | --- | --- | --- | --- |
+
+    | `createProject` | `name: String!`, `status: String` | `Project!` | Create a
+    new project resource |
+
+    | `updateProject` | `id: ID!`, `name: String`, `status: String` | `Project!` |
+    Update an existing project |
+
+
+    ### Subscription type
+
+
+    | Field | Arguments | Return type | Description |
+
+    | --- | --- | --- | --- |
+
+    | `projectUpdated` | `projectId: ID` | `Project!` | Real-time stream of project
+    changes |
+
+
+    ### Project type
+
+
+    | Field | Type | Description |
+
+    | --- | --- | --- |
+
+    | `id` | `ID!` | Unique project identifier (format: `prj_*`) |
+
+    | `name` | `String!` | Project name (3-100 characters) |
+
+    | `status` | `String!` | Current status: `draft`, `active`, `archived` |
+
+    | `createdAt` | `DateTime` | ISO 8601 creation timestamp |
+
+    | `updatedAt` | `DateTime` | ISO 8601 last update timestamp |'

@@ -1,0 +1,79 @@
+id: auto-graphql-playground-6
+title: GraphQL playground (Part 6)
+summary: Interactive GraphQL playground for VeriOps API with schema explorer, live
+  query editor, subscription support, and advanced RAG retrieval pipeline.
+intents:
+- integrate
+audiences:
+- developer
+- operator
+channels:
+- docs
+- assistant
+- automation
+priority: 60
+status: active
+owner: docsops-auto
+last_verified: '2026-03-20'
+dependencies: []
+tags:
+- auto-extracted
+- graphql-playground
+- reference
+content:
+  docs_markdown: '### HyDE query expansion
+
+
+    When HyDE is enabled, the pipeline generates a hypothetical documentation passage
+    using `gpt-4.1-mini` (temperature 0.0, max 300 tokens) before embedding the query.
+    The generated passage captures domain-specific vocabulary that the raw user question
+    may lack. The pipeline embeds this hypothetical document instead of the raw query,
+    which improves retrieval for vague or high-level questions.
+
+
+    ### Cross-encoder reranking
+
+
+    After initial retrieval returns 20 candidates, a cross-encoder model (`cross-encoder/ms-marco-MiniLM-L-6-v2`)
+    reranks them by scoring (query, document) pairs. The reranker uses the concatenation
+    of each candidate''s title, summary, and assistant excerpt. This reduces false
+    positives and surfaces the most relevant modules for the final top-N context window.
+
+
+    ### Embedding cache
+
+
+    An in-memory LRU cache stores embedding vectors with a 3,600-second TTL and a
+    maximum of 512 entries. Repeated queries skip the OpenAI embedding API call entirely,
+    reducing latency and API costs. The cache evicts the oldest entry when full.'
+  assistant_context: 'Use this module when answering questions related to: GraphQL
+    playground (Part 6). Source path: demo-showcase/acme/docs/reference/graphql-playground.md.
+    Summary: Interactive GraphQL playground for VeriOps API with schema explorer,
+    live query editor, subscription support, and advanced RAG retrieval pipeline.
+
+
+    ### HyDE query expansion
+
+
+    When HyDE is enabled, the pipeline generates a hypothetical documentation passage
+    using `gpt-4.1-mini` (temperature 0.0, max 300 tokens) before embedding the query.
+    The generated passage captures domain-specific vocabulary that the raw user question
+    may lack. The pipeline embeds this hypothetical document instead of the raw query,
+    which improves retrieval for vague or high-level questions.
+
+
+    ### Cross-encoder reranking
+
+
+    After initial retrieval returns 20 candidates, a cross-encoder model (`cross-encoder/ms-marco-MiniLM-L-6-v2`)
+    reranks them by scoring (query, document) pairs. The reranker uses the concatenation
+    of each candidate''s title, summary, and assistant excerpt. This reduces false
+    positives and surfaces the most relevant modules for the final top-N context window.
+
+
+    ### Embedding cache
+
+
+    An in-memory LRU cache stores embedding vectors with a 3,600-second TTL and a
+    maximum of 512 entries. Repeated queries skip the OpenAI embedding API call entirely,
+    reducing latency and API costs. The cache evicts the oldest entry when full.'
