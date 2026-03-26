@@ -4,20 +4,17 @@ description: Auto-generated websocket reference from source contract.
 content_type: reference
 product: both
 tags:
-- Test_Multi_Protocol_Flow_Gener0
-- Tmp
-- Pytest 2625
+- Pytest 2641
 - Pytest Of Eudo
 - Docs
+- Tmp
+- Test_Multi_Protocol_Flow_Gener0
 ---
 
-<!-- VERIDOC_POWERED_BADGE:START -->
-[![Powered by VeriDoc](https://img.shields.io/badge/Powered%20by-VeriDoc-0ea5e9?style=flat-square)](https://veridoc.app)
-<!-- VERIDOC_POWERED_BADGE:END -->
 
 # WEBSOCKET Reference
 
-Source: `/tmp/pytest-of-eudo/pytest-2625/test_multi_protocol_flow_gener0/api/websocket.yaml`
+Source: `/tmp/pytest-of-eudo/pytest-2641/test_multi_protocol_flow_gener0/api/websocket.yaml`
 
 Flow mode: `api-first`
 
@@ -37,13 +34,11 @@ Flow mode: `api-first`
 
 <div id="websocket-playground" style="border:1px solid #d1d5db; padding:12px; border-radius:8px;">
   <p><strong>Endpoint:</strong> <code id="websocket-endpoint-view"></code></p>
-  <!-- vale off -->
   <textarea id="websocket-message" rows="8" style="width:100%; font-family:monospace;">{
   "type": "subscribe",
   "request_id": "req_001",
   "payload": {"channel": "project.updated", "filters": {"project_id": "prj_abc123"}}
 }</textarea><br/>
-  <!-- vale on -->
   <button id="websocket-send">Connect + Send</button>
   <pre id="websocket-output" style="margin-top:12px; max-height:320px; overflow:auto;"></pre>
 </div>

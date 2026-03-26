@@ -957,7 +957,8 @@ def create_bundle(profile_path: Path) -> Path:
     required_scripts.append("scripts/check_updates.py")
     required_scripts.append("scripts/rollback.py")
     required_scripts.append("scripts/finalize_docs_gate.py")
-    required_scripts.append("scripts/apply_veridoc_branding_policy.py")
+    if isinstance(branding_cfg, Mapping) and bool(branding_cfg.get("enabled", False)):
+        required_scripts.append("scripts/apply_veridoc_branding_policy.py")
     pr_autofix = runtime_cfg.get("pr_autofix", {})
     if isinstance(pr_autofix, Mapping) and bool(pr_autofix.get("enabled", False)):
         required_scripts.append("scripts/auto_fix_pr_docs.py")

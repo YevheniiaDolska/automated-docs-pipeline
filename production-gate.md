@@ -2,7 +2,7 @@
 title: "Production gate checklist"
 description: "Strict go or no-go checklist for VeriDoc and VeriOps production launch readiness."
 date: "2026-03-24"
-last_reviewed: "2026-03-24"
+last_reviewed: "2026-03-26"
 ---
 
 <!-- cspell:ignore veridoc lemonsqueezy -->
@@ -42,16 +42,16 @@ Use it together with [Deployment Runbook](deploy/production-runbook.md).
 ## 5. Auth and access controls
 
 - [ ] Register/login works in staging and production.
-- [x] Token expiration works as expected.
-- [x] Protected APIs reject missing/invalid token.
-- [x] Protected APIs pass with valid token.
+- [ ] Token expiration works as expected.
+- [ ] Protected APIs reject missing/invalid token.
+- [ ] Protected APIs pass with valid token.
 
 ## 6. Billing
 
 - [ ] Checkout links are correct for all plans.
-- [x] Webhook signature verification is enabled.
-- [x] Events tested: new subscription, renewal, cancel, payment failure, refund.
-- [x] Plan limits are enforced after webhook updates.
+- [ ] Webhook signature verification is enabled.
+- [ ] Events tested: new subscription, renewal, cancel, payment failure, refund.
+- [ ] Plan limits are enforced after webhook updates.
 
 ## 7. Data safety and recovery
 
@@ -68,9 +68,9 @@ Use it together with [Deployment Runbook](deploy/production-runbook.md).
 
 ## 9. Quality gates
 
-- [x] Pre-commit checks pass without `--no-verify`.
+- [ ] Pre-commit checks pass without `--no-verify`.
 - [ ] Docs pipeline passes on staging.
-- [x] End-to-end smoke scenario passes:
+- [ ] End-to-end smoke scenario passes:
   `onboarding -> settings -> run pipeline -> artifacts -> executive report`.
 
 ## 10. Customer-facing package
@@ -84,4 +84,9 @@ Use it together with [Deployment Runbook](deploy/production-runbook.md).
 
 - [ ] All items above are done.
 - [ ] You have one-click rollback command tested in staging.
-- [x] You can run smoke test in production on demand.
+- [ ] You can run smoke test in production on demand.
+
+## 11. Completed today (2026-03-26)
+
+- [x] Public docs auditor crawl coverage denominator was fixed to avoid inflated discovery counts.
+- [x] Public docs auditor regression tests passed (`142 passed`).

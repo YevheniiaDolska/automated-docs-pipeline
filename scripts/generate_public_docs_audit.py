@@ -1327,25 +1327,28 @@ def _crawl_site(
         status_map: dict[str, int] = {}
         discovered: set[str] = {start_url}
         seed_urls: set[str] = {start_url}
-        if auto_mode:
-            sitemap_urls, robot_count = _discover_seed_urls_from_sitemaps(
-                start_url=start_url,
-                timeout=timeout,
-                auth_headers=auth_headers,
-            )
-            feed_urls = _discover_seed_urls_from_feeds(
-                start_url=start_url,
-                timeout=timeout,
-                auth_headers=auth_headers,
-            )
-            seed_urls.update(sitemap_urls)
-            seed_urls.update(feed_urls)
-            seeded_sitemap_urls = len(sitemap_urls)
-            robots_sitemaps = robot_count
+        sitemap_urls, robot_count = _discover_seed_urls_from_sitemaps(
+            start_url=start_url,
+            timeout=timeout,
+            auth_headers=auth_headers,
+        )
+        feed_urls = _discover_seed_urls_from_feeds(
+            start_url=start_url,
+            timeout=timeout,
+            auth_headers=auth_headers,
+        )
+        seed_urls.update(sitemap_urls)
+        seed_urls.update(feed_urls)
+        seeded_sitemap_urls = len(sitemap_urls)
+        robots_sitemaps = robot_count
+        # If sitemap is available, treat it as authoritative crawl scope.
+        # This prevents crawl-trap inflation and keeps coverage meaningful.
+        sitemap_scope = len(sitemap_urls) > 0
         queue: deque[str] = deque(sorted(seed_urls))
         discovered.update(seed_urls)
         rounds_without_new = 0
         prior_crawled = 0
+        progress_total = min(effective_limit, len(seed_urls)) if sitemap_scope else effective_limit
 
         if ua_attempt > 0:
             print("[audit] retry with alternative User-Agent ({}/{})...".format(
@@ -1390,10 +1393,7 @@ def _crawl_site(
                     status_map[url] = st
                     if page is not None:
                         pages.append(page)
-                        print(
-                            "[audit] page {}/{}: {}".format(len(pages), effective_limit, url[:80]),
-                            flush=True,
-                        )
+                        print("[audit] page {}/{}: {}".format(len(pages), progress_total, url[:80]), flush=True)
                         for link in new_links:
                             if not _is_http_url(link):
                                 continue
@@ -1401,6 +1401,9 @@ def _crawl_site(
                                 continue
                             if _is_probable_crawl_trap(link):
                                 trap_urls_skipped += 1
+                                continue
+                            # In sitemap-scoped mode, keep crawl strictly within sitemap/feed seeds.
+                            if sitemap_scope and link not in seed_urls:
                                 continue
                             if link not in discovered:
                                 discovered.add(link)
@@ -1528,7 +1531,8 @@ def _crawl_site(
         "auto_mode": auto_mode,
         "configured_max_pages": int(max_pages),
         "effective_limit": int(effective_limit),
-        "discovered_pages": len({p.url for p in pages} | {u for p in pages for u in p.internal_links}),
+        # Use crawl frontier discovery, not all in-page links, for coverage denominator.
+        "discovered_pages": len(discovered),
         "pages_crawled": len(pages),
         "requested_pages": len(status_map),
         "stop_reason": stop_reason,
@@ -1576,7 +1580,9 @@ def _site_payload(
             "auto_mode": int(max_pages) <= 0,
             "configured_max_pages": int(max_pages),
             "effective_limit": int(max_pages),
-            "discovered_pages": len({p.url for p in pages} | {u for p in pages for u in p.internal_links}),
+            # Legacy fallback path: count discovered pages by crawled page URLs only.
+            # Including all in-page links here inflates denominator and breaks coverage.
+            "discovered_pages": len({p.url for p in pages}),
             "pages_crawled": len(pages),
             "requested_pages": len(status_map),
             "stop_reason": "unknown",

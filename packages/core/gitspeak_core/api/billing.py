@@ -137,13 +137,13 @@ class CheckoutResponse(BaseModel):
 
     checkout_url: str
     badge_settings_url: str = Field(
-        default="/referral-terms",
+        default="/settings#referrals",
         description="Where higher-tier users can configure badge opt-out and referral payouts.",
     )
     badge_settings_hint: str = Field(
         default=(
             "On Pro/Business/Enterprise you can disable badge in Settings > Badge and referral income, "
-            "or keep it enabled for recurring commissions. Read full terms at /referral-terms."
+            "or keep it enabled for recurring referral commissions. Read full terms at /referral-terms."
         ),
         description="UI hint to show near checkout and post-purchase screens.",
     )

@@ -4,25 +4,22 @@ description: Auto-generated graphql reference from source contract.
 content_type: reference
 product: both
 tags:
+- Kroha
 - Docs
-- C
 - Users
 - Development
-- Auto Doc Pipeline
-- Kroha
 - Mnt
+- C
+- Auto Doc Pipeline
 - Documents
-last_reviewed: '2026-03-24'
+last_reviewed: '2026-03-26'
 original_author: Kroha
 ---
 
-<!-- VERIDOC_POWERED_BADGE:START -->
-[![Powered by VeriDoc](https://img.shields.io/badge/Powered%20by-VeriDoc-0ea5e9?style=flat-square)](https://veridoc.app)
-<!-- VERIDOC_POWERED_BADGE:END -->
 
 # GRAPHQL Reference
 
-Source: `/tmp/pytest-of-eudo/pytest-2625/test_multi_protocol_contract_f0/schema.graphql`
+Source: `/tmp/pytest-of-eudo/pytest-2642/test_multi_protocol_flow_e2e_e0/schema.graphql`
 
 Flow mode: `api-first`
 

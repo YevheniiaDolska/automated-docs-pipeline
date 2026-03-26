@@ -642,12 +642,15 @@ def main() -> int:
     modules = runtime.get("modules", {})
     api_first = runtime.get("api_first", {})
     protocol_settings = runtime.get("api_protocol_settings", {})
+    branding_cfg = runtime.get("veridoc_branding", {})
     if not isinstance(modules, dict):
         modules = {}
     if not isinstance(api_first, dict):
         api_first = {}
     if not isinstance(protocol_settings, dict):
         protocol_settings = {}
+    if not isinstance(branding_cfg, dict):
+        branding_cfg = {}
 
     generate_assets = bool(api_first.get("generate_test_assets", False))
     upload_assets = bool(api_first.get("upload_test_assets", False))

@@ -1,37 +1,8 @@
 asyncapi: 2.6.0
-info:
-  title: Auto-Doc Pipeline Async Events
-  version: 1.0.0
-  description: Generated from planning notes for Auto-Doc Pipeline.
+info: {title: x, version: 1.0.0}
 channels:
-  project.updated:
+  orders/created:
     publish:
       message:
-        name: project_updated_event
         payload:
           type: object
-          properties:
-            event_id:
-              type: string
-            event_type:
-              type: string
-              example: project.updated
-            occurred_at:
-              type: string
-              format: date-time
-            data:
-              type: object
-          required:
-          - event_id
-          - event_type
-          - occurred_at
-    subscribe:
-      message:
-        name: project_updated_subscription
-        payload:
-          type: object
-          properties:
-            ack:
-              type: boolean
-            event_id:
-              type: string

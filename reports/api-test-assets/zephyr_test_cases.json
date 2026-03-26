@@ -1,196 +1,66 @@
 {
   "testCases": [
     {
-      "name": "GraphQL mutation:updateHealth auth policy",
-      "objective": "Unauthorized access is blocked; authorized call succeeds.",
+      "name": "ASYNCAPI orders/created invalid payload",
+      "objective": "Invalid event payload is rejected with deterministic error handling.",
       "precondition": "Contract source is available\nTarget endpoint/mock is reachable",
       "labels": [
         "multi-protocol",
         "auto-generated",
-        "graphql",
-        "auth"
+        "asyncapi",
+        "invalid-payload"
       ],
       "statusName": "Draft",
       "priorityName": "Normal"
     },
     {
-      "name": "GraphQL mutation:updateHealth invalid input",
-      "objective": "Validation error is returned with stable error envelope.",
+      "name": "ASYNCAPI orders/created ordering/idempotency",
+      "objective": "Duplicate/out-of-order messages are handled according to policy.",
       "precondition": "Contract source is available\nTarget endpoint/mock is reachable",
       "labels": [
         "multi-protocol",
         "auto-generated",
-        "graphql",
-        "negative"
+        "asyncapi",
+        "ordering-idempotency"
       ],
       "statusName": "Draft",
       "priorityName": "Normal"
     },
     {
-      "name": "GraphQL mutation:updateHealth latency budget",
-      "objective": "P95 latency remains within documented SLO under representative load.",
+      "name": "ASYNCAPI orders/created performance profile",
+      "objective": "Throughput/concurrency remains within documented SLO without contract violations.",
       "precondition": "Contract source is available\nTarget endpoint/mock is reachable",
       "labels": [
         "multi-protocol",
         "auto-generated",
-        "graphql",
-        "performance-latency"
+        "asyncapi",
+        "performance-throughput"
       ],
       "statusName": "Draft",
       "priorityName": "Normal"
     },
     {
-      "name": "GraphQL mutation:updateHealth happy path",
-      "objective": "Response shape matches schema and required fields are present.",
+      "name": "ASYNCAPI orders/created publish contract",
+      "objective": "Valid payload is accepted and routed according to contract.",
       "precondition": "Contract source is available\nTarget endpoint/mock is reachable",
       "labels": [
         "multi-protocol",
         "auto-generated",
-        "graphql",
-        "positive"
+        "asyncapi",
+        "publish"
       ],
       "statusName": "Draft",
       "priorityName": "Normal"
     },
     {
-      "name": "GraphQL mutation:updateHealth injection hardening",
-      "objective": "Injection-like payloads are safely rejected and do not expose internals.",
+      "name": "ASYNCAPI orders/created security policy",
+      "objective": "Invalid or missing event signature is rejected before processing.",
       "precondition": "Contract source is available\nTarget endpoint/mock is reachable",
       "labels": [
         "multi-protocol",
         "auto-generated",
-        "graphql",
-        "security-injection"
-      ],
-      "statusName": "Draft",
-      "priorityName": "Normal"
-    },
-    {
-      "name": "GraphQL query:health auth policy",
-      "objective": "Unauthorized access is blocked; authorized call succeeds.",
-      "precondition": "Contract source is available\nTarget endpoint/mock is reachable",
-      "labels": [
-        "multi-protocol",
-        "auto-generated",
-        "graphql",
-        "auth"
-      ],
-      "statusName": "Draft",
-      "priorityName": "Normal"
-    },
-    {
-      "name": "GraphQL query:health invalid input",
-      "objective": "Validation error is returned with stable error envelope.",
-      "precondition": "Contract source is available\nTarget endpoint/mock is reachable",
-      "labels": [
-        "multi-protocol",
-        "auto-generated",
-        "graphql",
-        "negative"
-      ],
-      "statusName": "Draft",
-      "priorityName": "Normal"
-    },
-    {
-      "name": "GraphQL query:health latency budget",
-      "objective": "P95 latency remains within documented SLO under representative load.",
-      "precondition": "Contract source is available\nTarget endpoint/mock is reachable",
-      "labels": [
-        "multi-protocol",
-        "auto-generated",
-        "graphql",
-        "performance-latency"
-      ],
-      "statusName": "Draft",
-      "priorityName": "Normal"
-    },
-    {
-      "name": "GraphQL query:health happy path",
-      "objective": "Response shape matches schema and required fields are present.",
-      "precondition": "Contract source is available\nTarget endpoint/mock is reachable",
-      "labels": [
-        "multi-protocol",
-        "auto-generated",
-        "graphql",
-        "positive"
-      ],
-      "statusName": "Draft",
-      "priorityName": "Normal"
-    },
-    {
-      "name": "GraphQL query:health injection hardening",
-      "objective": "Injection-like payloads are safely rejected and do not expose internals.",
-      "precondition": "Contract source is available\nTarget endpoint/mock is reachable",
-      "labels": [
-        "multi-protocol",
-        "auto-generated",
-        "graphql",
-        "security-injection"
-      ],
-      "statusName": "Draft",
-      "priorityName": "Normal"
-    },
-    {
-      "name": "GraphQL subscription:healthChanged auth policy",
-      "objective": "Unauthorized access is blocked; authorized call succeeds.",
-      "precondition": "Contract source is available\nTarget endpoint/mock is reachable",
-      "labels": [
-        "multi-protocol",
-        "auto-generated",
-        "graphql",
-        "auth"
-      ],
-      "statusName": "Draft",
-      "priorityName": "Normal"
-    },
-    {
-      "name": "GraphQL subscription:healthChanged invalid input",
-      "objective": "Validation error is returned with stable error envelope.",
-      "precondition": "Contract source is available\nTarget endpoint/mock is reachable",
-      "labels": [
-        "multi-protocol",
-        "auto-generated",
-        "graphql",
-        "negative"
-      ],
-      "statusName": "Draft",
-      "priorityName": "Normal"
-    },
-    {
-      "name": "GraphQL subscription:healthChanged latency budget",
-      "objective": "P95 latency remains within documented SLO under representative load.",
-      "precondition": "Contract source is available\nTarget endpoint/mock is reachable",
-      "labels": [
-        "multi-protocol",
-        "auto-generated",
-        "graphql",
-        "performance-latency"
-      ],
-      "statusName": "Draft",
-      "priorityName": "Normal"
-    },
-    {
-      "name": "GraphQL subscription:healthChanged happy path",
-      "objective": "Response shape matches schema and required fields are present.",
-      "precondition": "Contract source is available\nTarget endpoint/mock is reachable",
-      "labels": [
-        "multi-protocol",
-        "auto-generated",
-        "graphql",
-        "positive"
-      ],
-      "statusName": "Draft",
-      "priorityName": "Normal"
-    },
-    {
-      "name": "GraphQL subscription:healthChanged injection hardening",
-      "objective": "Injection-like payloads are safely rejected and do not expose internals.",
-      "precondition": "Contract source is available\nTarget endpoint/mock is reachable",
-      "labels": [
-        "multi-protocol",
-        "auto-generated",
-        "graphql",
-        "security-injection"
+        "asyncapi",
+        "security-signature"
       ],
       "statusName": "Draft",
       "priorityName": "Normal"

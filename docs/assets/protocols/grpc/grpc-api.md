@@ -4,24 +4,22 @@ description: Auto-generated grpc reference from source contract.
 content_type: reference
 product: both
 tags:
-- Test_Multi_Protocol_Flow_Gener0
-- Pytest Of Eudo
-- Pytest 2625
-- Docs
 - Tmp
+- Test_Multi_Protocol_Flow_Gener0
+- Pytest 2641
+- Pytest Of Eudo
+- Docs
 ---
 
-<!-- VERIDOC_POWERED_BADGE:START -->
-[![Powered by VeriDoc](https://img.shields.io/badge/Powered%20by-VeriDoc-0ea5e9?style=flat-square)](https://veridoc.app)
-<!-- VERIDOC_POWERED_BADGE:END -->
 
 # GRPC Reference
 
-Source: `/tmp/pytest-of-eudo/pytest-2625/test_multi_protocol_flow_gener0/api/proto`
+Source: `/tmp/pytest-of-eudo/pytest-2641/test_multi_protocol_flow_gener0/api/proto`
 
 Flow mode: `api-first`
 
 ## Top-level Keys
+
 
 ## Service Methods
 

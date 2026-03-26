@@ -1,46 +1,16 @@
 title,section,preconditions,steps,expected_result
-GraphQL mutation:updateHealth auth policy,GRAPHQL Contract,"Contract source is available
-Target endpoint/mock is reachable","1. Call without auth token.
-2. Call with valid token and compare behavior.",Unauthorized access is blocked; authorized call succeeds.
-GraphQL mutation:updateHealth invalid input,GRAPHQL Contract,"Contract source is available
-Target endpoint/mock is reachable","1. Send malformed input or invalid type.
-2. Validate deterministic error semantics.",Validation error is returned with stable error envelope.
-GraphQL mutation:updateHealth latency budget,GRAPHQL Contract,"Contract source is available
-Target endpoint/mock is reachable","1. Execute operation under target concurrency.
-2. Capture latency percentiles and compare with SLO.",P95 latency remains within documented SLO under representative load.
-GraphQL mutation:updateHealth happy path,GRAPHQL Contract,"Contract source is available
-Target endpoint/mock is reachable","1. Execute operation with valid arguments.
-2. Validate response data and type contract.",Response shape matches schema and required fields are present.
-GraphQL mutation:updateHealth injection hardening,GRAPHQL Contract,"Contract source is available
-Target endpoint/mock is reachable","1. Send malicious nested/introspection/injection payload.
-2. Validate sanitized error behavior.",Injection-like payloads are safely rejected and do not expose internals.
-GraphQL query:health auth policy,GRAPHQL Contract,"Contract source is available
-Target endpoint/mock is reachable","1. Call without auth token.
-2. Call with valid token and compare behavior.",Unauthorized access is blocked; authorized call succeeds.
-GraphQL query:health invalid input,GRAPHQL Contract,"Contract source is available
-Target endpoint/mock is reachable","1. Send malformed input or invalid type.
-2. Validate deterministic error semantics.",Validation error is returned with stable error envelope.
-GraphQL query:health latency budget,GRAPHQL Contract,"Contract source is available
-Target endpoint/mock is reachable","1. Execute operation under target concurrency.
-2. Capture latency percentiles and compare with SLO.",P95 latency remains within documented SLO under representative load.
-GraphQL query:health happy path,GRAPHQL Contract,"Contract source is available
-Target endpoint/mock is reachable","1. Execute operation with valid arguments.
-2. Validate response data and type contract.",Response shape matches schema and required fields are present.
-GraphQL query:health injection hardening,GRAPHQL Contract,"Contract source is available
-Target endpoint/mock is reachable","1. Send malicious nested/introspection/injection payload.
-2. Validate sanitized error behavior.",Injection-like payloads are safely rejected and do not expose internals.
-GraphQL subscription:healthChanged auth policy,GRAPHQL Contract,"Contract source is available
-Target endpoint/mock is reachable","1. Call without auth token.
-2. Call with valid token and compare behavior.",Unauthorized access is blocked; authorized call succeeds.
-GraphQL subscription:healthChanged invalid input,GRAPHQL Contract,"Contract source is available
-Target endpoint/mock is reachable","1. Send malformed input or invalid type.
-2. Validate deterministic error semantics.",Validation error is returned with stable error envelope.
-GraphQL subscription:healthChanged latency budget,GRAPHQL Contract,"Contract source is available
-Target endpoint/mock is reachable","1. Execute operation under target concurrency.
-2. Capture latency percentiles and compare with SLO.",P95 latency remains within documented SLO under representative load.
-GraphQL subscription:healthChanged happy path,GRAPHQL Contract,"Contract source is available
-Target endpoint/mock is reachable","1. Execute operation with valid arguments.
-2. Validate response data and type contract.",Response shape matches schema and required fields are present.
-GraphQL subscription:healthChanged injection hardening,GRAPHQL Contract,"Contract source is available
-Target endpoint/mock is reachable","1. Send malicious nested/introspection/injection payload.
-2. Validate sanitized error behavior.",Injection-like payloads are safely rejected and do not expose internals.
+ASYNCAPI orders/created invalid payload,ASYNCAPI Contract,"Contract source is available
+Target endpoint/mock is reachable","1. Publish malformed payload.
+2. Validate rejection and error envelope.",Invalid event payload is rejected with deterministic error handling.
+ASYNCAPI orders/created ordering/idempotency,ASYNCAPI Contract,"Contract source is available
+Target endpoint/mock is reachable","1. Send duplicate and reordered events.
+2. Verify idempotency and ordering semantics.",Duplicate/out-of-order messages are handled according to policy.
+ASYNCAPI orders/created performance profile,ASYNCAPI Contract,"Contract source is available
+Target endpoint/mock is reachable","1. Run representative load burst.
+2. Validate SLO metrics and message contract integrity.",Throughput/concurrency remains within documented SLO without contract violations.
+ASYNCAPI orders/created publish contract,ASYNCAPI Contract,"Contract source is available
+Target endpoint/mock is reachable","1. Publish valid event/message.
+2. Verify downstream acceptance and schema conformance.",Valid payload is accepted and routed according to contract.
+ASYNCAPI orders/created security policy,ASYNCAPI Contract,"Contract source is available
+Target endpoint/mock is reachable","1. Send event/message without valid security context.
+2. Validate deterministic rejection behavior.",Invalid or missing event signature is rejected before processing.
