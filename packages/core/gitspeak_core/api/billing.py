@@ -19,13 +19,16 @@ import logging
 import os
 import secrets
 import smtplib
+import uuid
 from collections import defaultdict
 from datetime import datetime, timedelta, timezone
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
+from pathlib import Path
 from typing import Any
 
 import httpx
+import jwt
 from pydantic import BaseModel, ConfigDict, Field
 
 logger = logging.getLogger(__name__)
@@ -81,6 +84,15 @@ WISE_API_TOKEN = os.environ.get("WISE_API_TOKEN", "")
 WISE_PROFILE_ID = os.environ.get("WISE_PROFILE_ID", "")
 WISE_API_URL = os.environ.get("WISE_API_URL", "https://api.transferwise.com")
 WISE_DRY_RUN = os.environ.get("WISE_DRY_RUN", "true").lower() in {"1", "true", "yes"}
+VERIOPS_LICENSE_KEY = os.environ.get("VERIOPS_LICENSE_KEY", "").strip()
+LICENSE_AUTORENEW_ENABLED = os.environ.get(
+    "VERIDOC_LICENSE_AUTORENEW_ENABLED", "true"
+).lower() in {"1", "true", "yes"}
+LICENSE_STORE_DIR = Path(
+    os.environ.get("VERIDOC_LICENSE_STORE_DIR", "/var/lib/veridoc/licenses")
+).expanduser()
+LICENSE_ISSUER = os.environ.get("VERIDOC_LICENSE_ISSUER", "veridoc-billing")
+LICENSE_AUDIENCE = os.environ.get("VERIDOC_LICENSE_AUDIENCE", "veriops-client")
 
 def _load_default_monthly_cents() -> dict[str, int]:
     """Load fallback tier prices from pricing config used by the landing."""
@@ -109,6 +121,180 @@ def _load_default_monthly_cents() -> dict[str, int]:
 
 
 TIER_DEFAULT_MONTHLY_CENTS = _load_default_monthly_cents()
+LICENSE_PLAN_BY_TIER: dict[str, str] = {
+    "free": "pilot",
+    "starter": "pilot",
+    "pro": "professional",
+    "business": "enterprise",
+    "enterprise": "enterprise",
+}
+
+
+def _tier_to_license_capabilities(tier: str) -> tuple[list[str], dict[str, bool]]:
+    """Return protocol and feature capabilities for issued server licenses."""
+    normalized = (tier or "free").strip().lower()
+    if normalized in {"enterprise", "business"}:
+        protocols = ["rest", "graphql", "grpc", "asyncapi", "websocket"]
+        features = {
+            "api_first_flow": True,
+            "multi_protocol_pipeline": True,
+            "weekly_gap_batch": True,
+            "public_docs_audit": True,
+            "seo_geo_scoring": True,
+            "ask_ai": True,
+            "rollbacks": True,
+        }
+        return protocols, features
+    if normalized == "pro":
+        protocols = ["rest", "graphql"]
+        features = {
+            "api_first_flow": True,
+            "multi_protocol_pipeline": False,
+            "weekly_gap_batch": True,
+            "public_docs_audit": True,
+            "seo_geo_scoring": True,
+            "ask_ai": True,
+            "rollbacks": True,
+        }
+        return protocols, features
+    protocols = ["rest"]
+    features = {
+        "api_first_flow": True,
+        "multi_protocol_pipeline": False,
+        "weekly_gap_batch": False,
+        "public_docs_audit": False,
+        "seo_geo_scoring": False,
+        "ask_ai": False,
+        "rollbacks": False,
+    }
+    return protocols, features
+
+
+def _safe_dt(value: datetime | None) -> datetime | None:
+    """Normalize datetime to timezone-aware UTC datetime."""
+    if value is None:
+        return None
+    if value.tzinfo is None:
+        return value.replace(tzinfo=timezone.utc)
+    return value.astimezone(timezone.utc)
+
+
+def _is_license_active_status(sub_status: str) -> bool:
+    """Statuses that keep paid capabilities active."""
+    return sub_status in {"trialing", "active"}
+
+
+def _issue_or_refresh_server_license(
+    sub: Any,
+    reason: str,
+    db_session: Any,
+) -> None:
+    """Issue or refresh a server-managed license token from subscription state.
+
+    This provides a webhook-driven entitlement artifact for automated
+    billing-to-license synchronization without requiring manual reissue.
+    """
+    if not LICENSE_AUTORENEW_ENABLED:
+        return
+    if not VERIOPS_LICENSE_KEY:
+        logger.warning(
+            "VERIOPS_LICENSE_KEY is not configured; skipping auto license issuance"
+        )
+        return
+
+    now = datetime.now(timezone.utc)
+    period_end = _safe_dt(getattr(sub, "current_period_end", None))
+    status = str(getattr(sub, "status", "canceled") or "canceled")
+    tier = str(getattr(sub, "tier", "free") or "free")
+    user_id = str(getattr(sub, "user_id", "") or "")
+    ls_subscription_id = str(getattr(sub, "ls_subscription_id", "") or "")
+
+    active = _is_license_active_status(status)
+    effective_tier = tier if active else "free"
+    protocols, features = _tier_to_license_capabilities(effective_tier)
+    plan = LICENSE_PLAN_BY_TIER.get(effective_tier, "pilot")
+    exp_at = period_end if (period_end and active) else now + timedelta(days=7)
+    iat = int(now.timestamp())
+    exp = int(exp_at.timestamp())
+
+    claims = {
+        "sub": user_id,
+        "tier": effective_tier,
+        "plan": plan,
+        "status": status,
+        "ls_subscription_id": ls_subscription_id,
+        "features": features,
+        "protocols": protocols,
+        "iat": iat,
+        "exp": exp,
+        "iss": LICENSE_ISSUER,
+        "aud": LICENSE_AUDIENCE,
+        "jti": uuid.uuid4().hex,
+        "reason": reason,
+        "auto_renewed": True,
+    }
+    token = jwt.encode(claims, VERIOPS_LICENSE_KEY, algorithm="HS256")
+
+    user_dir = LICENSE_STORE_DIR / user_id
+    user_dir.mkdir(parents=True, exist_ok=True)
+    license_path = user_dir / "license.jwt"
+    metadata_path = user_dir / "license_meta.json"
+    license_path.write_text(token + "\n", encoding="utf-8")
+    metadata = {
+        "user_id": user_id,
+        "tier": effective_tier,
+        "status": status,
+        "plan": plan,
+        "reason": reason,
+        "issued_at": now.isoformat(),
+        "expires_at": exp_at.isoformat(),
+        "ls_subscription_id": ls_subscription_id,
+        "protocols": protocols,
+        "features": features,
+        "license_path": str(license_path),
+    }
+    metadata_path.write_text(
+        json.dumps(metadata, ensure_ascii=True, indent=2) + "\n",
+        encoding="utf-8",
+    )
+    try:
+        os.chmod(license_path, 0o600)
+        os.chmod(metadata_path, 0o600)
+    except OSError:
+        pass
+
+    # Best-effort audit trace.
+    try:
+        from gitspeak_core.db.models import AuditLog
+
+        db_session.add(
+            AuditLog(
+                user_id=user_id,
+                action="license.auto_renewed",
+                resource_type="subscription",
+                resource_id=getattr(sub, "id", None),
+                details={
+                    "tier": effective_tier,
+                    "status": status,
+                    "reason": reason,
+                    "expires_at": exp_at.isoformat(),
+                    "path": str(license_path),
+                },
+            )
+        )
+        db_session.commit()
+    except Exception as exc:
+        db_session.rollback()
+        logger.warning("Failed to persist license audit log for user=%s: %s", user_id, exc)
+
+    logger.info(
+        "Server license issued: user=%s tier=%s status=%s reason=%s exp=%s",
+        user_id,
+        effective_tier,
+        status,
+        reason,
+        exp_at.isoformat(),
+    )
 
 
 # ---------------------------------------------------------------------------
@@ -196,6 +382,31 @@ class ReferralSummaryResponse(BaseModel):
     earnings: dict[str, Any]
     recent_ledger: list[dict[str, Any]]
     payouts: list[dict[str, Any]]
+
+
+class LicenseStatusResponse(BaseModel):
+    """Current auto-issued server license status for user."""
+
+    model_config = ConfigDict(extra="forbid")
+
+    enabled: bool
+    has_license: bool
+    license_path: str | None = None
+    expires_at: str | None = None
+    tier: str | None = None
+    status: str | None = None
+    reason: str | None = None
+    updated_at: str | None = None
+
+
+class LicenseTokenResponse(BaseModel):
+    """Current server-issued license JWT for authenticated user."""
+
+    model_config = ConfigDict(extra="forbid")
+
+    has_license: bool
+    token: str | None = None
+    expires_at: str | None = None
 
 
 # ---------------------------------------------------------------------------
@@ -341,6 +552,65 @@ def handle_get_usage(user_id: str, db_session: Any) -> UsageResponse:
         trial_ends_at=(
             sub.trial_ends_at.isoformat() if sub.trial_ends_at else None
         ),
+    )
+
+
+def handle_get_server_license_status(
+    user_id: str,
+    db_session: Any,
+) -> LicenseStatusResponse:
+    """Return current webhook-managed server license status for a user."""
+    from gitspeak_core.db.models import User
+
+    user = db_session.query(User).filter(User.id == user_id).first()
+    if not user or not user.subscription:
+        raise ValueError("No subscription found")
+
+    if not LICENSE_AUTORENEW_ENABLED:
+        return LicenseStatusResponse(enabled=False, has_license=False)
+
+    meta_path = LICENSE_STORE_DIR / user_id / "license_meta.json"
+    lic_path = LICENSE_STORE_DIR / user_id / "license.jwt"
+    if not meta_path.exists() or not lic_path.exists():
+        return LicenseStatusResponse(
+            enabled=True,
+            has_license=False,
+            license_path=str(lic_path),
+        )
+    try:
+        payload = json.loads(meta_path.read_text(encoding="utf-8"))
+    except Exception:
+        payload = {}
+    return LicenseStatusResponse(
+        enabled=True,
+        has_license=True,
+        license_path=str(lic_path),
+        expires_at=str(payload.get("expires_at") or ""),
+        tier=str(payload.get("tier") or ""),
+        status=str(payload.get("status") or ""),
+        reason=str(payload.get("reason") or ""),
+        updated_at=str(payload.get("issued_at") or ""),
+    )
+
+
+def handle_get_server_license_token(
+    user_id: str,
+    db_session: Any,
+) -> LicenseTokenResponse:
+    """Return current auto-managed license JWT for authenticated user."""
+    status = handle_get_server_license_status(user_id, db_session)
+    if not status.has_license or not status.license_path:
+        return LicenseTokenResponse(has_license=False)
+    path = Path(status.license_path)
+    if not path.exists():
+        return LicenseTokenResponse(has_license=False)
+    token = path.read_text(encoding="utf-8").strip()
+    if not token:
+        return LicenseTokenResponse(has_license=False)
+    return LicenseTokenResponse(
+        has_license=True,
+        token=token,
+        expires_at=status.expires_at,
     )
 
 
@@ -824,11 +1094,16 @@ def handle_webhook(
     handlers: dict[str, Any] = {
         "subscription_created": _on_subscription_created,
         "subscription_updated": _on_subscription_updated,
+        "subscription_plan_changed": _on_subscription_updated,
         "subscription_cancelled": _on_subscription_cancelled,
+        "subscription_expired": _on_subscription_cancelled,
+        "subscription_paused": _on_subscription_paused,
         "subscription_resumed": _on_subscription_resumed,
+        "subscription_unpaused": _on_subscription_resumed,
         "subscription_payment_success": _on_payment_success,
         "subscription_payment_failed": _on_payment_failed,
         "subscription_payment_refunded": _on_payment_refunded,
+        "order_refunded": _on_payment_refunded,
         "subscription_trial_ending": _on_trial_ending,
     }
 
@@ -900,6 +1175,7 @@ def _on_subscription_created(data: dict[str, Any], db_session: Any) -> None:
             db_session.add(attribution)
 
     db_session.commit()
+    _issue_or_refresh_server_license(sub, reason="subscription_created", db_session=db_session)
 
     logger.info("Subscription created: user=%s tier=%s", user_id, tier)
 
@@ -932,6 +1208,7 @@ def _on_subscription_updated(data: dict[str, Any], db_session: Any) -> None:
     sub.current_period_end = _parse_ls_date(attrs.get("renews_at"))
     sub.cancel_at_period_end = attrs.get("cancelled", False)
     db_session.commit()
+    _issue_or_refresh_server_license(sub, reason="subscription_updated", db_session=db_session)
 
     if old_tier != new_tier:
         logger.info(
@@ -957,8 +1234,27 @@ def _on_subscription_cancelled(data: dict[str, Any], db_session: Any) -> None:
     sub.cancel_at_period_end = True
     sub.status = _map_ls_status(attrs.get("status", "cancelled"))
     db_session.commit()
+    _issue_or_refresh_server_license(sub, reason="subscription_cancelled", db_session=db_session)
 
     logger.info("Subscription cancelled: user=%s", sub.user_id)
+
+
+def _on_subscription_paused(data: dict[str, Any], db_session: Any) -> None:
+    """Handle subscription pause."""
+    from gitspeak_core.db.models import Subscription
+
+    ls_sub_id = str(data.get("id", ""))
+    sub = (
+        db_session.query(Subscription)
+        .filter(Subscription.ls_subscription_id == ls_sub_id)
+        .first()
+    )
+    if not sub:
+        return
+    sub.status = "paused"
+    db_session.commit()
+    _issue_or_refresh_server_license(sub, reason="subscription_paused", db_session=db_session)
+    logger.info("Subscription paused: user=%s", sub.user_id)
 
 
 def _on_subscription_resumed(data: dict[str, Any], db_session: Any) -> None:
@@ -977,6 +1273,7 @@ def _on_subscription_resumed(data: dict[str, Any], db_session: Any) -> None:
     sub.cancel_at_period_end = False
     sub.status = "active"
     db_session.commit()
+    _issue_or_refresh_server_license(sub, reason="subscription_resumed", db_session=db_session)
 
     logger.info("Subscription resumed: user=%s", sub.user_id)
 
@@ -1105,6 +1402,7 @@ def _on_payment_success(data: dict[str, Any], db_session: Any) -> None:
                 db_session.add(ledger)
 
     db_session.commit()
+    _issue_or_refresh_server_license(sub, reason="subscription_payment_success", db_session=db_session)
 
     logger.info("Payment success, usage reset: user=%s", sub.user_id)
 
@@ -1126,16 +1424,20 @@ def _on_payment_failed(data: dict[str, Any], db_session: Any) -> None:
     if sub:
         sub.status = "past_due"
         db_session.commit()
+        _issue_or_refresh_server_license(sub, reason="subscription_payment_failed", db_session=db_session)
 
     logger.warning("Payment failed: subscription=%s", ls_sub_id)
 
 
 def _on_payment_refunded(data: dict[str, Any], db_session: Any) -> None:
     """Handle refunded payment by reversing queued/accrued commission entries."""
-    from gitspeak_core.db.models import ReferralLedgerEntry
+    from gitspeak_core.db.models import ReferralLedgerEntry, Subscription
 
     attrs = data.get("attributes", {})
-    ls_sub_id = str(attrs.get("subscription_id", ""))
+    ls_sub_id = str(attrs.get("subscription_id", "")).strip()
+    if not ls_sub_id:
+        # order_refunded payload can differ; try common fields.
+        ls_sub_id = str(attrs.get("subscription", "")).strip()
     if not ls_sub_id:
         return
 
@@ -1152,7 +1454,16 @@ def _on_payment_refunded(data: dict[str, Any], db_session: Any) -> None:
         row.status = "reversed"
         row.entry_details = row.entry_details or {}
         row.entry_details["refund_event_id"] = str(data.get("id", ""))
-        db_session.commit()
+    sub = (
+        db_session.query(Subscription)
+        .filter(Subscription.ls_subscription_id == ls_sub_id)
+        .first()
+    )
+    if sub:
+        sub.status = "past_due"
+    db_session.commit()
+    if sub:
+        _issue_or_refresh_server_license(sub, reason="subscription_payment_refunded", db_session=db_session)
 
 
 # ---------------------------------------------------------------------------

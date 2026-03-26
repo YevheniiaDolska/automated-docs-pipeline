@@ -639,6 +639,109 @@ class TestBilling:
         db_session.refresh(row)
         assert row.status == "reversed"
 
+    def test_webhook_payment_success_issues_server_license(
+        self,
+        test_user,
+        db_session,
+        monkeypatch,
+        tmp_path,
+    ):
+        import gitspeak_core.api.billing as billing_mod
+
+        from gitspeak_core.api.billing import handle_webhook, handle_get_server_license_status
+
+        monkeypatch.setattr(billing_mod, "VERIOPS_LICENSE_KEY", "test-license-key")
+        monkeypatch.setattr(billing_mod, "LICENSE_AUTORENEW_ENABLED", True)
+        monkeypatch.setattr(billing_mod, "LICENSE_STORE_DIR", tmp_path / "licenses")
+
+        test_user.subscription.ls_subscription_id = "sub_license_001"
+        test_user.subscription.tier = "pro"
+        test_user.subscription.status = "active"
+        test_user.subscription.current_period_end = datetime.now(timezone.utc) + timedelta(days=30)
+        db_session.commit()
+
+        event_data = {
+            "attributes": {"subscription_id": "sub_license_001"},
+        }
+        result = handle_webhook("subscription_payment_success", event_data, db_session)
+        assert result["status"] == "ok"
+
+        lic_path = (tmp_path / "licenses" / test_user.id / "license.jwt")
+        meta_path = (tmp_path / "licenses" / test_user.id / "license_meta.json")
+        assert lic_path.exists()
+        assert meta_path.exists()
+
+        status = handle_get_server_license_status(test_user.id, db_session)
+        assert status.enabled is True
+        assert status.has_license is True
+        assert status.tier == "pro"
+        assert status.status == "active"
+
+    def test_webhook_cancelled_degrades_server_license(
+        self,
+        test_user,
+        db_session,
+        monkeypatch,
+        tmp_path,
+    ):
+        import gitspeak_core.api.billing as billing_mod
+
+        from gitspeak_core.api.billing import handle_webhook, handle_get_server_license_status
+
+        monkeypatch.setattr(billing_mod, "VERIOPS_LICENSE_KEY", "test-license-key")
+        monkeypatch.setattr(billing_mod, "LICENSE_AUTORENEW_ENABLED", True)
+        monkeypatch.setattr(billing_mod, "LICENSE_STORE_DIR", tmp_path / "licenses")
+
+        test_user.subscription.ls_subscription_id = "sub_license_002"
+        test_user.subscription.tier = "business"
+        test_user.subscription.status = "active"
+        db_session.commit()
+
+        created_event = {
+            "id": "sub_license_002",
+            "attributes": {
+                "customer_id": "cust_lic_2",
+                "variant_id": "variant_business_monthly",
+                "status": "active",
+                "custom_data": {"veridoc_user_id": test_user.id},
+            },
+        }
+        handle_webhook("subscription_created", created_event, db_session)
+        cancelled_event = {
+            "id": "sub_license_002",
+            "attributes": {"status": "cancelled"},
+        }
+        handle_webhook("subscription_cancelled", cancelled_event, db_session)
+
+        status = handle_get_server_license_status(test_user.id, db_session)
+        assert status.has_license is True
+        assert status.status == "canceled"
+        assert status.tier == "free"
+
+    def test_get_server_license_token(self, test_user, db_session, monkeypatch, tmp_path):
+        import gitspeak_core.api.billing as billing_mod
+
+        from gitspeak_core.api.billing import (
+            handle_get_server_license_token,
+            handle_webhook,
+        )
+
+        monkeypatch.setattr(billing_mod, "VERIOPS_LICENSE_KEY", "test-license-key")
+        monkeypatch.setattr(billing_mod, "LICENSE_AUTORENEW_ENABLED", True)
+        monkeypatch.setattr(billing_mod, "LICENSE_STORE_DIR", tmp_path / "licenses")
+
+        test_user.subscription.ls_subscription_id = "sub_license_003"
+        db_session.commit()
+        handle_webhook(
+            "subscription_payment_success",
+            {"attributes": {"subscription_id": "sub_license_003"}},
+            db_session,
+        )
+
+        token_resp = handle_get_server_license_token(test_user.id, db_session)
+        assert token_resp.has_license is True
+        assert token_resp.token
+
 
 # =========================================================================
 # Settings and Module Registry Tests

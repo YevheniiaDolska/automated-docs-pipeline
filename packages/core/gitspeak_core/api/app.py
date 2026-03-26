@@ -823,6 +823,36 @@ async def get_usage(
         raise HTTPException(status_code=400, detail=str(exc))
 
 
+@app.get("/billing/license/status", tags=["billing"])
+async def get_billing_license_status(
+    user: dict[str, Any] = Depends(get_current_user),
+    db: Any = Depends(get_db),
+) -> dict[str, Any]:
+    """Return current server-managed license status for authenticated user."""
+    from gitspeak_core.api.billing import handle_get_server_license_status
+
+    try:
+        result = handle_get_server_license_status(user["user_id"], db)
+        return result.model_dump()
+    except ValueError as exc:
+        raise HTTPException(status_code=400, detail=str(exc))
+
+
+@app.get("/billing/license/token", tags=["billing"])
+async def get_billing_license_token(
+    user: dict[str, Any] = Depends(get_current_user),
+    db: Any = Depends(get_db),
+) -> dict[str, Any]:
+    """Return current server-managed license JWT for authenticated user."""
+    from gitspeak_core.api.billing import handle_get_server_license_token
+
+    try:
+        result = handle_get_server_license_token(user["user_id"], db)
+        return result.model_dump()
+    except ValueError as exc:
+        raise HTTPException(status_code=400, detail=str(exc))
+
+
 @app.get("/billing/referrals", tags=["billing"])
 async def get_referral_summary(
     user: dict[str, Any] = Depends(get_current_user),
