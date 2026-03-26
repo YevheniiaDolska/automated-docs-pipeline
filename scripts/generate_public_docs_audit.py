@@ -64,6 +64,19 @@ _CONTRACT_PATH_CANDIDATES = (
     "/ws", "/websocket",
 )
 
+_SITEMAP_HINT_RE = re.compile(r"(?im)^\s*sitemap\s*:\s*(\S+)\s*$")
+_URLSET_LOC_RE = re.compile(r"(?is)<loc>\s*(.*?)\s*</loc>")
+_RSS_LINK_RE = re.compile(r"(?is)<link>\s*(https?://[^<\s]+)\s*</link>")
+_CRAWL_TRAP_QUERY_KEYS = {
+    "utm_source", "utm_medium", "utm_campaign", "utm_term", "utm_content",
+    "gclid", "fbclid", "yclid", "mc_cid", "mc_eid", "ref", "source", "session",
+    "sort", "order", "view", "format", "print", "filter", "filters", "page",
+    "cursor", "offset", "start", "end", "date", "month", "year", "calendar",
+}
+_CRAWL_TRAP_PATH_HINTS = (
+    "/search", "/calendar", "/tag/", "/tags/", "/archive/", "/archives/",
+)
+
 
 def _slugify(text: str) -> str:
     """Convert text to a filesystem-safe slug (lowercase, hyphens)."""
@@ -91,6 +104,107 @@ def _normalize_url(raw: str) -> str:
         path = path[:-1]
     clean = parsed._replace(fragment="", query="", path=path)
     return urlunparse(clean)
+
+
+def _is_probable_crawl_trap(url: str) -> bool:
+    parsed = urlparse(url)
+    path = (parsed.path or "/").lower()
+    if any(hint in path for hint in _CRAWL_TRAP_PATH_HINTS):
+        return True
+    if not parsed.query:
+        return False
+    keys = [part.split("=", 1)[0].strip().lower() for part in parsed.query.split("&") if part.strip()]
+    if len(keys) >= 4:
+        return True
+    return any(k in _CRAWL_TRAP_QUERY_KEYS for k in keys)
+
+
+def _extract_http_urls_from_xml(body: str) -> list[str]:
+    urls: list[str] = []
+    for match in _URLSET_LOC_RE.findall(body or ""):
+        candidate = _normalize_url(str(match).strip())
+        if _is_http_url(candidate) and candidate not in urls:
+            urls.append(candidate)
+    return urls
+
+
+def _discover_seed_urls_from_sitemaps(
+    start_url: str,
+    timeout: int,
+    auth_headers: dict[str, str] | None = None,
+) -> tuple[set[str], int]:
+    parsed = urlparse(start_url)
+    root = f"{parsed.scheme}://{parsed.netloc}"
+    auth_headers = auth_headers or {}
+    discovered: set[str] = set()
+    robot_sitemap_count = 0
+
+    robots_url = f"{root}/robots.txt"
+    st, _, body = _fetch(robots_url, max(4, int(timeout)), extra_headers=auth_headers)
+    sitemap_candidates: list[str] = []
+    if 200 <= st < 400 and body:
+        for raw_url in _SITEMAP_HINT_RE.findall(body):
+            candidate = _normalize_url(str(raw_url).strip())
+            if _is_http_url(candidate):
+                sitemap_candidates.append(candidate)
+                robot_sitemap_count += 1
+
+    # Common sitemap endpoints (include when robots.txt does not declare them).
+    for suffix in ("/sitemap.xml", "/sitemap_index.xml", "/sitemap-index.xml"):
+        sitemap_candidates.append(_normalize_url(root + suffix))
+
+    # Breadth-limited sitemap traversal to avoid unbounded sitemap index loops.
+    checked: set[str] = set()
+    queue: deque[str] = deque(dict.fromkeys(sitemap_candidates))
+    while queue and len(checked) < 30:
+        sitemap_url = _normalize_url(queue.popleft())
+        if sitemap_url in checked:
+            continue
+        checked.add(sitemap_url)
+        st, ct, body = _fetch(sitemap_url, max(4, int(timeout)), extra_headers=auth_headers)
+        if not (200 <= st < 400):
+            continue
+        text = body or ""
+        if ("xml" not in ct.lower()) and "<urlset" not in text.lower() and "<sitemapindex" not in text.lower():
+            continue
+        for loc in _extract_http_urls_from_xml(text):
+            if not _same_host(loc, start_url):
+                continue
+            if loc.endswith(".xml") and ("sitemap" in loc.lower()) and loc not in checked:
+                queue.append(loc)
+                continue
+            discovered.add(loc)
+            if len(discovered) >= 120000:
+                break
+        if len(discovered) >= 120000:
+            break
+    return discovered, robot_sitemap_count
+
+
+def _discover_seed_urls_from_feeds(
+    start_url: str,
+    timeout: int,
+    auth_headers: dict[str, str] | None = None,
+) -> set[str]:
+    parsed = urlparse(start_url)
+    root = f"{parsed.scheme}://{parsed.netloc}"
+    auth_headers = auth_headers or {}
+    discovered: set[str] = set()
+    for suffix in ("/feed", "/rss", "/atom.xml", "/feed.xml"):
+        feed_url = _normalize_url(root + suffix)
+        st, ct, body = _fetch(feed_url, max(4, int(timeout)), extra_headers=auth_headers)
+        if not (200 <= st < 400):
+            continue
+        text = body or ""
+        if not text:
+            continue
+        if "xml" not in ct.lower() and "<rss" not in text.lower() and "<feed" not in text.lower():
+            continue
+        for raw in _RSS_LINK_RE.findall(text):
+            link = _normalize_url(raw)
+            if _is_http_url(link) and _same_host(link, start_url):
+                discovered.add(link)
+    return discovered
 
 
 def _normalize_relative_locale_href(base_url: str, href: str) -> str:
@@ -1180,7 +1294,11 @@ def _crawl_site(
     browser_verify_sample: int = 100,
     browser_discovery_pages: int = 300,
     storage_state_path: str = "",
-) -> tuple[list[PageData], dict[str, int]]:
+    crawl_convergence_rounds: int = 8,
+    crawl_batch_size: int = 60,
+    auto_max_pages: int = 100000,
+    return_stats: bool = False,
+) -> tuple[list[PageData], dict[str, int]] | tuple[list[PageData], dict[str, int], dict[str, Any]]:
     """Crawl *start_url* up to *max_pages* with parallel BFS + parallel link check.
 
     If the first attempt yields zero pages (site blocks requests), automatically
@@ -1189,23 +1307,59 @@ def _crawl_site(
 
     max_pages = int(max_pages)
     timeout = int(timeout)
-    workers = min(max_pages, 10)  # parallel crawl workers
+    auto_mode = max_pages <= 0
+    effective_limit = max_pages if max_pages > 0 else max(200, int(auto_max_pages))
+    workers = min(max(1, effective_limit), 10)  # parallel crawl workers
+    batch_size = max(10, int(crawl_batch_size))
+    convergence_rounds = max(2, int(crawl_convergence_rounds))
 
     verification_modes = verification_modes or {"bot"}
     auth_headers = auth_headers or {}
+    trap_urls_skipped = 0
+    seeded_sitemap_urls = 0
+    robots_sitemaps = 0
+    stop_reason = "limit_reached" if not auto_mode else "converged"
 
     # Try up to len(_USER_AGENTS) User-Agent variants for the start page
     for ua_attempt in range(len(_USER_AGENTS)):
         seen: set[str] = set()
         pages: list[PageData] = []
         status_map: dict[str, int] = {}
-        queue: list[str] = [start_url]
+        discovered: set[str] = {start_url}
+        seed_urls: set[str] = {start_url}
+        if auto_mode:
+            sitemap_urls, robot_count = _discover_seed_urls_from_sitemaps(
+                start_url=start_url,
+                timeout=timeout,
+                auth_headers=auth_headers,
+            )
+            feed_urls = _discover_seed_urls_from_feeds(
+                start_url=start_url,
+                timeout=timeout,
+                auth_headers=auth_headers,
+            )
+            seed_urls.update(sitemap_urls)
+            seed_urls.update(feed_urls)
+            seeded_sitemap_urls = len(sitemap_urls)
+            robots_sitemaps = robot_count
+        queue: deque[str] = deque(sorted(seed_urls))
+        discovered.update(seed_urls)
+        rounds_without_new = 0
+        prior_crawled = 0
 
         if ua_attempt > 0:
             print("[audit] retry with alternative User-Agent ({}/{})...".format(
                 ua_attempt + 1, len(_USER_AGENTS)), flush=True)
         else:
-            print("[audit] crawling up to {} pages ({} workers)...".format(max_pages, workers), flush=True)
+            if auto_mode:
+                print(
+                    "[audit] auto-crawl enabled: until convergence (cap={}, {} workers)...".format(
+                        effective_limit, workers,
+                    ),
+                    flush=True,
+                )
+            else:
+                print("[audit] crawling up to {} pages ({} workers)...".format(max_pages, workers), flush=True)
 
         def _crawl_one(url: str, _ua: int = ua_attempt) -> tuple[str, int, PageData | None, list[str]]:
             """Fetch + parse one page.  Returns (url, status, page_or_None, new_links)."""
@@ -1218,11 +1372,12 @@ def _crawl_site(
             return url, st, page, page.internal_links
 
         with ThreadPoolExecutor(max_workers=workers) as pool:
-            while queue and len(seen) < max_pages:
+            while queue and len(seen) < effective_limit:
                 # Submit a batch of URLs (up to remaining budget)
                 batch: list[str] = []
-                while queue and len(seen) + len(batch) < max_pages:
-                    candidate = queue.pop(0)
+                round_discovered_before = len(discovered)
+                while queue and len(seen) + len(batch) < effective_limit and len(batch) < batch_size:
+                    candidate = queue.popleft()
                     if candidate not in seen:
                         seen.add(candidate)
                         batch.append(candidate)
@@ -1236,15 +1391,42 @@ def _crawl_site(
                     if page is not None:
                         pages.append(page)
                         print(
-                            "[audit] page {}/{}: {}".format(len(pages), max_pages, url[:80]),
+                            "[audit] page {}/{}: {}".format(len(pages), effective_limit, url[:80]),
                             flush=True,
                         )
                         for link in new_links:
-                            if link not in seen and len(seen) + len(queue) < max_pages * 3:
-                                queue.append(link)
+                            if not _is_http_url(link):
+                                continue
+                            if not _same_host(link, start_url):
+                                continue
+                            if _is_probable_crawl_trap(link):
+                                trap_urls_skipped += 1
+                                continue
+                            if link not in discovered:
+                                discovered.add(link)
+                                if len(seen) + len(queue) < effective_limit * 2:
+                                    queue.append(link)
+
+                if auto_mode:
+                    found_new = len(discovered) > round_discovered_before
+                    crawled_new = len(pages) > prior_crawled
+                    if found_new or crawled_new:
+                        rounds_without_new = 0
+                    else:
+                        rounds_without_new += 1
+                    prior_crawled = len(pages)
+                    if rounds_without_new >= convergence_rounds:
+                        stop_reason = "converged"
+                        break
+            else:
+                stop_reason = "limit_reached"
 
         # If we got at least 1 page, stop retrying
         if pages:
+            if not auto_mode and len(seen) >= effective_limit:
+                stop_reason = "limit_reached"
+            elif auto_mode and not queue:
+                stop_reason = "queue_exhausted"
             break
         # Log what happened with the start URL
         start_status = status_map.get(start_url, 0)
@@ -1258,7 +1440,7 @@ def _crawl_site(
     if "browser" in verification_modes and int(browser_discovery_pages) > 0:
         b_pages, b_status = _browser_discover_pages(
             start_url=start_url,
-            max_pages=min(max_pages, int(browser_discovery_pages)),
+            max_pages=min(effective_limit, int(browser_discovery_pages)),
             timeout=max(6, timeout),
             auth_headers=auth_headers,
             storage_state_path=storage_state_path,
@@ -1342,6 +1524,20 @@ def _crawl_site(
                     elif int(st or 0) == 0:
                         status_map[link] = -2
 
+    crawl_stats = {
+        "auto_mode": auto_mode,
+        "configured_max_pages": int(max_pages),
+        "effective_limit": int(effective_limit),
+        "discovered_pages": len({p.url for p in pages} | {u for p in pages for u in p.internal_links}),
+        "pages_crawled": len(pages),
+        "requested_pages": len(status_map),
+        "stop_reason": stop_reason,
+        "trap_urls_skipped": int(trap_urls_skipped),
+        "seeded_sitemap_urls": int(seeded_sitemap_urls),
+        "robots_sitemaps_declared": int(robots_sitemaps),
+    }
+    if return_stats:
+        return pages, status_map, crawl_stats
     return pages, status_map
 
 
@@ -1354,8 +1550,11 @@ def _site_payload(
     browser_verify_sample: int = 100,
     browser_discovery_pages: int = 300,
     storage_state_path: str = "",
+    crawl_convergence_rounds: int = 8,
+    crawl_batch_size: int = 60,
+    auto_max_pages: int = 100000,
 ) -> dict[str, Any]:
-    pages, status_map = _crawl_site(
+    crawl_result = _crawl_site(
         site_url,
         max_pages,
         timeout,
@@ -1364,12 +1563,44 @@ def _site_payload(
         browser_verify_sample=browser_verify_sample,
         browser_discovery_pages=browser_discovery_pages,
         storage_state_path=storage_state_path,
+        crawl_convergence_rounds=crawl_convergence_rounds,
+        crawl_batch_size=crawl_batch_size,
+        auto_max_pages=auto_max_pages,
+        return_stats=True,
     )
-    metrics = {
-        "crawl": {
+    if isinstance(crawl_result, tuple) and len(crawl_result) == 3:
+        pages, status_map, crawl_stats = crawl_result
+    else:
+        pages, status_map = crawl_result  # type: ignore[misc]
+        crawl_stats = {
+            "auto_mode": int(max_pages) <= 0,
+            "configured_max_pages": int(max_pages),
+            "effective_limit": int(max_pages),
+            "discovered_pages": len({p.url for p in pages} | {u for p in pages for u in p.internal_links}),
             "pages_crawled": len(pages),
             "requested_pages": len(status_map),
+            "stop_reason": "unknown",
+            "trap_urls_skipped": 0,
+            "seeded_sitemap_urls": 0,
+            "robots_sitemaps_declared": 0,
+        }
+
+    discovered_pages = int(crawl_stats.get("discovered_pages", 0) or 0)
+    requested_pages = int(crawl_stats.get("requested_pages", len(status_map)) or 0)
+    pages_crawled = int(crawl_stats.get("pages_crawled", len(pages)) or 0)
+    metrics = {
+        "crawl": {
+            "pages_crawled": pages_crawled,
+            "requested_pages": requested_pages,
             "max_pages": int(max_pages),
+            "effective_limit": int(crawl_stats.get("effective_limit", max_pages) or 0),
+            "auto_mode": bool(crawl_stats.get("auto_mode", int(max_pages) <= 0)),
+            "stop_reason": str(crawl_stats.get("stop_reason", "unknown")),
+            "discovered_pages": discovered_pages,
+            "crawl_coverage_pct": _safe_pct(pages_crawled, discovered_pages),
+            "trap_urls_skipped": int(crawl_stats.get("trap_urls_skipped", 0) or 0),
+            "seeded_sitemap_urls": int(crawl_stats.get("seeded_sitemap_urls", 0) or 0),
+            "robots_sitemaps_declared": int(crawl_stats.get("robots_sitemaps_declared", 0) or 0),
         },
         "links": _link_health(pages, status_map),
         "seo_geo": _seo_geo_metrics(pages),
@@ -1529,7 +1760,9 @@ def _aggregate_sites(sites: list[dict[str, Any]]) -> dict[str, Any]:
         "crawl": {
             "pages_crawled": sum(int(s["metrics"]["crawl"]["pages_crawled"]) for s in sites),
             "requested_pages": sum(int(s["metrics"]["crawl"]["requested_pages"]) for s in sites),
-            "max_pages_total": sum(int(s["metrics"]["crawl"]["max_pages"]) for s in sites),
+            "max_pages_total": sum(max(0, int(s["metrics"]["crawl"].get("max_pages", 0))) for s in sites),
+            "discovered_pages": sum(int(s["metrics"]["crawl"].get("discovered_pages", s["metrics"]["crawl"]["requested_pages"])) for s in sites),
+            "trap_urls_skipped": sum(int(s["metrics"]["crawl"].get("trap_urls_skipped", 0)) for s in sites),
         },
         "links": {
             "broken_internal_links_count": sum(int(s["metrics"]["links"]["broken_internal_links_count"]) for s in sites),
@@ -1551,12 +1784,13 @@ def _aggregate_sites(sites: list[dict[str, Any]]) -> dict[str, Any]:
         },
     }
     pages = int(metrics["crawl"]["pages_crawled"] or 0)
-    requested = int(metrics["crawl"]["requested_pages"] or 0)
+    discovered = int(metrics["crawl"].get("discovered_pages", metrics["crawl"]["requested_pages"]) or 0)
     docs_broken = int(metrics["links"].get("docs_broken_links_count", 0))
     unverified = int(metrics["links"].get("unverified_links_count", 0))
     api_cov = float(metrics["api_coverage"].get("reference_coverage_pct", -1.0) or -1.0)
     api_pages = int(metrics["api_coverage"].get("api_pages_detected", 0) or 0)
-    crawl_ratio = 0.0 if requested <= 0 else min(1.0, pages / requested)
+    crawl_ratio = 0.0 if discovered <= 0 else min(1.0, pages / discovered)
+    metrics["crawl"]["crawl_coverage_pct"] = _safe_pct(pages, discovered)
     link_conf = max(20.0, 95.0 - min(70.0, (unverified / max(1, docs_broken + unverified)) * 100.0))
     api_conf = 85.0 if api_cov >= 0 else (55.0 if api_pages > 0 else 35.0)
     crawl_conf = 35.0 + crawl_ratio * 60.0
@@ -1957,6 +2191,8 @@ def _build_html(payload: dict[str, Any]) -> str:
       <p class=\"sub\">Generated: {html.escape(payload['generated_at'])}</p>
       <div class=\"grid\">
         <div class=\"card\"><div class=\"label\">Pages crawled</div><div class=\"value\">{m['crawl']['pages_crawled']}</div></div>
+        <div class=\"card\"><div class=\"label\">Pages discovered</div><div class=\"value\">{m['crawl'].get('discovered_pages', m['crawl'].get('requested_pages', 0))}</div></div>
+        <div class=\"card\"><div class=\"label\">Crawl coverage</div><div class=\"value\">{m['crawl'].get('crawl_coverage_pct', 0)}%</div></div>
         <div class=\"card\"><div class=\"label\">Broken links (docs)</div><div class=\"value\">{m['links'].get('docs_broken_links_count', m['links']['broken_internal_links_count'])}</div></div>
         <div class=\"card\"><div class=\"label\">Broken links (repo nav)</div><div class=\"value\">{m['links'].get('repo_broken_links_count', 0)}</div></div>
         <div class=\"card\"><div class=\"label\">Unverified links</div><div class=\"value\">{m['links'].get('unverified_links_count', 0)}</div></div>
@@ -1999,8 +2235,31 @@ def main() -> int:
         action="store_true",
         help="Run as simple wizard and ask for inputs interactively",
     )
-    parser.add_argument("--max-pages", type=int, default=120)
+    parser.add_argument(
+        "--max-pages",
+        type=int,
+        default=0,
+        help="Per-site crawl cap. Use 0 for automatic crawl until convergence (default).",
+    )
     parser.add_argument("--timeout", type=int, default=15)
+    parser.add_argument(
+        "--auto-max-pages",
+        type=int,
+        default=100000,
+        help="Safety cap used when --max-pages=0 (auto mode).",
+    )
+    parser.add_argument(
+        "--crawl-convergence-rounds",
+        type=int,
+        default=8,
+        help="Stop auto-crawl after this many rounds without newly discovered pages.",
+    )
+    parser.add_argument(
+        "--crawl-batch-size",
+        type=int,
+        default=60,
+        help="Max URLs fetched per crawl round before convergence check.",
+    )
     parser.add_argument(
         "--verification-runs",
         type=int,
@@ -2199,8 +2458,10 @@ def main() -> int:
         ).strip().lower()
         if mode in {"single-product", "multi-project"}:
             args.topology_mode = mode
-        max_pages_raw = input(f"Max pages per site (default: {args.max_pages}): ").strip()
-        if max_pages_raw.isdigit():
+        max_pages_raw = input(
+            f"Max pages per site (default: {args.max_pages}, 0 = auto): "
+        ).strip()
+        if max_pages_raw and re.fullmatch(r"-?\d+", max_pages_raw):
             args.max_pages = int(max_pages_raw)
         timeout_raw = input(f"Request timeout seconds (default: {args.timeout}): ").strip()
         if timeout_raw.isdigit():
@@ -2324,6 +2585,9 @@ def main() -> int:
                 browser_verify_sample=int(getattr(args, "browser_verify_sample", 120)),
                 browser_discovery_pages=int(getattr(args, "browser_discovery_pages", 400)),
                 storage_state_path=storage_state_path,
+                crawl_convergence_rounds=int(getattr(args, "crawl_convergence_rounds", 8)),
+                crawl_batch_size=int(getattr(args, "crawl_batch_size", 60)),
+                auto_max_pages=int(getattr(args, "auto_max_pages", 100000)),
             ))
         merged = _merge_site_runs(runs)
         merged["run_count"] = verification_runs
@@ -2344,11 +2608,20 @@ def main() -> int:
 
     findings = []
     total_pages = m["crawl"]["pages_crawled"]
+    discovered_pages = int(m["crawl"].get("discovered_pages", m["crawl"].get("requested_pages", 0)) or 0)
+    crawl_coverage_pct = float(m["crawl"].get("crawl_coverage_pct", _safe_pct(total_pages, discovered_pages)))
     if total_pages == 0:
         findings.append(
             "Crawler could not fetch any pages. The site may block automated "
             "requests, require JavaScript rendering, or be temporarily unavailable. "
             "Metrics below are unavailable."
+        )
+    elif crawl_coverage_pct < 80:
+        findings.append(
+            "Crawl coverage is low: {}% ({} crawled of {} discovered). "
+            "Run authenticated mode or increase auto crawl safety cap.".format(
+                crawl_coverage_pct, total_pages, discovered_pages,
+            ),
         )
     docs_broken = int(m["links"].get("docs_broken_links_count", 0))
     repo_broken = int(m["links"].get("repo_broken_links_count", 0))
@@ -2386,7 +2659,7 @@ def main() -> int:
         else:
             findings.append(
                 "No API reference pages found in {} crawled pages "
-                "(increase max_pages or check site URL structure)".format(total_pages)
+                "(check API URL patterns, JS rendering, and authenticated access)".format(total_pages)
             )
     elif float(api_cov) < 0:
         findings.append(
@@ -2489,6 +2762,8 @@ def main() -> int:
         "[ok] summary: "
         f"sites={len(sites)} "
         f"pages={m['crawl']['pages_crawled']} "
+        f"discovered={m['crawl'].get('discovered_pages', m['crawl'].get('requested_pages', 0))} "
+        f"coverage={m['crawl'].get('crawl_coverage_pct', 0)}% "
         f"broken_links={m['links']['broken_internal_links_count']} "
         "api_coverage={}".format(
             "N/A (no API pages in sample)"
