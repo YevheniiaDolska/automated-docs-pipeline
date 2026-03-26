@@ -262,3 +262,23 @@ def _calculate_next_run(cron_expr: str, after: datetime) -> datetime:
         return cron.get_next(datetime)
     except ImportError:
         return after + timedelta(hours=24)
+
+
+@app.task(name="gitspeak_core.tasks.pipeline_tasks.process_referral_payouts")
+def process_referral_payouts() -> dict[str, int]:
+    """Periodic task: process recurring referral payouts."""
+    from gitspeak_core.api.billing import process_recurring_referral_payouts
+    from gitspeak_core.db.engine import get_session
+
+    session = get_session()
+    try:
+        result = process_recurring_referral_payouts(session)
+        if result.get("payouts_created", 0):
+            logger.info("Referral payouts created: %s", result)
+        return result
+    except Exception:
+        logger.exception("Failed to process recurring referral payouts")
+        session.rollback()
+        raise
+    finally:
+        session.close()

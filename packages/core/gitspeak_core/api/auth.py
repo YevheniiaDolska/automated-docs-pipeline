@@ -202,6 +202,11 @@ def handle_register(
     db_session.add(subscription)
     db_session.commit()
 
+    # Prepare referral identity for recurring commission attribution.
+    from gitspeak_core.api.billing import ensure_referral_profile
+
+    ensure_referral_profile(user.id, db_session)
+
     # Generate token
     from gitspeak_core.config.settings import get_default_settings
 

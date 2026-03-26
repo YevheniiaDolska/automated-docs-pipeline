@@ -2,9 +2,11 @@
 
 import { useCallback, useEffect, useState } from "react";
 import {
+  type ReferralSummaryResponse,
   type ModuleInfo,
   type PipelineSettings,
   type SettingsResponse,
+  billing as billingApi,
   settings as settingsApi,
 } from "@/lib/api";
 
@@ -48,6 +50,10 @@ export default function SettingsPage() {
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState(false);
+  const [referrals, setReferrals] = useState<ReferralSummaryResponse | null>(null);
+  const [savingReferrals, setSavingReferrals] = useState(false);
+  const [payoutRecipientId, setPayoutRecipientId] = useState("");
+  const [payoutEmail, setPayoutEmail] = useState("");
 
   const load = useCallback(async () => {
     try {
@@ -61,7 +67,26 @@ export default function SettingsPage() {
 
   useEffect(() => {
     load();
+    billingApi.getReferrals().then((res) => {
+      setReferrals(res);
+      setPayoutRecipientId(res.profile.payout_recipient_id ?? "");
+      setPayoutEmail(res.profile.payout_email ?? "");
+    }).catch(() => {});
   }, [load]);
+
+  const saveReferralSettings = useCallback(async (updates: Record<string, unknown>) => {
+    setSavingReferrals(true);
+    try {
+      const res = await billingApi.updateReferrals(updates);
+      setReferrals(res);
+      setError(null);
+      setSuccess(true);
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "Failed to save referral settings");
+    } finally {
+      setSavingReferrals(false);
+    }
+  }, []);
 
   const toggleModule = useCallback(
     async (key: string, enabled: boolean) => {
@@ -272,6 +297,111 @@ export default function SettingsPage() {
             </div>
           );
         })}
+      </section>
+
+      {/* Referral policy and payouts */}
+      <section className="mt-10" id="referrals">
+        <h2 className="text-lg font-semibold">Badge and referral income</h2>
+        <p className="mt-1 text-sm text-gray-500">
+          For Free and the cheapest paid plan, the Powered by VeriDoc badge is mandatory and does not pay commissions.
+          For higher paid plans, you can disable the badge here, or keep it enabled and earn recurring referral commissions.
+        </p>
+        <p className="mt-2 text-sm text-blue-700">
+          Upgrade tip: after upgrading to Pro, Business, or Enterprise, open this section to configure badge opt-out and payouts.
+        </p>
+
+        {!referrals ? (
+          <p className="mt-3 text-sm text-gray-500">Loading referral settings...</p>
+        ) : (
+          <div className="mt-4 rounded border bg-white p-4">
+            <div className="grid gap-2 text-sm">
+              <p><strong>Referral code:</strong> <span className="font-mono">{referrals.profile.referral_code}</span></p>
+              <p><strong>Referral link:</strong> <span className="font-mono">{referrals.profile.referral_link}</span></p>
+              <p><strong>Policy:</strong> {referrals.policy.policy_message}</p>
+              <p><strong>Recurring rule:</strong> {referrals.earnings.recurring_rule}</p>
+              <p><strong>Accrued:</strong> ${(referrals.earnings.accrued_cents / 100).toFixed(2)}</p>
+              <p><strong>Queued:</strong> ${(referrals.earnings.queued_cents / 100).toFixed(2)}</p>
+              <p><strong>Paid:</strong> ${(referrals.earnings.paid_cents / 100).toFixed(2)}</p>
+            </div>
+
+            <div className="mt-4 border-t pt-4">
+              <label className="flex items-center gap-3 text-sm">
+                <input
+                  type="checkbox"
+                  checked={referrals.profile.badge_opt_out}
+                  disabled={!referrals.profile.badge_opt_out_allowed || savingReferrals}
+                  onChange={(e) => saveReferralSettings({ badge_opt_out: e.target.checked })}
+                />
+                <span>
+                  Disable Powered by VeriDoc badge (available only on higher paid tiers)
+                </span>
+              </label>
+              {!referrals.profile.badge_opt_out_allowed && (
+                <p className="mt-2 text-xs text-amber-700">
+                  Badge is mandatory on your current plan. Upgrade to a higher paid plan to choose opt-out.
+                </p>
+              )}
+            </div>
+
+            <div className="mt-4 border-t pt-4">
+              <h3 className="text-sm font-semibold">Payout settings</h3>
+              <p className="mt-1 text-xs text-gray-500">
+                Set payout provider and recipient details for recurring referral payouts.
+              </p>
+              <div className="mt-3 grid gap-2 sm:grid-cols-2">
+                <select
+                  className="rounded border px-3 py-2 text-sm"
+                  value={referrals.profile.payout_provider}
+                  disabled={savingReferrals}
+                  onChange={(e) => saveReferralSettings({ payout_provider: e.target.value })}
+                >
+                  <option value="manual">Manual</option>
+                  <option value="wise">Wise</option>
+                </select>
+                <input
+                  className="rounded border px-3 py-2 text-sm"
+                  placeholder="Wise recipient id"
+                  value={payoutRecipientId}
+                  onChange={(e) => setPayoutRecipientId(e.target.value)}
+                  disabled={savingReferrals}
+                />
+                <input
+                  className="rounded border px-3 py-2 text-sm sm:col-span-2"
+                  placeholder="Payout email"
+                  value={payoutEmail}
+                  onChange={(e) => setPayoutEmail(e.target.value)}
+                  disabled={savingReferrals}
+                />
+              </div>
+              <div className="mt-3 flex flex-wrap gap-2">
+                <button
+                  className="rounded bg-blue-600 px-3 py-2 text-sm text-white disabled:opacity-50"
+                  disabled={savingReferrals}
+                  onClick={() => saveReferralSettings({
+                    payout_recipient_id: payoutRecipientId,
+                    payout_email: payoutEmail,
+                    accept_terms: true,
+                  })}
+                >
+                  Save payout settings
+                </button>
+                <button
+                  className="rounded border px-3 py-2 text-sm disabled:opacity-50"
+                  disabled={savingReferrals}
+                  onClick={async () => {
+                    try {
+                      await billingApi.runPayouts();
+                    } catch {
+                      // no-op for now; errors are shown by API exception to global banner
+                    }
+                  }}
+                >
+                  Run payout queue
+                </button>
+              </div>
+            </div>
+          </div>
+        )}
       </section>
     </div>
   );

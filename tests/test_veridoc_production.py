@@ -481,6 +481,164 @@ class TestBilling:
         # With no secret, returns True (dev mode)
         assert verify_webhook_signature(b"test", "sig", "") is True
 
+    def test_referral_attribution_and_recurring_commission(self, db_session):
+        from gitspeak_core.api.auth import RegisterRequest, handle_register
+        from gitspeak_core.api.billing import handle_get_referral_summary, handle_webhook
+        from gitspeak_core.db.models import Subscription
+
+        handle_register(
+            RegisterRequest(email="referrer@test.com", password="StrongPass123!"),
+            db_session,
+        )
+        handle_register(
+            RegisterRequest(email="buyer@test.com", password="StrongPass123!"),
+            db_session,
+        )
+
+        from gitspeak_core.db.models import User
+
+        referrer = db_session.query(User).filter(User.email == "referrer@test.com").first()
+        buyer = db_session.query(User).filter(User.email == "buyer@test.com").first()
+        assert referrer is not None and buyer is not None
+
+        summary = handle_get_referral_summary(referrer.id, db_session)
+        code = summary.profile["referral_code"]
+
+        created_event = {
+            "id": "sub_ref_001",
+            "attributes": {
+                "customer_id": "cust_ref",
+                "variant_id": "variant_pro_monthly",
+                "status": "active",
+                "custom_data": {
+                    "veridoc_user_id": buyer.id,
+                    "veridoc_referrer_user_id": referrer.id,
+                    "veridoc_referral_code": code,
+                },
+            },
+        }
+        handle_webhook("subscription_created", created_event, db_session)
+
+        buyer_sub = db_session.query(Subscription).filter(Subscription.user_id == buyer.id).first()
+        assert buyer_sub is not None
+        buyer_sub.tier = "pro"
+        db_session.commit()
+
+        payment_event = {
+            "id": "evt_pay_ref_001",
+            "attributes": {
+                "subscription_id": "sub_ref_001",
+                "total": "39900",
+                "currency": "USD",
+            },
+        }
+        handle_webhook("subscription_payment_success", payment_event, db_session)
+
+        summary_after = handle_get_referral_summary(referrer.id, db_session)
+        assert summary_after.earnings["accrued_cents"] > 0
+        assert summary_after.earnings["is_recurring"] is True
+
+    def test_badge_opt_out_blocked_for_cheapest_tier(self, test_user, db_session):
+        from gitspeak_core.api.billing import ReferralSettingsRequest, handle_update_referral_settings
+
+        test_user.subscription.tier = "starter"
+        db_session.commit()
+
+        with pytest.raises(ValueError, match="Badge cannot be disabled"):
+            handle_update_referral_settings(
+                test_user.id,
+                ReferralSettingsRequest(badge_opt_out=True),
+                db_session,
+            )
+
+    def test_checkout_response_includes_referral_settings_hint(self, test_user, db_session):
+        from unittest.mock import patch
+
+        from gitspeak_core.api.billing import CreateCheckoutRequest, handle_create_checkout
+
+        fake_payload = {
+            "data": {
+                "attributes": {
+                    "url": "https://checkout.example/abc",
+                }
+            }
+        }
+
+        class DummyResp:
+            def raise_for_status(self):
+                return None
+
+            def json(self):
+                return fake_payload
+
+        with patch("gitspeak_core.api.billing.httpx.post", return_value=DummyResp()):
+            result = handle_create_checkout(
+                CreateCheckoutRequest(tier="pro"),
+                user_id=test_user.id,
+                user_email=test_user.email,
+                db_session=db_session,
+            )
+        assert result.badge_settings_url == "/settings#referrals"
+        assert "recurring referral commissions" in result.badge_settings_hint
+
+    def test_webhook_payment_refunded_reverses_commission(self, db_session):
+        from gitspeak_core.api.auth import RegisterRequest, handle_register
+        from gitspeak_core.api.billing import handle_webhook
+        from gitspeak_core.db.models import ReferralLedgerEntry
+
+        handle_register(
+            RegisterRequest(email="referrer2@test.com", password="StrongPass123!"),
+            db_session,
+        )
+        handle_register(
+            RegisterRequest(email="buyer2@test.com", password="StrongPass123!"),
+            db_session,
+        )
+        from gitspeak_core.db.models import User
+
+        referrer = db_session.query(User).filter(User.email == "referrer2@test.com").first()
+        buyer = db_session.query(User).filter(User.email == "buyer2@test.com").first()
+        assert referrer is not None and buyer is not None
+
+        created_event = {
+            "id": "sub_ref_002",
+            "attributes": {
+                "customer_id": "cust_ref_2",
+                "variant_id": "variant_pro_monthly",
+                "status": "active",
+                "custom_data": {
+                    "veridoc_user_id": buyer.id,
+                    "veridoc_referrer_user_id": referrer.id,
+                },
+            },
+        }
+        handle_webhook("subscription_created", created_event, db_session)
+        payment_event = {
+            "id": "evt_pay_ref_002",
+            "attributes": {
+                "subscription_id": "sub_ref_002",
+                "total": "39900",
+                "currency": "USD",
+            },
+        }
+        handle_webhook("subscription_payment_success", payment_event, db_session)
+
+        row = db_session.query(ReferralLedgerEntry).filter(
+            ReferralLedgerEntry.subscription_id == "sub_ref_002"
+        ).first()
+        assert row is not None
+        assert row.status in {"accrued", "queued"}
+
+        refund_event = {
+            "id": "evt_refund_002",
+            "attributes": {
+                "subscription_id": "sub_ref_002",
+            },
+        }
+        handle_webhook("subscription_payment_refunded", refund_event, db_session)
+        db_session.refresh(row)
+        assert row.status == "reversed"
+
 
 # =========================================================================
 # Settings and Module Registry Tests

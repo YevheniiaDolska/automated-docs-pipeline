@@ -92,7 +92,7 @@ function tryNext(lastError) {
         return;
       }
       var endpoint = candidates[idx++];
-      out.textContent = 'Connecting to ' + endpoint + '...';
+      out.textContent = 'Connecting to ' + endpoint + '…';
       try {
         var settled = false;
         var ws = new WebSocket(endpoint);
@@ -105,7 +105,7 @@ function tryNext(lastError) {
         ws.onopen = function () {
           if (settled) return;
           ws.send(payload);
-          out.textContent = 'Connected to ' + endpoint + '. Event sent. Waiting for acknowledgement...';
+          out.textContent = 'Connected to ' + endpoint + '. Event sent. Waiting for acknowledgement…';
         };
         ws.onmessage = function (e) {
           if (settled) return;

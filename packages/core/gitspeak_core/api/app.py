@@ -823,6 +823,58 @@ async def get_usage(
         raise HTTPException(status_code=400, detail=str(exc))
 
 
+@app.get("/billing/referrals", tags=["billing"])
+async def get_referral_summary(
+    user: dict[str, Any] = Depends(get_current_user),
+    db: Any = Depends(get_db),
+) -> dict[str, Any]:
+    """Get badge policy, recurring referral earnings, and payout history."""
+    from gitspeak_core.api.billing import handle_get_referral_summary
+
+    try:
+        result = handle_get_referral_summary(user["user_id"], db)
+        return result.model_dump()
+    except ValueError as exc:
+        raise HTTPException(status_code=400, detail=str(exc))
+
+
+@app.put("/billing/referrals", tags=["billing"])
+async def update_referral_settings(
+    request: Request,
+    user: dict[str, Any] = Depends(get_current_user),
+    db: Any = Depends(get_db),
+) -> dict[str, Any]:
+    """Update badge opt-out and payout settings for current user."""
+    from gitspeak_core.api.billing import (
+        ReferralSettingsRequest,
+        handle_update_referral_settings,
+    )
+
+    body = await request.json()
+    try:
+        req = ReferralSettingsRequest(**body)
+        result = handle_update_referral_settings(user["user_id"], req, db)
+        return result.model_dump()
+    except ValueError as exc:
+        raise HTTPException(status_code=400, detail=str(exc))
+
+
+@app.post("/billing/referrals/payouts/run", tags=["billing"])
+async def run_referral_payouts(
+    user: dict[str, Any] = Depends(get_current_user),
+    db: Any = Depends(get_db),
+) -> dict[str, Any]:
+    """Process referral payout queue (manual trigger for operator/admin use)."""
+    from gitspeak_core.api.billing import process_recurring_referral_payouts
+
+    if user.get("tier") not in {"business", "enterprise"}:
+        raise HTTPException(
+            status_code=403,
+            detail="Referral payout run requires Business tier or higher.",
+        )
+    return process_recurring_referral_payouts(db)
+
+
 @app.post("/billing/webhooks/lemonsqueezy", tags=["billing"])
 async def lemonsqueezy_webhook(
     request: Request,
@@ -846,6 +898,100 @@ async def lemonsqueezy_webhook(
 
     result = handle_webhook(event_name, event_data, db)
     return result
+
+
+# =========================================================================
+# Legacy compatibility routes (used by production smoke)
+# =========================================================================
+
+
+@app.get("/api/dashboard/", tags=["legacy"])
+async def legacy_dashboard(
+    user: dict[str, Any] = Depends(get_current_user),
+) -> dict[str, Any]:
+    """Compatibility endpoint for legacy smoke checks."""
+    return {
+        "status": "ok",
+        "user_id": user["user_id"],
+        "tier": user.get("tier", "free"),
+    }
+
+
+@app.get("/api/settings/", tags=["legacy"])
+async def legacy_settings_get(
+    user: dict[str, Any] = Depends(get_current_user),
+    db: Any = Depends(get_db),
+) -> dict[str, Any]:
+    """Compatibility wrapper for settings GET."""
+    result = await get_pipeline_settings(user=user, db=db)
+    return {"settings": result}
+
+
+@app.put("/api/settings/", tags=["legacy"])
+async def legacy_settings_put(
+    request: Request,
+    user: dict[str, Any] = Depends(get_current_user),
+    db: Any = Depends(get_db),
+) -> dict[str, Any]:
+    """Compatibility wrapper for settings PUT.
+
+    Accepts legacy payload shape. Unknown fields are ignored.
+    """
+    body = await request.json()
+    normalized: dict[str, Any] = {}
+    if isinstance(body, dict):
+        if "flow_mode" in body:
+            normalized["flow_mode"] = body["flow_mode"]
+        if "default_protocols" in body:
+            normalized["default_protocols"] = body["default_protocols"]
+        if "modules" in body:
+            normalized["modules"] = body["modules"]
+        if "algolia_enabled" in body:
+            normalized["algolia_enabled"] = body["algolia_enabled"]
+        if "sandbox_backend" in body:
+            normalized["sandbox_backend"] = body["sandbox_backend"]
+        # Legacy smoke payload provides automation block; map to no-op safe defaults.
+        if "automation" in body and "flow_mode" not in normalized:
+            normalized["flow_mode"] = "hybrid"
+    from gitspeak_core.db.models import PipelineSettings as PipelineSettingsModel
+
+    settings = (
+        db.query(PipelineSettingsModel)
+        .filter(PipelineSettingsModel.user_id == user["user_id"])
+        .first()
+    )
+    if not settings:
+        settings = PipelineSettingsModel(user_id=user["user_id"])
+        db.add(settings)
+
+    if "flow_mode" in normalized:
+        settings.flow_mode = normalized["flow_mode"]
+    if "default_protocols" in normalized:
+        settings.default_protocols = normalized["default_protocols"]
+    if "modules" in normalized:
+        settings.modules = normalized["modules"]
+    if "algolia_enabled" in normalized:
+        settings.algolia_enabled = normalized["algolia_enabled"]
+    if "sandbox_backend" in normalized:
+        settings.sandbox_backend = normalized["sandbox_backend"]
+
+    db.commit()
+    result = await get_pipeline_settings(user=user, db=db)
+    return {"status": "ok", "settings": result}
+
+
+@app.get("/api/pipeline/automation/status", tags=["legacy"])
+async def legacy_automation_status(
+    user: dict[str, Any] = Depends(get_current_user),
+    db: Any = Depends(get_db),
+) -> dict[str, Any]:
+    """Compatibility endpoint returning schedule count."""
+    schedules = await list_schedules(user=user, db=db)
+    return {
+        "status": "ok",
+        "schedule_count": len(schedules.get("schedules", [])),
+        "tier": user.get("tier", "free"),
+    }
 
 
 # =========================================================================

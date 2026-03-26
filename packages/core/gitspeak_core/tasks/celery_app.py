@@ -53,5 +53,9 @@ app.conf.update(
             "task": "gitspeak_core.tasks.pipeline_tasks.check_scheduled_runs",
             "schedule": 60.0,  # every minute
         },
+        "process-referral-payouts": {
+            "task": "gitspeak_core.tasks.pipeline_tasks.process_referral_payouts",
+            "schedule": 3600.0,  # every hour
+        },
     },
 )

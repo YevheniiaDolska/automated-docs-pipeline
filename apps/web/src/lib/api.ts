@@ -397,10 +397,67 @@ export interface UsageResponse {
 
 export interface CheckoutResponse {
   checkout_url: string;
+  badge_settings_url?: string;
+  badge_settings_hint?: string;
 }
 
 export interface PortalResponse {
   portal_url: string;
+}
+
+export interface ReferralSummaryResponse {
+  policy: {
+    cheapest_paid_tier: string;
+    commission_rate: number;
+    mandatory_badge: boolean;
+    commission_eligible: boolean;
+    policy_message: string;
+    ui_hint: string;
+  };
+  profile: {
+    referral_code: string;
+    referral_link: string;
+    badge_opt_out: boolean;
+    badge_opt_out_allowed: boolean;
+    payout_provider: string;
+    payout_recipient_id: string | null;
+    payout_email: string | null;
+    payout_status: string;
+    terms_accepted_at: string | null;
+  };
+  earnings: {
+    currency: string;
+    accrued_cents: number;
+    queued_cents: number;
+    paid_cents: number;
+    reversed_cents: number;
+    payout_min_cents: number;
+    is_recurring: boolean;
+    recurring_rule: string;
+  };
+  recent_ledger: Array<{
+    id: string;
+    referred_user_id: string;
+    subscription_id: string | null;
+    status: string;
+    event_type: string;
+    amount_cents: number;
+    commission_rate: number;
+    created_at: string | null;
+    available_at: string | null;
+    paid_out_at: string | null;
+  }>;
+  payouts: Array<{
+    id: string;
+    status: string;
+    provider: string;
+    provider_payout_id: string | null;
+    amount_cents: number;
+    currency: string;
+    error_message: string | null;
+    created_at: string | null;
+    processed_at: string | null;
+  }>;
 }
 
 export const billing = {
@@ -414,6 +471,24 @@ export const billing = {
 
   getPortal(): Promise<PortalResponse> {
     return get("/billing/portal");
+  },
+
+  getReferrals(): Promise<ReferralSummaryResponse> {
+    return get("/billing/referrals");
+  },
+
+  updateReferrals(request: {
+    badge_opt_out?: boolean;
+    payout_provider?: "manual" | "wise";
+    payout_recipient_id?: string;
+    payout_email?: string;
+    accept_terms?: boolean;
+  }): Promise<ReferralSummaryResponse> {
+    return put("/billing/referrals", request);
+  },
+
+  runPayouts(): Promise<{ entries_considered: number; payouts_created: number; payouts_submitted: number }> {
+    return post("/billing/referrals/payouts/run", {});
   },
 };
 

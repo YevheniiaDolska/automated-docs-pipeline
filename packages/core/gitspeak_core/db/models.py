@@ -77,6 +77,26 @@ class User(Base):
     schedules = relationship(
         "AutomationSchedule", back_populates="user", cascade="all, delete"
     )
+    referral_profile = relationship(
+        "ReferralProfile",
+        back_populates="user",
+        uselist=False,
+        cascade="all, delete",
+        foreign_keys="ReferralProfile.user_id",
+    )
+    referrals_made = relationship(
+        "ReferralAttribution",
+        back_populates="referrer",
+        cascade="all, delete",
+        foreign_keys="ReferralAttribution.referrer_user_id",
+    )
+    referral_source = relationship(
+        "ReferralAttribution",
+        back_populates="referred",
+        uselist=False,
+        cascade="all, delete",
+        foreign_keys="ReferralAttribution.referred_user_id",
+    )
 
 
 # -----------------------------------------------------------------------
@@ -237,6 +257,115 @@ class AuditLog(Base):
     __table_args__ = (
         Index("ix_audit_user_action", "user_id", "action"),
         Index("ix_audit_created", "created_at"),
+    )
+
+
+# -----------------------------------------------------------------------
+# Referrals and payouts
+# -----------------------------------------------------------------------
+
+
+class ReferralProfile(Base):
+    __tablename__ = "referral_profiles"
+
+    id = Column(String(32), primary_key=True, default=_new_id)
+    user_id = Column(
+        String(32), ForeignKey("users.id", ondelete="CASCADE"), unique=True, nullable=False
+    )
+    referral_code = Column(String(40), unique=True, nullable=False, index=True)
+    badge_opt_out = Column(Boolean, default=False, nullable=False)
+    payout_provider = Column(String(20), default="manual", nullable=False)
+    payout_recipient_id = Column(String(128), nullable=True)
+    payout_email = Column(String(320), nullable=True)
+    payout_status = Column(String(20), default="pending", nullable=False)
+    terms_accepted_at = Column(DateTime(timezone=True), nullable=True)
+    created_at = Column(DateTime(timezone=True), default=_utcnow, nullable=False)
+    updated_at = Column(
+        DateTime(timezone=True), default=_utcnow, onupdate=_utcnow, nullable=False
+    )
+
+    user = relationship("User", back_populates="referral_profile", foreign_keys=[user_id])
+
+
+class ReferralAttribution(Base):
+    __tablename__ = "referral_attributions"
+
+    id = Column(String(32), primary_key=True, default=_new_id)
+    referrer_user_id = Column(
+        String(32), ForeignKey("users.id", ondelete="CASCADE"), nullable=False
+    )
+    referred_user_id = Column(
+        String(32), ForeignKey("users.id", ondelete="CASCADE"), unique=True, nullable=False
+    )
+    source = Column(String(20), default="badge", nullable=False)
+    referral_code = Column(String(40), nullable=True)
+    created_at = Column(DateTime(timezone=True), default=_utcnow, nullable=False)
+
+    referrer = relationship("User", back_populates="referrals_made", foreign_keys=[referrer_user_id])
+    referred = relationship("User", back_populates="referral_source", foreign_keys=[referred_user_id])
+
+    __table_args__ = (
+        Index("ix_referral_attr_referrer", "referrer_user_id"),
+    )
+
+
+class ReferralPayout(Base):
+    __tablename__ = "referral_payouts"
+
+    id = Column(String(32), primary_key=True, default=_new_id)
+    user_id = Column(
+        String(32), ForeignKey("users.id", ondelete="CASCADE"), nullable=False
+    )
+    currency = Column(String(8), default="USD", nullable=False)
+    amount_cents = Column(Integer, nullable=False, default=0)
+    status = Column(String(30), nullable=False, default="queued_manual")
+    provider = Column(String(20), nullable=False, default="manual")
+    provider_payout_id = Column(String(128), nullable=True)
+    error_message = Column(Text, nullable=True)
+    created_at = Column(DateTime(timezone=True), default=_utcnow, nullable=False)
+    processed_at = Column(DateTime(timezone=True), nullable=True)
+
+    user = relationship("User")
+
+    __table_args__ = (
+        Index("ix_referral_payout_user_status", "user_id", "status"),
+    )
+
+
+class ReferralLedgerEntry(Base):
+    __tablename__ = "referral_ledger_entries"
+
+    id = Column(String(32), primary_key=True, default=_new_id)
+    referrer_user_id = Column(
+        String(32), ForeignKey("users.id", ondelete="CASCADE"), nullable=False
+    )
+    referred_user_id = Column(
+        String(32), ForeignKey("users.id", ondelete="CASCADE"), nullable=False
+    )
+    attribution_id = Column(
+        String(32), ForeignKey("referral_attributions.id", ondelete="CASCADE"), nullable=False
+    )
+    subscription_id = Column(String(64), nullable=True, index=True)
+    payment_event_id = Column(String(128), nullable=True, unique=True)
+    event_type = Column(String(40), nullable=False, default="subscription_payment_success")
+    amount_cents = Column(Integer, nullable=False, default=0)
+    currency = Column(String(8), nullable=False, default="USD")
+    commission_rate = Column(Float, nullable=False, default=0.0)
+    status = Column(String(20), nullable=False, default="accrued")  # accrued/queued/paid/reversed
+    available_at = Column(DateTime(timezone=True), nullable=True)
+    paid_out_at = Column(DateTime(timezone=True), nullable=True)
+    payout_id = Column(String(32), ForeignKey("referral_payouts.id", ondelete="SET NULL"), nullable=True)
+    entry_details = Column(JSON, nullable=True)
+    created_at = Column(DateTime(timezone=True), default=_utcnow, nullable=False)
+
+    referrer = relationship("User", foreign_keys=[referrer_user_id])
+    referred = relationship("User", foreign_keys=[referred_user_id])
+    attribution = relationship("ReferralAttribution")
+    payout = relationship("ReferralPayout")
+
+    __table_args__ = (
+        Index("ix_referral_ledger_referrer_status", "referrer_user_id", "status"),
+        Index("ix_referral_ledger_available_at", "available_at"),
     )
 
 

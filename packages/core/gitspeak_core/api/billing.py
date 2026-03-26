@@ -17,8 +17,10 @@ import hmac
 import json
 import logging
 import os
+import secrets
 import smtplib
-from datetime import datetime, timezone
+from collections import defaultdict
+from datetime import datetime, timedelta, timezone
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 from typing import Any
@@ -70,6 +72,44 @@ TIER_LIMITS: dict[str, dict[str, int]] = {
     "enterprise": {"ai_requests": -1, "pages": -1, "api_calls": -1},  # unlimited
 }
 
+# Referral and commission policy defaults.
+CHEAPEST_PAID_TIER = os.environ.get("VERIDOC_CHEAPEST_PAID_TIER", "starter")
+COMMISSION_RATE_DEFAULT = float(os.environ.get("VERIDOC_REFERRAL_COMMISSION_RATE", "0.2"))
+COMMISSION_GRACE_DAYS = int(os.environ.get("VERIDOC_REFERRAL_GRACE_DAYS", "14"))
+PAYOUT_MIN_CENTS = int(os.environ.get("VERIDOC_REFERRAL_PAYOUT_MIN_CENTS", "5000"))
+WISE_API_TOKEN = os.environ.get("WISE_API_TOKEN", "")
+WISE_PROFILE_ID = os.environ.get("WISE_PROFILE_ID", "")
+WISE_API_URL = os.environ.get("WISE_API_URL", "https://api.transferwise.com")
+WISE_DRY_RUN = os.environ.get("WISE_DRY_RUN", "true").lower() in {"1", "true", "yes"}
+
+def _load_default_monthly_cents() -> dict[str, int]:
+    """Load fallback tier prices from pricing config used by the landing."""
+    try:
+        from gitspeak_core.config.pricing import (
+            BUSINESS_PLAN,
+            ENTERPRISE_PLAN,
+            PRO_PLAN,
+            STARTER_PLAN,
+        )
+
+        return {
+            "starter": int(STARTER_PLAN.price_monthly_usd) * 10,
+            "pro": int(PRO_PLAN.price_monthly_usd) * 10,
+            "business": int(BUSINESS_PLAN.price_monthly_usd) * 10,
+            "enterprise": int(ENTERPRISE_PLAN.price_monthly_usd) * 10,
+        }
+    except Exception:
+        # Safe fallback if pricing module is unavailable in stripped runtime.
+        return {
+            "starter": 1490,
+            "pro": 3990,
+            "business": 7990,
+            "enterprise": 14990,
+        }
+
+
+TIER_DEFAULT_MONTHLY_CENTS = _load_default_monthly_cents()
+
 
 # ---------------------------------------------------------------------------
 # Request / response models
@@ -84,6 +124,10 @@ class CreateCheckoutRequest(BaseModel):
     tier: str = Field(description="Target subscription tier")
     annual: bool = Field(default=False, description="Annual billing")
     success_url: str = Field(default="", description="Redirect URL on success")
+    referral_code: str = Field(
+        default="",
+        description="Optional referrer code to attribute recurring commissions.",
+    )
 
 
 class CheckoutResponse(BaseModel):
@@ -92,6 +136,17 @@ class CheckoutResponse(BaseModel):
     model_config = ConfigDict(extra="forbid")
 
     checkout_url: str
+    badge_settings_url: str = Field(
+        default="/settings#referrals",
+        description="Where higher-tier users can configure badge opt-out and referral payouts.",
+    )
+    badge_settings_hint: str = Field(
+        default=(
+            "On Pro/Business/Enterprise you can disable badge in Settings > Badge and referral income, "
+            "or keep it enabled to earn recurring referral commissions."
+        ),
+        description="UI hint to show near checkout and post-purchase screens.",
+    )
 
 
 class PortalResponse(BaseModel):
@@ -117,6 +172,30 @@ class UsageResponse(BaseModel):
     api_calls_limit: int
     current_period_end: str | None
     trial_ends_at: str | None
+
+
+class ReferralSettingsRequest(BaseModel):
+    """User-controlled referral and badge settings."""
+
+    model_config = ConfigDict(extra="forbid")
+
+    badge_opt_out: bool | None = None
+    payout_provider: str | None = None
+    payout_recipient_id: str | None = None
+    payout_email: str | None = None
+    accept_terms: bool | None = None
+
+
+class ReferralSummaryResponse(BaseModel):
+    """Referral policy, earnings summary, and payouts."""
+
+    model_config = ConfigDict(extra="forbid")
+
+    policy: dict[str, Any]
+    profile: dict[str, Any]
+    earnings: dict[str, Any]
+    recent_ledger: list[dict[str, Any]]
+    payouts: list[dict[str, Any]]
 
 
 # ---------------------------------------------------------------------------
@@ -148,15 +227,24 @@ def handle_create_checkout(
         "Content-Type": "application/vnd.api+json",
     }
 
+    custom_payload: dict[str, Any] = {
+        "veridoc_user_id": user_id,
+    }
+    if request.referral_code.strip():
+        ref_payload = _resolve_referral_for_checkout(
+            referral_code=request.referral_code.strip(),
+            buyer_user_id=user_id,
+            db_session=db_session,
+        )
+        custom_payload.update(ref_payload)
+
     checkout_data = {
         "data": {
             "type": "checkouts",
             "attributes": {
                 "checkout_data": {
                     "email": user_email,
-                    "custom": {
-                        "veridoc_user_id": user_id,
-                    },
+                    "custom": custom_payload,
                 },
                 "product_options": {
                     "redirect_url": request.success_url or "",
@@ -305,6 +393,395 @@ def increment_usage(user_id: str, resource: str, amount: int, db_session: Any) -
 
 
 # ---------------------------------------------------------------------------
+# Referral policy, settings, and reporting
+# ---------------------------------------------------------------------------
+
+
+def ensure_referral_profile(user_id: str, db_session: Any) -> Any:
+    """Create a referral profile for user if it does not exist."""
+    from gitspeak_core.db.models import ReferralProfile
+
+    profile = (
+        db_session.query(ReferralProfile)
+        .filter(ReferralProfile.user_id == user_id)
+        .first()
+    )
+    if profile:
+        return profile
+
+    code = _generate_unique_referral_code(db_session)
+    profile = ReferralProfile(
+        user_id=user_id,
+        referral_code=code,
+        badge_opt_out=False,
+        payout_provider="manual",
+        payout_status="pending",
+    )
+    db_session.add(profile)
+    db_session.commit()
+    return profile
+
+
+def handle_get_referral_summary(user_id: str, db_session: Any) -> ReferralSummaryResponse:
+    """Return referral policy, recurring earnings, and payout history."""
+    from gitspeak_core.db.models import ReferralLedgerEntry, ReferralPayout, User
+
+    user = db_session.query(User).filter(User.id == user_id).first()
+    if not user or not user.subscription:
+        raise ValueError("No subscription found")
+
+    profile = ensure_referral_profile(user_id, db_session)
+    current_tier = user.subscription.tier
+    mandatory_badge = _is_badge_mandatory(current_tier)
+    commission_eligible = _is_commission_eligible_tier(current_tier)
+
+    rows = (
+        db_session.query(ReferralLedgerEntry)
+        .filter(ReferralLedgerEntry.referrer_user_id == user_id)
+        .order_by(ReferralLedgerEntry.created_at.desc())
+        .limit(50)
+        .all()
+    )
+    payouts = (
+        db_session.query(ReferralPayout)
+        .filter(ReferralPayout.user_id == user_id)
+        .order_by(ReferralPayout.created_at.desc())
+        .limit(20)
+        .all()
+    )
+
+    totals = defaultdict(int)
+    for row in rows:
+        totals[row.status] += int(row.amount_cents or 0)
+
+    policy_message = (
+        "Free and cheapest paid plans must keep Powered by VeriDoc badge enabled. "
+        "These tiers do not earn referral commissions. "
+        "Higher paid tiers can disable the badge or keep it enabled to receive recurring "
+        "commissions from referred active paid subscriptions."
+    )
+
+    return ReferralSummaryResponse(
+        policy={
+            "cheapest_paid_tier": CHEAPEST_PAID_TIER,
+            "commission_rate": COMMISSION_RATE_DEFAULT,
+            "mandatory_badge": mandatory_badge,
+            "commission_eligible": commission_eligible,
+            "policy_message": policy_message,
+            "ui_hint": "Manage badge and recurring referral payouts in Billing > Referrals.",
+        },
+        profile={
+            "referral_code": profile.referral_code,
+            "referral_link": f"{APP_BASE_URL}/?ref={profile.referral_code}",
+            "badge_opt_out": bool(profile.badge_opt_out),
+            "badge_opt_out_allowed": not mandatory_badge,
+            "payout_provider": profile.payout_provider,
+            "payout_recipient_id": profile.payout_recipient_id,
+            "payout_email": profile.payout_email,
+            "payout_status": profile.payout_status,
+            "terms_accepted_at": (
+                profile.terms_accepted_at.isoformat() if profile.terms_accepted_at else None
+            ),
+        },
+        earnings={
+            "currency": "USD",
+            "accrued_cents": totals.get("accrued", 0),
+            "queued_cents": totals.get("queued", 0),
+            "paid_cents": totals.get("paid", 0),
+            "reversed_cents": totals.get("reversed", 0),
+            "payout_min_cents": PAYOUT_MIN_CENTS,
+            "is_recurring": True,
+            "recurring_rule": "Commission accrues on each successful paid renewal event.",
+        },
+        recent_ledger=[
+            {
+                "id": r.id,
+                "referred_user_id": r.referred_user_id,
+                "subscription_id": r.subscription_id,
+                "status": r.status,
+                "event_type": r.event_type,
+                "amount_cents": r.amount_cents,
+                "commission_rate": r.commission_rate,
+                "created_at": r.created_at.isoformat() if r.created_at else None,
+                "available_at": r.available_at.isoformat() if r.available_at else None,
+                "paid_out_at": r.paid_out_at.isoformat() if r.paid_out_at else None,
+            }
+            for r in rows[:15]
+        ],
+        payouts=[
+            {
+                "id": p.id,
+                "status": p.status,
+                "provider": p.provider,
+                "provider_payout_id": p.provider_payout_id,
+                "amount_cents": p.amount_cents,
+                "currency": p.currency,
+                "error_message": p.error_message,
+                "created_at": p.created_at.isoformat() if p.created_at else None,
+                "processed_at": p.processed_at.isoformat() if p.processed_at else None,
+            }
+            for p in payouts
+        ],
+    )
+
+
+def handle_update_referral_settings(
+    user_id: str,
+    request: ReferralSettingsRequest,
+    db_session: Any,
+) -> ReferralSummaryResponse:
+    """Update badge and payout settings for current user."""
+    from gitspeak_core.db.models import User
+
+    user = db_session.query(User).filter(User.id == user_id).first()
+    if not user or not user.subscription:
+        raise ValueError("No subscription found")
+
+    profile = ensure_referral_profile(user_id, db_session)
+    mandatory_badge = _is_badge_mandatory(user.subscription.tier)
+
+    if request.badge_opt_out is not None:
+        if mandatory_badge and request.badge_opt_out:
+            raise ValueError(
+                "Badge cannot be disabled on Free or cheapest paid tier."
+            )
+        profile.badge_opt_out = bool(request.badge_opt_out)
+
+    if request.payout_provider is not None:
+        provider = request.payout_provider.strip().lower()
+        if provider not in {"manual", "wise"}:
+            raise ValueError("payout_provider must be 'manual' or 'wise'")
+        profile.payout_provider = provider
+
+    if request.payout_recipient_id is not None:
+        profile.payout_recipient_id = request.payout_recipient_id.strip() or None
+    if request.payout_email is not None:
+        profile.payout_email = request.payout_email.strip() or None
+
+    if request.accept_terms:
+        profile.terms_accepted_at = datetime.now(timezone.utc)
+        if profile.payout_status == "pending":
+            profile.payout_status = "ready"
+
+    db_session.commit()
+    return handle_get_referral_summary(user_id, db_session)
+
+
+def process_recurring_referral_payouts(
+    db_session: Any,
+    now: datetime | None = None,
+) -> dict[str, int]:
+    """Queue/process payouts for accrued recurring referral ledger entries."""
+    from gitspeak_core.db.models import ReferralLedgerEntry, ReferralPayout, ReferralProfile
+
+    now = now or datetime.now(timezone.utc)
+    query = (
+        db_session.query(ReferralLedgerEntry)
+        .filter(
+            ReferralLedgerEntry.status == "accrued",
+            ReferralLedgerEntry.available_at <= now,
+        )
+        .order_by(ReferralLedgerEntry.created_at.asc())
+    )
+    entries = query.all()
+    if not entries:
+        return {"entries_considered": 0, "payouts_created": 0, "payouts_submitted": 0}
+
+    grouped: dict[tuple[str, str], list[Any]] = defaultdict(list)
+    for entry in entries:
+        grouped[(entry.referrer_user_id, entry.currency)].append(entry)
+
+    payouts_created = 0
+    payouts_submitted = 0
+
+    for (user_id, currency), rows in grouped.items():
+        amount_cents = sum(int(r.amount_cents or 0) for r in rows)
+        if amount_cents < PAYOUT_MIN_CENTS:
+            continue
+
+        profile = (
+            db_session.query(ReferralProfile)
+            .filter(ReferralProfile.user_id == user_id)
+            .first()
+        )
+        provider = profile.payout_provider if profile else "manual"
+        recipient = profile.payout_recipient_id if profile else None
+
+        payout = ReferralPayout(
+            user_id=user_id,
+            currency=currency,
+            amount_cents=amount_cents,
+            status="queued_manual",
+            provider=provider,
+        )
+        db_session.add(payout)
+        db_session.flush()
+        payouts_created += 1
+
+        if provider == "wise" and recipient:
+            transfer_id, error_message = _submit_wise_payout(
+                recipient_id=recipient,
+                amount_cents=amount_cents,
+                currency=currency,
+                payout_id=payout.id,
+            )
+            if transfer_id:
+                payout.status = "submitted"
+                payout.provider_payout_id = transfer_id
+                payout.processed_at = now
+                payouts_submitted += 1
+            else:
+                payout.status = "failed"
+                payout.error_message = error_message or "Wise transfer failed"
+
+        for row in rows:
+            if payout.status in {"queued_manual", "submitted"}:
+                row.status = "queued"
+                row.payout_id = payout.id
+
+    db_session.commit()
+    return {
+        "entries_considered": len(entries),
+        "payouts_created": payouts_created,
+        "payouts_submitted": payouts_submitted,
+    }
+
+
+def _resolve_referral_for_checkout(
+    referral_code: str,
+    buyer_user_id: str,
+    db_session: Any,
+) -> dict[str, str]:
+    """Resolve referral code for checkout custom data."""
+    from gitspeak_core.db.models import ReferralProfile
+
+    profile = (
+        db_session.query(ReferralProfile)
+        .filter(ReferralProfile.referral_code == referral_code)
+        .first()
+    )
+    if not profile:
+        return {}
+    if profile.user_id == buyer_user_id:
+        return {}
+    return {
+        "veridoc_referrer_user_id": profile.user_id,
+        "veridoc_referral_code": referral_code,
+    }
+
+
+def _generate_unique_referral_code(db_session: Any) -> str:
+    """Generate a short unique referral code."""
+    from gitspeak_core.db.models import ReferralProfile
+
+    for _ in range(12):
+        code = secrets.token_hex(4).upper()
+        exists = (
+            db_session.query(ReferralProfile)
+            .filter(ReferralProfile.referral_code == code)
+            .first()
+        )
+        if not exists:
+            return code
+    return secrets.token_hex(8).upper()
+
+
+def _is_badge_mandatory(tier: str) -> bool:
+    """Badge is mandatory on free and cheapest paid plan."""
+    if tier == "free":
+        return True
+    return tier == CHEAPEST_PAID_TIER
+
+
+def _is_commission_eligible_tier(tier: str) -> bool:
+    """Only paid tiers above cheapest paid tier can earn commission."""
+    if tier in {"free", CHEAPEST_PAID_TIER}:
+        return False
+    return tier in {"starter", "pro", "business", "enterprise"}
+
+
+def _extract_payment_amount_cents(attrs: dict[str, Any], tier: str) -> int:
+    """Extract payment amount in cents from webhook payload."""
+    candidates = [
+        attrs.get("subtotal"),
+        attrs.get("total"),
+        attrs.get("subtotal_usd"),
+        attrs.get("total_usd"),
+    ]
+    for value in candidates:
+        if value is None or value == "":
+            continue
+        try:
+            text = str(value).strip()
+            if "." in text:
+                amount = int(round(float(text) * 100))
+            else:
+                raw = int(text)
+                # LemonSqueezy can send cents (>=1000) or dollars (<1000).
+                amount = raw * 100 if 0 < raw < 1000 else raw
+            if amount > 0:
+                return amount
+        except (ValueError, TypeError):
+            continue
+    return int(TIER_DEFAULT_MONTHLY_CENTS.get(tier, 0))
+
+
+def _submit_wise_payout(
+    recipient_id: str,
+    amount_cents: int,
+    currency: str,
+    payout_id: str,
+) -> tuple[str | None, str | None]:
+    """Submit payout to Wise or return dry-run transfer id."""
+    if WISE_DRY_RUN:
+        return (f"wise_dryrun_{payout_id}", None)
+    if not WISE_API_TOKEN or not WISE_PROFILE_ID:
+        return (None, "Wise credentials are not configured")
+
+    quote_url = f"{WISE_API_URL}/v3/profiles/{WISE_PROFILE_ID}/quotes"
+    transfer_url = f"{WISE_API_URL}/v1/transfers"
+    headers = {
+        "Authorization": f"Bearer {WISE_API_TOKEN}",
+        "Content-Type": "application/json",
+    }
+
+    try:
+        with httpx.Client(timeout=30) as client:
+            quote_resp = client.post(
+                quote_url,
+                headers=headers,
+                json={
+                    "sourceCurrency": currency,
+                    "targetCurrency": currency,
+                    "sourceAmount": round(amount_cents / 100.0, 2),
+                },
+            )
+            quote_resp.raise_for_status()
+            quote_id = quote_resp.json().get("id")
+            if not quote_id:
+                return (None, "Wise quote id is missing")
+
+            transfer_resp = client.post(
+                transfer_url,
+                headers=headers,
+                json={
+                    "targetAccount": recipient_id,
+                    "quoteUuid": str(quote_id),
+                    "customerTransactionId": payout_id,
+                    "details": {"reference": f"VeriDoc referral payout {payout_id}"},
+                },
+            )
+            transfer_resp.raise_for_status()
+            transfer_id = transfer_resp.json().get("id")
+            if transfer_id is None:
+                return (None, "Wise transfer id is missing")
+            return (str(transfer_id), None)
+    except Exception as exc:
+        logger.warning("Wise payout failed: %s", exc)
+        return (None, str(exc))
+
+
+# ---------------------------------------------------------------------------
 # LemonSqueezy webhook handling
 # ---------------------------------------------------------------------------
 
@@ -351,6 +828,7 @@ def handle_webhook(
         "subscription_resumed": _on_subscription_resumed,
         "subscription_payment_success": _on_payment_success,
         "subscription_payment_failed": _on_payment_failed,
+        "subscription_payment_refunded": _on_payment_refunded,
         "subscription_trial_ending": _on_trial_ending,
     }
 
@@ -364,7 +842,7 @@ def handle_webhook(
 
 def _on_subscription_created(data: dict[str, Any], db_session: Any) -> None:
     """Handle new subscription from LemonSqueezy."""
-    from gitspeak_core.db.models import Subscription
+    from gitspeak_core.db.models import ReferralAttribution, Subscription
 
     attrs = data.get("attributes", {})
     custom_data = attrs.get("first_subscription_item", {}).get("custom", {})
@@ -395,6 +873,32 @@ def _on_subscription_created(data: dict[str, Any], db_session: Any) -> None:
     sub.current_period_start = _parse_ls_date(attrs.get("created_at"))
     sub.current_period_end = _parse_ls_date(attrs.get("renews_at"))
     sub.trial_ends_at = _parse_ls_date(attrs.get("trial_ends_at"))
+
+    ensure_referral_profile(user_id, db_session)
+
+    referrer_user_id = (
+        str(custom_data.get("veridoc_referrer_user_id", "")).strip()
+        or str(attrs.get("custom_data", {}).get("veridoc_referrer_user_id", "")).strip()
+    )
+    referral_code = (
+        str(custom_data.get("veridoc_referral_code", "")).strip()
+        or str(attrs.get("custom_data", {}).get("veridoc_referral_code", "")).strip()
+    )
+    if referrer_user_id and referrer_user_id != user_id:
+        attribution = (
+            db_session.query(ReferralAttribution)
+            .filter(ReferralAttribution.referred_user_id == user_id)
+            .first()
+        )
+        if not attribution:
+            attribution = ReferralAttribution(
+                referrer_user_id=referrer_user_id,
+                referred_user_id=user_id,
+                source="checkout",
+                referral_code=referral_code or None,
+            )
+            db_session.add(attribution)
+
     db_session.commit()
 
     logger.info("Subscription created: user=%s tier=%s", user_id, tier)
@@ -539,7 +1043,7 @@ def _on_trial_ending(data: dict[str, Any], db_session: Any) -> None:
 
 def _on_payment_success(data: dict[str, Any], db_session: Any) -> None:
     """Handle successful payment -- reset usage counters."""
-    from gitspeak_core.db.models import Subscription
+    from gitspeak_core.db.models import ReferralAttribution, ReferralLedgerEntry, Subscription
 
     attrs = data.get("attributes", {})
     ls_sub_id = str(attrs.get("subscription_id", ""))
@@ -558,6 +1062,48 @@ def _on_payment_success(data: dict[str, Any], db_session: Any) -> None:
     sub.pages_generated = 0
     sub.api_calls_used = 0
     sub.status = "active"
+
+    # Recurring commissions: accrue on every successful paid renewal event.
+    attribution = (
+        db_session.query(ReferralAttribution)
+        .filter(ReferralAttribution.referred_user_id == sub.user_id)
+        .first()
+    )
+    if attribution and _is_commission_eligible_tier(sub.tier):
+        event_id = (
+            str(data.get("id", "")).strip()
+            or str(attrs.get("order_id", "")).strip()
+            or f"{ls_sub_id}:{attrs.get('updated_at', '')}"
+        )
+        already = (
+            db_session.query(ReferralLedgerEntry)
+            .filter(ReferralLedgerEntry.payment_event_id == event_id)
+            .first()
+        )
+        if not already:
+            paid_amount_cents = _extract_payment_amount_cents(attrs, sub.tier)
+            commission_cents = int(round(paid_amount_cents * COMMISSION_RATE_DEFAULT))
+            if commission_cents > 0:
+                now = datetime.now(timezone.utc)
+                ledger = ReferralLedgerEntry(
+                    referrer_user_id=attribution.referrer_user_id,
+                    referred_user_id=sub.user_id,
+                    attribution_id=attribution.id,
+                    subscription_id=ls_sub_id,
+                    payment_event_id=event_id,
+                    event_type="subscription_payment_success",
+                    amount_cents=commission_cents,
+                    currency=str(attrs.get("currency", "USD")).upper(),
+                    commission_rate=COMMISSION_RATE_DEFAULT,
+                    status="accrued",
+                    available_at=now + timedelta(days=COMMISSION_GRACE_DAYS),
+                    entry_details={
+                        "tier": sub.tier,
+                        "paid_amount_cents": paid_amount_cents,
+                    },
+                )
+                db_session.add(ledger)
+
     db_session.commit()
 
     logger.info("Payment success, usage reset: user=%s", sub.user_id)
@@ -582,6 +1128,31 @@ def _on_payment_failed(data: dict[str, Any], db_session: Any) -> None:
         db_session.commit()
 
     logger.warning("Payment failed: subscription=%s", ls_sub_id)
+
+
+def _on_payment_refunded(data: dict[str, Any], db_session: Any) -> None:
+    """Handle refunded payment by reversing queued/accrued commission entries."""
+    from gitspeak_core.db.models import ReferralLedgerEntry
+
+    attrs = data.get("attributes", {})
+    ls_sub_id = str(attrs.get("subscription_id", ""))
+    if not ls_sub_id:
+        return
+
+    row = (
+        db_session.query(ReferralLedgerEntry)
+        .filter(
+            ReferralLedgerEntry.subscription_id == ls_sub_id,
+            ReferralLedgerEntry.status.in_(["accrued", "queued"]),
+        )
+        .order_by(ReferralLedgerEntry.created_at.desc())
+        .first()
+    )
+    if row:
+        row.status = "reversed"
+        row.entry_details = row.entry_details or {}
+        row.entry_details["refund_event_id"] = str(data.get("id", ""))
+        db_session.commit()
 
 
 # ---------------------------------------------------------------------------
