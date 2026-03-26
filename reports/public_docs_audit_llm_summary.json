@@ -2,56 +2,56 @@
   "status": "ok",
   "model": "claude-sonnet-4-5",
   "analysis": {
-    "executive_summary": "Documentation audit of docs.databricks.com covered 13,280 pages from a requested 27,525 (capped at 20,000 max). Critical issue: 6,512 confirmed broken internal documentation links detected across the site. API reference coverage is strong at 84.21% (3,572 API pages detected). Example code reliability estimated at 94.45% and freshness coverage at 96.19%. Overall audit confidence is 83.43%, with crawl confidence limited to 63.95% due to page cap constraints.",
+    "executive_summary": "Audit covered 9,087 pages from Confluent documentation (14.7% of 61,827 requested pages, capped at 10,000). No broken internal or repository navigation links detected across crawled sample. API reference coverage is 75.86% across 2,610 detected API pages. Freshness metadata present on only 1.91% of pages, creating significant visibility gap. Overall audit confidence is 50.7%, with link verification at 25% confidence due to 11 unverified URLs blocked by auth/rate-limits.",
     "strengths": [
-      "Strong API reference coverage at 84.21% with 3,572 API pages successfully detected",
-      "High example code reliability estimate of 94.45%",
-      "Excellent freshness metadata coverage at 96.19% of pages",
-      "Low SEO/geo issue rate of 2.53%",
-      "High link verification confidence at 94.22%"
+      "Zero broken internal documentation links detected across 9,087 crawled pages",
+      "Zero broken repository navigation links (GitHub/GitLab) found",
+      "Strong API reference coverage at 75.86% with 2,610 API pages successfully detected",
+      "Example code reliability estimate at 100% across sampled content",
+      "SEO/geo issue rate low at 4.85% of crawled pages"
     ],
     "risks": [
-      "6,512 confirmed broken internal documentation links create severe user navigation and trust issues",
-      "Crawl covered only 13,280 of 27,525 requested pages (48% coverage) due to 20,000 page limit",
-      "Crawl confidence at 63.95% indicates incomplete site coverage and potential blind spots",
-      "51 links unverified due to authentication, rate-limiting, or server blocks\u2014may hide additional broken links",
-      "456 links excluded from analysis; exclusion criteria may mask documentation quality issues",
-      "Large gap between pages crawled and requested suggests significant uncrawled content areas",
-      "Multi-project topology mode may indicate fragmented documentation requiring cross-project link maintenance"
+      "Crawl captured only 14.7% of requested pages (9,087 of 61,827), leaving 85.3% of site unaudited",
+      "Overall audit confidence critically low at 50.7%, limiting reliability of findings",
+      "Link verification confidence at 25% due to 11 URLs blocked by authentication or rate-limiting",
+      "Freshness metadata visible on only 1.91% of pages, preventing age/staleness assessment for 98% of content",
+      "24.14% of API reference content lacks coverage, creating potential gaps in developer documentation",
+      "1,656 links excluded from analysis, reducing visibility into external dependency health",
+      "Multi-project topology may hide cross-project documentation inconsistencies"
     ],
     "prioritized_actions": [
       {
-        "action": "Execute emergency broken link remediation campaign for 6,512 confirmed broken internal links",
+        "action": "Implement last-updated timestamps on all documentation pages to enable freshness tracking (currently 1.91% coverage)",
+        "impact": "critical",
+        "effort": "medium"
+      },
+      {
+        "action": "Investigate and resolve 11 unverified links blocked by auth/rate-limits to achieve full link validation",
+        "impact": "high",
+        "effort": "low"
+      },
+      {
+        "action": "Increase crawl budget or prioritize high-traffic pages to audit beyond 14.7% coverage of total site",
         "impact": "critical",
         "effort": "high"
       },
       {
-        "action": "Investigate and resolve crawl limitations to cover remaining 14,245 requested pages beyond the cap",
-        "impact": "critical",
-        "effort": "medium"
-      },
-      {
-        "action": "Implement automated link validation in CI/CD pipeline to prevent future link rot",
+        "action": "Close 24.14% API reference coverage gap by documenting missing endpoints/methods across 2,610 API pages",
         "impact": "high",
-        "effort": "medium"
+        "effort": "high"
       },
       {
-        "action": "Review and resolve 51 unverified links blocked by auth/rate-limits to confirm actual status",
-        "impact": "medium",
-        "effort": "low"
-      },
-      {
-        "action": "Audit 456 excluded links to validate exclusion criteria and ensure no critical links are ignored",
+        "action": "Review and document rationale for 1,656 excluded links to ensure no critical external dependencies are ignored",
         "impact": "medium",
         "effort": "low"
       }
     ],
     "limitations": [
-      "External audit cannot verify links behind authentication walls or rate-limited endpoints (51 unverified links)",
-      "Crawl capped at 20,000 pages maximum; 14,245 requested pages remain unaudited and may contain additional issues",
-      "Cannot validate runtime correctness of code examples; 94.45% reliability is static analysis estimate only",
-      "Multi-project topology may have cross-project dependencies not fully captured in single audit pass",
-      "Confidence scores indicate incomplete coverage; actual documentation quality in uncrawled areas is unknown"
+      "Audit sampled 14.7% of site due to crawl limits; findings may not represent unaudited 85.3% of content",
+      "Cannot verify content accuracy, technical correctness, or whether documentation matches actual product behavior",
+      "External link health depends on third-party availability at audit time; transient failures may be misreported",
+      "Multi-project topology may obscure cross-repository inconsistencies or duplicated content not visible in single-project view",
+      "Low overall confidence (50.7%) means findings require manual validation before acting on reported issues"
     ]
   }
 }
