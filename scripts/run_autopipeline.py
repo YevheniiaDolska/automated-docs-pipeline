@@ -10,6 +10,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import os
 import subprocess
 import sys
 from pathlib import Path
@@ -122,6 +123,7 @@ def _build_stage_summary(
     modules = runtime.get("modules", {})
     api_first = runtime.get("api_first", {})
     protocol_settings = runtime.get("api_protocol_settings", {})
+    branding_cfg = runtime.get("veridoc_branding", {})
     if not isinstance(modules, dict):
         modules = {}
     if not isinstance(api_first, dict):
@@ -231,6 +233,9 @@ def _collect_artifacts(
     api_first = runtime.get("api_first", {})
     if not isinstance(api_first, dict):
         api_first = {}
+    branding_cfg = runtime.get("veridoc_branding", {})
+    if not isinstance(branding_cfg, dict):
+        branding_cfg = {}
 
     def _enabled(name: str, default: bool = True) -> bool:
         return bool(modules.get(name, default))
@@ -264,6 +269,9 @@ def _collect_artifacts(
     add_artifact("VeriOps status", str(reports_dir / "docsops_status.json"), "reports")
     add_artifact("Ready marker", str(reports_dir / "READY_FOR_REVIEW.txt"), "reports")
     add_artifact("Generated changes list", str(reports_dir / "generated_changes.json"), "reports")
+    if bool(branding_cfg.get("enabled", False)):
+        branding_report = str(branding_cfg.get("report_path", "reports/veridoc_branding_policy_report.json")).strip()
+        add_artifact("VeriDoc branding policy report", branding_report, "reports")
 
     # Docs browse entrypoints
     add_artifact("Docs index", f"{docs_root}/index.md", "docs", required=True)
@@ -659,6 +667,8 @@ def main() -> int:
         execution_stages.append("artifact verification (test asset uploads)")
     if bool(modules.get("rag_optimization", True)) or bool(modules.get("ontology_graph", True)) or bool(modules.get("retrieval_evals", True)):
         execution_stages.append("artifact verification (RAG)")
+    if isinstance(branding_cfg, dict) and bool(branding_cfg.get("enabled", False)):
+        execution_stages.append("branding policy enforcement")
     execution_stages.extend(["stage summary", "review manifest"])
     if not args.skip_local_llm_packet and args.mode == "operator":
         execution_stages.append("local review packet")
@@ -730,6 +740,47 @@ def main() -> int:
         rag_checks = [s for s in stage_summary.get("stages", []) if str(s.get("stage", "")).startswith(rag_prefixes)]
         missing_rag = sum(1 for s in rag_checks if bool(s.get("required", False)) and not bool(s.get("exists", False)))
         _say(f"Stage {stage_no}/{total_stages} done", f"required_missing={missing_rag}")
+
+    if isinstance(branding_cfg, dict) and bool(branding_cfg.get("enabled", False)):
+        stage_no += 1
+        _say(f"Stage {stage_no}/{total_stages}", execution_stages[stage_no - 1])
+        landing_url = str(branding_cfg.get("landing_url", "")).strip()
+        docs_root_cfg = str(branding_cfg.get("docs_root", runtime.get("paths", {}).get("docs_root", "docs"))).strip()
+        plan = str(branding_cfg.get("plan", "free")).strip().lower()
+        cheapest_plan = str(branding_cfg.get("cheapest_paid_plan", "starter")).strip().lower()
+        badge_opt_out = bool(branding_cfg.get("badge_opt_out", False))
+        referral_env = str(branding_cfg.get("referral_code_env", "VERIDOC_REFERRAL_CODE")).strip()
+        referral_code = os.getenv(referral_env, "")
+        report_rel = str(branding_cfg.get("report_path", "reports/veridoc_branding_policy_report.json")).strip()
+        report_abs = (repo_root / report_rel).resolve() if not Path(report_rel).is_absolute() else Path(report_rel)
+        if not landing_url:
+            _say(f"Stage {stage_no}/{total_stages} done", "branding skipped: empty landing_url")
+        else:
+            cmd = [
+                sys.executable,
+                str(REPO_ROOT / "scripts" / "apply_veridoc_branding_policy.py"),
+                "--repo-root",
+                str(repo_root),
+                "--docs-root",
+                docs_root_cfg,
+                "--landing-url",
+                landing_url,
+                "--plan",
+                plan,
+                "--cheapest-paid-plan",
+                cheapest_plan,
+                "--report",
+                str(report_abs),
+            ]
+            if badge_opt_out:
+                cmd.append("--badge-opt-out")
+            if referral_code:
+                cmd.extend(["--referral-code", referral_code])
+            branding_rc = _run(cmd, cwd=repo_root)
+            _say(f"Stage {stage_no}/{total_stages} done", f"rc={branding_rc}, report={report_abs}")
+            if branding_rc != 0 and strictness == "enterprise-strict":
+                print("[autopipeline] branding policy stage failed in enterprise-strict mode")
+                return int(branding_rc)
 
     stage_no += 1
     _say(f"Stage {stage_no}/{total_stages}", execution_stages[stage_no - 1])

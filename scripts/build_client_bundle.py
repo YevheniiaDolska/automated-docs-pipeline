@@ -259,6 +259,20 @@ def build_runtime_config(profile: dict[str, Any]) -> dict[str, Any]:
             },
         ),
         "custom_tasks": runtime.get("custom_tasks", {"weekly": [], "on_demand": []}),
+        "veridoc_branding": runtime.get(
+            "veridoc_branding",
+            {
+                "enabled": False,
+                "landing_url": "https://veridoc.app",
+                "plan": "free",
+                "cheapest_paid_plan": "starter",
+                "badge_opt_out": False,
+                "referral_code_env": "VERIDOC_REFERRAL_CODE",
+                "docs_root": runtime.get("docs_root", "docs"),
+                "report_path": "reports/veridoc_branding_policy_report.json",
+                "apply_on_weekly": True,
+            },
+        ),
         "pr_autofix": runtime.get(
             "pr_autofix",
             {
@@ -776,6 +790,16 @@ def build_local_env_template(runtime_cfg: dict[str, Any], bundle_root: Path) -> 
                         "Zephyr folder id (optional)",
                     )
 
+    branding = runtime_cfg.get("veridoc_branding", {})
+    if isinstance(branding, Mapping) and bool(branding.get("enabled", False)):
+        referral_env = str(branding.get("referral_code_env", "VERIDOC_REFERRAL_CODE")).strip()
+        _append_env(
+            lines,
+            referral_env,
+            "",
+            "Optional referral code used in Powered by VeriDoc badge links for higher plans.",
+        )
+
     pr_autofix = runtime_cfg.get("pr_autofix", {})
     if isinstance(pr_autofix, Mapping) and bool(pr_autofix.get("enabled", False)):
         _append_env(lines, "DOCSOPS_BOT_TOKEN", "", "Optional GitHub token if default GITHUB_TOKEN cannot push")
@@ -831,6 +855,46 @@ def create_bundle(profile_path: Path) -> Path:
     write_yaml(policy_dst, policy)
 
     runtime_cfg = build_runtime_config(profile)
+    branding_cfg = runtime_cfg.get("veridoc_branding", {})
+    if isinstance(branding_cfg, Mapping) and bool(branding_cfg.get("enabled", False)) and bool(
+        branding_cfg.get("apply_on_weekly", True)
+    ):
+        custom_tasks = runtime_cfg.get("custom_tasks", {})
+        if not isinstance(custom_tasks, Mapping):
+            custom_tasks = {"weekly": [], "on_demand": []}
+            runtime_cfg["custom_tasks"] = custom_tasks
+        weekly = custom_tasks.get("weekly", [])
+        if not isinstance(weekly, list):
+            weekly = []
+            custom_tasks["weekly"] = weekly
+        has_branding_task = any(
+            isinstance(item, Mapping) and str(item.get("id", "")).strip() == "veridoc-branding-policy"
+            for item in weekly
+        )
+        if not has_branding_task:
+            docs_root = str(branding_cfg.get("docs_root", runtime_cfg.get("paths", {}).get("docs_root", "docs")))
+            landing_url = str(branding_cfg.get("landing_url", "https://veridoc.app")).strip()
+            plan = str(branding_cfg.get("plan", "free")).strip().lower()
+            cheapest = str(branding_cfg.get("cheapest_paid_plan", "starter")).strip().lower()
+            report_path = str(branding_cfg.get("report_path", "reports/veridoc_branding_policy_report.json")).strip()
+            referral_env = str(branding_cfg.get("referral_code_env", "VERIDOC_REFERRAL_CODE")).strip()
+            badge_opt_out = bool(branding_cfg.get("badge_opt_out", False))
+            opt_out_flag = " --badge-opt-out" if badge_opt_out else ""
+            cmd = (
+                f"python3 docsops/scripts/apply_veridoc_branding_policy.py "
+                f"--repo-root . --docs-root {docs_root} --landing-url {landing_url} "
+                f"--plan {plan} --cheapest-paid-plan {cheapest} "
+                f"--report {report_path}{opt_out_flag} "
+                f"--referral-code \"${{{referral_env}:-}}\""
+            )
+            weekly.append(
+                {
+                    "id": "veridoc-branding-policy",
+                    "enabled": True,
+                    "command": cmd,
+                    "continue_on_error": False,
+                }
+            )
 
     include_scripts = [str(rel) for rel in bundle_cfg.get("include_scripts", [])]
     required_scripts: list[str] = []
@@ -840,6 +904,7 @@ def create_bundle(profile_path: Path) -> Path:
     required_scripts.append("scripts/check_updates.py")
     required_scripts.append("scripts/rollback.py")
     required_scripts.append("scripts/finalize_docs_gate.py")
+    required_scripts.append("scripts/apply_veridoc_branding_policy.py")
     pr_autofix = runtime_cfg.get("pr_autofix", {})
     if isinstance(pr_autofix, Mapping) and bool(pr_autofix.get("enabled", False)):
         required_scripts.append("scripts/auto_fix_pr_docs.py")

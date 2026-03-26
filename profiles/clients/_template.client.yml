@@ -246,6 +246,20 @@ runtime:
     scope: "all"
     required_languages: ["curl", "javascript", "python"]
 
+  # Powered by VeriDoc policy automation.
+  # Free + cheapest_paid_plan -> badge mandatory, no commission link.
+  # Higher plans -> optional opt-out, referral code can be appended to landing URL.
+  veridoc_branding:
+    enabled: false
+    landing_url: "https://veridoc.app"
+    plan: "free"
+    cheapest_paid_plan: "starter"
+    badge_opt_out: false
+    referral_code_env: "VERIDOC_REFERRAL_CODE"
+    docs_root: "docs"
+    report_path: "reports/veridoc_branding_policy_report.json"
+    apply_on_weekly: true
+
   # Cross-generator integrations (single control point).
   integrations:
     algolia:

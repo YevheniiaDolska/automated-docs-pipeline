@@ -194,6 +194,36 @@ def _create_profile_via_wizard(default_scheduler: str) -> tuple[Path, str, str]:
         "Enable Ask AI integration?",
         default_yes=bool(profile["runtime"]["integrations"]["ask_ai"].get("enabled", False)),
     )
+    enable_veridoc_branding = _prompt_yes_no(
+        "Enable Powered by VeriDoc badge policy automation?",
+        default_yes=bool(profile["runtime"].get("veridoc_branding", {}).get("enabled", False)),
+    )
+    branding_landing_url = "https://veridoc.app"
+    branding_plan = "free"
+    branding_cheapest = "starter"
+    branding_badge_opt_out = False
+    if enable_veridoc_branding:
+        branding_defaults = profile["runtime"].get("veridoc_branding", {})
+        if not isinstance(branding_defaults, dict):
+            branding_defaults = {}
+        branding_landing_url = _prompt_with_default(
+            "Branding landing URL",
+            str(branding_defaults.get("landing_url", "https://veridoc.app")),
+        )
+        branding_plan = _prompt_choice(
+            "Branding plan",
+            ["free", "starter", "pro", "business", "enterprise"],
+            str(branding_defaults.get("plan", "free")).strip().lower(),
+        )
+        branding_cheapest = _prompt_choice(
+            "Cheapest paid plan",
+            ["starter", "pro", "business"],
+            str(branding_defaults.get("cheapest_paid_plan", "starter")).strip().lower(),
+        )
+        branding_badge_opt_out = _prompt_yes_no(
+            "Allow badge opt-out for higher plans?",
+            default_yes=bool(branding_defaults.get("badge_opt_out", False)),
+        )
 
     enable_intent_weekly = _prompt_yes_no("Enable weekly intent experience build?", default_yes=True)
     finalize_gate_cfg = profile["runtime"].get("finalize_gate", {})
@@ -322,6 +352,17 @@ def _create_profile_via_wizard(default_scheduler: str) -> tuple[Path, str, str]:
         profile["runtime"]["integrations"]["algolia"]["site_generator"] = algolia_site_generator
         profile["runtime"]["integrations"]["algolia"]["generate_search_widget"] = True
     profile["runtime"]["integrations"]["ask_ai"]["enabled"] = enable_ask_ai
+    profile["runtime"]["veridoc_branding"] = {
+        "enabled": enable_veridoc_branding,
+        "landing_url": branding_landing_url,
+        "plan": branding_plan,
+        "cheapest_paid_plan": branding_cheapest,
+        "badge_opt_out": bool(branding_badge_opt_out),
+        "referral_code_env": "VERIDOC_REFERRAL_CODE",
+        "docs_root": docs_root,
+        "report_path": "reports/veridoc_branding_policy_report.json",
+        "apply_on_weekly": True,
+    }
     if isinstance(finalize_gate_cfg, dict):
         finalize_gate_cfg["ask_commit_confirmation"] = enable_finalize_commit_confirmation
         if enable_finalize_commit_confirmation and "commit_on_approve" in finalize_gate_cfg:
