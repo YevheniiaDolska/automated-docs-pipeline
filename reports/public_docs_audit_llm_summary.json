@@ -2,56 +2,55 @@
   "status": "ok",
   "model": "claude-sonnet-4-5",
   "analysis": {
-    "executive_summary": "Audit covered 9,087 pages from Confluent documentation (14.7% of 61,827 requested pages, capped at 10,000). No broken internal or repository navigation links detected across crawled sample. API reference coverage is 75.86% across 2,610 detected API pages. Freshness metadata present on only 1.91% of pages, creating significant visibility gap. Overall audit confidence is 50.7%, with link verification at 25% confidence due to 11 unverified URLs blocked by auth/rate-limits.",
+    "executive_summary": "Audit crawled 507 pages across 3 documentation domains for a single-product topology. 3 confirmed broken internal links exist in user-facing docs. 1,485 links could not be verified due to authentication or rate-limiting. API reference coverage is low at 14.84% across 65 detected API pages. Only 37.67% of pages display last-updated metadata. Overall audit confidence is 63.5%, with link verification confidence at 25% due to access restrictions.",
     "strengths": [
-      "Zero broken internal documentation links detected across 9,087 crawled pages",
-      "Zero broken repository navigation links (GitHub/GitLab) found",
-      "Strong API reference coverage at 75.86% with 2,610 API pages successfully detected",
-      "Example code reliability estimate at 100% across sampled content",
-      "SEO/geo issue rate low at 4.85% of crawled pages"
+      "Crawl achieved 100% coverage of discovered in-scope pages (507 of 507 requested)",
+      "No repository navigation broken links detected (repo_broken_links_count: 0)",
+      "API page detection succeeded with 65 pages identified across documentation",
+      "Example code reliability estimate is strong at 85.78%",
+      "Documentation trap URLs properly identified and skipped (28 URLs)"
     ],
     "risks": [
-      "Crawl captured only 14.7% of requested pages (9,087 of 61,827), leaving 85.3% of site unaudited",
-      "Overall audit confidence critically low at 50.7%, limiting reliability of findings",
-      "Link verification confidence at 25% due to 11 URLs blocked by authentication or rate-limiting",
-      "Freshness metadata visible on only 1.91% of pages, preventing age/staleness assessment for 98% of content",
-      "24.14% of API reference content lacks coverage, creating potential gaps in developer documentation",
-      "1,656 links excluded from analysis, reducing visibility into external dependency health",
-      "Multi-project topology may hide cross-project documentation inconsistencies"
+      "3 confirmed broken internal links in user-facing documentation degrade user experience",
+      "1,485 unverified links create unknown quality exposure; 25% link confidence indicates high verification gap",
+      "SEO/geo issue rate of 18.96% may harm discoverability and search ranking",
+      "API reference coverage at 14.84% leaves majority of API surface undocumented or poorly linked",
+      "37.67% freshness coverage prevents users from assessing content currency on 62% of pages",
+      "Multi-site documentation architecture (3 domains for single product) risks fragmentation and inconsistent user journeys",
+      "Overall confidence of 63.5% suggests significant audit blind spots remain"
     ],
     "prioritized_actions": [
       {
-        "action": "Implement last-updated timestamps on all documentation pages to enable freshness tracking (currently 1.91% coverage)",
-        "impact": "critical",
+        "action": "Repair 3 confirmed broken internal links in user-facing docs",
+        "impact": "high",
+        "effort": "low"
+      },
+      {
+        "action": "Implement last-updated timestamps on all pages to reach 100% freshness coverage from current 37.67%",
+        "impact": "high",
         "effort": "medium"
       },
       {
-        "action": "Investigate and resolve 11 unverified links blocked by auth/rate-limits to achieve full link validation",
-        "impact": "high",
-        "effort": "low"
-      },
-      {
-        "action": "Increase crawl budget or prioritize high-traffic pages to audit beyond 14.7% coverage of total site",
+        "action": "Audit and expand API reference documentation to improve 14.84% coverage baseline",
         "impact": "critical",
         "effort": "high"
       },
       {
-        "action": "Close 24.14% API reference coverage gap by documenting missing endpoints/methods across 2,610 API pages",
+        "action": "Resolve SEO/geo issues affecting 18.96% of pages to improve search discoverability",
         "impact": "high",
-        "effort": "high"
+        "effort": "medium"
       },
       {
-        "action": "Review and document rationale for 1,656 excluded links to ensure no critical external dependencies are ignored",
+        "action": "Establish authentication-aware link verification process for 1,485 unverified URLs to eliminate blind spots",
         "impact": "medium",
-        "effort": "low"
+        "effort": "medium"
       }
     ],
     "limitations": [
-      "Audit sampled 14.7% of site due to crawl limits; findings may not represent unaudited 85.3% of content",
-      "Cannot verify content accuracy, technical correctness, or whether documentation matches actual product behavior",
-      "External link health depends on third-party availability at audit time; transient failures may be misreported",
-      "Multi-project topology may obscure cross-repository inconsistencies or duplicated content not visible in single-project view",
-      "Low overall confidence (50.7%) means findings require manual validation before acting on reported issues"
+      "25% link confidence means 1,485 URLs behind authentication or rate-limits were not verified; actual broken link count may be higher",
+      "External audit cannot validate accuracy of technical content, code examples, or API specifications",
+      "Multi-domain architecture may hide cross-site navigation issues or content duplication not detectable by single-pass crawl",
+      "Freshness metadata absence on 62% of pages prevents audit from assessing actual content staleness or accuracy drift"
     ]
   }
 }

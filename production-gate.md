@@ -49,7 +49,7 @@ Use it together with [Deployment Runbook](deploy/production-runbook.md).
 ## 6. Billing
 
 - [ ] Checkout links are correct for all plans.
-- [ ] Webhook signature verification is enabled.
+- [x] Webhook signature verification is enabled.
 - [ ] Events tested: new subscription, renewal, cancel, payment failure, refund.
 - [ ] Plan limits are enforced after webhook updates.
 

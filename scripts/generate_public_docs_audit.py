@@ -86,7 +86,11 @@ def _slugify(text: str) -> str:
 
 
 def _normalize_url(raw: str) -> str:
-    parsed = urlparse(raw.strip())
+    value = str(raw or "").strip()
+    # Accept wizard input without scheme, e.g. "docs.example.com/path".
+    if value and "://" not in value and not value.startswith("/"):
+        value = "https://" + value
+    parsed = urlparse(value)
     path = parsed.path or "/"
     parts = [p for p in path.split("/") if p]
     if len(parts) >= 4:
@@ -1422,12 +1426,18 @@ def _crawl_site(
                         stop_reason = "converged"
                         break
             else:
-                stop_reason = "limit_reached"
+                # Loop finished without break.
+                if not auto_mode and not queue:
+                    stop_reason = "queue_exhausted"
+                else:
+                    stop_reason = "limit_reached"
 
         # If we got at least 1 page, stop retrying
         if pages:
             if not auto_mode and len(seen) >= effective_limit:
                 stop_reason = "limit_reached"
+            elif not auto_mode and not queue:
+                stop_reason = "queue_exhausted"
             elif auto_mode and not queue:
                 stop_reason = "queue_exhausted"
             break
@@ -1533,6 +1543,7 @@ def _crawl_site(
         "effective_limit": int(effective_limit),
         # Use crawl frontier discovery, not all in-page links, for coverage denominator.
         "discovered_pages": len(discovered),
+        "urls_examined": len(seen),
         "pages_crawled": len(pages),
         "requested_pages": len(status_map),
         "stop_reason": stop_reason,
@@ -1583,6 +1594,7 @@ def _site_payload(
             # Legacy fallback path: count discovered pages by crawled page URLs only.
             # Including all in-page links here inflates denominator and breaks coverage.
             "discovered_pages": len({p.url for p in pages}),
+            "urls_examined": len({p.url for p in pages}),
             "pages_crawled": len(pages),
             "requested_pages": len(status_map),
             "stop_reason": "unknown",
@@ -1592,20 +1604,27 @@ def _site_payload(
         }
 
     discovered_pages = int(crawl_stats.get("discovered_pages", 0) or 0)
+    urls_examined = int(crawl_stats.get("urls_examined", len(status_map)) or 0)
     requested_pages = int(crawl_stats.get("requested_pages", len(status_map)) or 0)
     pages_crawled = int(crawl_stats.get("pages_crawled", len(pages)) or 0)
+    seeded_sitemap_urls = int(crawl_stats.get("seeded_sitemap_urls", 0) or 0)
+    scope_basis = "sitemap" if seeded_sitemap_urls > 0 else "discovered"
+    scope_pages = seeded_sitemap_urls if seeded_sitemap_urls > 0 else discovered_pages
     metrics = {
         "crawl": {
             "pages_crawled": pages_crawled,
             "requested_pages": requested_pages,
+            "urls_examined": urls_examined,
             "max_pages": int(max_pages),
             "effective_limit": int(crawl_stats.get("effective_limit", max_pages) or 0),
             "auto_mode": bool(crawl_stats.get("auto_mode", int(max_pages) <= 0)),
             "stop_reason": str(crawl_stats.get("stop_reason", "unknown")),
             "discovered_pages": discovered_pages,
-            "crawl_coverage_pct": _safe_pct(pages_crawled, discovered_pages),
+            "crawl_scope_basis": scope_basis,
+            "crawl_scope_pages": scope_pages,
+            "crawl_coverage_pct": _safe_pct(urls_examined, scope_pages),
             "trap_urls_skipped": int(crawl_stats.get("trap_urls_skipped", 0) or 0),
-            "seeded_sitemap_urls": int(crawl_stats.get("seeded_sitemap_urls", 0) or 0),
+            "seeded_sitemap_urls": seeded_sitemap_urls,
             "robots_sitemaps_declared": int(crawl_stats.get("robots_sitemaps_declared", 0) or 0),
         },
         "links": _link_health(pages, status_map),
@@ -1766,8 +1785,10 @@ def _aggregate_sites(sites: list[dict[str, Any]]) -> dict[str, Any]:
         "crawl": {
             "pages_crawled": sum(int(s["metrics"]["crawl"]["pages_crawled"]) for s in sites),
             "requested_pages": sum(int(s["metrics"]["crawl"]["requested_pages"]) for s in sites),
+            "urls_examined": sum(int(s["metrics"]["crawl"].get("urls_examined", s["metrics"]["crawl"]["requested_pages"])) for s in sites),
             "max_pages_total": sum(max(0, int(s["metrics"]["crawl"].get("max_pages", 0))) for s in sites),
             "discovered_pages": sum(int(s["metrics"]["crawl"].get("discovered_pages", s["metrics"]["crawl"]["requested_pages"])) for s in sites),
+            "crawl_scope_pages": sum(int(s["metrics"]["crawl"].get("crawl_scope_pages", s["metrics"]["crawl"].get("discovered_pages", s["metrics"]["crawl"]["requested_pages"]))) for s in sites),
             "trap_urls_skipped": sum(int(s["metrics"]["crawl"].get("trap_urls_skipped", 0)) for s in sites),
         },
         "links": {
@@ -1790,13 +1811,14 @@ def _aggregate_sites(sites: list[dict[str, Any]]) -> dict[str, Any]:
         },
     }
     pages = int(metrics["crawl"]["pages_crawled"] or 0)
-    discovered = int(metrics["crawl"].get("discovered_pages", metrics["crawl"]["requested_pages"]) or 0)
+    urls_examined = int(metrics["crawl"].get("urls_examined", metrics["crawl"]["requested_pages"]) or 0)
+    scope_pages = int(metrics["crawl"].get("crawl_scope_pages", metrics["crawl"].get("discovered_pages", metrics["crawl"]["requested_pages"])) or 0)
     docs_broken = int(metrics["links"].get("docs_broken_links_count", 0))
     unverified = int(metrics["links"].get("unverified_links_count", 0))
     api_cov = float(metrics["api_coverage"].get("reference_coverage_pct", -1.0) or -1.0)
     api_pages = int(metrics["api_coverage"].get("api_pages_detected", 0) or 0)
-    crawl_ratio = 0.0 if discovered <= 0 else min(1.0, pages / discovered)
-    metrics["crawl"]["crawl_coverage_pct"] = _safe_pct(pages, discovered)
+    crawl_ratio = 0.0 if scope_pages <= 0 else min(1.0, urls_examined / scope_pages)
+    metrics["crawl"]["crawl_coverage_pct"] = _safe_pct(urls_examined, scope_pages)
     link_conf = max(20.0, 95.0 - min(70.0, (unverified / max(1, docs_broken + unverified)) * 100.0))
     api_conf = 85.0 if api_cov >= 0 else (55.0 if api_pages > 0 else 35.0)
     crawl_conf = 35.0 + crawl_ratio * 60.0
@@ -2614,8 +2636,10 @@ def main() -> int:
 
     findings = []
     total_pages = m["crawl"]["pages_crawled"]
-    discovered_pages = int(m["crawl"].get("discovered_pages", m["crawl"].get("requested_pages", 0)) or 0)
-    crawl_coverage_pct = float(m["crawl"].get("crawl_coverage_pct", _safe_pct(total_pages, discovered_pages)))
+    urls_examined = int(m["crawl"].get("urls_examined", m["crawl"].get("requested_pages", 0)) or 0)
+    scope_pages = int(m["crawl"].get("crawl_scope_pages", m["crawl"].get("discovered_pages", m["crawl"].get("requested_pages", 0))) or 0)
+    scope_basis = str(m["crawl"].get("crawl_scope_basis", "discovered"))
+    crawl_coverage_pct = float(m["crawl"].get("crawl_coverage_pct", _safe_pct(urls_examined, scope_pages)))
     if total_pages == 0:
         findings.append(
             "Crawler could not fetch any pages. The site may block automated "
@@ -2624,9 +2648,9 @@ def main() -> int:
         )
     elif crawl_coverage_pct < 80:
         findings.append(
-            "Crawl coverage is low: {}% ({} crawled of {} discovered). "
+            "Crawl coverage is low: {}% ({} URLs examined of {} in {} scope). "
             "Run authenticated mode or increase auto crawl safety cap.".format(
-                crawl_coverage_pct, total_pages, discovered_pages,
+                crawl_coverage_pct, urls_examined, scope_pages, scope_basis,
             ),
         )
     docs_broken = int(m["links"].get("docs_broken_links_count", 0))
