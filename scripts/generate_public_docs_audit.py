@@ -76,6 +76,12 @@ _CRAWL_TRAP_QUERY_KEYS = {
 _CRAWL_TRAP_PATH_HINTS = (
     "/search", "/calendar", "/tag/", "/tags/", "/archive/", "/archives/",
 )
+_MAX_TEXT_CHUNKS_PER_PAGE = 5000
+_MAX_TEXT_CHARS_PER_PAGE = 200_000
+_MAX_LINKS_PER_PAGE = 10_000
+_MAX_CODE_BUFFER_CHARS = 400_000
+_MAX_CODE_BLOCK_CHARS = 100_000
+_MAX_CODE_BLOCKS_PER_PAGE = 300
 
 
 def _slugify(text: str) -> str:
@@ -433,6 +439,7 @@ class _DocsHTMLParser(HTMLParser):
         self.external_links: list[str] = []
         self.code_blocks: list[dict[str, str]] = []
         self.text_chunks: list[str] = []
+        self._text_chars = 0
         self.last_updated_hint = ""
 
         self._in_title = False
@@ -441,6 +448,7 @@ class _DocsHTMLParser(HTMLParser):
         self._in_highlight_div = 0  # nesting counter for highlight wrappers
         self._code_lang = ""
         self._code_buf: list[str] = []
+        self._code_buf_chars = 0
         self._date_class_detected = False
 
     def handle_starttag(self, tag: str, attrs: list[tuple[str, str | None]]) -> None:
@@ -480,15 +488,18 @@ class _DocsHTMLParser(HTMLParser):
                 absolute = _normalize_url(urljoin(self.base_url, href))
                 if _is_http_url(absolute):
                     if _same_host(absolute, self.base_url):
-                        self.internal_links.append(absolute)
+                        if len(self.internal_links) < _MAX_LINKS_PER_PAGE:
+                            self.internal_links.append(absolute)
                     else:
-                        self.external_links.append(absolute)
+                        if len(self.external_links) < _MAX_LINKS_PER_PAGE:
+                            self.external_links.append(absolute)
             return
 
         if tag == "pre":
             self._in_pre = True
             self._code_lang = ""
             self._code_buf = []
+            self._code_buf_chars = 0
             # Some renderers put language class on <pre> directly
             m = re.search(r"language-([a-z0-9_+-]+)", cls)
             if m:
@@ -546,17 +557,23 @@ class _DocsHTMLParser(HTMLParser):
             # and accumulated content, treat as code block
             if not self._in_pre and self._code_buf:
                 code = "".join(self._code_buf).strip()
-                if code and self._code_lang:
+                if len(code) > _MAX_CODE_BLOCK_CHARS:
+                    code = code[:_MAX_CODE_BLOCK_CHARS]
+                if code and self._code_lang and len(self.code_blocks) < _MAX_CODE_BLOCKS_PER_PAGE:
                     self.code_blocks.append({"language": self._code_lang, "code": code})
                 self._code_buf = []
+                self._code_buf_chars = 0
             self._in_code = False
             return
         if tag == "pre":
             self._in_pre = False
             code = "".join(self._code_buf).strip()
-            if code and not self._is_line_numbers_only(code):
+            if len(code) > _MAX_CODE_BLOCK_CHARS:
+                code = code[:_MAX_CODE_BLOCK_CHARS]
+            if code and not self._is_line_numbers_only(code) and len(self.code_blocks) < _MAX_CODE_BLOCKS_PER_PAGE:
                 self.code_blocks.append({"language": self._code_lang or "text", "code": code})
             self._code_buf = []
+            self._code_buf_chars = 0
             self._code_lang = ""
             return
         if tag == "div" and self._in_highlight_div > 0:
@@ -565,9 +582,12 @@ class _DocsHTMLParser(HTMLParser):
             # (only if not already flushed by a nested <pre> end)
             if self._in_highlight_div == 0 and not self._in_pre and not self._in_code and self._code_buf:
                 code = "".join(self._code_buf).strip()
-                if code:
+                if len(code) > _MAX_CODE_BLOCK_CHARS:
+                    code = code[:_MAX_CODE_BLOCK_CHARS]
+                if code and len(self.code_blocks) < _MAX_CODE_BLOCKS_PER_PAGE:
                     self.code_blocks.append({"language": self._code_lang or "text", "code": code})
                 self._code_buf = []
+                self._code_buf_chars = 0
                 self._code_lang = ""
 
     @staticmethod
@@ -590,16 +610,34 @@ class _DocsHTMLParser(HTMLParser):
     def handle_data(self, data: str) -> None:
         # Always collect raw data into code buffers (preserve whitespace)
         if self._in_pre or self._in_code:
-            self._code_buf.append(data)
+            if self._code_buf_chars < _MAX_CODE_BUFFER_CHARS:
+                remaining = _MAX_CODE_BUFFER_CHARS - self._code_buf_chars
+                piece = data[:remaining]
+                if piece:
+                    self._code_buf.append(piece)
+                    self._code_buf_chars += len(piece)
         elif self._in_highlight_div > 0:
-            self._code_buf.append(data)
+            if self._code_buf_chars < _MAX_CODE_BUFFER_CHARS:
+                remaining = _MAX_CODE_BUFFER_CHARS - self._code_buf_chars
+                piece = data[:remaining]
+                if piece:
+                    self._code_buf.append(piece)
+                    self._code_buf_chars += len(piece)
 
         text = data.strip()
         if not text:
             return
         if self._in_title and not self.title:
             self.title = text
-        self.text_chunks.append(text)
+        if (
+            len(self.text_chunks) < _MAX_TEXT_CHUNKS_PER_PAGE
+            and self._text_chars < _MAX_TEXT_CHARS_PER_PAGE
+        ):
+            remaining = _MAX_TEXT_CHARS_PER_PAGE - self._text_chars
+            clipped = text[:remaining]
+            if clipped:
+                self.text_chunks.append(clipped)
+                self._text_chars += len(clipped)
         # Detect last-updated from text content
         if not self.last_updated_hint:
             if self._date_class_detected and _DATE_PATTERN.search(text):
@@ -627,6 +665,13 @@ class _DocsHTMLParser(HTMLParser):
             if key and key not in seen:
                 seen.add(key)
                 unique_blocks.append(block)
+                if len(unique_blocks) >= _MAX_CODE_BLOCKS_PER_PAGE:
+                    break
+        try:
+            text_value = " ".join(self.text_chunks)
+        except MemoryError:
+            # Fallback for pathological pages on constrained hosts.
+            text_value = " ".join(self.text_chunks[:1000])
         return PageData(
             url=url,
             status=status,
@@ -637,7 +682,7 @@ class _DocsHTMLParser(HTMLParser):
             internal_links=sorted(set(self.internal_links)),
             external_links=sorted(set(self.external_links)),
             code_blocks=unique_blocks,
-            text=" ".join(self.text_chunks),
+            text=text_value,
             last_updated_hint=self.last_updated_hint,
         )
 
