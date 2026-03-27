@@ -2549,7 +2549,14 @@ def main() -> int:
         print("  1) Summary only -- LLM gets aggregate metrics only (fast, ~$0.05)")
         print("  2) Full -- LLM gets all per-site data (slower, ~$3-4/site)")
         print("  3) None -- no LLM analysis")
-        llm_raw = input("Choice [1/2/3] (default: 1): ").strip()
+        llm_prompt = (
+            "Choice [1/2/3] (default: 1)\n"
+            "  1 = Summary only (fast, cheap)\n"
+            "  2 = Full analysis (slower, more expensive)\n"
+            "  3 = None (no LLM)\n"
+            "> "
+        )
+        llm_raw = input(llm_prompt).strip()
         if llm_raw in {"1", ""}:
             args.llm_enabled = True
             args.llm_summary_only = True
