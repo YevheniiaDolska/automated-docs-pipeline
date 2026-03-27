@@ -7,8 +7,10 @@ import base64
 import json
 import sys
 import time
+import urllib.error
+from io import BytesIO
 from pathlib import Path
-from unittest.mock import patch
+from unittest.mock import MagicMock, patch
 
 import pytest
 
@@ -20,17 +22,22 @@ from scripts.license_gate import (
     COMMUNITY_FEATURES,
     COMMUNITY_PROTOCOLS,
     DEFAULT_GRACE_DAYS,
+    HEARTBEAT_PATH,
     PLAN_FEATURES,
     PLAN_PROTOCOLS,
     LicenseInfo,
     _b64url_decode,
     _community_license,
     _parse_jwt_parts,
+    _phone_home_due,
+    _read_heartbeat,
+    _write_heartbeat,
     check,
     check_protocol,
     get_license,
     get_license_summary,
     machine_fingerprint,
+    phone_home,
     require,
     require_protocol,
     reset_cache,
@@ -469,3 +476,446 @@ class TestGraceDays:
 
         result = validate(license_path=f, key_path=tmp_path / "no.pub")
         assert result.offline_grace_days == 14
+
+
+# -- Heartbeat helpers --------------------------------------------------------
+
+
+class TestReadHeartbeat:
+    def test_missing_file(self, tmp_path):
+        assert _read_heartbeat(tmp_path / "missing.json") == {}
+
+    def test_valid_file(self, tmp_path):
+        f = tmp_path / "hb.json"
+        f.write_text('{"last_check": 1000, "last_result": "success"}')
+        hb = _read_heartbeat(f)
+        assert hb["last_check"] == 1000
+        assert hb["last_result"] == "success"
+
+    def test_corrupt_json(self, tmp_path):
+        f = tmp_path / "hb.json"
+        f.write_text("{bad json")
+        assert _read_heartbeat(f) == {}
+
+    def test_empty_file(self, tmp_path):
+        f = tmp_path / "hb.json"
+        f.write_text("")
+        assert _read_heartbeat(f) == {}
+
+
+class TestWriteHeartbeat:
+    def test_creates_file(self, tmp_path):
+        f = tmp_path / "sub" / "hb.json"
+        _write_heartbeat({"last_check": 42}, f)
+        assert f.exists()
+        data = json.loads(f.read_text())
+        assert data["last_check"] == 42
+
+    def test_overwrites_existing(self, tmp_path):
+        f = tmp_path / "hb.json"
+        _write_heartbeat({"last_check": 1}, f)
+        _write_heartbeat({"last_check": 2}, f)
+        data = json.loads(f.read_text())
+        assert data["last_check"] == 2
+
+
+# -- Phone-home interval check -----------------------------------------------
+
+
+class TestPhoneHomeDue:
+    def test_empty_heartbeat_is_due(self):
+        # Empty dict -> last_check defaults to 0 (epoch), so any modern timestamp is due
+        assert _phone_home_due({}, interval_days=30, current_time=3_000_000) is True
+
+    def test_never_checked_is_due(self):
+        assert _phone_home_due({"last_check": 0}, interval_days=1, current_time=90000) is True
+
+    def test_recently_checked_not_due(self):
+        now = time.time()
+        hb = {"last_check": now - 3600}  # 1 hour ago
+        assert _phone_home_due(hb, interval_days=30, current_time=now) is False
+
+    def test_past_interval_is_due(self):
+        now = time.time()
+        hb = {"last_check": now - 31 * 86400}  # 31 days ago
+        assert _phone_home_due(hb, interval_days=30, current_time=now) is True
+
+    def test_exactly_at_boundary(self):
+        now = 1000000.0
+        hb = {"last_check": now - 30 * 86400}  # exactly 30 days
+        assert _phone_home_due(hb, interval_days=30, current_time=now) is True
+
+    def test_invalid_last_check_type(self):
+        assert _phone_home_due({"last_check": "bad"}, interval_days=1, current_time=1000) is True
+
+    def test_custom_interval(self):
+        now = 1000000.0
+        hb = {"last_check": now - 7 * 86400}
+        assert _phone_home_due(hb, interval_days=7, current_time=now) is True
+        assert _phone_home_due(hb, interval_days=8, current_time=now) is False
+
+
+# -- Phone-home function ------------------------------------------------------
+
+
+def _mock_urlopen_response(body_dict: dict, status: int = 200):
+    """Create a mock urllib response."""
+    body = json.dumps(body_dict).encode("utf-8")
+    resp = MagicMock()
+    resp.read.return_value = body
+    resp.status = status
+    resp.__enter__ = lambda s: s
+    resp.__exit__ = MagicMock(return_value=False)
+    return resp
+
+
+class TestPhoneHome:
+    def test_disabled_skips(self, tmp_path):
+        with patch("scripts.license_gate.PHONE_HOME_ENABLED", False):
+            result = phone_home(
+                client_id="acme",
+                heartbeat_path=tmp_path / "hb.json",
+            )
+        assert result["skipped"] is True
+        assert "disabled" in result["error"].lower()
+
+    def test_no_client_id_skips(self, tmp_path):
+        result = phone_home(
+            client_id="",
+            heartbeat_path=tmp_path / "hb.json",
+        )
+        assert result["skipped"] is True
+        assert "community" in result["error"].lower()
+
+    def test_not_due_skips(self, tmp_path):
+        hb_path = tmp_path / "hb.json"
+        now = time.time()
+        _write_heartbeat({"last_check": now}, hb_path)
+
+        result = phone_home(
+            client_id="acme",
+            heartbeat_path=hb_path,
+            current_time=now,
+            interval_days=30,
+        )
+        assert result["skipped"] is True
+        assert result["refreshed"] is False
+
+    def test_force_ignores_interval(self, tmp_path):
+        hb_path = tmp_path / "hb.json"
+        now = time.time()
+        _write_heartbeat({"last_check": now}, hb_path)
+
+        new_jwt = _make_unsigned_jwt({
+            "sub": "acme", "plan": "enterprise",
+            "exp": int(now) + 86400,
+        })
+        mock_resp = _mock_urlopen_response({"token": new_jwt})
+
+        with patch("urllib.request.urlopen", return_value=mock_resp):
+            result = phone_home(
+                client_id="acme",
+                license_path=tmp_path / "license.jwt",
+                heartbeat_path=hb_path,
+                base_url="http://localhost:9999",
+                current_time=now,
+                force=True,
+            )
+        assert result["refreshed"] is True
+
+    def test_successful_refresh(self, tmp_path):
+        hb_path = tmp_path / "hb.json"
+        lic_path = tmp_path / "license.jwt"
+        now = time.time()
+
+        new_jwt = _make_unsigned_jwt({
+            "sub": "acme", "plan": "professional",
+            "exp": int(now) + 86400 * 365,
+        })
+        mock_resp = _mock_urlopen_response({"token": new_jwt})
+
+        with patch("urllib.request.urlopen", return_value=mock_resp):
+            result = phone_home(
+                client_id="acme",
+                license_path=lic_path,
+                heartbeat_path=hb_path,
+                base_url="http://localhost:9999",
+                current_time=now,
+                force=True,
+            )
+
+        assert result["refreshed"] is True
+        assert result["error"] is None
+        assert lic_path.exists()
+        assert lic_path.read_text() == new_jwt
+
+        hb = json.loads(hb_path.read_text())
+        assert hb["last_result"] == "success"
+        assert hb["last_check"] == now
+
+    def test_empty_token_from_server(self, tmp_path):
+        hb_path = tmp_path / "hb.json"
+        now = time.time()
+        mock_resp = _mock_urlopen_response({"token": ""})
+
+        with patch("urllib.request.urlopen", return_value=mock_resp):
+            result = phone_home(
+                client_id="acme",
+                heartbeat_path=hb_path,
+                base_url="http://localhost:9999",
+                current_time=now,
+                force=True,
+            )
+
+        assert result["refreshed"] is False
+        assert "empty" in result["error"].lower()
+
+    def test_invalid_jwt_from_server(self, tmp_path):
+        hb_path = tmp_path / "hb.json"
+        now = time.time()
+        mock_resp = _mock_urlopen_response({"token": "not.a.valid-jwt-at-all"})
+
+        with patch("urllib.request.urlopen", return_value=mock_resp):
+            result = phone_home(
+                client_id="acme",
+                heartbeat_path=hb_path,
+                base_url="http://localhost:9999",
+                current_time=now,
+                force=True,
+            )
+
+        assert result["refreshed"] is False
+        assert "invalid" in result["error"].lower()
+
+    def test_http_error(self, tmp_path):
+        hb_path = tmp_path / "hb.json"
+        now = time.time()
+
+        exc = urllib.error.HTTPError(
+            url="http://localhost/billing/license/token",
+            code=401,
+            msg="Unauthorized",
+            hdrs={},
+            fp=BytesIO(b""),
+        )
+
+        with patch("urllib.request.urlopen", side_effect=exc):
+            result = phone_home(
+                client_id="acme",
+                heartbeat_path=hb_path,
+                base_url="http://localhost:9999",
+                current_time=now,
+                force=True,
+            )
+
+        assert result["refreshed"] is False
+        assert "401" in result["error"]
+        # HTTP errors DO write heartbeat (to avoid hammering)
+        hb = json.loads(hb_path.read_text())
+        assert hb["last_result"] == "error_http_401"
+
+    def test_network_error_no_heartbeat_update(self, tmp_path):
+        """Network errors should NOT update last_check so retry happens next time."""
+        hb_path = tmp_path / "hb.json"
+        now = time.time()
+
+        exc = urllib.error.URLError("Connection refused")
+
+        with patch("urllib.request.urlopen", side_effect=exc):
+            result = phone_home(
+                client_id="acme",
+                heartbeat_path=hb_path,
+                base_url="http://localhost:9999",
+                current_time=now,
+                force=True,
+            )
+
+        assert result["refreshed"] is False
+        assert "network" in result["error"].lower()
+        # Heartbeat file should NOT be created/updated
+        assert not hb_path.exists()
+
+    def test_sends_correct_headers(self, tmp_path):
+        hb_path = tmp_path / "hb.json"
+        now = time.time()
+
+        new_jwt = _make_unsigned_jwt({
+            "sub": "acme", "plan": "pilot",
+            "exp": int(now) + 86400,
+        })
+        mock_resp = _mock_urlopen_response({"token": new_jwt})
+
+        captured_req = None
+
+        def capture_urlopen(req, **kwargs):
+            nonlocal captured_req
+            captured_req = req
+            return mock_resp
+
+        with patch("urllib.request.urlopen", side_effect=capture_urlopen):
+            phone_home(
+                client_id="acme-corp",
+                license_path=tmp_path / "license.jwt",
+                heartbeat_path=hb_path,
+                base_url="http://test.local",
+                current_time=now,
+                force=True,
+            )
+
+        assert captured_req is not None
+        assert captured_req.get_header("X-client-id") == "acme-corp"
+        assert captured_req.get_header("X-machine-fingerprint") is not None
+        assert len(captured_req.get_header("X-machine-fingerprint")) == 64
+        assert "test.local/billing/license/token" in captured_req.full_url
+
+
+# -- Phone-home integration in validate() ------------------------------------
+
+
+class TestPhoneHomeIntegration:
+    def test_validate_triggers_phone_home_when_due(self, tmp_path):
+        """validate() should call phone_home when interval has elapsed."""
+        now = time.time()
+        payload = {
+            "sub": "acme", "plan": "enterprise",
+            "exp": int(now) + 86400 * 365,
+        }
+        token = _make_unsigned_jwt(payload)
+        lic_path = tmp_path / "license.jwt"
+        lic_path.write_text(token)
+
+        ph_called = False
+
+        def mock_phone_home(**kwargs):
+            nonlocal ph_called
+            ph_called = True
+            return {"refreshed": False, "skipped": False, "error": None}
+
+        with patch("scripts.license_gate.phone_home", side_effect=mock_phone_home), \
+             patch("scripts.license_gate.PHONE_HOME_ENABLED", True):
+            result = validate(
+                license_path=lic_path,
+                key_path=tmp_path / "no.pub",
+                current_time=now,
+            )
+
+        assert result.valid is True
+        assert ph_called is True
+
+    def test_validate_skips_phone_home_for_env_plan(self, tmp_path, monkeypatch):
+        """Phone-home should not trigger when using VERIOPS_LICENSE_PLAN env bypass."""
+        monkeypatch.setenv("VERIOPS_LICENSE_PLAN", "enterprise")
+
+        ph_called = False
+
+        def mock_phone_home(**kwargs):
+            nonlocal ph_called
+            ph_called = True
+            return {"refreshed": False, "skipped": True, "error": None}
+
+        with patch("scripts.license_gate.phone_home", side_effect=mock_phone_home):
+            result = validate()
+
+        assert result.valid is True
+        assert ph_called is False
+
+    def test_validate_revalidates_on_refresh(self, tmp_path):
+        """When phone_home returns refreshed=True, validate re-runs with new token."""
+        now = time.time()
+        old_payload = {
+            "sub": "acme", "plan": "pilot",
+            "exp": int(now) + 86400,
+        }
+        old_token = _make_unsigned_jwt(old_payload)
+        lic_path = tmp_path / "license.jwt"
+        lic_path.write_text(old_token)
+
+        new_payload = {
+            "sub": "acme", "plan": "enterprise",
+            "exp": int(now) + 86400 * 365,
+        }
+        new_token = _make_unsigned_jwt(new_payload)
+
+        call_count = 0
+
+        def mock_phone_home(**kwargs):
+            nonlocal call_count
+            call_count += 1
+            # Write the new token to the license file (simulating server refresh)
+            lic_path.write_text(new_token)
+            return {"refreshed": True, "skipped": False, "error": None}
+
+        with patch("scripts.license_gate.phone_home", side_effect=mock_phone_home), \
+             patch("scripts.license_gate.PHONE_HOME_ENABLED", True):
+            result = validate(
+                license_path=lic_path,
+                key_path=tmp_path / "no.pub",
+                current_time=now,
+            )
+
+        # phone_home called once (on first validate), not on re-validate (guard)
+        assert call_count == 1
+        # Result should reflect the NEW token
+        assert result.plan == "enterprise"
+        assert result.valid is True
+
+    def test_recursion_guard_prevents_infinite_loop(self, tmp_path):
+        """The recursion guard should prevent validate->phone_home->validate loop."""
+        now = time.time()
+        payload = {
+            "sub": "acme", "plan": "professional",
+            "exp": int(now) + 86400,
+        }
+        token = _make_unsigned_jwt(payload)
+        lic_path = tmp_path / "license.jwt"
+        lic_path.write_text(token)
+
+        call_count = 0
+
+        def mock_phone_home(**kwargs):
+            nonlocal call_count
+            call_count += 1
+            # Always claim refreshed to trigger re-validate
+            return {"refreshed": True, "skipped": False, "error": None}
+
+        with patch("scripts.license_gate.phone_home", side_effect=mock_phone_home), \
+             patch("scripts.license_gate.PHONE_HOME_ENABLED", True):
+            result = validate(
+                license_path=lic_path,
+                key_path=tmp_path / "no.pub",
+                current_time=now,
+            )
+
+        # phone_home should be called exactly once -- the re-validate call
+        # has _phone_home_refreshing=True so it skips phone_home
+        assert call_count == 1
+        assert result.valid is True
+
+    def test_phone_home_disabled_via_env(self, tmp_path):
+        """PHONE_HOME_ENABLED=false should skip phone-home entirely."""
+        now = time.time()
+        payload = {
+            "sub": "acme", "plan": "enterprise",
+            "exp": int(now) + 86400,
+        }
+        token = _make_unsigned_jwt(payload)
+        lic_path = tmp_path / "license.jwt"
+        lic_path.write_text(token)
+
+        ph_called = False
+
+        def mock_phone_home(**kwargs):
+            nonlocal ph_called
+            ph_called = True
+            return {"refreshed": False, "skipped": True, "error": None}
+
+        with patch("scripts.license_gate.phone_home", side_effect=mock_phone_home), \
+             patch("scripts.license_gate.PHONE_HOME_ENABLED", False):
+            result = validate(
+                license_path=lic_path,
+                key_path=tmp_path / "no.pub",
+                current_time=now,
+            )
+
+        assert result.valid is True
+        assert ph_called is False

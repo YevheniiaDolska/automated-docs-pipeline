@@ -5,8 +5,10 @@ Validates JWT license tokens signed with Ed25519, checks feature
 entitlements per plan tier, and provides degraded community mode
 when no valid license is present.
 
-All validation is offline -- the embedded public key verifies the
-JWT signature without any network call.
+Primary validation is offline -- the embedded public key verifies the
+JWT signature without any network call.  A periodic phone-home check
+(default every 30 days) contacts the VeriDoc SaaS server to verify
+subscription status and download a fresh JWT.
 """
 
 from __future__ import annotations
@@ -20,6 +22,8 @@ import platform
 import struct
 import sys
 import time
+import urllib.error
+import urllib.request
 from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Any
@@ -137,6 +141,26 @@ DEFAULT_GRACE_DAYS: dict[str, int] = {
     "professional": 7,
     "enterprise": 30,
 }
+
+# -- Phone-home configuration -------------------------------------------------
+
+PHONE_HOME_URL = os.environ.get(
+    "VERIOPS_PHONE_HOME_URL", "https://api.veridoc.dev"
+).rstrip("/")
+
+PHONE_HOME_INTERVAL_DAYS = int(
+    os.environ.get("VERIOPS_PHONE_HOME_INTERVAL_DAYS", "30")
+)
+
+PHONE_HOME_ENABLED = os.environ.get(
+    "VERIOPS_PHONE_HOME_ENABLED", "true"
+).strip().lower() in ("true", "1", "yes")
+
+PHONE_HOME_TIMEOUT_SECONDS = int(
+    os.environ.get("VERIOPS_PHONE_HOME_TIMEOUT", "15")
+)
+
+HEARTBEAT_PATH = REPO_ROOT / "docsops" / ".license_heartbeat.json"
 
 
 # -- Data classes --------------------------------------------------------------
@@ -269,6 +293,167 @@ def machine_fingerprint() -> str:
     return hashlib.sha256(raw.encode("utf-8")).hexdigest()
 
 
+# -- Phone-home (periodic license refresh) ------------------------------------
+
+
+def _read_heartbeat(path: Path | None = None) -> dict[str, Any]:
+    """Read the heartbeat state file. Returns empty dict on any error."""
+    hb_path = path or HEARTBEAT_PATH
+    if not hb_path.exists():
+        return {}
+    try:
+        return json.loads(hb_path.read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError, ValueError):
+        return {}
+
+
+def _write_heartbeat(
+    data: dict[str, Any],
+    path: Path | None = None,
+) -> None:
+    """Write the heartbeat state file."""
+    hb_path = path or HEARTBEAT_PATH
+    try:
+        hb_path.parent.mkdir(parents=True, exist_ok=True)
+        hb_path.write_text(
+            json.dumps(data, indent=2, sort_keys=True),
+            encoding="utf-8",
+        )
+    except OSError as exc:
+        logger.debug("Cannot write heartbeat file %s: %s", hb_path, exc)
+
+
+def _phone_home_due(
+    heartbeat: dict[str, Any],
+    interval_days: int | None = None,
+    current_time: float | None = None,
+) -> bool:
+    """Check whether a phone-home check is due based on last_check timestamp."""
+    interval = interval_days if interval_days is not None else PHONE_HOME_INTERVAL_DAYS
+    now = current_time if current_time is not None else time.time()
+    last_check = heartbeat.get("last_check", 0)
+    if not isinstance(last_check, (int, float)):
+        return True
+    return (now - last_check) >= interval * 86400
+
+
+def phone_home(
+    client_id: str,
+    license_path: Path | None = None,
+    heartbeat_path: Path | None = None,
+    base_url: str | None = None,
+    timeout: int | None = None,
+    current_time: float | None = None,
+    interval_days: int | None = None,
+    force: bool = False,
+) -> dict[str, Any]:
+    """Contact the VeriDoc server to refresh the local license JWT.
+
+    Returns a dict with keys:
+        refreshed (bool): True if a new JWT was downloaded and saved.
+        skipped (bool): True if phone-home was not due yet.
+        error (str|None): Error message if refresh failed.
+    """
+    result: dict[str, Any] = {
+        "refreshed": False,
+        "skipped": False,
+        "error": None,
+    }
+
+    if not PHONE_HOME_ENABLED and not force:
+        result["skipped"] = True
+        result["error"] = "Phone-home disabled via VERIOPS_PHONE_HOME_ENABLED"
+        return result
+
+    if not client_id:
+        result["skipped"] = True
+        result["error"] = "No client_id -- community mode, skipping phone-home"
+        return result
+
+    hb_path = heartbeat_path or HEARTBEAT_PATH
+    heartbeat = _read_heartbeat(hb_path)
+
+    if not force and not _phone_home_due(heartbeat, interval_days, current_time):
+        result["skipped"] = True
+        return result
+
+    url = (base_url or PHONE_HOME_URL) + "/billing/license/token"
+    t_out = timeout if timeout is not None else PHONE_HOME_TIMEOUT_SECONDS
+    now = current_time if current_time is not None else time.time()
+
+    fingerprint = machine_fingerprint()
+    headers = {
+        "X-Client-Id": client_id,
+        "X-Machine-Fingerprint": fingerprint,
+        "Accept": "application/json",
+        "User-Agent": "VeriOps-LicenseGate/1.0",
+    }
+
+    try:
+        req = urllib.request.Request(url, headers=headers, method="GET")
+        with urllib.request.urlopen(req, timeout=t_out) as resp:
+            body = json.loads(resp.read().decode("utf-8"))
+
+        token = body.get("token", "")
+        if not token:
+            result["error"] = "Server returned empty token"
+            _write_heartbeat(
+                {"last_check": now, "last_result": "error_empty_token"},
+                hb_path,
+            )
+            return result
+
+        # Validate the new token parses correctly before saving
+        try:
+            _parse_jwt_parts(token)
+        except (ValueError, json.JSONDecodeError) as exc:
+            result["error"] = f"Server returned invalid JWT: {exc}"
+            _write_heartbeat(
+                {"last_check": now, "last_result": "error_invalid_jwt"},
+                hb_path,
+            )
+            return result
+
+        # Write new license JWT
+        lpath = license_path or LICENSE_PATH
+        lpath.parent.mkdir(parents=True, exist_ok=True)
+        lpath.write_text(token, encoding="utf-8")
+
+        _write_heartbeat(
+            {"last_check": now, "last_result": "success"},
+            hb_path,
+        )
+        result["refreshed"] = True
+        logger.info("License refreshed via phone-home for client %s", client_id)
+
+    except urllib.error.HTTPError as exc:
+        status = exc.code
+        result["error"] = f"Server returned HTTP {status}"
+        _write_heartbeat(
+            {"last_check": now, "last_result": f"error_http_{status}"},
+            hb_path,
+        )
+        logger.warning("Phone-home failed: HTTP %d", status)
+
+    except (urllib.error.URLError, OSError, TimeoutError) as exc:
+        result["error"] = f"Network error: {exc}"
+        logger.warning("Phone-home network error: %s", exc)
+        # Do NOT update last_check on network failure so we retry next time
+
+    except (json.JSONDecodeError, ValueError) as exc:
+        result["error"] = f"Invalid server response: {exc}"
+        _write_heartbeat(
+            {"last_check": now, "last_result": "error_bad_response"},
+            hb_path,
+        )
+
+    return result
+
+
+# -- Phone-home recursion guard -----------------------------------------------
+_phone_home_refreshing: bool = False
+
+
 # -- License validation -------------------------------------------------------
 
 
@@ -283,6 +468,8 @@ def validate(
 
     Set VERIOPS_LICENSE_PLAN env var to bypass license file (dev/test only).
     """
+    global _phone_home_refreshing
+
     # Dev/test bypass: VERIOPS_LICENSE_PLAN=enterprise skips JWT validation
     env_plan = os.environ.get("VERIOPS_LICENSE_PLAN", "").strip().lower()
     if env_plan in PLAN_FEATURES:
@@ -366,6 +553,32 @@ def validate(
             f"License expired but within {grace_days}-day grace period. "
             f"{max(0, int((exp + grace_seconds - now) / 86400))} grace days remaining."
         )
+
+    # Phone-home: periodically contact the server to refresh the JWT.
+    # Runs after offline validation so we have client_id and plan.
+    # On success, re-validates with the fresh token.
+    if (
+        client_id
+        and PHONE_HOME_ENABLED
+        and not env_plan
+        and not _phone_home_refreshing
+    ):
+        ph_result = phone_home(
+            client_id=client_id,
+            license_path=lpath,
+            current_time=current_time,
+        )
+        if ph_result.get("refreshed"):
+            # Re-validate with the fresh token (guard against recursion)
+            _phone_home_refreshing = True
+            try:
+                return validate(
+                    license_path=lpath,
+                    key_path=key_path,
+                    current_time=current_time,
+                )
+            finally:
+                _phone_home_refreshing = False
 
     return LicenseInfo(
         valid=True,
