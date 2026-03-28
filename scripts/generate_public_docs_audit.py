@@ -4,6 +4,7 @@
 from __future__ import annotations
 
 import argparse
+import gzip
 import html
 import json
 import logging
@@ -365,7 +366,14 @@ def _fetch(
             content_type = str(resp.headers.get("Content-Type", ""))
             if head_only:
                 return status, content_type, ""
-            body = resp.read().decode("utf-8", errors="ignore")
+            raw = resp.read()
+            # Handle sitemap *.xml.gz and gzip-encoded responses.
+            if url.lower().endswith(".gz") or str(resp.headers.get("Content-Encoding", "")).lower() == "gzip":
+                try:
+                    raw = gzip.decompress(raw)
+                except (OSError, EOFError, ValueError):
+                    pass
+            body = raw.decode("utf-8", errors="ignore")
             return status, content_type, body
     except HTTPError as exc:
         code = int(exc.code)
