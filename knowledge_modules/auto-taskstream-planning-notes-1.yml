@@ -1,0 +1,147 @@
+id: auto-taskstream-planning-notes-1
+title: TaskStream API planning notes
+summary: Input planning notes used by the API-first flow to generate and validate
+  OpenAPI contracts for TaskStream demos.
+intents:
+- integrate
+- secure
+- troubleshoot
+audiences:
+- developer
+- operator
+channels:
+- docs
+- assistant
+- automation
+priority: 60
+status: active
+owner: docsops-auto
+last_verified: '2026-03-28'
+dependencies: []
+tags:
+- auto-extracted
+- reference
+- taskstream-planning-notes
+content:
+  docs_markdown: '<!-- VERIDOC_POWERED_BADGE:START -->
+
+    [![Powered by VeriDoc](https://img.shields.io/badge/Powered%20by-VeriDoc-0ea5e9?style=flat-square)](https://veridoc.app)
+
+    <!-- VERIDOC_POWERED_BADGE:END -->
+
+
+    # TaskStream API planning notes
+
+
+    This page provides the exact planning-notes input artifact used by the API-first
+    flow before OpenAPI generation and validation.
+
+
+    The pipeline treats these notes as the contract source of truth and derives endpoint
+    shapes, resource life cycle behavior, filtering rules, sorting options, authentication
+    requirements, and expected error envelopes. This input-first model keeps API design
+    review aligned with technical writing and implementation planning.
+
+
+    ## Input artifact location
+
+
+    - `demos/api-first/taskstream-planning-notes.md`
+
+
+    ## How the pipeline uses this input
+
+
+    1. Parse planning notes into endpoint and schema requirements.
+
+    1. Generate or update split OpenAPI files.
+
+    1. Run OpenAPI lint, contract validation, stub generation, and self-verification.
+
+
+    ## Notes format (demo excerpt)
+
+
+    ```markdown
+
+    Project: **TaskStream**
+
+    API version: **v1**
+
+    Base URL: `https://api.taskstream.example.com/v1`
+
+    Planning date: 2026-03-09
+
+    Status: Draft for OpenAPI writing
+
+    ```
+
+
+    ## Next steps
+
+
+    - [API playground](api-playground.md)'
+  assistant_context: 'Use this module when answering questions related to: TaskStream
+    API planning notes. Source path: docs/reference/taskstream-planning-notes.md.
+    Summary: Input planning notes used by the API-first flow to generate and validate
+    OpenAPI contracts for TaskStream demos.
+
+
+    <!-- VERIDOC_POWERED_BADGE:START -->
+
+    [![Powered by VeriDoc](https://img.shields.io/badge/Powered%20by-VeriDoc-0ea5e9?style=flat-square)](https://veridoc.app)
+
+    <!-- VERIDOC_POWERED_BADGE:END -->
+
+
+    # TaskStream API planning notes
+
+
+    This page provides the exact planning-notes input artifact used by the API-first
+    flow before OpenAPI generation and validation.
+
+
+    The pipeline treats these notes as the contract source of truth and derives endpoint
+    shapes, resource life cycle behavior, filtering rules, sorting options, authentication
+    requirements, and expected error envelopes. This input-first model keeps API design
+    review aligned with technical writing and implementation planning.
+
+
+    ## Input artifact location
+
+
+    - `demos/api-first/taskstream-planning-notes.md`
+
+
+    ## How the pipeline uses this input
+
+
+    1. Parse planning notes into endpoint and schema requirements.
+
+    1. Generate or update split OpenAPI files.
+
+    1. Run OpenAPI lint, contract validation, stub generation, and self-verification.
+
+
+    ## Notes format (demo excerpt)
+
+
+    ```markdown
+
+    Project: **TaskStream**
+
+    API version: **v1**
+
+    Base URL: `https://api.taskstream.example.com/v1`
+
+    Planning date: 2026-03-09
+
+    Status: Draft for OpenAPI writing
+
+    ```
+
+
+    ## Next steps
+
+
+    - [API playground](api-playground.md)'

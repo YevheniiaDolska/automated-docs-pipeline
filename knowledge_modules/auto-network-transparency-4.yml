@@ -1,0 +1,48 @@
+id: auto-network-transparency-4
+title: Network transparency reference (Part 4)
+summary: Complete list of all outgoing network requests the pipeline makes, with exact
+  payload schemas. No client data leaves your network.
+intents:
+- integrate
+- secure
+audiences:
+- developer
+- operator
+channels:
+- docs
+- assistant
+- automation
+priority: 60
+status: active
+owner: docsops-auto
+last_verified: '2026-03-28'
+dependencies: []
+tags:
+- auto-extracted
+- network-transparency
+- reference
+content:
+  docs_markdown: "### Request 4: Update download\n\n**When:** After an update check\
+    \ finds a new version and the user approves.\n\n**Endpoint:** `GET /v1/download/{version}/{platform}`\n\
+    \n**Frequency:** When updates are available (monthly for Professional, weekly\
+    \ opt-in for Enterprise).\n\n```text\nGET /v1/download/1.3.0/linux-x86_64\n```\n\
+    \n**What is NOT sent:** No request body. No authentication headers. No client\
+    \ data of any kind.\n\n### Request 5: License deactivation\n\n**When:** When a\
+    \ client explicitly deactivates their license (seat release).\n\n**Endpoint:**\
+    \ `POST /v1/deactivate`\n\n**Frequency:** Once per deactivation.\n\n```json\n\
+    {\n  \"authorization\": \"Bearer <license-jwt>\"\n}\n```\n\n**What is NOT sent:**\
+    \ No reason codes, no usage data, no document counts."
+  assistant_context: "Use this module when answering questions related to: Network\
+    \ transparency reference (Part 4). Source path: docs/reference/network-transparency.md.\
+    \ Summary: Complete list of all outgoing network requests the pipeline makes,\
+    \ with exact payload schemas. No client data leaves your network.\n\n### Request\
+    \ 4: Update download\n\n**When:** After an update check finds a new version and\
+    \ the user approves.\n\n**Endpoint:** `GET /v1/download/{version}/{platform}`\n\
+    \n**Frequency:** When updates are available (monthly for Professional, weekly\
+    \ opt-in for Enterprise).\n\n```text\nGET /v1/download/1.3.0/linux-x86_64\n```\n\
+    \n**What is NOT sent:** No request body. No authentication headers. No client\
+    \ data of any kind.\n\n### Request 5: License deactivation\n\n**When:** When a\
+    \ client explicitly deactivates their license (seat release).\n\n**Endpoint:**\
+    \ `POST /v1/deactivate`\n\n**Frequency:** Once per deactivation.\n\n```json\n\
+    {\n  \"authorization\": \"Bearer <license-jwt>\"\n}\n```\n\n**What is NOT sent:**\
+    \ No reason codes, no usage data, no document counts."

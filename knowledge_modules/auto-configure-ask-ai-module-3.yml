@@ -1,0 +1,54 @@
+id: auto-configure-ask-ai-module-3
+title: Configure Ask AI module (Part 3)
+summary: Enable or disable Ask AI, set provider and billing mode, and verify configuration
+  in five steps for beginner operators.
+intents:
+- configure
+audiences:
+- practitioner
+- developer
+channels:
+- docs
+- assistant
+- automation
+priority: 60
+status: active
+owner: docsops-auto
+last_verified: '2026-03-28'
+dependencies: []
+tags:
+- auto-extracted
+- configure-ask-ai-module
+- how-to
+content:
+  docs_markdown: "| Parameter | Env var | Default | Description |\n| --- | --- | ---\
+    \ | --- |\n| Rerank model | `ASK_AI_RERANK_MODEL` | `cross-encoder/ms-marco-MiniLM-L-6-v2`\
+    \ | Cross-encoder model |\n| Rerank candidates | `ASK_AI_RERANK_CANDIDATES` |\
+    \ `20` | Candidates fetched before reranking |\n| RRF k | `ASK_AI_RRF_K` | `60`\
+    \ | Reciprocal Rank Fusion parameter |\n| HyDE model | `ASK_AI_HYDE_MODEL` | `gpt-4.1-mini`\
+    \ | Model for hypothetical document generation |\n| Cache TTL | `ASK_AI_EMBED_CACHE_TTL`\
+    \ | `3600` | Cache time-to-live in seconds |\n| Cache max size | `ASK_AI_EMBED_CACHE_MAX_SIZE`\
+    \ | `512` | Maximum cached embeddings |\n| Chunk max tokens | `chunking.max_tokens`\
+    \ | `750` | Maximum tokens per chunk |\n| Chunk overlap | `chunking.overlap_tokens`\
+    \ | `100` | Overlap tokens between chunks |\n\n## Step 5: Set access and safety\
+    \ limits\n\nExample:\n\n```bash\nnpm run askai:configure -- \\\n  --allowed-roles\
+    \ admin,support \\\n  --rate-limit-per-user-per-minute 20 \\\n  --retention-days\
+    \ 30 \\\n  --audit-logging\n```\n\nThis keeps Ask AI restricted to approved roles\
+    \ with audit logging enabled."
+  assistant_context: "Use this module when answering questions related to: Configure\
+    \ Ask AI module (Part 3). Source path: docs/how-to/configure-ask-ai-module.md.\
+    \ Summary: Enable or disable Ask AI, set provider and billing mode, and verify\
+    \ configuration in five steps for beginner operators.\n\n| Parameter | Env var\
+    \ | Default | Description |\n| --- | --- | --- | --- |\n| Rerank model | `ASK_AI_RERANK_MODEL`\
+    \ | `cross-encoder/ms-marco-MiniLM-L-6-v2` | Cross-encoder model |\n| Rerank candidates\
+    \ | `ASK_AI_RERANK_CANDIDATES` | `20` | Candidates fetched before reranking |\n\
+    | RRF k | `ASK_AI_RRF_K` | `60` | Reciprocal Rank Fusion parameter |\n| HyDE model\
+    \ | `ASK_AI_HYDE_MODEL` | `gpt-4.1-mini` | Model for hypothetical document generation\
+    \ |\n| Cache TTL | `ASK_AI_EMBED_CACHE_TTL` | `3600` | Cache time-to-live in seconds\
+    \ |\n| Cache max size | `ASK_AI_EMBED_CACHE_MAX_SIZE` | `512` | Maximum cached\
+    \ embeddings |\n| Chunk max tokens | `chunking.max_tokens` | `750` | Maximum tokens\
+    \ per chunk |\n| Chunk overlap | `chunking.overlap_tokens` | `100` | Overlap tokens\
+    \ between chunks |\n\n## Step 5: Set access and safety limits\n\nExample:\n\n\
+    ```bash\nnpm run askai:configure -- \\\n  --allowed-roles admin,support \\\n \
+    \ --rate-limit-per-user-per-minute 20 \\\n  --retention-days 30 \\\n  --audit-logging\n\
+    ```\n\nThis keeps Ask AI restricted to approved roles with audit logging enabled."

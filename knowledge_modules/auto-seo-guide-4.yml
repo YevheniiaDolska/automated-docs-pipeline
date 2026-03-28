@@ -1,0 +1,186 @@
+id: auto-seo-guide-4
+title: SEO/GEO Optimization Guide (Part 4)
+summary: Comprehensive guide to SEO and GEO optimization in the documentation pipeline
+intents:
+- integrate
+- troubleshoot
+audiences:
+- developer
+- operator
+channels:
+- docs
+- assistant
+- automation
+priority: 60
+status: active
+owner: docsops-auto
+last_verified: '2026-03-28'
+dependencies: []
+tags:
+- auto-extracted
+- reference
+- seo-guide
+content:
+  docs_markdown: '### Critical (Blocks PR)
+
+
+    - Missing required frontmatter fields
+
+    - Description outside 50-160 character range
+
+    - Heading hierarchy violations
+
+    - Invalid content_type values
+
+
+    ### Warnings (Should Fix)
+
+
+    - First paragraph over 60 words
+
+    - Generic headings (Overview, Setup, etc.)
+
+    - Low fact density (>200 words without specifics)
+
+    - Missing definition patterns
+
+
+    ### Suggestions (Nice to Have)
+
+
+    - Add more descriptive headings
+
+    - Include code examples
+
+    - Add structured data hints
+
+
+    ## Lifecycle Management
+
+
+    ### Content Maturity States
+
+
+    \11. **preview**: New experimental features
+
+    \11. **beta**: Testing phase, may change
+
+    \11. **ga**: Generally available, stable
+
+    \11. **deprecated**: Will be removed, use alternatives
+
+    \11. **removed**: No longer available
+
+
+    ### Automated Actions
+
+
+    - **deprecated**: Lower search ranking, add warning banner
+
+    - **removed**: Generate 301 redirect, exclude from search
+
+    - **preview**: Add preview badge, monitor duration
+
+
+    ## Search Ranking Factors
+
+
+    Documents are ranked by:
+
+
+    \11. **Content Type** (tutorials > how-tos > reference)
+
+    \11. **Path Depth** (shallower = more important)
+
+    \11. **Freshness** (recently updated ranks higher)
+
+    \11. **Maturity** (GA > beta > preview > deprecated)
+
+    \11. **Fact Density** (more code/config = higher value)
+
+
+    ## Monitoring'
+  assistant_context: 'Use this module when answering questions related to: SEO/GEO
+    Optimization Guide (Part 4). Source path: docs/SEO_GUIDE.md. Summary: Comprehensive
+    guide to SEO and GEO optimization in the documentation pipeline
+
+
+    ### Critical (Blocks PR)
+
+
+    - Missing required frontmatter fields
+
+    - Description outside 50-160 character range
+
+    - Heading hierarchy violations
+
+    - Invalid content_type values
+
+
+    ### Warnings (Should Fix)
+
+
+    - First paragraph over 60 words
+
+    - Generic headings (Overview, Setup, etc.)
+
+    - Low fact density (>200 words without specifics)
+
+    - Missing definition patterns
+
+
+    ### Suggestions (Nice to Have)
+
+
+    - Add more descriptive headings
+
+    - Include code examples
+
+    - Add structured data hints
+
+
+    ## Lifecycle Management
+
+
+    ### Content Maturity States
+
+
+    \11. **preview**: New experimental features
+
+    \11. **beta**: Testing phase, may change
+
+    \11. **ga**: Generally available, stable
+
+    \11. **deprecated**: Will be removed, use alternatives
+
+    \11. **removed**: No longer available
+
+
+    ### Automated Actions
+
+
+    - **deprecated**: Lower search ranking, add warning banner
+
+    - **removed**: Generate 301 redirect, exclude from search
+
+    - **preview**: Add preview badge, monitor duration
+
+
+    ## Search Ranking Factors
+
+
+    Documents are ranked by:
+
+
+    \11. **Content Type** (tutorials > how-tos > reference)
+
+    \11. **Path Depth** (shallower = more important)
+
+    \11. **Freshness** (recently updated ranks higher)
+
+    \11. **Maturity** (GA > beta > preview > deprecated)
+
+    \11. **Fact Density** (more code/config = higher value)
+
+
+    ## Monitoring'

@@ -1,0 +1,58 @@
+id: auto-operator-runbook-8
+title: Operator Runbook (Retainer Operations) (Part 8)
+summary: Step-by-step instructions for weekly report review, client questions, new
+  repo setup, and profile tuning.
+intents:
+- configure
+audiences:
+- practitioner
+- developer
+channels:
+- docs
+- assistant
+- automation
+priority: 60
+status: active
+owner: docsops-auto
+last_verified: '2026-03-28'
+dependencies: []
+tags:
+- auto-extracted
+- how-to
+- operator-runbook
+content:
+  docs_markdown: "Edit `<client-repo>/docsops/config/client_runtime.yml` or the client\
+    \ profile:\n\n```yaml\nprivate_tuning:\n  weekly_stale_days: 90  # Default is\
+    \ 180. Lower = stricter.\n```\n\nRebuild and re-provision the bundle if changing\
+    \ the profile (see Task 3).\n\n#### \"Can we add a new protocol?\"\n\nThis depends\
+    \ on the client plan:\n\n| Plan | Protocols |\n| --- | --- |\n| Pilot | REST only\
+    \ |\n| Professional | REST only |\n| Enterprise | REST, GraphQL, gRPC, AsyncAPI,\
+    \ WebSocket |\n\nIf the client is on Enterprise, add the protocol to their profile\
+    \ under `runtime.api_protocols` and re-provision. If they need to upgrade to Enterprise,\
+    \ that is a sales conversation.\n\n#### \"Can we turn off a specific check?\"\n\
+    \nEdit the client runtime config. Every check is controlled by a module toggle:\n\
+    \n```yaml\nruntime:\n  modules:\n    drift_detection: false    # Turn off drift\
+    \ checks\n    i18n_sync: false          # Turn off translation sync\n    snippet_lint:\
+    \ false       # Turn off code snippet linting\n```\n\nAfter editing, the change\
+    \ takes effect on the next weekly run. No re-provisioning needed -- the runtime\
+    \ config is read live.\n\n#### \"The pipeline is too strict / too lenient\"\n\n\
+    Adjust the policy pack or overrides in the client profile:"
+  assistant_context: "Use this module when answering questions related to: Operator\
+    \ Runbook (Retainer Operations) (Part 8). Source path: docs/operations/OPERATOR_RUNBOOK.md.\
+    \ Summary: Step-by-step instructions for weekly report review, client questions,\
+    \ new repo setup, and profile tuning.\n\nEdit `<client-repo>/docsops/config/client_runtime.yml`\
+    \ or the client profile:\n\n```yaml\nprivate_tuning:\n  weekly_stale_days: 90\
+    \  # Default is 180. Lower = stricter.\n```\n\nRebuild and re-provision the bundle\
+    \ if changing the profile (see Task 3).\n\n#### \"Can we add a new protocol?\"\
+    \n\nThis depends on the client plan:\n\n| Plan | Protocols |\n| --- | --- |\n\
+    | Pilot | REST only |\n| Professional | REST only |\n| Enterprise | REST, GraphQL,\
+    \ gRPC, AsyncAPI, WebSocket |\n\nIf the client is on Enterprise, add the protocol\
+    \ to their profile under `runtime.api_protocols` and re-provision. If they need\
+    \ to upgrade to Enterprise, that is a sales conversation.\n\n#### \"Can we turn\
+    \ off a specific check?\"\n\nEdit the client runtime config. Every check is controlled\
+    \ by a module toggle:\n\n```yaml\nruntime:\n  modules:\n    drift_detection: false\
+    \    # Turn off drift checks\n    i18n_sync: false          # Turn off translation\
+    \ sync\n    snippet_lint: false       # Turn off code snippet linting\n```\n\n\
+    After editing, the change takes effect on the next weekly run. No re-provisioning\
+    \ needed -- the runtime config is read live.\n\n#### \"The pipeline is too strict\
+    \ / too lenient\"\n\nAdjust the policy pack or overrides in the client profile:"

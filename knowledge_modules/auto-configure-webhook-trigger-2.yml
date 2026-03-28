@@ -1,0 +1,42 @@
+id: auto-configure-webhook-trigger-2
+title: Configure webhook triggers (Part 2)
+summary: Set up and configure webhook trigger nodes to start workflows from incoming
+  HTTP requests with authentication.
+intents:
+- configure
+- secure
+audiences:
+- practitioner
+- developer
+channels:
+- docs
+- assistant
+- automation
+priority: 60
+status: active
+owner: docsops-auto
+last_verified: '2026-03-28'
+dependencies: []
+tags:
+- auto-extracted
+- configure-webhook-trigger
+- how-to
+content:
+  docs_markdown: "## Configure authentication\n\n!!! warning \"Secure your webhooks\"\
+    \n    Always enable authentication on production webhook endpoints.\n    Unauthenticated\
+    \ webhooks accept requests from any source.\n\nAdd authentication in the webhook\
+    \ node settings:\n\n| Auth method | Use case | Configuration |\n|-------------|----------|---------------|\n\
+    | Header Auth | API key validation | Set header name and expected value |\n| Basic\
+    \ Auth | Username and password | Set credentials in node settings |\n| JWT | Token-based\
+    \ auth | Configure secret and algorithm |"
+  assistant_context: "Use this module when answering questions related to: Configure\
+    \ webhook triggers (Part 2). Source path: docs/how-to/configure-webhook-trigger.md.\
+    \ Summary: Set up and configure webhook trigger nodes to start workflows from\
+    \ incoming HTTP requests with authentication.\n\n## Configure authentication\n\
+    \n!!! warning \"Secure your webhooks\"\n    Always enable authentication on production\
+    \ webhook endpoints.\n    Unauthenticated webhooks accept requests from any source.\n\
+    \nAdd authentication in the webhook node settings:\n\n| Auth method | Use case\
+    \ | Configuration |\n|-------------|----------|---------------|\n| Header Auth\
+    \ | API key validation | Set header name and expected value |\n| Basic Auth |\
+    \ Username and password | Set credentials in node settings |\n| JWT | Token-based\
+    \ auth | Configure secret and algorithm |"

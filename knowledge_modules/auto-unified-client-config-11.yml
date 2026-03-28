@@ -1,0 +1,59 @@
+id: auto-unified-client-config-11
+title: Unified Client Configuration (Part 11)
+summary: Single source of truth for per-client Auto-Doc Pipeline configuration, modules,
+  and automation.
+intents:
+- integrate
+audiences:
+- developer
+- operator
+channels:
+- docs
+- assistant
+- automation
+priority: 60
+status: active
+owner: docsops-auto
+last_verified: '2026-03-28'
+dependencies: []
+tags:
+- auto-extracted
+- reference
+- unified-client-config
+content:
+  docs_markdown: "Multi-version API docs (new standard):\n\n```yaml\nruntime:\n  api_first:\n\
+    \    enabled: true\n    docs_provider: \"mkdocs\"\n    versions:\n      - version:\
+    \ \"v1\"\n        project_slug: \"acme-v1\"\n        notes_path: \"notes/api-v1-planning.md\"\
+    \n        spec_path: \"api/v1/openapi.yaml\"\n        spec_tree_path: \"api/v1\"\
+    \n        docs_spec_target: \"docs/assets/api/v1\"\n        stubs_output: \"generated/api-stubs/v1/main.py\"\
+    \n        openapi_version: \"3.1.0\"\n        manual_overrides_path: \"api/v1/overrides/openapi.manual.yml\"\
+    \n        regression_snapshot_path: \"api/v1/.openapi-regression.json\"\n    \
+    \  - version: \"v2\"\n        project_slug: \"acme-v2\"\n        notes_path: \"\
+    notes/api-v2-planning.md\"\n        spec_path: \"api/v2/openapi.yaml\"\n     \
+    \   spec_tree_path: \"api/v2\"\n        docs_spec_target: \"docs/assets/api/v2\"\
+    \n        stubs_output: \"generated/api-stubs/v2/main.py\"\n        openapi_version:\
+    \ \"3.1.0\"\n        manual_overrides_path: \"api/v2/overrides/openapi.manual.yml\"\
+    \n        regression_snapshot_path: \"api/v2/.openapi-regression.json\"\n```\n\
+    \nIf your codebase has one API version, keep one config only.\nIf your codebase\
+    \ has multiple API versions, add one entry per version in `api_first.versions`.\n\
+    \nNew advanced keys:"
+  assistant_context: "Use this module when answering questions related to: Unified\
+    \ Client Configuration (Part 11). Source path: docs/operations/UNIFIED_CLIENT_CONFIG.md.\
+    \ Summary: Single source of truth for per-client Auto-Doc Pipeline configuration,\
+    \ modules, and automation.\n\nMulti-version API docs (new standard):\n\n```yaml\n\
+    runtime:\n  api_first:\n    enabled: true\n    docs_provider: \"mkdocs\"\n   \
+    \ versions:\n      - version: \"v1\"\n        project_slug: \"acme-v1\"\n    \
+    \    notes_path: \"notes/api-v1-planning.md\"\n        spec_path: \"api/v1/openapi.yaml\"\
+    \n        spec_tree_path: \"api/v1\"\n        docs_spec_target: \"docs/assets/api/v1\"\
+    \n        stubs_output: \"generated/api-stubs/v1/main.py\"\n        openapi_version:\
+    \ \"3.1.0\"\n        manual_overrides_path: \"api/v1/overrides/openapi.manual.yml\"\
+    \n        regression_snapshot_path: \"api/v1/.openapi-regression.json\"\n    \
+    \  - version: \"v2\"\n        project_slug: \"acme-v2\"\n        notes_path: \"\
+    notes/api-v2-planning.md\"\n        spec_path: \"api/v2/openapi.yaml\"\n     \
+    \   spec_tree_path: \"api/v2\"\n        docs_spec_target: \"docs/assets/api/v2\"\
+    \n        stubs_output: \"generated/api-stubs/v2/main.py\"\n        openapi_version:\
+    \ \"3.1.0\"\n        manual_overrides_path: \"api/v2/overrides/openapi.manual.yml\"\
+    \n        regression_snapshot_path: \"api/v2/.openapi-regression.json\"\n```\n\
+    \nIf your codebase has one API version, keep one config only.\nIf your codebase\
+    \ has multiple API versions, add one entry per version in `api_first.versions`.\n\
+    \nNew advanced keys:"

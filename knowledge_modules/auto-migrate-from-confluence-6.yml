@@ -1,0 +1,56 @@
+id: auto-migrate-from-confluence-6
+title: Migrate documentation from Confluence (Part 6)
+summary: Import Confluence pages into the documentation pipeline with automatic quality
+  enhancement, SEO optimization, and knowledge extraction.
+intents:
+- configure
+- troubleshoot
+audiences:
+- practitioner
+- developer
+channels:
+- docs
+- assistant
+- automation
+priority: 60
+status: active
+owner: docsops-auto
+last_verified: '2026-03-28'
+dependencies: []
+tags:
+- auto-extracted
+- how-to
+- migrate-from-confluence
+content:
+  docs_markdown: "## Enable LLM-powered quality enhancement\n\nAdd `--use-llm` to\
+    \ enable AI-powered improvements during the quality\nenhancement step:\n\n```bash\n\
+    python3 scripts/run_confluence_migration.py \\\n  --confluence-url https://mycompany.atlassian.net\
+    \ \\\n  --confluence-token YOUR_API_TOKEN \\\n  --confluence-username your-email@company.com\
+    \ \\\n  --space-keys DEV \\\n  --use-llm\n```\n\nLLM enhancement performs three\
+    \ additional operations:\n\n- **Replace placeholder code** -- detects generic\
+    \ placeholders (`foo`, `bar`,\n  `example.com`, `YOUR_API_KEY`) in code blocks\
+    \ and replaces them with\n  realistic, runnable examples\n- **Add missing sections**\
+    \ -- adds essential sections based on content type\n  (error handling for how-to\
+    \ guides, rate limits for API references,\n  security considerations for concept\
+    \ pages)\n- **Verify code output** -- executes Python code blocks and corrects\n\
+    \  documented output comments that do not match actual execution results\n\nLLM\
+    \ enhancement requires an LLM provider configured in your environment.\nWithout\
+    \ a provider, the pipeline skips LLM steps and logs a warning."
+  assistant_context: "Use this module when answering questions related to: Migrate\
+    \ documentation from Confluence (Part 6). Source path: docs/how-to/migrate-from-confluence.md.\
+    \ Summary: Import Confluence pages into the documentation pipeline with automatic\
+    \ quality enhancement, SEO optimization, and knowledge extraction.\n\n## Enable\
+    \ LLM-powered quality enhancement\n\nAdd `--use-llm` to enable AI-powered improvements\
+    \ during the quality\nenhancement step:\n\n```bash\npython3 scripts/run_confluence_migration.py\
+    \ \\\n  --confluence-url https://mycompany.atlassian.net \\\n  --confluence-token\
+    \ YOUR_API_TOKEN \\\n  --confluence-username your-email@company.com \\\n  --space-keys\
+    \ DEV \\\n  --use-llm\n```\n\nLLM enhancement performs three additional operations:\n\
+    \n- **Replace placeholder code** -- detects generic placeholders (`foo`, `bar`,\n\
+    \  `example.com`, `YOUR_API_KEY`) in code blocks and replaces them with\n  realistic,\
+    \ runnable examples\n- **Add missing sections** -- adds essential sections based\
+    \ on content type\n  (error handling for how-to guides, rate limits for API references,\n\
+    \  security considerations for concept pages)\n- **Verify code output** -- executes\
+    \ Python code blocks and corrects\n  documented output comments that do not match\
+    \ actual execution results\n\nLLM enhancement requires an LLM provider configured\
+    \ in your environment.\nWithout a provider, the pipeline skips LLM steps and logs\
+    \ a warning."

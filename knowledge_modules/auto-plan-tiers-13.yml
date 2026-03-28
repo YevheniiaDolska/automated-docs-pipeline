@@ -1,0 +1,95 @@
+id: auto-plan-tiers-13
+title: Plan Tiers (Basic / Pro / Enterprise) (Part 13)
+summary: Feature packaging matrix and defaults for Basic, Pro, and Enterprise client
+  plans.
+intents:
+- integrate
+audiences:
+- developer
+- operator
+channels:
+- docs
+- assistant
+- automation
+priority: 60
+status: active
+owner: docsops-auto
+last_verified: '2026-03-28'
+dependencies: []
+tags:
+- auto-extracted
+- plan-tiers
+- reference
+content:
+  docs_markdown: 'Protocols per plan: Pilot and Professional allow REST only. Enterprise
+    allows all 5 protocols.
+
+
+    Offline grace period: Pilot 3 days, Professional 7 days, Enterprise 30 days.
+
+
+    Check license status: `python3 docsops/scripts/license_gate.py`.
+
+
+    Dev/test bypass: `export VERIOPS_LICENSE_PLAN=enterprise`.
+
+
+    ## 5. Plan upgrade path
+
+
+    - `Basic -> Pro`: turn on `drift_detection`, `docs_contract`, `kpi_sla`, `rag_optimization`,
+    `knowledge_validation`, set `api_first.enabled=true`. Update `licensing.plan`
+    to `professional`.
+
+    - `Pro -> Enterprise`: enable `verify_user_path`, `run_docs_lint`, stricter `policy_overrides.kpi_sla`,
+    add full weekly custom tasks. Update `licensing.plan` to `enterprise`.
+
+
+    After any plan change, rebuild the bundle and re-provision.
+
+
+    ## Next steps
+
+
+    - [Operator Runbook](OPERATOR_RUNBOOK.md) -- step-by-step retainer procedures
+
+    - [Documentation index](../index.md)'
+  assistant_context: 'Use this module when answering questions related to: Plan Tiers
+    (Basic / Pro / Enterprise) (Part 13). Source path: docs/operations/PLAN_TIERS.md.
+    Summary: Feature packaging matrix and defaults for Basic, Pro, and Enterprise
+    client plans.
+
+
+    Protocols per plan: Pilot and Professional allow REST only. Enterprise allows
+    all 5 protocols.
+
+
+    Offline grace period: Pilot 3 days, Professional 7 days, Enterprise 30 days.
+
+
+    Check license status: `python3 docsops/scripts/license_gate.py`.
+
+
+    Dev/test bypass: `export VERIOPS_LICENSE_PLAN=enterprise`.
+
+
+    ## 5. Plan upgrade path
+
+
+    - `Basic -> Pro`: turn on `drift_detection`, `docs_contract`, `kpi_sla`, `rag_optimization`,
+    `knowledge_validation`, set `api_first.enabled=true`. Update `licensing.plan`
+    to `professional`.
+
+    - `Pro -> Enterprise`: enable `verify_user_path`, `run_docs_lint`, stricter `policy_overrides.kpi_sla`,
+    add full weekly custom tasks. Update `licensing.plan` to `enterprise`.
+
+
+    After any plan change, rebuild the bundle and re-provision.
+
+
+    ## Next steps
+
+
+    - [Operator Runbook](OPERATOR_RUNBOOK.md) -- step-by-step retainer procedures
+
+    - [Documentation index](../index.md)'

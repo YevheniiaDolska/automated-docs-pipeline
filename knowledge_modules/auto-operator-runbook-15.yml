@@ -1,0 +1,54 @@
+id: auto-operator-runbook-15
+title: Operator Runbook (Retainer Operations) (Part 15)
+summary: Step-by-step instructions for weekly report review, client questions, new
+  repo setup, and profile tuning.
+intents:
+- configure
+audiences:
+- practitioner
+- developer
+channels:
+- docs
+- assistant
+- automation
+priority: 60
+status: active
+owner: docsops-auto
+last_verified: '2026-03-28'
+dependencies: []
+tags:
+- auto-extracted
+- how-to
+- operator-runbook
+content:
+  docs_markdown: "### Step 3.7: Different-laptop delivery\n\nIf you cannot access\
+    \ the client repo directly (client is on a different machine):\n\n1. Build the\
+    \ bundle on your machine:\n\n```bash\npython3 scripts/build_client_bundle.py \\\
+    \n  --client profiles/clients/<client-id>.client.yml\n```\n\n1. The bundle is\
+    \ created at `generated/client_bundles/<client-id>/`.\n\n1. Send the entire bundle\
+    \ folder to the client.\n\n1. Client copies it into their repo as `docsops/`.\n\
+    \n1. Client installs the scheduler:\n\nLinux/macOS:\n\n```bash\nbash docsops/ops/install_cron_weekly.sh\n\
+    ```\n\nWindows:\n\n```bash\npowershell -ExecutionPolicy Bypass -File docsops/ops/install_windows_task.ps1\n\
+    ```\n\n1. Client fills in `.env.docsops.local` with their secrets per `ENV_CHECKLIST.md`.\n\
+    \nImportant: Before scheduler install, the client must verify that `git pull`\
+    \ works from the repo root for the user account that runs the scheduler (SSH key\
+    \ or credential helper must be configured).\n\n---\n\n## Task 4: Adjust client\
+    \ profile settings\n\n**When:** Client requests changes to strictness, policy\
+    \ packs, protocol settings, or thresholds."
+  assistant_context: "Use this module when answering questions related to: Operator\
+    \ Runbook (Retainer Operations) (Part 15). Source path: docs/operations/OPERATOR_RUNBOOK.md.\
+    \ Summary: Step-by-step instructions for weekly report review, client questions,\
+    \ new repo setup, and profile tuning.\n\n### Step 3.7: Different-laptop delivery\n\
+    \nIf you cannot access the client repo directly (client is on a different machine):\n\
+    \n1. Build the bundle on your machine:\n\n```bash\npython3 scripts/build_client_bundle.py\
+    \ \\\n  --client profiles/clients/<client-id>.client.yml\n```\n\n1. The bundle\
+    \ is created at `generated/client_bundles/<client-id>/`.\n\n1. Send the entire\
+    \ bundle folder to the client.\n\n1. Client copies it into their repo as `docsops/`.\n\
+    \n1. Client installs the scheduler:\n\nLinux/macOS:\n\n```bash\nbash docsops/ops/install_cron_weekly.sh\n\
+    ```\n\nWindows:\n\n```bash\npowershell -ExecutionPolicy Bypass -File docsops/ops/install_windows_task.ps1\n\
+    ```\n\n1. Client fills in `.env.docsops.local` with their secrets per `ENV_CHECKLIST.md`.\n\
+    \nImportant: Before scheduler install, the client must verify that `git pull`\
+    \ works from the repo root for the user account that runs the scheduler (SSH key\
+    \ or credential helper must be configured).\n\n---\n\n## Task 4: Adjust client\
+    \ profile settings\n\n**When:** Client requests changes to strictness, policy\
+    \ packs, protocol settings, or thresholds."

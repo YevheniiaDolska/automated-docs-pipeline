@@ -1,0 +1,63 @@
+id: auto-unified-client-config-27
+title: Unified Client Configuration (Part 27)
+summary: Single source of truth for per-client Auto-Doc Pipeline configuration, modules,
+  and automation.
+intents:
+- integrate
+- troubleshoot
+audiences:
+- developer
+- operator
+channels:
+- docs
+- assistant
+- automation
+priority: 60
+status: active
+owner: docsops-auto
+last_verified: '2026-03-28'
+dependencies: []
+tags:
+- auto-extracted
+- reference
+- unified-client-config
+content:
+  docs_markdown: "```yaml\nruntime:\n  custom_tasks:\n    weekly:\n      - id: \"\
+    facets-index\"\n        enabled: true\n        command: \"python3 docsops/scripts/generate_facets_index.py\
+    \ --docs-dir docs --output docs/assets/facets-index.json\"\n        continue_on_error:\
+    \ true\n```\n\n#### Algolia push\n\n```yaml\nruntime:\n  custom_tasks:\n    weekly:\n\
+    \      - id: \"algolia-upload\"\n        enabled: true\n        command: \"python3\
+    \ docsops/scripts/upload_to_algolia.py\"\n        continue_on_error: true\n```\n\
+    \n## 9. Private tuning\n\n```yaml\nprivate_tuning:\n  gap_priority_weights:\n\
+    \    business_impact: 0.45\n    user_frequency: 0.35\n    implementation_cost:\
+    \ 0.20\n  stale_days: 21\n  weekly_stale_days: 180\n  rag_chunk_target_tokens:\
+    \ 420\n  verify_max_attempts: 3\n```\n\n`weekly_stale_days` default is 180 (half\
+    \ year), configurable per client.\n\n## 10. Licensing\n\n```yaml\nlicensing:\n\
+    \  plan: \"professional\"   # pilot | professional | enterprise\n  days: 365 \
+    \             # License validity in days\n  max_docs: 1000         # Page limit\
+    \ (0 = unlimited)\n```\n\nBuilder generates a signed JWT license at `docsops/license.jwt`\
+    \ (if the Ed25519 private key is available at `docsops/keys/veriops-licensing.key`).\
+    \ If the private key is absent, a placeholder is written.\n\nPlan tiers control\
+    \ feature access at runtime. See `docs/operations/PLAN_TIERS.md` for the full\
+    \ feature matrix and license enforcement details."
+  assistant_context: "Use this module when answering questions related to: Unified\
+    \ Client Configuration (Part 27). Source path: docs/operations/UNIFIED_CLIENT_CONFIG.md.\
+    \ Summary: Single source of truth for per-client Auto-Doc Pipeline configuration,\
+    \ modules, and automation.\n\n```yaml\nruntime:\n  custom_tasks:\n    weekly:\n\
+    \      - id: \"facets-index\"\n        enabled: true\n        command: \"python3\
+    \ docsops/scripts/generate_facets_index.py --docs-dir docs --output docs/assets/facets-index.json\"\
+    \n        continue_on_error: true\n```\n\n#### Algolia push\n\n```yaml\nruntime:\n\
+    \  custom_tasks:\n    weekly:\n      - id: \"algolia-upload\"\n        enabled:\
+    \ true\n        command: \"python3 docsops/scripts/upload_to_algolia.py\"\n  \
+    \      continue_on_error: true\n```\n\n## 9. Private tuning\n\n```yaml\nprivate_tuning:\n\
+    \  gap_priority_weights:\n    business_impact: 0.45\n    user_frequency: 0.35\n\
+    \    implementation_cost: 0.20\n  stale_days: 21\n  weekly_stale_days: 180\n \
+    \ rag_chunk_target_tokens: 420\n  verify_max_attempts: 3\n```\n\n`weekly_stale_days`\
+    \ default is 180 (half year), configurable per client.\n\n## 10. Licensing\n\n\
+    ```yaml\nlicensing:\n  plan: \"professional\"   # pilot | professional | enterprise\n\
+    \  days: 365              # License validity in days\n  max_docs: 1000       \
+    \  # Page limit (0 = unlimited)\n```\n\nBuilder generates a signed JWT license\
+    \ at `docsops/license.jwt` (if the Ed25519 private key is available at `docsops/keys/veriops-licensing.key`).\
+    \ If the private key is absent, a placeholder is written.\n\nPlan tiers control\
+    \ feature access at runtime. See `docs/operations/PLAN_TIERS.md` for the full\
+    \ feature matrix and license enforcement details."

@@ -1,0 +1,59 @@
+id: auto-auto-doc-pipeline-study-guide-2
+title: Auto-Doc Pipeline study guide (Part 2)
+summary: Learn the Auto-Doc Pipeline quickly with a simple architecture map, operating
+  flow, plan mapping, and a detailed client FAQ.
+intents:
+- integrate
+audiences:
+- developer
+- operator
+channels:
+- docs
+- assistant
+- automation
+priority: 60
+status: active
+owner: docsops-auto
+last_verified: '2026-03-28'
+dependencies: []
+tags:
+- auto-doc-pipeline-study-guide
+- auto-extracted
+- reference
+content:
+  docs_markdown: '## Modes you should remember
+
+
+    | Mode | Primary source | Best use case |
+
+    | --- | --- | --- |
+
+    | `code-first` | Existing code/contracts | Mature product with frequent implementation
+    change |
+
+    | `api-first` | Planning notes and contract design | New API products, contract-first
+    delivery |
+
+    | `hybrid` | Both code and contract sources | Teams migrating from ad-hoc to governed
+    docs ops |'
+  assistant_context: 'Use this module when answering questions related to: Auto-Doc
+    Pipeline study guide (Part 2). Source path: docs/reference/auto-doc-pipeline-study-guide.md.
+    Summary: Learn the Auto-Doc Pipeline quickly with a simple architecture map, operating
+    flow, plan mapping, and a detailed client FAQ.
+
+
+    ## Modes you should remember
+
+
+    | Mode | Primary source | Best use case |
+
+    | --- | --- | --- |
+
+    | `code-first` | Existing code/contracts | Mature product with frequent implementation
+    change |
+
+    | `api-first` | Planning notes and contract design | New API products, contract-first
+    delivery |
+
+    | `hybrid` | Both code and contract sources | Teams migrating from ad-hoc to governed
+    docs ops |'

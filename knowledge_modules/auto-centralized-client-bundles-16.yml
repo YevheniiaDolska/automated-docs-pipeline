@@ -1,0 +1,98 @@
+id: auto-centralized-client-bundles-16
+title: "\u0426\u0435\u043D\u0442\u0440\u0430\u043B\u0438\u0437\u043E\u0432\u0430\u043D\
+  \u043D\u0430\u044F \u043D\u0430\u0441\u0442\u0440\u043E\u0439\u043A\u0430 \u043A\
+  \u043B\u0438\u0435\u043D\u0442\u043E\u0432 (Part 16)"
+summary: "\u041F\u0440\u0430\u043A\u0442\u0438\u0447\u0435\u0441\u043A\u0438\u0439\
+  \ \u043F\u0443\u0442\u044C \u043D\u0430\u0441\u0442\u0440\u043E\u0439\u043A\u0438\
+  \ \u043A\u043B\u0438\u0435\u043D\u0442\u0441\u043A\u0438\u0445 bundle \u0438 \u0430\
+  \u0432\u0442\u043E\u0437\u0430\u043F\u0443\u0441\u043A\u0430 pipeline \u0438\u0437\
+  \ \u043E\u0434\u043D\u043E\u0433\u043E \u043C\u0435\u0441\u0442\u0430."
+intents:
+- integrate
+audiences:
+- developer
+- operator
+channels:
+- docs
+- assistant
+- automation
+priority: 60
+status: active
+owner: docsops-auto
+last_verified: '2026-03-28'
+dependencies: []
+tags:
+- auto-extracted
+- centralized-client-bundles
+- reference
+content:
+  docs_markdown: '## Implementation status (2026-03-25)
+
+
+    This document is aligned to the current production implementation baseline.
+
+
+    Current baseline:
+
+
+    1. The platform is docs-first and also supports `code-first`, `api-first`, and
+    `hybrid` flows.
+
+    1. REST and non-REST protocols are supported in one automation model: REST, GraphQL,
+    gRPC, AsyncAPI, and WebSocket.
+
+    1. Non-REST automation includes server stubs with business-logic placeholders.
+
+    1. External mock sandbox resolution is integrated into the smooth autopipeline,
+    including Postman-supported auto-prepare mode.
+
+    1. Contract test assets are generated automatically and merged with smart-merge
+    rules so manual/customized cases are preserved.
+
+    1. Knowledge/RAG tasks run as part of automation when enabled (module extraction,
+    validation, retrieval index, graph, evals).
+
+    1. Plan gating is enforced by configuration and policy packs; advanced non-REST
+    automation is reserved for higher plans.
+
+
+    Canonical execution order reference:
+
+
+    - `docs/operations/CANONICAL_FLOW.md`
+
+    - `docs/operations/UNIFIED_CLIENT_CONFIG.md`
+
+    - `README.md`
+
+
+    Commercial note:
+
+
+    - Where commercial packaging is discussed, recurring service terms (retainer/licensing)
+    are part of the active go-to-market model.'
+  assistant_context: "Use this module when answering questions related to: \u0426\u0435\
+    \u043D\u0442\u0440\u0430\u043B\u0438\u0437\u043E\u0432\u0430\u043D\u043D\u0430\
+    \u044F \u043D\u0430\u0441\u0442\u0440\u043E\u0439\u043A\u0430 \u043A\u043B\u0438\
+    \u0435\u043D\u0442\u043E\u0432 (Part 16). Source path: docs/operations/CENTRALIZED_CLIENT_BUNDLES.md.\
+    \ Summary: \u041F\u0440\u0430\u043A\u0442\u0438\u0447\u0435\u0441\u043A\u0438\u0439\
+    \ \u043F\u0443\u0442\u044C \u043D\u0430\u0441\u0442\u0440\u043E\u0439\u043A\u0438\
+    \ \u043A\u043B\u0438\u0435\u043D\u0442\u0441\u043A\u0438\u0445 bundle \u0438 \u0430\
+    \u0432\u0442\u043E\u0437\u0430\u043F\u0443\u0441\u043A\u0430 pipeline \u0438\u0437\
+    \ \u043E\u0434\u043D\u043E\u0433\u043E \u043C\u0435\u0441\u0442\u0430.\n\n## Implementation\
+    \ status (2026-03-25)\n\nThis document is aligned to the current production implementation\
+    \ baseline.\n\nCurrent baseline:\n\n1. The platform is docs-first and also supports\
+    \ `code-first`, `api-first`, and `hybrid` flows.\n1. REST and non-REST protocols\
+    \ are supported in one automation model: REST, GraphQL, gRPC, AsyncAPI, and WebSocket.\n\
+    1. Non-REST automation includes server stubs with business-logic placeholders.\n\
+    1. External mock sandbox resolution is integrated into the smooth autopipeline,\
+    \ including Postman-supported auto-prepare mode.\n1. Contract test assets are\
+    \ generated automatically and merged with smart-merge rules so manual/customized\
+    \ cases are preserved.\n1. Knowledge/RAG tasks run as part of automation when\
+    \ enabled (module extraction, validation, retrieval index, graph, evals).\n1.\
+    \ Plan gating is enforced by configuration and policy packs; advanced non-REST\
+    \ automation is reserved for higher plans.\n\nCanonical execution order reference:\n\
+    \n- `docs/operations/CANONICAL_FLOW.md`\n- `docs/operations/UNIFIED_CLIENT_CONFIG.md`\n\
+    - `README.md`\n\nCommercial note:\n\n- Where commercial packaging is discussed,\
+    \ recurring service terms (retainer/licensing) are part of the active go-to-market\
+    \ model."

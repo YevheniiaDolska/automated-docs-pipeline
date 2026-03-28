@@ -1,0 +1,64 @@
+id: auto-set-up-real-time-webhook-processing-pipeline-8
+title: Set up a real-time webhook processing pipeline (Part 8)
+summary: Configure end-to-end webhook ingestion with HMAC verification, async queue
+  processing, and delivery guarantees in under 15 minutes.
+intents:
+- configure
+- troubleshoot
+audiences:
+- practitioner
+- developer
+channels:
+- docs
+- assistant
+- automation
+priority: 60
+status: active
+owner: docsops-auto
+last_verified: '2026-03-28'
+dependencies: []
+tags:
+- auto-extracted
+- how-to
+- set-up-real-time-webhook-processing-pipeline
+content:
+  docs_markdown: "// Route to appropriate handler\n  switch (event.type) {\n    case\
+    \ 'order.completed':\n      await handleOrderCompleted(event);\n      break;\n\
+    \    case 'payment.failed':\n      await handlePaymentFailed(event);\n      break;\n\
+    \    default:\n      console.log(`Unhandled event type: ${event.type}`);\n  }\n\
+    }, {\n  connection,\n  concurrency: 10,  // Process 10 events in parallel\n});\n\
+    \nworker.on('completed', (job) => {\n  console.log(`Job ${job.id} completed`);\n\
+    });\n\nworker.on('failed', (job, err) => {\n  console.error(`Job ${job.id} failed:\
+    \ ${err.message}`);\n});\n```\n\n## Webhook configuration parameters\n\n| Parameter\
+    \ | Type | Default | Description |\n|-----------|------|---------|-------------|\n\
+    | `webhook_secret` | string | Required | HMAC-SHA256 signing secret (minimum 32\
+    \ characters) |\n| `max_payload_size` | integer | {{ max_payload_size_mb }} MB\
+    \ | Maximum accepted webhook body size |\n| `signature_tolerance` | integer |\
+    \ 300 | Maximum age in seconds for replay protection (default: 5 minutes) |\n\
+    | `retry_attempts` | integer | 5 | Number of delivery retry attempts before marking\
+    \ as failed |\n| `retry_backoff` | string | exponential | Backoff strategy: `exponential`,\
+    \ `linear`, or `fixed` |\n| `queue_concurrency` | integer | 10 | Number of events\
+    \ processed in parallel from the queue |\n| `event_retention_days` | integer |\
+    \ 30 | Number of days to retain processed event logs |"
+  assistant_context: "Use this module when answering questions related to: Set up\
+    \ a real-time webhook processing pipeline (Part 8). Source path: docs/en/how-to/set-up-real-time-webhook-processing-pipeline.md.\
+    \ Summary: Configure end-to-end webhook ingestion with HMAC verification, async\
+    \ queue processing, and delivery guarantees in under 15 minutes.\n\n// Route to\
+    \ appropriate handler\n  switch (event.type) {\n    case 'order.completed':\n\
+    \      await handleOrderCompleted(event);\n      break;\n    case 'payment.failed':\n\
+    \      await handlePaymentFailed(event);\n      break;\n    default:\n      console.log(`Unhandled\
+    \ event type: ${event.type}`);\n  }\n}, {\n  connection,\n  concurrency: 10, \
+    \ // Process 10 events in parallel\n});\n\nworker.on('completed', (job) => {\n\
+    \  console.log(`Job ${job.id} completed`);\n});\n\nworker.on('failed', (job, err)\
+    \ => {\n  console.error(`Job ${job.id} failed: ${err.message}`);\n});\n```\n\n\
+    ## Webhook configuration parameters\n\n| Parameter | Type | Default | Description\
+    \ |\n|-----------|------|---------|-------------|\n| `webhook_secret` | string\
+    \ | Required | HMAC-SHA256 signing secret (minimum 32 characters) |\n| `max_payload_size`\
+    \ | integer | {{ max_payload_size_mb }} MB | Maximum accepted webhook body size\
+    \ |\n| `signature_tolerance` | integer | 300 | Maximum age in seconds for replay\
+    \ protection (default: 5 minutes) |\n| `retry_attempts` | integer | 5 | Number\
+    \ of delivery retry attempts before marking as failed |\n| `retry_backoff` | string\
+    \ | exponential | Backoff strategy: `exponential`, `linear`, or `fixed` |\n| `queue_concurrency`\
+    \ | integer | 10 | Number of events processed in parallel from the queue |\n|\
+    \ `event_retention_days` | integer | 30 | Number of days to retain processed event\
+    \ logs |"

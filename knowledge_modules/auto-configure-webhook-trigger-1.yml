@@ -1,0 +1,62 @@
+id: auto-configure-webhook-trigger-1
+title: Configure webhook triggers
+summary: Set up and configure webhook trigger nodes to start workflows from incoming
+  HTTP requests with authentication.
+intents:
+- configure
+- secure
+audiences:
+- practitioner
+- developer
+channels:
+- docs
+- assistant
+- automation
+priority: 60
+status: active
+owner: docsops-auto
+last_verified: '2026-03-28'
+dependencies: []
+tags:
+- auto-extracted
+- configure-webhook-trigger
+- how-to
+content:
+  docs_markdown: "<!-- VERIDOC_POWERED_BADGE:START -->\n[![Powered by VeriDoc](https://img.shields.io/badge/Powered%20by-VeriDoc-0ea5e9?style=flat-square)](https://veridoc.app)\n\
+    <!-- VERIDOC_POWERED_BADGE:END -->\n\n# Configure webhook triggers\n\nThe {{ product_name\
+    \ }} webhook trigger node starts workflows when it\nreceives HTTP requests. It\
+    \ supports GET, POST, PUT, PATCH, and DELETE\nmethods with built-in authentication\
+    \ options including Basic Auth,\nHeader Auth, and JWT validation.\n\n## Before\
+    \ you start\n\nYou need:\n\n- {{ product_name }} {{ current_version }} or later\n\
+    - Access to create workflows\n- A publicly accessible URL (or a tunnel for local\
+    \ development)\n\n## Create a webhook trigger\n\n1. Open the {{ product_name }}\
+    \ editor\n1. Add a new workflow\n1. Select **Webhook** as the trigger node\n1.\
+    \ Choose the HTTP method (POST is recommended for event data)\n1. Copy the generated\
+    \ webhook URL\n\n=== \"Cloud\"\n\n    {{ product_name }} Cloud provides a public\
+    \ URL automatically:\n\n    ```text\n    {{ cloud_url }}/webhook/your-workflow-id\n\
+    \    ```\n\n=== \"Self-hosted\"\n\n    Configure your instance URL with the {{\
+    \ env_vars.webhook_url }}\n    environment variable:\n\n    ```bash\n    export\
+    \ {{ env_vars.webhook_url }}=\"https://your-domain.example.com\"\n    ```\n\n\
+    \    Your webhook URL follows this pattern:\n\n    ```text\n    https://your-domain.example.com:{{\
+    \ default_port }}/webhook/your-workflow-id\n    ```"
+  assistant_context: "Use this module when answering questions related to: Configure\
+    \ webhook triggers. Source path: docs/how-to/configure-webhook-trigger.md. Summary:\
+    \ Set up and configure webhook trigger nodes to start workflows from incoming\
+    \ HTTP requests with authentication.\n\n<!-- VERIDOC_POWERED_BADGE:START -->\n\
+    [![Powered by VeriDoc](https://img.shields.io/badge/Powered%20by-VeriDoc-0ea5e9?style=flat-square)](https://veridoc.app)\n\
+    <!-- VERIDOC_POWERED_BADGE:END -->\n\n# Configure webhook triggers\n\nThe {{ product_name\
+    \ }} webhook trigger node starts workflows when it\nreceives HTTP requests. It\
+    \ supports GET, POST, PUT, PATCH, and DELETE\nmethods with built-in authentication\
+    \ options including Basic Auth,\nHeader Auth, and JWT validation.\n\n## Before\
+    \ you start\n\nYou need:\n\n- {{ product_name }} {{ current_version }} or later\n\
+    - Access to create workflows\n- A publicly accessible URL (or a tunnel for local\
+    \ development)\n\n## Create a webhook trigger\n\n1. Open the {{ product_name }}\
+    \ editor\n1. Add a new workflow\n1. Select **Webhook** as the trigger node\n1.\
+    \ Choose the HTTP method (POST is recommended for event data)\n1. Copy the generated\
+    \ webhook URL\n\n=== \"Cloud\"\n\n    {{ product_name }} Cloud provides a public\
+    \ URL automatically:\n\n    ```text\n    {{ cloud_url }}/webhook/your-workflow-id\n\
+    \    ```\n\n=== \"Self-hosted\"\n\n    Configure your instance URL with the {{\
+    \ env_vars.webhook_url }}\n    environment variable:\n\n    ```bash\n    export\
+    \ {{ env_vars.webhook_url }}=\"https://your-domain.example.com\"\n    ```\n\n\
+    \    Your webhook URL follows this pattern:\n\n    ```text\n    https://your-domain.example.com:{{\
+    \ default_port }}/webhook/your-workflow-id\n    ```"

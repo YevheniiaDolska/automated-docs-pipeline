@@ -1,0 +1,148 @@
+id: auto-auto-doc-pipeline-study-guide-8
+title: Auto-Doc Pipeline study guide (Part 8)
+summary: Learn the Auto-Doc Pipeline quickly with a simple architecture map, operating
+  flow, plan mapping, and a detailed client FAQ.
+intents:
+- integrate
+- secure
+audiences:
+- developer
+- operator
+channels:
+- docs
+- assistant
+- automation
+priority: 60
+status: active
+owner: docsops-auto
+last_verified: '2026-03-28'
+dependencies: []
+tags:
+- auto-doc-pipeline-study-guide
+- auto-extracted
+- reference
+content:
+  docs_markdown: '### 13) How long does rollout usually take?
+
+
+    Pilot setup is typically quick because runtime and bundle templates are pre-structured.
+
+
+    ### 14) How much manual work remains after rollout?
+
+
+    Usually review and approval work remains, not repetitive authoring and cross-file
+    synchronization.
+
+
+    ### 15) Can we run this inside existing CI/CD?
+
+
+    Yes. The flow is script-driven and supports local scheduler plus CI automation
+    patterns.
+
+
+    ### 16) What data should clients prepare?
+
+
+    Repo access, docs root, runtime config decisions, plan scope, and optional external
+    integrations.
+
+
+    ### 17) How is this different from a static docs generator?
+
+
+    It is a controlled operations pipeline, not only a renderer. It validates, remediates,
+    merges, and governs.
+
+
+    ### 18) What happens when a gate fails?
+
+
+    The pipeline emits explicit failure reports and can run remediation cycles before
+    publish.
+
+
+    ### 19) Can teams adopt this gradually?
+
+
+    Yes. Teams can start with quality gates and docs lifecycle, then enable protocol
+    and RAG modules.
+
+
+    ### 20) Why is this compelling commercially?
+
+
+    It compresses repetitive documentation and API verification work into a governed
+    flow with measurable outputs.
+
+
+    ## Next steps
+
+
+    - [Documentation index](index.md)'
+  assistant_context: 'Use this module when answering questions related to: Auto-Doc
+    Pipeline study guide (Part 8). Source path: docs/reference/auto-doc-pipeline-study-guide.md.
+    Summary: Learn the Auto-Doc Pipeline quickly with a simple architecture map, operating
+    flow, plan mapping, and a detailed client FAQ.
+
+
+    ### 13) How long does rollout usually take?
+
+
+    Pilot setup is typically quick because runtime and bundle templates are pre-structured.
+
+
+    ### 14) How much manual work remains after rollout?
+
+
+    Usually review and approval work remains, not repetitive authoring and cross-file
+    synchronization.
+
+
+    ### 15) Can we run this inside existing CI/CD?
+
+
+    Yes. The flow is script-driven and supports local scheduler plus CI automation
+    patterns.
+
+
+    ### 16) What data should clients prepare?
+
+
+    Repo access, docs root, runtime config decisions, plan scope, and optional external
+    integrations.
+
+
+    ### 17) How is this different from a static docs generator?
+
+
+    It is a controlled operations pipeline, not only a renderer. It validates, remediates,
+    merges, and governs.
+
+
+    ### 18) What happens when a gate fails?
+
+
+    The pipeline emits explicit failure reports and can run remediation cycles before
+    publish.
+
+
+    ### 19) Can teams adopt this gradually?
+
+
+    Yes. Teams can start with quality gates and docs lifecycle, then enable protocol
+    and RAG modules.
+
+
+    ### 20) Why is this compelling commercially?
+
+
+    It compresses repetitive documentation and API verification work into a governed
+    flow with measurable outputs.
+
+
+    ## Next steps
+
+
+    - [Documentation index](index.md)'

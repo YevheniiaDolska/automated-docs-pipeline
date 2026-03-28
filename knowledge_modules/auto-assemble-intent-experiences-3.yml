@@ -1,0 +1,41 @@
+id: auto-assemble-intent-experiences-3
+title: Assemble intent experiences (Part 3)
+summary: Build user-intent documentation and channel bundles from reusable knowledge
+  modules with validation, indexing, and consistent outputs.
+intents:
+- configure
+audiences:
+- practitioner
+- developer
+channels:
+- docs
+- assistant
+- automation
+priority: 60
+status: active
+owner: docsops-auto
+last_verified: '2026-03-28'
+dependencies: []
+tags:
+- assemble-intent-experiences
+- auto-extracted
+- how-to
+content:
+  docs_markdown: '## Next steps
+
+
+    - [Intelligent knowledge system architecture](../concepts/intelligent-knowledge-system.md)
+
+    - [Intent experiences reference](../reference/intent-experiences/index.md)'
+  assistant_context: 'Use this module when answering questions related to: Assemble
+    intent experiences (Part 3). Source path: docs/how-to/assemble-intent-experiences.md.
+    Summary: Build user-intent documentation and channel bundles from reusable knowledge
+    modules with validation, indexing, and consistent outputs.
+
+
+    ## Next steps
+
+
+    - [Intelligent knowledge system architecture](../concepts/intelligent-knowledge-system.md)
+
+    - [Intent experiences reference](../reference/intent-experiences/index.md)'

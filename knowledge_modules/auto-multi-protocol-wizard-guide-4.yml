@@ -1,0 +1,57 @@
+id: auto-multi-protocol-wizard-guide-4
+title: Multi-Protocol Wizard Guide (Part 4)
+summary: Wizard UX for protocol-aware provisioning in VeriDoc and VeriOps.
+intents:
+- configure
+audiences:
+- practitioner
+- developer
+channels:
+- docs
+- assistant
+- automation
+priority: 60
+status: active
+owner: docsops-auto
+last_verified: '2026-03-28'
+dependencies: []
+tags:
+- auto-extracted
+- how-to
+- multi-protocol-wizard-guide
+content:
+  docs_markdown: 'RAG prep behavior:
+
+
+    - multi-protocol docs are normalized and enriched before indexing,
+
+    - knowledge modules are refreshed from generated docs,
+
+    - retrieval index and knowledge graph are rebuilt in the same pipeline,
+
+    - retrieval evals are executed and reported as evidence for quality controls.
+
+
+    Licensing note: Multi-protocol support (GraphQL, gRPC, AsyncAPI, WebSocket) requires
+    an Enterprise license. The wizard generates the appropriate `licensing.plan` in
+    the profile. See `docs/operations/PLAN_TIERS.md` for the full feature matrix.'
+  assistant_context: 'Use this module when answering questions related to: Multi-Protocol
+    Wizard Guide (Part 4). Source path: docs/operations/MULTI_PROTOCOL_WIZARD_GUIDE.md.
+    Summary: Wizard UX for protocol-aware provisioning in VeriDoc and VeriOps.
+
+
+    RAG prep behavior:
+
+
+    - multi-protocol docs are normalized and enriched before indexing,
+
+    - knowledge modules are refreshed from generated docs,
+
+    - retrieval index and knowledge graph are rebuilt in the same pipeline,
+
+    - retrieval evals are executed and reported as evidence for quality controls.
+
+
+    Licensing note: Multi-protocol support (GraphQL, gRPC, AsyncAPI, WebSocket) requires
+    an Enterprise license. The wizard generates the appropriate `licensing.plan` in
+    the profile. See `docs/operations/PLAN_TIERS.md` for the full feature matrix.'

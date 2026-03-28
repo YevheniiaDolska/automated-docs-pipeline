@@ -1,0 +1,77 @@
+id: auto-webhook-not-firing-3
+title: 'Fix: Webhook trigger not firing (Part 3)'
+summary: Troubleshoot Webhook nodes that do not receive requests. Common causes include
+  inactive workflows, wrong URL type, and network configuration.
+intents:
+- configure
+- secure
+- troubleshoot
+audiences:
+- support
+- operator
+channels:
+- docs
+- assistant
+- automation
+priority: 60
+status: active
+owner: docsops-auto
+last_verified: '2026-03-28'
+dependencies: []
+tags:
+- auto-extracted
+- troubleshooting
+- webhook-not-firing
+content:
+  docs_markdown: '## Still not working?
+
+
+    1. Check the logs for errors: `docker logs` or the process output.
+
+    1. Test with a minimal `curl` command from the same network as the service.
+
+    1. Verify the HTTP method matches (the Webhook node only responds to the configured
+    method).
+
+
+    ## Related
+
+
+    - [Webhook node reference](../reference/nodes/webhook.md)
+
+    - [Configure Webhook authentication](../how-to/configure-webhook-trigger.md)
+
+
+    ## Next steps
+
+
+    - [Documentation index](index.md)'
+  assistant_context: 'Use this module when answering questions related to: Fix: Webhook
+    trigger not firing (Part 3). Source path: docs/troubleshooting/webhook-not-firing.md.
+    Summary: Troubleshoot Webhook nodes that do not receive requests. Common causes
+    include inactive workflows, wrong URL type, and network configuration.
+
+
+    ## Still not working?
+
+
+    1. Check the logs for errors: `docker logs` or the process output.
+
+    1. Test with a minimal `curl` command from the same network as the service.
+
+    1. Verify the HTTP method matches (the Webhook node only responds to the configured
+    method).
+
+
+    ## Related
+
+
+    - [Webhook node reference](../reference/nodes/webhook.md)
+
+    - [Configure Webhook authentication](../how-to/configure-webhook-trigger.md)
+
+
+    ## Next steps
+
+
+    - [Documentation index](index.md)'

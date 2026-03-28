@@ -1,0 +1,57 @@
+id: auto-unified-client-config-13
+title: Unified Client Configuration (Part 13)
+summary: Single source of truth for per-client Auto-Doc Pipeline configuration, modules,
+  and automation.
+intents:
+- configure
+- integrate
+audiences:
+- developer
+- operator
+channels:
+- docs
+- assistant
+- automation
+priority: 60
+status: active
+owner: docsops-auto
+last_verified: '2026-03-28'
+dependencies: []
+tags:
+- auto-extracted
+- reference
+- unified-client-config
+content:
+  docs_markdown: "- The pipeline is provider-agnostic: it does not lock to one vendor.\n\
+    - It uses `mock_base_url` as the source of truth for verification and Try-it requests.\n\
+    - Common setups: Postman Mock Servers, Stoplight-hosted Prism, Mockoon Cloud,\
+    \ or your own hosted Prism.\n\nIn simple terms:\n\n- `mock_base_url` is the one\
+    \ URL the whole pipeline uses for API sandbox checks.\n- If that URL is public\
+    \ (HTTPS) and CORS is configured, Try-it works for every site visitor.\n\nClient\
+    \ input checklist (Postman, one-time):\n\n1. `POSTMAN_API_KEY`\n1. `POSTMAN_WORKSPACE_ID`\n\
+    1. optional `POSTMAN_COLLECTION_UID` (if missing, pipeline imports collection\
+    \ from generated OpenAPI)\n1. Optional: `POSTMAN_MOCK_SERVER_ID` (if reusing an\
+    \ existing mock)\n\nOptional test-management input checklist:\n\n1. TestRail:\n\
+    \   `TESTRAIL_UPLOAD_ENABLED`, `TESTRAIL_BASE_URL`, `TESTRAIL_EMAIL`, `TESTRAIL_API_KEY`,\
+    \ `TESTRAIL_SECTION_ID`, optional `TESTRAIL_SUITE_ID`\n1. Zephyr Scale:\n   `ZEPHYR_UPLOAD_ENABLED`,\
+    \ `ZEPHYR_SCALE_API_TOKEN`, `ZEPHYR_SCALE_PROJECT_KEY`, optional `ZEPHYR_SCALE_BASE_URL`,\
+    \ optional `ZEPHYR_SCALE_FOLDER_ID`\n\nAfter these are set, pipeline does the\
+    \ rest automatically:"
+  assistant_context: "Use this module when answering questions related to: Unified\
+    \ Client Configuration (Part 13). Source path: docs/operations/UNIFIED_CLIENT_CONFIG.md.\
+    \ Summary: Single source of truth for per-client Auto-Doc Pipeline configuration,\
+    \ modules, and automation.\n\n- The pipeline is provider-agnostic: it does not\
+    \ lock to one vendor.\n- It uses `mock_base_url` as the source of truth for verification\
+    \ and Try-it requests.\n- Common setups: Postman Mock Servers, Stoplight-hosted\
+    \ Prism, Mockoon Cloud, or your own hosted Prism.\n\nIn simple terms:\n\n- `mock_base_url`\
+    \ is the one URL the whole pipeline uses for API sandbox checks.\n- If that URL\
+    \ is public (HTTPS) and CORS is configured, Try-it works for every site visitor.\n\
+    \nClient input checklist (Postman, one-time):\n\n1. `POSTMAN_API_KEY`\n1. `POSTMAN_WORKSPACE_ID`\n\
+    1. optional `POSTMAN_COLLECTION_UID` (if missing, pipeline imports collection\
+    \ from generated OpenAPI)\n1. Optional: `POSTMAN_MOCK_SERVER_ID` (if reusing an\
+    \ existing mock)\n\nOptional test-management input checklist:\n\n1. TestRail:\n\
+    \   `TESTRAIL_UPLOAD_ENABLED`, `TESTRAIL_BASE_URL`, `TESTRAIL_EMAIL`, `TESTRAIL_API_KEY`,\
+    \ `TESTRAIL_SECTION_ID`, optional `TESTRAIL_SUITE_ID`\n1. Zephyr Scale:\n   `ZEPHYR_UPLOAD_ENABLED`,\
+    \ `ZEPHYR_SCALE_API_TOKEN`, `ZEPHYR_SCALE_PROJECT_KEY`, optional `ZEPHYR_SCALE_BASE_URL`,\
+    \ optional `ZEPHYR_SCALE_FOLDER_ID`\n\nAfter these are set, pipeline does the\
+    \ rest automatically:"

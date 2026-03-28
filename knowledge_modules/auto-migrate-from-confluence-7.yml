@@ -1,0 +1,60 @@
+id: auto-migrate-from-confluence-7
+title: Migrate documentation from Confluence (Part 7)
+summary: Import Confluence pages into the documentation pipeline with automatic quality
+  enhancement, SEO optimization, and knowledge extraction.
+intents:
+- configure
+- secure
+- troubleshoot
+audiences:
+- practitioner
+- developer
+channels:
+- docs
+- assistant
+- automation
+priority: 60
+status: active
+owner: docsops-auto
+last_verified: '2026-03-28'
+dependencies: []
+tags:
+- auto-extracted
+- how-to
+- migrate-from-confluence
+content:
+  docs_markdown: "## Review migration reports\n\nThe pipeline generates two report\
+    \ files in the reports directory\n(default: `reports/`):\n\n- `confluence_migration_report.json`\
+    \ -- machine-readable report with page\n  counts, check results, and status\n\
+    - `confluence_migration_report.md` -- human-readable report with migration\n \
+    \ summary, automatic fixes applied, and check results\n\nSpecify a custom reports\
+    \ directory with `--reports-dir`:\n\n```bash\npython3 scripts/run_confluence_migration.py\
+    \ \\\n  --export-zip /path/to/confluence-export.zip \\\n  --reports-dir /path/to/reports\n\
+    ```\n\n## Troubleshoot common issues\n\n### Authentication fails with 401 error\n\
+    \n**Cause:** Invalid or expired API token.\n\n**Fix:** Generate a new token following\
+    \ the steps in\n[Create an API token](#step-1-create-an-api-token). For Cloud,\
+    \ verify you use\nyour email address with `--confluence-username`, not your display\
+    \ name.\n\n### Rate limiting (429 responses)\n\n**Cause:** Confluence rate limits\
+    \ API requests.\n\n**Fix:** The pipeline automatically retries with exponential\
+    \ backoff (3\nretries). For large spaces with more than 1,000 pages, the pipeline\n\
+    paginates requests automatically. If rate limiting persists, wait 60 seconds\n\
+    and retry."
+  assistant_context: "Use this module when answering questions related to: Migrate\
+    \ documentation from Confluence (Part 7). Source path: docs/how-to/migrate-from-confluence.md.\
+    \ Summary: Import Confluence pages into the documentation pipeline with automatic\
+    \ quality enhancement, SEO optimization, and knowledge extraction.\n\n## Review\
+    \ migration reports\n\nThe pipeline generates two report files in the reports\
+    \ directory\n(default: `reports/`):\n\n- `confluence_migration_report.json` --\
+    \ machine-readable report with page\n  counts, check results, and status\n- `confluence_migration_report.md`\
+    \ -- human-readable report with migration\n  summary, automatic fixes applied,\
+    \ and check results\n\nSpecify a custom reports directory with `--reports-dir`:\n\
+    \n```bash\npython3 scripts/run_confluence_migration.py \\\n  --export-zip /path/to/confluence-export.zip\
+    \ \\\n  --reports-dir /path/to/reports\n```\n\n## Troubleshoot common issues\n\
+    \n### Authentication fails with 401 error\n\n**Cause:** Invalid or expired API\
+    \ token.\n\n**Fix:** Generate a new token following the steps in\n[Create an API\
+    \ token](#step-1-create-an-api-token). For Cloud, verify you use\nyour email address\
+    \ with `--confluence-username`, not your display name.\n\n### Rate limiting (429\
+    \ responses)\n\n**Cause:** Confluence rate limits API requests.\n\n**Fix:** The\
+    \ pipeline automatically retries with exponential backoff (3\nretries). For large\
+    \ spaces with more than 1,000 pages, the pipeline\npaginates requests automatically.\
+    \ If rate limiting persists, wait 60 seconds\nand retry."

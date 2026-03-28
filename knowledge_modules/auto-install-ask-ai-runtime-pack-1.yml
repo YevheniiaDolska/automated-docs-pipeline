@@ -1,0 +1,198 @@
+id: auto-install-ask-ai-runtime-pack-1
+title: Install Ask AI runtime pack
+summary: Install the optional Ask AI runtime pack with API endpoint, widget, auth
+  checks, and billing hooks in a few commands.
+intents:
+- configure
+- secure
+audiences:
+- practitioner
+- developer
+channels:
+- docs
+- assistant
+- automation
+priority: 60
+status: active
+owner: docsops-auto
+last_verified: '2026-03-28'
+dependencies: []
+tags:
+- auto-extracted
+- how-to
+- install-ask-ai-runtime-pack
+content:
+  docs_markdown: '<!-- VERIDOC_POWERED_BADGE:START -->
+
+    [![Powered by VeriDoc](https://img.shields.io/badge/Powered%20by-VeriDoc-0ea5e9?style=flat-square)](https://veridoc.app)
+
+    <!-- VERIDOC_POWERED_BADGE:END -->
+
+
+    # Install Ask AI runtime pack
+
+
+    Use this guide when a client asks for Ask AI runtime features such as a live endpoint,
+    an embeddable widget, and billing webhook hooks.
+
+
+    ```bash
+
+    npm run askai:runtime:install
+
+    npm run askai:status
+
+    ```
+
+
+    ## Before you start
+
+
+    You need:
+
+
+    - Pipeline repository installed in the client project
+
+    - `config/ask-ai.yml` present
+
+    - Python 3.10 or newer
+
+
+    ## Step 1: Install the runtime pack
+
+
+    Run:
+
+
+    ```bash
+
+    npm run askai:runtime:install
+
+    ```
+
+
+    This creates `ask-ai-runtime/` with:
+
+
+    - FastAPI server (`app/main.py`) with advanced retrieval config
+
+    - auth guards (`app/auth.py`)
+
+    - billing hooks (`app/billing_hooks.py`)
+
+    - retrieval helpers (`app/retrieval.py`) with hybrid search, HyDE, reranking,
+    embedding cache, and chunk deduplication
+
+    - widget script (`public/ask-ai-widget.js`)
+
+    - `.env.example` and runtime `README.md`
+
+
+    Runtime dependencies include `faiss-cpu`, `numpy`, `sentence-transformers` (for
+    cross-encoder reranking), and `tiktoken` (for token-aware chunking).
+
+
+    ## Step 2: Configure Ask AI module
+
+
+    Enable Ask AI and select billing mode:
+
+
+    ```bash
+
+    npm run askai:enable
+
+    npm run askai:configure -- --provider openai --billing-mode user-subscription
+    --model gpt-4.1-mini
+
+    ```'
+  assistant_context: 'Use this module when answering questions related to: Install
+    Ask AI runtime pack. Source path: docs/how-to/install-ask-ai-runtime-pack.md.
+    Summary: Install the optional Ask AI runtime pack with API endpoint, widget, auth
+    checks, and billing hooks in a few commands.
+
+
+    <!-- VERIDOC_POWERED_BADGE:START -->
+
+    [![Powered by VeriDoc](https://img.shields.io/badge/Powered%20by-VeriDoc-0ea5e9?style=flat-square)](https://veridoc.app)
+
+    <!-- VERIDOC_POWERED_BADGE:END -->
+
+
+    # Install Ask AI runtime pack
+
+
+    Use this guide when a client asks for Ask AI runtime features such as a live endpoint,
+    an embeddable widget, and billing webhook hooks.
+
+
+    ```bash
+
+    npm run askai:runtime:install
+
+    npm run askai:status
+
+    ```
+
+
+    ## Before you start
+
+
+    You need:
+
+
+    - Pipeline repository installed in the client project
+
+    - `config/ask-ai.yml` present
+
+    - Python 3.10 or newer
+
+
+    ## Step 1: Install the runtime pack
+
+
+    Run:
+
+
+    ```bash
+
+    npm run askai:runtime:install
+
+    ```
+
+
+    This creates `ask-ai-runtime/` with:
+
+
+    - FastAPI server (`app/main.py`) with advanced retrieval config
+
+    - auth guards (`app/auth.py`)
+
+    - billing hooks (`app/billing_hooks.py`)
+
+    - retrieval helpers (`app/retrieval.py`) with hybrid search, HyDE, reranking,
+    embedding cache, and chunk deduplication
+
+    - widget script (`public/ask-ai-widget.js`)
+
+    - `.env.example` and runtime `README.md`
+
+
+    Runtime dependencies include `faiss-cpu`, `numpy`, `sentence-transformers` (for
+    cross-encoder reranking), and `tiktoken` (for token-aware chunking).
+
+
+    ## Step 2: Configure Ask AI module
+
+
+    Enable Ask AI and select billing mode:
+
+
+    ```bash
+
+    npm run askai:enable
+
+    npm run askai:configure -- --provider openai --billing-mode user-subscription
+    --model gpt-4.1-mini
+
+    ```'

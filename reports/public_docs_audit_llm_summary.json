@@ -2,55 +2,54 @@
   "status": "ok",
   "model": "claude-sonnet-4-5",
   "analysis": {
-    "executive_summary": "Audit crawled 507 pages across 3 documentation domains for a single-product topology. 3 confirmed broken internal links exist in user-facing docs. 1,485 links could not be verified due to authentication or rate-limiting. API reference coverage is low at 14.84% across 65 detected API pages. Only 37.67% of pages display last-updated metadata. Overall audit confidence is 63.5%, with link verification confidence at 25% due to access restrictions.",
+    "executive_summary": "Documentation audit of docs.datadoghq.com crawled only 1 page out of 25,000 maximum capacity, achieving 100% coverage of the severely limited scope. Zero broken links detected across all categories (0 docs, 0 repo). Critical visibility gaps identified: 50% SEO/geo issue rate, 0% example reliability, 0% freshness coverage, and no API reference pages detected. Overall confidence stands at 74%, with API detection confidence critically low at 35%.",
     "strengths": [
-      "Crawl achieved 100% coverage of discovered in-scope pages (507 of 507 requested)",
-      "No repository navigation broken links detected (repo_broken_links_count: 0)",
-      "API page detection succeeded with 65 pages identified across documentation",
-      "Example code reliability estimate is strong at 85.78%",
-      "Documentation trap URLs properly identified and skipped (28 URLs)"
+      "Zero broken links detected (0 internal docs broken links, 0 repository broken links)",
+      "Link verification achieved 95% confidence level",
+      "Crawl execution completed at 95% confidence within examined scope",
+      "No crawl trap URLs encountered during examination"
     ],
     "risks": [
-      "3 confirmed broken internal links in user-facing documentation degrade user experience",
-      "1,485 unverified links create unknown quality exposure; 25% link confidence indicates high verification gap",
-      "SEO/geo issue rate of 18.96% may harm discoverability and search ranking",
-      "API reference coverage at 14.84% leaves majority of API surface undocumented or poorly linked",
-      "37.67% freshness coverage prevents users from assessing content currency on 62% of pages",
-      "Multi-site documentation architecture (3 domains for single product) risks fragmentation and inconsistent user journeys",
-      "Overall confidence of 63.5% suggests significant audit blind spots remain"
+      "Audit crawled only 1 page - insufficient sample size for meaningful documentation assessment across enterprise docs platform",
+      "API reference pages not detected (0 pages found) - potential detection limitation due to JavaScript rendering, authentication requirements, or URL pattern mismatch",
+      "API detection confidence critically low at 35% - findings may not reflect actual API documentation state",
+      "SEO/geo issue rate at 50% indicates potential discoverability and internationalization problems",
+      "Zero example reliability measurement (0.0%) - code examples may be untested or broken",
+      "No freshness indicators detected (0.0% coverage) - users cannot assess content currency",
+      "Single-page sample prevents identification of systemic patterns in navigation, structure, or content quality"
     ],
     "prioritized_actions": [
       {
-        "action": "Repair 3 confirmed broken internal links in user-facing docs",
-        "impact": "high",
-        "effort": "low"
-      },
-      {
-        "action": "Implement last-updated timestamps on all pages to reach 100% freshness coverage from current 37.67%",
-        "impact": "high",
+        "action": "Re-execute full crawl with increased page limit and verify JavaScript rendering, authentication, and API URL patterns to capture complete documentation scope",
+        "impact": "critical",
         "effort": "medium"
       },
       {
-        "action": "Audit and expand API reference documentation to improve 14.84% coverage baseline",
+        "action": "Investigate and resolve API reference page detection failure - verify crawl can access authenticated/JS-rendered API documentation sections",
         "impact": "critical",
         "effort": "high"
       },
       {
-        "action": "Resolve SEO/geo issues affecting 18.96% of pages to improve search discoverability",
+        "action": "Implement last-updated timestamps on all documentation pages to address 0% freshness coverage",
+        "impact": "high",
+        "effort": "low"
+      },
+      {
+        "action": "Audit and remediate SEO/geo issues affecting 50% of sampled pages - review meta tags, hreflang, and regional content",
         "impact": "high",
         "effort": "medium"
       },
       {
-        "action": "Establish authentication-aware link verification process for 1,485 unverified URLs to eliminate blind spots",
+        "action": "Establish code example testing framework to improve 0% reliability estimate and prevent example drift",
         "impact": "medium",
-        "effort": "medium"
+        "effort": "high"
       }
     ],
     "limitations": [
-      "25% link confidence means 1,485 URLs behind authentication or rate-limits were not verified; actual broken link count may be higher",
-      "External audit cannot validate accuracy of technical content, code examples, or API specifications",
-      "Multi-domain architecture may hide cross-site navigation issues or content duplication not detectable by single-pass crawl",
-      "Freshness metadata absence on 62% of pages prevents audit from assessing actual content staleness or accuracy drift"
+      "Single-page crawl provides statistically insignificant sample - cannot validate documentation quality, completeness, or systemic issues across full site",
+      "External audit cannot verify accuracy of technical content, correctness of code examples, or alignment with actual product behavior",
+      "API coverage metrics unreliable due to 35% detection confidence - actual API documentation may exist but remain undetected by crawler",
+      "Cannot assess user experience factors including page load performance, interactive element functionality, or authenticated user workflows"
     ]
   }
 }

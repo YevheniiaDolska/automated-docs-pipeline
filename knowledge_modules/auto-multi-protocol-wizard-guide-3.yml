@@ -1,0 +1,61 @@
+id: auto-multi-protocol-wizard-guide-3
+title: Multi-Protocol Wizard Guide (Part 3)
+summary: Wizard UX for protocol-aware provisioning in VeriDoc and VeriOps.
+intents:
+- configure
+audiences:
+- practitioner
+- developer
+channels:
+- docs
+- assistant
+- automation
+priority: 60
+status: active
+owner: docsops-auto
+last_verified: '2026-03-28'
+dependencies: []
+tags:
+- auto-extracted
+- how-to
+- multi-protocol-wizard-guide
+content:
+  docs_markdown: "1. Strictness profile:\n\n- `standard`\n    - `enterprise-strict`\n\
+    \n1. Stack profile:\n\n- backend stack (`node/python/go/java/dotnet/mixed`)\n\
+    \    - API gateway (`none/kong/apigee/aws-api-gateway/nginx/envoy/custom`)\n\n\
+    Generated runtime fields:\n\n- `runtime.api_protocols`\n- `runtime.api_protocol_settings`\n\
+    - `runtime.api_governance.strictness`\n\nGenerated template/snippet library fields:\n\
+    \n- `templates/protocols/graphql-reference.md`\n- `templates/protocols/grpc-reference.md`\n\
+    - `templates/protocols/asyncapi-reference.md`\n- `templates/protocols/websocket-reference.md`\n\
+    - `templates/protocols/api-protocol-snippets.md`\n\nThese are used as LLM generation\
+    \ anchors for consistent formatting and Stripe-style\nquality across all protocol\
+    \ docs.\n\nIn `enterprise-strict`, multi-protocol flow exits non-zero on failed\
+    \ stage.\n\nGenerated runtime also enables:\n\n1. protocol server stub generation\
+    \ (`generate_server_stubs`, `stubs_output`)\n1. live/mock endpoint verification\
+    \ gates (`self_verify_require_endpoint`, `publish_requires_live_green`)\n1. external\
+    \ Postman mock auto-prepare when `runtime.api_first.external_mock.enabled=true`\n\
+    \nOperator model:\n\n- pipeline runs automatically,\n- client only reviews generated\
+    \ report packet with local LLM (`reports/LOCAL_LLM_REVIEW_PACKET.md`) and approves\
+    \ publish.\n\nVeriDoc mode:\n\n- fully automated run, no manual action required\
+    \ (optional post-publish review only)."
+  assistant_context: "Use this module when answering questions related to: Multi-Protocol\
+    \ Wizard Guide (Part 3). Source path: docs/operations/MULTI_PROTOCOL_WIZARD_GUIDE.md.\
+    \ Summary: Wizard UX for protocol-aware provisioning in VeriDoc and VeriOps.\n\
+    \n1. Strictness profile:\n\n- `standard`\n    - `enterprise-strict`\n\n1. Stack\
+    \ profile:\n\n- backend stack (`node/python/go/java/dotnet/mixed`)\n    - API\
+    \ gateway (`none/kong/apigee/aws-api-gateway/nginx/envoy/custom`)\n\nGenerated\
+    \ runtime fields:\n\n- `runtime.api_protocols`\n- `runtime.api_protocol_settings`\n\
+    - `runtime.api_governance.strictness`\n\nGenerated template/snippet library fields:\n\
+    \n- `templates/protocols/graphql-reference.md`\n- `templates/protocols/grpc-reference.md`\n\
+    - `templates/protocols/asyncapi-reference.md`\n- `templates/protocols/websocket-reference.md`\n\
+    - `templates/protocols/api-protocol-snippets.md`\n\nThese are used as LLM generation\
+    \ anchors for consistent formatting and Stripe-style\nquality across all protocol\
+    \ docs.\n\nIn `enterprise-strict`, multi-protocol flow exits non-zero on failed\
+    \ stage.\n\nGenerated runtime also enables:\n\n1. protocol server stub generation\
+    \ (`generate_server_stubs`, `stubs_output`)\n1. live/mock endpoint verification\
+    \ gates (`self_verify_require_endpoint`, `publish_requires_live_green`)\n1. external\
+    \ Postman mock auto-prepare when `runtime.api_first.external_mock.enabled=true`\n\
+    \nOperator model:\n\n- pipeline runs automatically,\n- client only reviews generated\
+    \ report packet with local LLM (`reports/LOCAL_LLM_REVIEW_PACKET.md`) and approves\
+    \ publish.\n\nVeriDoc mode:\n\n- fully automated run, no manual action required\
+    \ (optional post-publish review only)."

@@ -1,0 +1,64 @@
+id: auto-migrate-from-confluence-5
+title: Migrate documentation from Confluence (Part 5)
+summary: Import Confluence pages into the documentation pipeline with automatic quality
+  enhancement, SEO optimization, and knowledge extraction.
+intents:
+- configure
+- troubleshoot
+audiences:
+- practitioner
+- developer
+channels:
+- docs
+- assistant
+- automation
+priority: 60
+status: active
+owner: docsops-auto
+last_verified: '2026-03-28'
+dependencies: []
+tags:
+- auto-extracted
+- how-to
+- migrate-from-confluence
+content:
+  docs_markdown: "## What happens after import\n\nThe migration pipeline runs 14 post-processing\
+    \ steps automatically:\n\n1. **Normalize check (before)** -- detect formatting\
+    \ issues in imported\n   Markdown\n1. **SEO/GEO audit (before)** -- baseline SEO/GEO\
+    \ score for imported content\n1. **Normalize fix** -- fix list formatting, spacing,\
+    \ and section structure\n1. **Quality enhancement** -- add frontmatter, fix heading\
+    \ hierarchy, fix\n   code blocks, replace variables\n1. **SEO/GEO fix** -- auto-correct\
+    \ metadata and content issues\n1. **Validate frontmatter** -- verify all required\
+    \ frontmatter fields\n1. **Normalize check (after)** -- confirm formatting issues\
+    \ are resolved\n1. **SEO/GEO audit (after)** -- measure improvement in SEO/GEO\
+    \ scores\n1. **Code examples smoke test** -- validate code blocks have language\
+    \ tags\n1. **Knowledge extraction** -- extract RAG-ready knowledge modules\n1.\
+    \ **Validate knowledge modules** -- check module schema and dependencies\n1. **Rebuild\
+    \ retrieval index** -- update the knowledge retrieval index\n1. **Glossary sync**\
+    \ -- synchronize terminology with the project glossary\n1. **Final lint check**\
+    \ -- run a final SEO/GEO pass\n\nSkip post-processing with `--skip-post-checks`\
+    \ if you want to run the steps\nmanually:\n\n```bash\npython3 scripts/run_confluence_migration.py\
+    \ \\\n  --export-zip /path/to/confluence-export.zip \\\n  --skip-post-checks\n\
+    ```"
+  assistant_context: "Use this module when answering questions related to: Migrate\
+    \ documentation from Confluence (Part 5). Source path: docs/how-to/migrate-from-confluence.md.\
+    \ Summary: Import Confluence pages into the documentation pipeline with automatic\
+    \ quality enhancement, SEO optimization, and knowledge extraction.\n\n## What\
+    \ happens after import\n\nThe migration pipeline runs 14 post-processing steps\
+    \ automatically:\n\n1. **Normalize check (before)** -- detect formatting issues\
+    \ in imported\n   Markdown\n1. **SEO/GEO audit (before)** -- baseline SEO/GEO\
+    \ score for imported content\n1. **Normalize fix** -- fix list formatting, spacing,\
+    \ and section structure\n1. **Quality enhancement** -- add frontmatter, fix heading\
+    \ hierarchy, fix\n   code blocks, replace variables\n1. **SEO/GEO fix** -- auto-correct\
+    \ metadata and content issues\n1. **Validate frontmatter** -- verify all required\
+    \ frontmatter fields\n1. **Normalize check (after)** -- confirm formatting issues\
+    \ are resolved\n1. **SEO/GEO audit (after)** -- measure improvement in SEO/GEO\
+    \ scores\n1. **Code examples smoke test** -- validate code blocks have language\
+    \ tags\n1. **Knowledge extraction** -- extract RAG-ready knowledge modules\n1.\
+    \ **Validate knowledge modules** -- check module schema and dependencies\n1. **Rebuild\
+    \ retrieval index** -- update the knowledge retrieval index\n1. **Glossary sync**\
+    \ -- synchronize terminology with the project glossary\n1. **Final lint check**\
+    \ -- run a final SEO/GEO pass\n\nSkip post-processing with `--skip-post-checks`\
+    \ if you want to run the steps\nmanually:\n\n```bash\npython3 scripts/run_confluence_migration.py\
+    \ \\\n  --export-zip /path/to/confluence-export.zip \\\n  --skip-post-checks\n\
+    ```"

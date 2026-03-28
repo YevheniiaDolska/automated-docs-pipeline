@@ -1,0 +1,133 @@
+id: auto-auto-doc-pipeline-study-guide-4
+title: Auto-Doc Pipeline study guide (Part 4)
+summary: Learn the Auto-Doc Pipeline quickly with a simple architecture map, operating
+  flow, plan mapping, and a detailed client FAQ.
+intents:
+- integrate
+audiences:
+- developer
+- operator
+channels:
+- docs
+- assistant
+- automation
+priority: 60
+status: active
+owner: docsops-auto
+last_verified: '2026-03-28'
+dependencies: []
+tags:
+- auto-doc-pipeline-study-guide
+- auto-extracted
+- reference
+content:
+  docs_markdown: '## Non-REST capability pack (GraphQL, gRPC, AsyncAPI, WebSocket)
+
+
+    - Contract generation and validation run per protocol.
+
+    - Server stubs are generated under `generated/api-stubs/<protocol>/`.
+
+    - Mock sandbox endpoints are resolved before live self-verification.
+
+    - Interactive docs testers use resolved sandbox URLs.
+
+    - Contract tests are generated and merged with existing customized cases.
+
+
+    ## Plan-level distribution (quick map)
+
+
+    | Capability | Basic | Pro | Enterprise |
+
+    | --- | --- | --- | --- |
+
+    | Core docs quality gates | Yes | Yes | Yes |
+
+    | REST API-first automation | No | Optional | Full |
+
+    | Non-REST autopipeline + stubs + Postman mock | No | No | Yes |
+
+    | Contract test assets + smart merge | No | Yes | Yes |
+
+    | Knowledge/RAG maintenance | No | Yes | Yes |
+
+    | Strict multi-protocol publish gating | No | No | Yes |
+
+
+    ## Your setup steps for each client repository
+
+
+    Use this checklist when you onboard a new client repo.
+
+
+    ### Step 1: collect required inputs from the client
+
+
+    1. Repository URL and default branch.
+
+    1. Docs root path (for example `docs/`).
+
+    1. Runtime mode to start with: `code-first`, `api-first`, or `hybrid`.
+
+    1. Plan scope (Basic, Pro, Enterprise) and modules to enable.
+
+    1. API scope: REST-only or multi-protocol (GraphQL/gRPC/AsyncAPI/WebSocket).'
+  assistant_context: 'Use this module when answering questions related to: Auto-Doc
+    Pipeline study guide (Part 4). Source path: docs/reference/auto-doc-pipeline-study-guide.md.
+    Summary: Learn the Auto-Doc Pipeline quickly with a simple architecture map, operating
+    flow, plan mapping, and a detailed client FAQ.
+
+
+    ## Non-REST capability pack (GraphQL, gRPC, AsyncAPI, WebSocket)
+
+
+    - Contract generation and validation run per protocol.
+
+    - Server stubs are generated under `generated/api-stubs/<protocol>/`.
+
+    - Mock sandbox endpoints are resolved before live self-verification.
+
+    - Interactive docs testers use resolved sandbox URLs.
+
+    - Contract tests are generated and merged with existing customized cases.
+
+
+    ## Plan-level distribution (quick map)
+
+
+    | Capability | Basic | Pro | Enterprise |
+
+    | --- | --- | --- | --- |
+
+    | Core docs quality gates | Yes | Yes | Yes |
+
+    | REST API-first automation | No | Optional | Full |
+
+    | Non-REST autopipeline + stubs + Postman mock | No | No | Yes |
+
+    | Contract test assets + smart merge | No | Yes | Yes |
+
+    | Knowledge/RAG maintenance | No | Yes | Yes |
+
+    | Strict multi-protocol publish gating | No | No | Yes |
+
+
+    ## Your setup steps for each client repository
+
+
+    Use this checklist when you onboard a new client repo.
+
+
+    ### Step 1: collect required inputs from the client
+
+
+    1. Repository URL and default branch.
+
+    1. Docs root path (for example `docs/`).
+
+    1. Runtime mode to start with: `code-first`, `api-first`, or `hybrid`.
+
+    1. Plan scope (Basic, Pro, Enterprise) and modules to enable.
+
+    1. API scope: REST-only or multi-protocol (GraphQL/gRPC/AsyncAPI/WebSocket).'

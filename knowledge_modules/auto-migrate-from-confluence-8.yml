@@ -1,0 +1,61 @@
+id: auto-migrate-from-confluence-8
+title: Migrate documentation from Confluence (Part 8)
+summary: Import Confluence pages into the documentation pipeline with automatic quality
+  enhancement, SEO optimization, and knowledge extraction.
+intents:
+- configure
+- troubleshoot
+audiences:
+- practitioner
+- developer
+channels:
+- docs
+- assistant
+- automation
+priority: 60
+status: active
+owner: docsops-auto
+last_verified: '2026-03-28'
+dependencies: []
+tags:
+- auto-extracted
+- how-to
+- migrate-from-confluence
+content:
+  docs_markdown: "### Large spaces cause memory issues\n\n**Cause:** Spaces with more\
+    \ than 5,000 pages consume significant memory\nduring conversion.\n\n**Fix:**\
+    \ Import specific spaces one at a time instead of combining multiple\nlarge spaces\
+    \ in a single `--space-keys` value.\n\n### ZIP export missing entities.xml\n\n\
+    **Cause:** The ZIP file does not contain the expected `entities.xml` file.\n\n\
+    **Fix:** Re-export from Confluence using **XML** format, not HTML-only\nexport.\
+    \ The XML export includes `entities.xml` which contains page content\nand metadata.\n\
+    \n### Encoding errors in imported content\n\n**Cause:** Confluence pages contain\
+    \ special characters that were not properly\nencoded during export.\n\n**Fix:**\
+    \ The pipeline uses UTF-8 encoding by default. If you see encoding\nartifacts,\
+    \ re-export from Confluence and verify the export completed without\nwarnings.\n\
+    \n## Next steps\n\nAfter migration completes:\n\n- Review the migration report\
+    \ in `reports/confluence_migration_report.md`\n- Check imported files in the output\
+    \ directory for content accuracy\n- Run `python3 scripts/seo_geo_optimizer.py\
+    \ docs/imported/` to verify\n  SEO/GEO scores\n- Add imported documents to the\
+    \ `mkdocs.yml` navigation\n- Run `python3 scripts/validate_frontmatter.py --paths\
+    \ docs/imported/` to\n  confirm frontmatter compliance"
+  assistant_context: "Use this module when answering questions related to: Migrate\
+    \ documentation from Confluence (Part 8). Source path: docs/how-to/migrate-from-confluence.md.\
+    \ Summary: Import Confluence pages into the documentation pipeline with automatic\
+    \ quality enhancement, SEO optimization, and knowledge extraction.\n\n### Large\
+    \ spaces cause memory issues\n\n**Cause:** Spaces with more than 5,000 pages consume\
+    \ significant memory\nduring conversion.\n\n**Fix:** Import specific spaces one\
+    \ at a time instead of combining multiple\nlarge spaces in a single `--space-keys`\
+    \ value.\n\n### ZIP export missing entities.xml\n\n**Cause:** The ZIP file does\
+    \ not contain the expected `entities.xml` file.\n\n**Fix:** Re-export from Confluence\
+    \ using **XML** format, not HTML-only\nexport. The XML export includes `entities.xml`\
+    \ which contains page content\nand metadata.\n\n### Encoding errors in imported\
+    \ content\n\n**Cause:** Confluence pages contain special characters that were\
+    \ not properly\nencoded during export.\n\n**Fix:** The pipeline uses UTF-8 encoding\
+    \ by default. If you see encoding\nartifacts, re-export from Confluence and verify\
+    \ the export completed without\nwarnings.\n\n## Next steps\n\nAfter migration\
+    \ completes:\n\n- Review the migration report in `reports/confluence_migration_report.md`\n\
+    - Check imported files in the output directory for content accuracy\n- Run `python3\
+    \ scripts/seo_geo_optimizer.py docs/imported/` to verify\n  SEO/GEO scores\n-\
+    \ Add imported documents to the `mkdocs.yml` navigation\n- Run `python3 scripts/validate_frontmatter.py\
+    \ --paths docs/imported/` to\n  confirm frontmatter compliance"

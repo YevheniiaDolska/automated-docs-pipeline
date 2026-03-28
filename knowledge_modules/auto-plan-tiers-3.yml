@@ -1,0 +1,48 @@
+id: auto-plan-tiers-3
+title: Plan Tiers (Basic / Pro / Enterprise) (Part 3)
+summary: Feature packaging matrix and defaults for Basic, Pro, and Enterprise client
+  plans.
+intents:
+- integrate
+audiences:
+- developer
+- operator
+channels:
+- docs
+- assistant
+- automation
+priority: 60
+status: active
+owner: docsops-auto
+last_verified: '2026-03-28'
+dependencies: []
+tags:
+- auto-extracted
+- plan-tiers
+- reference
+content:
+  docs_markdown: "- Basic/Pro/Enterprise are packaging presets, not hardcoded runtime\
+    \ limits.\n- They are starting points for profile generation and commercial scope\
+    \ design.\n- Pilot scope is defined separately by `profiles/clients/presets/pilot-evidence.yml`.\n\
+    - Full implementation usually starts from plan-level Pro/Enterprise.\n- In profile\
+    \ files, this is typically mapped to:\n  - `profiles/clients/presets/startup.yml`\
+    \ (Pro-equivalent)\n  - `profiles/clients/presets/enterprise.yml` (Enterprise-equivalent)\n\
+    \nPractical mapping:\n\n- Pilot -> `profiles/clients/presets/pilot-evidence.yml`\n\
+    - Full Basic -> `profiles/clients/presets/small.yml`\n- Full Pro -> `profiles/clients/presets/startup.yml`\n\
+    - Full Enterprise -> `profiles/clients/presets/enterprise.yml`\n\nIn short:\n\n\
+    - Plan = business scope level\n- Preset = technical starting template\n- Pilot/Full\
+    \ = implementation format"
+  assistant_context: "Use this module when answering questions related to: Plan Tiers\
+    \ (Basic / Pro / Enterprise) (Part 3). Source path: docs/operations/PLAN_TIERS.md.\
+    \ Summary: Feature packaging matrix and defaults for Basic, Pro, and Enterprise\
+    \ client plans.\n\n- Basic/Pro/Enterprise are packaging presets, not hardcoded\
+    \ runtime limits.\n- They are starting points for profile generation and commercial\
+    \ scope design.\n- Pilot scope is defined separately by `profiles/clients/presets/pilot-evidence.yml`.\n\
+    - Full implementation usually starts from plan-level Pro/Enterprise.\n- In profile\
+    \ files, this is typically mapped to:\n  - `profiles/clients/presets/startup.yml`\
+    \ (Pro-equivalent)\n  - `profiles/clients/presets/enterprise.yml` (Enterprise-equivalent)\n\
+    \nPractical mapping:\n\n- Pilot -> `profiles/clients/presets/pilot-evidence.yml`\n\
+    - Full Basic -> `profiles/clients/presets/small.yml`\n- Full Pro -> `profiles/clients/presets/startup.yml`\n\
+    - Full Enterprise -> `profiles/clients/presets/enterprise.yml`\n\nIn short:\n\n\
+    - Plan = business scope level\n- Preset = technical starting template\n- Pilot/Full\
+    \ = implementation format"

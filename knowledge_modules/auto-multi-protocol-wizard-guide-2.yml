@@ -1,0 +1,62 @@
+id: auto-multi-protocol-wizard-guide-2
+title: Multi-Protocol Wizard Guide (Part 2)
+summary: Wizard UX for protocol-aware provisioning in VeriDoc and VeriOps.
+intents:
+- configure
+- integrate
+audiences:
+- practitioner
+- developer
+channels:
+- docs
+- assistant
+- automation
+priority: 60
+status: active
+owner: docsops-auto
+last_verified: '2026-03-28'
+dependencies: []
+tags:
+- auto-extracted
+- how-to
+- multi-protocol-wizard-guide
+content:
+  docs_markdown: "## Current product definition (2026-03-25)\n\nThis content follows\
+    \ the active implementation baseline:\n\n1. The platform is docs-first and also\
+    \ supports `code-first`, `api-first`, and `hybrid` modes.\n1. The smooth autopipeline\
+    \ covers all five API protocols (REST, GraphQL, gRPC, AsyncAPI, and WebSocket)\
+    \ in one operational model.\n1. Non-REST flow includes generated server stubs\
+    \ with business-logic placeholders.\n1. External mock sandbox resolution is integrated,\
+    \ with Postman-supported auto-prepare in external mode.\n1. Contract test assets\
+    \ are generated automatically and merged with smart-merge so manual/customized\
+    \ cases are preserved and flagged for review when needed.\n1. Knowledge/RAG maintenance,\
+    \ terminology sync, and quality/compliance gates run through the same automation\
+    \ surface when enabled.\n1. Plan tiers gate advanced capabilities; higher plans\
+    \ include broader non-REST and governance scope.\n\nRun:\n\n```bash\npython3 scripts/provision_client_repo.py\
+    \ --interactive --generate-profile\n```\n\nUnified autopipeline run (single command,\
+    \ no standalone chain):\n\n```bash\npython3 scripts/run_autopipeline.py --docsops-root\
+    \ docsops --reports-dir reports\n```\n\nWizard includes:\n\n1. `What's your API\
+    \ architecture?`\n1. Multi-select protocols: `REST`, `GraphQL`, `gRPC`, `AsyncAPI`,\
+    \ `WebSocket`.\n1. Per selected protocol:\n\n- source-of-truth inputs\n    - mode\
+    \ (`api-first` / `code-first` / `hybrid`)"
+  assistant_context: "Use this module when answering questions related to: Multi-Protocol\
+    \ Wizard Guide (Part 2). Source path: docs/operations/MULTI_PROTOCOL_WIZARD_GUIDE.md.\
+    \ Summary: Wizard UX for protocol-aware provisioning in VeriDoc and VeriOps.\n\
+    \n## Current product definition (2026-03-25)\n\nThis content follows the active\
+    \ implementation baseline:\n\n1. The platform is docs-first and also supports\
+    \ `code-first`, `api-first`, and `hybrid` modes.\n1. The smooth autopipeline covers\
+    \ all five API protocols (REST, GraphQL, gRPC, AsyncAPI, and WebSocket) in one\
+    \ operational model.\n1. Non-REST flow includes generated server stubs with business-logic\
+    \ placeholders.\n1. External mock sandbox resolution is integrated, with Postman-supported\
+    \ auto-prepare in external mode.\n1. Contract test assets are generated automatically\
+    \ and merged with smart-merge so manual/customized cases are preserved and flagged\
+    \ for review when needed.\n1. Knowledge/RAG maintenance, terminology sync, and\
+    \ quality/compliance gates run through the same automation surface when enabled.\n\
+    1. Plan tiers gate advanced capabilities; higher plans include broader non-REST\
+    \ and governance scope.\n\nRun:\n\n```bash\npython3 scripts/provision_client_repo.py\
+    \ --interactive --generate-profile\n```\n\nUnified autopipeline run (single command,\
+    \ no standalone chain):\n\n```bash\npython3 scripts/run_autopipeline.py --docsops-root\
+    \ docsops --reports-dir reports\n```\n\nWizard includes:\n\n1. `What's your API\
+    \ architecture?`\n1. Multi-select protocols: `REST`, `GraphQL`, `gRPC`, `AsyncAPI`,\
+    \ `WebSocket`.\n1. Per selected protocol:\n\n- source-of-truth inputs\n    - mode\
+    \ (`api-first` / `code-first` / `hybrid`)"

@@ -1,0 +1,60 @@
+id: auto-unified-client-config-4
+title: Unified Client Configuration (Part 4)
+summary: Single source of truth for per-client Auto-Doc Pipeline configuration, modules,
+  and automation.
+intents:
+- integrate
+audiences:
+- developer
+- operator
+channels:
+- docs
+- assistant
+- automation
+priority: 60
+status: active
+owner: docsops-auto
+last_verified: '2026-03-28'
+dependencies: []
+tags:
+- auto-extracted
+- reference
+- unified-client-config
+content:
+  docs_markdown: "- `profiles/clients/presets/pilot-evidence.yml` is intentionally\
+    \ limited (core proof scope).\n- Use full-scope plan presets for full implementation\
+    \ coverage:\n  - `profiles/clients/presets/startup.yml` (Pro-equivalent)\n  -\
+    \ `profiles/clients/presets/enterprise.yml` (Enterprise-equivalent)\n\n## Non-API\
+    \ documentation flows (docs-first scope)\n\nThe platform is not limited to API-first\
+    \ automation. In active production usage, it also runs full docs-first and code-first\
+    \ documentation operations for non-API content:\n\n1. Detects content gaps, stale\
+    \ pages, and drift across product docs, runbooks, admin guides, troubleshooting,\
+    \ and release notes.\n1. Generates and updates documentation types beyond API\
+    \ references (tutorial, how-to, concept, reference, troubleshooting, release-note,\
+    \ security, SDK, user/admin, and operations docs).\n1. Applies normalization,\
+    \ style, metadata/frontmatter, SEO/GEO, terminology governance, and snippet validation\
+    \ to all documentation categories.\n1. Executes lifecycle controls (active/deprecated/removed\
+    \ states, replacement links, and freshness cadence).\n1. Runs knowledge extraction\
+    \ and retrieval preparation for all docs, not only API pages.\n1. Produces consolidated\
+    \ review artifacts so human input is focused on approval and business accuracy,\
+    \ not repetitive formatting and synchronization work."
+  assistant_context: "Use this module when answering questions related to: Unified\
+    \ Client Configuration (Part 4). Source path: docs/operations/UNIFIED_CLIENT_CONFIG.md.\
+    \ Summary: Single source of truth for per-client Auto-Doc Pipeline configuration,\
+    \ modules, and automation.\n\n- `profiles/clients/presets/pilot-evidence.yml`\
+    \ is intentionally limited (core proof scope).\n- Use full-scope plan presets\
+    \ for full implementation coverage:\n  - `profiles/clients/presets/startup.yml`\
+    \ (Pro-equivalent)\n  - `profiles/clients/presets/enterprise.yml` (Enterprise-equivalent)\n\
+    \n## Non-API documentation flows (docs-first scope)\n\nThe platform is not limited\
+    \ to API-first automation. In active production usage, it also runs full docs-first\
+    \ and code-first documentation operations for non-API content:\n\n1. Detects content\
+    \ gaps, stale pages, and drift across product docs, runbooks, admin guides, troubleshooting,\
+    \ and release notes.\n1. Generates and updates documentation types beyond API\
+    \ references (tutorial, how-to, concept, reference, troubleshooting, release-note,\
+    \ security, SDK, user/admin, and operations docs).\n1. Applies normalization,\
+    \ style, metadata/frontmatter, SEO/GEO, terminology governance, and snippet validation\
+    \ to all documentation categories.\n1. Executes lifecycle controls (active/deprecated/removed\
+    \ states, replacement links, and freshness cadence).\n1. Runs knowledge extraction\
+    \ and retrieval preparation for all docs, not only API pages.\n1. Produces consolidated\
+    \ review artifacts so human input is focused on approval and business accuracy,\
+    \ not repetitive formatting and synchronization work."

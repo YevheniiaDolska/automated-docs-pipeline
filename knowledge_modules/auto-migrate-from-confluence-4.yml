@@ -1,0 +1,53 @@
+id: auto-migrate-from-confluence-4
+title: Migrate documentation from Confluence (Part 4)
+summary: Import Confluence pages into the documentation pipeline with automatic quality
+  enhancement, SEO optimization, and knowledge extraction.
+intents:
+- configure
+audiences:
+- practitioner
+- developer
+channels:
+- docs
+- assistant
+- automation
+priority: 60
+status: active
+owner: docsops-auto
+last_verified: '2026-03-28'
+dependencies: []
+tags:
+- auto-extracted
+- how-to
+- migrate-from-confluence
+content:
+  docs_markdown: "## Method 2: Import from ZIP export\n\nZIP export mode processes\
+    \ a Confluence HTML+XML export file offline. Use this\nmethod when you do not\
+    \ have API access or need to migrate from an\nair-gapped environment.\n\n### Step\
+    \ 1: Export from Confluence\n\n1. Open Confluence and go to the space you want\
+    \ to export\n1. Select **Space settings** and then **Content Tools** and then\
+    \ **Export**\n1. Choose **XML** export format\n1. Select **Full Export** (includes\
+    \ all pages and attachments)\n1. Wait for the export to complete and download\
+    \ the ZIP file\n\n### Step 2: Run the migration\n\n```bash\npython3 scripts/run_confluence_migration.py\
+    \ \\\n  --export-zip /path/to/confluence-export.zip\n```\n\n## Customize the output\
+    \ directory\n\nBy default, imported Markdown files go to\n`docs/imported/confluence/<timestamp>/`.\
+    \ Override this with `--output-dir`:\n\n```bash\npython3 scripts/run_confluence_migration.py\
+    \ \\\n  --export-zip /path/to/confluence-export.zip \\\n  --output-dir docs/imported/my-space\n\
+    ```"
+  assistant_context: "Use this module when answering questions related to: Migrate\
+    \ documentation from Confluence (Part 4). Source path: docs/how-to/migrate-from-confluence.md.\
+    \ Summary: Import Confluence pages into the documentation pipeline with automatic\
+    \ quality enhancement, SEO optimization, and knowledge extraction.\n\n## Method\
+    \ 2: Import from ZIP export\n\nZIP export mode processes a Confluence HTML+XML\
+    \ export file offline. Use this\nmethod when you do not have API access or need\
+    \ to migrate from an\nair-gapped environment.\n\n### Step 1: Export from Confluence\n\
+    \n1. Open Confluence and go to the space you want to export\n1. Select **Space\
+    \ settings** and then **Content Tools** and then **Export**\n1. Choose **XML**\
+    \ export format\n1. Select **Full Export** (includes all pages and attachments)\n\
+    1. Wait for the export to complete and download the ZIP file\n\n### Step 2: Run\
+    \ the migration\n\n```bash\npython3 scripts/run_confluence_migration.py \\\n \
+    \ --export-zip /path/to/confluence-export.zip\n```\n\n## Customize the output\
+    \ directory\n\nBy default, imported Markdown files go to\n`docs/imported/confluence/<timestamp>/`.\
+    \ Override this with `--output-dir`:\n\n```bash\npython3 scripts/run_confluence_migration.py\
+    \ \\\n  --export-zip /path/to/confluence-export.zip \\\n  --output-dir docs/imported/my-space\n\
+    ```"

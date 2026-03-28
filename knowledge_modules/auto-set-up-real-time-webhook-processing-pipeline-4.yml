@@ -1,0 +1,41 @@
+id: auto-set-up-real-time-webhook-processing-pipeline-4
+title: Set up a real-time webhook processing pipeline (Part 4)
+summary: Configure end-to-end webhook ingestion with HMAC verification, async queue
+  processing, and delivery guarantees in under 15 minutes.
+intents:
+- configure
+audiences:
+- practitioner
+- developer
+channels:
+- docs
+- assistant
+- automation
+priority: 60
+status: active
+owner: docsops-auto
+last_verified: '2026-03-28'
+dependencies: []
+tags:
+- auto-extracted
+- how-to
+- set-up-real-time-webhook-processing-pipeline
+content:
+  docs_markdown: "# Test verification with a sample payload\ntest_payload = '{\"event\"\
+    : \"order.completed\", \"order_id\": \"ord_1234\", \"amount\": 2999}'\ntest_secret\
+    \ = \"whsec_test_secret_key_abc123_min32chars\"\ntest_timestamp = str(int(time.time()))\n\
+    test_sig = hmac.new(\n    test_secret.encode(\"utf-8\"),\n    f\"{test_timestamp}.{test_payload}\"\
+    .encode(\"utf-8\"),\n    hashlib.sha256,\n).hexdigest()\ntest_header = f\"t={test_timestamp},v1={test_sig}\"\
+    \n\nresult = verify_webhook_signature(test_payload, test_header, test_secret)\n\
+    print(\"Signature valid:\", result)\n```"
+  assistant_context: "Use this module when answering questions related to: Set up\
+    \ a real-time webhook processing pipeline (Part 4). Source path: docs/en/how-to/set-up-real-time-webhook-processing-pipeline.md.\
+    \ Summary: Configure end-to-end webhook ingestion with HMAC verification, async\
+    \ queue processing, and delivery guarantees in under 15 minutes.\n\n# Test verification\
+    \ with a sample payload\ntest_payload = '{\"event\": \"order.completed\", \"order_id\"\
+    : \"ord_1234\", \"amount\": 2999}'\ntest_secret = \"whsec_test_secret_key_abc123_min32chars\"\
+    \ntest_timestamp = str(int(time.time()))\ntest_sig = hmac.new(\n    test_secret.encode(\"\
+    utf-8\"),\n    f\"{test_timestamp}.{test_payload}\".encode(\"utf-8\"),\n    hashlib.sha256,\n\
+    ).hexdigest()\ntest_header = f\"t={test_timestamp},v1={test_sig}\"\n\nresult =\
+    \ verify_webhook_signature(test_payload, test_header, test_secret)\nprint(\"Signature\
+    \ valid:\", result)\n```"

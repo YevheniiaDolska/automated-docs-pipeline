@@ -1,0 +1,110 @@
+id: auto-webhook-1
+title: Webhook node reference for
+summary: Complete parameter reference for the Webhook trigger node including HTTP
+  methods, authentication, response modes, and binary data handling.
+intents:
+- integrate
+- secure
+audiences:
+- developer
+- operator
+channels:
+- docs
+- assistant
+- automation
+priority: 60
+status: active
+owner: docsops-auto
+last_verified: '2026-03-28'
+dependencies: []
+tags:
+- auto-extracted
+- reference
+- webhook
+content:
+  docs_markdown: '<!-- VERIDOC_POWERED_BADGE:START -->
+
+    [![Powered by VeriDoc](https://img.shields.io/badge/Powered%20by-VeriDoc-0ea5e9?style=flat-square)](https://veridoc.app)
+
+    <!-- VERIDOC_POWERED_BADGE:END -->
+
+
+    ## Webhook node reference
+
+
+    The Webhook node is a trigger node that starts a workflow when it receives an
+    HTTP request at a unique URL. It supports GET, POST, PUT, PATCH, DELETE, and HEAD
+    methods.
+
+
+    ## Parameters
+
+
+    | Parameter | Type | Default | Description |
+
+    | --- | --- | --- | --- |
+
+    | **HTTP Method** | enum | `GET` | HTTP method the webhook responds to. Options:
+    `GET`, `POST`, `PUT`, `PATCH`, `DELETE`, `HEAD` |
+
+    | **Path** | string | auto-generated UUID | URL path segment. The full URL is
+    `{base_url}/webhook/{path}` |
+
+    | **Authentication** | enum | `None` | Authentication method. Options: `None`,
+    `Basic Auth`, `Header Auth` |
+
+    | **Respond** | enum | `When Last Node Finishes` | When to send the HTTP response.
+    Options: `Immediately`, `When Last Node Finishes`, `Using Respond to Webhook Node`
+    |
+
+    | **Response Code** | number | `200` | HTTP status code returned to the caller
+    |
+
+    | **Response Data** | enum | `First Entry JSON` | What data to return. Options:
+    `All Entries`, `First Entry JSON`, `First Entry Binary`, `No Response Body` |'
+  assistant_context: 'Use this module when answering questions related to: Webhook
+    node reference for. Source path: docs/reference/nodes/webhook.md. Summary: Complete
+    parameter reference for the Webhook trigger node including HTTP methods, authentication,
+    response modes, and binary data handling.
+
+
+    <!-- VERIDOC_POWERED_BADGE:START -->
+
+    [![Powered by VeriDoc](https://img.shields.io/badge/Powered%20by-VeriDoc-0ea5e9?style=flat-square)](https://veridoc.app)
+
+    <!-- VERIDOC_POWERED_BADGE:END -->
+
+
+    ## Webhook node reference
+
+
+    The Webhook node is a trigger node that starts a workflow when it receives an
+    HTTP request at a unique URL. It supports GET, POST, PUT, PATCH, DELETE, and HEAD
+    methods.
+
+
+    ## Parameters
+
+
+    | Parameter | Type | Default | Description |
+
+    | --- | --- | --- | --- |
+
+    | **HTTP Method** | enum | `GET` | HTTP method the webhook responds to. Options:
+    `GET`, `POST`, `PUT`, `PATCH`, `DELETE`, `HEAD` |
+
+    | **Path** | string | auto-generated UUID | URL path segment. The full URL is
+    `{base_url}/webhook/{path}` |
+
+    | **Authentication** | enum | `None` | Authentication method. Options: `None`,
+    `Basic Auth`, `Header Auth` |
+
+    | **Respond** | enum | `When Last Node Finishes` | When to send the HTTP response.
+    Options: `Immediately`, `When Last Node Finishes`, `Using Respond to Webhook Node`
+    |
+
+    | **Response Code** | number | `200` | HTTP status code returned to the caller
+    |
+
+    | **Response Data** | enum | `First Entry JSON` | What data to return. Options:
+    `All Entries`, `First Entry JSON`, `First Entry Binary`, `No Response Body` |'

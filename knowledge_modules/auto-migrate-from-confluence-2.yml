@@ -1,0 +1,46 @@
+id: auto-migrate-from-confluence-2
+title: Migrate documentation from Confluence (Part 2)
+summary: Import Confluence pages into the documentation pipeline with automatic quality
+  enhancement, SEO optimization, and knowledge extraction.
+intents:
+- configure
+audiences:
+- practitioner
+- developer
+channels:
+- docs
+- assistant
+- automation
+priority: 60
+status: active
+owner: docsops-auto
+last_verified: '2026-03-28'
+dependencies: []
+tags:
+- auto-extracted
+- how-to
+- migrate-from-confluence
+content:
+  docs_markdown: "### Step 1: Create an API token\n\n=== \"Cloud\"\n\n    1. Go to\
+    \ [Atlassian API tokens](https://id.atlassian.com/manage-profile/security/api-tokens)\n\
+    \    1. Select **Create API token**\n    1. Enter a label (for example, \"docs-migration\"\
+    ) and select **Create**\n    1. Copy the token value\n\n=== \"Server/Data Center\"\
+    \n\n    1. Go to your profile in Confluence Server\n    1. Select **Personal Access\
+    \ Tokens** and then **Create token**\n    1. Enter a name and select **Create**\n\
+    \    1. Copy the token value\n\n### Step 2: Identify space keys\n\nFind the space\
+    \ keys you want to import. Space keys appear in Confluence URLs\nafter `/spaces/`\
+    \ or `/display/`. For example, in a URL like\n`mycompany.atlassian.net/wiki/spaces/DEV/overview`,\
+    \ the space key is `DEV`."
+  assistant_context: "Use this module when answering questions related to: Migrate\
+    \ documentation from Confluence (Part 2). Source path: docs/how-to/migrate-from-confluence.md.\
+    \ Summary: Import Confluence pages into the documentation pipeline with automatic\
+    \ quality enhancement, SEO optimization, and knowledge extraction.\n\n### Step\
+    \ 1: Create an API token\n\n=== \"Cloud\"\n\n    1. Go to [Atlassian API tokens](https://id.atlassian.com/manage-profile/security/api-tokens)\n\
+    \    1. Select **Create API token**\n    1. Enter a label (for example, \"docs-migration\"\
+    ) and select **Create**\n    1. Copy the token value\n\n=== \"Server/Data Center\"\
+    \n\n    1. Go to your profile in Confluence Server\n    1. Select **Personal Access\
+    \ Tokens** and then **Create token**\n    1. Enter a name and select **Create**\n\
+    \    1. Copy the token value\n\n### Step 2: Identify space keys\n\nFind the space\
+    \ keys you want to import. Space keys appear in Confluence URLs\nafter `/spaces/`\
+    \ or `/display/`. For example, in a URL like\n`mycompany.atlassian.net/wiki/spaces/DEV/overview`,\
+    \ the space key is `DEV`."

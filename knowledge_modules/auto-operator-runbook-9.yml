@@ -1,0 +1,53 @@
+id: auto-operator-runbook-9
+title: Operator Runbook (Retainer Operations) (Part 9)
+summary: Step-by-step instructions for weekly report review, client questions, new
+  repo setup, and profile tuning.
+intents:
+- configure
+audiences:
+- practitioner
+- developer
+channels:
+- docs
+- assistant
+- automation
+priority: 60
+status: active
+owner: docsops-auto
+last_verified: '2026-03-28'
+dependencies: []
+tags:
+- auto-extracted
+- how-to
+- operator-runbook
+content:
+  docs_markdown: "```yaml\nbundle:\n  base_policy_pack: \"minimal\"   # Least strict\n\
+    \  # or \"api-first\"              # Medium\n  # or \"multi-product\"        \
+    \  # Strict\n  # or \"plg\"                    # Product-led growth focus\n  policy_overrides:\n\
+    \    kpi_sla:\n      min_doc_coverage: 70      # Lower the coverage requirement\n\
+    \      max_stale_pct: 20         # Allow more stale docs\n      max_quality_score_drop:\
+    \ 5 # Allow bigger score drops\n```\n\nRebuild and re-provision the bundle after\
+    \ profile changes.\n\n---\n\n## Task 3: Set up a new client repository (30-60\
+    \ minutes, about once per quarter)\n\n**When:** A new client signs on or an existing\
+    \ client adds a new repository.\n\n### Step 3.1: Choose the method\n\nTwo methods:\n\
+    \n| Method | When to use | Command |\n| --- | --- | --- |\n| **Interactive wizard**\
+    \ (recommended) | First time, or if unsure about settings | `python3 scripts/onboard_client.py`\
+    \ |\n| **Manual profile + provision** | Repeat setup with known settings | Edit\
+    \ YAML + run `provision_client_repo.py` |"
+  assistant_context: "Use this module when answering questions related to: Operator\
+    \ Runbook (Retainer Operations) (Part 9). Source path: docs/operations/OPERATOR_RUNBOOK.md.\
+    \ Summary: Step-by-step instructions for weekly report review, client questions,\
+    \ new repo setup, and profile tuning.\n\n```yaml\nbundle:\n  base_policy_pack:\
+    \ \"minimal\"   # Least strict\n  # or \"api-first\"              # Medium\n \
+    \ # or \"multi-product\"          # Strict\n  # or \"plg\"                   \
+    \ # Product-led growth focus\n  policy_overrides:\n    kpi_sla:\n      min_doc_coverage:\
+    \ 70      # Lower the coverage requirement\n      max_stale_pct: 20         #\
+    \ Allow more stale docs\n      max_quality_score_drop: 5 # Allow bigger score\
+    \ drops\n```\n\nRebuild and re-provision the bundle after profile changes.\n\n\
+    ---\n\n## Task 3: Set up a new client repository (30-60 minutes, about once per\
+    \ quarter)\n\n**When:** A new client signs on or an existing client adds a new\
+    \ repository.\n\n### Step 3.1: Choose the method\n\nTwo methods:\n\n| Method |\
+    \ When to use | Command |\n| --- | --- | --- |\n| **Interactive wizard** (recommended)\
+    \ | First time, or if unsure about settings | `python3 scripts/onboard_client.py`\
+    \ |\n| **Manual profile + provision** | Repeat setup with known settings | Edit\
+    \ YAML + run `provision_client_repo.py` |"

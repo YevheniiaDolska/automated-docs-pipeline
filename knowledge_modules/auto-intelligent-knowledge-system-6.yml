@@ -1,0 +1,71 @@
+id: auto-intelligent-knowledge-system-6
+title: Intelligent knowledge system architecture (Part 6)
+summary: Explains how the pipeline models reusable knowledge modules for AI retrieval,
+  dynamic assembly, and multi-channel documentation delivery.
+intents:
+- integrate
+audiences:
+- developer
+- operator
+channels:
+- docs
+- assistant
+- automation
+priority: 60
+status: active
+owner: docsops-auto
+last_verified: '2026-03-28'
+dependencies: []
+tags:
+- auto-extracted
+- concept
+- intelligent-knowledge-system
+content:
+  docs_markdown: '## Security and governance
+
+
+    Use owner fields and verification dates to enforce accountability.
+
+
+    - Assign one owner per module.
+
+    - Verify security-sensitive modules every 30 days.
+
+    - Deprecate stale modules by changing `status` to `deprecated`.
+
+
+    ## Next steps
+
+
+    - [Assemble intent experiences](../how-to/assemble-intent-experiences.md)
+
+    - [Intent experiences reference](../reference/intent-experiences/index.md)
+
+    - [Workflow execution model](workflow-execution-model.md)'
+  assistant_context: 'Use this module when answering questions related to: Intelligent
+    knowledge system architecture (Part 6). Source path: docs/concepts/intelligent-knowledge-system.md.
+    Summary: Explains how the pipeline models reusable knowledge modules for AI retrieval,
+    dynamic assembly, and multi-channel documentation delivery.
+
+
+    ## Security and governance
+
+
+    Use owner fields and verification dates to enforce accountability.
+
+
+    - Assign one owner per module.
+
+    - Verify security-sensitive modules every 30 days.
+
+    - Deprecate stale modules by changing `status` to `deprecated`.
+
+
+    ## Next steps
+
+
+    - [Assemble intent experiences](../how-to/assemble-intent-experiences.md)
+
+    - [Intent experiences reference](../reference/intent-experiences/index.md)
+
+    - [Workflow execution model](workflow-execution-model.md)'

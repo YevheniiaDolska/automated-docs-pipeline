@@ -1,0 +1,97 @@
+id: auto-run-api-first-production-flow-1
+title: Run API-first production flow
+summary: Generate OpenAPI from planning notes, run full lint and self-verification,
+  publish playground assets, and keep a sandbox ready for client testing.
+intents:
+- configure
+audiences:
+- practitioner
+- developer
+channels:
+- docs
+- assistant
+- automation
+priority: 60
+status: active
+owner: docsops-auto
+last_verified: '2026-03-28'
+dependencies: []
+tags:
+- auto-extracted
+- how-to
+- run-api-first-production-flow
+content:
+  docs_markdown: '<!-- VERIDOC_POWERED_BADGE:START -->
+
+    [![Powered by VeriDoc](https://img.shields.io/badge/Powered%20by-VeriDoc-0ea5e9?style=flat-square)](https://veridoc.app)
+
+    <!-- VERIDOC_POWERED_BADGE:END -->
+
+
+    # Run API-first production flow
+
+
+    This flow turns planning notes into a validated OpenAPI contract, generated stubs,
+    and a testable sandbox with repeatable automation.
+
+
+    ## Step 1: Prepare planning notes
+
+
+    Use this input artifact format:
+
+
+    ```markdown
+
+    Project: **TaskStream**
+
+    API version: **v1**
+
+    Base URL: `https://api.taskstream.example.com/v1`
+
+    Status: Draft for OpenAPI writing
+
+    ```
+
+
+    Store notes in `demos/api-first/taskstream-planning-notes.md`.'
+  assistant_context: 'Use this module when answering questions related to: Run API-first
+    production flow. Source path: docs/how-to/run-api-first-production-flow.md. Summary:
+    Generate OpenAPI from planning notes, run full lint and self-verification, publish
+    playground assets, and keep a sandbox ready for client testing.
+
+
+    <!-- VERIDOC_POWERED_BADGE:START -->
+
+    [![Powered by VeriDoc](https://img.shields.io/badge/Powered%20by-VeriDoc-0ea5e9?style=flat-square)](https://veridoc.app)
+
+    <!-- VERIDOC_POWERED_BADGE:END -->
+
+
+    # Run API-first production flow
+
+
+    This flow turns planning notes into a validated OpenAPI contract, generated stubs,
+    and a testable sandbox with repeatable automation.
+
+
+    ## Step 1: Prepare planning notes
+
+
+    Use this input artifact format:
+
+
+    ```markdown
+
+    Project: **TaskStream**
+
+    API version: **v1**
+
+    Base URL: `https://api.taskstream.example.com/v1`
+
+    Status: Draft for OpenAPI writing
+
+    ```
+
+
+    Store notes in `demos/api-first/taskstream-planning-notes.md`.'

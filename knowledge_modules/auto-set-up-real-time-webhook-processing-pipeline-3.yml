@@ -1,0 +1,57 @@
+id: auto-set-up-real-time-webhook-processing-pipeline-3
+title: Set up a real-time webhook processing pipeline (Part 3)
+summary: Configure end-to-end webhook ingestion with HMAC verification, async queue
+  processing, and delivery guarantees in under 15 minutes.
+intents:
+- configure
+audiences:
+- practitioner
+- developer
+channels:
+- docs
+- assistant
+- automation
+priority: 60
+status: active
+owner: docsops-auto
+last_verified: '2026-03-28'
+dependencies: []
+tags:
+- auto-extracted
+- how-to
+- set-up-real-time-webhook-processing-pipeline
+content:
+  docs_markdown: "### Python HMAC verification\n\n```python\nimport hmac\nimport hashlib\n\
+    import json\nimport time\n\ndef verify_webhook_signature(payload_body, signature_header,\
+    \ secret):\n    \"\"\"Verify HMAC-SHA256 webhook signature with replay protection.\"\
+    \"\"\n    if not signature_header:\n        return False\n\n# Parse signature\
+    \ header: \"t=<timestamp>,v1=<signature>\"\n    parts = {}\n    for part in signature_header.split(\"\
+    ,\"):\n        key, _, value = part.partition(\"=\")\n        parts[key.strip()]\
+    \ = value.strip()\n\ntimestamp = parts.get(\"t\", \"\")\n    received_sig = parts.get(\"\
+    v1\", \"\")\n\nif not timestamp or not received_sig:\n        return False\n\n\
+    # Reject events older than 5 minutes (replay protection)\n    current_time = int(time.time())\n\
+    \    if abs(current_time - int(timestamp)) > 300:\n        return False\n\n# Compute\
+    \ expected signature: HMAC-SHA256(secret, timestamp.payload)\n    signed_content\
+    \ = f\"{timestamp}.{payload_body}\"\n    expected_sig = hmac.new(\n        secret.encode(\"\
+    utf-8\"),\n        signed_content.encode(\"utf-8\"),\n        hashlib.sha256,\n\
+    \    ).hexdigest()\n\n# Timing-safe comparison to prevent timing attacks\n   \
+    \ return hmac.compare_digest(expected_sig, received_sig)"
+  assistant_context: "Use this module when answering questions related to: Set up\
+    \ a real-time webhook processing pipeline (Part 3). Source path: docs/en/how-to/set-up-real-time-webhook-processing-pipeline.md.\
+    \ Summary: Configure end-to-end webhook ingestion with HMAC verification, async\
+    \ queue processing, and delivery guarantees in under 15 minutes.\n\n### Python\
+    \ HMAC verification\n\n```python\nimport hmac\nimport hashlib\nimport json\nimport\
+    \ time\n\ndef verify_webhook_signature(payload_body, signature_header, secret):\n\
+    \    \"\"\"Verify HMAC-SHA256 webhook signature with replay protection.\"\"\"\n\
+    \    if not signature_header:\n        return False\n\n# Parse signature header:\
+    \ \"t=<timestamp>,v1=<signature>\"\n    parts = {}\n    for part in signature_header.split(\"\
+    ,\"):\n        key, _, value = part.partition(\"=\")\n        parts[key.strip()]\
+    \ = value.strip()\n\ntimestamp = parts.get(\"t\", \"\")\n    received_sig = parts.get(\"\
+    v1\", \"\")\n\nif not timestamp or not received_sig:\n        return False\n\n\
+    # Reject events older than 5 minutes (replay protection)\n    current_time = int(time.time())\n\
+    \    if abs(current_time - int(timestamp)) > 300:\n        return False\n\n# Compute\
+    \ expected signature: HMAC-SHA256(secret, timestamp.payload)\n    signed_content\
+    \ = f\"{timestamp}.{payload_body}\"\n    expected_sig = hmac.new(\n        secret.encode(\"\
+    utf-8\"),\n        signed_content.encode(\"utf-8\"),\n        hashlib.sha256,\n\
+    \    ).hexdigest()\n\n# Timing-safe comparison to prevent timing attacks\n   \
+    \ return hmac.compare_digest(expected_sig, received_sig)"

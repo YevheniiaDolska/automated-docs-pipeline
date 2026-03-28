@@ -1,0 +1,115 @@
+id: auto-intelligent-knowledge-system-5
+title: Intelligent knowledge system architecture (Part 5)
+summary: Explains how the pipeline models reusable knowledge modules for AI retrieval,
+  dynamic assembly, and multi-channel documentation delivery.
+intents:
+- integrate
+audiences:
+- developer
+- operator
+channels:
+- docs
+- assistant
+- automation
+priority: 60
+status: active
+owner: docsops-auto
+last_verified: '2026-03-28'
+dependencies: []
+tags:
+- auto-extracted
+- concept
+- intelligent-knowledge-system
+content:
+  docs_markdown: '1. **Embedding cache** stores query embeddings in an in-memory LRU
+    cache (TTL: 3,600 seconds, max: 512 entries). Repeated queries skip the OpenAI
+    embedding API call.
+
+
+    1. **Multi-mode evaluation** compares token, semantic, hybrid, and hybrid+rerank
+    search modes against a curated 50-query dataset (`config/retrieval_eval_dataset.yml`).
+    Run `python3 scripts/run_retrieval_evals.py --mode all` to generate a comparison
+    report.
+
+
+    ### Retrieval orchestration flow
+
+
+    The retrieval flow starts with a question, chooses hybrid search when FAISS and
+    hybrid mode are available, falls back to semantic or token overlap when needed,
+    deduplicates by `parent_id`, optionally reranks with the cross-encoder, and returns
+    top context modules.
+
+
+    ### Configuration
+
+
+    All features are enabled by default in `config/ask-ai.yml`:
+
+
+    | Feature | Config key | Default |
+
+    | --- | --- | --- |
+
+    | Chunking | `chunking.enabled` | `true` |
+
+    | Hybrid search | `hybrid_search.enabled` | `true` |
+
+    | HyDE | `hyde.enabled` | `true` |
+
+    | Reranking | `reranking.enabled` | `true` |
+
+    | Embedding cache | `embedding_cache.enabled` | `true` |
+
+
+    Environment variable overrides: `ASK_AI_HYBRID_ENABLED`, `ASK_AI_HYDE_ENABLED`,
+    `ASK_AI_RERANK_ENABLED`, `ASK_AI_EMBED_CACHE_ENABLED`.'
+  assistant_context: 'Use this module when answering questions related to: Intelligent
+    knowledge system architecture (Part 5). Source path: docs/concepts/intelligent-knowledge-system.md.
+    Summary: Explains how the pipeline models reusable knowledge modules for AI retrieval,
+    dynamic assembly, and multi-channel documentation delivery.
+
+
+    1. **Embedding cache** stores query embeddings in an in-memory LRU cache (TTL:
+    3,600 seconds, max: 512 entries). Repeated queries skip the OpenAI embedding API
+    call.
+
+
+    1. **Multi-mode evaluation** compares token, semantic, hybrid, and hybrid+rerank
+    search modes against a curated 50-query dataset (`config/retrieval_eval_dataset.yml`).
+    Run `python3 scripts/run_retrieval_evals.py --mode all` to generate a comparison
+    report.
+
+
+    ### Retrieval orchestration flow
+
+
+    The retrieval flow starts with a question, chooses hybrid search when FAISS and
+    hybrid mode are available, falls back to semantic or token overlap when needed,
+    deduplicates by `parent_id`, optionally reranks with the cross-encoder, and returns
+    top context modules.
+
+
+    ### Configuration
+
+
+    All features are enabled by default in `config/ask-ai.yml`:
+
+
+    | Feature | Config key | Default |
+
+    | --- | --- | --- |
+
+    | Chunking | `chunking.enabled` | `true` |
+
+    | Hybrid search | `hybrid_search.enabled` | `true` |
+
+    | HyDE | `hyde.enabled` | `true` |
+
+    | Reranking | `reranking.enabled` | `true` |
+
+    | Embedding cache | `embedding_cache.enabled` | `true` |
+
+
+    Environment variable overrides: `ASK_AI_HYBRID_ENABLED`, `ASK_AI_HYDE_ENABLED`,
+    `ASK_AI_RERANK_ENABLED`, `ASK_AI_EMBED_CACHE_ENABLED`.'

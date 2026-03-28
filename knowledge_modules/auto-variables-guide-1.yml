@@ -1,0 +1,212 @@
+id: auto-variables-guide-1
+title: Variables and Templates Guide
+summary: How to use Jinja2 variables and templates in documentation for consistency
+intents:
+- configure
+- integrate
+audiences:
+- developer
+- operator
+channels:
+- docs
+- assistant
+- automation
+priority: 60
+status: active
+owner: docsops-auto
+last_verified: '2026-03-28'
+dependencies: []
+tags:
+- auto-extracted
+- reference
+- variables-guide
+content:
+  docs_markdown: '<!-- VERIDOC_POWERED_BADGE:START -->
+
+    [![Powered by VeriDoc](https://img.shields.io/badge/Powered%20by-VeriDoc-0ea5e9?style=flat-square)](https://veridoc.app)
+
+    <!-- VERIDOC_POWERED_BADGE:END -->
+
+
+    # Variables and Templates Guide
+
+
+    ## Overview
+
+
+    This documentation system uses **Jinja2 templating** through mkdocs-macros-plugin
+    to maintain consistency and avoid repetition.
+
+
+    ## How to Use Variables
+
+
+    ### In Markdown Files
+
+
+    Simply use double curly braces:
+
+
+    ```markdown
+
+    The default port for {{ product_name }} is {{ default_port }}.
+
+
+    Visit [{{ product_name }} Cloud]({{ cloud_url }}) to get started.
+
+
+    Maximum payload size: {{ max_payload_size_mb }}MB
+
+    ```
+
+
+    ### Conditional Content
+
+
+    Use Jinja2 conditions for dynamic content:
+
+
+    ```markdown
+
+    {% if product == "the product-cloud" %}
+
+
+    ## Cloud-specific Instructions
+
+    This feature is only available in {{ product_name }} Cloud.
+
+    {% else %}
+
+
+    ## Self-hosted Instructions
+
+    Run on port {{ default_port }} by default.
+
+    {% endif %}
+
+    ```
+
+
+    ### Loops for Lists
+
+
+    ```markdown
+
+    {% for var, value in env_vars.items() %}
+
+    - `{{ value }}`: Configure {{ var }}
+
+    {% endfor %}
+
+    ```
+
+
+    ## Available Variables
+
+
+    All variables are defined in `docs/_variables.yml`:
+
+
+    ### Product Information
+
+
+    - `{{ product_name }}` - - `{{ product_full_name }}` - workflow automation
+
+    - `{{ current_version }}` - Current version number'
+  assistant_context: 'Use this module when answering questions related to: Variables
+    and Templates Guide. Source path: docs/VARIABLES_GUIDE.md. Summary: How to use
+    Jinja2 variables and templates in documentation for consistency
+
+
+    <!-- VERIDOC_POWERED_BADGE:START -->
+
+    [![Powered by VeriDoc](https://img.shields.io/badge/Powered%20by-VeriDoc-0ea5e9?style=flat-square)](https://veridoc.app)
+
+    <!-- VERIDOC_POWERED_BADGE:END -->
+
+
+    # Variables and Templates Guide
+
+
+    ## Overview
+
+
+    This documentation system uses **Jinja2 templating** through mkdocs-macros-plugin
+    to maintain consistency and avoid repetition.
+
+
+    ## How to Use Variables
+
+
+    ### In Markdown Files
+
+
+    Simply use double curly braces:
+
+
+    ```markdown
+
+    The default port for {{ product_name }} is {{ default_port }}.
+
+
+    Visit [{{ product_name }} Cloud]({{ cloud_url }}) to get started.
+
+
+    Maximum payload size: {{ max_payload_size_mb }}MB
+
+    ```
+
+
+    ### Conditional Content
+
+
+    Use Jinja2 conditions for dynamic content:
+
+
+    ```markdown
+
+    {% if product == "the product-cloud" %}
+
+
+    ## Cloud-specific Instructions
+
+    This feature is only available in {{ product_name }} Cloud.
+
+    {% else %}
+
+
+    ## Self-hosted Instructions
+
+    Run on port {{ default_port }} by default.
+
+    {% endif %}
+
+    ```
+
+
+    ### Loops for Lists
+
+
+    ```markdown
+
+    {% for var, value in env_vars.items() %}
+
+    - `{{ value }}`: Configure {{ var }}
+
+    {% endfor %}
+
+    ```
+
+
+    ## Available Variables
+
+
+    All variables are defined in `docs/_variables.yml`:
+
+
+    ### Product Information
+
+
+    - `{{ product_name }}` - - `{{ product_full_name }}` - workflow automation
+
+    - `{{ current_version }}` - Current version number'

@@ -1,0 +1,120 @@
+id: auto-operator-runbook-13
+title: Operator Runbook (Retainer Operations) (Part 13)
+summary: Step-by-step instructions for weekly report review, client questions, new
+  repo setup, and profile tuning.
+intents:
+- configure
+- troubleshoot
+audiences:
+- practitioner
+- developer
+channels:
+- docs
+- assistant
+- automation
+priority: 60
+status: active
+owner: docsops-auto
+last_verified: '2026-03-28'
+dependencies: []
+tags:
+- auto-extracted
+- how-to
+- operator-runbook
+content:
+  docs_markdown: '### Step 3.4: Post-setup verification checklist
+
+
+    After provisioning, verify these files exist in the client repo:
+
+
+    - [ ] `docsops/config/client_runtime.yml` -- runtime configuration
+
+    - [ ] `docsops/policy_packs/selected.yml` -- active policy pack
+
+    - [ ] `docsops/ENV_CHECKLIST.md` -- secrets checklist
+
+    - [ ] `docsops/license.jwt` -- license token (or placeholder)
+
+    - [ ] `docsops/ops/run_weekly_docsops.sh` (Linux) or `docsops/ops/run_weekly_docsops.ps1`
+    (Windows) -- weekly script
+
+    - [ ] `docsops/CLAUDE.md` and/or `docsops/AGENTS.md` -- LLM instructions
+
+
+    ### Step 3.5: Coordinate secrets with client
+
+
+    Open `<client-repo>/docsops/ENV_CHECKLIST.md`. It lists all required environment
+    variables for the enabled features. Send this to the client and ask them to provide
+    values for:
+
+
+    | If this is enabled | Client must provide |
+
+    | --- | --- |
+
+    | External mock server (Postman) | `POSTMAN_API_KEY`, `POSTMAN_WORKSPACE_ID` |
+
+    | TestRail upload | `TESTRAIL_BASE_URL`, `TESTRAIL_EMAIL`, `TESTRAIL_API_KEY`,
+    `TESTRAIL_SECTION_ID` |
+
+    | Zephyr upload | `ZEPHYR_SCALE_API_TOKEN`, `ZEPHYR_SCALE_PROJECT_KEY` |
+
+    | Algolia search | `ALGOLIA_APP_ID`, `ALGOLIA_API_KEY`, `ALGOLIA_INDEX_NAME` |
+
+    | PR auto-fix (org repos) | `DOCSOPS_BOT_TOKEN` (GitHub PAT) |
+
+
+    Secrets go into `<client-repo>/.env.docsops.local` (which is gitignored).'
+  assistant_context: 'Use this module when answering questions related to: Operator
+    Runbook (Retainer Operations) (Part 13). Source path: docs/operations/OPERATOR_RUNBOOK.md.
+    Summary: Step-by-step instructions for weekly report review, client questions,
+    new repo setup, and profile tuning.
+
+
+    ### Step 3.4: Post-setup verification checklist
+
+
+    After provisioning, verify these files exist in the client repo:
+
+
+    - [ ] `docsops/config/client_runtime.yml` -- runtime configuration
+
+    - [ ] `docsops/policy_packs/selected.yml` -- active policy pack
+
+    - [ ] `docsops/ENV_CHECKLIST.md` -- secrets checklist
+
+    - [ ] `docsops/license.jwt` -- license token (or placeholder)
+
+    - [ ] `docsops/ops/run_weekly_docsops.sh` (Linux) or `docsops/ops/run_weekly_docsops.ps1`
+    (Windows) -- weekly script
+
+    - [ ] `docsops/CLAUDE.md` and/or `docsops/AGENTS.md` -- LLM instructions
+
+
+    ### Step 3.5: Coordinate secrets with client
+
+
+    Open `<client-repo>/docsops/ENV_CHECKLIST.md`. It lists all required environment
+    variables for the enabled features. Send this to the client and ask them to provide
+    values for:
+
+
+    | If this is enabled | Client must provide |
+
+    | --- | --- |
+
+    | External mock server (Postman) | `POSTMAN_API_KEY`, `POSTMAN_WORKSPACE_ID` |
+
+    | TestRail upload | `TESTRAIL_BASE_URL`, `TESTRAIL_EMAIL`, `TESTRAIL_API_KEY`,
+    `TESTRAIL_SECTION_ID` |
+
+    | Zephyr upload | `ZEPHYR_SCALE_API_TOKEN`, `ZEPHYR_SCALE_PROJECT_KEY` |
+
+    | Algolia search | `ALGOLIA_APP_ID`, `ALGOLIA_API_KEY`, `ALGOLIA_INDEX_NAME` |
+
+    | PR auto-fix (org repos) | `DOCSOPS_BOT_TOKEN` (GitHub PAT) |
+
+
+    Secrets go into `<client-repo>/.env.docsops.local` (which is gitignored).'

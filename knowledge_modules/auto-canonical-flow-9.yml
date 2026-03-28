@@ -1,0 +1,119 @@
+id: auto-canonical-flow-9
+title: Canonical Flow (Sales + Delivery) (Part 9)
+summary: Canonical sales and delivery flow for onboarding and operating client Auto-Doc
+  Pipeline setups.
+intents:
+- integrate
+audiences:
+- developer
+- operator
+channels:
+- docs
+- assistant
+- automation
+priority: 60
+status: active
+owner: docsops-auto
+last_verified: '2026-03-28'
+dependencies: []
+tags:
+- auto-extracted
+- canonical-flow
+- reference
+content:
+  docs_markdown: '## Implementation status (2026-03-25)
+
+
+    This document is aligned to the current production implementation baseline.
+
+
+    Current baseline:
+
+
+    1. The platform is docs-first and also supports `code-first`, `api-first`, and
+    `hybrid` flows.
+
+    1. REST and non-REST protocols are supported in one automation model: REST, GraphQL,
+    gRPC, AsyncAPI, and WebSocket.
+
+    1. Non-REST automation includes server stubs with business-logic placeholders.
+
+    1. External mock sandbox resolution is integrated into the smooth autopipeline,
+    including Postman-supported auto-prepare mode.
+
+    1. Contract test assets are generated automatically and merged with smart-merge
+    rules so manual/customized cases are preserved.
+
+    1. Knowledge/RAG tasks run as part of automation when enabled (module extraction,
+    validation, retrieval index, graph, evals).
+
+    1. Plan gating is enforced by configuration and policy packs; advanced non-REST
+    automation is reserved for higher plans.
+
+
+    Canonical execution order reference:
+
+
+    - `docs/operations/CANONICAL_FLOW.md`
+
+    - `docs/operations/UNIFIED_CLIENT_CONFIG.md`
+
+    - `README.md`
+
+
+    Commercial note:
+
+
+    - Where commercial packaging is discussed, recurring service terms (retainer/licensing)
+    are part of the active go-to-market model.'
+  assistant_context: 'Use this module when answering questions related to: Canonical
+    Flow (Sales + Delivery) (Part 9). Source path: docs/operations/CANONICAL_FLOW.md.
+    Summary: Canonical sales and delivery flow for onboarding and operating client
+    Auto-Doc Pipeline setups.
+
+
+    ## Implementation status (2026-03-25)
+
+
+    This document is aligned to the current production implementation baseline.
+
+
+    Current baseline:
+
+
+    1. The platform is docs-first and also supports `code-first`, `api-first`, and
+    `hybrid` flows.
+
+    1. REST and non-REST protocols are supported in one automation model: REST, GraphQL,
+    gRPC, AsyncAPI, and WebSocket.
+
+    1. Non-REST automation includes server stubs with business-logic placeholders.
+
+    1. External mock sandbox resolution is integrated into the smooth autopipeline,
+    including Postman-supported auto-prepare mode.
+
+    1. Contract test assets are generated automatically and merged with smart-merge
+    rules so manual/customized cases are preserved.
+
+    1. Knowledge/RAG tasks run as part of automation when enabled (module extraction,
+    validation, retrieval index, graph, evals).
+
+    1. Plan gating is enforced by configuration and policy packs; advanced non-REST
+    automation is reserved for higher plans.
+
+
+    Canonical execution order reference:
+
+
+    - `docs/operations/CANONICAL_FLOW.md`
+
+    - `docs/operations/UNIFIED_CLIENT_CONFIG.md`
+
+    - `README.md`
+
+
+    Commercial note:
+
+
+    - Where commercial packaging is discussed, recurring service terms (retainer/licensing)
+    are part of the active go-to-market model.'

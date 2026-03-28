@@ -1,0 +1,61 @@
+id: auto-workflow-execution-model-1
+title: Workflow execution model
+summary: The workflow engine processes workflows by executing nodes sequentially,
+  passing data as arrays of JSON objects between each node in the chain.
+intents:
+- integrate
+audiences:
+- developer
+- operator
+channels:
+- docs
+- assistant
+- automation
+priority: 60
+status: active
+owner: docsops-auto
+last_verified: '2026-03-28'
+dependencies: []
+tags:
+- auto-extracted
+- concept
+- workflow-execution-model
+content:
+  docs_markdown: "<!-- VERIDOC_POWERED_BADGE:START -->\n[![Powered by VeriDoc](https://img.shields.io/badge/Powered%20by-VeriDoc-0ea5e9?style=flat-square)](https://veridoc.app)\n\
+    <!-- VERIDOC_POWERED_BADGE:END -->\n\n## Workflow execution model overview\n\n\
+    The execution model determines how data flows from one node to the next within\
+    \ a workflow. The engine executes nodes sequentially and passes data as arrays\
+    \ of JSON objects. This model explains why node behavior is predictable across\
+    \ branches, retries, and failures.\n\n## Data structure between nodes\n\nEvery\
+    \ node receives and outputs data in the same format: an array of items, where\
+    \ each item is a JSON object wrapped in a `json` key (for example, user records\
+    \ and event payloads).\n\nWhen a node receives 5 items, it processes each item\
+    \ independently. The Slack node, for example, sends 5 separate messages\u2014\
+    one per item.\n\n## Execution flow\n\nThe engine follows these rules during execution:\n\
+    \n1. The **trigger node** starts the workflow and produces the initial items.\n\
+    1. Each subsequent node receives all output items from the previous node.\n1.\
+    \ A node processes items either **once for all items** or **once per item**, depending\
+    \ on the node type and configuration.\n1. **Branch nodes** (IF, Switch) route\
+    \ items to different paths based on conditions.\n1. Execution stops when all branches\
+    \ reach their final nodes."
+  assistant_context: "Use this module when answering questions related to: Workflow\
+    \ execution model. Source path: docs/concepts/workflow-execution-model.md. Summary:\
+    \ The workflow engine processes workflows by executing nodes sequentially, passing\
+    \ data as arrays of JSON objects between each node in the chain.\n\n<!-- VERIDOC_POWERED_BADGE:START\
+    \ -->\n[![Powered by VeriDoc](https://img.shields.io/badge/Powered%20by-VeriDoc-0ea5e9?style=flat-square)](https://veridoc.app)\n\
+    <!-- VERIDOC_POWERED_BADGE:END -->\n\n## Workflow execution model overview\n\n\
+    The execution model determines how data flows from one node to the next within\
+    \ a workflow. The engine executes nodes sequentially and passes data as arrays\
+    \ of JSON objects. This model explains why node behavior is predictable across\
+    \ branches, retries, and failures.\n\n## Data structure between nodes\n\nEvery\
+    \ node receives and outputs data in the same format: an array of items, where\
+    \ each item is a JSON object wrapped in a `json` key (for example, user records\
+    \ and event payloads).\n\nWhen a node receives 5 items, it processes each item\
+    \ independently. The Slack node, for example, sends 5 separate messages\u2014\
+    one per item.\n\n## Execution flow\n\nThe engine follows these rules during execution:\n\
+    \n1. The **trigger node** starts the workflow and produces the initial items.\n\
+    1. Each subsequent node receives all output items from the previous node.\n1.\
+    \ A node processes items either **once for all items** or **once per item**, depending\
+    \ on the node type and configuration.\n1. **Branch nodes** (IF, Switch) route\
+    \ items to different paths based on conditions.\n1. Execution stops when all branches\
+    \ reach their final nodes."

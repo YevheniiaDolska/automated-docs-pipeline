@@ -1,0 +1,61 @@
+id: auto-pipeline-capabilities-catalog-16
+title: Pipeline Capabilities Catalog (Part 16)
+summary: Generated catalog of available pipeline commands, templates, policy packs,
+  and assets for client configuration.
+intents:
+- integrate
+audiences:
+- developer
+- operator
+channels:
+- docs
+- assistant
+- automation
+priority: 60
+status: active
+owner: docsops-auto
+last_verified: '2026-03-28'
+dependencies: []
+tags:
+- auto-extracted
+- pipeline-capabilities-catalog
+- reference
+content:
+  docs_markdown: '## Docker Compose Profiles
+
+
+    - `docker-compose.api-sandbox.live.yml`
+
+    - `docker-compose.api-sandbox.prodlike.yml`
+
+    - `docker-compose.api-sandbox.yml`
+
+    - `docker-compose.docs-ops.yml`
+
+
+    ## Next steps
+
+
+    - [Documentation index](../index.md)'
+  assistant_context: 'Use this module when answering questions related to: Pipeline
+    Capabilities Catalog (Part 16). Source path: docs/operations/PIPELINE_CAPABILITIES_CATALOG.md.
+    Summary: Generated catalog of available pipeline commands, templates, policy packs,
+    and assets for client configuration.
+
+
+    ## Docker Compose Profiles
+
+
+    - `docker-compose.api-sandbox.live.yml`
+
+    - `docker-compose.api-sandbox.prodlike.yml`
+
+    - `docker-compose.api-sandbox.yml`
+
+    - `docker-compose.docs-ops.yml`
+
+
+    ## Next steps
+
+
+    - [Documentation index](../index.md)'

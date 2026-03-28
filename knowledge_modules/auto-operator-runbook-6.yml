@@ -1,0 +1,104 @@
+id: auto-operator-runbook-6
+title: Operator Runbook (Retainer Operations) (Part 6)
+summary: Step-by-step instructions for weekly report review, client questions, new
+  repo setup, and profile tuning.
+intents:
+- configure
+- troubleshoot
+audiences:
+- practitioner
+- developer
+channels:
+- docs
+- assistant
+- automation
+priority: 60
+status: active
+owner: docsops-auto
+last_verified: '2026-03-28'
+dependencies: []
+tags:
+- auto-extracted
+- how-to
+- operator-runbook
+content:
+  docs_markdown: '### Step 1.5: Process action items with LLM (optional)
+
+
+    If the client wants documentation fixes generated automatically, use the local
+    LLM:
+
+
+    1. Open terminal in the client repository.
+
+    1. Ask the local LLM (Claude Code or Codex) to process the report:
+
+
+    ```text
+
+    Process reports/consolidated_report.json
+
+    ```
+
+
+    The LLM reads the consolidated report and generates/updates documentation based
+    on the prioritized action items. It follows the rules in `CLAUDE.md` or `AGENTS.md`
+    that were installed in the client repo.
+
+
+    1. Review the generated changes: `git diff`.
+
+    1. If changes look good, commit and push (or create a PR for client review).
+
+
+    ---
+
+
+    ## Task 2: Answer client question (10-15 minutes, 2-3 times per month)
+
+
+    **When:** Client asks about their documentation health, a specific report number,
+    or how to adjust pipeline behavior.'
+  assistant_context: 'Use this module when answering questions related to: Operator
+    Runbook (Retainer Operations) (Part 6). Source path: docs/operations/OPERATOR_RUNBOOK.md.
+    Summary: Step-by-step instructions for weekly report review, client questions,
+    new repo setup, and profile tuning.
+
+
+    ### Step 1.5: Process action items with LLM (optional)
+
+
+    If the client wants documentation fixes generated automatically, use the local
+    LLM:
+
+
+    1. Open terminal in the client repository.
+
+    1. Ask the local LLM (Claude Code or Codex) to process the report:
+
+
+    ```text
+
+    Process reports/consolidated_report.json
+
+    ```
+
+
+    The LLM reads the consolidated report and generates/updates documentation based
+    on the prioritized action items. It follows the rules in `CLAUDE.md` or `AGENTS.md`
+    that were installed in the client repo.
+
+
+    1. Review the generated changes: `git diff`.
+
+    1. If changes look good, commit and push (or create a PR for client review).
+
+
+    ---
+
+
+    ## Task 2: Answer client question (10-15 minutes, 2-3 times per month)
+
+
+    **When:** Client asks about their documentation health, a specific report number,
+    or how to adjust pipeline behavior.'

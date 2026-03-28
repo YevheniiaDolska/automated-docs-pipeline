@@ -1,0 +1,89 @@
+id: auto-multi-protocol-architecture-4
+title: Multi-Protocol Architecture (Part 4)
+summary: Unified docs-ops pipeline for REST, GraphQL, gRPC, AsyncAPI, and WebSocket.
+intents:
+- integrate
+audiences:
+- developer
+- operator
+channels:
+- docs
+- assistant
+- automation
+priority: 60
+status: active
+owner: docsops-auto
+last_verified: '2026-03-28'
+dependencies: []
+tags:
+- auto-extracted
+- multi-protocol-architecture
+- reference
+content:
+  docs_markdown: '## Advanced RAG retrieval pipeline
+
+
+    The multi-protocol quality suite (`run_protocol_docs_quality_suite.py`) refreshes
+    RAG assets including FAISS embeddings. Six advanced retrieval features are available:
+
+
+    | Feature | Module | Description |
+
+    | --- | --- | --- |
+
+    | Token-aware chunking | `scripts/chunker.py` | Splits modules into 750-token
+    chunks with 100-token overlap (`cl100k_base`) |
+
+    | FAISS embeddings | `scripts/generate_embeddings.py --chunk` | Embeds chunks
+    with `text-embedding-3-small`, builds FAISS index |
+
+    | Hybrid search (RRF) | `runtime/.../retrieval.py` | Fuses semantic and token-overlap
+    rankings (k=60) |
+
+    | HyDE query expansion | `runtime/.../retrieval.py` | Generates hypothetical passage
+    via `gpt-4.1-mini` before embedding |
+
+    | Cross-encoder reranking | `scripts/vector_store.py`, `runtime/.../retrieval.py`
+    | Rescores top 20 candidates with `ms-marco-MiniLM-L-6-v2` |
+
+    | Embedding cache | `runtime/.../retrieval.py` | In-memory LRU cache (TTL: 3,600
+    seconds, max: 512) |
+
+    | Multi-mode evaluation | `scripts/run_retrieval_evals.py --mode all` | Compares
+    token, semantic, hybrid, and hybrid+rerank modes |'
+  assistant_context: 'Use this module when answering questions related to: Multi-Protocol
+    Architecture (Part 4). Source path: docs/operations/MULTI_PROTOCOL_ARCHITECTURE.md.
+    Summary: Unified docs-ops pipeline for REST, GraphQL, gRPC, AsyncAPI, and WebSocket.
+
+
+    ## Advanced RAG retrieval pipeline
+
+
+    The multi-protocol quality suite (`run_protocol_docs_quality_suite.py`) refreshes
+    RAG assets including FAISS embeddings. Six advanced retrieval features are available:
+
+
+    | Feature | Module | Description |
+
+    | --- | --- | --- |
+
+    | Token-aware chunking | `scripts/chunker.py` | Splits modules into 750-token
+    chunks with 100-token overlap (`cl100k_base`) |
+
+    | FAISS embeddings | `scripts/generate_embeddings.py --chunk` | Embeds chunks
+    with `text-embedding-3-small`, builds FAISS index |
+
+    | Hybrid search (RRF) | `runtime/.../retrieval.py` | Fuses semantic and token-overlap
+    rankings (k=60) |
+
+    | HyDE query expansion | `runtime/.../retrieval.py` | Generates hypothetical passage
+    via `gpt-4.1-mini` before embedding |
+
+    | Cross-encoder reranking | `scripts/vector_store.py`, `runtime/.../retrieval.py`
+    | Rescores top 20 candidates with `ms-marco-MiniLM-L-6-v2` |
+
+    | Embedding cache | `runtime/.../retrieval.py` | In-memory LRU cache (TTL: 3,600
+    seconds, max: 512) |
+
+    | Multi-mode evaluation | `scripts/run_retrieval_evals.py --mode all` | Compares
+    token, semantic, hybrid, and hybrid+rerank modes |'

@@ -1,0 +1,61 @@
+id: auto-migrate-from-confluence-3
+title: Migrate documentation from Confluence (Part 3)
+summary: Import Confluence pages into the documentation pipeline with automatic quality
+  enhancement, SEO optimization, and knowledge extraction.
+intents:
+- configure
+audiences:
+- practitioner
+- developer
+channels:
+- docs
+- assistant
+- automation
+priority: 60
+status: active
+owner: docsops-auto
+last_verified: '2026-03-28'
+dependencies: []
+tags:
+- auto-extracted
+- how-to
+- migrate-from-confluence
+content:
+  docs_markdown: "### Step 3: Run the migration\n\n=== \"Cloud\"\n\n    ```bash\n\
+    \    python3 scripts/run_confluence_migration.py \\\n      --confluence-url https://mycompany.atlassian.net\
+    \ \\\n      --confluence-token YOUR_API_TOKEN \\\n      --confluence-username\
+    \ your-email@company.com \\\n      --space-keys DEV,OPS \\\n      --include-attachments\n\
+    \    ```\n\n=== \"Server/Data Center\"\n\n    ```bash\n    python3 scripts/run_confluence_migration.py\
+    \ \\\n      --confluence-url https://confluence.internal.company.com \\\n    \
+    \  --confluence-token YOUR_PERSONAL_ACCESS_TOKEN \\\n      --space-keys DEV,OPS\
+    \ \\\n      --include-attachments\n    ```\n\nThe `--confluence-username` flag\
+    \ is required for Cloud (your Atlassian email\naddress) but optional for Server/Data\
+    \ Center when using a Personal Access\nToken.\n\n### Incremental sync\n\nAfter\
+    \ the initial import, use `--incremental` to fetch only pages modified\nsince\
+    \ the last sync:\n\n```bash\npython3 scripts/run_confluence_migration.py \\\n\
+    \  --confluence-url https://mycompany.atlassian.net \\\n  --confluence-token YOUR_API_TOKEN\
+    \ \\\n  --confluence-username your-email@company.com \\\n  --space-keys DEV \\\
+    \n  --incremental\n```\n\nThe pipeline stores sync state in `.confluence_sync_state.json`\
+    \ at the\nrepository root. This file tracks the last sync timestamp and page versions\n\
+    to determine which pages changed."
+  assistant_context: "Use this module when answering questions related to: Migrate\
+    \ documentation from Confluence (Part 3). Source path: docs/how-to/migrate-from-confluence.md.\
+    \ Summary: Import Confluence pages into the documentation pipeline with automatic\
+    \ quality enhancement, SEO optimization, and knowledge extraction.\n\n### Step\
+    \ 3: Run the migration\n\n=== \"Cloud\"\n\n    ```bash\n    python3 scripts/run_confluence_migration.py\
+    \ \\\n      --confluence-url https://mycompany.atlassian.net \\\n      --confluence-token\
+    \ YOUR_API_TOKEN \\\n      --confluence-username your-email@company.com \\\n \
+    \     --space-keys DEV,OPS \\\n      --include-attachments\n    ```\n\n=== \"\
+    Server/Data Center\"\n\n    ```bash\n    python3 scripts/run_confluence_migration.py\
+    \ \\\n      --confluence-url https://confluence.internal.company.com \\\n    \
+    \  --confluence-token YOUR_PERSONAL_ACCESS_TOKEN \\\n      --space-keys DEV,OPS\
+    \ \\\n      --include-attachments\n    ```\n\nThe `--confluence-username` flag\
+    \ is required for Cloud (your Atlassian email\naddress) but optional for Server/Data\
+    \ Center when using a Personal Access\nToken.\n\n### Incremental sync\n\nAfter\
+    \ the initial import, use `--incremental` to fetch only pages modified\nsince\
+    \ the last sync:\n\n```bash\npython3 scripts/run_confluence_migration.py \\\n\
+    \  --confluence-url https://mycompany.atlassian.net \\\n  --confluence-token YOUR_API_TOKEN\
+    \ \\\n  --confluence-username your-email@company.com \\\n  --space-keys DEV \\\
+    \n  --incremental\n```\n\nThe pipeline stores sync state in `.confluence_sync_state.json`\
+    \ at the\nrepository root. This file tracks the last sync timestamp and page versions\n\
+    to determine which pages changed."

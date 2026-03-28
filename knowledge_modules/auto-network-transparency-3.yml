@@ -1,0 +1,60 @@
+id: auto-network-transparency-3
+title: Network transparency reference (Part 3)
+summary: Complete list of all outgoing network requests the pipeline makes, with exact
+  payload schemas. No client data leaves your network.
+intents:
+- integrate
+- secure
+audiences:
+- developer
+- operator
+channels:
+- docs
+- assistant
+- automation
+priority: 60
+status: active
+owner: docsops-auto
+last_verified: '2026-03-28'
+dependencies: []
+tags:
+- auto-extracted
+- network-transparency
+- reference
+content:
+  docs_markdown: "### Request 2: Capability pack refresh\n\n**When:** During weekly\
+    \ batch run, or when the current pack approaches expiration.\n\n**Endpoint:**\
+    \ `POST /v1/pack/refresh`\n\n**Frequency:** Weekly (configurable per plan).\n\n\
+    ```json\n{\n  \"authorization\": \"Bearer <license-jwt>\"\n}\n```\n\nThe JWT contains\
+    \ only license metadata (client ID, plan tier, expiration). The JWT payload schema:\n\
+    \n```json\n{\n  \"sub\": \"acme-corp\",\n  \"plan\": \"enterprise\",\n  \"iat\"\
+    : 1750000000,\n  \"exp\": 1781536000\n}\n```\n\n**What is NOT sent:** No document\
+    \ content, no file listings, no quality scores, no report data.\n\n### Request\
+    \ 3: Update check\n\n**When:** During weekly batch run, or manual `python3 scripts/check_updates.py`.\n\
+    \n**Endpoint:** `GET /v1/check`\n\n**Frequency:** Weekly (automatic), or on-demand.\n\
+    \n```text\nGET /v1/check?version=1.2.0&platform=linux-x86_64\nUser-Agent: VeriOps-Pipeline-Updater/1.0\n\
+    ```\n\n**Query parameters:**\n\n| Parameter | Type | Description | Contains client\
+    \ data? |\n| --- | --- | --- | --- |\n| `version` | string | Current installed\
+    \ pipeline version | No |\n| `platform` | string | OS and architecture identifier\
+    \ | No |\n\n**What is NOT sent:** No license info, no document counts, no quality\
+    \ metrics, no file paths."
+  assistant_context: "Use this module when answering questions related to: Network\
+    \ transparency reference (Part 3). Source path: docs/reference/network-transparency.md.\
+    \ Summary: Complete list of all outgoing network requests the pipeline makes,\
+    \ with exact payload schemas. No client data leaves your network.\n\n### Request\
+    \ 2: Capability pack refresh\n\n**When:** During weekly batch run, or when the\
+    \ current pack approaches expiration.\n\n**Endpoint:** `POST /v1/pack/refresh`\n\
+    \n**Frequency:** Weekly (configurable per plan).\n\n```json\n{\n  \"authorization\"\
+    : \"Bearer <license-jwt>\"\n}\n```\n\nThe JWT contains only license metadata (client\
+    \ ID, plan tier, expiration). The JWT payload schema:\n\n```json\n{\n  \"sub\"\
+    : \"acme-corp\",\n  \"plan\": \"enterprise\",\n  \"iat\": 1750000000,\n  \"exp\"\
+    : 1781536000\n}\n```\n\n**What is NOT sent:** No document content, no file listings,\
+    \ no quality scores, no report data.\n\n### Request 3: Update check\n\n**When:**\
+    \ During weekly batch run, or manual `python3 scripts/check_updates.py`.\n\n**Endpoint:**\
+    \ `GET /v1/check`\n\n**Frequency:** Weekly (automatic), or on-demand.\n\n```text\n\
+    GET /v1/check?version=1.2.0&platform=linux-x86_64\nUser-Agent: VeriOps-Pipeline-Updater/1.0\n\
+    ```\n\n**Query parameters:**\n\n| Parameter | Type | Description | Contains client\
+    \ data? |\n| --- | --- | --- | --- |\n| `version` | string | Current installed\
+    \ pipeline version | No |\n| `platform` | string | OS and architecture identifier\
+    \ | No |\n\n**What is NOT sent:** No license info, no document counts, no quality\
+    \ metrics, no file paths."

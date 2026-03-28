@@ -1,0 +1,61 @@
+id: auto-install-ask-ai-runtime-pack-3
+title: Install Ask AI runtime pack (Part 3)
+summary: Install the optional Ask AI runtime pack with API endpoint, widget, auth
+  checks, and billing hooks in a few commands.
+intents:
+- configure
+audiences:
+- practitioner
+- developer
+channels:
+- docs
+- assistant
+- automation
+priority: 60
+status: active
+owner: docsops-auto
+last_verified: '2026-03-28'
+dependencies: []
+tags:
+- auto-extracted
+- how-to
+- install-ask-ai-runtime-pack
+content:
+  docs_markdown: "## Step 5: Embed the widget\n\nAdd this snippet to the docs site\
+    \ page template or custom HTML block:\n\n```html\n<script\n  src=\"/ask-ai/public/ask-ai-widget.js\"\
+    \n  data-ask-ai-endpoint=\"https://docs.example.com/ask-ai/api/v1/ask\"\n  data-ask-ai-api-key=\"\
+    YOUR_PUBLIC_OR_PROXY_KEY\"\n  data-user-id=\"USER_123\"\n  data-user-role=\"support\"\
+    \n  data-plan=\"pro\"\n  data-enabled=\"true\"></script>\n```\n\n## Troubleshooting\n\
+    \n### Runtime pack install fails because destination exists\n\nUse force mode:\n\
+    \n```bash\nnpm run askai:runtime:install:force\n```\n\n### Ask endpoint returns\
+    \ 401\n\nCheck `X-Ask-AI-Key` header and `ASK_AI_API_KEY` value.\n\n### Ask endpoint\
+    \ returns 402\n\nThe current user plan is not entitled by billing mode logic.\
+    \ Confirm `ASK_AI_BILLING_MODE` and user plan header.\n\nThe `/healthz` endpoint\
+    \ reports the status of all advanced retrieval features:\n\n```json\n{\n  \"ok\"\
+    : true,\n  \"enabled\": true,\n  \"provider\": \"openai\",\n  \"billing_mode\"\
+    : \"disabled\",\n  \"semantic_retrieval\": true,\n  \"reranking\": true,\n  \"\
+    hybrid_search\": true,\n  \"hyde\": true,\n  \"embedding_cache\": true\n}\n```\n\
+    \n## Next steps\n\n- [Configure Ask AI module](configure-ask-ai-module.md)\n-\
+    \ [Assemble intent experiences](assemble-intent-experiences.md)\n- [Intelligent\
+    \ knowledge system architecture](../concepts/intelligent-knowledge-system.md)"
+  assistant_context: "Use this module when answering questions related to: Install\
+    \ Ask AI runtime pack (Part 3). Source path: docs/how-to/install-ask-ai-runtime-pack.md.\
+    \ Summary: Install the optional Ask AI runtime pack with API endpoint, widget,\
+    \ auth checks, and billing hooks in a few commands.\n\n## Step 5: Embed the widget\n\
+    \nAdd this snippet to the docs site page template or custom HTML block:\n\n```html\n\
+    <script\n  src=\"/ask-ai/public/ask-ai-widget.js\"\n  data-ask-ai-endpoint=\"\
+    https://docs.example.com/ask-ai/api/v1/ask\"\n  data-ask-ai-api-key=\"YOUR_PUBLIC_OR_PROXY_KEY\"\
+    \n  data-user-id=\"USER_123\"\n  data-user-role=\"support\"\n  data-plan=\"pro\"\
+    \n  data-enabled=\"true\"></script>\n```\n\n## Troubleshooting\n\n### Runtime\
+    \ pack install fails because destination exists\n\nUse force mode:\n\n```bash\n\
+    npm run askai:runtime:install:force\n```\n\n### Ask endpoint returns 401\n\nCheck\
+    \ `X-Ask-AI-Key` header and `ASK_AI_API_KEY` value.\n\n### Ask endpoint returns\
+    \ 402\n\nThe current user plan is not entitled by billing mode logic. Confirm\
+    \ `ASK_AI_BILLING_MODE` and user plan header.\n\nThe `/healthz` endpoint reports\
+    \ the status of all advanced retrieval features:\n\n```json\n{\n  \"ok\": true,\n\
+    \  \"enabled\": true,\n  \"provider\": \"openai\",\n  \"billing_mode\": \"disabled\"\
+    ,\n  \"semantic_retrieval\": true,\n  \"reranking\": true,\n  \"hybrid_search\"\
+    : true,\n  \"hyde\": true,\n  \"embedding_cache\": true\n}\n```\n\n## Next steps\n\
+    \n- [Configure Ask AI module](configure-ask-ai-module.md)\n- [Assemble intent\
+    \ experiences](assemble-intent-experiences.md)\n- [Intelligent knowledge system\
+    \ architecture](../concepts/intelligent-knowledge-system.md)"

@@ -1,0 +1,60 @@
+id: auto-operator-runbook-4
+title: Operator Runbook (Retainer Operations) (Part 4)
+summary: Step-by-step instructions for weekly report review, client questions, new
+  repo setup, and profile tuning.
+intents:
+- configure
+audiences:
+- practitioner
+- developer
+channels:
+- docs
+- assistant
+- automation
+priority: 60
+status: active
+owner: docsops-auto
+last_verified: '2026-03-28'
+dependencies: []
+tags:
+- auto-extracted
+- how-to
+- operator-runbook
+content:
+  docs_markdown: "### Step 1.1: Verify the report was generated\n\nOpen the client\
+    \ repository folder. Check the modified date of `reports/consolidated_report.json`.\n\
+    \n- **If the date is today or yesterday** (depending on the scheduler time): the\
+    \ pipeline ran successfully. Continue to Step 1.2.\n- **If the date is old (more\
+    \ than 7 days):** the scheduler did not run. See [Troubleshooting: scheduler did\
+    \ not run](#troubleshooting-scheduler-did-not-run).\n\nYou can also check `reports/docsops_status.json`\
+    \ for a quick status summary.\n\n### Step 1.2: Read the health summary\n\nOpen\
+    \ `reports/consolidated_report.json` in a text editor. Look at the top-level `health_summary`\
+    \ section:\n\n```json\n{\n  \"health_summary\": {\n    \"quality_score\": 76,\n\
+    \    \"drift_status\": \"ok\",\n    \"sla_status\": \"ok\",\n    \"total_action_items\"\
+    : 12\n  }\n}\n```\n\n**What to check:**\n\n| Field | Good value | Action if bad\
+    \ |\n| --- | --- | --- |\n| `quality_score` | 80 or higher | If below 80, prioritize\
+    \ action items in the report |\n| `drift_status` | `\"ok\"` | If `\"drift\"`,\
+    \ API docs are out of sync with code -- urgent |\n| `sla_status` | `\"ok\"` |\
+    \ If `\"breach\"`, SLA thresholds are violated -- check `input_reports.sla.details.breaches`\
+    \ |\n| `total_action_items` | Stable or decreasing | If increasing week over week,\
+    \ backlog is growing |"
+  assistant_context: "Use this module when answering questions related to: Operator\
+    \ Runbook (Retainer Operations) (Part 4). Source path: docs/operations/OPERATOR_RUNBOOK.md.\
+    \ Summary: Step-by-step instructions for weekly report review, client questions,\
+    \ new repo setup, and profile tuning.\n\n### Step 1.1: Verify the report was generated\n\
+    \nOpen the client repository folder. Check the modified date of `reports/consolidated_report.json`.\n\
+    \n- **If the date is today or yesterday** (depending on the scheduler time): the\
+    \ pipeline ran successfully. Continue to Step 1.2.\n- **If the date is old (more\
+    \ than 7 days):** the scheduler did not run. See [Troubleshooting: scheduler did\
+    \ not run](#troubleshooting-scheduler-did-not-run).\n\nYou can also check `reports/docsops_status.json`\
+    \ for a quick status summary.\n\n### Step 1.2: Read the health summary\n\nOpen\
+    \ `reports/consolidated_report.json` in a text editor. Look at the top-level `health_summary`\
+    \ section:\n\n```json\n{\n  \"health_summary\": {\n    \"quality_score\": 76,\n\
+    \    \"drift_status\": \"ok\",\n    \"sla_status\": \"ok\",\n    \"total_action_items\"\
+    : 12\n  }\n}\n```\n\n**What to check:**\n\n| Field | Good value | Action if bad\
+    \ |\n| --- | --- | --- |\n| `quality_score` | 80 or higher | If below 80, prioritize\
+    \ action items in the report |\n| `drift_status` | `\"ok\"` | If `\"drift\"`,\
+    \ API docs are out of sync with code -- urgent |\n| `sla_status` | `\"ok\"` |\
+    \ If `\"breach\"`, SLA thresholds are violated -- check `input_reports.sla.details.breaches`\
+    \ |\n| `total_action_items` | Stable or decreasing | If increasing week over week,\
+    \ backlog is growing |"

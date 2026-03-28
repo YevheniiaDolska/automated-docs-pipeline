@@ -1,0 +1,87 @@
+id: auto-intelligent-knowledge-system-4
+title: Intelligent knowledge system architecture (Part 4)
+summary: Explains how the pipeline models reusable knowledge modules for AI retrieval,
+  dynamic assembly, and multi-channel documentation delivery.
+intents:
+- integrate
+audiences:
+- developer
+- operator
+channels:
+- docs
+- assistant
+- automation
+priority: 60
+status: active
+owner: docsops-auto
+last_verified: '2026-03-28'
+dependencies: []
+tags:
+- auto-extracted
+- concept
+- intelligent-knowledge-system
+content:
+  docs_markdown: '## Advanced retrieval pipeline
+
+
+    The RAG runtime uses six features that work together to maximize retrieval precision
+    and recall:
+
+
+    1. **Token-aware chunking** splits long modules into 750-token chunks with 100-token
+    overlap using the `cl100k_base` tokenizer. Short modules remain as single chunks.
+    The embedding pipeline (`scripts/generate_embeddings.py --chunk`) embeds each
+    chunk independently and stores chunk metadata (`chunk_id`, `parent_id`, `chunk_index`)
+    in the FAISS sidecar.
+
+
+    1. **Hybrid search (RRF)** combines FAISS cosine similarity with token-overlap
+    scoring. Reciprocal Rank Fusion (k=60) merges both rankings into a single list.
+    This approach captures queries that mix specific terminology (tokens) with conceptual
+    intent (embeddings).
+
+
+    1. **HyDE query expansion** generates a hypothetical documentation passage using
+    `gpt-4.1-mini` before embedding the query. The generated passage captures domain
+    vocabulary that the raw question may lack. The pipeline embeds the hypothetical
+    document instead of the raw query text.
+
+
+    1. **Cross-encoder reranking** scores the top 20 candidates using `cross-encoder/ms-marco-MiniLM-L-6-v2`.
+    The reranker evaluates (query, document) pairs and reorders results by relevance.
+    This step reduces false positives before the final context window.'
+  assistant_context: 'Use this module when answering questions related to: Intelligent
+    knowledge system architecture (Part 4). Source path: docs/concepts/intelligent-knowledge-system.md.
+    Summary: Explains how the pipeline models reusable knowledge modules for AI retrieval,
+    dynamic assembly, and multi-channel documentation delivery.
+
+
+    ## Advanced retrieval pipeline
+
+
+    The RAG runtime uses six features that work together to maximize retrieval precision
+    and recall:
+
+
+    1. **Token-aware chunking** splits long modules into 750-token chunks with 100-token
+    overlap using the `cl100k_base` tokenizer. Short modules remain as single chunks.
+    The embedding pipeline (`scripts/generate_embeddings.py --chunk`) embeds each
+    chunk independently and stores chunk metadata (`chunk_id`, `parent_id`, `chunk_index`)
+    in the FAISS sidecar.
+
+
+    1. **Hybrid search (RRF)** combines FAISS cosine similarity with token-overlap
+    scoring. Reciprocal Rank Fusion (k=60) merges both rankings into a single list.
+    This approach captures queries that mix specific terminology (tokens) with conceptual
+    intent (embeddings).
+
+
+    1. **HyDE query expansion** generates a hypothetical documentation passage using
+    `gpt-4.1-mini` before embedding the query. The generated passage captures domain
+    vocabulary that the raw question may lack. The pipeline embeds the hypothetical
+    document instead of the raw query text.
+
+
+    1. **Cross-encoder reranking** scores the top 20 candidates using `cross-encoder/ms-marco-MiniLM-L-6-v2`.
+    The reranker evaluates (query, document) pairs and reorders results by relevance.
+    This step reduces false positives before the final context window.'

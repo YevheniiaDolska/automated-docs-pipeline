@@ -13,7 +13,7 @@ channels:
 priority: 60
 status: active
 owner: docsops-auto
-last_verified: '2026-03-20'
+last_verified: '2026-03-28'
 dependencies: []
 tags:
 - asyncapi-api
@@ -23,7 +23,7 @@ content:
   docs_markdown: '# ASYNCAPI Reference
 
 
-    Source: `reports/acme-demo/contracts/asyncapi.yaml`
+    Source: `/tmp/pytest-of-eudo/pytest-2642/test_multi_protocol_flow_e2e_e0/asyncapi.yaml`
 
 
     Flow mode: `api-first`
@@ -44,16 +44,16 @@ content:
 
     - Channel count: `1`
 
-    - `project.updated`'
+    - `orders/created`'
   assistant_context: 'Use this module when answering questions related to: ASYNCAPI
-    API Reference. Source path: demo-showcase/acme/docs/assets/protocols/asyncapi/asyncapi-api.md.
-    Summary: Auto-generated asyncapi reference from source contract.
+    API Reference. Source path: docs/reference/asyncapi-api.md. Summary: Auto-generated
+    asyncapi reference from source contract.
 
 
     # ASYNCAPI Reference
 
 
-    Source: `reports/acme-demo/contracts/asyncapi.yaml`
+    Source: `/tmp/pytest-of-eudo/pytest-2642/test_multi_protocol_flow_e2e_e0/asyncapi.yaml`
 
 
     Flow mode: `api-first`
@@ -74,4 +74,4 @@ content:
 
     - Channel count: `1`
 
-    - `project.updated`'
+    - `orders/created`'

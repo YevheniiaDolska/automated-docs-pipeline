@@ -1,0 +1,51 @@
+id: auto-unified-client-config-28
+title: Unified Client Configuration (Part 28)
+summary: Single source of truth for per-client Auto-Doc Pipeline configuration, modules,
+  and automation.
+intents:
+- integrate
+audiences:
+- developer
+- operator
+channels:
+- docs
+- assistant
+- automation
+priority: 60
+status: active
+owner: docsops-auto
+last_verified: '2026-03-28'
+dependencies: []
+tags:
+- auto-extracted
+- reference
+- unified-client-config
+content:
+  docs_markdown: "## 11. Legal labeling\n\n```yaml\nlegal:\n  license_type: \"commercial\"\
+    \n  redistribution_allowed: false\n  reseller_allowed: false\n```\n\nBuilder generates:\n\
+    \n- `LICENSE-COMMERCIAL.md`\n- `NOTICE`\n\n## 12. Flow presets (copy-paste)\n\n\
+    ### Code-first only\n\n```yaml\nruntime:\n  docs_flow:\n    mode: \"code-first\"\
+    \n  modules:\n    gap_detection: true\n    drift_detection: true\n    docs_contract:\
+    \ true\n    kpi_sla: true\n```\n\n### API-first only\n\n```yaml\nruntime:\n  docs_flow:\n\
+    \    mode: \"api-first\"\n  api_first:\n    enabled: true\n    openapi_version:\
+    \ \"3.1.0\"\n    manual_overrides_path: \"api/overrides/openapi.manual.yml\"\n\
+    \    regression_snapshot_path: \"api/.openapi-regression.json\"\n    generate_from_notes:\
+    \ true\n```\n\n### Hybrid\n\n```yaml\nruntime:\n  docs_flow:\n    mode: \"hybrid\"\
+    \n  api_first:\n    enabled: true\n  modules:\n    gap_detection: true\n    drift_detection:\
+    \ true\n    docs_contract: true\n    kpi_sla: true\n```"
+  assistant_context: "Use this module when answering questions related to: Unified\
+    \ Client Configuration (Part 28). Source path: docs/operations/UNIFIED_CLIENT_CONFIG.md.\
+    \ Summary: Single source of truth for per-client Auto-Doc Pipeline configuration,\
+    \ modules, and automation.\n\n## 11. Legal labeling\n\n```yaml\nlegal:\n  license_type:\
+    \ \"commercial\"\n  redistribution_allowed: false\n  reseller_allowed: false\n\
+    ```\n\nBuilder generates:\n\n- `LICENSE-COMMERCIAL.md`\n- `NOTICE`\n\n## 12. Flow\
+    \ presets (copy-paste)\n\n### Code-first only\n\n```yaml\nruntime:\n  docs_flow:\n\
+    \    mode: \"code-first\"\n  modules:\n    gap_detection: true\n    drift_detection:\
+    \ true\n    docs_contract: true\n    kpi_sla: true\n```\n\n### API-first only\n\
+    \n```yaml\nruntime:\n  docs_flow:\n    mode: \"api-first\"\n  api_first:\n   \
+    \ enabled: true\n    openapi_version: \"3.1.0\"\n    manual_overrides_path: \"\
+    api/overrides/openapi.manual.yml\"\n    regression_snapshot_path: \"api/.openapi-regression.json\"\
+    \n    generate_from_notes: true\n```\n\n### Hybrid\n\n```yaml\nruntime:\n  docs_flow:\n\
+    \    mode: \"hybrid\"\n  api_first:\n    enabled: true\n  modules:\n    gap_detection:\
+    \ true\n    drift_detection: true\n    docs_contract: true\n    kpi_sla: true\n\
+    ```"

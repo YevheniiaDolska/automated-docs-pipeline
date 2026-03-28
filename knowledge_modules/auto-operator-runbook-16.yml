@@ -1,0 +1,115 @@
+id: auto-operator-runbook-16
+title: Operator Runbook (Retainer Operations) (Part 16)
+summary: Step-by-step instructions for weekly report review, client questions, new
+  repo setup, and profile tuning.
+intents:
+- configure
+- integrate
+- troubleshoot
+audiences:
+- practitioner
+- developer
+channels:
+- docs
+- assistant
+- automation
+priority: 60
+status: active
+owner: docsops-auto
+last_verified: '2026-03-28'
+dependencies: []
+tags:
+- auto-extracted
+- how-to
+- operator-runbook
+content:
+  docs_markdown: '### What the wizard configures vs what you edit manually
+
+
+    The interactive wizard (`python3 scripts/provision_client_repo.py --interactive
+    --generate-profile`) configures all of these settings during initial setup:
+
+
+    - Preset selection (sets the baseline strictness)
+
+    - Policy pack (`minimal`, `api-first`, `monorepo`, `multi-product`, `plg`)
+
+    - Style guide (`google`, `microsoft`, `hybrid`)
+
+    - Protocol-specific thresholds (per-protocol autofix cycles, semantic checks)
+
+    - Module toggles (17 feature switches)
+
+    - SLA thresholds (via `policy_overrides`)
+
+    - All integration settings
+
+
+    For changes after initial setup, you have two options:
+
+
+    #### Option A: Re-run the wizard
+
+
+    ```bash
+
+    python3 scripts/provision_client_repo.py --interactive --generate-profile
+
+    ```
+
+
+    This regenerates the profile from scratch. Choose the new preset and adjust settings.
+
+
+    #### Option B: Edit the profile manually
+
+
+    Edit `profiles/clients/<client-id>.client.yml` directly.'
+  assistant_context: 'Use this module when answering questions related to: Operator
+    Runbook (Retainer Operations) (Part 16). Source path: docs/operations/OPERATOR_RUNBOOK.md.
+    Summary: Step-by-step instructions for weekly report review, client questions,
+    new repo setup, and profile tuning.
+
+
+    ### What the wizard configures vs what you edit manually
+
+
+    The interactive wizard (`python3 scripts/provision_client_repo.py --interactive
+    --generate-profile`) configures all of these settings during initial setup:
+
+
+    - Preset selection (sets the baseline strictness)
+
+    - Policy pack (`minimal`, `api-first`, `monorepo`, `multi-product`, `plg`)
+
+    - Style guide (`google`, `microsoft`, `hybrid`)
+
+    - Protocol-specific thresholds (per-protocol autofix cycles, semantic checks)
+
+    - Module toggles (17 feature switches)
+
+    - SLA thresholds (via `policy_overrides`)
+
+    - All integration settings
+
+
+    For changes after initial setup, you have two options:
+
+
+    #### Option A: Re-run the wizard
+
+
+    ```bash
+
+    python3 scripts/provision_client_repo.py --interactive --generate-profile
+
+    ```
+
+
+    This regenerates the profile from scratch. Choose the new preset and adjust settings.
+
+
+    #### Option B: Edit the profile manually
+
+
+    Edit `profiles/clients/<client-id>.client.yml` directly.'

@@ -1,0 +1,165 @@
+id: auto-operator-runbook-3
+title: Operator Runbook (Retainer Operations) (Part 3)
+summary: Step-by-step instructions for weekly report review, client questions, new
+  repo setup, and profile tuning.
+intents:
+- configure
+audiences:
+- practitioner
+- developer
+channels:
+- docs
+- assistant
+- automation
+priority: 60
+status: active
+owner: docsops-auto
+last_verified: '2026-03-28'
+dependencies: []
+tags:
+- auto-extracted
+- how-to
+- operator-runbook
+content:
+  docs_markdown: '## Before you start
+
+
+    You need access to:
+
+
+    - The VeriOps master repository (this repo) on your machine
+
+    - The client repository (either direct path access or SSH/HTTPS clone)
+
+    - Terminal (PowerShell on Windows, bash on Linux/macOS)
+
+    - A text editor (VS Code recommended)
+
+
+    Key paths in this repo:
+
+
+    | What | Where |
+
+    | --- | --- |
+
+    | Client profiles | `profiles/clients/<client>.client.yml` |
+
+    | Plan presets | `profiles/clients/presets/` (small, startup, enterprise, pilot-evidence)
+    |
+
+    | Generated bundles | `generated/client_bundles/<client-id>/` |
+
+    | Policy packs | `policy_packs/` (minimal, api-first, monorepo, multi-product,
+    plg) |
+
+    | Scripts | `scripts/` |
+
+
+    Key paths in a client repository (after provisioning):
+
+
+    | What | Where |
+
+    | --- | --- |
+
+    | Runtime config | `<client-repo>/docsops/config/client_runtime.yml` |
+
+    | Policy pack | `<client-repo>/docsops/policy_packs/selected.yml` |
+
+    | Weekly reports | `<client-repo>/reports/consolidated_report.json` |
+
+    | Status file | `<client-repo>/reports/docsops_status.json` |
+
+    | Env checklist | `<client-repo>/docsops/ENV_CHECKLIST.md` |
+
+    | License | `<client-repo>/docsops/license.jwt` |
+
+    | Scheduler | `<client-repo>/docsops/ops/` |
+
+
+    ---
+
+
+    ## Task 1: Review weekly report (5-10 minutes)
+
+
+    **When:** Every Monday (or the day after the scheduler runs).
+
+
+    **Purpose:** Check that the automated pipeline ran successfully and review the
+    health of the client documentation.'
+  assistant_context: 'Use this module when answering questions related to: Operator
+    Runbook (Retainer Operations) (Part 3). Source path: docs/operations/OPERATOR_RUNBOOK.md.
+    Summary: Step-by-step instructions for weekly report review, client questions,
+    new repo setup, and profile tuning.
+
+
+    ## Before you start
+
+
+    You need access to:
+
+
+    - The VeriOps master repository (this repo) on your machine
+
+    - The client repository (either direct path access or SSH/HTTPS clone)
+
+    - Terminal (PowerShell on Windows, bash on Linux/macOS)
+
+    - A text editor (VS Code recommended)
+
+
+    Key paths in this repo:
+
+
+    | What | Where |
+
+    | --- | --- |
+
+    | Client profiles | `profiles/clients/<client>.client.yml` |
+
+    | Plan presets | `profiles/clients/presets/` (small, startup, enterprise, pilot-evidence)
+    |
+
+    | Generated bundles | `generated/client_bundles/<client-id>/` |
+
+    | Policy packs | `policy_packs/` (minimal, api-first, monorepo, multi-product,
+    plg) |
+
+    | Scripts | `scripts/` |
+
+
+    Key paths in a client repository (after provisioning):
+
+
+    | What | Where |
+
+    | --- | --- |
+
+    | Runtime config | `<client-repo>/docsops/config/client_runtime.yml` |
+
+    | Policy pack | `<client-repo>/docsops/policy_packs/selected.yml` |
+
+    | Weekly reports | `<client-repo>/reports/consolidated_report.json` |
+
+    | Status file | `<client-repo>/reports/docsops_status.json` |
+
+    | Env checklist | `<client-repo>/docsops/ENV_CHECKLIST.md` |
+
+    | License | `<client-repo>/docsops/license.jwt` |
+
+    | Scheduler | `<client-repo>/docsops/ops/` |
+
+
+    ---
+
+
+    ## Task 1: Review weekly report (5-10 minutes)
+
+
+    **When:** Every Monday (or the day after the scheduler runs).
+
+
+    **Purpose:** Check that the automated pipeline ran successfully and review the
+    health of the client documentation.'

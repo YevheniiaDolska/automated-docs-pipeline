@@ -1,0 +1,256 @@
+id: auto-seo-guide-3
+title: SEO/GEO Optimization Guide (Part 3)
+summary: Comprehensive guide to SEO and GEO optimization in the documentation pipeline
+intents:
+- integrate
+- troubleshoot
+audiences:
+- developer
+- operator
+channels:
+- docs
+- assistant
+- automation
+priority: 60
+status: active
+owner: docsops-auto
+last_verified: '2026-03-28'
+dependencies: []
+tags:
+- auto-extracted
+- reference
+- seo-guide
+content:
+  docs_markdown: '### Command Line
+
+
+    ```bash
+
+    # Basic GEO/SEO check
+
+    python scripts/seo_geo_optimizer.py docs/
+
+
+    # Fix issues and enhance metadata
+
+    python scripts/seo_geo_optimizer.py docs/ --fix
+
+
+    # Generate sitemap
+
+    python scripts/seo_geo_optimizer.py docs/ --sitemap
+
+
+    # Generate Algolia records
+
+    python scripts/seo_geo_optimizer.py docs/ --algolia
+
+
+    # All optimizations
+
+    python scripts/seo_geo_optimizer.py docs/ --fix --sitemap --algolia
+
+    ```
+
+
+    ## GitHub Actions
+
+
+    The pipeline runs automatically:
+
+
+    \11. **On PR**: Validates SEO/GEO compliance
+
+    \11. **On Push to Main**: Updates search index and sitemap
+
+    \11. **Weekly**: Full optimization with auto-fixes
+
+
+    ### Pre-commit Hook
+
+
+    Runs automatically before commits:
+
+
+    ```bash
+
+    # Install pre-commit
+
+    pip install pre-commit
+
+    pre-commit install
+
+
+    # Run manually
+
+    pre-commit run seo-geo-check --all-files
+
+    ```
+
+
+    ## Configuration
+
+
+    ### Required Frontmatter
+
+
+    Every document must have:
+
+
+    ```text
+
+    ---
+
+    title: "Clear title under 70 characters"
+
+    description: "SEO description between 50-160 characters"
+
+    content_type: tutorial|how-to|concept|reference|troubleshooting
+
+    ---
+
+    ```
+
+
+    ### Optional Enhancements
+
+
+    ```text
+
+    ---
+
+    product: cloud|self-hosted|both
+
+    app_component: webhook|http-request|code|ai-agent
+
+    maturity: preview|beta|ga|deprecated|removed
+
+    tags: [Tag1, Tag2, Tag3] # Max 8 tags
+
+    last_reviewed: 2024-01-15
+
+    ---
+
+    ```
+
+
+    ## Validation Rules'
+  assistant_context: 'Use this module when answering questions related to: SEO/GEO
+    Optimization Guide (Part 3). Source path: docs/SEO_GUIDE.md. Summary: Comprehensive
+    guide to SEO and GEO optimization in the documentation pipeline
+
+
+    ### Command Line
+
+
+    ```bash
+
+    # Basic GEO/SEO check
+
+    python scripts/seo_geo_optimizer.py docs/
+
+
+    # Fix issues and enhance metadata
+
+    python scripts/seo_geo_optimizer.py docs/ --fix
+
+
+    # Generate sitemap
+
+    python scripts/seo_geo_optimizer.py docs/ --sitemap
+
+
+    # Generate Algolia records
+
+    python scripts/seo_geo_optimizer.py docs/ --algolia
+
+
+    # All optimizations
+
+    python scripts/seo_geo_optimizer.py docs/ --fix --sitemap --algolia
+
+    ```
+
+
+    ## GitHub Actions
+
+
+    The pipeline runs automatically:
+
+
+    \11. **On PR**: Validates SEO/GEO compliance
+
+    \11. **On Push to Main**: Updates search index and sitemap
+
+    \11. **Weekly**: Full optimization with auto-fixes
+
+
+    ### Pre-commit Hook
+
+
+    Runs automatically before commits:
+
+
+    ```bash
+
+    # Install pre-commit
+
+    pip install pre-commit
+
+    pre-commit install
+
+
+    # Run manually
+
+    pre-commit run seo-geo-check --all-files
+
+    ```
+
+
+    ## Configuration
+
+
+    ### Required Frontmatter
+
+
+    Every document must have:
+
+
+    ```text
+
+    ---
+
+    title: "Clear title under 70 characters"
+
+    description: "SEO description between 50-160 characters"
+
+    content_type: tutorial|how-to|concept|reference|troubleshooting
+
+    ---
+
+    ```
+
+
+    ### Optional Enhancements
+
+
+    ```text
+
+    ---
+
+    product: cloud|self-hosted|both
+
+    app_component: webhook|http-request|code|ai-agent
+
+    maturity: preview|beta|ga|deprecated|removed
+
+    tags: [Tag1, Tag2, Tag3] # Max 8 tags
+
+    last_reviewed: 2024-01-15
+
+    ---
+
+    ```
+
+
+    ## Validation Rules'

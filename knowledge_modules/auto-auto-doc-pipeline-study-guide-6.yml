@@ -1,0 +1,144 @@
+id: auto-auto-doc-pipeline-study-guide-6
+title: Auto-Doc Pipeline study guide (Part 6)
+summary: Learn the Auto-Doc Pipeline quickly with a simple architecture map, operating
+  flow, plan mapping, and a detailed client FAQ.
+intents:
+- integrate
+- troubleshoot
+audiences:
+- developer
+- operator
+channels:
+- docs
+- assistant
+- automation
+priority: 60
+status: active
+owner: docsops-auto
+last_verified: '2026-03-28'
+dependencies: []
+tags:
+- auto-doc-pipeline-study-guide
+- auto-extracted
+- reference
+content:
+  docs_markdown: '### Step 6: enable automation
+
+
+    1. Install weekly scheduler (Linux cron or Windows task).
+
+    1. Keep `git_sync.enabled=true` unless client requests otherwise.
+
+    1. Optionally enable PR auto-fix workflow.
+
+    1. Optional: enable strict publish gates for enterprise clients.
+
+
+    ### Step 7: handoff and operating cadence
+
+
+    1. Share report reading routine with client reviewers.
+
+    1. Keep human step focused on review/approval, not routine doc plumbing.
+
+    1. Revisit plan scope as usage grows (Pro -> Enterprise when needed).
+
+
+    ## Core artifacts to know by memory
+
+
+    - `reports/consolidated_report.json`: top-level operational report.
+
+    - `reports/multi_protocol_contract_report.json`: protocol execution summary.
+
+    - `reports/api-test-assets/api_test_cases.json`: generated contract test set.
+
+    - `reports/api-test-assets/merge_report.json`: smart-merge decisions and `needs_review_ids`.
+
+    - `generated/api-stubs/<protocol>/handlers.py`: generated server stubs.
+
+
+    ## Detailed FAQ for potential clients
+
+
+    ### 1) What business problem does this solve first?
+
+
+    It removes the release bottleneck caused by stale docs, broken API examples, and
+    manual test asset maintenance.
+
+
+    ### 2) Is this only an API-first product?
+
+
+    No. The platform is docs-first and supports `code-first`, `api-first`, and `hybrid`
+    operations in the same runtime.
+
+
+    ### 3) Which API protocols are supported?
+
+
+    REST, GraphQL, gRPC, AsyncAPI, and WebSocket.'
+  assistant_context: 'Use this module when answering questions related to: Auto-Doc
+    Pipeline study guide (Part 6). Source path: docs/reference/auto-doc-pipeline-study-guide.md.
+    Summary: Learn the Auto-Doc Pipeline quickly with a simple architecture map, operating
+    flow, plan mapping, and a detailed client FAQ.
+
+
+    ### Step 6: enable automation
+
+
+    1. Install weekly scheduler (Linux cron or Windows task).
+
+    1. Keep `git_sync.enabled=true` unless client requests otherwise.
+
+    1. Optionally enable PR auto-fix workflow.
+
+    1. Optional: enable strict publish gates for enterprise clients.
+
+
+    ### Step 7: handoff and operating cadence
+
+
+    1. Share report reading routine with client reviewers.
+
+    1. Keep human step focused on review/approval, not routine doc plumbing.
+
+    1. Revisit plan scope as usage grows (Pro -> Enterprise when needed).
+
+
+    ## Core artifacts to know by memory
+
+
+    - `reports/consolidated_report.json`: top-level operational report.
+
+    - `reports/multi_protocol_contract_report.json`: protocol execution summary.
+
+    - `reports/api-test-assets/api_test_cases.json`: generated contract test set.
+
+    - `reports/api-test-assets/merge_report.json`: smart-merge decisions and `needs_review_ids`.
+
+    - `generated/api-stubs/<protocol>/handlers.py`: generated server stubs.
+
+
+    ## Detailed FAQ for potential clients
+
+
+    ### 1) What business problem does this solve first?
+
+
+    It removes the release bottleneck caused by stale docs, broken API examples, and
+    manual test asset maintenance.
+
+
+    ### 2) Is this only an API-first product?
+
+
+    No. The platform is docs-first and supports `code-first`, `api-first`, and `hybrid`
+    operations in the same runtime.
+
+
+    ### 3) Which API protocols are supported?
+
+
+    REST, GraphQL, gRPC, AsyncAPI, and WebSocket.'

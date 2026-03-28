@@ -1,0 +1,62 @@
+id: auto-run-api-first-production-flow-2
+title: Run API-first production flow (Part 2)
+summary: Generate OpenAPI from planning notes, run full lint and self-verification,
+  publish playground assets, and keep a sandbox ready for client testing.
+intents:
+- configure
+- troubleshoot
+audiences:
+- practitioner
+- developer
+channels:
+- docs
+- assistant
+- automation
+priority: 60
+status: active
+owner: docsops-auto
+last_verified: '2026-03-28'
+dependencies: []
+tags:
+- auto-extracted
+- how-to
+- run-api-first-production-flow
+content:
+  docs_markdown: "## Step 2: Run generation and verification\n\nRun the universal\
+    \ flow command:\n\n```bash\npython3 scripts/run_api_first_flow.py \\\n  --project-slug\
+    \ taskstream \\\n  --notes demos/api-first/taskstream-planning-notes.md \\\n \
+    \ --spec api/openapi.yaml \\\n  --spec-tree api/taskstream \\\n  --openapi-version\
+    \ 3.1.0 \\\n  --manual-overrides api/overrides/openapi.manual.yml \\\n  --regression-snapshot\
+    \ api/.openapi-regression.json \\\n  --docs-provider mkdocs \\\n  --verify-user-path\
+    \ \\\n  --mock-base-url https://<your-real-public-mock-url>/v1 \\\n  --generate-test-assets\
+    \ \\\n  --upload-test-assets \\\n  --auto-remediate \\\n  --max-attempts 3\n```\n\
+    \nThe runner performs:\n\n1. OpenAPI generation from notes.\n1. Contract validation.\n\
+    1. Spectral, Redocly, and Swagger CLI lint checks.\n1. FastAPI stub generation.\n\
+    1. Self-verification of operation coverage and user-path calls.\n1. Finalize gate\
+    \ (`scripts/finalize_docs_gate.py`): iterative `lint -> fix -> lint` before completion.\n\
+    \nFor interactive confirmation before commit, add:\n\n```bash\n--ask-commit-confirmation\n\
+    ```\n\nIf you maintain multiple API versions, run one flow per version and publish\
+    \ to separate docs asset paths.\nExample layout:\n\n```text\napi/v1/openapi.yaml\
+    \ -> docs/assets/api/v1/\napi/v2/openapi.yaml -> docs/assets/api/v2/\n```\n\n\
+    Use overrides and regression snapshot as follows:"
+  assistant_context: "Use this module when answering questions related to: Run API-first\
+    \ production flow (Part 2). Source path: docs/how-to/run-api-first-production-flow.md.\
+    \ Summary: Generate OpenAPI from planning notes, run full lint and self-verification,\
+    \ publish playground assets, and keep a sandbox ready for client testing.\n\n\
+    ## Step 2: Run generation and verification\n\nRun the universal flow command:\n\
+    \n```bash\npython3 scripts/run_api_first_flow.py \\\n  --project-slug taskstream\
+    \ \\\n  --notes demos/api-first/taskstream-planning-notes.md \\\n  --spec api/openapi.yaml\
+    \ \\\n  --spec-tree api/taskstream \\\n  --openapi-version 3.1.0 \\\n  --manual-overrides\
+    \ api/overrides/openapi.manual.yml \\\n  --regression-snapshot api/.openapi-regression.json\
+    \ \\\n  --docs-provider mkdocs \\\n  --verify-user-path \\\n  --mock-base-url\
+    \ https://<your-real-public-mock-url>/v1 \\\n  --generate-test-assets \\\n  --upload-test-assets\
+    \ \\\n  --auto-remediate \\\n  --max-attempts 3\n```\n\nThe runner performs:\n\
+    \n1. OpenAPI generation from notes.\n1. Contract validation.\n1. Spectral, Redocly,\
+    \ and Swagger CLI lint checks.\n1. FastAPI stub generation.\n1. Self-verification\
+    \ of operation coverage and user-path calls.\n1. Finalize gate (`scripts/finalize_docs_gate.py`):\
+    \ iterative `lint -> fix -> lint` before completion.\n\nFor interactive confirmation\
+    \ before commit, add:\n\n```bash\n--ask-commit-confirmation\n```\n\nIf you maintain\
+    \ multiple API versions, run one flow per version and publish to separate docs\
+    \ asset paths.\nExample layout:\n\n```text\napi/v1/openapi.yaml -> docs/assets/api/v1/\n\
+    api/v2/openapi.yaml -> docs/assets/api/v2/\n```\n\nUse overrides and regression\
+    \ snapshot as follows:"

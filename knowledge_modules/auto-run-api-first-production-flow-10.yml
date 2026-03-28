@@ -1,0 +1,59 @@
+id: auto-run-api-first-production-flow-10
+title: Run API-first production flow (Part 10)
+summary: Generate OpenAPI from planning notes, run full lint and self-verification,
+  publish playground assets, and keep a sandbox ready for client testing.
+intents:
+- configure
+audiences:
+- practitioner
+- developer
+channels:
+- docs
+- assistant
+- automation
+priority: 60
+status: active
+owner: docsops-auto
+last_verified: '2026-03-28'
+dependencies: []
+tags:
+- auto-extracted
+- how-to
+- run-api-first-production-flow
+content:
+  docs_markdown: "## Step 5: Apply multilingual examples baseline\n\nRun these commands\
+    \ to keep code snippets aligned with the new docs standard:\n\n```bash\npython3\
+    \ scripts/generate_multilang_tabs.py --paths docs templates --scope api --write\n\
+    python3 scripts/validate_multilang_examples.py --docs-dir docs --scope api --required-languages\
+    \ curl,javascript,python\npython3 scripts/check_code_examples_smoke.py --paths\
+    \ docs templates --allow-empty\npython3 scripts/check_openapi_regression.py --spec\
+    \ api/openapi.yaml --spec-tree api/taskstream --snapshot api/.openapi-regression.json\n\
+    ```\n\nUse this API request tab set as the baseline format for executable examples:\n\
+    \n=== \"cURL\"\n\n    ```bash\n    curl -sS https://<your-real-public-mock-url>/v1/healthz\n\
+    \    ```\n\n=== \"JavaScript\"\n\n    ```javascript\n    const res = await fetch(\"\
+    https://<your-real-public-mock-url>/v1/healthz\");\n    console.log(await res.json());\n\
+    \    ```\n\n=== \"Python\"\n\n    ```python\n    import requests\n\n    res =\
+    \ requests.get(\"https://<your-real-public-mock-url>/v1/healthz\", timeout=10)\n\
+    \    print(res.json())\n    ```\n\n## Step 6: Stop sandbox when needed\n\n```bash\n\
+    bash scripts/api_sandbox_project.sh down taskstream ./api/openapi.yaml 4010\n\
+    bash scripts/api_prodlike_project.sh down taskstream 4011\n```"
+  assistant_context: "Use this module when answering questions related to: Run API-first\
+    \ production flow (Part 10). Source path: docs/how-to/run-api-first-production-flow.md.\
+    \ Summary: Generate OpenAPI from planning notes, run full lint and self-verification,\
+    \ publish playground assets, and keep a sandbox ready for client testing.\n\n\
+    ## Step 5: Apply multilingual examples baseline\n\nRun these commands to keep\
+    \ code snippets aligned with the new docs standard:\n\n```bash\npython3 scripts/generate_multilang_tabs.py\
+    \ --paths docs templates --scope api --write\npython3 scripts/validate_multilang_examples.py\
+    \ --docs-dir docs --scope api --required-languages curl,javascript,python\npython3\
+    \ scripts/check_code_examples_smoke.py --paths docs templates --allow-empty\n\
+    python3 scripts/check_openapi_regression.py --spec api/openapi.yaml --spec-tree\
+    \ api/taskstream --snapshot api/.openapi-regression.json\n```\n\nUse this API\
+    \ request tab set as the baseline format for executable examples:\n\n=== \"cURL\"\
+    \n\n    ```bash\n    curl -sS https://<your-real-public-mock-url>/v1/healthz\n\
+    \    ```\n\n=== \"JavaScript\"\n\n    ```javascript\n    const res = await fetch(\"\
+    https://<your-real-public-mock-url>/v1/healthz\");\n    console.log(await res.json());\n\
+    \    ```\n\n=== \"Python\"\n\n    ```python\n    import requests\n\n    res =\
+    \ requests.get(\"https://<your-real-public-mock-url>/v1/healthz\", timeout=10)\n\
+    \    print(res.json())\n    ```\n\n## Step 6: Stop sandbox when needed\n\n```bash\n\
+    bash scripts/api_sandbox_project.sh down taskstream ./api/openapi.yaml 4010\n\
+    bash scripts/api_prodlike_project.sh down taskstream 4011\n```"

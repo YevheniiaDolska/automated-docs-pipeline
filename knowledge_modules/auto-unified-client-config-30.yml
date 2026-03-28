@@ -1,0 +1,59 @@
+id: auto-unified-client-config-30
+title: Unified Client Configuration (Part 30)
+summary: Single source of truth for per-client Auto-Doc Pipeline configuration, modules,
+  and automation.
+intents:
+- configure
+- integrate
+audiences:
+- developer
+- operator
+channels:
+- docs
+- assistant
+- automation
+priority: 60
+status: active
+owner: docsops-auto
+last_verified: '2026-03-28'
+dependencies: []
+tags:
+- auto-extracted
+- reference
+- unified-client-config
+content:
+  docs_markdown: "## 9. Fully automated RAG/knowledge flow\n\nTo run RAG and knowledge\
+    \ base maintenance without manual commands:\n\n\\11. Configure once in client\
+    \ profile:\n\n- enable `runtime.modules.knowledge_validation: true`\n- enable\
+    \ `runtime.modules.rag_optimization: true`\n- enable `runtime.modules.ontology_graph:\
+    \ true`\n- enable `runtime.modules.retrieval_evals: true`\n- add `runtime.custom_tasks.weekly`\
+    \ entries (for example intent experiences)\n- include `bundle.include_paths: [\"\
+    knowledge_modules\"]`\n- include scripts:\n  - `scripts/extract_knowledge_modules_from_docs.py`\n\
+    \  - `scripts/validate_knowledge_modules.py`\n  - `scripts/generate_knowledge_retrieval_index.py`\n\
+    \  - `scripts/generate_knowledge_graph_jsonld.py`\n  - `scripts/run_retrieval_evals.py`\n\
+    \n\\11. Provision once:\n\n- install bundle with `scripts/provision_client_repo.py`\n\
+    - install scheduler with `--install-scheduler linux` or `--install-scheduler windows`\n\
+    \n\\11. Weekly automation then runs by itself:\n\n- scheduler triggers `run_weekly_gap_batch.py`\n\
+    - it runs `extract_knowledge_modules_from_docs.py`\n- it runs `validate_knowledge_modules.py`\n\
+    - it runs `generate_knowledge_retrieval_index.py`\n- it runs `generate_knowledge_graph_jsonld.py`\n\
+    - it runs `run_retrieval_evals.py`\n- it runs all enabled `custom_tasks.weekly`\n\
+    - it writes consolidated reports\n\nOutcome:"
+  assistant_context: "Use this module when answering questions related to: Unified\
+    \ Client Configuration (Part 30). Source path: docs/operations/UNIFIED_CLIENT_CONFIG.md.\
+    \ Summary: Single source of truth for per-client Auto-Doc Pipeline configuration,\
+    \ modules, and automation.\n\n## 9. Fully automated RAG/knowledge flow\n\nTo run\
+    \ RAG and knowledge base maintenance without manual commands:\n\n\\11. Configure\
+    \ once in client profile:\n\n- enable `runtime.modules.knowledge_validation: true`\n\
+    - enable `runtime.modules.rag_optimization: true`\n- enable `runtime.modules.ontology_graph:\
+    \ true`\n- enable `runtime.modules.retrieval_evals: true`\n- add `runtime.custom_tasks.weekly`\
+    \ entries (for example intent experiences)\n- include `bundle.include_paths: [\"\
+    knowledge_modules\"]`\n- include scripts:\n  - `scripts/extract_knowledge_modules_from_docs.py`\n\
+    \  - `scripts/validate_knowledge_modules.py`\n  - `scripts/generate_knowledge_retrieval_index.py`\n\
+    \  - `scripts/generate_knowledge_graph_jsonld.py`\n  - `scripts/run_retrieval_evals.py`\n\
+    \n\\11. Provision once:\n\n- install bundle with `scripts/provision_client_repo.py`\n\
+    - install scheduler with `--install-scheduler linux` or `--install-scheduler windows`\n\
+    \n\\11. Weekly automation then runs by itself:\n\n- scheduler triggers `run_weekly_gap_batch.py`\n\
+    - it runs `extract_knowledge_modules_from_docs.py`\n- it runs `validate_knowledge_modules.py`\n\
+    - it runs `generate_knowledge_retrieval_index.py`\n- it runs `generate_knowledge_graph_jsonld.py`\n\
+    - it runs `run_retrieval_evals.py`\n- it runs all enabled `custom_tasks.weekly`\n\
+    - it writes consolidated reports\n\nOutcome:"

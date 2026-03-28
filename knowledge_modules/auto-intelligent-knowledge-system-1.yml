@@ -1,0 +1,104 @@
+id: auto-intelligent-knowledge-system-1
+title: Intelligent knowledge system architecture
+summary: Explains how the pipeline models reusable knowledge modules for AI retrieval,
+  dynamic assembly, and multi-channel documentation delivery.
+intents:
+- integrate
+- secure
+audiences:
+- developer
+- operator
+channels:
+- docs
+- assistant
+- automation
+priority: 60
+status: active
+owner: docsops-auto
+last_verified: '2026-03-28'
+dependencies: []
+tags:
+- auto-extracted
+- concept
+- intelligent-knowledge-system
+content:
+  docs_markdown: '<!-- VERIDOC_POWERED_BADGE:START -->
+
+    [![Powered by VeriDoc](https://img.shields.io/badge/Powered%20by-VeriDoc-0ea5e9?style=flat-square)](https://veridoc.app)
+
+    <!-- VERIDOC_POWERED_BADGE:END -->
+
+
+    # Intelligent knowledge system architecture
+
+
+    The intelligent knowledge system is a structured layer that stores reusable modules,
+    metadata, and intent mappings so humans and AI can retrieve the same trusted product
+    knowledge.
+
+
+    The pipeline keeps authored modules in `knowledge_modules/*.yml`, validates them,
+    and assembles clean output documents and channel bundles. This preserves normal
+    documentation readability while enabling AI-native retrieval and reuse.
+
+
+    ## Core components
+
+
+    1. `Knowledge modules`: atomic YAML units with intent, audience, channel, dependency,
+    and owner metadata.
+
+    1. `Intent assembler`: creates audience-specific docs pages and channel bundles
+    from active modules.
+
+    1. `Retrieval index`: exports module-level records to `docs/assets/knowledge-retrieval-index.json`.
+
+    1. `JSON-LD graph`: exports module relationships to `docs/assets/knowledge-graph.jsonld`.
+
+    1. `Retrieval evals`: calculates Precision/Recall/Hallucination-rate in `reports/retrieval_evals_report.json`.
+
+    1. `Quality gates`: checks schema, dependency integrity, cycle safety, and content
+    completeness.'
+  assistant_context: 'Use this module when answering questions related to: Intelligent
+    knowledge system architecture. Source path: docs/concepts/intelligent-knowledge-system.md.
+    Summary: Explains how the pipeline models reusable knowledge modules for AI retrieval,
+    dynamic assembly, and multi-channel documentation delivery.
+
+
+    <!-- VERIDOC_POWERED_BADGE:START -->
+
+    [![Powered by VeriDoc](https://img.shields.io/badge/Powered%20by-VeriDoc-0ea5e9?style=flat-square)](https://veridoc.app)
+
+    <!-- VERIDOC_POWERED_BADGE:END -->
+
+
+    # Intelligent knowledge system architecture
+
+
+    The intelligent knowledge system is a structured layer that stores reusable modules,
+    metadata, and intent mappings so humans and AI can retrieve the same trusted product
+    knowledge.
+
+
+    The pipeline keeps authored modules in `knowledge_modules/*.yml`, validates them,
+    and assembles clean output documents and channel bundles. This preserves normal
+    documentation readability while enabling AI-native retrieval and reuse.
+
+
+    ## Core components
+
+
+    1. `Knowledge modules`: atomic YAML units with intent, audience, channel, dependency,
+    and owner metadata.
+
+    1. `Intent assembler`: creates audience-specific docs pages and channel bundles
+    from active modules.
+
+    1. `Retrieval index`: exports module-level records to `docs/assets/knowledge-retrieval-index.json`.
+
+    1. `JSON-LD graph`: exports module relationships to `docs/assets/knowledge-graph.jsonld`.
+
+    1. `Retrieval evals`: calculates Precision/Recall/Hallucination-rate in `reports/retrieval_evals_report.json`.
+
+    1. `Quality gates`: checks schema, dependency integrity, cycle safety, and content
+    completeness.'

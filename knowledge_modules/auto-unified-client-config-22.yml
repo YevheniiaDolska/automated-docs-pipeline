@@ -1,0 +1,51 @@
+id: auto-unified-client-config-22
+title: Unified Client Configuration (Part 22)
+summary: Single source of truth for per-client Auto-Doc Pipeline configuration, modules,
+  and automation.
+intents:
+- integrate
+- troubleshoot
+audiences:
+- developer
+- operator
+channels:
+- docs
+- assistant
+- automation
+priority: 60
+status: active
+owner: docsops-auto
+last_verified: '2026-03-28'
+dependencies: []
+tags:
+- auto-extracted
+- reference
+- unified-client-config
+content:
+  docs_markdown: "## 8. Universal tasks (core UTP, not optional extras)\n\nUse `runtime.custom_tasks.weekly`\
+    \ to wire any command from the capabilities catalog.\n\n```yaml\nruntime:\n  custom_tasks:\n\
+    \    weekly:\n      - id: \"geo-lint\"\n        enabled: true\n        command:\
+    \ \"python3 docsops/scripts/seo_geo_optimizer.py docs/\"\n        continue_on_error:\
+    \ true\n      - id: \"openapi-lint\"\n        enabled: true\n        command:\
+    \ \"npm run lint:openapi\"\n        continue_on_error: true\n    on_demand: []\n\
+    ```\n\nFull list of available capabilities:\n\n- `docs/operations/PIPELINE_CAPABILITIES_CATALOG.md`\n\
+    - regenerate catalog: `python3 scripts/generate_pipeline_capabilities_catalog.py`\n\
+    \nRecommended default for smooth intent assembly:\n\n- Keep `scripts/build_all_intent_experiences.py`\
+    \ in `bundle.include_scripts`.\n- Keep `python3 docsops/scripts/build_all_intent_experiences.py`\
+    \ enabled in `runtime.custom_tasks.weekly`.\n- Keep `knowledge_modules` in `bundle.include_paths`\
+    \ (or store it directly in client repo)."
+  assistant_context: "Use this module when answering questions related to: Unified\
+    \ Client Configuration (Part 22). Source path: docs/operations/UNIFIED_CLIENT_CONFIG.md.\
+    \ Summary: Single source of truth for per-client Auto-Doc Pipeline configuration,\
+    \ modules, and automation.\n\n## 8. Universal tasks (core UTP, not optional extras)\n\
+    \nUse `runtime.custom_tasks.weekly` to wire any command from the capabilities\
+    \ catalog.\n\n```yaml\nruntime:\n  custom_tasks:\n    weekly:\n      - id: \"\
+    geo-lint\"\n        enabled: true\n        command: \"python3 docsops/scripts/seo_geo_optimizer.py\
+    \ docs/\"\n        continue_on_error: true\n      - id: \"openapi-lint\"\n   \
+    \     enabled: true\n        command: \"npm run lint:openapi\"\n        continue_on_error:\
+    \ true\n    on_demand: []\n```\n\nFull list of available capabilities:\n\n- `docs/operations/PIPELINE_CAPABILITIES_CATALOG.md`\n\
+    - regenerate catalog: `python3 scripts/generate_pipeline_capabilities_catalog.py`\n\
+    \nRecommended default for smooth intent assembly:\n\n- Keep `scripts/build_all_intent_experiences.py`\
+    \ in `bundle.include_scripts`.\n- Keep `python3 docsops/scripts/build_all_intent_experiences.py`\
+    \ enabled in `runtime.custom_tasks.weekly`.\n- Keep `knowledge_modules` in `bundle.include_paths`\
+    \ (or store it directly in client repo)."

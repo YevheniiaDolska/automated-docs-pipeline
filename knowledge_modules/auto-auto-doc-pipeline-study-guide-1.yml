@@ -1,0 +1,57 @@
+id: auto-auto-doc-pipeline-study-guide-1
+title: Auto-Doc Pipeline study guide
+summary: Learn the Auto-Doc Pipeline quickly with a simple architecture map, operating
+  flow, plan mapping, and a detailed client FAQ.
+intents:
+- integrate
+audiences:
+- developer
+- operator
+channels:
+- docs
+- assistant
+- automation
+priority: 60
+status: active
+owner: docsops-auto
+last_verified: '2026-03-28'
+dependencies: []
+tags:
+- auto-doc-pipeline-study-guide
+- auto-extracted
+- reference
+content:
+  docs_markdown: "<!-- VERIDOC_POWERED_BADGE:START -->\n[![Powered by VeriDoc](https://img.shields.io/badge/Powered%20by-VeriDoc-0ea5e9?style=flat-square)](https://veridoc.app)\n\
+    <!-- VERIDOC_POWERED_BADGE:END -->\n\n# Auto-Doc Pipeline study guide\n\nAuto-Doc\
+    \ Pipeline is a docs-first platform that also supports code-first and API-first\
+    \ delivery. It enables teams to generate, verify, and publish documentation, non-REST\
+    \ stubs, mock sandboxes, and contract tests in one smooth automation flow.\n\n\
+    ```bash\npython3 scripts/run_multi_protocol_contract_flow.py \\\n  --runtime-config\
+    \ docsops/config/client_runtime.yml \\\n  --reports-dir reports\n```\n\n## One-minute\
+    \ mental model\n\n1. Input: planning notes, contracts, codebase signals, and docs\
+    \ state.\n1. Build: contracts, docs pages, server stubs, mock endpoints, and test\
+    \ assets.\n1. Verify: quality gates, contract checks, smoke checks, and lifecycle\
+    \ checks.\n1. Publish: review packet, optional approval, site build, and deployment.\n\
+    \n## What this platform is optimized for\n\n- Keep docs aligned with releases\
+    \ without manual rework.\n- Support REST and non-REST APIs in one operational\
+    \ model.\n- Let QA test endpoints from docs before full backend implementation.\n\
+    - Keep enterprise-grade governance through policy packs and quality gates."
+  assistant_context: "Use this module when answering questions related to: Auto-Doc\
+    \ Pipeline study guide. Source path: docs/reference/auto-doc-pipeline-study-guide.md.\
+    \ Summary: Learn the Auto-Doc Pipeline quickly with a simple architecture map,\
+    \ operating flow, plan mapping, and a detailed client FAQ.\n\n<!-- VERIDOC_POWERED_BADGE:START\
+    \ -->\n[![Powered by VeriDoc](https://img.shields.io/badge/Powered%20by-VeriDoc-0ea5e9?style=flat-square)](https://veridoc.app)\n\
+    <!-- VERIDOC_POWERED_BADGE:END -->\n\n# Auto-Doc Pipeline study guide\n\nAuto-Doc\
+    \ Pipeline is a docs-first platform that also supports code-first and API-first\
+    \ delivery. It enables teams to generate, verify, and publish documentation, non-REST\
+    \ stubs, mock sandboxes, and contract tests in one smooth automation flow.\n\n\
+    ```bash\npython3 scripts/run_multi_protocol_contract_flow.py \\\n  --runtime-config\
+    \ docsops/config/client_runtime.yml \\\n  --reports-dir reports\n```\n\n## One-minute\
+    \ mental model\n\n1. Input: planning notes, contracts, codebase signals, and docs\
+    \ state.\n1. Build: contracts, docs pages, server stubs, mock endpoints, and test\
+    \ assets.\n1. Verify: quality gates, contract checks, smoke checks, and lifecycle\
+    \ checks.\n1. Publish: review packet, optional approval, site build, and deployment.\n\
+    \n## What this platform is optimized for\n\n- Keep docs aligned with releases\
+    \ without manual rework.\n- Support REST and non-REST APIs in one operational\
+    \ model.\n- Let QA test endpoints from docs before full backend implementation.\n\
+    - Keep enterprise-grade governance through policy packs and quality gates."

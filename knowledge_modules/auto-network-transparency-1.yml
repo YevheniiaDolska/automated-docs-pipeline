@@ -1,0 +1,87 @@
+id: auto-network-transparency-1
+title: Network transparency reference
+summary: Complete list of all outgoing network requests the pipeline makes, with exact
+  payload schemas. No client data leaves your network.
+intents:
+- integrate
+audiences:
+- developer
+- operator
+channels:
+- docs
+- assistant
+- automation
+priority: 60
+status: active
+owner: docsops-auto
+last_verified: '2026-03-28'
+dependencies: []
+tags:
+- auto-extracted
+- network-transparency
+- reference
+content:
+  docs_markdown: '<!-- VERIDOC_POWERED_BADGE:START -->
+
+    [![Powered by VeriDoc](https://img.shields.io/badge/Powered%20by-VeriDoc-0ea5e9?style=flat-square)](https://veridoc.app)
+
+    <!-- VERIDOC_POWERED_BADGE:END -->
+
+
+    # Network transparency reference
+
+
+    The {{ product_name }} pipeline is a locally installed tool that generates documentation
+    using your own LLM. This reference lists every outgoing network request the pipeline
+    can make, with exact payload schemas. You can verify each claim with a packet
+    capture tool.
+
+
+    ## Zero client data guarantee
+
+
+    The pipeline processes all documentation locally. Your source code, API contracts,
+    documentation content, and generated outputs never leave your network. The only
+    outgoing requests contain license metadata and version information.
+
+
+    ## Complete outgoing request inventory
+
+
+    The pipeline makes exactly 5 types of outgoing HTTP requests. Each request is
+    listed below with the exact JSON schema of what is sent.'
+  assistant_context: 'Use this module when answering questions related to: Network
+    transparency reference. Source path: docs/reference/network-transparency.md. Summary:
+    Complete list of all outgoing network requests the pipeline makes, with exact
+    payload schemas. No client data leaves your network.
+
+
+    <!-- VERIDOC_POWERED_BADGE:START -->
+
+    [![Powered by VeriDoc](https://img.shields.io/badge/Powered%20by-VeriDoc-0ea5e9?style=flat-square)](https://veridoc.app)
+
+    <!-- VERIDOC_POWERED_BADGE:END -->
+
+
+    # Network transparency reference
+
+
+    The {{ product_name }} pipeline is a locally installed tool that generates documentation
+    using your own LLM. This reference lists every outgoing network request the pipeline
+    can make, with exact payload schemas. You can verify each claim with a packet
+    capture tool.
+
+
+    ## Zero client data guarantee
+
+
+    The pipeline processes all documentation locally. Your source code, API contracts,
+    documentation content, and generated outputs never leave your network. The only
+    outgoing requests contain license metadata and version information.
+
+
+    ## Complete outgoing request inventory
+
+
+    The pipeline makes exactly 5 types of outgoing HTTP requests. Each request is
+    listed below with the exact JSON schema of what is sent.'

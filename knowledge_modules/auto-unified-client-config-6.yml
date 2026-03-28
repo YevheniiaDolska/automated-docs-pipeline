@@ -1,0 +1,60 @@
+id: auto-unified-client-config-6
+title: Unified Client Configuration (Part 6)
+summary: Single source of truth for per-client Auto-Doc Pipeline configuration, modules,
+  and automation.
+intents:
+- integrate
+audiences:
+- developer
+- operator
+channels:
+- docs
+- assistant
+- automation
+priority: 60
+status: active
+owner: docsops-auto
+last_verified: '2026-03-28'
+dependencies: []
+tags:
+- auto-extracted
+- reference
+- unified-client-config
+content:
+  docs_markdown: "### `include_paths` (important for templates and knowledge)\n\n\
+    Allows copying any extra files and folders into the bundle:\n\n```yaml\nbundle:\n\
+    \  include_paths:\n    - \"templates/interactive-diagram.html\"\n    - \"knowledge_modules\"\
+    \n```\n\nUse this for:\n\n- interactive diagrams\n- knowledge modules\n- any custom\
+    \ assets\n\nDefault behavior:\n\n- You normally do not need to edit `include_paths`\
+    \ manually.\n- Preset and profile defaults are already applied during bundle build.\n\
+    - Bundle is always created in `generated/client_bundles/<client_id>/`, so operator\
+    \ can inspect exact contents before handoff.\n\n## 3. LLM instruction packaging\n\
+    \n```yaml\nbundle:\n  llm:\n    codex_instructions_source: \"AGENTS.md\"\n   \
+    \ claude_instructions_source: \"CLAUDE.md\"\n    inject_managed_block: true\n\
+    \    docsops_root_in_client_repo: \"docsops\"\n```\n\nWhen `inject_managed_block=true`,\
+    \ builder auto-inserts managed docsops block into bundled `AGENTS.md` and `CLAUDE.md`.\n\
+    \nPlan-level defaults:\n\n- Pilot preset -> `instructions/llm_plans/pilot/AGENTS.md`,\
+    \ `instructions/llm_plans/pilot/CLAUDE.md`\n- Basic preset -> `instructions/llm_plans/basic/AGENTS.md`,\
+    \ `instructions/llm_plans/basic/CLAUDE.md`\n- Pro preset -> `instructions/llm_plans/pro/AGENTS.md`,\
+    \ `instructions/llm_plans/pro/CLAUDE.md`\n- Enterprise preset -> `AGENTS.md`,\
+    \ `CLAUDE.md` (current full-scope instructions)"
+  assistant_context: "Use this module when answering questions related to: Unified\
+    \ Client Configuration (Part 6). Source path: docs/operations/UNIFIED_CLIENT_CONFIG.md.\
+    \ Summary: Single source of truth for per-client Auto-Doc Pipeline configuration,\
+    \ modules, and automation.\n\n### `include_paths` (important for templates and\
+    \ knowledge)\n\nAllows copying any extra files and folders into the bundle:\n\n\
+    ```yaml\nbundle:\n  include_paths:\n    - \"templates/interactive-diagram.html\"\
+    \n    - \"knowledge_modules\"\n```\n\nUse this for:\n\n- interactive diagrams\n\
+    - knowledge modules\n- any custom assets\n\nDefault behavior:\n\n- You normally\
+    \ do not need to edit `include_paths` manually.\n- Preset and profile defaults\
+    \ are already applied during bundle build.\n- Bundle is always created in `generated/client_bundles/<client_id>/`,\
+    \ so operator can inspect exact contents before handoff.\n\n## 3. LLM instruction\
+    \ packaging\n\n```yaml\nbundle:\n  llm:\n    codex_instructions_source: \"AGENTS.md\"\
+    \n    claude_instructions_source: \"CLAUDE.md\"\n    inject_managed_block: true\n\
+    \    docsops_root_in_client_repo: \"docsops\"\n```\n\nWhen `inject_managed_block=true`,\
+    \ builder auto-inserts managed docsops block into bundled `AGENTS.md` and `CLAUDE.md`.\n\
+    \nPlan-level defaults:\n\n- Pilot preset -> `instructions/llm_plans/pilot/AGENTS.md`,\
+    \ `instructions/llm_plans/pilot/CLAUDE.md`\n- Basic preset -> `instructions/llm_plans/basic/AGENTS.md`,\
+    \ `instructions/llm_plans/basic/CLAUDE.md`\n- Pro preset -> `instructions/llm_plans/pro/AGENTS.md`,\
+    \ `instructions/llm_plans/pro/CLAUDE.md`\n- Enterprise preset -> `AGENTS.md`,\
+    \ `CLAUDE.md` (current full-scope instructions)"

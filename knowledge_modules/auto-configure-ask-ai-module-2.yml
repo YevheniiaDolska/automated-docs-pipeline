@@ -1,0 +1,49 @@
+id: auto-configure-ask-ai-module-2
+title: Configure Ask AI module (Part 2)
+summary: Enable or disable Ask AI, set provider and billing mode, and verify configuration
+  in five steps for beginner operators.
+intents:
+- configure
+audiences:
+- practitioner
+- developer
+channels:
+- docs
+- assistant
+- automation
+priority: 60
+status: active
+owner: docsops-auto
+last_verified: '2026-03-28'
+dependencies: []
+tags:
+- auto-extracted
+- configure-ask-ai-module
+- how-to
+content:
+  docs_markdown: "## Step 4: Configure advanced retrieval features\n\nAll six advanced\
+    \ retrieval features are enabled by default. Override individual features with\
+    \ environment variables or by editing `config/ask-ai.yml` directly:\n\n```bash\n\
+    npm run askai:configure -- \\\n  --hybrid-search \\\n  --hyde \\\n  --reranking\
+    \ \\\n  --embedding-cache\n```\n\n| Feature | Config key | Env var | Default |\n\
+    | --- | --- | --- | --- |\n| Token-aware chunking | `chunking.enabled` | -- (build-time\
+    \ only) | `true` |\n| Hybrid search (RRF) | `hybrid_search.enabled` | `ASK_AI_HYBRID_ENABLED`\
+    \ | `true` |\n| HyDE query expansion | `hyde.enabled` | `ASK_AI_HYDE_ENABLED`\
+    \ | `true` |\n| Cross-encoder reranking | `reranking.enabled` | `ASK_AI_RERANK_ENABLED`\
+    \ | `true` |\n| Embedding cache | `embedding_cache.enabled` | `ASK_AI_EMBED_CACHE_ENABLED`\
+    \ | `true` |\n\nAdvanced tuning parameters:"
+  assistant_context: "Use this module when answering questions related to: Configure\
+    \ Ask AI module (Part 2). Source path: docs/how-to/configure-ask-ai-module.md.\
+    \ Summary: Enable or disable Ask AI, set provider and billing mode, and verify\
+    \ configuration in five steps for beginner operators.\n\n## Step 4: Configure\
+    \ advanced retrieval features\n\nAll six advanced retrieval features are enabled\
+    \ by default. Override individual features with environment variables or by editing\
+    \ `config/ask-ai.yml` directly:\n\n```bash\nnpm run askai:configure -- \\\n  --hybrid-search\
+    \ \\\n  --hyde \\\n  --reranking \\\n  --embedding-cache\n```\n\n| Feature | Config\
+    \ key | Env var | Default |\n| --- | --- | --- | --- |\n| Token-aware chunking\
+    \ | `chunking.enabled` | -- (build-time only) | `true` |\n| Hybrid search (RRF)\
+    \ | `hybrid_search.enabled` | `ASK_AI_HYBRID_ENABLED` | `true` |\n| HyDE query\
+    \ expansion | `hyde.enabled` | `ASK_AI_HYDE_ENABLED` | `true` |\n| Cross-encoder\
+    \ reranking | `reranking.enabled` | `ASK_AI_RERANK_ENABLED` | `true` |\n| Embedding\
+    \ cache | `embedding_cache.enabled` | `ASK_AI_EMBED_CACHE_ENABLED` | `true` |\n\
+    \nAdvanced tuning parameters:"

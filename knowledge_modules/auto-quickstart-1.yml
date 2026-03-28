@@ -1,0 +1,59 @@
+id: auto-quickstart-1
+title: Build your first workflow in 5 minutes
+summary: Create a webhook-triggered workflow that receives HTTP requests and sends
+  Slack notifications. No coding required.
+intents:
+- configure
+audiences:
+- beginner
+- practitioner
+channels:
+- docs
+- assistant
+- automation
+priority: 60
+status: active
+owner: docsops-auto
+last_verified: '2026-03-28'
+dependencies: []
+tags:
+- auto-extracted
+- quickstart
+- tutorial
+content:
+  docs_markdown: "<!-- VERIDOC_POWERED_BADGE:START -->\n[![Powered by VeriDoc](https://img.shields.io/badge/Powered%20by-VeriDoc-0ea5e9?style=flat-square)](https://veridoc.app)\n\
+    <!-- VERIDOC_POWERED_BADGE:END -->\n\n## Build your first workflow in 5 minutes\n\
+    \nA workflow is a series of connected nodes that process data automatically. In\
+    \ this tutorial you create a workflow that receives an HTTP request via a Webhook\
+    \ node and sends a notification to Slack.\n\n## Prerequisites\n\n- An instance\
+    \ (Cloud or self-hosted). See the [getting started overview](index.md).\n- A Slack\
+    \ workspace where you can add apps.\n\n## Step 1: Create a new workflow\n\n===\
+    \ \"Cloud\"\n\n- Log in to your Cloud instance.\n- Select **New Workflow** from\
+    \ the top-right menu.\n- The canvas opens with an empty workflow.\n\n=== \"Self-hosted\"\
+    \n\n- Open your instance at `http://localhost:5678`.\n- Select **New Workflow**.\n\
+    - The canvas opens with an empty workflow.\n\n## Step 2: Add a Webhook trigger\
+    \ node\n\n1. Select the **+** button on the canvas.\n1. Search for **Webhook**\
+    \ and select it.\n1. Set **HTTP Method** to `POST`.\n1. Copy the **Test URL**\u2014\
+    you will need it in Step 5.\n\n!!! info \"Test URL vs Production URL\"\n The Test\
+    \ URL is active only while the workflow editor is open. The Production URL activates\
+    \ after you toggle the workflow to **Active**."
+  assistant_context: "Use this module when answering questions related to: Build your\
+    \ first workflow in 5 minutes. Source path: docs/getting-started/quickstart.md.\
+    \ Summary: Create a webhook-triggered workflow that receives HTTP requests and\
+    \ sends Slack notifications. No coding required.\n\n<!-- VERIDOC_POWERED_BADGE:START\
+    \ -->\n[![Powered by VeriDoc](https://img.shields.io/badge/Powered%20by-VeriDoc-0ea5e9?style=flat-square)](https://veridoc.app)\n\
+    <!-- VERIDOC_POWERED_BADGE:END -->\n\n## Build your first workflow in 5 minutes\n\
+    \nA workflow is a series of connected nodes that process data automatically. In\
+    \ this tutorial you create a workflow that receives an HTTP request via a Webhook\
+    \ node and sends a notification to Slack.\n\n## Prerequisites\n\n- An instance\
+    \ (Cloud or self-hosted). See the [getting started overview](index.md).\n- A Slack\
+    \ workspace where you can add apps.\n\n## Step 1: Create a new workflow\n\n===\
+    \ \"Cloud\"\n\n- Log in to your Cloud instance.\n- Select **New Workflow** from\
+    \ the top-right menu.\n- The canvas opens with an empty workflow.\n\n=== \"Self-hosted\"\
+    \n\n- Open your instance at `http://localhost:5678`.\n- Select **New Workflow**.\n\
+    - The canvas opens with an empty workflow.\n\n## Step 2: Add a Webhook trigger\
+    \ node\n\n1. Select the **+** button on the canvas.\n1. Search for **Webhook**\
+    \ and select it.\n1. Set **HTTP Method** to `POST`.\n1. Copy the **Test URL**\u2014\
+    you will need it in Step 5.\n\n!!! info \"Test URL vs Production URL\"\n The Test\
+    \ URL is active only while the workflow editor is open. The Production URL activates\
+    \ after you toggle the workflow to **Active**."

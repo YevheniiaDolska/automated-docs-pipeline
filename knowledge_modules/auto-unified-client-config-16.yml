@@ -1,0 +1,40 @@
+id: auto-unified-client-config-16
+title: Unified Client Configuration (Part 16)
+summary: Single source of truth for per-client Auto-Doc Pipeline configuration, modules,
+  and automation.
+intents:
+- integrate
+audiences:
+- developer
+- operator
+channels:
+- docs
+- assistant
+- automation
+priority: 60
+status: active
+owner: docsops-auto
+last_verified: '2026-03-28'
+dependencies: []
+tags:
+- auto-extracted
+- reference
+- unified-client-config
+content:
+  docs_markdown: "## 7. Module switches\n\n```yaml\nruntime:\n  modules:\n    gap_detection:\
+    \ true\n    drift_detection: true\n    docs_contract: true\n    kpi_sla: true\n\
+    \    rag_optimization: true\n    ontology_graph: true\n    retrieval_evals: true\n\
+    \    terminology_management: true\n    normalization: true\n    snippet_lint:\
+    \ true\n    self_checks: true\n    fact_checks: true\n    lifecycle_management:\
+    \ true\n    knowledge_validation: true\n    i18n_sync: true\n    release_pack:\
+    \ true\n```"
+  assistant_context: "Use this module when answering questions related to: Unified\
+    \ Client Configuration (Part 16). Source path: docs/operations/UNIFIED_CLIENT_CONFIG.md.\
+    \ Summary: Single source of truth for per-client Auto-Doc Pipeline configuration,\
+    \ modules, and automation.\n\n## 7. Module switches\n\n```yaml\nruntime:\n  modules:\n\
+    \    gap_detection: true\n    drift_detection: true\n    docs_contract: true\n\
+    \    kpi_sla: true\n    rag_optimization: true\n    ontology_graph: true\n   \
+    \ retrieval_evals: true\n    terminology_management: true\n    normalization:\
+    \ true\n    snippet_lint: true\n    self_checks: true\n    fact_checks: true\n\
+    \    lifecycle_management: true\n    knowledge_validation: true\n    i18n_sync:\
+    \ true\n    release_pack: true\n```"

@@ -1,0 +1,173 @@
+id: auto-seo-guide-5
+title: SEO/GEO Optimization Guide (Part 5)
+summary: Comprehensive guide to SEO and GEO optimization in the documentation pipeline
+intents:
+- configure
+- integrate
+- secure
+audiences:
+- developer
+- operator
+channels:
+- docs
+- assistant
+- automation
+priority: 60
+status: active
+owner: docsops-auto
+last_verified: '2026-03-28'
+dependencies: []
+tags:
+- auto-extracted
+- reference
+- seo-guide
+content:
+  docs_markdown: '### Weekly Reports
+
+
+    The system generates:
+
+
+    - GEO compliance scores
+
+    - SEO metadata coverage
+
+    - Search query gaps (from Algolia)
+
+    - Stale content alerts
+
+    - Deprecated content tracking
+
+
+    ### Metrics Tracked
+
+
+    - First paragraph word count
+
+    - Heading descriptiveness score
+
+    - Fact density ratio
+
+    - Metadata completeness
+
+    - Search click-through rate
+
+
+    ## Best Practices
+
+
+    ### For Maximum LLM Visibility
+
+
+    \11. **Start with a definition**: "The Webhook node is a trigger for inbound HTTP
+    events."
+
+    \11. **Use specific headings**: "Configure OAuth 2.0" not "Configuration"
+
+    \11. **Include concrete facts**: Ports, defaults, limits
+
+    \11. **Provide code examples**: Even small snippets help
+
+
+    ### For Search Optimization
+
+
+    \11. **Complete all metadata**: Helps with faceted search
+
+    \11. **Use descriptive titles**: Include key terms users search
+
+    \11. **Write clear descriptions**: 50-160 chars, action-oriented
+
+    \11. **Tag appropriately**: Maximum 8 relevant tags
+
+
+    ### For Content Lifecycle
+
+
+    \11. **Mark maturity state**: Helps users understand stability
+
+    \11. **Set replacement paths**: For deprecated content
+
+    \11. **Update regularly**: Keep last_reviewed current
+
+    \11. **Archive properly**: Use removed state, not delete
+
+
+    ## Troubleshooting'
+  assistant_context: 'Use this module when answering questions related to: SEO/GEO
+    Optimization Guide (Part 5). Source path: docs/SEO_GUIDE.md. Summary: Comprehensive
+    guide to SEO and GEO optimization in the documentation pipeline
+
+
+    ### Weekly Reports
+
+
+    The system generates:
+
+
+    - GEO compliance scores
+
+    - SEO metadata coverage
+
+    - Search query gaps (from Algolia)
+
+    - Stale content alerts
+
+    - Deprecated content tracking
+
+
+    ### Metrics Tracked
+
+
+    - First paragraph word count
+
+    - Heading descriptiveness score
+
+    - Fact density ratio
+
+    - Metadata completeness
+
+    - Search click-through rate
+
+
+    ## Best Practices
+
+
+    ### For Maximum LLM Visibility
+
+
+    \11. **Start with a definition**: "The Webhook node is a trigger for inbound HTTP
+    events."
+
+    \11. **Use specific headings**: "Configure OAuth 2.0" not "Configuration"
+
+    \11. **Include concrete facts**: Ports, defaults, limits
+
+    \11. **Provide code examples**: Even small snippets help
+
+
+    ### For Search Optimization
+
+
+    \11. **Complete all metadata**: Helps with faceted search
+
+    \11. **Use descriptive titles**: Include key terms users search
+
+    \11. **Write clear descriptions**: 50-160 chars, action-oriented
+
+    \11. **Tag appropriately**: Maximum 8 relevant tags
+
+
+    ### For Content Lifecycle
+
+
+    \11. **Mark maturity state**: Helps users understand stability
+
+    \11. **Set replacement paths**: For deprecated content
+
+    \11. **Update regularly**: Keep last_reviewed current
+
+    \11. **Archive properly**: Use removed state, not delete
+
+
+    ## Troubleshooting'

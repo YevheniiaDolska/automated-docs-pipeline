@@ -1,0 +1,73 @@
+id: auto-pipeline-capabilities-catalog-11
+title: Pipeline Capabilities Catalog (Part 11)
+summary: Generated catalog of available pipeline commands, templates, policy packs,
+  and assets for client configuration.
+intents:
+- integrate
+audiences:
+- developer
+- operator
+channels:
+- docs
+- assistant
+- automation
+priority: 60
+status: active
+owner: docsops-auto
+last_verified: '2026-03-28'
+dependencies: []
+tags:
+- auto-extracted
+- pipeline-capabilities-catalog
+- reference
+content:
+  docs_markdown: '## Quality checks (32 automated)
+
+
+    The pipeline enforces 32 automated checks on every documentation page across four
+    categories:
+
+
+    | Category | Count | What they verify |
+
+    | --- | --- | --- |
+
+    | GEO checks | 8 | LLM and AI search optimization: meta descriptions, first paragraph
+    length, heading hierarchy, fact density |
+
+    | SEO checks | 14 | Traditional search optimization: title length, URL depth,
+    internal links, image alt text, structured data |
+
+    | Style checks | 6 | American English, active voice, no weasel words, no contractions,
+    second person, present tense |
+
+    | Contract checks | 4 | Schema validation, regression detection, snippet lint,
+    self-verification against endpoints |'
+  assistant_context: 'Use this module when answering questions related to: Pipeline
+    Capabilities Catalog (Part 11). Source path: docs/operations/PIPELINE_CAPABILITIES_CATALOG.md.
+    Summary: Generated catalog of available pipeline commands, templates, policy packs,
+    and assets for client configuration.
+
+
+    ## Quality checks (32 automated)
+
+
+    The pipeline enforces 32 automated checks on every documentation page across four
+    categories:
+
+
+    | Category | Count | What they verify |
+
+    | --- | --- | --- |
+
+    | GEO checks | 8 | LLM and AI search optimization: meta descriptions, first paragraph
+    length, heading hierarchy, fact density |
+
+    | SEO checks | 14 | Traditional search optimization: title length, URL depth,
+    internal links, image alt text, structured data |
+
+    | Style checks | 6 | American English, active voice, no weasel words, no contractions,
+    second person, present tense |
+
+    | Contract checks | 4 | Schema validation, regression detection, snippet lint,
+    self-verification against endpoints |'

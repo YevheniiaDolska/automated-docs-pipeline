@@ -1,0 +1,73 @@
+id: auto-set-up-real-time-webhook-processing-pipeline-15
+title: Set up a real-time webhook processing pipeline (Part 15)
+summary: Configure end-to-end webhook ingestion with HMAC verification, async queue
+  processing, and delivery guarantees in under 15 minutes.
+intents:
+- configure
+audiences:
+- practitioner
+- developer
+channels:
+- docs
+- assistant
+- automation
+priority: 60
+status: active
+owner: docsops-auto
+last_verified: '2026-03-28'
+dependencies: []
+tags:
+- auto-extracted
+- how-to
+- set-up-real-time-webhook-processing-pipeline
+content:
+  docs_markdown: 'Click any component in the interactive diagram below to see detailed
+    metrics and technology tags.
+
+    PostgreSQL metric in this architecture: 2 replicas, 8.5K qps.
+
+
+    <div class="interactive-diagram" markdown>
+
+    <iframe src="../../diagrams/demo-set-up-real-time-webhook-processing-pipeline.html"
+    title="Webhook processing pipeline architecture"></iframe>
+
+    </div>
+
+
+    For static environments, refer to the [Mermaid sequence diagram](#webhook-processing-data-flow)
+    above.
+
+
+    ## Next steps
+
+
+    - [Documentation index](../index.md)'
+  assistant_context: 'Use this module when answering questions related to: Set up
+    a real-time webhook processing pipeline (Part 15). Source path: docs/en/how-to/set-up-real-time-webhook-processing-pipeline.md.
+    Summary: Configure end-to-end webhook ingestion with HMAC verification, async
+    queue processing, and delivery guarantees in under 15 minutes.
+
+
+    Click any component in the interactive diagram below to see detailed metrics and
+    technology tags.
+
+    PostgreSQL metric in this architecture: 2 replicas, 8.5K qps.
+
+
+    <div class="interactive-diagram" markdown>
+
+    <iframe src="../../diagrams/demo-set-up-real-time-webhook-processing-pipeline.html"
+    title="Webhook processing pipeline architecture"></iframe>
+
+    </div>
+
+
+    For static environments, refer to the [Mermaid sequence diagram](#webhook-processing-data-flow)
+    above.
+
+
+    ## Next steps
+
+
+    - [Documentation index](../index.md)'

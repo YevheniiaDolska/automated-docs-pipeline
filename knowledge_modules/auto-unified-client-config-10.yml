@@ -1,0 +1,78 @@
+id: auto-unified-client-config-10
+title: Unified Client Configuration (Part 10)
+summary: Single source of truth for per-client Auto-Doc Pipeline configuration, modules,
+  and automation.
+intents:
+- integrate
+audiences:
+- developer
+- operator
+channels:
+- docs
+- assistant
+- automation
+priority: 60
+status: active
+owner: docsops-auto
+last_verified: '2026-03-28'
+dependencies: []
+tags:
+- auto-extracted
+- reference
+- unified-client-config
+content:
+  docs_markdown: "```yaml\nruntime:\n  api_first:\n    enabled: true\n    project_slug:\
+    \ \"acme\"\n    notes_path: \"notes/api-planning.md\"\n    spec_path: \"api/openapi.yaml\"\
+    \n    spec_tree_path: \"api/acme\"\n    docs_provider: \"mkdocs\"\n    docs_spec_target:\
+    \ \"docs/assets/api\"\n    stubs_output: \"generated/api-stubs/fastapi/app/main.py\"\
+    \n    openapi_version: \"3.0.3\"\n    manual_overrides_path: \"api/overrides/openapi.manual.yml\"\
+    \n    regression_snapshot_path: \"api/.openapi-regression.json\"\n    update_regression_snapshot:\
+    \ false\n    generate_from_notes: true\n    verify_user_path: false\n    sandbox_backend:\
+    \ \"external\"\n    mock_service: \"custom\"\n    mock_base_url: \"https://<your-real-public-mock-url>/v1\"\
+    \n    sync_playground_endpoint: true\n    generate_test_assets: true\n    test_assets_output_dir:\
+    \ \"reports/api-test-assets\"\n    testrail_csv: \"reports/api-test-assets/testrail_test_cases.csv\"\
+    \n    zephyr_json: \"reports/api-test-assets/zephyr_test_cases.json\"\n    upload_test_assets:\
+    \ false\n    upload_test_assets_strict: false\n    test_assets_upload_report:\
+    \ \"reports/api-test-assets/upload_report.json\"\n    test_management:\n     \
+    \ testrail:\n        enabled_env: \"TESTRAIL_UPLOAD_ENABLED\"\n        base_url_env:\
+    \ \"TESTRAIL_BASE_URL\"\n        email_env: \"TESTRAIL_EMAIL\"\n        api_key_env:\
+    \ \"TESTRAIL_API_KEY\"\n        section_id_env: \"TESTRAIL_SECTION_ID\"\n    \
+    \    suite_id_env: \"TESTRAIL_SUITE_ID\"\n      zephyr_scale:\n        enabled_env:\
+    \ \"ZEPHYR_UPLOAD_ENABLED\"\n        base_url_env: \"ZEPHYR_SCALE_BASE_URL\"\n\
+    \        api_token_env: \"ZEPHYR_SCALE_API_TOKEN\"\n        project_key_env: \"\
+    ZEPHYR_SCALE_PROJECT_KEY\"\n        folder_id_env: \"ZEPHYR_SCALE_FOLDER_ID\"\n\
+    \    external_mock:\n      enabled: true\n      provider: \"postman\"\n      base_path:\
+    \ \"/v1\"\n      postman:\n        api_key_env: \"POSTMAN_API_KEY\"\n        workspace_id_env:\
+    \ \"POSTMAN_WORKSPACE_ID\"\n        collection_uid_env: \"POSTMAN_COLLECTION_UID\"\
+    \n        mock_server_id_env: \"POSTMAN_MOCK_SERVER_ID\"\n        mock_server_name:\
+    \ \"\"\n        private: false\n    run_docs_lint: false\n    auto_remediate:\
+    \ true\n    max_attempts: 3\n```"
+  assistant_context: "Use this module when answering questions related to: Unified\
+    \ Client Configuration (Part 10). Source path: docs/operations/UNIFIED_CLIENT_CONFIG.md.\
+    \ Summary: Single source of truth for per-client Auto-Doc Pipeline configuration,\
+    \ modules, and automation.\n\n```yaml\nruntime:\n  api_first:\n    enabled: true\n\
+    \    project_slug: \"acme\"\n    notes_path: \"notes/api-planning.md\"\n    spec_path:\
+    \ \"api/openapi.yaml\"\n    spec_tree_path: \"api/acme\"\n    docs_provider: \"\
+    mkdocs\"\n    docs_spec_target: \"docs/assets/api\"\n    stubs_output: \"generated/api-stubs/fastapi/app/main.py\"\
+    \n    openapi_version: \"3.0.3\"\n    manual_overrides_path: \"api/overrides/openapi.manual.yml\"\
+    \n    regression_snapshot_path: \"api/.openapi-regression.json\"\n    update_regression_snapshot:\
+    \ false\n    generate_from_notes: true\n    verify_user_path: false\n    sandbox_backend:\
+    \ \"external\"\n    mock_service: \"custom\"\n    mock_base_url: \"https://<your-real-public-mock-url>/v1\"\
+    \n    sync_playground_endpoint: true\n    generate_test_assets: true\n    test_assets_output_dir:\
+    \ \"reports/api-test-assets\"\n    testrail_csv: \"reports/api-test-assets/testrail_test_cases.csv\"\
+    \n    zephyr_json: \"reports/api-test-assets/zephyr_test_cases.json\"\n    upload_test_assets:\
+    \ false\n    upload_test_assets_strict: false\n    test_assets_upload_report:\
+    \ \"reports/api-test-assets/upload_report.json\"\n    test_management:\n     \
+    \ testrail:\n        enabled_env: \"TESTRAIL_UPLOAD_ENABLED\"\n        base_url_env:\
+    \ \"TESTRAIL_BASE_URL\"\n        email_env: \"TESTRAIL_EMAIL\"\n        api_key_env:\
+    \ \"TESTRAIL_API_KEY\"\n        section_id_env: \"TESTRAIL_SECTION_ID\"\n    \
+    \    suite_id_env: \"TESTRAIL_SUITE_ID\"\n      zephyr_scale:\n        enabled_env:\
+    \ \"ZEPHYR_UPLOAD_ENABLED\"\n        base_url_env: \"ZEPHYR_SCALE_BASE_URL\"\n\
+    \        api_token_env: \"ZEPHYR_SCALE_API_TOKEN\"\n        project_key_env: \"\
+    ZEPHYR_SCALE_PROJECT_KEY\"\n        folder_id_env: \"ZEPHYR_SCALE_FOLDER_ID\"\n\
+    \    external_mock:\n      enabled: true\n      provider: \"postman\"\n      base_path:\
+    \ \"/v1\"\n      postman:\n        api_key_env: \"POSTMAN_API_KEY\"\n        workspace_id_env:\
+    \ \"POSTMAN_WORKSPACE_ID\"\n        collection_uid_env: \"POSTMAN_COLLECTION_UID\"\
+    \n        mock_server_id_env: \"POSTMAN_MOCK_SERVER_ID\"\n        mock_server_name:\
+    \ \"\"\n        private: false\n    run_docs_lint: false\n    auto_remediate:\
+    \ true\n    max_attempts: 3\n```"

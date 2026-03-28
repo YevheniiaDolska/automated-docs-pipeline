@@ -1,0 +1,127 @@
+id: auto-canonical-flow-6
+title: Canonical Flow (Sales + Delivery) (Part 6)
+summary: Canonical sales and delivery flow for onboarding and operating client Auto-Doc
+  Pipeline setups.
+intents:
+- integrate
+audiences:
+- developer
+- operator
+channels:
+- docs
+- assistant
+- automation
+priority: 60
+status: active
+owner: docsops-auto
+last_verified: '2026-03-28'
+dependencies: []
+tags:
+- auto-extracted
+- canonical-flow
+- reference
+content:
+  docs_markdown: 'Output:
+
+
+    - `reports/consolidated_report.json`
+
+    - related reports are regenerated to the same filenames each run (no manual cleanup
+    required)
+
+    - `reports/docsops_status.json` (quick freshness/status check for non-technical
+    users)
+
+
+    Client repo `.gitignore` recommendation:
+
+
+    ```gitignore
+
+    reports/docsops-weekly.log
+
+    ```
+
+
+    ## 4. Human role
+
+
+    \11. In file explorer, check Modified date of `reports/consolidated_report.json`.
+
+    \11. If date/time is fresh, ask local LLM to process the report.
+
+    \11. Review generated docs quickly.
+
+    \11. Publish/merge.
+
+
+    ## 5. Operator manual checks after setup
+
+
+    \11. Check `<client-repo>/docsops/config/client_runtime.yml` for correct client
+    values.
+
+    \11. Check `<client-repo>/docsops/policy_packs/selected.yml` for expected policy
+    pack/overrides.
+
+    \11. Check `<client-repo>/docsops/ENV_CHECKLIST.md` and align secrets with client.
+
+    \11. Check `<client-repo>/docsops/license.jwt` exists and is valid: `python3 docsops/scripts/license_gate.py`.
+
+    \11. Run one smoke weekly cycle and ensure `reports/consolidated_report.json`
+    is refreshed.'
+  assistant_context: 'Use this module when answering questions related to: Canonical
+    Flow (Sales + Delivery) (Part 6). Source path: docs/operations/CANONICAL_FLOW.md.
+    Summary: Canonical sales and delivery flow for onboarding and operating client
+    Auto-Doc Pipeline setups.
+
+
+    Output:
+
+
+    - `reports/consolidated_report.json`
+
+    - related reports are regenerated to the same filenames each run (no manual cleanup
+    required)
+
+    - `reports/docsops_status.json` (quick freshness/status check for non-technical
+    users)
+
+
+    Client repo `.gitignore` recommendation:
+
+
+    ```gitignore
+
+    reports/docsops-weekly.log
+
+    ```
+
+
+    ## 4. Human role
+
+
+    \11. In file explorer, check Modified date of `reports/consolidated_report.json`.
+
+    \11. If date/time is fresh, ask local LLM to process the report.
+
+    \11. Review generated docs quickly.
+
+    \11. Publish/merge.
+
+
+    ## 5. Operator manual checks after setup
+
+
+    \11. Check `<client-repo>/docsops/config/client_runtime.yml` for correct client
+    values.
+
+    \11. Check `<client-repo>/docsops/policy_packs/selected.yml` for expected policy
+    pack/overrides.
+
+    \11. Check `<client-repo>/docsops/ENV_CHECKLIST.md` and align secrets with client.
+
+    \11. Check `<client-repo>/docsops/license.jwt` exists and is valid: `python3 docsops/scripts/license_gate.py`.
+
+    \11. Run one smoke weekly cycle and ensure `reports/consolidated_report.json`
+    is refreshed.'

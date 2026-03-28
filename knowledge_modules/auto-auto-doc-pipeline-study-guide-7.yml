@@ -1,0 +1,147 @@
+id: auto-auto-doc-pipeline-study-guide-7
+title: Auto-Doc Pipeline study guide (Part 7)
+summary: Learn the Auto-Doc Pipeline quickly with a simple architecture map, operating
+  flow, plan mapping, and a detailed client FAQ.
+intents:
+- integrate
+audiences:
+- developer
+- operator
+channels:
+- docs
+- assistant
+- automation
+priority: 60
+status: active
+owner: docsops-auto
+last_verified: '2026-03-28'
+dependencies: []
+tags:
+- auto-doc-pipeline-study-guide
+- auto-extracted
+- reference
+content:
+  docs_markdown: '### 4) What is generated automatically for non-REST APIs?
+
+
+    Contracts, protocol references, server stubs with business placeholders, mock
+    endpoint wiring, and contract test assets.
+
+
+    ### 5) Can we test endpoints before backend implementation is complete?
+
+
+    Yes. The mock sandbox flow allows early endpoint testing from documentation and
+    contract definitions.
+
+
+    ### 6) Is Postman mandatory for mocks?
+
+
+    No. External mode is provider-agnostic. Postman is the built-in first-class path
+    for auto-prepare.
+
+
+    ### 7) How does smart merge protect manual test work?
+
+
+    Manual and customized cases are preserved across generation cycles; changed signatures
+    are flagged for targeted review.
+
+
+    ### 8) Does this replace technical writers?
+
+
+    No. It removes repetitive work and leaves writers with high-value review, structure,
+    and clarity decisions.
+
+
+    ### 9) What do developers gain directly?
+
+
+    Faster contract feedback, stub scaffolding, earlier integration checks, and fewer
+    release surprises.
+
+
+    ### 10) What do QA teams gain directly?
+
+
+    Auto-generated protocol-aware test packs, earlier mock-first verification, and
+    reduced test case drift.
+
+
+    ### 11) How do we control quality standards?
+
+
+    Through policy packs, strict gates, and threshold settings in runtime configuration.
+
+
+    ### 12) Does this support enterprise governance?
+
+
+    Yes. It provides auditable reports, gate outcomes, and policy-driven publish control.'
+  assistant_context: 'Use this module when answering questions related to: Auto-Doc
+    Pipeline study guide (Part 7). Source path: docs/reference/auto-doc-pipeline-study-guide.md.
+    Summary: Learn the Auto-Doc Pipeline quickly with a simple architecture map, operating
+    flow, plan mapping, and a detailed client FAQ.
+
+
+    ### 4) What is generated automatically for non-REST APIs?
+
+
+    Contracts, protocol references, server stubs with business placeholders, mock
+    endpoint wiring, and contract test assets.
+
+
+    ### 5) Can we test endpoints before backend implementation is complete?
+
+
+    Yes. The mock sandbox flow allows early endpoint testing from documentation and
+    contract definitions.
+
+
+    ### 6) Is Postman mandatory for mocks?
+
+
+    No. External mode is provider-agnostic. Postman is the built-in first-class path
+    for auto-prepare.
+
+
+    ### 7) How does smart merge protect manual test work?
+
+
+    Manual and customized cases are preserved across generation cycles; changed signatures
+    are flagged for targeted review.
+
+
+    ### 8) Does this replace technical writers?
+
+
+    No. It removes repetitive work and leaves writers with high-value review, structure,
+    and clarity decisions.
+
+
+    ### 9) What do developers gain directly?
+
+
+    Faster contract feedback, stub scaffolding, earlier integration checks, and fewer
+    release surprises.
+
+
+    ### 10) What do QA teams gain directly?
+
+
+    Auto-generated protocol-aware test packs, earlier mock-first verification, and
+    reduced test case drift.
+
+
+    ### 11) How do we control quality standards?
+
+
+    Through policy packs, strict gates, and threshold settings in runtime configuration.
+
+
+    ### 12) Does this support enterprise governance?
+
+
+    Yes. It provides auditable reports, gate outcomes, and policy-driven publish control.'

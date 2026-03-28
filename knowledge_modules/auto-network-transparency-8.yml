@@ -1,0 +1,97 @@
+id: auto-network-transparency-8
+title: Network transparency reference (Part 8)
+summary: Complete list of all outgoing network requests the pipeline makes, with exact
+  payload schemas. No client data leaves your network.
+intents:
+- integrate
+audiences:
+- developer
+- operator
+channels:
+- docs
+- assistant
+- automation
+priority: 60
+status: active
+owner: docsops-auto
+last_verified: '2026-03-28'
+dependencies: []
+tags:
+- auto-extracted
+- network-transparency
+- reference
+content:
+  docs_markdown: '## Capability pack contents
+
+
+    The encrypted capability pack (`docsops/.capability_pack.enc`) contains scoring
+    intelligence, not client data. Contents after decryption:
+
+
+    | Section | What it contains | Example values |
+
+    | --- | --- | --- |
+
+    | `scoring.geo_rules` | GEO optimization thresholds | `first_para_max_words: 60`
+    |
+
+    | `scoring.kpi_weights` | Quality score formula weights | `metadata_weight: 0.35`
+    |
+
+    | `scoring.audit_weights` | 7-pillar audit scoring weights | `content_quality:
+    0.22` |
+
+    | `scoring.sla_thresholds` | SLA breach detection thresholds | `min_quality_score:
+    70` |
+
+    | `priority` | Action item tier classification | `tier1_categories: [breaking_change]`
+    |
+
+    | `prompts` | Documentation quality prompt templates | Stripe-quality formula
+    text |
+
+    | `policies` | Quality gate enforcement rules | `vale_blocks_commit: true` |
+
+
+    The pack is encrypted with AES-256-GCM. The encryption key is derived from your
+    license key via HKDF-SHA256. Only your installation can decrypt your pack.'
+  assistant_context: 'Use this module when answering questions related to: Network
+    transparency reference (Part 8). Source path: docs/reference/network-transparency.md.
+    Summary: Complete list of all outgoing network requests the pipeline makes, with
+    exact payload schemas. No client data leaves your network.
+
+
+    ## Capability pack contents
+
+
+    The encrypted capability pack (`docsops/.capability_pack.enc`) contains scoring
+    intelligence, not client data. Contents after decryption:
+
+
+    | Section | What it contains | Example values |
+
+    | --- | --- | --- |
+
+    | `scoring.geo_rules` | GEO optimization thresholds | `first_para_max_words: 60`
+    |
+
+    | `scoring.kpi_weights` | Quality score formula weights | `metadata_weight: 0.35`
+    |
+
+    | `scoring.audit_weights` | 7-pillar audit scoring weights | `content_quality:
+    0.22` |
+
+    | `scoring.sla_thresholds` | SLA breach detection thresholds | `min_quality_score:
+    70` |
+
+    | `priority` | Action item tier classification | `tier1_categories: [breaking_change]`
+    |
+
+    | `prompts` | Documentation quality prompt templates | Stripe-quality formula
+    text |
+
+    | `policies` | Quality gate enforcement rules | `vale_blocks_commit: true` |
+
+
+    The pack is encrypted with AES-256-GCM. The encryption key is derived from your
+    license key via HKDF-SHA256. Only your installation can decrypt your pack.'

@@ -1,0 +1,57 @@
+id: auto-multi-protocol-architecture-5
+title: Multi-Protocol Architecture (Part 5)
+summary: Unified docs-ops pipeline for REST, GraphQL, gRPC, AsyncAPI, and WebSocket.
+intents:
+- integrate
+audiences:
+- developer
+- operator
+channels:
+- docs
+- assistant
+- automation
+priority: 60
+status: active
+owner: docsops-auto
+last_verified: '2026-03-28'
+dependencies: []
+tags:
+- auto-extracted
+- multi-protocol-architecture
+- reference
+content:
+  docs_markdown: "### RAG prep behavior on pipeline run\n\n1. Extract knowledge modules\
+    \ from docs\n1. Validate modules and rebuild retrieval index\n1. Generate FAISS\
+    \ embeddings with optional chunking (`--chunk`)\n1. Run retrieval evals (single-mode\
+    \ or multi-mode comparison)\n1. Output comparison report to `reports/retrieval_comparison.json`\n\
+    \n### Configuration\n\nAll features are enabled by default in `config/ask-ai.yml`.\
+    \ Runtime overrides via environment variables: `ASK_AI_HYBRID_ENABLED`, `ASK_AI_HYDE_ENABLED`,\
+    \ `ASK_AI_RERANK_ENABLED`, `ASK_AI_EMBED_CACHE_ENABLED`.\n\n### Eval dataset\n\
+    \nA curated 50-query eval dataset is maintained at `config/retrieval_eval_dataset.yml`.\
+    \ It covers queries across all five protocols (REST, GraphQL, gRPC, AsyncAPI,\
+    \ WebSocket).\n\n## Template and snippet parity\n\n- Protocol-specific templates\
+    \ are part of the default library:\n  - `templates/protocols/graphql-reference.md`\n\
+    \  - `templates/protocols/grpc-reference.md`\n  - `templates/protocols/asyncapi-reference.md`\n\
+    \  - `templates/protocols/websocket-reference.md`\n- Reusable blocks are centralized\
+    \ in `templates/protocols/api-protocol-snippets.md`.\n- LLM generation uses these\
+    \ assets to keep structure, terminology, and formatting consistent with REST-grade\
+    \ docs.\n\n## Next steps\n\n- [Documentation index](../index.md)"
+  assistant_context: "Use this module when answering questions related to: Multi-Protocol\
+    \ Architecture (Part 5). Source path: docs/operations/MULTI_PROTOCOL_ARCHITECTURE.md.\
+    \ Summary: Unified docs-ops pipeline for REST, GraphQL, gRPC, AsyncAPI, and WebSocket.\n\
+    \n### RAG prep behavior on pipeline run\n\n1. Extract knowledge modules from docs\n\
+    1. Validate modules and rebuild retrieval index\n1. Generate FAISS embeddings\
+    \ with optional chunking (`--chunk`)\n1. Run retrieval evals (single-mode or multi-mode\
+    \ comparison)\n1. Output comparison report to `reports/retrieval_comparison.json`\n\
+    \n### Configuration\n\nAll features are enabled by default in `config/ask-ai.yml`.\
+    \ Runtime overrides via environment variables: `ASK_AI_HYBRID_ENABLED`, `ASK_AI_HYDE_ENABLED`,\
+    \ `ASK_AI_RERANK_ENABLED`, `ASK_AI_EMBED_CACHE_ENABLED`.\n\n### Eval dataset\n\
+    \nA curated 50-query eval dataset is maintained at `config/retrieval_eval_dataset.yml`.\
+    \ It covers queries across all five protocols (REST, GraphQL, gRPC, AsyncAPI,\
+    \ WebSocket).\n\n## Template and snippet parity\n\n- Protocol-specific templates\
+    \ are part of the default library:\n  - `templates/protocols/graphql-reference.md`\n\
+    \  - `templates/protocols/grpc-reference.md`\n  - `templates/protocols/asyncapi-reference.md`\n\
+    \  - `templates/protocols/websocket-reference.md`\n- Reusable blocks are centralized\
+    \ in `templates/protocols/api-protocol-snippets.md`.\n- LLM generation uses these\
+    \ assets to keep structure, terminology, and formatting consistent with REST-grade\
+    \ docs.\n\n## Next steps\n\n- [Documentation index](../index.md)"

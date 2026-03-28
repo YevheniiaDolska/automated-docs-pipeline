@@ -1,0 +1,63 @@
+id: auto-operator-runbook-18
+title: Operator Runbook (Retainer Operations) (Part 18)
+summary: Step-by-step instructions for weekly report review, client questions, new
+  repo setup, and profile tuning.
+intents:
+- configure
+audiences:
+- practitioner
+- developer
+channels:
+- docs
+- assistant
+- automation
+priority: 60
+status: active
+owner: docsops-auto
+last_verified: '2026-03-28'
+dependencies: []
+tags:
+- auto-extracted
+- how-to
+- operator-runbook
+content:
+  docs_markdown: "### After any profile change\n\nRebuild and re-provision:\n\n```bash\n\
+    python3 scripts/build_client_bundle.py \\\n  --client profiles/clients/<client-id>.client.yml\n\
+    \npython3 scripts/provision_client_repo.py \\\n  --client profiles/clients/<client-id>.client.yml\
+    \ \\\n  --client-repo /path/to/client-repo \\\n  --docsops-dir docsops\n```\n\n\
+    Or for different-laptop delivery, build the bundle and send it to the client to\
+    \ replace their `docsops/` folder.\n\n---\n\n## Task 5: Run a full audit (for\
+    \ sales or evidence)\n\n**When:** Preparing a sales pitch, generating a client\
+    \ health report, or creating evidence for a pilot.\n\n```bash\npython3 scripts/run_full_audit_wizard.py\n\
+    ```\n\nThe wizard asks for:\n\n1. Company name (for PDF branding).\n1. Topology\
+    \ mode (`single-product` or `multi-project`).\n1. Max pages per site and request\
+    \ timeout.\n1. Whether to enable LLM analysis (needs API key).\n1. Public documentation\
+    \ URLs (one per line).\n\nIt runs three stages automatically:\n\n1. **Internal\
+    \ scorecard** -- analyzes the repo itself (code quality, coverage, drift).\n1.\
+    \ **Public docs audit** -- crawls external documentation sites.\n1. **Executive\
+    \ PDF** -- generates a consulting-grade PDF report.\n\nOutput files:\n\n- `reports/audit_scorecard.html`\
+    \ -- interactive dashboard\n- `reports/public_docs_audit.html` -- detailed crawl\
+    \ results\n- `reports/<company-slug>-executive-audit.pdf` -- the deliverable PDF\n\
+    \n---\n\n## Licensing"
+  assistant_context: "Use this module when answering questions related to: Operator\
+    \ Runbook (Retainer Operations) (Part 18). Source path: docs/operations/OPERATOR_RUNBOOK.md.\
+    \ Summary: Step-by-step instructions for weekly report review, client questions,\
+    \ new repo setup, and profile tuning.\n\n### After any profile change\n\nRebuild\
+    \ and re-provision:\n\n```bash\npython3 scripts/build_client_bundle.py \\\n  --client\
+    \ profiles/clients/<client-id>.client.yml\n\npython3 scripts/provision_client_repo.py\
+    \ \\\n  --client profiles/clients/<client-id>.client.yml \\\n  --client-repo /path/to/client-repo\
+    \ \\\n  --docsops-dir docsops\n```\n\nOr for different-laptop delivery, build\
+    \ the bundle and send it to the client to replace their `docsops/` folder.\n\n\
+    ---\n\n## Task 5: Run a full audit (for sales or evidence)\n\n**When:** Preparing\
+    \ a sales pitch, generating a client health report, or creating evidence for a\
+    \ pilot.\n\n```bash\npython3 scripts/run_full_audit_wizard.py\n```\n\nThe wizard\
+    \ asks for:\n\n1. Company name (for PDF branding).\n1. Topology mode (`single-product`\
+    \ or `multi-project`).\n1. Max pages per site and request timeout.\n1. Whether\
+    \ to enable LLM analysis (needs API key).\n1. Public documentation URLs (one per\
+    \ line).\n\nIt runs three stages automatically:\n\n1. **Internal scorecard** --\
+    \ analyzes the repo itself (code quality, coverage, drift).\n1. **Public docs\
+    \ audit** -- crawls external documentation sites.\n1. **Executive PDF** -- generates\
+    \ a consulting-grade PDF report.\n\nOutput files:\n\n- `reports/audit_scorecard.html`\
+    \ -- interactive dashboard\n- `reports/public_docs_audit.html` -- detailed crawl\
+    \ results\n- `reports/<company-slug>-executive-audit.pdf` -- the deliverable PDF\n\
+    \n---\n\n## Licensing"

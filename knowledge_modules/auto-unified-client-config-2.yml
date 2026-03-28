@@ -1,0 +1,99 @@
+id: auto-unified-client-config-2
+title: Unified Client Configuration (Part 2)
+summary: Single source of truth for per-client Auto-Doc Pipeline configuration, modules,
+  and automation.
+intents:
+- integrate
+audiences:
+- developer
+- operator
+channels:
+- docs
+- assistant
+- automation
+priority: 60
+status: active
+owner: docsops-auto
+last_verified: '2026-03-28'
+dependencies: []
+tags:
+- auto-extracted
+- reference
+- unified-client-config
+content:
+  docs_markdown: '## Current product definition (2026-03-25)
+
+
+    This content follows the active implementation baseline:
+
+
+    1. The platform is docs-first and also supports `code-first`, `api-first`, and
+    `hybrid` modes.
+
+    1. The smooth autopipeline covers all five API protocols (REST, GraphQL, gRPC,
+    AsyncAPI, and WebSocket) in one operational model.
+
+    1. Non-REST flow includes generated server stubs with business-logic placeholders.
+
+    1. External mock sandbox resolution is integrated, with Postman-supported auto-prepare
+    in external mode.
+
+    1. Contract test assets are generated automatically and merged with smart-merge
+    so manual/customized cases are preserved and flagged for review when needed.
+
+    1. Knowledge/RAG maintenance, terminology sync, and quality/compliance gates run
+    through the same automation surface when enabled.
+
+    1. Plan tiers gate advanced capabilities; higher plans include broader non-REST
+    and governance scope.
+
+
+    Single source of truth for per-client setup:
+
+
+    - `profiles/clients/<client>.client.yml`
+
+
+    This file controls all client-specific behavior: repo paths, flow mode, modules,
+    quality strictness, automation schedule, and legal labeling.'
+  assistant_context: 'Use this module when answering questions related to: Unified
+    Client Configuration (Part 2). Source path: docs/operations/UNIFIED_CLIENT_CONFIG.md.
+    Summary: Single source of truth for per-client Auto-Doc Pipeline configuration,
+    modules, and automation.
+
+
+    ## Current product definition (2026-03-25)
+
+
+    This content follows the active implementation baseline:
+
+
+    1. The platform is docs-first and also supports `code-first`, `api-first`, and
+    `hybrid` modes.
+
+    1. The smooth autopipeline covers all five API protocols (REST, GraphQL, gRPC,
+    AsyncAPI, and WebSocket) in one operational model.
+
+    1. Non-REST flow includes generated server stubs with business-logic placeholders.
+
+    1. External mock sandbox resolution is integrated, with Postman-supported auto-prepare
+    in external mode.
+
+    1. Contract test assets are generated automatically and merged with smart-merge
+    so manual/customized cases are preserved and flagged for review when needed.
+
+    1. Knowledge/RAG maintenance, terminology sync, and quality/compliance gates run
+    through the same automation surface when enabled.
+
+    1. Plan tiers gate advanced capabilities; higher plans include broader non-REST
+    and governance scope.
+
+
+    Single source of truth for per-client setup:
+
+
+    - `profiles/clients/<client>.client.yml`
+
+
+    This file controls all client-specific behavior: repo paths, flow mode, modules,
+    quality strictness, automation schedule, and legal labeling.'

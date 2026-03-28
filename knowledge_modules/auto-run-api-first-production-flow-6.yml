@@ -1,0 +1,55 @@
+id: auto-run-api-first-production-flow-6
+title: Run API-first production flow (Part 6)
+summary: Generate OpenAPI from planning notes, run full lint and self-verification,
+  publish playground assets, and keep a sandbox ready for client testing.
+intents:
+- configure
+audiences:
+- practitioner
+- developer
+channels:
+- docs
+- assistant
+- automation
+priority: 60
+status: active
+owner: docsops-auto
+last_verified: '2026-03-28'
+dependencies: []
+tags:
+- auto-extracted
+- how-to
+- run-api-first-production-flow
+content:
+  docs_markdown: "### Mark an auto case as customized\n\nFind the auto-generated case\
+    \ you refined and set `customized` to `true`:\n\n```json\n{\n  \"id\": \"TC-get-tasks-by-task-id-positive\"\
+    ,\n  \"customized\": true,\n  \"steps\": [\"Your refined step 1.\", \"Your refined\
+    \ step 2.\"],\n  \"expected_result\": \"Your refined expected result.\"\n}\n```\n\
+    \nOn the next re-generation, the merge engine preserves your edits. If the underlying\n\
+    API operation changes, the case gets `needs_review: true` so you know to verify\n\
+    your custom steps still apply.\n\n### Resolve needs_review flags\n\nAfter re-generation,\
+    \ search the report for flagged cases:\n\n```bash\npython3 -c \"\nimport json,\
+    \ sys\ndata = json.loads(open('reports/api-test-assets/api_test_cases.json').read())\n\
+    flagged = [c for c in data['cases'] if c.get('needs_review')]\nfor c in flagged:\n\
+    \    print(f'{c[\\\"id\\\"]}: {c[\\\"review_reason\\\"]}')\nif not flagged:\n\
+    \    print('No cases need review.')\n\"\n```\n\nFor each flagged case, review\
+    \ the API changes, update steps if needed, then set\n`needs_review` back to `false`\
+    \ and `review_reason` to `null`."
+  assistant_context: "Use this module when answering questions related to: Run API-first\
+    \ production flow (Part 6). Source path: docs/how-to/run-api-first-production-flow.md.\
+    \ Summary: Generate OpenAPI from planning notes, run full lint and self-verification,\
+    \ publish playground assets, and keep a sandbox ready for client testing.\n\n\
+    ### Mark an auto case as customized\n\nFind the auto-generated case you refined\
+    \ and set `customized` to `true`:\n\n```json\n{\n  \"id\": \"TC-get-tasks-by-task-id-positive\"\
+    ,\n  \"customized\": true,\n  \"steps\": [\"Your refined step 1.\", \"Your refined\
+    \ step 2.\"],\n  \"expected_result\": \"Your refined expected result.\"\n}\n```\n\
+    \nOn the next re-generation, the merge engine preserves your edits. If the underlying\n\
+    API operation changes, the case gets `needs_review: true` so you know to verify\n\
+    your custom steps still apply.\n\n### Resolve needs_review flags\n\nAfter re-generation,\
+    \ search the report for flagged cases:\n\n```bash\npython3 -c \"\nimport json,\
+    \ sys\ndata = json.loads(open('reports/api-test-assets/api_test_cases.json').read())\n\
+    flagged = [c for c in data['cases'] if c.get('needs_review')]\nfor c in flagged:\n\
+    \    print(f'{c[\\\"id\\\"]}: {c[\\\"review_reason\\\"]}')\nif not flagged:\n\
+    \    print('No cases need review.')\n\"\n```\n\nFor each flagged case, review\
+    \ the API changes, update steps if needed, then set\n`needs_review` back to `false`\
+    \ and `review_reason` to `null`."

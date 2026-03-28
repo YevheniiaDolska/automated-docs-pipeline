@@ -1,0 +1,134 @@
+id: auto-unified-client-config-14
+title: Unified Client Configuration (Part 14)
+summary: Single source of truth for per-client Auto-Doc Pipeline configuration, modules,
+  and automation.
+intents:
+- integrate
+- troubleshoot
+audiences:
+- developer
+- operator
+channels:
+- docs
+- assistant
+- automation
+priority: 60
+status: active
+owner: docsops-auto
+last_verified: '2026-03-28'
+dependencies: []
+tags:
+- auto-extracted
+- reference
+- unified-client-config
+content:
+  docs_markdown: '1. Creates or reuses Postman mock server.
+
+    1. Resolves final public mock URL.
+
+    1. Uses it for API self-verification.
+
+    1. Syncs docs playground endpoint automatically.
+
+    1. Generates API test assets (cases, matrix, property/fuzz scenarios, CSV/JSON
+    exports).
+
+    1. Optionally uploads those assets to TestRail/Zephyr.
+
+
+    ### 6.1 Strict default behavior for multi-protocol flows
+
+
+    For GraphQL/gRPC/AsyncAPI/WebSocket, runtime uses strict defaults:
+
+
+    - contract validation runs before protocol lint/docs generation.
+
+    - semantic request/response relevance checks are mandatory in the protocol quality
+    suite.
+
+    - if any enabled stage fails, pipeline retries protocol flow in an autofix cycle.
+
+
+    Runtime keys (per protocol under `runtime.api_protocol_settings.<protocol>`):
+
+
+    ```yaml
+
+    generate_server_stubs: true
+
+    stubs_output: "generated/api-stubs/<protocol>/handlers.py"
+
+    self_verify_require_endpoint: true
+
+    publish_requires_live_green: true
+
+    autofix_cycle_enabled: true
+
+    autofix_max_attempts: 3
+
+    semantic_autofix_max_attempts: 3
+
+    ```
+
+
+    These defaults are designed for smooth one-command autopipeline runs with minimal
+    manual intervention.'
+  assistant_context: 'Use this module when answering questions related to: Unified
+    Client Configuration (Part 14). Source path: docs/operations/UNIFIED_CLIENT_CONFIG.md.
+    Summary: Single source of truth for per-client Auto-Doc Pipeline configuration,
+    modules, and automation.
+
+
+    1. Creates or reuses Postman mock server.
+
+    1. Resolves final public mock URL.
+
+    1. Uses it for API self-verification.
+
+    1. Syncs docs playground endpoint automatically.
+
+    1. Generates API test assets (cases, matrix, property/fuzz scenarios, CSV/JSON
+    exports).
+
+    1. Optionally uploads those assets to TestRail/Zephyr.
+
+
+    ### 6.1 Strict default behavior for multi-protocol flows
+
+
+    For GraphQL/gRPC/AsyncAPI/WebSocket, runtime uses strict defaults:
+
+
+    - contract validation runs before protocol lint/docs generation.
+
+    - semantic request/response relevance checks are mandatory in the protocol quality
+    suite.
+
+    - if any enabled stage fails, pipeline retries protocol flow in an autofix cycle.
+
+
+    Runtime keys (per protocol under `runtime.api_protocol_settings.<protocol>`):
+
+
+    ```yaml
+
+    generate_server_stubs: true
+
+    stubs_output: "generated/api-stubs/<protocol>/handlers.py"
+
+    self_verify_require_endpoint: true
+
+    publish_requires_live_green: true
+
+    autofix_cycle_enabled: true
+
+    autofix_max_attempts: 3
+
+    semantic_autofix_max_attempts: 3
+
+    ```
+
+
+    These defaults are designed for smooth one-command autopipeline runs with minimal
+    manual intervention.'

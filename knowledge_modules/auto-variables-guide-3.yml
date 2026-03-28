@@ -1,0 +1,239 @@
+id: auto-variables-guide-3
+title: Variables and Templates Guide (Part 3)
+summary: How to use Jinja2 variables and templates in documentation for consistency
+intents:
+- configure
+- integrate
+- troubleshoot
+audiences:
+- developer
+- operator
+channels:
+- docs
+- assistant
+- automation
+priority: 60
+status: active
+owner: docsops-auto
+last_verified: '2026-03-28'
+dependencies: []
+tags:
+- auto-extracted
+- reference
+- variables-guide
+content:
+  docs_markdown: '### 3. Create New Variables When
+
+
+    - You use the same value in 3+ places
+
+    - The value might change in the future
+
+    - It''s configuration-specific
+
+
+    ## Adding New Variables
+
+
+    \11. Edit `docs/_variables.yml`:
+
+
+    ```yaml
+
+    # Add your variable
+
+    my_new_variable: "value"
+
+    ```
+
+
+    \11. Use in any markdown file:
+
+
+    ```markdown
+
+    The value is {{ my_new_variable }}.
+
+    ```
+
+
+    \11. Variables are available immediately after saving.
+
+
+    ## Troubleshooting
+
+
+    ### Variable Not Rendering
+
+
+    **Problem**: You see `{{ variable_name }}` in output
+
+    **Solution**: Ensure mkdocs-macros-plugin is installed and configured
+
+
+    ### Variable Not Found Error
+
+
+    **Problem**: Build fails with "variable not defined"
+
+    **Solution**: Check variable name in `_variables.yml`
+
+
+    ### Conditional Content Not Working
+
+
+    **Problem**: Jinja2 conditions show in output
+
+    **Solution**: Use `{% raw %}` tags to escape if needed:
+
+
+    ```markdown
+
+    {% raw %}
+
+    This will show: {{ variable_name }}
+
+    {% endraw %}
+
+    ```
+
+
+    ## Examples
+
+
+    ### Complete Page with Variables
+
+
+    ```markdown
+
+    ---
+
+    title: "Configure {{ product_name }} Webhooks"
+
+    description: "Learn how to set up webhooks on port {{ default_webhook_port }}"
+
+    ---
+
+
+    # Configure {{ product_name }} Webhooks
+
+
+    {{ product_name }} webhooks listen on port {{ default_webhook_port }} by default.
+
+
+    ## Prerequisites
+
+
+    - {{ product_name }} version {{ min_supported_version }} or later
+
+    - Access to port {{ default_webhook_port }}'
+  assistant_context: 'Use this module when answering questions related to: Variables
+    and Templates Guide (Part 3). Source path: docs/VARIABLES_GUIDE.md. Summary: How
+    to use Jinja2 variables and templates in documentation for consistency
+
+
+    ### 3. Create New Variables When
+
+
+    - You use the same value in 3+ places
+
+    - The value might change in the future
+
+    - It''s configuration-specific
+
+
+    ## Adding New Variables
+
+
+    \11. Edit `docs/_variables.yml`:
+
+
+    ```yaml
+
+    # Add your variable
+
+    my_new_variable: "value"
+
+    ```
+
+
+    \11. Use in any markdown file:
+
+
+    ```markdown
+
+    The value is {{ my_new_variable }}.
+
+    ```
+
+
+    \11. Variables are available immediately after saving.
+
+
+    ## Troubleshooting
+
+
+    ### Variable Not Rendering
+
+
+    **Problem**: You see `{{ variable_name }}` in output
+
+    **Solution**: Ensure mkdocs-macros-plugin is installed and configured
+
+
+    ### Variable Not Found Error
+
+
+    **Problem**: Build fails with "variable not defined"
+
+    **Solution**: Check variable name in `_variables.yml`
+
+
+    ### Conditional Content Not Working
+
+
+    **Problem**: Jinja2 conditions show in output
+
+    **Solution**: Use `{% raw %}` tags to escape if needed:
+
+
+    ```markdown
+
+    {% raw %}
+
+    This will show: {{ variable_name }}
+
+    {% endraw %}
+
+    ```
+
+
+    ## Examples
+
+
+    ### Complete Page with Variables
+
+
+    ```markdown
+
+    ---
+
+    title: "Configure {{ product_name }} Webhooks"
+
+    description: "Learn how to set up webhooks on port {{ default_webhook_port }}"
+
+    ---
+
+
+    # Configure {{ product_name }} Webhooks
+
+
+    {{ product_name }} webhooks listen on port {{ default_webhook_port }} by default.
+
+
+    ## Prerequisites
+
+
+    - {{ product_name }} version {{ min_supported_version }} or later
+
+    - Access to port {{ default_webhook_port }}'

@@ -1,0 +1,75 @@
+id: auto-intelligent-knowledge-system-3
+title: Intelligent knowledge system architecture (Part 3)
+summary: Explains how the pipeline models reusable knowledge modules for AI retrieval,
+  dynamic assembly, and multi-channel documentation delivery.
+intents:
+- integrate
+audiences:
+- developer
+- operator
+channels:
+- docs
+- assistant
+- automation
+priority: 60
+status: active
+owner: docsops-auto
+last_verified: '2026-03-28'
+dependencies: []
+tags:
+- auto-extracted
+- concept
+- intelligent-knowledge-system
+content:
+  docs_markdown: '## RAG integration contract
+
+
+    Ask AI reads the same artifacts that the weekly knowledge pipeline refreshes.
+
+
+    - `docs/assets/knowledge-retrieval-index.json` is the primary retrieval index.
+
+    - `docs/assets/retrieval.faiss` is the FAISS vector index with `text-embedding-3-small`
+    embeddings.
+
+    - `docs/assets/retrieval-metadata.json` is the metadata sidecar for the FAISS
+    index.
+
+    - `docs/assets/knowledge-graph.jsonld` adds relationship context for retrieval
+    and reasoning.
+
+    - `reports/retrieval_evals_report.json` provides retrieval quality gates (Precision,
+    Recall, Hallucination-rate).
+
+
+    This shared contract keeps documentation generation, knowledge base updates, and
+    RAG runtime aligned.'
+  assistant_context: 'Use this module when answering questions related to: Intelligent
+    knowledge system architecture (Part 3). Source path: docs/concepts/intelligent-knowledge-system.md.
+    Summary: Explains how the pipeline models reusable knowledge modules for AI retrieval,
+    dynamic assembly, and multi-channel documentation delivery.
+
+
+    ## RAG integration contract
+
+
+    Ask AI reads the same artifacts that the weekly knowledge pipeline refreshes.
+
+
+    - `docs/assets/knowledge-retrieval-index.json` is the primary retrieval index.
+
+    - `docs/assets/retrieval.faiss` is the FAISS vector index with `text-embedding-3-small`
+    embeddings.
+
+    - `docs/assets/retrieval-metadata.json` is the metadata sidecar for the FAISS
+    index.
+
+    - `docs/assets/knowledge-graph.jsonld` adds relationship context for retrieval
+    and reasoning.
+
+    - `reports/retrieval_evals_report.json` provides retrieval quality gates (Precision,
+    Recall, Hallucination-rate).
+
+
+    This shared contract keeps documentation generation, knowledge base updates, and
+    RAG runtime aligned.'

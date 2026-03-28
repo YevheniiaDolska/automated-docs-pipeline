@@ -1,0 +1,138 @@
+id: auto-plan-tiers-12
+title: Plan Tiers (Basic / Pro / Enterprise) (Part 12)
+summary: Feature packaging matrix and defaults for Basic, Pro, and Enterprise client
+  plans.
+intents:
+- integrate
+- troubleshoot
+audiences:
+- developer
+- operator
+channels:
+- docs
+- assistant
+- automation
+priority: 60
+status: active
+owner: docsops-auto
+last_verified: '2026-03-28'
+dependencies: []
+tags:
+- auto-extracted
+- plan-tiers
+- reference
+content:
+  docs_markdown: '## 4. License enforcement
+
+
+    Plan tiers are enforced at runtime by `scripts/license_gate.py`. Every gated script
+    calls `license_gate.require("feature_name")` before executing protected logic.
+    The license is validated offline using an Ed25519-signed JWT stored at `docsops/license.jwt`.
+
+
+    Without a valid license, the pipeline runs in **community mode** (degraded):
+
+
+    - Markdown lint, frontmatter validation, SEO/GEO report-only, gap detection code-only,
+    glossary sync, lifecycle management, REST protocol.
+
+    - No scoring, no auto-fix, no drift detection, no KPI/SLA, no PDF reports, no
+    multi-protocol.
+
+    - Quality gates warn-only (never block).
+
+
+    License features per plan:
+
+
+    | Feature gate | Pilot | Professional | Enterprise |
+
+    | --- | --- | --- | --- |
+
+    | `seo_geo_scoring` | No | Yes | Yes |
+
+    | `api_first_flow` | No | Yes | Yes |
+
+    | `drift_detection` | No | Yes | Yes |
+
+    | `kpi_wall_sla` | No | Yes | Yes |
+
+    | `test_assets_generation` | No | Yes | Yes |
+
+    | `consolidated_reports` | No | Yes | Yes |
+
+    | `multi_protocol_pipeline` | No | No | Yes |
+
+    | `knowledge_modules` | No | No | Yes |
+
+    | `knowledge_graph` | No | No | Yes |
+
+    | `faiss_retrieval` | No | No | Yes |
+
+    | `executive_audit_pdf` | No | No | Yes |
+
+    | `i18n_system` | No | No | Yes |
+
+    | `custom_policy_packs` | No | No | Yes |
+
+    | `testrail_zephyr_upload` | No | No | Yes |'
+  assistant_context: 'Use this module when answering questions related to: Plan Tiers
+    (Basic / Pro / Enterprise) (Part 12). Source path: docs/operations/PLAN_TIERS.md.
+    Summary: Feature packaging matrix and defaults for Basic, Pro, and Enterprise
+    client plans.
+
+
+    ## 4. License enforcement
+
+
+    Plan tiers are enforced at runtime by `scripts/license_gate.py`. Every gated script
+    calls `license_gate.require("feature_name")` before executing protected logic.
+    The license is validated offline using an Ed25519-signed JWT stored at `docsops/license.jwt`.
+
+
+    Without a valid license, the pipeline runs in **community mode** (degraded):
+
+
+    - Markdown lint, frontmatter validation, SEO/GEO report-only, gap detection code-only,
+    glossary sync, lifecycle management, REST protocol.
+
+    - No scoring, no auto-fix, no drift detection, no KPI/SLA, no PDF reports, no
+    multi-protocol.
+
+    - Quality gates warn-only (never block).
+
+
+    License features per plan:
+
+
+    | Feature gate | Pilot | Professional | Enterprise |
+
+    | --- | --- | --- | --- |
+
+    | `seo_geo_scoring` | No | Yes | Yes |
+
+    | `api_first_flow` | No | Yes | Yes |
+
+    | `drift_detection` | No | Yes | Yes |
+
+    | `kpi_wall_sla` | No | Yes | Yes |
+
+    | `test_assets_generation` | No | Yes | Yes |
+
+    | `consolidated_reports` | No | Yes | Yes |
+
+    | `multi_protocol_pipeline` | No | No | Yes |
+
+    | `knowledge_modules` | No | No | Yes |
+
+    | `knowledge_graph` | No | No | Yes |
+
+    | `faiss_retrieval` | No | No | Yes |
+
+    | `executive_audit_pdf` | No | No | Yes |
+
+    | `i18n_system` | No | No | Yes |
+
+    | `custom_policy_packs` | No | No | Yes |
+
+    | `testrail_zephyr_upload` | No | No | Yes |'

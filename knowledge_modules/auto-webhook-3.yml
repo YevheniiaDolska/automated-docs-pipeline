@@ -1,0 +1,83 @@
+id: auto-webhook-3
+title: Webhook node reference for (Part 3)
+summary: Complete parameter reference for the Webhook trigger node including HTTP
+  methods, authentication, response modes, and binary data handling.
+intents:
+- configure
+- integrate
+- secure
+audiences:
+- developer
+- operator
+channels:
+- docs
+- assistant
+- automation
+priority: 60
+status: active
+owner: docsops-auto
+last_verified: '2026-03-28'
+dependencies: []
+tags:
+- auto-extracted
+- reference
+- webhook
+content:
+  docs_markdown: '## Environment variables
+
+
+    | Variable | Default | Description |
+
+    |----------|---------|-------------|
+
+    | `WEBHOOK_URL` | `<http://localhost:5678`> | Base URL for webhook endpoints |
+
+    | `APP_PAYLOAD_SIZE_MAX` | `16` | Maximum request body size in MB |
+
+
+    ## Related
+
+
+    - [Configure Webhook authentication](../../how-to/configure-webhook-trigger.md)
+
+    - [Webhook not firing](../../troubleshooting/webhook-not-firing.md)
+
+    - [Workflow execution model](../../concepts/workflow-execution-model.md)
+
+
+    ## Next steps
+
+
+    - [Documentation index](../index.md)'
+  assistant_context: 'Use this module when answering questions related to: Webhook
+    node reference for (Part 3). Source path: docs/reference/nodes/webhook.md. Summary:
+    Complete parameter reference for the Webhook trigger node including HTTP methods,
+    authentication, response modes, and binary data handling.
+
+
+    ## Environment variables
+
+
+    | Variable | Default | Description |
+
+    |----------|---------|-------------|
+
+    | `WEBHOOK_URL` | `<http://localhost:5678`> | Base URL for webhook endpoints |
+
+    | `APP_PAYLOAD_SIZE_MAX` | `16` | Maximum request body size in MB |
+
+
+    ## Related
+
+
+    - [Configure Webhook authentication](../../how-to/configure-webhook-trigger.md)
+
+    - [Webhook not firing](../../troubleshooting/webhook-not-firing.md)
+
+    - [Workflow execution model](../../concepts/workflow-execution-model.md)
+
+
+    ## Next steps
+
+
+    - [Documentation index](../index.md)'

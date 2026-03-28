@@ -1,0 +1,117 @@
+id: auto-pipeline-capabilities-catalog-10
+title: Pipeline Capabilities Catalog (Part 10)
+summary: Generated catalog of available pipeline commands, templates, policy packs,
+  and assets for client configuration.
+intents:
+- integrate
+- secure
+- troubleshoot
+audiences:
+- developer
+- operator
+channels:
+- docs
+- assistant
+- automation
+priority: 60
+status: active
+owner: docsops-auto
+last_verified: '2026-03-28'
+dependencies: []
+tags:
+- auto-extracted
+- pipeline-capabilities-catalog
+- reference
+content:
+  docs_markdown: '## Test assets generation and smart merge
+
+
+    `generate_protocol_test_assets.py` generates protocol-aware test cases for all
+    five protocols with signature-based smart merge to preserve custom and manual
+    test cases across contract changes.
+
+
+    **Test categories per protocol:**
+
+
+    | Protocol | Categories |
+
+    | --- | --- |
+
+    | REST | CRUD happy paths, validation errors, auth, rate limiting, pagination
+    |
+
+    | GraphQL | Query/mutation/subscription happy path, invalid input, auth, injection,
+    latency |
+
+    | gRPC | Unary/streaming positive, status codes, deadline/retry, authorization,
+    latency SLO |
+
+    | AsyncAPI | Publish validation, invalid payload, ordering/idempotency, security,
+    throughput |
+
+    | WebSocket | Connection/auth, message envelope, reconnect, security, concurrency
+    |
+
+
+    **Output formats:** `api_test_cases.json`, `testrail_test_cases.csv` (TestRail),
+    `zephyr_test_cases.json` (Zephyr Scale), `test_matrix.json`, `fuzz_scenarios.json`.
+
+
+    **Smart merge rules:** auto-generated cases are replaced on contract change; customized
+    cases (`customized: true`) are preserved and flagged `needs_review: true` when
+    the contract signature changes; manual cases (`origin: "manual"`) are never overwritten.
+
+
+    **TestRail/Zephyr upload:** `upload_api_test_assets.py` pushes generated cases
+    to TestRail or Zephyr Scale. The `needs_review` flag propagates to both platforms
+    so QA teams can triage stale custom cases.'
+  assistant_context: 'Use this module when answering questions related to: Pipeline
+    Capabilities Catalog (Part 10). Source path: docs/operations/PIPELINE_CAPABILITIES_CATALOG.md.
+    Summary: Generated catalog of available pipeline commands, templates, policy packs,
+    and assets for client configuration.
+
+
+    ## Test assets generation and smart merge
+
+
+    `generate_protocol_test_assets.py` generates protocol-aware test cases for all
+    five protocols with signature-based smart merge to preserve custom and manual
+    test cases across contract changes.
+
+
+    **Test categories per protocol:**
+
+
+    | Protocol | Categories |
+
+    | --- | --- |
+
+    | REST | CRUD happy paths, validation errors, auth, rate limiting, pagination
+    |
+
+    | GraphQL | Query/mutation/subscription happy path, invalid input, auth, injection,
+    latency |
+
+    | gRPC | Unary/streaming positive, status codes, deadline/retry, authorization,
+    latency SLO |
+
+    | AsyncAPI | Publish validation, invalid payload, ordering/idempotency, security,
+    throughput |
+
+    | WebSocket | Connection/auth, message envelope, reconnect, security, concurrency
+    |
+
+
+    **Output formats:** `api_test_cases.json`, `testrail_test_cases.csv` (TestRail),
+    `zephyr_test_cases.json` (Zephyr Scale), `test_matrix.json`, `fuzz_scenarios.json`.
+
+
+    **Smart merge rules:** auto-generated cases are replaced on contract change; customized
+    cases (`customized: true`) are preserved and flagged `needs_review: true` when
+    the contract signature changes; manual cases (`origin: "manual"`) are never overwritten.
+
+
+    **TestRail/Zephyr upload:** `upload_api_test_assets.py` pushes generated cases
+    to TestRail or Zephyr Scale. The `needs_review` flag propagates to both platforms
+    so QA teams can triage stale custom cases.'

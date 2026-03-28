@@ -1,0 +1,61 @@
+id: auto-unified-client-config-23
+title: Unified Client Configuration (Part 23)
+summary: Single source of truth for per-client Auto-Doc Pipeline configuration, modules,
+  and automation.
+intents:
+- configure
+- integrate
+audiences:
+- developer
+- operator
+channels:
+- docs
+- assistant
+- automation
+priority: 60
+status: active
+owner: docsops-auto
+last_verified: '2026-03-28'
+dependencies: []
+tags:
+- auto-extracted
+- reference
+- unified-client-config
+content:
+  docs_markdown: "## 9. Integrations (single control point)\n\nUse one section to\
+    \ configure cross-stack integrations for any supported generator.\n\n```yaml\n\
+    runtime:\n  integrations:\n    algolia:\n      enabled: true\n      docs_dir:\
+    \ \"docs\"\n      report_output: \"reports/seo-report.json\"\n      upload_on_weekly:\
+    \ true\n      app_id_env: \"ALGOLIA_APP_ID\"\n      api_key_env: \"ALGOLIA_API_KEY\"\
+    \n      index_name_env: \"ALGOLIA_INDEX_NAME\"\n      index_name_default: \"docs\"\
+    \n    ask_ai:\n      enabled: true\n      auto_configure_on_provision: true\n\
+    \      install_runtime_pack: false\n      provider: \"openai\"\n      billing_mode:\
+    \ \"user-subscription\"\n      model: \"gpt-4.1-mini\"\n      base_url: \"https://api.openai.com/v1\"\
+    \n```\n\nHow it works:\n\n- `algolia.enabled=true`: weekly runner generates Algolia\
+    \ payload from docs.\n- `algolia.upload_on_weekly=true`: weekly runner also uploads\
+    \ to Algolia (if env credentials are set).\n- `ask_ai.auto_configure_on_provision=true`:\
+    \ provisioning auto-writes `config/ask-ai.yml`.\n- `ask_ai.install_runtime_pack=true`:\
+    \ provisioning auto-installs Ask AI runtime pack.\n\nManual verification for integrations:\n\
+    \n- If `algolia.enabled=true`, ensure env names in `runtime.integrations.algolia.*_env`\
+    \ match client secrets naming.\n- If `ask_ai.enabled=true`, confirm generated\
+    \ `config/ask-ai.yml` in client repo has expected provider/model/billing mode."
+  assistant_context: "Use this module when answering questions related to: Unified\
+    \ Client Configuration (Part 23). Source path: docs/operations/UNIFIED_CLIENT_CONFIG.md.\
+    \ Summary: Single source of truth for per-client Auto-Doc Pipeline configuration,\
+    \ modules, and automation.\n\n## 9. Integrations (single control point)\n\nUse\
+    \ one section to configure cross-stack integrations for any supported generator.\n\
+    \n```yaml\nruntime:\n  integrations:\n    algolia:\n      enabled: true\n    \
+    \  docs_dir: \"docs\"\n      report_output: \"reports/seo-report.json\"\n    \
+    \  upload_on_weekly: true\n      app_id_env: \"ALGOLIA_APP_ID\"\n      api_key_env:\
+    \ \"ALGOLIA_API_KEY\"\n      index_name_env: \"ALGOLIA_INDEX_NAME\"\n      index_name_default:\
+    \ \"docs\"\n    ask_ai:\n      enabled: true\n      auto_configure_on_provision:\
+    \ true\n      install_runtime_pack: false\n      provider: \"openai\"\n      billing_mode:\
+    \ \"user-subscription\"\n      model: \"gpt-4.1-mini\"\n      base_url: \"https://api.openai.com/v1\"\
+    \n```\n\nHow it works:\n\n- `algolia.enabled=true`: weekly runner generates Algolia\
+    \ payload from docs.\n- `algolia.upload_on_weekly=true`: weekly runner also uploads\
+    \ to Algolia (if env credentials are set).\n- `ask_ai.auto_configure_on_provision=true`:\
+    \ provisioning auto-writes `config/ask-ai.yml`.\n- `ask_ai.install_runtime_pack=true`:\
+    \ provisioning auto-installs Ask AI runtime pack.\n\nManual verification for integrations:\n\
+    \n- If `algolia.enabled=true`, ensure env names in `runtime.integrations.algolia.*_env`\
+    \ match client secrets naming.\n- If `ask_ai.enabled=true`, confirm generated\
+    \ `config/ask-ai.yml` in client repo has expected provider/model/billing mode."

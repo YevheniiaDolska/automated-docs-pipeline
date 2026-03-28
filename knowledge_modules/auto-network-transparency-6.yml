@@ -1,0 +1,149 @@
+id: auto-network-transparency-6
+title: Network transparency reference (Part 6)
+summary: Complete list of all outgoing network requests the pipeline makes, with exact
+  payload schemas. No client data leaves your network.
+intents:
+- integrate
+audiences:
+- developer
+- operator
+channels:
+- docs
+- assistant
+- automation
+priority: 60
+status: active
+owner: docsops-auto
+last_verified: '2026-03-28'
+dependencies: []
+tags:
+- auto-extracted
+- network-transparency
+- reference
+content:
+  docs_markdown: '### Air-gapped operation
+
+
+    The pipeline works without any network access. Set these to disable all outgoing
+    requests:
+
+
+    ```bash
+
+    # Block all VeriOps server communication
+
+    export VERIOPS_UPDATE_SERVER=""
+
+    export VERIOPS_LICENSE_PLAN=enterprise  # Dev/test bypass
+
+
+    # Run pipeline in fully offline mode
+
+    python3 scripts/run_weekly_gap_batch.py --docsops-root docsops
+
+    ```
+
+
+    Without network access, the pipeline uses:
+
+
+    - Local license JWT file (`docsops/license.jwt`) for offline validation
+
+    - Local capability pack (`docsops/.capability_pack.enc`) for scoring weights
+
+    - Offline grace period (3, 7, or 30 days depending on plan tier) before degrading
+    to community mode
+
+
+    ### Source code audit
+
+
+    Every network call in the pipeline is in exactly 2 files:
+
+
+    ```bash
+
+    # Find all outgoing HTTP calls in the pipeline
+
+    grep -rn "urlopen\|urllib\|requests\.\|httpx\.\|aiohttp" scripts/ build/
+
+
+    # Expected results: only in these files:
+
+    #   scripts/check_updates.py  -- update check + download
+
+    #   scripts/generate_public_docs_audit.py -- web crawler (optional, enterprise
+    only)
+
+    ```
+
+
+    The `generate_public_docs_audit.py` script crawls public documentation sites for
+    quality auditing. It accesses only URLs explicitly provided by the user via `--site-url`
+    arguments. It does not contact VeriOps servers.'
+  assistant_context: 'Use this module when answering questions related to: Network
+    transparency reference (Part 6). Source path: docs/reference/network-transparency.md.
+    Summary: Complete list of all outgoing network requests the pipeline makes, with
+    exact payload schemas. No client data leaves your network.
+
+
+    ### Air-gapped operation
+
+
+    The pipeline works without any network access. Set these to disable all outgoing
+    requests:
+
+
+    ```bash
+
+    # Block all VeriOps server communication
+
+    export VERIOPS_UPDATE_SERVER=""
+
+    export VERIOPS_LICENSE_PLAN=enterprise  # Dev/test bypass
+
+
+    # Run pipeline in fully offline mode
+
+    python3 scripts/run_weekly_gap_batch.py --docsops-root docsops
+
+    ```
+
+
+    Without network access, the pipeline uses:
+
+
+    - Local license JWT file (`docsops/license.jwt`) for offline validation
+
+    - Local capability pack (`docsops/.capability_pack.enc`) for scoring weights
+
+    - Offline grace period (3, 7, or 30 days depending on plan tier) before degrading
+    to community mode
+
+
+    ### Source code audit
+
+
+    Every network call in the pipeline is in exactly 2 files:
+
+
+    ```bash
+
+    # Find all outgoing HTTP calls in the pipeline
+
+    grep -rn "urlopen\|urllib\|requests\.\|httpx\.\|aiohttp" scripts/ build/
+
+
+    # Expected results: only in these files:
+
+    #   scripts/check_updates.py  -- update check + download
+
+    #   scripts/generate_public_docs_audit.py -- web crawler (optional, enterprise
+    only)
+
+    ```
+
+
+    The `generate_public_docs_audit.py` script crawls public documentation sites for
+    quality auditing. It accesses only URLs explicitly provided by the user via `--site-url`
+    arguments. It does not contact VeriOps servers.'

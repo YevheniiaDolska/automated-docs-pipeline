@@ -1,0 +1,59 @@
+id: auto-operator-runbook-12
+title: Operator Runbook (Retainer Operations) (Part 12)
+summary: Step-by-step instructions for weekly report review, client questions, new
+  repo setup, and profile tuning.
+intents:
+- configure
+audiences:
+- practitioner
+- developer
+channels:
+- docs
+- assistant
+- automation
+priority: 60
+status: active
+owner: docsops-auto
+last_verified: '2026-03-28'
+dependencies: []
+tags:
+- auto-extracted
+- how-to
+- operator-runbook
+content:
+  docs_markdown: "After answering, the wizard:\n\n1. Generates a profile at `profiles/clients/generated/<client-id>.client.yml`.\n\
+    1. Shows a preview for your confirmation.\n1. Builds the bundle.\n1. Copies bundle\
+    \ into the client repo under `docsops/`.\n1. Installs the scheduler (if selected).\n\
+    1. Generates `ENV_CHECKLIST.md` for required secrets.\n\n### Step 3.3: Manual\
+    \ method (for repeat setups)\n\nIf you already have a profile from a previous\
+    \ client or want to clone settings:\n\n1. Copy a preset profile:\n\n```bash\n\
+    cp profiles/clients/presets/startup.yml profiles/clients/<client-id>.client.yml\n\
+    ```\n\n1. Edit the profile with a text editor. Fill in:\n\n```yaml\nclient:\n\
+    \  id: \"acme\"\n  company_name: \"ACME Inc.\"\n  contact_email: \"docs-owner@acme.example\"\
+    \nlicensing:\n  plan: \"professional\"\n  days: 365\n```\n\n1. Adjust paths and\
+    \ modules as needed.\n\n1. Provision:\n\n```bash\npython3 scripts/provision_client_repo.py\
+    \ \\\n  --client profiles/clients/<client-id>.client.yml \\\n  --client-repo /path/to/client-repo\
+    \ \\\n  --docsops-dir docsops \\\n  --install-scheduler linux\n```\n\nWindows:\n\
+    \n```bash\npython3 scripts/provision_client_repo.py \\\n  --client profiles/clients/<client-id>.client.yml\
+    \ \\\n  --client-repo C:\\path\\to\\client-repo \\\n  --docsops-dir docsops \\\
+    \n  --install-scheduler windows\n```"
+  assistant_context: "Use this module when answering questions related to: Operator\
+    \ Runbook (Retainer Operations) (Part 12). Source path: docs/operations/OPERATOR_RUNBOOK.md.\
+    \ Summary: Step-by-step instructions for weekly report review, client questions,\
+    \ new repo setup, and profile tuning.\n\nAfter answering, the wizard:\n\n1. Generates\
+    \ a profile at `profiles/clients/generated/<client-id>.client.yml`.\n1. Shows\
+    \ a preview for your confirmation.\n1. Builds the bundle.\n1. Copies bundle into\
+    \ the client repo under `docsops/`.\n1. Installs the scheduler (if selected).\n\
+    1. Generates `ENV_CHECKLIST.md` for required secrets.\n\n### Step 3.3: Manual\
+    \ method (for repeat setups)\n\nIf you already have a profile from a previous\
+    \ client or want to clone settings:\n\n1. Copy a preset profile:\n\n```bash\n\
+    cp profiles/clients/presets/startup.yml profiles/clients/<client-id>.client.yml\n\
+    ```\n\n1. Edit the profile with a text editor. Fill in:\n\n```yaml\nclient:\n\
+    \  id: \"acme\"\n  company_name: \"ACME Inc.\"\n  contact_email: \"docs-owner@acme.example\"\
+    \nlicensing:\n  plan: \"professional\"\n  days: 365\n```\n\n1. Adjust paths and\
+    \ modules as needed.\n\n1. Provision:\n\n```bash\npython3 scripts/provision_client_repo.py\
+    \ \\\n  --client profiles/clients/<client-id>.client.yml \\\n  --client-repo /path/to/client-repo\
+    \ \\\n  --docsops-dir docsops \\\n  --install-scheduler linux\n```\n\nWindows:\n\
+    \n```bash\npython3 scripts/provision_client_repo.py \\\n  --client profiles/clients/<client-id>.client.yml\
+    \ \\\n  --client-repo C:\\path\\to\\client-repo \\\n  --docsops-dir docsops \\\
+    \n  --install-scheduler windows\n```"

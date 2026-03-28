@@ -1,0 +1,51 @@
+id: auto-multi-protocol-architecture-3
+title: Multi-Protocol Architecture (Part 3)
+summary: Unified docs-ops pipeline for REST, GraphQL, gRPC, AsyncAPI, and WebSocket.
+intents:
+- integrate
+audiences:
+- developer
+- operator
+channels:
+- docs
+- assistant
+- automation
+priority: 60
+status: active
+owner: docsops-auto
+last_verified: '2026-03-28'
+dependencies: []
+tags:
+- auto-extracted
+- multi-protocol-architecture
+- reference
+content:
+  docs_markdown: "## Test assets and smart-merge\n\n- Generator: `scripts/generate_protocol_test_assets.py`\n\
+    - Upload: `scripts/upload_api_test_assets.py`\n- Coverage gate: `scripts/validate_protocol_test_coverage.py`\n\
+    - Runtime self-verify (mock/real endpoint): `scripts/run_protocol_self_verify.py`\n\
+    - Endpoint auto-resolution for non-REST testers:\n  - preferred: Postman external\
+    \ mock (`scripts/ensure_external_mock_server.py`)\n  - fallback: public echo endpoints\
+    \ (`https://postman-echo.com/post`, `wss://echo.websocket.events`)\n- Protocol\
+    \ docs quality + lifecycle suite: `scripts/run_protocol_docs_quality_suite.py`\n\
+    \  - applies docs normalization, metadata optimization, multilang/smoke checks\n\
+    \  - updates glossary markers\n  - refreshes RAG assets (knowledge modules, retrieval\
+    \ index, knowledge graph, retrieval evals)\n- Smart-merge preserves manual/customized\
+    \ cases and sets `needs_review` on drift/stale entities.\n- Non-REST generator\
+    \ emits richer artifacts: cases JSON, TestRail CSV, Zephyr JSON, `test_matrix.json`,\
+    \ `fuzz_scenarios.json`."
+  assistant_context: "Use this module when answering questions related to: Multi-Protocol\
+    \ Architecture (Part 3). Source path: docs/operations/MULTI_PROTOCOL_ARCHITECTURE.md.\
+    \ Summary: Unified docs-ops pipeline for REST, GraphQL, gRPC, AsyncAPI, and WebSocket.\n\
+    \n## Test assets and smart-merge\n\n- Generator: `scripts/generate_protocol_test_assets.py`\n\
+    - Upload: `scripts/upload_api_test_assets.py`\n- Coverage gate: `scripts/validate_protocol_test_coverage.py`\n\
+    - Runtime self-verify (mock/real endpoint): `scripts/run_protocol_self_verify.py`\n\
+    - Endpoint auto-resolution for non-REST testers:\n  - preferred: Postman external\
+    \ mock (`scripts/ensure_external_mock_server.py`)\n  - fallback: public echo endpoints\
+    \ (`https://postman-echo.com/post`, `wss://echo.websocket.events`)\n- Protocol\
+    \ docs quality + lifecycle suite: `scripts/run_protocol_docs_quality_suite.py`\n\
+    \  - applies docs normalization, metadata optimization, multilang/smoke checks\n\
+    \  - updates glossary markers\n  - refreshes RAG assets (knowledge modules, retrieval\
+    \ index, knowledge graph, retrieval evals)\n- Smart-merge preserves manual/customized\
+    \ cases and sets `needs_review` on drift/stale entities.\n- Non-REST generator\
+    \ emits richer artifacts: cases JSON, TestRail CSV, Zephyr JSON, `test_matrix.json`,\
+    \ `fuzz_scenarios.json`."

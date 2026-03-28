@@ -1,0 +1,149 @@
+id: auto-operator-runbook-11
+title: Operator Runbook (Retainer Operations) (Part 11)
+summary: Step-by-step instructions for weekly report review, client questions, new
+  repo setup, and profile tuning.
+intents:
+- configure
+- integrate
+- troubleshoot
+audiences:
+- practitioner
+- developer
+channels:
+- docs
+- assistant
+- automation
+priority: 60
+status: active
+owner: docsops-auto
+last_verified: '2026-03-28'
+dependencies: []
+tags:
+- auto-extracted
+- how-to
+- operator-runbook
+content:
+  docs_markdown: '| Question | What to enter | Notes |
+
+    | --- | --- | --- |
+
+    | Profile source | "generate from preset" or path to existing `.client.yml` |
+    Choose "generate" for new clients |
+
+    | Preset | `small` / `startup` / `enterprise` / `pilot-evidence` | Match the client
+    plan tier |
+
+    | Company name | Client company name | Used in reports and PDF |
+
+    | Client ID | Lowercase slug (auto-suggested from company name) | Used in filenames
+    and license |
+
+    | Contact email | Client docs owner email | Informational |
+
+    | License plan | `pilot` / `professional` / `enterprise` | Must match the sales
+    agreement |
+
+    | License validity | Number of days (default: 365) | Typically 365 for annual
+    contracts |
+
+    | Client repo path | Full path to the client repository | Must exist on disk |
+
+    | Docs path | Path to docs folder in client repo (default: `docs`) | |
+
+    | API path | Path to API specs (default: `api`) | |
+
+    | SDK path | Path to SDK code (default: `sdk`) | |
+
+    | Docs flow mode | `code-first` / `api-first` / `hybrid` | `code-first` if code
+    exists, `api-first` if designing API from scratch |
+
+    | Vale style guide | `google` / `microsoft` / `hybrid` | Google is the default
+    |
+
+    | Output targets | `mkdocs`, `readme`, `github`, etc. | Comma-separated |
+
+    | PR auto-fix | Yes/No (default: No) | Enable if client wants automatic PR doc
+    updates |
+
+    | API sandbox backend | `docker` / `prism` / `external` | Only asked for api-first/hybrid
+    mode |
+
+    | Test asset upload | Yes/No | TestRail/Zephyr upload |
+
+    | Algolia integration | Yes/No | Search index |
+
+    | Ask AI integration | Yes/No | AI assistant |
+
+    | Intent weekly build | Yes/No | Intent experience pages |
+
+    | Finalize gate confirmation | Yes/No | Interactive commit confirmation |
+
+    | Advanced module toggles | Yes/No per module | If enabled, configures each module
+    individually |
+
+    | Scheduler | `none` / `linux` / `windows` | Install weekly cron/task |'
+  assistant_context: 'Use this module when answering questions related to: Operator
+    Runbook (Retainer Operations) (Part 11). Source path: docs/operations/OPERATOR_RUNBOOK.md.
+    Summary: Step-by-step instructions for weekly report review, client questions,
+    new repo setup, and profile tuning.
+
+
+    | Question | What to enter | Notes |
+
+    | --- | --- | --- |
+
+    | Profile source | "generate from preset" or path to existing `.client.yml` |
+    Choose "generate" for new clients |
+
+    | Preset | `small` / `startup` / `enterprise` / `pilot-evidence` | Match the client
+    plan tier |
+
+    | Company name | Client company name | Used in reports and PDF |
+
+    | Client ID | Lowercase slug (auto-suggested from company name) | Used in filenames
+    and license |
+
+    | Contact email | Client docs owner email | Informational |
+
+    | License plan | `pilot` / `professional` / `enterprise` | Must match the sales
+    agreement |
+
+    | License validity | Number of days (default: 365) | Typically 365 for annual
+    contracts |
+
+    | Client repo path | Full path to the client repository | Must exist on disk |
+
+    | Docs path | Path to docs folder in client repo (default: `docs`) | |
+
+    | API path | Path to API specs (default: `api`) | |
+
+    | SDK path | Path to SDK code (default: `sdk`) | |
+
+    | Docs flow mode | `code-first` / `api-first` / `hybrid` | `code-first` if code
+    exists, `api-first` if designing API from scratch |
+
+    | Vale style guide | `google` / `microsoft` / `hybrid` | Google is the default
+    |
+
+    | Output targets | `mkdocs`, `readme`, `github`, etc. | Comma-separated |
+
+    | PR auto-fix | Yes/No (default: No) | Enable if client wants automatic PR doc
+    updates |
+
+    | API sandbox backend | `docker` / `prism` / `external` | Only asked for api-first/hybrid
+    mode |
+
+    | Test asset upload | Yes/No | TestRail/Zephyr upload |
+
+    | Algolia integration | Yes/No | Search index |
+
+    | Ask AI integration | Yes/No | AI assistant |
+
+    | Intent weekly build | Yes/No | Intent experience pages |
+
+    | Finalize gate confirmation | Yes/No | Interactive commit confirmation |
+
+    | Advanced module toggles | Yes/No per module | If enabled, configures each module
+    individually |
+
+    | Scheduler | `none` / `linux` / `windows` | Install weekly cron/task |'

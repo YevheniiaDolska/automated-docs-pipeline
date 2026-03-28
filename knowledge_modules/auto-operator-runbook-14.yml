@@ -1,0 +1,41 @@
+id: auto-operator-runbook-14
+title: Operator Runbook (Retainer Operations) (Part 14)
+summary: Step-by-step instructions for weekly report review, client questions, new
+  repo setup, and profile tuning.
+intents:
+- configure
+- troubleshoot
+audiences:
+- practitioner
+- developer
+channels:
+- docs
+- assistant
+- automation
+priority: 60
+status: active
+owner: docsops-auto
+last_verified: '2026-03-28'
+dependencies: []
+tags:
+- auto-extracted
+- how-to
+- operator-runbook
+content:
+  docs_markdown: "### Step 3.6: Run a smoke test\n\nRun one manual weekly cycle to\
+    \ verify everything works:\n\n```bash\ncd /path/to/client-repo\npython3 docsops/scripts/run_weekly_gap_batch.py\
+    \ \\\n  --docsops-root docsops \\\n  --reports-dir reports\n```\n\nVerify:\n\n\
+    - [ ] Script completes without errors (warnings are OK).\n- [ ] `reports/consolidated_report.json`\
+    \ was created with a fresh timestamp.\n- [ ] `reports/docsops_status.json` exists.\n\
+    \nIf the smoke test passes, the scheduler takes over and runs this automatically\
+    \ every Monday."
+  assistant_context: "Use this module when answering questions related to: Operator\
+    \ Runbook (Retainer Operations) (Part 14). Source path: docs/operations/OPERATOR_RUNBOOK.md.\
+    \ Summary: Step-by-step instructions for weekly report review, client questions,\
+    \ new repo setup, and profile tuning.\n\n### Step 3.6: Run a smoke test\n\nRun\
+    \ one manual weekly cycle to verify everything works:\n\n```bash\ncd /path/to/client-repo\n\
+    python3 docsops/scripts/run_weekly_gap_batch.py \\\n  --docsops-root docsops \\\
+    \n  --reports-dir reports\n```\n\nVerify:\n\n- [ ] Script completes without errors\
+    \ (warnings are OK).\n- [ ] `reports/consolidated_report.json` was created with\
+    \ a fresh timestamp.\n- [ ] `reports/docsops_status.json` exists.\n\nIf the smoke\
+    \ test passes, the scheduler takes over and runs this automatically every Monday."

@@ -1,0 +1,81 @@
+id: auto-auto-doc-pipeline-study-guide-3
+title: Auto-Doc Pipeline study guide (Part 3)
+summary: Learn the Auto-Doc Pipeline quickly with a simple architecture map, operating
+  flow, plan mapping, and a detailed client FAQ.
+intents:
+- integrate
+audiences:
+- developer
+- operator
+channels:
+- docs
+- assistant
+- automation
+priority: 60
+status: active
+owner: docsops-auto
+last_verified: '2026-03-28'
+dependencies: []
+tags:
+- auto-doc-pipeline-study-guide
+- auto-extracted
+- reference
+content:
+  docs_markdown: '## Smooth autopipeline flow (what runs automatically)
+
+
+    1. Run weekly baseline checks: gap detection, stale checks, drift/docs-contract
+    checks, and KPI/SLA (as enabled).
+
+    1. Run REST API-first branch (if enabled): OpenAPI flow, sandbox resolution, overrides,
+    regression gate, and REST test assets.
+
+    1. Run multi-protocol non-REST branch (if enabled): `run_multi_protocol_contract_flow.py`
+    for GraphQL, gRPC, AsyncAPI, and WebSocket.
+
+    1. Auto-generate non-REST server stubs with business-logic placeholders.
+
+    1. Resolve runtime endpoints for self-verification and docs testers; in `external`
+    mode with `external_mock.enabled=true`, auto-prepare Postman mock.
+
+    1. Run RAG/knowledge tasks: modules extraction, module validation, retrieval index,
+    JSON-LD graph, and retrieval evals.
+
+    1. Run terminology governance: sync glossary markers into `glossary.yml`.
+
+    1. Run multi-language examples flow: generate tabs, validate tabs, and run smoke
+    checks.
+
+    1. Run intent assembly and `custom_tasks.weekly`, then write consolidated reports.'
+  assistant_context: 'Use this module when answering questions related to: Auto-Doc
+    Pipeline study guide (Part 3). Source path: docs/reference/auto-doc-pipeline-study-guide.md.
+    Summary: Learn the Auto-Doc Pipeline quickly with a simple architecture map, operating
+    flow, plan mapping, and a detailed client FAQ.
+
+
+    ## Smooth autopipeline flow (what runs automatically)
+
+
+    1. Run weekly baseline checks: gap detection, stale checks, drift/docs-contract
+    checks, and KPI/SLA (as enabled).
+
+    1. Run REST API-first branch (if enabled): OpenAPI flow, sandbox resolution, overrides,
+    regression gate, and REST test assets.
+
+    1. Run multi-protocol non-REST branch (if enabled): `run_multi_protocol_contract_flow.py`
+    for GraphQL, gRPC, AsyncAPI, and WebSocket.
+
+    1. Auto-generate non-REST server stubs with business-logic placeholders.
+
+    1. Resolve runtime endpoints for self-verification and docs testers; in `external`
+    mode with `external_mock.enabled=true`, auto-prepare Postman mock.
+
+    1. Run RAG/knowledge tasks: modules extraction, module validation, retrieval index,
+    JSON-LD graph, and retrieval evals.
+
+    1. Run terminology governance: sync glossary markers into `glossary.yml`.
+
+    1. Run multi-language examples flow: generate tabs, validate tabs, and run smoke
+    checks.
+
+    1. Run intent assembly and `custom_tasks.weekly`, then write consolidated reports.'

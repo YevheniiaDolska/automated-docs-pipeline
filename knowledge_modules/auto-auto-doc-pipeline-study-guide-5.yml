@@ -1,0 +1,62 @@
+id: auto-auto-doc-pipeline-study-guide-5
+title: Auto-Doc Pipeline study guide (Part 5)
+summary: Learn the Auto-Doc Pipeline quickly with a simple architecture map, operating
+  flow, plan mapping, and a detailed client FAQ.
+intents:
+- configure
+- integrate
+- secure
+audiences:
+- developer
+- operator
+channels:
+- docs
+- assistant
+- automation
+priority: 60
+status: active
+owner: docsops-auto
+last_verified: '2026-03-28'
+dependencies: []
+tags:
+- auto-doc-pipeline-study-guide
+- auto-extracted
+- reference
+content:
+  docs_markdown: "### Step 2: prepare profile and bundle\n\n1. Generate or update\
+    \ client profile in `profiles/clients/generated/`.\n1. Build the client bundle\
+    \ in `generated/client_bundles/<client_id>/`.\n1. Verify bundle contains needed\
+    \ scripts and config for selected plan/modules.\n\n### Step 3: install in client\
+    \ repo\n\n1. Copy bundle as `docsops/` into the client repository.\n1. Create\
+    \ `/.env.docsops.local` from generated template.\n1. Fill required secrets and\
+    \ integration keys (if used).\n1. Confirm git auth works for the scheduler user\
+    \ (`git pull` must succeed).\n\n### Step 4: configure runtime for this client\n\
+    \n1. Set `runtime.docs_flow.mode` (`code-first`, `api-first`, `hybrid`).\n1. Enable/disable\
+    \ modules per purchased plan.\n1. For non-REST, configure protocol blocks in runtime\
+    \ config.\n1. For external mock mode, set `mock_base_url` and enable `external_mock`\
+    \ when needed.\n1. For Postman auto-prepare, add required Postman env vars and\
+    \ workspace settings.\n\n### Step 5: run first verification cycle\n\n1. Run weekly\
+    \ flow once manually:\n   `python3 docsops/scripts/run_weekly_gap_batch.py`.\n\
+    1. Confirm `reports/consolidated_report.json` is generated and fresh.\n1. Check\
+    \ multi-protocol and test-asset reports if enabled.\n1. Confirm no blocking gate\
+    \ failures before turning on scheduler."
+  assistant_context: "Use this module when answering questions related to: Auto-Doc\
+    \ Pipeline study guide (Part 5). Source path: docs/reference/auto-doc-pipeline-study-guide.md.\
+    \ Summary: Learn the Auto-Doc Pipeline quickly with a simple architecture map,\
+    \ operating flow, plan mapping, and a detailed client FAQ.\n\n### Step 2: prepare\
+    \ profile and bundle\n\n1. Generate or update client profile in `profiles/clients/generated/`.\n\
+    1. Build the client bundle in `generated/client_bundles/<client_id>/`.\n1. Verify\
+    \ bundle contains needed scripts and config for selected plan/modules.\n\n###\
+    \ Step 3: install in client repo\n\n1. Copy bundle as `docsops/` into the client\
+    \ repository.\n1. Create `/.env.docsops.local` from generated template.\n1. Fill\
+    \ required secrets and integration keys (if used).\n1. Confirm git auth works\
+    \ for the scheduler user (`git pull` must succeed).\n\n### Step 4: configure runtime\
+    \ for this client\n\n1. Set `runtime.docs_flow.mode` (`code-first`, `api-first`,\
+    \ `hybrid`).\n1. Enable/disable modules per purchased plan.\n1. For non-REST,\
+    \ configure protocol blocks in runtime config.\n1. For external mock mode, set\
+    \ `mock_base_url` and enable `external_mock` when needed.\n1. For Postman auto-prepare,\
+    \ add required Postman env vars and workspace settings.\n\n### Step 5: run first\
+    \ verification cycle\n\n1. Run weekly flow once manually:\n   `python3 docsops/scripts/run_weekly_gap_batch.py`.\n\
+    1. Confirm `reports/consolidated_report.json` is generated and fresh.\n1. Check\
+    \ multi-protocol and test-asset reports if enabled.\n1. Confirm no blocking gate\
+    \ failures before turning on scheduler."

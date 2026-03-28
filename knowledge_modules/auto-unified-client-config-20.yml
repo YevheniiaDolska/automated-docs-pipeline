@@ -1,0 +1,63 @@
+id: auto-unified-client-config-20
+title: Unified Client Configuration (Part 20)
+summary: Single source of truth for per-client Auto-Doc Pipeline configuration, modules,
+  and automation.
+intents:
+- integrate
+- troubleshoot
+audiences:
+- developer
+- operator
+channels:
+- docs
+- assistant
+- automation
+priority: 60
+status: active
+owner: docsops-auto
+last_verified: '2026-03-28'
+dependencies: []
+tags:
+- auto-extracted
+- reference
+- unified-client-config
+content:
+  docs_markdown: "```yaml\nruntime:\n  retrieval_eval:\n    enabled: true\n    index_path:\
+    \ \"docs/assets/knowledge-retrieval-index.json\"\n    dataset_path: \"\"\n   \
+    \ top_k: 3\n    min_precision: 0.5\n    min_recall: 0.5\n    max_hallucination_rate:\
+    \ 0.5\n    auto_samples: 25\n  knowledge_graph:\n    enabled: true\n    modules_dir:\
+    \ \"knowledge_modules\"\n    output_path: \"docs/assets/knowledge-graph.jsonld\"\
+    \n  git_sync:\n    enabled: true\n    repo_path: \".\"\n    remote: \"origin\"\
+    \n    branch: \"\"\n    fetch_first: true\n    rebase: true\n    autostash: true\n\
+    \    continue_on_error: true\n  finalize_gate:\n    enabled: true\n    docs_root:\
+    \ \"docs\"\n    reports_dir: \"reports\"\n    lint_command: \"npm run lint\"\n\
+    \    max_iterations: 5\n    continue_on_error: true\n    auto_fix_commands:\n\
+    \      - \"python3 scripts/normalize_docs.py {docs_root}\"\n      - \"python3\
+    \ scripts/seo_geo_optimizer.py {docs_root} --fix\"\n    llm_fix_command: \"\"\n\
+    \    ask_commit_confirmation: false\n    run_precommit_before_commit: true\n \
+    \   commit_on_approve: false\n    push_on_commit: false\n```\n\nBy default, `git_sync.enabled=true`:\
+    \ weekly runner executes `git fetch` + `git pull` before report generation.\n\
+    This lets the responsible person avoid manual pull steps.\nScheduler must run\
+    \ under a user account that already has git access to the private repo (SSH key\
+    \ or credential helper/PAT).\n\n`finalize_gate` behavior:"
+  assistant_context: "Use this module when answering questions related to: Unified\
+    \ Client Configuration (Part 20). Source path: docs/operations/UNIFIED_CLIENT_CONFIG.md.\
+    \ Summary: Single source of truth for per-client Auto-Doc Pipeline configuration,\
+    \ modules, and automation.\n\n```yaml\nruntime:\n  retrieval_eval:\n    enabled:\
+    \ true\n    index_path: \"docs/assets/knowledge-retrieval-index.json\"\n    dataset_path:\
+    \ \"\"\n    top_k: 3\n    min_precision: 0.5\n    min_recall: 0.5\n    max_hallucination_rate:\
+    \ 0.5\n    auto_samples: 25\n  knowledge_graph:\n    enabled: true\n    modules_dir:\
+    \ \"knowledge_modules\"\n    output_path: \"docs/assets/knowledge-graph.jsonld\"\
+    \n  git_sync:\n    enabled: true\n    repo_path: \".\"\n    remote: \"origin\"\
+    \n    branch: \"\"\n    fetch_first: true\n    rebase: true\n    autostash: true\n\
+    \    continue_on_error: true\n  finalize_gate:\n    enabled: true\n    docs_root:\
+    \ \"docs\"\n    reports_dir: \"reports\"\n    lint_command: \"npm run lint\"\n\
+    \    max_iterations: 5\n    continue_on_error: true\n    auto_fix_commands:\n\
+    \      - \"python3 scripts/normalize_docs.py {docs_root}\"\n      - \"python3\
+    \ scripts/seo_geo_optimizer.py {docs_root} --fix\"\n    llm_fix_command: \"\"\n\
+    \    ask_commit_confirmation: false\n    run_precommit_before_commit: true\n \
+    \   commit_on_approve: false\n    push_on_commit: false\n```\n\nBy default, `git_sync.enabled=true`:\
+    \ weekly runner executes `git fetch` + `git pull` before report generation.\n\
+    This lets the responsible person avoid manual pull steps.\nScheduler must run\
+    \ under a user account that already has git access to the private repo (SSH key\
+    \ or credential helper/PAT).\n\n`finalize_gate` behavior:"

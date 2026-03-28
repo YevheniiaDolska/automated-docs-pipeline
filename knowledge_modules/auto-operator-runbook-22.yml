@@ -1,0 +1,62 @@
+id: auto-operator-runbook-22
+title: Operator Runbook (Retainer Operations) (Part 22)
+summary: Step-by-step instructions for weekly report review, client questions, new
+  repo setup, and profile tuning.
+intents:
+- configure
+audiences:
+- practitioner
+- developer
+channels:
+- docs
+- assistant
+- automation
+priority: 60
+status: active
+owner: docsops-auto
+last_verified: '2026-03-28'
+dependencies: []
+tags:
+- auto-extracted
+- how-to
+- operator-runbook
+content:
+  docs_markdown: "### Quality score dropped significantly\n\n1. Open `reports/consolidated_report.json`.\n\
+    1. Check `input_reports` to find which source caused the drop.\n1. Look for new\
+    \ `action_items` with `priority: \"high\"`.\n1. Common causes:\n   - New code\
+    \ was pushed without documentation updates (drift).\n   - Documents were not reviewed\
+    \ in 180+ days (stale).\n   - API endpoints were added without reference docs.\n\
+    \n### Client wants to change their plan tier\n\n1. Edit the client profile: change\
+    \ `licensing.plan` to the new tier.\n1. Rebuild and re-provision the bundle.\n\
+    1. The new license JWT will have the updated plan.\n\n---\n\n## Quick reference\
+    \ commands\n\n| Task | Command |\n| --- | --- |\n| Interactive onboarding | `python3\
+    \ scripts/onboard_client.py` |\n| Build bundle only | `python3 scripts/build_client_bundle.py\
+    \ --client profiles/clients/<client>.client.yml` |\n| Provision (same machine)\
+    \ | `python3 scripts/provision_client_repo.py --client <profile> --client-repo\
+    \ <path> --install-scheduler linux` |\n| Re-provision (update bundle) | Same as\
+    \ above -- overwrites existing `docsops/` |\n| Run weekly manually | `cd <client-repo>\
+    \ && python3 docsops/scripts/run_weekly_gap_batch.py` |\n| Full audit wizard |\
+    \ `python3 scripts/run_full_audit_wizard.py` |\n| Check license status | `python3\
+    \ scripts/license_gate.py` |\n| Validate a specific doc | `vale docs/path/to/file.md`\
+    \ |\n| Run all linters | `npm run lint` |"
+  assistant_context: "Use this module when answering questions related to: Operator\
+    \ Runbook (Retainer Operations) (Part 22). Source path: docs/operations/OPERATOR_RUNBOOK.md.\
+    \ Summary: Step-by-step instructions for weekly report review, client questions,\
+    \ new repo setup, and profile tuning.\n\n### Quality score dropped significantly\n\
+    \n1. Open `reports/consolidated_report.json`.\n1. Check `input_reports` to find\
+    \ which source caused the drop.\n1. Look for new `action_items` with `priority:\
+    \ \"high\"`.\n1. Common causes:\n   - New code was pushed without documentation\
+    \ updates (drift).\n   - Documents were not reviewed in 180+ days (stale).\n \
+    \  - API endpoints were added without reference docs.\n\n### Client wants to change\
+    \ their plan tier\n\n1. Edit the client profile: change `licensing.plan` to the\
+    \ new tier.\n1. Rebuild and re-provision the bundle.\n1. The new license JWT will\
+    \ have the updated plan.\n\n---\n\n## Quick reference commands\n\n| Task | Command\
+    \ |\n| --- | --- |\n| Interactive onboarding | `python3 scripts/onboard_client.py`\
+    \ |\n| Build bundle only | `python3 scripts/build_client_bundle.py --client profiles/clients/<client>.client.yml`\
+    \ |\n| Provision (same machine) | `python3 scripts/provision_client_repo.py --client\
+    \ <profile> --client-repo <path> --install-scheduler linux` |\n| Re-provision\
+    \ (update bundle) | Same as above -- overwrites existing `docsops/` |\n| Run weekly\
+    \ manually | `cd <client-repo> && python3 docsops/scripts/run_weekly_gap_batch.py`\
+    \ |\n| Full audit wizard | `python3 scripts/run_full_audit_wizard.py` |\n| Check\
+    \ license status | `python3 scripts/license_gate.py` |\n| Validate a specific\
+    \ doc | `vale docs/path/to/file.md` |\n| Run all linters | `npm run lint` |"

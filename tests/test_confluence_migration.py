@@ -91,6 +91,104 @@ class TestConfluenceImporter:
             importer.import_export(bad_zip, tmp_path / "out")
 
 
+class TestExpandedPipeline:
+    """Tests for the expanded 14-step migration pipeline."""
+
+    def test_build_checks_returns_14_steps(self, tmp_path: Path) -> None:
+        from run_confluence_migration import _build_checks
+
+        checks = _build_checks("python3", tmp_path, tmp_path / "rpt", tmp_path)
+        assert len(checks) == 14
+
+    def test_quality_enhance_step_present(self, tmp_path: Path) -> None:
+        from run_confluence_migration import _build_checks
+
+        checks = _build_checks("python3", tmp_path, tmp_path / "rpt", tmp_path)
+        names = [n for n, _c, _a in checks]
+        expected = [
+            "normalize_check_before",
+            "seo_geo_before",
+            "normalize_fix",
+            "quality_enhance",
+            "seo_geo_fix",
+            "validate_frontmatter",
+            "normalize_check_after",
+            "seo_geo_after",
+            "examples_smoke",
+            "extract_knowledge",
+            "validate_knowledge",
+            "rebuild_index",
+            "glossary_sync",
+            "final_lint_check",
+        ]
+        assert names == expected
+
+    def test_use_llm_propagates(self, tmp_path: Path) -> None:
+        from run_confluence_migration import _build_checks
+
+        checks = _build_checks("python3", tmp_path, tmp_path / "rpt", tmp_path, use_llm=True)
+        for name, cmd, _af in checks:
+            if name == "quality_enhance":
+                assert "--use-llm" in cmd
+                return
+        pytest.fail("quality_enhance step not found")
+
+
+class TestApiModeArgs:
+    """Tests for REST API mode CLI arguments and validation."""
+
+    def test_api_mode_args_parsed(self) -> None:
+        from run_confluence_migration import parse_args
+
+        sys.argv = [
+            "run_confluence_migration.py",
+            "--confluence-url", "https://mycompany.atlassian.net",
+            "--confluence-token", "tok123",
+            "--confluence-username", "user@example.com",
+            "--space-keys", "DEV,OPS",
+            "--include-attachments",
+            "--incremental",
+            "--skip-post-checks",
+        ]
+        args = parse_args()
+        assert args.confluence_url == "https://mycompany.atlassian.net"
+        assert args.confluence_token == "tok123"
+        assert args.confluence_username == "user@example.com"
+        assert args.space_keys == "DEV,OPS"
+        assert args.include_attachments is True
+        assert args.incremental is True
+
+    def test_api_mode_requires_token(self) -> None:
+        from run_confluence_migration import _run_api_mode
+        import argparse
+
+        args = argparse.Namespace(
+            confluence_url="https://mycompany.atlassian.net",
+            confluence_token="",
+            confluence_username="user@example.com",
+            space_keys="DEV",
+            include_attachments=False,
+            incremental=False,
+        )
+        with pytest.raises(SystemExit):
+            _run_api_mode(args, Path("/tmp/out"), Path("/tmp/repo"))
+
+    def test_api_mode_requires_space_keys(self) -> None:
+        from run_confluence_migration import _run_api_mode
+        import argparse
+
+        args = argparse.Namespace(
+            confluence_url="https://mycompany.atlassian.net",
+            confluence_token="tok123",
+            confluence_username="user@example.com",
+            space_keys="",
+            include_attachments=False,
+            incremental=False,
+        )
+        with pytest.raises(SystemExit):
+            _run_api_mode(args, Path("/tmp/out"), Path("/tmp/repo"))
+
+
 class TestConfluenceRunner:
     def test_run_script_generates_reports(self, sample_confluence_zip: Path, tmp_path: Path) -> None:
         repo_root = Path(__file__).resolve().parent.parent

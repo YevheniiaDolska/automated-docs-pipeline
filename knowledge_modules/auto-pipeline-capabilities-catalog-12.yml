@@ -1,0 +1,121 @@
+id: auto-pipeline-capabilities-catalog-12
+title: Pipeline Capabilities Catalog (Part 12)
+summary: Generated catalog of available pipeline commands, templates, policy packs,
+  and assets for client configuration.
+intents:
+- integrate
+audiences:
+- developer
+- operator
+channels:
+- docs
+- assistant
+- automation
+priority: 60
+status: active
+owner: docsops-auto
+last_verified: '2026-03-28'
+dependencies: []
+tags:
+- auto-extracted
+- pipeline-capabilities-catalog
+- reference
+content:
+  docs_markdown: '## RAG retrieval pipeline
+
+
+    The pipeline generates a knowledge retrieval layer with six advanced features:
+
+
+    | Feature | Description |
+
+    | --- | --- |
+
+    | Token-aware chunking | Splits modules into 750-token chunks with 100-token overlap
+    (`cl100k_base`) |
+
+    | Hybrid search (RRF) | Fuses semantic (FAISS) and token-overlap rankings with
+    Reciprocal Rank Fusion (k=60) |
+
+    | HyDE query expansion | Generates hypothetical doc passage via LLM before embedding
+    for better retrieval on vague queries |
+
+    | Cross-encoder reranking | Rescores top 20 candidates with `cross-encoder/ms-marco-MiniLM-L-6-v2`
+    |
+
+    | Embedding cache | In-memory LRU cache (TTL 3,600 seconds, max 512 entries) for
+    query embeddings |
+
+    | Multi-mode evaluation | Compares token, semantic, hybrid, and hybrid+rerank
+    modes across curated queries |
+
+
+    **Pipeline scripts:**
+
+
+    1. `extract_knowledge_modules_from_docs.py` -- auto-chunk docs into knowledge
+    modules
+
+    1. `validate_knowledge_modules.py` -- schema validation, duplicate ID detection,
+    cycle check
+
+    1. `generate_knowledge_retrieval_index.py` -- JSON index for Algolia + FAISS input
+
+    1. `generate_embeddings.py` -- FAISS vector index (`text-embedding-3-small`, 1536
+    dims)
+
+    1. `generate_knowledge_graph_jsonld.py` -- JSON-LD knowledge graph
+
+    1. `run_retrieval_evals.py` -- precision@k, recall@k, hallucination rate evaluation'
+  assistant_context: 'Use this module when answering questions related to: Pipeline
+    Capabilities Catalog (Part 12). Source path: docs/operations/PIPELINE_CAPABILITIES_CATALOG.md.
+    Summary: Generated catalog of available pipeline commands, templates, policy packs,
+    and assets for client configuration.
+
+
+    ## RAG retrieval pipeline
+
+
+    The pipeline generates a knowledge retrieval layer with six advanced features:
+
+
+    | Feature | Description |
+
+    | --- | --- |
+
+    | Token-aware chunking | Splits modules into 750-token chunks with 100-token overlap
+    (`cl100k_base`) |
+
+    | Hybrid search (RRF) | Fuses semantic (FAISS) and token-overlap rankings with
+    Reciprocal Rank Fusion (k=60) |
+
+    | HyDE query expansion | Generates hypothetical doc passage via LLM before embedding
+    for better retrieval on vague queries |
+
+    | Cross-encoder reranking | Rescores top 20 candidates with `cross-encoder/ms-marco-MiniLM-L-6-v2`
+    |
+
+    | Embedding cache | In-memory LRU cache (TTL 3,600 seconds, max 512 entries) for
+    query embeddings |
+
+    | Multi-mode evaluation | Compares token, semantic, hybrid, and hybrid+rerank
+    modes across curated queries |
+
+
+    **Pipeline scripts:**
+
+
+    1. `extract_knowledge_modules_from_docs.py` -- auto-chunk docs into knowledge
+    modules
+
+    1. `validate_knowledge_modules.py` -- schema validation, duplicate ID detection,
+    cycle check
+
+    1. `generate_knowledge_retrieval_index.py` -- JSON index for Algolia + FAISS input
+
+    1. `generate_embeddings.py` -- FAISS vector index (`text-embedding-3-small`, 1536
+    dims)
+
+    1. `generate_knowledge_graph_jsonld.py` -- JSON-LD knowledge graph
+
+    1. `run_retrieval_evals.py` -- precision@k, recall@k, hallucination rate evaluation'

@@ -1,0 +1,39 @@
+id: auto-set-up-real-time-webhook-processing-pipeline-6
+title: Set up a real-time webhook processing pipeline (Part 6)
+summary: Configure end-to-end webhook ingestion with HMAC verification, async queue
+  processing, and delivery guarantees in under 15 minutes.
+intents:
+- configure
+audiences:
+- practitioner
+- developer
+channels:
+- docs
+- assistant
+- automation
+priority: 60
+status: active
+owner: docsops-auto
+last_verified: '2026-03-28'
+dependencies: []
+tags:
+- auto-extracted
+- how-to
+- set-up-real-time-webhook-processing-pipeline
+content:
+  docs_markdown: "// Test verification\nconst testPayload = '{\"event\": \"order.completed\"\
+    , \"order_id\": \"ord_1234\"}';\nconst testSecret = 'whsec_test_secret_key_abc123_min32chars';\n\
+    const testTimestamp = Math.floor(Date.now() / 1000).toString();\nconst testSig\
+    \ = crypto\n  .createHmac('sha256', testSecret)\n  .update(`${testTimestamp}.${testPayload}`)\n\
+    \  .digest('hex');\n\nconst valid = verifyWebhookSignature(\n  testPayload, `t=${testTimestamp},v1=${testSig}`,\
+    \ testSecret\n);\nconsole.log('Signature valid:', valid);  // true\n```"
+  assistant_context: "Use this module when answering questions related to: Set up\
+    \ a real-time webhook processing pipeline (Part 6). Source path: docs/en/how-to/set-up-real-time-webhook-processing-pipeline.md.\
+    \ Summary: Configure end-to-end webhook ingestion with HMAC verification, async\
+    \ queue processing, and delivery guarantees in under 15 minutes.\n\n// Test verification\n\
+    const testPayload = '{\"event\": \"order.completed\", \"order_id\": \"ord_1234\"\
+    }';\nconst testSecret = 'whsec_test_secret_key_abc123_min32chars';\nconst testTimestamp\
+    \ = Math.floor(Date.now() / 1000).toString();\nconst testSig = crypto\n  .createHmac('sha256',\
+    \ testSecret)\n  .update(`${testTimestamp}.${testPayload}`)\n  .digest('hex');\n\
+    \nconst valid = verifyWebhookSignature(\n  testPayload, `t=${testTimestamp},v1=${testSig}`,\
+    \ testSecret\n);\nconsole.log('Signature valid:', valid);  // true\n```"

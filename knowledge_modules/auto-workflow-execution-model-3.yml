@@ -1,0 +1,53 @@
+id: auto-workflow-execution-model-3
+title: Workflow execution model (Part 3)
+summary: The workflow engine processes workflows by executing nodes sequentially,
+  passing data as arrays of JSON objects between each node in the chain.
+intents:
+- integrate
+audiences:
+- developer
+- operator
+channels:
+- docs
+- assistant
+- automation
+priority: 60
+status: active
+owner: docsops-auto
+last_verified: '2026-03-28'
+dependencies: []
+tags:
+- auto-extracted
+- concept
+- workflow-execution-model
+content:
+  docs_markdown: '## Related
+
+
+    - [Build your first workflow](../getting-started/quickstart.md)
+
+    - [Webhook node reference](../reference/nodes/webhook.md)
+
+
+    ## Next steps
+
+
+    - [Documentation index](index.md)'
+  assistant_context: 'Use this module when answering questions related to: Workflow
+    execution model (Part 3). Source path: docs/concepts/workflow-execution-model.md.
+    Summary: The workflow engine processes workflows by executing nodes sequentially,
+    passing data as arrays of JSON objects between each node in the chain.
+
+
+    ## Related
+
+
+    - [Build your first workflow](../getting-started/quickstart.md)
+
+    - [Webhook node reference](../reference/nodes/webhook.md)
+
+
+    ## Next steps
+
+
+    - [Documentation index](index.md)'

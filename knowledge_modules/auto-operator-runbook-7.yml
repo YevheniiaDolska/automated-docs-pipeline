@@ -1,0 +1,133 @@
+id: auto-operator-runbook-7
+title: Operator Runbook (Retainer Operations) (Part 7)
+summary: Step-by-step instructions for weekly report review, client questions, new
+  repo setup, and profile tuning.
+intents:
+- configure
+audiences:
+- practitioner
+- developer
+channels:
+- docs
+- assistant
+- automation
+priority: 60
+status: active
+owner: docsops-auto
+last_verified: '2026-03-28'
+dependencies: []
+tags:
+- auto-extracted
+- how-to
+- operator-runbook
+content:
+  docs_markdown: '### Common question types and answers
+
+
+    #### "What does this quality score mean?"
+
+
+    The quality score (0-100) is a weighted composite:
+
+
+    | Pillar | Weight | What it measures |
+
+    | --- | --- | --- |
+
+    | Content quality (lint, formatting) | 22% | Style guide compliance, markdown
+    formatting |
+
+    | SEO/GEO optimization | 20% | Search engine and AI discoverability |
+
+    | Freshness | 14% | How recently docs were reviewed/updated |
+
+    | API coverage | 12% | Percentage of API endpoints with docs |
+
+    | Example reliability | 12% | Code examples that compile/run correctly |
+
+    | Terminology consistency | 10% | Glossary term usage |
+
+    | Retrieval quality | 10% | RAG/knowledge base accuracy |
+
+
+    Scoring grading: A (90-100), B (80-89), C (70-79), D (60-69), F (below 60).
+
+
+    #### "Why did our score drop?"
+
+
+    Open `reports/consolidated_report.json` and check:
+
+
+    1. `input_reports.kpi.details` -- look for `stale_docs` count increase.
+
+    1. `input_reports.drift.details.status` -- API drift lowers score.
+
+    1. `input_reports.sla.details.breaches` -- which SLA thresholds were violated.
+
+    1. `action_items` -- new items with `priority: "high"` indicate fresh problems.
+
+
+    Common causes: new code was pushed without documentation updates, docs were not
+    reviewed in 180+ days, API endpoints were added without reference docs.
+
+
+    #### "How do I change the stale threshold?"'
+  assistant_context: 'Use this module when answering questions related to: Operator
+    Runbook (Retainer Operations) (Part 7). Source path: docs/operations/OPERATOR_RUNBOOK.md.
+    Summary: Step-by-step instructions for weekly report review, client questions,
+    new repo setup, and profile tuning.
+
+
+    ### Common question types and answers
+
+
+    #### "What does this quality score mean?"
+
+
+    The quality score (0-100) is a weighted composite:
+
+
+    | Pillar | Weight | What it measures |
+
+    | --- | --- | --- |
+
+    | Content quality (lint, formatting) | 22% | Style guide compliance, markdown
+    formatting |
+
+    | SEO/GEO optimization | 20% | Search engine and AI discoverability |
+
+    | Freshness | 14% | How recently docs were reviewed/updated |
+
+    | API coverage | 12% | Percentage of API endpoints with docs |
+
+    | Example reliability | 12% | Code examples that compile/run correctly |
+
+    | Terminology consistency | 10% | Glossary term usage |
+
+    | Retrieval quality | 10% | RAG/knowledge base accuracy |
+
+
+    Scoring grading: A (90-100), B (80-89), C (70-79), D (60-69), F (below 60).
+
+
+    #### "Why did our score drop?"
+
+
+    Open `reports/consolidated_report.json` and check:
+
+
+    1. `input_reports.kpi.details` -- look for `stale_docs` count increase.
+
+    1. `input_reports.drift.details.status` -- API drift lowers score.
+
+    1. `input_reports.sla.details.breaches` -- which SLA thresholds were violated.
+
+    1. `action_items` -- new items with `priority: "high"` indicate fresh problems.
+
+
+    Common causes: new code was pushed without documentation updates, docs were not
+    reviewed in 180+ days, API endpoints were added without reference docs.
+
+
+    #### "How do I change the stale threshold?"'

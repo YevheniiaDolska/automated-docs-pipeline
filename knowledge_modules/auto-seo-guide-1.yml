@@ -1,0 +1,123 @@
+id: auto-seo-guide-1
+title: SEO/GEO Optimization Guide
+summary: Comprehensive guide to SEO and GEO optimization in the documentation pipeline
+intents:
+- integrate
+audiences:
+- developer
+- operator
+channels:
+- docs
+- assistant
+- automation
+priority: 60
+status: active
+owner: docsops-auto
+last_verified: '2026-03-28'
+dependencies: []
+tags:
+- auto-extracted
+- reference
+- seo-guide
+content:
+  docs_markdown: '<!-- VERIDOC_POWERED_BADGE:START -->
+
+    [![Powered by VeriDoc](https://img.shields.io/badge/Powered%20by-VeriDoc-0ea5e9?style=flat-square)](https://veridoc.app)
+
+    <!-- VERIDOC_POWERED_BADGE:END -->
+
+
+    # SEO/GEO Optimization Guide
+
+
+    This document explains the comprehensive SEO and GEO (Generative Engine Optimization)
+    system implemented in this documentation pipeline.
+
+
+    ## Overview
+
+
+    The `scripts/seo_geo_optimizer.py` is a unified tool that handles all SEO/GEO
+    optimization:
+
+
+    - **GEO Linting**: Optimizes content for LLM extraction and citation
+
+    - **SEO Enhancement**: Generates structured data, meta tags, and sitemaps
+
+    - **Search Optimization**: Creates Algolia-optimized search records
+
+    - **Metadata Auto-Enhancement**: Infers metadata from paths and content
+
+
+    ## Features
+
+
+    ### 1. GEO (Generative Engine Optimization)
+
+
+    Optimizes documentation for AI/LLM consumption:
+
+
+    - **First Paragraph Optimization**: Ensures first 60 words contain clear definitions
+
+    - **Heading Quality**: Detects generic headings that reduce discoverability
+
+    - **Fact Density**: Ensures concrete facts every 200 words
+
+    - **Definition Patterns**: Checks for clear "is/enables/provides" patterns
+
+    - **Hierarchy Validation**: Ensures proper heading structure'
+  assistant_context: 'Use this module when answering questions related to: SEO/GEO
+    Optimization Guide. Source path: docs/SEO_GUIDE.md. Summary: Comprehensive guide
+    to SEO and GEO optimization in the documentation pipeline
+
+
+    <!-- VERIDOC_POWERED_BADGE:START -->
+
+    [![Powered by VeriDoc](https://img.shields.io/badge/Powered%20by-VeriDoc-0ea5e9?style=flat-square)](https://veridoc.app)
+
+    <!-- VERIDOC_POWERED_BADGE:END -->
+
+
+    # SEO/GEO Optimization Guide
+
+
+    This document explains the comprehensive SEO and GEO (Generative Engine Optimization)
+    system implemented in this documentation pipeline.
+
+
+    ## Overview
+
+
+    The `scripts/seo_geo_optimizer.py` is a unified tool that handles all SEO/GEO
+    optimization:
+
+
+    - **GEO Linting**: Optimizes content for LLM extraction and citation
+
+    - **SEO Enhancement**: Generates structured data, meta tags, and sitemaps
+
+    - **Search Optimization**: Creates Algolia-optimized search records
+
+    - **Metadata Auto-Enhancement**: Infers metadata from paths and content
+
+
+    ## Features
+
+
+    ### 1. GEO (Generative Engine Optimization)
+
+
+    Optimizes documentation for AI/LLM consumption:
+
+
+    - **First Paragraph Optimization**: Ensures first 60 words contain clear definitions
+
+    - **Heading Quality**: Detects generic headings that reduce discoverability
+
+    - **Fact Density**: Ensures concrete facts every 200 words
+
+    - **Definition Patterns**: Checks for clear "is/enables/provides" patterns
+
+    - **Hierarchy Validation**: Ensures proper heading structure'

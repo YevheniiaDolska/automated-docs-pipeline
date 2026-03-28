@@ -1,0 +1,57 @@
+id: auto-operator-runbook-10
+title: Operator Runbook (Retainer Operations) (Part 10)
+summary: Step-by-step instructions for weekly report review, client questions, new
+  repo setup, and profile tuning.
+intents:
+- configure
+audiences:
+- practitioner
+- developer
+channels:
+- docs
+- assistant
+- automation
+priority: 60
+status: active
+owner: docsops-auto
+last_verified: '2026-03-28'
+dependencies: []
+tags:
+- auto-extracted
+- how-to
+- operator-runbook
+content:
+  docs_markdown: '### Step 3.2: Interactive wizard (recommended method)
+
+
+    Run from the VeriOps master repo:
+
+
+    ```bash
+
+    python3 scripts/onboard_client.py
+
+    ```
+
+
+    The wizard asks these questions in order:'
+  assistant_context: 'Use this module when answering questions related to: Operator
+    Runbook (Retainer Operations) (Part 10). Source path: docs/operations/OPERATOR_RUNBOOK.md.
+    Summary: Step-by-step instructions for weekly report review, client questions,
+    new repo setup, and profile tuning.
+
+
+    ### Step 3.2: Interactive wizard (recommended method)
+
+
+    Run from the VeriOps master repo:
+
+
+    ```bash
+
+    python3 scripts/onboard_client.py
+
+    ```
+
+
+    The wizard asks these questions in order:'

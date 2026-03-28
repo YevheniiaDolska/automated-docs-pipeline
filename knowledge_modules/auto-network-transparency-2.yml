@@ -1,0 +1,53 @@
+id: auto-network-transparency-2
+title: Network transparency reference (Part 2)
+summary: Complete list of all outgoing network requests the pipeline makes, with exact
+  payload schemas. No client data leaves your network.
+intents:
+- integrate
+audiences:
+- developer
+- operator
+channels:
+- docs
+- assistant
+- automation
+priority: 60
+status: active
+owner: docsops-auto
+last_verified: '2026-03-28'
+dependencies: []
+tags:
+- auto-extracted
+- network-transparency
+- reference
+content:
+  docs_markdown: "### Request 1: License activation\n\n**When:** First time setup,\
+    \ or when re-activating after a license key change.\n\n**Endpoint:** `POST /v1/activate`\n\
+    \n**Frequency:** Once per installation.\n\n```json\n{\n  \"key\": \"VDOC-PRO-acme-a8f3b2c1\"\
+    ,\n  \"machine_fingerprint\": \"sha256-hex-string-64-chars\"\n}\n```\n\n**Field\
+    \ details:**\n\n| Field | Type | Description | Contains client data? |\n| ---\
+    \ | --- | --- | --- |\n| `key` | string | License key provided by VeriOps sales\
+    \ | No |\n| `machine_fingerprint` | string | SHA-256 of `hostname + OS + username\
+    \ + repo_path` | No (one-way hash, not reversible) |\n\n**What is NOT sent:**\
+    \ No file names, no document content, no source code, no API contracts, no IP\
+    \ addresses beyond the TCP connection itself.\n\n**How to verify:**\n\n```bash\n\
+    # Capture the activation request with tcpdump\nsudo tcpdump -i any -A host licensing.veriops.dev\
+    \ port 443\n\n# Or use mitmproxy for HTTPS inspection\nmitmproxy --mode upstream:https://licensing.veriops.dev\n\
+    ```"
+  assistant_context: "Use this module when answering questions related to: Network\
+    \ transparency reference (Part 2). Source path: docs/reference/network-transparency.md.\
+    \ Summary: Complete list of all outgoing network requests the pipeline makes,\
+    \ with exact payload schemas. No client data leaves your network.\n\n### Request\
+    \ 1: License activation\n\n**When:** First time setup, or when re-activating after\
+    \ a license key change.\n\n**Endpoint:** `POST /v1/activate`\n\n**Frequency:**\
+    \ Once per installation.\n\n```json\n{\n  \"key\": \"VDOC-PRO-acme-a8f3b2c1\"\
+    ,\n  \"machine_fingerprint\": \"sha256-hex-string-64-chars\"\n}\n```\n\n**Field\
+    \ details:**\n\n| Field | Type | Description | Contains client data? |\n| ---\
+    \ | --- | --- | --- |\n| `key` | string | License key provided by VeriOps sales\
+    \ | No |\n| `machine_fingerprint` | string | SHA-256 of `hostname + OS + username\
+    \ + repo_path` | No (one-way hash, not reversible) |\n\n**What is NOT sent:**\
+    \ No file names, no document content, no source code, no API contracts, no IP\
+    \ addresses beyond the TCP connection itself.\n\n**How to verify:**\n\n```bash\n\
+    # Capture the activation request with tcpdump\nsudo tcpdump -i any -A host licensing.veriops.dev\
+    \ port 443\n\n# Or use mitmproxy for HTTPS inspection\nmitmproxy --mode upstream:https://licensing.veriops.dev\n\
+    ```"

@@ -1,0 +1,61 @@
+id: auto-run-api-first-production-flow-8
+title: Run API-first production flow (Part 8)
+summary: Generate OpenAPI from planning notes, run full lint and self-verification,
+  publish playground assets, and keep a sandbox ready for client testing.
+intents:
+- configure
+audiences:
+- practitioner
+- developer
+channels:
+- docs
+- assistant
+- automation
+priority: 60
+status: active
+owner: docsops-auto
+last_verified: '2026-03-28'
+dependencies: []
+tags:
+- auto-extracted
+- how-to
+- run-api-first-production-flow
+content:
+  docs_markdown: "## Step 3: Start sandbox for live testing\n\nFor contract-mock mode:\n\
+    \n```bash\nbash scripts/api_sandbox_project.sh up taskstream ./api/openapi.yaml\
+    \ 4010\n```\n\nFor no-Docker mode (local Prism mock):\n\n```bash\nbash scripts/api_sandbox_project.sh\
+    \ up taskstream ./api/openapi.yaml 4010 prism\n```\n\nFor public hosted sandbox\
+    \ mode (shared for all docs users):\n\n```bash\nAPI_SANDBOX_EXTERNAL_BASE_URL=\"\
+    https://<your-real-public-mock-url>/v1\" \\\nbash scripts/api_sandbox_project.sh\
+    \ up taskstream ./api/openapi.yaml 4010 external\n```\n\nSupported external services\
+    \ are provider-agnostic. You can use Postman Mock Servers, Stoplight-hosted Prism,\
+    \ Mockoon Cloud, or your own hosted Prism-compatible endpoint.\n\nIn external\
+    \ mode, run API-first verification against the same public URL:\n\n```bash\npython3\
+    \ scripts/run_api_first_flow.py \\\n  --project-slug taskstream \\\n  --notes\
+    \ demos/api-first/taskstream-planning-notes.md \\\n  --spec api/openapi.yaml \\\
+    \n  --spec-tree api/taskstream \\\n  --verify-user-path \\\n  --mock-base-url\
+    \ \"https://<your-real-public-mock-url>/v1\" \\\n  --generate-test-assets \\\n\
+    \  --upload-test-assets \\\n  --sync-playground-endpoint\n```\n\n`--sync-playground-endpoint`\
+    \ keeps `mkdocs.yml` playground `sandbox_base_url` aligned with your public mock\
+    \ URL.\n\nFor fully automatic Postman-managed external mock:"
+  assistant_context: "Use this module when answering questions related to: Run API-first\
+    \ production flow (Part 8). Source path: docs/how-to/run-api-first-production-flow.md.\
+    \ Summary: Generate OpenAPI from planning notes, run full lint and self-verification,\
+    \ publish playground assets, and keep a sandbox ready for client testing.\n\n\
+    ## Step 3: Start sandbox for live testing\n\nFor contract-mock mode:\n\n```bash\n\
+    bash scripts/api_sandbox_project.sh up taskstream ./api/openapi.yaml 4010\n```\n\
+    \nFor no-Docker mode (local Prism mock):\n\n```bash\nbash scripts/api_sandbox_project.sh\
+    \ up taskstream ./api/openapi.yaml 4010 prism\n```\n\nFor public hosted sandbox\
+    \ mode (shared for all docs users):\n\n```bash\nAPI_SANDBOX_EXTERNAL_BASE_URL=\"\
+    https://<your-real-public-mock-url>/v1\" \\\nbash scripts/api_sandbox_project.sh\
+    \ up taskstream ./api/openapi.yaml 4010 external\n```\n\nSupported external services\
+    \ are provider-agnostic. You can use Postman Mock Servers, Stoplight-hosted Prism,\
+    \ Mockoon Cloud, or your own hosted Prism-compatible endpoint.\n\nIn external\
+    \ mode, run API-first verification against the same public URL:\n\n```bash\npython3\
+    \ scripts/run_api_first_flow.py \\\n  --project-slug taskstream \\\n  --notes\
+    \ demos/api-first/taskstream-planning-notes.md \\\n  --spec api/openapi.yaml \\\
+    \n  --spec-tree api/taskstream \\\n  --verify-user-path \\\n  --mock-base-url\
+    \ \"https://<your-real-public-mock-url>/v1\" \\\n  --generate-test-assets \\\n\
+    \  --upload-test-assets \\\n  --sync-playground-endpoint\n```\n\n`--sync-playground-endpoint`\
+    \ keeps `mkdocs.yml` playground `sandbox_base_url` aligned with your public mock\
+    \ URL.\n\nFor fully automatic Postman-managed external mock:"

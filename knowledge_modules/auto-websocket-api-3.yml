@@ -1,0 +1,131 @@
+id: auto-websocket-api-3
+title: WEBSOCKET API Reference (Part 3)
+summary: Auto-generated websocket reference from source contract.
+intents:
+- configure
+- integrate
+- troubleshoot
+audiences:
+- developer
+- operator
+channels:
+- docs
+- assistant
+- automation
+priority: 60
+status: active
+owner: docsops-auto
+last_verified: '2026-03-28'
+dependencies: []
+tags:
+- auto-extracted
+- reference
+- websocket-api
+content:
+  docs_markdown: "<!-- vale off -->\n<div id=\"websocket-playground\" style=\"border:1px\
+    \ solid #d1d5db; padding:12px; border-radius:8px;\">\n  <p><strong>Endpoint:</strong>\
+    \ <code id=\"websocket-endpoint-view\"></code></p>\n  <textarea id=\"websocket-message\"\
+    \ rows=\"8\" style=\"width:100%; font-family:monospace;\">{\n  \"type\": \"subscribe\"\
+    ,\n  \"request_id\": \"req_001\",\n  \"payload\": {\"channel\": \"project.updated\"\
+    , \"filters\": {\"project_id\": \"prj_abc123\"}}\n}</textarea><br/>\n  <button\
+    \ id=\"websocket-send\">Connect + Send</button>\n  <pre id=\"websocket-output\"\
+    \ style=\"margin-top:12px; max-height:320px; overflow:auto;\"></pre>\n</div>\n\
+    <script>\n(function(){ const endpoint = \"wss://echo.websocket.events\";\nconst\
+    \ view = document.getElementById('websocket-endpoint-view');\nconst send = document.getElementById('websocket-send');\n\
+    const msg = document.getElementById('websocket-message');\nconst out = document.getElementById('websocket-output');\n\
+    if (!view || !send || !msg || !out) return;\nview.textContent = endpoint || 'not\
+    \ configured';\nfunction parseJson(raw){ try { return JSON.parse(String(raw ||\
+    \ '{}')); } catch (_) { return { raw: String(raw || '') }; } }\nfunction semanticResponse(input){\n\
+    \  const req = parseJson(input);\n  const payload = (req && req.payload && typeof\
+    \ req.payload === 'object') ? req.payload : {};\n  const type = String(req.type\
+    \ || req.action || '').toLowerCase();\n  const requestId = req.request_id || ('req_'\
+    \ + Date.now());\n  const channel = String(payload.channel || payload.topic ||\
+    \ 'project.updated');\n  const projectId = String((payload.filters && payload.filters.project_id)\
+    \ || payload.project_id || 'prj_abc123');\n  if (type === 'ping') return { type:\
+    \ 'pong', request_id: requestId, payload: { ts: new Date().toISOString() } };\n\
+    \  if (type === 'subscribe') return { type: 'ack', request_id: requestId, payload:\
+    \ { status: 'subscribed', channel: channel, filters: payload.filters || {} } };\n\
+    \  if (type === 'unsubscribe') return { type: 'ack', request_id: requestId, payload:\
+    \ { status: 'unsubscribed', channel: channel } };\n  if (type === 'publish') return\
+    \ { type: 'event', request_id: requestId, payload: { event_type: channel, data:\
+    \ Object.assign({ project_id: projectId, status: 'active' }, (payload.data &&\
+    \ typeof payload.data === 'object') ? payload.data : {}) } };\n  if (type ===\
+    \ 'get_project' || type === 'project.get' || type === 'query') return { type:\
+    \ 'event', request_id: requestId, payload: { event_type: 'project.snapshot', data:\
+    \ { project_id: projectId, name: 'Website Redesign', status: 'active', updated_at:\
+    \ new Date().toISOString() } } };\n  if (type === 'list_projects' || type ===\
+    \ 'project.list') return { type: 'event', request_id: requestId, payload: { event_type:\
+    \ 'project.list', data: [{ project_id: 'prj_abc123', status: 'active' }, { project_id:\
+    \ 'prj_def456', status: 'draft' }] } };\n  return { type: 'ack', request_id: requestId,\
+    \ payload: { status: 'accepted', echo: req, hint: 'Use: ping, subscribe, unsubscribe,\
+    \ publish, get_project, list_projects' } };\n}\nsend.onclick = function(){\n \
+    \ if (!endpoint) { out.textContent = 'Endpoint is not configured in runtime.api_protocol_settings.websocket.websocket_endpoint';\
+    \ return; }\n  try {\n    const socket = new WebSocket(endpoint);\n    let received\
+    \ = false;\n    socket.onopen = function(){ socket.send(msg.value); out.textContent\
+    \ = 'message sent'; };\n    socket.onmessage = function(e){\n      received =\
+    \ true;\n      const simulated = semanticResponse(e.data);\n      out.textContent\
+    \ = JSON.stringify({ mode: 'live-echo-plus-semantic', raw: String(e.data || ''),\
+    \ simulated_response: simulated }, null, 2);\n      socket.close();\n    };\n\
+    \    socket.onerror = function(){\n      const simulated = semanticResponse(msg.value);\n\
+    \      out.textContent = JSON.stringify({ mode: 'offline-semantic-fallback', simulated_response:\
+    \ simulated }, null, 2);\n    };\n    setTimeout(function(){\n      if (!received)\
+    \ {\n        const simulated = semanticResponse(msg.value);\n        out.textContent\
+    \ = JSON.stringify({ mode: 'timeout-semantic-fallback', simulated_response: simulated\
+    \ }, null, 2);\n        try { socket.close(); } catch (_) {}\n      }\n    },\
+    \ 1500);\n  } catch (error) { out.textContent = String(error); }\n};\n})();\n\
+    </script>\n<!-- vale on -->"
+  assistant_context: "Use this module when answering questions related to: WEBSOCKET\
+    \ API Reference (Part 3). Source path: docs/reference/websocket-api.md. Summary:\
+    \ Auto-generated websocket reference from source contract.\n\n<!-- vale off -->\n\
+    <div id=\"websocket-playground\" style=\"border:1px solid #d1d5db; padding:12px;\
+    \ border-radius:8px;\">\n  <p><strong>Endpoint:</strong> <code id=\"websocket-endpoint-view\"\
+    ></code></p>\n  <textarea id=\"websocket-message\" rows=\"8\" style=\"width:100%;\
+    \ font-family:monospace;\">{\n  \"type\": \"subscribe\",\n  \"request_id\": \"\
+    req_001\",\n  \"payload\": {\"channel\": \"project.updated\", \"filters\": {\"\
+    project_id\": \"prj_abc123\"}}\n}</textarea><br/>\n  <button id=\"websocket-send\"\
+    >Connect + Send</button>\n  <pre id=\"websocket-output\" style=\"margin-top:12px;\
+    \ max-height:320px; overflow:auto;\"></pre>\n</div>\n<script>\n(function(){ const\
+    \ endpoint = \"wss://echo.websocket.events\";\nconst view = document.getElementById('websocket-endpoint-view');\n\
+    const send = document.getElementById('websocket-send');\nconst msg = document.getElementById('websocket-message');\n\
+    const out = document.getElementById('websocket-output');\nif (!view || !send ||\
+    \ !msg || !out) return;\nview.textContent = endpoint || 'not configured';\nfunction\
+    \ parseJson(raw){ try { return JSON.parse(String(raw || '{}')); } catch (_) {\
+    \ return { raw: String(raw || '') }; } }\nfunction semanticResponse(input){\n\
+    \  const req = parseJson(input);\n  const payload = (req && req.payload && typeof\
+    \ req.payload === 'object') ? req.payload : {};\n  const type = String(req.type\
+    \ || req.action || '').toLowerCase();\n  const requestId = req.request_id || ('req_'\
+    \ + Date.now());\n  const channel = String(payload.channel || payload.topic ||\
+    \ 'project.updated');\n  const projectId = String((payload.filters && payload.filters.project_id)\
+    \ || payload.project_id || 'prj_abc123');\n  if (type === 'ping') return { type:\
+    \ 'pong', request_id: requestId, payload: { ts: new Date().toISOString() } };\n\
+    \  if (type === 'subscribe') return { type: 'ack', request_id: requestId, payload:\
+    \ { status: 'subscribed', channel: channel, filters: payload.filters || {} } };\n\
+    \  if (type === 'unsubscribe') return { type: 'ack', request_id: requestId, payload:\
+    \ { status: 'unsubscribed', channel: channel } };\n  if (type === 'publish') return\
+    \ { type: 'event', request_id: requestId, payload: { event_type: channel, data:\
+    \ Object.assign({ project_id: projectId, status: 'active' }, (payload.data &&\
+    \ typeof payload.data === 'object') ? payload.data : {}) } };\n  if (type ===\
+    \ 'get_project' || type === 'project.get' || type === 'query') return { type:\
+    \ 'event', request_id: requestId, payload: { event_type: 'project.snapshot', data:\
+    \ { project_id: projectId, name: 'Website Redesign', status: 'active', updated_at:\
+    \ new Date().toISOString() } } };\n  if (type === 'list_projects' || type ===\
+    \ 'project.list') return { type: 'event', request_id: requestId, payload: { event_type:\
+    \ 'project.list', data: [{ project_id: 'prj_abc123', status: 'active' }, { project_id:\
+    \ 'prj_def456', status: 'draft' }] } };\n  return { type: 'ack', request_id: requestId,\
+    \ payload: { status: 'accepted', echo: req, hint: 'Use: ping, subscribe, unsubscribe,\
+    \ publish, get_project, list_projects' } };\n}\nsend.onclick = function(){\n \
+    \ if (!endpoint) { out.textContent = 'Endpoint is not configured in runtime.api_protocol_settings.websocket.websocket_endpoint';\
+    \ return; }\n  try {\n    const socket = new WebSocket(endpoint);\n    let received\
+    \ = false;\n    socket.onopen = function(){ socket.send(msg.value); out.textContent\
+    \ = 'message sent'; };\n    socket.onmessage = function(e){\n      received =\
+    \ true;\n      const simulated = semanticResponse(e.data);\n      out.textContent\
+    \ = JSON.stringify({ mode: 'live-echo-plus-semantic', raw: String(e.data || ''),\
+    \ simulated_response: simulated }, null, 2);\n      socket.close();\n    };\n\
+    \    socket.onerror = function(){\n      const simulated = semanticResponse(msg.value);\n\
+    \      out.textContent = JSON.stringify({ mode: 'offline-semantic-fallback', simulated_response:\
+    \ simulated }, null, 2);\n    };\n    setTimeout(function(){\n      if (!received)\
+    \ {\n        const simulated = semanticResponse(msg.value);\n        out.textContent\
+    \ = JSON.stringify({ mode: 'timeout-semantic-fallback', simulated_response: simulated\
+    \ }, null, 2);\n        try { socket.close(); } catch (_) {}\n      }\n    },\
+    \ 1500);\n  } catch (error) { out.textContent = String(error); }\n};\n})();\n\
+    </script>\n<!-- vale on -->"

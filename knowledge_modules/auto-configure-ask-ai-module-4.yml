@@ -1,0 +1,210 @@
+id: auto-configure-ask-ai-module-4
+title: Configure Ask AI module (Part 4)
+summary: Enable or disable Ask AI, set provider and billing mode, and verify configuration
+  in five steps for beginner operators.
+intents:
+- configure
+- troubleshoot
+audiences:
+- practitioner
+- developer
+channels:
+- docs
+- assistant
+- automation
+priority: 60
+status: active
+owner: docsops-auto
+last_verified: '2026-03-28'
+dependencies: []
+tags:
+- auto-extracted
+- configure-ask-ai-module
+- how-to
+content:
+  docs_markdown: '## Step 6: Validate and commit
+
+
+    Run:
+
+
+    ```bash
+
+    npm run lint
+
+    npm run askai:status
+
+    ```
+
+
+    Confirm:
+
+
+    - `enabled` matches client request
+
+    - `billing_mode` matches contract
+
+    - `provider` and `model` match the planned setup
+
+    - `knowledge_index_path`, `knowledge_graph_path`, and `retrieval_eval_report_path`
+    point to current RAG artifacts
+
+    - `faiss_index_path` and `faiss_metadata_path` point to FAISS embedding assets
+
+    - advanced retrieval features (hybrid search, HyDE, reranking, embedding cache)
+    are enabled
+
+    - weekly pipeline refresh keeps RAG artifacts up to date before assistant runs
+
+
+    ## Troubleshooting
+
+
+    ### Error: unsupported provider or billing mode
+
+
+    Cause: the value is outside allowed options.
+
+
+    Fix:
+
+
+    ```bash
+
+    npm run askai:configure -- --help
+
+    ```
+
+
+    Use only:
+
+
+    - Provider: `openai`, `anthropic`, `azure-openai`, `custom`
+
+    - Billing: `disabled`, `bring-your-own-key`, `user-subscription`
+
+
+    ### Configuration changed but team does not see it
+
+
+    Cause: local branch mismatch or uncommitted config.
+
+
+    Fix:
+
+
+    ```bash
+
+    git status
+
+    git add config/ask-ai.yml reports/ask-ai-config.json
+
+    git commit -m "docs-ops: update Ask AI configuration"
+
+    ```
+
+
+    ## Next steps
+
+
+    - [Quick start](../getting-started/quickstart.md)
+
+    - [Assemble intent experiences](./assemble-intent-experiences.md)
+
+    - [Intelligent knowledge system architecture](../concepts/intelligent-knowledge-system.md)'
+  assistant_context: 'Use this module when answering questions related to: Configure
+    Ask AI module (Part 4). Source path: docs/how-to/configure-ask-ai-module.md. Summary:
+    Enable or disable Ask AI, set provider and billing mode, and verify configuration
+    in five steps for beginner operators.
+
+
+    ## Step 6: Validate and commit
+
+
+    Run:
+
+
+    ```bash
+
+    npm run lint
+
+    npm run askai:status
+
+    ```
+
+
+    Confirm:
+
+
+    - `enabled` matches client request
+
+    - `billing_mode` matches contract
+
+    - `provider` and `model` match the planned setup
+
+    - `knowledge_index_path`, `knowledge_graph_path`, and `retrieval_eval_report_path`
+    point to current RAG artifacts
+
+    - `faiss_index_path` and `faiss_metadata_path` point to FAISS embedding assets
+
+    - advanced retrieval features (hybrid search, HyDE, reranking, embedding cache)
+    are enabled
+
+    - weekly pipeline refresh keeps RAG artifacts up to date before assistant runs
+
+
+    ## Troubleshooting
+
+
+    ### Error: unsupported provider or billing mode
+
+
+    Cause: the value is outside allowed options.
+
+
+    Fix:
+
+
+    ```bash
+
+    npm run askai:configure -- --help
+
+    ```
+
+
+    Use only:
+
+
+    - Provider: `openai`, `anthropic`, `azure-openai`, `custom`
+
+    - Billing: `disabled`, `bring-your-own-key`, `user-subscription`
+
+
+    ### Configuration changed but team does not see it
+
+
+    Cause: local branch mismatch or uncommitted config.
+
+
+    Fix:
+
+
+    ```bash
+
+    git status
+
+    git add config/ask-ai.yml reports/ask-ai-config.json
+
+    git commit -m "docs-ops: update Ask AI configuration"
+
+    ```
+
+
+    ## Next steps
+
+
+    - [Quick start](../getting-started/quickstart.md)
+
+    - [Assemble intent experiences](./assemble-intent-experiences.md)
+
+    - [Intelligent knowledge system architecture](../concepts/intelligent-knowledge-system.md)'

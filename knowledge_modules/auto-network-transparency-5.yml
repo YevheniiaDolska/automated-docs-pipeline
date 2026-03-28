@@ -1,0 +1,64 @@
+id: auto-network-transparency-5
+title: Network transparency reference (Part 5)
+summary: Complete list of all outgoing network requests the pipeline makes, with exact
+  payload schemas. No client data leaves your network.
+intents:
+- configure
+- integrate
+audiences:
+- developer
+- operator
+channels:
+- docs
+- assistant
+- automation
+priority: 60
+status: active
+owner: docsops-auto
+last_verified: '2026-03-28'
+dependencies: []
+tags:
+- auto-extracted
+- network-transparency
+- reference
+content:
+  docs_markdown: "## Requests the pipeline never makes\n\nThe following types of requests\
+    \ are architecturally impossible because the pipeline contains no code to construct\
+    \ them:\n\n| Category | Why it cannot happen |\n| --- | --- |\n| Document content\
+    \ upload | No upload endpoint exists in the codebase. Search for `urllib` calls\
+    \ yourself. |\n| File listing transmission | Pipeline reads files locally; no\
+    \ serialization-to-server code exists. |\n| Quality score reporting | Scores are\
+    \ computed locally and written to local `reports/` directory. |\n| Source code\
+    \ exfiltration | Pipeline scripts operate on `docs/` and `api/` directories only.\
+    \ |\n| Telemetry or analytics | No telemetry SDK is included. No analytics endpoint\
+    \ is configured. |\n| User behavior tracking | No session tracking, no event logging\
+    \ to external services. |\n\n## How to audit the pipeline yourself\n\n### Network\
+    \ audit with tcpdump\n\nRun the full weekly batch while capturing all outgoing\
+    \ traffic:\n\n```bash\n# Terminal 1: Start packet capture\nsudo tcpdump -i any\
+    \ -w pipeline-traffic.pcap \\\n  'not (src net 10.0.0.0/8 or src net 172.16.0.0/12\
+    \ or src net 192.168.0.0/16)'\n\n# Terminal 2: Run the pipeline\npython3 scripts/run_weekly_gap_batch.py\
+    \ \\\n  --docsops-root docsops --reports-dir reports\n\n# Terminal 1: Stop capture\
+    \ (Ctrl+C), then analyze\ntcpdump -r pipeline-traffic.pcap -A | grep -i \"POST\\\
+    |GET\\|Host:\"\n```"
+  assistant_context: "Use this module when answering questions related to: Network\
+    \ transparency reference (Part 5). Source path: docs/reference/network-transparency.md.\
+    \ Summary: Complete list of all outgoing network requests the pipeline makes,\
+    \ with exact payload schemas. No client data leaves your network.\n\n## Requests\
+    \ the pipeline never makes\n\nThe following types of requests are architecturally\
+    \ impossible because the pipeline contains no code to construct them:\n\n| Category\
+    \ | Why it cannot happen |\n| --- | --- |\n| Document content upload | No upload\
+    \ endpoint exists in the codebase. Search for `urllib` calls yourself. |\n| File\
+    \ listing transmission | Pipeline reads files locally; no serialization-to-server\
+    \ code exists. |\n| Quality score reporting | Scores are computed locally and\
+    \ written to local `reports/` directory. |\n| Source code exfiltration | Pipeline\
+    \ scripts operate on `docs/` and `api/` directories only. |\n| Telemetry or analytics\
+    \ | No telemetry SDK is included. No analytics endpoint is configured. |\n| User\
+    \ behavior tracking | No session tracking, no event logging to external services.\
+    \ |\n\n## How to audit the pipeline yourself\n\n### Network audit with tcpdump\n\
+    \nRun the full weekly batch while capturing all outgoing traffic:\n\n```bash\n\
+    # Terminal 1: Start packet capture\nsudo tcpdump -i any -w pipeline-traffic.pcap\
+    \ \\\n  'not (src net 10.0.0.0/8 or src net 172.16.0.0/12 or src net 192.168.0.0/16)'\n\
+    \n# Terminal 2: Run the pipeline\npython3 scripts/run_weekly_gap_batch.py \\\n\
+    \  --docsops-root docsops --reports-dir reports\n\n# Terminal 1: Stop capture\
+    \ (Ctrl+C), then analyze\ntcpdump -r pipeline-traffic.pcap -A | grep -i \"POST\\\
+    |GET\\|Host:\"\n```"

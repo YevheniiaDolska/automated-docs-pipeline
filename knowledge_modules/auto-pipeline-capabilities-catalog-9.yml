@@ -1,0 +1,35 @@
+id: auto-pipeline-capabilities-catalog-9
+title: Pipeline Capabilities Catalog (Part 9)
+summary: Generated catalog of available pipeline commands, templates, policy packs,
+  and assets for client configuration.
+intents:
+- integrate
+audiences:
+- developer
+- operator
+channels:
+- docs
+- assistant
+- automation
+priority: 60
+status: active
+owner: docsops-auto
+last_verified: '2026-03-28'
+dependencies: []
+tags:
+- auto-extracted
+- pipeline-capabilities-catalog
+- reference
+content:
+  docs_markdown: '**Self-verification:** `run_protocol_self_verify.py` validates generated
+    docs against live/mock endpoints (GraphQL introspection, gRPC method invocation,
+    AsyncAPI event publish, WebSocket connection routing).'
+  assistant_context: 'Use this module when answering questions related to: Pipeline
+    Capabilities Catalog (Part 9). Source path: docs/operations/PIPELINE_CAPABILITIES_CATALOG.md.
+    Summary: Generated catalog of available pipeline commands, templates, policy packs,
+    and assets for client configuration.
+
+
+    **Self-verification:** `run_protocol_self_verify.py` validates generated docs
+    against live/mock endpoints (GraphQL introspection, gRPC method invocation, AsyncAPI
+    event publish, WebSocket connection routing).'

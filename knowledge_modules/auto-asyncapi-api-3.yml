@@ -15,7 +15,7 @@ channels:
 priority: 60
 status: active
 owner: docsops-auto
-last_verified: '2026-03-20'
+last_verified: '2026-03-28'
 dependencies: []
 tags:
 - asyncapi-api
@@ -25,63 +25,124 @@ content:
   docs_markdown: "<div id=\"asyncapi-playground\" style=\"border:1px solid #d1d5db;\
     \ padding:12px; border-radius:8px;\">\n  <p><strong>WebSocket Endpoint:</strong>\
     \ <code id=\"asyncapi-ws-view\"></code></p>\n  <p><strong>HTTP Publish Endpoint:</strong>\
-    \ <code id=\"asyncapi-http-view\"></code></p>\n  <!-- vale Google.Quotes = NO\
-    \ -->\n  <textarea id=\"asyncapi-message\" rows=\"8\" style=\"width:100%; font-family:monospace;\"\
-    >{\n  \"event\": \"health\",\n  \"value\": \"ok\"\n}</textarea><br/>\n  <!-- vale\
-    \ Google.Quotes = YES -->\n  <button id=\"asyncapi-send-ws\">Send via WebSocket</button>\n\
-    \  <button id=\"asyncapi-send-http\">Send via HTTP</button>\n  <pre id=\"asyncapi-output\"\
-    \ style=\"margin-top:12px; max-height:320px; overflow:auto;\"></pre>\n</div>\n\
-    <script>\n(function(){ const wsEndpoint = \"\"; const httpEndpoint = \"\";\nconst\
-    \ wsView = document.getElementById('asyncapi-ws-view');\nconst httpView = document.getElementById('asyncapi-http-view');\n\
-    const sendWs = document.getElementById('asyncapi-send-ws');\nconst sendHttp =\
-    \ document.getElementById('asyncapi-send-http');\nconst msg = document.getElementById('asyncapi-message');\n\
+    \ <code id=\"asyncapi-http-view\"></code></p>\n  <textarea id=\"asyncapi-message\"\
+    \ rows=\"8\" style=\"width:100%; font-family:monospace;\">{\n  \"event_type\"\
+    : \"project.updated\",\n  \"event_id\": \"evt_001\",\n  \"data\": {\"project_id\"\
+    : \"prj_abc123\", \"status\": \"active\"}\n}</textarea><br/>\n  <button id=\"\
+    asyncapi-send-ws\">Send via WebSocket</button>\n  <button id=\"asyncapi-send-http\"\
+    >Send via HTTP</button>\n  <pre id=\"asyncapi-output\" style=\"margin-top:12px;\
+    \ max-height:320px; overflow:auto;\"></pre>\n</div>\n<script>\n(function(){ const\
+    \ wsEndpoint = \"wss://echo.websocket.events\"; const httpEndpoint = \"https://postman-echo.com/post\"\
+    ;\nconst wsView = document.getElementById('asyncapi-ws-view');\nconst httpView\
+    \ = document.getElementById('asyncapi-http-view');\nconst sendWs = document.getElementById('asyncapi-send-ws');\n\
+    const sendHttp = document.getElementById('asyncapi-send-http');\nconst msg = document.getElementById('asyncapi-message');\n\
     const out = document.getElementById('asyncapi-output');\nif (!wsView || !httpView\
     \ || !sendWs || !sendHttp || !msg || !out) return;\nwsView.textContent = wsEndpoint\
     \ || 'not configured';\nhttpView.textContent = httpEndpoint || 'not configured';\n\
-    sendWs.onclick = function(){\n  if (!wsEndpoint) { out.textContent = 'WebSocket\
-    \ endpoint is not configured (runtime.api_protocol_settings.asyncapi.asyncapi_ws_endpoint)';\
-    \ return; }\n  try {\n    const socket = new WebSocket(wsEndpoint);\n    socket.onopen\
-    \ = function(){ socket.send(msg.value); out.textContent = 'sent over websocket';\
-    \ socket.close(); };\n    socket.onerror = function(e){ out.textContent = String(e);\
-    \ };\n    socket.onmessage = function(e){ out.textContent = String(e.data); };\n\
-    \  } catch (error) { out.textContent = String(error); }\n};\nsendHttp.onclick\
-    \ = async function(){\n  if (!httpEndpoint) { out.textContent = 'HTTP publish\
-    \ endpoint is not configured (runtime.api_protocol_settings.asyncapi.asyncapi_http_publish_endpoint)';\
-    \ return; }\n  out.textContent = 'Loading...';\n  try {\n    const body = JSON.parse(msg.value\
+    function parseJson(raw){ try { return JSON.parse(String(raw || '{}')); } catch\
+    \ (_) { return { raw: String(raw || '') }; } }\nfunction semanticEvent(input){\n\
+    \  const req = parseJson(input);\n  const eventType = String(req.event_type ||\
+    \ req.type || req.event || '').toLowerCase();\n  const data = (req.data && typeof\
+    \ req.data === 'object') ? req.data : {};\n  const eventId = req.event_id || ('evt_'\
+    \ + Math.random().toString(36).slice(2, 10));\n  const projectId = String(data.project_id\
+    \ || 'prj_abc123');\n  const occurredAt = req.occurred_at || new Date().toISOString();\n\
+    \  if (eventType === 'project.created') return { event_id: eventId, event_type:\
+    \ 'project.created', occurred_at: occurredAt, data: { project_id: projectId, name:\
+    \ data.name || 'New Project', status: data.status || 'draft' } };\n  if (eventType\
+    \ === 'project.updated') return { event_id: eventId, event_type: 'project.updated',\
+    \ occurred_at: occurredAt, data: { project_id: projectId, status: data.status\
+    \ || 'active', changed_fields: data.changed_fields || ['status'] } };\n  if (eventType\
+    \ === 'task.completed') return { event_id: eventId, event_type: 'task.completed',\
+    \ occurred_at: occurredAt, data: { task_id: data.task_id || 'tsk_123', project_id:\
+    \ projectId, completed_by: data.completed_by || 'usr_demo' } };\n  return { event_id:\
+    \ eventId, event_type: eventType || 'custom.event', occurred_at: occurredAt, data:\
+    \ Object.assign({ project_id: projectId, status: 'accepted' }, data), hint: 'Use:\
+    \ project.created, project.updated, task.completed' };\n}\nsendWs.onclick = function(){\n\
+    \  if (!wsEndpoint) { out.textContent = 'WebSocket endpoint is not configured\
+    \ (runtime.api_protocol_settings.asyncapi.asyncapi_ws_endpoint)'; return; }\n\
+    \  try {\n    const socket = new WebSocket(wsEndpoint);\n    let received = false;\n\
+    \    socket.onopen = function(){ socket.send(msg.value); out.textContent = 'sent\
+    \ over websocket'; };\n    socket.onmessage = function(e){\n      received = true;\n\
+    \      const semantic = semanticEvent(e.data);\n      out.textContent = JSON.stringify({\
+    \ mode: 'live-echo-plus-semantic', raw: String(e.data || ''), simulated_response:\
+    \ semantic }, null, 2);\n      socket.close();\n    };\n    socket.onerror = function(){\n\
+    \      const semantic = semanticEvent(msg.value);\n      out.textContent = JSON.stringify({\
+    \ mode: 'offline-semantic-fallback', simulated_response: semantic }, null, 2);\n\
+    \    };\n    setTimeout(function(){\n      if (!received) {\n        const semantic\
+    \ = semanticEvent(msg.value);\n        out.textContent = JSON.stringify({ mode:\
+    \ 'timeout-semantic-fallback', simulated_response: semantic }, null, 2);\n   \
+    \     try { socket.close(); } catch (_) {}\n      }\n    }, 1500);\n  } catch\
+    \ (error) { out.textContent = String(error); }\n};\nsendHttp.onclick = async function(){\n\
+    \  if (!httpEndpoint) { out.textContent = 'HTTP publish endpoint is not configured\
+    \ (runtime.api_protocol_settings.asyncapi.asyncapi_http_publish_endpoint)'; return;\
+    \ }\n  out.textContent = 'Loading...';\n  try {\n    const body = JSON.parse(msg.value\
     \ || '{}');\n    const response = await fetch(httpEndpoint, { method:'POST', headers:{'content-type':'application/json'},\
     \ body: JSON.stringify(body) });\n    const text = await response.text();\n  \
-    \  out.textContent = text;\n  } catch (error) { out.textContent = String(error);\
-    \ }\n};\n})();\n</script>"
+    \  const semantic = semanticEvent(body);\n    out.textContent = JSON.stringify({\
+    \ mode: 'http-plus-semantic', raw: text, simulated_response: semantic }, null,\
+    \ 2);\n  } catch (error) {\n    const semantic = semanticEvent(msg.value);\n \
+    \   out.textContent = JSON.stringify({ mode: 'http-semantic-fallback', error:\
+    \ String(error), simulated_response: semantic }, null, 2);\n  }\n};\n})();\n</script>"
   assistant_context: "Use this module when answering questions related to: ASYNCAPI\
-    \ API Reference (Part 3). Source path: demo-showcase/acme/docs/assets/protocols/asyncapi/asyncapi-api.md.\
-    \ Summary: Auto-generated asyncapi reference from source contract.\n\n<div id=\"\
-    asyncapi-playground\" style=\"border:1px solid #d1d5db; padding:12px; border-radius:8px;\"\
-    >\n  <p><strong>WebSocket Endpoint:</strong> <code id=\"asyncapi-ws-view\"></code></p>\n\
-    \  <p><strong>HTTP Publish Endpoint:</strong> <code id=\"asyncapi-http-view\"\
-    ></code></p>\n  <!-- vale Google.Quotes = NO -->\n  <textarea id=\"asyncapi-message\"\
-    \ rows=\"8\" style=\"width:100%; font-family:monospace;\">{\n  \"event\": \"health\"\
-    ,\n  \"value\": \"ok\"\n}</textarea><br/>\n  <!-- vale Google.Quotes = YES -->\n\
+    \ API Reference (Part 3). Source path: docs/reference/asyncapi-api.md. Summary:\
+    \ Auto-generated asyncapi reference from source contract.\n\n<div id=\"asyncapi-playground\"\
+    \ style=\"border:1px solid #d1d5db; padding:12px; border-radius:8px;\">\n  <p><strong>WebSocket\
+    \ Endpoint:</strong> <code id=\"asyncapi-ws-view\"></code></p>\n  <p><strong>HTTP\
+    \ Publish Endpoint:</strong> <code id=\"asyncapi-http-view\"></code></p>\n  <textarea\
+    \ id=\"asyncapi-message\" rows=\"8\" style=\"width:100%; font-family:monospace;\"\
+    >{\n  \"event_type\": \"project.updated\",\n  \"event_id\": \"evt_001\",\n  \"\
+    data\": {\"project_id\": \"prj_abc123\", \"status\": \"active\"}\n}</textarea><br/>\n\
     \  <button id=\"asyncapi-send-ws\">Send via WebSocket</button>\n  <button id=\"\
     asyncapi-send-http\">Send via HTTP</button>\n  <pre id=\"asyncapi-output\" style=\"\
     margin-top:12px; max-height:320px; overflow:auto;\"></pre>\n</div>\n<script>\n\
-    (function(){ const wsEndpoint = \"\"; const httpEndpoint = \"\";\nconst wsView\
-    \ = document.getElementById('asyncapi-ws-view');\nconst httpView = document.getElementById('asyncapi-http-view');\n\
-    const sendWs = document.getElementById('asyncapi-send-ws');\nconst sendHttp =\
-    \ document.getElementById('asyncapi-send-http');\nconst msg = document.getElementById('asyncapi-message');\n\
-    const out = document.getElementById('asyncapi-output');\nif (!wsView || !httpView\
-    \ || !sendWs || !sendHttp || !msg || !out) return;\nwsView.textContent = wsEndpoint\
-    \ || 'not configured';\nhttpView.textContent = httpEndpoint || 'not configured';\n\
-    sendWs.onclick = function(){\n  if (!wsEndpoint) { out.textContent = 'WebSocket\
-    \ endpoint is not configured (runtime.api_protocol_settings.asyncapi.asyncapi_ws_endpoint)';\
-    \ return; }\n  try {\n    const socket = new WebSocket(wsEndpoint);\n    socket.onopen\
-    \ = function(){ socket.send(msg.value); out.textContent = 'sent over websocket';\
-    \ socket.close(); };\n    socket.onerror = function(e){ out.textContent = String(e);\
-    \ };\n    socket.onmessage = function(e){ out.textContent = String(e.data); };\n\
-    \  } catch (error) { out.textContent = String(error); }\n};\nsendHttp.onclick\
-    \ = async function(){\n  if (!httpEndpoint) { out.textContent = 'HTTP publish\
-    \ endpoint is not configured (runtime.api_protocol_settings.asyncapi.asyncapi_http_publish_endpoint)';\
-    \ return; }\n  out.textContent = 'Loading...';\n  try {\n    const body = JSON.parse(msg.value\
+    (function(){ const wsEndpoint = \"wss://echo.websocket.events\"; const httpEndpoint\
+    \ = \"https://postman-echo.com/post\";\nconst wsView = document.getElementById('asyncapi-ws-view');\n\
+    const httpView = document.getElementById('asyncapi-http-view');\nconst sendWs\
+    \ = document.getElementById('asyncapi-send-ws');\nconst sendHttp = document.getElementById('asyncapi-send-http');\n\
+    const msg = document.getElementById('asyncapi-message');\nconst out = document.getElementById('asyncapi-output');\n\
+    if (!wsView || !httpView || !sendWs || !sendHttp || !msg || !out) return;\nwsView.textContent\
+    \ = wsEndpoint || 'not configured';\nhttpView.textContent = httpEndpoint || 'not\
+    \ configured';\nfunction parseJson(raw){ try { return JSON.parse(String(raw ||\
+    \ '{}')); } catch (_) { return { raw: String(raw || '') }; } }\nfunction semanticEvent(input){\n\
+    \  const req = parseJson(input);\n  const eventType = String(req.event_type ||\
+    \ req.type || req.event || '').toLowerCase();\n  const data = (req.data && typeof\
+    \ req.data === 'object') ? req.data : {};\n  const eventId = req.event_id || ('evt_'\
+    \ + Math.random().toString(36).slice(2, 10));\n  const projectId = String(data.project_id\
+    \ || 'prj_abc123');\n  const occurredAt = req.occurred_at || new Date().toISOString();\n\
+    \  if (eventType === 'project.created') return { event_id: eventId, event_type:\
+    \ 'project.created', occurred_at: occurredAt, data: { project_id: projectId, name:\
+    \ data.name || 'New Project', status: data.status || 'draft' } };\n  if (eventType\
+    \ === 'project.updated') return { event_id: eventId, event_type: 'project.updated',\
+    \ occurred_at: occurredAt, data: { project_id: projectId, status: data.status\
+    \ || 'active', changed_fields: data.changed_fields || ['status'] } };\n  if (eventType\
+    \ === 'task.completed') return { event_id: eventId, event_type: 'task.completed',\
+    \ occurred_at: occurredAt, data: { task_id: data.task_id || 'tsk_123', project_id:\
+    \ projectId, completed_by: data.completed_by || 'usr_demo' } };\n  return { event_id:\
+    \ eventId, event_type: eventType || 'custom.event', occurred_at: occurredAt, data:\
+    \ Object.assign({ project_id: projectId, status: 'accepted' }, data), hint: 'Use:\
+    \ project.created, project.updated, task.completed' };\n}\nsendWs.onclick = function(){\n\
+    \  if (!wsEndpoint) { out.textContent = 'WebSocket endpoint is not configured\
+    \ (runtime.api_protocol_settings.asyncapi.asyncapi_ws_endpoint)'; return; }\n\
+    \  try {\n    const socket = new WebSocket(wsEndpoint);\n    let received = false;\n\
+    \    socket.onopen = function(){ socket.send(msg.value); out.textContent = 'sent\
+    \ over websocket'; };\n    socket.onmessage = function(e){\n      received = true;\n\
+    \      const semantic = semanticEvent(e.data);\n      out.textContent = JSON.stringify({\
+    \ mode: 'live-echo-plus-semantic', raw: String(e.data || ''), simulated_response:\
+    \ semantic }, null, 2);\n      socket.close();\n    };\n    socket.onerror = function(){\n\
+    \      const semantic = semanticEvent(msg.value);\n      out.textContent = JSON.stringify({\
+    \ mode: 'offline-semantic-fallback', simulated_response: semantic }, null, 2);\n\
+    \    };\n    setTimeout(function(){\n      if (!received) {\n        const semantic\
+    \ = semanticEvent(msg.value);\n        out.textContent = JSON.stringify({ mode:\
+    \ 'timeout-semantic-fallback', simulated_response: semantic }, null, 2);\n   \
+    \     try { socket.close(); } catch (_) {}\n      }\n    }, 1500);\n  } catch\
+    \ (error) { out.textContent = String(error); }\n};\nsendHttp.onclick = async function(){\n\
+    \  if (!httpEndpoint) { out.textContent = 'HTTP publish endpoint is not configured\
+    \ (runtime.api_protocol_settings.asyncapi.asyncapi_http_publish_endpoint)'; return;\
+    \ }\n  out.textContent = 'Loading...';\n  try {\n    const body = JSON.parse(msg.value\
     \ || '{}');\n    const response = await fetch(httpEndpoint, { method:'POST', headers:{'content-type':'application/json'},\
     \ body: JSON.stringify(body) });\n    const text = await response.text();\n  \
-    \  out.textContent = text;\n  } catch (error) { out.textContent = String(error);\
-    \ }\n};\n})();\n</script>"
+    \  const semantic = semanticEvent(body);\n    out.textContent = JSON.stringify({\
+    \ mode: 'http-plus-semantic', raw: text, simulated_response: semantic }, null,\
+    \ 2);\n  } catch (error) {\n    const semantic = semanticEvent(msg.value);\n \
+    \   out.textContent = JSON.stringify({ mode: 'http-semantic-fallback', error:\
+    \ String(error), simulated_response: semantic }, null, 2);\n  }\n};\n})();\n</script>"

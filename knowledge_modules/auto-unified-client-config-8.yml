@@ -1,0 +1,57 @@
+id: auto-unified-client-config-8
+title: Unified Client Configuration (Part 8)
+summary: Single source of truth for per-client Auto-Doc Pipeline configuration, modules,
+  and automation.
+intents:
+- integrate
+- troubleshoot
+audiences:
+- developer
+- operator
+channels:
+- docs
+- assistant
+- automation
+priority: 60
+status: active
+owner: docsops-auto
+last_verified: '2026-03-28'
+dependencies: []
+tags:
+- auto-extracted
+- reference
+- unified-client-config
+content:
+  docs_markdown: "### 5.1 PR auto-doc workflow\n\n```yaml\nruntime:\n  pr_autofix:\n\
+    \    enabled: false\n    require_label: false\n    label_name: \"auto-doc-fix\"\
+    \n    enable_auto_merge: false\n    commit_message: \"docs: auto-sync PR docs\"\
+    \n    workflow_filename: \"docsops-pr-autofix.yml\"\n```\n\nBehavior when enabled:\n\
+    \n- Trigger: PR opened/updated (`pull_request` events).\n- Scope: only changed\
+    \ files in the current PR (`base...head` diff).\n- If docs drift is detected,\
+    \ bot can generate docs patch and commit to the same PR branch.\n- No commits\
+    \ to `main`.\n- Checks rerun automatically after bot commit.\n\nDefault policy:\n\
+    \n- `pr_autofix` is optional and disabled by default.\n- `docs_contract` is report-only\
+    \ by default in weekly flow and consolidated report.\n- Weekly consolidated report\
+    \ adds only new/changed docs-contract mismatches, ignores closed ones, and deduplicates\
+    \ with other gap sources.\n\nOne-time repo setup (done during provisioning):\n\
+    \n1. Workflow file is generated in `.github/workflows/docsops-pr-autofix.yml`.\n\
+    1. Set GitHub Actions permissions to `Read and write`.\n1. Optional: set `DOCSOPS_BOT_TOKEN`\
+    \ for orgs that restrict default token pushes."
+  assistant_context: "Use this module when answering questions related to: Unified\
+    \ Client Configuration (Part 8). Source path: docs/operations/UNIFIED_CLIENT_CONFIG.md.\
+    \ Summary: Single source of truth for per-client Auto-Doc Pipeline configuration,\
+    \ modules, and automation.\n\n### 5.1 PR auto-doc workflow\n\n```yaml\nruntime:\n\
+    \  pr_autofix:\n    enabled: false\n    require_label: false\n    label_name:\
+    \ \"auto-doc-fix\"\n    enable_auto_merge: false\n    commit_message: \"docs:\
+    \ auto-sync PR docs\"\n    workflow_filename: \"docsops-pr-autofix.yml\"\n```\n\
+    \nBehavior when enabled:\n\n- Trigger: PR opened/updated (`pull_request` events).\n\
+    - Scope: only changed files in the current PR (`base...head` diff).\n- If docs\
+    \ drift is detected, bot can generate docs patch and commit to the same PR branch.\n\
+    - No commits to `main`.\n- Checks rerun automatically after bot commit.\n\nDefault\
+    \ policy:\n\n- `pr_autofix` is optional and disabled by default.\n- `docs_contract`\
+    \ is report-only by default in weekly flow and consolidated report.\n- Weekly\
+    \ consolidated report adds only new/changed docs-contract mismatches, ignores\
+    \ closed ones, and deduplicates with other gap sources.\n\nOne-time repo setup\
+    \ (done during provisioning):\n\n1. Workflow file is generated in `.github/workflows/docsops-pr-autofix.yml`.\n\
+    1. Set GitHub Actions permissions to `Read and write`.\n1. Optional: set `DOCSOPS_BOT_TOKEN`\
+    \ for orgs that restrict default token pushes."

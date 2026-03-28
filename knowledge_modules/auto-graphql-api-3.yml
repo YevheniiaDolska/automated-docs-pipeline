@@ -2,7 +2,9 @@ id: auto-graphql-api-3
 title: GRAPHQL API Reference (Part 3)
 summary: Auto-generated graphql reference from source contract.
 intents:
+- configure
 - integrate
+- troubleshoot
 audiences:
 - developer
 - operator
@@ -13,31 +15,82 @@ channels:
 priority: 60
 status: active
 owner: docsops-auto
-last_verified: '2026-03-20'
+last_verified: '2026-03-28'
 dependencies: []
 tags:
 - auto-extracted
 - graphql-api
 - reference
 content:
-  docs_markdown: '## Next steps
-
-
-    - [Documentation index](../../../index.md)
-
-
-    This auto-generated knowledge chunk was expanded to satisfy minimum retrieval
-    module length for stable indexing.'
-  assistant_context: 'Use this module when answering questions related to: GRAPHQL
-    API Reference (Part 3). Source path: demo-showcase/acme/docs/assets/protocols/graphql/graphql-api.md.
-    Summary: Auto-generated graphql reference from source contract.
-
-
-    ## Next steps
-
-
-    - [Documentation index](../../../index.md)
-
-
-    This auto-generated knowledge chunk was expanded to satisfy minimum retrieval
-    module length for stable indexing.'
+  docs_markdown: "<div id=\"graphql-playground\" style=\"border:1px solid #d1d5db;\
+    \ padding:12px; border-radius:8px;\">\n  <p><strong>Endpoint:</strong> <code id=\"\
+    graphql-endpoint-view\"></code></p>\n  <textarea id=\"graphql-query\" rows=\"\
+    12\" style=\"width:100%; font-family:monospace;\">query HealthCheck {\n  __typename\n\
+    }</textarea>\n  <br/>\n  <button id=\"graphql-run\">Run Query</button>\n  <pre\
+    \ id=\"graphql-output\" style=\"margin-top:12px; max-height:320px; overflow:auto;\"\
+    ></pre>\n</div>\n<script>\n(function(){ const endpoint = \"https://postman-echo.com/post\"\
+    ;\nconst view = document.getElementById('graphql-endpoint-view');\nconst run =\
+    \ document.getElementById('graphql-run');\nconst query = document.getElementById('graphql-query');\n\
+    const out = document.getElementById('graphql-output');\nif (!view || !run || !query\
+    \ || !out) return;\nview.textContent = endpoint || 'not configured';\nfunction\
+    \ normalize(v){ return String(v || '').replace(/\\s+/g, ' ').trim().toLowerCase();\
+    \ }\nfunction fallback(queryText){\n  const q = normalize(queryText);\n  const\
+    \ idMatch = String(queryText || '').match(/id\\s*:\\s*\\\"([^\\\"]+)\\\"/i);\n\
+    \  const projectId = idMatch ? idMatch[1] : 'prj_abc123';\n  if (q.indexOf('health')\
+    \ !== -1) return { data: { health: { status: 'healthy', version: '1.0.0' } } };\n\
+    \  if (q.indexOf('mutation') !== -1 && q.indexOf('createproject') !== -1) return\
+    \ { data: { createProject: { id: 'prj_demo001', name: 'New Project', status: 'draft'\
+    \ } } };\n  if (q.indexOf('mutation') !== -1 && q.indexOf('updateproject') !==\
+    \ -1) return { data: { updateProject: { id: projectId, status: 'active', updatedAt:\
+    \ new Date().toISOString() } } };\n  if (q.indexOf('projects') !== -1) return\
+    \ { data: { projects: [{ id: 'prj_abc123', status: 'active' }, { id: 'prj_def456',\
+    \ status: 'draft' }] } };\n  if (q.indexOf('project') !== -1) return { data: {\
+    \ project: { id: projectId, name: 'Website Redesign', status: 'active' } } };\n\
+    \  return { data: null, errors: [{ message: 'Unknown query. Use: health, project,\
+    \ projects, createProject, updateProject' }] };\n}\nrun.onclick = async function(){\n\
+    \  if (!endpoint) {\n    out.textContent = JSON.stringify({ mode: 'semantic-fallback',\
+    \ simulated_response: fallback(query.value) }, null, 2);\n    return;\n  }\n \
+    \ out.textContent = 'Loading...';\n  try {\n    const response = await fetch(endpoint,\
+    \ { method:'POST', headers:{'content-type':'application/json'}, body: JSON.stringify({\
+    \ query: query.value }) });\n    const text = await response.text();\n    out.textContent\
+    \ = JSON.stringify({ mode: 'live', raw: text, simulated_response: fallback(query.value)\
+    \ }, null, 2);\n  } catch (error) {\n    out.textContent = JSON.stringify({ mode:\
+    \ 'semantic-fallback', error: String(error), simulated_response: fallback(query.value)\
+    \ }, null, 2);\n  }\n};\n})();\n</script>"
+  assistant_context: "Use this module when answering questions related to: GRAPHQL\
+    \ API Reference (Part 3). Source path: docs/reference/graphql-api.md. Summary:\
+    \ Auto-generated graphql reference from source contract.\n\n<div id=\"graphql-playground\"\
+    \ style=\"border:1px solid #d1d5db; padding:12px; border-radius:8px;\">\n  <p><strong>Endpoint:</strong>\
+    \ <code id=\"graphql-endpoint-view\"></code></p>\n  <textarea id=\"graphql-query\"\
+    \ rows=\"12\" style=\"width:100%; font-family:monospace;\">query HealthCheck {\n\
+    \  __typename\n}</textarea>\n  <br/>\n  <button id=\"graphql-run\">Run Query</button>\n\
+    \  <pre id=\"graphql-output\" style=\"margin-top:12px; max-height:320px; overflow:auto;\"\
+    ></pre>\n</div>\n<script>\n(function(){ const endpoint = \"https://postman-echo.com/post\"\
+    ;\nconst view = document.getElementById('graphql-endpoint-view');\nconst run =\
+    \ document.getElementById('graphql-run');\nconst query = document.getElementById('graphql-query');\n\
+    const out = document.getElementById('graphql-output');\nif (!view || !run || !query\
+    \ || !out) return;\nview.textContent = endpoint || 'not configured';\nfunction\
+    \ normalize(v){ return String(v || '').replace(/\\s+/g, ' ').trim().toLowerCase();\
+    \ }\nfunction fallback(queryText){\n  const q = normalize(queryText);\n  const\
+    \ idMatch = String(queryText || '').match(/id\\s*:\\s*\\\"([^\\\"]+)\\\"/i);\n\
+    \  const projectId = idMatch ? idMatch[1] : 'prj_abc123';\n  if (q.indexOf('health')\
+    \ !== -1) return { data: { health: { status: 'healthy', version: '1.0.0' } } };\n\
+    \  if (q.indexOf('mutation') !== -1 && q.indexOf('createproject') !== -1) return\
+    \ { data: { createProject: { id: 'prj_demo001', name: 'New Project', status: 'draft'\
+    \ } } };\n  if (q.indexOf('mutation') !== -1 && q.indexOf('updateproject') !==\
+    \ -1) return { data: { updateProject: { id: projectId, status: 'active', updatedAt:\
+    \ new Date().toISOString() } } };\n  if (q.indexOf('projects') !== -1) return\
+    \ { data: { projects: [{ id: 'prj_abc123', status: 'active' }, { id: 'prj_def456',\
+    \ status: 'draft' }] } };\n  if (q.indexOf('project') !== -1) return { data: {\
+    \ project: { id: projectId, name: 'Website Redesign', status: 'active' } } };\n\
+    \  return { data: null, errors: [{ message: 'Unknown query. Use: health, project,\
+    \ projects, createProject, updateProject' }] };\n}\nrun.onclick = async function(){\n\
+    \  if (!endpoint) {\n    out.textContent = JSON.stringify({ mode: 'semantic-fallback',\
+    \ simulated_response: fallback(query.value) }, null, 2);\n    return;\n  }\n \
+    \ out.textContent = 'Loading...';\n  try {\n    const response = await fetch(endpoint,\
+    \ { method:'POST', headers:{'content-type':'application/json'}, body: JSON.stringify({\
+    \ query: query.value }) });\n    const text = await response.text();\n    out.textContent\
+    \ = JSON.stringify({ mode: 'live', raw: text, simulated_response: fallback(query.value)\
+    \ }, null, 2);\n  } catch (error) {\n    out.textContent = JSON.stringify({ mode:\
+    \ 'semantic-fallback', error: String(error), simulated_response: fallback(query.value)\
+    \ }, null, 2);\n  }\n};\n})();\n</script>"

@@ -1,0 +1,46 @@
+id: auto-network-transparency-7
+title: Network transparency reference (Part 7)
+summary: Complete list of all outgoing network requests the pipeline makes, with exact
+  payload schemas. No client data leaves your network.
+intents:
+- integrate
+audiences:
+- developer
+- operator
+channels:
+- docs
+- assistant
+- automation
+priority: 60
+status: active
+owner: docsops-auto
+last_verified: '2026-03-28'
+dependencies: []
+tags:
+- auto-extracted
+- network-transparency
+- reference
+content:
+  docs_markdown: "## Machine fingerprint details\n\nThe machine fingerprint is a SHA-256\
+    \ hash used for seat counting. It is computed from:\n\n```python\nparts = [\n\
+    \    platform.node(),      # Hostname (e.g., \"dev-server-01\")\n    platform.system(),\
+    \    # OS (e.g., \"Linux\")\n    os.getenv(\"USER\"),    # Username (e.g., \"\
+    deploy\")\n    str(REPO_ROOT),       # Repository path (e.g., \"/opt/docs-pipeline\"\
+    )\n]\nfingerprint = sha256(\"|\".join(parts))\n# Result: \"a1b2c3d4...\" (64 hex\
+    \ characters)\n```\n\nThe hash is one-way. VeriOps cannot reconstruct your hostname,\
+    \ username, or file paths from the fingerprint. The fingerprint changes if you\
+    \ move the pipeline to a different machine, which requires re-activation (seat\
+    \ transfer)."
+  assistant_context: "Use this module when answering questions related to: Network\
+    \ transparency reference (Part 7). Source path: docs/reference/network-transparency.md.\
+    \ Summary: Complete list of all outgoing network requests the pipeline makes,\
+    \ with exact payload schemas. No client data leaves your network.\n\n## Machine\
+    \ fingerprint details\n\nThe machine fingerprint is a SHA-256 hash used for seat\
+    \ counting. It is computed from:\n\n```python\nparts = [\n    platform.node(),\
+    \      # Hostname (e.g., \"dev-server-01\")\n    platform.system(),    # OS (e.g.,\
+    \ \"Linux\")\n    os.getenv(\"USER\"),    # Username (e.g., \"deploy\")\n    str(REPO_ROOT),\
+    \       # Repository path (e.g., \"/opt/docs-pipeline\")\n]\nfingerprint = sha256(\"\
+    |\".join(parts))\n# Result: \"a1b2c3d4...\" (64 hex characters)\n```\n\nThe hash\
+    \ is one-way. VeriOps cannot reconstruct your hostname, username, or file paths\
+    \ from the fingerprint. The fingerprint changes if you move the pipeline to a\
+    \ different machine, which requires re-activation (seat transfer)."

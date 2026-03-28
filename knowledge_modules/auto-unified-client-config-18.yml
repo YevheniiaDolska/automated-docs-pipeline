@@ -1,0 +1,116 @@
+id: auto-unified-client-config-18
+title: Unified Client Configuration (Part 18)
+summary: Single source of truth for per-client Auto-Doc Pipeline configuration, modules,
+  and automation.
+intents:
+- integrate
+- troubleshoot
+audiences:
+- developer
+- operator
+channels:
+- docs
+- assistant
+- automation
+priority: 60
+status: active
+owner: docsops-auto
+last_verified: '2026-03-28'
+dependencies: []
+tags:
+- auto-extracted
+- reference
+- unified-client-config
+content:
+  docs_markdown: '- `gap_detection` -> `scripts/run_weekly_gap_batch.py` + `python3
+    -m scripts.gap_detection.cli analyze` (runtime command)
+
+    - `drift_detection` -> `scripts/check_api_sdk_drift.py`
+
+    - `docs_contract` -> `scripts/check_docs_contract.py`
+
+    - `kpi_sla` -> `scripts/evaluate_kpi_sla.py` + `scripts/generate_kpi_wall.py`
+
+    - `terminology_management` -> `scripts/sync_project_glossary.py`
+
+    - `normalization` -> `scripts/normalize_docs.py`
+
+    - `snippet_lint` -> `scripts/lint_code_snippets.py`
+
+    - `self_checks` -> `scripts/check_code_examples_smoke.py`
+
+    - `multilang_examples` -> `scripts/generate_multilang_tabs.py` + `scripts/validate_multilang_examples.py`
+
+    - `fact_checks` -> `scripts/seo_geo_optimizer.py` + `scripts/doc_layers_validator.py`
+
+    - `lifecycle_management` -> `scripts/lifecycle_manager.py` (+ lifecycle report/redirect
+    guidance)
+
+    - `knowledge_validation` -> `scripts/extract_knowledge_modules_from_docs.py` +
+    `scripts/validate_knowledge_modules.py`
+
+    - `rag_optimization` -> `scripts/generate_knowledge_retrieval_index.py`
+
+    - `ontology_graph` -> `scripts/generate_knowledge_graph_jsonld.py`
+
+    - `retrieval_evals` -> `scripts/run_retrieval_evals.py`
+
+    - `i18n_sync` -> `scripts/i18n_sync.py`
+
+    - `release_pack` -> `scripts/generate_release_docs_pack.py`
+
+    - `api-first/hybrid` -> `scripts/run_api_first_flow.py` + `scripts/generate_openapi_from_planning_notes.py`
+    + `scripts/validate_openapi_contract.py` + `scripts/generate_fastapi_stubs_from_openapi.py`
+    + `scripts/apply_openapi_overrides.py` + `scripts/check_openapi_regression.py`
+
+    - `finalize_gate` -> `scripts/finalize_docs_gate.py` (iterative lint/fix gate
+    + optional user commit confirmation flow)'
+  assistant_context: 'Use this module when answering questions related to: Unified
+    Client Configuration (Part 18). Source path: docs/operations/UNIFIED_CLIENT_CONFIG.md.
+    Summary: Single source of truth for per-client Auto-Doc Pipeline configuration,
+    modules, and automation.
+
+
+    - `gap_detection` -> `scripts/run_weekly_gap_batch.py` + `python3 -m scripts.gap_detection.cli
+    analyze` (runtime command)
+
+    - `drift_detection` -> `scripts/check_api_sdk_drift.py`
+
+    - `docs_contract` -> `scripts/check_docs_contract.py`
+
+    - `kpi_sla` -> `scripts/evaluate_kpi_sla.py` + `scripts/generate_kpi_wall.py`
+
+    - `terminology_management` -> `scripts/sync_project_glossary.py`
+
+    - `normalization` -> `scripts/normalize_docs.py`
+
+    - `snippet_lint` -> `scripts/lint_code_snippets.py`
+
+    - `self_checks` -> `scripts/check_code_examples_smoke.py`
+
+    - `multilang_examples` -> `scripts/generate_multilang_tabs.py` + `scripts/validate_multilang_examples.py`
+
+    - `fact_checks` -> `scripts/seo_geo_optimizer.py` + `scripts/doc_layers_validator.py`
+
+    - `lifecycle_management` -> `scripts/lifecycle_manager.py` (+ lifecycle report/redirect
+    guidance)
+
+    - `knowledge_validation` -> `scripts/extract_knowledge_modules_from_docs.py` +
+    `scripts/validate_knowledge_modules.py`
+
+    - `rag_optimization` -> `scripts/generate_knowledge_retrieval_index.py`
+
+    - `ontology_graph` -> `scripts/generate_knowledge_graph_jsonld.py`
+
+    - `retrieval_evals` -> `scripts/run_retrieval_evals.py`
+
+    - `i18n_sync` -> `scripts/i18n_sync.py`
+
+    - `release_pack` -> `scripts/generate_release_docs_pack.py`
+
+    - `api-first/hybrid` -> `scripts/run_api_first_flow.py` + `scripts/generate_openapi_from_planning_notes.py`
+    + `scripts/validate_openapi_contract.py` + `scripts/generate_fastapi_stubs_from_openapi.py`
+    + `scripts/apply_openapi_overrides.py` + `scripts/check_openapi_regression.py`
+
+    - `finalize_gate` -> `scripts/finalize_docs_gate.py` (iterative lint/fix gate
+    + optional user commit confirmation flow)'

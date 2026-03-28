@@ -1,0 +1,60 @@
+id: auto-operator-runbook-17
+title: Operator Runbook (Retainer Operations) (Part 17)
+summary: Step-by-step instructions for weekly report review, client questions, new
+  repo setup, and profile tuning.
+intents:
+- configure
+- troubleshoot
+audiences:
+- practitioner
+- developer
+channels:
+- docs
+- assistant
+- automation
+priority: 60
+status: active
+owner: docsops-auto
+last_verified: '2026-03-28'
+dependencies: []
+tags:
+- auto-extracted
+- how-to
+- operator-runbook
+content:
+  docs_markdown: "### Common adjustments\n\n#### Change strictness level\n\n```yaml\n\
+    # Lenient (warnings only, no blocking)\nbundle:\n  base_policy_pack: \"minimal\"\
+    \n\n# Medium (blocks on critical issues)\nbundle:\n  base_policy_pack: \"api-first\"\
+    \n\n# Strict (blocks on all quality issues)\nbundle:\n  base_policy_pack: \"multi-product\"\
+    \n  policy_overrides:\n    kpi_sla:\n      min_doc_coverage: 90\n      max_stale_pct:\
+    \ 10\n      max_quality_score_drop: 2\n```\n\n#### Change protocol-specific thresholds\n\
+    \n```yaml\nruntime:\n  api_protocol_settings:\n    graphql:\n      autofix_cycle_enabled:\
+    \ true\n      autofix_max_attempts: 3       # Reduce to 1 for faster runs\n  \
+    \    semantic_autofix_max_attempts: 3\n    grpc:\n      autofix_cycle_enabled:\
+    \ true\n      autofix_max_attempts: 3\n```\n\n#### Change stale document threshold\n\
+    \n```yaml\nprivate_tuning:\n  stale_days: 21          # Days before a doc is considered\
+    \ stale in reports\n  weekly_stale_days: 90   # Days before stale doc appears\
+    \ in weekly consolidated report\n```\n\n#### Add protocols (Enterprise only)\n\
+    \n```yaml\nruntime:\n  api_protocols: [\"rest\", \"graphql\", \"grpc\"]\n  api_protocol_settings:\n\
+    \    graphql:\n      enabled: true\n      schema_path: \"api/schema.graphql\"\n\
+    \    grpc:\n      enabled: true\n      proto_paths: [\"api/proto\"]\n```"
+  assistant_context: "Use this module when answering questions related to: Operator\
+    \ Runbook (Retainer Operations) (Part 17). Source path: docs/operations/OPERATOR_RUNBOOK.md.\
+    \ Summary: Step-by-step instructions for weekly report review, client questions,\
+    \ new repo setup, and profile tuning.\n\n### Common adjustments\n\n#### Change\
+    \ strictness level\n\n```yaml\n# Lenient (warnings only, no blocking)\nbundle:\n\
+    \  base_policy_pack: \"minimal\"\n\n# Medium (blocks on critical issues)\nbundle:\n\
+    \  base_policy_pack: \"api-first\"\n\n# Strict (blocks on all quality issues)\n\
+    bundle:\n  base_policy_pack: \"multi-product\"\n  policy_overrides:\n    kpi_sla:\n\
+    \      min_doc_coverage: 90\n      max_stale_pct: 10\n      max_quality_score_drop:\
+    \ 2\n```\n\n#### Change protocol-specific thresholds\n\n```yaml\nruntime:\n  api_protocol_settings:\n\
+    \    graphql:\n      autofix_cycle_enabled: true\n      autofix_max_attempts:\
+    \ 3       # Reduce to 1 for faster runs\n      semantic_autofix_max_attempts:\
+    \ 3\n    grpc:\n      autofix_cycle_enabled: true\n      autofix_max_attempts:\
+    \ 3\n```\n\n#### Change stale document threshold\n\n```yaml\nprivate_tuning:\n\
+    \  stale_days: 21          # Days before a doc is considered stale in reports\n\
+    \  weekly_stale_days: 90   # Days before stale doc appears in weekly consolidated\
+    \ report\n```\n\n#### Add protocols (Enterprise only)\n\n```yaml\nruntime:\n \
+    \ api_protocols: [\"rest\", \"graphql\", \"grpc\"]\n  api_protocol_settings:\n\
+    \    graphql:\n      enabled: true\n      schema_path: \"api/schema.graphql\"\n\
+    \    grpc:\n      enabled: true\n      proto_paths: [\"api/proto\"]\n```"

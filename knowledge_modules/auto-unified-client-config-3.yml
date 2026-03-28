@@ -1,0 +1,156 @@
+id: auto-unified-client-config-3
+title: Unified Client Configuration (Part 3)
+summary: Single source of truth for per-client Auto-Doc Pipeline configuration, modules,
+  and automation.
+intents:
+- integrate
+- secure
+audiences:
+- developer
+- operator
+channels:
+- docs
+- assistant
+- automation
+priority: 60
+status: active
+owner: docsops-auto
+last_verified: '2026-03-28'
+dependencies: []
+tags:
+- auto-extracted
+- reference
+- unified-client-config
+content:
+  docs_markdown: 'Operator-first setup path (recommended):
+
+    \11. Run `python3 scripts/onboard_client.py`.
+
+    \11. Answer wizard questions (preset + client data + repo path + scheduler).
+
+    \11. Choose finalize gate interactive confirmation mode (`runtime.finalize_gate.ask_commit_confirmation`).
+
+    \11. Review generated profile in `profiles/clients/generated/<client_id>.client.yml`.
+
+    \11. Confirm install.
+
+    \11. Verify outputs:
+
+
+    - `<client-repo>/docsops/config/client_runtime.yml`
+
+    - `<client-repo>/docsops/policy_packs/selected.yml`
+
+    - `<client-repo>/docsops/ENV_CHECKLIST.md`
+
+
+    Different laptops setup path:
+
+    \11. Build bundle on operator machine: `python3 scripts/build_client_bundle.py
+    --client profiles/clients/<client>.client.yml`.
+
+    \11. Copy generated bundle into client repo as `docsops/`.
+
+    \11. Install scheduler on client machine:
+
+    \11. Before scheduler install, verify git auth for the same user account (`git
+    pull` from repo root must work for that user: SSH key or credential helper/PAT).
+
+
+    ```bash
+
+    bash docsops/ops/install_cron_weekly.sh
+
+    ```
+
+
+    Windows:
+
+
+    ```bash
+
+    powershell -ExecutionPolicy Bypass -File docsops/ops/install_windows_task.ps1
+
+    ```
+
+
+    Scheduler uses local machine timezone. Monday schedule follows client local time
+    when installed on client machine.
+
+
+    Plan packaging reference:
+
+
+    - `docs/operations/PLAN_TIERS.md` (Basic / Pro / Enterprise presets)
+
+
+    Scope note:'
+  assistant_context: 'Use this module when answering questions related to: Unified
+    Client Configuration (Part 3). Source path: docs/operations/UNIFIED_CLIENT_CONFIG.md.
+    Summary: Single source of truth for per-client Auto-Doc Pipeline configuration,
+    modules, and automation.
+
+
+    Operator-first setup path (recommended):
+
+    \11. Run `python3 scripts/onboard_client.py`.
+
+    \11. Answer wizard questions (preset + client data + repo path + scheduler).
+
+    \11. Choose finalize gate interactive confirmation mode (`runtime.finalize_gate.ask_commit_confirmation`).
+
+    \11. Review generated profile in `profiles/clients/generated/<client_id>.client.yml`.
+
+    \11. Confirm install.
+
+    \11. Verify outputs:
+
+
+    - `<client-repo>/docsops/config/client_runtime.yml`
+
+    - `<client-repo>/docsops/policy_packs/selected.yml`
+
+    - `<client-repo>/docsops/ENV_CHECKLIST.md`
+
+
+    Different laptops setup path:
+
+    \11. Build bundle on operator machine: `python3 scripts/build_client_bundle.py
+    --client profiles/clients/<client>.client.yml`.
+
+    \11. Copy generated bundle into client repo as `docsops/`.
+
+    \11. Install scheduler on client machine:
+
+    \11. Before scheduler install, verify git auth for the same user account (`git
+    pull` from repo root must work for that user: SSH key or credential helper/PAT).
+
+
+    ```bash
+
+    bash docsops/ops/install_cron_weekly.sh
+
+    ```
+
+
+    Windows:
+
+
+    ```bash
+
+    powershell -ExecutionPolicy Bypass -File docsops/ops/install_windows_task.ps1
+
+    ```
+
+
+    Scheduler uses local machine timezone. Monday schedule follows client local time
+    when installed on client machine.
+
+
+    Plan packaging reference:
+
+
+    - `docs/operations/PLAN_TIERS.md` (Basic / Pro / Enterprise presets)
+
+
+    Scope note:'

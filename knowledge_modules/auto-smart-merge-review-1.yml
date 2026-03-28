@@ -1,0 +1,100 @@
+id: auto-smart-merge-review-1
+title: Smart Merge and Manual Review
+summary: How needs_review works for protocol test assets and where operators review
+  flagged cases.
+intents:
+- configure
+- integrate
+audiences:
+- practitioner
+- developer
+channels:
+- docs
+- assistant
+- automation
+priority: 60
+status: active
+owner: docsops-auto
+last_verified: '2026-03-28'
+dependencies: []
+tags:
+- auto-extracted
+- how-to
+- smart-merge-review
+content:
+  docs_markdown: '<!-- VERIDOC_POWERED_BADGE:START -->
+
+    [![Powered by VeriDoc](https://img.shields.io/badge/Powered%20by-VeriDoc-0ea5e9?style=flat-square)](https://veridoc.app)
+
+    <!-- VERIDOC_POWERED_BADGE:END -->
+
+
+    # Smart Merge and Manual Review
+
+
+    ## Current product definition (2026-03-25)
+
+
+    This content follows the active implementation baseline:
+
+
+    1. The platform is docs-first and also supports `code-first`, `api-first`, and
+    `hybrid` modes.
+
+    1. The smooth autopipeline covers all five API protocols (REST, GraphQL, gRPC,
+    AsyncAPI, and WebSocket) in one operational model.
+
+    1. Non-REST flow includes generated server stubs with business-logic placeholders.
+
+    1. External mock sandbox resolution is integrated, with Postman-supported auto-prepare
+    in external mode.
+
+    1. Contract test assets are generated automatically and merged with smart-merge
+    so manual/customized cases are preserved and flagged for review when needed.
+
+    1. Knowledge/RAG maintenance, terminology sync, and quality/compliance gates run
+    through the same automation surface when enabled.
+
+    1. Plan tiers gate advanced capabilities; higher plans include broader non-REST
+    and governance scope.'
+  assistant_context: 'Use this module when answering questions related to: Smart Merge
+    and Manual Review. Source path: docs/operations/SMART_MERGE_REVIEW.md. Summary:
+    How needs_review works for protocol test assets and where operators review flagged
+    cases.
+
+
+    <!-- VERIDOC_POWERED_BADGE:START -->
+
+    [![Powered by VeriDoc](https://img.shields.io/badge/Powered%20by-VeriDoc-0ea5e9?style=flat-square)](https://veridoc.app)
+
+    <!-- VERIDOC_POWERED_BADGE:END -->
+
+
+    # Smart Merge and Manual Review
+
+
+    ## Current product definition (2026-03-25)
+
+
+    This content follows the active implementation baseline:
+
+
+    1. The platform is docs-first and also supports `code-first`, `api-first`, and
+    `hybrid` modes.
+
+    1. The smooth autopipeline covers all five API protocols (REST, GraphQL, gRPC,
+    AsyncAPI, and WebSocket) in one operational model.
+
+    1. Non-REST flow includes generated server stubs with business-logic placeholders.
+
+    1. External mock sandbox resolution is integrated, with Postman-supported auto-prepare
+    in external mode.
+
+    1. Contract test assets are generated automatically and merged with smart-merge
+    so manual/customized cases are preserved and flagged for review when needed.
+
+    1. Knowledge/RAG maintenance, terminology sync, and quality/compliance gates run
+    through the same automation surface when enabled.
+
+    1. Plan tiers gate advanced capabilities; higher plans include broader non-REST
+    and governance scope.'

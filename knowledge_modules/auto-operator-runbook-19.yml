@@ -1,0 +1,128 @@
+id: auto-operator-runbook-19
+title: Operator Runbook (Retainer Operations) (Part 19)
+summary: Step-by-step instructions for weekly report review, client questions, new
+  repo setup, and profile tuning.
+intents:
+- configure
+- troubleshoot
+audiences:
+- practitioner
+- developer
+channels:
+- docs
+- assistant
+- automation
+priority: 60
+status: active
+owner: docsops-auto
+last_verified: '2026-03-28'
+dependencies: []
+tags:
+- auto-extracted
+- how-to
+- operator-runbook
+content:
+  docs_markdown: '### How licensing works
+
+
+    Every pipeline run validates the license locally using an Ed25519-signed JWT token.
+    No client data is ever sent to any server.
+
+
+    Plan tiers control which features are available:
+
+
+    | Feature group | Pilot | Professional | Enterprise |
+
+    | --- | --- | --- | --- |
+
+    | Core quality (lint, frontmatter, SEO report) | Yes | Yes | Yes |
+
+    | Gap detection (code-only) | Yes | Yes | Yes |
+
+    | Glossary sync | Yes | Yes | Yes |
+
+    | REST protocol | Yes | Yes | Yes |
+
+    | SEO/GEO scoring + auto-fix | No | Yes | Yes |
+
+    | API-first flow | No | Yes | Yes |
+
+    | Drift detection | No | Yes | Yes |
+
+    | KPI/SLA reports | No | Yes | Yes |
+
+    | Test assets generation | No | Yes | Yes |
+
+    | Consolidated reports | No | Yes | Yes |
+
+    | All 5 protocols | No | No | Yes |
+
+    | Knowledge modules + RAG | No | No | Yes |
+
+    | Knowledge graph | No | No | Yes |
+
+    | FAISS retrieval | No | No | Yes |
+
+    | Executive audit PDF | No | No | Yes |
+
+    | i18n system | No | No | Yes |
+
+    | Custom policy packs | No | No | Yes |
+
+    | TestRail/Zephyr upload | No | No | Yes |'
+  assistant_context: 'Use this module when answering questions related to: Operator
+    Runbook (Retainer Operations) (Part 19). Source path: docs/operations/OPERATOR_RUNBOOK.md.
+    Summary: Step-by-step instructions for weekly report review, client questions,
+    new repo setup, and profile tuning.
+
+
+    ### How licensing works
+
+
+    Every pipeline run validates the license locally using an Ed25519-signed JWT token.
+    No client data is ever sent to any server.
+
+
+    Plan tiers control which features are available:
+
+
+    | Feature group | Pilot | Professional | Enterprise |
+
+    | --- | --- | --- | --- |
+
+    | Core quality (lint, frontmatter, SEO report) | Yes | Yes | Yes |
+
+    | Gap detection (code-only) | Yes | Yes | Yes |
+
+    | Glossary sync | Yes | Yes | Yes |
+
+    | REST protocol | Yes | Yes | Yes |
+
+    | SEO/GEO scoring + auto-fix | No | Yes | Yes |
+
+    | API-first flow | No | Yes | Yes |
+
+    | Drift detection | No | Yes | Yes |
+
+    | KPI/SLA reports | No | Yes | Yes |
+
+    | Test assets generation | No | Yes | Yes |
+
+    | Consolidated reports | No | Yes | Yes |
+
+    | All 5 protocols | No | No | Yes |
+
+    | Knowledge modules + RAG | No | No | Yes |
+
+    | Knowledge graph | No | No | Yes |
+
+    | FAISS retrieval | No | No | Yes |
+
+    | Executive audit PDF | No | No | Yes |
+
+    | i18n system | No | No | Yes |
+
+    | Custom policy packs | No | No | Yes |
+
+    | TestRail/Zephyr upload | No | No | Yes |'
