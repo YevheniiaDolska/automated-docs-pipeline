@@ -1,6 +1,6 @@
 ## SEO/GEO Optimization Report
 
-**Date**: Thu Mar 26 17:40:48 UTC 2026
+**Date**: Sat Mar 28 13:37:07 UTC 2026
 **Branch**: main
 
 ### Findings Summary
@@ -11,9 +11,9 @@ GEO Findings: 0 errors, 174 warnings, 147 suggestions
   docs/assets/protocols/grpc/grpc-api.md:1 [suggestion] seo-no-freshness: No 'last_reviewed' or 'date' in frontmatter. Search engines favor dated content.
 
 ### Sitemap Statistics
-- Total pages: 70
+- Total pages: 71
 - High priority pages: 58
 
 ### Search Index Statistics
-- Total records: 1499
+- Total records: 1520
 
