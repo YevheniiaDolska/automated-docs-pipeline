@@ -71,6 +71,12 @@ class TestPublicDocsAuditHelpers:
         result = _normalize_url("https://docs.example.com/aws/en/aws/ja/admin/system-tables")
         assert result == "https://docs.example.com/aws/ja/admin/system-tables"
 
+    def test_normalize_url_handles_invalid_bracket_host(self) -> None:
+        """Malformed bracket host values must not crash normalization."""
+        from scripts.generate_public_docs_audit import _normalize_url
+        result = _normalize_url("https://[service.name]/openapi.json")
+        assert result == ""
+
     def test_canonical_link_variants_cross_provider(self) -> None:
         """Canonical variants include both provider-locale branches."""
         from scripts.generate_public_docs_audit import _canonical_link_variants
@@ -720,14 +726,50 @@ class TestConfluenceMigrationHelpers:
         assert _count_markdown_files(tmp_path) == 0
 
     def test_build_checks_structure(self, tmp_path: Path) -> None:
-        """_build_checks returns expected number of check tuples."""
+        """_build_checks returns expected number of check tuples (14 steps)."""
         from scripts.run_confluence_migration import _build_checks
-        checks = _build_checks("python3", tmp_path, tmp_path / "reports")
-        assert len(checks) == 7
+        checks = _build_checks("python3", tmp_path, tmp_path / "reports", tmp_path)
+        assert len(checks) == 14
         for name, cmd, allow_fail in checks:
             assert isinstance(name, str)
             assert isinstance(cmd, list)
             assert isinstance(allow_fail, bool)
+
+    def test_build_checks_includes_quality_enhance(self, tmp_path: Path) -> None:
+        """quality_enhance step is present in the pipeline."""
+        from scripts.run_confluence_migration import _build_checks
+        checks = _build_checks("python3", tmp_path, tmp_path / "reports", tmp_path)
+        names = [name for name, _cmd, _af in checks]
+        assert "quality_enhance" in names
+
+    def test_build_checks_use_llm_flag(self, tmp_path: Path) -> None:
+        """--use-llm flag is passed to quality_enhance command."""
+        from scripts.run_confluence_migration import _build_checks
+        checks = _build_checks("python3", tmp_path, tmp_path / "reports", tmp_path, use_llm=True)
+        enhance_cmd = None
+        for name, cmd, _af in checks:
+            if name == "quality_enhance":
+                enhance_cmd = cmd
+                break
+        assert enhance_cmd is not None
+        assert "--use-llm" in enhance_cmd
+
+    def test_build_checks_no_llm_by_default(self, tmp_path: Path) -> None:
+        """--use-llm is absent when use_llm=False."""
+        from scripts.run_confluence_migration import _build_checks
+        checks = _build_checks("python3", tmp_path, tmp_path / "reports", tmp_path)
+        for name, cmd, _af in checks:
+            if name == "quality_enhance":
+                assert "--use-llm" not in cmd
+                break
+
+    def test_build_checks_step_order(self, tmp_path: Path) -> None:
+        """quality_enhance runs after normalize_fix and before seo_geo_fix."""
+        from scripts.run_confluence_migration import _build_checks
+        checks = _build_checks("python3", tmp_path, tmp_path / "reports", tmp_path)
+        names = [name for name, _cmd, _af in checks]
+        assert names.index("normalize_fix") < names.index("quality_enhance")
+        assert names.index("quality_enhance") < names.index("seo_geo_fix")
 
     def test_summarize_status_all_pass(self) -> None:
         """Summarize status with all passing checks."""
@@ -752,7 +794,7 @@ class TestConfluenceMigrationHelpers:
         assert result["failed"] == ["check_b"]
 
     def test_write_markdown_report(self, tmp_path: Path) -> None:
-        """Writes a valid markdown report."""
+        """Writes a valid markdown report with enhancement summary."""
         from scripts.run_confluence_migration import _write_markdown_report
         report = {
             "timestamp_utc": "2025-01-01T00:00:00Z",
@@ -767,9 +809,12 @@ class TestConfluenceMigrationHelpers:
             },
             "checks": [
                 {"name": "normalize_fix", "return_code": 0},
+                {"name": "quality_enhance", "return_code": 0},
                 {"name": "seo_geo_fix", "return_code": 1},
+                {"name": "extract_knowledge", "return_code": 0},
+                {"name": "glossary_sync", "return_code": 0},
             ],
-            "status": {"passed": ["normalize_fix"], "failed": ["seo_geo_fix"]},
+            "status": {"passed": ["normalize_fix", "quality_enhance", "extract_knowledge", "glossary_sync"], "failed": ["seo_geo_fix"]},
         }
         report_md = tmp_path / "report.md"
         _write_markdown_report(report, report_md)
@@ -777,6 +822,9 @@ class TestConfluenceMigrationHelpers:
         assert "# Confluence migration report" in content
         assert "seo_geo_fix" in content
         assert "Warning 1" in content
+        assert "Quality enhancement applied" in content
+        assert "Knowledge modules extracted" in content
+        assert "Glossary synchronized" in content
 
     def test_write_markdown_report_no_failures(self, tmp_path: Path) -> None:
         """Markdown report with no failures shows clean message."""

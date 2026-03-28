@@ -97,7 +97,11 @@ def _normalize_url(raw: str) -> str:
     # Accept wizard input without scheme, e.g. "docs.example.com/path".
     if value and "://" not in value and not value.startswith("/"):
         value = "https://" + value
-    parsed = urlparse(value)
+    try:
+        parsed = urlparse(value)
+    except (ValueError, TypeError):
+        # Malformed values like "https://[service.name]" should not crash audit.
+        return ""
     path = parsed.path or "/"
     parts = [p for p in path.split("/") if p]
     if len(parts) >= 4:
