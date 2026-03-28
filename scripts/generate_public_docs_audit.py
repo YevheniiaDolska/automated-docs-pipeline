@@ -367,8 +367,16 @@ def _fetch(
             if head_only:
                 return status, content_type, ""
             raw = resp.read()
-            # Handle sitemap *.xml.gz and gzip-encoded responses.
-            if url.lower().endswith(".gz") or str(resp.headers.get("Content-Encoding", "")).lower() == "gzip":
+            # Handle gzip payloads in a robust way:
+            # - explicit *.gz URLs,
+            # - gzip content-encoding headers,
+            # - raw gzip magic bytes (some sites omit headers).
+            is_gzip_payload = (
+                url.lower().endswith(".gz")
+                or str(resp.headers.get("Content-Encoding", "")).lower() == "gzip"
+                or raw[:2] == b"\x1f\x8b"
+            )
+            if is_gzip_payload:
                 try:
                     raw = gzip.decompress(raw)
                 except (OSError, EOFError, ValueError):
