@@ -893,18 +893,18 @@ def _discover_contract_urls(pages: list[PageData]) -> list[str]:
         for link in page.internal_links:
             if pattern.search(link):
                 norm = _normalize_url(link)
-                if norm not in urls:
+                if norm and _is_http_url(norm) and norm not in urls:
                     urls.append(norm)
         for match in re.findall(r"https?://[^\s)\"'>]+", page.text):
             if pattern.search(match):
                 norm = _normalize_url(match)
-                if norm not in urls:
+                if norm and _is_http_url(norm) and norm not in urls:
                     urls.append(norm)
         parsed = urlparse(page.url)
         root = f"{parsed.scheme}://{parsed.netloc}"
         for suffix in _CONTRACT_PATH_CANDIDATES:
             candidate = _normalize_url(root + suffix)
-            if candidate not in urls:
+            if candidate and _is_http_url(candidate) and candidate not in urls:
                 urls.append(candidate)
     return urls[:120]
 
@@ -998,6 +998,8 @@ def _source_of_truth_identifiers(
         return set(), "No contract URLs discovered in crawled pages"
     ids: set[str] = set()
     for url in candidates:
+        if not url or not _is_http_url(url):
+            continue
         st, ct, body = _fetch(url, max(4, int(timeout)), extra_headers=auth_headers or {})
         if st < 200 or st >= 400:
             continue
