@@ -17,6 +17,11 @@ Processing docs/how-to/install-ask-ai-runtime-pack.md...
 Processing docs/how-to/migrate-from-confluence.md...
 Processing docs/how-to/run-api-first-production-flow.md...
 Processing docs/index.md...
+Processing docs/legal/data-processing-agreement.md...
+Processing docs/legal/index.md...
+Processing docs/legal/privacy-policy.md...
+Processing docs/legal/security-policy.md...
+Processing docs/legal/terms-of-service.md...
 Processing docs/operations/CANONICAL_FLOW.md...
 Processing docs/operations/CENTRALIZED_CLIENT_BUNDLES.md...
 Processing docs/operations/MULTI_PROTOCOL_ARCHITECTURE.md...
@@ -69,37 +74,30 @@ Processing docs/search-faceted.md...
 Processing docs/tags.md...
 Processing docs/troubleshooting/index.md...
 Processing docs/troubleshooting/webhook-not-firing.md...
-Generated sitemap with 71 URLs
-Saved 1520 Algolia records
+Generated sitemap with 76 URLs
+Saved 1590 Algolia records
 
 ============================================================
 SEO/GEO OPTIMIZATION REPORT
 ============================================================
 
-GEO Findings: 0 errors, 174 warnings, 147 suggestions
+GEO Findings: 0 errors, 174 warnings, 118 suggestions
   docs/assets/protocols/asyncapi/asyncapi-api.md:54 [warning] seo-bare-url: Bare URL found. Use [descriptive text](https://postman-echo.com/post";) instead.
   docs/assets/protocols/graphql/graphql-api.md:45 [warning] seo-bare-url: Bare URL found. Use [descriptive text](https://postman-echo.com/post";) instead.
-  docs/assets/protocols/grpc/grpc-api.md:47 [warning] seo-bare-url: Bare URL found. Use [descriptive text](https://postman-echo.com/post";) instead.
-  docs/assets/protocols/grpc/grpc-api.md:1 [suggestion] seo-no-freshness: No 'last_reviewed' or 'date' in frontmatter. Search engines favor dated content.
+  docs/assets/protocols/grpc/grpc-api.md:50 [warning] seo-bare-url: Bare URL found. Use [descriptive text](https://postman-echo.com/post";) instead.
   docs/assets/protocols/rest/rest-api.md:3 [suggestion] first-paragraph-no-definition: First paragraph lacks a definition pattern (is/enables/provides). LLMs need explicit definitions to extract answers.
   docs/assets/protocols/rest/rest-api.md:33 [warning] heading-generic: Generic heading '## Notes'. Use descriptive headings for LLM retrieval (e.g., 'Configure SASL authentication' not 'Configuration').
   docs/assets/protocols/rest/rest-api.md:1 [suggestion] seo-heading-keyword-gap: No H2 headings share keywords with the title. Align headings with title for better ranking.
   docs/assets/protocols/rest/rest-api.md:1 [warning] seo-thin-content: Only 45 words. Pages under 100 words rank poorly.
-  docs/assets/protocols/websocket/websocket-api.md:1 [suggestion] seo-no-freshness: No 'last_reviewed' or 'date' in frontmatter. Search engines favor dated content.
   docs/concepts/index.md:3 [suggestion] first-paragraph-no-definition: First paragraph lacks a definition pattern (is/enables/provides). LLMs need explicit definitions to extract answers.
-  ... and 311 more findings
+  docs/concepts/index.md:1 [suggestion] seo-low-internal-links: Only 0 internal link(s). Add cross-references to improve SEO link graph.
+  docs/concepts/index.md:1 [warning] seo-thin-content: Only 28 words. Pages under 100 words rank poorly.
+  ... and 282 more findings
 
-✨ Metadata Enhanced: 33 files
-  - docs/assets/protocols/grpc/grpc-api.md
-  - docs/assets/protocols/websocket/websocket-api.md
-  - docs/how-to/migrate-from-confluence.md
-  - docs/operations/MULTI_PROTOCOL_ARCHITECTURE.md
-  - docs/operations/MULTI_PROTOCOL_WIZARD_GUIDE.md
-
-Search Records: 1520 records generated
+Search Records: 1590 records generated
   By content type:
     - concept: 28
     - how-to: 118
-    - reference: 1352
+    - reference: 1422
     - troubleshooting: 11
     - tutorial: 11
