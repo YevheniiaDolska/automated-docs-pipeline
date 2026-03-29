@@ -2561,12 +2561,17 @@ def main() -> int:
         timeout_raw = input(f"Request timeout seconds (default: {args.timeout}): ").strip()
         if timeout_raw.isdigit():
             args.timeout = int(timeout_raw)
-        out_dir_raw = input("Output directory (default: reports): ").strip()
-        if out_dir_raw:
-            out_dir = Path(out_dir_raw)
-            args.json_output = str(out_dir / "public_docs_audit.json")
-            args.html_output = str(out_dir / "public_docs_audit.html")
-            args.llm_summary_output = str(out_dir / "public_docs_audit_llm_summary.json")
+        company_raw = input("Company name for PDF report (default: Client): ").strip()
+        if company_raw:
+            args.company_name = company_raw
+        default_out_dir = Path("reports") / _slugify(args.company_name)
+        out_dir_raw = input(f"Output directory (default: {default_out_dir}): ").strip()
+        out_dir = Path(out_dir_raw) if out_dir_raw else default_out_dir
+        args.json_output = str(out_dir / "public_docs_audit.json")
+        args.html_output = str(out_dir / "public_docs_audit.html")
+        args.llm_summary_output = str(out_dir / "public_docs_audit_llm_summary.json")
+        args.scorecard_json = str(out_dir / "audit_scorecard.json")
+        args.assumptions_autofill_output = str(out_dir / "company_assumptions.autofill.json")
         print("Claude Sonnet executive analysis options:")
         print("  1) Summary only -- LLM gets aggregate metrics only (fast, ~$0.05)")
         print("  2) Full -- LLM gets all per-site data (slower, ~$3-4/site)")
@@ -2597,13 +2602,10 @@ def main() -> int:
                 args.llm_env_file = env_file_raw
         else:
             args.llm_enabled = False
-        company_raw = input("Company name for PDF report (default: Client): ").strip()
-        if company_raw:
-            args.company_name = company_raw
         pdf_raw = input("Generate executive PDF after audit? [Y/n]: ").strip().lower()
         args.generate_pdf = pdf_raw not in {"n", "no"}
         if args.generate_pdf:
-            default_pdf = "reports/{}-executive-audit.pdf".format(_slugify(args.company_name))
+            default_pdf = str(out_dir / "{}-executive-audit.pdf".format(_slugify(args.company_name)))
             pdf_out_raw = input(f"PDF output path (default: {default_pdf}): ").strip()
             args.pdf_output = pdf_out_raw if pdf_out_raw else default_pdf
 
