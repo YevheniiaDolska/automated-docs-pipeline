@@ -2,54 +2,56 @@
   "status": "ok",
   "model": "claude-sonnet-4-5",
   "analysis": {
-    "executive_summary": "Documentation audit of docs.datadoghq.com crawled only 1 page out of 25,000 maximum capacity, achieving 100% coverage of the severely limited scope. Zero broken links detected across all categories (0 docs, 0 repo). Critical visibility gaps identified: 50% SEO/geo issue rate, 0% example reliability, 0% freshness coverage, and no API reference pages detected. Overall confidence stands at 74%, with API detection confidence critically low at 35%.",
+    "executive_summary": "Documentation audit across 7 properties crawled 1,205 pages with 6.53% crawl coverage of 20,474 discovered in-scope pages. 60 confirmed broken internal documentation links identified. API reference coverage stands at 32.26% across 73 detected API pages. Code example reliability estimated at 16.95%, and only 3.4% of pages display freshness metadata. Overall audit confidence is 49.48% due to crawl limitations and 16,497 unverified links blocked by authentication or rate limiting.",
     "strengths": [
-      "Zero broken links detected (0 internal docs broken links, 0 repository broken links)",
-      "Link verification achieved 95% confidence level",
-      "Crawl execution completed at 95% confidence within examined scope",
-      "No crawl trap URLs encountered during examination"
+      "Multi-project topology correctly configured; no fragmentation penalty applied across 7 documentation properties",
+      "Zero broken repository navigation links (repo_broken_links_count: 0); all GitHub/GitLab internal links functional",
+      "API page detection successful with 73 pages identified and no detection failures flagged",
+      "SEO/geo issue rate contained at 7.45%",
+      "No trap URL patterns causing significant crawl waste (122 skipped)"
     ],
     "risks": [
-      "Audit crawled only 1 page - insufficient sample size for meaningful documentation assessment across enterprise docs platform",
-      "API reference pages not detected (0 pages found) - potential detection limitation due to JavaScript rendering, authentication requirements, or URL pattern mismatch",
-      "API detection confidence critically low at 35% - findings may not reflect actual API documentation state",
-      "SEO/geo issue rate at 50% indicates potential discoverability and internationalization problems",
-      "Zero example reliability measurement (0.0%) - code examples may be untested or broken",
-      "No freshness indicators detected (0.0% coverage) - users cannot assess content currency",
-      "Single-page sample prevents identification of systemic patterns in navigation, structure, or content quality"
+      "60 confirmed broken internal documentation links degrading user navigation and trust",
+      "Crawl coverage critically low at 6.53% (1,205 of 20,474 pages); 93.47% of documentation not audited",
+      "16,497 links unverified due to authentication/rate-limiting; actual broken link count potentially much higher",
+      "API reference coverage at 32.26% leaves 67.74% of API surface undocumented or undetected",
+      "Example reliability at 16.95% indicates majority of code samples may be outdated, untested, or non-functional",
+      "Freshness metadata present on only 3.4% of pages; users cannot assess content currency",
+      "Overall audit confidence at 49.48% limits reliability of all findings and metrics"
     ],
     "prioritized_actions": [
       {
-        "action": "Re-execute full crawl with increased page limit and verify JavaScript rendering, authentication, and API URL patterns to capture complete documentation scope",
+        "action": "Enable authenticated crawling and increase crawl budget to reach minimum 80% coverage of 20,474 discovered pages",
         "impact": "critical",
         "effort": "medium"
       },
       {
-        "action": "Investigate and resolve API reference page detection failure - verify crawl can access authenticated/JS-rendered API documentation sections",
+        "action": "Remediate all 60 confirmed broken internal documentation links immediately",
         "impact": "critical",
+        "effort": "low"
+      },
+      {
+        "action": "Implement automated example testing pipeline to improve 16.95% reliability score above 80% threshold",
+        "impact": "high",
         "effort": "high"
       },
       {
-        "action": "Implement last-updated timestamps on all documentation pages to address 0% freshness coverage",
+        "action": "Add last-updated metadata to all documentation pages (currently 3.4% coverage) using CI/CD automation",
         "impact": "high",
         "effort": "low"
       },
       {
-        "action": "Audit and remediate SEO/geo issues affecting 50% of sampled pages - review meta tags, hreflang, and regional content",
+        "action": "Expand API reference documentation to achieve minimum 70% coverage from current 32.26%",
         "impact": "high",
-        "effort": "medium"
-      },
-      {
-        "action": "Establish code example testing framework to improve 0% reliability estimate and prevent example drift",
-        "impact": "medium",
         "effort": "high"
       }
     ],
     "limitations": [
-      "Single-page crawl provides statistically insignificant sample - cannot validate documentation quality, completeness, or systemic issues across full site",
-      "External audit cannot verify accuracy of technical content, correctness of code examples, or alignment with actual product behavior",
-      "API coverage metrics unreliable due to 35% detection confidence - actual API documentation may exist but remain undetected by crawler",
-      "Cannot assess user experience factors including page load performance, interactive element functionality, or authenticated user workflows"
+      "Crawl reached only 6.53% of discoverable documentation; findings do not represent 93.47% of content that was inaccessible or skipped",
+      "16,497 links could not be verified due to authentication requirements, rate limiting, or server blocks; true broken link count unknown",
+      "External audit cannot validate technical accuracy, completeness of explanations, or correctness of architectural guidance",
+      "Example reliability is estimated through heuristics; actual runtime validity requires environment-specific testing",
+      "Multi-site topology may hide content duplication, versioning conflicts, or canonical URL issues not detectable through crawl analysis"
     ]
   }
 }

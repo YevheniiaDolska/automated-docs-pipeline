@@ -1,0 +1,65 @@
+# Staging override for server with host Nginx + Let's Encrypt
+# Host Nginx handles SSL and proxies to Docker API on port 8010
+# Usage: docker compose -f docker-compose.production.yml -f docker-compose.staging.yml --env-file deploy/.env.staging up -d --build
+
+services:
+  api:
+    ports: !override
+      - "127.0.0.1:8010:8000"
+    environment:
+      - VERIDOC_ENVIRONMENT=staging
+      - VERIDOC_CORS_ORIGINS=${VERIDOC_CORS_ORIGINS:-https://staging.veri-doc.app}
+      - GROK_API_KEY=${GROK_API_KEY:-}
+      - VERIOPS_LICENSE_KEY=${VERIOPS_LICENSE_KEY:-}
+      - CLAUDE_MODEL=${CLAUDE_MODEL:-claude-sonnet-4-6}
+      # LemonSqueezy variant IDs
+      - LS_VARIANT_STARTER_MONTHLY=${LS_VARIANT_STARTER_MONTHLY:-}
+      - LS_VARIANT_STARTER_ANNUAL=${LS_VARIANT_STARTER_ANNUAL:-}
+      - LS_VARIANT_PRO_MONTHLY=${LS_VARIANT_PRO_MONTHLY:-}
+      - LS_VARIANT_PRO_ANNUAL=${LS_VARIANT_PRO_ANNUAL:-}
+      - LS_VARIANT_BUSINESS_MONTHLY=${LS_VARIANT_BUSINESS_MONTHLY:-}
+      - LS_VARIANT_ENTERPRISE_MONTHLY=${LS_VARIANT_ENTERPRISE_MONTHLY:-}
+      # SMTP + admin notifications
+      - VERIDOC_SMTP_HOST=${VERIDOC_SMTP_HOST:-smtp.mailgun.org}
+      - VERIDOC_SMTP_PORT=${VERIDOC_SMTP_PORT:-587}
+      - VERIDOC_SMTP_USER=${VERIDOC_SMTP_USER:-}
+      - VERIDOC_SMTP_PASSWORD=${VERIDOC_SMTP_PASSWORD:-}
+      - VERIDOC_SMTP_FROM=${VERIDOC_SMTP_FROM:-noreply@veri-doc.app}
+      - VERIDOC_APP_BASE_URL=${VERIDOC_APP_BASE_URL:-https://staging.veri-doc.app}
+      - VERIDOC_ADMIN_EMAIL=${VERIDOC_ADMIN_EMAIL:-jane.dolska@gmail.com,eugenia@veri-doc.app}
+      # Sentry error tracking
+      - SENTRY_DSN=${SENTRY_DSN:-}
+
+  worker:
+    environment:
+      - GROK_API_KEY=${GROK_API_KEY:-}
+      - VERIOPS_LICENSE_KEY=${VERIOPS_LICENSE_KEY:-}
+      - SENTRY_DSN=${SENTRY_DSN:-}
+
+  web:
+    build:
+      context: ./apps/web
+    restart: unless-stopped
+    ports:
+      - "127.0.0.1:3010:3000"
+    environment:
+      - NEXT_PUBLIC_API_URL=/api
+      - API_PROXY_TARGET=http://api:8000
+    healthcheck:
+      test: ["CMD", "wget", "--spider", "-q", "http://localhost:3000"]
+      interval: 30s
+      timeout: 10s
+      start_period: 30s
+      retries: 3
+
+  postgres:
+    ports: !override
+      - "127.0.0.1:5433:5432"
+
+  redis:
+    ports: !override []
+
+  nginx:
+    ports: !override []
+    entrypoint: ["true"]
+    restart: "no"

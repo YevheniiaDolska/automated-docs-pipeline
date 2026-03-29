@@ -410,6 +410,61 @@ class LicenseTokenResponse(BaseModel):
 
 
 # ---------------------------------------------------------------------------
+# Invoice request models
+# ---------------------------------------------------------------------------
+
+
+class InvoiceRequestCreate(BaseModel):
+    """Request body for invoice-only plan requests."""
+
+    model_config = ConfigDict(extra="forbid")
+
+    full_name: str = Field(..., min_length=1, max_length=200)
+    email: str = Field(..., min_length=3, max_length=320)
+    company: str | None = Field(None, max_length=300)
+    plan_tier: str = Field(..., pattern=r"^(business|enterprise)$")
+    billing_period: str = Field(..., pattern=r"^(monthly|annual)$")
+    message: str | None = Field(None, max_length=2000)
+
+
+class InvoiceRequestResponse(BaseModel):
+    """Response after submitting an invoice request."""
+
+    model_config = ConfigDict(extra="forbid")
+
+    id: str
+    status: str
+    message: str
+
+
+# ---------------------------------------------------------------------------
+# Audit request models
+# ---------------------------------------------------------------------------
+
+
+class AuditRequestCreate(BaseModel):
+    """Request body for free audit requests from landing page."""
+
+    model_config = ConfigDict(extra="forbid")
+
+    full_name: str = Field(..., min_length=1, max_length=200)
+    email: str = Field(..., min_length=3, max_length=320)
+    company: str | None = Field(None, max_length=300)
+    docs_url: str | None = Field(None, max_length=500)
+    message: str | None = Field(None, max_length=2000)
+
+
+class AuditRequestResponse(BaseModel):
+    """Response after submitting an audit request."""
+
+    model_config = ConfigDict(extra="forbid")
+
+    id: str
+    status: str
+    message: str
+
+
+# ---------------------------------------------------------------------------
 # Checkout handler
 # ---------------------------------------------------------------------------
 
@@ -427,9 +482,14 @@ def handle_create_checkout(
     """
     suffix = "annual" if request.annual else "monthly"
     variant_key = f"variant_{request.tier}_{suffix}"
-    variant_id = os.environ.get(
-        f"LS_VARIANT_{request.tier.upper()}_{suffix.upper()}", variant_key
-    )
+    env_var_name = f"LS_VARIANT_{request.tier.upper()}_{suffix.upper()}"
+    variant_id = os.environ.get(env_var_name, "")
+
+    if not variant_id:
+        raise ValueError(
+            f"Self-serve checkout is not available for {request.tier} {suffix}. "
+            "Please use the invoice request form for this plan."
+        )
 
     # LemonSqueezy checkout API
     headers = {
@@ -449,18 +509,21 @@ def handle_create_checkout(
         )
         custom_payload.update(ref_payload)
 
+    attributes: dict[str, Any] = {
+        "checkout_data": {
+            "email": user_email,
+            "custom": custom_payload,
+        },
+    }
+    if request.success_url:
+        attributes["product_options"] = {
+            "redirect_url": request.success_url,
+        }
+
     checkout_data = {
         "data": {
             "type": "checkouts",
-            "attributes": {
-                "checkout_data": {
-                    "email": user_email,
-                    "custom": custom_payload,
-                },
-                "product_options": {
-                    "redirect_url": request.success_url or "",
-                },
-            },
+            "attributes": attributes,
             "relationships": {
                 "store": {
                     "data": {"type": "stores", "id": LEMONSQUEEZY_STORE_ID}
@@ -1476,35 +1539,44 @@ SMTP_USER = os.environ.get("VERIDOC_SMTP_USER", "")
 SMTP_PASSWORD = os.environ.get("VERIDOC_SMTP_PASSWORD", "")
 SMTP_FROM = os.environ.get("VERIDOC_SMTP_FROM", "noreply@veridoc.dev")
 APP_BASE_URL = os.environ.get("VERIDOC_APP_BASE_URL", "https://app.veridoc.dev")
+_admin_raw = os.environ.get(
+    "VERIDOC_ADMIN_EMAIL", "jane.dolska@gmail.com,eugenia@veri-doc.app"
+)
+ADMIN_EMAILS: list[str] = [e.strip() for e in _admin_raw.split(",") if e.strip()]
 
 
-def _send_email(to_address: str, subject: str, html_body: str) -> bool:
+def _send_email(
+    to_address: str | list[str], subject: str, html_body: str
+) -> bool:
     """Send an email via SMTP with TLS.
 
-    Connects to the configured SMTP server and delivers a single
-    HTML email message. Returns True on success, False on failure.
-    All errors are logged rather than raised so that webhook
-    processing is never blocked by email delivery failures.
+    Connects to the configured SMTP server and delivers an HTML
+    email message. Accepts a single address or a list of addresses.
+    Returns True on success, False on failure. All errors are logged
+    rather than raised so that webhook processing is never blocked
+    by email delivery failures.
 
     Args:
-        to_address: Recipient email address.
+        to_address: Recipient email address or list of addresses.
         subject: Email subject line.
         html_body: HTML content of the email body.
 
     Returns:
         True if the email was accepted by the SMTP server, False otherwise.
     """
+    recipients = [to_address] if isinstance(to_address, str) else list(to_address)
+
     if not SMTP_USER or not SMTP_PASSWORD:
         logger.warning(
             "SMTP credentials not configured (VERIDOC_SMTP_USER / VERIDOC_SMTP_PASSWORD), "
             "skipping email to %s",
-            to_address,
+            recipients,
         )
         return False
 
     msg = MIMEMultipart("alternative")
     msg["From"] = SMTP_FROM
-    msg["To"] = to_address
+    msg["To"] = ", ".join(recipients)
     msg["Subject"] = subject
     msg.attach(MIMEText(html_body, "html", "utf-8"))
 
@@ -1514,17 +1586,17 @@ def _send_email(to_address: str, subject: str, html_body: str) -> bool:
             server.starttls()
             server.ehlo()
             server.login(SMTP_USER, SMTP_PASSWORD)
-            server.sendmail(SMTP_FROM, [to_address], msg.as_string())
-        logger.info("Trial-ending email sent to %s", to_address)
+            server.sendmail(SMTP_FROM, recipients, msg.as_string())
+        logger.info("Email sent to %s", recipients)
         return True
     except smtplib.SMTPAuthenticationError:
-        logger.error("SMTP authentication failed when sending to %s", to_address)
+        logger.error("SMTP authentication failed when sending to %s", recipients)
         return False
     except smtplib.SMTPRecipientsRefused:
-        logger.error("Recipient refused by SMTP server: %s", to_address)
+        logger.error("Recipient refused by SMTP server: %s", recipients)
         return False
     except smtplib.SMTPException as exc:
-        logger.error("SMTP error sending trial-ending email to %s: %s", to_address, exc)
+        logger.error("SMTP error sending email to %s: %s", recipients, exc)
         return False
     except OSError as exc:
         logger.error(
@@ -1619,3 +1691,274 @@ def _parse_ls_date(date_str: str | None) -> datetime | None:
         return datetime.fromisoformat(date_str.replace("Z", "+00:00"))
     except (ValueError, AttributeError):
         return None
+
+
+# ---------------------------------------------------------------------------
+# Invoice request handler
+# ---------------------------------------------------------------------------
+
+TIER_DISPLAY = {
+    "business": "Business",
+    "enterprise": "Enterprise",
+}
+
+PERIOD_DISPLAY = {
+    "monthly": "Monthly",
+    "annual": "Annual",
+}
+
+
+def handle_create_invoice_request(
+    request: InvoiceRequestCreate,
+    user_id: str | None,
+    db_session: Any,
+) -> InvoiceRequestResponse:
+    """Save an invoice request and notify the admin via email.
+
+    Creates a persistent InvoiceRequest record in the database and sends
+    a notification email to the admin with the plan details and customer
+    contact information.
+
+    Args:
+        request: Validated invoice request payload.
+        user_id: Authenticated user ID (may be None for unauthenticated).
+        db_session: SQLAlchemy database session.
+
+    Returns:
+        InvoiceRequestResponse confirming submission.
+    """
+    from gitspeak_core.db.models import InvoiceRequest
+
+    record = InvoiceRequest(
+        user_id=user_id,
+        full_name=request.full_name,
+        email=request.email,
+        company=request.company,
+        plan_tier=request.plan_tier,
+        billing_period=request.billing_period,
+        message=request.message,
+        status="pending",
+    )
+    db_session.add(record)
+    db_session.commit()
+    db_session.refresh(record)
+
+    subject, html_body = _build_invoice_request_admin_email(
+        full_name=request.full_name,
+        email=request.email,
+        company=request.company,
+        plan_tier=request.plan_tier,
+        billing_period=request.billing_period,
+        message=request.message,
+        request_id=record.id,
+    )
+    _send_email(ADMIN_EMAILS, subject, html_body)
+
+    logger.info(
+        "Invoice request created: id=%s tier=%s period=%s email=%s",
+        record.id,
+        request.plan_tier,
+        request.billing_period,
+        request.email,
+    )
+
+    return InvoiceRequestResponse(
+        id=record.id,
+        status="pending",
+        message="Invoice request submitted. We will contact you shortly.",
+    )
+
+
+def _build_invoice_request_admin_email(
+    full_name: str,
+    email: str,
+    company: str | None,
+    plan_tier: str,
+    billing_period: str,
+    message: str | None,
+    request_id: str,
+) -> tuple[str, str]:
+    """Build admin notification email for a new invoice request.
+
+    Args:
+        full_name: Customer name from the form.
+        email: Customer email for invoice delivery.
+        company: Optional company name.
+        plan_tier: Requested plan tier (business or enterprise).
+        billing_period: Billing frequency (monthly or annual).
+        message: Optional customer message.
+        request_id: Database record ID.
+
+    Returns:
+        A (subject, html_body) tuple ready for _send_email.
+    """
+    tier_label = TIER_DISPLAY.get(plan_tier, plan_tier.capitalize())
+    period_label = PERIOD_DISPLAY.get(billing_period, billing_period.capitalize())
+    company_line = f"<tr><td style='padding:6px 12px;color:#666;'>Company</td><td style='padding:6px 12px;font-weight:600;'>{company}</td></tr>" if company else ""
+    message_section = f"<tr><td style='padding:6px 12px;color:#666;vertical-align:top;'>Message</td><td style='padding:6px 12px;'>{message}</td></tr>" if message else ""
+
+    subject = f"New invoice request: {tier_label} {period_label} -- {full_name}"
+
+    html_body = f"""\
+<!DOCTYPE html>
+<html lang="en">
+<head><meta charset="utf-8"></head>
+<body style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; color: #1a1a1a; max-width: 600px; margin: 0 auto; padding: 24px;">
+  <h2 style="color: #111;">New Invoice Request</h2>
+  <p>A customer has requested an invoice for a VeriDoc plan.</p>
+  <table style="border-collapse: collapse; width: 100%; margin: 16px 0;">
+    <tr style="background: #f8f9fa;">
+      <td style="padding: 6px 12px; color: #666;">Request ID</td>
+      <td style="padding: 6px 12px; font-weight: 600;">{request_id}</td>
+    </tr>
+    <tr>
+      <td style="padding: 6px 12px; color: #666;">Plan</td>
+      <td style="padding: 6px 12px; font-weight: 600;">{tier_label} ({period_label})</td>
+    </tr>
+    <tr style="background: #f8f9fa;">
+      <td style="padding: 6px 12px; color: #666;">Customer name</td>
+      <td style="padding: 6px 12px; font-weight: 600;">{full_name}</td>
+    </tr>
+    <tr>
+      <td style="padding: 6px 12px; color: #666;">Invoice email</td>
+      <td style="padding: 6px 12px; font-weight: 600;"><a href="mailto:{email}">{email}</a></td>
+    </tr>
+    {company_line}
+    {message_section}
+  </table>
+  <p style="margin-top: 24px;">
+    <strong>Action required:</strong> Create and send an invoice for the
+    <strong>{tier_label}</strong> plan ({period_label} billing) to
+    <a href="mailto:{email}">{email}</a>.
+  </p>
+  <p style="color: #666; font-size: 13px; margin-top: 40px;">
+    VeriDoc -- Automated documentation pipeline<br>
+    <a href="{APP_BASE_URL}/admin" style="color: #2563eb;">Admin dashboard</a>
+  </p>
+</body>
+</html>"""
+    return subject, html_body
+
+
+# ---------------------------------------------------------------------------
+# Audit request handler
+# ---------------------------------------------------------------------------
+
+
+def handle_create_audit_request(
+    request: AuditRequestCreate,
+    db_session: Any,
+) -> AuditRequestResponse:
+    """Save a free audit request and notify the admin via email.
+
+    Creates a persistent AuditRequest record in the database and sends
+    a notification email to the admin with the prospect's details.
+
+    Args:
+        request: Validated audit request payload.
+        db_session: SQLAlchemy database session.
+
+    Returns:
+        AuditRequestResponse confirming submission.
+    """
+    from gitspeak_core.db.models import AuditRequest
+
+    record = AuditRequest(
+        full_name=request.full_name,
+        email=request.email,
+        company=request.company,
+        docs_url=request.docs_url,
+        message=request.message,
+        status="pending",
+    )
+    db_session.add(record)
+    db_session.commit()
+    db_session.refresh(record)
+
+    subject, html_body = _build_audit_request_admin_email(
+        full_name=request.full_name,
+        email=request.email,
+        company=request.company,
+        docs_url=request.docs_url,
+        message=request.message,
+        request_id=record.id,
+    )
+    _send_email(ADMIN_EMAILS, subject, html_body)
+
+    logger.info(
+        "Audit request created: id=%s email=%s company=%s",
+        record.id,
+        request.email,
+        request.company or "(none)",
+    )
+
+    return AuditRequestResponse(
+        id=record.id,
+        status="pending",
+        message="Audit request submitted. We will contact you within 1 business day.",
+    )
+
+
+def _build_audit_request_admin_email(
+    full_name: str,
+    email: str,
+    company: str | None,
+    docs_url: str | None,
+    message: str | None,
+    request_id: str,
+) -> tuple[str, str]:
+    """Build admin notification email for a new audit request.
+
+    Args:
+        full_name: Prospect name.
+        email: Prospect email.
+        company: Optional company name.
+        docs_url: Optional documentation URL to audit.
+        message: Optional message from the prospect.
+        request_id: Database record ID.
+
+    Returns:
+        A (subject, html_body) tuple ready for _send_email.
+    """
+    company_line = f"<tr><td style='padding:6px 12px;color:#666;'>Company</td><td style='padding:6px 12px;font-weight:600;'>{company}</td></tr>" if company else ""
+    docs_line = f"<tr style='background:#f8f9fa;'><td style='padding:6px 12px;color:#666;'>Docs URL</td><td style='padding:6px 12px;'><a href='{docs_url}'>{docs_url}</a></td></tr>" if docs_url else ""
+    message_section = f"<tr><td style='padding:6px 12px;color:#666;vertical-align:top;'>Message</td><td style='padding:6px 12px;'>{message}</td></tr>" if message else ""
+
+    company_suffix = f" ({company})" if company else ""
+    subject = f"New audit request from {full_name}{company_suffix}"
+
+    html_body = f"""\
+<!DOCTYPE html>
+<html lang="en">
+<head><meta charset="utf-8"></head>
+<body style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; color: #1a1a1a; max-width: 600px; margin: 0 auto; padding: 24px;">
+  <h2 style="color: #111;">New Free Audit Request</h2>
+  <p>A prospect has requested a free documentation audit from the landing page.</p>
+  <table style="border-collapse: collapse; width: 100%; margin: 16px 0;">
+    <tr style="background: #f8f9fa;">
+      <td style="padding: 6px 12px; color: #666;">Request ID</td>
+      <td style="padding: 6px 12px; font-weight: 600;">{request_id}</td>
+    </tr>
+    <tr>
+      <td style="padding: 6px 12px; color: #666;">Name</td>
+      <td style="padding: 6px 12px; font-weight: 600;">{full_name}</td>
+    </tr>
+    <tr style="background: #f8f9fa;">
+      <td style="padding: 6px 12px; color: #666;">Email</td>
+      <td style="padding: 6px 12px; font-weight: 600;"><a href="mailto:{email}">{email}</a></td>
+    </tr>
+    {company_line}
+    {docs_line}
+    {message_section}
+  </table>
+  <p style="margin-top: 24px;">
+    <strong>Action required:</strong> Reply to <a href="mailto:{email}">{email}</a>
+    to schedule the audit.
+  </p>
+  <p style="color: #666; font-size: 13px; margin-top: 40px;">
+    VeriDoc -- Automated documentation pipeline<br>
+    <a href="{APP_BASE_URL}/admin" style="color: #2563eb;">Admin dashboard</a>
+  </p>
+</body>
+</html>"""
+    return subject, html_body

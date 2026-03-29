@@ -9,6 +9,8 @@ import {
   billing as billingApi,
   settings as settingsApi,
 } from "@/lib/api";
+import AuthGuard from "@/components/auth-guard";
+import AppShell from "@/components/app-shell";
 
 // ---------------------------------------------------------------------------
 // Constants
@@ -45,7 +47,7 @@ const TIER_LABELS: Record<string, string> = {
 // Component
 // ---------------------------------------------------------------------------
 
-export default function SettingsPage() {
+function SettingsContent() {
   const [data, setData] = useState<SettingsResponse | null>(null);
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -409,5 +411,15 @@ export default function SettingsPage() {
         )}
       </section>
     </div>
+  );
+}
+
+export default function SettingsPage() {
+  return (
+    <AuthGuard>
+      <AppShell>
+        <SettingsContent />
+      </AppShell>
+    </AuthGuard>
   );
 }

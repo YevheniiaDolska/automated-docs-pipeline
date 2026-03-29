@@ -12,9 +12,36 @@ Start beat (scheduler):
 
 from __future__ import annotations
 
+import logging
 import os
 
 from celery import Celery
+
+logger = logging.getLogger(__name__)
+
+# ---------------------------------------------------------------------------
+# Sentry for Celery workers
+# ---------------------------------------------------------------------------
+
+_sentry_dsn = os.environ.get("SENTRY_DSN", "")
+if _sentry_dsn:
+    try:
+        import sentry_sdk
+        from sentry_sdk.integrations.celery import CeleryIntegration
+
+        environment = os.environ.get("VERIDOC_ENVIRONMENT", "development")
+        sentry_sdk.init(
+            dsn=_sentry_dsn,
+            environment=environment,
+            integrations=[CeleryIntegration()],
+            traces_sample_rate=0.2 if environment == "production" else 1.0,
+            send_default_pii=False,
+        )
+        logger.info("Sentry initialized for Celery worker: environment=%s", environment)
+    except ImportError:
+        logger.warning("sentry-sdk not installed, Celery error tracking disabled")
+    except Exception:
+        logger.exception("Failed to initialize Sentry for Celery")
 
 REDIS_URL = os.environ.get("VERIDOC_REDIS_URL", "redis://localhost:6379/0")
 REDIS_BACKEND = os.environ.get("VERIDOC_REDIS_BACKEND", "redis://localhost:6379/1")

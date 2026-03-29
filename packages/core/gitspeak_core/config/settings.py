@@ -137,6 +137,12 @@ class AppSettings(BaseModel):
     port: int = Field(default=8000, ge=1024, le=65535)
     cors_origins: list[str] = Field(default_factory=lambda: ["http://localhost:3000"])
 
+    # Observability
+    sentry_dsn: str = Field(
+        default="",
+        description="Sentry DSN for error tracking (empty = disabled)",
+    )
+
     @model_validator(mode="after")
     def _guard_default_jwt_secret(self) -> "AppSettings":
         """Reject the default JWT secret in production environments.
@@ -222,6 +228,7 @@ def get_default_settings() -> AppSettings:
         host=_get_env("VERIDOC_HOST", "0.0.0.0"),
         port=_get_env_int("VERIDOC_PORT", 8000),
         cors_origins=cors_origins,
+        sentry_dsn=_get_env("SENTRY_DSN", ""),
         llm=LLMSettings(
             groq_api_key=SecretStr(_get_env("GROQ_API_KEY", "")),
             deepseek_api_key=SecretStr(_get_env("DEEPSEEK_API_KEY", "")),

@@ -1,0 +1,903 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <link rel="icon" type="image/x-icon" href="/veridoc-favicon.ico">
+  <link rel="icon" type="image/png" sizes="32x32" href="/veridoc-favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/veridoc-favicon-16x16.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="/veridoc-apple-touch-icon.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>VeriDoc - Documentation automation platform for any docs type.</title>
+  <meta name="description" content="VeriDoc/VeriOps automates documentation of any type: API, product, internal, developer. Quality gates, drift detection, SEO/GEO optimization, and premium audit reports.">
+  <style>
+    :root {
+      --bg: #f7f8fb;
+      --surface: #ffffff;
+      --ink: #0f172a;
+      --muted: #475569;
+      --line: #dbe2ea;
+      --brand: #0b6bcb;
+      --brand-2: #0ea5e9;
+      --accent: #f59e0b;
+      --ok: #16a34a;
+      --amber: #d97706;
+      --amber-bg: #fffbeb;
+      --amber-border: #fde68a;
+    }
+
+    * { box-sizing: border-box; margin: 0; }
+    body {
+      font-family: "Segoe UI", "Avenir Next", "Helvetica Neue", Arial, sans-serif;
+      color: var(--ink);
+      background:
+        radial-gradient(1200px 500px at 10% -10%, #e0f2fe 0, rgba(224, 242, 254, 0) 70%),
+        radial-gradient(1000px 500px at 90% -10%, #fef3c7 0, rgba(254, 243, 199, 0) 65%),
+        var(--bg);
+      line-height: 1.5;
+    }
+
+    .container { max-width: 1180px; margin: 0 auto; padding: 0 20px; }
+
+    header {
+      position: sticky; top: 0;
+      backdrop-filter: blur(8px);
+      background: rgba(247, 248, 251, 0.88);
+      border-bottom: 1px solid var(--line);
+      z-index: 50;
+    }
+
+    .nav {
+      display: flex; justify-content: space-between; align-items: center;
+      min-height: 64px; gap: 14px;
+    }
+
+    .nav-links { display: flex; gap: 24px; align-items: center; }
+    .nav-links a {
+      font-size: 14px; font-weight: 500; color: var(--muted);
+      text-decoration: none; transition: color .15s;
+    }
+    .nav-links a:hover { color: var(--ink); }
+
+    .logo {
+      font-size: 22px; font-weight: 800; letter-spacing: 0.2px;
+      color: var(--ink); text-decoration: none;
+    }
+
+    .cta {
+      display: inline-flex; align-items: center; justify-content: center;
+      border-radius: 12px; padding: 10px 18px; font-weight: 700;
+      text-decoration: none; border: 1px solid transparent;
+      transition: transform .12s ease, box-shadow .12s ease;
+      font-size: 15px;
+    }
+    .cta:hover { transform: translateY(-1px); }
+    .cta.primary {
+      background: linear-gradient(140deg, var(--brand), var(--brand-2));
+      color: #fff; box-shadow: 0 8px 24px rgba(14, 165, 233, .28);
+    }
+    .cta.ghost {
+      border-color: var(--line); color: var(--ink); background: #fff;
+    }
+    .cta.amber {
+      background: linear-gradient(140deg, #d97706, #f59e0b);
+      color: #fff; box-shadow: 0 8px 24px rgba(245, 158, 11, .28);
+    }
+
+    .hero { padding: 72px 0 52px; }
+    .pill {
+      display: inline-block; background: #e2f2ff; color: #0a4f9a;
+      border: 1px solid #b4dafd; border-radius: 999px;
+      padding: 7px 14px; font-weight: 700; font-size: 13px; margin-bottom: 18px;
+    }
+
+    h1 {
+      font-size: clamp(34px, 6vw, 62px); line-height: 1.08;
+      letter-spacing: -0.5px; margin-bottom: 14px;
+    }
+    h1 .highlight { color: var(--brand); }
+
+    .sub {
+      max-width: 760px; color: var(--muted);
+      font-size: clamp(17px, 2.2vw, 21px); margin-bottom: 24px;
+    }
+
+    .hero-ctas { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 24px; }
+    .mode-switch {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 6px; border: 1px solid var(--line); border-radius: 999px;
+      background: #fff; margin-bottom: 16px;
+    }
+    .mode-pill {
+      border-radius: 999px; padding: 8px 14px; font-size: 13px; font-weight: 700;
+      text-decoration: none; border: 1px solid transparent;
+    }
+    .mode-pill.active-saas { background: #eff6ff; color: #1d4ed8; border-color: #bfdbfe; }
+    .mode-pill.active-ops { background: #fff7ed; color: #9a3412; border-color: #fed7aa; }
+    .ops-banner {
+      margin-top: 16px; border: 1px solid #fdba74; background: #fff7ed;
+      color: #7c2d12; border-radius: 14px; padding: 14px 16px; font-size: 14px;
+    }
+    .ops-banner strong { color: #9a3412; }
+
+    .grid {
+      display: grid; grid-template-columns: repeat(12, 1fr);
+      gap: 14px; margin-top: 22px;
+    }
+
+    .card {
+      background: var(--surface); border: 1px solid var(--line);
+      border-radius: 16px; padding: 20px;
+      box-shadow: 0 8px 24px rgba(15, 23, 42, .04);
+    }
+
+    .terminal {
+      grid-column: span 7;
+      background: #0b1220; color: #ced7e7; border-color: #111b2f;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      font-size: 14px;
+    }
+    .terminal .ok { color: #4ade80; }
+    .terminal .cmd { color: #38bdf8; }
+    .terminal .muted { color: #93a4bf; }
+
+    .stats { grid-column: span 5; }
+    .stats ul { margin: 0; padding-left: 16px; color: var(--muted); }
+    .stats li { margin-bottom: 6px; }
+
+    .section { padding: 48px 0; border-top: 1px solid var(--line); }
+    .section h2 { font-size: clamp(24px, 3.2vw, 34px); margin-bottom: 8px; }
+    .section .lead { color: var(--muted); margin-bottom: 20px; font-size: 17px; }
+    .section-center { text-align: center; }
+
+    .cols-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+    .cols-3 { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; }
+    .cols-4 { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 14px; }
+
+    .feature-card { padding: 20px; }
+    .feature-card h3 { margin: 0 0 6px; font-size: 17px; }
+    .feature-card p { margin: 0; color: var(--muted); font-size: 14px; }
+    .feature-icon { font-size: 28px; margin-bottom: 10px; }
+
+    .chip {
+      border: 1px solid var(--line); border-radius: 12px;
+      background: #fff; padding: 10px 12px; font-size: 14px; color: #334155;
+    }
+
+    .price { font-size: 34px; font-weight: 800; margin: 8px 0 2px; letter-spacing: -0.4px; }
+    .price small { font-size: 14px; color: var(--muted); font-weight: 600; }
+
+    .tier-badge {
+      display: inline-block; font-size: 12px; font-weight: 700;
+      color: #7c2d12; background: #ffedd5; border: 1px solid #fdba74;
+      border-radius: 999px; padding: 4px 8px; margin-bottom: 6px;
+    }
+
+    .pricing-features { list-style: none; padding: 0; margin: 8px 0 16px; }
+    .pricing-features li {
+      font-size: 14px; color: var(--muted); padding: 3px 0;
+      display: flex; align-items: flex-start; gap: 6px;
+    }
+    .pricing-features li::before {
+      content: "✓"; color: var(--brand); font-weight: 700; flex-shrink: 0;
+    }
+
+    .billing-toggle {
+      display: flex; align-items: center; justify-content: center;
+      gap: 10px; margin-bottom: 24px;
+    }
+    .billing-toggle span {
+      font-size: 15px; font-weight: 600; color: var(--muted); cursor: pointer;
+      transition: color .15s;
+    }
+    .billing-toggle span.active { color: var(--ink); }
+    .billing-toggle .toggle-track {
+      width: 48px; height: 26px; border-radius: 999px;
+      background: var(--line); position: relative; cursor: pointer;
+      transition: background .2s;
+    }
+    .billing-toggle .toggle-track.annual { background: var(--brand); }
+    .billing-toggle .toggle-track .toggle-thumb {
+      width: 20px; height: 20px; border-radius: 50%;
+      background: #fff; position: absolute; top: 3px; left: 3px;
+      transition: transform .2s;
+      box-shadow: 0 1px 3px rgba(0,0,0,.18);
+    }
+    .billing-toggle .toggle-track.annual .toggle-thumb {
+      transform: translateX(22px);
+    }
+    .annual-save {
+      display: inline-block; background: #dcfce7; color: #15803d;
+      font-size: 12px; font-weight: 700; border-radius: 999px;
+      padding: 3px 8px; margin-left: 4px;
+    }
+    .price-annual { display: none; }
+    .price-monthly { display: block; }
+    .billing-annual .price-annual { display: block; }
+    .billing-annual .price-monthly { display: none; }
+
+    .premium-box {
+      border: 2px solid var(--amber-border); background: var(--amber-bg);
+      border-radius: 16px; padding: 32px; text-align: center; margin-top: 24px;
+    }
+    .premium-box h3 { font-size: 24px; margin-bottom: 4px; }
+    .premium-box .price { color: var(--amber); }
+
+    .comparison { width: 100%; border-collapse: collapse; }
+    .comparison th, .comparison td {
+      padding: 12px 16px; text-align: left; border-bottom: 1px solid var(--line);
+      font-size: 14px;
+    }
+    .comparison th { background: #f1f5f9; font-weight: 600; }
+    .comparison .check { color: var(--brand); font-weight: 700; text-align: center; }
+    .comparison .no { color: #94a3b8; text-align: center; }
+    .comparison .highlight-col { color: var(--brand); font-weight: 600; text-align: center; }
+    footer {
+      padding: 44px 0 56px; color: #64748b; font-size: 14px;
+      text-align: center; border-top: 1px solid var(--line);
+    }
+    footer a { color: var(--brand); text-decoration: none; }
+
+    @media (max-width: 980px) {
+      .terminal, .stats { grid-column: span 12; }
+      .cols-3, .cols-4 { grid-template-columns: 1fr 1fr; }
+      .cols-2 { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 640px) {
+      .cols-3, .cols-4, .cols-2 { grid-template-columns: 1fr; }
+      .nav { flex-wrap: wrap; padding: 8px 0; justify-content: space-between; }
+      .nav-links { display: none; }
+      .hero { padding: 40px 0 32px; }
+      .cta.ghost { display: none; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container nav">
+      <a class="logo" href="#">VeriDoc</a>
+      <div class="nav-links">
+        <a href="#automation">Automation</a>
+        <a href="#proof">Proof</a>
+        <a href="#pricing">Pricing</a>
+        <a href="#faq">FAQ</a>
+        <a href="#veriops">VeriOps</a>
+        <a href="#compare">Compare</a>
+      </div>
+      <div style="display:flex;align-items:center;gap:14px">
+        <a href="/login" style="font-size:14px;font-weight:500;color:var(--muted);text-decoration:none;transition:color .15s">Log In</a>
+        <a class="cta primary" href="/register">Sign Up</a>
+        <a class="cta ghost" href="#free-audit">Get Free Audit</a>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <!-- Hero -->
+    <section class="hero">
+      <div class="container">
+        <div class="pill">Docs-ops pipeline for any documentation: API, product, internal, developer</div>
+        <div class="mode-switch">
+          <a class="mode-pill active-saas" href="#pricing">SaaS: VeriDoc</a>
+          <a class="mode-pill active-ops" href="#veriops">Licensed: VeriOps</a>
+        </div>
+        <h1>Keep docs true.<br><span class="highlight">Not just generated.</span></h1>
+        <p class="sub">
+          Your docs are behind every release. Examples are broken. Internal wikis are outdated. Your team wastes weeks on manual updates.
+          VeriDoc fixes this automatically for API docs, product guides, developer portals, and internal knowledge bases with one docs-first autopipeline that supports code-first, API-first, and hybrid delivery.
+        </p>
+        <div class="ops-banner">
+          <strong>Your security team will not approve SaaS?</strong> Your docs still drift after every release.
+          VeriOps runs the full pipeline inside your infrastructure with zero data exposure and measurable results in 14 days.
+        </div>
+        <div class="hero-ctas">
+          <a class="cta primary" href="#free-audit">Get Free Audit</a>
+          <a class="cta ghost" href="#veriops">Explore VeriOps</a>
+        </div>
+        <p style="margin-top:12px;color:var(--muted);font-size:14px">
+          Used for API docs, product docs, internal runbooks, release notes, and support/troubleshooting portals.
+        </p>
+
+        <div class="grid">
+          <article class="card terminal">
+            <div>$ veridoc pipeline --repo ./my-project</div>
+            <div class="muted">Scanning 847 pages across 3 repos...</div>
+            <div>&nbsp;</div>
+            <div class="cmd">[1/8] Normalize</div> <div>Fixed 12 whitespace issues, UTF-8 OK</div>
+            <div class="cmd">[2/8] Contracts</div> <div>REST 14 endpoints, GraphQL 3 ops, gRPC 3 RPCs &mdash; all valid</div>
+            <div class="cmd">[3/8] Style</div> <div>Vale: 4 passive voice fixes, 2 weasel words removed</div>
+            <div class="cmd">[4/8] Lint</div> <div>markdownlint + cspell: 6 fixes applied</div>
+            <div class="cmd">[5/8] Frontmatter</div> <div>3 missing descriptions added, 1 stale date refreshed</div>
+            <div class="cmd">[6/8] SEO/GEO</div> <div>32 checks: 28 pass, 4 auto-fixed (headings, fact density)</div>
+            <div class="cmd">[7/8] Knowledge</div> <div>124 modules extracted, retrieval index rebuilt</div>
+            <div class="cmd">[8/8] Publish</div> <div>Docs site built, 0 broken links</div>
+            <div>&nbsp;</div>
+            <div>Quality score: 63% &rarr; <span class="ok">94%</span> &mdash; 28 issues auto-fixed</div>
+            <div class="ok">Drift: 0 | Gaps: 0 | Stale: 0</div>
+            <div class="ok">Executive audit PDF: reports/executive-audit.pdf</div>
+          </article>
+          <article class="card stats">
+            <h3 style="margin-top:0">Zero-drift, zero-exception docs for every content type</h3>
+            <ul>
+              <li><strong>Any documentation:</strong> API references, product guides, internal wikis, developer portals</li>
+              <li><strong>5 API protocols:</strong> REST, GraphQL, gRPC, AsyncAPI, and WebSocket in one smooth multi-protocol flow</li>
+              <li><strong>Beyond API references:</strong> tutorials, how-to guides, concepts, runbooks, release notes, and troubleshooting docs in the same pipeline</li>
+              <li><strong>32 automated checks:</strong> SEO/GEO, style, contracts &mdash; auto-fixed before publish</li>
+              <li><strong>8 quality gates:</strong> every commit passes normalization, contracts, Vale, markdownlint, cspell, frontmatter, SEO/GEO, and knowledge validation</li>
+              <li><strong>Drift detection:</strong> docs stay in sync with code and APIs automatically</li>
+              <li><strong>RAG-ready knowledge pipeline:</strong> auto-extracted modules, FAISS semantic search, retrieval evals</li>
+              <li><strong>Test assets + smart merge:</strong> protocol-aware contract tests with RAG-assisted merge and TestRail/Zephyr upload</li>
+              <li><strong>RAG test generation:</strong> index existing tests, auto-generate new ones in project style (~65% time saved)</li>
+              <li><strong>Algolia search:</strong> auto-generate widgets for MkDocs, Docusaurus, Hugo, VitePress</li>
+              <li><strong>KPI dashboard + SLA + premium audit PDF</strong></li>
+            </ul>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- Free Audit -->
+    <section class="section" id="free-audit">
+      <div class="container">
+        <h2>Get a free documentation audit</h2>
+        <p class="lead">See exactly where your docs are failing. Low friction: we audit your public docs, you get actionable findings.</p>
+        <div class="cols-3">
+          <div class="card feature-card">
+            <div class="feature-icon">⚡</div>
+            <h3>24-hour turnaround</h3>
+            <p>We run a focused public-docs audit and return a concise report with prioritized issues.</p>
+          </div>
+          <div class="card feature-card">
+            <div class="feature-icon">🔎</div>
+            <h3>Evidence, not opinion</h3>
+            <p>Contract drift, stale pages, broken examples, and quality gaps with concrete proof points.</p>
+          </div>
+          <div class="card feature-card">
+            <div class="feature-icon">📈</div>
+            <h3>Clear next step</h3>
+            <p>You receive a practical path: self-serve SaaS rollout or 14-day VeriOps pilot.</p>
+          </div>
+        </div>
+        <div style="margin-top:16px">
+          <a class="cta primary" href="https://calendly.com/eugenia-sorokina/veriops-discovery-call">Request Free Audit</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- VeriOps -->
+    <section class="section" id="veriops">
+      <div class="container">
+        <h2>VeriOps for enterprise and regulated teams</h2>
+        <p class="lead">Licensed deployment with signed encrypted capability packs. The pipeline runs in your environment &mdash; no docs data ever reaches our servers.</p>
+        <div class="premium-box">
+          <h3>14-day pilot: prove value fast</h3>
+          <p style="color:var(--muted);max-width:760px;margin:10px auto 18px;font-size:16px">
+            We run your docs-ops pipeline in your environment, show measurable before/after quality metrics,
+            and hand over an operating flow your team can sustain.
+          </p>
+          <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap">
+            <a class="cta amber" href="https://calendly.com/eugenia-sorokina/veriops-discovery-call" target="_blank" rel="noopener">Schedule a 15-min discovery call</a>
+            <a class="cta ghost" href="#free-audit">Get free audit first</a>
+          </div>
+        </div>
+        <div class="cols-3" style="margin-top:16px">
+          <div class="card feature-card">
+            <h3>Banks and fintech</h3>
+            <p>SOC2-oriented docs pipeline inside your VPC. Governance evidence and approval trail on every release.</p>
+          </div>
+          <div class="card feature-card">
+            <h3>Healthcare</h3>
+            <p>HIPAA-compatible operating model with auditable change history, controlled publish flow, and strict gates.</p>
+          </div>
+          <div class="card feature-card">
+            <h3>Multi-product platforms</h3>
+            <p>Unified docs-ops across 10+ repos with centralized policy, reporting, and protocol-aware automation.</p>
+          </div>
+        </div>
+        <div class="cols-3" style="margin-top:12px">
+          <div class="card feature-card">
+            <h3>Release docs same day as code</h3>
+            <p>Replace weeks-late documentation with gate-driven publish in the same release cycle.</p>
+          </div>
+          <div class="card feature-card">
+            <h3>Cut docs support load</h3>
+            <p>Reduce documentation-related support tickets with verified examples and contract-true references.</p>
+          </div>
+          <div class="card feature-card">
+            <h3>Multiply writer throughput</h3>
+            <p>Pipeline handles generation and checks; writers focus on review and high-value editorial decisions.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Your path to production-grade documentation -->
+    <section class="section">
+      <div class="container">
+        <h2>Your path to production-grade documentation</h2>
+        <p class="lead">From first insight to measurable results in three steps. No long-term commitment required.</p>
+        <div class="cols-3">
+          <div class="card feature-card">
+            <div class="feature-icon">1</div>
+            <h3>Complimentary audit report</h3>
+            <p>We analyze your public documentation and deliver a consulting-grade report with prioritized findings, risk assessment, and financial exposure estimate within 24 hours.</p>
+          </div>
+          <div class="card feature-card">
+            <div class="feature-icon">2</div>
+            <h3>Findings review and scope alignment</h3>
+            <p>Walk through the audit results together. We map the highest-impact improvements to your technology stack, compliance requirements, and documentation goals.</p>
+          </div>
+          <div class="card feature-card">
+            <div class="feature-icon">3</div>
+            <h3>14-day proof of value</h3>
+            <p>The pipeline runs inside your infrastructure with zero data exposure. You see measurable before-and-after quality metrics and a clear operating model your team owns.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Docs Automation Features -->
+    <section class="section" id="automation">
+      <div class="container">
+        <h2>Documentation that passes every check, every time</h2>
+        <p class="lead">Every page passes 32 automated checks before publish. API references, product guides, internal wikis, and developer portals are all held to the same standard. The pipeline runs docs-first by default and adds code-first/API-first branches where needed.</p>
+        <div class="cols-3">
+          <div class="card feature-card">
+            <div class="feature-icon">🛡️</div>
+            <h3>8 Quality Gates</h3>
+            <p>Every commit passes normalization, contract validation, Vale style, markdownlint, cspell, frontmatter, SEO/GEO, and knowledge module checks. Zero exceptions.</p>
+          </div>
+          <div class="card feature-card">
+            <div class="feature-icon">📈</div>
+            <h3>32 Automated Checks</h3>
+            <p>8 GEO + 14 SEO + 6 style + 4 contract checks. Auto-fix mode repairs issues before publish. Every page meets the standard before publish.</p>
+          </div>
+          <div class="card feature-card">
+            <div class="feature-icon">🔍</div>
+            <h3>Drift Detection + Auto-Sync</h3>
+            <p>Detect when code, API, or SDK changes leave docs out of sync. The pipeline auto-generates fixes with exact diff context and regression checks.</p>
+          </div>
+          <div class="card feature-card">
+            <div class="feature-icon">🔌</div>
+            <h3>5 API Protocols</h3>
+            <p>REST, GraphQL, gRPC, AsyncAPI, and WebSocket. Contract validation, server stubs with business-logic placeholders (scaffolding, not full backend implementation), Postman-ready mock servers, interactive playgrounds, and auto-generated reference docs.</p>
+          </div>
+          <div class="card feature-card">
+            <div class="feature-icon">🧠</div>
+            <h3>RAG-Ready Knowledge Pipeline</h3>
+            <p>Auto-extract intent-driven knowledge modules from any docs type. FAISS semantic search, hybrid retrieval, and Ask AI runtime for developer self-service.</p>
+          </div>
+          <div class="card feature-card">
+            <div class="feature-icon">📊</div>
+            <h3>KPI Dashboard + SLA</h3>
+            <p>Track documentation health: quality score, staleness, gap count, SLA compliance. Policy packs enforce thresholds per team.</p>
+          </div>
+          <div class="card feature-card">
+            <div class="feature-icon">🧪</div>
+            <h3>Test Assets + Smart Merge</h3>
+            <p>Auto-generate protocol-aware test cases. Smart merge preserves manual and customized tests when contracts change. TestRail and Zephyr upload.</p>
+          </div>
+          <div class="card feature-card">
+            <div class="feature-icon">📋</div>
+            <h3>Premium Audit PDF</h3>
+            <p>Consulting-grade executive audit report: score gauges, risk matrix, per-site breakdown, LLM-powered analysis, and methodology appendix.</p>
+          </div>
+          <div class="card feature-card">
+            <div class="feature-icon">🔎</div>
+            <h3>Algolia Search Integration</h3>
+            <p>Auto-generate search widgets for MkDocs, Docusaurus, Hugo, VitePress, or custom sites. Index docs and deploy instant search with one command.</p>
+          </div>
+          <div class="card feature-card">
+            <div class="feature-icon">🤖</div>
+            <h3>RAG Test Generation</h3>
+            <p>Index your existing test suite, retrieve similar patterns, and auto-generate new tests in your project style. Saves ~65% of tester time across contract and code tests.</p>
+          </div>
+          <div class="card feature-card">
+            <div class="feature-icon">📦</div>
+            <h3>Confluence Migration</h3>
+            <p>One-click migration from Confluence. Import spaces, pages, attachments, and restructure content into docs-as-code format.</p>
+          </div>
+          <div class="card feature-card">
+            <div class="feature-icon">🗂️</div>
+            <h3>Lifecycle Governance</h3>
+            <p>Automate active/deprecated/removed states with replacement links, stale detection, and policy-driven documentation freshness controls.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- i18n -->
+    <section class="section">
+      <div class="container">
+        <h2>i18n: localized docs in any language</h2>
+        <p class="lead">LLM-powered translation and sync across all language variants. The pipeline writes in any language your audience reads. Available on Business and Enterprise plans.</p>
+        <div class="cols-4">
+          <div class="chip">English</div>
+          <div class="chip">Deutsch</div>
+          <div class="chip">Espa&ntilde;ol</div>
+          <div class="chip">Fran&ccedil;ais</div>
+          <div class="chip">Portugu&ecirc;s</div>
+          <div class="chip">Italiano</div>
+          <div class="chip">T&uuml;rk&ccedil;e</div>
+          <div class="chip">Polski</div>
+          <div class="chip">&#26085;&#26412;&#35486;</div>
+          <div class="chip">&#20013;&#25991;</div>
+          <div class="chip">&#54620;&#44397;&#50612;</div>
+          <div class="chip">&#1593;&#1585;&#1576;&#1610;</div>
+          <div class="chip">&#2361;&#2367;&#2344;&#2381;&#2342;&#2368;</div>
+          <div class="chip">Nederlands</div>
+          <div class="chip">Svenska</div>
+          <div class="chip">&#1056;&#1091;&#1089;&#1089;&#1082;&#1080;&#1081;</div>
+        </div>
+        <p style="text-align:center;color:var(--muted);font-size:13px;margin-top:10px">
+          16 languages preconfigured &mdash; add any language with one config line
+        </p>
+      </div>
+    </section>
+
+    <!-- Social Proof -->
+    <section class="section" id="proof">
+      <div class="container">
+        <h2>Built and proven in production workflows</h2>
+        <p class="lead">Powering documentation for Forge Studio ecosystem. Current dogfooding baseline:</p>
+        <div class="cols-4">
+          <div class="card feature-card">
+            <h3>Quality score</h3>
+            <p><strong>97%</strong> on active docs surfaces after automated gates.</p>
+          </div>
+          <div class="card feature-card">
+            <h3>Broken examples</h3>
+            <p><strong>0</strong> critical broken examples after smoke/self-verify passes.</p>
+          </div>
+          <div class="card feature-card">
+            <h3>Review workload</h3>
+            <p><strong>5-10 items</strong> in needs_review queue instead of full manual rewrites.</p>
+          </div>
+          <div class="card feature-card">
+            <h3>Protocol coverage</h3>
+            <p><strong>REST, GraphQL, gRPC, AsyncAPI, WebSocket</strong> in one pipeline.</p>
+          </div>
+        </div>
+        <p style="text-align:center;color:var(--muted);margin-top:16px;font-size:15px">
+          Want the same baseline in your stack? Start with a free audit and receive a concrete rollout plan.
+        </p>
+        <div style="text-align:center;margin-top:12px">
+          <a class="cta primary" href="#free-audit">Get Your Free Audit</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Pricing -->
+    <section class="section" id="pricing">
+      <div class="container">
+        <h2>Simple, transparent pricing</h2>
+        <p class="lead">Launch pricing. Start fast, then scale into strict quality gates and multi-protocol automation.</p>
+        <div class="billing-toggle">
+          <span class="active" id="label-monthly" onclick="setBilling('monthly')">Monthly</span>
+          <div class="toggle-track" id="billing-track" onclick="toggleBilling()">
+            <div class="toggle-thumb"></div>
+          </div>
+          <span id="label-annual" onclick="setBilling('annual')">Annual <span class="annual-save">2 months free</span></span>
+        </div>
+        <div class="cols-4" id="pricing-grid">
+          <article class="card">
+            <h3>Starter</h3>
+            <div class="price price-monthly">$149 <small>/month</small></div>
+            <div class="price price-annual">$124 <small>/month</small></div>
+            <p class="price-monthly" style="color:var(--muted);font-size:14px;margin-bottom:8px">1 repo, 200 pages, 1 seat</p>
+            <p class="price-annual" style="color:var(--muted);font-size:14px;margin-bottom:8px">$1,490/year &middot; 1 repo, 200 pages, 1 seat</p>
+            <ul class="pricing-features">
+              <li>32 automated quality checks + auto-fix</li>
+              <li>SEO/GEO optimization with auto-fix mode</li>
+              <li>Lifecycle management + gap detection</li>
+              <li>Docs generation (MkDocs + Docusaurus)</li>
+              <li>Confluence import + GitHub sync</li>
+              <li>Code example smoke tests</li>
+            </ul>
+            <a class="cta primary" href="https://liora-tech.lemonsqueezy.com/checkout/buy/d86a8f7b-7ff6-4bf2-8f96-7b5118d67605" style="width:100%;text-align:center">Start Free Trial</a>
+          </article>
+
+          <article class="card" style="border-color:var(--brand);box-shadow:0 4px 16px rgba(11,107,203,.12)">
+            <span class="tier-badge">Most Popular</span>
+            <h3>Pro</h3>
+            <div class="price price-monthly">$399 <small>/month</small></div>
+            <div class="price price-annual">$332 <small>/month</small></div>
+            <p class="price-monthly" style="color:var(--muted);font-size:14px;margin-bottom:8px">5 repos, 1,000 pages, 5 seats</p>
+            <p class="price-annual" style="color:var(--muted);font-size:14px;margin-bottom:8px">$3,990/year &middot; 5 repos, 1,000 pages, 5 seats</p>
+            <ul class="pricing-features">
+              <li>Everything in Starter</li>
+              <li>Docs-first with code-first/API-first/hybrid orchestration (REST/OpenAPI) + contract lint</li>
+              <li>API sandbox + Swagger playground</li>
+              <li>Drift detection (API/SDK auto-sync)</li>
+              <li>KPI dashboard + consolidated reports</li>
+              <li>Test assets + smart merge (REST)</li>
+              <li>RAG test generation (generate tests in your project style)</li>
+              <li>Algolia search integration</li>
+              <li>CI/CD workflow templates</li>
+            </ul>
+            <a class="cta primary" href="https://liora-tech.lemonsqueezy.com/checkout/buy/40e1e233-c9e5-41cf-8204-8184e7a35862" style="width:100%;text-align:center">Start Free Trial</a>
+          </article>
+
+          <article class="card">
+            <h3>Business</h3>
+            <div class="price price-monthly">$799 <small>/month</small></div>
+            <div class="price price-annual">$666 <small>/month</small></div>
+            <p class="price-monthly" style="color:var(--muted);font-size:14px;margin-bottom:8px">15 repos, 5,000 pages, 15 seats</p>
+            <p class="price-annual" style="color:var(--muted);font-size:14px;margin-bottom:8px">$7,990/year &middot; 15 repos, 5,000 pages, 15 seats</p>
+            <ul class="pricing-features">
+              <li>Everything in Pro</li>
+              <li>5-protocol pipeline (+ GraphQL, gRPC, AsyncAPI, WebSocket)</li>
+              <li>Integrated non-REST autopipeline: contract -> server stubs -> Postman mock -> live self-verify</li>
+              <li>Knowledge modules + JSON-LD knowledge graph</li>
+              <li>Retrieval quality evaluation</li>
+              <li>i18n docs in any language (LLM-powered)</li>
+              <li>TestRail/Zephyr test asset upload</li>
+              <li>Public docs auditor (site crawler + LLM audit)</li>
+              <li>SSO/SAML + audit logs + custom branding</li>
+              <li>Confluence migration tools</li>
+            </ul>
+            <a class="cta ghost price-monthly" href="https://calendly.com/eugenia-sorokina/veriops-discovery-call" target="_blank" rel="noopener" style="width:100%;text-align:center">Contact for Invoice</a>
+            <a class="cta ghost price-annual" href="https://calendly.com/eugenia-sorokina/veriops-discovery-call" target="_blank" rel="noopener" style="width:100%;text-align:center">Contact for Invoice</a>
+          </article>
+
+          <article class="card">
+            <h3>Enterprise</h3>
+            <div class="price price-monthly">$1,499 <small>/month</small></div>
+            <div class="price price-annual">$1,249 <small>/month</small></div>
+            <p class="price-monthly" style="color:var(--muted);font-size:14px;margin-bottom:8px">Unlimited repos, pages, seats</p>
+            <p class="price-annual" style="color:var(--muted);font-size:14px;margin-bottom:8px">$14,990/year &middot; Unlimited repos, pages, seats</p>
+            <ul class="pricing-features">
+              <li>Everything in Business</li>
+              <li>Strict publish gate for non-REST: publish only after green live self-verify</li>
+              <li>Advanced RAG (FAISS + HyDE + cross-encoder + hybrid search)</li>
+              <li>RAG test generation + AST-aware code indexing</li>
+              <li>Premium executive audit PDF (consulting-grade)</li>
+              <li>Custom policy packs + custom scoring policies</li>
+              <li>SLA guarantee with uptime and response commitments</li>
+              <li>Unlimited AI requests, storage, and custom domains</li>
+              <li>Dedicated account manager + priority support</li>
+              <li>White-glove onboarding and quarterly reviews</li>
+            </ul>
+            <p style="color:var(--muted);font-size:12px;margin-top:8px;text-align:center">
+              Need zero data exposure? <a href="#veriops" style="color:var(--brand);font-weight:600;text-decoration:none">See VeriOps</a>
+            </p>
+            <a class="cta ghost price-monthly" href="https://calendly.com/eugenia-sorokina/veriops-discovery-call" target="_blank" rel="noopener" style="width:100%;text-align:center">Contact for Invoice</a>
+            <a class="cta ghost price-annual" href="https://calendly.com/eugenia-sorokina/veriops-discovery-call" target="_blank" rel="noopener" style="width:100%;text-align:center">Contact for Invoice</a>
+          </article>
+        </div>
+        <p style="text-align:center;color:var(--muted);font-size:14px;margin-top:18px">
+          Need licensed deployment for regulated or air-gapped environments? <a href="#veriops" style="color:var(--brand);font-weight:700;text-decoration:none">VeriOps enterprise path</a>. Business/Enterprise invoices are handled manually.
+        </p>
+      </div>
+    </section>
+
+    <!-- Comparison Table -->
+    <section class="section" id="compare">
+      <div class="container">
+        <div class="section-center">
+          <h2>Why teams switch to VeriDoc</h2>
+          <p class="lead">One platform for documentation automation, quality gates, and governance across all docs types.</p>
+        </div>
+        <table class="comparison">
+          <thead>
+            <tr>
+              <th>Capability</th>
+              <th style="text-align:center">Confluence</th>
+              <th style="text-align:center">GitBook</th>
+              <th style="text-align:center">Readme</th>
+              <th style="text-align:center;color:var(--brand)">VeriDoc</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Docs-as-code + WYSIWYG</td>
+              <td class="no">WYSIWYG only</td>
+              <td class="check">Yes</td>
+              <td class="check">Yes</td>
+              <td class="highlight-col">Yes</td>
+            </tr>
+            <tr>
+              <td>SEO/GEO optimization</td>
+              <td class="no">-</td>
+              <td class="no">-</td>
+              <td class="no">Basic SEO</td>
+              <td class="highlight-col">32 checks + auto-fix</td>
+            </tr>
+            <tr>
+              <td>API-first (OpenAPI gen)</td>
+              <td class="no">-</td>
+              <td class="no">-</td>
+              <td class="no">Manual</td>
+              <td class="highlight-col">Auto-generate + validate</td>
+            </tr>
+            <tr>
+              <td>Multi-protocol API support (REST, GraphQL, gRPC, AsyncAPI, WebSocket)</td>
+              <td class="no">-</td>
+              <td class="no">-</td>
+              <td class="no">-</td>
+              <td class="highlight-col">Yes</td>
+            </tr>
+            <tr>
+              <td>Auto-generated endpoint stubs + mock-first testing before backend code</td>
+              <td class="no">-</td>
+              <td class="no">-</td>
+              <td class="no">-</td>
+              <td class="highlight-col">Yes (Postman-ready)</td>
+            </tr>
+            <tr>
+              <td>Drift detection (API/SDK)</td>
+              <td class="no">-</td>
+              <td class="no">-</td>
+              <td class="no">-</td>
+              <td class="highlight-col">Auto-detect + auto-fix</td>
+            </tr>
+            <tr>
+              <td>Quality gates (pre-commit)</td>
+              <td class="no">-</td>
+              <td class="no">-</td>
+              <td class="no">-</td>
+              <td class="highlight-col">8 automated gates</td>
+            </tr>
+            <tr>
+              <td>Confluence migration</td>
+              <td class="no">N/A</td>
+              <td class="check">Import</td>
+              <td class="no">-</td>
+              <td class="highlight-col">Import + restructure</td>
+            </tr>
+            <tr>
+              <td>Documentation i18n (any language, Business+)</td>
+              <td class="no">-</td>
+              <td class="no">Limited</td>
+              <td class="no">Limited</td>
+              <td class="highlight-col">Yes</td>
+            </tr>
+            <tr>
+              <td>Knowledge modules + RAG pipeline</td>
+              <td class="no">-</td>
+              <td class="no">-</td>
+              <td class="no">-</td>
+              <td class="highlight-col">Auto-extract + retrieval evals</td>
+            </tr>
+            <tr>
+              <td>Test assets generation + smart merge</td>
+              <td class="no">-</td>
+              <td class="no">-</td>
+              <td class="no">-</td>
+              <td class="highlight-col">Auto-gen + preserve custom</td>
+            </tr>
+            <tr>
+              <td>Premium executive audit PDF</td>
+              <td class="no">-</td>
+              <td class="no">-</td>
+              <td class="no">-</td>
+              <td class="highlight-col">Consulting-grade report</td>
+            </tr>
+            <tr>
+              <td>Algolia search integration (auto-widget for 5 generators)</td>
+              <td class="no">-</td>
+              <td class="no">-</td>
+              <td class="no">Manual</td>
+              <td class="highlight-col">Auto-generate + deploy</td>
+            </tr>
+            <tr>
+              <td>RAG test generation (~65% tester time saved)</td>
+              <td class="no">-</td>
+              <td class="no">-</td>
+              <td class="no">-</td>
+              <td class="highlight-col">AST-aware + few-shot</td>
+            </tr>
+            <tr>
+              <td>Licensed deployment (encrypted packs, zero data exposure)</td>
+              <td class="no">-</td>
+              <td class="no">-</td>
+              <td class="no">-</td>
+              <td class="highlight-col">Custom project scope</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- FAQ -->
+    <section class="section" id="faq">
+      <div class="container">
+        <h2>FAQ for technical buyers</h2>
+        <p class="lead">Answers to common questions from engineering leads, docs leads, and platform teams.</p>
+        <div class="cols-2">
+          <div class="card feature-card">
+            <h3>Is this only for API-first teams?</h3>
+            <p>No. VeriDoc is docs-first, and it supports code-first, API-first, and hybrid operating modes.</p>
+          </div>
+          <div class="card feature-card">
+            <h3>Do you generate full backend code?</h3>
+            <p>No. The pipeline generates API server stubs with business-logic placeholders for faster implementation and early testing.</p>
+          </div>
+          <div class="card feature-card">
+            <h3>Can we run non-REST mocks on Postman?</h3>
+            <p>Yes. External mock mode supports Postman auto-prepare and uses resolved mock endpoints in verification and docs testers.</p>
+          </div>
+          <div class="card feature-card">
+            <h3>Does this handle non-API docs?</h3>
+            <p>Yes. The same pipeline covers any documentation type, including product guides, tutorials, concepts, runbooks, troubleshooting docs, release notes, security docs, SDK docs, internal operations content, and external customer-facing documentation.</p>
+          </div>
+          <div class="card feature-card">
+            <h3>How do you avoid overwriting custom tests?</h3>
+            <p>Smart merge preserves manual and customized cases and flags changed signatures for targeted review.</p>
+          </div>
+          <div class="card feature-card">
+            <h3>Can we keep data inside our environment?</h3>
+            <p>Yes. This is the VeriOps deployment path: licensed infrastructure-first operation inside your environment for regulated or air-gapped requirements.</p>
+          </div>
+          <div class="card feature-card">
+            <h3>What plan includes full non-REST automation?</h3>
+            <p>Business and Enterprise include the integrated non-REST autopipeline (contracts, stubs, mocks, self-verify).</p>
+          </div>
+          <div class="card feature-card">
+            <h3>What is the fastest way to evaluate fit?</h3>
+            <p>Start with a free audit. You get evidence-based gaps, impact areas, and a practical rollout path.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Final CTA -->
+    <section class="section" style="background:var(--brand);color:#fff;border:none">
+      <div class="container section-center" style="padding:40px 0">
+        <h2 style="color:#fff">Stop maintaining documentation manually</h2>
+        <p style="color:rgba(255,255,255,.85);max-width:600px;margin:12px auto 24px;font-size:17px">
+          API docs, product guides, internal wikis, developer portals. Every plan includes 32 automated quality checks. Scale from one repo to unlimited. Need licensed deployment for regulated environments? Talk to us about VeriOps.
+        </p>
+        <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap">
+          <a class="cta" href="#pricing" style="background:#fff;color:var(--brand);font-weight:700">Get Started Free</a>
+          <a class="cta" href="#free-audit" style="border:1px solid rgba(255,255,255,.4);color:#fff;background:transparent">Get Free Audit</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container">
+      <p style="margin-bottom:8px">VeriDoc &mdash; Keep docs true.</p>
+      <p>
+        <a href="#pricing">Pricing</a> &middot;
+        <a href="#veriops">VeriOps</a> &middot;
+        <a href="https://yevheniiadolska.github.io/automated-docs-pipeline/demo-showcase/veridoc/" target="_blank" rel="noopener">Documentation</a> &middot;
+        <a href="https://calendly.com/eugenia-sorokina/veriops-discovery-call">Contact</a>
+      </p>
+    </div>
+  </footer>
+  <script>
+  (function () {
+    function setBilling(mode) {
+      var grid = document.getElementById('pricing-grid');
+      var track = document.getElementById('billing-track');
+      var lm = document.getElementById('label-monthly');
+      var la = document.getElementById('label-annual');
+      if (!grid || !track || !lm || !la) return;
+
+      if (mode === 'annual') {
+        grid.classList.add('billing-annual');
+        track.classList.add('annual');
+        la.classList.add('active');
+        lm.classList.remove('active');
+      } else {
+        grid.classList.remove('billing-annual');
+        track.classList.remove('annual');
+        lm.classList.add('active');
+        la.classList.remove('active');
+      }
+    }
+
+    function toggleBilling() {
+      var grid = document.getElementById('pricing-grid');
+      if (!grid) return;
+      setBilling(grid.classList.contains('billing-annual') ? 'monthly' : 'annual');
+    }
+
+    window.setBilling = setBilling;
+    window.toggleBilling = toggleBilling;
+    setBilling('monthly');
+  })();
+</script>
+</body>
+</html>

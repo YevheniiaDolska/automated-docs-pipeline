@@ -22,35 +22,35 @@
   <div class="wrap">
     <div class="hero">
       <h1>Public Documentation Audit</h1>
-      <p class="sub">Sites: 1 | topology: multi-project</p>
-      <p class="sub">Generated: 2026-03-28T07:49:14.289751+00:00</p>
+      <p class="sub">Sites: 7 | topology: multi-project</p>
+      <p class="sub">Generated: 2026-03-29T11:48:04.468415+00:00</p>
       <div class="grid">
-        <div class="card"><div class="label">Pages crawled</div><div class="value">1</div></div>
-        <div class="card"><div class="label">Pages discovered</div><div class="value">1</div></div>
-        <div class="card"><div class="label">Crawl coverage</div><div class="value">100.0%</div></div>
-        <div class="card"><div class="label">Broken links (docs)</div><div class="value">0</div></div>
+        <div class="card"><div class="label">Pages crawled</div><div class="value">1205</div></div>
+        <div class="card"><div class="label">Pages discovered</div><div class="value">20485</div></div>
+        <div class="card"><div class="label">Crawl coverage</div><div class="value">6.53%</div></div>
+        <div class="card"><div class="label">Broken links (docs)</div><div class="value">60</div></div>
         <div class="card"><div class="label">Broken links (repo nav)</div><div class="value">0</div></div>
-        <div class="card"><div class="label">Unverified links</div><div class="value">0</div></div>
-        <div class="card"><div class="label">SEO/GEO issue rate</div><div class="value">50.0%</div></div>
-        <div class="card"><div class="label">API reference coverage</div><div class="value">N/A</div></div>
-        <div class="card"><div class="label">Example reliability (estimate)</div><div class="value">0.0%</div></div>
-        <div class="card"><div class="label">Last-updated coverage</div><div class="value">0.0%</div></div>
-        <div class="card"><div class="label">Audit confidence</div><div class="value">74.0%</div></div>
+        <div class="card"><div class="label">Unverified links</div><div class="value">16497</div></div>
+        <div class="card"><div class="label">SEO/GEO issue rate</div><div class="value">7.45%</div></div>
+        <div class="card"><div class="label">API reference coverage</div><div class="value">32.26%</div></div>
+        <div class="card"><div class="label">Example reliability (estimate)</div><div class="value">16.95%</div></div>
+        <div class="card"><div class="label">Last-updated coverage</div><div class="value">3.4%</div></div>
+        <div class="card"><div class="label">Audit confidence</div><div class="value">49.48%</div></div>
       </div>
     </div>
     <div class="section">
       <h2>Top Findings</h2>
       <ul>
-        <li>SEO/GEO issue rate is high: 50.0%</li><li>No API reference pages found in 1 crawled pages (check API URL patterns, JS rendering, and authenticated access)</li><li>Example reliability estimate is low: 0.0%</li><li>Freshness visibility is weak: only 0.0% pages show last updated</li>
+        <li>Crawl coverage is low: 6.53% (1337 URLs examined of 20474 in discovered scope). Run authenticated mode or increase auto crawl safety cap.</li><li>Broken internal links: 60</li><li>Link verification inconclusive for 16497 URLs (auth/rate-limit/server block); these are excluded from broken-link counts.</li><li>API usage-doc coverage is low: 32.26% (73 API pages detected)</li><li>Example reliability estimate is low: 16.95%</li><li>Freshness visibility is weak: only 3.4% pages show last updated</li><li>Documentation is split across multiple sites, but marked as multi-project; no fragmentation penalty applied.</li>
       </ul>
     </div>
     <div class="section">
       <h2>Per-site Summary</h2>
       <ul>
-        <li><strong>https://docs.datadoghq.com/</strong>: pages=1, broken_links=0, api_coverage=N/A, examples=0.0%</li>
+        <li><strong>https://lightning.readthedocs.io/</strong>: pages=1, broken_links=1, api_coverage=N/A, examples=0.0%</li><li><strong>https://wally.readthedocs.io/en/release_1.5.0</strong>: pages=9, broken_links=41, api_coverage=N/A, examples=0.0%</li><li><strong>https://blockstream.com/satellite-api-documentation</strong>: pages=34, broken_links=1, api_coverage=100.0%, examples=0.0%</li><li><strong>https://docs.liquid.net/docs/building-on-liquid</strong>: pages=34, broken_links=3, api_coverage=33.33%, examples=97.83%</li><li><strong>https://gdk.readthedocs.io/en/release_0.76.3</strong>: pages=31, broken_links=14, api_coverage=N/A, examples=0.0%</li><li><strong>https://help.blockstream.com/hc/en-us</strong>: pages=171, broken_links=0, api_coverage=29.79%, examples=100.0%</li><li><strong>https://github.com/Blockstream/docs/blob/master/developer-documentation.rst</strong>: pages=925, broken_links=0, api_coverage=36.36%, examples=0.0%</li>
       </ul>
     </div>
-    <div class="section"><h2>LLM Executive Analysis (Claude Sonnet)</h2><p>Documentation audit of docs.datadoghq.com crawled only 1 page out of 25,000 maximum capacity, achieving 100% coverage of the severely limited scope. Zero broken links detected across all categories (0 docs, 0 repo). Critical visibility gaps identified: 50% SEO/geo issue rate, 0% example reliability, 0% freshness coverage, and no API reference pages detected. Overall confidence stands at 74%, with API detection confidence critically low at 35%.</p><h3>Strengths</h3><ul><li>Zero broken links detected (0 internal docs broken links, 0 repository broken links)</li><li>Link verification achieved 95% confidence level</li><li>Crawl execution completed at 95% confidence within examined scope</li><li>No crawl trap URLs encountered during examination</li></ul><h3>Risks</h3><ul><li>Audit crawled only 1 page - insufficient sample size for meaningful documentation assessment across enterprise docs platform</li><li>API reference pages not detected (0 pages found) - potential detection limitation due to JavaScript rendering, authentication requirements, or URL pattern mismatch</li><li>API detection confidence critically low at 35% - findings may not reflect actual API documentation state</li><li>SEO/geo issue rate at 50% indicates potential discoverability and internationalization problems</li><li>Zero example reliability measurement (0.0%) - code examples may be untested or broken</li><li>No freshness indicators detected (0.0% coverage) - users cannot assess content currency</li><li>Single-page sample prevents identification of systemic patterns in navigation, structure, or content quality</li></ul><h3>Prioritized actions</h3><ul><li>Re-execute full crawl with increased page limit and verify JavaScript rendering, authentication, and API URL patterns to capture complete documentation scope <em>[critical, medium]</em></li><li>Investigate and resolve API reference page detection failure - verify crawl can access authenticated/JS-rendered API documentation sections <em>[critical, high]</em></li><li>Implement last-updated timestamps on all documentation pages to address 0% freshness coverage <em>[high, low]</em></li><li>Audit and remediate SEO/geo issues affecting 50% of sampled pages - review meta tags, hreflang, and regional content <em>[high, medium]</em></li><li>Establish code example testing framework to improve 0% reliability estimate and prevent example drift <em>[medium, high]</em></li></ul></div>
+    <div class="section"><h2>LLM Executive Analysis (Claude Sonnet)</h2><p>Documentation audit across 7 properties crawled 1,205 pages with 6.53% crawl coverage of 20,474 discovered in-scope pages. 60 confirmed broken internal documentation links identified. API reference coverage stands at 32.26% across 73 detected API pages. Code example reliability estimated at 16.95%, and only 3.4% of pages display freshness metadata. Overall audit confidence is 49.48% due to crawl limitations and 16,497 unverified links blocked by authentication or rate limiting.</p><h3>Strengths</h3><ul><li>Multi-project topology correctly configured; no fragmentation penalty applied across 7 documentation properties</li><li>Zero broken repository navigation links (repo_broken_links_count: 0); all GitHub/GitLab internal links functional</li><li>API page detection successful with 73 pages identified and no detection failures flagged</li><li>SEO/geo issue rate contained at 7.45%</li><li>No trap URL patterns causing significant crawl waste (122 skipped)</li></ul><h3>Risks</h3><ul><li>60 confirmed broken internal documentation links degrading user navigation and trust</li><li>Crawl coverage critically low at 6.53% (1,205 of 20,474 pages); 93.47% of documentation not audited</li><li>16,497 links unverified due to authentication/rate-limiting; actual broken link count potentially much higher</li><li>API reference coverage at 32.26% leaves 67.74% of API surface undocumented or undetected</li><li>Example reliability at 16.95% indicates majority of code samples may be outdated, untested, or non-functional</li><li>Freshness metadata present on only 3.4% of pages; users cannot assess content currency</li><li>Overall audit confidence at 49.48% limits reliability of all findings and metrics</li></ul><h3>Prioritized actions</h3><ul><li>Enable authenticated crawling and increase crawl budget to reach minimum 80% coverage of 20,474 discovered pages <em>[critical, medium]</em></li><li>Remediate all 60 confirmed broken internal documentation links immediately <em>[critical, low]</em></li><li>Implement automated example testing pipeline to improve 16.95% reliability score above 80% threshold <em>[high, high]</em></li><li>Add last-updated metadata to all documentation pages (currently 3.4% coverage) using CI/CD automation <em>[high, low]</em></li><li>Expand API reference documentation to achieve minimum 70% coverage from current 32.26% <em>[high, high]</em></li></ul></div>
   </div>
 </body>
 </html>

@@ -54,7 +54,7 @@ class User(Base):
 
     id = Column(String(32), primary_key=True, default=_new_id)
     email = Column(String(320), unique=True, nullable=False, index=True)
-    hashed_password = Column(String(128), nullable=False)
+    hashed_password = Column(String(256), nullable=False)
     full_name = Column(String(200), nullable=True)
     is_active = Column(Boolean, default=True, nullable=False)
     is_superuser = Column(Boolean, default=False, nullable=False)
@@ -366,6 +366,54 @@ class ReferralLedgerEntry(Base):
     __table_args__ = (
         Index("ix_referral_ledger_referrer_status", "referrer_user_id", "status"),
         Index("ix_referral_ledger_available_at", "available_at"),
+    )
+
+
+# -----------------------------------------------------------------------
+# Invoice requests (invoice-only plans)
+# -----------------------------------------------------------------------
+
+
+class InvoiceRequest(Base):
+    __tablename__ = "invoice_requests"
+
+    id = Column(String(32), primary_key=True, default=_new_id)
+    user_id = Column(String(32), ForeignKey("users.id", ondelete="SET NULL"), nullable=True)
+    full_name = Column(String(200), nullable=False)
+    email = Column(String(320), nullable=False)
+    company = Column(String(300), nullable=True)
+    plan_tier = Column(String(20), nullable=False)
+    billing_period = Column(String(20), nullable=False)  # monthly/annual
+    message = Column(Text, nullable=True)
+    status = Column(String(20), nullable=False, default="pending")  # pending/invoiced/closed
+    created_at = Column(DateTime(timezone=True), default=_utcnow, nullable=False)
+
+    __table_args__ = (
+        Index("ix_invoice_requests_status", "status"),
+        Index("ix_invoice_requests_created", "created_at"),
+    )
+
+
+# -----------------------------------------------------------------------
+# Audit requests (public landing page CTA)
+# -----------------------------------------------------------------------
+
+
+class AuditRequest(Base):
+    __tablename__ = "audit_requests"
+
+    id = Column(String(32), primary_key=True, default=_new_id)
+    full_name = Column(String(200), nullable=False)
+    email = Column(String(320), nullable=False)
+    company = Column(String(300), nullable=True)
+    docs_url = Column(String(500), nullable=True)
+    message = Column(Text, nullable=True)
+    status = Column(String(20), nullable=False, default="pending")  # pending/contacted/closed
+    created_at = Column(DateTime(timezone=True), default=_utcnow, nullable=False)
+
+    __table_args__ = (
+        Index("ix_audit_requests_status", "status"),
+        Index("ix_audit_requests_created", "created_at"),
     )
 
 

@@ -29,6 +29,41 @@ from gitspeak_core.config.settings import AppSettings, get_default_settings
 
 logger = logging.getLogger(__name__)
 
+
+# ---------------------------------------------------------------------------
+# Sentry error tracking (initialized early, before FastAPI app creation)
+# ---------------------------------------------------------------------------
+
+def _init_sentry() -> None:
+    """Initialize Sentry SDK if SENTRY_DSN is configured."""
+    import os
+
+    dsn = os.getenv("SENTRY_DSN", "")
+    if not dsn:
+        return
+
+    try:
+        import sentry_sdk
+
+        environment = os.getenv("VERIDOC_ENVIRONMENT", "development")
+        sentry_sdk.init(
+            dsn=dsn,
+            environment=environment,
+            traces_sample_rate=0.2 if environment == "production" else 1.0,
+            profiles_sample_rate=0.1 if environment == "production" else 0.5,
+            send_default_pii=False,
+            enable_tracing=True,
+        )
+        logger.info("Sentry initialized: environment=%s", environment)
+    except ImportError:
+        logger.warning("sentry-sdk not installed, error tracking disabled")
+    except Exception:
+        logger.exception("Failed to initialize Sentry")
+
+
+_init_sentry()
+
+
 # ---------------------------------------------------------------------------
 # Application settings (singleton)
 # ---------------------------------------------------------------------------
@@ -308,6 +343,31 @@ async def readiness_check(db: Any = Depends(get_db)) -> dict[str, str]:
             status_code=503,
             content={"status": "not_ready", "database": str(exc)},
         )
+
+
+@app.get("/health/debug-sentry", tags=["health"])
+async def debug_sentry() -> dict[str, str]:
+    """Trigger a test exception to verify Sentry integration.
+
+    Only available in non-production environments.
+    """
+    import os
+
+    env = os.getenv("VERIDOC_ENVIRONMENT", "development")
+    if env == "production":
+        raise HTTPException(status_code=404, detail="Not Found")
+
+    try:
+        raise RuntimeError("VeriDoc Sentry test -- this error is intentional")
+    except RuntimeError:
+        try:
+            import sentry_sdk
+
+            sentry_sdk.capture_exception()
+            sentry_sdk.flush(timeout=5)
+            return {"status": "ok", "message": "Test error sent to Sentry"}
+        except ImportError:
+            return {"status": "skipped", "message": "sentry-sdk not installed"}
 
 
 # =========================================================================
@@ -903,6 +963,49 @@ async def run_referral_payouts(
             detail="Referral payout run requires Business tier or higher.",
         )
     return process_recurring_referral_payouts(db)
+
+
+@app.post("/billing/invoice-request", tags=["billing"])
+async def create_invoice_request(
+    request: Request,
+    user: dict[str, Any] = Depends(get_current_user),
+    db: Any = Depends(get_db),
+) -> dict[str, Any]:
+    """Submit an invoice request for Business or Enterprise plans."""
+    from gitspeak_core.api.billing import InvoiceRequestCreate, handle_create_invoice_request
+
+    body = await request.json()
+    try:
+        req = InvoiceRequestCreate(**body)
+        result = handle_create_invoice_request(req, user["user_id"], db)
+        return result.model_dump()
+    except (Exception,) as exc:
+        raise HTTPException(status_code=400, detail=str(exc))
+
+
+@app.post("/contact/audit-request", tags=["contact"])
+async def create_audit_request(
+    request: Request,
+    db: Any = Depends(get_db),
+) -> dict[str, Any]:
+    """Submit a free documentation audit request (public, no auth required)."""
+    from gitspeak_core.api.billing import AuditRequestCreate, handle_create_audit_request
+
+    body = await request.json()
+    try:
+        req = AuditRequestCreate(**body)
+        result = handle_create_audit_request(req, db)
+        return result.model_dump()
+    except (Exception,) as exc:
+        raise HTTPException(status_code=400, detail=str(exc))
+
+
+@app.get("/pricing/plans", tags=["billing"])
+async def get_plans() -> dict[str, Any]:
+    """Return public pricing data for all plans."""
+    from gitspeak_core.config.pricing import get_pricing_data
+
+    return get_pricing_data()
 
 
 @app.post("/billing/webhooks/lemonsqueezy", tags=["billing"])

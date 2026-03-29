@@ -490,6 +490,19 @@ export const billing = {
   runPayouts(): Promise<{ entries_considered: number; payouts_created: number; payouts_submitted: number }> {
     return post("/billing/referrals/payouts/run", {});
   },
+
+  requestAudit(data: { name: string; email: string; company: string }): Promise<{ status: string }> {
+    return post("/contact/audit-request", data);
+  },
+
+  requestInvoice(data: {
+    company: string;
+    billing_email: string;
+    tier: string;
+    notes: string;
+  }): Promise<{ status: string }> {
+    return post("/billing/invoice-request", data);
+  },
 };
 
 // --- Pipeline runs ---

@@ -46,7 +46,7 @@ services:
       - VERIDOC_SECRET_KEY=${VERIDOC_SECRET_KEY:?Set VERIDOC_SECRET_KEY}
       - VERIDOC_REDIS_URL=redis://redis:6379/0
       - VERIDOC_ENVIRONMENT=production
-      - VERIDOC_CORS_ORIGINS=${VERIDOC_CORS_ORIGINS:-https://app.veridoc.dev}
+      - VERIDOC_CORS_ORIGINS=${VERIDOC_CORS_ORIGINS:-https://veri-doc.app}
       # LLM API keys
       - GROQ_API_KEY=${GROQ_API_KEY:-}
       - DEEPSEEK_API_KEY=${DEEPSEEK_API_KEY:-}
@@ -56,6 +56,23 @@ services:
       - LEMONSQUEEZY_API_KEY=${LEMONSQUEEZY_API_KEY:-}
       - LEMONSQUEEZY_STORE_ID=${LEMONSQUEEZY_STORE_ID:-}
       - LEMONSQUEEZY_WEBHOOK_SECRET=${LEMONSQUEEZY_WEBHOOK_SECRET:-}
+      # LemonSqueezy variant IDs (self-serve checkout)
+      - LS_VARIANT_STARTER_MONTHLY=${LS_VARIANT_STARTER_MONTHLY:-}
+      - LS_VARIANT_STARTER_ANNUAL=${LS_VARIANT_STARTER_ANNUAL:-}
+      - LS_VARIANT_PRO_MONTHLY=${LS_VARIANT_PRO_MONTHLY:-}
+      - LS_VARIANT_PRO_ANNUAL=${LS_VARIANT_PRO_ANNUAL:-}
+      - LS_VARIANT_BUSINESS_MONTHLY=${LS_VARIANT_BUSINESS_MONTHLY:-}
+      - LS_VARIANT_ENTERPRISE_MONTHLY=${LS_VARIANT_ENTERPRISE_MONTHLY:-}
+      # SMTP for email notifications
+      - VERIDOC_SMTP_HOST=${VERIDOC_SMTP_HOST:-smtp.mailgun.org}
+      - VERIDOC_SMTP_PORT=${VERIDOC_SMTP_PORT:-587}
+      - VERIDOC_SMTP_USER=${VERIDOC_SMTP_USER:-}
+      - VERIDOC_SMTP_PASSWORD=${VERIDOC_SMTP_PASSWORD:-}
+      - VERIDOC_SMTP_FROM=${VERIDOC_SMTP_FROM:-noreply@veri-doc.app}
+      - VERIDOC_APP_BASE_URL=${VERIDOC_APP_BASE_URL:-https://veri-doc.app}
+      - VERIDOC_ADMIN_EMAIL=${VERIDOC_ADMIN_EMAIL:-jane.dolska@gmail.com,eugenia@veri-doc.app}
+      # Sentry error tracking
+      - SENTRY_DSN=${SENTRY_DSN:-}
     depends_on:
       postgres:
         condition: service_healthy
@@ -82,6 +99,7 @@ services:
       - DEEPSEEK_API_KEY=${DEEPSEEK_API_KEY:-}
       - ANTHROPIC_API_KEY=${ANTHROPIC_API_KEY:-}
       - OPENAI_API_KEY=${OPENAI_API_KEY:-}
+      - SENTRY_DSN=${SENTRY_DSN:-}
     depends_on:
       postgres:
         condition: service_healthy
@@ -103,6 +121,26 @@ services:
       redis:
         condition: service_healthy
 
+  # ---- Next.js Frontend ----
+  web:
+    build:
+      context: ./apps/web
+    restart: unless-stopped
+    ports:
+      - "${WEB_PORT:-3000}:3000"
+    environment:
+      - NEXT_PUBLIC_API_URL=/api
+      - API_PROXY_TARGET=http://api:8000
+    depends_on:
+      api:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "wget", "--spider", "-q", "http://localhost:3000"]
+      interval: 30s
+      timeout: 10s
+      start_period: 30s
+      retries: 3
+
   # ---- Nginx (reverse proxy + SSL) ----
   nginx:
     image: nginx:alpine
@@ -113,11 +151,10 @@ services:
     volumes:
       - ./deploy/nginx.conf:/etc/nginx/conf.d/default.conf:ro
       - ./deploy/ssl:/etc/nginx/ssl:ro
-      - frontend_build:/var/www/app:ro
     depends_on:
       - api
+      - web
 
 volumes:
   postgres_data:
   redis_data:
-  frontend_build:

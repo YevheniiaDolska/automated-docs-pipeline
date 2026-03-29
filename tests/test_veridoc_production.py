@@ -571,7 +571,8 @@ class TestBilling:
             def json(self):
                 return fake_payload
 
-        with patch("gitspeak_core.api.billing.httpx.post", return_value=DummyResp()):
+        with patch.dict(os.environ, {"LS_VARIANT_PRO_MONTHLY": "999999"}), \
+             patch("gitspeak_core.api.billing.httpx.post", return_value=DummyResp()):
             result = handle_create_checkout(
                 CreateCheckoutRequest(tier="pro"),
                 user_id=test_user.id,
@@ -1108,3 +1109,272 @@ class TestPipelineIntegration:
             .all()
         )
         assert len(runs) == 3
+
+
+# =========================================================================
+# Invoice Request Tests
+# =========================================================================
+
+
+class TestInvoiceRequest:
+    """Test invoice request handler and email builder."""
+
+    def test_create_invoice_request_saves_to_db(self, test_user, db_session, monkeypatch):
+        import gitspeak_core.api.billing as billing_mod
+        from gitspeak_core.api.billing import (
+            InvoiceRequestCreate,
+            handle_create_invoice_request,
+        )
+
+        monkeypatch.setattr(billing_mod, "_send_email", lambda *a, **kw: True)
+
+        req = InvoiceRequestCreate(
+            full_name="Alice Corp",
+            email="alice@example.com",
+            plan_tier="business",
+            billing_period="monthly",
+        )
+        result = handle_create_invoice_request(req, test_user.id, db_session)
+
+        assert result.status == "pending"
+        assert result.id
+
+        from gitspeak_core.db.models import InvoiceRequest
+
+        row = db_session.query(InvoiceRequest).filter_by(id=result.id).first()
+        assert row is not None
+        assert row.full_name == "Alice Corp"
+        assert row.email == "alice@example.com"
+        assert row.plan_tier == "business"
+        assert row.billing_period == "monthly"
+        assert row.user_id == test_user.id
+
+    def test_create_invoice_request_with_all_fields(self, test_user, db_session, monkeypatch):
+        import gitspeak_core.api.billing as billing_mod
+        from gitspeak_core.api.billing import (
+            InvoiceRequestCreate,
+            handle_create_invoice_request,
+        )
+
+        monkeypatch.setattr(billing_mod, "_send_email", lambda *a, **kw: True)
+
+        req = InvoiceRequestCreate(
+            full_name="Bob Enterprise",
+            email="bob@enterprise.co",
+            company="Enterprise Co.",
+            plan_tier="enterprise",
+            billing_period="annual",
+            message="Need NET-30 terms",
+        )
+        result = handle_create_invoice_request(req, test_user.id, db_session)
+
+        from gitspeak_core.db.models import InvoiceRequest
+
+        row = db_session.query(InvoiceRequest).filter_by(id=result.id).first()
+        assert row.company == "Enterprise Co."
+        assert row.message == "Need NET-30 terms"
+        assert row.plan_tier == "enterprise"
+        assert row.billing_period == "annual"
+
+    def test_create_invoice_request_sends_admin_email(self, test_user, db_session, monkeypatch):
+        import gitspeak_core.api.billing as billing_mod
+        from gitspeak_core.api.billing import (
+            InvoiceRequestCreate,
+            handle_create_invoice_request,
+        )
+
+        sent_emails = []
+        monkeypatch.setattr(
+            billing_mod,
+            "_send_email",
+            lambda to, subj, body: sent_emails.append((to, subj, body)) or True,
+        )
+
+        req = InvoiceRequestCreate(
+            full_name="Charlie",
+            email="charlie@test.com",
+            plan_tier="business",
+            billing_period="monthly",
+        )
+        handle_create_invoice_request(req, test_user.id, db_session)
+
+        assert len(sent_emails) == 1
+        to_addr, subject, body = sent_emails[0]
+        assert to_addr == billing_mod.ADMIN_EMAILS
+        assert "Business" in subject
+        assert "Monthly" in subject
+        assert "Charlie" in subject
+        assert "charlie@test.com" in body
+        assert "Business" in body
+
+    def test_invoice_request_validates_tier(self):
+        from gitspeak_core.api.billing import InvoiceRequestCreate
+
+        with pytest.raises(Exception):
+            InvoiceRequestCreate(
+                full_name="Test",
+                email="test@test.com",
+                plan_tier="starter",  # only business/enterprise allowed
+                billing_period="monthly",
+            )
+
+    def test_invoice_request_validates_period(self):
+        from gitspeak_core.api.billing import InvoiceRequestCreate
+
+        with pytest.raises(Exception):
+            InvoiceRequestCreate(
+                full_name="Test",
+                email="test@test.com",
+                plan_tier="business",
+                billing_period="weekly",  # only monthly/annual allowed
+            )
+
+    def test_build_invoice_email_content(self):
+        from gitspeak_core.api.billing import _build_invoice_request_admin_email
+
+        subject, body = _build_invoice_request_admin_email(
+            full_name="Dana",
+            email="dana@company.io",
+            company="Company Inc.",
+            plan_tier="enterprise",
+            billing_period="annual",
+            message="PO required",
+            request_id="req_abc123",
+        )
+
+        assert "Enterprise" in subject
+        assert "Annual" in subject
+        assert "Dana" in subject
+        assert "req_abc123" in body
+        assert "dana@company.io" in body
+        assert "Company Inc." in body
+        assert "PO required" in body
+        assert "Enterprise" in body
+        assert "Annual" in body
+
+
+# =========================================================================
+# Audit Request Tests
+# =========================================================================
+
+
+class TestAuditRequest:
+    """Test audit request handler and email builder."""
+
+    def test_create_audit_request_saves_to_db(self, db_session, monkeypatch):
+        import gitspeak_core.api.billing as billing_mod
+        from gitspeak_core.api.billing import (
+            AuditRequestCreate,
+            handle_create_audit_request,
+        )
+
+        monkeypatch.setattr(billing_mod, "_send_email", lambda *a, **kw: True)
+
+        req = AuditRequestCreate(
+            full_name="Eve Prospect",
+            email="eve@prospect.com",
+        )
+        result = handle_create_audit_request(req, db_session)
+
+        assert result.status == "pending"
+        assert result.id
+        assert "audit" in result.message.lower()
+
+        from gitspeak_core.db.models import AuditRequest
+
+        row = db_session.query(AuditRequest).filter_by(id=result.id).first()
+        assert row is not None
+        assert row.full_name == "Eve Prospect"
+        assert row.email == "eve@prospect.com"
+        assert row.status == "pending"
+
+    def test_create_audit_request_with_all_fields(self, db_session, monkeypatch):
+        import gitspeak_core.api.billing as billing_mod
+        from gitspeak_core.api.billing import (
+            AuditRequestCreate,
+            handle_create_audit_request,
+        )
+
+        monkeypatch.setattr(billing_mod, "_send_email", lambda *a, **kw: True)
+
+        req = AuditRequestCreate(
+            full_name="Frank Lead",
+            email="frank@bigcorp.com",
+            company="BigCorp",
+            docs_url="https://docs.bigcorp.com",
+            message="We have 500+ pages of legacy docs",
+        )
+        result = handle_create_audit_request(req, db_session)
+
+        from gitspeak_core.db.models import AuditRequest
+
+        row = db_session.query(AuditRequest).filter_by(id=result.id).first()
+        assert row.company == "BigCorp"
+        assert row.docs_url == "https://docs.bigcorp.com"
+        assert row.message == "We have 500+ pages of legacy docs"
+
+    def test_create_audit_request_sends_admin_email(self, db_session, monkeypatch):
+        import gitspeak_core.api.billing as billing_mod
+        from gitspeak_core.api.billing import (
+            AuditRequestCreate,
+            handle_create_audit_request,
+        )
+
+        sent_emails = []
+        monkeypatch.setattr(
+            billing_mod,
+            "_send_email",
+            lambda to, subj, body: sent_emails.append((to, subj, body)) or True,
+        )
+
+        req = AuditRequestCreate(
+            full_name="Grace",
+            email="grace@startup.io",
+            company="StartupIO",
+        )
+        handle_create_audit_request(req, db_session)
+
+        assert len(sent_emails) == 1
+        to_addr, subject, body = sent_emails[0]
+        assert to_addr == billing_mod.ADMIN_EMAILS
+        assert "Grace" in subject
+        assert "StartupIO" in subject
+        assert "grace@startup.io" in body
+        assert "StartupIO" in body
+
+    def test_build_audit_email_content(self):
+        from gitspeak_core.api.billing import _build_audit_request_admin_email
+
+        subject, body = _build_audit_request_admin_email(
+            full_name="Hector",
+            email="hector@acme.com",
+            company="Acme Ltd",
+            docs_url="https://docs.acme.com",
+            message="Need help migrating from Confluence",
+            request_id="req_xyz789",
+        )
+
+        assert "Hector" in subject
+        assert "Acme Ltd" in subject
+        assert "req_xyz789" in body
+        assert "hector@acme.com" in body
+        assert "https://docs.acme.com" in body
+        assert "Need help migrating from Confluence" in body
+
+    def test_audit_request_no_auth_required(self, db_session, monkeypatch):
+        """Audit request handler does not need user_id (public endpoint)."""
+        import gitspeak_core.api.billing as billing_mod
+        from gitspeak_core.api.billing import (
+            AuditRequestCreate,
+            handle_create_audit_request,
+        )
+
+        monkeypatch.setattr(billing_mod, "_send_email", lambda *a, **kw: True)
+
+        # No user_id passed -- handler signature only takes request + db
+        req = AuditRequestCreate(
+            full_name="Public User",
+            email="public@example.com",
+        )
+        result = handle_create_audit_request(req, db_session)
+        assert result.status == "pending"

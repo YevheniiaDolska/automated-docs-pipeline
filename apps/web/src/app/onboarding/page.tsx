@@ -1,6 +1,9 @@
 "use client";
 
 import { useState, useCallback } from "react";
+import { useRouter } from "next/navigation";
+import { onboarding as onboardingApi } from "@/lib/api";
+import AuthGuard from "@/components/auth-guard";
 
 // ---------------------------------------------------------------------------
 // Types
@@ -94,7 +97,8 @@ const SITE_GENERATORS = [
 // Component
 // ---------------------------------------------------------------------------
 
-export default function OnboardingPage() {
+function OnboardingWizard() {
+  const router = useRouter();
   const [step, setStep] = useState(1);
   const [answers, setAnswers] = useState<OnboardingAnswers>(INITIAL_ANSWERS);
   const [submitting, setSubmitting] = useState(false);
@@ -153,14 +157,10 @@ export default function OnboardingPage() {
   const handleSubmit = async () => {
     setSubmitting(true);
     try {
-      const res = await fetch("/api/onboarding", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(answers),
-      });
-      if (res.ok) {
-        window.location.href = "/dashboard";
-      }
+      await onboardingApi.submit(answers as unknown as Record<string, unknown>);
+      router.push("/dashboard");
+    } catch {
+      // errors surfaced by API client
     } finally {
       setSubmitting(false);
     }
@@ -470,5 +470,13 @@ export default function OnboardingPage() {
         )}
       </div>
     </div>
+  );
+}
+
+export default function OnboardingPage() {
+  return (
+    <AuthGuard>
+      <OnboardingWizard />
+    </AuthGuard>
   );
 }
