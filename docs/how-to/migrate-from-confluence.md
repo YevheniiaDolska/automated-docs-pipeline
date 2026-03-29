@@ -1,12 +1,15 @@
 ---
-title: "Migrate documentation from Confluence"
-description: "Import Confluence pages into the documentation pipeline with automatic quality enhancement, SEO optimization, and knowledge extraction."
+title: Migrate documentation from Confluence
+description: Import Confluence pages into the documentation pipeline with automatic
+  quality enhancement, SEO optimization, and knowledge extraction.
 content_type: how-to
 product: both
-last_reviewed: "2026-03-28"
+last_reviewed: '2026-03-28'
 tags:
-  - How-To
+- How-To
+original_author: Kroha
 ---
+
 
 # Migrate documentation from Confluence
 

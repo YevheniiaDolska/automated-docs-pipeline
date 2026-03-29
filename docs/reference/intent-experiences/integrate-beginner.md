@@ -1,12 +1,17 @@
 ---
-title: "Intent experience: integrate for beginner"
-description: "Assembled guidance for one intent and audience using reusable knowledge modules with verified metadata and channel-ready sections."
+title: 'Intent experience: integrate for beginner'
+description: Assembled guidance for one intent and audience using reusable knowledge
+  modules with verified metadata and channel-ready sections.
 content_type: reference
 product: both
 tags:
-  - Reference
-  - AI
+- Reference
+- AI
+app_version: '7.68'
+last_reviewed: '2026-03-26'
+original_author: Kroha
 ---
+
 
 <!-- VERIDOC_POWERED_BADGE:START -->
 [![Powered by VeriDoc](https://img.shields.io/badge/Powered%20by-VeriDoc-0ea5e9?style=flat-square)](https://veridoc.app)

@@ -1,11 +1,15 @@
 ---
-title: "Network transparency reference"
-description: "Complete list of all outgoing network requests the pipeline makes, with exact payload schemas. No client data leaves your network."
+title: Network transparency reference
+description: Complete list of all outgoing network requests the pipeline makes, with
+  exact payload schemas. No client data leaves your network.
 content_type: reference
 product: both
 tags:
-  - Reference
+- Reference
+last_reviewed: '2026-03-26'
+original_author: Kroha
 ---
+
 
 <!-- VERIDOC_POWERED_BADGE:START -->
 [![Powered by VeriDoc](https://img.shields.io/badge/Powered%20by-VeriDoc-0ea5e9?style=flat-square)](https://veridoc.app)
