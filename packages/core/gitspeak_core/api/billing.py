@@ -77,7 +77,7 @@ TIER_LIMITS: dict[str, dict[str, int]] = {
 
 # Referral and commission policy defaults.
 CHEAPEST_PAID_TIER = os.environ.get("VERIDOC_CHEAPEST_PAID_TIER", "starter")
-COMMISSION_RATE_DEFAULT = float(os.environ.get("VERIDOC_REFERRAL_COMMISSION_RATE", "0.2"))
+COMMISSION_RATE_DEFAULT = float(os.environ.get("VERIDOC_REFERRAL_COMMISSION_RATE", "0.15"))
 COMMISSION_GRACE_DAYS = int(os.environ.get("VERIDOC_REFERRAL_GRACE_DAYS", "14"))
 PAYOUT_MIN_CENTS = int(os.environ.get("VERIDOC_REFERRAL_PAYOUT_MIN_CENTS", "5000"))
 WISE_API_TOKEN = os.environ.get("WISE_API_TOKEN", "")
@@ -328,7 +328,7 @@ class CheckoutResponse(BaseModel):
     )
     badge_settings_hint: str = Field(
         default=(
-            "On Pro/Business/Enterprise you can disable badge in Settings > Badge and referral income, "
+            "On Business/Enterprise you can disable badge in Settings > Badge and referral income, "
             "or keep it enabled for recurring referral commissions. Read full terms at /referral-terms."
         ),
         description="UI hint to show near checkout and post-purchase screens.",
@@ -766,7 +766,7 @@ def handle_get_referral_summary(user_id: str, db_session: Any) -> ReferralSummar
     profile = ensure_referral_profile(user_id, db_session)
     current_tier = user.subscription.tier
     mandatory_badge = _is_badge_mandatory(current_tier)
-    commission_eligible = _is_commission_eligible_tier(current_tier)
+    commission_eligible = _is_referrer_commission_eligible_tier(current_tier)
 
     rows = (
         db_session.query(ReferralLedgerEntry)
@@ -788,10 +788,9 @@ def handle_get_referral_summary(user_id: str, db_session: Any) -> ReferralSummar
         totals[row.status] += int(row.amount_cents or 0)
 
     policy_message = (
-        "Free and cheapest paid plans must keep Powered by VeriDoc badge enabled. "
-        "These tiers do not earn referral commissions. "
-        "Higher paid tiers can disable the badge or keep it enabled to receive recurring "
-        "commissions from referred active paid subscriptions."
+        "Free, Starter, and Pro must keep Powered by VeriDoc badge enabled and do not earn commission. "
+        "Business and Enterprise can disable the badge, or keep it enabled to earn recurring commission. "
+        "Recurring accrues only while both referrer and referred accounts remain on paid active subscriptions."
     )
 
     return ReferralSummaryResponse(
@@ -824,7 +823,10 @@ def handle_get_referral_summary(user_id: str, db_session: Any) -> ReferralSummar
             "reversed_cents": totals.get("reversed", 0),
             "payout_min_cents": PAYOUT_MIN_CENTS,
             "is_recurring": True,
-            "recurring_rule": "Commission accrues on each successful paid renewal event.",
+            "recurring_rule": (
+                "15% commission accrues on each successful paid renewal while referrer is on "
+                "business/enterprise with badge enabled, and both accounts remain paid/active."
+            ),
         },
         recent_ledger=[
             {
@@ -876,7 +878,7 @@ def handle_update_referral_settings(
     if request.badge_opt_out is not None:
         if mandatory_badge and request.badge_opt_out:
             raise ValueError(
-                "Badge cannot be disabled on Free or cheapest paid tier."
+                "Badge cannot be disabled on Free, Starter, or Pro."
             )
         profile.badge_opt_out = bool(request.badge_opt_out)
 
@@ -1020,17 +1022,29 @@ def _generate_unique_referral_code(db_session: Any) -> str:
 
 
 def _is_badge_mandatory(tier: str) -> bool:
-    """Badge is mandatory on free and cheapest paid plan."""
-    if tier == "free":
-        return True
-    return tier == CHEAPEST_PAID_TIER
+    """Badge is mandatory on free/starter/pro tiers."""
+    normalized = (tier or "").strip().lower()
+    return normalized in {"free", "starter", "pro"}
 
 
-def _is_commission_eligible_tier(tier: str) -> bool:
-    """Only paid tiers above cheapest paid tier can earn commission."""
-    if tier in {"free", CHEAPEST_PAID_TIER}:
+def _is_referrer_commission_eligible_tier(tier: str) -> bool:
+    """Only business and enterprise referrers can earn recurring commission."""
+    normalized = (tier or "").strip().lower()
+    return normalized in {"business", "enterprise"}
+
+
+def _is_paid_tier(tier: str) -> bool:
+    """Return True when tier is a paid plan."""
+    return (tier or "").strip().lower() in {"starter", "pro", "business", "enterprise"}
+
+
+def _is_subscription_paid_active(sub: Any | None) -> bool:
+    """Return True when subscription is paid and in an active lifecycle state."""
+    if sub is None:
         return False
-    return tier in {"starter", "pro", "business", "enterprise"}
+    tier = str(getattr(sub, "tier", "") or "")
+    status = str(getattr(sub, "status", "") or "")
+    return _is_paid_tier(tier) and _is_license_active_status(status)
 
 
 def _extract_payment_amount_cents(attrs: dict[str, Any], tier: str) -> int:
@@ -1403,7 +1417,12 @@ def _on_trial_ending(data: dict[str, Any], db_session: Any) -> None:
 
 def _on_payment_success(data: dict[str, Any], db_session: Any) -> None:
     """Handle successful payment -- reset usage counters."""
-    from gitspeak_core.db.models import ReferralAttribution, ReferralLedgerEntry, Subscription
+    from gitspeak_core.db.models import (
+        ReferralAttribution,
+        ReferralLedgerEntry,
+        ReferralProfile,
+        Subscription,
+    )
 
     attrs = data.get("attributes", {})
     ls_sub_id = str(attrs.get("subscription_id", ""))
@@ -1423,13 +1442,39 @@ def _on_payment_success(data: dict[str, Any], db_session: Any) -> None:
     sub.api_calls_used = 0
     sub.status = "active"
 
-    # Recurring commissions: accrue on every successful paid renewal event.
+    # Recurring commissions accrue only when:
+    # - referred account is paid and active
+    # - referrer account is paid and active on business/enterprise
+    # - referrer has not disabled badge (badge_opt_out=False)
     attribution = (
         db_session.query(ReferralAttribution)
         .filter(ReferralAttribution.referred_user_id == sub.user_id)
         .first()
     )
-    if attribution and _is_commission_eligible_tier(sub.tier):
+    referrer_sub = None
+    referrer_profile = None
+    if attribution:
+        referrer_sub = (
+            db_session.query(Subscription)
+            .filter(Subscription.user_id == attribution.referrer_user_id)
+            .first()
+        )
+        referrer_profile = (
+            db_session.query(ReferralProfile)
+            .filter(ReferralProfile.user_id == attribution.referrer_user_id)
+            .first()
+        )
+
+    commission_allowed = (
+        attribution is not None
+        and _is_subscription_paid_active(sub)
+        and _is_subscription_paid_active(referrer_sub)
+        and _is_referrer_commission_eligible_tier(str(getattr(referrer_sub, "tier", "")))
+        and bool(referrer_profile is not None)
+        and not bool(getattr(referrer_profile, "badge_opt_out", False))
+    )
+
+    if commission_allowed and attribution:
         event_id = (
             str(data.get("id", "")).strip()
             or str(attrs.get("order_id", "")).strip()
@@ -1463,6 +1508,11 @@ def _on_payment_success(data: dict[str, Any], db_session: Any) -> None:
                     },
                 )
                 db_session.add(ledger)
+    elif attribution:
+        logger.info(
+            "Commission skipped for subscription=%s: policy conditions not met",
+            ls_sub_id,
+        )
 
     db_session.commit()
     _issue_or_refresh_server_license(sub, reason="subscription_payment_success", db_session=db_session)

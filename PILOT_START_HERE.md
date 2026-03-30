@@ -15,6 +15,27 @@ This content follows the active implementation baseline:
 
 This guide walks you through a focused 10-14 calendar day pilot (typically 5-10 business days) of the VeriOps on your own repository. By the end, you have working quality gates, automated weekly reporting, and generated documentation.
 
+## Commercial scope (fixed)
+
+- Pilot package: **$5,000**.
+- Pilot goal: prove value in one real repository.
+- Next package after successful pilot: **full implementation for $15,000**.
+- After full implementation: optional monthly retainer.
+
+What is included in pilot:
+
+1. One repository setup and configuration.
+1. Core quality gates enabled.
+1. One consolidated report cycle.
+1. 5-10 generated/updated docs with validation.
+1. KPI baseline and handoff/training session.
+
+What is not included in pilot:
+
+1. Multi-repository rollout.
+1. Custom feature development.
+1. 24/7 SLA support.
+
 
 ## Non-API documentation flows (docs-first scope)
 

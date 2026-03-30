@@ -86,7 +86,7 @@ Payment:
 - 50% upfront, 50% on delivery (alternative: 40/60),
 - White-Glove add-on billed separately (fixed fee or time-and-materials).
 
-#### B. Full Rollout - USD 12,000-25,000+, 3-6 weeks
+#### B. Full Rollout - USD 15,000 fixed, 3-6 weeks
 
 Purpose: production-grade implementation and team enablement.
 
@@ -107,7 +107,7 @@ Acceptance criteria:
 
 Payment:
 
-- 40% kickoff, 40% mid-point, 20% final sign-off,
+- 50% kickoff, 50% final sign-off,
 - White-Glove install can be added as a separate line item if direct environment access is required.
 
 #### C. Monthly Retainer (SLA)
@@ -128,9 +128,22 @@ SLA boundaries:
 
 ### 3) Optional deal path (recommended)
 
-Pilot -> Full Rollout -> Retainer.
+Pilot ($5,000) -> Full Rollout ($15,000) -> Retainer.
 
 This gives the client low entry risk and clear expansion logic after proven outcomes.
+
+### 3.1) Capability matrix (pilot / expiry / full)
+
+| State | What works | What is limited |
+| --- | --- | --- |
+| Pilot active | Core quality gates, weekly automation, one-repo operating setup, pilot deliverables | Scope is intentionally limited to pilot package |
+| Pilot expired (no upgrade) | Existing docs/assets remain with client; basic local checks continue in community mode | Advanced licensed capabilities degrade (for example, scoring/drift/enterprise protocol scope) after grace period |
+| Full rollout active | Production scope, full rollout hardening, enterprise-level automation profile | No pilot scope limits |
+
+License behavior reference:
+
+- Offline grace defaults: Pilot 3 days, Professional 7 days, Enterprise 30 days.
+- After grace with no valid license, runtime falls back to community (degraded) mode.
 
 ### 4) Commercial notes
 

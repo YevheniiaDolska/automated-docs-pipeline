@@ -2,8 +2,12 @@
 """Apply VeriDoc branding and referral badge policy to Markdown docs.
 
 Policy:
-- Free + cheapest paid tier: badge is mandatory, no referral commission link.
-- Higher tiers: badge default-on, optional opt-out, optional referral link.
+- Mandatory badge tiers: free, starter, pro, and pilot.
+- Optional badge tiers: business and enterprise.
+- Referral recurring is enabled only when:
+  1) plan is business/enterprise,
+  2) badge remains enabled,
+  3) referral code is present.
 """
 
 from __future__ import annotations
@@ -95,9 +99,19 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--docs-root", default="docs", help="Docs root path, relative to repo root.")
     parser.add_argument("--landing-url", required=True, help="Landing URL used in Powered by VeriDoc badge.")
     parser.add_argument("--plan", default="free", help="Current plan (for example free/starter/pro/business/enterprise).")
-    parser.add_argument("--cheapest-paid-plan", default="starter", help="Cheapest paid plan slug.")
+    parser.add_argument(
+        "--cheapest-paid-plan",
+        default="pro",
+        help="Legacy field kept for backward compatibility (current policy is hardcoded by plan tiers).",
+    )
     parser.add_argument("--badge-opt-out", action="store_true", help="Allow removing badge for higher plans.")
     parser.add_argument("--referral-code", default="", help="Referral code for higher plans when badge is enabled.")
+    parser.add_argument(
+        "--referral-recurring-percent",
+        type=float,
+        default=15.0,
+        help="Recurring referral commission percent for eligible plans.",
+    )
     parser.add_argument("--report", default="reports/veridoc_branding_policy_report.json", help="JSON report output path.")
     parser.add_argument("--check", action="store_true", help="Check mode. Do not write files.")
     return parser.parse_args()
@@ -122,15 +136,17 @@ def main() -> int:
 
     plan = args.plan.strip().lower()
     cheapest = args.cheapest_paid_plan.strip().lower()
-    mandatory = plan in {"free", cheapest}
-    allow_commission = not mandatory
+    mandatory_plans = {"pilot", "free", "starter", "pro"}
+    referral_eligible_plans = {"business", "enterprise"}
+    mandatory = plan in mandatory_plans
+    referral_eligible = plan in referral_eligible_plans
 
     landing_url = args.landing_url.strip()
     if not landing_url:
         print("[branding] landing_url is empty")
         return 2
 
-    if allow_commission and (not args.badge_opt_out) and args.referral_code.strip():
+    if referral_eligible and (not args.badge_opt_out) and args.referral_code.strip():
         effective_url = _with_ref(landing_url, args.referral_code.strip())
         commission_enabled = True
     else:
@@ -183,9 +199,17 @@ def main() -> int:
         "docs_root": str(docs_root),
         "plan": plan,
         "cheapest_paid_plan": cheapest,
+        "mandatory_plans": sorted(mandatory_plans),
+        "referral_eligible_plans": sorted(referral_eligible_plans),
         "mandatory_badge": mandatory,
         "badge_opt_out": bool(args.badge_opt_out),
+        "referral_recurring_percent": float(args.referral_recurring_percent),
         "commission_enabled": commission_enabled,
+        "commission_terms": (
+            f"{float(args.referral_recurring_percent):g}% recurring while badge remains enabled, referrer stays on business/enterprise, and both referrer and referred users remain on paid plans"
+            if commission_enabled
+            else "No recurring commission in current configuration"
+        ),
         "effective_landing_url": effective_url,
         "changed_files_count": len(changed),
         "removed_files_count": len(removed),
@@ -206,4 +230,3 @@ def main() -> int:
 
 if __name__ == "__main__":
     raise SystemExit(main())
-

@@ -11,6 +11,43 @@ Plan scope: Enterprise (full-surface instructions).
 
 This is an automated documentation pipeline for technical products. When writing or editing documentation, follow these rules strictly to ensure all linting checks pass.
 
+## Zero-config user prompt mode (mandatory default)
+
+The default UX in this repository is: user gives a simple intent prompt, and Claude executes the correct pipeline automatically.
+
+Rules:
+
+1. Do not require users to provide orchestration commands.
+1. Do not require users to describe pipeline internals.
+1. Infer intent from simple prompts like:
+   - "Generate a how-to guide"
+   - "Update API docs from planning notes"
+   - "Regenerate architecture docs"
+1. Run the required scripts automatically and end with artifact paths + review checklist.
+
+Mandatory intent routing:
+
+1. Generic docs generation/update request:
+   - Generate/update docs from templates.
+   - Then run full docs quality + knowledge pipeline automatically:
+     - `npm run lint`
+     - `python3 scripts/extract_knowledge_modules_from_docs.py --docs-dir docs --modules-dir knowledge_modules --report reports/knowledge_auto_extract_report.json`
+     - `python3 scripts/validate_knowledge_modules.py`
+     - `python3 scripts/generate_knowledge_retrieval_index.py`
+1. REST API-first request (planning notes -> OpenAPI/docs/stubs/tests):
+   - `python3 scripts/run_api_first_flow.py ...`
+1. Any GraphQL/gRPC/AsyncAPI/WebSocket request:
+   - `python3 scripts/run_multi_protocol_contract_flow.py --runtime-config docsops/config/client_runtime.yml --reports-dir reports ...`
+1. "Run everything"/"full pass"/"autopipeline":
+   - `python3 scripts/run_autopipeline.py --docsops-root docsops --reports-dir reports --auto-generate`
+
+Output contract for zero-config mode:
+
+1. Brief status (`done`/`failed`).
+1. Exact artifact file paths.
+1. What changed in docs/contracts/stubs/tests.
+1. Only the remaining manual review items (if any).
+
 ## Mandatory pipeline execution for API docs
 
 The pipeline supports five API protocols: REST (OpenAPI), GraphQL (SDL/introspection), gRPC (Proto/descriptor), AsyncAPI (event-driven specs), and WebSocket (channel/message contracts).

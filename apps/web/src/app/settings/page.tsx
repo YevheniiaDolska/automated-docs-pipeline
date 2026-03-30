@@ -305,11 +305,11 @@ function SettingsContent() {
       <section className="mt-10" id="referrals">
         <h2 className="text-lg font-semibold">Badge and referral income</h2>
         <p className="mt-1 text-sm text-gray-500">
-          For Free and the cheapest paid plan, the Powered by VeriDoc badge is mandatory and does not pay commissions.
-          For higher paid plans, you can disable the badge here, or keep it enabled and earn recurring referral commissions.
+          Free, Starter, and Pro require the Powered by VeriDoc badge and do not pay commissions.
+          Business and Enterprise can disable the badge, or keep it enabled to earn 15% recurring referral commissions.
         </p>
         <p className="mt-2 text-sm text-blue-700">
-          Upgrade tip: after upgrading to Pro, Business, or Enterprise, open this section to configure badge opt-out and payouts.
+          Upgrade tip: after upgrading to Business or Enterprise, open this section to configure badge opt-out and payouts.
         </p>
         <p className="mt-1 text-sm">
           <a className="text-blue-700 underline" href="/referral-terms">
@@ -340,12 +340,12 @@ function SettingsContent() {
                   onChange={(e) => saveReferralSettings({ badge_opt_out: e.target.checked })}
                 />
                 <span>
-                  Disable Powered by VeriDoc badge (available only on higher paid tiers)
+                  Disable Powered by VeriDoc badge (available only on Business and Enterprise)
                 </span>
               </label>
               {!referrals.profile.badge_opt_out_allowed && (
                 <p className="mt-2 text-xs text-amber-700">
-                  Badge is mandatory on your current plan. Upgrade to a higher paid plan to choose opt-out.
+                  Badge is mandatory on your current plan. Upgrade to Business or Enterprise to choose opt-out.
                 </p>
               )}
             </div>

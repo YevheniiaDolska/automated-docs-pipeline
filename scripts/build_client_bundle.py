@@ -683,6 +683,8 @@ $Action = New-ScheduledTaskAction -Execute \"powershell.exe\" -Argument \"-NoPro
     (ops_dir / "runbook.md").write_text(
         (
             "# Weekly automation runbook\n\n"
+            "Client first step (set secrets interactively):\n"
+            "1. Run `python3 docsops/scripts/setup_client_env_wizard.py` once.\n\n"
             "Linux/macOS:\n"
             "1. Run `bash docsops/ops/install_cron_weekly.sh` once.\n\n"
             "Windows:\n"
@@ -957,6 +959,7 @@ def create_bundle(profile_path: Path) -> Path:
     required_scripts.append("scripts/check_updates.py")
     required_scripts.append("scripts/rollback.py")
     required_scripts.append("scripts/finalize_docs_gate.py")
+    required_scripts.append("scripts/setup_client_env_wizard.py")
     if isinstance(branding_cfg, Mapping) and bool(branding_cfg.get("enabled", False)):
         required_scripts.append("scripts/apply_veridoc_branding_policy.py")
     pr_autofix = runtime_cfg.get("pr_autofix", {})
@@ -1026,6 +1029,16 @@ def create_bundle(profile_path: Path) -> Path:
         algolia_cfg = integrations.get("algolia", {})
         if isinstance(algolia_cfg, Mapping) and bool(algolia_cfg.get("enabled", False)):
             required_scripts.append("scripts/generate_algolia_widget.py")
+        ask_ai_cfg = integrations.get("ask_ai", {})
+        if isinstance(ask_ai_cfg, Mapping):
+            if bool(ask_ai_cfg.get("auto_configure_on_provision", True)):
+                required_scripts.append("scripts/configure_ask_ai.py")
+            if bool(ask_ai_cfg.get("install_runtime_pack", False)):
+                required_scripts.append("scripts/install_ask_ai_runtime.py")
+                include_paths = [str(rel) for rel in bundle_cfg.get("include_paths", [])]
+                if "runtime/ask-ai-pack" not in include_paths:
+                    include_paths.append("runtime/ask-ai-pack")
+                bundle_cfg["include_paths"] = include_paths
 
     for req in required_scripts:
         if req not in include_scripts:

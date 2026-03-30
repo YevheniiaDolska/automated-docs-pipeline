@@ -500,6 +500,10 @@ class TestBilling:
         referrer = db_session.query(User).filter(User.email == "referrer@test.com").first()
         buyer = db_session.query(User).filter(User.email == "buyer@test.com").first()
         assert referrer is not None and buyer is not None
+        assert referrer.subscription is not None
+        referrer.subscription.tier = "business"
+        referrer.subscription.status = "active"
+        db_session.commit()
 
         summary = handle_get_referral_summary(referrer.id, db_session)
         code = summary.profile["referral_code"]
@@ -537,6 +541,124 @@ class TestBilling:
         summary_after = handle_get_referral_summary(referrer.id, db_session)
         assert summary_after.earnings["accrued_cents"] > 0
         assert summary_after.earnings["is_recurring"] is True
+
+    def test_referral_commission_stops_when_referrer_on_lower_tier(self, db_session):
+        from gitspeak_core.api.auth import RegisterRequest, handle_register
+        from gitspeak_core.api.billing import handle_get_referral_summary, handle_webhook
+        from gitspeak_core.db.models import User
+
+        handle_register(
+            RegisterRequest(email="referrer_low@test.com", password="StrongPass123!"),
+            db_session,
+        )
+        handle_register(
+            RegisterRequest(email="buyer_low@test.com", password="StrongPass123!"),
+            db_session,
+        )
+        referrer = db_session.query(User).filter(User.email == "referrer_low@test.com").first()
+        buyer = db_session.query(User).filter(User.email == "buyer_low@test.com").first()
+        assert referrer is not None and buyer is not None
+        assert referrer.subscription is not None
+        referrer.subscription.tier = "pro"
+        referrer.subscription.status = "active"
+        db_session.commit()
+
+        code = handle_get_referral_summary(referrer.id, db_session).profile["referral_code"]
+        handle_webhook(
+            "subscription_created",
+            {
+                "id": "sub_ref_low_001",
+                "attributes": {
+                    "customer_id": "cust_low",
+                    "variant_id": "variant_starter_monthly",
+                    "status": "active",
+                    "custom_data": {
+                        "veridoc_user_id": buyer.id,
+                        "veridoc_referrer_user_id": referrer.id,
+                        "veridoc_referral_code": code,
+                    },
+                },
+            },
+            db_session,
+        )
+        handle_webhook(
+            "subscription_payment_success",
+            {
+                "id": "evt_pay_ref_low_001",
+                "attributes": {
+                    "subscription_id": "sub_ref_low_001",
+                    "total": "14900",
+                    "currency": "USD",
+                },
+            },
+            db_session,
+        )
+        summary = handle_get_referral_summary(referrer.id, db_session)
+        assert summary.earnings["accrued_cents"] == 0
+
+    def test_referral_commission_stops_when_badge_disabled(self, db_session):
+        from gitspeak_core.api.auth import RegisterRequest, handle_register
+        from gitspeak_core.api.billing import (
+            ReferralSettingsRequest,
+            handle_get_referral_summary,
+            handle_update_referral_settings,
+            handle_webhook,
+        )
+        from gitspeak_core.db.models import User
+
+        handle_register(
+            RegisterRequest(email="referrer_optout@test.com", password="StrongPass123!"),
+            db_session,
+        )
+        handle_register(
+            RegisterRequest(email="buyer_optout@test.com", password="StrongPass123!"),
+            db_session,
+        )
+        referrer = db_session.query(User).filter(User.email == "referrer_optout@test.com").first()
+        buyer = db_session.query(User).filter(User.email == "buyer_optout@test.com").first()
+        assert referrer is not None and buyer is not None
+        assert referrer.subscription is not None
+        referrer.subscription.tier = "business"
+        referrer.subscription.status = "active"
+        db_session.commit()
+        handle_update_referral_settings(
+            referrer.id,
+            ReferralSettingsRequest(badge_opt_out=True),
+            db_session,
+        )
+
+        code = handle_get_referral_summary(referrer.id, db_session).profile["referral_code"]
+        handle_webhook(
+            "subscription_created",
+            {
+                "id": "sub_ref_optout_001",
+                "attributes": {
+                    "customer_id": "cust_optout",
+                    "variant_id": "variant_starter_monthly",
+                    "status": "active",
+                    "custom_data": {
+                        "veridoc_user_id": buyer.id,
+                        "veridoc_referrer_user_id": referrer.id,
+                        "veridoc_referral_code": code,
+                    },
+                },
+            },
+            db_session,
+        )
+        handle_webhook(
+            "subscription_payment_success",
+            {
+                "id": "evt_pay_ref_optout_001",
+                "attributes": {
+                    "subscription_id": "sub_ref_optout_001",
+                    "total": "14900",
+                    "currency": "USD",
+                },
+            },
+            db_session,
+        )
+        summary = handle_get_referral_summary(referrer.id, db_session)
+        assert summary.earnings["accrued_cents"] == 0
 
     def test_badge_opt_out_blocked_for_cheapest_tier(self, test_user, db_session):
         from gitspeak_core.api.billing import ReferralSettingsRequest, handle_update_referral_settings
@@ -600,6 +722,10 @@ class TestBilling:
         referrer = db_session.query(User).filter(User.email == "referrer2@test.com").first()
         buyer = db_session.query(User).filter(User.email == "buyer2@test.com").first()
         assert referrer is not None and buyer is not None
+        assert referrer.subscription is not None
+        referrer.subscription.tier = "business"
+        referrer.subscription.status = "active"
+        db_session.commit()
 
         created_event = {
             "id": "sub_ref_002",

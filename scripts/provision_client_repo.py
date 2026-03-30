@@ -12,7 +12,6 @@ Example:
 from __future__ import annotations
 
 import argparse
-import getpass
 import logging
 import os
 import re
@@ -112,7 +111,7 @@ def _save_generated_profile(profile: dict[str, Any], client_id: str) -> Path:
     return out_path
 
 
-def _create_profile_via_wizard(default_scheduler: str) -> tuple[Path, str, str]:
+def _create_profile_via_wizard(default_scheduler: str, *, require_repo: bool = True) -> tuple[Path, str, str]:
     print("Preset-based profile creation")
     preset = _prompt_choice("Choose preset", ["small", "startup", "enterprise", "pilot-evidence"], "startup")
     profile = _build_profile_from_preset(preset)
@@ -138,7 +137,9 @@ def _create_profile_via_wizard(default_scheduler: str) -> tuple[Path, str, str]:
         str(profile.get("licensing", {}).get("days", 365)),
     ))
 
-    client_repo = _prompt_with_default("Path to local client repository")
+    client_repo = ""
+    if require_repo:
+        client_repo = _prompt_with_default("Path to local client repository")
 
     docs_root = _prompt_with_default("Docs path in client repo", str(profile["runtime"].get("docs_root", "docs")))
     api_root = _prompt_with_default("API path in client repo", str(profile["runtime"].get("api_root", "api")))
@@ -200,7 +201,7 @@ def _create_profile_via_wizard(default_scheduler: str) -> tuple[Path, str, str]:
     )
     branding_landing_url = "https://veridoc.app"
     branding_plan = "free"
-    branding_cheapest = "starter"
+    branding_cheapest = "pro"
     branding_badge_opt_out = False
     if enable_veridoc_branding:
         branding_defaults = profile["runtime"].get("veridoc_branding", {})
@@ -212,16 +213,11 @@ def _create_profile_via_wizard(default_scheduler: str) -> tuple[Path, str, str]:
         )
         branding_plan = _prompt_choice(
             "Branding plan",
-            ["free", "starter", "pro", "business", "enterprise"],
+            ["pilot", "free", "starter", "pro", "business", "enterprise"],
             str(branding_defaults.get("plan", "free")).strip().lower(),
         )
-        branding_cheapest = _prompt_choice(
-            "Cheapest paid plan",
-            ["starter", "pro", "business"],
-            str(branding_defaults.get("cheapest_paid_plan", "starter")).strip().lower(),
-        )
         branding_badge_opt_out = _prompt_yes_no(
-            "Allow badge opt-out for higher plans?",
+            "Allow badge opt-out? (Recurring 15% referral works only while badge is enabled and both users stay on paid plans)",
             default_yes=bool(branding_defaults.get("badge_opt_out", False)),
         )
 
@@ -330,7 +326,9 @@ def _create_profile_via_wizard(default_scheduler: str) -> tuple[Path, str, str]:
                     default_yes=bool(ask_ai.get("install_runtime_pack", False)),
                 )
 
-    scheduler = _prompt_choice("Install scheduler mode", ["none", "linux", "windows"], default_scheduler)
+    scheduler = "none"
+    if require_repo:
+        scheduler = _prompt_choice("Install scheduler mode", ["none", "linux", "windows"], default_scheduler)
 
     profile["client"]["id"] = client_id
     profile["client"]["company_name"] = company_name
@@ -395,20 +393,31 @@ def _create_profile_via_wizard(default_scheduler: str) -> tuple[Path, str, str]:
 
 def _run_interactive_wizard(args: argparse.Namespace) -> argparse.Namespace:
     print("Interactive provisioning wizard")
-    print("This will ask for required settings and then install docsops into the client repo.\n")
+    print("This will ask for required settings and can either build bundle only or install into local client repo.\n")
     print("What you need:")
     print("1) existing profile OR preset-driven profile creation")
-    print("2) local path to client repository")
-    print("3) scheduler mode (none/linux/windows)\n")
+    print("2) local path to client repository (only for install-local mode)")
+    print("3) scheduler mode (none/linux/windows, only for install-local mode)\n")
+
+    mode_default = "bundle-only"
+    mode = _prompt_choice("Delivery mode", ["bundle-only", "install-local"], mode_default)
+    args.bundle_only = mode == "bundle-only"
 
     default_scheduler = "windows" if os.name == "nt" else "linux"
-    mode_default = "preset" if getattr(args, "generate_profile", False) else "existing"
-    source_mode = _prompt_choice("Profile source", ["existing", "preset"], mode_default)
+    source_default = "preset" if getattr(args, "generate_profile", False) else "existing"
+    source_mode = _prompt_choice("Profile source", ["existing", "preset"], source_default)
     if source_mode == "preset":
-        generated_profile, client_repo, scheduler = _create_profile_via_wizard(default_scheduler)
+        generated_profile, client_repo, scheduler = _create_profile_via_wizard(
+            default_scheduler,
+            require_repo=not bool(args.bundle_only),
+        )
         args.client = str(generated_profile)
-        args.client_repo = client_repo
-        args.install_scheduler = scheduler
+        if not bool(args.bundle_only):
+            args.client_repo = client_repo
+            args.install_scheduler = scheduler
+        else:
+            args.client_repo = ""
+            args.install_scheduler = "none"
     else:
         default_profile = "profiles/clients/blockstream-demo.client.yml"
         print("Examples of profile files:")
@@ -417,12 +426,16 @@ def _run_interactive_wizard(args: argparse.Namespace) -> argparse.Namespace:
         print("- profiles/clients/examples/pro.client.yml")
         print("- profiles/clients/examples/enterprise.client.yml\n")
         args.client = _prompt_with_default("Path to client profile (*.client.yml)", args.client or default_profile)
-        args.client_repo = _prompt_with_default("Path to local client repository", args.client_repo)
-        args.install_scheduler = _prompt_choice(
-            "Install scheduler mode",
-            ["none", "linux", "windows"],
-            args.install_scheduler if args.install_scheduler in {"none", "linux", "windows"} else default_scheduler,
-        )
+        if not bool(args.bundle_only):
+            args.client_repo = _prompt_with_default("Path to local client repository", args.client_repo)
+            args.install_scheduler = _prompt_choice(
+                "Install scheduler mode",
+                ["none", "linux", "windows"],
+                args.install_scheduler if args.install_scheduler in {"none", "linux", "windows"} else default_scheduler,
+            )
+        else:
+            args.client_repo = ""
+            args.install_scheduler = "none"
 
     args.docsops_dir = _prompt_with_default("Target folder name inside client repo", args.docsops_dir or "docsops")
 
@@ -430,13 +443,15 @@ def _run_interactive_wizard(args: argparse.Namespace) -> argparse.Namespace:
 
 
 def _resolve_args(args: argparse.Namespace) -> argparse.Namespace:
-    needs_prompt = args.interactive or not args.client or not args.client_repo
+    bundle_only = bool(getattr(args, "bundle_only", False))
+    missing_required = (not args.client) or ((not bundle_only) and (not args.client_repo))
+    needs_prompt = args.interactive or missing_required
     if not needs_prompt:
         return args
     if not sys.stdin.isatty():
         raise ValueError(
-            "Missing required arguments (--client, --client-repo) and interactive input is unavailable. "
-            "Provide both arguments explicitly or run in a terminal with --interactive."
+            "Missing required arguments. Provide --client and (for install-local mode) --client-repo, "
+            "or run in a terminal with --interactive."
         )
     return _run_interactive_wizard(args)
 
@@ -607,7 +622,7 @@ def _collect_secret_inputs(client_repo: Path, docsops_dir: str) -> Path | None:
         if key in current and current[key]:
             masked_default = "(already set)"
         prompt = f"{key} - {hint} {masked_default}".strip()
-        value = getpass.getpass(f"{prompt}: ").strip()
+        value = input(f"{prompt}: ").strip()
         if not value:
             if required and key not in updated:
                 print(f"[warn] {key} is required for full automation; leaving empty for now.")
@@ -812,16 +827,23 @@ def apply_integrations(client_repo: Path, docsops_dir: str) -> None:
     if bool(ask_ai.get("install_runtime_pack", False)):
         runtime_pack_script = client_repo / docsops_dir / "scripts" / "install_ask_ai_runtime.py"
         if runtime_pack_script.exists():
-            subprocess.run(
-                [
-                    sys.executable,
-                    str(runtime_pack_script),
-                    "--target-dir",
-                    ".",
-                ],
-                cwd=str(client_repo),
-                check=True,
-            )
+            runtime_pack_dir = client_repo / docsops_dir / "runtime" / "ask-ai-pack"
+            if runtime_pack_dir.exists():
+                subprocess.run(
+                    [
+                        sys.executable,
+                        str(runtime_pack_script),
+                        "--target-dir",
+                        ".",
+                    ],
+                    cwd=str(client_repo),
+                    check=True,
+                )
+            else:
+                print(
+                    "[ask-ai] warning: install_runtime_pack=true but runtime pack is missing in bundle "
+                    f"({runtime_pack_dir}). Skipping runtime pack install."
+                )
 
 
 def generate_env_checklist(client_repo: Path, docsops_dir: str) -> Path | None:
@@ -1012,11 +1034,16 @@ def execute_provision(args: argparse.Namespace) -> int:
         profile_path = (REPO_ROOT / profile_path).resolve()
     if not profile_path.exists():
         raise FileNotFoundError(f"Client profile not found: {profile_path}")
+    bundle_root = create_bundle(profile_path)
+    if bool(getattr(args, "bundle_only", False)):
+        print(f"[ok] bundle built: {bundle_root}")
+        print("[next] deliver this folder to client and place as <client-repo>/docsops")
+        print("[next] client runs: python3 docsops/scripts/setup_client_env_wizard.py")
+        return 0
+
     client_repo = Path(args.client_repo).resolve()
     if not client_repo.exists():
         raise FileNotFoundError(f"Client repo not found: {client_repo}")
-
-    bundle_root = create_bundle(profile_path)
     installed_path = copy_bundle_to_repo(bundle_root, client_repo, args.docsops_dir)
     workflow_path = install_pr_autofix_workflow(client_repo, args.docsops_dir)
     apply_integrations(client_repo, args.docsops_dir)
@@ -1084,6 +1111,11 @@ def parse_args() -> argparse.Namespace:
         "--generate-profile",
         action="store_true",
         help="Interactive mode: create profile from preset (small/startup/enterprise)",
+    )
+    parser.add_argument(
+        "--bundle-only",
+        action="store_true",
+        help="Build client bundle only (no install into local client repository).",
     )
     return parser.parse_args()
 

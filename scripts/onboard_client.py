@@ -70,11 +70,18 @@ def parse_args() -> argparse.Namespace:
         action="store_true",
         help="Skip confirmation prompt before install",
     )
+    parser.add_argument(
+        "--mode",
+        choices=["bundle-only", "install-local"],
+        default="bundle-only",
+        help="bundle-only: build client bundle for handoff; install-local: build and install into local client repo",
+    )
     return parser.parse_args()
 
 
 def main() -> int:
     base_args = parse_args()
+    bundle_only = base_args.mode == "bundle-only"
     interactive_args = argparse.Namespace(
         client=base_args.client,
         client_repo=base_args.client_repo,
@@ -82,6 +89,7 @@ def main() -> int:
         install_scheduler=base_args.install_scheduler,
         interactive=True,
         generate_profile=True,
+        bundle_only=bundle_only,
     )
 
     resolved = provision._resolve_args(interactive_args)
@@ -91,7 +99,12 @@ def main() -> int:
 
     _print_profile_preview(profile_path)
     if not base_args.yes:
-        if not _prompt_yes_no("Continue with bundle build + install + scheduler?", default_yes=True):
+        action_msg = (
+            "Continue with bundle build only?"
+            if bundle_only
+            else "Continue with bundle build + install + scheduler?"
+        )
+        if not _prompt_yes_no(action_msg, default_yes=True):
             print("[stop] onboarding cancelled by user")
             return 0
 

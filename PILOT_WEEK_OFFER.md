@@ -29,6 +29,13 @@ The platform is not limited to API-first automation. In active production usage,
 
 This pilot is a focused 10-14 calendar day engagement (typically 5-10 business days) that installs the VeriOps on your real repository and delivers measurable results. This is not a demo. You receive a working system, generated documentation, and data that proves the value.
 
+## Commercial package (fixed)
+
+- Pilot price: **$5,000**.
+- Pilot duration: **10-14 calendar days**.
+- Next step after successful pilot: **Full implementation for $15,000**.
+- After full implementation: optional monthly retainer.
+
 ## Deliverables
 
 ### 1. Configured pipeline
@@ -80,7 +87,24 @@ A 60-90 minute session covering:
 
 If you proceed to full implementation, the pilot foundation stays. You switch to a stricter policy pack, enable all CI gates, and customize all templates. Nothing is thrown away.
 
+Full implementation package (fixed): **$15,000** for production rollout and hardening.
+
 If you stop after the pilot, you keep everything: CI checks, templates, analysis scripts, and the baseline report. The quality gates continue enforcing standards on every pull request.
+
+## What is not included in pilot
+
+- Multi-repository rollout.
+- Custom module development from scratch.
+- 24/7 support SLA.
+- Organization-wide change management and long-term optimization.
+
+## Pilot / expiry / full matrix
+
+| State | What works | What is limited |
+| --- | --- | --- |
+| Pilot active ($5,000) | Pilot deliverables, core gates, weekly cycle in pilot scope | Multi-repo and full rollout scope are not included |
+| Pilot expired (without full upgrade) | Client keeps delivered docs/templates/assets | Advanced licensed capabilities degrade after grace period |
+| Full implementation ($15,000) | Full production rollout scope and hardening | No pilot scope limits |
 
 ## Timeline
 

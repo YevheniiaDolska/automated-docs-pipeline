@@ -121,6 +121,23 @@ def _normalize_url(raw: str) -> str:
     return urlunparse(clean)
 
 
+def _safe_join_normalize_url(base_url: str, href: str) -> str:
+    """Safely join and normalize a discovered href.
+
+    Broken HTML can contain malformed bracket hosts, invalid ports, or junk
+    characters that make urllib parsing raise ValueError. A single bad link
+    must never crash the crawl worker.
+    """
+    try:
+        joined = urljoin(base_url, href)
+    except (ValueError, TypeError):
+        return ""
+    try:
+        return _normalize_url(joined)
+    except (ValueError, TypeError):
+        return ""
+
+
 def _is_probable_crawl_trap(url: str) -> bool:
     parsed = urlparse(url)
     path = (parsed.path or "/").lower()
@@ -291,7 +308,22 @@ def _is_http_url(raw: str) -> bool:
     except (ValueError, TypeError) as exc:  # noqa: BLE001
         logger.debug("URL parse failed for '%s': %s", raw, exc)
         return False
-    return parsed.scheme in {"http", "https"} and bool(parsed.netloc)
+    if parsed.scheme not in {"http", "https"}:
+        return False
+    if not parsed.netloc:
+        return False
+    if any(ch.isspace() for ch in parsed.netloc):
+        return False
+    try:
+        _ = parsed.port
+    except (ValueError, TypeError):
+        return False
+    hostname = parsed.hostname or ""
+    if not hostname:
+        return False
+    if any(ch.isspace() for ch in hostname):
+        return False
+    return True
 
 
 def _same_host(a: str, b: str) -> bool:
@@ -348,6 +380,8 @@ def _fetch(
     _ua_idx: int = 0,
     extra_headers: dict[str, str] | None = None,
 ) -> tuple[int, str, str]:
+    if not _is_http_url(url):
+        return 0, "", ""
     url = _sanitize_url(url)
     ua = _USER_AGENTS[min(_ua_idx, len(_USER_AGENTS) - 1)]
     headers = {
@@ -505,7 +539,7 @@ class _DocsHTMLParser(HTMLParser):
             href = str(attrs_map.get("href", "")).strip()
             if href:
                 href = _normalize_relative_locale_href(self.base_url, href)
-                absolute = _normalize_url(urljoin(self.base_url, href))
+                absolute = _safe_join_normalize_url(self.base_url, href)
                 if _is_http_url(absolute):
                     if _same_host(absolute, self.base_url):
                         if len(self.internal_links) < _MAX_LINKS_PER_PAGE:
@@ -1441,7 +1475,11 @@ def _crawl_site(
             if st < 200 or st >= 400 or "html" not in ct.lower():
                 return url, st, None, []
             parser_html = _DocsHTMLParser(url)
-            parser_html.feed(body)
+            try:
+                parser_html.feed(body)
+            except (Exception,):  # noqa: BLE001
+                # Never fail the whole crawl due to one malformed page.
+                return url, st, None, []
             page = parser_html.as_page(url, st)
             return url, st, page, page.internal_links
 

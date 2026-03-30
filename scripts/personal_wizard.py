@@ -248,7 +248,7 @@ def _create_personal_profile() -> tuple[Path, str]:
     )
     branding_landing_url = "https://veridoc.app"
     branding_plan = "free"
-    branding_cheapest = "starter"
+    branding_cheapest = "pro"
     branding_badge_opt_out = False
     if enable_veridoc_branding:
         branding_defaults = profile["runtime"].get("veridoc_branding", {})
@@ -260,16 +260,11 @@ def _create_personal_profile() -> tuple[Path, str]:
         )
         branding_plan = _prompt_choice(
             "Branding plan",
-            ["free", "starter", "pro", "business", "enterprise"],
+            ["pilot", "free", "starter", "pro", "business", "enterprise"],
             str(branding_defaults.get("plan", "free")).strip().lower(),
         )
-        branding_cheapest = _prompt_choice(
-            "Cheapest paid plan",
-            ["starter", "pro", "business"],
-            str(branding_defaults.get("cheapest_paid_plan", "starter")).strip().lower(),
-        )
         branding_badge_opt_out = _prompt_yes_no(
-            "Allow badge opt-out for higher plans?",
+            "Allow badge opt-out? (Recurring 15% referral works only while badge is enabled and both users stay on paid plans)",
             default_yes=bool(branding_defaults.get("badge_opt_out", False)),
         )
 
@@ -880,6 +875,7 @@ def create_personal_bundle(profile_path: Path) -> Path:
     required_scripts: list[str] = []
     # finalize_docs_gate is still required (not a licensing script)
     required_scripts.append("scripts/finalize_docs_gate.py")
+    required_scripts.append("scripts/setup_client_env_wizard.py")
     if isinstance(branding_cfg, Mapping) and bool(
         branding_cfg.get("enabled", False)
     ):
