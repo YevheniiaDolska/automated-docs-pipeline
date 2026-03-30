@@ -5,6 +5,7 @@ from __future__ import annotations
 
 import argparse
 import gzip
+import hashlib
 import html
 import json
 import logging
@@ -79,7 +80,8 @@ _CRAWL_TRAP_PATH_HINTS = (
 )
 _MAX_TEXT_CHUNKS_PER_PAGE = 5000
 _MAX_TEXT_CHARS_PER_PAGE = 200_000
-_MAX_LINKS_PER_PAGE = 10_000
+_MAX_LINKS_PER_PAGE = 1_500
+_MAX_LINK_HEALTH_CHECKS = 60_000
 _MAX_CODE_BUFFER_CHARS = 400_000
 _MAX_CODE_BLOCK_CHARS = 100_000
 _MAX_CODE_BLOCKS_PER_PAGE = 300
@@ -334,6 +336,17 @@ def _safe_pct(numerator: float, denominator: float) -> float:
     if denominator <= 0:
         return 0.0
     return round((numerator / denominator) * 100.0, 2)
+
+
+def _deterministic_link_sample(urls: set[str], limit: int) -> set[str]:
+    """Return a deterministic uniform sample of URLs up to *limit* size."""
+    if limit <= 0 or len(urls) <= limit:
+        return set(urls)
+    ranked = sorted(
+        urls,
+        key=lambda u: hashlib.sha1(u.encode("utf-8", errors="ignore")).hexdigest(),
+    )
+    return set(ranked[:limit])
 
 
 def _sanitize_url(url: str) -> str:
@@ -1575,11 +1588,23 @@ def _crawl_site(
     # -- Parallel link-health check (HEAD-only, short timeout, 50 workers) ------
     link_timeout = min(timeout, 3)
     link_workers = 50
+    total_unchecked = 0
     unchecked: set[str] = set()
     for page in pages:
         for link in page.internal_links:
             if link not in status_map:
                 unchecked.add(link)
+
+    total_unchecked = len(unchecked)
+    if total_unchecked > _MAX_LINK_HEALTH_CHECKS:
+        unchecked = _deterministic_link_sample(unchecked, _MAX_LINK_HEALTH_CHECKS)
+        print(
+            "[audit] link-check sample mode: checking {}/{} unique links".format(
+                len(unchecked),
+                total_unchecked,
+            ),
+            flush=True,
+        )
 
     if unchecked:
         done = 0
@@ -1655,6 +1680,9 @@ def _crawl_site(
         "trap_urls_skipped": int(trap_urls_skipped),
         "seeded_sitemap_urls": int(seeded_sitemap_urls),
         "robots_sitemaps_declared": int(robots_sitemaps),
+        "link_checks_total_candidates": int(total_unchecked),
+        "link_checks_executed": int(len(unchecked)),
+        "link_checks_sampled": bool(total_unchecked > len(unchecked)),
     }
     if return_stats:
         return pages, status_map, crawl_stats
