@@ -102,3 +102,15 @@ Use it together with [Deployment Runbook](deploy/production-runbook.md).
 - [x] Landing page deployed to `veri-doc.app` with Calendly, LemonSqueezy links.
 - [x] Favicon set generated and deployed (16×16, 32×32, apple-touch-icon, .ico).
 - [x] Worker/beat healthcheck is cosmetic (containers run correctly; healthcheck probes HTTP which they do not serve).
+
+## 13. Verification log (2026-03-30)
+
+- [x] Followed runbook commands that are executable in current environment (file checks, env checks, smoke command invocation).
+- [ ] Full deploy commands from runbook completed in this environment.
+  - Blocker: Docker CLI is unavailable in this WSL distro (`docker: command not found`).
+- [x] Executed `npm run smoke:prod`.
+- [ ] `smoke:prod` passed.
+  - First failure: missing required env var `VERIDOC_BASE_URL`.
+  - Second run with explicit vars failed due DNS resolution (`Temporary failure in name resolution` for `api.veri-doc.app`).
+- [ ] Production GO can be confirmed from this environment.
+  - Blockers: no DNS resolution to production API domain, no Docker runtime for runbook deploy steps.
