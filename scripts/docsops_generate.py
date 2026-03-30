@@ -35,6 +35,24 @@ API_KEY_ENV_NAMES = (
 )
 
 
+def _advanced_prompts_allowed() -> tuple[bool, str]:
+    """Resolve whether advanced prompt profile is allowed by current license."""
+    try:
+        from scripts.license_gate import allow_advanced_prompts, get_license
+
+        info = get_license()
+        enabled = bool(allow_advanced_prompts(info))
+        if enabled:
+            return True, f"plan={info.plan}"
+        if info.plan == "pilot" and info.days_remaining <= 0:
+            return False, "pilot_expired"
+        return False, f"feature_blocked:{info.plan}"
+    except (Exception,):
+        # Keep backward compatibility in environments where license_gate
+        # is not bundled.
+        return True, "license_gate_unavailable"
+
+
 def _load_json(path: Path) -> dict[str, Any]:
     if not path.exists():
         return {}
@@ -118,7 +136,7 @@ def _policy_triggered(reports_dir: Path) -> tuple[bool, list[str]]:
     return (len(reasons) > 0, reasons)
 
 
-def _build_prompt(reports_dir: Path, runtime_config: Path, auto_apply: bool) -> str:
+def _build_prompt(reports_dir: Path, runtime_config: Path, auto_apply: bool, advanced_prompts: bool) -> str:
     consolidated = reports_dir / "consolidated_report.json"
     stage_summary = reports_dir / "pipeline_stage_summary.json"
     review_manifest = reports_dir / "review_manifest.json"
@@ -128,6 +146,26 @@ def _build_prompt(reports_dir: Path, runtime_config: Path, auto_apply: bool) -> 
         if auto_apply
         else "Propose patch + diff first; do not apply without confirmation."
     )
+
+    if not advanced_prompts:
+        return "\n".join(
+            [
+                "You are processing a DocsOps consolidated report in degraded prompt mode.",
+                "Use only deterministic edits based on templates, lint output, and explicit report findings.",
+                apply_line,
+                "",
+                f"Runtime config: {runtime_config}",
+                f"Consolidated report: {consolidated}",
+                "",
+                "Required output order:",
+                "1) List blocking lint/drift findings",
+                "2) Minimal file-level fixes",
+                "3) Commands executed and exact outputs",
+                "4) Residual risks",
+                "",
+                "Do not use advanced narrative prompt strategies.",
+            ]
+        )
 
     return "\n".join(
         [
@@ -263,9 +301,18 @@ def cmd_generate(args: argparse.Namespace) -> int:
         for reason in reasons:
             print(f"  - {reason}")
 
+    advanced_prompts, prompt_reason = _advanced_prompts_allowed()
+    if not advanced_prompts:
+        print(f"[docsops] advanced prompts disabled by license gate ({prompt_reason}); using degraded prompt mode")
+
     if args.mode == "operator":
         _assert_local_only_security(allow_api_env=bool(args.allow_api_env))
-        prompt = _build_prompt(reports_dir, runtime_config, auto_apply=bool(args.auto))
+        prompt = _build_prompt(
+            reports_dir,
+            runtime_config,
+            auto_apply=bool(args.auto),
+            advanced_prompts=advanced_prompts,
+        )
         return _run_local_cli(
             args.local_engine,
             prompt,

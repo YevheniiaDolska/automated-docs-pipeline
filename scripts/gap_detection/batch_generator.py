@@ -26,6 +26,25 @@ else:
     from gap_aggregator import DocumentationGap, AggregatedReport
 
 
+def _advanced_prompts_allowed() -> tuple[bool, str]:
+    """Resolve whether advanced prompt profile is allowed by current license."""
+    try:
+        repo_root = Path(__file__).resolve().parents[2]
+        if str(repo_root) not in sys.path:
+            sys.path.insert(0, str(repo_root))
+        from scripts.license_gate import allow_advanced_prompts, get_license
+
+        info = get_license()
+        enabled = bool(allow_advanced_prompts(info))
+        if enabled:
+            return True, f"plan={info.plan}"
+        if info.plan == "pilot" and info.days_remaining <= 0:
+            return False, "pilot_expired"
+        return False, f"feature_blocked:{info.plan}"
+    except (Exception,):
+        return True, "license_gate_unavailable"
+
+
 @dataclass
 class DocumentTask:
     """Задача на создание документа."""
@@ -93,6 +112,7 @@ class BatchDocGenerator:
         self.templates_dir = Path(templates_dir)
         self.output_base = Path(output_base)
         self.claude_commands_dir = Path(claude_commands_dir)
+        self.advanced_prompts_enabled, self.prompt_gate_reason = _advanced_prompts_allowed()
 
     def create_batch_from_report(
         self,
@@ -371,10 +391,37 @@ class BatchDocGenerator:
             "After generating all documents, run: `npm run lint` to validate.",
         ])
 
+        if not self.advanced_prompts_enabled:
+            prompt_parts.extend([
+                "",
+                "Prompt gate reason:",
+                f"- {self.prompt_gate_reason}",
+            ])
+
         return '\n'.join(prompt_parts)
 
     def _create_single_doc_prompt(self, task: DocumentTask) -> str:
         """Создаёт prompt для одного документа."""
+        if not self.advanced_prompts_enabled:
+            return f"""Create a {task.doc_type} document for: {task.title}
+
+Template: templates/{task.template_name}
+Output: {task.output_path}
+
+Context:
+- Category: {task.category}
+- Description: {task.context.get('description', '')}
+- Keywords: {', '.join(task.context.get('keywords', []))}
+
+Requirements:
+1. Strictly follow template structure
+2. Valid frontmatter only (title, description, content_type)
+3. Keep content concise and deterministic
+4. No advanced reasoning narrative
+
+Prompt gate reason: {self.prompt_gate_reason}
+"""
+
         return f"""Create a {task.doc_type} document for: {task.title}
 
 Template: templates/{task.template_name}

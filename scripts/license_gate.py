@@ -49,6 +49,7 @@ PLAN_FEATURES: dict[str, dict[str, bool]] = {
         "glossary_sync": True,
         "lifecycle_management": True,
         "rest_protocol": True,
+        "advanced_prompts": True,
         "seo_geo_scoring": False,
         "api_first_flow": False,
         "drift_detection": False,
@@ -73,6 +74,7 @@ PLAN_FEATURES: dict[str, dict[str, bool]] = {
         "glossary_sync": True,
         "lifecycle_management": True,
         "rest_protocol": True,
+        "advanced_prompts": True,
         "seo_geo_scoring": True,
         "api_first_flow": True,
         "drift_detection": True,
@@ -97,6 +99,7 @@ PLAN_FEATURES: dict[str, dict[str, bool]] = {
         "glossary_sync": True,
         "lifecycle_management": True,
         "rest_protocol": True,
+        "advanced_prompts": True,
         "seo_geo_scoring": True,
         "api_first_flow": True,
         "drift_detection": True,
@@ -124,6 +127,7 @@ COMMUNITY_FEATURES: dict[str, bool] = {
     "glossary_sync": True,
     "lifecycle_management": True,
     "rest_protocol": True,
+    "advanced_prompts": False,
 }
 
 # Protocols allowed per plan
@@ -598,6 +602,40 @@ def validate(
 # -- Feature check helpers ----------------------------------------------------
 
 
+def _pilot_trial_expired(info: LicenseInfo) -> bool:
+    """Return True when pilot trial period has ended (grace does not keep premium access)."""
+    return bool(
+        info.plan == "pilot"
+        and info.expires_at
+        and info.days_remaining <= 0
+    )
+
+
+def _effective_plan(info: LicenseInfo) -> str:
+    if _pilot_trial_expired(info):
+        return "community"
+    return info.plan
+
+
+def _effective_features(info: LicenseInfo) -> dict[str, bool]:
+    if _pilot_trial_expired(info):
+        return dict(COMMUNITY_FEATURES)
+    return dict(info.features)
+
+
+def _effective_protocols(info: LicenseInfo) -> list[str]:
+    if _pilot_trial_expired(info):
+        return list(COMMUNITY_PROTOCOLS)
+    return list(info.protocols)
+
+
+def allow_advanced_prompts(license_info: LicenseInfo | None = None) -> bool:
+    """Whether advanced LLM prompt profile is allowed for current license."""
+    info = license_info or validate()
+    effective_features = _effective_features(info)
+    return bool(effective_features.get("advanced_prompts", False))
+
+
 def check(feature: str, license_info: LicenseInfo | None = None) -> bool:
     """Check if a feature is enabled in the current license.
 
@@ -605,11 +643,13 @@ def check(feature: str, license_info: LicenseInfo | None = None) -> bool:
     Prints a warning to stderr when a feature is denied.
     """
     info = license_info or validate()
-    enabled = info.features.get(feature, False)
+    effective_plan = _effective_plan(info)
+    effective_features = _effective_features(info)
+    enabled = effective_features.get(feature, False)
     if not enabled:
         print(
             f"[license] Feature '{feature}' requires plan "
-            f"upgrade (current: {info.plan}). "
+            f"upgrade (current: {effective_plan}). "
             f"Running in degraded mode.",
             file=sys.stderr,
         )
@@ -619,12 +659,14 @@ def check(feature: str, license_info: LicenseInfo | None = None) -> bool:
 def check_protocol(protocol: str, license_info: LicenseInfo | None = None) -> bool:
     """Check if a protocol is allowed in the current license."""
     info = license_info or validate()
+    effective_plan = _effective_plan(info)
+    effective_protocols = _effective_protocols(info)
     normalized = protocol.lower().strip()
-    allowed = normalized in info.protocols
+    allowed = normalized in effective_protocols
     if not allowed:
         print(
             f"[license] Protocol '{protocol}' not available in "
-            f"{info.plan} plan. Allowed: {', '.join(info.protocols)}",
+            f"{effective_plan} plan. Allowed: {', '.join(effective_protocols)}",
             file=sys.stderr,
         )
     return allowed
@@ -633,10 +675,12 @@ def check_protocol(protocol: str, license_info: LicenseInfo | None = None) -> bo
 def require(feature: str, license_info: LicenseInfo | None = None) -> LicenseInfo:
     """Require a feature -- raise SystemExit if not available."""
     info = license_info or validate()
-    if not info.features.get(feature, False):
+    effective_plan = _effective_plan(info)
+    effective_features = _effective_features(info)
+    if not effective_features.get(feature, False):
         print(
             f"[license] BLOCKED: Feature '{feature}' requires a plan upgrade "
-            f"(current: {info.plan}).",
+            f"(current: {effective_plan}).",
             file=sys.stderr,
         )
         raise SystemExit(1)
@@ -646,10 +690,12 @@ def require(feature: str, license_info: LicenseInfo | None = None) -> LicenseInf
 def require_protocol(protocol: str, license_info: LicenseInfo | None = None) -> LicenseInfo:
     """Require a protocol -- raise SystemExit if not available."""
     info = license_info or validate()
-    if protocol.lower().strip() not in info.protocols:
+    effective_plan = _effective_plan(info)
+    effective_protocols = _effective_protocols(info)
+    if protocol.lower().strip() not in effective_protocols:
         print(
             f"[license] BLOCKED: Protocol '{protocol}' requires Enterprise plan "
-            f"(current: {info.plan}).",
+            f"(current: {effective_plan}).",
             file=sys.stderr,
         )
         raise SystemExit(1)
@@ -661,12 +707,21 @@ def get_license_summary(license_info: LicenseInfo | None = None) -> str:
     info = license_info or validate()
     if not info.valid:
         return f"Community mode: {info.error}"
-    enabled = [f for f, v in info.features.items() if v]
+
+    effective_plan = _effective_plan(info)
+    effective_features = _effective_features(info)
+    effective_protocols = _effective_protocols(info)
+    enabled = [f for f, v in effective_features.items() if v]
+    suffix = ""
+    if _pilot_trial_expired(info):
+        suffix = " | Pilot trial expired -> degraded mode active"
+
     return (
-        f"Plan: {info.plan} | Client: {info.client_id} | "
+        f"Plan: {effective_plan} | Client: {info.client_id} | "
         f"Days remaining: {info.days_remaining} | "
         f"Features: {len(enabled)} enabled | "
-        f"Protocols: {', '.join(info.protocols)}"
+        f"Protocols: {', '.join(effective_protocols)}"
+        f"{suffix}"
     )
 
 
@@ -704,9 +759,15 @@ def main() -> int:
         print(f"  Client: {info.client_id}")
         print(f"  Expires: {info.expires_at}")
         print(f"  Days remaining: {info.days_remaining}")
+        effective_protocols = _effective_protocols(info)
+        effective_features = _effective_features(info)
+        print(f"  Protocols: {', ' .join(effective_protocols)}")
+        enabled = sorted(f for f, v in effective_features.items() if v)
+        disabled = sorted(f for f, v in effective_features.items() if not v)
+        print(f"  Enabled features ({len(enabled)}): {', ' .join(enabled)}")
+        if disabled:
+            print(f"  Disabled features ({len(disabled)}): {', ' .join(disabled)}")
         print(f"  Protocols: {', '.join(info.protocols)}")
-        enabled = sorted(f for f, v in info.features.items() if v)
-        disabled = sorted(f for f, v in info.features.items() if not v)
         print(f"  Enabled features ({len(enabled)}): {', '.join(enabled)}")
         if disabled:
             print(f"  Disabled features ({len(disabled)}): {', '.join(disabled)}")
