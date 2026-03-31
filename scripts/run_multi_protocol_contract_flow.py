@@ -18,6 +18,7 @@ if str(REPO_ROOT) not in sys.path:
     sys.path.insert(0, str(REPO_ROOT))
 
 from scripts.env_loader import load_local_env
+from scripts.flow_feedback import FlowNarrator
 from scripts.api_protocols import apply_realtime_sandbox_defaults, merge_protocol_settings, normalize_protocols
 from scripts.license_gate import require as _license_require, require_protocol as _license_require_protocol
 from scripts.multi_protocol_engine import ProtocolAdapter, StageResult
@@ -188,11 +189,14 @@ def main() -> int:
     parser.add_argument("--upload-test-assets", action="store_true")
     parser.add_argument("--skip-publish", action="store_true")
     args = parser.parse_args()
+    narrator = FlowNarrator("Multi-protocol contract flow", total_steps=4)
+    narrator.start("Generate, validate, lint, verify, and publish protocol docs contracts.")
 
     runtime_path = Path(args.runtime_config)
     if not runtime_path.is_absolute():
         runtime_path = (Path.cwd() / runtime_path).resolve()
     runtime = _read_yaml(runtime_path)
+    narrator.stage(1, "Load runtime and enforce license", f"Runtime config: {runtime_path}")
 
     # -- License gate: multi-protocol requires enterprise plan --
     _license_require("multi_protocol_pipeline")
@@ -205,6 +209,7 @@ def main() -> int:
     for proto in protocols:
         if proto != "rest":
             _license_require_protocol(proto)
+    narrator.done(f"Protocols selected: {', '.join(protocols)}")
 
     governance = runtime.get("api_governance", {})
     strictness = args.strictness or str(governance.get("strictness", "standard")).strip().lower() or "standard"
@@ -223,6 +228,8 @@ def main() -> int:
         protocols=protocols,
         settings_map=settings_map,
     )
+    narrator.stage(2, "Prepare protocol execution", "Runtime endpoint defaults and per-protocol settings resolved")
+    narrator.done("Protocol environment prepared")
 
     all_results: list[StageResult] = []
     protocol_results: dict[str, list[dict[str, Any]]] = {}
@@ -237,6 +244,7 @@ def main() -> int:
             continue
 
         adapter = ProtocolAdapter(protocol, settings, repo_root=repo_root, scripts_dir=scripts_dir)
+        narrator.stage(3, f"Run protocol pipeline: {protocol}", "Generate -> validate -> lint -> docs -> quality -> publish")
         per_protocol: list[StageResult] = []
         protocol_failed = False
         autofix_enabled = bool(settings.get("autofix_cycle_enabled", True))
@@ -246,9 +254,10 @@ def main() -> int:
             max_attempts = 3
 
         try:
-            attempt = 1
-            while True:
-                attempt_results: list[StageResult] = []
+                attempt = 1
+                while True:
+                    narrator.note(f"{protocol}: attempt {attempt}/{max_attempts}")
+                    attempt_results: list[StageResult] = []
                 notes_gen = adapter.maybe_generate_contract_from_notes(allow_fail=True)
                 if notes_gen is not None:
                     attempt_results.append(notes_gen)
@@ -299,9 +308,11 @@ def main() -> int:
 
                 attempt_failed = any(not result.ok for result in attempt_results)
                 if not attempt_failed:
+                    narrator.done(f"{protocol}: all stages green on attempt {attempt}")
                     break
                 if not autofix_enabled or attempt >= max_attempts:
                     protocol_failed = True
+                    narrator.warn(f"{protocol}: failed after {attempt} attempt(s)")
                     break
 
                 per_protocol.append(
@@ -337,6 +348,7 @@ def main() -> int:
             protocol_failed = True
         if protocol_failed:
             failed_protocols.append(protocol)
+            narrator.warn(f"{protocol}: protocol marked as failed")
 
         all_results.extend(per_protocol)
         protocol_results[protocol] = [_result_to_json(item) for item in per_protocol]
@@ -355,11 +367,15 @@ def main() -> int:
     }
 
     report_path = reports_dir / "multi_protocol_contract_report.json"
+    narrator.stage(4, "Write report", "Persist by-protocol stage status")
     _write_report(report_path, report)
     print(f"[multi-protocol] report: {report_path}")
+    narrator.done(str(report_path))
 
     if strict_mode and failed_protocols:
+        narrator.finish(False, f"Strict mode failed. Protocols with errors: {', '.join(failed_protocols)}")
         return 1
+    narrator.finish(True, "Multi-protocol flow completed")
     return 0
 
 

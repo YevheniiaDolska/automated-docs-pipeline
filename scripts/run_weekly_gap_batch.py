@@ -26,6 +26,7 @@ if str(REPO_ROOT) not in sys.path:
     sys.path.insert(0, str(REPO_ROOT))
 
 from scripts.env_loader import load_local_env
+from scripts.flow_feedback import FlowNarrator
 from scripts.license_gate import get_license, get_license_summary
 
 
@@ -202,10 +203,13 @@ def parse_args() -> argparse.Namespace:
 def main() -> int:
     load_local_env(REPO_ROOT)
     args = parse_args()
+    narrator = FlowNarrator("Weekly DocsOps batch", total_steps=6)
+    narrator.start("Collect deltas, run quality gates, and build review-ready reports.")
 
     # -- License gate --
     lic = get_license()
     print(f"[docsops] License: {get_license_summary(lic)}")
+    narrator.stage(1, "License and runtime setup", get_license_summary(lic))
 
     repo_root = Path.cwd()
     docsops_root = (repo_root / args.docsops_root).resolve()
@@ -218,6 +222,7 @@ def main() -> int:
         else docsops_root / "config" / "client_runtime.yml"
     )
     runtime = _read_yaml(runtime_path)
+    narrator.done(f"Runtime config loaded: {runtime_path}")
     docs_flow = runtime.get("docs_flow", {})
     flow_mode = str(docs_flow.get("mode", "code-first")).strip().lower()
     modules = runtime.get("modules", {})
@@ -255,6 +260,7 @@ def main() -> int:
     policy_graph = policy.get("knowledge_graph", {}) if isinstance(policy.get("knowledge_graph"), dict) else {}
 
     _run_git_sync(repo_root, git_sync if isinstance(git_sync, dict) else {})
+    narrator.stage(2, "Protocol and contract stages", "Run multi-protocol and API-first stages as configured")
 
     # Multi-protocol contract/docs flow for non-REST architectures.
     non_rest_protocols: list[str] = []
@@ -298,11 +304,13 @@ def main() -> int:
             json.dumps(minimal_report, ensure_ascii=True, indent=2) + "\n",
             encoding="utf-8",
         )
+    narrator.done("Protocol stage completed")
 
     base_ref = _resolve_weekly_base_ref(repo_root, args.since)
     head_ref = "HEAD"
 
     gap_detector = scripts_dir / "gap_detector.py"
+    narrator.stage(3, "Core docs quality checks", "Gap, drift, normalization, lint, SEO/GEO, lifecycle")
     if flow_mode in {"code-first", "hybrid"} and _is_enabled(modules, "gap_detection", True) and gap_detector.exists():
         _run(
             [
@@ -882,7 +890,9 @@ def main() -> int:
         if isinstance(finalize_gate, dict) and bool(finalize_gate.get("continue_on_error", True)):
             finalize_cmd.append("--continue-on-error")
         _run_allow_fail(finalize_cmd, cwd=repo_root)
+    narrator.done("Core docs quality checks completed")
 
+    narrator.stage(4, "Consolidated outputs", "Build consolidated report, scorecard, and compiler outputs")
     status_path = reports_dir / "docsops_status.json"
     consolidated_path = reports_dir / "consolidated_report.json"
     generated_at = datetime.now(timezone.utc).isoformat()
@@ -918,11 +928,16 @@ def main() -> int:
         ),
         encoding="utf-8",
     )
+    narrator.done("Consolidated outputs are ready")
 
+    narrator.stage(5, "Review handoff", "Write status and READY marker for reviewer")
     print("[docsops] weekly batch completed")
     print(f"[docsops] consolidated report: {reports_dir / 'consolidated_report.json'}")
     print(f"[docsops] status file: {status_path}")
     print(f"[docsops] ready marker: {ready_path}")
+    narrator.done(f"READY marker: {ready_path}")
+    narrator.stage(6, "Pipeline summary", "All configured weekly tasks finished")
+    narrator.finish(True, f"Consolidated report: {reports_dir / 'consolidated_report.json'}")
     return 0
 
 

@@ -43,6 +43,7 @@ def _print_profile_preview(profile_path: Path) -> None:
     integrations = runtime.get("integrations", {}) if isinstance(runtime.get("integrations"), dict) else {}
     algolia = integrations.get("algolia", {}) if isinstance(integrations.get("algolia"), dict) else {}
     ask_ai = integrations.get("ask_ai", {}) if isinstance(integrations.get("ask_ai"), dict) else {}
+    llm_control = runtime.get("llm_control", {}) if isinstance(runtime.get("llm_control"), dict) else {}
 
     print("\nProfile preview")
     print(f"- Profile file: {profile_path}")
@@ -52,6 +53,12 @@ def _print_profile_preview(profile_path: Path) -> None:
     print(f"- Output targets: {runtime.get('output_targets', [])}")
     print(f"- Algolia enabled: {bool(algolia.get('enabled', False))}")
     print(f"- Ask AI enabled: {bool(ask_ai.get('enabled', False))}")
+    print(f"- LLM mode: {llm_control.get('llm_mode', 'local_default')}")
+    print(f"- Local model: {llm_control.get('local_model', 'veridoc-writer')}")
+    if llm_control.get("local_base_model"):
+        print(f"- Local base model: {llm_control.get('local_base_model')}")
+    if str(llm_control.get("llm_mode", "local_default")).strip().lower() == "local_default":
+        print("- Local bootstrap: setup_client_env_wizard installs Ollama, pulls base model, and creates veridoc-writer.")
 
 
 def parse_args() -> argparse.Namespace:

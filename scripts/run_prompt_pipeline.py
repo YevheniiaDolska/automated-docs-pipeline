@@ -17,6 +17,7 @@ import sys
 from dataclasses import dataclass
 from pathlib import Path
 
+from scripts.flow_feedback import FlowNarrator
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
 DOC_TYPES = {"tutorial", "how-to", "concept", "reference", "troubleshooting", "api"}
@@ -166,16 +167,23 @@ def main() -> int:
     parser.add_argument("--with-consolidated-report", action="store_true")
     parser.add_argument("--since", type=int, default=7)
     args = parser.parse_args()
+    narrator = FlowNarrator("Prompt-to-pipeline flow", total_steps=3)
+    narrator.start("Create docs from plain-language prompts and run full autopipeline.")
 
     tasks = _parse_tasks(args.prompt or None, args.prompt_file or None)
+    narrator.stage(1, "Interpret prompts", f"Tasks detected: {len(tasks)}")
     runtime_path = Path(args.runtime_config) if args.runtime_config else _default_runtime()
     if runtime_path is None:
         print("[prompt:pipeline] Runtime config missing at docsops/config/client_runtime.yml.")
         print("[prompt:pipeline] Pass --runtime-config <path>.")
+        narrator.finish(False, "Runtime config is missing")
         return 2
+    narrator.done(f"Runtime config: {runtime_path}")
 
     generated_paths: list[Path] = []
+    narrator.stage(2, "Generate requested documents", "Create docs from tasks")
     for task in tasks:
+        narrator.note(f"{task.doc_type}: {task.title} -> {task.output}")
         create_cmd = [
             sys.executable,
             str(REPO_ROOT / "scripts" / "new_doc.py"),
@@ -190,6 +198,7 @@ def main() -> int:
             create_cmd.extend(["--locale", args.locale])
         rc = _run(create_cmd)
         if rc != 0:
+            narrator.finish(False, f"Doc generation failed with rc={rc}")
             return rc
         generated_paths.append((REPO_ROOT / task.output).resolve())
 
@@ -198,8 +207,11 @@ def main() -> int:
         _scope_guard(generated_paths, forbidden_tokens)
     except RuntimeError as exc:
         print(f"[prompt:pipeline] {exc}")
+        narrator.finish(False, "Scope guard failed")
         return 3
+    narrator.done("All generated docs passed scope guard")
 
+    narrator.stage(3, "Run full autopipeline", "Execute weekly + quality + review stages automatically")
     pipeline_cmd = [
         sys.executable,
         str(REPO_ROOT / "scripts" / "run_autopipeline.py"),
@@ -219,7 +231,9 @@ def main() -> int:
     if args.mode == "veridoc":
         pipeline_cmd.append("--skip-local-llm-packet")
 
-    return _run(pipeline_cmd)
+    rc = _run(pipeline_cmd)
+    narrator.finish(rc == 0, f"Autopipeline rc={rc}")
+    return rc
 
 
 if __name__ == "__main__":

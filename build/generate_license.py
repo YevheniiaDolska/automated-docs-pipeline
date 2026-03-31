@@ -101,6 +101,8 @@ def generate_jwt(
     protocols: list[str] | None = None,
     features_override: dict[str, bool] | None = None,
     offline_grace_days: int | None = None,
+    tenant_id: str = "",
+    company_domain: str = "",
 ) -> str:
     """Generate a signed JWT license token."""
     now = int(time.time())
@@ -131,6 +133,10 @@ def generate_jwt(
         "max_docs": max_docs,
         "offline_grace_days": offline_grace_days,
     }
+    if tenant_id.strip():
+        payload["tenant_id"] = tenant_id.strip()
+    if company_domain.strip():
+        payload["company_domain"] = company_domain.strip().lower()
 
     header_b64 = _b64url_encode(json.dumps(header, separators=(",", ":")).encode())
     payload_b64 = _b64url_encode(json.dumps(payload, separators=(",", ":")).encode())
@@ -149,6 +155,8 @@ def main() -> int:
     parser.add_argument("--max-docs", type=int, default=0, help="Document limit (0 = unlimited)")
     parser.add_argument("--protocols", default="", help="Comma-separated protocol list override")
     parser.add_argument("--offline-grace-days", type=int, default=None)
+    parser.add_argument("--tenant-id", default="", help="Optional tenant/company identifier claim")
+    parser.add_argument("--company-domain", default="", help="Optional company primary domain claim")
     parser.add_argument("--output", default="docsops/license.jwt", help="Output JWT file path")
     parser.add_argument("--private-key", default="", help="Path to Ed25519 private key file")
     parser.add_argument(
@@ -190,6 +198,8 @@ def main() -> int:
         max_docs=args.max_docs,
         protocols=protocols,
         offline_grace_days=args.offline_grace_days,
+        tenant_id=str(args.tenant_id).strip(),
+        company_domain=str(args.company_domain).strip(),
     )
 
     out_path = Path(args.output)

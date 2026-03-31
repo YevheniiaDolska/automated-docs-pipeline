@@ -184,6 +184,8 @@ class LicenseInfo:
     expires_at: float
     days_remaining: int
     error: str
+    tenant_id: str = ""
+    company_domain: str = ""
     raw_claims: dict[str, Any] = field(default_factory=dict)
 
 
@@ -200,6 +202,8 @@ def _community_license(error: str = "") -> LicenseInfo:
         expires_at=0,
         days_remaining=0,
         error=error or "No valid license. Running in community mode.",
+        tenant_id="",
+        company_domain="",
     )
 
 
@@ -515,6 +519,39 @@ def validate(
         if not _verify_ed25519(signed_data, signature, pub_key):
             return _community_license("License signature verification failed.")
 
+    def _normalize_domain(value: str) -> str:
+        raw = value.strip().lower()
+        if raw.startswith("http://"):
+            raw = raw[len("http://") :]
+        if raw.startswith("https://"):
+            raw = raw[len("https://") :]
+        raw = raw.split("/", 1)[0]
+        if raw.startswith("www."):
+            raw = raw[4:]
+        return raw
+
+    def _enforce_binding(claims_obj: dict[str, Any]) -> str:
+        claim_tenant = str(claims_obj.get("tenant_id", "")).strip()
+        claim_domain = _normalize_domain(str(claims_obj.get("company_domain", "")))
+        expected_tenant = str(os.environ.get("VERIOPS_TENANT_ID", "")).strip()
+        expected_domain = _normalize_domain(str(os.environ.get("VERIOPS_COMPANY_DOMAIN", "")))
+
+        if claim_tenant and expected_tenant and claim_tenant != expected_tenant:
+            return (
+                "Tenant binding mismatch: "
+                f"license tenant_id={claim_tenant}, env VERIOPS_TENANT_ID={expected_tenant}"
+            )
+        if claim_domain and expected_domain and claim_domain != expected_domain:
+            return (
+                "Domain binding mismatch: "
+                f"license company_domain={claim_domain}, env VERIOPS_COMPANY_DOMAIN={expected_domain}"
+            )
+        return ""
+
+    binding_error = _enforce_binding(claims)
+    if binding_error:
+        return _community_license(binding_error)
+
     # Check expiration
     now = current_time if current_time is not None else time.time()
     exp = claims.get("exp", 0)
@@ -532,6 +569,8 @@ def validate(
 
     # Extract fields
     client_id = str(claims.get("sub", ""))
+    tenant_id = str(claims.get("tenant_id", "")).strip()
+    company_domain = _normalize_domain(str(claims.get("company_domain", "")))
     jwt_features = claims.get("features", {})
     if not isinstance(jwt_features, dict):
         jwt_features = {}
@@ -595,6 +634,8 @@ def validate(
         expires_at=exp,
         days_remaining=days_remaining,
         error=error,
+        tenant_id=tenant_id,
+        company_domain=company_domain,
         raw_claims=claims,
     )
 
@@ -718,6 +759,8 @@ def get_license_summary(license_info: LicenseInfo | None = None) -> str:
 
     return (
         f"Plan: {effective_plan} | Client: {info.client_id} | "
+        f"Tenant: {info.tenant_id or '-'} | "
+        f"Domain: {info.company_domain or '-'} | "
         f"Days remaining: {info.days_remaining} | "
         f"Features: {len(enabled)} enabled | "
         f"Protocols: {', '.join(effective_protocols)}"
@@ -757,6 +800,10 @@ def main() -> int:
     print(f"  Plan: {info.plan}")
     if info.valid:
         print(f"  Client: {info.client_id}")
+        if info.tenant_id:
+            print(f"  Tenant: {info.tenant_id}")
+        if info.company_domain:
+            print(f"  Company domain: {info.company_domain}")
         print(f"  Expires: {info.expires_at}")
         print(f"  Days remaining: {info.days_remaining}")
         effective_protocols = _effective_protocols(info)

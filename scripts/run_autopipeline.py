@@ -23,6 +23,7 @@ if str(REPO_ROOT) not in sys.path:
     sys.path.insert(0, str(REPO_ROOT))
 
 from scripts.env_loader import load_local_env
+from scripts.flow_feedback import FlowNarrator
 
 
 def _read_yaml(path: Path) -> dict[str, Any]:
@@ -680,9 +681,12 @@ def main() -> int:
     execution_stages.extend(["output index and links", "publish docs review index"])
     total_stages = len(execution_stages)
 
+    narrator = FlowNarrator("Auto-Doc main pipeline", total_steps=total_stages)
+    narrator.start(f"Mode: {args.mode}. Strictness: {strictness}.")
     _say(f"Execution mode={args.mode}", f"strictness={strictness}")
     _say("Execution plan", f"{total_stages} stages")
     stage_no = 1
+    narrator.stage(stage_no, execution_stages[stage_no - 1], "Run end-to-end pipeline orchestration")
     _say(f"Stage {stage_no}/{total_stages}", execution_stages[stage_no - 1])
 
     weekly_cmd = [
@@ -700,8 +704,10 @@ def main() -> int:
     if args.skip_consolidated_report:
         weekly_cmd.append("--skip-consolidated-report")
     rc = _run(weekly_cmd, cwd=repo_root)
+    narrator.done(f"Weekly run finished with rc={rc}")
     _say(f"Stage {stage_no}/{total_stages} done", f"rc={rc}")
     stage_no += 1
+    narrator.stage(stage_no, execution_stages[stage_no - 1], "Verify protocol artifacts and required reports")
     _say(f"Stage {stage_no}/{total_stages}", execution_stages[stage_no - 1])
 
     stage_summary = _build_stage_summary(
@@ -716,36 +722,46 @@ def main() -> int:
         f"Stage {stage_no}/{total_stages} done",
         f"required_missing={stage_summary.get('missing_required_artifacts', 0)}",
     )
+    narrator.done(f"Required artifacts missing: {stage_summary.get('missing_required_artifacts', 0)}")
 
     stage_no += 1
+    narrator.stage(stage_no, execution_stages[stage_no - 1], "Check quality, governance, and gate outputs")
     _say(f"Stage {stage_no}/{total_stages}", execution_stages[stage_no - 1])
     quality_prefixes = ("audit_", "finalize_", "docsops_", "ready_", "kpi_", "glossary_")
     quality_checks = [s for s in stage_summary.get("stages", []) if str(s.get("stage", "")).startswith(quality_prefixes)]
     missing_quality = sum(1 for s in quality_checks if bool(s.get("required", False)) and not bool(s.get("exists", False)))
     _say(f"Stage {stage_no}/{total_stages} done", f"required_missing={missing_quality}")
+    narrator.done(f"Quality artifacts missing: {missing_quality}")
 
     if generate_assets:
         stage_no += 1
+        narrator.stage(stage_no, execution_stages[stage_no - 1], "Validate generated test assets")
         _say(f"Stage {stage_no}/{total_stages}", execution_stages[stage_no - 1])
         test_checks = [s for s in stage_summary.get("stages", []) if str(s.get("stage", "")).startswith("test_assets_")]
         missing_tests = sum(1 for s in test_checks if bool(s.get("required", False)) and not bool(s.get("exists", False)))
         _say(f"Stage {stage_no}/{total_stages} done", f"required_missing={missing_tests}")
+        narrator.done(f"Test asset artifacts missing: {missing_tests}")
     if upload_assets:
         stage_no += 1
+        narrator.stage(stage_no, execution_stages[stage_no - 1], "Validate test asset upload reports")
         _say(f"Stage {stage_no}/{total_stages}", execution_stages[stage_no - 1])
         upload_checks = [s for s in stage_summary.get("stages", []) if str(s.get("stage", "")) == "test_assets_upload_report"]
         missing_upload = sum(1 for s in upload_checks if bool(s.get("required", False)) and not bool(s.get("exists", False)))
         _say(f"Stage {stage_no}/{total_stages} done", f"required_missing={missing_upload}")
+        narrator.done(f"Upload artifacts missing: {missing_upload}")
     if bool(modules.get("rag_optimization", True)) or bool(modules.get("ontology_graph", True)) or bool(modules.get("retrieval_evals", True)):
         stage_no += 1
+        narrator.stage(stage_no, execution_stages[stage_no - 1], "Validate retrieval and knowledge graph artifacts")
         _say(f"Stage {stage_no}/{total_stages}", execution_stages[stage_no - 1])
         rag_prefixes = ("rag_", "knowledge_graph", "retrieval_")
         rag_checks = [s for s in stage_summary.get("stages", []) if str(s.get("stage", "")).startswith(rag_prefixes)]
         missing_rag = sum(1 for s in rag_checks if bool(s.get("required", False)) and not bool(s.get("exists", False)))
         _say(f"Stage {stage_no}/{total_stages} done", f"required_missing={missing_rag}")
+        narrator.done(f"RAG artifacts missing: {missing_rag}")
 
     if isinstance(branding_cfg, dict) and bool(branding_cfg.get("enabled", False)):
         stage_no += 1
+        narrator.stage(stage_no, execution_stages[stage_no - 1], "Apply badge/referral policy to documentation")
         _say(f"Stage {stage_no}/{total_stages}", execution_stages[stage_no - 1])
         landing_url = str(branding_cfg.get("landing_url", "")).strip()
         docs_root_cfg = str(branding_cfg.get("docs_root", runtime.get("paths", {}).get("docs_root", "docs"))).strip()
@@ -758,6 +774,7 @@ def main() -> int:
         report_abs = (repo_root / report_rel).resolve() if not Path(report_rel).is_absolute() else Path(report_rel)
         if not landing_url:
             _say(f"Stage {stage_no}/{total_stages} done", "branding skipped: empty landing_url")
+            narrator.warn("Branding stage skipped because landing_url is empty")
         else:
             cmd = [
                 sys.executable,
@@ -781,17 +798,22 @@ def main() -> int:
                 cmd.extend(["--referral-code", referral_code])
             branding_rc = _run(cmd, cwd=repo_root)
             _say(f"Stage {stage_no}/{total_stages} done", f"rc={branding_rc}, report={report_abs}")
+            narrator.done(f"Branding policy rc={branding_rc}")
             if branding_rc != 0 and strictness == "enterprise-strict":
                 print("[autopipeline] branding policy stage failed in enterprise-strict mode")
+                narrator.finish(False, "Branding policy failed in enterprise-strict mode")
                 return int(branding_rc)
 
     stage_no += 1
+    narrator.stage(stage_no, execution_stages[stage_no - 1], "Write machine-readable stage summary")
     _say(f"Stage {stage_no}/{total_stages}", execution_stages[stage_no - 1])
     stage_summary_path = reports_dir / "pipeline_stage_summary.json"
     stage_summary_path.write_text(json.dumps(stage_summary, ensure_ascii=True, indent=2) + "\n", encoding="utf-8")
     _say(f"Stage {stage_no}/{total_stages} done", str(stage_summary_path))
+    narrator.done(str(stage_summary_path))
 
     stage_no += 1
+    narrator.stage(stage_no, execution_stages[stage_no - 1], "Build review manifest with actionable links")
     _say(f"Stage {stage_no}/{total_stages}", execution_stages[stage_no - 1])
     review_manifest = _write_review_manifest(
         reports_dir,
@@ -802,24 +824,31 @@ def main() -> int:
         skip_consolidated_report=bool(args.skip_consolidated_report),
     )
     _say(f"Stage {stage_no}/{total_stages} done", str(review_manifest))
+    narrator.done(str(review_manifest))
 
     if rc != 0 and strictness == "enterprise-strict":
         print("[autopipeline] failed in enterprise-strict mode")
+        narrator.finish(False, "Weekly stage failed in enterprise-strict mode")
         return rc
     if int(stage_summary.get("missing_required_artifacts", 0)) > 0 and strictness == "enterprise-strict":
         print("[autopipeline] missing required artifacts in enterprise-strict mode")
+        narrator.finish(False, "Required artifacts are missing in enterprise-strict mode")
         return 1
 
     if not args.skip_local_llm_packet and args.mode == "operator":
         stage_no += 1
+        narrator.stage(stage_no, execution_stages[stage_no - 1], "Prepare local review packet for operator AI")
         _say(f"Stage {stage_no}/{total_stages}", execution_stages[stage_no - 1])
         packet_path = _build_llm_review_packet(reports_dir, runtime_path, review_manifest)
         _say(f"Stage {stage_no}/{total_stages} done", str(packet_path))
+        narrator.done(str(packet_path))
     elif args.mode == "veridoc":
         _say("Stage local review packet", "skipped in veridoc mode")
+        narrator.note("Local review packet skipped in veridoc mode")
 
     if args.auto_generate:
         stage_no += 1
+        narrator.stage(stage_no, execution_stages[stage_no - 1], "Run automatic documentation generation")
         _say(f"Stage {stage_no}/{total_stages}", execution_stages[stage_no - 1])
         before = set(_git_changed_files(repo_root))
         generate_cmd = [
@@ -860,11 +889,14 @@ def main() -> int:
             f"Stage {stage_no}/{total_stages} done",
             f"rc={generate_rc}, changed_files={len(new_or_updated)}, {changes_path}",
         )
+        narrator.done(f"Auto-generate rc={generate_rc}, changed files={len(new_or_updated)}")
         if generate_rc != 0 and strictness == "enterprise-strict":
             print("[autopipeline] automatic docs generation failed in enterprise-strict mode")
+            narrator.finish(False, "Automatic docs generation failed in enterprise-strict mode")
             return int(generate_rc)
 
     stage_no += 1
+    narrator.stage(stage_no, execution_stages[stage_no - 1], "Assemble output index for human review")
     _say(f"Stage {stage_no}/{total_stages}", execution_stages[stage_no - 1])
     output_index = _write_output_index(
         reports_dir=reports_dir,
@@ -874,14 +906,19 @@ def main() -> int:
         repo_root=repo_root,
     )
     _say(f"Stage {stage_no}/{total_stages} done", str(output_index))
+    narrator.done(str(output_index))
     stage_no += 1
+    narrator.stage(stage_no, execution_stages[stage_no - 1], "Publish review index into docs tree if available")
     _say(f"Stage {stage_no}/{total_stages}", execution_stages[stage_no - 1])
     published = _publish_output_index_to_docs(repo_root, output_index)
     if published is not None:
         _say(f"Stage {stage_no}/{total_stages} done", str(published))
+        narrator.done(str(published))
     else:
         _say(f"Stage {stage_no}/{total_stages} done", "docs/operations not present")
+        narrator.note("docs/operations not present, publish step skipped")
     _say("Done", "all outputs indexed for review")
+    narrator.finish(True, "All outputs indexed and ready for review")
     return rc
 
 

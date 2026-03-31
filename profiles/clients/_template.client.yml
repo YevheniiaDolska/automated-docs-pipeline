@@ -2,6 +2,9 @@ client:
   id: "acme"
   company_name: "ACME Inc."
   contact_email: "docs-owner@acme.example"
+  # Optional license binding fields for enterprise control.
+  tenant_id: "acme"
+  company_domain: "acme.example"
 
 bundle:
   # Where bundle is created in this repository.
@@ -81,6 +84,7 @@ bundle:
   llm:
     codex_instructions_source: "AGENTS.md"
     claude_instructions_source: "CLAUDE.md"
+    local_instructions_source: "LOCAL_MODEL.md"
     inject_managed_block: true
     # Relative path where bundle is placed inside client repo.
     docsops_root_in_client_repo: "docsops"
@@ -106,6 +110,19 @@ runtime:
 
   # Local LLM preference for this client.
   preferred_llm: "claude"
+  llm_control:
+    # local_default: local model first, external only by explicit policy
+    # external_preferred: can use external LLM directly if allowed by policy
+    llm_mode: "local_default"
+    external_llm_allowed: false
+    require_explicit_approval: true
+    approval_cache_scope: "run"
+    redact_before_external: true
+    local_model: "veridoc-writer"
+    local_base_model: "qwen3:30b"
+    local_model_command: "ollama run {model} \"{prompt}\""
+    auto_install_local_model_on_setup: true
+    quality_delta_note: "Fully local mode may reduce output quality by ~10-15% on hardest synthesis tasks."
 
   # Different static generators per client.
   output_targets:
@@ -251,7 +268,7 @@ runtime:
   # Higher plans -> optional opt-out, referral code can be appended to landing URL.
   veridoc_branding:
     enabled: false
-    landing_url: "https://veridoc.app"
+    landing_url: "https://veri-doc.app/"
     plan: "free"
     cheapest_paid_plan: "starter"
     badge_opt_out: false

@@ -151,6 +151,16 @@ def _create_personal_profile() -> tuple[Path, str]:
         "Contact email",
         str(profile["client"].get("contact_email", "me@example.com")),
     )
+    llm_tier = _prompt_choice(
+        "LLM mode",
+        ["fully-local", "hybrid"],
+        "fully-local",
+    )
+    if llm_tier == "fully-local":
+        print(
+            "[info] Fully local mode selected: no external LLM egress by default. "
+            "Quality on hardest synthesis tasks can be ~10-15% lower."
+        )
 
     # No licensing questions -- personal wizard skips them entirely
 
@@ -246,7 +256,7 @@ def _create_personal_profile() -> tuple[Path, str]:
             profile["runtime"].get("veridoc_branding", {}).get("enabled", False)
         ),
     )
-    branding_landing_url = "https://veridoc.app"
+    branding_landing_url = "https://veri-doc.app/"
     branding_plan = "free"
     branding_cheapest = "pro"
     branding_badge_opt_out = False
@@ -256,17 +266,16 @@ def _create_personal_profile() -> tuple[Path, str]:
             branding_defaults = {}
         branding_landing_url = _prompt(
             "Branding landing URL",
-            str(branding_defaults.get("landing_url", "https://veridoc.app")),
+            str(branding_defaults.get("landing_url", "https://veri-doc.app/")),
         )
         branding_plan = _prompt_choice(
             "Branding plan",
             ["pilot", "free", "starter", "pro", "business", "enterprise"],
             str(branding_defaults.get("plan", "free")).strip().lower(),
         )
-        branding_badge_opt_out = _prompt_yes_no(
-            "Allow badge opt-out? (Recurring 15% referral works only while badge is enabled and both users stay on paid plans)",
-            default_yes=bool(branding_defaults.get("badge_opt_out", False)),
-        )
+        # Do not ask operator at bundle-build time.
+        # Client controls opt-out later in product UI (Settings -> Referrals).
+        branding_badge_opt_out = bool(branding_defaults.get("badge_opt_out", False))
 
     enable_intent_weekly = _prompt_yes_no(
         "Enable weekly intent experience build?",
@@ -347,7 +356,7 @@ def _create_personal_profile() -> tuple[Path, str]:
                     ),
                 )
                 api_first["generate_test_assets"] = _prompt_yes_no(
-                    "Generate API test assets from OpenAPI?",
+                    "Generate API test assets from API contracts (REST/GraphQL/gRPC/AsyncAPI/WebSocket)?",
                     default_yes=bool(
                         api_first.get("generate_test_assets", True)
                     ),
@@ -422,6 +431,26 @@ def _create_personal_profile() -> tuple[Path, str]:
             "generate_search_widget"
         ] = True
     profile["runtime"]["integrations"]["ask_ai"]["enabled"] = enable_ask_ai
+    llm_control = profile["runtime"].get("llm_control", {})
+    if not isinstance(llm_control, dict):
+        llm_control = {}
+    llm_control["llm_mode"] = "local_default" if llm_tier == "fully-local" else "external_preferred"
+    llm_control["local_model"] = "veridoc-writer"
+    llm_control["local_base_model"] = "qwen3:30b"
+    llm_control["local_model_command"] = "ollama run {model} \"{prompt}\""
+    llm_control["auto_install_local_model_on_setup"] = True
+    llm_control["quality_delta_note"] = (
+        "Fully local mode may reduce output quality by ~10-15% on hardest synthesis tasks."
+    )
+    if llm_tier == "fully-local":
+        llm_control["external_llm_allowed"] = False
+        llm_control["require_explicit_approval"] = True
+    else:
+        llm_control["external_llm_allowed"] = True
+        llm_control["require_explicit_approval"] = False
+    llm_control["approval_cache_scope"] = "run"
+    llm_control["redact_before_external"] = True
+    profile["runtime"]["llm_control"] = llm_control
     profile["runtime"]["veridoc_branding"] = {
         "enabled": enable_veridoc_branding,
         "landing_url": branding_landing_url,
@@ -834,7 +863,7 @@ def create_personal_bundle(profile_path: Path) -> Path:
                 )
             )
             landing_url = str(
-                branding_cfg.get("landing_url", "https://veridoc.app")
+                branding_cfg.get("landing_url", "https://veri-doc.app/")
             ).strip()
             plan = str(
                 branding_cfg.get("plan", "free")

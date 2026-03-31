@@ -30,6 +30,11 @@ except Exception:  # noqa: BLE001
     yaml = None  # type: ignore
 
 logger = logging.getLogger(__name__)
+REPO_ROOT = Path(__file__).resolve().parents[1]
+if str(REPO_ROOT) not in sys.path:
+    sys.path.insert(0, str(REPO_ROOT))
+
+from scripts.llm_egress import ensure_external_allowed, load_policy, redact_payload
 
 
 CODE_PLACEHOLDER_PATTERN = re.compile(
@@ -2588,6 +2593,21 @@ def main() -> int:
         default="reports/company_assumptions.autofill.json",
         help="Path to save LLM-generated assumptions profile",
     )
+    parser.add_argument(
+        "--runtime-config",
+        default="docsops/config/client_runtime.yml",
+        help="Runtime config path used for LLM egress policy",
+    )
+    parser.add_argument(
+        "--external-llm-approve-once",
+        action="store_true",
+        help="Approve one external LLM step for this execution",
+    )
+    parser.add_argument(
+        "--external-llm-approve-for-run",
+        action="store_true",
+        help="Approve external LLM usage for this run (cached in reports dir)",
+    )
     args = parser.parse_args()
 
     # -- License gate: public docs audit requires enterprise plan --
@@ -2873,6 +2893,8 @@ def main() -> int:
     }
 
     if bool(args.llm_enabled):
+        reports_dir = Path(str(args.json_output)).resolve().parent
+        policy = load_policy(Path(str(args.runtime_config)))
         llm_api_key = os.environ.get(str(args.llm_api_key_env_name), "").strip()
         if not llm_api_key:
             llm_api_key = _read_dotenv_value(str(args.llm_env_file), str(args.llm_api_key_env_name))
@@ -2885,28 +2907,43 @@ def main() -> int:
                 ),
             }
         else:
-            try:
-                llm_result = _run_llm_analysis(
-                    payload,
-                    model=str(args.llm_model),
-                    api_key=llm_api_key,
-                    timeout=int(args.llm_timeout),
-                    summary_only=bool(getattr(args, "llm_summary_only", False)),
-                )
+            approved = ensure_external_allowed(
+                policy=policy,
+                step="public_docs_audit_executive_analysis",
+                reports_dir=reports_dir,
+                approve_once=bool(getattr(args, "external_llm_approve_once", False)),
+                approve_for_run=bool(getattr(args, "external_llm_approve_for_run", False)),
+                non_interactive=not bool(getattr(args, "interactive", False)),
+            )
+            if not approved:
                 payload["llm_analysis"] = {
-                    "status": "ok",
-                    "model": str(args.llm_model),
-                    "analysis": llm_result,
+                    "status": "blocked",
+                    "reason": "External LLM use blocked by policy/approval gate.",
                 }
-                llm_path = Path(args.llm_summary_output)
-                llm_path.parent.mkdir(parents=True, exist_ok=True)
-                llm_path.write_text(json.dumps(payload["llm_analysis"], ensure_ascii=True, indent=2) + "\n", encoding="utf-8")
-            except (Exception,) as exc:  # noqa: BLE001
-                payload["llm_analysis"] = {
-                    "status": "failed",
-                    "model": str(args.llm_model),
-                    "error": str(exc),
-                }
+            else:
+                try:
+                    llm_input = redact_payload(payload) if policy.redact_before_external else payload
+                    llm_result = _run_llm_analysis(
+                        llm_input,
+                        model=str(args.llm_model),
+                        api_key=llm_api_key,
+                        timeout=int(args.llm_timeout),
+                        summary_only=bool(getattr(args, "llm_summary_only", False)),
+                    )
+                    payload["llm_analysis"] = {
+                        "status": "ok",
+                        "model": str(args.llm_model),
+                        "analysis": llm_result,
+                    }
+                    llm_path = Path(args.llm_summary_output)
+                    llm_path.parent.mkdir(parents=True, exist_ok=True)
+                    llm_path.write_text(json.dumps(payload["llm_analysis"], ensure_ascii=True, indent=2) + "\n", encoding="utf-8")
+                except (Exception,) as exc:  # noqa: BLE001
+                    payload["llm_analysis"] = {
+                        "status": "failed",
+                        "model": str(args.llm_model),
+                        "error": str(exc),
+                    }
 
     json_path = Path(args.json_output)
     html_path = Path(args.html_output)
@@ -2967,10 +3004,23 @@ def main() -> int:
                     llm_api_key = _read_dotenv_value(str(args.llm_env_file), str(args.llm_api_key_env_name))
                 if llm_api_key:
                     try:
+                        reports_dir = Path(str(args.json_output)).resolve().parent
+                        policy = load_policy(Path(str(args.runtime_config)))
+                        approved = ensure_external_allowed(
+                            policy=policy,
+                            step="public_docs_audit_assumptions_autofill",
+                            reports_dir=reports_dir,
+                            approve_once=bool(getattr(args, "external_llm_approve_once", False)),
+                            approve_for_run=bool(getattr(args, "external_llm_approve_for_run", False)),
+                            non_interactive=not bool(getattr(args, "interactive", False)),
+                        )
+                        if not approved:
+                            raise RuntimeError("External LLM assumptions autofill blocked by policy/approval gate.")
+                        safe_metrics = redact_payload(m) if policy.redact_before_external else m
                         auto_profile = _autofill_assumptions_with_llm(
                             company_name=company,
                             site_urls=normalized_urls,
-                            aggregate_metrics=m,
+                            aggregate_metrics=safe_metrics,
                             llm_api_key=llm_api_key,
                             llm_model=str(args.llm_model),
                             llm_timeout=int(args.llm_timeout),

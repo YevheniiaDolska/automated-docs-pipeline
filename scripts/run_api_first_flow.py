@@ -19,6 +19,7 @@ if str(REPO_ROOT) not in sys.path:
     sys.path.insert(0, str(REPO_ROOT))
 
 from scripts.env_loader import load_local_env
+from scripts.flow_feedback import FlowNarrator
 from scripts.license_gate import require as _license_require
 
 
@@ -307,7 +308,7 @@ def resolve_mock_base_url(repo: Path, args: argparse.Namespace) -> str:
     ]
     if args.external_mock_postman_private:
         cmd.append("--postman-private")
-    print("[demo] Step 0/5: Ensure external mock server is ready.", flush=True)
+    print("[api-first] Step 0/5: Ensure external mock server is ready.", flush=True)
     run(cmd, cwd=repo, compact=True, summary_label="external mock prepared")
     payload = json.loads(out_path.read_text(encoding="utf-8"))
     if not isinstance(payload, dict):
@@ -388,8 +389,9 @@ def run_one_attempt(
     upload_zephyr_folder_id_env: str,
     regression_snapshot: Path | None,
     update_regression_snapshot: bool,
+    narrator: FlowNarrator,
 ) -> None:
-    print("[demo] Step 1/5: Validate contract structure and required metadata.", flush=True)
+    narrator.stage(1, "Validate contract", "Check OpenAPI structure and required metadata")
     run(
         ["python3", "scripts/validate_openapi_contract.py", str(spec)],
         cwd=repo,
@@ -397,7 +399,7 @@ def run_one_attempt(
         summary_label="contract validation finished",
     )
 
-    print("[demo] Step 2/5: Run API quality linting (Spectral).", flush=True)
+    narrator.stage(2, "API quality lint", "Run Spectral, Redocly, and Swagger CLI")
     run_first_available(
         [
             ["spectral", "lint", str(spec), "--ruleset", ".spectral.yml"],
@@ -407,7 +409,7 @@ def run_one_attempt(
         compact=True,
         summary_label="spectral lint finished",
     )
-    print("[demo] Step 2/5: Run API quality linting (Redocly).", flush=True)
+    narrator.note("Continue lint stack: Redocly")
     run_first_available(
         [
             ["redocly", "lint", str(spec)],
@@ -417,7 +419,7 @@ def run_one_attempt(
         compact=True,
         summary_label="redocly lint finished",
     )
-    print("[demo] Step 2/5: Run API quality linting (Swagger CLI).", flush=True)
+    narrator.note("Continue lint stack: Swagger CLI")
     run_first_available(
         [
             ["swagger-cli", "validate", str(spec)],
@@ -428,7 +430,7 @@ def run_one_attempt(
         summary_label="swagger-cli validation finished",
     )
 
-    print("[demo] Step 3/5: Generate server endpoint stubs from operation definitions.", flush=True)
+    narrator.stage(3, "Generate server stubs", "Build endpoint stubs from operation definitions")
     run(
         [
             "python3",
@@ -443,16 +445,16 @@ def run_one_attempt(
         summary_label="fastapi stubs generated",
     )
 
-    print("[demo] Step 4/5: Publish OpenAPI assets for the docs playground.", flush=True)
+    narrator.stage(4, "Publish API artifacts", "Sync docs assets and verify coverage")
     copy_spec_to_docs(spec_tree, docs_target / project_slug)
     shutil.copy2(spec, docs_target / "openapi.yaml")
     bundle_openapi_spec(docs_target / "openapi.yaml", docs_target / "openapi.bundled.yaml")
 
-    print("[demo] Step 4/5: Verify that every operation is covered by a generated handler.", flush=True)
+    narrator.note("Verify every operationId has a generated handler")
     self_verify_stub_coverage(spec, stubs_output)
 
     if regression_snapshot is not None:
-        print("[demo] Step 4/5: Run OpenAPI regression gate.", flush=True)
+        narrator.note("Run regression gate against saved snapshot")
         cmd = [
             "python3",
             "scripts/check_openapi_regression.py",
@@ -468,7 +470,7 @@ def run_one_attempt(
         run(cmd, cwd=repo, compact=True, summary_label="openapi regression gate finished")
 
     if verify_user_path:
-        print("[demo] Step 4/5: Simulate end-user API calls against the live mock server.", flush=True)
+        narrator.note("Run user-path simulation against live mock endpoint")
         try:
             run(
                 ["python3", "scripts/self_verify_api_user_path.py", "--base-url", mock_base_url],
@@ -483,7 +485,7 @@ def run_one_attempt(
             ) from error
 
     if generate_test_assets:
-        print("[demo] Step 4/5: Generate API test assets (TestRail/Zephyr + matrix/fuzz/property).", flush=True)
+        narrator.note("Generate API test assets (matrix, fuzz, property-based)")
         run(
             [
                 "python3",
@@ -502,7 +504,7 @@ def run_one_attempt(
             summary_label="API test assets generated",
         )
         if upload_test_assets:
-            print("[demo] Step 4/5: Upload generated API test assets to TestRail/Zephyr.", flush=True)
+            narrator.note("Upload generated API test assets to TestRail/Zephyr")
             upload_cmd = [
                 "python3",
                 "scripts/upload_api_test_assets.py",
@@ -543,7 +545,7 @@ def run_one_attempt(
             )
 
     if run_docs_lint:
-        print("[demo] Step 5/5: Run documentation quality checks (Vale, markdownlint, SEO/GEO, and more).", flush=True)
+        narrator.stage(5, "Run docs quality gates", "Normalize docs and execute full lint stack")
         run(
             ["python3", "scripts/normalize_docs.py", "docs/"],
             cwd=repo,
@@ -666,6 +668,8 @@ def main() -> int:
         help="Refresh regression snapshot during this run",
     )
     args = parser.parse_args()
+    narrator = FlowNarrator("API-first flow", total_steps=5)
+    narrator.start("Generating contract, stubs, test assets, and docs-quality outputs.")
 
     # -- License gate: API-first flow requires professional+ plan --
     _license_require("api_first_flow")
@@ -688,7 +692,7 @@ def main() -> int:
     ensure_file(notes, "planning notes")
 
     if not args.skip_generate_from_notes:
-        print("[demo] Step 0/5: Generate OpenAPI contract from planning notes.", flush=True)
+        narrator.note("Pre-step: generate OpenAPI contract from planning notes")
         run(
             [
                 "python3",
@@ -713,9 +717,11 @@ def main() -> int:
     resolved_mock_base_url = resolve_mock_base_url(repo, args)
 
     if args.docs_provider.lower() == "mkdocs" and args.sync_playground_endpoint:
+        narrator.note("Sync mkdocs API playground endpoint with resolved sandbox URL")
         sync_playground_sandbox_url(repo, resolved_mock_base_url)
 
     if manual_overrides is not None:
+        narrator.note("Apply manual OpenAPI overrides")
         ensure_file(manual_overrides, "OpenAPI manual overrides file")
         run(
             [
@@ -734,6 +740,7 @@ def main() -> int:
         )
 
     if args.inject_demo_nav:
+        narrator.note("Inject demo navigation entries")
         run(["python3", "scripts/manage_demo_nav.py", "--mode", "add"], cwd=repo)
 
     last_error: Exception | None = None
@@ -771,9 +778,10 @@ def main() -> int:
                 str(args.upload_zephyr_folder_id_env),
                 regression_snapshot,
                 args.update_regression_snapshot,
+                narrator,
             )
             if args.finalize_gate:
-                print("[demo] Step 5/5: Finalize docs gate (lint -> fix -> lint, optional commit confirmation).", flush=True)
+                narrator.stage(5, "Finalize docs gate", "Run lint-fix-lint loop and generate gate report")
                 finalize_cmd = [
                     "python3",
                     "scripts/finalize_docs_gate.py",
@@ -790,18 +798,20 @@ def main() -> int:
                     finalize_cmd.append("--ask-commit-confirmation")
                 finalize_cmd.extend(["--ui-confirmation", str(args.ui_confirmation)])
                 run(finalize_cmd, cwd=repo, compact=True, summary_label="finalize docs gate finished")
-            print(f"[demo] sandbox page URL: {build_sandbox_page_url(repo, args.docs_provider)}", flush=True)
+            narrator.note(f"Sandbox page URL: {build_sandbox_page_url(repo, args.docs_provider)}")
             print("[ok] API-first production flow completed successfully", flush=True)
+            narrator.finish(True, "API-first flow completed successfully")
             return 0
         except (Exception,) as error:
             last_error = error
             if not args.auto_remediate or attempt >= args.max_attempts:
                 break
-            print(f"[warn] attempt failed, running remediation sync: {error}", flush=True)
+            narrator.warn(f"Attempt failed; running remediation sync: {error}")
             copy_spec_to_docs(spec_tree, docs_target / args.project_slug)
             shutil.copy2(spec, docs_target / "openapi.yaml")
             bundle_openapi_spec(docs_target / "openapi.yaml", docs_target / "openapi.bundled.yaml")
 
+    narrator.finish(False, f"API-first flow failed after {args.max_attempts} attempt(s)")
     raise RuntimeError(f"API-first flow failed after {args.max_attempts} attempt(s): {last_error}")
 
 

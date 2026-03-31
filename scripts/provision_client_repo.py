@@ -125,6 +125,24 @@ def _create_profile_via_wizard(default_scheduler: str, *, require_repo: bool = T
         "Contact email",
         str(profile["client"].get("contact_email", "docs-owner@example.com")),
     )
+    llm_tier = _prompt_choice(
+        "LLM mode",
+        ["fully-local", "hybrid"],
+        "fully-local",
+    )
+    if llm_tier == "fully-local":
+        print(
+            "[info] Fully local mode selected: no external LLM egress by default. "
+            "Quality on hardest synthesis tasks can be ~10-15% lower."
+        )
+    tenant_id = _prompt_with_default(
+        "Tenant ID (license binding)",
+        str(profile["client"].get("tenant_id", client_id)),
+    )
+    company_domain = _prompt_with_default(
+        "Company primary domain (license binding, optional)",
+        str(profile["client"].get("company_domain", "")),
+    )
 
     # Licensing
     license_plan = _prompt_choice(
@@ -199,7 +217,7 @@ def _create_profile_via_wizard(default_scheduler: str, *, require_repo: bool = T
         "Enable Powered by VeriDoc badge policy automation?",
         default_yes=bool(profile["runtime"].get("veridoc_branding", {}).get("enabled", False)),
     )
-    branding_landing_url = "https://veridoc.app"
+    branding_landing_url = "https://veri-doc.app/"
     branding_plan = "free"
     branding_cheapest = "pro"
     branding_badge_opt_out = False
@@ -209,17 +227,16 @@ def _create_profile_via_wizard(default_scheduler: str, *, require_repo: bool = T
             branding_defaults = {}
         branding_landing_url = _prompt_with_default(
             "Branding landing URL",
-            str(branding_defaults.get("landing_url", "https://veridoc.app")),
+            str(branding_defaults.get("landing_url", "https://veri-doc.app/")),
         )
         branding_plan = _prompt_choice(
             "Branding plan",
             ["pilot", "free", "starter", "pro", "business", "enterprise"],
             str(branding_defaults.get("plan", "free")).strip().lower(),
         )
-        branding_badge_opt_out = _prompt_yes_no(
-            "Allow badge opt-out? (Recurring 15% referral works only while badge is enabled and both users stay on paid plans)",
-            default_yes=bool(branding_defaults.get("badge_opt_out", False)),
-        )
+        # Do not ask operator at bundle-build time.
+        # Client controls opt-out later in product UI (Settings -> Referrals).
+        branding_badge_opt_out = bool(branding_defaults.get("badge_opt_out", False))
 
     enable_intent_weekly = _prompt_yes_no("Enable weekly intent experience build?", default_yes=True)
     finalize_gate_cfg = profile["runtime"].get("finalize_gate", {})
@@ -285,7 +302,7 @@ def _create_profile_via_wizard(default_scheduler: str, *, require_repo: bool = T
                     default_yes=bool(api_first.get("sync_playground_endpoint", True)),
                 )
                 api_first["generate_test_assets"] = _prompt_yes_no(
-                    "Generate API test assets from OpenAPI?",
+                    "Generate API test assets from API contracts (REST/GraphQL/gRPC/AsyncAPI/WebSocket)?",
                     default_yes=bool(api_first.get("generate_test_assets", True)),
                 )
 
@@ -333,6 +350,8 @@ def _create_profile_via_wizard(default_scheduler: str, *, require_repo: bool = T
     profile["client"]["id"] = client_id
     profile["client"]["company_name"] = company_name
     profile["client"]["contact_email"] = contact_email
+    profile["client"]["tenant_id"] = tenant_id
+    profile["client"]["company_domain"] = company_domain.strip().lower()
     profile["licensing"] = {
         "plan": license_plan,
         "days": license_days,
@@ -350,6 +369,26 @@ def _create_profile_via_wizard(default_scheduler: str, *, require_repo: bool = T
         profile["runtime"]["integrations"]["algolia"]["site_generator"] = algolia_site_generator
         profile["runtime"]["integrations"]["algolia"]["generate_search_widget"] = True
     profile["runtime"]["integrations"]["ask_ai"]["enabled"] = enable_ask_ai
+    llm_control = profile["runtime"].get("llm_control", {})
+    if not isinstance(llm_control, dict):
+        llm_control = {}
+    llm_control["llm_mode"] = "local_default" if llm_tier == "fully-local" else "external_preferred"
+    llm_control["local_model"] = "veridoc-writer"
+    llm_control["local_base_model"] = "qwen3:30b"
+    llm_control["local_model_command"] = "ollama run {model} \"{prompt}\""
+    llm_control["auto_install_local_model_on_setup"] = True
+    llm_control["quality_delta_note"] = (
+        "Fully local mode may reduce output quality by ~10-15% on hardest synthesis tasks."
+    )
+    if llm_tier == "fully-local":
+        llm_control["external_llm_allowed"] = False
+        llm_control["require_explicit_approval"] = True
+    else:
+        llm_control["external_llm_allowed"] = True
+        llm_control["require_explicit_approval"] = False
+    llm_control["approval_cache_scope"] = "run"
+    llm_control["redact_before_external"] = True
+    profile["runtime"]["llm_control"] = llm_control
     profile["runtime"]["veridoc_branding"] = {
         "enabled": enable_veridoc_branding,
         "landing_url": branding_landing_url,

@@ -10,8 +10,11 @@ from __future__ import annotations
 import argparse
 import base64
 import datetime as dt
+import hashlib
+import json
 import os
 import shutil
+import subprocess
 import sys
 from collections.abc import Mapping
 from pathlib import Path
@@ -95,6 +98,21 @@ def build_runtime_config(profile: dict[str, Any]) -> dict[str, Any]:
             "preferred_llm": runtime.get("preferred_llm", "claude"),
             "output_targets": runtime.get("output_targets", ["mkdocs"]),
         },
+        "llm_control": runtime.get(
+            "llm_control",
+            {
+                "llm_mode": "local_default",
+                "external_llm_allowed": False,
+                "require_explicit_approval": True,
+                "approval_cache_scope": "run",
+                "redact_before_external": True,
+                "local_model": "veridoc-writer",
+                "local_base_model": "qwen3:30b",
+                "local_model_command": "ollama run {model} \"{prompt}\"",
+                "auto_install_local_model_on_setup": True,
+                "quality_delta_note": "Fully local mode may reduce output quality by ~10-15% on hardest synthesis tasks.",
+            },
+        ),
         "docs_flow": runtime.get("docs_flow", {"mode": "code-first"}),
         "paths": {
             "docs_root": runtime.get("docs_root", "docs"),
@@ -264,7 +282,7 @@ def build_runtime_config(profile: dict[str, Any]) -> dict[str, Any]:
             "veridoc_branding",
             {
                 "enabled": False,
-                "landing_url": "https://veridoc.app",
+                "landing_url": "https://veri-doc.app/",
                 "plan": "free",
                 "cheapest_paid_plan": "starter",
                 "badge_opt_out": False,
@@ -351,6 +369,8 @@ def build_licensing_infrastructure(profile: dict[str, Any], bundle_root: Path) -
     days = int(licensing.get("days", 365))
     max_docs = int(licensing.get("max_docs", 0))
     client_id = str(profile.get("client", {}).get("id", "")).strip()
+    tenant_id = str(profile.get("client", {}).get("tenant_id", client_id)).strip()
+    company_domain = str(profile.get("client", {}).get("company_domain", "")).strip().lower()
 
     jwt_path = docsops_dir / "license.jwt"
 
@@ -372,6 +392,8 @@ def build_licensing_infrastructure(profile: dict[str, Any], bundle_root: Path) -
                 days=days,
                 private_key=priv_key,
                 max_docs=max_docs,
+                tenant_id=tenant_id,
+                company_domain=company_domain,
             )
             jwt_path.write_text(token + "\n", encoding="utf-8")
             print(f"[license] JWT auto-generated: plan={plan}, days={days}, client={client_id}")
@@ -380,7 +402,9 @@ def build_licensing_infrastructure(profile: dict[str, Any], bundle_root: Path) -
             jwt_path.write_text(
                 "# Auto-generation failed. Generate manually:\n"
                 f"#   python3 build/generate_license.py --client-id {client_id} "
-                f"--plan {plan} --days {days}\n",
+                f"--plan {plan} --days {days} "
+                f"--tenant-id {tenant_id or client_id} "
+                f"--company-domain {company_domain or '<company-domain>'}\n",
                 encoding="utf-8",
             )
     else:
@@ -389,7 +413,9 @@ def build_licensing_infrastructure(profile: dict[str, Any], bundle_root: Path) -
         jwt_path.write_text(
             "# Placeholder: generate a license JWT with:\n"
             f"#   python3 build/generate_license.py --client-id {client_id or 'CLIENT'} "
-            f"--plan {plan} --days {days}\n"
+            f"--plan {plan} --days {days} "
+            f"--tenant-id {tenant_id or client_id or 'TENANT'} "
+            f"--company-domain {company_domain or '<company-domain>'}\n"
             "# Then copy the .jwt file here.\n",
             encoding="utf-8",
         )
@@ -555,24 +581,32 @@ def build_llm_instruction_files(profile: dict[str, Any], bundle_root: Path) -> N
 
     codex_src_rel = str(llm_cfg.get("codex_instructions_source", "AGENTS.md"))
     claude_src_rel = str(llm_cfg.get("claude_instructions_source", "CLAUDE.md"))
+    local_src_rel = str(llm_cfg.get("local_instructions_source", "LOCAL_MODEL.md"))
 
     codex_src = REPO_ROOT / codex_src_rel
     claude_src = REPO_ROOT / claude_src_rel
+    local_src = REPO_ROOT / local_src_rel
     if not codex_src.exists():
         raise FileNotFoundError(f"Missing Codex instructions file: {codex_src_rel}")
     if not claude_src.exists():
         raise FileNotFoundError(f"Missing Claude instructions file: {claude_src_rel}")
+    if not local_src.exists():
+        # Backward-compatible fallback: reuse AGENTS when LOCAL_MODEL is absent.
+        local_src = codex_src
 
     codex_dst = bundle_root / "AGENTS.md"
     claude_dst = bundle_root / "CLAUDE.md"
+    local_dst = bundle_root / "LOCAL_MODEL.md"
     shutil.copy2(codex_src, codex_dst)
     shutil.copy2(claude_src, claude_dst)
+    shutil.copy2(local_src, local_dst)
 
     if bool(llm_cfg.get("inject_managed_block", True)):
         docsops_root = str(llm_cfg.get("docsops_root_in_client_repo", "docsops"))
         block = build_managed_instruction_block(docsops_root)
         upsert_managed_block(codex_dst, block)
         upsert_managed_block(claude_dst, block)
+        upsert_managed_block(local_dst, block)
 
 
 def _cron_day_to_number(day: str) -> str:
@@ -608,6 +642,15 @@ def build_automation_files(profile: dict[str, Any], bundle_root: Path) -> None:
     cron_day = _cron_day_to_number(day)
     client_id = str(profile.get("client", {}).get("id", "client")).strip()
     task_name = f"VeriOpsWeekly-{client_id}"
+    llm_control = profile.get("runtime", {}).get("llm_control", {})
+    if not isinstance(llm_control, Mapping):
+        llm_control = {}
+    llm_mode = str(llm_control.get("llm_mode", "local_default")).strip().lower() or "local_default"
+    local_engine = "auto"
+    if llm_mode == "external_preferred":
+        local_engine = str(profile.get("runtime", {}).get("preferred_llm", "claude")).strip().lower()
+        if local_engine not in {"codex", "claude"}:
+            local_engine = "auto"
 
     ops_dir = bundle_root / "ops"
     ops_dir.mkdir(parents=True, exist_ok=True)
@@ -623,7 +666,7 @@ if [[ -f ".env.docsops.local" ]]; then
   set +a
 fi
 while true; do
-  if python3 {docsops_root}/scripts/run_weekly_gap_batch.py --docsops-root {docsops_root} --reports-dir reports --since {since_days}; then
+  if python3 {docsops_root}/scripts/run_autopipeline.py --docsops-root {docsops_root} --reports-dir reports --since {since_days} --runtime-config {docsops_root}/config/client_runtime.yml --mode operator --auto-generate --local-engine {local_engine}; then
     break
   fi
   echo \"[docsops] weekly run failed, retrying in {retry_delay_seconds}s...\"
@@ -645,9 +688,9 @@ if (Test-Path \".env.docsops.local\") {{
 }}
 while ($true) {{
   if (Get-Command py -ErrorAction SilentlyContinue) {{
-    py -3 \"{docsops_root}/scripts/run_weekly_gap_batch.py\" --docsops-root \"{docsops_root}\" --reports-dir \"reports\" --since {since_days}
+    py -3 \"{docsops_root}/scripts/run_autopipeline.py\" --docsops-root \"{docsops_root}\" --reports-dir \"reports\" --since {since_days} --runtime-config \"{docsops_root}/config/client_runtime.yml\" --mode \"operator\" --auto-generate --local-engine \"{local_engine}\"
   }} else {{
-    python \"{docsops_root}/scripts/run_weekly_gap_batch.py\" --docsops-root \"{docsops_root}\" --reports-dir \"reports\" --since {since_days}
+    python \"{docsops_root}/scripts/run_autopipeline.py\" --docsops-root \"{docsops_root}\" --reports-dir \"reports\" --since {since_days} --runtime-config \"{docsops_root}/config/client_runtime.yml\" --mode \"operator\" --auto-generate --local-engine \"{local_engine}\"
   }}
   if ($LASTEXITCODE -eq 0) {{
     break
@@ -685,10 +728,14 @@ $Action = New-ScheduledTaskAction -Execute \"powershell.exe\" -Argument \"-NoPro
             "# Weekly automation runbook\n\n"
             "Client first step (set secrets interactively):\n"
             "1. Run `python3 docsops/scripts/setup_client_env_wizard.py` once.\n\n"
+            "If fully-local mode is selected, setup wizard can also install Ollama,\n"
+            "pull the base model, and create `veridoc-writer` from `docsops/LOCAL_MODEL.md`.\n\n"
             "Linux/macOS:\n"
             "1. Run `bash docsops/ops/install_cron_weekly.sh` once.\n\n"
             "Windows:\n"
-            "1. Run `powershell -ExecutionPolicy Bypass -File docsops/ops/install_windows_task.ps1` once.\n"
+            "1. Run `powershell -ExecutionPolicy Bypass -File docsops/ops/install_windows_task.ps1` once.\n\n"
+            "Scheduled run executes full chain:\n"
+            "`run_autopipeline -> consolidated report -> docsops_generate`.\n"
         ),
         encoding="utf-8",
     )
@@ -874,6 +921,18 @@ def build_local_env_template(runtime_cfg: dict[str, Any], bundle_root: Path) -> 
         "",
         "Dev/test override: set to pilot|professional|enterprise to bypass JWT validation.",
     )
+    _append_env(
+        lines,
+        "VERIOPS_TENANT_ID",
+        "",
+        "Optional: expected tenant/company id for license binding verification.",
+    )
+    _append_env(
+        lines,
+        "VERIOPS_COMPANY_DOMAIN",
+        "",
+        "Optional: expected primary domain for license binding verification.",
+    )
 
     out = bundle_root / ".env.docsops.local.template"
     out.write_text("\n".join(lines).rstrip() + "\n", encoding="utf-8")
@@ -960,6 +1019,10 @@ def create_bundle(profile_path: Path) -> Path:
     required_scripts.append("scripts/rollback.py")
     required_scripts.append("scripts/finalize_docs_gate.py")
     required_scripts.append("scripts/setup_client_env_wizard.py")
+    required_scripts.append("scripts/run_autopipeline.py")
+    required_scripts.append("scripts/docsops_generate.py")
+    required_scripts.append("scripts/llm_egress.py")
+    required_scripts.append("scripts/flow_feedback.py")
     if isinstance(branding_cfg, Mapping) and bool(branding_cfg.get("enabled", False)):
         required_scripts.append("scripts/apply_veridoc_branding_policy.py")
     pr_autofix = runtime_cfg.get("pr_autofix", {})
@@ -1066,12 +1129,13 @@ def create_bundle(profile_path: Path) -> Path:
             "contact_email": client.get("contact_email", ""),
         },
         "local_use": {
-            "llm_instructions": ["AGENTS.md", "CLAUDE.md"],
+            "llm_instructions": ["AGENTS.md", "CLAUDE.md", "LOCAL_MODEL.md"],
             "runtime_config": "config/client_runtime.yml",
             "policy_pack": "policy_packs/selected.yml",
             "automation_runbook": "ops/runbook.md",
             "local_env_template": ".env.docsops.local.template",
             "vale_config": ".vale.ini",
+            "traceability_manifest": "TRACEABILITY.yml",
         },
         "licensing": {
             "public_key": "docsops/keys/veriops-licensing.pub",
@@ -1079,11 +1143,44 @@ def create_bundle(profile_path: Path) -> Path:
             "capability_pack": "docsops/.capability_pack.enc",
             "activation": "License key activates features. "
                           "All plans use the same bundle.",
+            "binding": "Optional license claims: tenant_id and company_domain.",
         },
     }
     write_yaml(bundle_root / "BUNDLE_INFO.yml", operator_note)
 
     build_licensed_files(profile, bundle_root)
+
+    # Traceability watermark for provenance and leak attribution.
+    now_utc = dt.datetime.now(dt.timezone.utc).isoformat()
+    rev = ""
+    try:
+        completed = subprocess.run(
+            ["git", "rev-parse", "--short", "HEAD"],
+            cwd=str(REPO_ROOT),
+            check=False,
+            capture_output=True,
+            text=True,
+        )
+        if completed.returncode == 0:
+            rev = completed.stdout.strip()
+    except (Exception,):  # noqa: BLE001
+        rev = ""
+    build_fingerprint = hashlib.sha256(f"{client_id}|{company}|{now_utc}|{rev}".encode("utf-8")).hexdigest()[:24]
+    traceability = {
+        "build_id": f"{client_id}-{build_fingerprint}",
+        "generated_at_utc": now_utc,
+        "source_git_commit": rev,
+        "client_id": client_id,
+        "company_name": company,
+        "tenant_id": str(client.get("tenant_id", client_id)),
+        "company_domain": str(client.get("company_domain", "")),
+        "watermark_note": "Bundle contains client-specific provenance metadata for traceability.",
+    }
+    write_yaml(bundle_root / "TRACEABILITY.yml", traceability)
+    (bundle_root / "docsops" / ".bundle_trace.json").write_text(
+        json.dumps(traceability, ensure_ascii=True, indent=2) + "\n",
+        encoding="utf-8",
+    )
 
     return bundle_root
 

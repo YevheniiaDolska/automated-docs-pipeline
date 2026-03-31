@@ -1,3 +1,12 @@
+---
+title: "Enterprise Local E2E Runbook"
+description: "Step-by-step runbook to validate enterprise bundle delivery, local setup, and scheduled local generation."
+date: "2026-03-31"
+last_reviewed: "2026-03-31"
+---
+
+<!-- cspell:ignore Ollama qwen Modelfile -->
+
 # Enterprise Bundle Test Runbook (Wizard-First)
 
 This runbook matches your required path:
@@ -82,6 +91,13 @@ In `/tmp/veridoc-client-empty`:
 python3 docsops/scripts/setup_client_env_wizard.py
 ```
 
+This wizard now also supports fully local mode bootstrap:
+
+1. Installs Ollama (if missing).
+1. Pulls local base model (default `qwen3:30b`).
+1. Generates `docsops/ollama/Modelfile` from `docsops/LOCAL_MODEL.md`.
+1. Creates local profile model `veridoc-writer` (run with `ollama run veridoc-writer`).
+
 1. If you prefer manual setup, create local env from template:
 
 ```bash
@@ -128,6 +144,10 @@ Windows:
 powershell -ExecutionPolicy Bypass -File docsops/ops/run_weekly_docsops.ps1
 ```
 
+Note: weekly runner now executes:
+`run_autopipeline -> consolidated report -> docsops_generate`
+so local generation runs automatically in the same scheduled cycle.
+
 Expected primary artifact:
 
 `reports/consolidated_report.json`
@@ -136,8 +156,8 @@ Expected primary artifact:
 
 Open LLM in `/tmp/veridoc-client-empty` and use plain prompts, for example:
 
-1. `Сгенерируй How-to guide по настройке webhooks для enterprise-клиента.`
-1. `Обнови API-доки из planning notes и прогони все проверки пайплайна.`
+1. `Generate a how-to guide for enterprise webhook setup.`
+1. `Update API docs from planning notes and run all pipeline checks.`
 
 Expected behavior:
 
@@ -161,7 +181,7 @@ If you want full same-machine install in one pass (without separate handoff simu
 python3 scripts/onboard_client.py
 ```
 
-But your requested delivery simulation is sections 1-8 above.
+Your requested delivery simulation is sections 1-8 above.
 
 ## 10. Switch plan safely (Pilot -> Enterprise)
 
