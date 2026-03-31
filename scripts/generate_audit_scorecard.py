@@ -25,9 +25,13 @@ import yaml
 try:
     from scripts import pack_runtime as _pack_rt
     _pack = _pack_rt.get_pack()
-except (RuntimeError, ValueError, TypeError, OSError):
-    _pack_rt = None  # type: ignore[assignment]
-    _pack = None
+except (RuntimeError, ValueError, TypeError, OSError, ImportError, ModuleNotFoundError):
+    try:
+        import pack_runtime as _pack_rt  # type: ignore[no-redef]
+        _pack = _pack_rt.get_pack()
+    except (RuntimeError, ValueError, TypeError, OSError, ImportError, ModuleNotFoundError):
+        _pack_rt = None  # type: ignore[assignment]
+        _pack = None
 
 HTTP_METHODS = {"get", "post", "put", "patch", "delete", "options", "head", "trace"}
 

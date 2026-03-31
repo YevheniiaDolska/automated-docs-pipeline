@@ -39,11 +39,11 @@ Set at minimum:
 
 1. `VERIOPS_LICENSE_KEY`
 1. `VERIOPS_TENANT_ID`
-1. `VERIOPS_UPDATE_SERVER`
-1. `VERIOPS_PHONE_HOME_URL`
-1. `VERIOPS_PACK_REGISTRY_URL`
+1. `VERIOPS_UPDATE_SERVER` ([updates.veriops.dev](https://updates.veriops.dev))
+1. `VERIOPS_PHONE_HOME_URL` ([api.veri-doc.app](https://api.veri-doc.app))
+1. `VERIOPS_PACK_REGISTRY_URL` ([pack fetch endpoint](https://api.veri-doc.app/ops/pack-registry/fetch))
 1. `VERIOPS_REVOCATION_CHECK_ENABLED`
-1. `VERIOPS_REVOCATION_URL`
+1. `VERIOPS_REVOCATION_URL` ([revocation check endpoint](https://api.veri-doc.app/billing/license/revocation-check))
 1. `VERIOPS_SERVER_SHARED_TOKEN` (set on server for protected ops endpoints)
 
 ## Step 3. Keep local-first mode

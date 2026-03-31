@@ -942,7 +942,7 @@ def build_local_env_template(runtime_cfg: dict[str, Any], bundle_root: Path) -> 
     _append_env(
         lines,
         "VERIOPS_PHONE_HOME_URL",
-        "https://api.veridoc.dev",
+        "https://api.veri-doc.app",
         "Server endpoint for license refresh (metadata-only requests).",
     )
     _append_env(
@@ -954,14 +954,14 @@ def build_local_env_template(runtime_cfg: dict[str, Any], bundle_root: Path) -> 
     _append_env(
         lines,
         "VERIOPS_REVOCATION_URL",
-        "https://api.veridoc.dev/billing/license/revocation-check",
+        "https://api.veri-doc.app/billing/license/revocation-check",
         "Revocation endpoint used when VERIOPS_REVOCATION_CHECK_ENABLED=true.",
     )
     _append_env(
         lines,
         "VERIOPS_PACK_REGISTRY_URL",
-        "https://api.veridoc.dev/pack-registry",
-        "Encrypted prompt/policy/template pack registry URL.",
+        "https://api.veri-doc.app/ops/pack-registry/fetch",
+        "Encrypted prompt/policy/template pack fetch endpoint.",
     )
 
     out = bundle_root / ".env.docsops.local.template"

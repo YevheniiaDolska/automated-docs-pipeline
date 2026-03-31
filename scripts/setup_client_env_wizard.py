@@ -22,6 +22,14 @@ except ImportError:
 ENV_FILE = ".env.docsops.local"
 TEMPLATE_FILE = ".env.docsops.local.template"
 
+DEFAULT_ENV_VALUES: dict[str, str] = {
+    "VERIOPS_UPDATE_SERVER": "https://updates.veriops.dev",
+    "VERIOPS_PHONE_HOME_URL": "https://api.veri-doc.app",
+    "VERIOPS_REVOCATION_CHECK_ENABLED": "false",
+    "VERIOPS_REVOCATION_URL": "https://api.veri-doc.app/billing/license/revocation-check",
+    "VERIOPS_PACK_REGISTRY_URL": "https://api.veri-doc.app/ops/pack-registry/fetch",
+}
+
 
 def _parse_template(template_path: Path) -> list[tuple[str, str]]:
     items: list[tuple[str, str]] = []
@@ -61,6 +69,13 @@ def _read_existing(path: Path) -> dict[str, str]:
 def _write_env(path: Path, values: dict[str, str]) -> None:
     lines = [f"{k}={v}" for k, v in sorted(values.items()) if k]
     path.write_text("\n".join(lines).rstrip() + "\n", encoding="utf-8")
+
+
+def _ensure_ip_protection_defaults(values: dict[str, str]) -> None:
+    for key, default_value in DEFAULT_ENV_VALUES.items():
+        current = str(values.get(key, "")).strip()
+        if not current:
+            values[key] = default_value
 
 
 def _load_runtime(repo_root: Path) -> dict[str, Any]:
@@ -224,6 +239,7 @@ def main() -> int:
         elif key not in values:
             values[key] = ""
 
+    _ensure_ip_protection_defaults(values)
     _write_env(env_path, values)
     print(f"\n[env-wizard] wrote {env_path}")
     runtime = _load_runtime(repo_root)

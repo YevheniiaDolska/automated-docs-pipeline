@@ -57,6 +57,7 @@ def _print_profile_preview(profile_path: Path) -> None:
     print(f"- Local model: {llm_control.get('local_model', 'veridoc-writer')}")
     if llm_control.get("local_base_model"):
         print(f"- Local base model: {llm_control.get('local_base_model')}")
+    print("- IP protection: metadata-only egress + server-side revoke/pack controls.")
     if str(llm_control.get("llm_mode", "local_default")).strip().lower() == "local_default":
         print("- Local bootstrap: setup_client_env_wizard installs Ollama, pulls base model, and creates veridoc-writer.")
 
