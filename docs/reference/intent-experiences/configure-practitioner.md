@@ -2954,10 +2954,6 @@ const worker = new Worker('webhook-events', async (job) => {
   const event = job.data;
   console.log(`Processing ${event.type}: ${JSON.stringify(event)}`);
 
-### Set up a real-time webhook processing pipeline (Part 8)
-
-Configure end-to-end webhook ingestion with HMAC verification, async queue processing, and delivery guarantees in under 15 minutes.
-
 // Route to appropriate handler
   switch (event.type) {
     case 'order.completed':

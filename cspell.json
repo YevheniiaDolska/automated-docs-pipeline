@@ -1,6 +1,9 @@
 {
   "version": "0.2",
   "language": "en",
+  "ignoreRegExpList": [
+    "/[\\u0400-\\u04FF]+/g"
+  ],
   "words": [
     "ABAC",
     "acmecorp",

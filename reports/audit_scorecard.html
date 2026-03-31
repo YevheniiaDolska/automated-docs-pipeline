@@ -43,17 +43,17 @@
   <div class="wrap">
     <div class="hero">
       <h1>VeriOps Audit Scorecard</h1>
-      <p class="sub">Generated at 2026-03-31T13:40:45.725187+00:00</p>
+      <p class="sub">Generated at 2026-03-31T20:58:11.158362+00:00</p>
       <div class="score">
-        <div class="big">63.53</div>
+        <div class="big">60.53</div>
         <div class="grade">Grade D</div>
       </div>
       <div class="grid">
         <div class='card'><h3>API coverage</h3><div class='value'>0.0%</div><p>Undocumented: 0 / 0 operations</p></div>
         <div class='card'><h3>Example reliability</h3><div class='value'>100.0%</div><p>Executed: 2, failed: 0</p></div>
-        <div class='card'><h3>Freshness (median age)</h3><div class='value'>5.0 days</div><p>Stale over threshold: 0.0%</p></div>
+        <div class='card'><h3>Freshness (median age)</h3><div class='value'>11.0 days</div><p>Stale over threshold: 0.0%</p></div>
         <div class='card'><h3>Docs contract drift</h3><div class='value'>0.0%</div><p>Mismatches: 0</p></div>
-        <div class='card'><h3>Layer completeness</h3><div class='value'>0.0%</div><p>Features missing layers: 74</p></div>
+        <div class='card'><h3>Layer completeness</h3><div class='value'>0.0%</div><p>Features missing layers: 75</p></div>
         <div class='card'><h3>Terminology consistency</h3><div class='value'>100.0%</div><p>Forbidden term occurrences: 0</p></div>
       </div>
     </div>
@@ -62,12 +62,12 @@
       <h2>Business Impact Estimate (Monthly)</h2>
       <table class="kpi-table">
         <tr><th>Metric</th><th>Estimate</th></tr>
-        <tr><td>Engineering hours lost</td><td>51.6 h</td></tr>
-        <tr><td>Support hours burden</td><td>35.2 h</td></tr>
+        <tr><td>Engineering hours lost</td><td>34.4 h</td></tr>
+        <tr><td>Support hours burden</td><td>11.25 h</td></tr>
         <tr><td>Release delay risk</td><td>0.0 h</td></tr>
-        <tr><td>Opportunity cost</td><td>$7436.0</td></tr>
+        <tr><td>Opportunity cost</td><td>$3774.25</td></tr>
       </table>
-      <p class="foot">Per-finding totals (low/base/high): remediation $2145.0 / $5555.0 / $9020.0, monthly loss $4174.5 / $13024.0 / $28116.0.</p>
+      <p class="foot">Per-finding totals (low/base/high): remediation $1852.5 / $4797.5 / $7790.0, monthly loss $3605.25 / $11248.0 / $24282.0.</p>
       <p class="foot">Fixability coverage: pilot can close 8 of 8 findings; full implementation can close 8 of 8.</p>
     </div>
 
@@ -77,7 +77,7 @@
         <tr>
           <th>ID</th><th>Issue</th><th>Severity</th><th>Capability</th><th>Gap</th><th>Pilot/Full</th><th>Effort (L/B/H)</th><th>Fix Cost (L/B/H)</th><th>Monthly Loss (L/B/H)</th><th>Confidence</th>
         </tr>
-        <tr><td>F-LAYERS</td><td>Missing required doc layers</td><td>high</td><td>Doc layer completeness</td><td>Features missing required layers %: 100.0 -> 5.0 %</td><td>Yes / Yes</td><td>3.0 / 7.5 / 12.0h</td><td>$330.0 / $825.0 / $1320.0</td><td>$594.0 / $1782.0 / $3801.6</td><td>high</td></tr><tr><td>F-FRESHNESS</td><td>Documentation freshness debt</td><td>medium</td><td>Freshness + lifecycle management</td><td>Stale docs %: 0.0 -> 10.0 %</td><td>Yes / Yes</td><td>2.0 / 5.0 / 8.0h</td><td>$220.0 / $550.0 / $880.0</td><td>$374.0 / $1122.0 / $2393.6</td><td>high</td></tr><tr><td>F-RETRIEVAL</td><td>RAG retrieval quality risk</td><td>medium</td><td>RAG retrieval quality control</td><td>Hallucination rate %: 0.0 -> 10.0 %</td><td>Yes / Yes</td><td>4.0 / 9.0 / 14.0h</td><td>$440.0 / $990.0 / $1540.0</td><td>$836.0 / $2257.2 / $4681.6</td><td>high</td></tr><tr><td>F-EVIDENCE-DRIFT-MISSING</td><td>Drift evidence report is missing</td><td>medium</td><td>Code/docs drift contract visibility</td><td>Docs-contract report availability: 0 -> 1 binary</td><td>Yes / Yes</td><td>0.5 / 1.0 / 2.0h</td><td>$55.0 / $110.0 / $220.0</td><td>$49.5 / $121.0 / $308.0</td><td>medium</td></tr><tr><td>F-API-COVERAGE</td><td>Undocumented API operations</td><td>low</td><td>API coverage sync</td><td>API undocumented %: 0.0 -> 5.0 %</td><td>Yes / Yes</td><td>4.0 / 10.0 / 16.0h</td><td>$440.0 / $1100.0 / $1760.0</td><td>$968.0 / $2904.0 / $6195.2</td><td>high</td></tr><tr><td>F-EXAMPLES-RELIABILITY</td><td>Code examples fail or are non-runnable</td><td>low</td><td>Executable examples quality</td><td>Example reliability %: 0.0 -> 5.0 % shortfall</td><td>Yes / Yes</td><td>3.0 / 8.5 / 14.0h</td><td>$330.0 / $935.0 / $1540.0</td><td>$660.0 / $2244.0 / $4928.0</td><td>high</td></tr><tr><td>F-DRIFT</td><td>Code/docs contract drift</td><td>low</td><td>Code/docs drift contract visibility</td><td>Drift %: 0.0 -> 2.0 %</td><td>Yes / Yes</td><td>2.0 / 6.0 / 10.0h</td><td>$220.0 / $660.0 / $1100.0</td><td>$528.0 / $1900.8 / $4224.0</td><td>low</td></tr><tr><td>F-TERMINOLOGY</td><td>Terminology inconsistency</td><td>low</td><td>Terminology governance</td><td>Terminology violations %: 0.0 -> 3.0 %</td><td>Yes / Yes</td><td>1.0 / 3.5 / 6.0h</td><td>$110.0 / $385.0 / $660.0</td><td>$165.0 / $693.0 / $1584.0</td><td>high</td></tr>
+        <tr><td>F-LAYERS</td><td>Missing required doc layers</td><td>high</td><td>Doc layer completeness</td><td>Features missing required layers %: 100.0 -> 5.0 %</td><td>Yes / Yes</td><td>3.0 / 7.5 / 12.0h</td><td>$285.0 / $712.5 / $1140.0</td><td>$513.0 / $1539.0 / $3283.2</td><td>high</td></tr><tr><td>F-FRESHNESS</td><td>Documentation freshness debt</td><td>medium</td><td>Freshness + lifecycle management</td><td>Stale docs %: 0.0 -> 10.0 %</td><td>Yes / Yes</td><td>2.0 / 5.0 / 8.0h</td><td>$190.0 / $475.0 / $760.0</td><td>$323.0 / $969.0 / $2067.2</td><td>high</td></tr><tr><td>F-RETRIEVAL</td><td>RAG retrieval quality risk</td><td>medium</td><td>RAG retrieval quality control</td><td>Hallucination rate %: 0.0 -> 10.0 %</td><td>Yes / Yes</td><td>4.0 / 9.0 / 14.0h</td><td>$380.0 / $855.0 / $1330.0</td><td>$722.0 / $1949.4 / $4043.2</td><td>high</td></tr><tr><td>F-EVIDENCE-DRIFT-MISSING</td><td>Drift evidence report is missing</td><td>medium</td><td>Code/docs drift contract visibility</td><td>Docs-contract report availability: 0 -> 1 binary</td><td>Yes / Yes</td><td>0.5 / 1.0 / 2.0h</td><td>$47.5 / $95.0 / $190.0</td><td>$42.75 / $104.5 / $266.0</td><td>medium</td></tr><tr><td>F-API-COVERAGE</td><td>Undocumented API operations</td><td>low</td><td>API coverage sync</td><td>API undocumented %: 0.0 -> 5.0 %</td><td>Yes / Yes</td><td>4.0 / 10.0 / 16.0h</td><td>$380.0 / $950.0 / $1520.0</td><td>$836.0 / $2508.0 / $5350.4</td><td>high</td></tr><tr><td>F-EXAMPLES-RELIABILITY</td><td>Code examples fail or are non-runnable</td><td>low</td><td>Executable examples quality</td><td>Example reliability %: 0.0 -> 5.0 % shortfall</td><td>Yes / Yes</td><td>3.0 / 8.5 / 14.0h</td><td>$285.0 / $807.5 / $1330.0</td><td>$570.0 / $1938.0 / $4256.0</td><td>high</td></tr><tr><td>F-DRIFT</td><td>Code/docs contract drift</td><td>low</td><td>Code/docs drift contract visibility</td><td>Drift %: 0.0 -> 2.0 %</td><td>Yes / Yes</td><td>2.0 / 6.0 / 10.0h</td><td>$190.0 / $570.0 / $950.0</td><td>$456.0 / $1641.6 / $3648.0</td><td>low</td></tr><tr><td>F-TERMINOLOGY</td><td>Terminology inconsistency</td><td>low</td><td>Terminology governance</td><td>Terminology violations %: 0.0 -> 3.0 %</td><td>Yes / Yes</td><td>1.0 / 3.5 / 6.0h</td><td>$95.0 / $332.5 / $570.0</td><td>$142.5 / $598.5 / $1368.0</td><td>high</td></tr>
       </table>
     </div>
 
@@ -101,8 +101,8 @@
       <table class="kpi-table">
         <tr><th>Precision@k</th><th>Recall@k</th><th>Hallucination rate</th></tr>
         <tr>
-          <td>0.5778</td>
-          <td>0.9278</td>
+          <td>0.2267</td>
+          <td>0.68</td>
           <td>0.0</td>
         </tr>
       </table>

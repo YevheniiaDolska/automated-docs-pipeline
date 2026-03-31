@@ -1,0 +1,13 @@
+[Unit]
+Description=VeriDoc healthcheck monitor
+After=network.target docker.service
+Wants=docker.service
+
+[Service]
+Type=oneshot
+WorkingDirectory=/opt/veridoc
+ExecStart=/bin/bash /opt/veridoc/deploy/healthcheck_monitor.sh both
+User=root
+
+[Install]
+WantedBy=multi-user.target

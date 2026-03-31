@@ -1,0 +1,13 @@
+[Unit]
+Description=VeriDoc runtime error monitor
+After=network.target docker.service
+Wants=docker.service
+
+[Service]
+Type=oneshot
+WorkingDirectory=/opt/veridoc
+ExecStart=/bin/bash /opt/veridoc/deploy/error_log_monitor.sh 5
+User=root
+
+[Install]
+WantedBy=multi-user.target

@@ -22,6 +22,7 @@ the VeriDoc automated documentation platform.
 | [Privacy policy](privacy-policy.md) | Data collection, processing, storage, retention, and your GDPR rights |
 | [Data processing agreement](data-processing-agreement.md) | GDPR-compliant DPA with sub-processor list and breach notification procedures |
 | [Security policy](security-policy.md) | Infrastructure security, encryption, authentication, and incident response |
+| [Security contact policy](security-contact-policy.md) | Official security escalation channels, severity SLA, and responsible disclosure |
 
 ## Quick reference
 

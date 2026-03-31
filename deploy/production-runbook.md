@@ -45,6 +45,9 @@ Set at minimum:
 - `LEMONSQUEEZY_API_KEY`
 - `LEMONSQUEEZY_STORE_ID`
 - `LEMONSQUEEZY_WEBHOOK_SECRET`
+- `VERIDOC_ADMIN_EMAIL` (comma-separated list for alerts)
+- `VERIDOC_SMTP_FROM` (alert sender)
+- `SENTRY_DSN` (optional; if empty, log-based error monitor still works)
 
 Generate a strong secret:
 
@@ -170,6 +173,31 @@ docker compose -f docker-compose.production.yml logs -f api worker nginx
 1. Weekly smoke test:
    - Run `scripts/production_smoke.py`
    - Run one billing webhook test from LemonSqueezy dashboard
+
+1. Enable observability monitors (health + runtime error alerts):
+
+```bash
+sudo bash deploy/setup_observability.sh /opt/veridoc
+systemctl list-timers --all | grep -E 'veridoc-(healthcheck|error)-monitor'
+```
+
+1. Optional Sentry verification:
+
+```bash
+curl -fsS https://api.veri-doc.app/health/debug-sentry
+```
+
+Expected: response says test event was sent (or skipped if DSN is empty).
+
+1. Customer/legal package before outreach:
+   - Ensure legal pages are public:
+     - `/legal/terms.html`
+     - `/legal/privacy.html`
+     - `/legal/dpa.html`
+     - `/legal/security.html`
+     - `/legal/security-contact.html`
+   - Fill and run checklist: `deploy/CUSTOMER_PACKET_CHECKLIST.md`
+   - Use outreach template: `deploy/OUTREACH_EMAIL_TEMPLATE.md`
 
 1. Before outreach:
    - Confirm every checkbox in `production-gate.md` is done.

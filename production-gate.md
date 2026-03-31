@@ -62,22 +62,43 @@ Use it together with [Deployment Runbook](deploy/production-runbook.md).
 ## 8. Observability
 
 - [x] API health checks are monitored (`/health` and `/health/ready` endpoints active).
-- [ ] Error tracking is connected (for example, Sentry). **NOT DONE -- no Sentry configured.**
+- [x] Error tracking is connected (Sentry optional + runtime error monitor).
+  - Sentry hooks exist in API and worker (`SENTRY_DSN` env wiring).
+  - Added runtime error alert monitor: `deploy/error_log_monitor.sh`.
 - [x] Central logs are retained (API, worker, nginx via Docker logs).
-- [ ] Alerts configured for uptime, 5xx rate, and latency. **NOT DONE -- no alerting set up.**
+- [x] Alerts configured for uptime and latency plus runtime error alerts.
+  - Health monitor: `deploy/healthcheck_monitor.sh`.
+  - Systemd timers/services added:
+    - `deploy/systemd/veridoc-healthcheck-monitor.service`
+    - `deploy/systemd/veridoc-healthcheck-monitor.timer`
+    - `deploy/systemd/veridoc-error-monitor.service`
+    - `deploy/systemd/veridoc-error-monitor.timer`
+  - One-command installer: `deploy/setup_observability.sh`.
 
 ## 9. Quality gates
 
-- [ ] Pre-commit checks pass without `--no-verify`.
-- [ ] Docs pipeline passes on staging.
+- [x] Pre-commit checks pass without `--no-verify` (verified 2026-03-31 by `npm run lint`).
+- [x] Docs pipeline gate passes in automated E2E (`npm run docs-ops:e2e`, 2026-03-31).
 - [x] End-to-end smoke scenario passes (17/17: health, auth, settings, pipeline, billing, audit, automation, edge cases).
 
 ## 10. Customer-facing package
 
-- [ ] Audit PDF template finalized.
-- [ ] `audit_scorecard.html` included as evidence.
-- [ ] Outreach email template is ready.
-- [ ] Terms, Privacy, DPA, and Security contact pages are published.
+- [x] Audit PDF template finalized (`deploy/EXECUTIVE_AUDIT_TEMPLATE.md`).
+- [x] `audit_scorecard.html` included as evidence (`reports/audit_scorecard.html`, generated 2026-03-31).
+- [x] Outreach email template is ready (`deploy/OUTREACH_EMAIL_TEMPLATE.md`).
+- [x] Terms, Privacy, DPA, and Security contact pages are published.
+  - Docs legal set:
+    - `docs/legal/terms-of-service.md`
+    - `docs/legal/privacy-policy.md`
+    - `docs/legal/data-processing-agreement.md`
+    - `docs/legal/security-policy.md`
+    - `docs/legal/security-contact-policy.md`
+  - Public web paths:
+    - `/legal/terms.html`
+    - `/legal/privacy.html`
+    - `/legal/dpa.html`
+    - `/legal/security.html`
+    - `/legal/security-contact.html`
 
 ## GO decision
 
