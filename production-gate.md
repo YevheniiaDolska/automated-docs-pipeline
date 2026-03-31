@@ -138,8 +138,8 @@ Use it together with [Deployment Runbook](deploy/production-runbook.md).
   - all core containers are `healthy` in both environments (`api`, `web`, `worker`, `beat`).
 - [ ] GitHub Actions run status directly confirmed from this environment.
   - Blocker: local `gh` cannot reach `api.github.com` in current network context.
-- [ ] Full monorepo `pytest tests` run completed to 100%.
-  - Current state: run started, `12315` tests collected, advancing without early failures; completion pending.
+- [x] Full monorepo `pytest tests` run completed to 100%.
+  - Latest run result: `12315 passed`, `53 warnings`, `0 failed` (2026-03-31).
 
 ## 15. Current NO-GO blockers for paid launch
 
