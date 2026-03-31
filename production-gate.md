@@ -2,7 +2,7 @@
 title: "Production gate checklist"
 description: "Strict go or no-go checklist for VeriDoc and VeriOps production launch readiness."
 date: "2026-03-24"
-last_reviewed: "2026-03-28"
+last_reviewed: "2026-03-31"
 ---
 
 <!-- cspell:ignore veridoc lemonsqueezy -->
@@ -114,3 +114,30 @@ Use it together with [Deployment Runbook](deploy/production-runbook.md).
   - Second run with explicit vars failed due DNS resolution (`Temporary failure in name resolution` for `api.veri-doc.app`).
 - [ ] Production GO can be confirmed from this environment.
   - Blockers: no DNS resolution to production API domain, no Docker runtime for runbook deploy steps.
+
+## 14. Completed (2026-03-31)
+
+- [x] `git_wrapper` main updated to `8d2427f` and deployed to both environments.
+- [x] Production and staging are on the same commit (`8d2427f`).
+- [x] Runtime health verified after deploy:
+  - production: `veridoc-api`, `veridoc-web`, `veridoc-worker`, `veridoc-beat` are `healthy`.
+  - staging: `veridoc-staging-api`, `veridoc-staging-web`, `veridoc-staging-worker`, `veridoc-staging-beat` are `healthy`.
+- [x] Added automated Playwright staging smoke workflow:
+  - `.github/workflows/playwright-staging.yml`
+  - manual trigger (`workflow_dispatch`) and scheduled trigger (every 6 hours).
+- [x] Backend quality checks aligned with CI:
+  - `ruff check` passed,
+  - `black --check` passed after full reformat,
+  - contract+drift+smoke test bundle passed (`174 passed` in `packages/core/tests/{smoke,drift,contract}`).
+
+## 15. Current NO-GO blockers for paid launch
+
+- [ ] Billing lifecycle not fully verified in production-like mode:
+  - missing end-to-end confirmation for renewal, cancel, payment failure, refund events.
+- [ ] Plan limits enforcement after webhook updates still not marked complete by evidence.
+- [ ] Error tracking and alerting are still incomplete:
+  - no confirmed Sentry (or equivalent) incident pipeline,
+  - no confirmed uptime/latency/5xx alert routing.
+- [ ] Customer/legal launch package still incomplete:
+  - Terms, Privacy, DPA, security contact pages not all marked published,
+  - outreach and evidence pack checklist not fully closed.
