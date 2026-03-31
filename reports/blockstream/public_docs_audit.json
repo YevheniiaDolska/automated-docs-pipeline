@@ -1,0 +1,1181 @@
+{
+  "generated_at": "2026-03-30T13:52:14.784273+00:00",
+  "site_url": "multiple-sites",
+  "site_urls": [
+    "https://docs.liquid.net/docs/welcome-to-liquid-developer-documentation-portal",
+    "https://help.blockstream.com/hc/en-us",
+    "https://blockstream.com/satellite-api-documentation",
+    "https://lightning.readthedocs.io/",
+    "https://wally.readthedocs.io/en/release_1.5.0",
+    "https://gdk.readthedocs.io/en/release_0.76.3"
+  ],
+  "topology_mode": "multi-project",
+  "verification_modes": [
+    "authenticated",
+    "bot",
+    "browser"
+  ],
+  "sites": [
+    {
+      "site_url": "https://lightning.readthedocs.io/",
+      "metrics": {
+        "crawl": {
+          "pages_crawled": 1,
+          "requested_pages": 6,
+          "urls_examined": 1,
+          "max_pages": 10000,
+          "effective_limit": 10000,
+          "auto_mode": false,
+          "stop_reason": "queue_exhausted",
+          "discovered_pages": 1,
+          "crawl_scope_basis": "sitemap",
+          "crawl_scope_pages": 1,
+          "crawl_coverage_pct": 100.0,
+          "trap_urls_skipped": 1,
+          "seeded_sitemap_urls": 1,
+          "robots_sitemaps_declared": 1
+        },
+        "links": {
+          "internal_links_checked": 6,
+          "broken_internal_links_count": 1,
+          "docs_broken_links_count": 1,
+          "repo_broken_links_count": 0,
+          "broken_internal_link_samples": [
+            "https://lightning.readthedocs.io/py-modindex.html"
+          ],
+          "docs_broken_link_samples": [
+            "https://lightning.readthedocs.io/py-modindex.html"
+          ],
+          "repo_broken_link_samples": [],
+          "unreachable_links_count": 0,
+          "unverified_links_count": 0,
+          "unverified_link_samples": [],
+          "confirmed_broken_links_count": 1,
+          "excluded_links_count": 1,
+          "excluded_link_samples": [
+            "https://lightning.readthedocs.io/search.html"
+          ],
+          "_all_confirmed_broken_links": [
+            "https://lightning.readthedocs.io/py-modindex.html"
+          ],
+          "_all_unverified_links": [],
+          "_all_excluded_links": [
+            "https://lightning.readthedocs.io/search.html"
+          ],
+          "_all_docs_unverified_links": [],
+          "_all_repo_unverified_links": []
+        },
+        "seo_geo": {
+          "pages_scanned": 1,
+          "missing_title_count": 0,
+          "missing_description_count": 1,
+          "multiple_h1_count": 1,
+          "heading_hierarchy_jump_count": 1,
+          "seo_geo_issue_rate_pct": 75.0
+        },
+        "api_coverage": {
+          "reference_endpoint_count": 0,
+          "api_pages_detected": 0,
+          "endpoints_with_usage_docs": 0,
+          "reference_endpoints_without_usage_docs": 0,
+          "reference_coverage_pct": -1.0,
+          "no_api_pages_found": true,
+          "coverage_determined": false,
+          "coverage_method": "heuristic",
+          "detection_note": "Contract URLs found but no operations parsed",
+          "uncovered_endpoint_samples": []
+        },
+        "examples": {
+          "total_code_examples": 0,
+          "total_code_blocks_all": 0,
+          "runnable_without_env": 0,
+          "blocked_by_placeholders": 0,
+          "network_bound_examples": 0,
+          "example_reliability_estimate_pct": 0.0,
+          "detection_note": "No code blocks detected in crawled pages. The site may use JavaScript-rendered code blocks invisible to the HTML parser."
+        },
+        "freshness": {
+          "pages_with_last_updated_hint": 0,
+          "pages_without_last_updated_hint": 1,
+          "last_updated_coverage_pct": 0.0,
+          "samples_with_last_updated": []
+        }
+      },
+      "samples": {
+        "broken_links": [
+          "https://lightning.readthedocs.io/py-modindex.html"
+        ],
+        "docs_broken_link_samples": [
+          "https://lightning.readthedocs.io/py-modindex.html"
+        ],
+        "repo_broken_link_samples": [],
+        "unverified_link_samples": [],
+        "api_uncovered_samples": []
+      },
+      "run_count": 3
+    },
+    {
+      "site_url": "https://blockstream.com/satellite-api-documentation",
+      "metrics": {
+        "crawl": {
+          "pages_crawled": 34,
+          "requested_pages": 143,
+          "urls_examined": 39,
+          "max_pages": 10000,
+          "effective_limit": 10000,
+          "auto_mode": false,
+          "stop_reason": "queue_exhausted",
+          "discovered_pages": 39,
+          "crawl_scope_basis": "sitemap",
+          "crawl_scope_pages": 28,
+          "crawl_coverage_pct": 139.29,
+          "trap_urls_skipped": 0,
+          "seeded_sitemap_urls": 28,
+          "robots_sitemaps_declared": 0
+        },
+        "links": {
+          "internal_links_checked": 136,
+          "broken_internal_links_count": 1,
+          "docs_broken_links_count": 1,
+          "repo_broken_links_count": 0,
+          "broken_internal_link_samples": [
+            "https://blockstream.com/2021/09/06/en-blockstream-mining-note-is-coming-soon-to-bitfinex-securities"
+          ],
+          "docs_broken_link_samples": [
+            "https://blockstream.com/2021/09/06/en-blockstream-mining-note-is-coming-soon-to-bitfinex-securities"
+          ],
+          "repo_broken_link_samples": [],
+          "unreachable_links_count": 0,
+          "unverified_links_count": 0,
+          "unverified_link_samples": [],
+          "confirmed_broken_links_count": 1,
+          "excluded_links_count": 0,
+          "excluded_link_samples": [],
+          "_all_confirmed_broken_links": [
+            "https://blockstream.com/2021/09/06/en-blockstream-mining-note-is-coming-soon-to-bitfinex-securities"
+          ],
+          "_all_unverified_links": [],
+          "_all_excluded_links": [],
+          "_all_docs_unverified_links": [],
+          "_all_repo_unverified_links": []
+        },
+        "seo_geo": {
+          "pages_scanned": 34,
+          "missing_title_count": 0,
+          "missing_description_count": 4,
+          "multiple_h1_count": 2,
+          "heading_hierarchy_jump_count": 30,
+          "seo_geo_issue_rate_pct": 26.47
+        },
+        "api_coverage": {
+          "reference_endpoint_count": 1,
+          "api_pages_detected": 2,
+          "endpoints_with_usage_docs": 1,
+          "reference_endpoints_without_usage_docs": 0,
+          "reference_coverage_pct": 100.0,
+          "no_api_pages_found": false,
+          "coverage_determined": true,
+          "coverage_method": "source_of_truth",
+          "detection_note": "",
+          "uncovered_endpoint_samples": []
+        },
+        "examples": {
+          "total_code_examples": 0,
+          "total_code_blocks_all": 5,
+          "runnable_without_env": 0,
+          "blocked_by_placeholders": 0,
+          "network_bound_examples": 0,
+          "example_reliability_estimate_pct": 0.0,
+          "detection_note": "No executable code blocks detected (5 data-only blocks found). Site may use non-standard code rendering that the auditor does not recognize, or all examples are in data formats (YAML/JSON)."
+        },
+        "freshness": {
+          "pages_with_last_updated_hint": 9,
+          "pages_without_last_updated_hint": 25,
+          "last_updated_coverage_pct": 26.47,
+          "samples_with_last_updated": [
+            {
+              "url": "https://blockstream.com/2021/10/15/en-fifth-tranche-of-the-blockstream-mining-note-available-from-october-18",
+              "hint": "2022-11-04T17:51:34.000Z"
+            },
+            {
+              "url": "https://blockstream.com/2021/10/08/en-merj-exchange-and-trading-technology-provider-digtl-to-utilize-the-liquid-network",
+              "hint": "2022-11-04T17:47:46.000Z"
+            },
+            {
+              "url": "https://blockstream.com/2021/10/15/en-raspiblitz-integrates-c-lightning-for-lightweight-customizable-functionality",
+              "hint": "2022-11-04T17:50:33.000Z"
+            },
+            {
+              "url": "https://blockstream.com/2021/10/19/en-specter-adds-blockstream-jade-and-liquid-support",
+              "hint": "2022-11-04T17:53:25.000Z"
+            },
+            {
+              "url": "https://blockstream.com/2021/10/28/en-blockstream-sponsors-minimint-a-privacy-focused-community-led-scaling-solution-for-bitcoin",
+              "hint": "2022-11-04T18:00:37.000Z"
+            },
+            {
+              "url": "https://blockstream.com/2021/11/13/en-blockstream-green-primed-for-taproot-activation",
+              "hint": "2022-11-04T19:03:52.000Z"
+            },
+            {
+              "url": "https://blockstream.com/blog",
+              "hint": "2026-03-26"
+            },
+            {
+              "url": "https://blockstream.com/newsroom",
+              "hint": "CNBC | February 19, 2025"
+            },
+            {
+              "url": "https://blockstream.com/press-releases",
+              "hint": "November 18, 2025"
+            }
+          ]
+        }
+      },
+      "samples": {
+        "broken_links": [
+          "https://blockstream.com/2021/09/06/en-blockstream-mining-note-is-coming-soon-to-bitfinex-securities"
+        ],
+        "docs_broken_link_samples": [
+          "https://blockstream.com/2021/09/06/en-blockstream-mining-note-is-coming-soon-to-bitfinex-securities"
+        ],
+        "repo_broken_link_samples": [],
+        "unverified_link_samples": [],
+        "api_uncovered_samples": []
+      },
+      "run_count": 3
+    },
+    {
+      "site_url": "https://wally.readthedocs.io/en/release_1.5.0",
+      "metrics": {
+        "crawl": {
+          "pages_crawled": 9,
+          "requested_pages": 52,
+          "urls_examined": 9,
+          "max_pages": 10000,
+          "effective_limit": 10000,
+          "auto_mode": false,
+          "stop_reason": "queue_exhausted",
+          "discovered_pages": 9,
+          "crawl_scope_basis": "sitemap",
+          "crawl_scope_pages": 9,
+          "crawl_coverage_pct": 100.0,
+          "trap_urls_skipped": 9,
+          "seeded_sitemap_urls": 9,
+          "robots_sitemaps_declared": 1
+        },
+        "links": {
+          "internal_links_checked": 52,
+          "broken_internal_links_count": 41,
+          "docs_broken_links_count": 41,
+          "repo_broken_links_count": 0,
+          "broken_internal_link_samples": [
+            "https://wally.readthedocs.io/en/Liquid",
+            "https://wally.readthedocs.io/en/Liquid.html",
+            "https://wally.readthedocs.io/en/_sources/index.rst.txt",
+            "https://wally.readthedocs.io/en/address",
+            "https://wally.readthedocs.io/en/address.html",
+            "https://wally.readthedocs.io/en/anti_exfil",
+            "https://wally.readthedocs.io/en/anti_exfil.html",
+            "https://wally.readthedocs.io/en/anti_exfil_protocol",
+            "https://wally.readthedocs.io/en/anti_exfil_protocol.html",
+            "https://wally.readthedocs.io/en/bip32",
+            "https://wally.readthedocs.io/en/bip32.html",
+            "https://wally.readthedocs.io/en/bip38",
+            "https://wally.readthedocs.io/en/bip38.html",
+            "https://wally.readthedocs.io/en/bip39",
+            "https://wally.readthedocs.io/en/bip39.html",
+            "https://wally.readthedocs.io/en/bip85",
+            "https://wally.readthedocs.io/en/bip85.html",
+            "https://wally.readthedocs.io/en/coinselection",
+            "https://wally.readthedocs.io/en/coinselection.html",
+            "https://wally.readthedocs.io/en/conventions"
+          ],
+          "docs_broken_link_samples": [
+            "https://wally.readthedocs.io/en/Liquid",
+            "https://wally.readthedocs.io/en/Liquid.html",
+            "https://wally.readthedocs.io/en/_sources/index.rst.txt",
+            "https://wally.readthedocs.io/en/address",
+            "https://wally.readthedocs.io/en/address.html",
+            "https://wally.readthedocs.io/en/anti_exfil",
+            "https://wally.readthedocs.io/en/anti_exfil.html",
+            "https://wally.readthedocs.io/en/anti_exfil_protocol",
+            "https://wally.readthedocs.io/en/anti_exfil_protocol.html",
+            "https://wally.readthedocs.io/en/bip32",
+            "https://wally.readthedocs.io/en/bip32.html",
+            "https://wally.readthedocs.io/en/bip38",
+            "https://wally.readthedocs.io/en/bip38.html",
+            "https://wally.readthedocs.io/en/bip39",
+            "https://wally.readthedocs.io/en/bip39.html",
+            "https://wally.readthedocs.io/en/bip85",
+            "https://wally.readthedocs.io/en/bip85.html",
+            "https://wally.readthedocs.io/en/coinselection",
+            "https://wally.readthedocs.io/en/coinselection.html",
+            "https://wally.readthedocs.io/en/conventions",
+            "https://wally.readthedocs.io/en/conventions.html",
+            "https://wally.readthedocs.io/en/core",
+            "https://wally.readthedocs.io/en/core.html",
+            "https://wally.readthedocs.io/en/crypto",
+            "https://wally.readthedocs.io/en/crypto.html",
+            "https://wally.readthedocs.io/en/descriptor",
+            "https://wally.readthedocs.io/en/descriptor.html",
+            "https://wally.readthedocs.io/en/elements",
+            "https://wally.readthedocs.io/en/elements.html",
+            "https://wally.readthedocs.io/en/genindex"
+          ],
+          "repo_broken_link_samples": [],
+          "unreachable_links_count": 0,
+          "unverified_links_count": 0,
+          "unverified_link_samples": [],
+          "confirmed_broken_links_count": 41,
+          "excluded_links_count": 2,
+          "excluded_link_samples": [
+            "https://wally.readthedocs.io/en/search",
+            "https://wally.readthedocs.io/en/search.html"
+          ],
+          "_all_confirmed_broken_links": [
+            "https://wally.readthedocs.io/en/Liquid",
+            "https://wally.readthedocs.io/en/Liquid.html",
+            "https://wally.readthedocs.io/en/_sources/index.rst.txt",
+            "https://wally.readthedocs.io/en/address",
+            "https://wally.readthedocs.io/en/address.html",
+            "https://wally.readthedocs.io/en/anti_exfil",
+            "https://wally.readthedocs.io/en/anti_exfil.html",
+            "https://wally.readthedocs.io/en/anti_exfil_protocol",
+            "https://wally.readthedocs.io/en/anti_exfil_protocol.html",
+            "https://wally.readthedocs.io/en/bip32",
+            "https://wally.readthedocs.io/en/bip32.html",
+            "https://wally.readthedocs.io/en/bip38",
+            "https://wally.readthedocs.io/en/bip38.html",
+            "https://wally.readthedocs.io/en/bip39",
+            "https://wally.readthedocs.io/en/bip39.html",
+            "https://wally.readthedocs.io/en/bip85",
+            "https://wally.readthedocs.io/en/bip85.html",
+            "https://wally.readthedocs.io/en/coinselection",
+            "https://wally.readthedocs.io/en/coinselection.html",
+            "https://wally.readthedocs.io/en/conventions",
+            "https://wally.readthedocs.io/en/conventions.html",
+            "https://wally.readthedocs.io/en/core",
+            "https://wally.readthedocs.io/en/core.html",
+            "https://wally.readthedocs.io/en/crypto",
+            "https://wally.readthedocs.io/en/crypto.html",
+            "https://wally.readthedocs.io/en/descriptor",
+            "https://wally.readthedocs.io/en/descriptor.html",
+            "https://wally.readthedocs.io/en/elements",
+            "https://wally.readthedocs.io/en/elements.html",
+            "https://wally.readthedocs.io/en/genindex",
+            "https://wally.readthedocs.io/en/genindex.html",
+            "https://wally.readthedocs.io/en/map",
+            "https://wally.readthedocs.io/en/map.html",
+            "https://wally.readthedocs.io/en/psbt",
+            "https://wally.readthedocs.io/en/psbt.html",
+            "https://wally.readthedocs.io/en/script",
+            "https://wally.readthedocs.io/en/script.html",
+            "https://wally.readthedocs.io/en/symmetric",
+            "https://wally.readthedocs.io/en/symmetric.html",
+            "https://wally.readthedocs.io/en/transaction",
+            "https://wally.readthedocs.io/en/transaction.html"
+          ],
+          "_all_unverified_links": [],
+          "_all_excluded_links": [
+            "https://wally.readthedocs.io/en/search",
+            "https://wally.readthedocs.io/en/search.html"
+          ],
+          "_all_docs_unverified_links": [],
+          "_all_repo_unverified_links": []
+        },
+        "seo_geo": {
+          "pages_scanned": 9,
+          "missing_title_count": 0,
+          "missing_description_count": 9,
+          "multiple_h1_count": 9,
+          "heading_hierarchy_jump_count": 0,
+          "seo_geo_issue_rate_pct": 50.0
+        },
+        "api_coverage": {
+          "reference_endpoint_count": 0,
+          "api_pages_detected": 0,
+          "endpoints_with_usage_docs": 0,
+          "reference_endpoints_without_usage_docs": 0,
+          "reference_coverage_pct": -1.0,
+          "no_api_pages_found": true,
+          "coverage_determined": false,
+          "coverage_method": "heuristic",
+          "detection_note": "Contract URLs found but no operations parsed",
+          "uncovered_endpoint_samples": []
+        },
+        "examples": {
+          "total_code_examples": 0,
+          "total_code_blocks_all": 0,
+          "runnable_without_env": 0,
+          "blocked_by_placeholders": 0,
+          "network_bound_examples": 0,
+          "example_reliability_estimate_pct": 0.0,
+          "detection_note": "No code blocks detected in crawled pages. The site may use JavaScript-rendered code blocks invisible to the HTML parser."
+        },
+        "freshness": {
+          "pages_with_last_updated_hint": 0,
+          "pages_without_last_updated_hint": 9,
+          "last_updated_coverage_pct": 0.0,
+          "samples_with_last_updated": []
+        }
+      },
+      "samples": {
+        "broken_links": [
+          "https://wally.readthedocs.io/en/Liquid",
+          "https://wally.readthedocs.io/en/Liquid.html",
+          "https://wally.readthedocs.io/en/_sources/index.rst.txt",
+          "https://wally.readthedocs.io/en/address",
+          "https://wally.readthedocs.io/en/address.html",
+          "https://wally.readthedocs.io/en/anti_exfil",
+          "https://wally.readthedocs.io/en/anti_exfil.html",
+          "https://wally.readthedocs.io/en/anti_exfil_protocol",
+          "https://wally.readthedocs.io/en/anti_exfil_protocol.html",
+          "https://wally.readthedocs.io/en/bip32",
+          "https://wally.readthedocs.io/en/bip32.html",
+          "https://wally.readthedocs.io/en/bip38",
+          "https://wally.readthedocs.io/en/bip38.html",
+          "https://wally.readthedocs.io/en/bip39",
+          "https://wally.readthedocs.io/en/bip39.html",
+          "https://wally.readthedocs.io/en/bip85",
+          "https://wally.readthedocs.io/en/bip85.html",
+          "https://wally.readthedocs.io/en/coinselection",
+          "https://wally.readthedocs.io/en/coinselection.html",
+          "https://wally.readthedocs.io/en/conventions"
+        ],
+        "docs_broken_link_samples": [
+          "https://wally.readthedocs.io/en/Liquid",
+          "https://wally.readthedocs.io/en/Liquid.html",
+          "https://wally.readthedocs.io/en/_sources/index.rst.txt",
+          "https://wally.readthedocs.io/en/address",
+          "https://wally.readthedocs.io/en/address.html",
+          "https://wally.readthedocs.io/en/anti_exfil",
+          "https://wally.readthedocs.io/en/anti_exfil.html",
+          "https://wally.readthedocs.io/en/anti_exfil_protocol",
+          "https://wally.readthedocs.io/en/anti_exfil_protocol.html",
+          "https://wally.readthedocs.io/en/bip32",
+          "https://wally.readthedocs.io/en/bip32.html",
+          "https://wally.readthedocs.io/en/bip38",
+          "https://wally.readthedocs.io/en/bip38.html",
+          "https://wally.readthedocs.io/en/bip39",
+          "https://wally.readthedocs.io/en/bip39.html",
+          "https://wally.readthedocs.io/en/bip85",
+          "https://wally.readthedocs.io/en/bip85.html",
+          "https://wally.readthedocs.io/en/coinselection",
+          "https://wally.readthedocs.io/en/coinselection.html",
+          "https://wally.readthedocs.io/en/conventions",
+          "https://wally.readthedocs.io/en/conventions.html",
+          "https://wally.readthedocs.io/en/core",
+          "https://wally.readthedocs.io/en/core.html",
+          "https://wally.readthedocs.io/en/crypto",
+          "https://wally.readthedocs.io/en/crypto.html",
+          "https://wally.readthedocs.io/en/descriptor",
+          "https://wally.readthedocs.io/en/descriptor.html",
+          "https://wally.readthedocs.io/en/elements",
+          "https://wally.readthedocs.io/en/elements.html",
+          "https://wally.readthedocs.io/en/genindex"
+        ],
+        "repo_broken_link_samples": [],
+        "unverified_link_samples": [],
+        "api_uncovered_samples": []
+      },
+      "run_count": 3
+    },
+    {
+      "site_url": "https://docs.liquid.net/docs/welcome-to-liquid-developer-documentation-portal",
+      "metrics": {
+        "crawl": {
+          "pages_crawled": 34,
+          "requested_pages": 35,
+          "urls_examined": 35,
+          "max_pages": 10000,
+          "effective_limit": 10000,
+          "auto_mode": false,
+          "stop_reason": "queue_exhausted",
+          "discovered_pages": 35,
+          "crawl_scope_basis": "discovered",
+          "crawl_scope_pages": 35,
+          "crawl_coverage_pct": 100.0,
+          "trap_urls_skipped": 0,
+          "seeded_sitemap_urls": 0,
+          "robots_sitemaps_declared": 0
+        },
+        "links": {
+          "internal_links_checked": 35,
+          "broken_internal_links_count": 0,
+          "docs_broken_links_count": 0,
+          "repo_broken_links_count": 0,
+          "broken_internal_link_samples": [],
+          "docs_broken_link_samples": [],
+          "repo_broken_link_samples": [],
+          "unreachable_links_count": 1,
+          "unverified_links_count": 1,
+          "unverified_link_samples": [
+            "https://docs.liquid.net/discuss"
+          ],
+          "confirmed_broken_links_count": 0,
+          "excluded_links_count": 0,
+          "excluded_link_samples": [],
+          "_all_confirmed_broken_links": [],
+          "_all_unverified_links": [
+            "https://docs.liquid.net/discuss"
+          ],
+          "_all_excluded_links": [],
+          "_all_docs_unverified_links": [
+            "https://docs.liquid.net/discuss"
+          ],
+          "_all_repo_unverified_links": []
+        },
+        "seo_geo": {
+          "pages_scanned": 34,
+          "missing_title_count": 0,
+          "missing_description_count": 1,
+          "multiple_h1_count": 5,
+          "heading_hierarchy_jump_count": 33,
+          "seo_geo_issue_rate_pct": 28.68
+        },
+        "api_coverage": {
+          "reference_endpoint_count": 1,
+          "api_pages_detected": 4,
+          "endpoints_with_usage_docs": 1,
+          "reference_endpoints_without_usage_docs": 0,
+          "reference_coverage_pct": 100.0,
+          "no_api_pages_found": false,
+          "coverage_determined": true,
+          "coverage_method": "source_of_truth",
+          "detection_note": "",
+          "uncovered_endpoint_samples": []
+        },
+        "examples": {
+          "total_code_examples": 46,
+          "total_code_blocks_all": 81,
+          "runnable_without_env": 45,
+          "blocked_by_placeholders": 0,
+          "network_bound_examples": 1,
+          "example_reliability_estimate_pct": 97.83,
+          "detection_note": ""
+        },
+        "freshness": {
+          "pages_with_last_updated_hint": 32,
+          "pages_without_last_updated_hint": 2,
+          "last_updated_coverage_pct": 94.12,
+          "samples_with_last_updated": [
+            {
+              "url": "https://docs.liquid.net/docs/welcome-to-liquid-developer-documentation-portal",
+              "hint": "{\"sidebars\":{},\"apiBaseUrl\":\"/\",\"baseUrl\":\"/\",\"search\":{\"appId\":\"T28YKFATPY\",\"searchApiKey\":\"MjIwYmE0OGUwMjU4ZGE5YjRiNDU"
+            },
+            {
+              "url": "https://docs.liquid.net/docs",
+              "hint": "{\"sidebars\":{},\"apiBaseUrl\":\"/\",\"baseUrl\":\"/\",\"search\":{\"appId\":\"T28YKFATPY\",\"searchApiKey\":\"MjIwYmE0OGUwMjU4ZGE5YjRiNDU"
+            },
+            {
+              "url": "https://docs.liquid.net/docs/blockstream-amp-overview",
+              "hint": "{\"sidebars\":{},\"apiBaseUrl\":\"/\",\"baseUrl\":\"/\",\"search\":{\"appId\":\"T28YKFATPY\",\"searchApiKey\":\"MjIwYmE0OGUwMjU4ZGE5YjRiNDU"
+            },
+            {
+              "url": "https://docs.liquid.net/",
+              "hint": "{\"sidebars\":{},\"apiBaseUrl\":\"/\",\"baseUrl\":\"/\",\"search\":{\"appId\":\"T28YKFATPY\",\"searchApiKey\":\"MjIwYmE0OGUwMjU4ZGE5YjRiNDU"
+            },
+            {
+              "url": "https://docs.liquid.net/docs/blockstream-amp-api-other-language-examples",
+              "hint": "{\"sidebars\":{},\"apiBaseUrl\":\"/\",\"baseUrl\":\"/\",\"search\":{\"appId\":\"T28YKFATPY\",\"searchApiKey\":\"MjIwYmE0OGUwMjU4ZGE5YjRiNDU"
+            },
+            {
+              "url": "https://docs.liquid.net/docs/blockstream-amp-case-studies",
+              "hint": "{\"sidebars\":{},\"apiBaseUrl\":\"/\",\"baseUrl\":\"/\",\"search\":{\"appId\":\"T28YKFATPY\",\"searchApiKey\":\"MjIwYmE0OGUwMjU4ZGE5YjRiNDU"
+            },
+            {
+              "url": "https://docs.liquid.net/docs/blockstream-amp-api-tutorial-in-python",
+              "hint": "{\"sidebars\":{},\"apiBaseUrl\":\"/\",\"baseUrl\":\"/\",\"search\":{\"appId\":\"T28YKFATPY\",\"searchApiKey\":\"MjIwYmE0OGUwMjU4ZGE5YjRiNDU"
+            },
+            {
+              "url": "https://docs.liquid.net/docs/blockstream-amp-api-specification",
+              "hint": "{\"sidebars\":{},\"apiBaseUrl\":\"/\",\"baseUrl\":\"/\",\"search\":{\"appId\":\"T28YKFATPY\",\"searchApiKey\":\"MjIwYmE0OGUwMjU4ZGE5YjRiNDU"
+            },
+            {
+              "url": "https://docs.liquid.net/docs/amp-reissuance-distribute-burn-process",
+              "hint": "{\"sidebars\":{},\"apiBaseUrl\":\"/\",\"baseUrl\":\"/\",\"search\":{\"appId\":\"T28YKFATPY\",\"searchApiKey\":\"MjIwYmE0OGUwMjU4ZGE5YjRiNDU"
+            },
+            {
+              "url": "https://docs.liquid.net/docs/blockstream-liquid-asset-registry",
+              "hint": "{\"sidebars\":{},\"apiBaseUrl\":\"/\",\"baseUrl\":\"/\",\"search\":{\"appId\":\"T28YKFATPY\",\"searchApiKey\":\"MjIwYmE0OGUwMjU4ZGE5YjRiNDU"
+            }
+          ]
+        }
+      },
+      "samples": {
+        "broken_links": [],
+        "docs_broken_link_samples": [],
+        "repo_broken_link_samples": [],
+        "unverified_link_samples": [
+          "https://docs.liquid.net/discuss"
+        ],
+        "api_uncovered_samples": []
+      },
+      "run_count": 3
+    },
+    {
+      "site_url": "https://gdk.readthedocs.io/en/release_0.76.3",
+      "metrics": {
+        "crawl": {
+          "pages_crawled": 31,
+          "requested_pages": 48,
+          "urls_examined": 32,
+          "max_pages": 10000,
+          "effective_limit": 10000,
+          "auto_mode": false,
+          "stop_reason": "queue_exhausted",
+          "discovered_pages": 32,
+          "crawl_scope_basis": "sitemap",
+          "crawl_scope_pages": 32,
+          "crawl_coverage_pct": 100.0,
+          "trap_urls_skipped": 31,
+          "seeded_sitemap_urls": 32,
+          "robots_sitemaps_declared": 1
+        },
+        "links": {
+          "internal_links_checked": 47,
+          "broken_internal_links_count": 14,
+          "docs_broken_links_count": 14,
+          "repo_broken_links_count": 0,
+          "broken_internal_link_samples": [
+            "https://gdk.readthedocs.io/en/gdk",
+            "https://gdk.readthedocs.io/en/gdk-create-tx",
+            "https://gdk.readthedocs.io/en/gdk-create-tx.html",
+            "https://gdk.readthedocs.io/en/gdk-hw",
+            "https://gdk.readthedocs.io/en/gdk-hw.html",
+            "https://gdk.readthedocs.io/en/gdk-json",
+            "https://gdk.readthedocs.io/en/gdk-json.html",
+            "https://gdk.readthedocs.io/en/gdk-ntf",
+            "https://gdk.readthedocs.io/en/gdk-ntf.html",
+            "https://gdk.readthedocs.io/en/gdk-swap",
+            "https://gdk.readthedocs.io/en/gdk-swap.html",
+            "https://gdk.readthedocs.io/en/gdk.html",
+            "https://gdk.readthedocs.io/en/genindex",
+            "https://gdk.readthedocs.io/en/genindex.html"
+          ],
+          "docs_broken_link_samples": [
+            "https://gdk.readthedocs.io/en/gdk",
+            "https://gdk.readthedocs.io/en/gdk-create-tx",
+            "https://gdk.readthedocs.io/en/gdk-create-tx.html",
+            "https://gdk.readthedocs.io/en/gdk-hw",
+            "https://gdk.readthedocs.io/en/gdk-hw.html",
+            "https://gdk.readthedocs.io/en/gdk-json",
+            "https://gdk.readthedocs.io/en/gdk-json.html",
+            "https://gdk.readthedocs.io/en/gdk-ntf",
+            "https://gdk.readthedocs.io/en/gdk-ntf.html",
+            "https://gdk.readthedocs.io/en/gdk-swap",
+            "https://gdk.readthedocs.io/en/gdk-swap.html",
+            "https://gdk.readthedocs.io/en/gdk.html",
+            "https://gdk.readthedocs.io/en/genindex",
+            "https://gdk.readthedocs.io/en/genindex.html"
+          ],
+          "repo_broken_link_samples": [],
+          "unreachable_links_count": 0,
+          "unverified_links_count": 0,
+          "unverified_link_samples": [],
+          "confirmed_broken_links_count": 14,
+          "excluded_links_count": 2,
+          "excluded_link_samples": [
+            "https://gdk.readthedocs.io/en/search",
+            "https://gdk.readthedocs.io/en/search.html"
+          ],
+          "_all_confirmed_broken_links": [
+            "https://gdk.readthedocs.io/en/gdk",
+            "https://gdk.readthedocs.io/en/gdk-create-tx",
+            "https://gdk.readthedocs.io/en/gdk-create-tx.html",
+            "https://gdk.readthedocs.io/en/gdk-hw",
+            "https://gdk.readthedocs.io/en/gdk-hw.html",
+            "https://gdk.readthedocs.io/en/gdk-json",
+            "https://gdk.readthedocs.io/en/gdk-json.html",
+            "https://gdk.readthedocs.io/en/gdk-ntf",
+            "https://gdk.readthedocs.io/en/gdk-ntf.html",
+            "https://gdk.readthedocs.io/en/gdk-swap",
+            "https://gdk.readthedocs.io/en/gdk-swap.html",
+            "https://gdk.readthedocs.io/en/gdk.html",
+            "https://gdk.readthedocs.io/en/genindex",
+            "https://gdk.readthedocs.io/en/genindex.html"
+          ],
+          "_all_unverified_links": [],
+          "_all_excluded_links": [
+            "https://gdk.readthedocs.io/en/search",
+            "https://gdk.readthedocs.io/en/search.html"
+          ],
+          "_all_docs_unverified_links": [],
+          "_all_repo_unverified_links": []
+        },
+        "seo_geo": {
+          "pages_scanned": 31,
+          "missing_title_count": 0,
+          "missing_description_count": 31,
+          "multiple_h1_count": 31,
+          "heading_hierarchy_jump_count": 0,
+          "seo_geo_issue_rate_pct": 50.0
+        },
+        "api_coverage": {
+          "reference_endpoint_count": 0,
+          "api_pages_detected": 0,
+          "endpoints_with_usage_docs": 0,
+          "reference_endpoints_without_usage_docs": 0,
+          "reference_coverage_pct": -1.0,
+          "no_api_pages_found": true,
+          "coverage_determined": false,
+          "coverage_method": "heuristic",
+          "detection_note": "Contract URLs found but no operations parsed",
+          "uncovered_endpoint_samples": []
+        },
+        "examples": {
+          "total_code_examples": 0,
+          "total_code_blocks_all": 0,
+          "runnable_without_env": 0,
+          "blocked_by_placeholders": 0,
+          "network_bound_examples": 0,
+          "example_reliability_estimate_pct": 0.0,
+          "detection_note": "No code blocks detected in crawled pages. The site may use JavaScript-rendered code blocks invisible to the HTML parser."
+        },
+        "freshness": {
+          "pages_with_last_updated_hint": 0,
+          "pages_without_last_updated_hint": 31,
+          "last_updated_coverage_pct": 0.0,
+          "samples_with_last_updated": []
+        }
+      },
+      "samples": {
+        "broken_links": [
+          "https://gdk.readthedocs.io/en/gdk",
+          "https://gdk.readthedocs.io/en/gdk-create-tx",
+          "https://gdk.readthedocs.io/en/gdk-create-tx.html",
+          "https://gdk.readthedocs.io/en/gdk-hw",
+          "https://gdk.readthedocs.io/en/gdk-hw.html",
+          "https://gdk.readthedocs.io/en/gdk-json",
+          "https://gdk.readthedocs.io/en/gdk-json.html",
+          "https://gdk.readthedocs.io/en/gdk-ntf",
+          "https://gdk.readthedocs.io/en/gdk-ntf.html",
+          "https://gdk.readthedocs.io/en/gdk-swap",
+          "https://gdk.readthedocs.io/en/gdk-swap.html",
+          "https://gdk.readthedocs.io/en/gdk.html",
+          "https://gdk.readthedocs.io/en/genindex",
+          "https://gdk.readthedocs.io/en/genindex.html"
+        ],
+        "docs_broken_link_samples": [
+          "https://gdk.readthedocs.io/en/gdk",
+          "https://gdk.readthedocs.io/en/gdk-create-tx",
+          "https://gdk.readthedocs.io/en/gdk-create-tx.html",
+          "https://gdk.readthedocs.io/en/gdk-hw",
+          "https://gdk.readthedocs.io/en/gdk-hw.html",
+          "https://gdk.readthedocs.io/en/gdk-json",
+          "https://gdk.readthedocs.io/en/gdk-json.html",
+          "https://gdk.readthedocs.io/en/gdk-ntf",
+          "https://gdk.readthedocs.io/en/gdk-ntf.html",
+          "https://gdk.readthedocs.io/en/gdk-swap",
+          "https://gdk.readthedocs.io/en/gdk-swap.html",
+          "https://gdk.readthedocs.io/en/gdk.html",
+          "https://gdk.readthedocs.io/en/genindex",
+          "https://gdk.readthedocs.io/en/genindex.html"
+        ],
+        "repo_broken_link_samples": [],
+        "unverified_link_samples": [],
+        "api_uncovered_samples": []
+      },
+      "run_count": 3
+    },
+    {
+      "site_url": "https://help.blockstream.com/hc/en-us",
+      "metrics": {
+        "crawl": {
+          "pages_crawled": 197,
+          "requested_pages": 335,
+          "urls_examined": 219,
+          "max_pages": 10000,
+          "effective_limit": 10000,
+          "auto_mode": false,
+          "stop_reason": "queue_exhausted",
+          "discovered_pages": 219,
+          "crawl_scope_basis": "sitemap",
+          "crawl_scope_pages": 219,
+          "crawl_coverage_pct": 100.0,
+          "trap_urls_skipped": 0,
+          "seeded_sitemap_urls": 219,
+          "robots_sitemaps_declared": 1
+        },
+        "links": {
+          "internal_links_checked": 334,
+          "broken_internal_links_count": 1,
+          "docs_broken_links_count": 1,
+          "repo_broken_links_count": 0,
+          "broken_internal_link_samples": [
+            "https://help.blockstream.com/hc/en-us/articles/11243167612697"
+          ],
+          "docs_broken_link_samples": [
+            "https://help.blockstream.com/hc/en-us/articles/11243167612697"
+          ],
+          "repo_broken_link_samples": [],
+          "unreachable_links_count": 0,
+          "unverified_links_count": 55,
+          "unverified_link_samples": [
+            "https://help.blockstream.com/hc/en-us/articles/10426338118169",
+            "https://help.blockstream.com/hc/en-us/articles/10731523559193-SeedQR-vs-QR-PIN-unlock",
+            "https://help.blockstream.com/hc/en-us/articles/11855396794265-Use-Jade-Plus-QR-Scan-with-Specter",
+            "https://help.blockstream.com/hc/en-us/articles/12800132096793-Set-up-a-personal-blind-oracle",
+            "https://help.blockstream.com/hc/en-us/articles/15884462476953-Jade-security-model-FAQs",
+            "https://help.blockstream.com/hc/en-us/articles/18788578831897-Understand-Lightning-support-in-the-Blockstream-app",
+            "https://help.blockstream.com/hc/en-us/articles/19629901272345-Set-up-Jade",
+            "https://help.blockstream.com/hc/en-us/articles/20108421315865",
+            "https://help.blockstream.com/hc/en-us/articles/20182481765657-Enable-a-duress-PIN",
+            "https://help.blockstream.com/hc/en-us/articles/20182747993625",
+            "https://help.blockstream.com/hc/en-us/articles/20272304271001",
+            "https://help.blockstream.com/hc/en-us/articles/20272487890841-Supported-air-gapped-functionality-via-QR",
+            "https://help.blockstream.com/hc/en-us/articles/20272658303385",
+            "https://help.blockstream.com/hc/en-us/articles/20272658303385-Air-gapped-Jade-Plus-setup",
+            "https://help.blockstream.com/hc/en-us/articles/20272658303385-Air-gapped-Jade-Setup",
+            "https://help.blockstream.com/hc/en-us/articles/20389615544089-Backup-a-multisig-configuration-on-Jade",
+            "https://help.blockstream.com/hc/en-us/articles/20427378059417",
+            "https://help.blockstream.com/hc/en-us/articles/31394615728665-What-are-Blockstream-s-official-social-channels",
+            "https://help.blockstream.com/hc/en-us/articles/39525482532377-Perform-an-air-gapped-firmware-upgrade",
+            "https://help.blockstream.com/hc/en-us/articles/41013744529689-Access-Jade-air-gapped-with-SeedQR",
+            "https://help.blockstream.com/hc/en-us/articles/41058233508121",
+            "https://help.blockstream.com/hc/en-us/articles/41058233508121-Send-air-gapped-Bitcoin-transactions-via-JadeLink",
+            "https://help.blockstream.com/hc/en-us/articles/4403622507801-Multisig-security-overview-for-Liquid-wallets",
+            "https://help.blockstream.com/hc/en-us/articles/4403675941017-Should-I-export-the-master-blinding-key",
+            "https://help.blockstream.com/hc/en-us/articles/4407812259225",
+            "https://help.blockstream.com/hc/en-us/articles/4408030503577",
+            "https://help.blockstream.com/hc/en-us/articles/4519329076633",
+            "https://help.blockstream.com/hc/en-us/articles/47010043375129-Receive-and-send-Liquid-assets",
+            "https://help.blockstream.com/hc/en-us/articles/47242018755993-How-does-the-Blockstream-app-generate-my-recovery-phrase",
+            "https://help.blockstream.com/hc/en-us/articles/52384240998169-Create-an-Explorer-API-account"
+          ],
+          "confirmed_broken_links_count": 1,
+          "excluded_links_count": 0,
+          "excluded_link_samples": [],
+          "_all_confirmed_broken_links": [
+            "https://help.blockstream.com/hc/en-us/articles/11243167612697"
+          ],
+          "_all_unverified_links": [
+            "https://help.blockstream.com/hc/en-us/articles/10426338118169",
+            "https://help.blockstream.com/hc/en-us/articles/10731523559193-SeedQR-vs-QR-PIN-unlock",
+            "https://help.blockstream.com/hc/en-us/articles/11855396794265-Use-Jade-Plus-QR-Scan-with-Specter",
+            "https://help.blockstream.com/hc/en-us/articles/12800132096793-Set-up-a-personal-blind-oracle",
+            "https://help.blockstream.com/hc/en-us/articles/15884462476953-Jade-security-model-FAQs",
+            "https://help.blockstream.com/hc/en-us/articles/18788578831897-Understand-Lightning-support-in-the-Blockstream-app",
+            "https://help.blockstream.com/hc/en-us/articles/19629901272345-Set-up-Jade",
+            "https://help.blockstream.com/hc/en-us/articles/20108421315865",
+            "https://help.blockstream.com/hc/en-us/articles/20182481765657-Enable-a-duress-PIN",
+            "https://help.blockstream.com/hc/en-us/articles/20182747993625",
+            "https://help.blockstream.com/hc/en-us/articles/20272304271001",
+            "https://help.blockstream.com/hc/en-us/articles/20272487890841-Supported-air-gapped-functionality-via-QR",
+            "https://help.blockstream.com/hc/en-us/articles/20272658303385",
+            "https://help.blockstream.com/hc/en-us/articles/20272658303385-Air-gapped-Jade-Plus-setup",
+            "https://help.blockstream.com/hc/en-us/articles/20272658303385-Air-gapped-Jade-Setup",
+            "https://help.blockstream.com/hc/en-us/articles/20389615544089-Backup-a-multisig-configuration-on-Jade",
+            "https://help.blockstream.com/hc/en-us/articles/20427378059417",
+            "https://help.blockstream.com/hc/en-us/articles/31394615728665-What-are-Blockstream-s-official-social-channels",
+            "https://help.blockstream.com/hc/en-us/articles/39525482532377-Perform-an-air-gapped-firmware-upgrade",
+            "https://help.blockstream.com/hc/en-us/articles/41013744529689-Access-Jade-air-gapped-with-SeedQR",
+            "https://help.blockstream.com/hc/en-us/articles/41058233508121",
+            "https://help.blockstream.com/hc/en-us/articles/41058233508121-Send-air-gapped-Bitcoin-transactions-via-JadeLink",
+            "https://help.blockstream.com/hc/en-us/articles/4403622507801-Multisig-security-overview-for-Liquid-wallets",
+            "https://help.blockstream.com/hc/en-us/articles/4403675941017-Should-I-export-the-master-blinding-key",
+            "https://help.blockstream.com/hc/en-us/articles/4407812259225",
+            "https://help.blockstream.com/hc/en-us/articles/4408030503577",
+            "https://help.blockstream.com/hc/en-us/articles/4519329076633",
+            "https://help.blockstream.com/hc/en-us/articles/47010043375129-Receive-and-send-Liquid-assets",
+            "https://help.blockstream.com/hc/en-us/articles/47242018755993-How-does-the-Blockstream-app-generate-my-recovery-phrase",
+            "https://help.blockstream.com/hc/en-us/articles/52384240998169-Create-an-Explorer-API-account",
+            "https://help.blockstream.com/hc/en-us/articles/52415995965337-View-and-edit-your-billing-and-subscription-details",
+            "https://help.blockstream.com/hc/en-us/articles/52416003291673-Request-support-for-Explorer-API",
+            "https://help.blockstream.com/hc/en-us/articles/53373520222105-Transfer-Lightning-balance-to-on-chain",
+            "https://help.blockstream.com/hc/en-us/articles/55337166957721-Enable-swaps-with-Jade",
+            "https://help.blockstream.com/hc/en-us/articles/5988514431897-What-is-pseudonymous-data-collection-and-how-is-it-used",
+            "https://help.blockstream.com/hc/en-us/articles/900000642746",
+            "https://help.blockstream.com/hc/en-us/articles/900001522626",
+            "https://help.blockstream.com/hc/en-us/articles/900001613686",
+            "https://help.blockstream.com/hc/en-us/articles/900001621223",
+            "https://help.blockstream.com/hc/en-us/articles/900001629806",
+            "https://help.blockstream.com/hc/en-us/articles/900002018406",
+            "https://help.blockstream.com/hc/en-us/articles/900002019086-Perform-a-redeposit",
+            "https://help.blockstream.com/hc/en-us/articles/900002327003-Set-up-a-new-wallet",
+            "https://help.blockstream.com/hc/en-us/articles/900002374566-Can-I-connect-an-official-Bitcoin-Core-client-to-Blockstream-Satellite",
+            "https://help.blockstream.com/hc/en-us/articles/900003418286",
+            "https://help.blockstream.com/hc/en-us/articles/900003418286-Generate-AMP-ID",
+            "https://help.blockstream.com/hc/en-us/articles/900004249546-The-upgrade-from-nLockTime-to-CheckSequenceVerify",
+            "https://help.blockstream.com/hc/en-us/articles/900005443223",
+            "https://help.blockstream.com/hc/en-us/articles/900005763063-How-do-nLockTime-timelocks-work",
+            "https://help.blockstream.com/hc/en-us/articles/9446043439257-How-do-I-set-up-a-wallet-erase-PIN",
+            "https://help.blockstream.com/hc/en-us/categories/900000056143-Liquid-Network",
+            "https://help.blockstream.com/hc/en-us/requests/new",
+            "https://help.blockstream.com/hc/en-us/sections/47470057574553-Manage-2FA-Accounts",
+            "https://help.blockstream.com/hc/en-us/sections/900000124103-Set-Up-Transact-Recover-Your-Wallet",
+            "https://help.blockstream.com/hc/en-us/sections/900000129786-Perform-Advanced-Liquid-Operations"
+          ],
+          "_all_excluded_links": [],
+          "_all_docs_unverified_links": [
+            "https://help.blockstream.com/hc/en-us/articles/10731523559193-SeedQR-vs-QR-PIN-unlock",
+            "https://help.blockstream.com/hc/en-us/articles/11855396794265-Use-Jade-Plus-QR-Scan-with-Specter",
+            "https://help.blockstream.com/hc/en-us/articles/12800132096793-Set-up-a-personal-blind-oracle",
+            "https://help.blockstream.com/hc/en-us/articles/18788578831897-Understand-Lightning-support-in-the-Blockstream-app",
+            "https://help.blockstream.com/hc/en-us/articles/20108421315865",
+            "https://help.blockstream.com/hc/en-us/articles/20272304271001",
+            "https://help.blockstream.com/hc/en-us/articles/20272658303385-Air-gapped-Jade-Plus-setup",
+            "https://help.blockstream.com/hc/en-us/articles/31394615728665-What-are-Blockstream-s-official-social-channels",
+            "https://help.blockstream.com/hc/en-us/articles/41058233508121-Send-air-gapped-Bitcoin-transactions-via-JadeLink",
+            "https://help.blockstream.com/hc/en-us/articles/4403622507801-Multisig-security-overview-for-Liquid-wallets",
+            "https://help.blockstream.com/hc/en-us/articles/4403675941017-Should-I-export-the-master-blinding-key",
+            "https://help.blockstream.com/hc/en-us/articles/4407812259225",
+            "https://help.blockstream.com/hc/en-us/articles/4408030503577",
+            "https://help.blockstream.com/hc/en-us/articles/47010043375129-Receive-and-send-Liquid-assets",
+            "https://help.blockstream.com/hc/en-us/articles/47242018755993-How-does-the-Blockstream-app-generate-my-recovery-phrase",
+            "https://help.blockstream.com/hc/en-us/articles/52415995965337-View-and-edit-your-billing-and-subscription-details",
+            "https://help.blockstream.com/hc/en-us/articles/52416003291673-Request-support-for-Explorer-API",
+            "https://help.blockstream.com/hc/en-us/articles/55337166957721-Enable-swaps-with-Jade",
+            "https://help.blockstream.com/hc/en-us/articles/5988514431897-What-is-pseudonymous-data-collection-and-how-is-it-used",
+            "https://help.blockstream.com/hc/en-us/articles/900001629806",
+            "https://help.blockstream.com/hc/en-us/articles/900002018406",
+            "https://help.blockstream.com/hc/en-us/articles/900002327003-Set-up-a-new-wallet",
+            "https://help.blockstream.com/hc/en-us/articles/900003418286",
+            "https://help.blockstream.com/hc/en-us/articles/900003418286-Generate-AMP-ID",
+            "https://help.blockstream.com/hc/en-us/articles/900005763063-How-do-nLockTime-timelocks-work",
+            "https://help.blockstream.com/hc/en-us/articles/9446043439257-How-do-I-set-up-a-wallet-erase-PIN",
+            "https://help.blockstream.com/hc/en-us/categories/900000056143-Liquid-Network",
+            "https://help.blockstream.com/hc/en-us/sections/900000124103-Set-Up-Transact-Recover-Your-Wallet"
+          ],
+          "_all_repo_unverified_links": []
+        },
+        "seo_geo": {
+          "pages_scanned": 197,
+          "missing_title_count": 0,
+          "missing_description_count": 6,
+          "multiple_h1_count": 7,
+          "heading_hierarchy_jump_count": 197,
+          "seo_geo_issue_rate_pct": 26.65
+        },
+        "api_coverage": {
+          "reference_endpoint_count": 45,
+          "api_pages_detected": 14,
+          "endpoints_with_usage_docs": 14,
+          "reference_endpoints_without_usage_docs": 31,
+          "reference_coverage_pct": 31.11,
+          "no_api_pages_found": false,
+          "coverage_determined": true,
+          "coverage_method": "heuristic",
+          "detection_note": "Contract URLs found but no operations parsed",
+          "uncovered_endpoint_samples": [
+            "ep:/enterprise.blockstream.info/api",
+            "ep:/enterprise.blockstream.info/api/blocks/tip/hash",
+            "ep:/enterprise.blockstream.info/api/waterfalls",
+            "ep:/enterprise.blockstream.info/liquid/api",
+            "ep:/enterprise.blockstream.info/liquid/api/waterfalls",
+            "ep:/enterprise.blockstream.info/liquid/api/waterfalls/waterfalls",
+            "ep:/enterprise.blockstream.info/liquidtestnet/api",
+            "ep:/enterprise.blockstream.info/liquidtestnet/api/waterfalls",
+            "ep:/enterprise.blockstream.info/testnet/api",
+            "ep:/enterprise.blockstream.info/testnet/api/waterfalls",
+            "ep:/hc/en-us/articles/47199665450137-update-2fa-method",
+            "ep:/hc/en-us/articles/47316624822809-lost-access-to-2fa-method",
+            "ep:/hc/en-us/articles/52384240998169-create-an-explorer-api-account",
+            "ep:/hc/en-us/articles/52415086089369-make-a-rest-api-request-with-your-api-keys",
+            "ep:/hc/en-us/articles/52415124540569-create-and-manage-your-api-keys",
+            "ep:/hc/en-us/articles/52415964145817-check-your-api-usage",
+            "ep:/hc/en-us/articles/52416257952537-understanding-and-accessing-quicksync",
+            "ep:/hc/en-us/articles/52418390227609-supported-libraries-for-explorer-enterprise-api-authentication",
+            "ep:/hc/en-us/articles/9786005099033-create-a-watch-only-wallet-with-a-liquid-elements-node",
+            "ep:/hc/en-us/categories/46544727955865-blockstream-explorer-api"
+          ]
+        },
+        "examples": {
+          "total_code_examples": 38,
+          "total_code_blocks_all": 71,
+          "runnable_without_env": 38,
+          "blocked_by_placeholders": 0,
+          "network_bound_examples": 0,
+          "example_reliability_estimate_pct": 100.0,
+          "detection_note": ""
+        },
+        "freshness": {
+          "pages_with_last_updated_hint": 0,
+          "pages_without_last_updated_hint": 197,
+          "last_updated_coverage_pct": 0.0,
+          "samples_with_last_updated": []
+        }
+      },
+      "samples": {
+        "broken_links": [
+          "https://help.blockstream.com/hc/en-us/articles/11243167612697",
+          "https://help.blockstream.com/hc/en-us/articles/4519329076633"
+        ],
+        "docs_broken_link_samples": [
+          "https://help.blockstream.com/hc/en-us/articles/11243167612697",
+          "https://help.blockstream.com/hc/en-us/articles/4519329076633"
+        ],
+        "repo_broken_link_samples": [],
+        "unverified_link_samples": [
+          "https://help.blockstream.com/hc/en-us/articles/10731523559193-SeedQR-vs-QR-PIN-unlock",
+          "https://help.blockstream.com/hc/en-us/articles/11855396794265-Use-Jade-Plus-QR-Scan-with-Specter",
+          "https://help.blockstream.com/hc/en-us/articles/12800132096793-Set-up-a-personal-blind-oracle",
+          "https://help.blockstream.com/hc/en-us/articles/18788578831897-Understand-Lightning-support-in-the-Blockstream-app",
+          "https://help.blockstream.com/hc/en-us/articles/20108421315865",
+          "https://help.blockstream.com/hc/en-us/articles/20272304271001",
+          "https://help.blockstream.com/hc/en-us/articles/20272658303385-Air-gapped-Jade-Plus-setup",
+          "https://help.blockstream.com/hc/en-us/articles/31394615728665-What-are-Blockstream-s-official-social-channels",
+          "https://help.blockstream.com/hc/en-us/articles/41058233508121-Send-air-gapped-Bitcoin-transactions-via-JadeLink",
+          "https://help.blockstream.com/hc/en-us/articles/4403622507801-Multisig-security-overview-for-Liquid-wallets",
+          "https://help.blockstream.com/hc/en-us/articles/4403675941017-Should-I-export-the-master-blinding-key",
+          "https://help.blockstream.com/hc/en-us/articles/4407812259225",
+          "https://help.blockstream.com/hc/en-us/articles/4408030503577",
+          "https://help.blockstream.com/hc/en-us/articles/47010043375129-Receive-and-send-Liquid-assets",
+          "https://help.blockstream.com/hc/en-us/articles/47242018755993-How-does-the-Blockstream-app-generate-my-recovery-phrase",
+          "https://help.blockstream.com/hc/en-us/articles/52415995965337-View-and-edit-your-billing-and-subscription-details",
+          "https://help.blockstream.com/hc/en-us/articles/52416003291673-Request-support-for-Explorer-API",
+          "https://help.blockstream.com/hc/en-us/articles/55337166957721-Enable-swaps-with-Jade",
+          "https://help.blockstream.com/hc/en-us/articles/5988514431897-What-is-pseudonymous-data-collection-and-how-is-it-used",
+          "https://help.blockstream.com/hc/en-us/articles/900001629806",
+          "https://help.blockstream.com/hc/en-us/articles/900002018406",
+          "https://help.blockstream.com/hc/en-us/articles/900002327003-Set-up-a-new-wallet",
+          "https://help.blockstream.com/hc/en-us/articles/900003418286",
+          "https://help.blockstream.com/hc/en-us/articles/900003418286-Generate-AMP-ID",
+          "https://help.blockstream.com/hc/en-us/articles/900005763063-How-do-nLockTime-timelocks-work",
+          "https://help.blockstream.com/hc/en-us/articles/9446043439257-How-do-I-set-up-a-wallet-erase-PIN",
+          "https://help.blockstream.com/hc/en-us/categories/900000056143-Liquid-Network",
+          "https://help.blockstream.com/hc/en-us/sections/900000124103-Set-Up-Transact-Recover-Your-Wallet"
+        ],
+        "api_uncovered_samples": [
+          "ep:/enterprise.blockstream.info/api",
+          "ep:/enterprise.blockstream.info/api/blocks/tip/hash",
+          "ep:/enterprise.blockstream.info/api/waterfalls",
+          "ep:/enterprise.blockstream.info/liquid/api",
+          "ep:/enterprise.blockstream.info/liquid/api/waterfalls",
+          "ep:/enterprise.blockstream.info/liquid/api/waterfalls/waterfalls",
+          "ep:/enterprise.blockstream.info/liquidtestnet/api",
+          "ep:/enterprise.blockstream.info/liquidtestnet/api/waterfalls",
+          "ep:/enterprise.blockstream.info/testnet/api",
+          "ep:/enterprise.blockstream.info/testnet/api/waterfalls",
+          "ep:/hc/en-us/articles/47199665450137-update-2fa-method",
+          "ep:/hc/en-us/articles/47316624822809-lost-access-to-2fa-method",
+          "ep:/hc/en-us/articles/52384240998169-create-an-explorer-api-account",
+          "ep:/hc/en-us/articles/52415086089369-make-a-rest-api-request-with-your-api-keys",
+          "ep:/hc/en-us/articles/52415124540569-create-and-manage-your-api-keys",
+          "ep:/hc/en-us/articles/52415964145817-check-your-api-usage",
+          "ep:/hc/en-us/articles/52416257952537-understanding-and-accessing-quicksync",
+          "ep:/hc/en-us/articles/52418390227609-supported-libraries-for-explorer-enterprise-api-authentication",
+          "ep:/hc/en-us/articles/9786005099033-create-a-watch-only-wallet-with-a-liquid-elements-node",
+          "ep:/hc/en-us/categories/46544727955865-blockstream-explorer-api"
+        ]
+      },
+      "run_count": 3
+    }
+  ],
+  "aggregate": {
+    "metrics": {
+      "crawl": {
+        "pages_crawled": 306,
+        "requested_pages": 619,
+        "urls_examined": 335,
+        "max_pages_total": 60000,
+        "discovered_pages": 335,
+        "crawl_scope_pages": 324,
+        "trap_urls_skipped": 41,
+        "crawl_coverage_pct": 103.4
+      },
+      "links": {
+        "broken_internal_links_count": 58,
+        "docs_broken_links_count": 58,
+        "repo_broken_links_count": 0,
+        "unverified_links_count": 56,
+        "confirmed_broken_links_count": 58,
+        "excluded_links_count": 5
+      },
+      "seo_geo": {
+        "seo_geo_issue_rate_pct": 30.07
+      },
+      "api_coverage": {
+        "reference_coverage_pct": 34.04,
+        "no_api_pages_found": false,
+        "api_pages_detected": 20,
+        "coverage_determined": true,
+        "detection_note": ""
+      },
+      "examples": {
+        "example_reliability_estimate_pct": 75.25
+      },
+      "freshness": {
+        "last_updated_coverage_pct": 13.4
+      }
+    },
+    "confidence": {
+      "overall_confidence_pct": 71.85,
+      "links_confidence_pct": 45.88,
+      "api_confidence_pct": 85.0,
+      "crawl_confidence_pct": 95.0
+    }
+  },
+  "confidence": {
+    "overall_confidence_pct": 71.85,
+    "links_confidence_pct": 45.88,
+    "api_confidence_pct": 85.0,
+    "crawl_confidence_pct": 95.0
+  },
+  "top_findings": [
+    "Broken internal links: 58",
+    "Link verification inconclusive for 56 URLs (auth/rate-limit/server block); these are excluded from broken-link counts.",
+    "SEO/GEO issue rate is high: 30.07%",
+    "API usage-doc coverage is low: 34.04% (20 API pages detected)",
+    "Freshness visibility is weak: only 13.4% pages show last updated",
+    "Documentation is split across multiple sites, but marked as multi-project; no fragmentation penalty applied."
+  ],
+  "llm_analysis": {
+    "status": "ok",
+    "model": "claude-sonnet-4-5",
+    "analysis": {
+      "executive_summary": "Documentation audit across 6 sites crawled 306 pages from 619 requested URLs with 103.4% crawl coverage. Critical issues include 58 confirmed broken internal links, 30.07% SEO/GEO issue rate, and only 34.04% API reference coverage across 20 detected API pages. Freshness metadata is present on only 13.4% of pages, limiting change tracking. Overall confidence is 71.85%, with links confidence notably low at 45.88% due to 56 unverified URLs blocked by auth/rate-limits. Multi-project topology acknowledged; no fragmentation penalty applied.",
+      "strengths": [
+        "High crawl coverage at 103.4% indicates comprehensive site discovery and indexing",
+        "Multi-project documentation structure properly identified and scoped across 6 distinct sites",
+        "API documentation pages successfully detected (20 pages) with coverage measurement enabled",
+        "Overall confidence of 71.85% provides reasonable assurance for most findings",
+        "Example code reliability estimated at 75.25%, suggesting functional code samples"
+      ],
+      "risks": [
+        "58 confirmed broken internal links degrade user navigation and trust across all documentation sites",
+        "56 unverified links (auth/rate-limit blocked) represent unknown documentation quality exposure",
+        "API reference coverage at 34.04% leaves two-thirds of API surface undocumented or poorly covered",
+        "SEO/GEO issue rate of 30.07% significantly impacts discoverability and search ranking",
+        "Only 13.4% freshness coverage prevents users from assessing content currency and maintenance status",
+        "Links confidence at 45.88% indicates substantial uncertainty in link health assessment",
+        "41 trap URLs skipped may hide additional content quality issues in edge cases"
+      ],
+      "prioritized_actions": [
+        {
+          "action": "Fix all 58 confirmed broken internal links to restore navigation integrity across documentation sites",
+          "impact": "critical",
+          "effort": "medium"
+        },
+        {
+          "action": "Expand API reference documentation to achieve minimum 70% coverage across detected API surface",
+          "impact": "critical",
+          "effort": "high"
+        },
+        {
+          "action": "Implement last-updated metadata on all pages to increase freshness visibility from 13.4% to 90%+",
+          "impact": "high",
+          "effort": "low"
+        },
+        {
+          "action": "Resolve SEO/GEO issues affecting 30.07% of pages (meta descriptions, titles, structured data)",
+          "impact": "high",
+          "effort": "medium"
+        },
+        {
+          "action": "Manually verify 56 auth-blocked URLs and establish monitoring for protected documentation endpoints",
+          "impact": "medium",
+          "effort": "medium"
+        }
+      ],
+      "limitations": [
+        "External audit cannot verify content accuracy, technical correctness, or completeness of explanations within pages",
+        "56 URLs blocked by authentication or rate-limits remain unverified; actual broken link count may be higher",
+        "API coverage detection relies on heuristics; actual API completeness requires internal schema comparison",
+        "Crawl traps (41 skipped URLs) may contain additional quality issues not reflected in this assessment",
+        "Multi-project topology assumes intentional separation; user experience fragmentation not evaluated"
+      ]
+    }
+  }
+}

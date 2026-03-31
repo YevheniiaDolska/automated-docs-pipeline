@@ -1,0 +1,57 @@
+{
+  "status": "ok",
+  "model": "claude-sonnet-4-5",
+  "analysis": {
+    "executive_summary": "Documentation audit of docs.mistral.ai covered 292 pages (100% crawl coverage) with 91.5% overall confidence. Critical issues identified: 40 confirmed broken internal links within user-facing documentation, 33.05% SEO/geo issue rate indicating discoverability problems, and 0% example reliability estimate suggesting code examples lack validation. API reference coverage stands at only 5.24% despite 73 API pages detected, indicating minimal integration between conceptual docs and API references. Freshness tracking is poor with only 22.6% of pages displaying last-updated metadata.",
+    "strengths": [
+      "Complete crawl coverage achieved (100% of 333 discovered pages within scope)",
+      "High overall audit confidence at 91.5% with strong link verification (95% confidence)",
+      "Single-product topology provides clear documentation structure",
+      "No repository navigation link breakage (0 repo_broken_links_count)",
+      "No crawl trap URLs encountered, indicating clean site architecture"
+    ],
+    "risks": [
+      "40 confirmed broken internal links degrade user navigation and trust in documentation quality",
+      "33.05% SEO/geo issue rate severely impacts search discoverability and international accessibility",
+      "0% example reliability estimate indicates code examples are untested or lack validation markers",
+      "5.24% API reference coverage leaves 94.76% of API surface undocumented or disconnected from usage guidance",
+      "22.6% freshness coverage prevents users from assessing content currency for 77.4% of pages",
+      "73 API pages detected but minimal cross-linking suggests siloed reference documentation",
+      "24 excluded links may hide additional broken link issues requiring manual review"
+    ],
+    "prioritized_actions": [
+      {
+        "action": "Fix all 40 confirmed broken internal links to restore navigation integrity",
+        "impact": "critical",
+        "effort": "low"
+      },
+      {
+        "action": "Implement automated example validation pipeline to achieve >80% reliability score",
+        "impact": "critical",
+        "effort": "high"
+      },
+      {
+        "action": "Add last-updated timestamps to all pages (currently missing on 77.4% of content)",
+        "impact": "high",
+        "effort": "low"
+      },
+      {
+        "action": "Cross-link API reference pages with usage documentation to improve 5.24% coverage to >40%",
+        "impact": "high",
+        "effort": "medium"
+      },
+      {
+        "action": "Audit and remediate SEO/geo issues affecting 33.05% of pages (meta tags, hreflang, structured data)",
+        "impact": "high",
+        "effort": "medium"
+      }
+    ],
+    "limitations": [
+      "External audit cannot verify accuracy of technical content, code correctness, or conceptual explanations",
+      "API coverage detection relies on pattern matching; actual API completeness requires internal schema comparison",
+      "Example reliability estimate based on presence of validation markers, not actual code execution results",
+      "Cannot assess documentation effectiveness, user comprehension, or task completion success rates",
+      "Freshness metadata presence verified but not validated against actual content update dates"
+    ]
+  }
+}

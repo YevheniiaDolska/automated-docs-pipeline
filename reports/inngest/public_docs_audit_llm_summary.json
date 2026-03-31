@@ -1,0 +1,57 @@
+{
+  "status": "ok",
+  "model": "claude-sonnet-4-5",
+  "analysis": {
+    "executive_summary": "Documentation audit of Inngest covered 628 pages across 858 discovered URLs, achieving 100% crawl coverage with 91.5% overall confidence. API reference coverage is critically low at 19.51% despite 348 API pages detected, indicating significant gaps in usage documentation. Freshness metadata is present on only 9.71% of pages, severely limiting change tracking capability. Code example reliability is strong at 92.85%, and link health is excellent with only 1 confirmed broken internal link.",
+    "strengths": [
+      "Complete crawl coverage at 100% with 628 pages successfully indexed",
+      "Excellent link health with only 1 broken internal documentation link out of 858 URLs examined",
+      "Strong code example reliability at 92.85%, indicating well-maintained sample code",
+      "High overall audit confidence at 91.5% with strong crawl and link validation metrics",
+      "Low SEO/geo issue rate at 3.82%, suggesting good technical SEO foundation"
+    ],
+    "risks": [
+      "Critical API coverage gap: only 19.51% of 348 detected API pages have corresponding usage documentation",
+      "Severe freshness tracking limitation with 9.71% last-updated coverage prevents change management and staleness detection",
+      "Large API surface area (348 pages) creates high maintenance burden without adequate usage guidance",
+      "Missing freshness metadata blocks customer ability to identify recently updated or deprecated content",
+      "Low API coverage may force customers to rely on raw reference docs without implementation context",
+      "Absence of temporal metadata prevents documentation aging analysis and proactive refresh cycles",
+      "Single broken link may indicate broader content maintenance gaps not yet surfaced"
+    ],
+    "prioritized_actions": [
+      {
+        "action": "Implement systematic last-updated timestamps across all 628 pages to enable freshness tracking and content lifecycle management",
+        "impact": "critical",
+        "effort": "low"
+      },
+      {
+        "action": "Create usage documentation and integration guides for the 280+ API endpoints currently lacking coverage (target 80%+ coverage)",
+        "impact": "critical",
+        "effort": "high"
+      },
+      {
+        "action": "Establish automated freshness monitoring and quarterly review process for API documentation given large surface area",
+        "impact": "high",
+        "effort": "medium"
+      },
+      {
+        "action": "Fix the 1 confirmed broken internal link and implement automated link checking in CI/CD pipeline",
+        "impact": "medium",
+        "effort": "low"
+      },
+      {
+        "action": "Audit the 348 API pages to identify highest-traffic endpoints and prioritize usage doc creation for top 20%",
+        "impact": "high",
+        "effort": "medium"
+      }
+    ],
+    "limitations": [
+      "External audit cannot verify accuracy or completeness of technical content, code examples, or API specifications",
+      "Freshness analysis severely limited by 9.71% timestamp coverage; actual content staleness cannot be assessed for 90%+ of pages",
+      "API coverage detection relies on structural patterns; actual API completeness requires internal schema validation",
+      "Cannot assess documentation quality, clarity, or alignment with product features and customer workflows",
+      "Link validation represents point-in-time check; dynamic content, authentication-gated pages, and external link stability not continuously monitored"
+    ]
+  }
+}

@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Public Docs Audit</title>
+<style>
+  :root { --bg:#f8fafc; --text:#0f172a; --muted:#64748b; --card:#fff; --border:#e2e8f0; --accent:#0ea5e9; }
+  body { margin:0; font-family:"Segoe UI", Arial, sans-serif; background:linear-gradient(145deg,#ecfeff,#f8fafc); color:var(--text); }
+  .wrap { max-width:1050px; margin:0 auto; padding:24px 16px 40px; }
+  .hero,.section { background:var(--card); border:1px solid var(--border); border-radius:14px; padding:16px; margin-bottom:14px; }
+  h1 { margin:0 0 8px; font-size:28px; }
+  .sub { color:var(--muted); margin:0; }
+  .grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:10px; margin-top:12px; }
+  .card { border:1px solid var(--border); border-radius:10px; padding:12px; }
+  .value { font-size:30px; font-weight:700; color:var(--accent); margin-top:6px; }
+  .label { font-size:13px; color:var(--muted); }
+  ul { margin:8px 0 0 18px; }
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="hero">
+      <h1>Public Documentation Audit</h1>
+      <p class="sub">Sites: 1 | topology: single-product</p>
+      <p class="sub">Generated: 2026-03-30T15:05:08.419493+00:00</p>
+      <div class="grid">
+        <div class="card"><div class="label">Pages crawled</div><div class="value">358</div></div>
+        <div class="card"><div class="label">Pages discovered</div><div class="value">358</div></div>
+        <div class="card"><div class="label">Crawl coverage</div><div class="value">100.28%</div></div>
+        <div class="card"><div class="label">Broken links (docs)</div><div class="value">9</div></div>
+        <div class="card"><div class="label">Broken links (repo nav)</div><div class="value">0</div></div>
+        <div class="card"><div class="label">Unverified links</div><div class="value">17</div></div>
+        <div class="card"><div class="label">SEO/GEO issue rate</div><div class="value">42.6%</div></div>
+        <div class="card"><div class="label">API reference coverage</div><div class="value">38.79%</div></div>
+        <div class="card"><div class="label">Example reliability (estimate)</div><div class="value">70.72%</div></div>
+        <div class="card"><div class="label">Last-updated coverage</div><div class="value">82.96%</div></div>
+        <div class="card"><div class="label">Audit confidence</div><div class="value">65.35%</div></div>
+      </div>
+    </div>
+    <div class="section">
+      <h2>Top Findings</h2>
+      <ul>
+        <li>Broken internal links: 9</li><li>Link verification inconclusive for 17 URLs (auth/rate-limit/server block); these are excluded from broken-link counts.</li><li>SEO/GEO issue rate is high: 42.6%</li><li>API usage-doc coverage is low: 38.79% (28 API pages detected)</li>
+      </ul>
+    </div>
+    <div class="section">
+      <h2>Per-site Summary</h2>
+      <ul>
+        <li><strong>https://stytch.com/docs</strong>: pages=358, broken_links=9, api_coverage=38.79%, examples=70.72%</li>
+      </ul>
+    </div>
+    <div class="section"><h2>LLM Executive Analysis (Claude Sonnet)</h2><p>Audit crawled 358 pages across Stytch documentation with 100.28% crawl coverage. Identified 9 confirmed broken internal documentation links with no repository navigation link failures. API reference coverage stands at 38.79% across 28 detected API pages, indicating significant documentation gaps. SEO and geographic metadata issues affect 42.6% of pages. Overall audit confidence is 65.35%, with notably low link verification confidence at 29.62% due to 17 unverified URLs blocked by authentication or rate limiting.</p><h3>Strengths</h3><ul><li>Complete crawl coverage at 100.28% with 358 pages successfully indexed</li><li>Freshness metadata present on 82.96% of documentation pages</li><li>High API detection confidence at 85.0% with clear identification of 28 API pages</li><li>No repository navigation link failures (0 repo_broken_links_count)</li><li>Example code reliability estimated at 70.72%</li></ul><h3>Risks</h3><ul><li>9 confirmed broken internal documentation links degrading user navigation experience</li><li>API reference coverage at only 38.79% leaves majority of API surface undocumented</li><li>SEO/GEO issue rate of 42.6% impacts discoverability and international reach</li><li>Link verification confidence critically low at 29.62% with 17 URLs unverifiable due to authentication or server blocks</li><li>Overall audit confidence of 65.35% indicates moderate uncertainty in findings completeness</li><li>17 unverified links may mask additional broken links not captured in current count</li><li>Example reliability at 70.72% suggests nearly 30% of code samples may be outdated or non-functional</li></ul><h3>Prioritized actions</h3><ul><li>Fix all 9 confirmed broken internal documentation links to restore navigation integrity <em>[critical, low]</em></li><li>Expand API reference documentation from 38.79% to minimum 80% coverage across identified API surface <em>[critical, high]</em></li><li>Resolve SEO/GEO metadata issues affecting 42.6% of pages to improve search visibility and localization <em>[high, medium]</em></li><li>Investigate and verify 17 authentication-blocked URLs to confirm link validity and accessibility <em>[high, medium]</em></li><li>Audit and update code examples to improve reliability above 85% threshold <em>[medium, medium]</em></li></ul></div>
+  </div>
+</body>
+</html>

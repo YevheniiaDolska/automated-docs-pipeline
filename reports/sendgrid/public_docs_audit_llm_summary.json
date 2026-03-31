@@ -1,0 +1,57 @@
+{
+  "status": "ok",
+  "model": "claude-sonnet-4-5",
+  "analysis": {
+    "executive_summary": "SendGrid documentation spans 2 sites with 251 pages crawled from 301 discovered (100% crawl coverage). 55 confirmed broken internal links exist across user-facing documentation. API reference coverage is critically low at 23.08% with only 29 API pages detected. Freshness metadata is present on only 4.38% of pages, obscuring content currency. Overall audit confidence is 88.79%.",
+    "strengths": [
+      "Complete crawl coverage achieved (100% of in-scope pages)",
+      "High overall audit confidence at 88.79%",
+      "Example code reliability estimated at 84.61%",
+      "No repository navigation link breakage detected",
+      "Crawl confidence strong at 95%"
+    ],
+    "risks": [
+      "55 confirmed broken internal links degrade user navigation and trust",
+      "API reference coverage at 23.08% leaves majority of API surface undocumented or undetected",
+      "Documentation split across 2 domains (support.sendgrid.com and docs.sendgrid.com) creates discoverability and consistency risk",
+      "Only 4.38% of pages display last-updated dates, preventing users from assessing content freshness",
+      "4 links unverified due to auth/rate-limit/server blocks may hide additional broken links",
+      "SEO/geo issue rate at 1.0% indicates minor but present discoverability problems",
+      "Single-product topology with multi-site structure may confuse users on canonical source"
+    ],
+    "prioritized_actions": [
+      {
+        "action": "Repair all 55 confirmed broken internal links to restore navigation integrity",
+        "impact": "critical",
+        "effort": "medium"
+      },
+      {
+        "action": "Investigate API coverage gap: verify if 23.08% reflects missing docs or detection limitation, then expand API reference pages",
+        "impact": "critical",
+        "effort": "high"
+      },
+      {
+        "action": "Implement last-updated metadata on all pages (currently 4.38% coverage) to establish freshness transparency",
+        "impact": "high",
+        "effort": "low"
+      },
+      {
+        "action": "Consolidate documentation to single domain or establish clear cross-site navigation to reduce user confusion",
+        "impact": "high",
+        "effort": "high"
+      },
+      {
+        "action": "Resolve 4 unverified links by addressing auth/rate-limit blocks and confirm their status",
+        "impact": "medium",
+        "effort": "low"
+      }
+    ],
+    "limitations": [
+      "External audit cannot verify content accuracy, technical correctness, or completeness of explanations",
+      "4 links blocked by auth/rate-limit/server restrictions could not be verified; actual broken link count may differ",
+      "API coverage detection depends on page structure patterns; 23.08% may reflect detection gaps rather than true documentation gaps",
+      "Audit cannot assess internal workflows, CMS limitations, or organizational barriers to documentation maintenance",
+      "User experience, readability, and pedagogical quality are outside audit scope"
+    ]
+  }
+}

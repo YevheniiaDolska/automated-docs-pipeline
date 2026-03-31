@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Public Docs Audit</title>
+<style>
+  :root { --bg:#f8fafc; --text:#0f172a; --muted:#64748b; --card:#fff; --border:#e2e8f0; --accent:#0ea5e9; }
+  body { margin:0; font-family:"Segoe UI", Arial, sans-serif; background:linear-gradient(145deg,#ecfeff,#f8fafc); color:var(--text); }
+  .wrap { max-width:1050px; margin:0 auto; padding:24px 16px 40px; }
+  .hero,.section { background:var(--card); border:1px solid var(--border); border-radius:14px; padding:16px; margin-bottom:14px; }
+  h1 { margin:0 0 8px; font-size:28px; }
+  .sub { color:var(--muted); margin:0; }
+  .grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:10px; margin-top:12px; }
+  .card { border:1px solid var(--border); border-radius:10px; padding:12px; }
+  .value { font-size:30px; font-weight:700; color:var(--accent); margin-top:6px; }
+  .label { font-size:13px; color:var(--muted); }
+  ul { margin:8px 0 0 18px; }
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="hero">
+      <h1>Public Documentation Audit</h1>
+      <p class="sub">Sites: 2 | topology: single-product</p>
+      <p class="sub">Generated: 2026-03-30T07:52:00.623688+00:00</p>
+      <div class="grid">
+        <div class="card"><div class="label">Pages crawled</div><div class="value">251</div></div>
+        <div class="card"><div class="label">Pages discovered</div><div class="value">301</div></div>
+        <div class="card"><div class="label">Crawl coverage</div><div class="value">100.0%</div></div>
+        <div class="card"><div class="label">Broken links (docs)</div><div class="value">55</div></div>
+        <div class="card"><div class="label">Broken links (repo nav)</div><div class="value">0</div></div>
+        <div class="card"><div class="label">Unverified links</div><div class="value">4</div></div>
+        <div class="card"><div class="label">SEO/GEO issue rate</div><div class="value">1.0%</div></div>
+        <div class="card"><div class="label">API reference coverage</div><div class="value">23.08%</div></div>
+        <div class="card"><div class="label">Example reliability (estimate)</div><div class="value">84.61%</div></div>
+        <div class="card"><div class="label">Last-updated coverage</div><div class="value">4.38%</div></div>
+        <div class="card"><div class="label">Audit confidence</div><div class="value">88.79%</div></div>
+      </div>
+    </div>
+    <div class="section">
+      <h2>Top Findings</h2>
+      <ul>
+        <li>Broken internal links: 55</li><li>Link verification inconclusive for 4 URLs (auth/rate-limit/server block); these are excluded from broken-link counts.</li><li>API usage-doc coverage is low: 23.08% (29 API pages detected)</li><li>Freshness visibility is weak: only 4.38% pages show last updated</li><li>Documentation is split across multiple sites for one product; this is likely a discoverability/consistency risk.</li>
+      </ul>
+    </div>
+    <div class="section">
+      <h2>Per-site Summary</h2>
+      <ul>
+        <li><strong>https://support.sendgrid.com/hc/en-us</strong>: pages=250, broken_links=5, api_coverage=23.08%, examples=84.95%</li><li><strong>https://docs.sendgrid.com/</strong>: pages=1, broken_links=50, api_coverage=N/A, examples=0.0%</li>
+      </ul>
+    </div>
+    <div class="section"><h2>LLM Executive Analysis (Claude Sonnet)</h2><p>SendGrid documentation spans 2 sites with 251 pages crawled from 301 discovered (100% crawl coverage). 55 confirmed broken internal links exist across user-facing documentation. API reference coverage is critically low at 23.08% with only 29 API pages detected. Freshness metadata is present on only 4.38% of pages, obscuring content currency. Overall audit confidence is 88.79%.</p><h3>Strengths</h3><ul><li>Complete crawl coverage achieved (100% of in-scope pages)</li><li>High overall audit confidence at 88.79%</li><li>Example code reliability estimated at 84.61%</li><li>No repository navigation link breakage detected</li><li>Crawl confidence strong at 95%</li></ul><h3>Risks</h3><ul><li>55 confirmed broken internal links degrade user navigation and trust</li><li>API reference coverage at 23.08% leaves majority of API surface undocumented or undetected</li><li>Documentation split across 2 domains (support.sendgrid.com and docs.sendgrid.com) creates discoverability and consistency risk</li><li>Only 4.38% of pages display last-updated dates, preventing users from assessing content freshness</li><li>4 links unverified due to auth/rate-limit/server blocks may hide additional broken links</li><li>SEO/geo issue rate at 1.0% indicates minor but present discoverability problems</li><li>Single-product topology with multi-site structure may confuse users on canonical source</li></ul><h3>Prioritized actions</h3><ul><li>Repair all 55 confirmed broken internal links to restore navigation integrity <em>[critical, medium]</em></li><li>Investigate API coverage gap: verify if 23.08% reflects missing docs or detection limitation, then expand API reference pages <em>[critical, high]</em></li><li>Implement last-updated metadata on all pages (currently 4.38% coverage) to establish freshness transparency <em>[high, low]</em></li><li>Consolidate documentation to single domain or establish clear cross-site navigation to reduce user confusion <em>[high, high]</em></li><li>Resolve 4 unverified links by addressing auth/rate-limit blocks and confirm their status <em>[medium, low]</em></li></ul></div>
+  </div>
+</body>
+</html>

@@ -1,0 +1,318 @@
+{
+  "generated_at": "2026-03-31T08:45:25.501722+00:00",
+  "site_url": "https://www.inngest.com/docs",
+  "site_urls": [
+    "https://www.inngest.com/docs"
+  ],
+  "topology_mode": "single-product",
+  "verification_modes": [
+    "authenticated",
+    "bot",
+    "browser"
+  ],
+  "sites": [
+    {
+      "site_url": "https://www.inngest.com/docs",
+      "metrics": {
+        "crawl": {
+          "pages_crawled": 628,
+          "requested_pages": 945,
+          "urls_examined": 858,
+          "max_pages": 1500,
+          "effective_limit": 1500,
+          "auto_mode": false,
+          "stop_reason": "queue_exhausted",
+          "discovered_pages": 858,
+          "crawl_scope_basis": "sitemap",
+          "crawl_scope_pages": 858,
+          "crawl_coverage_pct": 100.0,
+          "trap_urls_skipped": 0,
+          "seeded_sitemap_urls": 858,
+          "robots_sitemaps_declared": 1
+        },
+        "links": {
+          "internal_links_checked": 712,
+          "broken_internal_links_count": 1,
+          "docs_broken_links_count": 1,
+          "repo_broken_links_count": 0,
+          "broken_internal_link_samples": [
+            "https://www.inngest.com/docs/reference/functions/errors"
+          ],
+          "docs_broken_link_samples": [
+            "https://www.inngest.com/docs/reference/functions/errors"
+          ],
+          "repo_broken_link_samples": [],
+          "unreachable_links_count": 0,
+          "unverified_links_count": 0,
+          "unverified_link_samples": [],
+          "confirmed_broken_links_count": 1,
+          "excluded_links_count": 6,
+          "excluded_link_samples": [
+            "https://www.inngest.com/api/rss.xml",
+            "https://www.inngest.com/icon-dark.png",
+            "https://www.inngest.com/icon-light-transparent.png",
+            "https://www.inngest.com/icon-light.png",
+            "https://www.inngest.com/logo.png",
+            "https://www.inngest.com/logo.svg"
+          ],
+          "_all_confirmed_broken_links": [
+            "https://www.inngest.com/docs/reference/functions/errors"
+          ],
+          "_all_unverified_links": [],
+          "_all_excluded_links": [
+            "https://www.inngest.com/api/rss.xml",
+            "https://www.inngest.com/icon-dark.png",
+            "https://www.inngest.com/icon-light-transparent.png",
+            "https://www.inngest.com/icon-light.png",
+            "https://www.inngest.com/logo.png",
+            "https://www.inngest.com/logo.svg"
+          ],
+          "_all_docs_unverified_links": [],
+          "_all_repo_unverified_links": []
+        },
+        "seo_geo": {
+          "pages_scanned": 628,
+          "missing_title_count": 4,
+          "missing_description_count": 38,
+          "multiple_h1_count": 11,
+          "heading_hierarchy_jump_count": 43,
+          "seo_geo_issue_rate_pct": 3.82
+        },
+        "api_coverage": {
+          "reference_endpoint_count": 41,
+          "api_pages_detected": 348,
+          "endpoints_with_usage_docs": 8,
+          "reference_endpoints_without_usage_docs": 33,
+          "reference_coverage_pct": 19.51,
+          "no_api_pages_found": false,
+          "coverage_determined": true,
+          "coverage_method": "source_of_truth",
+          "detection_note": "",
+          "uncovered_endpoint_samples": [
+            "ev:ai",
+            "ev:devops",
+            "ev:security",
+            "ev:software-development",
+            "gql:accepts",
+            "gql:adds",
+            "gql:also",
+            "gql:argument",
+            "gql:can",
+            "gql:contracts",
+            "gql:creates",
+            "gql:directly",
+            "gql:doesn",
+            "gql:enforces",
+            "gql:errors",
+            "gql:has",
+            "gql:helps",
+            "gql:inventory",
+            "gql:language",
+            "gql:locations"
+          ]
+        },
+        "examples": {
+          "total_code_examples": 1301,
+          "total_code_blocks_all": 1447,
+          "runnable_without_env": 1208,
+          "blocked_by_placeholders": 21,
+          "network_bound_examples": 72,
+          "example_reliability_estimate_pct": 92.85,
+          "detection_note": ""
+        },
+        "freshness": {
+          "pages_with_last_updated_hint": 61,
+          "pages_without_last_updated_hint": 567,
+          "last_updated_coverage_pct": 9.71,
+          "samples_with_last_updated": [
+            {
+              "url": "https://www.inngest.com/blog",
+              "hint": "Product updates:  Feb 8, 2022"
+            },
+            {
+              "url": "https://www.inngest.com/blog/2024-08-16-incident-report",
+              "hint": "2024-08-16 00:05 UTC"
+            },
+            {
+              "url": "https://www.inngest.com/blog/ai-in-production-managing-capacity-with-flow-control",
+              "hint": "April 3, 2024"
+            },
+            {
+              "url": "https://www.inngest.com/blog/announcing-pcxi-hackathon",
+              "hint": "July 5 - July 17, 2024."
+            },
+            {
+              "url": "https://www.inngest.com/blog/building-agentic-workflows-that-can-query",
+              "hint": "'2024-02-01'"
+            },
+            {
+              "url": "https://www.inngest.com/blog/building-an-event-driven-queue",
+              "hint": "\"user.created_at > '2020-01-01'\""
+            },
+            {
+              "url": "https://www.inngest.com/blog/building-a-realtime-websocket-app-using-sveltekit",
+              "hint": "Here's an example of how easy it is to create a reactive store that is updated on each websocket message:"
+            },
+            {
+              "url": "https://www.inngest.com/blog/how-to-solve-nextjs-timeouts",
+              "hint": ": to keep your users updated on the progress of their long-running request."
+            },
+            {
+              "url": "https://www.inngest.com/blog/insights-schema-explorer-shared-queries",
+              "hint": "Shared queries show up for everyone in your org, complete with attribution (\"Last edited by X at Y\"). You can deep-link "
+            },
+            {
+              "url": "https://www.inngest.com/blog/product-updates-jan-18",
+              "hint": "Product updates:  Jan 18, 2022 - Inngest Blog"
+            }
+          ]
+        }
+      },
+      "samples": {
+        "broken_links": [
+          "https://www.inngest.com/docs/reference/functions/errors"
+        ],
+        "docs_broken_link_samples": [
+          "https://www.inngest.com/docs/reference/functions/errors"
+        ],
+        "repo_broken_link_samples": [],
+        "unverified_link_samples": [],
+        "api_uncovered_samples": [
+          "ev:ai",
+          "ev:devops",
+          "ev:security",
+          "ev:software-development",
+          "gql:accepts",
+          "gql:adds",
+          "gql:also",
+          "gql:argument",
+          "gql:can",
+          "gql:contracts",
+          "gql:creates",
+          "gql:directly",
+          "gql:doesn",
+          "gql:enforces",
+          "gql:errors",
+          "gql:has",
+          "gql:helps",
+          "gql:inventory",
+          "gql:language",
+          "gql:locations"
+        ]
+      },
+      "run_count": 3
+    }
+  ],
+  "aggregate": {
+    "metrics": {
+      "crawl": {
+        "pages_crawled": 628,
+        "requested_pages": 945,
+        "urls_examined": 858,
+        "max_pages_total": 1500,
+        "discovered_pages": 858,
+        "crawl_scope_pages": 858,
+        "trap_urls_skipped": 0,
+        "crawl_coverage_pct": 100.0
+      },
+      "links": {
+        "broken_internal_links_count": 1,
+        "docs_broken_links_count": 1,
+        "repo_broken_links_count": 0,
+        "unverified_links_count": 0,
+        "confirmed_broken_links_count": 1,
+        "excluded_links_count": 6
+      },
+      "seo_geo": {
+        "seo_geo_issue_rate_pct": 3.82
+      },
+      "api_coverage": {
+        "reference_coverage_pct": 19.51,
+        "no_api_pages_found": false,
+        "api_pages_detected": 348,
+        "coverage_determined": true,
+        "detection_note": ""
+      },
+      "examples": {
+        "example_reliability_estimate_pct": 92.85
+      },
+      "freshness": {
+        "last_updated_coverage_pct": 9.71
+      }
+    },
+    "confidence": {
+      "overall_confidence_pct": 91.5,
+      "links_confidence_pct": 95.0,
+      "api_confidence_pct": 85.0,
+      "crawl_confidence_pct": 95.0
+    }
+  },
+  "confidence": {
+    "overall_confidence_pct": 91.5,
+    "links_confidence_pct": 95.0,
+    "api_confidence_pct": 85.0,
+    "crawl_confidence_pct": 95.0
+  },
+  "top_findings": [
+    "Broken internal links: 1",
+    "API usage-doc coverage is low: 19.51% (348 API pages detected)",
+    "Freshness visibility is weak: only 9.71% pages show last updated"
+  ],
+  "llm_analysis": {
+    "status": "ok",
+    "model": "claude-sonnet-4-5",
+    "analysis": {
+      "executive_summary": "Documentation audit of Inngest covered 628 pages across 858 discovered URLs, achieving 100% crawl coverage with 91.5% overall confidence. API reference coverage is critically low at 19.51% despite 348 API pages detected, indicating significant gaps in usage documentation. Freshness metadata is present on only 9.71% of pages, severely limiting change tracking capability. Code example reliability is strong at 92.85%, and link health is excellent with only 1 confirmed broken internal link.",
+      "strengths": [
+        "Complete crawl coverage at 100% with 628 pages successfully indexed",
+        "Excellent link health with only 1 broken internal documentation link out of 858 URLs examined",
+        "Strong code example reliability at 92.85%, indicating well-maintained sample code",
+        "High overall audit confidence at 91.5% with strong crawl and link validation metrics",
+        "Low SEO/geo issue rate at 3.82%, suggesting good technical SEO foundation"
+      ],
+      "risks": [
+        "Critical API coverage gap: only 19.51% of 348 detected API pages have corresponding usage documentation",
+        "Severe freshness tracking limitation with 9.71% last-updated coverage prevents change management and staleness detection",
+        "Large API surface area (348 pages) creates high maintenance burden without adequate usage guidance",
+        "Missing freshness metadata blocks customer ability to identify recently updated or deprecated content",
+        "Low API coverage may force customers to rely on raw reference docs without implementation context",
+        "Absence of temporal metadata prevents documentation aging analysis and proactive refresh cycles",
+        "Single broken link may indicate broader content maintenance gaps not yet surfaced"
+      ],
+      "prioritized_actions": [
+        {
+          "action": "Implement systematic last-updated timestamps across all 628 pages to enable freshness tracking and content lifecycle management",
+          "impact": "critical",
+          "effort": "low"
+        },
+        {
+          "action": "Create usage documentation and integration guides for the 280+ API endpoints currently lacking coverage (target 80%+ coverage)",
+          "impact": "critical",
+          "effort": "high"
+        },
+        {
+          "action": "Establish automated freshness monitoring and quarterly review process for API documentation given large surface area",
+          "impact": "high",
+          "effort": "medium"
+        },
+        {
+          "action": "Fix the 1 confirmed broken internal link and implement automated link checking in CI/CD pipeline",
+          "impact": "medium",
+          "effort": "low"
+        },
+        {
+          "action": "Audit the 348 API pages to identify highest-traffic endpoints and prioritize usage doc creation for top 20%",
+          "impact": "high",
+          "effort": "medium"
+        }
+      ],
+      "limitations": [
+        "External audit cannot verify accuracy or completeness of technical content, code examples, or API specifications",
+        "Freshness analysis severely limited by 9.71% timestamp coverage; actual content staleness cannot be assessed for 90%+ of pages",
+        "API coverage detection relies on structural patterns; actual API completeness requires internal schema validation",
+        "Cannot assess documentation quality, clarity, or alignment with product features and customer workflows",
+        "Link validation represents point-in-time check; dynamic content, authentication-gated pages, and external link stability not continuously monitored"
+      ]
+    }
+  }
+}

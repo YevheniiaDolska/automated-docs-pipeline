@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Public Docs Audit</title>
+<style>
+  :root { --bg:#f8fafc; --text:#0f172a; --muted:#64748b; --card:#fff; --border:#e2e8f0; --accent:#0ea5e9; }
+  body { margin:0; font-family:"Segoe UI", Arial, sans-serif; background:linear-gradient(145deg,#ecfeff,#f8fafc); color:var(--text); }
+  .wrap { max-width:1050px; margin:0 auto; padding:24px 16px 40px; }
+  .hero,.section { background:var(--card); border:1px solid var(--border); border-radius:14px; padding:16px; margin-bottom:14px; }
+  h1 { margin:0 0 8px; font-size:28px; }
+  .sub { color:var(--muted); margin:0; }
+  .grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:10px; margin-top:12px; }
+  .card { border:1px solid var(--border); border-radius:10px; padding:12px; }
+  .value { font-size:30px; font-weight:700; color:var(--accent); margin-top:6px; }
+  .label { font-size:13px; color:var(--muted); }
+  ul { margin:8px 0 0 18px; }
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="hero">
+      <h1>Public Documentation Audit</h1>
+      <p class="sub">Sites: 1 | topology: single-product</p>
+      <p class="sub">Generated: 2026-03-31T11:48:14.060745+00:00</p>
+      <div class="grid">
+        <div class="card"><div class="label">Pages crawled</div><div class="value">292</div></div>
+        <div class="card"><div class="label">Pages discovered</div><div class="value">333</div></div>
+        <div class="card"><div class="label">Crawl coverage</div><div class="value">100.0%</div></div>
+        <div class="card"><div class="label">Broken links (docs)</div><div class="value">40</div></div>
+        <div class="card"><div class="label">Broken links (repo nav)</div><div class="value">0</div></div>
+        <div class="card"><div class="label">Unverified links</div><div class="value">0</div></div>
+        <div class="card"><div class="label">SEO/GEO issue rate</div><div class="value">33.05%</div></div>
+        <div class="card"><div class="label">API reference coverage</div><div class="value">5.24%</div></div>
+        <div class="card"><div class="label">Example reliability (estimate)</div><div class="value">0.0%</div></div>
+        <div class="card"><div class="label">Last-updated coverage</div><div class="value">22.6%</div></div>
+        <div class="card"><div class="label">Audit confidence</div><div class="value">91.5%</div></div>
+      </div>
+    </div>
+    <div class="section">
+      <h2>Top Findings</h2>
+      <ul>
+        <li>Broken internal links: 40</li><li>SEO/GEO issue rate is high: 33.05%</li><li>API usage-doc coverage is low: 5.24% (73 API pages detected)</li><li>Example reliability estimate is low: 0.0%</li><li>Freshness visibility is weak: only 22.6% pages show last updated</li>
+      </ul>
+    </div>
+    <div class="section">
+      <h2>Per-site Summary</h2>
+      <ul>
+        <li><strong>https://docs.mistral.ai/</strong>: pages=292, broken_links=40, api_coverage=5.24%, examples=0.0%</li>
+      </ul>
+    </div>
+    <div class="section"><h2>LLM Executive Analysis (Claude Sonnet)</h2><p>Documentation audit of docs.mistral.ai covered 292 pages (100% crawl coverage) with 91.5% overall confidence. Critical issues identified: 40 confirmed broken internal links within user-facing documentation, 33.05% SEO/geo issue rate indicating discoverability problems, and 0% example reliability estimate suggesting code examples lack validation. API reference coverage stands at only 5.24% despite 73 API pages detected, indicating minimal integration between conceptual docs and API references. Freshness tracking is poor with only 22.6% of pages displaying last-updated metadata.</p><h3>Strengths</h3><ul><li>Complete crawl coverage achieved (100% of 333 discovered pages within scope)</li><li>High overall audit confidence at 91.5% with strong link verification (95% confidence)</li><li>Single-product topology provides clear documentation structure</li><li>No repository navigation link breakage (0 repo_broken_links_count)</li><li>No crawl trap URLs encountered, indicating clean site architecture</li></ul><h3>Risks</h3><ul><li>40 confirmed broken internal links degrade user navigation and trust in documentation quality</li><li>33.05% SEO/geo issue rate severely impacts search discoverability and international accessibility</li><li>0% example reliability estimate indicates code examples are untested or lack validation markers</li><li>5.24% API reference coverage leaves 94.76% of API surface undocumented or disconnected from usage guidance</li><li>22.6% freshness coverage prevents users from assessing content currency for 77.4% of pages</li><li>73 API pages detected but minimal cross-linking suggests siloed reference documentation</li><li>24 excluded links may hide additional broken link issues requiring manual review</li></ul><h3>Prioritized actions</h3><ul><li>Fix all 40 confirmed broken internal links to restore navigation integrity <em>[critical, low]</em></li><li>Implement automated example validation pipeline to achieve &gt;80% reliability score <em>[critical, high]</em></li><li>Add last-updated timestamps to all pages (currently missing on 77.4% of content) <em>[high, low]</em></li><li>Cross-link API reference pages with usage documentation to improve 5.24% coverage to &gt;40% <em>[high, medium]</em></li><li>Audit and remediate SEO/geo issues affecting 33.05% of pages (meta tags, hreflang, structured data) <em>[high, medium]</em></li></ul></div>
+  </div>
+</body>
+</html>

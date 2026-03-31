@@ -1,0 +1,580 @@
+{
+  "generated_at": "2026-03-30T07:52:00.623688+00:00",
+  "site_url": "multiple-sites",
+  "site_urls": [
+    "https://support.sendgrid.com/hc/en-us",
+    "https://docs.sendgrid.com/"
+  ],
+  "topology_mode": "single-product",
+  "verification_modes": [
+    "authenticated",
+    "bot",
+    "browser"
+  ],
+  "sites": [
+    {
+      "site_url": "https://support.sendgrid.com/hc/en-us",
+      "metrics": {
+        "crawl": {
+          "pages_crawled": 250,
+          "requested_pages": 318,
+          "urls_examined": 250,
+          "max_pages": 1500,
+          "effective_limit": 1500,
+          "auto_mode": false,
+          "stop_reason": "queue_exhausted",
+          "discovered_pages": 250,
+          "crawl_scope_basis": "sitemap",
+          "crawl_scope_pages": 250,
+          "crawl_coverage_pct": 100.0,
+          "trap_urls_skipped": 0,
+          "seeded_sitemap_urls": 250,
+          "robots_sitemaps_declared": 1
+        },
+        "links": {
+          "internal_links_checked": 318,
+          "broken_internal_links_count": 5,
+          "docs_broken_links_count": 5,
+          "repo_broken_links_count": 0,
+          "broken_internal_link_samples": [
+            "https://support.sendgrid.com/hc/en-us/articles/360041317354-How-to-Recover-a-Compromised-Account",
+            "https://support.sendgrid.com/hc/en-us/articles/360041826413",
+            "https://support.sendgrid.com/hc/en-us/articles/smtp.sendgrid.net",
+            "https://support.sendgrid.com/hc/en-us/articles/www.twilio.com/login",
+            "https://support.sendgrid.com/hc/en-us/related/click"
+          ],
+          "docs_broken_link_samples": [
+            "https://support.sendgrid.com/hc/en-us/articles/360041317354-How-to-Recover-a-Compromised-Account",
+            "https://support.sendgrid.com/hc/en-us/articles/360041826413",
+            "https://support.sendgrid.com/hc/en-us/articles/smtp.sendgrid.net",
+            "https://support.sendgrid.com/hc/en-us/articles/www.twilio.com/login",
+            "https://support.sendgrid.com/hc/en-us/related/click"
+          ],
+          "repo_broken_link_samples": [],
+          "unreachable_links_count": 0,
+          "unverified_links_count": 4,
+          "unverified_link_samples": [
+            "https://support.sendgrid.com/hc/en-us/articles/18292726143643-Single-Sign-On-Failed-Error",
+            "https://support.sendgrid.com/hc/en-us/articles/4408024201627-Use-a-Custom-DKIM-Selector-for-Authenticating-a-Single-Domain-on-Multiple-Accounts",
+            "https://support.sendgrid.com/hc/en-us/requests/new",
+            "https://support.sendgrid.com/hc/en-us/signin"
+          ],
+          "confirmed_broken_links_count": 5,
+          "excluded_links_count": 0,
+          "excluded_link_samples": [],
+          "_all_confirmed_broken_links": [
+            "https://support.sendgrid.com/hc/en-us/articles/360041317354-How-to-Recover-a-Compromised-Account",
+            "https://support.sendgrid.com/hc/en-us/articles/360041826413",
+            "https://support.sendgrid.com/hc/en-us/articles/smtp.sendgrid.net",
+            "https://support.sendgrid.com/hc/en-us/articles/www.twilio.com/login",
+            "https://support.sendgrid.com/hc/en-us/related/click"
+          ],
+          "_all_unverified_links": [
+            "https://support.sendgrid.com/hc/en-us/articles/18292726143643-Single-Sign-On-Failed-Error",
+            "https://support.sendgrid.com/hc/en-us/articles/4408024201627-Use-a-Custom-DKIM-Selector-for-Authenticating-a-Single-Domain-on-Multiple-Accounts",
+            "https://support.sendgrid.com/hc/en-us/requests/new",
+            "https://support.sendgrid.com/hc/en-us/signin"
+          ],
+          "_all_excluded_links": [],
+          "_all_docs_unverified_links": [
+            "https://support.sendgrid.com/hc/en-us/requests/new"
+          ],
+          "_all_repo_unverified_links": []
+        },
+        "seo_geo": {
+          "pages_scanned": 250,
+          "missing_title_count": 0,
+          "missing_description_count": 3,
+          "multiple_h1_count": 0,
+          "heading_hierarchy_jump_count": 7,
+          "seo_geo_issue_rate_pct": 1.0
+        },
+        "api_coverage": {
+          "reference_endpoint_count": 78,
+          "api_pages_detected": 29,
+          "endpoints_with_usage_docs": 18,
+          "reference_endpoints_without_usage_docs": 60,
+          "reference_coverage_pct": 23.08,
+          "no_api_pages_found": false,
+          "coverage_determined": true,
+          "coverage_method": "heuristic",
+          "detection_note": "Contract URLs found but no operations parsed",
+          "uncovered_endpoint_samples": [
+            "ep:/250-smtp.sendgrid.net",
+            "ep:/api.eu.sendgrid.com/v3/mail/send",
+            "ep:/api.sendgrid.com/v3/mail/send",
+            "ep:/api.sendgrid.com/v3/messages",
+            "ep:/api.sendgrid.com/v3/user/settings/enforced_tls",
+            "ep:/api.sendgrid.com/v3/validations/email/jobs",
+            "ep:/api.sendgrid.com/v3/validations/email/jobs/{job_id",
+            "ep:/app.sendgrid.com/settings/parse",
+            "ep:/desktop",
+            "ep:/docs.sendgrid.com/for-developers/sending-email/support-for-tls-12",
+            "ep:/hc/en-us/articles/1260802360229-tracking-with-the-event-webhook",
+            "ep:/hc/en-us/articles/1260802535250-how-to-use-asm-tags-to-add-group-unsubscribes-to-emails",
+            "ep:/hc/en-us/articles/1260802541709-ssl-click-tracking-steps",
+            "ep:/hc/en-us/articles/1260802641289-legacy-email-activity-feed-twilio-sendgrid-reseller-partners-email-api-premier-plans-above-50m",
+            "ep:/hc/en-us/articles/1260806604209-unsubscribe-methods",
+            "ep:/hc/en-us/articles/14641611190939-exposed-api-key-deletion",
+            "ep:/hc/en-us/articles/17894803361819-troubleshooting-535-authentication-failed-error",
+            "ep:/hc/en-us/articles/18322114821403-4xx-api-errors-and-troubleshooting-suggestions",
+            "ep:/hc/en-us/articles/19715392554395-sendgrid-gzip-email-compression-guide",
+            "ep:/hc/en-us/articles/20538063473435-troubleshooting-connection-failures-to-api-sendgrid-com"
+          ]
+        },
+        "examples": {
+          "total_code_examples": 93,
+          "total_code_blocks_all": 116,
+          "runnable_without_env": 79,
+          "blocked_by_placeholders": 5,
+          "network_bound_examples": 9,
+          "example_reliability_estimate_pct": 84.95,
+          "detection_note": ""
+        },
+        "freshness": {
+          "pages_with_last_updated_hint": 11,
+          "pages_without_last_updated_hint": 239,
+          "last_updated_coverage_pct": 4.4,
+          "samples_with_last_updated": [
+            {
+              "url": "https://support.sendgrid.com/hc/en-us/articles/16126574093851-Support-Ends-for-TLS-1-0-1-1-on-June-5-2023",
+              "hint": "Support Ends for TLS 1.0/1.1 on June 5, 2023 \u2013 SendGrid"
+            },
+            {
+              "url": "https://support.sendgrid.com/hc/en-us/articles/17894803361819-Troubleshooting-535-Authentication-failed-Error",
+              "hint": ">> Date: Thu, 03 Aug 2023 01:59:48 \ud34d"
+            },
+            {
+              "url": "https://support.sendgrid.com/hc/en-us/articles/360041317334-How-to-reset-your-Twilio-SendGrid-password",
+              "hint": "Teammates Created After April 4, 2024"
+            },
+            {
+              "url": "https://support.sendgrid.com/hc/en-us/articles/38177742920731-Request-to-Enable-Erase-Job-Scopes-on-Twilio-SendGrid-Accounts",
+              "hint": "after July 25, 2023"
+            },
+            {
+              "url": "https://support.sendgrid.com/hc/en-us/articles/4412701748891-Configure-SSL-for-Click-Tracking-Using-CloudFront",
+              "hint": "3. Finally, please be sure where it says \"last modified\" is showing a date. If it's in \"Deploying\" state, please wait un"
+            },
+            {
+              "url": "https://support.sendgrid.com/hc/en-us/articles/4554168313243-Marketing-Campaigns-How-to-Edit-an-Automation-Limitations-and-Workarounds",
+              "hint": "While you can make changes to your in-progress Automation, it is important to keep in mind that there are some features "
+            },
+            {
+              "url": "https://support.sendgrid.com/hc/en-us/articles/9310666688667-About-Enforced-TLS-Settings",
+              "hint": "Support Ends for TLS 1.0/1.1 on June 5, 2023"
+            },
+            {
+              "url": "https://support.sendgrid.com/hc/en-us/articles/8830363760411-How-to-Report-Spam-Sent-by-a-SendGrid-Customer",
+              "hint": "Wed, 19 Jun 2013 10:09:38 -0700 (PDT)"
+            },
+            {
+              "url": "https://support.sendgrid.com/hc/en-us/articles/9775850722459-Why-I-am-not-seeing-the-invoice-limits-removed-even-after-the-upgrade-as-a-new-Indian-Customer",
+              "hint": "Support Ends for TLS 1.0/1.1 on June 5, 2023"
+            },
+            {
+              "url": "https://support.sendgrid.com/hc/en-us/categories/360002451593-General",
+              "hint": "Support Ends for TLS 1.0/1.1 on June 5, 2023"
+            }
+          ]
+        }
+      },
+      "samples": {
+        "broken_links": [
+          "https://support.sendgrid.com/hc/en-us/articles/360041317354-How-to-Recover-a-Compromised-Account",
+          "https://support.sendgrid.com/hc/en-us/articles/360041826413",
+          "https://support.sendgrid.com/hc/en-us/articles/smtp.sendgrid.net",
+          "https://support.sendgrid.com/hc/en-us/articles/www.twilio.com/login",
+          "https://support.sendgrid.com/hc/en-us/related/click"
+        ],
+        "docs_broken_link_samples": [
+          "https://support.sendgrid.com/hc/en-us/articles/360041317354-How-to-Recover-a-Compromised-Account",
+          "https://support.sendgrid.com/hc/en-us/articles/360041826413",
+          "https://support.sendgrid.com/hc/en-us/articles/smtp.sendgrid.net",
+          "https://support.sendgrid.com/hc/en-us/articles/www.twilio.com/login",
+          "https://support.sendgrid.com/hc/en-us/related/click"
+        ],
+        "repo_broken_link_samples": [],
+        "unverified_link_samples": [
+          "https://support.sendgrid.com/hc/en-us/requests/new"
+        ],
+        "api_uncovered_samples": [
+          "ep:/250-smtp.sendgrid.net",
+          "ep:/api.eu.sendgrid.com/v3/mail/send",
+          "ep:/api.sendgrid.com/v3/mail/send",
+          "ep:/api.sendgrid.com/v3/messages",
+          "ep:/api.sendgrid.com/v3/user/settings/enforced_tls",
+          "ep:/api.sendgrid.com/v3/validations/email/jobs",
+          "ep:/api.sendgrid.com/v3/validations/email/jobs/{job_id",
+          "ep:/app.sendgrid.com/settings/parse",
+          "ep:/desktop",
+          "ep:/docs.sendgrid.com/for-developers/sending-email/support-for-tls-12",
+          "ep:/hc/en-us/articles/1260802360229-tracking-with-the-event-webhook",
+          "ep:/hc/en-us/articles/1260802535250-how-to-use-asm-tags-to-add-group-unsubscribes-to-emails",
+          "ep:/hc/en-us/articles/1260802541709-ssl-click-tracking-steps",
+          "ep:/hc/en-us/articles/1260802641289-legacy-email-activity-feed-twilio-sendgrid-reseller-partners-email-api-premier-plans-above-50m",
+          "ep:/hc/en-us/articles/1260806604209-unsubscribe-methods",
+          "ep:/hc/en-us/articles/14641611190939-exposed-api-key-deletion",
+          "ep:/hc/en-us/articles/17894803361819-troubleshooting-535-authentication-failed-error",
+          "ep:/hc/en-us/articles/18322114821403-4xx-api-errors-and-troubleshooting-suggestions",
+          "ep:/hc/en-us/articles/19715392554395-sendgrid-gzip-email-compression-guide",
+          "ep:/hc/en-us/articles/20538063473435-troubleshooting-connection-failures-to-api-sendgrid-com"
+        ]
+      },
+      "run_count": 3
+    },
+    {
+      "site_url": "https://docs.sendgrid.com/",
+      "metrics": {
+        "crawl": {
+          "pages_crawled": 1,
+          "requested_pages": 51,
+          "urls_examined": 51,
+          "max_pages": 1500,
+          "effective_limit": 1500,
+          "auto_mode": false,
+          "stop_reason": "queue_exhausted",
+          "discovered_pages": 51,
+          "crawl_scope_basis": "discovered",
+          "crawl_scope_pages": 51,
+          "crawl_coverage_pct": 100.0,
+          "trap_urls_skipped": 0,
+          "seeded_sitemap_urls": 0,
+          "robots_sitemaps_declared": 0
+        },
+        "links": {
+          "internal_links_checked": 51,
+          "broken_internal_links_count": 50,
+          "docs_broken_links_count": 50,
+          "repo_broken_links_count": 0,
+          "broken_internal_link_samples": [
+            "https://docs.sendgrid.com/docs",
+            "https://docs.sendgrid.com/docs/flex",
+            "https://docs.sendgrid.com/docs/messaging",
+            "https://docs.sendgrid.com/docs/sendgrid",
+            "https://docs.sendgrid.com/docs/sendgrid/api-reference",
+            "https://docs.sendgrid.com/docs/sendgrid/api-reference/mail-send/mail-send",
+            "https://docs.sendgrid.com/docs/sendgrid/api-reference/sendgrid-engagement-quality-api",
+            "https://docs.sendgrid.com/docs/sendgrid/api-reference/settings-inbound-parse",
+            "https://docs.sendgrid.com/docs/sendgrid/concepts",
+            "https://docs.sendgrid.com/docs/sendgrid/data-residency",
+            "https://docs.sendgrid.com/docs/sendgrid/for-developers",
+            "https://docs.sendgrid.com/docs/sendgrid/for-developers/parsing-email/setting-up-the-inbound-parse-webhook",
+            "https://docs.sendgrid.com/docs/sendgrid/for-developers/partners/microsoft-azure-2021",
+            "https://docs.sendgrid.com/docs/sendgrid/for-developers/sending-email/building-an-x-smtpapi-header",
+            "https://docs.sendgrid.com/docs/sendgrid/for-developers/sending-email/email-api-quickstart-for-c",
+            "https://docs.sendgrid.com/docs/sendgrid/for-developers/sending-email/email-quickstart-for-java",
+            "https://docs.sendgrid.com/docs/sendgrid/for-developers/sending-email/getting-started-smtp",
+            "https://docs.sendgrid.com/docs/sendgrid/for-developers/sending-email/personalizations",
+            "https://docs.sendgrid.com/docs/sendgrid/for-developers/sending-email/quickstart-go",
+            "https://docs.sendgrid.com/docs/sendgrid/for-developers/sending-email/quickstart-nodejs"
+          ],
+          "docs_broken_link_samples": [
+            "https://docs.sendgrid.com/docs",
+            "https://docs.sendgrid.com/docs/flex",
+            "https://docs.sendgrid.com/docs/messaging",
+            "https://docs.sendgrid.com/docs/sendgrid",
+            "https://docs.sendgrid.com/docs/sendgrid/api-reference",
+            "https://docs.sendgrid.com/docs/sendgrid/api-reference/mail-send/mail-send",
+            "https://docs.sendgrid.com/docs/sendgrid/api-reference/sendgrid-engagement-quality-api",
+            "https://docs.sendgrid.com/docs/sendgrid/api-reference/settings-inbound-parse",
+            "https://docs.sendgrid.com/docs/sendgrid/concepts",
+            "https://docs.sendgrid.com/docs/sendgrid/data-residency",
+            "https://docs.sendgrid.com/docs/sendgrid/for-developers",
+            "https://docs.sendgrid.com/docs/sendgrid/for-developers/parsing-email/setting-up-the-inbound-parse-webhook",
+            "https://docs.sendgrid.com/docs/sendgrid/for-developers/partners/microsoft-azure-2021",
+            "https://docs.sendgrid.com/docs/sendgrid/for-developers/sending-email/building-an-x-smtpapi-header",
+            "https://docs.sendgrid.com/docs/sendgrid/for-developers/sending-email/email-api-quickstart-for-c",
+            "https://docs.sendgrid.com/docs/sendgrid/for-developers/sending-email/email-quickstart-for-java",
+            "https://docs.sendgrid.com/docs/sendgrid/for-developers/sending-email/getting-started-smtp",
+            "https://docs.sendgrid.com/docs/sendgrid/for-developers/sending-email/personalizations",
+            "https://docs.sendgrid.com/docs/sendgrid/for-developers/sending-email/quickstart-go",
+            "https://docs.sendgrid.com/docs/sendgrid/for-developers/sending-email/quickstart-nodejs",
+            "https://docs.sendgrid.com/docs/sendgrid/for-developers/sending-email/quickstart-php",
+            "https://docs.sendgrid.com/docs/sendgrid/for-developers/sending-email/quickstart-python",
+            "https://docs.sendgrid.com/docs/sendgrid/for-developers/sending-email/quickstart-ruby",
+            "https://docs.sendgrid.com/docs/sendgrid/for-developers/sending-email/using-handlebars",
+            "https://docs.sendgrid.com/docs/sendgrid/for-developers/tracking-events/event",
+            "https://docs.sendgrid.com/docs/sendgrid/for-developers/tracking-events/getting-started-event-webhook",
+            "https://docs.sendgrid.com/docs/sendgrid/glossary",
+            "https://docs.sendgrid.com/docs/sendgrid/glossary/dmarc",
+            "https://docs.sendgrid.com/docs/sendgrid/onboarding",
+            "https://docs.sendgrid.com/docs/sendgrid/onboarding/email-api"
+          ],
+          "repo_broken_link_samples": [],
+          "unreachable_links_count": 0,
+          "unverified_links_count": 0,
+          "unverified_link_samples": [],
+          "confirmed_broken_links_count": 50,
+          "excluded_links_count": 0,
+          "excluded_link_samples": [],
+          "_all_confirmed_broken_links": [
+            "https://docs.sendgrid.com/docs",
+            "https://docs.sendgrid.com/docs/flex",
+            "https://docs.sendgrid.com/docs/messaging",
+            "https://docs.sendgrid.com/docs/sendgrid",
+            "https://docs.sendgrid.com/docs/sendgrid/api-reference",
+            "https://docs.sendgrid.com/docs/sendgrid/api-reference/mail-send/mail-send",
+            "https://docs.sendgrid.com/docs/sendgrid/api-reference/sendgrid-engagement-quality-api",
+            "https://docs.sendgrid.com/docs/sendgrid/api-reference/settings-inbound-parse",
+            "https://docs.sendgrid.com/docs/sendgrid/concepts",
+            "https://docs.sendgrid.com/docs/sendgrid/data-residency",
+            "https://docs.sendgrid.com/docs/sendgrid/for-developers",
+            "https://docs.sendgrid.com/docs/sendgrid/for-developers/parsing-email/setting-up-the-inbound-parse-webhook",
+            "https://docs.sendgrid.com/docs/sendgrid/for-developers/partners/microsoft-azure-2021",
+            "https://docs.sendgrid.com/docs/sendgrid/for-developers/sending-email/building-an-x-smtpapi-header",
+            "https://docs.sendgrid.com/docs/sendgrid/for-developers/sending-email/email-api-quickstart-for-c",
+            "https://docs.sendgrid.com/docs/sendgrid/for-developers/sending-email/email-quickstart-for-java",
+            "https://docs.sendgrid.com/docs/sendgrid/for-developers/sending-email/getting-started-smtp",
+            "https://docs.sendgrid.com/docs/sendgrid/for-developers/sending-email/personalizations",
+            "https://docs.sendgrid.com/docs/sendgrid/for-developers/sending-email/quickstart-go",
+            "https://docs.sendgrid.com/docs/sendgrid/for-developers/sending-email/quickstart-nodejs",
+            "https://docs.sendgrid.com/docs/sendgrid/for-developers/sending-email/quickstart-php",
+            "https://docs.sendgrid.com/docs/sendgrid/for-developers/sending-email/quickstart-python",
+            "https://docs.sendgrid.com/docs/sendgrid/for-developers/sending-email/quickstart-ruby",
+            "https://docs.sendgrid.com/docs/sendgrid/for-developers/sending-email/using-handlebars",
+            "https://docs.sendgrid.com/docs/sendgrid/for-developers/tracking-events/event",
+            "https://docs.sendgrid.com/docs/sendgrid/for-developers/tracking-events/getting-started-event-webhook",
+            "https://docs.sendgrid.com/docs/sendgrid/glossary",
+            "https://docs.sendgrid.com/docs/sendgrid/glossary/dmarc",
+            "https://docs.sendgrid.com/docs/sendgrid/onboarding",
+            "https://docs.sendgrid.com/docs/sendgrid/onboarding/email-api",
+            "https://docs.sendgrid.com/docs/sendgrid/ui",
+            "https://docs.sendgrid.com/docs/sendgrid/ui/account-and-settings/api-keys",
+            "https://docs.sendgrid.com/docs/sendgrid/ui/account-and-settings/how-to-set-up-domain-authentication",
+            "https://docs.sendgrid.com/docs/sendgrid/ui/account-and-settings/sso",
+            "https://docs.sendgrid.com/docs/sendgrid/ui/account-and-settings/subusers",
+            "https://docs.sendgrid.com/docs/sendgrid/ui/account-and-settings/teammates",
+            "https://docs.sendgrid.com/docs/sendgrid/ui/analytics-and-reporting/email-activity-feed",
+            "https://docs.sendgrid.com/docs/sendgrid/ui/managing-contacts/building-your-contact-list",
+            "https://docs.sendgrid.com/docs/sendgrid/ui/managing-contacts/create-and-manage-contacts",
+            "https://docs.sendgrid.com/docs/sendgrid/ui/managing-contacts/custom-fields",
+            "https://docs.sendgrid.com/docs/sendgrid/ui/managing-contacts/segmenting-your-contacts",
+            "https://docs.sendgrid.com/docs/sendgrid/ui/sending-email/adding-dynamic-content-with-handlebars-in-marketing-campaigns",
+            "https://docs.sendgrid.com/docs/sendgrid/ui/sending-email/editor",
+            "https://docs.sendgrid.com/docs/sendgrid/ui/sending-email/getting-started-with-automation",
+            "https://docs.sendgrid.com/docs/sendgrid/ui/sending-email/how-to-send-an-email-with-dynamic-templates",
+            "https://docs.sendgrid.com/docs/sendgrid/ui/sending-email/how-to-send-email-with-marketing-campaigns",
+            "https://docs.sendgrid.com/docs/sendgrid/ui/sending-email/working-with-marketing-campaigns-email-designs",
+            "https://docs.sendgrid.com/docs/voice",
+            "https://docs.sendgrid.com/en-us/legal/privacy",
+            "https://docs.sendgrid.com/en-us/legal/tos"
+          ],
+          "_all_unverified_links": [],
+          "_all_excluded_links": [],
+          "_all_docs_unverified_links": [],
+          "_all_repo_unverified_links": []
+        },
+        "seo_geo": {
+          "pages_scanned": 1,
+          "missing_title_count": 0,
+          "missing_description_count": 0,
+          "multiple_h1_count": 0,
+          "heading_hierarchy_jump_count": 0,
+          "seo_geo_issue_rate_pct": 0.0
+        },
+        "api_coverage": {
+          "reference_endpoint_count": 0,
+          "api_pages_detected": 0,
+          "endpoints_with_usage_docs": 0,
+          "reference_endpoints_without_usage_docs": 0,
+          "reference_coverage_pct": -1.0,
+          "no_api_pages_found": true,
+          "coverage_determined": false,
+          "coverage_method": "heuristic",
+          "detection_note": "Contract URLs found but no operations parsed",
+          "uncovered_endpoint_samples": []
+        },
+        "examples": {
+          "total_code_examples": 0,
+          "total_code_blocks_all": 8,
+          "runnable_without_env": 0,
+          "blocked_by_placeholders": 0,
+          "network_bound_examples": 0,
+          "example_reliability_estimate_pct": 0.0,
+          "detection_note": "No executable code blocks detected (8 data-only blocks found). Site may use non-standard code rendering that the auditor does not recognize, or all examples are in data formats (YAML/JSON)."
+        },
+        "freshness": {
+          "pages_with_last_updated_hint": 0,
+          "pages_without_last_updated_hint": 1,
+          "last_updated_coverage_pct": 0.0,
+          "samples_with_last_updated": []
+        }
+      },
+      "samples": {
+        "broken_links": [
+          "https://docs.sendgrid.com/docs",
+          "https://docs.sendgrid.com/docs/flex",
+          "https://docs.sendgrid.com/docs/messaging",
+          "https://docs.sendgrid.com/docs/sendgrid",
+          "https://docs.sendgrid.com/docs/sendgrid/api-reference",
+          "https://docs.sendgrid.com/docs/sendgrid/api-reference/mail-send/mail-send",
+          "https://docs.sendgrid.com/docs/sendgrid/api-reference/sendgrid-engagement-quality-api",
+          "https://docs.sendgrid.com/docs/sendgrid/api-reference/settings-inbound-parse",
+          "https://docs.sendgrid.com/docs/sendgrid/concepts",
+          "https://docs.sendgrid.com/docs/sendgrid/data-residency",
+          "https://docs.sendgrid.com/docs/sendgrid/for-developers",
+          "https://docs.sendgrid.com/docs/sendgrid/for-developers/parsing-email/setting-up-the-inbound-parse-webhook",
+          "https://docs.sendgrid.com/docs/sendgrid/for-developers/partners/microsoft-azure-2021",
+          "https://docs.sendgrid.com/docs/sendgrid/for-developers/sending-email/building-an-x-smtpapi-header",
+          "https://docs.sendgrid.com/docs/sendgrid/for-developers/sending-email/email-api-quickstart-for-c",
+          "https://docs.sendgrid.com/docs/sendgrid/for-developers/sending-email/email-quickstart-for-java",
+          "https://docs.sendgrid.com/docs/sendgrid/for-developers/sending-email/getting-started-smtp",
+          "https://docs.sendgrid.com/docs/sendgrid/for-developers/sending-email/personalizations",
+          "https://docs.sendgrid.com/docs/sendgrid/for-developers/sending-email/quickstart-go",
+          "https://docs.sendgrid.com/docs/sendgrid/for-developers/sending-email/quickstart-nodejs"
+        ],
+        "docs_broken_link_samples": [
+          "https://docs.sendgrid.com/docs",
+          "https://docs.sendgrid.com/docs/flex",
+          "https://docs.sendgrid.com/docs/messaging",
+          "https://docs.sendgrid.com/docs/sendgrid",
+          "https://docs.sendgrid.com/docs/sendgrid/api-reference",
+          "https://docs.sendgrid.com/docs/sendgrid/api-reference/mail-send/mail-send",
+          "https://docs.sendgrid.com/docs/sendgrid/api-reference/sendgrid-engagement-quality-api",
+          "https://docs.sendgrid.com/docs/sendgrid/api-reference/settings-inbound-parse",
+          "https://docs.sendgrid.com/docs/sendgrid/concepts",
+          "https://docs.sendgrid.com/docs/sendgrid/data-residency",
+          "https://docs.sendgrid.com/docs/sendgrid/for-developers",
+          "https://docs.sendgrid.com/docs/sendgrid/for-developers/parsing-email/setting-up-the-inbound-parse-webhook",
+          "https://docs.sendgrid.com/docs/sendgrid/for-developers/partners/microsoft-azure-2021",
+          "https://docs.sendgrid.com/docs/sendgrid/for-developers/sending-email/building-an-x-smtpapi-header",
+          "https://docs.sendgrid.com/docs/sendgrid/for-developers/sending-email/email-api-quickstart-for-c",
+          "https://docs.sendgrid.com/docs/sendgrid/for-developers/sending-email/email-quickstart-for-java",
+          "https://docs.sendgrid.com/docs/sendgrid/for-developers/sending-email/getting-started-smtp",
+          "https://docs.sendgrid.com/docs/sendgrid/for-developers/sending-email/personalizations",
+          "https://docs.sendgrid.com/docs/sendgrid/for-developers/sending-email/quickstart-go",
+          "https://docs.sendgrid.com/docs/sendgrid/for-developers/sending-email/quickstart-nodejs",
+          "https://docs.sendgrid.com/docs/sendgrid/for-developers/sending-email/quickstart-php",
+          "https://docs.sendgrid.com/docs/sendgrid/for-developers/sending-email/quickstart-python",
+          "https://docs.sendgrid.com/docs/sendgrid/for-developers/sending-email/quickstart-ruby",
+          "https://docs.sendgrid.com/docs/sendgrid/for-developers/sending-email/using-handlebars",
+          "https://docs.sendgrid.com/docs/sendgrid/for-developers/tracking-events/event",
+          "https://docs.sendgrid.com/docs/sendgrid/for-developers/tracking-events/getting-started-event-webhook",
+          "https://docs.sendgrid.com/docs/sendgrid/glossary",
+          "https://docs.sendgrid.com/docs/sendgrid/glossary/dmarc",
+          "https://docs.sendgrid.com/docs/sendgrid/onboarding",
+          "https://docs.sendgrid.com/docs/sendgrid/onboarding/email-api"
+        ],
+        "repo_broken_link_samples": [],
+        "unverified_link_samples": [],
+        "api_uncovered_samples": []
+      },
+      "run_count": 3
+    }
+  ],
+  "aggregate": {
+    "metrics": {
+      "crawl": {
+        "pages_crawled": 251,
+        "requested_pages": 369,
+        "urls_examined": 301,
+        "max_pages_total": 3000,
+        "discovered_pages": 301,
+        "crawl_scope_pages": 301,
+        "trap_urls_skipped": 0,
+        "crawl_coverage_pct": 100.0
+      },
+      "links": {
+        "broken_internal_links_count": 55,
+        "docs_broken_links_count": 55,
+        "repo_broken_links_count": 0,
+        "unverified_links_count": 4,
+        "confirmed_broken_links_count": 55,
+        "excluded_links_count": 0
+      },
+      "seo_geo": {
+        "seo_geo_issue_rate_pct": 1.0
+      },
+      "api_coverage": {
+        "reference_coverage_pct": 23.08,
+        "no_api_pages_found": false,
+        "api_pages_detected": 29,
+        "coverage_determined": true,
+        "detection_note": ""
+      },
+      "examples": {
+        "example_reliability_estimate_pct": 84.61
+      },
+      "freshness": {
+        "last_updated_coverage_pct": 4.38
+      }
+    },
+    "confidence": {
+      "overall_confidence_pct": 88.79,
+      "links_confidence_pct": 88.22,
+      "api_confidence_pct": 85.0,
+      "crawl_confidence_pct": 95.0
+    }
+  },
+  "confidence": {
+    "overall_confidence_pct": 88.79,
+    "links_confidence_pct": 88.22,
+    "api_confidence_pct": 85.0,
+    "crawl_confidence_pct": 95.0
+  },
+  "top_findings": [
+    "Broken internal links: 55",
+    "Link verification inconclusive for 4 URLs (auth/rate-limit/server block); these are excluded from broken-link counts.",
+    "API usage-doc coverage is low: 23.08% (29 API pages detected)",
+    "Freshness visibility is weak: only 4.38% pages show last updated",
+    "Documentation is split across multiple sites for one product; this is likely a discoverability/consistency risk."
+  ],
+  "llm_analysis": {
+    "status": "ok",
+    "model": "claude-sonnet-4-5",
+    "analysis": {
+      "executive_summary": "SendGrid documentation spans 2 sites with 251 pages crawled from 301 discovered (100% crawl coverage). 55 confirmed broken internal links exist across user-facing documentation. API reference coverage is critically low at 23.08% with only 29 API pages detected. Freshness metadata is present on only 4.38% of pages, obscuring content currency. Overall audit confidence is 88.79%.",
+      "strengths": [
+        "Complete crawl coverage achieved (100% of in-scope pages)",
+        "High overall audit confidence at 88.79%",
+        "Example code reliability estimated at 84.61%",
+        "No repository navigation link breakage detected",
+        "Crawl confidence strong at 95%"
+      ],
+      "risks": [
+        "55 confirmed broken internal links degrade user navigation and trust",
+        "API reference coverage at 23.08% leaves majority of API surface undocumented or undetected",
+        "Documentation split across 2 domains (support.sendgrid.com and docs.sendgrid.com) creates discoverability and consistency risk",
+        "Only 4.38% of pages display last-updated dates, preventing users from assessing content freshness",
+        "4 links unverified due to auth/rate-limit/server blocks may hide additional broken links",
+        "SEO/geo issue rate at 1.0% indicates minor but present discoverability problems",
+        "Single-product topology with multi-site structure may confuse users on canonical source"
+      ],
+      "prioritized_actions": [
+        {
+          "action": "Repair all 55 confirmed broken internal links to restore navigation integrity",
+          "impact": "critical",
+          "effort": "medium"
+        },
+        {
+          "action": "Investigate API coverage gap: verify if 23.08% reflects missing docs or detection limitation, then expand API reference pages",
+          "impact": "critical",
+          "effort": "high"
+        },
+        {
+          "action": "Implement last-updated metadata on all pages (currently 4.38% coverage) to establish freshness transparency",
+          "impact": "high",
+          "effort": "low"
+        },
+        {
+          "action": "Consolidate documentation to single domain or establish clear cross-site navigation to reduce user confusion",
+          "impact": "high",
+          "effort": "high"
+        },
+        {
+          "action": "Resolve 4 unverified links by addressing auth/rate-limit blocks and confirm their status",
+          "impact": "medium",
+          "effort": "low"
+        }
+      ],
+      "limitations": [
+        "External audit cannot verify content accuracy, technical correctness, or completeness of explanations",
+        "4 links blocked by auth/rate-limit/server restrictions could not be verified; actual broken link count may differ",
+        "API coverage detection depends on page structure patterns; 23.08% may reflect detection gaps rather than true documentation gaps",
+        "Audit cannot assess internal workflows, CMS limitations, or organizational barriers to documentation maintenance",
+        "User experience, readability, and pedagogical quality are outside audit scope"
+      ]
+    }
+  }
+}

@@ -1,0 +1,355 @@
+{
+  "generated_at": "2026-03-31T08:19:13.765418+00:00",
+  "site_url": "https://resend.com/docs",
+  "site_urls": [
+    "https://resend.com/docs"
+  ],
+  "topology_mode": "single-product",
+  "verification_modes": [
+    "authenticated",
+    "bot",
+    "browser"
+  ],
+  "sites": [
+    {
+      "site_url": "https://resend.com/docs",
+      "metrics": {
+        "crawl": {
+          "pages_crawled": 715,
+          "requested_pages": 813,
+          "urls_examined": 718,
+          "max_pages": 1000,
+          "effective_limit": 1000,
+          "auto_mode": false,
+          "stop_reason": "queue_exhausted",
+          "discovered_pages": 718,
+          "crawl_scope_basis": "sitemap",
+          "crawl_scope_pages": 717,
+          "crawl_coverage_pct": 100.14,
+          "trap_urls_skipped": 0,
+          "seeded_sitemap_urls": 717,
+          "robots_sitemaps_declared": 1
+        },
+        "links": {
+          "internal_links_checked": 761,
+          "broken_internal_links_count": 10,
+          "docs_broken_links_count": 10,
+          "repo_broken_links_count": 0,
+          "broken_internal_link_samples": [
+            "https://resend.com/careers/a1459ab5-da15-4355-a5a0-fa6558d91a88",
+            "https://resend.com/careers/ed5e2f81-2b65-4938-a20f-92c7ba372153",
+            "https://resend.com/changelog/dns-detection-updates",
+            "https://resend.com/docs/dashboard/emails/batch-validation-modes",
+            "https://resend.com/docs/knowledge-base/email-list-hygiene",
+            "https://resend.com/docs/knowledge-base/how-do-i-add-an-unsubscribe-link-to-my-emails",
+            "https://resend.com/docs/send-with-ruby-on-rails",
+            "https://resend.com/exports",
+            "https://resend.com/forward-4",
+            "https://resend.com/knowledge-base/how-do-i-avoid-conflicting-with-my-mx-records"
+          ],
+          "docs_broken_link_samples": [
+            "https://resend.com/careers/a1459ab5-da15-4355-a5a0-fa6558d91a88",
+            "https://resend.com/careers/ed5e2f81-2b65-4938-a20f-92c7ba372153",
+            "https://resend.com/changelog/dns-detection-updates",
+            "https://resend.com/docs/dashboard/emails/batch-validation-modes",
+            "https://resend.com/docs/knowledge-base/email-list-hygiene",
+            "https://resend.com/docs/knowledge-base/how-do-i-add-an-unsubscribe-link-to-my-emails",
+            "https://resend.com/docs/send-with-ruby-on-rails",
+            "https://resend.com/exports",
+            "https://resend.com/forward-4",
+            "https://resend.com/knowledge-base/how-do-i-avoid-conflicting-with-my-mx-records"
+          ],
+          "repo_broken_link_samples": [],
+          "unreachable_links_count": 0,
+          "unverified_links_count": 1,
+          "unverified_link_samples": [
+            "https://resend.com/features/email-api"
+          ],
+          "confirmed_broken_links_count": 10,
+          "excluded_links_count": 0,
+          "excluded_link_samples": [],
+          "_all_confirmed_broken_links": [
+            "https://resend.com/careers/a1459ab5-da15-4355-a5a0-fa6558d91a88",
+            "https://resend.com/careers/ed5e2f81-2b65-4938-a20f-92c7ba372153",
+            "https://resend.com/changelog/dns-detection-updates",
+            "https://resend.com/docs/dashboard/emails/batch-validation-modes",
+            "https://resend.com/docs/knowledge-base/email-list-hygiene",
+            "https://resend.com/docs/knowledge-base/how-do-i-add-an-unsubscribe-link-to-my-emails",
+            "https://resend.com/docs/send-with-ruby-on-rails",
+            "https://resend.com/exports",
+            "https://resend.com/forward-4",
+            "https://resend.com/knowledge-base/how-do-i-avoid-conflicting-with-my-mx-records"
+          ],
+          "_all_unverified_links": [
+            "https://resend.com/features/email-api"
+          ],
+          "_all_excluded_links": [],
+          "_all_docs_unverified_links": [],
+          "_all_repo_unverified_links": []
+        },
+        "seo_geo": {
+          "pages_scanned": 715,
+          "missing_title_count": 0,
+          "missing_description_count": 37,
+          "multiple_h1_count": 6,
+          "heading_hierarchy_jump_count": 94,
+          "seo_geo_issue_rate_pct": 4.79
+        },
+        "api_coverage": {
+          "reference_endpoint_count": 43,
+          "api_pages_detected": 118,
+          "endpoints_with_usage_docs": 16,
+          "reference_endpoints_without_usage_docs": 27,
+          "reference_coverage_pct": 37.21,
+          "no_api_pages_found": false,
+          "coverage_determined": true,
+          "coverage_method": "source_of_truth",
+          "detection_note": "",
+          "uncovered_endpoint_samples": [
+            "ep:/api-keys/{api_key_id}",
+            "ep:/audiences/{id}",
+            "ep:/broadcasts/{id}",
+            "ep:/broadcasts/{id}/send",
+            "ep:/contact-properties/{id}",
+            "ep:/contacts/{contact_id}/segments",
+            "ep:/contacts/{contact_id}/segments/{segment_id}",
+            "ep:/contacts/{contact_id}/topics",
+            "ep:/contacts/{id}",
+            "ep:/domains/{domain_id}",
+            "ep:/domains/{domain_id}/verify",
+            "ep:/emails/receiving/{email_id}",
+            "ep:/emails/receiving/{email_id}/attachments",
+            "ep:/emails/receiving/{email_id}/attachments/{attachment_id}",
+            "ep:/emails/{email_id}",
+            "ep:/emails/{email_id}/attachments",
+            "ep:/emails/{email_id}/attachments/{attachment_id}",
+            "ep:/emails/{email_id}/cancel",
+            "ep:/logs/{log_id}",
+            "ep:/segments/{id}"
+          ]
+        },
+        "examples": {
+          "total_code_examples": 0,
+          "total_code_blocks_all": 869,
+          "runnable_without_env": 0,
+          "blocked_by_placeholders": 0,
+          "network_bound_examples": 0,
+          "example_reliability_estimate_pct": 0.0,
+          "detection_note": "No executable code blocks detected (869 data-only blocks found). Site may use non-standard code rendering that the auditor does not recognize, or all examples are in data formats (YAML/JSON)."
+        },
+        "freshness": {
+          "pages_with_last_updated_hint": 326,
+          "pages_without_last_updated_hint": 389,
+          "last_updated_coverage_pct": 45.59,
+          "samples_with_last_updated": [
+            {
+              "url": "https://resend.com/about",
+              "hint": "2024-12-04"
+            },
+            {
+              "url": "https://resend.com/blog/1-million-users",
+              "hint": "2025-12-18"
+            },
+            {
+              "url": "https://resend.com/blog/3-million-to-make-email-safer",
+              "hint": "2025-10-03"
+            },
+            {
+              "url": "https://resend.com/blog/400-000-users-and-beyond",
+              "hint": "2025-04-29"
+            },
+            {
+              "url": "https://resend.com/blog/broadcast-schedule",
+              "hint": "2024-08-25"
+            },
+            {
+              "url": "https://resend.com/blog/agent-experience",
+              "hint": "2025-02-19"
+            },
+            {
+              "url": "https://resend.com/blog/broadcast-api",
+              "hint": "2025-03-26"
+            },
+            {
+              "url": "https://resend.com/blog/best-email-verification-apis",
+              "hint": "2025-06-20"
+            },
+            {
+              "url": "https://resend.com/blog",
+              "hint": "2026-02-15"
+            },
+            {
+              "url": "https://resend.com/blog/deliverability-insights",
+              "hint": "2024-08-22"
+            }
+          ]
+        }
+      },
+      "samples": {
+        "broken_links": [
+          "https://resend.com/careers/a1459ab5-da15-4355-a5a0-fa6558d91a88",
+          "https://resend.com/careers/ed5e2f81-2b65-4938-a20f-92c7ba372153",
+          "https://resend.com/changelog/dns-detection-updates",
+          "https://resend.com/docs/dashboard/emails/batch-validation-modes",
+          "https://resend.com/docs/knowledge-base/email-list-hygiene",
+          "https://resend.com/docs/knowledge-base/how-do-i-add-an-unsubscribe-link-to-my-emails",
+          "https://resend.com/docs/send-with-ruby-on-rails",
+          "https://resend.com/exports",
+          "https://resend.com/forward-4",
+          "https://resend.com/knowledge-base/how-do-i-avoid-conflicting-with-my-mx-records"
+        ],
+        "docs_broken_link_samples": [
+          "https://resend.com/careers/a1459ab5-da15-4355-a5a0-fa6558d91a88",
+          "https://resend.com/careers/ed5e2f81-2b65-4938-a20f-92c7ba372153",
+          "https://resend.com/changelog/dns-detection-updates",
+          "https://resend.com/docs/dashboard/emails/batch-validation-modes",
+          "https://resend.com/docs/knowledge-base/email-list-hygiene",
+          "https://resend.com/docs/knowledge-base/how-do-i-add-an-unsubscribe-link-to-my-emails",
+          "https://resend.com/docs/send-with-ruby-on-rails",
+          "https://resend.com/exports",
+          "https://resend.com/forward-4",
+          "https://resend.com/knowledge-base/how-do-i-avoid-conflicting-with-my-mx-records"
+        ],
+        "repo_broken_link_samples": [],
+        "unverified_link_samples": [],
+        "api_uncovered_samples": [
+          "ep:/api-keys/{api_key_id}",
+          "ep:/audiences/{id}",
+          "ep:/broadcasts/{id}",
+          "ep:/broadcasts/{id}/send",
+          "ep:/contact-properties/{id}",
+          "ep:/contacts/{contact_id}/segments",
+          "ep:/contacts/{contact_id}/segments/{segment_id}",
+          "ep:/contacts/{contact_id}/topics",
+          "ep:/contacts/{id}",
+          "ep:/domains/{domain_id}",
+          "ep:/domains/{domain_id}/verify",
+          "ep:/emails/receiving/{email_id}",
+          "ep:/emails/receiving/{email_id}/attachments",
+          "ep:/emails/receiving/{email_id}/attachments/{attachment_id}",
+          "ep:/emails/{email_id}",
+          "ep:/emails/{email_id}/attachments",
+          "ep:/emails/{email_id}/attachments/{attachment_id}",
+          "ep:/emails/{email_id}/cancel",
+          "ep:/logs/{log_id}",
+          "ep:/segments/{id}"
+        ]
+      },
+      "run_count": 3
+    }
+  ],
+  "aggregate": {
+    "metrics": {
+      "crawl": {
+        "pages_crawled": 715,
+        "requested_pages": 813,
+        "urls_examined": 718,
+        "max_pages_total": 1000,
+        "discovered_pages": 718,
+        "crawl_scope_pages": 717,
+        "trap_urls_skipped": 0,
+        "crawl_coverage_pct": 100.14
+      },
+      "links": {
+        "broken_internal_links_count": 10,
+        "docs_broken_links_count": 10,
+        "repo_broken_links_count": 0,
+        "unverified_links_count": 1,
+        "confirmed_broken_links_count": 10,
+        "excluded_links_count": 0
+      },
+      "seo_geo": {
+        "seo_geo_issue_rate_pct": 4.79
+      },
+      "api_coverage": {
+        "reference_coverage_pct": 37.21,
+        "no_api_pages_found": false,
+        "api_pages_detected": 118,
+        "coverage_determined": true,
+        "detection_note": ""
+      },
+      "examples": {
+        "example_reliability_estimate_pct": 0.0
+      },
+      "freshness": {
+        "last_updated_coverage_pct": 45.59
+      }
+    },
+    "confidence": {
+      "overall_confidence_pct": 87.86,
+      "links_confidence_pct": 85.91,
+      "api_confidence_pct": 85.0,
+      "crawl_confidence_pct": 95.0
+    }
+  },
+  "confidence": {
+    "overall_confidence_pct": 87.86,
+    "links_confidence_pct": 85.91,
+    "api_confidence_pct": 85.0,
+    "crawl_confidence_pct": 95.0
+  },
+  "top_findings": [
+    "Broken internal links: 10",
+    "Link verification inconclusive for 1 URLs (auth/rate-limit/server block); these are excluded from broken-link counts.",
+    "API usage-doc coverage is low: 37.21% (118 API pages detected)",
+    "Example reliability: 0% on 715 pages (likely detection limitation). Site may use JS-rendered code blocks.",
+    "Freshness visibility is weak: only 45.59% pages show last updated"
+  ],
+  "llm_analysis": {
+    "status": "ok",
+    "model": "claude-sonnet-4-5",
+    "analysis": {
+      "executive_summary": "Audit of resend.com/docs crawled 715 pages with 100.14% coverage against 813 requested pages. 10 confirmed broken internal documentation links exist (all user-facing, zero repository links). API reference coverage is low at 37.21% across 118 detected API pages. Example code reliability shows 0% detection, flagged as a likely detection limitation due to JavaScript-rendered code blocks. Only 45.59% of pages display last-updated metadata, limiting freshness transparency.",
+      "strengths": [
+        "Complete crawl coverage at 100.14%, examining all discoverable documentation pages within scope",
+        "High overall audit confidence at 87.86%, with crawl confidence reaching 95%",
+        "Single-product topology provides clear documentation structure",
+        "Zero repository navigation broken links; all link issues are user-facing and fixable",
+        "Low SEO/geo issue rate at 4.79%, indicating solid technical foundation"
+      ],
+      "risks": [
+        "10 confirmed broken internal documentation links degrade user navigation and trust",
+        "API reference coverage at 37.21% leaves 62.79% of API surface undocumented or poorly linked",
+        "Example code reliability at 0% suggests detection failure; actual code quality unknown and unverifiable",
+        "Only 45.59% of pages show last-updated dates, obscuring content freshness for majority of documentation",
+        "1 unverified link due to auth/rate-limit/server blocks may hide additional broken external references",
+        "JavaScript-rendered code blocks prevent automated example validation, creating blind spot for code accuracy",
+        "API confidence at 85% and links confidence at 85.91% indicate moderate uncertainty in coverage metrics"
+      ],
+      "prioritized_actions": [
+        {
+          "action": "Fix all 10 confirmed broken internal documentation links to restore navigation integrity",
+          "impact": "critical",
+          "effort": "low"
+        },
+        {
+          "action": "Expand API reference coverage from 37.21% to minimum 80% by documenting missing endpoints and linking usage examples",
+          "impact": "critical",
+          "effort": "high"
+        },
+        {
+          "action": "Implement last-updated metadata on all pages to increase freshness visibility from 45.59% to 95%+",
+          "impact": "high",
+          "effort": "medium"
+        },
+        {
+          "action": "Migrate code examples to static HTML or add server-side rendering to enable automated validation and reliability scoring",
+          "impact": "high",
+          "effort": "high"
+        },
+        {
+          "action": "Investigate and resolve 1 unverified link; establish monitoring for auth-protected external references",
+          "impact": "medium",
+          "effort": "low"
+        }
+      ],
+      "limitations": [
+        "Example code reliability at 0% indicates detection failure on JavaScript-rendered blocks; actual code quality, syntax correctness, and runnable status cannot be verified by external audit",
+        "1 unverified link blocked by authentication/rate-limiting/server issues may mask additional broken external references not discoverable without credentials",
+        "API coverage detection at 85% confidence may undercount or misclassify API pages if non-standard URL patterns or dynamic routing are used",
+        "Audit cannot verify accuracy of documentation content, code functionality, or alignment between docs and actual API behavior",
+        "Freshness metadata absence on 54.41% of pages prevents assessment of content staleness; pages may be outdated without visible indicators"
+      ]
+    }
+  }
+}

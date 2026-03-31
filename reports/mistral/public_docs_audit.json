@@ -1,0 +1,491 @@
+{
+  "generated_at": "2026-03-31T11:48:14.060745+00:00",
+  "site_url": "https://docs.mistral.ai/",
+  "site_urls": [
+    "https://docs.mistral.ai/"
+  ],
+  "topology_mode": "single-product",
+  "verification_modes": [
+    "authenticated",
+    "bot",
+    "browser"
+  ],
+  "sites": [
+    {
+      "site_url": "https://docs.mistral.ai/",
+      "metrics": {
+        "crawl": {
+          "pages_crawled": 292,
+          "requested_pages": 333,
+          "urls_examined": 333,
+          "max_pages": 5000,
+          "effective_limit": 5000,
+          "auto_mode": false,
+          "stop_reason": "queue_exhausted",
+          "discovered_pages": 333,
+          "crawl_scope_basis": "discovered",
+          "crawl_scope_pages": 333,
+          "crawl_coverage_pct": 100.0,
+          "trap_urls_skipped": 0,
+          "seeded_sitemap_urls": 0,
+          "robots_sitemaps_declared": 0
+        },
+        "links": {
+          "internal_links_checked": 333,
+          "broken_internal_links_count": 40,
+          "docs_broken_links_count": 40,
+          "repo_broken_links_count": 0,
+          "broken_internal_link_samples": [
+            "https://docs.mistral.ai/agents/agents_introduction",
+            "https://docs.mistral.ai/agents/tools/document_library",
+            "https://docs.mistral.ai/agents/tools/websearch",
+            "https://docs.mistral.ai/capabilities/OCR/annotations",
+            "https://docs.mistral.ai/capabilities/OCR/document_qna",
+            "https://docs.mistral.ai/capabilities/OCR/document_understanding",
+            "https://docs.mistral.ai/capabilities/audio",
+            "https://docs.mistral.ai/capabilities/audio/batch",
+            "https://docs.mistral.ai/capabilities/audio/offline_transcription",
+            "https://docs.mistral.ai/capabilities/audio/realtime_transcription",
+            "https://docs.mistral.ai/capabilities/audio/speech",
+            "https://docs.mistral.ai/capabilities/audio/speech_to_text/completion",
+            "https://docs.mistral.ai/capabilities/completion/completion",
+            "https://docs.mistral.ai/capabilities/completion/function-calling",
+            "https://docs.mistral.ai/capabilities/completion/function_calling",
+            "https://docs.mistral.ai/capabilities/completion/guardrailing",
+            "https://docs.mistral.ai/capabilities/completion/predicted-outputs",
+            "https://docs.mistral.ai/capabilities/completion/structured-output",
+            "https://docs.mistral.ai/capabilities/completion/structured_output/custom",
+            "https://docs.mistral.ai/capabilities/completion/structured_output/json_mode"
+          ],
+          "docs_broken_link_samples": [
+            "https://docs.mistral.ai/agents/agents_introduction",
+            "https://docs.mistral.ai/agents/tools/document_library",
+            "https://docs.mistral.ai/agents/tools/websearch",
+            "https://docs.mistral.ai/capabilities/OCR/annotations",
+            "https://docs.mistral.ai/capabilities/OCR/document_qna",
+            "https://docs.mistral.ai/capabilities/OCR/document_understanding",
+            "https://docs.mistral.ai/capabilities/audio",
+            "https://docs.mistral.ai/capabilities/audio/batch",
+            "https://docs.mistral.ai/capabilities/audio/offline_transcription",
+            "https://docs.mistral.ai/capabilities/audio/realtime_transcription",
+            "https://docs.mistral.ai/capabilities/audio/speech",
+            "https://docs.mistral.ai/capabilities/audio/speech_to_text/completion",
+            "https://docs.mistral.ai/capabilities/completion/completion",
+            "https://docs.mistral.ai/capabilities/completion/function-calling",
+            "https://docs.mistral.ai/capabilities/completion/function_calling",
+            "https://docs.mistral.ai/capabilities/completion/guardrailing",
+            "https://docs.mistral.ai/capabilities/completion/predicted-outputs",
+            "https://docs.mistral.ai/capabilities/completion/structured-output",
+            "https://docs.mistral.ai/capabilities/completion/structured_output/custom",
+            "https://docs.mistral.ai/capabilities/completion/structured_output/json_mode",
+            "https://docs.mistral.ai/capabilities/document_ai/document_ai/annotations",
+            "https://docs.mistral.ai/capabilities/document_ai/document_ai/basic_ocr",
+            "https://docs.mistral.ai/capabilities/document_ai/document_ai/document_qna",
+            "https://docs.mistral.ai/capabilities/embeddings/overview",
+            "https://docs.mistral.ai/capabilities/finetuning",
+            "https://docs.mistral.ai/capabilities/finetuning/classifier_factory",
+            "https://docs.mistral.ai/capabilities/structured-output/json_mode",
+            "https://docs.mistral.ai/capabilities/text_to_speech",
+            "https://docs.mistral.ai/cookbooks/mistral-agents-agents_api-multi_agents_data_analysis-public-scripts-script",
+            "https://docs.mistral.ai/deprecated/completion"
+          ],
+          "repo_broken_link_samples": [],
+          "unreachable_links_count": 0,
+          "unverified_links_count": 0,
+          "unverified_link_samples": [],
+          "confirmed_broken_links_count": 40,
+          "excluded_links_count": 24,
+          "excluded_link_samples": [
+            "https://docs.mistral.ai/api/endpoint/audio/speech",
+            "https://docs.mistral.ai/api/endpoint/audio/transcriptions",
+            "https://docs.mistral.ai/api/endpoint/audio/voices",
+            "https://docs.mistral.ai/api/endpoint/batch",
+            "https://docs.mistral.ai/api/endpoint/beta/agents",
+            "https://docs.mistral.ai/api/endpoint/beta/conversations",
+            "https://docs.mistral.ai/api/endpoint/beta/libraries",
+            "https://docs.mistral.ai/api/endpoint/beta/libraries/accesses",
+            "https://docs.mistral.ai/api/endpoint/beta/libraries/documents",
+            "https://docs.mistral.ai/api/endpoint/beta/observability/campaigns",
+            "https://docs.mistral.ai/api/endpoint/beta/observability/chat_completion_events",
+            "https://docs.mistral.ai/api/endpoint/beta/observability/chat_completion_events/fields",
+            "https://docs.mistral.ai/api/endpoint/beta/observability/datasets",
+            "https://docs.mistral.ai/api/endpoint/beta/observability/datasets/records",
+            "https://docs.mistral.ai/api/endpoint/beta/observability/judges",
+            "https://docs.mistral.ai/api/endpoint/chat",
+            "https://docs.mistral.ai/api/endpoint/classifiers",
+            "https://docs.mistral.ai/api/endpoint/deprecated/agents",
+            "https://docs.mistral.ai/api/endpoint/deprecated/fine-tuning",
+            "https://docs.mistral.ai/api/endpoint/embeddings",
+            "https://docs.mistral.ai/api/endpoint/files",
+            "https://docs.mistral.ai/api/endpoint/fim",
+            "https://docs.mistral.ai/api/endpoint/models",
+            "https://docs.mistral.ai/api/endpoint/ocr"
+          ],
+          "_all_confirmed_broken_links": [
+            "https://docs.mistral.ai/agents/agents_introduction",
+            "https://docs.mistral.ai/agents/tools/document_library",
+            "https://docs.mistral.ai/agents/tools/websearch",
+            "https://docs.mistral.ai/capabilities/OCR/annotations",
+            "https://docs.mistral.ai/capabilities/OCR/document_qna",
+            "https://docs.mistral.ai/capabilities/OCR/document_understanding",
+            "https://docs.mistral.ai/capabilities/audio",
+            "https://docs.mistral.ai/capabilities/audio/batch",
+            "https://docs.mistral.ai/capabilities/audio/offline_transcription",
+            "https://docs.mistral.ai/capabilities/audio/realtime_transcription",
+            "https://docs.mistral.ai/capabilities/audio/speech",
+            "https://docs.mistral.ai/capabilities/audio/speech_to_text/completion",
+            "https://docs.mistral.ai/capabilities/completion/completion",
+            "https://docs.mistral.ai/capabilities/completion/function-calling",
+            "https://docs.mistral.ai/capabilities/completion/function_calling",
+            "https://docs.mistral.ai/capabilities/completion/guardrailing",
+            "https://docs.mistral.ai/capabilities/completion/predicted-outputs",
+            "https://docs.mistral.ai/capabilities/completion/structured-output",
+            "https://docs.mistral.ai/capabilities/completion/structured_output/custom",
+            "https://docs.mistral.ai/capabilities/completion/structured_output/json_mode",
+            "https://docs.mistral.ai/capabilities/document_ai/document_ai/annotations",
+            "https://docs.mistral.ai/capabilities/document_ai/document_ai/basic_ocr",
+            "https://docs.mistral.ai/capabilities/document_ai/document_ai/document_qna",
+            "https://docs.mistral.ai/capabilities/embeddings/overview",
+            "https://docs.mistral.ai/capabilities/finetuning",
+            "https://docs.mistral.ai/capabilities/finetuning/classifier_factory",
+            "https://docs.mistral.ai/capabilities/structured-output/json_mode",
+            "https://docs.mistral.ai/capabilities/text_to_speech",
+            "https://docs.mistral.ai/cookbooks/mistral-agents-agents_api-multi_agents_data_analysis-public-scripts-script",
+            "https://docs.mistral.ai/deprecated/completion",
+            "https://docs.mistral.ai/deprecated/completion/prompting_capabilities",
+            "https://docs.mistral.ai/deprecated/guardrailing",
+            "https://docs.mistral.ai/getting-started/stories",
+            "https://docs.mistral.ai/guides/embeddings",
+            "https://docs.mistral.ai/guides/finetuning",
+            "https://docs.mistral.ai/guides/function-calling",
+            "https://docs.mistral.ai/models/devstral-small-2-25-07",
+            "https://docs.mistral.ai/models/ministral-14b-25-12",
+            "https://docs.mistral.ai/models/ministral-3b-25-12",
+            "https://docs.mistral.ai/models/ministral-8b-25-12"
+          ],
+          "_all_unverified_links": [],
+          "_all_excluded_links": [
+            "https://docs.mistral.ai/api/endpoint/audio/speech",
+            "https://docs.mistral.ai/api/endpoint/audio/transcriptions",
+            "https://docs.mistral.ai/api/endpoint/audio/voices",
+            "https://docs.mistral.ai/api/endpoint/batch",
+            "https://docs.mistral.ai/api/endpoint/beta/agents",
+            "https://docs.mistral.ai/api/endpoint/beta/conversations",
+            "https://docs.mistral.ai/api/endpoint/beta/libraries",
+            "https://docs.mistral.ai/api/endpoint/beta/libraries/accesses",
+            "https://docs.mistral.ai/api/endpoint/beta/libraries/documents",
+            "https://docs.mistral.ai/api/endpoint/beta/observability/campaigns",
+            "https://docs.mistral.ai/api/endpoint/beta/observability/chat_completion_events",
+            "https://docs.mistral.ai/api/endpoint/beta/observability/chat_completion_events/fields",
+            "https://docs.mistral.ai/api/endpoint/beta/observability/datasets",
+            "https://docs.mistral.ai/api/endpoint/beta/observability/datasets/records",
+            "https://docs.mistral.ai/api/endpoint/beta/observability/judges",
+            "https://docs.mistral.ai/api/endpoint/chat",
+            "https://docs.mistral.ai/api/endpoint/classifiers",
+            "https://docs.mistral.ai/api/endpoint/deprecated/agents",
+            "https://docs.mistral.ai/api/endpoint/deprecated/fine-tuning",
+            "https://docs.mistral.ai/api/endpoint/embeddings",
+            "https://docs.mistral.ai/api/endpoint/files",
+            "https://docs.mistral.ai/api/endpoint/fim",
+            "https://docs.mistral.ai/api/endpoint/models",
+            "https://docs.mistral.ai/api/endpoint/ocr"
+          ],
+          "_all_docs_unverified_links": [],
+          "_all_repo_unverified_links": []
+        },
+        "seo_geo": {
+          "pages_scanned": 292,
+          "missing_title_count": 0,
+          "missing_description_count": 0,
+          "multiple_h1_count": 113,
+          "heading_hierarchy_jump_count": 273,
+          "seo_geo_issue_rate_pct": 33.05
+        },
+        "api_coverage": {
+          "reference_endpoint_count": 210,
+          "api_pages_detected": 73,
+          "endpoints_with_usage_docs": 11,
+          "reference_endpoints_without_usage_docs": 199,
+          "reference_coverage_pct": 5.24,
+          "no_api_pages_found": false,
+          "coverage_determined": true,
+          "coverage_method": "source_of_truth",
+          "detection_note": "",
+          "uncovered_endpoint_samples": [
+            "ep:/v1/agents/completions",
+            "ep:/v1/agents/{agent_id}",
+            "ep:/v1/agents/{agent_id}/aliases",
+            "ep:/v1/agents/{agent_id}/version",
+            "ep:/v1/agents/{agent_id}/versions",
+            "ep:/v1/agents/{agent_id}/versions/{version}",
+            "ep:/v1/audio/transcriptions#stream",
+            "ep:/v1/audio/voices",
+            "ep:/v1/audio/voices/{voice_id}",
+            "ep:/v1/audio/voices/{voice_id}/sample",
+            "ep:/v1/batch/jobs",
+            "ep:/v1/batch/jobs/{job_id}",
+            "ep:/v1/batch/jobs/{job_id}/cancel",
+            "ep:/v1/chat/classifications",
+            "ep:/v1/classifications",
+            "ep:/v1/conversations#stream",
+            "ep:/v1/conversations/{conversation_id}",
+            "ep:/v1/conversations/{conversation_id}#stream",
+            "ep:/v1/conversations/{conversation_id}/history",
+            "ep:/v1/conversations/{conversation_id}/messages"
+          ]
+        },
+        "examples": {
+          "total_code_examples": 0,
+          "total_code_blocks_all": 2103,
+          "runnable_without_env": 0,
+          "blocked_by_placeholders": 0,
+          "network_bound_examples": 0,
+          "example_reliability_estimate_pct": 0.0,
+          "detection_note": "No executable code blocks detected (2103 data-only blocks found). Site may use non-standard code rendering that the auditor does not recognize, or all examples are in data formats (YAML/JSON)."
+        },
+        "freshness": {
+          "pages_with_last_updated_hint": 66,
+          "pages_without_last_updated_hint": 226,
+          "last_updated_coverage_pct": 22.6,
+          "samples_with_last_updated": [
+            {
+              "url": "https://docs.mistral.ai/capabilities/function_calling",
+              "hint": "'2021-10-05'"
+            },
+            {
+              "url": "https://docs.mistral.ai/models/devstral-2-25-12",
+              "hint": "December 9, 2025"
+            },
+            {
+              "url": "https://docs.mistral.ai/models/magistral-medium-1-2-25-09",
+              "hint": "September 18, 2025"
+            },
+            {
+              "url": "https://docs.mistral.ai/models/mistral-large-3-25-12",
+              "hint": "December 2, 2025"
+            },
+            {
+              "url": "https://docs.mistral.ai/getting-started/models",
+              "hint": "October 31, 2025"
+            },
+            {
+              "url": "https://docs.mistral.ai/models/ministral-3-14b-25-12",
+              "hint": "December 2, 2025"
+            },
+            {
+              "url": "https://docs.mistral.ai/models/mistral-medium-3-1-25-08",
+              "hint": "August 12, 2025"
+            },
+            {
+              "url": "https://docs.mistral.ai/models/ocr-3-25-12",
+              "hint": "December 18, 2025"
+            },
+            {
+              "url": "https://docs.mistral.ai/models/voxtral-mini-transcribe-realtime-26-02",
+              "hint": "February 4, 2026"
+            },
+            {
+              "url": "https://docs.mistral.ai/models/codestral-25-01",
+              "hint": "January 13, 2025"
+            }
+          ]
+        }
+      },
+      "samples": {
+        "broken_links": [
+          "https://docs.mistral.ai/agents/agents_introduction",
+          "https://docs.mistral.ai/agents/tools/document_library",
+          "https://docs.mistral.ai/agents/tools/websearch",
+          "https://docs.mistral.ai/capabilities/OCR/annotations",
+          "https://docs.mistral.ai/capabilities/OCR/document_qna",
+          "https://docs.mistral.ai/capabilities/OCR/document_understanding",
+          "https://docs.mistral.ai/capabilities/audio",
+          "https://docs.mistral.ai/capabilities/audio/batch",
+          "https://docs.mistral.ai/capabilities/audio/offline_transcription",
+          "https://docs.mistral.ai/capabilities/audio/realtime_transcription",
+          "https://docs.mistral.ai/capabilities/audio/speech",
+          "https://docs.mistral.ai/capabilities/audio/speech_to_text/completion",
+          "https://docs.mistral.ai/capabilities/completion/completion",
+          "https://docs.mistral.ai/capabilities/completion/function-calling",
+          "https://docs.mistral.ai/capabilities/completion/function_calling",
+          "https://docs.mistral.ai/capabilities/completion/guardrailing",
+          "https://docs.mistral.ai/capabilities/completion/predicted-outputs",
+          "https://docs.mistral.ai/capabilities/completion/structured-output",
+          "https://docs.mistral.ai/capabilities/completion/structured_output/custom",
+          "https://docs.mistral.ai/capabilities/completion/structured_output/json_mode"
+        ],
+        "docs_broken_link_samples": [
+          "https://docs.mistral.ai/agents/agents_introduction",
+          "https://docs.mistral.ai/agents/tools/document_library",
+          "https://docs.mistral.ai/agents/tools/websearch",
+          "https://docs.mistral.ai/capabilities/OCR/annotations",
+          "https://docs.mistral.ai/capabilities/OCR/document_qna",
+          "https://docs.mistral.ai/capabilities/OCR/document_understanding",
+          "https://docs.mistral.ai/capabilities/audio",
+          "https://docs.mistral.ai/capabilities/audio/batch",
+          "https://docs.mistral.ai/capabilities/audio/offline_transcription",
+          "https://docs.mistral.ai/capabilities/audio/realtime_transcription",
+          "https://docs.mistral.ai/capabilities/audio/speech",
+          "https://docs.mistral.ai/capabilities/audio/speech_to_text/completion",
+          "https://docs.mistral.ai/capabilities/completion/completion",
+          "https://docs.mistral.ai/capabilities/completion/function-calling",
+          "https://docs.mistral.ai/capabilities/completion/function_calling",
+          "https://docs.mistral.ai/capabilities/completion/guardrailing",
+          "https://docs.mistral.ai/capabilities/completion/predicted-outputs",
+          "https://docs.mistral.ai/capabilities/completion/structured-output",
+          "https://docs.mistral.ai/capabilities/completion/structured_output/custom",
+          "https://docs.mistral.ai/capabilities/completion/structured_output/json_mode",
+          "https://docs.mistral.ai/capabilities/document_ai/document_ai/annotations",
+          "https://docs.mistral.ai/capabilities/document_ai/document_ai/basic_ocr",
+          "https://docs.mistral.ai/capabilities/document_ai/document_ai/document_qna",
+          "https://docs.mistral.ai/capabilities/embeddings/overview",
+          "https://docs.mistral.ai/capabilities/finetuning",
+          "https://docs.mistral.ai/capabilities/finetuning/classifier_factory",
+          "https://docs.mistral.ai/capabilities/structured-output/json_mode",
+          "https://docs.mistral.ai/capabilities/text_to_speech",
+          "https://docs.mistral.ai/cookbooks/mistral-agents-agents_api-multi_agents_data_analysis-public-scripts-script",
+          "https://docs.mistral.ai/deprecated/completion"
+        ],
+        "repo_broken_link_samples": [],
+        "unverified_link_samples": [],
+        "api_uncovered_samples": [
+          "ep:/v1/agents/completions",
+          "ep:/v1/agents/{agent_id}",
+          "ep:/v1/agents/{agent_id}/aliases",
+          "ep:/v1/agents/{agent_id}/version",
+          "ep:/v1/agents/{agent_id}/versions",
+          "ep:/v1/agents/{agent_id}/versions/{version}",
+          "ep:/v1/audio/transcriptions#stream",
+          "ep:/v1/audio/voices",
+          "ep:/v1/audio/voices/{voice_id}",
+          "ep:/v1/audio/voices/{voice_id}/sample",
+          "ep:/v1/batch/jobs",
+          "ep:/v1/batch/jobs/{job_id}",
+          "ep:/v1/batch/jobs/{job_id}/cancel",
+          "ep:/v1/chat/classifications",
+          "ep:/v1/classifications",
+          "ep:/v1/conversations#stream",
+          "ep:/v1/conversations/{conversation_id}",
+          "ep:/v1/conversations/{conversation_id}#stream",
+          "ep:/v1/conversations/{conversation_id}/history",
+          "ep:/v1/conversations/{conversation_id}/messages"
+        ]
+      },
+      "run_count": 3
+    }
+  ],
+  "aggregate": {
+    "metrics": {
+      "crawl": {
+        "pages_crawled": 292,
+        "requested_pages": 333,
+        "urls_examined": 333,
+        "max_pages_total": 5000,
+        "discovered_pages": 333,
+        "crawl_scope_pages": 333,
+        "trap_urls_skipped": 0,
+        "crawl_coverage_pct": 100.0
+      },
+      "links": {
+        "broken_internal_links_count": 40,
+        "docs_broken_links_count": 40,
+        "repo_broken_links_count": 0,
+        "unverified_links_count": 0,
+        "confirmed_broken_links_count": 40,
+        "excluded_links_count": 24
+      },
+      "seo_geo": {
+        "seo_geo_issue_rate_pct": 33.05
+      },
+      "api_coverage": {
+        "reference_coverage_pct": 5.24,
+        "no_api_pages_found": false,
+        "api_pages_detected": 73,
+        "coverage_determined": true,
+        "detection_note": ""
+      },
+      "examples": {
+        "example_reliability_estimate_pct": 0.0
+      },
+      "freshness": {
+        "last_updated_coverage_pct": 22.6
+      }
+    },
+    "confidence": {
+      "overall_confidence_pct": 91.5,
+      "links_confidence_pct": 95.0,
+      "api_confidence_pct": 85.0,
+      "crawl_confidence_pct": 95.0
+    }
+  },
+  "confidence": {
+    "overall_confidence_pct": 91.5,
+    "links_confidence_pct": 95.0,
+    "api_confidence_pct": 85.0,
+    "crawl_confidence_pct": 95.0
+  },
+  "top_findings": [
+    "Broken internal links: 40",
+    "SEO/GEO issue rate is high: 33.05%",
+    "API usage-doc coverage is low: 5.24% (73 API pages detected)",
+    "Example reliability estimate is low: 0.0%",
+    "Freshness visibility is weak: only 22.6% pages show last updated"
+  ],
+  "llm_analysis": {
+    "status": "ok",
+    "model": "claude-sonnet-4-5",
+    "analysis": {
+      "executive_summary": "Documentation audit of docs.mistral.ai covered 292 pages (100% crawl coverage) with 91.5% overall confidence. Critical issues identified: 40 confirmed broken internal links within user-facing documentation, 33.05% SEO/geo issue rate indicating discoverability problems, and 0% example reliability estimate suggesting code examples lack validation. API reference coverage stands at only 5.24% despite 73 API pages detected, indicating minimal integration between conceptual docs and API references. Freshness tracking is poor with only 22.6% of pages displaying last-updated metadata.",
+      "strengths": [
+        "Complete crawl coverage achieved (100% of 333 discovered pages within scope)",
+        "High overall audit confidence at 91.5% with strong link verification (95% confidence)",
+        "Single-product topology provides clear documentation structure",
+        "No repository navigation link breakage (0 repo_broken_links_count)",
+        "No crawl trap URLs encountered, indicating clean site architecture"
+      ],
+      "risks": [
+        "40 confirmed broken internal links degrade user navigation and trust in documentation quality",
+        "33.05% SEO/geo issue rate severely impacts search discoverability and international accessibility",
+        "0% example reliability estimate indicates code examples are untested or lack validation markers",
+        "5.24% API reference coverage leaves 94.76% of API surface undocumented or disconnected from usage guidance",
+        "22.6% freshness coverage prevents users from assessing content currency for 77.4% of pages",
+        "73 API pages detected but minimal cross-linking suggests siloed reference documentation",
+        "24 excluded links may hide additional broken link issues requiring manual review"
+      ],
+      "prioritized_actions": [
+        {
+          "action": "Fix all 40 confirmed broken internal links to restore navigation integrity",
+          "impact": "critical",
+          "effort": "low"
+        },
+        {
+          "action": "Implement automated example validation pipeline to achieve >80% reliability score",
+          "impact": "critical",
+          "effort": "high"
+        },
+        {
+          "action": "Add last-updated timestamps to all pages (currently missing on 77.4% of content)",
+          "impact": "high",
+          "effort": "low"
+        },
+        {
+          "action": "Cross-link API reference pages with usage documentation to improve 5.24% coverage to >40%",
+          "impact": "high",
+          "effort": "medium"
+        },
+        {
+          "action": "Audit and remediate SEO/geo issues affecting 33.05% of pages (meta tags, hreflang, structured data)",
+          "impact": "high",
+          "effort": "medium"
+        }
+      ],
+      "limitations": [
+        "External audit cannot verify accuracy of technical content, code correctness, or conceptual explanations",
+        "API coverage detection relies on pattern matching; actual API completeness requires internal schema comparison",
+        "Example reliability estimate based on presence of validation markers, not actual code execution results",
+        "Cannot assess documentation effectiveness, user comprehension, or task completion success rates",
+        "Freshness metadata presence verified but not validated against actual content update dates"
+      ]
+    }
+  }
+}

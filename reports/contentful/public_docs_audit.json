@@ -1,0 +1,414 @@
+{
+  "generated_at": "2026-03-31T10:37:30.560443+00:00",
+  "site_url": "https://www.contentful.com/developers/docs",
+  "site_urls": [
+    "https://www.contentful.com/developers/docs"
+  ],
+  "topology_mode": "single-product",
+  "verification_modes": [
+    "authenticated",
+    "bot",
+    "browser"
+  ],
+  "sites": [
+    {
+      "site_url": "https://www.contentful.com/developers/docs",
+      "metrics": {
+        "crawl": {
+          "pages_crawled": 3305,
+          "requested_pages": 3935,
+          "urls_examined": 3312,
+          "max_pages": 5000,
+          "effective_limit": 5000,
+          "auto_mode": false,
+          "stop_reason": "queue_exhausted",
+          "discovered_pages": 3312,
+          "crawl_scope_basis": "sitemap",
+          "crawl_scope_pages": 3312,
+          "crawl_coverage_pct": 100.0,
+          "trap_urls_skipped": 7054,
+          "seeded_sitemap_urls": 3312,
+          "robots_sitemaps_declared": 1
+        },
+        "links": {
+          "internal_links_checked": 3679,
+          "broken_internal_links_count": 13,
+          "docs_broken_links_count": 13,
+          "repo_broken_links_count": 0,
+          "broken_internal_link_samples": [
+            "https://www.contentful.com/braze",
+            "https://www.contentful.com/bynder",
+            "https://www.contentful.com/cloudinary",
+            "https://www.contentful.com/events/build-knowledge-base-live-demo-na",
+            "https://www.contentful.com/events/fast-forward-2020-how-lyft-scaled-content-smartling",
+            "https://www.contentful.com/events/monolith-to-composable",
+            "https://www.contentful.com/functions/asset-tracker.ts",
+            "https://www.contentful.com/legal/contentful-ai-terms-of-service/2023-07-11",
+            "https://www.contentful.com/legal/security-standards/2016-12-09",
+            "https://www.contentful.com/resources/dev-newsletter",
+            "https://www.contentful.com/tel:+4930467260941",
+            "https://www.contentful.com/tel:+493915676970",
+            "https://www.contentful.com/undefined"
+          ],
+          "docs_broken_link_samples": [
+            "https://www.contentful.com/braze",
+            "https://www.contentful.com/bynder",
+            "https://www.contentful.com/cloudinary",
+            "https://www.contentful.com/events/build-knowledge-base-live-demo-na",
+            "https://www.contentful.com/events/fast-forward-2020-how-lyft-scaled-content-smartling",
+            "https://www.contentful.com/events/monolith-to-composable",
+            "https://www.contentful.com/functions/asset-tracker.ts",
+            "https://www.contentful.com/legal/contentful-ai-terms-of-service/2023-07-11",
+            "https://www.contentful.com/legal/security-standards/2016-12-09",
+            "https://www.contentful.com/resources/dev-newsletter",
+            "https://www.contentful.com/tel:+4930467260941",
+            "https://www.contentful.com/tel:+493915676970",
+            "https://www.contentful.com/undefined"
+          ],
+          "repo_broken_link_samples": [],
+          "unreachable_links_count": 4,
+          "unverified_links_count": 5,
+          "unverified_link_samples": [
+            "https://www.contentful.com/case-studies/atlassian",
+            "https://www.contentful.com/developers/docs/extensibility/app-framework/resource-entities",
+            "https://www.contentful.com/help/connect-content/cross-space-references",
+            "https://www.contentful.com/help/faq/basics",
+            "https://www.contentful.com/partners/solutions/productive-edge"
+          ],
+          "confirmed_broken_links_count": 13,
+          "excluded_links_count": 13,
+          "excluded_link_samples": [
+            "https://www.contentful.com/api/api-call",
+            "https://www.contentful.com/api/api-endpoint",
+            "https://www.contentful.com/api/api-key",
+            "https://www.contentful.com/api/headless-api",
+            "https://www.contentful.com/assets/pdf/legal/code-of-conduct.pdf",
+            "https://www.contentful.com/assets/pdf/solution-partners-overview.pdf",
+            "https://www.contentful.com/assets/pdf/technology-partners-overview.pdf",
+            "https://www.contentful.com/blog/feed.xml",
+            "https://www.contentful.com/developers/_assets/images/ESR-diagram.d4d68d6ed8.png",
+            "https://www.contentful.com/faq/search-and-content-organization",
+            "https://www.contentful.com/help/faq/search-and-content-organization",
+            "https://www.contentful.com/r/knowledgebase/searching-on-references",
+            "https://www.contentful.com/sitemap"
+          ],
+          "_all_confirmed_broken_links": [
+            "https://www.contentful.com/braze",
+            "https://www.contentful.com/bynder",
+            "https://www.contentful.com/cloudinary",
+            "https://www.contentful.com/events/build-knowledge-base-live-demo-na",
+            "https://www.contentful.com/events/fast-forward-2020-how-lyft-scaled-content-smartling",
+            "https://www.contentful.com/events/monolith-to-composable",
+            "https://www.contentful.com/functions/asset-tracker.ts",
+            "https://www.contentful.com/legal/contentful-ai-terms-of-service/2023-07-11",
+            "https://www.contentful.com/legal/security-standards/2016-12-09",
+            "https://www.contentful.com/resources/dev-newsletter",
+            "https://www.contentful.com/tel:+4930467260941",
+            "https://www.contentful.com/tel:+493915676970",
+            "https://www.contentful.com/undefined"
+          ],
+          "_all_unverified_links": [
+            "https://www.contentful.com/case-studies/atlassian",
+            "https://www.contentful.com/developers/docs/extensibility/app-framework/resource-entities",
+            "https://www.contentful.com/help/connect-content/cross-space-references",
+            "https://www.contentful.com/help/faq/basics",
+            "https://www.contentful.com/partners/solutions/productive-edge"
+          ],
+          "_all_excluded_links": [
+            "https://www.contentful.com/api/api-call",
+            "https://www.contentful.com/api/api-endpoint",
+            "https://www.contentful.com/api/api-key",
+            "https://www.contentful.com/api/headless-api",
+            "https://www.contentful.com/assets/pdf/legal/code-of-conduct.pdf",
+            "https://www.contentful.com/assets/pdf/solution-partners-overview.pdf",
+            "https://www.contentful.com/assets/pdf/technology-partners-overview.pdf",
+            "https://www.contentful.com/blog/feed.xml",
+            "https://www.contentful.com/developers/_assets/images/ESR-diagram.d4d68d6ed8.png",
+            "https://www.contentful.com/faq/search-and-content-organization",
+            "https://www.contentful.com/help/faq/search-and-content-organization",
+            "https://www.contentful.com/r/knowledgebase/searching-on-references",
+            "https://www.contentful.com/sitemap"
+          ],
+          "_all_docs_unverified_links": [
+            "https://www.contentful.com/case-studies/atlassian",
+            "https://www.contentful.com/developers/docs/extensibility/app-framework/resource-entities",
+            "https://www.contentful.com/help/faq/basics",
+            "https://www.contentful.com/partners/solutions/productive-edge"
+          ],
+          "_all_repo_unverified_links": []
+        },
+        "seo_geo": {
+          "pages_scanned": 3305,
+          "missing_title_count": 1,
+          "missing_description_count": 1,
+          "multiple_h1_count": 78,
+          "heading_hierarchy_jump_count": 830,
+          "seo_geo_issue_rate_pct": 6.89
+        },
+        "api_coverage": {
+          "reference_endpoint_count": 168,
+          "api_pages_detected": 457,
+          "endpoints_with_usage_docs": 62,
+          "reference_endpoints_without_usage_docs": 106,
+          "reference_coverage_pct": 36.9,
+          "no_api_pages_found": false,
+          "coverage_determined": true,
+          "coverage_method": "source_of_truth",
+          "detection_note": "",
+          "uncovered_endpoint_samples": [
+            "gql:above",
+            "gql:accepts",
+            "gql:across",
+            "gql:acts",
+            "gql:actually",
+            "gql:adapter",
+            "gql:adduser",
+            "gql:aliases",
+            "gql:box",
+            "gql:but",
+            "gql:cannot",
+            "gql:capabilities",
+            "gql:component",
+            "gql:composed",
+            "gql:concise",
+            "gql:cumbersome",
+            "gql:defined",
+            "gql:depth",
+            "gql:different",
+            "gql:directly"
+          ]
+        },
+        "examples": {
+          "total_code_examples": 1226,
+          "total_code_blocks_all": 2509,
+          "runnable_without_env": 1065,
+          "blocked_by_placeholders": 67,
+          "network_bound_examples": 94,
+          "example_reliability_estimate_pct": 86.87,
+          "detection_note": ""
+        },
+        "freshness": {
+          "pages_with_last_updated_hint": 2953,
+          "pages_without_last_updated_hint": 352,
+          "last_updated_coverage_pct": 89.36,
+          "samples_with_last_updated": [
+            {
+              "url": "https://www.contentful.com/12-ways-to-feel-more-contentful-ai-checklist",
+              "hint": "self.__next_f.push([1,\"3:[\\\"$\\\",\\\"$L22\\\",null,{\\\"formats\\\":\\\"$undefined\\\",\\\"locale\\\":\\\"en-US\\\",\\\"messages\\\":{\\\"nav\\\":{\\\""
+            },
+            {
+              "url": "https://www.contentful.com/12-ways-to-feel-more-contentful-ai-localization",
+              "hint": "self.__next_f.push([1,\"3:[\\\"$\\\",\\\"$L22\\\",null,{\\\"formats\\\":\\\"$undefined\\\",\\\"locale\\\":\\\"en-US\\\",\\\"messages\\\":{\\\"nav\\\":{\\\""
+            },
+            {
+              "url": "https://www.contentful.com/12-ways-to-feel-more-contentful-experimentation-starter-kit",
+              "hint": "self.__next_f.push([1,\"3:[\\\"$\\\",\\\"$L22\\\",null,{\\\"formats\\\":\\\"$undefined\\\",\\\"locale\\\":\\\"en-US\\\",\\\"messages\\\":{\\\"nav\\\":{\\\""
+            },
+            {
+              "url": "https://www.contentful.com/12-ways-to-feel-more-contentful-marketers-ai-adoption",
+              "hint": "self.__next_f.push([1,\"3:[\\\"$\\\",\\\"$L22\\\",null,{\\\"formats\\\":\\\"$undefined\\\",\\\"locale\\\":\\\"en-US\\\",\\\"messages\\\":{\\\"nav\\\":{\\\""
+            },
+            {
+              "url": "https://www.contentful.com/12-ways-to-feel-more-contentful",
+              "hint": "self.__next_f.push([1,\"3:[\\\"$\\\",\\\"$L22\\\",null,{\\\"formats\\\":\\\"$undefined\\\",\\\"locale\\\":\\\"en-US\\\",\\\"messages\\\":{\\\"nav\\\":{\\\""
+            },
+            {
+              "url": "https://www.contentful.com/12-ways-to-feel-more-contentful-ai-tools",
+              "hint": "self.__next_f.push([1,\"3:[\\\"$\\\",\\\"$L22\\\",null,{\\\"formats\\\":\\\"$undefined\\\",\\\"locale\\\":\\\"en-US\\\",\\\"messages\\\":{\\\"nav\\\":{\\\""
+            },
+            {
+              "url": "https://www.contentful.com/12-ways-to-feel-more-contentful-mcp-for-marketing",
+              "hint": "self.__next_f.push([1,\"3:[\\\"$\\\",\\\"$L22\\\",null,{\\\"formats\\\":\\\"$undefined\\\",\\\"locale\\\":\\\"en-US\\\",\\\"messages\\\":{\\\"nav\\\":{\\\""
+            },
+            {
+              "url": "https://www.contentful.com/12-ways-to-feel-more-contentful-ai-automations",
+              "hint": "self.__next_f.push([1,\"3:[\\\"$\\\",\\\"$L22\\\",null,{\\\"formats\\\":\\\"$undefined\\\",\\\"locale\\\":\\\"en-US\\\",\\\"messages\\\":{\\\"nav\\\":{\\\""
+            },
+            {
+              "url": "https://www.contentful.com/12-ways-to-feel-more-contentful-analytics-with-ai",
+              "hint": "self.__next_f.push([1,\"3:[\\\"$\\\",\\\"$L22\\\",null,{\\\"formats\\\":\\\"$undefined\\\",\\\"locale\\\":\\\"en-US\\\",\\\"messages\\\":{\\\"nav\\\":{\\\""
+            },
+            {
+              "url": "https://www.contentful.com/12-ways-to-feel-more-contentful-personalization-in-a-minute",
+              "hint": "self.__next_f.push([1,\"3:[\\\"$\\\",\\\"$L22\\\",null,{\\\"formats\\\":\\\"$undefined\\\",\\\"locale\\\":\\\"en-US\\\",\\\"messages\\\":{\\\"nav\\\":{\\\""
+            }
+          ]
+        }
+      },
+      "samples": {
+        "broken_links": [
+          "https://www.contentful.com/braze",
+          "https://www.contentful.com/bynder",
+          "https://www.contentful.com/cloudinary",
+          "https://www.contentful.com/events/build-knowledge-base-live-demo-na",
+          "https://www.contentful.com/events/fast-forward-2020-how-lyft-scaled-content-smartling",
+          "https://www.contentful.com/events/monolith-to-composable",
+          "https://www.contentful.com/functions/asset-tracker.ts",
+          "https://www.contentful.com/legal/contentful-ai-terms-of-service/2023-07-11",
+          "https://www.contentful.com/legal/security-standards/2016-12-09",
+          "https://www.contentful.com/resources/dev-newsletter",
+          "https://www.contentful.com/tel:+4930467260941",
+          "https://www.contentful.com/tel:+493915676970",
+          "https://www.contentful.com/undefined"
+        ],
+        "docs_broken_link_samples": [
+          "https://www.contentful.com/braze",
+          "https://www.contentful.com/bynder",
+          "https://www.contentful.com/cloudinary",
+          "https://www.contentful.com/events/build-knowledge-base-live-demo-na",
+          "https://www.contentful.com/events/fast-forward-2020-how-lyft-scaled-content-smartling",
+          "https://www.contentful.com/events/monolith-to-composable",
+          "https://www.contentful.com/functions/asset-tracker.ts",
+          "https://www.contentful.com/legal/contentful-ai-terms-of-service/2023-07-11",
+          "https://www.contentful.com/legal/security-standards/2016-12-09",
+          "https://www.contentful.com/resources/dev-newsletter",
+          "https://www.contentful.com/tel:+4930467260941",
+          "https://www.contentful.com/tel:+493915676970",
+          "https://www.contentful.com/undefined"
+        ],
+        "repo_broken_link_samples": [],
+        "unverified_link_samples": [
+          "https://www.contentful.com/case-studies/atlassian",
+          "https://www.contentful.com/developers/docs/extensibility/app-framework/resource-entities",
+          "https://www.contentful.com/help/faq/basics",
+          "https://www.contentful.com/partners/solutions/productive-edge"
+        ],
+        "api_uncovered_samples": [
+          "gql:above",
+          "gql:accepts",
+          "gql:across",
+          "gql:acts",
+          "gql:actually",
+          "gql:adapter",
+          "gql:adduser",
+          "gql:aliases",
+          "gql:box",
+          "gql:but",
+          "gql:cannot",
+          "gql:capabilities",
+          "gql:component",
+          "gql:composed",
+          "gql:concise",
+          "gql:cumbersome",
+          "gql:defined",
+          "gql:depth",
+          "gql:different",
+          "gql:directly"
+        ]
+      },
+      "run_count": 3
+    }
+  ],
+  "aggregate": {
+    "metrics": {
+      "crawl": {
+        "pages_crawled": 3305,
+        "requested_pages": 3935,
+        "urls_examined": 3312,
+        "max_pages_total": 5000,
+        "discovered_pages": 3312,
+        "crawl_scope_pages": 3312,
+        "trap_urls_skipped": 7054,
+        "crawl_coverage_pct": 100.0
+      },
+      "links": {
+        "broken_internal_links_count": 13,
+        "docs_broken_links_count": 13,
+        "repo_broken_links_count": 0,
+        "unverified_links_count": 5,
+        "confirmed_broken_links_count": 13,
+        "excluded_links_count": 13
+      },
+      "seo_geo": {
+        "seo_geo_issue_rate_pct": 6.89
+      },
+      "api_coverage": {
+        "reference_coverage_pct": 36.9,
+        "no_api_pages_found": false,
+        "api_pages_detected": 457,
+        "coverage_determined": true,
+        "detection_note": ""
+      },
+      "examples": {
+        "example_reliability_estimate_pct": 86.87
+      },
+      "freshness": {
+        "last_updated_coverage_pct": 89.36
+      }
+    },
+    "confidence": {
+      "overall_confidence_pct": 80.39,
+      "links_confidence_pct": 67.22,
+      "api_confidence_pct": 85.0,
+      "crawl_confidence_pct": 95.0
+    }
+  },
+  "confidence": {
+    "overall_confidence_pct": 80.39,
+    "links_confidence_pct": 67.22,
+    "api_confidence_pct": 85.0,
+    "crawl_confidence_pct": 95.0
+  },
+  "top_findings": [
+    "Broken internal links: 13",
+    "Link verification inconclusive for 5 URLs (auth/rate-limit/server block); these are excluded from broken-link counts.",
+    "API usage-doc coverage is low: 36.9% (457 API pages detected)"
+  ],
+  "llm_analysis": {
+    "status": "ok",
+    "model": "claude-sonnet-4-5",
+    "analysis": {
+      "executive_summary": "Audit crawled 3,305 pages from Contentful developer documentation with 100% crawl coverage. Detected 13 confirmed broken internal documentation links. API reference coverage is low at 36.9% across 457 detected API pages. Example code reliability estimate is 86.87% with 89.36% of pages showing last-updated metadata. Overall audit confidence is 80.39%, with link verification confidence at 67.22%.",
+      "strengths": [
+        "Complete crawl coverage at 100% (3,305 of 3,312 in-scope pages)",
+        "High example code reliability estimate at 86.87%",
+        "Strong freshness metadata coverage at 89.36% of pages",
+        "No repository navigation broken links (repo_broken_links_count: 0)",
+        "Single-product topology provides clear documentation structure"
+      ],
+      "risks": [
+        "13 confirmed broken internal documentation links degrading user navigation experience",
+        "API reference coverage critically low at 36.9%, indicating incomplete API documentation",
+        "5 unverified links due to authentication, rate-limiting, or server blocks create uncertainty",
+        "Link verification confidence at 67.22% suggests potential undetected link issues",
+        "SEO/geo issue rate at 6.89% may impact discoverability in search and regional access",
+        "Overall confidence at 80.39% indicates moderate audit limitations",
+        "457 API pages detected but only 36.9% have adequate usage documentation coverage"
+      ],
+      "prioritized_actions": [
+        {
+          "action": "Fix all 13 confirmed broken internal documentation links",
+          "impact": "critical",
+          "effort": "low"
+        },
+        {
+          "action": "Expand API usage documentation to increase 36.9% reference coverage to minimum 70%",
+          "impact": "critical",
+          "effort": "high"
+        },
+        {
+          "action": "Investigate and resolve 5 unverified links (auth/rate-limit/server issues)",
+          "impact": "high",
+          "effort": "medium"
+        },
+        {
+          "action": "Address SEO/geo issues affecting 6.89% of pages to improve discoverability",
+          "impact": "medium",
+          "effort": "medium"
+        },
+        {
+          "action": "Improve example code reliability from 86.87% to 95%+ through validation automation",
+          "impact": "medium",
+          "effort": "medium"
+        }
+      ],
+      "limitations": [
+        "External audit cannot verify links behind authentication walls or rate-limited endpoints (5 unverified URLs)",
+        "API coverage detection relies on pattern matching; actual API completeness requires internal schema validation",
+        "Example code reliability is estimated through static analysis; runtime execution success not guaranteed",
+        "Crawl trapped 7,054 URLs as duplicates/noise; some edge-case content may be excluded from analysis",
+        "67.22% link confidence indicates potential false negatives in broken link detection due to server-side blocks"
+      ]
+    }
+  }
+}

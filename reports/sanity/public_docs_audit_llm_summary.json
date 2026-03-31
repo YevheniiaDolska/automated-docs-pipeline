@@ -1,0 +1,57 @@
+{
+  "status": "ok",
+  "model": "claude-sonnet-4-5",
+  "analysis": {
+    "executive_summary": "Documentation audit of sanity.io/docs crawled 4,551 pages across 4,681 discovered URLs, achieving 100% crawl coverage within scope. Critical issue: 173 confirmed broken internal documentation links require immediate remediation. API reference coverage stands at 54.05% across 1,660 detected API pages, indicating significant documentation gaps. Example code reliability is strong at 93.05%, and 87.89% of pages include last-updated metadata. Overall audit confidence is 79.74%, with link verification confidence reduced to 65.61% due to 72 unverified URLs blocked by authentication or rate-limiting.",
+    "strengths": [
+      "Complete crawl coverage (100.02%) with 4,551 pages successfully indexed within scope limits",
+      "Strong example code reliability at 93.05%, indicating well-maintained code samples",
+      "High freshness metadata coverage at 87.89% of pages showing last-updated timestamps",
+      "1,660 API pages successfully detected with clear API documentation structure",
+      "Single-product topology provides coherent documentation architecture"
+    ],
+    "risks": [
+      "173 confirmed broken internal documentation links create poor user experience and navigation failures",
+      "API reference coverage at 54.05% leaves nearly half of API surface undocumented or poorly linked",
+      "72 unverified links due to authentication/rate-limiting/server blocks represent unknown documentation quality",
+      "SEO/geo issue rate of 9.03% affects discoverability and search engine performance",
+      "Link verification confidence at 65.61% indicates significant uncertainty in link health assessment",
+      "4,681 discovered pages vs 4,551 crawled suggests 130 pages were inaccessible or out-of-scope",
+      "47 trap URLs skipped may indicate crawler confusion or documentation structure issues"
+    ],
+    "prioritized_actions": [
+      {
+        "action": "Repair all 173 confirmed broken internal documentation links",
+        "impact": "critical",
+        "effort": "medium"
+      },
+      {
+        "action": "Investigate and document the 72 unverified links blocked by auth/rate-limits to determine if they are legitimate or broken",
+        "impact": "high",
+        "effort": "low"
+      },
+      {
+        "action": "Expand API reference documentation to improve 54.05% coverage rate, targeting missing endpoints and methods",
+        "impact": "high",
+        "effort": "high"
+      },
+      {
+        "action": "Address SEO/geo issues affecting 9.03% of pages to improve search discoverability",
+        "impact": "medium",
+        "effort": "medium"
+      },
+      {
+        "action": "Analyze 130 discovered-but-not-crawled pages and 47 trap URLs to identify structural or navigation problems",
+        "impact": "medium",
+        "effort": "low"
+      }
+    ],
+    "limitations": [
+      "External audit cannot verify content accuracy, technical correctness, or whether documentation matches actual product behavior",
+      "72 URLs blocked by authentication, rate-limiting, or server restrictions could not be verified; actual broken link count may be higher",
+      "API coverage detection relies on pattern matching and may miss unconventional API documentation structures or misclassify pages",
+      "Audit cannot assess documentation completeness for features, use cases, or business requirements not visible in page structure",
+      "Freshness metadata presence does not guarantee content is actually current or reflects latest product versions"
+    ]
+  }
+}

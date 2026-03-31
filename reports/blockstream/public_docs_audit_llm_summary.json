@@ -1,0 +1,57 @@
+{
+  "status": "ok",
+  "model": "claude-sonnet-4-5",
+  "analysis": {
+    "executive_summary": "Documentation audit across 6 sites crawled 306 pages from 619 requested URLs with 103.4% crawl coverage. Critical issues include 58 confirmed broken internal links, 30.07% SEO/GEO issue rate, and only 34.04% API reference coverage across 20 detected API pages. Freshness metadata is present on only 13.4% of pages, limiting change tracking. Overall confidence is 71.85%, with links confidence notably low at 45.88% due to 56 unverified URLs blocked by auth/rate-limits. Multi-project topology acknowledged; no fragmentation penalty applied.",
+    "strengths": [
+      "High crawl coverage at 103.4% indicates comprehensive site discovery and indexing",
+      "Multi-project documentation structure properly identified and scoped across 6 distinct sites",
+      "API documentation pages successfully detected (20 pages) with coverage measurement enabled",
+      "Overall confidence of 71.85% provides reasonable assurance for most findings",
+      "Example code reliability estimated at 75.25%, suggesting functional code samples"
+    ],
+    "risks": [
+      "58 confirmed broken internal links degrade user navigation and trust across all documentation sites",
+      "56 unverified links (auth/rate-limit blocked) represent unknown documentation quality exposure",
+      "API reference coverage at 34.04% leaves two-thirds of API surface undocumented or poorly covered",
+      "SEO/GEO issue rate of 30.07% significantly impacts discoverability and search ranking",
+      "Only 13.4% freshness coverage prevents users from assessing content currency and maintenance status",
+      "Links confidence at 45.88% indicates substantial uncertainty in link health assessment",
+      "41 trap URLs skipped may hide additional content quality issues in edge cases"
+    ],
+    "prioritized_actions": [
+      {
+        "action": "Fix all 58 confirmed broken internal links to restore navigation integrity across documentation sites",
+        "impact": "critical",
+        "effort": "medium"
+      },
+      {
+        "action": "Expand API reference documentation to achieve minimum 70% coverage across detected API surface",
+        "impact": "critical",
+        "effort": "high"
+      },
+      {
+        "action": "Implement last-updated metadata on all pages to increase freshness visibility from 13.4% to 90%+",
+        "impact": "high",
+        "effort": "low"
+      },
+      {
+        "action": "Resolve SEO/GEO issues affecting 30.07% of pages (meta descriptions, titles, structured data)",
+        "impact": "high",
+        "effort": "medium"
+      },
+      {
+        "action": "Manually verify 56 auth-blocked URLs and establish monitoring for protected documentation endpoints",
+        "impact": "medium",
+        "effort": "medium"
+      }
+    ],
+    "limitations": [
+      "External audit cannot verify content accuracy, technical correctness, or completeness of explanations within pages",
+      "56 URLs blocked by authentication or rate-limits remain unverified; actual broken link count may be higher",
+      "API coverage detection relies on heuristics; actual API completeness requires internal schema comparison",
+      "Crawl traps (41 skipped URLs) may contain additional quality issues not reflected in this assessment",
+      "Multi-project topology assumes intentional separation; user experience fragmentation not evaluated"
+    ]
+  }
+}

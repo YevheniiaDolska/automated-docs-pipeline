@@ -1,0 +1,57 @@
+{
+  "status": "ok",
+  "model": "claude-sonnet-4-5",
+  "analysis": {
+    "executive_summary": "Audit crawled 358 pages across Stytch documentation with 100.28% crawl coverage. Identified 9 confirmed broken internal documentation links with no repository navigation link failures. API reference coverage stands at 38.79% across 28 detected API pages, indicating significant documentation gaps. SEO and geographic metadata issues affect 42.6% of pages. Overall audit confidence is 65.35%, with notably low link verification confidence at 29.62% due to 17 unverified URLs blocked by authentication or rate limiting.",
+    "strengths": [
+      "Complete crawl coverage at 100.28% with 358 pages successfully indexed",
+      "Freshness metadata present on 82.96% of documentation pages",
+      "High API detection confidence at 85.0% with clear identification of 28 API pages",
+      "No repository navigation link failures (0 repo_broken_links_count)",
+      "Example code reliability estimated at 70.72%"
+    ],
+    "risks": [
+      "9 confirmed broken internal documentation links degrading user navigation experience",
+      "API reference coverage at only 38.79% leaves majority of API surface undocumented",
+      "SEO/GEO issue rate of 42.6% impacts discoverability and international reach",
+      "Link verification confidence critically low at 29.62% with 17 URLs unverifiable due to authentication or server blocks",
+      "Overall audit confidence of 65.35% indicates moderate uncertainty in findings completeness",
+      "17 unverified links may mask additional broken links not captured in current count",
+      "Example reliability at 70.72% suggests nearly 30% of code samples may be outdated or non-functional"
+    ],
+    "prioritized_actions": [
+      {
+        "action": "Fix all 9 confirmed broken internal documentation links to restore navigation integrity",
+        "impact": "critical",
+        "effort": "low"
+      },
+      {
+        "action": "Expand API reference documentation from 38.79% to minimum 80% coverage across identified API surface",
+        "impact": "critical",
+        "effort": "high"
+      },
+      {
+        "action": "Resolve SEO/GEO metadata issues affecting 42.6% of pages to improve search visibility and localization",
+        "impact": "high",
+        "effort": "medium"
+      },
+      {
+        "action": "Investigate and verify 17 authentication-blocked URLs to confirm link validity and accessibility",
+        "impact": "high",
+        "effort": "medium"
+      },
+      {
+        "action": "Audit and update code examples to improve reliability above 85% threshold",
+        "impact": "medium",
+        "effort": "medium"
+      }
+    ],
+    "limitations": [
+      "External audit cannot verify content accuracy, technical correctness, or completeness of API documentation beyond structural coverage metrics",
+      "17 URLs blocked by authentication, rate limiting, or server restrictions could not be verified and may contain additional broken links",
+      "Example code reliability is estimated through heuristics and does not guarantee functional testing or runtime validation",
+      "Audit cannot assess internal content quality, clarity, or alignment with actual product behavior and features",
+      "SEO/GEO issue detection identifies structural problems but cannot evaluate content relevance or market-specific appropriateness"
+    ]
+  }
+}

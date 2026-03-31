@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Public Docs Audit</title>
+<style>
+  :root { --bg:#f8fafc; --text:#0f172a; --muted:#64748b; --card:#fff; --border:#e2e8f0; --accent:#0ea5e9; }
+  body { margin:0; font-family:"Segoe UI", Arial, sans-serif; background:linear-gradient(145deg,#ecfeff,#f8fafc); color:var(--text); }
+  .wrap { max-width:1050px; margin:0 auto; padding:24px 16px 40px; }
+  .hero,.section { background:var(--card); border:1px solid var(--border); border-radius:14px; padding:16px; margin-bottom:14px; }
+  h1 { margin:0 0 8px; font-size:28px; }
+  .sub { color:var(--muted); margin:0; }
+  .grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:10px; margin-top:12px; }
+  .card { border:1px solid var(--border); border-radius:10px; padding:12px; }
+  .value { font-size:30px; font-weight:700; color:var(--accent); margin-top:6px; }
+  .label { font-size:13px; color:var(--muted); }
+  ul { margin:8px 0 0 18px; }
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="hero">
+      <h1>Public Documentation Audit</h1>
+      <p class="sub">Sites: 5 | topology: multi-project</p>
+      <p class="sub">Generated: 2026-03-29T17:53:11.644968+00:00</p>
+      <div class="grid">
+        <div class="card"><div class="label">Pages crawled</div><div class="value">6641</div></div>
+        <div class="card"><div class="label">Pages discovered</div><div class="value">8045</div></div>
+        <div class="card"><div class="label">Crawl coverage</div><div class="value">86.95%</div></div>
+        <div class="card"><div class="label">Broken links (docs)</div><div class="value">8</div></div>
+        <div class="card"><div class="label">Broken links (repo nav)</div><div class="value">0</div></div>
+        <div class="card"><div class="label">Unverified links</div><div class="value">990</div></div>
+        <div class="card"><div class="label">SEO/GEO issue rate</div><div class="value">22.64%</div></div>
+        <div class="card"><div class="label">API reference coverage</div><div class="value">17.8%</div></div>
+        <div class="card"><div class="label">Example reliability (estimate)</div><div class="value">83.02%</div></div>
+        <div class="card"><div class="label">Last-updated coverage</div><div class="value">67.71%</div></div>
+        <div class="card"><div class="label">Audit confidence</div><div class="value">61.54%</div></div>
+      </div>
+    </div>
+    <div class="section">
+      <h2>Top Findings</h2>
+      <ul>
+        <li>Broken internal links: 8</li><li>Link verification inconclusive for 990 URLs (auth/rate-limit/server block); these are excluded from broken-link counts.</li><li>SEO/GEO issue rate is high: 22.64%</li><li>API usage-doc coverage is low: 17.8% (1879 API pages detected)</li><li>Documentation is split across multiple sites, but marked as multi-project; no fragmentation penalty applied.</li>
+      </ul>
+    </div>
+    <div class="section">
+      <h2>Per-site Summary</h2>
+      <ul>
+        <li><strong>https://www.vonage.com/developer-center</strong>: pages=0, broken_links=0, api_coverage=N/A, examples=0.0%</li><li><strong>https://documentation-mcp.vonage.dev/</strong>: pages=1, broken_links=0, api_coverage=N/A, examples=0.0%</li><li><strong>https://api.support.vonage.com/hc/en-us</strong>: pages=1649, broken_links=7, api_coverage=N/A, examples=73.08%</li><li><strong>https://developer.vonage.com/en/home</strong>: pages=146, broken_links=0, api_coverage=N/A, examples=85.71%</li><li><strong>https://docs-vcc.atlassian.net/wiki/spaces/VCCA/overview</strong>: pages=4845, broken_links=1, api_coverage=20.61%, examples=86.34%</li>
+      </ul>
+    </div>
+    <div class="section"><h2>LLM Executive Analysis (Claude Sonnet)</h2><p>Audit covered 6,641 pages across 5 Vonage documentation properties with 86.95% crawl coverage. 8 confirmed broken internal links exist in user-facing documentation. API reference coverage is critically low at 17.8% despite detecting 1,879 API pages. 990 links remain unverified due to authentication or rate-limiting barriers. SEO/geo issues affect 22.64% of pages, and only 67.71% of content displays last-updated metadata.</p><h3>Strengths</h3><ul><li>High crawl coverage at 86.95% across multi-project topology with 6,641 pages successfully indexed</li><li>No repository navigation broken links; all 8 broken links are in user-facing documentation only</li><li>Example code reliability estimated at 83.02%, indicating strong code sample quality</li><li>Multi-project architecture recognized without fragmentation penalty, appropriate for enterprise documentation structure</li><li>API page detection successful with 1,879 pages identified and no detection failures</li></ul><h3>Risks</h3><ul><li>API reference coverage critically low at 17.8%; 82.2% of API pages lack adequate usage documentation or integration guidance</li><li>990 unverified links create uncertainty in link health assessment; 25% link confidence score indicates significant verification gaps</li><li>SEO/geo issue rate of 22.64% may impact discoverability and international user experience</li><li>Only 67.71% of pages show last-updated metadata, obscuring content freshness for 32.29% of documentation</li><li>Overall confidence score of 61.54% suggests moderate reliability in audit findings; critical decisions require manual validation</li><li>1,581 URLs skipped as crawl traps may hide additional broken links or quality issues</li><li>8 confirmed broken internal links degrade user navigation and trust in documentation quality</li></ul><h3>Prioritized actions</h3><ul><li>Audit and enhance usage documentation for the 82.2% of API pages lacking adequate coverage; prioritize top 20 most-accessed endpoints <em>[critical, high]</em></li><li>Fix all 8 confirmed broken internal links in user-facing documentation immediately <em>[high, low]</em></li><li>Implement authentication bypass or dedicated crawl credentials to verify 990 unverified links and establish true link health baseline <em>[high, medium]</em></li><li>Add last-updated metadata to the 32.29% of pages missing freshness indicators; automate via CI/CD pipeline <em>[medium, medium]</em></li><li>Remediate SEO/geo issues affecting 22.64% of pages: audit meta descriptions, title tags, and internationalization markup <em>[medium, high]</em></li></ul></div>
+  </div>
+</body>
+</html>

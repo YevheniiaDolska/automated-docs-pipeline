@@ -1,0 +1,57 @@
+{
+  "status": "ok",
+  "model": "claude-sonnet-4-5",
+  "analysis": {
+    "executive_summary": "Audit crawled 2,584 pages from Clerk.com documentation with 100% crawl coverage. Detected 37 confirmed broken internal documentation links and 137 unverified links blocked by auth/rate-limits. API reference coverage is critically low at 0.0% despite 1,676 API pages detected. Example reliability scored 0%, flagged as likely detection limitation due to JS-rendered code blocks. Overall confidence stands at 53%, with link verification confidence at only 25%.",
+    "strengths": [
+      "Complete crawl coverage achieved: 100% of 2,598 in-scope pages successfully crawled",
+      "High freshness metadata coverage: 98.88% of pages include last-updated timestamps",
+      "Single-product topology provides clear documentation structure",
+      "Low SEO/geo issue rate of 4.34% indicates good technical SEO hygiene",
+      "No repository navigation broken links (0 repo_broken_links_count)"
+    ],
+    "risks": [
+      "37 confirmed broken internal documentation links actively degrading user navigation experience",
+      "0.0% API reference coverage indicates severe gap between API endpoints and usage documentation for 1,676 API pages",
+      "137 unverified links create uncertainty in link health; may hide additional broken links behind auth walls",
+      "Example reliability at 0% suggests JS-rendered code blocks are invisible to audit tooling, masking code quality issues",
+      "Overall confidence of 53% and link confidence of 25% indicate audit results may underrepresent true documentation health",
+      "204 trap URLs skipped during crawl may indicate pagination or infinite scroll issues affecting discoverability",
+      "560 requested pages not crawled (3,144 requested vs 2,584 crawled) suggests scope limitations or access barriers"
+    ],
+    "prioritized_actions": [
+      {
+        "action": "Fix all 37 confirmed broken internal documentation links to restore navigation integrity",
+        "impact": "critical",
+        "effort": "low"
+      },
+      {
+        "action": "Audit and document usage examples for 1,676 API pages to achieve minimum 60% reference coverage",
+        "impact": "critical",
+        "effort": "high"
+      },
+      {
+        "action": "Investigate 137 unverified links; implement monitoring for auth-protected and rate-limited endpoints",
+        "impact": "high",
+        "effort": "medium"
+      },
+      {
+        "action": "Enable server-side rendering or static generation for code examples to improve auditability and SEO",
+        "impact": "high",
+        "effort": "medium"
+      },
+      {
+        "action": "Review 204 trap URLs and 560 uncrawled pages to identify and fix crawl barriers or scope gaps",
+        "impact": "medium",
+        "effort": "medium"
+      }
+    ],
+    "limitations": [
+      "External audit cannot verify links behind authentication, rate-limits, or server blocks (137 unverified URLs excluded from broken-link counts)",
+      "JavaScript-rendered code examples appear invisible to crawler; 0% example reliability likely reflects detection failure, not actual code absence",
+      "Audit cannot validate functional correctness of API documentation, code example accuracy, or whether examples execute successfully",
+      "25% link confidence and 53% overall confidence indicate significant blind spots; actual documentation health may be worse than reported",
+      "Cannot assess content quality, technical accuracy, completeness of explanations, or alignment between code samples and current API versions"
+    ]
+  }
+}

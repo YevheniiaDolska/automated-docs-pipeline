@@ -1,0 +1,57 @@
+{
+  "status": "ok",
+  "model": "claude-sonnet-4-5",
+  "analysis": {
+    "executive_summary": "Audit of Segment documentation (https://segment.com/docs) crawled 1,572 pages from 1,586 discovered URLs with 100% crawl coverage. Critical issue: 522 confirmed broken internal documentation links across the site. API reference coverage is 73.68% (95 API pages detected). Example code reliability estimate is 42.86%, and only 8.91% of pages display last-updated metadata. Overall confidence score is 66.38%, with link verification confidence at 32.21% due to 881 unverified URLs blocked by authentication or rate limiting.",
+    "strengths": [
+      "Complete crawl coverage at 100.06% of discovered documentation pages",
+      "API reference pages detected successfully (95 pages) with 73.68% coverage and 85% detection confidence",
+      "Single-product topology provides clear documentation structure",
+      "No repository navigation link breakage (0 repo_broken_links_count)",
+      "SEO/geo issue rate is low at 5.0%"
+    ],
+    "risks": [
+      "522 confirmed broken internal documentation links create poor user experience and erode trust",
+      "881 unverified links (auth/rate-limit blocked) represent unknown quality risk and reduce link confidence to 32.21%",
+      "Example code reliability at 42.86% suggests nearly half of code samples may be outdated or non-functional",
+      "Only 8.91% freshness coverage means users cannot determine if 91% of content is current",
+      "26.32% API reference gap leaves significant portions of API undocumented",
+      "Overall confidence of 66.38% indicates moderate uncertainty in audit completeness",
+      "Low link confidence (32.21%) may mask additional broken links in protected areas"
+    ],
+    "prioritized_actions": [
+      {
+        "action": "Fix all 522 confirmed broken internal documentation links",
+        "impact": "critical",
+        "effort": "high"
+      },
+      {
+        "action": "Implement automated example code testing to improve 42.86% reliability score",
+        "impact": "critical",
+        "effort": "high"
+      },
+      {
+        "action": "Add last-updated timestamps to all pages (currently 8.91% coverage)",
+        "impact": "high",
+        "effort": "low"
+      },
+      {
+        "action": "Investigate and verify 881 blocked URLs to resolve 32.21% link confidence gap",
+        "impact": "high",
+        "effort": "medium"
+      },
+      {
+        "action": "Document remaining 26.32% of API surface to achieve complete reference coverage",
+        "impact": "medium",
+        "effort": "medium"
+      }
+    ],
+    "limitations": [
+      "881 URLs could not be verified due to authentication, rate limiting, or server blocks; actual broken link count may be higher",
+      "Example reliability is an estimate based on detectable patterns; actual code functionality requires execution testing",
+      "Crawl limited to 1,572 of 3,706 requested pages due to 2,500 page maximum; some content may be unaudited",
+      "External audit cannot verify accuracy of technical content, only structural and link integrity",
+      "API coverage detection depends on page structure patterns; non-standard API documentation may be undercounted"
+    ]
+  }
+}

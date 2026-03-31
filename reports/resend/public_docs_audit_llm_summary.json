@@ -1,0 +1,57 @@
+{
+  "status": "ok",
+  "model": "claude-sonnet-4-5",
+  "analysis": {
+    "executive_summary": "Audit of resend.com/docs crawled 715 pages with 100.14% coverage against 813 requested pages. 10 confirmed broken internal documentation links exist (all user-facing, zero repository links). API reference coverage is low at 37.21% across 118 detected API pages. Example code reliability shows 0% detection, flagged as a likely detection limitation due to JavaScript-rendered code blocks. Only 45.59% of pages display last-updated metadata, limiting freshness transparency.",
+    "strengths": [
+      "Complete crawl coverage at 100.14%, examining all discoverable documentation pages within scope",
+      "High overall audit confidence at 87.86%, with crawl confidence reaching 95%",
+      "Single-product topology provides clear documentation structure",
+      "Zero repository navigation broken links; all link issues are user-facing and fixable",
+      "Low SEO/geo issue rate at 4.79%, indicating solid technical foundation"
+    ],
+    "risks": [
+      "10 confirmed broken internal documentation links degrade user navigation and trust",
+      "API reference coverage at 37.21% leaves 62.79% of API surface undocumented or poorly linked",
+      "Example code reliability at 0% suggests detection failure; actual code quality unknown and unverifiable",
+      "Only 45.59% of pages show last-updated dates, obscuring content freshness for majority of documentation",
+      "1 unverified link due to auth/rate-limit/server blocks may hide additional broken external references",
+      "JavaScript-rendered code blocks prevent automated example validation, creating blind spot for code accuracy",
+      "API confidence at 85% and links confidence at 85.91% indicate moderate uncertainty in coverage metrics"
+    ],
+    "prioritized_actions": [
+      {
+        "action": "Fix all 10 confirmed broken internal documentation links to restore navigation integrity",
+        "impact": "critical",
+        "effort": "low"
+      },
+      {
+        "action": "Expand API reference coverage from 37.21% to minimum 80% by documenting missing endpoints and linking usage examples",
+        "impact": "critical",
+        "effort": "high"
+      },
+      {
+        "action": "Implement last-updated metadata on all pages to increase freshness visibility from 45.59% to 95%+",
+        "impact": "high",
+        "effort": "medium"
+      },
+      {
+        "action": "Migrate code examples to static HTML or add server-side rendering to enable automated validation and reliability scoring",
+        "impact": "high",
+        "effort": "high"
+      },
+      {
+        "action": "Investigate and resolve 1 unverified link; establish monitoring for auth-protected external references",
+        "impact": "medium",
+        "effort": "low"
+      }
+    ],
+    "limitations": [
+      "Example code reliability at 0% indicates detection failure on JavaScript-rendered blocks; actual code quality, syntax correctness, and runnable status cannot be verified by external audit",
+      "1 unverified link blocked by authentication/rate-limiting/server issues may mask additional broken external references not discoverable without credentials",
+      "API coverage detection at 85% confidence may undercount or misclassify API pages if non-standard URL patterns or dynamic routing are used",
+      "Audit cannot verify accuracy of documentation content, code functionality, or alignment between docs and actual API behavior",
+      "Freshness metadata absence on 54.41% of pages prevents assessment of content staleness; pages may be outdated without visible indicators"
+    ]
+  }
+}

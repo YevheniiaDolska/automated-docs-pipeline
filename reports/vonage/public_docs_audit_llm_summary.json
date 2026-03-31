@@ -1,0 +1,57 @@
+{
+  "status": "ok",
+  "model": "claude-sonnet-4-5",
+  "analysis": {
+    "executive_summary": "Audit covered 6,641 pages across 5 Vonage documentation properties with 86.95% crawl coverage. 8 confirmed broken internal links exist in user-facing documentation. API reference coverage is critically low at 17.8% despite detecting 1,879 API pages. 990 links remain unverified due to authentication or rate-limiting barriers. SEO/geo issues affect 22.64% of pages, and only 67.71% of content displays last-updated metadata.",
+    "strengths": [
+      "High crawl coverage at 86.95% across multi-project topology with 6,641 pages successfully indexed",
+      "No repository navigation broken links; all 8 broken links are in user-facing documentation only",
+      "Example code reliability estimated at 83.02%, indicating strong code sample quality",
+      "Multi-project architecture recognized without fragmentation penalty, appropriate for enterprise documentation structure",
+      "API page detection successful with 1,879 pages identified and no detection failures"
+    ],
+    "risks": [
+      "API reference coverage critically low at 17.8%; 82.2% of API pages lack adequate usage documentation or integration guidance",
+      "990 unverified links create uncertainty in link health assessment; 25% link confidence score indicates significant verification gaps",
+      "SEO/geo issue rate of 22.64% may impact discoverability and international user experience",
+      "Only 67.71% of pages show last-updated metadata, obscuring content freshness for 32.29% of documentation",
+      "Overall confidence score of 61.54% suggests moderate reliability in audit findings; critical decisions require manual validation",
+      "1,581 URLs skipped as crawl traps may hide additional broken links or quality issues",
+      "8 confirmed broken internal links degrade user navigation and trust in documentation quality"
+    ],
+    "prioritized_actions": [
+      {
+        "action": "Audit and enhance usage documentation for the 82.2% of API pages lacking adequate coverage; prioritize top 20 most-accessed endpoints",
+        "impact": "critical",
+        "effort": "high"
+      },
+      {
+        "action": "Fix all 8 confirmed broken internal links in user-facing documentation immediately",
+        "impact": "high",
+        "effort": "low"
+      },
+      {
+        "action": "Implement authentication bypass or dedicated crawl credentials to verify 990 unverified links and establish true link health baseline",
+        "impact": "high",
+        "effort": "medium"
+      },
+      {
+        "action": "Add last-updated metadata to the 32.29% of pages missing freshness indicators; automate via CI/CD pipeline",
+        "impact": "medium",
+        "effort": "medium"
+      },
+      {
+        "action": "Remediate SEO/geo issues affecting 22.64% of pages: audit meta descriptions, title tags, and internationalization markup",
+        "impact": "medium",
+        "effort": "high"
+      }
+    ],
+    "limitations": [
+      "990 unverified links due to authentication, rate-limiting, or server blocks mean true broken link count may be higher than reported 8",
+      "External audit cannot verify accuracy of technical content, code functionality, or API specification correctness",
+      "Crawl traps excluded 1,581 URLs; these may contain undiscovered quality issues or broken links not reflected in findings",
+      "API coverage calculation depends on heuristic detection; actual developer experience may differ from quantitative reference coverage metric",
+      "Multi-site topology audit cannot assess internal team workflows, content approval processes, or maintenance resource allocation"
+    ]
+  }
+}

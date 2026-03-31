@@ -1,0 +1,57 @@
+{
+  "status": "ok",
+  "model": "claude-sonnet-4-5",
+  "analysis": {
+    "executive_summary": "Documentation audit of workos.com/docs covered 1,399 pages (100% crawl coverage) across a single-product topology. 13 confirmed broken internal documentation links were identified, all within user-facing docs (0 repository links). API reference coverage is complete at 100% (217 API pages detected). Example code reliability is estimated at 75.07%, and freshness metadata (last updated dates) is present on 71.38% of pages. Overall audit confidence is 80.39%, with link verification confidence at 67.22% due to 5 unverified URLs blocked by authentication or rate limiting.",
+    "strengths": [
+      "Complete API reference coverage at 100% with 217 API pages successfully detected",
+      "Full crawl coverage achieved (100%) with 1,399 pages indexed from 1,402 discovered",
+      "Zero broken repository navigation links; all 13 broken links are in user-facing documentation",
+      "Strong overall audit confidence at 80.39% with high crawl confidence at 95%",
+      "Freshness metadata present on over 71% of pages, enabling content aging analysis"
+    ],
+    "risks": [
+      "13 confirmed broken internal documentation links degrade user navigation and trust",
+      "Example code reliability at 75.07% indicates approximately 1 in 4 code samples may be outdated or non-functional",
+      "5 links remain unverified due to authentication, rate limiting, or server blocks, creating blind spots",
+      "Link verification confidence at 67.22% suggests potential for undetected link issues",
+      "28.62% of pages lack freshness metadata, obscuring content age for nearly one-third of documentation",
+      "SEO/geo issue rate at 2.86% may impact discoverability in certain markets or search contexts",
+      "No detection limitations flagged, but confidence gaps indicate incomplete validation coverage"
+    ],
+    "prioritized_actions": [
+      {
+        "action": "Repair all 13 confirmed broken internal documentation links to restore navigation integrity",
+        "impact": "critical",
+        "effort": "low"
+      },
+      {
+        "action": "Audit and update code examples to improve reliability from 75.07% toward 90%+ target",
+        "impact": "high",
+        "effort": "high"
+      },
+      {
+        "action": "Investigate and resolve 5 unverified links (authentication/rate-limit blocks) to eliminate blind spots",
+        "impact": "high",
+        "effort": "medium"
+      },
+      {
+        "action": "Add last-updated metadata to remaining 28.62% of pages for complete freshness tracking",
+        "impact": "medium",
+        "effort": "medium"
+      },
+      {
+        "action": "Address SEO/geo issues (2.86% of pages) to optimize search discoverability and regional access",
+        "impact": "medium",
+        "effort": "low"
+      }
+    ],
+    "limitations": [
+      "External audit cannot verify content accuracy, technical correctness, or alignment with actual API/product behavior",
+      "Code example reliability is estimated through heuristics; actual runtime validation requires environment-specific testing",
+      "5 URLs blocked by authentication or rate limiting could not be verified; internal manual review required",
+      "Audit cannot assess documentation completeness, conceptual gaps, or user comprehension effectiveness",
+      "Link verification confidence at 67.22% indicates some links may require internal network access or credentials for full validation"
+    ]
+  }
+}

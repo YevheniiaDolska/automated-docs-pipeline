@@ -102,7 +102,20 @@
       "Bash(VERIOPS_LICENSE_PLAN=pilot python3:*)",
       "Bash(do echo:*)",
       "Bash(PYTHONPATH=\"packages/core:scripts\" VERIOPS_LICENSE_PLAN=enterprise python:*)",
-      "Bash(PYTHONPATH=\"packages/core:scripts\" VERIOPS_LICENSE_PLAN=enterprise python3:*)"
+      "Bash(PYTHONPATH=\"packages/core:scripts\" VERIOPS_LICENSE_PLAN=enterprise python3:*)",
+      "Bash(ssh:*)",
+      "Bash(rsync:*)",
+      "Bash(scp:*)",
+      "Bash(/tmp/docker-compose.production-override.yml:*)",
+      "WebFetch(domain:calendly.com)",
+      "Bash(npx vitest:*)",
+      "Bash(npx playwright:*)",
+      "Bash(openssl rand:*)",
+      "Bash(npx cspell:*)",
+      "Bash(nslookup:*)",
+      "Bash(tar czf:*)",
+      "Bash(do:*)",
+      "Bash(/tmp/fix_dockerfile.py:*)"
     ],
     "deny": [],
     "ask": []
