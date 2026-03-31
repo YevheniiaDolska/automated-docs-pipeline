@@ -117,8 +117,8 @@ Use it together with [Deployment Runbook](deploy/production-runbook.md).
 
 ## 14. Completed (2026-03-31)
 
-- [x] `git_wrapper` main updated to `8d2427f` and deployed to both environments.
-- [x] Production and staging are on the same commit (`8d2427f`).
+- [x] `git_wrapper` main updated to `bba132a` and deployed to both environments.
+- [x] Production and staging are on the same commit (`bba132a`).
 - [x] Runtime health verified after deploy:
   - production: `veridoc-api`, `veridoc-web`, `veridoc-worker`, `veridoc-beat` are `healthy`.
   - staging: `veridoc-staging-api`, `veridoc-staging-web`, `veridoc-staging-worker`, `veridoc-staging-beat` are `healthy`.
@@ -129,6 +129,17 @@ Use it together with [Deployment Runbook](deploy/production-runbook.md).
   - `ruff check` passed,
   - `black --check` passed after full reformat,
   - contract+drift+smoke test bundle passed (`174 passed` in `packages/core/tests/{smoke,drift,contract}`).
+
+## 16. Verification log (2026-03-31, late)
+
+- [x] Post-deploy verification after latest rollout:
+  - production head: `bba132a`,
+  - staging head: `bba132a`,
+  - all core containers are `healthy` in both environments (`api`, `web`, `worker`, `beat`).
+- [ ] GitHub Actions run status directly confirmed from this environment.
+  - Blocker: local `gh` cannot reach `api.github.com` in current network context.
+- [ ] Full monorepo `pytest tests` run completed to 100%.
+  - Current state: run started, `12315` tests collected, advancing without early failures; completion pending.
 
 ## 15. Current NO-GO blockers for paid launch
 
