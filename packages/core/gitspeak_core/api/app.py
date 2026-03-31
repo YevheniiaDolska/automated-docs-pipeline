@@ -321,6 +321,14 @@ def _load_revocation_list() -> dict[str, Any]:
     return payload if isinstance(payload, dict) else {}
 
 
+def _save_revocation_list(payload: dict[str, Any]) -> None:
+    REVOCATION_LIST_PATH.parent.mkdir(parents=True, exist_ok=True)
+    REVOCATION_LIST_PATH.write_text(
+        json.dumps(payload, ensure_ascii=True, indent=2) + "\n",
+        encoding="utf-8",
+    )
+
+
 # ---------------------------------------------------------------------------
 # Lifespan: startup / shutdown
 # ---------------------------------------------------------------------------
@@ -543,6 +551,13 @@ class MetadataTelemetryRequest(BaseModel):
     run_status: str = ""
     protocols: list[str] | None = None
     doc_scope: str = "standard"
+
+
+class RevocationUpsertRequest(BaseModel):
+    model_config = ConfigDict(extra="forbid")
+
+    tenant_id: str = Field(min_length=1, max_length=255)
+    reason: str = Field(default="manual_revoke", max_length=255)
 
 
 @app.post("/pipeline/run", tags=["pipeline"])
@@ -1300,6 +1315,182 @@ async def revocation_check(
         "revoked": revoked,
         "reason": revoke_reason,
     }
+
+
+@app.get("/ops/revocation/list", tags=["ops"])
+async def ops_revocation_list(
+    _auth: None = Depends(_require_ops_token),
+) -> dict[str, Any]:
+    """Return current tenant revocation entries."""
+    revocation_list = _load_revocation_list()
+    blocked = revocation_list.get("revoked_tenants", [])
+    tenants = (
+        sorted({str(v).strip() for v in blocked if str(v).strip()})
+        if isinstance(blocked, list)
+        else []
+    )
+    return {
+        "status": "ok",
+        "revoked_tenants": tenants,
+        "reason": str(revocation_list.get("reason", "manual_revoke")).strip() or "manual_revoke",
+        "updated_at_utc": str(revocation_list.get("updated_at_utc", "")),
+    }
+
+
+@app.post("/ops/revocation/upsert", tags=["ops"])
+async def ops_revocation_upsert(
+    request: RevocationUpsertRequest,
+    _auth: None = Depends(_require_ops_token),
+) -> dict[str, Any]:
+    """Insert tenant into revocation list (or refresh existing entry)."""
+    revocation_list = _load_revocation_list()
+    blocked = revocation_list.get("revoked_tenants", [])
+    current = (
+        {str(v).strip() for v in blocked if str(v).strip()}
+        if isinstance(blocked, list)
+        else set()
+    )
+    tenant = request.tenant_id.strip()
+    current.add(tenant)
+    payload = {
+        "revoked_tenants": sorted(current),
+        "reason": request.reason.strip() or "manual_revoke",
+        "updated_at_utc": datetime.now(timezone.utc).isoformat(),
+    }
+    try:
+        _save_revocation_list(payload)
+    except OSError as exc:
+        raise HTTPException(status_code=500, detail=f"Failed to persist revocation list: {exc}")
+    return {"status": "ok", "tenant_id": tenant, "revoked": True}
+
+
+@app.delete("/ops/revocation/{tenant_id}", tags=["ops"])
+async def ops_revocation_delete(
+    tenant_id: str,
+    _auth: None = Depends(_require_ops_token),
+) -> dict[str, Any]:
+    """Remove tenant from revocation list."""
+    tenant = str(tenant_id).strip()
+    if not tenant:
+        raise HTTPException(status_code=400, detail="tenant_id is required")
+    revocation_list = _load_revocation_list()
+    blocked = revocation_list.get("revoked_tenants", [])
+    current = (
+        {str(v).strip() for v in blocked if str(v).strip()}
+        if isinstance(blocked, list)
+        else set()
+    )
+    existed = tenant in current
+    if existed:
+        current.remove(tenant)
+    payload = {
+        "revoked_tenants": sorted(current),
+        "reason": str(revocation_list.get("reason", "manual_revoke")).strip() or "manual_revoke",
+        "updated_at_utc": datetime.now(timezone.utc).isoformat(),
+    }
+    try:
+        _save_revocation_list(payload)
+    except OSError as exc:
+        raise HTTPException(status_code=500, detail=f"Failed to persist revocation list: {exc}")
+    return {"status": "ok", "tenant_id": tenant, "removed": existed}
+
+
+@app.get("/ops/pack-registry/list", tags=["ops"])
+async def ops_pack_registry_list(
+    pack_name: str = "",
+    _auth: None = Depends(_require_ops_token),
+) -> dict[str, Any]:
+    """List available pack versions from registry metadata."""
+    entries: list[dict[str, str]] = []
+    if not PACK_REGISTRY_DIR.exists():
+        return {"status": "ok", "packs": entries}
+    target = pack_name.strip().lower()
+    try:
+        pack_dirs = [p for p in PACK_REGISTRY_DIR.iterdir() if p.is_dir()]
+    except OSError as exc:
+        raise HTTPException(status_code=500, detail=f"Failed to read pack registry: {exc}")
+    for directory in sorted(pack_dirs):
+        if target and directory.name != target:
+            continue
+        for meta_path in sorted(directory.glob("*.json")):
+            try:
+                meta_raw = json.loads(meta_path.read_text(encoding="utf-8"))
+            except (OSError, ValueError, TypeError):
+                continue
+            if not isinstance(meta_raw, dict):
+                continue
+            version_value = str(meta_raw.get("version", meta_path.stem)).strip() or meta_path.stem
+            entries.append(
+                {
+                    "pack_name": str(meta_raw.get("pack_name", directory.name)).strip() or directory.name,
+                    "version": version_value,
+                    "plan": str(meta_raw.get("plan", "")).strip(),
+                    "published_at_utc": str(meta_raw.get("published_at_utc", "")).strip(),
+                }
+            )
+    return {"status": "ok", "packs": entries}
+
+
+@app.delete("/ops/pack-registry/{pack_name}/{version}", tags=["ops"])
+async def ops_pack_registry_delete(
+    pack_name: str,
+    version: str,
+    _auth: None = Depends(_require_ops_token),
+) -> dict[str, Any]:
+    """Delete a specific pack version (.json + .enc.b64)."""
+    safe_name = pack_name.strip().lower().replace("..", "").replace("/", "-")
+    safe_version = version.strip().replace("/", "-")
+    if not safe_name or not safe_version:
+        raise HTTPException(status_code=400, detail="pack_name and version are required")
+    pack_dir = PACK_REGISTRY_DIR / safe_name
+    meta_path = pack_dir / f"{safe_version}.json"
+    blob_path = pack_dir / f"{safe_version}.enc.b64"
+    removed_files = 0
+    for file_path in (meta_path, blob_path):
+        if file_path.exists():
+            try:
+                file_path.unlink()
+                removed_files += 1
+            except OSError as exc:
+                raise HTTPException(status_code=500, detail=f"Failed to delete pack artifact: {exc}")
+    if removed_files == 0:
+        raise HTTPException(status_code=404, detail="Pack version not found")
+    if pack_dir.exists():
+        try:
+            next(pack_dir.iterdir())
+        except StopIteration:
+            try:
+                pack_dir.rmdir()
+            except OSError:
+                pass
+    return {"status": "ok", "pack_name": safe_name, "version": safe_version, "deleted_files": removed_files}
+
+
+@app.get("/ops/telemetry/recent", tags=["ops"])
+async def ops_telemetry_recent(
+    limit: int = 50,
+    _auth: None = Depends(_require_ops_token),
+) -> dict[str, Any]:
+    """Return most recent metadata telemetry events."""
+    bounded = max(1, min(int(limit), 500))
+    log_path = TELEMETRY_DIR / "metadata_events.ndjson"
+    if not log_path.exists():
+        return {"status": "ok", "events": []}
+    try:
+        lines = log_path.read_text(encoding="utf-8").splitlines()
+    except OSError as exc:
+        raise HTTPException(status_code=500, detail=f"Failed to read telemetry log: {exc}")
+    events: list[dict[str, Any]] = []
+    for line in lines[-bounded:]:
+        if not line.strip():
+            continue
+        try:
+            raw = json.loads(line)
+        except (ValueError, TypeError):
+            continue
+        if isinstance(raw, dict):
+            events.append(raw)
+    return {"status": "ok", "events": events}
 
 
 # =========================================================================
