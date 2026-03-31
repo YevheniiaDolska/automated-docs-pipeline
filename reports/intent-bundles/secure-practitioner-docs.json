@@ -2,61 +2,70 @@
   "intent": "secure",
   "audience": "practitioner",
   "channel": "docs",
-  "module_count": 7,
+  "module_count": 8,
   "modules": [
     {
-      "module_id": "auto-tutorial-1",
-      "title": "Tutorial: launch your first VeriOps API integration",
+      "module_id": "auto-configure-webhook-trigger-1",
+      "title": "Configure webhook triggers",
       "priority": 60,
       "intent": "secure",
       "audience": "practitioner",
       "channel": "docs",
-      "content": "# Tutorial: launch your first VeriOps API integration\n\n<div class=\"veriops-badges\" markdown>\n\n![Powered by VeriOps](https://img.shields.io/badge/Powered%20by-VeriOps-7c3aed?style=flat-square)\n![Quality Score](https://img.shields.io/badge/Quality%20Score-100%25-10b981?style=flat-square)\n![Protocols](https://img.shields.io/badge/Protocols-5-7c3aed?style=flat-square)\n\n</div>\n\nThis tutorial walks you through creating your first VeriOps API project, sending authenticated requests across three protocols (REST, GraphQL, and WebSocket), and verifying the integration works. You complete all five steps in under 15 minutes.\n\n## What you will build\n\nBy the end of this tutorial, you will have:\n\n- A working REST API client that creates and retrieves projects\n- A GraphQL query that fetches project data with custom field selection\n- A WebSocket subscription that receives real-time project update events\n- A test script that verifies all three protocols work together\n\n**Time to first success:** 5 minutes for REST, 15 minutes for the complete multi-protocol integration."
+      "content": "<!-- VERIDOC_POWERED_BADGE:START -->\n[![Powered by VeriDoc](https://img.shields.io/badge/Powered%20by-VeriDoc-0ea5e9?style=flat-square)](https://veridoc.app)\n<!-- VERIDOC_POWERED_BADGE:END -->\n\n# Configure webhook triggers\n\nThe {{ product_name }} webhook trigger node starts workflows when it\nreceives HTTP requests. It supports GET, POST, PUT, PATCH, and DELETE\nmethods with built-in authentication options including Basic Auth,\nHeader Auth, and JWT validation.\n\n## Before you start\n\nYou need:\n\n- {{ product_name }} {{ current_version }} or later\n- Access to create workflows\n- A publicly accessible URL (or a tunnel for local development)\n\n## Create a webhook trigger\n\n1. Open the {{ product_name }} editor\n1. Add a new workflow\n1. Select **Webhook** as the trigger node\n1. Choose the HTTP method (POST is recommended for event data)\n1. Copy the generated webhook URL\n\n=== \"Cloud\"\n\n    {{ product_name }} Cloud provides a public URL automatically:\n\n    ```text\n    {{ cloud_url }}/webhook/your-workflow-id\n    ```\n\n=== \"Self-hosted\"\n\n    Configure your instance URL with the {{ env_vars.webhook_url }}\n    environment variable:\n\n    ```bash\n    export {{ env_vars.webhook_url }}=\"https://your-domain.example.com\"\n    ```\n\n    Your webhook URL follows this pattern:\n\n    ```text\n    https://your-domain.example.com:{{ default_port }}/webhook/your-workflow-id\n    ```"
     },
     {
-      "module_id": "auto-tutorial-3",
-      "title": "Tutorial: launch your first VeriOps API integration (Part 3)",
+      "module_id": "auto-configure-webhook-trigger-2",
+      "title": "Configure webhook triggers (Part 2)",
       "priority": 60,
       "intent": "secure",
       "audience": "practitioner",
       "channel": "docs",
-      "content": "## Step 1: verify your API key (2 minutes)\n\nRun this command to confirm your API key authenticates against the VeriOps REST API:\n\n```bash\ncurl -s -o /dev/null -w \"%{http_code}\" \\\n  -H \"Authorization: Bearer YOUR_API_KEY\" \\\n  https://api.veriops.example/v1/projects\n```\n\n<!-- requires: api-key -->\n\nA `200` response confirms your key works. A `401` response means the key is invalid or expired. Generate a new key in the [dashboard](https://app.veriops.example/settings/api) if you receive `401`.\n\nNext, verify the GraphQL endpoint:\n\n```bash\ncurl -s -X POST https://api.veriops.example/graphql \\\n  -H \"Authorization: Bearer YOUR_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"query\": \"{ health { status version } }\"}' \\\n  | python3 -m json.tool\n```\n\n<!-- requires: api-key -->\n\n**Expected response:**\n\n```json\n{\n    \"data\": {\n        \"health\": {\n            \"status\": \"ok\",\n            \"version\": \"1.0.0\"\n        }\n    }\n}\n```"
+      "content": "## Configure authentication\n\n!!! warning \"Secure your webhooks\"\n    Always enable authentication on production webhook endpoints.\n    Unauthenticated webhooks accept requests from any source.\n\nAdd authentication in the webhook node settings:\n\n| Auth method | Use case | Configuration |\n|-------------|----------|---------------|\n| Header Auth | API key validation | Set header name and expected value |\n| Basic Auth | Username and password | Set credentials in node settings |\n| JWT | Token-based auth | Configure secret and algorithm |"
     },
     {
-      "module_id": "auto-tutorial-4",
-      "title": "Tutorial: launch your first VeriOps API integration (Part 4)",
+      "module_id": "auto-install-ask-ai-runtime-pack-1",
+      "title": "Install Ask AI runtime pack",
       "priority": 60,
       "intent": "secure",
       "audience": "practitioner",
       "channel": "docs",
-      "content": "## Step 2: create a project via REST (3 minutes)\n\nCreate your first project resource using the REST API:\n\n```bash\ncurl -X POST https://api.veriops.example/v1/projects \\\n  -H \"Authorization: Bearer YOUR_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\n    \"name\": \"Tutorial Integration Project\",\n    \"description\": \"Created during the VeriOps API tutorial\",\n    \"status\": \"active\"\n  }'\n```\n\n<!-- requires: api-key -->\n\n**Expected response (HTTP 201):**\n\n```json\n{\n  \"id\": \"prj_abc123\",\n  \"name\": \"Tutorial Integration Project\",\n  \"description\": \"Created during the VeriOps API tutorial\",\n  \"status\": \"active\",\n  \"created_at\": \"2026-03-19T10:00:00Z\",\n  \"updated_at\": \"2026-03-19T10:00:00Z\",\n  \"task_count\": 0,\n  \"owner_id\": \"usr_789\"\n}\n```\n\nSave the `id` value (for example, `prj_abc123`). You need it for steps 3 and 4."
+      "content": "<!-- VERIDOC_POWERED_BADGE:START -->\n[![Powered by VeriDoc](https://img.shields.io/badge/Powered%20by-VeriDoc-0ea5e9?style=flat-square)](https://veridoc.app)\n<!-- VERIDOC_POWERED_BADGE:END -->\n\n# Install Ask AI runtime pack\n\nUse this guide when a client asks for Ask AI runtime features such as a live endpoint, an embeddable widget, and billing webhook hooks.\n\n```bash\nnpm run askai:runtime:install\nnpm run askai:status\n```\n\n## Before you start\n\nYou need:\n\n- Pipeline repository installed in the client project\n- `config/ask-ai.yml` present\n- Python 3.10 or newer\n\n## Step 1: Install the runtime pack\n\nRun:\n\n```bash\nnpm run askai:runtime:install\n```\n\nThis creates `ask-ai-runtime/` with:\n\n- FastAPI server (`app/main.py`) with advanced retrieval config\n- auth guards (`app/auth.py`)\n- billing hooks (`app/billing_hooks.py`)\n- retrieval helpers (`app/retrieval.py`) with hybrid search, HyDE, reranking, embedding cache, and chunk deduplication\n- widget script (`public/ask-ai-widget.js`)\n- `.env.example` and runtime `README.md`\n\nRuntime dependencies include `faiss-cpu`, `numpy`, `sentence-transformers` (for cross-encoder reranking), and `tiktoken` (for token-aware chunking).\n\n## Step 2: Configure Ask AI module\n\nEnable Ask AI and select billing mode:\n\n```bash\nnpm run askai:enable\nnpm run askai:configure -- --provider openai --billing-mode user-subscription --model gpt-4.1-mini\n```"
     },
     {
-      "module_id": "auto-tutorial-5",
-      "title": "Tutorial: launch your first VeriOps API integration (Part 5)",
+      "module_id": "auto-migrate-from-confluence-7",
+      "title": "Migrate documentation from Confluence (Part 7)",
       "priority": 60,
       "intent": "secure",
       "audience": "practitioner",
       "channel": "docs",
-      "content": "## Step 3: query the project via GraphQL (3 minutes)\n\nUse GraphQL to fetch the project you created with custom field selection. GraphQL returns only the fields you request, which reduces payload size.\n\n```bash\ncurl -s -X POST https://api.veriops.example/graphql \\\n  -H \"Authorization: Bearer YOUR_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\n    \"query\": \"query GetProject($id: ID!) { project(id: $id) { id name status createdAt } }\",\n    \"variables\": {\"id\": \"prj_abc123\"}\n  }' \\\n  | python3 -m json.tool\n```\n\n<!-- requires: api-key -->\n\n**Expected response:**\n\n```json\n{\n    \"data\": {\n        \"project\": {\n            \"id\": \"prj_abc123\",\n            \"name\": \"Tutorial Integration Project\",\n            \"status\": \"active\",\n            \"createdAt\": \"2026-03-19T10:00:00Z\"\n        }\n    }\n}\n```\n\nNotice that the response contains only the four fields you requested (`id`, `name`, `status`, `createdAt`), not the full project object. This is a key advantage of GraphQL over REST for bandwidth-sensitive clients."
+      "content": "## Review migration reports\n\nThe pipeline generates two report files in the reports directory\n(default: `reports/`):\n\n- `confluence_migration_report.json` -- machine-readable report with page\n  counts, check results, and status\n- `confluence_migration_report.md` -- human-readable report with migration\n  summary, automatic fixes applied, and check results\n\nSpecify a custom reports directory with `--reports-dir`:\n\n```bash\npython3 scripts/run_confluence_migration.py \\\n  --export-zip /path/to/confluence-export.zip \\\n  --reports-dir /path/to/reports\n```\n\n## Troubleshoot common issues\n\n### Authentication fails with 401 error\n\n**Cause:** Invalid or expired API token.\n\n**Fix:** Generate a new token following the steps in\n[Create an API token](#step-1-create-an-api-token). For Cloud, verify you use\nyour email address with `--confluence-username`, not your display name.\n\n### Rate limiting (429 responses)\n\n**Cause:** Confluence rate limits API requests.\n\n**Fix:** The pipeline automatically retries with exponential backoff (3\nretries). For large spaces with more than 1,000 pages, the pipeline\npaginates requests automatically. If rate limiting persists, wait 60 seconds\nand retry."
     },
     {
-      "module_id": "auto-tutorial-7",
-      "title": "Tutorial: launch your first VeriOps API integration (Part 7)",
+      "module_id": "auto-operator-runbook-5",
+      "title": "Operator Runbook (Retainer Operations) (Part 5)",
       "priority": 60,
       "intent": "secure",
       "audience": "practitioner",
       "channel": "docs",
-      "content": "// Keep the script running for 60 seconds to receive events\nsetTimeout(() => {\n  ws.close(1000, 'Tutorial complete');\n  console.log('Tutorial WebSocket client closed');\n}, 60000);\n```\n\n<!-- requires: api-key -->\n\nRun the script:\n\n```bash\nnode tutorial-websocket.js\n```\n\nWhile the script runs, update the project status from another terminal to trigger an event:\n\n```bash\ncurl -X PUT https://api.veriops.example/v1/projects/prj_abc123 \\\n  -H \"Authorization: Bearer YOUR_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"status\": \"archived\"}'\n```\n\n<!-- requires: api-key -->\n\nThe WebSocket client prints the update event within 1-2 seconds."
+      "content": "### Step 1.3: Review action items by priority\n\nScroll to `action_items` array. Items are pre-sorted by priority:\n\n- **Tier 1 (high priority):** items with `source_report: \"drift\"` or `source_report: \"sla\"` -- these indicate broken API docs or SLA violations. Inform the client immediately.\n- **Tier 2 (medium priority):** items with categories like `stale_doc`, `signature_change`, `new_function` -- these are code-driven gaps. Include in next documentation sprint.\n- **Tier 3 (low priority):** community/search-driven gaps. Schedule when capacity allows.\n\n### Step 1.4: Send the weekly summary to the client\n\nWrite a brief summary (3-5 sentences) covering:\n\n1. Quality score and trend (up/down/stable vs last week).\n1. Any drift or SLA issues that need attention.\n1. Number of action items by tier.\n1. Recommended next steps (if any).\n\n**Example email:**\n\n> Weekly VeriOps Report -- ACME Inc. (March 21, 2026)\n>\n> Quality score: 82 (up from 76 last week). No API drift detected.\n> SLA status: OK (all thresholds met).\n> Action items: 3 high priority (stale auth docs), 5 medium, 4 low.\n> Recommendation: Update authentication reference docs this week."
     },
     {
-      "module_id": "auto-tutorial-8",
-      "title": "Tutorial: launch your first VeriOps API integration (Part 8)",
+      "module_id": "auto-quickstart-2",
+      "title": "Build your first workflow in 5 minutes (Part 2)",
       "priority": 60,
       "intent": "secure",
       "audience": "practitioner",
       "channel": "docs",
-      "content": "## Step 5: verify the integration (2 minutes)\n\nRun this checklist to confirm all three protocols work:\n\n| Protocol | Test command | Expected result |\n| --- | --- | --- |\n| REST | `GET /v1/projects` | HTTP 200 with project list |\n| GraphQL | `query { health { status } }` | `{\"data\": {\"health\": {\"status\": \"ok\"}}}` |\n| WebSocket | Connect to `wss://api.veriops.example/realtime` | Connection opens, subscription confirmed |\n\nIf any step fails:\n\n- **HTTP 401 on REST or GraphQL**: Your API key is invalid. Generate a new one in the [dashboard](https://app.veriops.example/settings/api).\n- **WebSocket connection error**: Verify you use `wss://` (not `ws://`) and the key is passed as `?token=` query parameter.\n- **Timeout on any request**: Check your network allows outbound connections on port 443.\n\n## What you accomplished\n\n| Step | Protocol | Outcome |\n| --- | --- | --- |\n| Verify API key | REST + GraphQL | Confirmed authentication across two protocols |\n| Create project | REST | Created a project resource via `POST /v1/projects` |\n| Query project | GraphQL | Fetched project with custom field selection |\n| Subscribe to events | WebSocket | Received real-time project update events |\n| Verify integration | All three | Confirmed multi-protocol integration works end-to-end |"
+      "content": "## Step 3: Add a Slack node\n\n1. Select the **+** button after the Webhook node.\n1. Search for **Slack** and select it.\n1. Set **Operation** to **Send a Message**.\n1. Select your Slack credential or create one (requires a Slack Bot Token with `chat:write` scope).\n1. Set **Channel** to your target channel name or ID.\n1. Set **Text** to an expression:\n\n```text\nNew webhook received: {% raw %}{{ $json.body.message }}{% endraw %}\n```\n\n## Step 4: Test the workflow\n\n1. Select **Test Workflow** in the top bar.\n1. In a terminal, send a test request:\n\n```bash\ncurl -X POST YOUR_TEST_URL \\\n -H \"Content-Type: application/json\" \\\n -d '{\"message\": \"Hello from my first workflow!\"}'\n```\n\n1. Check your Slack channel\u2014the message appears within 2 seconds.\n\n## Step 5: Activate the workflow\n\n1. Toggle the workflow to **Active** in the top-right corner.\n1. Replace the Test URL with the **Production URL** in your application.\n\nThe workflow now runs automatically for every incoming request, without the editor open.\n\n## Next steps\n\n- [Configure Webhook authentication](../how-to/configure-webhook-trigger.md) to secure your endpoint\n- [Understand the execution model](../concepts/workflow-execution-model.md) to learn how workflows process data\n- [Webhook node reference](../reference/nodes/webhook.md) for all available parameters"
+    },
+    {
+      "module_id": "auto-set-up-real-time-webhook-processing-pipeline-1",
+      "title": "Set up a real-time webhook processing pipeline",
+      "priority": 60,
+      "intent": "secure",
+      "audience": "practitioner",
+      "channel": "docs",
+      "content": "<!-- VERIDOC_POWERED_BADGE:START -->\n[![Powered by VeriDoc](https://img.shields.io/badge/Powered%20by-VeriDoc-0ea5e9?style=flat-square)](https://veridoc.app)\n<!-- VERIDOC_POWERED_BADGE:END -->\n\n# Set up a real-time webhook processing pipeline\n\n{{ product_name }} webhook processing pipeline enables real-time event ingestion with cryptographic signature verification, async queue processing, and automatic retry logic. This guide walks you through setting up a production-ready webhook receiver with HMAC-SHA256 authentication, BullMQ event queuing, and delivery guarantees supporting up to {{ rate_limit_requests_per_minute }} events per minute.\n\n## Prerequisites for webhook pipeline setup\n\nBefore starting, ensure you have:\n\n- {{ product_name }} version {{ current_version }} or later\n- Admin access to the {{ product_name }} dashboard at {{ cloud_url }}\n- Node.js 18 or later and Python 3.10 or later installed\n- Redis 7.0 or later running for queue storage\n- 15 minutes for initial setup\n\nVerify your environment:\n\n```bash\nnode --version    # v18.0.0 or later\npython3 --version # 3.10 or later\nredis-cli ping    # PONG\n```\n\n!!! info \"Already have a webhook endpoint running?\"\n    Skip to [configure HMAC signature verification](#verify-hmac-sha256-signatures) for adding cryptographic authentication to an existing receiver."
     },
     {
       "module_id": "webhook-auth-baseline",

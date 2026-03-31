@@ -41,7 +41,7 @@ def _advanced_prompts_allowed() -> tuple[bool, str]:
         if info.plan == "pilot" and info.days_remaining <= 0:
             return False, "pilot_expired"
         return False, f"feature_blocked:{info.plan}"
-    except (Exception,):
+    except (RuntimeError, ValueError, TypeError, OSError):
         return True, "license_gate_unavailable"
 
 

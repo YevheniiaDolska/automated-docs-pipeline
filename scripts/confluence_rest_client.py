@@ -10,6 +10,7 @@ from __future__ import annotations
 import base64
 import json
 import logging
+import re
 import time
 from dataclasses import dataclass, field
 from pathlib import Path
@@ -77,8 +78,6 @@ class FetchResult:
 # ---------------------------------------------------------------------------
 # Helpers reused from ConfluenceImporter (avoid duplication)
 # ---------------------------------------------------------------------------
-
-import re  # noqa: E402
 
 
 def _safe_filename(title: str) -> str:
@@ -221,9 +220,17 @@ class ConfluenceRestClient:
                 return response.json()
             except httpx.HTTPStatusError:
                 raise
-            except Exception as exc:
+            except (httpx.RequestError, ValueError) as exc:
                 last_exc = exc
                 wait = RETRY_BACKOFF_BASE * (2**attempt)
+                logger.warning(
+                    "Request/json parse error on %s, retry %d/%d in %.1fs: %s",
+                    path,
+                    attempt + 1,
+                    MAX_RETRIES,
+                    wait,
+                    exc,
+                )
                 time.sleep(wait)
 
         if last_exc:
@@ -241,15 +248,15 @@ class ConfluenceRestClient:
         try:
             self._request("GET", "/wiki/api/v2/spaces", params={"limit": 1})
             return "v2"
-        except Exception:
-            pass
+        except (httpx.HTTPError, ValueError, RuntimeError) as exc:
+            logger.debug("Cloud v2 probe failed: %s", exc)
 
         # Try Server v1
         try:
             self._request("GET", "/rest/api/space", params={"limit": 1})
             return "v1"
-        except Exception:
-            pass
+        except (httpx.HTTPError, ValueError, RuntimeError) as exc:
+            logger.debug("Server v1 probe failed: %s", exc)
 
         raise RuntimeError(
             "Cannot detect Confluence API version. "
@@ -437,10 +444,10 @@ class ConfluenceRestClient:
                     dest = output_dir / _safe_filename(title)
                     dest.write_bytes(resp.content)
                     count += 1
-                except Exception as exc:
+                except (httpx.HTTPError, OSError, ValueError) as exc:
                     logger.warning("Failed to download attachment '%s': %s", title, exc)
 
-        except Exception as exc:
+        except (httpx.HTTPError, ValueError, RuntimeError) as exc:
             logger.warning("Failed to fetch attachments for page %s: %s", page_id, exc)
 
         return count
@@ -461,7 +468,7 @@ class ConfluenceRestClient:
                 page_versions=data.get("page_versions", {}),
                 space_keys=data.get("space_keys", []),
             )
-        except Exception:
+        except (json.JSONDecodeError, OSError, TypeError):
             return None
 
     def _save_sync_state(self, state: SyncState) -> None:
@@ -513,7 +520,7 @@ class ConfluenceRestClient:
             try:
                 pages = self.fetch_pages(sk, since=since)
                 all_pages.extend(pages)
-            except Exception as exc:
+            except (httpx.HTTPError, ValueError, RuntimeError) as exc:
                 result.warnings.append(f"Failed to fetch space '{sk}': {exc}")
 
         result.total_pages = len(all_pages)
@@ -544,7 +551,7 @@ class ConfluenceRestClient:
                     count = self.fetch_attachments(page.id, att_dir)
                     result.attachments_downloaded += count
 
-            except Exception as exc:
+            except (OSError, ValueError, RuntimeError) as exc:
                 result.failed_pages += 1
                 result.failed_titles.append(page.title)
                 result.warnings.append(f"Failed page '{page.title}': {exc}")

@@ -5,8 +5,10 @@ Validates JWT license tokens signed with Ed25519, checks feature
 entitlements per plan tier, and provides degraded community mode
 when no valid license is present.
 
-All validation is offline -- the embedded public key verifies the
-JWT signature without any network call.
+Primary validation is offline -- the embedded public key verifies the
+JWT signature without any network call.  A periodic phone-home check
+(default every 30 days) contacts the VeriDoc SaaS server to verify
+subscription status and download a fresh JWT.
 """
 
 from __future__ import annotations
@@ -20,6 +22,9 @@ import platform
 import struct
 import sys
 import time
+import urllib.error
+import urllib.request
+import urllib.parse
 from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Any
@@ -45,6 +50,7 @@ PLAN_FEATURES: dict[str, dict[str, bool]] = {
         "glossary_sync": True,
         "lifecycle_management": True,
         "rest_protocol": True,
+        "advanced_prompts": True,
         "seo_geo_scoring": False,
         "api_first_flow": False,
         "drift_detection": False,
@@ -69,6 +75,7 @@ PLAN_FEATURES: dict[str, dict[str, bool]] = {
         "glossary_sync": True,
         "lifecycle_management": True,
         "rest_protocol": True,
+        "advanced_prompts": True,
         "seo_geo_scoring": True,
         "api_first_flow": True,
         "drift_detection": True,
@@ -93,6 +100,7 @@ PLAN_FEATURES: dict[str, dict[str, bool]] = {
         "glossary_sync": True,
         "lifecycle_management": True,
         "rest_protocol": True,
+        "advanced_prompts": True,
         "seo_geo_scoring": True,
         "api_first_flow": True,
         "drift_detection": True,
@@ -120,6 +128,7 @@ COMMUNITY_FEATURES: dict[str, bool] = {
     "glossary_sync": True,
     "lifecycle_management": True,
     "rest_protocol": True,
+    "advanced_prompts": False,
 }
 
 # Protocols allowed per plan
@@ -137,6 +146,34 @@ DEFAULT_GRACE_DAYS: dict[str, int] = {
     "professional": 7,
     "enterprise": 30,
 }
+
+# -- Phone-home configuration -------------------------------------------------
+
+PHONE_HOME_URL = os.environ.get(
+    "VERIOPS_PHONE_HOME_URL", "https://api.veridoc.dev"
+).rstrip("/")
+
+PHONE_HOME_INTERVAL_DAYS = int(
+    os.environ.get("VERIOPS_PHONE_HOME_INTERVAL_DAYS", "30")
+)
+
+PHONE_HOME_ENABLED = os.environ.get(
+    "VERIOPS_PHONE_HOME_ENABLED", "true"
+).strip().lower() in ("true", "1", "yes")
+
+PHONE_HOME_TIMEOUT_SECONDS = int(
+    os.environ.get("VERIOPS_PHONE_HOME_TIMEOUT", "15")
+)
+
+HEARTBEAT_PATH = REPO_ROOT / "docsops" / ".license_heartbeat.json"
+REPORTS_DIR = REPO_ROOT / "reports"
+VERSION_FILE = REPO_ROOT / "docsops" / ".version.json"
+REVOCATION_CHECK_ENABLED = os.environ.get(
+    "VERIOPS_REVOCATION_CHECK_ENABLED", "false"
+).strip().lower() in ("true", "1", "yes")
+REVOCATION_URL = os.environ.get(
+    "VERIOPS_REVOCATION_URL", f"{PHONE_HOME_URL}/billing/license/revocation-check"
+).rstrip("/")
 
 
 # -- Data classes --------------------------------------------------------------
@@ -156,6 +193,8 @@ class LicenseInfo:
     expires_at: float
     days_remaining: int
     error: str
+    tenant_id: str = ""
+    company_domain: str = ""
     raw_claims: dict[str, Any] = field(default_factory=dict)
 
 
@@ -172,6 +211,8 @@ def _community_license(error: str = "") -> LicenseInfo:
         expires_at=0,
         days_remaining=0,
         error=error or "No valid license. Running in community mode.",
+        tenant_id="",
+        company_domain="",
     )
 
 
@@ -205,7 +246,7 @@ def _verify_ed25519(message: bytes, signature: bytes, public_key: bytes) -> bool
         return True
     except ImportError:
         logger.debug("PyNaCl is not installed; trying cryptography fallback")
-    except (Exception,) as exc:
+    except (RuntimeError, ValueError, TypeError, OSError) as exc:
         logger.debug("Ed25519 verification failed (PyNaCl): %s", exc)
         return False
 
@@ -217,7 +258,7 @@ def _verify_ed25519(message: bytes, signature: bytes, public_key: bytes) -> bool
         return True
     except ImportError:
         logger.debug("cryptography is not installed; Ed25519 verification unavailable")
-    except (Exception,) as exc:
+    except (RuntimeError, ValueError, TypeError, OSError) as exc:
         logger.debug("Ed25519 verification failed (cryptography): %s", exc)
         return False
 
@@ -238,14 +279,14 @@ def _load_public_key(path: Path | None = None) -> bytes | None:
         decoded = base64.b64decode(raw)
         if len(decoded) == 32:
             return decoded
-    except (Exception,) as exc:
+    except (RuntimeError, ValueError, TypeError, OSError) as exc:
         logger.debug("base64 standard decode failed for %s: %s", key_path, exc)
     # Try base64url
     try:
         decoded = base64.urlsafe_b64decode(raw + b"=" * (4 - len(raw) % 4))
         if len(decoded) == 32:
             return decoded
-    except (Exception,) as exc:
+    except (RuntimeError, ValueError, TypeError, OSError) as exc:
         logger.debug("base64url decode failed for %s: %s", key_path, exc)
     return None
 
@@ -269,6 +310,262 @@ def machine_fingerprint() -> str:
     return hashlib.sha256(raw.encode("utf-8")).hexdigest()
 
 
+def _current_bundle_version() -> str:
+    if not VERSION_FILE.exists():
+        return "0.0.0"
+    try:
+        payload = json.loads(VERSION_FILE.read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError, ValueError):
+        return "0.0.0"
+    if isinstance(payload, dict):
+        value = str(payload.get("version", "0.0.0")).strip()
+        return value or "0.0.0"
+    return "0.0.0"
+
+
+def _metadata_payload(
+    *,
+    client_id: str,
+    plan: str = "",
+    event: str,
+    now: float,
+) -> dict[str, Any]:
+    return {
+        "tenant_id": str(os.environ.get("VERIOPS_TENANT_ID", client_id)).strip(),
+        "build_id": str(os.environ.get("VERIOPS_BUILD_ID", "")).strip(),
+        "version": _current_bundle_version(),
+        "platform": f"{platform.system().lower()}-{platform.machine().lower()}",
+        "plan": plan.strip().lower(),
+        "event": event,
+        "timestamp_utc": time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime(now)),
+    }
+
+
+def _enforce_metadata_allowlist(payload: dict[str, Any], *, step: str) -> dict[str, Any]:
+    sanitized = {k: v for k, v in payload.items() if str(v).strip()}
+    try:
+        from scripts.llm_egress import enforce_metadata_egress_payload
+
+        return enforce_metadata_egress_payload(
+            payload=sanitized,
+            reports_dir=REPORTS_DIR,
+            step=step,
+            source="license_gate.py",
+        )
+    except ImportError:
+        return sanitized
+
+
+# -- Phone-home (periodic license refresh) ------------------------------------
+
+
+def _read_heartbeat(path: Path | None = None) -> dict[str, Any]:
+    """Read the heartbeat state file. Returns empty dict on any error."""
+    hb_path = path or HEARTBEAT_PATH
+    if not hb_path.exists():
+        return {}
+    try:
+        return json.loads(hb_path.read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError, ValueError):
+        return {}
+
+
+def _write_heartbeat(
+    data: dict[str, Any],
+    path: Path | None = None,
+) -> None:
+    """Write the heartbeat state file."""
+    hb_path = path or HEARTBEAT_PATH
+    try:
+        hb_path.parent.mkdir(parents=True, exist_ok=True)
+        hb_path.write_text(
+            json.dumps(data, indent=2, sort_keys=True),
+            encoding="utf-8",
+        )
+    except OSError as exc:
+        logger.debug("Cannot write heartbeat file %s: %s", hb_path, exc)
+
+
+def _phone_home_due(
+    heartbeat: dict[str, Any],
+    interval_days: int | None = None,
+    current_time: float | None = None,
+) -> bool:
+    """Check whether a phone-home check is due based on last_check timestamp."""
+    interval = interval_days if interval_days is not None else PHONE_HOME_INTERVAL_DAYS
+    now = current_time if current_time is not None else time.time()
+    last_check = heartbeat.get("last_check", 0)
+    if not isinstance(last_check, (int, float)):
+        return True
+    return (now - last_check) >= interval * 86400
+
+
+def phone_home(
+    client_id: str,
+    license_path: Path | None = None,
+    heartbeat_path: Path | None = None,
+    base_url: str | None = None,
+    timeout: int | None = None,
+    current_time: float | None = None,
+    interval_days: int | None = None,
+    force: bool = False,
+) -> dict[str, Any]:
+    """Contact the VeriDoc server to refresh the local license JWT.
+
+    Returns a dict with keys:
+        refreshed (bool): True if a new JWT was downloaded and saved.
+        skipped (bool): True if phone-home was not due yet.
+        error (str|None): Error message if refresh failed.
+    """
+    result: dict[str, Any] = {
+        "refreshed": False,
+        "skipped": False,
+        "error": None,
+    }
+
+    if not PHONE_HOME_ENABLED and not force:
+        result["skipped"] = True
+        result["error"] = "Phone-home disabled via VERIOPS_PHONE_HOME_ENABLED"
+        return result
+
+    if not client_id:
+        result["skipped"] = True
+        result["error"] = "No client_id -- community mode, skipping phone-home"
+        return result
+
+    hb_path = heartbeat_path or HEARTBEAT_PATH
+    heartbeat = _read_heartbeat(hb_path)
+
+    if not force and not _phone_home_due(heartbeat, interval_days, current_time):
+        result["skipped"] = True
+        return result
+
+    url = (base_url or PHONE_HOME_URL) + "/billing/license/token"
+    t_out = timeout if timeout is not None else PHONE_HOME_TIMEOUT_SECONDS
+    now = current_time if current_time is not None else time.time()
+
+    fingerprint = machine_fingerprint()
+    try:
+        metadata = _enforce_metadata_allowlist(
+            _metadata_payload(client_id=client_id, event="license_refresh", now=now),
+            step="license_phone_home",
+        )
+    except ValueError as exc:
+        result["error"] = f"Egress allowlist blocked license refresh payload: {exc}"
+        return result
+    headers = {
+        "X-Client-Id": client_id,
+        "X-Machine-Fingerprint": fingerprint,
+        "X-Tenant-Id": str(metadata.get("tenant_id", "")),
+        "X-Build-Id": str(metadata.get("build_id", "")),
+        "X-Client-Version": str(metadata.get("version", "0.0.0")),
+        "X-Client-Platform": str(metadata.get("platform", "")),
+        "Accept": "application/json",
+        "User-Agent": "VeriOps-LicenseGate/1.0",
+    }
+
+    try:
+        req = urllib.request.Request(url, headers=headers, method="GET")
+        with urllib.request.urlopen(req, timeout=t_out) as resp:
+            body = json.loads(resp.read().decode("utf-8"))
+
+        token = body.get("token", "")
+        if not token:
+            result["error"] = "Server returned empty token"
+            _write_heartbeat(
+                {"last_check": now, "last_result": "error_empty_token"},
+                hb_path,
+            )
+            return result
+
+        # Validate the new token parses correctly before saving
+        try:
+            _parse_jwt_parts(token)
+        except (ValueError, json.JSONDecodeError) as exc:
+            result["error"] = f"Server returned invalid JWT: {exc}"
+            _write_heartbeat(
+                {"last_check": now, "last_result": "error_invalid_jwt"},
+                hb_path,
+            )
+            return result
+
+        # Write new license JWT
+        lpath = license_path or LICENSE_PATH
+        lpath.parent.mkdir(parents=True, exist_ok=True)
+        lpath.write_text(token, encoding="utf-8")
+
+        _write_heartbeat(
+            {"last_check": now, "last_result": "success"},
+            hb_path,
+        )
+        result["refreshed"] = True
+        logger.info("License refreshed via phone-home for client %s", client_id)
+
+    except urllib.error.HTTPError as exc:
+        status = exc.code
+        result["error"] = f"Server returned HTTP {status}"
+        _write_heartbeat(
+            {"last_check": now, "last_result": f"error_http_{status}"},
+            hb_path,
+        )
+        logger.warning("Phone-home failed: HTTP %d", status)
+
+    except (urllib.error.URLError, OSError, TimeoutError) as exc:
+        result["error"] = f"Network error: {exc}"
+        logger.warning("Phone-home network error: %s", exc)
+        # Do NOT update last_check on network failure so we retry next time
+
+    except (json.JSONDecodeError, ValueError) as exc:
+        result["error"] = f"Invalid server response: {exc}"
+        _write_heartbeat(
+            {"last_check": now, "last_result": "error_bad_response"},
+            hb_path,
+        )
+
+    return result
+
+
+def check_revocation(
+    *,
+    client_id: str,
+    plan: str,
+    current_time: float | None = None,
+) -> tuple[bool, str]:
+    """Check revocation list endpoint using metadata-only payload."""
+    if not REVOCATION_CHECK_ENABLED or not client_id:
+        return False, ""
+    now = current_time if current_time is not None else time.time()
+    try:
+        payload = _enforce_metadata_allowlist(
+            _metadata_payload(
+                client_id=client_id,
+                plan=plan,
+                event="revocation_check",
+                now=now,
+            ),
+            step="license_revocation_check",
+        )
+    except ValueError as exc:
+        logger.warning("Revocation check blocked by egress allowlist: %s", exc)
+        return False, ""
+    params = urllib.parse.urlencode({k: str(v) for k, v in payload.items()})
+    url = f"{REVOCATION_URL}?{params}"
+    try:
+        req = urllib.request.Request(url, headers={"Accept": "application/json"}, method="GET")
+        with urllib.request.urlopen(req, timeout=PHONE_HOME_TIMEOUT_SECONDS) as resp:
+            body = json.loads(resp.read().decode("utf-8"))
+        if isinstance(body, dict) and bool(body.get("revoked", False)):
+            reason = str(body.get("reason", "revoked_by_server")).strip()
+            return True, reason
+    except (urllib.error.URLError, urllib.error.HTTPError, OSError, TimeoutError, json.JSONDecodeError, ValueError) as exc:
+        logger.debug("Revocation check unavailable: %s", exc)
+    return False, ""
+
+
+# -- Phone-home recursion guard -----------------------------------------------
+_phone_home_refreshing: bool = False
+
+
 # -- License validation -------------------------------------------------------
 
 
@@ -283,6 +580,8 @@ def validate(
 
     Set VERIOPS_LICENSE_PLAN env var to bypass license file (dev/test only).
     """
+    global _phone_home_refreshing
+
     # Dev/test bypass: VERIOPS_LICENSE_PLAN=enterprise skips JWT validation
     env_plan = os.environ.get("VERIOPS_LICENSE_PLAN", "").strip().lower()
     if env_plan in PLAN_FEATURES:
@@ -324,6 +623,39 @@ def validate(
         if not _verify_ed25519(signed_data, signature, pub_key):
             return _community_license("License signature verification failed.")
 
+    def _normalize_domain(value: str) -> str:
+        raw = value.strip().lower()
+        if raw.startswith("http://"):
+            raw = raw[len("http://") :]
+        if raw.startswith("https://"):
+            raw = raw[len("https://") :]
+        raw = raw.split("/", 1)[0]
+        if raw.startswith("www."):
+            raw = raw[4:]
+        return raw
+
+    def _enforce_binding(claims_obj: dict[str, Any]) -> str:
+        claim_tenant = str(claims_obj.get("tenant_id", "")).strip()
+        claim_domain = _normalize_domain(str(claims_obj.get("company_domain", "")))
+        expected_tenant = str(os.environ.get("VERIOPS_TENANT_ID", "")).strip()
+        expected_domain = _normalize_domain(str(os.environ.get("VERIOPS_COMPANY_DOMAIN", "")))
+
+        if claim_tenant and expected_tenant and claim_tenant != expected_tenant:
+            return (
+                "Tenant binding mismatch: "
+                f"license tenant_id={claim_tenant}, env VERIOPS_TENANT_ID={expected_tenant}"
+            )
+        if claim_domain and expected_domain and claim_domain != expected_domain:
+            return (
+                "Domain binding mismatch: "
+                f"license company_domain={claim_domain}, env VERIOPS_COMPANY_DOMAIN={expected_domain}"
+            )
+        return ""
+
+    binding_error = _enforce_binding(claims)
+    if binding_error:
+        return _community_license(binding_error)
+
     # Check expiration
     now = current_time if current_time is not None else time.time()
     exp = claims.get("exp", 0)
@@ -341,6 +673,8 @@ def validate(
 
     # Extract fields
     client_id = str(claims.get("sub", ""))
+    tenant_id = str(claims.get("tenant_id", "")).strip()
+    company_domain = _normalize_domain(str(claims.get("company_domain", "")))
     jwt_features = claims.get("features", {})
     if not isinstance(jwt_features, dict):
         jwt_features = {}
@@ -367,6 +701,39 @@ def validate(
             f"{max(0, int((exp + grace_seconds - now) / 86400))} grace days remaining."
         )
 
+    # Phone-home: periodically contact the server to refresh the JWT.
+    # Runs after offline validation so we have client_id and plan.
+    # On success, re-validates with the fresh token.
+    if (
+        client_id
+        and PHONE_HOME_ENABLED
+        and not env_plan
+        and not _phone_home_refreshing
+    ):
+        ph_result = phone_home(
+            client_id=client_id,
+            license_path=lpath,
+            current_time=current_time,
+        )
+        if ph_result.get("refreshed"):
+            # Re-validate with the fresh token (guard against recursion)
+            _phone_home_refreshing = True
+            try:
+                return validate(
+                    license_path=lpath,
+                    key_path=key_path,
+                    current_time=current_time,
+                )
+            finally:
+                _phone_home_refreshing = False
+    revoked, revoke_reason = check_revocation(
+        client_id=client_id,
+        plan=plan,
+        current_time=current_time,
+    )
+    if revoked:
+        return _community_license(f"License revoked by server policy: {revoke_reason}")
+
     return LicenseInfo(
         valid=True,
         plan=plan,
@@ -378,11 +745,47 @@ def validate(
         expires_at=exp,
         days_remaining=days_remaining,
         error=error,
+        tenant_id=tenant_id,
+        company_domain=company_domain,
         raw_claims=claims,
     )
 
 
 # -- Feature check helpers ----------------------------------------------------
+
+
+def _pilot_trial_expired(info: LicenseInfo) -> bool:
+    """Return True when pilot trial period has ended (grace does not keep premium access)."""
+    return bool(
+        info.plan == "pilot"
+        and info.expires_at
+        and info.days_remaining <= 0
+    )
+
+
+def _effective_plan(info: LicenseInfo) -> str:
+    if _pilot_trial_expired(info):
+        return "community"
+    return info.plan
+
+
+def _effective_features(info: LicenseInfo) -> dict[str, bool]:
+    if _pilot_trial_expired(info):
+        return dict(COMMUNITY_FEATURES)
+    return dict(info.features)
+
+
+def _effective_protocols(info: LicenseInfo) -> list[str]:
+    if _pilot_trial_expired(info):
+        return list(COMMUNITY_PROTOCOLS)
+    return list(info.protocols)
+
+
+def allow_advanced_prompts(license_info: LicenseInfo | None = None) -> bool:
+    """Whether advanced LLM prompt profile is allowed for current license."""
+    info = license_info or validate()
+    effective_features = _effective_features(info)
+    return bool(effective_features.get("advanced_prompts", False))
 
 
 def check(feature: str, license_info: LicenseInfo | None = None) -> bool:
@@ -392,11 +795,13 @@ def check(feature: str, license_info: LicenseInfo | None = None) -> bool:
     Prints a warning to stderr when a feature is denied.
     """
     info = license_info or validate()
-    enabled = info.features.get(feature, False)
+    effective_plan = _effective_plan(info)
+    effective_features = _effective_features(info)
+    enabled = effective_features.get(feature, False)
     if not enabled:
         print(
             f"[license] Feature '{feature}' requires plan "
-            f"upgrade (current: {info.plan}). "
+            f"upgrade (current: {effective_plan}). "
             f"Running in degraded mode.",
             file=sys.stderr,
         )
@@ -406,12 +811,14 @@ def check(feature: str, license_info: LicenseInfo | None = None) -> bool:
 def check_protocol(protocol: str, license_info: LicenseInfo | None = None) -> bool:
     """Check if a protocol is allowed in the current license."""
     info = license_info or validate()
+    effective_plan = _effective_plan(info)
+    effective_protocols = _effective_protocols(info)
     normalized = protocol.lower().strip()
-    allowed = normalized in info.protocols
+    allowed = normalized in effective_protocols
     if not allowed:
         print(
             f"[license] Protocol '{protocol}' not available in "
-            f"{info.plan} plan. Allowed: {', '.join(info.protocols)}",
+            f"{effective_plan} plan. Allowed: {', '.join(effective_protocols)}",
             file=sys.stderr,
         )
     return allowed
@@ -420,10 +827,12 @@ def check_protocol(protocol: str, license_info: LicenseInfo | None = None) -> bo
 def require(feature: str, license_info: LicenseInfo | None = None) -> LicenseInfo:
     """Require a feature -- raise SystemExit if not available."""
     info = license_info or validate()
-    if not info.features.get(feature, False):
+    effective_plan = _effective_plan(info)
+    effective_features = _effective_features(info)
+    if not effective_features.get(feature, False):
         print(
             f"[license] BLOCKED: Feature '{feature}' requires a plan upgrade "
-            f"(current: {info.plan}).",
+            f"(current: {effective_plan}).",
             file=sys.stderr,
         )
         raise SystemExit(1)
@@ -433,10 +842,12 @@ def require(feature: str, license_info: LicenseInfo | None = None) -> LicenseInf
 def require_protocol(protocol: str, license_info: LicenseInfo | None = None) -> LicenseInfo:
     """Require a protocol -- raise SystemExit if not available."""
     info = license_info or validate()
-    if protocol.lower().strip() not in info.protocols:
+    effective_plan = _effective_plan(info)
+    effective_protocols = _effective_protocols(info)
+    if protocol.lower().strip() not in effective_protocols:
         print(
             f"[license] BLOCKED: Protocol '{protocol}' requires Enterprise plan "
-            f"(current: {info.plan}).",
+            f"(current: {effective_plan}).",
             file=sys.stderr,
         )
         raise SystemExit(1)
@@ -448,12 +859,23 @@ def get_license_summary(license_info: LicenseInfo | None = None) -> str:
     info = license_info or validate()
     if not info.valid:
         return f"Community mode: {info.error}"
-    enabled = [f for f, v in info.features.items() if v]
+
+    effective_plan = _effective_plan(info)
+    effective_features = _effective_features(info)
+    effective_protocols = _effective_protocols(info)
+    enabled = [f for f, v in effective_features.items() if v]
+    suffix = ""
+    if _pilot_trial_expired(info):
+        suffix = " | Pilot trial expired -> degraded mode active"
+
     return (
-        f"Plan: {info.plan} | Client: {info.client_id} | "
+        f"Plan: {effective_plan} | Client: {info.client_id} | "
+        f"Tenant: {info.tenant_id or '-'} | "
+        f"Domain: {info.company_domain or '-'} | "
         f"Days remaining: {info.days_remaining} | "
         f"Features: {len(enabled)} enabled | "
-        f"Protocols: {', '.join(info.protocols)}"
+        f"Protocols: {', '.join(effective_protocols)}"
+        f"{suffix}"
     )
 
 
@@ -489,11 +911,21 @@ def main() -> int:
     print(f"  Plan: {info.plan}")
     if info.valid:
         print(f"  Client: {info.client_id}")
+        if info.tenant_id:
+            print(f"  Tenant: {info.tenant_id}")
+        if info.company_domain:
+            print(f"  Company domain: {info.company_domain}")
         print(f"  Expires: {info.expires_at}")
         print(f"  Days remaining: {info.days_remaining}")
+        effective_protocols = _effective_protocols(info)
+        effective_features = _effective_features(info)
+        print(f"  Protocols: {', ' .join(effective_protocols)}")
+        enabled = sorted(f for f, v in effective_features.items() if v)
+        disabled = sorted(f for f, v in effective_features.items() if not v)
+        print(f"  Enabled features ({len(enabled)}): {', ' .join(enabled)}")
+        if disabled:
+            print(f"  Disabled features ({len(disabled)}): {', ' .join(disabled)}")
         print(f"  Protocols: {', '.join(info.protocols)}")
-        enabled = sorted(f for f, v in info.features.items() if v)
-        disabled = sorted(f for f, v in info.features.items() if not v)
         print(f"  Enabled features ({len(enabled)}): {', '.join(enabled)}")
         if disabled:
             print(f"  Disabled features ({len(disabled)}): {', '.join(disabled)}")

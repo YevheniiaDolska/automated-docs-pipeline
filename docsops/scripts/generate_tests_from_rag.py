@@ -243,7 +243,7 @@ def scan_python_file(file_path: Path, base_dir: Path) -> list[CodeRecord]:
         # Extract source code for this function
         try:
             func_source = ast.get_source_segment(source, node) or ""
-        except (Exception,):
+        except (RuntimeError, ValueError, TypeError, OSError):
             func_source = ""
 
         if not func_source:

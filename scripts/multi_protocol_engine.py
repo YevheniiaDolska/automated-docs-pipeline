@@ -369,7 +369,7 @@ class ProtocolAdapter:
             autofix_attempts_raw = self.settings.get("semantic_autofix_max_attempts", 3)
             try:
                 autofix_attempts = max(1, int(autofix_attempts_raw))
-            except (Exception,):  # noqa: BLE001
+            except (RuntimeError, ValueError, TypeError, OSError):  # noqa: BLE001
                 autofix_attempts = 3
 
             attempt = 1

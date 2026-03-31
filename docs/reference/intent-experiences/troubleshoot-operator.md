@@ -1,20 +1,14 @@
 ---
-title: 'Intent experience: troubleshoot for operator'
-description: Assembled guidance for one intent and audience using reusable knowledge
-  modules with verified metadata and channel-ready sections.
+title: "Intent experience: troubleshoot for operator"
+description: "Assembled guidance for one intent and audience using reusable knowledge modules with verified metadata and channel-ready sections."
 content_type: reference
 product: both
 tags:
-- Reference
-- AI
-last_reviewed: '2026-03-26'
-original_author: Developer
+  - Reference
+  - AI
 ---
 
-
-<!-- VERIDOC_POWERED_BADGE:START -->
-[![Powered by VeriDoc](https://img.shields.io/badge/Powered%20by-VeriDoc-0ea5e9?style=flat-square)](https://veridoc.app)
-<!-- VERIDOC_POWERED_BADGE:END -->
+<!-- markdownlint-disable MD001 MD007 MD024 MD025 MD031 -->
 
 # Intent experience: troubleshoot for operator
 
@@ -34,18 +28,17 @@ Auto-generated asyncapi reference from source contract.
 <div id="asyncapi-playground" style="border:1px solid #d1d5db; padding:12px; border-radius:8px;">
   <p><strong>WebSocket Endpoint:</strong> <code id="asyncapi-ws-view"></code></p>
   <p><strong>HTTP Publish Endpoint:</strong> <code id="asyncapi-http-view"></code></p>
-  <!-- vale Google.Quotes = NO -->
   <textarea id="asyncapi-message" rows="8" style="width:100%; font-family:monospace;">{
-  "event": "health",
-  "value": "ok"
+  "event_type": "project.updated",
+  "event_id": "evt_001",
+  "data": {"project_id": "prj_abc123", "status": "active"}
 }</textarea><br/>
-  <!-- vale Google.Quotes = YES -->
   <button id="asyncapi-send-ws">Send via WebSocket</button>
   <button id="asyncapi-send-http">Send via HTTP</button>
   <pre id="asyncapi-output" style="margin-top:12px; max-height:320px; overflow:auto;"></pre>
 </div>
 <script>
-(function(){ const wsEndpoint = ""; const httpEndpoint = "";
+(function(){ const wsEndpoint = "wss://echo.websocket.events"; const httpEndpoint = "https://postman-echo.com/post";
 const wsView = document.getElementById('asyncapi-ws-view');
 const httpView = document.getElementById('asyncapi-http-view');
 const sendWs = document.getElementById('asyncapi-send-ws');
@@ -55,13 +48,42 @@ const out = document.getElementById('asyncapi-output');
 if (!wsView || !httpView || !sendWs || !sendHttp || !msg || !out) return;
 wsView.textContent = wsEndpoint || 'not configured';
 httpView.textContent = httpEndpoint || 'not configured';
+function parseJson(raw){ try { return JSON.parse(String(raw || '{}')); } catch (_) { return { raw: String(raw || '') }; } }
+function semanticEvent(input){
+  const req = parseJson(input);
+  const eventType = String(req.event_type || req.type || req.event || '').toLowerCase();
+  const data = (req.data && typeof req.data === 'object') ? req.data : {};
+  const eventId = req.event_id || ('evt_' + Math.random().toString(36).slice(2, 10));
+  const projectId = String(data.project_id || 'prj_abc123');
+  const occurredAt = req.occurred_at || new Date().toISOString();
+  if (eventType === 'project.created') return { event_id: eventId, event_type: 'project.created', occurred_at: occurredAt, data: { project_id: projectId, name: data.name || 'New Project', status: data.status || 'draft' } };
+  if (eventType === 'project.updated') return { event_id: eventId, event_type: 'project.updated', occurred_at: occurredAt, data: { project_id: projectId, status: data.status || 'active', changed_fields: data.changed_fields || ['status'] } };
+  if (eventType === 'task.completed') return { event_id: eventId, event_type: 'task.completed', occurred_at: occurredAt, data: { task_id: data.task_id || 'tsk_123', project_id: projectId, completed_by: data.completed_by || 'usr_demo' } };
+  return { event_id: eventId, event_type: eventType || 'custom.event', occurred_at: occurredAt, data: Object.assign({ project_id: projectId, status: 'accepted' }, data), hint: 'Use: project.created, project.updated, task.completed' };
+}
 sendWs.onclick = function(){
   if (!wsEndpoint) { out.textContent = 'WebSocket endpoint is not configured (runtime.api_protocol_settings.asyncapi.asyncapi_ws_endpoint)'; return; }
   try {
     const socket = new WebSocket(wsEndpoint);
-    socket.onopen = function(){ socket.send(msg.value); out.textContent = 'sent over websocket'; socket.close(); };
-    socket.onerror = function(e){ out.textContent = String(e); };
-    socket.onmessage = function(e){ out.textContent = String(e.data); };
+    let received = false;
+    socket.onopen = function(){ socket.send(msg.value); out.textContent = 'sent over websocket'; };
+    socket.onmessage = function(e){
+      received = true;
+      const semantic = semanticEvent(e.data);
+      out.textContent = JSON.stringify({ mode: 'live-echo-plus-semantic', raw: String(e.data || ''), simulated_response: semantic }, null, 2);
+      socket.close();
+    };
+    socket.onerror = function(){
+      const semantic = semanticEvent(msg.value);
+      out.textContent = JSON.stringify({ mode: 'offline-semantic-fallback', simulated_response: semantic }, null, 2);
+    };
+    setTimeout(function(){
+      if (!received) {
+        const semantic = semanticEvent(msg.value);
+        out.textContent = JSON.stringify({ mode: 'timeout-semantic-fallback', simulated_response: semantic }, null, 2);
+        try { socket.close(); } catch (_) {}
+      }
+    }, 1500);
   } catch (error) { out.textContent = String(error); }
 };
 sendHttp.onclick = async function(){
@@ -71,205 +93,159 @@ sendHttp.onclick = async function(){
     const body = JSON.parse(msg.value || '{}');
     const response = await fetch(httpEndpoint, { method:'POST', headers:{'content-type':'application/json'}, body: JSON.stringify(body) });
     const text = await response.text();
-    out.textContent = text;
-  } catch (error) { out.textContent = String(error); }
+    const semantic = semanticEvent(body);
+    out.textContent = JSON.stringify({ mode: 'http-plus-semantic', raw: text, simulated_response: semantic }, null, 2);
+  } catch (error) {
+    const semantic = semanticEvent(msg.value);
+    out.textContent = JSON.stringify({ mode: 'http-semantic-fallback', error: String(error), simulated_response: semantic }, null, 2);
+  }
 };
 })();
 </script>
 
-### AsyncAPI event docs (Part 12)
+### Auto-Doc Pipeline study guide (Part 6)
 
-AsyncAPI 2.6.0 event documentation for VeriOps with channel contracts, delivery semantics, payload schemas, and interactive event tester.
+Learn the Auto-Doc Pipeline quickly with a simple architecture map, operating flow, plan mapping, and a detailed client FAQ.
 
-function tryNext(lastError) {
-      if (idx >= candidates.length) {
-        out.textContent = JSON.stringify(
-          {
-            mode: 'offline-semantic-fallback',
-            tried: candidates,
-            last_error: lastError || '',
-            simulated_response: semanticAsync(safeParse(payload))
-          },
-          null,
-          2
-        );
-        return;
-      }
-      var endpoint = candidates[idx++];
-      out.textContent = 'Connecting to ' + endpoint + '…';
-      try {
-        var settled = false;
-        var ws = new WebSocket(endpoint);
-        var timeout = setTimeout(function () {
-          if (settled) return;
-          settled = true;
-          try { ws.close(); } catch (e) {}
-          tryNext('timeout');
-        }, 6000);
-        ws.onopen = function () {
-          if (settled) return;
-          ws.send(payload);
-          out.textContent = 'Connected to ' + endpoint + '. Event sent. Waiting for acknowledgement…';
-        };
-        ws.onmessage = function (e) {
-          if (settled) return;
-          settled = true;
-          clearTimeout(timeout);
-          out.textContent = JSON.stringify(
-            {
-              endpoint: endpoint,
-              mode: 'live-echo-plus-semantic',
-              raw: String(e.data || ''),
-              simulated_response: semanticAsync(safeParse(e.data))
-            },
-            null,
-            2
-          );
-          ws.close();
-        };
-        ws.onerror = function () {
-          if (settled) return;
-          settled = true;
-          clearTimeout(timeout);
-          tryNext('handshake failed');
-        };
-        ws.onclose = function () {
-          if (settled) return;
-          settled = true;
-          clearTimeout(timeout);
-          tryNext('closed before response');
-        };
-      } catch (e) {
-        tryNext(String(e));
-      }
-    }
+##### Auto-Doc Pipeline study guide (Part 6): Step 6: enable automation
 
-### AsyncAPI event docs (Part 13)
+1. Install weekly scheduler (Linux cron or Windows task).
+1. Keep `git_sync.enabled=true` unless client requests otherwise.
+1. Optionally enable PR auto-fix workflow.
+1. Optional: enable strict publish gates for enterprise clients.
 
-AsyncAPI 2.6.0 event documentation for VeriOps with channel contracts, delivery semantics, payload schemas, and interactive event tester.
+##### Auto-Doc Pipeline study guide (Part 6): Step 7: handoff and operating cadence
 
-tryNext('');
-  };
-})();
-</script>
+1. Share report reading routine with client reviewers.
+1. Keep human step focused on review/approval, not routine doc plumbing.
+1. Revisit plan scope as usage grows (Pro -> Enterprise when needed).
 
-## Error handling
+#### Auto-Doc Pipeline study guide (Part 6): Core artifacts to know by memory
 
-| Error | Cause | Resolution |
-| --- | --- | --- |
-| `CONNECTION_REFUSED` | Broker unreachable | Verify `events.veriops.example:5672` is accessible from your network |
-| `AUTH_FAILED` | Invalid credentials | Check bearer token or SASL credentials |
-| `CHANNEL_NOT_FOUND` | Invalid channel name | Use exact channel names from the catalog above |
-| `PAYLOAD_TOO_LARGE` | Message exceeds 256 KB | Reduce payload size or split into multiple events |
-| `CONSUMER_TIMEOUT` | No ACK within 300 seconds | Acknowledge messages faster or increase prefetch count |
+- `reports/consolidated_report.json`: top-level operational report.
+- `reports/multi_protocol_contract_report.json`: protocol execution summary.
+- `reports/api-test-assets/api_test_cases.json`: generated contract test set.
+- `reports/api-test-assets/merge_report.json`: smart-merge decisions and `needs_review_ids`.
+- `generated/api-stubs/<protocol>/handlers.py`: generated server stubs.
 
-## Next steps
+#### Auto-Doc Pipeline study guide (Part 6): Detailed FAQ for potential clients
 
-- [WebSocket event playground](websocket-events.md) for bidirectional real-time messaging
-- [REST API reference](rest-api.md) for synchronous CRUD operations
-- [Tutorial: launch your first integration](../guides/tutorial.md) to subscribe to events end-to-end
+##### Auto-Doc Pipeline study guide (Part 6): 1) What business problem does this solve first?
 
-### Concept: pipeline-first documentation lifecycle (Part 7)
+It removes the release bottleneck caused by stale docs, broken API examples, and manual test asset maintenance.
 
-Pipeline-first documentation automates generation, validation, and publishing of API docs from source contracts, reducing review cycles by 60%.
+##### Auto-Doc Pipeline study guide (Part 6): 2) Is this only an API-first product?
 
-| Check ID | Rule | Severity | Threshold |
-| --- | --- | --- | --- |
-| GEO-1 | Meta description present | Error | Must exist |
-| GEO-1b | Meta description length (minimum) | Warning | 50 characters minimum |
-| GEO-1c | Meta description length (maximum) | Warning | 160 characters maximum |
-| GEO-2 | First paragraph length | Warning | 60 words maximum |
-| GEO-3 | First paragraph definition pattern | Suggestion | Contains "is," "enables," "provides," or "allows" |
-| GEO-4 | Heading specificity | Warning | No generic headings (overview, setup, configuration) |
-| GEO-5 | Heading hierarchy | Error | No skipped levels (H2 to H4 is invalid) |
-| GEO-6 | Fact density | Warning | At least one fact per 200 words |
-| SEO-01 | Title length | Error/Warning | 10-70 characters |
-| SEO-02 | Title keyword match | Suggestion | 50% overlap with filename keywords |
-| SEO-03 | URL depth | Warning | Max 4 directory levels |
-| SEO-04 | URL naming | Warning | Kebab-case only |
-| SEO-05 | Image alt text | Warning | 100% of images must have alt text |
-| SEO-06 | Internal links | Suggestion | At least 1 per page |
-| SEO-07 | Bare URLs | Warning | All URLs must use `[text](url)` format |
-| SEO-08 | Path special characters | Warning | Alphanumeric and hyphens only |
-| SEO-09 | Line length | Warning | Max 120 characters outside code blocks |
-| SEO-10 | Heading keyword overlap | Suggestion | H2 headings share keywords with title |
-| SEO-11 | Freshness signal | Suggestion | `last_reviewed` or `date` in frontmatter |
-| SEO-12 | Content depth | Warning | Minimum 100 words |
-| SEO-13 | Duplicate headings | Warning | No two headings share the same text |
-| SEO-14 | Structured data | Suggestion | At least 1 table, code block, or list |
+No. The platform is docs-first and supports `code-first`, `api-first`, and `hybrid` operations in the same runtime.
 
-### Quality evidence and gate results
+##### Auto-Doc Pipeline study guide (Part 6): 3) Which API protocols are supported?
 
-Complete quality evidence from the VeriDoc pipeline for VeriOps docs, covering KPI metrics, protocol gates, 24 automated checks, and RAG readiness.
+REST, GraphQL, gRPC, AsyncAPI, and WebSocket.
 
-# Quality evidence and gate results
+### Централизованная настройка клиентов (Part 3)
 
-<div class="veriops-badges" markdown>
+Практический путь настройки клиентских bundle и автозапуска pipeline из одного места.
 
-![Powered by VeriOps](https://img.shields.io/badge/Powered%20by-VeriOps-7c3aed?style=flat-square)
-![Quality Score](https://img.shields.io/badge/Quality%20Score-100%25-10b981?style=flat-square)
-![Protocols](https://img.shields.io/badge/Protocols-5-7c3aed?style=flat-square)
+##### Централизованная настройка клиентов (Part 3): 3) Какие функции включены
 
-</div>
+Есть 2 уровня переключения:
 
-This page provides the complete quality evidence generated by the VeriDoc pipeline for the VeriOps documentation site. It covers KPI metrics, protocol gate results, 24 automated quality checks, RAG retrieval readiness, and all pipeline artifacts.
+\11. Логические флаги для LLM:
 
-## KPI metrics
+```yaml
 
-These metrics come from `reports/acme-demo/kpi-wall.json`:
+runtime:
+  modules:
+    gap_detection: true
+    drift_detection: true
+    docs_contract: true
+    kpi_sla: true
+    rag_optimization: true
+    ontology_graph: true
+    retrieval_evals: true
+    terminology_management: true
+    lifecycle_management: true
 
-| Metric | Value | Target | Status |
-| --- | --- | --- | --- |
-| Quality score | **100%** | 80% | Excellent |
-| Total documents | **12** | -- | Indexed across all protocols |
-| Stale pages | **0** | 0 | No stale pages |
-| Documentation gaps | **0** | 0 | No active gaps |
-| Metadata completeness | **100%** | 100% | All frontmatter fields present and valid |
-| Frontmatter errors | **0** | 0 | All pages pass schema validation |
+```
 
-### Quality evidence and gate results (Part 3)
+\11. Практический набор скриптов в bundle:
 
-Complete quality evidence from the VeriDoc pipeline for VeriOps docs, covering KPI metrics, protocol gates, 24 automated checks, and RAG readiness.
+```yaml
 
-### GEO checks (8 checks -- LLM and AI search optimization)
+bundle:
+  include_scripts:
+    - "scripts/check_docs_contract.py"
+    - "scripts/check_api_sdk_drift.py"
 
-| Check ID | Rule | Severity | Threshold | Purpose |
-| --- | --- | --- | --- | --- |
-| GEO-1 | Meta description present | Error | Must exist | Ensures every page has a description for search snippets |
-| GEO-1b | Meta description minimum length | Warning | 50 characters | Prevents truncated search snippets |
-| GEO-1c | Meta description maximum length | Warning | 160 characters | Prevents overflow in search results |
-| GEO-2 | First paragraph length | Warning | 60 words max | Ensures concise opening for LLM extraction |
-| GEO-3 | First paragraph definition | Suggestion | Contains definition verb | Helps LLMs identify what the page is about |
-| GEO-4 | Heading specificity | Warning | No generic headings | Prevents vague headings like "Overview" or "Setup" |
-| GEO-5 | Heading hierarchy | Error | No skipped levels | Ensures proper H2-H3-H4 nesting |
-| GEO-6 | Fact density | Warning | 1 fact per 200 words | Keeps content information-rich |
+```
 
-### Quality evidence and gate results (Part 5)
+Если функция не нужна, убираете флаг и соответствующий скрипт.
 
-Complete quality evidence from the VeriDoc pipeline for VeriOps docs, covering KPI metrics, protocol gates, 24 automated checks, and RAG readiness.
+По умолчанию baseline включен:
 
-| Check ID | Rule | Severity | Threshold | Purpose |
-| --- | --- | --- | --- | --- |
-| SEO-01 | Title length | Error/Warning | 10-70 characters | Optimal title display in search results |
-| SEO-02 | Title keyword match | Suggestion | 50% overlap | Aligns title with filename keywords |
-| SEO-03 | URL depth | Warning | Max 4 levels | Prevents deep URLs that search engines deprioritize |
-| SEO-04 | URL naming | Warning | Kebab-case | Consistent, readable URL structure |
-| SEO-05 | Image alt text | Warning | 100% coverage | Accessibility and image search visibility |
-| SEO-06 | Internal links | Suggestion | Min 1 link | Cross-references improve crawlability |
-| SEO-07 | Bare URLs | Warning | Zero bare URLs | Requires descriptive link text |
-| SEO-08 | Path characters | Warning | Alphanumeric + hyphens | Prevents encoding issues in URLs |
-| SEO-09 | Line length | Warning | Max 120 characters | Mobile readability |
-| SEO-10 | Heading keywords | Suggestion | Shared with title | Signals relevance to search engines |
-| SEO-11 | Freshness signal | Suggestion | Date in frontmatter | Indicates content currency |
-| SEO-12 | Content depth | Warning | Min 100 words | Prevents thin content penalties |
-| SEO-13 | Duplicate headings | Warning | Zero duplicates | Unique headings for anchor links |
-| SEO-14 | Structured data | Suggestion | Min 1 element | Tables, code blocks, or lists |
+- self-checks
+- multi-language tabs generation/validation for code examples
+- fact/style checks
+- lifecycle checks/reports
+- SEO/GEO
+- RAG/knowledge index
+- JSON-LD knowledge graph (`generate_knowledge_graph_jsonld.py`)
+- retrieval evals (`run_retrieval_evals.py`)
+- terminology sync to glossary (`sync_project_glossary.py`)
+- drift/contract/KPI-SLA
 
-### GRAPHQL API Reference (Part 2)
+Ключевые возможности (ваше основное УТП) включаются через:
+
+```yaml
+
+runtime:
+  custom_tasks:
+    weekly:
+      - id: "openapi-lint"
+        enabled: true
+        command: "npm run lint:openapi"
+        continue_on_error: true
+
+```
+
+Это не `редкие спецзадачи`, а базовый контур docs-ops платформы. В том числе:
+
+### Централизованная настройка клиентов (Part 6)
+
+Практический путь настройки клиентских bundle и автозапуска pipeline из одного места.
+
+##### Централизованная настройка клиентов (Part 6): 3.3) PR авто-фикс документации (в ту же PR-ветку)
+
+```yaml
+
+runtime:
+  pr_autofix:
+    enabled: true
+    require_label: false
+    label_name: "auto-doc-fix"
+    enable_auto_merge: false
+    commit_message: "docs: auto-sync PR docs"
+    workflow_filename: "docsops-pr-autofix.yml"
+
+```
+
+Что происходит:
+
+\11. Workflow запускается на `pull_request` событиях.
+\11. Смотрит только diff текущего PR (`base...head`).
+\11. Если PR заблокирован по docs-contract/drift, добавляет docs-правки.
+\11. Коммитит правки в ту же PR-ветку (не в `main`).
+\11. Checks перезапускаются автоматически.
+
+Одноразовая настройка для клиента:
+
+\11. Включить `Read and write permissions` для GitHub Actions в репозитории.
+\11. Опционально добавить `DOCSOPS_BOT_TOKEN` (`contents:write`, `pull_requests:write`) если в организации ограничен стандартный токен.
+\11. Прогнать provisioning, чтобы установить `.github/workflows/docsops-pr-autofix.yml`.
+
+### GRAPHQL API Reference (Part 3)
 
 Auto-generated graphql reference from source contract.
-
-## Interactive GraphQL Playground
 
 <div id="graphql-playground" style="border:1px solid #d1d5db; padding:12px; border-radius:8px;">
   <p><strong>Endpoint:</strong> <code id="graphql-endpoint-view"></code></p>
@@ -281,660 +257,1686 @@ Auto-generated graphql reference from source contract.
   <pre id="graphql-output" style="margin-top:12px; max-height:320px; overflow:auto;"></pre>
 </div>
 <script>
-(function(){ const endpoint = "";
+(function(){ const endpoint = "https://postman-echo.com/post";
 const view = document.getElementById('graphql-endpoint-view');
 const run = document.getElementById('graphql-run');
 const query = document.getElementById('graphql-query');
 const out = document.getElementById('graphql-output');
 if (!view || !run || !query || !out) return;
 view.textContent = endpoint || 'not configured';
+function normalize(v){ return String(v || '').replace(/\s+/g, ' ').trim().toLowerCase(); }
+function fallback(queryText){
+  const q = normalize(queryText);
+  const idMatch = String(queryText || '').match(/id\s*:\s*\"([^\"]+)\"/i);
+  const projectId = idMatch ? idMatch[1] : 'prj_abc123';
+  if (q.indexOf('health') !== -1) return { data: { health: { status: 'healthy', version: '1.0.0' } } };
+  if (q.indexOf('mutation') !== -1 && q.indexOf('createproject') !== -1) return { data: { createProject: { id: 'prj_demo001', name: 'New Project', status: 'draft' } } };
+  if (q.indexOf('mutation') !== -1 && q.indexOf('updateproject') !== -1) return { data: { updateProject: { id: projectId, status: 'active', updatedAt: new Date().toISOString() } } };
+  if (q.indexOf('projects') !== -1) return { data: { projects: [{ id: 'prj_abc123', status: 'active' }, { id: 'prj_def456', status: 'draft' }] } };
+  if (q.indexOf('project') !== -1) return { data: { project: { id: projectId, name: 'Website Redesign', status: 'active' } } };
+  return { data: null, errors: [{ message: 'Unknown query. Use: health, project, projects, createProject, updateProject' }] };
+}
 run.onclick = async function(){
-  if (!endpoint) { out.textContent = 'Endpoint is not configured in runtime.api_protocol_settings.graphql.graphql_endpoint'; return; }
+  if (!endpoint) {
+    out.textContent = JSON.stringify({ mode: 'semantic-fallback', simulated_response: fallback(query.value) }, null, 2);
+    return;
+  }
   out.textContent = 'Loading...';
   try {
     const response = await fetch(endpoint, { method:'POST', headers:{'content-type':'application/json'}, body: JSON.stringify({ query: query.value }) });
     const text = await response.text();
-    out.textContent = text;
-  } catch (error) { out.textContent = String(error); }
+    out.textContent = JSON.stringify({ mode: 'live', raw: text, simulated_response: fallback(query.value) }, null, 2);
+  } catch (error) {
+    out.textContent = JSON.stringify({ mode: 'semantic-fallback', error: String(error), simulated_response: fallback(query.value) }, null, 2);
+  }
 };
 })();
 </script>
 
-### GraphQL playground
+### GRPC API Reference (Part 3)
 
-Interactive GraphQL playground for VeriOps API with schema explorer, live query editor, subscription support, and advanced RAG retrieval pipeline.
+Auto-generated grpc reference from source contract.
 
-# GraphQL playground
-
-<div class="veriops-badges" markdown>
-
-![Powered by VeriOps](https://img.shields.io/badge/Powered%20by-VeriOps-7c3aed?style=flat-square)
-![Quality Score](https://img.shields.io/badge/Quality%20Score-100%25-10b981?style=flat-square)
-![Protocols](https://img.shields.io/badge/Protocols-5-7c3aed?style=flat-square)
-
+<div id="grpc-playground" style="border:1px solid #d1d5db; padding:12px; border-radius:8px;">
+  <p><strong>Gateway Endpoint:</strong> <code id="grpc-endpoint-view"></code></p>
+  <label>Service</label><br/><input id="grpc-service" style="width:100%" placeholder="GreeterService"/><br/>
+  <label>Method</label><br/><input id="grpc-method" style="width:100%" placeholder="SayHello"/><br/>
+  <label>Payload (JSON)</label><br/><textarea id="grpc-payload" rows="8" style="width:100%; font-family:monospace;">{
+  "name": "world"
+}</textarea><br/>
+  <button id="grpc-run">Invoke</button>
+  <pre id="grpc-output" style="margin-top:12px; max-height:320px; overflow:auto;"></pre>
 </div>
-
-The VeriOps GraphQL API provides a single endpoint for flexible queries across projects, tasks, and users. This page documents the full schema, provides a live query editor, covers authentication, error handling, performance limits, and the advanced RAG retrieval pipeline that powers AI-driven search across GraphQL documentation.
-
-## Endpoint and authentication
-
-| Setting | Value |
-| --- | --- |
-| Endpoint | [`https://api.veriops.example/graphql`](https://api.veriops.example/graphql) |
-| Method | POST |
-| Authentication | Bearer token in `Authorization` header |
-| Content type | `application/json` |
-| Max query depth | 10 levels |
-| Max query complexity | 500 points |
-| Rate limit | 60 requests per minute |
-| Introspection | Enabled in development, disabled in production |
-
-## Schema overview
-
-The VeriOps GraphQL schema exposes three operation types and one core object type:
-
-### GraphQL playground (Part 7)
-
-Interactive GraphQL playground for VeriOps API with schema explorer, live query editor, subscription support, and advanced RAG retrieval pipeline.
-
-### Multi-mode retrieval evaluation
-
-The `run_retrieval_evals.py` script supports four search modes for comparison:
-
-| Mode | Strategy | Use case |
-| --- | --- | --- |
-| `token` | Token-overlap scoring | Baseline, no API key required |
-| `semantic` | FAISS cosine similarity | Embedding-based retrieval |
-| `hybrid` | RRF fusion of token + semantic | Best recall for mixed queries |
-| `hybrid+rerank` | Hybrid + cross-encoder reranking | Highest precision for production |
-
-Run a full comparison:
-
-```bash
-python3 scripts/run_retrieval_evals.py \
-  --mode all \
-  --use-embeddings \
-  --dataset config/retrieval_eval_dataset.yml \
-  --report reports/retrieval_comparison.json
-```
-
-<!-- requires: OPENAI_API_KEY, faiss-cpu, sentence-transformers -->
-
-## Error handling
-
-GraphQL errors appear in the `errors` array alongside partial `data`:
-
-```json
-{
-  "data": null,
-  "errors": [
-    {
-      "message": "Project not found",
-      "locations": [{"line": 2, "column": 3}],
-      "path": ["project"],
-      "extensions": {
-        "code": "NOT_FOUND",
-        "timestamp": "2026-03-20T14:30:00Z"
-      }
-    }
-  ]
-}
-```
-
-### GraphQL playground (Part 8)
-
-Interactive GraphQL playground for VeriOps API with schema explorer, live query editor, subscription support, and advanced RAG retrieval pipeline.
-
-### Error codes
-
-| Code | HTTP equivalent | Meaning | Resolution |
-| --- | --- | --- | --- |
-| `UNAUTHENTICATED` | 401 | Missing or invalid bearer token | Provide a valid `Authorization: Bearer` header |
-| `FORBIDDEN` | 403 | Token valid but lacks required scope | Request the `graphql:read` or `graphql:write` scope |
-| `NOT_FOUND` | 404 | Requested resource does not exist | Verify the resource ID |
-| `QUERY_TOO_COMPLEX` | 400 | Query exceeds 500 complexity points | Reduce nesting depth or remove unnecessary fields |
-| `QUERY_TOO_DEEP` | 400 | Query exceeds 10 levels of nesting | Flatten the query or use separate requests |
-| `RATE_LIMITED` | 429 | Exceeded 60 requests per minute | Implement request throttling on the client |
-| `INTERNAL_ERROR` | 500 | Server error | Retry with exponential backoff (max 3 attempts) |
-
-## Performance limits
-
-| Limit | Value | Notes |
-| --- | --- | --- |
-| Max query depth | 10 levels | Nested field resolution depth |
-| Max complexity | 500 points | Each field costs 1 point, lists cost 10 points |
-| Max query size | 10 KB | Request body size limit |
-| Timeout | 30 seconds | Per-query execution timeout |
-| Batch queries | Up to 5 | Multiple queries in one request |
-
-### gRPC gateway invoke (Part 7)
-
-Invoke VeriOps gRPC services through the HTTP gateway with service catalog, proto definitions, and interactive request testing.
-
-## Error handling and gRPC status codes
-
-The HTTP gateway maps gRPC status codes to HTTP status codes:
-
-| gRPC status | HTTP status | Description | Resolution |
-| --- | --- | --- | --- |
-| `OK` (0) | 200 | Success | -- |
-| `INVALID_ARGUMENT` (3) | 400 | Malformed request or invalid field | Check the `payload` JSON matches the proto message |
-| `UNAUTHENTICATED` (16) | 401 | Missing or invalid bearer token | Provide a valid `Authorization` header |
-| `PERMISSION_DENIED` (7) | 403 | Token valid but lacks scope | Request `grpc:invoke` scope from admin |
-| `NOT_FOUND` (5) | 404 | Resource does not exist | Verify the project ID format (`prj_*`) |
-| `DEADLINE_EXCEEDED` (4) | 504 | RPC took longer than 30 seconds | Increase deadline or optimize the query |
-| `UNAVAILABLE` (14) | 503 | Service temporarily unavailable | Retry with exponential backoff (3 attempts, initial 1 second) |
-| `INTERNAL` (13) | 500 | Server error | Retry with exponential backoff |
-
-### VeriOps documentation (Part 5)
-
-Pipeline-generated multi-protocol API documentation for VeriOps with KPI dashboard, interactive references, and automated quality gates.
-
-## Automated detection and repair
-
-The pipeline detects documentation drift when source contracts change and regenerates affected pages automatically.
-
-!!! example "Protocol drift detected and repaired"
-
-    **Before:** The GraphQL schema added a new `priority` field to the `Project` type, but the GraphQL playground docs still listed only `id`, `name`, `status`, and `createdAt`.
-
-    **Detection:** The `multi_protocol_contract` stage compared `contracts/graphql.schema.graphql` against the generated docs and flagged the missing field as a regression.
-
-    **Autofix:** The pipeline regenerated the GraphQL reference page, added the `priority` field to the schema explorer table and query examples, and re-ran all 24 quality checks.
-
-    **Result:** Re-validation passed. No manual editing required.
-
-### VeriOps documentation (Part 8)
-
-Pipeline-generated multi-protocol API documentation for VeriOps with KPI dashboard, interactive references, and automated quality gates.
-
-## Quick links
-
-- [REST API reference (Swagger)](reference/rest-api.md) -- 14 endpoints for projects, tasks, users, tags, and comments
-- [GraphQL playground](reference/graphql-playground.md) -- live query editor with schema explorer
-- [gRPC gateway invoke](reference/grpc-gateway.md) -- HTTP gateway adapter for `ProjectService`
-- [AsyncAPI event docs](reference/asyncapi-events.md) -- event-driven channels with delivery semantics
-- [WebSocket event playground](reference/websocket-events.md) -- bidirectional real-time messaging
-- [Tutorial: launch your first integration](guides/tutorial.md) -- zero to working project in 15 minutes
-- [How-to: keep docs aligned](guides/how-to.md) -- release-day pipeline workflow
-- [Concept: pipeline-first lifecycle](guides/concept.md) -- why automated docs beat manual writing
-- [Troubleshooting: pipeline issues](guides/troubleshooting.md) -- diagnose and fix common failures
-- [Quality evidence and gate results](quality/evidence.md) -- KPI metrics and protocol gate details
-
-### REST API reference
-
-Interactive REST API reference for VeriOps with 14 endpoints across five resources, Bearer JWT authentication, and Swagger UI.
-
-# REST API reference
-
-<div class="veriops-badges" markdown>
-
-![Powered by VeriOps](https://img.shields.io/badge/Powered%20by-VeriOps-7c3aed?style=flat-square)
-![Quality Score](https://img.shields.io/badge/Quality%20Score-100%25-10b981?style=flat-square)
-![Protocols](https://img.shields.io/badge/Protocols-5-7c3aed?style=flat-square)
-
-</div>
-
-The VeriOps REST API provides 14 CRUD endpoints across five resources (projects, tasks, users, tags, and comments) over HTTP/1.1 with JSON payloads. This reference documents every endpoint, authentication flow, and error code.
-
-## Base URL and authentication
-
-| Setting | Value |
-| --- | --- |
-| Base URL | [`https://api.veriops.example/v1`](https://api.veriops.example/v1) |
-| Authentication | Bearer JWT token in `Authorization` header |
-| Content type | `application/json` |
-| Rate limit | 60 requests per minute per API key |
-| OpenAPI spec version | 3.0.3 |
-| API version | v1 |
-
-All requests require a valid JWT token:
-
-```bash
-curl -X GET https://api.veriops.example/v1/projects \
-  -H "Authorization: Bearer YOUR_API_KEY" \
-  -H "Content-Type: application/json"
-```
-
-<!-- requires: api-key -->
-
-### REST API reference (Part 7)
-
-Interactive REST API reference for VeriOps with 14 endpoints across five resources, Bearer JWT authentication, and Swagger UI.
-
-### Comments
-
-| Method | Path | Description |
-| --- | --- | --- |
-| `GET` | `/v1/comments?task_id={id}` | List comments on a task |
-| `POST` | `/v1/comments` | Add a comment to a task |
-| `DELETE` | `/v1/comments/{id}` | Delete a comment |
-
-## Interactive Swagger UI
-
-Explore and test all 14 endpoints in the embedded Swagger interface. Requests route to the Postman mock server sandbox automatically.
-
-!!! info "Sandbox mode"
-    All Try-it requests from Swagger UI route to the Postman mock server at
-    [`https://662b99a9-ac2a-4096-8a8e-480a73cef3e3.mock.pstmn.io/v1`](https://662b99a9-ac2a-4096-8a8e-480a73cef3e3.mock.pstmn.io/v1).
-    No API key is required for sandbox requests.
-
-<div style="border:1px solid #dbe2ea;border-radius:12px;overflow:hidden;">
-<iframe src="../swagger-test.html" width="100%" height="900" style="border:none;"></iframe>
-</div>
-
-## Error handling
-
-Every error response uses a consistent envelope:
-
-```json
-{
-  "error": {
-    "code": "validation_error",
-    "message": "The 'name' field is required and must be 3-100 characters.",
-    "details": [
-      {
-        "field": "name",
-        "rule": "required",
-        "message": "This field is required"
-      }
-    ]
-  }
-}
-```
-
-### REST API reference (Part 8)
-
-Interactive REST API reference for VeriOps with 14 endpoints across five resources, Bearer JWT authentication, and Swagger UI.
-
-### Error codes
-
-| Status | Code | Meaning | Resolution |
-| --- | --- | --- | --- |
-| 400 | `validation_error` | Request body fails validation | Check the `details` array for specific field errors |
-| 401 | `unauthorized` | Missing or invalid JWT token | Regenerate your token in the [dashboard](https://app.veriops.example/settings/api) |
-| 403 | `forbidden` | Token valid but lacks permission | Request the required scope from your admin |
-| 404 | `not_found` | Resource does not exist | Verify the resource ID in the URL path |
-| 409 | `conflict` | Duplicate resource | A resource with that unique key already exists |
-| 429 | `rate_limited` | Exceeded 60 requests per minute | Wait 60 seconds or implement request queuing |
-| 500 | `internal_error` | Server error | Retry with exponential backoff (max 3 attempts, initial delay 1 second) |
-
-## Rate limiting
-
-The API enforces a limit of 60 requests per minute per API key. Rate limit headers appear on every response:
-
-| Header | Description |
-| --- | --- |
-| `X-RateLimit-Limit` | Maximum requests per window (60) |
-| `X-RateLimit-Remaining` | Requests remaining in current window |
-| `X-RateLimit-Reset` | Unix timestamp when the window resets |
-
-When you exceed the limit, the API returns HTTP 429 with a `Retry-After` header indicating seconds to wait.
-
-### Troubleshooting: common VeriOps pipeline issues
-
-Fix common VeriOps documentation pipeline issues in under 5 minutes, covering contract failures, quality gates, build errors, and WebSocket problems.
-
-# Troubleshooting: common VeriOps pipeline issues
-
-<div class="veriops-badges" markdown>
-
-![Powered by VeriOps](https://img.shields.io/badge/Powered%20by-VeriOps-7c3aed?style=flat-square)
-![Quality Score](https://img.shields.io/badge/Quality%20Score-100%25-10b981?style=flat-square)
-![Protocols](https://img.shields.io/badge/Protocols-5-7c3aed?style=flat-square)
-
-</div>
-
-Your VeriOps documentation pipeline is failing with contract validation errors, quality gate warnings, or build failures. This guide fixes 95% of pipeline issues in under 5 minutes.
-
-## Quick diagnosis (30 seconds)
-
-Check the pipeline exit code and stage summary first:
-
-```bash
-python3 -c "
-import json
-s = json.load(open('reports/acme-demo/pipeline_stage_summary.json'))
-for stage in s.get('stages', []):
-    status = 'EXISTS' if stage.get('exists') else 'MISSING'
-    print(f'  {stage[\"name\"]}: {status}')
-m = json.load(open('reports/acme-demo/review_manifest.json'))
-print(f'Exit code: {m[\"weekly_rc\"]}')
-print(f'Available: {m[\"available_artifacts\"]}, Missing: {m[\"missing_artifacts\"]}')"
-```
-
-### Troubleshooting: common VeriOps pipeline issues (Part 2)
-
-Fix common VeriOps documentation pipeline issues in under 5 minutes, covering contract failures, quality gates, build errors, and WebSocket problems.
-
-## Diagnosis table
-
-| Symptom | Frequency | Fix time | Solution |
-| --- | --- | --- | --- |
-| gRPC contract fails | 40% | 2 min | [Contract validation fails for gRPC](#contract-validation-fails-for-grpc) |
-| Quality score below 80 | 25% | 5 min | [Quality score drops below 80](#quality-score-drops-below-80) |
-| MkDocs build fails | 15% | 1 min | [MkDocs build fails with theme error](#mkdocs-build-fails-with-theme-error) |
-| WebSocket tester error | 10% | 1 min | [WebSocket tester shows connection error](#websocket-tester-shows-connection-error) |
-| Reports directory empty | 5% | 2 min | [Pipeline reports directory is empty](#pipeline-reports-directory-is-empty) |
-| RAG retrieval low precision | 5% | 10 min | [Retrieval precision below threshold](#retrieval-precision-below-threshold) |
-
-## Contract validation fails for gRPC
-
-**You see:** The `multi_protocol_contract_report.json` shows `grpc` in `failed_protocols`.
-
-```json
-{
-  "failed_protocols": ["grpc"],
-  "protocols": ["rest", "graphql", "grpc", "asyncapi", "websocket"]
-}
-```
-
-**Root cause:** The `protoc` compiler is not installed, or the proto files reference missing imports.
-
-### Troubleshooting: common VeriOps pipeline issues (Part 3)
-
-Fix common VeriOps documentation pipeline issues in under 5 minutes, covering contract failures, quality gates, build errors, and WebSocket problems.
-
-### Fix gRPC contract in 2 minutes
-
-1. Install the protobuf compiler:
-
-    ```bash
-    apt-get install -y protobuf-compiler
-    protoc --version
-    ```
-
-    Expected output: `libprotoc 3.21.x` or later.
-
-1. Verify proto file paths match `client_runtime.yml`:
-
-    ```yaml
-    grpc:
-      proto_paths:
-        - reports/acme-demo/contracts/grpc
-    ```
-
-1. Re-run the pipeline:
-
-    ```bash
-    python3 scripts/run_autopipeline.py \
-      --docsops-root . \
-      --reports-dir reports/acme-demo \
-      --runtime-config reports/acme-demo/client_runtime.yml \
-      --mode veridoc
-    ```
-
-1. Verify gRPC passes:
-
-    ```bash
-    python3 -c "
-    import json
-    r = json.load(open('reports/acme-demo/multi_protocol_contract_report.json'))
-    print('Failed:', r.get('failed_protocols', []))"
-    ```
-
-    Expected output: `Failed: []`
-
-## Quality score drops below 80
-
-**You see:** The `kpi-wall.json` shows `quality_score` below 80.
-
-**Root cause:** Stale documents, missing frontmatter, or unresolved documentation gaps lower the quality score below the 80 threshold.
-
-### Troubleshooting: common VeriOps pipeline issues (Part 4)
-
-Fix common VeriOps documentation pipeline issues in under 5 minutes, covering contract failures, quality gates, build errors, and WebSocket problems.
-
-### Fix quality score in 5 minutes
-
-1. Check the gap report for high-priority items:
-
-    ```bash
-    python3 -c "
-    import json
-    r = json.load(open('reports/acme-demo/doc_gaps_report.json'))
-    high = [g for g in r.get('gaps', []) if g.get('priority') == 'high']
-    print(f'{len(high)} high-priority gaps:')
-    for g in high:
-        print(f'  [{g[\"priority\"]}] {g[\"title\"]}')"
-    ```
-
-1. Address each high-priority gap by creating or updating the relevant document. Common gaps include:
-
-    | Gap category | Typical fix |
-    | --- | --- |
-    | `authentication` | Add authentication guide with token management |
-    | `webhook` | Document webhook setup and payload schemas |
-    | `database_schema` | Add data model reference with field descriptions |
-    | `error_handling` | Create error code reference with resolution steps |
-
-1. Re-run the pipeline and verify the score:
-
-    ```bash
-    python3 -c "
-    import json
-    print(json.load(open('reports/acme-demo/kpi-wall.json'))['quality_score'])"
-    ```
-
-## MkDocs build fails with theme error
-
-**You see:** `mkdocs build` exits with `Theme 'material' not found` or `Module 'mkdocs_macros' not found`.
-
-**Root cause:** The required Python packages are not installed in the current environment.
-
-### Troubleshooting: common VeriOps pipeline issues (Part 5)
-
-Fix common VeriOps documentation pipeline issues in under 5 minutes, covering contract failures, quality gates, build errors, and WebSocket problems.
-
-### Fix MkDocs theme in 1 minute
-
-```bash
-pip install mkdocs-material mkdocs-macros-plugin pymdown-extensions
-```
-
-Verify the build succeeds:
-
-```bash
-cd demo-showcase/acme && mkdocs build --strict
-```
-
-Expected output: `INFO - Documentation built in X.XX seconds`
-
-## WebSocket tester shows connection error
-
-**You see:** The interactive WebSocket tester on the [WebSocket event playground](../reference/websocket-events.md) displays "Connection error."
-
-**Root cause:** The browser blocks insecure WebSocket connections (`ws://`) from HTTPS pages, or the endpoint is unreachable.
-
-### Fix WebSocket connection in 1 minute
-
-- Verify the endpoint uses `wss://` (not `ws://`). The correct endpoint is `wss://api.acme.example/realtime`.
-- Confirm the endpoint is accessible from your network. Try from the command line:
-
-    ```bash
-    curl -s -o /dev/null -w "%{http_code}" https://api.acme.example/realtime
-    ```
-
-- Check browser developer tools (Console tab) for specific error messages.
-- If you use a corporate proxy, configure WebSocket passthrough or use the [AsyncAPI event docs](../reference/asyncapi-events.md) with direct AMQP instead.
-
-### Troubleshooting: common VeriOps pipeline issues (Part 6)
-
-Fix common VeriOps documentation pipeline issues in under 5 minutes, covering contract failures, quality gates, build errors, and WebSocket problems.
-
-## Pipeline reports directory is empty
-
-**You see:** The `reports/acme-demo/` directory contains no JSON files after running the autopipeline.
-
-**Root cause:** The runtime config path is incorrect, or the `--reports-dir` argument points to a different location.
-
-### Fix empty reports in 2 minutes
-
-1. Verify the runtime config exists:
-
-    ```bash
-    ls -la reports/acme-demo/client_runtime.yml
-    ```
-
-1. Run the pipeline with explicit paths:
-
-    ```bash
-    python3 scripts/run_autopipeline.py \
-      --docsops-root . \
-      --reports-dir reports/acme-demo \
-      --runtime-config reports/acme-demo/client_runtime.yml \
-      --mode veridoc
-    ```
-
-1. Verify reports are generated:
-
-    ```bash
-    ls reports/acme-demo/*.json | head -10
-    ```
-
-    Expected output: at least 5 JSON report files.
-
-## Retrieval precision below threshold
-
-**You see:** The `retrieval_evals_report.json` shows precision below 0.7 or recall below 0.8.
-
-**Root cause:** The token-overlap baseline scorer runs without external dependencies and produces conservative scores. Enable advanced retrieval features (hybrid search, HyDE, cross-encoder reranking) for production-grade precision and recall.
-
-### Troubleshooting: common VeriOps pipeline issues (Part 7)
-
-Fix common VeriOps documentation pipeline issues in under 5 minutes, covering contract failures, quality gates, build errors, and WebSocket problems.
-
-### Fix retrieval precision in 10 minutes
-
-1. Check the retrieval evaluation report:
-
-```bash
-    python3 -c "
-    import json
-    r = json.load(open('reports/acme-demo/retrieval_evals_report.json'))
-    print(f'Status: {r[\"status\"]}')
-    print(f'Precision: {r[\"precision\"]}')
-    print(f'Recall: {r[\"recall\"]}')
-    print(f'Hallucination rate: {r[\"hallucination_rate\"]}')"
-    ```
-
-1. Run a multi-mode comparison to identify the best search strategy:
-
-```bash
-    python3 scripts/run_retrieval_evals.py \
-      --mode all \
-      --dataset config/retrieval_eval_dataset.yml \
-      --report reports/retrieval_comparison.json
-    ```
-
-This compares token, semantic, hybrid, and hybrid+rerank modes side by side.
-
-1. Improve knowledge module coverage:
-
-- Add more detailed content to documentation pages (each page should have at least 100 words)
-    - Include code examples with inline comments (the knowledge extractor indexes code blocks)
-    - Add tables with specific values (the knowledge extractor indexes structured data)
-
-1. Rebuild the retrieval index with chunking:
-
-```bash
-    python3 scripts/validate_knowledge_modules.py
-    python3 scripts/generate_knowledge_retrieval_index.py
-    python3 scripts/generate_embeddings.py --chunk \
-      --index docs/assets/knowledge-retrieval-index.json \
-      --output-dir docs/assets/
-    ```
-
-### Troubleshooting: common VeriOps pipeline issues (Part 8)
-
-Fix common VeriOps documentation pipeline issues in under 5 minutes, covering contract failures, quality gates, build errors, and WebSocket problems.
-
-1. Verify advanced retrieval features are enabled in `config/ask-ai.yml`:
-
-```yaml
-    hybrid_search:
-      enabled: true
-    hyde:
-      enabled: true
-    reranking:
-      enabled: true
-    embedding_cache:
-      enabled: true
-    ```
-
-1. Re-run retrieval evaluations:
-
-```bash
-    python3 scripts/run_autopipeline.py \
-      --docsops-root . \
-      --reports-dir reports/acme-demo \
-      --runtime-config reports/acme-demo/client_runtime.yml \
-      --mode veridoc
-    ```
-
-## Prevention checklist
-
-Prevent 90% of pipeline issues with these practices:
-
-- [ ] **Install all dependencies**: `protoc`, `mkdocs-material`, `pymdown-extensions`
-- [ ] **Run the pipeline before every release**: Do not wait for the weekly schedule
-- [ ] **Address high-priority gaps immediately**: They compound and lower the quality score
-- [ ] **Keep contract files current**: Update OpenAPI, GraphQL schema, and proto files with every API change
-- [ ] **Monitor the KPI dashboard**: Check `kpi-wall.json` quality score after every run
-
-### Troubleshooting: common VeriOps pipeline issues (Part 9)
-
-Fix common VeriOps documentation pipeline issues in under 5 minutes, covering contract failures, quality gates, build errors, and WebSocket problems.
-
-## Performance baseline
-
-After resolving issues, your pipeline should show:
-
-| Metric | Good | Warning | Critical |
-| --- | --- | --- | --- |
-| Quality score | 80+ | 70-79 | Below 70 |
-| Failed protocols | 0 | 1 | 2 or more |
-| High-priority gaps | 0-2 | 3-5 | 6 or more |
-| Pipeline exit code | 0 | 1 (non-critical) | 2 (critical failure) |
-| Retrieval precision | 0.7+ | 0.5-0.69 | Below 0.5 |
-
-## Next steps
-
-- [How-to: keep docs aligned with every release](how-to.md) for the operational workflow
-- [Quality evidence and gate results](../quality/evidence.md) for current gate status
-- [Concept: pipeline-first documentation lifecycle](concept.md) to understand the pipeline architecture
-
-### WebSocket event playground (Part 9)
-
-Interactive WebSocket playground for VeriOps real-time API with bidirectional messaging, channel subscriptions, and connection lifecycle management.
-
 <script>
-/* Sandbox onclick is set by acme-sandbox.js with local mock responses */
+(function(){ const endpoint = "";
+const view = document.getElementById('grpc-endpoint-view');
+const run = document.getElementById('grpc-run');
+const service = document.getElementById('grpc-service');
+const method = document.getElementById('grpc-method');
+const payload = document.getElementById('grpc-payload');
+const out = document.getElementById('grpc-output');
+if (!view || !run || !service || !method || !payload || !out) return;
+view.textContent = endpoint || 'not configured';
+function fallback(body){
+  const m = String((body && body.method) || '').toLowerCase();
+  const p = (body && body.payload && typeof body.payload === 'object') ? body.payload : {};
+  if (m === 'getproject') return { id: p.project_id || 'prj_abc123', name: 'Website Redesign', status: 'active' };
+  if (m === 'createproject') return { id: 'prj_demo001', name: p.name || 'New Project', status: p.status || 'draft' };
+  if (m === 'listprojects') return [{ id: 'prj_abc123', status: 'active' }, { id: 'prj_def456', status: 'draft' }];
+  return { error: { code: 'UNIMPLEMENTED', message: 'Use GetProject, CreateProject, or ListProjects' } };
+}
+run.onclick = async function(){
+  try {
+    const body = { service: service.value.trim(), method: method.value.trim(), payload: JSON.parse(payload.value || '{}') };
+    if (!endpoint) {
+      out.textContent = JSON.stringify({ mode: 'semantic-fallback', simulated_response: fallback(body) }, null, 2);
+      return;
+    }
+    out.textContent = 'Loading...';
+    const response = await fetch(endpoint, { method:'POST', headers:{'content-type':'application/json'}, body: JSON.stringify(body) });
+    const text = await response.text();
+    out.textContent = JSON.stringify({ mode: 'live', raw: text, simulated_response: fallback(body) }, null, 2);
+  } catch (error) {
+    let body = { method: method.value.trim(), payload: {} };
+    try { body.payload = JSON.parse(payload.value || '{}'); } catch (_) {}
+    out.textContent = JSON.stringify({ mode: 'semantic-fallback', error: String(error), simulated_response: fallback(body) }, null, 2);
+  }
+};
+})();
 </script>
 
-## Error handling
+### Troubleshooting Guide
 
-### WebSocket close codes
+Solutions for common problems including webhook failures, credential errors, execution timeouts, and memory issues.
 
-| Close code | Meaning | Client action |
-| --- | --- | --- |
-| 1000 | Normal closure | No action required |
-| 1001 | Server going away | Reconnect with exponential backoff |
-| 1006 | Abnormal close (no close frame) | Reconnect with exponential backoff |
-| 1008 | Policy violation | Check message format and size |
-| 4001 | Authentication failed | Verify your API key is valid and not expired |
-| 4002 | Subscription limit reached | Unsubscribe from unused channels (max 50) |
-| 4008 | Rate limited | Wait 60 seconds before reconnecting |
-| 4009 | Message too large | Reduce message size to under 64 KB |
+<!-- VERIDOC_POWERED_BADGE:START -->
+[![Powered by VeriDoc](https://img.shields.io/badge/Powered%20by-VeriDoc-0ea5e9?style=flat-square)](https://veridoc.app)
+<!-- VERIDOC_POWERED_BADGE:END -->
 
-### Common issues
+#### Troubleshooting Guide: Troubleshooting
 
-| Symptom | Cause | Resolution |
-| --- | --- | --- |
-| Connection drops every 30 seconds | Client not responding to `ping` | Implement `pong` response handler |
-| Connection drops after 5 minutes | No messages sent or received | Send periodic messages or respond to pings |
-| `Connection error` in browser | Mixed content (`ws://` on HTTPS page) | Use `wss://` endpoint |
-| Missed events after reconnect | Subscriptions not restored | Re-subscribe to all channels on `open` event |
+Problem → cause → solution. Start here when something breaks.
+
+### Documentation Pipeline Demo (Part 2)
+
+Automated documentation pipeline with GEO optimization, faceted search, and CI/CD quality gates for workflow automation platform.
+
+#### Documentation Pipeline Demo (Part 2): Browse by type
+
+- **[Getting Started](getting-started/index.md)**—Tutorials to learn from scratch
+- **[How-To Guides](how-to/index.md)**—Step-by-step solutions for specific tasks
+- **[Concepts](concepts/index.md)**—Architecture and design explanations
+- **[Reference](reference/index.md)**—Complete parameter and API docs
+- **[Troubleshooting](troubleshooting/index.md)**—Common problems and fixes
+
+#### Documentation Pipeline Demo (Part 2): Browse by tag
+
+See all [tags](tags.md) for faceted filtering.
+
+### Pipeline Capabilities Catalog (Part 10)
+
+Generated catalog of available pipeline commands, templates, policy packs, and assets for client configuration.
+
+#### Pipeline Capabilities Catalog (Part 10): Test assets generation and smart merge
+
+`generate_protocol_test_assets.py` generates protocol-aware test cases for all five protocols with signature-based smart merge to preserve custom and manual test cases across contract changes.
+
+**Test categories per protocol:**
+
+| Protocol | Categories |
+| --- | --- |
+| REST | CRUD happy paths, validation errors, auth, rate limiting, pagination |
+| GraphQL | Query/mutation/subscription happy path, invalid input, auth, injection, latency |
+| gRPC | Unary/streaming positive, status codes, deadline/retry, authorization, latency SLO |
+| AsyncAPI | Publish validation, invalid payload, ordering/idempotency, security, throughput |
+| WebSocket | Connection/auth, message envelope, reconnect, security, concurrency |
+
+**Output formats:** `api_test_cases.json`, `testrail_test_cases.csv` (TestRail), `zephyr_test_cases.json` (Zephyr Scale), `test_matrix.json`, `fuzz_scenarios.json`.
+
+**Smart merge rules:** auto-generated cases are replaced on contract change; customized cases (`customized: true`) are preserved and flagged `needs_review: true` when the contract signature changes; manual cases (`origin: "manual"`) are never overwritten.
+
+**TestRail/Zephyr upload:** `upload_api_test_assets.py` pushes generated cases to TestRail or Zephyr Scale. The `needs_review` flag propagates to both platforms so QA teams can triage stale custom cases.
+
+### Pipeline Capabilities Catalog (Part 14)
+
+Generated catalog of available pipeline commands, templates, policy packs, and assets for client configuration.
+
+#### Pipeline Capabilities Catalog (Part 14): API-first external sandbox note
+
+For public web playground usage, prefer `external` sandbox mode and a public HTTPS mock URL with CORS:
+
+```bash
+
+API_FIRST_DEMO_SANDBOX_BACKEND=external \
+API_FIRST_DEMO_MOCK_BASE_URL="https://<your-real-public-mock-url>/v1" \
+bash scripts/api_first_demo_live.sh
+
+```
+
+The pipeline is provider-agnostic. You can use Postman Mock Servers, Stoplight-hosted Prism, Mockoon Cloud, or your own hosted Prism-compatible endpoint.
+
+For Postman auto-prepare mode, provide:
+
+- `POSTMAN_API_KEY`
+- `POSTMAN_WORKSPACE_ID`
+- optional `POSTMAN_COLLECTION_UID` (if empty, pipeline imports collection from generated OpenAPI)
+- optional `POSTMAN_MOCK_SERVER_ID`
+
+#### Pipeline Capabilities Catalog (Part 14): PR auto-doc workflow capability
+
+Enable in client profile with `runtime.pr_autofix`.
+
+Installed workflow behavior:
+
+1. Trigger on PR events (`opened`, `synchronize`, `reopened`, `labeled`).
+1. Analyze only current PR diff (`base...head`).
+1. Run docs auto-fix script if docs contract/drift gates require docs updates.
+1. Commit generated docs into the same PR branch.
+1. Rerun checks automatically.
+
+### Pipeline Capabilities Catalog (Part 15)
+
+Generated catalog of available pipeline commands, templates, policy packs, and assets for client configuration.
+
+#### Pipeline Capabilities Catalog (Part 15): Templates
+
+These can be shipped via `bundle.include_paths` and used by LLM generation flow.
+
+- `templates/admin-guide.md`
+- `templates/api-endpoint.md`
+- `templates/api-reference.md`
+- `templates/architecture-overview.md`
+- `templates/authentication-guide.md`
+- `templates/best-practices.md`
+- `templates/changelog.md`
+- `templates/concept.md`
+- `templates/configuration-guide.md`
+- `templates/configuration-reference.md`
+- `templates/deployment-guide.md`
+- `templates/error-handling-guide.md`
+- `templates/faq.md`
+- `templates/glossary-page.md`
+- `templates/how-to.md`
+- `templates/integration-guide.md`
+- `templates/interactive-diagram.html`
+- `templates/migration-guide.md`
+- `templates/plg-persona-guide.md`
+- `templates/plg-value-page.md`
+- `templates/quickstart.md`
+- `templates/reference.md`
+- `templates/release-note.md`
+- `templates/sdk-reference.md`
+- `templates/security-guide.md`
+- `templates/testing-guide.md`
+- `templates/troubleshooting.md`
+- `templates/tutorial.md`
+- `templates/upgrade-guide.md`
+- `templates/use-case.md`
+- `templates/user-guide.md`
+- `templates/webhooks-guide.md`
+
+#### Pipeline Capabilities Catalog (Part 15): Policy Packs
+
+- `api-first.yml`
+- `minimal.yml`
+- `monorepo.yml`
+- `multi-product.yml`
+- `plg.yml`
+
+#### Pipeline Capabilities Catalog (Part 15): Knowledge Modules
+
+Can be copied into client bundle with `bundle.include_paths: ['knowledge_modules']`.
+
+- `webhook-auth-baseline.yml`
+- `webhook-retry-policy.yml`
+
+### Pipeline Capabilities Catalog (Part 4)
+
+Generated catalog of available pipeline commands, templates, policy packs, and assets for client configuration.
+
+#### Pipeline Capabilities Catalog (Part 4): How to enable any capability for a client
+
+```yaml
+
+runtime:
+  custom_tasks:
+    weekly:
+      - id: "my-task"
+        enabled: true
+        command: "npm run <script-name>"
+        continue_on_error: true
+
+```
+
+### Pipeline Capabilities Catalog (Part 7)
+
+Generated catalog of available pipeline commands, templates, policy packs, and assets for client configuration.
+
+| Script | Purpose |
+| --- | --- |
+| `scripts/build_client_bundle.py` | Build client-specific bundle in `generated/client_bundles/<client_id>/`. |
+| `scripts/provision_client_repo.py` | One-shot install into client repo (bundle copy, config/policy, env checklist, scheduler install). |
+| `scripts/init_pipeline.py` | Bootstrap pipeline directly from source into another repo (self-install path). |
+| `scripts/run_weekly_gap_batch.py` | Main weekly local runner (gaps/stale/kpi/api-first/modules/custom tasks/consolidation). |
+| `scripts/auto_fix_pr_docs.py` | PR branch docs autofix helper for optional GitHub workflow. |
+| `scripts/ensure_external_mock_server.py` | Resolve/create external mock endpoint (Postman-supported flow). |
+| `scripts/extract_knowledge_modules_from_docs.py` | Auto-extract knowledge modules from docs markdown. |
+| `scripts/gap_detector.py` | Legacy/direct gap detector entry used in some compatibility paths. |
+| `scripts/generate_docusaurus_config.py` | Generate/update Docusaurus config in adapter flows. |
+| `scripts/generate_facets_index.py` | Build faceted search index artifacts. |
+| `scripts/generate_fastapi_stubs_from_openapi.py` | Generate FastAPI stubs from OpenAPI. |
+| `scripts/generate_openapi_from_planning_notes.py` | Generate OpenAPI root/tree from planning notes. |
+| `scripts/generate_protocol_server_stubs.py` | Generate protocol server stubs with business-logic placeholders for REST, GraphQL, gRPC, AsyncAPI, and WebSocket. |
+| `scripts/generate_pipeline_capabilities_catalog.py` | Regenerate this capabilities catalog file. |
+| `scripts/lifecycle_manager.py` | Lifecycle scan/report/redirect guidance generation. |
+| `scripts/manage_demo_nav.py` | Demo nav injection/removal helper. |
+| `scripts/pilot_analysis.py` | Pilot analysis/report helper. |
+| `scripts/preprocess_variables.py` | Variables pre-processing helper for docs generation flows. |
+| `scripts/upload_to_algolia.py` | Upload generated search records to Algolia. |
+| `scripts/validate_pr_dod.py` | DoD validation helper for PR workflows. |
+| `scripts/run_multi_protocol_contract_flow.py` | Unified orchestrator for all 5 protocol documentation flows (REST, GraphQL, gRPC, AsyncAPI, WebSocket). Runs 9 stages: ingest, contract validation, server stub generation, lint, regression, docs generation, quality gates, test assets, publish. |
+| `scripts/generate_protocol_contract_from_planning_notes.py` | Generate protocol contracts (GraphQL SDL, Proto3, AsyncAPI YAML, WebSocket YAML) from planning notes markdown. |
+| `scripts/generate_protocol_docs.py` | Auto-generate reference documentation from protocol contracts using protocol-specific templates. |
+| `scripts/generate_protocol_test_assets.py` | Generate protocol-aware test cases with signature-based smart merge. Outputs JSON, TestRail CSV, Zephyr JSON, test matrix, and fuzz scenarios. |
+| `scripts/run_protocol_self_verify.py` | Runtime validation against live/mock endpoints: GraphQL introspection, gRPC invocation, AsyncAPI event publish, WebSocket connection and message routing. |
+| `scripts/validate_graphql_contract.py` | GraphQL SDL contract validation (syntax, semantics, operation types). |
+| `scripts/validate_proto_contract.py` | Proto3 contract validation (syntax, service definitions, RPC methods). |
+| `scripts/validate_asyncapi_contract.py` | AsyncAPI contract validation (channels, schemas, delivery guarantees). |
+| `scripts/validate_websocket_contract.py` | WebSocket channel contract validation (message schemas, connection lifecycle). |
+| `scripts/generate_public_docs_audit.py` | Public documentation site auditor: crawls live sites, evaluates broken links, SEO/GEO, API coverage, code examples, freshness. Supports interactive wizard and LLM-powered expert analysis. |
+| `scripts/generate_audit_scorecard.py` | Comprehensive audit scorecard generator combining docs quality, API coverage, code examples, glossary health, and policy compliance into a single score. |
+| `scripts/generate_executive_audit_pdf.py` | Consulting-grade executive PDF report from audit scorecard and public docs audit results. Includes score gauges, risk matrices, financial impact tables, and methodology appendix. |
+| `scripts/generate_embeddings.py` | Generate FAISS vector index from knowledge modules using `text-embedding-3-small` (1536 dimensions). Builds `retrieval.faiss` and `retrieval-metadata.json`. |
+
+### Pipeline Capabilities Catalog (Part 8)
+
+Generated catalog of available pipeline commands, templates, policy packs, and assets for client configuration.
+
+#### Pipeline Capabilities Catalog (Part 8): Multi-protocol contract pipeline
+
+The pipeline supports five API protocols with a unified orchestrator (`run_multi_protocol_contract_flow.py`). Each protocol has its own contract format, validator, reference template, test generator, and sandbox fallback.
+
+| Protocol | Contract format | Validator | Sandbox fallback |
+| --- | --- | --- | --- |
+| REST | OpenAPI 3.0 YAML | `validate_openapi_contract.py` + Spectral + Redocly | Prism / Postman mock server |
+| GraphQL | SDL (`.graphql`) | `validate_graphql_contract.py` | `postman-echo.com/post` |
+| gRPC | Proto3 (`.proto`) | `validate_proto_contract.py` | `postman-echo.com/post` (JSON-over-HTTP) |
+| AsyncAPI | AsyncAPI 2.6 YAML | `validate_asyncapi_contract.py` | `postman-echo.com/post` + `echo.websocket.events` |
+| WebSocket | Channel YAML | `validate_websocket_contract.py` | `echo.websocket.events` |
+
+**9 pipeline stages per protocol:** ingest, contract validation, server stub generation, lint, regression detection, docs generation, quality gates (frontmatter + snippet lint + self-verification), test assets generation with smart merge, publish.
+
+**Autofix cycle:** up to 3 auto-remediation attempts per protocol. Regenerates docs and retries semantic consistency checks on failure.
+
+**Contract generation from planning notes:** `generate_protocol_contract_from_planning_notes.py` generates protocol specs from markdown planning notes.
+
+### Plan Tiers (Basic / Pro / Enterprise) (Part 10)
+
+Feature packaging matrix and defaults for Basic, Pro, and Enterprise client plans.
+
+```yaml
+
+bundle:
+  base_policy_pack: "multi-product"
+  style_guide: "microsoft"
+  policy_overrides:
+    kpi_sla:
+      min_doc_coverage: 90
+      max_stale_pct: 10
+      max_quality_score_drop: 2
+runtime:
+  docs_flow:
+    mode: "hybrid"
+  pr_autofix:
+    enabled: false
+    require_label: false
+    label_name: "auto-doc-fix"
+    enable_auto_merge: false
+  modules:
+    gap_detection: true
+    drift_detection: true
+    docs_contract: true
+    kpi_sla: true
+    rag_optimization: true
+    ontology_graph: true
+    retrieval_evals: true
+    terminology_management: true
+    normalization: true
+    snippet_lint: true
+    self_checks: true
+    fact_checks: true
+    knowledge_validation: true
+    i18n_sync: true
+    release_pack: true
+  api_first:
+    enabled: true
+    openapi_version: "3.1.0"
+    manual_overrides_path: "api/overrides/openapi.manual.yml"
+    regression_snapshot_path: "api/.openapi-regression.json"
+    update_regression_snapshot: false
+    generate_from_notes: true
+    verify_user_path: true
+    sandbox_backend: "external"
+    mock_service: "custom"
+    mock_base_url: "https://<your-real-public-mock-url>/v1"
+    sync_playground_endpoint: true
+    generate_test_assets: true
+    test_assets_output_dir: "reports/api-test-assets"
+    testrail_csv: "reports/api-test-assets/testrail_test_cases.csv"
+    zephyr_json: "reports/api-test-assets/zephyr_test_cases.json"
+    upload_test_assets: false
+    upload_test_assets_strict: false
+    test_assets_upload_report: "reports/api-test-assets/upload_report.json"
+    external_mock:
+      enabled: true
+      provider: "postman"
+      base_path: "/v1"
+    run_docs_lint: true
+    auto_remediate: true
+    max_attempts: 5
+  api_protocols:
+    - "rest"
+    - "graphql"
+    - "grpc"
+    - "asyncapi"
+    - "websocket"
+  api_protocol_settings:
+    graphql:
+      enabled: true
+      mode: "api-first"
+      generate_server_stubs: true
+      stubs_output: "generated/api-stubs/graphql/handlers.py"
+    grpc:
+      enabled: true
+      mode: "api-first"
+      generate_server_stubs: true
+      stubs_output: "generated/api-stubs/grpc/handlers.py"
+    asyncapi:
+      enabled: true
+      mode: "api-first"
+      generate_server_stubs: true
+      stubs_output: "generated/api-stubs/asyncapi/handlers.py"
+    websocket:
+      enabled: true
+      mode: "api-first"
+      generate_server_stubs: true
+      stubs_output: "generated/api-stubs/websocket/handlers.py"
+  custom_tasks:
+    weekly:
+      - id: "seo-geo"
+        enabled: true
+        command: "python3 docsops/scripts/seo_geo_optimizer.py docs/"
+        continue_on_error: true
+      - id: "knowledge-validate"
+        enabled: true
+        command: "python3 docsops/scripts/validate_knowledge_modules.py"
+        continue_on_error: true
+      - id: "knowledge-index"
+        enabled: true
+        command: "python3 docsops/scripts/generate_knowledge_retrieval_index.py"
+        continue_on_error: true
+      - id: "intent-experiences"
+        enabled: true
+        command: "python3 docsops/scripts/build_all_intent_experiences.py"
+        continue_on_error: true
+private_tuning:
+  weekly_stale_days: 180
+
+```
+
+### Plan Tiers (Basic / Pro / Enterprise) (Part 12)
+
+Feature packaging matrix and defaults for Basic, Pro, and Enterprise client plans.
+
+#### Plan Tiers (Basic / Pro / Enterprise) (Part 12): 4. License enforcement
+
+Plan tiers are enforced at runtime by `scripts/license_gate.py`. Every gated script calls `license_gate.require("feature_name")` before executing protected logic. The license is validated offline using an Ed25519-signed JWT stored at `docsops/license.jwt`.
+
+Without a valid license, the pipeline runs in **community mode** (degraded):
+
+- Markdown lint, frontmatter validation, SEO/GEO report-only, gap detection code-only, glossary sync, lifecycle management, REST protocol.
+- No scoring, no auto-fix, no drift detection, no KPI/SLA, no PDF reports, no multi-protocol.
+- Quality gates warn-only (never block).
+
+License features per plan:
+
+| Feature gate | Pilot | Professional | Enterprise |
+| --- | --- | --- | --- |
+| `seo_geo_scoring` | No | Yes | Yes |
+| `api_first_flow` | No | Yes | Yes |
+| `drift_detection` | No | Yes | Yes |
+| `kpi_wall_sla` | No | Yes | Yes |
+| `test_assets_generation` | No | Yes | Yes |
+| `consolidated_reports` | No | Yes | Yes |
+| `multi_protocol_pipeline` | No | No | Yes |
+| `knowledge_modules` | No | No | Yes |
+| `knowledge_graph` | No | No | Yes |
+| `faiss_retrieval` | No | No | Yes |
+| `executive_audit_pdf` | No | No | Yes |
+| `i18n_system` | No | No | Yes |
+| `custom_policy_packs` | No | No | Yes |
+| `testrail_zephyr_upload` | No | No | Yes |
+
+### Plan Tiers (Basic / Pro / Enterprise) (Part 5)
+
+Feature packaging matrix and defaults for Basic, Pro, and Enterprise client plans.
+
+#### Plan Tiers (Basic / Pro / Enterprise) (Part 5): 1. Feature matrix
+
+| Capability | Basic | Pro | Enterprise |
+| --- | --- | --- | --- |
+| Core quality gates (normalize, snippets, smoke) | Yes | Yes | Yes |
+| Gap detection | Yes | Yes | Yes |
+| Weekly stale checks | Yes | Yes | Yes |
+| Drift + docs contract gates | No | Yes | Yes |
+| KPI/SLA reports | No | Yes | Yes |
+| API-first flow | No | Optional | Full |
+| Non-REST API-first autopipeline (GraphQL/gRPC/AsyncAPI/WebSocket) | No | No | Yes |
+| Non-REST server stubs (business-logic placeholders) | No | No | Yes |
+| Non-REST external mock auto-prepare (Postman) | No | No | Yes |
+| API test assets (cases/matrix/fuzz docs) | No | Yes | Yes |
+| TestRail/Zephyr upload from pipeline | No | Optional | Optional |
+| RAG/knowledge validation/index | No | Yes | Yes |
+| JSON-LD ontology/graph layer | No | Yes | Yes |
+| Retrieval evals (Precision/Recall/Hallucination) | No | Yes | Yes |
+| Terminology auto-sync (glossary markers) | Yes | Yes | Yes |
+| PR auto-doc fix to same PR branch | Optional | Optional | Optional |
+| i18n sync | No | Optional | Yes |
+| SEO/GEO optimization weekly | Optional | Yes | Yes |
+| Custom weekly task slots | 2 | 6 | Unlimited |
+| Strict policy profile | minimal | api-first/monorepo | multi-product/plg + overrides |
+
+#### Plan Tiers (Basic / Pro / Enterprise) (Part 5): 2. Default plan presets
+
+### Plan Tiers (Basic / Pro / Enterprise) (Part 6)
+
+Feature packaging matrix and defaults for Basic, Pro, and Enterprise client plans.
+
+##### Plan Tiers (Basic / Pro / Enterprise) (Part 6): Basic preset
+
+```yaml
+
+bundle:
+  base_policy_pack: "minimal"
+  style_guide: "google"
+runtime:
+  docs_flow:
+    mode: "code-first"
+  pr_autofix:
+    enabled: false
+  modules:
+    gap_detection: true
+    drift_detection: false
+    docs_contract: false
+    kpi_sla: false
+    rag_optimization: false
+    ontology_graph: false
+    retrieval_evals: false
+    terminology_management: true
+    normalization: true
+    snippet_lint: true
+    self_checks: true
+    fact_checks: true
+    knowledge_validation: false
+    i18n_sync: false
+    release_pack: true
+  api_first:
+    enabled: false
+  custom_tasks:
+    weekly:
+      - id: "seo-geo-lite"
+        enabled: true
+        command: "python3 docsops/scripts/seo_geo_optimizer.py docs/"
+        continue_on_error: true
+      - id: "max-two-tasks"
+        enabled: false
+        command: ""
+        continue_on_error: true
+private_tuning:
+  weekly_stale_days: 180
+
+```
+
+### Plan Tiers (Basic / Pro / Enterprise) (Part 8)
+
+Feature packaging matrix and defaults for Basic, Pro, and Enterprise client plans.
+
+```yaml
+
+bundle:
+  base_policy_pack: "api-first"
+  style_guide: "hybrid"
+runtime:
+  docs_flow:
+    mode: "hybrid"
+  pr_autofix:
+    enabled: false
+    require_label: false
+    label_name: "auto-doc-fix"
+    enable_auto_merge: false
+  modules:
+    gap_detection: true
+    drift_detection: true
+    docs_contract: true
+    kpi_sla: true
+    rag_optimization: true
+    ontology_graph: true
+    retrieval_evals: true
+    terminology_management: true
+    normalization: true
+    snippet_lint: true
+    self_checks: true
+    fact_checks: true
+    knowledge_validation: true
+    i18n_sync: true
+    release_pack: true
+  api_first:
+    enabled: true
+    openapi_version: "3.1.0"
+    manual_overrides_path: "api/overrides/openapi.manual.yml"
+    regression_snapshot_path: "api/.openapi-regression.json"
+    update_regression_snapshot: false
+    generate_from_notes: true
+    sandbox_backend: "external"
+    mock_service: "custom"
+    mock_base_url: "https://<your-real-public-mock-url>/v1"
+    sync_playground_endpoint: true
+    generate_test_assets: true
+    test_assets_output_dir: "reports/api-test-assets"
+    testrail_csv: "reports/api-test-assets/testrail_test_cases.csv"
+    zephyr_json: "reports/api-test-assets/zephyr_test_cases.json"
+    upload_test_assets: false
+    upload_test_assets_strict: false
+    test_assets_upload_report: "reports/api-test-assets/upload_report.json"
+    external_mock:
+      enabled: true
+      provider: "postman"
+      base_path: "/v1"
+    auto_remediate: true
+    max_attempts: 3
+  custom_tasks:
+    weekly:
+      - id: "seo-geo"
+        enabled: true
+        command: "python3 docsops/scripts/seo_geo_optimizer.py docs/"
+        continue_on_error: true
+      - id: "knowledge-index"
+        enabled: true
+        command: "python3 docsops/scripts/generate_knowledge_retrieval_index.py"
+        continue_on_error: true
+private_tuning:
+  weekly_stale_days: 180
+
+```
+
+### SEO/GEO Optimization Guide (Part 3)
+
+Comprehensive guide to SEO and GEO optimization in the documentation pipeline
+
+##### SEO/GEO Optimization Guide (Part 3): Command Line
+
+```bash
+
+# Basic GEO/SEO check
+python scripts/seo_geo_optimizer.py docs/
+
+# Fix issues and enhance metadata
+python scripts/seo_geo_optimizer.py docs/ --fix
+
+# Generate sitemap
+python scripts/seo_geo_optimizer.py docs/ --sitemap
+
+# Generate Algolia records
+python scripts/seo_geo_optimizer.py docs/ --algolia
+
+# All optimizations
+python scripts/seo_geo_optimizer.py docs/ --fix --sitemap --algolia
+
+```
+
+#### SEO/GEO Optimization Guide (Part 3): GitHub Actions
+
+The pipeline runs automatically:
+
+\11. **On PR**: Validates SEO/GEO compliance
+\11. **On Push to Main**: Updates search index and sitemap
+\11. **Weekly**: Full optimization with auto-fixes
+
+##### SEO/GEO Optimization Guide (Part 3): Pre-commit Hook
+
+Runs automatically before commits:
+
+```bash
+
+# Install pre-commit
+pip install pre-commit
+pre-commit install
+
+# Run manually
+pre-commit run seo-geo-check --all-files
+
+```
+
+#### SEO/GEO Optimization Guide (Part 3): Configuration
+
+##### SEO/GEO Optimization Guide (Part 3): Required Frontmatter
+
+Every document must have:
+
+```text
+
+---
+title: "Clear title under 70 characters"
+description: "SEO description between 50-160 characters"
+content_type: tutorial|how-to|concept|reference|troubleshooting
+---
+
+```
+
+##### SEO/GEO Optimization Guide (Part 3): Optional Enhancements
+
+```text
+
+---
+product: cloud|self-hosted|both
+app_component: webhook|http-request|code|ai-agent
+maturity: preview|beta|ga|deprecated|removed
+tags: [Tag1, Tag2, Tag3] # Max 8 tags
+last_reviewed: 2024-01-15
+---
+
+```
+
+#### SEO/GEO Optimization Guide (Part 3): Validation Rules
+
+### SEO/GEO Optimization Guide (Part 4)
+
+Comprehensive guide to SEO and GEO optimization in the documentation pipeline
+
+##### SEO/GEO Optimization Guide (Part 4): Critical (Blocks PR)
+
+- Missing required frontmatter fields
+- Description outside 50-160 character range
+- Heading hierarchy violations
+- Invalid content_type values
+
+##### SEO/GEO Optimization Guide (Part 4): Warnings (Should Fix)
+
+- First paragraph over 60 words
+- Generic headings (Overview, Setup, etc.)
+- Low fact density (>200 words without specifics)
+- Missing definition patterns
+
+##### SEO/GEO Optimization Guide (Part 4): Suggestions (Nice to Have)
+
+- Add more descriptive headings
+- Include code examples
+- Add structured data hints
+
+#### SEO/GEO Optimization Guide (Part 4): Lifecycle Management
+
+##### SEO/GEO Optimization Guide (Part 4): Content Maturity States
+
+\11. **preview**: New experimental features
+\11. **beta**: Testing phase, may change
+\11. **ga**: Generally available, stable
+\11. **deprecated**: Will be removed, use alternatives
+\11. **removed**: No longer available
+
+##### SEO/GEO Optimization Guide (Part 4): Automated Actions
+
+- **deprecated**: Lower search ranking, add warning banner
+- **removed**: Generate 301 redirect, exclude from search
+- **preview**: Add preview badge, monitor duration
+
+#### SEO/GEO Optimization Guide (Part 4): Search Ranking Factors
+
+Documents are ranked by:
+
+\11. **Content Type** (tutorials > how-tos > reference)
+\11. **Path Depth** (shallower = more important)
+\11. **Freshness** (recently updated ranks higher)
+\11. **Maturity** (GA > beta > preview > deprecated)
+\11. **Fact Density** (more code/config = higher value)
+
+#### SEO/GEO Optimization Guide (Part 4): Monitoring
+
+### SEO/GEO Optimization Guide (Part 6)
+
+Comprehensive guide to SEO and GEO optimization in the documentation pipeline
+
+##### SEO/GEO Optimization Guide (Part 6): Common Issues
+
+**Issue**: "Description too short" error
+**Fix**: Expand to 50+ characters with key terms
+
+**Issue**: "Generic heading" warning
+**Fix**: Make heading specific: "Configure webhook authentication"
+
+**Issue**: "Low fact density"
+**Fix**: Add numbers, code, configuration values
+
+**Issue**: "No definition pattern"
+**Fix**: Start with "X is/enables/provides" and include a concrete first-sentence definition.
+
+##### SEO/GEO Optimization Guide (Part 6): Debug Mode
+
+```bash
+
+# Verbose output
+python scripts/seo_geo_optimizer.py docs/ --output debug.json
+
+# Dry run (no changes)
+python scripts/seo_geo_optimizer.py docs/ --dry-run
+
+```
+
+#### SEO/GEO Optimization Guide (Part 6): Integration with Other Tools
+
+##### SEO/GEO Optimization Guide (Part 6): Algolia
+
+Records are optimized for:
+
+- Faceted search by product/type/component
+- Smart ranking based on content quality
+- Section-level search granularity
+
+##### SEO/GEO Optimization Guide (Part 6): Google Search
+
+Structured data enables:
+
+- Rich snippets in search results
+- Breadcrumb navigation
+- FAQ accordions
+- How-to steps
+
+##### SEO/GEO Optimization Guide (Part 6): AI Assistants
+
+GEO optimization improves:
+
+- Answer extraction accuracy
+- Citation likelihood
+- Context understanding
+- Factual grounding
+
+#### SEO/GEO Optimization Guide (Part 6): Next steps
+
+- [Documentation index](index.md)
+
+### TaskStream API playground (Part 3)
+
+Interactive TaskStream OpenAPI playground with Swagger UI or Redoc and try-it-out requests against mock or prod-like sandbox endpoints.
+
+#### TaskStream API playground (Part 3): Multi-language request examples
+
+=== "cURL"
+
+```bash
+
+    curl -sS "{{ config.extra.plg.api_playground.endpoints.sandbox_base_url }}/healthz"
+
+```
+
+=== "JavaScript"
+
+```javascript
+
+    const res = await fetch("{{ config.extra.plg.api_playground.endpoints.sandbox_base_url }}/healthz");
+    console.log(await res.json());
+
+```
+
+=== "Python"
+
+```python
+
+    import requests
+
+    res = requests.get("{{ config.extra.plg.api_playground.endpoints.sandbox_base_url }}/healthz", timeout=10)
+    print(res.json())
+
+```
+
+#### TaskStream API playground (Part 3): What this validates
+
+1. Request and response schema compatibility.
+1. Pagination, filtering, and sorting behavior.
+1. Error envelope and request-id propagation.
+1. Endpoint availability before backend merge.
+
+#### TaskStream API playground (Part 3): Related pages
+
+- [Run API-first production flow](../how-to/run-api-first-production-flow.md)
+- [TaskStream API planning notes](taskstream-planning-notes.md)
+
+#### TaskStream API playground (Part 3): Next steps
+
+- [Documentation index](index.md)
+
+### TaskStream API planning notes
+
+Input planning notes used by the API-first flow to generate and validate OpenAPI contracts for TaskStream demos.
+
+<!-- VERIDOC_POWERED_BADGE:START -->
+[![Powered by VeriDoc](https://img.shields.io/badge/Powered%20by-VeriDoc-0ea5e9?style=flat-square)](https://veridoc.app)
+<!-- VERIDOC_POWERED_BADGE:END -->
+
+### TaskStream API planning notes: TaskStream API planning notes
+
+This page provides the exact planning-notes input artifact used by the API-first flow before OpenAPI generation and validation.
+
+The pipeline treats these notes as the contract source of truth and derives endpoint shapes, resource life cycle behavior, filtering rules, sorting options, authentication requirements, and expected error envelopes. This input-first model keeps API design review aligned with technical writing and implementation planning.
+
+#### TaskStream API planning notes: Input artifact location
+
+- `demos/api-first/taskstream-planning-notes.md`
+
+#### TaskStream API planning notes: How the pipeline uses this input
+
+1. Parse planning notes into endpoint and schema requirements.
+1. Generate or update split OpenAPI files.
+1. Run OpenAPI lint, contract validation, stub generation, and self-verification.
+
+#### TaskStream API planning notes: Notes format (demo excerpt)
+
+```markdown
+
+Project: **TaskStream**
+API version: **v1**
+Base URL: `https://api.taskstream.example.com/v1`
+Planning date: 2026-03-09
+Status: Draft for OpenAPI writing
+
+```
+
+#### TaskStream API planning notes: Next steps
+
+- [API playground](api-playground.md)
+
+### Unified Client Configuration (Part 12)
+
+Single source of truth for per-client Auto-Doc Pipeline configuration, modules, and automation.
+
+- `openapi_version`: OpenAPI version for generation from planning notes.
+- `manual_overrides_path`: YAML overlay file applied after generation for advanced schema blocks and `x-*` extensions.
+- `regression_snapshot_path`: JSON baseline for contract regression gate.
+- `update_regression_snapshot`: when `true`, refreshes baseline during run.
+- `sandbox_backend`: `docker`, `prism`, or `external`.
+- `mock_service`: informational provider marker for team ops (`postman`, `stoplight`, `mockoon`, `prism-hosted`, `custom`).
+- `mock_base_url`: sandbox endpoint used by API self-verification.
+- `sync_playground_endpoint`: when `true`, writes `mock_base_url` into `mkdocs.yml` API playground `sandbox_base_url`.
+- `generate_test_assets`: generate API test documentation assets from OpenAPI.
+- `upload_test_assets`: push generated assets to TestRail/Zephyr if credentials are enabled.
+- `upload_test_assets_strict`: fail run if upload is enabled and provider upload fails.
+- `test_management.*`: env var names for TestRail/Zephyr upload credentials.
+- `external_mock.enabled`: when `true` and `sandbox_backend=external`, pipeline auto-prepares external mock before API-first checks.
+- `external_mock.provider`: currently `postman`.
+- `external_mock.base_path`: suffix appended to resolved mock URL (usually `/v1`).
+- `external_mock.postman.*`: env var names used by automation.
+
+External service behavior:
+
+### Unified Client Configuration (Part 14)
+
+Single source of truth for per-client Auto-Doc Pipeline configuration, modules, and automation.
+
+1. Creates or reuses Postman mock server.
+1. Resolves final public mock URL.
+1. Uses it for API self-verification.
+1. Syncs docs playground endpoint automatically.
+1. Generates API test assets (cases, matrix, property/fuzz scenarios, CSV/JSON exports).
+1. Optionally uploads those assets to TestRail/Zephyr.
+
+##### Unified Client Configuration (Part 14): 6.1 Strict default behavior for multi-protocol flows
+
+For GraphQL/gRPC/AsyncAPI/WebSocket, runtime uses strict defaults:
+
+- contract validation runs before protocol lint/docs generation.
+- semantic request/response relevance checks are mandatory in the protocol quality suite.
+- if any enabled stage fails, pipeline retries protocol flow in an autofix cycle.
+
+Runtime keys (per protocol under `runtime.api_protocol_settings.<protocol>`):
+
+```yaml
+
+generate_server_stubs: true
+stubs_output: "generated/api-stubs/<protocol>/handlers.py"
+self_verify_require_endpoint: true
+publish_requires_live_green: true
+autofix_cycle_enabled: true
+autofix_max_attempts: 3
+semantic_autofix_max_attempts: 3
+
+```
+
+These defaults are designed for smooth one-command autopipeline runs with minimal manual intervention.
+
+### Unified Client Configuration (Part 18)
+
+Single source of truth for per-client Auto-Doc Pipeline configuration, modules, and automation.
+
+- `gap_detection` -> `scripts/run_weekly_gap_batch.py` + `python3 -m scripts.gap_detection.cli analyze` (runtime command)
+- `drift_detection` -> `scripts/check_api_sdk_drift.py`
+- `docs_contract` -> `scripts/check_docs_contract.py`
+- `kpi_sla` -> `scripts/evaluate_kpi_sla.py` + `scripts/generate_kpi_wall.py`
+- `terminology_management` -> `scripts/sync_project_glossary.py`
+- `normalization` -> `scripts/normalize_docs.py`
+- `snippet_lint` -> `scripts/lint_code_snippets.py`
+- `self_checks` -> `scripts/check_code_examples_smoke.py`
+- `multilang_examples` -> `scripts/generate_multilang_tabs.py` + `scripts/validate_multilang_examples.py`
+- `fact_checks` -> `scripts/seo_geo_optimizer.py` + `scripts/doc_layers_validator.py`
+- `lifecycle_management` -> `scripts/lifecycle_manager.py` (+ lifecycle report/redirect guidance)
+- `knowledge_validation` -> `scripts/extract_knowledge_modules_from_docs.py` + `scripts/validate_knowledge_modules.py`
+- `rag_optimization` -> `scripts/generate_knowledge_retrieval_index.py`
+- `ontology_graph` -> `scripts/generate_knowledge_graph_jsonld.py`
+- `retrieval_evals` -> `scripts/run_retrieval_evals.py`
+- `i18n_sync` -> `scripts/i18n_sync.py`
+- `release_pack` -> `scripts/generate_release_docs_pack.py`
+- `api-first/hybrid` -> `scripts/run_api_first_flow.py` + `scripts/generate_openapi_from_planning_notes.py` + `scripts/validate_openapi_contract.py` + `scripts/generate_fastapi_stubs_from_openapi.py` + `scripts/apply_openapi_overrides.py` + `scripts/check_openapi_regression.py`
+- `finalize_gate` -> `scripts/finalize_docs_gate.py` (iterative lint/fix gate + optional user commit confirmation flow)
+
+### Unified Client Configuration (Part 20)
+
+Single source of truth for per-client Auto-Doc Pipeline configuration, modules, and automation.
+
+```yaml
+
+runtime:
+  retrieval_eval:
+    enabled: true
+    index_path: "docs/assets/knowledge-retrieval-index.json"
+    dataset_path: ""
+    top_k: 3
+    min_precision: 0.5
+    min_recall: 0.5
+    max_hallucination_rate: 0.5
+    auto_samples: 25
+  knowledge_graph:
+    enabled: true
+    modules_dir: "knowledge_modules"
+    output_path: "docs/assets/knowledge-graph.jsonld"
+  git_sync:
+    enabled: true
+    repo_path: "."
+    remote: "origin"
+    branch: ""
+    fetch_first: true
+    rebase: true
+    autostash: true
+    continue_on_error: true
+  finalize_gate:
+    enabled: true
+    docs_root: "docs"
+    reports_dir: "reports"
+    lint_command: "npm run lint"
+    max_iterations: 5
+    continue_on_error: true
+    auto_fix_commands:
+      - "python3 scripts/normalize_docs.py {docs_root}"
+      - "python3 scripts/seo_geo_optimizer.py {docs_root} --fix"
+    llm_fix_command: ""
+    ask_commit_confirmation: false
+    run_precommit_before_commit: true
+    commit_on_approve: false
+    push_on_commit: false
+
+```
+
+By default, `git_sync.enabled=true`: weekly runner executes `git fetch` + `git pull` before report generation.
+This lets the responsible person avoid manual pull steps.
+Scheduler must run under a user account that already has git access to the private repo (SSH key or credential helper/PAT).
+
+`finalize_gate` behavior:
+
+### Unified Client Configuration (Part 21)
+
+Single source of truth for per-client Auto-Doc Pipeline configuration, modules, and automation.
+
+- runs after generation/refinement tasks in weekly flow,
+- runs lint/fix/lint loop (`scripts/finalize_docs_gate.py`),
+- can optionally ask user confirmation before commit in interactive mode.
+
+Important: API-first is only one flow branch.
+The pipeline supports and generates all major doc types (tutorial/how-to/concept/reference/troubleshooting/release/security/sdk/api/user/admin/runbook), and quality automation applies across them.
+
+### Unified Client Configuration (Part 22)
+
+Single source of truth for per-client Auto-Doc Pipeline configuration, modules, and automation.
+
+#### Unified Client Configuration (Part 22): 8. Universal tasks (core UTP, not optional extras)
+
+Use `runtime.custom_tasks.weekly` to wire any command from the capabilities catalog.
+
+```yaml
+
+runtime:
+  custom_tasks:
+    weekly:
+      - id: "geo-lint"
+        enabled: true
+        command: "python3 docsops/scripts/seo_geo_optimizer.py docs/"
+        continue_on_error: true
+      - id: "openapi-lint"
+        enabled: true
+        command: "npm run lint:openapi"
+        continue_on_error: true
+    on_demand: []
+
+```
+
+Full list of available capabilities:
+
+- `docs/operations/PIPELINE_CAPABILITIES_CATALOG.md`
+- regenerate catalog: `python3 scripts/generate_pipeline_capabilities_catalog.py`
+
+Recommended default for smooth intent assembly:
+
+- Keep `scripts/build_all_intent_experiences.py` in `bundle.include_scripts`.
+- Keep `python3 docsops/scripts/build_all_intent_experiences.py` enabled in `runtime.custom_tasks.weekly`.
+- Keep `knowledge_modules` in `bundle.include_paths` (or store it directly in client repo).
+
+### Unified Client Configuration (Part 24)
+
+Single source of truth for per-client Auto-Doc Pipeline configuration, modules, and automation.
+
+##### Unified Client Configuration (Part 24): Core UTP tasks (default-on baseline)
+
+```yaml
+
+runtime:
+  custom_tasks:
+    weekly:
+      - id: "seo-geo"
+        enabled: true
+        command: "python3 docsops/scripts/seo_geo_optimizer.py docs/"
+        continue_on_error: true
+      - id: "knowledge-validate"
+        enabled: true
+        command: "python3 docsops/scripts/validate_knowledge_modules.py"
+        continue_on_error: true
+      - id: "knowledge-index"
+        enabled: true
+        command: "python3 docsops/scripts/generate_knowledge_retrieval_index.py"
+        continue_on_error: true
+      - id: "intent-all"
+        enabled: true
+        command: "python3 docsops/scripts/build_all_intent_experiences.py"
+        continue_on_error: true
+
+```
+
+### Unified Client Configuration (Part 25)
+
+Single source of truth for per-client Auto-Doc Pipeline configuration, modules, and automation.
+
+##### Unified Client Configuration (Part 25): Additional examples
+
+###### Unified Client Configuration (Part 25): Multi-language examples baseline (new standard)
+
+```yaml
+
+runtime:
+  modules:
+    multilang_examples: true
+  multilang_examples:
+    enabled: true
+    scope: "all"
+    required_languages: ["curl", "javascript", "python"]
+
+```
+
+Bundle requirements:
+
+```yaml
+
+bundle:
+  include_scripts:
+    - "scripts/generate_multilang_tabs.py"
+    - "scripts/validate_multilang_examples.py"
+
+```
+
+How it works in weekly runner:
+
+- auto-generate tabbed examples from standalone cURL examples
+- validate required language tabs
+- run smoke execution and `expected-output` matching on tagged blocks
+
+###### Unified Client Configuration (Part 25): API-first advanced baseline (overrides + regression gate)
+
+```yaml
+
+runtime:
+  api_first:
+    enabled: true
+    openapi_version: "3.1.0"
+    manual_overrides_path: "api/overrides/openapi.manual.yml"
+    regression_snapshot_path: "api/.openapi-regression.json"
+    update_regression_snapshot: false
+
+```
+
+Bundle requirements:
+
+```yaml
+
+bundle:
+  include_scripts:
+    - "scripts/apply_openapi_overrides.py"
+    - "scripts/check_openapi_regression.py"
+
+```
+
+###### Unified Client Configuration (Part 25): SEO/GEO weekly
+
+```yaml
+
+runtime:
+  custom_tasks:
+    weekly:
+      - id: "seo-geo"
+        enabled: true
+        command: "python3 docsops/scripts/seo_geo_optimizer.py docs/"
+        continue_on_error: true
+
+```
+
+###### Unified Client Configuration (Part 25): RAG / knowledge base weekly
+
+### Unified Client Configuration (Part 26)
+
+Single source of truth for per-client Auto-Doc Pipeline configuration, modules, and automation.
+
+```yaml
+
+runtime:
+  custom_tasks:
+    weekly:
+      - id: "knowledge-validate"
+        enabled: true
+        command: "python3 docsops/scripts/validate_knowledge_modules.py"
+        continue_on_error: true
+      - id: "knowledge-index"
+        enabled: true
+        command: "python3 docsops/scripts/generate_knowledge_retrieval_index.py"
+        continue_on_error: true
+      - id: "intent-all"
+        enabled: true
+        command: "python3 docsops/scripts/build_all_intent_experiences.py"
+        continue_on_error: true
+
+```
+
+###### Unified Client Configuration (Part 26): Multilingual (i18n) baseline
+
+```yaml
+
+runtime:
+  modules:
+    i18n_sync: true
+  custom_tasks:
+    weekly:
+      - id: "i18n-translate-stale"
+        enabled: false
+        command: "python3 docsops/scripts/i18n_translate.py --stale-only"
+        continue_on_error: true
+
+```
+
+Bundle requirements:
+
+```yaml
+
+bundle:
+  include_scripts:
+    - "scripts/i18n_sync.py"
+    - "scripts/i18n_translate.py"
+    - "scripts/i18n_migrate.py"
+    - "scripts/i18n_utils.py"
+
+```
+
+Practical mode:
+
+- Keep `i18n_sync` always on (checks coverage/drift for locales).
+- Keep auto-translation off by default (`enabled: false`) unless client explicitly wants it.
+
+###### Unified Client Configuration (Part 26): Interactive diagrams assets
+
+```yaml
+
+bundle:
+  include_paths:
+    - "templates/interactive-diagram.html"
+
+```
+
+###### Unified Client Configuration (Part 26): Search facets index
+
+### Unified Client Configuration (Part 27)
+
+Single source of truth for per-client Auto-Doc Pipeline configuration, modules, and automation.
+
+```yaml
+
+runtime:
+  custom_tasks:
+    weekly:
+      - id: "facets-index"
+        enabled: true
+        command: "python3 docsops/scripts/generate_facets_index.py --docs-dir docs --output docs/assets/facets-index.json"
+        continue_on_error: true
+
+```
+
+###### Unified Client Configuration (Part 27): Algolia push
+
+```yaml
+
+runtime:
+  custom_tasks:
+    weekly:
+      - id: "algolia-upload"
+        enabled: true
+        command: "python3 docsops/scripts/upload_to_algolia.py"
+        continue_on_error: true
+
+```
+
+#### Unified Client Configuration (Part 27): 9. Private tuning
+
+```yaml
+
+private_tuning:
+  gap_priority_weights:
+    business_impact: 0.45
+    user_frequency: 0.35
+    implementation_cost: 0.20
+  stale_days: 21
+  weekly_stale_days: 180
+  rag_chunk_target_tokens: 420
+  verify_max_attempts: 3
+
+```
+
+`weekly_stale_days` default is 180 (half year), configurable per client.
+
+#### Unified Client Configuration (Part 27): 10. Licensing
+
+```yaml
+
+licensing:
+  plan: "professional"   # pilot | professional | enterprise
+  days: 365              # License validity in days
+  max_docs: 1000         # Page limit (0 = unlimited)
+
+```
+
+Builder generates a signed JWT license at `docsops/license.jwt` (if the Ed25519 private key is available at `docsops/keys/veriops-licensing.key`). If the private key is absent, a placeholder is written.
+
+Plan tiers control feature access at runtime. See `docs/operations/PLAN_TIERS.md` for the full feature matrix and license enforcement details.
+
+### Unified Client Configuration (Part 29)
+
+Single source of truth for per-client Auto-Doc Pipeline configuration, modules, and automation.
+
+##### Unified Client Configuration (Part 29): Full UTP baseline (recommended)
+
+```yaml
+
+runtime:
+  docs_flow:
+    mode: "hybrid"
+  modules:
+    gap_detection: true
+    drift_detection: true
+    docs_contract: true
+    kpi_sla: true
+    rag_optimization: true
+    multilang_examples: true
+    normalization: true
+    snippet_lint: true
+    knowledge_validation: true
+    i18n_sync: true
+    release_pack: true
+  custom_tasks:
+    weekly:
+      - id: "seo-geo"
+        enabled: true
+        command: "python3 docsops/scripts/seo_geo_optimizer.py docs/"
+        continue_on_error: true
+      - id: "knowledge-index"
+        enabled: true
+        command: "python3 docsops/scripts/generate_knowledge_retrieval_index.py"
+        continue_on_error: true
+
+```
+
+Default automation order in weekly runner:
+
+\11. extract knowledge modules from docs (`extract_knowledge_modules_from_docs.py`)
+\11. validate modules (`validate_knowledge_modules.py`)
+\11. regenerate retrieval index (`generate_knowledge_retrieval_index.py`)
+\11. generate JSON-LD knowledge graph (`generate_knowledge_graph_jsonld.py`)
+\11. run retrieval evals (`run_retrieval_evals.py`)
+\11. sync glossary markers to `glossary.yml` (`sync_project_glossary.py`)
+\11. generate multi-language tabs (`generate_multilang_tabs.py`)
+\11. validate multi-language tabs (`validate_multilang_examples.py`)
+\11. run smoke checks with optional `expected-output` matching (`check_code_examples_smoke.py`)
+
+### Unified Client Configuration (Part 8)
+
+Single source of truth for per-client Auto-Doc Pipeline configuration, modules, and automation.
+
+##### Unified Client Configuration (Part 8): 5.1 PR auto-doc workflow
+
+```yaml
+
+runtime:
+  pr_autofix:
+    enabled: false
+    require_label: false
+    label_name: "auto-doc-fix"
+    enable_auto_merge: false
+    commit_message: "docs: auto-sync PR docs"
+    workflow_filename: "docsops-pr-autofix.yml"
+
+```
+
+Behavior when enabled:
+
+- Trigger: PR opened/updated (`pull_request` events).
+- Scope: only changed files in the current PR (`base...head` diff).
+- If docs drift is detected, bot can generate docs patch and commit to the same PR branch.
+- No commits to `main`.
+- Checks rerun automatically after bot commit.
+
+Default policy:
+
+- `pr_autofix` is optional and disabled by default.
+- `docs_contract` is report-only by default in weekly flow and consolidated report.
+- Weekly consolidated report adds only new/changed docs-contract mismatches, ignores closed ones, and deduplicates with other gap sources.
+
+One-time repo setup (done during provisioning):
+
+1. Workflow file is generated in `.github/workflows/docsops-pr-autofix.yml`.
+1. Set GitHub Actions permissions to `Read and write`.
+1. Optional: set `DOCSOPS_BOT_TOKEN` for orgs that restrict default token pushes.
+
+### Variables and Templates Guide (Part 3)
+
+How to use Jinja2 variables and templates in documentation for consistency
+
+##### Variables and Templates Guide (Part 3): 3. Create New Variables When
+
+- You use the same value in 3+ places
+- The value might change in the future
+- It's configuration-specific
+
+#### Variables and Templates Guide (Part 3): Adding New Variables
+
+\11. Edit `docs/_variables.yml`:
+
+```yaml
+
+# Add your variable
+my_new_variable: "value"
+
+```
+
+\11. Use in any markdown file:
+
+```markdown
+
+The value is {{ my_new_variable }}.
+
+```
+
+\11. Variables are available immediately after saving.
+
+#### Variables and Templates Guide (Part 3): Troubleshooting
+
+##### Variables and Templates Guide (Part 3): Variable Not Rendering
+
+**Problem**: You see `{{ variable_name }}` in output
+**Solution**: Ensure mkdocs-macros-plugin is installed and configured
+
+##### Variables and Templates Guide (Part 3): Variable Not Found Error
+
+**Problem**: Build fails with "variable not defined"
+**Solution**: Check variable name in `_variables.yml`
+
+##### Variables and Templates Guide (Part 3): Conditional Content Not Working
+
+**Problem**: Jinja2 conditions show in output
+**Solution**: Use `{% raw %}` tags to escape if needed:
+
+```markdown
+
+{% raw %}
+This will show: {{ variable_name }}
+{% endraw %}
+
+```
+
+#### Variables and Templates Guide (Part 3): Examples
+
+##### Variables and Templates Guide (Part 3): Complete Page with Variables
+
+```markdown
+
+---
+title: "Configure {{ product_name }} Webhooks"
+description: "Learn how to set up webhooks on port {{ default_webhook_port }}"
+---
+
+# Configure {{ product_name }} Webhooks
+
+{{ product_name }} webhooks listen on port {{ default_webhook_port }} by default.
+
+## Prerequisites
+
+- {{ product_name }} version {{ min_supported_version }} or later
+- Access to port {{ default_webhook_port }}
+
+### Fix: Webhook trigger not firing
+
+Troubleshoot Webhook nodes that do not receive requests. Common causes include inactive workflows, wrong URL type, and network configuration.
+
+<!-- VERIDOC_POWERED_BADGE:START -->
+[![Powered by VeriDoc](https://img.shields.io/badge/Powered%20by-VeriDoc-0ea5e9?style=flat-square)](https://veridoc.app)
+<!-- VERIDOC_POWERED_BADGE:END -->
+
+#### Fix: Webhook trigger not firing: Fix: Webhook trigger not firing
+
+The Webhook node does not respond to incoming HTTP requests. The sender receives a timeout, connection refused, or 404 error.
+
+#### Fix: Webhook trigger not firing: Cause 1: Using Test URL with an inactive editor
+
+**Symptom:** Requests to the Test URL return a timeout or 404 after you close the editor tab.
+
+**Why:** The Test URL (`/webhook-test/<id>`) is only active while the workflow editor is open and the workflow is in Listening mode. Closing the browser tab deactivates it.
+
+**Fix:** Toggle the workflow to **Active** and use the **Production URL** (`/webhook/<id>`) instead. The Production URL remains active as long as the workflow is enabled.
+
+#### Fix: Webhook trigger not firing: Cause 2: Workflow not activated
+
+**Symptom:** Requests to the Production URL return 404 Not Found.
+
+**Why:** The Production URL only works when the workflow toggle is set to **Active** (green). An inactive workflow does not register its webhook endpoints.
+
+**Fix:** Open the workflow in the editor. Toggle the **Active** switch in the top-right corner. Verify the Production URL returns a response.
+
+### Fix: Webhook trigger not firing (Part 2)
+
+Troubleshoot Webhook nodes that do not receive requests. Common causes include inactive workflows, wrong URL type, and network configuration.
+
+#### Fix: Webhook trigger not firing (Part 2): Cause 3: Firewall or reverse proxy blocking requests
+
+**Symptom:** Requests from external services timeout. Local `curl` requests work fine.
+
+**Why:** The service listens on port 5678 by default. If your server firewall or reverse proxy (Nginx, Caddy, Traefik) does not route traffic to this port, external requests never reach it.
+
+**Fix:**
+
+=== "Docker with Nginx"
+
+ Verify your Nginx config routes traffic to the container:
+
+```nginx
+
+ location /webhook/ {
+ proxy_pass http://product:5678;
+ proxy_set_header Host $host;
+ proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+ }
+
+```
+
+=== "Direct install"
+
+ Check that port 5678 is open:
+
+```bash
+
+ sudo ufw allow 5678
+ # or
+ sudo firewall-cmd --add-port=5678/tcp --permanent
+
+```
+
+#### Fix: Webhook trigger not firing (Part 2): Cause 4: Incorrect WEBHOOK_URL environment variable
+
+**Symptom:** The Webhook node shows a URL that does not match your domain. External services cannot reach it.
+
+**Why:** The service uses the `WEBHOOK_URL` environment variable to generate webhook URLs. If this is set to `http://localhost:5678` (the default), external services cannot resolve `localhost`.
+
+**Fix:** Set `WEBHOOK_URL` to your public-facing URL:
+
+```bash
+
+export WEBHOOK_URL=https://product.yourdomain.com
+
+```
+
+### Fix: Webhook trigger not firing (Part 3)
+
+Troubleshoot Webhook nodes that do not receive requests. Common causes include inactive workflows, wrong URL type, and network configuration.
+
+#### Fix: Webhook trigger not firing (Part 3): Still not working?
+
+1. Check the logs for errors: `docker logs` or the process output.
+1. Test with a minimal `curl` command from the same network as the service.
+1. Verify the HTTP method matches (the Webhook node only responds to the configured method).
+
+#### Fix: Webhook trigger not firing (Part 3): Related
+
+- [Webhook node reference](../reference/nodes/webhook.md)
+- [Configure Webhook authentication](../how-to/configure-webhook-trigger.md)
+
+#### Fix: Webhook trigger not firing (Part 3): Next steps
+
+- [Documentation index](index.md)
+
+### WEBSOCKET API Reference (Part 3)
+
+Auto-generated websocket reference from source contract.
+
+<!-- vale off -->
+<div id="websocket-playground" style="border:1px solid #d1d5db; padding:12px; border-radius:8px;">
+  <p><strong>Endpoint:</strong> <code id="websocket-endpoint-view"></code></p>
+  <textarea id="websocket-message" rows="8" style="width:100%; font-family:monospace;">{
+  "type": "subscribe",
+  "request_id": "req_001",
+  "payload": {"channel": "project.updated", "filters": {"project_id": "prj_abc123"}}
+}</textarea><br/>
+  <button id="websocket-send">Connect + Send</button>
+  <pre id="websocket-output" style="margin-top:12px; max-height:320px; overflow:auto;"></pre>
+</div>
+<script>
+(function(){ const endpoint = "wss://echo.websocket.events";
+const view = document.getElementById('websocket-endpoint-view');
+const send = document.getElementById('websocket-send');
+const msg = document.getElementById('websocket-message');
+const out = document.getElementById('websocket-output');
+if (!view || !send || !msg || !out) return;
+view.textContent = endpoint || 'not configured';
+function parseJson(raw){ try { return JSON.parse(String(raw || '{}')); } catch (_) { return { raw: String(raw || '') }; } }
+function semanticResponse(input){
+  const req = parseJson(input);
+  const payload = (req && req.payload && typeof req.payload === 'object') ? req.payload : {};
+  const type = String(req.type || req.action || '').toLowerCase();
+  const requestId = req.request_id || ('req_' + Date.now());
+  const channel = String(payload.channel || payload.topic || 'project.updated');
+  const projectId = String((payload.filters && payload.filters.project_id) || payload.project_id || 'prj_abc123');
+  if (type === 'ping') return { type: 'pong', request_id: requestId, payload: { ts: new Date().toISOString() } };
+  if (type === 'subscribe') return { type: 'ack', request_id: requestId, payload: { status: 'subscribed', channel: channel, filters: payload.filters || {} } };
+  if (type === 'unsubscribe') return { type: 'ack', request_id: requestId, payload: { status: 'unsubscribed', channel: channel } };
+  if (type === 'publish') return { type: 'event', request_id: requestId, payload: { event_type: channel, data: Object.assign({ project_id: projectId, status: 'active' }, (payload.data && typeof payload.data === 'object') ? payload.data : {}) } };
+  if (type === 'get_project' || type === 'project.get' || type === 'query') return { type: 'event', request_id: requestId, payload: { event_type: 'project.snapshot', data: { project_id: projectId, name: 'Website Redesign', status: 'active', updated_at: new Date().toISOString() } } };
+  if (type === 'list_projects' || type === 'project.list') return { type: 'event', request_id: requestId, payload: { event_type: 'project.list', data: [{ project_id: 'prj_abc123', status: 'active' }, { project_id: 'prj_def456', status: 'draft' }] } };
+  return { type: 'ack', request_id: requestId, payload: { status: 'accepted', echo: req, hint: 'Use: ping, subscribe, unsubscribe, publish, get_project, list_projects' } };
+}
+send.onclick = function(){
+  if (!endpoint) { out.textContent = 'Endpoint is not configured in runtime.api_protocol_settings.websocket.websocket_endpoint'; return; }
+  try {
+    const socket = new WebSocket(endpoint);
+    let received = false;
+    socket.onopen = function(){ socket.send(msg.value); out.textContent = 'message sent'; };
+    socket.onmessage = function(e){
+      received = true;
+      const simulated = semanticResponse(e.data);
+      out.textContent = JSON.stringify({ mode: 'live-echo-plus-semantic', raw: String(e.data || ''), simulated_response: simulated }, null, 2);
+      socket.close();
+    };
+    socket.onerror = function(){
+      const simulated = semanticResponse(msg.value);
+      out.textContent = JSON.stringify({ mode: 'offline-semantic-fallback', simulated_response: simulated }, null, 2);
+    };
+    setTimeout(function(){
+      if (!received) {
+        const simulated = semanticResponse(msg.value);
+        out.textContent = JSON.stringify({ mode: 'timeout-semantic-fallback', simulated_response: simulated }, null, 2);
+        try { socket.close(); } catch (_) {}
+      }
+    }, 1500);
+  } catch (error) { out.textContent = String(error); }
+};
+})();
+</script>
+<!-- vale on -->
+
+### Workflow execution model (Part 2)
+
+The workflow engine processes workflows by executing nodes sequentially, passing data as arrays of JSON objects between each node in the chain.
+
+#### Workflow execution model (Part 2): Execution modes
+
+The platform supports two execution modes that affect error handling and performance.
+
+=== "Regular mode (default)"
+
+ Nodes execute one at a time. If a node fails, execution stops and the workflow reports an error. This mode is predictable and easier to debug.
+
+ Typical setting: `EXECUTIONS_MODE=regular`
+
+=== "Queue mode (production)"
+
+ Workflow executions are distributed across worker processes. This mode handles high-volume workloads (hundreds of concurrent executions) and requires a Redis instance for coordination.
+
+ Typical setting: `EXECUTIONS_MODE=queue`
+
+#### Workflow execution model (Part 2): Error handling
+
+When a node fails, behavior depends on the node's error handling setting:
+
+- **Stop execution** (default): The workflow stops. The error appears in the execution log.
+- **Continue on fail**: The node outputs an error object, and the next node receives it. Use this for non-critical steps like logging.
+- **Error Trigger workflow**: A separate workflow handles the error path. This pattern is common for alerting and retry logic.
+
+#### Workflow execution model (Part 2): Key implications for documentation writers
+
+The execution model means that every node reference page should document what input format the node expects, what output format it produces (how many items, what structure), and how the node behaves with multiple items (once for all vs. once per item).
 
 ### Define idempotent webhook retry handling
 
@@ -943,6 +1945,7 @@ Provides retry and idempotency patterns to avoid duplicate processing across doc
 Use idempotency keys to make webhook retries safe. Persist a processed-event key for at least 24 hours, and skip duplicate events with HTTP 200 to stop upstream retries. Use exponential backoff for outbound retries: one second, two seconds, four seconds, eight seconds, and 16 seconds, capped at five attempts.
 
 ```javascript
+
 const retryScheduleSeconds = [1, 2, 4, 8, 16];
 
 function shouldProcess(eventId, cache) {
@@ -952,6 +1955,7 @@ function shouldProcess(eventId, cache) {
   cache.add(eventId);
   return true;
 }
+
 ```
 
 Alert when retry rate exceeds 5% for 15 minutes. This threshold usually indicates downstream instability.

@@ -30,6 +30,7 @@ from typing import Any
 import httpx
 import jwt
 from pydantic import BaseModel, ConfigDict, Field
+from sqlalchemy.exc import SQLAlchemyError
 
 logger = logging.getLogger(__name__)
 
@@ -110,7 +111,7 @@ def _load_default_monthly_cents() -> dict[str, int]:
             "business": int(BUSINESS_PLAN.price_monthly_usd) * 10,
             "enterprise": int(ENTERPRISE_PLAN.price_monthly_usd) * 10,
         }
-    except Exception:
+    except ImportError:
         # Safe fallback if pricing module is unavailable in stripped runtime.
         return {
             "starter": 1490,
@@ -260,8 +261,8 @@ def _issue_or_refresh_server_license(
     try:
         os.chmod(license_path, 0o600)
         os.chmod(metadata_path, 0o600)
-    except OSError:
-        pass
+    except OSError as exc:
+        logger.debug("Failed to apply chmod on license artifacts for user=%s: %s", user_id, exc)
 
     # Best-effort audit trace.
     try:
@@ -283,7 +284,7 @@ def _issue_or_refresh_server_license(
             )
         )
         db_session.commit()
-    except Exception as exc:
+    except SQLAlchemyError as exc:
         db_session.rollback()
         logger.warning("Failed to persist license audit log for user=%s: %s", user_id, exc)
 
@@ -642,7 +643,7 @@ def handle_get_server_license_status(
         )
     try:
         payload = json.loads(meta_path.read_text(encoding="utf-8"))
-    except Exception:
+    except (json.JSONDecodeError, OSError, TypeError):
         payload = {}
     return LicenseStatusResponse(
         enabled=True,
@@ -1123,7 +1124,7 @@ def _submit_wise_payout(
             if transfer_id is None:
                 return (None, "Wise transfer id is missing")
             return (str(transfer_id), None)
-    except Exception as exc:
+    except (httpx.HTTPError, ValueError, RuntimeError) as exc:
         logger.warning("Wise payout failed: %s", exc)
         return (None, str(exc))
 

@@ -69,7 +69,7 @@ class ConfluenceImporter:
                 file_path.write_text(full_doc, encoding="utf-8")
                 result.generated_files.append(str(file_path))
                 result.imported_pages += 1
-            except (Exception,) as exc:
+            except (RuntimeError, ValueError, TypeError, OSError) as exc:
                 result.failed_pages += 1
                 result.failed_titles.append(page.title)
                 result.warnings.append(f"Failed page '{page.title}': {exc}")

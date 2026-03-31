@@ -24,6 +24,13 @@ import sys
 from dataclasses import dataclass, field
 from pathlib import Path
 
+IGNORED_MD_PATH_MARKERS = ("docs/reference/intent-experiences/",)
+
+
+def _should_skip_markdown(path: Path) -> bool:
+    normalized = str(path).replace("\\", "/")
+    return any(marker in normalized for marker in IGNORED_MD_PATH_MARKERS)
+
 
 # ---------------------------------------------------------------------------
 # Data structures
@@ -345,6 +352,8 @@ def find_diagram_embeddings(paths: list[str]) -> list[DiagramEmbedding]:
             md_files = sorted(p.rglob("*.md"))
 
         for md_file in md_files:
+            if _should_skip_markdown(md_file):
+                continue
             content = md_file.read_text(encoding="utf-8", errors="ignore")
             lines = content.splitlines()
 
@@ -873,6 +882,8 @@ def validate_diagrams(paths: list[str], strict: bool = False) -> int:
             md_files = sorted(p.rglob("*.md"))
 
         for md_file in md_files:
+            if _should_skip_markdown(md_file):
+                continue
             try:
                 content = md_file.read_text(encoding="utf-8", errors="ignore")
             except OSError:

@@ -14,6 +14,11 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--target-dir", default=".", help="Target repository root")
     parser.add_argument("--output-dir", default="ask-ai-runtime", help="Runtime pack directory in target repo")
     parser.add_argument("--force", action="store_true", help="Overwrite existing output directory")
+    parser.add_argument(
+        "--skip-if-missing",
+        action="store_true",
+        help="Exit successfully when the runtime pack is missing",
+    )
     return parser.parse_args()
 
 
@@ -101,6 +106,9 @@ def main() -> int:
     script_dir = Path(__file__).resolve().parent
     source_pack = script_dir.parent / "runtime" / "ask-ai-pack"
     if not source_pack.exists():
+        if args.skip_if_missing:
+            print(f"Ask AI runtime pack not found, skipping install: {source_pack}")
+            return 0
         raise FileNotFoundError(f"Ask AI runtime pack not found: {source_pack}")
 
     target_dir = Path(args.target_dir).resolve()

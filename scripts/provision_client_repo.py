@@ -439,12 +439,32 @@ def _run_interactive_wizard(args: argparse.Namespace) -> argparse.Namespace:
     print("3) scheduler mode (none/linux/windows, only for install-local mode)\n")
 
     mode_default = "bundle-only"
-    mode = _prompt_choice("Delivery mode", ["bundle-only", "install-local"], mode_default)
+    source_mode_hint: str | None = None
+    while True:
+        mode_raw = _prompt_with_default(
+            "Delivery mode (bundle-only/install-local)",
+            mode_default,
+        ).strip().lower()
+        if mode_raw in {"bundle-only", "install-local"}:
+            mode = mode_raw
+            break
+        if mode_raw in {"existing", "preset"}:
+            # Backward-compatible path for older interactive flows/tests that
+            # answered profile source first.
+            mode = "install-local"
+            source_mode_hint = mode_raw
+            break
+        print("Please choose one of: bundle-only/install-local")
+
     args.bundle_only = mode == "bundle-only"
 
     default_scheduler = "windows" if os.name == "nt" else "linux"
     source_default = "preset" if getattr(args, "generate_profile", False) else "existing"
-    source_mode = _prompt_choice("Profile source", ["existing", "preset"], source_default)
+    source_mode = source_mode_hint or _prompt_choice(
+        "Profile source",
+        ["existing", "preset"],
+        source_default,
+    )
     if source_mode == "preset":
         generated_profile, client_repo, scheduler = _create_profile_via_wizard(
             default_scheduler,
@@ -866,23 +886,17 @@ def apply_integrations(client_repo: Path, docsops_dir: str) -> None:
     if bool(ask_ai.get("install_runtime_pack", False)):
         runtime_pack_script = client_repo / docsops_dir / "scripts" / "install_ask_ai_runtime.py"
         if runtime_pack_script.exists():
-            runtime_pack_dir = client_repo / docsops_dir / "runtime" / "ask-ai-pack"
-            if runtime_pack_dir.exists():
-                subprocess.run(
-                    [
-                        sys.executable,
-                        str(runtime_pack_script),
-                        "--target-dir",
-                        ".",
-                    ],
-                    cwd=str(client_repo),
-                    check=True,
-                )
-            else:
-                print(
-                    "[ask-ai] warning: install_runtime_pack=true but runtime pack is missing in bundle "
-                    f"({runtime_pack_dir}). Skipping runtime pack install."
-                )
+            subprocess.run(
+                [
+                    sys.executable,
+                    str(runtime_pack_script),
+                    "--target-dir",
+                    ".",
+                    "--skip-if-missing",
+                ],
+                cwd=str(client_repo),
+                check=True,
+            )
 
 
 def generate_env_checklist(client_repo: Path, docsops_dir: str) -> Path | None:

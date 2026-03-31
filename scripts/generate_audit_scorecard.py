@@ -25,7 +25,7 @@ import yaml
 try:
     from scripts import pack_runtime as _pack_rt
     _pack = _pack_rt.get_pack()
-except (Exception,):
+except (RuntimeError, ValueError, TypeError, OSError):
     _pack_rt = None  # type: ignore[assignment]
     _pack = None
 
@@ -91,7 +91,7 @@ def _read_json(path: Path) -> dict[str, Any]:
     try:
         payload = json.loads(path.read_text(encoding="utf-8"))
         return payload if isinstance(payload, dict) else {}
-    except (Exception,):  # noqa: BLE001
+    except (yaml.YAMLError, ValueError, TypeError, OSError):  # noqa: BLE001
         return {}
 
 
@@ -115,7 +115,7 @@ def _extract_frontmatter(content: str) -> dict[str, Any]:
         return {}
     try:
         payload = yaml.safe_load(parts[1]) or {}
-    except (Exception,):  # noqa: BLE001
+    except (yaml.YAMLError, ValueError, TypeError, OSError):  # noqa: BLE001
         return {}
     return payload if isinstance(payload, dict) else {}
 
@@ -175,7 +175,7 @@ def _load_openapi(spec_path: Path) -> dict[str, Any]:
         return {}
     try:
         payload = yaml.safe_load(spec_path.read_text(encoding="utf-8")) or {}
-    except (Exception,):  # noqa: BLE001
+    except (RuntimeError, ValueError, TypeError, OSError):  # noqa: BLE001
         return {}
     return payload if isinstance(payload, dict) else {}
 
@@ -349,7 +349,7 @@ def _layer_completeness_metrics(docs_dir: Path, policy_pack: Path | None) -> dic
             from_pack = section.get("required_layers") if isinstance(section, dict) else None
             if isinstance(from_pack, list) and from_pack:
                 required_layers = [str(v).strip().lower() for v in from_pack if str(v).strip()]
-        except (Exception,):  # noqa: BLE001
+        except (RuntimeError, ValueError, TypeError, OSError):  # noqa: BLE001
             logger.warning("Failed reading required_layers from policy pack: %s", policy_pack)
 
     features: dict[str, set[str]] = {}
@@ -410,7 +410,7 @@ def _terminology_metrics(docs_dir: Path, glossary_path: Path, reports_dir: Path)
         try:
             payload = yaml.safe_load(glossary_path.read_text(encoding="utf-8")) or {}
             glossary = payload if isinstance(payload, dict) else {}
-        except (Exception,):  # noqa: BLE001
+        except (RuntimeError, ValueError, TypeError, OSError):  # noqa: BLE001
             glossary = {}
 
     forbidden = glossary.get("forbidden", []) if isinstance(glossary.get("forbidden"), list) else []

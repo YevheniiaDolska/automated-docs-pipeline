@@ -80,7 +80,7 @@ def _ask_confirmation(prompt: str, ui_confirmation: str) -> bool:
                 out = probe()
                 if out is not None:
                     return out
-            except (Exception,):
+            except (RuntimeError, ValueError, TypeError, OSError):
                 if mode == "on":
                     return False
                 continue

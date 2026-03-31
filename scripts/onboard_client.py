@@ -88,7 +88,8 @@ def parse_args() -> argparse.Namespace:
 
 def main() -> int:
     base_args = parse_args()
-    bundle_only = base_args.mode == "bundle-only"
+    mode = getattr(base_args, "mode", "install-local")
+    bundle_only = mode == "bundle-only"
     interactive_args = argparse.Namespace(
         client=base_args.client,
         client_repo=base_args.client_repo,

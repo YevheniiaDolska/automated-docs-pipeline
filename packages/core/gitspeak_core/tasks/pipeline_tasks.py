@@ -12,9 +12,12 @@ import logging
 import time
 from datetime import datetime, timedelta, timezone
 
+from sqlalchemy.exc import SQLAlchemyError
+
 from gitspeak_core.tasks.celery_app import app
 
 logger = logging.getLogger(__name__)
+TASK_OPERATION_ERRORS = (RuntimeError, ValueError, SQLAlchemyError)
 
 
 @app.task(bind=True, name="gitspeak_core.tasks.pipeline_tasks.run_pipeline_async")
@@ -86,7 +89,7 @@ def run_pipeline_async(
             "duration": duration,
         }
 
-    except (Exception,) as exc:
+    except TASK_OPERATION_ERRORS as exc:
         logger.exception("Pipeline task failed: run_id=%s", run_id)
         if run:
             run.status = "failed"
@@ -155,7 +158,7 @@ def run_llm_generation(
             "docs_generated": summary.docs_generated,
         }
 
-    except (Exception,) as exc:
+    except TASK_OPERATION_ERRORS as exc:
         logger.exception("LLM generation failed: run_id=%s", run_id)
         raise
     finally:
@@ -242,8 +245,8 @@ def check_scheduled_runs() -> dict[str, int]:
 
         return {"triggered": triggered}
 
-    except (Exception,):
-        logger.exception("Failed to check scheduled runs")
+    except TASK_OPERATION_ERRORS as exc:
+        logger.exception("Failed to check scheduled runs: %s", exc)
         session.rollback()
         raise
     finally:
@@ -276,8 +279,8 @@ def process_referral_payouts() -> dict[str, int]:
         if result.get("payouts_created", 0):
             logger.info("Referral payouts created: %s", result)
         return result
-    except Exception:
-        logger.exception("Failed to process recurring referral payouts")
+    except TASK_OPERATION_ERRORS as exc:
+        logger.exception("Failed to process recurring referral payouts: %s", exc)
         session.rollback()
         raise
     finally:

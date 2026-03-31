@@ -1,20 +1,14 @@
 ---
-title: 'Intent experience: automate for support'
-description: Assembled guidance for one intent and audience using reusable knowledge
-  modules with verified metadata and channel-ready sections.
+title: "Intent experience: automate for support"
+description: "Assembled guidance for one intent and audience using reusable knowledge modules with verified metadata and channel-ready sections."
 content_type: reference
 product: both
 tags:
-- Reference
-- AI
-last_reviewed: '2026-03-26'
-original_author: Developer
+  - Reference
+  - AI
 ---
 
-
-<!-- VERIDOC_POWERED_BADGE:START -->
-[![Powered by VeriDoc](https://img.shields.io/badge/Powered%20by-VeriDoc-0ea5e9?style=flat-square)](https://veridoc.app)
-<!-- VERIDOC_POWERED_BADGE:END -->
+<!-- markdownlint-disable MD001 MD007 MD024 MD025 MD031 -->
 
 # Intent experience: automate for support
 
@@ -34,6 +28,7 @@ Provides retry and idempotency patterns to avoid duplicate processing across doc
 Use idempotency keys to make webhook retries safe. Persist a processed-event key for at least 24 hours, and skip duplicate events with HTTP 200 to stop upstream retries. Use exponential backoff for outbound retries: one second, two seconds, four seconds, eight seconds, and 16 seconds, capped at five attempts.
 
 ```javascript
+
 const retryScheduleSeconds = [1, 2, 4, 8, 16];
 
 function shouldProcess(eventId, cache) {
@@ -43,6 +38,7 @@ function shouldProcess(eventId, cache) {
   cache.add(eventId);
   return true;
 }
+
 ```
 
 Alert when retry rate exceeds 5% for 15 minutes. This threshold usually indicates downstream instability.

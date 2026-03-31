@@ -13,6 +13,28 @@ import yaml
 import json
 
 
+class _PermissiveYAMLLoader(yaml.SafeLoader):
+    """Safe loader that accepts unknown tags (e.g. Docker Compose !override)."""
+
+
+def _unknown_yaml_tag(loader: yaml.SafeLoader, tag_suffix: str, node: yaml.nodes.Node):
+    if isinstance(node, yaml.ScalarNode):
+        return loader.construct_scalar(node)
+    if isinstance(node, yaml.SequenceNode):
+        return loader.construct_sequence(node)
+    if isinstance(node, yaml.MappingNode):
+        return loader.construct_mapping(node)
+    return None
+
+
+_PermissiveYAMLLoader.add_multi_constructor("!", _unknown_yaml_tag)
+
+
+def _yaml_load(path: Path):
+    with open(path, "r", encoding="utf-8") as f:
+        return yaml.load(f, Loader=_PermissiveYAMLLoader)
+
+
 class PipelineTestRunner:
     """Tests all major flows in the documentation pipeline"""
 
@@ -63,8 +85,7 @@ class PipelineTestRunner:
                 continue
 
             try:
-                with open(yaml_file, 'r', encoding='utf-8') as f:
-                    yaml.safe_load(f)
+                _yaml_load(yaml_file)
             except (Exception,) as e:
                 self.failed_tests.append(f"Invalid YAML in {yaml_file}: {e}")
                 return False
@@ -131,8 +152,7 @@ class PipelineTestRunner:
 
         # Validate mkdocs.yml
         try:
-            with open(mkdocs_file, 'r', encoding='utf-8') as f:
-                config = yaml.safe_load(f)
+            config = _yaml_load(mkdocs_file)
 
             # Check required sections
             required = ['site_name', 'theme', 'plugins', 'nav']
@@ -158,8 +178,7 @@ class PipelineTestRunner:
             return False
 
         try:
-            with open(var_file, 'r', encoding='utf-8') as f:
-                variables = yaml.safe_load(f)
+            variables = _yaml_load(var_file)
 
             # Check key variables exist
             required_vars = ['product_name', 'default_port', 'cloud_url']
@@ -227,8 +246,7 @@ class PipelineTestRunner:
 
         for workflow in workflow_files:
             try:
-                with open(workflow, 'r', encoding='utf-8') as f:
-                    config = yaml.safe_load(f)
+                config = _yaml_load(workflow)
 
                 # Basic validation
                 if 'name' not in config:

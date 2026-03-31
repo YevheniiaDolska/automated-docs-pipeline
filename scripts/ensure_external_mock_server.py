@@ -431,7 +431,7 @@ def _find_existing_mock_by_name(base_url: str, api_key: str, workspace_id: str, 
     for endpoint in candidates:
         try:
             payload = _http_json("GET", endpoint, api_key=api_key)
-        except (Exception,) as exc:  # noqa: BLE001
+        except Exception as exc:  # noqa: BLE001
             logger.debug(
                 "Mock server lookup failed for endpoint %s: %s", endpoint, exc,
             )
@@ -466,7 +466,7 @@ def _resolve_postman_mock(args: argparse.Namespace) -> dict[str, str]:
                     "mock_server_id": resolved_id,
                     "mock_url": resolved_url,
                 }
-            except (Exception,) as exc:  # noqa: BLE001
+            except Exception as exc:  # noqa: BLE001
                 last_error = exc
                 continue
         raise RuntimeError(f"Unable to resolve existing Postman mock server ID `{mock_server_id}`: {last_error}")
@@ -565,7 +565,7 @@ def _resolve_postman_mock(args: argparse.Namespace) -> dict[str, str]:
                 "mock_server_id": resolved_id,
                 "mock_url": resolved_url,
             }
-        except (Exception,) as exc:  # noqa: BLE001
+        except Exception as exc:  # noqa: BLE001
             last_error = exc
             errors.append(f"{endpoint}: {exc}")
             continue

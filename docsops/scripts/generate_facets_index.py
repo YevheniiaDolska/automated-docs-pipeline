@@ -27,7 +27,7 @@ def extract_frontmatter(file_path):
             return yaml.safe_load(parts[1])
         except yaml.YAMLError:
             return None
-    except (Exception,) as e:
+    except (RuntimeError, ValueError, TypeError, OSError) as e:
         print(f"Error reading {file_path}: {e}", file=sys.stderr)
         return None
 

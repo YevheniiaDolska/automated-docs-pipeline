@@ -57,7 +57,7 @@ def _init_sentry() -> None:
         logger.info("Sentry initialized: environment=%s", environment)
     except ImportError:
         logger.warning("sentry-sdk not installed, error tracking disabled")
-    except Exception:
+    except (RuntimeError, ValueError, TypeError):
         logger.exception("Failed to initialize Sentry")
 
 
@@ -338,7 +338,7 @@ async def readiness_check(db: Any = Depends(get_db)) -> dict[str, str]:
 
         db.execute(text("SELECT 1"))
         return {"status": "ready", "database": "connected"}
-    except (Exception,) as exc:
+    except (RuntimeError, ValueError, TypeError, OSError) as exc:
         return JSONResponse(
             status_code=503,
             content={"status": "not_ready", "database": str(exc)},
@@ -477,7 +477,7 @@ async def start_pipeline_run(
         )
         run.celery_task_id = task.id
         db.commit()
-    except (Exception,):
+    except (RuntimeError, ValueError, TypeError, OSError):
         # Celery not available -- run synchronously as fallback
         logger.warning("Celery not available, running pipeline synchronously")
         from gitspeak_core.api.pipeline import RunPipelineRequest, handle_run_pipeline
@@ -849,7 +849,7 @@ async def create_checkout(
         req = CreateCheckoutRequest(**body)
         result = handle_create_checkout(req, user["user_id"], user["email"], db)
         return result.model_dump()
-    except (Exception,) as exc:
+    except (RuntimeError, ValueError, TypeError, OSError) as exc:
         raise HTTPException(status_code=400, detail=str(exc))
 
 
@@ -979,7 +979,7 @@ async def create_invoice_request(
         req = InvoiceRequestCreate(**body)
         result = handle_create_invoice_request(req, user["user_id"], db)
         return result.model_dump()
-    except (Exception,) as exc:
+    except (RuntimeError, ValueError, TypeError, OSError) as exc:
         raise HTTPException(status_code=400, detail=str(exc))
 
 
@@ -996,7 +996,7 @@ async def create_audit_request(
         req = AuditRequestCreate(**body)
         result = handle_create_audit_request(req, db)
         return result.model_dump()
-    except (Exception,) as exc:
+    except (RuntimeError, ValueError, TypeError, OSError) as exc:
         raise HTTPException(status_code=400, detail=str(exc))
 
 

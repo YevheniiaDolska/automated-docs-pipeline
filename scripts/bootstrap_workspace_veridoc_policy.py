@@ -141,7 +141,7 @@ def main() -> int:
             row["ok"] = rc == 0
             if rc != 0:
                 row["error"] = output[-3000:]
-        except (Exception,) as exc:
+        except (RuntimeError, ValueError, TypeError, OSError) as exc:
             row["error"] = str(exc)
         report_rows.append(row)
 

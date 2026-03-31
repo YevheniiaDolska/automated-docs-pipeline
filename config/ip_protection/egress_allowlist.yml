@@ -1,0 +1,23 @@
+version: 1
+description: "Metadata-only egress policy for server communication."
+allowed_fields:
+  - tenant_id
+  - build_id
+  - version
+  - platform
+  - plan
+  - health
+  - error_code
+  - duration_ms
+  - event
+  - timestamp_utc
+blocked_key_patterns:
+  - content
+  - text
+  - code
+  - source
+  - prompt
+  - snippet
+  - markdown
+  - doc
+  - file

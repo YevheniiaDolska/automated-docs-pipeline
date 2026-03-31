@@ -1,21 +1,14 @@
 ---
-title: 'Intent experience: integrate for practitioner'
-description: Assembled guidance for one intent and audience using reusable knowledge
-  modules with verified metadata and channel-ready sections.
+title: "Intent experience: integrate for practitioner"
+description: "Assembled guidance for one intent and audience using reusable knowledge modules with verified metadata and channel-ready sections."
 content_type: reference
 product: both
 tags:
-- Reference
-- AI
-app_version: '7.68'
-last_reviewed: '2026-03-26'
-original_author: Developer
+  - Reference
+  - AI
 ---
 
-
-<!-- VERIDOC_POWERED_BADGE:START -->
-[![Powered by VeriDoc](https://img.shields.io/badge/Powered%20by-VeriDoc-0ea5e9?style=flat-square)](https://veridoc.app)
-<!-- VERIDOC_POWERED_BADGE:END -->
+<!-- markdownlint-disable MD001 MD007 MD024 MD025 MD031 -->
 
 # Intent experience: integrate for practitioner
 
@@ -28,294 +21,253 @@ python3 scripts/assemble_intent_experience.py \
 
 ## Included modules
 
-### Tutorial: launch your first VeriOps API integration
+### Multi-Protocol Wizard Guide (Part 2)
 
-Build a working VeriOps API integration in 15 minutes with authenticated requests, project creation, and real-time WebSocket subscriptions.
+Wizard UX for protocol-aware provisioning in VeriDoc and VeriOps.
 
-# Tutorial: launch your first VeriOps API integration
+#### Multi-Protocol Wizard Guide (Part 2): Current product definition (2026-03-25)
 
-<div class="veriops-badges" markdown>
+This content follows the active implementation baseline:
 
-![Powered by VeriOps](https://img.shields.io/badge/Powered%20by-VeriOps-7c3aed?style=flat-square)
-![Quality Score](https://img.shields.io/badge/Quality%20Score-100%25-10b981?style=flat-square)
-![Protocols](https://img.shields.io/badge/Protocols-5-7c3aed?style=flat-square)
+1. The platform is docs-first and also supports `code-first`, `api-first`, and `hybrid` modes.
+1. The smooth autopipeline covers all five API protocols (REST, GraphQL, gRPC, AsyncAPI, and WebSocket) in one operational model.
+1. Non-REST flow includes generated server stubs with business-logic placeholders.
+1. External mock sandbox resolution is integrated, with Postman-supported auto-prepare in external mode.
+1. Contract test assets are generated automatically and merged with smart-merge so manual/customized cases are preserved and flagged for review when needed.
+1. Knowledge/RAG maintenance, terminology sync, and quality/compliance gates run through the same automation surface when enabled.
+1. Plan tiers gate advanced capabilities; higher plans include broader non-REST and governance scope.
 
-</div>
-
-This tutorial walks you through creating your first VeriOps API project, sending authenticated requests across three protocols (REST, GraphQL, and WebSocket), and verifying the integration works. You complete all five steps in under 15 minutes.
-
-## What you will build
-
-By the end of this tutorial, you will have:
-
-- A working REST API client that creates and retrieves projects
-- A GraphQL query that fetches project data with custom field selection
-- A WebSocket subscription that receives real-time project update events
-- A test script that verifies all three protocols work together
-
-**Time to first success:** 5 minutes for REST, 15 minutes for the complete multi-protocol integration.
-
-### Tutorial: launch your first VeriOps API integration (Part 2)
-
-Build a working VeriOps API integration in 15 minutes with authenticated requests, project creation, and real-time WebSocket subscriptions.
-
-## Before you start
-
-You need:
-
-- An VeriOps API key from the [developer dashboard](https://app.veriops.example/settings/api)
-- `curl` version 7.68 or later (run `curl --version` to verify)
-- Node.js version 18 or later for the WebSocket client (run `node --version` to verify)
-- A terminal with internet access
-- About 15 minutes
-
-!!! tip "Save time"
-    Export your API key as an environment variable to avoid repeating it in every command:
-    `export VERIOPS_API_KEY="YOUR_API_KEY"`
-
-### Tutorial: launch your first VeriOps API integration (Part 3)
-
-Build a working VeriOps API integration in 15 minutes with authenticated requests, project creation, and real-time WebSocket subscriptions.
-
-## Step 1: verify your API key (2 minutes)
-
-Run this command to confirm your API key authenticates against the VeriOps REST API:
+Run:
 
 ```bash
-curl -s -o /dev/null -w "%{http_code}" \
-  -H "Authorization: Bearer YOUR_API_KEY" \
-  https://api.veriops.example/v1/projects
+
+python3 scripts/provision_client_repo.py --interactive --generate-profile
+
 ```
 
-<!-- requires: api-key -->
-
-A `200` response confirms your key works. A `401` response means the key is invalid or expired. Generate a new key in the [dashboard](https://app.veriops.example/settings/api) if you receive `401`.
-
-Next, verify the GraphQL endpoint:
+Unified autopipeline run (single command, no standalone chain):
 
 ```bash
-curl -s -X POST https://api.veriops.example/graphql \
-  -H "Authorization: Bearer YOUR_API_KEY" \
-  -H "Content-Type: application/json" \
-  -d '{"query": "{ health { status version } }"}' \
-  | python3 -m json.tool
-```
 
-<!-- requires: api-key -->
-
-**Expected response:**
-
-```json
-{
-    "data": {
-        "health": {
-            "status": "ok",
-            "version": "1.0.0"
-        }
-    }
-}
-```
-
-### Tutorial: launch your first VeriOps API integration (Part 4)
-
-Build a working VeriOps API integration in 15 minutes with authenticated requests, project creation, and real-time WebSocket subscriptions.
-
-## Step 2: create a project via REST (3 minutes)
-
-Create your first project resource using the REST API:
-
-```bash
-curl -X POST https://api.veriops.example/v1/projects \
-  -H "Authorization: Bearer YOUR_API_KEY" \
-  -H "Content-Type: application/json" \
-  -d '{
-    "name": "Tutorial Integration Project",
-    "description": "Created during the VeriOps API tutorial",
-    "status": "active"
-  }'
-```
-
-<!-- requires: api-key -->
-
-**Expected response (HTTP 201):**
-
-```json
-{
-  "id": "prj_abc123",
-  "name": "Tutorial Integration Project",
-  "description": "Created during the VeriOps API tutorial",
-  "status": "active",
-  "created_at": "2026-03-19T10:00:00Z",
-  "updated_at": "2026-03-19T10:00:00Z",
-  "task_count": 0,
-  "owner_id": "usr_789"
-}
-```
-
-Save the `id` value (for example, `prj_abc123`). You need it for steps 3 and 4.
-
-### Tutorial: launch your first VeriOps API integration (Part 5)
-
-Build a working VeriOps API integration in 15 minutes with authenticated requests, project creation, and real-time WebSocket subscriptions.
-
-## Step 3: query the project via GraphQL (3 minutes)
-
-Use GraphQL to fetch the project you created with custom field selection. GraphQL returns only the fields you request, which reduces payload size.
-
-```bash
-curl -s -X POST https://api.veriops.example/graphql \
-  -H "Authorization: Bearer YOUR_API_KEY" \
-  -H "Content-Type: application/json" \
-  -d '{
-    "query": "query GetProject($id: ID!) { project(id: $id) { id name status createdAt } }",
-    "variables": {"id": "prj_abc123"}
-  }' \
-  | python3 -m json.tool
-```
-
-<!-- requires: api-key -->
-
-**Expected response:**
-
-```json
-{
-    "data": {
-        "project": {
-            "id": "prj_abc123",
-            "name": "Tutorial Integration Project",
-            "status": "active",
-            "createdAt": "2026-03-19T10:00:00Z"
-        }
-    }
-}
-```
-
-Notice that the response contains only the four fields you requested (`id`, `name`, `status`, `createdAt`), not the full project object. This is a key advantage of GraphQL over REST for bandwidth-sensitive clients.
-
-### Tutorial: launch your first VeriOps API integration (Part 6)
-
-Build a working VeriOps API integration in 15 minutes with authenticated requests, project creation, and real-time WebSocket subscriptions.
-
-## Step 4: subscribe to real-time updates via WebSocket (5 minutes)
-
-Open a WebSocket connection to receive live project change events. Create this Node.js script:
-
-```javascript
-// tutorial-websocket.js
-// Connect to VeriOps WebSocket API and subscribe to project updates
-// Requires: Node.js 18+ (built-in WebSocket support)
-const ws = new WebSocket(
-  'wss://api.veriops.example/realtime?token=YOUR_API_KEY'
-);
-
-ws.addEventListener('open', () => {
-  console.log('Connected to VeriOps WebSocket API');
-
-// Subscribe to updates for the project you created in Step 2
-  ws.send(JSON.stringify({
-    type: 'subscribe',
-    request_id: 'tutorial-001',
-    sent_at: new Date().toISOString(),
-    payload: {
-      channel: 'project.updated',
-      filters: { project_id: 'prj_abc123' }
-    }
-  }));
-});
-
-ws.addEventListener('message', (event) => {
-  const msg = JSON.parse(event.data);
-  if (msg.type === 'ack') {
-    console.log('Subscription confirmed:', msg.request_id);
-  } else if (msg.type === 'event') {
-    console.log('Project update received:');
-    console.log('  Status:', msg.payload.data.status);
-    console.log('  Updated by:', msg.payload.data.updated_by);
-  } else if (msg.type === 'ping') {
-    ws.send(JSON.stringify({ type: 'pong', request_id: msg.request_id }));
-  }
-});
-
-ws.addEventListener('close', (event) => {
-  console.log('Disconnected:', event.code, event.reason);
-});
+python3 scripts/run_autopipeline.py --docsops-root docsops --reports-dir reports
 
 ```
 
-### Tutorial: launch your first VeriOps API integration (Part 7)
+Wizard includes:
 
-Build a working VeriOps API integration in 15 minutes with authenticated requests, project creation, and real-time WebSocket subscriptions.
+1. `What's your API architecture?`
+1. Multi-select protocols: `REST`, `GraphQL`, `gRPC`, `AsyncAPI`, `WebSocket`.
+1. Per selected protocol:
 
-```javascript
-// Keep the script running for 60 seconds to receive events
-setTimeout(() => {
-  ws.close(1000, 'Tutorial complete');
-  console.log('Tutorial WebSocket client closed');
-}, 60000);
-```
+- source-of-truth inputs
+  - mode (`api-first` / `code-first` / `hybrid`)
 
-<!-- requires: api-key -->
+### Multi-Protocol Wizard Guide (Part 6)
 
-Run the script:
+Wizard UX for protocol-aware provisioning in VeriDoc and VeriOps.
 
-```bash
-node tutorial-websocket.js
-```
+#### Multi-Protocol Wizard Guide (Part 6): Implementation status (2026-03-25)
 
-While the script runs, update the project status from another terminal to trigger an event:
+This document is aligned to the current production implementation baseline.
 
-```bash
-curl -X PUT https://api.veriops.example/v1/projects/prj_abc123 \
-  -H "Authorization: Bearer YOUR_API_KEY" \
-  -H "Content-Type: application/json" \
-  -d '{"status": "archived"}'
-```
+Current baseline:
 
-<!-- requires: api-key -->
+1. The platform is docs-first and also supports `code-first`, `api-first`, and `hybrid` flows.
+1. REST and non-REST protocols are supported in one automation model: REST, GraphQL, gRPC, AsyncAPI, and WebSocket.
+1. Non-REST automation includes server stubs with business-logic placeholders.
+1. External mock sandbox resolution is integrated into the smooth autopipeline, including Postman-supported auto-prepare mode.
+1. Contract test assets are generated automatically and merged with smart-merge rules so manual/customized cases are preserved.
+1. Knowledge/RAG tasks run as part of automation when enabled (module extraction, validation, retrieval index, graph, evals).
+1. Plan gating is enforced by configuration and policy packs; advanced non-REST automation is reserved for higher plans.
 
-The WebSocket client prints the update event within 1-2 seconds.
+Canonical execution order reference:
 
-### Tutorial: launch your first VeriOps API integration (Part 8)
+- `docs/operations/CANONICAL_FLOW.md`
+- `docs/operations/UNIFIED_CLIENT_CONFIG.md`
+- `README.md`
 
-Build a working VeriOps API integration in 15 minutes with authenticated requests, project creation, and real-time WebSocket subscriptions.
+Commercial note:
 
-## Step 5: verify the integration (2 minutes)
+- Where commercial packaging is discussed, recurring service terms (retainer/licensing) are part of the active go-to-market model.
 
-Run this checklist to confirm all three protocols work:
+### Operator Runbook (Retainer Operations)
 
-| Protocol | Test command | Expected result |
+Step-by-step instructions for weekly report review, client questions, new repo setup, and profile tuning.
+
+<!-- VERIDOC_POWERED_BADGE:START -->
+[![Powered by VeriDoc](https://img.shields.io/badge/Powered%20by-VeriDoc-0ea5e9?style=flat-square)](https://veridoc.app)
+<!-- VERIDOC_POWERED_BADGE:END -->
+
+### Operator Runbook (Retainer Operations): Operator Runbook (Retainer Operations)
+
+#### Operator Runbook (Retainer Operations): Current product definition (2026-03-25)
+
+This content follows the active implementation baseline:
+
+1. The platform is docs-first and also supports `code-first`, `api-first`, and `hybrid` modes.
+1. The smooth autopipeline covers all five API protocols (REST, GraphQL, gRPC, AsyncAPI, and WebSocket) in one operational model.
+1. Non-REST flow includes generated server stubs with business-logic placeholders.
+1. External mock sandbox resolution is integrated, with Postman-supported auto-prepare in external mode.
+1. Contract test assets are generated automatically and merged with smart-merge so manual/customized cases are preserved and flagged for review when needed.
+1. Knowledge/RAG maintenance, terminology sync, and quality/compliance gates run through the same automation surface when enabled.
+1. Plan tiers gate advanced capabilities; higher plans include broader non-REST and governance scope.
+
+This runbook covers every retainer task an operator performs. Each procedure has exact steps, expected time, and what to look for. No programming knowledge is required for routine tasks.
+
+### Operator Runbook (Retainer Operations) (Part 11)
+
+Step-by-step instructions for weekly report review, client questions, new repo setup, and profile tuning.
+
+| Question | What to enter | Notes |
 | --- | --- | --- |
-| REST | `GET /v1/projects` | HTTP 200 with project list |
-| GraphQL | `query { health { status } }` | `{"data": {"health": {"status": "ok"}}}` |
-| WebSocket | Connect to `wss://api.veriops.example/realtime` | Connection opens, subscription confirmed |
+| Profile source | "generate from preset" or path to existing `.client.yml` | Choose "generate" for new clients |
+| Preset | `small` / `startup` / `enterprise` / `pilot-evidence` | Match the client plan tier |
+| Company name | Client company name | Used in reports and PDF |
+| Client ID | Lowercase slug (auto-suggested from company name) | Used in filenames and license |
+| Contact email | Client docs owner email | Informational |
+| License plan | `pilot` / `professional` / `enterprise` | Must match the sales agreement |
+| License validity | Number of days (default: 365) | Typically 365 for annual contracts |
+| Client repo path | Full path to the client repository | Must exist on disk |
+| Docs path | Path to docs folder in client repo (default: `docs`) | |
+| API path | Path to API specs (default: `api`) | |
+| SDK path | Path to SDK code (default: `sdk`) | |
+| Docs flow mode | `code-first` / `api-first` / `hybrid` | `code-first` if code exists, `api-first` if designing API from scratch |
+| Vale style guide | `google` / `microsoft` / `hybrid` | Google is the default |
+| Output targets | `mkdocs`, `readme`, `github`, etc. | Comma-separated |
+| PR auto-fix | Yes/No (default: No) | Enable if client wants automatic PR doc updates |
+| API sandbox backend | `docker` / `prism` / `external` | Only asked for api-first/hybrid mode |
+| Test asset upload | Yes/No | TestRail/Zephyr upload |
+| Algolia integration | Yes/No | Search index |
+| Ask AI integration | Yes/No | AI assistant |
+| Intent weekly build | Yes/No | Intent experience pages |
+| Finalize gate confirmation | Yes/No | Interactive commit confirmation |
+| Advanced module toggles | Yes/No per module | If enabled, configures each module individually |
+| Scheduler | `none` / `linux` / `windows` | Install weekly cron/task |
 
-If any step fails:
+### Operator Runbook (Retainer Operations) (Part 16)
 
-- **HTTP 401 on REST or GraphQL**: Your API key is invalid. Generate a new one in the [dashboard](https://app.veriops.example/settings/api).
-- **WebSocket connection error**: Verify you use `wss://` (not `ws://`) and the key is passed as `?token=` query parameter.
-- **Timeout on any request**: Check your network allows outbound connections on port 443.
+Step-by-step instructions for weekly report review, client questions, new repo setup, and profile tuning.
 
-## What you accomplished
+##### Operator Runbook (Retainer Operations) (Part 16): What the wizard configures vs what you edit manually
 
-| Step | Protocol | Outcome |
-| --- | --- | --- |
-| Verify API key | REST + GraphQL | Confirmed authentication across two protocols |
-| Create project | REST | Created a project resource via `POST /v1/projects` |
-| Query project | GraphQL | Fetched project with custom field selection |
-| Subscribe to events | WebSocket | Received real-time project update events |
-| Verify integration | All three | Confirmed multi-protocol integration works end-to-end |
+The interactive wizard (`python3 scripts/provision_client_repo.py --interactive --generate-profile`) configures all of these settings during initial setup:
 
-### Tutorial: launch your first VeriOps API integration (Part 9)
+- Preset selection (sets the baseline strictness)
+- Policy pack (`minimal`, `api-first`, `monorepo`, `multi-product`, `plg`)
+- Style guide (`google`, `microsoft`, `hybrid`)
+- Protocol-specific thresholds (per-protocol autofix cycles, semantic checks)
+- Module toggles (17 feature switches)
+- SLA thresholds (via `policy_overrides`)
+- All integration settings
 
-Build a working VeriOps API integration in 15 minutes with authenticated requests, project creation, and real-time WebSocket subscriptions.
+For changes after initial setup, you have two options:
 
-## Next steps
+###### Operator Runbook (Retainer Operations) (Part 16): Option A: Re-run the wizard
 
-- [REST API reference](../reference/rest-api.md) for all 14 endpoints across five resources
-- [GraphQL playground](../reference/graphql-playground.md) to explore the full schema interactively
-- [gRPC gateway invoke](../reference/grpc-gateway.md) for high-performance RPC calls
-- [How-to: keep docs aligned with every release](how-to.md) for the operator workflow
-- [Troubleshooting: common pipeline issues](troubleshooting.md) if you encounter errors
+```bash
+
+python3 scripts/provision_client_repo.py --interactive --generate-profile
+
+```
+
+This regenerates the profile from scratch. Choose the new preset and adjust settings.
+
+###### Operator Runbook (Retainer Operations) (Part 16): Option B: Edit the profile manually
+
+Edit `profiles/clients/<client-id>.client.yml` directly.
+
+### Operator Runbook (Retainer Operations) (Part 24)
+
+Step-by-step instructions for weekly report review, client questions, new repo setup, and profile tuning.
+
+#### Operator Runbook (Retainer Operations) (Part 24): Implementation status (2026-03-25)
+
+This document is aligned to the current production implementation baseline.
+
+Current baseline:
+
+1. The platform is docs-first and also supports `code-first`, `api-first`, and `hybrid` flows.
+1. REST and non-REST protocols are supported in one automation model: REST, GraphQL, gRPC, AsyncAPI, and WebSocket.
+1. Non-REST automation includes server stubs with business-logic placeholders.
+1. External mock sandbox resolution is integrated into the smooth autopipeline, including Postman-supported auto-prepare mode.
+1. Contract test assets are generated automatically and merged with smart-merge rules so manual/customized cases are preserved.
+1. Knowledge/RAG tasks run as part of automation when enabled (module extraction, validation, retrieval index, graph, evals).
+1. Plan gating is enforced by configuration and policy packs; advanced non-REST automation is reserved for higher plans.
+
+Canonical execution order reference:
+
+- `docs/operations/CANONICAL_FLOW.md`
+- `docs/operations/UNIFIED_CLIENT_CONFIG.md`
+- `README.md`
+
+Commercial note:
+
+- Where commercial packaging is discussed, recurring service terms (retainer/licensing) are part of the active go-to-market model.
+
+### Set up a real-time webhook processing pipeline (Part 14)
+
+Configure end-to-end webhook ingestion with HMAC verification, async queue processing, and delivery guarantees in under 15 minutes.
+
+#### Set up a real-time webhook processing pipeline (Part 14): Explore the webhook pipeline architecture
+
+The production webhook pipeline spans 13 components across 5 layers:
+
+- **Clients layer:** Mobile App (2.1M users), Web Dashboard (450K DAU), and Partner API (85 integrations) generate webhook events via REST and WebSocket connections.
+- **Edge layer:** CloudFlare CDN (99.99% uptime, TLS 1.3, DDoS protection) terminates connections. The Rate Limiter enforces 60 req/min per API key using a Redis-backed token bucket algorithm.
+- **Verification layer:** The API Gateway routes 12K req/sec to the HMAC Validator, which completes HMAC-SHA256 signature checks in under 2 ms with timing-safe comparison and replay protection.
+- **Processing layer:** The Event Router classifies payloads into 8 event types and dispatches them to the Redis-backed BullMQ Queue (at-least-once delivery, 10 concurrent workers). The Retry Engine handles exponential backoff (1 s, 2 s, 4 s, 8 s, 16 s) across 5 attempts.
+- **Storage layer:** PostgreSQL handles 2 replicas, 8.5K qps with PgBouncer connection pooling and persists results. The Event Log provides 30-day retention with full-text search. Grafana Monitoring delivers real-time alerts via PagerDuty and Prometheus when error rates exceed 1%.
+  PostgreSQL baseline metric: 2 replicas, 8.5K qps.
+
+### Smart Merge and Manual Review
+
+How needs_review works for protocol test assets and where operators review flagged cases.
+
+<!-- VERIDOC_POWERED_BADGE:START -->
+[![Powered by VeriDoc](https://img.shields.io/badge/Powered%20by-VeriDoc-0ea5e9?style=flat-square)](https://veridoc.app)
+<!-- VERIDOC_POWERED_BADGE:END -->
+
+### Smart Merge and Manual Review: Smart Merge and Manual Review
+
+#### Smart Merge and Manual Review: Current product definition (2026-03-25)
+
+This content follows the active implementation baseline:
+
+1. The platform is docs-first and also supports `code-first`, `api-first`, and `hybrid` modes.
+1. The smooth autopipeline covers all five API protocols (REST, GraphQL, gRPC, AsyncAPI, and WebSocket) in one operational model.
+1. Non-REST flow includes generated server stubs with business-logic placeholders.
+1. External mock sandbox resolution is integrated, with Postman-supported auto-prepare in external mode.
+1. Contract test assets are generated automatically and merged with smart-merge so manual/customized cases are preserved and flagged for review when needed.
+1. Knowledge/RAG maintenance, terminology sync, and quality/compliance gates run through the same automation surface when enabled.
+1. Plan tiers gate advanced capabilities; higher plans include broader non-REST and governance scope.
+
+### Smart Merge and Manual Review (Part 4)
+
+How needs_review works for protocol test assets and where operators review flagged cases.
+
+#### Smart Merge and Manual Review (Part 4): Implementation status (2026-03-25)
+
+This document is aligned to the current production implementation baseline.
+
+Current baseline:
+
+1. The platform is docs-first and also supports `code-first`, `api-first`, and `hybrid` flows.
+1. REST and non-REST protocols are supported in one automation model: REST, GraphQL, gRPC, AsyncAPI, and WebSocket.
+1. Non-REST automation includes server stubs with business-logic placeholders.
+1. External mock sandbox resolution is integrated into the smooth autopipeline, including Postman-supported auto-prepare mode.
+1. Contract test assets are generated automatically and merged with smart-merge rules so manual/customized cases are preserved.
+1. Knowledge/RAG tasks run as part of automation when enabled (module extraction, validation, retrieval index, graph, evals).
+1. Plan gating is enforced by configuration and policy packs; advanced non-REST automation is reserved for higher plans.
+
+Canonical execution order reference:
+
+- `docs/operations/CANONICAL_FLOW.md`
+- `docs/operations/UNIFIED_CLIENT_CONFIG.md`
+- `README.md`
+
+Commercial note:
+
+- Where commercial packaging is discussed, recurring service terms (retainer/licensing) are part of the active go-to-market model.
 
 ### Configure HMAC authentication for inbound webhooks
 
@@ -324,15 +276,17 @@ Covers secure webhook authentication setup for docs, assistant responses, in-pro
 Use HMAC validation to reject spoofed webhook requests before your workflow executes. Set the shared secret in {{ env_vars.webhook_url }} settings, then verify the `X-Signature` header with SHA-256. Reject requests older than 300 seconds, and return HTTP 401 for invalid signatures.
 
 ```bash
+
 curl -X POST "http://localhost:{{ default_webhook_port }}/webhook/order-events" \\
   -H "Content-Type: application/json" \\
   -H "X-Signature: sha256=YOUR_CALCULATED_SIGNATURE" \\
   -d '{"order_id":"ord_9482","event":"order_paid","amount":129.99}'
+
 ```
 
 Keep replay protection enabled, rotate the secret every 90 days, and monitor 401 spikes for abuse detection.
 
-## Knowledge module pipeline steps
+## Next steps
 
 - Validate modules: `npm run lint:knowledge`
 - Rebuild retrieval index: `npm run build:knowledge-index`

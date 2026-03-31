@@ -97,7 +97,7 @@ class LLMProvider:
                 return self._call_openai(prompt, system, max_tokens, temperature)
             else:
                 return LLMResponse(error=f"No provider available (tried: {self.preference})")
-        except (Exception,) as exc:
+        except (RuntimeError, ValueError, TypeError, OSError) as exc:
             duration = time.monotonic() - start
             logger.error("LLM call failed (%s): %s", provider, exc)
             return LLMResponse(

@@ -161,7 +161,7 @@ def lint_typescript(block: CodeBlock, timeout: int = 15) -> LintResult:
             return LintResult(block, True)
         except subprocess.TimeoutExpired:
             return LintResult(block, False, "TypeScript lint timeout")
-        except (Exception,) as e:
+        except (RuntimeError, ValueError, TypeError, OSError) as e:
             return LintResult(block, True, f"tsc error: {e}, skipping", "info")
 
 

@@ -327,7 +327,7 @@ def load_pack(
     aes_key = derive_pack_key(license_key, client_id)
     try:
         plaintext = _aes_gcm_decrypt(aes_key, nonce, ciphertext, tag)
-    except (Exception,) as exc:
+    except (RuntimeError, ValueError, TypeError, OSError) as exc:
         return _degraded_pack(f"Pack decryption failed: {exc}")
 
     try:

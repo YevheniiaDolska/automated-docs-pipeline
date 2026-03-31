@@ -311,5 +311,5 @@ def get_current_user_id(token: str, secret_key: str) -> str:
         if not user_id:
             raise ValueError("Invalid token: missing subject")
         return user_id
-    except (Exception,) as exc:
+    except (RuntimeError, ValueError, TypeError, OSError) as exc:
         raise ValueError(f"Invalid token: {exc}") from exc

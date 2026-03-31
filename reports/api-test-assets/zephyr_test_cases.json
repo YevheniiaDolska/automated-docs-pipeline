@@ -1,66 +1,66 @@
 {
   "testCases": [
     {
-      "name": "ASYNCAPI orders/created invalid payload",
-      "objective": "Invalid event payload is rejected with deterministic error handling.",
+      "name": "GraphQL query:a auth policy",
+      "objective": "Unauthorized access is blocked; authorized call succeeds.",
       "precondition": "Contract source is available\nTarget endpoint/mock is reachable",
       "labels": [
         "multi-protocol",
         "auto-generated",
-        "asyncapi",
-        "invalid-payload"
+        "graphql",
+        "auth"
       ],
       "statusName": "Draft",
       "priorityName": "Normal"
     },
     {
-      "name": "ASYNCAPI orders/created ordering/idempotency",
-      "objective": "Duplicate/out-of-order messages are handled according to policy.",
+      "name": "GraphQL query:a invalid input",
+      "objective": "Validation error is returned with stable error envelope.",
       "precondition": "Contract source is available\nTarget endpoint/mock is reachable",
       "labels": [
         "multi-protocol",
         "auto-generated",
-        "asyncapi",
-        "ordering-idempotency"
+        "graphql",
+        "negative"
       ],
       "statusName": "Draft",
       "priorityName": "Normal"
     },
     {
-      "name": "ASYNCAPI orders/created performance profile",
-      "objective": "Throughput/concurrency remains within documented SLO without contract violations.",
+      "name": "GraphQL query:a latency budget",
+      "objective": "P95 latency remains within documented SLO under representative load.",
       "precondition": "Contract source is available\nTarget endpoint/mock is reachable",
       "labels": [
         "multi-protocol",
         "auto-generated",
-        "asyncapi",
-        "performance-throughput"
+        "graphql",
+        "performance-latency"
       ],
       "statusName": "Draft",
       "priorityName": "Normal"
     },
     {
-      "name": "ASYNCAPI orders/created publish contract",
-      "objective": "Valid payload is accepted and routed according to contract.",
+      "name": "GraphQL query:a happy path",
+      "objective": "Response shape matches schema and required fields are present.",
       "precondition": "Contract source is available\nTarget endpoint/mock is reachable",
       "labels": [
         "multi-protocol",
         "auto-generated",
-        "asyncapi",
-        "publish"
+        "graphql",
+        "positive"
       ],
       "statusName": "Draft",
       "priorityName": "Normal"
     },
     {
-      "name": "ASYNCAPI orders/created security policy",
-      "objective": "Invalid or missing event signature is rejected before processing.",
+      "name": "GraphQL query:a injection hardening",
+      "objective": "Injection-like payloads are safely rejected and do not expose internals.",
       "precondition": "Contract source is available\nTarget endpoint/mock is reachable",
       "labels": [
         "multi-protocol",
         "auto-generated",
-        "asyncapi",
-        "security-signature"
+        "graphql",
+        "security-injection"
       ],
       "statusName": "Draft",
       "priorityName": "Normal"

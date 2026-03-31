@@ -120,7 +120,7 @@ def _prepare_non_rest_live_endpoints(
             if completed.returncode == 0 and out_path.exists():
                 try:
                     payload = json.loads(out_path.read_text(encoding="utf-8"))
-                except (Exception,):  # noqa: BLE001
+                except (RuntimeError, ValueError, TypeError, OSError):  # noqa: BLE001
                     payload = {}
                 resolved = str(payload.get("mock_base_url", "")).strip()
                 if resolved:
@@ -250,7 +250,7 @@ def main() -> int:
         autofix_enabled = bool(settings.get("autofix_cycle_enabled", True))
         try:
             max_attempts = max(1, int(settings.get("autofix_max_attempts", 3)))
-        except (Exception,):  # noqa: BLE001
+        except (RuntimeError, ValueError, TypeError, OSError):  # noqa: BLE001
             max_attempts = 3
 
         try:
@@ -331,7 +331,7 @@ def main() -> int:
                     )
                 )
                 attempt += 1
-        except (Exception,) as error:  # noqa: BLE001
+        except (RuntimeError, ValueError, TypeError, OSError) as error:  # noqa: BLE001
             protocol_failed = True
             per_protocol.append(
                 StageResult(

@@ -26,7 +26,7 @@ from urllib.parse import urljoin, urlparse, urlunparse
 from urllib.request import Request, urlopen
 try:
     import yaml  # type: ignore
-except Exception:  # noqa: BLE001
+except ImportError:
     yaml = None  # type: ignore
 
 logger = logging.getLogger(__name__)
@@ -435,8 +435,8 @@ def _fetch(
             if is_gzip_payload:
                 try:
                     raw = gzip.decompress(raw)
-                except (OSError, EOFError, ValueError):
-                    pass
+                except (OSError, EOFError, ValueError) as exc:
+                    logger.debug("Failed to decompress gzip payload for %s: %s", url, exc)
             body = raw.decode("utf-8", errors="ignore")
             return status, content_type, body
     except HTTPError as exc:
@@ -449,19 +449,19 @@ def _fetch(
             if location and not head_only:
                 try:
                     return _fetch(location, timeout, head_only=False, _ua_idx=_ua_idx, extra_headers=extra_headers)
-                except (Exception,) as redir_exc:  # noqa: BLE001
+                except (RuntimeError, ValueError, TypeError, OSError) as redir_exc:  # noqa: BLE001
                     logger.debug(
                         "Redirect fetch failed for %s: %s", location, redir_exc,
                     )
             return code, "text/html", ""
         try:
             return code, "text/html", exc.read().decode("utf-8", errors="ignore")
-        except (Exception,) as read_exc:  # noqa: BLE001
+        except (RuntimeError, ValueError, TypeError, OSError) as read_exc:  # noqa: BLE001
             logger.debug("Failed to read HTTP error body (code=%d): %s", code, read_exc)
             return code, "text/html", ""
     except (URLError, OSError, TimeoutError):
         return 0, "", ""
-    except (Exception,) as exc:  # noqa: BLE001 -- SSL, socket, redirect loops, etc.
+    except (RuntimeError, ValueError, TypeError, OSError) as exc:  # noqa: BLE001 -- SSL, socket, redirect loops, etc.
         logger.debug("Unexpected fetch error: %s", exc)
         return 0, "", ""
 
@@ -990,11 +990,11 @@ def _parse_structured_contract_identifiers(contract_text: str) -> set[str]:
         return ids
     try:
         payload = json.loads(stripped)
-    except Exception:  # noqa: BLE001
+    except json.JSONDecodeError:
         if yaml is not None:
             try:
                 payload = yaml.safe_load(stripped)
-            except Exception:  # noqa: BLE001
+            except (AttributeError, TypeError, ValueError):
                 payload = None
     if not isinstance(payload, dict):
         return ids
@@ -1276,7 +1276,7 @@ def _browser_discover_pages(
     """Discover pages via browser rendering for JS-heavy docs."""
     try:
         from playwright.sync_api import sync_playwright  # type: ignore
-    except Exception:  # noqa: BLE001
+    except ImportError:
         return [], {}
 
     auth_headers = auth_headers or {}
@@ -1317,11 +1317,11 @@ def _browser_discover_pages(
                     for link in parsed.internal_links:
                         if urlparse(link).netloc.lower() == host and link not in seen and len(queue) < max_pages * 3:
                             queue.append(link)
-                except Exception:  # noqa: BLE001
+                except (RuntimeError, ValueError, TypeError):
                     status_map[url] = 0
             context.close()
             browser.close()
-    except Exception:  # noqa: BLE001
+    except (RuntimeError, ValueError, TypeError):
         return [], {}
     return pages, status_map
 
@@ -1349,7 +1349,7 @@ def _ensure_playwright_storage_state(
         return ""
     try:
         from playwright.sync_api import sync_playwright  # type: ignore
-    except Exception:  # noqa: BLE001
+    except ImportError:
         return ""
 
     state_path.parent.mkdir(parents=True, exist_ok=True)
@@ -1374,7 +1374,7 @@ def _ensure_playwright_storage_state(
             context.close()
             browser.close()
         return str(state_path)
-    except Exception:  # noqa: BLE001
+    except (RuntimeError, ValueError, TypeError):
         return ""
 
 
@@ -1386,7 +1386,7 @@ def _cookie_header_from_storage_state(storage_state_path: str, target_host: str)
         return ""
     try:
         payload = json.loads(p.read_text(encoding="utf-8", errors="ignore"))
-    except Exception:  # noqa: BLE001
+    except (json.JSONDecodeError, OSError, TypeError):
         return ""
     cookies = payload.get("cookies", []) if isinstance(payload, dict) else []
     if not isinstance(cookies, list):
@@ -1495,7 +1495,7 @@ def _crawl_site(
             parser_html = _DocsHTMLParser(url)
             try:
                 parser_html.feed(body)
-            except (Exception,):  # noqa: BLE001
+            except (RuntimeError, ValueError, TypeError, OSError):  # noqa: BLE001
                 # Never fail the whole crawl due to one malformed page.
                 return url, st, None, []
             page = parser_html.as_page(url, st)
@@ -2262,7 +2262,7 @@ def _run_llm_analysis(
             stripped = stripped[:-3].strip()
     try:
         parsed = json.loads(stripped)
-    except (Exception,) as exc:  # noqa: BLE001
+    except (RuntimeError, ValueError, TypeError, OSError) as exc:  # noqa: BLE001
         raise RuntimeError(f"LLM returned non-JSON content: {text[:300]}") from exc
     if not isinstance(parsed, dict):
         raise RuntimeError("LLM response JSON root is not an object.")
@@ -2738,7 +2738,7 @@ def main() -> int:
                     for k, v in parsed_auth.items()
                     if str(k).strip() and str(v).strip()
                 }
-        except (Exception,):  # noqa: BLE001
+        except (RuntimeError, ValueError, TypeError, OSError):  # noqa: BLE001
             auth_headers = {}
 
     storage_state_path = _ensure_playwright_storage_state(
@@ -2938,7 +2938,7 @@ def main() -> int:
                     llm_path = Path(args.llm_summary_output)
                     llm_path.parent.mkdir(parents=True, exist_ok=True)
                     llm_path.write_text(json.dumps(payload["llm_analysis"], ensure_ascii=True, indent=2) + "\n", encoding="utf-8")
-                except (Exception,) as exc:  # noqa: BLE001
+                except (RuntimeError, ValueError, TypeError, OSError) as exc:  # noqa: BLE001
                     payload["llm_analysis"] = {
                         "status": "failed",
                         "model": str(args.llm_model),
@@ -3030,7 +3030,7 @@ def main() -> int:
                         auto_path.write_text(json.dumps(auto_profile, ensure_ascii=True, indent=2) + "\n", encoding="utf-8")
                         assumptions_path = str(auto_path)
                         print(f"[pdf] assumptions autofill generated: {auto_path}")
-                    except (Exception,) as exc:  # noqa: BLE001
+                    except (RuntimeError, ValueError, TypeError, OSError) as exc:  # noqa: BLE001
                         print(f"[warn] assumptions autofill failed: {exc}")
                 else:
                     print("[warn] assumptions autofill requested but LLM API key is missing")

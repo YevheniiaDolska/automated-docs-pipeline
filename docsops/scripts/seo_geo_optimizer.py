@@ -26,7 +26,7 @@ import subprocess
 try:
     from scripts import pack_runtime as _pack_rt
     _pack = _pack_rt.get_pack()
-except (Exception,):
+except (RuntimeError, ValueError, TypeError, OSError):
     _pack_rt = None  # type: ignore[assignment]
     _pack = None
 

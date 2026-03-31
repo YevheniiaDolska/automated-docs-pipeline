@@ -24,7 +24,10 @@ import tempfile
 from pathlib import Path
 from typing import Any
 
+import yaml
+
 REPO_ROOT = Path(__file__).resolve().parents[1]
+REPORTS_DIR = REPO_ROOT / "reports"
 
 # Update server endpoint (no client data sent)
 UPDATE_SERVER = os.environ.get(
@@ -35,6 +38,70 @@ UPDATE_SERVER = os.environ.get(
 # Version file tracks current installed version
 VERSION_FILE = REPO_ROOT / "docsops" / ".version.json"
 BACKUP_DIR = REPO_ROOT / "docsops" / ".rollback"
+
+
+def _load_egress_allowlist() -> tuple[set[str], list[str]]:
+    candidates = [
+        REPO_ROOT / "config" / "ip_protection" / "egress_allowlist.yml",
+        REPO_ROOT / "docsops" / "config" / "ip_protection" / "egress_allowlist.yml",
+    ]
+    payload: dict[str, Any] = {}
+    for path in candidates:
+        if path.exists():
+            try:
+                raw = yaml.safe_load(path.read_text(encoding="utf-8")) or {}
+            except (OSError, ValueError, TypeError):
+                raw = {}
+            if isinstance(raw, dict):
+                payload = raw
+                break
+    allowed = payload.get("allowed_fields", [])
+    if not isinstance(allowed, list) or not allowed:
+        allowed = ["tenant_id", "build_id", "version", "platform", "plan", "event", "timestamp_utc"]
+    blocked = payload.get("blocked_key_patterns", [])
+    if not isinstance(blocked, list) or not blocked:
+        blocked = ["content", "text", "code", "source", "prompt", "snippet", "markdown", "doc", "file"]
+    return (
+        {str(v).strip() for v in allowed if str(v).strip()},
+        [str(v).strip().lower() for v in blocked if str(v).strip()],
+    )
+
+
+def _append_egress_log(record: dict[str, Any]) -> None:
+    REPORTS_DIR.mkdir(parents=True, exist_ok=True)
+    path = REPORTS_DIR / "llm_egress_log.json"
+    existing: list[dict[str, Any]] = []
+    if path.exists():
+        try:
+            raw = json.loads(path.read_text(encoding="utf-8"))
+            if isinstance(raw, list):
+                existing = [row for row in raw if isinstance(row, dict)]
+        except (OSError, ValueError, TypeError):
+            existing = []
+    existing.append(record)
+    path.write_text(json.dumps(existing, ensure_ascii=True, indent=2) + "\n", encoding="utf-8")
+
+
+def _enforce_metadata_allowlist(payload: dict[str, Any]) -> dict[str, Any]:
+    allowed, blocked_patterns = _load_egress_allowlist()
+    normalized = {str(k).strip(): v for k, v in payload.items() if str(k).strip()}
+    for key in normalized:
+        if key not in allowed:
+            raise ValueError(f"field_not_allowed:{key}")
+        key_low = key.lower()
+        if any(pattern in key_low for pattern in blocked_patterns):
+            raise ValueError(f"blocked_key_pattern:{key}")
+    _append_egress_log(
+        {
+            "timestamp_utc": __import__("datetime").datetime.utcnow().isoformat() + "Z",
+            "step": "update_check",
+            "source": "check_updates.py",
+            "decision": "approved",
+            "reason": "metadata_only",
+            "fields": sorted(normalized.keys()),
+        }
+    )
+    return normalized
 
 
 def _current_version() -> dict[str, Any]:
@@ -72,10 +139,22 @@ def _check_for_update(current: dict[str, Any]) -> dict[str, Any] | None:
         from urllib.request import Request, urlopen
         from urllib.parse import urlencode
 
-        params = urlencode({
+        payload = {
             "version": current.get("version", "0.0.0"),
             "platform": current.get("platform", _detect_platform()),
-        })
+            "tenant_id": os.environ.get("VERIOPS_TENANT_ID", "").strip(),
+            "build_id": os.environ.get("VERIOPS_BUILD_ID", "").strip(),
+            "plan": os.environ.get("VERIOPS_PLAN", "").strip(),
+            "event": "check_updates",
+        }
+        payload = {k: v for k, v in payload.items() if str(v).strip()}
+        try:
+            payload = _enforce_metadata_allowlist(payload)
+        except ValueError as exc:
+            print(f"[update] Egress metadata validation failed: {exc}", file=sys.stderr)
+            return None
+
+        params = urlencode(payload)
         url = f"{UPDATE_SERVER}/v1/check?{params}"
 
         # -- Network Transparency --
@@ -89,7 +168,7 @@ def _check_for_update(current: dict[str, Any]) -> dict[str, Any] | None:
             data = json.loads(resp.read().decode("utf-8"))
             return data if data.get("update_available") else None
 
-    except (Exception,) as exc:
+    except (RuntimeError, ValueError, TypeError, OSError) as exc:
         print(f"[update] Cannot reach update server: {exc}", file=sys.stderr)
         return None
 
@@ -149,7 +228,7 @@ def _apply_update(update_info: dict[str, Any]) -> bool:
             tmp_path = Path(tmp.name)
             with urlopen(download_url, timeout=120) as resp:
                 tmp.write(resp.read())
-    except (Exception,) as exc:
+    except (RuntimeError, ValueError, TypeError, OSError) as exc:
         print(f"[update] Download failed: {exc}", file=sys.stderr)
         return False
 
@@ -178,7 +257,7 @@ def _apply_update(update_info: dict[str, Any]) -> bool:
                     print(f"[update] REJECTED: suspicious path in bundle: {member.name}")
                     return False
             tar.extractall(path=str(REPO_ROOT))
-    except (Exception,) as exc:
+    except (RuntimeError, ValueError, TypeError, OSError) as exc:
         print(f"[update] Extraction failed: {exc}", file=sys.stderr)
         return False
     finally:

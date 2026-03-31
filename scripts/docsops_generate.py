@@ -53,7 +53,7 @@ def _advanced_prompts_allowed() -> tuple[bool, str]:
         if info.plan == "pilot" and info.days_remaining <= 0:
             return False, "pilot_expired"
         return False, f"feature_blocked:{info.plan}"
-    except (Exception,):
+    except (RuntimeError, ValueError, TypeError, OSError):
         # Keep backward compatibility in environments where license_gate
         # is not bundled.
         return True, "license_gate_unavailable"
@@ -277,7 +277,7 @@ def _model_exists_in_ollama(model: str) -> bool:
         return False
     try:
         out = subprocess.run([ollama, "list"], cwd=str(REPO_ROOT), check=False, capture_output=True, text=True)
-    except (Exception,):  # noqa: BLE001
+    except (RuntimeError, ValueError, TypeError, OSError):  # noqa: BLE001
         return False
     if out.returncode != 0:
         return False
@@ -319,7 +319,7 @@ def _preflight_local_model(model: str) -> tuple[bool, str]:
             capture_output=True,
             text=True,
         )
-    except (Exception,) as exc:  # noqa: BLE001
+    except (RuntimeError, ValueError, TypeError, OSError) as exc:  # noqa: BLE001
         return False, f"Failed to create '{model}' from Modelfile: {exc}"
     if create.returncode != 0:
         err = (create.stderr or create.stdout or "").strip()
@@ -410,11 +410,14 @@ def cmd_generate(args: argparse.Namespace) -> int:
             _assert_local_only_security(allow_api_env=bool(args.allow_api_env))
             print("[docsops] llm_mode=local_default (fully local first)")
             print(f"[docsops] note: {policy.quality_delta_note}")
-            ok, msg = _preflight_local_model(local_model)
-            print(f"[docsops] preflight: {msg}")
-            if not ok:
-                narrator.finish(False, "local model preflight failed")
-                return 3
+            if bool(args.dry_run):
+                print("[docsops] preflight: skipped in dry-run mode")
+            else:
+                ok, msg = _preflight_local_model(local_model)
+                print(f"[docsops] preflight: {msg}")
+                if not ok:
+                    narrator.finish(False, "local model preflight failed")
+                    return 3
             local_rc = _run_local_model_command(local_cmd, local_model, prompt, dry_run=bool(args.dry_run))
             if local_rc == 0:
                 narrator.done("Local model run completed")

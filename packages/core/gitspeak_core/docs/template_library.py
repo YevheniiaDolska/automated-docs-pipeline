@@ -3847,7 +3847,7 @@ graph TB
             with open(output_path, 'w', encoding='utf-8') as f:
                 f.write(template.content)
             return True
-        except (Exception,):
+        except (RuntimeError, ValueError, TypeError, OSError):
             return False
 
     def validate_variables(self, template_id: str, variables: Dict[str, Any]) -> List[str]:

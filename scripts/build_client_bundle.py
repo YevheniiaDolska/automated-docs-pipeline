@@ -397,7 +397,7 @@ def build_licensing_infrastructure(profile: dict[str, Any], bundle_root: Path) -
             )
             jwt_path.write_text(token + "\n", encoding="utf-8")
             print(f"[license] JWT auto-generated: plan={plan}, days={days}, client={client_id}")
-        except (Exception,) as exc:
+        except (RuntimeError, ValueError, TypeError, OSError) as exc:
             print(f"[license] JWT auto-generation failed ({exc}), writing placeholder")
             jwt_path.write_text(
                 "# Auto-generation failed. Generate manually:\n"
@@ -458,7 +458,7 @@ def build_licensing_infrastructure(profile: dict[str, Any], bundle_root: Path) -
                         f"--license-key <KEY> --days {days} --output docsops/.capability_pack.enc\n",
                         encoding="utf-8",
                     )
-            except (Exception,) as exc:
+            except (RuntimeError, ValueError, TypeError, OSError) as exc:
                 print(f"[license] capability pack generation error ({exc}); writing placeholder")
         else:
             print("[license] build/generate_pack.py not found; skipping capability pack generation")
@@ -933,6 +933,36 @@ def build_local_env_template(runtime_cfg: dict[str, Any], bundle_root: Path) -> 
         "",
         "Optional: expected primary domain for license binding verification.",
     )
+    _append_env(
+        lines,
+        "VERIOPS_UPDATE_SERVER",
+        "https://updates.veriops.dev",
+        "Server endpoint for signed bundle updates (metadata-only requests).",
+    )
+    _append_env(
+        lines,
+        "VERIOPS_PHONE_HOME_URL",
+        "https://api.veridoc.dev",
+        "Server endpoint for license refresh (metadata-only requests).",
+    )
+    _append_env(
+        lines,
+        "VERIOPS_REVOCATION_CHECK_ENABLED",
+        "false",
+        "Enable server-side revoke checks (metadata-only).",
+    )
+    _append_env(
+        lines,
+        "VERIOPS_REVOCATION_URL",
+        "https://api.veridoc.dev/billing/license/revocation-check",
+        "Revocation endpoint used when VERIOPS_REVOCATION_CHECK_ENABLED=true.",
+    )
+    _append_env(
+        lines,
+        "VERIOPS_PACK_REGISTRY_URL",
+        "https://api.veridoc.dev/pack-registry",
+        "Encrypted prompt/policy/template pack registry URL.",
+    )
 
     out = bundle_root / ".env.docsops.local.template"
     out.write_text("\n".join(lines).rstrip() + "\n", encoding="utf-8")
@@ -1106,6 +1136,11 @@ def create_bundle(profile_path: Path) -> Path:
     for req in required_scripts:
         if req not in include_scripts:
             include_scripts.append(req)
+    include_paths = [str(rel) for rel in bundle_cfg.get("include_paths", [])]
+    ip_protection_path = REPO_ROOT / "config" / "ip_protection"
+    if ip_protection_path.exists() and "config/ip_protection" not in include_paths:
+        include_paths.append("config/ip_protection")
+    bundle_cfg["include_paths"] = include_paths
 
     for rel in include_scripts:
         copy_into_bundle(str(rel), bundle_root)
@@ -1163,7 +1198,7 @@ def create_bundle(profile_path: Path) -> Path:
         )
         if completed.returncode == 0:
             rev = completed.stdout.strip()
-    except (Exception,):  # noqa: BLE001
+    except (RuntimeError, ValueError, TypeError, OSError):  # noqa: BLE001
         rev = ""
     build_fingerprint = hashlib.sha256(f"{client_id}|{company}|{now_utc}|{rev}".encode("utf-8")).hexdigest()[:24]
     traceability = {

@@ -24,6 +24,7 @@ import sys
 import time
 import urllib.error
 import urllib.request
+import urllib.parse
 from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Any
@@ -165,6 +166,14 @@ PHONE_HOME_TIMEOUT_SECONDS = int(
 )
 
 HEARTBEAT_PATH = REPO_ROOT / "docsops" / ".license_heartbeat.json"
+REPORTS_DIR = REPO_ROOT / "reports"
+VERSION_FILE = REPO_ROOT / "docsops" / ".version.json"
+REVOCATION_CHECK_ENABLED = os.environ.get(
+    "VERIOPS_REVOCATION_CHECK_ENABLED", "false"
+).strip().lower() in ("true", "1", "yes")
+REVOCATION_URL = os.environ.get(
+    "VERIOPS_REVOCATION_URL", f"{PHONE_HOME_URL}/billing/license/revocation-check"
+).rstrip("/")
 
 
 # -- Data classes --------------------------------------------------------------
@@ -237,7 +246,7 @@ def _verify_ed25519(message: bytes, signature: bytes, public_key: bytes) -> bool
         return True
     except ImportError:
         logger.debug("PyNaCl is not installed; trying cryptography fallback")
-    except (Exception,) as exc:
+    except (RuntimeError, ValueError, TypeError, OSError) as exc:
         logger.debug("Ed25519 verification failed (PyNaCl): %s", exc)
         return False
 
@@ -249,7 +258,7 @@ def _verify_ed25519(message: bytes, signature: bytes, public_key: bytes) -> bool
         return True
     except ImportError:
         logger.debug("cryptography is not installed; Ed25519 verification unavailable")
-    except (Exception,) as exc:
+    except (RuntimeError, ValueError, TypeError, OSError) as exc:
         logger.debug("Ed25519 verification failed (cryptography): %s", exc)
         return False
 
@@ -270,14 +279,14 @@ def _load_public_key(path: Path | None = None) -> bytes | None:
         decoded = base64.b64decode(raw)
         if len(decoded) == 32:
             return decoded
-    except (Exception,) as exc:
+    except (RuntimeError, ValueError, TypeError, OSError) as exc:
         logger.debug("base64 standard decode failed for %s: %s", key_path, exc)
     # Try base64url
     try:
         decoded = base64.urlsafe_b64decode(raw + b"=" * (4 - len(raw) % 4))
         if len(decoded) == 32:
             return decoded
-    except (Exception,) as exc:
+    except (RuntimeError, ValueError, TypeError, OSError) as exc:
         logger.debug("base64url decode failed for %s: %s", key_path, exc)
     return None
 
@@ -299,6 +308,52 @@ def machine_fingerprint() -> str:
     ]
     raw = "|".join(parts)
     return hashlib.sha256(raw.encode("utf-8")).hexdigest()
+
+
+def _current_bundle_version() -> str:
+    if not VERSION_FILE.exists():
+        return "0.0.0"
+    try:
+        payload = json.loads(VERSION_FILE.read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError, ValueError):
+        return "0.0.0"
+    if isinstance(payload, dict):
+        value = str(payload.get("version", "0.0.0")).strip()
+        return value or "0.0.0"
+    return "0.0.0"
+
+
+def _metadata_payload(
+    *,
+    client_id: str,
+    plan: str = "",
+    event: str,
+    now: float,
+) -> dict[str, Any]:
+    return {
+        "tenant_id": str(os.environ.get("VERIOPS_TENANT_ID", client_id)).strip(),
+        "build_id": str(os.environ.get("VERIOPS_BUILD_ID", "")).strip(),
+        "version": _current_bundle_version(),
+        "platform": f"{platform.system().lower()}-{platform.machine().lower()}",
+        "plan": plan.strip().lower(),
+        "event": event,
+        "timestamp_utc": time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime(now)),
+    }
+
+
+def _enforce_metadata_allowlist(payload: dict[str, Any], *, step: str) -> dict[str, Any]:
+    sanitized = {k: v for k, v in payload.items() if str(v).strip()}
+    try:
+        from scripts.llm_egress import enforce_metadata_egress_payload
+
+        return enforce_metadata_egress_payload(
+            payload=sanitized,
+            reports_dir=REPORTS_DIR,
+            step=step,
+            source="license_gate.py",
+        )
+    except ImportError:
+        return sanitized
 
 
 # -- Phone-home (periodic license refresh) ------------------------------------
@@ -390,9 +445,21 @@ def phone_home(
     now = current_time if current_time is not None else time.time()
 
     fingerprint = machine_fingerprint()
+    try:
+        metadata = _enforce_metadata_allowlist(
+            _metadata_payload(client_id=client_id, event="license_refresh", now=now),
+            step="license_phone_home",
+        )
+    except ValueError as exc:
+        result["error"] = f"Egress allowlist blocked license refresh payload: {exc}"
+        return result
     headers = {
         "X-Client-Id": client_id,
         "X-Machine-Fingerprint": fingerprint,
+        "X-Tenant-Id": str(metadata.get("tenant_id", "")),
+        "X-Build-Id": str(metadata.get("build_id", "")),
+        "X-Client-Version": str(metadata.get("version", "0.0.0")),
+        "X-Client-Platform": str(metadata.get("platform", "")),
         "Accept": "application/json",
         "User-Agent": "VeriOps-LicenseGate/1.0",
     }
@@ -456,6 +523,43 @@ def phone_home(
         )
 
     return result
+
+
+def check_revocation(
+    *,
+    client_id: str,
+    plan: str,
+    current_time: float | None = None,
+) -> tuple[bool, str]:
+    """Check revocation list endpoint using metadata-only payload."""
+    if not REVOCATION_CHECK_ENABLED or not client_id:
+        return False, ""
+    now = current_time if current_time is not None else time.time()
+    try:
+        payload = _enforce_metadata_allowlist(
+            _metadata_payload(
+                client_id=client_id,
+                plan=plan,
+                event="revocation_check",
+                now=now,
+            ),
+            step="license_revocation_check",
+        )
+    except ValueError as exc:
+        logger.warning("Revocation check blocked by egress allowlist: %s", exc)
+        return False, ""
+    params = urllib.parse.urlencode({k: str(v) for k, v in payload.items()})
+    url = f"{REVOCATION_URL}?{params}"
+    try:
+        req = urllib.request.Request(url, headers={"Accept": "application/json"}, method="GET")
+        with urllib.request.urlopen(req, timeout=PHONE_HOME_TIMEOUT_SECONDS) as resp:
+            body = json.loads(resp.read().decode("utf-8"))
+        if isinstance(body, dict) and bool(body.get("revoked", False)):
+            reason = str(body.get("reason", "revoked_by_server")).strip()
+            return True, reason
+    except (urllib.error.URLError, urllib.error.HTTPError, OSError, TimeoutError, json.JSONDecodeError, ValueError) as exc:
+        logger.debug("Revocation check unavailable: %s", exc)
+    return False, ""
 
 
 # -- Phone-home recursion guard -----------------------------------------------
@@ -622,6 +726,13 @@ def validate(
                 )
             finally:
                 _phone_home_refreshing = False
+    revoked, revoke_reason = check_revocation(
+        client_id=client_id,
+        plan=plan,
+        current_time=current_time,
+    )
+    if revoked:
+        return _community_license(f"License revoked by server policy: {revoke_reason}")
 
     return LicenseInfo(
         valid=True,

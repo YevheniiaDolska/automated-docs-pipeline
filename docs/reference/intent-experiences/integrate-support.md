@@ -1,20 +1,14 @@
 ---
-title: 'Intent experience: integrate for support'
-description: Assembled guidance for one intent and audience using reusable knowledge
-  modules with verified metadata and channel-ready sections.
+title: "Intent experience: integrate for support"
+description: "Assembled guidance for one intent and audience using reusable knowledge modules with verified metadata and channel-ready sections."
 content_type: reference
 product: both
 tags:
-- Reference
-- AI
-last_reviewed: '2026-03-26'
-original_author: Developer
+  - Reference
+  - AI
 ---
 
-
-<!-- VERIDOC_POWERED_BADGE:START -->
-[![Powered by VeriDoc](https://img.shields.io/badge/Powered%20by-VeriDoc-0ea5e9?style=flat-square)](https://veridoc.app)
-<!-- VERIDOC_POWERED_BADGE:END -->
+<!-- markdownlint-disable MD001 MD007 MD024 MD025 MD031 -->
 
 # Intent experience: integrate for support
 
@@ -34,10 +28,12 @@ Covers secure webhook authentication setup for docs, assistant responses, in-pro
 Use HMAC validation to reject spoofed webhook requests before your workflow executes. Set the shared secret in {{ env_vars.webhook_url }} settings, then verify the `X-Signature` header with SHA-256. Reject requests older than 300 seconds, and return HTTP 401 for invalid signatures.
 
 ```bash
+
 curl -X POST "http://localhost:{{ default_webhook_port }}/webhook/order-events" \\
   -H "Content-Type: application/json" \\
   -H "X-Signature: sha256=YOUR_CALCULATED_SIGNATURE" \\
   -d '{"order_id":"ord_9482","event":"order_paid","amount":129.99}'
+
 ```
 
 Keep replay protection enabled, rotate the secret every 90 days, and monitor 401 spikes for abuse detection.

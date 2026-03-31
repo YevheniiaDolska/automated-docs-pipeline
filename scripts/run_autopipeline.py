@@ -64,7 +64,7 @@ def _safe_load_json(path: Path) -> dict[str, Any]:
         return {}
     try:
         payload = json.loads(path.read_text(encoding="utf-8"))
-    except (Exception,):  # noqa: BLE001
+    except (RuntimeError, ValueError, TypeError, OSError):  # noqa: BLE001
         return {}
     return payload if isinstance(payload, dict) else {}
 
@@ -80,7 +80,7 @@ def _load_site_url(repo_root: Path) -> str:
         return ""
     try:
         payload = yaml.safe_load(mkdocs_path.read_text(encoding="utf-8")) or {}
-    except (Exception,):  # noqa: BLE001
+    except (RuntimeError, ValueError, TypeError, OSError):  # noqa: BLE001
         return ""
     if not isinstance(payload, dict):
         return ""
@@ -102,7 +102,7 @@ def _docs_public_url(repo_root: Path, abs_path: str, site_url: str) -> str:
     path = Path(abs_path)
     try:
         rel = path.resolve().relative_to(repo_root.resolve())
-    except (Exception,):  # noqa: BLE001
+    except (RuntimeError, ValueError, TypeError, OSError):  # noqa: BLE001
         return ""
     rel_text = str(rel).replace("\\", "/")
     if not rel_text.startswith("docs/"):

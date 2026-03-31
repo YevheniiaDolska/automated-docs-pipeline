@@ -57,6 +57,12 @@ class TestBuildClientBundle:
         (repo / "scripts" / "pack_runtime.py").write_text("print('ok')\n", encoding="utf-8")
         (repo / "scripts" / "check_updates.py").write_text("print('ok')\n", encoding="utf-8")
         (repo / "scripts" / "rollback.py").write_text("print('ok')\n", encoding="utf-8")
+        (repo / "scripts" / "setup_client_env_wizard.py").write_text("print('ok')\n", encoding="utf-8")
+        (repo / "scripts" / "run_autopipeline.py").write_text("print('ok')\n", encoding="utf-8")
+        (repo / "scripts" / "docsops_generate.py").write_text("print('ok')\n", encoding="utf-8")
+        (repo / "scripts" / "llm_egress.py").write_text("print('ok')\n", encoding="utf-8")
+        (repo / "scripts" / "flow_feedback.py").write_text("print('ok')\n", encoding="utf-8")
+        (repo / "scripts" / "configure_ask_ai.py").write_text("print('ok')\n", encoding="utf-8")
         (repo / "docsops" / "keys").mkdir(parents=True)
         (repo / "docsops" / "keys" / "veriops-licensing.pub").write_text("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=\n", encoding="utf-8")
         (repo / "docs").mkdir()
@@ -162,7 +168,19 @@ class TestBuildClientBundle:
         (repo / "policy_packs").mkdir()
         (repo / "policy_packs" / "minimal.yml").write_text("docs_contract: {}\n", encoding="utf-8")
         (repo / "scripts").mkdir()
-        for s in ["finalize_docs_gate.py", "license_gate.py", "pack_runtime.py", "check_updates.py", "rollback.py"]:
+        for s in [
+            "finalize_docs_gate.py",
+            "license_gate.py",
+            "pack_runtime.py",
+            "check_updates.py",
+            "rollback.py",
+            "setup_client_env_wizard.py",
+            "run_autopipeline.py",
+            "docsops_generate.py",
+            "llm_egress.py",
+            "flow_feedback.py",
+            "configure_ask_ai.py",
+        ]:
             (repo / "scripts" / s).write_text("print('ok')\n", encoding="utf-8")
         (repo / "templates" / "legal").mkdir(parents=True)
         (repo / "templates" / "legal" / "LICENSE-COMMERCIAL.template.md").write_text("{{COMPANY_NAME}}\n", encoding="utf-8")

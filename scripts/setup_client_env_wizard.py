@@ -15,7 +15,7 @@ from typing import Any
 
 try:
     import yaml  # type: ignore
-except Exception:  # noqa: BLE001
+except ImportError:
     yaml = None  # type: ignore
 
 
@@ -74,7 +74,7 @@ def _load_runtime(repo_root: Path) -> dict[str, Any]:
         if candidate.exists():
             try:
                 raw = yaml.safe_load(candidate.read_text(encoding="utf-8")) or {}
-            except (Exception,):  # noqa: BLE001
+            except (AttributeError, TypeError, ValueError, OSError):
                 raw = {}
             if isinstance(raw, dict):
                 return raw

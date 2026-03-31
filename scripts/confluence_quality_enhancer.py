@@ -855,7 +855,7 @@ def _fix_code_examples_with_llm(
                 f"LLM code example fix skipped: expected {len(blocks)} blocks, got {len(parts)}"
             )
             return lines
-    except Exception as exc:
+    except (RuntimeError, ValueError, OSError) as exc:
         changes.append(f"LLM code example fix failed: {exc}")
         return lines
 
@@ -921,7 +921,7 @@ def _fix_missing_sections_with_llm(
             return lines
 
         new_sections = response.content.strip().splitlines()
-    except Exception as exc:
+    except (RuntimeError, ValueError, OSError) as exc:
         changes.append(f"LLM missing sections generation failed: {exc}")
         return lines
 
@@ -1115,7 +1115,7 @@ def _enhance_with_llm(
 
         changes.append(f"LLM restructured information architecture ({active})")
         return enhanced + "\n"
-    except Exception as exc:
+    except (RuntimeError, ValueError, OSError) as exc:
         changes.append(f"LLM enhancement failed: {exc}")
         return body
 
@@ -1136,7 +1136,7 @@ def enhance_file(
 
     try:
         text = filepath.read_text(encoding="utf-8")
-    except Exception as exc:
+    except (OSError, UnicodeDecodeError) as exc:
         result.success = False
         result.warnings.append(f"Cannot read file: {exc}")
         return result
@@ -1196,7 +1196,7 @@ def enhance_file(
 
     try:
         filepath.write_text(new_text, encoding="utf-8")
-    except Exception as exc:
+    except OSError as exc:
         result.success = False
         result.warnings.append(f"Cannot write file: {exc}")
 

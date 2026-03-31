@@ -27,10 +27,17 @@ class LLMEgressPolicy:
     quality_delta_note: str = "Fully local mode may reduce output quality by ~10-15% on hardest synthesis tasks."
 
 
+@dataclass
+class EgressAllowlistPolicy:
+    allowed_fields: set[str]
+    blocked_key_patterns: list[str]
+    schema_version: int = 1
+
+
 def _load_yaml(path: Path) -> dict[str, Any]:
     try:
         raw = yaml.safe_load(path.read_text(encoding="utf-8")) or {}
-    except (Exception,):  # noqa: BLE001
+    except (RuntimeError, ValueError, TypeError, OSError):  # noqa: BLE001
         return {}
     return raw if isinstance(raw, dict) else {}
 
@@ -117,10 +124,90 @@ def _append_egress_log(reports_dir: Path, record: dict[str, Any]) -> None:
             raw = json.loads(path.read_text(encoding="utf-8"))
             if isinstance(raw, list):
                 existing = [r for r in raw if isinstance(r, dict)]
-        except (Exception,):  # noqa: BLE001
+        except (RuntimeError, ValueError, TypeError, OSError):  # noqa: BLE001
             existing = []
     existing.append(record)
     path.write_text(json.dumps(existing, ensure_ascii=True, indent=2) + "\n", encoding="utf-8")
+
+
+def load_egress_allowlist() -> EgressAllowlistPolicy:
+    """Load metadata-only egress allowlist schema."""
+    candidates = [
+        Path("config/ip_protection/egress_allowlist.yml"),
+        Path("docsops/config/ip_protection/egress_allowlist.yml"),
+    ]
+    payload: dict[str, Any] = {}
+    for path in candidates:
+        if path.exists():
+            payload = _load_yaml(path)
+            break
+    allowed = payload.get("allowed_fields", [])
+    if not isinstance(allowed, list) or not allowed:
+        allowed = [
+            "tenant_id", "build_id", "version", "platform", "plan",
+            "health", "error_code", "duration_ms", "event", "timestamp_utc",
+        ]
+    blocked = payload.get("blocked_key_patterns", [])
+    if not isinstance(blocked, list) or not blocked:
+        blocked = ["content", "text", "code", "source", "prompt", "snippet", "markdown", "doc", "file"]
+    return EgressAllowlistPolicy(
+        allowed_fields={str(v).strip() for v in allowed if str(v).strip()},
+        blocked_key_patterns=[str(v).strip().lower() for v in blocked if str(v).strip()],
+        schema_version=int(payload.get("version", 1) or 1),
+    )
+
+
+def validate_metadata_egress_payload(payload: dict[str, Any], policy: EgressAllowlistPolicy) -> tuple[bool, str]:
+    """Validate that outbound payload contains metadata only and no raw docs/code fields."""
+    for key in payload:
+        key_norm = str(key).strip()
+        if key_norm not in policy.allowed_fields:
+            return False, f"field_not_allowed:{key_norm}"
+        low = key_norm.lower()
+        if any(pattern in low for pattern in policy.blocked_key_patterns):
+            return False, f"blocked_key_pattern:{key_norm}"
+    return True, "ok"
+
+
+def enforce_metadata_egress_payload(
+    *,
+    payload: dict[str, Any],
+    reports_dir: Path,
+    step: str,
+    source: str,
+) -> dict[str, Any]:
+    """Validate and sanitize egress payload to metadata-only allowlist."""
+    policy = load_egress_allowlist()
+    normalized = {str(k).strip(): v for k, v in payload.items() if str(k).strip()}
+    valid, reason = validate_metadata_egress_payload(normalized, policy)
+    now = datetime.now(timezone.utc).isoformat()
+    if not valid:
+        _append_egress_log(
+            reports_dir,
+            {
+                "timestamp_utc": now,
+                "step": step,
+                "source": source,
+                "decision": "blocked",
+                "reason": reason,
+                "schema_version": policy.schema_version,
+            },
+        )
+        raise ValueError(f"Egress payload blocked by metadata allowlist: {reason}")
+
+    _append_egress_log(
+        reports_dir,
+        {
+            "timestamp_utc": now,
+            "step": step,
+            "source": source,
+            "decision": "approved",
+            "reason": "metadata_only",
+            "schema_version": policy.schema_version,
+            "fields": sorted(normalized.keys()),
+        },
+    )
+    return normalized
 
 
 def ensure_external_allowed(
@@ -169,7 +256,7 @@ def ensure_external_allowed(
             raw = input(
                 f"[llm-egress] External LLM step '{step}' may send redacted data outside the environment. Approve once? [y/N]: "
             ).strip().lower()
-        except (Exception,):  # noqa: BLE001
+        except (RuntimeError, ValueError, TypeError, OSError):  # noqa: BLE001
             raw = "n"
         approved = raw in {"y", "yes"}
 

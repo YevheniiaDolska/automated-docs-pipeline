@@ -165,6 +165,6 @@ if __name__ == "__main__":
     except KeyboardInterrupt:
         print("\nInterrupted.")
         raise SystemExit(130)
-    except (Exception,) as error:  # noqa: BLE001
+    except (RuntimeError, ValueError, TypeError, OSError) as error:  # noqa: BLE001
         print(f"\n[error] {error}", file=sys.stderr)
         raise SystemExit(1)

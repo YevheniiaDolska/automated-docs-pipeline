@@ -40,7 +40,7 @@ if _sentry_dsn:
         logger.info("Sentry initialized for Celery worker: environment=%s", environment)
     except ImportError:
         logger.warning("sentry-sdk not installed, Celery error tracking disabled")
-    except Exception:
+    except (RuntimeError, ValueError, TypeError):
         logger.exception("Failed to initialize Sentry for Celery")
 
 REDIS_URL = os.environ.get("VERIDOC_REDIS_URL", "redis://localhost:6379/0")
