@@ -117,8 +117,8 @@ Use it together with [Deployment Runbook](deploy/production-runbook.md).
 
 ## 14. Completed (2026-03-31)
 
-- [x] `git_wrapper` main updated to `bba132a` and deployed to both environments.
-- [x] Production and staging are on the same commit (`bba132a`).
+- [x] `git_wrapper` main updated to `645686c` and deployed to both environments.
+- [x] Production and staging are on the same commit (`645686c`).
 - [x] Runtime health verified after deploy:
   - production: `veridoc-api`, `veridoc-web`, `veridoc-worker`, `veridoc-beat` are `healthy`.
   - staging: `veridoc-staging-api`, `veridoc-staging-web`, `veridoc-staging-worker`, `veridoc-staging-beat` are `healthy`.
@@ -133,8 +133,8 @@ Use it together with [Deployment Runbook](deploy/production-runbook.md).
 ## 16. Verification log (2026-03-31, late)
 
 - [x] Post-deploy verification after latest rollout:
-  - production head: `bba132a`,
-  - staging head: `bba132a`,
+  - production head: `645686c`,
+  - staging head: `645686c`,
   - all core containers are `healthy` in both environments (`api`, `web`, `worker`, `beat`).
 - [ ] GitHub Actions run status directly confirmed from this environment.
   - Blocker: local `gh` cannot reach `api.github.com` in current network context.
