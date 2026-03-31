@@ -44,6 +44,7 @@ Set at minimum:
 5. `VERIOPS_PACK_REGISTRY_URL`
 6. `VERIOPS_REVOCATION_CHECK_ENABLED`
 7. `VERIOPS_REVOCATION_URL`
+8. `VERIOPS_SERVER_SHARED_TOKEN` (set on server for protected ops endpoints)
 
 ## Step 3. Keep local-first mode
 
@@ -67,6 +68,13 @@ You should see metadata-only approved events, and blocks for forbidden payloads.
 1. `check_updates.py` sends metadata only.
 2. `license_gate.py` refreshes license metadata only.
 3. Optional revoke checks can disable premium runtime if needed.
+
+## Step 5.1. Server endpoints used by this flow
+
+1. `POST /ops/pack-registry/publish` (requires `X-VeriOps-Server-Token`)
+2. `GET /ops/pack-registry/fetch` (requires `X-VeriOps-Server-Token`)
+3. `POST /ops/telemetry/metadata` (requires `X-VeriOps-Server-Token`)
+4. `GET /billing/license/revocation-check` (metadata-only query)
 
 ## Step 6. What to tell enterprise clients
 

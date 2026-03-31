@@ -58,6 +58,26 @@ If payload violates allowlist, request is blocked locally.
 
 This protects assets in storage and transport. During local execution, some logic can still be reverse-engineered.
 
+## Concrete storage layout
+
+Server layout:
+
+1. `VERIOPS_PACK_REGISTRY_DIR` (default `/var/lib/veridoc/pack-registry`)
+2. `VERIOPS_TELEMETRY_DIR` (default `/var/lib/veridoc/telemetry`)
+3. `VERIOPS_REVOCATION_LIST_PATH` (default `/var/lib/veridoc/revoked_licenses.json`)
+
+Client layout:
+
+1. `<client-repo>/docsops/.capability_pack.enc` (encrypted package in rest state)
+2. `<client-repo>/reports/llm_egress_log.json` (egress audit)
+3. `<client-repo>/docsops/.bundle_trace.json` (watermark trace)
+
+Temporary runtime:
+
+1. Decrypt in memory or temp workspace.
+2. Execute locally.
+3. Optional cleanup removes temporary unpacked content after run.
+
 ## Traceability and watermark
 
 Bundle build writes:

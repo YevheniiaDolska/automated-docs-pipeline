@@ -11,11 +11,14 @@ Production:
 
 from __future__ import annotations
 
+import json
 import logging
+import os
 import time
 from collections import defaultdict
 from contextlib import asynccontextmanager
 from datetime import datetime, timezone
+from pathlib import Path
 from typing import Any, AsyncGenerator, Callable, Generator
 
 import jwt
@@ -28,6 +31,17 @@ from pydantic import BaseModel, ConfigDict, Field
 from gitspeak_core.config.settings import AppSettings, get_default_settings
 
 logger = logging.getLogger(__name__)
+REPO_ROOT = Path(__file__).resolve().parents[4]
+PACK_REGISTRY_DIR = Path(
+    os.environ.get("VERIOPS_PACK_REGISTRY_DIR", "/var/lib/veridoc/pack-registry")
+).expanduser()
+TELEMETRY_DIR = Path(
+    os.environ.get("VERIOPS_TELEMETRY_DIR", "/var/lib/veridoc/telemetry")
+).expanduser()
+REVOCATION_LIST_PATH = Path(
+    os.environ.get("VERIOPS_REVOCATION_LIST_PATH", "/var/lib/veridoc/revoked_licenses.json")
+).expanduser()
+EGRESS_ALLOWLIST_PATH = REPO_ROOT / "config" / "ip_protection" / "egress_allowlist.yml"
 
 
 # ---------------------------------------------------------------------------
@@ -239,6 +253,74 @@ def check_rate_limit(user: dict[str, Any]) -> None:
     _rate_limit_store[user_id].append(now)
 
 
+def _require_ops_token(x_veriops_server_token: str | None = Header(None)) -> None:
+    """Protect internal ops endpoints with a shared secret token."""
+    expected = os.environ.get("VERIOPS_SERVER_SHARED_TOKEN", "").strip()
+    if not expected:
+        raise HTTPException(
+            status_code=503,
+            detail="VERIOPS_SERVER_SHARED_TOKEN is not configured on server",
+        )
+    if not x_veriops_server_token or x_veriops_server_token.strip() != expected:
+        raise HTTPException(status_code=401, detail="Invalid ops token")
+
+
+def _load_egress_allowlist() -> tuple[set[str], list[str]]:
+    """Load metadata-only allowlist used by telemetry endpoint."""
+    allowed_defaults = {
+        "tenant_id", "build_id", "version", "platform", "plan", "hashes",
+        "health", "error_code", "duration_ms", "event", "timestamp_utc", "run_status",
+    }
+    blocked_defaults = [
+        "content", "text", "code", "source", "prompt", "snippet", "markdown", "doc", "file",
+    ]
+    if not EGRESS_ALLOWLIST_PATH.exists():
+        return allowed_defaults, blocked_defaults
+    try:
+        import yaml
+
+        raw = yaml.safe_load(EGRESS_ALLOWLIST_PATH.read_text(encoding="utf-8")) or {}
+    except (ImportError, OSError, ValueError, TypeError):
+        return allowed_defaults, blocked_defaults
+    if not isinstance(raw, dict):
+        return allowed_defaults, blocked_defaults
+    allowed = raw.get("allowed_fields", [])
+    blocked = raw.get("blocked_key_patterns", [])
+    allowed_set = {
+        str(v).strip() for v in allowed if str(v).strip()
+    } if isinstance(allowed, list) else set(allowed_defaults)
+    blocked_list = [
+        str(v).strip().lower() for v in blocked if str(v).strip()
+    ] if isinstance(blocked, list) else list(blocked_defaults)
+    if not allowed_set:
+        allowed_set = set(allowed_defaults)
+    if not blocked_list:
+        blocked_list = list(blocked_defaults)
+    return allowed_set, blocked_list
+
+
+def _validate_metadata_payload(payload: dict[str, Any]) -> tuple[bool, str]:
+    allowed, blocked = _load_egress_allowlist()
+    for key in payload:
+        key_norm = str(key).strip()
+        if key_norm not in allowed:
+            return False, f"field_not_allowed:{key_norm}"
+        key_low = key_norm.lower()
+        if any(pattern in key_low for pattern in blocked):
+            return False, f"blocked_key_pattern:{key_norm}"
+    return True, "ok"
+
+
+def _load_revocation_list() -> dict[str, Any]:
+    if not REVOCATION_LIST_PATH.exists():
+        return {}
+    try:
+        payload = json.loads(REVOCATION_LIST_PATH.read_text(encoding="utf-8"))
+    except (OSError, ValueError, TypeError):
+        return {}
+    return payload if isinstance(payload, dict) else {}
+
+
 # ---------------------------------------------------------------------------
 # Lifespan: startup / shutdown
 # ---------------------------------------------------------------------------
@@ -431,6 +513,34 @@ class PipelineRunRequest(BaseModel):
     repo_path: str = Field(description="Path to repository root")
     flow_mode: str = Field(default="code-first")
     modules: dict[str, bool] | None = None
+
+
+class PackPublishRequest(BaseModel):
+    model_config = ConfigDict(extra="forbid")
+
+    pack_name: str = Field(min_length=1, max_length=120)
+    version: str = Field(min_length=1, max_length=64)
+    plan: str = Field(default="enterprise", max_length=32)
+    checksum_sha256: str = Field(min_length=32, max_length=128)
+    encrypted_blob_b64: str = Field(min_length=16)
+    signature_b64: str = Field(min_length=16)
+
+
+class MetadataTelemetryRequest(BaseModel):
+    model_config = ConfigDict(extra="allow")
+
+    tenant_id: str = ""
+    build_id: str = ""
+    version: str = ""
+    platform: str = ""
+    plan: str = ""
+    hashes: str = ""
+    health: str = ""
+    error_code: str = ""
+    duration_ms: int = 0
+    event: str = ""
+    timestamp_utc: str = ""
+    run_status: str = ""
     protocols: list[str] | None = None
     doc_scope: str = "standard"
 
@@ -1031,6 +1141,165 @@ async def lemonsqueezy_webhook(
 
     result = handle_webhook(event_name, event_data, db)
     return result
+
+
+# =========================================================================
+# OPS ROUTES (server-side entitlement, pack-registry, metadata telemetry)
+# =========================================================================
+
+
+@app.post("/ops/pack-registry/publish", tags=["ops"])
+async def publish_pack(
+    request: PackPublishRequest,
+    _auth: None = Depends(_require_ops_token),
+) -> dict[str, Any]:
+    """Publish encrypted+signed pack to server registry."""
+    safe_name = request.pack_name.strip().lower().replace("..", "").replace("/", "-")
+    safe_version = request.version.strip().replace("/", "-")
+    pack_dir = PACK_REGISTRY_DIR / safe_name
+    pack_dir.mkdir(parents=True, exist_ok=True)
+    pack_path = pack_dir / f"{safe_version}.enc.b64"
+    meta_path = pack_dir / f"{safe_version}.json"
+
+    pack_path.write_text(request.encrypted_blob_b64.strip() + "\n", encoding="utf-8")
+    metadata = {
+        "pack_name": safe_name,
+        "version": safe_version,
+        "plan": request.plan,
+        "checksum_sha256": request.checksum_sha256.strip(),
+        "signature_b64": request.signature_b64.strip(),
+        "published_at_utc": datetime.now(timezone.utc).isoformat(),
+        "storage_path": str(pack_path),
+    }
+    meta_path.write_text(json.dumps(metadata, ensure_ascii=True, indent=2) + "\n", encoding="utf-8")
+    return {
+        "status": "ok",
+        "pack_name": safe_name,
+        "version": safe_version,
+    }
+
+
+@app.get("/ops/pack-registry/fetch", tags=["ops"])
+async def fetch_pack(
+    pack_name: str,
+    version: str,
+    _auth: None = Depends(_require_ops_token),
+) -> dict[str, Any]:
+    """Fetch encrypted pack payload and signature by pack name + version."""
+    safe_name = pack_name.strip().lower().replace("..", "").replace("/", "-")
+    safe_version = version.strip().replace("/", "-")
+    pack_dir = PACK_REGISTRY_DIR / safe_name
+    meta_path = pack_dir / f"{safe_version}.json"
+    blob_path = pack_dir / f"{safe_version}.enc.b64"
+    if not meta_path.exists() or not blob_path.exists():
+        raise HTTPException(status_code=404, detail="Pack version not found")
+    try:
+        meta = json.loads(meta_path.read_text(encoding="utf-8"))
+    except (OSError, ValueError, TypeError):
+        raise HTTPException(status_code=500, detail="Pack metadata is corrupted")
+    if not isinstance(meta, dict):
+        raise HTTPException(status_code=500, detail="Pack metadata format is invalid")
+    blob = blob_path.read_text(encoding="utf-8").strip()
+    return {
+        "pack_name": safe_name,
+        "version": safe_version,
+        "plan": str(meta.get("plan", "")),
+        "checksum_sha256": str(meta.get("checksum_sha256", "")),
+        "signature_b64": str(meta.get("signature_b64", "")),
+        "encrypted_blob_b64": blob,
+    }
+
+
+@app.post("/ops/telemetry/metadata", tags=["ops"])
+async def ingest_metadata_telemetry(
+    request: MetadataTelemetryRequest,
+    _auth: None = Depends(_require_ops_token),
+    db: Any = Depends(get_db),
+) -> dict[str, Any]:
+    """Ingest metadata-only telemetry (no client docs/code allowed)."""
+    payload = request.model_dump(exclude_none=True)
+    valid, reason = _validate_metadata_payload(payload)
+    if not valid:
+        raise HTTPException(status_code=400, detail=f"Telemetry payload rejected: {reason}")
+    TELEMETRY_DIR.mkdir(parents=True, exist_ok=True)
+    line = json.dumps(
+        {
+            **payload,
+            "received_at_utc": datetime.now(timezone.utc).isoformat(),
+        },
+        ensure_ascii=True,
+    )
+    log_path = TELEMETRY_DIR / "metadata_events.ndjson"
+    with log_path.open("a", encoding="utf-8") as fh:
+        fh.write(line + "\n")
+
+    # Best-effort DB audit trail.
+    try:
+        from gitspeak_core.db.models import AuditLog
+
+        db.add(
+            AuditLog(
+                user_id=None,
+                action="ops.metadata_telemetry",
+                resource_type="telemetry",
+                resource_id=str(payload.get("tenant_id", "")) or None,
+                details=payload,
+            )
+        )
+        db.commit()
+    except (RuntimeError, ValueError, TypeError, OSError):
+        db.rollback()
+    return {"status": "ok"}
+
+
+@app.get("/billing/license/revocation-check", tags=["billing"])
+async def revocation_check(
+    tenant_id: str = "",
+    build_id: str = "",
+    version: str = "",
+    platform: str = "",
+    plan: str = "",
+    event: str = "",
+    timestamp_utc: str = "",
+) -> dict[str, Any]:
+    """Return revocation status for metadata-only license check requests."""
+    payload = {
+        "tenant_id": tenant_id,
+        "build_id": build_id,
+        "version": version,
+        "platform": platform,
+        "plan": plan,
+        "event": event or "revocation_check",
+        "timestamp_utc": timestamp_utc,
+    }
+    normalized = {k: v for k, v in payload.items() if str(v).strip()}
+    valid, reason = _validate_metadata_payload(normalized)
+    if not valid:
+        raise HTTPException(status_code=400, detail=f"Revocation payload rejected: {reason}")
+
+    revoked_ids = {
+        part.strip()
+        for part in os.environ.get("VERIOPS_REVOKED_TENANTS", "").split(",")
+        if part.strip()
+    }
+    revoked = False
+    revoke_reason = ""
+    tenant = str(normalized.get("tenant_id", "")).strip()
+    if tenant and tenant in revoked_ids:
+        revoked = True
+        revoke_reason = "tenant_revoked_env"
+
+    if not revoked:
+        revocation_list = _load_revocation_list()
+        blocked = revocation_list.get("revoked_tenants", [])
+        if isinstance(blocked, list) and tenant and tenant in {str(v).strip() for v in blocked}:
+            revoked = True
+            revoke_reason = str(revocation_list.get("reason", "tenant_revoked_list")).strip() or "tenant_revoked_list"
+
+    return {
+        "revoked": revoked,
+        "reason": revoke_reason,
+    }
 
 
 # =========================================================================
