@@ -5,7 +5,7 @@ date: "2026-03-24"
 last_reviewed: "2026-04-01"
 ---
 
-<!-- cspell:ignore veridoc lemonsqueezy msmtp -->
+<!-- cspell:ignore veridoc lemonsqueezy msmtp brevo smtpstatus -->
 
 # Production Gate Checklist (VeriDoc + VeriOps)
 
@@ -77,11 +77,10 @@ Use it together with [Deployment Runbook](deploy/production-runbook.md).
 - [x] Monitoring services enabled on server and verified (`2026-04-01`).
   - `veridoc-healthcheck-monitor.timer` and `veridoc-error-monitor.timer` are active.
   - Health monitor fixed for one-server route: `http://127.0.0.1:8020/health` returns `200`.
-- [ ] SMTP credentials are configured for outbound alert emails.
-  - `sendmail` runtime is installed (`msmtp-mta`), but `.env` still misses:
-    `VERIDOC_SMTP_HOST`, `VERIDOC_SMTP_PORT`, `VERIDOC_SMTP_USER`,
-    `VERIDOC_SMTP_PASSWORD`, `VERIDOC_SMTP_FROM`.
-  - Helper prepared on server: `/opt/veridoc/deploy/configure_msmtp_from_env.sh`.
+- [x] SMTP credentials configured and alert email pipeline validated (`2026-04-01`).
+  - `.env` updated with Brevo SMTP fields.
+  - `/opt/veridoc/deploy/configure_msmtp_from_env.sh` executed (`SMTP_CONFIGURED`).
+  - Test email accepted by SMTP relay (`smtpstatus=250`, queued).
 
 ## 9. Quality gates
 
@@ -175,9 +174,10 @@ Use it together with [Deployment Runbook](deploy/production-runbook.md).
 - [ ] Billing lifecycle not fully verified in production-like mode:
   - missing end-to-end confirmation for renewal, cancel, payment failure, refund events.
 - [ ] Plan limits enforcement after webhook updates still not marked complete by evidence.
-- [ ] Error tracking and alerting are still incomplete:
-  - monitors/timers are active and health checks verified,
-  - remaining blocker: SMTP credentials are not set in server `.env`, so email routing is not fully closed.
+- [x] Error tracking and alerting baseline is closed:
+  - monitors/timers are active,
+  - health checks are verified,
+  - SMTP email routing is validated.
 - [x] Customer/legal launch package closed:
   - legal docs/pages are present and linked,
   - outreach template and customer packet checklist are in `deploy/`.
