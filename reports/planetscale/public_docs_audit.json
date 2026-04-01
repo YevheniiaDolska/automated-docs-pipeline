@@ -1,0 +1,413 @@
+{
+  "generated_at": "2026-04-01T18:00:39.383616+00:00",
+  "site_url": "https://docs.planetscale.com/",
+  "site_urls": [
+    "https://docs.planetscale.com/"
+  ],
+  "topology_mode": "multi-project",
+  "verification_modes": [
+    "authenticated",
+    "bot",
+    "browser"
+  ],
+  "sites": [
+    {
+      "site_url": "https://docs.planetscale.com/",
+      "metrics": {
+        "crawl": {
+          "pages_crawled": 477,
+          "requested_pages": 561,
+          "urls_examined": 561,
+          "max_pages": 2000,
+          "effective_limit": 2000,
+          "auto_mode": false,
+          "stop_reason": "queue_exhausted",
+          "discovered_pages": 561,
+          "crawl_scope_basis": "discovered",
+          "crawl_scope_pages": 561,
+          "crawl_coverage_pct": 100.0,
+          "trap_urls_skipped": 0,
+          "seeded_sitemap_urls": 0,
+          "robots_sitemaps_declared": 0
+        },
+        "links": {
+          "internal_links_checked": 561,
+          "broken_internal_links_count": 83,
+          "docs_broken_links_count": 83,
+          "repo_broken_links_count": 0,
+          "broken_internal_link_samples": [
+            "https://docs.planetscale.com/api-and-cli-guides/cli-guides/get-started-with-cli",
+            "https://docs.planetscale.com/api-and-cli-guides/cli-guides/local-development",
+            "https://docs.planetscale.com/api-and-cli-guides/overview",
+            "https://docs.planetscale.com/build/ai-gateway/overview",
+            "https://docs.planetscale.com/build/async-workloads/overview",
+            "https://docs.planetscale.com/build/build-with-ai/overview",
+            "https://docs.planetscale.com/build/caching/cache-api",
+            "https://docs.planetscale.com/build/caching/caching-overview",
+            "https://docs.planetscale.com/build/configure-builds/overview",
+            "https://docs.planetscale.com/build/data-and-storage/netlify-blobs",
+            "https://docs.planetscale.com/build/data-and-storage/netlify-db",
+            "https://docs.planetscale.com/build/edge-functions/api",
+            "https://docs.planetscale.com/build/edge-functions/overview",
+            "https://docs.planetscale.com/build/environment-variables/get-started",
+            "https://docs.planetscale.com/build/environment-variables/overview",
+            "https://docs.planetscale.com/build/frameworks/frameworks-api",
+            "https://docs.planetscale.com/build/frameworks/overview",
+            "https://docs.planetscale.com/build/functions/api",
+            "https://docs.planetscale.com/build/functions/overview",
+            "https://docs.planetscale.com/build/git-workflows/overview"
+          ],
+          "docs_broken_link_samples": [
+            "https://docs.planetscale.com/api-and-cli-guides/cli-guides/get-started-with-cli",
+            "https://docs.planetscale.com/api-and-cli-guides/cli-guides/local-development",
+            "https://docs.planetscale.com/api-and-cli-guides/overview",
+            "https://docs.planetscale.com/build/ai-gateway/overview",
+            "https://docs.planetscale.com/build/async-workloads/overview",
+            "https://docs.planetscale.com/build/build-with-ai/overview",
+            "https://docs.planetscale.com/build/caching/cache-api",
+            "https://docs.planetscale.com/build/caching/caching-overview",
+            "https://docs.planetscale.com/build/configure-builds/overview",
+            "https://docs.planetscale.com/build/data-and-storage/netlify-blobs",
+            "https://docs.planetscale.com/build/data-and-storage/netlify-db",
+            "https://docs.planetscale.com/build/edge-functions/api",
+            "https://docs.planetscale.com/build/edge-functions/overview",
+            "https://docs.planetscale.com/build/environment-variables/get-started",
+            "https://docs.planetscale.com/build/environment-variables/overview",
+            "https://docs.planetscale.com/build/frameworks/frameworks-api",
+            "https://docs.planetscale.com/build/frameworks/overview",
+            "https://docs.planetscale.com/build/functions/api",
+            "https://docs.planetscale.com/build/functions/overview",
+            "https://docs.planetscale.com/build/git-workflows/overview",
+            "https://docs.planetscale.com/build/image-cdn/overview",
+            "https://docs.planetscale.com/build/post-processing/overview",
+            "https://docs.planetscale.com/build/user-agent-categories",
+            "https://docs.planetscale.com/command-palette",
+            "https://docs.planetscale.com/deploy/deploy-overview",
+            "https://docs.planetscale.com/docs/blog/announcing-neki",
+            "https://docs.planetscale.com/docs/blog/database-sharding",
+            "https://docs.planetscale.com/docs/neki",
+            "https://docs.planetscale.com/extend/building-code-agents/overview",
+            "https://docs.planetscale.com/extend/develop-and-share/overview"
+          ],
+          "repo_broken_link_samples": [],
+          "unreachable_links_count": 0,
+          "unverified_links_count": 0,
+          "unverified_link_samples": [],
+          "confirmed_broken_links_count": 83,
+          "excluded_links_count": 1,
+          "excluded_link_samples": [
+            "https://docs.planetscale.com/api/reference/oauth-access-scopes"
+          ],
+          "_all_confirmed_broken_links": [
+            "https://docs.planetscale.com/api-and-cli-guides/cli-guides/get-started-with-cli",
+            "https://docs.planetscale.com/api-and-cli-guides/cli-guides/local-development",
+            "https://docs.planetscale.com/api-and-cli-guides/overview",
+            "https://docs.planetscale.com/build/ai-gateway/overview",
+            "https://docs.planetscale.com/build/async-workloads/overview",
+            "https://docs.planetscale.com/build/build-with-ai/overview",
+            "https://docs.planetscale.com/build/caching/cache-api",
+            "https://docs.planetscale.com/build/caching/caching-overview",
+            "https://docs.planetscale.com/build/configure-builds/overview",
+            "https://docs.planetscale.com/build/data-and-storage/netlify-blobs",
+            "https://docs.planetscale.com/build/data-and-storage/netlify-db",
+            "https://docs.planetscale.com/build/edge-functions/api",
+            "https://docs.planetscale.com/build/edge-functions/overview",
+            "https://docs.planetscale.com/build/environment-variables/get-started",
+            "https://docs.planetscale.com/build/environment-variables/overview",
+            "https://docs.planetscale.com/build/frameworks/frameworks-api",
+            "https://docs.planetscale.com/build/frameworks/overview",
+            "https://docs.planetscale.com/build/functions/api",
+            "https://docs.planetscale.com/build/functions/overview",
+            "https://docs.planetscale.com/build/git-workflows/overview",
+            "https://docs.planetscale.com/build/image-cdn/overview",
+            "https://docs.planetscale.com/build/post-processing/overview",
+            "https://docs.planetscale.com/build/user-agent-categories",
+            "https://docs.planetscale.com/command-palette",
+            "https://docs.planetscale.com/deploy/deploy-overview",
+            "https://docs.planetscale.com/docs/blog/announcing-neki",
+            "https://docs.planetscale.com/docs/blog/database-sharding",
+            "https://docs.planetscale.com/docs/neki",
+            "https://docs.planetscale.com/extend/building-code-agents/overview",
+            "https://docs.planetscale.com/extend/develop-and-share/overview",
+            "https://docs.planetscale.com/extend/install-and-use/build-plugins",
+            "https://docs.planetscale.com/extend/install-and-use/extensions-and-integrations",
+            "https://docs.planetscale.com/extend/install-and-use/overview",
+            "https://docs.planetscale.com/extend/install-and-use/setup-guides/auth0",
+            "https://docs.planetscale.com/extend/install-and-use/setup-guides/contentful-integration",
+            "https://docs.planetscale.com/extend/install-and-use/setup-guides/email-integration",
+            "https://docs.planetscale.com/extend/install-and-use/setup-guides/gpt-action",
+            "https://docs.planetscale.com/extend/install-and-use/setup-guides/launchdarkly-integration",
+            "https://docs.planetscale.com/extend/install-and-use/setup-guides/netlify-app-for-slack",
+            "https://docs.planetscale.com/extend/install-and-use/setup-guides/optimizely-edge-delivery",
+            "https://docs.planetscale.com/extend/install-and-use/setup-guides/planetscale-integration",
+            "https://docs.planetscale.com/extend/install-and-use/setup-guides/supabase-integration",
+            "https://docs.planetscale.com/manage/accounts-and-billing/billing/billing-for-credit-based-plans/how-credits-work-for-enterprise-plans",
+            "https://docs.planetscale.com/manage/accounts-and-billing/overview",
+            "https://docs.planetscale.com/manage/domains/get-started-with-domains",
+            "https://docs.planetscale.com/manage/forms/setup",
+            "https://docs.planetscale.com/manage/monitoring/overview",
+            "https://docs.planetscale.com/manage/preview-servers/overview",
+            "https://docs.planetscale.com/manage/routing/overview",
+            "https://docs.planetscale.com/manage/security/overview",
+            "https://docs.planetscale.com/manage/visual-editor/overview",
+            "https://docs.planetscale.com/metal",
+            "https://docs.planetscale.com/planetscale-plans",
+            "https://docs.planetscale.com/plans/deployment-options",
+            "https://docs.planetscale.com/postgres",
+            "https://docs.planetscale.com/postgres/backups/point-in-time-recovery",
+            "https://docs.planetscale.com/postgres/branching",
+            "https://docs.planetscale.com/postgres/monitoring/query-insights",
+            "https://docs.planetscale.com/prompt-templates/browse",
+            "https://docs.planetscale.com/release-phases",
+            "https://docs.planetscale.com/resources/checklists/overview",
+            "https://docs.planetscale.com/resources/migrate/overview",
+            "https://docs.planetscale.com/resources/troubleshooting/error-reference",
+            "https://docs.planetscale.com/resources/troubleshooting/overview",
+            "https://docs.planetscale.com/resources/troubleshooting/request-chain",
+            "https://docs.planetscale.com/security/access-control",
+            "https://docs.planetscale.com/security/multi-factor-authentication",
+            "https://docs.planetscale.com/start/overview",
+            "https://docs.planetscale.com/terraform-provider",
+            "https://docs.planetscale.com/vitess",
+            "https://docs.planetscale.com/vitess/backups",
+            "https://docs.planetscale.com/vitess/best-practices",
+            "https://docs.planetscale.com/vitess/connecting/connection-strings",
+            "https://docs.planetscale.com/vitess/imports/database-imports",
+            "https://docs.planetscale.com/vitess/integrations/prometheus",
+            "https://docs.planetscale.com/vitess/integrations/prometheus-metrics",
+            "https://docs.planetscale.com/vitess/managed",
+            "https://docs.planetscale.com/vitess/managed/aws",
+            "https://docs.planetscale.com/vitess/scaling/workflows",
+            "https://docs.planetscale.com/vitess/schema-changes/how-online-schema-change-tools-work",
+            "https://docs.planetscale.com/vitess/sharding",
+            "https://docs.planetscale.com/vitess/sharding/sharding-quickstart",
+            "https://docs.planetscale.com/vitess/tutorials/planetscale-serverless-driver"
+          ],
+          "_all_unverified_links": [],
+          "_all_excluded_links": [
+            "https://docs.planetscale.com/api/reference/oauth-access-scopes"
+          ],
+          "_all_docs_unverified_links": [],
+          "_all_repo_unverified_links": []
+        },
+        "seo_geo": {
+          "pages_scanned": 477,
+          "missing_title_count": 0,
+          "missing_description_count": 123,
+          "multiple_h1_count": 1,
+          "heading_hierarchy_jump_count": 167,
+          "seo_geo_issue_rate_pct": 15.25
+        },
+        "api_coverage": {
+          "reference_endpoint_count": 29,
+          "api_pages_detected": 224,
+          "endpoints_with_usage_docs": 20,
+          "reference_endpoints_without_usage_docs": 9,
+          "reference_coverage_pct": 68.97,
+          "no_api_pages_found": false,
+          "coverage_determined": true,
+          "coverage_method": "source_of_truth",
+          "detection_note": "",
+          "uncovered_endpoint_samples": [
+            "gql:api",
+            "gql:at",
+            "gql:component",
+            "gql:of",
+            "gql:parameters",
+            "gql:results",
+            "gql:sequences",
+            "gql:telemetry",
+            "gql:which"
+          ]
+        },
+        "examples": {
+          "total_code_examples": 0,
+          "total_code_blocks_all": 1650,
+          "runnable_without_env": 0,
+          "blocked_by_placeholders": 0,
+          "network_bound_examples": 0,
+          "example_reliability_estimate_pct": 0.0,
+          "detection_note": "No executable code blocks detected (1650 data-only blocks found). Site may use non-standard code rendering that the auditor does not recognize, or all examples are in data formats (YAML/JSON)."
+        },
+        "freshness": {
+          "pages_with_last_updated_hint": 119,
+          "pages_without_last_updated_hint": 358,
+          "last_updated_coverage_pct": 24.95,
+          "samples_with_last_updated": [
+            {
+              "url": "https://docs.planetscale.com/docs/vitess/managed/gcp/private-service-connect",
+              "hint": "May 8, 2024"
+            },
+            {
+              "url": "https://docs.planetscale.com/docs/security/sso",
+              "hint": "After following all of these steps, after you change the PlanetScale role for a user in Okta, their role will be updated"
+            },
+            {
+              "url": "https://docs.planetscale.com/docs/api/reference/create_branch",
+              "hint": "When the branch was last updated"
+            },
+            {
+              "url": "https://docs.planetscale.com/docs/api/reference/list_organizations",
+              "hint": "self.__next_f.push([1,\"1b:[\\\"$\\\",\\\"$L47\\\",null,{\\\"value\\\":{\\\"apiReferenceData\\\":{}},\\\"children\\\":[\\\"$\\\",\\\"$L48\\\",null,{\\"
+            },
+            {
+              "url": "https://docs.planetscale.com/docs/api/reference/list_audit_logs",
+              "hint": "self.__next_f.push([1,\"1b:[\\\"$\\\",\\\"$L30\\\",null,{\\\"value\\\":{\\\"apiReferenceData\\\":{}},\\\"children\\\":[\\\"$\\\",\\\"$L31\\\",null,{\\"
+            },
+            {
+              "url": "https://docs.planetscale.com/docs/api/reference/create_deploy_request",
+              "hint": "When the deploy request was last updated"
+            },
+            {
+              "url": "https://docs.planetscale.com/docs/postgres/monitoring/logs",
+              "hint": "2025-06-23 17:31:27 UTC"
+            },
+            {
+              "url": "https://docs.planetscale.com/docs/api/reference/get_deploy_request",
+              "hint": "When the deploy request was last updated"
+            },
+            {
+              "url": "https://docs.planetscale.com/docs/api/reference/get_branch",
+              "hint": "When the branch was last updated"
+            },
+            {
+              "url": "https://docs.planetscale.com/docs/postgres/extensions/pg_strict",
+              "hint": "'2024-01-01'"
+            }
+          ]
+        }
+      },
+      "samples": {
+        "broken_links": [
+          "https://docs.planetscale.com/api-and-cli-guides/cli-guides/get-started-with-cli",
+          "https://docs.planetscale.com/api-and-cli-guides/cli-guides/local-development",
+          "https://docs.planetscale.com/api-and-cli-guides/overview",
+          "https://docs.planetscale.com/build/ai-gateway/overview",
+          "https://docs.planetscale.com/build/async-workloads/overview",
+          "https://docs.planetscale.com/build/build-with-ai/overview",
+          "https://docs.planetscale.com/build/caching/cache-api",
+          "https://docs.planetscale.com/build/caching/caching-overview",
+          "https://docs.planetscale.com/build/configure-builds/overview",
+          "https://docs.planetscale.com/build/data-and-storage/netlify-blobs",
+          "https://docs.planetscale.com/build/data-and-storage/netlify-db",
+          "https://docs.planetscale.com/build/edge-functions/api",
+          "https://docs.planetscale.com/build/edge-functions/overview",
+          "https://docs.planetscale.com/build/environment-variables/get-started",
+          "https://docs.planetscale.com/build/environment-variables/overview",
+          "https://docs.planetscale.com/build/frameworks/frameworks-api",
+          "https://docs.planetscale.com/build/frameworks/overview",
+          "https://docs.planetscale.com/build/functions/api",
+          "https://docs.planetscale.com/build/functions/overview",
+          "https://docs.planetscale.com/build/git-workflows/overview"
+        ],
+        "docs_broken_link_samples": [
+          "https://docs.planetscale.com/api-and-cli-guides/cli-guides/get-started-with-cli",
+          "https://docs.planetscale.com/api-and-cli-guides/cli-guides/local-development",
+          "https://docs.planetscale.com/api-and-cli-guides/overview",
+          "https://docs.planetscale.com/build/ai-gateway/overview",
+          "https://docs.planetscale.com/build/async-workloads/overview",
+          "https://docs.planetscale.com/build/build-with-ai/overview",
+          "https://docs.planetscale.com/build/caching/cache-api",
+          "https://docs.planetscale.com/build/caching/caching-overview",
+          "https://docs.planetscale.com/build/configure-builds/overview",
+          "https://docs.planetscale.com/build/data-and-storage/netlify-blobs",
+          "https://docs.planetscale.com/build/data-and-storage/netlify-db",
+          "https://docs.planetscale.com/build/edge-functions/api",
+          "https://docs.planetscale.com/build/edge-functions/overview",
+          "https://docs.planetscale.com/build/environment-variables/get-started",
+          "https://docs.planetscale.com/build/environment-variables/overview",
+          "https://docs.planetscale.com/build/frameworks/frameworks-api",
+          "https://docs.planetscale.com/build/frameworks/overview",
+          "https://docs.planetscale.com/build/functions/api",
+          "https://docs.planetscale.com/build/functions/overview",
+          "https://docs.planetscale.com/build/git-workflows/overview",
+          "https://docs.planetscale.com/build/image-cdn/overview",
+          "https://docs.planetscale.com/build/post-processing/overview",
+          "https://docs.planetscale.com/build/user-agent-categories",
+          "https://docs.planetscale.com/command-palette",
+          "https://docs.planetscale.com/deploy/deploy-overview",
+          "https://docs.planetscale.com/docs/blog/announcing-neki",
+          "https://docs.planetscale.com/docs/blog/database-sharding",
+          "https://docs.planetscale.com/docs/neki",
+          "https://docs.planetscale.com/extend/building-code-agents/overview",
+          "https://docs.planetscale.com/extend/develop-and-share/overview"
+        ],
+        "repo_broken_link_samples": [],
+        "unverified_link_samples": [],
+        "api_uncovered_samples": [
+          "gql:api",
+          "gql:at",
+          "gql:component",
+          "gql:of",
+          "gql:parameters",
+          "gql:results",
+          "gql:sequences",
+          "gql:telemetry",
+          "gql:which"
+        ]
+      },
+      "run_count": 3
+    }
+  ],
+  "aggregate": {
+    "metrics": {
+      "crawl": {
+        "pages_crawled": 477,
+        "requested_pages": 561,
+        "urls_examined": 561,
+        "max_pages_total": 2000,
+        "discovered_pages": 561,
+        "crawl_scope_pages": 561,
+        "trap_urls_skipped": 0,
+        "crawl_coverage_pct": 100.0
+      },
+      "links": {
+        "broken_internal_links_count": 83,
+        "docs_broken_links_count": 83,
+        "repo_broken_links_count": 0,
+        "unverified_links_count": 0,
+        "confirmed_broken_links_count": 83,
+        "excluded_links_count": 1
+      },
+      "seo_geo": {
+        "seo_geo_issue_rate_pct": 15.25
+      },
+      "api_coverage": {
+        "reference_coverage_pct": 68.97,
+        "no_api_pages_found": false,
+        "api_pages_detected": 224,
+        "coverage_determined": true,
+        "detection_note": ""
+      },
+      "examples": {
+        "example_reliability_estimate_pct": 0.0
+      },
+      "freshness": {
+        "last_updated_coverage_pct": 24.95
+      }
+    },
+    "confidence": {
+      "overall_confidence_pct": 91.5,
+      "links_confidence_pct": 95.0,
+      "api_confidence_pct": 85.0,
+      "crawl_confidence_pct": 95.0
+    }
+  },
+  "confidence": {
+    "overall_confidence_pct": 91.5,
+    "links_confidence_pct": 95.0,
+    "api_confidence_pct": 85.0,
+    "crawl_confidence_pct": 95.0
+  },
+  "top_findings": [
+    "Broken internal links: 83",
+    "SEO/GEO issue rate is high: 15.25%",
+    "API usage-doc coverage is low: 68.97% (224 API pages detected)",
+    "Example reliability estimate is low: 0.0%",
+    "Freshness visibility is weak: only 24.95% pages show last updated"
+  ],
+  "llm_analysis": {
+    "status": "blocked",
+    "reason": "External LLM use blocked by policy/approval gate."
+  }
+}
