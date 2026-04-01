@@ -138,6 +138,36 @@ Expected result:
 - subscription state is updated,
 - license entitlement is refreshed automatically for active paid plans.
 
+### Manual invoice mode (no LemonSqueezy checkout)
+
+If you bill clients manually (invoice-first), set:
+
+```bash
+VERIDOC_BILLING_MODE=manual
+```
+
+Then manage paid access via ops endpoint after invoice is paid:
+
+```bash
+curl -X POST "https://yourdomain.com/ops/billing/manual-subscription/upsert" \
+  -H "Content-Type: application/json" \
+  -H "X-VeriOps-Server-Token: $VERIOPS_SERVER_SHARED_TOKEN" \
+  -d '{
+    "user_id":"<USER_ID>",
+    "tier":"enterprise",
+    "status":"active",
+    "period_days":30,
+    "source":"manual_invoice",
+    "reset_usage":true
+  }'
+```
+
+Result:
+
+- usage limits are applied from plan matrix,
+- period window is updated,
+- server license is reissued automatically.
+
 ## 8. Backup and restore check
 
 Backup:

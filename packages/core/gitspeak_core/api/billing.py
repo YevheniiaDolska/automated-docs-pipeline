@@ -42,6 +42,8 @@ LEMONSQUEEZY_API_KEY = os.environ.get("LEMONSQUEEZY_API_KEY", "")
 LEMONSQUEEZY_STORE_ID = os.environ.get("LEMONSQUEEZY_STORE_ID", "")
 LEMONSQUEEZY_WEBHOOK_SECRET = os.environ.get("LEMONSQUEEZY_WEBHOOK_SECRET", "")
 LEMONSQUEEZY_API_URL = "https://api.lemonsqueezy.com/v1"
+BILLING_MODE = os.environ.get("VERIDOC_BILLING_MODE", "lemonsqueezy").strip().lower()
+MANUAL_BILLING_MODE = BILLING_MODE in {"manual", "invoice", "custom"}
 
 # ---------------------------------------------------------------------------
 # Variant ID -> Tier mapping (set in LemonSqueezy dashboard)
@@ -481,6 +483,12 @@ def handle_create_checkout(
     Uses the LemonSqueezy API to generate a checkout link.
     The user is redirected to LemonSqueezy to complete payment.
     """
+    if MANUAL_BILLING_MODE:
+        raise ValueError(
+            "Self-serve checkout is disabled in manual billing mode. "
+            "Use invoice flow and manual subscription activation."
+        )
+
     suffix = "annual" if request.annual else "monthly"
     variant_key = f"variant_{request.tier}_{suffix}"
     env_var_name = f"LS_VARIANT_{request.tier.upper()}_{suffix.upper()}"
@@ -617,6 +625,86 @@ def handle_get_usage(user_id: str, db_session: Any) -> UsageResponse:
             sub.trial_ends_at.isoformat() if sub.trial_ends_at else None
         ),
     )
+
+
+def handle_manual_subscription_upsert(
+    payload: dict[str, Any],
+    db_session: Any,
+) -> dict[str, Any]:
+    """Upsert subscription state for manual-invoice billing mode.
+
+    This enforces the same tier limits as webhook flow but does not depend
+    on LemonSqueezy events.
+    """
+    from gitspeak_core.db.models import Subscription, User
+
+    user_id = str(payload.get("user_id", "")).strip()
+    tier = str(payload.get("tier", "free")).strip().lower()
+    status = str(payload.get("status", "active")).strip().lower()
+    period_days_raw = payload.get("period_days", 30)
+    source = str(payload.get("source", "manual_invoice")).strip() or "manual_invoice"
+    reset_usage = bool(payload.get("reset_usage", True))
+    external_customer_ref = str(payload.get("external_customer_ref", "")).strip()
+
+    if not user_id:
+        raise ValueError("user_id is required")
+    if tier not in TIER_LIMITS:
+        raise ValueError(f"Unsupported tier: {tier}")
+    allowed_status = {"trialing", "active", "past_due", "canceled", "unpaid", "paused"}
+    if status not in allowed_status:
+        raise ValueError(f"Unsupported status: {status}")
+    try:
+        period_days = int(period_days_raw)
+    except (TypeError, ValueError):
+        raise ValueError("period_days must be an integer")
+    if period_days < 1 or period_days > 366:
+        raise ValueError("period_days must be between 1 and 366")
+
+    user = db_session.query(User).filter(User.id == user_id).first()
+    if not user:
+        raise ValueError(f"User not found: {user_id}")
+
+    sub = db_session.query(Subscription).filter(Subscription.user_id == user_id).first()
+    if not sub:
+        sub = Subscription(user_id=user_id, tier="free", status="trialing")
+        db_session.add(sub)
+        db_session.flush()
+
+    now = datetime.now(timezone.utc)
+    period_end = now + timedelta(days=period_days)
+    limits = TIER_LIMITS.get(tier, TIER_LIMITS["free"])
+
+    sub.tier = tier
+    sub.status = status
+    sub.current_period_start = now
+    sub.current_period_end = period_end
+    sub.cancel_at_period_end = status in {"canceled", "unpaid"}
+    sub.ai_requests_limit = limits["ai_requests"]
+    if external_customer_ref:
+        sub.ls_customer_id = external_customer_ref
+    if reset_usage:
+        sub.ai_requests_used = 0
+        sub.pages_generated = 0
+        sub.api_calls_used = 0
+
+    db_session.commit()
+    _issue_or_refresh_server_license(
+        sub,
+        reason=f"manual_billing_upsert:{source}",
+        db_session=db_session,
+    )
+
+    return {
+        "status": "ok",
+        "user_id": user_id,
+        "tier": sub.tier,
+        "subscription_status": sub.status,
+        "period_start": sub.current_period_start.isoformat() if sub.current_period_start else "",
+        "period_end": sub.current_period_end.isoformat() if sub.current_period_end else "",
+        "limits": limits,
+        "usage_reset": reset_usage,
+        "source": source,
+    }
 
 
 def handle_get_server_license_status(

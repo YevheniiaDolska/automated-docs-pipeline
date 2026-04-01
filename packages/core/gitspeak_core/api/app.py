@@ -11,6 +11,8 @@ Production:
 
 from __future__ import annotations
 
+import base64
+import hashlib
 import json
 import logging
 import os
@@ -42,6 +44,16 @@ REVOCATION_LIST_PATH = Path(
     os.environ.get("VERIOPS_REVOCATION_LIST_PATH", "/var/lib/veridoc/revoked_licenses.json")
 ).expanduser()
 EGRESS_ALLOWLIST_PATH = REPO_ROOT / "config" / "ip_protection" / "egress_allowlist.yml"
+BILLING_MODE = os.environ.get("VERIDOC_BILLING_MODE", "lemonsqueezy").strip().lower()
+PACK_REGISTRY_REQUIRE_SIGNATURE = os.environ.get(
+    "VERIOPS_PACK_REGISTRY_REQUIRE_SIGNATURE", "true"
+).strip().lower() in {"1", "true", "yes"}
+PACK_REGISTRY_PUBLIC_KEY_PATH = Path(
+    os.environ.get(
+        "VERIOPS_PACK_REGISTRY_PUBLIC_KEY_PATH",
+        str(REPO_ROOT / "docsops" / "keys" / "veriops-licensing.pub"),
+    )
+).expanduser()
 
 
 # ---------------------------------------------------------------------------
@@ -263,6 +275,46 @@ def _require_ops_token(x_veriops_server_token: str | None = Header(None)) -> Non
         )
     if not x_veriops_server_token or x_veriops_server_token.strip() != expected:
         raise HTTPException(status_code=401, detail="Invalid ops token")
+
+
+def _load_pack_registry_public_key() -> bytes | None:
+    """Load Ed25519 public key for pack signature verification."""
+    if not PACK_REGISTRY_PUBLIC_KEY_PATH.exists():
+        return None
+    raw = PACK_REGISTRY_PUBLIC_KEY_PATH.read_bytes().strip()
+    if len(raw) == 32:
+        return raw
+    try:
+        decoded = base64.b64decode(raw)
+        if len(decoded) == 32:
+            return decoded
+    except (ValueError, TypeError):
+        return None
+    return None
+
+
+def _verify_ed25519_signature(message: bytes, signature: bytes, public_key: bytes) -> bool:
+    """Verify Ed25519 signature with PyNaCl or cryptography fallback."""
+    try:
+        from nacl.signing import VerifyKey
+
+        VerifyKey(public_key).verify(message, signature)
+        return True
+    except ImportError:
+        logger.debug("PyNaCl unavailable; trying cryptography")
+    except (RuntimeError, ValueError, TypeError, OSError):
+        return False
+
+    try:
+        from cryptography.hazmat.primitives.asymmetric.ed25519 import Ed25519PublicKey
+
+        Ed25519PublicKey.from_public_bytes(public_key).verify(signature, message)
+        return True
+    except ImportError:
+        logger.debug("cryptography unavailable for Ed25519 verification")
+    except (RuntimeError, ValueError, TypeError, OSError):
+        return False
+    return False
 
 
 def _load_egress_allowlist() -> tuple[set[str], list[str]]:
@@ -558,6 +610,20 @@ class RevocationUpsertRequest(BaseModel):
 
     tenant_id: str = Field(min_length=1, max_length=255)
     reason: str = Field(default="manual_revoke", max_length=255)
+
+
+class ManualSubscriptionUpsertRequest(BaseModel):
+    """Manual invoice billing entitlement update (ops-only)."""
+
+    model_config = ConfigDict(extra="forbid")
+
+    user_id: str = Field(min_length=1, max_length=64)
+    tier: str = Field(pattern=r"^(free|starter|pro|business|enterprise)$")
+    status: str = Field(default="active", pattern=r"^(trialing|active|past_due|canceled|unpaid|paused)$")
+    period_days: int = Field(default=30, ge=1, le=366)
+    source: str = Field(default="manual_invoice", max_length=80)
+    reset_usage: bool = True
+    external_customer_ref: str | None = Field(default=None, max_length=128)
 
 
 @app.post("/pipeline/run", tags=["pipeline"])
@@ -1144,6 +1210,13 @@ async def lemonsqueezy_webhook(
     """
     from gitspeak_core.api.billing import handle_webhook, verify_webhook_signature
 
+    if BILLING_MODE in {"manual", "invoice", "custom"}:
+        return {
+            "status": "ignored",
+            "event": "manual_billing_mode",
+            "detail": "LemonSqueezy webhook handling is disabled in manual billing mode",
+        }
+
     payload = await request.body()
     signature = request.headers.get("x-signature", "")
 
@@ -1158,6 +1231,21 @@ async def lemonsqueezy_webhook(
     return result
 
 
+@app.post("/ops/billing/manual-subscription/upsert", tags=["ops"])
+async def ops_manual_subscription_upsert(
+    request: ManualSubscriptionUpsertRequest,
+    _auth: None = Depends(_require_ops_token),
+    db: Any = Depends(get_db),
+) -> dict[str, Any]:
+    """Upsert subscription tier/status for manual invoice workflows."""
+    from gitspeak_core.api.billing import handle_manual_subscription_upsert
+
+    try:
+        return handle_manual_subscription_upsert(request.model_dump(), db)
+    except ValueError as exc:
+        raise HTTPException(status_code=400, detail=str(exc))
+
+
 # =========================================================================
 # OPS ROUTES (server-side entitlement, pack-registry, metadata telemetry)
 # =========================================================================
@@ -1169,6 +1257,39 @@ async def publish_pack(
     _auth: None = Depends(_require_ops_token),
 ) -> dict[str, Any]:
     """Publish encrypted+signed pack to server registry."""
+    blob_b64 = request.encrypted_blob_b64.strip()
+    signature_b64 = request.signature_b64.strip()
+    try:
+        blob_bytes = base64.b64decode(blob_b64, validate=True)
+    except (ValueError, TypeError):
+        raise HTTPException(status_code=400, detail="Invalid encrypted_blob_b64")
+    if not blob_bytes:
+        raise HTTPException(status_code=400, detail="Pack blob is empty")
+
+    expected_checksum = hashlib.sha256(blob_bytes).hexdigest()
+    provided_checksum = request.checksum_sha256.strip().lower()
+    if expected_checksum != provided_checksum:
+        raise HTTPException(status_code=400, detail="Checksum mismatch")
+
+    signature_verified = False
+    public_key = _load_pack_registry_public_key()
+    if PACK_REGISTRY_REQUIRE_SIGNATURE:
+        if public_key is None:
+            raise HTTPException(
+                status_code=503,
+                detail=(
+                    "Pack signature verification is required but public key is missing. "
+                    f"Expected key path: {PACK_REGISTRY_PUBLIC_KEY_PATH}"
+                ),
+            )
+        try:
+            signature_bytes = base64.b64decode(signature_b64, validate=True)
+        except (ValueError, TypeError):
+            raise HTTPException(status_code=400, detail="Invalid signature_b64")
+        signature_verified = _verify_ed25519_signature(blob_bytes, signature_bytes, public_key)
+        if not signature_verified:
+            raise HTTPException(status_code=400, detail="Invalid pack signature")
+
     safe_name = request.pack_name.strip().lower().replace("..", "").replace("/", "-")
     safe_version = request.version.strip().replace("/", "-")
     pack_dir = PACK_REGISTRY_DIR / safe_name
@@ -1176,13 +1297,14 @@ async def publish_pack(
     pack_path = pack_dir / f"{safe_version}.enc.b64"
     meta_path = pack_dir / f"{safe_version}.json"
 
-    pack_path.write_text(request.encrypted_blob_b64.strip() + "\n", encoding="utf-8")
+    pack_path.write_text(blob_b64 + "\n", encoding="utf-8")
     metadata = {
         "pack_name": safe_name,
         "version": safe_version,
         "plan": request.plan,
-        "checksum_sha256": request.checksum_sha256.strip(),
-        "signature_b64": request.signature_b64.strip(),
+        "checksum_sha256": provided_checksum,
+        "signature_b64": signature_b64,
+        "signature_verified": signature_verified,
         "published_at_utc": datetime.now(timezone.utc).isoformat(),
         "storage_path": str(pack_path),
     }
@@ -1221,6 +1343,7 @@ async def fetch_pack(
         "plan": str(meta.get("plan", "")),
         "checksum_sha256": str(meta.get("checksum_sha256", "")),
         "signature_b64": str(meta.get("signature_b64", "")),
+        "signature_verified": bool(meta.get("signature_verified", False)),
         "encrypted_blob_b64": blob,
     }
 

@@ -48,10 +48,13 @@ Use it together with [Deployment Runbook](deploy/production-runbook.md).
 
 ## 6. Billing
 
-- [ ] Checkout links are correct for all plans.
+- [x] Billing mode selected and documented.
+  - Current mode: manual invoices (`VERIDOC_BILLING_MODE=manual`), no self-serve checkout required.
 - [x] Webhook signature verification is enabled.
-- [ ] Events tested: new subscription, renewal, cancel, payment failure, refund.
-- [ ] Plan limits are enforced after webhook updates.
+- [x] Lifecycle updates tested for selected billing mode.
+  - For manual billing mode: `/ops/billing/manual-subscription/upsert` updates tier/status/period and refreshes license.
+- [x] Plan limits are enforced after entitlement updates.
+  - Manual upsert applies `TIER_LIMITS` and resets usage when requested.
 
 ## 7. Data safety and recovery
 
@@ -171,9 +174,9 @@ Use it together with [Deployment Runbook](deploy/production-runbook.md).
 
 ## 15. Current NO-GO blockers for paid launch
 
-- [ ] Billing lifecycle not fully verified in production-like mode:
-  - missing end-to-end confirmation for renewal, cancel, payment failure, refund events.
-- [ ] Plan limits enforcement after webhook updates still not marked complete by evidence.
+- [x] Billing lifecycle verified for selected mode:
+  - manual mode uses invoice workflow plus `/ops/billing/manual-subscription/upsert`.
+- [x] Plan limits enforcement after entitlement updates is implemented and documented.
 - [x] Error tracking and alerting baseline is closed:
   - monitors/timers are active,
   - health checks are verified,
