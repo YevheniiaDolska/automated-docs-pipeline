@@ -2610,12 +2610,7 @@ def main() -> int:
     )
     args = parser.parse_args()
 
-    # -- License gate: public docs audit requires enterprise plan --
-    try:
-        from scripts.license_gate import require
-        require("executive_audit_pdf")
-    except ImportError:
-        logger.warning("license_gate unavailable; continuing without plan enforcement")
+    # Public auditor is available in this product regardless of paid plan flags.
 
     site_urls = list(args.site_url or [])
     if args.interactive:

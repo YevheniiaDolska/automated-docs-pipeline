@@ -2,10 +2,10 @@
 title: "Production gate checklist"
 description: "Strict go or no-go checklist for VeriDoc and VeriOps production launch readiness."
 date: "2026-03-24"
-last_reviewed: "2026-03-31"
+last_reviewed: "2026-04-01"
 ---
 
-<!-- cspell:ignore veridoc lemonsqueezy -->
+<!-- cspell:ignore veridoc lemonsqueezy msmtp -->
 
 # Production Gate Checklist (VeriDoc + VeriOps)
 
@@ -74,6 +74,14 @@ Use it together with [Deployment Runbook](deploy/production-runbook.md).
     - `deploy/systemd/veridoc-error-monitor.service`
     - `deploy/systemd/veridoc-error-monitor.timer`
   - One-command installer: `deploy/setup_observability.sh`.
+- [x] Monitoring services enabled on server and verified (`2026-04-01`).
+  - `veridoc-healthcheck-monitor.timer` and `veridoc-error-monitor.timer` are active.
+  - Health monitor fixed for one-server route: `http://127.0.0.1:8020/health` returns `200`.
+- [ ] SMTP credentials are configured for outbound alert emails.
+  - `sendmail` runtime is installed (`msmtp-mta`), but `.env` still misses:
+    `VERIDOC_SMTP_HOST`, `VERIDOC_SMTP_PORT`, `VERIDOC_SMTP_USER`,
+    `VERIDOC_SMTP_PASSWORD`, `VERIDOC_SMTP_FROM`.
+  - Helper prepared on server: `/opt/veridoc/deploy/configure_msmtp_from_env.sh`.
 
 ## 9. Quality gates
 
@@ -168,8 +176,8 @@ Use it together with [Deployment Runbook](deploy/production-runbook.md).
   - missing end-to-end confirmation for renewal, cancel, payment failure, refund events.
 - [ ] Plan limits enforcement after webhook updates still not marked complete by evidence.
 - [ ] Error tracking and alerting are still incomplete:
-  - no confirmed Sentry (or equivalent) incident pipeline,
-  - no confirmed uptime/latency/5xx alert routing.
-- [ ] Customer/legal launch package still incomplete:
-  - Terms, Privacy, DPA, security contact pages not all marked published,
-  - outreach and evidence pack checklist not fully closed.
+  - monitors/timers are active and health checks verified,
+  - remaining blocker: SMTP credentials are not set in server `.env`, so email routing is not fully closed.
+- [x] Customer/legal launch package closed:
+  - legal docs/pages are present and linked,
+  - outreach template and customer packet checklist are in `deploy/`.

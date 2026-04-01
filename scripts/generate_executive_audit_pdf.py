@@ -2329,12 +2329,7 @@ def _detect_mode(mode_arg: str, scorecard: dict[str, Any], public_audit: dict[st
 
 
 def main() -> int:
-    # -- License gate: executive PDF requires enterprise plan --
-    try:
-        from scripts.license_gate import require
-        require("executive_audit_pdf")
-    except ImportError:
-        logger.warning("license_gate unavailable; continuing without plan enforcement")
+    # Executive audit PDF is available in this product regardless of paid plan flags.
 
     parser = argparse.ArgumentParser(description="Generate premium executive audit PDF")
     parser.add_argument("--scorecard-json", default="reports/audit_scorecard.json")

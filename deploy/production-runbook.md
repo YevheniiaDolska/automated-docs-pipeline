@@ -2,10 +2,10 @@
 title: "Production deployment runbook"
 description: "Step-by-step beginner runbook to deploy, verify, back up, and roll back VeriDoc in production."
 date: "2026-03-24"
-last_reviewed: "2026-03-26"
+last_reviewed: "2026-04-01"
 ---
 
-<!-- cspell:ignore veridoc lemonsqueezy tokenurlsafe token_urlsafe urlsafe -->
+<!-- cspell:ignore veridoc lemonsqueezy tokenurlsafe token_urlsafe urlsafe msmtp -->
 
 # Production Runbook (Beginner-Friendly)
 
@@ -47,6 +47,10 @@ Set at minimum:
 - `LEMONSQUEEZY_WEBHOOK_SECRET`
 - `VERIDOC_ADMIN_EMAIL` (comma-separated list for alerts)
 - `VERIDOC_SMTP_FROM` (alert sender)
+- `VERIDOC_SMTP_HOST` (SMTP server host for alerts)
+- `VERIDOC_SMTP_PORT` (SMTP port, usually `587`)
+- `VERIDOC_SMTP_USER` (SMTP username/login)
+- `VERIDOC_SMTP_PASSWORD` (SMTP password/app password)
 - `SENTRY_DSN` (optional; if empty, log-based error monitor still works)
 
 Generate a strong secret:
@@ -180,6 +184,17 @@ docker compose -f docker-compose.production.yml logs -f api worker nginx
 sudo bash deploy/setup_observability.sh /opt/veridoc
 systemctl list-timers --all | grep -E 'veridoc-(healthcheck|error)-monitor'
 ```
+
+1. Configure outbound SMTP for alert emails:
+
+```bash
+sudo bash deploy/configure_msmtp_from_env.sh
+```
+
+Expected:
+
+- If all SMTP env vars are set: `SMTP_CONFIGURED`
+- If something is missing: `/opt/veridoc/deploy/SMTP_SETUP_REQUIRED.txt` lists exact fields
 
 1. Optional Sentry verification:
 
