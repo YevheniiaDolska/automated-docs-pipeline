@@ -5,7 +5,7 @@ date: "2026-03-24"
 last_reviewed: "2026-04-01"
 ---
 
-<!-- cspell:ignore veridoc lemonsqueezy tokenurlsafe token_urlsafe urlsafe msmtp -->
+<!-- cspell:ignore veridoc lemonsqueezy tokenurlsafe token_urlsafe urlsafe msmtp cust dgst chargeback -->
 
 # Production Runbook (Beginner-Friendly)
 
@@ -167,6 +167,55 @@ Result:
 - usage limits are applied from plan matrix,
 - period window is updated,
 - server license is reissued automatically.
+
+### Full automation for manual billing (webhook-driven)
+
+If you want zero manual calls, connect your payment system to:
+
+- `POST /billing/webhooks/manual`
+
+Required server env:
+
+- `VERIDOC_BILLING_MODE=manual`
+- `VERIDOC_MANUAL_WEBHOOK_SECRET=<strong_secret>`
+
+Webhook body (example):
+
+```json
+{
+  "event_name": "payment_success",
+  "data": {
+    "user_id": "<USER_ID>",
+    "tier": "enterprise",
+    "period_days": 30,
+    "source": "wise_webhook",
+    "external_customer_ref": "cust_12345"
+  }
+}
+```
+
+Signature header:
+
+- Header: `X-Manual-Signature`
+- Algorithm: `HMAC-SHA256`
+- Value: `hex(hmac_sha256(secret, raw_request_body_bytes))`
+
+Local signature example:
+
+```bash
+payload='{"event_name":"payment_success","data":{"user_id":"<USER_ID>","tier":"enterprise","period_days":30,"source":"wise_webhook"}}'
+sig=$(printf '%s' "$payload" | openssl dgst -sha256 -hmac "$VERIDOC_MANUAL_WEBHOOK_SECRET" | awk '{print $2}')
+curl -X POST "https://yourdomain.com/billing/webhooks/manual" \
+  -H "Content-Type: application/json" \
+  -H "X-Manual-Signature: $sig" \
+  -d "$payload"
+```
+
+Supported manual events:
+
+- `payment_success` / `payment_succeeded` / `invoice_paid` / `subscription_renewed`
+- `payment_failed` / `invoice_failed`
+- `subscription_canceled` / `access_revoked` / `chargeback`
 
 ## 8. Backup and restore check
 

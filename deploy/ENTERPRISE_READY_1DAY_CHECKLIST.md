@@ -17,6 +17,8 @@ Use this checklist when you want full local-first delivery with protected server
 - [x] Keep webhook endpoint available but ignored in manual mode.
 - [x] Use ops entitlement endpoint after invoice payment:
   - `POST /ops/billing/manual-subscription/upsert`
+- [x] Optional full automation endpoint enabled:
+  - `POST /billing/webhooks/manual` with `X-Manual-Signature` HMAC.
 - [x] Confirm limit enforcement path:
   - tier/status/period updated,
   - `TIER_LIMITS` applied,
@@ -83,5 +85,6 @@ curl -X POST "https://yourdomain.com/ops/billing/manual-subscription/upsert" \
 ## Done criteria
 
 - [ ] You can activate/deactivate paid access without LemonSqueezy checkout.
+- [ ] You can run fully automatic renew/degrade via manual webhook events.
 - [ ] You can rotate/update pack content via signed+encrypted registry flow.
 - [ ] You can prove metadata-only egress and local-only content processing.

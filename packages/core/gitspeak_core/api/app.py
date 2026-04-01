@@ -1231,6 +1231,38 @@ async def lemonsqueezy_webhook(
     return result
 
 
+@app.post("/billing/webhooks/manual", tags=["billing"])
+async def manual_billing_webhook(
+    request: Request,
+    db: Any = Depends(get_db),
+) -> dict[str, Any]:
+    """Handle manual billing webhook events for invoice-based flows."""
+    from gitspeak_core.api.billing import (
+        handle_manual_billing_webhook,
+        verify_manual_billing_webhook_signature,
+    )
+
+    payload = await request.body()
+    signature = request.headers.get("x-manual-signature", "")
+    if not verify_manual_billing_webhook_signature(payload, signature):
+        raise HTTPException(status_code=400, detail="Invalid manual webhook signature")
+
+    body = await request.json()
+    if not isinstance(body, dict):
+        raise HTTPException(status_code=400, detail="Invalid webhook payload")
+    event_name = str(
+        body.get("event_name")
+        or body.get("event")
+        or body.get("type")
+        or ""
+    ).strip()
+    event_data = body.get("data")
+    if not isinstance(event_data, dict):
+        event_data = body
+    result = handle_manual_billing_webhook(event_name, event_data, db)
+    return result
+
+
 @app.post("/ops/billing/manual-subscription/upsert", tags=["ops"])
 async def ops_manual_subscription_upsert(
     request: ManualSubscriptionUpsertRequest,

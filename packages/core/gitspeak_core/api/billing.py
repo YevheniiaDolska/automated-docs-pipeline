@@ -44,6 +44,7 @@ LEMONSQUEEZY_WEBHOOK_SECRET = os.environ.get("LEMONSQUEEZY_WEBHOOK_SECRET", "")
 LEMONSQUEEZY_API_URL = "https://api.lemonsqueezy.com/v1"
 BILLING_MODE = os.environ.get("VERIDOC_BILLING_MODE", "lemonsqueezy").strip().lower()
 MANUAL_BILLING_MODE = BILLING_MODE in {"manual", "invoice", "custom"}
+MANUAL_BILLING_WEBHOOK_SECRET = os.environ.get("VERIDOC_MANUAL_WEBHOOK_SECRET", "").strip()
 
 # ---------------------------------------------------------------------------
 # Variant ID -> Tier mapping (set in LemonSqueezy dashboard)
@@ -705,6 +706,139 @@ def handle_manual_subscription_upsert(
         "usage_reset": reset_usage,
         "source": source,
     }
+
+
+def verify_manual_billing_webhook_signature(
+    payload: bytes,
+    signature: str,
+    secret: str | None = None,
+) -> bool:
+    """Verify HMAC-SHA256 for manual billing webhook payload."""
+    shared_secret = (secret or MANUAL_BILLING_WEBHOOK_SECRET).strip()
+    if not shared_secret:
+        logger.warning(
+            "VERIDOC_MANUAL_WEBHOOK_SECRET is not configured; rejecting manual webhook"
+        )
+        return False
+    if not signature.strip():
+        return False
+    expected = hmac.new(
+        shared_secret.encode("utf-8"),
+        payload,
+        hashlib.sha256,
+    ).hexdigest()
+    return hmac.compare_digest(expected, signature.strip())
+
+
+def _resolve_manual_webhook_user_id(payload: dict[str, Any], db_session: Any) -> str:
+    """Resolve user identifier from manual webhook payload."""
+    from gitspeak_core.db.models import Subscription, User
+
+    user_id = str(payload.get("user_id", "")).strip()
+    if user_id:
+        return user_id
+
+    email = str(payload.get("email", "")).strip().lower()
+    if email:
+        user = db_session.query(User).filter(User.email == email).first()
+        if user:
+            return str(user.id)
+
+    external_customer_ref = str(payload.get("external_customer_ref", "")).strip()
+    if external_customer_ref:
+        sub = (
+            db_session.query(Subscription)
+            .filter(Subscription.ls_customer_id == external_customer_ref)
+            .first()
+        )
+        if sub:
+            return str(sub.user_id)
+
+    return ""
+
+
+def handle_manual_billing_webhook(
+    event_name: str,
+    event_data: dict[str, Any],
+    db_session: Any,
+) -> dict[str, Any]:
+    """Process manual billing lifecycle events.
+
+    Expected event names:
+    - payment_success / payment_succeeded / invoice_paid / subscription_renewed
+    - payment_failed / invoice_failed
+    - subscription_canceled / access_revoked / chargeback
+    """
+    event = str(event_name or "").strip().lower()
+    payload = event_data if isinstance(event_data, dict) else {}
+    user_id = _resolve_manual_webhook_user_id(payload, db_session)
+    if not user_id:
+        return {"status": "ignored", "event": event, "reason": "user_not_resolved"}
+
+    from gitspeak_core.db.models import Subscription
+
+    current_sub = (
+        db_session.query(Subscription)
+        .filter(Subscription.user_id == user_id)
+        .first()
+    )
+    current_tier = str(getattr(current_sub, "tier", "free") or "free").strip().lower()
+    requested_tier = str(payload.get("tier", "")).strip().lower()
+    if requested_tier not in TIER_LIMITS:
+        requested_tier = current_tier if current_tier in TIER_LIMITS else "free"
+    period_days = payload.get("period_days", 30)
+    source = str(payload.get("source", "manual_webhook")).strip() or "manual_webhook"
+    external_customer_ref = str(payload.get("external_customer_ref", "")).strip()
+
+    active_events = {
+        "payment_success",
+        "payment_succeeded",
+        "invoice_paid",
+        "subscription_renewed",
+    }
+    failed_events = {"payment_failed", "invoice_failed"}
+    cancel_events = {"subscription_canceled", "access_revoked", "chargeback"}
+
+    if event in active_events:
+        upsert_payload = {
+            "user_id": user_id,
+            "tier": requested_tier if requested_tier != "free" else current_tier,
+            "status": "active",
+            "period_days": period_days,
+            "source": source,
+            "reset_usage": True,
+            "external_customer_ref": external_customer_ref,
+        }
+        result = handle_manual_subscription_upsert(upsert_payload, db_session)
+        return {"status": "ok", "event": event, "result": result}
+
+    if event in failed_events:
+        upsert_payload = {
+            "user_id": user_id,
+            "tier": requested_tier if requested_tier in TIER_LIMITS else "free",
+            "status": "past_due",
+            "period_days": 1,
+            "source": source,
+            "reset_usage": False,
+            "external_customer_ref": external_customer_ref,
+        }
+        result = handle_manual_subscription_upsert(upsert_payload, db_session)
+        return {"status": "ok", "event": event, "result": result}
+
+    if event in cancel_events:
+        upsert_payload = {
+            "user_id": user_id,
+            "tier": "free",
+            "status": "canceled",
+            "period_days": 1,
+            "source": source,
+            "reset_usage": False,
+            "external_customer_ref": external_customer_ref,
+        }
+        result = handle_manual_subscription_upsert(upsert_payload, db_session)
+        return {"status": "ok", "event": event, "result": result}
+
+    return {"status": "ignored", "event": event, "reason": "event_not_supported"}
 
 
 def handle_get_server_license_status(
