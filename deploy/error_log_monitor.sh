@@ -69,8 +69,14 @@ if [[ -z "$raw_logs" ]]; then
 fi
 
 # Detect critical errors while ignoring common noise.
-err_lines="$(echo "$raw_logs" | grep -E "ERROR|CRITICAL|Traceback|Exception:" | grep -v -E "Invalid webhook signature|404 Not Found|healthcheck" || true)"
+err_lines="$(echo "$raw_logs" | grep -E "ERROR|CRITICAL|Traceback|[A-Za-z_]+Error:|Exception:" | grep -v -E "Invalid webhook signature|404 Not Found|healthcheck" || true)"
 if [[ -z "$err_lines" ]]; then
+    exit 0
+fi
+
+# Avoid noisy "Traceback-only" alerts without an actual error/exception line.
+signal_lines="$(echo "$err_lines" | grep -E "ERROR|CRITICAL|[A-Za-z_]+Error:|Exception:" || true)"
+if [[ -z "$signal_lines" ]]; then
     exit 0
 fi
 
@@ -79,10 +85,8 @@ fi
 # 2) keep only meaningful exception/error lines (not repeated Traceback frames)
 # 3) normalize numbers/hex to reduce insignificant churn
 normalized_lines="$(
-    echo "$err_lines" \
+    echo "$signal_lines" \
     | sed -E 's/^[^|]+\|\s*//' \
-    | grep -E "ERROR|CRITICAL|[A-Za-z_]+Error:|Exception:" \
-    | grep -v -E "^Traceback \\(most recent call last\\):$" \
     | sed -E 's/0x[0-9a-fA-F]+/<hex>/g; s/[0-9]{2,}/<n>/g' \
     | sed -E 's/[[:space:]]+/ /g' \
     | sed -E 's/^ +| +$//g' \
@@ -90,14 +94,16 @@ normalized_lines="$(
 )"
 if [[ -z "$normalized_lines" ]]; then
     normalized_lines="$(
-        echo "$err_lines" \
+        echo "$signal_lines" \
         | sed -E 's/^[^|]+\|\s*//' \
-        | grep -v -E "^Traceback \\(most recent call last\\):$" \
         | sed -E 's/0x[0-9a-fA-F]+/<hex>/g; s/[0-9]{2,}/<n>/g' \
         | sed -E 's/[[:space:]]+/ /g' \
         | sed -E 's/^ +| +$//g' \
         | sort -u || true
     )"
+fi
+if [[ -z "$normalized_lines" ]]; then
+    normalized_lines="$(echo "$signal_lines" | tail -n 20)"
 fi
 
 hash_value="$(echo "$normalized_lines" | sha256sum | awk '{print $1}')"
