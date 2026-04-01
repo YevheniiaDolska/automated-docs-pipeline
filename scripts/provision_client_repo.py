@@ -28,6 +28,7 @@ if str(REPO_ROOT) not in sys.path:
     sys.path.insert(0, str(REPO_ROOT))
 
 from scripts.build_client_bundle import create_bundle  # noqa: E402
+from scripts.docs_ci_bootstrap import install_docs_ci_files  # noqa: E402
 
 PRESETS_DIR = REPO_ROOT / "profiles" / "clients" / "presets"
 TEMPLATE_PROFILE = REPO_ROOT / "profiles" / "clients" / "_template.client.yml"
@@ -787,124 +788,12 @@ def install_pr_autofix_workflow(client_repo: Path, docsops_dir: str) -> Path | N
     return output
 
 
-def _detect_git_provider(client_repo: Path) -> str:
-    completed = subprocess.run(
-        ["git", "remote", "get-url", "origin"],
-        cwd=str(client_repo),
-        check=False,
-        capture_output=True,
-        text=True,
-    )
-    if completed.returncode != 0:
-        return "github"
-    remote = completed.stdout.strip().lower()
-    if "gitlab" in remote:
-        return "gitlab"
-    if "forgejo" in remote or "codeberg" in remote:
-        return "forgejo"
-    if "gitea" in remote:
-        return "gitea"
-    return "github"
-
-
-def install_docs_ci_workflow(client_repo: Path, docsops_dir: str) -> Path | None:
+def install_docs_ci_workflow(client_repo: Path, docsops_dir: str) -> list[Path]:
     runtime_path = client_repo / docsops_dir / "config" / "client_runtime.yml"
     if not runtime_path.exists():
-        return None
+        return []
     runtime = _read_yaml(runtime_path)
-    docs_root = str(runtime.get("paths", {}).get("docs_root", "docs")).strip() or "docs"
-    provider = _detect_git_provider(client_repo)
-
-    if provider == "github":
-        workflow_dir = client_repo / ".github" / "workflows"
-        workflow_dir.mkdir(parents=True, exist_ok=True)
-        output = workflow_dir / "docsops-docs-ci.yml"
-        content = (
-            "name: DocsOps Docs CI\n\n"
-            "on:\n"
-            "  pull_request:\n"
-            f"    paths:\n      - '{docs_root}/**'\n      - 'mkdocs.yml'\n      - 'docsops/**'\n"
-            "  push:\n"
-            f"    paths:\n      - '{docs_root}/**'\n      - 'mkdocs.yml'\n      - 'docsops/**'\n\n"
-            "jobs:\n"
-            "  lint-docs:\n"
-            "    runs-on: ubuntu-latest\n"
-            "    steps:\n"
-            "      - uses: actions/checkout@v4\n"
-            "      - uses: actions/setup-node@v4\n"
-            "        with:\n"
-            "          node-version: '20'\n"
-            "      - uses: actions/setup-python@v5\n"
-            "        with:\n"
-            "          python-version: '3.11'\n"
-            "      - name: Install dependencies\n"
-            "        run: |\n"
-            "          npm ci\n"
-            "          python3 -m pip install --upgrade pip\n"
-            "          python3 -m pip install -r requirements-dev.txt || true\n"
-            "      - name: Run docs lint stack\n"
-            "        run: npm run lint\n"
-        )
-        output.write_text(content, encoding="utf-8")
-        return output
-
-    if provider == "gitlab":
-        output = client_repo / ".gitlab-ci.docsops.yml"
-        content = (
-            "docsops_docs_lint:\n"
-            "  image: node:20\n"
-            "  stage: test\n"
-            "  rules:\n"
-            f"    - changes:\n        - {docs_root}/**/*\n        - mkdocs.yml\n        - docsops/**/*\n"
-            "  before_script:\n"
-            "    - apt-get update && apt-get install -y python3 python3-pip\n"
-            "    - npm ci\n"
-            "    - python3 -m pip install --upgrade pip\n"
-            "    - python3 -m pip install -r requirements-dev.txt || true\n"
-            "  script:\n"
-            "    - npm run lint\n"
-        )
-        output.write_text(content, encoding="utf-8")
-        main_ci = client_repo / ".gitlab-ci.yml"
-        include_line = "include:\n  - local: '.gitlab-ci.docsops.yml'\n"
-        if not main_ci.exists():
-            main_ci.write_text(include_line, encoding="utf-8")
-        else:
-            current = main_ci.read_text(encoding="utf-8")
-            if ".gitlab-ci.docsops.yml" not in current:
-                main_ci.write_text(current.rstrip() + "\n\n" + include_line, encoding="utf-8")
-        return output
-
-    workflow_rel = ".forgejo/workflows" if provider == "forgejo" else ".gitea/workflows"
-    workflow_dir = client_repo / workflow_rel
-    workflow_dir.mkdir(parents=True, exist_ok=True)
-    output = workflow_dir / "docsops-docs-ci.yml"
-    content = (
-        "name: DocsOps Docs CI\n\n"
-        "on:\n"
-        "  pull_request:\n"
-        "  push:\n\n"
-        "jobs:\n"
-        "  lint-docs:\n"
-        "    runs-on: ubuntu-latest\n"
-        "    steps:\n"
-        "      - uses: actions/checkout@v4\n"
-        "      - uses: actions/setup-node@v4\n"
-        "        with:\n"
-        "          node-version: '20'\n"
-        "      - uses: actions/setup-python@v5\n"
-        "        with:\n"
-        "          python-version: '3.11'\n"
-        "      - name: Install dependencies\n"
-        "        run: |\n"
-        "          npm ci\n"
-        "          python3 -m pip install --upgrade pip\n"
-        "          python3 -m pip install -r requirements-dev.txt || true\n"
-        "      - name: Run docs lint stack\n"
-        "        run: npm run lint\n"
-    )
-    output.write_text(content, encoding="utf-8")
-    return output
+    return install_docs_ci_files(client_repo, runtime, install_jenkins=True)
 
 
 def _apply_algolia_widget(client_repo: Path, docsops_dir: str, runtime: dict[str, Any]) -> None:
@@ -1221,7 +1110,7 @@ def execute_provision(args: argparse.Namespace) -> int:
         raise FileNotFoundError(f"Client repo not found: {client_repo}")
     installed_path = copy_bundle_to_repo(bundle_root, client_repo, args.docsops_dir)
     workflow_path = install_pr_autofix_workflow(client_repo, args.docsops_dir)
-    ci_workflow = install_docs_ci_workflow(client_repo, args.docsops_dir)
+    ci_workflows = install_docs_ci_workflow(client_repo, args.docsops_dir)
     apply_integrations(client_repo, args.docsops_dir)
     checklist = generate_env_checklist(client_repo, args.docsops_dir)
     dotenv_path = _collect_secret_inputs(client_repo, args.docsops_dir)
@@ -1231,8 +1120,8 @@ def execute_provision(args: argparse.Namespace) -> int:
     print(f"[ok] bundle installed: {installed_path}")
     if workflow_path:
         print(f"[ok] pr auto-doc workflow installed: {workflow_path}")
-    if ci_workflow:
-        print(f"[ok] docs CI workflow installed: {ci_workflow}")
+    for path in ci_workflows:
+        print(f"[ok] docs CI workflow installed: {path}")
     if checklist:
         print(f"[ok] env checklist: {checklist}")
     if dotenv_path:

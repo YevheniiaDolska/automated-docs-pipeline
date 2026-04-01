@@ -18,6 +18,8 @@ try:
 except ImportError:
     yaml = None  # type: ignore
 
+from scripts.docs_ci_bootstrap import install_docs_ci_files
+
 
 ENV_FILE = ".env.docsops.local"
 TEMPLATE_FILE = ".env.docsops.local.template"
@@ -203,120 +205,6 @@ def _create_ollama_model(model_name: str, modelfile_path: Path) -> None:
         print(f"[env-wizard] Run manually: ollama create {model_name} -f {modelfile_path}")
 
 
-def _detect_git_provider(repo_root: Path) -> str:
-    completed = subprocess.run(
-        ["git", "remote", "get-url", "origin"],
-        cwd=str(repo_root),
-        check=False,
-        capture_output=True,
-        text=True,
-    )
-    if completed.returncode != 0:
-        return "github"
-    remote = completed.stdout.strip().lower()
-    if "gitlab" in remote:
-        return "gitlab"
-    if "forgejo" in remote or "codeberg" in remote:
-        return "forgejo"
-    if "gitea" in remote:
-        return "gitea"
-    return "github"
-
-
-def _install_docs_ci_files(repo_root: Path, docs_root: str) -> Path | None:
-    provider = _detect_git_provider(repo_root)
-    if provider == "github":
-        workflow_dir = repo_root / ".github" / "workflows"
-        workflow_dir.mkdir(parents=True, exist_ok=True)
-        output = workflow_dir / "docsops-docs-ci.yml"
-        content = (
-            "name: DocsOps Docs CI\n\n"
-            "on:\n"
-            "  pull_request:\n"
-            f"    paths:\n      - '{docs_root}/**'\n      - 'mkdocs.yml'\n      - 'docsops/**'\n"
-            "  push:\n"
-            f"    paths:\n      - '{docs_root}/**'\n      - 'mkdocs.yml'\n      - 'docsops/**'\n\n"
-            "jobs:\n"
-            "  lint-docs:\n"
-            "    runs-on: ubuntu-latest\n"
-            "    steps:\n"
-            "      - uses: actions/checkout@v4\n"
-            "      - uses: actions/setup-node@v4\n"
-            "        with:\n"
-            "          node-version: '20'\n"
-            "      - uses: actions/setup-python@v5\n"
-            "        with:\n"
-            "          python-version: '3.11'\n"
-            "      - name: Install dependencies\n"
-            "        run: |\n"
-            "          npm ci\n"
-            "          python3 -m pip install --upgrade pip\n"
-            "          python3 -m pip install -r requirements-dev.txt || true\n"
-            "      - name: Run docs lint stack\n"
-            "        run: npm run lint\n"
-        )
-        output.write_text(content, encoding="utf-8")
-        return output
-
-    if provider == "gitlab":
-        output = repo_root / ".gitlab-ci.docsops.yml"
-        content = (
-            "docsops_docs_lint:\n"
-            "  image: node:20\n"
-            "  stage: test\n"
-            "  rules:\n"
-            f"    - changes:\n        - {docs_root}/**/*\n        - mkdocs.yml\n        - docsops/**/*\n"
-            "  before_script:\n"
-            "    - apt-get update && apt-get install -y python3 python3-pip\n"
-            "    - npm ci\n"
-            "    - python3 -m pip install --upgrade pip\n"
-            "    - python3 -m pip install -r requirements-dev.txt || true\n"
-            "  script:\n"
-            "    - npm run lint\n"
-        )
-        output.write_text(content, encoding="utf-8")
-        main_ci = repo_root / ".gitlab-ci.yml"
-        include_line = "include:\n  - local: '.gitlab-ci.docsops.yml'\n"
-        if not main_ci.exists():
-            main_ci.write_text(include_line, encoding="utf-8")
-        else:
-            current = main_ci.read_text(encoding="utf-8")
-            if ".gitlab-ci.docsops.yml" not in current:
-                main_ci.write_text(current.rstrip() + "\n\n" + include_line, encoding="utf-8")
-        return output
-
-    workflow_rel = ".forgejo/workflows" if provider == "forgejo" else ".gitea/workflows"
-    workflow_dir = repo_root / workflow_rel
-    workflow_dir.mkdir(parents=True, exist_ok=True)
-    output = workflow_dir / "docsops-docs-ci.yml"
-    content = (
-        "name: DocsOps Docs CI\n\n"
-        "on:\n"
-        "  pull_request:\n"
-        "  push:\n\n"
-        "jobs:\n"
-        "  lint-docs:\n"
-        "    runs-on: ubuntu-latest\n"
-        "    steps:\n"
-        "      - uses: actions/checkout@v4\n"
-        "      - uses: actions/setup-node@v4\n"
-        "        with:\n"
-        "          node-version: '20'\n"
-        "      - uses: actions/setup-python@v5\n"
-        "        with:\n"
-        "          python-version: '3.11'\n"
-        "      - name: Install dependencies\n"
-        "        run: |\n"
-        "          npm ci\n"
-        "          python3 -m pip install --upgrade pip\n"
-        "          python3 -m pip install -r requirements-dev.txt || true\n"
-        "      - name: Run docs lint stack\n"
-        "        run: npm run lint\n"
-    )
-    output.write_text(content, encoding="utf-8")
-    return output
-
-
 def main() -> int:
     repo_root = Path(".").resolve()
     template_path = repo_root / TEMPLATE_FILE
@@ -376,11 +264,9 @@ def main() -> int:
             if _prompt_yes_no(f"Create local model profile '{model}' now?", default_yes=True):
                 _create_ollama_model(model, modelfile_path)
 
-    paths_cfg = runtime.get("paths", {}) if isinstance(runtime.get("paths"), dict) else {}
-    docs_root = str(paths_cfg.get("docs_root", "docs")).strip() or "docs"
     if _prompt_yes_no("Install docs CI workflow files now (PR/push lint)?", default_yes=True):
-        ci_path = _install_docs_ci_files(repo_root, docs_root)
-        if ci_path:
+        ci_paths = install_docs_ci_files(repo_root, runtime, install_jenkins=True)
+        for ci_path in ci_paths:
             print(f"[env-wizard] docs CI installed: {ci_path}")
 
     print("[env-wizard] next: run docsops/ops/run_weekly_docsops.sh (or .ps1)")

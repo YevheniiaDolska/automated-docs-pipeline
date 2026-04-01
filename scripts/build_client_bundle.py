@@ -114,6 +114,14 @@ def build_runtime_config(profile: dict[str, Any]) -> dict[str, Any]:
             },
         ),
         "docs_flow": runtime.get("docs_flow", {"mode": "code-first"}),
+        "docs_site": runtime.get(
+            "docs_site",
+            {
+                "generator": "mkdocs",
+                "build_enabled": True,
+                "build_command": "",
+            },
+        ),
         "paths": {
             "docs_root": runtime.get("docs_root", "docs"),
             "api_root": runtime.get("api_root", "api"),
@@ -1064,6 +1072,8 @@ def create_bundle(profile_path: Path) -> Path:
     required_scripts.append("scripts/setup_client_env_wizard.py")
     required_scripts.append("scripts/run_autopipeline.py")
     required_scripts.append("scripts/publish_docs_review_branch.py")
+    required_scripts.append("scripts/docs_ci_bootstrap.py")
+    required_scripts.append("scripts/run_docs_ci_checks.py")
     required_scripts.append("scripts/docsops_generate.py")
     required_scripts.append("scripts/llm_egress.py")
     required_scripts.append("scripts/flow_feedback.py")

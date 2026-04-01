@@ -6,6 +6,10 @@ project:
   - mkdocs
 docs_flow:
   mode: hybrid
+docs_site:
+  generator: mkdocs
+  build_enabled: true
+  build_command: ''
 paths:
   docs_root: docs
   api_root: api
