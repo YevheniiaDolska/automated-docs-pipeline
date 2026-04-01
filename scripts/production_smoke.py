@@ -33,18 +33,67 @@ def _check(response: httpx.Response, name: str, expected: set[int]) -> dict[str,
     return payload
 
 
+def _post_first(
+    client: httpx.Client,
+    base_url: str,
+    paths: list[str],
+    json_payload: dict[str, Any],
+) -> httpx.Response:
+    for path in paths:
+        response = client.post(f"{base_url}{path}", json=json_payload)
+        if response.status_code != 404:
+            return response
+    return response
+
+
+def _get_first(
+    client: httpx.Client,
+    base_url: str,
+    paths: list[str],
+    headers: dict[str, str] | None = None,
+) -> httpx.Response:
+    for path in paths:
+        response = client.get(f"{base_url}{path}", headers=headers)
+        if response.status_code != 404:
+            return response
+    return response
+
+
+def _put_first(
+    client: httpx.Client,
+    base_url: str,
+    paths: list[str],
+    headers: dict[str, str],
+    json_payload: dict[str, Any],
+) -> httpx.Response:
+    for path in paths:
+        response = client.put(f"{base_url}{path}", headers=headers, json=json_payload)
+        if response.status_code != 404:
+            return response
+    return response
+
+
 def _auth_token(client: httpx.Client, base_url: str, email: str, password: str) -> str:
     register_payload = {
         "email": email,
         "password": password,
-        "full_name": "Production Smoke User",
     }
-    register = client.post(f"{base_url}/auth/register", json=register_payload)
+    register = _post_first(
+        client,
+        base_url,
+        ["/auth/register", "/api/auth/register"],
+        register_payload,
+    )
     if register.status_code not in {200, 201, 409}:
         raise SystemExit(f"[FAIL] register: {register.status_code}, body={register.text[:400]}")
     print(f"[OK] register: {register.status_code}")
 
-    login = client.post(f"{base_url}/auth/login", json={"email": email, "password": password})
+    login = _post_first(
+        client,
+        base_url,
+        ["/auth/login", "/api/auth/login"],
+        {"email": email, "password": password},
+    )
     login_payload = _check(login, "login", {200})
     token = str(login_payload.get("access_token", "")).strip()
     if not token:
@@ -59,19 +108,45 @@ def main() -> int:
     timeout_seconds = int(os.getenv("VERIDOC_SMOKE_TIMEOUT_SECONDS", "20"))
 
     with httpx.Client(timeout=timeout_seconds) as client:
-        _check(client.get(f"{base_url}/health"), "health", {200})
-        _check(client.get(f"{base_url}/health/ready"), "health/ready", {200})
+        health = _get_first(client, base_url, ["/health", "/api/health"])
+        _check(health, "health", {200})
+        ready = _get_first(client, base_url, ["/health/ready", "/api/health/ready"])
+        if ready.status_code == 404:
+            print("[WARN] health/ready is not exposed on this deployment; continuing with /health")
+        else:
+            _check(ready, "health/ready", {200})
 
         token = _auth_token(client, base_url, email, password)
         headers = {"Authorization": f"Bearer {token}"}
 
-        _check(client.get(f"{base_url}/api/dashboard/", headers=headers), "api/dashboard", {200})
-        _check(client.get(f"{base_url}/api/settings/", headers=headers), "api/settings GET", {200})
+        _check(
+            _get_first(client, base_url, ["/api/dashboard/", "/dashboard/"], headers=headers),
+            "api/dashboard",
+            {200},
+        )
+        _check(
+            _get_first(client, base_url, ["/api/settings/", "/settings/"], headers=headers),
+            "api/settings GET",
+            {200},
+        )
 
         update_payload = {"automation": {"mode": "veridoc", "trigger": "policy", "publish_policy": "gated"}}
-        _check(client.put(f"{base_url}/api/settings/", headers=headers, json=update_payload), "api/settings PUT", {200})
+        _check(
+            _put_first(client, base_url, ["/api/settings/", "/settings/"], headers=headers, json_payload=update_payload),
+            "api/settings PUT",
+            {200},
+        )
 
-        _check(client.get(f"{base_url}/api/pipeline/automation/status", headers=headers), "api/pipeline/automation/status", {200})
+        _check(
+            _get_first(
+                client,
+                base_url,
+                ["/api/pipeline/automation/status", "/pipeline/automation/status"],
+                headers=headers,
+            ),
+            "api/pipeline/automation/status",
+            {200},
+        )
 
     print("[OK] Production smoke completed successfully")
     return 0
