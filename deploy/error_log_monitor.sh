@@ -32,6 +32,8 @@ SMTP_FROM="${VERIDOC_SMTP_FROM:-noreply@veri-doc.app}"
 WINDOW_MINUTES="${1:-5}"
 ALERT_LOG="$LOG_DIR/error_monitor_alerts.log"
 LAST_HASH_FILE="$STATE_DIR/last_error_hash.txt"
+LAST_ALERT_TS_FILE="$STATE_DIR/last_alert_ts.txt"
+ALERT_COOLDOWN_SECONDS="${VERIDOC_ERROR_ALERT_COOLDOWN_SECONDS:-1800}"
 
 send_alert() {
     local subject="$1"
@@ -72,26 +74,68 @@ if [[ -z "$err_lines" ]]; then
     exit 0
 fi
 
-hash_value="$(echo "$err_lines" | sha256sum | awk '{print $1}')"
+# Build stable signature to avoid alert storms:
+# 1) drop container prefix
+# 2) keep only meaningful exception/error lines (not repeated Traceback frames)
+# 3) normalize numbers/hex to reduce insignificant churn
+normalized_lines="$(
+    echo "$err_lines" \
+    | sed -E 's/^[^|]+\|\s*//' \
+    | grep -E "ERROR|CRITICAL|[A-Za-z_]+Error:|Exception:" \
+    | grep -v -E "^Traceback \\(most recent call last\\):$" \
+    | sed -E 's/0x[0-9a-fA-F]+/<hex>/g; s/[0-9]{2,}/<n>/g' \
+    | sed -E 's/[[:space:]]+/ /g' \
+    | sed -E 's/^ +| +$//g' \
+    | sort -u
+)"
+if [[ -z "$normalized_lines" ]]; then
+    normalized_lines="$(
+        echo "$err_lines" \
+        | sed -E 's/^[^|]+\|\s*//' \
+        | grep -v -E "^Traceback \\(most recent call last\\):$" \
+        | sed -E 's/0x[0-9a-fA-F]+/<hex>/g; s/[0-9]{2,}/<n>/g' \
+        | sed -E 's/[[:space:]]+/ /g' \
+        | sed -E 's/^ +| +$//g' \
+        | sort -u
+    )"
+fi
+
+hash_value="$(echo "$normalized_lines" | sha256sum | awk '{print $1}')"
 last_hash=""
 if [[ -f "$LAST_HASH_FILE" ]]; then
     last_hash="$(cat "$LAST_HASH_FILE" || true)"
 fi
 
-# Deduplicate: send only if a new distinct error signature appears.
-if [[ "$hash_value" == "$last_hash" ]]; then
+# Deduplicate + cooldown:
+# - same signature within cooldown window => suppress
+# - new signature => alert immediately
+now_ts="$(date +%s)"
+last_alert_ts=0
+if [[ -f "$LAST_ALERT_TS_FILE" ]]; then
+    last_alert_ts="$(cat "$LAST_ALERT_TS_FILE" || true)"
+fi
+if ! [[ "$last_alert_ts" =~ ^[0-9]+$ ]]; then
+    last_alert_ts=0
+fi
+if [[ "$hash_value" == "$last_hash" ]] && [[ $((now_ts - last_alert_ts)) -lt "$ALERT_COOLDOWN_SECONDS" ]]; then
     exit 0
 fi
 
 echo "$hash_value" > "$LAST_HASH_FILE"
+echo "$now_ts" > "$LAST_ALERT_TS_FILE"
 
 body="VeriDoc detected runtime errors in the last ${WINDOW_MINUTES} minutes.
 
 Host: $(hostname)
 Time: $(date -u +%Y-%m-%dT%H:%M:%SZ)
+Fingerprint: ${hash_value}
+Cooldown: ${ALERT_COOLDOWN_SECONDS}s
 
 Top lines:
 $(echo "$err_lines" | tail -n 40)
+
+Normalized signature:
+$(echo "$normalized_lines" | head -n 20)
 
 Next steps:
 1) docker compose -f docker-compose.production.yml ps
