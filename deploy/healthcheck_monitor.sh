@@ -36,8 +36,8 @@ STATE_DIR="/var/lib/veridoc/healthcheck"
 mkdir -p "$STATE_DIR"
 
 # Endpoints
-STAGING_URL="http://127.0.0.1:8010/health/ready"
-PRODUCTION_URL="http://127.0.0.1:8020/health/ready"
+STAGING_URL="http://127.0.0.1:8010/health"
+PRODUCTION_URL="http://127.0.0.1:8020/health"
 
 # Thresholds
 LATENCY_WARN_MS=2000

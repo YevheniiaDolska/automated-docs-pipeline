@@ -140,7 +140,7 @@ $(echo "$normalized_lines" | head -n 20)
 Next steps:
 1) docker compose -f docker-compose.production.yml ps
 2) docker compose -f docker-compose.production.yml logs --tail 200 api worker
-3) curl -fsS http://127.0.0.1:8000/health/ready
+3) curl -fsS http://127.0.0.1:8020/health
 "
 
 send_alert "API/worker runtime errors detected" "$body"
