@@ -86,7 +86,7 @@ normalized_lines="$(
     | sed -E 's/0x[0-9a-fA-F]+/<hex>/g; s/[0-9]{2,}/<n>/g' \
     | sed -E 's/[[:space:]]+/ /g' \
     | sed -E 's/^ +| +$//g' \
-    | sort -u
+    | sort -u || true
 )"
 if [[ -z "$normalized_lines" ]]; then
     normalized_lines="$(
@@ -96,7 +96,7 @@ if [[ -z "$normalized_lines" ]]; then
         | sed -E 's/0x[0-9a-fA-F]+/<hex>/g; s/[0-9]{2,}/<n>/g' \
         | sed -E 's/[[:space:]]+/ /g' \
         | sed -E 's/^ +| +$//g' \
-        | sort -u
+        | sort -u || true
     )"
 fi
 
