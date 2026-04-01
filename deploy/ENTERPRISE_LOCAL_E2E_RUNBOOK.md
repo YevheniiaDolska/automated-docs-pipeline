@@ -5,7 +5,7 @@ date: "2026-03-31"
 last_reviewed: "2026-03-31"
 ---
 
-<!-- cspell:ignore Ollama qwen Modelfile -->
+<!-- cspell:ignore Ollama qwen Modelfile Forgejo Gitea -->
 
 # Enterprise Bundle Test Runbook (Wizard-First)
 
@@ -111,6 +111,38 @@ echo "VERIOPS_LICENSE_PLAN=enterprise" >> .env.docsops.local
 ```
 
 1. Add at least one LLM key in `.env.docsops.local` if generation path needs it.
+
+### 4.1 CI runner/agent prerequisites (self-hosted)
+
+These are installed on client infrastructure (runner/agent machine), not by docsops itself.
+
+Required for all providers (GitHub self-hosted runners, GitLab runners, Forgejo/Gitea runners, Jenkins agents):
+
+1. `git`
+1. `python3` + `pip`
+1. `node` + `npm`
+1. Network access to repository host and dependency registries (npm/PyPI)
+
+Optional build tools by docs generator:
+
+1. `mkdocs`: `mkdocs` Python package
+1. `sphinx`: `sphinx-build` Python package
+1. `hugo`: `hugo`
+1. `jekyll`: `ruby` + `bundle`
+
+Ubuntu quick bootstrap:
+
+```bash
+sudo apt-get update
+sudo apt-get install -y git python3 python3-pip nodejs npm
+python3 -m pip install --upgrade pip
+python3 -m pip install mkdocs sphinx
+```
+
+Jenkins specific:
+
+1. Use generated `Jenkinsfile.docsops`.
+1. Ensure Jenkins agent has the same prerequisites above.
 
 ## 5. Create minimal test project skeleton (no real repo needed)
 
