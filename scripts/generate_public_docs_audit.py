@@ -36,6 +36,11 @@ if str(REPO_ROOT) not in sys.path:
 
 from scripts.llm_egress import ensure_external_allowed, load_policy, redact_payload
 
+if yaml is not None:
+    _YAML_LOAD_ERRORS = (yaml.YAMLError, AttributeError, TypeError, ValueError)
+else:
+    _YAML_LOAD_ERRORS = (AttributeError, TypeError, ValueError)
+
 
 CODE_PLACEHOLDER_PATTERN = re.compile(
     r"(<your-|YOUR_|{{|}}|api\.example\.com|your-domain\.example\.com)",
@@ -988,13 +993,27 @@ def _parse_structured_contract_identifiers(contract_text: str) -> set[str]:
     stripped = contract_text.strip()
     if not stripped:
         return ids
+    # Skip obvious HTML/XML and free-form prose blocks early.
+    head = stripped[:256].lower()
+    if "<html" in head or "<!doctype html" in head or "<body" in head:
+        return ids
+    # Try expensive structured parse only for JSON/YAML-looking content.
+    if not (
+        stripped.startswith("{")
+        or stripped.startswith("[")
+        or re.match(
+            r"(?is)^(openapi|asyncapi|swagger|info|paths|channels|data|services)\s*:",
+            stripped[:128],
+        )
+    ):
+        return ids
     try:
         payload = json.loads(stripped)
     except json.JSONDecodeError:
         if yaml is not None:
             try:
                 payload = yaml.safe_load(stripped)
-            except (AttributeError, TypeError, ValueError):
+            except _YAML_LOAD_ERRORS:
                 payload = None
     if not isinstance(payload, dict):
         return ids
