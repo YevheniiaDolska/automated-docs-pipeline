@@ -5,7 +5,7 @@ date: "2026-03-24"
 last_reviewed: "2026-04-01"
 ---
 
-<!-- cspell:ignore veridoc lemonsqueezy msmtp brevo smtpstatus -->
+<!-- cspell:ignore veridoc lemonsqueezy msmtp brevo smtpstatus gitspeak -->
 
 # Production Gate Checklist (VeriDoc + VeriOps)
 
@@ -171,6 +171,33 @@ Use it together with [Deployment Runbook](deploy/production-runbook.md).
   - Blocker: local `gh` cannot reach `api.github.com` in current network context.
 - [x] Full monorepo `pytest tests` run completed to 100%.
   - Latest run result: `12315 passed`, `53 warnings`, `0 failed` (2026-03-31).
+
+## 17. Completed (2026-04-01, evening)
+
+- [x] Runtime alert monitor hardened and deployed:
+  - suppressed false alerts caused by `Traceback`-only log lines,
+  - prevented empty normalized signatures/fingerprints in alert payload.
+- [x] Error monitor script applied on server and verified:
+  - `/opt/veridoc/deploy/error_log_monitor.sh` updated,
+  - `veridoc-error-monitor.service` and timer run successfully (`status=0/SUCCESS`).
+- [x] Worker traceback storm root cause fixed and deployed:
+  - hardened `packages/core/gitspeak_core/tasks/pipeline_tasks.py` path resolution,
+  - `api/worker/beat` rebuilt and returned to `healthy`.
+
+## 18. Completed (2026-04-01, late evening)
+
+- [x] API prompt flow now uses **user-provided planning notes as source of truth**.
+  - Added explicit request payload support: `planning_notes`, `planning_notes_by_protocol`, `planning_notes_path`.
+  - Removed synthetic planning-note generation path from task behavior.
+- [x] API multi-protocol flow is enforced in strict mode for prompt runs.
+  - Contracts/specs generation from planning notes where protocol source is missing.
+  - Contract validation + regression checks + protocol lint stacks.
+  - Server stub generation for endpoint code with placeholder business-logic stubs.
+  - Protocol docs generation + quality suites + self-verify gates.
+  - Contract test assets generation and publish gates.
+- [x] Added dedicated REST API-first stage inside prompt pipeline execution.
+  - Runs `run_api_first_flow.py` with user notes, endpoint stubs generation, user-path verification, test-assets.
+  - Keeps sandbox/mock synchronization path in the same execution chain.
 
 ## 15. Current NO-GO blockers for paid launch
 
