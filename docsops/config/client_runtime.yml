@@ -214,6 +214,15 @@ finalize_gate:
   precommit_max_iterations: 3
   commit_on_approve: false
   push_on_commit: false
+review_branch:
+  enabled: true
+  auto_push: true
+  remote: origin
+  base_branch: main
+  prefix: docs/review
+  lint_command: npm run lint
+  precommit_command: sh .husky/pre-commit
+  commit_message: 'docs: autopipeline update for manual review'
 multilang_examples:
   enabled: true
   scope: all

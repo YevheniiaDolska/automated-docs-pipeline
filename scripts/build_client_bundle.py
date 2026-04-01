@@ -269,6 +269,19 @@ def build_runtime_config(profile: dict[str, Any]) -> dict[str, Any]:
                 "push_on_commit": False,
             },
         ),
+        "review_branch": runtime.get(
+            "review_branch",
+            {
+                "enabled": True,
+                "auto_push": True,
+                "remote": "origin",
+                "base_branch": "main",
+                "prefix": "docs/review",
+                "lint_command": "npm run lint",
+                "precommit_command": "sh .husky/pre-commit",
+                "commit_message": "docs: autopipeline update for manual review",
+            },
+        ),
         "multilang_examples": runtime.get(
             "multilang_examples",
             {
@@ -1050,6 +1063,7 @@ def create_bundle(profile_path: Path) -> Path:
     required_scripts.append("scripts/finalize_docs_gate.py")
     required_scripts.append("scripts/setup_client_env_wizard.py")
     required_scripts.append("scripts/run_autopipeline.py")
+    required_scripts.append("scripts/publish_docs_review_branch.py")
     required_scripts.append("scripts/docsops_generate.py")
     required_scripts.append("scripts/llm_egress.py")
     required_scripts.append("scripts/flow_feedback.py")

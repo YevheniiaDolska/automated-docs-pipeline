@@ -678,6 +678,11 @@ def main() -> int:
         execution_stages.append("local review packet")
     if args.auto_generate:
         execution_stages.append("automatic docs generation")
+    review_branch_cfg = runtime.get("review_branch", {})
+    if not isinstance(review_branch_cfg, dict):
+        review_branch_cfg = {}
+    if bool(review_branch_cfg.get("enabled", True)) and bool(review_branch_cfg.get("auto_push", True)):
+        execution_stages.append("publish review branch")
     execution_stages.extend(["output index and links", "publish docs review index"])
     total_stages = len(execution_stages)
 
@@ -894,6 +899,29 @@ def main() -> int:
             print("[autopipeline] automatic docs generation failed in enterprise-strict mode")
             narrator.finish(False, "Automatic docs generation failed in enterprise-strict mode")
             return int(generate_rc)
+
+    review_branch_cfg = runtime.get("review_branch", {})
+    if not isinstance(review_branch_cfg, dict):
+        review_branch_cfg = {}
+    if bool(review_branch_cfg.get("enabled", True)) and bool(review_branch_cfg.get("auto_push", True)):
+        stage_no += 1
+        narrator.stage(stage_no, execution_stages[stage_no - 1], "Run lint/pre-commit and push dedicated review branch")
+        _say(f"Stage {stage_no}/{total_stages}", execution_stages[stage_no - 1])
+        publish_cmd = [
+            sys.executable,
+            str(REPO_ROOT / "scripts" / "publish_docs_review_branch.py"),
+            "--runtime-config",
+            str(runtime_path),
+            "--docs-root",
+            str(runtime.get("paths", {}).get("docs_root", "docs")),
+        ]
+        publish_rc = _run(publish_cmd, cwd=repo_root)
+        _say(f"Stage {stage_no}/{total_stages} done", f"rc={publish_rc}")
+        narrator.done(f"review branch publish rc={publish_rc}")
+        if publish_rc != 0 and strictness == "enterprise-strict":
+            print("[autopipeline] review branch publish failed in enterprise-strict mode")
+            narrator.finish(False, "Review branch publish failed in enterprise-strict mode")
+            return int(publish_rc)
 
     stage_no += 1
     narrator.stage(stage_no, execution_stages[stage_no - 1], "Assemble output index for human review")
