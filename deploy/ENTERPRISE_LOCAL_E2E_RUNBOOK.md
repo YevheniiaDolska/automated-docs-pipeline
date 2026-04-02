@@ -1,8 +1,8 @@
 ---
 title: "Enterprise Local E2E Runbook"
-description: "Step-by-step runbook to validate enterprise bundle delivery, local setup, and scheduled local generation."
+description: "Step-by-step runbook to validate enterprise bundle delivery, local setup, scheduled local generation, and unlicensed enterprise bundle flow."
 date: "2026-03-31"
-last_reviewed: "2026-03-31"
+last_reviewed: "2026-04-02"
 ---
 
 <!-- cspell:ignore Ollama qwen Modelfile Forgejo Gitea -->
@@ -14,6 +14,7 @@ This runbook matches your required path:
 1. Build an Enterprise bundle.
 1. Deliver it to an empty folder (client-like machine).
 1. Run in test mode without binding to a real client repository.
+1. Optional: build an unlicensed enterprise bundle (no signed JWT).
 
 ## 0. What you use
 
@@ -58,6 +59,24 @@ python3 -m scripts.build_client_bundle --client profiles/clients/generated/<clie
 Bundle output:
 
 `generated/client_bundles/<client_id>/`
+
+## 2.1 Optional: build an unlicensed enterprise bundle (no signed JWT)
+
+Use this only for demos or internal trials:
+
+```bash
+python3 scripts/build_free_enterprise_bundle.py --client profiles/clients/generated/<client_id>.client.yml
+```
+
+Bundle output:
+
+`generated/client_bundles_free/<client_id>/`
+
+This flow preconfigures `.env.docsops.local.template` with full enterprise path:
+
+`VERIOPS_LICENSE_PLAN=enterprise`
+
+Use signed JWT + capability pack when switching to production licensing.
 
 Optional: if you want encrypted capability pack during build, set key before build:
 

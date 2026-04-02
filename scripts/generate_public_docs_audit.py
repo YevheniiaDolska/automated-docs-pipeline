@@ -7,6 +7,7 @@ import argparse
 import gzip
 import hashlib
 import html
+from http.client import IncompleteRead
 import json
 import logging
 import os
@@ -427,7 +428,15 @@ def _fetch(
             content_type = str(resp.headers.get("Content-Type", ""))
             if head_only:
                 return status, content_type, ""
-            raw = resp.read()
+            try:
+                raw = resp.read()
+            except IncompleteRead as exc:
+                # Keep crawl resilient on flaky chunked responses:
+                # use the partial body instead of aborting the whole audit run.
+                raw = bytes(exc.partial or b"")
+                logger.debug(
+                    "Partial HTTP body read for %s: got %d bytes", url, len(raw),
+                )
             # Handle gzip payloads in a robust way:
             # - explicit *.gz URLs,
             # - gzip content-encoding headers,
@@ -480,6 +489,7 @@ class PageData:
     h1_count: int
     heading_levels: list[int]
     internal_links: list[str]
+    internal_link_refs: list[dict[str, str]]
     external_links: list[str]
     code_blocks: list[dict[str, str]]
     text: str
@@ -513,6 +523,7 @@ class _DocsHTMLParser(HTMLParser):
         self.h1_count = 0
         self.heading_levels: list[int] = []
         self.internal_links: list[str] = []
+        self.internal_link_refs: list[dict[str, str]] = []
         self.external_links: list[str] = []
         self.code_blocks: list[dict[str, str]] = []
         self.text_chunks: list[str] = []
@@ -527,6 +538,8 @@ class _DocsHTMLParser(HTMLParser):
         self._code_buf: list[str] = []
         self._code_buf_chars = 0
         self._date_class_detected = False
+        self._active_anchor_href = ""
+        self._active_anchor_text: list[str] = []
 
     def handle_starttag(self, tag: str, attrs: list[tuple[str, str | None]]) -> None:
         attrs_map = dict(attrs)
@@ -560,10 +573,13 @@ class _DocsHTMLParser(HTMLParser):
 
         if tag == "a":
             href = str(attrs_map.get("href", "")).strip()
+            self._active_anchor_href = ""
+            self._active_anchor_text = []
             if href:
                 href = _normalize_relative_locale_href(self.base_url, href)
                 absolute = _safe_join_normalize_url(self.base_url, href)
                 if _is_http_url(absolute):
+                    self._active_anchor_href = absolute
                     if _same_host(absolute, self.base_url):
                         if len(self.internal_links) < _MAX_LINKS_PER_PAGE:
                             self.internal_links.append(absolute)
@@ -626,6 +642,18 @@ class _DocsHTMLParser(HTMLParser):
                 self._date_class_detected = True
 
     def handle_endtag(self, tag: str) -> None:
+        if tag == "a":
+            if self._active_anchor_href and _same_host(self._active_anchor_href, self.base_url):
+                anchor_text = " ".join(self._active_anchor_text).strip()
+                if len(anchor_text) > 240:
+                    anchor_text = anchor_text[:240]
+                if len(self.internal_link_refs) < _MAX_LINKS_PER_PAGE:
+                    self.internal_link_refs.append(
+                        {"url": self._active_anchor_href, "anchor_text": anchor_text}
+                    )
+            self._active_anchor_href = ""
+            self._active_anchor_text = []
+            return
         if tag == "title":
             self._in_title = False
             return
@@ -706,6 +734,8 @@ class _DocsHTMLParser(HTMLParser):
             return
         if self._in_title and not self.title:
             self.title = text
+        if self._active_anchor_href:
+            self._active_anchor_text.append(text)
         if (
             len(self.text_chunks) < _MAX_TEXT_CHUNKS_PER_PAGE
             and self._text_chars < _MAX_TEXT_CHARS_PER_PAGE
@@ -757,6 +787,7 @@ class _DocsHTMLParser(HTMLParser):
             h1_count=self.h1_count,
             heading_levels=self.heading_levels[:],
             internal_links=sorted(set(self.internal_links)),
+            internal_link_refs=self.internal_link_refs[:_MAX_LINKS_PER_PAGE],
             external_links=sorted(set(self.external_links)),
             code_blocks=unique_blocks,
             text=text_value,
@@ -1191,8 +1222,20 @@ def _is_excluded_link(url: str) -> bool:
 
 def _link_health(pages: list[PageData], status_map: dict[str, int]) -> dict[str, Any]:
     internal_links = set()
+    link_provenance: dict[str, list[dict[str, str]]] = {}
     for page in pages:
         internal_links.update(page.internal_links)
+        for ref in page.internal_link_refs:
+            target = str(ref.get("url", "")).strip()
+            if not target:
+                continue
+            anchor_text = str(ref.get("anchor_text", "")).strip()
+            bucket = link_provenance.setdefault(target, [])
+            record = {"source_page": page.url, "anchor_text": anchor_text}
+            if record in bucket:
+                continue
+            if len(bucket) < 5:
+                bucket.append(record)
     # Count only confirmed broken links; treat transient/auth/rate-limit statuses as unverified.
     broken = []
     unverified = []
@@ -1232,6 +1275,9 @@ def _link_health(pages: list[PageData], status_map: dict[str, int]) -> dict[str,
         "_all_excluded_links": excluded,
         "_all_docs_unverified_links": docs_unverified,
         "_all_repo_unverified_links": repo_unverified,
+        "_broken_link_provenance": {
+            url: link_provenance.get(url, []) for url in broken
+        },
     }
 
 
@@ -1293,8 +1339,14 @@ def _browser_discover_pages(
     storage_state_path: str = "",
 ) -> tuple[list[PageData], dict[str, int]]:
     """Discover pages via browser rendering for JS-heavy docs."""
+    playwright_error: type[BaseException] = RuntimeError
     try:
         from playwright.sync_api import sync_playwright  # type: ignore
+        try:
+            from playwright._impl._errors import Error as PlaywrightError  # type: ignore
+            playwright_error = PlaywrightError
+        except ImportError:
+            playwright_error = RuntimeError
     except ImportError:
         return [], {}
 
@@ -1340,7 +1392,7 @@ def _browser_discover_pages(
                     status_map[url] = 0
             context.close()
             browser.close()
-    except (RuntimeError, ValueError, TypeError):
+    except (playwright_error, RuntimeError, ValueError, TypeError):
         return [], {}
     return pages, status_map
 
@@ -1876,6 +1928,30 @@ def _merge_site_runs(site_runs: list[dict[str, Any]]) -> dict[str, Any]:
 
     docs_confirmed = [u for u in sorted(intersection_confirmed) if not _is_repo_link(u)]
     repo_confirmed = [u for u in sorted(intersection_confirmed) if _is_repo_link(u)]
+    merged_provenance: dict[str, list[dict[str, str]]] = {}
+    for url in sorted(intersection_confirmed):
+        seen_refs: list[dict[str, str]] = []
+        for run_links in link_runs:
+            prov = run_links.get("_broken_link_provenance", {})
+            if not isinstance(prov, dict):
+                continue
+            refs = prov.get(url, [])
+            if not isinstance(refs, list):
+                continue
+            for ref in refs:
+                if not isinstance(ref, dict):
+                    continue
+                source_page = str(ref.get("source_page", "")).strip()
+                anchor_text = str(ref.get("anchor_text", "")).strip()
+                if not source_page:
+                    continue
+                item = {"source_page": source_page, "anchor_text": anchor_text}
+                if item in seen_refs:
+                    continue
+                if len(seen_refs) < 10:
+                    seen_refs.append(item)
+        if seen_refs:
+            merged_provenance[url] = seen_refs
 
     link_merged = merged.setdefault("metrics", {}).setdefault("links", {})
     link_merged["broken_internal_links_count"] = len(intersection_confirmed)
@@ -1892,6 +1968,7 @@ def _merge_site_runs(site_runs: list[dict[str, Any]]) -> dict[str, Any]:
     link_merged["_all_confirmed_broken_links"] = sorted(list(intersection_confirmed))
     link_merged["_all_unverified_links"] = sorted(list(unverified_union))
     link_merged["_all_excluded_links"] = sorted(list(excluded_union))
+    link_merged["_broken_link_provenance"] = merged_provenance
 
     # Median for volatile percentages
     def _median_metric(path: list[str], default: float = 0.0) -> float:
@@ -2407,6 +2484,78 @@ def _build_html(payload: dict[str, Any]) -> str:
 """
 
 
+def _build_broken_links_export(payload: dict[str, Any]) -> dict[str, Any]:
+    sites = payload.get("sites", []) if isinstance(payload.get("sites"), list) else []
+    per_site: list[dict[str, Any]] = []
+    all_docs_links: set[str] = set()
+    all_repo_links: set[str] = set()
+    all_unverified: set[str] = set()
+
+    for site in sites:
+        if not isinstance(site, dict):
+            continue
+        site_url = str(site.get("site_url", "")).strip()
+        metrics = site.get("metrics", {}) if isinstance(site.get("metrics"), dict) else {}
+        links = metrics.get("links", {}) if isinstance(metrics.get("links"), dict) else {}
+        provenance = links.get("_broken_link_provenance", {}) if isinstance(links.get("_broken_link_provenance"), dict) else {}
+
+        confirmed = [str(u) for u in links.get("_all_confirmed_broken_links", []) if str(u).strip()]
+        docs_links = sorted([u for u in confirmed if not _is_repo_link(u)])
+        repo_links = sorted([u for u in confirmed if _is_repo_link(u)])
+        unverified = sorted([str(u) for u in links.get("unverified_link_samples", []) if str(u).strip()])
+        detailed_links: list[dict[str, Any]] = []
+        for target_url in sorted(confirmed):
+            refs = provenance.get(target_url, [])
+            source_refs: list[dict[str, str]] = []
+            if isinstance(refs, list):
+                for ref in refs:
+                    if not isinstance(ref, dict):
+                        continue
+                    source_page = str(ref.get("source_page", "")).strip()
+                    anchor_text = str(ref.get("anchor_text", "")).strip()
+                    if source_page:
+                        source_refs.append({"source_page": source_page, "anchor_text": anchor_text})
+            detailed_links.append(
+                {
+                    "target_url": target_url,
+                    "link_type": "repo_navigation" if _is_repo_link(target_url) else "docs",
+                    "source_refs": source_refs,
+                }
+            )
+
+        all_docs_links.update(docs_links)
+        all_repo_links.update(repo_links)
+        all_unverified.update(unverified)
+
+        per_site.append(
+            {
+                "site_url": site_url,
+                "confirmed_broken_links_count": len(confirmed),
+                "docs_broken_links_count": len(docs_links),
+                "repo_broken_links_count": len(repo_links),
+                "docs_broken_links": docs_links,
+                "repo_broken_links": repo_links,
+                "confirmed_broken_links_detailed": detailed_links,
+                "unverified_links_sample": unverified,
+            }
+        )
+
+    return {
+        "generated_at_utc": datetime.now(timezone.utc).isoformat(),
+        "sites_count": len(per_site),
+        "totals": {
+            "docs_broken_links_count": len(all_docs_links),
+            "repo_broken_links_count": len(all_repo_links),
+            "all_confirmed_broken_links_count": len(all_docs_links) + len(all_repo_links),
+            "unverified_links_sample_count": len(all_unverified),
+        },
+        "all_docs_broken_links": sorted(list(all_docs_links)),
+        "all_repo_broken_links": sorted(list(all_repo_links)),
+        "all_unverified_links_sample": sorted(list(all_unverified)),
+        "sites": per_site,
+    }
+
+
 def main() -> int:
     parser = argparse.ArgumentParser(description="Audit public docs sites")
     parser.add_argument(
@@ -2526,6 +2675,11 @@ def main() -> int:
     )
     parser.add_argument("--json-output", default="reports/public_docs_audit.json")
     parser.add_argument("--html-output", default="reports/public_docs_audit.html")
+    parser.add_argument(
+        "--broken-links-output",
+        default="reports/public_docs_broken_links.json",
+        help="Export full confirmed broken links list as JSON",
+    )
     parser.add_argument(
         "--llm-enabled",
         action="store_true",
@@ -2669,6 +2823,7 @@ def main() -> int:
         out_dir = Path(out_dir_raw) if out_dir_raw else default_out_dir
         args.json_output = str(out_dir / "public_docs_audit.json")
         args.html_output = str(out_dir / "public_docs_audit.html")
+        args.broken_links_output = str(out_dir / "public_docs_broken_links.json")
         args.llm_summary_output = str(out_dir / "public_docs_audit_llm_summary.json")
         args.scorecard_json = str(out_dir / "audit_scorecard.json")
         args.assumptions_autofill_output = str(out_dir / "company_assumptions.autofill.json")
@@ -2961,10 +3116,14 @@ def main() -> int:
 
     json_path = Path(args.json_output)
     html_path = Path(args.html_output)
+    broken_links_path = Path(args.broken_links_output)
     json_path.parent.mkdir(parents=True, exist_ok=True)
     html_path.parent.mkdir(parents=True, exist_ok=True)
+    broken_links_path.parent.mkdir(parents=True, exist_ok=True)
     json_path.write_text(json.dumps(payload, ensure_ascii=True, indent=2) + "\n", encoding="utf-8")
     html_path.write_text(_build_html(payload), encoding="utf-8")
+    broken_links_payload = _build_broken_links_export(payload)
+    broken_links_path.write_text(json.dumps(broken_links_payload, ensure_ascii=True, indent=2) + "\n", encoding="utf-8")
 
     report_url = ""
     base = str(args.report_url_base).strip().rstrip("/")
@@ -2973,6 +3132,7 @@ def main() -> int:
 
     print(f"[ok] public docs audit JSON: {json_path}")
     print(f"[ok] public docs audit HTML: {html_path}")
+    print(f"[ok] broken links JSON: {broken_links_path}")
     print(f"[ok] public docs audit HTML (absolute): {html_path.resolve()}")
     if report_url:
         print(f"[ok] public docs audit URL: {report_url}")

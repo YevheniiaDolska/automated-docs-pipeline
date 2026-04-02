@@ -1,0 +1,55 @@
+name: Publish Versioned Docs
+
+on:
+  release:
+    types: [published]
+  workflow_dispatch:
+    inputs:
+      version:
+        description: Docs version label (for example v1.2.3)
+        required: false
+        type: string
+
+permissions:
+  contents: write
+
+jobs:
+  publish-versioned-docs:
+    name: Publish version with mike
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install docs dependencies
+        run: pip install -r requirements.txt
+
+      - name: Determine version
+        id: version
+        run: |
+          if [ -n "${{ github.event.inputs.version }}" ]; then
+            echo "value=${{ github.event.inputs.version }}" >> "$GITHUB_OUTPUT"
+          elif [ -n "${{ github.event.release.tag_name }}" ]; then
+            echo "value=${{ github.event.release.tag_name }}" >> "$GITHUB_OUTPUT"
+          else
+            echo "value=latest" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Configure git
+        run: |
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git config --global user.name "github-actions[bot]"
+
+      - name: Publish docs version
+        run: |
+          VERSION="${{ steps.version.outputs.value }}"
+          mike deploy --push --update-aliases "$VERSION" latest
+          mike set-default --push latest

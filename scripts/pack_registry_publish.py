@@ -26,17 +26,23 @@ def _load_private_key(path: Path) -> bytes:
         if len(decoded) == 32:
             return decoded
     except (ValueError, TypeError):
-        pass
+        decoded = b""
+    if len(decoded) == 32:
+        return decoded
     raise ValueError(f"Unsupported private key format: {path}")
 
 
 def _sign_ed25519(message: bytes, private_key: bytes) -> bytes:
+    nacl_available = True
     try:
         from nacl.signing import SigningKey
 
         return SigningKey(private_key).sign(message).signature
     except ImportError:
-        pass
+        nacl_available = False
+
+    if nacl_available:
+        raise RuntimeError("PyNaCl signing failed unexpectedly.")
 
     try:
         from cryptography.hazmat.primitives.asymmetric.ed25519 import Ed25519PrivateKey

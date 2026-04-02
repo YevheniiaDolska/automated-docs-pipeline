@@ -1,5 +1,10 @@
 #!/usr/bin/env python3
-"""Auto-extract knowledge modules from Markdown docs."""
+"""Auto-extract knowledge modules from Markdown docs.
+
+This stage is deterministic (no LLM):
+- url, title, heading, version, updated_at, source_site
+- rule-based intents/audiences
+"""
 
 from __future__ import annotations
 
@@ -9,6 +14,7 @@ import json
 import re
 from pathlib import Path
 from typing import Any
+from urllib.parse import urlparse
 
 import yaml
 
@@ -33,6 +39,17 @@ def _parse_frontmatter(text: str) -> tuple[dict[str, Any], str]:
     except yaml.YAMLError:
         return {}, body
     return {}, body
+
+
+def _load_variables(docs_dir: Path) -> dict[str, Any]:
+    vars_path = docs_dir / "_variables.yml"
+    if not vars_path.exists():
+        return {}
+    try:
+        payload = yaml.safe_load(vars_path.read_text(encoding="utf-8")) or {}
+    except yaml.YAMLError:
+        return {}
+    return payload if isinstance(payload, dict) else {}
 
 
 def _pick_intents(content_type: str, title: str, body: str) -> list[str]:
@@ -61,26 +78,40 @@ def _pick_audiences(content_type: str) -> list[str]:
     return ["practitioner", "developer"]
 
 
-def _chunk_body(body: str, chunk_target_chars: int) -> list[str]:
+def _first_heading(text: str) -> str:
+    for line in text.splitlines():
+        match = re.match(r"^\s*#{2,6}\s+(.+?)\s*$", line)
+        if match:
+            return match.group(1).strip()
+    return ""
+
+
+def _chunk_body(body: str, chunk_target_chars: int) -> list[dict[str, str]]:
     # Split by H2/H3 blocks first.
     parts = re.split(r"\n(?=##\s|###\s)", body)
-    chunks: list[str] = []
+    chunks: list[dict[str, str]] = []
     current = ""
+    current_heading = ""
     for part in parts:
         part = part.strip()
         if not part:
             continue
+        part_heading = _first_heading(part)
         candidate = (current + "\n\n" + part).strip() if current else part
         if len(candidate) <= chunk_target_chars:
             current = candidate
+            if not current_heading:
+                current_heading = part_heading
             continue
         if current:
-            chunks.append(current)
+            chunks.append({"heading": current_heading, "content": current})
         if len(part) <= chunk_target_chars:
             current = part
+            current_heading = part_heading
             continue
         # Hard split long part by paragraphs.
         para = ""
+        para_heading = part_heading
         for p in part.split("\n\n"):
             p = p.strip()
             if not p:
@@ -88,13 +119,17 @@ def _chunk_body(body: str, chunk_target_chars: int) -> list[str]:
             cand = (para + "\n\n" + p).strip() if para else p
             if len(cand) <= chunk_target_chars:
                 para = cand
+                if not para_heading:
+                    para_heading = _first_heading(p)
             else:
                 if para:
-                    chunks.append(para)
+                    chunks.append({"heading": para_heading, "content": para})
                 para = p
+                para_heading = _first_heading(p)
         current = para
+        current_heading = para_heading
     if current:
-        chunks.append(current)
+        chunks.append({"heading": current_heading, "content": current})
     return chunks
 
 
@@ -116,8 +151,58 @@ def _extract_title(frontmatter: dict[str, Any], path: Path, idx: int) -> str:
     return stem if idx == 1 else f"{stem} (Part {idx})"
 
 
-def _module_for_chunk(path: Path, rel_path: str, frontmatter: dict[str, Any], chunk: str, idx: int, owner: str) -> dict[str, Any]:
+def _resolve_doc_version(frontmatter: dict[str, Any], variables: dict[str, Any]) -> str:
+    for key in ("version", "app_version", "api_version", "docs_version"):
+        raw = str(frontmatter.get(key, "")).strip()
+        if raw:
+            return raw
+    for key in ("current_version", "docs_version", "api_version"):
+        raw = str(variables.get(key, "")).strip()
+        if raw:
+            return raw
+    return "latest"
+
+
+def _resolve_updated_at(frontmatter: dict[str, Any]) -> str:
+    for key in ("updated_at", "last_reviewed", "last_modified", "date", "date_created"):
+        raw = str(frontmatter.get(key, "")).strip()
+        if raw:
+            return raw
+    return dt.datetime.utcnow().isoformat() + "Z"
+
+
+def _build_doc_url(docs_base_url: str, rel_path: str) -> str:
+    base = docs_base_url.rstrip("/")
+    rel = rel_path.strip().replace("\\", "/")
+    if rel.endswith("/index.md"):
+        rel = rel[: -len("index.md")]
+    elif rel.endswith(".md"):
+        rel = rel[: -len(".md")] + "/"
+    rel = rel.lstrip("/")
+    return f"{base}/{rel}".replace("//", "/").replace(":/", "://")
+
+
+def _source_site_from_docs_url(docs_url: str) -> str:
+    parsed = urlparse(docs_url)
+    if parsed.netloc:
+        return parsed.netloc.lower()
+    return docs_url.strip().lower()
+
+
+def _module_for_chunk(
+    path: Path,
+    rel_path: str,
+    frontmatter: dict[str, Any],
+    chunk_payload: dict[str, str],
+    idx: int,
+    owner: str,
+    *,
+    docs_url: str,
+    variables: dict[str, Any],
+) -> dict[str, Any]:
     content_type = str(frontmatter.get("content_type", "")).strip().lower()
+    chunk = str(chunk_payload.get("content", "")).strip()
+    heading = str(chunk_payload.get("heading", "")).strip()
     title = _extract_title(frontmatter, path, idx)
     summary = _extract_summary(frontmatter, chunk)
     chunk_clean = chunk.strip()
@@ -134,6 +219,11 @@ def _module_for_chunk(path: Path, rel_path: str, frontmatter: dict[str, Any], ch
     intents = _pick_intents(content_type, title, chunk_clean)
     audiences = _pick_audiences(content_type)
     tags: list[str] = ["auto-extracted", content_type or "docs", _slug(path.stem)]
+    resolved_heading = heading or title
+    doc_url = _build_doc_url(docs_base_url=docs_url, rel_path=rel_path)
+    version = _resolve_doc_version(frontmatter, variables)
+    updated_at = _resolve_updated_at(frontmatter)
+    source_site = _source_site_from_docs_url(docs_url)
     return {
         "id": module_id,
         "title": title[:90],
@@ -147,6 +237,22 @@ def _module_for_chunk(path: Path, rel_path: str, frontmatter: dict[str, Any], ch
         "last_verified": dt.date.today().isoformat(),
         "dependencies": [],
         "tags": sorted(set(t for t in tags if t)),
+        "metadata": {
+            "url": doc_url,
+            "title": title[:90],
+            "heading": resolved_heading[:180],
+            "version": version,
+            "updated_at": updated_at,
+            "source_site": source_site,
+            "source_path": rel_path,
+        },
+        "semantic": {
+            "topic": resolved_heading[:120],
+            "intent": intents[0],
+            "audience": audiences[0],
+            "keywords": sorted(set([_slug(path.stem).replace("-", " "), content_type or "docs"])),
+            "status": "rule_based",
+        },
         "content": {
             "docs_markdown": chunk_clean,
             "assistant_context": assistant_context,
@@ -174,6 +280,8 @@ def main() -> int:
     docs_dir = Path(args.docs_dir)
     modules_dir = Path(args.modules_dir)
     report_path = Path(args.report)
+    variables = _load_variables(docs_dir)
+    docs_url = str(variables.get("docs_url", "")).strip() or "https://docs.example.com"
 
     if not docs_dir.exists():
         print(f"docs directory not found: {docs_dir}")
@@ -198,9 +306,18 @@ def main() -> int:
         if not chunks:
             continue
         processed_docs += 1
-        rel_path = md_path.as_posix()
+        rel_path = md_path.relative_to(docs_dir).as_posix()
         for idx, chunk in enumerate(chunks, start=1):
-            module = _module_for_chunk(md_path, rel_path, frontmatter, chunk, idx, args.owner)
+            module = _module_for_chunk(
+                md_path,
+                rel_path,
+                frontmatter,
+                chunk,
+                idx,
+                args.owner,
+                docs_url=docs_url,
+                variables=variables,
+            )
             target = modules_dir / f"{module['id']}.yml"
             _write_module(target, module)
             created += 1
@@ -211,6 +328,8 @@ def main() -> int:
         "modules_created": created,
         "modules_removed": removed,
         "modules_dir": str(modules_dir),
+        "docs_url": docs_url,
+        "metadata_mode": "deterministic",
         "generated_at": dt.datetime.utcnow().isoformat() + "Z",
     }
     report_path.parent.mkdir(parents=True, exist_ok=True)

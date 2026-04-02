@@ -214,7 +214,7 @@ def _aes_gcm_decrypt(key: bytes, nonce: bytes, ciphertext: bytes, tag: bytes) ->
         return aes.decrypt(nonce, ciphertext + tag, None)
     except ImportError:
         logger.debug("cryptography is not installed; trying PyCryptodome for AES-GCM decrypt")
-    except Exception as exc:
+    except (RuntimeError, ValueError, TypeError, OSError) as exc:
         raise ValueError(f"AES-GCM decrypt failed: {exc}") from exc
 
     # Fallback: PyCryptodome
@@ -224,7 +224,7 @@ def _aes_gcm_decrypt(key: bytes, nonce: bytes, ciphertext: bytes, tag: bytes) ->
         return cipher.decrypt_and_verify(ciphertext, tag)
     except ImportError:
         logger.debug("PyCryptodome is not installed; AES-GCM decrypt fallback unavailable")
-    except Exception as exc:
+    except (RuntimeError, ValueError, TypeError, OSError) as exc:
         raise ValueError(f"AES-GCM decrypt failed: {exc}") from exc
 
     raise RuntimeError(

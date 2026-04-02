@@ -23,6 +23,8 @@ def _load_modules(modules_dir: Path) -> list[dict[str, Any]]:
 
 def _module_to_index_record(module: dict[str, Any]) -> dict[str, Any]:
     content = module.get("content", {})
+    metadata = module.get("metadata", {}) if isinstance(module.get("metadata"), dict) else {}
+    semantic = module.get("semantic", {}) if isinstance(module.get("semantic"), dict) else {}
     docs_markdown = str(content.get("docs_markdown", "")).strip()
     assistant_context = str(content.get("assistant_context", "")).strip()
 
@@ -42,6 +44,16 @@ def _module_to_index_record(module: dict[str, Any]) -> dict[str, Any]:
         "tags": module.get("tags", []),
         "docs_excerpt": docs_markdown[:400],
         "assistant_excerpt": assistant_context[:300],
+        "url": metadata.get("url", ""),
+        "heading": metadata.get("heading", ""),
+        "version": metadata.get("version", ""),
+        "updated_at": metadata.get("updated_at", ""),
+        "source_site": metadata.get("source_site", ""),
+        "topic": semantic.get("topic", ""),
+        "semantic_intent": semantic.get("intent", ""),
+        "semantic_audience": semantic.get("audience", ""),
+        "keywords": semantic.get("keywords", []),
+        "semantic_status": semantic.get("status", ""),
         "source_file": module.get("source_file"),
     }
 

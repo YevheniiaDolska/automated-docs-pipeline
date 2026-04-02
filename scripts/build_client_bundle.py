@@ -22,9 +22,12 @@ from typing import Any
 
 import yaml
 
+REPO_ROOT = Path(__file__).resolve().parents[1]
+if str(REPO_ROOT) not in sys.path:
+    sys.path.insert(0, str(REPO_ROOT))
+
 from scripts.api_protocols import merge_protocol_settings, normalize_protocols
 
-REPO_ROOT = Path(__file__).resolve().parents[1]
 MANAGED_START = "<!-- VERIOPS_MANAGED_BLOCK:START -->"
 MANAGED_END = "<!-- VERIOPS_MANAGED_BLOCK:END -->"
 
@@ -1038,7 +1041,7 @@ def create_bundle(profile_path: Path) -> Path:
         )
         if not has_branding_task:
             docs_root = str(branding_cfg.get("docs_root", runtime_cfg.get("paths", {}).get("docs_root", "docs")))
-            landing_url = str(branding_cfg.get("landing_url", "https://veridoc.app")).strip()
+            landing_url = str(branding_cfg.get("landing_url", "https://veri-doc.app/")).strip()
             plan = str(branding_cfg.get("plan", "free")).strip().lower()
             cheapest = str(branding_cfg.get("cheapest_paid_plan", "starter")).strip().lower()
             report_path = str(branding_cfg.get("report_path", "reports/veridoc_branding_policy_report.json")).strip()

@@ -22,19 +22,25 @@ def _load_public_key(path: Path) -> bytes:
         if len(decoded) == 32:
             return decoded
     except (ValueError, TypeError):
-        pass
+        decoded = b""
+    if len(decoded) == 32:
+        return decoded
     raise ValueError(f"Unsupported public key format: {path}")
 
 
 def _verify_ed25519(message: bytes, signature: bytes, public_key: bytes) -> bool:
+    nacl_available = True
     try:
         from nacl.signing import VerifyKey
 
         VerifyKey(public_key).verify(message, signature)
         return True
     except ImportError:
-        pass
+        nacl_available = False
     except (RuntimeError, ValueError, TypeError, OSError):
+        return False
+
+    if nacl_available:
         return False
 
     try:

@@ -5,6 +5,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import re
 import sys
 from collections import defaultdict
 from dataclasses import dataclass
@@ -45,6 +46,12 @@ ALLOWED_CHANNELS = {
     "field",
     "sales",
 }
+
+ALLOWED_SEMANTIC_STATUS = {"rule_based", "llm_enriched"}
+ISO_DATE_PATTERN = re.compile(
+    r"^\d{4}-\d{2}-\d{2}"
+    r"(?:[T\s]\d{2}:\d{2}:\d{2}(?:\.\d+)?(?:Z|[+-]\d{2}:?\d{2})?)?$"
+)
 
 
 @dataclass
@@ -142,6 +149,52 @@ def validate_modules(modules_dir: Path) -> tuple[list[dict[str, Any]], list[Modu
                 issues.append(ModuleIssue(str(path), "'content.docs_markdown' must be at least 80 characters"))
             if not isinstance(assistant_context, str) or len(assistant_context.strip()) < 60:
                 issues.append(ModuleIssue(str(path), "'content.assistant_context' must be at least 60 characters"))
+
+        metadata = module.get("metadata")
+        if metadata is not None and not isinstance(metadata, dict):
+            issues.append(ModuleIssue(str(path), "'metadata' must be an object when present"))
+        elif isinstance(metadata, dict):
+            for key in ("url", "title", "heading", "version", "updated_at", "source_site"):
+                value = str(metadata.get(key, "")).strip()
+                if not value:
+                    issues.append(ModuleIssue(str(path), f"'metadata.{key}' is required"))
+            url = str(metadata.get("url", "")).strip().lower()
+            if url and not (url.startswith("http://") or url.startswith("https://")):
+                issues.append(ModuleIssue(str(path), "'metadata.url' must be absolute http(s) URL"))
+            updated_at = str(metadata.get("updated_at", "")).strip()
+            if updated_at and not ISO_DATE_PATTERN.match(updated_at):
+                issues.append(ModuleIssue(str(path), "'metadata.updated_at' must be ISO-like date/time"))
+
+        semantic = module.get("semantic")
+        if semantic is not None:
+            if not isinstance(semantic, dict):
+                issues.append(ModuleIssue(str(path), "'semantic' must be an object when present"))
+            else:
+                topic = str(semantic.get("topic", "")).strip()
+                if len(topic) < 3:
+                    issues.append(ModuleIssue(str(path), "'semantic.topic' must be at least 3 characters"))
+                intent = str(semantic.get("intent", "")).strip()
+                if intent and intent not in ALLOWED_INTENTS:
+                    issues.append(ModuleIssue(str(path), f"'semantic.intent' has unsupported value '{intent}'"))
+                audience = str(semantic.get("audience", "")).strip()
+                if audience and audience not in ALLOWED_AUDIENCES:
+                    issues.append(ModuleIssue(str(path), f"'semantic.audience' has unsupported value '{audience}'"))
+                keywords = semantic.get("keywords", [])
+                if not isinstance(keywords, list):
+                    issues.append(ModuleIssue(str(path), "'semantic.keywords' must be a list"))
+                else:
+                    for kw in keywords:
+                        if not isinstance(kw, str) or not kw.strip():
+                            issues.append(ModuleIssue(str(path), "'semantic.keywords' must contain non-empty strings"))
+                            break
+                status = str(semantic.get("status", "")).strip()
+                if status and status not in ALLOWED_SEMANTIC_STATUS:
+                    issues.append(
+                        ModuleIssue(
+                            str(path),
+                            f"'semantic.status' must be one of {sorted(ALLOWED_SEMANTIC_STATUS)}",
+                        )
+                    )
 
         module["_path"] = str(path)
         modules.append(module)

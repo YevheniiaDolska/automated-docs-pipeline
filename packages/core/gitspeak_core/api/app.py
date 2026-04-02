@@ -1617,7 +1617,7 @@ async def ops_pack_registry_delete(
             try:
                 pack_dir.rmdir()
             except OSError:
-                pass
+                logger.debug("Pack directory is not empty or cannot be removed: %s", pack_dir)
     return {"status": "ok", "pack_name": safe_name, "version": safe_version, "deleted_files": removed_files}
 
 

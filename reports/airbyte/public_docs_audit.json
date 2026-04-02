@@ -1,0 +1,376 @@
+{
+  "generated_at": "2026-04-01T19:27:17.845488+00:00",
+  "site_url": "multiple-sites",
+  "site_urls": [
+    "https://reference.airbyte.com/reference",
+    "https://docs.airbyte.com/"
+  ],
+  "topology_mode": "multi-project",
+  "verification_modes": [
+    "authenticated",
+    "bot",
+    "browser"
+  ],
+  "sites": [
+    {
+      "site_url": "https://reference.airbyte.com/reference",
+      "metrics": {
+        "crawl": {
+          "pages_crawled": 2,
+          "requested_pages": 2,
+          "urls_examined": 2,
+          "max_pages": 3500,
+          "effective_limit": 3500,
+          "auto_mode": false,
+          "stop_reason": "queue_exhausted",
+          "discovered_pages": 2,
+          "crawl_scope_basis": "discovered",
+          "crawl_scope_pages": 2,
+          "crawl_coverage_pct": 100.0,
+          "trap_urls_skipped": 0,
+          "seeded_sitemap_urls": 0,
+          "robots_sitemaps_declared": 0
+        },
+        "links": {
+          "internal_links_checked": 2,
+          "broken_internal_links_count": 0,
+          "docs_broken_links_count": 0,
+          "repo_broken_links_count": 0,
+          "broken_internal_link_samples": [],
+          "docs_broken_link_samples": [],
+          "repo_broken_link_samples": [],
+          "unreachable_links_count": 0,
+          "unverified_links_count": 0,
+          "unverified_link_samples": [],
+          "confirmed_broken_links_count": 0,
+          "excluded_links_count": 0,
+          "excluded_link_samples": [],
+          "_all_confirmed_broken_links": [],
+          "_all_unverified_links": [],
+          "_all_excluded_links": [],
+          "_all_docs_unverified_links": [],
+          "_all_repo_unverified_links": []
+        },
+        "seo_geo": {
+          "pages_scanned": 2,
+          "missing_title_count": 0,
+          "missing_description_count": 0,
+          "multiple_h1_count": 0,
+          "heading_hierarchy_jump_count": 0,
+          "seo_geo_issue_rate_pct": 0.0
+        },
+        "api_coverage": {
+          "reference_endpoint_count": 3,
+          "api_pages_detected": 2,
+          "endpoints_with_usage_docs": 0,
+          "reference_endpoints_without_usage_docs": 3,
+          "reference_coverage_pct": 0.0,
+          "no_api_pages_found": false,
+          "coverage_determined": true,
+          "coverage_method": "source_of_truth",
+          "detection_note": "",
+          "uncovered_endpoint_samples": [
+            "ev:function",
+            "ev:gtm.js",
+            "gql:parameter"
+          ]
+        },
+        "examples": {
+          "total_code_examples": 0,
+          "total_code_blocks_all": 0,
+          "runnable_without_env": 0,
+          "blocked_by_placeholders": 0,
+          "network_bound_examples": 0,
+          "example_reliability_estimate_pct": 0.0,
+          "detection_note": "No code blocks detected in crawled pages. The site may use JavaScript-rendered code blocks invisible to the HTML parser."
+        },
+        "freshness": {
+          "pages_with_last_updated_hint": 0,
+          "pages_without_last_updated_hint": 2,
+          "last_updated_coverage_pct": 0.0,
+          "samples_with_last_updated": []
+        }
+      },
+      "samples": {
+        "broken_links": [],
+        "docs_broken_link_samples": [],
+        "repo_broken_link_samples": [],
+        "unverified_link_samples": [],
+        "api_uncovered_samples": [
+          "ev:function",
+          "ev:gtm.js",
+          "gql:parameter"
+        ]
+      },
+      "run_count": 3
+    },
+    {
+      "site_url": "https://docs.airbyte.com/",
+      "metrics": {
+        "crawl": {
+          "pages_crawled": 2070,
+          "requested_pages": 2127,
+          "urls_examined": 2070,
+          "max_pages": 3500,
+          "effective_limit": 3500,
+          "auto_mode": false,
+          "stop_reason": "queue_exhausted",
+          "discovered_pages": 2070,
+          "crawl_scope_basis": "sitemap",
+          "crawl_scope_pages": 2070,
+          "crawl_coverage_pct": 100.0,
+          "trap_urls_skipped": 605,
+          "seeded_sitemap_urls": 2070,
+          "robots_sitemaps_declared": 0
+        },
+        "links": {
+          "internal_links_checked": 2127,
+          "broken_internal_links_count": 5,
+          "docs_broken_links_count": 5,
+          "repo_broken_links_count": 0,
+          "broken_internal_link_samples": [
+            "https://docs.airbyte.com/cdn-cgi/l/email-protection",
+            "https://docs.airbyte.com/cloud/managing-airbyte-cloud/review-sync-summary",
+            "https://docs.airbyte.com/deploying-airbyte/local-deployment",
+            "https://docs.airbyte.com/understanding-airbyte/basic-normalization",
+            "https://docs.airbyte.com/understanding-airbyte/connections/connection-sync-modes"
+          ],
+          "docs_broken_link_samples": [
+            "https://docs.airbyte.com/cdn-cgi/l/email-protection",
+            "https://docs.airbyte.com/cloud/managing-airbyte-cloud/review-sync-summary",
+            "https://docs.airbyte.com/deploying-airbyte/local-deployment",
+            "https://docs.airbyte.com/understanding-airbyte/basic-normalization",
+            "https://docs.airbyte.com/understanding-airbyte/connections/connection-sync-modes"
+          ],
+          "repo_broken_link_samples": [],
+          "unreachable_links_count": 0,
+          "unverified_links_count": 0,
+          "unverified_link_samples": [],
+          "confirmed_broken_links_count": 5,
+          "excluded_links_count": 4,
+          "excluded_link_samples": [
+            "https://docs.airbyte.com/integrations/sources/rss",
+            "https://docs.airbyte.com/integrations/sources/rss-migrations",
+            "https://docs.airbyte.com/integrations/sources/search-metrics",
+            "https://docs.airbyte.com/search"
+          ],
+          "_all_confirmed_broken_links": [
+            "https://docs.airbyte.com/cdn-cgi/l/email-protection",
+            "https://docs.airbyte.com/cloud/managing-airbyte-cloud/review-sync-summary",
+            "https://docs.airbyte.com/deploying-airbyte/local-deployment",
+            "https://docs.airbyte.com/understanding-airbyte/basic-normalization",
+            "https://docs.airbyte.com/understanding-airbyte/connections/connection-sync-modes"
+          ],
+          "_all_unverified_links": [],
+          "_all_excluded_links": [
+            "https://docs.airbyte.com/integrations/sources/rss",
+            "https://docs.airbyte.com/integrations/sources/rss-migrations",
+            "https://docs.airbyte.com/integrations/sources/search-metrics",
+            "https://docs.airbyte.com/search"
+          ],
+          "_all_docs_unverified_links": [],
+          "_all_repo_unverified_links": []
+        },
+        "seo_geo": {
+          "pages_scanned": 2070,
+          "missing_title_count": 0,
+          "missing_description_count": 1,
+          "multiple_h1_count": 5,
+          "heading_hierarchy_jump_count": 93,
+          "seo_geo_issue_rate_pct": 1.2
+        },
+        "api_coverage": {
+          "reference_endpoint_count": 64,
+          "api_pages_detected": 332,
+          "endpoints_with_usage_docs": 14,
+          "reference_endpoints_without_usage_docs": 50,
+          "reference_coverage_pct": 21.88,
+          "no_api_pages_found": false,
+          "coverage_determined": true,
+          "coverage_method": "source_of_truth",
+          "detection_note": "",
+          "uncovered_endpoint_samples": [
+            "ev:charge-refund",
+            "ev:complete",
+            "ev:error",
+            "ev:new",
+            "ev:preload",
+            "ev:t",
+            "gql:a",
+            "gql:associated",
+            "gql:can",
+            "gql:canceled",
+            "gql:cancellations",
+            "gql:could",
+            "gql:covers",
+            "gql:created",
+            "gql:downgraded",
+            "gql:ended",
+            "gql:event",
+            "gql:filter",
+            "gql:gateway",
+            "gql:goes"
+          ]
+        },
+        "examples": {
+          "total_code_examples": 4865,
+          "total_code_blocks_all": 8890,
+          "runnable_without_env": 2653,
+          "blocked_by_placeholders": 2060,
+          "network_bound_examples": 152,
+          "example_reliability_estimate_pct": 54.53,
+          "detection_note": ""
+        },
+        "freshness": {
+          "pages_with_last_updated_hint": 900,
+          "pages_without_last_updated_hint": 1170,
+          "last_updated_coverage_pct": 43.48,
+          "samples_with_last_updated": [
+            {
+              "url": "https://docs.airbyte.com/ai-agents/connectors/amazon-seller-partner/REFERENCE",
+              "hint": "A date used for selecting orders that were last updated after the specified date (ISO 8601 format)."
+            },
+            {
+              "url": "https://docs.airbyte.com/ai-agents/connectors/chargebee/REFERENCE",
+              "hint": "Date and time when the customer record was last updated."
+            },
+            {
+              "url": "https://docs.airbyte.com/ai-agents/connectors/gitlab/REFERENCE",
+              "hint": "Timestamp when the project was last updated"
+            },
+            {
+              "url": "https://docs.airbyte.com/ai-agents/connectors/gong/REFERENCE",
+              "hint": "The timestamp when the scorecard was last updated"
+            },
+            {
+              "url": "https://docs.airbyte.com/ai-agents/connectors/greenhouse/REFERENCE",
+              "hint": "The date and time the job was last updated"
+            },
+            {
+              "url": "https://docs.airbyte.com/ai-agents/connectors/harvest/REFERENCE",
+              "hint": "When last updated"
+            },
+            {
+              "url": "https://docs.airbyte.com/ai-agents/connectors/hubspot/REFERENCE",
+              "hint": "Timestamp indicating when the contact record was last modified."
+            },
+            {
+              "url": "https://docs.airbyte.com/ai-agents/connectors/incident-io/REFERENCE",
+              "hint": "When the incident was last updated"
+            },
+            {
+              "url": "https://docs.airbyte.com/ai-agents/connectors/intercom/REFERENCE",
+              "hint": "The date and time when the contact was last updated."
+            },
+            {
+              "url": "https://docs.airbyte.com/ai-agents/connectors/jira/REFERENCE",
+              "hint": "The timestamp when the issue was last updated"
+            }
+          ]
+        }
+      },
+      "samples": {
+        "broken_links": [
+          "https://docs.airbyte.com/cdn-cgi/l/email-protection",
+          "https://docs.airbyte.com/cloud/managing-airbyte-cloud/review-sync-summary",
+          "https://docs.airbyte.com/deploying-airbyte/local-deployment",
+          "https://docs.airbyte.com/understanding-airbyte/basic-normalization",
+          "https://docs.airbyte.com/understanding-airbyte/connections/connection-sync-modes"
+        ],
+        "docs_broken_link_samples": [
+          "https://docs.airbyte.com/cdn-cgi/l/email-protection",
+          "https://docs.airbyte.com/cloud/managing-airbyte-cloud/review-sync-summary",
+          "https://docs.airbyte.com/deploying-airbyte/local-deployment",
+          "https://docs.airbyte.com/understanding-airbyte/basic-normalization",
+          "https://docs.airbyte.com/understanding-airbyte/connections/connection-sync-modes"
+        ],
+        "repo_broken_link_samples": [],
+        "unverified_link_samples": [],
+        "api_uncovered_samples": [
+          "ev:charge-refund",
+          "ev:complete",
+          "ev:error",
+          "ev:new",
+          "ev:preload",
+          "ev:t",
+          "gql:a",
+          "gql:associated",
+          "gql:can",
+          "gql:canceled",
+          "gql:cancellations",
+          "gql:could",
+          "gql:covers",
+          "gql:created",
+          "gql:downgraded",
+          "gql:ended",
+          "gql:event",
+          "gql:filter",
+          "gql:gateway",
+          "gql:goes"
+        ]
+      },
+      "run_count": 3
+    }
+  ],
+  "aggregate": {
+    "metrics": {
+      "crawl": {
+        "pages_crawled": 2072,
+        "requested_pages": 2129,
+        "urls_examined": 2072,
+        "max_pages_total": 7000,
+        "discovered_pages": 2072,
+        "crawl_scope_pages": 2072,
+        "trap_urls_skipped": 605,
+        "crawl_coverage_pct": 100.0
+      },
+      "links": {
+        "broken_internal_links_count": 5,
+        "docs_broken_links_count": 5,
+        "repo_broken_links_count": 0,
+        "unverified_links_count": 0,
+        "confirmed_broken_links_count": 5,
+        "excluded_links_count": 4
+      },
+      "seo_geo": {
+        "seo_geo_issue_rate_pct": 1.2
+      },
+      "api_coverage": {
+        "reference_coverage_pct": 20.9,
+        "no_api_pages_found": false,
+        "api_pages_detected": 334,
+        "coverage_determined": true,
+        "detection_note": ""
+      },
+      "examples": {
+        "example_reliability_estimate_pct": 54.48
+      },
+      "freshness": {
+        "last_updated_coverage_pct": 43.44
+      }
+    },
+    "confidence": {
+      "overall_confidence_pct": 91.5,
+      "links_confidence_pct": 95.0,
+      "api_confidence_pct": 85.0,
+      "crawl_confidence_pct": 95.0
+    }
+  },
+  "confidence": {
+    "overall_confidence_pct": 91.5,
+    "links_confidence_pct": 95.0,
+    "api_confidence_pct": 85.0,
+    "crawl_confidence_pct": 95.0
+  },
+  "top_findings": [
+    "Broken internal links: 5",
+    "API usage-doc coverage is low: 20.9% (334 API pages detected)",
+    "Example reliability estimate is low: 54.48%",
+    "Freshness visibility is weak: only 43.44% pages show last updated",
+    "Documentation is split across multiple sites, but marked as multi-project; no fragmentation penalty applied."
+  ],
+  "llm_analysis": {
+    "status": "blocked",
+    "reason": "External LLM use blocked by policy/approval gate."
+  }
+}

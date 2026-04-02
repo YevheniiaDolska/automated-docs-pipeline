@@ -41,19 +41,38 @@ jobs:
             echo "value=" >> "$GITHUB_OUTPUT"
           fi
 
+      - name: Determine docs branch
+        id: docs_branch
+        run: |
+          if [ -n "${{ steps.version.outputs.value }}" ]; then
+            SAFE_VERSION="$(echo "${{ steps.version.outputs.value }}" | tr '/ ' '--')"
+            echo "value=docs/release-${SAFE_VERSION}" >> "$GITHUB_OUTPUT"
+          else
+            echo "value=docs/release-adhoc-$(date +%Y%m%d-%H%M%S)" >> "$GITHUB_OUTPUT"
+          fi
+
       - name: Generate release docs pack
         run: |
           python3 scripts/generate_release_docs_pack.py \
             --version "${{ steps.version.outputs.value }}" \
             --output reports/release-docs-pack.md
 
-      - name: Commit release docs pack
+      - name: Commit release docs pack to release docs branch
         run: |
           git config --local user.email "github-actions[bot]@users.noreply.github.com"
           git config --local user.name "github-actions[bot]"
+          git checkout -B "${{ steps.docs_branch.outputs.value }}"
           git add reports/release-docs-pack.md
-          git diff --staged --quiet || git commit -m "docs: release pack for ${{ steps.version.outputs.value }} [skip ci]"
-          git push
+          if git diff --staged --quiet; then
+            echo "No changes in release pack."
+          else
+            VERSION="${{ steps.version.outputs.value }}"
+            if [ -z "$VERSION" ]; then
+              VERSION="adhoc"
+            fi
+            git commit -m "docs: release pack for ${VERSION} [skip ci]"
+            git push --set-upstream origin "${{ steps.docs_branch.outputs.value }}"
+          fi
 
       - name: Upload release docs artifact
         uses: actions/upload-artifact@v4
@@ -77,6 +96,6 @@ jobs:
               owner: context.repo.owner,
               repo: context.repo.repo,
               title: `Release ${version}: update documentation`,
-              body: `## Release ${version} documentation\n\nA release docs pack has been generated.\n\n### Next steps\n1. \`git pull\` to get \`reports/release-docs-pack.md\`\n2. Open Claude Code and say: "Update docs for release ${version} based on reports/release-docs-pack.md"\n\n### Pack preview\n\n${pack}`,
+              body: `## Release ${version} documentation\n\nA release docs pack has been generated in branch \`${{ steps.docs_branch.outputs.value }}\`.\n\n### Next steps\n1. Checkout branch \`${{ steps.docs_branch.outputs.value }}\`\n2. Open Claude Code and say: "Update docs for release ${version} based on reports/release-docs-pack.md"\n3. Open PR into \`main\` after review\n\n### Pack preview\n\n${pack}`,
               labels: ['documentation', 'auto-created', 'release']
             });
