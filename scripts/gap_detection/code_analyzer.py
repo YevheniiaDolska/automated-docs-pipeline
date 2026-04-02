@@ -228,8 +228,8 @@ class CodeChangeAnalyzer:
         self,
         since: Optional[str] = None,
         until: Optional[str] = None,
-        branch: str = 'main',
-        limit: int = 100
+        branch: str = 'origin/main',
+        limit: int = 0
     ) -> AnalysisResult:
         """
         Анализирует коммиты за период.
@@ -237,8 +237,8 @@ class CodeChangeAnalyzer:
         Args:
             since: Начало периода (ISO date или '7 days ago')
             until: Конец периода
-            branch: Ветка для анализа
-            limit: Максимум коммитов
+            branch: Ветка для анализа (предпочтительно origin/main)
+            limit: Максимум коммитов (0 = без лимита)
 
         Returns:
             AnalysisResult с найденными изменениями
@@ -246,7 +246,8 @@ class CodeChangeAnalyzer:
         result = AnalysisResult()
 
         # Получаем список коммитов
-        commits = self._get_commits(since, until, branch, limit)
+        resolved_branch = self._resolve_analysis_branch(branch)
+        commits = self._get_commits(since, until, resolved_branch, limit)
 
         for commit in commits:
             # Анализ commit message
@@ -389,7 +390,9 @@ class CodeChangeAnalyzer:
         limit: int
     ) -> list[dict]:
         """Получает список коммитов."""
-        cmd = ['log', branch, f'-{limit}', '--format=%H|%s|%ai']
+        cmd = ['log', branch, '--format=%H|%s|%ai']
+        if int(limit) > 0:
+            cmd.append(f'-{int(limit)}')
 
         if since:
             cmd.append(f'--since={since}')
@@ -411,6 +414,35 @@ class CodeChangeAnalyzer:
                 })
 
         return commits
+
+    def _resolve_analysis_branch(self, preferred: str) -> str:
+        """Resolve preferred branch with robust fallbacks."""
+        candidates = [
+            preferred,
+            'origin/main',
+            'main',
+            'origin/master',
+            'master',
+            'HEAD',
+        ]
+        seen: set[str] = set()
+        for candidate in candidates:
+            ref = str(candidate or '').strip()
+            if not ref or ref in seen:
+                continue
+            seen.add(ref)
+            if ref == 'HEAD':
+                return ref
+            completed = subprocess.run(
+                ['git', 'rev-parse', '--verify', '--quiet', ref],
+                cwd=self.repo_path,
+                capture_output=True,
+                text=True,
+                check=False,
+            )
+            if completed.returncode == 0:
+                return ref
+        return 'HEAD'
 
     def _analyze_commit(self, commit: dict) -> list[CodeChange]:
         """Анализирует отдельный коммит."""

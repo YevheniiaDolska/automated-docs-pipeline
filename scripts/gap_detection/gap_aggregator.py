@@ -187,7 +187,11 @@ class GapAggregator:
         # Анализ кода
         print("Analyzing code changes...")
         code_analyzer = CodeChangeAnalyzer(repo_path)
-        code_result = code_analyzer.analyze_commits(since=f'{since_days} days ago')
+        code_result = code_analyzer.analyze_commits(
+            since=f'{since_days} days ago',
+            branch='origin/main',
+            limit=0,
+        )
         print(f"  Found {len(code_result.changes)} code changes")
 
         # Сбор community

@@ -171,7 +171,7 @@ def _iter_api_first_configs(api_first: dict[str, Any]) -> list[dict[str, Any]]:
     return runs
 
 
-def _resolve_weekly_base_ref(repo_root: Path, since_days: int) -> str:
+def _resolve_weekly_base_ref(repo_root: Path, since_days: int, head_ref: str = "HEAD") -> str:
     ts = datetime.now(timezone.utc) - timedelta(days=since_days)
     before_arg = ts.strftime("%Y-%m-%d %H:%M:%S")
     cmd = [
@@ -179,11 +179,29 @@ def _resolve_weekly_base_ref(repo_root: Path, since_days: int) -> str:
         "rev-list",
         "-1",
         f"--before={before_arg}",
-        "HEAD",
+        head_ref,
     ]
     completed = subprocess.run(cmd, cwd=str(repo_root), capture_output=True, text=True, check=False)
     candidate = completed.stdout.strip()
     return candidate if candidate else "HEAD~1"
+
+
+def _resolve_analysis_head_ref(repo_root: Path) -> str:
+    """Prefer remote-tracking main branch for weekly analysis."""
+    candidates = ["origin/main", "main", "origin/master", "master", "HEAD"]
+    for ref in candidates:
+        if ref == "HEAD":
+            return ref
+        completed = subprocess.run(
+            ["git", "rev-parse", "--verify", "--quiet", ref],
+            cwd=str(repo_root),
+            capture_output=True,
+            text=True,
+            check=False,
+        )
+        if completed.returncode == 0:
+            return ref
+    return "HEAD"
 
 
 def parse_args() -> argparse.Namespace:
@@ -299,8 +317,8 @@ def main() -> int:
             encoding="utf-8",
         )
 
-    base_ref = _resolve_weekly_base_ref(repo_root, args.since)
-    head_ref = "HEAD"
+    head_ref = _resolve_analysis_head_ref(repo_root)
+    base_ref = _resolve_weekly_base_ref(repo_root, args.since, head_ref=head_ref)
 
     gap_detector = scripts_dir / "gap_detector.py"
     if flow_mode in {"code-first", "hybrid"} and _is_enabled(modules, "gap_detection", True) and gap_detector.exists():
