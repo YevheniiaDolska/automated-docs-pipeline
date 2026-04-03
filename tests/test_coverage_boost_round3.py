@@ -2354,7 +2354,7 @@ class TestEnsureMockFindExistingByName:
         """Returns None when all endpoints fail."""
         from scripts.ensure_external_mock_server import _find_existing_mock_by_name
 
-        with mock.patch("scripts.ensure_external_mock_server._http_json", side_effect=Exception("fail")):
+        with mock.patch("scripts.ensure_external_mock_server._http_json", side_effect=RuntimeError("fail")):
             result = _find_existing_mock_by_name("https://api.example.com", "key", "ws-1", "my-mock")
         assert result is None
 

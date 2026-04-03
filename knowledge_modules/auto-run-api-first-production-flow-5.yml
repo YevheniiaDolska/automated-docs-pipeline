@@ -15,12 +15,28 @@ channels:
 priority: 60
 status: active
 owner: docsops-auto
-last_verified: '2026-03-28'
+last_verified: '2026-04-03'
 dependencies: []
 tags:
 - auto-extracted
 - how-to
 - run-api-first-production-flow
+metadata:
+  url: https://docs.example.com/how-to/run-api-first-production-flow/
+  title: Run API-first production flow (Part 5)
+  heading: Add a manual business-logic case
+  version: '3.1'
+  updated_at: '2026-03-17'
+  source_site: docs.example.com
+  source_path: how-to/run-api-first-production-flow.md
+semantic:
+  topic: Add a manual business-logic case
+  intent: configure
+  audience: practitioner
+  keywords:
+  - how-to
+  - run api first production flow
+  status: rule_based
 content:
   docs_markdown: "### Add a manual business-logic case\n\nOpen `reports/api-test-assets/api_test_cases.json`\
     \ and append a case to the `cases` array:\n\n```json\n{\n  \"id\": \"TC-manual-order-capacity-1\"\
@@ -37,7 +53,7 @@ content:
     \n}\n```\n\nSet `origin` to `manual` and leave `spec_hash` empty. The merge engine\
     \ never overwrites or drops manual cases."
   assistant_context: "Use this module when answering questions related to: Run API-first\
-    \ production flow (Part 5). Source path: docs/how-to/run-api-first-production-flow.md.\
+    \ production flow (Part 5). Source path: how-to/run-api-first-production-flow.md.\
     \ Summary: Generate OpenAPI from planning notes, run full lint and self-verification,\
     \ publish playground assets, and keep a sandbox ready for client testing.\n\n\
     ### Add a manual business-logic case\n\nOpen `reports/api-test-assets/api_test_cases.json`\

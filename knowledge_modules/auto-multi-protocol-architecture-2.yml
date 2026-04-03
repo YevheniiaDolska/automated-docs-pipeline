@@ -13,12 +13,28 @@ channels:
 priority: 60
 status: active
 owner: docsops-auto
-last_verified: '2026-03-28'
+last_verified: '2026-04-03'
 dependencies: []
 tags:
 - auto-extracted
 - multi-protocol-architecture
 - reference
+metadata:
+  url: https://docs.example.com/operations/MULTI_PROTOCOL_ARCHITECTURE/
+  title: Multi-Protocol Architecture (Part 2)
+  heading: Protocol-specific validators
+  version: 1.50.0
+  updated_at: '2026-03-24'
+  source_site: docs.example.com
+  source_path: operations/MULTI_PROTOCOL_ARCHITECTURE.md
+semantic:
+  topic: Protocol-specific validators
+  intent: integrate
+  audience: developer
+  keywords:
+  - multi protocol architecture
+  - reference
+  status: rule_based
 content:
   docs_markdown: "## Protocol-specific validators\n\n- REST: `scripts/validate_openapi_contract.py`\n\
     - GraphQL: `scripts/validate_graphql_contract.py` (root/schema checks, duplicate\
@@ -35,7 +51,7 @@ content:
     \  - gRPC via HTTP gateway adapter\n  - AsyncAPI ws/http publish checks\n  - WebSocket\
     \ live connect/send checks"
   assistant_context: "Use this module when answering questions related to: Multi-Protocol\
-    \ Architecture (Part 2). Source path: docs/operations/MULTI_PROTOCOL_ARCHITECTURE.md.\
+    \ Architecture (Part 2). Source path: operations/MULTI_PROTOCOL_ARCHITECTURE.md.\
     \ Summary: Unified docs-ops pipeline for REST, GraphQL, gRPC, AsyncAPI, and WebSocket.\n\
     \n## Protocol-specific validators\n\n- REST: `scripts/validate_openapi_contract.py`\n\
     - GraphQL: `scripts/validate_graphql_contract.py` (root/schema checks, duplicate\

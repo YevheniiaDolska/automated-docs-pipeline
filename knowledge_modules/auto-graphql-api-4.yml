@@ -13,12 +13,28 @@ channels:
 priority: 60
 status: active
 owner: docsops-auto
-last_verified: '2026-03-28'
+last_verified: '2026-04-03'
 dependencies: []
 tags:
 - auto-extracted
 - graphql-api
 - reference
+metadata:
+  url: https://docs.example.com/reference/graphql-api/
+  title: GRAPHQL API Reference (Part 4)
+  heading: Next steps
+  version: 1.50.0
+  updated_at: '2026-03-26'
+  source_site: docs.example.com
+  source_path: reference/graphql-api.md
+semantic:
+  topic: Next steps
+  intent: integrate
+  audience: developer
+  keywords:
+  - graphql api
+  - reference
+  status: rule_based
 content:
   docs_markdown: '## Next steps
 
@@ -29,7 +45,7 @@ content:
     This auto-generated knowledge chunk was expanded to satisfy minimum retrieval
     module length for stable indexing.'
   assistant_context: 'Use this module when answering questions related to: GRAPHQL
-    API Reference (Part 4). Source path: docs/reference/graphql-api.md. Summary: Auto-generated
+    API Reference (Part 4). Source path: reference/graphql-api.md. Summary: Auto-generated
     graphql reference from source contract.
 
 

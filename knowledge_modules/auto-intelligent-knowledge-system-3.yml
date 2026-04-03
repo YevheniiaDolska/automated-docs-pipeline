@@ -14,12 +14,28 @@ channels:
 priority: 60
 status: active
 owner: docsops-auto
-last_verified: '2026-03-28'
+last_verified: '2026-04-03'
 dependencies: []
 tags:
 - auto-extracted
 - concept
 - intelligent-knowledge-system
+metadata:
+  url: https://docs.example.com/concepts/intelligent-knowledge-system/
+  title: Intelligent knowledge system architecture (Part 3)
+  heading: RAG integration contract
+  version: 1.50.0
+  updated_at: '2026-03-20'
+  source_site: docs.example.com
+  source_path: concepts/intelligent-knowledge-system.md
+semantic:
+  topic: RAG integration contract
+  intent: integrate
+  audience: developer
+  keywords:
+  - concept
+  - intelligent knowledge system
+  status: rule_based
 content:
   docs_markdown: '## RAG integration contract
 
@@ -45,7 +61,7 @@ content:
     This shared contract keeps documentation generation, knowledge base updates, and
     RAG runtime aligned.'
   assistant_context: 'Use this module when answering questions related to: Intelligent
-    knowledge system architecture (Part 3). Source path: docs/concepts/intelligent-knowledge-system.md.
+    knowledge system architecture (Part 3). Source path: concepts/intelligent-knowledge-system.md.
     Summary: Explains how the pipeline models reusable knowledge modules for AI retrieval,
     dynamic assembly, and multi-channel documentation delivery.
 

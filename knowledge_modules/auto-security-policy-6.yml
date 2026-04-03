@@ -1,0 +1,77 @@
+id: auto-security-policy-6
+title: VeriDoc security policy (Part 6)
+summary: Security policy for VeriDoc platform covering infrastructure security, encryption,
+  authentication, access controls, and incident response procedures.
+intents:
+- integrate
+- troubleshoot
+audiences:
+- developer
+- operator
+channels:
+- docs
+- assistant
+- automation
+priority: 60
+status: active
+owner: docsops-auto
+last_verified: '2026-04-03'
+dependencies: []
+tags:
+- auto-extracted
+- reference
+- security-policy
+metadata:
+  url: https://docs.example.com/legal/security-policy/
+  title: VeriDoc security policy (Part 6)
+  heading: Severity levels
+  version: 1.50.0
+  updated_at: '2026-03-28'
+  source_site: docs.example.com
+  source_path: legal/security-policy.md
+semantic:
+  topic: Severity levels
+  intent: integrate
+  audience: developer
+  keywords:
+  - reference
+  - security policy
+  status: rule_based
+content:
+  docs_markdown: "### Severity levels\n\n| Level | Definition | Response time | Example\
+    \ |\n|-------|------------|---------------|---------|\n| **Critical** | Service\
+    \ down, data at risk | 1 hour | Database corruption, security breach |\n| **High**\
+    \ | Feature degraded, no data risk | 4 hours | API errors, slow response times\
+    \ |\n| **Medium** | Minor issue, workaround available | 24 hours | Non-critical\
+    \ feature bug |\n| **Low** | Cosmetic or documentation issue | 72 hours | UI display\
+    \ issue |\n\n## Vulnerability management\n\n1. **Dependency scanning.** Python\
+    \ dependencies are reviewed weekly for\n   known vulnerabilities using `pip-audit`.\n\
+    1. **OS patching.** Security patches are applied within 48 hours of\n   release.\n\
+    1. **Container updates.** Docker base images are rebuilt monthly with\n   latest\
+    \ security patches.\n1. **Penetration testing.** External penetration testing\
+    \ is conducted\n   annually.\n\n## Responsible disclosure\n\nIf you discover a\
+    \ security vulnerability in VeriDoc:\n\n1. Email <security@veri-doc.app> with\
+    \ a description of the vulnerability.\n1. Include steps to reproduce the issue.\n\
+    1. Allow 90 days for remediation before public disclosure.\n1. Do not access or\
+    \ modify other users' data during testing.\n\nWe do not pursue legal action against\
+    \ security researchers who follow\nresponsible disclosure practices."
+  assistant_context: "Use this module when answering questions related to: VeriDoc\
+    \ security policy (Part 6). Source path: legal/security-policy.md. Summary: Security\
+    \ policy for VeriDoc platform covering infrastructure security, encryption, authentication,\
+    \ access controls, and incident response procedures.\n\n### Severity levels\n\n\
+    | Level | Definition | Response time | Example |\n|-------|------------|---------------|---------|\n\
+    | **Critical** | Service down, data at risk | 1 hour | Database corruption, security\
+    \ breach |\n| **High** | Feature degraded, no data risk | 4 hours | API errors,\
+    \ slow response times |\n| **Medium** | Minor issue, workaround available | 24\
+    \ hours | Non-critical feature bug |\n| **Low** | Cosmetic or documentation issue\
+    \ | 72 hours | UI display issue |\n\n## Vulnerability management\n\n1. **Dependency\
+    \ scanning.** Python dependencies are reviewed weekly for\n   known vulnerabilities\
+    \ using `pip-audit`.\n1. **OS patching.** Security patches are applied within\
+    \ 48 hours of\n   release.\n1. **Container updates.** Docker base images are rebuilt\
+    \ monthly with\n   latest security patches.\n1. **Penetration testing.** External\
+    \ penetration testing is conducted\n   annually.\n\n## Responsible disclosure\n\
+    \nIf you discover a security vulnerability in VeriDoc:\n\n1. Email <security@veri-doc.app>\
+    \ with a description of the vulnerability.\n1. Include steps to reproduce the\
+    \ issue.\n1. Allow 90 days for remediation before public disclosure.\n1. Do not\
+    \ access or modify other users' data during testing.\n\nWe do not pursue legal\
+    \ action against security researchers who follow\nresponsible disclosure practices."

@@ -15,12 +15,28 @@ channels:
 priority: 60
 status: active
 owner: docsops-auto
-last_verified: '2026-03-28'
+last_verified: '2026-04-03'
 dependencies: []
 tags:
 - auto-extracted
 - how-to
 - smart-merge-review
+metadata:
+  url: https://docs.example.com/operations/SMART_MERGE_REVIEW/
+  title: Smart Merge and Manual Review (Part 4)
+  heading: Implementation status (2026-03-25)
+  version: 1.50.0
+  updated_at: '2026-03-19'
+  source_site: docs.example.com
+  source_path: operations/SMART_MERGE_REVIEW.md
+semantic:
+  topic: Implementation status (2026-03-25)
+  intent: configure
+  audience: practitioner
+  keywords:
+  - how-to
+  - smart merge review
+  status: rule_based
 content:
   docs_markdown: '## Implementation status (2026-03-25)
 
@@ -68,9 +84,9 @@ content:
     - Where commercial packaging is discussed, recurring service terms (retainer/licensing)
     are part of the active go-to-market model.'
   assistant_context: 'Use this module when answering questions related to: Smart Merge
-    and Manual Review (Part 4). Source path: docs/operations/SMART_MERGE_REVIEW.md.
-    Summary: How needs_review works for protocol test assets and where operators review
-    flagged cases.
+    and Manual Review (Part 4). Source path: operations/SMART_MERGE_REVIEW.md. Summary:
+    How needs_review works for protocol test assets and where operators review flagged
+    cases.
 
 
     ## Implementation status (2026-03-25)

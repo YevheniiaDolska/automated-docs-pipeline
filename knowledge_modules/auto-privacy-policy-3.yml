@@ -1,0 +1,101 @@
+id: auto-privacy-policy-3
+title: VeriDoc privacy policy (Part 3)
+summary: Privacy policy for VeriDoc automated documentation platform, covering data
+  collection, processing, storage, retention, and your rights under GDPR.
+intents:
+- integrate
+audiences:
+- developer
+- operator
+channels:
+- docs
+- assistant
+- automation
+priority: 60
+status: active
+owner: docsops-auto
+last_verified: '2026-04-03'
+dependencies: []
+tags:
+- auto-extracted
+- privacy-policy
+- reference
+metadata:
+  url: https://docs.example.com/legal/privacy-policy/
+  title: VeriDoc privacy policy (Part 3)
+  heading: LLM processing data
+  version: 1.50.0
+  updated_at: '2026-03-28'
+  source_site: docs.example.com
+  source_path: legal/privacy-policy.md
+semantic:
+  topic: LLM processing data
+  intent: integrate
+  audience: developer
+  keywords:
+  - privacy policy
+  - reference
+  status: rule_based
+content:
+  docs_markdown: '### LLM processing data
+
+
+    When you enable AI features (`--use-llm` flag), your documentation content
+
+    is sent to third-party LLM providers for processing:
+
+
+    | Provider | Data sent | Provider privacy policy |
+
+    |----------|-----------|------------------------|
+
+    | Anthropic (Claude) | Document sections for quality enhancement | [anthropic.com/privacy](https://www.anthropic.com/privacy)
+    |
+
+    | Groq | Document sections for text generation | [groq.com/privacy-policy](https://groq.com/privacy-policy/)
+    |
+
+    | DeepSeek | Document sections for text generation | [deepseek.com/privacy](https://www.deepseek.com/privacy)
+    |
+
+    | OpenAI | Document sections for embeddings and text generation | [openai.com/privacy](https://openai.com/privacy)
+    |
+
+
+    LLM processing is opt-in. Without the AI flag, no content leaves our
+
+    infrastructure.'
+  assistant_context: 'Use this module when answering questions related to: VeriDoc
+    privacy policy (Part 3). Source path: legal/privacy-policy.md. Summary: Privacy
+    policy for VeriDoc automated documentation platform, covering data collection,
+    processing, storage, retention, and your rights under GDPR.
+
+
+    ### LLM processing data
+
+
+    When you enable AI features (`--use-llm` flag), your documentation content
+
+    is sent to third-party LLM providers for processing:
+
+
+    | Provider | Data sent | Provider privacy policy |
+
+    |----------|-----------|------------------------|
+
+    | Anthropic (Claude) | Document sections for quality enhancement | [anthropic.com/privacy](https://www.anthropic.com/privacy)
+    |
+
+    | Groq | Document sections for text generation | [groq.com/privacy-policy](https://groq.com/privacy-policy/)
+    |
+
+    | DeepSeek | Document sections for text generation | [deepseek.com/privacy](https://www.deepseek.com/privacy)
+    |
+
+    | OpenAI | Document sections for embeddings and text generation | [openai.com/privacy](https://openai.com/privacy)
+    |
+
+
+    LLM processing is opt-in. Without the AI flag, no content leaves our
+
+    infrastructure.'

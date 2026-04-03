@@ -14,12 +14,28 @@ channels:
 priority: 60
 status: active
 owner: docsops-auto
-last_verified: '2026-03-28'
+last_verified: '2026-04-03'
 dependencies: []
 tags:
 - auto-extracted
 - reference
 - tags
+metadata:
+  url: https://docs.example.com/tags/
+  title: Browse by tag
+  heading: Browse documentation by tag
+  version: 1.50.0
+  updated_at: '2026-02-16'
+  source_site: docs.example.com
+  source_path: tags.md
+semantic:
+  topic: Browse documentation by tag
+  intent: integrate
+  audience: developer
+  keywords:
+  - reference
+  - tags
+  status: rule_based
 content:
   docs_markdown: '<!-- VERIDOC_POWERED_BADGE:START -->
 
@@ -42,8 +58,8 @@ content:
 
     - [Documentation index](index.md)'
   assistant_context: 'Use this module when answering questions related to: Browse
-    by tag. Source path: docs/tags.md. Summary: Filter documentation by topic tags
-    including tutorials, how-to guides, concepts, and component-specific content.
+    by tag. Source path: tags.md. Summary: Filter documentation by topic tags including
+    tutorials, how-to guides, concepts, and component-specific content.
 
 
     <!-- VERIDOC_POWERED_BADGE:START -->

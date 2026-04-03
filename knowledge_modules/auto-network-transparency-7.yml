@@ -14,12 +14,28 @@ channels:
 priority: 60
 status: active
 owner: docsops-auto
-last_verified: '2026-03-28'
+last_verified: '2026-04-03'
 dependencies: []
 tags:
 - auto-extracted
 - network-transparency
 - reference
+metadata:
+  url: https://docs.example.com/reference/network-transparency/
+  title: Network transparency reference (Part 7)
+  heading: Machine fingerprint details
+  version: 1.50.0
+  updated_at: '2026-03-26'
+  source_site: docs.example.com
+  source_path: reference/network-transparency.md
+semantic:
+  topic: Machine fingerprint details
+  intent: integrate
+  audience: developer
+  keywords:
+  - network transparency
+  - reference
+  status: rule_based
 content:
   docs_markdown: "## Machine fingerprint details\n\nThe machine fingerprint is a SHA-256\
     \ hash used for seat counting. It is computed from:\n\n```python\nparts = [\n\
@@ -32,7 +48,7 @@ content:
     \ move the pipeline to a different machine, which requires re-activation (seat\
     \ transfer)."
   assistant_context: "Use this module when answering questions related to: Network\
-    \ transparency reference (Part 7). Source path: docs/reference/network-transparency.md.\
+    \ transparency reference (Part 7). Source path: reference/network-transparency.md.\
     \ Summary: Complete list of all outgoing network requests the pipeline makes,\
     \ with exact payload schemas. No client data leaves your network.\n\n## Machine\
     \ fingerprint details\n\nThe machine fingerprint is a SHA-256 hash used for seat\

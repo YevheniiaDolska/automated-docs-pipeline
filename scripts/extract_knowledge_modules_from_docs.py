@@ -193,16 +193,20 @@ def _module_for_chunk(
     path: Path,
     rel_path: str,
     frontmatter: dict[str, Any],
-    chunk_payload: dict[str, str],
+    chunk_payload: dict[str, str] | str,
     idx: int,
     owner: str,
     *,
-    docs_url: str,
-    variables: dict[str, Any],
+    docs_url: str = "https://docs.example.com",
+    variables: dict[str, Any] | None = None,
 ) -> dict[str, Any]:
     content_type = str(frontmatter.get("content_type", "")).strip().lower()
-    chunk = str(chunk_payload.get("content", "")).strip()
-    heading = str(chunk_payload.get("heading", "")).strip()
+    if isinstance(chunk_payload, dict):
+        chunk = str(chunk_payload.get("content", "")).strip()
+        heading = str(chunk_payload.get("heading", "")).strip()
+    else:
+        chunk = str(chunk_payload).strip()
+        heading = ""
     title = _extract_title(frontmatter, path, idx)
     summary = _extract_summary(frontmatter, chunk)
     chunk_clean = chunk.strip()
@@ -221,7 +225,7 @@ def _module_for_chunk(
     tags: list[str] = ["auto-extracted", content_type or "docs", _slug(path.stem)]
     resolved_heading = heading or title
     doc_url = _build_doc_url(docs_base_url=docs_url, rel_path=rel_path)
-    version = _resolve_doc_version(frontmatter, variables)
+    version = _resolve_doc_version(frontmatter, variables or {})
     updated_at = _resolve_updated_at(frontmatter)
     source_site = _source_site_from_docs_url(docs_url)
     return {

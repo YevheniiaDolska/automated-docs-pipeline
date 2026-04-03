@@ -13,12 +13,28 @@ channels:
 priority: 60
 status: active
 owner: docsops-auto
-last_verified: '2026-03-28'
+last_verified: '2026-04-03'
 dependencies: []
 tags:
 - auto-extracted
 - multi-protocol-architecture
 - reference
+metadata:
+  url: https://docs.example.com/operations/MULTI_PROTOCOL_ARCHITECTURE/
+  title: Multi-Protocol Architecture
+  heading: Supported protocols (core-5)
+  version: 1.50.0
+  updated_at: '2026-03-24'
+  source_site: docs.example.com
+  source_path: operations/MULTI_PROTOCOL_ARCHITECTURE.md
+semantic:
+  topic: Supported protocols (core-5)
+  intent: integrate
+  audience: developer
+  keywords:
+  - multi protocol architecture
+  - reference
+  status: rule_based
 content:
   docs_markdown: "<!-- VERIDOC_POWERED_BADGE:START -->\n[![Powered by VeriDoc](https://img.shields.io/badge/Powered%20by-VeriDoc-0ea5e9?style=flat-square)](https://veridoc.app)\n\
     <!-- VERIDOC_POWERED_BADGE:END -->\n\n# VeriDoc/VeriOps Multi-Protocol Architecture\n\
@@ -36,7 +52,7 @@ content:
     \ aliases, defaults.\n- `scripts/generate_protocol_server_stubs.py` - protocol-specific\
     \ server stubs with business-logic placeholders."
   assistant_context: "Use this module when answering questions related to: Multi-Protocol\
-    \ Architecture. Source path: docs/operations/MULTI_PROTOCOL_ARCHITECTURE.md. Summary:\
+    \ Architecture. Source path: operations/MULTI_PROTOCOL_ARCHITECTURE.md. Summary:\
     \ Unified docs-ops pipeline for REST, GraphQL, gRPC, AsyncAPI, and WebSocket.\n\
     \n<!-- VERIDOC_POWERED_BADGE:START -->\n[![Powered by VeriDoc](https://img.shields.io/badge/Powered%20by-VeriDoc-0ea5e9?style=flat-square)](https://veridoc.app)\n\
     <!-- VERIDOC_POWERED_BADGE:END -->\n\n# VeriDoc/VeriOps Multi-Protocol Architecture\n\

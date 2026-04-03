@@ -13,12 +13,28 @@ channels:
 priority: 60
 status: active
 owner: docsops-auto
-last_verified: '2026-03-28'
+last_verified: '2026-04-03'
 dependencies: []
 tags:
 - auto-extracted
 - grpc-api
 - reference
+metadata:
+  url: https://docs.example.com/reference/grpc-api/
+  title: GRPC API Reference (Part 4)
+  heading: Next steps
+  version: 1.50.0
+  updated_at: '2026-03-19'
+  source_site: docs.example.com
+  source_path: reference/grpc-api.md
+semantic:
+  topic: Next steps
+  intent: integrate
+  audience: developer
+  keywords:
+  - grpc api
+  - reference
+  status: rule_based
 content:
   docs_markdown: '## Next steps
 
@@ -29,7 +45,7 @@ content:
     This auto-generated knowledge chunk was expanded to satisfy minimum retrieval
     module length for stable indexing.'
   assistant_context: 'Use this module when answering questions related to: GRPC API
-    Reference (Part 4). Source path: docs/reference/grpc-api.md. Summary: Auto-generated
+    Reference (Part 4). Source path: reference/grpc-api.md. Summary: Auto-generated
     grpc reference from source contract.
 
 

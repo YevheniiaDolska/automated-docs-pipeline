@@ -14,12 +14,28 @@ channels:
 priority: 60
 status: active
 owner: docsops-auto
-last_verified: '2026-03-28'
+last_verified: '2026-04-03'
 dependencies: []
 tags:
 - auto-extracted
 - plan-tiers
 - reference
+metadata:
+  url: https://docs.example.com/operations/PLAN_TIERS/
+  title: Plan Tiers (Basic / Pro / Enterprise)
+  heading: Plan Tiers (Basic / Pro / Enterprise)
+  version: 1.50.0
+  updated_at: '2026-03-24'
+  source_site: docs.example.com
+  source_path: operations/PLAN_TIERS.md
+semantic:
+  topic: Plan Tiers (Basic / Pro / Enterprise)
+  intent: integrate
+  audience: developer
+  keywords:
+  - plan tiers
+  - reference
+  status: rule_based
 content:
   docs_markdown: '<!-- VERIDOC_POWERED_BADGE:START -->
 
@@ -30,8 +46,8 @@ content:
 
     # Plan Tiers (Basic / Pro / Enterprise)'
   assistant_context: 'Use this module when answering questions related to: Plan Tiers
-    (Basic / Pro / Enterprise). Source path: docs/operations/PLAN_TIERS.md. Summary:
-    Feature packaging matrix and defaults for Basic, Pro, and Enterprise client plans.
+    (Basic / Pro / Enterprise). Source path: operations/PLAN_TIERS.md. Summary: Feature
+    packaging matrix and defaults for Basic, Pro, and Enterprise client plans.
 
 
     <!-- VERIDOC_POWERED_BADGE:START -->

@@ -1,0 +1,102 @@
+id: auto-data-processing-agreement-2
+title: VeriDoc data processing agreement (Part 2)
+summary: Data processing agreement for VeriDoc platform covering GDPR compliance,
+  sub-processors, data transfer mechanisms, and breach notification procedures.
+intents:
+- integrate
+- secure
+audiences:
+- developer
+- operator
+channels:
+- docs
+- assistant
+- automation
+priority: 60
+status: active
+owner: docsops-auto
+last_verified: '2026-04-03'
+dependencies: []
+tags:
+- auto-extracted
+- data-processing-agreement
+- reference
+metadata:
+  url: https://docs.example.com/legal/data-processing-agreement/
+  title: VeriDoc data processing agreement (Part 2)
+  heading: Nature and purpose of processing
+  version: 1.50.0
+  updated_at: '2026-03-28'
+  source_site: docs.example.com
+  source_path: legal/data-processing-agreement.md
+semantic:
+  topic: Nature and purpose of processing
+  intent: integrate
+  audience: developer
+  keywords:
+  - data processing agreement
+  - reference
+  status: rule_based
+content:
+  docs_markdown: '### Nature and purpose of processing
+
+
+    | Processing activity | Purpose | Data categories |
+
+    |---------------------|---------|-----------------|
+
+    | Pipeline execution | Transform and enhance documentation | Documentation content,
+    metadata |
+
+    | LLM processing (opt-in) | AI-powered quality improvements | Document sections
+    sent to LLM providers |
+
+    | Usage tracking | Quota enforcement and billing | Request counts, timestamps
+    |
+
+    | Authentication | Access control | Email, hashed passwords, JWT tokens |
+
+    | Billing | Payment processing and invoicing | Email, subscription tier, payment
+    history |
+
+
+    ### Categories of data subjects
+
+
+    Data subjects include your employees, contractors, and any individuals
+
+    whose personal data appears in documentation processed through VeriDoc.'
+  assistant_context: 'Use this module when answering questions related to: VeriDoc
+    data processing agreement (Part 2). Source path: legal/data-processing-agreement.md.
+    Summary: Data processing agreement for VeriDoc platform covering GDPR compliance,
+    sub-processors, data transfer mechanisms, and breach notification procedures.
+
+
+    ### Nature and purpose of processing
+
+
+    | Processing activity | Purpose | Data categories |
+
+    |---------------------|---------|-----------------|
+
+    | Pipeline execution | Transform and enhance documentation | Documentation content,
+    metadata |
+
+    | LLM processing (opt-in) | AI-powered quality improvements | Document sections
+    sent to LLM providers |
+
+    | Usage tracking | Quota enforcement and billing | Request counts, timestamps
+    |
+
+    | Authentication | Access control | Email, hashed passwords, JWT tokens |
+
+    | Billing | Payment processing and invoicing | Email, subscription tier, payment
+    history |
+
+
+    ### Categories of data subjects
+
+
+    Data subjects include your employees, contractors, and any individuals
+
+    whose personal data appears in documentation processed through VeriDoc.'

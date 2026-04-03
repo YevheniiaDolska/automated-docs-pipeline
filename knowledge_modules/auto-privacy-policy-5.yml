@@ -1,0 +1,71 @@
+id: auto-privacy-policy-5
+title: VeriDoc privacy policy (Part 5)
+summary: Privacy policy for VeriDoc automated documentation platform, covering data
+  collection, processing, storage, retention, and your rights under GDPR.
+intents:
+- integrate
+- secure
+- troubleshoot
+audiences:
+- developer
+- operator
+channels:
+- docs
+- assistant
+- automation
+priority: 60
+status: active
+owner: docsops-auto
+last_verified: '2026-04-03'
+dependencies: []
+tags:
+- auto-extracted
+- privacy-policy
+- reference
+metadata:
+  url: https://docs.example.com/legal/privacy-policy/
+  title: VeriDoc privacy policy (Part 5)
+  heading: Security measures
+  version: 1.50.0
+  updated_at: '2026-03-28'
+  source_site: docs.example.com
+  source_path: legal/privacy-policy.md
+semantic:
+  topic: Security measures
+  intent: integrate
+  audience: developer
+  keywords:
+  - privacy policy
+  - reference
+  status: rule_based
+content:
+  docs_markdown: "### Security measures\n\n1. All API communication uses TLS 1.3 encryption.\n\
+    1. Passwords are hashed with PBKDF2-SHA256 (600,000 iterations).\n1. JWT authentication\
+    \ tokens expire after 24 hours.\n1. Database backups run daily with 30-day retention\
+    \ and automated restore\n   testing.\n1. Error tracking uses Sentry with PII scrubbing\
+    \ enabled.\n1. Rate limiting enforces 60 requests per minute per user.\n\n## Data\
+    \ retention\n\n| Data type | Retention period | Deletion trigger |\n|-----------|-----------------|------------------|\n\
+    | Account data | Account lifetime + 30 days | Account closure |\n| Billing records\
+    \ | 7 years (legal requirement) | Statutory expiry |\n| Pipeline outputs | Account\
+    \ lifetime + 30 days | Account closure |\n| API logs | 30 days | Automatic rotation\
+    \ |\n| Error reports | 90 days | Automatic rotation |\n| Backups | 30 days | Automatic\
+    \ rotation |\n\nAfter account closure, we retain data for 30 days to allow you\
+    \ to\nreactivate or export. After 30 days, all personal data is permanently\n\
+    deleted."
+  assistant_context: "Use this module when answering questions related to: VeriDoc\
+    \ privacy policy (Part 5). Source path: legal/privacy-policy.md. Summary: Privacy\
+    \ policy for VeriDoc automated documentation platform, covering data collection,\
+    \ processing, storage, retention, and your rights under GDPR.\n\n### Security\
+    \ measures\n\n1. All API communication uses TLS 1.3 encryption.\n1. Passwords\
+    \ are hashed with PBKDF2-SHA256 (600,000 iterations).\n1. JWT authentication tokens\
+    \ expire after 24 hours.\n1. Database backups run daily with 30-day retention\
+    \ and automated restore\n   testing.\n1. Error tracking uses Sentry with PII scrubbing\
+    \ enabled.\n1. Rate limiting enforces 60 requests per minute per user.\n\n## Data\
+    \ retention\n\n| Data type | Retention period | Deletion trigger |\n|-----------|-----------------|------------------|\n\
+    | Account data | Account lifetime + 30 days | Account closure |\n| Billing records\
+    \ | 7 years (legal requirement) | Statutory expiry |\n| Pipeline outputs | Account\
+    \ lifetime + 30 days | Account closure |\n| API logs | 30 days | Automatic rotation\
+    \ |\n| Error reports | 90 days | Automatic rotation |\n| Backups | 30 days | Automatic\
+    \ rotation |\n\nAfter account closure, we retain data for 30 days to allow you\
+    \ to\nreactivate or export. After 30 days, all personal data is permanently\n\
+    deleted."

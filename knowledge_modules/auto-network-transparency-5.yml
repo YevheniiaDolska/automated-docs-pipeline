@@ -15,12 +15,28 @@ channels:
 priority: 60
 status: active
 owner: docsops-auto
-last_verified: '2026-03-28'
+last_verified: '2026-04-03'
 dependencies: []
 tags:
 - auto-extracted
 - network-transparency
 - reference
+metadata:
+  url: https://docs.example.com/reference/network-transparency/
+  title: Network transparency reference (Part 5)
+  heading: Requests the pipeline never makes
+  version: 1.50.0
+  updated_at: '2026-03-26'
+  source_site: docs.example.com
+  source_path: reference/network-transparency.md
+semantic:
+  topic: Requests the pipeline never makes
+  intent: configure
+  audience: developer
+  keywords:
+  - network transparency
+  - reference
+  status: rule_based
 content:
   docs_markdown: "## Requests the pipeline never makes\n\nThe following types of requests\
     \ are architecturally impossible because the pipeline contains no code to construct\
@@ -41,7 +57,7 @@ content:
     \ (Ctrl+C), then analyze\ntcpdump -r pipeline-traffic.pcap -A | grep -i \"POST\\\
     |GET\\|Host:\"\n```"
   assistant_context: "Use this module when answering questions related to: Network\
-    \ transparency reference (Part 5). Source path: docs/reference/network-transparency.md.\
+    \ transparency reference (Part 5). Source path: reference/network-transparency.md.\
     \ Summary: Complete list of all outgoing network requests the pipeline makes,\
     \ with exact payload schemas. No client data leaves your network.\n\n## Requests\
     \ the pipeline never makes\n\nThe following types of requests are architecturally\

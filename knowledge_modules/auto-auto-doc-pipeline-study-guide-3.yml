@@ -14,12 +14,28 @@ channels:
 priority: 60
 status: active
 owner: docsops-auto
-last_verified: '2026-03-28'
+last_verified: '2026-04-03'
 dependencies: []
 tags:
 - auto-doc-pipeline-study-guide
 - auto-extracted
 - reference
+metadata:
+  url: https://docs.example.com/reference/auto-doc-pipeline-study-guide/
+  title: Auto-Doc Pipeline study guide (Part 3)
+  heading: Smooth autopipeline flow (what runs automatically)
+  version: 1.50.0
+  updated_at: '2026-03-25'
+  source_site: docs.example.com
+  source_path: reference/auto-doc-pipeline-study-guide.md
+semantic:
+  topic: Smooth autopipeline flow (what runs automatically)
+  intent: integrate
+  audience: developer
+  keywords:
+  - auto doc pipeline study guide
+  - reference
+  status: rule_based
 content:
   docs_markdown: '## Smooth autopipeline flow (what runs automatically)
 
@@ -48,7 +64,7 @@ content:
 
     1. Run intent assembly and `custom_tasks.weekly`, then write consolidated reports.'
   assistant_context: 'Use this module when answering questions related to: Auto-Doc
-    Pipeline study guide (Part 3). Source path: docs/reference/auto-doc-pipeline-study-guide.md.
+    Pipeline study guide (Part 3). Source path: reference/auto-doc-pipeline-study-guide.md.
     Summary: Learn the Auto-Doc Pipeline quickly with a simple architecture map, operating
     flow, plan mapping, and a detailed client FAQ.
 

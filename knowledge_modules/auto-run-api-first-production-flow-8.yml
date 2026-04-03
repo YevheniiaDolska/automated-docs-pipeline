@@ -14,12 +14,28 @@ channels:
 priority: 60
 status: active
 owner: docsops-auto
-last_verified: '2026-03-28'
+last_verified: '2026-04-03'
 dependencies: []
 tags:
 - auto-extracted
 - how-to
 - run-api-first-production-flow
+metadata:
+  url: https://docs.example.com/how-to/run-api-first-production-flow/
+  title: Run API-first production flow (Part 8)
+  heading: 'Step 3: Start sandbox for live testing'
+  version: '3.1'
+  updated_at: '2026-03-17'
+  source_site: docs.example.com
+  source_path: how-to/run-api-first-production-flow.md
+semantic:
+  topic: 'Step 3: Start sandbox for live testing'
+  intent: configure
+  audience: practitioner
+  keywords:
+  - how-to
+  - run api first production flow
+  status: rule_based
 content:
   docs_markdown: "## Step 3: Start sandbox for live testing\n\nFor contract-mock mode:\n\
     \n```bash\nbash scripts/api_sandbox_project.sh up taskstream ./api/openapi.yaml\
@@ -39,7 +55,7 @@ content:
     \ keeps `mkdocs.yml` playground `sandbox_base_url` aligned with your public mock\
     \ URL.\n\nFor fully automatic Postman-managed external mock:"
   assistant_context: "Use this module when answering questions related to: Run API-first\
-    \ production flow (Part 8). Source path: docs/how-to/run-api-first-production-flow.md.\
+    \ production flow (Part 8). Source path: how-to/run-api-first-production-flow.md.\
     \ Summary: Generate OpenAPI from planning notes, run full lint and self-verification,\
     \ publish playground assets, and keep a sandbox ready for client testing.\n\n\
     ## Step 3: Start sandbox for live testing\n\nFor contract-mock mode:\n\n```bash\n\

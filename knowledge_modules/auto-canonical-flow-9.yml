@@ -14,12 +14,28 @@ channels:
 priority: 60
 status: active
 owner: docsops-auto
-last_verified: '2026-03-28'
+last_verified: '2026-04-03'
 dependencies: []
 tags:
 - auto-extracted
 - canonical-flow
 - reference
+metadata:
+  url: https://docs.example.com/operations/CANONICAL_FLOW/
+  title: Canonical Flow (Sales + Delivery) (Part 9)
+  heading: Implementation status (2026-03-25)
+  version: 1.50.0
+  updated_at: '2026-03-24'
+  source_site: docs.example.com
+  source_path: operations/CANONICAL_FLOW.md
+semantic:
+  topic: Implementation status (2026-03-25)
+  intent: integrate
+  audience: developer
+  keywords:
+  - canonical flow
+  - reference
+  status: rule_based
 content:
   docs_markdown: '## Implementation status (2026-03-25)
 
@@ -67,9 +83,9 @@ content:
     - Where commercial packaging is discussed, recurring service terms (retainer/licensing)
     are part of the active go-to-market model.'
   assistant_context: 'Use this module when answering questions related to: Canonical
-    Flow (Sales + Delivery) (Part 9). Source path: docs/operations/CANONICAL_FLOW.md.
-    Summary: Canonical sales and delivery flow for onboarding and operating client
-    Auto-Doc Pipeline setups.
+    Flow (Sales + Delivery) (Part 9). Source path: operations/CANONICAL_FLOW.md. Summary:
+    Canonical sales and delivery flow for onboarding and operating client Auto-Doc
+    Pipeline setups.
 
 
     ## Implementation status (2026-03-25)

@@ -15,12 +15,28 @@ channels:
 priority: 60
 status: active
 owner: docsops-auto
-last_verified: '2026-03-28'
+last_verified: '2026-04-03'
 dependencies: []
 tags:
 - auto-extracted
 - reference
 - taskstream-api-playground
+metadata:
+  url: https://docs.example.com/reference/taskstream-api-playground/
+  title: TaskStream API playground (Part 3)
+  heading: Multi-language request examples
+  version: 1.50.0
+  updated_at: '2026-03-12'
+  source_site: docs.example.com
+  source_path: reference/taskstream-api-playground.md
+semantic:
+  topic: Multi-language request examples
+  intent: integrate
+  audience: developer
+  keywords:
+  - reference
+  - taskstream api playground
+  status: rule_based
 content:
   docs_markdown: "## Multi-language request examples\n\n=== \"cURL\"\n\n    ```bash\n\
     \    curl -sS \"{{ config.extra.plg.api_playground.endpoints.sandbox_base_url\
@@ -35,7 +51,7 @@ content:
     \ flow](../how-to/run-api-first-production-flow.md)\n- [TaskStream API planning\
     \ notes](taskstream-planning-notes.md)\n\n## Next steps\n\n- [Documentation index](index.md)"
   assistant_context: "Use this module when answering questions related to: TaskStream\
-    \ API playground (Part 3). Source path: docs/reference/taskstream-api-playground.md.\
+    \ API playground (Part 3). Source path: reference/taskstream-api-playground.md.\
     \ Summary: Interactive TaskStream OpenAPI playground with Swagger UI or Redoc\
     \ and try-it-out requests against mock or prod-like sandbox endpoints.\n\n## Multi-language\
     \ request examples\n\n=== \"cURL\"\n\n    ```bash\n    curl -sS \"{{ config.extra.plg.api_playground.endpoints.sandbox_base_url\

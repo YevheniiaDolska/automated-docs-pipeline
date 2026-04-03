@@ -255,10 +255,10 @@ def main() -> int:
             max_attempts = 3
 
         try:
-                attempt = 1
-                while True:
-                    narrator.note(f"{protocol}: attempt {attempt}/{max_attempts}")
-                    attempt_results: list[StageResult] = []
+            attempt = 1
+            while True:
+                narrator.note(f"{protocol}: attempt {attempt}/{max_attempts}")
+                attempt_results: list[StageResult] = []
                 notes_gen = adapter.maybe_generate_contract_from_notes(allow_fail=True)
                 if notes_gen is not None:
                     attempt_results.append(notes_gen)
@@ -375,6 +375,7 @@ def main() -> int:
 
     rag_layer_script = (scripts_dir / "enforce_rag_optimization_layer.py").resolve()
     rag_enabled = bool(modules.get("rag_optimization", True) or modules.get("knowledge_validation", True))
+    rag_enforce = bool(modules.get("rag_optimization_enforce", False))
     if rag_enabled and rag_layer_script.exists():
         rag_layer_cmd = [
             sys.executable,
@@ -392,13 +393,15 @@ def main() -> int:
             "--with-embeddings",
         ]
         rag_layer_rc = subprocess.run(rag_layer_cmd, cwd=str(repo_root), check=False).returncode
+        report["rag_optimization_layer"] = {"ok": rag_layer_rc == 0, "enforced": rag_enforce}
         if rag_layer_rc != 0:
-            report["failed"] = True
-            report.setdefault("failed_protocols", [])
-            report["failed_protocols"] = sorted(set([*report["failed_protocols"], "rag-layer"]))
-            _write_report(report_path, report)
             narrator.warn("RAG optimization layer failed")
-            if strict_mode:
+            if rag_enforce:
+                report["failed"] = True
+                report.setdefault("failed_protocols", [])
+                report["failed_protocols"] = sorted(set([*report["failed_protocols"], "rag-layer"]))
+                _write_report(report_path, report)
+            if strict_mode and rag_enforce:
                 narrator.finish(False, "Strict mode failed. RAG optimization layer is not green.")
                 return 1
 

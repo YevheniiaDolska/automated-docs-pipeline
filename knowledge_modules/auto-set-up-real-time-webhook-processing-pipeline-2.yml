@@ -14,12 +14,28 @@ channels:
 priority: 60
 status: active
 owner: docsops-auto
-last_verified: '2026-03-28'
+last_verified: '2026-04-03'
 dependencies: []
 tags:
 - auto-extracted
 - how-to
 - set-up-real-time-webhook-processing-pipeline
+metadata:
+  url: https://docs.example.com/en/how-to/set-up-real-time-webhook-processing-pipeline/
+  title: Set up a real-time webhook processing pipeline (Part 2)
+  heading: Configure the webhook listener endpoint
+  version: '18.0'
+  updated_at: '2026-03-17'
+  source_site: docs.example.com
+  source_path: en/how-to/set-up-real-time-webhook-processing-pipeline.md
+semantic:
+  topic: Configure the webhook listener endpoint
+  intent: configure
+  audience: practitioner
+  keywords:
+  - how-to
+  - set up real time webhook processing pipeline
+  status: rule_based
 content:
   docs_markdown: "## Configure the webhook listener endpoint\n\n=== \"Cloud\"\n\n\
     \    Navigate to **Settings > Webhooks** in the {{ product_name }} dashboard at\
@@ -37,7 +53,7 @@ content:
     \ signature verification before processing. This prevents tampering and replay\
     \ attacks."
   assistant_context: "Use this module when answering questions related to: Set up\
-    \ a real-time webhook processing pipeline (Part 2). Source path: docs/en/how-to/set-up-real-time-webhook-processing-pipeline.md.\
+    \ a real-time webhook processing pipeline (Part 2). Source path: en/how-to/set-up-real-time-webhook-processing-pipeline.md.\
     \ Summary: Configure end-to-end webhook ingestion with HMAC verification, async\
     \ queue processing, and delivery guarantees in under 15 minutes.\n\n## Configure\
     \ the webhook listener endpoint\n\n=== \"Cloud\"\n\n    Navigate to **Settings\

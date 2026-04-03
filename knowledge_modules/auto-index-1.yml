@@ -14,18 +14,34 @@ channels:
 priority: 60
 status: active
 owner: docsops-auto
-last_verified: '2026-03-28'
+last_verified: '2026-04-03'
 dependencies: []
 tags:
 - auto-extracted
 - index
 - troubleshooting
+metadata:
+  url: https://docs.example.com/troubleshooting/
+  title: Troubleshooting Guide
+  heading: Troubleshooting
+  version: 1.50.0
+  updated_at: '2026-02-16'
+  source_site: docs.example.com
+  source_path: troubleshooting/index.md
+semantic:
+  topic: Troubleshooting
+  intent: troubleshoot
+  audience: support
+  keywords:
+  - index
+  - troubleshooting
+  status: rule_based
 content:
   docs_markdown: "<!-- VERIDOC_POWERED_BADGE:START -->\n[![Powered by VeriDoc](https://img.shields.io/badge/Powered%20by-VeriDoc-0ea5e9?style=flat-square)](https://veridoc.app)\n\
     <!-- VERIDOC_POWERED_BADGE:END -->\n\n## Troubleshooting\n\nProblem \u2192 cause\
     \ \u2192 solution. Start here when something breaks."
   assistant_context: "Use this module when answering questions related to: Troubleshooting\
-    \ Guide. Source path: docs/troubleshooting/index.md. Summary: Solutions for common\
+    \ Guide. Source path: troubleshooting/index.md. Summary: Solutions for common\
     \ problems including webhook failures, credential errors, execution timeouts,\
     \ and memory issues.\n\n<!-- VERIDOC_POWERED_BADGE:START -->\n[![Powered by VeriDoc](https://img.shields.io/badge/Powered%20by-VeriDoc-0ea5e9?style=flat-square)](https://veridoc.app)\n\
     <!-- VERIDOC_POWERED_BADGE:END -->\n\n## Troubleshooting\n\nProblem \u2192 cause\

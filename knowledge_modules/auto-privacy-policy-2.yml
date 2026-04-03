@@ -1,0 +1,69 @@
+id: auto-privacy-policy-2
+title: VeriDoc privacy policy (Part 2)
+summary: Privacy policy for VeriDoc automated documentation platform, covering data
+  collection, processing, storage, retention, and your rights under GDPR.
+intents:
+- integrate
+- secure
+- troubleshoot
+audiences:
+- developer
+- operator
+channels:
+- docs
+- assistant
+- automation
+priority: 60
+status: active
+owner: docsops-auto
+last_verified: '2026-04-03'
+dependencies: []
+tags:
+- auto-extracted
+- privacy-policy
+- reference
+metadata:
+  url: https://docs.example.com/legal/privacy-policy/
+  title: VeriDoc privacy policy (Part 2)
+  heading: Usage data
+  version: 1.50.0
+  updated_at: '2026-03-28'
+  source_site: docs.example.com
+  source_path: legal/privacy-policy.md
+semantic:
+  topic: Usage data
+  intent: integrate
+  audience: developer
+  keywords:
+  - privacy policy
+  - reference
+  status: rule_based
+content:
+  docs_markdown: "### Usage data\n\nWhen you use the Service, we automatically collect:\n\
+    \n| Data field | Purpose | Retention |\n|------------|---------|-----------|\n\
+    | Pipeline run metadata | Usage tracking, quota enforcement | 90 days |\n| API\
+    \ request logs | Rate limiting, debugging, abuse prevention | 30 days |\n| Error\
+    \ reports (Sentry) | Bug fixing, reliability improvement | 90 days |\n| Authentication\
+    \ tokens | Session management | Token expiry (24 hours) |\n\n### Documentation\
+    \ content\n\nWhen you process documentation through the pipeline:\n\n1. Your content\
+    \ is processed in memory during pipeline execution.\n1. Generated outputs (processed\
+    \ Markdown, reports, knowledge modules) are\n   stored in encrypted PostgreSQL\
+    \ databases.\n1. We do not read, analyze, or use your documentation content for\
+    \ any\n   purpose other than providing the Service.\n1. We do not use your content\
+    \ to train machine learning models."
+  assistant_context: "Use this module when answering questions related to: VeriDoc\
+    \ privacy policy (Part 2). Source path: legal/privacy-policy.md. Summary: Privacy\
+    \ policy for VeriDoc automated documentation platform, covering data collection,\
+    \ processing, storage, retention, and your rights under GDPR.\n\n### Usage data\n\
+    \nWhen you use the Service, we automatically collect:\n\n| Data field | Purpose\
+    \ | Retention |\n|------------|---------|-----------|\n| Pipeline run metadata\
+    \ | Usage tracking, quota enforcement | 90 days |\n| API request logs | Rate limiting,\
+    \ debugging, abuse prevention | 30 days |\n| Error reports (Sentry) | Bug fixing,\
+    \ reliability improvement | 90 days |\n| Authentication tokens | Session management\
+    \ | Token expiry (24 hours) |\n\n### Documentation content\n\nWhen you process\
+    \ documentation through the pipeline:\n\n1. Your content is processed in memory\
+    \ during pipeline execution.\n1. Generated outputs (processed Markdown, reports,\
+    \ knowledge modules) are\n   stored in encrypted PostgreSQL databases.\n1. We\
+    \ do not read, analyze, or use your documentation content for any\n   purpose\
+    \ other than providing the Service.\n1. We do not use your content to train machine\
+    \ learning models."

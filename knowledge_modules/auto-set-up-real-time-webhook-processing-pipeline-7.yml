@@ -14,12 +14,28 @@ channels:
 priority: 60
 status: active
 owner: docsops-auto
-last_verified: '2026-03-28'
+last_verified: '2026-04-03'
 dependencies: []
 tags:
 - auto-extracted
 - how-to
 - set-up-real-time-webhook-processing-pipeline
+metadata:
+  url: https://docs.example.com/en/how-to/set-up-real-time-webhook-processing-pipeline/
+  title: Set up a real-time webhook processing pipeline (Part 7)
+  heading: Set up async event processing with BullMQ
+  version: '18.0'
+  updated_at: '2026-03-17'
+  source_site: docs.example.com
+  source_path: en/how-to/set-up-real-time-webhook-processing-pipeline.md
+semantic:
+  topic: Set up async event processing with BullMQ
+  intent: configure
+  audience: practitioner
+  keywords:
+  - how-to
+  - set up real time webhook processing pipeline
+  status: rule_based
 content:
   docs_markdown: "## Set up async event processing with BullMQ\n\nAfter signature\
     \ verification, enqueue events for reliable async processing. This pattern returns\
@@ -36,7 +52,7 @@ content:
     \ (job) => {\n  const event = job.data;\n  console.log(`Processing ${event.type}:\
     \ ${JSON.stringify(event)}`);"
   assistant_context: "Use this module when answering questions related to: Set up\
-    \ a real-time webhook processing pipeline (Part 7). Source path: docs/en/how-to/set-up-real-time-webhook-processing-pipeline.md.\
+    \ a real-time webhook processing pipeline (Part 7). Source path: en/how-to/set-up-real-time-webhook-processing-pipeline.md.\
     \ Summary: Configure end-to-end webhook ingestion with HMAC verification, async\
     \ queue processing, and delivery guarantees in under 15 minutes.\n\n## Set up\
     \ async event processing with BullMQ\n\nAfter signature verification, enqueue\

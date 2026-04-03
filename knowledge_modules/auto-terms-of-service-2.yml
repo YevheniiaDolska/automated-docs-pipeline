@@ -1,0 +1,79 @@
+id: auto-terms-of-service-2
+title: VeriDoc terms of service (Part 2)
+summary: Terms of service governing the use of VeriDoc automated documentation platform,
+  including subscription tiers, usage limits, and acceptable use policies.
+intents:
+- integrate
+audiences:
+- developer
+- operator
+channels:
+- docs
+- assistant
+- automation
+priority: 60
+status: active
+owner: docsops-auto
+last_verified: '2026-04-03'
+dependencies: []
+tags:
+- auto-extracted
+- reference
+- terms-of-service
+metadata:
+  url: https://docs.example.com/legal/terms-of-service/
+  title: VeriDoc terms of service (Part 2)
+  heading: Subscription tiers and usage limits
+  version: 1.50.0
+  updated_at: '2026-03-28'
+  source_site: docs.example.com
+  source_path: legal/terms-of-service.md
+semantic:
+  topic: Subscription tiers and usage limits
+  intent: integrate
+  audience: developer
+  keywords:
+  - reference
+  - terms of service
+  status: rule_based
+content:
+  docs_markdown: "## Subscription tiers and usage limits\n\nVeriDoc offers five subscription\
+    \ tiers with the following usage limits per\nbilling period:\n\n| Tier | AI requests\
+    \ | Pages | API calls | Price |\n|------|-------------|-------|-----------|-------|\n\
+    | **Free** | 50 | 10 | 100 | $0/month |\n| **Starter** | 500 | 50 | 5,000 | Refer\
+    \ to pricing page |\n| **Pro** | 2,000 | 200 | 20,000 | Refer to pricing page\
+    \ |\n| **Business** | 10,000 | 1,000 | 100,000 | Refer to pricing page |\n| **Enterprise**\
+    \ | Unlimited | Unlimited | Unlimited | Custom pricing |\n\nWhen you exceed your\
+    \ tier limits, the Service restricts further pipeline\nruns until the next billing\
+    \ period or until you upgrade your plan.\n\n## Billing and payments\n\nSubscriptions\
+    \ are billed through LemonSqueezy, our payment processor.\nBy subscribing, you\
+    \ also agree to the\n[LemonSqueezy terms of service](https://www.lemonsqueezy.com/terms).\n\
+    \nBilling details:\n\n1. Subscriptions renew automatically at the end of each\
+    \ billing period\n   (monthly or annual).\n1. You may cancel at any time from\
+    \ the billing portal. Cancellation takes\n   effect at the end of the current\
+    \ billing period.\n1. Refunds follow our 14-day refund policy. Contact <support@veri-doc.app>\n\
+    \   within 14 days of purchase for a full refund.\n1. Failed payments are retried\
+    \ up to 3 times over 7 days. After 3 failures,\n   the subscription is canceled\
+    \ automatically."
+  assistant_context: "Use this module when answering questions related to: VeriDoc\
+    \ terms of service (Part 2). Source path: legal/terms-of-service.md. Summary:\
+    \ Terms of service governing the use of VeriDoc automated documentation platform,\
+    \ including subscription tiers, usage limits, and acceptable use policies.\n\n\
+    ## Subscription tiers and usage limits\n\nVeriDoc offers five subscription tiers\
+    \ with the following usage limits per\nbilling period:\n\n| Tier | AI requests\
+    \ | Pages | API calls | Price |\n|------|-------------|-------|-----------|-------|\n\
+    | **Free** | 50 | 10 | 100 | $0/month |\n| **Starter** | 500 | 50 | 5,000 | Refer\
+    \ to pricing page |\n| **Pro** | 2,000 | 200 | 20,000 | Refer to pricing page\
+    \ |\n| **Business** | 10,000 | 1,000 | 100,000 | Refer to pricing page |\n| **Enterprise**\
+    \ | Unlimited | Unlimited | Unlimited | Custom pricing |\n\nWhen you exceed your\
+    \ tier limits, the Service restricts further pipeline\nruns until the next billing\
+    \ period or until you upgrade your plan.\n\n## Billing and payments\n\nSubscriptions\
+    \ are billed through LemonSqueezy, our payment processor.\nBy subscribing, you\
+    \ also agree to the\n[LemonSqueezy terms of service](https://www.lemonsqueezy.com/terms).\n\
+    \nBilling details:\n\n1. Subscriptions renew automatically at the end of each\
+    \ billing period\n   (monthly or annual).\n1. You may cancel at any time from\
+    \ the billing portal. Cancellation takes\n   effect at the end of the current\
+    \ billing period.\n1. Refunds follow our 14-day refund policy. Contact <support@veri-doc.app>\n\
+    \   within 14 days of purchase for a full refund.\n1. Failed payments are retried\
+    \ up to 3 times over 7 days. After 3 failures,\n   the subscription is canceled\
+    \ automatically."

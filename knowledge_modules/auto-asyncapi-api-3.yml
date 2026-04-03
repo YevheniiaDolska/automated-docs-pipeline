@@ -15,12 +15,28 @@ channels:
 priority: 60
 status: active
 owner: docsops-auto
-last_verified: '2026-03-28'
+last_verified: '2026-04-03'
 dependencies: []
 tags:
 - asyncapi-api
 - auto-extracted
 - reference
+metadata:
+  url: https://docs.example.com/reference/asyncapi-api/
+  title: ASYNCAPI API Reference (Part 3)
+  heading: ASYNCAPI API Reference (Part 3)
+  version: 1.50.0
+  updated_at: '2026-03-31'
+  source_site: docs.example.com
+  source_path: reference/asyncapi-api.md
+semantic:
+  topic: ASYNCAPI API Reference (Part 3)
+  intent: configure
+  audience: developer
+  keywords:
+  - asyncapi api
+  - reference
+  status: rule_based
 content:
   docs_markdown: "<div id=\"asyncapi-playground\" style=\"border:1px solid #d1d5db;\
     \ padding:12px; border-radius:8px;\">\n  <p><strong>WebSocket Endpoint:</strong>\
@@ -84,8 +100,8 @@ content:
     \   out.textContent = JSON.stringify({ mode: 'http-semantic-fallback', error:\
     \ String(error), simulated_response: semantic }, null, 2);\n  }\n};\n})();\n</script>"
   assistant_context: "Use this module when answering questions related to: ASYNCAPI\
-    \ API Reference (Part 3). Source path: docs/reference/asyncapi-api.md. Summary:\
-    \ Auto-generated asyncapi reference from source contract.\n\n<div id=\"asyncapi-playground\"\
+    \ API Reference (Part 3). Source path: reference/asyncapi-api.md. Summary: Auto-generated\
+    \ asyncapi reference from source contract.\n\n<div id=\"asyncapi-playground\"\
     \ style=\"border:1px solid #d1d5db; padding:12px; border-radius:8px;\">\n  <p><strong>WebSocket\
     \ Endpoint:</strong> <code id=\"asyncapi-ws-view\"></code></p>\n  <p><strong>HTTP\
     \ Publish Endpoint:</strong> <code id=\"asyncapi-http-view\"></code></p>\n  <textarea\

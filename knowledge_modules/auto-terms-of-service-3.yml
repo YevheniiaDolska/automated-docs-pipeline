@@ -1,0 +1,75 @@
+id: auto-terms-of-service-3
+title: VeriDoc terms of service (Part 3)
+summary: Terms of service governing the use of VeriDoc automated documentation platform,
+  including subscription tiers, usage limits, and acceptable use policies.
+intents:
+- integrate
+audiences:
+- developer
+- operator
+channels:
+- docs
+- assistant
+- automation
+priority: 60
+status: active
+owner: docsops-auto
+last_verified: '2026-04-03'
+dependencies: []
+tags:
+- auto-extracted
+- reference
+- terms-of-service
+metadata:
+  url: https://docs.example.com/legal/terms-of-service/
+  title: VeriDoc terms of service (Part 3)
+  heading: Acceptable use
+  version: 1.50.0
+  updated_at: '2026-03-28'
+  source_site: docs.example.com
+  source_path: legal/terms-of-service.md
+semantic:
+  topic: Acceptable use
+  intent: integrate
+  audience: developer
+  keywords:
+  - reference
+  - terms of service
+  status: rule_based
+content:
+  docs_markdown: "## Acceptable use\n\nYou agree not to:\n\n1. Use the Service to\
+    \ process content that violates applicable laws.\n1. Attempt to reverse-engineer,\
+    \ decompile, or extract source code from the\n   Service.\n1. Exceed rate limits\
+    \ (60 requests per minute) through automated means.\n1. Share, resell, or sublicense\
+    \ your account access to third parties.\n1. Transmit malware, phishing content,\
+    \ or exploit payloads through the\n   pipeline.\n1. Use the Service to generate\
+    \ documentation that infringes intellectual\n   property rights of others.\n\n\
+    Violation of acceptable use policies may result in immediate account\nsuspension\
+    \ without prior notice.\n\n## Intellectual property\n\n**Your content.** You retain\
+    \ all rights to the documentation, code, and\nconfiguration you upload to or generate\
+    \ through the Service. We do not claim\nownership of your content.\n\n**Our service.**\
+    \ The VeriDoc platform, including its pipeline architecture,\ntemplates, scripts,\
+    \ and methods, is owned by Liora Tech and protected by\nintellectual property\
+    \ laws.\n\n**License grant.** You grant us a limited license to process your content\n\
+    solely for providing the Service. This license terminates when you delete\nyour\
+    \ content or close your account."
+  assistant_context: "Use this module when answering questions related to: VeriDoc\
+    \ terms of service (Part 3). Source path: legal/terms-of-service.md. Summary:\
+    \ Terms of service governing the use of VeriDoc automated documentation platform,\
+    \ including subscription tiers, usage limits, and acceptable use policies.\n\n\
+    ## Acceptable use\n\nYou agree not to:\n\n1. Use the Service to process content\
+    \ that violates applicable laws.\n1. Attempt to reverse-engineer, decompile, or\
+    \ extract source code from the\n   Service.\n1. Exceed rate limits (60 requests\
+    \ per minute) through automated means.\n1. Share, resell, or sublicense your account\
+    \ access to third parties.\n1. Transmit malware, phishing content, or exploit\
+    \ payloads through the\n   pipeline.\n1. Use the Service to generate documentation\
+    \ that infringes intellectual\n   property rights of others.\n\nViolation of acceptable\
+    \ use policies may result in immediate account\nsuspension without prior notice.\n\
+    \n## Intellectual property\n\n**Your content.** You retain all rights to the documentation,\
+    \ code, and\nconfiguration you upload to or generate through the Service. We do\
+    \ not claim\nownership of your content.\n\n**Our service.** The VeriDoc platform,\
+    \ including its pipeline architecture,\ntemplates, scripts, and methods, is owned\
+    \ by Liora Tech and protected by\nintellectual property laws.\n\n**License grant.**\
+    \ You grant us a limited license to process your content\nsolely for providing\
+    \ the Service. This license terminates when you delete\nyour content or close\
+    \ your account."

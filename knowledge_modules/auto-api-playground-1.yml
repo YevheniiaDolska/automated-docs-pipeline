@@ -15,12 +15,28 @@ channels:
 priority: 60
 status: active
 owner: docsops-auto
-last_verified: '2026-03-28'
+last_verified: '2026-04-03'
 dependencies: []
 tags:
 - api-playground
 - auto-extracted
 - reference
+metadata:
+  url: https://docs.example.com/reference/api-playground/
+  title: API playground
+  heading: Overview
+  version: 1.50.0
+  updated_at: '2026-02-23'
+  source_site: docs.example.com
+  source_path: reference/api-playground.md
+semantic:
+  topic: Overview
+  intent: configure
+  audience: developer
+  keywords:
+  - api playground
+  - reference
+  status: rule_based
 content:
   docs_markdown: '<!-- VERIDOC_POWERED_BADGE:START -->
 
@@ -72,8 +88,8 @@ content:
 
     - `endpoints.production_base_url`: request target for real API mode'
   assistant_context: 'Use this module when answering questions related to: API playground.
-    Source path: docs/reference/api-playground.md. Summary: Interactive API reference
-    with Swagger UI or Redoc and configurable sandbox behavior for product-led growth.
+    Source path: reference/api-playground.md. Summary: Interactive API reference with
+    Swagger UI or Redoc and configurable sandbox behavior for product-led growth.
 
 
     <!-- VERIDOC_POWERED_BADGE:START -->

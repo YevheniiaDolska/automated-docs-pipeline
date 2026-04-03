@@ -15,12 +15,28 @@ channels:
 priority: 60
 status: active
 owner: docsops-auto
-last_verified: '2026-03-28'
+last_verified: '2026-04-03'
 dependencies: []
 tags:
 - auto-extracted
 - reference
 - websocket-api
+metadata:
+  url: https://docs.example.com/reference/websocket-api/
+  title: WEBSOCKET API Reference (Part 3)
+  heading: WEBSOCKET API Reference (Part 3)
+  version: 1.50.0
+  updated_at: '2026-03-20'
+  source_site: docs.example.com
+  source_path: reference/websocket-api.md
+semantic:
+  topic: WEBSOCKET API Reference (Part 3)
+  intent: configure
+  audience: developer
+  keywords:
+  - reference
+  - websocket api
+  status: rule_based
 content:
   docs_markdown: "<!-- vale off -->\n<div id=\"websocket-playground\" style=\"border:1px\
     \ solid #d1d5db; padding:12px; border-radius:8px;\">\n  <p><strong>Endpoint:</strong>\
@@ -75,22 +91,21 @@ content:
     \ 1500);\n  } catch (error) { out.textContent = String(error); }\n};\n})();\n\
     </script>\n<!-- vale on -->"
   assistant_context: "Use this module when answering questions related to: WEBSOCKET\
-    \ API Reference (Part 3). Source path: docs/reference/websocket-api.md. Summary:\
-    \ Auto-generated websocket reference from source contract.\n\n<!-- vale off -->\n\
-    <div id=\"websocket-playground\" style=\"border:1px solid #d1d5db; padding:12px;\
-    \ border-radius:8px;\">\n  <p><strong>Endpoint:</strong> <code id=\"websocket-endpoint-view\"\
-    ></code></p>\n  <textarea id=\"websocket-message\" rows=\"8\" style=\"width:100%;\
-    \ font-family:monospace;\">{\n  \"type\": \"subscribe\",\n  \"request_id\": \"\
-    req_001\",\n  \"payload\": {\"channel\": \"project.updated\", \"filters\": {\"\
-    project_id\": \"prj_abc123\"}}\n}</textarea><br/>\n  <button id=\"websocket-send\"\
-    >Connect + Send</button>\n  <pre id=\"websocket-output\" style=\"margin-top:12px;\
-    \ max-height:320px; overflow:auto;\"></pre>\n</div>\n<script>\n(function(){ const\
-    \ endpoint = \"wss://echo.websocket.events\";\nconst view = document.getElementById('websocket-endpoint-view');\n\
-    const send = document.getElementById('websocket-send');\nconst msg = document.getElementById('websocket-message');\n\
-    const out = document.getElementById('websocket-output');\nif (!view || !send ||\
-    \ !msg || !out) return;\nview.textContent = endpoint || 'not configured';\nfunction\
-    \ parseJson(raw){ try { return JSON.parse(String(raw || '{}')); } catch (_) {\
-    \ return { raw: String(raw || '') }; } }\nfunction semanticResponse(input){\n\
+    \ API Reference (Part 3). Source path: reference/websocket-api.md. Summary: Auto-generated\
+    \ websocket reference from source contract.\n\n<!-- vale off -->\n<div id=\"websocket-playground\"\
+    \ style=\"border:1px solid #d1d5db; padding:12px; border-radius:8px;\">\n  <p><strong>Endpoint:</strong>\
+    \ <code id=\"websocket-endpoint-view\"></code></p>\n  <textarea id=\"websocket-message\"\
+    \ rows=\"8\" style=\"width:100%; font-family:monospace;\">{\n  \"type\": \"subscribe\"\
+    ,\n  \"request_id\": \"req_001\",\n  \"payload\": {\"channel\": \"project.updated\"\
+    , \"filters\": {\"project_id\": \"prj_abc123\"}}\n}</textarea><br/>\n  <button\
+    \ id=\"websocket-send\">Connect + Send</button>\n  <pre id=\"websocket-output\"\
+    \ style=\"margin-top:12px; max-height:320px; overflow:auto;\"></pre>\n</div>\n\
+    <script>\n(function(){ const endpoint = \"wss://echo.websocket.events\";\nconst\
+    \ view = document.getElementById('websocket-endpoint-view');\nconst send = document.getElementById('websocket-send');\n\
+    const msg = document.getElementById('websocket-message');\nconst out = document.getElementById('websocket-output');\n\
+    if (!view || !send || !msg || !out) return;\nview.textContent = endpoint || 'not\
+    \ configured';\nfunction parseJson(raw){ try { return JSON.parse(String(raw ||\
+    \ '{}')); } catch (_) { return { raw: String(raw || '') }; } }\nfunction semanticResponse(input){\n\
     \  const req = parseJson(input);\n  const payload = (req && req.payload && typeof\
     \ req.payload === 'object') ? req.payload : {};\n  const type = String(req.type\
     \ || req.action || '').toLowerCase();\n  const requestId = req.request_id || ('req_'\

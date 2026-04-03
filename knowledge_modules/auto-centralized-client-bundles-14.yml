@@ -19,12 +19,32 @@ channels:
 priority: 60
 status: active
 owner: docsops-auto
-last_verified: '2026-03-28'
+last_verified: '2026-04-03'
 dependencies: []
 tags:
 - auto-extracted
 - centralized-client-bundles
 - reference
+metadata:
+  url: https://docs.example.com/operations/CENTRALIZED_CLIENT_BUNDLES/
+  title: "\u0426\u0435\u043D\u0442\u0440\u0430\u043B\u0438\u0437\u043E\u0432\u0430\
+    \u043D\u043D\u0430\u044F \u043D\u0430\u0441\u0442\u0440\u043E\u0439\u043A\u0430\
+    \ \u043A\u043B\u0438\u0435\u043D\u0442\u043E\u0432 (Part 14)"
+  heading: "RAG/knowledge \u0431\u0435\u0437 \u0440\u0443\u0447\u043D\u044B\u0445\
+    \ \u0437\u0430\u043F\u0443\u0441\u043A\u043E\u0432"
+  version: 1.50.0
+  updated_at: '2026-03-11'
+  source_site: docs.example.com
+  source_path: operations/CENTRALIZED_CLIENT_BUNDLES.md
+semantic:
+  topic: "RAG/knowledge \u0431\u0435\u0437 \u0440\u0443\u0447\u043D\u044B\u0445 \u0437\
+    \u0430\u043F\u0443\u0441\u043A\u043E\u0432"
+  intent: integrate
+  audience: developer
+  keywords:
+  - centralized client bundles
+  - reference
+  status: rule_based
 content:
   docs_markdown: "## RAG/knowledge \u0431\u0435\u0437 \u0440\u0443\u0447\u043D\u044B\
     \u0445 \u0437\u0430\u043F\u0443\u0441\u043A\u043E\u0432\n\n\u042D\u0442\u043E\
@@ -78,7 +98,7 @@ content:
   assistant_context: "Use this module when answering questions related to: \u0426\u0435\
     \u043D\u0442\u0440\u0430\u043B\u0438\u0437\u043E\u0432\u0430\u043D\u043D\u0430\
     \u044F \u043D\u0430\u0441\u0442\u0440\u043E\u0439\u043A\u0430 \u043A\u043B\u0438\
-    \u0435\u043D\u0442\u043E\u0432 (Part 14). Source path: docs/operations/CENTRALIZED_CLIENT_BUNDLES.md.\
+    \u0435\u043D\u0442\u043E\u0432 (Part 14). Source path: operations/CENTRALIZED_CLIENT_BUNDLES.md.\
     \ Summary: \u041F\u0440\u0430\u043A\u0442\u0438\u0447\u0435\u0441\u043A\u0438\u0439\
     \ \u043F\u0443\u0442\u044C \u043D\u0430\u0441\u0442\u0440\u043E\u0439\u043A\u0438\
     \ \u043A\u043B\u0438\u0435\u043D\u0442\u0441\u043A\u0438\u0445 bundle \u0438 \u0430\

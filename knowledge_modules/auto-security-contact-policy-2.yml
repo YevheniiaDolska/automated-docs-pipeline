@@ -1,0 +1,117 @@
+id: auto-security-contact-policy-2
+title: VeriDoc security contact policy (Part 2)
+summary: Security contact channels, response times, severity model, and disclosure
+  workflow for VeriDoc incidents and vulnerability reports.
+intents:
+- integrate
+audiences:
+- developer
+- operator
+channels:
+- docs
+- assistant
+- automation
+priority: 60
+status: active
+owner: docsops-auto
+last_verified: '2026-04-03'
+dependencies: []
+tags:
+- auto-extracted
+- reference
+- security-contact-policy
+metadata:
+  url: https://docs.example.com/legal/security-contact-policy/
+  title: VeriDoc security contact policy (Part 2)
+  heading: Disclosure rules
+  version: 1.50.0
+  updated_at: '2026-03-31'
+  source_site: docs.example.com
+  source_path: legal/security-contact-policy.md
+semantic:
+  topic: Disclosure rules
+  intent: integrate
+  audience: developer
+  keywords:
+  - reference
+  - security contact policy
+  status: rule_based
+content:
+  docs_markdown: '## Disclosure rules
+
+
+    For responsible disclosure:
+
+
+    1. Do not access data that is not yours.
+
+    1. Do not modify or delete customer data.
+
+    1. Do not run denial-of-service tests.
+
+    1. Give VeriDoc up to 90 days before public disclosure.
+
+
+    ## Communication and status updates
+
+
+    For confirmed incidents:
+
+
+    1. Initial acknowledgement is sent via email.
+
+    1. Ongoing updates are provided at least every 24 hours for critical incidents.
+
+    1. Final post-incident summary includes root cause and corrective actions.
+
+
+    ## Next steps
+
+
+    - Review the [security policy](security-policy.md)
+
+    - Review the [data processing agreement](data-processing-agreement.md)
+
+    - Review the [privacy policy](privacy-policy.md)'
+  assistant_context: 'Use this module when answering questions related to: VeriDoc
+    security contact policy (Part 2). Source path: legal/security-contact-policy.md.
+    Summary: Security contact channels, response times, severity model, and disclosure
+    workflow for VeriDoc incidents and vulnerability reports.
+
+
+    ## Disclosure rules
+
+
+    For responsible disclosure:
+
+
+    1. Do not access data that is not yours.
+
+    1. Do not modify or delete customer data.
+
+    1. Do not run denial-of-service tests.
+
+    1. Give VeriDoc up to 90 days before public disclosure.
+
+
+    ## Communication and status updates
+
+
+    For confirmed incidents:
+
+
+    1. Initial acknowledgement is sent via email.
+
+    1. Ongoing updates are provided at least every 24 hours for critical incidents.
+
+    1. Final post-incident summary includes root cause and corrective actions.
+
+
+    ## Next steps
+
+
+    - Review the [security policy](security-policy.md)
+
+    - Review the [data processing agreement](data-processing-agreement.md)
+
+    - Review the [privacy policy](privacy-policy.md)'

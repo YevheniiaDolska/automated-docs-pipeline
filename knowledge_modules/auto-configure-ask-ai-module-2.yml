@@ -14,12 +14,28 @@ channels:
 priority: 60
 status: active
 owner: docsops-auto
-last_verified: '2026-03-28'
+last_verified: '2026-04-03'
 dependencies: []
 tags:
 - auto-extracted
 - configure-ask-ai-module
 - how-to
+metadata:
+  url: https://docs.example.com/how-to/configure-ask-ai-module/
+  title: Configure Ask AI module (Part 2)
+  heading: 'Step 4: Configure advanced retrieval features'
+  version: 1.50.0
+  updated_at: '2026-03-20'
+  source_site: docs.example.com
+  source_path: how-to/configure-ask-ai-module.md
+semantic:
+  topic: 'Step 4: Configure advanced retrieval features'
+  intent: configure
+  audience: practitioner
+  keywords:
+  - configure ask ai module
+  - how-to
+  status: rule_based
 content:
   docs_markdown: "## Step 4: Configure advanced retrieval features\n\nAll six advanced\
     \ retrieval features are enabled by default. Override individual features with\
@@ -33,13 +49,13 @@ content:
     \ | `true` |\n| Embedding cache | `embedding_cache.enabled` | `ASK_AI_EMBED_CACHE_ENABLED`\
     \ | `true` |\n\nAdvanced tuning parameters:"
   assistant_context: "Use this module when answering questions related to: Configure\
-    \ Ask AI module (Part 2). Source path: docs/how-to/configure-ask-ai-module.md.\
-    \ Summary: Enable or disable Ask AI, set provider and billing mode, and verify\
-    \ configuration in five steps for beginner operators.\n\n## Step 4: Configure\
-    \ advanced retrieval features\n\nAll six advanced retrieval features are enabled\
-    \ by default. Override individual features with environment variables or by editing\
-    \ `config/ask-ai.yml` directly:\n\n```bash\nnpm run askai:configure -- \\\n  --hybrid-search\
-    \ \\\n  --hyde \\\n  --reranking \\\n  --embedding-cache\n```\n\n| Feature | Config\
+    \ Ask AI module (Part 2). Source path: how-to/configure-ask-ai-module.md. Summary:\
+    \ Enable or disable Ask AI, set provider and billing mode, and verify configuration\
+    \ in five steps for beginner operators.\n\n## Step 4: Configure advanced retrieval\
+    \ features\n\nAll six advanced retrieval features are enabled by default. Override\
+    \ individual features with environment variables or by editing `config/ask-ai.yml`\
+    \ directly:\n\n```bash\nnpm run askai:configure -- \\\n  --hybrid-search \\\n\
+    \  --hyde \\\n  --reranking \\\n  --embedding-cache\n```\n\n| Feature | Config\
     \ key | Env var | Default |\n| --- | --- | --- | --- |\n| Token-aware chunking\
     \ | `chunking.enabled` | -- (build-time only) | `true` |\n| Hybrid search (RRF)\
     \ | `hybrid_search.enabled` | `ASK_AI_HYBRID_ENABLED` | `true` |\n| HyDE query\

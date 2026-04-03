@@ -1,0 +1,164 @@
+id: auto-security-contact-policy-1
+title: VeriDoc security contact policy
+summary: Security contact channels, response times, severity model, and disclosure
+  workflow for VeriDoc incidents and vulnerability reports.
+intents:
+- integrate
+- secure
+audiences:
+- developer
+- operator
+channels:
+- docs
+- assistant
+- automation
+priority: 60
+status: active
+owner: docsops-auto
+last_verified: '2026-04-03'
+dependencies: []
+tags:
+- auto-extracted
+- reference
+- security-contact-policy
+metadata:
+  url: https://docs.example.com/legal/security-contact-policy/
+  title: VeriDoc security contact policy
+  heading: Official contact channels
+  version: 1.50.0
+  updated_at: '2026-03-31'
+  source_site: docs.example.com
+  source_path: legal/security-contact-policy.md
+semantic:
+  topic: Official contact channels
+  intent: integrate
+  audience: developer
+  keywords:
+  - reference
+  - security contact policy
+  status: rule_based
+content:
+  docs_markdown: '# VeriDoc security contact policy
+
+
+    This policy defines exactly how to contact VeriDoc for security incidents,
+
+    vulnerability reports, and urgent abuse cases.
+
+
+    ## Official contact channels
+
+
+    | Purpose | Channel | Target response |
+
+    |---------|---------|-----------------|
+
+    | Vulnerability disclosure | <security@veri-doc.app> | Within 24 hours |
+
+    | Incident escalation (active outage or suspected compromise) | <security@veri-doc.app>
+    + <support@veri-doc.app> | Within 1 hour |
+
+    | Privacy and data-protection issues | <privacy@veri-doc.app> | Within 72 hours
+    |
+
+
+    ## What to include in your report
+
+
+    Send a concise report with:
+
+
+    1. Affected endpoint, system, or feature.
+
+    1. Exact reproduction steps.
+
+    1. Expected result and actual result.
+
+    1. Scope estimate (single tenant, multi-tenant, or unknown).
+
+    1. Any logs, timestamps, and request IDs.
+
+
+    ## Severity model and SLA
+
+
+    | Severity | Typical examples | First response | Containment target |
+
+    |----------|------------------|----------------|--------------------|
+
+    | Critical | Data exposure, account takeover, production compromise | 1 hour |
+    4 hours |
+
+    | High | Auth bypass, privilege escalation, sustained API failure | 4 hours |
+    12 hours |
+
+    | Medium | Non-critical security misconfiguration | 24 hours | 3 business days
+    |
+
+    | Low | Hardening recommendations, low-risk findings | 72 hours | Planned release
+    |'
+  assistant_context: 'Use this module when answering questions related to: VeriDoc
+    security contact policy. Source path: legal/security-contact-policy.md. Summary:
+    Security contact channels, response times, severity model, and disclosure workflow
+    for VeriDoc incidents and vulnerability reports.
+
+
+    # VeriDoc security contact policy
+
+
+    This policy defines exactly how to contact VeriDoc for security incidents,
+
+    vulnerability reports, and urgent abuse cases.
+
+
+    ## Official contact channels
+
+
+    | Purpose | Channel | Target response |
+
+    |---------|---------|-----------------|
+
+    | Vulnerability disclosure | <security@veri-doc.app> | Within 24 hours |
+
+    | Incident escalation (active outage or suspected compromise) | <security@veri-doc.app>
+    + <support@veri-doc.app> | Within 1 hour |
+
+    | Privacy and data-protection issues | <privacy@veri-doc.app> | Within 72 hours
+    |
+
+
+    ## What to include in your report
+
+
+    Send a concise report with:
+
+
+    1. Affected endpoint, system, or feature.
+
+    1. Exact reproduction steps.
+
+    1. Expected result and actual result.
+
+    1. Scope estimate (single tenant, multi-tenant, or unknown).
+
+    1. Any logs, timestamps, and request IDs.
+
+
+    ## Severity model and SLA
+
+
+    | Severity | Typical examples | First response | Containment target |
+
+    |----------|------------------|----------------|--------------------|
+
+    | Critical | Data exposure, account takeover, production compromise | 1 hour |
+    4 hours |
+
+    | High | Auth bypass, privilege escalation, sustained API failure | 4 hours |
+    12 hours |
+
+    | Medium | Non-critical security misconfiguration | 24 hours | 3 business days
+    |
+
+    | Low | Hardening recommendations, low-risk findings | 72 hours | Planned release
+    |'

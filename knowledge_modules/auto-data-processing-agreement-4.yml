@@ -1,0 +1,82 @@
+id: auto-data-processing-agreement-4
+title: VeriDoc data processing agreement (Part 4)
+summary: Data processing agreement for VeriDoc platform covering GDPR compliance,
+  sub-processors, data transfer mechanisms, and breach notification procedures.
+intents:
+- integrate
+- troubleshoot
+audiences:
+- developer
+- operator
+channels:
+- docs
+- assistant
+- automation
+priority: 60
+status: active
+owner: docsops-auto
+last_verified: '2026-04-03'
+dependencies: []
+tags:
+- auto-extracted
+- data-processing-agreement
+- reference
+metadata:
+  url: https://docs.example.com/legal/data-processing-agreement/
+  title: VeriDoc data processing agreement (Part 4)
+  heading: VeriDoc data processing agreement (Part 4)
+  version: 1.50.0
+  updated_at: '2026-03-28'
+  source_site: docs.example.com
+  source_path: legal/data-processing-agreement.md
+semantic:
+  topic: VeriDoc data processing agreement (Part 4)
+  intent: integrate
+  audience: developer
+  keywords:
+  - data processing agreement
+  - reference
+  status: rule_based
+content:
+  docs_markdown: "1. **Process only on your instructions.** We process personal data\
+    \ solely\n   to provide the Service as documented in these Terms and this DPA.\
+    \ We do\n   not process data for our own purposes.\n1. **Confidentiality.** All\
+    \ personnel with access to personal data are\n   bound by confidentiality obligations.\n\
+    1. **Security measures.** We implement technical and organizational\n   measures\
+    \ as described in the [security policy](security-policy.md):\n   - TLS 1.3 encryption\
+    \ for all data in transit\n   - AES-256 encryption for all data at rest\n   -\
+    \ PBKDF2-SHA256 password hashing (600,000 iterations)\n   - Daily encrypted database\
+    \ backups with 30-day retention\n   - Rate limiting (60 requests per minute)\n\
+    \   - Sentry error tracking with PII scrubbing\n1. **Sub-processor management.**\
+    \ We maintain an up-to-date list of\n   sub-processors and notify you 30 days\
+    \ before adding new ones.\n1. **Data subject rights.** We assist you in responding\
+    \ to data subject\n   requests (access, deletion, portability) within 10 business\
+    \ days.\n1. **Breach notification.** We notify you within 72 hours of discovering\n\
+    \   a personal data breach, with details on the nature, scope, and\n   remediation\
+    \ steps.\n1. **Audit rights.** You may request an audit of our data processing\n\
+    \   activities once per year with 30 days advance notice.\n1. **Data return and\
+    \ deletion.** Upon termination, we return your data\n   in a standard format (JSON\
+    \ export) and delete all copies within 30 days."
+  assistant_context: "Use this module when answering questions related to: VeriDoc\
+    \ data processing agreement (Part 4). Source path: legal/data-processing-agreement.md.\
+    \ Summary: Data processing agreement for VeriDoc platform covering GDPR compliance,\
+    \ sub-processors, data transfer mechanisms, and breach notification procedures.\n\
+    \n1. **Process only on your instructions.** We process personal data solely\n\
+    \   to provide the Service as documented in these Terms and this DPA. We do\n\
+    \   not process data for our own purposes.\n1. **Confidentiality.** All personnel\
+    \ with access to personal data are\n   bound by confidentiality obligations.\n\
+    1. **Security measures.** We implement technical and organizational\n   measures\
+    \ as described in the [security policy](security-policy.md):\n   - TLS 1.3 encryption\
+    \ for all data in transit\n   - AES-256 encryption for all data at rest\n   -\
+    \ PBKDF2-SHA256 password hashing (600,000 iterations)\n   - Daily encrypted database\
+    \ backups with 30-day retention\n   - Rate limiting (60 requests per minute)\n\
+    \   - Sentry error tracking with PII scrubbing\n1. **Sub-processor management.**\
+    \ We maintain an up-to-date list of\n   sub-processors and notify you 30 days\
+    \ before adding new ones.\n1. **Data subject rights.** We assist you in responding\
+    \ to data subject\n   requests (access, deletion, portability) within 10 business\
+    \ days.\n1. **Breach notification.** We notify you within 72 hours of discovering\n\
+    \   a personal data breach, with details on the nature, scope, and\n   remediation\
+    \ steps.\n1. **Audit rights.** You may request an audit of our data processing\n\
+    \   activities once per year with 30 days advance notice.\n1. **Data return and\
+    \ deletion.** Upon termination, we return your data\n   in a standard format (JSON\
+    \ export) and delete all copies within 30 days."

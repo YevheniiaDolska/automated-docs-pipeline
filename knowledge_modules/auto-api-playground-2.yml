@@ -14,12 +14,28 @@ channels:
 priority: 60
 status: active
 owner: docsops-auto
-last_verified: '2026-03-28'
+last_verified: '2026-04-03'
 dependencies: []
 tags:
 - api-playground
 - auto-extracted
 - reference
+metadata:
+  url: https://docs.example.com/reference/api-playground/
+  title: API playground (Part 2)
+  heading: Playground
+  version: 1.50.0
+  updated_at: '2026-02-23'
+  source_site: docs.example.com
+  source_path: reference/api-playground.md
+semantic:
+  topic: Playground
+  intent: integrate
+  audience: developer
+  keywords:
+  - api playground
+  - reference
+  status: rule_based
 content:
   docs_markdown: "## Playground\n\n<div id=\"swagger-ui-general\"></div>\n<link rel=\"\
     stylesheet\" href=\"https://unpkg.com/swagger-ui-dist@5.18.2/swagger-ui.css\"\
@@ -38,10 +54,10 @@ content:
     \          req.url = u.toString();\n        } catch (e) {}\n        return req;\n\
     \      }\n    });\n  }\n  boot();\n})();\n</script>"
   assistant_context: "Use this module when answering questions related to: API playground\
-    \ (Part 2). Source path: docs/reference/api-playground.md. Summary: Interactive\
-    \ API reference with Swagger UI or Redoc and configurable sandbox behavior for\
-    \ product-led growth.\n\n## Playground\n\n<div id=\"swagger-ui-general\"></div>\n\
-    <link rel=\"stylesheet\" href=\"https://unpkg.com/swagger-ui-dist@5.18.2/swagger-ui.css\"\
+    \ (Part 2). Source path: reference/api-playground.md. Summary: Interactive API\
+    \ reference with Swagger UI or Redoc and configurable sandbox behavior for product-led\
+    \ growth.\n\n## Playground\n\n<div id=\"swagger-ui-general\"></div>\n<link rel=\"\
+    stylesheet\" href=\"https://unpkg.com/swagger-ui-dist@5.18.2/swagger-ui.css\"\
     >\n<script src=\"https://unpkg.com/swagger-ui-dist@5.18.2/swagger-ui-bundle.js\"\
     ></script>\n<script>\n(function() {\n  var specUrl = \"{{ config.site_url }}{{\
     \ config.extra.plg.api_playground.source.api_first_spec_url }}\";\n  var sandboxUrl\

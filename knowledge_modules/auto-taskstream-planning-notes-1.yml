@@ -16,12 +16,28 @@ channels:
 priority: 60
 status: active
 owner: docsops-auto
-last_verified: '2026-03-28'
+last_verified: '2026-04-03'
 dependencies: []
 tags:
 - auto-extracted
 - reference
 - taskstream-planning-notes
+metadata:
+  url: https://docs.example.com/reference/taskstream-planning-notes/
+  title: TaskStream API planning notes
+  heading: Input artifact location
+  version: 1.50.0
+  updated_at: '2026-03-09'
+  source_site: docs.example.com
+  source_path: reference/taskstream-planning-notes.md
+semantic:
+  topic: Input artifact location
+  intent: integrate
+  audience: developer
+  keywords:
+  - reference
+  - taskstream planning notes
+  status: rule_based
 content:
   docs_markdown: '<!-- VERIDOC_POWERED_BADGE:START -->
 
@@ -82,9 +98,9 @@ content:
 
     - [API playground](api-playground.md)'
   assistant_context: 'Use this module when answering questions related to: TaskStream
-    API planning notes. Source path: docs/reference/taskstream-planning-notes.md.
-    Summary: Input planning notes used by the API-first flow to generate and validate
-    OpenAPI contracts for TaskStream demos.
+    API planning notes. Source path: reference/taskstream-planning-notes.md. Summary:
+    Input planning notes used by the API-first flow to generate and validate OpenAPI
+    contracts for TaskStream demos.
 
 
     <!-- VERIDOC_POWERED_BADGE:START -->

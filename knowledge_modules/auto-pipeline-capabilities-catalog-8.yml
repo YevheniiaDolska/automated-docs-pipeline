@@ -15,12 +15,28 @@ channels:
 priority: 60
 status: active
 owner: docsops-auto
-last_verified: '2026-03-28'
+last_verified: '2026-04-03'
 dependencies: []
 tags:
 - auto-extracted
 - pipeline-capabilities-catalog
 - reference
+metadata:
+  url: https://docs.example.com/operations/PIPELINE_CAPABILITIES_CATALOG/
+  title: Pipeline Capabilities Catalog (Part 8)
+  heading: Multi-protocol contract pipeline
+  version: 1.50.0
+  updated_at: '2026-03-24'
+  source_site: docs.example.com
+  source_path: operations/PIPELINE_CAPABILITIES_CATALOG.md
+semantic:
+  topic: Multi-protocol contract pipeline
+  intent: integrate
+  audience: developer
+  keywords:
+  - pipeline capabilities catalog
+  - reference
+  status: rule_based
 content:
   docs_markdown: '## Multi-protocol contract pipeline
 
@@ -62,7 +78,7 @@ content:
     **Contract generation from planning notes:** `generate_protocol_contract_from_planning_notes.py`
     generates protocol specs from markdown planning notes.'
   assistant_context: 'Use this module when answering questions related to: Pipeline
-    Capabilities Catalog (Part 8). Source path: docs/operations/PIPELINE_CAPABILITIES_CATALOG.md.
+    Capabilities Catalog (Part 8). Source path: operations/PIPELINE_CAPABILITIES_CATALOG.md.
     Summary: Generated catalog of available pipeline commands, templates, policy packs,
     and assets for client configuration.
 

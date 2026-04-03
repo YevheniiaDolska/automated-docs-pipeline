@@ -13,17 +13,33 @@ channels:
 priority: 60
 status: active
 owner: docsops-auto
-last_verified: '2026-03-28'
+last_verified: '2026-04-03'
 dependencies: []
 tags:
 - asyncapi-api
 - auto-extracted
 - reference
+metadata:
+  url: https://docs.example.com/reference/asyncapi-api/
+  title: ASYNCAPI API Reference
+  heading: Top-level Keys
+  version: 1.50.0
+  updated_at: '2026-03-31'
+  source_site: docs.example.com
+  source_path: reference/asyncapi-api.md
+semantic:
+  topic: Top-level Keys
+  intent: integrate
+  audience: developer
+  keywords:
+  - asyncapi api
+  - reference
+  status: rule_based
 content:
   docs_markdown: '# ASYNCAPI Reference
 
 
-    Source: `/tmp/pytest-of-eudo/pytest-2642/test_multi_protocol_flow_e2e_e0/asyncapi.yaml`
+    Source: `/tmp/pytest-of-eudo/pytest-2839/test_multi_protocol_flow_e2e_e0/asyncapi.yaml`
 
 
     Flow mode: `api-first`
@@ -46,14 +62,14 @@ content:
 
     - `orders/created`'
   assistant_context: 'Use this module when answering questions related to: ASYNCAPI
-    API Reference. Source path: docs/reference/asyncapi-api.md. Summary: Auto-generated
+    API Reference. Source path: reference/asyncapi-api.md. Summary: Auto-generated
     asyncapi reference from source contract.
 
 
     # ASYNCAPI Reference
 
 
-    Source: `/tmp/pytest-of-eudo/pytest-2642/test_multi_protocol_flow_e2e_e0/asyncapi.yaml`
+    Source: `/tmp/pytest-of-eudo/pytest-2839/test_multi_protocol_flow_e2e_e0/asyncapi.yaml`
 
 
     Flow mode: `api-first`

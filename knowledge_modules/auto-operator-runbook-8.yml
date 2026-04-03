@@ -14,12 +14,28 @@ channels:
 priority: 60
 status: active
 owner: docsops-auto
-last_verified: '2026-03-28'
+last_verified: '2026-04-03'
 dependencies: []
 tags:
 - auto-extracted
 - how-to
 - operator-runbook
+metadata:
+  url: https://docs.example.com/operations/OPERATOR_RUNBOOK/
+  title: Operator Runbook (Retainer Operations) (Part 8)
+  heading: '"Can we add a new protocol?"'
+  version: 1.50.0
+  updated_at: '2026-03-21'
+  source_site: docs.example.com
+  source_path: operations/OPERATOR_RUNBOOK.md
+semantic:
+  topic: '"Can we add a new protocol?"'
+  intent: configure
+  audience: practitioner
+  keywords:
+  - how-to
+  - operator runbook
+  status: rule_based
 content:
   docs_markdown: "Edit `<client-repo>/docsops/config/client_runtime.yml` or the client\
     \ profile:\n\n```yaml\nprivate_tuning:\n  weekly_stale_days: 90  # Default is\
@@ -38,7 +54,7 @@ content:
     \ config is read live.\n\n#### \"The pipeline is too strict / too lenient\"\n\n\
     Adjust the policy pack or overrides in the client profile:"
   assistant_context: "Use this module when answering questions related to: Operator\
-    \ Runbook (Retainer Operations) (Part 8). Source path: docs/operations/OPERATOR_RUNBOOK.md.\
+    \ Runbook (Retainer Operations) (Part 8). Source path: operations/OPERATOR_RUNBOOK.md.\
     \ Summary: Step-by-step instructions for weekly report review, client questions,\
     \ new repo setup, and profile tuning.\n\nEdit `<client-repo>/docsops/config/client_runtime.yml`\
     \ or the client profile:\n\n```yaml\nprivate_tuning:\n  weekly_stale_days: 90\

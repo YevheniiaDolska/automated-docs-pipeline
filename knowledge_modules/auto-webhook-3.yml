@@ -16,12 +16,28 @@ channels:
 priority: 60
 status: active
 owner: docsops-auto
-last_verified: '2026-03-28'
+last_verified: '2026-04-03'
 dependencies: []
 tags:
 - auto-extracted
 - reference
 - webhook
+metadata:
+  url: https://docs.example.com/reference/nodes/webhook/
+  title: Webhook node reference for (Part 3)
+  heading: Environment variables
+  version: '2.0'
+  updated_at: '2026-02-16'
+  source_site: docs.example.com
+  source_path: reference/nodes/webhook.md
+semantic:
+  topic: Environment variables
+  intent: configure
+  audience: developer
+  keywords:
+  - reference
+  - webhook
+  status: rule_based
 content:
   docs_markdown: '## Environment variables
 
@@ -50,7 +66,7 @@ content:
 
     - [Documentation index](../index.md)'
   assistant_context: 'Use this module when answering questions related to: Webhook
-    node reference for (Part 3). Source path: docs/reference/nodes/webhook.md. Summary:
+    node reference for (Part 3). Source path: reference/nodes/webhook.md. Summary:
     Complete parameter reference for the Webhook trigger node including HTTP methods,
     authentication, response modes, and binary data handling.
 

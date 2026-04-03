@@ -63,7 +63,6 @@ PACK_REGISTRY_PUBLIC_KEY_PATH = Path(
 
 def _init_sentry() -> None:
     """Initialize Sentry SDK if SENTRY_DSN is configured."""
-    import os
 
     dsn = os.getenv("SENTRY_DSN", "")
     if not dsn:
@@ -495,8 +494,6 @@ async def debug_sentry() -> dict[str, str]:
 
     Only available in non-production environments.
     """
-    import os
-
     env = os.getenv("VERIDOC_ENVIRONMENT", "development")
     if env == "production":
         raise HTTPException(status_code=404, detail="Not Found")
@@ -575,6 +572,7 @@ class PipelineRunRequest(BaseModel):
     repo_path: str = Field(description="Path to repository root")
     flow_mode: str = Field(default="code-first")
     modules: dict[str, bool] | None = None
+    protocols: list[str] | None = None
 
 
 class PackPublishRequest(BaseModel):

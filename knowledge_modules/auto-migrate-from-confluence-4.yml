@@ -14,12 +14,28 @@ channels:
 priority: 60
 status: active
 owner: docsops-auto
-last_verified: '2026-03-28'
+last_verified: '2026-04-03'
 dependencies: []
 tags:
 - auto-extracted
 - how-to
 - migrate-from-confluence
+metadata:
+  url: https://docs.example.com/how-to/migrate-from-confluence/
+  title: Migrate documentation from Confluence (Part 4)
+  heading: 'Method 2: Import from ZIP export'
+  version: 1.50.0
+  updated_at: '2026-03-28'
+  source_site: docs.example.com
+  source_path: how-to/migrate-from-confluence.md
+semantic:
+  topic: 'Method 2: Import from ZIP export'
+  intent: configure
+  audience: practitioner
+  keywords:
+  - how-to
+  - migrate from confluence
+  status: rule_based
 content:
   docs_markdown: "## Method 2: Import from ZIP export\n\nZIP export mode processes\
     \ a Confluence HTML+XML export file offline. Use this\nmethod when you do not\
@@ -35,7 +51,7 @@ content:
     \ \\\n  --export-zip /path/to/confluence-export.zip \\\n  --output-dir docs/imported/my-space\n\
     ```"
   assistant_context: "Use this module when answering questions related to: Migrate\
-    \ documentation from Confluence (Part 4). Source path: docs/how-to/migrate-from-confluence.md.\
+    \ documentation from Confluence (Part 4). Source path: how-to/migrate-from-confluence.md.\
     \ Summary: Import Confluence pages into the documentation pipeline with automatic\
     \ quality enhancement, SEO optimization, and knowledge extraction.\n\n## Method\
     \ 2: Import from ZIP export\n\nZIP export mode processes a Confluence HTML+XML\

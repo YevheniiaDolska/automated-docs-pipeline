@@ -1,0 +1,128 @@
+id: auto-security-policy-1
+title: VeriDoc security policy
+summary: Security policy for VeriDoc platform covering infrastructure security, encryption,
+  authentication, access controls, and incident response procedures.
+intents:
+- integrate
+- secure
+audiences:
+- developer
+- operator
+channels:
+- docs
+- assistant
+- automation
+priority: 60
+status: active
+owner: docsops-auto
+last_verified: '2026-04-03'
+dependencies: []
+tags:
+- auto-extracted
+- reference
+- security-policy
+metadata:
+  url: https://docs.example.com/legal/security-policy/
+  title: VeriDoc security policy
+  heading: Infrastructure security
+  version: 1.50.0
+  updated_at: '2026-03-28'
+  source_site: docs.example.com
+  source_path: legal/security-policy.md
+semantic:
+  topic: Infrastructure security
+  intent: integrate
+  audience: developer
+  keywords:
+  - reference
+  - security policy
+  status: rule_based
+content:
+  docs_markdown: '# VeriDoc security policy
+
+
+    VeriDoc is an automated documentation pipeline platform that processes
+
+    customer documentation content. This security policy describes the
+
+    technical and organizational measures we implement to protect your data
+
+    and maintain service integrity.
+
+
+    ## Infrastructure security
+
+
+    ### Hosting environment
+
+
+    VeriDoc runs on dedicated infrastructure in Hetzner Cloud data centers
+
+    located in Germany (EU).
+
+
+    | Component | Technology | Security configuration |
+
+    |-----------|------------|----------------------|
+
+    | Application server | Ubuntu 22.04 LTS | Automated security patches, SSH key-only
+    access |
+
+    | API service | FastAPI (Python 3.12) | CORS-restricted, rate-limited, JWT-authenticated
+    |
+
+    | Database | PostgreSQL 16 | Encrypted at rest (AES-256), TLS connections |
+
+    | Cache | Redis 7 | Memory-only, no content persistence, private network |
+
+    | Task queue | Celery + Redis | Isolated worker processes, task timeout enforcement
+    |
+
+    | Reverse proxy | Nginx | TLS 1.3, HTTP/2, security headers, rate limiting |'
+  assistant_context: 'Use this module when answering questions related to: VeriDoc
+    security policy. Source path: legal/security-policy.md. Summary: Security policy
+    for VeriDoc platform covering infrastructure security, encryption, authentication,
+    access controls, and incident response procedures.
+
+
+    # VeriDoc security policy
+
+
+    VeriDoc is an automated documentation pipeline platform that processes
+
+    customer documentation content. This security policy describes the
+
+    technical and organizational measures we implement to protect your data
+
+    and maintain service integrity.
+
+
+    ## Infrastructure security
+
+
+    ### Hosting environment
+
+
+    VeriDoc runs on dedicated infrastructure in Hetzner Cloud data centers
+
+    located in Germany (EU).
+
+
+    | Component | Technology | Security configuration |
+
+    |-----------|------------|----------------------|
+
+    | Application server | Ubuntu 22.04 LTS | Automated security patches, SSH key-only
+    access |
+
+    | API service | FastAPI (Python 3.12) | CORS-restricted, rate-limited, JWT-authenticated
+    |
+
+    | Database | PostgreSQL 16 | Encrypted at rest (AES-256), TLS connections |
+
+    | Cache | Redis 7 | Memory-only, no content persistence, private network |
+
+    | Task queue | Celery + Redis | Isolated worker processes, task timeout enforcement
+    |
+
+    | Reverse proxy | Nginx | TLS 1.3, HTTP/2, security headers, rate limiting |'

@@ -7,6 +7,7 @@ import argparse
 import gzip
 import hashlib
 import html
+import ipaddress
 from http.client import IncompleteRead
 import json
 import logging
@@ -17,7 +18,7 @@ import sys
 import statistics
 from collections import deque
 from concurrent.futures import ThreadPoolExecutor, as_completed
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from datetime import datetime, timezone
 from html.parser import HTMLParser
 from pathlib import Path
@@ -336,6 +337,11 @@ def _is_http_url(raw: str) -> bool:
         return False
     if any(ch.isspace() for ch in hostname):
         return False
+    if "." not in hostname and hostname.lower() != "localhost":
+        try:
+            ipaddress.ip_address(hostname)
+        except ValueError:
+            return False
     return True
 
 
@@ -489,11 +495,11 @@ class PageData:
     h1_count: int
     heading_levels: list[int]
     internal_links: list[str]
-    internal_link_refs: list[dict[str, str]]
     external_links: list[str]
     code_blocks: list[dict[str, str]]
     text: str
     last_updated_hint: str
+    internal_link_refs: list[dict[str, str]] = field(default_factory=list)
 
 
 _DATE_PATTERN = re.compile(

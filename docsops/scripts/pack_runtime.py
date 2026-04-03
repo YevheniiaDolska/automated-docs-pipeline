@@ -29,6 +29,19 @@ PACK_PATH = REPO_ROOT / "docsops" / ".capability_pack.enc"
 HKDF_SALT = b"veriops-pack-v2"
 HKDF_INFO_PREFIX = b"veriops-pack-key-"
 
+_CRYPTO_DECRYPT_ERRORS: tuple[type[BaseException], ...] = (
+    RuntimeError,
+    ValueError,
+    TypeError,
+    OSError,
+)
+try:
+    from cryptography.exceptions import InvalidTag as _InvalidTag  # type: ignore
+
+    _CRYPTO_DECRYPT_ERRORS = _CRYPTO_DECRYPT_ERRORS + (_InvalidTag,)
+except ImportError:
+    logger.debug("cryptography InvalidTag is unavailable in docsops runtime")
+
 # -- Degraded defaults (community mode) ---------------------------------------
 
 DEGRADED_GEO_RULES: dict[str, Any] = {
@@ -214,7 +227,7 @@ def _aes_gcm_decrypt(key: bytes, nonce: bytes, ciphertext: bytes, tag: bytes) ->
         return aes.decrypt(nonce, ciphertext + tag, None)
     except ImportError:
         logger.debug("cryptography is not installed; trying PyCryptodome for AES-GCM decrypt")
-    except Exception as exc:
+    except _CRYPTO_DECRYPT_ERRORS as exc:
         raise ValueError(f"AES-GCM decrypt failed: {exc}") from exc
 
     # Fallback: PyCryptodome
@@ -224,7 +237,7 @@ def _aes_gcm_decrypt(key: bytes, nonce: bytes, ciphertext: bytes, tag: bytes) ->
         return cipher.decrypt_and_verify(ciphertext, tag)
     except ImportError:
         logger.debug("PyCryptodome is not installed; AES-GCM decrypt fallback unavailable")
-    except Exception as exc:
+    except _CRYPTO_DECRYPT_ERRORS as exc:
         raise ValueError(f"AES-GCM decrypt failed: {exc}") from exc
 
     raise RuntimeError(

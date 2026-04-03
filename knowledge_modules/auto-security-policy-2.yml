@@ -1,0 +1,78 @@
+id: auto-security-policy-2
+title: VeriDoc security policy (Part 2)
+summary: Security policy for VeriDoc platform covering infrastructure security, encryption,
+  authentication, access controls, and incident response procedures.
+intents:
+- integrate
+- secure
+audiences:
+- developer
+- operator
+channels:
+- docs
+- assistant
+- automation
+priority: 60
+status: active
+owner: docsops-auto
+last_verified: '2026-04-03'
+dependencies: []
+tags:
+- auto-extracted
+- reference
+- security-policy
+metadata:
+  url: https://docs.example.com/legal/security-policy/
+  title: VeriDoc security policy (Part 2)
+  heading: Network security
+  version: 1.50.0
+  updated_at: '2026-03-28'
+  source_site: docs.example.com
+  source_path: legal/security-policy.md
+semantic:
+  topic: Network security
+  intent: integrate
+  audience: developer
+  keywords:
+  - reference
+  - security policy
+  status: rule_based
+content:
+  docs_markdown: "### Network security\n\n1. All public endpoints require TLS 1.3\
+    \ encryption. Older TLS versions\n   are rejected.\n1. Database and Redis ports\
+    \ are bound to `127.0.0.1` only -- no external\n   access.\n1. SSH access uses\
+    \ Ed25519 keys exclusively. Password authentication is\n   disabled.\n1. Firewall\
+    \ rules allow only ports 80 (redirect to 443), 443 (HTTPS), and\n   22 (SSH from\
+    \ allowlisted IPs).\n\n## Authentication and access control\n\n### User authentication\n\
+    \n| Mechanism | Implementation |\n|-----------|---------------|\n| Password hashing\
+    \ | PBKDF2-SHA256 with 600,000 iterations |\n| Token format | JWT (PyJWT) with\
+    \ HS256 signing |\n| Token expiry | 24 hours |\n| Session management | Stateless\
+    \ JWT, no server-side sessions |\n| Rate limiting | 60 requests per minute per\
+    \ user |\n\n### API authentication\n\nAll API endpoints except `/health` and `/auth/register`\
+    \ require a valid\nJWT token in the `Authorization: Bearer <token>` header.\n\n\
+    ```text\nPOST /auth/login\nContent-Type: application/json\n\n{\"email\": \"user@example.com\"\
+    , \"password\": \"your-password\"}\n\nResponse: {\"token\": \"eyJ...\", \"expires_in\"\
+    : 86400}\n```\n\n### Webhook verification\n\nIncoming LemonSqueezy webhooks are\
+    \ verified using HMAC-SHA256 signatures.\nRequests without a valid `X-Signature`\
+    \ header are rejected with HTTP 403.\n\n## Encryption"
+  assistant_context: "Use this module when answering questions related to: VeriDoc\
+    \ security policy (Part 2). Source path: legal/security-policy.md. Summary: Security\
+    \ policy for VeriDoc platform covering infrastructure security, encryption, authentication,\
+    \ access controls, and incident response procedures.\n\n### Network security\n\
+    \n1. All public endpoints require TLS 1.3 encryption. Older TLS versions\n   are\
+    \ rejected.\n1. Database and Redis ports are bound to `127.0.0.1` only -- no external\n\
+    \   access.\n1. SSH access uses Ed25519 keys exclusively. Password authentication\
+    \ is\n   disabled.\n1. Firewall rules allow only ports 80 (redirect to 443), 443\
+    \ (HTTPS), and\n   22 (SSH from allowlisted IPs).\n\n## Authentication and access\
+    \ control\n\n### User authentication\n\n| Mechanism | Implementation |\n|-----------|---------------|\n\
+    | Password hashing | PBKDF2-SHA256 with 600,000 iterations |\n| Token format |\
+    \ JWT (PyJWT) with HS256 signing |\n| Token expiry | 24 hours |\n| Session management\
+    \ | Stateless JWT, no server-side sessions |\n| Rate limiting | 60 requests per\
+    \ minute per user |\n\n### API authentication\n\nAll API endpoints except `/health`\
+    \ and `/auth/register` require a valid\nJWT token in the `Authorization: Bearer\
+    \ <token>` header.\n\n```text\nPOST /auth/login\nContent-Type: application/json\n\
+    \n{\"email\": \"user@example.com\", \"password\": \"your-password\"}\n\nResponse:\
+    \ {\"token\": \"eyJ...\", \"expires_in\": 86400}\n```\n\n### Webhook verification\n\
+    \nIncoming LemonSqueezy webhooks are verified using HMAC-SHA256 signatures.\n\
+    Requests without a valid `X-Signature` header are rejected with HTTP 403.\n\n\
+    ## Encryption"

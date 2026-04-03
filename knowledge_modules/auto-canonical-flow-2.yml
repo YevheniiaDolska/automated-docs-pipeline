@@ -14,12 +14,28 @@ channels:
 priority: 60
 status: active
 owner: docsops-auto
-last_verified: '2026-03-28'
+last_verified: '2026-04-03'
 dependencies: []
 tags:
 - auto-extracted
 - canonical-flow
 - reference
+metadata:
+  url: https://docs.example.com/operations/CANONICAL_FLOW/
+  title: Canonical Flow (Sales + Delivery) (Part 2)
+  heading: 2. One-time setup (you do this)
+  version: 1.50.0
+  updated_at: '2026-03-24'
+  source_site: docs.example.com
+  source_path: operations/CANONICAL_FLOW.md
+semantic:
+  topic: 2. One-time setup (you do this)
+  intent: integrate
+  audience: developer
+  keywords:
+  - canonical flow
+  - reference
+  status: rule_based
 content:
   docs_markdown: "## 2. One-time setup (you do this)\n\n\\11. Pick preset:\n\n- `profiles/clients/presets/small.yml`\n\
     - `profiles/clients/presets/startup.yml`\n- `profiles/clients/presets/enterprise.yml`\n\
@@ -39,7 +55,7 @@ content:
     \ mode):\n\n```bash\npython3 scripts/build_client_bundle.py --client profiles/clients/<client>.client.yml\n\
     ```\n\nClient installs scheduler after copying bundle into `<client-repo>/docsops`:"
   assistant_context: "Use this module when answering questions related to: Canonical\
-    \ Flow (Sales + Delivery) (Part 2). Source path: docs/operations/CANONICAL_FLOW.md.\
+    \ Flow (Sales + Delivery) (Part 2). Source path: operations/CANONICAL_FLOW.md.\
     \ Summary: Canonical sales and delivery flow for onboarding and operating client\
     \ Auto-Doc Pipeline setups.\n\n## 2. One-time setup (you do this)\n\n\\11. Pick\
     \ preset:\n\n- `profiles/clients/presets/small.yml`\n- `profiles/clients/presets/startup.yml`\n\

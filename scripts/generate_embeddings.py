@@ -169,10 +169,6 @@ def main() -> int:
 
     provider = str(args.provider).strip().lower()
 
-    if faiss is None:
-        print("Warning: faiss-cpu not installed. Skipping embedding generation.")
-        return 0
-
     api_key = ""
     if provider == "openai":
         api_key = os.getenv("OPENAI_API_KEY", "").strip()
@@ -182,6 +178,10 @@ def main() -> int:
         if httpx is None:
             print("Warning: httpx not installed. Skipping embedding generation.")
             return 0
+
+    if faiss is None:
+        print("Warning: faiss-cpu not installed. Skipping embedding generation.")
+        return 0
 
     index_path = Path(args.index)
     if not index_path.exists():

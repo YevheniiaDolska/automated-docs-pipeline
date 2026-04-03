@@ -15,12 +15,28 @@ channels:
 priority: 60
 status: active
 owner: docsops-auto
-last_verified: '2026-03-28'
+last_verified: '2026-04-03'
 dependencies: []
 tags:
 - auto-extracted
 - plan-tiers
 - reference
+metadata:
+  url: https://docs.example.com/operations/PLAN_TIERS/
+  title: Plan Tiers (Basic / Pro / Enterprise) (Part 10)
+  heading: Plan Tiers (Basic / Pro / Enterprise) (Part 10)
+  version: 1.50.0
+  updated_at: '2026-03-24'
+  source_site: docs.example.com
+  source_path: operations/PLAN_TIERS.md
+semantic:
+  topic: Plan Tiers (Basic / Pro / Enterprise) (Part 10)
+  intent: integrate
+  audience: developer
+  keywords:
+  - plan tiers
+  - reference
+  status: rule_based
 content:
   docs_markdown: "```yaml\nbundle:\n  base_policy_pack: \"multi-product\"\n  style_guide:\
     \ \"microsoft\"\n  policy_overrides:\n    kpi_sla:\n      min_doc_coverage: 90\n\
@@ -63,7 +79,7 @@ content:
     \ \"python3 docsops/scripts/build_all_intent_experiences.py\"\n        continue_on_error:\
     \ true\nprivate_tuning:\n  weekly_stale_days: 180\n```"
   assistant_context: "Use this module when answering questions related to: Plan Tiers\
-    \ (Basic / Pro / Enterprise) (Part 10). Source path: docs/operations/PLAN_TIERS.md.\
+    \ (Basic / Pro / Enterprise) (Part 10). Source path: operations/PLAN_TIERS.md.\
     \ Summary: Feature packaging matrix and defaults for Basic, Pro, and Enterprise\
     \ client plans.\n\n```yaml\nbundle:\n  base_policy_pack: \"multi-product\"\n \
     \ style_guide: \"microsoft\"\n  policy_overrides:\n    kpi_sla:\n      min_doc_coverage:\

@@ -1,0 +1,79 @@
+id: auto-terms-of-service-4
+title: VeriDoc terms of service (Part 4)
+summary: Terms of service governing the use of VeriDoc automated documentation platform,
+  including subscription tiers, usage limits, and acceptable use policies.
+intents:
+- integrate
+audiences:
+- developer
+- operator
+channels:
+- docs
+- assistant
+- automation
+priority: 60
+status: active
+owner: docsops-auto
+last_verified: '2026-04-03'
+dependencies: []
+tags:
+- auto-extracted
+- reference
+- terms-of-service
+metadata:
+  url: https://docs.example.com/legal/terms-of-service/
+  title: VeriDoc terms of service (Part 4)
+  heading: Data handling
+  version: 1.50.0
+  updated_at: '2026-03-28'
+  source_site: docs.example.com
+  source_path: legal/terms-of-service.md
+semantic:
+  topic: Data handling
+  intent: integrate
+  audience: developer
+  keywords:
+  - reference
+  - terms of service
+  status: rule_based
+content:
+  docs_markdown: "## Data handling\n\nWe process your documentation content to provide\
+    \ the Service. Refer to our\n[privacy policy](privacy-policy.md) for details on\
+    \ data collection, storage,\nand retention.\n\nKey data handling commitments:\n\
+    \n1. Your documentation content is processed in memory and stored in encrypted\n\
+    \   databases.\n1. We do not use your content to train machine learning models.\n\
+    1. LLM providers (Anthropic, OpenAI, Groq, DeepSeek) process content only\n  \
+    \ when you enable AI features. Each provider's data handling policies\n   apply\
+    \ to that processing.\n1. You may request data export or deletion at any time\
+    \ per our\n   [data processing agreement](data-processing-agreement.md).\n\n##\
+    \ Service availability\n\nWe target 99.9% uptime for the production environment.\
+    \ Planned maintenance\nwindows are announced 48 hours in advance via email and\
+    \ the status page.\n\nWe are not liable for downtime caused by:\n\n1. Third-party\
+    \ service outages (LemonSqueezy, LLM providers, DNS).\n1. Force majeure events.\n\
+    1. Your network or infrastructure issues.\n1. Scheduled maintenance communicated\
+    \ in advance.\n\n## Limitation of liability\n\nTo the maximum extent permitted\
+    \ by law, Liora Tech is not liable for\nindirect, incidental, special, or consequential\
+    \ damages arising from your\nuse of the Service. Our total liability is limited\
+    \ to the amount you paid\nfor the Service in the 12 months preceding the claim."
+  assistant_context: "Use this module when answering questions related to: VeriDoc\
+    \ terms of service (Part 4). Source path: legal/terms-of-service.md. Summary:\
+    \ Terms of service governing the use of VeriDoc automated documentation platform,\
+    \ including subscription tiers, usage limits, and acceptable use policies.\n\n\
+    ## Data handling\n\nWe process your documentation content to provide the Service.\
+    \ Refer to our\n[privacy policy](privacy-policy.md) for details on data collection,\
+    \ storage,\nand retention.\n\nKey data handling commitments:\n\n1. Your documentation\
+    \ content is processed in memory and stored in encrypted\n   databases.\n1. We\
+    \ do not use your content to train machine learning models.\n1. LLM providers\
+    \ (Anthropic, OpenAI, Groq, DeepSeek) process content only\n   when you enable\
+    \ AI features. Each provider's data handling policies\n   apply to that processing.\n\
+    1. You may request data export or deletion at any time per our\n   [data processing\
+    \ agreement](data-processing-agreement.md).\n\n## Service availability\n\nWe target\
+    \ 99.9% uptime for the production environment. Planned maintenance\nwindows are\
+    \ announced 48 hours in advance via email and the status page.\n\nWe are not liable\
+    \ for downtime caused by:\n\n1. Third-party service outages (LemonSqueezy, LLM\
+    \ providers, DNS).\n1. Force majeure events.\n1. Your network or infrastructure\
+    \ issues.\n1. Scheduled maintenance communicated in advance.\n\n## Limitation\
+    \ of liability\n\nTo the maximum extent permitted by law, Liora Tech is not liable\
+    \ for\nindirect, incidental, special, or consequential damages arising from your\n\
+    use of the Service. Our total liability is limited to the amount you paid\nfor\
+    \ the Service in the 12 months preceding the claim."

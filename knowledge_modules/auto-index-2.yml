@@ -1,10 +1,9 @@
 id: auto-index-2
-title: Documentation Pipeline Demo (Part 2)
-summary: Automated documentation pipeline with GEO optimization, faceted search, and
-  CI/CD quality gates for workflow automation platform.
+title: Legal and compliance (Part 2)
+summary: Legal documents for VeriDoc platform including terms of service, privacy
+  policy, data processing agreement, and security policy.
 intents:
 - integrate
-- troubleshoot
 audiences:
 - developer
 - operator
@@ -15,27 +14,44 @@ channels:
 priority: 60
 status: active
 owner: docsops-auto
-last_verified: '2026-03-28'
+last_verified: '2026-04-03'
 dependencies: []
 tags:
 - auto-extracted
-- concept
 - index
+- reference
+metadata:
+  url: https://docs.example.com/legal/
+  title: Legal and compliance (Part 2)
+  heading: Next steps
+  version: 1.50.0
+  updated_at: '2026-03-28'
+  source_site: docs.example.com
+  source_path: legal/index.md
+semantic:
+  topic: Next steps
+  intent: integrate
+  audience: developer
+  keywords:
+  - index
+  - reference
+  status: rule_based
 content:
-  docs_markdown: "## Browse by type\n\n- **[Getting Started](getting-started/index.md)**\u2014\
-    Tutorials to learn from scratch\n- **[How-To Guides](how-to/index.md)**\u2014\
-    Step-by-step solutions for specific tasks\n- **[Concepts](concepts/index.md)**\u2014\
-    Architecture and design explanations\n- **[Reference](reference/index.md)**\u2014\
-    Complete parameter and API docs\n- **[Troubleshooting](troubleshooting/index.md)**\u2014\
-    Common problems and fixes\n\n## Browse by tag\n\nSee all [tags](tags.md) for faceted\
-    \ filtering."
-  assistant_context: "Use this module when answering questions related to: Documentation\
-    \ Pipeline Demo (Part 2). Source path: docs/index.md. Summary: Automated documentation\
-    \ pipeline with GEO optimization, faceted search, and CI/CD quality gates for\
-    \ workflow automation platform.\n\n## Browse by type\n\n- **[Getting Started](getting-started/index.md)**\u2014\
-    Tutorials to learn from scratch\n- **[How-To Guides](how-to/index.md)**\u2014\
-    Step-by-step solutions for specific tasks\n- **[Concepts](concepts/index.md)**\u2014\
-    Architecture and design explanations\n- **[Reference](reference/index.md)**\u2014\
-    Complete parameter and API docs\n- **[Troubleshooting](troubleshooting/index.md)**\u2014\
-    Common problems and fixes\n\n## Browse by tag\n\nSee all [tags](tags.md) for faceted\
-    \ filtering."
+  docs_markdown: '## Next steps
+
+
+    - [Terms of service](terms-of-service.md)
+
+    - [Privacy policy](privacy-policy.md)'
+  assistant_context: 'Use this module when answering questions related to: Legal and
+    compliance (Part 2). Source path: legal/index.md. Summary: Legal documents for
+    VeriDoc platform including terms of service, privacy policy, data processing agreement,
+    and security policy.
+
+
+    ## Next steps
+
+
+    - [Terms of service](terms-of-service.md)
+
+    - [Privacy policy](privacy-policy.md)'

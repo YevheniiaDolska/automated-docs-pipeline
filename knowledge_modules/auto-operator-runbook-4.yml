@@ -14,12 +14,28 @@ channels:
 priority: 60
 status: active
 owner: docsops-auto
-last_verified: '2026-03-28'
+last_verified: '2026-04-03'
 dependencies: []
 tags:
 - auto-extracted
 - how-to
 - operator-runbook
+metadata:
+  url: https://docs.example.com/operations/OPERATOR_RUNBOOK/
+  title: Operator Runbook (Retainer Operations) (Part 4)
+  heading: 'Step 1.1: Verify the report was generated'
+  version: 1.50.0
+  updated_at: '2026-03-21'
+  source_site: docs.example.com
+  source_path: operations/OPERATOR_RUNBOOK.md
+semantic:
+  topic: 'Step 1.1: Verify the report was generated'
+  intent: configure
+  audience: practitioner
+  keywords:
+  - how-to
+  - operator runbook
+  status: rule_based
 content:
   docs_markdown: "### Step 1.1: Verify the report was generated\n\nOpen the client\
     \ repository folder. Check the modified date of `reports/consolidated_report.json`.\n\
@@ -39,7 +55,7 @@ content:
     \ |\n| `total_action_items` | Stable or decreasing | If increasing week over week,\
     \ backlog is growing |"
   assistant_context: "Use this module when answering questions related to: Operator\
-    \ Runbook (Retainer Operations) (Part 4). Source path: docs/operations/OPERATOR_RUNBOOK.md.\
+    \ Runbook (Retainer Operations) (Part 4). Source path: operations/OPERATOR_RUNBOOK.md.\
     \ Summary: Step-by-step instructions for weekly report review, client questions,\
     \ new repo setup, and profile tuning.\n\n### Step 1.1: Verify the report was generated\n\
     \nOpen the client repository folder. Check the modified date of `reports/consolidated_report.json`.\n\

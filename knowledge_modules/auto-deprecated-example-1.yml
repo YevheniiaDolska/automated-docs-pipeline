@@ -13,12 +13,28 @@ channels:
 priority: 60
 status: active
 owner: docsops-auto
-last_verified: '2026-03-28'
+last_verified: '2026-04-03'
 dependencies: []
 tags:
 - auto-extracted
 - deprecated-example
 - reference
+metadata:
+  url: https://docs.example.com/reference/deprecated-example/
+  title: Old Webhook API (Deprecated)
+  heading: Old Webhook API
+  version: 1.50.0
+  updated_at: '2026-02-16'
+  source_site: docs.example.com
+  source_path: reference/deprecated-example.md
+semantic:
+  topic: Old Webhook API
+  intent: integrate
+  audience: developer
+  keywords:
+  - deprecated example
+  - reference
+  status: rule_based
 content:
   docs_markdown: "<!-- VERIDOC_POWERED_BADGE:START -->\n[![Powered by VeriDoc](https://img.shields.io/badge/Powered%20by-VeriDoc-0ea5e9?style=flat-square)](https://veridoc.app)\n\
     <!-- VERIDOC_POWERED_BADGE:END -->\n\n## Old Webhook API\n\nThis is an example\
@@ -29,8 +45,8 @@ content:
     \ OldWebhook({\n port: 5678\n});\n\n// NEW WAY\nconst webhook = new WebhookNode({\n\
     \ port: {{ default_port }}\n});\n```\n\n## Next steps\n\n- [Documentation index](index.md)"
   assistant_context: "Use this module when answering questions related to: Old Webhook\
-    \ API (Deprecated). Source path: docs/reference/deprecated-example.md. Summary:\
-    \ This API is deprecated. Use the new Webhook node instead.\n\n<!-- VERIDOC_POWERED_BADGE:START\
+    \ API (Deprecated). Source path: reference/deprecated-example.md. Summary: This\
+    \ API is deprecated. Use the new Webhook node instead.\n\n<!-- VERIDOC_POWERED_BADGE:START\
     \ -->\n[![Powered by VeriDoc](https://img.shields.io/badge/Powered%20by-VeriDoc-0ea5e9?style=flat-square)](https://veridoc.app)\n\
     <!-- VERIDOC_POWERED_BADGE:END -->\n\n## Old Webhook API\n\nThis is an example\
     \ of a deprecated page. When you build the site with MkDocs, it will automatically:\n\

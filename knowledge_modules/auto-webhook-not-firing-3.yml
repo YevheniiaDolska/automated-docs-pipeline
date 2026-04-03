@@ -16,12 +16,28 @@ channels:
 priority: 60
 status: active
 owner: docsops-auto
-last_verified: '2026-03-28'
+last_verified: '2026-04-03'
 dependencies: []
 tags:
 - auto-extracted
 - troubleshooting
 - webhook-not-firing
+metadata:
+  url: https://docs.example.com/troubleshooting/webhook-not-firing/
+  title: 'Fix: Webhook trigger not firing (Part 3)'
+  heading: Still not working?
+  version: 1.50.0
+  updated_at: '2026-02-16'
+  source_site: docs.example.com
+  source_path: troubleshooting/webhook-not-firing.md
+semantic:
+  topic: Still not working?
+  intent: configure
+  audience: support
+  keywords:
+  - troubleshooting
+  - webhook not firing
+  status: rule_based
 content:
   docs_markdown: '## Still not working?
 
@@ -47,7 +63,7 @@ content:
 
     - [Documentation index](index.md)'
   assistant_context: 'Use this module when answering questions related to: Fix: Webhook
-    trigger not firing (Part 3). Source path: docs/troubleshooting/webhook-not-firing.md.
+    trigger not firing (Part 3). Source path: troubleshooting/webhook-not-firing.md.
     Summary: Troubleshoot Webhook nodes that do not receive requests. Common causes
     include inactive workflows, wrong URL type, and network configuration.
 

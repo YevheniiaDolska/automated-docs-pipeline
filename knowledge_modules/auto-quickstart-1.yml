@@ -14,12 +14,28 @@ channels:
 priority: 60
 status: active
 owner: docsops-auto
-last_verified: '2026-03-28'
+last_verified: '2026-04-03'
 dependencies: []
 tags:
 - auto-extracted
 - quickstart
 - tutorial
+metadata:
+  url: https://docs.example.com/getting-started/quickstart/
+  title: Build your first workflow in 5 minutes
+  heading: Build your first workflow in 5 minutes
+  version: 1.50.0
+  updated_at: '2026-02-16'
+  source_site: docs.example.com
+  source_path: getting-started/quickstart.md
+semantic:
+  topic: Build your first workflow in 5 minutes
+  intent: configure
+  audience: beginner
+  keywords:
+  - quickstart
+  - tutorial
+  status: rule_based
 content:
   docs_markdown: "<!-- VERIDOC_POWERED_BADGE:START -->\n[![Powered by VeriDoc](https://img.shields.io/badge/Powered%20by-VeriDoc-0ea5e9?style=flat-square)](https://veridoc.app)\n\
     <!-- VERIDOC_POWERED_BADGE:END -->\n\n## Build your first workflow in 5 minutes\n\
@@ -38,10 +54,10 @@ content:
     \ URL is active only while the workflow editor is open. The Production URL activates\
     \ after you toggle the workflow to **Active**."
   assistant_context: "Use this module when answering questions related to: Build your\
-    \ first workflow in 5 minutes. Source path: docs/getting-started/quickstart.md.\
-    \ Summary: Create a webhook-triggered workflow that receives HTTP requests and\
-    \ sends Slack notifications. No coding required.\n\n<!-- VERIDOC_POWERED_BADGE:START\
-    \ -->\n[![Powered by VeriDoc](https://img.shields.io/badge/Powered%20by-VeriDoc-0ea5e9?style=flat-square)](https://veridoc.app)\n\
+    \ first workflow in 5 minutes. Source path: getting-started/quickstart.md. Summary:\
+    \ Create a webhook-triggered workflow that receives HTTP requests and sends Slack\
+    \ notifications. No coding required.\n\n<!-- VERIDOC_POWERED_BADGE:START -->\n\
+    [![Powered by VeriDoc](https://img.shields.io/badge/Powered%20by-VeriDoc-0ea5e9?style=flat-square)](https://veridoc.app)\n\
     <!-- VERIDOC_POWERED_BADGE:END -->\n\n## Build your first workflow in 5 minutes\n\
     \nA workflow is a series of connected nodes that process data automatically. In\
     \ this tutorial you create a workflow that receives an HTTP request via a Webhook\

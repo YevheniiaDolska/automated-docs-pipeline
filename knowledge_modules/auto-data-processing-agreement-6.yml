@@ -1,0 +1,74 @@
+id: auto-data-processing-agreement-6
+title: VeriDoc data processing agreement (Part 6)
+summary: Data processing agreement for VeriDoc platform covering GDPR compliance,
+  sub-processors, data transfer mechanisms, and breach notification procedures.
+intents:
+- integrate
+- secure
+audiences:
+- developer
+- operator
+channels:
+- docs
+- assistant
+- automation
+priority: 60
+status: active
+owner: docsops-auto
+last_verified: '2026-04-03'
+dependencies: []
+tags:
+- auto-extracted
+- data-processing-agreement
+- reference
+metadata:
+  url: https://docs.example.com/legal/data-processing-agreement/
+  title: VeriDoc data processing agreement (Part 6)
+  heading: EU-US transfers
+  version: 1.50.0
+  updated_at: '2026-03-28'
+  source_site: docs.example.com
+  source_path: legal/data-processing-agreement.md
+semantic:
+  topic: EU-US transfers
+  intent: integrate
+  audience: developer
+  keywords:
+  - data processing agreement
+  - reference
+  status: rule_based
+content:
+  docs_markdown: "### EU-US transfers\n\nFor sub-processors located in the United\
+    \ States, we rely on:\n\n1. Standard Contractual Clauses (SCCs) approved by the\
+    \ European Commission\n   (June 2021 version).\n1. Supplementary measures including\
+    \ encryption in transit and at rest.\n1. Data minimization -- only the minimum\
+    \ data necessary is transferred.\n\n### Transfer impact assessment\n\nWe have\
+    \ conducted transfer impact assessments for each non-EU\nsub-processor. Assessments\
+    \ are available upon request at\n<privacy@veri-doc.app>.\n\n## Data breach notification\n\
+    \nIn the event of a personal data breach:\n\n| Step | Timeline | Action |\n|------|----------|--------|\n\
+    | 1 | Within 24 hours | Internal incident response team activated |\n| 2 | Within\
+    \ 72 hours | Written notification to you with breach details |\n| 3 | Within 72\
+    \ hours | Notification to supervisory authority (if required) |\n| 4 | Ongoing\
+    \ | Regular updates on investigation and remediation |\n\nBreach notification\
+    \ includes:\n\n1. Nature of the breach and categories of data affected.\n1. Estimated\
+    \ number of data subjects affected.\n1. Likely consequences of the breach.\n1.\
+    \ Measures taken to address and mitigate the breach."
+  assistant_context: "Use this module when answering questions related to: VeriDoc\
+    \ data processing agreement (Part 6). Source path: legal/data-processing-agreement.md.\
+    \ Summary: Data processing agreement for VeriDoc platform covering GDPR compliance,\
+    \ sub-processors, data transfer mechanisms, and breach notification procedures.\n\
+    \n### EU-US transfers\n\nFor sub-processors located in the United States, we rely\
+    \ on:\n\n1. Standard Contractual Clauses (SCCs) approved by the European Commission\n\
+    \   (June 2021 version).\n1. Supplementary measures including encryption in transit\
+    \ and at rest.\n1. Data minimization -- only the minimum data necessary is transferred.\n\
+    \n### Transfer impact assessment\n\nWe have conducted transfer impact assessments\
+    \ for each non-EU\nsub-processor. Assessments are available upon request at\n\
+    <privacy@veri-doc.app>.\n\n## Data breach notification\n\nIn the event of a personal\
+    \ data breach:\n\n| Step | Timeline | Action |\n|------|----------|--------|\n\
+    | 1 | Within 24 hours | Internal incident response team activated |\n| 2 | Within\
+    \ 72 hours | Written notification to you with breach details |\n| 3 | Within 72\
+    \ hours | Notification to supervisory authority (if required) |\n| 4 | Ongoing\
+    \ | Regular updates on investigation and remediation |\n\nBreach notification\
+    \ includes:\n\n1. Nature of the breach and categories of data affected.\n1. Estimated\
+    \ number of data subjects affected.\n1. Likely consequences of the breach.\n1.\
+    \ Measures taken to address and mitigate the breach."

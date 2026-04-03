@@ -15,12 +15,28 @@ channels:
 priority: 60
 status: active
 owner: docsops-auto
-last_verified: '2026-03-28'
+last_verified: '2026-04-03'
 dependencies: []
 tags:
 - auto-extracted
 - how-to
 - operator-runbook
+metadata:
+  url: https://docs.example.com/operations/OPERATOR_RUNBOOK/
+  title: Operator Runbook (Retainer Operations) (Part 21)
+  heading: Scheduler did not run
+  version: 1.50.0
+  updated_at: '2026-03-21'
+  source_site: docs.example.com
+  source_path: operations/OPERATOR_RUNBOOK.md
+semantic:
+  topic: Scheduler did not run
+  intent: configure
+  audience: practitioner
+  keywords:
+  - how-to
+  - operator runbook
+  status: rule_based
 content:
   docs_markdown: '### Scheduler did not run
 
@@ -105,7 +121,7 @@ content:
 
     1. For dev/test: `export VERIOPS_LICENSE_PLAN=enterprise`.'
   assistant_context: 'Use this module when answering questions related to: Operator
-    Runbook (Retainer Operations) (Part 21). Source path: docs/operations/OPERATOR_RUNBOOK.md.
+    Runbook (Retainer Operations) (Part 21). Source path: operations/OPERATOR_RUNBOOK.md.
     Summary: Step-by-step instructions for weekly report review, client questions,
     new repo setup, and profile tuning.
 

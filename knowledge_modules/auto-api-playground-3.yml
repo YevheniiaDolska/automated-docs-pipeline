@@ -15,12 +15,28 @@ channels:
 priority: 60
 status: active
 owner: docsops-auto
-last_verified: '2026-03-28'
+last_verified: '2026-04-03'
 dependencies: []
 tags:
 - api-playground
 - auto-extracted
 - reference
+metadata:
+  url: https://docs.example.com/reference/api-playground/
+  title: API playground (Part 3)
+  heading: Security guidance
+  version: 1.50.0
+  updated_at: '2026-02-23'
+  source_site: docs.example.com
+  source_path: reference/api-playground.md
+semantic:
+  topic: Security guidance
+  intent: integrate
+  audience: developer
+  keywords:
+  - api playground
+  - reference
+  status: rule_based
 content:
   docs_markdown: '## Security guidance
 
@@ -39,9 +55,8 @@ content:
 
     - [Documentation index](index.md)'
   assistant_context: 'Use this module when answering questions related to: API playground
-    (Part 3). Source path: docs/reference/api-playground.md. Summary: Interactive
-    API reference with Swagger UI or Redoc and configurable sandbox behavior for product-led
-    growth.
+    (Part 3). Source path: reference/api-playground.md. Summary: Interactive API reference
+    with Swagger UI or Redoc and configurable sandbox behavior for product-led growth.
 
 
     ## Security guidance

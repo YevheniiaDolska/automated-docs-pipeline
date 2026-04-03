@@ -16,12 +16,28 @@ channels:
 priority: 60
 status: active
 owner: docsops-auto
-last_verified: '2026-03-28'
+last_verified: '2026-04-03'
 dependencies: []
 tags:
 - auto-extracted
 - pipeline-capabilities-catalog
 - reference
+metadata:
+  url: https://docs.example.com/operations/PIPELINE_CAPABILITIES_CATALOG/
+  title: Pipeline Capabilities Catalog (Part 10)
+  heading: Test assets generation and smart merge
+  version: 1.50.0
+  updated_at: '2026-03-24'
+  source_site: docs.example.com
+  source_path: operations/PIPELINE_CAPABILITIES_CATALOG.md
+semantic:
+  topic: Test assets generation and smart merge
+  intent: integrate
+  audience: developer
+  keywords:
+  - pipeline capabilities catalog
+  - reference
+  status: rule_based
 content:
   docs_markdown: '## Test assets generation and smart merge
 
@@ -67,7 +83,7 @@ content:
     to TestRail or Zephyr Scale. The `needs_review` flag propagates to both platforms
     so QA teams can triage stale custom cases.'
   assistant_context: 'Use this module when answering questions related to: Pipeline
-    Capabilities Catalog (Part 10). Source path: docs/operations/PIPELINE_CAPABILITIES_CATALOG.md.
+    Capabilities Catalog (Part 10). Source path: operations/PIPELINE_CAPABILITIES_CATALOG.md.
     Summary: Generated catalog of available pipeline commands, templates, policy packs,
     and assets for client configuration.
 

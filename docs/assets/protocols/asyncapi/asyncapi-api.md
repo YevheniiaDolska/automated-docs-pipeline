@@ -4,22 +4,17 @@ description: Auto-generated asyncapi reference from source contract.
 content_type: reference
 product: both
 tags:
+- Pytest 2839
 - Docs
-- Mnt
-- Documents
-- Development
-- Kroha
-- Auto Doc Pipeline
-- C
-- Users
-last_reviewed: '2026-03-26'
-original_author: Kroha
+- Tmp
+- Test_Multi_Protocol_Flow_Gener0
+- Pytest Of Eudo
 ---
 
 
 # ASYNCAPI Reference
 
-Source: `/tmp/pytest-of-eudo/pytest-2642/test_multi_protocol_flow_e2e_e0/asyncapi.yaml`
+Source: `/tmp/pytest-of-eudo/pytest-2839/test_multi_protocol_flow_gener0/api/asyncapi.yaml`
 
 Flow mode: `api-first`
 
@@ -32,7 +27,7 @@ Flow mode: `api-first`
 ## Channels
 
 - Channel count: `1`
-- `orders/created`
+- `project.updated`
 
 ## Interactive AsyncAPI Tester
 
@@ -41,13 +36,11 @@ Flow mode: `api-first`
 <div id="asyncapi-playground" style="border:1px solid #d1d5db; padding:12px; border-radius:8px;">
   <p><strong>WebSocket Endpoint:</strong> <code id="asyncapi-ws-view"></code></p>
   <p><strong>HTTP Publish Endpoint:</strong> <code id="asyncapi-http-view"></code></p>
-  <!-- vale off -->
-<textarea id="asyncapi-message" rows="8" style="width:100%; font-family:monospace;">{
+  <textarea id="asyncapi-message" rows="8" style="width:100%; font-family:monospace;">{
   "event_type": "project.updated",
   "event_id": "evt_001",
   "data": {"project_id": "prj_abc123", "status": "active"}
 }</textarea><br/>
-  <!-- vale on -->
   <button id="asyncapi-send-ws">Send via WebSocket</button>
   <button id="asyncapi-send-http">Send via HTTP</button>
   <pre id="asyncapi-output" style="margin-top:12px; max-height:320px; overflow:auto;"></pre>
@@ -120,4 +113,4 @@ sendHttp.onclick = async function(){
 
 ## Next steps
 
-- [Documentation index](index.md)
+- [Documentation index](../index.md)

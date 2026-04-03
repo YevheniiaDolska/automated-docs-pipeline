@@ -15,12 +15,28 @@ channels:
 priority: 60
 status: active
 owner: docsops-auto
-last_verified: '2026-03-28'
+last_verified: '2026-04-03'
 dependencies: []
 tags:
 - auto-extracted
 - grpc-api
 - reference
+metadata:
+  url: https://docs.example.com/reference/grpc-api/
+  title: GRPC API Reference (Part 3)
+  heading: GRPC API Reference (Part 3)
+  version: 1.50.0
+  updated_at: '2026-03-19'
+  source_site: docs.example.com
+  source_path: reference/grpc-api.md
+semantic:
+  topic: GRPC API Reference (Part 3)
+  intent: configure
+  audience: developer
+  keywords:
+  - grpc api
+  - reference
+  status: rule_based
 content:
   docs_markdown: "<div id=\"grpc-playground\" style=\"border:1px solid #d1d5db; padding:12px;\
     \ border-radius:8px;\">\n  <p><strong>Gateway Endpoint:</strong> <code id=\"grpc-endpoint-view\"\
@@ -58,7 +74,7 @@ content:
     \ error: String(error), simulated_response: fallback(body) }, null, 2);\n  }\n\
     };\n})();\n</script>"
   assistant_context: "Use this module when answering questions related to: GRPC API\
-    \ Reference (Part 3). Source path: docs/reference/grpc-api.md. Summary: Auto-generated\
+    \ Reference (Part 3). Source path: reference/grpc-api.md. Summary: Auto-generated\
     \ grpc reference from source contract.\n\n<div id=\"grpc-playground\" style=\"\
     border:1px solid #d1d5db; padding:12px; border-radius:8px;\">\n  <p><strong>Gateway\
     \ Endpoint:</strong> <code id=\"grpc-endpoint-view\"></code></p>\n  <label>Service</label><br/><input\

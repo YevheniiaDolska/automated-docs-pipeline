@@ -13,12 +13,28 @@ channels:
 priority: 60
 status: active
 owner: docsops-auto
-last_verified: '2026-03-28'
+last_verified: '2026-04-03'
 dependencies: []
 tags:
 - auto-extracted
 - reference
 - variables-guide
+metadata:
+  url: https://docs.example.com/VARIABLES_GUIDE/
+  title: Variables and Templates Guide (Part 4)
+  heading: Configuration
+  version: 1.50.0
+  updated_at: None
+  source_site: docs.example.com
+  source_path: VARIABLES_GUIDE.md
+semantic:
+  topic: Configuration
+  intent: integrate
+  audience: developer
+  keywords:
+  - reference
+  - variables guide
+  status: rule_based
 content:
   docs_markdown: '## Configuration
 
@@ -90,8 +106,8 @@ content:
 
     - [Documentation index](index.md)'
   assistant_context: 'Use this module when answering questions related to: Variables
-    and Templates Guide (Part 4). Source path: docs/VARIABLES_GUIDE.md. Summary: How
-    to use Jinja2 variables and templates in documentation for consistency
+    and Templates Guide (Part 4). Source path: VARIABLES_GUIDE.md. Summary: How to
+    use Jinja2 variables and templates in documentation for consistency
 
 
     ## Configuration

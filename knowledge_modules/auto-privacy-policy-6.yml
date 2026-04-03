@@ -1,0 +1,174 @@
+id: auto-privacy-policy-6
+title: VeriDoc privacy policy (Part 6)
+summary: Privacy policy for VeriDoc automated documentation platform, covering data
+  collection, processing, storage, retention, and your rights under GDPR.
+intents:
+- integrate
+- troubleshoot
+audiences:
+- developer
+- operator
+channels:
+- docs
+- assistant
+- automation
+priority: 60
+status: active
+owner: docsops-auto
+last_verified: '2026-04-03'
+dependencies: []
+tags:
+- auto-extracted
+- privacy-policy
+- reference
+metadata:
+  url: https://docs.example.com/legal/privacy-policy/
+  title: VeriDoc privacy policy (Part 6)
+  heading: Your rights
+  version: 1.50.0
+  updated_at: '2026-03-28'
+  source_site: docs.example.com
+  source_path: legal/privacy-policy.md
+semantic:
+  topic: Your rights
+  intent: integrate
+  audience: developer
+  keywords:
+  - privacy policy
+  - reference
+  status: rule_based
+content:
+  docs_markdown: '## Your rights
+
+
+    Under GDPR and applicable data protection laws, you have the right to:
+
+
+    | Right | How to exercise |
+
+    |-------|-----------------|
+
+    | **Access** your data | Email <privacy@veri-doc.app> or use the API export endpoint
+    |
+
+    | **Correct** inaccurate data | Update your profile in account settings |
+
+    | **Delete** your data | Close your account or email <privacy@veri-doc.app> |
+
+    | **Export** your data | Use the API data export endpoint or email <privacy@veri-doc.app>
+    |
+
+    | **Restrict** processing | Email <privacy@veri-doc.app> |
+
+    | **Object** to processing | Email <privacy@veri-doc.app> |
+
+    | **Withdraw consent** | Disable AI features or close your account |
+
+
+    We respond to data rights requests within 30 days.
+
+
+    ## Cookies and tracking
+
+
+    The VeriDoc web application uses only essential cookies for session
+
+    management. We do not use:
+
+
+    1. Third-party analytics cookies
+
+    1. Advertising cookies
+
+    1. Social media tracking pixels
+
+    1. Cross-site tracking
+
+
+    ## Third-party processors
+
+
+    We share data with these processors solely for service delivery:
+
+
+    | Processor | Purpose | Data shared |
+
+    |-----------|---------|-------------|
+
+    | LemonSqueezy | Payment processing | Email, subscription tier |
+
+    | Hetzner | Infrastructure hosting | Encrypted application data |
+
+    | Sentry | Error tracking | Error context (PII scrubbed) |
+
+    | Mailgun | Transactional email delivery | Email address, email content |'
+  assistant_context: 'Use this module when answering questions related to: VeriDoc
+    privacy policy (Part 6). Source path: legal/privacy-policy.md. Summary: Privacy
+    policy for VeriDoc automated documentation platform, covering data collection,
+    processing, storage, retention, and your rights under GDPR.
+
+
+    ## Your rights
+
+
+    Under GDPR and applicable data protection laws, you have the right to:
+
+
+    | Right | How to exercise |
+
+    |-------|-----------------|
+
+    | **Access** your data | Email <privacy@veri-doc.app> or use the API export endpoint
+    |
+
+    | **Correct** inaccurate data | Update your profile in account settings |
+
+    | **Delete** your data | Close your account or email <privacy@veri-doc.app> |
+
+    | **Export** your data | Use the API data export endpoint or email <privacy@veri-doc.app>
+    |
+
+    | **Restrict** processing | Email <privacy@veri-doc.app> |
+
+    | **Object** to processing | Email <privacy@veri-doc.app> |
+
+    | **Withdraw consent** | Disable AI features or close your account |
+
+
+    We respond to data rights requests within 30 days.
+
+
+    ## Cookies and tracking
+
+
+    The VeriDoc web application uses only essential cookies for session
+
+    management. We do not use:
+
+
+    1. Third-party analytics cookies
+
+    1. Advertising cookies
+
+    1. Social media tracking pixels
+
+    1. Cross-site tracking
+
+
+    ## Third-party processors
+
+
+    We share data with these processors solely for service delivery:
+
+
+    | Processor | Purpose | Data shared |
+
+    |-----------|---------|-------------|
+
+    | LemonSqueezy | Payment processing | Email, subscription tier |
+
+    | Hetzner | Infrastructure hosting | Encrypted application data |
+
+    | Sentry | Error tracking | Error context (PII scrubbed) |
+
+    | Mailgun | Transactional email delivery | Email address, email content |'

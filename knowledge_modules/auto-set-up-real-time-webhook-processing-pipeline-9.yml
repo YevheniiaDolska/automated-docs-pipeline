@@ -14,12 +14,28 @@ channels:
 priority: 60
 status: active
 owner: docsops-auto
-last_verified: '2026-03-28'
+last_verified: '2026-04-03'
 dependencies: []
 tags:
 - auto-extracted
 - how-to
 - set-up-real-time-webhook-processing-pipeline
+metadata:
+  url: https://docs.example.com/en/how-to/set-up-real-time-webhook-processing-pipeline/
+  title: Set up a real-time webhook processing pipeline (Part 9)
+  heading: Webhook processing data flow
+  version: '18.0'
+  updated_at: '2026-03-17'
+  source_site: docs.example.com
+  source_path: en/how-to/set-up-real-time-webhook-processing-pipeline.md
+semantic:
+  topic: Webhook processing data flow
+  intent: configure
+  audience: practitioner
+  keywords:
+  - how-to
+  - set up real time webhook processing pipeline
+  status: rule_based
 content:
   docs_markdown: "## Webhook processing data flow\n\n```mermaid\nsequenceDiagram\n\
     \    participant C as Client\n    participant G as API Gateway\n    participant\
@@ -39,7 +55,7 @@ content:
     \ payload and reject events older than 5 minutes. If your servers have clock skew,\
     \ synchronize them with NTP and increase the tolerance window to 600 seconds."
   assistant_context: "Use this module when answering questions related to: Set up\
-    \ a real-time webhook processing pipeline (Part 9). Source path: docs/en/how-to/set-up-real-time-webhook-processing-pipeline.md.\
+    \ a real-time webhook processing pipeline (Part 9). Source path: en/how-to/set-up-real-time-webhook-processing-pipeline.md.\
     \ Summary: Configure end-to-end webhook ingestion with HMAC verification, async\
     \ queue processing, and delivery guarantees in under 15 minutes.\n\n## Webhook\
     \ processing data flow\n\n```mermaid\nsequenceDiagram\n    participant C as Client\n\

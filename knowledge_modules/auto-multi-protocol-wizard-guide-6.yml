@@ -14,12 +14,28 @@ channels:
 priority: 60
 status: active
 owner: docsops-auto
-last_verified: '2026-03-28'
+last_verified: '2026-04-03'
 dependencies: []
 tags:
 - auto-extracted
 - how-to
 - multi-protocol-wizard-guide
+metadata:
+  url: https://docs.example.com/operations/MULTI_PROTOCOL_WIZARD_GUIDE/
+  title: Multi-Protocol Wizard Guide (Part 6)
+  heading: Implementation status (2026-03-25)
+  version: 1.50.0
+  updated_at: '2026-03-24'
+  source_site: docs.example.com
+  source_path: operations/MULTI_PROTOCOL_WIZARD_GUIDE.md
+semantic:
+  topic: Implementation status (2026-03-25)
+  intent: configure
+  audience: practitioner
+  keywords:
+  - how-to
+  - multi protocol wizard guide
+  status: rule_based
 content:
   docs_markdown: '## Implementation status (2026-03-25)
 
@@ -67,7 +83,7 @@ content:
     - Where commercial packaging is discussed, recurring service terms (retainer/licensing)
     are part of the active go-to-market model.'
   assistant_context: 'Use this module when answering questions related to: Multi-Protocol
-    Wizard Guide (Part 6). Source path: docs/operations/MULTI_PROTOCOL_WIZARD_GUIDE.md.
+    Wizard Guide (Part 6). Source path: operations/MULTI_PROTOCOL_WIZARD_GUIDE.md.
     Summary: Wizard UX for protocol-aware provisioning in VeriDoc and VeriOps.
 
 

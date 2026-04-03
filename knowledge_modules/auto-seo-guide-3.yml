@@ -14,12 +14,28 @@ channels:
 priority: 60
 status: active
 owner: docsops-auto
-last_verified: '2026-03-28'
+last_verified: '2026-04-03'
 dependencies: []
 tags:
 - auto-extracted
 - reference
 - seo-guide
+metadata:
+  url: https://docs.example.com/SEO_GUIDE/
+  title: SEO/GEO Optimization Guide (Part 3)
+  heading: Command Line
+  version: 1.50.0
+  updated_at: None
+  source_site: docs.example.com
+  source_path: SEO_GUIDE.md
+semantic:
+  topic: Command Line
+  intent: integrate
+  audience: developer
+  keywords:
+  - reference
+  - seo guide
+  status: rule_based
 content:
   docs_markdown: '### Command Line
 
@@ -136,7 +152,7 @@ content:
 
     ## Validation Rules'
   assistant_context: 'Use this module when answering questions related to: SEO/GEO
-    Optimization Guide (Part 3). Source path: docs/SEO_GUIDE.md. Summary: Comprehensive
+    Optimization Guide (Part 3). Source path: SEO_GUIDE.md. Summary: Comprehensive
     guide to SEO and GEO optimization in the documentation pipeline
 
 

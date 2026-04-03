@@ -15,12 +15,28 @@ channels:
 priority: 60
 status: active
 owner: docsops-auto
-last_verified: '2026-03-28'
+last_verified: '2026-04-03'
 dependencies: []
 tags:
 - auto-extracted
 - reference
 - unified-client-config
+metadata:
+  url: https://docs.example.com/operations/UNIFIED_CLIENT_CONFIG/
+  title: Unified Client Configuration (Part 13)
+  heading: Unified Client Configuration (Part 13)
+  version: 1.50.0
+  updated_at: '2026-03-24'
+  source_site: docs.example.com
+  source_path: operations/UNIFIED_CLIENT_CONFIG.md
+semantic:
+  topic: Unified Client Configuration (Part 13)
+  intent: configure
+  audience: developer
+  keywords:
+  - reference
+  - unified client config
+  status: rule_based
 content:
   docs_markdown: "- The pipeline is provider-agnostic: it does not lock to one vendor.\n\
     - It uses `mock_base_url` as the source of truth for verification and Try-it requests.\n\
@@ -38,7 +54,7 @@ content:
     \ optional `ZEPHYR_SCALE_FOLDER_ID`\n\nAfter these are set, pipeline does the\
     \ rest automatically:"
   assistant_context: "Use this module when answering questions related to: Unified\
-    \ Client Configuration (Part 13). Source path: docs/operations/UNIFIED_CLIENT_CONFIG.md.\
+    \ Client Configuration (Part 13). Source path: operations/UNIFIED_CLIENT_CONFIG.md.\
     \ Summary: Single source of truth for per-client Auto-Doc Pipeline configuration,\
     \ modules, and automation.\n\n- The pipeline is provider-agnostic: it does not\
     \ lock to one vendor.\n- It uses `mock_base_url` as the source of truth for verification\

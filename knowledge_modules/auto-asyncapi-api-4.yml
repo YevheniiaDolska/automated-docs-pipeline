@@ -13,12 +13,28 @@ channels:
 priority: 60
 status: active
 owner: docsops-auto
-last_verified: '2026-03-28'
+last_verified: '2026-04-03'
 dependencies: []
 tags:
 - asyncapi-api
 - auto-extracted
 - reference
+metadata:
+  url: https://docs.example.com/reference/asyncapi-api/
+  title: ASYNCAPI API Reference (Part 4)
+  heading: Next steps
+  version: 1.50.0
+  updated_at: '2026-03-31'
+  source_site: docs.example.com
+  source_path: reference/asyncapi-api.md
+semantic:
+  topic: Next steps
+  intent: integrate
+  audience: developer
+  keywords:
+  - asyncapi api
+  - reference
+  status: rule_based
 content:
   docs_markdown: '## Next steps
 
@@ -29,8 +45,8 @@ content:
     This auto-generated knowledge chunk was expanded to satisfy minimum retrieval
     module length for stable indexing.'
   assistant_context: 'Use this module when answering questions related to: ASYNCAPI
-    API Reference (Part 4). Source path: docs/reference/asyncapi-api.md. Summary:
-    Auto-generated asyncapi reference from source contract.
+    API Reference (Part 4). Source path: reference/asyncapi-api.md. Summary: Auto-generated
+    asyncapi reference from source contract.
 
 
     ## Next steps

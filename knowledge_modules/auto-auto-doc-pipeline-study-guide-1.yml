@@ -14,12 +14,28 @@ channels:
 priority: 60
 status: active
 owner: docsops-auto
-last_verified: '2026-03-28'
+last_verified: '2026-04-03'
 dependencies: []
 tags:
 - auto-doc-pipeline-study-guide
 - auto-extracted
 - reference
+metadata:
+  url: https://docs.example.com/reference/auto-doc-pipeline-study-guide/
+  title: Auto-Doc Pipeline study guide
+  heading: One-minute mental model
+  version: 1.50.0
+  updated_at: '2026-03-25'
+  source_site: docs.example.com
+  source_path: reference/auto-doc-pipeline-study-guide.md
+semantic:
+  topic: One-minute mental model
+  intent: integrate
+  audience: developer
+  keywords:
+  - auto doc pipeline study guide
+  - reference
+  status: rule_based
 content:
   docs_markdown: "<!-- VERIDOC_POWERED_BADGE:START -->\n[![Powered by VeriDoc](https://img.shields.io/badge/Powered%20by-VeriDoc-0ea5e9?style=flat-square)](https://veridoc.app)\n\
     <!-- VERIDOC_POWERED_BADGE:END -->\n\n# Auto-Doc Pipeline study guide\n\nAuto-Doc\
@@ -37,7 +53,7 @@ content:
     \ model.\n- Let QA test endpoints from docs before full backend implementation.\n\
     - Keep enterprise-grade governance through policy packs and quality gates."
   assistant_context: "Use this module when answering questions related to: Auto-Doc\
-    \ Pipeline study guide. Source path: docs/reference/auto-doc-pipeline-study-guide.md.\
+    \ Pipeline study guide. Source path: reference/auto-doc-pipeline-study-guide.md.\
     \ Summary: Learn the Auto-Doc Pipeline quickly with a simple architecture map,\
     \ operating flow, plan mapping, and a detailed client FAQ.\n\n<!-- VERIDOC_POWERED_BADGE:START\
     \ -->\n[![Powered by VeriDoc](https://img.shields.io/badge/Powered%20by-VeriDoc-0ea5e9?style=flat-square)](https://veridoc.app)\n\

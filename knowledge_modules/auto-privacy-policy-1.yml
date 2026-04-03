@@ -1,0 +1,160 @@
+id: auto-privacy-policy-1
+title: VeriDoc privacy policy
+summary: Privacy policy for VeriDoc automated documentation platform, covering data
+  collection, processing, storage, retention, and your rights under GDPR.
+intents:
+- integrate
+- secure
+audiences:
+- developer
+- operator
+channels:
+- docs
+- assistant
+- automation
+priority: 60
+status: active
+owner: docsops-auto
+last_verified: '2026-04-03'
+dependencies: []
+tags:
+- auto-extracted
+- privacy-policy
+- reference
+metadata:
+  url: https://docs.example.com/legal/privacy-policy/
+  title: VeriDoc privacy policy
+  heading: Data controller
+  version: 1.50.0
+  updated_at: '2026-03-28'
+  source_site: docs.example.com
+  source_path: legal/privacy-policy.md
+semantic:
+  topic: Data controller
+  intent: integrate
+  audience: developer
+  keywords:
+  - privacy policy
+  - reference
+  status: rule_based
+content:
+  docs_markdown: '# VeriDoc privacy policy
+
+
+    This privacy policy explains how Liora Tech ("Company," "we," "us")
+
+    collects, uses, and protects your personal data when you use VeriDoc,
+
+    an automated documentation pipeline platform. This policy applies to
+
+    all users of the VeriDoc web application, API, and CLI tools.
+
+
+    ## Data controller
+
+
+    Liora Tech acts as the data controller for personal data collected through
+
+    the VeriDoc platform.
+
+
+    | Detail | Value |
+
+    |--------|-------|
+
+    | **Company** | Liora Tech |
+
+    | **Contact email** | <privacy@veri-doc.app> |
+
+    | **Data protection inquiries** | <privacy@veri-doc.app> |
+
+
+    ## Data we collect
+
+
+    ### Account data
+
+
+    When you register, we collect:
+
+
+    | Data field | Purpose | Legal basis |
+
+    |------------|---------|-------------|
+
+    | Email address | Authentication, billing notifications, support | Contract performance
+    |
+
+    | Password hash | Authentication (PBKDF2-SHA256, never stored in plaintext) |
+    Contract performance |
+
+    | Subscription tier | Service delivery, usage limit enforcement | Contract performance
+    |
+
+    | Billing records | Payment processing, invoice generation | Contract performance
+    |
+
+    | Referral code | Referral program tracking | Legitimate interest |'
+  assistant_context: 'Use this module when answering questions related to: VeriDoc
+    privacy policy. Source path: legal/privacy-policy.md. Summary: Privacy policy
+    for VeriDoc automated documentation platform, covering data collection, processing,
+    storage, retention, and your rights under GDPR.
+
+
+    # VeriDoc privacy policy
+
+
+    This privacy policy explains how Liora Tech ("Company," "we," "us")
+
+    collects, uses, and protects your personal data when you use VeriDoc,
+
+    an automated documentation pipeline platform. This policy applies to
+
+    all users of the VeriDoc web application, API, and CLI tools.
+
+
+    ## Data controller
+
+
+    Liora Tech acts as the data controller for personal data collected through
+
+    the VeriDoc platform.
+
+
+    | Detail | Value |
+
+    |--------|-------|
+
+    | **Company** | Liora Tech |
+
+    | **Contact email** | <privacy@veri-doc.app> |
+
+    | **Data protection inquiries** | <privacy@veri-doc.app> |
+
+
+    ## Data we collect
+
+
+    ### Account data
+
+
+    When you register, we collect:
+
+
+    | Data field | Purpose | Legal basis |
+
+    |------------|---------|-------------|
+
+    | Email address | Authentication, billing notifications, support | Contract performance
+    |
+
+    | Password hash | Authentication (PBKDF2-SHA256, never stored in plaintext) |
+    Contract performance |
+
+    | Subscription tier | Service delivery, usage limit enforcement | Contract performance
+    |
+
+    | Billing records | Payment processing, invoice generation | Contract performance
+    |
+
+    | Referral code | Referral program tracking | Legitimate interest |'

@@ -12,6 +12,7 @@ Example:
 from __future__ import annotations
 
 import argparse
+import getpass
 import logging
 import os
 import re
@@ -726,7 +727,10 @@ def _collect_secret_inputs(client_repo: Path, docsops_dir: str) -> Path | None:
         if key in current and current[key]:
             masked_default = "(already set)"
         prompt = f"{key} - {hint} {masked_default}".strip()
-        value = input(f"{prompt}: ").strip()
+        try:
+            value = getpass.getpass(f"{prompt}: ").strip()
+        except (RuntimeError, EOFError, OSError):
+            value = input(f"{prompt}: ").strip()
         if not value:
             if required and key not in updated:
                 print(f"[warn] {key} is required for full automation; leaving empty for now.")

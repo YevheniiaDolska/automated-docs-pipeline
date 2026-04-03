@@ -1,0 +1,126 @@
+id: auto-security-policy-5
+title: VeriDoc security policy (Part 5)
+summary: Security policy for VeriDoc platform covering infrastructure security, encryption,
+  authentication, access controls, and incident response procedures.
+intents:
+- integrate
+- troubleshoot
+audiences:
+- developer
+- operator
+channels:
+- docs
+- assistant
+- automation
+priority: 60
+status: active
+owner: docsops-auto
+last_verified: '2026-04-03'
+dependencies: []
+tags:
+- auto-extracted
+- reference
+- security-policy
+metadata:
+  url: https://docs.example.com/legal/security-policy/
+  title: VeriDoc security policy (Part 5)
+  heading: Monitoring
+  version: 1.50.0
+  updated_at: '2026-03-28'
+  source_site: docs.example.com
+  source_path: legal/security-policy.md
+semantic:
+  topic: Monitoring
+  intent: integrate
+  audience: developer
+  keywords:
+  - reference
+  - security policy
+  status: rule_based
+content:
+  docs_markdown: '### Monitoring
+
+
+    | System | Purpose | Alert threshold |
+
+    |--------|---------|-----------------|
+
+    | Health checks | Service availability | 2 consecutive failures (every 5 minutes)
+    |
+
+    | Sentry | Error tracking | Real-time error capture |
+
+    | Log rotation | Log management | Daily rotation, 30-day retention |
+
+    | Latency monitoring | Performance tracking | Warning at 2,000 ms, critical at
+    5,000 ms |
+
+
+    ### Incident response procedure
+
+
+    | Phase | Timeline | Actions |
+
+    |-------|----------|---------|
+
+    | **Detection** | Automated | Health check alerts via email within 10 minutes
+    of failure |
+
+    | **Triage** | Within 1 hour | Assess severity, identify root cause |
+
+    | **Containment** | Within 2 hours | Isolate affected systems, prevent data loss
+    |
+
+    | **Resolution** | Within 4 hours (critical) | Restore service, deploy fix |
+
+    | **Notification** | Within 72 hours | Notify affected customers per DPA obligations
+    |
+
+    | **Post-mortem** | Within 7 days | Document root cause, implement preventive
+    measures |'
+  assistant_context: 'Use this module when answering questions related to: VeriDoc
+    security policy (Part 5). Source path: legal/security-policy.md. Summary: Security
+    policy for VeriDoc platform covering infrastructure security, encryption, authentication,
+    access controls, and incident response procedures.
+
+
+    ### Monitoring
+
+
+    | System | Purpose | Alert threshold |
+
+    |--------|---------|-----------------|
+
+    | Health checks | Service availability | 2 consecutive failures (every 5 minutes)
+    |
+
+    | Sentry | Error tracking | Real-time error capture |
+
+    | Log rotation | Log management | Daily rotation, 30-day retention |
+
+    | Latency monitoring | Performance tracking | Warning at 2,000 ms, critical at
+    5,000 ms |
+
+
+    ### Incident response procedure
+
+
+    | Phase | Timeline | Actions |
+
+    |-------|----------|---------|
+
+    | **Detection** | Automated | Health check alerts via email within 10 minutes
+    of failure |
+
+    | **Triage** | Within 1 hour | Assess severity, identify root cause |
+
+    | **Containment** | Within 2 hours | Isolate affected systems, prevent data loss
+    |
+
+    | **Resolution** | Within 4 hours (critical) | Restore service, deploy fix |
+
+    | **Notification** | Within 72 hours | Notify affected customers per DPA obligations
+    |
+
+    | **Post-mortem** | Within 7 days | Document root cause, implement preventive
+    measures |'

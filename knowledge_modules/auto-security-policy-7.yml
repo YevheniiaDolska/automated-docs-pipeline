@@ -1,0 +1,121 @@
+id: auto-security-policy-7
+title: VeriDoc security policy (Part 7)
+summary: Security policy for VeriDoc platform covering infrastructure security, encryption,
+  authentication, access controls, and incident response procedures.
+intents:
+- integrate
+audiences:
+- developer
+- operator
+channels:
+- docs
+- assistant
+- automation
+priority: 60
+status: active
+owner: docsops-auto
+last_verified: '2026-04-03'
+dependencies: []
+tags:
+- auto-extracted
+- reference
+- security-policy
+metadata:
+  url: https://docs.example.com/legal/security-policy/
+  title: VeriDoc security policy (Part 7)
+  heading: Compliance standards
+  version: 1.50.0
+  updated_at: '2026-03-28'
+  source_site: docs.example.com
+  source_path: legal/security-policy.md
+semantic:
+  topic: Compliance standards
+  intent: integrate
+  audience: developer
+  keywords:
+  - reference
+  - security policy
+  status: rule_based
+content:
+  docs_markdown: '## Compliance standards
+
+
+    | Standard | Status |
+
+    |----------|--------|
+
+    | GDPR | Compliant (EU data processing, DPA available) |
+
+    | TLS 1.3 | Enforced on all endpoints |
+
+    | Password security | PBKDF2-SHA256, 600,000 iterations |
+
+    | Data retention | Defined retention periods with automated deletion |
+
+
+    ## Contact information
+
+
+    For security inquiries or to report a vulnerability:
+
+
+    - Email: <security@veri-doc.app>
+
+    - Response time: within 24 hours for security reports
+
+
+    **Last updated:** March 28, 2026
+
+
+    ## Next steps
+
+
+    - Review the [terms of service](terms-of-service.md)
+
+    - Review the [privacy policy](privacy-policy.md)
+
+    - Review the [data processing agreement](data-processing-agreement.md)'
+  assistant_context: 'Use this module when answering questions related to: VeriDoc
+    security policy (Part 7). Source path: legal/security-policy.md. Summary: Security
+    policy for VeriDoc platform covering infrastructure security, encryption, authentication,
+    access controls, and incident response procedures.
+
+
+    ## Compliance standards
+
+
+    | Standard | Status |
+
+    |----------|--------|
+
+    | GDPR | Compliant (EU data processing, DPA available) |
+
+    | TLS 1.3 | Enforced on all endpoints |
+
+    | Password security | PBKDF2-SHA256, 600,000 iterations |
+
+    | Data retention | Defined retention periods with automated deletion |
+
+
+    ## Contact information
+
+
+    For security inquiries or to report a vulnerability:
+
+
+    - Email: <security@veri-doc.app>
+
+    - Response time: within 24 hours for security reports
+
+
+    **Last updated:** March 28, 2026
+
+
+    ## Next steps
+
+
+    - Review the [terms of service](terms-of-service.md)
+
+    - Review the [privacy policy](privacy-policy.md)
+
+    - Review the [data processing agreement](data-processing-agreement.md)'

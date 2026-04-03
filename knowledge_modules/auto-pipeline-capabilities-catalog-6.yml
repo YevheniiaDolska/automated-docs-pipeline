@@ -14,12 +14,28 @@ channels:
 priority: 60
 status: active
 owner: docsops-auto
-last_verified: '2026-03-28'
+last_verified: '2026-04-03'
 dependencies: []
 tags:
 - auto-extracted
 - pipeline-capabilities-catalog
 - reference
+metadata:
+  url: https://docs.example.com/operations/PIPELINE_CAPABILITIES_CATALOG/
+  title: Pipeline Capabilities Catalog (Part 6)
+  heading: Direct CLI entry points (not exposed as npm scripts)
+  version: 1.50.0
+  updated_at: '2026-03-24'
+  source_site: docs.example.com
+  source_path: operations/PIPELINE_CAPABILITIES_CATALOG.md
+semantic:
+  topic: Direct CLI entry points (not exposed as npm scripts)
+  intent: integrate
+  audience: developer
+  keywords:
+  - pipeline capabilities catalog
+  - reference
+  status: rule_based
 content:
   docs_markdown: '## Direct CLI entry points (not exposed as npm scripts)
 
@@ -27,7 +43,7 @@ content:
     These are part of the current implementation and are invoked directly by operator/provisioning/weekly
     flows.'
   assistant_context: 'Use this module when answering questions related to: Pipeline
-    Capabilities Catalog (Part 6). Source path: docs/operations/PIPELINE_CAPABILITIES_CATALOG.md.
+    Capabilities Catalog (Part 6). Source path: operations/PIPELINE_CAPABILITIES_CATALOG.md.
     Summary: Generated catalog of available pipeline commands, templates, policy packs,
     and assets for client configuration.
 

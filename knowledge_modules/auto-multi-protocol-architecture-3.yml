@@ -13,12 +13,28 @@ channels:
 priority: 60
 status: active
 owner: docsops-auto
-last_verified: '2026-03-28'
+last_verified: '2026-04-03'
 dependencies: []
 tags:
 - auto-extracted
 - multi-protocol-architecture
 - reference
+metadata:
+  url: https://docs.example.com/operations/MULTI_PROTOCOL_ARCHITECTURE/
+  title: Multi-Protocol Architecture (Part 3)
+  heading: Test assets and smart-merge
+  version: 1.50.0
+  updated_at: '2026-03-24'
+  source_site: docs.example.com
+  source_path: operations/MULTI_PROTOCOL_ARCHITECTURE.md
+semantic:
+  topic: Test assets and smart-merge
+  intent: integrate
+  audience: developer
+  keywords:
+  - multi protocol architecture
+  - reference
+  status: rule_based
 content:
   docs_markdown: "## Test assets and smart-merge\n\n- Generator: `scripts/generate_protocol_test_assets.py`\n\
     - Upload: `scripts/upload_api_test_assets.py`\n- Coverage gate: `scripts/validate_protocol_test_coverage.py`\n\
@@ -34,7 +50,7 @@ content:
     \ emits richer artifacts: cases JSON, TestRail CSV, Zephyr JSON, `test_matrix.json`,\
     \ `fuzz_scenarios.json`."
   assistant_context: "Use this module when answering questions related to: Multi-Protocol\
-    \ Architecture (Part 3). Source path: docs/operations/MULTI_PROTOCOL_ARCHITECTURE.md.\
+    \ Architecture (Part 3). Source path: operations/MULTI_PROTOCOL_ARCHITECTURE.md.\
     \ Summary: Unified docs-ops pipeline for REST, GraphQL, gRPC, AsyncAPI, and WebSocket.\n\
     \n## Test assets and smart-merge\n\n- Generator: `scripts/generate_protocol_test_assets.py`\n\
     - Upload: `scripts/upload_api_test_assets.py`\n- Coverage gate: `scripts/validate_protocol_test_coverage.py`\n\

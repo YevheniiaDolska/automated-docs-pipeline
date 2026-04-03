@@ -1,7 +1,7 @@
 {
   "testCases": [
     {
-      "name": "GraphQL query:a auth policy",
+      "name": "GraphQL mutation:updateHealth auth policy",
       "objective": "Unauthorized access is blocked; authorized call succeeds.",
       "precondition": "Contract source is available\nTarget endpoint/mock is reachable",
       "labels": [
@@ -14,7 +14,7 @@
       "priorityName": "Normal"
     },
     {
-      "name": "GraphQL query:a invalid input",
+      "name": "GraphQL mutation:updateHealth invalid input",
       "objective": "Validation error is returned with stable error envelope.",
       "precondition": "Contract source is available\nTarget endpoint/mock is reachable",
       "labels": [
@@ -27,7 +27,7 @@
       "priorityName": "Normal"
     },
     {
-      "name": "GraphQL query:a latency budget",
+      "name": "GraphQL mutation:updateHealth latency budget",
       "objective": "P95 latency remains within documented SLO under representative load.",
       "precondition": "Contract source is available\nTarget endpoint/mock is reachable",
       "labels": [
@@ -40,7 +40,7 @@
       "priorityName": "Normal"
     },
     {
-      "name": "GraphQL query:a happy path",
+      "name": "GraphQL mutation:updateHealth happy path",
       "objective": "Response shape matches schema and required fields are present.",
       "precondition": "Contract source is available\nTarget endpoint/mock is reachable",
       "labels": [
@@ -53,7 +53,137 @@
       "priorityName": "Normal"
     },
     {
-      "name": "GraphQL query:a injection hardening",
+      "name": "GraphQL mutation:updateHealth injection hardening",
+      "objective": "Injection-like payloads are safely rejected and do not expose internals.",
+      "precondition": "Contract source is available\nTarget endpoint/mock is reachable",
+      "labels": [
+        "multi-protocol",
+        "auto-generated",
+        "graphql",
+        "security-injection"
+      ],
+      "statusName": "Draft",
+      "priorityName": "Normal"
+    },
+    {
+      "name": "GraphQL query:health auth policy",
+      "objective": "Unauthorized access is blocked; authorized call succeeds.",
+      "precondition": "Contract source is available\nTarget endpoint/mock is reachable",
+      "labels": [
+        "multi-protocol",
+        "auto-generated",
+        "graphql",
+        "auth"
+      ],
+      "statusName": "Draft",
+      "priorityName": "Normal"
+    },
+    {
+      "name": "GraphQL query:health invalid input",
+      "objective": "Validation error is returned with stable error envelope.",
+      "precondition": "Contract source is available\nTarget endpoint/mock is reachable",
+      "labels": [
+        "multi-protocol",
+        "auto-generated",
+        "graphql",
+        "negative"
+      ],
+      "statusName": "Draft",
+      "priorityName": "Normal"
+    },
+    {
+      "name": "GraphQL query:health latency budget",
+      "objective": "P95 latency remains within documented SLO under representative load.",
+      "precondition": "Contract source is available\nTarget endpoint/mock is reachable",
+      "labels": [
+        "multi-protocol",
+        "auto-generated",
+        "graphql",
+        "performance-latency"
+      ],
+      "statusName": "Draft",
+      "priorityName": "Normal"
+    },
+    {
+      "name": "GraphQL query:health happy path",
+      "objective": "Response shape matches schema and required fields are present.",
+      "precondition": "Contract source is available\nTarget endpoint/mock is reachable",
+      "labels": [
+        "multi-protocol",
+        "auto-generated",
+        "graphql",
+        "positive"
+      ],
+      "statusName": "Draft",
+      "priorityName": "Normal"
+    },
+    {
+      "name": "GraphQL query:health injection hardening",
+      "objective": "Injection-like payloads are safely rejected and do not expose internals.",
+      "precondition": "Contract source is available\nTarget endpoint/mock is reachable",
+      "labels": [
+        "multi-protocol",
+        "auto-generated",
+        "graphql",
+        "security-injection"
+      ],
+      "statusName": "Draft",
+      "priorityName": "Normal"
+    },
+    {
+      "name": "GraphQL subscription:healthChanged auth policy",
+      "objective": "Unauthorized access is blocked; authorized call succeeds.",
+      "precondition": "Contract source is available\nTarget endpoint/mock is reachable",
+      "labels": [
+        "multi-protocol",
+        "auto-generated",
+        "graphql",
+        "auth"
+      ],
+      "statusName": "Draft",
+      "priorityName": "Normal"
+    },
+    {
+      "name": "GraphQL subscription:healthChanged invalid input",
+      "objective": "Validation error is returned with stable error envelope.",
+      "precondition": "Contract source is available\nTarget endpoint/mock is reachable",
+      "labels": [
+        "multi-protocol",
+        "auto-generated",
+        "graphql",
+        "negative"
+      ],
+      "statusName": "Draft",
+      "priorityName": "Normal"
+    },
+    {
+      "name": "GraphQL subscription:healthChanged latency budget",
+      "objective": "P95 latency remains within documented SLO under representative load.",
+      "precondition": "Contract source is available\nTarget endpoint/mock is reachable",
+      "labels": [
+        "multi-protocol",
+        "auto-generated",
+        "graphql",
+        "performance-latency"
+      ],
+      "statusName": "Draft",
+      "priorityName": "Normal"
+    },
+    {
+      "name": "GraphQL subscription:healthChanged happy path",
+      "objective": "Response shape matches schema and required fields are present.",
+      "precondition": "Contract source is available\nTarget endpoint/mock is reachable",
+      "labels": [
+        "multi-protocol",
+        "auto-generated",
+        "graphql",
+        "positive"
+      ],
+      "statusName": "Draft",
+      "priorityName": "Normal"
+    },
+    {
+      "name": "GraphQL subscription:healthChanged injection hardening",
       "objective": "Injection-like payloads are safely rejected and do not expose internals.",
       "precondition": "Contract source is available\nTarget endpoint/mock is reachable",
       "labels": [

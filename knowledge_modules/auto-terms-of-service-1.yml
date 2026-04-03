@@ -1,0 +1,136 @@
+id: auto-terms-of-service-1
+title: VeriDoc terms of service
+summary: Terms of service governing the use of VeriDoc automated documentation platform,
+  including subscription tiers, usage limits, and acceptable use policies.
+intents:
+- integrate
+- secure
+audiences:
+- developer
+- operator
+channels:
+- docs
+- assistant
+- automation
+priority: 60
+status: active
+owner: docsops-auto
+last_verified: '2026-04-03'
+dependencies: []
+tags:
+- auto-extracted
+- reference
+- terms-of-service
+metadata:
+  url: https://docs.example.com/legal/terms-of-service/
+  title: VeriDoc terms of service
+  heading: Key definitions
+  version: 1.50.0
+  updated_at: '2026-03-28'
+  source_site: docs.example.com
+  source_path: legal/terms-of-service.md
+semantic:
+  topic: Key definitions
+  intent: integrate
+  audience: developer
+  keywords:
+  - reference
+  - terms of service
+  status: rule_based
+content:
+  docs_markdown: '# VeriDoc terms of service
+
+
+    These terms of service ("Terms") govern your access to and use of VeriDoc,
+
+    an automated documentation pipeline platform operated by Liora Tech
+
+    ("Company," "we," "us"). By creating an account or using the service, you
+
+    agree to these Terms.
+
+
+    ## Key definitions
+
+
+    | Term | Meaning |
+
+    |------|---------|
+
+    | **Service** | The VeriDoc platform, including the API, web interface, and CLI
+    tools |
+
+    | **User** | Any individual or entity that creates an account on the Service |
+
+    | **Subscription** | A paid plan that grants access to premium features and higher
+    usage limits |
+
+    | **Content** | Documentation, code, configuration, and other materials processed
+    by the Service |
+
+    | **Pipeline run** | A single execution of the documentation processing pipeline
+    |
+
+
+    ## Account registration
+
+
+    You must provide accurate information when creating an account. Each user
+
+    must maintain one account. Sharing account credentials violates these Terms.
+
+
+    You are responsible for all activity under your account. Notify us at
+
+    <support@veri-doc.app> if you suspect unauthorized access.'
+  assistant_context: 'Use this module when answering questions related to: VeriDoc
+    terms of service. Source path: legal/terms-of-service.md. Summary: Terms of service
+    governing the use of VeriDoc automated documentation platform, including subscription
+    tiers, usage limits, and acceptable use policies.
+
+
+    # VeriDoc terms of service
+
+
+    These terms of service ("Terms") govern your access to and use of VeriDoc,
+
+    an automated documentation pipeline platform operated by Liora Tech
+
+    ("Company," "we," "us"). By creating an account or using the service, you
+
+    agree to these Terms.
+
+
+    ## Key definitions
+
+
+    | Term | Meaning |
+
+    |------|---------|
+
+    | **Service** | The VeriDoc platform, including the API, web interface, and CLI
+    tools |
+
+    | **User** | Any individual or entity that creates an account on the Service |
+
+    | **Subscription** | A paid plan that grants access to premium features and higher
+    usage limits |
+
+    | **Content** | Documentation, code, configuration, and other materials processed
+    by the Service |
+
+    | **Pipeline run** | A single execution of the documentation processing pipeline
+    |
+
+
+    ## Account registration
+
+
+    You must provide accurate information when creating an account. Each user
+
+    must maintain one account. Sharing account credentials violates these Terms.
+
+
+    You are responsible for all activity under your account. Notify us at
+
+    <support@veri-doc.app> if you suspect unauthorized access.'

@@ -14,12 +14,28 @@ channels:
 priority: 60
 status: active
 owner: docsops-auto
-last_verified: '2026-03-28'
+last_verified: '2026-04-03'
 dependencies: []
 tags:
 - auto-extracted
 - concept
 - workflow-execution-model
+metadata:
+  url: https://docs.example.com/concepts/workflow-execution-model/
+  title: Workflow execution model
+  heading: Workflow execution model overview
+  version: 1.50.0
+  updated_at: '2026-02-16'
+  source_site: docs.example.com
+  source_path: concepts/workflow-execution-model.md
+semantic:
+  topic: Workflow execution model overview
+  intent: integrate
+  audience: developer
+  keywords:
+  - concept
+  - workflow execution model
+  status: rule_based
 content:
   docs_markdown: "<!-- VERIDOC_POWERED_BADGE:START -->\n[![Powered by VeriDoc](https://img.shields.io/badge/Powered%20by-VeriDoc-0ea5e9?style=flat-square)](https://veridoc.app)\n\
     <!-- VERIDOC_POWERED_BADGE:END -->\n\n## Workflow execution model overview\n\n\
@@ -39,7 +55,7 @@ content:
     \ items to different paths based on conditions.\n1. Execution stops when all branches\
     \ reach their final nodes."
   assistant_context: "Use this module when answering questions related to: Workflow\
-    \ execution model. Source path: docs/concepts/workflow-execution-model.md. Summary:\
+    \ execution model. Source path: concepts/workflow-execution-model.md. Summary:\
     \ The workflow engine processes workflows by executing nodes sequentially, passing\
     \ data as arrays of JSON objects between each node in the chain.\n\n<!-- VERIDOC_POWERED_BADGE:START\
     \ -->\n[![Powered by VeriDoc](https://img.shields.io/badge/Powered%20by-VeriDoc-0ea5e9?style=flat-square)](https://veridoc.app)\n\

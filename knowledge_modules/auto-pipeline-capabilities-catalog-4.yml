@@ -15,19 +15,35 @@ channels:
 priority: 60
 status: active
 owner: docsops-auto
-last_verified: '2026-03-28'
+last_verified: '2026-04-03'
 dependencies: []
 tags:
 - auto-extracted
 - pipeline-capabilities-catalog
 - reference
+metadata:
+  url: https://docs.example.com/operations/PIPELINE_CAPABILITIES_CATALOG/
+  title: Pipeline Capabilities Catalog (Part 4)
+  heading: How to enable any capability for a client
+  version: 1.50.0
+  updated_at: '2026-03-24'
+  source_site: docs.example.com
+  source_path: operations/PIPELINE_CAPABILITIES_CATALOG.md
+semantic:
+  topic: How to enable any capability for a client
+  intent: integrate
+  audience: developer
+  keywords:
+  - pipeline capabilities catalog
+  - reference
+  status: rule_based
 content:
   docs_markdown: "## How to enable any capability for a client\n\n```yaml\nruntime:\n\
     \  custom_tasks:\n    weekly:\n      - id: \"my-task\"\n        enabled: true\n\
     \        command: \"npm run <script-name>\"\n        continue_on_error: true\n\
     ```"
   assistant_context: "Use this module when answering questions related to: Pipeline\
-    \ Capabilities Catalog (Part 4). Source path: docs/operations/PIPELINE_CAPABILITIES_CATALOG.md.\
+    \ Capabilities Catalog (Part 4). Source path: operations/PIPELINE_CAPABILITIES_CATALOG.md.\
     \ Summary: Generated catalog of available pipeline commands, templates, policy\
     \ packs, and assets for client configuration.\n\n## How to enable any capability\
     \ for a client\n\n```yaml\nruntime:\n  custom_tasks:\n    weekly:\n      - id:\

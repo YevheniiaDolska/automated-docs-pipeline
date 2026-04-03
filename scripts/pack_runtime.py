@@ -29,6 +29,19 @@ PACK_PATH = REPO_ROOT / "docsops" / ".capability_pack.enc"
 HKDF_SALT = b"veriops-pack-v2"
 HKDF_INFO_PREFIX = b"veriops-pack-key-"
 
+_CRYPTO_DECRYPT_ERRORS: tuple[type[BaseException], ...] = (
+    RuntimeError,
+    ValueError,
+    TypeError,
+    OSError,
+)
+try:
+    from cryptography.exceptions import InvalidTag as _InvalidTag  # type: ignore
+
+    _CRYPTO_DECRYPT_ERRORS = _CRYPTO_DECRYPT_ERRORS + (_InvalidTag,)
+except ImportError:
+    logger.debug("cryptography InvalidTag is unavailable; using base decrypt error classes")
+
 # -- Degraded defaults (community mode) ---------------------------------------
 
 DEGRADED_GEO_RULES: dict[str, Any] = {
@@ -331,7 +344,7 @@ def load_pack(
     aes_key = derive_pack_key(license_key, client_id)
     try:
         plaintext = _aes_gcm_decrypt(aes_key, nonce, ciphertext, tag)
-    except (RuntimeError, ValueError, TypeError, OSError) as exc:
+    except _CRYPTO_DECRYPT_ERRORS as exc:
         return _degraded_pack(f"Pack decryption failed: {exc}")
 
     try:

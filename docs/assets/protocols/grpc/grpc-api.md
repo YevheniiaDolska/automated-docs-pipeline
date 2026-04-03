@@ -5,23 +5,21 @@ content_type: reference
 product: both
 tags:
 - Tmp
-- Test_Multi_Protocol_Flow_Gener0
-- Pytest 2641
-- Pytest Of Eudo
 - Docs
-last_reviewed: '2026-03-26'
-original_author: Kroha
+- Pytest 2839
+- Test_Multi_Protocol_Flow_Gener0
+- Pytest Of Eudo
 ---
-
 
 
 # GRPC Reference
 
-Source: `/tmp/pytest-of-eudo/pytest-2641/test_multi_protocol_flow_gener0/api/proto`
+Source: `/tmp/pytest-of-eudo/pytest-2839/test_multi_protocol_flow_gener0/api/proto`
 
 Flow mode: `api-first`
 
 ## Top-level Keys
+
 
 ## Service Methods
 

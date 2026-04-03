@@ -15,12 +15,28 @@ channels:
 priority: 60
 status: active
 owner: docsops-auto
-last_verified: '2026-03-28'
+last_verified: '2026-04-03'
 dependencies: []
 tags:
 - auto-extracted
 - how-to
 - run-api-first-production-flow
+metadata:
+  url: https://docs.example.com/how-to/run-api-first-production-flow/
+  title: Run API-first production flow (Part 2)
+  heading: 'Step 2: Run generation and verification'
+  version: '3.1'
+  updated_at: '2026-03-17'
+  source_site: docs.example.com
+  source_path: how-to/run-api-first-production-flow.md
+semantic:
+  topic: 'Step 2: Run generation and verification'
+  intent: configure
+  audience: practitioner
+  keywords:
+  - how-to
+  - run api first production flow
+  status: rule_based
 content:
   docs_markdown: "## Step 2: Run generation and verification\n\nRun the universal\
     \ flow command:\n\n```bash\npython3 scripts/run_api_first_flow.py \\\n  --project-slug\
@@ -40,7 +56,7 @@ content:
     \ -> docs/assets/api/v1/\napi/v2/openapi.yaml -> docs/assets/api/v2/\n```\n\n\
     Use overrides and regression snapshot as follows:"
   assistant_context: "Use this module when answering questions related to: Run API-first\
-    \ production flow (Part 2). Source path: docs/how-to/run-api-first-production-flow.md.\
+    \ production flow (Part 2). Source path: how-to/run-api-first-production-flow.md.\
     \ Summary: Generate OpenAPI from planning notes, run full lint and self-verification,\
     \ publish playground assets, and keep a sandbox ready for client testing.\n\n\
     ## Step 2: Run generation and verification\n\nRun the universal flow command:\n\

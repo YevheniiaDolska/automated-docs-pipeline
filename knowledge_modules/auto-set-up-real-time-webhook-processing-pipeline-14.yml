@@ -16,12 +16,28 @@ channels:
 priority: 60
 status: active
 owner: docsops-auto
-last_verified: '2026-03-28'
+last_verified: '2026-04-03'
 dependencies: []
 tags:
 - auto-extracted
 - how-to
 - set-up-real-time-webhook-processing-pipeline
+metadata:
+  url: https://docs.example.com/en/how-to/set-up-real-time-webhook-processing-pipeline/
+  title: Set up a real-time webhook processing pipeline (Part 14)
+  heading: Explore the webhook pipeline architecture
+  version: '18.0'
+  updated_at: '2026-03-17'
+  source_site: docs.example.com
+  source_path: en/how-to/set-up-real-time-webhook-processing-pipeline.md
+semantic:
+  topic: Explore the webhook pipeline architecture
+  intent: configure
+  audience: practitioner
+  keywords:
+  - how-to
+  - set up real time webhook processing pipeline
+  status: rule_based
 content:
   docs_markdown: "## Explore the webhook pipeline architecture\n\nThe production webhook\
     \ pipeline spans 13 components across 5 layers:\n\n- **Clients layer:** Mobile\
@@ -41,7 +57,7 @@ content:
     \ via PagerDuty and Prometheus when error rates exceed 1%.\n  PostgreSQL baseline\
     \ metric: 2 replicas, 8.5K qps."
   assistant_context: "Use this module when answering questions related to: Set up\
-    \ a real-time webhook processing pipeline (Part 14). Source path: docs/en/how-to/set-up-real-time-webhook-processing-pipeline.md.\
+    \ a real-time webhook processing pipeline (Part 14). Source path: en/how-to/set-up-real-time-webhook-processing-pipeline.md.\
     \ Summary: Configure end-to-end webhook ingestion with HMAC verification, async\
     \ queue processing, and delivery guarantees in under 15 minutes.\n\n## Explore\
     \ the webhook pipeline architecture\n\nThe production webhook pipeline spans 13\

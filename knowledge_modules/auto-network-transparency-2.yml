@@ -14,12 +14,28 @@ channels:
 priority: 60
 status: active
 owner: docsops-auto
-last_verified: '2026-03-28'
+last_verified: '2026-04-03'
 dependencies: []
 tags:
 - auto-extracted
 - network-transparency
 - reference
+metadata:
+  url: https://docs.example.com/reference/network-transparency/
+  title: Network transparency reference (Part 2)
+  heading: 'Request 1: License activation'
+  version: 1.50.0
+  updated_at: '2026-03-26'
+  source_site: docs.example.com
+  source_path: reference/network-transparency.md
+semantic:
+  topic: 'Request 1: License activation'
+  intent: integrate
+  audience: developer
+  keywords:
+  - network transparency
+  - reference
+  status: rule_based
 content:
   docs_markdown: "### Request 1: License activation\n\n**When:** First time setup,\
     \ or when re-activating after a license key change.\n\n**Endpoint:** `POST /v1/activate`\n\
@@ -35,7 +51,7 @@ content:
     \ port 443\n\n# Or use mitmproxy for HTTPS inspection\nmitmproxy --mode upstream:https://licensing.veriops.dev\n\
     ```"
   assistant_context: "Use this module when answering questions related to: Network\
-    \ transparency reference (Part 2). Source path: docs/reference/network-transparency.md.\
+    \ transparency reference (Part 2). Source path: reference/network-transparency.md.\
     \ Summary: Complete list of all outgoing network requests the pipeline makes,\
     \ with exact payload schemas. No client data leaves your network.\n\n### Request\
     \ 1: License activation\n\n**When:** First time setup, or when re-activating after\

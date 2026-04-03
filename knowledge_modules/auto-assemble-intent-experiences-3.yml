@@ -14,12 +14,28 @@ channels:
 priority: 60
 status: active
 owner: docsops-auto
-last_verified: '2026-03-28'
+last_verified: '2026-04-03'
 dependencies: []
 tags:
 - assemble-intent-experiences
 - auto-extracted
 - how-to
+metadata:
+  url: https://docs.example.com/how-to/assemble-intent-experiences/
+  title: Assemble intent experiences (Part 3)
+  heading: Next steps
+  version: 1.50.0
+  updated_at: '2026-03-07'
+  source_site: docs.example.com
+  source_path: how-to/assemble-intent-experiences.md
+semantic:
+  topic: Next steps
+  intent: configure
+  audience: practitioner
+  keywords:
+  - assemble intent experiences
+  - how-to
+  status: rule_based
 content:
   docs_markdown: '## Next steps
 
@@ -28,7 +44,7 @@ content:
 
     - [Intent experiences reference](../reference/intent-experiences/index.md)'
   assistant_context: 'Use this module when answering questions related to: Assemble
-    intent experiences (Part 3). Source path: docs/how-to/assemble-intent-experiences.md.
+    intent experiences (Part 3). Source path: how-to/assemble-intent-experiences.md.
     Summary: Build user-intent documentation and channel bundles from reusable knowledge
     modules with validation, indexing, and consistent outputs.
 

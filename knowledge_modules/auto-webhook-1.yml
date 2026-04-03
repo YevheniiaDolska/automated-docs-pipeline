@@ -15,12 +15,28 @@ channels:
 priority: 60
 status: active
 owner: docsops-auto
-last_verified: '2026-03-28'
+last_verified: '2026-04-03'
 dependencies: []
 tags:
 - auto-extracted
 - reference
 - webhook
+metadata:
+  url: https://docs.example.com/reference/nodes/webhook/
+  title: Webhook node reference for
+  heading: Webhook node reference
+  version: '2.0'
+  updated_at: '2026-02-16'
+  source_site: docs.example.com
+  source_path: reference/nodes/webhook.md
+semantic:
+  topic: Webhook node reference
+  intent: integrate
+  audience: developer
+  keywords:
+  - reference
+  - webhook
+  status: rule_based
 content:
   docs_markdown: '<!-- VERIDOC_POWERED_BADGE:START -->
 
@@ -63,7 +79,7 @@ content:
     | **Response Data** | enum | `First Entry JSON` | What data to return. Options:
     `All Entries`, `First Entry JSON`, `First Entry Binary`, `No Response Body` |'
   assistant_context: 'Use this module when answering questions related to: Webhook
-    node reference for. Source path: docs/reference/nodes/webhook.md. Summary: Complete
+    node reference for. Source path: reference/nodes/webhook.md. Summary: Complete
     parameter reference for the Webhook trigger node including HTTP methods, authentication,
     response modes, and binary data handling.
 

@@ -14,12 +14,28 @@ channels:
 priority: 60
 status: active
 owner: docsops-auto
-last_verified: '2026-03-28'
+last_verified: '2026-04-03'
 dependencies: []
 tags:
 - auto-extracted
 - reference
 - taskstream-api-playground
+metadata:
+  url: https://docs.example.com/reference/taskstream-api-playground/
+  title: TaskStream API playground (Part 2)
+  heading: Playground embed
+  version: 1.50.0
+  updated_at: '2026-03-12'
+  source_site: docs.example.com
+  source_path: reference/taskstream-api-playground.md
+semantic:
+  topic: Playground embed
+  intent: integrate
+  audience: developer
+  keywords:
+  - reference
+  - taskstream api playground
+  status: rule_based
 content:
   docs_markdown: "## Playground embed\n\n<div id=\"swagger-ui-taskstream\"></div>\n\
     <link rel=\"stylesheet\" href=\"https://unpkg.com/swagger-ui-dist@5.18.2/swagger-ui.css\"\
@@ -40,7 +56,7 @@ content:
     \ multi-version API docs, publish one spec per version and add separate playground\
     \ blocks or tabs:\n\n- `/assets/api/v1/openapi.yaml`\n- `/assets/api/v2/openapi.yaml`"
   assistant_context: "Use this module when answering questions related to: TaskStream\
-    \ API playground (Part 2). Source path: docs/reference/taskstream-api-playground.md.\
+    \ API playground (Part 2). Source path: reference/taskstream-api-playground.md.\
     \ Summary: Interactive TaskStream OpenAPI playground with Swagger UI or Redoc\
     \ and try-it-out requests against mock or prod-like sandbox endpoints.\n\n## Playground\
     \ embed\n\n<div id=\"swagger-ui-taskstream\"></div>\n<link rel=\"stylesheet\"\

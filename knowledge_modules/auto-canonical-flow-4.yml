@@ -14,12 +14,28 @@ channels:
 priority: 60
 status: active
 owner: docsops-auto
-last_verified: '2026-03-28'
+last_verified: '2026-04-03'
 dependencies: []
 tags:
 - auto-extracted
 - canonical-flow
 - reference
+metadata:
+  url: https://docs.example.com/operations/CANONICAL_FLOW/
+  title: Canonical Flow (Sales + Delivery) (Part 4)
+  heading: 3. Weekly automation (no manual commands)
+  version: 1.50.0
+  updated_at: '2026-03-24'
+  source_site: docs.example.com
+  source_path: operations/CANONICAL_FLOW.md
+semantic:
+  topic: 3. Weekly automation (no manual commands)
+  intent: integrate
+  audience: developer
+  keywords:
+  - canonical flow
+  - reference
+  status: rule_based
 content:
   docs_markdown: '## 3. Weekly automation (no manual commands)
 
@@ -32,9 +48,9 @@ content:
 
     It executes:'
   assistant_context: 'Use this module when answering questions related to: Canonical
-    Flow (Sales + Delivery) (Part 4). Source path: docs/operations/CANONICAL_FLOW.md.
-    Summary: Canonical sales and delivery flow for onboarding and operating client
-    Auto-Doc Pipeline setups.
+    Flow (Sales + Delivery) (Part 4). Source path: operations/CANONICAL_FLOW.md. Summary:
+    Canonical sales and delivery flow for onboarding and operating client Auto-Doc
+    Pipeline setups.
 
 
     ## 3. Weekly automation (no manual commands)

@@ -14,12 +14,28 @@ channels:
 priority: 60
 status: active
 owner: docsops-auto
-last_verified: '2026-03-28'
+last_verified: '2026-04-03'
 dependencies: []
 tags:
 - auto-extracted
 - how-to
 - smart-merge-review
+metadata:
+  url: https://docs.example.com/operations/SMART_MERGE_REVIEW/
+  title: Smart Merge and Manual Review (Part 2)
+  heading: Non-API documentation flows (docs-first scope)
+  version: 1.50.0
+  updated_at: '2026-03-19'
+  source_site: docs.example.com
+  source_path: operations/SMART_MERGE_REVIEW.md
+semantic:
+  topic: Non-API documentation flows (docs-first scope)
+  intent: configure
+  audience: practitioner
+  keywords:
+  - how-to
+  - smart merge review
+  status: rule_based
 content:
   docs_markdown: '## Non-API documentation flows (docs-first scope)
 
@@ -56,9 +72,9 @@ content:
 
     - `reports/api-test-assets/api_test_cases.json`'
   assistant_context: 'Use this module when answering questions related to: Smart Merge
-    and Manual Review (Part 2). Source path: docs/operations/SMART_MERGE_REVIEW.md.
-    Summary: How needs_review works for protocol test assets and where operators review
-    flagged cases.
+    and Manual Review (Part 2). Source path: operations/SMART_MERGE_REVIEW.md. Summary:
+    How needs_review works for protocol test assets and where operators review flagged
+    cases.
 
 
     ## Non-API documentation flows (docs-first scope)

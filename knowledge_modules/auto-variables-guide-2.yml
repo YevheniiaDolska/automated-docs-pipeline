@@ -14,12 +14,28 @@ channels:
 priority: 60
 status: active
 owner: docsops-auto
-last_verified: '2026-03-28'
+last_verified: '2026-04-03'
 dependencies: []
 tags:
 - auto-extracted
 - reference
 - variables-guide
+metadata:
+  url: https://docs.example.com/VARIABLES_GUIDE/
+  title: Variables and Templates Guide (Part 2)
+  heading: URLs
+  version: 1.50.0
+  updated_at: None
+  source_site: docs.example.com
+  source_path: VARIABLES_GUIDE.md
+semantic:
+  topic: URLs
+  intent: configure
+  audience: developer
+  keywords:
+  - reference
+  - variables guide
+  status: rule_based
 content:
   docs_markdown: "### URLs\n\n- `{{ cloud_url }}` - Cloud app URL\n- `{{ docs_url\
     \ }}` - Documentation URL\n- `{{ community_url }}` - Community forum URL\n- `{{\
@@ -40,9 +56,9 @@ content:
     \ Hardcode\n\n- URLs (use `{{ cloud_url }}`, `{{ docs_url }}`)\n- Version numbers\
     \ (use `{{ current_version }}`)\n- Configuration values (use variables from `_variables.yml`)"
   assistant_context: "Use this module when answering questions related to: Variables\
-    \ and Templates Guide (Part 2). Source path: docs/VARIABLES_GUIDE.md. Summary:\
-    \ How to use Jinja2 variables and templates in documentation for consistency\n\
-    \n### URLs\n\n- `{{ cloud_url }}` - Cloud app URL\n- `{{ docs_url }}` - Documentation\
+    \ and Templates Guide (Part 2). Source path: VARIABLES_GUIDE.md. Summary: How\
+    \ to use Jinja2 variables and templates in documentation for consistency\n\n###\
+    \ URLs\n\n- `{{ cloud_url }}` - Cloud app URL\n- `{{ docs_url }}` - Documentation\
     \ URL\n- `{{ community_url }}` - Community forum URL\n- `{{ github_url }}` - GitHub\
     \ repository\n\n### Configuration\n\n- `{{ default_port }}` - Default port (5678)\n\
     - `{{ default_webhook_port }}` - Webhook port\n- `{{ default_data_folder }}` -\

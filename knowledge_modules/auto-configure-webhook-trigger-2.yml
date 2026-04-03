@@ -15,12 +15,28 @@ channels:
 priority: 60
 status: active
 owner: docsops-auto
-last_verified: '2026-03-28'
+last_verified: '2026-04-03'
 dependencies: []
 tags:
 - auto-extracted
 - configure-webhook-trigger
 - how-to
+metadata:
+  url: https://docs.example.com/how-to/configure-webhook-trigger/
+  title: Configure webhook triggers (Part 2)
+  heading: Configure authentication
+  version: 1.50.0
+  updated_at: '2026-03-07'
+  source_site: docs.example.com
+  source_path: how-to/configure-webhook-trigger.md
+semantic:
+  topic: Configure authentication
+  intent: configure
+  audience: practitioner
+  keywords:
+  - configure webhook trigger
+  - how-to
+  status: rule_based
 content:
   docs_markdown: "## Configure authentication\n\n!!! warning \"Secure your webhooks\"\
     \n    Always enable authentication on production webhook endpoints.\n    Unauthenticated\
@@ -30,7 +46,7 @@ content:
     \ Auth | Username and password | Set credentials in node settings |\n| JWT | Token-based\
     \ auth | Configure secret and algorithm |"
   assistant_context: "Use this module when answering questions related to: Configure\
-    \ webhook triggers (Part 2). Source path: docs/how-to/configure-webhook-trigger.md.\
+    \ webhook triggers (Part 2). Source path: how-to/configure-webhook-trigger.md.\
     \ Summary: Set up and configure webhook trigger nodes to start workflows from\
     \ incoming HTTP requests with authentication.\n\n## Configure authentication\n\
     \n!!! warning \"Secure your webhooks\"\n    Always enable authentication on production\

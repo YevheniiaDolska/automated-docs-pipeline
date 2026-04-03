@@ -15,12 +15,28 @@ channels:
 priority: 60
 status: active
 owner: docsops-auto
-last_verified: '2026-03-28'
+last_verified: '2026-04-03'
 dependencies: []
 tags:
 - auto-extracted
 - reference
 - unified-client-config
+metadata:
+  url: https://docs.example.com/operations/UNIFIED_CLIENT_CONFIG/
+  title: Unified Client Configuration (Part 24)
+  heading: Core UTP tasks (default-on baseline)
+  version: 1.50.0
+  updated_at: '2026-03-24'
+  source_site: docs.example.com
+  source_path: operations/UNIFIED_CLIENT_CONFIG.md
+semantic:
+  topic: Core UTP tasks (default-on baseline)
+  intent: integrate
+  audience: developer
+  keywords:
+  - reference
+  - unified client config
+  status: rule_based
 content:
   docs_markdown: "### Core UTP tasks (default-on baseline)\n\n```yaml\nruntime:\n\
     \  custom_tasks:\n    weekly:\n      - id: \"seo-geo\"\n        enabled: true\n\
@@ -33,7 +49,7 @@ content:
     \ true\n        command: \"python3 docsops/scripts/build_all_intent_experiences.py\"\
     \n        continue_on_error: true\n```"
   assistant_context: "Use this module when answering questions related to: Unified\
-    \ Client Configuration (Part 24). Source path: docs/operations/UNIFIED_CLIENT_CONFIG.md.\
+    \ Client Configuration (Part 24). Source path: operations/UNIFIED_CLIENT_CONFIG.md.\
     \ Summary: Single source of truth for per-client Auto-Doc Pipeline configuration,\
     \ modules, and automation.\n\n### Core UTP tasks (default-on baseline)\n\n```yaml\n\
     runtime:\n  custom_tasks:\n    weekly:\n      - id: \"seo-geo\"\n        enabled:\

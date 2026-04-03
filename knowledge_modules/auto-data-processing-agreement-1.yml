@@ -1,0 +1,139 @@
+id: auto-data-processing-agreement-1
+title: VeriDoc data processing agreement
+summary: Data processing agreement for VeriDoc platform covering GDPR compliance,
+  sub-processors, data transfer mechanisms, and breach notification procedures.
+intents:
+- integrate
+audiences:
+- developer
+- operator
+channels:
+- docs
+- assistant
+- automation
+priority: 60
+status: active
+owner: docsops-auto
+last_verified: '2026-04-03'
+dependencies: []
+tags:
+- auto-extracted
+- data-processing-agreement
+- reference
+metadata:
+  url: https://docs.example.com/legal/data-processing-agreement/
+  title: VeriDoc data processing agreement
+  heading: Scope and roles
+  version: 1.50.0
+  updated_at: '2026-03-28'
+  source_site: docs.example.com
+  source_path: legal/data-processing-agreement.md
+semantic:
+  topic: Scope and roles
+  intent: integrate
+  audience: developer
+  keywords:
+  - data processing agreement
+  - reference
+  status: rule_based
+content:
+  docs_markdown: '# VeriDoc data processing agreement
+
+
+    This data processing agreement ("DPA") forms part of the agreement between
+
+    Liora Tech ("Processor," "we") and the entity subscribing to VeriDoc
+
+    ("Controller," "you") for the processing of personal data through the
+
+    VeriDoc platform.
+
+
+    ## Scope and roles
+
+
+    | Role | Party | Responsibility |
+
+    |------|-------|----------------|
+
+    | **Data Controller** | You (the customer) | Determines the purposes and means
+    of processing documentation content |
+
+    | **Data Processor** | Liora Tech | Processes personal data on your behalf to
+    provide the VeriDoc Service |
+
+    | **Sub-processors** | Third-party providers listed below | Process data under
+    our supervision for specific service functions |
+
+
+    This DPA applies to all personal data processed through the VeriDoc
+
+    platform on your behalf, including documentation content that may contain
+
+    personal data (names, emails, or identifiers in your documentation).
+
+
+    ## Processing details
+
+
+    ### Subject matter and duration
+
+
+    We process personal data for the duration of your VeriDoc subscription.
+
+    Processing terminates 30 days after account closure, when all data is
+
+    permanently deleted.'
+  assistant_context: 'Use this module when answering questions related to: VeriDoc
+    data processing agreement. Source path: legal/data-processing-agreement.md. Summary:
+    Data processing agreement for VeriDoc platform covering GDPR compliance, sub-processors,
+    data transfer mechanisms, and breach notification procedures.
+
+
+    # VeriDoc data processing agreement
+
+
+    This data processing agreement ("DPA") forms part of the agreement between
+
+    Liora Tech ("Processor," "we") and the entity subscribing to VeriDoc
+
+    ("Controller," "you") for the processing of personal data through the
+
+    VeriDoc platform.
+
+
+    ## Scope and roles
+
+
+    | Role | Party | Responsibility |
+
+    |------|-------|----------------|
+
+    | **Data Controller** | You (the customer) | Determines the purposes and means
+    of processing documentation content |
+
+    | **Data Processor** | Liora Tech | Processes personal data on your behalf to
+    provide the VeriDoc Service |
+
+    | **Sub-processors** | Third-party providers listed below | Process data under
+    our supervision for specific service functions |
+
+
+    This DPA applies to all personal data processed through the VeriDoc
+
+    platform on your behalf, including documentation content that may contain
+
+    personal data (names, emails, or identifiers in your documentation).
+
+
+    ## Processing details
+
+
+    ### Subject matter and duration
+
+
+    We process personal data for the duration of your VeriDoc subscription.
+
+    Processing terminates 30 days after account closure, when all data is
+
+    permanently deleted.'

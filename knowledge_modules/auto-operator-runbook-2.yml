@@ -14,12 +14,28 @@ channels:
 priority: 60
 status: active
 owner: docsops-auto
-last_verified: '2026-03-28'
+last_verified: '2026-04-03'
 dependencies: []
 tags:
 - auto-extracted
 - how-to
 - operator-runbook
+metadata:
+  url: https://docs.example.com/operations/OPERATOR_RUNBOOK/
+  title: Operator Runbook (Retainer Operations) (Part 2)
+  heading: Non-API documentation flows (docs-first scope)
+  version: 1.50.0
+  updated_at: '2026-03-21'
+  source_site: docs.example.com
+  source_path: operations/OPERATOR_RUNBOOK.md
+semantic:
+  topic: Non-API documentation flows (docs-first scope)
+  intent: configure
+  audience: practitioner
+  keywords:
+  - how-to
+  - operator runbook
+  status: rule_based
 content:
   docs_markdown: '## Non-API documentation flows (docs-first scope)
 
@@ -48,7 +64,7 @@ content:
     1. Produces consolidated review artifacts so human input is focused on approval
     and business accuracy, not repetitive formatting and synchronization work.'
   assistant_context: 'Use this module when answering questions related to: Operator
-    Runbook (Retainer Operations) (Part 2). Source path: docs/operations/OPERATOR_RUNBOOK.md.
+    Runbook (Retainer Operations) (Part 2). Source path: operations/OPERATOR_RUNBOOK.md.
     Summary: Step-by-step instructions for weekly report review, client questions,
     new repo setup, and profile tuning.
 

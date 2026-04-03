@@ -1,0 +1,143 @@
+id: auto-security-policy-3
+title: VeriDoc security policy (Part 3)
+summary: Security policy for VeriDoc platform covering infrastructure security, encryption,
+  authentication, access controls, and incident response procedures.
+intents:
+- integrate
+audiences:
+- developer
+- operator
+channels:
+- docs
+- assistant
+- automation
+priority: 60
+status: active
+owner: docsops-auto
+last_verified: '2026-04-03'
+dependencies: []
+tags:
+- auto-extracted
+- reference
+- security-policy
+metadata:
+  url: https://docs.example.com/legal/security-policy/
+  title: VeriDoc security policy (Part 3)
+  heading: Data in transit
+  version: 1.50.0
+  updated_at: '2026-03-28'
+  source_site: docs.example.com
+  source_path: legal/security-policy.md
+semantic:
+  topic: Data in transit
+  intent: integrate
+  audience: developer
+  keywords:
+  - reference
+  - security policy
+  status: rule_based
+content:
+  docs_markdown: '### Data in transit
+
+
+    All data transmitted between clients and VeriDoc servers is encrypted
+
+    with TLS 1.3. The Nginx configuration enforces:
+
+
+    1. TLS 1.3 only (TLS 1.2 and below are disabled).
+
+    1. Strong cipher suites with forward secrecy.
+
+    1. HSTS headers with 1-year max-age.
+
+    1. OCSP stapling for certificate validation.
+
+
+    ### Data at rest
+
+
+    | Data type | Encryption method |
+
+    |-----------|-------------------|
+
+    | PostgreSQL database | AES-256 (filesystem-level encryption) |
+
+    | Database backups | AES-256 encrypted archives |
+
+    | License files | AES-256-GCM with HKDF key derivation |
+
+    | Application secrets | Environment variables, not stored in code |
+
+
+    ## Data processing security
+
+
+    ### Pipeline execution
+
+
+    When VeriDoc processes your documentation:
+
+
+    1. Content is loaded into memory for processing.
+
+    1. Intermediate results are stored in the encrypted PostgreSQL database.
+
+    1. Pipeline workers run in isolated Celery processes with 1-hour timeouts.
+
+    1. Failed pipeline runs are logged to Sentry with PII scrubbing.'
+  assistant_context: 'Use this module when answering questions related to: VeriDoc
+    security policy (Part 3). Source path: legal/security-policy.md. Summary: Security
+    policy for VeriDoc platform covering infrastructure security, encryption, authentication,
+    access controls, and incident response procedures.
+
+
+    ### Data in transit
+
+
+    All data transmitted between clients and VeriDoc servers is encrypted
+
+    with TLS 1.3. The Nginx configuration enforces:
+
+
+    1. TLS 1.3 only (TLS 1.2 and below are disabled).
+
+    1. Strong cipher suites with forward secrecy.
+
+    1. HSTS headers with 1-year max-age.
+
+    1. OCSP stapling for certificate validation.
+
+
+    ### Data at rest
+
+
+    | Data type | Encryption method |
+
+    |-----------|-------------------|
+
+    | PostgreSQL database | AES-256 (filesystem-level encryption) |
+
+    | Database backups | AES-256 encrypted archives |
+
+    | License files | AES-256-GCM with HKDF key derivation |
+
+    | Application secrets | Environment variables, not stored in code |
+
+
+    ## Data processing security
+
+
+    ### Pipeline execution
+
+
+    When VeriDoc processes your documentation:
+
+
+    1. Content is loaded into memory for processing.
+
+    1. Intermediate results are stored in the encrypted PostgreSQL database.
+
+    1. Pipeline workers run in isolated Celery processes with 1-hour timeouts.
+
+    1. Failed pipeline runs are logged to Sentry with PII scrubbing.'

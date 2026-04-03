@@ -1,0 +1,150 @@
+id: auto-data-processing-agreement-5
+title: VeriDoc data processing agreement (Part 5)
+summary: Data processing agreement for VeriDoc platform covering GDPR compliance,
+  sub-processors, data transfer mechanisms, and breach notification procedures.
+intents:
+- integrate
+- troubleshoot
+audiences:
+- developer
+- operator
+channels:
+- docs
+- assistant
+- automation
+priority: 60
+status: active
+owner: docsops-auto
+last_verified: '2026-04-03'
+dependencies: []
+tags:
+- auto-extracted
+- data-processing-agreement
+- reference
+metadata:
+  url: https://docs.example.com/legal/data-processing-agreement/
+  title: VeriDoc data processing agreement (Part 5)
+  heading: Sub-processors
+  version: 1.50.0
+  updated_at: '2026-03-28'
+  source_site: docs.example.com
+  source_path: legal/data-processing-agreement.md
+semantic:
+  topic: Sub-processors
+  intent: integrate
+  audience: developer
+  keywords:
+  - data processing agreement
+  - reference
+  status: rule_based
+content:
+  docs_markdown: '## Sub-processors
+
+
+    We use the following sub-processors:
+
+
+    | Sub-processor | Purpose | Location | Data processed |
+
+    |---------------|---------|----------|----------------|
+
+    | Hetzner Online | Cloud infrastructure hosting | Germany (EU) | All application
+    data (encrypted) |
+
+    | LemonSqueezy | Payment processing | United States | Email, subscription tier
+    |
+
+    | Mailgun | Transactional email delivery | United States | Email address, email
+    content |
+
+    | Sentry | Error monitoring | United States | Error context (PII scrubbed) |
+
+
+    ### Optional LLM sub-processors (opt-in only)
+
+
+    These sub-processors are engaged only when you explicitly enable AI
+
+    features:
+
+
+    | Sub-processor | Purpose | Location | Data processed |
+
+    |---------------|---------|----------|----------------|
+
+    | Anthropic | Document quality enhancement | United States | Document sections
+    |
+
+    | Groq | Text generation | United States | Document sections |
+
+    | DeepSeek | Text generation | China | Document sections |
+
+    | OpenAI | Embeddings, text generation | United States | Document sections |
+
+
+    You control which LLM providers are used through your pipeline
+
+    configuration. Disable AI features to prevent any content from reaching
+
+    LLM sub-processors.
+
+
+    ## Data transfers'
+  assistant_context: 'Use this module when answering questions related to: VeriDoc
+    data processing agreement (Part 5). Source path: legal/data-processing-agreement.md.
+    Summary: Data processing agreement for VeriDoc platform covering GDPR compliance,
+    sub-processors, data transfer mechanisms, and breach notification procedures.
+
+
+    ## Sub-processors
+
+
+    We use the following sub-processors:
+
+
+    | Sub-processor | Purpose | Location | Data processed |
+
+    |---------------|---------|----------|----------------|
+
+    | Hetzner Online | Cloud infrastructure hosting | Germany (EU) | All application
+    data (encrypted) |
+
+    | LemonSqueezy | Payment processing | United States | Email, subscription tier
+    |
+
+    | Mailgun | Transactional email delivery | United States | Email address, email
+    content |
+
+    | Sentry | Error monitoring | United States | Error context (PII scrubbed) |
+
+
+    ### Optional LLM sub-processors (opt-in only)
+
+
+    These sub-processors are engaged only when you explicitly enable AI
+
+    features:
+
+
+    | Sub-processor | Purpose | Location | Data processed |
+
+    |---------------|---------|----------|----------------|
+
+    | Anthropic | Document quality enhancement | United States | Document sections
+    |
+
+    | Groq | Text generation | United States | Document sections |
+
+    | DeepSeek | Text generation | China | Document sections |
+
+    | OpenAI | Embeddings, text generation | United States | Document sections |
+
+
+    You control which LLM providers are used through your pipeline
+
+    configuration. Disable AI features to prevent any content from reaching
+
+    LLM sub-processors.
+
+
+    ## Data transfers'

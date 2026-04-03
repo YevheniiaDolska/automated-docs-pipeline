@@ -1,0 +1,72 @@
+id: auto-privacy-policy-4
+title: VeriDoc privacy policy (Part 4)
+summary: Privacy policy for VeriDoc automated documentation platform, covering data
+  collection, processing, storage, retention, and your rights under GDPR.
+intents:
+- integrate
+- secure
+audiences:
+- developer
+- operator
+channels:
+- docs
+- assistant
+- automation
+priority: 60
+status: active
+owner: docsops-auto
+last_verified: '2026-04-03'
+dependencies: []
+tags:
+- auto-extracted
+- privacy-policy
+- reference
+metadata:
+  url: https://docs.example.com/legal/privacy-policy/
+  title: VeriDoc privacy policy (Part 4)
+  heading: How we use your data
+  version: 1.50.0
+  updated_at: '2026-03-28'
+  source_site: docs.example.com
+  source_path: legal/privacy-policy.md
+semantic:
+  topic: How we use your data
+  intent: integrate
+  audience: developer
+  keywords:
+  - privacy policy
+  - reference
+  status: rule_based
+content:
+  docs_markdown: "## How we use your data\n\nWe use personal data exclusively for:\n\
+    \n1. **Service delivery** -- processing your documentation, enforcing usage\n\
+    \   limits, and managing your subscription.\n1. **Billing** -- processing payments\
+    \ through LemonSqueezy, generating\n   invoices, tracking referral commissions.\n\
+    1. **Communication** -- sending transactional emails (subscription\n   confirmations,\
+    \ trial expiry notices, invoice receipts).\n1. **Security** -- detecting unauthorized\
+    \ access, enforcing rate limits,\n   monitoring for abuse.\n1. **Improvement**\
+    \ -- analyzing aggregate, anonymized usage patterns to\n   improve the Service.\
+    \ We never analyze individual content.\n\n## Data storage and security\n\n###\
+    \ Infrastructure\n\n| Component | Location | Encryption |\n|-----------|----------|------------|\n\
+    | Application servers | Hetzner Cloud, Germany | TLS 1.3 in transit |\n| PostgreSQL\
+    \ database | Hetzner Cloud, Germany | AES-256 at rest |\n| Redis cache | Hetzner\
+    \ Cloud, Germany | In-memory, no persistence of content |\n| Backups | Hetzner\
+    \ Cloud, Germany | AES-256, 30-day retention |"
+  assistant_context: "Use this module when answering questions related to: VeriDoc\
+    \ privacy policy (Part 4). Source path: legal/privacy-policy.md. Summary: Privacy\
+    \ policy for VeriDoc automated documentation platform, covering data collection,\
+    \ processing, storage, retention, and your rights under GDPR.\n\n## How we use\
+    \ your data\n\nWe use personal data exclusively for:\n\n1. **Service delivery**\
+    \ -- processing your documentation, enforcing usage\n   limits, and managing your\
+    \ subscription.\n1. **Billing** -- processing payments through LemonSqueezy, generating\n\
+    \   invoices, tracking referral commissions.\n1. **Communication** -- sending\
+    \ transactional emails (subscription\n   confirmations, trial expiry notices,\
+    \ invoice receipts).\n1. **Security** -- detecting unauthorized access, enforcing\
+    \ rate limits,\n   monitoring for abuse.\n1. **Improvement** -- analyzing aggregate,\
+    \ anonymized usage patterns to\n   improve the Service. We never analyze individual\
+    \ content.\n\n## Data storage and security\n\n### Infrastructure\n\n| Component\
+    \ | Location | Encryption |\n|-----------|----------|------------|\n| Application\
+    \ servers | Hetzner Cloud, Germany | TLS 1.3 in transit |\n| PostgreSQL database\
+    \ | Hetzner Cloud, Germany | AES-256 at rest |\n| Redis cache | Hetzner Cloud,\
+    \ Germany | In-memory, no persistence of content |\n| Backups | Hetzner Cloud,\
+    \ Germany | AES-256, 30-day retention |"
