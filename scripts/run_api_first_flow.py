@@ -798,6 +798,26 @@ def main() -> int:
                     finalize_cmd.append("--ask-commit-confirmation")
                 finalize_cmd.extend(["--ui-confirmation", str(args.ui_confirmation)])
                 run(finalize_cmd, cwd=repo, compact=True, summary_label="finalize docs gate finished")
+            run(
+                [
+                    "python3",
+                    "scripts/enforce_rag_optimization_layer.py",
+                    "--repo-root",
+                    str(repo),
+                    "--runtime-config",
+                    str(runtime_config if runtime_config is not None else (repo / "docsops/config/client_runtime.yml")),
+                    "--reports-dir",
+                    "reports",
+                    "--provider",
+                    "openai",
+                    "--retention-versions",
+                    "60",
+                    "--with-embeddings",
+                ],
+                cwd=repo,
+                compact=True,
+                summary_label="RAG optimization layer finished",
+            )
             narrator.note(f"Sandbox page URL: {build_sandbox_page_url(repo, args.docs_provider)}")
             print("[ok] API-first production flow completed successfully", flush=True)
             narrator.finish(True, "API-first flow completed successfully")

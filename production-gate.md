@@ -221,3 +221,13 @@ Use it together with [Deployment Runbook](deploy/production-runbook.md).
 - [x] Customer/legal launch package closed:
   - legal docs/pages are present and linked,
   - outreach template and customer packet checklist are in `deploy/`.
+
+## 20. RAG enterprise-suite gate
+
+- [x] Unified runtime RAG endpoint is available (`/rag/query` + `/rag/runtime/query`) with ACL checks.
+- [x] RAG observability snapshot and alerts endpoints are available (`/rag/metrics`, `/rag/alerts`).
+- [x] Versioned RAG index lifecycle supports reindex + promote/rollback + retention policy.
+- [x] Weekly/autopipeline/API-first/multi-protocol flows enforce RAG optimization layer automatically.
+- [x] Egress metadata policy is enforced with local audit trail (`reports/llm_egress_log.json`).
+- [ ] Full cloud/hybrid/strict-local E2E run executed on staging from clean release commit.
+- [ ] Staging RAG alerts and thresholds validated under live load profile.

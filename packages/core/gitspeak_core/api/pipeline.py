@@ -601,31 +601,31 @@ def _run_quality(
 
     # --- Knowledge pipeline ---
 
-    # 18. Extract knowledge modules
-    if _is_enabled("knowledge_validation", user_tier, modules):
-        phases.append(_run_allow_fail(
-            "extract_knowledge_modules_from_docs.py",
-            ["--docs-dir", str(docs_dir), "--modules-dir", str(repo / "knowledge_modules"),
-             "--report", str(reports_dir / "knowledge_auto_extract_report.json")],
-            repo_path, "knowledge_extract",
-        ))
-
-    # 19. Validate knowledge modules
-    if _is_enabled("knowledge_validation", user_tier, modules):
-        phases.append(_run_allow_fail(
-            "validate_knowledge_modules.py", [],
-            repo_path, "knowledge_validate",
-        ))
-
-    # 20. Knowledge retrieval index
-    if _is_enabled("rag_optimization", user_tier, modules):
-        phase = _run_allow_fail(
-            "generate_knowledge_retrieval_index.py", [],
-            repo_path, "knowledge_retrieval_index",
+    # 18-20. Unified RAG optimization layer (extract + validate + index lifecycle)
+    if _is_enabled("knowledge_validation", user_tier, modules) or _is_enabled("rag_optimization", user_tier, modules):
+        provider = "local" if str(user_tier).strip().lower() == "enterprise" else "openai"
+        layer_phase = _run_allow_fail(
+            "enforce_rag_optimization_layer.py",
+            [
+                "--repo-root",
+                str(repo),
+                "--runtime-config",
+                str(repo / "docsops" / "config" / "client_runtime.yml"),
+                "--reports-dir",
+                str(reports_dir),
+                "--provider",
+                provider,
+                "--retention-versions",
+                "60",
+                "--with-embeddings",
+            ],
+            repo_path,
+            "rag_optimization_layer",
         )
-        phases.append(phase)
-        if phase.status == "ok":
+        phases.append(layer_phase)
+        if layer_phase.status == "ok":
             artifacts.append(str(docs_dir / "assets" / "knowledge-retrieval-index.json"))
+            artifacts.append(str(reports_dir / "rag_optimization_layer_report.json"))
 
     # 21. Knowledge graph JSON-LD
     if _is_enabled("ontology_graph", user_tier, modules):

@@ -217,6 +217,7 @@ def main() -> int:
 
     settings_map = merge_protocol_settings(runtime.get("api_protocol_settings", {}), protocols)
     settings_map = apply_realtime_sandbox_defaults(settings_map)
+    modules = runtime.get("modules", {}) if isinstance(runtime.get("modules"), dict) else {}
     reports_dir = Path(args.reports_dir)
     if not reports_dir.is_absolute():
         reports_dir = (Path.cwd() / reports_dir).resolve()
@@ -371,6 +372,35 @@ def main() -> int:
     _write_report(report_path, report)
     print(f"[multi-protocol] report: {report_path}")
     narrator.done(str(report_path))
+
+    rag_layer_script = (scripts_dir / "enforce_rag_optimization_layer.py").resolve()
+    rag_enabled = bool(modules.get("rag_optimization", True) or modules.get("knowledge_validation", True))
+    if rag_enabled and rag_layer_script.exists():
+        rag_layer_cmd = [
+            sys.executable,
+            str(rag_layer_script),
+            "--repo-root",
+            str(repo_root),
+            "--runtime-config",
+            str(runtime_path),
+            "--reports-dir",
+            str(reports_dir),
+            "--provider",
+            "openai",
+            "--retention-versions",
+            "60",
+            "--with-embeddings",
+        ]
+        rag_layer_rc = subprocess.run(rag_layer_cmd, cwd=str(repo_root), check=False).returncode
+        if rag_layer_rc != 0:
+            report["failed"] = True
+            report.setdefault("failed_protocols", [])
+            report["failed_protocols"] = sorted(set([*report["failed_protocols"], "rag-layer"]))
+            _write_report(report_path, report)
+            narrator.warn("RAG optimization layer failed")
+            if strict_mode:
+                narrator.finish(False, "Strict mode failed. RAG optimization layer is not green.")
+                return 1
 
     if strict_mode and failed_protocols:
         narrator.finish(False, f"Strict mode failed. Protocols with errors: {', '.join(failed_protocols)}")

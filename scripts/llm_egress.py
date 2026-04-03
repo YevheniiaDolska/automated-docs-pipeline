@@ -145,7 +145,7 @@ def load_egress_allowlist() -> EgressAllowlistPolicy:
     if not isinstance(allowed, list) or not allowed:
         allowed = [
             "tenant_id", "build_id", "version", "platform", "plan",
-            "health", "error_code", "duration_ms", "event", "timestamp_utc",
+            "health", "error_code", "duration_ms", "event", "timestamp_utc", "run_status",
         ]
     blocked = payload.get("blocked_key_patterns", [])
     if not isinstance(blocked, list) or not blocked:

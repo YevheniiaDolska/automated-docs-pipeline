@@ -84,3 +84,30 @@ def test_resolve_embeddings_provider_defaults_to_local(monkeypatch) -> None:
     monkeypatch.setenv("VERIDOC_RAG_EMBED_PROVIDER", "openai")
     assert resolve_embeddings_provider(None) == "openai"
     assert resolve_embeddings_provider("local") == "local"
+
+
+def test_evaluate_rag_alerts_detects_threshold_breaches() -> None:
+    from gitspeak_core.api.rag_runtime import evaluate_rag_alerts
+
+    snapshot = {
+        "query_metrics": {
+            "latency_p95_ms": 5000,
+            "no_hit_rate": 0.8,
+        },
+        "retrieval_eval_metrics": {
+            "recall_at_k": 0.1,
+            "hallucination_rate": 0.9,
+        },
+    }
+    alerts = evaluate_rag_alerts(
+        snapshot=snapshot,
+        min_recall=0.5,
+        max_hallucination_rate=0.2,
+        max_latency_p95_ms=2500,
+        max_no_hit_rate=0.35,
+    )
+    codes = {a.get("code") for a in alerts}
+    assert "RAG_LATENCY_P95_HIGH" in codes
+    assert "RAG_NO_HIT_RATE_HIGH" in codes
+    assert "RAG_RECALL_LOW" in codes
+    assert "RAG_HALLUCINATION_HIGH" in codes

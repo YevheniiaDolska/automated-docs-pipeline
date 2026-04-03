@@ -13,6 +13,7 @@ import logging
 import shlex
 import subprocess
 import sys
+from copy import deepcopy
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
 from typing import Any
@@ -28,6 +29,7 @@ if str(REPO_ROOT) not in sys.path:
 from scripts.env_loader import load_local_env
 from scripts.flow_feedback import FlowNarrator
 from scripts.license_gate import get_license, get_license_summary
+from scripts.llm_egress import enforce_metadata_egress_payload
 
 
 def _run(cmd: list[str], cwd: Path) -> None:
@@ -112,6 +114,73 @@ def _read_yaml(path: Path) -> dict[str, Any]:
     if not isinstance(raw, dict):
         raise ValueError(f"Expected YAML mapping: {path}")
     return raw
+
+
+def _enforce_strict_local_guardrails(runtime: dict[str, Any]) -> tuple[dict[str, Any], bool]:
+    """Force-disable external egress settings in strict local-first mode."""
+    adjusted = deepcopy(runtime)
+    changed = False
+
+    llm_control = adjusted.get("llm_control", {})
+    if not isinstance(llm_control, dict):
+        llm_control = {}
+        adjusted["llm_control"] = llm_control
+
+    llm_mode = str(llm_control.get("llm_mode", "external_preferred")).strip().lower()
+    strict_local = bool(llm_control.get("strict_local_first", llm_mode == "local_default"))
+    if not strict_local:
+        return adjusted, False
+
+    if llm_mode != "local_default":
+        llm_control["llm_mode"] = "local_default"
+        changed = True
+    if bool(llm_control.get("external_llm_allowed", True)):
+        llm_control["external_llm_allowed"] = False
+        changed = True
+
+    integrations = adjusted.get("integrations", {})
+    if isinstance(integrations, dict):
+        algolia = integrations.get("algolia", {})
+        if isinstance(algolia, dict):
+            if bool(algolia.get("enabled", False)):
+                algolia["enabled"] = False
+                changed = True
+            if bool(algolia.get("upload_on_weekly", False)):
+                algolia["upload_on_weekly"] = False
+                changed = True
+        ask_ai = integrations.get("ask_ai", {})
+        if isinstance(ask_ai, dict):
+            if bool(ask_ai.get("enabled", False)):
+                ask_ai["enabled"] = False
+                changed = True
+            if str(ask_ai.get("billing_mode", "disabled")).strip().lower() != "disabled":
+                ask_ai["billing_mode"] = "disabled"
+                changed = True
+
+    api_first = adjusted.get("api_first", {})
+    if isinstance(api_first, dict):
+        if str(api_first.get("sandbox_backend", "prism")).strip().lower() == "external":
+            api_first["sandbox_backend"] = "prism"
+            changed = True
+        if bool(api_first.get("upload_test_assets", False)):
+            api_first["upload_test_assets"] = False
+            changed = True
+        if bool(api_first.get("upload_test_assets_strict", False)):
+            api_first["upload_test_assets_strict"] = False
+            changed = True
+        external_mock = api_first.get("external_mock", {})
+        if isinstance(external_mock, dict) and bool(external_mock.get("enabled", False)):
+            external_mock["enabled"] = False
+            changed = True
+
+    protocol_settings = adjusted.get("api_protocol_settings", {})
+    if isinstance(protocol_settings, dict):
+        for cfg in protocol_settings.values():
+            if isinstance(cfg, dict) and bool(cfg.get("upload_test_assets", False)):
+                cfg["upload_test_assets"] = False
+                changed = True
+
+    return adjusted, changed
 
 
 def _resolve_policy_pack(docsops_root: Path, runtime: dict[str, Any]) -> Path:
@@ -240,7 +309,16 @@ def main() -> int:
         else docsops_root / "config" / "client_runtime.yml"
     )
     runtime = _read_yaml(runtime_path)
-    narrator.done(f"Runtime config loaded: {runtime_path}")
+    runtime, strict_local_changed = _enforce_strict_local_guardrails(runtime)
+    effective_runtime_path = runtime_path
+    if strict_local_changed:
+        effective_runtime_path = reports_dir / "runtime.effective.yml"
+        effective_runtime_path.write_text(
+            yaml.safe_dump(runtime, sort_keys=False, allow_unicode=False),
+            encoding="utf-8",
+        )
+        print(f"[docsops] strict local-first guardrails enforced: {effective_runtime_path}")
+    narrator.done(f"Runtime config loaded: {effective_runtime_path}")
     docs_flow = runtime.get("docs_flow", {})
     flow_mode = str(docs_flow.get("mode", "code-first")).strip().lower()
     modules = runtime.get("modules", {})
@@ -256,6 +334,7 @@ def main() -> int:
     integrations = runtime.get("integrations", {})
     finalize_gate = runtime.get("finalize_gate", {})
     api_governance = runtime.get("api_governance", {})
+    llm_control = runtime.get("llm_control", {}) if isinstance(runtime.get("llm_control"), dict) else {}
     api_protocols_raw = runtime.get("api_protocols", ["rest"])
     api_protocol_settings = runtime.get("api_protocol_settings", {})
 
@@ -297,7 +376,7 @@ def main() -> int:
             py,
             str(multi_protocol_runner),
             "--runtime-config",
-            str(runtime_path),
+            str(effective_runtime_path),
             "--reports-dir",
             str(reports_dir),
             "--protocols",
@@ -522,29 +601,33 @@ def main() -> int:
             cwd=repo_root,
         )
 
-    auto_extract_knowledge = scripts_dir / "extract_knowledge_modules_from_docs.py"
-    if _is_enabled(modules, "knowledge_validation", True) and auto_extract_knowledge.exists():
-        _run_allow_fail(
-            [
-                py,
-                str(auto_extract_knowledge),
-                "--docs-dir",
-                str(paths.get("docs_root", "docs")),
-                "--modules-dir",
-                "knowledge_modules",
-                "--report",
-                str(reports_dir / "knowledge_auto_extract_report.json"),
-            ],
-            cwd=repo_root,
-        )
-
-    validate_knowledge = scripts_dir / "validate_knowledge_modules.py"
-    if _is_enabled(modules, "knowledge_validation", True) and validate_knowledge.exists():
-        _run_allow_fail([py, str(validate_knowledge)], cwd=repo_root)
-
-    knowledge_index = scripts_dir / "generate_knowledge_retrieval_index.py"
-    if _is_enabled(modules, "rag_optimization", True) and knowledge_index.exists():
-        _run_allow_fail([py, str(knowledge_index)], cwd=repo_root)
+    rag_layer = scripts_dir / "enforce_rag_optimization_layer.py"
+    if (
+        _is_enabled(modules, "knowledge_validation", True)
+        or _is_enabled(modules, "rag_optimization", True)
+    ) and rag_layer.exists():
+        rag_cmd = [
+            py,
+            str(rag_layer),
+            "--repo-root",
+            str(repo_root),
+            "--runtime-config",
+            str(effective_runtime_path),
+            "--reports-dir",
+            str(reports_dir),
+            "--provider",
+            "local"
+            if bool(llm_control.get("strict_local_first", False))
+            or str(llm_control.get("llm_mode", "")).strip().lower() in {"local_default", "local_first"}
+            else "openai",
+            "--retention-versions",
+            str(int(runtime.get("rag_retention_versions", 60) or 60)),
+        ]
+        if bool(runtime.get("rag_with_embeddings", True)):
+            rag_cmd.append("--with-embeddings")
+        if str(api_governance.get("strictness", "standard")).strip().lower() == "enterprise-strict":
+            rag_cmd.append("--strict")
+        _run_allow_fail(rag_cmd, cwd=repo_root)
 
     knowledge_graph_script = scripts_dir / "generate_knowledge_graph_jsonld.py"
     if (
@@ -903,7 +986,7 @@ def main() -> int:
             "--reports-dir",
             str(finalize_gate.get("reports_dir", reports_dir)) if isinstance(finalize_gate, dict) else str(reports_dir),
             "--runtime-config",
-            str(runtime_path),
+            str(effective_runtime_path),
         ]
         if isinstance(finalize_gate, dict) and bool(finalize_gate.get("continue_on_error", True)):
             finalize_cmd.append("--continue-on-error")
@@ -953,6 +1036,23 @@ def main() -> int:
     print(f"[docsops] consolidated report: {reports_dir / 'consolidated_report.json'}")
     print(f"[docsops] status file: {status_path}")
     print(f"[docsops] ready marker: {ready_path}")
+    enforce_metadata_egress_payload(
+        payload={
+            "tenant_id": str(runtime.get("tenant_id", "local-tenant")),
+            "build_id": str(status_payload["last_run_at"]),
+            "version": str(runtime.get("version", "local")),
+            "platform": "docsops",
+            "plan": str(getattr(lic, "plan", "community")),
+            "event": "weekly_batch_completed",
+            "timestamp_utc": str(status_payload["last_run_at"]),
+            "run_status": "ok",
+            "duration_ms": 0,
+            "health": "ok",
+        },
+        reports_dir=reports_dir,
+        step="weekly_batch",
+        source="run_weekly_gap_batch.py",
+    )
     narrator.done(f"READY marker: {ready_path}")
     narrator.stage(6, "Pipeline summary", "All configured weekly tasks finished")
     narrator.finish(True, f"Consolidated report: {reports_dir / 'consolidated_report.json'}")

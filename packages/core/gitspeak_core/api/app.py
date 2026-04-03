@@ -16,6 +16,7 @@ import hashlib
 import json
 import logging
 import os
+import sys
 import time
 from collections import defaultdict
 from contextlib import asynccontextmanager
@@ -635,6 +636,9 @@ class RagQueryRequest(BaseModel):
     query: str = Field(min_length=2, max_length=5000)
     top_k: int = Field(default=5, ge=1, le=30)
     source_sites: list[str] | None = None
+    tenant_id: str = Field(default="", max_length=255)
+    domain: str = Field(default="", max_length=255)
+    plan: str = Field(default="", max_length=32)
 
 
 class RagReindexRequest(BaseModel):
@@ -824,6 +828,10 @@ async def rag_query(
         .first()
     )
     allowed_source_sites: set[str] = set()
+    requested_tenant = str(request.tenant_id or "").strip().lower()
+    requested_domain = str(request.domain or "").strip().lower()
+    requested_plan = str(request.plan or user.get("tier", "free")).strip().lower()
+
     if settings_row and isinstance(settings_row.custom_config, dict):
         rag_acl = settings_row.custom_config.get("rag_acl", {})
         if isinstance(rag_acl, dict) and isinstance(rag_acl.get("allowed_source_sites"), list):
@@ -832,6 +840,18 @@ async def rag_query(
                 for v in rag_acl.get("allowed_source_sites", [])
                 if str(v).strip()
             }
+        if isinstance(rag_acl, dict) and isinstance(rag_acl.get("allowed_tenants"), list) and requested_tenant:
+            allowed_tenants = {str(v).strip().lower() for v in rag_acl.get("allowed_tenants", []) if str(v).strip()}
+            if allowed_tenants and requested_tenant not in allowed_tenants:
+                raise HTTPException(status_code=403, detail="RAG tenant ACL denied")
+        if isinstance(rag_acl, dict) and isinstance(rag_acl.get("allowed_domains"), list) and requested_domain:
+            allowed_domains = {str(v).strip().lower() for v in rag_acl.get("allowed_domains", []) if str(v).strip()}
+            if allowed_domains and requested_domain not in allowed_domains:
+                raise HTTPException(status_code=403, detail="RAG domain ACL denied")
+        if isinstance(rag_acl, dict) and isinstance(rag_acl.get("allowed_plans"), list):
+            allowed_plans = {str(v).strip().lower() for v in rag_acl.get("allowed_plans", []) if str(v).strip()}
+            if allowed_plans and requested_plan and requested_plan not in allowed_plans:
+                raise HTTPException(status_code=403, detail="RAG plan ACL denied")
     if request.source_sites:
         request_sites = {str(v).strip().lower() for v in request.source_sites if str(v).strip()}
         allowed_source_sites = request_sites if not allowed_source_sites else allowed_source_sites.intersection(request_sites)
@@ -872,19 +892,56 @@ async def rag_query(
     }
 
 
+@app.post("/rag/runtime/query", tags=["rag"])
+async def rag_runtime_query(
+    request: RagQueryRequest,
+    user: dict[str, Any] = Depends(get_current_user),
+    db: Any = Depends(get_db),
+) -> dict[str, Any]:
+    """Unified runtime RAG query endpoint alias."""
+    return await rag_query(request=request, user=user, db=db)
+
+
 @app.get("/rag/metrics", tags=["rag"])
 async def rag_metrics(
     _user: dict[str, Any] = Depends(get_current_user),
 ) -> dict[str, Any]:
     """Return unified RAG observability snapshot."""
-    from gitspeak_core.api.rag_runtime import load_rag_metrics_snapshot
+    from gitspeak_core.api.rag_runtime import evaluate_rag_alerts, load_rag_metrics_snapshot
 
     reports_dir = REPO_ROOT / "reports"
     snapshot = load_rag_metrics_snapshot(
         telemetry_dir=TELEMETRY_DIR,
         reports_dir=reports_dir,
     )
-    return {"status": "ok", "snapshot": snapshot}
+    alerts = evaluate_rag_alerts(snapshot=snapshot)
+    level = "ok" if not alerts else "degraded"
+    snapshot_path = reports_dir / "rag_metrics_snapshot.json"
+    snapshot_path.write_text(
+        json.dumps({"status": level, "snapshot": snapshot, "alerts": alerts}, ensure_ascii=True, indent=2) + "\n",
+        encoding="utf-8",
+    )
+    return {"status": level, "snapshot": snapshot, "alerts": alerts}
+
+
+@app.get("/rag/alerts", tags=["rag"])
+async def rag_alerts(
+    _user: dict[str, Any] = Depends(get_current_user),
+) -> dict[str, Any]:
+    """Return current RAG SLO alerts."""
+    from gitspeak_core.api.rag_runtime import evaluate_rag_alerts, load_rag_metrics_snapshot
+
+    reports_dir = REPO_ROOT / "reports"
+    snapshot = load_rag_metrics_snapshot(
+        telemetry_dir=TELEMETRY_DIR,
+        reports_dir=reports_dir,
+    )
+    alerts = evaluate_rag_alerts(snapshot=snapshot)
+    return {
+        "status": "ok" if not alerts else "degraded",
+        "alerts": alerts,
+        "generated_at_utc": datetime.now(timezone.utc).isoformat(),
+    }
 
 
 @app.post("/rag/reindex", tags=["rag"])

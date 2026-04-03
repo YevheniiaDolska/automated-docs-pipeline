@@ -261,6 +261,62 @@ def load_rag_metrics_snapshot(
     }
 
 
+def evaluate_rag_alerts(
+    *,
+    snapshot: dict[str, Any],
+    min_recall: float = 0.50,
+    max_hallucination_rate: float = 0.20,
+    max_latency_p95_ms: int = 2500,
+    max_no_hit_rate: float = 0.35,
+) -> list[dict[str, Any]]:
+    """Evaluate unified RAG SLO alerts from metrics and retrieval eval outputs."""
+    alerts: list[dict[str, Any]] = []
+    query_metrics = snapshot.get("query_metrics", {}) if isinstance(snapshot.get("query_metrics"), dict) else {}
+    retrieval = (
+        snapshot.get("retrieval_eval_metrics", {})
+        if isinstance(snapshot.get("retrieval_eval_metrics"), dict)
+        else {}
+    )
+    latency_p95 = query_metrics.get("latency_p95_ms")
+    no_hit_rate = query_metrics.get("no_hit_rate")
+    recall = retrieval.get("recall_at_k")
+    hallucination = retrieval.get("hallucination_rate")
+
+    if isinstance(latency_p95, (int, float)) and float(latency_p95) > float(max_latency_p95_ms):
+        alerts.append(
+            {
+                "code": "RAG_LATENCY_P95_HIGH",
+                "value": float(latency_p95),
+                "threshold": float(max_latency_p95_ms),
+            }
+        )
+    if isinstance(no_hit_rate, (int, float)) and float(no_hit_rate) > float(max_no_hit_rate):
+        alerts.append(
+            {
+                "code": "RAG_NO_HIT_RATE_HIGH",
+                "value": float(no_hit_rate),
+                "threshold": float(max_no_hit_rate),
+            }
+        )
+    if isinstance(recall, (int, float)) and float(recall) < float(min_recall):
+        alerts.append(
+            {
+                "code": "RAG_RECALL_LOW",
+                "value": float(recall),
+                "threshold": float(min_recall),
+            }
+        )
+    if isinstance(hallucination, (int, float)) and float(hallucination) > float(max_hallucination_rate):
+        alerts.append(
+            {
+                "code": "RAG_HALLUCINATION_HIGH",
+                "value": float(hallucination),
+                "threshold": float(max_hallucination_rate),
+            }
+        )
+    return alerts
+
+
 def run_reindex_lifecycle(
     *,
     repo_root: Path,

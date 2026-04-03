@@ -246,7 +246,8 @@ def main() -> int:
     print(f"\n[env-wizard] wrote {env_path}")
     runtime = _load_runtime(repo_root)
     llm_control = runtime.get("llm_control", {}) if isinstance(runtime.get("llm_control"), dict) else {}
-    llm_mode = str(llm_control.get("llm_mode", "local_default")).strip().lower()
+    llm_mode = str(llm_control.get("llm_mode", "external_preferred")).strip().lower()
+    strict_local = bool(llm_control.get("strict_local_first", llm_mode == "local_default"))
     model = str(llm_control.get("local_model", "veridoc-writer")).strip() or "veridoc-writer"
     base_model = str(llm_control.get("local_base_model", "qwen3:30b")).strip() or "qwen3:30b"
     auto_install = bool(llm_control.get("auto_install_local_model_on_setup", True))
@@ -256,13 +257,18 @@ def main() -> int:
             "Fully local mode may reduce output quality by ~10-15% on hardest synthesis tasks.",
         )
     ).strip()
-    if llm_mode == "local_default":
+    if strict_local or llm_mode == "local_default":
         print(f"[env-wizard] LLM mode: fully local by default. {quality_note}")
         if auto_install and _prompt_yes_no(f"Install Ollama + pull base model '{base_model}' now?", default_yes=True):
             _install_ollama_and_model(base_model)
             modelfile_path = _create_veridoc_modelfile(repo_root, base_model=base_model, model_name=model)
             if _prompt_yes_no(f"Create local model profile '{model}' now?", default_yes=True):
                 _create_ollama_model(model, modelfile_path)
+    else:
+        print(
+            "[env-wizard] LLM mode: cloud/hybrid (external providers allowed). "
+            "Use strict local-first profile for regulated environments."
+        )
 
     if _prompt_yes_no("Install docs CI workflow files now (PR/push lint)?", default_yes=True):
         ci_paths = install_docs_ci_files(repo_root, runtime, install_jenkins=True)

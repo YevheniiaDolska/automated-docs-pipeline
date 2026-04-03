@@ -53,13 +53,19 @@ def _print_profile_preview(profile_path: Path) -> None:
     print(f"- Output targets: {runtime.get('output_targets', [])}")
     print(f"- Algolia enabled: {bool(algolia.get('enabled', False))}")
     print(f"- Ask AI enabled: {bool(ask_ai.get('enabled', False))}")
-    print(f"- LLM mode: {llm_control.get('llm_mode', 'local_default')}")
+    llm_mode = str(llm_control.get("llm_mode", "external_preferred")).strip().lower()
+    strict_local = bool(llm_control.get("strict_local_first", llm_mode == "local_default"))
+    print(f"- LLM mode: {llm_mode}")
+    print(f"- Strict local-first: {strict_local}")
     print(f"- Local model: {llm_control.get('local_model', 'veridoc-writer')}")
     if llm_control.get("local_base_model"):
         print(f"- Local base model: {llm_control.get('local_base_model')}")
     print("- IP protection: metadata-only egress + server-side revoke/pack controls.")
-    if str(llm_control.get("llm_mode", "local_default")).strip().lower() == "local_default":
+    if strict_local or llm_mode == "local_default":
         print("- Local bootstrap: setup_client_env_wizard installs Ollama, pulls base model, and creates veridoc-writer.")
+        print("- Strict local guardrails: external Ask AI, Algolia upload, external mock backend, and test uploads are disabled.")
+    else:
+        print("- Cloud/hybrid profile: external providers are allowed (same trust model as hosted Git/cloud workflows).")
 
 
 def parse_args() -> argparse.Namespace:

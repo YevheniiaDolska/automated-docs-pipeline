@@ -13,6 +13,7 @@ import json
 import os
 import subprocess
 import sys
+from copy import deepcopy
 from pathlib import Path
 from typing import Any
 
@@ -31,6 +32,76 @@ def _read_yaml(path: Path) -> dict[str, Any]:
     if not isinstance(payload, dict):
         raise ValueError(f"Expected YAML mapping: {path}")
     return payload
+
+
+def _enforce_strict_local_guardrails(runtime: dict[str, Any]) -> tuple[dict[str, Any], bool]:
+    """Apply strict local-first runtime safety overrides when requested."""
+    adjusted = deepcopy(runtime)
+    changed = False
+
+    llm_control = adjusted.get("llm_control", {})
+    if not isinstance(llm_control, dict):
+        llm_control = {}
+        adjusted["llm_control"] = llm_control
+
+    llm_mode = str(llm_control.get("llm_mode", "external_preferred")).strip().lower()
+    strict_local = bool(llm_control.get("strict_local_first", llm_mode == "local_default"))
+    if not strict_local:
+        return adjusted, False
+
+    if llm_mode != "local_default":
+        llm_control["llm_mode"] = "local_default"
+        changed = True
+    if bool(llm_control.get("external_llm_allowed", True)):
+        llm_control["external_llm_allowed"] = False
+        changed = True
+    if not bool(llm_control.get("require_explicit_approval", True)):
+        llm_control["require_explicit_approval"] = True
+        changed = True
+
+    integrations = adjusted.get("integrations", {})
+    if isinstance(integrations, dict):
+        algolia = integrations.get("algolia", {})
+        if isinstance(algolia, dict):
+            if bool(algolia.get("enabled", False)):
+                algolia["enabled"] = False
+                changed = True
+            if bool(algolia.get("upload_on_weekly", False)):
+                algolia["upload_on_weekly"] = False
+                changed = True
+        ask_ai = integrations.get("ask_ai", {})
+        if isinstance(ask_ai, dict):
+            if bool(ask_ai.get("enabled", False)):
+                ask_ai["enabled"] = False
+                changed = True
+            if str(ask_ai.get("billing_mode", "disabled")).strip().lower() != "disabled":
+                ask_ai["billing_mode"] = "disabled"
+                changed = True
+
+    api_first = adjusted.get("api_first", {})
+    if isinstance(api_first, dict):
+        if str(api_first.get("sandbox_backend", "prism")).strip().lower() == "external":
+            api_first["sandbox_backend"] = "prism"
+            changed = True
+        if bool(api_first.get("upload_test_assets", False)):
+            api_first["upload_test_assets"] = False
+            changed = True
+        if bool(api_first.get("upload_test_assets_strict", False)):
+            api_first["upload_test_assets_strict"] = False
+            changed = True
+        external_mock = api_first.get("external_mock", {})
+        if isinstance(external_mock, dict) and bool(external_mock.get("enabled", False)):
+            external_mock["enabled"] = False
+            changed = True
+
+    protocol_settings = adjusted.get("api_protocol_settings", {})
+    if isinstance(protocol_settings, dict):
+        for cfg in protocol_settings.values():
+            if isinstance(cfg, dict) and bool(cfg.get("upload_test_assets", False)):
+                cfg["upload_test_assets"] = False
+                changed = True
+
+    return adjusted, changed
 
 
 def _run(cmd: list[str], cwd: Path) -> int:
@@ -162,7 +233,13 @@ def _build_stage_summary(
             ]
         )
     if bool(modules.get("rag_optimization", True)):
-        checks.append(("rag_retrieval_index", repo_root / "docs/assets/knowledge-retrieval-index.json", True))
+        checks.extend(
+            [
+                ("rag_retrieval_index", repo_root / "docs/assets/knowledge-retrieval-index.json", True),
+                ("rag_optimization_layer", reports_dir / "rag_optimization_layer_report.json", True),
+                ("rag_reindex_report", reports_dir / "rag_reindex_report.json", True),
+            ]
+        )
     if bool(modules.get("ontology_graph", True)):
         checks.extend(
             [
@@ -326,6 +403,13 @@ def _collect_artifacts(
         if isinstance(retrieval_eval, dict):
             index_path = str(retrieval_eval.get("index_path", index_path))
         add_artifact("RAG retrieval index", index_path, "rag", module="rag_optimization")
+        add_artifact(
+            "RAG optimization layer report",
+            str(reports_dir / "rag_optimization_layer_report.json"),
+            "rag",
+            module="rag_optimization",
+        )
+        add_artifact("RAG reindex report", str(reports_dir / "rag_reindex_report.json"), "rag", module="rag_optimization")
 
     if _enabled("ontology_graph", True):
         graph_path = "docs/assets/knowledge-graph.jsonld"
@@ -639,6 +723,15 @@ def main() -> int:
         raise FileNotFoundError(f"Runtime config not found: {runtime_path}")
 
     runtime = _read_yaml(runtime_path)
+    runtime, strict_local_changed = _enforce_strict_local_guardrails(runtime)
+    effective_runtime_path = runtime_path
+    if strict_local_changed:
+        effective_runtime_path = reports_dir / "runtime.effective.yml"
+        effective_runtime_path.write_text(
+            yaml.safe_dump(runtime, sort_keys=False, allow_unicode=False),
+            encoding="utf-8",
+        )
+        _say("Strict local-first", f"guardrails enforced via {effective_runtime_path}")
     strictness = str(runtime.get("api_governance", {}).get("strictness", "standard")).strip().lower() or "standard"
     modules = runtime.get("modules", {})
     api_first = runtime.get("api_first", {})
@@ -704,7 +797,7 @@ def main() -> int:
         "--since",
         str(args.since),
         "--runtime-config",
-        str(runtime_path),
+        str(effective_runtime_path),
     ]
     if args.skip_consolidated_report:
         weekly_cmd.append("--skip-consolidated-report")
@@ -822,7 +915,7 @@ def main() -> int:
     _say(f"Stage {stage_no}/{total_stages}", execution_stages[stage_no - 1])
     review_manifest = _write_review_manifest(
         reports_dir,
-        runtime_path,
+        effective_runtime_path,
         runtime,
         repo_root,
         stage_summary,
@@ -844,7 +937,7 @@ def main() -> int:
         stage_no += 1
         narrator.stage(stage_no, execution_stages[stage_no - 1], "Prepare local review packet for operator AI")
         _say(f"Stage {stage_no}/{total_stages}", execution_stages[stage_no - 1])
-        packet_path = _build_llm_review_packet(reports_dir, runtime_path, review_manifest)
+        packet_path = _build_llm_review_packet(reports_dir, effective_runtime_path, review_manifest)
         _say(f"Stage {stage_no}/{total_stages} done", str(packet_path))
         narrator.done(str(packet_path))
     elif args.mode == "veridoc":
@@ -863,7 +956,7 @@ def main() -> int:
             "--reports-dir",
             str(reports_dir),
             "--runtime-config",
-            str(runtime_path),
+            str(effective_runtime_path),
             "--mode",
             args.mode,
             "--trigger",
@@ -911,7 +1004,7 @@ def main() -> int:
             sys.executable,
             str(REPO_ROOT / "scripts" / "publish_docs_review_branch.py"),
             "--runtime-config",
-            str(runtime_path),
+            str(effective_runtime_path),
             "--docs-root",
             str(runtime.get("paths", {}).get("docs_root", "docs")),
         ]
@@ -928,7 +1021,7 @@ def main() -> int:
     _say(f"Stage {stage_no}/{total_stages}", execution_stages[stage_no - 1])
     output_index = _write_output_index(
         reports_dir=reports_dir,
-        runtime_path=runtime_path,
+        runtime_path=effective_runtime_path,
         stage_summary=stage_summary,
         review_manifest=review_manifest,
         repo_root=repo_root,

@@ -126,15 +126,33 @@ def _create_profile_via_wizard(default_scheduler: str, *, require_repo: bool = T
         "Contact email",
         str(profile["client"].get("contact_email", "docs-owner@example.com")),
     )
+    print(
+        "LLM execution profiles:\n"
+        "- fully-local: strict local-first mode for regulated environments;\n"
+        "  external LLM fallback is blocked by default.\n"
+        "- hybrid: cloud-capable mode for normal teams using hosted Git/cloud workflows;\n"
+        "  external LLM usage is allowed.\n"
+        "- cloud: same trust model as hybrid, cloud-first behavior."
+    )
     llm_tier = _prompt_choice(
         "LLM mode",
-        ["fully-local", "hybrid"],
-        "fully-local",
+        ["fully-local", "hybrid", "cloud"],
+        "hybrid",
     )
-    if llm_tier == "fully-local":
+    strict_local = llm_tier == "fully-local"
+    if strict_local:
         print(
             "[info] Fully local mode selected: no external LLM egress by default. "
             "Quality on hardest synthesis tasks can be ~10-15% lower."
+        )
+        print(
+            "[info] Strict local-first guardrails will auto-disable external egress paths: "
+            "Ask AI cloud provider, Algolia upload, external mock backend, and test-management uploads."
+        )
+    else:
+        print(
+            "[info] Cloud-capable mode selected: external LLM providers are allowed. "
+            "Use this when data already leaves your perimeter by policy."
         )
     tenant_id = _prompt_with_default(
         "Tenant ID (license binding)",
@@ -184,36 +202,42 @@ def _create_profile_via_wizard(default_scheduler: str, *, require_repo: bool = T
 
     sandbox_backend_default = str(profile["runtime"]["api_first"].get("sandbox_backend", "external"))
     if flow_mode in {"api-first", "hybrid"}:
-        sandbox_backend = _prompt_choice(
-            "API sandbox backend",
-            ["docker", "prism", "external"],
-            sandbox_backend_default,
-        )
+        sandbox_options = ["docker", "prism"] if strict_local else ["docker", "prism", "external"]
+        sandbox_default = sandbox_backend_default if sandbox_backend_default in sandbox_options else "prism"
+        sandbox_backend = _prompt_choice("API sandbox backend", sandbox_options, sandbox_default)
         profile["runtime"]["api_first"]["sandbox_backend"] = sandbox_backend
         if sandbox_backend == "external":
             mock_default = str(profile["runtime"]["api_first"].get("mock_base_url", "https://<your-real-public-mock-url>/v1"))
             profile["runtime"]["api_first"]["mock_base_url"] = _prompt_with_default("External mock base URL", mock_default)
         upload_assets_default = bool(profile["runtime"]["api_first"].get("upload_test_assets", False))
-        profile["runtime"]["api_first"]["upload_test_assets"] = _prompt_yes_no(
-            "Enable API test asset upload (TestRail/Zephyr)?",
-            default_yes=upload_assets_default,
-        )
+        if strict_local:
+            profile["runtime"]["api_first"]["upload_test_assets"] = False
+            profile["runtime"]["api_first"]["external_mock"]["enabled"] = False
+        else:
+            profile["runtime"]["api_first"]["upload_test_assets"] = _prompt_yes_no(
+                "Enable API test asset upload (TestRail/Zephyr)?",
+                default_yes=upload_assets_default,
+            )
 
-    enable_algolia = _prompt_yes_no(
-        "Enable Algolia integration?",
-        default_yes=bool(profile["runtime"]["integrations"]["algolia"].get("enabled", False)),
-    )
+    enable_algolia = False
+    if not strict_local:
+        enable_algolia = _prompt_yes_no(
+            "Enable Algolia integration?",
+            default_yes=bool(profile["runtime"]["integrations"]["algolia"].get("enabled", False)),
+        )
     algolia_site_generator = "mkdocs"
-    if enable_algolia:
+    if enable_algolia and not strict_local:
         algolia_site_generator = _prompt_choice(
             "Algolia: site generator for search widget",
             ["mkdocs", "docusaurus", "hugo", "vitepress", "custom"],
             str(profile["runtime"]["integrations"]["algolia"].get("site_generator", "mkdocs")),
         )
-    enable_ask_ai = _prompt_yes_no(
-        "Enable Ask AI integration?",
-        default_yes=bool(profile["runtime"]["integrations"]["ask_ai"].get("enabled", False)),
-    )
+    enable_ask_ai = False
+    if not strict_local:
+        enable_ask_ai = _prompt_yes_no(
+            "Enable Ask AI integration?",
+            default_yes=bool(profile["runtime"]["integrations"]["ask_ai"].get("enabled", False)),
+        )
     enable_veridoc_branding = _prompt_yes_no(
         "Enable Powered by VeriDoc badge policy automation?",
         default_yes=bool(profile["runtime"].get("veridoc_branding", {}).get("enabled", False)),
@@ -373,15 +397,16 @@ def _create_profile_via_wizard(default_scheduler: str, *, require_repo: bool = T
     llm_control = profile["runtime"].get("llm_control", {})
     if not isinstance(llm_control, dict):
         llm_control = {}
-    llm_control["llm_mode"] = "local_default" if llm_tier == "fully-local" else "external_preferred"
+    llm_control["llm_mode"] = "local_default" if strict_local else "external_preferred"
     llm_control["local_model"] = "veridoc-writer"
     llm_control["local_base_model"] = "qwen3:30b"
     llm_control["local_model_command"] = "ollama run {model} \"{prompt}\""
     llm_control["auto_install_local_model_on_setup"] = True
+    llm_control["strict_local_first"] = strict_local
     llm_control["quality_delta_note"] = (
         "Fully local mode may reduce output quality by ~10-15% on hardest synthesis tasks."
     )
-    if llm_tier == "fully-local":
+    if strict_local:
         llm_control["external_llm_allowed"] = False
         llm_control["require_explicit_approval"] = True
     else:
@@ -390,6 +415,25 @@ def _create_profile_via_wizard(default_scheduler: str, *, require_repo: bool = T
     llm_control["approval_cache_scope"] = "run"
     llm_control["redact_before_external"] = True
     profile["runtime"]["llm_control"] = llm_control
+    if strict_local:
+        integrations = profile["runtime"].get("integrations", {})
+        if isinstance(integrations, dict):
+            algolia_cfg = integrations.get("algolia", {})
+            if isinstance(algolia_cfg, dict):
+                algolia_cfg["enabled"] = False
+                algolia_cfg["upload_on_weekly"] = False
+            ask_ai_cfg = integrations.get("ask_ai", {})
+            if isinstance(ask_ai_cfg, dict):
+                ask_ai_cfg["enabled"] = False
+                ask_ai_cfg["billing_mode"] = "disabled"
+
+        api_first_cfg = profile["runtime"].get("api_first", {})
+        if isinstance(api_first_cfg, dict):
+            api_first_cfg["sandbox_backend"] = "prism"
+            api_first_cfg["upload_test_assets"] = False
+            external_mock_cfg = api_first_cfg.get("external_mock", {})
+            if isinstance(external_mock_cfg, dict):
+                external_mock_cfg["enabled"] = False
     profile["runtime"]["veridoc_branding"] = {
         "enabled": enable_veridoc_branding,
         "landing_url": branding_landing_url,

@@ -63,6 +63,9 @@ class TestBuildClientBundle:
         (repo / "scripts" / "llm_egress.py").write_text("print('ok')\n", encoding="utf-8")
         (repo / "scripts" / "flow_feedback.py").write_text("print('ok')\n", encoding="utf-8")
         (repo / "scripts" / "configure_ask_ai.py").write_text("print('ok')\n", encoding="utf-8")
+        (repo / "scripts" / "publish_docs_review_branch.py").write_text("print('ok')\n", encoding="utf-8")
+        (repo / "scripts" / "docs_ci_bootstrap.py").write_text("print('ok')\n", encoding="utf-8")
+        (repo / "scripts" / "run_docs_ci_checks.py").write_text("print('ok')\n", encoding="utf-8")
         (repo / "docsops" / "keys").mkdir(parents=True)
         (repo / "docsops" / "keys" / "veriops-licensing.pub").write_text("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=\n", encoding="utf-8")
         (repo / "docs").mkdir()
@@ -180,6 +183,9 @@ class TestBuildClientBundle:
             "llm_egress.py",
             "flow_feedback.py",
             "configure_ask_ai.py",
+            "publish_docs_review_branch.py",
+            "docs_ci_bootstrap.py",
+            "run_docs_ci_checks.py",
         ]:
             (repo / "scripts" / s).write_text("print('ok')\n", encoding="utf-8")
         (repo / "templates" / "legal").mkdir(parents=True)
@@ -763,6 +769,7 @@ class TestWeeklyBatch:
             "doc_layers_validator.py",
             "validate_knowledge_modules.py",
             "generate_knowledge_retrieval_index.py",
+            "enforce_rag_optimization_layer.py",
             "generate_knowledge_graph_jsonld.py",
             "run_retrieval_evals.py",
             "i18n_sync.py",
@@ -809,7 +816,7 @@ class TestWeeklyBatch:
             return 0
 
         monkeypatch.chdir(repo)
-        monkeypatch.setattr(mod, "_resolve_weekly_base_ref", lambda r, s: "abc123")
+        monkeypatch.setattr(mod, "_resolve_weekly_base_ref", lambda r, s, **kwargs: "abc123")
         monkeypatch.setattr(mod, "_run", fake_run)
         monkeypatch.setattr(mod, "_run_allow_fail", fake_allow)
         monkeypatch.setattr(mod, "_run_shell", lambda command, cwd, continue_on_error: custom.append(command) or 0)
@@ -820,6 +827,7 @@ class TestWeeklyBatch:
         assert any("gap_detector.py" in " ".join(cmd) for _, cmd in ran)
         assert any("generate_knowledge_graph_jsonld.py" in " ".join(cmd) for _, cmd in ran)
         assert any("run_retrieval_evals.py" in " ".join(cmd) for _, cmd in ran)
+        assert any("enforce_rag_optimization_layer.py" in " ".join(cmd) for _, cmd in ran)
         assert any("consolidate_reports.py" in " ".join(cmd) for _, cmd in ran)
         assert custom == ["echo weekly"]
     def test_main_api_first_branch(self, tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:
@@ -872,7 +880,7 @@ class TestWeeklyBatch:
 
         commands: list[list[str]] = []
         monkeypatch.chdir(repo)
-        monkeypatch.setattr(mod, "_resolve_weekly_base_ref", lambda r, s: "abc123")
+        monkeypatch.setattr(mod, "_resolve_weekly_base_ref", lambda r, s, **kwargs: "abc123")
         monkeypatch.setattr(mod, "_run", lambda cmd, cwd: commands.append(cmd))
         monkeypatch.setattr(mod, "_run_allow_fail", lambda cmd, cwd: 0)
         monkeypatch.setattr(sys, "argv", ["x", "--docsops-root", "docsops", "--reports-dir", "reports"])
@@ -936,7 +944,7 @@ class TestWeeklyBatch:
 
         commands: list[list[str]] = []
         monkeypatch.chdir(repo)
-        monkeypatch.setattr(mod, "_resolve_weekly_base_ref", lambda r, s: "abc123")
+        monkeypatch.setattr(mod, "_resolve_weekly_base_ref", lambda r, s, **kwargs: "abc123")
         monkeypatch.setattr(mod, "_run", lambda cmd, cwd: commands.append(cmd))
         monkeypatch.setattr(mod, "_run_allow_fail", lambda cmd, cwd: 0)
         monkeypatch.setattr(sys, "argv", ["x", "--docsops-root", "docsops", "--reports-dir", "reports"])
@@ -981,7 +989,7 @@ class TestWeeklyBatch:
 
         commands: list[list[str]] = []
         monkeypatch.chdir(repo)
-        monkeypatch.setattr(mod, "_resolve_weekly_base_ref", lambda r, s: "abc123")
+        monkeypatch.setattr(mod, "_resolve_weekly_base_ref", lambda r, s, **kwargs: "abc123")
         monkeypatch.setattr(mod, "_run", lambda cmd, cwd: commands.append(cmd))
         monkeypatch.setattr(mod, "_run_allow_fail", lambda cmd, cwd: 0)
         monkeypatch.setattr(sys, "argv", ["x", "--docsops-root", "docsops", "--reports-dir", "reports"])

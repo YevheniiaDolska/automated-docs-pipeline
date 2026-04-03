@@ -259,6 +259,45 @@ docker compose -f docker-compose.production.yml logs -f api worker nginx
 
 1. Enable observability monitors (health + runtime error alerts):
 
+## 11. RAG enterprise hardening verification
+
+Run these checks after each deploy and before GO:
+
+```bash
+curl -fsS https://api.veridoc.app/rag/metrics
+curl -fsS https://api.veridoc.app/rag/alerts
+```
+
+Trigger versioned reindex lifecycle (Business/Enterprise account):
+
+```bash
+curl -X POST "https://api.veridoc.app/rag/reindex" \
+  -H "Authorization: Bearer <ACCESS_TOKEN>" \
+  -H "Content-Type: application/json" \
+  -d '{"with_embeddings": true, "embeddings_provider": "openai"}'
+```
+
+Validate generated reports on server:
+
+```bash
+ls -la reports/rag_optimization_layer_report.json
+ls -la reports/rag_reindex_report.json
+ls -la reports/retrieval_evals_report.json
+```
+
+Validate metadata-only egress audit trail:
+
+```bash
+ls -la reports/llm_egress_log.json
+tail -n 40 reports/llm_egress_log.json
+```
+
+If strict mode is required for regulated customers, confirm:
+
+- `llm_control.strict_local_first=true`
+- `llm_control.external_llm_allowed=false`
+- provider in RAG layer is `local`
+
 ```bash
 sudo bash deploy/setup_observability.sh /opt/veridoc
 systemctl list-timers --all | grep -E 'veridoc-(healthcheck|error)-monitor'
