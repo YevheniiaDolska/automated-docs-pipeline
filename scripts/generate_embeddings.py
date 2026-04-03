@@ -111,6 +111,17 @@ def parse_args() -> argparse.Namespace:
         help="Batch size for embedding API calls",
     )
     parser.add_argument(
+        "--provider",
+        default="openai",
+        choices=["openai", "local"],
+        help="Embedding provider: openai (API) or local (sentence-transformers).",
+    )
+    parser.add_argument(
+        "--local-model",
+        default="sentence-transformers/all-MiniLM-L6-v2",
+        help="Local embedding model name for --provider local",
+    )
+    parser.add_argument(
         "--chunk",
         action="store_true",
         help="Enable token-aware chunking before embedding",
@@ -130,21 +141,47 @@ def parse_args() -> argparse.Namespace:
     return parser.parse_args()
 
 
+def _embed_batch_local(
+    texts: list[str],
+    model_name: str,
+    batch_size: int,
+) -> list[list[float]]:
+    try:
+        from sentence_transformers import SentenceTransformer
+    except ImportError:
+        raise ImportError(
+            "sentence-transformers is required for local embeddings: "
+            "pip install sentence-transformers>=3.0.0"
+        )
+    model = SentenceTransformer(model_name)
+    all_embeddings: list[list[float]] = []
+    for start in range(0, len(texts), batch_size):
+        batch = texts[start : start + batch_size]
+        vectors = model.encode(batch, normalize_embeddings=True)
+        for vec in vectors:
+            all_embeddings.append(np.asarray(vec, dtype=np.float32).tolist())
+        print(f"  Embedded {min(start + batch_size, len(texts))}/{len(texts)} modules (local)")
+    return all_embeddings
+
+
 def main() -> int:
     args = parse_args()
 
-    api_key = os.getenv("OPENAI_API_KEY", "").strip()
-    if not api_key:
-        print("Warning: OPENAI_API_KEY not set. Skipping embedding generation.")
-        return 0
+    provider = str(args.provider).strip().lower()
 
     if faiss is None:
         print("Warning: faiss-cpu not installed. Skipping embedding generation.")
         return 0
 
-    if httpx is None:
-        print("Warning: httpx not installed. Skipping embedding generation.")
-        return 0
+    api_key = ""
+    if provider == "openai":
+        api_key = os.getenv("OPENAI_API_KEY", "").strip()
+        if not api_key:
+            print("Warning: OPENAI_API_KEY not set. Skipping embedding generation.")
+            return 0
+        if httpx is None:
+            print("Warning: httpx not installed. Skipping embedding generation.")
+            return 0
 
     index_path = Path(args.index)
     if not index_path.exists():
@@ -170,7 +207,10 @@ def main() -> int:
             f"(max_tokens={args.chunk_max_tokens}, overlap={args.chunk_overlap})"
         )
         texts = [c["text"] for c in all_chunks]
-        embeddings = _embed_batch(texts, api_key, args.model, base_url, args.batch_size)
+        if provider == "openai":
+            embeddings = _embed_batch(texts, api_key, args.model, base_url, args.batch_size)
+        else:
+            embeddings = _embed_batch_local(texts, args.local_model, args.batch_size)
 
         print("Building FAISS index...")
         index = _build_faiss_index(embeddings)
@@ -200,9 +240,12 @@ def main() -> int:
         print(f"Metadata saved: {metadata_path} ({len(metadata)} chunk entries)")
         return 0
 
-    print(f"Generating embeddings for {len(modules)} modules using {args.model}...")
+    print(f"Generating embeddings for {len(modules)} modules using provider={provider}...")
     texts = [_build_text(m) for m in modules]
-    embeddings = _embed_batch(texts, api_key, args.model, base_url, args.batch_size)
+    if provider == "openai":
+        embeddings = _embed_batch(texts, api_key, args.model, base_url, args.batch_size)
+    else:
+        embeddings = _embed_batch_local(texts, args.local_model, args.batch_size)
 
     print("Building FAISS index...")
     index = _build_faiss_index(embeddings)

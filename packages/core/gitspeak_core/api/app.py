@@ -223,6 +223,7 @@ def get_current_user(
         "user_id": user.id,
         "email": user.email,
         "tier": tier,
+        "is_superuser": bool(getattr(user, "is_superuser", False)),
     }
 
 
@@ -626,6 +627,25 @@ class ManualSubscriptionUpsertRequest(BaseModel):
     external_customer_ref: str | None = Field(default=None, max_length=128)
 
 
+class RagQueryRequest(BaseModel):
+    """Live retrieval query request."""
+
+    model_config = ConfigDict(extra="forbid")
+
+    query: str = Field(min_length=2, max_length=5000)
+    top_k: int = Field(default=5, ge=1, le=30)
+    source_sites: list[str] | None = None
+
+
+class RagReindexRequest(BaseModel):
+    """RAG reindex lifecycle trigger request."""
+
+    model_config = ConfigDict(extra="forbid")
+
+    with_embeddings: bool = True
+    embeddings_provider: str | None = Field(default=None, pattern=r"^(openai|local)?$")
+
+
 @app.post("/pipeline/run", tags=["pipeline"])
 async def start_pipeline_run(
     request: PipelineRunRequest,
@@ -763,6 +783,132 @@ async def get_pipeline_run(
         "started_at": run.started_at.isoformat() if run.started_at else None,
         "completed_at": run.completed_at.isoformat() if run.completed_at else None,
     }
+
+
+@app.post("/rag/query", tags=["rag"])
+async def rag_query(
+    request: RagQueryRequest,
+    user: dict[str, Any] = Depends(get_current_user),
+    db: Any = Depends(get_db),
+) -> dict[str, Any]:
+    """Run live retrieval query over the knowledge index with RBAC/ACL filters."""
+    check_rate_limit(user)
+
+    from gitspeak_core.api.rag_runtime import (
+        append_rag_query_metric,
+        infer_user_roles,
+        load_ask_ai_config,
+        load_retrieval_index,
+        search_retrieval_index,
+    )
+    from gitspeak_core.db.models import PipelineSettings
+
+    started = time.time()
+    ask_cfg = load_ask_ai_config(REPO_ROOT)
+    if not bool(ask_cfg.get("enabled", False)):
+        raise HTTPException(status_code=400, detail="Ask AI is disabled")
+
+    user_roles = infer_user_roles(user)
+    allowed_roles = {
+        str(v).strip().lower()
+        for v in (ask_cfg.get("allowed_roles", []) if isinstance(ask_cfg.get("allowed_roles"), list) else [])
+        if str(v).strip()
+    }
+    require_auth = bool(ask_cfg.get("require_user_auth", True))
+    if require_auth and allowed_roles and user_roles.isdisjoint(allowed_roles):
+        raise HTTPException(status_code=403, detail="RAG access forbidden for current role")
+
+    settings_row = (
+        db.query(PipelineSettings)
+        .filter(PipelineSettings.user_id == user["user_id"])
+        .first()
+    )
+    allowed_source_sites: set[str] = set()
+    if settings_row and isinstance(settings_row.custom_config, dict):
+        rag_acl = settings_row.custom_config.get("rag_acl", {})
+        if isinstance(rag_acl, dict) and isinstance(rag_acl.get("allowed_source_sites"), list):
+            allowed_source_sites = {
+                str(v).strip().lower()
+                for v in rag_acl.get("allowed_source_sites", [])
+                if str(v).strip()
+            }
+    if request.source_sites:
+        request_sites = {str(v).strip().lower() for v in request.source_sites if str(v).strip()}
+        allowed_source_sites = request_sites if not allowed_source_sites else allowed_source_sites.intersection(request_sites)
+
+    rows = load_retrieval_index(REPO_ROOT, ask_cfg)
+    hits, blocked = search_retrieval_index(
+        query=request.query,
+        rows=rows,
+        user_tier=str(user.get("tier", "free")),
+        user_roles=user_roles,
+        allowed_source_sites=allowed_source_sites,
+        top_k=request.top_k,
+    )
+    latency_ms = int((time.time() - started) * 1000)
+    append_rag_query_metric(
+        telemetry_dir=TELEMETRY_DIR,
+        user_id=str(user.get("user_id", "")),
+        tier=str(user.get("tier", "free")),
+        query=request.query,
+        top_k=request.top_k,
+        hits_count=len(hits),
+        blocked_count=blocked,
+        latency_ms=latency_ms,
+        retrieval_mode="token",
+    )
+
+    return {
+        "status": "ok",
+        "query": request.query,
+        "top_k": request.top_k,
+        "hits": hits,
+        "metrics": {
+            "latency_ms": latency_ms,
+            "candidate_count": len(rows),
+            "acl_blocked_count": blocked,
+            "returned_count": len(hits),
+        },
+    }
+
+
+@app.get("/rag/metrics", tags=["rag"])
+async def rag_metrics(
+    _user: dict[str, Any] = Depends(get_current_user),
+) -> dict[str, Any]:
+    """Return unified RAG observability snapshot."""
+    from gitspeak_core.api.rag_runtime import load_rag_metrics_snapshot
+
+    reports_dir = REPO_ROOT / "reports"
+    snapshot = load_rag_metrics_snapshot(
+        telemetry_dir=TELEMETRY_DIR,
+        reports_dir=reports_dir,
+    )
+    return {"status": "ok", "snapshot": snapshot}
+
+
+@app.post("/rag/reindex", tags=["rag"])
+async def rag_reindex(
+    request: RagReindexRequest,
+    user: dict[str, Any] = Depends(get_current_user),
+) -> dict[str, Any]:
+    """Trigger standalone RAG reindex lifecycle with versioned artifacts."""
+    if str(user.get("tier", "free")).strip().lower() not in {"business", "enterprise"}:
+        raise HTTPException(status_code=403, detail="RAG reindex requires Business or Enterprise tier")
+
+    from gitspeak_core.api.rag_runtime import resolve_embeddings_provider, run_reindex_lifecycle
+
+    provider = resolve_embeddings_provider(request.embeddings_provider)
+    try:
+        report = run_reindex_lifecycle(
+            repo_root=REPO_ROOT,
+            python_bin=sys.executable,
+            include_embeddings=bool(request.with_embeddings),
+            embeddings_provider=provider,
+        )
+    except (OSError, ValueError, TypeError, RuntimeError) as exc:
+        raise HTTPException(status_code=500, detail=str(exc))
+    return {"status": "ok", "report": report}
 
 
 # =========================================================================

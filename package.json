@@ -49,6 +49,7 @@
     "build:knowledge-index": "python3 scripts/generate_knowledge_retrieval_index.py",
     "build:knowledge-enrich:llm": "python3 scripts/enrich_knowledge_modules_semantic.py",
     "build:knowledge-graph": "python3 scripts/generate_knowledge_graph_jsonld.py --modules-dir knowledge_modules --output docs/assets/knowledge-graph.jsonld --report reports/knowledge_graph_report.json",
+    "build:rag:reindex": "python3 scripts/rag_reindex_lifecycle.py --repo-root . --with-embeddings --provider local",
     "build:intent:all": "python3 scripts/build_all_intent_experiences.py",
     "eval:retrieval": "python3 scripts/run_retrieval_evals_gate.py",
     "validate:knowledge": "npm run lint:knowledge && npm run build:intent:all && npm run build:knowledge-index && npm run build:knowledge-graph && npm run eval:retrieval",
