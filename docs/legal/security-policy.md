@@ -1,12 +1,15 @@
 ---
-title: "VeriDoc security policy"
-description: "Security policy for VeriDoc platform covering infrastructure security, encryption, authentication, access controls, and incident response procedures."
+title: VeriDoc security policy
+description: Security policy for VeriDoc platform covering infrastructure security,
+  encryption, authentication, access controls, and incident response procedures.
 content_type: reference
 product: cloud
 tags:
-  - Reference
-last_reviewed: "2026-03-28"
+- Reference
+last_reviewed: '2026-03-28'
+original_author: Kroha
 ---
+
 
 # VeriDoc security policy
 

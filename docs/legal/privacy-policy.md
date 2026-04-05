@@ -1,12 +1,15 @@
 ---
-title: "VeriDoc privacy policy"
-description: "Privacy policy for VeriDoc automated documentation platform, covering data collection, processing, storage, retention, and your rights under GDPR."
+title: VeriDoc privacy policy
+description: Privacy policy for VeriDoc automated documentation platform, covering
+  data collection, processing, storage, retention, and your rights under GDPR.
 content_type: reference
 product: cloud
 tags:
-  - Reference
-last_reviewed: "2026-03-28"
+- Reference
+last_reviewed: '2026-03-28'
+original_author: Kroha
 ---
+
 
 # VeriDoc privacy policy
 

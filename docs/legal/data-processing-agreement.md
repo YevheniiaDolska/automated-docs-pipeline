@@ -1,12 +1,15 @@
 ---
-title: "VeriDoc data processing agreement"
-description: "Data processing agreement for VeriDoc platform covering GDPR compliance, sub-processors, data transfer mechanisms, and breach notification procedures."
+title: VeriDoc data processing agreement
+description: Data processing agreement for VeriDoc platform covering GDPR compliance,
+  sub-processors, data transfer mechanisms, and breach notification procedures.
 content_type: reference
 product: cloud
 tags:
-  - Reference
-last_reviewed: "2026-03-28"
+- Reference
+last_reviewed: '2026-03-28'
+original_author: Kroha
 ---
+
 
 # VeriDoc data processing agreement
 

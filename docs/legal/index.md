@@ -1,12 +1,15 @@
 ---
-title: "Legal and compliance"
-description: "Legal documents for VeriDoc platform including terms of service, privacy policy, data processing agreement, and security policy."
+title: Legal and compliance
+description: Legal documents for VeriDoc platform including terms of service, privacy
+  policy, data processing agreement, and security policy.
 content_type: reference
 product: cloud
 tags:
-  - Reference
-last_reviewed: "2026-03-28"
+- Reference
+last_reviewed: '2026-03-28'
+original_author: Kroha
 ---
+
 
 # Legal and compliance
 

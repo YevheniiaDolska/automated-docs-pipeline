@@ -1,12 +1,15 @@
 ---
-title: "VeriDoc terms of service"
-description: "Terms of service governing the use of VeriDoc automated documentation platform, including subscription tiers, usage limits, and acceptable use policies."
+title: VeriDoc terms of service
+description: Terms of service governing the use of VeriDoc automated documentation
+  platform, including subscription tiers, usage limits, and acceptable use policies.
 content_type: reference
 product: cloud
 tags:
-  - Reference
-last_reviewed: "2026-03-28"
+- Reference
+last_reviewed: '2026-03-28'
+original_author: Kroha
 ---
+
 
 # VeriDoc terms of service
 

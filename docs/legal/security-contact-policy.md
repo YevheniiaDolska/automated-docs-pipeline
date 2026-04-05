@@ -1,13 +1,16 @@
 ---
-title: "VeriDoc security contact policy"
-description: "Security contact channels, response times, severity model, and disclosure workflow for VeriDoc incidents and vulnerability reports."
+title: VeriDoc security contact policy
+description: Security contact channels, response times, severity model, and disclosure
+  workflow for VeriDoc incidents and vulnerability reports.
 content_type: reference
 product: cloud
 tags:
-  - Reference
-  - Legal
-last_reviewed: "2026-03-31"
+- Reference
+- Legal
+last_reviewed: '2026-03-31'
+original_author: Kroha
 ---
+
 
 # VeriDoc security contact policy
 
