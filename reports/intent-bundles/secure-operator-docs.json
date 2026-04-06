@@ -2,7 +2,7 @@
   "intent": "secure",
   "audience": "operator",
   "channel": "docs",
-  "module_count": 18,
+  "module_count": 28,
   "modules": [
     {
       "module_id": "auto-api-playground-3",
@@ -30,6 +30,24 @@
       "audience": "operator",
       "channel": "docs",
       "content": "### 13) How long does rollout usually take?\n\nPilot setup is typically quick because runtime and bundle templates are pre-structured.\n\n### 14) How much manual work remains after rollout?\n\nUsually review and approval work remains, not repetitive authoring and cross-file synchronization.\n\n### 15) Can we run this inside existing CI/CD?\n\nYes. The flow is script-driven and supports local scheduler plus CI automation patterns.\n\n### 16) What data should clients prepare?\n\nRepo access, docs root, runtime config decisions, plan scope, and optional external integrations.\n\n### 17) How is this different from a static docs generator?\n\nIt is a controlled operations pipeline, not only a renderer. It validates, remediates, merges, and governs.\n\n### 18) What happens when a gate fails?\n\nThe pipeline emits explicit failure reports and can run remediation cycles before publish.\n\n### 19) Can teams adopt this gradually?\n\nYes. Teams can start with quality gates and docs lifecycle, then enable protocol and RAG modules.\n\n### 20) Why is this compelling commercially?\n\nIt compresses repetitive documentation and API verification work into a governed flow with measurable outputs.\n\n## Next steps\n\n- [Documentation index](index.md)"
+    },
+    {
+      "module_id": "auto-data-processing-agreement-2",
+      "title": "VeriDoc data processing agreement (Part 2)",
+      "priority": 60,
+      "intent": "secure",
+      "audience": "operator",
+      "channel": "docs",
+      "content": "### Nature and purpose of processing\n\n| Processing activity | Purpose | Data categories |\n|---------------------|---------|-----------------|\n| Pipeline execution | Transform and enhance documentation | Documentation content, metadata |\n| LLM processing (opt-in) | AI-powered quality improvements | Document sections sent to LLM providers |\n| Usage tracking | Quota enforcement and billing | Request counts, timestamps |\n| Authentication | Access control | Email, hashed passwords, JWT tokens |\n| Billing | Payment processing and invoicing | Email, subscription tier, payment history |\n\n### Categories of data subjects\n\nData subjects include your employees, contractors, and any individuals\nwhose personal data appears in documentation processed through VeriDoc."
+    },
+    {
+      "module_id": "auto-data-processing-agreement-6",
+      "title": "VeriDoc data processing agreement (Part 6)",
+      "priority": 60,
+      "intent": "secure",
+      "audience": "operator",
+      "channel": "docs",
+      "content": "### EU-US transfers\n\nFor sub-processors located in the United States, we rely on:\n\n1. Standard Contractual Clauses (SCCs) approved by the European Commission\n   (June 2021 version).\n1. Supplementary measures including encryption in transit and at rest.\n1. Data minimization -- only the minimum data necessary is transferred.\n\n### Transfer impact assessment\n\nWe have conducted transfer impact assessments for each non-EU\nsub-processor. Assessments are available upon request at\n<privacy@veri-doc.app>.\n\n## Data breach notification\n\nIn the event of a personal data breach:\n\n| Step | Timeline | Action |\n|------|----------|--------|\n| 1 | Within 24 hours | Internal incident response team activated |\n| 2 | Within 72 hours | Written notification to you with breach details |\n| 3 | Within 72 hours | Notification to supervisory authority (if required) |\n| 4 | Ongoing | Regular updates on investigation and remediation |\n\nBreach notification includes:\n\n1. Nature of the breach and categories of data affected.\n1. Estimated number of data subjects affected.\n1. Likely consequences of the breach.\n1. Measures taken to address and mitigate the breach."
     },
     {
       "module_id": "auto-intelligent-knowledge-system-1",
@@ -68,8 +86,8 @@
       "content": "### Request 4: Update download\n\n**When:** After an update check finds a new version and the user approves.\n\n**Endpoint:** `GET /v1/download/{version}/{platform}`\n\n**Frequency:** When updates are available (monthly for Professional, weekly opt-in for Enterprise).\n\n```text\nGET /v1/download/1.3.0/linux-x86_64\n```\n\n**What is NOT sent:** No request body. No authentication headers. No client data of any kind.\n\n### Request 5: License deactivation\n\n**When:** When a client explicitly deactivates their license (seat release).\n\n**Endpoint:** `POST /v1/deactivate`\n\n**Frequency:** Once per deactivation.\n\n```json\n{\n  \"authorization\": \"Bearer <license-jwt>\"\n}\n```\n\n**What is NOT sent:** No reason codes, no usage data, no document counts."
     },
     {
-      "module_id": "auto-pipeline-capabilities-catalog-10",
-      "title": "Pipeline Capabilities Catalog (Part 10)",
+      "module_id": "auto-pipeline-capabilities-catalog-12",
+      "title": "Pipeline Capabilities Catalog (Part 12)",
       "priority": 60,
       "intent": "secure",
       "audience": "operator",
@@ -77,13 +95,76 @@
       "content": "## Test assets generation and smart merge\n\n`generate_protocol_test_assets.py` generates protocol-aware test cases for all five protocols with signature-based smart merge to preserve custom and manual test cases across contract changes.\n\n**Test categories per protocol:**\n\n| Protocol | Categories |\n| --- | --- |\n| REST | CRUD happy paths, validation errors, auth, rate limiting, pagination |\n| GraphQL | Query/mutation/subscription happy path, invalid input, auth, injection, latency |\n| gRPC | Unary/streaming positive, status codes, deadline/retry, authorization, latency SLO |\n| AsyncAPI | Publish validation, invalid payload, ordering/idempotency, security, throughput |\n| WebSocket | Connection/auth, message envelope, reconnect, security, concurrency |\n\n**Output formats:** `api_test_cases.json`, `testrail_test_cases.csv` (TestRail), `zephyr_test_cases.json` (Zephyr Scale), `test_matrix.json`, `fuzz_scenarios.json`.\n\n**Smart merge rules:** auto-generated cases are replaced on contract change; customized cases (`customized: true`) are preserved and flagged `needs_review: true` when the contract signature changes; manual cases (`origin: \"manual\"`) are never overwritten.\n\n**TestRail/Zephyr upload:** `upload_api_test_assets.py` pushes generated cases to TestRail or Zephyr Scale. The `needs_review` flag propagates to both platforms so QA teams can triage stale custom cases."
     },
     {
-      "module_id": "auto-pipeline-capabilities-catalog-15",
-      "title": "Pipeline Capabilities Catalog (Part 15)",
+      "module_id": "auto-pipeline-capabilities-catalog-18",
+      "title": "Pipeline Capabilities Catalog (Part 18)",
       "priority": 60,
       "intent": "secure",
       "audience": "operator",
       "channel": "docs",
       "content": "## Templates\n\nThese can be shipped via `bundle.include_paths` and used by LLM generation flow.\n\n- `templates/admin-guide.md`\n- `templates/api-endpoint.md`\n- `templates/api-reference.md`\n- `templates/architecture-overview.md`\n- `templates/authentication-guide.md`\n- `templates/best-practices.md`\n- `templates/changelog.md`\n- `templates/concept.md`\n- `templates/configuration-guide.md`\n- `templates/configuration-reference.md`\n- `templates/deployment-guide.md`\n- `templates/error-handling-guide.md`\n- `templates/faq.md`\n- `templates/glossary-page.md`\n- `templates/how-to.md`\n- `templates/integration-guide.md`\n- `templates/interactive-diagram.html`\n- `templates/migration-guide.md`\n- `templates/plg-persona-guide.md`\n- `templates/plg-value-page.md`\n- `templates/quickstart.md`\n- `templates/reference.md`\n- `templates/release-note.md`\n- `templates/sdk-reference.md`\n- `templates/security-guide.md`\n- `templates/testing-guide.md`\n- `templates/troubleshooting.md`\n- `templates/tutorial.md`\n- `templates/upgrade-guide.md`\n- `templates/use-case.md`\n- `templates/user-guide.md`\n- `templates/webhooks-guide.md`\n\n## Policy Packs\n\n- `api-first.yml`\n- `minimal.yml`\n- `monorepo.yml`\n- `multi-product.yml`\n- `plg.yml`\n\n## Knowledge Modules\n\nCan be copied into client bundle with `bundle.include_paths: ['knowledge_modules']`.\n\n- `webhook-auth-baseline.yml`\n- `webhook-retry-policy.yml`"
+    },
+    {
+      "module_id": "auto-privacy-policy-1",
+      "title": "VeriDoc privacy policy",
+      "priority": 60,
+      "intent": "secure",
+      "audience": "operator",
+      "channel": "docs",
+      "content": "# VeriDoc privacy policy\n\nThis privacy policy explains how Liora Tech (\"Company,\" \"we,\" \"us\")\ncollects, uses, and protects your personal data when you use VeriDoc,\nan automated documentation pipeline platform. This policy applies to\nall users of the VeriDoc web application, API, and CLI tools.\n\n## Data controller\n\nLiora Tech acts as the data controller for personal data collected through\nthe VeriDoc platform.\n\n| Detail | Value |\n|--------|-------|\n| **Company** | Liora Tech |\n| **Contact email** | <privacy@veri-doc.app> |\n| **Data protection inquiries** | <privacy@veri-doc.app> |\n\n## Data we collect\n\n### Account data\n\nWhen you register, we collect:\n\n| Data field | Purpose | Legal basis |\n|------------|---------|-------------|\n| Email address | Authentication, billing notifications, support | Contract performance |\n| Password hash | Authentication (PBKDF2-SHA256, never stored in plaintext) | Contract performance |\n| Subscription tier | Service delivery, usage limit enforcement | Contract performance |\n| Billing records | Payment processing, invoice generation | Contract performance |\n| Referral code | Referral program tracking | Legitimate interest |"
+    },
+    {
+      "module_id": "auto-privacy-policy-2",
+      "title": "VeriDoc privacy policy (Part 2)",
+      "priority": 60,
+      "intent": "secure",
+      "audience": "operator",
+      "channel": "docs",
+      "content": "### Usage data\n\nWhen you use the Service, we automatically collect:\n\n| Data field | Purpose | Retention |\n|------------|---------|-----------|\n| Pipeline run metadata | Usage tracking, quota enforcement | 90 days |\n| API request logs | Rate limiting, debugging, abuse prevention | 30 days |\n| Error reports (Sentry) | Bug fixing, reliability improvement | 90 days |\n| Authentication tokens | Session management | Token expiry (24 hours) |\n\n### Documentation content\n\nWhen you process documentation through the pipeline:\n\n1. Your content is processed in memory during pipeline execution.\n1. Generated outputs (processed Markdown, reports, knowledge modules) are\n   stored in encrypted PostgreSQL databases.\n1. We do not read, analyze, or use your documentation content for any\n   purpose other than providing the Service.\n1. We do not use your content to train machine learning models."
+    },
+    {
+      "module_id": "auto-privacy-policy-4",
+      "title": "VeriDoc privacy policy (Part 4)",
+      "priority": 60,
+      "intent": "secure",
+      "audience": "operator",
+      "channel": "docs",
+      "content": "## How we use your data\n\nWe use personal data exclusively for:\n\n1. **Service delivery** -- processing your documentation, enforcing usage\n   limits, and managing your subscription.\n1. **Billing** -- processing payments through LemonSqueezy, generating\n   invoices, tracking referral commissions.\n1. **Communication** -- sending transactional emails (subscription\n   confirmations, trial expiry notices, invoice receipts).\n1. **Security** -- detecting unauthorized access, enforcing rate limits,\n   monitoring for abuse.\n1. **Improvement** -- analyzing aggregate, anonymized usage patterns to\n   improve the Service. We never analyze individual content.\n\n## Data storage and security\n\n### Infrastructure\n\n| Component | Location | Encryption |\n|-----------|----------|------------|\n| Application servers | Hetzner Cloud, Germany | TLS 1.3 in transit |\n| PostgreSQL database | Hetzner Cloud, Germany | AES-256 at rest |\n| Redis cache | Hetzner Cloud, Germany | In-memory, no persistence of content |\n| Backups | Hetzner Cloud, Germany | AES-256, 30-day retention |"
+    },
+    {
+      "module_id": "auto-privacy-policy-5",
+      "title": "VeriDoc privacy policy (Part 5)",
+      "priority": 60,
+      "intent": "secure",
+      "audience": "operator",
+      "channel": "docs",
+      "content": "### Security measures\n\n1. All API communication uses TLS 1.3 encryption.\n1. Passwords are hashed with PBKDF2-SHA256 (600,000 iterations).\n1. JWT authentication tokens expire after 24 hours.\n1. Database backups run daily with 30-day retention and automated restore\n   testing.\n1. Error tracking uses Sentry with PII scrubbing enabled.\n1. Rate limiting enforces 60 requests per minute per user.\n\n## Data retention\n\n| Data type | Retention period | Deletion trigger |\n|-----------|-----------------|------------------|\n| Account data | Account lifetime + 30 days | Account closure |\n| Billing records | 7 years (legal requirement) | Statutory expiry |\n| Pipeline outputs | Account lifetime + 30 days | Account closure |\n| API logs | 30 days | Automatic rotation |\n| Error reports | 90 days | Automatic rotation |\n| Backups | 30 days | Automatic rotation |\n\nAfter account closure, we retain data for 30 days to allow you to\nreactivate or export. After 30 days, all personal data is permanently\ndeleted."
+    },
+    {
+      "module_id": "auto-security-contact-policy-1",
+      "title": "VeriDoc security contact policy",
+      "priority": 60,
+      "intent": "secure",
+      "audience": "operator",
+      "channel": "docs",
+      "content": "# VeriDoc security contact policy\n\nThis policy defines exactly how to contact VeriDoc for security incidents,\nvulnerability reports, and urgent abuse cases.\n\n## Official contact channels\n\n| Purpose | Channel | Target response |\n|---------|---------|-----------------|\n| Vulnerability disclosure | <security@veri-doc.app> | Within 24 hours |\n| Incident escalation (active outage or suspected compromise) | <security@veri-doc.app> + <support@veri-doc.app> | Within 1 hour |\n| Privacy and data-protection issues | <privacy@veri-doc.app> | Within 72 hours |\n\n## What to include in your report\n\nSend a concise report with:\n\n1. Affected endpoint, system, or feature.\n1. Exact reproduction steps.\n1. Expected result and actual result.\n1. Scope estimate (single tenant, multi-tenant, or unknown).\n1. Any logs, timestamps, and request IDs.\n\n## Severity model and SLA\n\n| Severity | Typical examples | First response | Containment target |\n|----------|------------------|----------------|--------------------|\n| Critical | Data exposure, account takeover, production compromise | 1 hour | 4 hours |\n| High | Auth bypass, privilege escalation, sustained API failure | 4 hours | 12 hours |\n| Medium | Non-critical security misconfiguration | 24 hours | 3 business days |\n| Low | Hardening recommendations, low-risk findings | 72 hours | Planned release |"
+    },
+    {
+      "module_id": "auto-security-policy-1",
+      "title": "VeriDoc security policy",
+      "priority": 60,
+      "intent": "secure",
+      "audience": "operator",
+      "channel": "docs",
+      "content": "# VeriDoc security policy\n\nVeriDoc is an automated documentation pipeline platform that processes\ncustomer documentation content. This security policy describes the\ntechnical and organizational measures we implement to protect your data\nand maintain service integrity.\n\n## Infrastructure security\n\n### Hosting environment\n\nVeriDoc runs on dedicated infrastructure in Hetzner Cloud data centers\nlocated in Germany (EU).\n\n| Component | Technology | Security configuration |\n|-----------|------------|----------------------|\n| Application server | Ubuntu 22.04 LTS | Automated security patches, SSH key-only access |\n| API service | FastAPI (Python 3.12) | CORS-restricted, rate-limited, JWT-authenticated |\n| Database | PostgreSQL 16 | Encrypted at rest (AES-256), TLS connections |\n| Cache | Redis 7 | Memory-only, no content persistence, private network |\n| Task queue | Celery + Redis | Isolated worker processes, task timeout enforcement |\n| Reverse proxy | Nginx | TLS 1.3, HTTP/2, security headers, rate limiting |"
+    },
+    {
+      "module_id": "auto-security-policy-2",
+      "title": "VeriDoc security policy (Part 2)",
+      "priority": 60,
+      "intent": "secure",
+      "audience": "operator",
+      "channel": "docs",
+      "content": "### Network security\n\n1. All public endpoints require TLS 1.3 encryption. Older TLS versions\n   are rejected.\n1. Database and Redis ports are bound to `127.0.0.1` only -- no external\n   access.\n1. SSH access uses Ed25519 keys exclusively. Password authentication is\n   disabled.\n1. Firewall rules allow only ports 80 (redirect to 443), 443 (HTTPS), and\n   22 (SSH from allowlisted IPs).\n\n## Authentication and access control\n\n### User authentication\n\n| Mechanism | Implementation |\n|-----------|---------------|\n| Password hashing | PBKDF2-SHA256 with 600,000 iterations |\n| Token format | JWT (PyJWT) with HS256 signing |\n| Token expiry | 24 hours |\n| Session management | Stateless JWT, no server-side sessions |\n| Rate limiting | 60 requests per minute per user |\n\n### API authentication\n\nAll API endpoints except `/health` and `/auth/register` require a valid\nJWT token in the `Authorization: Bearer <token>` header.\n\n```text\nPOST /auth/login\nContent-Type: application/json\n\n{\"email\": \"user@example.com\", \"password\": \"your-password\"}\n\nResponse: {\"token\": \"eyJ...\", \"expires_in\": 86400}\n```\n\n### Webhook verification\n\nIncoming LemonSqueezy webhooks are verified using HMAC-SHA256 signatures.\nRequests without a valid `X-Signature` header are rejected with HTTP 403.\n\n## Encryption"
     },
     {
       "module_id": "auto-seo-guide-5",
@@ -111,6 +192,15 @@
       "audience": "operator",
       "channel": "docs",
       "content": "<!-- VERIDOC_POWERED_BADGE:START -->\n[![Powered by VeriDoc](https://img.shields.io/badge/Powered%20by-VeriDoc-0ea5e9?style=flat-square)](https://veridoc.app)\n<!-- VERIDOC_POWERED_BADGE:END -->\n\n# TaskStream API planning notes\n\nThis page provides the exact planning-notes input artifact used by the API-first flow before OpenAPI generation and validation.\n\nThe pipeline treats these notes as the contract source of truth and derives endpoint shapes, resource life cycle behavior, filtering rules, sorting options, authentication requirements, and expected error envelopes. This input-first model keeps API design review aligned with technical writing and implementation planning.\n\n## Input artifact location\n\n- `demos/api-first/taskstream-planning-notes.md`\n\n## How the pipeline uses this input\n\n1. Parse planning notes into endpoint and schema requirements.\n1. Generate or update split OpenAPI files.\n1. Run OpenAPI lint, contract validation, stub generation, and self-verification.\n\n## Notes format (demo excerpt)\n\n```markdown\nProject: **TaskStream**\nAPI version: **v1**\nBase URL: `https://api.taskstream.example.com/v1`\nPlanning date: 2026-03-09\nStatus: Draft for OpenAPI writing\n```\n\n## Next steps\n\n- [API playground](api-playground.md)"
+    },
+    {
+      "module_id": "auto-terms-of-service-1",
+      "title": "VeriDoc terms of service",
+      "priority": 60,
+      "intent": "secure",
+      "audience": "operator",
+      "channel": "docs",
+      "content": "# VeriDoc terms of service\n\nThese terms of service (\"Terms\") govern your access to and use of VeriDoc,\nan automated documentation pipeline platform operated by Liora Tech\n(\"Company,\" \"we,\" \"us\"). By creating an account or using the service, you\nagree to these Terms.\n\n## Key definitions\n\n| Term | Meaning |\n|------|---------|\n| **Service** | The VeriDoc platform, including the API, web interface, and CLI tools |\n| **User** | Any individual or entity that creates an account on the Service |\n| **Subscription** | A paid plan that grants access to premium features and higher usage limits |\n| **Content** | Documentation, code, configuration, and other materials processed by the Service |\n| **Pipeline run** | A single execution of the documentation processing pipeline |\n\n## Account registration\n\nYou must provide accurate information when creating an account. Each user\nmust maintain one account. Sharing account credentials violates these Terms.\n\nYou are responsible for all activity under your account. Notify us at\n<support@veri-doc.app> if you suspect unauthorized access."
     },
     {
       "module_id": "auto-unified-client-config-3",

@@ -14,7 +14,7 @@ channels:
 priority: 60
 status: active
 owner: docsops-auto
-last_verified: '2026-04-03'
+last_verified: '2026-04-06'
 dependencies: []
 tags:
 - auto-extracted
@@ -23,13 +23,13 @@ tags:
 metadata:
   url: https://docs.example.com/operations/PIPELINE_CAPABILITIES_CATALOG/
   title: Pipeline Capabilities Catalog (Part 11)
-  heading: Quality checks (32 automated)
+  heading: Pipeline Capabilities Catalog (Part 11)
   version: 1.50.0
-  updated_at: '2026-03-24'
+  updated_at: '2026-04-05T00:00:00Z'
   source_site: docs.example.com
   source_path: operations/PIPELINE_CAPABILITIES_CATALOG.md
 semantic:
-  topic: Quality checks (32 automated)
+  topic: Pipeline Capabilities Catalog (Part 11)
   intent: integrate
   audience: developer
   keywords:
@@ -37,53 +37,15 @@ semantic:
   - reference
   status: rule_based
 content:
-  docs_markdown: '## Quality checks (32 automated)
-
-
-    The pipeline enforces 32 automated checks on every documentation page across four
-    categories:
-
-
-    | Category | Count | What they verify |
-
-    | --- | --- | --- |
-
-    | GEO checks | 8 | LLM and AI search optimization: meta descriptions, first paragraph
-    length, heading hierarchy, fact density |
-
-    | SEO checks | 14 | Traditional search optimization: title length, URL depth,
-    internal links, image alt text, structured data |
-
-    | Style checks | 6 | American English, active voice, no weasel words, no contractions,
-    second person, present tense |
-
-    | Contract checks | 4 | Schema validation, regression detection, snippet lint,
-    self-verification against endpoints |'
+  docs_markdown: '**Self-verification:** `run_protocol_self_verify.py` validates generated
+    docs against live/mock endpoints (GraphQL introspection, gRPC method invocation,
+    AsyncAPI event publish, WebSocket connection routing).'
   assistant_context: 'Use this module when answering questions related to: Pipeline
     Capabilities Catalog (Part 11). Source path: operations/PIPELINE_CAPABILITIES_CATALOG.md.
     Summary: Generated catalog of available pipeline commands, templates, policy packs,
     and assets for client configuration.
 
 
-    ## Quality checks (32 automated)
-
-
-    The pipeline enforces 32 automated checks on every documentation page across four
-    categories:
-
-
-    | Category | Count | What they verify |
-
-    | --- | --- | --- |
-
-    | GEO checks | 8 | LLM and AI search optimization: meta descriptions, first paragraph
-    length, heading hierarchy, fact density |
-
-    | SEO checks | 14 | Traditional search optimization: title length, URL depth,
-    internal links, image alt text, structured data |
-
-    | Style checks | 6 | American English, active voice, no weasel words, no contractions,
-    second person, present tense |
-
-    | Contract checks | 4 | Schema validation, regression detection, snippet lint,
-    self-verification against endpoints |'
+    **Self-verification:** `run_protocol_self_verify.py` validates generated docs
+    against live/mock endpoints (GraphQL introspection, gRPC method invocation, AsyncAPI
+    event publish, WebSocket connection routing).'

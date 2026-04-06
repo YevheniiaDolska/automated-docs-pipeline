@@ -7,7 +7,7 @@ product: both
 tags:
 - Operations
 - Reference
-last_reviewed: '2026-03-24'
+last_reviewed: '2026-04-05'
 original_author: Developer
 ---
 
@@ -17,7 +17,7 @@ original_author: Developer
 
 # Pipeline Capabilities Catalog
 
-## Current product definition (2026-03-25)
+## Current product definition (2026-04-05)
 
 This content follows the active implementation baseline:
 
@@ -27,6 +27,10 @@ This content follows the active implementation baseline:
 1. External mock sandbox resolution is integrated, with Postman-supported auto-prepare in external mode.
 1. Contract test assets are generated automatically and merged with smart-merge so manual/customized cases are preserved and flagged for review when needed.
 1. Knowledge/RAG maintenance, terminology sync, and quality/compliance gates run through the same automation surface when enabled.
+1. Local-first operation is the default mode: weekly scheduler and quality gates run in the client repository, with GitHub Actions as a compatibility mode.
+1. RAG runtime supports `cloud`, `hybrid`, and `strict-local` operational profiles with one enforcement layer.
+1. RAG runtime endpoints include `/rag/query`, `/rag/runtime/query`, `/rag/metrics`, and `/rag/alerts` with access-control checks.
+1. RAG index lifecycle supports versioned reindex, promote, rollback, and retention pruning through one command surface.
 1. Plan tiers gate advanced capabilities; higher plans include broader non-REST and governance scope.
 
 This catalog has two layers:
@@ -105,9 +109,11 @@ runtime:
 | `build:docusaurus` | Build/Generate | `npx docusaurus build` |
 | `build:intent` | Build/Generate | `python3 scripts/assemble_intent_experience.py` |
 | `build:intent:all` | Build/Generate | `python3 scripts/build_all_intent_experiences.py` |
+| `build:knowledge-enrich:llm` | Build/Generate | `python3 scripts/enrich_knowledge_modules_semantic.py` |
 | `build:knowledge-graph` | Build/Generate | `python3 scripts/generate_knowledge_graph_jsonld.py --modules-dir knowledge_modules --output docs/assets/knowledge-graph.jsonld --report reports/knowledge_graph_report.json` |
 | `build:knowledge-index` | Build/Generate | `python3 scripts/generate_knowledge_retrieval_index.py` |
 | `build:mkdocs` | Build/Generate | `mkdocs build --strict` |
+| `build:rag:reindex` | Build/Generate | `python3 scripts/rag_reindex_lifecycle.py --repo-root . --with-embeddings --provider local` |
 | `configurator` | General | `python3 scripts/generate_configurator.py` |
 | `consolidate` | General | `npm run gaps && npm run kpi-wall && npm run kpi-sla && npm run i18n:sync && npm run validate:knowledge && python3 scripts/consolidate_reports.py` |
 | `consolidate:reports-only` | General | `python3 scripts/consolidate_reports.py` |
@@ -122,8 +128,12 @@ runtime:
 | `docs-ops:e2e` | VeriOps tests | `python3 scripts/test_docs_ops_e2e.py` |
 | `docs-ops:golden` | VeriOps tests | `python3 scripts/test_golden_reports_and_workflows.py` |
 | `docs-ops:test-suite` | VeriOps tests | `python3 -m pytest -q tests/test_autopipeline_suite.py` |
+| `docsops:generate` | General | `python3 scripts/docsops_generate.py generate --mode operator --trigger always` |
+| `docsops:generate:auto` | General | `python3 scripts/docsops_generate.py generate --mode operator --trigger always --auto` |
+| `docsops:generate:policy` | General | `python3 scripts/docsops_generate.py generate --mode operator --trigger policy --auto` |
+| `docsops:generate:veridoc` | General | `python3 scripts/docsops_generate.py generate --mode veridoc --trigger policy --auto` |
 | `drift-check` | General | `python3 scripts/check_api_sdk_drift.py --base origin/main --head HEAD --json-output reports/api_sdk_drift_report.json --md-output reports/api_sdk_drift_report.md` |
-| `eval:retrieval` | General | `python3 scripts/run_retrieval_evals.py --index docs/assets/knowledge-retrieval-index.json --auto-generate-dataset --dataset-out reports/retrieval_eval_dataset.generated.yml --report reports/retrieval_evals_report.json --top-k 3 --min-precision 0.5 --min-recall 0.5 --max-hallucination-rate 0.5` |
+| `eval:retrieval` | General | `python3 scripts/run_retrieval_evals_gate.py` |
 | `gaps` | Gap detection | `python3 -m scripts.gap_detection.cli analyze` |
 | `gaps:code` | Gap detection | `python3 -m scripts.gap_detection.cli code` |
 | `gaps:community` | Gap detection | `python3 -m scripts.gap_detection.cli community` |
@@ -170,11 +180,13 @@ runtime:
 | `serve` | General | `python3 scripts/run_generator.py serve` |
 | `serve:docusaurus` | General | `npx docusaurus start` |
 | `serve:mkdocs` | General | `mkdocs serve` |
+| `smoke:prod` | Validation | `python3 scripts/production_smoke.py` |
 | `test:adapter` | General | `python3 -m pytest tests/test_docusaurus_adapter.py -v` |
 | `test:all` | General | `python3 -m pytest -q tests` |
 | `test:configurator` | General | `python3 -m pytest tests/test_gui_configurator.py -v` |
 | `validate:full` | Validation | `npm run validate:minimal && npm run lint:layers && npm run lint:diagrams && npm run validate:knowledge && npm run docs-ops:e2e && npm run docs-ops:golden && npm run docs-ops:test-suite && python3 test_pipeline.py` |
 | `validate:knowledge` | Validation | `npm run lint:knowledge && npm run build:intent:all && npm run build:knowledge-index && npm run build:knowledge-graph && npm run eval:retrieval` |
+| `validate:knowledge:with-llm-enrich` | Validation | `npm run build:knowledge-enrich:llm && npm run validate:knowledge` |
 | `validate:minimal` | Validation | `npm run normalize:docs:check && npm run lint:md && npm run lint:frontmatter && npm run lint:geo && npm run lint:multilang && npm run lint:examples-smoke` |
 
 ## Direct CLI entry points (not exposed as npm scripts)
@@ -204,6 +216,9 @@ These are part of the current implementation and are invoked directly by operato
 | `scripts/upload_to_algolia.py` | Upload generated search records to Algolia. |
 | `scripts/validate_pr_dod.py` | DoD validation helper for PR workflows. |
 | `scripts/run_multi_protocol_contract_flow.py` | Unified orchestrator for all 5 protocol documentation flows (REST, GraphQL, gRPC, AsyncAPI, WebSocket). Runs 9 stages: ingest, contract validation, server stub generation, lint, regression, docs generation, quality gates, test assets, publish. |
+| `scripts/run_retrieval_evals_gate.py` | Smart retrieval gate with runtime mode selection (`token`, `hybrid`, `hybrid+rerank`) and adaptive threshold profile for dataset mismatch cases. |
+| `scripts/rag_reindex_lifecycle.py` | Versioned RAG reindex lifecycle: extract, validate, index build, optional embeddings, promote, rollback, and retention pruning. |
+| `scripts/enforce_rag_optimization_layer.py` | Unified RAG optimization layer enforcement for cloud, hybrid, and strict-local profiles with alert-enabled thresholds. |
 | `scripts/generate_protocol_contract_from_planning_notes.py` | Generate protocol contracts (GraphQL SDL, Proto3, AsyncAPI YAML, WebSocket YAML) from planning notes markdown. |
 | `scripts/generate_protocol_docs.py` | Auto-generate reference documentation from protocol contracts using protocol-specific templates. |
 | `scripts/generate_protocol_test_assets.py` | Generate protocol-aware test cases with signature-based smart merge. Outputs JSON, TestRail CSV, Zephyr JSON, test matrix, and fuzz scenarios. |
@@ -216,6 +231,8 @@ These are part of the current implementation and are invoked directly by operato
 | `scripts/generate_audit_scorecard.py` | Comprehensive audit scorecard generator combining docs quality, API coverage, code examples, glossary health, and policy compliance into a single score. |
 | `scripts/generate_executive_audit_pdf.py` | Consulting-grade executive PDF report from audit scorecard and public docs audit results. Includes score gauges, risk matrices, financial impact tables, and methodology appendix. |
 | `scripts/generate_embeddings.py` | Generate FAISS vector index from knowledge modules using `text-embedding-3-small` (1536 dimensions). Builds `retrieval.faiss` and `retrieval-metadata.json`. |
+| `scripts/docsops_generate.py` | Operator and policy-triggered generation entry point for local CLI workflows (`operator` and `veridoc` modes). |
+| `scripts/production_smoke.py` | Production smoke validation for runtime readiness and deployment health signals. |
 
 ## Multi-protocol contract pipeline
 
@@ -289,6 +306,29 @@ The pipeline generates a knowledge retrieval layer with six advanced features:
 1. `generate_embeddings.py` -- FAISS vector index (`text-embedding-3-small`, 1536 dims)
 1. `generate_knowledge_graph_jsonld.py` -- JSON-LD knowledge graph
 1. `run_retrieval_evals.py` -- precision@k, recall@k, hallucination rate evaluation
+
+## RAG operations and runtime surface
+
+Runtime and operations include:
+
+1. Query endpoints: `/rag/query` and `/rag/runtime/query`
+1. Observability endpoints: `/rag/metrics` and `/rag/alerts`
+1. Version pointer artifacts: `docs/assets/rag_current.json`, `docs/assets/rag_promoted.json`
+1. Version history and retention: `docs/assets/rag_version_history.json`, `docs/assets/rag-versions/`
+1. Lifecycle report: `reports/rag_reindex_report.json`
+1. Unified enforcement report: `reports/rag_optimization_layer_report.json`
+
+## Current retrieval gate snapshot (2026-04-05)
+
+Latest local run (`npm run eval:retrieval`) produced:
+
+1. Mode: `token` (no `OPENAI_API_KEY` and no FAISS artifacts in current run context)
+1. Precision@3: `0.24`
+1. Recall@3: `0.72`
+1. Hallucination rate: `0.0`
+1. Sample count: `25` (auto-generated dataset)
+
+This snapshot confirms the RAG layer is active and measurable in local mode, and it also shows remaining headroom for precision improvements in strict local token fallback.
 
 ## Public docs auditor and executive PDF
 
@@ -403,7 +443,7 @@ Can be copied into client bundle with `bundle.include_paths: ['knowledge_modules
 
 - [Documentation index](../index.md)
 
-## Implementation status (2026-03-25)
+## Implementation status (2026-04-05)
 
 This document is aligned to the current production implementation baseline.
 

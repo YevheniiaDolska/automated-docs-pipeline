@@ -14,7 +14,7 @@ channels:
 priority: 60
 status: active
 owner: docsops-auto
-last_verified: '2026-04-03'
+last_verified: '2026-04-06'
 dependencies: []
 tags:
 - auto-extracted
@@ -23,13 +23,13 @@ tags:
 metadata:
   url: https://docs.example.com/operations/PIPELINE_CAPABILITIES_CATALOG/
   title: Pipeline Capabilities Catalog (Part 3)
-  heading: Non-API documentation flows (docs-first scope)
+  heading: Pipeline Capabilities Catalog (Part 3)
   version: 1.50.0
-  updated_at: '2026-03-24'
+  updated_at: '2026-04-05T00:00:00Z'
   source_site: docs.example.com
   source_path: operations/PIPELINE_CAPABILITIES_CATALOG.md
 semantic:
-  topic: Non-API documentation flows (docs-first scope)
+  topic: Pipeline Capabilities Catalog (Part 3)
   intent: integrate
   audience: developer
   keywords:
@@ -37,61 +37,77 @@ semantic:
   - reference
   status: rule_based
 content:
-  docs_markdown: '## Non-API documentation flows (docs-first scope)
+  docs_markdown: '1. The platform is docs-first and also supports `code-first`, `api-first`,
+    and `hybrid` modes.
+
+    1. The smooth autopipeline covers all five API protocols (REST, GraphQL, gRPC,
+    AsyncAPI, and WebSocket) in one operational model.
+
+    1. Non-REST flow includes generated server stubs with business-logic placeholders.
+
+    1. External mock sandbox resolution is integrated, with Postman-supported auto-prepare
+    in external mode.
+
+    1. Contract test assets are generated automatically and merged with smart-merge
+    so manual/customized cases are preserved and flagged for review when needed.
+
+    1. Knowledge/RAG maintenance, terminology sync, and quality/compliance gates run
+    through the same automation surface when enabled.
+
+    1. Local-first operation is the default mode: weekly scheduler and quality gates
+    run in the client repository, with GitHub Actions as a compatibility mode.
+
+    1. RAG runtime supports `cloud`, `hybrid`, and `strict-local` operational profiles
+    with one enforcement layer.
+
+    1. RAG runtime endpoints include `/rag/query`, `/rag/runtime/query`, `/rag/metrics`,
+    and `/rag/alerts` with access-control checks.
+
+    1. RAG index lifecycle supports versioned reindex, promote, rollback, and retention
+    pruning through one command surface.
+
+    1. Plan tiers gate advanced capabilities; higher plans include broader non-REST
+    and governance scope.
 
 
-    The platform is not limited to API-first automation. In active production usage,
-    it also runs full docs-first and code-first documentation operations for non-API
-    content:
-
-
-    1. Detects content gaps, stale pages, and drift across product docs, runbooks,
-    admin guides, troubleshooting, and release notes.
-
-    1. Generates and updates documentation types beyond API references (tutorial,
-    how-to, concept, reference, troubleshooting, release-note, security, SDK, user/admin,
-    and operations docs).
-
-    1. Applies normalization, style, metadata/frontmatter, SEO/GEO, terminology governance,
-    and snippet validation to all documentation categories.
-
-    1. Executes lifecycle controls (active/deprecated/removed states, replacement
-    links, and freshness cadence).
-
-    1. Runs knowledge extraction and retrieval preparation for all docs, not only
-    API pages.
-
-    1. Produces consolidated review artifacts so human input is focused on approval
-    and business accuracy, not repetitive formatting and synchronization work.'
+    This catalog has two layers:'
   assistant_context: 'Use this module when answering questions related to: Pipeline
     Capabilities Catalog (Part 3). Source path: operations/PIPELINE_CAPABILITIES_CATALOG.md.
     Summary: Generated catalog of available pipeline commands, templates, policy packs,
     and assets for client configuration.
 
 
-    ## Non-API documentation flows (docs-first scope)
+    1. The platform is docs-first and also supports `code-first`, `api-first`, and
+    `hybrid` modes.
+
+    1. The smooth autopipeline covers all five API protocols (REST, GraphQL, gRPC,
+    AsyncAPI, and WebSocket) in one operational model.
+
+    1. Non-REST flow includes generated server stubs with business-logic placeholders.
+
+    1. External mock sandbox resolution is integrated, with Postman-supported auto-prepare
+    in external mode.
+
+    1. Contract test assets are generated automatically and merged with smart-merge
+    so manual/customized cases are preserved and flagged for review when needed.
+
+    1. Knowledge/RAG maintenance, terminology sync, and quality/compliance gates run
+    through the same automation surface when enabled.
+
+    1. Local-first operation is the default mode: weekly scheduler and quality gates
+    run in the client repository, with GitHub Actions as a compatibility mode.
+
+    1. RAG runtime supports `cloud`, `hybrid`, and `strict-local` operational profiles
+    with one enforcement layer.
+
+    1. RAG runtime endpoints include `/rag/query`, `/rag/runtime/query`, `/rag/metrics`,
+    and `/rag/alerts` with access-control checks.
+
+    1. RAG index lifecycle supports versioned reindex, promote, rollback, and retention
+    pruning through one command surface.
+
+    1. Plan tiers gate advanced capabilities; higher plans include broader non-REST
+    and governance scope.
 
 
-    The platform is not limited to API-first automation. In active production usage,
-    it also runs full docs-first and code-first documentation operations for non-API
-    content:
-
-
-    1. Detects content gaps, stale pages, and drift across product docs, runbooks,
-    admin guides, troubleshooting, and release notes.
-
-    1. Generates and updates documentation types beyond API references (tutorial,
-    how-to, concept, reference, troubleshooting, release-note, security, SDK, user/admin,
-    and operations docs).
-
-    1. Applies normalization, style, metadata/frontmatter, SEO/GEO, terminology governance,
-    and snippet validation to all documentation categories.
-
-    1. Executes lifecycle controls (active/deprecated/removed states, replacement
-    links, and freshness cadence).
-
-    1. Runs knowledge extraction and retrieval preparation for all docs, not only
-    API pages.
-
-    1. Produces consolidated review artifacts so human input is focused on approval
-    and business accuracy, not repetitive formatting and synchronization work.'
+    This catalog has two layers:'

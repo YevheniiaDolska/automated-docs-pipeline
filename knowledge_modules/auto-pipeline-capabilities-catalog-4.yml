@@ -4,7 +4,6 @@ summary: Generated catalog of available pipeline commands, templates, policy pac
   and assets for client configuration.
 intents:
 - integrate
-- troubleshoot
 audiences:
 - developer
 - operator
@@ -15,7 +14,7 @@ channels:
 priority: 60
 status: active
 owner: docsops-auto
-last_verified: '2026-04-03'
+last_verified: '2026-04-06'
 dependencies: []
 tags:
 - auto-extracted
@@ -24,13 +23,13 @@ tags:
 metadata:
   url: https://docs.example.com/operations/PIPELINE_CAPABILITIES_CATALOG/
   title: Pipeline Capabilities Catalog (Part 4)
-  heading: How to enable any capability for a client
+  heading: Pipeline Capabilities Catalog (Part 4)
   version: 1.50.0
-  updated_at: '2026-03-24'
+  updated_at: '2026-04-05T00:00:00Z'
   source_site: docs.example.com
   source_path: operations/PIPELINE_CAPABILITIES_CATALOG.md
 semantic:
-  topic: How to enable any capability for a client
+  topic: Pipeline Capabilities Catalog (Part 4)
   intent: integrate
   audience: developer
   keywords:
@@ -38,14 +37,33 @@ semantic:
   - reference
   status: rule_based
 content:
-  docs_markdown: "## How to enable any capability for a client\n\n```yaml\nruntime:\n\
-    \  custom_tasks:\n    weekly:\n      - id: \"my-task\"\n        enabled: true\n\
-    \        command: \"npm run <script-name>\"\n        continue_on_error: true\n\
-    ```"
-  assistant_context: "Use this module when answering questions related to: Pipeline\
-    \ Capabilities Catalog (Part 4). Source path: operations/PIPELINE_CAPABILITIES_CATALOG.md.\
-    \ Summary: Generated catalog of available pipeline commands, templates, policy\
-    \ packs, and assets for client configuration.\n\n## How to enable any capability\
-    \ for a client\n\n```yaml\nruntime:\n  custom_tasks:\n    weekly:\n      - id:\
-    \ \"my-task\"\n        enabled: true\n        command: \"npm run <script-name>\"\
-    \n        continue_on_error: true\n```"
+  docs_markdown: '1. npm script entry points (from `package.json`)
+
+    1. direct CLI entry points in `scripts/*.py` that are used by provisioning/operator
+    flows and are not exposed as npm commands
+
+
+    Non-script concepts (policy semantics, sales packaging, pilot/full scope) are
+    documented in ops guides.
+
+
+    Use this catalog with `runtime.custom_tasks.weekly` in client profiles to enable
+    any capability.'
+  assistant_context: 'Use this module when answering questions related to: Pipeline
+    Capabilities Catalog (Part 4). Source path: operations/PIPELINE_CAPABILITIES_CATALOG.md.
+    Summary: Generated catalog of available pipeline commands, templates, policy packs,
+    and assets for client configuration.
+
+
+    1. npm script entry points (from `package.json`)
+
+    1. direct CLI entry points in `scripts/*.py` that are used by provisioning/operator
+    flows and are not exposed as npm commands
+
+
+    Non-script concepts (policy semantics, sales packaging, pilot/full scope) are
+    documented in ops guides.
+
+
+    Use this catalog with `runtime.custom_tasks.weekly` in client profiles to enable
+    any capability.'

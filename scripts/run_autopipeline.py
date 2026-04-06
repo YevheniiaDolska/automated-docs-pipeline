@@ -866,8 +866,8 @@ def main() -> int:
         plan = str(branding_cfg.get("plan", "free")).strip().lower()
         cheapest_plan = str(branding_cfg.get("cheapest_paid_plan", "starter")).strip().lower()
         badge_opt_out = bool(branding_cfg.get("badge_opt_out", False))
-        referral_env = str(branding_cfg.get("referral_code_env", "VERIDOC_REFERRAL_CODE")).strip()
-        referral_code = os.getenv(referral_env, "")
+        referral_env = str(branding_cfg.get("referral_code_env", "")).strip()
+        referral_code = os.getenv(referral_env, "") if referral_env else ""
         report_rel = str(branding_cfg.get("report_path", "reports/veridoc_branding_policy_report.json")).strip()
         report_abs = (repo_root / report_rel).resolve() if not Path(report_rel).is_absolute() else Path(report_rel)
         if not landing_url:

@@ -33,6 +33,32 @@ from scripts.docs_ci_bootstrap import install_docs_ci_files  # noqa: E402
 
 PRESETS_DIR = REPO_ROOT / "profiles" / "clients" / "presets"
 TEMPLATE_PROFILE = REPO_ROOT / "profiles" / "clients" / "_template.client.yml"
+COMMERCIAL_TO_LICENSE_PLAN = {
+    "pilot": "pilot",
+    "full": "professional",
+    "full+rag": "enterprise",
+}
+RAG_MODULE_KEYS = {"rag_optimization", "ontology_graph", "retrieval_evals"}
+
+
+def _apply_rag_package_policy(profile: dict[str, Any], *, rag_enabled: bool) -> None:
+    runtime = profile.get("runtime", {})
+    if not isinstance(runtime, dict):
+        return
+
+    modules = runtime.get("modules", {})
+    if isinstance(modules, dict):
+        for key in RAG_MODULE_KEYS:
+            if key in modules:
+                modules[key] = bool(rag_enabled)
+
+    retrieval_eval = runtime.get("retrieval_eval", {})
+    if isinstance(retrieval_eval, dict):
+        retrieval_eval["enabled"] = bool(rag_enabled)
+
+    knowledge_graph = runtime.get("knowledge_graph", {})
+    if isinstance(knowledge_graph, dict):
+        knowledge_graph["enabled"] = bool(rag_enabled)
 DOCSOPS_LOCAL_ENV = ".env.docsops.local"
 
 
@@ -164,12 +190,26 @@ def _create_profile_via_wizard(default_scheduler: str, *, require_repo: bool = T
         str(profile["client"].get("company_domain", "")),
     )
 
-    # Licensing
-    license_plan = _prompt_choice(
-        "License plan",
-        ["pilot", "professional", "enterprise"],
-        str(profile.get("licensing", {}).get("plan", "professional")),
+    # Commercial packaging -> internal license mapping
+    existing_plan = str(profile.get("licensing", {}).get("plan", "professional")).strip().lower()
+    package_default = "full"
+    if existing_plan == "pilot":
+        package_default = "pilot"
+    elif existing_plan == "enterprise":
+        package_default = "full+rag"
+    print(
+        "Commercial package:\n"
+        "- pilot: limited rollout (no RAG add-on)\n"
+        "- full: full implementation without RAG add-on\n"
+        "- full+rag: full implementation with RAG add-on"
     )
+    commercial_package = _prompt_choice(
+        "Commercial package",
+        ["pilot", "full", "full+rag"],
+        package_default,
+    )
+    license_plan = COMMERCIAL_TO_LICENSE_PLAN[commercial_package]
+    rag_addon_enabled = commercial_package == "full+rag"
     license_days = int(_prompt_with_default(
         "License validity (days)",
         str(profile.get("licensing", {}).get("days", 365)),
@@ -279,6 +319,9 @@ def _create_profile_via_wizard(default_scheduler: str, *, require_repo: bool = T
         if isinstance(modules, dict):
             print("Module toggles:")
             for key in sorted(modules.keys()):
+                if (not rag_addon_enabled) and key in RAG_MODULE_KEYS:
+                    modules[key] = False
+                    continue
                 modules[key] = _prompt_yes_no(f"  Enable module '{key}'?", default_yes=bool(modules[key]))
 
         bundle_cfg = profile.get("bundle", {})
@@ -379,10 +422,16 @@ def _create_profile_via_wizard(default_scheduler: str, *, require_repo: bool = T
     profile["client"]["tenant_id"] = tenant_id
     profile["client"]["company_domain"] = company_domain.strip().lower()
     profile["licensing"] = {
+        "commercial_package": commercial_package,
         "plan": license_plan,
         "days": license_days,
         "max_docs": 0,
+        "require_signed_jwt": True,
+        "manual_jwt_path": "",
+        "expose_license_key_env": False,
+        "expose_dev_plan_override_env": False,
     }
+    _apply_rag_package_policy(profile, rag_enabled=rag_addon_enabled)
     profile["runtime"]["docs_root"] = docs_root
     profile["runtime"]["api_root"] = api_root
     profile["runtime"]["sdk_root"] = sdk_root
@@ -441,7 +490,6 @@ def _create_profile_via_wizard(default_scheduler: str, *, require_repo: bool = T
         "plan": branding_plan,
         "cheapest_paid_plan": branding_cheapest,
         "badge_opt_out": bool(branding_badge_opt_out),
-        "referral_code_env": "VERIDOC_REFERRAL_CODE",
         "docs_root": docs_root,
         "report_path": "reports/veridoc_branding_policy_report.json",
         "apply_on_weekly": True,
@@ -1177,9 +1225,14 @@ def execute_provision(args: argparse.Namespace) -> int:
         profile_path = (REPO_ROOT / profile_path).resolve()
     if not profile_path.exists():
         raise FileNotFoundError(f"Client profile not found: {profile_path}")
-    bundle_root = create_bundle(profile_path)
+    try:
+        bundle_root = create_bundle(profile_path)
+    except RuntimeError as exc:
+        print(f"[error] bundle build failed: {exc}")
+        return 2
     if bool(getattr(args, "bundle_only", False)):
         print(f"[ok] bundle built: {bundle_root}")
+        print(f"[ok] signed license: {bundle_root / 'docsops' / 'license.jwt'}")
         print("[next] deliver this folder to client and place as <client-repo>/docsops")
         print("[next] client runs: python3 docsops/scripts/setup_client_env_wizard.py")
         return 0
@@ -1196,6 +1249,7 @@ def execute_provision(args: argparse.Namespace) -> int:
     run_scheduler_install(client_repo, args.docsops_dir, args.install_scheduler)
 
     print(f"[ok] bundle built: {bundle_root}")
+    print(f"[ok] signed license: {bundle_root / 'docsops' / 'license.jwt'}")
     print(f"[ok] bundle installed: {installed_path}")
     if workflow_path:
         print(f"[ok] pr auto-doc workflow installed: {workflow_path}")

@@ -70,6 +70,7 @@ Hard rules:
 - If the request involves GraphQL, gRPC, AsyncAPI, or WebSocket contracts, use the multi-protocol pipeline entry point (`scripts/run_multi_protocol_contract_flow.py`).
 - Protocol-specific validators: REST (`scripts/validate_openapi_contract.py`), GraphQL (`scripts/validate_graphql_contract.py`), gRPC (`scripts/validate_proto_contract.py`), AsyncAPI (`scripts/validate_asyncapi_contract.py`), WebSocket (`scripts/validate_websocket_contract.py`).
 - After generating or updating any document, run the knowledge module pipeline (extract, validate, rebuild index). See "Knowledge module pipeline (RAG preparation)" section below.
+- Knowledge module timestamp contract is mandatory: every module `metadata.updated_at` MUST be RFC3339/ISO 8601 datetime with timezone (for example, `2026-04-05T13:31:56Z` or `2026-04-05T13:31:56+00:00`). Date-only values (for example, `2026-04-05`) are invalid.
 
 ## Stripe-level documentation quality principles
 

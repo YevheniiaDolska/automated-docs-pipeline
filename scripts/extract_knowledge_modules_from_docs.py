@@ -164,11 +164,47 @@ def _resolve_doc_version(frontmatter: dict[str, Any], variables: dict[str, Any])
 
 
 def _resolve_updated_at(frontmatter: dict[str, Any]) -> str:
+    def _utc_now() -> str:
+        return dt.datetime.now(dt.timezone.utc).replace(microsecond=0).isoformat().replace("+00:00", "Z")
+
+    def _normalize_to_rfc3339(value: str) -> str | None:
+        candidate = value.strip()
+        if not candidate:
+            return None
+        if candidate.lower() in {"none", "null"}:
+            return None
+        candidate = candidate.replace(" ", "T")
+        parsed: dt.datetime | None = None
+        try:
+            parsed = dt.datetime.fromisoformat(candidate.replace("Z", "+00:00"))
+        except ValueError:
+            parsed = None
+        if parsed is not None:
+            if parsed.tzinfo is None:
+                parsed = parsed.replace(tzinfo=dt.timezone.utc)
+            parsed = parsed.astimezone(dt.timezone.utc).replace(microsecond=0)
+            return parsed.isoformat().replace("+00:00", "Z")
+        try:
+            parsed_date = dt.date.fromisoformat(candidate)
+            return f"{parsed_date.isoformat()}T00:00:00Z"
+        except ValueError:
+            return None
+
     for key in ("updated_at", "last_reviewed", "last_modified", "date", "date_created"):
-        raw = str(frontmatter.get(key, "")).strip()
-        if raw:
-            return raw
-    return dt.datetime.utcnow().isoformat() + "Z"
+        raw_value = frontmatter.get(key)
+        if raw_value is None:
+            continue
+        if isinstance(raw_value, dt.datetime):
+            parsed = raw_value
+            if parsed.tzinfo is None:
+                parsed = parsed.replace(tzinfo=dt.timezone.utc)
+            return parsed.astimezone(dt.timezone.utc).replace(microsecond=0).isoformat().replace("+00:00", "Z")
+        if isinstance(raw_value, dt.date):
+            return f"{raw_value.isoformat()}T00:00:00Z"
+        normalized = _normalize_to_rfc3339(str(raw_value))
+        if normalized:
+            return normalized
+    return _utc_now()
 
 
 def _build_doc_url(docs_base_url: str, rel_path: str) -> str:

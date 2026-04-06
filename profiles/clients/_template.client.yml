@@ -264,15 +264,14 @@ runtime:
     required_languages: ["curl", "javascript", "python"]
 
   # Powered by VeriDoc policy automation.
-  # Free + cheapest_paid_plan -> badge mandatory, no commission link.
-  # Higher plans -> optional opt-out, referral code can be appended to landing URL.
+  # Free + cheapest_paid_plan -> badge mandatory.
+  # Higher plans -> optional opt-out.
   veridoc_branding:
     enabled: false
     landing_url: "https://veri-doc.app/"
     plan: "free"
     cheapest_paid_plan: "starter"
     badge_opt_out: false
-    referral_code_env: "VERIDOC_REFERRAL_CODE"
     docs_root: "docs"
     report_path: "reports/veridoc_branding_policy_report.json"
     apply_on_weekly: true
@@ -331,12 +330,22 @@ private_tuning:
   verify_max_attempts: 3
 
 # License tier for this client.
-# JWT is auto-generated during bundle build if Ed25519 private key exists.
-# Plan: pilot | professional | enterprise
+# Signed JWT is required for client delivery.
+# Bundle build auto-generates it if Ed25519 private key exists locally.
+# Otherwise set manual_jwt_path to pre-generated token.
+# Commercial package:
+# - pilot -> license plan pilot (no RAG add-on)
+# - full -> license plan professional
+# - full+rag -> license plan enterprise
 licensing:
+  commercial_package: "full"
   plan: "professional"
   days: 365
   max_docs: 0
+  require_signed_jwt: true
+  manual_jwt_path: ""
+  expose_license_key_env: false
+  expose_dev_plan_override_env: false
 
 legal:
   license_type: "commercial"

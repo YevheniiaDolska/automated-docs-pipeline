@@ -311,7 +311,6 @@ def build_runtime_config(profile: dict[str, Any]) -> dict[str, Any]:
                 "plan": "free",
                 "cheapest_paid_plan": "starter",
                 "badge_opt_out": False,
-                "referral_code_env": "VERIDOC_REFERRAL_CODE",
                 "docs_root": runtime.get("docs_root", "docs"),
                 "report_path": "reports/veridoc_branding_policy_report.json",
                 "apply_on_weekly": True,
@@ -387,19 +386,36 @@ def build_licensing_infrastructure(profile: dict[str, Any], bundle_root: Path) -
     if pub_key_src.exists():
         shutil.copy2(pub_key_src, keys_dir / "veriops-licensing.pub")
 
-    # Try to auto-generate JWT if private key is available
+    # Try to auto-generate JWT if private key is available.
+    # For client deliveries we require a signed JWT by default.
     priv_key_path = REPO_ROOT / "docsops" / "keys" / "veriops-licensing.key"
     licensing = profile.get("licensing", {})
     plan = str(licensing.get("plan", "professional")).strip().lower()
     days = int(licensing.get("days", 365))
     max_docs = int(licensing.get("max_docs", 0))
+    require_signed_jwt = bool(licensing.get("require_signed_jwt", True))
+    manual_jwt_path_raw = str(licensing.get("manual_jwt_path", "")).strip()
     client_id = str(profile.get("client", {}).get("id", "")).strip()
     tenant_id = str(profile.get("client", {}).get("tenant_id", client_id)).strip()
     company_domain = str(profile.get("client", {}).get("company_domain", "")).strip().lower()
 
     jwt_path = docsops_dir / "license.jwt"
+    generated_or_copied = False
 
-    if priv_key_path.exists() and client_id:
+    if manual_jwt_path_raw:
+        manual_jwt_path = Path(manual_jwt_path_raw)
+        if not manual_jwt_path.is_absolute():
+            manual_jwt_path = (REPO_ROOT / manual_jwt_path).resolve()
+        if manual_jwt_path.exists():
+            shutil.copy2(manual_jwt_path, jwt_path)
+            print(f"[license] JWT copied from manual path: {manual_jwt_path}")
+            generated_or_copied = True
+        elif require_signed_jwt:
+            raise RuntimeError(
+                f"Signed JWT is required but manual_jwt_path does not exist: {manual_jwt_path}"
+            )
+
+    if not generated_or_copied and priv_key_path.exists() and client_id:
         try:
             sys_path_orig = list(sys.path)
             build_dir = str(REPO_ROOT / "build")
@@ -422,25 +438,41 @@ def build_licensing_infrastructure(profile: dict[str, Any], bundle_root: Path) -
             )
             jwt_path.write_text(token + "\n", encoding="utf-8")
             print(f"[license] JWT auto-generated: plan={plan}, days={days}, client={client_id}")
+            generated_or_copied = True
         except (RuntimeError, ValueError, TypeError, OSError) as exc:
+            if require_signed_jwt:
+                raise RuntimeError(
+                    "JWT auto-generation failed. Run:\n"
+                    f"python3 build/generate_license.py --client-id {client_id or 'CLIENT'} "
+                    f"--plan {plan} --days {days} "
+                    f"--tenant-id {tenant_id or client_id or 'TENANT'} "
+                    f"--company-domain {company_domain or '<company-domain>'} "
+                    "--output generated/tmp/license.jwt\n"
+                    "Then set licensing.manual_jwt_path to that file and rebuild."
+                ) from exc
             print(f"[license] JWT auto-generation failed ({exc}), writing placeholder")
-            jwt_path.write_text(
-                "# Auto-generation failed. Generate manually:\n"
-                f"#   python3 build/generate_license.py --client-id {client_id} "
-                f"--plan {plan} --days {days} "
-                f"--tenant-id {tenant_id or client_id} "
-                f"--company-domain {company_domain or '<company-domain>'}\n",
-                encoding="utf-8",
-            )
-    else:
+
+    if not generated_or_copied:
         reason = "no private key" if not priv_key_path.exists() else "no client_id"
+        if require_signed_jwt:
+            raise RuntimeError(
+                "Signed JWT is required for this bundle but was not produced "
+                f"({reason}). Run:\n"
+                f"python3 build/generate_license.py --client-id {client_id or 'CLIENT'} "
+                f"--plan {plan} --days {days} "
+                f"--tenant-id {tenant_id or client_id or 'TENANT'} "
+                f"--company-domain {company_domain or '<company-domain>'} "
+                "--output generated/tmp/license.jwt\n"
+                "Then set licensing.manual_jwt_path to that file and rebuild."
+            )
         print(f"[license] Skipping JWT auto-generation ({reason}), writing placeholder")
         jwt_path.write_text(
             "# Placeholder: generate a license JWT with:\n"
             f"#   python3 build/generate_license.py --client-id {client_id or 'CLIENT'} "
             f"--plan {plan} --days {days} "
             f"--tenant-id {tenant_id or client_id or 'TENANT'} "
-            f"--company-domain {company_domain or '<company-domain>'}\n"
+            f"--company-domain {company_domain or '<company-domain>'} "
+            "--output generated/tmp/license.jwt\n"
             "# Then copy the .jwt file here.\n",
             encoding="utf-8",
         )
@@ -775,7 +807,7 @@ def _append_env(lines: list[str], key: str, value: str, comment: str) -> None:
     lines.append("")
 
 
-def build_local_env_template(runtime_cfg: dict[str, Any], bundle_root: Path) -> None:
+def build_local_env_template(profile: dict[str, Any], runtime_cfg: dict[str, Any], bundle_root: Path) -> None:
     lines: list[str] = [
         "# VeriOps local secrets template",
         "# Rename/copy to .env.docsops.local in client repo root and fill real values.",
@@ -917,35 +949,34 @@ def build_local_env_template(runtime_cfg: dict[str, Any], bundle_root: Path) -> 
                         "Zephyr folder id (optional)",
                     )
 
-    branding = runtime_cfg.get("veridoc_branding", {})
-    if isinstance(branding, Mapping) and bool(branding.get("enabled", False)):
-        referral_env = str(branding.get("referral_code_env", "VERIDOC_REFERRAL_CODE")).strip()
-        _append_env(
-            lines,
-            referral_env,
-            "",
-            "Optional referral code used in Powered by VeriDoc badge links for higher plans.",
-        )
-
     pr_autofix = runtime_cfg.get("pr_autofix", {})
     if isinstance(pr_autofix, Mapping) and bool(pr_autofix.get("enabled", False)):
         _append_env(lines, "DOCSOPS_BOT_TOKEN", "", "Optional GitHub token if default GITHUB_TOKEN cannot push")
 
-    # Licensing (always included -- license key determines features)
+    licensing = profile.get("licensing", {})
+    if not isinstance(licensing, Mapping):
+        licensing = {}
+    expose_license_key_env = bool(licensing.get("expose_license_key_env", False))
+    expose_dev_plan_override_env = bool(licensing.get("expose_dev_plan_override_env", False))
+    license_key_env = str(licensing.get("license_key_env", "VERIOPS_LICENSE_KEY")).strip() or "VERIOPS_LICENSE_KEY"
+
+    # Licensing (client-friendly defaults: signed JWT is shipped in docsops/license.jwt)
     lines.append("# --- Licensing ---")
     lines.append("")
-    _append_env(
-        lines,
-        "VERIOPS_LICENSE_KEY",
-        "VDOC-PLAN-clientid-xxxxxxxx",
-        "License key (provided by VeriOps sales). Used for activation and pack decryption.",
-    )
-    _append_env(
-        lines,
-        "VERIOPS_LICENSE_PLAN",
-        "",
-        "Dev/test override: set to pilot|professional|enterprise to bypass JWT validation.",
-    )
+    if expose_license_key_env:
+        _append_env(
+            lines,
+            license_key_env,
+            "",
+            "Operator-only license key (needed only for encrypted capability-pack refresh workflows).",
+        )
+    if expose_dev_plan_override_env:
+        _append_env(
+            lines,
+            "VERIOPS_LICENSE_PLAN",
+            "",
+            "Dev/test override only: set pilot|professional|enterprise to bypass JWT validation.",
+        )
     _append_env(
         lines,
         "VERIOPS_TENANT_ID",
@@ -1046,15 +1077,17 @@ def create_bundle(profile_path: Path) -> Path:
             plan = str(branding_cfg.get("plan", "free")).strip().lower()
             cheapest = str(branding_cfg.get("cheapest_paid_plan", "starter")).strip().lower()
             report_path = str(branding_cfg.get("report_path", "reports/veridoc_branding_policy_report.json")).strip()
-            referral_env = str(branding_cfg.get("referral_code_env", "VERIDOC_REFERRAL_CODE")).strip()
+            referral_env = str(branding_cfg.get("referral_code_env", "")).strip()
             badge_opt_out = bool(branding_cfg.get("badge_opt_out", False))
             opt_out_flag = " --badge-opt-out" if badge_opt_out else ""
+            referral_arg = ""
+            if referral_env:
+                referral_arg = f" --referral-code \"${{{referral_env}:-}}\""
             cmd = (
                 f"python3 docsops/scripts/apply_veridoc_branding_policy.py "
                 f"--repo-root . --docs-root {docs_root} --landing-url {landing_url} "
                 f"--plan {plan} --cheapest-paid-plan {cheapest} "
-                f"--report {report_path}{opt_out_flag} "
-                f"--referral-code \"${{{referral_env}:-}}\""
+                f"--report {report_path}{opt_out_flag}{referral_arg}"
             )
             weekly.append(
                 {
@@ -1181,7 +1214,7 @@ def create_bundle(profile_path: Path) -> Path:
 
     build_llm_instruction_files(profile, bundle_root)
     build_automation_files(profile, bundle_root)
-    build_local_env_template(runtime_cfg, bundle_root)
+    build_local_env_template(profile, runtime_cfg, bundle_root)
     build_vale_config(profile, bundle_root)
     build_licensing_infrastructure(profile, bundle_root)
 

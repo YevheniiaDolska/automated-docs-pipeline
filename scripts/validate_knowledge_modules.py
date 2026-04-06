@@ -50,7 +50,7 @@ ALLOWED_CHANNELS = {
 ALLOWED_SEMANTIC_STATUS = {"rule_based", "llm_enriched"}
 ISO_DATE_PATTERN = re.compile(
     r"^\d{4}-\d{2}-\d{2}"
-    r"(?:[T\s]\d{2}:\d{2}:\d{2}(?:\.\d+)?(?:Z|[+-]\d{2}:?\d{2})?)?$"
+    r"[T\s]\d{2}:\d{2}:\d{2}(?:\.\d+)?(?:Z|[+-]\d{2}:?\d{2})$"
 )
 
 
@@ -163,7 +163,7 @@ def validate_modules(modules_dir: Path) -> tuple[list[dict[str, Any]], list[Modu
                 issues.append(ModuleIssue(str(path), "'metadata.url' must be absolute http(s) URL"))
             updated_at = str(metadata.get("updated_at", "")).strip()
             if updated_at and not ISO_DATE_PATTERN.match(updated_at):
-                issues.append(ModuleIssue(str(path), "'metadata.updated_at' must be ISO-like date/time"))
+                issues.append(ModuleIssue(str(path), "'metadata.updated_at' must be ISO datetime with timezone"))
 
         semantic = module.get("semantic")
         if semantic is not None:

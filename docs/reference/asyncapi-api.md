@@ -4,22 +4,22 @@ description: Auto-generated asyncapi reference from source contract.
 content_type: reference
 product: both
 tags:
-- Users
-- Mnt
-- Auto Doc Pipeline
-- C
 - Docs
 - Development
 - Kroha
+- Mnt
+- C
+- Auto Doc Pipeline
 - Documents
-last_reviewed: '2026-03-31'
+- Users
+last_reviewed: '2026-04-03'
 original_author: Kroha
 ---
 
 
 # ASYNCAPI Reference
 
-Source: `/tmp/pytest-of-eudo/pytest-2839/test_multi_protocol_flow_e2e_e0/asyncapi.yaml`
+Source: `/tmp/pytest-of-eudo/pytest-2842/test_multi_protocol_flow_e2e_e0/asyncapi.yaml`
 
 Flow mode: `api-first`
 

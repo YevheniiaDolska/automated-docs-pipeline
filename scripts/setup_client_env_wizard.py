@@ -10,6 +10,7 @@ from __future__ import annotations
 import platform
 import shutil
 import subprocess
+import sys
 from pathlib import Path
 from typing import Any
 
@@ -17,6 +18,11 @@ try:
     import yaml  # type: ignore
 except ImportError:
     yaml = None  # type: ignore
+
+SCRIPT_PATH = Path(__file__).resolve()
+DOCSOPS_ROOT = SCRIPT_PATH.parents[1]
+if str(DOCSOPS_ROOT) not in sys.path:
+    sys.path.insert(0, str(DOCSOPS_ROOT))
 
 from scripts.docs_ci_bootstrap import install_docs_ci_files
 

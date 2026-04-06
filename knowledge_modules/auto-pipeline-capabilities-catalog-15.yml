@@ -4,8 +4,6 @@ summary: Generated catalog of available pipeline commands, templates, policy pac
   and assets for client configuration.
 intents:
 - integrate
-- secure
-- troubleshoot
 audiences:
 - developer
 - operator
@@ -16,7 +14,7 @@ channels:
 priority: 60
 status: active
 owner: docsops-auto
-last_verified: '2026-04-03'
+last_verified: '2026-04-06'
 dependencies: []
 tags:
 - auto-extracted
@@ -25,13 +23,13 @@ tags:
 metadata:
   url: https://docs.example.com/operations/PIPELINE_CAPABILITIES_CATALOG/
   title: Pipeline Capabilities Catalog (Part 15)
-  heading: Templates
+  heading: RAG operations and runtime surface
   version: 1.50.0
-  updated_at: '2026-03-24'
+  updated_at: '2026-04-05T00:00:00Z'
   source_site: docs.example.com
   source_path: operations/PIPELINE_CAPABILITIES_CATALOG.md
 semantic:
-  topic: Templates
+  topic: RAG operations and runtime surface
   intent: integrate
   audience: developer
   keywords:
@@ -39,197 +37,87 @@ semantic:
   - reference
   status: rule_based
 content:
-  docs_markdown: '## Templates
+  docs_markdown: '## RAG operations and runtime surface
 
 
-    These can be shipped via `bundle.include_paths` and used by LLM generation flow.
+    Runtime and operations include:
 
 
-    - `templates/admin-guide.md`
+    1. Query endpoints: `/rag/query` and `/rag/runtime/query`
 
-    - `templates/api-endpoint.md`
+    1. Observability endpoints: `/rag/metrics` and `/rag/alerts`
 
-    - `templates/api-reference.md`
+    1. Version pointer artifacts: `docs/assets/rag_current.json`, `docs/assets/rag_promoted.json`
 
-    - `templates/architecture-overview.md`
+    1. Version history and retention: `docs/assets/rag_version_history.json`, `docs/assets/rag-versions/`
 
-    - `templates/authentication-guide.md`
+    1. Lifecycle report: `reports/rag_reindex_report.json`
 
-    - `templates/best-practices.md`
-
-    - `templates/changelog.md`
-
-    - `templates/concept.md`
-
-    - `templates/configuration-guide.md`
-
-    - `templates/configuration-reference.md`
-
-    - `templates/deployment-guide.md`
-
-    - `templates/error-handling-guide.md`
-
-    - `templates/faq.md`
-
-    - `templates/glossary-page.md`
-
-    - `templates/how-to.md`
-
-    - `templates/integration-guide.md`
-
-    - `templates/interactive-diagram.html`
-
-    - `templates/migration-guide.md`
-
-    - `templates/plg-persona-guide.md`
-
-    - `templates/plg-value-page.md`
-
-    - `templates/quickstart.md`
-
-    - `templates/reference.md`
-
-    - `templates/release-note.md`
-
-    - `templates/sdk-reference.md`
-
-    - `templates/security-guide.md`
-
-    - `templates/testing-guide.md`
-
-    - `templates/troubleshooting.md`
-
-    - `templates/tutorial.md`
-
-    - `templates/upgrade-guide.md`
-
-    - `templates/use-case.md`
-
-    - `templates/user-guide.md`
-
-    - `templates/webhooks-guide.md`
+    1. Unified enforcement report: `reports/rag_optimization_layer_report.json`
 
 
-    ## Policy Packs
+    ## Current retrieval gate snapshot (2026-04-05)
 
 
-    - `api-first.yml`
-
-    - `minimal.yml`
-
-    - `monorepo.yml`
-
-    - `multi-product.yml`
-
-    - `plg.yml`
+    Latest local run (`npm run eval:retrieval`) produced:
 
 
-    ## Knowledge Modules
+    1. Mode: `token` (no `OPENAI_API_KEY` and no FAISS artifacts in current run context)
+
+    1. Precision@3: `0.24`
+
+    1. Recall@3: `0.72`
+
+    1. Hallucination rate: `0.0`
+
+    1. Sample count: `25` (auto-generated dataset)
 
 
-    Can be copied into client bundle with `bundle.include_paths: [''knowledge_modules'']`.
-
-
-    - `webhook-auth-baseline.yml`
-
-    - `webhook-retry-policy.yml`'
+    This snapshot confirms the RAG layer is active and measurable in local mode, and
+    it also shows remaining headroom for precision improvements in strict local token
+    fallback.'
   assistant_context: 'Use this module when answering questions related to: Pipeline
     Capabilities Catalog (Part 15). Source path: operations/PIPELINE_CAPABILITIES_CATALOG.md.
     Summary: Generated catalog of available pipeline commands, templates, policy packs,
     and assets for client configuration.
 
 
-    ## Templates
+    ## RAG operations and runtime surface
 
 
-    These can be shipped via `bundle.include_paths` and used by LLM generation flow.
+    Runtime and operations include:
 
 
-    - `templates/admin-guide.md`
+    1. Query endpoints: `/rag/query` and `/rag/runtime/query`
 
-    - `templates/api-endpoint.md`
+    1. Observability endpoints: `/rag/metrics` and `/rag/alerts`
 
-    - `templates/api-reference.md`
+    1. Version pointer artifacts: `docs/assets/rag_current.json`, `docs/assets/rag_promoted.json`
 
-    - `templates/architecture-overview.md`
+    1. Version history and retention: `docs/assets/rag_version_history.json`, `docs/assets/rag-versions/`
 
-    - `templates/authentication-guide.md`
+    1. Lifecycle report: `reports/rag_reindex_report.json`
 
-    - `templates/best-practices.md`
-
-    - `templates/changelog.md`
-
-    - `templates/concept.md`
-
-    - `templates/configuration-guide.md`
-
-    - `templates/configuration-reference.md`
-
-    - `templates/deployment-guide.md`
-
-    - `templates/error-handling-guide.md`
-
-    - `templates/faq.md`
-
-    - `templates/glossary-page.md`
-
-    - `templates/how-to.md`
-
-    - `templates/integration-guide.md`
-
-    - `templates/interactive-diagram.html`
-
-    - `templates/migration-guide.md`
-
-    - `templates/plg-persona-guide.md`
-
-    - `templates/plg-value-page.md`
-
-    - `templates/quickstart.md`
-
-    - `templates/reference.md`
-
-    - `templates/release-note.md`
-
-    - `templates/sdk-reference.md`
-
-    - `templates/security-guide.md`
-
-    - `templates/testing-guide.md`
-
-    - `templates/troubleshooting.md`
-
-    - `templates/tutorial.md`
-
-    - `templates/upgrade-guide.md`
-
-    - `templates/use-case.md`
-
-    - `templates/user-guide.md`
-
-    - `templates/webhooks-guide.md`
+    1. Unified enforcement report: `reports/rag_optimization_layer_report.json`
 
 
-    ## Policy Packs
+    ## Current retrieval gate snapshot (2026-04-05)
 
 
-    - `api-first.yml`
-
-    - `minimal.yml`
-
-    - `monorepo.yml`
-
-    - `multi-product.yml`
-
-    - `plg.yml`
+    Latest local run (`npm run eval:retrieval`) produced:
 
 
-    ## Knowledge Modules
+    1. Mode: `token` (no `OPENAI_API_KEY` and no FAISS artifacts in current run context)
+
+    1. Precision@3: `0.24`
+
+    1. Recall@3: `0.72`
+
+    1. Hallucination rate: `0.0`
+
+    1. Sample count: `25` (auto-generated dataset)
 
 
-    Can be copied into client bundle with `bundle.include_paths: [''knowledge_modules'']`.
-
-
-    - `webhook-auth-baseline.yml`
-
-    - `webhook-retry-policy.yml`'
+    This snapshot confirms the RAG layer is active and measurable in local mode, and
+    it also shows remaining headroom for precision improvements in strict local token
+    fallback.'

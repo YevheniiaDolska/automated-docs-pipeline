@@ -14,7 +14,7 @@ channels:
 priority: 60
 status: active
 owner: docsops-auto
-last_verified: '2026-04-03'
+last_verified: '2026-04-06'
 dependencies: []
 tags:
 - auto-extracted
@@ -23,13 +23,13 @@ tags:
 metadata:
   url: https://docs.example.com/operations/PIPELINE_CAPABILITIES_CATALOG/
   title: Pipeline Capabilities Catalog (Part 2)
-  heading: Current product definition (2026-03-25)
+  heading: Current product definition (2026-04-05)
   version: 1.50.0
-  updated_at: '2026-03-24'
+  updated_at: '2026-04-05T00:00:00Z'
   source_site: docs.example.com
   source_path: operations/PIPELINE_CAPABILITIES_CATALOG.md
 semantic:
-  topic: Current product definition (2026-03-25)
+  topic: Current product definition (2026-04-05)
   intent: integrate
   audience: developer
   keywords:
@@ -37,93 +37,17 @@ semantic:
   - reference
   status: rule_based
 content:
-  docs_markdown: '## Current product definition (2026-03-25)
+  docs_markdown: '## Current product definition (2026-04-05)
 
 
-    This content follows the active implementation baseline:
-
-
-    1. The platform is docs-first and also supports `code-first`, `api-first`, and
-    `hybrid` modes.
-
-    1. The smooth autopipeline covers all five API protocols (REST, GraphQL, gRPC,
-    AsyncAPI, and WebSocket) in one operational model.
-
-    1. Non-REST flow includes generated server stubs with business-logic placeholders.
-
-    1. External mock sandbox resolution is integrated, with Postman-supported auto-prepare
-    in external mode.
-
-    1. Contract test assets are generated automatically and merged with smart-merge
-    so manual/customized cases are preserved and flagged for review when needed.
-
-    1. Knowledge/RAG maintenance, terminology sync, and quality/compliance gates run
-    through the same automation surface when enabled.
-
-    1. Plan tiers gate advanced capabilities; higher plans include broader non-REST
-    and governance scope.
-
-
-    This catalog has two layers:
-
-
-    1. npm script entry points (from `package.json`)
-
-    1. direct CLI entry points in `scripts/*.py` that are used by provisioning/operator
-    flows and are not exposed as npm commands
-
-
-    Non-script concepts (policy semantics, sales packaging, pilot/full scope) are
-    documented in ops guides.
-
-
-    Use this catalog with `runtime.custom_tasks.weekly` in client profiles to enable
-    any capability.'
+    This content follows the active implementation baseline:'
   assistant_context: 'Use this module when answering questions related to: Pipeline
     Capabilities Catalog (Part 2). Source path: operations/PIPELINE_CAPABILITIES_CATALOG.md.
     Summary: Generated catalog of available pipeline commands, templates, policy packs,
     and assets for client configuration.
 
 
-    ## Current product definition (2026-03-25)
+    ## Current product definition (2026-04-05)
 
 
-    This content follows the active implementation baseline:
-
-
-    1. The platform is docs-first and also supports `code-first`, `api-first`, and
-    `hybrid` modes.
-
-    1. The smooth autopipeline covers all five API protocols (REST, GraphQL, gRPC,
-    AsyncAPI, and WebSocket) in one operational model.
-
-    1. Non-REST flow includes generated server stubs with business-logic placeholders.
-
-    1. External mock sandbox resolution is integrated, with Postman-supported auto-prepare
-    in external mode.
-
-    1. Contract test assets are generated automatically and merged with smart-merge
-    so manual/customized cases are preserved and flagged for review when needed.
-
-    1. Knowledge/RAG maintenance, terminology sync, and quality/compliance gates run
-    through the same automation surface when enabled.
-
-    1. Plan tiers gate advanced capabilities; higher plans include broader non-REST
-    and governance scope.
-
-
-    This catalog has two layers:
-
-
-    1. npm script entry points (from `package.json`)
-
-    1. direct CLI entry points in `scripts/*.py` that are used by provisioning/operator
-    flows and are not exposed as npm commands
-
-
-    Non-script concepts (policy semantics, sales packaging, pilot/full scope) are
-    documented in ops guides.
-
-
-    Use this catalog with `runtime.custom_tasks.weekly` in client profiles to enable
-    any capability.'
+    This content follows the active implementation baseline:'

@@ -109,6 +109,62 @@ It compresses repetitive documentation and API verification work into a governed
 
 - [Documentation index](index.md)
 
+### VeriDoc data processing agreement (Part 2)
+
+Data processing agreement for VeriDoc platform covering GDPR compliance, sub-processors, data transfer mechanisms, and breach notification procedures.
+
+##### VeriDoc data processing agreement (Part 2): Nature and purpose of processing
+
+| Processing activity | Purpose | Data categories |
+|---------------------|---------|-----------------|
+| Pipeline execution | Transform and enhance documentation | Documentation content, metadata |
+| LLM processing (opt-in) | AI-powered quality improvements | Document sections sent to LLM providers |
+| Usage tracking | Quota enforcement and billing | Request counts, timestamps |
+| Authentication | Access control | Email, hashed passwords, JWT tokens |
+| Billing | Payment processing and invoicing | Email, subscription tier, payment history |
+
+##### VeriDoc data processing agreement (Part 2): Categories of data subjects
+
+Data subjects include your employees, contractors, and any individuals
+whose personal data appears in documentation processed through VeriDoc.
+
+### VeriDoc data processing agreement (Part 6)
+
+Data processing agreement for VeriDoc platform covering GDPR compliance, sub-processors, data transfer mechanisms, and breach notification procedures.
+
+##### VeriDoc data processing agreement (Part 6): EU-US transfers
+
+For sub-processors located in the United States, we rely on:
+
+1. Standard Contractual Clauses (SCCs) approved by the European Commission
+   (June 2021 version).
+1. Supplementary measures including encryption in transit and at rest.
+1. Data minimization -- only the minimum data necessary is transferred.
+
+##### VeriDoc data processing agreement (Part 6): Transfer impact assessment
+
+We have conducted transfer impact assessments for each non-EU
+sub-processor. Assessments are available upon request at
+<privacy@veri-doc.app>.
+
+#### VeriDoc data processing agreement (Part 6): Data breach notification
+
+In the event of a personal data breach:
+
+| Step | Timeline | Action |
+|------|----------|--------|
+| 1 | Within 24 hours | Internal incident response team activated |
+| 2 | Within 72 hours | Written notification to you with breach details |
+| 3 | Within 72 hours | Notification to supervisory authority (if required) |
+| 4 | Ongoing | Regular updates on investigation and remediation |
+
+Breach notification includes:
+
+1. Nature of the breach and categories of data affected.
+1. Estimated number of data subjects affected.
+1. Likely consequences of the breach.
+1. Measures taken to address and mitigate the breach.
+
 ### Intelligent knowledge system architecture
 
 Explains how the pipeline models reusable knowledge modules for AI retrieval, dynamic assembly, and multi-channel documentation delivery.
@@ -263,11 +319,11 @@ GET /v1/download/1.3.0/linux-x86_64
 
 **What is NOT sent:** No reason codes, no usage data, no document counts.
 
-### Pipeline Capabilities Catalog (Part 10)
+### Pipeline Capabilities Catalog (Part 12)
 
 Generated catalog of available pipeline commands, templates, policy packs, and assets for client configuration.
 
-#### Pipeline Capabilities Catalog (Part 10): Test assets generation and smart merge
+#### Pipeline Capabilities Catalog (Part 12): Test assets generation and smart merge
 
 `generate_protocol_test_assets.py` generates protocol-aware test cases for all five protocols with signature-based smart merge to preserve custom and manual test cases across contract changes.
 
@@ -287,11 +343,11 @@ Generated catalog of available pipeline commands, templates, policy packs, and a
 
 **TestRail/Zephyr upload:** `upload_api_test_assets.py` pushes generated cases to TestRail or Zephyr Scale. The `needs_review` flag propagates to both platforms so QA teams can triage stale custom cases.
 
-### Pipeline Capabilities Catalog (Part 15)
+### Pipeline Capabilities Catalog (Part 18)
 
 Generated catalog of available pipeline commands, templates, policy packs, and assets for client configuration.
 
-#### Pipeline Capabilities Catalog (Part 15): Templates
+#### Pipeline Capabilities Catalog (Part 18): Templates
 
 These can be shipped via `bundle.include_paths` and used by LLM generation flow.
 
@@ -328,7 +384,7 @@ These can be shipped via `bundle.include_paths` and used by LLM generation flow.
 - `templates/user-guide.md`
 - `templates/webhooks-guide.md`
 
-#### Pipeline Capabilities Catalog (Part 15): Policy Packs
+#### Pipeline Capabilities Catalog (Part 18): Policy Packs
 
 - `api-first.yml`
 - `minimal.yml`
@@ -336,12 +392,246 @@ These can be shipped via `bundle.include_paths` and used by LLM generation flow.
 - `multi-product.yml`
 - `plg.yml`
 
-#### Pipeline Capabilities Catalog (Part 15): Knowledge Modules
+#### Pipeline Capabilities Catalog (Part 18): Knowledge Modules
 
 Can be copied into client bundle with `bundle.include_paths: ['knowledge_modules']`.
 
 - `webhook-auth-baseline.yml`
 - `webhook-retry-policy.yml`
+
+### VeriDoc privacy policy
+
+Privacy policy for VeriDoc automated documentation platform, covering data collection, processing, storage, retention, and your rights under GDPR.
+
+### VeriDoc privacy policy: VeriDoc privacy policy
+
+This privacy policy explains how Liora Tech ("Company," "we," "us")
+collects, uses, and protects your personal data when you use VeriDoc,
+an automated documentation pipeline platform. This policy applies to
+all users of the VeriDoc web application, API, and CLI tools.
+
+#### VeriDoc privacy policy: Data controller
+
+Liora Tech acts as the data controller for personal data collected through
+the VeriDoc platform.
+
+| Detail | Value |
+|--------|-------|
+| **Company** | Liora Tech |
+| **Contact email** | <privacy@veri-doc.app> |
+| **Data protection inquiries** | <privacy@veri-doc.app> |
+
+#### VeriDoc privacy policy: Data we collect
+
+##### VeriDoc privacy policy: Account data
+
+When you register, we collect:
+
+| Data field | Purpose | Legal basis |
+|------------|---------|-------------|
+| Email address | Authentication, billing notifications, support | Contract performance |
+| Password hash | Authentication (PBKDF2-SHA256, never stored in plaintext) | Contract performance |
+| Subscription tier | Service delivery, usage limit enforcement | Contract performance |
+| Billing records | Payment processing, invoice generation | Contract performance |
+| Referral code | Referral program tracking | Legitimate interest |
+
+### VeriDoc privacy policy (Part 2)
+
+Privacy policy for VeriDoc automated documentation platform, covering data collection, processing, storage, retention, and your rights under GDPR.
+
+##### VeriDoc privacy policy (Part 2): Usage data
+
+When you use the Service, we automatically collect:
+
+| Data field | Purpose | Retention |
+|------------|---------|-----------|
+| Pipeline run metadata | Usage tracking, quota enforcement | 90 days |
+| API request logs | Rate limiting, debugging, abuse prevention | 30 days |
+| Error reports (Sentry) | Bug fixing, reliability improvement | 90 days |
+| Authentication tokens | Session management | Token expiry (24 hours) |
+
+##### VeriDoc privacy policy (Part 2): Documentation content
+
+When you process documentation through the pipeline:
+
+1. Your content is processed in memory during pipeline execution.
+1. Generated outputs (processed Markdown, reports, knowledge modules) are
+   stored in encrypted PostgreSQL databases.
+1. We do not read, analyze, or use your documentation content for any
+   purpose other than providing the Service.
+1. We do not use your content to train machine learning models.
+
+### VeriDoc privacy policy (Part 4)
+
+Privacy policy for VeriDoc automated documentation platform, covering data collection, processing, storage, retention, and your rights under GDPR.
+
+#### VeriDoc privacy policy (Part 4): How we use your data
+
+We use personal data exclusively for:
+
+1. **Service delivery** -- processing your documentation, enforcing usage
+   limits, and managing your subscription.
+1. **Billing** -- processing payments through LemonSqueezy, generating
+   invoices, tracking referral commissions.
+1. **Communication** -- sending transactional emails (subscription
+   confirmations, trial expiry notices, invoice receipts).
+1. **Security** -- detecting unauthorized access, enforcing rate limits,
+   monitoring for abuse.
+1. **Improvement** -- analyzing aggregate, anonymized usage patterns to
+   improve the Service. We never analyze individual content.
+
+#### VeriDoc privacy policy (Part 4): Data storage and security
+
+##### VeriDoc privacy policy (Part 4): Infrastructure
+
+| Component | Location | Encryption |
+|-----------|----------|------------|
+| Application servers | Hetzner Cloud, Germany | TLS 1.3 in transit |
+| PostgreSQL database | Hetzner Cloud, Germany | AES-256 at rest |
+| Redis cache | Hetzner Cloud, Germany | In-memory, no persistence of content |
+| Backups | Hetzner Cloud, Germany | AES-256, 30-day retention |
+
+### VeriDoc privacy policy (Part 5)
+
+Privacy policy for VeriDoc automated documentation platform, covering data collection, processing, storage, retention, and your rights under GDPR.
+
+##### VeriDoc privacy policy (Part 5): Security measures
+
+1. All API communication uses TLS 1.3 encryption.
+1. Passwords are hashed with PBKDF2-SHA256 (600,000 iterations).
+1. JWT authentication tokens expire after 24 hours.
+1. Database backups run daily with 30-day retention and automated restore
+   testing.
+1. Error tracking uses Sentry with PII scrubbing enabled.
+1. Rate limiting enforces 60 requests per minute per user.
+
+#### VeriDoc privacy policy (Part 5): Data retention
+
+| Data type | Retention period | Deletion trigger |
+|-----------|-----------------|------------------|
+| Account data | Account lifetime + 30 days | Account closure |
+| Billing records | 7 years (legal requirement) | Statutory expiry |
+| Pipeline outputs | Account lifetime + 30 days | Account closure |
+| API logs | 30 days | Automatic rotation |
+| Error reports | 90 days | Automatic rotation |
+| Backups | 30 days | Automatic rotation |
+
+After account closure, we retain data for 30 days to allow you to
+reactivate or export. After 30 days, all personal data is permanently
+deleted.
+
+### VeriDoc security contact policy
+
+Security contact channels, response times, severity model, and disclosure workflow for VeriDoc incidents and vulnerability reports.
+
+### VeriDoc security contact policy: VeriDoc security contact policy
+
+This policy defines exactly how to contact VeriDoc for security incidents,
+vulnerability reports, and urgent abuse cases.
+
+#### VeriDoc security contact policy: Official contact channels
+
+| Purpose | Channel | Target response |
+|---------|---------|-----------------|
+| Vulnerability disclosure | <security@veri-doc.app> | Within 24 hours |
+| Incident escalation (active outage or suspected compromise) | <security@veri-doc.app> + <support@veri-doc.app> | Within 1 hour |
+| Privacy and data-protection issues | <privacy@veri-doc.app> | Within 72 hours |
+
+#### VeriDoc security contact policy: What to include in your report
+
+Send a concise report with:
+
+1. Affected endpoint, system, or feature.
+1. Exact reproduction steps.
+1. Expected result and actual result.
+1. Scope estimate (single tenant, multi-tenant, or unknown).
+1. Any logs, timestamps, and request IDs.
+
+#### VeriDoc security contact policy: Severity model and SLA
+
+| Severity | Typical examples | First response | Containment target |
+|----------|------------------|----------------|--------------------|
+| Critical | Data exposure, account takeover, production compromise | 1 hour | 4 hours |
+| High | Auth bypass, privilege escalation, sustained API failure | 4 hours | 12 hours |
+| Medium | Non-critical security misconfiguration | 24 hours | 3 business days |
+| Low | Hardening recommendations, low-risk findings | 72 hours | Planned release |
+
+### VeriDoc security policy
+
+Security policy for VeriDoc platform covering infrastructure security, encryption, authentication, access controls, and incident response procedures.
+
+### VeriDoc security policy: VeriDoc security policy
+
+VeriDoc is an automated documentation pipeline platform that processes
+customer documentation content. This security policy describes the
+technical and organizational measures we implement to protect your data
+and maintain service integrity.
+
+#### VeriDoc security policy: Infrastructure security
+
+##### VeriDoc security policy: Hosting environment
+
+VeriDoc runs on dedicated infrastructure in Hetzner Cloud data centers
+located in Germany (EU).
+
+| Component | Technology | Security configuration |
+|-----------|------------|----------------------|
+| Application server | Ubuntu 22.04 LTS | Automated security patches, SSH key-only access |
+| API service | FastAPI (Python 3.12) | CORS-restricted, rate-limited, JWT-authenticated |
+| Database | PostgreSQL 16 | Encrypted at rest (AES-256), TLS connections |
+| Cache | Redis 7 | Memory-only, no content persistence, private network |
+| Task queue | Celery + Redis | Isolated worker processes, task timeout enforcement |
+| Reverse proxy | Nginx | TLS 1.3, HTTP/2, security headers, rate limiting |
+
+### VeriDoc security policy (Part 2)
+
+Security policy for VeriDoc platform covering infrastructure security, encryption, authentication, access controls, and incident response procedures.
+
+##### VeriDoc security policy (Part 2): Network security
+
+1. All public endpoints require TLS 1.3 encryption. Older TLS versions
+   are rejected.
+1. Database and Redis ports are bound to `127.0.0.1` only -- no external
+   access.
+1. SSH access uses Ed25519 keys exclusively. Password authentication is
+   disabled.
+1. Firewall rules allow only ports 80 (redirect to 443), 443 (HTTPS), and
+   22 (SSH from allowlisted IPs).
+
+#### VeriDoc security policy (Part 2): Authentication and access control
+
+##### VeriDoc security policy (Part 2): User authentication
+
+| Mechanism | Implementation |
+|-----------|---------------|
+| Password hashing | PBKDF2-SHA256 with 600,000 iterations |
+| Token format | JWT (PyJWT) with HS256 signing |
+| Token expiry | 24 hours |
+| Session management | Stateless JWT, no server-side sessions |
+| Rate limiting | 60 requests per minute per user |
+
+##### VeriDoc security policy (Part 2): API authentication
+
+All API endpoints except `/health` and `/auth/register` require a valid
+JWT token in the `Authorization: Bearer <token>` header.
+
+```text
+
+POST /auth/login
+Content-Type: application/json
+
+{"email": "user@example.com", "password": "your-password"}
+
+Response: {"token": "eyJ...", "expires_in": 86400}
+
+```
+
+##### VeriDoc security policy (Part 2): Webhook verification
+
+Incoming LemonSqueezy webhooks are verified using HMAC-SHA256 signatures.
+Requests without a valid `X-Signature` header are rejected with HTTP 403.
+
+#### VeriDoc security policy (Part 2): Encryption
 
 ### SEO/GEO Optimization Guide (Part 5)
 
@@ -491,6 +781,35 @@ Status: Draft for OpenAPI writing
 #### TaskStream API planning notes: Next steps
 
 - [API playground](api-playground.md)
+
+### VeriDoc terms of service
+
+Terms of service governing the use of VeriDoc automated documentation platform, including subscription tiers, usage limits, and acceptable use policies.
+
+### VeriDoc terms of service: VeriDoc terms of service
+
+These terms of service ("Terms") govern your access to and use of VeriDoc,
+an automated documentation pipeline platform operated by Liora Tech
+("Company," "we," "us"). By creating an account or using the service, you
+agree to these Terms.
+
+#### VeriDoc terms of service: Key definitions
+
+| Term | Meaning |
+|------|---------|
+| **Service** | The VeriDoc platform, including the API, web interface, and CLI tools |
+| **User** | Any individual or entity that creates an account on the Service |
+| **Subscription** | A paid plan that grants access to premium features and higher usage limits |
+| **Content** | Documentation, code, configuration, and other materials processed by the Service |
+| **Pipeline run** | A single execution of the documentation processing pipeline |
+
+#### VeriDoc terms of service: Account registration
+
+You must provide accurate information when creating an account. Each user
+must maintain one account. Sharing account credentials violates these Terms.
+
+You are responsible for all activity under your account. Notify us at
+<support@veri-doc.app> if you suspect unauthorized access.
 
 ### Unified Client Configuration (Part 3)
 

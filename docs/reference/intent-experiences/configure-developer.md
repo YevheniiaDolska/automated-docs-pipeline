@@ -194,13 +194,11 @@ Auto-generated asyncapi reference from source contract.
 <div id="asyncapi-playground" style="border:1px solid #d1d5db; padding:12px; border-radius:8px;">
   <p><strong>WebSocket Endpoint:</strong> <code id="asyncapi-ws-view"></code></p>
   <p><strong>HTTP Publish Endpoint:</strong> <code id="asyncapi-http-view"></code></p>
-  <!-- vale off -->
-<textarea id="asyncapi-message" rows="8" style="width:100%; font-family:monospace;">{
+  <textarea id="asyncapi-message" rows="8" style="width:100%; font-family:monospace;">{
   "event_type": "project.updated",
   "event_id": "evt_001",
   "data": {"project_id": "prj_abc123", "status": "active"}
 }</textarea><br/>
-  <!-- vale on -->
   <button id="asyncapi-send-ws">Send via WebSocket</button>
   <button id="asyncapi-send-http">Send via HTTP</button>
   <pre id="asyncapi-output" style="margin-top:12px; max-height:320px; overflow:auto;"></pre>
@@ -819,7 +817,6 @@ Auto-generated grpc reference from source contract.
   <label>Payload (JSON)</label><br/><textarea id="grpc-payload" rows="8" style="width:100%; font-family:monospace;">{
   "name": "world"
 }</textarea><br/>
-  <!-- vale on -->
   <button id="grpc-run">Invoke</button>
   <pre id="grpc-output" style="margin-top:12px; max-height:320px; overflow:auto;"></pre>
 </div>
@@ -2488,7 +2485,7 @@ Two methods:
 | **Interactive wizard** (recommended) | First time, or if unsure about settings | `python3 scripts/onboard_client.py` |
 | **Manual profile + provision** | Repeat setup with known settings | Edit YAML + run `provision_client_repo.py` |
 
-### Pipeline Capabilities Catalog (Part 5)
+### Pipeline Capabilities Catalog (Part 7)
 
 Generated catalog of available pipeline commands, templates, policy packs, and assets for client configuration.
 
@@ -2536,9 +2533,11 @@ Generated catalog of available pipeline commands, templates, policy packs, and a
 | `build:docusaurus` | Build/Generate | `npx docusaurus build` |
 | `build:intent` | Build/Generate | `python3 scripts/assemble_intent_experience.py` |
 | `build:intent:all` | Build/Generate | `python3 scripts/build_all_intent_experiences.py` |
+| `build:knowledge-enrich:llm` | Build/Generate | `python3 scripts/enrich_knowledge_modules_semantic.py` |
 | `build:knowledge-graph` | Build/Generate | `python3 scripts/generate_knowledge_graph_jsonld.py --modules-dir knowledge_modules --output docs/assets/knowledge-graph.jsonld --report reports/knowledge_graph_report.json` |
 | `build:knowledge-index` | Build/Generate | `python3 scripts/generate_knowledge_retrieval_index.py` |
 | `build:mkdocs` | Build/Generate | `mkdocs build --strict` |
+| `build:rag:reindex` | Build/Generate | `python3 scripts/rag_reindex_lifecycle.py --repo-root . --with-embeddings --provider local` |
 | `configurator` | General | `python3 scripts/generate_configurator.py` |
 | `consolidate` | General | `npm run gaps && npm run kpi-wall && npm run kpi-sla && npm run i18n:sync && npm run validate:knowledge && python3 scripts/consolidate_reports.py` |
 | `consolidate:reports-only` | General | `python3 scripts/consolidate_reports.py` |
@@ -2553,8 +2552,12 @@ Generated catalog of available pipeline commands, templates, policy packs, and a
 | `docs-ops:e2e` | VeriOps tests | `python3 scripts/test_docs_ops_e2e.py` |
 | `docs-ops:golden` | VeriOps tests | `python3 scripts/test_golden_reports_and_workflows.py` |
 | `docs-ops:test-suite` | VeriOps tests | `python3 -m pytest -q tests/test_autopipeline_suite.py` |
+| `docsops:generate` | General | `python3 scripts/docsops_generate.py generate --mode operator --trigger always` |
+| `docsops:generate:auto` | General | `python3 scripts/docsops_generate.py generate --mode operator --trigger always --auto` |
+| `docsops:generate:policy` | General | `python3 scripts/docsops_generate.py generate --mode operator --trigger policy --auto` |
+| `docsops:generate:veridoc` | General | `python3 scripts/docsops_generate.py generate --mode veridoc --trigger policy --auto` |
 | `drift-check` | General | `python3 scripts/check_api_sdk_drift.py --base origin/main --head HEAD --json-output reports/api_sdk_drift_report.json --md-output reports/api_sdk_drift_report.md` |
-| `eval:retrieval` | General | `python3 scripts/run_retrieval_evals.py --index docs/assets/knowledge-retrieval-index.json --auto-generate-dataset --dataset-out reports/retrieval_eval_dataset.generated.yml --report reports/retrieval_evals_report.json --top-k 3 --min-precision 0.5 --min-recall 0.5 --max-hallucination-rate 0.5` |
+| `eval:retrieval` | General | `python3 scripts/run_retrieval_evals_gate.py` |
 | `gaps` | Gap detection | `python3 -m scripts.gap_detection.cli analyze` |
 | `gaps:code` | Gap detection | `python3 -m scripts.gap_detection.cli code` |
 | `gaps:community` | Gap detection | `python3 -m scripts.gap_detection.cli community` |
@@ -2601,11 +2604,13 @@ Generated catalog of available pipeline commands, templates, policy packs, and a
 | `serve` | General | `python3 scripts/run_generator.py serve` |
 | `serve:docusaurus` | General | `npx docusaurus start` |
 | `serve:mkdocs` | General | `mkdocs serve` |
+| `smoke:prod` | Validation | `python3 scripts/production_smoke.py` |
 | `test:adapter` | General | `python3 -m pytest tests/test_docusaurus_adapter.py -v` |
 | `test:all` | General | `python3 -m pytest -q tests` |
 | `test:configurator` | General | `python3 -m pytest tests/test_gui_configurator.py -v` |
 | `validate:full` | Validation | `npm run validate:minimal && npm run lint:layers && npm run lint:diagrams && npm run validate:knowledge && npm run docs-ops:e2e && npm run docs-ops:golden && npm run docs-ops:test-suite && python3 test_pipeline.py` |
 | `validate:knowledge` | Validation | `npm run lint:knowledge && npm run build:intent:all && npm run build:knowledge-index && npm run build:knowledge-graph && npm run eval:retrieval` |
+| `validate:knowledge:with-llm-enrich` | Validation | `npm run build:knowledge-enrich:llm && npm run validate:knowledge` |
 | `validate:minimal` | Validation | `npm run normalize:docs:check && npm run lint:md && npm run lint:frontmatter && npm run lint:geo && npm run lint:multilang && npm run lint:examples-smoke` |
 
 ### Run API-first production flow
@@ -3500,6 +3505,10 @@ const worker = new Worker('webhook-events', async (job) => {
   const event = job.data;
   console.log(`Processing ${event.type}: ${JSON.stringify(event)}`);
 
+### Set up a real-time webhook processing pipeline (Part 8)
+
+Configure end-to-end webhook ingestion with HMAC verification, async queue processing, and delivery guarantees in under 15 minutes.
+
 // Route to appropriate handler
   switch (event.type) {
     case 'order.completed':
@@ -4143,13 +4152,11 @@ Auto-generated websocket reference from source contract.
 <!-- vale off -->
 <div id="websocket-playground" style="border:1px solid #d1d5db; padding:12px; border-radius:8px;">
   <p><strong>Endpoint:</strong> <code id="websocket-endpoint-view"></code></p>
-  <!-- vale off -->
-<textarea id="websocket-message" rows="8" style="width:100%; font-family:monospace;">{
+  <textarea id="websocket-message" rows="8" style="width:100%; font-family:monospace;">{
   "type": "subscribe",
   "request_id": "req_001",
   "payload": {"channel": "project.updated", "filters": {"project_id": "prj_abc123"}}
 }</textarea><br/>
-  <!-- vale on -->
   <button id="websocket-send">Connect + Send</button>
   <pre id="websocket-output" style="margin-top:12px; max-height:320px; overflow:auto;"></pre>
 </div>

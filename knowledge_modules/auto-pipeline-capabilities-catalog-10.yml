@@ -4,7 +4,6 @@ summary: Generated catalog of available pipeline commands, templates, policy pac
   and assets for client configuration.
 intents:
 - integrate
-- secure
 - troubleshoot
 audiences:
 - developer
@@ -16,7 +15,7 @@ channels:
 priority: 60
 status: active
 owner: docsops-auto
-last_verified: '2026-04-03'
+last_verified: '2026-04-06'
 dependencies: []
 tags:
 - auto-extracted
@@ -25,13 +24,13 @@ tags:
 metadata:
   url: https://docs.example.com/operations/PIPELINE_CAPABILITIES_CATALOG/
   title: Pipeline Capabilities Catalog (Part 10)
-  heading: Test assets generation and smart merge
+  heading: Multi-protocol contract pipeline
   version: 1.50.0
-  updated_at: '2026-03-24'
+  updated_at: '2026-04-05T00:00:00Z'
   source_site: docs.example.com
   source_path: operations/PIPELINE_CAPABILITIES_CATALOG.md
 semantic:
-  topic: Test assets generation and smart merge
+  topic: Multi-protocol contract pipeline
   intent: integrate
   audience: developer
   keywords:
@@ -39,95 +38,87 @@ semantic:
   - reference
   status: rule_based
 content:
-  docs_markdown: '## Test assets generation and smart merge
+  docs_markdown: '## Multi-protocol contract pipeline
 
 
-    `generate_protocol_test_assets.py` generates protocol-aware test cases for all
-    five protocols with signature-based smart merge to preserve custom and manual
-    test cases across contract changes.
+    The pipeline supports five API protocols with a unified orchestrator (`run_multi_protocol_contract_flow.py`).
+    Each protocol has its own contract format, validator, reference template, test
+    generator, and sandbox fallback.
 
 
-    **Test categories per protocol:**
+    | Protocol | Contract format | Validator | Sandbox fallback |
 
+    | --- | --- | --- | --- |
 
-    | Protocol | Categories |
+    | REST | OpenAPI 3.0 YAML | `validate_openapi_contract.py` + Spectral + Redocly
+    | Prism / Postman mock server |
 
-    | --- | --- |
-
-    | REST | CRUD happy paths, validation errors, auth, rate limiting, pagination
+    | GraphQL | SDL (`.graphql`) | `validate_graphql_contract.py` | `postman-echo.com/post`
     |
 
-    | GraphQL | Query/mutation/subscription happy path, invalid input, auth, injection,
-    latency |
+    | gRPC | Proto3 (`.proto`) | `validate_proto_contract.py` | `postman-echo.com/post`
+    (JSON-over-HTTP) |
 
-    | gRPC | Unary/streaming positive, status codes, deadline/retry, authorization,
-    latency SLO |
+    | AsyncAPI | AsyncAPI 2.6 YAML | `validate_asyncapi_contract.py` | `postman-echo.com/post`
+    + `echo.websocket.events` |
 
-    | AsyncAPI | Publish validation, invalid payload, ordering/idempotency, security,
-    throughput |
-
-    | WebSocket | Connection/auth, message envelope, reconnect, security, concurrency
+    | WebSocket | Channel YAML | `validate_websocket_contract.py` | `echo.websocket.events`
     |
 
 
-    **Output formats:** `api_test_cases.json`, `testrail_test_cases.csv` (TestRail),
-    `zephyr_test_cases.json` (Zephyr Scale), `test_matrix.json`, `fuzz_scenarios.json`.
+    **9 pipeline stages per protocol:** ingest, contract validation, server stub generation,
+    lint, regression detection, docs generation, quality gates (frontmatter + snippet
+    lint + self-verification), test assets generation with smart merge, publish.
 
 
-    **Smart merge rules:** auto-generated cases are replaced on contract change; customized
-    cases (`customized: true`) are preserved and flagged `needs_review: true` when
-    the contract signature changes; manual cases (`origin: "manual"`) are never overwritten.
+    **Autofix cycle:** up to 3 auto-remediation attempts per protocol. Regenerates
+    docs and retries semantic consistency checks on failure.
 
 
-    **TestRail/Zephyr upload:** `upload_api_test_assets.py` pushes generated cases
-    to TestRail or Zephyr Scale. The `needs_review` flag propagates to both platforms
-    so QA teams can triage stale custom cases.'
+    **Contract generation from planning notes:** `generate_protocol_contract_from_planning_notes.py`
+    generates protocol specs from markdown planning notes.'
   assistant_context: 'Use this module when answering questions related to: Pipeline
     Capabilities Catalog (Part 10). Source path: operations/PIPELINE_CAPABILITIES_CATALOG.md.
     Summary: Generated catalog of available pipeline commands, templates, policy packs,
     and assets for client configuration.
 
 
-    ## Test assets generation and smart merge
+    ## Multi-protocol contract pipeline
 
 
-    `generate_protocol_test_assets.py` generates protocol-aware test cases for all
-    five protocols with signature-based smart merge to preserve custom and manual
-    test cases across contract changes.
+    The pipeline supports five API protocols with a unified orchestrator (`run_multi_protocol_contract_flow.py`).
+    Each protocol has its own contract format, validator, reference template, test
+    generator, and sandbox fallback.
 
 
-    **Test categories per protocol:**
+    | Protocol | Contract format | Validator | Sandbox fallback |
 
+    | --- | --- | --- | --- |
 
-    | Protocol | Categories |
+    | REST | OpenAPI 3.0 YAML | `validate_openapi_contract.py` + Spectral + Redocly
+    | Prism / Postman mock server |
 
-    | --- | --- |
-
-    | REST | CRUD happy paths, validation errors, auth, rate limiting, pagination
+    | GraphQL | SDL (`.graphql`) | `validate_graphql_contract.py` | `postman-echo.com/post`
     |
 
-    | GraphQL | Query/mutation/subscription happy path, invalid input, auth, injection,
-    latency |
+    | gRPC | Proto3 (`.proto`) | `validate_proto_contract.py` | `postman-echo.com/post`
+    (JSON-over-HTTP) |
 
-    | gRPC | Unary/streaming positive, status codes, deadline/retry, authorization,
-    latency SLO |
+    | AsyncAPI | AsyncAPI 2.6 YAML | `validate_asyncapi_contract.py` | `postman-echo.com/post`
+    + `echo.websocket.events` |
 
-    | AsyncAPI | Publish validation, invalid payload, ordering/idempotency, security,
-    throughput |
-
-    | WebSocket | Connection/auth, message envelope, reconnect, security, concurrency
+    | WebSocket | Channel YAML | `validate_websocket_contract.py` | `echo.websocket.events`
     |
 
 
-    **Output formats:** `api_test_cases.json`, `testrail_test_cases.csv` (TestRail),
-    `zephyr_test_cases.json` (Zephyr Scale), `test_matrix.json`, `fuzz_scenarios.json`.
+    **9 pipeline stages per protocol:** ingest, contract validation, server stub generation,
+    lint, regression detection, docs generation, quality gates (frontmatter + snippet
+    lint + self-verification), test assets generation with smart merge, publish.
 
 
-    **Smart merge rules:** auto-generated cases are replaced on contract change; customized
-    cases (`customized: true`) are preserved and flagged `needs_review: true` when
-    the contract signature changes; manual cases (`origin: "manual"`) are never overwritten.
+    **Autofix cycle:** up to 3 auto-remediation attempts per protocol. Regenerates
+    docs and retries semantic consistency checks on failure.
 
 
-    **TestRail/Zephyr upload:** `upload_api_test_assets.py` pushes generated cases
-    to TestRail or Zephyr Scale. The `needs_review` flag propagates to both platforms
-    so QA teams can triage stale custom cases.'
+    **Contract generation from planning notes:** `generate_protocol_contract_from_planning_notes.py`
+    generates protocol specs from markdown planning notes.'

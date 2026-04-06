@@ -39,6 +39,7 @@ def _print_profile_preview(profile_path: Path) -> None:
 
     client = payload.get("client", {}) if isinstance(payload.get("client"), dict) else {}
     runtime = payload.get("runtime", {}) if isinstance(payload.get("runtime"), dict) else {}
+    licensing = payload.get("licensing", {}) if isinstance(payload.get("licensing"), dict) else {}
     flow = runtime.get("docs_flow", {}) if isinstance(runtime.get("docs_flow"), dict) else {}
     integrations = runtime.get("integrations", {}) if isinstance(runtime.get("integrations"), dict) else {}
     algolia = integrations.get("algolia", {}) if isinstance(integrations.get("algolia"), dict) else {}
@@ -51,6 +52,18 @@ def _print_profile_preview(profile_path: Path) -> None:
     print(f"- Company: {client.get('company_name', '')}")
     print(f"- Docs flow: {flow.get('mode', 'code-first')}")
     print(f"- Output targets: {runtime.get('output_targets', [])}")
+    commercial_package = str(licensing.get("commercial_package", "")).strip().lower()
+    if not commercial_package:
+        plan_to_package = {
+            "pilot": "pilot",
+            "professional": "full",
+            "enterprise": "full+rag",
+        }
+        commercial_package = plan_to_package.get(str(licensing.get("plan", "professional")).strip().lower(), "full")
+    print(f"- Commercial package: {commercial_package}")
+    print(f"- RAG add-on: {commercial_package == 'full+rag'}")
+    print(f"- License plan (JWT): {licensing.get('plan', 'professional')}")
+    print(f"- Signed JWT required: {bool(licensing.get('require_signed_jwt', True))}")
     print(f"- Algolia enabled: {bool(algolia.get('enabled', False))}")
     print(f"- Ask AI enabled: {bool(ask_ai.get('enabled', False))}")
     llm_mode = str(llm_control.get("llm_mode", "external_preferred")).strip().lower()
