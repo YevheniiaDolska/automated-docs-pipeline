@@ -45,6 +45,7 @@ def _print_profile_preview(profile_path: Path) -> None:
     algolia = integrations.get("algolia", {}) if isinstance(integrations.get("algolia"), dict) else {}
     ask_ai = integrations.get("ask_ai", {}) if isinstance(integrations.get("ask_ai"), dict) else {}
     llm_control = runtime.get("llm_control", {}) if isinstance(runtime.get("llm_control"), dict) else {}
+    branding = runtime.get("veridoc_branding", {}) if isinstance(runtime.get("veridoc_branding"), dict) else {}
 
     print("\nProfile preview")
     print(f"- Profile file: {profile_path}")
@@ -66,6 +67,9 @@ def _print_profile_preview(profile_path: Path) -> None:
     print(f"- Signed JWT required: {bool(licensing.get('require_signed_jwt', True))}")
     print(f"- Algolia enabled: {bool(algolia.get('enabled', False))}")
     print(f"- Ask AI enabled: {bool(ask_ai.get('enabled', False))}")
+    print(f"- Badge policy enabled: {bool(branding.get('enabled', False))}")
+    if bool(branding.get("enabled", False)):
+        print(f"- Badge policy locked: {bool(branding.get('lock_badge_policy', True))}")
     llm_mode = str(llm_control.get("llm_mode", "external_preferred")).strip().lower()
     strict_local = bool(llm_control.get("strict_local_first", llm_mode == "local_default"))
     print(f"- LLM mode: {llm_mode}")
@@ -107,6 +111,11 @@ def parse_args() -> argparse.Namespace:
 
 
 def main() -> int:
+    provision.load_local_env(
+        provision.REPO_ROOT,
+        filenames=(".env", ".env.local", ".env.operator", ".env.docsops.local"),
+        override=False,
+    )
     base_args = parse_args()
     mode = getattr(base_args, "mode", "install-local")
     bundle_only = mode == "bundle-only"
