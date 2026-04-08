@@ -15,20 +15,44 @@ if [[ ! -d "$DEPLOY_DIR" ]]; then
     exit 1
 fi
 
-chmod +x "$DEPLOY_DIR/healthcheck_monitor.sh" "$DEPLOY_DIR/error_log_monitor.sh"
+maybe_chmod() {
+    local path="$1"
+    if [[ -f "$path" ]]; then
+        chmod +x "$path"
+    fi
+}
 
-install -m 0644 "$DEPLOY_DIR/systemd/veridoc-healthcheck-monitor.service" "$SYSTEMD_DIR/veridoc-healthcheck-monitor.service"
-install -m 0644 "$DEPLOY_DIR/systemd/veridoc-healthcheck-monitor.timer" "$SYSTEMD_DIR/veridoc-healthcheck-monitor.timer"
-install -m 0644 "$DEPLOY_DIR/systemd/veridoc-error-monitor.service" "$SYSTEMD_DIR/veridoc-error-monitor.service"
-install -m 0644 "$DEPLOY_DIR/systemd/veridoc-error-monitor.timer" "$SYSTEMD_DIR/veridoc-error-monitor.timer"
+install_unit_if_exists() {
+    local src="$1"
+    local dst="$2"
+    if [[ -f "$src" ]]; then
+        install -m 0644 "$src" "$dst"
+        return 0
+    fi
+    return 1
+}
+
+maybe_chmod "$DEPLOY_DIR/healthcheck_monitor.sh"
+maybe_chmod "$DEPLOY_DIR/error_log_monitor.sh"
+maybe_chmod "$DEPLOY_DIR/server_license_renewal.sh"
+maybe_chmod "$DEPLOY_DIR/license_renewal_healthcheck.sh"
+
+install_unit_if_exists "$DEPLOY_DIR/systemd/veridoc-healthcheck-monitor.service" "$SYSTEMD_DIR/veridoc-healthcheck-monitor.service" || true
+install_unit_if_exists "$DEPLOY_DIR/systemd/veridoc-healthcheck-monitor.timer" "$SYSTEMD_DIR/veridoc-healthcheck-monitor.timer" || true
+install_unit_if_exists "$DEPLOY_DIR/systemd/veridoc-error-monitor.service" "$SYSTEMD_DIR/veridoc-error-monitor.service" || true
+install_unit_if_exists "$DEPLOY_DIR/systemd/veridoc-error-monitor.timer" "$SYSTEMD_DIR/veridoc-error-monitor.timer" || true
+install_unit_if_exists "$DEPLOY_DIR/systemd/veridoc-license-renew.service" "$SYSTEMD_DIR/veridoc-license-renew.service" || true
+install_unit_if_exists "$DEPLOY_DIR/systemd/veridoc-license-renew.timer" "$SYSTEMD_DIR/veridoc-license-renew.timer" || true
 
 systemctl daemon-reload
-systemctl enable --now veridoc-healthcheck-monitor.timer
-systemctl enable --now veridoc-error-monitor.timer
+systemctl enable --now veridoc-healthcheck-monitor.timer 2>/dev/null || true
+systemctl enable --now veridoc-error-monitor.timer 2>/dev/null || true
+systemctl enable --now veridoc-license-renew.timer 2>/dev/null || true
 
 echo "[obs] Enabled timers:"
-systemctl list-timers --all | grep -E "veridoc-(healthcheck|error)-monitor" || true
+systemctl list-timers --all | grep -E "veridoc-(healthcheck|error)-monitor|veridoc-license-renew" || true
 
 echo "[obs] Recent service runs:"
 systemctl --no-pager --full status veridoc-healthcheck-monitor.service || true
 systemctl --no-pager --full status veridoc-error-monitor.service || true
+systemctl --no-pager --full status veridoc-license-renew.service || true

@@ -216,6 +216,77 @@ def _community_license(error: str = "") -> LicenseInfo:
     )
 
 
+# -- Security runtime controls ------------------------------------------------
+
+
+def _security_config() -> dict[str, Any]:
+    try:
+        if RUNTIME_CONFIG_PATH.exists():
+            raw = yaml.safe_load(RUNTIME_CONFIG_PATH.read_text(encoding="utf-8")) or {}
+            if isinstance(raw, dict):
+                sec = raw.get("security", {})
+                if isinstance(sec, dict):
+                    return sec
+    except (RuntimeError, ValueError, TypeError, OSError):
+        return {}
+    return {}
+
+
+def _allow_dev_bypass() -> bool:
+    sec = _security_config()
+    # Keep source/dev compatibility when security block is absent.
+    if not sec:
+        return True
+    return bool(sec.get("allow_dev_bypass", False))
+
+
+def _anti_tamper_enforced() -> bool:
+    sec = _security_config()
+    if not sec:
+        return False
+    profile = str(sec.get("hardening_profile", "production")).strip().lower()
+    return bool(sec.get("anti_tamper_enforced", profile == "production"))
+
+
+def _verify_integrity_manifest() -> tuple[bool, str]:
+    if not _anti_tamper_enforced():
+        return True, ""
+    if not MODULE_HASH_MANIFEST.exists():
+        return False, f"Integrity check failed: manifest missing: {MODULE_HASH_MANIFEST}"
+    try:
+        raw = json.loads(MODULE_HASH_MANIFEST.read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError, ValueError) as exc:
+        return False, f"Integrity check failed: manifest parse failed: {exc}"
+    modules = raw.get("modules", {})
+    if not isinstance(modules, dict) or not modules:
+        return False, "Integrity check failed: manifest has no modules."
+
+    for rel_path, expected_sha in modules.items():
+        target = REPO_ROOT / str(rel_path)
+        if not target.exists():
+            return False, f"Integrity check failed: module missing: {rel_path}"
+        digest = hashlib.sha256(target.read_bytes()).hexdigest()
+        if digest != str(expected_sha):
+            return False, f"Integrity check failed: hash mismatch: {rel_path}"
+    return True, ""
+
+
+def _record_tamper_event(reason: str) -> None:
+    """Append anti-tamper event to a dedicated audit channel."""
+    try:
+        REPORTS_DIR.mkdir(parents=True, exist_ok=True)
+        payload = {
+            "event": "anti_tamper_block",
+            "reason": reason,
+            "timestamp_utc": time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime()),
+            "module_hash_manifest": str(MODULE_HASH_MANIFEST),
+        }
+        with TAMPER_AUDIT_LOG.open("a", encoding="utf-8") as fh:
+            fh.write(json.dumps(payload, ensure_ascii=True) + "\n")
+    except OSError:
+        return
+
+
 # -- JWT parsing (Ed25519 via PyNaCl or fallback) ------------------------------
 
 
@@ -582,9 +653,15 @@ def validate(
     """
     global _phone_home_refreshing
 
+    # Anti-tamper integrity check (enabled in hardened production bundles).
+    integrity_ok, integrity_reason = _verify_integrity_manifest()
+    if not integrity_ok:
+        _record_tamper_event(integrity_reason)
+        return _community_license(integrity_reason)
+
     # Dev/test bypass: VERIOPS_LICENSE_PLAN=enterprise skips JWT validation
     env_plan = os.environ.get("VERIOPS_LICENSE_PLAN", "").strip().lower()
-    if env_plan in PLAN_FEATURES:
+    if env_plan in PLAN_FEATURES and _allow_dev_bypass():
         return LicenseInfo(
             valid=True,
             plan=env_plan,

@@ -1,0 +1,11 @@
+[Unit]
+Description=Run VeriDoc server license auto-renew every 12 hours
+
+[Timer]
+OnBootSec=10min
+OnUnitActiveSec=12h
+Unit=veridoc-license-renew.service
+Persistent=true
+
+[Install]
+WantedBy=timers.target

@@ -5,7 +5,7 @@ date: "2026-03-24"
 last_reviewed: "2026-04-01"
 ---
 
-<!-- cspell:ignore veridoc lemonsqueezy tokenurlsafe token_urlsafe urlsafe msmtp cust dgst chargeback -->
+<!-- cspell:ignore veridoc lemonsqueezy tokenurlsafe token_urlsafe urlsafe msmtp cust dgst chargeback journalctl -->
 
 # Production Runbook (Beginner-Friendly)
 
@@ -259,6 +259,19 @@ docker compose -f docker-compose.production.yml logs -f api worker nginx
 
 1. Enable observability monitors (health + runtime error alerts):
 
+```bash
+sudo bash deploy/setup_observability.sh /opt/veridoc
+systemctl list-timers --all | grep -E 'veridoc-(healthcheck|error)-monitor|veridoc-license-renew'
+```
+
+1. Run a one-shot server license renewal batch and verify timer health:
+
+```bash
+sudo systemctl start veridoc-license-renew.service
+sudo bash deploy/license_renewal_healthcheck.sh
+journalctl -u veridoc-license-renew.service -n 50 --no-pager
+```
+
 ## 11. RAG enterprise hardening verification
 
 Run these checks after each deploy and before GO:
@@ -297,11 +310,6 @@ If strict mode is required for regulated customers, confirm:
 - `llm_control.strict_local_first=true`
 - `llm_control.external_llm_allowed=false`
 - provider in RAG layer is `local`
-
-```bash
-sudo bash deploy/setup_observability.sh /opt/veridoc
-systemctl list-timers --all | grep -E 'veridoc-(healthcheck|error)-monitor'
-```
 
 1. Configure outbound SMTP for alert emails:
 

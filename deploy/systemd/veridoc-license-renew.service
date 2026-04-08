@@ -1,0 +1,13 @@
+[Unit]
+Description=VeriDoc server license auto-renew batch
+After=network.target docker.service
+Wants=docker.service
+
+[Service]
+Type=oneshot
+WorkingDirectory=/opt/veridoc
+ExecStart=/bin/bash /opt/veridoc/deploy/server_license_renewal.sh /opt/veridoc
+User=root
+
+[Install]
+WantedBy=multi-user.target

@@ -378,6 +378,59 @@ python3 scripts/provision_client_repo.py \
 - `ops/install_cron_weekly.sh` / `ops/install_windows_task.ps1`
 - `ops/runbook.md`
 
+## Офлайн продление лицензии для strict-local
+
+Для `strict-local` не нужно переустанавливать весь `docsops/`. Обычно обновляются только:
+
+- `docsops/license.jwt`
+- `docsops/.capability_pack.enc` (если вы обновляете premium pack)
+
+Оператор собирает renewal-архив на своей стороне:
+
+```bash
+python3 scripts/build_offline_renewal_bundle.py \
+  --client-id acme \
+  --plan enterprise \
+  --days 30 \
+  --tenant-id acme \
+  --company-domain acme.example \
+  --with-pack \
+  --license-key "<LICENSE_KEY>"
+```
+
+По умолчанию создается:
+
+```text
+generated/offline_renewals/renewal-<client_id>-<YYYYMMDD>.zip
+```
+
+Если нужен `tar.gz`:
+
+```bash
+python3 scripts/build_offline_renewal_bundle.py \
+  --client-id acme \
+  --plan enterprise \
+  --days 30 \
+  --format tar.gz
+```
+
+Что внутри renewal-архива:
+
+- `docsops/license.jwt`
+- `docsops/.capability_pack.enc` (опционально)
+- `README_RENEWAL.md` (инструкция для клиента)
+- `renewal_manifest.json`
+
+Как клиент применяет обновление:
+
+\11. Распаковать архив в корень репозитория (где лежит `docsops/`).
+\11. Заменить `docsops/license.jwt` (и `docsops/.capability_pack.enc`, если он есть в архиве).
+\11. Проверить лицензию:
+
+```bash
+python3 docsops/scripts/license_gate.py --json
+```
+
 ## Не ломает ли это локальный опыт?
 
 Не ломает.
@@ -561,3 +614,45 @@ Canonical execution order reference:
 Commercial note:
 
 - Where commercial packaging is discussed, recurring service terms (retainer/licensing) are part of the active go-to-market model.
+
+## Server auto-renew runbook (hybrid/cloud)
+
+When retainer is active, run server-side license renewal batch on schedule:
+
+```bash
+python3 scripts/run_server_license_renewal.py
+```
+
+Expected output is JSON with:
+
+- `scanned`
+- `refreshed`
+- `degraded`
+- `errors`
+
+Optional API trigger (ops token required):
+
+```bash
+curl -X POST "https://<your-api>/ops/billing/license/renew/run" \
+  -H "Content-Type: application/json" \
+  -H "X-VeriOps-Server-Token: <ops-token>" \
+  -d '{"dry_run": false}'
+```
+
+Policy:
+
+- Active/trialing subscriptions get refreshed server license.
+- Inactive subscriptions are downgraded on renewal pass.
+- Strict-local clients use offline renewal bundles and do not require online renewal.
+
+## Hardening e2e matrix report
+
+Generate a PASS/FAIL report for the hardening controls:
+
+```bash
+python3 scripts/run_hardening_e2e_matrix.py
+```
+
+Report path:
+
+- `reports/hardening_e2e_matrix_report.json`
