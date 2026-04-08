@@ -13,8 +13,10 @@ TIMER="${2:-veridoc-license-renew.timer}"
 systemctl is-enabled "$TIMER" >/dev/null
 systemctl is-active "$TIMER" >/dev/null
 
-if ! systemctl --no-pager --full status "$SERVICE" | grep -Eq "Active: inactive \\(dead\\)|Active: active \\(running\\)"; then
-    echo "[license-renew-health] unexpected service status for $SERVICE"
+active_state="$(systemctl show -p ActiveState --value "$SERVICE" 2>/dev/null || true)"
+sub_state="$(systemctl show -p SubState --value "$SERVICE" 2>/dev/null || true)"
+if [[ "$active_state" != "active" && "$active_state" != "inactive" ]]; then
+    echo "[license-renew-health] unexpected service state: ActiveState=$active_state SubState=$sub_state"
     systemctl --no-pager --full status "$SERVICE" || true
     exit 1
 fi
