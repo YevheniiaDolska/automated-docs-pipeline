@@ -23,9 +23,6 @@ if [[ -z "$API_CONTAINER" ]]; then
     exit 1
 fi
 
-# Keep billing runtime in sync with repository code, even when image rollout lags.
-docker cp "$ROOT_DIR/packages/core/gitspeak_core/api/billing.py" "$API_CONTAINER:/app/gitspeak_core/api/billing.py"
-
 docker exec "$API_CONTAINER" python3 -c \
   "import json; from gitspeak_core.api.billing import run_license_autorenew_batch; from gitspeak_core.db.engine import get_session; session=get_session(); print(json.dumps(run_license_autorenew_batch(session), ensure_ascii=True)); session.close()" \
     | tee -a "$LOG_DIR/license_renewal.log"
