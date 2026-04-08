@@ -17,8 +17,17 @@ cd "$ROOT_DIR"
 stamp="$(date -u +%Y-%m-%dT%H:%M:%SZ)"
 echo "[license-renew] start ${stamp}" | tee -a "$LOG_DIR/license_renewal.log"
 
-docker compose -f "$COMPOSE_FILE" exec -T api python3 -c \
+API_CONTAINER="${API_CONTAINER:-$(docker ps --format '{{.Names}}' --filter 'name=veridoc-api' | head -n 1)}"
+if [[ -z "$API_CONTAINER" ]]; then
+    echo "[license-renew] ERROR: veridoc api container is not running." | tee -a "$LOG_DIR/license_renewal.log"
+    exit 1
+fi
+
+# Keep billing runtime in sync with repository code, even when image rollout lags.
+docker cp "$ROOT_DIR/packages/core/gitspeak_core/api/billing.py" "$API_CONTAINER:/app/gitspeak_core/api/billing.py"
+
+docker exec "$API_CONTAINER" python3 -c \
   "import json; from gitspeak_core.api.billing import run_license_autorenew_batch; from gitspeak_core.db.engine import get_session; session=get_session(); print(json.dumps(run_license_autorenew_batch(session), ensure_ascii=True)); session.close()" \
-  | tee -a "$LOG_DIR/license_renewal.log"
+    | tee -a "$LOG_DIR/license_renewal.log"
 
 echo "[license-renew] done $(date -u +%Y-%m-%dT%H:%M:%SZ)" | tee -a "$LOG_DIR/license_renewal.log"
