@@ -97,6 +97,9 @@ LICENSE_STORE_DIR = Path(
 ).expanduser()
 LICENSE_ISSUER = os.environ.get("VERIDOC_LICENSE_ISSUER", "veridoc-billing")
 LICENSE_AUDIENCE = os.environ.get("VERIDOC_LICENSE_AUDIENCE", "veriops-client")
+LICENSE_REFRESH_BEFORE_SECONDS = int(
+    os.environ.get("VERIDOC_LICENSE_REFRESH_BEFORE_SECONDS", "86400")
+)
 
 def _load_default_monthly_cents() -> dict[str, int]:
     """Load fallback tier prices from pricing config used by the landing."""
@@ -884,6 +887,35 @@ def handle_get_server_license_token(
     db_session: Any,
 ) -> LicenseTokenResponse:
     """Return current auto-managed license JWT for authenticated user."""
+    from gitspeak_core.db.models import User
+
+    user = db_session.query(User).filter(User.id == user_id).first()
+    if not user or not user.subscription:
+        raise ValueError("No subscription found")
+    sub = user.subscription
+
+    # Retainer-active gate: only trialing/active subscriptions can receive tokens.
+    if not _is_license_active_status(str(getattr(sub, "status", "") or "")):
+        return LicenseTokenResponse(has_license=False)
+
+    # Opportunistic refresh: re-issue token when missing or near expiration.
+    status_snapshot = handle_get_server_license_status(user_id, db_session)
+    refresh_needed = not bool(status_snapshot.has_license)
+    if not refresh_needed and status_snapshot.expires_at:
+        try:
+            expires_at = datetime.fromisoformat(str(status_snapshot.expires_at))
+            if expires_at.tzinfo is None:
+                expires_at = expires_at.replace(tzinfo=timezone.utc)
+            refresh_needed = (expires_at - datetime.now(timezone.utc)).total_seconds() <= LICENSE_REFRESH_BEFORE_SECONDS
+        except ValueError:
+            refresh_needed = True
+    if refresh_needed:
+        _issue_or_refresh_server_license(
+            sub,
+            reason="server_token_pull_refresh",
+            db_session=db_session,
+        )
+
     status = handle_get_server_license_status(user_id, db_session)
     if not status.has_license or not status.license_path:
         return LicenseTokenResponse(has_license=False)
@@ -898,6 +930,49 @@ def handle_get_server_license_token(
         token=token,
         expires_at=status.expires_at,
     )
+
+
+def run_license_autorenew_batch(
+    db_session: Any,
+    now: datetime | None = None,
+) -> dict[str, int]:
+    """Refresh/degrade server-managed licenses for all subscriptions.
+
+    Intended for periodic server cron (hybrid/cloud renewal loop).
+    """
+    from gitspeak_core.db.models import Subscription
+
+    now = now or datetime.now(timezone.utc)
+    subs = db_session.query(Subscription).all()
+    scanned = 0
+    refreshed = 0
+    degraded = 0
+    errors = 0
+
+    for sub in subs:
+        scanned += 1
+        try:
+            active = _is_license_active_status(str(getattr(sub, "status", "") or ""))
+            _issue_or_refresh_server_license(
+                sub,
+                reason="batch_autorenew_active" if active else "batch_autorenew_inactive",
+                db_session=db_session,
+            )
+            if active:
+                refreshed += 1
+            else:
+                degraded += 1
+        except (RuntimeError, ValueError, TypeError, OSError):
+            errors += 1
+            db_session.rollback()
+
+    return {
+        "scanned": scanned,
+        "refreshed": refreshed,
+        "degraded": degraded,
+        "errors": errors,
+        "ran_at_utc": now.isoformat(),
+    }
 
 
 def check_quota(user_id: str, resource: str, db_session: Any) -> bool:

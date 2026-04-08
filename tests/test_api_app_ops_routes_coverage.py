@@ -135,6 +135,7 @@ async def test_app_ops_and_legacy_routes(monkeypatch: pytest.MonkeyPatch, tmp_pa
     monkeypatch.setattr(billing_mod, "verify_manual_billing_webhook_signature", lambda *_a, **_k: True)
     monkeypatch.setattr(billing_mod, "handle_manual_billing_webhook", lambda *_a, **_k: {"ok": True})
     monkeypatch.setattr(billing_mod, "handle_manual_subscription_upsert", lambda *_a, **_k: {"status": "ok"})
+    monkeypatch.setattr(billing_mod, "run_license_autorenew_batch", lambda *_a, **_k: {"scanned": 1, "refreshed": 1, "degraded": 0, "errors": 0})
 
     assert (await app_mod.get_billing_license_status(user={"user_id": "u1"}, db=db))["enabled"] is True
     assert (await app_mod.get_billing_license_token(user={"user_id": "u1"}, db=db))["has_license"] is True
@@ -149,6 +150,9 @@ async def test_app_ops_and_legacy_routes(monkeypatch: pytest.MonkeyPatch, tmp_pa
     manual_ok = await app_mod.manual_billing_webhook(_FakeRequest({"event_name": "invoice_paid", "data": {"x": 1}}, headers={"x-manual-signature": "s"}), db=db)
     assert manual_ok["ok"] is True
     assert (await app_mod.ops_manual_subscription_upsert(app_mod.ManualSubscriptionUpsertRequest(user_id="u1", tier="pro"), db=db))["status"] == "ok"
+    renew = await app_mod.ops_run_license_renew_batch(app_mod.LicenseRenewBatchRequest(dry_run=False), db=db, _auth=None)
+    assert renew["status"] == "ok"
+    assert renew["result"]["refreshed"] == 1
 
     # Pack registry + telemetry.
     monkeypatch.setattr(app_mod, "PACK_REGISTRY_REQUIRE_SIGNATURE", False)

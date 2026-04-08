@@ -6,6 +6,7 @@ import json
 import sys
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
+from typing import Any
 
 import pytest
 from sqlalchemy import create_engine
@@ -208,3 +209,69 @@ def test_license_status_raises_without_subscription(db_session) -> None:
     user = _mk_user(db_session, "u-no-sub", "nosub@example.com")
     with pytest.raises(ValueError):
         mod.handle_get_server_license_status(user.id, db_session)
+
+
+def test_license_token_requires_active_subscription(db_session, monkeypatch: pytest.MonkeyPatch, tmp_path: Path) -> None:
+    from gitspeak_core.api import billing as mod
+    from gitspeak_core.db.models import Subscription
+
+    user = _mk_user(db_session, "u-inactive", "inactive@example.com")
+    sub = Subscription(
+        user_id=user.id,
+        tier="pro",
+        status="canceled",
+        current_period_start=datetime.now(timezone.utc),
+        current_period_end=datetime.now(timezone.utc) + timedelta(days=30),
+    )
+    db_session.add(sub)
+    db_session.commit()
+
+    monkeypatch.setattr(mod, "LICENSE_STORE_DIR", tmp_path)
+    user_dir = tmp_path / user.id
+    user_dir.mkdir(parents=True, exist_ok=True)
+    (user_dir / "license.jwt").write_text("token-123\n", encoding="utf-8")
+    (user_dir / "license_meta.json").write_text(json.dumps({"expires_at": "2099-01-01T00:00:00+00:00"}), encoding="utf-8")
+
+    token_resp = mod.handle_get_server_license_token(user.id, db_session)
+    assert token_resp.has_license is False
+
+
+def test_license_autorenew_batch_counts(db_session, monkeypatch: pytest.MonkeyPatch) -> None:
+    from gitspeak_core.api import billing as mod
+    from gitspeak_core.db.models import Subscription
+
+    u1 = _mk_user(db_session, "u-batch-1", "b1@example.com")
+    u2 = _mk_user(db_session, "u-batch-2", "b2@example.com")
+    db_session.add_all(
+        [
+            Subscription(
+                user_id=u1.id,
+                tier="pro",
+                status="active",
+                current_period_start=datetime.now(timezone.utc),
+                current_period_end=datetime.now(timezone.utc) + timedelta(days=30),
+            ),
+            Subscription(
+                user_id=u2.id,
+                tier="pro",
+                status="canceled",
+                current_period_start=datetime.now(timezone.utc),
+                current_period_end=datetime.now(timezone.utc) + timedelta(days=30),
+            ),
+        ]
+    )
+    db_session.commit()
+
+    seen: list[str] = []
+
+    def _fake_issue(sub: Any, reason: str, db_session: Any) -> None:
+        seen.append(reason)
+
+    monkeypatch.setattr(mod, "_issue_or_refresh_server_license", _fake_issue)
+    result = mod.run_license_autorenew_batch(db_session)
+    assert result["scanned"] == 2
+    assert result["refreshed"] == 1
+    assert result["degraded"] == 1
+    assert result["errors"] == 0
+    assert "batch_autorenew_active" in seen
+    assert "batch_autorenew_inactive" in seen

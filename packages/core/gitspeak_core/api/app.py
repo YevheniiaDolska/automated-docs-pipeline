@@ -626,6 +626,14 @@ class ManualSubscriptionUpsertRequest(BaseModel):
     external_customer_ref: str | None = Field(default=None, max_length=128)
 
 
+class LicenseRenewBatchRequest(BaseModel):
+    """Ops-triggered server license renewal batch options."""
+
+    model_config = ConfigDict(extra="forbid")
+
+    dry_run: bool = False
+
+
 class RagQueryRequest(BaseModel):
     """Live retrieval query request."""
 
@@ -1477,6 +1485,23 @@ async def ops_manual_subscription_upsert(
         return handle_manual_subscription_upsert(request.model_dump(), db)
     except ValueError as exc:
         raise HTTPException(status_code=400, detail=str(exc))
+
+
+@app.post("/ops/billing/license/renew/run", tags=["ops"])
+async def ops_run_license_renew_batch(
+    request: LicenseRenewBatchRequest,
+    db: Any = Depends(get_db),
+    _auth: None = Depends(_require_ops_token),
+) -> dict[str, Any]:
+    """Run server-side license auto-renew batch (hybrid/cloud operator job)."""
+    from gitspeak_core.api.billing import run_license_autorenew_batch
+
+    if request.dry_run:
+        return {"status": "ok", "dry_run": True}
+    return {
+        "status": "ok",
+        "result": run_license_autorenew_batch(db),
+    }
 
 
 # =========================================================================
