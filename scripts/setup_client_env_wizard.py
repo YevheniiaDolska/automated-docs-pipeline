@@ -38,6 +38,49 @@ DEFAULT_ENV_VALUES: dict[str, str] = {
     "VERIOPS_PACK_REGISTRY_URL": "https://api.veri-doc.app/ops/pack-registry/fetch",
 }
 
+AUTO_ACCEPT_KEYS: set[str] = {
+    "VERIOPS_UPDATE_SERVER",
+    "VERIOPS_PHONE_HOME_URL",
+    "VERIOPS_PHONE_HOME_ENABLED",
+    "VERIOPS_UPDATE_CHECK_ENABLED",
+    "VERIOPS_REVOCATION_CHECK_ENABLED",
+    "VERIOPS_REVOCATION_URL",
+    "VERIOPS_PACK_REGISTRY_URL",
+    "VERIOPS_LICENSE_PLAN",
+}
+
+AUTO_ACCEPT_IF_PRESENT_KEYS: set[str] = {
+    "VERIOPS_TENANT_ID",
+    "VERIOPS_COMPANY_DOMAIN",
+}
+
+FIELD_GUIDANCE: dict[str, str] = {
+    "ALGOLIA_APP_ID": "Take from your Algolia dashboard (Settings/API). Use your own account.",
+    "ALGOLIA_API_KEY": "Use your Algolia Admin API key for write/indexing operations (not search-only). Never use a shared operator key.",
+    "ALGOLIA_INDEX_NAME": "You can invent it. Best practice: veriops_<client_slug>_docs (for example veriops_acme_docs).",
+    "OPENAI_API_KEY": "Use your OpenAI key. Do not reuse a shared operator key.",
+    "ANTHROPIC_API_KEY": "Use your Anthropic key.",
+    "AZURE_OPENAI_API_KEY": "Use your Azure OpenAI key.",
+    "AZURE_OPENAI_ENDPOINT": "Use your Azure OpenAI endpoint URL from Azure portal.",
+    "POSTMAN_API_KEY": "Use your Postman API key.",
+    "POSTMAN_WORKSPACE_ID": "Take from your Postman workspace settings.",
+    "POSTMAN_COLLECTION_UID": "Optional. Leave empty to auto-import from generated contract.",
+    "POSTMAN_MOCK_SERVER_ID": "Optional. Leave empty to auto-create.",
+    "VERIOPS_TENANT_ID": "Set to your tenant/org slug. Must match license JWT binding if set.",
+    "VERIOPS_COMPANY_DOMAIN": "Your primary domain (for binding check). Optional but recommended.",
+    "VERIOPS_LICENSE_PLAN": "Dev/test only. Keep empty in production; production uses docsops/license.jwt.",
+    "VERIOPS_LICENSE_KEY": "Operator-only in most deliveries. Keep empty unless your operator asks for it.",
+    "VERIOPS_UPDATE_SERVER": "Usually keep generated default value.",
+    "VERIOPS_PHONE_HOME_URL": "Usually keep generated default value.",
+    "VERIOPS_PHONE_HOME_ENABLED": "Usually keep generated default value.",
+    "VERIOPS_UPDATE_CHECK_ENABLED": "Usually keep generated default value.",
+    "VERIOPS_REVOCATION_CHECK_ENABLED": "Usually false unless operator mandates online revocation checks.",
+    "VERIOPS_REVOCATION_URL": "Usually keep generated default value.",
+    "VERIOPS_PACK_REGISTRY_URL": "Usually keep generated default value.",
+    "TESTRAIL_UPLOAD_ENABLED": "Set true only if you want upload to TestRail.",
+    "ZEPHYR_UPLOAD_ENABLED": "Set true only if you want upload to Zephyr Scale.",
+}
+
 
 def _parse_template(template_path: Path) -> list[tuple[str, str]]:
     items: list[tuple[str, str]] = []
@@ -110,6 +153,23 @@ def _prompt_yes_no(prompt: str, default_yes: bool = True) -> bool:
     if not raw:
         return default_yes
     return raw in {"y", "yes"}
+
+
+def _guidance_for_key(key: str) -> str:
+    direct = FIELD_GUIDANCE.get(key)
+    if direct:
+        return direct
+    if key.endswith("_API_KEY"):
+        return "Take from your provider dashboard. Use your own key."
+    if key.endswith("_APP_ID"):
+        return "Take from your provider dashboard."
+    if key.endswith("_INDEX_NAME"):
+        return "You can invent it. Best practice: <product>_<client_slug>_<purpose>."
+    if key.endswith("_BASE_URL") or key.endswith("_URL") or key.endswith("_ENDPOINT"):
+        return "Use your service URL (or the one provided by your operator)."
+    if key.endswith("_ENABLED"):
+        return "Boolean flag. Use true/false."
+    return ""
 
 
 def _install_ollama_and_model(model: str) -> None:
@@ -211,6 +271,100 @@ def _create_ollama_model(model_name: str, modelfile_path: Path) -> None:
         print(f"[env-wizard] Run manually: ollama create {model_name} -f {modelfile_path}")
 
 
+def _git_toplevel(start_dir: Path) -> Path | None:
+    completed = subprocess.run(
+        ["git", "rev-parse", "--show-toplevel"],
+        cwd=str(start_dir),
+        check=False,
+        capture_output=True,
+        text=True,
+    )
+    if completed.returncode != 0:
+        return None
+    out = completed.stdout.strip()
+    if not out:
+        return None
+    return Path(out).resolve()
+
+
+def _resolve_docsops_runtime(git_root: Path, current_dir: Path) -> tuple[str, str] | None:
+    candidates = [
+        ("docsops", "docsops/config/client_runtime.yml", git_root / "docsops" / "scripts" / "run_docs_ci_checks.py"),
+        (".", "config/client_runtime.yml", git_root / "scripts" / "run_docs_ci_checks.py"),
+        ("docsops", "docsops/config/client_runtime.yml", current_dir / "docsops" / "scripts" / "run_docs_ci_checks.py"),
+        (".", "config/client_runtime.yml", current_dir / "scripts" / "run_docs_ci_checks.py"),
+    ]
+    for docsops_prefix, runtime_cfg, check_script in candidates:
+        if check_script.exists():
+            return docsops_prefix, runtime_cfg
+    return None
+
+
+def install_local_precommit_hooks(repo_root: Path) -> tuple[bool, list[Path], str]:
+    """Install repository-local pre-commit hooks for docsops checks.
+
+    Creates both:
+    - `.husky/pre-commit` (so review branch flow can run `sh .husky/pre-commit`)
+    - `.git/hooks/pre-commit` (so local `git commit` is actually gated)
+    """
+    git_root = _git_toplevel(repo_root)
+    if git_root is None:
+        return False, [], "Not inside a git repository."
+
+    resolved = _resolve_docsops_runtime(git_root, repo_root)
+    if resolved is None:
+        return (
+            False,
+            [],
+            "Cannot locate docsops/scripts/run_docs_ci_checks.py. "
+            "Ensure bundle is unpacked as <repo>/docsops.",
+        )
+    docsops_prefix, runtime_cfg_rel = resolved
+
+    if docsops_prefix == ".":
+        check_cmd = f'python3 scripts/run_docs_ci_checks.py --runtime-config "{runtime_cfg_rel}"'
+    else:
+        check_cmd = f'python3 {docsops_prefix}/scripts/run_docs_ci_checks.py --runtime-config "{runtime_cfg_rel}"'
+
+    husky_dir = git_root / ".husky"
+    husky_internal = husky_dir / "_"
+    husky_dir.mkdir(parents=True, exist_ok=True)
+    husky_internal.mkdir(parents=True, exist_ok=True)
+
+    husky_helper = husky_internal / "husky.sh"
+    if not husky_helper.exists():
+        husky_helper.write_text("#!/usr/bin/env sh\nset -e\n", encoding="utf-8")
+
+    husky_hook = husky_dir / "pre-commit"
+    husky_hook.write_text(
+        "#!/usr/bin/env sh\n"
+        "set -e\n"
+        f"{check_cmd}\n",
+        encoding="utf-8",
+    )
+
+    git_hook = git_root / ".git" / "hooks" / "pre-commit"
+    git_hook.parent.mkdir(parents=True, exist_ok=True)
+    git_hook.write_text(
+        "#!/usr/bin/env sh\n"
+        "set -e\n"
+        "if [ -f ./.husky/pre-commit ]; then\n"
+        "  exec sh ./.husky/pre-commit\n"
+        "fi\n"
+        f"{check_cmd}\n",
+        encoding="utf-8",
+    )
+
+    for path in (husky_helper, husky_hook, git_hook):
+        try:
+            path.chmod(0o755)
+        except OSError as exc:
+            print(f"[env-wizard] warning: cannot set executable bit on {path}: {exc}")
+
+    installed = [husky_hook, git_hook]
+    return True, installed, ""
+
+
 def main() -> int:
     repo_root = Path(".").resolve()
     template_path = repo_root / TEMPLATE_FILE
@@ -234,14 +388,33 @@ def main() -> int:
     print("Client secrets wizard")
     print(f"- Source template: {template_path.name}")
     print(f"- Output file: {env_path.name}")
+    print("- You only need to enter values for external services you enable (Algolia/LLM/Postman/etc).")
+    print("- Internal VeriOps server endpoints are auto-kept unless your operator tells you to change them.")
     print("- Press Enter to keep current/default value.\n")
 
     values = _read_existing(env_path)
+    prompted_count = 0
     for key, hint in items:
+        if key in AUTO_ACCEPT_KEYS:
+            if key not in values:
+                values[key] = ""
+            continue
+        if key in AUTO_ACCEPT_IF_PRESENT_KEYS and str(values.get(key, "")).strip():
+            continue
+        # Shared fallback keys are optional by design for centrally managed entitlement.
+        # Keep them empty by default and do not prompt during standard client setup.
+        if key.startswith("DOCSOPS_SHARED_") and not values.get(key, "").strip():
+            values[key] = ""
+            continue
         current = values.get(key, "")
         suffix = f" [{current}]" if current else ""
-        prompt = f"{key} ({hint}){suffix}: "
+        guidance = _guidance_for_key(key)
+        composed_hint = hint.strip()
+        if guidance:
+            composed_hint = f"{composed_hint} | {guidance}" if composed_hint else guidance
+        prompt = f"{key} ({composed_hint}){suffix}: "
         entered = input(prompt).strip()
+        prompted_count += 1
         if entered:
             values[key] = entered
         elif key not in values:
@@ -250,6 +423,7 @@ def main() -> int:
     _ensure_ip_protection_defaults(values)
     _write_env(env_path, values)
     print(f"\n[env-wizard] wrote {env_path}")
+    print(f"[env-wizard] prompted fields: {prompted_count}")
     runtime = _load_runtime(repo_root)
     llm_control = runtime.get("llm_control", {}) if isinstance(runtime.get("llm_control"), dict) else {}
     llm_mode = str(llm_control.get("llm_mode", "external_preferred")).strip().lower()
@@ -281,7 +455,21 @@ def main() -> int:
         for ci_path in ci_paths:
             print(f"[env-wizard] docs CI installed: {ci_path}")
 
-    print("[env-wizard] next: run docsops/ops/run_weekly_docsops.sh (or .ps1)")
+    if _prompt_yes_no("Install local git pre-commit hooks now (required for local commit gate)?", default_yes=True):
+        ok, installed_paths, error = install_local_precommit_hooks(repo_root)
+        if not ok:
+            print(f"[env-wizard] hook install failed: {error}")
+            return 3
+        for hook_path in installed_paths:
+            print(f"[env-wizard] hook installed: {hook_path}")
+
+    system = platform.system().lower()
+    if system == "windows":
+        print("[env-wizard] next (PowerShell): .\\docsops\\ops\\run_weekly_docsops.ps1")
+        print("[env-wizard] next (Git Bash): bash docsops/ops/run_weekly_docsops.sh")
+    else:
+        print("[env-wizard] next: bash docsops/ops/run_weekly_docsops.sh")
+        print("[env-wizard] next (if using pwsh): ./docsops/ops/run_weekly_docsops.ps1")
     return 0
 
 
