@@ -93,14 +93,12 @@ def _template_paths_for_package(commercial_package: str) -> list[str]:
     if package == "pilot":
         return [path for path in PILOT_TEMPLATE_PATHS if (REPO_ROOT / path).exists()]
 
-    # full/full+rag: include all template files except legal templates.
+    # full/full+rag: include all template files without exclusions.
     out: list[str] = []
     for path in sorted((REPO_ROOT / "templates").rglob("*")):
         if not path.is_file():
             continue
         rel = path.relative_to(REPO_ROOT).as_posix()
-        if rel.startswith("templates/legal/"):
-            continue
         out.append(rel)
     return out
 
