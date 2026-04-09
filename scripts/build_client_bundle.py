@@ -1008,7 +1008,7 @@ $ScriptPath = (Resolve-Path (Join-Path $PSScriptRoot \"run_weekly_docsops.ps1\")
 $Action = New-ScheduledTaskAction -Execute \"powershell.exe\" -Argument \"-NoProfile -ExecutionPolicy Bypass -File `\"$ScriptPath`\"\"\n"""
     install_windows += (
         f"$Trigger = New-ScheduledTaskTrigger -Weekly -DaysOfWeek {day.capitalize()} -At \"{time_24h}\"\n"
-        "$Principal = New-ScheduledTaskPrincipal -UserId $env:USERNAME -LogonType Interactive -RunLevel LeastPrivilege\n"
+        "$Principal = New-ScheduledTaskPrincipal -UserId $env:USERNAME -LogonType Interactive -RunLevel Limited\n"
         "Register-ScheduledTask -TaskName $TaskName -Action $Action -Trigger $Trigger -Principal $Principal -Force | Out-Null\n"
         f"Write-Host \"Installed Task Scheduler job: {task_name} ({day} {time_24h})\"\n"
     )
