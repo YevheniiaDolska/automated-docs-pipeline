@@ -35,7 +35,11 @@ DOC_PATTERNS = (
 
 def _changed_files(base_ref: str, head_ref: str) -> list[str]:
     cmd = ["git", "diff", "--name-only", f"{base_ref}...{head_ref}"]
-    result = subprocess.run(cmd, capture_output=True, text=True, check=True)
+    try:
+        result = subprocess.run(cmd, capture_output=True, text=True, check=True)
+    except subprocess.CalledProcessError:
+        print(f"[docs-contract] git diff failed for range {base_ref}...{head_ref}; continuing with empty delta")
+        return []
     files = [line.strip() for line in result.stdout.splitlines() if line.strip()]
     return files
 

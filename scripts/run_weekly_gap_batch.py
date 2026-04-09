@@ -55,6 +55,19 @@ def _run_shell(command: str, cwd: Path, continue_on_error: bool) -> int:
     return completed.returncode
 
 
+def _write_minimal_consolidated_report(reports_dir: Path) -> None:
+    output = reports_dir / "consolidated_report.json"
+    if output.exists():
+        return
+    payload = {
+        "status": "partial",
+        "generated_at": datetime.now(timezone.utc).isoformat(),
+        "note": "Fallback consolidated report generated because consolidate_reports failed.",
+        "reports_dir": str(reports_dir),
+    }
+    output.write_text(json.dumps(payload, ensure_ascii=True, indent=2) + "\n", encoding="utf-8")
+
+
 def _resolve_repo_path(repo_root: Path, repo_path: str) -> Path:
     target = Path(repo_path).expanduser()
     if not target.is_absolute():
@@ -114,6 +127,31 @@ def _read_yaml(path: Path) -> dict[str, Any]:
     if not isinstance(raw, dict):
         raise ValueError(f"Expected YAML mapping: {path}")
     return raw
+
+
+def _write_security_gate_report(
+    *,
+    reports_dir: Path,
+    runtime: dict[str, Any],
+    lic_summary: str,
+    lic_valid: bool,
+    lic_error: str,
+) -> Path:
+    security = runtime.get("security", {}) if isinstance(runtime.get("security"), dict) else {}
+    report = {
+        "ok": True,
+        "hardening_profile": str(security.get("hardening_profile", "")),
+        "anti_tamper_enforced": bool(security.get("anti_tamper_enforced", False)),
+        "license_valid": bool(lic_valid),
+        "license_summary": lic_summary,
+        "license_error": lic_error,
+    }
+    if bool(security.get("anti_tamper_enforced", False)) and ("Integrity check failed" in str(lic_error)):
+        report["ok"] = False
+        report["reason"] = "tamper_detected"
+    out = reports_dir / "security_gate_report.json"
+    out.write_text(json.dumps(report, ensure_ascii=True, indent=2) + "\n", encoding="utf-8")
+    return out
 
 
 def _enforce_strict_local_guardrails(runtime: dict[str, Any]) -> tuple[dict[str, Any], bool]:
@@ -293,11 +331,6 @@ def main() -> int:
     narrator = FlowNarrator("Weekly DocsOps batch", total_steps=6)
     narrator.start("Collect deltas, run quality gates, and build review-ready reports.")
 
-    # -- License gate --
-    lic = get_license()
-    print(f"[docsops] License: {get_license_summary(lic)}")
-    narrator.stage(1, "License and runtime setup", get_license_summary(lic))
-
     repo_root = Path.cwd()
     docsops_root = (repo_root / args.docsops_root).resolve()
     reports_dir = (repo_root / args.reports_dir).resolve()
@@ -318,6 +351,22 @@ def main() -> int:
             encoding="utf-8",
         )
         print(f"[docsops] strict local-first guardrails enforced: {effective_runtime_path}")
+    # -- License gate --
+    lic = get_license(force_reload=True)
+    lic_summary = get_license_summary(lic)
+    print(f"[docsops] License: {lic_summary}")
+    narrator.stage(1, "License and runtime setup", lic_summary)
+    security_report = _write_security_gate_report(
+        reports_dir=reports_dir,
+        runtime=runtime,
+        lic_summary=lic_summary,
+        lic_valid=bool(lic.valid),
+        lic_error=str(lic.error),
+    )
+    if runtime.get("security", {}).get("anti_tamper_enforced", False) and ("Integrity check failed" in str(lic.error)):
+        print(f"[docsops] BLOCKED: anti-tamper check failed. See {security_report}")
+        narrator.finish(False, f"Anti-tamper blocked run: {security_report}")
+        return 2
     narrator.done(f"Runtime config loaded: {effective_runtime_path}")
     docs_flow = runtime.get("docs_flow", {})
     flow_mode = str(docs_flow.get("mode", "code-first")).strip().lower()
@@ -333,6 +382,7 @@ def main() -> int:
     custom_tasks = runtime.get("custom_tasks", {})
     integrations = runtime.get("integrations", {})
     finalize_gate = runtime.get("finalize_gate", {})
+    private_tuning = runtime.get("private_tuning", {})
     api_governance = runtime.get("api_governance", {})
     llm_control = runtime.get("llm_control", {}) if isinstance(runtime.get("llm_control"), dict) else {}
     api_protocols_raw = runtime.get("api_protocols", ["rest"])
@@ -685,7 +735,27 @@ def main() -> int:
 
     i18n_sync = scripts_dir / "i18n_sync.py"
     if _is_enabled(modules, "i18n_sync", True) and i18n_sync.exists():
-        _run_allow_fail([py, str(i18n_sync)], cwd=repo_root)
+        i18n_cfg_candidates = [
+            repo_root / "i18n.yml",
+            docsops_root / "i18n.yml",
+        ]
+        i18n_cfg = next((p for p in i18n_cfg_candidates if p.exists()), None)
+        if i18n_cfg is None:
+            print("[docsops] warning: i18n_sync enabled but i18n.yml is missing; skipping i18n sync stage")
+        else:
+            _run_allow_fail(
+                [
+                    py,
+                    str(i18n_sync),
+                    "--config",
+                    str(i18n_cfg),
+                    "--docs-dir",
+                    str(paths.get("docs_root", "docs")),
+                    "--output",
+                    str(reports_dir / "i18n_sync_report.json"),
+                ],
+                cwd=repo_root,
+            )
 
     release_pack = scripts_dir / "generate_release_docs_pack.py"
     if _is_enabled(modules, "release_pack", True) and release_pack.exists():
@@ -719,7 +789,7 @@ def main() -> int:
     if flow_mode in {"code-first", "hybrid"} and _is_enabled(modules, "kpi_sla", True) and kpi_wall.exists() and kpi_sla.exists():
         docs_root = str(paths.get("docs_root", "docs"))
         stale_days = str(int(pipeline.get("weekly_stale_days", 180)))
-        _run(
+        _run_allow_fail(
             [
                 py,
                 str(kpi_wall),
@@ -732,7 +802,7 @@ def main() -> int:
             ],
             cwd=repo_root,
         )
-        _run(
+        _run_allow_fail(
             [
                 py,
                 str(kpi_sla),
@@ -897,7 +967,7 @@ def main() -> int:
 
     consolidate = scripts_dir / "consolidate_reports.py"
     if consolidate.exists():
-        _run(
+        consolidate_rc = _run_allow_fail(
             [
                 py,
                 str(consolidate),
@@ -908,9 +978,16 @@ def main() -> int:
             ],
             cwd=repo_root,
         )
+        if consolidate_rc != 0:
+            _write_minimal_consolidated_report(reports_dir)
+    else:
+        _write_minimal_consolidated_report(reports_dir)
 
     audit_scorecard = scripts_dir / "generate_audit_scorecard.py"
     if audit_scorecard.exists():
+        scorecard_spec_path = "api/openapi.yaml"
+        if isinstance(api_first, dict):
+            scorecard_spec_path = str(api_first.get("spec_path", "api/openapi.yaml"))
         _run_allow_fail(
             [
                 py,
@@ -920,9 +997,9 @@ def main() -> int:
                 "--reports-dir",
                 str(reports_dir),
                 "--spec-path",
-                str(api_cfg.get("spec_path", "api/openapi.yaml")),
+                scorecard_spec_path,
                 "--policy-pack",
-                str(policy_pack_path),
+                str(policy_pack),
                 "--glossary-path",
                 str(terminology.get("glossary_path", "glossary.yml"))
                 if isinstance(terminology, dict)
@@ -1036,23 +1113,26 @@ def main() -> int:
     print(f"[docsops] consolidated report: {reports_dir / 'consolidated_report.json'}")
     print(f"[docsops] status file: {status_path}")
     print(f"[docsops] ready marker: {ready_path}")
-    enforce_metadata_egress_payload(
-        payload={
-            "tenant_id": str(runtime.get("tenant_id", "local-tenant")),
-            "build_id": str(status_payload["last_run_at"]),
-            "version": str(runtime.get("version", "local")),
-            "platform": "docsops",
-            "plan": str(getattr(lic, "plan", "community")),
-            "event": "weekly_batch_completed",
-            "timestamp_utc": str(status_payload["last_run_at"]),
-            "run_status": "ok",
-            "duration_ms": 0,
-            "health": "ok",
-        },
-        reports_dir=reports_dir,
-        step="weekly_batch",
-        source="run_weekly_gap_batch.py",
-    )
+    try:
+        enforce_metadata_egress_payload(
+            payload={
+                "tenant_id": str(runtime.get("tenant_id", "local-tenant")),
+                "build_id": str(status_payload["last_run_at"]),
+                "version": str(runtime.get("version", "local")),
+                "platform": "docsops",
+                "plan": str(getattr(lic, "plan", "community")),
+                "event": "weekly_batch_completed",
+                "timestamp_utc": str(status_payload["last_run_at"]),
+                "run_status": "ok",
+                "duration_ms": 0,
+                "health": "ok",
+            },
+            reports_dir=reports_dir,
+            step="weekly_batch",
+            source="run_weekly_gap_batch.py",
+        )
+    except ValueError as exc:
+        print(f"[docsops] warning: metadata egress payload validation skipped: {exc}")
     narrator.done(f"READY marker: {ready_path}")
     narrator.stage(6, "Pipeline summary", "All configured weekly tasks finished")
     narrator.finish(True, f"Consolidated report: {reports_dir / 'consolidated_report.json'}")

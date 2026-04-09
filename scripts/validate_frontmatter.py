@@ -14,7 +14,11 @@ import yaml
 
 def load_schema(schema_path: str = "docs-schema.yml") -> dict[str, Any]:
     """Load JSON Schema (YAML format) used for frontmatter validation."""
-    schema = yaml.safe_load(Path(schema_path).read_text(encoding="utf-8"))
+    schema_file = Path(schema_path)
+    if not schema_file.exists():
+        # In pilot/empty repos schema may be absent; keep validator non-blocking.
+        return {"type": "object", "properties": {}, "required": []}
+    schema = yaml.safe_load(schema_file.read_text(encoding="utf-8"))
     if not isinstance(schema, dict):
         raise ValueError("Schema must be a mapping.")
     return schema

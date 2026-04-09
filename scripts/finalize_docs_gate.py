@@ -22,7 +22,10 @@ from typing import Any
 
 import yaml
 
-from scripts.license_gate import check as _license_check, get_license
+try:
+    from scripts.license_gate import check as _license_check, get_license
+except ModuleNotFoundError:  # pragma: no cover - bundle/runtime fallback
+    from license_gate import check as _license_check, get_license
 
 
 @dataclass

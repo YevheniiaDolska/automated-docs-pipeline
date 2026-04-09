@@ -405,14 +405,14 @@ def main():
         print(report)
 
         # Save report
-        Path('lifecycle-report.md').write_text(report)
-        print(f"\n✅ Report saved to lifecycle-report.md")
+        Path('lifecycle-report.md').write_text(report, encoding='utf-8')
+        print("\n[ok] Report saved to lifecycle-report.md")
 
     if args.json_output:
         output_path = Path(args.json_output)
         output_path.parent.mkdir(parents=True, exist_ok=True)
         output_path.write_text(json.dumps(results, indent=2), encoding='utf-8')
-        print(f"✅ JSON report saved to {output_path}")
+        print(f"[ok] JSON report saved to {output_path}")
 
 if __name__ == '__main__':
     main()

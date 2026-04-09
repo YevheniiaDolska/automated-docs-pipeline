@@ -1394,28 +1394,29 @@ def create_bundle(profile_path: Path) -> Path:
             if not isinstance(cfg, Mapping) or bool(cfg.get("enabled", True)):
                 non_rest_enabled = True
                 break
-    if isinstance(api_first, Mapping):
+    if isinstance(api_first, Mapping) and bool(api_first.get("enabled", False)):
+        required_scripts.extend(
+            [
+                "scripts/run_api_first_flow.py",
+                "scripts/generate_openapi_from_planning_notes.py",
+                "scripts/validate_openapi_contract.py",
+                "scripts/generate_fastapi_stubs_from_openapi.py",
+                "scripts/self_verify_api_user_path.py",
+                "scripts/normalize_docs.py",
+                "scripts/apply_openapi_overrides.py",
+                "scripts/check_openapi_regression.py",
+                "scripts/generate_api_test_assets.py",
+            ]
+        )
+        if bool(api_first.get("upload_test_assets", False)):
+            required_scripts.append("scripts/upload_api_test_assets.py")
         external_mock = api_first.get("external_mock", {})
-        if bool(api_first.get("enabled", False)) and isinstance(external_mock, Mapping):
-            required_scripts.extend(
-                [
-                    "scripts/run_api_first_flow.py",
-                    "scripts/generate_openapi_from_planning_notes.py",
-                    "scripts/validate_openapi_contract.py",
-                    "scripts/generate_fastapi_stubs_from_openapi.py",
-                    "scripts/self_verify_api_user_path.py",
-                    "scripts/normalize_docs.py",
-                    "scripts/apply_openapi_overrides.py",
-                    "scripts/check_openapi_regression.py",
-                    "scripts/generate_api_test_assets.py",
-                ]
-            )
-            if bool(api_first.get("upload_test_assets", False)):
-                required_scripts.append("scripts/upload_api_test_assets.py")
-            if str(api_first.get("sandbox_backend", "")).strip().lower() == "external" and bool(
-                external_mock.get("enabled", False)
-            ):
-                required_scripts.append("scripts/ensure_external_mock_server.py")
+        if (
+            str(api_first.get("sandbox_backend", "")).strip().lower() == "external"
+            and isinstance(external_mock, Mapping)
+            and bool(external_mock.get("enabled", False))
+        ):
+            required_scripts.append("scripts/ensure_external_mock_server.py")
     if non_rest_enabled:
         required_scripts.extend(
             [
@@ -1491,6 +1492,10 @@ def create_bundle(profile_path: Path) -> Path:
         _append_unique(include_docs, "docs/_variables.yml")
     if (REPO_ROOT / "glossary.yml").exists():
         _append_unique(include_docs, "glossary.yml")
+    if (REPO_ROOT / "i18n.yml").exists():
+        _append_unique(include_docs, "i18n.yml")
+    if (REPO_ROOT / "docs-schema.yml").exists():
+        _append_unique(include_docs, "docs-schema.yml")
     bundle_cfg["include_docs"] = include_docs
 
     for rel in include_scripts:

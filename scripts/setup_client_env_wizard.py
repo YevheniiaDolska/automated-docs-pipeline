@@ -365,6 +365,38 @@ def install_local_precommit_hooks(repo_root: Path) -> tuple[bool, list[Path], st
     return True, installed, ""
 
 
+def install_weekly_scheduler(repo_root: Path) -> tuple[bool, str]:
+    """Install weekly scheduler automatically for docsops bundle."""
+    candidates = [
+        repo_root / "docsops" / "ops",
+        repo_root / "ops",
+    ]
+    ops_dir = next((p for p in candidates if p.exists()), None)
+    if ops_dir is None:
+        return False, "ops directory not found (expected docsops/ops or ops)."
+
+    system = platform.system().lower()
+    if system == "windows":
+        script = ops_dir / "install_windows_task.ps1"
+        if not script.exists():
+            return False, f"missing scheduler script: {script}"
+        ps_bin = shutil.which("powershell") or shutil.which("pwsh")
+        if not ps_bin:
+            return False, "PowerShell is not available in PATH."
+        cmd = [ps_bin, "-NoProfile", "-ExecutionPolicy", "Bypass", "-File", str(script)]
+    else:
+        script = ops_dir / "install_cron_weekly.sh"
+        if not script.exists():
+            return False, f"missing scheduler script: {script}"
+        cmd = ["bash", str(script)]
+
+    completed = subprocess.run(cmd, cwd=str(repo_root), check=False, capture_output=True, text=True)
+    if completed.returncode != 0:
+        details = (completed.stderr or completed.stdout or "").strip()
+        return False, details or f"scheduler install command failed with rc={completed.returncode}"
+    return True, ""
+
+
 def main() -> int:
     repo_root = Path(".").resolve()
     template_path = repo_root / TEMPLATE_FILE
@@ -463,12 +495,18 @@ def main() -> int:
         for hook_path in installed_paths:
             print(f"[env-wizard] hook installed: {hook_path}")
 
+    ok_scheduler, scheduler_error = install_weekly_scheduler(repo_root)
+    if ok_scheduler:
+        print("[env-wizard] weekly scheduler installed automatically.")
+    else:
+        print(f"[env-wizard] scheduler auto-install failed: {scheduler_error}")
+
     system = platform.system().lower()
     if system == "windows":
-        print("[env-wizard] next (PowerShell): .\\docsops\\ops\\run_weekly_docsops.ps1")
+        print("[env-wizard] manual run (optional, scheduler already installed): .\\docsops\\ops\\run_weekly_docsops.ps1")
         print("[env-wizard] next (Git Bash): bash docsops/ops/run_weekly_docsops.sh")
     else:
-        print("[env-wizard] next: bash docsops/ops/run_weekly_docsops.sh")
+        print("[env-wizard] manual run (optional, scheduler already installed): bash docsops/ops/run_weekly_docsops.sh")
         print("[env-wizard] next (if using pwsh): ./docsops/ops/run_weekly_docsops.ps1")
     return 0
 
