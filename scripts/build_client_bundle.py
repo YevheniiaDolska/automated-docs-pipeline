@@ -30,6 +30,22 @@ from scripts.api_protocols import merge_protocol_settings, normalize_protocols
 
 MANAGED_START = "<!-- VERIOPS_MANAGED_BLOCK:START -->"
 MANAGED_END = "<!-- VERIOPS_MANAGED_BLOCK:END -->"
+PROTECTED_MANIFEST = REPO_ROOT / "build" / "protected_modules.yml"
+CRITICAL_INTEGRITY_MODULES = [
+    "license_gate",
+    "pack_runtime",
+    "run_autopipeline",
+    "finalize_docs_gate",
+    "llm_egress",
+]
+
+PILOT_TEMPLATE_PATHS = [
+    "templates/quickstart.md",
+    "templates/how-to.md",
+    "templates/reference.md",
+    "templates/troubleshooting.md",
+    "templates/api-reference.md",
+]
 
 
 def read_yaml(path: Path) -> dict[str, Any]:
@@ -65,6 +81,197 @@ def copy_path_into_bundle(rel_path: str, bundle_root: Path) -> None:
     else:
         dst.parent.mkdir(parents=True, exist_ok=True)
         shutil.copy2(src, dst)
+
+
+def _append_unique(items: list[str], value: str) -> None:
+    if value not in items:
+        items.append(value)
+
+
+def _template_paths_for_package(commercial_package: str) -> list[str]:
+    package = str(commercial_package or "full").strip().lower()
+    if package == "pilot":
+        return [path for path in PILOT_TEMPLATE_PATHS if (REPO_ROOT / path).exists()]
+
+    # full/full+rag: include all template files except legal templates.
+    out: list[str] = []
+    for path in sorted((REPO_ROOT / "templates").rglob("*")):
+        if not path.is_file():
+            continue
+        rel = path.relative_to(REPO_ROOT).as_posix()
+        if rel.startswith("templates/legal/"):
+            continue
+        out.append(rel)
+    return out
+
+
+def _sha256_file(path: Path) -> str:
+    h = hashlib.sha256()
+    with path.open("rb") as fh:
+        for chunk in iter(lambda: fh.read(8192), b""):
+            h.update(chunk)
+    return h.hexdigest()
+
+
+def _load_tier_a_modules() -> list[str]:
+    if not PROTECTED_MANIFEST.exists():
+        return []
+    raw = yaml.safe_load(PROTECTED_MANIFEST.read_text(encoding="utf-8")) or {}
+    if not isinstance(raw, dict):
+        return []
+    tier_a = raw.get("tier_a", [])
+    out: list[str] = []
+    if isinstance(tier_a, list):
+        for item in tier_a:
+            if isinstance(item, Mapping):
+                name = str(item.get("module", "")).strip()
+                if name:
+                    out.append(name)
+    return out
+
+
+def _find_compiled_artifact(artifacts_dir: Path, module_name: str) -> Path | None:
+    if not artifacts_dir.exists():
+        return None
+    candidates = list(artifacts_dir.glob(f"{module_name}*.so")) + list(artifacts_dir.glob(f"{module_name}*.pyd"))
+    if not candidates:
+        return None
+    return sorted(candidates)[0]
+
+
+def _detect_compile_platform() -> str:
+    platform = sys.platform.lower()
+    machine = os.uname().machine.lower() if hasattr(os, "uname") else ""
+    if platform.startswith("linux"):
+        return "linux-x86_64"
+    if platform == "darwin":
+        if "arm" in machine or "aarch64" in machine:
+            return "macos-arm64"
+        return "macos-x86_64"
+    return "windows-x64"
+
+
+def _attempt_auto_compile_protected_modules(artifacts_dir: Path) -> bool:
+    compile_script = REPO_ROOT / "build" / "compile_protected.py"
+    if not compile_script.exists():
+        return False
+    cmd = [
+        sys.executable,
+        str(compile_script),
+        "--platform",
+        _detect_compile_platform(),
+        "--python",
+        f"{sys.version_info.major}.{sys.version_info.minor}",
+        "--output",
+        str(artifacts_dir),
+    ]
+    completed = subprocess.run(
+        cmd,
+        cwd=str(REPO_ROOT),
+        check=False,
+        capture_output=True,
+        text=True,
+    )
+    if completed.returncode != 0:
+        print("[hardening] auto-compile of protected modules failed.")
+        if completed.stdout.strip():
+            print(completed.stdout.strip())
+        if completed.stderr.strip():
+            print(completed.stderr.strip())
+        return False
+    return True
+
+
+def _apply_hardening_bundle_protection(
+    *,
+    profile: dict[str, Any],
+    runtime_cfg: dict[str, Any],
+    bundle_root: Path,
+) -> None:
+    security = runtime_cfg.get("security", {})
+    if not isinstance(security, Mapping):
+        return
+
+    hardening_profile = str(security.get("hardening_profile", "production")).strip().lower()
+    require_protected = bool(security.get("require_protected_modules", hardening_profile == "production"))
+    auto_compile = bool(security.get("auto_compile_protected_modules", hardening_profile == "production"))
+    anti_tamper = bool(security.get("anti_tamper_enforced", hardening_profile == "production"))
+    protect_mode = str(security.get("protect_mode", "compiled")).strip().lower()
+    required_compiled_modules_raw = security.get("required_compiled_modules", ["license_gate", "pack_runtime"])
+    required_compiled_modules = set()
+    if isinstance(required_compiled_modules_raw, list):
+        required_compiled_modules = {str(v).strip() for v in required_compiled_modules_raw if str(v).strip()}
+    if not required_compiled_modules:
+        required_compiled_modules = {"license_gate", "pack_runtime"}
+    artifacts_dir_raw = str(security.get("protected_artifacts_dir", "dist/compiled")).strip()
+    artifacts_dir = (REPO_ROOT / artifacts_dir_raw).resolve() if artifacts_dir_raw else Path("")
+    docsops_root = bundle_root / "docsops"
+    scripts_dir = docsops_root / "scripts"
+
+    if protect_mode == "compiled":
+        tier_a = _load_tier_a_modules()
+        copied_compiled: dict[str, Path] = {}
+        missing: list[str] = []
+        for module_name in tier_a:
+            artifact = _find_compiled_artifact(artifacts_dir, module_name)
+            if artifact is None:
+                if require_protected and module_name in required_compiled_modules:
+                    missing.append(module_name)
+                continue
+            dst = scripts_dir / artifact.name
+            dst.parent.mkdir(parents=True, exist_ok=True)
+            shutil.copy2(artifact, dst)
+            copied_compiled[module_name] = dst
+            src_py = scripts_dir / f"{module_name}.py"
+            if src_py.exists():
+                src_py.unlink()
+        if missing and auto_compile:
+            if _attempt_auto_compile_protected_modules(artifacts_dir):
+                missing = []
+                for module_name in tier_a:
+                    artifact = _find_compiled_artifact(artifacts_dir, module_name)
+                    if artifact is None:
+                        if require_protected and module_name in required_compiled_modules:
+                            missing.append(module_name)
+                        continue
+                    dst = scripts_dir / artifact.name
+                    dst.parent.mkdir(parents=True, exist_ok=True)
+                    shutil.copy2(artifact, dst)
+                    src_py = scripts_dir / f"{module_name}.py"
+                    if src_py.exists():
+                        src_py.unlink()
+        if missing:
+            raise RuntimeError(
+                "Protected compiled modules are required but missing artifacts for: "
+                + ", ".join(sorted(missing))
+                + f". Build artifacts expected in {artifacts_dir}."
+            )
+
+    if anti_tamper:
+        modules_for_manifest = list(CRITICAL_INTEGRITY_MODULES)
+        tier_a = _load_tier_a_modules()
+        for module_name in tier_a:
+            if module_name not in modules_for_manifest:
+                modules_for_manifest.append(module_name)
+        manifest: dict[str, Any] = {"version": 1, "modules": {}}
+        for module_name in modules_for_manifest:
+            py_path = scripts_dir / f"{module_name}.py"
+            if py_path.exists():
+                manifest["modules"][module_name] = {
+                    "file": f"scripts/{py_path.name}",
+                    "sha256": _sha256_file(py_path),
+                }
+                continue
+            compiled = sorted(list(scripts_dir.glob(f"{module_name}*.so")) + list(scripts_dir.glob(f"{module_name}*.pyd")))
+            if compiled:
+                manifest["modules"][module_name] = {
+                    "file": f"scripts/{compiled[0].name}",
+                    "sha256": _sha256_file(compiled[0]),
+                }
+        (docsops_root / ".module_hashes.json").write_text(
+            json.dumps(manifest, ensure_ascii=True, indent=2) + "\n",
+            encoding="utf-8",
+        )
 
 
 def render_template(path: Path, replacements: dict[str, str]) -> str:
@@ -367,10 +574,28 @@ def build_runtime_config(profile: dict[str, Any]) -> dict[str, Any]:
                 },
             ),
         },
+        "security": runtime.get(
+            "security",
+            {
+                "hardening_profile": "production",
+                "allow_dev_bypass": False,
+                "anti_tamper_enforced": True,
+                "require_protected_modules": True,
+                "require_pack_for_premium": True,
+                "protect_mode": "compiled",
+                "auto_compile_protected_modules": True,
+                "required_compiled_modules": ["license_gate", "pack_runtime"],
+                "protected_artifacts_dir": "dist/compiled",
+                "core_mode": "local",
+                "operation_mode": "hybrid",
+                "phone_home_enabled_default": True,
+                "update_check_enabled_default": True,
+            },
+        ),
     }
 
 
-def build_licensing_infrastructure(profile: dict[str, Any], bundle_root: Path) -> None:
+def build_licensing_infrastructure(profile: dict[str, Any], runtime_cfg: dict[str, Any], bundle_root: Path) -> None:
     """Set up the licensing directory structure in the bundle.
 
     If an Ed25519 private key is available locally, generates a signed JWT
@@ -381,17 +606,25 @@ def build_licensing_infrastructure(profile: dict[str, Any], bundle_root: Path) -
     keys_dir.mkdir(parents=True, exist_ok=True)
     docsops_dir = bundle_root / "docsops"
 
+    def _resolve_repo_path(raw: str) -> Path:
+        candidate = Path(raw)
+        if candidate.is_absolute():
+            return candidate
+        return (REPO_ROOT / candidate).resolve()
+
     # Copy the Ed25519 public key for offline JWT verification
-    pub_key_src = REPO_ROOT / "docsops" / "keys" / "veriops-licensing.pub"
+    licensing = profile.get("licensing", {})
+    pub_key_raw = str(licensing.get("public_key_path", "")).strip()
+    pub_key_src = _resolve_repo_path(pub_key_raw) if pub_key_raw else (REPO_ROOT / "docsops" / "keys" / "veriops-licensing.pub")
     if pub_key_src.exists():
         shutil.copy2(pub_key_src, keys_dir / "veriops-licensing.pub")
 
     # Try to auto-generate JWT if private key is available.
     # For client deliveries we require a signed JWT by default.
-    priv_key_path = REPO_ROOT / "docsops" / "keys" / "veriops-licensing.key"
-    licensing = profile.get("licensing", {})
+    priv_key_raw = str(licensing.get("private_key_path", "")).strip()
+    priv_key_path = _resolve_repo_path(priv_key_raw) if priv_key_raw else (REPO_ROOT / "docsops" / "keys" / "veriops-licensing.key")
     plan = str(licensing.get("plan", "professional")).strip().lower()
-    days = int(licensing.get("days", 365))
+    days = int(licensing.get("days", 30))
     max_docs = int(licensing.get("max_docs", 0))
     require_signed_jwt = bool(licensing.get("require_signed_jwt", True))
     manual_jwt_path_raw = str(licensing.get("manual_jwt_path", "")).strip()
@@ -482,6 +715,11 @@ def build_licensing_infrastructure(profile: dict[str, Any], bundle_root: Path) -
     pack_path = docsops_dir / ".capability_pack.enc"
     auto_pack = bool(licensing.get("auto_generate_capability_pack", True))
     license_key_env = str(licensing.get("license_key_env", "VERIOPS_LICENSE_KEY")).strip() or "VERIOPS_LICENSE_KEY"
+    security_cfg = runtime_cfg.get("security", {})
+    if not isinstance(security_cfg, Mapping):
+        security_cfg = {}
+    phone_home_default = "true" if bool(security_cfg.get("phone_home_enabled_default", True)) else "false"
+    update_check_default = "true" if bool(security_cfg.get("update_check_enabled_default", True)) else "false"
     license_key = str(licensing.get("license_key", "")).strip() or str(os.environ.get(license_key_env, "")).strip()
     if auto_pack and client_id and license_key:
         generate_pack_script = REPO_ROOT / "build" / "generate_pack.py"
@@ -837,15 +1075,16 @@ def build_local_env_template(profile: dict[str, Any], runtime_cfg: dict[str, Any
         if isinstance(ask_ai, Mapping) and bool(ask_ai.get("enabled", False)):
             provider = str(ask_ai.get("provider", "openai")).strip().lower()
             billing_mode = str(ask_ai.get("billing_mode", "disabled")).strip().lower()
-            if provider == "openai":
+            if billing_mode == "user-subscription":
+                shared_key_env = "DOCSOPS_SHARED_OPENAI_API_KEY" if provider == "openai" else "DOCSOPS_SHARED_ASK_AI_API_KEY"
+                _append_env(
+                    lines,
+                    shared_key_env,
+                    "",
+                    "Ask AI: optional shared fallback key for centrally managed entitlement mode",
+                )
+            elif provider == "openai":
                 _append_env(lines, "OPENAI_API_KEY", "YOUR_OPENAI_API_KEY", "Ask AI: OpenAI API key")
-                if billing_mode == "user-subscription":
-                    _append_env(
-                        lines,
-                        "DOCSOPS_SHARED_OPENAI_API_KEY",
-                        "",
-                        "Ask AI: optional shared OpenAI key for centrally managed entitlement mode",
-                    )
             elif provider == "anthropic":
                 _append_env(lines, "ANTHROPIC_API_KEY", "YOUR_ANTHROPIC_API_KEY", "Ask AI: Anthropic API key")
             elif provider == "azure-openai":
@@ -959,6 +1198,11 @@ def build_local_env_template(profile: dict[str, Any], runtime_cfg: dict[str, Any
     expose_license_key_env = bool(licensing.get("expose_license_key_env", False))
     expose_dev_plan_override_env = bool(licensing.get("expose_dev_plan_override_env", False))
     license_key_env = str(licensing.get("license_key_env", "VERIOPS_LICENSE_KEY")).strip() or "VERIOPS_LICENSE_KEY"
+    security_cfg = runtime_cfg.get("security", {})
+    if not isinstance(security_cfg, Mapping):
+        security_cfg = {}
+    phone_home_default = "true" if bool(security_cfg.get("phone_home_enabled_default", True)) else "false"
+    update_check_default = "true" if bool(security_cfg.get("update_check_enabled_default", True)) else "false"
 
     # Licensing (client-friendly defaults: signed JWT is shipped in docsops/license.jwt)
     lines.append("# --- Licensing ---")
@@ -977,16 +1221,21 @@ def build_local_env_template(profile: dict[str, Any], runtime_cfg: dict[str, Any
             "",
             "Dev/test override only: set pilot|professional|enterprise to bypass JWT validation.",
         )
+    client_cfg = profile.get("client", {})
+    if not isinstance(client_cfg, Mapping):
+        client_cfg = {}
+    default_tenant = str(client_cfg.get("tenant_id", client_cfg.get("id", ""))).strip()
+    default_domain = str(client_cfg.get("company_domain", "")).strip().lower()
     _append_env(
         lines,
         "VERIOPS_TENANT_ID",
-        "",
+        default_tenant,
         "Optional: expected tenant/company id for license binding verification.",
     )
     _append_env(
         lines,
         "VERIOPS_COMPANY_DOMAIN",
-        "",
+        default_domain,
         "Optional: expected primary domain for license binding verification.",
     )
     _append_env(
@@ -1000,6 +1249,18 @@ def build_local_env_template(profile: dict[str, Any], runtime_cfg: dict[str, Any
         "VERIOPS_PHONE_HOME_URL",
         "https://api.veri-doc.app",
         "Server endpoint for license refresh (metadata-only requests).",
+    )
+    _append_env(
+        lines,
+        "VERIOPS_PHONE_HOME_ENABLED",
+        phone_home_default,
+        "Enable periodic license refresh checks.",
+    )
+    _append_env(
+        lines,
+        "VERIOPS_UPDATE_CHECK_ENABLED",
+        update_check_default,
+        "Enable signed bundle update checks.",
     )
     _append_env(
         lines,
@@ -1077,17 +1338,16 @@ def create_bundle(profile_path: Path) -> Path:
             plan = str(branding_cfg.get("plan", "free")).strip().lower()
             cheapest = str(branding_cfg.get("cheapest_paid_plan", "starter")).strip().lower()
             report_path = str(branding_cfg.get("report_path", "reports/veridoc_branding_policy_report.json")).strip()
-            referral_env = str(branding_cfg.get("referral_code_env", "")).strip()
             badge_opt_out = bool(branding_cfg.get("badge_opt_out", False))
+            if bool(branding_cfg.get("lock_badge_policy", False)):
+                plan = "starter"
+                badge_opt_out = False
             opt_out_flag = " --badge-opt-out" if badge_opt_out else ""
-            referral_arg = ""
-            if referral_env:
-                referral_arg = f" --referral-code \"${{{referral_env}:-}}\""
             cmd = (
                 f"python3 docsops/scripts/apply_veridoc_branding_policy.py "
                 f"--repo-root . --docs-root {docs_root} --landing-url {landing_url} "
                 f"--plan {plan} --cheapest-paid-plan {cheapest} "
-                f"--report {report_path}{opt_out_flag}{referral_arg}"
+                f"--report {report_path}{opt_out_flag}"
             )
             weekly.append(
                 {
@@ -1100,6 +1360,8 @@ def create_bundle(profile_path: Path) -> Path:
 
     include_scripts = [str(rel) for rel in bundle_cfg.get("include_scripts", [])]
     required_scripts: list[str] = []
+    if (REPO_ROOT / "scripts" / "env_loader.py").exists():
+        required_scripts.append("scripts/env_loader.py")
     # License gate and pack runtime are always required (all gated scripts depend on them)
     required_scripts.append("scripts/license_gate.py")
     required_scripts.append("scripts/pack_runtime.py")
@@ -1201,11 +1463,39 @@ def create_bundle(profile_path: Path) -> Path:
     ip_protection_path = REPO_ROOT / "config" / "ip_protection"
     if ip_protection_path.exists() and "config/ip_protection" not in include_paths:
         include_paths.append("config/ip_protection")
+    # Ship hook templates/config in bundle so client-side setup can install local commit gates.
+    if (REPO_ROOT / ".husky").exists():
+        _append_unique(include_paths, ".husky")
+    if (REPO_ROOT / ".pre-commit-config.yaml").exists():
+        _append_unique(include_paths, ".pre-commit-config.yaml")
+    licensing_cfg = profile.get("licensing", {})
+    if not isinstance(licensing_cfg, Mapping):
+        licensing_cfg = {}
+    commercial_package = str(licensing_cfg.get("commercial_package", "")).strip().lower()
+    if not commercial_package:
+        plan_to_package = {
+            "pilot": "pilot",
+            "professional": "full",
+            "enterprise": "full+rag",
+        }
+        commercial_package = plan_to_package.get(str(licensing_cfg.get("plan", "professional")).strip().lower(), "full")
+
+    # Ensure template coverage is packaged by commercial package.
+    for rel in _template_paths_for_package(commercial_package):
+        _append_unique(include_paths, rel)
     bundle_cfg["include_paths"] = include_paths
+
+    # Always include shared docs consistency assets.
+    include_docs = [str(rel) for rel in bundle_cfg.get("include_docs", [])]
+    if (REPO_ROOT / "docs" / "_variables.yml").exists():
+        _append_unique(include_docs, "docs/_variables.yml")
+    if (REPO_ROOT / "glossary.yml").exists():
+        _append_unique(include_docs, "glossary.yml")
+    bundle_cfg["include_docs"] = include_docs
 
     for rel in include_scripts:
         copy_into_bundle(str(rel), bundle_root)
-    for rel in bundle_cfg.get("include_docs", []):
+    for rel in include_docs:
         copy_into_bundle(str(rel), bundle_root)
     for rel in bundle_cfg.get("include_paths", []):
         copy_path_into_bundle(str(rel), bundle_root)
@@ -1216,7 +1506,8 @@ def create_bundle(profile_path: Path) -> Path:
     build_automation_files(profile, bundle_root)
     build_local_env_template(profile, runtime_cfg, bundle_root)
     build_vale_config(profile, bundle_root)
-    build_licensing_infrastructure(profile, bundle_root)
+    build_licensing_infrastructure(profile, runtime_cfg, bundle_root)
+    _apply_hardening_bundle_protection(profile=profile, runtime_cfg=runtime_cfg, bundle_root=bundle_root)
 
     operator_note = {
         "client": {
@@ -1240,6 +1531,12 @@ def create_bundle(profile_path: Path) -> Path:
             "activation": "License key activates features. "
                           "All plans use the same bundle.",
             "binding": "Optional license claims: tenant_id and company_domain.",
+        },
+        "security": {
+            "hardening_profile": str(runtime_cfg.get("security", {}).get("hardening_profile", "production")),
+            "protect_mode": str(runtime_cfg.get("security", {}).get("protect_mode", "compiled")),
+            "anti_tamper_manifest": "docsops/.module_hashes.json",
+            "core_mode": str(runtime_cfg.get("security", {}).get("core_mode", "local")),
         },
     }
     write_yaml(bundle_root / "BUNDLE_INFO.yml", operator_note)
