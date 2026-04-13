@@ -29,6 +29,8 @@ from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Any
 
+import yaml
+
 logger = logging.getLogger(__name__)
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
@@ -168,12 +170,15 @@ PHONE_HOME_TIMEOUT_SECONDS = int(
 HEARTBEAT_PATH = REPO_ROOT / "docsops" / ".license_heartbeat.json"
 REPORTS_DIR = REPO_ROOT / "reports"
 VERSION_FILE = REPO_ROOT / "docsops" / ".version.json"
+TAMPER_AUDIT_LOG = REPORTS_DIR / "tamper_audit.ndjson"
 REVOCATION_CHECK_ENABLED = os.environ.get(
     "VERIOPS_REVOCATION_CHECK_ENABLED", "false"
 ).strip().lower() in ("true", "1", "yes")
 REVOCATION_URL = os.environ.get(
     "VERIOPS_REVOCATION_URL", f"{PHONE_HOME_URL}/billing/license/revocation-check"
 ).rstrip("/")
+RUNTIME_CONFIG_PATH = REPO_ROOT / "config" / "client_runtime.yml"
+MODULE_HASH_MANIFEST = REPO_ROOT / ".module_hashes.json"
 
 
 # -- Data classes --------------------------------------------------------------
@@ -214,6 +219,84 @@ def _community_license(error: str = "") -> LicenseInfo:
         tenant_id="",
         company_domain="",
     )
+
+
+def _security_config() -> dict[str, Any]:
+    try:
+        if RUNTIME_CONFIG_PATH.exists():
+            raw = yaml.safe_load(RUNTIME_CONFIG_PATH.read_text(encoding="utf-8")) or {}
+            if isinstance(raw, dict):
+                sec = raw.get("security", {})
+                if isinstance(sec, dict):
+                    return sec
+    except (RuntimeError, ValueError, TypeError, OSError):
+        return {}
+    return {}
+
+
+def _allow_dev_bypass() -> bool:
+    sec = _security_config()
+    # Backward-compatible default for source/dev environments without security block.
+    if not sec:
+        return True
+    return bool(sec.get("allow_dev_bypass", False))
+
+
+def _core_mode() -> str:
+    sec = _security_config()
+    return str(sec.get("core_mode", "local")).strip().lower() or "local"
+
+
+def _anti_tamper_enforced() -> bool:
+    sec = _security_config()
+    if not sec:
+        return False
+    profile = str(sec.get("hardening_profile", "production")).strip().lower()
+    return bool(sec.get("anti_tamper_enforced", profile == "production"))
+
+
+def _verify_integrity_manifest() -> tuple[bool, str]:
+    if not _anti_tamper_enforced():
+        return True, ""
+    if not MODULE_HASH_MANIFEST.exists():
+        return False, f"Integrity check failed: manifest missing: {MODULE_HASH_MANIFEST}"
+    try:
+        payload = json.loads(MODULE_HASH_MANIFEST.read_text(encoding="utf-8"))
+    except (RuntimeError, ValueError, TypeError, OSError) as exc:
+        return False, f"Integrity check failed: manifest parse failed: {exc}"
+    modules = payload.get("modules", {}) if isinstance(payload, dict) else {}
+    if not isinstance(modules, dict) or not modules:
+        return False, "Integrity check failed: manifest has no modules."
+    for name, meta in modules.items():
+        if not isinstance(meta, dict):
+            return False, f"Integrity check failed: invalid entry for module: {name}"
+        rel_file = str(meta.get("file", "")).strip()
+        expected = str(meta.get("sha256", "")).strip().lower()
+        if not rel_file or not expected:
+            return False, f"Integrity check failed: incomplete entry for module: {name}"
+        target = (REPO_ROOT / rel_file).resolve()
+        if not target.exists():
+            return False, f"Integrity check failed: target missing: {rel_file}"
+        actual = hashlib.sha256(target.read_bytes()).hexdigest().lower()
+        if actual != expected:
+            return False, f"Integrity check failed: mismatch for {rel_file}"
+    return True, ""
+
+
+def _record_tamper_event(reason: str) -> None:
+    """Append anti-tamper event to a dedicated audit channel."""
+    try:
+        REPORTS_DIR.mkdir(parents=True, exist_ok=True)
+        event = {
+            "timestamp_utc": time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime()),
+            "event": "anti_tamper_block",
+            "reason": str(reason).strip(),
+            "module_hash_manifest": str(MODULE_HASH_MANIFEST),
+        }
+        with TAMPER_AUDIT_LOG.open("a", encoding="utf-8") as fh:
+            fh.write(json.dumps(event, ensure_ascii=True) + "\n")
+    except OSError:
+        return
 
 
 # -- JWT parsing (Ed25519 via PyNaCl or fallback) ------------------------------
@@ -582,9 +665,15 @@ def validate(
     """
     global _phone_home_refreshing
 
+    # Anti-tamper integrity check (enabled in hardened production bundles).
+    integrity_ok, integrity_reason = _verify_integrity_manifest()
+    if not integrity_ok:
+        _record_tamper_event(integrity_reason)
+        return _community_license(integrity_reason)
+
     # Dev/test bypass: VERIOPS_LICENSE_PLAN=enterprise skips JWT validation
     env_plan = os.environ.get("VERIOPS_LICENSE_PLAN", "").strip().lower()
-    if env_plan in PLAN_FEATURES:
+    if env_plan in PLAN_FEATURES and _allow_dev_bypass():
         return LicenseInfo(
             valid=True,
             plan=env_plan,
@@ -734,7 +823,7 @@ def validate(
     if revoked:
         return _community_license(f"License revoked by server policy: {revoke_reason}")
 
-    return LicenseInfo(
+    info = LicenseInfo(
         valid=True,
         plan=plan,
         client_id=client_id,
@@ -749,6 +838,7 @@ def validate(
         company_domain=company_domain,
         raw_claims=claims,
     )
+    return _apply_pack_gating(info)
 
 
 # -- Feature check helpers ----------------------------------------------------
@@ -760,6 +850,72 @@ def _pilot_trial_expired(info: LicenseInfo) -> bool:
         info.plan == "pilot"
         and info.expires_at
         and info.days_remaining <= 0
+    )
+
+
+def _apply_pack_gating(info: LicenseInfo) -> LicenseInfo:
+    """Optionally degrade premium features when capability pack is missing/invalid."""
+    sec = _security_config()
+    if not sec:
+        return info
+    require_pack = bool(sec.get("require_pack_for_premium", str(sec.get("hardening_profile", "production")).strip().lower() == "production"))
+    if not require_pack:
+        return info
+    if info.plan not in {"professional", "enterprise"}:
+        return info
+    try:
+        from scripts.pack_runtime import load_pack
+
+        license_key_env = str(sec.get("license_key_env", "VERIOPS_LICENSE_KEY")).strip() or "VERIOPS_LICENSE_KEY"
+        license_key = str(os.environ.get(license_key_env, "")).strip()
+        pack = load_pack(
+            pack_path=PACK_PATH,
+            license_key=license_key or None,
+            client_id=info.client_id or None,
+        )
+    except (ImportError, RuntimeError, ValueError, TypeError, OSError) as exc:
+        pack = None
+        pack_error = f"pack_check_error:{exc}"
+    else:
+        pack_error = ""
+
+    if pack is not None and bool(getattr(pack, "valid", False)):
+        return info
+
+    downgraded = dict(info.features)
+    premium_flags = {
+        "multi_protocol_pipeline",
+        "knowledge_modules",
+        "knowledge_graph",
+        "faiss_retrieval",
+        "executive_audit_pdf",
+        "i18n_system",
+        "custom_policy_packs",
+        "testrail_zephyr_upload",
+        "doc_compiler",
+    }
+    for key in premium_flags:
+        if key in downgraded:
+            downgraded[key] = False
+    reason = "Capability pack missing/invalid: premium features disabled."
+    if pack_error:
+        reason = f"{reason} ({pack_error})"
+    elif pack is not None and getattr(pack, "error", ""):
+        reason = f"{reason} ({getattr(pack, 'error', '')})"
+    return LicenseInfo(
+        valid=info.valid,
+        plan=info.plan,
+        client_id=info.client_id,
+        features=downgraded,
+        protocols=list(info.protocols),
+        max_docs=info.max_docs,
+        offline_grace_days=info.offline_grace_days,
+        expires_at=info.expires_at,
+        days_remaining=info.days_remaining,
+        error=(info.error + " | " if info.error else "") + reason,
+        tenant_id=info.tenant_id,
+        company_domain=info.company_domain,
+        raw_claims=dict(info.raw_claims),
     )
 
 

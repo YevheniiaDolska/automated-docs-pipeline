@@ -1,0 +1,22 @@
+defaults:
+  rotation_days: 90
+  license_days: 30
+  jwt_audience: "veriops-client"
+  jwt_issuer: "veriops-licensing"
+
+clients:
+  - client_id: "acme"
+    tenant_id: "acme"
+    company_domain: "acme.example"
+    plan: "professional"
+    max_docs: 0
+    status: "active"
+    retainer_active: true
+    key_rotation_days: 90
+    license_days: 30
+    last_key_rotated_at: ""
+    next_key_rotation_at: ""
+    private_key_path: ""
+    public_key_path: ""
+    latest_license_jwt_path: ""
+    notes: "Set status=inactive or retainer_active=false to stop rotation."

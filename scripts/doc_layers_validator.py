@@ -424,7 +424,7 @@ class DocLayersValidator:
     def save_report(self, output_path: str = "doc_layers_report.html"):
         """Save the layers validation report."""
         report = self.generate_report()
-        Path(output_path).write_text(report)
+        Path(output_path).write_text(report, encoding="utf-8")
         print(f"Documentation layers report saved to: {output_path}")
         return output_path
 

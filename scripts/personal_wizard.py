@@ -607,20 +607,21 @@ def build_personal_env_template(
             billing_mode = str(
                 ask_ai.get("billing_mode", "disabled")
             ).strip().lower()
-            if provider == "openai":
+            if billing_mode == "user-subscription":
+                shared_key_env = "DOCSOPS_SHARED_OPENAI_API_KEY" if provider == "openai" else "DOCSOPS_SHARED_ASK_AI_API_KEY"
+                _append_env(
+                    lines,
+                    shared_key_env,
+                    "",
+                    "Ask AI: optional shared fallback key for centrally managed entitlement mode",
+                )
+            elif provider == "openai":
                 _append_env(
                     lines,
                     "OPENAI_API_KEY",
                     "YOUR_OPENAI_API_KEY",
                     "Ask AI: OpenAI API key",
                 )
-                if billing_mode == "user-subscription":
-                    _append_env(
-                        lines,
-                        "DOCSOPS_SHARED_OPENAI_API_KEY",
-                        "",
-                        "Ask AI: optional shared OpenAI key for centrally managed entitlement mode",
-                    )
             elif provider == "anthropic":
                 _append_env(
                     lines,

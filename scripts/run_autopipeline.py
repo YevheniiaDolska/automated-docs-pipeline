@@ -25,6 +25,7 @@ if str(REPO_ROOT) not in sys.path:
 
 from scripts.env_loader import load_local_env
 from scripts.flow_feedback import FlowNarrator
+from scripts.license_gate import get_license, get_license_summary
 
 
 def _read_yaml(path: Path) -> dict[str, Any]:
@@ -32,6 +33,31 @@ def _read_yaml(path: Path) -> dict[str, Any]:
     if not isinstance(payload, dict):
         raise ValueError(f"Expected YAML mapping: {path}")
     return payload
+
+
+def _write_security_gate_report(
+    *,
+    reports_dir: Path,
+    runtime: dict[str, Any],
+    lic_summary: str,
+    lic_valid: bool,
+    lic_error: str,
+) -> Path:
+    security = runtime.get("security", {}) if isinstance(runtime.get("security"), dict) else {}
+    report = {
+        "ok": True,
+        "hardening_profile": str(security.get("hardening_profile", "")),
+        "anti_tamper_enforced": bool(security.get("anti_tamper_enforced", False)),
+        "license_valid": bool(lic_valid),
+        "license_summary": lic_summary,
+        "license_error": lic_error,
+    }
+    if bool(security.get("anti_tamper_enforced", False)) and ("Integrity check failed" in str(lic_error)):
+        report["ok"] = False
+        report["reason"] = "tamper_detected"
+    out = reports_dir / "security_gate_report.json"
+    out.write_text(json.dumps(report, ensure_ascii=True, indent=2) + "\n", encoding="utf-8")
+    return out
 
 
 def _enforce_strict_local_guardrails(runtime: dict[str, Any]) -> tuple[dict[str, Any], bool]:
@@ -732,6 +758,19 @@ def main() -> int:
             encoding="utf-8",
         )
         _say("Strict local-first", f"guardrails enforced via {effective_runtime_path}")
+    lic = get_license(force_reload=True)
+    lic_summary = get_license_summary(lic)
+    security_report = _write_security_gate_report(
+        reports_dir=reports_dir,
+        runtime=runtime,
+        lic_summary=lic_summary,
+        lic_valid=bool(lic.valid),
+        lic_error=str(lic.error),
+    )
+    _say("License", lic_summary)
+    if runtime.get("security", {}).get("anti_tamper_enforced", False) and ("Integrity check failed" in str(lic.error)):
+        print(f"[autopipeline] BLOCKED: anti-tamper check failed. See {security_report}")
+        return 2
     strictness = str(runtime.get("api_governance", {}).get("strictness", "standard")).strip().lower() or "standard"
     modules = runtime.get("modules", {})
     api_first = runtime.get("api_first", {})
@@ -859,15 +898,17 @@ def main() -> int:
 
     if isinstance(branding_cfg, dict) and bool(branding_cfg.get("enabled", False)):
         stage_no += 1
-        narrator.stage(stage_no, execution_stages[stage_no - 1], "Apply badge/referral policy to documentation")
+        narrator.stage(stage_no, execution_stages[stage_no - 1], "Apply badge policy to documentation")
         _say(f"Stage {stage_no}/{total_stages}", execution_stages[stage_no - 1])
         landing_url = str(branding_cfg.get("landing_url", "")).strip()
         docs_root_cfg = str(branding_cfg.get("docs_root", runtime.get("paths", {}).get("docs_root", "docs"))).strip()
         plan = str(branding_cfg.get("plan", "free")).strip().lower()
         cheapest_plan = str(branding_cfg.get("cheapest_paid_plan", "starter")).strip().lower()
         badge_opt_out = bool(branding_cfg.get("badge_opt_out", False))
-        referral_env = str(branding_cfg.get("referral_code_env", "")).strip()
-        referral_code = os.getenv(referral_env, "") if referral_env else ""
+        if bool(branding_cfg.get("lock_badge_policy", False)):
+            # Locked operator policy: if badges are enabled, force mandatory behavior.
+            plan = "starter"
+            badge_opt_out = False
         report_rel = str(branding_cfg.get("report_path", "reports/veridoc_branding_policy_report.json")).strip()
         report_abs = (repo_root / report_rel).resolve() if not Path(report_rel).is_absolute() else Path(report_rel)
         if not landing_url:
@@ -892,8 +933,6 @@ def main() -> int:
             ]
             if badge_opt_out:
                 cmd.append("--badge-opt-out")
-            if referral_code:
-                cmd.extend(["--referral-code", referral_code])
             branding_rc = _run(cmd, cwd=repo_root)
             _say(f"Stage {stage_no}/{total_stages} done", f"rc={branding_rc}, report={report_abs}")
             narrator.done(f"Branding policy rc={branding_rc}")

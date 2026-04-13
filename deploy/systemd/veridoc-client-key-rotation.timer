@@ -1,0 +1,10 @@
+[Unit]
+Description=Run VeriDoc per-client key rotation daily
+
+[Timer]
+OnCalendar=daily
+Persistent=true
+Unit=veridoc-client-key-rotation.service
+
+[Install]
+WantedBy=timers.target

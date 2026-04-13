@@ -89,6 +89,149 @@ CAPABILITY_MAP: dict[str, dict[str, Any]] = {
 }
 
 
+PACKAGE_SCOPE_MATRIX: dict[str, dict[str, Any]] = {
+    "pilot": {
+        "label": "Pilot",
+        "in_scope": [
+            "One to two repositories or services.",
+            "Baseline docs quality gates and scorecard governance.",
+            "Core API coverage and docs-contract visibility for primary surface.",
+            "Review-branch workflow with manual merge gate.",
+        ],
+        "out_of_scope": [
+            "Cross-org CI hardening and enterprise SSO workflows.",
+            "Complex multi-team monorepo policy exceptions.",
+            "High-volume RAG evaluation and production monitoring.",
+        ],
+    },
+    "full": {
+        "label": "Full implementation",
+        "in_scope": [
+            "Production rollout across prioritized repositories.",
+            "Full quality gate integration in CI and weekly automation.",
+            "Multi-surface docs generation and contract governance.",
+            "Operational runbook alignment and ownership handoff.",
+        ],
+        "out_of_scope": [
+            "RAG-heavy retrieval evaluation and graph tuning (add-on).",
+            "Custom security attestations outside standard hardening profile.",
+        ],
+    },
+    "full+rag": {
+        "label": "Full implementation + RAG",
+        "in_scope": [
+            "Full implementation scope plus RAG retrieval quality governance.",
+            "Knowledge module extraction, validation, and retrieval index lifecycle.",
+            "Retrieval eval metrics and remediation loop on recurring cadence.",
+        ],
+        "out_of_scope": [
+            "Client-specific managed inference hosting beyond agreed SLA.",
+        ],
+    },
+}
+
+
+def _package_from_payload(payload: dict[str, Any]) -> str:
+    package = str(payload.get("commercial_package", "full")).strip().lower()
+    if package not in PACKAGE_SCOPE_MATRIX:
+        return "full"
+    return package
+
+
+def _scope_section(package: str, findings: list[dict[str, Any]]) -> dict[str, Any]:
+    config = PACKAGE_SCOPE_MATRIX.get(package, PACKAGE_SCOPE_MATRIX["full"])
+    findings_count = len(findings)
+    high_count = sum(1 for f in findings if str(f.get("severity", "")).lower() == "high")
+    medium_count = sum(1 for f in findings if str(f.get("severity", "")).lower() == "medium")
+    return {
+        "package": package,
+        "package_label": config["label"],
+        "in_scope": list(config["in_scope"]),
+        "out_of_scope": list(config["out_of_scope"]),
+        "coverage_note": (
+            f"Current report includes {findings_count} findings "
+            f"({high_count} high, {medium_count} medium) mapped to pipeline capabilities."
+        ),
+    }
+
+
+def _roadmap_90_days(findings: list[dict[str, Any]], top_gaps: list[dict[str, Any]]) -> list[dict[str, Any]]:
+    high = [f for f in findings if str(f.get("severity", "")).lower() == "high"]
+    medium = [f for f in findings if str(f.get("severity", "")).lower() == "medium"]
+    top_titles = [str(item.get("title", "")).strip() for item in top_gaps if str(item.get("title", "")).strip()]
+    if not top_titles:
+        top_titles = [str(f.get("title", "")).strip() for f in findings[:3] if str(f.get("title", "")).strip()]
+
+    phase_0_actions = [
+        "Stabilize highest-severity findings and unblock release-critical documentation paths.",
+        "Lock weekly quality gate cadence and confirm review-branch workflow behavior.",
+    ]
+    if high:
+        phase_0_actions.append(f"Prioritize {len(high)} high-severity findings for immediate remediation.")
+
+    phase_1_actions = [
+        "Close the highest business-impact medium findings and reduce recurring support burden.",
+        "Backfill missing documentation layers for top capabilities and API operations.",
+    ]
+    if top_titles:
+        phase_1_actions.append("Primary gap themes: " + "; ".join(top_titles[:3]) + ".")
+
+    phase_2_actions = [
+        "Harden governance with KPI/SLA thresholds tied to release-readiness criteria.",
+        "Institutionalize ownership model, reporting rhythm, and operational escalation policy.",
+    ]
+    if medium:
+        phase_2_actions.append(f"Resolve remaining medium findings ({len(medium)}) into steady-state backlog.")
+
+    return [
+        {"window_days": "0-30", "objective": "Stabilize core quality risks", "actions": phase_0_actions},
+        {"window_days": "31-60", "objective": "Scale and standardize coverage", "actions": phase_1_actions},
+        {"window_days": "61-90", "objective": "Operationalize steady-state excellence", "actions": phase_2_actions},
+    ]
+
+
+def _executive_narrative(payload: dict[str, Any]) -> dict[str, str]:
+    score = float(payload["score"]["audit_score_0_100"])
+    grade = str(payload["score"]["grade"])
+    kpis = payload["kpis"]
+    findings_totals = payload.get("findings_totals", {})
+    high_count = int(findings_totals.get("high_count", 0) or 0)
+    medium_count = int(findings_totals.get("medium_count", 0) or 0)
+    stale_pct = float(kpis["freshness"]["stale_docs_pct"])
+    api_cov = float(kpis["api_coverage"]["coverage_pct"])
+    example_rel = float(kpis["example_reliability"]["example_reliability_pct"])
+    drift_pct = float(kpis["drift"]["docs_contract_drift_pct"])
+
+    if score >= 85:
+        posture = "strong"
+        decision = "GO with controlled optimization backlog."
+    elif score >= 70:
+        posture = "moderate"
+        decision = "Conditional GO with focused remediation plan."
+    else:
+        posture = "fragile"
+        decision = "NO-GO until critical remediation milestones are closed."
+
+    summary = (
+        f"Current documentation operating posture is {posture} (score {score}, grade {grade}). "
+        f"API coverage is {api_cov}%, example reliability is {example_rel}%, drift is {drift_pct}%, "
+        f"and stale coverage debt is {stale_pct}%."
+    )
+    business = (
+        f"The finding set contains {high_count} high and {medium_count} medium risks, "
+        "with quantifiable monthly loss and remediation effort modeled per issue."
+    )
+    recommendation = (
+        f"{decision} Execute the 90-day roadmap with weekly evidence-based checkpoints "
+        "to convert documentation quality from project effort into repeatable operating capability."
+    )
+    return {
+        "summary": summary,
+        "business_context": business,
+        "recommendation": recommendation,
+    }
+
+
 def _read_json(path: Path) -> dict[str, Any]:
     if not path.exists():
         return {}
@@ -973,6 +1116,9 @@ def _build_html(payload: dict[str, Any]) -> str:
     findings = payload.get("findings", [])
     findings_totals = payload.get("findings_totals", {})
     top3 = payload["top_3_gaps"]
+    scope = payload.get("scope", {}) if isinstance(payload.get("scope"), dict) else {}
+    roadmap = payload.get("roadmap_90_days", []) if isinstance(payload.get("roadmap_90_days"), list) else []
+    narrative = payload.get("executive_narrative", {}) if isinstance(payload.get("executive_narrative"), dict) else {}
 
     def card(title: str, value: str, subtitle: str) -> str:
         return (
@@ -991,6 +1137,18 @@ def _build_html(payload: dict[str, Any]) -> str:
         )
         for item in top3
     ) or "<li>No gaps detected.</li>"
+    scope_in_html = "".join(f"<li>{html.escape(str(item))}</li>" for item in scope.get("in_scope", [])) or "<li>No explicit in-scope items.</li>"
+    scope_out_html = "".join(f"<li>{html.escape(str(item))}</li>" for item in scope.get("out_of_scope", [])) or "<li>No explicit out-of-scope items.</li>"
+    roadmap_html = "".join(
+        (
+            "<li><strong>{}</strong> - {}<br><span>{}</span></li>".format(
+                html.escape(str(phase.get("window_days", ""))),
+                html.escape(str(phase.get("objective", ""))),
+                html.escape("; ".join(str(v) for v in phase.get("actions", []) if str(v).strip())),
+            )
+        )
+        for phase in roadmap
+    ) or "<li>No roadmap generated.</li>"
 
     findings_rows = "".join(
         (
@@ -1098,6 +1256,13 @@ def _build_html(payload: dict[str, Any]) -> str:
     </div>
 
     <div class="section">
+      <h2>Executive readout</h2>
+      <p><strong>Summary:</strong> {html.escape(str(narrative.get('summary', '')))}</p>
+      <p><strong>Business context:</strong> {html.escape(str(narrative.get('business_context', '')))}</p>
+      <p><strong>Recommendation:</strong> {html.escape(str(narrative.get('recommendation', '')))}</p>
+    </div>
+
+    <div class="section">
       <h2>Findings Matrix (Fixability + Cost per Issue)</h2>
       <table class="kpi-table">
         <tr>
@@ -1119,6 +1284,29 @@ def _build_html(payload: dict[str, Any]) -> str:
       <h2>Top 3 Gaps To Fix First</h2>
       <ol class="top3">
         {top3_html}
+      </ol>
+    </div>
+
+    <div class="section">
+      <h2>Delivery scope</h2>
+      <p><strong>Package:</strong> {html.escape(str(scope.get('package_label', '')))} ({html.escape(str(scope.get('package', '')))}).</p>
+      <p>{html.escape(str(scope.get('coverage_note', '')))}</p>
+      <div class="grid">
+        <div class="card">
+          <h3>Pilot scope / In scope</h3>
+          <ul>{scope_in_html}</ul>
+        </div>
+        <div class="card">
+          <h3>Out of scope</h3>
+          <ul>{scope_out_html}</ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="section">
+      <h2>90-day roadmap</h2>
+      <ol class="top3">
+        {roadmap_html}
       </ol>
     </div>
 
@@ -1150,6 +1338,12 @@ def main() -> int:
     parser.add_argument("--stale-days", type=int, default=180)
     parser.add_argument("--assumptions-json", default="")
     parser.add_argument("--auto-run-smoke", action="store_true")
+    parser.add_argument(
+        "--commercial-package",
+        choices=["pilot", "full", "full+rag"],
+        default="full",
+        help="Commercial package context to render scope and roadmap sections.",
+    )
     parser.add_argument("--json-output", default="reports/audit_scorecard.json")
     parser.add_argument("--html-output", default="reports/audit_scorecard.html")
     args = parser.parse_args()
@@ -1169,16 +1363,22 @@ def main() -> int:
     }
     assumptions = _load_assumptions(Path(args.assumptions_json) if str(args.assumptions_json).strip() else None)
     findings = _build_findings(kpis, assumptions)
+    top_3_gaps = _top3_gaps(reports_dir)
+    scope = _scope_section(str(args.commercial_package).strip().lower(), findings)
     payload = {
         "generated_at": datetime.now(timezone.utc).isoformat(),
+        "commercial_package": str(args.commercial_package).strip().lower(),
         "score": _overall_score(kpis),
         "kpis": kpis,
         "business_impact": _business_impact(kpis, assumptions),
         "capability_matrix": _capability_matrix(),
         "findings": findings,
         "findings_totals": _findings_totals(findings),
-        "top_3_gaps": _top3_gaps(reports_dir),
+        "top_3_gaps": top_3_gaps,
+        "scope": scope,
+        "roadmap_90_days": _roadmap_90_days(findings, top_3_gaps),
     }
+    payload["executive_narrative"] = _executive_narrative(payload)
 
     json_out = Path(args.json_output)
     html_out = Path(args.html_output)

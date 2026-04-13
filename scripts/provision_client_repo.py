@@ -30,6 +30,8 @@ if str(REPO_ROOT) not in sys.path:
 
 from scripts.build_client_bundle import create_bundle  # noqa: E402
 from scripts.docs_ci_bootstrap import install_docs_ci_files  # noqa: E402
+from scripts.env_loader import load_local_env  # noqa: E402
+from scripts.setup_client_env_wizard import install_local_precommit_hooks  # noqa: E402
 
 PRESETS_DIR = REPO_ROOT / "profiles" / "clients" / "presets"
 TEMPLATE_PROFILE = REPO_ROOT / "profiles" / "clients" / "_template.client.yml"
@@ -60,6 +62,7 @@ def _apply_rag_package_policy(profile: dict[str, Any], *, rag_enabled: bool) -> 
     if isinstance(knowledge_graph, dict):
         knowledge_graph["enabled"] = bool(rag_enabled)
 DOCSOPS_LOCAL_ENV = ".env.docsops.local"
+CLIENT_REGISTRY_PATH = REPO_ROOT / "config" / "licensing" / "clients.yml"
 
 
 def _prompt_with_default(prompt: str, default: str | None = None) -> str:
@@ -141,6 +144,8 @@ def _save_generated_profile(profile: dict[str, Any], client_id: str) -> Path:
 
 def _create_profile_via_wizard(default_scheduler: str, *, require_repo: bool = True) -> tuple[Path, str, str]:
     print("Preset-based profile creation")
+    print("Note: presets are technical starting points, not commercial plans.")
+    print("Commercial packaging is selected separately as pilot/full/full+rag.\n")
     preset = _prompt_choice("Choose preset", ["small", "startup", "enterprise", "pilot-evidence"], "startup")
     profile = _build_profile_from_preset(preset)
 
@@ -181,6 +186,11 @@ def _create_profile_via_wizard(default_scheduler: str, *, require_repo: bool = T
             "[info] Cloud-capable mode selected: external LLM providers are allowed. "
             "Use this when data already leaves your perimeter by policy."
         )
+    hardening_profile = _prompt_choice(
+        "Security hardening profile",
+        ["production", "relaxed"],
+        "production",
+    )
     tenant_id = _prompt_with_default(
         "Tenant ID (license binding)",
         str(profile["client"].get("tenant_id", client_id)),
@@ -212,7 +222,7 @@ def _create_profile_via_wizard(default_scheduler: str, *, require_repo: bool = T
     rag_addon_enabled = commercial_package == "full+rag"
     license_days = int(_prompt_with_default(
         "License validity (days)",
-        str(profile.get("licensing", {}).get("days", 365)),
+        str(profile.get("licensing", {}).get("days", 30)),
     ))
 
     client_repo = ""
@@ -247,9 +257,6 @@ def _create_profile_via_wizard(default_scheduler: str, *, require_repo: bool = T
         sandbox_default = sandbox_backend_default if sandbox_backend_default in sandbox_options else "prism"
         sandbox_backend = _prompt_choice("API sandbox backend", sandbox_options, sandbox_default)
         profile["runtime"]["api_first"]["sandbox_backend"] = sandbox_backend
-        if sandbox_backend == "external":
-            mock_default = str(profile["runtime"]["api_first"].get("mock_base_url", "https://<your-real-public-mock-url>/v1"))
-            profile["runtime"]["api_first"]["mock_base_url"] = _prompt_with_default("External mock base URL", mock_default)
         upload_assets_default = bool(profile["runtime"]["api_first"].get("upload_test_assets", False))
         if strict_local:
             profile["runtime"]["api_first"]["upload_test_assets"] = False
@@ -279,30 +286,23 @@ def _create_profile_via_wizard(default_scheduler: str, *, require_repo: bool = T
             "Enable Ask AI integration?",
             default_yes=bool(profile["runtime"]["integrations"]["ask_ai"].get("enabled", False)),
         )
+    branding_defaults = profile["runtime"].get("veridoc_branding", {})
+    if not isinstance(branding_defaults, dict):
+        branding_defaults = {}
     enable_veridoc_branding = _prompt_yes_no(
-        "Enable Powered by VeriDoc badge policy automation?",
-        default_yes=bool(profile["runtime"].get("veridoc_branding", {}).get("enabled", False)),
+        "Enable mandatory Powered by VeriDoc badge (you apply discount if yes)?",
+        default_yes=bool(branding_defaults.get("enabled", False)),
     )
-    branding_landing_url = "https://veri-doc.app/"
-    branding_plan = "free"
-    branding_cheapest = "pro"
+    branding_landing_url = _prompt_with_default(
+        "Branding landing URL",
+        str(branding_defaults.get("landing_url", "https://veri-doc.app/")),
+    )
+    # Operator decision is final:
+    # - enabled=True  -> mandatory badge with no opt-out
+    # - enabled=False -> no badge policy automation
+    branding_plan = "starter" if enable_veridoc_branding else "free"
+    branding_cheapest = "starter"
     branding_badge_opt_out = False
-    if enable_veridoc_branding:
-        branding_defaults = profile["runtime"].get("veridoc_branding", {})
-        if not isinstance(branding_defaults, dict):
-            branding_defaults = {}
-        branding_landing_url = _prompt_with_default(
-            "Branding landing URL",
-            str(branding_defaults.get("landing_url", "https://veri-doc.app/")),
-        )
-        branding_plan = _prompt_choice(
-            "Branding plan",
-            ["pilot", "free", "starter", "pro", "business", "enterprise"],
-            str(branding_defaults.get("plan", "free")).strip().lower(),
-        )
-        # Do not ask operator at bundle-build time.
-        # Client controls opt-out later in product UI (Settings -> Referrals).
-        branding_badge_opt_out = bool(branding_defaults.get("badge_opt_out", False))
 
     enable_intent_weekly = _prompt_yes_no("Enable weekly intent experience build?", default_yes=True)
     finalize_gate_cfg = profile["runtime"].get("finalize_gate", {})
@@ -381,10 +381,6 @@ def _create_profile_via_wizard(default_scheduler: str, *, require_repo: bool = T
                     "Enable git sync (auto pull before weekly run)?",
                     default_yes=bool(git_sync.get("enabled", True)),
                 )
-            if git_sync["enabled"]:
-                git_sync["repo_path"] = _prompt_with_default("Git sync repo path", str(git_sync.get("repo_path", ".")))
-                git_sync["remote"] = _prompt_with_default("Git sync remote", str(git_sync.get("remote", "origin")))
-                git_sync["branch"] = _prompt_with_default("Git sync branch (empty=detected)", str(git_sync.get("branch", "")))
 
         integrations = profile["runtime"].get("integrations", {})
         if isinstance(integrations, dict):
@@ -465,6 +461,32 @@ def _create_profile_via_wizard(default_scheduler: str, *, require_repo: bool = T
     llm_control["approval_cache_scope"] = "run"
     llm_control["redact_before_external"] = True
     profile["runtime"]["llm_control"] = llm_control
+    security_cfg = profile["runtime"].get("security", {})
+    if not isinstance(security_cfg, dict):
+        security_cfg = {}
+    security_cfg["hardening_profile"] = hardening_profile
+    security_cfg["allow_dev_bypass"] = hardening_profile != "production"
+    security_cfg["anti_tamper_enforced"] = hardening_profile == "production"
+    security_cfg["require_protected_modules"] = hardening_profile == "production"
+    security_cfg["require_pack_for_premium"] = hardening_profile == "production"
+    security_cfg["protect_mode"] = str(security_cfg.get("protect_mode", "compiled")).strip().lower() or "compiled"
+    if not isinstance(security_cfg.get("required_compiled_modules"), list):
+        security_cfg["required_compiled_modules"] = ["license_gate", "pack_runtime"]
+    security_cfg["protected_artifacts_dir"] = str(security_cfg.get("protected_artifacts_dir", "dist/compiled")).strip() or "dist/compiled"
+    security_cfg["core_mode"] = "local"
+    if strict_local:
+        security_cfg["operation_mode"] = "strict-local"
+        security_cfg["phone_home_enabled_default"] = False
+        security_cfg["update_check_enabled_default"] = False
+    elif llm_tier == "cloud":
+        security_cfg["operation_mode"] = "cloud"
+        security_cfg["phone_home_enabled_default"] = True
+        security_cfg["update_check_enabled_default"] = True
+    else:
+        security_cfg["operation_mode"] = "hybrid"
+        security_cfg["phone_home_enabled_default"] = True
+        security_cfg["update_check_enabled_default"] = True
+    profile["runtime"]["security"] = security_cfg
     if strict_local:
         integrations = profile["runtime"].get("integrations", {})
         if isinstance(integrations, dict):
@@ -490,6 +512,7 @@ def _create_profile_via_wizard(default_scheduler: str, *, require_repo: bool = T
         "plan": branding_plan,
         "cheapest_paid_plan": branding_cheapest,
         "badge_opt_out": bool(branding_badge_opt_out),
+        "lock_badge_policy": True,
         "docs_root": docs_root,
         "report_path": "reports/veridoc_branding_policy_report.json",
         "apply_on_weekly": True,
@@ -576,8 +599,8 @@ def _run_interactive_wizard(args: argparse.Namespace) -> argparse.Namespace:
         print("Examples of profile files:")
         print("- profiles/clients/blockstream-demo.client.yml")
         print("- profiles/clients/examples/basic.client.yml")
-        print("- profiles/clients/examples/pro.client.yml")
-        print("- profiles/clients/examples/enterprise.client.yml\n")
+        print("- profiles/clients/examples/maximal.client.yml")
+        print("- profiles/clients/generated/<your-client>.client.yml\n")
         args.client = _prompt_with_default("Path to client profile (*.client.yml)", args.client or default_profile)
         if not bool(args.bundle_only):
             args.client_repo = _prompt_with_default("Path to local client repository", args.client_repo)
@@ -1225,11 +1248,14 @@ def execute_provision(args: argparse.Namespace) -> int:
         profile_path = (REPO_ROOT / profile_path).resolve()
     if not profile_path.exists():
         raise FileNotFoundError(f"Client profile not found: {profile_path}")
+    profile_path = _ensure_signed_jwt_for_bundle(profile_path)
     try:
         bundle_root = create_bundle(profile_path)
     except RuntimeError as exc:
         print(f"[error] bundle build failed: {exc}")
         return 2
+    _sync_client_registry_for_production(profile_path)
+    _run_operator_postprovision_autopilot(profile_path)
     if bool(getattr(args, "bundle_only", False)):
         print(f"[ok] bundle built: {bundle_root}")
         print(f"[ok] signed license: {bundle_root / 'docsops' / 'license.jwt'}")
@@ -1243,6 +1269,7 @@ def execute_provision(args: argparse.Namespace) -> int:
     installed_path = copy_bundle_to_repo(bundle_root, client_repo, args.docsops_dir)
     workflow_path = install_pr_autofix_workflow(client_repo, args.docsops_dir)
     ci_workflows = install_docs_ci_workflow(client_repo, args.docsops_dir)
+    hooks_ok, hook_paths, hook_error = install_local_precommit_hooks(client_repo)
     apply_integrations(client_repo, args.docsops_dir)
     checklist = generate_env_checklist(client_repo, args.docsops_dir)
     dotenv_path = _collect_secret_inputs(client_repo, args.docsops_dir)
@@ -1255,6 +1282,11 @@ def execute_provision(args: argparse.Namespace) -> int:
         print(f"[ok] pr auto-doc workflow installed: {workflow_path}")
     for path in ci_workflows:
         print(f"[ok] docs CI workflow installed: {path}")
+    if hooks_ok:
+        for hook_path in hook_paths:
+            print(f"[ok] local pre-commit hook installed: {hook_path}")
+    else:
+        print(f"[warn] local pre-commit hook install skipped/failed: {hook_error}")
     if checklist:
         print(f"[ok] env checklist: {checklist}")
     if dotenv_path:
@@ -1264,6 +1296,351 @@ def execute_provision(args: argparse.Namespace) -> int:
     else:
         print("[next] install scheduler manually from docsops/ops/runbook.md")
     return 0
+
+
+def _resolve_profile_path(raw: str) -> Path:
+    candidate = Path(raw)
+    if candidate.is_absolute():
+        return candidate
+    return (REPO_ROOT / candidate).resolve()
+
+
+def _sync_client_registry_for_production(profile_path: Path) -> None:
+    """Auto-register client in ops registry for production hardening profiles.
+
+    This keeps onboarding one-click for operator:
+    - production profile: auto upsert client record in config/licensing/clients.yml
+    - relaxed profile: skip registry sync
+    """
+    try:
+        profile = _load_yaml_mapping(profile_path)
+    except (ValueError, OSError) as exc:
+        print(f"[warn] registry sync skipped: failed to read profile ({exc})")
+        return
+
+    runtime = profile.get("runtime", {})
+    runtime = runtime if isinstance(runtime, dict) else {}
+    security = runtime.get("security", {})
+    security = security if isinstance(security, dict) else {}
+    hardening_profile = str(security.get("hardening_profile", "production")).strip().lower()
+    if hardening_profile != "production":
+        return
+
+    client = profile.get("client", {})
+    client = client if isinstance(client, dict) else {}
+    licensing = profile.get("licensing", {})
+    licensing = licensing if isinstance(licensing, dict) else {}
+    client_id = str(client.get("id", "")).strip()
+    if not client_id:
+        print("[warn] registry sync skipped: empty client.id")
+        return
+
+    CLIENT_REGISTRY_PATH.parent.mkdir(parents=True, exist_ok=True)
+    if not CLIENT_REGISTRY_PATH.exists():
+        seed = {"defaults": {"rotation_days": 90, "license_days": 30}, "clients": []}
+        CLIENT_REGISTRY_PATH.write_text(
+            yaml.safe_dump(seed, sort_keys=False, allow_unicode=False),
+            encoding="utf-8",
+        )
+
+    try:
+        registry = yaml.safe_load(CLIENT_REGISTRY_PATH.read_text(encoding="utf-8")) or {}
+    except (ValueError, OSError) as exc:
+        print(f"[warn] registry sync skipped: failed to parse {CLIENT_REGISTRY_PATH} ({exc})")
+        return
+    if not isinstance(registry, dict):
+        print(f"[warn] registry sync skipped: invalid mapping in {CLIENT_REGISTRY_PATH}")
+        return
+    clients = registry.get("clients", [])
+    if not isinstance(clients, list):
+        clients = []
+        registry["clients"] = clients
+
+    tenant_id = str(client.get("tenant_id", client_id)).strip() or client_id
+    company_domain = str(client.get("company_domain", "")).strip().lower()
+    plan = str(licensing.get("plan", "professional")).strip().lower() or "professional"
+    license_days = int(licensing.get("days", 30) or 30)
+    max_docs = int(licensing.get("max_docs", 0) or 0)
+    manual_jwt = str(licensing.get("manual_jwt_path", "")).strip()
+    private_key_raw = str(licensing.get("private_key_path", "")).strip()
+    public_key_raw = str(licensing.get("public_key_path", "")).strip()
+
+    def _norm_path(raw: str) -> str:
+        if not raw:
+            return ""
+        path = _resolve_profile_path(raw)
+        return str(path)
+
+    default_key_root = REPO_ROOT / "docsops" / "keys" / "clients" / client_id
+    private_key_path = _norm_path(private_key_raw) or str(default_key_root / "veriops-licensing.key")
+    public_key_path = _norm_path(public_key_raw) or str(default_key_root / "veriops-licensing.pub")
+    latest_jwt_path = _norm_path(manual_jwt) or str(REPO_ROOT / "generated" / "tmp" / "licenses" / f"{client_id}.license.jwt")
+
+    record = {
+        "client_id": client_id,
+        "tenant_id": tenant_id,
+        "company_domain": company_domain,
+        "plan": plan,
+        "max_docs": max_docs,
+        "status": "active",
+        "retainer_active": True,
+        "key_rotation_days": 90,
+        "license_days": license_days,
+        "private_key_path": private_key_path,
+        "public_key_path": public_key_path,
+        "latest_license_jwt_path": latest_jwt_path,
+        "source_profile": str(profile_path),
+    }
+
+    existing_idx = None
+    for idx, item in enumerate(clients):
+        if isinstance(item, dict) and str(item.get("client_id", "")).strip() == client_id:
+            existing_idx = idx
+            break
+    if existing_idx is None:
+        clients.append(record)
+        action = "added"
+    else:
+        current = clients[existing_idx] if isinstance(clients[existing_idx], dict) else {}
+        merged = dict(current)
+        merged.update(record)
+        clients[existing_idx] = merged
+        action = "updated"
+
+    CLIENT_REGISTRY_PATH.write_text(
+        yaml.safe_dump(registry, sort_keys=False, allow_unicode=False),
+        encoding="utf-8",
+    )
+    print(f"[ok] production client registry {action}: {client_id} -> {CLIENT_REGISTRY_PATH}")
+
+
+def _is_production_profile(profile: dict[str, Any]) -> bool:
+    runtime = profile.get("runtime", {})
+    runtime = runtime if isinstance(runtime, dict) else {}
+    security = runtime.get("security", {})
+    security = security if isinstance(security, dict) else {}
+    hardening_profile = str(security.get("hardening_profile", "production")).strip().lower()
+    return hardening_profile == "production"
+
+
+def _run_operator_postprovision_autopilot(profile_path: Path) -> None:
+    """Optional operator-side automation hooks for production onboarding.
+
+    Enabled via environment variables so onboarding stays one-command:
+    - VERIOPS_AUTOMATION_AUTO_ENABLE_SERVER_TIMERS=true
+    - VERIOPS_AUTOMATION_AUTO_SET_CHANGELOG_SECRET=true
+    """
+    try:
+        profile = _load_yaml_mapping(profile_path)
+    except (ValueError, OSError) as exc:
+        print(f"[warn] operator autopilot skipped: profile read failed ({exc})")
+        return
+    if not _is_production_profile(profile):
+        return
+    _autopilot_enable_server_timers()
+    _autopilot_set_changelog_secret()
+
+
+def _autopilot_enable_server_timers() -> None:
+    enabled = os.environ.get("VERIOPS_AUTOMATION_AUTO_ENABLE_SERVER_TIMERS", "false").strip().lower()
+    if enabled not in {"1", "true", "yes"}:
+        return
+    host = os.environ.get("VERIOPS_SERVER_HOST", "").strip()
+    if not host:
+        print("[warn] server timer autopilot skipped: VERIOPS_SERVER_HOST is empty")
+        return
+
+    cmd = [
+        sys.executable,
+        str(REPO_ROOT / "scripts" / "enable_server_ops_timers.py"),
+        "--host",
+        host,
+        "--user",
+        os.environ.get("VERIOPS_SERVER_USER", "root").strip() or "root",
+        "--repo-dir",
+        os.environ.get("VERIOPS_SERVER_REPO_DIR", "/opt/veridoc").strip() or "/opt/veridoc",
+    ]
+    ssh_key = os.environ.get("VERIOPS_SERVER_SSH_KEY", "").strip()
+    if ssh_key:
+        cmd.extend(["--ssh-key", ssh_key])
+    if os.environ.get("VERIOPS_SERVER_USE_SUDO", "false").strip().lower() in {"1", "true", "yes"}:
+        cmd.append("--sudo")
+
+    completed = subprocess.run(cmd, cwd=str(REPO_ROOT), check=False, capture_output=True, text=True)
+    if completed.returncode == 0:
+        print("[ok] operator autopilot: server timers enabled")
+    else:
+        print("[warn] operator autopilot: failed to enable server timers")
+        if completed.stdout.strip():
+            print(completed.stdout.strip())
+        if completed.stderr.strip():
+            print(completed.stderr.strip())
+
+
+def _infer_github_repo_slug() -> str:
+    override = os.environ.get("VERIOPS_GITHUB_REPO", "").strip()
+    if override:
+        return override
+    cmd = ["git", "remote", "get-url", "origin"]
+    completed = subprocess.run(cmd, cwd=str(REPO_ROOT), check=False, capture_output=True, text=True)
+    if completed.returncode != 0:
+        return ""
+    remote = completed.stdout.strip()
+    if remote.startswith("git@github.com:") and remote.endswith(".git"):
+        return remote[len("git@github.com:") : -len(".git")]
+    if remote.startswith("https://github.com/") and remote.endswith(".git"):
+        return remote[len("https://github.com/") : -len(".git")]
+    if remote.startswith("https://github.com/"):
+        return remote[len("https://github.com/") :]
+    return ""
+
+
+def _autopilot_set_changelog_secret() -> None:
+    enabled = os.environ.get("VERIOPS_AUTOMATION_AUTO_SET_CHANGELOG_SECRET", "false").strip().lower()
+    if enabled not in {"1", "true", "yes"}:
+        return
+    repo_slug = _infer_github_repo_slug()
+    if not repo_slug:
+        print("[warn] changelog secret autopilot skipped: cannot infer GitHub repo slug")
+        return
+
+    key_b64 = os.environ.get("VERIOPS_CHANGELOG_SIGNING_KEY_B64", "").strip()
+    if not key_b64:
+        default_key = REPO_ROOT / "docsops" / "keys" / "veriops-licensing.key"
+        if default_key.exists():
+            key_b64 = default_key.read_text(encoding="utf-8").strip()
+    if not key_b64:
+        print("[warn] changelog secret autopilot skipped: signing key is empty")
+        return
+
+    cmd = [
+        "gh",
+        "secret",
+        "set",
+        "VERIOPS_CHANGELOG_SIGNING_KEY_B64",
+        "--repo",
+        repo_slug,
+        "--body",
+        key_b64,
+    ]
+    completed = subprocess.run(cmd, cwd=str(REPO_ROOT), check=False, capture_output=True, text=True)
+    if completed.returncode == 0:
+        print(f"[ok] operator autopilot: GitHub secret set for {repo_slug}")
+    else:
+        print(f"[warn] operator autopilot: failed to set GitHub secret for {repo_slug}")
+        if completed.stdout.strip():
+            print(completed.stdout.strip())
+        if completed.stderr.strip():
+            print(completed.stderr.strip())
+
+
+def _ensure_signed_jwt_for_bundle(profile_path: Path) -> Path:
+    """Auto-generate a signed license JWT for client bundle builds when required.
+
+    This is an operator-side convenience for onboarding flow:
+    - If signed JWT is required and manual_jwt_path is empty/missing,
+      generate JWT to generated/tmp/licenses/<client_id>.license.jwt.
+    - If no signing key exists, generate a keypair on first run.
+    """
+    try:
+        profile = _load_yaml_mapping(profile_path)
+    except (ValueError, OSError) as exc:
+        print(f"[warn] failed to read client profile for JWT preflight: {exc}")
+        return profile_path
+
+    licensing = profile.get("licensing", {})
+    if not isinstance(licensing, dict):
+        return profile_path
+    if not bool(licensing.get("require_signed_jwt", True)):
+        return profile_path
+
+    manual_jwt_path_raw = str(licensing.get("manual_jwt_path", "")).strip()
+    if manual_jwt_path_raw:
+        manual_jwt_path = Path(manual_jwt_path_raw)
+        if not manual_jwt_path.is_absolute():
+            manual_jwt_path = (REPO_ROOT / manual_jwt_path).resolve()
+        if manual_jwt_path.exists():
+            return profile_path
+
+    client = profile.get("client", {})
+    if not isinstance(client, dict):
+        client = {}
+    client_id = str(client.get("id", "")).strip()
+    if not client_id:
+        print("[warn] cannot auto-generate JWT: client.id is empty")
+        return profile_path
+
+    plan = str(licensing.get("plan", "professional")).strip().lower() or "professional"
+    days = int(licensing.get("days", 30))
+    tenant_id = str(client.get("tenant_id", client_id)).strip() or client_id
+    company_domain = str(client.get("company_domain", "")).strip().lower()
+
+    output_dir = REPO_ROOT / "generated" / "tmp" / "licenses"
+    output_dir.mkdir(parents=True, exist_ok=True)
+    jwt_out = output_dir / f"{client_id}.license.jwt"
+
+    cmd = [
+        sys.executable,
+        str(REPO_ROOT / "build" / "generate_license.py"),
+        "--client-id",
+        client_id,
+        "--plan",
+        plan,
+        "--days",
+        str(days),
+        "--tenant-id",
+        tenant_id,
+        "--company-domain",
+        company_domain,
+        "--output",
+        str(jwt_out),
+    ]
+    signing_key_path = REPO_ROOT / "docsops" / "keys" / "veriops-licensing.key"
+    if not signing_key_path.exists():
+        cmd.append("--generate-keypair")
+
+    result = subprocess.run(cmd, cwd=str(REPO_ROOT), check=False, capture_output=True, text=True)
+    if result.returncode != 0:
+        combined_error = f"{result.stdout}\n{result.stderr}".lower()
+        if (
+            "no ed25519 library available" in combined_error
+            or "install 'pynacl' or 'cryptography'" in combined_error
+        ):
+            print("[warn] missing Ed25519 dependency detected; attempting automatic install of 'cryptography'...")
+            if _try_install_cryptography():
+                result = subprocess.run(cmd, cwd=str(REPO_ROOT), check=False, capture_output=True, text=True)
+    if result.returncode != 0 or not jwt_out.exists():
+        print("[warn] automatic JWT generation failed during onboarding preflight.")
+        if result.stdout.strip():
+            print(result.stdout.strip())
+        if result.stderr.strip():
+            print(result.stderr.strip())
+        return profile_path
+
+    try:
+        licensing["manual_jwt_path"] = str(jwt_out.relative_to(REPO_ROOT))
+        profile["licensing"] = licensing
+        profile_path.write_text(yaml.safe_dump(profile, sort_keys=False, allow_unicode=False), encoding="utf-8")
+    except (ValueError, OSError) as exc:
+        print(f"[warn] generated JWT but failed to persist manual_jwt_path: {exc}")
+        return profile_path
+
+    print(f"[ok] signed JWT prepared automatically: {jwt_out}")
+    return profile_path
+
+
+def _try_install_cryptography() -> bool:
+    install_cmd = [sys.executable, "-m", "pip", "install", "cryptography"]
+    completed = subprocess.run(install_cmd, cwd=str(REPO_ROOT), check=False, capture_output=True, text=True)
+    if completed.returncode == 0:
+        print("[ok] cryptography installed successfully for Ed25519 signing.")
+        return True
+    print("[warn] automatic install of cryptography failed.")
+    if completed.stdout.strip():
+        print(completed.stdout.strip())
+    if completed.stderr.strip():
+        print(completed.stderr.strip())
+    return False
 
 
 def run_scheduler_install(client_repo: Path, docsops_dir: str, mode: str) -> None:
@@ -1310,7 +1687,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument(
         "--generate-profile",
         action="store_true",
-        help="Interactive mode: create profile from preset (small/startup/enterprise)",
+        help="Interactive mode: create profile from preset (small/startup/enterprise/pilot-evidence)",
     )
     parser.add_argument(
         "--bundle-only",
@@ -1321,6 +1698,11 @@ def parse_args() -> argparse.Namespace:
 
 
 def main() -> int:
+    load_local_env(
+        REPO_ROOT,
+        filenames=(".env", ".env.local", ".env.operator", ".env.docsops.local"),
+        override=False,
+    )
     args = _resolve_args(parse_args())
     return execute_provision(args)
 

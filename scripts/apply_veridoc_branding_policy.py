@@ -27,6 +27,17 @@ def _is_markdown(path: Path) -> bool:
     return path.suffix.lower() in {".md", ".markdown"}
 
 
+def _badge_block(landing_url: str) -> str:
+    return "\n".join(
+        [
+            MANAGED_START,
+            f"[![Powered by VeriDoc](https://img.shields.io/badge/Powered%20by-VeriDoc-0ea5e9?style=flat-square)]({landing_url})",
+            MANAGED_END,
+            "",
+        ]
+    )
+
+
 def _with_ref(url: str, referral_code: str) -> str:
     if not referral_code.strip():
         return url
@@ -42,17 +53,6 @@ def _with_ref(url: str, referral_code: str) -> str:
             urlencode(query),
             parsed.fragment,
         )
-    )
-
-
-def _badge_block(landing_url: str) -> str:
-    return "\n".join(
-        [
-            MANAGED_START,
-            f"[![Powered by VeriDoc](https://img.shields.io/badge/Powered%20by-VeriDoc-0ea5e9?style=flat-square)]({landing_url})",
-            MANAGED_END,
-            "",
-        ]
     )
 
 
@@ -139,13 +139,13 @@ def main() -> int:
     mandatory_plans = {"pilot", "free", "starter", "pro"}
     referral_eligible_plans = {"business", "enterprise"}
     mandatory = plan in mandatory_plans
-    referral_eligible = plan in referral_eligible_plans
 
     landing_url = args.landing_url.strip()
     if not landing_url:
         print("[branding] landing_url is empty")
         return 2
 
+    referral_eligible = plan in referral_eligible_plans
     if referral_eligible and (not args.badge_opt_out) and args.referral_code.strip():
         effective_url = _with_ref(landing_url, args.referral_code.strip())
         commission_enabled = True

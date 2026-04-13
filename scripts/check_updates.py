@@ -34,6 +34,10 @@ UPDATE_SERVER = os.environ.get(
     "VERIOPS_UPDATE_SERVER",
     "https://updates.veriops.dev",
 )
+UPDATE_CHECK_ENABLED = os.environ.get(
+    "VERIOPS_UPDATE_CHECK_ENABLED",
+    "true",
+).strip().lower() in ("true", "1", "yes")
 
 # Version file tracks current installed version
 VERSION_FILE = REPO_ROOT / "docsops" / ".version.json"
@@ -279,6 +283,9 @@ def _apply_update(update_info: dict[str, Any]) -> bool:
 
 
 def main() -> int:
+    if not UPDATE_CHECK_ENABLED:
+        print("[update] Update checks are disabled via VERIOPS_UPDATE_CHECK_ENABLED=false")
+        return 0
     parser = argparse.ArgumentParser(description="Check for VeriOps pipeline updates")
     parser.add_argument("--check-only", action="store_true", help="Check without applying")
     parser.add_argument("--apply", action="store_true", help="Auto-apply available update")

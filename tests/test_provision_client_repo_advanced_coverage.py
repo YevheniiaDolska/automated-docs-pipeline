@@ -155,3 +155,125 @@ def test_collect_secret_inputs_writes_dotenv_and_gitignore(tmp_path: Path, monke
 
     gitignore = (repo / ".gitignore").read_text(encoding="utf-8")
     assert mod.DOCSOPS_LOCAL_ENV in gitignore
+
+
+def test_ensure_signed_jwt_for_bundle_autogenerates_and_persists_path(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    import provision_client_repo as mod
+
+    profile_path = tmp_path / "acme.client.yml"
+    profile_path.write_text(
+        yaml.safe_dump(
+            {
+                "client": {"id": "acme", "tenant_id": "acme", "company_domain": "acme.example"},
+                "licensing": {
+                    "plan": "enterprise",
+                    "days": 30,
+                    "require_signed_jwt": True,
+                    "manual_jwt_path": "",
+                },
+            },
+            sort_keys=False,
+        ),
+        encoding="utf-8",
+    )
+
+    monkeypatch.setattr(mod, "REPO_ROOT", tmp_path)
+
+    def _fake_run(cmd: list[str], cwd: str, check: bool, capture_output: bool, text: bool):
+        assert "--generate-keypair" in cmd
+        output_path = Path(cmd[cmd.index("--output") + 1])
+        output_path.parent.mkdir(parents=True, exist_ok=True)
+        output_path.write_text("signed.jwt\n", encoding="utf-8")
+        return types.SimpleNamespace(returncode=0, stdout="[ok]", stderr="")
+
+    monkeypatch.setattr(mod.subprocess, "run", _fake_run)
+
+    out = mod._ensure_signed_jwt_for_bundle(profile_path)
+    assert out == profile_path
+
+    saved = yaml.safe_load(profile_path.read_text(encoding="utf-8"))
+    assert saved["licensing"]["manual_jwt_path"] == "generated/tmp/licenses/acme.license.jwt"
+
+
+def test_ensure_signed_jwt_for_bundle_skips_when_manual_path_exists(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    import provision_client_repo as mod
+
+    manual = tmp_path / "generated" / "tmp" / "licenses" / "acme.license.jwt"
+    manual.parent.mkdir(parents=True, exist_ok=True)
+    manual.write_text("jwt\n", encoding="utf-8")
+    profile_path = tmp_path / "acme.client.yml"
+    profile_path.write_text(
+        yaml.safe_dump(
+            {
+                "client": {"id": "acme"},
+                "licensing": {
+                    "plan": "professional",
+                    "days": 30,
+                    "require_signed_jwt": True,
+                    "manual_jwt_path": "generated/tmp/licenses/acme.license.jwt",
+                },
+            },
+            sort_keys=False,
+        ),
+        encoding="utf-8",
+    )
+
+    monkeypatch.setattr(mod, "REPO_ROOT", tmp_path)
+    monkeypatch.setattr(mod.subprocess, "run", lambda *a, **k: (_ for _ in ()).throw(AssertionError("must not run")))
+
+    out = mod._ensure_signed_jwt_for_bundle(profile_path)
+    assert out == profile_path
+
+
+def test_ensure_signed_jwt_for_bundle_retries_after_crypto_install(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    import provision_client_repo as mod
+
+    profile_path = tmp_path / "acme.client.yml"
+    profile_path.write_text(
+        yaml.safe_dump(
+            {
+                "client": {"id": "acme", "tenant_id": "acme", "company_domain": "acme.example"},
+                "licensing": {
+                    "plan": "enterprise",
+                    "days": 30,
+                    "require_signed_jwt": True,
+                    "manual_jwt_path": "",
+                },
+            },
+            sort_keys=False,
+        ),
+        encoding="utf-8",
+    )
+
+    monkeypatch.setattr(mod, "REPO_ROOT", tmp_path)
+    calls: list[list[str]] = []
+
+    def _fake_run(cmd: list[str], cwd: str, check: bool, capture_output: bool, text: bool):
+        calls.append(cmd)
+        if cmd[1].endswith("generate_license.py"):
+            output_path = Path(cmd[cmd.index("--output") + 1])
+            if len([c for c in calls if len(c) > 1 and c[1].endswith("generate_license.py")]) == 1:
+                return types.SimpleNamespace(
+                    returncode=1,
+                    stdout="",
+                    stderr="RuntimeError: No Ed25519 library available. Install 'PyNaCl' or 'cryptography'.",
+                )
+            output_path.parent.mkdir(parents=True, exist_ok=True)
+            output_path.write_text("signed.jwt\n", encoding="utf-8")
+            return types.SimpleNamespace(returncode=0, stdout="[ok]", stderr="")
+        if cmd[:3] == [mod.sys.executable, "-m", "pip"] and "cryptography" in cmd:
+            return types.SimpleNamespace(returncode=0, stdout="installed", stderr="")
+        return types.SimpleNamespace(returncode=0, stdout="", stderr="")
+
+    monkeypatch.setattr(mod.subprocess, "run", _fake_run)
+
+    out = mod._ensure_signed_jwt_for_bundle(profile_path)
+    assert out == profile_path
+    saved = yaml.safe_load(profile_path.read_text(encoding="utf-8"))
+    assert saved["licensing"]["manual_jwt_path"] == "generated/tmp/licenses/acme.license.jwt"

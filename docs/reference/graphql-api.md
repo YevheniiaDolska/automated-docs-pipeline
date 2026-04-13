@@ -4,22 +4,22 @@ description: Auto-generated graphql reference from source contract.
 content_type: reference
 product: both
 tags:
-- Mnt
-- Users
-- Auto Doc Pipeline
-- Kroha
 - C
-- Docs
-- Documents
 - Development
-last_reviewed: '2026-04-03'
+- Auto Doc Pipeline
+- Documents
+- Mnt
+- Docs
+- Users
+- Kroha
+last_reviewed: '2026-04-06'
 original_author: Kroha
 ---
 
 
 # GRAPHQL Reference
 
-Source: `/tmp/pytest-of-eudo/pytest-2842/test_multi_protocol_contract_f0/schema.graphql`
+Source: `/tmp/pytest-of-eudo/pytest-2844/test_multi_protocol_contract_f0/schema.graphql`
 
 Flow mode: `api-first`
 

@@ -108,6 +108,31 @@ def _format_money(value: Any) -> str:
     return "${:,.0f}".format(amount)
 
 
+def _smart_truncate(value: Any, limit: int, *, preserve_words: bool = True) -> str:
+    """Truncate text for narrow PDF cells without abrupt hard cuts."""
+    text = str(value or "").strip()
+    if limit <= 0 or len(text) <= limit:
+        return text
+    if not preserve_words:
+        return text[: max(1, limit - 1)].rstrip() + "…"
+    boundary = text.rfind(" ", 0, max(1, limit - 1))
+    if boundary < int(limit * 0.6):
+        boundary = max(1, limit - 1)
+    return text[:boundary].rstrip() + "…"
+
+
+def _smart_truncate_url(value: Any, limit: int = 110) -> str:
+    """Truncate long URLs by preserving both prefix and suffix."""
+    text = str(value or "").strip()
+    if limit <= 0 or len(text) <= limit:
+        return text
+    if limit < 20:
+        return _smart_truncate(text, limit, preserve_words=False)
+    left = int(limit * 0.65)
+    right = max(8, limit - left - 1)
+    return text[:left].rstrip() + "…" + text[-right:].lstrip()
+
+
 def _risk_band(score: float) -> str:
     if score >= 85:
         return "Low"
@@ -618,7 +643,7 @@ def _cover_page(company_name: str, score: float, risk_band_label: str, gen_date:
                 c.setFillColor(GREY_700)
                 y_pos = info_y - 125
                 for finding in top_findings[:4]:
-                    text = str(finding)[:90]
+                    text = _smart_truncate(finding, 180)
                     # Bullet with colored dot
                     c.setFillColor(DANGER_RED)
                     c.circle(38, y_pos + 3, 3, fill=1, stroke=0)
@@ -677,7 +702,7 @@ def _per_site_table(public_audit: dict[str, Any]) -> list[Flowable]:
 
     for idx, site in enumerate(sites[:12], start=1):
         metrics = site.get("metrics", {})
-        url = str(site.get("url", site.get("site_url", "n/a")))[:45]
+        url = _smart_truncate_url(site.get("url", site.get("site_url", "n/a")), limit=95)
         pg = str(metrics.get("crawl", {}).get("pages_crawled", metrics.get("pages", 0)))
         bl = str(metrics.get("links", {}).get("broken_internal_links_count",
                                                metrics.get("broken_links", 0)))
@@ -902,7 +927,7 @@ def _synthetic_findings_from_public(public_audit: dict[str, Any]) -> list[dict[s
             continue
         findings.append({
             "id": "PUB-{:03d}".format(10 + i),
-            "title": text[:80],
+            "title": _smart_truncate(text, 180),
             "severity": "LOW",
             "estimated_monthly_loss_usd_base": 300,
             "estimated_remediation_cost_usd_base": 500,
@@ -968,7 +993,7 @@ def _fallback_expert_analysis(public_audit: dict[str, Any], body_style: Paragrap
                 "- <b>{} broken internal links</b> detected during crawl".format(broken), red_item))
         broken_samples = samples.get("docs_broken_link_samples", samples.get("broken_links", []))[:5]
         for url in broken_samples:
-            elements.append(Paragraph("  {} {}".format("->", str(url)[:70]), item_style))
+            elements.append(Paragraph("  {} {}".format("->", _smart_truncate_url(url, limit=140)), item_style))
     else:
         elements.append(Paragraph("+ No broken internal links detected", green_item))
     elements.append(Spacer(1, 3 * mm))
@@ -1272,7 +1297,7 @@ def _risk_matrix(findings: list[dict[str, Any]]) -> Table:
         cost = float(item.get("estimated_remediation_cost_usd_base", 0) or 0)
         rows.append([
             Paragraph(str(item.get("id", "")), id_style),
-            Paragraph(str(item.get("title", ""))[:80], _CELL_STYLE),
+            Paragraph(_smart_truncate(item.get("title", ""), 220), _CELL_STYLE),
             _severity_badge(sev_text),
             Paragraph(_format_money(loss), money_cell),
             Paragraph(_format_money(cost), money_cell),
@@ -1370,7 +1395,7 @@ def _evidence_table(findings: list[dict[str, Any]]) -> Table:
     for item in findings[:10]:
         rows.append([
             Paragraph("{} -- {}".format(
-                item.get("id", ""), str(item.get("title", ""))[:60]), _CELL_STYLE),
+                item.get("id", ""), _smart_truncate(item.get("title", ""), 180)), _CELL_STYLE),
             Paragraph(str(item.get("evidence_source", "")) or "-", _CELL_STYLE),
             _confidence_badge(str(item.get("estimation_confidence", "n/a"))),
         ])
@@ -1608,7 +1633,7 @@ def _capability_matrix_table(matrix: list[dict[str, Any]]) -> list[Flowable]:
 
     for idx, cap in enumerate(matrix[:10], start=1):
         label = str(cap.get("capability_label", cap.get("capability_id", "")))
-        modules = ", ".join(cap.get("pipeline_modules", []))[:60]
+        modules = _smart_truncate(", ".join(cap.get("pipeline_modules", [])), 180)
         flow = str(cap.get("related_flow", ""))
         pilot = cap.get("pilot", False)
         full = cap.get("full", False)
@@ -1690,7 +1715,7 @@ def _internal_expert_analysis(
     if high_findings:
         for f in high_findings[:6]:
             elements.append(Paragraph(
-                "- <b>{}</b>: {}".format(f.get("id", ""), str(f.get("title", ""))[:75]),
+                "- <b>{}</b>: {}".format(f.get("id", ""), _smart_truncate(f.get("title", ""), 180)),
                 red_item))
     else:
         elements.append(Paragraph("No high-severity findings detected.", item_style))
@@ -1704,7 +1729,7 @@ def _internal_expert_analysis(
         for gap in top_gaps[:3]:
             elements.append(Paragraph(
                 "-> <b>{}</b>: {}".format(
-                    gap.get("id", ""), str(gap.get("action_required", gap.get("title", "")))[:80]),
+                    gap.get("id", ""), _smart_truncate(gap.get("action_required", gap.get("title", "")), 200)),
                 item_style))
 
     return elements
@@ -1932,7 +1957,7 @@ def _build_pdf(
     if mode == "internal":
         # Internal cover: doc count from scorecard, findings as top items
         docs_count = int(kpis.get("freshness", {}).get("total_docs", 0) or 0)
-        internal_top = [str(f.get("title", ""))[:90] for f in findings[:4]]
+        internal_top = [_smart_truncate(f.get("title", ""), 200) for f in findings[:4]]
         content.extend(_cover_page(
             company_name, score_value, risk_band_label, gen_date,
             docs_count, internal_top, mode="internal"))
@@ -2203,7 +2228,7 @@ def _build_pdf(
             Paragraph(str(item.get("id", "")), ParagraphStyle(
                 "PAID", fontName="Helvetica-Bold", fontSize=8.5, leading=10,
                 textColor=colors.HexColor("#1e3a8a"), alignment=TA_CENTER)),
-            Paragraph(str(item.get("title", ""))[:75], _CELL_STYLE),
+            Paragraph(_smart_truncate(item.get("title", ""), 220), _CELL_STYLE),
             _severity_badge(str(item.get("severity", "n/a")).upper()),
         ])
     risk_table = Table(risk_rows, colWidths=[20 * mm, 120 * mm, 22 * mm])

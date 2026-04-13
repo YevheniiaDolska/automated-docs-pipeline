@@ -207,13 +207,14 @@ def test_env_wizard_local_mode_with_install(tmp_path: Path, monkeypatch) -> None
         }
     }
 
-    answers = iter(["", "y", "y", "y"])  # key, install model, create model, install CI
+    answers = iter(["", "y", "y", "y", "y"])  # key, install model, create model, install CI, install hooks
     monkeypatch.setattr("builtins.input", lambda prompt="": next(answers))
     monkeypatch.setattr(env_wizard, "_load_runtime", lambda repo_root: runtime)
     monkeypatch.setattr(env_wizard, "_install_ollama_and_model", lambda model: None)
     monkeypatch.setattr(env_wizard, "_create_veridoc_modelfile", lambda repo_root, base_model, model_name: tmp_path / "Modelfile")
     monkeypatch.setattr(env_wizard, "_create_ollama_model", lambda model_name, modelfile_path: None)
     monkeypatch.setattr(env_wizard, "install_docs_ci_files", lambda *a, **k: [tmp_path / "Jenkinsfile.docsops"])
+    monkeypatch.setattr(env_wizard, "install_local_precommit_hooks", lambda repo_root: (True, [tmp_path / ".git/hooks/pre-commit"], ""))
 
     assert env_wizard.main() == 0
     out = (tmp_path / ".env.docsops.local").read_text(encoding="utf-8")
@@ -226,11 +227,36 @@ def test_env_wizard_cloud_mode_skips_local_install(tmp_path: Path, monkeypatch) 
     template.write_text("A=1\n", encoding="utf-8")
     monkeypatch.chdir(tmp_path)
     runtime = {"llm_control": {"llm_mode": "external_preferred", "strict_local_first": False}}
-    answers = iter(["", "n"])  # key, install CI
+    answers = iter(["", "n", "n"])  # key, install CI, install hooks
     monkeypatch.setattr("builtins.input", lambda prompt="": next(answers))
     monkeypatch.setattr(env_wizard, "_load_runtime", lambda repo_root: runtime)
     monkeypatch.setattr(env_wizard, "install_docs_ci_files", lambda *a, **k: [])
     assert env_wizard.main() == 0
+
+
+def test_install_local_precommit_hooks_creates_husky_and_git_hook(tmp_path: Path, monkeypatch) -> None:
+    repo = tmp_path / "repo"
+    (repo / ".git" / "hooks").mkdir(parents=True)
+    (repo / "docsops" / "scripts").mkdir(parents=True)
+    (repo / "docsops" / "scripts" / "run_docs_ci_checks.py").write_text("print('ok')\n", encoding="utf-8")
+
+    class _Completed:
+        def __init__(self, returncode: int, stdout: str) -> None:
+            self.returncode = returncode
+            self.stdout = stdout
+
+    monkeypatch.setattr(
+        env_wizard.subprocess,
+        "run",
+        lambda *a, **k: _Completed(0, str(repo) + "\n"),
+    )
+
+    ok, paths, error = env_wizard.install_local_precommit_hooks(repo)
+    assert ok is True
+    assert error == ""
+    assert len(paths) == 2
+    assert (repo / ".husky" / "pre-commit").exists()
+    assert (repo / ".git" / "hooks" / "pre-commit").exists()
 
 
 def test_env_wizard_template_missing(tmp_path: Path, monkeypatch) -> None:

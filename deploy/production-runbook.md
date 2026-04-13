@@ -261,7 +261,34 @@ docker compose -f docker-compose.production.yml logs -f api worker nginx
 
 ```bash
 sudo bash deploy/setup_observability.sh /opt/veridoc
-systemctl list-timers --all | grep -E 'veridoc-(healthcheck|error)-monitor|veridoc-license-renew'
+systemctl list-timers --all | grep -E 'veridoc-(healthcheck|error)-monitor|veridoc-license-renew|veridoc-client-key-rotation'
+```
+
+Operator shortcut from local machine (SSH):
+
+```bash
+python3 scripts/enable_server_ops_timers.py \
+  --host <SERVER_IP_OR_HOSTNAME> \
+  --user root \
+  --repo-dir /opt/veridoc
+```
+
+Full autopilot from onboarding (set once on operator machine):
+
+```bash
+export VERIOPS_AUTOMATION_AUTO_ENABLE_SERVER_TIMERS=true
+export VERIOPS_SERVER_HOST=<SERVER_IP_OR_HOSTNAME>
+export VERIOPS_SERVER_USER=root
+export VERIOPS_SERVER_REPO_DIR=/opt/veridoc
+# optional:
+export VERIOPS_SERVER_SSH_KEY=~/.ssh/id_ed25519_hetzner
+export VERIOPS_SERVER_USE_SUDO=false
+
+export VERIOPS_AUTOMATION_AUTO_SET_CHANGELOG_SECRET=true
+# optional override if origin is not GitHub:
+export VERIOPS_GITHUB_REPO=<owner/repo>
+# optional explicit key (otherwise uses docsops/keys/veriops-licensing.key):
+export VERIOPS_CHANGELOG_SIGNING_KEY_B64="$(cat docsops/keys/veriops-licensing.key)"
 ```
 
 1. Run a one-shot server license renewal batch and verify timer health:
@@ -271,6 +298,19 @@ sudo systemctl start veridoc-license-renew.service
 sudo bash deploy/license_renewal_healthcheck.sh
 journalctl -u veridoc-license-renew.service -n 50 --no-pager
 ```
+
+1. Run one-shot per-client key rotation batch:
+
+```bash
+sudo systemctl start veridoc-client-key-rotation.service
+journalctl -u veridoc-client-key-rotation.service -n 50 --no-pager
+cat reports/client_key_rotation_report.json
+```
+
+1. Registry-driven key rotation source of truth:
+   - `config/licensing/clients.yml`
+   - per-client keys are written to `docsops/keys/clients/<client_id>/`
+   - freshly issued JWTs are written to `generated/tmp/licenses/<client_id>.license.jwt`
 
 ## 11. RAG enterprise hardening verification
 
@@ -338,6 +378,30 @@ Expected: response says test event was sent (or skipped if DSN is empty).
      - `/legal/security.html`
      - `/legal/security-contact.html`
    - Fill and run checklist: `deploy/CUSTOMER_PACKET_CHECKLIST.md`
+
+## 12. Signed changelog governance
+
+Before RC/release, sign and verify changelog:
+
+```bash
+python3 scripts/sign_release_changelog.py \
+  --changelog CHANGELOG.md \
+  --private-key docsops/keys/veriops-licensing.key \
+  --public-key docsops/keys/veriops-licensing.pub \
+  --signature CHANGELOG.md.sig \
+  --metadata reports/changelog_signature.json
+
+python3 scripts/verify_release_changelog_signature.py \
+  --changelog CHANGELOG.md \
+  --signature CHANGELOG.md.sig \
+  --public-key docsops/keys/veriops-licensing.pub
+```
+
+Final RC governance gate:
+
+```bash
+python3 scripts/run_release_governance_gate.py
+```
    - Use outreach template: `deploy/OUTREACH_EMAIL_TEMPLATE.md`
 
 1. Before outreach:

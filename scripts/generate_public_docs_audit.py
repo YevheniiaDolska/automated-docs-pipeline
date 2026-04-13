@@ -98,6 +98,12 @@ _MAX_CODE_BUFFER_CHARS = 400_000
 _MAX_CODE_BLOCK_CHARS = 100_000
 _MAX_CODE_BLOCKS_PER_PAGE = 300
 
+AUDIT_OFFER_RUNS: dict[str, int] = {
+    "lead-magnet": 1,
+    "pilot": 3,
+    "implementation": 3,
+}
+
 
 def _slugify(text: str) -> str:
     """Convert text to a filesystem-safe slug (lowercase, hyphens)."""
@@ -2603,8 +2609,17 @@ def main() -> int:
     parser.add_argument(
         "--verification-runs",
         type=int,
-        default=3,
-        help="Number of full crawl+verification runs; broken links use intersection across runs",
+        default=0,
+        help=(
+            "Number of full crawl+verification runs; broken links use intersection across runs. "
+            "Use 0 to apply offer policy (lead-magnet=1, pilot/implementation=3)."
+        ),
+    )
+    parser.add_argument(
+        "--audit-offer",
+        choices=["lead-magnet", "pilot", "implementation"],
+        default="lead-magnet",
+        help="Commercial audit mode used for default verification-runs policy.",
     )
     parser.add_argument(
         "--verification-modes",
@@ -2934,7 +2949,15 @@ def main() -> int:
         if cookie_header and "Cookie" not in auth_headers:
             auth_headers["Cookie"] = cookie_header
 
-    verification_runs = max(1, int(getattr(args, "verification_runs", 3)))
+    configured_runs = int(getattr(args, "verification_runs", 0) or 0)
+    audit_offer = str(getattr(args, "audit_offer", "lead-magnet")).strip().lower()
+    default_runs = int(AUDIT_OFFER_RUNS.get(audit_offer, 1))
+    verification_runs = max(1, configured_runs if configured_runs > 0 else default_runs)
+    print(
+        f"[audit] verification policy: offer={audit_offer}, runs={verification_runs}"
+        + (" (manual override)" if configured_runs > 0 else " (offer default)"),
+        flush=True,
+    )
 
     def _run_site(url: str) -> dict[str, Any]:
         runs: list[dict[str, Any]] = []

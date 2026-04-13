@@ -22,8 +22,34 @@ jobs:
         env:
           OUTPUT: CHANGELOG.md
 
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install signing dependency
+        run: python3 -m pip install --upgrade pip cryptography
+
+      - name: Sign changelog
+        env:
+          VERIOPS_CHANGELOG_SIGNING_KEY_B64: ${{ secrets.VERIOPS_CHANGELOG_SIGNING_KEY_B64 }}
+        run: |
+          if [ -n "${VERIOPS_CHANGELOG_SIGNING_KEY_B64}" ]; then
+            mkdir -p docsops/keys
+            printf "%s\n" "${VERIOPS_CHANGELOG_SIGNING_KEY_B64}" > docsops/keys/veriops-licensing.key
+          fi
+          python3 scripts/sign_release_changelog.py \
+            --changelog CHANGELOG.md \
+            --private-key docsops/keys/veriops-licensing.key \
+            --public-key docsops/keys/veriops-licensing.pub \
+            --signature CHANGELOG.md.sig \
+            --metadata reports/changelog_signature.json
+
       - name: Upload changelog artifact
         uses: actions/upload-artifact@v4
         with:
           name: generated-changelog
-          path: CHANGELOG.md
+          path: |
+            CHANGELOG.md
+            CHANGELOG.md.sig
+            reports/changelog_signature.json

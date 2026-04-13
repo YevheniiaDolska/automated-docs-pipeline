@@ -1,0 +1,59 @@
+{
+  "generated_at": "2026-04-08T10:57:20Z",
+  "checks": {
+    "tamper_detection": {
+      "command": "pytest -q tests/test_hardening_controls.py::test_integrity_manifest_missing_blocks_when_enforced",
+      "returncode": 0,
+      "duration_seconds": 1.558,
+      "status": "PASS",
+      "stdout_tail": ".                                                                        [100%]\n1 passed in 1.01s\n",
+      "stderr_tail": ""
+    },
+    "expired_jwt_degrade": {
+      "command": "pytest -q tests/test_hardening_controls.py::test_expired_license_degrades_to_community",
+      "returncode": 0,
+      "duration_seconds": 1.514,
+      "status": "PASS",
+      "stdout_tail": ".                                                                        [100%]\n1 passed in 0.97s\n",
+      "stderr_tail": ""
+    },
+    "tenant_domain_mismatch_degrade": {
+      "command": "pytest -q tests/test_hardening_controls.py::test_tenant_and_domain_binding_mismatch_degrades",
+      "returncode": 0,
+      "duration_seconds": 1.632,
+      "status": "PASS",
+      "stdout_tail": ".                                                                        [100%]\n1 passed in 1.11s\n",
+      "stderr_tail": ""
+    },
+    "missing_invalid_pack_premium_off": {
+      "command": "pytest -q tests/test_hardening_controls.py::test_missing_capability_pack_degrades_premium_features",
+      "returncode": 0,
+      "duration_seconds": 1.697,
+      "status": "PASS",
+      "stdout_tail": ".                                                                        [100%]\n1 passed in 1.17s\n",
+      "stderr_tail": ""
+    },
+    "strict_local_offline_renewal_bundle": {
+      "command": "pytest -q tests/test_build_offline_renewal_bundle.py",
+      "returncode": 0,
+      "duration_seconds": 1.471,
+      "status": "PASS",
+      "stdout_tail": "..                                                                       [100%]\n2 passed in 0.95s\n",
+      "stderr_tail": ""
+    },
+    "hybrid_cloud_server_renewal_path": {
+      "command": "pytest -q tests/test_run_server_license_renewal.py",
+      "returncode": 0,
+      "duration_seconds": 1.554,
+      "status": "PASS",
+      "stdout_tail": ".                                                                        [100%]\n1 passed in 1.04s\n",
+      "stderr_tail": ""
+    }
+  },
+  "summary": {
+    "total": 6,
+    "passed": 6,
+    "failed": 0,
+    "status": "PASS"
+  }
+}

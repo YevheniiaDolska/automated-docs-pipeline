@@ -4,6 +4,21 @@ project:
   preferred_llm: claude
   output_targets:
   - mkdocs
+security:
+  hardening_profile: production
+  allow_dev_bypass: false
+  anti_tamper_enforced: true
+  require_protected_modules: true
+  require_pack_for_premium: true
+  protect_mode: compiled
+  required_compiled_modules:
+  - license_gate
+  - pack_runtime
+  protected_artifacts_dir: dist/compiled
+  core_mode: local
+  operation_mode: hybrid
+  phone_home_enabled_default: true
+  update_check_enabled_default: true
 docs_flow:
   mode: hybrid
 docs_site:
@@ -252,8 +267,7 @@ custom_tasks:
     enabled: true
     command: python3 docsops/scripts/apply_veridoc_branding_policy.py --repo-root
       . --docs-root docs --landing-url https://veridoc.app --plan starter --cheapest-paid-plan
-      starter --report reports/veridoc_branding_policy_report.json --referral-code
-      "${VERIDOC_REFERRAL_CODE:-}"
+      starter --report reports/veridoc_branding_policy_report.json
     continue_on_error: false
   on_demand: []
 veridoc_branding:
@@ -262,7 +276,7 @@ veridoc_branding:
   plan: starter
   cheapest_paid_plan: starter
   badge_opt_out: false
-  referral_code_env: VERIDOC_REFERRAL_CODE
+  lock_badge_policy: true
   docs_root: docs
   report_path: reports/veridoc_branding_policy_report.json
   apply_on_weekly: true

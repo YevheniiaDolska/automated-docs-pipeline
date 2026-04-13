@@ -103,6 +103,10 @@ def main() -> int:
     public_cmd = [
         "python3",
         "scripts/generate_public_docs_audit.py",
+        "--audit-offer",
+        "implementation",
+        "--verification-runs",
+        "3",
         "--topology-mode",
         topology,
         "--max-pages",

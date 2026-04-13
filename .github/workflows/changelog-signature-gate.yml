@@ -1,0 +1,29 @@
+name: Changelog Signature Gate
+
+on:
+  pull_request:
+    branches: [main, develop]
+  push:
+    branches: [main, develop]
+
+jobs:
+  verify-changelog-signature:
+    name: verify_changelog_signature
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install cryptography dependency
+        run: python3 -m pip install --upgrade pip cryptography
+
+      - name: Verify signed changelog
+        run: |
+          python3 scripts/verify_release_changelog_signature.py \
+            --changelog CHANGELOG.md \
+            --signature CHANGELOG.md.sig \
+            --public-key docsops/keys/veriops-licensing.pub

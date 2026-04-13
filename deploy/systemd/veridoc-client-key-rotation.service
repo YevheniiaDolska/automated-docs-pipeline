@@ -1,0 +1,15 @@
+[Unit]
+Description=VeriDoc per-client key rotation batch
+After=network-online.target docker.service
+Wants=network-online.target
+
+[Service]
+Type=oneshot
+User=root
+WorkingDirectory=/opt/veridoc
+ExecStart=/bin/bash /opt/veridoc/deploy/server_client_key_rotation.sh /opt/veridoc
+StandardOutput=journal
+StandardError=journal
+
+[Install]
+WantedBy=multi-user.target

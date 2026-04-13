@@ -124,6 +124,23 @@ runtime:
     auto_install_local_model_on_setup: true
     quality_delta_note: "Fully local mode may reduce output quality by ~10-15% on hardest synthesis tasks."
 
+  security:
+    # production (default) enables hardening controls for client delivery.
+    # relaxed is for internal testing/dev bundles only.
+    hardening_profile: "production"
+    allow_dev_bypass: false
+    anti_tamper_enforced: true
+    require_protected_modules: true
+    require_pack_for_premium: true
+    protect_mode: "compiled"   # compiled | source
+    auto_compile_protected_modules: true
+    required_compiled_modules: ["license_gate", "pack_runtime"]
+    protected_artifacts_dir: "dist/compiled"
+    core_mode: "local"         # local | server
+    operation_mode: "hybrid"   # strict-local | hybrid | cloud
+    phone_home_enabled_default: true
+    update_check_enabled_default: true
+
   # Different static generators per client.
   output_targets:
     - "sphinx"
@@ -272,6 +289,7 @@ runtime:
     plan: "free"
     cheapest_paid_plan: "starter"
     badge_opt_out: false
+    lock_badge_policy: true
     docs_root: "docs"
     report_path: "reports/veridoc_branding_policy_report.json"
     apply_on_weekly: true
@@ -340,10 +358,14 @@ private_tuning:
 licensing:
   commercial_package: "full"
   plan: "professional"
-  days: 365
+  days: 30
   max_docs: 0
   require_signed_jwt: true
   manual_jwt_path: ""
+  # Optional per-client keys (recommended for enterprise deliveries).
+  # If empty, defaults to docsops/keys/veriops-licensing.{key,pub}
+  private_key_path: ""
+  public_key_path: ""
   expose_license_key_env: false
   expose_dev_plan_override_env: false
 
