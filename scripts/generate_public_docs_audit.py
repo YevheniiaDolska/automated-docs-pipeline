@@ -97,6 +97,7 @@ _MAX_LINK_HEALTH_CHECKS = 60_000
 _MAX_CODE_BUFFER_CHARS = 400_000
 _MAX_CODE_BLOCK_CHARS = 100_000
 _MAX_CODE_BLOCKS_PER_PAGE = 300
+_MAX_FETCH_BYTES = max(256 * 1024, int(os.environ.get("DOCS_AUDIT_MAX_FETCH_BYTES", "8388608")))
 
 AUDIT_OFFER_RUNS: dict[str, int] = {
     "lead-magnet": 1,
@@ -434,6 +435,25 @@ def _fetch(
         method="HEAD" if head_only else "GET",
         headers=headers,
     )
+
+    def _read_limited_bytes(stream: Any) -> bytes:
+        chunks: list[bytes] = []
+        total = 0
+        chunk_size = 64 * 1024
+        while total < _MAX_FETCH_BYTES:
+            want = min(chunk_size, _MAX_FETCH_BYTES - total)
+            part = stream.read(want)
+            if not part:
+                break
+            if not isinstance(part, (bytes, bytearray)):
+                break
+            part_bytes = bytes(part)
+            chunks.append(part_bytes)
+            total += len(part_bytes)
+        if total >= _MAX_FETCH_BYTES:
+            logger.debug("HTTP body truncated at %d bytes for %s", _MAX_FETCH_BYTES, url)
+        return b"".join(chunks)
+
     try:
         with urlopen(req, timeout=timeout) as resp:
             status = int(getattr(resp, "status", 200) or 200)
@@ -441,11 +461,11 @@ def _fetch(
             if head_only:
                 return status, content_type, ""
             try:
-                raw = resp.read()
+                raw = _read_limited_bytes(resp)
             except IncompleteRead as exc:
                 # Keep crawl resilient on flaky chunked responses:
                 # use the partial body instead of aborting the whole audit run.
-                raw = bytes(exc.partial or b"")
+                raw = bytes(exc.partial or b"")[:_MAX_FETCH_BYTES]
                 logger.debug(
                     "Partial HTTP body read for %s: got %d bytes", url, len(raw),
                 )
@@ -460,10 +480,13 @@ def _fetch(
             )
             if is_gzip_payload:
                 try:
-                    raw = gzip.decompress(raw)
+                    raw = gzip.decompress(raw)[:_MAX_FETCH_BYTES]
                 except (OSError, EOFError, ValueError) as exc:
                     logger.debug("Failed to decompress gzip payload for %s: %s", url, exc)
-            body = raw.decode("utf-8", errors="ignore")
+            try:
+                body = raw.decode("utf-8", errors="ignore")
+            except MemoryError:
+                body = raw[: min(len(raw), 512 * 1024)].decode("utf-8", errors="ignore")
             return status, content_type, body
     except HTTPError as exc:
         code = int(exc.code)
@@ -481,8 +504,9 @@ def _fetch(
                     )
             return code, "text/html", ""
         try:
-            return code, "text/html", exc.read().decode("utf-8", errors="ignore")
-        except (RuntimeError, ValueError, TypeError, OSError) as read_exc:  # noqa: BLE001
+            err_raw = bytes(exc.read(_MAX_FETCH_BYTES) or b"")
+            return code, "text/html", err_raw.decode("utf-8", errors="ignore")
+        except (MemoryError, RuntimeError, ValueError, TypeError, OSError) as read_exc:  # noqa: BLE001
             logger.debug("Failed to read HTTP error body (code=%d): %s", code, read_exc)
             return code, "text/html", ""
     except (URLError, OSError, TimeoutError):
@@ -2377,6 +2401,22 @@ def _run_llm_analysis(
     return parsed
 
 
+def _effective_audit_llm_policy(
+    policy: Any,
+    *,
+    explicit_request: bool,
+    interactive: bool,
+) -> Any:
+    """For this auditor, explicit CLI request is treated as consent for external LLM."""
+    if not explicit_request:
+        return policy
+    if not bool(getattr(policy, "external_llm_allowed", False)):
+        policy.external_llm_allowed = True
+    if not interactive and bool(getattr(policy, "require_explicit_approval", False)):
+        policy.require_explicit_approval = False
+    return policy
+
+
 def _build_html(payload: dict[str, Any]) -> str:
     m = payload["aggregate"]["metrics"]
     conf = payload.get("confidence", {}) if isinstance(payload.get("confidence"), dict) else {}
@@ -3092,7 +3132,11 @@ def main() -> int:
 
     if bool(args.llm_enabled):
         reports_dir = Path(str(args.json_output)).resolve().parent
-        policy = load_policy(Path(str(args.runtime_config)))
+        policy = _effective_audit_llm_policy(
+            load_policy(Path(str(args.runtime_config))),
+            explicit_request=bool(args.llm_enabled),
+            interactive=bool(getattr(args, "interactive", False)),
+        )
         llm_api_key = os.environ.get(str(args.llm_api_key_env_name), "").strip()
         if not llm_api_key:
             llm_api_key = _read_dotenv_value(str(args.llm_env_file), str(args.llm_api_key_env_name))
@@ -3208,7 +3252,11 @@ def main() -> int:
                 if llm_api_key:
                     try:
                         reports_dir = Path(str(args.json_output)).resolve().parent
-                        policy = load_policy(Path(str(args.runtime_config)))
+                        policy = _effective_audit_llm_policy(
+                            load_policy(Path(str(args.runtime_config))),
+                            explicit_request=True,
+                            interactive=bool(getattr(args, "interactive", False)),
+                        )
                         approved = ensure_external_allowed(
                             policy=policy,
                             step="public_docs_audit_assumptions_autofill",
