@@ -2892,11 +2892,13 @@ if (!timestamp || !receivedSig) {
     Buffer.from(receivedSig)
   );
 }
+```
 
 ### Set up a real-time webhook processing pipeline (Part 6)
 
 Configure end-to-end webhook ingestion with HMAC verification, async queue processing, and delivery guarantees in under 15 minutes.
 
+```javascript
 // Test verification
 const testPayload = '{"event": "order.completed", "order_id": "ord_1234"}';
 const testSecret = 'whsec_test_secret_key_abc123_min32chars';
@@ -2954,9 +2956,7 @@ const worker = new Worker('webhook-events', async (job) => {
   const event = job.data;
   console.log(`Processing ${event.type}: ${JSON.stringify(event)}`);
 
-### Set up a real-time webhook processing pipeline (Part 8)
-
-Configure end-to-end webhook ingestion with HMAC verification, async queue processing, and delivery guarantees in under 15 minutes.
+// Part 8: route and process events in worker handlers.
 
 // Route to appropriate handler
   switch (event.type) {

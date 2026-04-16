@@ -11,6 +11,11 @@ import platform
 import shutil
 import subprocess
 import sys
+import time
+import urllib.error
+import urllib.request
+import json
+import os
 from pathlib import Path
 from typing import Any
 
@@ -155,6 +160,348 @@ def _prompt_yes_no(prompt: str, default_yes: bool = True) -> bool:
     return raw in {"y", "yes"}
 
 
+def _detect_linux_asset_name() -> str:
+    arch = platform.machine().lower()
+    if arch in {"x86_64", "amd64"}:
+        return "ollama-linux-amd64.tar.zst"
+    if arch in {"aarch64", "arm64"}:
+        return "ollama-linux-arm64.tar.zst"
+    raise RuntimeError(f"Unsupported Linux architecture for Ollama auto-install: {arch}")
+
+
+def _discover_ollama_bins(repo_root: Path) -> list[str]:
+    candidates = [
+        shutil.which("ollama"),
+        "/usr/local/bin/ollama",
+        "/opt/homebrew/bin/ollama",
+        str(repo_root / "docsops" / "tools" / "ollama" / "bin" / "ollama"),
+        str(repo_root / "tools" / "ollama" / "bin" / "ollama"),
+    ]
+    found: list[str] = []
+    seen: set[str] = set()
+    for candidate in candidates:
+        if not candidate:
+            continue
+        resolved = str(Path(candidate).expanduser().resolve())
+        if resolved in seen:
+            continue
+        path = Path(resolved)
+        if path.exists() and os.access(path, os.X_OK):
+            seen.add(resolved)
+            found.append(resolved)
+    return found
+
+
+def _discover_ollama_bin(repo_root: Path) -> str | None:
+    bins = _discover_ollama_bins(repo_root)
+    return bins[0] if bins else None
+
+
+def _find_reachable_ollama_bin(repo_root: Path) -> str | None:
+    for candidate in _discover_ollama_bins(repo_root):
+        probe = subprocess.run([candidate, "list"], check=False, capture_output=True, text=True)
+        if int(getattr(probe, "returncode", 1) or 1) == 0:
+            return candidate
+    return None
+
+
+def _latest_linux_asset_url() -> str:
+    api_url = "https://api.github.com/repos/ollama/ollama/releases/latest"
+    req = urllib.request.Request(
+        api_url,
+        headers={"Accept": "application/vnd.github+json", "User-Agent": "docsops-setup-wizard"},
+    )
+    with urllib.request.urlopen(req, timeout=30) as resp:  # nosec B310
+        payload = json.loads(resp.read().decode("utf-8"))
+    assets = payload.get("assets", [])
+    if not isinstance(assets, list):
+        raise RuntimeError("Unexpected Ollama release payload format.")
+    wanted = _detect_linux_asset_name()
+    for asset in assets:
+        if not isinstance(asset, dict):
+            continue
+        if str(asset.get("name", "")).strip() == wanted:
+            url = str(asset.get("browser_download_url", "")).strip()
+            if url:
+                return url
+    raise RuntimeError(f"Ollama release asset not found: {wanted}")
+
+
+def _shared_ollama_cache_root() -> Path:
+    configured = os.environ.get("VERIDOC_OLLAMA_CACHE_DIR", "").strip()
+    if configured:
+        return Path(configured).expanduser().resolve()
+    return Path.home() / ".cache" / "veridoc" / "ollama"
+
+
+def _copy_cached_ollama_binary(install_root: Path, cache_root: Path) -> str | None:
+    cached_bin = cache_root / "bin" / "ollama"
+    if not cached_bin.exists():
+        return None
+    target_bin = install_root / "bin" / "ollama"
+    target_bin.parent.mkdir(parents=True, exist_ok=True)
+    shutil.copy2(cached_bin, target_bin)
+    target_bin.chmod(0o755)
+    return str(target_bin)
+
+
+def _install_ollama_local_linux(repo_root: Path) -> str | None:
+    install_root = repo_root / "docsops" / "tools" / "ollama"
+    install_root.mkdir(parents=True, exist_ok=True)
+    candidate = install_root / "bin" / "ollama"
+    cache_root = _shared_ollama_cache_root()
+    cache_root.mkdir(parents=True, exist_ok=True)
+    asset_name = _detect_linux_asset_name()
+    archive = cache_root / asset_name
+    try:
+        url = _latest_linux_asset_url()
+    except (RuntimeError, ValueError, TypeError, OSError, urllib.error.URLError) as exc:
+        print(f"[env-wizard] Failed to resolve latest Ollama Linux asset: {exc}")
+        return None
+
+    if candidate.exists():
+        candidate.chmod(0o755)
+        os.environ["PATH"] = f"{candidate.parent}:{os.environ.get('PATH', '')}"
+        return str(candidate)
+
+    cached_bin = _copy_cached_ollama_binary(install_root, cache_root)
+    if cached_bin:
+        print(f"[env-wizard] Reused cached local Ollama binary: {cached_bin}")
+        os.environ["PATH"] = f"{Path(cached_bin).parent}:{os.environ.get('PATH', '')}"
+        return cached_bin
+
+    download_ok = False
+    last_error = ""
+    if archive.exists() and archive.stat().st_size > 0:
+        download_ok = True
+    for attempt in range(1, 4):
+        if download_ok:
+            break
+        download = subprocess.run(
+            [
+                "curl",
+                "-fL",
+                "--retry",
+                "5",
+                "--retry-all-errors",
+                "--continue-at",
+                "-",
+                url,
+                "-o",
+                str(archive),
+            ],
+            check=False,
+            capture_output=True,
+            text=True,
+        )
+        if int(getattr(download, "returncode", 1) or 1) == 0:
+            download_ok = True
+            break
+        last_error = (getattr(download, "stderr", "") or getattr(download, "stdout", "") or "").strip()
+        print(f"[env-wizard] Local Ollama download attempt {attempt}/3 failed.")
+        time.sleep(2)
+    if not download_ok:
+        if archive.exists():
+            try:
+                # If a large archive is already present, attempt extraction anyway.
+                # Some resume flows can return non-zero despite having a usable file.
+                size_mb = archive.stat().st_size / (1024 * 1024)
+                if size_mb >= 1024:
+                    print(
+                        "[env-wizard] Local Ollama download reported failure, "
+                        f"but archive is present ({size_mb:.0f} MB). Trying extraction..."
+                    )
+                    download_ok = True
+            except OSError as exc:
+                print(f"[env-wizard] Could not inspect cached archive size: {exc}")
+        if not download_ok:
+            print(f"[env-wizard] Local Ollama download failed: {last_error[:240]}")
+            return None
+
+    extract = subprocess.run(
+        ["tar", "--zstd", "-xf", str(archive), "-C", str(cache_root)],
+        check=False,
+        capture_output=True,
+        text=True,
+    )
+    if int(getattr(extract, "returncode", 1) or 1) != 0:
+        err = (getattr(extract, "stderr", "") or getattr(extract, "stdout", "") or "").strip()
+        # Fallback for environments without system zstd binary.
+        if "cannot exec" in err.lower() and "zstd" in err.lower():
+            print("[env-wizard] System zstd not found. Trying Python zstandard fallback...")
+            py_runner = sys.executable
+            py_extract_script = (
+                "import pathlib, sys, tarfile\n"
+                "import zstandard as zstd\n"
+                "archive = pathlib.Path(sys.argv[1])\n"
+                "dest = pathlib.Path(sys.argv[2])\n"
+                "dest.mkdir(parents=True, exist_ok=True)\n"
+                "with archive.open('rb') as fh:\n"
+                "    dctx = zstd.ZstdDecompressor()\n"
+                "    with dctx.stream_reader(fh) as reader:\n"
+                "        with tarfile.open(fileobj=reader, mode='r|') as tf:\n"
+                "            tf.extractall(path=dest)\n"
+            )
+
+            py_extract = subprocess.run(
+                [py_runner, "-c", py_extract_script, str(archive), str(cache_root)],
+                check=False,
+                capture_output=True,
+                text=True,
+            )
+            if int(getattr(py_extract, "returncode", 1) or 1) != 0:
+                install_cmds = [
+                    [sys.executable, "-m", "pip", "install", "--user", "zstandard"],
+                    [sys.executable, "-m", "pip", "install", "--break-system-packages", "zstandard"],
+                ]
+                last_install_error = ""
+                for install_cmd in install_cmds:
+                    pip_install = subprocess.run(
+                        install_cmd,
+                        check=False,
+                        capture_output=True,
+                        text=True,
+                    )
+                    if int(getattr(pip_install, "returncode", 1) or 1) == 0:
+                        py_extract = subprocess.run(
+                            [py_runner, "-c", py_extract_script, str(archive), str(cache_root)],
+                            check=False,
+                            capture_output=True,
+                            text=True,
+                        )
+                        if int(getattr(py_extract, "returncode", 1) or 1) == 0:
+                            break
+                    last_install_error = (
+                        getattr(pip_install, "stderr", "") or getattr(pip_install, "stdout", "") or ""
+                    ).strip()
+
+                if int(getattr(py_extract, "returncode", 1) or 1) != 0:
+                    # Last fallback: local venv with isolated dependency install.
+                    venv_dir = cache_root / ".pydeps"
+                    mkvenv = subprocess.run(
+                        [sys.executable, "-m", "venv", str(venv_dir)],
+                        check=False,
+                        capture_output=True,
+                        text=True,
+                    )
+                    if int(getattr(mkvenv, "returncode", 1) or 1) == 0:
+                        venv_py = venv_dir / "bin" / "python"
+                        venv_install = subprocess.run(
+                            [str(venv_py), "-m", "pip", "install", "zstandard"],
+                            check=False,
+                            capture_output=True,
+                            text=True,
+                        )
+                        if int(getattr(venv_install, "returncode", 1) or 1) == 0:
+                            py_extract = subprocess.run(
+                                [str(venv_py), "-c", py_extract_script, str(archive), str(cache_root)],
+                                check=False,
+                                capture_output=True,
+                                text=True,
+                            )
+                        else:
+                            last_install_error = (
+                                getattr(venv_install, "stderr", "") or getattr(venv_install, "stdout", "") or ""
+                            ).strip()
+                    else:
+                        last_install_error = (
+                            getattr(mkvenv, "stderr", "") or getattr(mkvenv, "stdout", "") or ""
+                        ).strip()
+
+                if int(getattr(py_extract, "returncode", 1) or 1) != 0:
+                    py_err = (getattr(py_extract, "stderr", "") or getattr(py_extract, "stdout", "") or "").strip()
+                    if last_install_error and not py_err:
+                        py_err = last_install_error
+                    if (cache_root / "bin" / "ollama").exists():
+                        print(
+                            "[env-wizard] Python extraction fallback failed, "
+                            "but ollama binary is present. Continuing with existing binary."
+                        )
+                    else:
+                        print(f"[env-wizard] Python extraction fallback failed: {py_err[:240]}")
+                        return None
+        else:
+            if (cache_root / "bin" / "ollama").exists():
+                print(
+                    "[env-wizard] Local Ollama extraction reported failure, "
+                    "but binary exists. Continuing with existing binary."
+                )
+            else:
+                print(f"[env-wizard] Local Ollama extraction failed: {err[:240]}")
+                return None
+
+    copied = _copy_cached_ollama_binary(install_root, cache_root)
+    if copied:
+        os.environ["PATH"] = f"{Path(copied).parent}:{os.environ.get('PATH', '')}"
+        print(f"[env-wizard] Ollama installed locally: {copied}")
+        return copied
+    print("[env-wizard] Local Ollama install completed but binary not found in expected path.")
+    return None
+
+
+def _ensure_ollama_daemon(ollama_bin: str) -> bool:
+    probe = subprocess.run([ollama_bin, "list"], check=False, capture_output=True, text=True)
+    if probe.returncode == 0:
+        return True
+    subprocess.Popen(  # noqa: S603
+        [ollama_bin, "serve"],
+        stdout=subprocess.DEVNULL,
+        stderr=subprocess.DEVNULL,
+        start_new_session=True,
+    )
+    for _ in range(15):
+        time.sleep(1)
+        retry = subprocess.run([ollama_bin, "list"], check=False, capture_output=True, text=True)
+        if retry.returncode == 0:
+            return True
+    return False
+
+
+def _ollama_model_present(ollama_bin: str, model: str) -> bool:
+    listed = subprocess.run([ollama_bin, "list"], check=False, capture_output=True, text=True)
+    if listed.returncode != 0:
+        return False
+    target = model.strip().lower()
+    stdout = str(getattr(listed, "stdout", "") or "")
+    for raw in stdout.splitlines():
+        line = raw.strip()
+        if not line or line.lower().startswith("name"):
+            continue
+        first_col = line.split()[0].strip().lower()
+        if first_col == target:
+            return True
+    return False
+
+
+def _ollama_pull_in_progress(model: str) -> bool:
+    if platform.system().lower() == "windows":
+        return False
+    probe = subprocess.run(
+        ["ps", "-ef"],
+        check=False,
+        capture_output=True,
+        text=True,
+    )
+    if probe.returncode != 0:
+        return False
+    needle = f"ollama pull {model}".strip().lower()
+    stdout = str(getattr(probe, "stdout", "") or "")
+    for raw in stdout.splitlines():
+        line = raw.strip().lower()
+        if needle in line and "setup_client_env_wizard.py" not in line:
+            return True
+    return False
+
+
+def _wait_for_ollama_model(ollama_bin: str, model: str, timeout_seconds: int = 4 * 60 * 60) -> bool:
+    start = time.time()
+    while int(time.time() - start) < timeout_seconds:
+        if _ollama_model_present(ollama_bin, model):
+            return True
+        time.sleep(20)
+    return False
+
+
 def _guidance_for_key(key: str) -> str:
     direct = FIELD_GUIDANCE.get(key)
     if direct:
@@ -172,53 +519,147 @@ def _guidance_for_key(key: str) -> str:
     return ""
 
 
-def _install_ollama_and_model(model: str) -> None:
-    ollama_bin = shutil.which("ollama")
+def _install_ollama_and_model(model: str, repo_root: Path | None = None) -> bool:
+    if repo_root is None:
+        repo_root = Path.cwd()
+    # Prefer any already running/reachable local Ollama runtime first.
+    ollama_bin = _find_reachable_ollama_bin(repo_root)
+    if ollama_bin is None:
+        installed_bins = _discover_ollama_bins(repo_root)
+        # Ollama binary exists but daemon is not reachable yet.
+        # Reuse existing binary and start daemon instead of reinstalling.
+        if installed_bins:
+            ollama_bin = installed_bins[0]
+
     if ollama_bin is None:
         system = platform.system().lower()
         print("[env-wizard] Ollama is not installed. Attempting auto-install...")
         if system == "linux":
-            cmd = "curl -fsSL https://ollama.com/install.sh | sh"
-            res = subprocess.run(["bash", "-lc", cmd], check=False)
+            can_sudo_noninteractive = False
+            if shutil.which("sudo"):
+                probe = subprocess.run(["sudo", "-n", "true"], check=False, capture_output=True, text=True)
+                can_sudo_noninteractive = int(getattr(probe, "returncode", 1) or 1) == 0
+            if can_sudo_noninteractive:
+                cmd = "curl -fsSL https://ollama.com/install.sh | sh"
+                res = subprocess.run(["bash", "-lc", cmd], check=False)
+            else:
+                print("[env-wizard] Skipping global Ollama install (sudo password prompt not allowed in auto flow).")
+                class _NoSudoRes:
+                    returncode = 1
+                res = _NoSudoRes()
             if res.returncode != 0:
-                print("[env-wizard] Ollama auto-install failed on Linux.")
-                print("[env-wizard] Install manually, then run: ollama pull {}".format(model))
-                return
+                print("[env-wizard] Global Ollama install failed on Linux. Trying local install in docsops/tools/ollama...")
+                ollama_bin = _install_ollama_local_linux(repo_root)
+                if not ollama_bin:
+                    print("[env-wizard] Install manually, then run: ollama pull {}".format(model))
+                    return False
         elif system == "darwin":
             if shutil.which("brew"):
                 res = subprocess.run(["brew", "install", "ollama"], check=False)
                 if res.returncode != 0:
                     print("[env-wizard] brew install ollama failed.")
                     print("[env-wizard] Install Ollama manually and run: ollama pull {}".format(model))
-                    return
+                    return False
             else:
                 print("[env-wizard] Homebrew not found. Install Ollama manually, then run: ollama pull {}".format(model))
-                return
+                return False
         elif system == "windows":
             if shutil.which("winget"):
                 res = subprocess.run(["winget", "install", "-e", "--id", "Ollama.Ollama"], check=False)
                 if res.returncode != 0:
                     print("[env-wizard] winget install Ollama failed.")
                     print("[env-wizard] Install Ollama manually and run: ollama pull {}".format(model))
-                    return
+                    return False
             else:
                 print("[env-wizard] winget not found. Install Ollama manually and run: ollama pull {}".format(model))
-                return
+                return False
         else:
             print("[env-wizard] Unsupported OS for auto-install. Install Ollama manually and run: ollama pull {}".format(model))
-            return
-        ollama_bin = shutil.which("ollama")
+            return False
+        ollama_bin = _discover_ollama_bin(repo_root)
         if ollama_bin is None:
             print("[env-wizard] Ollama still not found in PATH after install.")
-            return
+            return False
+
+    if not _ensure_ollama_daemon(ollama_bin):
+        print("[env-wizard] Ollama daemon is not reachable. Start it manually and rerun setup.")
+        return False
+
+    if _ollama_model_present(ollama_bin, model):
+        print(f"[env-wizard] Local model already present: {model}")
+        return True
+    if _ollama_pull_in_progress(model):
+        print(f"[env-wizard] Detected active pull for '{model}'. Waiting for completion...")
+        if _wait_for_ollama_model(ollama_bin, model):
+            print(f"[env-wizard] Local model ready: {model}")
+            return True
+        print(f"[env-wizard] Timed out waiting for existing pull of '{model}'.")
+        return False
 
     print(f"[env-wizard] Pulling local model: {model}")
     pull = subprocess.run([ollama_bin, "pull", model], check=False)
     if pull.returncode == 0:
         print(f"[env-wizard] Local model ready: {model}")
+        return True
     else:
         print(f"[env-wizard] Failed to pull model: {model}")
         print(f"[env-wizard] Run manually: ollama pull {model}")
+        return False
+
+
+def bootstrap_local_llm_runtime(repo_root: Path, runtime: dict[str, Any], interactive: bool = True) -> tuple[bool, str]:
+    llm_control = runtime.get("llm_control", {}) if isinstance(runtime.get("llm_control"), dict) else {}
+    llm_mode = str(llm_control.get("llm_mode", "external_preferred")).strip().lower()
+    strict_local = bool(llm_control.get("strict_local_first", llm_mode == "local_default"))
+    model = str(llm_control.get("local_model", "veridoc-writer")).strip() or "veridoc-writer"
+    base_model = str(llm_control.get("local_base_model", "qwen3:30b")).strip() or "qwen3:30b"
+    auto_install = bool(llm_control.get("auto_install_local_model_on_setup", True))
+    security = runtime.get("security", {}) if isinstance(runtime.get("security"), dict) else {}
+    operation_mode = str(security.get("operation_mode", "")).strip().lower()
+    should_bootstrap = strict_local or llm_mode == "local_default" or operation_mode in {"strict-local", "hybrid"}
+
+    if not should_bootstrap:
+        return True, "skip: mode does not require local runtime bootstrap"
+    if not auto_install:
+        return True, "skip: auto_install_local_model_on_setup=false"
+
+    # If runtime and required base model already exist, do not ask for reinstall/repull.
+    ready_bin = _find_reachable_ollama_bin(repo_root)
+    if ready_bin and _ollama_model_present(ready_bin, base_model):
+        print(f"[env-wizard] Detected existing Ollama runtime and base model: {base_model}")
+        modelfile_path = _create_veridoc_modelfile(repo_root, base_model=base_model, model_name=model)
+        if not _ollama_model_present(ready_bin, model):
+            if interactive:
+                if _prompt_yes_no(f"Create local model profile '{model}' now?", default_yes=True):
+                    _create_ollama_model(model, modelfile_path)
+            else:
+                _create_ollama_model(model, modelfile_path)
+        else:
+            print(f"[env-wizard] Local model profile already present: {model}")
+        return True, f"ok: reused existing Ollama runtime ({base_model})"
+
+    if interactive:
+        if not _prompt_yes_no(
+            f"Install Ollama + pull base model '{base_model}' now for operation_mode={operation_mode or llm_mode}?",
+            default_yes=True,
+        ):
+            return True, "skipped by user"
+
+    try:
+        install_result = _install_ollama_and_model(base_model, repo_root)
+    except TypeError:
+        # Backward-compatible path for tests/monkeypatches with legacy 1-arg stub.
+        install_result = _install_ollama_and_model(base_model)  # type: ignore[misc]
+    if install_result is False:
+        return False, "failed: ollama install/pull"
+
+    modelfile_path = _create_veridoc_modelfile(repo_root, base_model=base_model, model_name=model)
+    if interactive:
+        if _prompt_yes_no(f"Create local model profile '{model}' now?", default_yes=True):
+            _create_ollama_model(model, modelfile_path)
+    else:
+        _create_ollama_model(model, modelfile_path)
+    return True, f"ok: ollama runtime prepared ({base_model} -> {model})"
 
 
 def _create_veridoc_modelfile(repo_root: Path, base_model: str, model_name: str = "veridoc-writer") -> Path:
@@ -261,6 +702,9 @@ def _create_ollama_model(model_name: str, modelfile_path: Path) -> None:
     ollama_bin = shutil.which("ollama")
     if not ollama_bin:
         print("[env-wizard] ollama is not available in PATH; skip custom model creation.")
+        return
+    if _ollama_model_present(ollama_bin, model_name):
+        print(f"[env-wizard] Local model profile already present: {model_name}")
         return
     print(f"[env-wizard] Creating local model profile: {model_name}")
     res = subprocess.run([ollama_bin, "create", model_name, "-f", str(modelfile_path)], check=False)
@@ -460,22 +904,20 @@ def main() -> int:
     llm_control = runtime.get("llm_control", {}) if isinstance(runtime.get("llm_control"), dict) else {}
     llm_mode = str(llm_control.get("llm_mode", "external_preferred")).strip().lower()
     strict_local = bool(llm_control.get("strict_local_first", llm_mode == "local_default"))
-    model = str(llm_control.get("local_model", "veridoc-writer")).strip() or "veridoc-writer"
-    base_model = str(llm_control.get("local_base_model", "qwen3:30b")).strip() or "qwen3:30b"
-    auto_install = bool(llm_control.get("auto_install_local_model_on_setup", True))
     quality_note = str(
         llm_control.get(
             "quality_delta_note",
             "Fully local mode may reduce output quality by ~10-15% on hardest synthesis tasks.",
         )
     ).strip()
-    if strict_local or llm_mode == "local_default":
-        print(f"[env-wizard] LLM mode: fully local by default. {quality_note}")
-        if auto_install and _prompt_yes_no(f"Install Ollama + pull base model '{base_model}' now?", default_yes=True):
-            _install_ollama_and_model(base_model)
-            modelfile_path = _create_veridoc_modelfile(repo_root, base_model=base_model, model_name=model)
-            if _prompt_yes_no(f"Create local model profile '{model}' now?", default_yes=True):
-                _create_ollama_model(model, modelfile_path)
+    security = runtime.get("security", {}) if isinstance(runtime.get("security"), dict) else {}
+    operation_mode = str(security.get("operation_mode", "")).strip().lower()
+    if strict_local or llm_mode == "local_default" or operation_mode in {"strict-local", "hybrid"}:
+        print(f"[env-wizard] LLM runtime bootstrap enabled for mode={operation_mode or llm_mode}. {quality_note}")
+        ok_bootstrap, message = bootstrap_local_llm_runtime(repo_root, runtime, interactive=True)
+        print(f"[env-wizard] local runtime bootstrap: {message}")
+        if not ok_bootstrap:
+            return 2
     else:
         print(
             "[env-wizard] LLM mode: cloud/hybrid (external providers allowed). "

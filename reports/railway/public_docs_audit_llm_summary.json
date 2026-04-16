@@ -1,0 +1,57 @@
+{
+  "status": "ok",
+  "model": "claude-sonnet-4-5",
+  "analysis": {
+    "executive_summary": "Railway documentation audit covered 286 pages with 100% crawl coverage across 289 discovered pages. API reference coverage is critically low at 2.3% with only 21 API pages detected. Example reliability scored 0.0%, indicating no working code examples found. One confirmed broken internal link exists within user-facing documentation. Overall confidence stands at 63.5%, with link verification confidence particularly low at 25% due to 3 unverified URLs blocked by authentication or rate limiting.",
+    "strengths": [
+      "Complete crawl coverage at 100% with all 289 in-scope pages successfully examined",
+      "Excellent freshness metadata coverage at 98.95% of pages showing last-updated information",
+      "Minimal broken link issues with only 1 confirmed broken internal documentation link",
+      "No repository navigation link breakage (0 repo_broken_links_count)",
+      "Low SEO/geo issue rate at 2.1% indicating good technical page optimization"
+    ],
+    "risks": [
+      "Critical API documentation gap: only 2.3% reference coverage with 21 API pages detected suggests incomplete API documentation",
+      "Zero example reliability (0.0%) indicates no verified working code examples, severely impacting developer onboarding",
+      "Low link verification confidence (25%) creates uncertainty about external link health and 3 URLs remain unverified",
+      "Overall confidence of 63.5% suggests moderate reliability concerns in audit completeness",
+      "Potential customer friction from broken internal documentation link affecting navigation",
+      "Missing or non-functional code examples may increase support burden and slow developer adoption",
+      "API documentation deficiency may force developers to reverse-engineer functionality or seek alternative solutions"
+    ],
+    "prioritized_actions": [
+      {
+        "action": "Expand API reference documentation from 2.3% to minimum 80% coverage across all public API endpoints",
+        "impact": "critical",
+        "effort": "high"
+      },
+      {
+        "action": "Implement and verify working code examples across key user journeys to improve 0.0% reliability score",
+        "impact": "critical",
+        "effort": "high"
+      },
+      {
+        "action": "Fix the 1 confirmed broken internal documentation link to restore navigation integrity",
+        "impact": "high",
+        "effort": "low"
+      },
+      {
+        "action": "Investigate and resolve 3 unverified links blocked by auth/rate-limit to improve link confidence from 25%",
+        "impact": "medium",
+        "effort": "low"
+      },
+      {
+        "action": "Establish automated example testing pipeline to maintain code example reliability above 85%",
+        "impact": "high",
+        "effort": "medium"
+      }
+    ],
+    "limitations": [
+      "External audit cannot verify functionality of Railway API endpoints themselves, only documentation completeness",
+      "3 unverified links due to authentication/rate-limiting may be functional but remain unconfirmed in this audit",
+      "Code example reliability testing limited to static analysis; runtime execution in customer environments not validated",
+      "Audit cannot assess documentation accuracy, completeness of feature coverage, or alignment with actual product capabilities",
+      "Crawl limited to publicly accessible pages; authenticated or gated documentation areas not examined"
+    ]
+  }
+}

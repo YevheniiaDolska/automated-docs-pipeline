@@ -1,0 +1,57 @@
+{
+  "status": "ok",
+  "model": "claude-sonnet-4-5",
+  "analysis": {
+    "executive_summary": "Documentation audit of docs.cryptoprocessing.com covered 50 pages at 102% crawl completion with 91.5% overall confidence. Site contains 26 API pages with 64% reference coverage, indicating gaps in API documentation completeness. Critical quality issues include 34% SEO/geo problem rate and 0% example reliability estimate. One confirmed broken internal link detected within user-facing documentation.",
+    "strengths": [
+      "Complete crawl coverage at 102%, capturing all discoverable documentation pages",
+      "High overall audit confidence at 91.5% with strong link verification (95% confidence)",
+      "100% last-updated metadata coverage, enabling freshness tracking",
+      "26 API pages successfully detected with 85% detection confidence",
+      "Zero repository navigation broken links, keeping user-facing docs clean"
+    ],
+    "risks": [
+      "34% SEO/geo issue rate threatens discoverability and search ranking performance",
+      "0% example reliability estimate indicates code samples may be outdated, untested, or non-functional",
+      "64% API reference coverage leaves 36% of API surface undocumented or poorly covered",
+      "One confirmed broken internal link degrades user navigation experience",
+      "Small documentation footprint (50 pages) may indicate incomplete product coverage",
+      "No example testing infrastructure apparent, risking customer implementation failures",
+      "Low example reliability combined with payment processing domain creates high customer risk"
+    ],
+    "prioritized_actions": [
+      {
+        "action": "Implement automated example testing pipeline to validate all code samples in payment processing workflows",
+        "impact": "critical",
+        "effort": "high"
+      },
+      {
+        "action": "Complete API reference documentation for the missing 36% of API surface area",
+        "impact": "critical",
+        "effort": "medium"
+      },
+      {
+        "action": "Audit and fix SEO/geo issues affecting 34% of pages to improve discoverability",
+        "impact": "high",
+        "effort": "medium"
+      },
+      {
+        "action": "Repair confirmed broken internal link and establish link monitoring",
+        "impact": "medium",
+        "effort": "low"
+      },
+      {
+        "action": "Conduct content gap analysis to determine if 50-page footprint adequately covers crypto payment processing features",
+        "impact": "medium",
+        "effort": "low"
+      }
+    ],
+    "limitations": [
+      "External audit cannot verify functional correctness of API endpoints or accuracy of technical specifications",
+      "Example reliability estimate reflects static analysis only; actual code execution, dependency compatibility, and runtime behavior not tested",
+      "SEO/geo issue detection limited to structural problems; cannot assess content quality, accuracy, or competitive search performance",
+      "Crawl restricted to publicly accessible pages; authenticated documentation, private integrations, or partner-only content not evaluated",
+      "API coverage percentage measures documentation presence, not completeness of parameter descriptions, error scenarios, or real-world usage guidance"
+    ]
+  }
+}

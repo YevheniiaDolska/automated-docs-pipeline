@@ -76,7 +76,7 @@ setup(
     # Run compilation
     cmd = [
         sys.executable,
-        str(setup_path),
+        setup_path.name,
         "build_ext",
         "--inplace",
     ]

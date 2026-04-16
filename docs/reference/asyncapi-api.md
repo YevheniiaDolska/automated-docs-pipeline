@@ -4,22 +4,22 @@ description: Auto-generated asyncapi reference from source contract.
 content_type: reference
 product: both
 tags:
-- C
 - Users
 - Docs
-- Documents
-- Development
-- Mnt
+- C
 - Auto Doc Pipeline
+- Mnt
 - Kroha
-last_reviewed: '2026-04-06'
+- Development
+- Documents
+last_reviewed: '2026-04-13'
 original_author: Kroha
 ---
 
 
 # ASYNCAPI Reference
 
-Source: `/tmp/pytest-of-eudo/pytest-2844/test_multi_protocol_flow_e2e_e0/asyncapi.yaml`
+Source: `/tmp/pytest-of-eudo/pytest-2995/test_multi_protocol_flow_e2e_e0/asyncapi.yaml`
 
 Flow mode: `api-first`
 
@@ -38,6 +38,7 @@ Flow mode: `api-first`
 
 > Sandbox semantic mode: this tester returns event-aware responses by `event_type` and payload fields.
 
+<!-- vale off -->
 <div id="asyncapi-playground" style="border:1px solid #d1d5db; padding:12px; border-radius:8px;">
   <p><strong>WebSocket Endpoint:</strong> <code id="asyncapi-ws-view"></code></p>
   <p><strong>HTTP Publish Endpoint:</strong> <code id="asyncapi-http-view"></code></p>
@@ -115,7 +116,8 @@ sendHttp.onclick = async function(){
 };
 })();
 </script>
+<!-- vale on -->
 
 ## Next steps
 
-- [Documentation index](index.md)
+- [Documentation index](../index.md)

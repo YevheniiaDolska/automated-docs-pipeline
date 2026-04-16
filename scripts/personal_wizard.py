@@ -615,7 +615,7 @@ def build_personal_env_template(
                     "",
                     "Ask AI: optional shared fallback key for centrally managed entitlement mode",
                 )
-            elif provider == "openai":
+            if provider == "openai":
                 _append_env(
                     lines,
                     "OPENAI_API_KEY",

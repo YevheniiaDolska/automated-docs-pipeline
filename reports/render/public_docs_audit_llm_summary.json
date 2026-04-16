@@ -1,0 +1,57 @@
+{
+  "status": "ok",
+  "model": "claude-sonnet-4-5",
+  "analysis": {
+    "executive_summary": "Audit of Render.com documentation covered 573 pages (100% crawl coverage of 674 discovered pages). The site contains 11 confirmed broken internal links, all within user-facing documentation. API reference coverage is low at 21.62% across 63 detected API pages. SEO/geo issues affect 12.0% of pages. Code example reliability is estimated at 86.53%, and only 53.93% of pages display last-updated metadata.",
+    "strengths": [
+      "Complete crawl coverage achieved (100% of discoverable documentation)",
+      "High overall audit confidence at 91.5%",
+      "No repository navigation link breakage (all broken links are docs-only)",
+      "Example reliability above 85% threshold",
+      "Single-product topology provides clear documentation structure"
+    ],
+    "risks": [
+      "11 confirmed broken internal links degrade user navigation and trust",
+      "API reference coverage at 21.62% leaves majority of API surface undocumented",
+      "12.0% SEO/geo issue rate impacts discoverability and search ranking",
+      "46% of pages lack last-updated metadata, obscuring content freshness",
+      "63 API pages detected but only ~14 have adequate usage documentation",
+      "API detection confidence at 85% suggests possible coverage blind spots",
+      "Low API coverage may drive support burden and integration friction"
+    ],
+    "prioritized_actions": [
+      {
+        "action": "Fix all 11 broken internal documentation links",
+        "impact": "high",
+        "effort": "low"
+      },
+      {
+        "action": "Expand API usage documentation from 21.62% to minimum 60% coverage across 63 API pages",
+        "impact": "critical",
+        "effort": "high"
+      },
+      {
+        "action": "Remediate SEO/geo issues affecting 12% of pages (approximately 69 pages)",
+        "impact": "high",
+        "effort": "medium"
+      },
+      {
+        "action": "Add last-updated timestamps to 46% of pages currently missing metadata",
+        "impact": "medium",
+        "effort": "low"
+      },
+      {
+        "action": "Audit API page detection methodology to validate 85% confidence score and uncover missed endpoints",
+        "impact": "medium",
+        "effort": "medium"
+      }
+    ],
+    "limitations": [
+      "External audit cannot verify accuracy of technical content, code examples, or API specifications",
+      "Link checking reflects point-in-time status; transient failures or authentication-gated resources may be misclassified",
+      "API coverage detection relies on heuristics; actual API surface may differ if endpoints lack documentation patterns",
+      "Example reliability is estimated through static analysis; runtime correctness and dependency versions are not validated",
+      "Crawl cannot access pages behind authentication, dynamic JavaScript-only content, or undiscoverable URLs"
+    ]
+  }
+}

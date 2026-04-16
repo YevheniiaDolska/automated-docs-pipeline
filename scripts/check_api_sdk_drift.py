@@ -52,11 +52,7 @@ class DriftReport:
 
 def _changed_files(base_ref: str, head_ref: str) -> list[str]:
     cmd = ["git", "diff", "--name-only", f"{base_ref}...{head_ref}"]
-    try:
-        result = subprocess.run(cmd, capture_output=True, text=True, check=True)
-    except subprocess.CalledProcessError:
-        logger.warning("git diff failed for range %s...%s; continuing with empty delta", base_ref, head_ref)
-        return []
+    result = subprocess.run(cmd, capture_output=True, text=True, check=True)
     return [line.strip() for line in result.stdout.splitlines() if line.strip()]
 
 

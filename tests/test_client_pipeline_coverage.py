@@ -256,6 +256,26 @@ class TestProvisionClientRepo:
         assert (installed / "A.txt").exists()
         assert not (installed / "old.txt").exists()
 
+    def test_copy_bundle_to_repo_flattens_nested_docsops_payload(self, tmp_path: Path) -> None:
+        from scripts import provision_client_repo as mod
+
+        bundle = tmp_path / "bundle"
+        (bundle / "docsops").mkdir(parents=True)
+        (bundle / "scripts").mkdir(parents=True)
+        (bundle / "scripts" / "runner.py").write_text("print('ok')\n", encoding="utf-8")
+        (bundle / "docsops" / "license.jwt").write_text("token", encoding="utf-8")
+        (bundle / "docsops" / ".module_hashes.json").write_text('{"version":1,"modules":{}}', encoding="utf-8")
+
+        repo = tmp_path / "client"
+        repo.mkdir()
+        installed = mod.copy_bundle_to_repo(bundle, repo, "docsops")
+
+        assert installed.exists()
+        assert (installed / "scripts" / "runner.py").exists()
+        assert (installed / "license.jwt").exists()
+        assert (installed / ".module_hashes.json").exists()
+        assert not (installed / "docsops").exists()
+
     def test_run_scheduler_install_modes(self, tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:
         from scripts import provision_client_repo as mod
 
@@ -883,6 +903,7 @@ class TestWeeklyBatch:
         monkeypatch.setattr(mod, "_resolve_weekly_base_ref", lambda r, s, **kwargs: "abc123")
         monkeypatch.setattr(mod, "_run", lambda cmd, cwd: commands.append(cmd))
         monkeypatch.setattr(mod, "_run_allow_fail", lambda cmd, cwd: 0)
+        monkeypatch.setattr(mod, "license_check", lambda feature, lic=None: True)
         monkeypatch.setattr(sys, "argv", ["x", "--docsops-root", "docsops", "--reports-dir", "reports"])
 
         rc = mod.main()
@@ -947,6 +968,7 @@ class TestWeeklyBatch:
         monkeypatch.setattr(mod, "_resolve_weekly_base_ref", lambda r, s, **kwargs: "abc123")
         monkeypatch.setattr(mod, "_run", lambda cmd, cwd: commands.append(cmd))
         monkeypatch.setattr(mod, "_run_allow_fail", lambda cmd, cwd: 0)
+        monkeypatch.setattr(mod, "license_check", lambda feature, lic=None: True)
         monkeypatch.setattr(sys, "argv", ["x", "--docsops-root", "docsops", "--reports-dir", "reports"])
 
         rc = mod.main()
@@ -992,6 +1014,7 @@ class TestWeeklyBatch:
         monkeypatch.setattr(mod, "_resolve_weekly_base_ref", lambda r, s, **kwargs: "abc123")
         monkeypatch.setattr(mod, "_run", lambda cmd, cwd: commands.append(cmd))
         monkeypatch.setattr(mod, "_run_allow_fail", lambda cmd, cwd: 0)
+        monkeypatch.setattr(mod, "license_check", lambda feature, lic=None: True)
         monkeypatch.setattr(sys, "argv", ["x", "--docsops-root", "docsops", "--reports-dir", "reports"])
 
         rc = mod.main()

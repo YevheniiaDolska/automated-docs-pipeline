@@ -1,0 +1,638 @@
+{
+  "generated_at": "2026-04-15T11:21:01.511937+00:00",
+  "commercial_package": "full",
+  "score": {
+    "audit_score_0_100": 60.8,
+    "grade": "D"
+  },
+  "kpis": {
+    "api_coverage": {
+      "spec_found": true,
+      "spec_path": "api\\openapi.yaml",
+      "total_operations": 0,
+      "documented_operations": 0,
+      "undocumented_operations": 0,
+      "undocumented_pct": 0.0,
+      "coverage_pct": 0.0,
+      "undocumented_samples": []
+    },
+    "example_reliability": {
+      "report_found": true,
+      "report_path": "reports\\examples_smoke_report.json",
+      "executed_examples": 2,
+      "failed_examples": 0,
+      "example_reliability_pct": 100.0
+    },
+    "freshness": {
+      "total_docs": 80,
+      "dated_docs": 50,
+      "missing_date_docs": 30,
+      "average_age_days": 31.88,
+      "median_age_days": 26.0,
+      "stale_days_threshold": 180,
+      "stale_docs_count": 0,
+      "stale_docs_pct": 0.0
+    },
+    "drift": {
+      "docs_contract_report_found": false,
+      "api_drift_report_found": false,
+      "interface_changed_count": 0,
+      "docs_contract_mismatch_count": 0,
+      "docs_contract_drift_pct": 0.0,
+      "api_drift_status": "missing"
+    },
+    "layer_completeness": {
+      "required_layers": [
+        "concept",
+        "how-to",
+        "reference"
+      ],
+      "total_features": 75,
+      "features_missing_required_layers": 75,
+      "features_missing_required_layers_pct": 100.0,
+      "sample_missing_features": [
+        {
+          "feature": "advanced-search",
+          "missing_layers": [
+            "concept",
+            "how-to"
+          ],
+          "present_layers": [
+            "reference"
+          ]
+        },
+        {
+          "feature": "api-playground",
+          "missing_layers": [
+            "concept",
+            "how-to"
+          ],
+          "present_layers": [
+            "reference"
+          ]
+        },
+        {
+          "feature": "assemble-intent-experiences",
+          "missing_layers": [
+            "concept",
+            "reference"
+          ],
+          "present_layers": [
+            "how-to"
+          ]
+        },
+        {
+          "feature": "asyncapi-api",
+          "missing_layers": [
+            "concept",
+            "how-to"
+          ],
+          "present_layers": [
+            "reference"
+          ]
+        },
+        {
+          "feature": "auto-doc-pipeline-study-guide",
+          "missing_layers": [
+            "concept",
+            "how-to"
+          ],
+          "present_layers": [
+            "reference"
+          ]
+        },
+        {
+          "feature": "browse-by-tag",
+          "missing_layers": [
+            "concept",
+            "how-to"
+          ],
+          "present_layers": [
+            "reference"
+          ]
+        },
+        {
+          "feature": "build-your-first-workflow-in-5-minutes",
+          "missing_layers": [
+            "concept",
+            "how-to",
+            "reference"
+          ],
+          "present_layers": [
+            "tutorial"
+          ]
+        },
+        {
+          "feature": "canonical-flow-sales-delivery",
+          "missing_layers": [
+            "concept",
+            "how-to"
+          ],
+          "present_layers": [
+            "reference"
+          ]
+        },
+        {
+          "feature": "centralized_client_bundles",
+          "missing_layers": [
+            "concept",
+            "how-to"
+          ],
+          "present_layers": [
+            "reference"
+          ]
+        },
+        {
+          "feature": "concepts-and-architecture",
+          "missing_layers": [
+            "how-to",
+            "reference"
+          ],
+          "present_layers": [
+            "concept"
+          ]
+        }
+      ]
+    },
+    "retrieval_quality": {
+      "report_found": true,
+      "status": "ok",
+      "precision_at_k": 0.24,
+      "recall_at_k": 0.72,
+      "hallucination_rate": 0.0,
+      "top_k": 3
+    },
+    "terminology": {
+      "glossary_path": "glossary.yml",
+      "forbidden_terms_count": 5,
+      "glossary_terms_count": 17,
+      "docs_scanned": 80,
+      "docs_with_forbidden_terms": 0,
+      "forbidden_term_occurrences": 0,
+      "terminology_violation_pct": 0.0,
+      "terminology_consistency_pct": 100.0,
+      "offender_samples": [],
+      "glossary_sync_report_found": true
+    }
+  },
+  "business_impact": {
+    "risk_index_0_to_1": 0.0,
+    "engineering_support_hours_lost_estimate": {
+      "monthly_cost_usd": 7436.0,
+      "engineering_hours": 51.6,
+      "support_hours": 35.2,
+      "release_delay_hours": 0.0
+    },
+    "scenarios": {
+      "conservative": {
+        "monthly_cost_usd": 5205.2,
+        "engineering_hours": 36.12,
+        "support_hours": 24.64,
+        "release_delay_hours": 0.0
+      },
+      "base": {
+        "monthly_cost_usd": 7436.0,
+        "engineering_hours": 51.6,
+        "support_hours": 35.2,
+        "release_delay_hours": 0.0
+      },
+      "aggressive": {
+        "monthly_cost_usd": 10410.4,
+        "engineering_hours": 72.24,
+        "support_hours": 49.28,
+        "release_delay_hours": 0.0
+      }
+    },
+    "assumptions": {
+      "engineer_hourly_usd": 110.0,
+      "support_hourly_usd": 50.0,
+      "release_count_per_month": 8.0,
+      "baseline_manual_sync_hours_per_week": 12.0,
+      "avg_release_delay_hours": 4.5,
+      "monthly_support_tickets": 800.0,
+      "docs_related_ticket_share": 0.22,
+      "avg_ticket_handling_minutes": 24.0
+    }
+  },
+  "capability_matrix": [
+    {
+      "capability_id": "api_coverage_sync",
+      "capability_label": "API coverage sync",
+      "pipeline_modules": [
+        "drift_detection",
+        "docs_contract"
+      ],
+      "related_flow": "api_first",
+      "pilot": true,
+      "full": true
+    },
+    {
+      "capability_id": "drift_contract_visibility",
+      "capability_label": "Code/docs drift contract visibility",
+      "pipeline_modules": [
+        "drift_detection",
+        "docs_contract"
+      ],
+      "related_flow": "weekly",
+      "pilot": true,
+      "full": true
+    },
+    {
+      "capability_id": "example_execution_quality",
+      "capability_label": "Executable examples quality",
+      "pipeline_modules": [
+        "self_checks",
+        "snippet_lint",
+        "normalization"
+      ],
+      "related_flow": "docs_flow",
+      "pilot": true,
+      "full": true
+    },
+    {
+      "capability_id": "freshness_lifecycle",
+      "capability_label": "Freshness + lifecycle management",
+      "pipeline_modules": [
+        "kpi_sla",
+        "release_pack"
+      ],
+      "related_flow": "weekly",
+      "pilot": true,
+      "full": true
+    },
+    {
+      "capability_id": "layer_completeness",
+      "capability_label": "Doc layer completeness",
+      "pipeline_modules": [
+        "gap_detection",
+        "fact_checks"
+      ],
+      "related_flow": "docs_flow",
+      "pilot": true,
+      "full": true
+    },
+    {
+      "capability_id": "retrieval_quality_control",
+      "capability_label": "RAG retrieval quality control",
+      "pipeline_modules": [
+        "rag_optimization",
+        "ontology_graph",
+        "retrieval_evals"
+      ],
+      "related_flow": "knowledge",
+      "pilot": true,
+      "full": true
+    },
+    {
+      "capability_id": "terminology_governance",
+      "capability_label": "Terminology governance",
+      "pipeline_modules": [
+        "terminology_management",
+        "normalization"
+      ],
+      "related_flow": "docs_flow",
+      "pilot": true,
+      "full": true
+    }
+  ],
+  "findings": [
+    {
+      "id": "F-LAYERS",
+      "title": "Missing required doc layers",
+      "capability_id": "layer_completeness",
+      "capability_label": "Doc layer completeness",
+      "pipeline_related_flow": "docs_flow",
+      "metric": "Features missing required layers %",
+      "current_value": 100.0,
+      "target_value": 5.0,
+      "unit": "%",
+      "gap_value": 95.0,
+      "severity": "high",
+      "pipeline_modules": [
+        "gap_detection",
+        "fact_checks"
+      ],
+      "fixability": {
+        "pilot": true,
+        "full": true
+      },
+      "effort_hours_low": 3.0,
+      "effort_hours_base": 7.5,
+      "effort_hours_high": 12.0,
+      "estimated_remediation_cost_usd_low": 330.0,
+      "estimated_remediation_cost_usd_base": 825.0,
+      "estimated_remediation_cost_usd_high": 1320.0,
+      "estimated_monthly_loss_usd_low": 594.0,
+      "estimated_monthly_loss_usd_base": 1782.0,
+      "estimated_monthly_loss_usd_high": 3801.6,
+      "recommended_window_days": 7,
+      "evidence_source": "policy pack + frontmatter layer scan",
+      "estimation_confidence": "high",
+      "note": "Backfill concept/how-to/reference coverage for key capabilities."
+    },
+    {
+      "id": "F-FRESHNESS",
+      "title": "Documentation freshness debt",
+      "capability_id": "freshness_lifecycle",
+      "capability_label": "Freshness + lifecycle management",
+      "pipeline_related_flow": "weekly",
+      "metric": "Stale docs %",
+      "current_value": 0.0,
+      "target_value": 10.0,
+      "unit": "%",
+      "gap_value": 10.0,
+      "severity": "medium",
+      "pipeline_modules": [
+        "kpi_sla",
+        "release_pack"
+      ],
+      "fixability": {
+        "pilot": true,
+        "full": true
+      },
+      "effort_hours_low": 2.0,
+      "effort_hours_base": 5.0,
+      "effort_hours_high": 8.0,
+      "estimated_remediation_cost_usd_low": 220.0,
+      "estimated_remediation_cost_usd_base": 550.0,
+      "estimated_remediation_cost_usd_high": 880.0,
+      "estimated_monthly_loss_usd_low": 374.0,
+      "estimated_monthly_loss_usd_base": 1122.0,
+      "estimated_monthly_loss_usd_high": 2393.6,
+      "recommended_window_days": 14,
+      "evidence_source": "frontmatter date scan",
+      "estimation_confidence": "high",
+      "note": "Prioritize stale pages via weekly SLA loop and lifecycle policies."
+    },
+    {
+      "id": "F-RETRIEVAL",
+      "title": "RAG retrieval quality risk",
+      "capability_id": "retrieval_quality_control",
+      "capability_label": "RAG retrieval quality control",
+      "pipeline_related_flow": "knowledge",
+      "metric": "Hallucination rate %",
+      "current_value": 0.0,
+      "target_value": 10.0,
+      "unit": "%",
+      "gap_value": 10.0,
+      "severity": "medium",
+      "pipeline_modules": [
+        "rag_optimization",
+        "ontology_graph",
+        "retrieval_evals"
+      ],
+      "fixability": {
+        "pilot": true,
+        "full": true
+      },
+      "effort_hours_low": 4.0,
+      "effort_hours_base": 9.0,
+      "effort_hours_high": 14.0,
+      "estimated_remediation_cost_usd_low": 440.0,
+      "estimated_remediation_cost_usd_base": 990.0,
+      "estimated_remediation_cost_usd_high": 1540.0,
+      "estimated_monthly_loss_usd_low": 836.0,
+      "estimated_monthly_loss_usd_base": 2257.2,
+      "estimated_monthly_loss_usd_high": 4681.6,
+      "recommended_window_days": 14,
+      "evidence_source": "retrieval_evals_report.json",
+      "estimation_confidence": "high",
+      "note": "Improve module metadata, index quality, and retrieval eval thresholds."
+    },
+    {
+      "id": "F-EVIDENCE-DRIFT-MISSING",
+      "title": "Drift evidence report is missing",
+      "capability_id": "drift_contract_visibility",
+      "capability_label": "Code/docs drift contract visibility",
+      "pipeline_related_flow": "weekly",
+      "metric": "Docs-contract report availability",
+      "current_value": 0,
+      "target_value": 1,
+      "unit": "binary",
+      "gap_value": 1,
+      "severity": "medium",
+      "pipeline_modules": [
+        "drift_detection",
+        "docs_contract"
+      ],
+      "fixability": {
+        "pilot": true,
+        "full": true
+      },
+      "effort_hours_low": 0.5,
+      "effort_hours_base": 1.0,
+      "effort_hours_high": 2.0,
+      "estimated_remediation_cost_usd_low": 55.0,
+      "estimated_remediation_cost_usd_base": 110.0,
+      "estimated_remediation_cost_usd_high": 220.0,
+      "estimated_monthly_loss_usd_low": 49.5,
+      "estimated_monthly_loss_usd_base": 121.0,
+      "estimated_monthly_loss_usd_high": 308.0,
+      "recommended_window_days": 7,
+      "evidence_source": "pr_docs_contract.json (missing)",
+      "estimation_confidence": "medium",
+      "note": "Enable weekly docs-contract report so drift is measured from git diffs, not assumptions."
+    },
+    {
+      "id": "F-API-COVERAGE",
+      "title": "Undocumented API operations",
+      "capability_id": "api_coverage_sync",
+      "capability_label": "API coverage sync",
+      "pipeline_related_flow": "api_first",
+      "metric": "API undocumented %",
+      "current_value": 0.0,
+      "target_value": 5.0,
+      "unit": "%",
+      "gap_value": 5.0,
+      "severity": "low",
+      "pipeline_modules": [
+        "drift_detection",
+        "docs_contract"
+      ],
+      "fixability": {
+        "pilot": true,
+        "full": true
+      },
+      "effort_hours_low": 4.0,
+      "effort_hours_base": 10.0,
+      "effort_hours_high": 16.0,
+      "estimated_remediation_cost_usd_low": 440.0,
+      "estimated_remediation_cost_usd_base": 1100.0,
+      "estimated_remediation_cost_usd_high": 1760.0,
+      "estimated_monthly_loss_usd_low": 968.0,
+      "estimated_monthly_loss_usd_base": 2904.0,
+      "estimated_monthly_loss_usd_high": 6195.2,
+      "recommended_window_days": 30,
+      "evidence_source": "OpenAPI + docs text scan",
+      "estimation_confidence": "high",
+      "note": "Generate/update reference + how-to from OpenAPI and enforce drift checks."
+    },
+    {
+      "id": "F-EXAMPLES-RELIABILITY",
+      "title": "Code examples fail or are non-runnable",
+      "capability_id": "example_execution_quality",
+      "capability_label": "Executable examples quality",
+      "pipeline_related_flow": "docs_flow",
+      "metric": "Example reliability %",
+      "current_value": 0.0,
+      "target_value": 5.0,
+      "unit": "% shortfall",
+      "gap_value": 0.0,
+      "severity": "low",
+      "pipeline_modules": [
+        "self_checks",
+        "snippet_lint",
+        "normalization"
+      ],
+      "fixability": {
+        "pilot": true,
+        "full": true
+      },
+      "effort_hours_low": 3.0,
+      "effort_hours_base": 8.5,
+      "effort_hours_high": 14.0,
+      "estimated_remediation_cost_usd_low": 330.0,
+      "estimated_remediation_cost_usd_base": 935.0,
+      "estimated_remediation_cost_usd_high": 1540.0,
+      "estimated_monthly_loss_usd_low": 660.0,
+      "estimated_monthly_loss_usd_base": 2244.0,
+      "estimated_monthly_loss_usd_high": 4928.0,
+      "recommended_window_days": 30,
+      "evidence_source": "examples_smoke_report.json",
+      "estimation_confidence": "high",
+      "note": "Run smoke + expected-output checks and auto-fix broken snippets."
+    },
+    {
+      "id": "F-DRIFT",
+      "title": "Code/docs contract drift",
+      "capability_id": "drift_contract_visibility",
+      "capability_label": "Code/docs drift contract visibility",
+      "pipeline_related_flow": "weekly",
+      "metric": "Drift %",
+      "current_value": 0.0,
+      "target_value": 2.0,
+      "unit": "%",
+      "gap_value": 2.0,
+      "severity": "low",
+      "pipeline_modules": [
+        "drift_detection",
+        "docs_contract"
+      ],
+      "fixability": {
+        "pilot": true,
+        "full": true
+      },
+      "effort_hours_low": 2.0,
+      "effort_hours_base": 6.0,
+      "effort_hours_high": 10.0,
+      "estimated_remediation_cost_usd_low": 220.0,
+      "estimated_remediation_cost_usd_base": 660.0,
+      "estimated_remediation_cost_usd_high": 1100.0,
+      "estimated_monthly_loss_usd_low": 528.0,
+      "estimated_monthly_loss_usd_base": 1900.8,
+      "estimated_monthly_loss_usd_high": 4224.0,
+      "recommended_window_days": 30,
+      "evidence_source": "pr_docs_contract.json + api_sdk_drift_report.json",
+      "estimation_confidence": "low",
+      "note": "Track interface changes and enforce docs updates with report-first governance."
+    },
+    {
+      "id": "F-TERMINOLOGY",
+      "title": "Terminology inconsistency",
+      "capability_id": "terminology_governance",
+      "capability_label": "Terminology governance",
+      "pipeline_related_flow": "docs_flow",
+      "metric": "Terminology violations %",
+      "current_value": 0.0,
+      "target_value": 3.0,
+      "unit": "%",
+      "gap_value": 3.0,
+      "severity": "low",
+      "pipeline_modules": [
+        "terminology_management",
+        "normalization"
+      ],
+      "fixability": {
+        "pilot": true,
+        "full": true
+      },
+      "effort_hours_low": 1.0,
+      "effort_hours_base": 3.5,
+      "effort_hours_high": 6.0,
+      "estimated_remediation_cost_usd_low": 110.0,
+      "estimated_remediation_cost_usd_base": 385.0,
+      "estimated_remediation_cost_usd_high": 660.0,
+      "estimated_monthly_loss_usd_low": 165.0,
+      "estimated_monthly_loss_usd_base": 693.0,
+      "estimated_monthly_loss_usd_high": 1584.0,
+      "recommended_window_days": 30,
+      "evidence_source": "glossary.yml forbidden terms scan",
+      "estimation_confidence": "high",
+      "note": "Enforce preferred terms and sync glossary markers continuously."
+    }
+  ],
+  "findings_totals": {
+    "findings_count": 8,
+    "high_count": 1,
+    "medium_count": 3,
+    "low_count": 4,
+    "pilot_fixable_count": 8,
+    "full_fixable_count": 8,
+    "remediation_cost_usd_low_total": 2145.0,
+    "remediation_cost_usd_base_total": 5555.0,
+    "remediation_cost_usd_high_total": 9020.0,
+    "monthly_loss_usd_low_total": 4174.5,
+    "monthly_loss_usd_base_total": 13024.0,
+    "monthly_loss_usd_high_total": 28116.0
+  },
+  "top_3_gaps": [],
+  "scope": {
+    "package": "full",
+    "package_label": "Full implementation",
+    "in_scope": [
+      "Production rollout across prioritized repositories.",
+      "Full quality gate integration in CI and weekly automation.",
+      "Multi-surface docs generation and contract governance.",
+      "Operational runbook alignment and ownership handoff."
+    ],
+    "out_of_scope": [
+      "RAG-heavy retrieval evaluation and graph tuning (add-on).",
+      "Custom security attestations outside standard hardening profile."
+    ],
+    "coverage_note": "Current report includes 8 findings (1 high, 3 medium) mapped to pipeline capabilities."
+  },
+  "roadmap_90_days": [
+    {
+      "window_days": "0-30",
+      "objective": "Stabilize core quality risks",
+      "actions": [
+        "Stabilize highest-severity findings and unblock release-critical documentation paths.",
+        "Lock weekly quality gate cadence and confirm review-branch workflow behavior.",
+        "Prioritize 1 high-severity findings for immediate remediation."
+      ]
+    },
+    {
+      "window_days": "31-60",
+      "objective": "Scale and standardize coverage",
+      "actions": [
+        "Close the highest business-impact medium findings and reduce recurring support burden.",
+        "Backfill missing documentation layers for top capabilities and API operations.",
+        "Primary gap themes: Missing required doc layers; Documentation freshness debt; RAG retrieval quality risk."
+      ]
+    },
+    {
+      "window_days": "61-90",
+      "objective": "Operationalize steady-state excellence",
+      "actions": [
+        "Harden governance with KPI/SLA thresholds tied to release-readiness criteria.",
+        "Institutionalize ownership model, reporting rhythm, and operational escalation policy.",
+        "Resolve remaining medium findings (3) into steady-state backlog."
+      ]
+    }
+  ],
+  "executive_narrative": {
+    "summary": "Current documentation operating posture is fragile (score 60.8, grade D). API coverage is 0.0%, example reliability is 100.0%, drift is 0.0%, and stale coverage debt is 0.0%.",
+    "business_context": "The finding set contains 1 high and 3 medium risks, with quantifiable monthly loss and remediation effort modeled per issue.",
+    "recommendation": "NO-GO until critical remediation milestones are closed. Execute the 90-day roadmap with weekly evidence-based checkpoints to convert documentation quality from project effort into repeatable operating capability."
+  }
+}

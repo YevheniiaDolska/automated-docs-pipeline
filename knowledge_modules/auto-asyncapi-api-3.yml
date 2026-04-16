@@ -15,7 +15,7 @@ channels:
 priority: 60
 status: active
 owner: docsops-auto
-last_verified: '2026-04-06'
+last_verified: '2026-04-15'
 dependencies: []
 tags:
 - asyncapi-api
@@ -26,7 +26,7 @@ metadata:
   title: ASYNCAPI API Reference (Part 3)
   heading: ASYNCAPI API Reference (Part 3)
   version: 1.50.0
-  updated_at: '2026-04-06T00:00:00Z'
+  updated_at: '2026-04-13T00:00:00Z'
   source_site: docs.example.com
   source_path: reference/asyncapi-api.md
 semantic:
@@ -38,8 +38,8 @@ semantic:
   - reference
   status: rule_based
 content:
-  docs_markdown: "<div id=\"asyncapi-playground\" style=\"border:1px solid #d1d5db;\
-    \ padding:12px; border-radius:8px;\">\n  <p><strong>WebSocket Endpoint:</strong>\
+  docs_markdown: "<!-- vale off -->\n<div id=\"asyncapi-playground\" style=\"border:1px\
+    \ solid #d1d5db; padding:12px; border-radius:8px;\">\n  <p><strong>WebSocket Endpoint:</strong>\
     \ <code id=\"asyncapi-ws-view\"></code></p>\n  <p><strong>HTTP Publish Endpoint:</strong>\
     \ <code id=\"asyncapi-http-view\"></code></p>\n  <textarea id=\"asyncapi-message\"\
     \ rows=\"8\" style=\"width:100%; font-family:monospace;\">{\n  \"event_type\"\
@@ -98,10 +98,11 @@ content:
     \ mode: 'http-plus-semantic', raw: text, simulated_response: semantic }, null,\
     \ 2);\n  } catch (error) {\n    const semantic = semanticEvent(msg.value);\n \
     \   out.textContent = JSON.stringify({ mode: 'http-semantic-fallback', error:\
-    \ String(error), simulated_response: semantic }, null, 2);\n  }\n};\n})();\n</script>"
+    \ String(error), simulated_response: semantic }, null, 2);\n  }\n};\n})();\n</script>\n\
+    <!-- vale on -->"
   assistant_context: "Use this module when answering questions related to: ASYNCAPI\
     \ API Reference (Part 3). Source path: reference/asyncapi-api.md. Summary: Auto-generated\
-    \ asyncapi reference from source contract.\n\n<div id=\"asyncapi-playground\"\
+    \ asyncapi reference from source contract.\n\n<!-- vale off -->\n<div id=\"asyncapi-playground\"\
     \ style=\"border:1px solid #d1d5db; padding:12px; border-radius:8px;\">\n  <p><strong>WebSocket\
     \ Endpoint:</strong> <code id=\"asyncapi-ws-view\"></code></p>\n  <p><strong>HTTP\
     \ Publish Endpoint:</strong> <code id=\"asyncapi-http-view\"></code></p>\n  <textarea\
@@ -161,4 +162,5 @@ content:
     \ mode: 'http-plus-semantic', raw: text, simulated_response: semantic }, null,\
     \ 2);\n  } catch (error) {\n    const semantic = semanticEvent(msg.value);\n \
     \   out.textContent = JSON.stringify({ mode: 'http-semantic-fallback', error:\
-    \ String(error), simulated_response: semantic }, null, 2);\n  }\n};\n})();\n</script>"
+    \ String(error), simulated_response: semantic }, null, 2);\n  }\n};\n})();\n</script>\n\
+    <!-- vale on -->"

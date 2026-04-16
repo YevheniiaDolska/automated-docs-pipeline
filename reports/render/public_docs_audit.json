@@ -1,0 +1,446 @@
+{
+  "generated_at": "2026-04-16T11:23:48.498357+00:00",
+  "site_url": "https://render.com/docs",
+  "site_urls": [
+    "https://render.com/docs"
+  ],
+  "topology_mode": "single-product",
+  "verification_modes": [
+    "authenticated",
+    "bot",
+    "browser"
+  ],
+  "sites": [
+    {
+      "site_url": "https://render.com/docs",
+      "metrics": {
+        "crawl": {
+          "pages_crawled": 573,
+          "requested_pages": 769,
+          "urls_examined": 674,
+          "max_pages": 15000,
+          "effective_limit": 15000,
+          "auto_mode": false,
+          "stop_reason": "queue_exhausted",
+          "discovered_pages": 674,
+          "crawl_scope_basis": "sitemap",
+          "crawl_scope_pages": 674,
+          "crawl_coverage_pct": 100.0,
+          "trap_urls_skipped": 0,
+          "seeded_sitemap_urls": 674,
+          "robots_sitemaps_declared": 1
+        },
+        "links": {
+          "internal_links_checked": 668,
+          "broken_internal_links_count": 11,
+          "docs_broken_links_count": 11,
+          "repo_broken_links_count": 0,
+          "broken_internal_link_samples": [
+            "https://render.com/docs/autoscaling",
+            "https://render.com/docs/deploy-node",
+            "https://render.com/docs/environment-groups",
+            "https://render.com/docs/graceful-shutdown",
+            "https://render.com/docs/hipaa",
+            "https://render.com/docs/postgres",
+            "https://render.com/docs/postgresql-access-control",
+            "https://render.com/docs/pre-deploy-commands",
+            "https://render.com/docs/secret-files",
+            "https://render.com/docs/slack-integration",
+            "https://render.com/docs/terraform"
+          ],
+          "docs_broken_link_samples": [
+            "https://render.com/docs/autoscaling",
+            "https://render.com/docs/deploy-node",
+            "https://render.com/docs/environment-groups",
+            "https://render.com/docs/graceful-shutdown",
+            "https://render.com/docs/hipaa",
+            "https://render.com/docs/postgres",
+            "https://render.com/docs/postgresql-access-control",
+            "https://render.com/docs/pre-deploy-commands",
+            "https://render.com/docs/secret-files",
+            "https://render.com/docs/slack-integration",
+            "https://render.com/docs/terraform"
+          ],
+          "repo_broken_link_samples": [],
+          "unreachable_links_count": 0,
+          "unverified_links_count": 0,
+          "unverified_link_samples": [],
+          "confirmed_broken_links_count": 11,
+          "excluded_links_count": 3,
+          "excluded_link_samples": [
+            "https://render.com/blog/feed.rss",
+            "https://render.com/changelog/feed.rss",
+            "https://render.com/images/deploy-to-render-button.svg"
+          ],
+          "_all_confirmed_broken_links": [
+            "https://render.com/docs/autoscaling",
+            "https://render.com/docs/deploy-node",
+            "https://render.com/docs/environment-groups",
+            "https://render.com/docs/graceful-shutdown",
+            "https://render.com/docs/hipaa",
+            "https://render.com/docs/postgres",
+            "https://render.com/docs/postgresql-access-control",
+            "https://render.com/docs/pre-deploy-commands",
+            "https://render.com/docs/secret-files",
+            "https://render.com/docs/slack-integration",
+            "https://render.com/docs/terraform"
+          ],
+          "_all_unverified_links": [],
+          "_all_excluded_links": [
+            "https://render.com/blog/feed.rss",
+            "https://render.com/changelog/feed.rss",
+            "https://render.com/images/deploy-to-render-button.svg"
+          ],
+          "_all_docs_unverified_links": [],
+          "_all_repo_unverified_links": [],
+          "_broken_link_provenance": {
+            "https://render.com/docs/autoscaling": [
+              {
+                "source_page": "https://render.com/articles/scalable-backend-hosting-for-web-apps",
+                "anchor_text": "Autoscaling docs"
+              }
+            ],
+            "https://render.com/docs/deploy-node": [
+              {
+                "source_page": "https://render.com/articles/scalable-backend-hosting-for-web-apps",
+                "anchor_text": "Deploy guide"
+              }
+            ],
+            "https://render.com/docs/environment-groups": [
+              {
+                "source_page": "https://render.com/articles/building-and-deploying-a-saas-application-from-scratch",
+                "anchor_text": "environment groups"
+              },
+              {
+                "source_page": "https://render.com/articles/how-to-deploy-next-js-applications-with-ssr-and-api-routes",
+                "anchor_text": "Environment Groups"
+              },
+              {
+                "source_page": "https://render.com/articles/security-best-practices-when-building-ai-agents",
+                "anchor_text": "Environment Groups"
+              }
+            ],
+            "https://render.com/docs/graceful-shutdown": [
+              {
+                "source_page": "https://render.com/articles/how-render-handles-deploy-failures",
+                "anchor_text": "graceful shutdown handler"
+              }
+            ],
+            "https://render.com/docs/hipaa": [
+              {
+                "source_page": "https://render.com/articles/stop-fighting-infrastructure-start-shipping-features",
+                "anchor_text": "HIPAA-enabled workspaces"
+              }
+            ],
+            "https://render.com/docs/postgres": [
+              {
+                "source_page": "https://render.com/articles/full-stack-deployment-without-devops-headaches",
+                "anchor_text": "Postgres"
+              }
+            ],
+            "https://render.com/docs/postgresql-access-control": [
+              {
+                "source_page": "https://render.com/articles/how-to-migrate-from-sqlite-to-postgresql",
+                "anchor_text": "Access Control"
+              }
+            ],
+            "https://render.com/docs/pre-deploy-commands": [
+              {
+                "source_page": "https://render.com/articles/how-render-handles-zero-downtime-deploys",
+                "anchor_text": "pre-deploy commands"
+              },
+              {
+                "source_page": "https://render.com/articles/how-render-handles-zero-downtime-deploys",
+                "anchor_text": "Pre-deploy commands"
+              }
+            ],
+            "https://render.com/docs/secret-files": [
+              {
+                "source_page": "https://render.com/articles/how-to-deploy-next-js-applications-with-ssr-and-api-routes",
+                "anchor_text": "Secret Files"
+              },
+              {
+                "source_page": "https://render.com/articles/security-best-practices-when-building-ai-agents",
+                "anchor_text": "Secret Files"
+              }
+            ],
+            "https://render.com/docs/slack-integration": [
+              {
+                "source_page": "https://render.com/articles/how-render-handles-deploy-failures",
+                "anchor_text": "Slack"
+              }
+            ],
+            "https://render.com/docs/terraform": [
+              {
+                "source_page": "https://render.com/articles/render-vs-railway",
+                "anchor_text": "Terraform provider"
+              }
+            ]
+          }
+        },
+        "seo_geo": {
+          "pages_scanned": 573,
+          "missing_title_count": 0,
+          "missing_description_count": 55,
+          "multiple_h1_count": 5,
+          "heading_hierarchy_jump_count": 215,
+          "seo_geo_issue_rate_pct": 12.0
+        },
+        "api_coverage": {
+          "reference_endpoint_count": 37,
+          "api_pages_detected": 63,
+          "endpoints_with_usage_docs": 8,
+          "reference_endpoints_without_usage_docs": 29,
+          "reference_coverage_pct": 21.62,
+          "no_api_pages_found": false,
+          "coverage_determined": true,
+          "coverage_method": "source_of_truth",
+          "detection_note": "",
+          "uncovered_endpoint_samples": [
+            "gql:a",
+            "gql:below",
+            "gql:cost",
+            "gql:field",
+            "gql:fields",
+            "gql:fragmenttyping",
+            "gql:function",
+            "gql:language",
+            "gql:metadata",
+            "gql:must",
+            "gql:of",
+            "gql:operation",
+            "gql:operations",
+            "gql:or",
+            "gql:other",
+            "gql:parameters",
+            "gql:per",
+            "gql:problem",
+            "gql:representing",
+            "gql:requests"
+          ]
+        },
+        "examples": {
+          "total_code_examples": 631,
+          "total_code_blocks_all": 3793,
+          "runnable_without_env": 546,
+          "blocked_by_placeholders": 44,
+          "network_bound_examples": 41,
+          "example_reliability_estimate_pct": 86.53,
+          "detection_note": ""
+        },
+        "freshness": {
+          "pages_with_last_updated_hint": 309,
+          "pages_without_last_updated_hint": 264,
+          "last_updated_coverage_pct": 53.93,
+          "samples_with_last_updated": [
+            {
+              "url": "https://render.com/acceptable-use",
+              "hint": "Last Modified:"
+            },
+            {
+              "url": "https://render.com/accessibility",
+              "hint": "Last Modified:"
+            },
+            {
+              "url": "https://render.com/articles/ai-cost-management-predictable-pricing-vs-usage-based",
+              "hint": "January 06, 2026"
+            },
+            {
+              "url": "https://render.com/articles/backend-hosting-with-github-integration",
+              "hint": "November 04, 2025"
+            },
+            {
+              "url": "https://render.com/articles/application-hosting-vs-web-hosting-what-s-the-difference-and-which-do-you-need",
+              "hint": "November 04, 2025"
+            },
+            {
+              "url": "https://render.com/articles/basic-cloud-backend-services",
+              "hint": "November 04, 2025"
+            },
+            {
+              "url": "https://render.com/articles/alternatives-to-fly-io",
+              "hint": "September 11, 2025"
+            },
+            {
+              "url": "https://render.com/articles/best-infrastructure-python-ai-celery-workers",
+              "hint": "February 02, 2026"
+            },
+            {
+              "url": "https://render.com/articles/best-practices-for-running-ai-output-a-b-test-in-production",
+              "hint": "January 15, 2026"
+            },
+            {
+              "url": "https://render.com/articles/best-cloud-platforms-for-enterprise-ai-deployment",
+              "hint": "January 26, 2026"
+            }
+          ]
+        }
+      },
+      "samples": {
+        "broken_links": [
+          "https://render.com/docs/autoscaling",
+          "https://render.com/docs/deploy-node",
+          "https://render.com/docs/environment-groups",
+          "https://render.com/docs/graceful-shutdown",
+          "https://render.com/docs/hipaa",
+          "https://render.com/docs/postgres",
+          "https://render.com/docs/postgresql-access-control",
+          "https://render.com/docs/pre-deploy-commands",
+          "https://render.com/docs/secret-files",
+          "https://render.com/docs/slack-integration",
+          "https://render.com/docs/terraform"
+        ],
+        "docs_broken_link_samples": [
+          "https://render.com/docs/autoscaling",
+          "https://render.com/docs/deploy-node",
+          "https://render.com/docs/environment-groups",
+          "https://render.com/docs/graceful-shutdown",
+          "https://render.com/docs/hipaa",
+          "https://render.com/docs/postgres",
+          "https://render.com/docs/postgresql-access-control",
+          "https://render.com/docs/pre-deploy-commands",
+          "https://render.com/docs/secret-files",
+          "https://render.com/docs/slack-integration",
+          "https://render.com/docs/terraform"
+        ],
+        "repo_broken_link_samples": [],
+        "unverified_link_samples": [],
+        "api_uncovered_samples": [
+          "gql:a",
+          "gql:below",
+          "gql:cost",
+          "gql:field",
+          "gql:fields",
+          "gql:fragmenttyping",
+          "gql:function",
+          "gql:language",
+          "gql:metadata",
+          "gql:must",
+          "gql:of",
+          "gql:operation",
+          "gql:operations",
+          "gql:or",
+          "gql:other",
+          "gql:parameters",
+          "gql:per",
+          "gql:problem",
+          "gql:representing",
+          "gql:requests"
+        ]
+      },
+      "run_count": 1
+    }
+  ],
+  "aggregate": {
+    "metrics": {
+      "crawl": {
+        "pages_crawled": 573,
+        "requested_pages": 769,
+        "urls_examined": 674,
+        "max_pages_total": 15000,
+        "discovered_pages": 674,
+        "crawl_scope_pages": 674,
+        "trap_urls_skipped": 0,
+        "crawl_coverage_pct": 100.0
+      },
+      "links": {
+        "broken_internal_links_count": 11,
+        "docs_broken_links_count": 11,
+        "repo_broken_links_count": 0,
+        "unverified_links_count": 0,
+        "confirmed_broken_links_count": 11,
+        "excluded_links_count": 3
+      },
+      "seo_geo": {
+        "seo_geo_issue_rate_pct": 12.0
+      },
+      "api_coverage": {
+        "reference_coverage_pct": 21.62,
+        "no_api_pages_found": false,
+        "api_pages_detected": 63,
+        "coverage_determined": true,
+        "detection_note": ""
+      },
+      "examples": {
+        "example_reliability_estimate_pct": 86.53
+      },
+      "freshness": {
+        "last_updated_coverage_pct": 53.93
+      }
+    },
+    "confidence": {
+      "overall_confidence_pct": 91.5,
+      "links_confidence_pct": 95.0,
+      "api_confidence_pct": 85.0,
+      "crawl_confidence_pct": 95.0
+    }
+  },
+  "confidence": {
+    "overall_confidence_pct": 91.5,
+    "links_confidence_pct": 95.0,
+    "api_confidence_pct": 85.0,
+    "crawl_confidence_pct": 95.0
+  },
+  "top_findings": [
+    "Broken internal links: 11",
+    "SEO/GEO issue rate is high: 12.0%",
+    "API usage-doc coverage is low: 21.62% (63 API pages detected)"
+  ],
+  "llm_analysis": {
+    "status": "ok",
+    "model": "claude-sonnet-4-5",
+    "analysis": {
+      "executive_summary": "Audit of Render.com documentation covered 573 pages (100% crawl coverage of 674 discovered pages). The site contains 11 confirmed broken internal links, all within user-facing documentation. API reference coverage is low at 21.62% across 63 detected API pages. SEO/geo issues affect 12.0% of pages. Code example reliability is estimated at 86.53%, and only 53.93% of pages display last-updated metadata.",
+      "strengths": [
+        "Complete crawl coverage achieved (100% of discoverable documentation)",
+        "High overall audit confidence at 91.5%",
+        "No repository navigation link breakage (all broken links are docs-only)",
+        "Example reliability above 85% threshold",
+        "Single-product topology provides clear documentation structure"
+      ],
+      "risks": [
+        "11 confirmed broken internal links degrade user navigation and trust",
+        "API reference coverage at 21.62% leaves majority of API surface undocumented",
+        "12.0% SEO/geo issue rate impacts discoverability and search ranking",
+        "46% of pages lack last-updated metadata, obscuring content freshness",
+        "63 API pages detected but only ~14 have adequate usage documentation",
+        "API detection confidence at 85% suggests possible coverage blind spots",
+        "Low API coverage may drive support burden and integration friction"
+      ],
+      "prioritized_actions": [
+        {
+          "action": "Fix all 11 broken internal documentation links",
+          "impact": "high",
+          "effort": "low"
+        },
+        {
+          "action": "Expand API usage documentation from 21.62% to minimum 60% coverage across 63 API pages",
+          "impact": "critical",
+          "effort": "high"
+        },
+        {
+          "action": "Remediate SEO/geo issues affecting 12% of pages (approximately 69 pages)",
+          "impact": "high",
+          "effort": "medium"
+        },
+        {
+          "action": "Add last-updated timestamps to 46% of pages currently missing metadata",
+          "impact": "medium",
+          "effort": "low"
+        },
+        {
+          "action": "Audit API page detection methodology to validate 85% confidence score and uncover missed endpoints",
+          "impact": "medium",
+          "effort": "medium"
+        }
+      ],
+      "limitations": [
+        "External audit cannot verify accuracy of technical content, code examples, or API specifications",
+        "Link checking reflects point-in-time status; transient failures or authentication-gated resources may be misclassified",
+        "API coverage detection relies on heuristics; actual API surface may differ if endpoints lack documentation patterns",
+        "Example reliability is estimated through static analysis; runtime correctness and dependency versions are not validated",
+        "Crawl cannot access pages behind authentication, dynamic JavaScript-only content, or undiscoverable URLs"
+      ]
+    }
+  }
+}

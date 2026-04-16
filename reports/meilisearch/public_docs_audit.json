@@ -1,0 +1,356 @@
+{
+  "generated_at": "2026-04-16T14:36:14.861606+00:00",
+  "site_url": "https://www.meilisearch.com/docs",
+  "site_urls": [
+    "https://www.meilisearch.com/docs"
+  ],
+  "topology_mode": "single-product",
+  "verification_modes": [
+    "authenticated",
+    "bot",
+    "browser"
+  ],
+  "sites": [
+    {
+      "site_url": "https://www.meilisearch.com/docs",
+      "metrics": {
+        "crawl": {
+          "pages_crawled": 402,
+          "requested_pages": 482,
+          "urls_examined": 402,
+          "max_pages": 5000,
+          "effective_limit": 5000,
+          "auto_mode": false,
+          "stop_reason": "queue_exhausted",
+          "discovered_pages": 402,
+          "crawl_scope_basis": "sitemap",
+          "crawl_scope_pages": 401,
+          "crawl_coverage_pct": 100.25,
+          "trap_urls_skipped": 405,
+          "seeded_sitemap_urls": 401,
+          "robots_sitemaps_declared": 1
+        },
+        "links": {
+          "internal_links_checked": 482,
+          "broken_internal_links_count": 2,
+          "docs_broken_links_count": 2,
+          "repo_broken_links_count": 0,
+          "broken_internal_link_samples": [
+            "https://www.meilisearch.com/reference/api/documents/add-or-replace-documents",
+            "https://www.meilisearch.com/reference/api/documents/add-or-update-documents"
+          ],
+          "docs_broken_link_samples": [
+            "https://www.meilisearch.com/reference/api/documents/add-or-replace-documents",
+            "https://www.meilisearch.com/reference/api/documents/add-or-update-documents"
+          ],
+          "repo_broken_link_samples": [],
+          "unreachable_links_count": 0,
+          "unverified_links_count": 0,
+          "unverified_link_samples": [],
+          "confirmed_broken_links_count": 2,
+          "excluded_links_count": 29,
+          "excluded_link_samples": [
+            "https://www.meilisearch.com/assets/datasets/books.json",
+            "https://www.meilisearch.com/assets/datasets/crm-chats.json",
+            "https://www.meilisearch.com/assets/datasets/crm-profiles.json",
+            "https://www.meilisearch.com/assets/datasets/crm-tickets.json",
+            "https://www.meilisearch.com/assets/datasets/movies.json",
+            "https://www.meilisearch.com/assets/datasets/videogames.json",
+            "https://www.meilisearch.com/assets/open-api/meilisearch-openapi.json",
+            "https://www.meilisearch.com/docs/assets/datasets/kitchenware.json",
+            "https://www.meilisearch.com/docs/capabilities/filtering_sorting_faceting/how_to/search_and_filter_together",
+            "https://www.meilisearch.com/docs/capabilities/full_text_search/getting_started/search_with_snippets",
+            "https://www.meilisearch.com/docs/capabilities/hybrid_search/how_to/search_with_user_provided_embeddings",
+            "https://www.meilisearch.com/docs/capabilities/multi_search/how_to/search_with_different_filters",
+            "https://www.meilisearch.com/docs/capabilities/search_rules/advanced/pinning_behavior",
+            "https://www.meilisearch.com/docs/capabilities/search_rules/getting_started",
+            "https://www.meilisearch.com/docs/capabilities/search_rules/how_to/curate_empty_query",
+            "https://www.meilisearch.com/docs/capabilities/search_rules/how_to/list_and_filter_rules",
+            "https://www.meilisearch.com/docs/capabilities/search_rules/how_to/pause_a_rule",
+            "https://www.meilisearch.com/docs/capabilities/search_rules/how_to/pin_multiple_results",
+            "https://www.meilisearch.com/docs/capabilities/search_rules/how_to/pin_one_result_for_query",
+            "https://www.meilisearch.com/docs/capabilities/search_rules/how_to/schedule_promotion",
+            "https://www.meilisearch.com/docs/capabilities/search_rules/overview",
+            "https://www.meilisearch.com/docs/learn/ai_powered_search/search_with_user_provided_embeddings",
+            "https://www.meilisearch.com/docs/learn/filtering_and_sorting/search_with_facet_filters",
+            "https://www.meilisearch.com/docs/reference/api/facet-search/search-in-facets",
+            "https://www.meilisearch.com/docs/reference/api/search/search-with-get",
+            "https://www.meilisearch.com/docs/reference/api/search/search-with-post",
+            "https://www.meilisearch.com/docs/resources/self_hosting/getting_started/search_preview",
+            "https://www.meilisearch.com/reference/api/search/search-with-get",
+            "https://www.meilisearch.com/reference/api/search/search-with-post"
+          ],
+          "_all_confirmed_broken_links": [
+            "https://www.meilisearch.com/reference/api/documents/add-or-replace-documents",
+            "https://www.meilisearch.com/reference/api/documents/add-or-update-documents"
+          ],
+          "_all_unverified_links": [],
+          "_all_excluded_links": [
+            "https://www.meilisearch.com/assets/datasets/books.json",
+            "https://www.meilisearch.com/assets/datasets/crm-chats.json",
+            "https://www.meilisearch.com/assets/datasets/crm-profiles.json",
+            "https://www.meilisearch.com/assets/datasets/crm-tickets.json",
+            "https://www.meilisearch.com/assets/datasets/movies.json",
+            "https://www.meilisearch.com/assets/datasets/videogames.json",
+            "https://www.meilisearch.com/assets/open-api/meilisearch-openapi.json",
+            "https://www.meilisearch.com/docs/assets/datasets/kitchenware.json",
+            "https://www.meilisearch.com/docs/capabilities/filtering_sorting_faceting/how_to/search_and_filter_together",
+            "https://www.meilisearch.com/docs/capabilities/full_text_search/getting_started/search_with_snippets",
+            "https://www.meilisearch.com/docs/capabilities/hybrid_search/how_to/search_with_user_provided_embeddings",
+            "https://www.meilisearch.com/docs/capabilities/multi_search/how_to/search_with_different_filters",
+            "https://www.meilisearch.com/docs/capabilities/search_rules/advanced/pinning_behavior",
+            "https://www.meilisearch.com/docs/capabilities/search_rules/getting_started",
+            "https://www.meilisearch.com/docs/capabilities/search_rules/how_to/curate_empty_query",
+            "https://www.meilisearch.com/docs/capabilities/search_rules/how_to/list_and_filter_rules",
+            "https://www.meilisearch.com/docs/capabilities/search_rules/how_to/pause_a_rule",
+            "https://www.meilisearch.com/docs/capabilities/search_rules/how_to/pin_multiple_results",
+            "https://www.meilisearch.com/docs/capabilities/search_rules/how_to/pin_one_result_for_query",
+            "https://www.meilisearch.com/docs/capabilities/search_rules/how_to/schedule_promotion",
+            "https://www.meilisearch.com/docs/capabilities/search_rules/overview",
+            "https://www.meilisearch.com/docs/learn/ai_powered_search/search_with_user_provided_embeddings",
+            "https://www.meilisearch.com/docs/learn/filtering_and_sorting/search_with_facet_filters",
+            "https://www.meilisearch.com/docs/reference/api/facet-search/search-in-facets",
+            "https://www.meilisearch.com/docs/reference/api/search/search-with-get",
+            "https://www.meilisearch.com/docs/reference/api/search/search-with-post",
+            "https://www.meilisearch.com/docs/resources/self_hosting/getting_started/search_preview",
+            "https://www.meilisearch.com/reference/api/search/search-with-get",
+            "https://www.meilisearch.com/reference/api/search/search-with-post"
+          ],
+          "_all_docs_unverified_links": [],
+          "_all_repo_unverified_links": [],
+          "_broken_link_provenance": {
+            "https://www.meilisearch.com/reference/api/documents/add-or-replace-documents": [
+              {
+                "source_page": "https://www.meilisearch.com/docs/reference/api/documents/add-or-update-documents",
+                "anchor_text": "add or replace documents route"
+              }
+            ],
+            "https://www.meilisearch.com/reference/api/documents/add-or-update-documents": [
+              {
+                "source_page": "https://www.meilisearch.com/docs/reference/api/documents/add-or-replace-documents",
+                "anchor_text": "add or update documents route"
+              }
+            ]
+          }
+        },
+        "seo_geo": {
+          "pages_scanned": 402,
+          "missing_title_count": 0,
+          "missing_description_count": 6,
+          "multiple_h1_count": 0,
+          "heading_hierarchy_jump_count": 139,
+          "seo_geo_issue_rate_pct": 9.02
+        },
+        "api_coverage": {
+          "reference_endpoint_count": 12,
+          "api_pages_detected": 336,
+          "endpoints_with_usage_docs": 6,
+          "reference_endpoints_without_usage_docs": 6,
+          "reference_coverage_pct": 50.0,
+          "no_api_pages_found": false,
+          "coverage_determined": true,
+          "coverage_method": "source_of_truth",
+          "detection_note": "",
+          "uncovered_endpoint_samples": [
+            "gql:in",
+            "gql:matched",
+            "gql:only",
+            "gql:parameters",
+            "gql:searching",
+            "gql:tokenization"
+          ]
+        },
+        "examples": {
+          "total_code_examples": 0,
+          "total_code_blocks_all": 1986,
+          "runnable_without_env": 0,
+          "blocked_by_placeholders": 0,
+          "network_bound_examples": 0,
+          "example_reliability_estimate_pct": 0.0,
+          "detection_note": "No executable code blocks detected (1986 data-only blocks found). Site may use non-standard code rendering that the auditor does not recognize, or all examples are in data formats (YAML/JSON)."
+        },
+        "freshness": {
+          "pages_with_last_updated_hint": 22,
+          "pages_without_last_updated_hint": 380,
+          "last_updated_coverage_pct": 5.47,
+          "samples_with_last_updated": [
+            {
+              "url": "https://www.meilisearch.com/docs/capabilities/conversational_search/how_to/configure_chat_workspace",
+              "hint": "\"apiVersion\": \"2024-02-01\""
+            },
+            {
+              "url": "https://www.meilisearch.com/docs/capabilities/filtering_sorting_faceting/advanced/filter_expression_syntax",
+              "hint": "release_date > 2004-01-01"
+            },
+            {
+              "url": "https://www.meilisearch.com/docs/capabilities/filtering_sorting_faceting/getting_started",
+              "hint": "movies released after 18 March 1995:"
+            },
+            {
+              "url": "https://www.meilisearch.com/docs/capabilities/filtering_sorting_faceting/how_to/filter_and_sort_by_date",
+              "hint": "\"2025-01-13\""
+            },
+            {
+              "url": "https://www.meilisearch.com/docs/capabilities/indexing/getting_started",
+              "hint": "\"release_date\": \"2019-03-23\""
+            },
+            {
+              "url": "https://www.meilisearch.com/docs/capabilities/indexing/how_to/add_and_update_documents",
+              "hint": "\"release_date\": \"2019-03-23\""
+            },
+            {
+              "url": "https://www.meilisearch.com/docs/capabilities/indexing/how_to/design_primary_keys",
+              "hint": "The primary key cannot be modified once set. If you need to change it:"
+            },
+            {
+              "url": "https://www.meilisearch.com/docs/capabilities/indexing/how_to/edit_documents_with_functions",
+              "hint": "\"filter\": \"release_date < \\\"2000-01-01\\\"\""
+            },
+            {
+              "url": "https://www.meilisearch.com/docs/capabilities/security/getting_started",
+              "hint": "'2025-12-20'"
+            },
+            {
+              "url": "https://www.meilisearch.com/docs/changelog/changelog",
+              "hint": "2026-04-13"
+            }
+          ]
+        }
+      },
+      "samples": {
+        "broken_links": [
+          "https://www.meilisearch.com/reference/api/documents/add-or-replace-documents",
+          "https://www.meilisearch.com/reference/api/documents/add-or-update-documents"
+        ],
+        "docs_broken_link_samples": [
+          "https://www.meilisearch.com/reference/api/documents/add-or-replace-documents",
+          "https://www.meilisearch.com/reference/api/documents/add-or-update-documents"
+        ],
+        "repo_broken_link_samples": [],
+        "unverified_link_samples": [],
+        "api_uncovered_samples": [
+          "gql:in",
+          "gql:matched",
+          "gql:only",
+          "gql:parameters",
+          "gql:searching",
+          "gql:tokenization"
+        ]
+      },
+      "run_count": 1
+    }
+  ],
+  "aggregate": {
+    "metrics": {
+      "crawl": {
+        "pages_crawled": 402,
+        "requested_pages": 482,
+        "urls_examined": 402,
+        "max_pages_total": 5000,
+        "discovered_pages": 402,
+        "crawl_scope_pages": 401,
+        "trap_urls_skipped": 405,
+        "crawl_coverage_pct": 100.25
+      },
+      "links": {
+        "broken_internal_links_count": 2,
+        "docs_broken_links_count": 2,
+        "repo_broken_links_count": 0,
+        "unverified_links_count": 0,
+        "confirmed_broken_links_count": 2,
+        "excluded_links_count": 29
+      },
+      "seo_geo": {
+        "seo_geo_issue_rate_pct": 9.02
+      },
+      "api_coverage": {
+        "reference_coverage_pct": 50.0,
+        "no_api_pages_found": false,
+        "api_pages_detected": 336,
+        "coverage_determined": true,
+        "detection_note": ""
+      },
+      "examples": {
+        "example_reliability_estimate_pct": 0.0
+      },
+      "freshness": {
+        "last_updated_coverage_pct": 5.47
+      }
+    },
+    "confidence": {
+      "overall_confidence_pct": 91.5,
+      "links_confidence_pct": 95.0,
+      "api_confidence_pct": 85.0,
+      "crawl_confidence_pct": 95.0
+    }
+  },
+  "confidence": {
+    "overall_confidence_pct": 91.5,
+    "links_confidence_pct": 95.0,
+    "api_confidence_pct": 85.0,
+    "crawl_confidence_pct": 95.0
+  },
+  "top_findings": [
+    "Broken internal links: 2",
+    "API usage-doc coverage is low: 50.0% (336 API pages detected)",
+    "Example reliability estimate is low: 0.0%",
+    "Freshness visibility is weak: only 5.47% pages show last updated"
+  ],
+  "llm_analysis": {
+    "status": "ok",
+    "model": "claude-sonnet-4-5",
+    "analysis": {
+      "executive_summary": "Audit of Meilisearch documentation (https://www.meilisearch.com/docs) covered 402 pages with 91.5% overall confidence. The site contains 2 confirmed broken internal documentation links requiring immediate repair. API reference coverage stands at 50.0% across 336 detected API pages, indicating significant gaps in usage documentation. Zero percent example reliability and only 5.47% freshness coverage present substantial user trust and maintenance visibility concerns.",
+      "strengths": [
+        "Complete crawl coverage at 100.25% with all 402 discovered pages successfully examined",
+        "No repository navigation (GitHub/GitLab) broken links detected; all 2 broken links are user-facing documentation",
+        "High overall audit confidence at 91.5% with strong crawl (95%) and link validation (95%) metrics",
+        "Single-product topology provides clear documentation structure for users",
+        "Low SEO/geo issue rate at 9.02% indicates good technical page optimization"
+      ],
+      "risks": [
+        "50% API reference coverage means half of API pages lack adequate usage documentation or examples",
+        "0% example reliability estimate suggests code examples are untested, outdated, or unverifiable",
+        "Only 5.47% of pages display last-updated timestamps, hiding content freshness from users",
+        "2 confirmed broken internal documentation links degrade user navigation and trust",
+        "336 API pages detected but only half have sufficient reference coverage creates incomplete developer experience",
+        "Lack of freshness metadata prevents users from assessing documentation currency across 94.53% of content",
+        "Zero example reliability may lead to user frustration with non-functional code samples"
+      ],
+      "prioritized_actions": [
+        {
+          "action": "Repair 2 confirmed broken internal documentation links immediately",
+          "impact": "critical",
+          "effort": "low"
+        },
+        {
+          "action": "Implement last-updated timestamps on all 402 pages to improve freshness visibility from 5.47% to 100%",
+          "impact": "high",
+          "effort": "low"
+        },
+        {
+          "action": "Establish automated example testing pipeline to validate code samples and raise reliability from 0%",
+          "impact": "critical",
+          "effort": "high"
+        },
+        {
+          "action": "Audit 336 API pages and create usage documentation for the 50% lacking reference coverage",
+          "impact": "high",
+          "effort": "high"
+        },
+        {
+          "action": "Deploy continuous link monitoring to prevent future broken link accumulation",
+          "impact": "medium",
+          "effort": "medium"
+        }
+      ],
+      "limitations": [
+        "External audit cannot verify actual functionality or accuracy of code examples, only detect their presence and structure",
+        "API coverage detection relies on page structure patterns; actual completeness of API documentation requires domain expertise review",
+        "Crawl cannot assess content quality, technical accuracy, or alignment with current product version",
+        "Link validation confirms HTTP responses but cannot verify contextual appropriateness of link destinations",
+        "Freshness detection depends on visible metadata; actual content currency may differ from displayed timestamps"
+      ]
+    }
+  }
+}

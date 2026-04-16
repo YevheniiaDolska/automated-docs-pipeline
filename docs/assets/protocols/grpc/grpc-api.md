@@ -4,22 +4,21 @@ description: Auto-generated grpc reference from source contract.
 content_type: reference
 product: both
 tags:
-- Pytest Of Eudo
-- Docs
 - Tmp
-- Pytest 2844
+- Pytest 2995
+- Docs
 - Test_Multi_Protocol_Flow_Gener0
+- Pytest Of Eudo
 ---
 
 
 # GRPC Reference
 
-Source: `/tmp/pytest-of-eudo/pytest-2844/test_multi_protocol_flow_gener0/api/proto`
+Source: `/tmp/pytest-of-eudo/pytest-2995/test_multi_protocol_flow_gener0/api/proto`
 
 Flow mode: `api-first`
 
 ## Top-level Keys
-
 
 ## Service Methods
 
@@ -33,6 +32,7 @@ Flow mode: `api-first`
 
 This tester uses an HTTP gateway/adapter endpoint, so docs users can trigger gRPC methods from browser.
 
+<!-- vale off -->
 <div id="grpc-playground" style="border:1px solid #d1d5db; padding:12px; border-radius:8px;">
   <p><strong>Gateway Endpoint:</strong> <code id="grpc-endpoint-view"></code></p>
   <label>Service</label><br/><input id="grpc-service" style="width:100%" placeholder="GreeterService"/><br/>
@@ -80,6 +80,7 @@ run.onclick = async function(){
 };
 })();
 </script>
+<!-- vale on -->
 
 ## Next steps
 

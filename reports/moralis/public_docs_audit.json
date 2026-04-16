@@ -1,0 +1,344 @@
+{
+  "generated_at": "2026-04-15T11:37:49.641128+00:00",
+  "site_url": "https://docs.moralis.com/",
+  "site_urls": [
+    "https://docs.moralis.com/"
+  ],
+  "topology_mode": "multi-project",
+  "verification_modes": [
+    "authenticated",
+    "bot",
+    "browser"
+  ],
+  "sites": [
+    {
+      "site_url": "https://docs.moralis.com/",
+      "metrics": {
+        "crawl": {
+          "pages_crawled": 907,
+          "requested_pages": 919,
+          "urls_examined": 912,
+          "max_pages": 5000,
+          "effective_limit": 5000,
+          "auto_mode": false,
+          "stop_reason": "queue_exhausted",
+          "discovered_pages": 912,
+          "crawl_scope_basis": "sitemap",
+          "crawl_scope_pages": 912,
+          "crawl_coverage_pct": 100.0,
+          "trap_urls_skipped": 112,
+          "seeded_sitemap_urls": 912,
+          "robots_sitemaps_declared": 1
+        },
+        "links": {
+          "internal_links_checked": 919,
+          "broken_internal_links_count": 0,
+          "docs_broken_links_count": 0,
+          "repo_broken_links_count": 0,
+          "broken_internal_link_samples": [],
+          "docs_broken_link_samples": [],
+          "repo_broken_link_samples": [],
+          "unreachable_links_count": 5,
+          "unverified_links_count": 5,
+          "unverified_link_samples": [
+            "https://docs.moralis.com/data-api/evm/token/signals/snipers",
+            "https://docs.moralis.com/data-api/solana/token/token-metadata-batch",
+            "https://docs.moralis.com/data-api/solana/wallet/overview",
+            "https://docs.moralis.com/rpc-nodes/blast/eth-get-block-transaction-count-by-number",
+            "https://docs.moralis.com/rpc-nodes/mantle/eth-get-storage-at"
+          ],
+          "confirmed_broken_links_count": 0,
+          "excluded_links_count": 11,
+          "excluded_link_samples": [
+            "https://docs.moralis.com/data-api/data-features/search-and-discovery/token-filtering",
+            "https://docs.moralis.com/data-api/data-features/search-and-discovery/token-search",
+            "https://docs.moralis.com/data-api/solana/token/search-and-discovery/filtered-tokens",
+            "https://docs.moralis.com/data-api/solana/token/search-and-discovery/pump-fun-bonding-status",
+            "https://docs.moralis.com/data-api/solana/token/search-and-discovery/pump-fun-bonding-tokens",
+            "https://docs.moralis.com/data-api/solana/token/search-and-discovery/pump-fun-graduated-tokens",
+            "https://docs.moralis.com/data-api/solana/token/search-and-discovery/pump-fun-new-tokens",
+            "https://docs.moralis.com/data-api/solana/token/search-and-discovery/token-search",
+            "https://docs.moralis.com/data-api/solana/token/search-and-discovery/top-gainers",
+            "https://docs.moralis.com/data-api/solana/token/search-and-discovery/top-losers",
+            "https://docs.moralis.com/data-api/universal/token/search/token-search"
+          ],
+          "_all_confirmed_broken_links": [],
+          "_all_unverified_links": [
+            "https://docs.moralis.com/data-api/evm/token/signals/snipers",
+            "https://docs.moralis.com/data-api/solana/token/token-metadata-batch",
+            "https://docs.moralis.com/data-api/solana/wallet/overview",
+            "https://docs.moralis.com/rpc-nodes/blast/eth-get-block-transaction-count-by-number",
+            "https://docs.moralis.com/rpc-nodes/mantle/eth-get-storage-at"
+          ],
+          "_all_excluded_links": [
+            "https://docs.moralis.com/data-api/data-features/search-and-discovery/token-filtering",
+            "https://docs.moralis.com/data-api/data-features/search-and-discovery/token-search",
+            "https://docs.moralis.com/data-api/solana/token/search-and-discovery/filtered-tokens",
+            "https://docs.moralis.com/data-api/solana/token/search-and-discovery/pump-fun-bonding-status",
+            "https://docs.moralis.com/data-api/solana/token/search-and-discovery/pump-fun-bonding-tokens",
+            "https://docs.moralis.com/data-api/solana/token/search-and-discovery/pump-fun-graduated-tokens",
+            "https://docs.moralis.com/data-api/solana/token/search-and-discovery/pump-fun-new-tokens",
+            "https://docs.moralis.com/data-api/solana/token/search-and-discovery/token-search",
+            "https://docs.moralis.com/data-api/solana/token/search-and-discovery/top-gainers",
+            "https://docs.moralis.com/data-api/solana/token/search-and-discovery/top-losers",
+            "https://docs.moralis.com/data-api/universal/token/search/token-search"
+          ],
+          "_all_docs_unverified_links": [
+            "https://docs.moralis.com/data-api/evm/token/signals/snipers",
+            "https://docs.moralis.com/data-api/solana/token/token-metadata-batch",
+            "https://docs.moralis.com/data-api/solana/wallet/overview",
+            "https://docs.moralis.com/rpc-nodes/blast/eth-get-block-transaction-count-by-number",
+            "https://docs.moralis.com/rpc-nodes/mantle/eth-get-storage-at"
+          ],
+          "_all_repo_unverified_links": [],
+          "_broken_link_provenance": {}
+        },
+        "seo_geo": {
+          "pages_scanned": 907,
+          "missing_title_count": 1,
+          "missing_description_count": 29,
+          "multiple_h1_count": 4,
+          "heading_hierarchy_jump_count": 757,
+          "seo_geo_issue_rate_pct": 21.8
+        },
+        "api_coverage": {
+          "reference_endpoint_count": 1651,
+          "api_pages_detected": 847,
+          "endpoints_with_usage_docs": 505,
+          "reference_endpoints_without_usage_docs": 1146,
+          "reference_coverage_pct": 30.59,
+          "no_api_pages_found": false,
+          "coverage_determined": true,
+          "coverage_method": "heuristic",
+          "detection_note": "Contract URLs found but no operations parsed",
+          "uncovered_endpoint_samples": [
+            "ep:/../../styles/user.module.css",
+            "ep:/../environments/environment",
+            "ep:/.openclaw/openclaw.json",
+            "ep:/127.0.0.1:1000/web3_auth/moralis_auth",
+            "ep:/adds-token-info-29a861f.s3.eu-central-1.amazonaws.com/marketing/evm/0x6982508145454ce325ddbe47a25d4ec3d2311933_icon.png",
+            "ep:/admin.moralis.io",
+            "ep:/api-reference/bind/request-to-remove-bind-of-an-address-from-a-profile",
+            "ep:/api-reference/challenge/request-aptos-challenge",
+            "ep:/api-reference/challenge/request-solana-challenge",
+            "ep:/api-reference/challenge/verify-aptos-challenge",
+            "ep:/api-reference/challenge/verify-solana-challenge",
+            "ep:/api-reference/profile/get-addresses-that-are-bound-to-the-specific-profileid",
+            "ep:/api.example.com/chat",
+            "ep:/api.moralis-streams.com",
+            "ep:/api.moralis-streams.com/history",
+            "ep:/api.moralis-streams.com/history/logs",
+            "ep:/api.moralis-streams.com/history/replay/{streamid}/{id",
+            "ep:/api.moralis-streams.com/settings",
+            "ep:/api.moralis-streams.com/stats",
+            "ep:/api.moralis-streams.com/stats/{streamid"
+          ]
+        },
+        "examples": {
+          "total_code_examples": 0,
+          "total_code_blocks_all": 2335,
+          "runnable_without_env": 0,
+          "blocked_by_placeholders": 0,
+          "network_bound_examples": 0,
+          "example_reliability_estimate_pct": 0.0,
+          "detection_note": "No executable code blocks detected (2335 data-only blocks found). Site may use non-standard code rendering that the auditor does not recognize, or all examples are in data formats (YAML/JSON)."
+        },
+        "freshness": {
+          "pages_with_last_updated_hint": 27,
+          "pages_without_last_updated_hint": 880,
+          "last_updated_coverage_pct": 2.98,
+          "samples_with_last_updated": [
+            {
+              "url": "https://docs.moralis.com/changelog",
+              "hint": "April 2, 2026"
+            },
+            {
+              "url": "https://docs.moralis.com/data-api/evm/nft/collections/nfts-by-collection",
+              "hint": "self.__next_f.push([1,\"1c:[\\\"$\\\",\\\"$L38\\\",null,{\\\"value\\\":{\\\"apiReferenceData\\\":{}},\\\"children\\\":[\\\"$\\\",\\\"$L39\\\",null,{\\"
+            },
+            {
+              "url": "https://docs.moralis.com/data-api/evm/nft/metadata/nft-metadata",
+              "hint": "When the token_uri was last updated"
+            },
+            {
+              "url": "https://docs.moralis.com/data-api/evm/nft/metadata/nft-metadata-batch",
+              "hint": "When the token_uri was last updated"
+            },
+            {
+              "url": "https://docs.moralis.com/data-api/evm/nft/prices/floor",
+              "hint": "The timestamp of when the floor price was last updated"
+            },
+            {
+              "url": "https://docs.moralis.com/data-api/evm/nft/ownership/owners-by-token-id",
+              "hint": "self.__next_f.push([1,\"1c:[\\\"$\\\",\\\"$L49\\\",null,{\\\"value\\\":{\\\"apiReferenceData\\\":{}},\\\"children\\\":[\\\"$\\\",\\\"$L4a\\\",null,{\\"
+            },
+            {
+              "url": "https://docs.moralis.com/data-api/evm/nft/traits/nfts-by-traits",
+              "hint": "self.__next_f.push([1,\"1c:[\\\"$\\\",\\\"$L38\\\",null,{\\\"value\\\":{\\\"apiReferenceData\\\":{}},\\\"children\\\":[\\\"$\\\",\\\"$L39\\\",null,{\\"
+            },
+            {
+              "url": "https://docs.moralis.com/data-api/evm/nft/prices/historical-floor-price",
+              "hint": "self.__next_f.push([1,\"1c:[\\\"$\\\",\\\"$L38\\\",null,{\\\"value\\\":{\\\"apiReferenceData\\\":{}},\\\"children\\\":[\\\"$\\\",\\\"$L39\\\",null,{\\"
+            },
+            {
+              "url": "https://docs.moralis.com/data-api/evm/price/collection-floor-price",
+              "hint": "The timestamp of when the floor price was last updated"
+            },
+            {
+              "url": "https://docs.moralis.com/data-api/evm/price/timeseries-floor-price",
+              "hint": "self.__next_f.push([1,\"1c:[\\\"$\\\",\\\"$L49\\\",null,{\\\"value\\\":{\\\"apiReferenceData\\\":{}},\\\"children\\\":[\\\"$\\\",\\\"$L4a\\\",null,{\\"
+            }
+          ]
+        }
+      },
+      "samples": {
+        "broken_links": [],
+        "docs_broken_link_samples": [],
+        "repo_broken_link_samples": [],
+        "unverified_link_samples": [
+          "https://docs.moralis.com/data-api/evm/token/signals/snipers",
+          "https://docs.moralis.com/data-api/solana/token/token-metadata-batch",
+          "https://docs.moralis.com/data-api/solana/wallet/overview",
+          "https://docs.moralis.com/rpc-nodes/blast/eth-get-block-transaction-count-by-number",
+          "https://docs.moralis.com/rpc-nodes/mantle/eth-get-storage-at"
+        ],
+        "api_uncovered_samples": [
+          "ep:/../../styles/user.module.css",
+          "ep:/../environments/environment",
+          "ep:/.openclaw/openclaw.json",
+          "ep:/127.0.0.1:1000/web3_auth/moralis_auth",
+          "ep:/adds-token-info-29a861f.s3.eu-central-1.amazonaws.com/marketing/evm/0x6982508145454ce325ddbe47a25d4ec3d2311933_icon.png",
+          "ep:/admin.moralis.io",
+          "ep:/api-reference/bind/request-to-remove-bind-of-an-address-from-a-profile",
+          "ep:/api-reference/challenge/request-aptos-challenge",
+          "ep:/api-reference/challenge/request-solana-challenge",
+          "ep:/api-reference/challenge/verify-aptos-challenge",
+          "ep:/api-reference/challenge/verify-solana-challenge",
+          "ep:/api-reference/profile/get-addresses-that-are-bound-to-the-specific-profileid",
+          "ep:/api.example.com/chat",
+          "ep:/api.moralis-streams.com",
+          "ep:/api.moralis-streams.com/history",
+          "ep:/api.moralis-streams.com/history/logs",
+          "ep:/api.moralis-streams.com/history/replay/{streamid}/{id",
+          "ep:/api.moralis-streams.com/settings",
+          "ep:/api.moralis-streams.com/stats",
+          "ep:/api.moralis-streams.com/stats/{streamid"
+        ]
+      },
+      "run_count": 1
+    }
+  ],
+  "aggregate": {
+    "metrics": {
+      "crawl": {
+        "pages_crawled": 907,
+        "requested_pages": 919,
+        "urls_examined": 912,
+        "max_pages_total": 5000,
+        "discovered_pages": 912,
+        "crawl_scope_pages": 912,
+        "trap_urls_skipped": 112,
+        "crawl_coverage_pct": 100.0
+      },
+      "links": {
+        "broken_internal_links_count": 0,
+        "docs_broken_links_count": 0,
+        "repo_broken_links_count": 0,
+        "unverified_links_count": 5,
+        "confirmed_broken_links_count": 0,
+        "excluded_links_count": 11
+      },
+      "seo_geo": {
+        "seo_geo_issue_rate_pct": 21.8
+      },
+      "api_coverage": {
+        "reference_coverage_pct": 30.59,
+        "no_api_pages_found": false,
+        "api_pages_detected": 847,
+        "coverage_determined": true,
+        "detection_note": ""
+      },
+      "examples": {
+        "example_reliability_estimate_pct": 0.0
+      },
+      "freshness": {
+        "last_updated_coverage_pct": 2.98
+      }
+    },
+    "confidence": {
+      "overall_confidence_pct": 63.5,
+      "links_confidence_pct": 25.0,
+      "api_confidence_pct": 85.0,
+      "crawl_confidence_pct": 95.0
+    }
+  },
+  "confidence": {
+    "overall_confidence_pct": 63.5,
+    "links_confidence_pct": 25.0,
+    "api_confidence_pct": 85.0,
+    "crawl_confidence_pct": 95.0
+  },
+  "top_findings": [
+    "Link verification inconclusive for 5 URLs (auth/rate-limit/server block); these are excluded from broken-link counts.",
+    "SEO/GEO issue rate is high: 21.8%",
+    "API usage-doc coverage is low: 30.59% (847 API pages detected)",
+    "Example reliability: 0% on 907 pages (likely detection limitation). Site may use JS-rendered code blocks.",
+    "Freshness visibility is weak: only 2.98% pages show last updated"
+  ],
+  "llm_analysis": {
+    "status": "ok",
+    "model": "claude-sonnet-4-5",
+    "analysis": {
+      "executive_summary": "Documentation audit of docs.moralis.com covered 907 pages with 100% crawl coverage across a multi-project topology. No broken links were detected (0 docs-facing, 0 repository links), though 5 URLs could not be verified due to access restrictions. API reference coverage stands at 30.59% across 847 detected API pages. Example code reliability shows 0% detection, indicating a likely technical limitation with JavaScript-rendered content. Only 2.98% of pages display freshness metadata.",
+      "strengths": [
+        "Complete crawl coverage achieved (100%) with 907 of 919 requested pages successfully indexed",
+        "Zero confirmed broken links across documentation and repository navigation",
+        "High crawl confidence (95%) and API detection confidence (85%) indicate reliable structural analysis",
+        "847 API pages successfully detected across multi-project documentation structure",
+        "Trap URL detection prevented 112 non-documentation URLs from skewing results"
+      ],
+      "risks": [
+        "SEO/geo issue rate of 21.8% may impact discoverability and international user access",
+        "API reference coverage at 30.59% leaves majority of API endpoints without usage documentation",
+        "Example code reliability at 0% suggests users cannot verify working code samples (likely JS-rendering detection gap)",
+        "Freshness metadata visible on only 2.98% of pages obscures content currency for 97% of documentation",
+        "5 unverified links create uncertainty in link health assessment despite zero confirmed breaks",
+        "Overall confidence at 63.5% indicates moderate reliability limitations in audit completeness",
+        "Link verification confidence at 25% suggests significant blind spots in external dependency health"
+      ],
+      "prioritized_actions": [
+        {
+          "action": "Implement last-updated timestamps on all pages to address 97% freshness visibility gap",
+          "impact": "critical",
+          "effort": "low"
+        },
+        {
+          "action": "Expand API usage documentation to cover remaining 69% of 847 detected API pages",
+          "impact": "critical",
+          "effort": "high"
+        },
+        {
+          "action": "Audit and resolve SEO/geo issues affecting 21.8% of pages to improve discoverability",
+          "impact": "high",
+          "effort": "medium"
+        },
+        {
+          "action": "Investigate and resolve 5 unverified links blocked by auth/rate-limit/server restrictions",
+          "impact": "medium",
+          "effort": "low"
+        },
+        {
+          "action": "Validate example code rendering approach to confirm 0% detection is tooling limitation not content gap",
+          "impact": "high",
+          "effort": "medium"
+        }
+      ],
+      "limitations": [
+        "Example code reliability at 0% likely reflects detection failure on JavaScript-rendered code blocks rather than absence of examples",
+        "5 unverified links could not be validated due to authentication, rate limiting, or server access restrictions beyond audit scope",
+        "External audit cannot verify accuracy, correctness, or completeness of technical content within detected documentation pages",
+        "Link verification confidence of 25% indicates significant portions of external dependencies remain unvalidated"
+      ]
+    }
+  }
+}

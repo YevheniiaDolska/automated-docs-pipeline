@@ -637,6 +637,34 @@ def copy_bundle_to_repo(bundle_root: Path, client_repo: Path, docsops_dir: str) 
     if target.exists():
         shutil.rmtree(target)
     shutil.copytree(bundle_root, target)
+    # Bundle payload may include an internal `docsops/` subtree with signed license
+    # and anti-tamper assets. Normalize to a single-level install layout:
+    # <client-repo>/<docsops_dir>/...
+    nested_docsops = target / "docsops"
+    if nested_docsops.exists() and nested_docsops.is_dir():
+        for child in nested_docsops.iterdir():
+            dst = target / child.name
+            if dst.exists():
+                if dst.is_dir() and child.is_dir():
+                    shutil.copytree(child, dst, dirs_exist_ok=True)
+                elif dst.is_file() and child.is_file():
+                    shutil.copy2(child, dst)
+                else:
+                    # In rare mixed file/dir conflicts, replace with nested artifact.
+                    if dst.is_dir():
+                        shutil.rmtree(dst)
+                    else:
+                        dst.unlink()
+                    if child.is_dir():
+                        shutil.copytree(child, dst)
+                    else:
+                        shutil.copy2(child, dst)
+            else:
+                if child.is_dir():
+                    shutil.copytree(child, dst)
+                else:
+                    shutil.copy2(child, dst)
+        shutil.rmtree(nested_docsops)
     return target
 
 

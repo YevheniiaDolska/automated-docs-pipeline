@@ -28,7 +28,12 @@ if str(REPO_ROOT) not in sys.path:
 
 from scripts.env_loader import load_local_env
 from scripts.flow_feedback import FlowNarrator
-from scripts.license_gate import get_license, get_license_summary
+from scripts.license_gate import (
+    check as license_check,
+    check_protocol as license_check_protocol,
+    get_license,
+    get_license_summary,
+)
 from scripts.llm_egress import enforce_metadata_egress_payload
 
 
@@ -421,7 +426,9 @@ def main() -> int:
 
     multi_protocol_runner = scripts_dir / "run_multi_protocol_contract_flow.py"
     strictness = str(api_governance.get("strictness", "standard")).strip().lower() if isinstance(api_governance, dict) else "standard"
-    if multi_protocol_runner.exists() and non_rest_protocols:
+    license_allows_multi = license_check("multi_protocol_pipeline", lic)
+    licensed_non_rest_protocols = [p for p in non_rest_protocols if license_check_protocol(p, lic)]
+    if multi_protocol_runner.exists() and licensed_non_rest_protocols and license_allows_multi:
         multi_cmd = [
             py,
             str(multi_protocol_runner),
@@ -430,7 +437,7 @@ def main() -> int:
             "--reports-dir",
             str(reports_dir),
             "--protocols",
-            ",".join(non_rest_protocols),
+            ",".join(licensed_non_rest_protocols),
         ]
         if strictness == "enterprise-strict":
             multi_cmd.extend(["--strictness", "enterprise-strict"])
@@ -440,12 +447,16 @@ def main() -> int:
         minimal_report = {
             "strictness": strictness or "standard",
             "strict_mode": bool(strictness == "enterprise-strict"),
-            "protocols": non_rest_protocols,
+            "protocols": licensed_non_rest_protocols,
             "failed_protocols": [],
             "failed": False,
             "stages": [],
             "by_protocol": {},
-            "skipped_reason": "no_non_rest_protocols_selected_or_runner_missing",
+            "skipped_reason": (
+                "license_blocked_multi_protocol_pipeline"
+                if non_rest_protocols and not license_allows_multi
+                else "no_non_rest_protocols_selected_or_runner_missing"
+            ),
         }
         (reports_dir / "multi_protocol_contract_report.json").write_text(
             json.dumps(minimal_report, ensure_ascii=True, indent=2) + "\n",
@@ -822,6 +833,8 @@ def main() -> int:
         api_runner = scripts_dir / "run_api_first_flow.py"
         if not api_runner.exists():
             print("[docsops] warning: api-first enabled but run_api_first_flow.py is missing in bundle")
+        elif not license_check("api_first_flow", lic):
+            print("[docsops] api-first skipped: current plan does not include api_first_flow.")
         else:
             api_runs = _iter_api_first_configs(api_first if isinstance(api_first, dict) else {})
             for api_cfg in api_runs:

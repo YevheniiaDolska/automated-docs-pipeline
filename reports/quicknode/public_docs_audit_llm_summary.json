@@ -1,0 +1,57 @@
+{
+  "status": "ok",
+  "model": "claude-sonnet-4-5",
+  "analysis": {
+    "executive_summary": "Audit crawled 9,936 pages from QuickNode documentation (98.37% coverage of 10,166 discovered pages). Identified 25 confirmed broken internal documentation links with 28 additional unverified links blocked by auth/rate-limits. API reference coverage stands at 60.0% across 2,488 detected API pages. Code example reliability estimated at 42.56% and only 29.29% of pages display freshness metadata. Overall audit confidence is 70.12%, with link verification confidence notably lower at 42.17%.",
+    "strengths": [
+      "Comprehensive crawl achieved 98.37% coverage with 9,936 pages successfully indexed",
+      "2,488 API pages detected and catalogued across multi-project topology",
+      "High API detection confidence at 85.0% with no detection gaps flagged",
+      "Crawl confidence strong at 94.02% indicating reliable site mapping",
+      "Zero repository navigation broken links (all 25 broken links are user-facing documentation)"
+    ],
+    "risks": [
+      "25 confirmed broken internal documentation links directly impact user navigation and trust",
+      "28 unverified links (auth/rate-limit blocked) represent unknown documentation quality exposure",
+      "SEO/GEO issue rate of 26.39% significantly harms discoverability and search ranking",
+      "API reference coverage at 60.0% leaves 40% of API surface undocumented or poorly linked",
+      "Example reliability at 42.56% means majority of code samples may be outdated or non-functional",
+      "Freshness metadata visible on only 29.29% of pages obscures content currency for users",
+      "Link verification confidence of 42.17% indicates substantial uncertainty in link health assessment"
+    ],
+    "prioritized_actions": [
+      {
+        "action": "Fix all 25 confirmed broken internal documentation links and investigate 28 unverified URLs",
+        "impact": "critical",
+        "effort": "low"
+      },
+      {
+        "action": "Implement automated example testing pipeline to improve 42.56% reliability baseline",
+        "impact": "critical",
+        "effort": "high"
+      },
+      {
+        "action": "Add last-updated timestamps to 70.71% of pages currently missing freshness metadata",
+        "impact": "high",
+        "effort": "medium"
+      },
+      {
+        "action": "Close 40% API documentation gap by auditing 2,488 detected API pages against product surface",
+        "impact": "high",
+        "effort": "high"
+      },
+      {
+        "action": "Remediate SEO/GEO issues affecting 26.39% of pages (meta descriptions, titles, structured data)",
+        "impact": "high",
+        "effort": "medium"
+      }
+    ],
+    "limitations": [
+      "28 links could not be verified due to authentication, rate-limiting, or server blocks; actual broken link count may be higher",
+      "Example reliability is estimated through static analysis; actual runtime functionality requires live execution testing",
+      "API coverage percentage assumes detected API pages represent complete product surface; undiscovered APIs not measured",
+      "Crawl trapped/skipped 6,019 URLs which may contain additional documentation quality issues outside audit scope",
+      "Content accuracy, technical correctness, and user comprehension quality cannot be assessed through automated crawling"
+    ]
+  }
+}

@@ -1,0 +1,56 @@
+{
+  "status": "ok",
+  "model": "claude-sonnet-4-5",
+  "analysis": {
+    "executive_summary": "Documentation audit of https://docs.ton.org/ covered 401 pages with 100.25% crawl coverage against 471 requested pages. API reference coverage is 74.66% across 129 detected API pages. Critical gaps include 0.0% example reliability, 24.44% SEO/geo issue rate, and only 1.75% of pages displaying freshness metadata. Overall audit confidence is 91.5% with 1 confirmed broken internal link.",
+    "strengths": [
+      "Complete crawl coverage at 100.25% (401 of 400 scope pages discovered)",
+      "Strong API reference coverage at 74.66% with 129 API pages detected",
+      "Minimal broken links: only 1 confirmed broken internal link in user-facing docs",
+      "High overall audit confidence at 91.5%",
+      "No repository navigation link breakage (0 repo_broken_links_count)"
+    ],
+    "risks": [
+      "Zero example reliability (0.0%) indicates no working code examples detected or validated",
+      "High SEO/geo issue rate at 24.44% may impact discoverability and search rankings",
+      "Freshness metadata visible on only 1.75% of pages undermines content trust and currency perception",
+      "25.34% of API surface lacks reference documentation (100% - 74.66%)",
+      "6 links excluded from validation may hide additional broken link issues",
+      "Example detection methodology may have failed given 0.0% reliability on 401 pages",
+      "Low freshness coverage prevents users from assessing documentation recency"
+    ],
+    "prioritized_actions": [
+      {
+        "action": "Implement last-updated timestamps on all documentation pages to address 1.75% freshness coverage",
+        "impact": "critical",
+        "effort": "low"
+      },
+      {
+        "action": "Audit and fix code examples to achieve measurable reliability above 0.0%",
+        "impact": "critical",
+        "effort": "high"
+      },
+      {
+        "action": "Resolve 24.44% SEO/geo issues (meta descriptions, titles, language tags, canonical URLs)",
+        "impact": "high",
+        "effort": "medium"
+      },
+      {
+        "action": "Document remaining 25.34% of API surface to reach 100% reference coverage",
+        "impact": "high",
+        "effort": "high"
+      },
+      {
+        "action": "Fix 1 confirmed broken internal link and investigate 6 excluded links",
+        "impact": "medium",
+        "effort": "low"
+      }
+    ],
+    "limitations": [
+      "External audit cannot verify technical accuracy of API documentation content or parameter descriptions",
+      "Example reliability at 0.0% may indicate detection methodology limitations rather than actual absence of examples",
+      "Audit cannot assess documentation completeness for unreleased or undocumented API features not present in crawled pages",
+      "SEO/geo issue detection limited to technical markup; does not evaluate content quality or localization accuracy"
+    ]
+  }
+}

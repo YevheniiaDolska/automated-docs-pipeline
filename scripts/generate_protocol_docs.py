@@ -96,6 +96,7 @@ def _render_graphql_playground(endpoint: str) -> list[str]:
     return [
         "## Interactive GraphQL Playground",
         "",
+        "<!-- vale off -->",
         "<div id=\"graphql-playground\" style=\"border:1px solid #d1d5db; padding:12px; border-radius:8px;\">",
         "  <p><strong>Endpoint:</strong> <code id=\"graphql-endpoint-view\"></code></p>",
         "  <textarea id=\"graphql-query\" rows=\"12\" style=\"width:100%; font-family:monospace;\">query HealthCheck {\n  __typename\n}</textarea>",
@@ -139,6 +140,7 @@ def _render_graphql_playground(endpoint: str) -> list[str]:
         "};",
         "})();",
         "</script>",
+        "<!-- vale on -->",
         "",
     ]
 
@@ -150,6 +152,7 @@ def _render_grpc_tester(endpoint: str) -> list[str]:
         "",
         "This tester uses an HTTP gateway/adapter endpoint, so docs users can trigger gRPC methods from browser.",
         "",
+        "<!-- vale off -->",
         "<div id=\"grpc-playground\" style=\"border:1px solid #d1d5db; padding:12px; border-radius:8px;\">",
         "  <p><strong>Gateway Endpoint:</strong> <code id=\"grpc-endpoint-view\"></code></p>",
         "  <label>Service</label><br/><input id=\"grpc-service\" style=\"width:100%\" placeholder=\"GreeterService\"/><br/>",
@@ -195,6 +198,7 @@ def _render_grpc_tester(endpoint: str) -> list[str]:
         "};",
         "})();",
         "</script>",
+        "<!-- vale on -->",
         "",
     ]
 
@@ -207,6 +211,7 @@ def _render_asyncapi_tester(ws_endpoint: str, http_endpoint: str) -> list[str]:
         "",
         "> Sandbox semantic mode: this tester returns event-aware responses by `event_type` and payload fields.",
         "",
+        "<!-- vale off -->",
         "<div id=\"asyncapi-playground\" style=\"border:1px solid #d1d5db; padding:12px; border-radius:8px;\">",
         "  <p><strong>WebSocket Endpoint:</strong> <code id=\"asyncapi-ws-view\"></code></p>",
         "  <p><strong>HTTP Publish Endpoint:</strong> <code id=\"asyncapi-http-view\"></code></p>",
@@ -280,6 +285,7 @@ def _render_asyncapi_tester(ws_endpoint: str, http_endpoint: str) -> list[str]:
         "};",
         "})();",
         "</script>",
+        "<!-- vale on -->",
         "",
     ]
 
@@ -291,6 +297,7 @@ def _render_websocket_tester(ws_endpoint: str) -> list[str]:
         "",
         "> Sandbox semantic mode: this tester returns protocol-aware responses based on message type/action.",
         "",
+        "<!-- vale off -->",
         "<div id=\"websocket-playground\" style=\"border:1px solid #d1d5db; padding:12px; border-radius:8px;\">",
         "  <p><strong>Endpoint:</strong> <code id=\"websocket-endpoint-view\"></code></p>",
         "  <textarea id=\"websocket-message\" rows=\"8\" style=\"width:100%; font-family:monospace;\">{\n  \"type\": \"subscribe\",\n  \"request_id\": \"req_001\",\n  \"payload\": {\"channel\": \"project.updated\", \"filters\": {\"project_id\": \"prj_abc123\"}}\n}</textarea><br/>",
@@ -348,6 +355,7 @@ def _render_websocket_tester(ws_endpoint: str) -> list[str]:
         "};",
         "})();",
         "</script>",
+        "<!-- vale on -->",
         "",
     ]
 
@@ -442,7 +450,27 @@ def _render_summary(
         lines.append("- Generated from source contract.")
         lines.append("")
 
-    return "\n".join(lines)
+    lines.extend(
+        [
+            "",
+            "## Next steps",
+            "",
+            "- [Documentation index](../index.md)",
+        ]
+    )
+
+    # Keep markdownlint MD012 clean for generated docs by collapsing
+    # accidental runs of empty lines when section renderers are composed.
+    collapsed: list[str] = []
+    prev_blank = False
+    for line in lines:
+        is_blank = line.strip() == ""
+        if is_blank and prev_blank:
+            continue
+        collapsed.append(line)
+        prev_blank = is_blank
+
+    return "\n".join(collapsed)
 
 
 def main() -> int:
@@ -479,7 +507,7 @@ def main() -> int:
 
     output = Path(args.output)
     output.parent.mkdir(parents=True, exist_ok=True)
-    output.write_text(rendered, encoding="utf-8")
+    output.write_text(rendered + "\n", encoding="utf-8")
     print(f"[protocol-docs] generated: {output}")
     return 0
 

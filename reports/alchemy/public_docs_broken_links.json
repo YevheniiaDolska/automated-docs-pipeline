@@ -1,0 +1,150 @@
+{
+  "generated_at_utc": "2026-04-15T11:21:00.740289+00:00",
+  "sites_count": 1,
+  "totals": {
+    "docs_broken_links_count": 5,
+    "repo_broken_links_count": 0,
+    "all_confirmed_broken_links_count": 5,
+    "unverified_links_sample_count": 30
+  },
+  "all_docs_broken_links": [
+    "https://alchemy.com/docs/wallets/packages/aa-ethers",
+    "https://alchemy.com/docs/wallets/packages/aa-ethers/utils/introduction",
+    "https://alchemy.com/docs/wallets/reference/account-kit/example",
+    "https://alchemy.com/docs/wallets/reference/account-kit/react/functions/useSendUserOperation",
+    "https://alchemy.com/docs/wallets/reference/account-kit/signer/classes/AlchemySignerWebClient/targetPublicKey"
+  ],
+  "all_repo_broken_links": [],
+  "all_unverified_links_sample": [
+    "https://alchemy.com/chain-request",
+    "https://alchemy.com/company",
+    "https://alchemy.com/docs/aa-sdk/core/src/type-aliases/ClientMiddlewareConfig",
+    "https://alchemy.com/docs/asset-changes-explained",
+    "https://alchemy.com/docs/chains/adi/adi-api-endpoints/eth-uninstall-filter",
+    "https://alchemy.com/docs/chains/anime/anime-api-endpoints/eth-accounts",
+    "https://alchemy.com/docs/chains/anime/anime-api-endpoints/eth-blob-base-fee",
+    "https://alchemy.com/docs/chains/anime/anime-api-endpoints/eth-gas-price",
+    "https://alchemy.com/docs/chains/anime/anime-api-endpoints/eth-get-block-transaction-count-by-number",
+    "https://alchemy.com/docs/chains/anime/anime-api-endpoints/eth-get-code",
+    "https://alchemy.com/docs/chains/anime/anime-api-endpoints/eth-get-filter-logs",
+    "https://alchemy.com/docs/chains/anime/anime-api-endpoints/eth-get-uncle-count-by-block-number",
+    "https://alchemy.com/docs/chains/anime/anime-api-endpoints/eth-new-block-filter",
+    "https://alchemy.com/docs/chains/anime/anime-api-endpoints/eth-subscribe",
+    "https://alchemy.com/docs/chains/apechain/ape-chain-api-endpoints/eth-estimate-gas",
+    "https://alchemy.com/docs/chains/apechain/ape-chain-api-endpoints/eth-fee-history",
+    "https://alchemy.com/docs/chains/apechain/ape-chain-api-endpoints/eth-get-block-receipts",
+    "https://alchemy.com/docs/chains/apechain/ape-chain-api-endpoints/eth-get-code",
+    "https://alchemy.com/docs/chains/apechain/ape-chain-api-endpoints/eth-get-filter-changes",
+    "https://alchemy.com/docs/chains/apechain/ape-chain-api-endpoints/eth-get-filter-logs",
+    "https://alchemy.com/docs/chains/apechain/ape-chain-api-endpoints/eth-get-logs",
+    "https://alchemy.com/docs/chains/apechain/ape-chain-api-endpoints/eth-get-proof",
+    "https://alchemy.com/docs/chains/apechain/ape-chain-api-endpoints/eth-get-transaction-count",
+    "https://alchemy.com/docs/chains/apechain/ape-chain-api-endpoints/eth-get-transaction-receipt",
+    "https://alchemy.com/docs/chains/apechain/ape-chain-api-endpoints/eth-get-uncle-count-by-block-number",
+    "https://alchemy.com/docs/chains/apechain/ape-chain-api-endpoints/eth-syncing",
+    "https://alchemy.com/docs/chains/aptos/aptos-api-endpoints/aptos-api-endpoints/v-1-accounts-address-modules",
+    "https://alchemy.com/docs/chains/aptos/aptos-api-endpoints/aptos-api-endpoints/v-1-accounts-address-transactions",
+    "https://alchemy.com/docs/chains/aptos/aptos-api-endpoints/aptos-api-endpoints/v-1-blocks-by-height-block-height",
+    "https://alchemy.com/docs/chains/aptos/aptos-api-endpoints/aptos-api-endpoints/v-1-transactions"
+  ],
+  "sites": [
+    {
+      "site_url": "https://alchemy.com/docs",
+      "confirmed_broken_links_count": 5,
+      "docs_broken_links_count": 5,
+      "repo_broken_links_count": 0,
+      "docs_broken_links": [
+        "https://alchemy.com/docs/wallets/packages/aa-ethers",
+        "https://alchemy.com/docs/wallets/packages/aa-ethers/utils/introduction",
+        "https://alchemy.com/docs/wallets/reference/account-kit/example",
+        "https://alchemy.com/docs/wallets/reference/account-kit/react/functions/useSendUserOperation",
+        "https://alchemy.com/docs/wallets/reference/account-kit/signer/classes/AlchemySignerWebClient/targetPublicKey"
+      ],
+      "repo_broken_links": [],
+      "confirmed_broken_links_detailed": [
+        {
+          "target_url": "https://alchemy.com/docs/wallets/packages/aa-ethers",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://alchemy.com/docs/wallets/reference/aa-sdk/ethers",
+              "anchor_text": "\"Getting started\""
+            }
+          ]
+        },
+        {
+          "target_url": "https://alchemy.com/docs/wallets/packages/aa-ethers/utils/introduction",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://alchemy.com/docs/wallets/reference/aa-sdk/ethers",
+              "anchor_text": "util"
+            }
+          ]
+        },
+        {
+          "target_url": "https://alchemy.com/docs/wallets/reference/account-kit/example",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://alchemy.com/docs/wallets/reference/account-kit/rn-signer",
+              "anchor_text": "example app"
+            }
+          ]
+        },
+        {
+          "target_url": "https://alchemy.com/docs/wallets/reference/account-kit/react/functions/useSendUserOperation",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://alchemy.com/docs/wallets/reference/account-kit/react/interfaces/SolanaTransaction",
+              "anchor_text": "useSendUserOperation"
+            }
+          ]
+        },
+        {
+          "target_url": "https://alchemy.com/docs/wallets/reference/account-kit/signer/classes/AlchemySignerWebClient/targetPublicKey",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://alchemy.com/docs/wallets/authentication/login-methods/bring-your-own-auth",
+              "anchor_text": "authentication\nSDK"
+            }
+          ]
+        }
+      ],
+      "unverified_links_sample": [
+        "https://alchemy.com/chain-request",
+        "https://alchemy.com/company",
+        "https://alchemy.com/docs/aa-sdk/core/src/type-aliases/ClientMiddlewareConfig",
+        "https://alchemy.com/docs/asset-changes-explained",
+        "https://alchemy.com/docs/chains/adi/adi-api-endpoints/eth-uninstall-filter",
+        "https://alchemy.com/docs/chains/anime/anime-api-endpoints/eth-accounts",
+        "https://alchemy.com/docs/chains/anime/anime-api-endpoints/eth-blob-base-fee",
+        "https://alchemy.com/docs/chains/anime/anime-api-endpoints/eth-gas-price",
+        "https://alchemy.com/docs/chains/anime/anime-api-endpoints/eth-get-block-transaction-count-by-number",
+        "https://alchemy.com/docs/chains/anime/anime-api-endpoints/eth-get-code",
+        "https://alchemy.com/docs/chains/anime/anime-api-endpoints/eth-get-filter-logs",
+        "https://alchemy.com/docs/chains/anime/anime-api-endpoints/eth-get-uncle-count-by-block-number",
+        "https://alchemy.com/docs/chains/anime/anime-api-endpoints/eth-new-block-filter",
+        "https://alchemy.com/docs/chains/anime/anime-api-endpoints/eth-subscribe",
+        "https://alchemy.com/docs/chains/apechain/ape-chain-api-endpoints/eth-estimate-gas",
+        "https://alchemy.com/docs/chains/apechain/ape-chain-api-endpoints/eth-fee-history",
+        "https://alchemy.com/docs/chains/apechain/ape-chain-api-endpoints/eth-get-block-receipts",
+        "https://alchemy.com/docs/chains/apechain/ape-chain-api-endpoints/eth-get-code",
+        "https://alchemy.com/docs/chains/apechain/ape-chain-api-endpoints/eth-get-filter-changes",
+        "https://alchemy.com/docs/chains/apechain/ape-chain-api-endpoints/eth-get-filter-logs",
+        "https://alchemy.com/docs/chains/apechain/ape-chain-api-endpoints/eth-get-logs",
+        "https://alchemy.com/docs/chains/apechain/ape-chain-api-endpoints/eth-get-proof",
+        "https://alchemy.com/docs/chains/apechain/ape-chain-api-endpoints/eth-get-transaction-count",
+        "https://alchemy.com/docs/chains/apechain/ape-chain-api-endpoints/eth-get-transaction-receipt",
+        "https://alchemy.com/docs/chains/apechain/ape-chain-api-endpoints/eth-get-uncle-count-by-block-number",
+        "https://alchemy.com/docs/chains/apechain/ape-chain-api-endpoints/eth-syncing",
+        "https://alchemy.com/docs/chains/aptos/aptos-api-endpoints/aptos-api-endpoints/v-1-accounts-address-modules",
+        "https://alchemy.com/docs/chains/aptos/aptos-api-endpoints/aptos-api-endpoints/v-1-accounts-address-transactions",
+        "https://alchemy.com/docs/chains/aptos/aptos-api-endpoints/aptos-api-endpoints/v-1-blocks-by-height-block-height",
+        "https://alchemy.com/docs/chains/aptos/aptos-api-endpoints/aptos-api-endpoints/v-1-transactions"
+      ]
+    }
+  ]
+}

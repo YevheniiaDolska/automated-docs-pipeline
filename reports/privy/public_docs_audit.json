@@ -1,0 +1,362 @@
+{
+  "generated_at": "2026-04-16T10:03:26.129243+00:00",
+  "site_url": "https://docs.privy.io/",
+  "site_urls": [
+    "https://docs.privy.io/"
+  ],
+  "topology_mode": "single-product",
+  "verification_modes": [
+    "authenticated",
+    "bot",
+    "browser"
+  ],
+  "sites": [
+    {
+      "site_url": "https://docs.privy.io/",
+      "metrics": {
+        "crawl": {
+          "pages_crawled": 584,
+          "requested_pages": 642,
+          "urls_examined": 584,
+          "max_pages": 5000,
+          "effective_limit": 5000,
+          "auto_mode": false,
+          "stop_reason": "queue_exhausted",
+          "discovered_pages": 584,
+          "crawl_scope_basis": "sitemap",
+          "crawl_scope_pages": 583,
+          "crawl_coverage_pct": 100.17,
+          "trap_urls_skipped": 170,
+          "seeded_sitemap_urls": 583,
+          "robots_sitemaps_declared": 1
+        },
+        "links": {
+          "internal_links_checked": 642,
+          "broken_internal_links_count": 3,
+          "docs_broken_links_count": 3,
+          "repo_broken_links_count": 0,
+          "broken_internal_link_samples": [
+            "https://docs.privy.io/cdn-cgi/l/email-protection",
+            "https://docs.privy.io/recipes/mock-jwt.mdx",
+            "https://docs.privy.io/recipes/trpc.mdx"
+          ],
+          "docs_broken_link_samples": [
+            "https://docs.privy.io/cdn-cgi/l/email-protection",
+            "https://docs.privy.io/recipes/mock-jwt.mdx",
+            "https://docs.privy.io/recipes/trpc.mdx"
+          ],
+          "repo_broken_link_samples": [],
+          "unreachable_links_count": 0,
+          "unverified_links_count": 0,
+          "unverified_link_samples": [],
+          "confirmed_broken_links_count": 3,
+          "excluded_links_count": 6,
+          "excluded_link_samples": [
+            "https://docs.privy.io/api-reference/users/search",
+            "https://docs.privy.io/wallets/gas-and-asset-management/assets/balance-event-webhooks",
+            "https://docs.privy.io/wallets/gas-and-asset-management/assets/fetch-a-transaction",
+            "https://docs.privy.io/wallets/gas-and-asset-management/assets/fetch-balance",
+            "https://docs.privy.io/wallets/gas-and-asset-management/assets/overview",
+            "https://docs.privy.io/wallets/gas-and-asset-management/assets/transaction-event-webhooks"
+          ],
+          "_all_confirmed_broken_links": [
+            "https://docs.privy.io/cdn-cgi/l/email-protection",
+            "https://docs.privy.io/recipes/mock-jwt.mdx",
+            "https://docs.privy.io/recipes/trpc.mdx"
+          ],
+          "_all_unverified_links": [],
+          "_all_excluded_links": [
+            "https://docs.privy.io/api-reference/users/search",
+            "https://docs.privy.io/wallets/gas-and-asset-management/assets/balance-event-webhooks",
+            "https://docs.privy.io/wallets/gas-and-asset-management/assets/fetch-a-transaction",
+            "https://docs.privy.io/wallets/gas-and-asset-management/assets/fetch-balance",
+            "https://docs.privy.io/wallets/gas-and-asset-management/assets/overview",
+            "https://docs.privy.io/wallets/gas-and-asset-management/assets/transaction-event-webhooks"
+          ],
+          "_all_docs_unverified_links": [],
+          "_all_repo_unverified_links": [],
+          "_broken_link_provenance": {
+            "https://docs.privy.io/cdn-cgi/l/email-protection": [
+              {
+                "source_page": "https://docs.privy.io/api-reference/apps/add-to-allowlist",
+                "anchor_text": "[email\u00a0protected]"
+              },
+              {
+                "source_page": "https://docs.privy.io/api-reference/apps/list-allowlist",
+                "anchor_text": "[email\u00a0protected]"
+              },
+              {
+                "source_page": "https://docs.privy.io/api-reference/apps/remove-from-allowlist",
+                "anchor_text": "[email\u00a0protected]"
+              },
+              {
+                "source_page": "https://docs.privy.io/api-reference/fiat/kyc/kyc-link",
+                "anchor_text": "[email\u00a0protected]"
+              },
+              {
+                "source_page": "https://docs.privy.io/api-reference/fiat/kyc/update",
+                "anchor_text": "[email\u00a0protected]"
+              }
+            ],
+            "https://docs.privy.io/recipes/mock-jwt.mdx": [
+              {
+                "source_page": "https://docs.privy.io/recipes/mock-jwt",
+                "anchor_text": "publicKey"
+              }
+            ],
+            "https://docs.privy.io/recipes/trpc.mdx": [
+              {
+                "source_page": "https://docs.privy.io/recipes/trpc",
+                "anchor_text": "client"
+              },
+              {
+                "source_page": "https://docs.privy.io/recipes/trpc",
+                "anchor_text": "server"
+              }
+            ]
+          }
+        },
+        "seo_geo": {
+          "pages_scanned": 584,
+          "missing_title_count": 0,
+          "missing_description_count": 365,
+          "multiple_h1_count": 15,
+          "heading_hierarchy_jump_count": 209,
+          "seo_geo_issue_rate_pct": 25.21
+        },
+        "api_coverage": {
+          "reference_endpoint_count": 1452,
+          "api_pages_detected": 249,
+          "endpoints_with_usage_docs": 968,
+          "reference_endpoints_without_usage_docs": 484,
+          "reference_coverage_pct": 66.67,
+          "no_api_pages_found": false,
+          "coverage_determined": true,
+          "coverage_method": "heuristic",
+          "detection_note": "Contract URLs found but no operations parsed",
+          "uncovered_endpoint_samples": [
+            "ep:/*.hcaptcha.com",
+            "ep:/*.rpc.privy.systems",
+            "ep:/7ijvs1tcpvifz570ir44acx93pugz5ievpkg+hgaalhaxubuoumq9cuwrm4wo+3090nus",
+            "ep:/9j/4aaqskzjrg",
+            "ep:/:path*",
+            "ep:/=+$/",
+            "ep:/abc123.trycloudflare.com",
+            "ep:/actions",
+            "ep:/allowlist",
+            "ep:/api-reference/condition-sets/condition-set-items/delete",
+            "ep:/api-reference/condition-sets/condition-set-items/get",
+            "ep:/api-reference/policies/create",
+            "ep:/api-reference/request-expiry",
+            "ep:/api-reference/users/create",
+            "ep:/api-reference/wallets/earn/deposit",
+            "ep:/api-reference/wallets/ethereum/eth-sign-user-operation",
+            "ep:/api-reference/wallets/get-balance",
+            "ep:/api-reference/wallets/import/init",
+            "ep:/api-reference/wallets/solana/sign-transaction",
+            "ep:/api-reference/wallets/spark/get-balance"
+          ]
+        },
+        "examples": {
+          "total_code_examples": 0,
+          "total_code_blocks_all": 1616,
+          "runnable_without_env": 0,
+          "blocked_by_placeholders": 0,
+          "network_bound_examples": 0,
+          "example_reliability_estimate_pct": 0.0,
+          "detection_note": "No executable code blocks detected (1616 data-only blocks found). Site may use non-standard code rendering that the auditor does not recognize, or all examples are in data formats (YAML/JSON)."
+        },
+        "freshness": {
+          "pages_with_last_updated_hint": 8,
+          "pages_without_last_updated_hint": 576,
+          "last_updated_coverage_pct": 1.37,
+          "samples_with_last_updated": [
+            {
+              "url": "https://docs.privy.io/api-reference/fiat/kyc/update",
+              "hint": "\"birth_date\": \"1989-09-09\","
+            },
+            {
+              "url": "https://docs.privy.io/api-reference/fiat/kyc/create",
+              "hint": "\"birth_date\": \"1989-09-09\","
+            },
+            {
+              "url": "https://docs.privy.io/controls/policies/example-policies/sui",
+              "hint": "// 2025-09-08 00:00:00 UTC in seconds since epoch"
+            },
+            {
+              "url": "https://docs.privy.io/controls/policies/example-policies/timebound",
+              "hint": "// 2026-09-08 00:00:00 UTC in seconds since epoch"
+            },
+            {
+              "url": "https://docs.privy.io/controls/policies/example-policies/solana",
+              "hint": "// 2025-09-01 00:00:00 UTC in seconds since epoch"
+            },
+            {
+              "url": "https://docs.privy.io/controls/policies/example-policies/ethereum",
+              "hint": "// 2025-09-08 00:00:00 UTC in seconds since epoch"
+            },
+            {
+              "url": "https://docs.privy.io/controls/policies/example-policies/tron",
+              "hint": "// 2025-09-08 00:00:00 UTC in seconds since epoch"
+            },
+            {
+              "url": "https://docs.privy.io/user-management/users/updating-accounts",
+              "hint": "self.__next_f.push([1,\"\\u003cTabs\\u003e\\n  \\u003cTab title=\\\"Email\\\" id=\\\"email\\\" data-child-heading-ids=\\\"[\\u0026#x22;u"
+            }
+          ]
+        }
+      },
+      "samples": {
+        "broken_links": [
+          "https://docs.privy.io/cdn-cgi/l/email-protection",
+          "https://docs.privy.io/recipes/mock-jwt.mdx",
+          "https://docs.privy.io/recipes/trpc.mdx"
+        ],
+        "docs_broken_link_samples": [
+          "https://docs.privy.io/cdn-cgi/l/email-protection",
+          "https://docs.privy.io/recipes/mock-jwt.mdx",
+          "https://docs.privy.io/recipes/trpc.mdx"
+        ],
+        "repo_broken_link_samples": [],
+        "unverified_link_samples": [],
+        "api_uncovered_samples": [
+          "ep:/*.hcaptcha.com",
+          "ep:/*.rpc.privy.systems",
+          "ep:/7ijvs1tcpvifz570ir44acx93pugz5ievpkg+hgaalhaxubuoumq9cuwrm4wo+3090nus",
+          "ep:/9j/4aaqskzjrg",
+          "ep:/:path*",
+          "ep:/=+$/",
+          "ep:/abc123.trycloudflare.com",
+          "ep:/actions",
+          "ep:/allowlist",
+          "ep:/api-reference/condition-sets/condition-set-items/delete",
+          "ep:/api-reference/condition-sets/condition-set-items/get",
+          "ep:/api-reference/policies/create",
+          "ep:/api-reference/request-expiry",
+          "ep:/api-reference/users/create",
+          "ep:/api-reference/wallets/earn/deposit",
+          "ep:/api-reference/wallets/ethereum/eth-sign-user-operation",
+          "ep:/api-reference/wallets/get-balance",
+          "ep:/api-reference/wallets/import/init",
+          "ep:/api-reference/wallets/solana/sign-transaction",
+          "ep:/api-reference/wallets/spark/get-balance"
+        ]
+      },
+      "run_count": 1
+    }
+  ],
+  "aggregate": {
+    "metrics": {
+      "crawl": {
+        "pages_crawled": 584,
+        "requested_pages": 642,
+        "urls_examined": 584,
+        "max_pages_total": 5000,
+        "discovered_pages": 584,
+        "crawl_scope_pages": 583,
+        "trap_urls_skipped": 170,
+        "crawl_coverage_pct": 100.17
+      },
+      "links": {
+        "broken_internal_links_count": 3,
+        "docs_broken_links_count": 3,
+        "repo_broken_links_count": 0,
+        "unverified_links_count": 0,
+        "confirmed_broken_links_count": 3,
+        "excluded_links_count": 6
+      },
+      "seo_geo": {
+        "seo_geo_issue_rate_pct": 25.21
+      },
+      "api_coverage": {
+        "reference_coverage_pct": 66.67,
+        "no_api_pages_found": false,
+        "api_pages_detected": 249,
+        "coverage_determined": true,
+        "detection_note": ""
+      },
+      "examples": {
+        "example_reliability_estimate_pct": 0.0
+      },
+      "freshness": {
+        "last_updated_coverage_pct": 1.37
+      }
+    },
+    "confidence": {
+      "overall_confidence_pct": 91.5,
+      "links_confidence_pct": 95.0,
+      "api_confidence_pct": 85.0,
+      "crawl_confidence_pct": 95.0
+    }
+  },
+  "confidence": {
+    "overall_confidence_pct": 91.5,
+    "links_confidence_pct": 95.0,
+    "api_confidence_pct": 85.0,
+    "crawl_confidence_pct": 95.0
+  },
+  "top_findings": [
+    "Broken internal links: 3",
+    "SEO/GEO issue rate is high: 25.21%",
+    "API usage-doc coverage is low: 66.67% (249 API pages detected)",
+    "Example reliability: 0% on 584 pages (likely detection limitation). Site may use JS-rendered code blocks.",
+    "Freshness visibility is weak: only 1.37% pages show last updated"
+  ],
+  "llm_analysis": {
+    "status": "ok",
+    "model": "claude-sonnet-4-5",
+    "analysis": {
+      "executive_summary": "Documentation audit of docs.privy.io covered 584 pages with 100.17% crawl coverage and 91.5% overall confidence. The site contains 249 API reference pages but only 66.67% have adequate usage documentation. Critical issues include 0% example reliability (likely a detection limitation due to JS-rendered code blocks), 25.21% SEO/geo issue rate, and only 1.37% of pages displaying freshness metadata. Three confirmed broken internal links exist within user-facing documentation.",
+      "strengths": [
+        "Comprehensive crawl coverage at 100.17% with 584 pages successfully indexed",
+        "High overall audit confidence at 91.5% with strong link verification (95%) and crawl confidence (95%)",
+        "Substantial API reference content with 249 API pages detected across the documentation",
+        "Zero broken repository navigation links, indicating clean version control integration",
+        "No unverified or excluded link issues, demonstrating solid link hygiene"
+      ],
+      "risks": [
+        "Example reliability at 0% across 584 pages suggests code samples may not be detectable or are JS-rendered, creating uncertainty about example quality",
+        "SEO/geo issue rate of 25.21% affects discoverability and search ranking for approximately 147 pages",
+        "API reference coverage at 66.67% means one-third of API pages lack adequate usage documentation or tutorials",
+        "Freshness metadata visible on only 1.37% of pages (approximately 8 pages) prevents users from assessing content currency",
+        "Three confirmed broken internal documentation links create poor user experience and navigation dead-ends",
+        "API confidence at 85% indicates moderate uncertainty in API documentation assessment accuracy",
+        "Potential detection limitation flagged for code examples may mask actual documentation quality issues"
+      ],
+      "prioritized_actions": [
+        {
+          "action": "Investigate example detection failure: manually verify code block rendering and implement server-side rendering or static generation for examples if currently JS-dependent",
+          "impact": "critical",
+          "effort": "high"
+        },
+        {
+          "action": "Fix 3 confirmed broken internal documentation links to restore navigation integrity",
+          "impact": "high",
+          "effort": "low"
+        },
+        {
+          "action": "Add usage documentation and tutorials for the 33% of API pages (approximately 83 pages) lacking adequate coverage",
+          "impact": "high",
+          "effort": "high"
+        },
+        {
+          "action": "Implement last-updated timestamps across all 584 pages to improve from 1.37% to 100% freshness visibility",
+          "impact": "high",
+          "effort": "medium"
+        },
+        {
+          "action": "Remediate SEO/geo issues affecting 25.21% of pages (approximately 147 pages) by auditing meta descriptions, titles, and structured data",
+          "impact": "medium",
+          "effort": "medium"
+        }
+      ],
+      "limitations": [
+        "External audit cannot verify actual code example functionality, correctness, or whether examples execute successfully in real environments",
+        "Detection limitations with JS-rendered content mean true example coverage and quality may differ significantly from reported 0% reliability",
+        "Audit cannot assess documentation accuracy, technical correctness, or alignment with actual product behavior and API contracts",
+        "SEO/geo issue identification does not guarantee search ranking improvement or measure actual user discoverability impact",
+        "Freshness metadata presence does not validate whether content is actually current or whether update dates reflect meaningful changes"
+      ]
+    }
+  }
+}

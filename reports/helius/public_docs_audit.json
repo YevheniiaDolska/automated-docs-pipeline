@@ -1,0 +1,300 @@
+{
+  "generated_at": "2026-04-16T07:38:51.256214+00:00",
+  "site_url": "https://helius.dev/docs",
+  "site_urls": [
+    "https://helius.dev/docs"
+  ],
+  "topology_mode": "multi-project",
+  "verification_modes": [
+    "authenticated",
+    "bot",
+    "browser"
+  ],
+  "sites": [
+    {
+      "site_url": "https://helius.dev/docs",
+      "metrics": {
+        "crawl": {
+          "pages_crawled": 326,
+          "requested_pages": 328,
+          "urls_examined": 326,
+          "max_pages": 1500,
+          "effective_limit": 1500,
+          "auto_mode": false,
+          "stop_reason": "queue_exhausted",
+          "discovered_pages": 326,
+          "crawl_scope_basis": "discovered",
+          "crawl_scope_pages": 326,
+          "crawl_coverage_pct": 100.0,
+          "trap_urls_skipped": 20,
+          "seeded_sitemap_urls": 0,
+          "robots_sitemaps_declared": 2
+        },
+        "links": {
+          "internal_links_checked": 328,
+          "broken_internal_links_count": 0,
+          "docs_broken_links_count": 0,
+          "repo_broken_links_count": 0,
+          "broken_internal_link_samples": [],
+          "docs_broken_link_samples": [],
+          "repo_broken_link_samples": [],
+          "unreachable_links_count": 0,
+          "unverified_links_count": 0,
+          "unverified_link_samples": [],
+          "confirmed_broken_links_count": 0,
+          "excluded_links_count": 2,
+          "excluded_link_samples": [
+            "https://helius.dev/docs/api-reference/das/searchassets",
+            "https://helius.dev/docs/das/search"
+          ],
+          "_all_confirmed_broken_links": [],
+          "_all_unverified_links": [],
+          "_all_excluded_links": [
+            "https://helius.dev/docs/api-reference/das/searchassets",
+            "https://helius.dev/docs/das/search"
+          ],
+          "_all_docs_unverified_links": [],
+          "_all_repo_unverified_links": [],
+          "_broken_link_provenance": {}
+        },
+        "seo_geo": {
+          "pages_scanned": 326,
+          "missing_title_count": 0,
+          "missing_description_count": 0,
+          "multiple_h1_count": 0,
+          "heading_hierarchy_jump_count": 115,
+          "seo_geo_issue_rate_pct": 8.82
+        },
+        "api_coverage": {
+          "reference_endpoint_count": 984,
+          "api_pages_detected": 261,
+          "endpoints_with_usage_docs": 541,
+          "reference_endpoints_without_usage_docs": 443,
+          "reference_coverage_pct": 54.98,
+          "no_api_pages_found": false,
+          "coverage_determined": true,
+          "coverage_method": "heuristic",
+          "detection_note": "Contract URLs found but no operations parsed",
+          "uncovered_endpoint_samples": [
+            "ep:/*component",
+            "ep:/100",
+            "ep:/123-xyz-fast-devnet.helius-rpc.com",
+            "ep:/abc-456-fast-mainnet.helius-rpc.com",
+            "ep:/agents/rust-sdk",
+            "ep:/agents/rust-sdk/api-reference",
+            "ep:/agents/rust-sdk/best-practices",
+            "ep:/ams-sender.helius-rpc.com",
+            "ep:/ams-sender.helius-rpc.com/fast",
+            "ep:/ams-sender.helius-rpc.com/ping",
+            "ep:/api-devnet.helius-rpc.com",
+            "ep:/api-devnet.helius-rpc.com/v0/addresses/{address}/transactions",
+            "ep:/api-devnet.helius-rpc.com/v0/transactions",
+            "ep:/api-mainnet.helius-rpc.com",
+            "ep:/api-mainnet.helius-rpc.com/v0/addresses/{address}/transactions",
+            "ep:/api-mainnet.helius-rpc.com/v0/token-metadata",
+            "ep:/api-mainnet.helius-rpc.com/v0/transactions",
+            "ep:/api-mainnet.helius-rpc.com/v0/webhooks",
+            "ep:/api-mainnet.helius-rpc.com/v0/webhooks/{webhookid",
+            "ep:/api-r"
+          ]
+        },
+        "examples": {
+          "total_code_examples": 0,
+          "total_code_blocks_all": 1035,
+          "runnable_without_env": 0,
+          "blocked_by_placeholders": 0,
+          "network_bound_examples": 0,
+          "example_reliability_estimate_pct": 0.0,
+          "detection_note": "No executable code blocks detected (1035 data-only blocks found). Site may use non-standard code rendering that the auditor does not recognize, or all examples are in data formats (YAML/JSON)."
+        },
+        "freshness": {
+          "pages_with_last_updated_hint": 326,
+          "pages_without_last_updated_hint": 0,
+          "last_updated_coverage_pct": 100.0,
+          "samples_with_last_updated": [
+            {
+              "url": "https://helius.dev/docs",
+              "hint": "self.__next_f.push([1,\"/**\\n * Generate and validate sitemap with hreflang tags for multilingual docs\\n * https://develo"
+            },
+            {
+              "url": "https://helius.dev/docs/api-reference",
+              "hint": "self.__next_f.push([1,\"/**\\n * Generate and validate sitemap with hreflang tags for multilingual docs\\n * https://develo"
+            },
+            {
+              "url": "https://helius.dev/docs/billing/pay-with-crypto",
+              "hint": "self.__next_f.push([1,\"/**\\n * Generate and validate sitemap with hreflang tags for multilingual docs\\n * https://develo"
+            },
+            {
+              "url": "https://helius.dev/docs/billing/autoscaling",
+              "hint": "self.__next_f.push([1,\"/**\\n * Generate and validate sitemap with hreflang tags for multilingual docs\\n * https://develo"
+            },
+            {
+              "url": "https://helius.dev/docs/billing/credits",
+              "hint": "May 1, 2026"
+            },
+            {
+              "url": "https://helius.dev/docs/dedicated-nodes",
+              "hint": "self.__next_f.push([1,\"/**\\n * Generate and validate sitemap with hreflang tags for multilingual docs\\n * https://develo"
+            },
+            {
+              "url": "https://helius.dev/docs/billing/rate-limits",
+              "hint": "self.__next_f.push([1,\"/**\\n * Generate and validate sitemap with hreflang tags for multilingual docs\\n * https://develo"
+            },
+            {
+              "url": "https://helius.dev/docs/billing/plans",
+              "hint": "self.__next_f.push([1,\"/**\\n * Generate and validate sitemap with hreflang tags for multilingual docs\\n * https://develo"
+            },
+            {
+              "url": "https://helius.dev/docs/agents/overview",
+              "hint": "self.__next_f.push([1,\"/**\\n * Generate and validate sitemap with hreflang tags for multilingual docs\\n * https://develo"
+            },
+            {
+              "url": "https://helius.dev/docs/data-streaming",
+              "hint": "self.__next_f.push([1,\"/**\\n * Generate and validate sitemap with hreflang tags for multilingual docs\\n * https://develo"
+            }
+          ]
+        }
+      },
+      "samples": {
+        "broken_links": [],
+        "docs_broken_link_samples": [],
+        "repo_broken_link_samples": [],
+        "unverified_link_samples": [],
+        "api_uncovered_samples": [
+          "ep:/*component",
+          "ep:/100",
+          "ep:/123-xyz-fast-devnet.helius-rpc.com",
+          "ep:/abc-456-fast-mainnet.helius-rpc.com",
+          "ep:/agents/rust-sdk",
+          "ep:/agents/rust-sdk/api-reference",
+          "ep:/agents/rust-sdk/best-practices",
+          "ep:/ams-sender.helius-rpc.com",
+          "ep:/ams-sender.helius-rpc.com/fast",
+          "ep:/ams-sender.helius-rpc.com/ping",
+          "ep:/api-devnet.helius-rpc.com",
+          "ep:/api-devnet.helius-rpc.com/v0/addresses/{address}/transactions",
+          "ep:/api-devnet.helius-rpc.com/v0/transactions",
+          "ep:/api-mainnet.helius-rpc.com",
+          "ep:/api-mainnet.helius-rpc.com/v0/addresses/{address}/transactions",
+          "ep:/api-mainnet.helius-rpc.com/v0/token-metadata",
+          "ep:/api-mainnet.helius-rpc.com/v0/transactions",
+          "ep:/api-mainnet.helius-rpc.com/v0/webhooks",
+          "ep:/api-mainnet.helius-rpc.com/v0/webhooks/{webhookid",
+          "ep:/api-r"
+        ]
+      },
+      "run_count": 1
+    }
+  ],
+  "aggregate": {
+    "metrics": {
+      "crawl": {
+        "pages_crawled": 326,
+        "requested_pages": 328,
+        "urls_examined": 326,
+        "max_pages_total": 1500,
+        "discovered_pages": 326,
+        "crawl_scope_pages": 326,
+        "trap_urls_skipped": 20,
+        "crawl_coverage_pct": 100.0
+      },
+      "links": {
+        "broken_internal_links_count": 0,
+        "docs_broken_links_count": 0,
+        "repo_broken_links_count": 0,
+        "unverified_links_count": 0,
+        "confirmed_broken_links_count": 0,
+        "excluded_links_count": 2
+      },
+      "seo_geo": {
+        "seo_geo_issue_rate_pct": 8.82
+      },
+      "api_coverage": {
+        "reference_coverage_pct": 54.98,
+        "no_api_pages_found": false,
+        "api_pages_detected": 261,
+        "coverage_determined": true,
+        "detection_note": ""
+      },
+      "examples": {
+        "example_reliability_estimate_pct": 0.0
+      },
+      "freshness": {
+        "last_updated_coverage_pct": 100.0
+      }
+    },
+    "confidence": {
+      "overall_confidence_pct": 91.5,
+      "links_confidence_pct": 95.0,
+      "api_confidence_pct": 85.0,
+      "crawl_confidence_pct": 95.0
+    }
+  },
+  "confidence": {
+    "overall_confidence_pct": 91.5,
+    "links_confidence_pct": 95.0,
+    "api_confidence_pct": 85.0,
+    "crawl_confidence_pct": 95.0
+  },
+  "top_findings": [
+    "API usage-doc coverage is low: 54.98% (261 API pages detected)",
+    "Example reliability estimate is low: 0.0%"
+  ],
+  "llm_analysis": {
+    "status": "ok",
+    "model": "claude-sonnet-4-5",
+    "analysis": {
+      "executive_summary": "Documentation audit of helius.dev/docs covered 326 pages with 100% crawl coverage and zero broken links detected. API reference coverage stands at 54.98% across 261 detected API pages, indicating significant documentation gaps. Example reliability is critically low at 0.0%, suggesting no validated or executable code samples. Overall audit confidence is 91.5%, with API detection confidence at 85%. SEO/geo issues affect 8.82% of pages.",
+      "strengths": [
+        "Complete crawl coverage at 100% with all 326 discovered pages successfully examined",
+        "Zero broken links across documentation and repository navigation (0 docs broken, 0 repo broken)",
+        "100% last-updated metadata coverage indicating active documentation maintenance",
+        "Strong overall audit confidence at 91.5% with high crawl confidence at 95%",
+        "Clean link hygiene with no unverified or confirmed broken external links"
+      ],
+      "risks": [
+        "API reference coverage at 54.98% leaves nearly half of API surface undocumented, blocking developer adoption",
+        "Example reliability at 0.0% indicates no tested, validated, or executable code samples across 326 pages",
+        "API detection confidence at 85% suggests potential undercounting of actual API endpoints or methods",
+        "261 API pages detected but only 55% coverage implies ~118 API endpoints lack proper documentation",
+        "Zero example reliability creates high risk of broken developer onboarding and integration failures",
+        "SEO/geo issues at 8.82% (~29 pages) may impact discoverability in search and regional markets",
+        "No detection_note clarification on example measurement methodology raises questions about sample validity"
+      ],
+      "prioritized_actions": [
+        {
+          "action": "Implement automated example testing pipeline to validate all code samples and establish baseline reliability above 80%",
+          "impact": "critical",
+          "effort": "high"
+        },
+        {
+          "action": "Conduct API endpoint inventory audit and create documentation for the missing 45% of API surface (approximately 118 endpoints)",
+          "impact": "critical",
+          "effort": "high"
+        },
+        {
+          "action": "Add executable code examples with copy-paste functionality to all 261 API pages, prioritizing top 20 most-used endpoints",
+          "impact": "high",
+          "effort": "medium"
+        },
+        {
+          "action": "Resolve SEO/geo issues on the affected 29 pages (8.82%) to improve search discoverability and regional access",
+          "impact": "medium",
+          "effort": "low"
+        },
+        {
+          "action": "Establish continuous monitoring for API coverage and example reliability with monthly reporting thresholds (>85% coverage, >75% reliability)",
+          "impact": "high",
+          "effort": "medium"
+        }
+      ],
+      "limitations": [
+        "External audit cannot verify actual correctness or functional accuracy of documented API behaviors and parameters",
+        "Example reliability at 0.0% may indicate detection methodology limitations rather than complete absence of examples; manual validation recommended",
+        "API coverage measurement depends on automated detection patterns and may miss dynamically generated or non-standard API documentation formats",
+        "Audit cannot assess documentation quality, clarity, completeness of explanations, or alignment with actual product capabilities",
+        "Crawl scope limited to public documentation; private/authenticated endpoints, internal wikis, and SDK-embedded docs are not evaluated"
+      ]
+    }
+  }
+}

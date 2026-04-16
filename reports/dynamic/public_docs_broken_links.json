@@ -1,0 +1,920 @@
+{
+  "generated_at_utc": "2026-04-16T09:56:57.498272+00:00",
+  "sites_count": 1,
+  "totals": {
+    "docs_broken_links_count": 45,
+    "repo_broken_links_count": 0,
+    "all_confirmed_broken_links_count": 45,
+    "unverified_links_sample_count": 9
+  },
+  "all_docs_broken_links": [
+    "http://dynamic.xyz/Claynosaurz",
+    "http://dynamic.xyz/category/security",
+    "http://dynamic.xyz/cdn-cgi/l/email-protection",
+    "http://dynamic.xyz/stablecoins/N/A",
+    "http://dynamic.xyz/use-case-categories/Claynosaurz",
+    "http://dynamic.xyz/use-case-categories/analytics",
+    "http://dynamic.xyz/use-case-categories/bridge",
+    "http://dynamic.xyz/use-case-categories/chains",
+    "http://dynamic.xyz/use-case-categories/consumer-apps",
+    "http://dynamic.xyz/use-case-categories/marketplaces",
+    "http://dynamic.xyz/use-case-categories/rwas",
+    "http://dynamic.xyz/use-case-categories/stabelcoin-payment",
+    "http://dynamic.xyz/use-case-categories/token-management",
+    "https://dynamic.xyz/Claynosaurz",
+    "https://dynamic.xyz/category/security",
+    "https://dynamic.xyz/cdn-cgi/l/email-protection",
+    "https://dynamic.xyz/docs/api-reference/events/getEventTypes",
+    "https://dynamic.xyz/docs/api-reference/users/bulkCreateUser",
+    "https://dynamic.xyz/docs/api-reference/users/createUser",
+    "https://dynamic.xyz/docs/api-reference/users/getUserOauthAccessToken",
+    "https://dynamic.xyz/docs/api-reference/wallets/createEmbeddedWalletFromFarcaster",
+    "https://dynamic.xyz/docs/api-reference/wallets/createWallet",
+    "https://dynamic.xyz/docs/overview/wallets/embedded-wallets/mpc/overview/developer-dashboard/webhooks/events",
+    "https://dynamic.xyz/docs/overview/wallets/embedded-wallets/mpc/overview/wallets/embedded-wallets/mpc/configuration-guide",
+    "https://dynamic.xyz/docs/overview/wallets/embedded-wallets/mpc/overview/wallets/embedded-wallets/mpc/icloud-backup",
+    "https://dynamic.xyz/docs/react-native/global-wallets/react/using-our-ui/design-customizations/css/css-variables",
+    "https://dynamic.xyz/docs/react-native/global-wallets/react/using-our-ui/design-customizations/css/custom-css",
+    "https://dynamic.xyz/docs/react-sdk/hooks/useconnectwithemailotp",
+    "https://dynamic.xyz/docs/react/global-wallets/react/using-our-ui/design-customizations/css/css-variables",
+    "https://dynamic.xyz/docs/react/global-wallets/react/using-our-ui/design-customizations/css/custom-css",
+    "https://dynamic.xyz/docs/recipes/stablecoins/recipes/integrations/telegram/telegram-server-wallets-bots",
+    "https://dynamic.xyz/docs/sign-in-sign-up/overview",
+    "https://dynamic.xyz/docs/social-providers/telegram",
+    "https://dynamic.xyz/docs/wallets/embedded-wallets/create-embedded-wallets",
+    "https://dynamic.xyz/docs/wallets/embedded-wallets/mpc/delegated-access/revoking-delegation",
+    "https://dynamic.xyz/stablecoins/N/A",
+    "https://dynamic.xyz/use-case-categories/Claynosaurz",
+    "https://dynamic.xyz/use-case-categories/analytics",
+    "https://dynamic.xyz/use-case-categories/bridge",
+    "https://dynamic.xyz/use-case-categories/chains",
+    "https://dynamic.xyz/use-case-categories/consumer-apps",
+    "https://dynamic.xyz/use-case-categories/marketplaces",
+    "https://dynamic.xyz/use-case-categories/rwas",
+    "https://dynamic.xyz/use-case-categories/stabelcoin-payment",
+    "https://dynamic.xyz/use-case-categories/token-management"
+  ],
+  "all_repo_broken_links": [],
+  "all_unverified_links_sample": [
+    "https://dynamic.xyz/docs/api-reference/sdk/register-a-new-passkey-mfa-device",
+    "https://dynamic.xyz/docs/javascript/reference/starknet/javascript/reference/starknet/checking-starknet-wallet-account-type",
+    "https://dynamic.xyz/docs/react-native/wallets/using-wallets/solana/gasless-transactions",
+    "https://dynamic.xyz/docs/react-sdk/hooks/usereinitialize",
+    "https://dynamic.xyz/docs/react/chains/enabling-chains.mdx",
+    "https://dynamic.xyz/docs/react/reference/hooks/funding",
+    "https://dynamic.xyz/docs/react/reference/hooks/login-user-management",
+    "https://dynamic.xyz/docs/react/reference/hooks/wallets",
+    "https://dynamic.xyz/docs/react/wallets/using-wallets"
+  ],
+  "sites": [
+    {
+      "site_url": "https://dynamic.xyz/docs",
+      "confirmed_broken_links_count": 45,
+      "docs_broken_links_count": 45,
+      "repo_broken_links_count": 0,
+      "docs_broken_links": [
+        "http://dynamic.xyz/Claynosaurz",
+        "http://dynamic.xyz/category/security",
+        "http://dynamic.xyz/cdn-cgi/l/email-protection",
+        "http://dynamic.xyz/stablecoins/N/A",
+        "http://dynamic.xyz/use-case-categories/Claynosaurz",
+        "http://dynamic.xyz/use-case-categories/analytics",
+        "http://dynamic.xyz/use-case-categories/bridge",
+        "http://dynamic.xyz/use-case-categories/chains",
+        "http://dynamic.xyz/use-case-categories/consumer-apps",
+        "http://dynamic.xyz/use-case-categories/marketplaces",
+        "http://dynamic.xyz/use-case-categories/rwas",
+        "http://dynamic.xyz/use-case-categories/stabelcoin-payment",
+        "http://dynamic.xyz/use-case-categories/token-management",
+        "https://dynamic.xyz/Claynosaurz",
+        "https://dynamic.xyz/category/security",
+        "https://dynamic.xyz/cdn-cgi/l/email-protection",
+        "https://dynamic.xyz/docs/api-reference/events/getEventTypes",
+        "https://dynamic.xyz/docs/api-reference/users/bulkCreateUser",
+        "https://dynamic.xyz/docs/api-reference/users/createUser",
+        "https://dynamic.xyz/docs/api-reference/users/getUserOauthAccessToken",
+        "https://dynamic.xyz/docs/api-reference/wallets/createEmbeddedWalletFromFarcaster",
+        "https://dynamic.xyz/docs/api-reference/wallets/createWallet",
+        "https://dynamic.xyz/docs/overview/wallets/embedded-wallets/mpc/overview/developer-dashboard/webhooks/events",
+        "https://dynamic.xyz/docs/overview/wallets/embedded-wallets/mpc/overview/wallets/embedded-wallets/mpc/configuration-guide",
+        "https://dynamic.xyz/docs/overview/wallets/embedded-wallets/mpc/overview/wallets/embedded-wallets/mpc/icloud-backup",
+        "https://dynamic.xyz/docs/react-native/global-wallets/react/using-our-ui/design-customizations/css/css-variables",
+        "https://dynamic.xyz/docs/react-native/global-wallets/react/using-our-ui/design-customizations/css/custom-css",
+        "https://dynamic.xyz/docs/react-sdk/hooks/useconnectwithemailotp",
+        "https://dynamic.xyz/docs/react/global-wallets/react/using-our-ui/design-customizations/css/css-variables",
+        "https://dynamic.xyz/docs/react/global-wallets/react/using-our-ui/design-customizations/css/custom-css",
+        "https://dynamic.xyz/docs/recipes/stablecoins/recipes/integrations/telegram/telegram-server-wallets-bots",
+        "https://dynamic.xyz/docs/sign-in-sign-up/overview",
+        "https://dynamic.xyz/docs/social-providers/telegram",
+        "https://dynamic.xyz/docs/wallets/embedded-wallets/create-embedded-wallets",
+        "https://dynamic.xyz/docs/wallets/embedded-wallets/mpc/delegated-access/revoking-delegation",
+        "https://dynamic.xyz/stablecoins/N/A",
+        "https://dynamic.xyz/use-case-categories/Claynosaurz",
+        "https://dynamic.xyz/use-case-categories/analytics",
+        "https://dynamic.xyz/use-case-categories/bridge",
+        "https://dynamic.xyz/use-case-categories/chains",
+        "https://dynamic.xyz/use-case-categories/consumer-apps",
+        "https://dynamic.xyz/use-case-categories/marketplaces",
+        "https://dynamic.xyz/use-case-categories/rwas",
+        "https://dynamic.xyz/use-case-categories/stabelcoin-payment",
+        "https://dynamic.xyz/use-case-categories/token-management"
+      ],
+      "repo_broken_links": [],
+      "confirmed_broken_links_detailed": [
+        {
+          "target_url": "http://dynamic.xyz/Claynosaurz",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "http://dynamic.xyz/customer-map",
+              "anchor_text": "View site Claynosaurz A Web3 gaming project featuring collectible NFT characters and immersive gameplay experiences."
+            }
+          ]
+        },
+        {
+          "target_url": "http://dynamic.xyz/category/security",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "http://dynamic.xyz/blog/a-deep-dive-into-tss-mpc",
+              "anchor_text": "Security"
+            },
+            {
+              "source_page": "http://dynamic.xyz/blog/beyond-the-speed-myth-why-tss-mpc-performance-is-already-a-solved-problem",
+              "anchor_text": "Security"
+            },
+            {
+              "source_page": "http://dynamic.xyz/blog/built-for-trust-how-dynamic-keeps-raising-the-bar-on-security",
+              "anchor_text": "Security"
+            },
+            {
+              "source_page": "http://dynamic.xyz/blog/how-to-add-passkeys-and-mfa-to-embedded-crypto-wallets",
+              "anchor_text": "Security"
+            },
+            {
+              "source_page": "http://dynamic.xyz/blog/the-biggest-threat-vectors-in-crypto-and-how-dynamic-protects-against-them",
+              "anchor_text": "Security"
+            }
+          ]
+        },
+        {
+          "target_url": "http://dynamic.xyz/cdn-cgi/l/email-protection",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "http://dynamic.xyz/",
+              "anchor_text": "[email\u00a0protected]"
+            },
+            {
+              "source_page": "http://dynamic.xyz/2025-stablecoin-playbook",
+              "anchor_text": "[email\u00a0protected]"
+            },
+            {
+              "source_page": "http://dynamic.xyz/agentic-finance-and-stablecoins",
+              "anchor_text": "[email\u00a0protected]"
+            },
+            {
+              "source_page": "http://dynamic.xyz/company",
+              "anchor_text": "[email\u00a0protected]"
+            },
+            {
+              "source_page": "http://dynamic.xyz/brandingkit",
+              "anchor_text": "[email\u00a0protected]"
+            }
+          ]
+        },
+        {
+          "target_url": "http://dynamic.xyz/stablecoins/N/A",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "http://dynamic.xyz/stablecoins/ecosystem-map",
+              "anchor_text": ""
+            }
+          ]
+        },
+        {
+          "target_url": "http://dynamic.xyz/use-case-categories/Claynosaurz",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "http://dynamic.xyz/use-case-categories/defi",
+              "anchor_text": "View site Claynosaurz A Web3 gaming project featuring collectible NFT characters and immersive gameplay experiences."
+            },
+            {
+              "source_page": "http://dynamic.xyz/use-case-categories/gaming",
+              "anchor_text": "View site Claynosaurz A Web3 gaming project featuring collectible NFT characters and immersive gameplay experiences."
+            }
+          ]
+        },
+        {
+          "target_url": "http://dynamic.xyz/use-case-categories/analytics",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "http://dynamic.xyz/customer-map",
+              "anchor_text": "Analytics"
+            },
+            {
+              "source_page": "http://dynamic.xyz/customers/aixbt",
+              "anchor_text": "Analytics"
+            },
+            {
+              "source_page": "http://dynamic.xyz/customers/caesar",
+              "anchor_text": "Analytics"
+            },
+            {
+              "source_page": "http://dynamic.xyz/customers/databis",
+              "anchor_text": "Analytics"
+            },
+            {
+              "source_page": "http://dynamic.xyz/customers/nansen",
+              "anchor_text": "Analytics"
+            }
+          ]
+        },
+        {
+          "target_url": "http://dynamic.xyz/use-case-categories/bridge",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "http://dynamic.xyz/customer-map",
+              "anchor_text": "Bridge"
+            },
+            {
+              "source_page": "http://dynamic.xyz/customers/eclipse",
+              "anchor_text": "Bridge"
+            },
+            {
+              "source_page": "http://dynamic.xyz/customers/gas-zip",
+              "anchor_text": "Bridge"
+            },
+            {
+              "source_page": "http://dynamic.xyz/customers/relay",
+              "anchor_text": "Bridge"
+            },
+            {
+              "source_page": "http://dynamic.xyz/customers/starkware",
+              "anchor_text": "Bridge"
+            }
+          ]
+        },
+        {
+          "target_url": "http://dynamic.xyz/use-case-categories/chains",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "http://dynamic.xyz/customer-map",
+              "anchor_text": "Chains"
+            },
+            {
+              "source_page": "http://dynamic.xyz/customers/nexus",
+              "anchor_text": "Chains"
+            },
+            {
+              "source_page": "http://dynamic.xyz/customers/aptos",
+              "anchor_text": "Chains"
+            },
+            {
+              "source_page": "http://dynamic.xyz/customers/berachain",
+              "anchor_text": "Chains"
+            },
+            {
+              "source_page": "http://dynamic.xyz/customers/caldera",
+              "anchor_text": "Chains"
+            }
+          ]
+        },
+        {
+          "target_url": "http://dynamic.xyz/use-case-categories/consumer-apps",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "http://dynamic.xyz/customer-map",
+              "anchor_text": "Consumer Apps"
+            },
+            {
+              "source_page": "http://dynamic.xyz/customers/kraken",
+              "anchor_text": "Consumer Apps"
+            },
+            {
+              "source_page": "http://dynamic.xyz/customers/magic-eden",
+              "anchor_text": "Consumer Apps"
+            },
+            {
+              "source_page": "http://dynamic.xyz/customers/lighter",
+              "anchor_text": "Consumer Apps"
+            },
+            {
+              "source_page": "http://dynamic.xyz/customers/defi-app",
+              "anchor_text": "Consumer Apps"
+            }
+          ]
+        },
+        {
+          "target_url": "http://dynamic.xyz/use-case-categories/marketplaces",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "http://dynamic.xyz/customer-map",
+              "anchor_text": "Marketplaces"
+            },
+            {
+              "source_page": "http://dynamic.xyz/customers/magic-eden",
+              "anchor_text": "Marketplaces"
+            },
+            {
+              "source_page": "http://dynamic.xyz/customers/chimpers",
+              "anchor_text": "Marketplaces"
+            },
+            {
+              "source_page": "http://dynamic.xyz/customers/doodles",
+              "anchor_text": "Marketplaces"
+            },
+            {
+              "source_page": "http://dynamic.xyz/customers/kiki",
+              "anchor_text": "Marketplaces"
+            }
+          ]
+        },
+        {
+          "target_url": "http://dynamic.xyz/use-case-categories/rwas",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "http://dynamic.xyz/customer-map",
+              "anchor_text": "RWAs"
+            },
+            {
+              "source_page": "http://dynamic.xyz/customers/maple",
+              "anchor_text": "RWAs"
+            },
+            {
+              "source_page": "http://dynamic.xyz/customers/ondo-finance",
+              "anchor_text": "RWAs"
+            },
+            {
+              "source_page": "http://dynamic.xyz/customers/epic-chain",
+              "anchor_text": "RWAs"
+            },
+            {
+              "source_page": "http://dynamic.xyz/customers/gaib-ai",
+              "anchor_text": "RWAs"
+            }
+          ]
+        },
+        {
+          "target_url": "http://dynamic.xyz/use-case-categories/stabelcoin-payment",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "http://dynamic.xyz/customer-map",
+              "anchor_text": "Stablecoin Payments"
+            },
+            {
+              "source_page": "http://dynamic.xyz/customers/stripe",
+              "anchor_text": "Stablecoin Payments"
+            },
+            {
+              "source_page": "http://dynamic.xyz/customers/acctual",
+              "anchor_text": "Stablecoin Payments"
+            },
+            {
+              "source_page": "http://dynamic.xyz/customers/coinshift",
+              "anchor_text": "Stablecoin Payments"
+            },
+            {
+              "source_page": "http://dynamic.xyz/customers/intersend",
+              "anchor_text": "Stablecoin Payments"
+            }
+          ]
+        },
+        {
+          "target_url": "http://dynamic.xyz/use-case-categories/token-management",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "http://dynamic.xyz/customer-map",
+              "anchor_text": "Token Management"
+            },
+            {
+              "source_page": "http://dynamic.xyz/customers/beluga",
+              "anchor_text": "Token Management"
+            },
+            {
+              "source_page": "http://dynamic.xyz/customers/bucket-fi",
+              "anchor_text": "Token Management"
+            },
+            {
+              "source_page": "http://dynamic.xyz/customers/fuul",
+              "anchor_text": "Token Management"
+            },
+            {
+              "source_page": "http://dynamic.xyz/customers/legion",
+              "anchor_text": "Token Management"
+            }
+          ]
+        },
+        {
+          "target_url": "https://dynamic.xyz/Claynosaurz",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://dynamic.xyz/customer-map",
+              "anchor_text": "View site Claynosaurz A Web3 gaming project featuring collectible NFT characters and immersive gameplay experiences."
+            }
+          ]
+        },
+        {
+          "target_url": "https://dynamic.xyz/category/security",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://dynamic.xyz/blog/a-deep-dive-into-tss-mpc",
+              "anchor_text": "Security"
+            },
+            {
+              "source_page": "https://dynamic.xyz/blog/built-for-trust-how-dynamic-keeps-raising-the-bar-on-security",
+              "anchor_text": "Security"
+            },
+            {
+              "source_page": "https://dynamic.xyz/blog/beyond-the-speed-myth-why-tss-mpc-performance-is-already-a-solved-problem",
+              "anchor_text": "Security"
+            },
+            {
+              "source_page": "https://dynamic.xyz/blog/how-to-add-passkeys-and-mfa-to-embedded-crypto-wallets",
+              "anchor_text": "Security"
+            },
+            {
+              "source_page": "https://dynamic.xyz/blog/the-biggest-threat-vectors-in-crypto-and-how-dynamic-protects-against-them",
+              "anchor_text": "Security"
+            }
+          ]
+        },
+        {
+          "target_url": "https://dynamic.xyz/cdn-cgi/l/email-protection",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://dynamic.xyz/docs",
+              "anchor_text": "[email\u00a0protected]"
+            },
+            {
+              "source_page": "https://dynamic.xyz/docs/overview/authentication/tokens",
+              "anchor_text": "[email\u00a0protected]"
+            },
+            {
+              "source_page": "https://dynamic.xyz/docs/overview/authentication/bring-your-own-auth",
+              "anchor_text": "[email\u00a0protected]"
+            },
+            {
+              "source_page": "https://dynamic.xyz/docs/overview/introduction/welcome",
+              "anchor_text": "[email\u00a0protected]"
+            },
+            {
+              "source_page": "https://dynamic.xyz/docs/overview/go-live-checklist",
+              "anchor_text": "[email\u00a0protected]"
+            }
+          ]
+        },
+        {
+          "target_url": "https://dynamic.xyz/docs/api-reference/events/getEventTypes",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://dynamic.xyz/docs/overview/developer-dashboard/webhooks/events",
+              "anchor_text": "here"
+            }
+          ]
+        },
+        {
+          "target_url": "https://dynamic.xyz/docs/api-reference/users/bulkCreateUser",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://dynamic.xyz/docs/overview/migrations/migration-guide",
+              "anchor_text": "Bulk upsert your users into Dynamic"
+            }
+          ]
+        },
+        {
+          "target_url": "https://dynamic.xyz/docs/api-reference/users/createUser",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://dynamic.xyz/docs/overview/migrations/tutorials/importing",
+              "anchor_text": "API reference"
+            }
+          ]
+        },
+        {
+          "target_url": "https://dynamic.xyz/docs/api-reference/users/getUserOauthAccessToken",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://dynamic.xyz/docs/overview/social-providers/overview",
+              "anchor_text": "this API\nrequest"
+            }
+          ]
+        },
+        {
+          "target_url": "https://dynamic.xyz/docs/api-reference/wallets/createEmbeddedWalletFromFarcaster",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://dynamic.xyz/docs/recipes/integrations/farcaster/embedded-wallet-frame",
+              "anchor_text": "here"
+            }
+          ]
+        },
+        {
+          "target_url": "https://dynamic.xyz/docs/api-reference/wallets/createWallet",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://dynamic.xyz/docs/overview/migrations/migration-guide",
+              "anchor_text": "create wallet"
+            },
+            {
+              "source_page": "https://dynamic.xyz/docs/react/reference/upgrade/v1",
+              "anchor_text": "here"
+            }
+          ]
+        },
+        {
+          "target_url": "https://dynamic.xyz/docs/overview/wallets/embedded-wallets/mpc/overview/developer-dashboard/webhooks/events",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://dynamic.xyz/docs/overview/wallets/embedded-wallets/mpc/google-drive-backup",
+              "anchor_text": "webhook events"
+            }
+          ]
+        },
+        {
+          "target_url": "https://dynamic.xyz/docs/overview/wallets/embedded-wallets/mpc/overview/wallets/embedded-wallets/mpc/configuration-guide",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://dynamic.xyz/docs/overview/wallets/embedded-wallets/mpc/google-drive-backup",
+              "anchor_text": "password for the key share"
+            }
+          ]
+        },
+        {
+          "target_url": "https://dynamic.xyz/docs/overview/wallets/embedded-wallets/mpc/overview/wallets/embedded-wallets/mpc/icloud-backup",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://dynamic.xyz/docs/overview/wallets/embedded-wallets/mpc/google-drive-backup",
+              "anchor_text": "iCloud backup"
+            }
+          ]
+        },
+        {
+          "target_url": "https://dynamic.xyz/docs/react-native/global-wallets/react/using-our-ui/design-customizations/css/css-variables",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://dynamic.xyz/docs/react-native/global-wallets/create-your-own-package",
+              "anchor_text": "CSS Variables"
+            }
+          ]
+        },
+        {
+          "target_url": "https://dynamic.xyz/docs/react-native/global-wallets/react/using-our-ui/design-customizations/css/custom-css",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://dynamic.xyz/docs/react-native/global-wallets/create-your-own-package",
+              "anchor_text": "Custom CSS"
+            }
+          ]
+        },
+        {
+          "target_url": "https://dynamic.xyz/docs/react-sdk/hooks/useconnectwithemailotp",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://dynamic.xyz/docs/react/reference/upgrade/v2",
+              "anchor_text": "useConnectWithEmailOtp"
+            }
+          ]
+        },
+        {
+          "target_url": "https://dynamic.xyz/docs/react/global-wallets/react/using-our-ui/design-customizations/css/css-variables",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://dynamic.xyz/docs/react/global-wallets/create-your-own-package",
+              "anchor_text": "CSS Variables"
+            }
+          ]
+        },
+        {
+          "target_url": "https://dynamic.xyz/docs/react/global-wallets/react/using-our-ui/design-customizations/css/custom-css",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://dynamic.xyz/docs/react/global-wallets/create-your-own-package",
+              "anchor_text": "Custom CSS"
+            }
+          ]
+        },
+        {
+          "target_url": "https://dynamic.xyz/docs/recipes/stablecoins/recipes/integrations/telegram/telegram-server-wallets-bots",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://dynamic.xyz/docs/recipes/stablecoins/quick-start",
+              "anchor_text": "here"
+            }
+          ]
+        },
+        {
+          "target_url": "https://dynamic.xyz/docs/sign-in-sign-up/overview",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://dynamic.xyz/docs/recipes/webhooks-xmtp",
+              "anchor_text": "https://dynamic.xyz/docs/sign-in-sign-up/overview"
+            }
+          ]
+        },
+        {
+          "target_url": "https://dynamic.xyz/docs/social-providers/telegram",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://dynamic.xyz/docs/recipes/integrations/telegram/telegram-auto-wallets",
+              "anchor_text": "here"
+            }
+          ]
+        },
+        {
+          "target_url": "https://dynamic.xyz/docs/wallets/embedded-wallets/create-embedded-wallets",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://dynamic.xyz/docs/overview/security/recommendedpaths",
+              "anchor_text": "here"
+            }
+          ]
+        },
+        {
+          "target_url": "https://dynamic.xyz/docs/wallets/embedded-wallets/mpc/delegated-access/revoking-delegation",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://dynamic.xyz/docs/javascript/authentication-methods/mfa/action-based",
+              "anchor_text": "delegated access"
+            }
+          ]
+        },
+        {
+          "target_url": "https://dynamic.xyz/stablecoins/N/A",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://dynamic.xyz/stablecoins/ecosystem-map",
+              "anchor_text": ""
+            }
+          ]
+        },
+        {
+          "target_url": "https://dynamic.xyz/use-case-categories/Claynosaurz",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://dynamic.xyz/use-case-categories/gaming",
+              "anchor_text": "View site Claynosaurz A Web3 gaming project featuring collectible NFT characters and immersive gameplay experiences."
+            },
+            {
+              "source_page": "https://dynamic.xyz/use-case-categories/defi",
+              "anchor_text": "View site Claynosaurz A Web3 gaming project featuring collectible NFT characters and immersive gameplay experiences."
+            }
+          ]
+        },
+        {
+          "target_url": "https://dynamic.xyz/use-case-categories/analytics",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://dynamic.xyz/customer-map",
+              "anchor_text": "Analytics"
+            },
+            {
+              "source_page": "https://dynamic.xyz/customers/aixbt",
+              "anchor_text": "Analytics"
+            },
+            {
+              "source_page": "https://dynamic.xyz/use-case-categories/gaming",
+              "anchor_text": "Analytics"
+            },
+            {
+              "source_page": "https://dynamic.xyz/customers/nansen",
+              "anchor_text": "Analytics"
+            },
+            {
+              "source_page": "https://dynamic.xyz/use-case-categories/defi",
+              "anchor_text": "Analytics"
+            }
+          ]
+        },
+        {
+          "target_url": "https://dynamic.xyz/use-case-categories/bridge",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://dynamic.xyz/customer-map",
+              "anchor_text": "Bridge"
+            },
+            {
+              "source_page": "https://dynamic.xyz/use-case-categories/gaming",
+              "anchor_text": "Bridge"
+            },
+            {
+              "source_page": "https://dynamic.xyz/customers/eclipse",
+              "anchor_text": "Bridge"
+            },
+            {
+              "source_page": "https://dynamic.xyz/use-case-categories/defi",
+              "anchor_text": "Bridge"
+            },
+            {
+              "source_page": "https://dynamic.xyz/customers/gas-zip",
+              "anchor_text": "Bridge"
+            }
+          ]
+        },
+        {
+          "target_url": "https://dynamic.xyz/use-case-categories/chains",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://dynamic.xyz/customers/nexus",
+              "anchor_text": "Chains"
+            },
+            {
+              "source_page": "https://dynamic.xyz/customer-map",
+              "anchor_text": "Chains"
+            },
+            {
+              "source_page": "https://dynamic.xyz/customers/tron",
+              "anchor_text": "Chains"
+            },
+            {
+              "source_page": "https://dynamic.xyz/use-case-categories/gaming",
+              "anchor_text": "Chains"
+            },
+            {
+              "source_page": "https://dynamic.xyz/customers/eclipse",
+              "anchor_text": "Chains"
+            }
+          ]
+        },
+        {
+          "target_url": "https://dynamic.xyz/use-case-categories/consumer-apps",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://dynamic.xyz/customers/magic-eden",
+              "anchor_text": "Consumer Apps"
+            },
+            {
+              "source_page": "https://dynamic.xyz/customers/kraken",
+              "anchor_text": "Consumer Apps"
+            },
+            {
+              "source_page": "https://dynamic.xyz/customers/defi-app",
+              "anchor_text": "Consumer Apps"
+            },
+            {
+              "source_page": "https://dynamic.xyz/customers/lighter",
+              "anchor_text": "Consumer Apps"
+            },
+            {
+              "source_page": "https://dynamic.xyz/customer-map",
+              "anchor_text": "Consumer Apps"
+            }
+          ]
+        },
+        {
+          "target_url": "https://dynamic.xyz/use-case-categories/marketplaces",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://dynamic.xyz/customers/magic-eden",
+              "anchor_text": "Marketplaces"
+            },
+            {
+              "source_page": "https://dynamic.xyz/customer-map",
+              "anchor_text": "Marketplaces"
+            },
+            {
+              "source_page": "https://dynamic.xyz/use-case-categories/gaming",
+              "anchor_text": "Marketplaces"
+            },
+            {
+              "source_page": "https://dynamic.xyz/customers/doodles",
+              "anchor_text": "Marketplaces"
+            },
+            {
+              "source_page": "https://dynamic.xyz/customers/pudgy-penguins-and-snag-solutions",
+              "anchor_text": "Marketplaces"
+            }
+          ]
+        },
+        {
+          "target_url": "https://dynamic.xyz/use-case-categories/rwas",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://dynamic.xyz/customers/maple",
+              "anchor_text": "RWAs"
+            },
+            {
+              "source_page": "https://dynamic.xyz/customers/ondo-finance",
+              "anchor_text": "RWAs"
+            },
+            {
+              "source_page": "https://dynamic.xyz/customer-map",
+              "anchor_text": "RWAs"
+            },
+            {
+              "source_page": "https://dynamic.xyz/use-case-categories/gaming",
+              "anchor_text": "RWAs"
+            },
+            {
+              "source_page": "https://dynamic.xyz/use-case-categories/defi",
+              "anchor_text": "RWAs"
+            }
+          ]
+        },
+        {
+          "target_url": "https://dynamic.xyz/use-case-categories/stabelcoin-payment",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://dynamic.xyz/customer-map",
+              "anchor_text": "Stablecoin Payments"
+            },
+            {
+              "source_page": "https://dynamic.xyz/customers/stripe",
+              "anchor_text": "Stablecoin Payments"
+            },
+            {
+              "source_page": "https://dynamic.xyz/customers/noble",
+              "anchor_text": "Stablecoin Payments"
+            },
+            {
+              "source_page": "https://dynamic.xyz/customers/acctual",
+              "anchor_text": "Stablecoin Payments"
+            },
+            {
+              "source_page": "https://dynamic.xyz/use-case-categories/gaming",
+              "anchor_text": "Stablecoin Payments"
+            }
+          ]
+        },
+        {
+          "target_url": "https://dynamic.xyz/use-case-categories/token-management",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://dynamic.xyz/customer-map",
+              "anchor_text": "Token Management"
+            },
+            {
+              "source_page": "https://dynamic.xyz/use-case-categories/gaming",
+              "anchor_text": "Token Management"
+            },
+            {
+              "source_page": "https://dynamic.xyz/customers/tokenproof",
+              "anchor_text": "Token Management"
+            },
+            {
+              "source_page": "https://dynamic.xyz/customers/tokenops",
+              "anchor_text": "Token Management"
+            },
+            {
+              "source_page": "https://dynamic.xyz/use-case-categories/defi",
+              "anchor_text": "Token Management"
+            }
+          ]
+        }
+      ],
+      "unverified_links_sample": [
+        "https://dynamic.xyz/docs/api-reference/sdk/register-a-new-passkey-mfa-device",
+        "https://dynamic.xyz/docs/javascript/reference/starknet/javascript/reference/starknet/checking-starknet-wallet-account-type",
+        "https://dynamic.xyz/docs/react-native/wallets/using-wallets/solana/gasless-transactions",
+        "https://dynamic.xyz/docs/react-sdk/hooks/usereinitialize",
+        "https://dynamic.xyz/docs/react/chains/enabling-chains.mdx",
+        "https://dynamic.xyz/docs/react/reference/hooks/funding",
+        "https://dynamic.xyz/docs/react/reference/hooks/login-user-management",
+        "https://dynamic.xyz/docs/react/reference/hooks/wallets",
+        "https://dynamic.xyz/docs/react/wallets/using-wallets"
+      ]
+    }
+  ]
+}

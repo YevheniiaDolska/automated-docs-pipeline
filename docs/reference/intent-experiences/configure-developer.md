@@ -194,11 +194,13 @@ Auto-generated asyncapi reference from source contract.
 <div id="asyncapi-playground" style="border:1px solid #d1d5db; padding:12px; border-radius:8px;">
   <p><strong>WebSocket Endpoint:</strong> <code id="asyncapi-ws-view"></code></p>
   <p><strong>HTTP Publish Endpoint:</strong> <code id="asyncapi-http-view"></code></p>
+  <!-- vale off -->
   <textarea id="asyncapi-message" rows="8" style="width:100%; font-family:monospace;">{
   "event_type": "project.updated",
   "event_id": "evt_001",
   "data": {"project_id": "prj_abc123", "status": "active"}
 }</textarea><br/>
+  <!-- vale on -->
   <button id="asyncapi-send-ws">Send via WebSocket</button>
   <button id="asyncapi-send-http">Send via HTTP</button>
   <pre id="asyncapi-output" style="margin-top:12px; max-height:320px; overflow:auto;"></pre>
@@ -3443,11 +3445,13 @@ if (!timestamp || !receivedSig) {
     Buffer.from(receivedSig)
   );
 }
+```
 
 ### Set up a real-time webhook processing pipeline (Part 6)
 
 Configure end-to-end webhook ingestion with HMAC verification, async queue processing, and delivery guarantees in under 15 minutes.
 
+```javascript
 // Test verification
 const testPayload = '{"event": "order.completed", "order_id": "ord_1234"}';
 const testSecret = 'whsec_test_secret_key_abc123_min32chars';
@@ -3505,9 +3509,7 @@ const worker = new Worker('webhook-events', async (job) => {
   const event = job.data;
   console.log(`Processing ${event.type}: ${JSON.stringify(event)}`);
 
-### Set up a real-time webhook processing pipeline (Part 8)
-
-Configure end-to-end webhook ingestion with HMAC verification, async queue processing, and delivery guarantees in under 15 minutes.
+// Part 8: route and process events in worker handlers.
 
 // Route to appropriate handler
   switch (event.type) {

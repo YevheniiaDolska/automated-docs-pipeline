@@ -1,0 +1,57 @@
+{
+  "status": "ok",
+  "model": "claude-sonnet-4-5",
+  "analysis": {
+    "executive_summary": "Audit of Meilisearch documentation (https://www.meilisearch.com/docs) covered 402 pages with 91.5% overall confidence. The site contains 2 confirmed broken internal documentation links requiring immediate repair. API reference coverage stands at 50.0% across 336 detected API pages, indicating significant gaps in usage documentation. Zero percent example reliability and only 5.47% freshness coverage present substantial user trust and maintenance visibility concerns.",
+    "strengths": [
+      "Complete crawl coverage at 100.25% with all 402 discovered pages successfully examined",
+      "No repository navigation (GitHub/GitLab) broken links detected; all 2 broken links are user-facing documentation",
+      "High overall audit confidence at 91.5% with strong crawl (95%) and link validation (95%) metrics",
+      "Single-product topology provides clear documentation structure for users",
+      "Low SEO/geo issue rate at 9.02% indicates good technical page optimization"
+    ],
+    "risks": [
+      "50% API reference coverage means half of API pages lack adequate usage documentation or examples",
+      "0% example reliability estimate suggests code examples are untested, outdated, or unverifiable",
+      "Only 5.47% of pages display last-updated timestamps, hiding content freshness from users",
+      "2 confirmed broken internal documentation links degrade user navigation and trust",
+      "336 API pages detected but only half have sufficient reference coverage creates incomplete developer experience",
+      "Lack of freshness metadata prevents users from assessing documentation currency across 94.53% of content",
+      "Zero example reliability may lead to user frustration with non-functional code samples"
+    ],
+    "prioritized_actions": [
+      {
+        "action": "Repair 2 confirmed broken internal documentation links immediately",
+        "impact": "critical",
+        "effort": "low"
+      },
+      {
+        "action": "Implement last-updated timestamps on all 402 pages to improve freshness visibility from 5.47% to 100%",
+        "impact": "high",
+        "effort": "low"
+      },
+      {
+        "action": "Establish automated example testing pipeline to validate code samples and raise reliability from 0%",
+        "impact": "critical",
+        "effort": "high"
+      },
+      {
+        "action": "Audit 336 API pages and create usage documentation for the 50% lacking reference coverage",
+        "impact": "high",
+        "effort": "high"
+      },
+      {
+        "action": "Deploy continuous link monitoring to prevent future broken link accumulation",
+        "impact": "medium",
+        "effort": "medium"
+      }
+    ],
+    "limitations": [
+      "External audit cannot verify actual functionality or accuracy of code examples, only detect their presence and structure",
+      "API coverage detection relies on page structure patterns; actual completeness of API documentation requires domain expertise review",
+      "Crawl cannot assess content quality, technical accuracy, or alignment with current product version",
+      "Link validation confirms HTTP responses but cannot verify contextual appropriateness of link destinations",
+      "Freshness detection depends on visible metadata; actual content currency may differ from displayed timestamps"
+    ]
+  }
+}

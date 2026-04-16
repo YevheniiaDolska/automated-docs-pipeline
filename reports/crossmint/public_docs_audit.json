@@ -1,0 +1,278 @@
+{
+  "generated_at": "2026-04-16T08:03:18.656207+00:00",
+  "site_url": "https://docs.crossmint.com/",
+  "site_urls": [
+    "https://docs.crossmint.com/"
+  ],
+  "topology_mode": "multi-project",
+  "verification_modes": [
+    "authenticated",
+    "bot",
+    "browser"
+  ],
+  "sites": [
+    {
+      "site_url": "https://docs.crossmint.com/",
+      "metrics": {
+        "crawl": {
+          "pages_crawled": 956,
+          "requested_pages": 981,
+          "urls_examined": 956,
+          "max_pages": 5000,
+          "effective_limit": 5000,
+          "auto_mode": false,
+          "stop_reason": "queue_exhausted",
+          "discovered_pages": 956,
+          "crawl_scope_basis": "sitemap",
+          "crawl_scope_pages": 955,
+          "crawl_coverage_pct": 100.1,
+          "trap_urls_skipped": 0,
+          "seeded_sitemap_urls": 955,
+          "robots_sitemaps_declared": 1
+        },
+        "links": {
+          "internal_links_checked": 981,
+          "broken_internal_links_count": 0,
+          "docs_broken_links_count": 0,
+          "repo_broken_links_count": 0,
+          "broken_internal_link_samples": [],
+          "docs_broken_link_samples": [],
+          "repo_broken_link_samples": [],
+          "unreachable_links_count": 0,
+          "unverified_links_count": 4,
+          "unverified_link_samples": [
+            "https://docs.crossmint.com/docs/metadata",
+            "https://docs.crossmint.com/docs/mintapi-webhooks",
+            "https://docs.crossmint.com/minting/advanced/specify-recipient",
+            "https://docs.crossmint.com/sdk-reference/wallets/typescript/classes"
+          ],
+          "confirmed_broken_links_count": 0,
+          "excluded_links_count": 0,
+          "excluded_link_samples": [],
+          "_all_confirmed_broken_links": [],
+          "_all_unverified_links": [
+            "https://docs.crossmint.com/docs/metadata",
+            "https://docs.crossmint.com/docs/mintapi-webhooks",
+            "https://docs.crossmint.com/minting/advanced/specify-recipient",
+            "https://docs.crossmint.com/sdk-reference/wallets/typescript/classes"
+          ],
+          "_all_excluded_links": [],
+          "_all_docs_unverified_links": [
+            "https://docs.crossmint.com/docs/metadata",
+            "https://docs.crossmint.com/docs/mintapi-webhooks",
+            "https://docs.crossmint.com/minting/advanced/specify-recipient",
+            "https://docs.crossmint.com/sdk-reference/wallets/typescript/classes"
+          ],
+          "_all_repo_unverified_links": [],
+          "_broken_link_provenance": {}
+        },
+        "seo_geo": {
+          "pages_scanned": 956,
+          "missing_title_count": 0,
+          "missing_description_count": 129,
+          "multiple_h1_count": 5,
+          "heading_hierarchy_jump_count": 108,
+          "seo_geo_issue_rate_pct": 6.33
+        },
+        "api_coverage": {
+          "reference_endpoint_count": 1,
+          "api_pages_detected": 790,
+          "endpoints_with_usage_docs": 0,
+          "reference_endpoints_without_usage_docs": 1,
+          "reference_coverage_pct": 0.0,
+          "no_api_pages_found": false,
+          "coverage_determined": true,
+          "coverage_method": "source_of_truth",
+          "detection_note": "",
+          "uncovered_endpoint_samples": [
+            "gql:parameter"
+          ]
+        },
+        "examples": {
+          "total_code_examples": 0,
+          "total_code_blocks_all": 3964,
+          "runnable_without_env": 0,
+          "blocked_by_placeholders": 0,
+          "network_bound_examples": 0,
+          "example_reliability_estimate_pct": 0.0,
+          "detection_note": "No executable code blocks detected (3964 data-only blocks found). Site may use non-standard code rendering that the auditor does not recognize, or all examples are in data formats (YAML/JSON)."
+        },
+        "freshness": {
+          "pages_with_last_updated_hint": 121,
+          "pages_without_last_updated_hint": 835,
+          "last_updated_coverage_pct": 12.66,
+          "samples_with_last_updated": [
+            {
+              "url": "https://docs.crossmint.com/api-reference/headless/get-order",
+              "hint": "2022-06-09"
+            },
+            {
+              "url": "https://docs.crossmint.com/api-reference/headless/create-order",
+              "hint": "https://staging.crossmint.com/api/2022-06-09/orders"
+            },
+            {
+              "url": "https://docs.crossmint.com/api-reference/headless/process-payment",
+              "hint": "2022-06-09"
+            },
+            {
+              "url": "https://docs.crossmint.com/api-reference/common/get-action-status",
+              "hint": "2022-06-09"
+            },
+            {
+              "url": "https://docs.crossmint.com/api-reference/headless/edit-order",
+              "hint": "2022-06-09"
+            },
+            {
+              "url": "https://docs.crossmint.com/api-reference/minting/collection/create-collection",
+              "hint": "https://staging.crossmint.com/api/2022-06-09/collections/"
+            },
+            {
+              "url": "https://docs.crossmint.com/api-reference/minting/collection/create-collection-idempotent",
+              "hint": "2022-06-09"
+            },
+            {
+              "url": "https://docs.crossmint.com/api-reference/minting/collection/get-all-collections",
+              "hint": "2022-06-09"
+            },
+            {
+              "url": "https://docs.crossmint.com/api-reference/minting/collection/get-collection",
+              "hint": "2022-06-09"
+            },
+            {
+              "url": "https://docs.crossmint.com/api-reference/minting/collection/update-collection",
+              "hint": "2022-06-09"
+            }
+          ]
+        }
+      },
+      "samples": {
+        "broken_links": [],
+        "docs_broken_link_samples": [],
+        "repo_broken_link_samples": [],
+        "unverified_link_samples": [
+          "https://docs.crossmint.com/docs/metadata",
+          "https://docs.crossmint.com/docs/mintapi-webhooks",
+          "https://docs.crossmint.com/minting/advanced/specify-recipient",
+          "https://docs.crossmint.com/sdk-reference/wallets/typescript/classes"
+        ],
+        "api_uncovered_samples": [
+          "gql:parameter"
+        ]
+      },
+      "run_count": 1
+    }
+  ],
+  "aggregate": {
+    "metrics": {
+      "crawl": {
+        "pages_crawled": 956,
+        "requested_pages": 981,
+        "urls_examined": 956,
+        "max_pages_total": 5000,
+        "discovered_pages": 956,
+        "crawl_scope_pages": 955,
+        "trap_urls_skipped": 0,
+        "crawl_coverage_pct": 100.1
+      },
+      "links": {
+        "broken_internal_links_count": 0,
+        "docs_broken_links_count": 0,
+        "repo_broken_links_count": 0,
+        "unverified_links_count": 4,
+        "confirmed_broken_links_count": 0,
+        "excluded_links_count": 0
+      },
+      "seo_geo": {
+        "seo_geo_issue_rate_pct": 6.33
+      },
+      "api_coverage": {
+        "reference_coverage_pct": 0.0,
+        "no_api_pages_found": false,
+        "api_pages_detected": 790,
+        "coverage_determined": true,
+        "detection_note": ""
+      },
+      "examples": {
+        "example_reliability_estimate_pct": 0.0
+      },
+      "freshness": {
+        "last_updated_coverage_pct": 12.66
+      }
+    },
+    "confidence": {
+      "overall_confidence_pct": 53.0,
+      "links_confidence_pct": 25.0,
+      "api_confidence_pct": 55.0,
+      "crawl_confidence_pct": 95.0
+    }
+  },
+  "confidence": {
+    "overall_confidence_pct": 53.0,
+    "links_confidence_pct": 25.0,
+    "api_confidence_pct": 55.0,
+    "crawl_confidence_pct": 95.0
+  },
+  "top_findings": [
+    "Link verification inconclusive for 4 URLs (auth/rate-limit/server block); these are excluded from broken-link counts.",
+    "API usage-doc coverage is low: 0.0% (790 API pages detected)",
+    "Example reliability: 0% on 956 pages (likely detection limitation). Site may use JS-rendered code blocks.",
+    "Freshness visibility is weak: only 12.66% pages show last updated"
+  ],
+  "llm_analysis": {
+    "status": "ok",
+    "model": "claude-sonnet-4-5",
+    "analysis": {
+      "executive_summary": "Crossmint documentation spans 956 pages with 100.1% crawl coverage and zero confirmed broken links. However, critical gaps exist: 0% API reference coverage despite 790 API pages detected, 0% example reliability (likely detection failure on JS-rendered code), and only 12.66% of pages display freshness timestamps. Overall audit confidence stands at 53%, with link verification at 25% confidence due to 4 unverified URLs. SEO/geo issues affect 6.33% of pages.",
+      "strengths": [
+        "Complete crawl coverage at 100.1% with 956 of 981 requested pages successfully indexed",
+        "Zero broken internal links and zero repository navigation link failures",
+        "Large documentation footprint with 790 API pages detected indicating comprehensive API surface coverage",
+        "No crawl traps or scope violations encountered during site traversal",
+        "Multi-project topology successfully mapped without structural issues"
+      ],
+      "risks": [
+        "0% API reference coverage indicates complete absence of usage examples, code samples, or integration guidance on 790 API pages",
+        "Example reliability at 0% suggests JavaScript-rendered code blocks are invisible to audit tooling, masking actual documentation quality",
+        "12.66% freshness coverage leaves 87% of pages without visible last-updated metadata, risking user trust in content accuracy",
+        "Overall audit confidence of 53% indicates significant blind spots in documentation quality assessment",
+        "4 unverified links due to auth/rate-limit/server blocks may hide accessibility issues for end users",
+        "Link verification confidence at 25% undermines reliability of zero-broken-link finding",
+        "6.33% SEO/geo issue rate may impact discoverability and international user experience"
+      ],
+      "prioritized_actions": [
+        {
+          "action": "Manually audit 20-sample API pages to verify if usage examples exist but are JS-rendered; if absent, create reference implementation templates for top 10 API endpoints",
+          "impact": "critical",
+          "effort": "medium"
+        },
+        {
+          "action": "Implement last-updated timestamps on all pages using build-time injection or git commit metadata to reach 95%+ freshness coverage",
+          "impact": "high",
+          "effort": "low"
+        },
+        {
+          "action": "Investigate 4 unverified links with authenticated testing to confirm accessibility; document or fix auth-gated resources",
+          "impact": "high",
+          "effort": "low"
+        },
+        {
+          "action": "Audit code block rendering to ensure examples are crawlable; migrate to SSR/SSG if currently client-side rendered",
+          "impact": "critical",
+          "effort": "high"
+        },
+        {
+          "action": "Resolve 6.33% SEO/geo issues by auditing meta tags, hreflang attributes, and regional content gaps",
+          "impact": "medium",
+          "effort": "medium"
+        }
+      ],
+      "limitations": [
+        "External audit cannot verify accuracy, correctness, or functional validity of API documentation content or code examples",
+        "JavaScript-rendered content (code blocks, interactive examples) may be invisible to crawler, causing false negatives on example reliability",
+        "Authentication-gated pages and rate-limited endpoints cannot be fully verified without production credentials",
+        "Audit cannot assess documentation comprehensiveness, pedagogical quality, or alignment with actual product capabilities",
+        "Confidence scores reflect tooling limitations; manual review required to validate 0% API coverage and example reliability findings"
+      ]
+    }
+  }
+}

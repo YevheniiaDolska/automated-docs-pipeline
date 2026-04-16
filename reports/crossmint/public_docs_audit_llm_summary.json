@@ -1,0 +1,57 @@
+{
+  "status": "ok",
+  "model": "claude-sonnet-4-5",
+  "analysis": {
+    "executive_summary": "Crossmint documentation spans 956 pages with 100.1% crawl coverage and zero confirmed broken links. However, critical gaps exist: 0% API reference coverage despite 790 API pages detected, 0% example reliability (likely detection failure on JS-rendered code), and only 12.66% of pages display freshness timestamps. Overall audit confidence stands at 53%, with link verification at 25% confidence due to 4 unverified URLs. SEO/geo issues affect 6.33% of pages.",
+    "strengths": [
+      "Complete crawl coverage at 100.1% with 956 of 981 requested pages successfully indexed",
+      "Zero broken internal links and zero repository navigation link failures",
+      "Large documentation footprint with 790 API pages detected indicating comprehensive API surface coverage",
+      "No crawl traps or scope violations encountered during site traversal",
+      "Multi-project topology successfully mapped without structural issues"
+    ],
+    "risks": [
+      "0% API reference coverage indicates complete absence of usage examples, code samples, or integration guidance on 790 API pages",
+      "Example reliability at 0% suggests JavaScript-rendered code blocks are invisible to audit tooling, masking actual documentation quality",
+      "12.66% freshness coverage leaves 87% of pages without visible last-updated metadata, risking user trust in content accuracy",
+      "Overall audit confidence of 53% indicates significant blind spots in documentation quality assessment",
+      "4 unverified links due to auth/rate-limit/server blocks may hide accessibility issues for end users",
+      "Link verification confidence at 25% undermines reliability of zero-broken-link finding",
+      "6.33% SEO/geo issue rate may impact discoverability and international user experience"
+    ],
+    "prioritized_actions": [
+      {
+        "action": "Manually audit 20-sample API pages to verify if usage examples exist but are JS-rendered; if absent, create reference implementation templates for top 10 API endpoints",
+        "impact": "critical",
+        "effort": "medium"
+      },
+      {
+        "action": "Implement last-updated timestamps on all pages using build-time injection or git commit metadata to reach 95%+ freshness coverage",
+        "impact": "high",
+        "effort": "low"
+      },
+      {
+        "action": "Investigate 4 unverified links with authenticated testing to confirm accessibility; document or fix auth-gated resources",
+        "impact": "high",
+        "effort": "low"
+      },
+      {
+        "action": "Audit code block rendering to ensure examples are crawlable; migrate to SSR/SSG if currently client-side rendered",
+        "impact": "critical",
+        "effort": "high"
+      },
+      {
+        "action": "Resolve 6.33% SEO/geo issues by auditing meta tags, hreflang attributes, and regional content gaps",
+        "impact": "medium",
+        "effort": "medium"
+      }
+    ],
+    "limitations": [
+      "External audit cannot verify accuracy, correctness, or functional validity of API documentation content or code examples",
+      "JavaScript-rendered content (code blocks, interactive examples) may be invisible to crawler, causing false negatives on example reliability",
+      "Authentication-gated pages and rate-limited endpoints cannot be fully verified without production credentials",
+      "Audit cannot assess documentation comprehensiveness, pedagogical quality, or alignment with actual product capabilities",
+      "Confidence scores reflect tooling limitations; manual review required to validate 0% API coverage and example reliability findings"
+    ]
+  }
+}

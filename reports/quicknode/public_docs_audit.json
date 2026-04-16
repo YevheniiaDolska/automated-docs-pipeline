@@ -1,0 +1,723 @@
+{
+  "generated_at": "2026-04-15T14:43:04.713765+00:00",
+  "site_url": "https://quicknode.com/docs",
+  "site_urls": [
+    "https://quicknode.com/docs"
+  ],
+  "topology_mode": "multi-project",
+  "verification_modes": [
+    "authenticated",
+    "bot",
+    "browser"
+  ],
+  "sites": [
+    {
+      "site_url": "https://quicknode.com/docs",
+      "metrics": {
+        "crawl": {
+          "pages_crawled": 9936,
+          "requested_pages": 10821,
+          "urls_examined": 10000,
+          "max_pages": 10000,
+          "effective_limit": 10000,
+          "auto_mode": false,
+          "stop_reason": "limit_reached",
+          "discovered_pages": 10166,
+          "crawl_scope_basis": "discovered",
+          "crawl_scope_pages": 10166,
+          "crawl_coverage_pct": 98.37,
+          "trap_urls_skipped": 6019,
+          "seeded_sitemap_urls": 0,
+          "robots_sitemaps_declared": 4
+        },
+        "links": {
+          "internal_links_checked": 10821,
+          "broken_internal_links_count": 25,
+          "docs_broken_links_count": 25,
+          "repo_broken_links_count": 0,
+          "broken_internal_link_samples": [
+            "http://quicknode.com/builders-guide/tools/discord.gg/HqYDWnMP6J",
+            "http://quicknode.com/calculator",
+            "http://quicknode.com/docs/bitcoin/bb_getAddress",
+            "http://quicknode.com/docs/quicknode-sdk/Core/Add-on%20RPC%20Functions",
+            "http://quicknode.com/docs/quicknode-sdk/Core/Core%20RPC%20Functions",
+            "http://quicknode.com/guides/tags/crossmint",
+            "http://quicknode.com/guides/tags/quick-alerts",
+            "http://quicknode.com/portfolio",
+            "http://quicknode.com/sample-app-library/claude_desktop_config.json",
+            "http://quicknode.com/solana/getTipAccounts",
+            "http://quicknode.com/streams/rest-api/getting-started",
+            "http://quicknode.com/validators",
+            "https://quicknode.com/builders-guide/tools/discord.gg/HqYDWnMP6J",
+            "https://quicknode.com/calculator",
+            "https://quicknode.com/docs/bitcoin/bb_getAddress",
+            "https://quicknode.com/docs/ethereum/goldrush-wallet-api/v1-chainName-event-eventType-gas_prices",
+            "https://quicknode.com/guides/social/warpcast.com/~/invite-page/214507",
+            "https://quicknode.com/guides/tags/crossmint",
+            "https://quicknode.com/guides/tags/quick-alerts",
+            "https://quicknode.com/portfolio"
+          ],
+          "docs_broken_link_samples": [
+            "http://quicknode.com/builders-guide/tools/discord.gg/HqYDWnMP6J",
+            "http://quicknode.com/calculator",
+            "http://quicknode.com/docs/bitcoin/bb_getAddress",
+            "http://quicknode.com/docs/quicknode-sdk/Core/Add-on%20RPC%20Functions",
+            "http://quicknode.com/docs/quicknode-sdk/Core/Core%20RPC%20Functions",
+            "http://quicknode.com/guides/tags/crossmint",
+            "http://quicknode.com/guides/tags/quick-alerts",
+            "http://quicknode.com/portfolio",
+            "http://quicknode.com/sample-app-library/claude_desktop_config.json",
+            "http://quicknode.com/solana/getTipAccounts",
+            "http://quicknode.com/streams/rest-api/getting-started",
+            "http://quicknode.com/validators",
+            "https://quicknode.com/builders-guide/tools/discord.gg/HqYDWnMP6J",
+            "https://quicknode.com/calculator",
+            "https://quicknode.com/docs/bitcoin/bb_getAddress",
+            "https://quicknode.com/docs/ethereum/goldrush-wallet-api/v1-chainName-event-eventType-gas_prices",
+            "https://quicknode.com/guides/social/warpcast.com/~/invite-page/214507",
+            "https://quicknode.com/guides/tags/crossmint",
+            "https://quicknode.com/guides/tags/quick-alerts",
+            "https://quicknode.com/portfolio",
+            "https://quicknode.com/sample-app-library/claude_desktop_config.json",
+            "https://quicknode.com/solana/getTipAccounts",
+            "https://quicknode.com/streams/rest-api/getting-started",
+            "https://quicknode.com/validators",
+            "https://quicknode.com/x.com/jito_sol"
+          ],
+          "repo_broken_link_samples": [],
+          "unreachable_links_count": 27,
+          "unverified_links_count": 28,
+          "unverified_link_samples": [
+            "http://quicknode.com/builders-guide/compare/aura-dex-by-kingit-solutions-vs-pancakeswap-dao-vs-sudoswap-by-oxmons",
+            "http://quicknode.com/builders-guide/compare/canto-by-canto-team-vs-sunrise-layer-by-sunrise-project-vs-injective",
+            "http://quicknode.com/builders-guide/compare/fireplace-by-fireplace-vs-streams-by-quicknode-vs-core-api-by-quicknode",
+            "http://quicknode.com/builders-guide/compare/limitless-exchange-by-limitless-labs-vs-hedgehog-markets-by-hedgehog-vs-polymtrade-by-polymtrade",
+            "http://quicknode.com/builders-guide/compare/pangolin-vs-sudoswap-by-oxmons-vs-0x",
+            "http://quicknode.com/builders-guide/compare/polymarket-by-blockratize-inc-vs-hedgehog-markets-by-hedgehog-vs-polymtrade-by-polymtrade",
+            "http://quicknode.com/builders-guide/compare/stand-by-stand-vs-predictit-by-pmrc-vs-kalshi-analytics-by-kalshi-analytics",
+            "http://quicknode.com/builders-guide/compare/teku-by-consensys-vs-prysm-by-prysmatic-labs-vs-lodestar-by-chainsafe",
+            "http://quicknode.com/builders-guide/tools/zignaly-by-zignaly",
+            "https://quicknode.com/builders-guide/compare/layerzero-protocol-by-layerzero-vs-router-protocol-by-ramani-ramachandran-vs-connext-by-connext-protocol",
+            "https://quicknode.com/builders-guide/compare/metafighter-by-metafighter-nft-ltd-vs-memefi-vs-monsterra-by-crescentshine-studio",
+            "https://quicknode.com/builders-guide/compare/multichain-vs-synapse-protocol-by-synapse-team-vs-blast-api-by-bware-labs",
+            "https://quicknode.com/builders-guide/compare/oku-trade-by-gfx-labs-vs-1inch-vs-sushiswap-dao",
+            "https://quicknode.com/builders-guide/compare/relay-by-reservoir-vs-streams-by-quicknode-vs-router-protocol-by-ramani-ramachandran",
+            "https://quicknode.com/builders-guide/compare/stader-by-stader-labs-vs-crypto-com-by-crypto.com-team-vs-0x",
+            "https://quicknode.com/builders-guide/compare/trojan-on-solana-by-trojan-team-vs-robinhood-by-robinhood-inc-vs-crypto-com-by-crypto.com-team",
+            "https://quicknode.com/docs/base/goldrush-wallet-api/v1-chainName-address-walletAddress-resolve_address",
+            "https://quicknode.com/docs/base/goldrush-wallet-api/v1-chainName-nft-approvals-walletAddress",
+            "https://quicknode.com/docs/bitcoin/getblockhash",
+            "https://quicknode.com/docs/ethereum/eth_newFilter",
+            "https://quicknode.com/docs/ethereum/goldrush-wallet-api/v1-chainName-address-walletAddress-resolve_address",
+            "https://quicknode.com/docs/ethereum/net_peerCount",
+            "https://quicknode.com/docs/hyperliquid/debug_storageRangeAt",
+            "https://quicknode.com/docs/hyperliquid/debug_traceTransaction",
+            "https://quicknode.com/docs/hyperliquid/grpc-api/StreamData",
+            "https://quicknode.com/docs/hyperliquid/grpc-api/setup/python-orderbook",
+            "https://quicknode.com/docs/hyperliquid/info-endpoints/delegatorHistory",
+            "https://quicknode.com/docs/hyperliquid/json-rpc/hl_batchOpenOrders"
+          ],
+          "confirmed_broken_links_count": 25,
+          "excluded_links_count": 12,
+          "excluded_link_samples": [
+            "http://quicknode.com/builders-guide/compare/feeder-finance-by-feeder-finance-vs-crypto-com-by-crypto.com-team-vs-0x",
+            "http://quicknode.com/builders-guide/tools/feeder-finance-by-feeder-finance",
+            "http://quicknode.com/docs/assets/files/hyperliquid_schema-5bcda9c3a924088b19faf82c8b0a7d31.json",
+            "http://quicknode.com/docs/assets/files/hyperliquid_schema-889d9defb8c8aa81d229b584da8a8736.txt",
+            "http://quicknode.com/docs/solana/searchAssets",
+            "http://quicknode.com/guides/assets/files/2-60c065d63e0567b38e9209c2d6f5bac9.png",
+            "https://quicknode.com/builders-guide/compare/feeder-finance-by-feeder-finance-vs-crypto-com-by-crypto.com-team-vs-0x",
+            "https://quicknode.com/builders-guide/tools/feeder-finance-by-feeder-finance",
+            "https://quicknode.com/docs/assets/files/hyperliquid_schema-5bcda9c3a924088b19faf82c8b0a7d31.json",
+            "https://quicknode.com/docs/assets/files/hyperliquid_schema-889d9defb8c8aa81d229b584da8a8736.txt",
+            "https://quicknode.com/docs/solana/searchAssets",
+            "https://quicknode.com/guides/assets/files/2-60c065d63e0567b38e9209c2d6f5bac9.png"
+          ],
+          "_all_confirmed_broken_links": [
+            "http://quicknode.com/builders-guide/tools/discord.gg/HqYDWnMP6J",
+            "http://quicknode.com/calculator",
+            "http://quicknode.com/docs/bitcoin/bb_getAddress",
+            "http://quicknode.com/docs/quicknode-sdk/Core/Add-on%20RPC%20Functions",
+            "http://quicknode.com/docs/quicknode-sdk/Core/Core%20RPC%20Functions",
+            "http://quicknode.com/guides/tags/crossmint",
+            "http://quicknode.com/guides/tags/quick-alerts",
+            "http://quicknode.com/portfolio",
+            "http://quicknode.com/sample-app-library/claude_desktop_config.json",
+            "http://quicknode.com/solana/getTipAccounts",
+            "http://quicknode.com/streams/rest-api/getting-started",
+            "http://quicknode.com/validators",
+            "https://quicknode.com/builders-guide/tools/discord.gg/HqYDWnMP6J",
+            "https://quicknode.com/calculator",
+            "https://quicknode.com/docs/bitcoin/bb_getAddress",
+            "https://quicknode.com/docs/ethereum/goldrush-wallet-api/v1-chainName-event-eventType-gas_prices",
+            "https://quicknode.com/guides/social/warpcast.com/~/invite-page/214507",
+            "https://quicknode.com/guides/tags/crossmint",
+            "https://quicknode.com/guides/tags/quick-alerts",
+            "https://quicknode.com/portfolio",
+            "https://quicknode.com/sample-app-library/claude_desktop_config.json",
+            "https://quicknode.com/solana/getTipAccounts",
+            "https://quicknode.com/streams/rest-api/getting-started",
+            "https://quicknode.com/validators",
+            "https://quicknode.com/x.com/jito_sol"
+          ],
+          "_all_unverified_links": [
+            "http://quicknode.com/builders-guide/compare/aura-dex-by-kingit-solutions-vs-pancakeswap-dao-vs-sudoswap-by-oxmons",
+            "http://quicknode.com/builders-guide/compare/canto-by-canto-team-vs-sunrise-layer-by-sunrise-project-vs-injective",
+            "http://quicknode.com/builders-guide/compare/fireplace-by-fireplace-vs-streams-by-quicknode-vs-core-api-by-quicknode",
+            "http://quicknode.com/builders-guide/compare/limitless-exchange-by-limitless-labs-vs-hedgehog-markets-by-hedgehog-vs-polymtrade-by-polymtrade",
+            "http://quicknode.com/builders-guide/compare/pangolin-vs-sudoswap-by-oxmons-vs-0x",
+            "http://quicknode.com/builders-guide/compare/polymarket-by-blockratize-inc-vs-hedgehog-markets-by-hedgehog-vs-polymtrade-by-polymtrade",
+            "http://quicknode.com/builders-guide/compare/stand-by-stand-vs-predictit-by-pmrc-vs-kalshi-analytics-by-kalshi-analytics",
+            "http://quicknode.com/builders-guide/compare/teku-by-consensys-vs-prysm-by-prysmatic-labs-vs-lodestar-by-chainsafe",
+            "http://quicknode.com/builders-guide/tools/zignaly-by-zignaly",
+            "https://quicknode.com/builders-guide/compare/layerzero-protocol-by-layerzero-vs-router-protocol-by-ramani-ramachandran-vs-connext-by-connext-protocol",
+            "https://quicknode.com/builders-guide/compare/metafighter-by-metafighter-nft-ltd-vs-memefi-vs-monsterra-by-crescentshine-studio",
+            "https://quicknode.com/builders-guide/compare/multichain-vs-synapse-protocol-by-synapse-team-vs-blast-api-by-bware-labs",
+            "https://quicknode.com/builders-guide/compare/oku-trade-by-gfx-labs-vs-1inch-vs-sushiswap-dao",
+            "https://quicknode.com/builders-guide/compare/relay-by-reservoir-vs-streams-by-quicknode-vs-router-protocol-by-ramani-ramachandran",
+            "https://quicknode.com/builders-guide/compare/stader-by-stader-labs-vs-crypto-com-by-crypto.com-team-vs-0x",
+            "https://quicknode.com/builders-guide/compare/trojan-on-solana-by-trojan-team-vs-robinhood-by-robinhood-inc-vs-crypto-com-by-crypto.com-team",
+            "https://quicknode.com/docs/base/goldrush-wallet-api/v1-chainName-address-walletAddress-resolve_address",
+            "https://quicknode.com/docs/base/goldrush-wallet-api/v1-chainName-nft-approvals-walletAddress",
+            "https://quicknode.com/docs/bitcoin/getblockhash",
+            "https://quicknode.com/docs/ethereum/eth_newFilter",
+            "https://quicknode.com/docs/ethereum/goldrush-wallet-api/v1-chainName-address-walletAddress-resolve_address",
+            "https://quicknode.com/docs/ethereum/net_peerCount",
+            "https://quicknode.com/docs/hyperliquid/debug_storageRangeAt",
+            "https://quicknode.com/docs/hyperliquid/debug_traceTransaction",
+            "https://quicknode.com/docs/hyperliquid/grpc-api/StreamData",
+            "https://quicknode.com/docs/hyperliquid/grpc-api/setup/python-orderbook",
+            "https://quicknode.com/docs/hyperliquid/info-endpoints/delegatorHistory",
+            "https://quicknode.com/docs/hyperliquid/json-rpc/hl_batchOpenOrders"
+          ],
+          "_all_excluded_links": [
+            "http://quicknode.com/builders-guide/compare/feeder-finance-by-feeder-finance-vs-crypto-com-by-crypto.com-team-vs-0x",
+            "http://quicknode.com/builders-guide/tools/feeder-finance-by-feeder-finance",
+            "http://quicknode.com/docs/assets/files/hyperliquid_schema-5bcda9c3a924088b19faf82c8b0a7d31.json",
+            "http://quicknode.com/docs/assets/files/hyperliquid_schema-889d9defb8c8aa81d229b584da8a8736.txt",
+            "http://quicknode.com/docs/solana/searchAssets",
+            "http://quicknode.com/guides/assets/files/2-60c065d63e0567b38e9209c2d6f5bac9.png",
+            "https://quicknode.com/builders-guide/compare/feeder-finance-by-feeder-finance-vs-crypto-com-by-crypto.com-team-vs-0x",
+            "https://quicknode.com/builders-guide/tools/feeder-finance-by-feeder-finance",
+            "https://quicknode.com/docs/assets/files/hyperliquid_schema-5bcda9c3a924088b19faf82c8b0a7d31.json",
+            "https://quicknode.com/docs/assets/files/hyperliquid_schema-889d9defb8c8aa81d229b584da8a8736.txt",
+            "https://quicknode.com/docs/solana/searchAssets",
+            "https://quicknode.com/guides/assets/files/2-60c065d63e0567b38e9209c2d6f5bac9.png"
+          ],
+          "_all_docs_unverified_links": [
+            "http://quicknode.com/builders-guide/compare/aura-dex-by-kingit-solutions-vs-pancakeswap-dao-vs-sudoswap-by-oxmons",
+            "http://quicknode.com/builders-guide/compare/canto-by-canto-team-vs-sunrise-layer-by-sunrise-project-vs-injective",
+            "http://quicknode.com/builders-guide/compare/fireplace-by-fireplace-vs-streams-by-quicknode-vs-core-api-by-quicknode",
+            "http://quicknode.com/builders-guide/compare/limitless-exchange-by-limitless-labs-vs-hedgehog-markets-by-hedgehog-vs-polymtrade-by-polymtrade",
+            "http://quicknode.com/builders-guide/compare/pangolin-vs-sudoswap-by-oxmons-vs-0x",
+            "http://quicknode.com/builders-guide/compare/polymarket-by-blockratize-inc-vs-hedgehog-markets-by-hedgehog-vs-polymtrade-by-polymtrade",
+            "http://quicknode.com/builders-guide/compare/stand-by-stand-vs-predictit-by-pmrc-vs-kalshi-analytics-by-kalshi-analytics",
+            "http://quicknode.com/builders-guide/compare/teku-by-consensys-vs-prysm-by-prysmatic-labs-vs-lodestar-by-chainsafe",
+            "http://quicknode.com/builders-guide/tools/zignaly-by-zignaly",
+            "https://quicknode.com/builders-guide/compare/layerzero-protocol-by-layerzero-vs-router-protocol-by-ramani-ramachandran-vs-connext-by-connext-protocol",
+            "https://quicknode.com/builders-guide/compare/metafighter-by-metafighter-nft-ltd-vs-memefi-vs-monsterra-by-crescentshine-studio",
+            "https://quicknode.com/builders-guide/compare/multichain-vs-synapse-protocol-by-synapse-team-vs-blast-api-by-bware-labs",
+            "https://quicknode.com/builders-guide/compare/oku-trade-by-gfx-labs-vs-1inch-vs-sushiswap-dao",
+            "https://quicknode.com/builders-guide/compare/relay-by-reservoir-vs-streams-by-quicknode-vs-router-protocol-by-ramani-ramachandran",
+            "https://quicknode.com/builders-guide/compare/stader-by-stader-labs-vs-crypto-com-by-crypto.com-team-vs-0x",
+            "https://quicknode.com/builders-guide/compare/trojan-on-solana-by-trojan-team-vs-robinhood-by-robinhood-inc-vs-crypto-com-by-crypto.com-team",
+            "https://quicknode.com/docs/base/goldrush-wallet-api/v1-chainName-address-walletAddress-resolve_address",
+            "https://quicknode.com/docs/base/goldrush-wallet-api/v1-chainName-nft-approvals-walletAddress",
+            "https://quicknode.com/docs/bitcoin/getblockhash",
+            "https://quicknode.com/docs/ethereum/eth_newFilter",
+            "https://quicknode.com/docs/ethereum/goldrush-wallet-api/v1-chainName-address-walletAddress-resolve_address",
+            "https://quicknode.com/docs/ethereum/net_peerCount",
+            "https://quicknode.com/docs/hyperliquid/debug_storageRangeAt",
+            "https://quicknode.com/docs/hyperliquid/debug_traceTransaction",
+            "https://quicknode.com/docs/hyperliquid/grpc-api/StreamData",
+            "https://quicknode.com/docs/hyperliquid/grpc-api/setup/python-orderbook",
+            "https://quicknode.com/docs/hyperliquid/info-endpoints/delegatorHistory",
+            "https://quicknode.com/docs/hyperliquid/json-rpc/hl_batchOpenOrders"
+          ],
+          "_all_repo_unverified_links": [],
+          "_broken_link_provenance": {
+            "http://quicknode.com/builders-guide/tools/discord.gg/HqYDWnMP6J": [
+              {
+                "source_page": "http://quicknode.com/builders-guide/tools/flash-trade-by-flash-trade",
+                "anchor_text": ""
+              },
+              {
+                "source_page": "http://quicknode.com/builders-guide/tools/flash-trade-by-flash-trade",
+                "anchor_text": "Community View"
+              }
+            ],
+            "http://quicknode.com/calculator": [
+              {
+                "source_page": "http://quicknode.com/stake-solana",
+                "anchor_text": "Calculator"
+              }
+            ],
+            "http://quicknode.com/docs/bitcoin/bb_getAddress": [
+              {
+                "source_page": "http://quicknode.com/docs/bitcoin/marketplace-addons",
+                "anchor_text": "Blockbook Enhanced blockchain explorer with detailed transaction history, address analytics, and UTXO tracking capabilities"
+              }
+            ],
+            "http://quicknode.com/docs/quicknode-sdk/Core/Add-on%20RPC%20Functions": [
+              {
+                "source_page": "https://quicknode.com/docs/quicknode-sdk/Core/Overview",
+                "anchor_text": "List of all supported Add-on RPC methods"
+              },
+              {
+                "source_page": "http://quicknode.com/docs/quicknode-sdk/Core/Overview",
+                "anchor_text": "List of all supported Add-on RPC methods"
+              }
+            ],
+            "http://quicknode.com/docs/quicknode-sdk/Core/Core%20RPC%20Functions": [
+              {
+                "source_page": "https://quicknode.com/docs/quicknode-sdk/Core/Overview",
+                "anchor_text": "List of all supported Core API methods"
+              },
+              {
+                "source_page": "http://quicknode.com/docs/quicknode-sdk/Core/Overview",
+                "anchor_text": "List of all supported Core API methods"
+              }
+            ],
+            "http://quicknode.com/guides/tags/crossmint": [
+              {
+                "source_page": "http://quicknode.com/guides/solana-development/nfts/how-to-use-crossmint-nft-api",
+                "anchor_text": "Crossmint"
+              }
+            ],
+            "http://quicknode.com/guides/tags/quick-alerts": [
+              {
+                "source_page": "http://quicknode.com/guides/quicknode-products/webhooks/get-started-with-webhooks",
+                "anchor_text": "QuickAlerts"
+              },
+              {
+                "source_page": "http://quicknode.com/guides/quicknode-products/webhooks/get-started-with-streams-for-quickalerts-users",
+                "anchor_text": "QuickAlerts"
+              }
+            ],
+            "http://quicknode.com/portfolio": [
+              {
+                "source_page": "http://quicknode.com/stake-solana",
+                "anchor_text": "Portfolio"
+              }
+            ],
+            "http://quicknode.com/sample-app-library/claude_desktop_config.json": [
+              {
+                "source_page": "http://quicknode.com/sample-app-library/solana-mcp",
+                "anchor_text": "example Claude desktop config"
+              }
+            ],
+            "http://quicknode.com/solana/getTipAccounts": [
+              {
+                "source_page": "http://quicknode.com/docs/solana/sendBundle",
+                "anchor_text": "getTipAccounts"
+              }
+            ],
+            "http://quicknode.com/streams/rest-api/getting-started": [
+              {
+                "source_page": "http://quicknode.com/docs/streams",
+                "anchor_text": "Streams REST API"
+              },
+              {
+                "source_page": "http://quicknode.com/docs/streams/getting-started",
+                "anchor_text": "Streams REST API"
+              }
+            ],
+            "http://quicknode.com/validators": [
+              {
+                "source_page": "http://quicknode.com/stake-solana",
+                "anchor_text": "Validators"
+              }
+            ],
+            "https://quicknode.com/builders-guide/tools/discord.gg/HqYDWnMP6J": [
+              {
+                "source_page": "https://quicknode.com/builders-guide/tools/flash-trade-by-flash-trade",
+                "anchor_text": ""
+              },
+              {
+                "source_page": "https://quicknode.com/builders-guide/tools/flash-trade-by-flash-trade",
+                "anchor_text": "Community View"
+              }
+            ],
+            "https://quicknode.com/calculator": [
+              {
+                "source_page": "https://quicknode.com/stake-solana",
+                "anchor_text": "Calculator"
+              }
+            ],
+            "https://quicknode.com/docs/bitcoin/bb_getAddress": [
+              {
+                "source_page": "https://quicknode.com/docs/bitcoin/marketplace-addons",
+                "anchor_text": "Blockbook Enhanced blockchain explorer with detailed transaction history, address analytics, and UTXO tracking capabilities"
+              }
+            ],
+            "https://quicknode.com/docs/ethereum/goldrush-wallet-api/v1-chainName-event-eventType-gas_prices": [
+              {
+                "source_page": "https://quicknode.com/docs/ethereum/goldrush-wallet-api/v1-chainName-events",
+                "anchor_text": "GET Get gas prices"
+              },
+              {
+                "source_page": "https://quicknode.com/docs/ethereum/goldrush-wallet-api/v1-chainName-block_v2-blockHeight",
+                "anchor_text": "GET Get gas prices"
+              },
+              {
+                "source_page": "https://quicknode.com/docs/ethereum/goldrush-wallet-api/v1-chainName-block_v2-startDate-endDate",
+                "anchor_text": "GET Get gas prices"
+              },
+              {
+                "source_page": "https://quicknode.com/docs/ethereum/goldrush-wallet-api/v1-chainName-events-address-contractAddress",
+                "anchor_text": "GET Get gas prices"
+              },
+              {
+                "source_page": "https://quicknode.com/docs/ethereum/goldrush-wallet-api/v1-pricing-historical_by_addresses_v2-eth-quoteCurrency-contractAddress",
+                "anchor_text": "GET Get gas prices"
+              }
+            ],
+            "https://quicknode.com/guides/social/warpcast.com/~/invite-page/214507": [
+              {
+                "source_page": "https://quicknode.com/guides/social/how-to-build-a-farcaster-frame",
+                "anchor_text": "Farcaster"
+              }
+            ],
+            "https://quicknode.com/guides/tags/crossmint": [
+              {
+                "source_page": "https://quicknode.com/guides/solana-development/nfts/how-to-use-crossmint-nft-api",
+                "anchor_text": "Crossmint"
+              }
+            ],
+            "https://quicknode.com/guides/tags/quick-alerts": [
+              {
+                "source_page": "https://quicknode.com/guides/quicknode-products/webhooks/get-started-with-webhooks",
+                "anchor_text": "QuickAlerts"
+              },
+              {
+                "source_page": "https://quicknode.com/guides/quicknode-products/webhooks/get-started-with-streams-for-quickalerts-users",
+                "anchor_text": "QuickAlerts"
+              }
+            ],
+            "https://quicknode.com/portfolio": [
+              {
+                "source_page": "https://quicknode.com/stake-solana",
+                "anchor_text": "Portfolio"
+              }
+            ],
+            "https://quicknode.com/sample-app-library/claude_desktop_config.json": [
+              {
+                "source_page": "https://quicknode.com/sample-app-library/solana-mcp",
+                "anchor_text": "example Claude desktop config"
+              }
+            ],
+            "https://quicknode.com/solana/getTipAccounts": [
+              {
+                "source_page": "https://quicknode.com/docs/solana/sendBundle",
+                "anchor_text": "getTipAccounts"
+              }
+            ],
+            "https://quicknode.com/streams/rest-api/getting-started": [
+              {
+                "source_page": "https://quicknode.com/docs/streams",
+                "anchor_text": "Streams REST API"
+              },
+              {
+                "source_page": "https://quicknode.com/docs/streams/getting-started",
+                "anchor_text": "Streams REST API"
+              }
+            ],
+            "https://quicknode.com/validators": [
+              {
+                "source_page": "https://quicknode.com/stake-solana",
+                "anchor_text": "Validators"
+              }
+            ],
+            "https://quicknode.com/x.com/jito_sol": [
+              {
+                "source_page": "https://quicknode.com/builders-guide/tools/jito-staking-by-jito-foundation",
+                "anchor_text": ""
+              }
+            ]
+          }
+        },
+        "seo_geo": {
+          "pages_scanned": 9936,
+          "missing_title_count": 0,
+          "missing_description_count": 4,
+          "multiple_h1_count": 1448,
+          "heading_hierarchy_jump_count": 9037,
+          "seo_geo_issue_rate_pct": 26.39
+        },
+        "api_coverage": {
+          "reference_endpoint_count": 5,
+          "api_pages_detected": 2488,
+          "endpoints_with_usage_docs": 3,
+          "reference_endpoints_without_usage_docs": 2,
+          "reference_coverage_pct": 60.0,
+          "no_api_pages_found": false,
+          "coverage_determined": true,
+          "coverage_method": "source_of_truth",
+          "detection_note": "",
+          "uncovered_endpoint_samples": [
+            "rpc:streaml2book",
+            "rpc:streaml4book"
+          ]
+        },
+        "examples": {
+          "total_code_examples": 17525,
+          "total_code_blocks_all": 19713,
+          "runnable_without_env": 7458,
+          "blocked_by_placeholders": 2803,
+          "network_bound_examples": 7264,
+          "example_reliability_estimate_pct": 42.56,
+          "detection_note": ""
+        },
+        "freshness": {
+          "pages_with_last_updated_hint": 2910,
+          "pages_without_last_updated_hint": 7026,
+          "last_updated_coverage_pct": 29.29,
+          "samples_with_last_updated": [
+            {
+              "url": "https://quicknode.com/docs/admin-api",
+              "hint": "Updated on"
+            },
+            {
+              "url": "https://quicknode.com/docs/build-with-ai",
+              "hint": "Updated on"
+            },
+            {
+              "url": "https://quicknode.com/docs/custom-rpc-options",
+              "hint": "Updated on"
+            },
+            {
+              "url": "https://quicknode.com/docs/ipfs",
+              "hint": "Updated on"
+            },
+            {
+              "url": "https://quicknode.com/docs/bitcoin",
+              "hint": "Last updated"
+            },
+            {
+              "url": "https://quicknode.com/docs/ethereum",
+              "hint": "Last updated"
+            },
+            {
+              "url": "https://quicknode.com/docs/base",
+              "hint": "Last updated"
+            },
+            {
+              "url": "https://quicknode.com/docs/hyperliquid",
+              "hint": "Last updated"
+            },
+            {
+              "url": "https://quicknode.com/docs/key-value-store",
+              "hint": "Updated on"
+            },
+            {
+              "url": "https://quicknode.com/docs/changelog",
+              "hint": "April 13, 2026"
+            }
+          ]
+        }
+      },
+      "samples": {
+        "broken_links": [
+          "http://quicknode.com/builders-guide/tools/discord.gg/HqYDWnMP6J",
+          "http://quicknode.com/calculator",
+          "http://quicknode.com/docs/bitcoin/bb_getAddress",
+          "http://quicknode.com/docs/quicknode-sdk/Core/Add-on%20RPC%20Functions",
+          "http://quicknode.com/docs/quicknode-sdk/Core/Core%20RPC%20Functions",
+          "http://quicknode.com/guides/tags/crossmint",
+          "http://quicknode.com/guides/tags/quick-alerts",
+          "http://quicknode.com/portfolio",
+          "http://quicknode.com/sample-app-library/claude_desktop_config.json",
+          "http://quicknode.com/solana/getTipAccounts",
+          "http://quicknode.com/streams/rest-api/getting-started",
+          "http://quicknode.com/validators",
+          "https://quicknode.com/builders-guide/tools/discord.gg/HqYDWnMP6J",
+          "https://quicknode.com/calculator",
+          "https://quicknode.com/docs/bitcoin/bb_getAddress",
+          "https://quicknode.com/docs/ethereum/goldrush-wallet-api/v1-chainName-event-eventType-gas_prices",
+          "https://quicknode.com/guides/social/warpcast.com/~/invite-page/214507",
+          "https://quicknode.com/guides/tags/crossmint",
+          "https://quicknode.com/guides/tags/quick-alerts",
+          "https://quicknode.com/portfolio"
+        ],
+        "docs_broken_link_samples": [
+          "http://quicknode.com/builders-guide/tools/discord.gg/HqYDWnMP6J",
+          "http://quicknode.com/calculator",
+          "http://quicknode.com/docs/bitcoin/bb_getAddress",
+          "http://quicknode.com/docs/quicknode-sdk/Core/Add-on%20RPC%20Functions",
+          "http://quicknode.com/docs/quicknode-sdk/Core/Core%20RPC%20Functions",
+          "http://quicknode.com/guides/tags/crossmint",
+          "http://quicknode.com/guides/tags/quick-alerts",
+          "http://quicknode.com/portfolio",
+          "http://quicknode.com/sample-app-library/claude_desktop_config.json",
+          "http://quicknode.com/solana/getTipAccounts",
+          "http://quicknode.com/streams/rest-api/getting-started",
+          "http://quicknode.com/validators",
+          "https://quicknode.com/builders-guide/tools/discord.gg/HqYDWnMP6J",
+          "https://quicknode.com/calculator",
+          "https://quicknode.com/docs/bitcoin/bb_getAddress",
+          "https://quicknode.com/docs/ethereum/goldrush-wallet-api/v1-chainName-event-eventType-gas_prices",
+          "https://quicknode.com/guides/social/warpcast.com/~/invite-page/214507",
+          "https://quicknode.com/guides/tags/crossmint",
+          "https://quicknode.com/guides/tags/quick-alerts",
+          "https://quicknode.com/portfolio",
+          "https://quicknode.com/sample-app-library/claude_desktop_config.json",
+          "https://quicknode.com/solana/getTipAccounts",
+          "https://quicknode.com/streams/rest-api/getting-started",
+          "https://quicknode.com/validators",
+          "https://quicknode.com/x.com/jito_sol"
+        ],
+        "repo_broken_link_samples": [],
+        "unverified_link_samples": [
+          "http://quicknode.com/builders-guide/compare/aura-dex-by-kingit-solutions-vs-pancakeswap-dao-vs-sudoswap-by-oxmons",
+          "http://quicknode.com/builders-guide/compare/canto-by-canto-team-vs-sunrise-layer-by-sunrise-project-vs-injective",
+          "http://quicknode.com/builders-guide/compare/fireplace-by-fireplace-vs-streams-by-quicknode-vs-core-api-by-quicknode",
+          "http://quicknode.com/builders-guide/compare/limitless-exchange-by-limitless-labs-vs-hedgehog-markets-by-hedgehog-vs-polymtrade-by-polymtrade",
+          "http://quicknode.com/builders-guide/compare/pangolin-vs-sudoswap-by-oxmons-vs-0x",
+          "http://quicknode.com/builders-guide/compare/polymarket-by-blockratize-inc-vs-hedgehog-markets-by-hedgehog-vs-polymtrade-by-polymtrade",
+          "http://quicknode.com/builders-guide/compare/stand-by-stand-vs-predictit-by-pmrc-vs-kalshi-analytics-by-kalshi-analytics",
+          "http://quicknode.com/builders-guide/compare/teku-by-consensys-vs-prysm-by-prysmatic-labs-vs-lodestar-by-chainsafe",
+          "http://quicknode.com/builders-guide/tools/zignaly-by-zignaly",
+          "https://quicknode.com/builders-guide/compare/layerzero-protocol-by-layerzero-vs-router-protocol-by-ramani-ramachandran-vs-connext-by-connext-protocol",
+          "https://quicknode.com/builders-guide/compare/metafighter-by-metafighter-nft-ltd-vs-memefi-vs-monsterra-by-crescentshine-studio",
+          "https://quicknode.com/builders-guide/compare/multichain-vs-synapse-protocol-by-synapse-team-vs-blast-api-by-bware-labs",
+          "https://quicknode.com/builders-guide/compare/oku-trade-by-gfx-labs-vs-1inch-vs-sushiswap-dao",
+          "https://quicknode.com/builders-guide/compare/relay-by-reservoir-vs-streams-by-quicknode-vs-router-protocol-by-ramani-ramachandran",
+          "https://quicknode.com/builders-guide/compare/stader-by-stader-labs-vs-crypto-com-by-crypto.com-team-vs-0x",
+          "https://quicknode.com/builders-guide/compare/trojan-on-solana-by-trojan-team-vs-robinhood-by-robinhood-inc-vs-crypto-com-by-crypto.com-team",
+          "https://quicknode.com/docs/base/goldrush-wallet-api/v1-chainName-address-walletAddress-resolve_address",
+          "https://quicknode.com/docs/base/goldrush-wallet-api/v1-chainName-nft-approvals-walletAddress",
+          "https://quicknode.com/docs/bitcoin/getblockhash",
+          "https://quicknode.com/docs/ethereum/eth_newFilter",
+          "https://quicknode.com/docs/ethereum/goldrush-wallet-api/v1-chainName-address-walletAddress-resolve_address",
+          "https://quicknode.com/docs/ethereum/net_peerCount",
+          "https://quicknode.com/docs/hyperliquid/debug_storageRangeAt",
+          "https://quicknode.com/docs/hyperliquid/debug_traceTransaction",
+          "https://quicknode.com/docs/hyperliquid/grpc-api/StreamData",
+          "https://quicknode.com/docs/hyperliquid/grpc-api/setup/python-orderbook",
+          "https://quicknode.com/docs/hyperliquid/info-endpoints/delegatorHistory",
+          "https://quicknode.com/docs/hyperliquid/json-rpc/hl_batchOpenOrders"
+        ],
+        "api_uncovered_samples": [
+          "rpc:streaml2book",
+          "rpc:streaml4book"
+        ]
+      },
+      "run_count": 1
+    }
+  ],
+  "aggregate": {
+    "metrics": {
+      "crawl": {
+        "pages_crawled": 9936,
+        "requested_pages": 10821,
+        "urls_examined": 10000,
+        "max_pages_total": 10000,
+        "discovered_pages": 10166,
+        "crawl_scope_pages": 10166,
+        "trap_urls_skipped": 6019,
+        "crawl_coverage_pct": 98.37
+      },
+      "links": {
+        "broken_internal_links_count": 25,
+        "docs_broken_links_count": 25,
+        "repo_broken_links_count": 0,
+        "unverified_links_count": 28,
+        "confirmed_broken_links_count": 25,
+        "excluded_links_count": 12
+      },
+      "seo_geo": {
+        "seo_geo_issue_rate_pct": 26.39
+      },
+      "api_coverage": {
+        "reference_coverage_pct": 60.0,
+        "no_api_pages_found": false,
+        "api_pages_detected": 2488,
+        "coverage_determined": true,
+        "detection_note": ""
+      },
+      "examples": {
+        "example_reliability_estimate_pct": 42.56
+      },
+      "freshness": {
+        "last_updated_coverage_pct": 29.29
+      }
+    },
+    "confidence": {
+      "overall_confidence_pct": 70.12,
+      "links_confidence_pct": 42.17,
+      "api_confidence_pct": 85.0,
+      "crawl_confidence_pct": 94.02
+    }
+  },
+  "confidence": {
+    "overall_confidence_pct": 70.12,
+    "links_confidence_pct": 42.17,
+    "api_confidence_pct": 85.0,
+    "crawl_confidence_pct": 94.02
+  },
+  "top_findings": [
+    "Broken internal links: 25",
+    "Link verification inconclusive for 28 URLs (auth/rate-limit/server block); these are excluded from broken-link counts.",
+    "SEO/GEO issue rate is high: 26.39%",
+    "API usage-doc coverage is low: 60.0% (2488 API pages detected)",
+    "Example reliability estimate is low: 42.56%",
+    "Freshness visibility is weak: only 29.29% pages show last updated"
+  ],
+  "llm_analysis": {
+    "status": "ok",
+    "model": "claude-sonnet-4-5",
+    "analysis": {
+      "executive_summary": "Audit crawled 9,936 pages from QuickNode documentation (98.37% coverage of 10,166 discovered pages). Identified 25 confirmed broken internal documentation links with 28 additional unverified links blocked by auth/rate-limits. API reference coverage stands at 60.0% across 2,488 detected API pages. Code example reliability estimated at 42.56% and only 29.29% of pages display freshness metadata. Overall audit confidence is 70.12%, with link verification confidence notably lower at 42.17%.",
+      "strengths": [
+        "Comprehensive crawl achieved 98.37% coverage with 9,936 pages successfully indexed",
+        "2,488 API pages detected and catalogued across multi-project topology",
+        "High API detection confidence at 85.0% with no detection gaps flagged",
+        "Crawl confidence strong at 94.02% indicating reliable site mapping",
+        "Zero repository navigation broken links (all 25 broken links are user-facing documentation)"
+      ],
+      "risks": [
+        "25 confirmed broken internal documentation links directly impact user navigation and trust",
+        "28 unverified links (auth/rate-limit blocked) represent unknown documentation quality exposure",
+        "SEO/GEO issue rate of 26.39% significantly harms discoverability and search ranking",
+        "API reference coverage at 60.0% leaves 40% of API surface undocumented or poorly linked",
+        "Example reliability at 42.56% means majority of code samples may be outdated or non-functional",
+        "Freshness metadata visible on only 29.29% of pages obscures content currency for users",
+        "Link verification confidence of 42.17% indicates substantial uncertainty in link health assessment"
+      ],
+      "prioritized_actions": [
+        {
+          "action": "Fix all 25 confirmed broken internal documentation links and investigate 28 unverified URLs",
+          "impact": "critical",
+          "effort": "low"
+        },
+        {
+          "action": "Implement automated example testing pipeline to improve 42.56% reliability baseline",
+          "impact": "critical",
+          "effort": "high"
+        },
+        {
+          "action": "Add last-updated timestamps to 70.71% of pages currently missing freshness metadata",
+          "impact": "high",
+          "effort": "medium"
+        },
+        {
+          "action": "Close 40% API documentation gap by auditing 2,488 detected API pages against product surface",
+          "impact": "high",
+          "effort": "high"
+        },
+        {
+          "action": "Remediate SEO/GEO issues affecting 26.39% of pages (meta descriptions, titles, structured data)",
+          "impact": "high",
+          "effort": "medium"
+        }
+      ],
+      "limitations": [
+        "28 links could not be verified due to authentication, rate-limiting, or server blocks; actual broken link count may be higher",
+        "Example reliability is estimated through static analysis; actual runtime functionality requires live execution testing",
+        "API coverage percentage assumes detected API pages represent complete product surface; undiscovered APIs not measured",
+        "Crawl trapped/skipped 6,019 URLs which may contain additional documentation quality issues outside audit scope",
+        "Content accuracy, technical correctness, and user comprehension quality cannot be assessed through automated crawling"
+      ]
+    }
+  }
+}

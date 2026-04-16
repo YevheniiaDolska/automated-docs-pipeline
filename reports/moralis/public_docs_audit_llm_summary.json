@@ -1,0 +1,56 @@
+{
+  "status": "ok",
+  "model": "claude-sonnet-4-5",
+  "analysis": {
+    "executive_summary": "Documentation audit of docs.moralis.com covered 907 pages with 100% crawl coverage across a multi-project topology. No broken links were detected (0 docs-facing, 0 repository links), though 5 URLs could not be verified due to access restrictions. API reference coverage stands at 30.59% across 847 detected API pages. Example code reliability shows 0% detection, indicating a likely technical limitation with JavaScript-rendered content. Only 2.98% of pages display freshness metadata.",
+    "strengths": [
+      "Complete crawl coverage achieved (100%) with 907 of 919 requested pages successfully indexed",
+      "Zero confirmed broken links across documentation and repository navigation",
+      "High crawl confidence (95%) and API detection confidence (85%) indicate reliable structural analysis",
+      "847 API pages successfully detected across multi-project documentation structure",
+      "Trap URL detection prevented 112 non-documentation URLs from skewing results"
+    ],
+    "risks": [
+      "SEO/geo issue rate of 21.8% may impact discoverability and international user access",
+      "API reference coverage at 30.59% leaves majority of API endpoints without usage documentation",
+      "Example code reliability at 0% suggests users cannot verify working code samples (likely JS-rendering detection gap)",
+      "Freshness metadata visible on only 2.98% of pages obscures content currency for 97% of documentation",
+      "5 unverified links create uncertainty in link health assessment despite zero confirmed breaks",
+      "Overall confidence at 63.5% indicates moderate reliability limitations in audit completeness",
+      "Link verification confidence at 25% suggests significant blind spots in external dependency health"
+    ],
+    "prioritized_actions": [
+      {
+        "action": "Implement last-updated timestamps on all pages to address 97% freshness visibility gap",
+        "impact": "critical",
+        "effort": "low"
+      },
+      {
+        "action": "Expand API usage documentation to cover remaining 69% of 847 detected API pages",
+        "impact": "critical",
+        "effort": "high"
+      },
+      {
+        "action": "Audit and resolve SEO/geo issues affecting 21.8% of pages to improve discoverability",
+        "impact": "high",
+        "effort": "medium"
+      },
+      {
+        "action": "Investigate and resolve 5 unverified links blocked by auth/rate-limit/server restrictions",
+        "impact": "medium",
+        "effort": "low"
+      },
+      {
+        "action": "Validate example code rendering approach to confirm 0% detection is tooling limitation not content gap",
+        "impact": "high",
+        "effort": "medium"
+      }
+    ],
+    "limitations": [
+      "Example code reliability at 0% likely reflects detection failure on JavaScript-rendered code blocks rather than absence of examples",
+      "5 unverified links could not be validated due to authentication, rate limiting, or server access restrictions beyond audit scope",
+      "External audit cannot verify accuracy, correctness, or completeness of technical content within detected documentation pages",
+      "Link verification confidence of 25% indicates significant portions of external dependencies remain unvalidated"
+    ]
+  }
+}

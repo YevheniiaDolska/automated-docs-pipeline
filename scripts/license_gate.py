@@ -37,9 +37,21 @@ REPO_ROOT = Path(__file__).resolve().parents[1]
 
 # -- Key and license file paths ------------------------------------------------
 
-PUBLIC_KEY_PATH = REPO_ROOT / "docsops" / "keys" / "veriops-licensing.pub"
-LICENSE_PATH = REPO_ROOT / "docsops" / "license.jwt"
-PACK_PATH = REPO_ROOT / "docsops" / ".capability_pack.enc"
+def _resolve_docsops_artifact(rel_path: str) -> Path:
+    """Resolve bundle artifacts for both repo and installed client layouts."""
+    direct = (REPO_ROOT / rel_path).resolve()
+    if direct.exists():
+        return direct
+    nested = (REPO_ROOT / "docsops" / rel_path).resolve()
+    if nested.exists():
+        return nested
+    # Keep deterministic fallback for missing-file error messages.
+    return direct
+
+
+PUBLIC_KEY_PATH = _resolve_docsops_artifact("keys/veriops-licensing.pub")
+LICENSE_PATH = _resolve_docsops_artifact("license.jwt")
+PACK_PATH = _resolve_docsops_artifact(".capability_pack.enc")
 
 # -- Plan tiers ----------------------------------------------------------------
 

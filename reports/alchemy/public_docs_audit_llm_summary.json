@@ -1,0 +1,57 @@
+{
+  "status": "ok",
+  "model": "claude-sonnet-4-5",
+  "analysis": {
+    "executive_summary": "Documentation audit of alchemy.com/docs examined 2,500 URLs, crawling 2,316 pages with 55.24% coverage of the 4,526-page discovered scope. 5 confirmed broken internal links were found in user-facing documentation. API reference coverage is critically low at 15.19% despite detecting 2,192 API pages. Example code reliability estimate stands at 72.49%, while freshness metadata is visible on only 1.38% of pages.",
+    "strengths": [
+      "Large documentation footprint with 4,526 pages in scope demonstrates comprehensive product coverage",
+      "Zero broken repository navigation links; all 5 broken links are confined to user-facing documentation",
+      "API page detection successful with 2,192 pages identified (no detection limitations flagged)",
+      "Example code reliability estimate of 72.49% shows majority of code samples are functional",
+      "Multi-project topology mode indicates organized documentation structure across product lines"
+    ],
+    "risks": [
+      "Crawl coverage at 55.24% leaves 1,910 pages unexamined; critical issues may exist in uncrawled sections",
+      "API reference coverage of 15.19% means 84.81% of API pages lack adequate usage documentation or examples",
+      "278 unverified links due to authentication/rate-limiting may hide additional broken links",
+      "Freshness metadata on only 1.38% of pages prevents users from assessing content currency",
+      "Overall confidence score of 56.79% indicates audit completeness is limited",
+      "27.51% of example code may be unreliable or non-functional, risking developer onboarding friction",
+      "Links confidence at 25% suggests broken link counts may significantly underrepresent actual issues"
+    ],
+    "prioritized_actions": [
+      {
+        "action": "Increase crawl coverage to 90%+ by raising safety cap or enabling authenticated crawl mode to examine remaining 1,910 pages",
+        "impact": "critical",
+        "effort": "low"
+      },
+      {
+        "action": "Implement usage examples and integration guides for API endpoints to raise reference coverage from 15.19% to minimum 60%",
+        "impact": "critical",
+        "effort": "high"
+      },
+      {
+        "action": "Add last-updated timestamps to all documentation pages (currently 1.38% coverage) to improve content trust",
+        "impact": "high",
+        "effort": "medium"
+      },
+      {
+        "action": "Fix 5 confirmed broken internal documentation links and investigate 278 unverified links with authentication bypass",
+        "impact": "high",
+        "effort": "low"
+      },
+      {
+        "action": "Audit and repair the 27.51% of example code flagged as potentially unreliable to improve developer success rates",
+        "impact": "medium",
+        "effort": "medium"
+      }
+    ],
+    "limitations": [
+      "Crawl coverage at 55.24% means nearly half of documentation remains unaudited; findings do not represent complete site health",
+      "278 unverified links could not be validated due to authentication, rate-limiting, or server blocks; actual broken link count may be higher",
+      "External audit cannot verify accuracy of technical content, code functionality in production environments, or API response correctness",
+      "Freshness analysis limited to machine-readable timestamps; editorial review dates and content accuracy cannot be assessed externally",
+      "Example reliability is estimated through static analysis; runtime execution, dependency compatibility, and environment-specific failures are not tested"
+    ]
+  }
+}

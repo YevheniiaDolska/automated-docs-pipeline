@@ -4,6 +4,7 @@
 from __future__ import annotations
 
 import argparse
+import json
 import os
 import shlex
 import subprocess
@@ -59,6 +60,18 @@ def _resolve_lint_command(runtime: dict[str, Any]) -> str:
     return "npm run lint"
 
 
+def _has_npm_lint_script(repo_root: Path) -> bool:
+    package_json = repo_root / "package.json"
+    if not package_json.exists():
+        return False
+    try:
+        payload = json.loads(package_json.read_text(encoding="utf-8"))
+    except (RuntimeError, ValueError, TypeError, OSError):
+        return False
+    scripts = payload.get("scripts", {}) if isinstance(payload, dict) else {}
+    return isinstance(scripts, dict) and "lint" in scripts
+
+
 def _resolve_build_command(runtime: dict[str, Any], generator: str) -> str:
     env_value = os.getenv("DOCSOPS_SITE_BUILD_COMMAND", "").strip()
     if env_value:
@@ -99,6 +112,13 @@ def main() -> int:
     generator = _resolve_generator(runtime)
     lint_command = _resolve_lint_command(runtime)
     build_command = _resolve_build_command(runtime, generator)
+    runtime_cfg = str(args.runtime_config)
+
+    if lint_command.strip() == "npm run lint" and not _has_npm_lint_script(repo_root):
+        lint_command = (
+            f"python3 docsops/scripts/finalize_docs_gate.py --docs-root docs "
+            f"--reports-dir reports --runtime-config {shlex.quote(runtime_cfg)} --continue-on-error"
+        )
 
     print(f"[docs-ci] generator={generator}")
     lint_rc = _run_shell(lint_command, repo_root)

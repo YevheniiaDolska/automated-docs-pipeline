@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Public Docs Audit</title>
+<style>
+  :root { --bg:#f8fafc; --text:#0f172a; --muted:#64748b; --card:#fff; --border:#e2e8f0; --accent:#0ea5e9; }
+  body { margin:0; font-family:"Segoe UI", Arial, sans-serif; background:linear-gradient(145deg,#ecfeff,#f8fafc); color:var(--text); }
+  .wrap { max-width:1050px; margin:0 auto; padding:24px 16px 40px; }
+  .hero,.section { background:var(--card); border:1px solid var(--border); border-radius:14px; padding:16px; margin-bottom:14px; }
+  h1 { margin:0 0 8px; font-size:28px; }
+  .sub { color:var(--muted); margin:0; }
+  .grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:10px; margin-top:12px; }
+  .card { border:1px solid var(--border); border-radius:10px; padding:12px; }
+  .value { font-size:30px; font-weight:700; color:var(--accent); margin-top:6px; }
+  .label { font-size:13px; color:var(--muted); }
+  ul { margin:8px 0 0 18px; }
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="hero">
+      <h1>Public Documentation Audit</h1>
+      <p class="sub">Sites: 1 | topology: single-product</p>
+      <p class="sub">Generated: 2026-04-16T11:18:26.082292+00:00</p>
+      <div class="grid">
+        <div class="card"><div class="label">Pages crawled</div><div class="value">286</div></div>
+        <div class="card"><div class="label">Pages discovered</div><div class="value">289</div></div>
+        <div class="card"><div class="label">Crawl coverage</div><div class="value">100.0%</div></div>
+        <div class="card"><div class="label">Broken links (docs)</div><div class="value">1</div></div>
+        <div class="card"><div class="label">Broken links (repo nav)</div><div class="value">0</div></div>
+        <div class="card"><div class="label">Unverified links</div><div class="value">3</div></div>
+        <div class="card"><div class="label">SEO/GEO issue rate</div><div class="value">2.1%</div></div>
+        <div class="card"><div class="label">API reference coverage</div><div class="value">2.3%</div></div>
+        <div class="card"><div class="label">Example reliability (estimate)</div><div class="value">0.0%</div></div>
+        <div class="card"><div class="label">Last-updated coverage</div><div class="value">98.95%</div></div>
+        <div class="card"><div class="label">Audit confidence</div><div class="value">63.5%</div></div>
+      </div>
+    </div>
+    <div class="section">
+      <h2>Top Findings</h2>
+      <ul>
+        <li>Broken internal links: 1</li><li>Link verification inconclusive for 3 URLs (auth/rate-limit/server block); these are excluded from broken-link counts.</li><li>API usage-doc coverage is low: 2.3% (21 API pages detected)</li><li>Example reliability estimate is low: 0.0%</li>
+      </ul>
+    </div>
+    <div class="section">
+      <h2>Per-site Summary</h2>
+      <ul>
+        <li><strong>https://docs.railway.com/</strong>: pages=286, broken_links=1, api_coverage=2.3%, examples=0.0%</li>
+      </ul>
+    </div>
+    <div class="section"><h2>LLM Executive Analysis (Claude Sonnet)</h2><p>Railway documentation audit covered 286 pages with 100% crawl coverage across 289 discovered pages. API reference coverage is critically low at 2.3% with only 21 API pages detected. Example reliability scored 0.0%, indicating no working code examples found. One confirmed broken internal link exists within user-facing documentation. Overall confidence stands at 63.5%, with link verification confidence particularly low at 25% due to 3 unverified URLs blocked by authentication or rate limiting.</p><h3>Strengths</h3><ul><li>Complete crawl coverage at 100% with all 289 in-scope pages successfully examined</li><li>Excellent freshness metadata coverage at 98.95% of pages showing last-updated information</li><li>Minimal broken link issues with only 1 confirmed broken internal documentation link</li><li>No repository navigation link breakage (0 repo_broken_links_count)</li><li>Low SEO/geo issue rate at 2.1% indicating good technical page optimization</li></ul><h3>Risks</h3><ul><li>Critical API documentation gap: only 2.3% reference coverage with 21 API pages detected suggests incomplete API documentation</li><li>Zero example reliability (0.0%) indicates no verified working code examples, severely impacting developer onboarding</li><li>Low link verification confidence (25%) creates uncertainty about external link health and 3 URLs remain unverified</li><li>Overall confidence of 63.5% suggests moderate reliability concerns in audit completeness</li><li>Potential customer friction from broken internal documentation link affecting navigation</li><li>Missing or non-functional code examples may increase support burden and slow developer adoption</li><li>API documentation deficiency may force developers to reverse-engineer functionality or seek alternative solutions</li></ul><h3>Prioritized actions</h3><ul><li>Expand API reference documentation from 2.3% to minimum 80% coverage across all public API endpoints <em>[critical, high]</em></li><li>Implement and verify working code examples across key user journeys to improve 0.0% reliability score <em>[critical, high]</em></li><li>Fix the 1 confirmed broken internal documentation link to restore navigation integrity <em>[high, low]</em></li><li>Investigate and resolve 3 unverified links blocked by auth/rate-limit to improve link confidence from 25% <em>[medium, low]</em></li><li>Establish automated example testing pipeline to maintain code example reliability above 85% <em>[high, medium]</em></li></ul></div>
+  </div>
+</body>
+</html>

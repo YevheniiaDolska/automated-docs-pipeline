@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Public Docs Audit</title>
+<style>
+  :root { --bg:#f8fafc; --text:#0f172a; --muted:#64748b; --card:#fff; --border:#e2e8f0; --accent:#0ea5e9; }
+  body { margin:0; font-family:"Segoe UI", Arial, sans-serif; background:linear-gradient(145deg,#ecfeff,#f8fafc); color:var(--text); }
+  .wrap { max-width:1050px; margin:0 auto; padding:24px 16px 40px; }
+  .hero,.section { background:var(--card); border:1px solid var(--border); border-radius:14px; padding:16px; margin-bottom:14px; }
+  h1 { margin:0 0 8px; font-size:28px; }
+  .sub { color:var(--muted); margin:0; }
+  .grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:10px; margin-top:12px; }
+  .card { border:1px solid var(--border); border-radius:10px; padding:12px; }
+  .value { font-size:30px; font-weight:700; color:var(--accent); margin-top:6px; }
+  .label { font-size:13px; color:var(--muted); }
+  ul { margin:8px 0 0 18px; }
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="hero">
+      <h1>Public Documentation Audit</h1>
+      <p class="sub">Sites: 1 | topology: multi-project</p>
+      <p class="sub">Generated: 2026-04-15T11:37:49.641128+00:00</p>
+      <div class="grid">
+        <div class="card"><div class="label">Pages crawled</div><div class="value">907</div></div>
+        <div class="card"><div class="label">Pages discovered</div><div class="value">912</div></div>
+        <div class="card"><div class="label">Crawl coverage</div><div class="value">100.0%</div></div>
+        <div class="card"><div class="label">Broken links (docs)</div><div class="value">0</div></div>
+        <div class="card"><div class="label">Broken links (repo nav)</div><div class="value">0</div></div>
+        <div class="card"><div class="label">Unverified links</div><div class="value">5</div></div>
+        <div class="card"><div class="label">SEO/GEO issue rate</div><div class="value">21.8%</div></div>
+        <div class="card"><div class="label">API reference coverage</div><div class="value">30.59%</div></div>
+        <div class="card"><div class="label">Example reliability (estimate)</div><div class="value">0.0%</div></div>
+        <div class="card"><div class="label">Last-updated coverage</div><div class="value">2.98%</div></div>
+        <div class="card"><div class="label">Audit confidence</div><div class="value">63.5%</div></div>
+      </div>
+    </div>
+    <div class="section">
+      <h2>Top Findings</h2>
+      <ul>
+        <li>Link verification inconclusive for 5 URLs (auth/rate-limit/server block); these are excluded from broken-link counts.</li><li>SEO/GEO issue rate is high: 21.8%</li><li>API usage-doc coverage is low: 30.59% (847 API pages detected)</li><li>Example reliability: 0% on 907 pages (likely detection limitation). Site may use JS-rendered code blocks.</li><li>Freshness visibility is weak: only 2.98% pages show last updated</li>
+      </ul>
+    </div>
+    <div class="section">
+      <h2>Per-site Summary</h2>
+      <ul>
+        <li><strong>https://docs.moralis.com/</strong>: pages=907, broken_links=0, api_coverage=30.59%, examples=0.0%</li>
+      </ul>
+    </div>
+    <div class="section"><h2>LLM Executive Analysis (Claude Sonnet)</h2><p>Documentation audit of docs.moralis.com covered 907 pages with 100% crawl coverage across a multi-project topology. No broken links were detected (0 docs-facing, 0 repository links), though 5 URLs could not be verified due to access restrictions. API reference coverage stands at 30.59% across 847 detected API pages. Example code reliability shows 0% detection, indicating a likely technical limitation with JavaScript-rendered content. Only 2.98% of pages display freshness metadata.</p><h3>Strengths</h3><ul><li>Complete crawl coverage achieved (100%) with 907 of 919 requested pages successfully indexed</li><li>Zero confirmed broken links across documentation and repository navigation</li><li>High crawl confidence (95%) and API detection confidence (85%) indicate reliable structural analysis</li><li>847 API pages successfully detected across multi-project documentation structure</li><li>Trap URL detection prevented 112 non-documentation URLs from skewing results</li></ul><h3>Risks</h3><ul><li>SEO/geo issue rate of 21.8% may impact discoverability and international user access</li><li>API reference coverage at 30.59% leaves majority of API endpoints without usage documentation</li><li>Example code reliability at 0% suggests users cannot verify working code samples (likely JS-rendering detection gap)</li><li>Freshness metadata visible on only 2.98% of pages obscures content currency for 97% of documentation</li><li>5 unverified links create uncertainty in link health assessment despite zero confirmed breaks</li><li>Overall confidence at 63.5% indicates moderate reliability limitations in audit completeness</li><li>Link verification confidence at 25% suggests significant blind spots in external dependency health</li></ul><h3>Prioritized actions</h3><ul><li>Implement last-updated timestamps on all pages to address 97% freshness visibility gap <em>[critical, low]</em></li><li>Expand API usage documentation to cover remaining 69% of 847 detected API pages <em>[critical, high]</em></li><li>Audit and resolve SEO/geo issues affecting 21.8% of pages to improve discoverability <em>[high, medium]</em></li><li>Investigate and resolve 5 unverified links blocked by auth/rate-limit/server restrictions <em>[medium, low]</em></li><li>Validate example code rendering approach to confirm 0% detection is tooling limitation not content gap <em>[high, medium]</em></li></ul></div>
+  </div>
+</body>
+</html>

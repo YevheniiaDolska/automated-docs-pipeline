@@ -43,15 +43,15 @@
   <div class="wrap">
     <div class="hero">
       <h1>VeriOps Audit Scorecard</h1>
-      <p class="sub">Generated at 2026-04-02T14:09:27.676807+00:00</p>
+      <p class="sub">Generated at 2026-04-16T15:31:51.243126+00:00</p>
       <div class="score">
-        <div class="big">60.53</div>
+        <div class="big">60.8</div>
         <div class="grade">Grade D</div>
       </div>
       <div class="grid">
         <div class='card'><h3>API coverage</h3><div class='value'>0.0%</div><p>Undocumented: 0 / 0 operations</p></div>
         <div class='card'><h3>Example reliability</h3><div class='value'>100.0%</div><p>Executed: 2, failed: 0</p></div>
-        <div class='card'><h3>Freshness (median age)</h3><div class='value'>13.0 days</div><p>Stale over threshold: 0.0%</p></div>
+        <div class='card'><h3>Freshness (median age)</h3><div class='value'>27.0 days</div><p>Stale over threshold: 0.0%</p></div>
         <div class='card'><h3>Docs contract drift</h3><div class='value'>0.0%</div><p>Mismatches: 0</p></div>
         <div class='card'><h3>Layer completeness</h3><div class='value'>0.0%</div><p>Features missing layers: 75</p></div>
         <div class='card'><h3>Terminology consistency</h3><div class='value'>100.0%</div><p>Forbidden term occurrences: 0</p></div>
@@ -69,6 +69,13 @@
       </table>
       <p class="foot">Per-finding totals (low/base/high): remediation $2145.0 / $5555.0 / $9020.0, monthly loss $4174.5 / $13024.0 / $28116.0.</p>
       <p class="foot">Fixability coverage: pilot can close 8 of 8 findings; full implementation can close 8 of 8.</p>
+    </div>
+
+    <div class="section">
+      <h2>Executive readout</h2>
+      <p><strong>Summary:</strong> Current documentation operating posture is fragile (score 60.8, grade D). API coverage is 0.0%, example reliability is 100.0%, drift is 0.0%, and stale coverage debt is 0.0%.</p>
+      <p><strong>Business context:</strong> The finding set contains 1 high and 3 medium risks, with quantifiable monthly loss and remediation effort modeled per issue.</p>
+      <p><strong>Recommendation:</strong> NO-GO until critical remediation milestones are closed. Execute the 90-day roadmap with weekly evidence-based checkpoints to convert documentation quality from project effort into repeatable operating capability.</p>
     </div>
 
     <div class="section">
@@ -92,7 +99,30 @@
     <div class="section">
       <h2>Top 3 Gaps To Fix First</h2>
       <ol class="top3">
-        <li><strong>Webhook: webhook: Webhook</strong> (high)<br><span>Update webhook documentation for changes in mkdocs.yml. Include payload examples and event types.</span></li><li><strong>Authentication: authentication: Auth</strong> (high)<br><span>Update authentication documentation for changes in docs/reference/taskstream-api-playground.md. Include security considerations.</span></li><li><strong>Database Schema: database_schema: schema(</strong> (high)<br><span>Document database schema change in scripts/generate_api_test_assets.py. Update data model documentation.</span></li>
+        <li>No gaps detected.</li>
+      </ol>
+    </div>
+
+    <div class="section">
+      <h2>Delivery scope</h2>
+      <p><strong>Package:</strong> Full implementation (full).</p>
+      <p>Current report includes 8 findings (1 high, 3 medium) mapped to pipeline capabilities.</p>
+      <div class="grid">
+        <div class="card">
+          <h3>Pilot scope / In scope</h3>
+          <ul><li>Production rollout across prioritized repositories.</li><li>Full quality gate integration in CI and weekly automation.</li><li>Multi-surface docs generation and contract governance.</li><li>Operational runbook alignment and ownership handoff.</li></ul>
+        </div>
+        <div class="card">
+          <h3>Out of scope</h3>
+          <ul><li>RAG-heavy retrieval evaluation and graph tuning (add-on).</li><li>Custom security attestations outside standard hardening profile.</li></ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="section">
+      <h2>90-day roadmap</h2>
+      <ol class="top3">
+        <li><strong>0-30</strong> - Stabilize core quality risks<br><span>Stabilize highest-severity findings and unblock release-critical documentation paths.; Lock weekly quality gate cadence and confirm review-branch workflow behavior.; Prioritize 1 high-severity findings for immediate remediation.</span></li><li><strong>31-60</strong> - Scale and standardize coverage<br><span>Close the highest business-impact medium findings and reduce recurring support burden.; Backfill missing documentation layers for top capabilities and API operations.; Primary gap themes: Missing required doc layers; Documentation freshness debt; RAG retrieval quality risk.</span></li><li><strong>61-90</strong> - Operationalize steady-state excellence<br><span>Harden governance with KPI/SLA thresholds tied to release-readiness criteria.; Institutionalize ownership model, reporting rhythm, and operational escalation policy.; Resolve remaining medium findings (3) into steady-state backlog.</span></li>
       </ol>
     </div>
 
@@ -101,8 +131,8 @@
       <table class="kpi-table">
         <tr><th>Precision@k</th><th>Recall@k</th><th>Hallucination rate</th></tr>
         <tr>
-          <td>0.2267</td>
-          <td>0.68</td>
+          <td>0.24</td>
+          <td>0.72</td>
           <td>0.0</td>
         </tr>
       </table>

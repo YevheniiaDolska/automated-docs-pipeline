@@ -1,0 +1,314 @@
+{
+  "generated_at": "2026-04-15T10:48:21.582881+00:00",
+  "site_url": "https://docs.ton.org/",
+  "site_urls": [
+    "https://docs.ton.org/"
+  ],
+  "topology_mode": "single-product",
+  "verification_modes": [
+    "authenticated",
+    "bot",
+    "browser"
+  ],
+  "sites": [
+    {
+      "site_url": "https://docs.ton.org/",
+      "metrics": {
+        "crawl": {
+          "pages_crawled": 401,
+          "requested_pages": 471,
+          "urls_examined": 401,
+          "max_pages": 3500,
+          "effective_limit": 3500,
+          "auto_mode": false,
+          "stop_reason": "queue_exhausted",
+          "discovered_pages": 401,
+          "crawl_scope_basis": "sitemap",
+          "crawl_scope_pages": 400,
+          "crawl_coverage_pct": 100.25,
+          "trap_urls_skipped": 0,
+          "seeded_sitemap_urls": 400,
+          "robots_sitemaps_declared": 1
+        },
+        "links": {
+          "internal_links_checked": 471,
+          "broken_internal_links_count": 1,
+          "docs_broken_links_count": 1,
+          "repo_broken_links_count": 0,
+          "broken_internal_link_samples": [
+            "https://docs.ton.org/languages/tl-b/complex-and-non-trivial-examples.mdx"
+          ],
+          "docs_broken_link_samples": [
+            "https://docs.ton.org/languages/tl-b/complex-and-non-trivial-examples.mdx"
+          ],
+          "repo_broken_link_samples": [],
+          "unreachable_links_count": 0,
+          "unverified_links_count": 0,
+          "unverified_link_samples": [],
+          "confirmed_broken_links_count": 1,
+          "excluded_links_count": 6,
+          "excluded_link_samples": [
+            "https://docs.ton.org/catchain.pdf",
+            "https://docs.ton.org/resources/pdfs/catchain.pdf",
+            "https://docs.ton.org/resources/pdfs/fiftbase.pdf",
+            "https://docs.ton.org/resources/pdfs/tblkch.pdf",
+            "https://docs.ton.org/resources/pdfs/ton.pdf",
+            "https://docs.ton.org/resources/pdfs/tvm.pdf"
+          ],
+          "_all_confirmed_broken_links": [
+            "https://docs.ton.org/languages/tl-b/complex-and-non-trivial-examples.mdx"
+          ],
+          "_all_unverified_links": [],
+          "_all_excluded_links": [
+            "https://docs.ton.org/catchain.pdf",
+            "https://docs.ton.org/resources/pdfs/catchain.pdf",
+            "https://docs.ton.org/resources/pdfs/fiftbase.pdf",
+            "https://docs.ton.org/resources/pdfs/tblkch.pdf",
+            "https://docs.ton.org/resources/pdfs/ton.pdf",
+            "https://docs.ton.org/resources/pdfs/tvm.pdf"
+          ],
+          "_all_docs_unverified_links": [],
+          "_all_repo_unverified_links": [],
+          "_broken_link_provenance": {
+            "https://docs.ton.org/languages/tl-b/complex-and-non-trivial-examples.mdx": [
+              {
+                "source_page": "https://docs.ton.org/standard/wallets/v5-api",
+                "anchor_text": "complex TL-B patterns"
+              }
+            ]
+          }
+        },
+        "seo_geo": {
+          "pages_scanned": 401,
+          "missing_title_count": 0,
+          "missing_description_count": 297,
+          "multiple_h1_count": 2,
+          "heading_hierarchy_jump_count": 93,
+          "seo_geo_issue_rate_pct": 24.44
+        },
+        "api_coverage": {
+          "reference_endpoint_count": 1413,
+          "api_pages_detected": 129,
+          "endpoints_with_usage_docs": 1055,
+          "reference_endpoints_without_usage_docs": 358,
+          "reference_coverage_pct": 74.66,
+          "no_api_pages_found": false,
+          "coverage_determined": true,
+          "coverage_method": "heuristic",
+          "detection_note": "Contract URLs found but no operations parsed",
+          "uncovered_endpoint_samples": [
+            "ep:/0+$/",
+            "ep:/accountstates",
+            "ep:/actions",
+            "ep:/addressbook",
+            "ep:/addressinformation",
+            "ep:/adjacenttransactions",
+            "ep:/api/create-transaction",
+            "ep:/api/store-payment",
+            "ep:/api/v",
+            "ep:/api/v1/proof/{address",
+            "ep:/appcontent",
+            "ep:/appkitprovider",
+            "ep:/bin/mintless-cli",
+            "ep:/blocks",
+            "ep:/components/schemas/tonhash",
+            "ep:/decode",
+            "ep:/detectaddress",
+            "ep:/detecthash",
+            "ep:/dns/records",
+            "ep:/docs.ton.org/contract-dev/blueprint/api"
+          ]
+        },
+        "examples": {
+          "total_code_examples": 0,
+          "total_code_blocks_all": 2622,
+          "runnable_without_env": 0,
+          "blocked_by_placeholders": 0,
+          "network_bound_examples": 0,
+          "example_reliability_estimate_pct": 0.0,
+          "detection_note": "No executable code blocks detected (2622 data-only blocks found). Site may use non-standard code rendering that the auditor does not recognize, or all examples are in data formats (YAML/JSON)."
+        },
+        "freshness": {
+          "pages_with_last_updated_hint": 7,
+          "pages_without_last_updated_hint": 394,
+          "last_updated_coverage_pct": 1.75,
+          "samples_with_last_updated": [
+            {
+              "url": "https://docs.ton.org/ecosystem/nodes/cpp/mytonctrl/backups",
+              "hint": "create_backup mynode-backup-2024-05-01.tar -u validator"
+            },
+            {
+              "url": "https://docs.ton.org/foundations/system",
+              "hint": "on Nov 22, 2023 ("
+            },
+            {
+              "url": "https://docs.ton.org/standard/tokens/jettons/comparison",
+              "hint": ": Apr 18, 2022"
+            },
+            {
+              "url": "https://docs.ton.org/foundations/whitepapers/catchain",
+              "hint": ": February 19, 2020"
+            },
+            {
+              "url": "https://docs.ton.org/foundations/whitepapers/tvm",
+              "hint": ": March 23, 2020"
+            },
+            {
+              "url": "https://docs.ton.org/foundations/whitepapers/ton",
+              "hint": ": July 26, 2021"
+            },
+            {
+              "url": "https://docs.ton.org/foundations/whitepapers/tblkch",
+              "hint": ": February 8, 2020"
+            }
+          ]
+        }
+      },
+      "samples": {
+        "broken_links": [
+          "https://docs.ton.org/languages/tl-b/complex-and-non-trivial-examples.mdx"
+        ],
+        "docs_broken_link_samples": [
+          "https://docs.ton.org/languages/tl-b/complex-and-non-trivial-examples.mdx"
+        ],
+        "repo_broken_link_samples": [],
+        "unverified_link_samples": [],
+        "api_uncovered_samples": [
+          "ep:/0+$/",
+          "ep:/accountstates",
+          "ep:/actions",
+          "ep:/addressbook",
+          "ep:/addressinformation",
+          "ep:/adjacenttransactions",
+          "ep:/api/create-transaction",
+          "ep:/api/store-payment",
+          "ep:/api/v",
+          "ep:/api/v1/proof/{address",
+          "ep:/appcontent",
+          "ep:/appkitprovider",
+          "ep:/bin/mintless-cli",
+          "ep:/blocks",
+          "ep:/components/schemas/tonhash",
+          "ep:/decode",
+          "ep:/detectaddress",
+          "ep:/detecthash",
+          "ep:/dns/records",
+          "ep:/docs.ton.org/contract-dev/blueprint/api"
+        ]
+      },
+      "run_count": 1
+    }
+  ],
+  "aggregate": {
+    "metrics": {
+      "crawl": {
+        "pages_crawled": 401,
+        "requested_pages": 471,
+        "urls_examined": 401,
+        "max_pages_total": 3500,
+        "discovered_pages": 401,
+        "crawl_scope_pages": 400,
+        "trap_urls_skipped": 0,
+        "crawl_coverage_pct": 100.25
+      },
+      "links": {
+        "broken_internal_links_count": 1,
+        "docs_broken_links_count": 1,
+        "repo_broken_links_count": 0,
+        "unverified_links_count": 0,
+        "confirmed_broken_links_count": 1,
+        "excluded_links_count": 6
+      },
+      "seo_geo": {
+        "seo_geo_issue_rate_pct": 24.44
+      },
+      "api_coverage": {
+        "reference_coverage_pct": 74.66,
+        "no_api_pages_found": false,
+        "api_pages_detected": 129,
+        "coverage_determined": true,
+        "detection_note": ""
+      },
+      "examples": {
+        "example_reliability_estimate_pct": 0.0
+      },
+      "freshness": {
+        "last_updated_coverage_pct": 1.75
+      }
+    },
+    "confidence": {
+      "overall_confidence_pct": 91.5,
+      "links_confidence_pct": 95.0,
+      "api_confidence_pct": 85.0,
+      "crawl_confidence_pct": 95.0
+    }
+  },
+  "confidence": {
+    "overall_confidence_pct": 91.5,
+    "links_confidence_pct": 95.0,
+    "api_confidence_pct": 85.0,
+    "crawl_confidence_pct": 95.0
+  },
+  "top_findings": [
+    "Broken internal links: 1",
+    "SEO/GEO issue rate is high: 24.44%",
+    "Example reliability estimate is low: 0.0%",
+    "Freshness visibility is weak: only 1.75% pages show last updated"
+  ],
+  "llm_analysis": {
+    "status": "ok",
+    "model": "claude-sonnet-4-5",
+    "analysis": {
+      "executive_summary": "Documentation audit of https://docs.ton.org/ covered 401 pages with 100.25% crawl coverage against 471 requested pages. API reference coverage is 74.66% across 129 detected API pages. Critical gaps include 0.0% example reliability, 24.44% SEO/geo issue rate, and only 1.75% of pages displaying freshness metadata. Overall audit confidence is 91.5% with 1 confirmed broken internal link.",
+      "strengths": [
+        "Complete crawl coverage at 100.25% (401 of 400 scope pages discovered)",
+        "Strong API reference coverage at 74.66% with 129 API pages detected",
+        "Minimal broken links: only 1 confirmed broken internal link in user-facing docs",
+        "High overall audit confidence at 91.5%",
+        "No repository navigation link breakage (0 repo_broken_links_count)"
+      ],
+      "risks": [
+        "Zero example reliability (0.0%) indicates no working code examples detected or validated",
+        "High SEO/geo issue rate at 24.44% may impact discoverability and search rankings",
+        "Freshness metadata visible on only 1.75% of pages undermines content trust and currency perception",
+        "25.34% of API surface lacks reference documentation (100% - 74.66%)",
+        "6 links excluded from validation may hide additional broken link issues",
+        "Example detection methodology may have failed given 0.0% reliability on 401 pages",
+        "Low freshness coverage prevents users from assessing documentation recency"
+      ],
+      "prioritized_actions": [
+        {
+          "action": "Implement last-updated timestamps on all documentation pages to address 1.75% freshness coverage",
+          "impact": "critical",
+          "effort": "low"
+        },
+        {
+          "action": "Audit and fix code examples to achieve measurable reliability above 0.0%",
+          "impact": "critical",
+          "effort": "high"
+        },
+        {
+          "action": "Resolve 24.44% SEO/geo issues (meta descriptions, titles, language tags, canonical URLs)",
+          "impact": "high",
+          "effort": "medium"
+        },
+        {
+          "action": "Document remaining 25.34% of API surface to reach 100% reference coverage",
+          "impact": "high",
+          "effort": "high"
+        },
+        {
+          "action": "Fix 1 confirmed broken internal link and investigate 6 excluded links",
+          "impact": "medium",
+          "effort": "low"
+        }
+      ],
+      "limitations": [
+        "External audit cannot verify technical accuracy of API documentation content or parameter descriptions",
+        "Example reliability at 0.0% may indicate detection methodology limitations rather than actual absence of examples",
+        "Audit cannot assess documentation completeness for unreleased or undocumented API features not present in crawled pages",
+        "SEO/geo issue detection limited to technical markup; does not evaluate content quality or localization accuracy"
+      ]
+    }
+  }
+}

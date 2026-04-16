@@ -1,0 +1,212 @@
+{
+  "generated_at": "2026-04-16T10:08:05.326187+00:00",
+  "site_url": "https://docs.safe.global/",
+  "site_urls": [
+    "https://docs.safe.global/"
+  ],
+  "topology_mode": "single-product",
+  "verification_modes": [
+    "authenticated",
+    "bot",
+    "browser"
+  ],
+  "sites": [
+    {
+      "site_url": "https://docs.safe.global/",
+      "metrics": {
+        "crawl": {
+          "pages_crawled": 1,
+          "requested_pages": 1,
+          "urls_examined": 1,
+          "max_pages": 10000,
+          "effective_limit": 10000,
+          "auto_mode": false,
+          "stop_reason": "queue_exhausted",
+          "discovered_pages": 1,
+          "crawl_scope_basis": "discovered",
+          "crawl_scope_pages": 1,
+          "crawl_coverage_pct": 100.0,
+          "trap_urls_skipped": 0,
+          "seeded_sitemap_urls": 0,
+          "robots_sitemaps_declared": 0
+        },
+        "links": {
+          "internal_links_checked": 0,
+          "broken_internal_links_count": 0,
+          "docs_broken_links_count": 0,
+          "repo_broken_links_count": 0,
+          "broken_internal_link_samples": [],
+          "docs_broken_link_samples": [],
+          "repo_broken_link_samples": [],
+          "unreachable_links_count": 0,
+          "unverified_links_count": 0,
+          "unverified_link_samples": [],
+          "confirmed_broken_links_count": 0,
+          "excluded_links_count": 0,
+          "excluded_link_samples": [],
+          "_all_confirmed_broken_links": [],
+          "_all_unverified_links": [],
+          "_all_excluded_links": [],
+          "_all_docs_unverified_links": [],
+          "_all_repo_unverified_links": [],
+          "_broken_link_provenance": {}
+        },
+        "seo_geo": {
+          "pages_scanned": 1,
+          "missing_title_count": 1,
+          "missing_description_count": 0,
+          "multiple_h1_count": 0,
+          "heading_hierarchy_jump_count": 0,
+          "seo_geo_issue_rate_pct": 25.0
+        },
+        "api_coverage": {
+          "reference_endpoint_count": 0,
+          "api_pages_detected": 0,
+          "endpoints_with_usage_docs": 0,
+          "reference_endpoints_without_usage_docs": 0,
+          "reference_coverage_pct": -1.0,
+          "no_api_pages_found": true,
+          "coverage_determined": false,
+          "coverage_method": "heuristic",
+          "detection_note": "Contract URLs found but no operations parsed",
+          "uncovered_endpoint_samples": []
+        },
+        "examples": {
+          "total_code_examples": 0,
+          "total_code_blocks_all": 0,
+          "runnable_without_env": 0,
+          "blocked_by_placeholders": 0,
+          "network_bound_examples": 0,
+          "example_reliability_estimate_pct": 0.0,
+          "detection_note": "No code blocks detected in crawled pages. The site may use JavaScript-rendered code blocks invisible to the HTML parser."
+        },
+        "freshness": {
+          "pages_with_last_updated_hint": 0,
+          "pages_without_last_updated_hint": 1,
+          "last_updated_coverage_pct": 0.0,
+          "samples_with_last_updated": []
+        }
+      },
+      "samples": {
+        "broken_links": [],
+        "docs_broken_link_samples": [],
+        "repo_broken_link_samples": [],
+        "unverified_link_samples": [],
+        "api_uncovered_samples": []
+      },
+      "run_count": 1
+    }
+  ],
+  "aggregate": {
+    "metrics": {
+      "crawl": {
+        "pages_crawled": 1,
+        "requested_pages": 1,
+        "urls_examined": 1,
+        "max_pages_total": 10000,
+        "discovered_pages": 1,
+        "crawl_scope_pages": 1,
+        "trap_urls_skipped": 0,
+        "crawl_coverage_pct": 100.0
+      },
+      "links": {
+        "broken_internal_links_count": 0,
+        "docs_broken_links_count": 0,
+        "repo_broken_links_count": 0,
+        "unverified_links_count": 0,
+        "confirmed_broken_links_count": 0,
+        "excluded_links_count": 0
+      },
+      "seo_geo": {
+        "seo_geo_issue_rate_pct": 25.0
+      },
+      "api_coverage": {
+        "reference_coverage_pct": -1.0,
+        "no_api_pages_found": true,
+        "api_pages_detected": 0,
+        "coverage_determined": false,
+        "detection_note": ""
+      },
+      "examples": {
+        "example_reliability_estimate_pct": 0.0
+      },
+      "freshness": {
+        "last_updated_coverage_pct": 0.0
+      }
+    },
+    "confidence": {
+      "overall_confidence_pct": 74.0,
+      "links_confidence_pct": 95.0,
+      "api_confidence_pct": 35.0,
+      "crawl_confidence_pct": 95.0
+    }
+  },
+  "confidence": {
+    "overall_confidence_pct": 74.0,
+    "links_confidence_pct": 95.0,
+    "api_confidence_pct": 35.0,
+    "crawl_confidence_pct": 95.0
+  },
+  "top_findings": [
+    "SEO/GEO issue rate is high: 25.0%",
+    "No API reference pages found in 1 crawled pages (check API URL patterns, JS rendering, and authenticated access)",
+    "Example reliability estimate is low: 0.0%",
+    "Freshness visibility is weak: only 0.0% pages show last updated"
+  ],
+  "llm_analysis": {
+    "status": "ok",
+    "model": "claude-sonnet-4-5",
+    "analysis": {
+      "executive_summary": "Documentation audit of https://docs.safe.global/ covered only 1 page out of 1 requested, achieving 100% crawl coverage but representing severely limited scope. Zero broken links detected across all categories (0 docs, 0 repo navigation). API reference detection failed with 0 pages found, flagged as potential detection limitation. SEO/geo issues affect 25% of crawled content, example reliability scores 0%, and freshness metadata absent on 100% of pages. Overall confidence stands at 74%, with API detection confidence critically low at 35%.",
+      "strengths": [
+        "Zero broken links detected (0 internal docs links, 0 repository links, 0 confirmed broken)",
+        "100% crawl coverage achieved within requested scope",
+        "Link verification confidence high at 95%",
+        "No crawl trap URLs encountered during site examination"
+      ],
+      "risks": [
+        "Audit scope critically limited to 1 page - insufficient for production documentation assessment",
+        "API reference pages undetected (0 found) with low detection confidence (35%) - may indicate JS rendering issues, authentication requirements, or incorrect URL patterns",
+        "SEO/geo issue rate at 25% impacts discoverability and international reach",
+        "Example reliability at 0% suggests no working code samples detected or validated",
+        "Freshness metadata completely absent (0% coverage) - users cannot assess content currency",
+        "Overall confidence at 74% indicates significant audit limitations",
+        "Single-page sample cannot validate navigation structure, content depth, or cross-linking patterns"
+      ],
+      "prioritized_actions": [
+        {
+          "action": "Execute full-scope crawl across entire docs.safe.global domain to establish baseline (target 500+ pages minimum)",
+          "impact": "critical",
+          "effort": "low"
+        },
+        {
+          "action": "Investigate API reference detection failure - verify JS rendering requirements, check authentication gates, and confirm URL patterns for API documentation",
+          "impact": "critical",
+          "effort": "medium"
+        },
+        {
+          "action": "Implement last-updated timestamps on all documentation pages to achieve minimum 80% freshness coverage",
+          "impact": "high",
+          "effort": "low"
+        },
+        {
+          "action": "Audit and remediate SEO/geo issues affecting 25% of pages - review meta descriptions, titles, and internationalization configuration",
+          "impact": "high",
+          "effort": "medium"
+        },
+        {
+          "action": "Establish code example validation pipeline to improve 0% reliability score - implement syntax checking and runtime testing",
+          "impact": "medium",
+          "effort": "high"
+        }
+      ],
+      "limitations": [
+        "Single-page audit cannot validate documentation completeness, information architecture, or user journey coverage across product domains",
+        "External audit cannot verify accuracy of technical content, code example functionality in production environments, or alignment with actual API behavior",
+        "API reference detection at 35% confidence may miss pages behind authentication, JavaScript rendering, or non-standard URL structures not accessible to crawler",
+        "Cannot assess documentation effectiveness, user comprehension, or support ticket deflection without user analytics integration",
+        "Freshness and example metrics reflect detection capabilities only - absence of timestamps or examples may indicate detection gaps rather than true absence"
+      ]
+    }
+  }
+}

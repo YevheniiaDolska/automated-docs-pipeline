@@ -1,0 +1,57 @@
+{
+  "status": "ok",
+  "model": "claude-sonnet-4-5",
+  "analysis": {
+    "executive_summary": "Fly.io documentation audit covered 943 pages with 100% crawl coverage and 89.85% overall confidence. Critical issue: 93 confirmed broken internal documentation links require immediate remediation. API reference coverage is low at 40% across 128 detected API pages. Example code reliability shows 0% detection, indicating a likely technical limitation with JavaScript-rendered content. SEO/metadata issues affect 10.26% of pages, and only 57.26% of pages display last-updated timestamps.",
+    "strengths": [
+      "Complete crawl coverage achieved (943/943 pages, 100%)",
+      "High overall audit confidence at 89.85% with strong crawl confidence at 95%",
+      "No repository navigation broken links (repo_broken_links_count: 0), all issues are user-facing",
+      "128 API pages successfully detected without detection limitations flagged",
+      "Comprehensive site topology mapped in single-product mode with 1295 URLs examined"
+    ],
+    "risks": [
+      "93 confirmed broken internal documentation links directly impact user navigation and trust",
+      "API reference coverage at 40% leaves 60% of API surface undocumented or poorly linked",
+      "0% example reliability score suggests code samples may not be validated or are undetectable",
+      "10.26% SEO/GEO issue rate (97+ pages) may harm discoverability and search rankings",
+      "42.74% of pages lack last-updated metadata, undermining content trustworthiness",
+      "4 links unverified due to auth/rate-limit/server blocks, creating blind spots in link health",
+      "102 trap URLs skipped during crawl may hide additional documentation quality issues"
+    ],
+    "prioritized_actions": [
+      {
+        "action": "Fix all 93 confirmed broken internal documentation links",
+        "impact": "critical",
+        "effort": "medium"
+      },
+      {
+        "action": "Increase API reference coverage from 40% to minimum 80% by documenting missing endpoints and improving interlinking",
+        "impact": "high",
+        "effort": "high"
+      },
+      {
+        "action": "Implement last-updated timestamps on all pages (currently 57.26% coverage)",
+        "impact": "high",
+        "effort": "low"
+      },
+      {
+        "action": "Resolve SEO/metadata issues affecting 10.26% of pages (titles, descriptions, headings)",
+        "impact": "medium",
+        "effort": "medium"
+      },
+      {
+        "action": "Investigate and fix example code detection (0% reliability likely due to JS rendering or detection gap)",
+        "impact": "medium",
+        "effort": "medium"
+      }
+    ],
+    "limitations": [
+      "Example reliability at 0% indicates detection limitation with JavaScript-rendered code blocks; actual code quality cannot be assessed",
+      "4 links remain unverified due to authentication, rate-limiting, or server blocks; true link health unknown",
+      "External audit cannot validate accuracy of technical content, only structural and navigational integrity",
+      "102 trap URLs were excluded from crawl; potential documentation issues in those paths are not assessed",
+      "API coverage measurement depends on detection heuristics; actual API completeness requires manual verification against API specification"
+    ]
+  }
+}

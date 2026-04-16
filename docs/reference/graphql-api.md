@@ -5,21 +5,21 @@ content_type: reference
 product: both
 tags:
 - C
-- Development
-- Auto Doc Pipeline
 - Documents
-- Mnt
+- Development
 - Docs
 - Users
+- Auto Doc Pipeline
+- Mnt
 - Kroha
-last_reviewed: '2026-04-06'
+last_reviewed: '2026-04-13'
 original_author: Kroha
 ---
 
 
 # GRAPHQL Reference
 
-Source: `/tmp/pytest-of-eudo/pytest-2844/test_multi_protocol_contract_f0/schema.graphql`
+Source: `/tmp/pytest-of-eudo/pytest-2995/test_multi_protocol_contract_f0/schema.graphql`
 
 Flow mode: `api-first`
 
@@ -32,6 +32,7 @@ Flow mode: `api-first`
 
 ## Interactive GraphQL Playground
 
+<!-- vale off -->
 <div id="graphql-playground" style="border:1px solid #d1d5db; padding:12px; border-radius:8px;">
   <p><strong>Endpoint:</strong> <code id="graphql-endpoint-view"></code></p>
   <textarea id="graphql-query" rows="12" style="width:100%; font-family:monospace;">query HealthCheck {
@@ -77,7 +78,8 @@ run.onclick = async function(){
 };
 })();
 </script>
+<!-- vale on -->
 
 ## Next steps
 
-- [Documentation index](index.md)
+- [Documentation index](../index.md)

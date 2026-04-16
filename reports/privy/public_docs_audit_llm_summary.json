@@ -1,0 +1,57 @@
+{
+  "status": "ok",
+  "model": "claude-sonnet-4-5",
+  "analysis": {
+    "executive_summary": "Documentation audit of docs.privy.io covered 584 pages with 100.17% crawl coverage and 91.5% overall confidence. The site contains 249 API reference pages but only 66.67% have adequate usage documentation. Critical issues include 0% example reliability (likely a detection limitation due to JS-rendered code blocks), 25.21% SEO/geo issue rate, and only 1.37% of pages displaying freshness metadata. Three confirmed broken internal links exist within user-facing documentation.",
+    "strengths": [
+      "Comprehensive crawl coverage at 100.17% with 584 pages successfully indexed",
+      "High overall audit confidence at 91.5% with strong link verification (95%) and crawl confidence (95%)",
+      "Substantial API reference content with 249 API pages detected across the documentation",
+      "Zero broken repository navigation links, indicating clean version control integration",
+      "No unverified or excluded link issues, demonstrating solid link hygiene"
+    ],
+    "risks": [
+      "Example reliability at 0% across 584 pages suggests code samples may not be detectable or are JS-rendered, creating uncertainty about example quality",
+      "SEO/geo issue rate of 25.21% affects discoverability and search ranking for approximately 147 pages",
+      "API reference coverage at 66.67% means one-third of API pages lack adequate usage documentation or tutorials",
+      "Freshness metadata visible on only 1.37% of pages (approximately 8 pages) prevents users from assessing content currency",
+      "Three confirmed broken internal documentation links create poor user experience and navigation dead-ends",
+      "API confidence at 85% indicates moderate uncertainty in API documentation assessment accuracy",
+      "Potential detection limitation flagged for code examples may mask actual documentation quality issues"
+    ],
+    "prioritized_actions": [
+      {
+        "action": "Investigate example detection failure: manually verify code block rendering and implement server-side rendering or static generation for examples if currently JS-dependent",
+        "impact": "critical",
+        "effort": "high"
+      },
+      {
+        "action": "Fix 3 confirmed broken internal documentation links to restore navigation integrity",
+        "impact": "high",
+        "effort": "low"
+      },
+      {
+        "action": "Add usage documentation and tutorials for the 33% of API pages (approximately 83 pages) lacking adequate coverage",
+        "impact": "high",
+        "effort": "high"
+      },
+      {
+        "action": "Implement last-updated timestamps across all 584 pages to improve from 1.37% to 100% freshness visibility",
+        "impact": "high",
+        "effort": "medium"
+      },
+      {
+        "action": "Remediate SEO/geo issues affecting 25.21% of pages (approximately 147 pages) by auditing meta descriptions, titles, and structured data",
+        "impact": "medium",
+        "effort": "medium"
+      }
+    ],
+    "limitations": [
+      "External audit cannot verify actual code example functionality, correctness, or whether examples execute successfully in real environments",
+      "Detection limitations with JS-rendered content mean true example coverage and quality may differ significantly from reported 0% reliability",
+      "Audit cannot assess documentation accuracy, technical correctness, or alignment with actual product behavior and API contracts",
+      "SEO/geo issue identification does not guarantee search ranking improvement or measure actual user discoverability impact",
+      "Freshness metadata presence does not validate whether content is actually current or whether update dates reflect meaningful changes"
+    ]
+  }
+}

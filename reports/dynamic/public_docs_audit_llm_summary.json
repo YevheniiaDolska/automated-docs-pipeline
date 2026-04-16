@@ -1,0 +1,57 @@
+{
+  "status": "ok",
+  "model": "claude-sonnet-4-5",
+  "analysis": {
+    "executive_summary": "Documentation audit of https://dynamic.xyz/docs crawled 2626 of 2680 requested pages (100% coverage). 45 confirmed broken internal documentation links were identified, with 9 additional links unverified due to authentication or rate-limiting. API reference coverage stands at 62.5% across 1486 detected API pages. SEO/metadata issues affect 21.12% of pages, and only 12.95% of pages display last-updated timestamps. Overall audit confidence is 84.83%.",
+    "strengths": [
+      "Complete crawl coverage achieved (100% of in-scope pages)",
+      "Large documentation footprint with 2626 pages successfully crawled",
+      "1486 API pages detected indicating substantial API documentation presence",
+      "No repository navigation link breakage (repo_broken_links_count: 0)",
+      "High overall audit confidence at 84.83%"
+    ],
+    "risks": [
+      "45 confirmed broken internal documentation links degrade user navigation and trust",
+      "API reference coverage gap of 37.5% leaves significant API surface undocumented",
+      "SEO/metadata issues on 21.12% of pages harm discoverability and search ranking",
+      "Only 12.95% freshness visibility prevents users from assessing content currency",
+      "Example code reliability estimate of 73.21% suggests potential broken or outdated code samples",
+      "9 unverified links may include additional broken links masked by authentication barriers",
+      "Low freshness coverage creates uncertainty about documentation maintenance cadence"
+    ],
+    "prioritized_actions": [
+      {
+        "action": "Repair all 45 confirmed broken internal documentation links",
+        "impact": "critical",
+        "effort": "medium"
+      },
+      {
+        "action": "Close API reference coverage gap from 62.5% to 90%+ by documenting missing endpoints",
+        "impact": "critical",
+        "effort": "high"
+      },
+      {
+        "action": "Implement last-updated timestamps on all pages (currently 12.95% coverage)",
+        "impact": "high",
+        "effort": "low"
+      },
+      {
+        "action": "Resolve SEO/metadata issues affecting 21.12% of pages (missing descriptions, titles, or structured data)",
+        "impact": "high",
+        "effort": "medium"
+      },
+      {
+        "action": "Audit and update example code to improve 73.21% reliability estimate",
+        "impact": "medium",
+        "effort": "high"
+      }
+    ],
+    "limitations": [
+      "External audit cannot verify content technical accuracy or correctness of code examples",
+      "9 unverified links blocked by authentication or rate-limiting may hide additional broken links",
+      "Crawl cannot assess internal tooling, staging environments, or access-restricted documentation sections",
+      "API coverage detection relies on heuristics; actual endpoint completeness requires internal API inventory comparison",
+      "Freshness analysis limited to visible last-updated metadata; actual content currency requires subject matter expert review"
+    ]
+  }
+}

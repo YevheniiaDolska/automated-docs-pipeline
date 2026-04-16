@@ -1,0 +1,438 @@
+{
+  "generated_at": "2026-04-15T12:10:17.181096+00:00",
+  "site_url": "https://docs.chain.link/",
+  "site_urls": [
+    "https://docs.chain.link/"
+  ],
+  "topology_mode": "multi-project",
+  "verification_modes": [
+    "authenticated",
+    "bot",
+    "browser"
+  ],
+  "sites": [
+    {
+      "site_url": "https://docs.chain.link/",
+      "metrics": {
+        "crawl": {
+          "pages_crawled": 1491,
+          "requested_pages": 1611,
+          "urls_examined": 1515,
+          "max_pages": 5000,
+          "effective_limit": 5000,
+          "auto_mode": false,
+          "stop_reason": "queue_exhausted",
+          "discovered_pages": 1515,
+          "crawl_scope_basis": "sitemap",
+          "crawl_scope_pages": 1515,
+          "crawl_coverage_pct": 100.0,
+          "trap_urls_skipped": 151,
+          "seeded_sitemap_urls": 1515,
+          "robots_sitemaps_declared": 2
+        },
+        "links": {
+          "internal_links_checked": 1600,
+          "broken_internal_links_count": 6,
+          "docs_broken_links_count": 6,
+          "repo_broken_links_count": 0,
+          "broken_internal_link_samples": [
+            "https://docs.chain.link/ccip/concepts/best-practices",
+            "https://docs.chain.link/cdn-cgi/l/email-protection",
+            "https://docs.chain.link/cre/getting-started",
+            "https://docs.chain.link/cre/guides/workflow/using-evm-client/onchain-write",
+            "https://docs.chain.link/cre/reference/sdk",
+            "https://docs.chain.link/cre/reference/sdk/triggers"
+          ],
+          "docs_broken_link_samples": [
+            "https://docs.chain.link/ccip/concepts/best-practices",
+            "https://docs.chain.link/cdn-cgi/l/email-protection",
+            "https://docs.chain.link/cre/getting-started",
+            "https://docs.chain.link/cre/guides/workflow/using-evm-client/onchain-write",
+            "https://docs.chain.link/cre/reference/sdk",
+            "https://docs.chain.link/cre/reference/sdk/triggers"
+          ],
+          "repo_broken_link_samples": [],
+          "unreachable_links_count": 3,
+          "unverified_links_count": 3,
+          "unverified_link_samples": [
+            "https://docs.chain.link/ccip/directory/mainnet/chain/cronos-mainnet",
+            "https://docs.chain.link/ccip/directory/mainnet/chain/mind-mainnet",
+            "https://docs.chain.link/data-streams/market-hours"
+          ],
+          "confirmed_broken_links_count": 6,
+          "excluded_links_count": 9,
+          "excluded_link_samples": [
+            "https://docs.chain.link/api/ccip/README",
+            "https://docs.chain.link/api/ccip/v1/postman-collection.json",
+            "https://docs.chain.link/ccip/directory/mainnet/token/FEED",
+            "https://docs.chain.link/ccip/tools/cli/search",
+            "https://docs.chain.link/ccip/tools/sdk/guides/searching-messages",
+            "https://docs.chain.link/ccip/tools/search",
+            "https://docs.chain.link/data-feeds/feed-types",
+            "https://docs.chain.link/data-feeds/svr-feeds/searcher-onboarding-atlas",
+            "https://docs.chain.link/data-feeds/svr-feeds/searcher-onboarding-ethereum"
+          ],
+          "_all_confirmed_broken_links": [
+            "https://docs.chain.link/ccip/concepts/best-practices",
+            "https://docs.chain.link/cdn-cgi/l/email-protection",
+            "https://docs.chain.link/cre/getting-started",
+            "https://docs.chain.link/cre/guides/workflow/using-evm-client/onchain-write",
+            "https://docs.chain.link/cre/reference/sdk",
+            "https://docs.chain.link/cre/reference/sdk/triggers"
+          ],
+          "_all_unverified_links": [
+            "https://docs.chain.link/ccip/directory/mainnet/chain/cronos-mainnet",
+            "https://docs.chain.link/ccip/directory/mainnet/chain/mind-mainnet",
+            "https://docs.chain.link/data-streams/market-hours"
+          ],
+          "_all_excluded_links": [
+            "https://docs.chain.link/api/ccip/README",
+            "https://docs.chain.link/api/ccip/v1/postman-collection.json",
+            "https://docs.chain.link/ccip/directory/mainnet/token/FEED",
+            "https://docs.chain.link/ccip/tools/cli/search",
+            "https://docs.chain.link/ccip/tools/sdk/guides/searching-messages",
+            "https://docs.chain.link/ccip/tools/search",
+            "https://docs.chain.link/data-feeds/feed-types",
+            "https://docs.chain.link/data-feeds/svr-feeds/searcher-onboarding-atlas",
+            "https://docs.chain.link/data-feeds/svr-feeds/searcher-onboarding-ethereum"
+          ],
+          "_all_docs_unverified_links": [
+            "https://docs.chain.link/ccip/directory/mainnet/chain/cronos-mainnet",
+            "https://docs.chain.link/ccip/directory/mainnet/chain/mind-mainnet",
+            "https://docs.chain.link/data-streams/market-hours"
+          ],
+          "_all_repo_unverified_links": [],
+          "_broken_link_provenance": {
+            "https://docs.chain.link/ccip/concepts/best-practices": [
+              {
+                "source_page": "https://docs.chain.link/ccip/concepts",
+                "anchor_text": "Best Practices"
+              },
+              {
+                "source_page": "https://docs.chain.link/ccip/concepts/manual-execution",
+                "anchor_text": "> Learn CCIP best practices"
+              }
+            ],
+            "https://docs.chain.link/cdn-cgi/l/email-protection": [
+              {
+                "source_page": "https://docs.chain.link/",
+                "anchor_text": "Security"
+              },
+              {
+                "source_page": "https://docs.chain.link/",
+                "anchor_text": "Press inquiries"
+              },
+              {
+                "source_page": "https://docs.chain.link/any-api/find-oracle",
+                "anchor_text": "Security"
+              },
+              {
+                "source_page": "https://docs.chain.link/any-api/find-oracle",
+                "anchor_text": "Press inquiries"
+              },
+              {
+                "source_page": "https://docs.chain.link/any-api/get-request/examples/large-responses",
+                "anchor_text": "Security"
+              }
+            ],
+            "https://docs.chain.link/cre/getting-started": [
+              {
+                "source_page": "https://docs.chain.link/cre/reference/cli",
+                "anchor_text": "Getting Started"
+              }
+            ],
+            "https://docs.chain.link/cre/guides/workflow/using-evm-client/onchain-write": [
+              {
+                "source_page": "https://docs.chain.link/cre/guides/workflow/using-evm-client/onchain-write/generating-reports-structs",
+                "anchor_text": "Onchain Write"
+              },
+              {
+                "source_page": "https://docs.chain.link/cre/guides/workflow/using-evm-client/onchain-write/generating-reports-structs",
+                "anchor_text": "Onchain Write Overview"
+              },
+              {
+                "source_page": "https://docs.chain.link/cre/guides/workflow/using-evm-client/onchain-write/building-consumer-contracts",
+                "anchor_text": "writes data to the blockchain"
+              },
+              {
+                "source_page": "https://docs.chain.link/cre/guides/workflow/using-evm-client/onchain-write/submitting-reports-onchain",
+                "anchor_text": "Onchain Write Overview"
+              },
+              {
+                "source_page": "https://docs.chain.link/cre/guides/workflow/using-evm-client/onchain-write/using-write-report-helpers",
+                "anchor_text": "Onchain Write Overview"
+              }
+            ],
+            "https://docs.chain.link/cre/reference/sdk": [
+              {
+                "source_page": "https://docs.chain.link/cre",
+                "anchor_text": "SDK Reference"
+              },
+              {
+                "source_page": "https://docs.chain.link/cre/index",
+                "anchor_text": "SDK Reference"
+              }
+            ],
+            "https://docs.chain.link/cre/reference/sdk/triggers": [
+              {
+                "source_page": "https://docs.chain.link/cre/guides/workflow/using-triggers/cron-trigger-go",
+                "anchor_text": "cron.Trigger"
+              },
+              {
+                "source_page": "https://docs.chain.link/cre/guides/workflow/using-triggers/http-trigger/configuration-go",
+                "anchor_text": "http.Trigger"
+              },
+              {
+                "source_page": "https://docs.chain.link/cre/guides/workflow/using-triggers/http-trigger/configuration-go",
+                "anchor_text": "http.Config"
+              },
+              {
+                "source_page": "https://docs.chain.link/cre/reference/sdk/core-go",
+                "anchor_text": "Triggers reference"
+              },
+              {
+                "source_page": "https://docs.chain.link/cre/reference/sdk/overview-go",
+                "anchor_text": "Triggers"
+              }
+            ]
+          }
+        },
+        "seo_geo": {
+          "pages_scanned": 1491,
+          "missing_title_count": 5,
+          "missing_description_count": 39,
+          "multiple_h1_count": 3,
+          "heading_hierarchy_jump_count": 57,
+          "seo_geo_issue_rate_pct": 1.74
+        },
+        "api_coverage": {
+          "reference_endpoint_count": 12,
+          "api_pages_detected": 649,
+          "endpoints_with_usage_docs": 3,
+          "reference_endpoints_without_usage_docs": 9,
+          "reference_coverage_pct": 25.0,
+          "no_api_pages_found": false,
+          "coverage_determined": true,
+          "coverage_method": "source_of_truth",
+          "detection_note": "",
+          "uncovered_endpoint_samples": [
+            "ep:/chains",
+            "ep:/lanes",
+            "ep:/tokens",
+            "gql:status",
+            "gql:that",
+            "gql:type",
+            "op:getchains",
+            "op:getlanes",
+            "op:gettokens"
+          ]
+        },
+        "examples": {
+          "total_code_examples": 5318,
+          "total_code_blocks_all": 6431,
+          "runnable_without_env": 4647,
+          "blocked_by_placeholders": 329,
+          "network_bound_examples": 342,
+          "example_reliability_estimate_pct": 87.38,
+          "detection_note": ""
+        },
+        "freshness": {
+          "pages_with_last_updated_hint": 295,
+          "pages_without_last_updated_hint": 1196,
+          "last_updated_coverage_pct": 19.79,
+          "samples_with_last_updated": [
+            {
+              "url": "https://docs.chain.link/api/ccip/v1/docs",
+              "hint": "Last Updated:"
+            },
+            {
+              "url": "https://docs.chain.link/ccip",
+              "hint": "2025-05-19"
+            },
+            {
+              "url": "https://docs.chain.link/ccip/api-reference/evm/v1.5.1/fee-quoter",
+              "hint": "2024-08-15T15:38:00Z"
+            },
+            {
+              "url": "https://docs.chain.link/ccip/api-reference/evm/v1.5.1/internal",
+              "hint": "2024-08-15T15:38:00Z"
+            },
+            {
+              "url": "https://docs.chain.link/ccip/api-reference/evm/v1.6.0",
+              "hint": "2025-05-19T11:22:47Z"
+            },
+            {
+              "url": "https://docs.chain.link/ccip/api-reference/evm/v1.6.0/ccip-receiver",
+              "hint": "2025-05-19T11:22:47Z"
+            },
+            {
+              "url": "https://docs.chain.link/ccip/api-reference/evm/v1.6.0/i-router-client",
+              "hint": "2025-05-19T11:22:47Z"
+            },
+            {
+              "url": "https://docs.chain.link/ccip/api-reference/evm/v1.6.0/internal",
+              "hint": "2025-11-05T15:38:00Z"
+            },
+            {
+              "url": "https://docs.chain.link/ccip/api-reference/evm/v1.6.0/fee-quoter",
+              "hint": "2025-11-05T15:38:00Z"
+            },
+            {
+              "url": "https://docs.chain.link/ccip/api-reference/evm/v1.6.0/client",
+              "hint": "2025-01-17T16:19:03Z"
+            }
+          ]
+        }
+      },
+      "samples": {
+        "broken_links": [
+          "https://docs.chain.link/ccip/concepts/best-practices",
+          "https://docs.chain.link/cdn-cgi/l/email-protection",
+          "https://docs.chain.link/cre/getting-started",
+          "https://docs.chain.link/cre/guides/workflow/using-evm-client/onchain-write",
+          "https://docs.chain.link/cre/reference/sdk",
+          "https://docs.chain.link/cre/reference/sdk/triggers"
+        ],
+        "docs_broken_link_samples": [
+          "https://docs.chain.link/ccip/concepts/best-practices",
+          "https://docs.chain.link/cdn-cgi/l/email-protection",
+          "https://docs.chain.link/cre/getting-started",
+          "https://docs.chain.link/cre/guides/workflow/using-evm-client/onchain-write",
+          "https://docs.chain.link/cre/reference/sdk",
+          "https://docs.chain.link/cre/reference/sdk/triggers"
+        ],
+        "repo_broken_link_samples": [],
+        "unverified_link_samples": [
+          "https://docs.chain.link/ccip/directory/mainnet/chain/cronos-mainnet",
+          "https://docs.chain.link/ccip/directory/mainnet/chain/mind-mainnet",
+          "https://docs.chain.link/data-streams/market-hours"
+        ],
+        "api_uncovered_samples": [
+          "ep:/chains",
+          "ep:/lanes",
+          "ep:/tokens",
+          "gql:status",
+          "gql:that",
+          "gql:type",
+          "op:getchains",
+          "op:getlanes",
+          "op:gettokens"
+        ]
+      },
+      "run_count": 1
+    }
+  ],
+  "aggregate": {
+    "metrics": {
+      "crawl": {
+        "pages_crawled": 1491,
+        "requested_pages": 1611,
+        "urls_examined": 1515,
+        "max_pages_total": 5000,
+        "discovered_pages": 1515,
+        "crawl_scope_pages": 1515,
+        "trap_urls_skipped": 151,
+        "crawl_coverage_pct": 100.0
+      },
+      "links": {
+        "broken_internal_links_count": 6,
+        "docs_broken_links_count": 6,
+        "repo_broken_links_count": 0,
+        "unverified_links_count": 3,
+        "confirmed_broken_links_count": 6,
+        "excluded_links_count": 9
+      },
+      "seo_geo": {
+        "seo_geo_issue_rate_pct": 1.74
+      },
+      "api_coverage": {
+        "reference_coverage_pct": 25.0,
+        "no_api_pages_found": false,
+        "api_pages_detected": 649,
+        "coverage_determined": true,
+        "detection_note": ""
+      },
+      "examples": {
+        "example_reliability_estimate_pct": 87.38
+      },
+      "freshness": {
+        "last_updated_coverage_pct": 19.79
+      }
+    },
+    "confidence": {
+      "overall_confidence_pct": 78.17,
+      "links_confidence_pct": 61.67,
+      "api_confidence_pct": 85.0,
+      "crawl_confidence_pct": 95.0
+    }
+  },
+  "confidence": {
+    "overall_confidence_pct": 78.17,
+    "links_confidence_pct": 61.67,
+    "api_confidence_pct": 85.0,
+    "crawl_confidence_pct": 95.0
+  },
+  "top_findings": [
+    "Broken internal links: 6",
+    "Link verification inconclusive for 3 URLs (auth/rate-limit/server block); these are excluded from broken-link counts.",
+    "API usage-doc coverage is low: 25.0% (649 API pages detected)",
+    "Freshness visibility is weak: only 19.79% pages show last updated"
+  ],
+  "llm_analysis": {
+    "status": "ok",
+    "model": "claude-sonnet-4-5",
+    "analysis": {
+      "executive_summary": "Audit crawled 1,491 pages across Chainlink documentation with 100% crawl coverage of 1,515 discovered pages. Detected 6 confirmed broken internal links, all within user-facing documentation (0 repository links). API reference coverage is critically low at 25.0% despite 649 API pages detected. Freshness metadata is visible on only 19.79% of pages, limiting change-tracking capability. Overall confidence score is 78.17%, with link verification confidence at 61.67% due to 3 unverified URLs blocked by authentication or rate-limiting.",
+      "strengths": [
+        "Complete crawl coverage at 100% of discoverable documentation scope (1,515 pages)",
+        "High example reliability estimate at 87.38% across code samples",
+        "Zero broken repository navigation links (GitHub/GitLab)",
+        "Low SEO/geo issue rate at 1.74%",
+        "Strong crawl confidence at 95.0%"
+      ],
+      "risks": [
+        "Critical API documentation gap: only 25.0% of 649 detected API pages have adequate usage documentation",
+        "6 confirmed broken internal links in user-facing documentation degrade navigation and user trust",
+        "Freshness metadata missing on 80.21% of pages prevents users from assessing content currency",
+        "Link verification confidence at 61.67% indicates potential hidden link issues behind auth/rate-limits",
+        "3 unverified links may be broken but are inaccessible to external audit tooling",
+        "151 trap URLs skipped during crawl may hide additional documentation quality issues",
+        "Low overall confidence at 78.17% suggests incomplete visibility into documentation health"
+      ],
+      "prioritized_actions": [
+        {
+          "action": "Expand API usage documentation to cover remaining 75% of 649 detected API pages with integration examples and parameter guidance",
+          "impact": "critical",
+          "effort": "high"
+        },
+        {
+          "action": "Fix 6 confirmed broken internal links in user-facing documentation to restore navigation integrity",
+          "impact": "high",
+          "effort": "low"
+        },
+        {
+          "action": "Implement last-updated timestamps on all pages (currently missing on 80.21%) to enable freshness tracking",
+          "impact": "high",
+          "effort": "medium"
+        },
+        {
+          "action": "Manually verify 3 unverified links blocked by auth/rate-limits to confirm accessibility for end users",
+          "impact": "medium",
+          "effort": "low"
+        },
+        {
+          "action": "Review 151 skipped trap URLs to identify any legitimate documentation incorrectly excluded from crawl scope",
+          "impact": "medium",
+          "effort": "medium"
+        }
+      ],
+      "limitations": [
+        "External audit cannot verify links behind authentication, rate-limits, or server blocks (3 URLs unverified)",
+        "Crawl traps and excluded patterns (151 URLs skipped) may hide documentation quality issues not visible to automated tooling",
+        "API coverage detection relies on heuristic pattern matching and may misclassify pages or miss non-standard API documentation formats",
+        "Freshness analysis depends on visible metadata; actual content currency may differ from displayed timestamps",
+        "Link verification reflects point-in-time accessibility; transient server issues or CDN behavior may affect results"
+      ]
+    }
+  }
+}

@@ -1,0 +1,329 @@
+{
+  "generated_at": "2026-04-15T11:41:51.183171+00:00",
+  "site_url": "https://docs.cryptoprocessing.com/",
+  "site_urls": [
+    "https://docs.cryptoprocessing.com/"
+  ],
+  "topology_mode": "single-product",
+  "verification_modes": [
+    "authenticated",
+    "bot",
+    "browser"
+  ],
+  "sites": [
+    {
+      "site_url": "https://docs.cryptoprocessing.com/",
+      "metrics": {
+        "crawl": {
+          "pages_crawled": 50,
+          "requested_pages": 54,
+          "urls_examined": 50,
+          "max_pages": 1000,
+          "effective_limit": 1000,
+          "auto_mode": false,
+          "stop_reason": "queue_exhausted",
+          "discovered_pages": 50,
+          "crawl_scope_basis": "sitemap",
+          "crawl_scope_pages": 49,
+          "crawl_coverage_pct": 102.04,
+          "trap_urls_skipped": 0,
+          "seeded_sitemap_urls": 49,
+          "robots_sitemaps_declared": 1
+        },
+        "links": {
+          "internal_links_checked": 54,
+          "broken_internal_links_count": 1,
+          "docs_broken_links_count": 1,
+          "repo_broken_links_count": 0,
+          "broken_internal_link_samples": [
+            "https://docs.cryptoprocessing.com/cdn-cgi/l/email-protection"
+          ],
+          "docs_broken_link_samples": [
+            "https://docs.cryptoprocessing.com/cdn-cgi/l/email-protection"
+          ],
+          "repo_broken_link_samples": [],
+          "unreachable_links_count": 0,
+          "unverified_links_count": 0,
+          "unverified_link_samples": [],
+          "confirmed_broken_links_count": 1,
+          "excluded_links_count": 0,
+          "excluded_link_samples": [],
+          "_all_confirmed_broken_links": [
+            "https://docs.cryptoprocessing.com/cdn-cgi/l/email-protection"
+          ],
+          "_all_unverified_links": [],
+          "_all_excluded_links": [],
+          "_all_docs_unverified_links": [],
+          "_all_repo_unverified_links": [],
+          "_broken_link_provenance": {
+            "https://docs.cryptoprocessing.com/cdn-cgi/l/email-protection": [
+              {
+                "source_page": "https://docs.cryptoprocessing.com/api-reference/about-deposits-withdrawals-and-invoices",
+                "anchor_text": "Support"
+              },
+              {
+                "source_page": "https://docs.cryptoprocessing.com/",
+                "anchor_text": "Support"
+              },
+              {
+                "source_page": "https://docs.cryptoprocessing.com/api-reference/about-transaction-statuses",
+                "anchor_text": "Support"
+              },
+              {
+                "source_page": "https://docs.cryptoprocessing.com/api-reference/about-user-data-collection",
+                "anchor_text": "Support"
+              },
+              {
+                "source_page": "https://docs.cryptoprocessing.com/api-reference/authorisation",
+                "anchor_text": "Support"
+              }
+            ]
+          }
+        },
+        "seo_geo": {
+          "pages_scanned": 50,
+          "missing_title_count": 0,
+          "missing_description_count": 35,
+          "multiple_h1_count": 0,
+          "heading_hierarchy_jump_count": 33,
+          "seo_geo_issue_rate_pct": 34.0
+        },
+        "api_coverage": {
+          "reference_endpoint_count": 228,
+          "api_pages_detected": 26,
+          "endpoints_with_usage_docs": 146,
+          "reference_endpoints_without_usage_docs": 82,
+          "reference_coverage_pct": 64.04,
+          "no_api_pages_found": false,
+          "coverage_determined": true,
+          "coverage_method": "heuristic",
+          "detection_note": "Contract URLs found but no operations parsed",
+          "uncovered_endpoint_samples": [
+            "ep:/api/v2/invoices/create",
+            "ep:/api/v2/transactions/info",
+            "ep:/api/v2/withdrawal/crypto",
+            "ep:/app.cryptoprocessing.com)/api/v2/addresses/take",
+            "ep:/app.cryptoprocessing.com/api/v2",
+            "ep:/app.cryptoprocessing.com/api/v2/accounts/list",
+            "ep:/app.cryptoprocessing.com/api/v2/addresses/take",
+            "ep:/app.cryptoprocessing.com/api/v2/currencies/list",
+            "ep:/app.cryptoprocessing.com/api/v2/currencies/pairs",
+            "ep:/app.cryptoprocessing.com/api/v2/currencies/rates",
+            "ep:/app.cryptoprocessing.com/api/v2/exchange/calculate",
+            "ep:/app.cryptoprocessing.com/api/v2/exchange/fixed",
+            "ep:/app.cryptoprocessing.com/api/v2/exchange/now",
+            "ep:/app.cryptoprocessing.com/api/v2/invoices/create",
+            "ep:/app.cryptoprocessing.com/api/v2/invoices/{foreign_id}/cancel",
+            "ep:/app.cryptoprocessing.com/api/v2/ping",
+            "ep:/app.cryptoprocessing.com/api/v2/withdrawal/crypto",
+            "ep:/app.sandbox.cryptoprocessing.com)/api/v2/addresses/take",
+            "ep:/app.sandbox.cryptoprocessing.com/api/v2",
+            "ep:/bscscan.com"
+          ]
+        },
+        "examples": {
+          "total_code_examples": 0,
+          "total_code_blocks_all": 60,
+          "runnable_without_env": 0,
+          "blocked_by_placeholders": 0,
+          "network_bound_examples": 0,
+          "example_reliability_estimate_pct": 0.0,
+          "detection_note": "No executable code blocks detected (60 data-only blocks found). Site may use non-standard code rendering that the auditor does not recognize, or all examples are in data formats (YAML/JSON)."
+        },
+        "freshness": {
+          "pages_with_last_updated_hint": 50,
+          "pages_without_last_updated_hint": 0,
+          "last_updated_coverage_pct": 100.0,
+          "samples_with_last_updated": [
+            {
+              "url": "https://docs.cryptoprocessing.com/api-reference/about-deposits-withdrawals-and-invoices",
+              "hint": "Last modified on"
+            },
+            {
+              "url": "https://docs.cryptoprocessing.com/",
+              "hint": "Last modified on"
+            },
+            {
+              "url": "https://docs.cryptoprocessing.com/api-reference/about-transaction-statuses",
+              "hint": "Last modified on"
+            },
+            {
+              "url": "https://docs.cryptoprocessing.com/api-reference/about-user-data-collection",
+              "hint": "Last modified on"
+            },
+            {
+              "url": "https://docs.cryptoprocessing.com/api-reference/authorisation",
+              "hint": "Last modified on"
+            },
+            {
+              "url": "https://docs.cryptoprocessing.com/api-reference/currencies/get-a-list-of-currencies",
+              "hint": "Last modified on"
+            },
+            {
+              "url": "https://docs.cryptoprocessing.com/api-reference/currencies/list-of-currency-pairs",
+              "hint": "Last modified on"
+            },
+            {
+              "url": "https://docs.cryptoprocessing.com/api-reference/currencies/list-of-currency-rates",
+              "hint": "Last modified on"
+            },
+            {
+              "url": "https://docs.cryptoprocessing.com/api-reference/balance/get-a-list-of-balances",
+              "hint": "Last modified on"
+            },
+            {
+              "url": "https://docs.cryptoprocessing.com/api-reference/currency-codes",
+              "hint": "Last modified on"
+            }
+          ]
+        }
+      },
+      "samples": {
+        "broken_links": [
+          "https://docs.cryptoprocessing.com/cdn-cgi/l/email-protection"
+        ],
+        "docs_broken_link_samples": [
+          "https://docs.cryptoprocessing.com/cdn-cgi/l/email-protection"
+        ],
+        "repo_broken_link_samples": [],
+        "unverified_link_samples": [],
+        "api_uncovered_samples": [
+          "ep:/api/v2/invoices/create",
+          "ep:/api/v2/transactions/info",
+          "ep:/api/v2/withdrawal/crypto",
+          "ep:/app.cryptoprocessing.com)/api/v2/addresses/take",
+          "ep:/app.cryptoprocessing.com/api/v2",
+          "ep:/app.cryptoprocessing.com/api/v2/accounts/list",
+          "ep:/app.cryptoprocessing.com/api/v2/addresses/take",
+          "ep:/app.cryptoprocessing.com/api/v2/currencies/list",
+          "ep:/app.cryptoprocessing.com/api/v2/currencies/pairs",
+          "ep:/app.cryptoprocessing.com/api/v2/currencies/rates",
+          "ep:/app.cryptoprocessing.com/api/v2/exchange/calculate",
+          "ep:/app.cryptoprocessing.com/api/v2/exchange/fixed",
+          "ep:/app.cryptoprocessing.com/api/v2/exchange/now",
+          "ep:/app.cryptoprocessing.com/api/v2/invoices/create",
+          "ep:/app.cryptoprocessing.com/api/v2/invoices/{foreign_id}/cancel",
+          "ep:/app.cryptoprocessing.com/api/v2/ping",
+          "ep:/app.cryptoprocessing.com/api/v2/withdrawal/crypto",
+          "ep:/app.sandbox.cryptoprocessing.com)/api/v2/addresses/take",
+          "ep:/app.sandbox.cryptoprocessing.com/api/v2",
+          "ep:/bscscan.com"
+        ]
+      },
+      "run_count": 1
+    }
+  ],
+  "aggregate": {
+    "metrics": {
+      "crawl": {
+        "pages_crawled": 50,
+        "requested_pages": 54,
+        "urls_examined": 50,
+        "max_pages_total": 1000,
+        "discovered_pages": 50,
+        "crawl_scope_pages": 49,
+        "trap_urls_skipped": 0,
+        "crawl_coverage_pct": 102.04
+      },
+      "links": {
+        "broken_internal_links_count": 1,
+        "docs_broken_links_count": 1,
+        "repo_broken_links_count": 0,
+        "unverified_links_count": 0,
+        "confirmed_broken_links_count": 1,
+        "excluded_links_count": 0
+      },
+      "seo_geo": {
+        "seo_geo_issue_rate_pct": 34.0
+      },
+      "api_coverage": {
+        "reference_coverage_pct": 64.04,
+        "no_api_pages_found": false,
+        "api_pages_detected": 26,
+        "coverage_determined": true,
+        "detection_note": ""
+      },
+      "examples": {
+        "example_reliability_estimate_pct": 0.0
+      },
+      "freshness": {
+        "last_updated_coverage_pct": 100.0
+      }
+    },
+    "confidence": {
+      "overall_confidence_pct": 91.5,
+      "links_confidence_pct": 95.0,
+      "api_confidence_pct": 85.0,
+      "crawl_confidence_pct": 95.0
+    }
+  },
+  "confidence": {
+    "overall_confidence_pct": 91.5,
+    "links_confidence_pct": 95.0,
+    "api_confidence_pct": 85.0,
+    "crawl_confidence_pct": 95.0
+  },
+  "top_findings": [
+    "Broken internal links: 1",
+    "SEO/GEO issue rate is high: 34.0%",
+    "API usage-doc coverage is low: 64.04% (26 API pages detected)",
+    "Example reliability estimate is low: 0.0%"
+  ],
+  "llm_analysis": {
+    "status": "ok",
+    "model": "claude-sonnet-4-5",
+    "analysis": {
+      "executive_summary": "Documentation audit of docs.cryptoprocessing.com covered 50 pages at 102% crawl completion with 91.5% overall confidence. Site contains 26 API pages with 64% reference coverage, indicating gaps in API documentation completeness. Critical quality issues include 34% SEO/geo problem rate and 0% example reliability estimate. One confirmed broken internal link detected within user-facing documentation.",
+      "strengths": [
+        "Complete crawl coverage at 102%, capturing all discoverable documentation pages",
+        "High overall audit confidence at 91.5% with strong link verification (95% confidence)",
+        "100% last-updated metadata coverage, enabling freshness tracking",
+        "26 API pages successfully detected with 85% detection confidence",
+        "Zero repository navigation broken links, keeping user-facing docs clean"
+      ],
+      "risks": [
+        "34% SEO/geo issue rate threatens discoverability and search ranking performance",
+        "0% example reliability estimate indicates code samples may be outdated, untested, or non-functional",
+        "64% API reference coverage leaves 36% of API surface undocumented or poorly covered",
+        "One confirmed broken internal link degrades user navigation experience",
+        "Small documentation footprint (50 pages) may indicate incomplete product coverage",
+        "No example testing infrastructure apparent, risking customer implementation failures",
+        "Low example reliability combined with payment processing domain creates high customer risk"
+      ],
+      "prioritized_actions": [
+        {
+          "action": "Implement automated example testing pipeline to validate all code samples in payment processing workflows",
+          "impact": "critical",
+          "effort": "high"
+        },
+        {
+          "action": "Complete API reference documentation for the missing 36% of API surface area",
+          "impact": "critical",
+          "effort": "medium"
+        },
+        {
+          "action": "Audit and fix SEO/geo issues affecting 34% of pages to improve discoverability",
+          "impact": "high",
+          "effort": "medium"
+        },
+        {
+          "action": "Repair confirmed broken internal link and establish link monitoring",
+          "impact": "medium",
+          "effort": "low"
+        },
+        {
+          "action": "Conduct content gap analysis to determine if 50-page footprint adequately covers crypto payment processing features",
+          "impact": "medium",
+          "effort": "low"
+        }
+      ],
+      "limitations": [
+        "External audit cannot verify functional correctness of API endpoints or accuracy of technical specifications",
+        "Example reliability estimate reflects static analysis only; actual code execution, dependency compatibility, and runtime behavior not tested",
+        "SEO/geo issue detection limited to structural problems; cannot assess content quality, accuracy, or competitive search performance",
+        "Crawl restricted to publicly accessible pages; authenticated documentation, private integrations, or partner-only content not evaluated",
+        "API coverage percentage measures documentation presence, not completeness of parameter descriptions, error scenarios, or real-world usage guidance"
+      ]
+    }
+  }
+}

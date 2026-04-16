@@ -10,6 +10,7 @@ Behavior:
 from __future__ import annotations
 
 import argparse
+import json
 import shlex
 import subprocess
 import sys
@@ -68,6 +69,18 @@ def _read_runtime(path: Path) -> dict:
     except (RuntimeError, ValueError, TypeError, OSError):
         return {}
     return payload if isinstance(payload, dict) else {}
+
+
+def _has_npm_lint_script(repo_root: Path) -> bool:
+    package_json = repo_root / "package.json"
+    if not package_json.exists():
+        return False
+    try:
+        payload = json.loads(package_json.read_text(encoding="utf-8"))
+    except (RuntimeError, ValueError, TypeError, OSError):
+        return False
+    scripts = payload.get("scripts", {}) if isinstance(payload, dict) else {}
+    return isinstance(scripts, dict) and "lint" in scripts
 
 
 def _resolve_base_branch(repo_root: Path, preferred: str) -> str:
@@ -135,6 +148,12 @@ def main() -> int:
         or review_cfg.get("commit_message", "docs: autopipeline update for manual review")
     ).strip()
 
+    if lint_command == "npm run lint" and not _has_npm_lint_script(repo_root):
+        lint_command = (
+            f"python3 docsops/scripts/finalize_docs_gate.py --docs-root {shlex.quote(args.docs_root)} "
+            f"--reports-dir reports --runtime-config {shlex.quote(str(args.runtime_config))} --continue-on-error"
+        )
+
     if lint_command:
         lint_rc = _run_shell(lint_command, repo_root)
         if lint_rc != 0:
@@ -173,4 +192,3 @@ def main() -> int:
 
 if __name__ == "__main__":
     raise SystemExit(main())
-

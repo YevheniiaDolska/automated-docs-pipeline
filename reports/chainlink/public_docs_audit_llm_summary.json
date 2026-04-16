@@ -1,0 +1,57 @@
+{
+  "status": "ok",
+  "model": "claude-sonnet-4-5",
+  "analysis": {
+    "executive_summary": "Audit crawled 1,491 pages across Chainlink documentation with 100% crawl coverage of 1,515 discovered pages. Detected 6 confirmed broken internal links, all within user-facing documentation (0 repository links). API reference coverage is critically low at 25.0% despite 649 API pages detected. Freshness metadata is visible on only 19.79% of pages, limiting change-tracking capability. Overall confidence score is 78.17%, with link verification confidence at 61.67% due to 3 unverified URLs blocked by authentication or rate-limiting.",
+    "strengths": [
+      "Complete crawl coverage at 100% of discoverable documentation scope (1,515 pages)",
+      "High example reliability estimate at 87.38% across code samples",
+      "Zero broken repository navigation links (GitHub/GitLab)",
+      "Low SEO/geo issue rate at 1.74%",
+      "Strong crawl confidence at 95.0%"
+    ],
+    "risks": [
+      "Critical API documentation gap: only 25.0% of 649 detected API pages have adequate usage documentation",
+      "6 confirmed broken internal links in user-facing documentation degrade navigation and user trust",
+      "Freshness metadata missing on 80.21% of pages prevents users from assessing content currency",
+      "Link verification confidence at 61.67% indicates potential hidden link issues behind auth/rate-limits",
+      "3 unverified links may be broken but are inaccessible to external audit tooling",
+      "151 trap URLs skipped during crawl may hide additional documentation quality issues",
+      "Low overall confidence at 78.17% suggests incomplete visibility into documentation health"
+    ],
+    "prioritized_actions": [
+      {
+        "action": "Expand API usage documentation to cover remaining 75% of 649 detected API pages with integration examples and parameter guidance",
+        "impact": "critical",
+        "effort": "high"
+      },
+      {
+        "action": "Fix 6 confirmed broken internal links in user-facing documentation to restore navigation integrity",
+        "impact": "high",
+        "effort": "low"
+      },
+      {
+        "action": "Implement last-updated timestamps on all pages (currently missing on 80.21%) to enable freshness tracking",
+        "impact": "high",
+        "effort": "medium"
+      },
+      {
+        "action": "Manually verify 3 unverified links blocked by auth/rate-limits to confirm accessibility for end users",
+        "impact": "medium",
+        "effort": "low"
+      },
+      {
+        "action": "Review 151 skipped trap URLs to identify any legitimate documentation incorrectly excluded from crawl scope",
+        "impact": "medium",
+        "effort": "medium"
+      }
+    ],
+    "limitations": [
+      "External audit cannot verify links behind authentication, rate-limits, or server blocks (3 URLs unverified)",
+      "Crawl traps and excluded patterns (151 URLs skipped) may hide documentation quality issues not visible to automated tooling",
+      "API coverage detection relies on heuristic pattern matching and may misclassify pages or miss non-standard API documentation formats",
+      "Freshness analysis depends on visible metadata; actual content currency may differ from displayed timestamps",
+      "Link verification reflects point-in-time accessibility; transient server issues or CDN behavior may affect results"
+    ]
+  }
+}

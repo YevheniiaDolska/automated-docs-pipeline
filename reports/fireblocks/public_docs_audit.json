@@ -1,0 +1,603 @@
+{
+  "generated_at": "2026-04-15T11:47:47.128631+00:00",
+  "site_url": "https://developers.fireblocks.com/",
+  "site_urls": [
+    "https://developers.fireblocks.com/"
+  ],
+  "topology_mode": "multi-project",
+  "verification_modes": [
+    "authenticated",
+    "bot",
+    "browser"
+  ],
+  "sites": [
+    {
+      "site_url": "https://developers.fireblocks.com/",
+      "metrics": {
+        "crawl": {
+          "pages_crawled": 267,
+          "requested_pages": 293,
+          "urls_examined": 293,
+          "max_pages": 5000,
+          "effective_limit": 5000,
+          "auto_mode": false,
+          "stop_reason": "queue_exhausted",
+          "discovered_pages": 293,
+          "crawl_scope_basis": "discovered",
+          "crawl_scope_pages": 293,
+          "crawl_coverage_pct": 100.0,
+          "trap_urls_skipped": 0,
+          "seeded_sitemap_urls": 0,
+          "robots_sitemaps_declared": 0
+        },
+        "links": {
+          "internal_links_checked": 293,
+          "broken_internal_links_count": 24,
+          "docs_broken_links_count": 24,
+          "repo_broken_links_count": 0,
+          "broken_internal_link_samples": [
+            "https://developers.fireblocks.com/cdn-cgi/l/email-protection",
+            "https://developers.fireblocks.com/docs/deploy-api-co-signer",
+            "https://developers.fireblocks.com/reference/addasset",
+            "https://developers.fireblocks.com/reference/create-1",
+            "https://developers.fireblocks.com/reference/createexternalwallethttps://developers.fireblocks.com/reference/post_external-wallets",
+            "https://developers.fireblocks.com/reference/enabledevice",
+            "https://developers.fireblocks.com/reference/enablewallet",
+            "https://developers.fireblocks.com/reference/get_supported-assets",
+            "https://developers.fireblocks.com/reference/get_transactions-txid",
+            "https://developers.fireblocks.com/reference/getdevicesetupstate",
+            "https://developers.fireblocks.com/reference/getsupportedassets-1",
+            "https://developers.fireblocks.com/reference/getwalletsetupstate",
+            "https://developers.fireblocks.com/reference/post_contracts",
+            "https://developers.fireblocks.com/reference/post_external-wallets",
+            "https://developers.fireblocks.com/reference/post_external-wallets-walletid-set-customer-ref-id",
+            "https://developers.fireblocks.com/reference/post_internal-wallets",
+            "https://developers.fireblocks.com/reference/post_internal-wallets-walletid-set-customer-ref-id",
+            "https://developers.fireblocks.com/reference/post_transactions",
+            "https://developers.fireblocks.com/reference/post_transactions-estimate-fee",
+            "https://developers.fireblocks.com/reference/post_vault-accounts"
+          ],
+          "docs_broken_link_samples": [
+            "https://developers.fireblocks.com/cdn-cgi/l/email-protection",
+            "https://developers.fireblocks.com/docs/deploy-api-co-signer",
+            "https://developers.fireblocks.com/reference/addasset",
+            "https://developers.fireblocks.com/reference/create-1",
+            "https://developers.fireblocks.com/reference/createexternalwallethttps://developers.fireblocks.com/reference/post_external-wallets",
+            "https://developers.fireblocks.com/reference/enabledevice",
+            "https://developers.fireblocks.com/reference/enablewallet",
+            "https://developers.fireblocks.com/reference/get_supported-assets",
+            "https://developers.fireblocks.com/reference/get_transactions-txid",
+            "https://developers.fireblocks.com/reference/getdevicesetupstate",
+            "https://developers.fireblocks.com/reference/getsupportedassets-1",
+            "https://developers.fireblocks.com/reference/getwalletsetupstate",
+            "https://developers.fireblocks.com/reference/post_contracts",
+            "https://developers.fireblocks.com/reference/post_external-wallets",
+            "https://developers.fireblocks.com/reference/post_external-wallets-walletid-set-customer-ref-id",
+            "https://developers.fireblocks.com/reference/post_internal-wallets",
+            "https://developers.fireblocks.com/reference/post_internal-wallets-walletid-set-customer-ref-id",
+            "https://developers.fireblocks.com/reference/post_transactions",
+            "https://developers.fireblocks.com/reference/post_transactions-estimate-fee",
+            "https://developers.fireblocks.com/reference/post_vault-accounts",
+            "https://developers.fireblocks.com/reference/post_vault-accounts-vaultaccountid-assetid-activate",
+            "https://developers.fireblocks.com/reference/post_vault-accounts-vaultaccountid-assetid-addresses-addressid-set-customer-ref-id",
+            "https://developers.fireblocks.com/reference/put_vault-accounts-vaultaccountid",
+            "https://developers.fireblocks.com/reference/wallets-getsupportedassets"
+          ],
+          "repo_broken_link_samples": [],
+          "unreachable_links_count": 2,
+          "unverified_links_count": 2,
+          "unverified_link_samples": [
+            "https://developers.fireblocks.com/reference/signing-a-request-jwt-structure",
+            "https://developers.fireblocks.com/reference/updatevaultaccountassetaddress"
+          ],
+          "confirmed_broken_links_count": 24,
+          "excluded_links_count": 0,
+          "excluded_link_samples": [],
+          "_all_confirmed_broken_links": [
+            "https://developers.fireblocks.com/cdn-cgi/l/email-protection",
+            "https://developers.fireblocks.com/docs/deploy-api-co-signer",
+            "https://developers.fireblocks.com/reference/addasset",
+            "https://developers.fireblocks.com/reference/create-1",
+            "https://developers.fireblocks.com/reference/createexternalwallethttps://developers.fireblocks.com/reference/post_external-wallets",
+            "https://developers.fireblocks.com/reference/enabledevice",
+            "https://developers.fireblocks.com/reference/enablewallet",
+            "https://developers.fireblocks.com/reference/get_supported-assets",
+            "https://developers.fireblocks.com/reference/get_transactions-txid",
+            "https://developers.fireblocks.com/reference/getdevicesetupstate",
+            "https://developers.fireblocks.com/reference/getsupportedassets-1",
+            "https://developers.fireblocks.com/reference/getwalletsetupstate",
+            "https://developers.fireblocks.com/reference/post_contracts",
+            "https://developers.fireblocks.com/reference/post_external-wallets",
+            "https://developers.fireblocks.com/reference/post_external-wallets-walletid-set-customer-ref-id",
+            "https://developers.fireblocks.com/reference/post_internal-wallets",
+            "https://developers.fireblocks.com/reference/post_internal-wallets-walletid-set-customer-ref-id",
+            "https://developers.fireblocks.com/reference/post_transactions",
+            "https://developers.fireblocks.com/reference/post_transactions-estimate-fee",
+            "https://developers.fireblocks.com/reference/post_vault-accounts",
+            "https://developers.fireblocks.com/reference/post_vault-accounts-vaultaccountid-assetid-activate",
+            "https://developers.fireblocks.com/reference/post_vault-accounts-vaultaccountid-assetid-addresses-addressid-set-customer-ref-id",
+            "https://developers.fireblocks.com/reference/put_vault-accounts-vaultaccountid",
+            "https://developers.fireblocks.com/reference/wallets-getsupportedassets"
+          ],
+          "_all_unverified_links": [
+            "https://developers.fireblocks.com/reference/signing-a-request-jwt-structure",
+            "https://developers.fireblocks.com/reference/updatevaultaccountassetaddress"
+          ],
+          "_all_excluded_links": [],
+          "_all_docs_unverified_links": [
+            "https://developers.fireblocks.com/reference/signing-a-request-jwt-structure",
+            "https://developers.fireblocks.com/reference/updatevaultaccountassetaddress"
+          ],
+          "_all_repo_unverified_links": [],
+          "_broken_link_provenance": {
+            "https://developers.fireblocks.com/cdn-cgi/l/email-protection": [
+              {
+                "source_page": "https://developers.fireblocks.com/docs/getting-started-with-embedded-wallets",
+                "anchor_text": "[email\u00a0protected]"
+              },
+              {
+                "source_page": "https://developers.fireblocks.com/docs/on-ramp-off-ramp-and-bridgeswap-via-account-based-providers-cefi",
+                "anchor_text": "[email\u00a0protected]"
+              },
+              {
+                "source_page": "https://developers.fireblocks.com/docs/swap-via-direct-access-providers-defi",
+                "anchor_text": "[email\u00a0protected]"
+              },
+              {
+                "source_page": "https://developers.fireblocks.com/reference/getactivepolicy",
+                "anchor_text": "[email\u00a0protected]"
+              },
+              {
+                "source_page": "https://developers.fireblocks.com/reference/gettradingproviders",
+                "anchor_text": "[email\u00a0protected]"
+              }
+            ],
+            "https://developers.fireblocks.com/docs/deploy-api-co-signer": [
+              {
+                "source_page": "https://developers.fireblocks.com/docs/sweep-funds",
+                "anchor_text": "API Co-Signer"
+              },
+              {
+                "source_page": "https://developers.fireblocks.com/docs/configure-co-signer-in-ha-mode",
+                "anchor_text": "here"
+              }
+            ],
+            "https://developers.fireblocks.com/reference/addasset": [
+              {
+                "source_page": "https://developers.fireblocks.com/docs/embedded-wallet-asset-management",
+                "anchor_text": "add asset"
+              }
+            ],
+            "https://developers.fireblocks.com/reference/create-1": [
+              {
+                "source_page": "https://developers.fireblocks.com/docs/supported-platforms",
+                "anchor_text": "Embedded Wallets API"
+              }
+            ],
+            "https://developers.fireblocks.com/reference/createexternalwallethttps://developers.fireblocks.com/reference/post_external-wallets": [
+              {
+                "source_page": "https://developers.fireblocks.com/docs/associating-end-clients-with-transactions",
+                "anchor_text": "Create an external wallet"
+              }
+            ],
+            "https://developers.fireblocks.com/reference/enabledevice": [
+              {
+                "source_page": "https://developers.fireblocks.com/docs/embedded-wallet-multi-device-implementation",
+                "anchor_text": "endpoint"
+              }
+            ],
+            "https://developers.fireblocks.com/reference/enablewallet": [
+              {
+                "source_page": "https://developers.fireblocks.com/docs/embedded-wallet-faq",
+                "anchor_text": "using the API"
+              },
+              {
+                "source_page": "https://developers.fireblocks.com/docs/embedded-wallet-troubleshooting",
+                "anchor_text": "using the API"
+              }
+            ],
+            "https://developers.fireblocks.com/reference/get_supported-assets": [
+              {
+                "source_page": "https://developers.fireblocks.com/docs/embedded-wallet-faq",
+                "anchor_text": "Get Supported Assets"
+              },
+              {
+                "source_page": "https://developers.fireblocks.com/docs/embedded-wallet-troubleshooting",
+                "anchor_text": "Get Supported Assets"
+              }
+            ],
+            "https://developers.fireblocks.com/reference/get_transactions-txid": [
+              {
+                "source_page": "https://developers.fireblocks.com/docs/typed-message-signing",
+                "anchor_text": "Get Transaction By TxId Endpoint"
+              }
+            ],
+            "https://developers.fireblocks.com/reference/getdevicesetupstate": [
+              {
+                "source_page": "https://developers.fireblocks.com/docs/embedded-wallet-using-ecdsa-and-eddsa",
+                "anchor_text": "Get device key setup state endpoint"
+              }
+            ],
+            "https://developers.fireblocks.com/reference/getsupportedassets-1": [
+              {
+                "source_page": "https://developers.fireblocks.com/docs/whitelisting-external-wallets",
+                "anchor_text": "Supported assets"
+              }
+            ],
+            "https://developers.fireblocks.com/reference/getwalletsetupstate": [
+              {
+                "source_page": "https://developers.fireblocks.com/docs/embedded-wallet-using-ecdsa-and-eddsa",
+                "anchor_text": "Get wallet key setup state endpoint"
+              }
+            ],
+            "https://developers.fireblocks.com/reference/post_contracts": [
+              {
+                "source_page": "https://developers.fireblocks.com/docs/data-privacy-and-protection",
+                "anchor_text": "Create a contract"
+              }
+            ],
+            "https://developers.fireblocks.com/reference/post_external-wallets": [
+              {
+                "source_page": "https://developers.fireblocks.com/docs/data-privacy-and-protection",
+                "anchor_text": "Create an external wallet"
+              }
+            ],
+            "https://developers.fireblocks.com/reference/post_external-wallets-walletid-set-customer-ref-id": [
+              {
+                "source_page": "https://developers.fireblocks.com/docs/data-privacy-and-protection",
+                "anchor_text": "Set an AML customer reference ID for an external wallet"
+              }
+            ],
+            "https://developers.fireblocks.com/reference/post_internal-wallets": [
+              {
+                "source_page": "https://developers.fireblocks.com/docs/data-privacy-and-protection",
+                "anchor_text": "Create an internal wallet"
+              }
+            ],
+            "https://developers.fireblocks.com/reference/post_internal-wallets-walletid-set-customer-ref-id": [
+              {
+                "source_page": "https://developers.fireblocks.com/docs/data-privacy-and-protection",
+                "anchor_text": "Set an AML/KYT customer reference ID for an internal wallet"
+              }
+            ],
+            "https://developers.fireblocks.com/reference/post_transactions": [
+              {
+                "source_page": "https://developers.fireblocks.com/docs/data-privacy-and-protection",
+                "anchor_text": "Create a new transaction"
+              }
+            ],
+            "https://developers.fireblocks.com/reference/post_transactions-estimate-fee": [
+              {
+                "source_page": "https://developers.fireblocks.com/docs/data-privacy-and-protection",
+                "anchor_text": "Estimate a transaction fee"
+              }
+            ],
+            "https://developers.fireblocks.com/reference/post_vault-accounts": [
+              {
+                "source_page": "https://developers.fireblocks.com/docs/data-privacy-and-protection",
+                "anchor_text": "Create a new vault account"
+              }
+            ],
+            "https://developers.fireblocks.com/reference/post_vault-accounts-vaultaccountid-assetid-activate": [
+              {
+                "source_page": "https://developers.fireblocks.com/docs/embedded-wallet-asset-management",
+                "anchor_text": "Active a wallet in a vault account endpoint"
+              }
+            ],
+            "https://developers.fireblocks.com/reference/post_vault-accounts-vaultaccountid-assetid-addresses-addressid-set-customer-ref-id": [
+              {
+                "source_page": "https://developers.fireblocks.com/docs/associating-end-clients-with-transactions",
+                "anchor_text": "Assign AML customer reference ID"
+              }
+            ],
+            "https://developers.fireblocks.com/reference/put_vault-accounts-vaultaccountid": [
+              {
+                "source_page": "https://developers.fireblocks.com/docs/associating-end-clients-with-transactions",
+                "anchor_text": "Rename a vault account"
+              },
+              {
+                "source_page": "https://developers.fireblocks.com/docs/data-privacy-and-protection",
+                "anchor_text": "Rename a vault account"
+              }
+            ],
+            "https://developers.fireblocks.com/reference/wallets-getsupportedassets": [
+              {
+                "source_page": "https://developers.fireblocks.com/docs/supported-networks",
+                "anchor_text": "Retrieve supported assets endpoint"
+              }
+            ]
+          }
+        },
+        "seo_geo": {
+          "pages_scanned": 267,
+          "missing_title_count": 0,
+          "missing_description_count": 1,
+          "multiple_h1_count": 155,
+          "heading_hierarchy_jump_count": 68,
+          "seo_geo_issue_rate_pct": 20.97
+        },
+        "api_coverage": {
+          "reference_endpoint_count": 725,
+          "api_pages_detected": 142,
+          "endpoints_with_usage_docs": 5,
+          "reference_endpoints_without_usage_docs": 720,
+          "reference_coverage_pct": 0.69,
+          "no_api_pages_found": false,
+          "coverage_determined": true,
+          "coverage_method": "source_of_truth",
+          "detection_note": "",
+          "uncovered_endpoint_samples": [
+            "ep:/address_registry/legal_entities/{address}",
+            "ep:/address_registry/tenant",
+            "ep:/address_registry/vaults",
+            "ep:/address_registry/vaults/{vaultaccountid}",
+            "ep:/admin_quorum",
+            "ep:/assets",
+            "ep:/assets/prices/{id}",
+            "ep:/assets/{id}",
+            "ep:/blockchains",
+            "ep:/blockchains/{id}",
+            "ep:/connected_accounts",
+            "ep:/connected_accounts/{accountid}",
+            "ep:/connected_accounts/{accountid}/balances",
+            "ep:/connected_accounts/{accountid}/manifest/capabilities/trading/pairs",
+            "ep:/connected_accounts/{accountid}/rates",
+            "ep:/connected_accounts/{accountid}/rename",
+            "ep:/connections",
+            "ep:/connections/wc",
+            "ep:/connections/wc/{id}",
+            "ep:/contract_interactions/base_asset_id/{baseassetid}/contract_address/{contractaddress}/decode"
+          ]
+        },
+        "examples": {
+          "total_code_examples": 0,
+          "total_code_blocks_all": 437,
+          "runnable_without_env": 0,
+          "blocked_by_placeholders": 0,
+          "network_bound_examples": 0,
+          "example_reliability_estimate_pct": 0.0,
+          "detection_note": "No executable code blocks detected (437 data-only blocks found). Site may use non-standard code rendering that the auditor does not recognize, or all examples are in data formats (YAML/JSON)."
+        },
+        "freshness": {
+          "pages_with_last_updated_hint": 265,
+          "pages_without_last_updated_hint": 2,
+          "last_updated_coverage_pct": 99.25,
+          "samples_with_last_updated": [
+            {
+              "url": "https://developers.fireblocks.com/",
+              "hint": "{\"sidebars\":{},\"apiBaseUrl\":\"/\",\"baseUrl\":\"/\",\"search\":{\"appId\":\"T28YKFATPY\",\"searchApiKey\":\"NDY1NGM2MDEyN2JmNzBmNDNkNDU"
+            },
+            {
+              "url": "https://developers.fireblocks.com/docs",
+              "hint": "{\"sidebars\":{},\"apiBaseUrl\":\"/\",\"baseUrl\":\"/\",\"search\":{\"appId\":\"T28YKFATPY\",\"searchApiKey\":\"NDY1NGM2MDEyN2JmNzBmNDNkNDU"
+            },
+            {
+              "url": "https://developers.fireblocks.com/docs/capabilities",
+              "hint": "{\"sidebars\":{},\"apiBaseUrl\":\"/\",\"baseUrl\":\"/\",\"search\":{\"appId\":\"T28YKFATPY\",\"searchApiKey\":\"NDY1NGM2MDEyN2JmNzBmNDNkNDU"
+            },
+            {
+              "url": "https://developers.fireblocks.com/docs/add-your-tokens-1",
+              "hint": "{\"sidebars\":{},\"apiBaseUrl\":\"/\",\"baseUrl\":\"/\",\"search\":{\"appId\":\"T28YKFATPY\",\"searchApiKey\":\"NDY1NGM2MDEyN2JmNzBmNDNkNDU"
+            },
+            {
+              "url": "https://developers.fireblocks.com/docs/backup-and-recovery-overview",
+              "hint": "{\"sidebars\":{},\"apiBaseUrl\":\"/\",\"baseUrl\":\"/\",\"search\":{\"appId\":\"T28YKFATPY\",\"searchApiKey\":\"NDY1NGM2MDEyN2JmNzBmNDNkNDU"
+            },
+            {
+              "url": "https://developers.fireblocks.com/docs/aws-nitro-api-co-signer",
+              "hint": "{\"sidebars\":{},\"apiBaseUrl\":\"/\",\"baseUrl\":\"/\",\"search\":{\"appId\":\"T28YKFATPY\",\"searchApiKey\":\"NDY1NGM2MDEyN2JmNzBmNDNkNDU"
+            },
+            {
+              "url": "https://developers.fireblocks.com/docs/boost-transactions-1",
+              "hint": "{\"sidebars\":{},\"apiBaseUrl\":\"/\",\"baseUrl\":\"/\",\"search\":{\"appId\":\"T28YKFATPY\",\"searchApiKey\":\"NDY1NGM2MDEyN2JmNzBmNDNkNDU"
+            },
+            {
+              "url": "https://developers.fireblocks.com/docs/associating-end-clients-with-transactions",
+              "hint": "{\"sidebars\":{},\"apiBaseUrl\":\"/\",\"baseUrl\":\"/\",\"search\":{\"appId\":\"T28YKFATPY\",\"searchApiKey\":\"NDY1NGM2MDEyN2JmNzBmNDNkNDU"
+            },
+            {
+              "url": "https://developers.fireblocks.com/docs/api-communication",
+              "hint": "{\"sidebars\":{},\"apiBaseUrl\":\"/\",\"baseUrl\":\"/\",\"search\":{\"appId\":\"T28YKFATPY\",\"searchApiKey\":\"NDY1NGM2MDEyN2JmNzBmNDNkNDU"
+            },
+            {
+              "url": "https://developers.fireblocks.com/docs/add-an-exchange-account",
+              "hint": "{\"sidebars\":{},\"apiBaseUrl\":\"/\",\"baseUrl\":\"/\",\"search\":{\"appId\":\"T28YKFATPY\",\"searchApiKey\":\"NDY1NGM2MDEyN2JmNzBmNDNkNDU"
+            }
+          ]
+        }
+      },
+      "samples": {
+        "broken_links": [
+          "https://developers.fireblocks.com/cdn-cgi/l/email-protection",
+          "https://developers.fireblocks.com/docs/deploy-api-co-signer",
+          "https://developers.fireblocks.com/reference/addasset",
+          "https://developers.fireblocks.com/reference/create-1",
+          "https://developers.fireblocks.com/reference/createexternalwallethttps://developers.fireblocks.com/reference/post_external-wallets",
+          "https://developers.fireblocks.com/reference/enabledevice",
+          "https://developers.fireblocks.com/reference/enablewallet",
+          "https://developers.fireblocks.com/reference/get_supported-assets",
+          "https://developers.fireblocks.com/reference/get_transactions-txid",
+          "https://developers.fireblocks.com/reference/getdevicesetupstate",
+          "https://developers.fireblocks.com/reference/getsupportedassets-1",
+          "https://developers.fireblocks.com/reference/getwalletsetupstate",
+          "https://developers.fireblocks.com/reference/post_contracts",
+          "https://developers.fireblocks.com/reference/post_external-wallets",
+          "https://developers.fireblocks.com/reference/post_external-wallets-walletid-set-customer-ref-id",
+          "https://developers.fireblocks.com/reference/post_internal-wallets",
+          "https://developers.fireblocks.com/reference/post_internal-wallets-walletid-set-customer-ref-id",
+          "https://developers.fireblocks.com/reference/post_transactions",
+          "https://developers.fireblocks.com/reference/post_transactions-estimate-fee",
+          "https://developers.fireblocks.com/reference/post_vault-accounts"
+        ],
+        "docs_broken_link_samples": [
+          "https://developers.fireblocks.com/cdn-cgi/l/email-protection",
+          "https://developers.fireblocks.com/docs/deploy-api-co-signer",
+          "https://developers.fireblocks.com/reference/addasset",
+          "https://developers.fireblocks.com/reference/create-1",
+          "https://developers.fireblocks.com/reference/createexternalwallethttps://developers.fireblocks.com/reference/post_external-wallets",
+          "https://developers.fireblocks.com/reference/enabledevice",
+          "https://developers.fireblocks.com/reference/enablewallet",
+          "https://developers.fireblocks.com/reference/get_supported-assets",
+          "https://developers.fireblocks.com/reference/get_transactions-txid",
+          "https://developers.fireblocks.com/reference/getdevicesetupstate",
+          "https://developers.fireblocks.com/reference/getsupportedassets-1",
+          "https://developers.fireblocks.com/reference/getwalletsetupstate",
+          "https://developers.fireblocks.com/reference/post_contracts",
+          "https://developers.fireblocks.com/reference/post_external-wallets",
+          "https://developers.fireblocks.com/reference/post_external-wallets-walletid-set-customer-ref-id",
+          "https://developers.fireblocks.com/reference/post_internal-wallets",
+          "https://developers.fireblocks.com/reference/post_internal-wallets-walletid-set-customer-ref-id",
+          "https://developers.fireblocks.com/reference/post_transactions",
+          "https://developers.fireblocks.com/reference/post_transactions-estimate-fee",
+          "https://developers.fireblocks.com/reference/post_vault-accounts",
+          "https://developers.fireblocks.com/reference/post_vault-accounts-vaultaccountid-assetid-activate",
+          "https://developers.fireblocks.com/reference/post_vault-accounts-vaultaccountid-assetid-addresses-addressid-set-customer-ref-id",
+          "https://developers.fireblocks.com/reference/put_vault-accounts-vaultaccountid",
+          "https://developers.fireblocks.com/reference/wallets-getsupportedassets"
+        ],
+        "repo_broken_link_samples": [],
+        "unverified_link_samples": [
+          "https://developers.fireblocks.com/reference/signing-a-request-jwt-structure",
+          "https://developers.fireblocks.com/reference/updatevaultaccountassetaddress"
+        ],
+        "api_uncovered_samples": [
+          "ep:/address_registry/legal_entities/{address}",
+          "ep:/address_registry/tenant",
+          "ep:/address_registry/vaults",
+          "ep:/address_registry/vaults/{vaultaccountid}",
+          "ep:/admin_quorum",
+          "ep:/assets",
+          "ep:/assets/prices/{id}",
+          "ep:/assets/{id}",
+          "ep:/blockchains",
+          "ep:/blockchains/{id}",
+          "ep:/connected_accounts",
+          "ep:/connected_accounts/{accountid}",
+          "ep:/connected_accounts/{accountid}/balances",
+          "ep:/connected_accounts/{accountid}/manifest/capabilities/trading/pairs",
+          "ep:/connected_accounts/{accountid}/rates",
+          "ep:/connected_accounts/{accountid}/rename",
+          "ep:/connections",
+          "ep:/connections/wc",
+          "ep:/connections/wc/{id}",
+          "ep:/contract_interactions/base_asset_id/{baseassetid}/contract_address/{contractaddress}/decode"
+        ]
+      },
+      "run_count": 1
+    }
+  ],
+  "aggregate": {
+    "metrics": {
+      "crawl": {
+        "pages_crawled": 267,
+        "requested_pages": 293,
+        "urls_examined": 293,
+        "max_pages_total": 5000,
+        "discovered_pages": 293,
+        "crawl_scope_pages": 293,
+        "trap_urls_skipped": 0,
+        "crawl_coverage_pct": 100.0
+      },
+      "links": {
+        "broken_internal_links_count": 24,
+        "docs_broken_links_count": 24,
+        "repo_broken_links_count": 0,
+        "unverified_links_count": 2,
+        "confirmed_broken_links_count": 24,
+        "excluded_links_count": 0
+      },
+      "seo_geo": {
+        "seo_geo_issue_rate_pct": 20.97
+      },
+      "api_coverage": {
+        "reference_coverage_pct": 0.69,
+        "no_api_pages_found": false,
+        "api_pages_detected": 142,
+        "coverage_determined": true,
+        "detection_note": ""
+      },
+      "examples": {
+        "example_reliability_estimate_pct": 0.0
+      },
+      "freshness": {
+        "last_updated_coverage_pct": 99.25
+      }
+    },
+    "confidence": {
+      "overall_confidence_pct": 88.42,
+      "links_confidence_pct": 87.31,
+      "api_confidence_pct": 85.0,
+      "crawl_confidence_pct": 95.0
+    }
+  },
+  "confidence": {
+    "overall_confidence_pct": 88.42,
+    "links_confidence_pct": 87.31,
+    "api_confidence_pct": 85.0,
+    "crawl_confidence_pct": 95.0
+  },
+  "top_findings": [
+    "Broken internal links: 24",
+    "Link verification inconclusive for 2 URLs (auth/rate-limit/server block); these are excluded from broken-link counts.",
+    "SEO/GEO issue rate is high: 20.97%",
+    "API usage-doc coverage is low: 0.69% (142 API pages detected)",
+    "Example reliability estimate is low: 0.0%"
+  ],
+  "llm_analysis": {
+    "status": "ok",
+    "model": "claude-sonnet-4-5",
+    "analysis": {
+      "executive_summary": "Audit of developers.fireblocks.com covered 267 pages (100% crawl coverage of 293 discovered URLs). Documentation contains 24 confirmed broken internal links affecting user-facing docs. API reference coverage is critically low at 0.69% despite 142 API pages detected. Example code reliability is 0% with SEO/metadata issues affecting 20.97% of pages. Overall audit confidence is 88.42%.",
+      "strengths": [
+        "Complete crawl coverage achieved (100% of 293 in-scope pages)",
+        "High freshness coverage with last-updated metadata present on 99.25% of pages",
+        "No repository navigation broken links (repo_broken_links_count: 0)",
+        "Multi-project topology successfully mapped",
+        "Strong overall audit confidence at 88.42%"
+      ],
+      "risks": [
+        "24 confirmed broken internal links in user-facing documentation degrade navigation and user trust",
+        "API reference coverage at 0.69% indicates virtually no usage examples, tutorials, or guides for 142 detected API pages",
+        "Example code reliability at 0% suggests no working code samples, blocking developer onboarding",
+        "SEO/metadata issues on 20.97% of pages harm discoverability and search ranking",
+        "2 links unverified due to auth/rate-limit/server blocks may hide additional broken links",
+        "Low API confidence (85%) and links confidence (87.31%) indicate potential undetected issues",
+        "Gap between 293 requested and 267 crawled pages (26 pages) suggests access or rendering problems"
+      ],
+      "prioritized_actions": [
+        {
+          "action": "Fix all 24 confirmed broken internal links in user-facing documentation",
+          "impact": "critical",
+          "effort": "low"
+        },
+        {
+          "action": "Create usage examples and integration guides for the 142 API pages to raise coverage from 0.69% to minimum 40%",
+          "impact": "critical",
+          "effort": "high"
+        },
+        {
+          "action": "Implement working code examples with validation to address 0% example reliability",
+          "impact": "critical",
+          "effort": "high"
+        },
+        {
+          "action": "Audit and fix SEO/metadata issues affecting 20.97% of pages (56 pages)",
+          "impact": "high",
+          "effort": "medium"
+        },
+        {
+          "action": "Investigate 2 unverified links and 26-page crawl gap to ensure complete documentation access",
+          "impact": "medium",
+          "effort": "low"
+        }
+      ],
+      "limitations": [
+        "External audit cannot verify content accuracy, technical correctness, or whether API documentation matches actual API behavior",
+        "2 links blocked by auth/rate-limit/server restrictions could not be verified; actual broken link count may be higher",
+        "Example code reliability detection may not capture all runtime failures, dependency issues, or environment-specific problems",
+        "Crawl gap of 26 pages may indicate authentication-gated content, JavaScript rendering issues, or dynamic pages not accessible to auditor",
+        "API coverage detection relies on heuristics; actual developer experience with integration guides may differ from measured 0.69%"
+      ]
+    }
+  }
+}

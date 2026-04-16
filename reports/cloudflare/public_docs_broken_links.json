@@ -1,0 +1,1562 @@
+{
+  "generated_at_utc": "2026-04-16T14:29:45.487652+00:00",
+  "sites_count": 1,
+  "totals": {
+    "docs_broken_links_count": 101,
+    "repo_broken_links_count": 0,
+    "all_confirmed_broken_links_count": 101,
+    "unverified_links_sample_count": 30
+  },
+  "all_docs_broken_links": [
+    "https://developers.cloudflare.com/ai/llms-full.txt",
+    "https://developers.cloudflare.com/artifacts/llms-full.txt",
+    "https://developers.cloudflare.com/changelog/2026-02-13-glm-4.7-flash-workers-ai",
+    "https://developers.cloudflare.com/changelog/access",
+    "https://developers.cloudflare.com/changelog/cloudflare-one-client",
+    "https://developers.cloudflare.com/changelog/durable-objects/2026-01-07-durable-objects-sqlite-storage-billing",
+    "https://developers.cloudflare.com/client-ip-geolocation/llms-full.txt",
+    "https://developers.cloudflare.com/client-ip-geolocation/llms.txt",
+    "https://developers.cloudflare.com/cloudflare",
+    "https://developers.cloudflare.com/cloudflare-one/networks/connectors/cloudflare-tunnel/availability/ulimits",
+    "https://developers.cloudflare.com/cloudflare-one/networks/connectors/cloudflare-wan/%7Bprops.gatewayURL%7D",
+    "https://developers.cloudflare.com/cloudflare-one/networks/connectors/cloudflare-wan/configuration/appliances",
+    "https://developers.cloudflare.com/cloudflare-wan/%7Bprops.gatewayURL%7D",
+    "https://developers.cloudflare.com/cloudflare/workers-sdk",
+    "https://developers.cloudflare.com/cloudflare/workers-sdk/actions",
+    "https://developers.cloudflare.com/cloudflare/workers-sdk/commit/4af4d545afdfbaef2c94c4c3f6089153a88b83f1",
+    "https://developers.cloudflare.com/cloudflare/workers-sdk/commit/ff14de113dcbbf6ed7dde450c2b1781cadfc28d6",
+    "https://developers.cloudflare.com/cloudflare/workers-sdk/discussions",
+    "https://developers.cloudflare.com/cloudflare/workers-sdk/issues",
+    "https://developers.cloudflare.com/cloudflare/workers-sdk/projects",
+    "https://developers.cloudflare.com/cloudflare/workers-sdk/pulls",
+    "https://developers.cloudflare.com/cloudflare/workers-sdk/pulse",
+    "https://developers.cloudflare.com/cloudflare/workers-sdk/releases",
+    "https://developers.cloudflare.com/cloudflare/workers-sdk/releases/latest",
+    "https://developers.cloudflare.com/cloudflare/workers-sdk/releases/tag/%40cloudflare%2Flocal-explorer-ui%400.13.0",
+    "https://developers.cloudflare.com/cloudflare/workers-sdk/releases/tag/%40cloudflare%2Fpages-shared%400.13.125",
+    "https://developers.cloudflare.com/cloudflare/workers-sdk/releases/tag/%40cloudflare%2Fvite-plugin%401.32.3",
+    "https://developers.cloudflare.com/cloudflare/workers-sdk/releases/tag/%40cloudflare%2Fvitest-pool-workers%400.14.7",
+    "https://developers.cloudflare.com/cloudflare/workers-sdk/releases/tag/%40cloudflare%2Fworkers-shared%400.19.2",
+    "https://developers.cloudflare.com/cloudflare/workers-sdk/releases/tag/%40cloudflare%2Fworkers-utils%400.16.1",
+    "https://developers.cloudflare.com/cloudflare/workers-sdk/releases/tag/create-cloudflare%402.67.0",
+    "https://developers.cloudflare.com/cloudflare/workers-sdk/releases/tag/miniflare%404.20260415.0",
+    "https://developers.cloudflare.com/cloudflare/workers-sdk/releases/tag/wrangler%404.82.2",
+    "https://developers.cloudflare.com/cloudflare/workers-sdk/releases/tag/wrangler%404.83.0",
+    "https://developers.cloudflare.com/cloudflare/workers-sdk/security",
+    "https://developers.cloudflare.com/cloudflare/workers-sdk/tags",
+    "https://developers.cloudflare.com/cloudflare/workers-sdk/tree/%40cloudflare/local-explorer-ui%400.13.0",
+    "https://developers.cloudflare.com/cloudflare/workers-sdk/tree/%40cloudflare/pages-shared%400.13.125",
+    "https://developers.cloudflare.com/cloudflare/workers-sdk/tree/%40cloudflare/vite-plugin%401.32.3",
+    "https://developers.cloudflare.com/cloudflare/workers-sdk/tree/%40cloudflare/vitest-pool-workers%400.14.7",
+    "https://developers.cloudflare.com/cloudflare/workers-sdk/tree/%40cloudflare/workers-shared%400.19.2",
+    "https://developers.cloudflare.com/cloudflare/workers-sdk/tree/%40cloudflare/workers-utils%400.16.1",
+    "https://developers.cloudflare.com/cloudflare/workers-sdk/tree/create-cloudflare%402.67.0",
+    "https://developers.cloudflare.com/cloudflare/workers-sdk/tree/miniflare%404.20260415.0",
+    "https://developers.cloudflare.com/cloudflare/workers-sdk/tree/wrangler%404.82.2",
+    "https://developers.cloudflare.com/cloudflare/workers-sdk/tree/wrangler%404.83.0",
+    "https://developers.cloudflare.com/dash.cloudflare.com",
+    "https://developers.cloudflare.com/email-security/llms-full.txt",
+    "https://developers.cloudflare.com/email-security/llms.txt",
+    "https://developers.cloudflare.com/email-service/llms-full.txt",
+    "https://developers.cloudflare.com/langsmith/home",
+    "https://developers.cloudflare.com/login",
+    "https://developers.cloudflare.com/oss/javascript/contributing/overview",
+    "https://developers.cloudflare.com/oss/javascript/deepagents/overview",
+    "https://developers.cloudflare.com/oss/javascript/integrations/providers/overview",
+    "https://developers.cloudflare.com/oss/javascript/langchain/agents",
+    "https://developers.cloudflare.com/oss/javascript/langchain/context-engineering",
+    "https://developers.cloudflare.com/oss/javascript/langchain/deploy",
+    "https://developers.cloudflare.com/oss/javascript/langchain/frontend/overview",
+    "https://developers.cloudflare.com/oss/javascript/langchain/guardrails",
+    "https://developers.cloudflare.com/oss/javascript/langchain/human-in-the-loop",
+    "https://developers.cloudflare.com/oss/javascript/langchain/install",
+    "https://developers.cloudflare.com/oss/javascript/langchain/long-term-memory",
+    "https://developers.cloudflare.com/oss/javascript/langchain/mcp",
+    "https://developers.cloudflare.com/oss/javascript/langchain/messages",
+    "https://developers.cloudflare.com/oss/javascript/langchain/middleware/built-in",
+    "https://developers.cloudflare.com/oss/javascript/langchain/middleware/custom",
+    "https://developers.cloudflare.com/oss/javascript/langchain/middleware/overview",
+    "https://developers.cloudflare.com/oss/javascript/langchain/models",
+    "https://developers.cloudflare.com/oss/javascript/langchain/observability",
+    "https://developers.cloudflare.com/oss/javascript/langchain/overview",
+    "https://developers.cloudflare.com/oss/javascript/langchain/philosophy",
+    "https://developers.cloudflare.com/oss/javascript/langchain/quickstart",
+    "https://developers.cloudflare.com/oss/javascript/langchain/retrieval",
+    "https://developers.cloudflare.com/oss/javascript/langchain/runtime",
+    "https://developers.cloudflare.com/oss/javascript/langchain/short-term-memory",
+    "https://developers.cloudflare.com/oss/javascript/langchain/streaming",
+    "https://developers.cloudflare.com/oss/javascript/langchain/structured-output",
+    "https://developers.cloudflare.com/oss/javascript/langchain/studio",
+    "https://developers.cloudflare.com/oss/javascript/langchain/tools",
+    "https://developers.cloudflare.com/oss/javascript/langchain/ui",
+    "https://developers.cloudflare.com/oss/javascript/langgraph/overview",
+    "https://developers.cloudflare.com/oss/javascript/learn",
+    "https://developers.cloudflare.com/oss/javascript/reference/overview",
+    "https://developers.cloudflare.com/platform/puppeteer",
+    "https://developers.cloudflare.com/realtime/realtimekit/introduction",
+    "https://developers.cloudflare.com/ruleset-engine/rules-language/fields/cloudflare-network-firewall",
+    "https://developers.cloudflare.com/sandbox-sdk",
+    "https://developers.cloudflare.com/signup",
+    "https://developers.cloudflare.com/tunnel/faq",
+    "https://developers.cloudflare.com/tunnel/get-started",
+    "https://developers.cloudflare.com/tunnel/other-tunnel-types/local-management/as-a-service",
+    "https://developers.cloudflare.com/tunnel/other-tunnel-types/local-management/configuration-file",
+    "https://developers.cloudflare.com/tunnel/other-tunnel-types/local-management/create-local-tunnel",
+    "https://developers.cloudflare.com/tunnel/other-tunnel-types/local-management/local-tunnel-terms",
+    "https://developers.cloudflare.com/tunnel/other-tunnel-types/local-management/tunnel-permissions",
+    "https://developers.cloudflare.com/use-these-docs",
+    "https://developers.cloudflare.com/workers-devprod",
+    "https://developers.cloudflare.com/workers/databases/native-integrations",
+    "https://developers.cloudflare.com/workers/wrangler/commands/r2-bucket-info",
+    "https://developers.cloudflare.com/workers/wrangler/vite"
+  ],
+  "all_repo_broken_links": [],
+  "all_unverified_links_sample": [
+    "https://developers.cloudflare.com/client-ip-geolocation/about",
+    "https://developers.cloudflare.com/client-ip-geolocation/faq",
+    "https://developers.cloudflare.com/client-ip-geolocation/get-started",
+    "https://developers.cloudflare.com/email-security/account-setup/escalation-contacts",
+    "https://developers.cloudflare.com/email-security/account-setup/manage-account-members",
+    "https://developers.cloudflare.com/email-security/account-setup/sso",
+    "https://developers.cloudflare.com/email-security/account-setup/sso/azure",
+    "https://developers.cloudflare.com/email-security/account-setup/sso/generic-sso",
+    "https://developers.cloudflare.com/email-security/api",
+    "https://developers.cloudflare.com/email-security/api/service-accounts",
+    "https://developers.cloudflare.com/email-security/deployment",
+    "https://developers.cloudflare.com/email-security/deployment/api/setup",
+    "https://developers.cloudflare.com/email-security/deployment/api/setup/exchange-bcc-setup",
+    "https://developers.cloudflare.com/email-security/deployment/api/setup/gsuite-bcc-setup",
+    "https://developers.cloudflare.com/email-security/deployment/api/setup/gsuite-bcc-setup/add-domain",
+    "https://developers.cloudflare.com/email-security/deployment/api/setup/gsuite-bcc-setup/add-retraction",
+    "https://developers.cloudflare.com/email-security/deployment/api/setup/gsuite-bcc-setup/bcc-rules-to-area1",
+    "https://developers.cloudflare.com/email-security/deployment/inline",
+    "https://developers.cloudflare.com/email-security/deployment/inline/reference/egress-ips",
+    "https://developers.cloudflare.com/email-security/deployment/inline/setup",
+    "https://developers.cloudflare.com/email-security/deployment/inline/setup/cisco-area1-mx",
+    "https://developers.cloudflare.com/email-security/deployment/inline/setup/cisco-cisco-mx",
+    "https://developers.cloudflare.com/email-security/deployment/inline/setup/gsuite-area1-mx",
+    "https://developers.cloudflare.com/email-security/deployment/inline/setup/office-365-area1-mx/use-cases",
+    "https://developers.cloudflare.com/email-security/deployment/inline/setup/office-365-area1-mx/use-cases/four-user-quarantine-admin-quarantine",
+    "https://developers.cloudflare.com/email-security/deployment/inline/setup/office-365-area1-mx/use-cases/one-junk-admin-quarantine",
+    "https://developers.cloudflare.com/email-security/email-configuration",
+    "https://developers.cloudflare.com/email-security/email-configuration/domains-and-routing/alert-webhooks",
+    "https://developers.cloudflare.com/email-security/email-configuration/domains-and-routing/domains",
+    "https://developers.cloudflare.com/email-security/email-configuration/email-policies/link-actions"
+  ],
+  "sites": [
+    {
+      "site_url": "https://developers.cloudflare.com/",
+      "confirmed_broken_links_count": 101,
+      "docs_broken_links_count": 101,
+      "repo_broken_links_count": 0,
+      "docs_broken_links": [
+        "https://developers.cloudflare.com/ai/llms-full.txt",
+        "https://developers.cloudflare.com/artifacts/llms-full.txt",
+        "https://developers.cloudflare.com/changelog/2026-02-13-glm-4.7-flash-workers-ai",
+        "https://developers.cloudflare.com/changelog/access",
+        "https://developers.cloudflare.com/changelog/cloudflare-one-client",
+        "https://developers.cloudflare.com/changelog/durable-objects/2026-01-07-durable-objects-sqlite-storage-billing",
+        "https://developers.cloudflare.com/client-ip-geolocation/llms-full.txt",
+        "https://developers.cloudflare.com/client-ip-geolocation/llms.txt",
+        "https://developers.cloudflare.com/cloudflare",
+        "https://developers.cloudflare.com/cloudflare-one/networks/connectors/cloudflare-tunnel/availability/ulimits",
+        "https://developers.cloudflare.com/cloudflare-one/networks/connectors/cloudflare-wan/%7Bprops.gatewayURL%7D",
+        "https://developers.cloudflare.com/cloudflare-one/networks/connectors/cloudflare-wan/configuration/appliances",
+        "https://developers.cloudflare.com/cloudflare-wan/%7Bprops.gatewayURL%7D",
+        "https://developers.cloudflare.com/cloudflare/workers-sdk",
+        "https://developers.cloudflare.com/cloudflare/workers-sdk/actions",
+        "https://developers.cloudflare.com/cloudflare/workers-sdk/commit/4af4d545afdfbaef2c94c4c3f6089153a88b83f1",
+        "https://developers.cloudflare.com/cloudflare/workers-sdk/commit/ff14de113dcbbf6ed7dde450c2b1781cadfc28d6",
+        "https://developers.cloudflare.com/cloudflare/workers-sdk/discussions",
+        "https://developers.cloudflare.com/cloudflare/workers-sdk/issues",
+        "https://developers.cloudflare.com/cloudflare/workers-sdk/projects",
+        "https://developers.cloudflare.com/cloudflare/workers-sdk/pulls",
+        "https://developers.cloudflare.com/cloudflare/workers-sdk/pulse",
+        "https://developers.cloudflare.com/cloudflare/workers-sdk/releases",
+        "https://developers.cloudflare.com/cloudflare/workers-sdk/releases/latest",
+        "https://developers.cloudflare.com/cloudflare/workers-sdk/releases/tag/%40cloudflare%2Flocal-explorer-ui%400.13.0",
+        "https://developers.cloudflare.com/cloudflare/workers-sdk/releases/tag/%40cloudflare%2Fpages-shared%400.13.125",
+        "https://developers.cloudflare.com/cloudflare/workers-sdk/releases/tag/%40cloudflare%2Fvite-plugin%401.32.3",
+        "https://developers.cloudflare.com/cloudflare/workers-sdk/releases/tag/%40cloudflare%2Fvitest-pool-workers%400.14.7",
+        "https://developers.cloudflare.com/cloudflare/workers-sdk/releases/tag/%40cloudflare%2Fworkers-shared%400.19.2",
+        "https://developers.cloudflare.com/cloudflare/workers-sdk/releases/tag/%40cloudflare%2Fworkers-utils%400.16.1",
+        "https://developers.cloudflare.com/cloudflare/workers-sdk/releases/tag/create-cloudflare%402.67.0",
+        "https://developers.cloudflare.com/cloudflare/workers-sdk/releases/tag/miniflare%404.20260415.0",
+        "https://developers.cloudflare.com/cloudflare/workers-sdk/releases/tag/wrangler%404.82.2",
+        "https://developers.cloudflare.com/cloudflare/workers-sdk/releases/tag/wrangler%404.83.0",
+        "https://developers.cloudflare.com/cloudflare/workers-sdk/security",
+        "https://developers.cloudflare.com/cloudflare/workers-sdk/tags",
+        "https://developers.cloudflare.com/cloudflare/workers-sdk/tree/%40cloudflare/local-explorer-ui%400.13.0",
+        "https://developers.cloudflare.com/cloudflare/workers-sdk/tree/%40cloudflare/pages-shared%400.13.125",
+        "https://developers.cloudflare.com/cloudflare/workers-sdk/tree/%40cloudflare/vite-plugin%401.32.3",
+        "https://developers.cloudflare.com/cloudflare/workers-sdk/tree/%40cloudflare/vitest-pool-workers%400.14.7",
+        "https://developers.cloudflare.com/cloudflare/workers-sdk/tree/%40cloudflare/workers-shared%400.19.2",
+        "https://developers.cloudflare.com/cloudflare/workers-sdk/tree/%40cloudflare/workers-utils%400.16.1",
+        "https://developers.cloudflare.com/cloudflare/workers-sdk/tree/create-cloudflare%402.67.0",
+        "https://developers.cloudflare.com/cloudflare/workers-sdk/tree/miniflare%404.20260415.0",
+        "https://developers.cloudflare.com/cloudflare/workers-sdk/tree/wrangler%404.82.2",
+        "https://developers.cloudflare.com/cloudflare/workers-sdk/tree/wrangler%404.83.0",
+        "https://developers.cloudflare.com/dash.cloudflare.com",
+        "https://developers.cloudflare.com/email-security/llms-full.txt",
+        "https://developers.cloudflare.com/email-security/llms.txt",
+        "https://developers.cloudflare.com/email-service/llms-full.txt",
+        "https://developers.cloudflare.com/langsmith/home",
+        "https://developers.cloudflare.com/login",
+        "https://developers.cloudflare.com/oss/javascript/contributing/overview",
+        "https://developers.cloudflare.com/oss/javascript/deepagents/overview",
+        "https://developers.cloudflare.com/oss/javascript/integrations/providers/overview",
+        "https://developers.cloudflare.com/oss/javascript/langchain/agents",
+        "https://developers.cloudflare.com/oss/javascript/langchain/context-engineering",
+        "https://developers.cloudflare.com/oss/javascript/langchain/deploy",
+        "https://developers.cloudflare.com/oss/javascript/langchain/frontend/overview",
+        "https://developers.cloudflare.com/oss/javascript/langchain/guardrails",
+        "https://developers.cloudflare.com/oss/javascript/langchain/human-in-the-loop",
+        "https://developers.cloudflare.com/oss/javascript/langchain/install",
+        "https://developers.cloudflare.com/oss/javascript/langchain/long-term-memory",
+        "https://developers.cloudflare.com/oss/javascript/langchain/mcp",
+        "https://developers.cloudflare.com/oss/javascript/langchain/messages",
+        "https://developers.cloudflare.com/oss/javascript/langchain/middleware/built-in",
+        "https://developers.cloudflare.com/oss/javascript/langchain/middleware/custom",
+        "https://developers.cloudflare.com/oss/javascript/langchain/middleware/overview",
+        "https://developers.cloudflare.com/oss/javascript/langchain/models",
+        "https://developers.cloudflare.com/oss/javascript/langchain/observability",
+        "https://developers.cloudflare.com/oss/javascript/langchain/overview",
+        "https://developers.cloudflare.com/oss/javascript/langchain/philosophy",
+        "https://developers.cloudflare.com/oss/javascript/langchain/quickstart",
+        "https://developers.cloudflare.com/oss/javascript/langchain/retrieval",
+        "https://developers.cloudflare.com/oss/javascript/langchain/runtime",
+        "https://developers.cloudflare.com/oss/javascript/langchain/short-term-memory",
+        "https://developers.cloudflare.com/oss/javascript/langchain/streaming",
+        "https://developers.cloudflare.com/oss/javascript/langchain/structured-output",
+        "https://developers.cloudflare.com/oss/javascript/langchain/studio",
+        "https://developers.cloudflare.com/oss/javascript/langchain/tools",
+        "https://developers.cloudflare.com/oss/javascript/langchain/ui",
+        "https://developers.cloudflare.com/oss/javascript/langgraph/overview",
+        "https://developers.cloudflare.com/oss/javascript/learn",
+        "https://developers.cloudflare.com/oss/javascript/reference/overview",
+        "https://developers.cloudflare.com/platform/puppeteer",
+        "https://developers.cloudflare.com/realtime/realtimekit/introduction",
+        "https://developers.cloudflare.com/ruleset-engine/rules-language/fields/cloudflare-network-firewall",
+        "https://developers.cloudflare.com/sandbox-sdk",
+        "https://developers.cloudflare.com/signup",
+        "https://developers.cloudflare.com/tunnel/faq",
+        "https://developers.cloudflare.com/tunnel/get-started",
+        "https://developers.cloudflare.com/tunnel/other-tunnel-types/local-management/as-a-service",
+        "https://developers.cloudflare.com/tunnel/other-tunnel-types/local-management/configuration-file",
+        "https://developers.cloudflare.com/tunnel/other-tunnel-types/local-management/create-local-tunnel",
+        "https://developers.cloudflare.com/tunnel/other-tunnel-types/local-management/local-tunnel-terms",
+        "https://developers.cloudflare.com/tunnel/other-tunnel-types/local-management/tunnel-permissions",
+        "https://developers.cloudflare.com/use-these-docs",
+        "https://developers.cloudflare.com/workers-devprod",
+        "https://developers.cloudflare.com/workers/databases/native-integrations",
+        "https://developers.cloudflare.com/workers/wrangler/commands/r2-bucket-info",
+        "https://developers.cloudflare.com/workers/wrangler/vite"
+      ],
+      "repo_broken_links": [],
+      "confirmed_broken_links_detailed": [
+        {
+          "target_url": "https://developers.cloudflare.com/ai/llms-full.txt",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://developers.cloudflare.com/ai",
+              "anchor_text": "AI llms-full.txt"
+            },
+            {
+              "source_page": "https://developers.cloudflare.com/ai-gateway/models",
+              "anchor_text": "AI llms-full.txt"
+            },
+            {
+              "source_page": "https://developers.cloudflare.com/ai/models/@cf/ai4bharat/indictrans2-en-indic-1B",
+              "anchor_text": "AI llms-full.txt"
+            },
+            {
+              "source_page": "https://developers.cloudflare.com/ai/models/@cf/baai/bge-base-en-v1.5",
+              "anchor_text": "AI llms-full.txt"
+            },
+            {
+              "source_page": "https://developers.cloudflare.com/ai/models/@cf/aisingapore/gemma-sea-lion-v4-27b-it",
+              "anchor_text": "AI llms-full.txt"
+            }
+          ]
+        },
+        {
+          "target_url": "https://developers.cloudflare.com/artifacts/llms-full.txt",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://developers.cloudflare.com/artifacts/api",
+              "anchor_text": "Artifacts llms-full.txt"
+            },
+            {
+              "source_page": "https://developers.cloudflare.com/artifacts/api/git-protocol",
+              "anchor_text": "Artifacts llms-full.txt"
+            },
+            {
+              "source_page": "https://developers.cloudflare.com/artifacts/api/rest-api",
+              "anchor_text": "Artifacts llms-full.txt"
+            },
+            {
+              "source_page": "https://developers.cloudflare.com/artifacts/concepts/best-practices",
+              "anchor_text": "Artifacts llms-full.txt"
+            },
+            {
+              "source_page": "https://developers.cloudflare.com/artifacts/api/workers-binding",
+              "anchor_text": "Artifacts llms-full.txt"
+            }
+          ]
+        },
+        {
+          "target_url": "https://developers.cloudflare.com/changelog/2026-02-13-glm-4.7-flash-workers-ai",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://developers.cloudflare.com/workers-ai/changelog",
+              "anchor_text": "changelog"
+            }
+          ]
+        },
+        {
+          "target_url": "https://developers.cloudflare.com/changelog/access",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://developers.cloudflare.com/changelog/17",
+              "anchor_text": "open beta"
+            },
+            {
+              "source_page": "https://developers.cloudflare.com/changelog/post/2025-09-22-browser-based-rdp-ga",
+              "anchor_text": "open beta"
+            },
+            {
+              "source_page": "https://developers.cloudflare.com/changelog/product-group/cloudflare-one/4",
+              "anchor_text": "open beta"
+            },
+            {
+              "source_page": "https://developers.cloudflare.com/changelog/product/access",
+              "anchor_text": "open beta"
+            },
+            {
+              "source_page": "https://developers.cloudflare.com/cloudflare-one/changelog/access",
+              "anchor_text": "open beta"
+            }
+          ]
+        },
+        {
+          "target_url": "https://developers.cloudflare.com/changelog/cloudflare-one-client",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://developers.cloudflare.com/changelog/33",
+              "anchor_text": "Cloudflare One Client"
+            },
+            {
+              "source_page": "https://developers.cloudflare.com/changelog/post/2024-06-16-cloudflare-one",
+              "anchor_text": "Cloudflare One Client"
+            },
+            {
+              "source_page": "https://developers.cloudflare.com/changelog/product-group/analytics/4",
+              "anchor_text": "Cloudflare One Client"
+            },
+            {
+              "source_page": "https://developers.cloudflare.com/changelog/product-group/cloudflare-one/9",
+              "anchor_text": "Cloudflare One Client"
+            },
+            {
+              "source_page": "https://developers.cloudflare.com/changelog/product-group/network-security/3",
+              "anchor_text": "Cloudflare One Client"
+            }
+          ]
+        },
+        {
+          "target_url": "https://developers.cloudflare.com/changelog/durable-objects/2026-01-07-durable-objects-sqlite-storage-billing",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://developers.cloudflare.com/durable-objects/release-notes",
+              "anchor_text": "Billing for SQLite Storage"
+            }
+          ]
+        },
+        {
+          "target_url": "https://developers.cloudflare.com/client-ip-geolocation/llms-full.txt",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://developers.cloudflare.com/client-ip-geolocation",
+              "anchor_text": "Client IP Geolocation llms-full.txt"
+            }
+          ]
+        },
+        {
+          "target_url": "https://developers.cloudflare.com/client-ip-geolocation/llms.txt",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://developers.cloudflare.com/client-ip-geolocation",
+              "anchor_text": "Client IP Geolocation llms.txt"
+            }
+          ]
+        },
+        {
+          "target_url": "https://developers.cloudflare.com/cloudflare",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://developers.cloudflare.com/workers/platform/changelog/wrangler",
+              "anchor_text": "cloudflare"
+            }
+          ]
+        },
+        {
+          "target_url": "https://developers.cloudflare.com/cloudflare-one/networks/connectors/cloudflare-tunnel/availability/ulimits",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://developers.cloudflare.com/cloudflare-one/troubleshooting/tunnel",
+              "anchor_text": "configure ulimit settings"
+            }
+          ]
+        },
+        {
+          "target_url": "https://developers.cloudflare.com/cloudflare-one/networks/connectors/cloudflare-wan/%7Bprops.gatewayURL%7D",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://developers.cloudflare.com/cloudflare-one/networks/connectors/cloudflare-wan/security",
+              "anchor_text": "Cloudflare Gateway"
+            }
+          ]
+        },
+        {
+          "target_url": "https://developers.cloudflare.com/cloudflare-one/networks/connectors/cloudflare-wan/configuration/appliances",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://developers.cloudflare.com/cloudflare-one/networks/connectivity-options",
+              "anchor_text": "Cloudflare One Appliance documentation"
+            },
+            {
+              "source_page": "https://developers.cloudflare.com/cloudflare-one/networks/connectivity-options",
+              "anchor_text": "Cloudflare One Appliance"
+            }
+          ]
+        },
+        {
+          "target_url": "https://developers.cloudflare.com/cloudflare-wan/%7Bprops.gatewayURL%7D",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://developers.cloudflare.com/cloudflare-wan/security",
+              "anchor_text": "Cloudflare Gateway"
+            }
+          ]
+        },
+        {
+          "target_url": "https://developers.cloudflare.com/cloudflare/workers-sdk",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://developers.cloudflare.com/workers/platform/changelog/wrangler",
+              "anchor_text": "workers-sdk"
+            },
+            {
+              "source_page": "https://developers.cloudflare.com/workers/platform/changelog/wrangler",
+              "anchor_text": "Code"
+            }
+          ]
+        },
+        {
+          "target_url": "https://developers.cloudflare.com/cloudflare/workers-sdk/actions",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://developers.cloudflare.com/workers/platform/changelog/wrangler",
+              "anchor_text": "Actions"
+            }
+          ]
+        },
+        {
+          "target_url": "https://developers.cloudflare.com/cloudflare/workers-sdk/commit/4af4d545afdfbaef2c94c4c3f6089153a88b83f1",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://developers.cloudflare.com/workers/platform/changelog/wrangler",
+              "anchor_text": "4af4d54"
+            }
+          ]
+        },
+        {
+          "target_url": "https://developers.cloudflare.com/cloudflare/workers-sdk/commit/ff14de113dcbbf6ed7dde450c2b1781cadfc28d6",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://developers.cloudflare.com/workers/platform/changelog/wrangler",
+              "anchor_text": "ff14de1"
+            }
+          ]
+        },
+        {
+          "target_url": "https://developers.cloudflare.com/cloudflare/workers-sdk/discussions",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://developers.cloudflare.com/workers/platform/changelog/wrangler",
+              "anchor_text": "Discussions"
+            }
+          ]
+        },
+        {
+          "target_url": "https://developers.cloudflare.com/cloudflare/workers-sdk/issues",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://developers.cloudflare.com/workers/platform/changelog/wrangler",
+              "anchor_text": "Issues 324"
+            },
+            {
+              "source_page": "https://developers.cloudflare.com/workers/platform/changelog/wrangler",
+              "anchor_text": "Issues"
+            }
+          ]
+        },
+        {
+          "target_url": "https://developers.cloudflare.com/cloudflare/workers-sdk/projects",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://developers.cloudflare.com/workers/platform/changelog/wrangler",
+              "anchor_text": "Projects"
+            }
+          ]
+        },
+        {
+          "target_url": "https://developers.cloudflare.com/cloudflare/workers-sdk/pulls",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://developers.cloudflare.com/workers/platform/changelog/wrangler",
+              "anchor_text": "Pull requests 132"
+            },
+            {
+              "source_page": "https://developers.cloudflare.com/workers/platform/changelog/wrangler",
+              "anchor_text": "Pull requests"
+            }
+          ]
+        },
+        {
+          "target_url": "https://developers.cloudflare.com/cloudflare/workers-sdk/pulse",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://developers.cloudflare.com/workers/platform/changelog/wrangler",
+              "anchor_text": "Insights"
+            }
+          ]
+        },
+        {
+          "target_url": "https://developers.cloudflare.com/cloudflare/workers-sdk/releases",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://developers.cloudflare.com/workers/platform/changelog/wrangler",
+              "anchor_text": "Releases"
+            },
+            {
+              "source_page": "https://developers.cloudflare.com/workers/platform/changelog/wrangler",
+              "anchor_text": "2"
+            },
+            {
+              "source_page": "https://developers.cloudflare.com/workers/platform/changelog/wrangler",
+              "anchor_text": "3"
+            },
+            {
+              "source_page": "https://developers.cloudflare.com/workers/platform/changelog/wrangler",
+              "anchor_text": "4"
+            },
+            {
+              "source_page": "https://developers.cloudflare.com/workers/platform/changelog/wrangler",
+              "anchor_text": "5"
+            }
+          ]
+        },
+        {
+          "target_url": "https://developers.cloudflare.com/cloudflare/workers-sdk/releases/latest",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://developers.cloudflare.com/workers/platform/changelog/wrangler",
+              "anchor_text": "Latest"
+            }
+          ]
+        },
+        {
+          "target_url": "https://developers.cloudflare.com/cloudflare/workers-sdk/releases/tag/%40cloudflare%2Flocal-explorer-ui%400.13.0",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://developers.cloudflare.com/workers/platform/changelog/wrangler",
+              "anchor_text": "@cloudflare/local-explorer-ui@0.13.0"
+            }
+          ]
+        },
+        {
+          "target_url": "https://developers.cloudflare.com/cloudflare/workers-sdk/releases/tag/%40cloudflare%2Fpages-shared%400.13.125",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://developers.cloudflare.com/workers/platform/changelog/wrangler",
+              "anchor_text": "@cloudflare/pages-shared@0.13.125"
+            }
+          ]
+        },
+        {
+          "target_url": "https://developers.cloudflare.com/cloudflare/workers-sdk/releases/tag/%40cloudflare%2Fvite-plugin%401.32.3",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://developers.cloudflare.com/workers/platform/changelog/wrangler",
+              "anchor_text": "@cloudflare/vite-plugin@1.32.3"
+            }
+          ]
+        },
+        {
+          "target_url": "https://developers.cloudflare.com/cloudflare/workers-sdk/releases/tag/%40cloudflare%2Fvitest-pool-workers%400.14.7",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://developers.cloudflare.com/workers/platform/changelog/wrangler",
+              "anchor_text": "@cloudflare/vitest-pool-workers@0.14.7"
+            }
+          ]
+        },
+        {
+          "target_url": "https://developers.cloudflare.com/cloudflare/workers-sdk/releases/tag/%40cloudflare%2Fworkers-shared%400.19.2",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://developers.cloudflare.com/workers/platform/changelog/wrangler",
+              "anchor_text": "@cloudflare/workers-shared@0.19.2"
+            }
+          ]
+        },
+        {
+          "target_url": "https://developers.cloudflare.com/cloudflare/workers-sdk/releases/tag/%40cloudflare%2Fworkers-utils%400.16.1",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://developers.cloudflare.com/workers/platform/changelog/wrangler",
+              "anchor_text": "@cloudflare/workers-utils@0.16.1"
+            }
+          ]
+        },
+        {
+          "target_url": "https://developers.cloudflare.com/cloudflare/workers-sdk/releases/tag/create-cloudflare%402.67.0",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://developers.cloudflare.com/workers/platform/changelog/wrangler",
+              "anchor_text": "create-cloudflare@2.67.0"
+            }
+          ]
+        },
+        {
+          "target_url": "https://developers.cloudflare.com/cloudflare/workers-sdk/releases/tag/miniflare%404.20260415.0",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://developers.cloudflare.com/workers/platform/changelog/wrangler",
+              "anchor_text": "miniflare@4.20260415.0"
+            }
+          ]
+        },
+        {
+          "target_url": "https://developers.cloudflare.com/cloudflare/workers-sdk/releases/tag/wrangler%404.82.2",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://developers.cloudflare.com/workers/platform/changelog/wrangler",
+              "anchor_text": "wrangler@4.82.2"
+            }
+          ]
+        },
+        {
+          "target_url": "https://developers.cloudflare.com/cloudflare/workers-sdk/releases/tag/wrangler%404.83.0",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://developers.cloudflare.com/workers/platform/changelog/wrangler",
+              "anchor_text": "wrangler@4.83.0"
+            }
+          ]
+        },
+        {
+          "target_url": "https://developers.cloudflare.com/cloudflare/workers-sdk/security",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://developers.cloudflare.com/workers/platform/changelog/wrangler",
+              "anchor_text": "Security and quality 6"
+            },
+            {
+              "source_page": "https://developers.cloudflare.com/workers/platform/changelog/wrangler",
+              "anchor_text": "Security and quality"
+            }
+          ]
+        },
+        {
+          "target_url": "https://developers.cloudflare.com/cloudflare/workers-sdk/tags",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://developers.cloudflare.com/workers/platform/changelog/wrangler",
+              "anchor_text": "Tags"
+            },
+            {
+              "source_page": "https://developers.cloudflare.com/workers/platform/changelog/wrangler",
+              "anchor_text": "View all tags"
+            }
+          ]
+        },
+        {
+          "target_url": "https://developers.cloudflare.com/cloudflare/workers-sdk/tree/%40cloudflare/local-explorer-ui%400.13.0",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://developers.cloudflare.com/workers/platform/changelog/wrangler",
+              "anchor_text": "@cloudflare/local-explorer-ui@0.13.0"
+            }
+          ]
+        },
+        {
+          "target_url": "https://developers.cloudflare.com/cloudflare/workers-sdk/tree/%40cloudflare/pages-shared%400.13.125",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://developers.cloudflare.com/workers/platform/changelog/wrangler",
+              "anchor_text": "@cloudflare/pages-shared@0.13.125"
+            }
+          ]
+        },
+        {
+          "target_url": "https://developers.cloudflare.com/cloudflare/workers-sdk/tree/%40cloudflare/vite-plugin%401.32.3",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://developers.cloudflare.com/workers/platform/changelog/wrangler",
+              "anchor_text": "@cloudflare/vite-plugin@1.32.3"
+            }
+          ]
+        },
+        {
+          "target_url": "https://developers.cloudflare.com/cloudflare/workers-sdk/tree/%40cloudflare/vitest-pool-workers%400.14.7",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://developers.cloudflare.com/workers/platform/changelog/wrangler",
+              "anchor_text": "@cloudflare/vitest-pool-workers@0.14.7"
+            }
+          ]
+        },
+        {
+          "target_url": "https://developers.cloudflare.com/cloudflare/workers-sdk/tree/%40cloudflare/workers-shared%400.19.2",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://developers.cloudflare.com/workers/platform/changelog/wrangler",
+              "anchor_text": "@cloudflare/workers-shared@0.19.2"
+            }
+          ]
+        },
+        {
+          "target_url": "https://developers.cloudflare.com/cloudflare/workers-sdk/tree/%40cloudflare/workers-utils%400.16.1",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://developers.cloudflare.com/workers/platform/changelog/wrangler",
+              "anchor_text": "@cloudflare/workers-utils@0.16.1"
+            }
+          ]
+        },
+        {
+          "target_url": "https://developers.cloudflare.com/cloudflare/workers-sdk/tree/create-cloudflare%402.67.0",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://developers.cloudflare.com/workers/platform/changelog/wrangler",
+              "anchor_text": "create-cloudflare@2.67.0"
+            }
+          ]
+        },
+        {
+          "target_url": "https://developers.cloudflare.com/cloudflare/workers-sdk/tree/miniflare%404.20260415.0",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://developers.cloudflare.com/workers/platform/changelog/wrangler",
+              "anchor_text": "miniflare@4.20260415.0"
+            }
+          ]
+        },
+        {
+          "target_url": "https://developers.cloudflare.com/cloudflare/workers-sdk/tree/wrangler%404.82.2",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://developers.cloudflare.com/workers/platform/changelog/wrangler",
+              "anchor_text": "wrangler@4.82.2"
+            }
+          ]
+        },
+        {
+          "target_url": "https://developers.cloudflare.com/cloudflare/workers-sdk/tree/wrangler%404.83.0",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://developers.cloudflare.com/workers/platform/changelog/wrangler",
+              "anchor_text": "wrangler@4.83.0"
+            }
+          ]
+        },
+        {
+          "target_url": "https://developers.cloudflare.com/dash.cloudflare.com",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://developers.cloudflare.com/cloudflare-one/integrations/identity-providers/facebook-login",
+              "anchor_text": "Cloudflare dashboard \u2197"
+            }
+          ]
+        },
+        {
+          "target_url": "https://developers.cloudflare.com/email-security/llms-full.txt",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://developers.cloudflare.com/email-security",
+              "anchor_text": "Email security llms-full.txt"
+            },
+            {
+              "source_page": "https://developers.cloudflare.com/email-security/account-setup",
+              "anchor_text": "Email security llms-full.txt"
+            },
+            {
+              "source_page": "https://developers.cloudflare.com/email-security/account-setup/permissions",
+              "anchor_text": "Email security llms-full.txt"
+            },
+            {
+              "source_page": "https://developers.cloudflare.com/email-security/account-setup/manage-parent-permissions",
+              "anchor_text": "Email security llms-full.txt"
+            },
+            {
+              "source_page": "https://developers.cloudflare.com/email-security/account-setup/sso/access",
+              "anchor_text": "Email security llms-full.txt"
+            }
+          ]
+        },
+        {
+          "target_url": "https://developers.cloudflare.com/email-security/llms.txt",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://developers.cloudflare.com/email-security",
+              "anchor_text": "Email security llms.txt"
+            },
+            {
+              "source_page": "https://developers.cloudflare.com/email-security/account-setup",
+              "anchor_text": "Email security llms.txt"
+            },
+            {
+              "source_page": "https://developers.cloudflare.com/email-security/account-setup/permissions",
+              "anchor_text": "Email security llms.txt"
+            },
+            {
+              "source_page": "https://developers.cloudflare.com/email-security/account-setup/manage-parent-permissions",
+              "anchor_text": "Email security llms.txt"
+            },
+            {
+              "source_page": "https://developers.cloudflare.com/email-security/account-setup/sso/access",
+              "anchor_text": "Email security llms.txt"
+            }
+          ]
+        },
+        {
+          "target_url": "https://developers.cloudflare.com/email-service/llms-full.txt",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://developers.cloudflare.com/email-service",
+              "anchor_text": "Email Service llms-full.txt"
+            },
+            {
+              "source_page": "https://developers.cloudflare.com/email-service/api",
+              "anchor_text": "Email Service llms-full.txt"
+            },
+            {
+              "source_page": "https://developers.cloudflare.com/email-service/api/route-emails",
+              "anchor_text": "Email Service llms-full.txt"
+            },
+            {
+              "source_page": "https://developers.cloudflare.com/email-service/api/send-emails",
+              "anchor_text": "Email Service llms-full.txt"
+            },
+            {
+              "source_page": "https://developers.cloudflare.com/email-service/api/route-emails/email-handler",
+              "anchor_text": "Email Service llms-full.txt"
+            }
+          ]
+        },
+        {
+          "target_url": "https://developers.cloudflare.com/langsmith/home",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://developers.cloudflare.com/vectorize/examples/langchain",
+              "anchor_text": "LangSmith"
+            }
+          ]
+        },
+        {
+          "target_url": "https://developers.cloudflare.com/login",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://developers.cloudflare.com/workers/platform/changelog/wrangler",
+              "anchor_text": "Sign in"
+            },
+            {
+              "source_page": "https://developers.cloudflare.com/workers/platform/changelog/wrangler",
+              "anchor_text": "Notifications"
+            },
+            {
+              "source_page": "https://developers.cloudflare.com/workers/platform/changelog/wrangler",
+              "anchor_text": "Fork 1.2k"
+            },
+            {
+              "source_page": "https://developers.cloudflare.com/workers/platform/changelog/wrangler",
+              "anchor_text": "Star 4k"
+            }
+          ]
+        },
+        {
+          "target_url": "https://developers.cloudflare.com/oss/javascript/contributing/overview",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://developers.cloudflare.com/vectorize/examples/langchain",
+              "anchor_text": "Contribute"
+            }
+          ]
+        },
+        {
+          "target_url": "https://developers.cloudflare.com/oss/javascript/deepagents/overview",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://developers.cloudflare.com/vectorize/examples/langchain",
+              "anchor_text": "Deep Agents"
+            }
+          ]
+        },
+        {
+          "target_url": "https://developers.cloudflare.com/oss/javascript/integrations/providers/overview",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://developers.cloudflare.com/vectorize/examples/langchain",
+              "anchor_text": "Integrations"
+            },
+            {
+              "source_page": "https://developers.cloudflare.com/vectorize/examples/langchain",
+              "anchor_text": "more"
+            }
+          ]
+        },
+        {
+          "target_url": "https://developers.cloudflare.com/oss/javascript/langchain/agents",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://developers.cloudflare.com/vectorize/examples/langchain",
+              "anchor_text": "Agents"
+            },
+            {
+              "source_page": "https://developers.cloudflare.com/vectorize/examples/langchain",
+              "anchor_text": "agents"
+            }
+          ]
+        },
+        {
+          "target_url": "https://developers.cloudflare.com/oss/javascript/langchain/context-engineering",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://developers.cloudflare.com/vectorize/examples/langchain",
+              "anchor_text": "Context engineering"
+            }
+          ]
+        },
+        {
+          "target_url": "https://developers.cloudflare.com/oss/javascript/langchain/deploy",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://developers.cloudflare.com/vectorize/examples/langchain",
+              "anchor_text": "Deployment"
+            }
+          ]
+        },
+        {
+          "target_url": "https://developers.cloudflare.com/oss/javascript/langchain/frontend/overview",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://developers.cloudflare.com/vectorize/examples/langchain",
+              "anchor_text": "Overview"
+            }
+          ]
+        },
+        {
+          "target_url": "https://developers.cloudflare.com/oss/javascript/langchain/guardrails",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://developers.cloudflare.com/vectorize/examples/langchain",
+              "anchor_text": "Guardrails"
+            }
+          ]
+        },
+        {
+          "target_url": "https://developers.cloudflare.com/oss/javascript/langchain/human-in-the-loop",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://developers.cloudflare.com/vectorize/examples/langchain",
+              "anchor_text": "Human-in-the-loop"
+            }
+          ]
+        },
+        {
+          "target_url": "https://developers.cloudflare.com/oss/javascript/langchain/install",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://developers.cloudflare.com/vectorize/examples/langchain",
+              "anchor_text": "Install"
+            },
+            {
+              "source_page": "https://developers.cloudflare.com/vectorize/examples/langchain",
+              "anchor_text": "Installation instructions"
+            },
+            {
+              "source_page": "https://developers.cloudflare.com/vectorize/examples/langchain",
+              "anchor_text": "Install LangChain Next"
+            }
+          ]
+        },
+        {
+          "target_url": "https://developers.cloudflare.com/oss/javascript/langchain/long-term-memory",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://developers.cloudflare.com/vectorize/examples/langchain",
+              "anchor_text": "Long-term memory"
+            }
+          ]
+        },
+        {
+          "target_url": "https://developers.cloudflare.com/oss/javascript/langchain/mcp",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://developers.cloudflare.com/vectorize/examples/langchain",
+              "anchor_text": "Model Context Protocol (MCP)"
+            }
+          ]
+        },
+        {
+          "target_url": "https://developers.cloudflare.com/oss/javascript/langchain/messages",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://developers.cloudflare.com/vectorize/examples/langchain",
+              "anchor_text": "Messages"
+            }
+          ]
+        },
+        {
+          "target_url": "https://developers.cloudflare.com/oss/javascript/langchain/middleware/built-in",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://developers.cloudflare.com/vectorize/examples/langchain",
+              "anchor_text": "Prebuilt middleware"
+            }
+          ]
+        },
+        {
+          "target_url": "https://developers.cloudflare.com/oss/javascript/langchain/middleware/custom",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://developers.cloudflare.com/vectorize/examples/langchain",
+              "anchor_text": "Custom middleware"
+            }
+          ]
+        },
+        {
+          "target_url": "https://developers.cloudflare.com/oss/javascript/langchain/middleware/overview",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://developers.cloudflare.com/vectorize/examples/langchain",
+              "anchor_text": "Overview"
+            }
+          ]
+        },
+        {
+          "target_url": "https://developers.cloudflare.com/oss/javascript/langchain/models",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://developers.cloudflare.com/vectorize/examples/langchain",
+              "anchor_text": "Models"
+            }
+          ]
+        },
+        {
+          "target_url": "https://developers.cloudflare.com/oss/javascript/langchain/observability",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://developers.cloudflare.com/vectorize/examples/langchain",
+              "anchor_text": "Observability"
+            }
+          ]
+        },
+        {
+          "target_url": "https://developers.cloudflare.com/oss/javascript/langchain/overview",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://developers.cloudflare.com/vectorize/examples/langchain",
+              "anchor_text": "LangChain"
+            },
+            {
+              "source_page": "https://developers.cloudflare.com/vectorize/examples/langchain",
+              "anchor_text": "Overview"
+            }
+          ]
+        },
+        {
+          "target_url": "https://developers.cloudflare.com/oss/javascript/langchain/philosophy",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://developers.cloudflare.com/vectorize/examples/langchain",
+              "anchor_text": "Philosophy"
+            }
+          ]
+        },
+        {
+          "target_url": "https://developers.cloudflare.com/oss/javascript/langchain/quickstart",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://developers.cloudflare.com/vectorize/examples/langchain",
+              "anchor_text": "Quickstart"
+            },
+            {
+              "source_page": "https://developers.cloudflare.com/vectorize/examples/langchain",
+              "anchor_text": "Quickstart guide"
+            }
+          ]
+        },
+        {
+          "target_url": "https://developers.cloudflare.com/oss/javascript/langchain/retrieval",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://developers.cloudflare.com/vectorize/examples/langchain",
+              "anchor_text": "Retrieval"
+            }
+          ]
+        },
+        {
+          "target_url": "https://developers.cloudflare.com/oss/javascript/langchain/runtime",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://developers.cloudflare.com/vectorize/examples/langchain",
+              "anchor_text": "Runtime"
+            }
+          ]
+        },
+        {
+          "target_url": "https://developers.cloudflare.com/oss/javascript/langchain/short-term-memory",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://developers.cloudflare.com/vectorize/examples/langchain",
+              "anchor_text": "Short-term memory"
+            }
+          ]
+        },
+        {
+          "target_url": "https://developers.cloudflare.com/oss/javascript/langchain/streaming",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://developers.cloudflare.com/vectorize/examples/langchain",
+              "anchor_text": "Streaming"
+            }
+          ]
+        },
+        {
+          "target_url": "https://developers.cloudflare.com/oss/javascript/langchain/structured-output",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://developers.cloudflare.com/vectorize/examples/langchain",
+              "anchor_text": "Structured output"
+            }
+          ]
+        },
+        {
+          "target_url": "https://developers.cloudflare.com/oss/javascript/langchain/studio",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://developers.cloudflare.com/vectorize/examples/langchain",
+              "anchor_text": "LangSmith Studio"
+            }
+          ]
+        },
+        {
+          "target_url": "https://developers.cloudflare.com/oss/javascript/langchain/tools",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://developers.cloudflare.com/vectorize/examples/langchain",
+              "anchor_text": "Tools"
+            }
+          ]
+        },
+        {
+          "target_url": "https://developers.cloudflare.com/oss/javascript/langchain/ui",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://developers.cloudflare.com/vectorize/examples/langchain",
+              "anchor_text": "Agent Chat UI"
+            }
+          ]
+        },
+        {
+          "target_url": "https://developers.cloudflare.com/oss/javascript/langgraph/overview",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://developers.cloudflare.com/vectorize/examples/langchain",
+              "anchor_text": "LangGraph"
+            }
+          ]
+        },
+        {
+          "target_url": "https://developers.cloudflare.com/oss/javascript/learn",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://developers.cloudflare.com/vectorize/examples/langchain",
+              "anchor_text": "Learn"
+            }
+          ]
+        },
+        {
+          "target_url": "https://developers.cloudflare.com/oss/javascript/reference/overview",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://developers.cloudflare.com/vectorize/examples/langchain",
+              "anchor_text": "Reference"
+            }
+          ]
+        },
+        {
+          "target_url": "https://developers.cloudflare.com/platform/puppeteer",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://developers.cloudflare.com/browser-run/changelog",
+              "anchor_text": "/v1/sessions endpoint"
+            }
+          ]
+        },
+        {
+          "target_url": "https://developers.cloudflare.com/realtime/realtimekit/introduction",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://developers.cloudflare.com/realtime",
+              "anchor_text": "Use cases"
+            }
+          ]
+        },
+        {
+          "target_url": "https://developers.cloudflare.com/ruleset-engine/rules-language/fields/cloudflare-network-firewall",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://developers.cloudflare.com/cloudflare-network-firewall/how-to/create-rate-limiting-policies",
+              "anchor_text": "colo name \u2197"
+            }
+          ]
+        },
+        {
+          "target_url": "https://developers.cloudflare.com/sandbox-sdk",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://developers.cloudflare.com/ai",
+              "anchor_text": "Sandbox SDK \u2197"
+            },
+            {
+              "source_page": "https://developers.cloudflare.com/ai",
+              "anchor_text": "Sandbox SDK"
+            },
+            {
+              "source_page": "https://developers.cloudflare.com/ai-gateway/models",
+              "anchor_text": "Sandbox SDK \u2197"
+            },
+            {
+              "source_page": "https://developers.cloudflare.com/ai/models/@cf/ai4bharat/indictrans2-en-indic-1B",
+              "anchor_text": "Sandbox SDK \u2197"
+            },
+            {
+              "source_page": "https://developers.cloudflare.com/ai/models/@cf/baai/bge-base-en-v1.5",
+              "anchor_text": "Sandbox SDK \u2197"
+            }
+          ]
+        },
+        {
+          "target_url": "https://developers.cloudflare.com/signup",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://developers.cloudflare.com/workers/platform/changelog/wrangler",
+              "anchor_text": "Sign up"
+            }
+          ]
+        },
+        {
+          "target_url": "https://developers.cloudflare.com/tunnel/faq",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://developers.cloudflare.com/tunnel/advanced/local-management/configuration-file",
+              "anchor_text": "Quick tunnels"
+            },
+            {
+              "source_page": "https://developers.cloudflare.com/tunnel/advanced/local-management/local-tunnel-terms",
+              "anchor_text": "Get started section"
+            },
+            {
+              "source_page": "https://developers.cloudflare.com/tunnel/advanced/local-management/tunnel-permissions",
+              "anchor_text": "Default directory"
+            }
+          ]
+        },
+        {
+          "target_url": "https://developers.cloudflare.com/tunnel/get-started",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://developers.cloudflare.com/tunnel/advanced/run-parameters",
+              "anchor_text": "create the tunnel"
+            }
+          ]
+        },
+        {
+          "target_url": "https://developers.cloudflare.com/tunnel/other-tunnel-types/local-management/as-a-service",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://developers.cloudflare.com/tunnel/downloads/update-cloudflared",
+              "anchor_text": "run as a service"
+            }
+          ]
+        },
+        {
+          "target_url": "https://developers.cloudflare.com/tunnel/other-tunnel-types/local-management/configuration-file",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://developers.cloudflare.com/tunnel/advanced/local-management/as-a-service/macos",
+              "anchor_text": "configuration file"
+            },
+            {
+              "source_page": "https://developers.cloudflare.com/tunnel/advanced/local-management/as-a-service/windows",
+              "anchor_text": "configuration file"
+            },
+            {
+              "source_page": "https://developers.cloudflare.com/tunnel/advanced/local-management/as-a-service/linux",
+              "anchor_text": "configuration file"
+            },
+            {
+              "source_page": "https://developers.cloudflare.com/tunnel/advanced/local-management/local-tunnel-terms",
+              "anchor_text": "dedicated instructions"
+            },
+            {
+              "source_page": "https://developers.cloudflare.com/tunnel/advanced/local-management/local-tunnel-terms",
+              "anchor_text": "configuration file"
+            }
+          ]
+        },
+        {
+          "target_url": "https://developers.cloudflare.com/tunnel/other-tunnel-types/local-management/create-local-tunnel",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://developers.cloudflare.com/tunnel/advanced/local-management/as-a-service/macos",
+              "anchor_text": "Tunnel CLI setup guide"
+            },
+            {
+              "source_page": "https://developers.cloudflare.com/tunnel/advanced/local-management/as-a-service/macos",
+              "anchor_text": "route traffic through your tunnel"
+            },
+            {
+              "source_page": "https://developers.cloudflare.com/tunnel/advanced/local-management/as-a-service/windows",
+              "anchor_text": "Create a configuration file"
+            },
+            {
+              "source_page": "https://developers.cloudflare.com/tunnel/advanced/local-management/as-a-service/windows",
+              "anchor_text": "route traffic through your tunnel"
+            },
+            {
+              "source_page": "https://developers.cloudflare.com/tunnel/advanced/local-management/as-a-service/linux",
+              "anchor_text": "Tunnel CLI setup guide"
+            }
+          ]
+        },
+        {
+          "target_url": "https://developers.cloudflare.com/tunnel/other-tunnel-types/local-management/local-tunnel-terms",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://developers.cloudflare.com/tunnel/advanced/local-management/as-a-service/windows",
+              "anchor_text": "credentials file"
+            },
+            {
+              "source_page": "https://developers.cloudflare.com/tunnel/routing",
+              "anchor_text": "cert.pem"
+            }
+          ]
+        },
+        {
+          "target_url": "https://developers.cloudflare.com/tunnel/other-tunnel-types/local-management/tunnel-permissions",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://developers.cloudflare.com/tunnel/advanced/local-management/local-tunnel-terms",
+              "anchor_text": "Tunnel permissions page"
+            }
+          ]
+        },
+        {
+          "target_url": "https://developers.cloudflare.com/use-these-docs",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://developers.cloudflare.com/vectorize/examples/langchain",
+              "anchor_text": "Connect these docs"
+            }
+          ]
+        },
+        {
+          "target_url": "https://developers.cloudflare.com/workers-devprod",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://developers.cloudflare.com/workers/platform/changelog/wrangler",
+              "anchor_text": "workers-devprod"
+            }
+          ]
+        },
+        {
+          "target_url": "https://developers.cloudflare.com/workers/databases/native-integrations",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://developers.cloudflare.com/workers/platform/changelog",
+              "anchor_text": "native database integrations"
+            }
+          ]
+        },
+        {
+          "target_url": "https://developers.cloudflare.com/workers/wrangler/commands/r2-bucket-info",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://developers.cloudflare.com/r2/platform/release-notes",
+              "anchor_text": "bucket info command"
+            }
+          ]
+        },
+        {
+          "target_url": "https://developers.cloudflare.com/workers/wrangler/vite",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://developers.cloudflare.com/changelog/20",
+              "anchor_text": "Cloudflare Vite Plugin Documentation \u2197"
+            },
+            {
+              "source_page": "https://developers.cloudflare.com/changelog/post/2025-08-08-dot-env-in-local-dev",
+              "anchor_text": "Cloudflare Vite Plugin Documentation \u2197"
+            },
+            {
+              "source_page": "https://developers.cloudflare.com/changelog/product-group/developer-platform/9",
+              "anchor_text": "Cloudflare Vite Plugin Documentation \u2197"
+            },
+            {
+              "source_page": "https://developers.cloudflare.com/changelog/product/workers/4",
+              "anchor_text": "Cloudflare Vite Plugin Documentation \u2197"
+            }
+          ]
+        }
+      ],
+      "unverified_links_sample": [
+        "https://developers.cloudflare.com/client-ip-geolocation/about",
+        "https://developers.cloudflare.com/client-ip-geolocation/faq",
+        "https://developers.cloudflare.com/client-ip-geolocation/get-started",
+        "https://developers.cloudflare.com/email-security/account-setup/escalation-contacts",
+        "https://developers.cloudflare.com/email-security/account-setup/manage-account-members",
+        "https://developers.cloudflare.com/email-security/account-setup/sso",
+        "https://developers.cloudflare.com/email-security/account-setup/sso/azure",
+        "https://developers.cloudflare.com/email-security/account-setup/sso/generic-sso",
+        "https://developers.cloudflare.com/email-security/api",
+        "https://developers.cloudflare.com/email-security/api/service-accounts",
+        "https://developers.cloudflare.com/email-security/deployment",
+        "https://developers.cloudflare.com/email-security/deployment/api/setup",
+        "https://developers.cloudflare.com/email-security/deployment/api/setup/exchange-bcc-setup",
+        "https://developers.cloudflare.com/email-security/deployment/api/setup/gsuite-bcc-setup",
+        "https://developers.cloudflare.com/email-security/deployment/api/setup/gsuite-bcc-setup/add-domain",
+        "https://developers.cloudflare.com/email-security/deployment/api/setup/gsuite-bcc-setup/add-retraction",
+        "https://developers.cloudflare.com/email-security/deployment/api/setup/gsuite-bcc-setup/bcc-rules-to-area1",
+        "https://developers.cloudflare.com/email-security/deployment/inline",
+        "https://developers.cloudflare.com/email-security/deployment/inline/reference/egress-ips",
+        "https://developers.cloudflare.com/email-security/deployment/inline/setup",
+        "https://developers.cloudflare.com/email-security/deployment/inline/setup/cisco-area1-mx",
+        "https://developers.cloudflare.com/email-security/deployment/inline/setup/cisco-cisco-mx",
+        "https://developers.cloudflare.com/email-security/deployment/inline/setup/gsuite-area1-mx",
+        "https://developers.cloudflare.com/email-security/deployment/inline/setup/office-365-area1-mx/use-cases",
+        "https://developers.cloudflare.com/email-security/deployment/inline/setup/office-365-area1-mx/use-cases/four-user-quarantine-admin-quarantine",
+        "https://developers.cloudflare.com/email-security/deployment/inline/setup/office-365-area1-mx/use-cases/one-junk-admin-quarantine",
+        "https://developers.cloudflare.com/email-security/email-configuration",
+        "https://developers.cloudflare.com/email-security/email-configuration/domains-and-routing/alert-webhooks",
+        "https://developers.cloudflare.com/email-security/email-configuration/domains-and-routing/domains",
+        "https://developers.cloudflare.com/email-security/email-configuration/email-policies/link-actions"
+      ]
+    }
+  ]
+}

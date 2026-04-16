@@ -540,6 +540,7 @@ def main() -> int:
         shutil.rmtree(spec_tree)
     paths_dir = spec_tree / "v1" / "paths"
     components_dir = spec_tree / "v1" / "components"
+    tree_slug = spec_tree.name or "taskstream"
 
     grouped: dict[str, dict[str, dict[str, Any]]] = {"projects": {}, "tasks": {}, "comments": {}, "tags": {}, "users": {}}
     root_paths: dict[str, dict[str, str]] = {}
@@ -549,7 +550,7 @@ def main() -> int:
         grouped.setdefault(group, {})
         grouped[group].setdefault(path, {})
         grouped[group][path][method.lower()] = make_operation(method, path, desc)
-        root_paths[path] = {"$ref": f"./taskstream/v1/paths/{group}.yaml#/{pointer_escape(path)}"}
+        root_paths[path] = {"$ref": f"./{tree_slug}/v1/paths/{group}.yaml#/{pointer_escape(path)}"}
 
     root_spec: dict[str, Any] = {
         "openapi": str(args.openapi_version).strip() or "3.0.3",
@@ -564,32 +565,32 @@ def main() -> int:
         "components": {
             "securitySchemes": {"BearerAuth": {"type": "http", "scheme": "bearer", "bearerFormat": "JWT"}},
             "parameters": {
-                "RequestId": {"$ref": "./taskstream/v1/components/parameters/common.yaml#/RequestId"},
-                "IdempotencyKey": {"$ref": "./taskstream/v1/components/parameters/common.yaml#/IdempotencyKey"},
-                "Limit": {"$ref": "./taskstream/v1/components/parameters/common.yaml#/Limit"},
-                "Cursor": {"$ref": "./taskstream/v1/components/parameters/common.yaml#/Cursor"},
-                "ProjectId": {"$ref": "./taskstream/v1/components/parameters/common.yaml#/ProjectId"},
-                "TaskId": {"$ref": "./taskstream/v1/components/parameters/common.yaml#/TaskId"},
-                "CommentId": {"$ref": "./taskstream/v1/components/parameters/common.yaml#/CommentId"},
-                "TagId": {"$ref": "./taskstream/v1/components/parameters/common.yaml#/TagId"},
-                "UserId": {"$ref": "./taskstream/v1/components/parameters/common.yaml#/UserId"},
+                "RequestId": {"$ref": f"./{tree_slug}/v1/components/parameters/common.yaml#/RequestId"},
+                "IdempotencyKey": {"$ref": f"./{tree_slug}/v1/components/parameters/common.yaml#/IdempotencyKey"},
+                "Limit": {"$ref": f"./{tree_slug}/v1/components/parameters/common.yaml#/Limit"},
+                "Cursor": {"$ref": f"./{tree_slug}/v1/components/parameters/common.yaml#/Cursor"},
+                "ProjectId": {"$ref": f"./{tree_slug}/v1/components/parameters/common.yaml#/ProjectId"},
+                "TaskId": {"$ref": f"./{tree_slug}/v1/components/parameters/common.yaml#/TaskId"},
+                "CommentId": {"$ref": f"./{tree_slug}/v1/components/parameters/common.yaml#/CommentId"},
+                "TagId": {"$ref": f"./{tree_slug}/v1/components/parameters/common.yaml#/TagId"},
+                "UserId": {"$ref": f"./{tree_slug}/v1/components/parameters/common.yaml#/UserId"},
             },
             "responses": {
-                "Error400": {"$ref": "./taskstream/v1/components/responses/common.yaml#/Error400"},
-                "Error401": {"$ref": "./taskstream/v1/components/responses/common.yaml#/Error401"},
-                "Error404": {"$ref": "./taskstream/v1/components/responses/common.yaml#/Error404"},
-                "Error500": {"$ref": "./taskstream/v1/components/responses/common.yaml#/Error500"},
+                "Error400": {"$ref": f"./{tree_slug}/v1/components/responses/common.yaml#/Error400"},
+                "Error401": {"$ref": f"./{tree_slug}/v1/components/responses/common.yaml#/Error401"},
+                "Error404": {"$ref": f"./{tree_slug}/v1/components/responses/common.yaml#/Error404"},
+                "Error500": {"$ref": f"./{tree_slug}/v1/components/responses/common.yaml#/Error500"},
             },
             "schemas": {
-                "BaseResource": {"$ref": "./taskstream/v1/components/schemas/common.yaml#/BaseResource"},
-                "Project": {"$ref": "./taskstream/v1/components/schemas/common.yaml#/Project"},
-                "Task": {"$ref": "./taskstream/v1/components/schemas/common.yaml#/Task"},
-                "User": {"$ref": "./taskstream/v1/components/schemas/common.yaml#/User"},
-                "CursorPage": {"$ref": "./taskstream/v1/components/schemas/common.yaml#/CursorPage"},
-                "ProjectsListResponse": {"$ref": "./taskstream/v1/components/schemas/common.yaml#/ProjectsListResponse"},
-                "TasksListResponse": {"$ref": "./taskstream/v1/components/schemas/common.yaml#/TasksListResponse"},
-                "ErrorEnvelope": {"$ref": "./taskstream/v1/components/schemas/common.yaml#/ErrorEnvelope"},
-                "AnyResource": {"$ref": "./taskstream/v1/components/schemas/common.yaml#/AnyResource"},
+                "BaseResource": {"$ref": f"./{tree_slug}/v1/components/schemas/common.yaml#/BaseResource"},
+                "Project": {"$ref": f"./{tree_slug}/v1/components/schemas/common.yaml#/Project"},
+                "Task": {"$ref": f"./{tree_slug}/v1/components/schemas/common.yaml#/Task"},
+                "User": {"$ref": f"./{tree_slug}/v1/components/schemas/common.yaml#/User"},
+                "CursorPage": {"$ref": f"./{tree_slug}/v1/components/schemas/common.yaml#/CursorPage"},
+                "ProjectsListResponse": {"$ref": f"./{tree_slug}/v1/components/schemas/common.yaml#/ProjectsListResponse"},
+                "TasksListResponse": {"$ref": f"./{tree_slug}/v1/components/schemas/common.yaml#/TasksListResponse"},
+                "ErrorEnvelope": {"$ref": f"./{tree_slug}/v1/components/schemas/common.yaml#/ErrorEnvelope"},
+                "AnyResource": {"$ref": f"./{tree_slug}/v1/components/schemas/common.yaml#/AnyResource"},
             },
         },
     }

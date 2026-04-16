@@ -168,8 +168,8 @@ def _rotate_one(
     try:
         os.chmod(versioned_key, 0o600)
         os.chmod(current_key, 0o600)
-    except OSError:
-        pass
+    except OSError as exc:
+        print(f"[key-rotation] warning: failed to chmod private keys: {exc}", file=sys.stderr)
 
     key_id = base64.urlsafe_b64encode(pub_key).decode("ascii").rstrip("=")[:20]
     expires = now + timedelta(days=license_days)

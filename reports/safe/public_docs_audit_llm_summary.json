@@ -1,0 +1,56 @@
+{
+  "status": "ok",
+  "model": "claude-sonnet-4-5",
+  "analysis": {
+    "executive_summary": "Documentation audit of https://docs.safe.global/ covered only 1 page out of 1 requested, achieving 100% crawl coverage but representing severely limited scope. Zero broken links detected across all categories (0 docs, 0 repo navigation). API reference detection failed with 0 pages found, flagged as potential detection limitation. SEO/geo issues affect 25% of crawled content, example reliability scores 0%, and freshness metadata absent on 100% of pages. Overall confidence stands at 74%, with API detection confidence critically low at 35%.",
+    "strengths": [
+      "Zero broken links detected (0 internal docs links, 0 repository links, 0 confirmed broken)",
+      "100% crawl coverage achieved within requested scope",
+      "Link verification confidence high at 95%",
+      "No crawl trap URLs encountered during site examination"
+    ],
+    "risks": [
+      "Audit scope critically limited to 1 page - insufficient for production documentation assessment",
+      "API reference pages undetected (0 found) with low detection confidence (35%) - may indicate JS rendering issues, authentication requirements, or incorrect URL patterns",
+      "SEO/geo issue rate at 25% impacts discoverability and international reach",
+      "Example reliability at 0% suggests no working code samples detected or validated",
+      "Freshness metadata completely absent (0% coverage) - users cannot assess content currency",
+      "Overall confidence at 74% indicates significant audit limitations",
+      "Single-page sample cannot validate navigation structure, content depth, or cross-linking patterns"
+    ],
+    "prioritized_actions": [
+      {
+        "action": "Execute full-scope crawl across entire docs.safe.global domain to establish baseline (target 500+ pages minimum)",
+        "impact": "critical",
+        "effort": "low"
+      },
+      {
+        "action": "Investigate API reference detection failure - verify JS rendering requirements, check authentication gates, and confirm URL patterns for API documentation",
+        "impact": "critical",
+        "effort": "medium"
+      },
+      {
+        "action": "Implement last-updated timestamps on all documentation pages to achieve minimum 80% freshness coverage",
+        "impact": "high",
+        "effort": "low"
+      },
+      {
+        "action": "Audit and remediate SEO/geo issues affecting 25% of pages - review meta descriptions, titles, and internationalization configuration",
+        "impact": "high",
+        "effort": "medium"
+      },
+      {
+        "action": "Establish code example validation pipeline to improve 0% reliability score - implement syntax checking and runtime testing",
+        "impact": "medium",
+        "effort": "high"
+      }
+    ],
+    "limitations": [
+      "Single-page audit cannot validate documentation completeness, information architecture, or user journey coverage across product domains",
+      "External audit cannot verify accuracy of technical content, code example functionality in production environments, or alignment with actual API behavior",
+      "API reference detection at 35% confidence may miss pages behind authentication, JavaScript rendering, or non-standard URL structures not accessible to crawler",
+      "Cannot assess documentation effectiveness, user comprehension, or support ticket deflection without user analytics integration",
+      "Freshness and example metrics reflect detection capabilities only - absence of timestamps or examples may indicate detection gaps rather than true absence"
+    ]
+  }
+}

@@ -1,0 +1,52 @@
+{
+  "generated_at_utc": "2026-04-16T15:31:50.332460+00:00",
+  "sites_count": 1,
+  "totals": {
+    "docs_broken_links_count": 2,
+    "repo_broken_links_count": 0,
+    "all_confirmed_broken_links_count": 2,
+    "unverified_links_sample_count": 0
+  },
+  "all_docs_broken_links": [
+    "https://www.meilisearch.com/reference/api/documents/add-or-replace-documents",
+    "https://www.meilisearch.com/reference/api/documents/add-or-update-documents"
+  ],
+  "all_repo_broken_links": [],
+  "all_unverified_links_sample": [],
+  "sites": [
+    {
+      "site_url": "https://www.meilisearch.com/docs",
+      "confirmed_broken_links_count": 2,
+      "docs_broken_links_count": 2,
+      "repo_broken_links_count": 0,
+      "docs_broken_links": [
+        "https://www.meilisearch.com/reference/api/documents/add-or-replace-documents",
+        "https://www.meilisearch.com/reference/api/documents/add-or-update-documents"
+      ],
+      "repo_broken_links": [],
+      "confirmed_broken_links_detailed": [
+        {
+          "target_url": "https://www.meilisearch.com/reference/api/documents/add-or-replace-documents",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://www.meilisearch.com/docs/reference/api/documents/add-or-update-documents",
+              "anchor_text": "add or replace documents route"
+            }
+          ]
+        },
+        {
+          "target_url": "https://www.meilisearch.com/reference/api/documents/add-or-update-documents",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://www.meilisearch.com/docs/reference/api/documents/add-or-replace-documents",
+              "anchor_text": "add or update documents route"
+            }
+          ]
+        }
+      ],
+      "unverified_links_sample": []
+    }
+  ]
+}

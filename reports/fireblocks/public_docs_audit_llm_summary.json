@@ -1,0 +1,57 @@
+{
+  "status": "ok",
+  "model": "claude-sonnet-4-5",
+  "analysis": {
+    "executive_summary": "Audit of developers.fireblocks.com covered 267 pages (100% crawl coverage of 293 discovered URLs). Documentation contains 24 confirmed broken internal links affecting user-facing docs. API reference coverage is critically low at 0.69% despite 142 API pages detected. Example code reliability is 0% with SEO/metadata issues affecting 20.97% of pages. Overall audit confidence is 88.42%.",
+    "strengths": [
+      "Complete crawl coverage achieved (100% of 293 in-scope pages)",
+      "High freshness coverage with last-updated metadata present on 99.25% of pages",
+      "No repository navigation broken links (repo_broken_links_count: 0)",
+      "Multi-project topology successfully mapped",
+      "Strong overall audit confidence at 88.42%"
+    ],
+    "risks": [
+      "24 confirmed broken internal links in user-facing documentation degrade navigation and user trust",
+      "API reference coverage at 0.69% indicates virtually no usage examples, tutorials, or guides for 142 detected API pages",
+      "Example code reliability at 0% suggests no working code samples, blocking developer onboarding",
+      "SEO/metadata issues on 20.97% of pages harm discoverability and search ranking",
+      "2 links unverified due to auth/rate-limit/server blocks may hide additional broken links",
+      "Low API confidence (85%) and links confidence (87.31%) indicate potential undetected issues",
+      "Gap between 293 requested and 267 crawled pages (26 pages) suggests access or rendering problems"
+    ],
+    "prioritized_actions": [
+      {
+        "action": "Fix all 24 confirmed broken internal links in user-facing documentation",
+        "impact": "critical",
+        "effort": "low"
+      },
+      {
+        "action": "Create usage examples and integration guides for the 142 API pages to raise coverage from 0.69% to minimum 40%",
+        "impact": "critical",
+        "effort": "high"
+      },
+      {
+        "action": "Implement working code examples with validation to address 0% example reliability",
+        "impact": "critical",
+        "effort": "high"
+      },
+      {
+        "action": "Audit and fix SEO/metadata issues affecting 20.97% of pages (56 pages)",
+        "impact": "high",
+        "effort": "medium"
+      },
+      {
+        "action": "Investigate 2 unverified links and 26-page crawl gap to ensure complete documentation access",
+        "impact": "medium",
+        "effort": "low"
+      }
+    ],
+    "limitations": [
+      "External audit cannot verify content accuracy, technical correctness, or whether API documentation matches actual API behavior",
+      "2 links blocked by auth/rate-limit/server restrictions could not be verified; actual broken link count may be higher",
+      "Example code reliability detection may not capture all runtime failures, dependency issues, or environment-specific problems",
+      "Crawl gap of 26 pages may indicate authentication-gated content, JavaScript rendering issues, or dynamic pages not accessible to auditor",
+      "API coverage detection relies on heuristics; actual developer experience with integration guides may differ from measured 0.69%"
+    ]
+  }
+}

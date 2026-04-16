@@ -1,0 +1,57 @@
+{
+  "status": "ok",
+  "model": "claude-sonnet-4-5",
+  "analysis": {
+    "executive_summary": "Documentation audit of Vercel's public docs (https://vercel.com/docs) crawled 4,907 pages with 100% coverage across the defined scope. Critical issue: 648 confirmed broken internal documentation links impacting user navigation. API reference coverage is severely deficient at 11.11% despite detecting 1,127 API pages. Example code reliability estimated at 70.39%, and only 58.9% of pages display last-updated metadata. Overall audit confidence is 86.96%.",
+    "strengths": [
+      "Complete crawl coverage (100%) of in-scope documentation with 4,907 pages successfully examined",
+      "No repository navigation links broken (0 repo_broken_links_count), indicating healthy internal tooling",
+      "High overall audit confidence at 86.96% with strong crawl confidence at 95%",
+      "Low SEO/geo issue rate at 7.02%, suggesting good technical SEO foundation",
+      "Trap URL detection prevented 66 crawler loops, demonstrating effective site architecture analysis"
+    ],
+    "risks": [
+      "648 confirmed broken internal documentation links create severe user experience degradation and trust erosion",
+      "API reference coverage at 11.11% leaves 88.89% of API surface undocumented or poorly linked, blocking developer adoption",
+      "Example code reliability at 70.39% means nearly 1 in 3 code samples may fail, damaging developer trust",
+      "58.9% freshness coverage leaves 41.1% of pages without last-updated signals, risking outdated content consumption",
+      "83 unverified links due to auth/rate-limit/server blocks represent unknown documentation quality exposure",
+      "Links confidence at 83.65% indicates moderate uncertainty in link health assessment",
+      "Large page count (4,907) with high broken link volume suggests systemic content maintenance debt"
+    ],
+    "prioritized_actions": [
+      {
+        "action": "Execute emergency broken link remediation sprint: fix all 648 confirmed broken internal documentation links",
+        "impact": "critical",
+        "effort": "high"
+      },
+      {
+        "action": "Implement automated link checking in CI/CD pipeline to prevent future broken link regression",
+        "impact": "critical",
+        "effort": "medium"
+      },
+      {
+        "action": "Conduct API documentation gap analysis and create coverage roadmap to address 88.89% undocumented API surface",
+        "impact": "critical",
+        "effort": "high"
+      },
+      {
+        "action": "Audit and repair example code across documentation to improve 70.39% reliability baseline to 95%+",
+        "impact": "high",
+        "effort": "high"
+      },
+      {
+        "action": "Deploy last-updated metadata to all pages (currently missing on 41.1%) and establish content review SLA",
+        "impact": "medium",
+        "effort": "low"
+      }
+    ],
+    "limitations": [
+      "External audit cannot verify content accuracy, technical correctness, or completeness of explanations within documentation pages",
+      "83 links blocked by authentication, rate limiting, or server issues remain unverified; actual broken link count may be higher",
+      "Example code reliability is estimated through heuristic detection; actual runtime validation requires environment-specific testing",
+      "API coverage detection depends on page structure patterns; non-standard API documentation formats may be undercounted",
+      "Audit reflects point-in-time snapshot; documentation changes post-crawl are not captured in this assessment"
+    ]
+  }
+}

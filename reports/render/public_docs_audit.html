@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Public Docs Audit</title>
+<style>
+  :root { --bg:#f8fafc; --text:#0f172a; --muted:#64748b; --card:#fff; --border:#e2e8f0; --accent:#0ea5e9; }
+  body { margin:0; font-family:"Segoe UI", Arial, sans-serif; background:linear-gradient(145deg,#ecfeff,#f8fafc); color:var(--text); }
+  .wrap { max-width:1050px; margin:0 auto; padding:24px 16px 40px; }
+  .hero,.section { background:var(--card); border:1px solid var(--border); border-radius:14px; padding:16px; margin-bottom:14px; }
+  h1 { margin:0 0 8px; font-size:28px; }
+  .sub { color:var(--muted); margin:0; }
+  .grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:10px; margin-top:12px; }
+  .card { border:1px solid var(--border); border-radius:10px; padding:12px; }
+  .value { font-size:30px; font-weight:700; color:var(--accent); margin-top:6px; }
+  .label { font-size:13px; color:var(--muted); }
+  ul { margin:8px 0 0 18px; }
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="hero">
+      <h1>Public Documentation Audit</h1>
+      <p class="sub">Sites: 1 | topology: single-product</p>
+      <p class="sub">Generated: 2026-04-16T11:23:48.498357+00:00</p>
+      <div class="grid">
+        <div class="card"><div class="label">Pages crawled</div><div class="value">573</div></div>
+        <div class="card"><div class="label">Pages discovered</div><div class="value">674</div></div>
+        <div class="card"><div class="label">Crawl coverage</div><div class="value">100.0%</div></div>
+        <div class="card"><div class="label">Broken links (docs)</div><div class="value">11</div></div>
+        <div class="card"><div class="label">Broken links (repo nav)</div><div class="value">0</div></div>
+        <div class="card"><div class="label">Unverified links</div><div class="value">0</div></div>
+        <div class="card"><div class="label">SEO/GEO issue rate</div><div class="value">12.0%</div></div>
+        <div class="card"><div class="label">API reference coverage</div><div class="value">21.62%</div></div>
+        <div class="card"><div class="label">Example reliability (estimate)</div><div class="value">86.53%</div></div>
+        <div class="card"><div class="label">Last-updated coverage</div><div class="value">53.93%</div></div>
+        <div class="card"><div class="label">Audit confidence</div><div class="value">91.5%</div></div>
+      </div>
+    </div>
+    <div class="section">
+      <h2>Top Findings</h2>
+      <ul>
+        <li>Broken internal links: 11</li><li>SEO/GEO issue rate is high: 12.0%</li><li>API usage-doc coverage is low: 21.62% (63 API pages detected)</li>
+      </ul>
+    </div>
+    <div class="section">
+      <h2>Per-site Summary</h2>
+      <ul>
+        <li><strong>https://render.com/docs</strong>: pages=573, broken_links=11, api_coverage=21.62%, examples=86.53%</li>
+      </ul>
+    </div>
+    <div class="section"><h2>LLM Executive Analysis (Claude Sonnet)</h2><p>Audit of Render.com documentation covered 573 pages (100% crawl coverage of 674 discovered pages). The site contains 11 confirmed broken internal links, all within user-facing documentation. API reference coverage is low at 21.62% across 63 detected API pages. SEO/geo issues affect 12.0% of pages. Code example reliability is estimated at 86.53%, and only 53.93% of pages display last-updated metadata.</p><h3>Strengths</h3><ul><li>Complete crawl coverage achieved (100% of discoverable documentation)</li><li>High overall audit confidence at 91.5%</li><li>No repository navigation link breakage (all broken links are docs-only)</li><li>Example reliability above 85% threshold</li><li>Single-product topology provides clear documentation structure</li></ul><h3>Risks</h3><ul><li>11 confirmed broken internal links degrade user navigation and trust</li><li>API reference coverage at 21.62% leaves majority of API surface undocumented</li><li>12.0% SEO/geo issue rate impacts discoverability and search ranking</li><li>46% of pages lack last-updated metadata, obscuring content freshness</li><li>63 API pages detected but only ~14 have adequate usage documentation</li><li>API detection confidence at 85% suggests possible coverage blind spots</li><li>Low API coverage may drive support burden and integration friction</li></ul><h3>Prioritized actions</h3><ul><li>Fix all 11 broken internal documentation links <em>[high, low]</em></li><li>Expand API usage documentation from 21.62% to minimum 60% coverage across 63 API pages <em>[critical, high]</em></li><li>Remediate SEO/geo issues affecting 12% of pages (approximately 69 pages) <em>[high, medium]</em></li><li>Add last-updated timestamps to 46% of pages currently missing metadata <em>[medium, low]</em></li><li>Audit API page detection methodology to validate 85% confidence score and uncover missed endpoints <em>[medium, medium]</em></li></ul></div>
+  </div>
+</body>
+</html>

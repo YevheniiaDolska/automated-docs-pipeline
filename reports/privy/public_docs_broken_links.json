@@ -1,0 +1,84 @@
+{
+  "generated_at_utc": "2026-04-16T10:06:35.955503+00:00",
+  "sites_count": 1,
+  "totals": {
+    "docs_broken_links_count": 3,
+    "repo_broken_links_count": 0,
+    "all_confirmed_broken_links_count": 3,
+    "unverified_links_sample_count": 0
+  },
+  "all_docs_broken_links": [
+    "https://docs.privy.io/cdn-cgi/l/email-protection",
+    "https://docs.privy.io/recipes/mock-jwt.mdx",
+    "https://docs.privy.io/recipes/trpc.mdx"
+  ],
+  "all_repo_broken_links": [],
+  "all_unverified_links_sample": [],
+  "sites": [
+    {
+      "site_url": "https://docs.privy.io/",
+      "confirmed_broken_links_count": 3,
+      "docs_broken_links_count": 3,
+      "repo_broken_links_count": 0,
+      "docs_broken_links": [
+        "https://docs.privy.io/cdn-cgi/l/email-protection",
+        "https://docs.privy.io/recipes/mock-jwt.mdx",
+        "https://docs.privy.io/recipes/trpc.mdx"
+      ],
+      "repo_broken_links": [],
+      "confirmed_broken_links_detailed": [
+        {
+          "target_url": "https://docs.privy.io/cdn-cgi/l/email-protection",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://docs.privy.io/api-reference/apps/add-to-allowlist",
+              "anchor_text": "[email\u00a0protected]"
+            },
+            {
+              "source_page": "https://docs.privy.io/api-reference/apps/list-allowlist",
+              "anchor_text": "[email\u00a0protected]"
+            },
+            {
+              "source_page": "https://docs.privy.io/api-reference/apps/remove-from-allowlist",
+              "anchor_text": "[email\u00a0protected]"
+            },
+            {
+              "source_page": "https://docs.privy.io/api-reference/fiat/kyc/kyc-link",
+              "anchor_text": "[email\u00a0protected]"
+            },
+            {
+              "source_page": "https://docs.privy.io/api-reference/fiat/kyc/update",
+              "anchor_text": "[email\u00a0protected]"
+            }
+          ]
+        },
+        {
+          "target_url": "https://docs.privy.io/recipes/mock-jwt.mdx",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://docs.privy.io/recipes/mock-jwt",
+              "anchor_text": "publicKey"
+            }
+          ]
+        },
+        {
+          "target_url": "https://docs.privy.io/recipes/trpc.mdx",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://docs.privy.io/recipes/trpc",
+              "anchor_text": "client"
+            },
+            {
+              "source_page": "https://docs.privy.io/recipes/trpc",
+              "anchor_text": "server"
+            }
+          ]
+        }
+      ],
+      "unverified_links_sample": []
+    }
+  ]
+}

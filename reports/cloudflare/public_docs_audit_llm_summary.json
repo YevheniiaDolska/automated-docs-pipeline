@@ -1,0 +1,57 @@
+{
+  "status": "ok",
+  "model": "claude-sonnet-4-5",
+  "analysis": {
+    "executive_summary": "Audit crawled 7,617 pages across Cloudflare's developer documentation (100% coverage of discovered scope). Identified 101 confirmed broken internal documentation links with zero repository navigation link failures. API reference coverage stands at 39.62% across 2,820 detected API pages. Example code reliability estimated at 55.56%. Overall audit confidence is 77.73% with link verification at 60.58% due to 53 unverified URLs blocked by authentication or rate limiting.",
+    "strengths": [
+      "Complete crawl coverage at 100% of discovered documentation scope (7,617 pages)",
+      "Strong freshness metadata with 94.0% of pages showing last-updated timestamps",
+      "High crawl confidence at 95.0% indicating reliable topology mapping",
+      "Zero broken repository navigation links (repo_broken_links_count: 0)",
+      "Low SEO/geo issue rate at 4.17%"
+    ],
+    "risks": [
+      "101 confirmed broken internal documentation links degrading user navigation experience",
+      "API reference coverage at 39.62% leaves majority of API endpoints undocumented or unlinked",
+      "Example code reliability at 55.56% suggests nearly half of code samples may be outdated or non-functional",
+      "Link verification confidence only 60.58% due to 53 unverified URLs (authentication/rate-limit barriers)",
+      "Overall audit confidence at 77.73% indicates moderate uncertainty in findings",
+      "2,097 URLs skipped as crawler traps may hide additional documentation quality issues",
+      "896 excluded links from analysis could mask additional broken link problems"
+    ],
+    "prioritized_actions": [
+      {
+        "action": "Repair all 101 confirmed broken internal documentation links",
+        "impact": "critical",
+        "effort": "medium"
+      },
+      {
+        "action": "Increase API reference coverage from 39.62% to minimum 75% by linking usage docs to API endpoints",
+        "impact": "critical",
+        "effort": "high"
+      },
+      {
+        "action": "Audit and update example code to improve reliability from 55.56% to 85%+",
+        "impact": "high",
+        "effort": "high"
+      },
+      {
+        "action": "Investigate and verify 53 unverified links blocked by auth/rate-limits to improve link confidence",
+        "impact": "medium",
+        "effort": "low"
+      },
+      {
+        "action": "Review 896 excluded links and 2,097 trap URLs for false positives hiding legitimate issues",
+        "impact": "medium",
+        "effort": "medium"
+      }
+    ],
+    "limitations": [
+      "External audit cannot verify content accuracy, technical correctness, or completeness of documentation beyond structural analysis",
+      "53 URLs remain unverified due to authentication requirements, rate limiting, or server blocks\u2014actual broken link count may differ",
+      "Example code reliability is estimated through heuristics; actual runtime validation requires environment-specific testing",
+      "Crawl excluded 2,097 trap URLs and 896 links which may contain undiscovered quality issues outside audit scope",
+      "API coverage detection relies on pattern matching; actual API completeness requires source-of-truth comparison with API specifications"
+    ]
+  }
+}

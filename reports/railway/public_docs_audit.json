@@ -1,0 +1,345 @@
+{
+  "generated_at": "2026-04-16T11:18:26.082292+00:00",
+  "site_url": "https://docs.railway.com/",
+  "site_urls": [
+    "https://docs.railway.com/"
+  ],
+  "topology_mode": "single-product",
+  "verification_modes": [
+    "authenticated",
+    "bot",
+    "browser"
+  ],
+  "sites": [
+    {
+      "site_url": "https://docs.railway.com/",
+      "metrics": {
+        "crawl": {
+          "pages_crawled": 286,
+          "requested_pages": 308,
+          "urls_examined": 289,
+          "max_pages": 3500,
+          "effective_limit": 3500,
+          "auto_mode": false,
+          "stop_reason": "queue_exhausted",
+          "discovered_pages": 289,
+          "crawl_scope_basis": "sitemap",
+          "crawl_scope_pages": 289,
+          "crawl_coverage_pct": 100.0,
+          "trap_urls_skipped": 0,
+          "seeded_sitemap_urls": 289,
+          "robots_sitemaps_declared": 1
+        },
+        "links": {
+          "internal_links_checked": 307,
+          "broken_internal_links_count": 1,
+          "docs_broken_links_count": 1,
+          "repo_broken_links_count": 0,
+          "broken_internal_link_samples": [
+            "https://docs.railway.com/cdn-cgi/l/email-protection"
+          ],
+          "docs_broken_link_samples": [
+            "https://docs.railway.com/cdn-cgi/l/email-protection"
+          ],
+          "repo_broken_link_samples": [],
+          "unreachable_links_count": 3,
+          "unverified_links_count": 3,
+          "unverified_link_samples": [
+            "https://docs.railway.com/networking/public-networking/specs-and-limits",
+            "https://docs.railway.com/networking/troubleshooting/application-failed-to-respond",
+            "https://docs.railway.com/platform/compare-to-replit"
+          ],
+          "confirmed_broken_links_count": 1,
+          "excluded_links_count": 0,
+          "excluded_link_samples": [],
+          "_all_confirmed_broken_links": [
+            "https://docs.railway.com/cdn-cgi/l/email-protection"
+          ],
+          "_all_unverified_links": [
+            "https://docs.railway.com/networking/public-networking/specs-and-limits",
+            "https://docs.railway.com/networking/troubleshooting/application-failed-to-respond",
+            "https://docs.railway.com/platform/compare-to-replit"
+          ],
+          "_all_excluded_links": [],
+          "_all_docs_unverified_links": [
+            "https://docs.railway.com/networking/public-networking/specs-and-limits",
+            "https://docs.railway.com/networking/troubleshooting/application-failed-to-respond",
+            "https://docs.railway.com/platform/compare-to-replit"
+          ],
+          "_all_repo_unverified_links": [],
+          "_broken_link_provenance": {
+            "https://docs.railway.com/cdn-cgi/l/email-protection": [
+              {
+                "source_page": "https://docs.railway.com/enterprise/compliance",
+                "anchor_text": "[email\u00a0protected]"
+              },
+              {
+                "source_page": "https://docs.railway.com/overview/production-readiness-checklist",
+                "anchor_text": "[email\u00a0protected]"
+              },
+              {
+                "source_page": "https://docs.railway.com/platform/migrate-from-heroku",
+                "anchor_text": "[email\u00a0protected]"
+              },
+              {
+                "source_page": "https://docs.railway.com/platform/philosophy",
+                "anchor_text": "[email\u00a0protected]"
+              },
+              {
+                "source_page": "https://docs.railway.com/platform/support",
+                "anchor_text": "[email\u00a0protected]"
+              }
+            ]
+          }
+        },
+        "seo_geo": {
+          "pages_scanned": 286,
+          "missing_title_count": 0,
+          "missing_description_count": 0,
+          "multiple_h1_count": 0,
+          "heading_hierarchy_jump_count": 24,
+          "seo_geo_issue_rate_pct": 2.1
+        },
+        "api_coverage": {
+          "reference_endpoint_count": 304,
+          "api_pages_detected": 21,
+          "endpoints_with_usage_docs": 7,
+          "reference_endpoints_without_usage_docs": 297,
+          "reference_coverage_pct": 2.3,
+          "no_api_pages_found": false,
+          "coverage_determined": true,
+          "coverage_method": "source_of_truth",
+          "detection_note": "",
+          "uncovered_endpoint_samples": [
+            "ev:ai",
+            "ev:awesome",
+            "ev:awesome-list",
+            "ev:devops",
+            "ev:graphql",
+            "ev:gtm.js",
+            "ev:list",
+            "ev:security",
+            "ev:software-development",
+            "gql:adminvolumeinstancesforvolume",
+            "gql:any",
+            "gql:apitokencreate",
+            "gql:apitokendelete",
+            "gql:apitokens",
+            "gql:as",
+            "gql:baseenvironmentoverride",
+            "gql:batching",
+            "gql:below",
+            "gql:buildlogs",
+            "gql:can"
+          ]
+        },
+        "examples": {
+          "total_code_examples": 0,
+          "total_code_blocks_all": 1,
+          "runnable_without_env": 0,
+          "blocked_by_placeholders": 0,
+          "network_bound_examples": 0,
+          "example_reliability_estimate_pct": 0.0,
+          "detection_note": "No executable code blocks detected (1 data-only blocks found). Site may use non-standard code rendering that the auditor does not recognize, or all examples are in data formats (YAML/JSON)."
+        },
+        "freshness": {
+          "pages_with_last_updated_hint": 283,
+          "pages_without_last_updated_hint": 3,
+          "last_updated_coverage_pct": 98.95,
+          "samples_with_last_updated": [
+            {
+              "url": "https://docs.railway.com/access/two-factor-enforcement",
+              "hint": "2026-04-16T05:02:34.145Z"
+            },
+            {
+              "url": "https://docs.railway.com/access/multi-factor-authentication",
+              "hint": "2026-04-16T05:02:33.960Z"
+            },
+            {
+              "url": "https://docs.railway.com/ai",
+              "hint": "2026-04-16T05:02:34.138Z"
+            },
+            {
+              "url": "https://docs.railway.com/access/accounts",
+              "hint": "2026-04-16T05:02:34.239Z"
+            },
+            {
+              "url": "https://docs.railway.com/access",
+              "hint": "2026-04-16T05:02:34.142Z"
+            },
+            {
+              "url": "https://docs.railway.com/ai/mcp-server",
+              "hint": "2026-04-16T05:02:33.981Z"
+            },
+            {
+              "url": "https://docs.railway.com/ai/claude-code-plugin",
+              "hint": "2026-04-16T05:02:33.993Z"
+            },
+            {
+              "url": "https://docs.railway.com/ai/agent-skills",
+              "hint": "2026-04-16T05:02:34.234Z"
+            },
+            {
+              "url": "https://docs.railway.com/build-deploy",
+              "hint": "2026-04-16T05:02:33.939Z"
+            },
+            {
+              "url": "https://docs.railway.com/builds/build-and-start-commands",
+              "hint": "2026-04-16T05:02:33.913Z"
+            }
+          ]
+        }
+      },
+      "samples": {
+        "broken_links": [
+          "https://docs.railway.com/cdn-cgi/l/email-protection"
+        ],
+        "docs_broken_link_samples": [
+          "https://docs.railway.com/cdn-cgi/l/email-protection"
+        ],
+        "repo_broken_link_samples": [],
+        "unverified_link_samples": [
+          "https://docs.railway.com/networking/public-networking/specs-and-limits",
+          "https://docs.railway.com/networking/troubleshooting/application-failed-to-respond",
+          "https://docs.railway.com/platform/compare-to-replit"
+        ],
+        "api_uncovered_samples": [
+          "ev:ai",
+          "ev:awesome",
+          "ev:awesome-list",
+          "ev:devops",
+          "ev:graphql",
+          "ev:gtm.js",
+          "ev:list",
+          "ev:security",
+          "ev:software-development",
+          "gql:adminvolumeinstancesforvolume",
+          "gql:any",
+          "gql:apitokencreate",
+          "gql:apitokendelete",
+          "gql:apitokens",
+          "gql:as",
+          "gql:baseenvironmentoverride",
+          "gql:batching",
+          "gql:below",
+          "gql:buildlogs",
+          "gql:can"
+        ]
+      },
+      "run_count": 1
+    }
+  ],
+  "aggregate": {
+    "metrics": {
+      "crawl": {
+        "pages_crawled": 286,
+        "requested_pages": 308,
+        "urls_examined": 289,
+        "max_pages_total": 3500,
+        "discovered_pages": 289,
+        "crawl_scope_pages": 289,
+        "trap_urls_skipped": 0,
+        "crawl_coverage_pct": 100.0
+      },
+      "links": {
+        "broken_internal_links_count": 1,
+        "docs_broken_links_count": 1,
+        "repo_broken_links_count": 0,
+        "unverified_links_count": 3,
+        "confirmed_broken_links_count": 1,
+        "excluded_links_count": 0
+      },
+      "seo_geo": {
+        "seo_geo_issue_rate_pct": 2.1
+      },
+      "api_coverage": {
+        "reference_coverage_pct": 2.3,
+        "no_api_pages_found": false,
+        "api_pages_detected": 21,
+        "coverage_determined": true,
+        "detection_note": ""
+      },
+      "examples": {
+        "example_reliability_estimate_pct": 0.0
+      },
+      "freshness": {
+        "last_updated_coverage_pct": 98.95
+      }
+    },
+    "confidence": {
+      "overall_confidence_pct": 63.5,
+      "links_confidence_pct": 25.0,
+      "api_confidence_pct": 85.0,
+      "crawl_confidence_pct": 95.0
+    }
+  },
+  "confidence": {
+    "overall_confidence_pct": 63.5,
+    "links_confidence_pct": 25.0,
+    "api_confidence_pct": 85.0,
+    "crawl_confidence_pct": 95.0
+  },
+  "top_findings": [
+    "Broken internal links: 1",
+    "Link verification inconclusive for 3 URLs (auth/rate-limit/server block); these are excluded from broken-link counts.",
+    "API usage-doc coverage is low: 2.3% (21 API pages detected)",
+    "Example reliability estimate is low: 0.0%"
+  ],
+  "llm_analysis": {
+    "status": "ok",
+    "model": "claude-sonnet-4-5",
+    "analysis": {
+      "executive_summary": "Railway documentation audit covered 286 pages with 100% crawl coverage across 289 discovered pages. API reference coverage is critically low at 2.3% with only 21 API pages detected. Example reliability scored 0.0%, indicating no working code examples found. One confirmed broken internal link exists within user-facing documentation. Overall confidence stands at 63.5%, with link verification confidence particularly low at 25% due to 3 unverified URLs blocked by authentication or rate limiting.",
+      "strengths": [
+        "Complete crawl coverage at 100% with all 289 in-scope pages successfully examined",
+        "Excellent freshness metadata coverage at 98.95% of pages showing last-updated information",
+        "Minimal broken link issues with only 1 confirmed broken internal documentation link",
+        "No repository navigation link breakage (0 repo_broken_links_count)",
+        "Low SEO/geo issue rate at 2.1% indicating good technical page optimization"
+      ],
+      "risks": [
+        "Critical API documentation gap: only 2.3% reference coverage with 21 API pages detected suggests incomplete API documentation",
+        "Zero example reliability (0.0%) indicates no verified working code examples, severely impacting developer onboarding",
+        "Low link verification confidence (25%) creates uncertainty about external link health and 3 URLs remain unverified",
+        "Overall confidence of 63.5% suggests moderate reliability concerns in audit completeness",
+        "Potential customer friction from broken internal documentation link affecting navigation",
+        "Missing or non-functional code examples may increase support burden and slow developer adoption",
+        "API documentation deficiency may force developers to reverse-engineer functionality or seek alternative solutions"
+      ],
+      "prioritized_actions": [
+        {
+          "action": "Expand API reference documentation from 2.3% to minimum 80% coverage across all public API endpoints",
+          "impact": "critical",
+          "effort": "high"
+        },
+        {
+          "action": "Implement and verify working code examples across key user journeys to improve 0.0% reliability score",
+          "impact": "critical",
+          "effort": "high"
+        },
+        {
+          "action": "Fix the 1 confirmed broken internal documentation link to restore navigation integrity",
+          "impact": "high",
+          "effort": "low"
+        },
+        {
+          "action": "Investigate and resolve 3 unverified links blocked by auth/rate-limit to improve link confidence from 25%",
+          "impact": "medium",
+          "effort": "low"
+        },
+        {
+          "action": "Establish automated example testing pipeline to maintain code example reliability above 85%",
+          "impact": "high",
+          "effort": "medium"
+        }
+      ],
+      "limitations": [
+        "External audit cannot verify functionality of Railway API endpoints themselves, only documentation completeness",
+        "3 unverified links due to authentication/rate-limiting may be functional but remain unconfirmed in this audit",
+        "Code example reliability testing limited to static analysis; runtime execution in customer environments not validated",
+        "Audit cannot assess documentation accuracy, completeness of feature coverage, or alignment with actual product capabilities",
+        "Crawl limited to publicly accessible pages; authenticated or gated documentation areas not examined"
+      ]
+    }
+  }
+}

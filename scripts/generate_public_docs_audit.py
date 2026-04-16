@@ -442,7 +442,11 @@ def _fetch(
         chunk_size = 64 * 1024
         while total < _MAX_FETCH_BYTES:
             want = min(chunk_size, _MAX_FETCH_BYTES - total)
-            part = stream.read(want)
+            try:
+                part = stream.read(want)
+            except TypeError:
+                # Some mocked/simple file-like objects expose read() without size.
+                part = stream.read()
             if not part:
                 break
             if not isinstance(part, (bytes, bytearray)):
@@ -3244,7 +3248,13 @@ def main() -> int:
                 site_urls=normalized_urls,
                 profiles_dir=str(getattr(args, "assumptions_profiles_dir", "config/company_assumptions")),
             )
-            assumptions_autofill_enabled = bool(getattr(args, "assumptions_autofill", False) or bool(getattr(args, "generate_pdf", False)))
+            assumptions_autofill_enabled = bool(
+                getattr(args, "assumptions_autofill", False)
+                or (
+                    bool(getattr(args, "generate_pdf", False))
+                    and bool(getattr(args, "llm_enabled", False))
+                )
+            )
             if not assumptions_path and assumptions_autofill_enabled:
                 llm_api_key = os.environ.get(str(args.llm_api_key_env_name), "").strip()
                 if not llm_api_key:
