@@ -1,0 +1,756 @@
+{
+  "generated_at_utc": "2026-04-17T08:37:20.470689+00:00",
+  "sites_count": 1,
+  "totals": {
+    "docs_broken_links_count": 58,
+    "repo_broken_links_count": 0,
+    "all_confirmed_broken_links_count": 58,
+    "unverified_links_sample_count": 0
+  },
+  "all_docs_broken_links": [
+    "https://coolify.io/cdn-cgi/l/email-protection",
+    "https://coolify.io/docs/applications/ci-cd/github/integration",
+    "https://coolify.io/docs/applications/introduction",
+    "https://coolify.io/docs/services/beszel-agent",
+    "https://coolify.io/docs/services/calibre-web-automated-book-downloader",
+    "https://coolify.io/docs/services/classicpress-with-mariadb",
+    "https://coolify.io/docs/services/classicpress-with-mysql",
+    "https://coolify.io/docs/services/classicpress-without-database",
+    "https://coolify.io/docs/services/denoKV",
+    "https://coolify.io/docs/services/directus-with-postgresql",
+    "https://coolify.io/docs/services/docuseal-with-postgres",
+    "https://coolify.io/docs/services/dozzle-with-auth",
+    "https://coolify.io/docs/services/drupal-with-postgresql",
+    "https://coolify.io/docs/services/elasticsearch-with-kibana",
+    "https://coolify.io/docs/services/ente-photos-with-s3",
+    "https://coolify.io/docs/services/flowise-with-databases",
+    "https://coolify.io/docs/services/forgejo-with-mariadb",
+    "https://coolify.io/docs/services/forgejo-with-mysql",
+    "https://coolify.io/docs/services/forgejo-with-postgresql",
+    "https://coolify.io/docs/services/freshrss-with-mariadb",
+    "https://coolify.io/docs/services/freshrss-with-mysql",
+    "https://coolify.io/docs/services/freshrss-with-postgresql",
+    "https://coolify.io/docs/services/gitea-with-mariadb",
+    "https://coolify.io/docs/services/gitea-with-mysql",
+    "https://coolify.io/docs/services/gitea-with-postgresql",
+    "https://coolify.io/docs/services/grafana-with-postgresql",
+    "https://coolify.io/docs/services/imgcompress",
+    "https://coolify.io/docs/services/joomla-with-mariadb",
+    "https://coolify.io/docs/services/keycloak-with-postgres",
+    "https://coolify.io/docs/services/linkding-plus",
+    "https://coolify.io/docs/services/matrix-synapse-with-postgresql",
+    "https://coolify.io/docs/services/matrix-synapse-with-sqlite",
+    "https://coolify.io/docs/services/n8n-with-postgres-and-worker",
+    "https://coolify.io/docs/services/n8n-with-postgresql",
+    "https://coolify.io/docs/services/nextcloud-with-mariadb",
+    "https://coolify.io/docs/services/nextcloud-with-mysql",
+    "https://coolify.io/docs/services/nextcloud-with-postgres",
+    "https://coolify.io/docs/services/nexus-arm",
+    "https://coolify.io/docs/services/nitropage-with-postgresql",
+    "https://coolify.io/docs/services/ollama-with-open-webui",
+    "https://coolify.io/docs/services/passing-environment-variables-not-included-in-the-template",
+    "https://coolify.io/docs/services/penpot-with-s3",
+    "https://coolify.io/docs/services/pocket-id-with-postgresql",
+    "https://coolify.io/docs/services/spacebot",
+    "https://coolify.io/docs/services/superset-with-postgresql",
+    "https://coolify.io/docs/services/supertokens-with-mysql",
+    "https://coolify.io/docs/services/supertokens-with-postgresql",
+    "https://coolify.io/docs/services/unleash-with-postgresql",
+    "https://coolify.io/docs/services/unleash-without-database",
+    "https://coolify.io/docs/services/uptime-kuma-with-mariadb",
+    "https://coolify.io/docs/services/uptime-kuma-with-mysql",
+    "https://coolify.io/docs/services/vikunja-with-postgresql",
+    "https://coolify.io/docs/services/vvveb-with-mariadb",
+    "https://coolify.io/docs/services/vvveb-with-mysql",
+    "https://coolify.io/docs/services/wordpress-with-mariadb",
+    "https://coolify.io/docs/services/wordpress-with-mysql",
+    "https://coolify.io/docs/services/wordpress-without-database",
+    "https://coolify.io/docs/services/yamtrack-with-postgresql"
+  ],
+  "all_repo_broken_links": [],
+  "all_unverified_links_sample": [],
+  "sites": [
+    {
+      "site_url": "https://coolify.io/docs",
+      "confirmed_broken_links_count": 58,
+      "docs_broken_links_count": 58,
+      "repo_broken_links_count": 0,
+      "docs_broken_links": [
+        "https://coolify.io/cdn-cgi/l/email-protection",
+        "https://coolify.io/docs/applications/ci-cd/github/integration",
+        "https://coolify.io/docs/applications/introduction",
+        "https://coolify.io/docs/services/beszel-agent",
+        "https://coolify.io/docs/services/calibre-web-automated-book-downloader",
+        "https://coolify.io/docs/services/classicpress-with-mariadb",
+        "https://coolify.io/docs/services/classicpress-with-mysql",
+        "https://coolify.io/docs/services/classicpress-without-database",
+        "https://coolify.io/docs/services/denoKV",
+        "https://coolify.io/docs/services/directus-with-postgresql",
+        "https://coolify.io/docs/services/docuseal-with-postgres",
+        "https://coolify.io/docs/services/dozzle-with-auth",
+        "https://coolify.io/docs/services/drupal-with-postgresql",
+        "https://coolify.io/docs/services/elasticsearch-with-kibana",
+        "https://coolify.io/docs/services/ente-photos-with-s3",
+        "https://coolify.io/docs/services/flowise-with-databases",
+        "https://coolify.io/docs/services/forgejo-with-mariadb",
+        "https://coolify.io/docs/services/forgejo-with-mysql",
+        "https://coolify.io/docs/services/forgejo-with-postgresql",
+        "https://coolify.io/docs/services/freshrss-with-mariadb",
+        "https://coolify.io/docs/services/freshrss-with-mysql",
+        "https://coolify.io/docs/services/freshrss-with-postgresql",
+        "https://coolify.io/docs/services/gitea-with-mariadb",
+        "https://coolify.io/docs/services/gitea-with-mysql",
+        "https://coolify.io/docs/services/gitea-with-postgresql",
+        "https://coolify.io/docs/services/grafana-with-postgresql",
+        "https://coolify.io/docs/services/imgcompress",
+        "https://coolify.io/docs/services/joomla-with-mariadb",
+        "https://coolify.io/docs/services/keycloak-with-postgres",
+        "https://coolify.io/docs/services/linkding-plus",
+        "https://coolify.io/docs/services/matrix-synapse-with-postgresql",
+        "https://coolify.io/docs/services/matrix-synapse-with-sqlite",
+        "https://coolify.io/docs/services/n8n-with-postgres-and-worker",
+        "https://coolify.io/docs/services/n8n-with-postgresql",
+        "https://coolify.io/docs/services/nextcloud-with-mariadb",
+        "https://coolify.io/docs/services/nextcloud-with-mysql",
+        "https://coolify.io/docs/services/nextcloud-with-postgres",
+        "https://coolify.io/docs/services/nexus-arm",
+        "https://coolify.io/docs/services/nitropage-with-postgresql",
+        "https://coolify.io/docs/services/ollama-with-open-webui",
+        "https://coolify.io/docs/services/passing-environment-variables-not-included-in-the-template",
+        "https://coolify.io/docs/services/penpot-with-s3",
+        "https://coolify.io/docs/services/pocket-id-with-postgresql",
+        "https://coolify.io/docs/services/spacebot",
+        "https://coolify.io/docs/services/superset-with-postgresql",
+        "https://coolify.io/docs/services/supertokens-with-mysql",
+        "https://coolify.io/docs/services/supertokens-with-postgresql",
+        "https://coolify.io/docs/services/unleash-with-postgresql",
+        "https://coolify.io/docs/services/unleash-without-database",
+        "https://coolify.io/docs/services/uptime-kuma-with-mariadb",
+        "https://coolify.io/docs/services/uptime-kuma-with-mysql",
+        "https://coolify.io/docs/services/vikunja-with-postgresql",
+        "https://coolify.io/docs/services/vvveb-with-mariadb",
+        "https://coolify.io/docs/services/vvveb-with-mysql",
+        "https://coolify.io/docs/services/wordpress-with-mariadb",
+        "https://coolify.io/docs/services/wordpress-with-mysql",
+        "https://coolify.io/docs/services/wordpress-without-database",
+        "https://coolify.io/docs/services/yamtrack-with-postgresql"
+      ],
+      "repo_broken_links": [],
+      "confirmed_broken_links_detailed": [
+        {
+          "target_url": "https://coolify.io/cdn-cgi/l/email-protection",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://coolify.io/docs/applications/ci-cd/gitea/integration",
+              "anchor_text": "[email\u00a0protected]"
+            },
+            {
+              "source_page": "https://coolify.io/docs/applications/ci-cd/github/deploy-key",
+              "anchor_text": "[email\u00a0protected]"
+            },
+            {
+              "source_page": "https://coolify.io/docs/applications/ci-cd/bitbucket/integration",
+              "anchor_text": "[email\u00a0protected]"
+            },
+            {
+              "source_page": "https://coolify.io/docs/applications/ci-cd/gitlab/integration",
+              "anchor_text": "[email\u00a0protected]"
+            },
+            {
+              "source_page": "https://coolify.io/docs/applications/ci-cd/other-providers",
+              "anchor_text": "[email\u00a0protected]"
+            }
+          ]
+        },
+        {
+          "target_url": "https://coolify.io/docs/applications/ci-cd/github/integration",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://coolify.io/docs/applications/build-packs/dockerfile",
+              "anchor_text": "Github App"
+            },
+            {
+              "source_page": "https://coolify.io/docs/applications/build-packs/dockerfile",
+              "anchor_text": "Deploy Key"
+            },
+            {
+              "source_page": "https://coolify.io/docs/applications/build-packs/docker-compose",
+              "anchor_text": "Github App"
+            },
+            {
+              "source_page": "https://coolify.io/docs/applications/build-packs/docker-compose",
+              "anchor_text": "Deploy Key"
+            },
+            {
+              "source_page": "https://coolify.io/docs/applications/build-packs/static",
+              "anchor_text": "Github App"
+            }
+          ]
+        },
+        {
+          "target_url": "https://coolify.io/docs/applications/introduction",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://coolify.io/docs/services/introduction",
+              "anchor_text": "Applications"
+            }
+          ]
+        },
+        {
+          "target_url": "https://coolify.io/docs/services/beszel-agent",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://coolify.io/services",
+              "anchor_text": "Beszel Agent Monitoring agent for Beszel Monitoring"
+            }
+          ]
+        },
+        {
+          "target_url": "https://coolify.io/docs/services/calibre-web-automated-book-downloader",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://coolify.io/services",
+              "anchor_text": "Calibre Web Automated Book Downloader An intuitive web interface for searching and requesting book downloads, designed to work seamlessly with Calibre-Web-Automated. Media"
+            }
+          ]
+        },
+        {
+          "target_url": "https://coolify.io/docs/services/classicpress-with-mariadb",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://coolify.io/services",
+              "anchor_text": "Classicpress With Mariadb A lightweight, stable, instantly familiar free open-source content management system, based on WordPress without the block editor (Gutenberg). CMS"
+            }
+          ]
+        },
+        {
+          "target_url": "https://coolify.io/docs/services/classicpress-with-mysql",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://coolify.io/services",
+              "anchor_text": "Classicpress With Mysql A lightweight, stable, instantly familiar free open-source content management system, based on WordPress without the block editor (Gutenberg). CMS"
+            }
+          ]
+        },
+        {
+          "target_url": "https://coolify.io/docs/services/classicpress-without-database",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://coolify.io/services",
+              "anchor_text": "Classicpress Without Database A lightweight, stable, instantly familiar free open-source content management system, based on WordPress without the block editor (Gutenberg). CMS"
+            }
+          ]
+        },
+        {
+          "target_url": "https://coolify.io/docs/services/denoKV",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://coolify.io/services",
+              "anchor_text": "DenoKV The Denoland key-value database Database"
+            }
+          ]
+        },
+        {
+          "target_url": "https://coolify.io/docs/services/directus-with-postgresql",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://coolify.io/services",
+              "anchor_text": "Directus With Postgresql Directus wraps databases with a dynamic API, and provides an intuitive app for managing its content. CMS"
+            }
+          ]
+        },
+        {
+          "target_url": "https://coolify.io/docs/services/docuseal-with-postgres",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://coolify.io/services",
+              "anchor_text": "Docuseal With Postgres Document Signing for Everyone free forever for individuals, extensible for businesses and developers. Open Source Alternative to DocuSign, PandaDoc and more. Productivity"
+            }
+          ]
+        },
+        {
+          "target_url": "https://coolify.io/docs/services/dozzle-with-auth",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://coolify.io/services",
+              "anchor_text": "Dozzle With Auth Dozzle is a simple and lightweight web UI for Docker logs. Dev Tools"
+            }
+          ]
+        },
+        {
+          "target_url": "https://coolify.io/docs/services/drupal-with-postgresql",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://coolify.io/services",
+              "anchor_text": "Drupal With Postgresql Drupal is a free and open-source web content management system written in PHP and distributed under the GNU General Public License. CMS"
+            }
+          ]
+        },
+        {
+          "target_url": "https://coolify.io/docs/services/elasticsearch-with-kibana",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://coolify.io/services",
+              "anchor_text": "Elasticsearch With Kibana Elastic + Kibana is a Free and Open Source Search, Monitoring, and Visualization Stack Monitoring"
+            }
+          ]
+        },
+        {
+          "target_url": "https://coolify.io/docs/services/ente-photos-with-s3",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://coolify.io/services",
+              "anchor_text": "Ente Photos With S3 Ente Photos is a fully open source, End to End Encrypted alternative to Google Photos and Apple Photos. Media"
+            }
+          ]
+        },
+        {
+          "target_url": "https://coolify.io/docs/services/flowise-with-databases",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://coolify.io/services",
+              "anchor_text": "Flowise With Databases Flowise is an open source low-code tool for developers to build customized LLM orchestration flows & AI agents. Also deploys Redis, Postgres and other services. AI"
+            }
+          ]
+        },
+        {
+          "target_url": "https://coolify.io/docs/services/forgejo-with-mariadb",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://coolify.io/services",
+              "anchor_text": "Forgejo With Mariadb Forgejo is a self-hosted lightweight software forge. Easy to install and low maintenance, it just does the job. Git"
+            }
+          ]
+        },
+        {
+          "target_url": "https://coolify.io/docs/services/forgejo-with-mysql",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://coolify.io/services",
+              "anchor_text": "Forgejo With Mysql Forgejo is a self-hosted lightweight software forge. Easy to install and low maintenance, it just does the job. Git"
+            }
+          ]
+        },
+        {
+          "target_url": "https://coolify.io/docs/services/forgejo-with-postgresql",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://coolify.io/services",
+              "anchor_text": "Forgejo With Postgresql Forgejo is a self-hosted lightweight software forge. Easy to install and low maintenance, it just does the job. Git"
+            }
+          ]
+        },
+        {
+          "target_url": "https://coolify.io/docs/services/freshrss-with-mariadb",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://coolify.io/services",
+              "anchor_text": "Freshrss With Mariadb A free, self-hostable feed aggregator. RSS"
+            }
+          ]
+        },
+        {
+          "target_url": "https://coolify.io/docs/services/freshrss-with-mysql",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://coolify.io/services",
+              "anchor_text": "Freshrss With Mysql A free, self-hostable feed aggregator. RSS"
+            }
+          ]
+        },
+        {
+          "target_url": "https://coolify.io/docs/services/freshrss-with-postgresql",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://coolify.io/services",
+              "anchor_text": "Freshrss With Postgresql A free, self-hostable feed aggregator. RSS"
+            }
+          ]
+        },
+        {
+          "target_url": "https://coolify.io/docs/services/gitea-with-mariadb",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://coolify.io/services",
+              "anchor_text": "Gitea With Mariadb Gitea is a self-hosted, lightweight Git service, offering version control, collaboration, and code hosting. Git"
+            }
+          ]
+        },
+        {
+          "target_url": "https://coolify.io/docs/services/gitea-with-mysql",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://coolify.io/services",
+              "anchor_text": "Gitea With Mysql Gitea is a self-hosted, lightweight Git service, offering version control, collaboration, and code hosting. Git"
+            }
+          ]
+        },
+        {
+          "target_url": "https://coolify.io/docs/services/gitea-with-postgresql",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://coolify.io/services",
+              "anchor_text": "Gitea With Postgresql Gitea is a self-hosted, lightweight Git service, offering version control, collaboration, and code hosting. Git"
+            }
+          ]
+        },
+        {
+          "target_url": "https://coolify.io/docs/services/grafana-with-postgresql",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://coolify.io/services",
+              "anchor_text": "Grafana With Postgresql Grafana is the open source analytics & monitoring solution for every database. Monitoring"
+            }
+          ]
+        },
+        {
+          "target_url": "https://coolify.io/docs/services/imgcompress",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://coolify.io/services",
+              "anchor_text": "Imgcompress Offline image compression, conversion, and AI background removal for Docker homelabs. Media"
+            }
+          ]
+        },
+        {
+          "target_url": "https://coolify.io/docs/services/joomla-with-mariadb",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://coolify.io/services",
+              "anchor_text": "Joomla With Mariadb Joomla! is the mobile-ready and user-friendly way to build your website. Choose from thousands of features and designs. Joomla! is free and open source. CMS"
+            }
+          ]
+        },
+        {
+          "target_url": "https://coolify.io/docs/services/keycloak-with-postgres",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://coolify.io/services",
+              "anchor_text": "Keycloak With Postgres Keycloak is an open-source Identity and Access Management tool. Authentication"
+            }
+          ]
+        },
+        {
+          "target_url": "https://coolify.io/docs/services/linkding-plus",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://coolify.io/services",
+              "anchor_text": "Linkding Plus A self-hosted bookmark manager designed to be minimal, fast, and easy to set up. (Includes feature for archiving websites as HTML snapshots) RSS"
+            }
+          ]
+        },
+        {
+          "target_url": "https://coolify.io/docs/services/matrix-synapse-with-postgresql",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://coolify.io/services",
+              "anchor_text": "Matrix Synapse With Postgresql Chat securely with your family, friends, community, or build great apps with Matrix! Messaging"
+            }
+          ]
+        },
+        {
+          "target_url": "https://coolify.io/docs/services/matrix-synapse-with-sqlite",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://coolify.io/services",
+              "anchor_text": "Matrix Synapse With Sqlite Chat securely with your family, friends, community, or build great apps with Matrix! Messaging"
+            }
+          ]
+        },
+        {
+          "target_url": "https://coolify.io/docs/services/n8n-with-postgres-and-worker",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://coolify.io/services",
+              "anchor_text": "N8n With Postgres And Worker n8n is an extendable workflow automation tool with queue mode and workers. Automation"
+            }
+          ]
+        },
+        {
+          "target_url": "https://coolify.io/docs/services/n8n-with-postgresql",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://coolify.io/services",
+              "anchor_text": "N8n With Postgresql n8n is an extendable workflow automation tool. Automation"
+            }
+          ]
+        },
+        {
+          "target_url": "https://coolify.io/docs/services/nextcloud-with-mariadb",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://coolify.io/services",
+              "anchor_text": "Nextcloud With Mariadb NextCloud is a self-hosted, open-source platform that provides file storage, collaboration, and communication tools for seamless data management. Storage"
+            }
+          ]
+        },
+        {
+          "target_url": "https://coolify.io/docs/services/nextcloud-with-mysql",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://coolify.io/services",
+              "anchor_text": "Nextcloud With Mysql NextCloud is a self-hosted, open-source platform that provides file storage, collaboration, and communication tools for seamless data management. Storage"
+            }
+          ]
+        },
+        {
+          "target_url": "https://coolify.io/docs/services/nextcloud-with-postgres",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://coolify.io/services",
+              "anchor_text": "Nextcloud With Postgres NextCloud is a self-hosted, open-source platform that provides file storage, collaboration, and communication tools for seamless data management. Storage"
+            }
+          ]
+        },
+        {
+          "target_url": "https://coolify.io/docs/services/nexus-arm",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://coolify.io/services",
+              "anchor_text": "Nexus Arm Open source Universal Repository Manager (ARM version, community edition), default credentials: admin/admin123 Dev Tools"
+            }
+          ]
+        },
+        {
+          "target_url": "https://coolify.io/docs/services/nitropage-with-postgresql",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://coolify.io/services",
+              "anchor_text": "Nitropage With Postgresql Nitropage is an extensible, visual website builder, offering a growing library of versatile building blocks, focal-point image cropping and sovereign font management. CMS"
+            }
+          ]
+        },
+        {
+          "target_url": "https://coolify.io/docs/services/ollama-with-open-webui",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://coolify.io/services",
+              "anchor_text": "Ollama With Open Webui Ollama with Open Web UI integrates AI model deployment with a user-friendly interface. AI"
+            }
+          ]
+        },
+        {
+          "target_url": "https://coolify.io/docs/services/passing-environment-variables-not-included-in-the-template",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://coolify.io/docs/services/signoz",
+              "anchor_text": "Passing environment variables not included in the template"
+            }
+          ]
+        },
+        {
+          "target_url": "https://coolify.io/docs/services/penpot-with-s3",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://coolify.io/services",
+              "anchor_text": "Penpot With S3 Penpot is the first Open Source design and prototyping platform for product teams. Productivity"
+            }
+          ]
+        },
+        {
+          "target_url": "https://coolify.io/docs/services/pocket-id-with-postgresql",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://coolify.io/services",
+              "anchor_text": "Pocket Id With Postgresql A simple and secure OIDC provider with passkey authentication Authentication"
+            }
+          ]
+        },
+        {
+          "target_url": "https://coolify.io/docs/services/spacebot",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://coolify.io/services",
+              "anchor_text": "Spacebot An agentic AI system with specialized processes for thinking, working, and remembering. AI"
+            }
+          ]
+        },
+        {
+          "target_url": "https://coolify.io/docs/services/superset-with-postgresql",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://coolify.io/services",
+              "anchor_text": "Superset With Postgresql Modern data exploration and visualization platform (unofficial community docker image) Analytics"
+            }
+          ]
+        },
+        {
+          "target_url": "https://coolify.io/docs/services/supertokens-with-mysql",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://coolify.io/services",
+              "anchor_text": "Supertokens With Mysql An open-source authentication solution that simplifies the implementation of secure user authentication and session management for web and mobile applications. Authentication"
+            }
+          ]
+        },
+        {
+          "target_url": "https://coolify.io/docs/services/supertokens-with-postgresql",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://coolify.io/services",
+              "anchor_text": "Supertokens With Postgresql An open-source authentication solution that simplifies the implementation of secure user authentication and session management for web and mobile applications. Authentication"
+            }
+          ]
+        },
+        {
+          "target_url": "https://coolify.io/docs/services/unleash-with-postgresql",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://coolify.io/services",
+              "anchor_text": "Unleash With Postgresql Open source feature flag management for enterprises. Dev Tools"
+            }
+          ]
+        },
+        {
+          "target_url": "https://coolify.io/docs/services/unleash-without-database",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://coolify.io/services",
+              "anchor_text": "Unleash Without Database Open source feature flag management for enterprises. Dev Tools"
+            }
+          ]
+        },
+        {
+          "target_url": "https://coolify.io/docs/services/uptime-kuma-with-mariadb",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://coolify.io/services",
+              "anchor_text": "Uptime Kuma With Mariadb Uptime Kuma is a monitoring tool for tracking the status and performance of your applications in real-time. Monitoring"
+            }
+          ]
+        },
+        {
+          "target_url": "https://coolify.io/docs/services/uptime-kuma-with-mysql",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://coolify.io/services",
+              "anchor_text": "Uptime Kuma With Mysql Uptime Kuma is a monitoring tool for tracking the status and performance of your applications in real-time. Monitoring"
+            }
+          ]
+        },
+        {
+          "target_url": "https://coolify.io/docs/services/vikunja-with-postgresql",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://coolify.io/services",
+              "anchor_text": "Vikunja With Postgresql The open-source, self-hostable to-do app. Organize everything, on all platforms. Productivity"
+            }
+          ]
+        },
+        {
+          "target_url": "https://coolify.io/docs/services/vvveb-with-mariadb",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://coolify.io/services",
+              "anchor_text": "Vvveb With Mariadb Powerful and easy to use cms to build websites, blogs or ecommerce stores. CMS"
+            }
+          ]
+        },
+        {
+          "target_url": "https://coolify.io/docs/services/vvveb-with-mysql",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://coolify.io/services",
+              "anchor_text": "Vvveb With Mysql Powerful and easy to use cms to build websites, blogs or ecommerce stores. CMS"
+            }
+          ]
+        },
+        {
+          "target_url": "https://coolify.io/docs/services/wordpress-with-mariadb",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://coolify.io/services",
+              "anchor_text": "Wordpress With Mariadb WordPress is open source software you can use to create a beautiful website, blog, or app. CMS"
+            }
+          ]
+        },
+        {
+          "target_url": "https://coolify.io/docs/services/wordpress-with-mysql",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://coolify.io/services",
+              "anchor_text": "Wordpress With Mysql WordPress is open source software you can use to create a beautiful website, blog, or app. CMS"
+            }
+          ]
+        },
+        {
+          "target_url": "https://coolify.io/docs/services/wordpress-without-database",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://coolify.io/services",
+              "anchor_text": "Wordpress Without Database WordPress is open source software you can use to create a beautiful website, blog, or app. CMS"
+            }
+          ]
+        },
+        {
+          "target_url": "https://coolify.io/docs/services/yamtrack-with-postgresql",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://coolify.io/services",
+              "anchor_text": "Yamtrack With Postgresql Yamtrack is a self hosted media tracker for movies, tv shows, anime, manga, video games and books. Productivity"
+            }
+          ]
+        }
+      ],
+      "unverified_links_sample": []
+    }
+  ]
+}

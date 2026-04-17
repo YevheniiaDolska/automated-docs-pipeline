@@ -1,0 +1,57 @@
+{
+  "status": "ok",
+  "model": "claude-sonnet-4-5",
+  "analysis": {
+    "executive_summary": "Documentation audit of docs.readme.com covered 347 pages (100% crawl coverage) with overall confidence of 79.74%. Site contains 12 confirmed broken internal links affecting user-facing documentation. API reference coverage is critically low at 4.55% despite 148 API pages detected. SEO/geo issue rate stands at 18.01%, indicating metadata and discoverability problems. Freshness tracking exists on 84.15% of pages, and code example reliability estimates at 87.5%.",
+    "strengths": [
+      "Complete crawl coverage achieved (100%) with 347 pages successfully indexed",
+      "No repository navigation link breakage (repo_broken_links_count: 0)",
+      "High freshness metadata coverage at 84.15% enables content aging visibility",
+      "Code example reliability estimated at 87.5%, indicating generally trustworthy samples",
+      "Overall audit confidence of 79.74% provides reliable baseline for remediation"
+    ],
+    "risks": [
+      "12 confirmed broken internal links in user-facing documentation damage user experience and trust",
+      "API reference coverage at 4.55% leaves 95% of API surface undocumented or poorly linked",
+      "SEO/geo issue rate of 18.01% harms search discoverability and organic traffic acquisition",
+      "5 unverified links due to auth/rate-limit/server blocks represent potential hidden breakage",
+      "Links confidence at 65.59% indicates moderate uncertainty in link health assessment",
+      "148 API pages detected but only 4.55% coverage suggests severe documentation-code drift",
+      "6 trap URLs skipped may indicate crawl loop risks or URL structure problems"
+    ],
+    "prioritized_actions": [
+      {
+        "action": "Fix all 12 confirmed broken internal links in user-facing documentation",
+        "impact": "critical",
+        "effort": "low"
+      },
+      {
+        "action": "Investigate and resolve API reference coverage gap (4.55% vs 148 detected API pages)",
+        "impact": "critical",
+        "effort": "high"
+      },
+      {
+        "action": "Remediate SEO/geo issues affecting 18.01% of pages (metadata, descriptions, canonicals)",
+        "impact": "high",
+        "effort": "medium"
+      },
+      {
+        "action": "Manually verify 5 unverified links blocked by auth/rate-limit to confirm availability",
+        "impact": "medium",
+        "effort": "low"
+      },
+      {
+        "action": "Review 6 trap URLs skipped to prevent future crawl inefficiencies and user confusion",
+        "impact": "low",
+        "effort": "low"
+      }
+    ],
+    "limitations": [
+      "External audit cannot verify content accuracy, technical correctness, or alignment with actual product behavior",
+      "Link verification confidence at 65.59% means some broken links may be undetected or false positives may exist",
+      "API coverage detection relies on heuristics; actual API completeness requires source code comparison",
+      "Code example reliability is estimated through static analysis and cannot confirm runtime execution success",
+      "Authentication-protected pages and dynamic content may be underrepresented in crawl results"
+    ]
+  }
+}

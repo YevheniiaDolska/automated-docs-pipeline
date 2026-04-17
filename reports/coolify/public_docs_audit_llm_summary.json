@@ -1,0 +1,57 @@
+{
+  "status": "ok",
+  "model": "claude-sonnet-4-5",
+  "analysis": {
+    "executive_summary": "Documentation audit of Coolify.io covered 576 pages with 100% crawl coverage and 91.5% overall confidence. Critical issues include 58 confirmed broken internal documentation links requiring immediate remediation. API reference coverage stands at 63.82% across 130 detected API pages, indicating incomplete documentation. Example code reliability shows 0% detection across all 576 pages, flagged as a likely technical detection limitation due to JavaScript-rendered code blocks. Freshness tracking is strong at 96.53% last-updated coverage.",
+    "strengths": [
+      "Complete crawl coverage at 100% (576 of 576 pages within scope)",
+      "High overall audit confidence at 91.5%",
+      "Strong freshness metadata coverage at 96.53% of pages",
+      "No repository navigation link breakage (0 repo_broken_links)",
+      "Low SEO/geo issue rate at 1.13%"
+    ],
+    "risks": [
+      "58 confirmed broken internal documentation links degrading user navigation and trust",
+      "API reference coverage gap at 63.82% leaves 36%+ of API surface undocumented",
+      "Example code reliability at 0% prevents validation of code accuracy (detection limitation suspected)",
+      "130 API pages detected but coverage incomplete suggests missing endpoints or methods",
+      "Broken links concentrated in user-facing docs (all 58 are docs_broken_links) impact customer experience",
+      "JavaScript-rendered code blocks may hide additional quality issues from automated detection",
+      "API confidence at 85% indicates moderate uncertainty in API documentation assessment"
+    ],
+    "prioritized_actions": [
+      {
+        "action": "Audit and repair all 58 broken internal documentation links",
+        "impact": "critical",
+        "effort": "medium"
+      },
+      {
+        "action": "Conduct manual API documentation completeness review to close 36% coverage gap",
+        "impact": "critical",
+        "effort": "high"
+      },
+      {
+        "action": "Implement server-side rendering or static code examples to enable automated reliability testing",
+        "impact": "high",
+        "effort": "high"
+      },
+      {
+        "action": "Establish automated link checking in CI/CD pipeline to prevent future broken links",
+        "impact": "high",
+        "effort": "low"
+      },
+      {
+        "action": "Manual spot-check of code examples across 20+ pages to validate accuracy despite detection failure",
+        "impact": "medium",
+        "effort": "medium"
+      }
+    ],
+    "limitations": [
+      "External audit cannot verify functional correctness of code examples when rendered via JavaScript (0% detection may underreport issues)",
+      "API coverage assessment limited to detected pages; undiscoverable or dynamically generated API endpoints not measured",
+      "Broken link detection covers structure only; cannot validate semantic accuracy or contextual relevance of link destinations",
+      "Freshness metadata presence confirmed but actual content currency requires subject matter expert review",
+      "Crawl-based analysis cannot assess gated content, authentication-required pages, or non-HTML documentation assets"
+    ]
+  }
+}

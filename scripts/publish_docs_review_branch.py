@@ -94,6 +94,17 @@ def _resolve_base_branch(repo_root: Path, preferred: str) -> str:
     return "main"
 
 
+def _remote_exists(repo_root: Path, remote: str) -> bool:
+    completed = subprocess.run(
+        ["git", "remote", "get-url", remote],
+        cwd=str(repo_root),
+        check=False,
+        capture_output=True,
+        text=True,
+    )
+    return completed.returncode == 0
+
+
 def _build_review_branch_name(prefix: str) -> str:
     stamp = datetime.now(timezone.utc).strftime("%Y%m%d-%H%M%S")
     clean_prefix = prefix.strip().strip("/") or "docs/review"
@@ -180,6 +191,14 @@ def main() -> int:
     commit_rc = _run(["git", "commit", "-m", commit_message], repo_root)
     if commit_rc != 0:
         print("[review-branch] commit skipped or failed; checking if there is anything to push")
+
+    if not _remote_exists(repo_root, remote):
+        print(
+            f"[review-branch] remote '{remote}' is not configured; "
+            "skipping push in local/clean-room mode",
+        )
+        print(f"[review-branch] local review branch ready: {review_branch}")
+        return 0
 
     push_rc = _run(["git", "push", "-u", remote, review_branch], repo_root)
     if push_rc != 0:

@@ -1,0 +1,57 @@
+{
+  "status": "ok",
+  "model": "claude-sonnet-4-5",
+  "analysis": {
+    "executive_summary": "Audit covered 1,059 pages across 2 documentation sites (developer.gitbook.com, gitbook.com/docs) representing a single product. Crawl achieved 100% coverage with 95% confidence. Critical issues include 36 confirmed broken internal links (all user-facing documentation links, zero repository links), 33.47% SEO/geo issue rate, and 0% example reliability detection across all pages. API reference coverage is 75% (220 API pages detected). Last-updated metadata present on 81.97% of pages.",
+    "strengths": [
+      "Complete crawl coverage at 100% of discovered pages with high crawl confidence (95%)",
+      "API reference documentation detected and measured at 75% coverage across 220 pages",
+      "Last-updated metadata present on 82% of pages, supporting freshness transparency",
+      "Overall audit confidence at 87.5% indicates reliable findings",
+      "No repository navigation link breakage; all 36 broken links are documentation-only"
+    ],
+    "risks": [
+      "36 confirmed broken internal documentation links degrade user navigation and trust",
+      "33.47% SEO/geo issue rate threatens discoverability and search ranking",
+      "Documentation split across 2 domains (developer.gitbook.com and gitbook.com/docs) creates fragmentation and consistency risk",
+      "0% example reliability detection across 1,059 pages suggests JS-rendered code blocks may not be auditable; actual example quality unknown",
+      "4 links unverified due to authentication/rate-limiting; may hide additional broken links",
+      "25% of API reference documentation missing or undetected",
+      "18% of pages lack last-updated metadata, obscuring content freshness for users"
+    ],
+    "prioritized_actions": [
+      {
+        "action": "Fix all 36 confirmed broken internal documentation links to restore navigation integrity",
+        "impact": "critical",
+        "effort": "low"
+      },
+      {
+        "action": "Consolidate documentation from 2 domains into single authoritative site or implement clear cross-linking strategy",
+        "impact": "high",
+        "effort": "high"
+      },
+      {
+        "action": "Remediate SEO/geo issues affecting 33.47% of pages (meta descriptions, titles, structured data)",
+        "impact": "high",
+        "effort": "medium"
+      },
+      {
+        "action": "Investigate and resolve example detection failure; validate code examples render correctly and add static fallbacks if JS-dependent",
+        "impact": "high",
+        "effort": "medium"
+      },
+      {
+        "action": "Complete API reference documentation to achieve 100% coverage (currently 75%, 220 pages)",
+        "impact": "medium",
+        "effort": "medium"
+      }
+    ],
+    "limitations": [
+      "Example reliability at 0% likely indicates detection limitation with JS-rendered code blocks; external audit cannot verify actual example quality or executability",
+      "4 unverified links due to authentication/rate-limiting may conceal additional broken links not captured in this audit",
+      "Audit cannot assess content accuracy, technical correctness, or whether documentation matches actual product behavior",
+      "Multi-site topology may have undiscovered cross-domain links or version conflicts not visible to crawler",
+      "API coverage detection at 85% confidence means some API pages may be misclassified or undetected"
+    ]
+  }
+}

@@ -40,6 +40,15 @@ def _run(cmd: list[str], cwd: Path) -> None:
         )
 
 
+def _run_allow_fail(cmd: list[str], cwd: Path) -> int:
+    completed = subprocess.run(cmd, cwd=str(cwd), check=False, capture_output=True, text=True)
+    if completed.returncode != 0:
+        output = "\n".join([completed.stdout or "", completed.stderr or ""]).strip()
+        if output:
+            print(output[-2000:], flush=True)
+    return int(completed.returncode)
+
+
 def _derive_profile(runtime: dict[str, Any]) -> str:
     llm_control = runtime.get("llm_control", {}) if isinstance(runtime.get("llm_control"), dict) else {}
     llm_mode = str(llm_control.get("llm_mode", "external_preferred")).strip().lower()
@@ -167,7 +176,9 @@ def main() -> int:
             str(reports_dir / "retrieval_eval_dataset.generated.yml"),
             "--auto-generate-dataset",
         ]
-        _run(eval_cmd, cwd=repo_root)
+        eval_rc = _run_allow_fail(eval_cmd, cwd=repo_root)
+        if eval_rc != 0:
+            print(f"[rag-layer] retrieval eval command returned rc={eval_rc}; continuing with degraded status", flush=True)
 
     rag_report = _safe_load_json(reports_dir / "rag_reindex_report.json")
     eval_report = _safe_load_json(eval_report_path)

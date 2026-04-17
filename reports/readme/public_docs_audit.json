@@ -1,0 +1,482 @@
+{
+  "generated_at": "2026-04-17T07:59:49.764565+00:00",
+  "site_url": "https://docs.readme.com/",
+  "site_urls": [
+    "https://docs.readme.com/"
+  ],
+  "topology_mode": "single-product",
+  "verification_modes": [
+    "authenticated",
+    "bot",
+    "browser"
+  ],
+  "sites": [
+    {
+      "site_url": "https://docs.readme.com/",
+      "metrics": {
+        "crawl": {
+          "pages_crawled": 347,
+          "requested_pages": 418,
+          "urls_examined": 352,
+          "max_pages": 2500,
+          "effective_limit": 2500,
+          "auto_mode": false,
+          "stop_reason": "queue_exhausted",
+          "discovered_pages": 352,
+          "crawl_scope_basis": "sitemap",
+          "crawl_scope_pages": 352,
+          "crawl_coverage_pct": 100.0,
+          "trap_urls_skipped": 6,
+          "seeded_sitemap_urls": 352,
+          "robots_sitemaps_declared": 1
+        },
+        "links": {
+          "internal_links_checked": 418,
+          "broken_internal_links_count": 12,
+          "docs_broken_links_count": 12,
+          "repo_broken_links_count": 0,
+          "broken_internal_link_samples": [
+            "https://docs.readme.com/cdn-cgi/l/email-protection",
+            "https://docs.readme.com/docs/beta-overview-redesigned-api-reference",
+            "https://docs.readme.com/docs/readme-object-in-appsettingsjson",
+            "https://docs.readme.com/ent/docs/configuring-a-global-landing-page",
+            "https://docs.readme.com/main/docs/adding-your-api-reference",
+            "https://docs.readme.com/main/docs/beta@readme.com",
+            "https://docs.readme.com/main/docs/making-your-hub-shine",
+            "https://docs.readme.com/main/docs/metrics-pricing-faq",
+            "https://docs.readme.com/main/docs/quick-switcher",
+            "https://docs.readme.com/main/v3.0_chris-trial-and-plans-updates/docs/docs-audit",
+            "https://docs.readme.com/main/v3.0_chris-trial-and-plans-updates/docs/linter",
+            "https://docs.readme.com/rdmd/docs/(https:/docs.readme.com/docs/migration-guide"
+          ],
+          "docs_broken_link_samples": [
+            "https://docs.readme.com/cdn-cgi/l/email-protection",
+            "https://docs.readme.com/docs/beta-overview-redesigned-api-reference",
+            "https://docs.readme.com/docs/readme-object-in-appsettingsjson",
+            "https://docs.readme.com/ent/docs/configuring-a-global-landing-page",
+            "https://docs.readme.com/main/docs/adding-your-api-reference",
+            "https://docs.readme.com/main/docs/beta@readme.com",
+            "https://docs.readme.com/main/docs/making-your-hub-shine",
+            "https://docs.readme.com/main/docs/metrics-pricing-faq",
+            "https://docs.readme.com/main/docs/quick-switcher",
+            "https://docs.readme.com/main/v3.0_chris-trial-and-plans-updates/docs/docs-audit",
+            "https://docs.readme.com/main/v3.0_chris-trial-and-plans-updates/docs/linter",
+            "https://docs.readme.com/rdmd/docs/(https:/docs.readme.com/docs/migration-guide"
+          ],
+          "repo_broken_link_samples": [],
+          "unreachable_links_count": 5,
+          "unverified_links_count": 5,
+          "unverified_link_samples": [
+            "https://docs.readme.com/main/docs/custom-page",
+            "https://docs.readme.com/main/docs/design-themes",
+            "https://docs.readme.com/main/docs/developer-dashboard",
+            "https://docs.readme.com/main/docs/docs-audit",
+            "https://docs.readme.com/main/docs/exporting-metrics-data"
+          ],
+          "confirmed_broken_links_count": 12,
+          "excluded_links_count": 3,
+          "excluded_link_samples": [
+            "https://docs.readme.com/main/changelog/search-and-audit-scheduler",
+            "https://docs.readme.com/main/reference/search-3",
+            "https://docs.readme.com/main/reference/searchdocs"
+          ],
+          "_all_confirmed_broken_links": [
+            "https://docs.readme.com/cdn-cgi/l/email-protection",
+            "https://docs.readme.com/docs/beta-overview-redesigned-api-reference",
+            "https://docs.readme.com/docs/readme-object-in-appsettingsjson",
+            "https://docs.readme.com/ent/docs/configuring-a-global-landing-page",
+            "https://docs.readme.com/main/docs/adding-your-api-reference",
+            "https://docs.readme.com/main/docs/beta@readme.com",
+            "https://docs.readme.com/main/docs/making-your-hub-shine",
+            "https://docs.readme.com/main/docs/metrics-pricing-faq",
+            "https://docs.readme.com/main/docs/quick-switcher",
+            "https://docs.readme.com/main/v3.0_chris-trial-and-plans-updates/docs/docs-audit",
+            "https://docs.readme.com/main/v3.0_chris-trial-and-plans-updates/docs/linter",
+            "https://docs.readme.com/rdmd/docs/(https:/docs.readme.com/docs/migration-guide"
+          ],
+          "_all_unverified_links": [
+            "https://docs.readme.com/main/docs/custom-page",
+            "https://docs.readme.com/main/docs/design-themes",
+            "https://docs.readme.com/main/docs/developer-dashboard",
+            "https://docs.readme.com/main/docs/docs-audit",
+            "https://docs.readme.com/main/docs/exporting-metrics-data"
+          ],
+          "_all_excluded_links": [
+            "https://docs.readme.com/main/changelog/search-and-audit-scheduler",
+            "https://docs.readme.com/main/reference/search-3",
+            "https://docs.readme.com/main/reference/searchdocs"
+          ],
+          "_all_docs_unverified_links": [
+            "https://docs.readme.com/main/docs/custom-page",
+            "https://docs.readme.com/main/docs/design-themes",
+            "https://docs.readme.com/main/docs/developer-dashboard",
+            "https://docs.readme.com/main/docs/docs-audit",
+            "https://docs.readme.com/main/docs/exporting-metrics-data"
+          ],
+          "_all_repo_unverified_links": [],
+          "_broken_link_provenance": {
+            "https://docs.readme.com/cdn-cgi/l/email-protection": [
+              {
+                "source_page": "https://docs.readme.com/ent/docs/enterprise-authentication-access-overview-q1-22",
+                "anchor_text": "[email\u00a0protected]"
+              },
+              {
+                "source_page": "https://docs.readme.com/ent/docs/enterprise-faq",
+                "anchor_text": "[email\u00a0protected]"
+              },
+              {
+                "source_page": "https://docs.readme.com/ent/docs/enterprise-workflow-overview",
+                "anchor_text": "[email\u00a0protected]"
+              },
+              {
+                "source_page": "https://docs.readme.com/ent/docs/getting-started-with-custom-authentication",
+                "anchor_text": "[email\u00a0protected]"
+              },
+              {
+                "source_page": "https://docs.readme.com/ent/docs/migrate-to-readme",
+                "anchor_text": "[email\u00a0protected]"
+              }
+            ],
+            "https://docs.readme.com/docs/beta-overview-redesigned-api-reference": [
+              {
+                "source_page": "https://docs.readme.com/rdmd/docs/custom-css",
+                "anchor_text": "several major improvements to our docs"
+              }
+            ],
+            "https://docs.readme.com/docs/readme-object-in-appsettingsjson": [
+              {
+                "source_page": "https://docs.readme.com/main/docs/net-setup",
+                "anchor_text": "ReadMe Object in appsettings.json"
+              }
+            ],
+            "https://docs.readme.com/ent/docs/configuring-a-global-landing-page": [
+              {
+                "source_page": "https://docs.readme.com/ent/docs/upgrading-to-group-project",
+                "anchor_text": "Creating a global docs portal"
+              }
+            ],
+            "https://docs.readme.com/main/docs/adding-your-api-reference": [
+              {
+                "source_page": "https://docs.readme.com/main/docs/my-requests",
+                "anchor_text": "via one of our upload methods or using the manual API editor"
+              }
+            ],
+            "https://docs.readme.com/main/docs/beta@readme.com": [
+              {
+                "source_page": "https://docs.readme.com/main/docs/reviews",
+                "anchor_text": "[email\u00a0protected]"
+              }
+            ],
+            "https://docs.readme.com/main/docs/making-your-hub-shine": [
+              {
+                "source_page": "https://docs.readme.com/ent/docs/enterprise-design-settings",
+                "anchor_text": "Project Customization section"
+              }
+            ],
+            "https://docs.readme.com/main/docs/metrics-pricing-faq": [
+              {
+                "source_page": "https://docs.readme.com/main/docs/my-requests",
+                "anchor_text": "upgrade to our paid Developer Dashboard plan"
+              }
+            ],
+            "https://docs.readme.com/main/docs/quick-switcher": [
+              {
+                "source_page": "https://docs.readme.com/ent/docs/enterprise-settings",
+                "anchor_text": "Quick Switcher"
+              }
+            ],
+            "https://docs.readme.com/main/v3.0_chris-trial-and-plans-updates/docs/docs-audit": [
+              {
+                "source_page": "https://docs.readme.com/main/docs/plans-and-pricing",
+                "anchor_text": "Docs Audit Preview"
+              }
+            ],
+            "https://docs.readme.com/main/v3.0_chris-trial-and-plans-updates/docs/linter": [
+              {
+                "source_page": "https://docs.readme.com/main/docs/plans-and-pricing",
+                "anchor_text": "AI Doc Linting"
+              }
+            ],
+            "https://docs.readme.com/rdmd/docs/(https:/docs.readme.com/docs/migration-guide": [
+              {
+                "source_page": "https://docs.readme.com/rdmd/docs/custom-css",
+                "anchor_text": "guidance on migrating your Custom CSS"
+              }
+            ]
+          }
+        },
+        "seo_geo": {
+          "pages_scanned": 347,
+          "missing_title_count": 0,
+          "missing_description_count": 8,
+          "multiple_h1_count": 133,
+          "heading_hierarchy_jump_count": 109,
+          "seo_geo_issue_rate_pct": 18.01
+        },
+        "api_coverage": {
+          "reference_endpoint_count": 44,
+          "api_pages_detected": 148,
+          "endpoints_with_usage_docs": 2,
+          "reference_endpoints_without_usage_docs": 42,
+          "reference_coverage_pct": 4.55,
+          "no_api_pages_found": false,
+          "coverage_determined": true,
+          "coverage_method": "source_of_truth",
+          "detection_note": "",
+          "uncovered_endpoint_samples": [
+            "ev:ai",
+            "ev:apis",
+            "ev:devops",
+            "ev:direct",
+            "ev:gtm.js",
+            "ev:oas",
+            "ev:openapi",
+            "ev:openapi-specification",
+            "ev:rest",
+            "ev:security",
+            "ev:software-development",
+            "ev:webapi",
+            "gql:and",
+            "gql:can",
+            "gql:configurations",
+            "gql:definition",
+            "gql:description",
+            "gql:expansion",
+            "gql:fields",
+            "gql:functionality"
+          ]
+        },
+        "examples": {
+          "total_code_examples": 8,
+          "total_code_blocks_all": 383,
+          "runnable_without_env": 7,
+          "blocked_by_placeholders": 0,
+          "network_bound_examples": 1,
+          "example_reliability_estimate_pct": 87.5,
+          "detection_note": ""
+        },
+        "freshness": {
+          "pages_with_last_updated_hint": 292,
+          "pages_without_last_updated_hint": 55,
+          "last_updated_coverage_pct": 84.15,
+          "samples_with_last_updated": [
+            {
+              "url": "https://docs.readme.com/",
+              "hint": "{\"sidebars\":{},\"apiBaseUrl\":\"/main\",\"baseUrl\":\"/main\",\"search\":{\"appId\":\"T28YKFATPY\",\"searchApiKey\":\"NWE2YzFjNGE2YjY5YzQ"
+            },
+            {
+              "url": "https://docs.readme.com/ent/docs/custom-domain-settings",
+              "hint": "{\"sidebars\":{},\"apiBaseUrl\":\"/ent\",\"baseUrl\":\"/ent\",\"search\":{\"appId\":\"T28YKFATPY\",\"searchApiKey\":\"YTE5MDgyZjBkNjQzMjQ5Y"
+            },
+            {
+              "url": "https://docs.readme.com/ent/docs/connecting-github-enterprise-server",
+              "hint": "{\"sidebars\":{},\"apiBaseUrl\":\"/ent\",\"baseUrl\":\"/ent\",\"search\":{\"appId\":\"T28YKFATPY\",\"searchApiKey\":\"YTE5MDgyZjBkNjQzMjQ5Y"
+            },
+            {
+              "url": "https://docs.readme.com/ent/docs/enterprise-design-settings",
+              "hint": "{\"sidebars\":{},\"apiBaseUrl\":\"/ent\",\"baseUrl\":\"/ent\",\"search\":{\"appId\":\"T28YKFATPY\",\"searchApiKey\":\"YTE5MDgyZjBkNjQzMjQ5Y"
+            },
+            {
+              "url": "https://docs.readme.com/ent/docs/creating-a-global-landing-page",
+              "hint": "{\"sidebars\":{},\"apiBaseUrl\":\"/ent\",\"baseUrl\":\"/ent\",\"search\":{\"appId\":\"T28YKFATPY\",\"searchApiKey\":\"YTE5MDgyZjBkNjQzMjQ5Y"
+            },
+            {
+              "url": "https://docs.readme.com/ent/docs/enterprise-authentication-access-overview-q1-22",
+              "hint": "{\"sidebars\":{},\"apiBaseUrl\":\"/ent\",\"baseUrl\":\"/ent\",\"search\":{\"appId\":\"T28YKFATPY\",\"searchApiKey\":\"YTE5MDgyZjBkNjQzMjQ5Y"
+            },
+            {
+              "url": "https://docs.readme.com/ent/docs/adding-and-removing-enterprise-projects",
+              "hint": "{\"sidebars\":{},\"apiBaseUrl\":\"/ent\",\"baseUrl\":\"/ent\",\"search\":{\"appId\":\"T28YKFATPY\",\"searchApiKey\":\"YTE5MDgyZjBkNjQzMjQ5Y"
+            },
+            {
+              "url": "https://docs.readme.com/ent/docs/enterprise-faq",
+              "hint": "{\"sidebars\":{},\"apiBaseUrl\":\"/ent\",\"baseUrl\":\"/ent\",\"search\":{\"appId\":\"T28YKFATPY\",\"searchApiKey\":\"YTE5MDgyZjBkNjQzMjQ5Y"
+            },
+            {
+              "url": "https://docs.readme.com/ent/docs/enterprise-group-overview",
+              "hint": "{\"sidebars\":{},\"apiBaseUrl\":\"/ent\",\"baseUrl\":\"/ent\",\"search\":{\"appId\":\"T28YKFATPY\",\"searchApiKey\":\"YTE5MDgyZjBkNjQzMjQ5Y"
+            },
+            {
+              "url": "https://docs.readme.com/ent/docs/enterprise-settings",
+              "hint": "{\"sidebars\":{},\"apiBaseUrl\":\"/ent\",\"baseUrl\":\"/ent\",\"search\":{\"appId\":\"T28YKFATPY\",\"searchApiKey\":\"YTE5MDgyZjBkNjQzMjQ5Y"
+            }
+          ]
+        }
+      },
+      "samples": {
+        "broken_links": [
+          "https://docs.readme.com/cdn-cgi/l/email-protection",
+          "https://docs.readme.com/docs/beta-overview-redesigned-api-reference",
+          "https://docs.readme.com/docs/readme-object-in-appsettingsjson",
+          "https://docs.readme.com/ent/docs/configuring-a-global-landing-page",
+          "https://docs.readme.com/main/docs/adding-your-api-reference",
+          "https://docs.readme.com/main/docs/beta@readme.com",
+          "https://docs.readme.com/main/docs/making-your-hub-shine",
+          "https://docs.readme.com/main/docs/metrics-pricing-faq",
+          "https://docs.readme.com/main/docs/quick-switcher",
+          "https://docs.readme.com/main/v3.0_chris-trial-and-plans-updates/docs/docs-audit",
+          "https://docs.readme.com/main/v3.0_chris-trial-and-plans-updates/docs/linter",
+          "https://docs.readme.com/rdmd/docs/(https:/docs.readme.com/docs/migration-guide"
+        ],
+        "docs_broken_link_samples": [
+          "https://docs.readme.com/cdn-cgi/l/email-protection",
+          "https://docs.readme.com/docs/beta-overview-redesigned-api-reference",
+          "https://docs.readme.com/docs/readme-object-in-appsettingsjson",
+          "https://docs.readme.com/ent/docs/configuring-a-global-landing-page",
+          "https://docs.readme.com/main/docs/adding-your-api-reference",
+          "https://docs.readme.com/main/docs/beta@readme.com",
+          "https://docs.readme.com/main/docs/making-your-hub-shine",
+          "https://docs.readme.com/main/docs/metrics-pricing-faq",
+          "https://docs.readme.com/main/docs/quick-switcher",
+          "https://docs.readme.com/main/v3.0_chris-trial-and-plans-updates/docs/docs-audit",
+          "https://docs.readme.com/main/v3.0_chris-trial-and-plans-updates/docs/linter",
+          "https://docs.readme.com/rdmd/docs/(https:/docs.readme.com/docs/migration-guide"
+        ],
+        "repo_broken_link_samples": [],
+        "unverified_link_samples": [
+          "https://docs.readme.com/main/docs/custom-page",
+          "https://docs.readme.com/main/docs/design-themes",
+          "https://docs.readme.com/main/docs/developer-dashboard",
+          "https://docs.readme.com/main/docs/docs-audit",
+          "https://docs.readme.com/main/docs/exporting-metrics-data"
+        ],
+        "api_uncovered_samples": [
+          "ev:ai",
+          "ev:apis",
+          "ev:devops",
+          "ev:direct",
+          "ev:gtm.js",
+          "ev:oas",
+          "ev:openapi",
+          "ev:openapi-specification",
+          "ev:rest",
+          "ev:security",
+          "ev:software-development",
+          "ev:webapi",
+          "gql:and",
+          "gql:can",
+          "gql:configurations",
+          "gql:definition",
+          "gql:description",
+          "gql:expansion",
+          "gql:fields",
+          "gql:functionality"
+        ]
+      },
+      "run_count": 1
+    }
+  ],
+  "aggregate": {
+    "metrics": {
+      "crawl": {
+        "pages_crawled": 347,
+        "requested_pages": 418,
+        "urls_examined": 352,
+        "max_pages_total": 2500,
+        "discovered_pages": 352,
+        "crawl_scope_pages": 352,
+        "trap_urls_skipped": 6,
+        "crawl_coverage_pct": 100.0
+      },
+      "links": {
+        "broken_internal_links_count": 12,
+        "docs_broken_links_count": 12,
+        "repo_broken_links_count": 0,
+        "unverified_links_count": 5,
+        "confirmed_broken_links_count": 12,
+        "excluded_links_count": 3
+      },
+      "seo_geo": {
+        "seo_geo_issue_rate_pct": 18.01
+      },
+      "api_coverage": {
+        "reference_coverage_pct": 4.55,
+        "no_api_pages_found": false,
+        "api_pages_detected": 148,
+        "coverage_determined": true,
+        "detection_note": ""
+      },
+      "examples": {
+        "example_reliability_estimate_pct": 87.5
+      },
+      "freshness": {
+        "last_updated_coverage_pct": 84.15
+      }
+    },
+    "confidence": {
+      "overall_confidence_pct": 79.74,
+      "links_confidence_pct": 65.59,
+      "api_confidence_pct": 85.0,
+      "crawl_confidence_pct": 95.0
+    }
+  },
+  "confidence": {
+    "overall_confidence_pct": 79.74,
+    "links_confidence_pct": 65.59,
+    "api_confidence_pct": 85.0,
+    "crawl_confidence_pct": 95.0
+  },
+  "top_findings": [
+    "Broken internal links: 12",
+    "Link verification inconclusive for 5 URLs (auth/rate-limit/server block); these are excluded from broken-link counts.",
+    "SEO/GEO issue rate is high: 18.01%",
+    "API usage-doc coverage is low: 4.55% (148 API pages detected)"
+  ],
+  "llm_analysis": {
+    "status": "ok",
+    "model": "claude-sonnet-4-5",
+    "analysis": {
+      "executive_summary": "Documentation audit of docs.readme.com covered 347 pages (100% crawl coverage) with overall confidence of 79.74%. Site contains 12 confirmed broken internal links affecting user-facing documentation. API reference coverage is critically low at 4.55% despite 148 API pages detected. SEO/geo issue rate stands at 18.01%, indicating metadata and discoverability problems. Freshness tracking exists on 84.15% of pages, and code example reliability estimates at 87.5%.",
+      "strengths": [
+        "Complete crawl coverage achieved (100%) with 347 pages successfully indexed",
+        "No repository navigation link breakage (repo_broken_links_count: 0)",
+        "High freshness metadata coverage at 84.15% enables content aging visibility",
+        "Code example reliability estimated at 87.5%, indicating generally trustworthy samples",
+        "Overall audit confidence of 79.74% provides reliable baseline for remediation"
+      ],
+      "risks": [
+        "12 confirmed broken internal links in user-facing documentation damage user experience and trust",
+        "API reference coverage at 4.55% leaves 95% of API surface undocumented or poorly linked",
+        "SEO/geo issue rate of 18.01% harms search discoverability and organic traffic acquisition",
+        "5 unverified links due to auth/rate-limit/server blocks represent potential hidden breakage",
+        "Links confidence at 65.59% indicates moderate uncertainty in link health assessment",
+        "148 API pages detected but only 4.55% coverage suggests severe documentation-code drift",
+        "6 trap URLs skipped may indicate crawl loop risks or URL structure problems"
+      ],
+      "prioritized_actions": [
+        {
+          "action": "Fix all 12 confirmed broken internal links in user-facing documentation",
+          "impact": "critical",
+          "effort": "low"
+        },
+        {
+          "action": "Investigate and resolve API reference coverage gap (4.55% vs 148 detected API pages)",
+          "impact": "critical",
+          "effort": "high"
+        },
+        {
+          "action": "Remediate SEO/geo issues affecting 18.01% of pages (metadata, descriptions, canonicals)",
+          "impact": "high",
+          "effort": "medium"
+        },
+        {
+          "action": "Manually verify 5 unverified links blocked by auth/rate-limit to confirm availability",
+          "impact": "medium",
+          "effort": "low"
+        },
+        {
+          "action": "Review 6 trap URLs skipped to prevent future crawl inefficiencies and user confusion",
+          "impact": "low",
+          "effort": "low"
+        }
+      ],
+      "limitations": [
+        "External audit cannot verify content accuracy, technical correctness, or alignment with actual product behavior",
+        "Link verification confidence at 65.59% means some broken links may be undetected or false positives may exist",
+        "API coverage detection relies on heuristics; actual API completeness requires source code comparison",
+        "Code example reliability is estimated through static analysis and cannot confirm runtime execution success",
+        "Authentication-protected pages and dynamic content may be underrepresented in crawl results"
+      ]
+    }
+  }
+}

@@ -1,0 +1,894 @@
+{
+  "generated_at": "2026-04-17T08:17:09.569199+00:00",
+  "site_url": "multiple-sites",
+  "site_urls": [
+    "https://developer.gitbook.com/",
+    "https://gitbook.com/docs"
+  ],
+  "topology_mode": "single-product",
+  "verification_modes": [
+    "authenticated",
+    "bot",
+    "browser"
+  ],
+  "sites": [
+    {
+      "site_url": "https://developer.gitbook.com/",
+      "metrics": {
+        "crawl": {
+          "pages_crawled": 1,
+          "requested_pages": 21,
+          "urls_examined": 21,
+          "max_pages": 3500,
+          "effective_limit": 3500,
+          "auto_mode": false,
+          "stop_reason": "queue_exhausted",
+          "discovered_pages": 21,
+          "crawl_scope_basis": "discovered",
+          "crawl_scope_pages": 21,
+          "crawl_coverage_pct": 100.0,
+          "trap_urls_skipped": 0,
+          "seeded_sitemap_urls": 0,
+          "robots_sitemaps_declared": 1
+        },
+        "links": {
+          "internal_links_checked": 21,
+          "broken_internal_links_count": 19,
+          "docs_broken_links_count": 19,
+          "repo_broken_links_count": 0,
+          "broken_internal_link_samples": [
+            "https://developer.gitbook.com/docs",
+            "https://developer.gitbook.com/docs/developers",
+            "https://developer.gitbook.com/docs/developers/gitbook-api/api-reference",
+            "https://developer.gitbook.com/docs/developers/gitbook-api/authentication",
+            "https://developer.gitbook.com/docs/developers/gitbook-api/concepts",
+            "https://developer.gitbook.com/docs/developers/gitbook-api/errors",
+            "https://developer.gitbook.com/docs/developers/gitbook-api/guides",
+            "https://developer.gitbook.com/docs/developers/gitbook-api/pagination",
+            "https://developer.gitbook.com/docs/developers/gitbook-api/quickstart",
+            "https://developer.gitbook.com/docs/developers/gitbook-api/rate-limiting",
+            "https://developer.gitbook.com/docs/developers/integrations/concepts",
+            "https://developer.gitbook.com/docs/developers/integrations/configurations",
+            "https://developer.gitbook.com/docs/developers/integrations/development",
+            "https://developer.gitbook.com/docs/developers/integrations/guides",
+            "https://developer.gitbook.com/docs/developers/integrations/publishing",
+            "https://developer.gitbook.com/docs/developers/integrations/quickstart",
+            "https://developer.gitbook.com/docs/developers/integrations/reference",
+            "https://developer.gitbook.com/docs/developers/integrations/submit-your-app-for-review",
+            "https://developer.gitbook.com/docs/guides"
+          ],
+          "docs_broken_link_samples": [
+            "https://developer.gitbook.com/docs",
+            "https://developer.gitbook.com/docs/developers",
+            "https://developer.gitbook.com/docs/developers/gitbook-api/api-reference",
+            "https://developer.gitbook.com/docs/developers/gitbook-api/authentication",
+            "https://developer.gitbook.com/docs/developers/gitbook-api/concepts",
+            "https://developer.gitbook.com/docs/developers/gitbook-api/errors",
+            "https://developer.gitbook.com/docs/developers/gitbook-api/guides",
+            "https://developer.gitbook.com/docs/developers/gitbook-api/pagination",
+            "https://developer.gitbook.com/docs/developers/gitbook-api/quickstart",
+            "https://developer.gitbook.com/docs/developers/gitbook-api/rate-limiting",
+            "https://developer.gitbook.com/docs/developers/integrations/concepts",
+            "https://developer.gitbook.com/docs/developers/integrations/configurations",
+            "https://developer.gitbook.com/docs/developers/integrations/development",
+            "https://developer.gitbook.com/docs/developers/integrations/guides",
+            "https://developer.gitbook.com/docs/developers/integrations/publishing",
+            "https://developer.gitbook.com/docs/developers/integrations/quickstart",
+            "https://developer.gitbook.com/docs/developers/integrations/reference",
+            "https://developer.gitbook.com/docs/developers/integrations/submit-your-app-for-review",
+            "https://developer.gitbook.com/docs/guides"
+          ],
+          "repo_broken_link_samples": [],
+          "unreachable_links_count": 1,
+          "unverified_links_count": 1,
+          "unverified_link_samples": [
+            "https://developer.gitbook.com/docs/changelog"
+          ],
+          "confirmed_broken_links_count": 19,
+          "excluded_links_count": 0,
+          "excluded_link_samples": [],
+          "_all_confirmed_broken_links": [
+            "https://developer.gitbook.com/docs",
+            "https://developer.gitbook.com/docs/developers",
+            "https://developer.gitbook.com/docs/developers/gitbook-api/api-reference",
+            "https://developer.gitbook.com/docs/developers/gitbook-api/authentication",
+            "https://developer.gitbook.com/docs/developers/gitbook-api/concepts",
+            "https://developer.gitbook.com/docs/developers/gitbook-api/errors",
+            "https://developer.gitbook.com/docs/developers/gitbook-api/guides",
+            "https://developer.gitbook.com/docs/developers/gitbook-api/pagination",
+            "https://developer.gitbook.com/docs/developers/gitbook-api/quickstart",
+            "https://developer.gitbook.com/docs/developers/gitbook-api/rate-limiting",
+            "https://developer.gitbook.com/docs/developers/integrations/concepts",
+            "https://developer.gitbook.com/docs/developers/integrations/configurations",
+            "https://developer.gitbook.com/docs/developers/integrations/development",
+            "https://developer.gitbook.com/docs/developers/integrations/guides",
+            "https://developer.gitbook.com/docs/developers/integrations/publishing",
+            "https://developer.gitbook.com/docs/developers/integrations/quickstart",
+            "https://developer.gitbook.com/docs/developers/integrations/reference",
+            "https://developer.gitbook.com/docs/developers/integrations/submit-your-app-for-review",
+            "https://developer.gitbook.com/docs/guides"
+          ],
+          "_all_unverified_links": [
+            "https://developer.gitbook.com/docs/changelog"
+          ],
+          "_all_excluded_links": [],
+          "_all_docs_unverified_links": [
+            "https://developer.gitbook.com/docs/changelog"
+          ],
+          "_all_repo_unverified_links": [],
+          "_broken_link_provenance": {
+            "https://developer.gitbook.com/docs": [
+              {
+                "source_page": "https://developer.gitbook.com/",
+                "anchor_text": "book-open Documentation"
+              }
+            ],
+            "https://developer.gitbook.com/docs/developers": [
+              {
+                "source_page": "https://developer.gitbook.com/",
+                "anchor_text": "rectangle-terminal Developers"
+              },
+              {
+                "source_page": "https://developer.gitbook.com/",
+                "anchor_text": "rectangle-terminal Developer documentation"
+              }
+            ],
+            "https://developer.gitbook.com/docs/developers/gitbook-api/api-reference": [
+              {
+                "source_page": "https://developer.gitbook.com/",
+                "anchor_text": "brackets-curly API reference chevron-right"
+              },
+              {
+                "source_page": "https://developer.gitbook.com/",
+                "anchor_text": ""
+              }
+            ],
+            "https://developer.gitbook.com/docs/developers/gitbook-api/authentication": [
+              {
+                "source_page": "https://developer.gitbook.com/",
+                "anchor_text": "key Authentication"
+              }
+            ],
+            "https://developer.gitbook.com/docs/developers/gitbook-api/concepts": [
+              {
+                "source_page": "https://developer.gitbook.com/",
+                "anchor_text": "glasses-round Concepts"
+              }
+            ],
+            "https://developer.gitbook.com/docs/developers/gitbook-api/errors": [
+              {
+                "source_page": "https://developer.gitbook.com/",
+                "anchor_text": "triangle-exclamation Errors"
+              }
+            ],
+            "https://developer.gitbook.com/docs/developers/gitbook-api/guides": [
+              {
+                "source_page": "https://developer.gitbook.com/",
+                "anchor_text": "book-open Guides chevron-right"
+              }
+            ],
+            "https://developer.gitbook.com/docs/developers/gitbook-api/pagination": [
+              {
+                "source_page": "https://developer.gitbook.com/",
+                "anchor_text": "list-tree Pagination"
+              }
+            ],
+            "https://developer.gitbook.com/docs/developers/gitbook-api/quickstart": [
+              {
+                "source_page": "https://developer.gitbook.com/",
+                "anchor_text": "bolt Quickstart"
+              }
+            ],
+            "https://developer.gitbook.com/docs/developers/gitbook-api/rate-limiting": [
+              {
+                "source_page": "https://developer.gitbook.com/",
+                "anchor_text": "block-brick-fire Rate limiting"
+              }
+            ],
+            "https://developer.gitbook.com/docs/developers/integrations/concepts": [
+              {
+                "source_page": "https://developer.gitbook.com/",
+                "anchor_text": "glasses-round Concepts"
+              }
+            ],
+            "https://developer.gitbook.com/docs/developers/integrations/configurations": [
+              {
+                "source_page": "https://developer.gitbook.com/",
+                "anchor_text": "gear Configure your integration"
+              }
+            ],
+            "https://developer.gitbook.com/docs/developers/integrations/development": [
+              {
+                "source_page": "https://developer.gitbook.com/",
+                "anchor_text": "shapes Develop your integration chevron-right"
+              }
+            ],
+            "https://developer.gitbook.com/docs/developers/integrations/guides": [
+              {
+                "source_page": "https://developer.gitbook.com/",
+                "anchor_text": "book-open Guides chevron-right"
+              }
+            ],
+            "https://developer.gitbook.com/docs/developers/integrations/publishing": [
+              {
+                "source_page": "https://developer.gitbook.com/",
+                "anchor_text": "up-from-line Publish your integration"
+              }
+            ],
+            "https://developer.gitbook.com/docs/developers/integrations/quickstart": [
+              {
+                "source_page": "https://developer.gitbook.com/",
+                "anchor_text": "bolt Quickstart"
+              },
+              {
+                "source_page": "https://developer.gitbook.com/",
+                "anchor_text": ""
+              }
+            ],
+            "https://developer.gitbook.com/docs/developers/integrations/reference": [
+              {
+                "source_page": "https://developer.gitbook.com/",
+                "anchor_text": "rectangle-terminal Install the CLI chevron-right"
+              },
+              {
+                "source_page": "https://developer.gitbook.com/",
+                "anchor_text": ""
+              }
+            ],
+            "https://developer.gitbook.com/docs/developers/integrations/submit-your-app-for-review": [
+              {
+                "source_page": "https://developer.gitbook.com/",
+                "anchor_text": "paper-plane Submit your integration for review"
+              }
+            ],
+            "https://developer.gitbook.com/docs/guides": [
+              {
+                "source_page": "https://developer.gitbook.com/",
+                "anchor_text": "book Guides"
+              }
+            ]
+          }
+        },
+        "seo_geo": {
+          "pages_scanned": 1,
+          "missing_title_count": 0,
+          "missing_description_count": 0,
+          "multiple_h1_count": 0,
+          "heading_hierarchy_jump_count": 1,
+          "seo_geo_issue_rate_pct": 25.0
+        },
+        "api_coverage": {
+          "reference_endpoint_count": 0,
+          "api_pages_detected": 0,
+          "endpoints_with_usage_docs": 0,
+          "reference_endpoints_without_usage_docs": 0,
+          "reference_coverage_pct": -1.0,
+          "no_api_pages_found": true,
+          "coverage_determined": false,
+          "coverage_method": "heuristic",
+          "detection_note": "Contract URLs found but no operations parsed",
+          "uncovered_endpoint_samples": []
+        },
+        "examples": {
+          "total_code_examples": 0,
+          "total_code_blocks_all": 0,
+          "runnable_without_env": 0,
+          "blocked_by_placeholders": 0,
+          "network_bound_examples": 0,
+          "example_reliability_estimate_pct": 0.0,
+          "detection_note": "No code blocks detected in crawled pages. The site may use JavaScript-rendered code blocks invisible to the HTML parser."
+        },
+        "freshness": {
+          "pages_with_last_updated_hint": 1,
+          "pages_without_last_updated_hint": 0,
+          "last_updated_coverage_pct": 100.0,
+          "samples_with_last_updated": [
+            {
+              "url": "https://developer.gitbook.com/",
+              "hint": "Last updated"
+            }
+          ]
+        }
+      },
+      "samples": {
+        "broken_links": [
+          "https://developer.gitbook.com/docs",
+          "https://developer.gitbook.com/docs/developers",
+          "https://developer.gitbook.com/docs/developers/gitbook-api/api-reference",
+          "https://developer.gitbook.com/docs/developers/gitbook-api/authentication",
+          "https://developer.gitbook.com/docs/developers/gitbook-api/concepts",
+          "https://developer.gitbook.com/docs/developers/gitbook-api/errors",
+          "https://developer.gitbook.com/docs/developers/gitbook-api/guides",
+          "https://developer.gitbook.com/docs/developers/gitbook-api/pagination",
+          "https://developer.gitbook.com/docs/developers/gitbook-api/quickstart",
+          "https://developer.gitbook.com/docs/developers/gitbook-api/rate-limiting",
+          "https://developer.gitbook.com/docs/developers/integrations/concepts",
+          "https://developer.gitbook.com/docs/developers/integrations/configurations",
+          "https://developer.gitbook.com/docs/developers/integrations/development",
+          "https://developer.gitbook.com/docs/developers/integrations/guides",
+          "https://developer.gitbook.com/docs/developers/integrations/publishing",
+          "https://developer.gitbook.com/docs/developers/integrations/quickstart",
+          "https://developer.gitbook.com/docs/developers/integrations/reference",
+          "https://developer.gitbook.com/docs/developers/integrations/submit-your-app-for-review",
+          "https://developer.gitbook.com/docs/guides"
+        ],
+        "docs_broken_link_samples": [
+          "https://developer.gitbook.com/docs",
+          "https://developer.gitbook.com/docs/developers",
+          "https://developer.gitbook.com/docs/developers/gitbook-api/api-reference",
+          "https://developer.gitbook.com/docs/developers/gitbook-api/authentication",
+          "https://developer.gitbook.com/docs/developers/gitbook-api/concepts",
+          "https://developer.gitbook.com/docs/developers/gitbook-api/errors",
+          "https://developer.gitbook.com/docs/developers/gitbook-api/guides",
+          "https://developer.gitbook.com/docs/developers/gitbook-api/pagination",
+          "https://developer.gitbook.com/docs/developers/gitbook-api/quickstart",
+          "https://developer.gitbook.com/docs/developers/gitbook-api/rate-limiting",
+          "https://developer.gitbook.com/docs/developers/integrations/concepts",
+          "https://developer.gitbook.com/docs/developers/integrations/configurations",
+          "https://developer.gitbook.com/docs/developers/integrations/development",
+          "https://developer.gitbook.com/docs/developers/integrations/guides",
+          "https://developer.gitbook.com/docs/developers/integrations/publishing",
+          "https://developer.gitbook.com/docs/developers/integrations/quickstart",
+          "https://developer.gitbook.com/docs/developers/integrations/reference",
+          "https://developer.gitbook.com/docs/developers/integrations/submit-your-app-for-review",
+          "https://developer.gitbook.com/docs/guides"
+        ],
+        "repo_broken_link_samples": [],
+        "unverified_link_samples": [
+          "https://developer.gitbook.com/docs/changelog"
+        ],
+        "api_uncovered_samples": []
+      },
+      "run_count": 1
+    },
+    {
+      "site_url": "https://gitbook.com/docs",
+      "metrics": {
+        "crawl": {
+          "pages_crawled": 1058,
+          "requested_pages": 1095,
+          "urls_examined": 1089,
+          "max_pages": 3500,
+          "effective_limit": 3500,
+          "auto_mode": false,
+          "stop_reason": "queue_exhausted",
+          "discovered_pages": 1089,
+          "crawl_scope_basis": "discovered",
+          "crawl_scope_pages": 1089,
+          "crawl_coverage_pct": 100.0,
+          "trap_urls_skipped": 414,
+          "seeded_sitemap_urls": 0,
+          "robots_sitemaps_declared": 1
+        },
+        "links": {
+          "internal_links_checked": 1095,
+          "broken_internal_links_count": 17,
+          "docs_broken_links_count": 17,
+          "repo_broken_links_count": 0,
+          "broken_internal_link_samples": [
+            "https://gitbook.com/adaptive-content-demo/docs",
+            "https://gitbook.com/docs/changelog/april-2025/1-april-new-and-improved-tables-announcement-banners-custom-fonts-and-more",
+            "https://gitbook.com/docs/changelog/april-2025/30-april-auto-updating-api-reference-docs-design-improvements-editor-updates-and-more",
+            "https://gitbook.com/docs/changelog/april-2025/8-april-link-tooltips-even-more-editor-improvements-and-some-bug-fixes",
+            "https://gitbook.com/docs/changelog/february-2025/4-february-completely-revamped-insights-a-better-header-bar-and-more",
+            "https://gitbook.com/docs/changelog/june-2025/10-june-new-customization-styles-email-improvements-dark-mode-cover-images-and-more",
+            "https://gitbook.com/docs/changelog/june-2025/17-june-column-blocks-inline-icons-and-a-bunch-of-smaller-improvements",
+            "https://gitbook.com/docs/changelog/march-2025/25-march-a-ton-of-editor-improvements-bug-fixes-and-more",
+            "https://gitbook.com/docs/changelog/may-2025/20-may-commenting-improvements-link-ui-improvements-a-new-dashboard-and-more",
+            "https://gitbook.com/docs/changelog/may-2025/6-may-add-inline-buttons-to-your-docs-easy-block-selection-and-more",
+            "https://gitbook.com/docs/changelog/november-2025/better-code-syntax-highlighting-custom-links-for-your-site-logo-and-more",
+            "https://gitbook.com/docs/changelog/november-2025/embed-gitbook-assistant-performance-improvements-and-more",
+            "https://gitbook.com/docs/changelog/october-2025/better-migration-support-improved-search-and-more",
+            "https://gitbook.com/docs/changelog/october-2025/new-keyboard-shortcuts-block-duplication-colored-inline-icons-and-more",
+            "https://gitbook.com/docs/changelog/past-releases/introducing-gitbook-3.0",
+            "https://gitbook.com/docs/changelog/september-2025/9-september-merge-rules-improved-language-selection-and-more",
+            "https://gitbook.com/docs/publishing-documentation/gitbook-ai-assistant/embedding"
+          ],
+          "docs_broken_link_samples": [
+            "https://gitbook.com/adaptive-content-demo/docs",
+            "https://gitbook.com/docs/changelog/april-2025/1-april-new-and-improved-tables-announcement-banners-custom-fonts-and-more",
+            "https://gitbook.com/docs/changelog/april-2025/30-april-auto-updating-api-reference-docs-design-improvements-editor-updates-and-more",
+            "https://gitbook.com/docs/changelog/april-2025/8-april-link-tooltips-even-more-editor-improvements-and-some-bug-fixes",
+            "https://gitbook.com/docs/changelog/february-2025/4-february-completely-revamped-insights-a-better-header-bar-and-more",
+            "https://gitbook.com/docs/changelog/june-2025/10-june-new-customization-styles-email-improvements-dark-mode-cover-images-and-more",
+            "https://gitbook.com/docs/changelog/june-2025/17-june-column-blocks-inline-icons-and-a-bunch-of-smaller-improvements",
+            "https://gitbook.com/docs/changelog/march-2025/25-march-a-ton-of-editor-improvements-bug-fixes-and-more",
+            "https://gitbook.com/docs/changelog/may-2025/20-may-commenting-improvements-link-ui-improvements-a-new-dashboard-and-more",
+            "https://gitbook.com/docs/changelog/may-2025/6-may-add-inline-buttons-to-your-docs-easy-block-selection-and-more",
+            "https://gitbook.com/docs/changelog/november-2025/better-code-syntax-highlighting-custom-links-for-your-site-logo-and-more",
+            "https://gitbook.com/docs/changelog/november-2025/embed-gitbook-assistant-performance-improvements-and-more",
+            "https://gitbook.com/docs/changelog/october-2025/better-migration-support-improved-search-and-more",
+            "https://gitbook.com/docs/changelog/october-2025/new-keyboard-shortcuts-block-duplication-colored-inline-icons-and-more",
+            "https://gitbook.com/docs/changelog/past-releases/introducing-gitbook-3.0",
+            "https://gitbook.com/docs/changelog/september-2025/9-september-merge-rules-improved-language-selection-and-more",
+            "https://gitbook.com/docs/publishing-documentation/gitbook-ai-assistant/embedding"
+          ],
+          "repo_broken_link_samples": [],
+          "unreachable_links_count": 3,
+          "unverified_links_count": 3,
+          "unverified_link_samples": [
+            "http://gitbook.com/docs/resources/keyboard-shortcuts",
+            "https://gitbook.com/docs/help-center/account-management/pricing-plans-and-billing/what-payment-methods-do-you-accept",
+            "https://gitbook.com/docs/help-center/integrations/integrations-troubleshooting/git-sync/does-git-sync-also-sync-pull-requests"
+          ],
+          "confirmed_broken_links_count": 17,
+          "excluded_links_count": 13,
+          "excluded_link_samples": [
+            "http://gitbook.com/docs/creating-content/searching-your-content",
+            "http://gitbook.com/docs/creating-content/searching-your-content/gitbook-ai",
+            "https://gitbook.com/docs/changelog/2022-and-earlier-product-updates/rss.xml",
+            "https://gitbook.com/docs/changelog/2023-product-updates/rss.xml",
+            "https://gitbook.com/docs/changelog/2024-product-updates/rss.xml",
+            "https://gitbook.com/docs/changelog/2025-product-updates/rss.xml",
+            "https://gitbook.com/docs/changelog/november-2025/search-result-breadcrumbs-better-variant-+-language-support-and-more",
+            "https://gitbook.com/docs/changelog/rss.xml",
+            "https://gitbook.com/docs/creating-content/blocks/updates/rss.xml",
+            "https://gitbook.com/docs/creating-content/searching-your-content",
+            "https://gitbook.com/docs/creating-content/searching-your-content/gitbook-ai",
+            "https://gitbook.com/docs/publishing-documentation/search-and-gitbook-assistant",
+            "https://gitbook.com/docs/sitemap-pages.xml"
+          ],
+          "_all_confirmed_broken_links": [
+            "https://gitbook.com/adaptive-content-demo/docs",
+            "https://gitbook.com/docs/changelog/april-2025/1-april-new-and-improved-tables-announcement-banners-custom-fonts-and-more",
+            "https://gitbook.com/docs/changelog/april-2025/30-april-auto-updating-api-reference-docs-design-improvements-editor-updates-and-more",
+            "https://gitbook.com/docs/changelog/april-2025/8-april-link-tooltips-even-more-editor-improvements-and-some-bug-fixes",
+            "https://gitbook.com/docs/changelog/february-2025/4-february-completely-revamped-insights-a-better-header-bar-and-more",
+            "https://gitbook.com/docs/changelog/june-2025/10-june-new-customization-styles-email-improvements-dark-mode-cover-images-and-more",
+            "https://gitbook.com/docs/changelog/june-2025/17-june-column-blocks-inline-icons-and-a-bunch-of-smaller-improvements",
+            "https://gitbook.com/docs/changelog/march-2025/25-march-a-ton-of-editor-improvements-bug-fixes-and-more",
+            "https://gitbook.com/docs/changelog/may-2025/20-may-commenting-improvements-link-ui-improvements-a-new-dashboard-and-more",
+            "https://gitbook.com/docs/changelog/may-2025/6-may-add-inline-buttons-to-your-docs-easy-block-selection-and-more",
+            "https://gitbook.com/docs/changelog/november-2025/better-code-syntax-highlighting-custom-links-for-your-site-logo-and-more",
+            "https://gitbook.com/docs/changelog/november-2025/embed-gitbook-assistant-performance-improvements-and-more",
+            "https://gitbook.com/docs/changelog/october-2025/better-migration-support-improved-search-and-more",
+            "https://gitbook.com/docs/changelog/october-2025/new-keyboard-shortcuts-block-duplication-colored-inline-icons-and-more",
+            "https://gitbook.com/docs/changelog/past-releases/introducing-gitbook-3.0",
+            "https://gitbook.com/docs/changelog/september-2025/9-september-merge-rules-improved-language-selection-and-more",
+            "https://gitbook.com/docs/publishing-documentation/gitbook-ai-assistant/embedding"
+          ],
+          "_all_unverified_links": [
+            "http://gitbook.com/docs/resources/keyboard-shortcuts",
+            "https://gitbook.com/docs/help-center/account-management/pricing-plans-and-billing/what-payment-methods-do-you-accept",
+            "https://gitbook.com/docs/help-center/integrations/integrations-troubleshooting/git-sync/does-git-sync-also-sync-pull-requests"
+          ],
+          "_all_excluded_links": [
+            "http://gitbook.com/docs/creating-content/searching-your-content",
+            "http://gitbook.com/docs/creating-content/searching-your-content/gitbook-ai",
+            "https://gitbook.com/docs/changelog/2022-and-earlier-product-updates/rss.xml",
+            "https://gitbook.com/docs/changelog/2023-product-updates/rss.xml",
+            "https://gitbook.com/docs/changelog/2024-product-updates/rss.xml",
+            "https://gitbook.com/docs/changelog/2025-product-updates/rss.xml",
+            "https://gitbook.com/docs/changelog/november-2025/search-result-breadcrumbs-better-variant-+-language-support-and-more",
+            "https://gitbook.com/docs/changelog/rss.xml",
+            "https://gitbook.com/docs/creating-content/blocks/updates/rss.xml",
+            "https://gitbook.com/docs/creating-content/searching-your-content",
+            "https://gitbook.com/docs/creating-content/searching-your-content/gitbook-ai",
+            "https://gitbook.com/docs/publishing-documentation/search-and-gitbook-assistant",
+            "https://gitbook.com/docs/sitemap-pages.xml"
+          ],
+          "_all_docs_unverified_links": [
+            "http://gitbook.com/docs/resources/keyboard-shortcuts",
+            "https://gitbook.com/docs/help-center/account-management/pricing-plans-and-billing/what-payment-methods-do-you-accept",
+            "https://gitbook.com/docs/help-center/integrations/integrations-troubleshooting/git-sync/does-git-sync-also-sync-pull-requests"
+          ],
+          "_all_repo_unverified_links": [],
+          "_broken_link_provenance": {
+            "https://gitbook.com/adaptive-content-demo/docs": [
+              {
+                "source_page": "https://gitbook.com/adaptive-content-demo",
+                "anchor_text": ""
+              }
+            ],
+            "https://gitbook.com/docs/changelog/april-2025/1-april-new-and-improved-tables-announcement-banners-custom-fonts-and-more": [
+              {
+                "source_page": "https://gitbook.com/blog/new-in-gitbook-april-2025",
+                "anchor_text": "big improvements to the table"
+              }
+            ],
+            "https://gitbook.com/docs/changelog/april-2025/30-april-auto-updating-api-reference-docs-design-improvements-editor-updates-and-more": [
+              {
+                "source_page": "https://gitbook.com/blog/new-in-gitbook-may-2025",
+                "anchor_text": "tweaked the OpenAPI block\u2019s layout"
+              },
+              {
+                "source_page": "https://gitbook.com/blog/new-in-gitbook-may-2025",
+                "anchor_text": "improved object accordions"
+              },
+              {
+                "source_page": "https://gitbook.com/blog/new-in-gitbook-may-2025",
+                "anchor_text": "new schema alternatives separators"
+              },
+              {
+                "source_page": "https://gitbook.com/blog/new-in-gitbook-may-2025",
+                "anchor_text": "updated colors for API and code blocks"
+              },
+              {
+                "source_page": "https://gitbook.com/blog/new-in-gitbook-may-2025",
+                "anchor_text": "better palettes"
+              }
+            ],
+            "https://gitbook.com/docs/changelog/april-2025/8-april-link-tooltips-even-more-editor-improvements-and-some-bug-fixes": [
+              {
+                "source_page": "https://gitbook.com/blog/new-in-gitbook-april-2025",
+                "anchor_text": "card blocks"
+              }
+            ],
+            "https://gitbook.com/docs/changelog/february-2025/4-february-completely-revamped-insights-a-better-header-bar-and-more": [
+              {
+                "source_page": "https://gitbook.com/blog/new-in-gitbook-april-2025",
+                "anchor_text": "revamped our space header"
+              }
+            ],
+            "https://gitbook.com/docs/changelog/june-2025/10-june-new-customization-styles-email-improvements-dark-mode-cover-images-and-more": [
+              {
+                "source_page": "https://gitbook.com/blog/new-in-gitbook-june-2025",
+                "anchor_text": "some new customization options"
+              },
+              {
+                "source_page": "https://gitbook.com/blog/new-in-gitbook-june-2025",
+                "anchor_text": "dark mode support for cover images"
+              }
+            ],
+            "https://gitbook.com/docs/changelog/june-2025/17-june-column-blocks-inline-icons-and-a-bunch-of-smaller-improvements": [
+              {
+                "source_page": "https://gitbook.com/blog/new-in-gitbook-june-2025",
+                "anchor_text": "columns"
+              },
+              {
+                "source_page": "https://gitbook.com/blog/new-in-gitbook-june-2025",
+                "anchor_text": "icons an inline option"
+              },
+              {
+                "source_page": "https://gitbook.com/blog/new-in-gitbook-june-2025",
+                "anchor_text": "improved the tools you use to organize your content"
+              }
+            ],
+            "https://gitbook.com/docs/changelog/march-2025/25-march-a-ton-of-editor-improvements-bug-fixes-and-more": [
+              {
+                "source_page": "https://gitbook.com/blog/new-in-gitbook-april-2025",
+                "anchor_text": "the link palette"
+              }
+            ],
+            "https://gitbook.com/docs/changelog/may-2025/20-may-commenting-improvements-link-ui-improvements-a-new-dashboard-and-more": [
+              {
+                "source_page": "https://gitbook.com/blog/new-in-gitbook-june-2025",
+                "anchor_text": "improved the design and layout of the Comments side panel"
+              },
+              {
+                "source_page": "https://gitbook.com/blog/new-in-gitbook-june-2025",
+                "anchor_text": "better link insert palette"
+              },
+              {
+                "source_page": "https://gitbook.com/blog/new-in-gitbook-june-2025",
+                "anchor_text": "a new site dashboard"
+              }
+            ],
+            "https://gitbook.com/docs/changelog/may-2025/6-may-add-inline-buttons-to-your-docs-easy-block-selection-and-more": [
+              {
+                "source_page": "https://gitbook.com/blog/new-in-gitbook-may-2025",
+                "anchor_text": "added a new option"
+              },
+              {
+                "source_page": "https://gitbook.com/blog/new-in-gitbook-may-2025",
+                "anchor_text": "click and drag"
+              }
+            ],
+            "https://gitbook.com/docs/changelog/november-2025/better-code-syntax-highlighting-custom-links-for-your-site-logo-and-more": [
+              {
+                "source_page": "https://gitbook.com/blog/new-in-gitbook-november-2025",
+                "anchor_text": "now use Shiki for syntax highlighting"
+              },
+              {
+                "source_page": "https://gitbook.com/blog/new-in-gitbook-november-2025",
+                "anchor_text": "set a custom link for the logo"
+              }
+            ],
+            "https://gitbook.com/docs/changelog/november-2025/embed-gitbook-assistant-performance-improvements-and-more": [
+              {
+                "source_page": "https://gitbook.com/blog/new-in-gitbook-november-2025",
+                "anchor_text": "made the editor 2x faster"
+              },
+              {
+                "source_page": "https://gitbook.com/blog/new-in-gitbook-november-2025",
+                "anchor_text": "now embeddable"
+              }
+            ],
+            "https://gitbook.com/docs/changelog/october-2025/better-migration-support-improved-search-and-more": [
+              {
+                "source_page": "https://gitbook.com/blog/new-this-month-new-october-2025",
+                "anchor_text": "threads now open in their own view"
+              },
+              {
+                "source_page": "https://gitbook.com/blog/new-this-month-new-october-2025",
+                "anchor_text": "add frames to image blocks"
+              }
+            ],
+            "https://gitbook.com/docs/changelog/october-2025/new-keyboard-shortcuts-block-duplication-colored-inline-icons-and-more": [
+              {
+                "source_page": "https://gitbook.com/blog/new-this-month-new-october-2025",
+                "anchor_text": "new keyboard shortcuts"
+              },
+              {
+                "source_page": "https://gitbook.com/blog/new-this-month-new-october-2025",
+                "anchor_text": "duplicate one or more blocks"
+              },
+              {
+                "source_page": "https://gitbook.com/blog/new-this-month-new-october-2025",
+                "anchor_text": "new shortcuts"
+              }
+            ],
+            "https://gitbook.com/docs/changelog/past-releases/introducing-gitbook-3.0": [
+              {
+                "source_page": "https://gitbook.com/blog/gitbook-3-0-document-everything-from-start-to-ship",
+                "anchor_text": "changelog"
+              }
+            ],
+            "https://gitbook.com/docs/changelog/september-2025/9-september-merge-rules-improved-language-selection-and-more": [
+              {
+                "source_page": "https://gitbook.com/blog/new-in-gitbook-september-2025",
+                "anchor_text": "Head to our changelog"
+              }
+            ],
+            "https://gitbook.com/docs/publishing-documentation/gitbook-ai-assistant/embedding": [
+              {
+                "source_page": "https://gitbook.com/features/ai/gitbook-assistant",
+                "anchor_text": "Read the docs"
+              },
+              {
+                "source_page": "https://gitbook.com/blog/new-in-gitbook-november-2025",
+                "anchor_text": "embed Assistant"
+              },
+              {
+                "source_page": "https://gitbook.com/blog/new-in-gitbook-november-2025",
+                "anchor_text": "the Assistant documentation"
+              }
+            ]
+          }
+        },
+        "seo_geo": {
+          "pages_scanned": 1058,
+          "missing_title_count": 0,
+          "missing_description_count": 217,
+          "multiple_h1_count": 200,
+          "heading_hierarchy_jump_count": 1000,
+          "seo_geo_issue_rate_pct": 33.48
+        },
+        "api_coverage": {
+          "reference_endpoint_count": 4,
+          "api_pages_detected": 220,
+          "endpoints_with_usage_docs": 3,
+          "reference_endpoints_without_usage_docs": 1,
+          "reference_coverage_pct": 75.0,
+          "no_api_pages_found": false,
+          "coverage_determined": true,
+          "coverage_method": "source_of_truth",
+          "detection_note": "",
+          "uncovered_endpoint_samples": [
+            "gql:the"
+          ]
+        },
+        "examples": {
+          "total_code_examples": 0,
+          "total_code_blocks_all": 1935,
+          "runnable_without_env": 0,
+          "blocked_by_placeholders": 0,
+          "network_bound_examples": 0,
+          "example_reliability_estimate_pct": 0.0,
+          "detection_note": "No executable code blocks detected (1935 data-only blocks found). Site may use non-standard code rendering that the auditor does not recognize, or all examples are in data formats (YAML/JSON)."
+        },
+        "freshness": {
+          "pages_with_last_updated_hint": 867,
+          "pages_without_last_updated_hint": 191,
+          "last_updated_coverage_pct": 81.95,
+          "samples_with_last_updated": [
+            {
+              "url": "https://gitbook.com/docs",
+              "hint": "Last updated"
+            },
+            {
+              "url": "https://gitbook.com/docs/ai-and-search/gitbook-ai-assistant",
+              "hint": "Last updated"
+            },
+            {
+              "url": "https://gitbook.com/docs/account-management/organization-settings",
+              "hint": "Last updated"
+            },
+            {
+              "url": "https://gitbook.com/docs/ai-and-search/mcp-servers-for-published-docs",
+              "hint": "Last updated"
+            },
+            {
+              "url": "https://gitbook.com/docs/ai-and-search/connections",
+              "hint": "Last updated"
+            },
+            {
+              "url": "https://gitbook.com/docs/account-management/account-settings",
+              "hint": "Last updated"
+            },
+            {
+              "url": "https://gitbook.com/docs/account-management/sso-and-saml",
+              "hint": "Last updated"
+            },
+            {
+              "url": "https://gitbook.com/docs/account-management/cancelling-a-plan",
+              "hint": "Last updated"
+            },
+            {
+              "url": "https://gitbook.com/docs/account-management/plans",
+              "hint": "Last updated"
+            },
+            {
+              "url": "https://gitbook.com/docs/collaboration/change-requests",
+              "hint": "Last updated"
+            }
+          ]
+        }
+      },
+      "samples": {
+        "broken_links": [
+          "https://gitbook.com/adaptive-content-demo/docs",
+          "https://gitbook.com/docs/changelog/april-2025/1-april-new-and-improved-tables-announcement-banners-custom-fonts-and-more",
+          "https://gitbook.com/docs/changelog/april-2025/30-april-auto-updating-api-reference-docs-design-improvements-editor-updates-and-more",
+          "https://gitbook.com/docs/changelog/april-2025/8-april-link-tooltips-even-more-editor-improvements-and-some-bug-fixes",
+          "https://gitbook.com/docs/changelog/february-2025/4-february-completely-revamped-insights-a-better-header-bar-and-more",
+          "https://gitbook.com/docs/changelog/june-2025/10-june-new-customization-styles-email-improvements-dark-mode-cover-images-and-more",
+          "https://gitbook.com/docs/changelog/june-2025/17-june-column-blocks-inline-icons-and-a-bunch-of-smaller-improvements",
+          "https://gitbook.com/docs/changelog/march-2025/25-march-a-ton-of-editor-improvements-bug-fixes-and-more",
+          "https://gitbook.com/docs/changelog/may-2025/20-may-commenting-improvements-link-ui-improvements-a-new-dashboard-and-more",
+          "https://gitbook.com/docs/changelog/may-2025/6-may-add-inline-buttons-to-your-docs-easy-block-selection-and-more",
+          "https://gitbook.com/docs/changelog/november-2025/better-code-syntax-highlighting-custom-links-for-your-site-logo-and-more",
+          "https://gitbook.com/docs/changelog/november-2025/embed-gitbook-assistant-performance-improvements-and-more",
+          "https://gitbook.com/docs/changelog/october-2025/better-migration-support-improved-search-and-more",
+          "https://gitbook.com/docs/changelog/october-2025/new-keyboard-shortcuts-block-duplication-colored-inline-icons-and-more",
+          "https://gitbook.com/docs/changelog/past-releases/introducing-gitbook-3.0",
+          "https://gitbook.com/docs/changelog/september-2025/9-september-merge-rules-improved-language-selection-and-more",
+          "https://gitbook.com/docs/publishing-documentation/gitbook-ai-assistant/embedding"
+        ],
+        "docs_broken_link_samples": [
+          "https://gitbook.com/adaptive-content-demo/docs",
+          "https://gitbook.com/docs/changelog/april-2025/1-april-new-and-improved-tables-announcement-banners-custom-fonts-and-more",
+          "https://gitbook.com/docs/changelog/april-2025/30-april-auto-updating-api-reference-docs-design-improvements-editor-updates-and-more",
+          "https://gitbook.com/docs/changelog/april-2025/8-april-link-tooltips-even-more-editor-improvements-and-some-bug-fixes",
+          "https://gitbook.com/docs/changelog/february-2025/4-february-completely-revamped-insights-a-better-header-bar-and-more",
+          "https://gitbook.com/docs/changelog/june-2025/10-june-new-customization-styles-email-improvements-dark-mode-cover-images-and-more",
+          "https://gitbook.com/docs/changelog/june-2025/17-june-column-blocks-inline-icons-and-a-bunch-of-smaller-improvements",
+          "https://gitbook.com/docs/changelog/march-2025/25-march-a-ton-of-editor-improvements-bug-fixes-and-more",
+          "https://gitbook.com/docs/changelog/may-2025/20-may-commenting-improvements-link-ui-improvements-a-new-dashboard-and-more",
+          "https://gitbook.com/docs/changelog/may-2025/6-may-add-inline-buttons-to-your-docs-easy-block-selection-and-more",
+          "https://gitbook.com/docs/changelog/november-2025/better-code-syntax-highlighting-custom-links-for-your-site-logo-and-more",
+          "https://gitbook.com/docs/changelog/november-2025/embed-gitbook-assistant-performance-improvements-and-more",
+          "https://gitbook.com/docs/changelog/october-2025/better-migration-support-improved-search-and-more",
+          "https://gitbook.com/docs/changelog/october-2025/new-keyboard-shortcuts-block-duplication-colored-inline-icons-and-more",
+          "https://gitbook.com/docs/changelog/past-releases/introducing-gitbook-3.0",
+          "https://gitbook.com/docs/changelog/september-2025/9-september-merge-rules-improved-language-selection-and-more",
+          "https://gitbook.com/docs/publishing-documentation/gitbook-ai-assistant/embedding"
+        ],
+        "repo_broken_link_samples": [],
+        "unverified_link_samples": [
+          "http://gitbook.com/docs/resources/keyboard-shortcuts",
+          "https://gitbook.com/docs/help-center/account-management/pricing-plans-and-billing/what-payment-methods-do-you-accept",
+          "https://gitbook.com/docs/help-center/integrations/integrations-troubleshooting/git-sync/does-git-sync-also-sync-pull-requests"
+        ],
+        "api_uncovered_samples": [
+          "gql:the"
+        ]
+      },
+      "run_count": 1
+    }
+  ],
+  "aggregate": {
+    "metrics": {
+      "crawl": {
+        "pages_crawled": 1059,
+        "requested_pages": 1116,
+        "urls_examined": 1110,
+        "max_pages_total": 7000,
+        "discovered_pages": 1110,
+        "crawl_scope_pages": 1110,
+        "trap_urls_skipped": 414,
+        "crawl_coverage_pct": 100.0
+      },
+      "links": {
+        "broken_internal_links_count": 36,
+        "docs_broken_links_count": 36,
+        "repo_broken_links_count": 0,
+        "unverified_links_count": 4,
+        "confirmed_broken_links_count": 36,
+        "excluded_links_count": 13
+      },
+      "seo_geo": {
+        "seo_geo_issue_rate_pct": 33.47
+      },
+      "api_coverage": {
+        "reference_coverage_pct": 75.0,
+        "no_api_pages_found": false,
+        "api_pages_detected": 220,
+        "coverage_determined": true,
+        "detection_note": ""
+      },
+      "examples": {
+        "example_reliability_estimate_pct": 0.0
+      },
+      "freshness": {
+        "last_updated_coverage_pct": 81.97
+      }
+    },
+    "confidence": {
+      "overall_confidence_pct": 87.5,
+      "links_confidence_pct": 85.0,
+      "api_confidence_pct": 85.0,
+      "crawl_confidence_pct": 95.0
+    }
+  },
+  "confidence": {
+    "overall_confidence_pct": 87.5,
+    "links_confidence_pct": 85.0,
+    "api_confidence_pct": 85.0,
+    "crawl_confidence_pct": 95.0
+  },
+  "top_findings": [
+    "Broken internal links: 36",
+    "Link verification inconclusive for 4 URLs (auth/rate-limit/server block); these are excluded from broken-link counts.",
+    "SEO/GEO issue rate is high: 33.47%",
+    "Example reliability: 0% on 1059 pages (likely detection limitation). Site may use JS-rendered code blocks.",
+    "Documentation is split across multiple sites for one product; this is likely a discoverability/consistency risk."
+  ],
+  "llm_analysis": {
+    "status": "ok",
+    "model": "claude-sonnet-4-5",
+    "analysis": {
+      "executive_summary": "Audit covered 1,059 pages across 2 documentation sites (developer.gitbook.com, gitbook.com/docs) representing a single product. Crawl achieved 100% coverage with 95% confidence. Critical issues include 36 confirmed broken internal links (all user-facing documentation links, zero repository links), 33.47% SEO/geo issue rate, and 0% example reliability detection across all pages. API reference coverage is 75% (220 API pages detected). Last-updated metadata present on 81.97% of pages.",
+      "strengths": [
+        "Complete crawl coverage at 100% of discovered pages with high crawl confidence (95%)",
+        "API reference documentation detected and measured at 75% coverage across 220 pages",
+        "Last-updated metadata present on 82% of pages, supporting freshness transparency",
+        "Overall audit confidence at 87.5% indicates reliable findings",
+        "No repository navigation link breakage; all 36 broken links are documentation-only"
+      ],
+      "risks": [
+        "36 confirmed broken internal documentation links degrade user navigation and trust",
+        "33.47% SEO/geo issue rate threatens discoverability and search ranking",
+        "Documentation split across 2 domains (developer.gitbook.com and gitbook.com/docs) creates fragmentation and consistency risk",
+        "0% example reliability detection across 1,059 pages suggests JS-rendered code blocks may not be auditable; actual example quality unknown",
+        "4 links unverified due to authentication/rate-limiting; may hide additional broken links",
+        "25% of API reference documentation missing or undetected",
+        "18% of pages lack last-updated metadata, obscuring content freshness for users"
+      ],
+      "prioritized_actions": [
+        {
+          "action": "Fix all 36 confirmed broken internal documentation links to restore navigation integrity",
+          "impact": "critical",
+          "effort": "low"
+        },
+        {
+          "action": "Consolidate documentation from 2 domains into single authoritative site or implement clear cross-linking strategy",
+          "impact": "high",
+          "effort": "high"
+        },
+        {
+          "action": "Remediate SEO/geo issues affecting 33.47% of pages (meta descriptions, titles, structured data)",
+          "impact": "high",
+          "effort": "medium"
+        },
+        {
+          "action": "Investigate and resolve example detection failure; validate code examples render correctly and add static fallbacks if JS-dependent",
+          "impact": "high",
+          "effort": "medium"
+        },
+        {
+          "action": "Complete API reference documentation to achieve 100% coverage (currently 75%, 220 pages)",
+          "impact": "medium",
+          "effort": "medium"
+        }
+      ],
+      "limitations": [
+        "Example reliability at 0% likely indicates detection limitation with JS-rendered code blocks; external audit cannot verify actual example quality or executability",
+        "4 unverified links due to authentication/rate-limiting may conceal additional broken links not captured in this audit",
+        "Audit cannot assess content accuracy, technical correctness, or whether documentation matches actual product behavior",
+        "Multi-site topology may have undiscovered cross-domain links or version conflicts not visible to crawler",
+        "API coverage detection at 85% confidence means some API pages may be misclassified or undetected"
+      ]
+    }
+  }
+}

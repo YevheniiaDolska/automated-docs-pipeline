@@ -1,0 +1,57 @@
+{
+  "status": "ok",
+  "model": "claude-sonnet-4-5",
+  "analysis": {
+    "executive_summary": "Documentation audit of docs.deno.com covered 614 pages across multi-project topology with 91.5% overall confidence. Critical issues include 15 confirmed broken internal documentation links and severely low API reference coverage at 3.28% despite 216 API pages detected. SEO/geo metadata issues affect 15.55% of pages, while only 37.95% of pages display last-updated timestamps. Example code reliability estimates at 91.56% are acceptable but not optimal.",
+    "strengths": [
+      "Complete crawl coverage at 100.16% of discovered pages (614/613 in scope)",
+      "High overall audit confidence at 91.5% with strong link verification (95%)",
+      "Example code reliability estimate of 91.56% indicates generally functional samples",
+      "No repository navigation broken links (repo_broken_links_count: 0)",
+      "Zero trap URLs or crawl anomalies detected"
+    ],
+    "risks": [
+      "15 confirmed broken internal documentation links create poor user experience and erode trust",
+      "API reference coverage at 3.28% is critically insufficient for developer onboarding (216 API pages with minimal usage documentation)",
+      "SEO/geo issue rate of 15.55% (approximately 95 pages) impacts discoverability and search ranking",
+      "Only 37.95% freshness coverage leaves 62% of pages without visible last-updated dates, undermining content trust",
+      "8.44% example code failure risk (100% - 91.56%) may cause developer friction during implementation",
+      "Large excluded links count (2,905) suggests potential over-filtering or external dependency risks not fully assessed",
+      "Multi-project topology increases maintenance complexity and cross-reference fragility"
+    ],
+    "prioritized_actions": [
+      {
+        "action": "Fix all 15 confirmed broken internal documentation links immediately",
+        "impact": "critical",
+        "effort": "low"
+      },
+      {
+        "action": "Expand API reference coverage from 3.28% to minimum 60% by adding usage examples, parameters, and integration guides to 216 detected API pages",
+        "impact": "critical",
+        "effort": "high"
+      },
+      {
+        "action": "Implement last-updated timestamps on all pages to increase freshness coverage from 37.95% to 95%+",
+        "impact": "high",
+        "effort": "low"
+      },
+      {
+        "action": "Audit and remediate SEO/geo metadata issues affecting 15.55% of pages (titles, descriptions, structured data)",
+        "impact": "high",
+        "effort": "medium"
+      },
+      {
+        "action": "Test and fix the 8.44% failing example code to achieve 98%+ reliability",
+        "impact": "medium",
+        "effort": "medium"
+      }
+    ],
+    "limitations": [
+      "External audit cannot verify runtime correctness of code examples beyond static analysis; 91.56% reliability is an estimate",
+      "API coverage detection relies on heuristics; actual developer-perceived coverage may differ from 3.28% metric",
+      "Broken link detection limited to crawled pages; dynamic content, authenticated sections, or JavaScript-rendered links may be missed",
+      "SEO/geo issue severity and business impact require manual review; automated detection flags potential problems only",
+      "Freshness analysis based on visible timestamps only; actual content currency cannot be determined from metadata alone"
+    ]
+  }
+}

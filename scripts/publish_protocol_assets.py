@@ -15,6 +15,30 @@ def _copy(src: Path, dst: Path) -> None:
     shutil.copy2(src, dst)
 
 
+def _ensure_protocols_index(target_root: Path) -> None:
+    protocols = sorted(p.name for p in target_root.iterdir() if p.is_dir())
+    lines = [
+        "---",
+        'title: "Protocol assets index"',
+        'description: "Generated index for published protocol assets."',
+        "content_type: reference",
+        "product: both",
+        "---",
+        "",
+        "# Protocol assets index",
+        "",
+    ]
+    if protocols:
+        lines.append("Generated protocol asset bundles:")
+        lines.append("")
+        for protocol in protocols:
+            lines.append(f"- [{protocol.upper()} assets](./{protocol}/)")
+    else:
+        lines.append("No protocol assets are currently published.")
+    lines.append("")
+    (target_root / "index.md").write_text("\n".join(lines), encoding="utf-8")
+
+
 def main() -> int:
     parser = argparse.ArgumentParser(description="Publish protocol assets")
     parser.add_argument("--protocol", required=True)
@@ -40,6 +64,7 @@ def main() -> int:
                 _copy(item, root / rel)
 
     _copy(generated_doc, root / generated_doc.name)
+    _ensure_protocols_index(target_root)
     print(f"[protocol-publish] published into: {root}")
     return 0
 

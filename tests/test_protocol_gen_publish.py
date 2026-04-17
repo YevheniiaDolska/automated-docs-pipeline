@@ -763,7 +763,7 @@ class TestRenderSummary:
         src.write_text(schema, encoding="utf-8")
         result = _render_summary(
             "graphql", src, schema,
-            mode="api-first", endpoint="", ws_endpoint="", http_endpoint="",
+            mode="api-first", endpoint="", ws_endpoint="", http_endpoint="", index_link="../index.md",
         )
         assert "GRAPHQL" in result
         assert "Operations" in result
@@ -777,7 +777,7 @@ class TestRenderSummary:
         src.write_text(proto, encoding="utf-8")
         result = _render_summary(
             "grpc", src, proto,
-            mode="api-first", endpoint="", ws_endpoint="", http_endpoint="",
+            mode="api-first", endpoint="", ws_endpoint="", http_endpoint="", index_link="../index.md",
         )
         assert "GRPC" in result
         assert "Service Methods" in result
@@ -791,7 +791,7 @@ class TestRenderSummary:
         src.write_text(yaml.safe_dump(payload), encoding="utf-8")
         result = _render_summary(
             "asyncapi", src, payload,
-            mode="api-first", endpoint="", ws_endpoint="wss://ws.test", http_endpoint="https://http.test",
+            mode="api-first", endpoint="", ws_endpoint="wss://ws.test", http_endpoint="https://http.test", index_link="../index.md",
         )
         assert "ASYNCAPI" in result
         assert "Channels" in result
@@ -805,7 +805,7 @@ class TestRenderSummary:
         src.write_text(yaml.safe_dump(payload), encoding="utf-8")
         result = _render_summary(
             "websocket", src, payload,
-            mode="api-first", endpoint="", ws_endpoint="wss://ws.test", http_endpoint="",
+            mode="api-first", endpoint="", ws_endpoint="wss://ws.test", http_endpoint="", index_link="../index.md",
         )
         assert "WEBSOCKET" in result
         assert "Channels/Events" in result
@@ -817,7 +817,7 @@ class TestRenderSummary:
         src.write_text("anything", encoding="utf-8")
         result = _render_summary(
             "custom", src, "anything",
-            mode="manual", endpoint="", ws_endpoint="", http_endpoint="",
+            mode="manual", endpoint="", ws_endpoint="", http_endpoint="", index_link="../index.md",
         )
         assert "Notes" in result
         assert "Generated from source contract" in result
@@ -828,7 +828,7 @@ class TestRenderSummary:
         src.write_text("type Query { h: String! }", encoding="utf-8")
         result = _render_summary(
             "graphql", src, "type Query { h: String! }",
-            mode="api-first", endpoint="", ws_endpoint="", http_endpoint="",
+            mode="api-first", endpoint="", ws_endpoint="", http_endpoint="", index_link="../index.md",
         )
         assert result.startswith("---")
         assert 'content_type: reference' in result
@@ -840,7 +840,7 @@ class TestRenderSummary:
         src.write_text(yaml.safe_dump(payload), encoding="utf-8")
         result = _render_summary(
             "asyncapi", src, payload,
-            mode="api-first", endpoint="", ws_endpoint="", http_endpoint="",
+            mode="api-first", endpoint="", ws_endpoint="", http_endpoint="", index_link="../index.md",
         )
         assert "Top-level Keys" in result
         assert "`asyncapi`" in result
@@ -955,6 +955,9 @@ class TestPublishMain:
         published = tmp_path / target / "graphql"
         assert (published / "schema.graphql").exists()
         assert (published / "ref.md").exists()
+        index_md = tmp_path / target / "index.md"
+        assert index_md.exists()
+        assert "./graphql/" in index_md.read_text(encoding="utf-8")
 
     def test_publish_directory_source(self, tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:
         """Publishes all files from a directory source."""
@@ -977,6 +980,9 @@ class TestPublishMain:
         assert (published / "a.proto").exists()
         assert (published / "b.proto").exists()
         assert (published / "grpc.md").exists()
+        index_md = tmp_path / target / "index.md"
+        assert index_md.exists()
+        assert "./grpc/" in index_md.read_text(encoding="utf-8")
 
     def test_absolute_target_root_raises(self, tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:
         """Raises ValueError when --target-root is an absolute path."""
@@ -1008,3 +1014,6 @@ class TestPublishMain:
         assert result == 0
         published = tmp_path / target / "graphql"
         assert (published / "ref.md").exists()
+        index_md = tmp_path / target / "index.md"
+        assert index_md.exists()
+        assert "./graphql/" in index_md.read_text(encoding="utf-8")

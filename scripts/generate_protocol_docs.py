@@ -360,6 +360,23 @@ def _render_websocket_tester(ws_endpoint: str) -> list[str]:
     ]
 
 
+def _relative_docs_index_link(output_path: Path) -> str:
+    output_parent = output_path.resolve().parent
+    for base in [output_parent, *output_parent.parents]:
+        if base.name != "docs":
+            continue
+        target = base / "index.md"
+        try:
+            rel = target.relative_to(output_parent)
+            rel_str = rel.as_posix()
+        except ValueError:
+            rel_str = ""
+        if not rel_str:
+            rel_str = str(Path(*([".."] * len(output_parent.relative_to(base).parts)), "index.md").as_posix())
+        return rel_str or "index.md"
+    return "../index.md"
+
+
 def _render_summary(
     protocol: str,
     source_path: Path,
@@ -369,6 +386,7 @@ def _render_summary(
     endpoint: str,
     ws_endpoint: str,
     http_endpoint: str,
+    index_link: str,
 ) -> str:
     title = f"{protocol.upper()} API Reference"
     lines = [
@@ -455,7 +473,7 @@ def _render_summary(
             "",
             "## Next steps",
             "",
-            "- [Documentation index](../index.md)",
+            f"- [Documentation index]({index_link})",
         ]
     )
 
@@ -503,6 +521,7 @@ def main() -> int:
         endpoint=str(args.endpoint).strip(),
         ws_endpoint=ws_endpoint,
         http_endpoint=str(args.http_endpoint).strip(),
+        index_link=_relative_docs_index_link(Path(args.output)),
     )
 
     output = Path(args.output)

@@ -1,0 +1,57 @@
+{
+  "status": "ok",
+  "model": "claude-sonnet-4-5",
+  "analysis": {
+    "executive_summary": "Documentation audit of docs.hetzner.com covered 962 pages with 100% crawl coverage across 1,014 requested URLs. The site contains 13 confirmed broken internal documentation links and 20 unverified links excluded from counts due to authentication or rate-limiting. API reference coverage stands at 52.69% across 56 detected API pages. SEO/geo metadata issues affect 45.95% of pages, while example code reliability is estimated at 89.29% and freshness metadata coverage reaches 91.58%. Overall audit confidence is 67.26%, with link verification confidence notably low at 34.39%.",
+    "strengths": [
+      "Complete crawl coverage at 100% (962 of 962 discoverable pages)",
+      "High freshness metadata coverage at 91.58% of pages",
+      "Strong example code reliability estimate of 89.29%",
+      "No repository navigation broken links (repo_broken_links_count: 0)",
+      "API page detection successful with 56 pages identified"
+    ],
+    "risks": [
+      "13 confirmed broken internal documentation links degrading user navigation",
+      "20 unverified links create uncertainty in link health assessment (34.39% link confidence)",
+      "SEO/geo metadata issues on 45.95% of pages may impact discoverability and localization",
+      "API reference coverage at 52.69% leaves nearly half of API surface undocumented",
+      "Overall audit confidence of 67.26% indicates moderate reliability limitations",
+      "Low link verification confidence (34.39%) suggests potential hidden link rot",
+      "3 excluded links may hide additional broken link issues"
+    ],
+    "prioritized_actions": [
+      {
+        "action": "Fix all 13 confirmed broken internal documentation links",
+        "impact": "critical",
+        "effort": "low"
+      },
+      {
+        "action": "Investigate and resolve 20 unverified links blocked by auth/rate-limits to confirm link health",
+        "impact": "high",
+        "effort": "medium"
+      },
+      {
+        "action": "Expand API reference documentation to cover remaining 47.31% of API surface (target 100%)",
+        "impact": "high",
+        "effort": "high"
+      },
+      {
+        "action": "Remediate SEO/geo metadata issues affecting 45.95% of pages to improve search visibility",
+        "impact": "medium",
+        "effort": "medium"
+      },
+      {
+        "action": "Review and update the 8.42% of pages missing freshness metadata",
+        "impact": "low",
+        "effort": "low"
+      }
+    ],
+    "limitations": [
+      "External audit cannot verify links behind authentication, rate-limits, or server blocks (20 URLs unverified, 34.39% link confidence)",
+      "API coverage detection relies on pattern matching and may not capture all API documentation formats or custom implementations",
+      "Example code reliability is estimated through static analysis and cannot guarantee runtime correctness or environment-specific execution",
+      "SEO/geo issue detection is based on metadata presence and structure, not actual search engine ranking or geo-targeting effectiveness",
+      "Audit cannot assess documentation accuracy, completeness of content, or alignment with actual product functionality"
+    ]
+  }
+}
