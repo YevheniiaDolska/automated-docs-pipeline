@@ -79,7 +79,17 @@ def _seed_client_repo() -> None:
     )
 
     notes = {
-        "taskstream-planning-notes.md": "# Planning notes\n\nBuild a task tracking REST API with project and task endpoints.\n",
+        "taskstream-planning-notes.md": (
+            "# Planning notes\n\n"
+            "Project: **Taskstream API**\n"
+            "Base URL: `http://localhost:4010/v1`\n"
+            "API version: **v1**\n\n"
+            "- `GET /projects` — List projects\n"
+            "- `POST /projects` — Create project\n"
+            "- `GET /tasks` — List tasks\n"
+            "- `POST /tasks` — Create task\n"
+            "- `GET /users/me` — Get current user profile\n"
+        ),
         "graphql-notes.md": "# GraphQL planning notes\n\nCreate GraphQL API with Query health and Mutation createTask.\n",
         "grpc-notes.md": "# gRPC planning notes\n\nDefine TaskService with rpc GetTask and CreateTask.\n",
         "asyncapi-notes.md": "# AsyncAPI planning notes\n\nPublish task.created and task.completed events.\n",
@@ -201,6 +211,9 @@ def _build_profile(config: dict[str, str]) -> Path:
         llm["strict_local_first"] = False
         llm["external_llm_allowed"] = True
         llm["require_explicit_approval"] = False
+    # Keep clean-room E2E deterministic and offline-friendly.
+    # Local runtime bootstrap is covered by dedicated licensing/hardening tests.
+    llm["auto_install_local_model_on_setup"] = False
 
     rag_enabled = package == "full+rag"
     modules = template["runtime"].get("modules", {})
@@ -234,6 +247,18 @@ def _collect_needs_review_ids() -> list[str]:
     return []
 
 
+def _is_expected_license_block(step_name: str, step_result: dict[str, Any], config: dict[str, str]) -> bool:
+    stderr_tail = str(step_result.get("stderr_tail", ""))
+    if "[license] BLOCKED" not in stderr_tail:
+        return False
+    package = str(config.get("package", "")).strip().lower()
+    if step_name == "api_first_rest" and package == "pilot":
+        return True
+    if step_name == "multi_protocol" and package in {"pilot", "full"}:
+        return True
+    return False
+
+
 def _run_single(config: dict[str, str]) -> dict[str, Any]:
     print(f"[cleanroom] === config: {config['package']} + {config['mode']} ===", flush=True)
     _cleanup_cleanroom()
@@ -241,6 +266,15 @@ def _run_single(config: dict[str, str]) -> dict[str, Any]:
     profile = _build_profile(config)
 
     steps: dict[str, Any] = {}
+    steps["build_bundle"] = _run(
+        [
+            "python3",
+            "scripts/build_client_bundle.py",
+            "--client",
+            str(profile),
+        ],
+        cwd=REPO_ROOT,
+    )
     steps["provision_install_local"] = _run(
         [
             "python3",
@@ -341,11 +375,20 @@ def _run_single(config: dict[str, str]) -> dict[str, Any]:
     )
 
     needs_review = _collect_needs_review_ids()
-    ok = all(bool(item.get("ok", False)) for item in steps.values())
+    normalized_steps: dict[str, Any] = {}
+    for step_name, step_result in steps.items():
+        if _is_expected_license_block(step_name, step_result, config):
+            adjusted = dict(step_result)
+            adjusted["ok"] = True
+            adjusted["expected_blocked"] = True
+            normalized_steps[step_name] = adjusted
+        else:
+            normalized_steps[step_name] = step_result
+    ok = all(bool(item.get("ok", False)) for item in normalized_steps.values())
     return {
         "config": config,
         "profile": str(profile),
-        "steps": steps,
+        "steps": normalized_steps,
         "needs_review_ids": needs_review,
         "status": "PASS" if ok else "FAIL",
     }

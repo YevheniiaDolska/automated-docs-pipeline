@@ -815,7 +815,7 @@ def main() -> int:
         review_branch_cfg = {}
     if bool(review_branch_cfg.get("enabled", True)) and bool(review_branch_cfg.get("auto_push", True)):
         execution_stages.append("publish review branch")
-    execution_stages.extend(["output index and links", "publish docs review index"])
+    execution_stages.extend(["llm web artifacts", "output index and links", "publish docs review index"])
     total_stages = len(execution_stages)
 
     narrator = FlowNarrator("Auto-Doc main pipeline", total_steps=total_stages)
@@ -1054,6 +1054,26 @@ def main() -> int:
             print("[autopipeline] review branch publish failed in enterprise-strict mode")
             narrator.finish(False, "Review branch publish failed in enterprise-strict mode")
             return int(publish_rc)
+
+    stage_no += 1
+    narrator.stage(stage_no, execution_stages[stage_no - 1], "Generate llms.txt and markdown URL artifacts")
+    _say(f"Stage {stage_no}/{total_stages}", execution_stages[stage_no - 1])
+    llm_web_cmd = [
+        sys.executable,
+        str(REPO_ROOT / "scripts" / "generate_llm_web_artifacts.py"),
+        "--docs-root",
+        str(runtime.get("paths", {}).get("docs_root", "docs")),
+        "--site-root",
+        "site",
+        "--mkdocs-config",
+        "mkdocs.yml",
+    ]
+    llm_web_rc = _run(llm_web_cmd, cwd=repo_root)
+    _say(f"Stage {stage_no}/{total_stages} done", f"rc={llm_web_rc}")
+    narrator.done(f"llm web artifacts rc={llm_web_rc}")
+    if llm_web_rc != 0 and strictness == "enterprise-strict":
+        narrator.finish(False, "LLM web artifact generation failed in enterprise-strict mode")
+        return int(llm_web_rc)
 
     stage_no += 1
     narrator.stage(stage_no, execution_stages[stage_no - 1], "Assemble output index for human review")

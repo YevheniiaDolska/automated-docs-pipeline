@@ -671,7 +671,7 @@ def main() -> int:
             py,
             str(rag_layer),
             "--repo-root",
-            str(repo_root),
+            str(docsops_root),
             "--runtime-config",
             str(effective_runtime_path),
             "--reports-dir",

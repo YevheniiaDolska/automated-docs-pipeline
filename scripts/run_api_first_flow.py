@@ -5,6 +5,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import os
 import shutil
 import subprocess
 import sys
@@ -221,7 +222,10 @@ def build_sandbox_page_url(repo: Path, docs_provider: str) -> str:
     if provider == "mkdocs":
         import yaml
 
-        mkdocs_cfg = yaml.safe_load((repo / "mkdocs.yml").read_text(encoding="utf-8")) or {}
+        mkdocs_path = repo / "mkdocs.yml"
+        if not mkdocs_path.exists():
+            return "/reference/taskstream-api-playground/"
+        mkdocs_cfg = yaml.safe_load(mkdocs_path.read_text(encoding="utf-8")) or {}
         site_url = str(mkdocs_cfg.get("site_url", "")).rstrip("/")
         if site_url:
             return f"{site_url}/reference/taskstream-api-playground/"
@@ -280,6 +284,23 @@ def resolve_mock_base_url(repo: Path, args: argparse.Namespace) -> str:
     sandbox_backend = str(args.sandbox_backend).strip().lower()
     if sandbox_backend != "external" or not args.auto_prepare_external_mock:
         return base_url
+
+    # For offline/clean-room runs, skip external mock auto-prepare when required
+    # credentials are missing and fall back to configured mock_base_url.
+    if str(args.external_mock_provider).strip().lower() == "postman":
+        required_envs = [
+            str(args.external_mock_postman_api_key_env).strip(),
+            str(args.external_mock_postman_workspace_id_env).strip(),
+        ]
+        missing = [name for name in required_envs if name and not str(os.environ.get(name, "")).strip()]
+        if missing:
+            print(
+                "[warn] external mock auto-prepare skipped due to missing env vars: "
+                + ", ".join(missing)
+                + f". Using fallback mock_base_url={base_url}",
+                flush=True,
+            )
+            return base_url
 
     out_path = repo / "reports" / "external_mock_resolution.json"
     cmd = [
@@ -798,26 +819,30 @@ def main() -> int:
                     finalize_cmd.append("--ask-commit-confirmation")
                 finalize_cmd.extend(["--ui-confirmation", str(args.ui_confirmation)])
                 run(finalize_cmd, cwd=repo, compact=True, summary_label="finalize docs gate finished")
-            run(
-                [
-                    "python3",
-                    "scripts/enforce_rag_optimization_layer.py",
-                    "--repo-root",
-                    str(repo),
-                    "--runtime-config",
-                    str(runtime_config if runtime_config is not None else (repo / "docsops/config/client_runtime.yml")),
-                    "--reports-dir",
-                    "reports",
-                    "--provider",
-                    "openai",
-                    "--retention-versions",
-                    "60",
-                    "--with-embeddings",
-                ],
-                cwd=repo,
-                compact=True,
-                summary_label="RAG optimization layer finished",
-            )
+            rag_layer_script = repo / "scripts" / "enforce_rag_optimization_layer.py"
+            if rag_layer_script.exists():
+                run(
+                    [
+                        "python3",
+                        "scripts/enforce_rag_optimization_layer.py",
+                        "--repo-root",
+                        str(repo),
+                        "--runtime-config",
+                        str(runtime_config if runtime_config is not None else (repo / "config/client_runtime.yml")),
+                        "--reports-dir",
+                        "reports",
+                        "--provider",
+                        "openai",
+                        "--retention-versions",
+                        "60",
+                        "--with-embeddings",
+                    ],
+                    cwd=repo,
+                    compact=True,
+                    summary_label="RAG optimization layer finished",
+                )
+            else:
+                narrator.note("RAG optimization layer script not found; skip")
             narrator.note(f"Sandbox page URL: {build_sandbox_page_url(repo, args.docs_provider)}")
             print("[ok] API-first production flow completed successfully", flush=True)
             narrator.finish(True, "API-first flow completed successfully")

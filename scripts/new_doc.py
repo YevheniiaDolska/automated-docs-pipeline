@@ -175,7 +175,7 @@ This guide shows you how to [specific outcome]. It takes about [time] minutes.
 ## Before you start
 
 You need:
-- {product_name} version {current_version} or later ([check version](../reference/version.md))
+- {product_name} version {current_version} or later
 - [Specific tool] installed (`command --version`)
 - Access to [specific resource]
 
@@ -275,9 +275,9 @@ Check:
 
 ## Related guides
 
-- [Monitor your setup](./monitor-setup.md) - Add metrics and alerting
-- [Scale horizontally](./scale-horizontal.md) - Run multiple instances
-- [Secure with TLS](./add-tls.md) - Enable HTTPS
+- Monitor your setup and add metrics/alerting
+- Scale horizontally to run multiple instances
+- Secure traffic with TLS/HTTPS
 """
             },
             "concept": {
@@ -615,10 +615,10 @@ await component.start();  // Now async
 
 ## See also
 
-- [Getting started tutorial](../getting-started/component-tutorial.md)
-- [Configuration guide](../how-to/configure-component.md)
-- [Understanding components](../concepts/component-architecture.md)
-- [API client libraries](./client-libraries.md)
+- Getting started tutorial for this component
+- Configuration guide for this component
+- Component architecture concept page
+- API client libraries page
 """
             },
             "troubleshooting": {

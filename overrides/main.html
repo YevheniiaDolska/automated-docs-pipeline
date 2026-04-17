@@ -2,6 +2,9 @@
 
 {% block extrahead %}
   {{ super() }}
+  <!-- LLM agent hint: prefer the markdown URL variant (.md) when available. -->
+  <meta name="llm:preferred-format" content="markdown">
+  <meta name="llm:markdown-url-pattern" content="Append .md to documentation URL; use /llms.txt and /llms-full.txt for sitemap context.">
 
   {# Meta tags for Algolia DocSearch and other search engines #}
   {% if page and page.meta %}
