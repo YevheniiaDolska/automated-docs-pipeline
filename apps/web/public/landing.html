@@ -118,6 +118,15 @@
       color: #7c2d12; border-radius: 14px; padding: 14px 16px; font-size: 14px;
     }
     .ops-banner strong { color: #9a3412; }
+    .proof-strip {
+      display: grid; grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 10px; margin: 14px 0 6px;
+    }
+    .proof-metric {
+      background: #fff; border: 1px solid var(--line); border-radius: 12px;
+      padding: 10px 12px; font-size: 13px; color: #334155;
+    }
+    .proof-metric strong { color: var(--ink); display: block; font-size: 18px; line-height: 1.1; }
 
     .grid {
       display: grid; grid-template-columns: repeat(12, 1fr);
@@ -244,6 +253,7 @@
     }
     @media (max-width: 640px) {
       .cols-3, .cols-4, .cols-2 { grid-template-columns: 1fr; }
+      .proof-strip { grid-template-columns: 1fr; }
       .nav { flex-wrap: wrap; padding: 8px 0; justify-content: space-between; }
       .nav-links { display: none; }
       .hero { padding: 40px 0 32px; }
@@ -275,19 +285,22 @@
     <!-- Hero -->
     <section class="hero">
       <div class="container">
-        <div class="pill">Docs-ops pipeline for any documentation: API, product, internal, developer</div>
+        <div class="pill">Managed documentation operations for API docs, product docs, and internal knowledge</div>
         <div class="mode-switch">
           <a class="mode-pill active-saas" href="#pricing">SaaS: VeriDoc</a>
           <a class="mode-pill active-ops" href="#veriops">Licensed: VeriOps</a>
         </div>
-        <h1>Keep docs true.<br><span class="highlight">Not just generated.</span></h1>
+        <h1>Outdated docs cost real money.<br><span class="highlight">VeriOps fixes the root cause.</span></h1>
         <p class="sub">
-          Your docs are behind every release. Examples are broken. Internal wikis are outdated. Your team wastes weeks on manual updates.
-          VeriDoc fixes this automatically for API docs, product guides, developer portals, and internal knowledge bases with one docs-first autopipeline that supports code-first, API-first, and hybrid delivery.
+          Teams lose engineering time, onboarding speed, and customer trust when docs drift. VeriOps runs a full docs-ops pipeline inside your environment, so documentation stays contract-true and publish-ready on every release.
         </p>
+        <div class="proof-strip">
+          <div class="proof-metric"><strong>40%</strong> lower docs-related support load in prior ops programs</div>
+          <div class="proof-metric"><strong>3x</strong> faster onboarding in prior technical documentation transformations</div>
+          <div class="proof-metric"><strong>1 day</strong> from kickoff to first secure setup in client infrastructure</div>
+        </div>
         <div class="ops-banner">
-          <strong>Your security team will not approve SaaS?</strong> Your docs still drift after every release.
-          VeriOps runs the full pipeline inside your infrastructure with zero data exposure and measurable results in 14 days.
+          <strong>Need strict-local or air-gapped operation?</strong> We deploy in your environment, keep docs data inside your perimeter, and start setup in one business day.
         </div>
         <div class="hero-ctas">
           <a class="cta primary" href="#free-audit">Get Free Audit</a>
@@ -316,7 +329,7 @@
             <div class="ok">Executive audit PDF: reports/executive-audit.pdf</div>
           </article>
           <article class="card stats">
-            <h3 style="margin-top:0">Zero-drift, zero-exception docs for every content type</h3>
+            <h3 style="margin-top:0">What you get instead of manual documentation firefighting</h3>
             <ul>
               <li><strong>Any documentation:</strong> API references, product guides, internal wikis, developer portals</li>
               <li><strong>5 API protocols:</strong> REST, GraphQL, gRPC, AsyncAPI, and WebSocket in one smooth multi-protocol flow</li>
@@ -324,9 +337,8 @@
               <li><strong>32 automated checks:</strong> SEO/GEO, style, contracts &mdash; auto-fixed before publish</li>
               <li><strong>8 quality gates:</strong> every commit passes normalization, contracts, Vale, markdownlint, cspell, frontmatter, SEO/GEO, and knowledge validation</li>
               <li><strong>Drift detection:</strong> docs stay in sync with code and APIs automatically</li>
-              <li><strong>RAG-ready knowledge pipeline:</strong> auto-extracted modules, FAISS semantic search, retrieval evals</li>
+              <li><strong>RAG add-on when needed:</strong> grounded answers over your docs with freshness and contradiction controls</li>
               <li><strong>Test assets + smart merge:</strong> protocol-aware contract tests with RAG-assisted merge and TestRail/Zephyr upload</li>
-              <li><strong>RAG test generation:</strong> index existing tests, auto-generate new ones in project style (~65% time saved)</li>
               <li><strong>Algolia search:</strong> auto-generate widgets for MkDocs, Docusaurus, Hugo, VitePress</li>
               <li><strong>KPI dashboard + SLA + premium audit PDF</strong></li>
             </ul>
@@ -366,13 +378,22 @@
     <!-- VeriOps -->
     <section class="section" id="veriops">
       <div class="container">
-        <h2>VeriOps for enterprise and regulated teams</h2>
-        <p class="lead">Licensed deployment with signed encrypted capability packs. The pipeline runs in your environment &mdash; no docs data ever reaches our servers.</p>
+        <h2>VeriOps for regulated and enterprise teams</h2>
+        <p class="lead">Managed documentation operations with licensed deployment in your environment. No docs data leaves your perimeter.</p>
+        <div class="cols-2" style="margin-bottom:14px">
+          <div class="card feature-card">
+            <h3>Competitive moat: strict-local and air-gapped</h3>
+            <p>Run full docs generation, validation, and governance in isolated client infrastructure. Designed for finance, healthcare, and defense constraints.</p>
+          </div>
+          <div class="card feature-card">
+            <h3>Fast start without lock-in</h3>
+            <p>Setup starts in one business day. Pilot scope is fixed and time-boxed so you can validate value before full rollout.</p>
+          </div>
+        </div>
         <div class="premium-box">
-          <h3>14-day pilot: prove value fast</h3>
+          <h3>21-day pilot for $5,000: prove value before commitment</h3>
           <p style="color:var(--muted);max-width:760px;margin:10px auto 18px;font-size:16px">
-            We run your docs-ops pipeline in your environment, show measurable before/after quality metrics,
-            and hand over an operating flow your team can sustain.
+            No long-term commitment required. We run the pipeline in your environment, show before/after metrics, and hand over a sustainable operating model.
           </p>
           <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap">
             <a class="cta amber" href="https://calendly.com/eugenia-sorokina/veriops-discovery-call" target="_blank" rel="noopener">Schedule a 15-min discovery call</a>
@@ -406,6 +427,10 @@
             <h3>Multiply writer throughput</h3>
             <p>Pipeline handles generation and checks; writers focus on review and high-value editorial decisions.</p>
           </div>
+        </div>
+        <div class="card feature-card" style="margin-top:12px">
+          <h3>RAG add-on: what it does and when to use it</h3>
+          <p>Use RAG when your support, sales engineering, or internal assistants must answer from current docs. We ship retrieval index health checks, stale-doc checks, and contradiction detection before indexing to reduce conflicting answers.</p>
         </div>
       </div>
     </section>
@@ -537,9 +562,23 @@
     <!-- Social Proof -->
     <section class="section" id="proof">
       <div class="container">
-        <h2>Built and proven in production workflows</h2>
-        <p class="lead">Powering documentation for Forge Studio ecosystem. Current dogfooding baseline:</p>
-        <div class="cols-4">
+        <h2>Built on real operational experience</h2>
+        <p class="lead">VeriOps is new as a packaged offer, but the operating methodology comes from years of production documentation work.</p>
+        <div class="cols-3">
+          <div class="card feature-card">
+            <h3>SoftConstruct-scale operations</h3>
+            <p>Documentation operations across 17 concurrent enterprise products with shared standards and release pressure.</p>
+          </div>
+          <div class="card feature-card">
+            <h3>Syxsense outcome</h3>
+            <p>Documentation program improvements that cut documentation-related support tickets by about 40%.</p>
+          </div>
+          <div class="card feature-card">
+            <h3>3Shape onboarding impact</h3>
+            <p>Reworked technical content structure and flows that improved onboarding speed by up to 3x.</p>
+          </div>
+        </div>
+        <div class="cols-4" style="margin-top:14px">
           <div class="card feature-card">
             <h3>Quality score</h3>
             <p><strong>97%</strong> on active docs surfaces after automated gates.</p>
