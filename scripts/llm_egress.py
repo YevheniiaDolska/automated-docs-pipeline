@@ -240,6 +240,9 @@ def ensure_external_allowed(
     elif policy.approval_cache_scope == "run" and approval_flag.exists():
         approved = True
 
+    if not policy.require_explicit_approval:
+        approved = True
+
     if policy.require_explicit_approval and not approved:
         if non_interactive:
             _append_egress_log(
