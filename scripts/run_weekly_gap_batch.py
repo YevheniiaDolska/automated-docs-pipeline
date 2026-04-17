@@ -60,6 +60,78 @@ def _run_shell(command: str, cwd: Path, continue_on_error: bool) -> int:
     return completed.returncode
 
 
+def _load_rag_contradiction_summary(reports_dir: Path) -> dict[str, Any]:
+    report_path = reports_dir / "rag_contradictions_report.json"
+    if not report_path.exists():
+        return {
+            "report_path": str(report_path),
+            "status": "missing",
+            "critical_contradictions": 0,
+            "warning_contradictions": 0,
+            "stale_candidates": 0,
+            "has_alert": False,
+            "severity": "none",
+        }
+    try:
+        payload = json.loads(report_path.read_text(encoding="utf-8"))
+    except (json.JSONDecodeError, OSError):
+        return {
+            "report_path": str(report_path),
+            "status": "invalid",
+            "critical_contradictions": 0,
+            "warning_contradictions": 0,
+            "stale_candidates": 0,
+            "has_alert": False,
+            "severity": "none",
+        }
+    if not isinstance(payload, dict):
+        return {
+            "report_path": str(report_path),
+            "status": "invalid",
+            "critical_contradictions": 0,
+            "warning_contradictions": 0,
+            "stale_candidates": 0,
+            "has_alert": False,
+            "severity": "none",
+        }
+    summary = payload.get("summary", {}) if isinstance(payload.get("summary"), dict) else {}
+    critical = int(summary.get("critical_contradictions", 0) or 0)
+    warning = int(summary.get("warning_contradictions", 0) or 0)
+    stale = int(summary.get("stale_candidates", 0) or 0)
+    has_alert = (critical > 0) or (warning > 0)
+    severity = "critical" if critical > 0 else ("warning" if warning > 0 else "none")
+    return {
+        "report_path": str(report_path),
+        "status": str(payload.get("status", "ok")),
+        "critical_contradictions": critical,
+        "warning_contradictions": warning,
+        "stale_candidates": stale,
+        "has_alert": has_alert,
+        "severity": severity,
+    }
+
+
+def _write_rag_contradiction_alert(reports_dir: Path, summary: dict[str, Any]) -> Path | None:
+    alert_path = reports_dir / "ALERT_RAG_CONTRADICTIONS.md"
+    if not bool(summary.get("has_alert", False)):
+        if alert_path.exists():
+            alert_path.unlink()
+        return None
+    generated_at = datetime.now(timezone.utc).isoformat()
+    content = (
+        "# RAG contradiction alert\n\n"
+        f"- generated_at: {generated_at}\n"
+        f"- severity: {summary.get('severity', 'warning')}\n"
+        f"- critical_contradictions: {int(summary.get('critical_contradictions', 0) or 0)}\n"
+        f"- warning_contradictions: {int(summary.get('warning_contradictions', 0) or 0)}\n"
+        f"- stale_candidates: {int(summary.get('stale_candidates', 0) or 0)}\n"
+        f"- details_report: {summary.get('report_path', str(reports_dir / 'rag_contradictions_report.json'))}\n\n"
+        "Action: resolve contradictory modules, then rerun autopipeline to refresh retrieval index.\n"
+    )
+    alert_path.write_text(content, encoding="utf-8")
+    return alert_path
+
+
 def _write_minimal_consolidated_report(reports_dir: Path) -> None:
     output = reports_dir / "consolidated_report.json"
     if output.exists():
@@ -1105,6 +1177,26 @@ def main() -> int:
         "report_file": str(consolidated_path),
         "report_generated_at": generated_at,
     }
+    rag_alert = _load_rag_contradiction_summary(reports_dir)
+    alert_path = _write_rag_contradiction_alert(reports_dir, rag_alert)
+    if bool(rag_alert.get("has_alert", False)):
+        print(
+            "[docsops] ALERT: rag contradictions detected "
+            f"(critical={rag_alert.get('critical_contradictions', 0)}, "
+            f"warning={rag_alert.get('warning_contradictions', 0)}). "
+            f"See {rag_alert.get('report_path', '')}",
+        )
+        status_payload["alerts"] = [
+            {
+                "id": "rag_contradictions",
+                "severity": str(rag_alert.get("severity", "warning")),
+                "critical_contradictions": int(rag_alert.get("critical_contradictions", 0) or 0),
+                "warning_contradictions": int(rag_alert.get("warning_contradictions", 0) or 0),
+                "report_path": str(rag_alert.get("report_path", "")),
+                "alert_path": str(alert_path) if alert_path is not None else "",
+            }
+        ]
+
     status_path.write_text(
         json.dumps(status_payload, ensure_ascii=True, indent=2) + "\n",
         encoding="utf-8",
@@ -1115,6 +1207,8 @@ def main() -> int:
             "READY FOR REVIEW\n"
             f"last_run_at: {status_payload['last_run_at']}\n"
             f"report_generated_at: {status_payload['report_generated_at']}\n"
+            f"rag_contradictions_critical: {int(rag_alert.get('critical_contradictions', 0) or 0)}\n"
+            f"rag_contradictions_warning: {int(rag_alert.get('warning_contradictions', 0) or 0)}\n"
             "next_step: open reports/consolidated_report.json and send it to local LLM\n"
         ),
         encoding="utf-8",

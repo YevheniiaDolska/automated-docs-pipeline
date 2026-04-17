@@ -1,0 +1,56 @@
+{
+  "status": "ok",
+  "model": "claude-sonnet-4-5",
+  "analysis": {
+    "executive_summary": "Documentation audit of docs.n8n.io covered 1264 pages with 100% crawl coverage and 86.4% overall confidence. Critical issue: 3556 confirmed broken internal documentation links across the site. API reference coverage is 77.78% with 81 API pages detected. Example code reliability shows 0% detection (likely a technical limitation due to JavaScript rendering). Only 1.66% of pages display last-updated timestamps, severely limiting freshness visibility.",
+    "strengths": [
+      "Complete crawl coverage achieved: 1264 of 1264 pages in scope examined (100%)",
+      "High overall audit confidence at 86.4% with strong crawl confidence at 95%",
+      "API reference documentation present with 81 pages detected and 77.78% coverage",
+      "No repository navigation broken links (0 repo_broken_links_count)",
+      "SEO/geo issue rate very low at 0.26%"
+    ],
+    "risks": [
+      "3556 confirmed broken internal documentation links create severe user navigation and trust issues",
+      "520 unverified links due to authentication, rate-limiting, or server blocks may hide additional broken links",
+      "Example code reliability at 0% across all 1264 pages indicates detection failure or absence of working examples",
+      "Only 1.66% last-updated coverage prevents users from assessing content freshness and relevance",
+      "Example detection limitation flagged: JavaScript-rendered code blocks likely not captured by audit tooling",
+      "High volume of broken links (3556) suggests systemic content migration, refactoring, or maintenance debt",
+      "Unverified links (520) represent unknown risk exposure that could not be validated during audit"
+    ],
+    "prioritized_actions": [
+      {
+        "action": "Execute broken link remediation campaign: audit and fix all 3556 confirmed broken internal documentation links",
+        "impact": "critical",
+        "effort": "high"
+      },
+      {
+        "action": "Implement last-updated timestamps on all documentation pages to achieve >90% freshness visibility",
+        "impact": "high",
+        "effort": "low"
+      },
+      {
+        "action": "Investigate and resolve 520 unverified links (authentication/rate-limit issues) to eliminate unknown risk",
+        "impact": "high",
+        "effort": "medium"
+      },
+      {
+        "action": "Validate example code rendering: confirm if 0% detection is tooling limitation or missing examples, then remediate",
+        "impact": "high",
+        "effort": "medium"
+      },
+      {
+        "action": "Increase API reference coverage from 77.78% to >95% by documenting missing endpoints or improving detection",
+        "impact": "medium",
+        "effort": "medium"
+      }
+    ],
+    "limitations": [
+      "Example code reliability at 0% likely reflects audit tool inability to parse JavaScript-rendered code blocks, not actual absence of examples",
+      "520 unverified links could not be validated due to authentication requirements, rate limiting, or server blocking; actual status unknown",
+      "External audit cannot verify accuracy, correctness, or completeness of documentation content, only structural and technical health",
+      "Crawl limited to 1264 of 5790 requested pages due to 5000-page maximum; some content may be unexamined"
+    ]
+  }
+}

@@ -766,6 +766,68 @@ class TestWeeklyBatch:
         assert calls[1][0] == "git pull --rebase --autostash origin main"
         assert calls[0][1] == repo.resolve()
 
+    def test_rag_contradiction_alert_written_into_status_and_ready(self, tmp_path: Path) -> None:
+        from scripts import run_weekly_gap_batch as mod
+
+        reports = tmp_path / "reports"
+        reports.mkdir(parents=True)
+        (reports / "consolidated_report.json").write_text(
+            json.dumps({"generated_at": "2026-04-17T10:00:00Z"}),
+            encoding="utf-8",
+        )
+        (reports / "rag_contradictions_report.json").write_text(
+            json.dumps(
+                {
+                    "status": "critical",
+                    "summary": {
+                        "critical_contradictions": 2,
+                        "warning_contradictions": 1,
+                        "stale_candidates": 0,
+                    },
+                }
+            ),
+            encoding="utf-8",
+        )
+
+        summary = mod._load_rag_contradiction_summary(reports)
+        assert summary["has_alert"] is True
+        alert_path = mod._write_rag_contradiction_alert(reports, summary)
+        assert alert_path is not None and alert_path.exists()
+
+        status_payload = {
+            "status": "ok",
+            "last_run_at": "2026-04-17T10:00:00Z",
+            "report_file": str(reports / "consolidated_report.json"),
+            "report_generated_at": "2026-04-17T10:00:00Z",
+        }
+        status_payload["alerts"] = [
+            {
+                "id": "rag_contradictions",
+                "severity": summary["severity"],
+                "critical_contradictions": summary["critical_contradictions"],
+                "warning_contradictions": summary["warning_contradictions"],
+                "report_path": summary["report_path"],
+                "alert_path": str(alert_path),
+            }
+        ]
+        status_path = reports / "docsops_status.json"
+        status_path.write_text(json.dumps(status_payload, ensure_ascii=True, indent=2) + "\n", encoding="utf-8")
+        ready_path = reports / "READY_FOR_REVIEW.txt"
+        ready_path.write_text(
+            (
+                "READY FOR REVIEW\n"
+                "last_run_at: 2026-04-17T10:00:00Z\n"
+                "report_generated_at: 2026-04-17T10:00:00Z\n"
+                "rag_contradictions_critical: 2\n"
+                "rag_contradictions_warning: 1\n"
+                "next_step: open reports/consolidated_report.json and send it to local LLM\n"
+            ),
+            encoding="utf-8",
+        )
+        loaded = json.loads(status_path.read_text(encoding="utf-8"))
+        assert loaded["alerts"][0]["severity"] == "critical"
+        assert "rag_contradictions_critical: 2" in ready_path.read_text(encoding="utf-8")
+
     def test_main_code_first_and_custom_tasks(self, tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:
         from scripts import run_weekly_gap_batch as mod
 
