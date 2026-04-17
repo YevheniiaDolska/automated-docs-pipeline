@@ -320,10 +320,26 @@ The pipeline generates a knowledge retrieval layer with six advanced features:
 
 1. `extract_knowledge_modules_from_docs.py` -- auto-chunk docs into knowledge modules
 1. `validate_knowledge_modules.py` -- schema validation, duplicate ID detection, cycle check
-1. `generate_knowledge_retrieval_index.py` -- JSON index for Algolia + FAISS input
+1. `detect_rag_contradictions.py` -- detects cross-module contradictions in critical runtime facts and writes `reports/rag_contradictions_report.json`
+1. `generate_knowledge_retrieval_index.py` -- JSON index for Algolia + FAISS input, excluding critical conflicting modules by default
 1. `generate_embeddings.py` -- FAISS vector index (`text-embedding-3-small`, 1536 dims)
 1. `generate_knowledge_graph_jsonld.py` -- JSON-LD knowledge graph
 1. `run_retrieval_evals.py` -- precision@k, recall@k, hallucination rate evaluation
+
+## RAG contradiction and stale guardrails
+
+Two complementary guardrails now run for retrieval quality:
+
+1. Stale-check answers "is this document outdated?"
+1. Contradiction-check answers "do active documents conflict right now?"
+
+When contradictions are detected:
+
+1. Critical conflicts are excluded from retrieval index generation.
+1. Warnings remain visible for review but do not automatically block indexing.
+1. Optional gate mode can fail the run on critical contradictions.
+
+This design prevents low-trust answers where RAG cites conflicting facts from two active modules.
 
 ## RAG operations and runtime surface
 
@@ -335,6 +351,10 @@ Runtime and operations include:
 1. Version history and retention: `docs/assets/rag_version_history.json`, `docs/assets/rag-versions/`
 1. Lifecycle report: `reports/rag_reindex_report.json`
 1. Unified enforcement report: `reports/rag_optimization_layer_report.json`
+1. Contradiction report: `reports/rag_contradictions_report.json`
+1. Human-readable alert file when conflicts exist: `reports/ALERT_RAG_CONTRADICTIONS.md`
+1. Status alert entry for automation consumers: `reports/docsops_status.json` (`alerts[].id = "rag_contradictions"`)
+1. Review marker counters: `reports/READY_FOR_REVIEW.txt` (`rag_contradictions_critical`, `rag_contradictions_warning`)
 
 ## Current retrieval gate snapshot (2026-04-05)
 
