@@ -7,7 +7,7 @@ product: both
 tags:
 - Operations
 - Reference
-last_reviewed: '2026-04-05'
+last_reviewed: '2026-04-17'
 original_author: Developer
 ---
 
@@ -27,6 +27,7 @@ This content follows the active implementation baseline:
 1. External mock sandbox resolution is integrated, with Postman-supported auto-prepare in external mode.
 1. Contract test assets are generated automatically and merged with smart-merge so manual/customized cases are preserved and flagged for review when needed.
 1. Knowledge/RAG maintenance, terminology sync, and quality/compliance gates run through the same automation surface when enabled.
+1. LLM-agent web artifacts are generated automatically (`llms.txt`, `llms-full.txt`, markdown URL mirrors, and HTML agent hints) as part of the autopipeline finalization path.
 1. Local-first operation is the default mode: weekly scheduler and quality gates run in the client repository, with GitHub Actions as a compatibility mode.
 1. RAG runtime supports `cloud`, `hybrid`, and `strict-local` operational profiles with one enforcement layer.
 1. RAG runtime endpoints include `/rag/query`, `/rag/runtime/query`, `/rag/metrics`, and `/rag/alerts` with access-control checks.
@@ -52,6 +53,21 @@ The platform is not limited to API-first automation. In active production usage,
 1. Executes lifecycle controls (active/deprecated/removed states, replacement links, and freshness cadence).
 1. Runs knowledge extraction and retrieval preparation for all docs, not only API pages.
 1. Produces consolidated review artifacts so human input is focused on approval and business accuracy, not repetitive formatting and synchronization work.
+
+## LLM-agent optimized web surface
+
+The pipeline now includes a dedicated LLM-facing output layer in the same build path as standard docs publishing.
+
+1. Generates `llms.txt` with URL and title pairs for discoverable LLM crawling.
+1. Generates `llms-full.txt` with URL, title, and summary for richer retrieval context.
+1. Publishes markdown mirrors into the static site output so crawlers can consume `.md` without brittle HTML parsing.
+1. Injects explicit HTML metadata hints in the docs template header so agents prefer markdown URL variants.
+
+Operational value:
+
+1. Improves RAG ingestion quality because crawlers ingest source markdown instead of noisy rendered DOM.
+1. Reduces post-processing complexity for external agent ecosystems (fewer custom parsers and extractors).
+1. Provides a concrete pre-sales differentiator: docs are optimized for both human readers and machine agents by default, not via manual retrofit.
 
 ## How to enable any capability for a client
 
@@ -208,6 +224,7 @@ These are part of the current implementation and are invoked directly by operato
 | `scripts/generate_fastapi_stubs_from_openapi.py` | Generate FastAPI stubs from OpenAPI. |
 | `scripts/generate_openapi_from_planning_notes.py` | Generate OpenAPI root/tree from planning notes. |
 | `scripts/generate_protocol_server_stubs.py` | Generate protocol server stubs with business-logic placeholders for REST, GraphQL, gRPC, AsyncAPI, and WebSocket. |
+| `scripts/generate_llm_web_artifacts.py` | Generate `llms.txt`, `llms-full.txt`, and markdown mirror artifacts for LLM-agent crawling and RAG-friendly indexing. |
 | `scripts/generate_pipeline_capabilities_catalog.py` | Regenerate this capabilities catalog file. |
 | `scripts/lifecycle_manager.py` | Lifecycle scan/report/redirect guidance generation. |
 | `scripts/manage_demo_nav.py` | Demo nav injection/removal helper. |
@@ -219,6 +236,7 @@ These are part of the current implementation and are invoked directly by operato
 | `scripts/run_retrieval_evals_gate.py` | Smart retrieval gate with runtime mode selection (`token`, `hybrid`, `hybrid+rerank`) and adaptive threshold profile for dataset mismatch cases. |
 | `scripts/rag_reindex_lifecycle.py` | Versioned RAG reindex lifecycle: extract, validate, index build, optional embeddings, promote, rollback, and retention pruning. |
 | `scripts/enforce_rag_optimization_layer.py` | Unified RAG optimization layer enforcement for cloud, hybrid, and strict-local profiles with alert-enabled thresholds. |
+| `scripts/detect_rag_contradictions.py` | Detect contradictory numeric/runtime claims in knowledge modules before indexing, produce `reports/rag_contradictions_report.json`, and mark critical module IDs for index exclusion or gate blocking. |
 | `scripts/generate_protocol_contract_from_planning_notes.py` | Generate protocol contracts (GraphQL SDL, Proto3, AsyncAPI YAML, WebSocket YAML) from planning notes markdown. |
 | `scripts/generate_protocol_docs.py` | Auto-generate reference documentation from protocol contracts using protocol-specific templates. |
 | `scripts/generate_protocol_test_assets.py` | Generate protocol-aware test cases with signature-based smart merge. Outputs JSON, TestRail CSV, Zephyr JSON, test matrix, and fuzz scenarios. |

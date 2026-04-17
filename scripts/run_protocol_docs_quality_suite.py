@@ -203,6 +203,7 @@ def main() -> int:
         if not rag_marker.exists():
             extract_modules = scripts_dir / "extract_knowledge_modules_from_docs.py"
             validate_modules = scripts_dir / "validate_knowledge_modules.py"
+            detect_contradictions = scripts_dir / "detect_rag_contradictions.py"
             build_index = scripts_dir / "generate_knowledge_retrieval_index.py"
             build_graph = scripts_dir / "generate_knowledge_graph_jsonld.py"
             retrieval_eval = scripts_dir / "run_retrieval_evals.py"
@@ -252,18 +253,45 @@ def main() -> int:
                         repo_root,
                     )
                 )
+            contradictions_report = reports_dir / f"{args.protocol}_rag_contradictions_report.json"
+            if detect_contradictions.exists() and modules_dir.exists():
+                steps.append(
+                    _run(
+                        "detect_rag_contradictions",
+                        [
+                            py,
+                            str(detect_contradictions),
+                            "--modules-dir",
+                            str(modules_dir),
+                            "--report",
+                            str(contradictions_report),
+                            "--stale-days",
+                            "180",
+                        ],
+                        repo_root,
+                    )
+                )
             if build_index.exists() and modules_dir.exists():
+                index_cmd = [
+                    py,
+                    str(build_index),
+                    "--modules-dir",
+                    str(modules_dir),
+                    "--output",
+                    str(retrieval_index_output),
+                ]
+                if contradictions_report.exists():
+                    index_cmd.extend(
+                        [
+                            "--contradictions-report",
+                            str(contradictions_report),
+                            "--exclude-critical-contradictions",
+                        ]
+                    )
                 steps.append(
                     _run(
                         "generate_knowledge_retrieval_index",
-                        [
-                            py,
-                            str(build_index),
-                            "--modules-dir",
-                            str(modules_dir),
-                            "--output",
-                            str(retrieval_index_output),
-                        ],
+                        index_cmd,
                         repo_root,
                     )
                 )

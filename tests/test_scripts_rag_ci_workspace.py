@@ -119,6 +119,55 @@ def test_rag_reindex_lifecycle_promote_and_rollback(tmp_path: Path, monkeypatch)
     assert promoted_index.exists()
 
 
+def test_rag_reindex_lifecycle_runs_contradiction_gate(tmp_path: Path, monkeypatch) -> None:
+    from scripts import rag_reindex_lifecycle as mod
+
+    repo = tmp_path
+    (repo / "docs").mkdir(parents=True, exist_ok=True)
+    (repo / "knowledge_modules").mkdir(parents=True, exist_ok=True)
+    reports = repo / "reports"
+    reports.mkdir(parents=True, exist_ok=True)
+    index_path = repo / "docs" / "assets" / "knowledge-retrieval-index.json"
+    index_path.parent.mkdir(parents=True, exist_ok=True)
+
+    calls: list[list[str]] = []
+
+    def _fake_run(cmd: list[str], cwd: Path) -> None:
+        _ = cwd
+        calls.append(cmd)
+        command_text = " ".join(cmd)
+        if "detect_rag_contradictions.py" in command_text:
+            (reports / "rag_contradictions_report.json").write_text(
+                json.dumps({"critical_module_ids": ["module-a"], "summary": {"critical_contradictions": 1}}),
+                encoding="utf-8",
+            )
+        if "generate_knowledge_retrieval_index.py" in command_text:
+            index_path.write_text("[]\n", encoding="utf-8")
+
+    monkeypatch.setattr(mod, "_run", _fake_run)
+    monkeypatch.setattr(
+        sys,
+        "argv",
+        [
+            "x",
+            "--repo-root",
+            str(repo),
+            "--reports-dir",
+            "reports",
+            "--modules-dir",
+            "knowledge_modules",
+            "--index-path",
+            "docs/assets/knowledge-retrieval-index.json",
+        ],
+    )
+    assert mod.main() == 0
+    joined = [" ".join(cmd) for cmd in calls]
+    assert any("detect_rag_contradictions.py" in item for item in joined)
+    index_calls = [item for item in joined if "generate_knowledge_retrieval_index.py" in item]
+    assert index_calls
+    assert "--exclude-critical-contradictions" in index_calls[0]
+
+
 def test_run_docs_ci_checks_paths(monkeypatch, tmp_path: Path) -> None:
     from scripts import run_docs_ci_checks as mod
 

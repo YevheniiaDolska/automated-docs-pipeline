@@ -264,6 +264,7 @@ def _build_stage_summary(
                 ("rag_retrieval_index", repo_root / "docs/assets/knowledge-retrieval-index.json", True),
                 ("rag_optimization_layer", reports_dir / "rag_optimization_layer_report.json", True),
                 ("rag_reindex_report", reports_dir / "rag_reindex_report.json", True),
+                ("rag_contradictions_report", reports_dir / "rag_contradictions_report.json", True),
             ]
         )
     if bool(modules.get("ontology_graph", True)):
@@ -436,6 +437,12 @@ def _collect_artifacts(
             module="rag_optimization",
         )
         add_artifact("RAG reindex report", str(reports_dir / "rag_reindex_report.json"), "rag", module="rag_optimization")
+        add_artifact(
+            "RAG contradictions report",
+            str(reports_dir / "rag_contradictions_report.json"),
+            "rag",
+            module="rag_optimization",
+        )
 
     if _enabled("ontology_graph", True):
         graph_path = "docs/assets/knowledge-graph.jsonld"

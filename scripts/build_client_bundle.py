@@ -1571,6 +1571,7 @@ def create_bundle(profile_path: Path) -> Path:
         required_scripts.append("scripts/run_retrieval_evals.py")
         required_scripts.append("scripts/extract_knowledge_modules_from_docs.py")
         required_scripts.append("scripts/validate_knowledge_modules.py")
+        required_scripts.append("scripts/detect_rag_contradictions.py")
         required_scripts.append("scripts/generate_knowledge_retrieval_index.py")
     if _module_enabled("ontology_graph", True):
         required_scripts.append("scripts/generate_knowledge_graph_jsonld.py")

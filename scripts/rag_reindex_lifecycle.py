@@ -45,6 +45,14 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--with-embeddings", action="store_true")
     parser.add_argument("--provider", default="local", choices=["local", "openai"])
     parser.add_argument("--retention-versions", type=int, default=60)
+    parser.add_argument("--contradictions-report", default="reports/rag_contradictions_report.json")
+    parser.add_argument("--contradictions-stale-days", type=int, default=180)
+    parser.add_argument("--contradictions-min-similarity", type=float, default=0.35)
+    parser.add_argument("--skip-contradiction-check", action="store_true")
+    parser.add_argument("--fail-on-critical-contradictions", action="store_true")
+    parser.add_argument("--exclude-critical-contradictions", dest="exclude_critical_contradictions", action="store_true")
+    parser.add_argument("--no-exclude-critical-contradictions", dest="exclude_critical_contradictions", action="store_false")
+    parser.set_defaults(exclude_critical_contradictions=True)
     parser.add_argument("--promote-version", default="")
     parser.add_argument("--rollback-to-version", default="")
     parser.add_argument("--skip-rebuild", action="store_true")
@@ -93,6 +101,16 @@ def _promote_pointer(index_path: Path, manifest: dict[str, Any]) -> None:
     pointer_path.write_text(json.dumps(manifest, ensure_ascii=True, indent=2) + "\n", encoding="utf-8")
 
 
+def _safe_load_json(path: Path) -> dict[str, Any]:
+    if not path.exists():
+        return {}
+    try:
+        payload = json.loads(path.read_text(encoding="utf-8"))
+    except (RuntimeError, ValueError, TypeError, OSError):
+        return {}
+    return payload if isinstance(payload, dict) else {}
+
+
 def _manifest_for_version(version: str, version_dir: Path, index_path: Path, provider: str) -> dict[str, Any]:
     version_index = version_dir / "knowledge-retrieval-index.json"
     if not version_index.exists():
@@ -121,6 +139,7 @@ def main() -> int:
     reports_dir = (repo_root / args.reports_dir).resolve()
     index_path = (repo_root / args.index_path).resolve()
     versions_dir = (repo_root / args.versions_dir).resolve()
+    contradictions_report = (repo_root / args.contradictions_report).resolve()
     reports_dir.mkdir(parents=True, exist_ok=True)
     versions_dir.mkdir(parents=True, exist_ok=True)
 
@@ -160,15 +179,42 @@ def main() -> int:
         )
         steps.append("validate_knowledge_modules")
 
-        _run(
-            [
+        if not args.skip_contradiction_check:
+            contradiction_cmd = [
                 py,
-                "scripts/generate_knowledge_retrieval_index.py",
+                "scripts/detect_rag_contradictions.py",
                 "--modules-dir",
                 str(modules_dir),
-                "--output",
-                str(index_path),
-            ],
+                "--report",
+                str(contradictions_report),
+                "--stale-days",
+                str(max(1, int(args.contradictions_stale_days))),
+                "--min-similarity",
+                str(max(0.0, float(args.contradictions_min_similarity))),
+            ]
+            if args.fail_on_critical_contradictions:
+                contradiction_cmd.append("--fail-on-critical")
+            _run(contradiction_cmd, cwd=repo_root)
+            steps.append("detect_rag_contradictions")
+
+        index_cmd = [
+            py,
+            "scripts/generate_knowledge_retrieval_index.py",
+            "--modules-dir",
+            str(modules_dir),
+            "--output",
+            str(index_path),
+        ]
+        if args.exclude_critical_contradictions and contradictions_report.exists():
+            index_cmd.extend(
+                [
+                    "--contradictions-report",
+                    str(contradictions_report),
+                    "--exclude-critical-contradictions",
+                ]
+            )
+        _run(
+            index_cmd,
             cwd=repo_root,
         )
         steps.append("generate_knowledge_retrieval_index")
@@ -257,6 +303,16 @@ def main() -> int:
         **manifest,
         "retention_versions": max(1, int(args.retention_versions)),
         "pruned_versions": removed_versions,
+        "contradictions_report_path": str(contradictions_report),
+        "contradiction_check_enabled": bool(not args.skip_contradiction_check),
+        "exclude_critical_contradictions": bool(args.exclude_critical_contradictions),
+    }
+    contradiction_report = _safe_load_json(contradictions_report)
+    summary = contradiction_report.get("summary", {}) if isinstance(contradiction_report.get("summary"), dict) else {}
+    report_payload["contradictions_summary"] = {
+        "critical_contradictions": int(summary.get("critical_contradictions", 0) or 0),
+        "warning_contradictions": int(summary.get("warning_contradictions", 0) or 0),
+        "stale_candidates": int(summary.get("stale_candidates", 0) or 0),
     }
     report_path.write_text(json.dumps(report_payload, ensure_ascii=True, indent=2) + "\n", encoding="utf-8")
 

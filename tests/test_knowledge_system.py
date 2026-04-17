@@ -6,6 +6,7 @@ import json
 import sys
 from pathlib import Path
 
+import pytest
 import yaml
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -197,3 +198,87 @@ def test_sort_modules_does_not_use_priority_for_root_order() -> None:
     sorted_modules = _sort_modules(modules)
     sorted_ids = [module["id"] for module in sorted_modules]
     assert sorted_ids == ["module-a", "module-z"]
+
+
+def test_detect_rag_contradictions_and_exclude_from_index(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:
+    from scripts import detect_rag_contradictions as detect_mod
+    from scripts import generate_knowledge_retrieval_index as index_mod
+
+    modules_dir = tmp_path / "knowledge_modules"
+    modules_dir.mkdir()
+    report_path = tmp_path / "reports" / "rag_contradictions_report.json"
+    report_path.parent.mkdir(parents=True)
+    index_path = tmp_path / "docs" / "assets" / "knowledge-retrieval-index.json"
+    index_path.parent.mkdir(parents=True)
+
+    mod_a = {
+        "id": "module-a",
+        "title": "Webhook setup",
+        "summary": "A",
+        "status": "active",
+        "priority": 90,
+        "owner": "docs@example.com",
+        "last_verified": "2026-01-01",
+        "metadata": {"source_path": "how-to/webhooks-a.md", "updated_at": "2026-01-01T00:00:00Z"},
+        "semantic": {"topic": "Webhook setup"},
+        "content": {
+            "docs_markdown": "The default port is 5678. Set timeout to 30 seconds.",
+            "assistant_context": "ctx",
+        },
+    }
+    mod_b = {
+        "id": "module-b",
+        "title": "Webhook setup",
+        "summary": "B",
+        "status": "active",
+        "priority": 85,
+        "owner": "docs@example.com",
+        "last_verified": "2026-01-02",
+        "metadata": {"source_path": "how-to/webhooks-b.md", "updated_at": "2026-01-02T00:00:00Z"},
+        "semantic": {"topic": "Webhook setup"},
+        "content": {
+            "docs_markdown": "The default port is 8080. Set timeout to 30 seconds.",
+            "assistant_context": "ctx",
+        },
+    }
+    (modules_dir / "a.yml").write_text(yaml.safe_dump(mod_a, sort_keys=False), encoding="utf-8")
+    (modules_dir / "b.yml").write_text(yaml.safe_dump(mod_b, sort_keys=False), encoding="utf-8")
+
+    monkeypatch.setattr(
+        sys,
+        "argv",
+        [
+            "x",
+            "--modules-dir",
+            str(modules_dir),
+            "--report",
+            str(report_path),
+            "--min-similarity",
+            "0.1",
+            "--fail-on-critical",
+        ],
+    )
+    assert detect_mod.main() == 2
+
+    report = json.loads(report_path.read_text(encoding="utf-8"))
+    assert report["summary"]["critical_contradictions"] >= 1
+    assert "module-a" in report["critical_module_ids"]
+    assert "module-b" in report["critical_module_ids"]
+
+    monkeypatch.setattr(
+        sys,
+        "argv",
+        [
+            "x",
+            "--modules-dir",
+            str(modules_dir),
+            "--output",
+            str(index_path),
+            "--contradictions-report",
+            str(report_path),
+            "--exclude-critical-contradictions",
+        ],
+    )
+    index_mod.main()
+    records = json.loads(index_path.read_text(encoding="utf-8"))
+    assert records == []
