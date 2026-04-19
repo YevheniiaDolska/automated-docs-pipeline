@@ -1,0 +1,233 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>VeriOps | Managed Documentation Operations</title>
+  <meta name="description" content="VeriOps runs documentation operations in your environment: strict-local, air-gapped, and cloud options with measurable outcomes from pilot to retainer.">
+  <style>
+    :root {
+      --bg: #f6f9fc;
+      --card: #ffffff;
+      --ink: #0f172a;
+      --muted: #475569;
+      --brand: #0b6bcb;
+      --brand-dark: #0a4f96;
+      --accent: #ffb300;
+      --line: #dbe4ef;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: "Segoe UI", "Avenir Next", "Helvetica Neue", Arial, sans-serif;
+      color: var(--ink);
+      background: radial-gradient(1000px 500px at 90% -5%, #d7ebff 0%, transparent 55%), var(--bg);
+      line-height: 1.5;
+    }
+    .wrap { max-width: 1140px; margin: 0 auto; padding: 24px; }
+    .topbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 24px;
+    }
+    .brand { font-weight: 800; letter-spacing: .2px; text-decoration: none; color: var(--ink); }
+    .badge {
+      display: inline-block;
+      border: 1px solid #c9dcf5;
+      color: var(--brand-dark);
+      background: #eef6ff;
+      border-radius: 999px;
+      padding: 6px 12px;
+      font-size: 12px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: .4px;
+    }
+    h1 { font-size: clamp(30px, 4vw, 48px); line-height: 1.1; margin: 14px 0 12px; }
+    h2 { font-size: clamp(24px, 2.8vw, 34px); margin: 0 0 10px; }
+    h3 { margin: 0 0 8px; font-size: 20px; }
+    p { margin: 0 0 10px; color: var(--muted); }
+    .hero {
+      background: linear-gradient(135deg, #0e1d36 0%, #13345f 52%, #0b6bcb 100%);
+      color: #fff;
+      border-radius: 20px;
+      padding: 32px;
+      box-shadow: 0 14px 32px rgba(13, 42, 82, .25);
+    }
+    .hero p { color: #cde3ff; max-width: 860px; font-size: 18px; }
+    .hero-cta { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 18px; }
+    .cta {
+      display: inline-block;
+      text-decoration: none;
+      border-radius: 10px;
+      padding: 12px 16px;
+      font-weight: 700;
+      border: 1px solid transparent;
+    }
+    .cta.primary { background: #fff; color: #0f274a; }
+    .cta.secondary { background: transparent; color: #fff; border-color: rgba(255,255,255,.55); }
+    .cta.amber { background: var(--accent); color: #1f2937; }
+    .grid { display: grid; gap: 14px; margin-top: 16px; }
+    .grid-2 { grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); }
+    .grid-3 { grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); }
+    .card {
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      padding: 18px;
+      box-shadow: 0 4px 14px rgba(2, 18, 39, .04);
+    }
+    .kpi { font-size: 30px; font-weight: 800; color: var(--brand-dark); margin-bottom: 6px; }
+    .section { margin-top: 30px; }
+    .flow { display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 12px; }
+    .flow .card { border-top: 3px solid var(--brand); }
+    .table {
+      width: 100%;
+      border-collapse: collapse;
+      background: #fff;
+      border-radius: 12px;
+      overflow: hidden;
+      border: 1px solid var(--line);
+    }
+    .table th, .table td {
+      border-bottom: 1px solid var(--line);
+      padding: 12px;
+      text-align: left;
+      font-size: 15px;
+    }
+    .table th { background: #f4f8fd; color: #0f274a; }
+    .pill {
+      display: inline-block;
+      background: #fff5d6;
+      color: #5e4100;
+      border: 1px solid #ffe08a;
+      padding: 5px 10px;
+      border-radius: 999px;
+      font-weight: 700;
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: .3px;
+    }
+    footer { margin: 40px 0 20px; text-align: center; color: #64748b; font-size: 13px; }
+    @media (max-width: 760px) {
+      .hero { padding: 22px; }
+      .wrap { padding: 16px; }
+      .hero p { font-size: 16px; }
+    }
+  </style>
+</head>
+<body>
+  <main class="wrap">
+    <div class="topbar">
+      <a class="brand" href="/landing.html">VeriDoc / VeriOps</a>
+      <span class="badge">Managed Documentation Operations</span>
+    </div>
+
+    <section class="hero">
+      <span class="pill">Setup starts in 1 business day</span>
+      <h1>Outdated docs can quietly cost six figures per year. VeriOps fixes this in your own environment.</h1>
+      <p>
+        Teams lose time to repeated support questions, slower onboarding, and release friction when documentation drifts from reality.
+        VeriOps is a managed docs-ops service that runs inside your perimeter (including strict-local and air-gapped), so your docs stay contract-true on every release.
+      </p>
+      <div class="grid grid-3">
+        <div class="card"><div class="kpi">40%</div><p>support-ticket reduction achieved in prior docs operations work.</p></div>
+        <div class="card"><div class="kpi">3x</div><p>faster onboarding achieved after documentation flow redesign.</p></div>
+        <div class="card"><div class="kpi">17</div><p>concurrent enterprise products supported at operational scale.</p></div>
+      </div>
+      <div class="hero-cta">
+        <a class="cta primary" href="https://calendly.com/eugenia-sorokina/veriops-discovery-call" target="_blank" rel="noopener">Book Discovery Call</a>
+        <a class="cta secondary" href="#pilot">See 21-day Pilot</a>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="grid grid-2">
+        <div class="card">
+          <h3>Why CTOs choose VeriOps</h3>
+          <p>You get one accountable operator for docs quality, freshness, and release synchronization, not ad-hoc writing tasks.</p>
+          <p>Deployment is your choice: cloud, hybrid, strict-local, or air-gapped.</p>
+        </div>
+        <div class="card">
+          <h3>Competitive moat: strict-local and air-gapped</h3>
+          <p>
+            Kapa hopes your docs are good. VeriOps guarantees they are validated by gates in your own infrastructure.
+            This is built for finance, healthcare, cybersecurity, and defense requirements.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="proof">
+      <h2>Built on real operational experience</h2>
+      <p>The methodology behind VeriOps was built on 7+ years of documentation operations across fintech, cybersecurity, and healthcare.</p>
+      <div class="grid grid-3">
+        <div class="card">
+          <h3>SoftConstruct</h3>
+          <p>Documentation operations across 17 concurrent enterprise products under release pressure.</p>
+        </div>
+        <div class="card">
+          <h3>Syxsense</h3>
+          <p>Documentation program changes reduced documentation-related support tickets by around 40%.</p>
+        </div>
+        <div class="card">
+          <h3>3Shape</h3>
+          <p>Reworked documentation architecture that accelerated onboarding speed up to 3x.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="pilot">
+      <h2>Discovery to retainer: predictable operating path</h2>
+      <div class="flow">
+        <div class="card"><h3>1. Discovery</h3><p>Audit current docs, quantify gaps, and map risk by release impact.</p></div>
+        <div class="card"><h3>2. 21-day Pilot ($5,000)</h3><p>No long-term commitment. We run the pipeline in your environment and prove value with before/after metrics.</p></div>
+        <div class="card"><h3>3. Implementation</h3><p>Roll out full operating model, quality gates, protocol flows, and review governance.</p></div>
+        <div class="card"><h3>4. Retainer</h3><p>Ongoing docs operations with clear SLA, response times, and release accountability.</p></div>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2>VeriDoc vs VeriOps</h2>
+      <table class="table" aria-label="VeriDoc vs VeriOps comparison">
+        <thead>
+          <tr><th>Dimension</th><th>VeriDoc (self-serve)</th><th>VeriOps (managed)</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Operating model</td><td>Your team runs tooling</td><td>We run and own docs operations with your team</td></tr>
+          <tr><td>Deployment</td><td>Mainly SaaS-oriented</td><td>Cloud, hybrid, strict-local, air-gapped</td></tr>
+          <tr><td>Compliance fit</td><td>Standard controls</td><td>Regulated workflows with audit-grade reporting</td></tr>
+          <tr><td>Time to first value</td><td>Fast if team has capacity</td><td>Setup starts in 1 business day, guided rollout</td></tr>
+          <tr><td>Risk model</td><td>Tool subscription</td><td>Pilot-first, prove value before monthly retainer</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section class="section">
+      <h2>RAG add-on: one clear use case</h2>
+      <div class="card">
+        <p>
+          Add RAG if you need assistants to answer from current documentation for support, onboarding, or solutions engineering.
+          It includes stale-doc checks, contradiction detection before indexing, and retrieval-quality monitoring.
+          If you do not need assistant workflows, you can skip this add-on with no loss in core docs operations value.
+        </p>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="card" style="background:#0f274a;color:#d9e9ff;border-color:#204170">
+        <h2 style="color:#fff;margin-bottom:10px">Start with low risk</h2>
+        <p style="color:#c3daf9">No long-term commitment required. The 21-day pilot is designed to prove value before you decide.</p>
+        <div class="hero-cta" style="margin-top:14px">
+          <a class="cta amber" href="https://calendly.com/eugenia-sorokina/veriops-discovery-call" target="_blank" rel="noopener">Schedule 15-minute call</a>
+          <a class="cta secondary" href="/landing.html#free-audit">Request free audit</a>
+        </div>
+      </div>
+    </section>
+
+    <footer>VeriOps by VeriDoc</footer>
+  </main>
+</body>
+</html>

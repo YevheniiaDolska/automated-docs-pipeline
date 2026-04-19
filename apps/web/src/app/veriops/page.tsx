@@ -1,10 +1,9 @@
-"use client";
-
-import { useEffect } from "react";
-
 export default function VeriOpsLandingPage() {
-  useEffect(() => {
-    window.location.href = "/landing.html#veriops";
-  }, []);
-  return null;
+  return (
+    <iframe
+      src="/veriops.html"
+      title="VeriOps landing page"
+      style={{ width: "100%", height: "100vh", border: 0 }}
+    />
+  );
 }
