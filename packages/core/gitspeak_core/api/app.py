@@ -560,6 +560,7 @@ async def get_me(
 
 
 @app.get("/auth/oauth/{provider}", tags=["auth"])
+@app.get("/api/auth/oauth/{provider}", tags=["auth"])
 async def oauth_start(provider: str) -> RedirectResponse:
     """Start OAuth flow for configured providers."""
     normalized = provider.strip().lower()
@@ -1402,6 +1403,7 @@ async def create_invoice_request(
 
 
 @app.post("/contact/audit-request", tags=["contact"])
+@app.post("/api/contact/audit-request", tags=["contact"])
 async def create_audit_request(
     request: Request,
     db: Any = Depends(get_db),
