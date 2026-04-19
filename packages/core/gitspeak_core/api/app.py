@@ -16,14 +16,17 @@ import hashlib
 import json
 import logging
 import os
+import secrets
 import sys
 import time
 from collections import defaultdict
 from contextlib import asynccontextmanager
-from datetime import datetime, timezone
+from datetime import datetime, timedelta, timezone
 from pathlib import Path
 from typing import Any, AsyncGenerator, Callable, Generator
+from urllib.parse import urlencode
 
+import httpx
 import jwt
 
 from fastapi import Depends, FastAPI, Header, HTTPException, Request, Response
@@ -559,23 +562,280 @@ async def get_me(
         raise HTTPException(status_code=404, detail=str(exc))
 
 
+def _oauth_redirect_uri(provider: str) -> str:
+    configured = os.environ.get(f"{provider.upper()}_OAUTH_REDIRECT_URI", "").strip()
+    if configured:
+        return configured
+    app_base = os.environ.get("VERIDOC_APP_BASE_URL", "https://veri-doc.app").rstrip("/")
+    return f"{app_base}/api/auth/oauth/{provider}/callback"
+
+
+def _oauth_frontend_callback_url() -> str:
+    configured = os.environ.get("VERIDOC_OAUTH_CALLBACK_URL", "").strip()
+    if configured:
+        return configured
+    app_base = os.environ.get("VERIDOC_APP_BASE_URL", "https://veri-doc.app").rstrip("/")
+    return f"{app_base}/oauth/callback"
+
+
+def _oauth_state_token(provider: str) -> str:
+    settings = get_default_settings()
+    payload = {
+        "provider": provider,
+        "nonce": secrets.token_urlsafe(16),
+        "iat": int(time.time()),
+        "exp": int(time.time()) + 900,
+    }
+    return jwt.encode(payload, settings.secret_key.get_secret_value(), algorithm="HS256")
+
+
+def _decode_oauth_state(token: str) -> dict[str, Any]:
+    settings = get_default_settings()
+    try:
+        payload = jwt.decode(token, settings.secret_key.get_secret_value(), algorithms=["HS256"])
+        if not isinstance(payload, dict):
+            raise ValueError("Invalid OAuth state payload")
+        return payload
+    except jwt.PyJWTError as exc:
+        raise HTTPException(status_code=400, detail=f"Invalid OAuth state: {exc}") from exc
+
+
+def _get_oauth_config(provider: str) -> dict[str, str]:
+    normalized = provider.strip().lower()
+    if normalized == "google":
+        client_id = os.environ.get("GOOGLE_CLIENT_ID", "").strip()
+        client_secret = os.environ.get("GOOGLE_CLIENT_SECRET", "").strip()
+        if not client_id or not client_secret:
+            raise HTTPException(
+                status_code=503,
+                detail="OAuth provider 'google' is not configured on this deployment",
+            )
+        return {
+            "provider": "google",
+            "client_id": client_id,
+            "client_secret": client_secret,
+            "authorize_url": "https://accounts.google.com/o/oauth2/v2/auth",
+            "token_url": "https://oauth2.googleapis.com/token",
+            "userinfo_url": "https://openidconnect.googleapis.com/v1/userinfo",
+            "scope": "openid email profile",
+        }
+    if normalized == "github":
+        client_id = os.environ.get("GITHUB_CLIENT_ID", "").strip()
+        client_secret = os.environ.get("GITHUB_CLIENT_SECRET", "").strip()
+        if not client_id or not client_secret:
+            raise HTTPException(
+                status_code=503,
+                detail="OAuth provider 'github' is not configured on this deployment",
+            )
+        return {
+            "provider": "github",
+            "client_id": client_id,
+            "client_secret": client_secret,
+            "authorize_url": "https://github.com/login/oauth/authorize",
+            "token_url": "https://github.com/login/oauth/access_token",
+            "userinfo_url": "https://api.github.com/user",
+            "emails_url": "https://api.github.com/user/emails",
+            "scope": "read:user user:email",
+        }
+    raise HTTPException(status_code=404, detail="OAuth provider not supported")
+
+
+async def _fetch_oauth_identity(provider: str, code: str) -> dict[str, str]:
+    config = _get_oauth_config(provider)
+    redirect_uri = _oauth_redirect_uri(provider)
+    async with httpx.AsyncClient(timeout=20) as client:
+        if provider == "google":
+            token_res = await client.post(
+                config["token_url"],
+                data={
+                    "client_id": config["client_id"],
+                    "client_secret": config["client_secret"],
+                    "code": code,
+                    "grant_type": "authorization_code",
+                    "redirect_uri": redirect_uri,
+                },
+            )
+            token_res.raise_for_status()
+            token_payload = token_res.json()
+            access_token = token_payload.get("access_token", "")
+            if not access_token:
+                raise HTTPException(status_code=400, detail="Google OAuth token exchange failed")
+            profile_res = await client.get(
+                config["userinfo_url"],
+                headers={"Authorization": f"Bearer {access_token}"},
+            )
+            profile_res.raise_for_status()
+            profile = profile_res.json()
+            email = str(profile.get("email", "")).strip().lower()
+            full_name = str(profile.get("name", "")).strip()
+            provider_id = str(profile.get("sub", "")).strip()
+        else:
+            token_res = await client.post(
+                config["token_url"],
+                headers={"Accept": "application/json"},
+                data={
+                    "client_id": config["client_id"],
+                    "client_secret": config["client_secret"],
+                    "code": code,
+                    "redirect_uri": redirect_uri,
+                },
+            )
+            token_res.raise_for_status()
+            token_payload = token_res.json()
+            access_token = token_payload.get("access_token", "")
+            if not access_token:
+                raise HTTPException(status_code=400, detail="GitHub OAuth token exchange failed")
+            profile_res = await client.get(
+                config["userinfo_url"],
+                headers={
+                    "Authorization": f"Bearer {access_token}",
+                    "Accept": "application/vnd.github+json",
+                },
+            )
+            profile_res.raise_for_status()
+            profile = profile_res.json()
+            email = str(profile.get("email", "")).strip().lower()
+            full_name = str(profile.get("name", "")).strip()
+            provider_id = str(profile.get("id", "")).strip()
+            if not email:
+                emails_res = await client.get(
+                    config["emails_url"],
+                    headers={
+                        "Authorization": f"Bearer {access_token}",
+                        "Accept": "application/vnd.github+json",
+                    },
+                )
+                emails_res.raise_for_status()
+                emails_payload = emails_res.json()
+                if isinstance(emails_payload, list):
+                    primary = next(
+                        (
+                            item
+                            for item in emails_payload
+                            if isinstance(item, dict) and item.get("primary")
+                        ),
+                        None,
+                    )
+                    if isinstance(primary, dict):
+                        email = str(primary.get("email", "")).strip().lower()
+                    if not email and emails_payload and isinstance(emails_payload[0], dict):
+                        email = str(emails_payload[0].get("email", "")).strip().lower()
+        if not email:
+            raise HTTPException(
+                status_code=400,
+                detail=f"{provider.capitalize()} OAuth did not return an email address",
+            )
+        return {
+            "email": email,
+            "full_name": full_name,
+            "provider_id": provider_id,
+        }
+
+
 @app.get("/auth/oauth/{provider}", tags=["auth"])
 @app.get("/api/auth/oauth/{provider}", tags=["auth"])
 async def oauth_start(provider: str) -> RedirectResponse:
     """Start OAuth flow for configured providers."""
     normalized = provider.strip().lower()
+    config = _get_oauth_config(normalized)
+    state = _oauth_state_token(normalized)
+    redirect_uri = _oauth_redirect_uri(normalized)
+    query = {
+        "client_id": config["client_id"],
+        "redirect_uri": redirect_uri,
+        "response_type": "code",
+        "scope": config["scope"],
+        "state": state,
+    }
+    if normalized == "google":
+        query["access_type"] = "offline"
+        query["prompt"] = "consent"
+    auth_url = f"{config['authorize_url']}?{urlencode(query)}"
+    return RedirectResponse(url=auth_url, status_code=307)
+
+
+@app.get("/auth/oauth/{provider}/callback", tags=["auth"])
+@app.get("/api/auth/oauth/{provider}/callback", tags=["auth"])
+async def oauth_callback(
+    provider: str,
+    code: str | None = None,
+    state: str | None = None,
+    error: str | None = None,
+    db: Any = Depends(get_db),
+) -> RedirectResponse:
+    """Complete OAuth flow and redirect to frontend callback."""
+    normalized = provider.strip().lower()
+    callback_url = _oauth_frontend_callback_url()
+    if error:
+        return RedirectResponse(
+            url=f"{callback_url}?error={error}",
+            status_code=307,
+        )
     if normalized not in {"google", "github"}:
         raise HTTPException(status_code=404, detail="OAuth provider not supported")
+    if not code or not state:
+        raise HTTPException(status_code=400, detail="Missing OAuth callback parameters")
+    state_payload = _decode_oauth_state(state)
+    if state_payload.get("provider") != normalized:
+        raise HTTPException(status_code=400, detail="OAuth state provider mismatch")
 
-    env_key = f"VERIDOC_OAUTH_{normalized.upper()}_AUTH_URL"
-    auth_url = os.environ.get(env_key, "").strip()
-    if not auth_url:
-        raise HTTPException(
-            status_code=503,
-            detail=f"OAuth provider '{normalized}' is not configured on this deployment",
+    identity = await _fetch_oauth_identity(normalized, code)
+
+    from gitspeak_core.api.auth import create_access_token, hash_password
+    from gitspeak_core.api.billing import ensure_referral_profile
+    from gitspeak_core.config.settings import get_default_settings
+    from gitspeak_core.db.models import Subscription, User
+
+    user = db.query(User).filter(User.email == identity["email"]).first()
+    if not user:
+        user = User(
+            email=identity["email"],
+            hashed_password=hash_password(secrets.token_urlsafe(32)),
+            full_name=identity["full_name"] or None,
         )
+        db.add(user)
+        db.flush()
+    elif (not user.full_name) and identity["full_name"]:
+        user.full_name = identity["full_name"]
 
-    return RedirectResponse(url=auth_url, status_code=307)
+    now = datetime.now(timezone.utc)
+    subscription = user.subscription
+    if subscription is None:
+        subscription = Subscription(
+            user_id=user.id,
+            tier="free",
+            status="trialing",
+            trial_ends_at=now + timedelta(days=14),
+            current_period_start=now,
+            current_period_end=now + timedelta(days=14),
+            ai_requests_limit=50,
+        )
+        db.add(subscription)
+
+    db.commit()
+    ensure_referral_profile(user.id, db)
+
+    settings = get_default_settings()
+    expires = settings.access_token_expire_minutes
+    tier = subscription.tier if subscription else "free"
+    token = create_access_token(
+        subject=user.id,
+        secret_key=settings.secret_key.get_secret_value(),
+        expires_minutes=expires,
+        extra_claims={"email": user.email, "tier": tier},
+    )
+    front_query = urlencode(
+        {
+            "access_token": token,
+            "expires_in": str(expires * 60),
+            "token_type": "bearer",
+            "user_id": user.id,
+            "email": user.email,
+            "tier": tier,
+            "provider": normalized,
+        }
+    )
+    return RedirectResponse(url=f"{callback_url}?{front_query}", status_code=307)
 
 
 # =========================================================================
