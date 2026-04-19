@@ -7,6 +7,14 @@ const nextConfig = {
     const target = process.env.API_PROXY_TARGET || "http://localhost:8000";
     return [
       {
+        source: "/landing",
+        destination: "/landing.html",
+      },
+      {
+        source: "/veriops",
+        destination: "/veriops.html",
+      },
+      {
         source: "/api/:path*",
         destination: `${target}/:path*`,
       },
