@@ -28,7 +28,7 @@ import jwt
 
 from fastapi import Depends, FastAPI, Header, HTTPException, Request, Response
 from fastapi.middleware.cors import CORSMiddleware
-from fastapi.responses import JSONResponse
+from fastapi.responses import JSONResponse, RedirectResponse
 from pydantic import BaseModel, ConfigDict, Field
 
 from gitspeak_core.config.settings import AppSettings, get_default_settings
@@ -557,6 +557,24 @@ async def get_me(
         return result.model_dump()
     except ValueError as exc:
         raise HTTPException(status_code=404, detail=str(exc))
+
+
+@app.get("/auth/oauth/{provider}", tags=["auth"])
+async def oauth_start(provider: str) -> RedirectResponse:
+    """Start OAuth flow for configured providers."""
+    normalized = provider.strip().lower()
+    if normalized not in {"google", "github"}:
+        raise HTTPException(status_code=404, detail="OAuth provider not supported")
+
+    env_key = f"VERIDOC_OAUTH_{normalized.upper()}_AUTH_URL"
+    auth_url = os.environ.get(env_key, "").strip()
+    if not auth_url:
+        raise HTTPException(
+            status_code=503,
+            detail=f"OAuth provider '{normalized}' is not configured on this deployment",
+        )
+
+    return RedirectResponse(url=auth_url, status_code=307)
 
 
 # =========================================================================

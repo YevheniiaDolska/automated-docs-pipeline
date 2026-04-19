@@ -26,6 +26,14 @@ export default function LoginPage() {
     }
   }
 
+  function startOAuth(provider: "google" | "github") {
+    const override =
+      provider === "google"
+        ? process.env.NEXT_PUBLIC_OAUTH_GOOGLE_URL
+        : process.env.NEXT_PUBLIC_OAUTH_GITHUB_URL;
+    window.location.href = override || `/api/auth/oauth/${provider}`;
+  }
+
   return (
     <div className="flex min-h-screen items-center justify-center bg-gradient-to-br from-brand/5 to-brand-light/5">
       <div className="w-full max-w-sm rounded-xl bg-surface p-8 shadow-lg">
@@ -38,7 +46,30 @@ export default function LoginPage() {
           </div>
         )}
 
-        <form onSubmit={handleSubmit} className="mt-6 space-y-4">
+        <div className="mt-6 space-y-2">
+          <button
+            type="button"
+            onClick={() => startOAuth("google")}
+            className="w-full rounded-md border border-line bg-white py-2 text-sm font-semibold text-slate-800 hover:bg-slate-50"
+          >
+            Continue with Google
+          </button>
+          <button
+            type="button"
+            onClick={() => startOAuth("github")}
+            className="w-full rounded-md border border-line bg-white py-2 text-sm font-semibold text-slate-800 hover:bg-slate-50"
+          >
+            Continue with GitHub
+          </button>
+        </div>
+
+        <div className="mt-5 flex items-center gap-3 text-xs uppercase tracking-wide text-muted">
+          <span className="h-px flex-1 bg-line" />
+          <span>or</span>
+          <span className="h-px flex-1 bg-line" />
+        </div>
+
+        <form onSubmit={handleSubmit} className="mt-5 space-y-4">
           <div>
             <label htmlFor="email" className="block text-sm font-medium">
               Email
