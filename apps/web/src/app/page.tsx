@@ -4,7 +4,7 @@ import { useEffect } from "react";
 
 export default function HomePage() {
   useEffect(() => {
-    window.location.href = "/landing.html";
+    window.location.href = "/landing";
   }, []);
   return null;
 }
