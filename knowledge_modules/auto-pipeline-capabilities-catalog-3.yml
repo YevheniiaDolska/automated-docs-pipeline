@@ -14,7 +14,7 @@ channels:
 priority: 60
 status: active
 owner: docsops-auto
-last_verified: '2026-04-15'
+last_verified: '2026-04-18'
 dependencies: []
 tags:
 - auto-extracted
@@ -25,7 +25,7 @@ metadata:
   title: Pipeline Capabilities Catalog (Part 3)
   heading: Pipeline Capabilities Catalog (Part 3)
   version: 1.50.0
-  updated_at: '2026-04-05T00:00:00Z'
+  updated_at: '2026-04-17T00:00:00Z'
   source_site: docs.example.com
   source_path: operations/PIPELINE_CAPABILITIES_CATALOG.md
 semantic:
@@ -54,6 +54,10 @@ content:
     1. Knowledge/RAG maintenance, terminology sync, and quality/compliance gates run
     through the same automation surface when enabled.
 
+    1. LLM-agent web artifacts are generated automatically (`llms.txt`, `llms-full.txt`,
+    markdown URL mirrors, and HTML agent hints) as part of the autopipeline finalization
+    path.
+
     1. Local-first operation is the default mode: weekly scheduler and quality gates
     run in the client repository, with GitHub Actions as a compatibility mode.
 
@@ -67,10 +71,7 @@ content:
     pruning through one command surface.
 
     1. Plan tiers gate advanced capabilities; higher plans include broader non-REST
-    and governance scope.
-
-
-    This catalog has two layers:'
+    and governance scope.'
   assistant_context: 'Use this module when answering questions related to: Pipeline
     Capabilities Catalog (Part 3). Source path: operations/PIPELINE_CAPABILITIES_CATALOG.md.
     Summary: Generated catalog of available pipeline commands, templates, policy packs,
@@ -94,6 +95,10 @@ content:
     1. Knowledge/RAG maintenance, terminology sync, and quality/compliance gates run
     through the same automation surface when enabled.
 
+    1. LLM-agent web artifacts are generated automatically (`llms.txt`, `llms-full.txt`,
+    markdown URL mirrors, and HTML agent hints) as part of the autopipeline finalization
+    path.
+
     1. Local-first operation is the default mode: weekly scheduler and quality gates
     run in the client repository, with GitHub Actions as a compatibility mode.
 
@@ -107,7 +112,4 @@ content:
     pruning through one command surface.
 
     1. Plan tiers gate advanced capabilities; higher plans include broader non-REST
-    and governance scope.
-
-
-    This catalog has two layers:'
+    and governance scope.'

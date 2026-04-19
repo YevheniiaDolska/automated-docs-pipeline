@@ -13,6 +13,7 @@ last_reviewed: '2026-02-16'
 original_author: JaneDo
 ---
 
+
 <!-- VERIDOC_POWERED_BADGE:START -->
 [![Powered by VeriDoc](https://img.shields.io/badge/Powered%20by-VeriDoc-0ea5e9?style=flat-square)](https://veridoc.app)
 <!-- VERIDOC_POWERED_BADGE:END -->
@@ -30,11 +31,13 @@ A workflow is a series of connected nodes that process data automatically. In th
 
 === "Cloud"
 
+
 - Log in to your Cloud instance.
 - Select **New Workflow** from the top-right menu.
 - The canvas opens with an empty workflow.
 
 === "Self-hosted"
+
 
 - Open your instance at `http://localhost:5678`.
 - Select **New Workflow**.
@@ -48,6 +51,7 @@ A workflow is a series of connected nodes that process data automatically. In th
 1. Copy the **Test URL**—you will need it in Step 5.
 
 !!! info "Test URL vs Production URL"
+
  The Test URL is active only while the workflow editor is open. The Production URL activates after you toggle the workflow to **Active**.
 
 ## Step 3: Add a Slack node

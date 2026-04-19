@@ -4,8 +4,6 @@ summary: Generated catalog of available pipeline commands, templates, policy pac
   and assets for client configuration.
 intents:
 - integrate
-- secure
-- troubleshoot
 audiences:
 - developer
 - operator
@@ -16,7 +14,7 @@ channels:
 priority: 60
 status: active
 owner: docsops-auto
-last_verified: '2026-04-15'
+last_verified: '2026-04-18'
 dependencies: []
 tags:
 - auto-extracted
@@ -25,13 +23,13 @@ tags:
 metadata:
   url: https://docs.example.com/operations/PIPELINE_CAPABILITIES_CATALOG/
   title: Pipeline Capabilities Catalog (Part 18)
-  heading: Templates
+  heading: Public docs auditor and executive PDF
   version: 1.50.0
-  updated_at: '2026-04-05T00:00:00Z'
+  updated_at: '2026-04-17T00:00:00Z'
   source_site: docs.example.com
   source_path: operations/PIPELINE_CAPABILITIES_CATALOG.md
 semantic:
-  topic: Templates
+  topic: Public docs auditor and executive PDF
   intent: integrate
   audience: developer
   keywords:
@@ -39,197 +37,89 @@ semantic:
   - reference
   status: rule_based
 content:
-  docs_markdown: '## Templates
+  docs_markdown: '## Public docs auditor and executive PDF
 
 
-    These can be shipped via `bundle.include_paths` and used by LLM generation flow.
+    The public docs auditor crawls live documentation sites and generates a comprehensive
+    quality assessment.
 
 
-    - `templates/admin-guide.md`
-
-    - `templates/api-endpoint.md`
-
-    - `templates/api-reference.md`
-
-    - `templates/architecture-overview.md`
-
-    - `templates/authentication-guide.md`
-
-    - `templates/best-practices.md`
-
-    - `templates/changelog.md`
-
-    - `templates/concept.md`
-
-    - `templates/configuration-guide.md`
-
-    - `templates/configuration-reference.md`
-
-    - `templates/deployment-guide.md`
-
-    - `templates/error-handling-guide.md`
-
-    - `templates/faq.md`
-
-    - `templates/glossary-page.md`
-
-    - `templates/how-to.md`
-
-    - `templates/integration-guide.md`
-
-    - `templates/interactive-diagram.html`
-
-    - `templates/migration-guide.md`
-
-    - `templates/plg-persona-guide.md`
-
-    - `templates/plg-value-page.md`
-
-    - `templates/quickstart.md`
-
-    - `templates/reference.md`
-
-    - `templates/release-note.md`
-
-    - `templates/sdk-reference.md`
-
-    - `templates/security-guide.md`
-
-    - `templates/testing-guide.md`
-
-    - `templates/troubleshooting.md`
-
-    - `templates/tutorial.md`
-
-    - `templates/upgrade-guide.md`
-
-    - `templates/use-case.md`
-
-    - `templates/user-guide.md`
-
-    - `templates/webhooks-guide.md`
+    **Audit modes:**
 
 
-    ## Policy Packs
+    | Mode | Command | Description |
+
+    | --- | --- | --- |
+
+    | Basic | `npm run audit:public` | Crawl + evaluate (no LLM) |
+
+    | Interactive wizard | `npm run audit:public:wizard` | Step-by-step guided audit
+    |
+
+    | LLM-powered | `npm run audit:public:llm` | Full expert analysis with Claude
+    |
+
+    | LLM summary only | `npm run audit:public:llm-summary` | Quick LLM summary without
+    full crawl |
+
+    | Executive PDF | `npm run audit:executive-pdf` | Consulting-grade PDF from audit
+    results |
+
+    | Scorecard | `npm run audit:scorecard` | Comprehensive scoring across all quality
+    dimensions |
 
 
-    - `api-first.yml`
-
-    - `minimal.yml`
-
-    - `monorepo.yml`
-
-    - `multi-product.yml`
-
-    - `plg.yml`
+    **Executive PDF contents:** cover page with headline findings, executive summary
+    with score gauge and grade, per-site metrics table, board-level KPI bars with
+    financial impact, risk matrix with priority actions, expert analysis (LLM or data-driven
+    fallback), methodology appendix, evidence appendix.
 
 
-    ## Knowledge Modules
-
-
-    Can be copied into client bundle with `bundle.include_paths: [''knowledge_modules'']`.
-
-
-    - `webhook-auth-baseline.yml`
-
-    - `webhook-retry-policy.yml`'
+    **Audit scorecard dimensions:** docs quality (SEO/GEO), API coverage, code example
+    reliability, glossary health, content freshness, policy compliance.'
   assistant_context: 'Use this module when answering questions related to: Pipeline
     Capabilities Catalog (Part 18). Source path: operations/PIPELINE_CAPABILITIES_CATALOG.md.
     Summary: Generated catalog of available pipeline commands, templates, policy packs,
     and assets for client configuration.
 
 
-    ## Templates
+    ## Public docs auditor and executive PDF
 
 
-    These can be shipped via `bundle.include_paths` and used by LLM generation flow.
+    The public docs auditor crawls live documentation sites and generates a comprehensive
+    quality assessment.
 
 
-    - `templates/admin-guide.md`
-
-    - `templates/api-endpoint.md`
-
-    - `templates/api-reference.md`
-
-    - `templates/architecture-overview.md`
-
-    - `templates/authentication-guide.md`
-
-    - `templates/best-practices.md`
-
-    - `templates/changelog.md`
-
-    - `templates/concept.md`
-
-    - `templates/configuration-guide.md`
-
-    - `templates/configuration-reference.md`
-
-    - `templates/deployment-guide.md`
-
-    - `templates/error-handling-guide.md`
-
-    - `templates/faq.md`
-
-    - `templates/glossary-page.md`
-
-    - `templates/how-to.md`
-
-    - `templates/integration-guide.md`
-
-    - `templates/interactive-diagram.html`
-
-    - `templates/migration-guide.md`
-
-    - `templates/plg-persona-guide.md`
-
-    - `templates/plg-value-page.md`
-
-    - `templates/quickstart.md`
-
-    - `templates/reference.md`
-
-    - `templates/release-note.md`
-
-    - `templates/sdk-reference.md`
-
-    - `templates/security-guide.md`
-
-    - `templates/testing-guide.md`
-
-    - `templates/troubleshooting.md`
-
-    - `templates/tutorial.md`
-
-    - `templates/upgrade-guide.md`
-
-    - `templates/use-case.md`
-
-    - `templates/user-guide.md`
-
-    - `templates/webhooks-guide.md`
+    **Audit modes:**
 
 
-    ## Policy Packs
+    | Mode | Command | Description |
+
+    | --- | --- | --- |
+
+    | Basic | `npm run audit:public` | Crawl + evaluate (no LLM) |
+
+    | Interactive wizard | `npm run audit:public:wizard` | Step-by-step guided audit
+    |
+
+    | LLM-powered | `npm run audit:public:llm` | Full expert analysis with Claude
+    |
+
+    | LLM summary only | `npm run audit:public:llm-summary` | Quick LLM summary without
+    full crawl |
+
+    | Executive PDF | `npm run audit:executive-pdf` | Consulting-grade PDF from audit
+    results |
+
+    | Scorecard | `npm run audit:scorecard` | Comprehensive scoring across all quality
+    dimensions |
 
 
-    - `api-first.yml`
-
-    - `minimal.yml`
-
-    - `monorepo.yml`
-
-    - `multi-product.yml`
-
-    - `plg.yml`
+    **Executive PDF contents:** cover page with headline findings, executive summary
+    with score gauge and grade, per-site metrics table, board-level KPI bars with
+    financial impact, risk matrix with priority actions, expert analysis (LLM or data-driven
+    fallback), methodology appendix, evidence appendix.
 
 
-    ## Knowledge Modules
-
-
-    Can be copied into client bundle with `bundle.include_paths: [''knowledge_modules'']`.
-
-
-    - `webhook-auth-baseline.yml`
-
-    - `webhook-retry-policy.yml`'
+    **Audit scorecard dimensions:** docs quality (SEO/GEO), API coverage, code example
+    reliability, glossary health, content freshness, policy compliance.'

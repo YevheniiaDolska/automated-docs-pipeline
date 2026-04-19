@@ -329,6 +329,32 @@ def _is_enabled(modules: dict[str, Any], key: str, default: bool = True) -> bool
     return bool(value)
 
 
+def _enforce_license_module_scope(modules: dict[str, Any], lic: Any) -> tuple[dict[str, Any], list[str]]:
+    """Disable modules that are not entitled by current license."""
+    gated = dict(modules) if isinstance(modules, dict) else {}
+    notes: list[str] = []
+
+    module_feature_map = {
+        "gap_detection": "gap_detection_code",
+        "drift_detection": "drift_detection",
+        "kpi_sla": "kpi_wall_sla",
+        "terminology_management": "glossary_sync",
+        "lifecycle_management": "lifecycle_management",
+        "rag_optimization": "knowledge_modules",
+        "knowledge_validation": "knowledge_modules",
+        "ontology_graph": "knowledge_graph",
+        "retrieval_evals": "faiss_retrieval",
+        "i18n_sync": "i18n_system",
+        "doc_compiler": "doc_compiler",
+    }
+    for module_key, feature_key in module_feature_map.items():
+        if not license_check(feature_key, lic):
+            if bool(gated.get(module_key, True)):
+                gated[module_key] = False
+                notes.append(f"{module_key}=off (feature gate: {feature_key})")
+    return gated, notes
+
+
 def _deep_merge(base: dict[str, Any], override: dict[str, Any]) -> dict[str, Any]:
     merged: dict[str, Any] = dict(base)
     for key, value in override.items():
@@ -398,6 +424,11 @@ def parse_args() -> argparse.Namespace:
         "--runtime-config",
         default=None,
         help="Optional runtime config path (defaults to <docsops-root>/config/client_runtime.yml)",
+    )
+    parser.add_argument(
+        "--skip-consolidated-report",
+        action="store_true",
+        help="Skip consolidate_reports stage and write minimal consolidated report placeholder.",
     )
     return parser.parse_args()
 
@@ -475,6 +506,15 @@ def main() -> int:
         configured_protocols = ["rest"]
     if not isinstance(api_protocol_settings, dict):
         api_protocol_settings = {}
+
+    modules, module_gate_notes = _enforce_license_module_scope(
+        modules if isinstance(modules, dict) else {},
+        lic,
+    )
+    if module_gate_notes:
+        print("[docsops] license-driven module scope applied:")
+        for note in module_gate_notes:
+            print(f"[docsops] - {note}")
 
     py = sys.executable
     scripts_dir = docsops_root / "scripts"
@@ -1051,7 +1091,9 @@ def main() -> int:
                 _run(cmd, cwd=repo_root)
 
     consolidate = scripts_dir / "consolidate_reports.py"
-    if consolidate.exists():
+    if args.skip_consolidated_report:
+        _write_minimal_consolidated_report(reports_dir)
+    elif consolidate.exists():
         consolidate_rc = _run_allow_fail(
             [
                 py,

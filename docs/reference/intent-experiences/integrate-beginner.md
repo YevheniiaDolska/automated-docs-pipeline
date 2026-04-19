@@ -72,7 +72,6 @@ You need:
 !!! tip "Save time"
     Export your API key as an environment variable to avoid repeating it in every command:
     `export VERIOPS_API_KEY="YOUR_API_KEY"`
-
 ### Tutorial: launch your first VeriOps API integration (Part 3)
 
 Build a working VeriOps API integration in 15 minutes with authenticated requests, project creation, and real-time WebSocket subscriptions.
@@ -81,11 +80,41 @@ Build a working VeriOps API integration in 15 minutes with authenticated request
 
 Run this command to confirm your API key authenticates against the VeriOps REST API:
 
-```bash
-curl -s -o /dev/null -w "%{http_code}" \
-  -H "Authorization: Bearer YOUR_API_KEY" \
-  https://api.veriops.example/v1/projects
-```
+=== "cURL"
+
+    ```bash smoke
+    curl -s -o /dev/null -w "%{http_code}" \
+      -H "Authorization: Bearer YOUR_API_KEY" \
+      https://api.veriops.example/v1/projects
+    ```
+
+=== "JavaScript"
+
+    ```javascript smoke
+    const response = await fetch('https://api.veriops.example/v1/projects', {
+      method: 'GET',
+      headers: {
+        "Authorization": "Bearer YOUR_API_KEY",
+      },
+    });
+    const payload = await response.json();
+    console.log(payload);
+    ```
+
+=== "Python"
+
+    ```python smoke
+    import requests
+
+    response = requests.request(
+        'GET',
+        'https://api.veriops.example/v1/projects',
+        headers={'Authorization': 'Bearer YOUR_API_KEY'},
+        timeout=30,
+    )
+    response.raise_for_status()
+    print(response.json())
+    ```
 
 <!-- requires: api-key -->
 
@@ -93,13 +122,46 @@ A `200` response confirms your key works. A `401` response means the key is inva
 
 Next, verify the GraphQL endpoint:
 
-```bash
-curl -s -X POST https://api.veriops.example/graphql \
-  -H "Authorization: Bearer YOUR_API_KEY" \
-  -H "Content-Type: application/json" \
-  -d '{"query": "{ health { status version } }"}' \
-  | python3 -m json.tool
-```
+=== "cURL"
+
+    ```bash smoke
+    curl -s -X POST https://api.veriops.example/graphql \
+      -H "Authorization: Bearer YOUR_API_KEY" \
+      -H "Content-Type: application/json" \
+      -d '{"query": "{ health { status version } }"}' \
+      | python3 -m json.tool
+    ```
+
+=== "JavaScript"
+
+    ```javascript smoke
+    const response = await fetch('https://api.veriops.example/graphql', {
+      method: 'POST',
+      headers: {
+        "Authorization": "Bearer YOUR_API_KEY",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({"query": "{ health { status version } }"}),
+    });
+    const payload = await response.json();
+    console.log(payload);
+    ```
+
+=== "Python"
+
+    ```python smoke
+    import requests
+
+    response = requests.request(
+        'POST',
+        'https://api.veriops.example/graphql',
+        headers={'Authorization': 'Bearer YOUR_API_KEY', 'Content-Type': 'application/json'},
+        json={'query': '{ health { status version } }'},
+        timeout=30,
+    )
+    response.raise_for_status()
+    print(response.json())
+    ```
 
 <!-- requires: api-key -->
 
@@ -124,16 +186,49 @@ Build a working VeriOps API integration in 15 minutes with authenticated request
 
 Create your first project resource using the REST API:
 
-```bash
-curl -X POST https://api.veriops.example/v1/projects \
-  -H "Authorization: Bearer YOUR_API_KEY" \
-  -H "Content-Type: application/json" \
-  -d '{
-    "name": "Tutorial Integration Project",
-    "description": "Created during the VeriOps API tutorial",
-    "status": "active"
-  }'
-```
+=== "cURL"
+
+    ```bash smoke
+    curl -X POST https://api.veriops.example/v1/projects \
+      -H "Authorization: Bearer YOUR_API_KEY" \
+      -H "Content-Type: application/json" \
+      -d '{
+        "name": "Tutorial Integration Project",
+        "description": "Created during the VeriOps API tutorial",
+        "status": "active"
+      }'
+    ```
+
+=== "JavaScript"
+
+    ```javascript smoke
+    const response = await fetch('https://api.veriops.example/v1/projects', {
+      method: 'POST',
+      headers: {
+        "Authorization": "Bearer YOUR_API_KEY",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({"name": "Tutorial Integration Project", "description": "Created during the VeriOps API tutorial", "status": "active"}),
+    });
+    const payload = await response.json();
+    console.log(payload);
+    ```
+
+=== "Python"
+
+    ```python smoke
+    import requests
+
+    response = requests.request(
+        'POST',
+        'https://api.veriops.example/v1/projects',
+        headers={'Authorization': 'Bearer YOUR_API_KEY', 'Content-Type': 'application/json'},
+        json={'name': 'Tutorial Integration Project', 'description': 'Created during the VeriOps API tutorial', 'status': 'active'},
+        timeout=30,
+    )
+    response.raise_for_status()
+    print(response.json())
+    ```
 
 <!-- requires: api-key -->
 
@@ -162,16 +257,49 @@ Build a working VeriOps API integration in 15 minutes with authenticated request
 
 Use GraphQL to fetch the project you created with custom field selection. GraphQL returns only the fields you request, which reduces payload size.
 
-```bash
-curl -s -X POST https://api.veriops.example/graphql \
-  -H "Authorization: Bearer YOUR_API_KEY" \
-  -H "Content-Type: application/json" \
-  -d '{
-    "query": "query GetProject($id: ID!) { project(id: $id) { id name status createdAt } }",
-    "variables": {"id": "prj_abc123"}
-  }' \
-  | python3 -m json.tool
-```
+=== "cURL"
+
+    ```bash smoke
+    curl -s -X POST https://api.veriops.example/graphql \
+      -H "Authorization: Bearer YOUR_API_KEY" \
+      -H "Content-Type: application/json" \
+      -d '{
+        "query": "query GetProject($id: ID!) { project(id: $id) { id name status createdAt } }",
+        "variables": {"id": "prj_abc123"}
+      }' \
+      | python3 -m json.tool
+    ```
+
+=== "JavaScript"
+
+    ```javascript smoke
+    const response = await fetch('https://api.veriops.example/graphql', {
+      method: 'POST',
+      headers: {
+        "Authorization": "Bearer YOUR_API_KEY",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({"query": "query GetProject($id: ID!) { project(id: $id) { id name status createdAt } }", "variables": {"id": "prj_abc123"}}),
+    });
+    const payload = await response.json();
+    console.log(payload);
+    ```
+
+=== "Python"
+
+    ```python smoke
+    import requests
+
+    response = requests.request(
+        'POST',
+        'https://api.veriops.example/graphql',
+        headers={'Authorization': 'Bearer YOUR_API_KEY', 'Content-Type': 'application/json'},
+        json={'query': 'query GetProject($id: ID!) { project(id: $id) { id name status createdAt } }', 'variables': {'id': 'prj_abc123'}},
+        timeout=30,
+    )
+    response.raise_for_status()
+    print(response.json())
+    ```
 
 <!-- requires: api-key -->
 
@@ -264,12 +392,45 @@ node tutorial-websocket.js
 
 While the script runs, update the project status from another terminal to trigger an event:
 
-```bash
-curl -X PUT https://api.veriops.example/v1/projects/prj_abc123 \
-  -H "Authorization: Bearer YOUR_API_KEY" \
-  -H "Content-Type: application/json" \
-  -d '{"status": "archived"}'
-```
+=== "cURL"
+
+    ```bash smoke
+    curl -X PUT https://api.veriops.example/v1/projects/prj_abc123 \
+      -H "Authorization: Bearer YOUR_API_KEY" \
+      -H "Content-Type: application/json" \
+      -d '{"status": "archived"}'
+    ```
+
+=== "JavaScript"
+
+    ```javascript smoke
+    const response = await fetch('https://api.veriops.example/v1/projects/prj_abc123', {
+      method: 'PUT',
+      headers: {
+        "Authorization": "Bearer YOUR_API_KEY",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({"status": "archived"}),
+    });
+    const payload = await response.json();
+    console.log(payload);
+    ```
+
+=== "Python"
+
+    ```python smoke
+    import requests
+
+    response = requests.request(
+        'PUT',
+        'https://api.veriops.example/v1/projects/prj_abc123',
+        headers={'Authorization': 'Bearer YOUR_API_KEY', 'Content-Type': 'application/json'},
+        json={'status': 'archived'},
+        timeout=30,
+    )
+    response.raise_for_status()
+    print(response.json())
+    ```
 
 <!-- requires: api-key -->
 

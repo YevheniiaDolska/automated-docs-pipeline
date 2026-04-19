@@ -1,0 +1,30 @@
+{
+  "status": "ok",
+  "version": "20260418T175801Z-c5ce8ff00b75",
+  "generated_at_utc": "2026-04-18T17:58:01.137844+00:00",
+  "promoted_index_path": "/mnt/c/Users/Kroha/Documents/development/Auto-Doc Pipeline/docs/assets/knowledge-retrieval-index.json",
+  "versioned_index_path": "/mnt/c/Users/Kroha/Documents/development/Auto-Doc Pipeline/docs/assets/rag-versions/20260418T175801Z-c5ce8ff00b75/knowledge-retrieval-index.json",
+  "checksum_sha256": "c5ce8ff00b75d0601be0ec0ab7ab64c0559a4d80cb659d59bbf9e23d86942b60",
+  "with_embeddings": true,
+  "embeddings_provider": "local",
+  "embeddings_generated": true,
+  "faiss_versioned": false,
+  "faiss_metadata_versioned": false,
+  "steps": [
+    "extract_knowledge_modules",
+    "validate_knowledge_modules",
+    "detect_rag_contradictions",
+    "generate_knowledge_retrieval_index",
+    "generate_embeddings:local"
+  ],
+  "retention_versions": 60,
+  "pruned_versions": [],
+  "contradictions_report_path": "/mnt/c/Users/Kroha/Documents/development/Auto-Doc Pipeline/reports/rag_contradictions_report.json",
+  "contradiction_check_enabled": true,
+  "exclude_critical_contradictions": true,
+  "contradictions_summary": {
+    "critical_contradictions": 0,
+    "warning_contradictions": 1,
+    "stale_candidates": 0
+  }
+}

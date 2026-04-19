@@ -4,7 +4,6 @@ summary: Generated catalog of available pipeline commands, templates, policy pac
   and assets for client configuration.
 intents:
 - integrate
-- troubleshoot
 audiences:
 - developer
 - operator
@@ -15,7 +14,7 @@ channels:
 priority: 60
 status: active
 owner: docsops-auto
-last_verified: '2026-04-15'
+last_verified: '2026-04-18'
 dependencies: []
 tags:
 - auto-extracted
@@ -24,13 +23,13 @@ tags:
 metadata:
   url: https://docs.example.com/operations/PIPELINE_CAPABILITIES_CATALOG/
   title: Pipeline Capabilities Catalog (Part 6)
-  heading: How to enable any capability for a client
+  heading: LLM-agent optimized web surface
   version: 1.50.0
-  updated_at: '2026-04-05T00:00:00Z'
+  updated_at: '2026-04-17T00:00:00Z'
   source_site: docs.example.com
   source_path: operations/PIPELINE_CAPABILITIES_CATALOG.md
 semantic:
-  topic: How to enable any capability for a client
+  topic: LLM-agent optimized web surface
   intent: integrate
   audience: developer
   keywords:
@@ -38,14 +37,69 @@ semantic:
   - reference
   status: rule_based
 content:
-  docs_markdown: "## How to enable any capability for a client\n\n```yaml\nruntime:\n\
-    \  custom_tasks:\n    weekly:\n      - id: \"my-task\"\n        enabled: true\n\
-    \        command: \"npm run <script-name>\"\n        continue_on_error: true\n\
-    ```"
-  assistant_context: "Use this module when answering questions related to: Pipeline\
-    \ Capabilities Catalog (Part 6). Source path: operations/PIPELINE_CAPABILITIES_CATALOG.md.\
-    \ Summary: Generated catalog of available pipeline commands, templates, policy\
-    \ packs, and assets for client configuration.\n\n## How to enable any capability\
-    \ for a client\n\n```yaml\nruntime:\n  custom_tasks:\n    weekly:\n      - id:\
-    \ \"my-task\"\n        enabled: true\n        command: \"npm run <script-name>\"\
-    \n        continue_on_error: true\n```"
+  docs_markdown: '## LLM-agent optimized web surface
+
+
+    The pipeline now includes a dedicated LLM-facing output layer in the same build
+    path as standard docs publishing.
+
+
+    1. Generates `llms.txt` with URL and title pairs for discoverable LLM crawling.
+
+    1. Generates `llms-full.txt` with URL, title, and summary for richer retrieval
+    context.
+
+    1. Publishes markdown mirrors into the static site output so crawlers can consume
+    `.md` without brittle HTML parsing.
+
+    1. Injects explicit HTML metadata hints in the docs template header so agents
+    prefer markdown URL variants.
+
+
+    Operational value:
+
+
+    1. Improves RAG ingestion quality because crawlers ingest source markdown instead
+    of noisy rendered DOM.
+
+    1. Reduces post-processing complexity for external agent ecosystems (fewer custom
+    parsers and extractors).
+
+    1. Provides a concrete pre-sales differentiator: docs are optimized for both human
+    readers and machine agents by default, not via manual retrofit.'
+  assistant_context: 'Use this module when answering questions related to: Pipeline
+    Capabilities Catalog (Part 6). Source path: operations/PIPELINE_CAPABILITIES_CATALOG.md.
+    Summary: Generated catalog of available pipeline commands, templates, policy packs,
+    and assets for client configuration.
+
+
+    ## LLM-agent optimized web surface
+
+
+    The pipeline now includes a dedicated LLM-facing output layer in the same build
+    path as standard docs publishing.
+
+
+    1. Generates `llms.txt` with URL and title pairs for discoverable LLM crawling.
+
+    1. Generates `llms-full.txt` with URL, title, and summary for richer retrieval
+    context.
+
+    1. Publishes markdown mirrors into the static site output so crawlers can consume
+    `.md` without brittle HTML parsing.
+
+    1. Injects explicit HTML metadata hints in the docs template header so agents
+    prefer markdown URL variants.
+
+
+    Operational value:
+
+
+    1. Improves RAG ingestion quality because crawlers ingest source markdown instead
+    of noisy rendered DOM.
+
+    1. Reduces post-processing complexity for external agent ecosystems (fewer custom
+    parsers and extractors).
+
+    1. Provides a concrete pre-sales differentiator: docs are optimized for both human
+    readers and machine agents by default, not via manual retrofit.'

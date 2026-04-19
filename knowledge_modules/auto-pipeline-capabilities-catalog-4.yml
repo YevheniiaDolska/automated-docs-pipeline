@@ -14,7 +14,7 @@ channels:
 priority: 60
 status: active
 owner: docsops-auto
-last_verified: '2026-04-15'
+last_verified: '2026-04-18'
 dependencies: []
 tags:
 - auto-extracted
@@ -25,7 +25,7 @@ metadata:
   title: Pipeline Capabilities Catalog (Part 4)
   heading: Pipeline Capabilities Catalog (Part 4)
   version: 1.50.0
-  updated_at: '2026-04-05T00:00:00Z'
+  updated_at: '2026-04-17T00:00:00Z'
   source_site: docs.example.com
   source_path: operations/PIPELINE_CAPABILITIES_CATALOG.md
 semantic:
@@ -37,7 +37,10 @@ semantic:
   - reference
   status: rule_based
 content:
-  docs_markdown: '1. npm script entry points (from `package.json`)
+  docs_markdown: 'This catalog has two layers:
+
+
+    1. npm script entry points (from `package.json`)
 
     1. direct CLI entry points in `scripts/*.py` that are used by provisioning/operator
     flows and are not exposed as npm commands
@@ -53,6 +56,9 @@ content:
     Capabilities Catalog (Part 4). Source path: operations/PIPELINE_CAPABILITIES_CATALOG.md.
     Summary: Generated catalog of available pipeline commands, templates, policy packs,
     and assets for client configuration.
+
+
+    This catalog has two layers:
 
 
     1. npm script entry points (from `package.json`)

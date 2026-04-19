@@ -82,9 +82,9 @@ class TestDegradedMode:
         lic = _community_license()
         assert lic.features.get("executive_audit_pdf", False) is False
 
-    def test_community_rest_only(self):
+    def test_community_no_protocols(self):
         lic = _community_license()
-        assert lic.protocols == ["rest"]
+        assert lic.protocols == []
 
 
 # -- Pilot tier ----------------------------------------------------------------
@@ -142,21 +142,25 @@ class TestProfessionalTier:
         lic = _make_license("professional")
         assert lic.features["consolidated_reports"] is True
 
-    def test_professional_no_multi_protocol(self):
+    def test_professional_has_multi_protocol(self):
         lic = _make_license("professional")
-        assert lic.features["multi_protocol_pipeline"] is False
+        assert lic.features["multi_protocol_pipeline"] is True
 
-    def test_professional_no_knowledge(self):
+    def test_professional_has_knowledge_prep(self):
         lic = _make_license("professional")
-        assert lic.features["knowledge_modules"] is False
+        assert lic.features["knowledge_modules"] is True
 
-    def test_professional_no_pdf(self):
+    def test_professional_has_pdf(self):
         lic = _make_license("professional")
-        assert lic.features["executive_audit_pdf"] is False
+        assert lic.features["executive_audit_pdf"] is True
 
-    def test_professional_no_i18n(self):
+    def test_professional_has_i18n(self):
         lic = _make_license("professional")
-        assert lic.features["i18n_system"] is False
+        assert lic.features["i18n_system"] is True
+
+    def test_professional_no_faiss_retrieval(self):
+        lic = _make_license("professional")
+        assert lic.features["faiss_retrieval"] is False
 
 
 # -- Enterprise tier -----------------------------------------------------------
@@ -204,9 +208,9 @@ class TestFeatureGateIntegration:
         assert check("drift_detection", pro) is True
         assert check("drift_detection", ent) is True
 
-        # multi_protocol_pipeline: pilot=no, pro=no, ent=yes
+        # multi_protocol_pipeline: pilot=no, pro=yes, ent=yes
         assert check("multi_protocol_pipeline", pilot) is False
-        assert check("multi_protocol_pipeline", pro) is False
+        assert check("multi_protocol_pipeline", pro) is True
         assert check("multi_protocol_pipeline", ent) is True
 
     def test_require_blocks_correctly(self):

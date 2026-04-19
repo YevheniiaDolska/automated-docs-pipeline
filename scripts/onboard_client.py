@@ -78,9 +78,12 @@ def _print_profile_preview(profile_path: Path) -> None:
     if llm_control.get("local_base_model"):
         print(f"- Local base model: {llm_control.get('local_base_model')}")
     print("- IP protection: metadata-only egress + server-side revoke/pack controls.")
+    print("- Client provides: infra/runtime prerequisites + external provider keys (only for enabled integrations).")
+    print("- Operator provides: signed docsops/license.jwt and capability pack/policy defaults.")
     if strict_local or llm_mode == "local_default":
         print("- Local bootstrap: setup_client_env_wizard installs Ollama, pulls base model, and creates veridoc-writer.")
         print("- Strict local guardrails: external Ask AI, Algolia upload, external mock backend, and test uploads are disabled.")
+        print("- Strict-local fallback: if Docker is missing, setup wizard can switch API sandbox backend to prism.")
     else:
         print("- Cloud/hybrid profile: external providers are allowed (same trust model as hosted Git/cloud workflows).")
 
@@ -119,13 +122,15 @@ def main() -> int:
     base_args = parse_args()
     mode = getattr(base_args, "mode", "install-local")
     bundle_only = mode == "bundle-only"
+    has_required_cli = bool(base_args.client and (bundle_only or base_args.client_repo))
+    interactive_mode = not has_required_cli
     interactive_args = argparse.Namespace(
         client=base_args.client,
         client_repo=base_args.client_repo,
         docsops_dir=base_args.docsops_dir,
         install_scheduler=base_args.install_scheduler,
-        interactive=True,
-        generate_profile=True,
+        interactive=interactive_mode,
+        generate_profile=interactive_mode,
         bundle_only=bundle_only,
     )
 

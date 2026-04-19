@@ -59,16 +59,15 @@ This works for both API-first and code-first teams.
 
 Auto-generated asyncapi reference from source contract.
 
+<!-- vale off -->
 <div id="asyncapi-playground" style="border:1px solid #d1d5db; padding:12px; border-radius:8px;">
   <p><strong>WebSocket Endpoint:</strong> <code id="asyncapi-ws-view"></code></p>
   <p><strong>HTTP Publish Endpoint:</strong> <code id="asyncapi-http-view"></code></p>
-  <!-- vale off -->
   <textarea id="asyncapi-message" rows="8" style="width:100%; font-family:monospace;">{
   "event_type": "project.updated",
   "event_id": "evt_001",
   "data": {"project_id": "prj_abc123", "status": "active"}
 }</textarea><br/>
-  <!-- vale on -->
   <button id="asyncapi-send-ws">Send via WebSocket</button>
   <button id="asyncapi-send-http">Send via HTTP</button>
   <pre id="asyncapi-output" style="margin-top:12px; max-height:320px; overflow:auto;"></pre>
@@ -138,6 +137,7 @@ sendHttp.onclick = async function(){
 };
 })();
 </script>
+<!-- vale on -->
 
 ### Auto-Doc Pipeline study guide (Part 5)
 
@@ -255,6 +255,7 @@ bundle:
 
 Auto-generated graphql reference from source contract.
 
+<!-- vale off -->
 <div id="graphql-playground" style="border:1px solid #d1d5db; padding:12px; border-radius:8px;">
   <p><strong>Endpoint:</strong> <code id="graphql-endpoint-view"></code></p>
   <textarea id="graphql-query" rows="12" style="width:100%; font-family:monospace;">query HealthCheck {
@@ -300,6 +301,7 @@ run.onclick = async function(){
 };
 })();
 </script>
+<!-- vale on -->
 
 ### GRPC API Reference (Part 3)
 
@@ -425,7 +427,7 @@ tcpdump -r pipeline-traffic.pcap -A | grep -i "POST\|GET\|Host:"
 
 ```
 
-### Pipeline Capabilities Catalog (Part 7)
+### Pipeline Capabilities Catalog (Part 8)
 
 Generated catalog of available pipeline commands, templates, policy packs, and assets for client configuration.
 
@@ -1061,9 +1063,11 @@ Each Webhook node generates two URLs:
 
 === "Cloud"
 
+
  Base URL: `<https://your-instance.app.the> product.cloud`
 
 === "Self-hosted"
+
 
  Base URL: your configured `WEBHOOK_URL` environment variable, or `<http://localhost:5678`> by default.
 
@@ -1123,7 +1127,7 @@ Complete parameter reference for the Webhook trigger node including HTTP methods
 
 #### Webhook node reference for (Part 3): Next steps
 
-- [Documentation index](../index.md)
+- [Documentation index](../../index.md)
 
 ### Fix: Webhook trigger not firing (Part 3)
 

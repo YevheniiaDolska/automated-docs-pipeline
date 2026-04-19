@@ -1,0 +1,308 @@
+{
+  "generated_at": "2026-04-17T10:47:41.635676+00:00",
+  "site_url": "https://bun.sh/docs",
+  "site_urls": [
+    "https://bun.sh/docs"
+  ],
+  "topology_mode": "multi-project",
+  "verification_modes": [
+    "authenticated",
+    "bot",
+    "browser"
+  ],
+  "sites": [
+    {
+      "site_url": "https://bun.sh/docs",
+      "metrics": {
+        "crawl": {
+          "pages_crawled": 313,
+          "requested_pages": 315,
+          "urls_examined": 315,
+          "max_pages": 25000,
+          "effective_limit": 25000,
+          "auto_mode": false,
+          "stop_reason": "queue_exhausted",
+          "discovered_pages": 315,
+          "crawl_scope_basis": "discovered",
+          "crawl_scope_pages": 315,
+          "crawl_coverage_pct": 100.0,
+          "trap_urls_skipped": 0,
+          "seeded_sitemap_urls": 0,
+          "robots_sitemaps_declared": 0
+        },
+        "links": {
+          "internal_links_checked": 315,
+          "broken_internal_links_count": 2,
+          "docs_broken_links_count": 2,
+          "repo_broken_links_count": 0,
+          "broken_internal_link_samples": [
+            "https://bun.sh/docs/docs/api/glob",
+            "https://bun.sh/docs/docs/bundler"
+          ],
+          "docs_broken_link_samples": [
+            "https://bun.sh/docs/docs/api/glob",
+            "https://bun.sh/docs/docs/bundler"
+          ],
+          "repo_broken_link_samples": [],
+          "unreachable_links_count": 0,
+          "unverified_links_count": 0,
+          "unverified_link_samples": [],
+          "confirmed_broken_links_count": 2,
+          "excluded_links_count": 1,
+          "excluded_link_samples": [
+            "https://bun.sh/docs/feedback"
+          ],
+          "_all_confirmed_broken_links": [
+            "https://bun.sh/docs/docs/api/glob",
+            "https://bun.sh/docs/docs/bundler"
+          ],
+          "_all_unverified_links": [],
+          "_all_excluded_links": [
+            "https://bun.sh/docs/feedback"
+          ],
+          "_all_docs_unverified_links": [],
+          "_all_repo_unverified_links": [],
+          "_broken_link_provenance": {
+            "https://bun.sh/docs/docs/api/glob": [
+              {
+                "source_page": "https://bun.sh/docs/runtime/archive",
+                "anchor_text": "Bun.Glob"
+              }
+            ],
+            "https://bun.sh/docs/docs/bundler": [
+              {
+                "source_page": "https://bun.sh/docs/bundler/plugins",
+                "anchor_text": "BuildOutput"
+              }
+            ]
+          }
+        },
+        "seo_geo": {
+          "pages_scanned": 313,
+          "missing_title_count": 0,
+          "missing_description_count": 189,
+          "multiple_h1_count": 4,
+          "heading_hierarchy_jump_count": 20,
+          "seo_geo_issue_rate_pct": 17.01
+        },
+        "api_coverage": {
+          "reference_endpoint_count": 524,
+          "api_pages_detected": 26,
+          "endpoints_with_usage_docs": 377,
+          "reference_endpoints_without_usage_docs": 147,
+          "reference_coverage_pct": 71.95,
+          "no_api_pages_found": false,
+          "coverage_determined": true,
+          "coverage_method": "heuristic",
+          "detection_note": "Contract URLs found but no operations parsed",
+          "uncovered_endpoint_samples": [
+            "ep:/*.classes.ts",
+            "ep:/../parent/db.db",
+            "ep:/./app.db",
+            "ep:/./data/app.db",
+            "ep:/./database.db",
+            "ep:/./local.db",
+            "ep:/.aws/credentials",
+            "ep:/.bashrc",
+            "ep:/.bun",
+            "ep:/.config/fish/config.fish",
+            "ep:/.config/gh/hosts.yml",
+            "ep:/.npmrc",
+            "ep:/.zshrc",
+            "ep:/:memory",
+            "ep:/absolute/path.db",
+            "ep:/absolute/path/to/db.sqlite",
+            "ep:/api.github.com/name",
+            "ep:/api.github.com/user",
+            "ep:/app.db",
+            "ep:/bin"
+          ]
+        },
+        "examples": {
+          "total_code_examples": 0,
+          "total_code_blocks_all": 3505,
+          "runnable_without_env": 0,
+          "blocked_by_placeholders": 0,
+          "network_bound_examples": 0,
+          "example_reliability_estimate_pct": 0.0,
+          "detection_note": "No executable code blocks detected (3505 data-only blocks found). Site may use non-standard code rendering that the auditor does not recognize, or all examples are in data formats (YAML/JSON)."
+        },
+        "freshness": {
+          "pages_with_last_updated_hint": 5,
+          "pages_without_last_updated_hint": 308,
+          "last_updated_coverage_pct": 1.6,
+          "samples_with_last_updated": [
+            {
+              "url": "https://bun.sh/docs/runtime/debugger",
+              "hint": "[fetch] < Date: Tue, 18 Jun 2024 05:12:07 GMT"
+            },
+            {
+              "url": "https://bun.sh/docs/runtime/networking/fetch",
+              "hint": "Date: Sun, 21 Jul 2024 02:41:14 GMT"
+            },
+            {
+              "url": "https://bun.sh/docs/guides/test/mock-clock",
+              "hint": "// it's now January 1, 1999"
+            },
+            {
+              "url": "https://bun.sh/docs/test/dates-times",
+              "hint": "// Jan 1, 2020 timestamp"
+            },
+            {
+              "url": "https://bun.sh/docs/test/snapshots",
+              "hint": "2024-01-01"
+            }
+          ]
+        }
+      },
+      "samples": {
+        "broken_links": [
+          "https://bun.sh/docs/docs/api/glob",
+          "https://bun.sh/docs/docs/bundler"
+        ],
+        "docs_broken_link_samples": [
+          "https://bun.sh/docs/docs/api/glob",
+          "https://bun.sh/docs/docs/bundler"
+        ],
+        "repo_broken_link_samples": [],
+        "unverified_link_samples": [],
+        "api_uncovered_samples": [
+          "ep:/*.classes.ts",
+          "ep:/../parent/db.db",
+          "ep:/./app.db",
+          "ep:/./data/app.db",
+          "ep:/./database.db",
+          "ep:/./local.db",
+          "ep:/.aws/credentials",
+          "ep:/.bashrc",
+          "ep:/.bun",
+          "ep:/.config/fish/config.fish",
+          "ep:/.config/gh/hosts.yml",
+          "ep:/.npmrc",
+          "ep:/.zshrc",
+          "ep:/:memory",
+          "ep:/absolute/path.db",
+          "ep:/absolute/path/to/db.sqlite",
+          "ep:/api.github.com/name",
+          "ep:/api.github.com/user",
+          "ep:/app.db",
+          "ep:/bin"
+        ]
+      },
+      "run_count": 1
+    }
+  ],
+  "aggregate": {
+    "metrics": {
+      "crawl": {
+        "pages_crawled": 313,
+        "requested_pages": 315,
+        "urls_examined": 315,
+        "max_pages_total": 25000,
+        "discovered_pages": 315,
+        "crawl_scope_pages": 315,
+        "trap_urls_skipped": 0,
+        "crawl_coverage_pct": 100.0
+      },
+      "links": {
+        "broken_internal_links_count": 2,
+        "docs_broken_links_count": 2,
+        "repo_broken_links_count": 0,
+        "unverified_links_count": 0,
+        "confirmed_broken_links_count": 2,
+        "excluded_links_count": 1
+      },
+      "seo_geo": {
+        "seo_geo_issue_rate_pct": 17.01
+      },
+      "api_coverage": {
+        "reference_coverage_pct": 71.95,
+        "no_api_pages_found": false,
+        "api_pages_detected": 26,
+        "coverage_determined": true,
+        "detection_note": ""
+      },
+      "examples": {
+        "example_reliability_estimate_pct": 0.0
+      },
+      "freshness": {
+        "last_updated_coverage_pct": 1.6
+      }
+    },
+    "confidence": {
+      "overall_confidence_pct": 91.5,
+      "links_confidence_pct": 95.0,
+      "api_confidence_pct": 85.0,
+      "crawl_confidence_pct": 95.0
+    }
+  },
+  "confidence": {
+    "overall_confidence_pct": 91.5,
+    "links_confidence_pct": 95.0,
+    "api_confidence_pct": 85.0,
+    "crawl_confidence_pct": 95.0
+  },
+  "top_findings": [
+    "Broken internal links: 2",
+    "SEO/GEO issue rate is high: 17.01%",
+    "Example reliability estimate is low: 0.0%",
+    "Freshness visibility is weak: only 1.6% pages show last updated"
+  ],
+  "llm_analysis": {
+    "status": "ok",
+    "model": "claude-sonnet-4-5",
+    "analysis": {
+      "executive_summary": "Documentation audit of bun.sh/docs covered 313 of 315 requested pages (100% crawl coverage) with 91.5% overall confidence. Critical issues include 2 confirmed broken internal documentation links and 0% example reliability estimate across all pages. API reference coverage stands at 71.95% with 26 API pages detected. Freshness metadata is severely limited at 1.6% coverage, and SEO/geo issues affect 17.01% of pages.",
+      "strengths": [
+        "Complete crawl coverage achieved (313/315 pages, 100%)",
+        "High overall audit confidence at 91.5%",
+        "No repository navigation link breakage (0 repo_broken_links_count)",
+        "API reference coverage exceeds 70% (71.95%) with successful detection across 26 pages",
+        "Zero crawl trap URLs encountered during site examination"
+      ],
+      "risks": [
+        "0% example reliability estimate indicates code examples may be untested, outdated, or unvalidated",
+        "2 confirmed broken internal documentation links degrade user navigation experience",
+        "Only 1.6% of pages display last-updated metadata, preventing users from assessing content freshness",
+        "17.01% SEO/geo issue rate may impact discoverability and search ranking",
+        "28.05% of API surface area lacks reference documentation coverage",
+        "No automated example validation detected across 313 pages",
+        "Freshness tracking infrastructure appears absent or non-functional"
+      ],
+      "prioritized_actions": [
+        {
+          "action": "Implement automated example testing pipeline to validate all code samples against current Bun runtime",
+          "impact": "critical",
+          "effort": "high"
+        },
+        {
+          "action": "Fix 2 confirmed broken internal documentation links immediately",
+          "impact": "high",
+          "effort": "low"
+        },
+        {
+          "action": "Deploy last-updated timestamp metadata to all 313 documentation pages",
+          "impact": "high",
+          "effort": "medium"
+        },
+        {
+          "action": "Audit and remediate SEO/geo issues affecting 17.01% of pages (approximately 53 pages)",
+          "impact": "medium",
+          "effort": "medium"
+        },
+        {
+          "action": "Document remaining 28.05% of API surface area to achieve complete reference coverage",
+          "impact": "medium",
+          "effort": "high"
+        }
+      ],
+      "limitations": [
+        "External audit cannot verify accuracy of technical content, code examples, or API specifications",
+        "Example reliability estimate reflects detection of validation infrastructure only, not actual code correctness",
+        "Crawl limited to publicly accessible pages; authenticated or gated content not examined",
+        "API coverage detection may miss non-standard documentation patterns or embedded references",
+        "Cannot assess internal content review processes, subject matter expert validation, or editorial workflows"
+      ]
+    }
+  }
+}

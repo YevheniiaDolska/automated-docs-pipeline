@@ -15,7 +15,7 @@ channels:
 priority: 60
 status: active
 owner: docsops-auto
-last_verified: '2026-04-15'
+last_verified: '2026-04-18'
 dependencies: []
 tags:
 - auto-extracted
@@ -40,31 +40,31 @@ semantic:
 content:
   docs_markdown: "## Execution modes\n\nThe platform supports two execution modes\
     \ that affect error handling and performance.\n\n=== \"Regular mode (default)\"\
-    \n\n Nodes execute one at a time. If a node fails, execution stops and the workflow\
+    \n\n\n Nodes execute one at a time. If a node fails, execution stops and the workflow\
     \ reports an error. This mode is predictable and easier to debug.\n\n Typical\
-    \ setting: `EXECUTIONS_MODE=regular`\n\n=== \"Queue mode (production)\"\n\n Workflow\
-    \ executions are distributed across worker processes. This mode handles high-volume\
-    \ workloads (hundreds of concurrent executions) and requires a Redis instance\
-    \ for coordination.\n\n Typical setting: `EXECUTIONS_MODE=queue`\n\n## Error handling\n\
-    \nWhen a node fails, behavior depends on the node's error handling setting:\n\n\
-    - **Stop execution** (default): The workflow stops. The error appears in the execution\
-    \ log.\n- **Continue on fail**: The node outputs an error object, and the next\
-    \ node receives it. Use this for non-critical steps like logging.\n- **Error Trigger\
-    \ workflow**: A separate workflow handles the error path. This pattern is common\
-    \ for alerting and retry logic.\n\n## Key implications for documentation writers\n\
-    \nThe execution model means that every node reference page should document what\
-    \ input format the node expects, what output format it produces (how many items,\
-    \ what structure), and how the node behaves with multiple items (once for all\
-    \ vs. once per item)."
+    \ setting: `EXECUTIONS_MODE=regular`\n\n=== \"Queue mode (production)\"\n\n\n\
+    \ Workflow executions are distributed across worker processes. This mode handles\
+    \ high-volume workloads (hundreds of concurrent executions) and requires a Redis\
+    \ instance for coordination.\n\n Typical setting: `EXECUTIONS_MODE=queue`\n\n\
+    ## Error handling\n\nWhen a node fails, behavior depends on the node's error handling\
+    \ setting:\n\n- **Stop execution** (default): The workflow stops. The error appears\
+    \ in the execution log.\n- **Continue on fail**: The node outputs an error object,\
+    \ and the next node receives it. Use this for non-critical steps like logging.\n\
+    - **Error Trigger workflow**: A separate workflow handles the error path. This\
+    \ pattern is common for alerting and retry logic.\n\n## Key implications for documentation\
+    \ writers\n\nThe execution model means that every node reference page should document\
+    \ what input format the node expects, what output format it produces (how many\
+    \ items, what structure), and how the node behaves with multiple items (once for\
+    \ all vs. once per item)."
   assistant_context: "Use this module when answering questions related to: Workflow\
     \ execution model (Part 2). Source path: concepts/workflow-execution-model.md.\
     \ Summary: The workflow engine processes workflows by executing nodes sequentially,\
     \ passing data as arrays of JSON objects between each node in the chain.\n\n##\
     \ Execution modes\n\nThe platform supports two execution modes that affect error\
-    \ handling and performance.\n\n=== \"Regular mode (default)\"\n\n Nodes execute\
+    \ handling and performance.\n\n=== \"Regular mode (default)\"\n\n\n Nodes execute\
     \ one at a time. If a node fails, execution stops and the workflow reports an\
     \ error. This mode is predictable and easier to debug.\n\n Typical setting: `EXECUTIONS_MODE=regular`\n\
-    \n=== \"Queue mode (production)\"\n\n Workflow executions are distributed across\
+    \n=== \"Queue mode (production)\"\n\n\n Workflow executions are distributed across\
     \ worker processes. This mode handles high-volume workloads (hundreds of concurrent\
     \ executions) and requires a Redis instance for coordination.\n\n Typical setting:\
     \ `EXECUTIONS_MODE=queue`\n\n## Error handling\n\nWhen a node fails, behavior\

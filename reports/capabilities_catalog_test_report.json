@@ -1,0 +1,1627 @@
+{
+  "generated_at_epoch": 1776534764.862154,
+  "catalog": "/mnt/c/Users/Kroha/Documents/development/Auto-Doc Pipeline/docs/operations/PIPELINE_CAPABILITIES_CATALOG.md",
+  "npm_scripts": [
+    {
+      "capability": "agent:claude:auto",
+      "catalog_command": "bash scripts/claude-auto.sh",
+      "exec": "npm run agent:claude:auto",
+      "status": "FAIL",
+      "rc": 1,
+      "duration_sec": 3.291,
+      "stdout_tail": "\n> auto-doc-pipeline@1.0.0 agent:claude:auto\n> bash scripts/claude-auto.sh\n\n",
+      "stderr_tail": "Error: Input must be provided either through stdin or as a prompt argument when using --print\n"
+    },
+    {
+      "capability": "agent:codex:auto",
+      "catalog_command": "bash scripts/codex-auto.sh",
+      "exec": "npm run agent:codex:auto",
+      "status": "FAIL",
+      "rc": 1,
+      "duration_sec": 0.582,
+      "stdout_tail": "\n> auto-doc-pipeline@1.0.0 agent:codex:auto\n> bash scripts/codex-auto.sh\n\n",
+      "stderr_tail": "WARNING: failed to clean up stale arg0 temp dirs: Permission denied (os error 13)\nWARNING: proceeding, even though we could not update PATH: Permission denied (os error 13) at path \"/home/eudo/.codex/tmp/arg0/codex-arg0PpVmk4\"\nError: Permission denied (os error 13)\n"
+    },
+    {
+      "capability": "api-first-demo",
+      "catalog_command": "bash scripts/api_first_demo_live.sh",
+      "exec": "npm run api-first-demo",
+      "status": "FAIL",
+      "rc": 1,
+      "duration_sec": 1.299,
+      "stdout_tail": " conventions\n\n- Content type: `application/json; charset=utf-8`.\n- Date-time format: ISO 8601 UTC (`2026-03-09T10:22:31Z`).\n\n[demo] Notes endpoint sample:\n\n### 4.1 Projects\n\n- `GET /projects` - list projects (pagination/filter/sort).\n- `POST /projects` - create project.\n- `GET /projects/{project_id}` - get project.\n- `PATCH /projects/{project_id}` - partial update.\n- `DELETE /projects/{project_id}` - soft delete.\n- `POST /projects/{project_id}/archive` - archive project.\n- `POST /projects/{project_id}/restore` - restore archived project.\n\nFilters for `GET /projects`:\n\n- `status`: `active | archived`\n- `owner_id`: UUID\n- `created_from`, `created_to`: datetime\n- `q`: full-text on `name`, `description`\n\nSorting for `GET /projects`:\n\n- `sort_by`: `created_at | updated_at | name`\n- default: `updated_at desc`\n\n\n[demo] Notes quality gates sample:\n## 5. Draft schema inventory\n\n- `Project`: `id`, `name`, `description`, `status`, `owner_id`, `created_at`, `updated_at`, `archived_at`.\n- `Task`: `id`, `project_id`, `title`, `description`, `status`, `priority`, `assignee_id`, `due_date`, `created_at`, `updated_at`, `completed_at`.\n- `Comment`: `id`, `task_id`, `author_id`, `body`, `created_at`, `updated_at`.\n- `Tag`: `id`, `name`, `slug`, `color`, `created_at`.\n- `User`: `id`, `email`, `full_name`, `role`, `status`, `created_at`.\n- `Error`: `error.code`, `error.message`, `error.details`, `request_id`.\n\n## 6. Response status codes\n\n- `200 OK` - successful GET/PATCH.\n- `201 Created` - successful POST.\n- `204 No Content` - successful DELETE/archive/restore with no body.\n- `400 Bad Request` - invalid query/body format.\n- `401 Unauthorized` - missing/invalid token.\n- `403 Forbidden` - insufficient permissions.\n- `404 Not Found` - resource missing.\n- `409 Conflict` - state conflict/idempotency conflict.\n- `422 Unprocessable Entity` - business validation failure.\n- `429 Too Many Requests` - rate limit exceeded.\n- `500 Internal Server Error` - unexpected error.\n\n## 7. Error and validation rules\n\n- Use one standard error envelope for all endpoints.\n- Validation errors must include array items with `field`, `message`, `rule`.\n- Invalid `sort_by` or enum filter values return `400` with allowed values.\n\n## 8. Security and access\n\n\n============================================================\nSTAGE 0/5: GENERATE OPENAPI FROM PLANNING NOTES\n============================================================\n[demo] Generating OpenAPI files from planning notes.\n[demo] What happens now: the notes are converted into a machine-readable OpenAPI contract and split spec tree.\n[ok] generated OpenAPI from notes: /mnt/c/Users/Kroha/Documents/development/Auto-Doc Pipeline/api/openapi.yaml\n[ok] generated split tree: /mnt/c/Users/Kroha/Documents/development/Auto-Doc Pipeline/api/taskstream\n[ok] operations generated: 31\n[demo] Stage result: OpenAPI source files were generated at api/openapi.yaml and api/taskstream/.\n\n============================================================\nSTAGE 1/5: START PROJECT MOCK SANDBOX\n============================================================\n[demo] What happens now: the pipeline prepares a sandbox endpoint used by API Try-it-out checks.\n[demo] External mock URL is not preset. It will be auto-prepared in Stage 2-5 via Postman API.\n[demo] Stage result: sandbox mode is selected and the next stage will run contract and behavior checks.\n\n============================================================\nSTAGE 2-5/6: RUN UNIVERSAL API-FIRST FLOW\n============================================================\n[demo] What happens now: run_api_first_flow executes contract validation, lint stack, stub generation, stub coverage check, and user-path verification.\n\n==============================================================================\n[19:52:49] FLOW START :: API-first flow\n[19:52:49] Generating contract, stubs, test assets, and docs-quality outputs.\n[19:52:49] Planned stages: 5\n==============================================================================\n",
+      "stderr_tail": "[license] BLOCKED: Feature 'api_first_flow' requires a plan upgrade (current: community).\n"
+    },
+    {
+      "capability": "api-first-demo:stop",
+      "catalog_command": "bash scripts/api_first_demo_stop.sh",
+      "exec": "npm run api-first-demo:stop",
+      "status": "FAIL",
+      "rc": 1,
+      "duration_sec": 0.393,
+      "stdout_tail": "\n> auto-doc-pipeline@1.0.0 api-first-demo:stop\n> bash scripts/api_first_demo_stop.sh\n\nSandbox shutdown failed. Last log lines:\n\nThe command 'docker' could not be found in this WSL 2 distro.\nWe recommend to activate the WSL integration in Docker Desktop settings.\n\nFor details about using Docker Desktop with WSL 2, visit:\n\nhttps://docs.docker.com/go/wsl2/\n\n",
+      "stderr_tail": ""
+    },
+    {
+      "capability": "api-first:demo",
+      "catalog_command": "bash -lc 'set -e; API_SANDBOX_EXTERNAL_BASE_URL=\\\"https://<your-real-public-mock-url>/v1\\\" bash scripts/api_sandbox_project.sh up taskstream ./api/openapi.yaml 4010 external; python3 scripts/run_api_first_flow.py --project-slug taskstream --notes demos/api-first/taskstream-planning-notes.md --spec api/openapi.yaml --spec-tree api/taskstream --docs-provider mkdocs --inject-demo-nav --verify-user-path --mock-base-url https://<your-real-public-mock-url>/v1 --generate-test-assets --upload-test-assets --sync-playground-endpoint --auto-remediate --max-attempts 3'",
+      "exec": "npm run api-first:demo",
+      "status": "FAIL",
+      "rc": 1,
+      "duration_sec": 0.347,
+      "stdout_tail": "\n> auto-doc-pipeline@1.0.0 api-first:demo\n> bash -lc 'set -e; bash scripts/api_sandbox_project.sh up taskstream ./api/openapi.yaml 4010; trap \"bash scripts/api_sandbox_project.sh down taskstream ./api/openapi.yaml 4010\" EXIT; python3 scripts/run_api_first_flow.py --project-slug taskstream --notes demos/api-first/taskstream-planning-notes.md --spec api/openapi.yaml --spec-tree api/taskstream --docs-provider mkdocs --inject-demo-nav --verify-user-path --mock-base-url http://localhost:4010/v1 --auto-remediate --max-attempts 3'\n\nSandbox startup failed. Last log lines:\n\nThe command 'docker' could not be found in this WSL 2 distro.\nWe recommend to activate the WSL integration in Docker Desktop settings.\n\nFor details about using Docker Desktop with WSL 2, visit:\n\nhttps://docs.docker.com/go/wsl2/\n\n",
+      "stderr_tail": ""
+    },
+    {
+      "capability": "api-first:demo:live",
+      "catalog_command": "bash scripts/api_first_demo_live.sh",
+      "exec": "npm run api-first:demo:live",
+      "status": "FAIL",
+      "rc": 1,
+      "duration_sec": 0.946,
+      "stdout_tail": " conventions\n\n- Content type: `application/json; charset=utf-8`.\n- Date-time format: ISO 8601 UTC (`2026-03-09T10:22:31Z`).\n\n[demo] Notes endpoint sample:\n\n### 4.1 Projects\n\n- `GET /projects` - list projects (pagination/filter/sort).\n- `POST /projects` - create project.\n- `GET /projects/{project_id}` - get project.\n- `PATCH /projects/{project_id}` - partial update.\n- `DELETE /projects/{project_id}` - soft delete.\n- `POST /projects/{project_id}/archive` - archive project.\n- `POST /projects/{project_id}/restore` - restore archived project.\n\nFilters for `GET /projects`:\n\n- `status`: `active | archived`\n- `owner_id`: UUID\n- `created_from`, `created_to`: datetime\n- `q`: full-text on `name`, `description`\n\nSorting for `GET /projects`:\n\n- `sort_by`: `created_at | updated_at | name`\n- default: `updated_at desc`\n\n\n[demo] Notes quality gates sample:\n## 5. Draft schema inventory\n\n- `Project`: `id`, `name`, `description`, `status`, `owner_id`, `created_at`, `updated_at`, `archived_at`.\n- `Task`: `id`, `project_id`, `title`, `description`, `status`, `priority`, `assignee_id`, `due_date`, `created_at`, `updated_at`, `completed_at`.\n- `Comment`: `id`, `task_id`, `author_id`, `body`, `created_at`, `updated_at`.\n- `Tag`: `id`, `name`, `slug`, `color`, `created_at`.\n- `User`: `id`, `email`, `full_name`, `role`, `status`, `created_at`.\n- `Error`: `error.code`, `error.message`, `error.details`, `request_id`.\n\n## 6. Response status codes\n\n- `200 OK` - successful GET/PATCH.\n- `201 Created` - successful POST.\n- `204 No Content` - successful DELETE/archive/restore with no body.\n- `400 Bad Request` - invalid query/body format.\n- `401 Unauthorized` - missing/invalid token.\n- `403 Forbidden` - insufficient permissions.\n- `404 Not Found` - resource missing.\n- `409 Conflict` - state conflict/idempotency conflict.\n- `422 Unprocessable Entity` - business validation failure.\n- `429 Too Many Requests` - rate limit exceeded.\n- `500 Internal Server Error` - unexpected error.\n\n## 7. Error and validation rules\n\n- Use one standard error envelope for all endpoints.\n- Validation errors must include array items with `field`, `message`, `rule`.\n- Invalid `sort_by` or enum filter values return `400` with allowed values.\n\n## 8. Security and access\n\n\n============================================================\nSTAGE 0/5: GENERATE OPENAPI FROM PLANNING NOTES\n============================================================\n[demo] Generating OpenAPI files from planning notes.\n[demo] What happens now: the notes are converted into a machine-readable OpenAPI contract and split spec tree.\n[ok] generated OpenAPI from notes: /mnt/c/Users/Kroha/Documents/development/Auto-Doc Pipeline/api/openapi.yaml\n[ok] generated split tree: /mnt/c/Users/Kroha/Documents/development/Auto-Doc Pipeline/api/taskstream\n[ok] operations generated: 31\n[demo] Stage result: OpenAPI source files were generated at api/openapi.yaml and api/taskstream/.\n\n============================================================\nSTAGE 1/5: START PROJECT MOCK SANDBOX\n============================================================\n[demo] What happens now: the pipeline prepares a sandbox endpoint used by API Try-it-out checks.\n[demo] External mock URL is not preset. It will be auto-prepared in Stage 2-5 via Postman API.\n[demo] Stage result: sandbox mode is selected and the next stage will run contract and behavior checks.\n\n============================================================\nSTAGE 2-5/6: RUN UNIVERSAL API-FIRST FLOW\n============================================================\n[demo] What happens now: run_api_first_flow executes contract validation, lint stack, stub generation, stub coverage check, and user-path verification.\n\n==============================================================================\n[19:52:51] FLOW START :: API-first flow\n[19:52:51] Generating contract, stubs, test assets, and docs-quality outputs.\n[19:52:51] Planned stages: 5\n==============================================================================\n",
+      "stderr_tail": "[license] BLOCKED: Feature 'api_first_flow' requires a plan upgrade (current: community).\n"
+    },
+    {
+      "capability": "api-first:demo:stop",
+      "catalog_command": "bash scripts/api_first_demo_stop.sh",
+      "exec": "npm run api-first:demo:stop",
+      "status": "FAIL",
+      "rc": 1,
+      "duration_sec": 0.309,
+      "stdout_tail": "\n> auto-doc-pipeline@1.0.0 api-first:demo:stop\n> bash scripts/api_first_demo_stop.sh\n\nSandbox shutdown failed. Last log lines:\n\nThe command 'docker' could not be found in this WSL 2 distro.\nWe recommend to activate the WSL integration in Docker Desktop settings.\n\nFor details about using Docker Desktop with WSL 2, visit:\n\nhttps://docs.docker.com/go/wsl2/\n\n",
+      "stderr_tail": ""
+    },
+    {
+      "capability": "api:first:flow:taskstream",
+      "catalog_command": "python3 scripts/run_api_first_flow.py --project-slug taskstream --notes demos/api-first/taskstream-planning-notes.md --spec api/openapi.yaml --spec-tree api/taskstream --docs-provider mkdocs --inject-demo-nav --auto-remediate",
+      "exec": "npm run api:first:flow:taskstream",
+      "status": "FAIL",
+      "rc": 1,
+      "duration_sec": 0.483,
+      "stdout_tail": "\n> auto-doc-pipeline@1.0.0 api:first:flow:taskstream\n> python3 scripts/run_api_first_flow.py --project-slug taskstream --notes demos/api-first/taskstream-planning-notes.md --spec api/openapi.yaml --spec-tree api/taskstream --docs-provider mkdocs --inject-demo-nav --auto-remediate\n\n\n==============================================================================\n[19:52:52] FLOW START :: API-first flow\n[19:52:52] Generating contract, stubs, test assets, and docs-quality outputs.\n[19:52:52] Planned stages: 5\n==============================================================================\n",
+      "stderr_tail": "[license] BLOCKED: Feature 'api_first_flow' requires a plan upgrade (current: community).\n"
+    },
+    {
+      "capability": "api:first:v0:taskstream",
+      "catalog_command": "python3 scripts/run_api_first_flow.py --project-slug taskstream --notes demos/api-first/taskstream-planning-notes.md --spec api/openapi.yaml --spec-tree api/taskstream --docs-provider mkdocs --auto-remediate --max-attempts 3",
+      "exec": "npm run api:first:v0:taskstream",
+      "status": "FAIL",
+      "rc": 1,
+      "duration_sec": 0.491,
+      "stdout_tail": "\n> auto-doc-pipeline@1.0.0 api:first:v0:taskstream\n> python3 scripts/run_api_first_flow.py --project-slug taskstream --notes demos/api-first/taskstream-planning-notes.md --spec api/openapi.yaml --spec-tree api/taskstream --docs-provider mkdocs --auto-remediate --max-attempts 3\n\n\n==============================================================================\n[19:52:52] FLOW START :: API-first flow\n[19:52:52] Generating contract, stubs, test assets, and docs-quality outputs.\n[19:52:52] Planned stages: 5\n==============================================================================\n",
+      "stderr_tail": "[license] BLOCKED: Feature 'api_first_flow' requires a plan upgrade (current: community).\n"
+    },
+    {
+      "capability": "api:first:verify-user-path",
+      "catalog_command": "python3 scripts/self_verify_api_user_path.py --base-url https://<your-real-public-mock-url>/v1",
+      "exec": "npm run api:first:verify-user-path",
+      "status": "FAIL",
+      "rc": 1,
+      "duration_sec": 0.542,
+      "stdout_tail": "\n> auto-doc-pipeline@1.0.0 api:first:verify-user-path\n> python3 scripts/self_verify_api_user_path.py --base-url http://localhost:4010/v1\n\n",
+      "stderr_tail": "Traceback (most recent call last):\n  File \"/usr/lib/python3.10/urllib/request.py\", line 1348, in do_open\n    h.request(req.get_method(), req.selector, req.data, headers,\n  File \"/usr/lib/python3.10/http/client.py\", line 1303, in request\n    self._send_request(method, url, body, headers, encode_chunked)\n  File \"/usr/lib/python3.10/http/client.py\", line 1349, in _send_request\n    self.endheaders(body, encode_chunked=encode_chunked)\n  File \"/usr/lib/python3.10/http/client.py\", line 1298, in endheaders\n    self._send_output(message_body, encode_chunked=encode_chunked)\n  File \"/usr/lib/python3.10/http/client.py\", line 1058, in _send_output\n    self.send(msg)\n  File \"/usr/lib/python3.10/http/client.py\", line 996, in send\n    self.connect()\n  File \"/usr/lib/python3.10/http/client.py\", line 962, in connect\n    self.sock = self._create_connection(\n  File \"/usr/lib/python3.10/socket.py\", line 845, in create_connection\n    raise err\n  File \"/usr/lib/python3.10/socket.py\", line 828, in create_connection\n    sock = socket(af, socktype, proto)\n  File \"/usr/lib/python3.10/socket.py\", line 232, in __init__\n    _socket.socket.__init__(self, family, type, proto, fileno)\nPermissionError: [Errno 1] Operation not permitted\n\nDuring handling of the above exception, another exception occurred:\n\nTraceback (most recent call last):\n  File \"/mnt/c/Users/Kroha/Documents/development/Auto-Doc Pipeline/scripts/self_verify_api_user_path.py\", line 77, in <module>\n    raise SystemExit(main())\n  File \"/mnt/c/Users/Kroha/Documents/development/Auto-Doc Pipeline/scripts/self_verify_api_user_path.py\", line 49, in main\n    status, payload = call_json(\"GET\", f\"{base}/projects?limit=1\")\n  File \"/mnt/c/Users/Kroha/Documents/development/Auto-Doc Pipeline/scripts/self_verify_api_user_path.py\", line 25, in call_json\n    with urllib.request.urlopen(req, timeout=15) as response:\n  File \"/usr/lib/python3.10/urllib/request.py\", line 216, in urlopen\n    return opener.open(url, data, timeout)\n  File \"/usr/lib/python3.10/urllib/request.py\", line 519, in open\n    response = self._open(req, data)\n  File \"/usr/lib/python3.10/urllib/request.py\", line 536, in _open\n    result = self._call_chain(self.handle_open, protocol, protocol +\n  File \"/usr/lib/python3.10/urllib/request.py\", line 496, in _call_chain\n    result = func(*args)\n  File \"/usr/lib/python3.10/urllib/request.py\", line 1377, in http_open\n    return self.do_open(http.client.HTTPConnection, req)\n  File \"/usr/lib/python3.10/urllib/request.py\", line 1351, in do_open\n    raise URLError(err)\nurllib.error.URLError: <urlopen error [Errno 1] Operation not permitted>\n"
+    },
+    {
+      "capability": "api:first:verify-user-path:prodlike",
+      "catalog_command": "python3 scripts/self_verify_prodlike_user_path.py --base-url http://localhost:4011/v1",
+      "exec": "npm run api:first:verify-user-path:prodlike",
+      "status": "FAIL",
+      "rc": 1,
+      "duration_sec": 0.405,
+      "stdout_tail": "\n> auto-doc-pipeline@1.0.0 api:first:verify-user-path:prodlike\n> python3 scripts/self_verify_prodlike_user_path.py --base-url http://localhost:4011/v1\n\n",
+      "stderr_tail": "Traceback (most recent call last):\n  File \"/usr/lib/python3.10/urllib/request.py\", line 1348, in do_open\n    h.request(req.get_method(), req.selector, req.data, headers,\n  File \"/usr/lib/python3.10/http/client.py\", line 1303, in request\n    self._send_request(method, url, body, headers, encode_chunked)\n  File \"/usr/lib/python3.10/http/client.py\", line 1349, in _send_request\n    self.endheaders(body, encode_chunked=encode_chunked)\n  File \"/usr/lib/python3.10/http/client.py\", line 1298, in endheaders\n    self._send_output(message_body, encode_chunked=encode_chunked)\n  File \"/usr/lib/python3.10/http/client.py\", line 1058, in _send_output\n    self.send(msg)\n  File \"/usr/lib/python3.10/http/client.py\", line 996, in send\n    self.connect()\n  File \"/usr/lib/python3.10/http/client.py\", line 962, in connect\n    self.sock = self._create_connection(\n  File \"/usr/lib/python3.10/socket.py\", line 845, in create_connection\n    raise err\n  File \"/usr/lib/python3.10/socket.py\", line 828, in create_connection\n    sock = socket(af, socktype, proto)\n  File \"/usr/lib/python3.10/socket.py\", line 232, in __init__\n    _socket.socket.__init__(self, family, type, proto, fileno)\nPermissionError: [Errno 1] Operation not permitted\n\nDuring handling of the above exception, another exception occurred:\n\nTraceback (most recent call last):\n  File \"/mnt/c/Users/Kroha/Documents/development/Auto-Doc Pipeline/scripts/self_verify_prodlike_user_path.py\", line 109, in <module>\n    raise SystemExit(main())\n  File \"/mnt/c/Users/Kroha/Documents/development/Auto-Doc Pipeline/scripts/self_verify_prodlike_user_path.py\", line 45, in main\n    status, me = call_json(\"GET\", f\"{b}/users/me\")\n  File \"/mnt/c/Users/Kroha/Documents/development/Auto-Doc Pipeline/scripts/self_verify_prodlike_user_path.py\", line 25, in call_json\n    with urllib.request.urlopen(req, timeout=20) as response:\n  File \"/usr/lib/python3.10/urllib/request.py\", line 216, in urlopen\n    return opener.open(url, data, timeout)\n  File \"/usr/lib/python3.10/urllib/request.py\", line 519, in open\n    response = self._open(req, data)\n  File \"/usr/lib/python3.10/urllib/request.py\", line 536, in _open\n    result = self._call_chain(self.handle_open, protocol, protocol +\n  File \"/usr/lib/python3.10/urllib/request.py\", line 496, in _call_chain\n    result = func(*args)\n  File \"/usr/lib/python3.10/urllib/request.py\", line 1377, in http_open\n    return self.do_open(http.client.HTTPConnection, req)\n  File \"/usr/lib/python3.10/urllib/request.py\", line 1351, in do_open\n    raise URLError(err)\nurllib.error.URLError: <urlopen error [Errno 1] Operation not permitted>\n"
+    },
+    {
+      "capability": "api:test:assets",
+      "catalog_command": "python3 scripts/generate_api_test_assets.py --spec api/openapi.yaml --output-dir reports/api-test-assets --testrail-csv reports/api-test-assets/testrail_test_cases.csv --zephyr-json reports/api-test-assets/zephyr_test_cases.json",
+      "exec": "npm run api:test:assets",
+      "status": "PASS",
+      "rc": 0,
+      "duration_sec": 1.158,
+      "stdout_tail": "\n> auto-doc-pipeline@1.0.0 api:test:assets\n> python3 scripts/generate_api_test_assets.py --spec api/openapi.yaml --output-dir reports/api-test-assets --testrail-csv reports/api-test-assets/testrail_test_cases.csv --zephyr-json reports/api-test-assets/zephyr_test_cases.json\n\nGenerated API test assets: operations=31 cases=143 (auto=143 manual=0 customized=0 needs_review=0) property_scenarios=0\nMerge: auto_new=143, auto_dropped=5\n",
+      "stderr_tail": ""
+    },
+    {
+      "capability": "api:test:upload",
+      "catalog_command": "python3 scripts/upload_api_test_assets.py --cases-json reports/api-test-assets/api_test_cases.json --report reports/api-test-assets/upload_report.json",
+      "exec": "npm run api:test:upload",
+      "status": "PASS",
+      "rc": 0,
+      "duration_sec": 0.408,
+      "stdout_tail": "\n> auto-doc-pipeline@1.0.0 api:test:upload\n> python3 scripts/upload_api_test_assets.py --cases-json reports/api-test-assets/api_test_cases.json --report reports/api-test-assets/upload_report.json\n\ntestrail: skipped (upload disabled)\nzephyr_scale: skipped (upload disabled)\nUpload completed successfully. Report: reports/api-test-assets/upload_report.json\n",
+      "stderr_tail": ""
+    },
+    {
+      "capability": "audit:public",
+      "catalog_command": "python3 scripts/generate_public_docs_audit.py",
+      "exec": "npm run audit:public",
+      "status": "FAIL",
+      "rc": 1,
+      "duration_sec": 0.611,
+      "stdout_tail": "\n> auto-doc-pipeline@1.0.0 audit:public\n> python3 scripts/generate_public_docs_audit.py\n\n",
+      "stderr_tail": "No --site-url provided. Use --interactive or pass one or more --site-url values.\n"
+    },
+    {
+      "capability": "audit:public:wizard",
+      "catalog_command": "python3 scripts/generate_public_docs_audit.py --interactive",
+      "exec": "npm run audit:public:wizard",
+      "status": "FAIL",
+      "rc": 1,
+      "duration_sec": 0.556,
+      "stdout_tail": "\n> auto-doc-pipeline@1.0.0 audit:public:wizard\n> python3 scripts/generate_public_docs_audit.py --interactive\n\nPublic docs audit wizard\nEnter all public documentation URLs (one per line).\nPress Enter on empty line when finished.\nURL #1: ",
+      "stderr_tail": "Traceback (most recent call last):\n  File \"/mnt/c/Users/Kroha/Documents/development/Auto-Doc Pipeline/scripts/generate_public_docs_audit.py\", line 3340, in <module>\n    raise SystemExit(main())\n  File \"/mnt/c/Users/Kroha/Documents/development/Auto-Doc Pipeline/scripts/generate_public_docs_audit.py\", line 2861, in main\n    raw = input(f\"URL #{index}: \").strip()\nEOFError: EOF when reading a line\n"
+    },
+    {
+      "capability": "audit:public:llm",
+      "catalog_command": "python3 scripts/generate_public_docs_audit.py --llm-enabled --llm-model claude-sonnet-4-5",
+      "exec": "npm run audit:public:llm",
+      "status": "FAIL",
+      "rc": 1,
+      "duration_sec": 0.499,
+      "stdout_tail": "\n> auto-doc-pipeline@1.0.0 audit:public:llm\n> python3 scripts/generate_public_docs_audit.py --llm-enabled --llm-model claude-sonnet-4-5 --llm-api-key-env-name ANTHROPIC_API_KEY\n\n",
+      "stderr_tail": "No --site-url provided. Use --interactive or pass one or more --site-url values.\n"
+    },
+    {
+      "capability": "audit:public:llm-summary",
+      "catalog_command": "python3 scripts/generate_public_docs_audit.py --llm-enabled --llm-summary-only --llm-model claude-sonnet-4-5",
+      "exec": "npm run audit:public:llm-summary",
+      "status": "FAIL",
+      "rc": 1,
+      "duration_sec": 0.484,
+      "stdout_tail": "\n> auto-doc-pipeline@1.0.0 audit:public:llm-summary\n> python3 scripts/generate_public_docs_audit.py --llm-enabled --llm-summary-only --llm-model claude-sonnet-4-5 --llm-api-key-env-name ANTHROPIC_API_KEY\n\n",
+      "stderr_tail": "No --site-url provided. Use --interactive or pass one or more --site-url values.\n"
+    },
+    {
+      "capability": "audit:executive-pdf",
+      "catalog_command": "python3 scripts/generate_executive_audit_pdf.py --scorecard-json reports/audit_scorecard.json --public-audit-json reports/public_docs_audit.json --company-name \"Client\"",
+      "exec": "npm run audit:executive-pdf",
+      "status": "PASS",
+      "rc": 0,
+      "duration_sec": 0.879,
+      "stdout_tail": "\n> auto-doc-pipeline@1.0.0 audit:executive-pdf\n> python3 scripts/generate_executive_audit_pdf.py --scorecard-json reports/audit_scorecard.json --public-audit-json reports/public_docs_audit.json --llm-summary-json reports/public_docs_audit_llm_summary.json --company-name \"Client\"\n\n[ok] public pdf: reports/client-executive-audit.pdf\n",
+      "stderr_tail": ""
+    },
+    {
+      "capability": "audit:scorecard",
+      "catalog_command": "python3 scripts/generate_audit_scorecard.py --docs-dir docs --reports-dir reports --spec-path api/openapi.yaml --policy-pack policy_packs/api-first.yml --glossary-path glossary.yml --stale-days 180 --auto-run-smoke --json-output reports/audit_scorecard.json --html-output reports/audit_scorecard.html",
+      "exec": "npm run audit:scorecard",
+      "status": "PASS",
+      "rc": 0,
+      "duration_sec": 7.988,
+      "stdout_tail": "\n> auto-doc-pipeline@1.0.0 audit:scorecard\n> python3 scripts/generate_audit_scorecard.py --docs-dir docs --reports-dir reports --spec-path api/openapi.yaml --policy-pack policy_packs/api-first.yml --glossary-path glossary.yml --stale-days 180 --auto-run-smoke --json-output reports/audit_scorecard.json --html-output reports/audit_scorecard.html\n\n[ok] audit scorecard JSON: reports/audit_scorecard.json\n[ok] audit scorecard HTML: reports/audit_scorecard.html\n[ok] summary: score=60.8 api_coverage=0.0% example_reliability=100.0%\n",
+      "stderr_tail": ""
+    },
+    {
+      "capability": "api:sandbox:live",
+      "catalog_command": "bash scripts/api_sandbox_live.sh up taskstream ./api/openapi.yaml 4010",
+      "exec": "npm run api:sandbox:live",
+      "status": "FAIL",
+      "rc": 1,
+      "duration_sec": 0.264,
+      "stdout_tail": "\n> auto-doc-pipeline@1.0.0 api:sandbox:live\n> bash scripts/api_sandbox_live.sh up taskstream ./api/openapi.yaml 4010\n\n\nThe command 'docker' could not be found in this WSL 2 distro.\nWe recommend to activate the WSL integration in Docker Desktop settings.\n\nFor details about using Docker Desktop with WSL 2, visit:\n\nhttps://docs.docker.com/go/wsl2/\n\n",
+      "stderr_tail": ""
+    },
+    {
+      "capability": "api:sandbox:live:logs",
+      "catalog_command": "bash scripts/api_sandbox_live.sh logs taskstream ./api/openapi.yaml 4010",
+      "exec": "npm run api:sandbox:live:logs",
+      "status": "FAIL",
+      "rc": 1,
+      "duration_sec": 0.25,
+      "stdout_tail": "\n> auto-doc-pipeline@1.0.0 api:sandbox:live:logs\n> bash scripts/api_sandbox_live.sh logs taskstream ./api/openapi.yaml 4010\n\n\nThe command 'docker' could not be found in this WSL 2 distro.\nWe recommend to activate the WSL integration in Docker Desktop settings.\n\nFor details about using Docker Desktop with WSL 2, visit:\n\nhttps://docs.docker.com/go/wsl2/\n\n",
+      "stderr_tail": ""
+    },
+    {
+      "capability": "api:sandbox:live:status",
+      "catalog_command": "bash scripts/api_sandbox_live.sh status taskstream ./api/openapi.yaml 4010",
+      "exec": "npm run api:sandbox:live:status",
+      "status": "FAIL",
+      "rc": 1,
+      "duration_sec": 0.227,
+      "stdout_tail": "\n> auto-doc-pipeline@1.0.0 api:sandbox:live:status\n> bash scripts/api_sandbox_live.sh status taskstream ./api/openapi.yaml 4010\n\n\nThe command 'docker' could not be found in this WSL 2 distro.\nWe recommend to activate the WSL integration in Docker Desktop settings.\n\nFor details about using Docker Desktop with WSL 2, visit:\n\nhttps://docs.docker.com/go/wsl2/\n\n",
+      "stderr_tail": ""
+    },
+    {
+      "capability": "api:sandbox:live:stop",
+      "catalog_command": "bash scripts/api_sandbox_live.sh down taskstream ./api/openapi.yaml 4010",
+      "exec": "npm run api:sandbox:live:stop",
+      "status": "FAIL",
+      "rc": 1,
+      "duration_sec": 0.231,
+      "stdout_tail": "\n> auto-doc-pipeline@1.0.0 api:sandbox:live:stop\n> bash scripts/api_sandbox_live.sh down taskstream ./api/openapi.yaml 4010\n\n\nThe command 'docker' could not be found in this WSL 2 distro.\nWe recommend to activate the WSL integration in Docker Desktop settings.\n\nFor details about using Docker Desktop with WSL 2, visit:\n\nhttps://docs.docker.com/go/wsl2/\n\n",
+      "stderr_tail": ""
+    },
+    {
+      "capability": "api:sandbox:mock",
+      "catalog_command": "docker compose -f docker-compose.api-sandbox.yml up -d",
+      "exec": "npm run api:sandbox:mock",
+      "status": "FAIL",
+      "rc": 1,
+      "duration_sec": 0.215,
+      "stdout_tail": "\n> auto-doc-pipeline@1.0.0 api:sandbox:mock\n> docker compose -f docker-compose.api-sandbox.yml up -d\n\n\nThe command 'docker' could not be found in this WSL 2 distro.\nWe recommend to activate the WSL integration in Docker Desktop settings.\n\nFor details about using Docker Desktop with WSL 2, visit:\n\nhttps://docs.docker.com/go/wsl2/\n\n",
+      "stderr_tail": ""
+    },
+    {
+      "capability": "api:sandbox:prodlike",
+      "catalog_command": "bash scripts/api_prodlike_project.sh",
+      "exec": "npm run api:sandbox:prodlike",
+      "status": "FAIL",
+      "rc": 1,
+      "duration_sec": 0.286,
+      "stdout_tail": "\n> auto-doc-pipeline@1.0.0 api:sandbox:prodlike\n> bash scripts/api_prodlike_project.sh\n\n\nThe command 'docker' could not be found in this WSL 2 distro.\nWe recommend to activate the WSL integration in Docker Desktop settings.\n\nFor details about using Docker Desktop with WSL 2, visit:\n\nhttps://docs.docker.com/go/wsl2/\n\n",
+      "stderr_tail": ""
+    },
+    {
+      "capability": "api:sandbox:prodlike:down",
+      "catalog_command": "bash scripts/api_prodlike_project.sh down taskstream 4011",
+      "exec": "npm run api:sandbox:prodlike:down",
+      "status": "FAIL",
+      "rc": 1,
+      "duration_sec": 0.243,
+      "stdout_tail": "\n> auto-doc-pipeline@1.0.0 api:sandbox:prodlike:down\n> bash scripts/api_prodlike_project.sh down taskstream 4011\n\nProd-like sandbox shutdown failed. Last log lines:\n\nThe command 'docker' could not be found in this WSL 2 distro.\nWe recommend to activate the WSL integration in Docker Desktop settings.\n\nFor details about using Docker Desktop with WSL 2, visit:\n\nhttps://docs.docker.com/go/wsl2/\n\n",
+      "stderr_tail": ""
+    },
+    {
+      "capability": "api:sandbox:prodlike:logs",
+      "catalog_command": "bash scripts/api_prodlike_project.sh logs taskstream 4011",
+      "exec": "npm run api:sandbox:prodlike:logs",
+      "status": "FAIL",
+      "rc": 1,
+      "duration_sec": 0.236,
+      "stdout_tail": "\n> auto-doc-pipeline@1.0.0 api:sandbox:prodlike:logs\n> bash scripts/api_prodlike_project.sh logs taskstream 4011\n\n\nThe command 'docker' could not be found in this WSL 2 distro.\nWe recommend to activate the WSL integration in Docker Desktop settings.\n\nFor details about using Docker Desktop with WSL 2, visit:\n\nhttps://docs.docker.com/go/wsl2/\n\n",
+      "stderr_tail": ""
+    },
+    {
+      "capability": "api:sandbox:prodlike:status",
+      "catalog_command": "bash scripts/api_prodlike_project.sh status taskstream 4011",
+      "exec": "npm run api:sandbox:prodlike:status",
+      "status": "FAIL",
+      "rc": 1,
+      "duration_sec": 0.226,
+      "stdout_tail": "\n> auto-doc-pipeline@1.0.0 api:sandbox:prodlike:status\n> bash scripts/api_prodlike_project.sh status taskstream 4011\n\n\nThe command 'docker' could not be found in this WSL 2 distro.\nWe recommend to activate the WSL integration in Docker Desktop settings.\n\nFor details about using Docker Desktop with WSL 2, visit:\n\nhttps://docs.docker.com/go/wsl2/\n\n",
+      "stderr_tail": ""
+    },
+    {
+      "capability": "api:sandbox:prodlike:up",
+      "catalog_command": "bash scripts/api_prodlike_project.sh up taskstream 4011",
+      "exec": "npm run api:sandbox:prodlike:up",
+      "status": "FAIL",
+      "rc": 1,
+      "duration_sec": 0.253,
+      "stdout_tail": "\n> auto-doc-pipeline@1.0.0 api:sandbox:prodlike:up\n> bash scripts/api_prodlike_project.sh up taskstream 4011\n\nProd-like sandbox startup failed. Last log lines:\n\nThe command 'docker' could not be found in this WSL 2 distro.\nWe recommend to activate the WSL integration in Docker Desktop settings.\n\nFor details about using Docker Desktop with WSL 2, visit:\n\nhttps://docs.docker.com/go/wsl2/\n\n",
+      "stderr_tail": ""
+    },
+    {
+      "capability": "api:sandbox:project",
+      "catalog_command": "bash scripts/api_sandbox_project.sh",
+      "exec": "npm run api:sandbox:project",
+      "status": "FAIL",
+      "rc": 1,
+      "duration_sec": 0.253,
+      "stdout_tail": "\n> auto-doc-pipeline@1.0.0 api:sandbox:project\n> bash scripts/api_sandbox_project.sh\n\n\nThe command 'docker' could not be found in this WSL 2 distro.\nWe recommend to activate the WSL integration in Docker Desktop settings.\n\nFor details about using Docker Desktop with WSL 2, visit:\n\nhttps://docs.docker.com/go/wsl2/\n\n",
+      "stderr_tail": ""
+    },
+    {
+      "capability": "api:sandbox:stop",
+      "catalog_command": "docker compose -f docker-compose.api-sandbox.yml down",
+      "exec": "npm run api:sandbox:stop",
+      "status": "FAIL",
+      "rc": 1,
+      "duration_sec": 0.21,
+      "stdout_tail": "\n> auto-doc-pipeline@1.0.0 api:sandbox:stop\n> docker compose -f docker-compose.api-sandbox.yml down\n\n\nThe command 'docker' could not be found in this WSL 2 distro.\nWe recommend to activate the WSL integration in Docker Desktop settings.\n\nFor details about using Docker Desktop with WSL 2, visit:\n\nhttps://docs.docker.com/go/wsl2/\n\n",
+      "stderr_tail": ""
+    },
+    {
+      "capability": "askai:configure",
+      "catalog_command": "python3 scripts/configure_ask_ai.py",
+      "exec": "npm run askai:configure",
+      "status": "PASS",
+      "rc": 0,
+      "duration_sec": 0.353,
+      "stdout_tail": "\n> auto-doc-pipeline@1.0.0 askai:configure\n> python3 scripts/configure_ask_ai.py\n\nAsk AI is disabled. Config saved to config/ask-ai.yml\nSnapshot written to reports/ask-ai-config.json\n",
+      "stderr_tail": ""
+    },
+    {
+      "capability": "askai:disable",
+      "catalog_command": "python3 scripts/configure_ask_ai.py --disable",
+      "exec": "npm run askai:disable",
+      "status": "PASS",
+      "rc": 0,
+      "duration_sec": 0.33,
+      "stdout_tail": "\n> auto-doc-pipeline@1.0.0 askai:disable\n> python3 scripts/configure_ask_ai.py --disable\n\nAsk AI is disabled. Config saved to config/ask-ai.yml\nSnapshot written to reports/ask-ai-config.json\n",
+      "stderr_tail": ""
+    },
+    {
+      "capability": "askai:enable",
+      "catalog_command": "python3 scripts/configure_ask_ai.py --enable",
+      "exec": "npm run askai:enable",
+      "status": "PASS",
+      "rc": 0,
+      "duration_sec": 0.351,
+      "stdout_tail": "\n> auto-doc-pipeline@1.0.0 askai:enable\n> python3 scripts/configure_ask_ai.py --enable\n\nAsk AI is enabled. Config saved to config/ask-ai.yml\nSnapshot written to reports/ask-ai-config.json\n",
+      "stderr_tail": ""
+    },
+    {
+      "capability": "askai:runtime:install",
+      "catalog_command": "python3 scripts/install_ask_ai_runtime.py --target-dir .",
+      "exec": "npm run askai:runtime:install",
+      "status": "PASS",
+      "rc": 0,
+      "duration_sec": 0.941,
+      "stdout_tail": "\n> auto-doc-pipeline@1.0.0 askai:runtime:install\n> python3 scripts/install_ask_ai_runtime.py --target-dir .\n\nInstalled Ask AI runtime pack to: /mnt/c/Users/Kroha/Documents/development/Auto-Doc Pipeline/ask-ai-runtime\nUpdated Ask AI config: /mnt/c/Users/Kroha/Documents/development/Auto-Doc Pipeline/config/ask-ai.yml\nInstall report: /mnt/c/Users/Kroha/Documents/development/Auto-Doc Pipeline/reports/ask-ai-runtime-install.json\n",
+      "stderr_tail": ""
+    },
+    {
+      "capability": "askai:runtime:install:force",
+      "catalog_command": "python3 scripts/install_ask_ai_runtime.py --target-dir . --force",
+      "exec": "npm run askai:runtime:install:force",
+      "status": "PASS",
+      "rc": 0,
+      "duration_sec": 0.585,
+      "stdout_tail": "\n> auto-doc-pipeline@1.0.0 askai:runtime:install:force\n> python3 scripts/install_ask_ai_runtime.py --target-dir . --force\n\nInstalled Ask AI runtime pack to: /mnt/c/Users/Kroha/Documents/development/Auto-Doc Pipeline/ask-ai-runtime\nUpdated Ask AI config: /mnt/c/Users/Kroha/Documents/development/Auto-Doc Pipeline/config/ask-ai.yml\nInstall report: /mnt/c/Users/Kroha/Documents/development/Auto-Doc Pipeline/reports/ask-ai-runtime-install.json\n",
+      "stderr_tail": ""
+    },
+    {
+      "capability": "askai:status",
+      "catalog_command": "python3 scripts/configure_ask_ai.py --status",
+      "exec": "npm run askai:status",
+      "status": "PASS",
+      "rc": 0,
+      "duration_sec": 0.306,
+      "stdout_tail": "\n> auto-doc-pipeline@1.0.0 askai:status\n> python3 scripts/configure_ask_ai.py --status\n\nenabled: true\nprovider: openai\nbilling_mode: disabled\nmodel: gpt-4.1-mini\nbase_url: https://api.openai.com/v1\nknowledge_index_path: docs/assets/knowledge-retrieval-index.json\nknowledge_graph_path: docs/assets/knowledge-graph.jsonld\nretrieval_eval_report_path: reports/retrieval_evals_report.json\nassistant_bundle_glob: reports/intent-bundles/*-assistant.json\nmax_context_modules: 6\ntemperature: 0.2\ntop_p: 1.0\nmax_tokens: 700\nrequire_user_auth: true\nallowed_roles:\n- admin\n- support\nrate_limit_per_user_per_minute: 20\nretention_days: 30\naudit_logging: true\nembedding_model: text-embedding-3-small\nfaiss_index_path: docs/assets/retrieval.faiss\nfaiss_metadata_path: docs/assets/retrieval-metadata.json\nsemantic_retrieval: true\nchunking:\n  enabled: true\n  max_tokens: 750\n  overlap_tokens: 100\nreranking:\n  enabled: true\n  model: cross-encoder/ms-marco-MiniLM-L-6-v2\n  candidates: 20\nhybrid_search:\n  enabled: true\n  rrf_k: 60\nhyde:\n  enabled: true\n  model: gpt-4.1-mini\nembedding_cache:\n  enabled: true\n  ttl_seconds: 3600\n  max_size: 512\neval_dataset_path: config/retrieval_eval_dataset.yml\nruntime:\n  enabled: false\n  base_url: http://localhost:8090\n  ask_endpoint: /api/v1/ask\n  health_endpoint: /healthz\n  billing_webhook_endpoint: /api/v1/billing/webhook\n  widget_script_path: /public/ask-ai-widget.js\n  runtime_dir: ask-ai-runtime\n\n",
+      "stderr_tail": ""
+    },
+    {
+      "capability": "badges",
+      "catalog_command": "python3 scripts/generate_badge.py --json reports/kpi-wall.json --output reports",
+      "exec": "npm run badges",
+      "status": "PASS",
+      "rc": 0,
+      "duration_sec": 0.321,
+      "stdout_tail": "\n> auto-doc-pipeline@1.0.0 badges\n> python3 scripts/generate_badge.py --json reports/kpi-wall.json --output reports\n\nBadge generated: reports/docs-quality-badge.svg\nBadge generated: reports/docs-metadata-badge.svg\nBadge generated: reports/docs-freshness-badge.svg\nBadge generated: reports/docs-gaps-badge.svg\nBadge generated: reports/docs-gates-badge.svg\n\nAdd these badges to your README.md:\n\n```markdown\n![Docs Quality](/reports/docs-quality-badge.svg)\n![Metadata](/reports/docs-metadata-badge.svg)\n![Freshness](/reports/docs-freshness-badge.svg)\n![Doc Gaps](/reports/docs-gaps-badge.svg)\n![Quality Gates](/reports/docs-gates-badge.svg)\n```\n",
+      "stderr_tail": ""
+    },
+    {
+      "capability": "build",
+      "catalog_command": "python3 scripts/run_generator.py build",
+      "exec": "npm run build",
+      "status": "FAIL",
+      "rc": 1,
+      "duration_sec": 45.176,
+      "stdout_tail": "\n> auto-doc-pipeline@1.0.0 build\n> python3 scripts/run_generator.py build\n\n\nAborted with 132 warnings in strict mode!\n[run_generator] Building with mkdocs: mkdocs build --strict\n",
+      "stderr_tail": "cumentation files.\nWARNING -  Doc file 'reference/intent-experiences/troubleshoot-operator.md' contains a link '../reference/nodes/webhook.md', but the target 'reference/reference/nodes/webhook.md' is not found among documentation files.\nWARNING -  Doc file 'reference/intent-experiences/troubleshoot-operator.md' contains a link '../how-to/configure-webhook-trigger.md', but the target 'reference/how-to/configure-webhook-trigger.md' is not found among documentation files.\nWARNING -  Doc file 'reference/intent-experiences/troubleshoot-practitioner.md' contains a link '../getting-started/quickstart.md', but the target 'reference/getting-started/quickstart.md' is not found among documentation files.\nWARNING -  Doc file 'reference/intent-experiences/troubleshoot-practitioner.md' contains a link '../concepts/intelligent-knowledge-system.md', but the target 'reference/concepts/intelligent-knowledge-system.md' is not found among documentation files.\nWARNING -  Doc file 'reference/intent-experiences/troubleshoot-support.md' contains a link '../reference/nodes/webhook.md', but the target 'reference/reference/nodes/webhook.md' is not found among documentation files.\nWARNING -  Doc file 'reference/intent-experiences/troubleshoot-support.md' contains a link '../how-to/configure-webhook-trigger.md', but the target 'reference/how-to/configure-webhook-trigger.md' is not found among documentation files.\nINFO    -  Doc file 'operations/OPERATOR_RUNBOOK.md' contains a link '#troubleshooting-scheduler-did-not-run', but there is no such anchor on this page.\nINFO    -  Doc file 'reference/intent-experiences/configure-developer.md' contains a link '#step-1-create-an-api-token', but there is no such anchor on this page.\nINFO    -  Doc file 'reference/intent-experiences/configure-developer.md' contains a link '#troubleshooting-scheduler-did-not-run', but there is no such anchor on this page.\nINFO    -  Doc file 'reference/intent-experiences/configure-developer.md' contains a link '#verify-hmac-sha256-signatures', but there is no such anchor on this page.\nINFO    -  Doc file 'reference/intent-experiences/configure-developer.md' contains a link '#webhook-processing-data-flow', but there is no such anchor on this page.\nINFO    -  Doc file 'reference/intent-experiences/configure-practitioner.md' contains a link '#step-1-create-an-api-token', but there is no such anchor on this page.\nINFO    -  Doc file 'reference/intent-experiences/configure-practitioner.md' contains a link '#troubleshooting-scheduler-did-not-run', but there is no such anchor on this page.\nINFO    -  Doc file 'reference/intent-experiences/configure-practitioner.md' contains a link '#verify-hmac-sha256-signatures', but there is no such anchor on this page.\nINFO    -  Doc file 'reference/intent-experiences/configure-practitioner.md' contains a link '#webhook-processing-data-flow', but there is no such anchor on this page.\nINFO    -  Doc file 'reference/intent-experiences/secure-developer.md' contains a link '#step-1-create-an-api-token', but there is no such anchor on this page.\nINFO    -  Doc file 'reference/intent-experiences/secure-developer.md' contains a link '#verify-hmac-sha256-signatures', but there is no such anchor on this page.\nINFO    -  Doc file 'reference/intent-experiences/secure-practitioner.md' contains a link '#step-1-create-an-api-token', but there is no such anchor on this page.\nINFO    -  Doc file 'reference/intent-experiences/secure-practitioner.md' contains a link '#verify-hmac-sha256-signatures', but there is no such anchor on this page.\nINFO    -  Doc file 'reference/intent-experiences/troubleshoot-developer.md' contains a link '#step-1-create-an-api-token', but there is no such anchor on this page.\nINFO    -  Doc file 'reference/intent-experiences/troubleshoot-practitioner.md' contains a link '#step-1-create-an-api-token', but there is no such anchor on this page.\nINFO    -  meta-descriptions: Added meta descriptions to 162 of 162 pages, 0 using the first paragraph\n"
+    },
+    {
+      "capability": "build:docusaurus",
+      "catalog_command": "npx docusaurus build",
+      "exec": "npm run build:docusaurus",
+      "status": "FAIL",
+      "rc": 1,
+      "duration_sec": 71.557,
+      "stdout_tail": "\n> auto-doc-pipeline@1.0.0 build:docusaurus\n> npx docusaurus build\n\n",
+      "stderr_tail": "npm error code EAI_AGAIN\nnpm error syscall getaddrinfo\nnpm error errno EAI_AGAIN\nnpm error request to https://registry.npmjs.org/docusaurus failed, reason: getaddrinfo EAI_AGAIN registry.npmjs.org\nnpm error Log files were not written due to an error writing to the directory: /home/eudo/.npm/_logs\nnpm error You can rerun the command with `--loglevel=verbose` to see the logs in your terminal\n"
+    },
+    {
+      "capability": "build:intent",
+      "catalog_command": "python3 scripts/assemble_intent_experience.py",
+      "exec": "npm run build:intent",
+      "status": "FAIL",
+      "rc": 2,
+      "duration_sec": 0.385,
+      "stdout_tail": "\n> auto-doc-pipeline@1.0.0 build:intent\n> python3 scripts/assemble_intent_experience.py\n\n",
+      "stderr_tail": "usage: assemble_intent_experience.py [-h] [--modules-dir MODULES_DIR] --intent\n                                     INTENT --audience AUDIENCE --channel\n                                     {docs,assistant,automation,in-product,field,sales}\n                                     [--docs-output-dir DOCS_OUTPUT_DIR]\n                                     [--bundle-output-dir BUNDLE_OUTPUT_DIR]\nassemble_intent_experience.py: error: the following arguments are required: --intent, --audience, --channel\n"
+    },
+    {
+      "capability": "build:intent:all",
+      "catalog_command": "python3 scripts/build_all_intent_experiences.py",
+      "exec": "npm run build:intent:all",
+      "status": "TIMEOUT",
+      "rc": null,
+      "duration_sec": 120.018,
+      "stdout_tail": "",
+      "stderr_tail": ""
+    },
+    {
+      "capability": "build:knowledge-enrich:llm",
+      "catalog_command": "python3 scripts/enrich_knowledge_modules_semantic.py",
+      "exec": "npm run build:knowledge-enrich:llm",
+      "status": "FAIL",
+      "rc": 1,
+      "duration_sec": 0.618,
+      "stdout_tail": "\n> auto-doc-pipeline@1.0.0 build:knowledge-enrich:llm\n> python3 scripts/enrich_knowledge_modules_semantic.py\n\n",
+      "stderr_tail": "Traceback (most recent call last):\n  File \"/mnt/c/Users/Kroha/Documents/development/Auto-Doc Pipeline/scripts/enrich_knowledge_modules_semantic.py\", line 23, in <module>\n    from scripts.env_loader import load_local_env\nModuleNotFoundError: No module named 'scripts.env_loader'\n"
+    },
+    {
+      "capability": "build:knowledge-graph",
+      "catalog_command": "python3 scripts/generate_knowledge_graph_jsonld.py --modules-dir knowledge_modules --output docs/assets/knowledge-graph.jsonld --report reports/knowledge_graph_report.json",
+      "exec": "npm run build:knowledge-graph",
+      "status": "PASS",
+      "rc": 0,
+      "duration_sec": 3.642,
+      "stdout_tail": "\n> auto-doc-pipeline@1.0.0 build:knowledge-graph\n> python3 scripts/generate_knowledge_graph_jsonld.py --modules-dir knowledge_modules --output docs/assets/knowledge-graph.jsonld --report reports/knowledge_graph_report.json\n\nGenerated knowledge graph: docs/assets/knowledge-graph.jsonld\n",
+      "stderr_tail": ""
+    },
+    {
+      "capability": "build:knowledge-index",
+      "catalog_command": "python3 scripts/generate_knowledge_retrieval_index.py",
+      "exec": "npm run build:knowledge-index",
+      "status": "PASS",
+      "rc": 0,
+      "duration_sec": 3.53,
+      "stdout_tail": "\n> auto-doc-pipeline@1.0.0 build:knowledge-index\n> python3 scripts/generate_knowledge_retrieval_index.py\n\nGenerated retrieval index with 288 records: docs/assets/knowledge-retrieval-index.json\n",
+      "stderr_tail": ""
+    },
+    {
+      "capability": "build:mkdocs",
+      "catalog_command": "mkdocs build --strict",
+      "exec": "npm run build:mkdocs",
+      "status": "FAIL",
+      "rc": 1,
+      "duration_sec": 43.176,
+      "stdout_tail": "\n> auto-doc-pipeline@1.0.0 build:mkdocs\n> mkdocs build --strict\n\n\nAborted with 132 warnings in strict mode!\n",
+      "stderr_tail": "cumentation files.\nWARNING -  Doc file 'reference/intent-experiences/troubleshoot-operator.md' contains a link '../reference/nodes/webhook.md', but the target 'reference/reference/nodes/webhook.md' is not found among documentation files.\nWARNING -  Doc file 'reference/intent-experiences/troubleshoot-operator.md' contains a link '../how-to/configure-webhook-trigger.md', but the target 'reference/how-to/configure-webhook-trigger.md' is not found among documentation files.\nWARNING -  Doc file 'reference/intent-experiences/troubleshoot-practitioner.md' contains a link '../getting-started/quickstart.md', but the target 'reference/getting-started/quickstart.md' is not found among documentation files.\nWARNING -  Doc file 'reference/intent-experiences/troubleshoot-practitioner.md' contains a link '../concepts/intelligent-knowledge-system.md', but the target 'reference/concepts/intelligent-knowledge-system.md' is not found among documentation files.\nWARNING -  Doc file 'reference/intent-experiences/troubleshoot-support.md' contains a link '../reference/nodes/webhook.md', but the target 'reference/reference/nodes/webhook.md' is not found among documentation files.\nWARNING -  Doc file 'reference/intent-experiences/troubleshoot-support.md' contains a link '../how-to/configure-webhook-trigger.md', but the target 'reference/how-to/configure-webhook-trigger.md' is not found among documentation files.\nINFO    -  Doc file 'operations/OPERATOR_RUNBOOK.md' contains a link '#troubleshooting-scheduler-did-not-run', but there is no such anchor on this page.\nINFO    -  Doc file 'reference/intent-experiences/configure-developer.md' contains a link '#step-1-create-an-api-token', but there is no such anchor on this page.\nINFO    -  Doc file 'reference/intent-experiences/configure-developer.md' contains a link '#troubleshooting-scheduler-did-not-run', but there is no such anchor on this page.\nINFO    -  Doc file 'reference/intent-experiences/configure-developer.md' contains a link '#verify-hmac-sha256-signatures', but there is no such anchor on this page.\nINFO    -  Doc file 'reference/intent-experiences/configure-developer.md' contains a link '#webhook-processing-data-flow', but there is no such anchor on this page.\nINFO    -  Doc file 'reference/intent-experiences/configure-practitioner.md' contains a link '#step-1-create-an-api-token', but there is no such anchor on this page.\nINFO    -  Doc file 'reference/intent-experiences/configure-practitioner.md' contains a link '#troubleshooting-scheduler-did-not-run', but there is no such anchor on this page.\nINFO    -  Doc file 'reference/intent-experiences/configure-practitioner.md' contains a link '#verify-hmac-sha256-signatures', but there is no such anchor on this page.\nINFO    -  Doc file 'reference/intent-experiences/configure-practitioner.md' contains a link '#webhook-processing-data-flow', but there is no such anchor on this page.\nINFO    -  Doc file 'reference/intent-experiences/secure-developer.md' contains a link '#step-1-create-an-api-token', but there is no such anchor on this page.\nINFO    -  Doc file 'reference/intent-experiences/secure-developer.md' contains a link '#verify-hmac-sha256-signatures', but there is no such anchor on this page.\nINFO    -  Doc file 'reference/intent-experiences/secure-practitioner.md' contains a link '#step-1-create-an-api-token', but there is no such anchor on this page.\nINFO    -  Doc file 'reference/intent-experiences/secure-practitioner.md' contains a link '#verify-hmac-sha256-signatures', but there is no such anchor on this page.\nINFO    -  Doc file 'reference/intent-experiences/troubleshoot-developer.md' contains a link '#step-1-create-an-api-token', but there is no such anchor on this page.\nINFO    -  Doc file 'reference/intent-experiences/troubleshoot-practitioner.md' contains a link '#step-1-create-an-api-token', but there is no such anchor on this page.\nINFO    -  meta-descriptions: Added meta descriptions to 162 of 162 pages, 0 using the first paragraph\n"
+    },
+    {
+      "capability": "build:rag:reindex",
+      "catalog_command": "python3 scripts/rag_reindex_lifecycle.py --repo-root . --with-embeddings --provider local",
+      "exec": "npm run build:rag:reindex",
+      "status": "PASS",
+      "rc": 0,
+      "duration_sec": 17.34,
+      "stdout_tail": "\n> auto-doc-pipeline@1.0.0 build:rag:reindex\n> python3 scripts/rag_reindex_lifecycle.py --repo-root . --with-embeddings --provider local\n\n[rag-reindex] ok: version=20260418T175801Z-c5ce8ff00b75\n",
+      "stderr_tail": ""
+    },
+    {
+      "capability": "configurator",
+      "catalog_command": "python3 scripts/generate_configurator.py",
+      "exec": "npm run configurator",
+      "status": "PASS",
+      "rc": 0,
+      "duration_sec": 0.56,
+      "stdout_tail": "\n> auto-doc-pipeline@1.0.0 configurator\n> python3 scripts/generate_configurator.py\n\nGenerated: reports/pipeline-configurator.html\n",
+      "stderr_tail": ""
+    },
+    {
+      "capability": "consolidate",
+      "catalog_command": "npm run gaps && npm run kpi-wall && npm run kpi-sla && npm run i18n:sync && npm run validate:knowledge && python3 scripts/consolidate_reports.py",
+      "exec": "npm run consolidate",
+      "status": "TIMEOUT",
+      "rc": null,
+      "duration_sec": 120.102,
+      "stdout_tail": "",
+      "stderr_tail": ""
+    },
+    {
+      "capability": "consolidate:reports-only",
+      "catalog_command": "python3 scripts/consolidate_reports.py",
+      "exec": "npm run consolidate:reports-only",
+      "status": "FAIL",
+      "rc": 1,
+      "duration_sec": 0.434,
+      "stdout_tail": "\n> auto-doc-pipeline@1.0.0 consolidate:reports-only\n> python3 scripts/consolidate_reports.py\n\n",
+      "stderr_tail": "[consolidate] WARNING: consolidated_reports feature requires Professional+ license.\n"
+    },
+    {
+      "capability": "convert:to-docusaurus",
+      "catalog_command": "python3 scripts/markdown_converter.py to-docusaurus docs/",
+      "exec": "npm run convert:to-docusaurus",
+      "status": "PASS",
+      "rc": 0,
+      "duration_sec": 2.426,
+      "stdout_tail": "\n> auto-doc-pipeline@1.0.0 convert:to-docusaurus\n> python3 scripts/markdown_converter.py to-docusaurus docs/\n\nConverted 81 files\n",
+      "stderr_tail": ""
+    },
+    {
+      "capability": "convert:to-mkdocs",
+      "catalog_command": "python3 scripts/markdown_converter.py to-mkdocs docs/",
+      "exec": "npm run convert:to-mkdocs",
+      "status": "PASS",
+      "rc": 0,
+      "duration_sec": 2.456,
+      "stdout_tail": "\n> auto-doc-pipeline@1.0.0 convert:to-mkdocs\n> python3 scripts/markdown_converter.py to-mkdocs docs/\n\nConverted 81 files\n",
+      "stderr_tail": ""
+    },
+    {
+      "capability": "demo:api-first",
+      "catalog_command": "bash scripts/api_first_demo_live.sh",
+      "exec": "npm run demo:api-first",
+      "status": "FAIL",
+      "rc": 1,
+      "duration_sec": 1.272,
+      "stdout_tail": " conventions\n\n- Content type: `application/json; charset=utf-8`.\n- Date-time format: ISO 8601 UTC (`2026-03-09T10:22:31Z`).\n\n[demo] Notes endpoint sample:\n\n### 4.1 Projects\n\n- `GET /projects` - list projects (pagination/filter/sort).\n- `POST /projects` - create project.\n- `GET /projects/{project_id}` - get project.\n- `PATCH /projects/{project_id}` - partial update.\n- `DELETE /projects/{project_id}` - soft delete.\n- `POST /projects/{project_id}/archive` - archive project.\n- `POST /projects/{project_id}/restore` - restore archived project.\n\nFilters for `GET /projects`:\n\n- `status`: `active | archived`\n- `owner_id`: UUID\n- `created_from`, `created_to`: datetime\n- `q`: full-text on `name`, `description`\n\nSorting for `GET /projects`:\n\n- `sort_by`: `created_at | updated_at | name`\n- default: `updated_at desc`\n\n\n[demo] Notes quality gates sample:\n## 5. Draft schema inventory\n\n- `Project`: `id`, `name`, `description`, `status`, `owner_id`, `created_at`, `updated_at`, `archived_at`.\n- `Task`: `id`, `project_id`, `title`, `description`, `status`, `priority`, `assignee_id`, `due_date`, `created_at`, `updated_at`, `completed_at`.\n- `Comment`: `id`, `task_id`, `author_id`, `body`, `created_at`, `updated_at`.\n- `Tag`: `id`, `name`, `slug`, `color`, `created_at`.\n- `User`: `id`, `email`, `full_name`, `role`, `status`, `created_at`.\n- `Error`: `error.code`, `error.message`, `error.details`, `request_id`.\n\n## 6. Response status codes\n\n- `200 OK` - successful GET/PATCH.\n- `201 Created` - successful POST.\n- `204 No Content` - successful DELETE/archive/restore with no body.\n- `400 Bad Request` - invalid query/body format.\n- `401 Unauthorized` - missing/invalid token.\n- `403 Forbidden` - insufficient permissions.\n- `404 Not Found` - resource missing.\n- `409 Conflict` - state conflict/idempotency conflict.\n- `422 Unprocessable Entity` - business validation failure.\n- `429 Too Many Requests` - rate limit exceeded.\n- `500 Internal Server Error` - unexpected error.\n\n## 7. Error and validation rules\n\n- Use one standard error envelope for all endpoints.\n- Validation errors must include array items with `field`, `message`, `rule`.\n- Invalid `sort_by` or enum filter values return `400` with allowed values.\n\n## 8. Security and access\n\n\n============================================================\nSTAGE 0/5: GENERATE OPENAPI FROM PLANNING NOTES\n============================================================\n[demo] Generating OpenAPI files from planning notes.\n[demo] What happens now: the notes are converted into a machine-readable OpenAPI contract and split spec tree.\n[ok] generated OpenAPI from notes: /mnt/c/Users/Kroha/Documents/development/Auto-Doc Pipeline/api/openapi.yaml\n[ok] generated split tree: /mnt/c/Users/Kroha/Documents/development/Auto-Doc Pipeline/api/taskstream\n[ok] operations generated: 31\n[demo] Stage result: OpenAPI source files were generated at api/openapi.yaml and api/taskstream/.\n\n============================================================\nSTAGE 1/5: START PROJECT MOCK SANDBOX\n============================================================\n[demo] What happens now: the pipeline prepares a sandbox endpoint used by API Try-it-out checks.\n[demo] External mock URL is not preset. It will be auto-prepared in Stage 2-5 via Postman API.\n[demo] Stage result: sandbox mode is selected and the next stage will run contract and behavior checks.\n\n============================================================\nSTAGE 2-5/6: RUN UNIVERSAL API-FIRST FLOW\n============================================================\n[demo] What happens now: run_api_first_flow executes contract validation, lint stack, stub generation, stub coverage check, and user-path verification.\n\n==============================================================================\n[20:00:25] FLOW START :: API-first flow\n[20:00:25] Generating contract, stubs, test assets, and docs-quality outputs.\n[20:00:25] Planned stages: 5\n==============================================================================\n",
+      "stderr_tail": "[license] BLOCKED: Feature 'api_first_flow' requires a plan upgrade (current: community).\n"
+    },
+    {
+      "capability": "demo:api-first:stop",
+      "catalog_command": "bash scripts/api_first_demo_stop.sh",
+      "exec": "npm run demo:api-first:stop",
+      "status": "FAIL",
+      "rc": 1,
+      "duration_sec": 0.368,
+      "stdout_tail": "\n> auto-doc-pipeline@1.0.0 demo:api-first:stop\n> bash scripts/api_first_demo_stop.sh\n\nSandbox shutdown failed. Last log lines:\n\nThe command 'docker' could not be found in this WSL 2 distro.\nWe recommend to activate the WSL integration in Docker Desktop settings.\n\nFor details about using Docker Desktop with WSL 2, visit:\n\nhttps://docs.docker.com/go/wsl2/\n\n",
+      "stderr_tail": ""
+    },
+    {
+      "capability": "demo:claude:loop",
+      "catalog_command": "bash scripts/claude-demo-loop.sh",
+      "exec": "npm run demo:claude:loop",
+      "status": "TIMEOUT",
+      "rc": null,
+      "duration_sec": 45.008,
+      "stdout_tail": "",
+      "stderr_tail": ""
+    },
+    {
+      "capability": "demo:codex",
+      "catalog_command": "bash scripts/codex-demo.sh",
+      "exec": "npm run demo:codex",
+      "status": "FAIL",
+      "rc": 2,
+      "duration_sec": 0.382,
+      "stdout_tail": "\n> auto-doc-pipeline@1.0.0 demo:codex\n> bash scripts/codex-demo.sh\n\n",
+      "stderr_tail": "WARNING: failed to clean up stale arg0 temp dirs: Permission denied (os error 13)\nWARNING: proceeding, even though we could not update PATH: Permission denied (os error 13) at path \"/home/eudo/.codex/tmp/arg0/codex-arg0IC8SEw\"\nerror: unexpected argument '-a' found\n\n  tip: to pass '-a' as a value, use '-- -a'\n\nUsage: codex exec [OPTIONS] [PROMPT] [COMMAND]\n\nFor more information, try '--help'.\n"
+    },
+    {
+      "capability": "demo:codex:loop",
+      "catalog_command": "bash scripts/codex-demo-loop.sh",
+      "exec": "npm run demo:codex:loop",
+      "status": "TIMEOUT",
+      "rc": null,
+      "duration_sec": 45.004,
+      "stdout_tail": "",
+      "stderr_tail": ""
+    },
+    {
+      "capability": "docs-contract",
+      "catalog_command": "python3 scripts/check_docs_contract.py --base origin/main --head HEAD --json-output reports/pr_docs_contract.json",
+      "exec": "npm run docs-contract",
+      "status": "PASS",
+      "rc": 0,
+      "duration_sec": 2.885,
+      "stdout_tail": "\n> auto-doc-pipeline@1.0.0 docs-contract\n> python3 scripts/check_docs_contract.py --base origin/main --head HEAD --json-output reports/pr_docs_contract.json\n\nChanged files: 695\nInterface files changed: 0\nDocs files changed: 63\nDocs contract check passed.\n",
+      "stderr_tail": ""
+    },
+    {
+      "capability": "docs-ops:e2e",
+      "catalog_command": "python3 scripts/test_docs_ops_e2e.py",
+      "exec": "npm run docs-ops:e2e",
+      "status": "PASS",
+      "rc": 0,
+      "duration_sec": 0.581,
+      "stdout_tail": "\n> auto-doc-pipeline@1.0.0 docs-ops:e2e\n> python3 scripts/test_docs_ops_e2e.py\n\nDocs ops E2E fixtures passed.\n",
+      "stderr_tail": ""
+    },
+    {
+      "capability": "docs-ops:golden",
+      "catalog_command": "python3 scripts/test_golden_reports_and_workflows.py",
+      "exec": "npm run docs-ops:golden",
+      "status": "PASS",
+      "rc": 0,
+      "duration_sec": 0.932,
+      "stdout_tail": "\n> auto-doc-pipeline@1.0.0 docs-ops:golden\n> python3 scripts/test_golden_reports_and_workflows.py\n\nGolden tests for reports and workflows passed.\n",
+      "stderr_tail": ""
+    },
+    {
+      "capability": "docs-ops:test-suite",
+      "catalog_command": "python3 -m pytest -q tests/test_autopipeline_suite.py",
+      "exec": "npm run docs-ops:test-suite",
+      "status": "PASS",
+      "rc": 0,
+      "duration_sec": 8.872,
+      "stdout_tail": "\n> auto-doc-pipeline@1.0.0 docs-ops:test-suite\n> python3 -m pytest -q tests/test_autopipeline_suite.py\n\n......................................................                   [100%]\n54 passed in 7.79s\n",
+      "stderr_tail": ""
+    },
+    {
+      "capability": "docsops:generate",
+      "catalog_command": "python3 scripts/docsops_generate.py generate --mode operator --trigger always",
+      "exec": "npm run docsops:generate",
+      "status": "FAIL",
+      "rc": 3,
+      "duration_sec": 0.794,
+      "stdout_tail": "\n> auto-doc-pipeline@1.0.0 docsops:generate\n> python3 scripts/docsops_generate.py generate --mode operator --trigger always\n\n\n==============================================================================\n[20:02:09] FLOW START :: DocsOps Generate\n[20:02:09] Local-first generation orchestration\n[20:02:09] Planned stages: 3\n==============================================================================\n\n[20:02:09] Stage 1/3 :: Load runtime and policy\n[20:02:09]   /mnt/c/Users/Kroha/Documents/development/Auto-Doc Pipeline/docsops/config/client_runtime.yml\n[20:02:09]   OK :: Runtime and consolidated report found\n[docsops] advanced prompts disabled by license gate (feature_blocked:community); using degraded prompt mode\n\n[20:02:10] Stage 2/3 :: Prepare generation mode\n[20:02:10]   Resolve local/external execution path\n[docsops] llm_mode=local_default (fully local first)\n[docsops] note: Fully local mode may reduce output quality by ~10-15% on hardest synthesis tasks.\n[docsops] preflight: Ollama not found. Install from https://ollama.com/download and run setup wizard again.\n\n------------------------------------------------------------------------------\n[20:02:10] FLOW FAILED :: DocsOps Generate\n[20:02:10] local model preflight failed\n------------------------------------------------------------------------------\n\n",
+      "stderr_tail": ""
+    },
+    {
+      "capability": "docsops:generate:auto",
+      "catalog_command": "python3 scripts/docsops_generate.py generate --mode operator --trigger always --auto",
+      "exec": "npm run docsops:generate:auto",
+      "status": "FAIL",
+      "rc": 3,
+      "duration_sec": 0.748,
+      "stdout_tail": "\n> auto-doc-pipeline@1.0.0 docsops:generate:auto\n> python3 scripts/docsops_generate.py generate --mode operator --trigger always --auto\n\n\n==============================================================================\n[20:02:10] FLOW START :: DocsOps Generate\n[20:02:10] Local-first generation orchestration\n[20:02:10] Planned stages: 3\n==============================================================================\n\n[20:02:10] Stage 1/3 :: Load runtime and policy\n[20:02:10]   /mnt/c/Users/Kroha/Documents/development/Auto-Doc Pipeline/docsops/config/client_runtime.yml\n[20:02:10]   OK :: Runtime and consolidated report found\n[docsops] advanced prompts disabled by license gate (feature_blocked:community); using degraded prompt mode\n\n[20:02:10] Stage 2/3 :: Prepare generation mode\n[20:02:10]   Resolve local/external execution path\n[docsops] llm_mode=local_default (fully local first)\n[docsops] note: Fully local mode may reduce output quality by ~10-15% on hardest synthesis tasks.\n[docsops] preflight: Ollama not found. Install from https://ollama.com/download and run setup wizard again.\n\n------------------------------------------------------------------------------\n[20:02:10] FLOW FAILED :: DocsOps Generate\n[20:02:10] local model preflight failed\n------------------------------------------------------------------------------\n\n",
+      "stderr_tail": ""
+    },
+    {
+      "capability": "docsops:generate:policy",
+      "catalog_command": "python3 scripts/docsops_generate.py generate --mode operator --trigger policy --auto",
+      "exec": "npm run docsops:generate:policy",
+      "status": "PASS",
+      "rc": 0,
+      "duration_sec": 0.538,
+      "stdout_tail": "\n> auto-doc-pipeline@1.0.0 docsops:generate:policy\n> python3 scripts/docsops_generate.py generate --mode operator --trigger policy --auto\n\n\n==============================================================================\n[20:02:11] FLOW START :: DocsOps Generate\n[20:02:11] Local-first generation orchestration\n[20:02:11] Planned stages: 3\n==============================================================================\n\n[20:02:11] Stage 1/3 :: Load runtime and policy\n[20:02:11]   /mnt/c/Users/Kroha/Documents/development/Auto-Doc Pipeline/docsops/config/client_runtime.yml\n[20:02:11]   OK :: Runtime and consolidated report found\n[docsops] policy trigger not fired; generation skipped\n",
+      "stderr_tail": ""
+    },
+    {
+      "capability": "docsops:generate:veridoc",
+      "catalog_command": "python3 scripts/docsops_generate.py generate --mode veridoc --trigger policy --auto",
+      "exec": "npm run docsops:generate:veridoc",
+      "status": "PASS",
+      "rc": 0,
+      "duration_sec": 0.562,
+      "stdout_tail": "\n> auto-doc-pipeline@1.0.0 docsops:generate:veridoc\n> python3 scripts/docsops_generate.py generate --mode veridoc --trigger policy --auto\n\n\n==============================================================================\n[20:02:11] FLOW START :: DocsOps Generate\n[20:02:11] Local-first generation orchestration\n[20:02:11] Planned stages: 3\n==============================================================================\n\n[20:02:11] Stage 1/3 :: Load runtime and policy\n[20:02:11]   /mnt/c/Users/Kroha/Documents/development/Auto-Doc Pipeline/docsops/config/client_runtime.yml\n[20:02:11]   OK :: Runtime and consolidated report found\n[docsops] policy trigger not fired; generation skipped\n",
+      "stderr_tail": ""
+    },
+    {
+      "capability": "drift-check",
+      "catalog_command": "python3 scripts/check_api_sdk_drift.py --base origin/main --head HEAD --json-output reports/api_sdk_drift_report.json --md-output reports/api_sdk_drift_report.md",
+      "exec": "npm run drift-check",
+      "status": "PASS",
+      "rc": 0,
+      "duration_sec": 0.998,
+      "stdout_tail": "\n> auto-doc-pipeline@1.0.0 drift-check\n> python3 scripts/check_api_sdk_drift.py --base origin/main --head HEAD --json-output reports/api_sdk_drift_report.json --md-output reports/api_sdk_drift_report.md\n\nDrift report JSON: reports/api_sdk_drift_report.json\nDrift report Markdown: reports/api_sdk_drift_report.md\nAPI/SDK changes are accompanied by reference docs updates.\n",
+      "stderr_tail": "license_gate unavailable; continuing without plan enforcement\n"
+    },
+    {
+      "capability": "eval:retrieval",
+      "catalog_command": "python3 scripts/run_retrieval_evals_gate.py",
+      "exec": "npm run eval:retrieval",
+      "status": "PASS",
+      "rc": 0,
+      "duration_sec": 23.168,
+      "stdout_tail": "\n> auto-doc-pipeline@1.0.0 eval:retrieval\n> python3 scripts/run_retrieval_evals_gate.py\n\nRetrieval evals (token): precision@3=0.24 recall@3=0.72 hallucination_rate=0.0\n[retrieval-gate] mode=token api_key=False faiss=False\n[retrieval-gate] dataset does not match current retrieval index; using auto-generated eval dataset\n",
+      "stderr_tail": "/home/eudo/.local/lib/python3.10/site-packages/joblib/_multiprocessing_helpers.py:44: UserWarning: [Errno 13] Permission denied.  joblib will operate in serial mode\n  warnings.warn(\"%s.  joblib will operate in serial mode\" % (e,))\n2026-04-18 20:02:25.534796: I external/local_xla/xla/tsl/cuda/cudart_stub.cc:31] Could not find cuda drivers on your machine, GPU will not be used.\n2026-04-18 20:02:26.416156: I tensorflow/core/platform/cpu_feature_guard.cc:210] This TensorFlow binary is optimized to use available CPU instructions in performance-critical operations.\nTo enable the following instructions: AVX2 FMA, in other operations, rebuild TensorFlow with the appropriate compiler flags.\n/home/eudo/.local/lib/python3.10/site-packages/google/api_core/_python_version_support.py:266: FutureWarning: You are using a Python version (3.10.12) which Google will stop supporting in new releases of google.api_core once it reaches its end of life (2026-10-04). Please upgrade to the latest Python version, or at least Python 3.11, to continue receiving updates for google.api_core past that date.\n  warnings.warn(message, FutureWarning)\n2026-04-18 20:02:31.320852: I external/local_xla/xla/tsl/cuda/cudart_stub.cc:31] Could not find cuda drivers on your machine, GPU will not be used.\n"
+    },
+    {
+      "capability": "gaps",
+      "catalog_command": "python3 -m scripts.gap_detection.cli analyze",
+      "exec": "npm run gaps",
+      "status": "PASS",
+      "rc": 0,
+      "duration_sec": 1.153,
+      "stdout_tail": "\n> auto-doc-pipeline@1.0.0 gaps\n> python3 -m scripts.gap_detection.cli analyze\n\n============================================================\nDocumentation Gap Analysis\n============================================================\nAnalyzing code changes...\n  Found 0 code changes\nCollecting community topics...\nWarning: Failed to fetch Community Questions: <urlopen error [Errno -3] Temporary failure in name resolution>\nWarning: Failed to fetch Feature Requests: <urlopen error [Errno -3] Temporary failure in name resolution>\n  Found 0 topics, 0 suggestions\nAggregating results...\n  Total gaps: 0\nJSON report saved: reports/doc_gaps_report.json\nCSV report saved: reports/doc_gaps_report.csv\nExcel report saved: reports/doc_gaps_report.xlsx\n\n============================================================\nSummary\n============================================================\nTotal gaps found: 0\n  High priority: 0\n  Medium priority: 0\n  Low priority: 0\n\nBy source: {}\nBy doc type: {}\n\n============================================================\nReports saved:\n============================================================\n  JSON: reports/doc_gaps_report.json\n  CSV:  reports/doc_gaps_report.csv\n  Excel: reports/doc_gaps_report.xlsx\n\n============================================================\nTop 5 High Priority Gaps\n============================================================\n",
+      "stderr_tail": ""
+    },
+    {
+      "capability": "gaps:code",
+      "catalog_command": "python3 -m scripts.gap_detection.cli code",
+      "exec": "npm run gaps:code",
+      "status": "PASS",
+      "rc": 0,
+      "duration_sec": 1.051,
+      "stdout_tail": "\n> auto-doc-pipeline@1.0.0 gaps:code\n> python3 -m scripts.gap_detection.cli code\n\nAnalyzing code changes in ....\n\nFound 0 documentation-relevant changes\nBy priority: {'high': 0, 'medium': 0, 'low': 0}\nBy category: {}\n\nTop changes:\n",
+      "stderr_tail": ""
+    },
+    {
+      "capability": "gaps:community",
+      "catalog_command": "python3 -m scripts.gap_detection.cli community",
+      "exec": "npm run gaps:community",
+      "status": "PASS",
+      "rc": 0,
+      "duration_sec": 0.972,
+      "stdout_tail": "\n> auto-doc-pipeline@1.0.0 gaps:community\n> python3 -m scripts.gap_detection.cli community\n\nCollecting community topics...\nWarning: Failed to fetch Community Questions: <urlopen error [Errno -3] Temporary failure in name resolution>\nWarning: Failed to fetch Feature Requests: <urlopen error [Errno -3] Temporary failure in name resolution>\n\nCollected 0 topics\nTop keywords: []\n\nTop documentation suggestions:\n",
+      "stderr_tail": ""
+    },
+    {
+      "capability": "gaps:full",
+      "catalog_command": "python3 -m scripts.gap_detection.cli full --generate",
+      "exec": "npm run gaps:full",
+      "status": "PASS",
+      "rc": 0,
+      "duration_sec": 1.277,
+      "stdout_tail": "\n> auto-doc-pipeline@1.0.0 gaps:full\n> python3 -m scripts.gap_detection.cli full --generate\n\nRunning full gap detection pipeline...\n\n============================================================\nDocumentation Gap Analysis\n============================================================\nAnalyzing code changes...\n  Found 0 code changes\nCollecting community topics...\nWarning: Failed to fetch Community Questions: <urlopen error [Errno -3] Temporary failure in name resolution>\nWarning: Failed to fetch Feature Requests: <urlopen error [Errno -3] Temporary failure in name resolution>\n  Found 0 topics, 0 suggestions\nAggregating results...\n  Total gaps: 0\nJSON report saved: reports/doc_gaps_report.json\nCSV report saved: reports/doc_gaps_report.csv\nExcel report saved: reports/doc_gaps_report.xlsx\n\n============================================================\nSummary\n============================================================\nTotal gaps found: 0\n  High priority: 0\n  Medium priority: 0\n  Low priority: 0\n\nBy source: {}\nBy doc type: {}\n\n============================================================\nReports saved:\n============================================================\n  JSON: reports/doc_gaps_report.json\n  CSV:  reports/doc_gaps_report.csv\n  Excel: reports/doc_gaps_report.xlsx\n\n============================================================\nTop 5 High Priority Gaps\n============================================================\n\n============================================================\nGenerating documents...\n============================================================\n============================================================\nBatch Document Generation\n============================================================\nCreated 0 tasks\nBatch config saved: reports/batch_tasks.json\nClaude command saved: .claude/commands/generate-docs.md\nUse with: /generate-docs\n",
+      "stderr_tail": ""
+    },
+    {
+      "capability": "gaps:generate",
+      "catalog_command": "python3 -m scripts.gap_detection.cli generate --report reports/doc_gaps_report.json",
+      "exec": "npm run gaps:generate",
+      "status": "PASS",
+      "rc": 0,
+      "duration_sec": 1.083,
+      "stdout_tail": "\n> auto-doc-pipeline@1.0.0 gaps:generate\n> python3 -m scripts.gap_detection.cli generate --report reports/doc_gaps_report.json\n\n============================================================\nBatch Document Generation\n============================================================\nCreated 0 tasks\nBatch config saved: reports/batch_tasks.json\nClaude command saved: .claude/commands/generate-docs.md\nUse with: /generate-docs\n",
+      "stderr_tail": ""
+    },
+    {
+      "capability": "generate:multilang-tabs",
+      "catalog_command": "python3 scripts/generate_multilang_tabs.py --paths docs templates --scope api --write",
+      "exec": "npm run generate:multilang-tabs",
+      "status": "PASS",
+      "rc": 0,
+      "duration_sec": 2.368,
+      "stdout_tail": "\n> auto-doc-pipeline@1.0.0 generate:multilang-tabs\n> python3 scripts/generate_multilang_tabs.py --paths docs templates --scope api --write\n\nMulti-language tabs generator (write): files=120 blocks=1 touched=1\n",
+      "stderr_tail": ""
+    },
+    {
+      "capability": "generate:multilang-tabs:all",
+      "catalog_command": "python3 scripts/generate_multilang_tabs.py --paths docs templates --scope all --write",
+      "exec": "npm run generate:multilang-tabs:all",
+      "status": "PASS",
+      "rc": 0,
+      "duration_sec": 1.898,
+      "stdout_tail": "\n> auto-doc-pipeline@1.0.0 generate:multilang-tabs:all\n> python3 scripts/generate_multilang_tabs.py --paths docs templates --scope all --write\n\nMulti-language tabs generator (write): files=120 blocks=22 touched=16\n",
+      "stderr_tail": ""
+    },
+    {
+      "capability": "generator:detect",
+      "catalog_command": "python3 scripts/run_generator.py detect",
+      "exec": "npm run generator:detect",
+      "status": "PASS",
+      "rc": 0,
+      "duration_sec": 0.399,
+      "stdout_tail": "\n> auto-doc-pipeline@1.0.0 generator:detect\n> python3 scripts/run_generator.py detect\n\nmkdocs\n",
+      "stderr_tail": ""
+    },
+    {
+      "capability": "generator:info",
+      "catalog_command": "python3 scripts/run_generator.py info",
+      "exec": "npm run generator:info",
+      "status": "PASS",
+      "rc": 0,
+      "duration_sec": 0.372,
+      "stdout_tail": "\n> auto-doc-pipeline@1.0.0 generator:info\n> python3 scripts/run_generator.py info\n\nGenerator:    mkdocs\nConfig file:  mkdocs.yml\nBuild cmd:    mkdocs build --strict\nServe cmd:    mkdocs serve\nOutput dir:   site\nDocs dir:     docs\n",
+      "stderr_tail": ""
+    },
+    {
+      "capability": "glossary:sync",
+      "catalog_command": "python3 scripts/sync_project_glossary.py --paths docs --glossary glossary.yml --report reports/glossary_sync_report.json --write",
+      "exec": "npm run glossary:sync",
+      "status": "PASS",
+      "rc": 0,
+      "duration_sec": 1.432,
+      "stdout_tail": "\n> auto-doc-pipeline@1.0.0 glossary:sync\n> python3 scripts/sync_project_glossary.py --paths docs --glossary glossary.yml --report reports/glossary_sync_report.json --write\n\n[ok] glossary sync: scanned=81 markers=3 added=0 updated=2\n",
+      "stderr_tail": ""
+    },
+    {
+      "capability": "i18n:migrate",
+      "catalog_command": "python3 scripts/i18n_migrate.py",
+      "exec": "npm run i18n:migrate",
+      "status": "PASS",
+      "rc": 0,
+      "duration_sec": 0.414,
+      "stdout_tail": "\n> auto-doc-pipeline@1.0.0 i18n:migrate\n> python3 scripts/i18n_migrate.py\n\nMigrating docs/ -> docs/en/ ...\nMigration skipped: docs/en/ already contains Markdown files.\n\nMigration complete. 0 items moved.\n",
+      "stderr_tail": ""
+    },
+    {
+      "capability": "i18n:sync",
+      "catalog_command": "python3 scripts/i18n_sync.py",
+      "exec": "npm run i18n:sync",
+      "status": "PASS",
+      "rc": 0,
+      "duration_sec": 0.47,
+      "stdout_tail": "\n> auto-doc-pipeline@1.0.0 i18n:sync\n> python3 scripts/i18n_sync.py\n\n\n============================================================\n  i18n TRANSLATION SYNC REPORT\n============================================================\n\n  Source language: en\n  Source documents: 1\n\n  [ru] 0.0% translated\n    Translated: 0\n    Missing:    1\n    Stale:      0\n\n  Action items: 1\n    [MISSING] ru/how-to/set-up-real-time-webhook-processing-pipeline.md\n\n============================================================\n  Report saved to: reports/i18n_sync_report.json\n",
+      "stderr_tail": ""
+    },
+    {
+      "capability": "i18n:translate",
+      "catalog_command": "python3 scripts/i18n_translate.py",
+      "exec": "npm run i18n:translate",
+      "status": "FAIL",
+      "rc": 1,
+      "duration_sec": 0.54,
+      "stdout_tail": "\n> auto-doc-pipeline@1.0.0 i18n:translate\n> python3 scripts/i18n_translate.py\n\n",
+      "stderr_tail": "Error: specify --source, --all-missing, or --stale-only\n"
+    },
+    {
+      "capability": "i18n:translate:all",
+      "catalog_command": "python3 scripts/i18n_translate.py --all-missing",
+      "exec": "npm run i18n:translate:all",
+      "status": "FAIL",
+      "rc": 1,
+      "duration_sec": 1.967,
+      "stdout_tail": "\n> auto-doc-pipeline@1.0.0 i18n:translate:all\n> python3 scripts/i18n_translate.py --all-missing\n\nFound 1 items to translate:\n  [1/1]  Translating: en/how-to/set-up-real-time-webhook-processing-pipeline.md -> ru...\n",
+      "stderr_tail": "Traceback (most recent call last):\n  File \"/mnt/c/Users/Kroha/Documents/development/Auto-Doc Pipeline/scripts/i18n_translate.py\", line 423, in <module>\n    main()\n  File \"/mnt/c/Users/Kroha/Documents/development/Auto-Doc Pipeline/scripts/i18n_translate.py\", line 412, in main\n    results = translator.translate_batch(items, dry_run=args.dry_run)\n  File \"/mnt/c/Users/Kroha/Documents/development/Auto-Doc Pipeline/scripts/i18n_translate.py\", line 304, in translate_batch\n    result = self.create_translation_from_source(\n  File \"/mnt/c/Users/Kroha/Documents/development/Auto-Doc Pipeline/scripts/i18n_translate.py\", line 262, in create_translation_from_source\n    translated = self.translate_document(\n  File \"/mnt/c/Users/Kroha/Documents/development/Auto-Doc Pipeline/scripts/i18n_translate.py\", line 165, in translate_document\n    response = client.messages.create(\n  File \"/home/eudo/.local/lib/python3.10/site-packages/anthropic/_utils/_utils.py\", line 282, in wrapper\n    return func(*args, **kwargs)\n  File \"/home/eudo/.local/lib/python3.10/site-packages/anthropic/resources/messages/messages.py\", line 930, in create\n    return self._post(\n  File \"/home/eudo/.local/lib/python3.10/site-packages/anthropic/_base_client.py\", line 1324, in post\n    return cast(ResponseT, self.request(cast_to, opts, stream=stream, stream_cls=stream_cls))\n  File \"/home/eudo/.local/lib/python3.10/site-packages/anthropic/_base_client.py\", line 1033, in request\n    request = self._build_request(options, retries_taken=retries_taken)\n  File \"/home/eudo/.local/lib/python3.10/site-packages/anthropic/_base_client.py\", line 506, in _build_request\n    headers = self._build_headers(options, retries_taken=retries_taken)\n  File \"/home/eudo/.local/lib/python3.10/site-packages/anthropic/_base_client.py\", line 447, in _build_headers\n    self._validate_headers(headers_dict, custom_headers)\n  File \"/home/eudo/.local/lib/python3.10/site-packages/anthropic/_client.py\", line 196, in _validate_headers\n    raise TypeError(\nTypeError: \"Could not resolve authentication method. Expected either api_key or auth_token to be set. Or for one of the `X-Api-Key` or `Authorization` headers to be explicitly omitted\"\n"
+    },
+    {
+      "capability": "i18n:translate:stale",
+      "catalog_command": "python3 scripts/i18n_translate.py --stale-only",
+      "exec": "npm run i18n:translate:stale",
+      "status": "PASS",
+      "rc": 0,
+      "duration_sec": 0.524,
+      "stdout_tail": "\n> auto-doc-pipeline@1.0.0 i18n:translate:stale\n> python3 scripts/i18n_translate.py --stale-only\n\nNo items to translate.\n",
+      "stderr_tail": ""
+    },
+    {
+      "capability": "kpi-full",
+      "catalog_command": "npm run kpi-wall && npm run badges",
+      "exec": "npm run kpi-full",
+      "status": "PASS",
+      "rc": 0,
+      "duration_sec": 2.256,
+      "stdout_tail": "\n> auto-doc-pipeline@1.0.0 kpi-full\n> npm run kpi-wall && npm run badges\n\n\n> auto-doc-pipeline@1.0.0 kpi-wall\n> python3 scripts/generate_kpi_wall.py --docs-dir docs --reports-dir reports --stale-days 90\n\nKPI wall written to reports/kpi-wall.md\nWow dashboard written to reports/wow-dashboard.html\nMachine-readable metrics written to reports/kpi-wall.json\n\n> auto-doc-pipeline@1.0.0 badges\n> python3 scripts/generate_badge.py --json reports/kpi-wall.json --output reports\n\nBadge generated: reports/docs-quality-badge.svg\nBadge generated: reports/docs-metadata-badge.svg\nBadge generated: reports/docs-freshness-badge.svg\nBadge generated: reports/docs-gaps-badge.svg\nBadge generated: reports/docs-gates-badge.svg\n\nAdd these badges to your README.md:\n\n```markdown\n![Docs Quality](/reports/docs-quality-badge.svg)\n![Metadata](/reports/docs-metadata-badge.svg)\n![Freshness](/reports/docs-freshness-badge.svg)\n![Doc Gaps](/reports/docs-gaps-badge.svg)\n![Quality Gates](/reports/docs-gates-badge.svg)\n```\n",
+      "stderr_tail": "license_gate unavailable; continuing without plan enforcement\n"
+    },
+    {
+      "capability": "kpi-sla",
+      "catalog_command": "python3 scripts/evaluate_kpi_sla.py --current reports/kpi-wall.json --policy-pack policy_packs/api-first.yml --json-output reports/kpi-sla-report.json --md-output reports/kpi-sla-report.md",
+      "exec": "npm run kpi-sla",
+      "status": "PASS",
+      "rc": 0,
+      "duration_sec": 0.421,
+      "stdout_tail": "\n> auto-doc-pipeline@1.0.0 kpi-sla\n> python3 scripts/evaluate_kpi_sla.py --current reports/kpi-wall.json --policy-pack policy_packs/api-first.yml --json-output reports/kpi-sla-report.json --md-output reports/kpi-sla-report.md\n\nKPI SLA JSON report: reports/kpi-sla-report.json\nKPI SLA Markdown report: reports/kpi-sla-report.md\nKPI SLA check passed.\n",
+      "stderr_tail": ""
+    },
+    {
+      "capability": "kpi-wall",
+      "catalog_command": "python3 scripts/generate_kpi_wall.py --docs-dir docs --reports-dir reports --stale-days 90",
+      "exec": "npm run kpi-wall",
+      "status": "PASS",
+      "rc": 0,
+      "duration_sec": 1.702,
+      "stdout_tail": "\n> auto-doc-pipeline@1.0.0 kpi-wall\n> python3 scripts/generate_kpi_wall.py --docs-dir docs --reports-dir reports --stale-days 90\n\nKPI wall written to reports/kpi-wall.md\nWow dashboard written to reports/wow-dashboard.html\nMachine-readable metrics written to reports/kpi-wall.json\n",
+      "stderr_tail": "license_gate unavailable; continuing without plan enforcement\n"
+    },
+    {
+      "capability": "lint",
+      "catalog_command": "npm run normalize:docs:check && npm run lint:vale && npm run lint:md && npm run lint:spell && npm run lint:frontmatter && npm run lint:geo && npm run lint:knowledge && npm run lint:snippets && npm run lint:multilang",
+      "exec": "npm run lint",
+      "status": "FAIL",
+      "rc": 1,
+      "duration_sec": 1.79,
+      "stdout_tail": "\n> auto-doc-pipeline@1.0.0 lint\n> npm run normalize:docs:check && npm run lint:vale && npm run lint:md && npm run lint:spell && npm run lint:frontmatter && npm run lint:geo && npm run lint:knowledge && npm run lint:snippets && npm run lint:multilang\n\n\n> auto-doc-pipeline@1.0.0 normalize:docs:check\n> python3 scripts/normalize_docs.py docs/ --check\n\nNormalization required for files:\n- docs/getting-started/quickstart.md\n- docs/reference/intent-experiences/configure-beginner.md\n- docs/reference/intent-experiences/configure-developer.md\n- docs/reference/intent-experiences/configure-operator.md\n- docs/reference/intent-experiences/configure-practitioner.md\n- docs/reference/intent-experiences/configure-support.md\n- docs/reference/intent-experiences/integrate-developer.md\n- docs/reference/intent-experiences/integrate-operator.md\n- docs/reference/intent-experiences/integrate-practitioner.md\n- docs/reference/intent-experiences/integrate-support.md\n- docs/reference/intent-experiences/secure-operator.md\n- docs/reference/intent-experiences/secure-practitioner.md\n- docs/reference/intent-experiences/secure-support.md\n- docs/reference/intent-experiences/troubleshoot-developer.md\n- docs/reference/intent-experiences/troubleshoot-operator.md\n",
+      "stderr_tail": ""
+    },
+    {
+      "capability": "lint:diagrams",
+      "catalog_command": "python3 scripts/validate_diagram_content.py docs templates",
+      "exec": "npm run lint:diagrams",
+      "status": "PASS",
+      "rc": 0,
+      "duration_sec": 3.592,
+      "stdout_tail": "\n> auto-doc-pipeline@1.0.0 lint:diagrams\n> python3 scripts/validate_diagram_content.py docs templates --strict\n\n\nDiagram content validation: 3 HTML diagram(s), 6 Mermaid diagram(s) checked\n============================================================\n\nSummary: 0 error(s), 0 warning(s) across 9 diagram(s)\n",
+      "stderr_tail": ""
+    },
+    {
+      "capability": "lint:examples-smoke",
+      "catalog_command": "python3 scripts/check_code_examples_smoke.py --paths docs templates",
+      "exec": "npm run lint:examples-smoke",
+      "status": "PASS",
+      "rc": 0,
+      "duration_sec": 5.197,
+      "stdout_tail": "\n> auto-doc-pipeline@1.0.0 lint:examples-smoke\n> python3 scripts/check_code_examples_smoke.py --paths docs templates\n\nScanned markdown files: 120\nSmoke-tagged code blocks: 103\nSmoke code examples check passed.\n",
+      "stderr_tail": ""
+    },
+    {
+      "capability": "lint:examples-smoke:network",
+      "catalog_command": "python3 scripts/check_code_examples_smoke.py --paths docs templates --allow-network",
+      "exec": "npm run lint:examples-smoke:network",
+      "status": "PASS",
+      "rc": 0,
+      "duration_sec": 4.306,
+      "stdout_tail": "\n> auto-doc-pipeline@1.0.0 lint:examples-smoke:network\n> python3 scripts/check_code_examples_smoke.py --paths docs templates --allow-network\n\nScanned markdown files: 120\nSmoke-tagged code blocks: 103\nSmoke code examples check passed.\n",
+      "stderr_tail": ""
+    },
+    {
+      "capability": "lint:frontmatter",
+      "catalog_command": "python3 scripts/validate_frontmatter.py",
+      "exec": "npm run lint:frontmatter",
+      "status": "PASS",
+      "rc": 0,
+      "duration_sec": 2.008,
+      "stdout_tail": "\n> auto-doc-pipeline@1.0.0 lint:frontmatter\n> python3 scripts/validate_frontmatter.py\n\nFrontmatter validation: all files pass\n",
+      "stderr_tail": ""
+    },
+    {
+      "capability": "lint:geo",
+      "catalog_command": "python3 scripts/seo_geo_optimizer.py docs/",
+      "exec": "npm run lint:geo",
+      "status": "PASS",
+      "rc": 0,
+      "duration_sec": 2.321,
+      "stdout_tail": "ce/intent-experiences/integrate-developer.md\nSkipping internal guide for GEO checks: docs/reference/intent-experiences/integrate-operator.md\nSkipping internal guide for GEO checks: docs/reference/intent-experiences/integrate-practitioner.md\nSkipping internal guide for GEO checks: docs/reference/intent-experiences/integrate-support.md\nSkipping internal guide for GEO checks: docs/reference/intent-experiences/optimize-developer.md\nSkipping internal guide for GEO checks: docs/reference/intent-experiences/optimize-operator.md\nSkipping internal guide for GEO checks: docs/reference/intent-experiences/optimize-support.md\nSkipping internal guide for GEO checks: docs/reference/intent-experiences/secure-beginner.md\nSkipping internal guide for GEO checks: docs/reference/intent-experiences/secure-developer.md\nSkipping internal guide for GEO checks: docs/reference/intent-experiences/secure-operator.md\nSkipping internal guide for GEO checks: docs/reference/intent-experiences/secure-practitioner.md\nSkipping internal guide for GEO checks: docs/reference/intent-experiences/secure-support.md\nSkipping internal guide for GEO checks: docs/reference/intent-experiences/troubleshoot-beginner.md\nSkipping internal guide for GEO checks: docs/reference/intent-experiences/troubleshoot-developer.md\nSkipping internal guide for GEO checks: docs/reference/intent-experiences/troubleshoot-operator.md\nSkipping internal guide for GEO checks: docs/reference/intent-experiences/troubleshoot-practitioner.md\nSkipping internal guide for GEO checks: docs/reference/intent-experiences/troubleshoot-support.md\nProcessing docs/reference/network-transparency.md...\nProcessing docs/reference/nodes/webhook.md...\nProcessing docs/reference/rest-api.md...\nProcessing docs/reference/taskstream-api-playground.md...\nProcessing docs/reference/taskstream-planning-notes.md...\nProcessing docs/reference/websocket-api.md...\nProcessing docs/search-faceted.md...\nProcessing docs/tags.md...\nProcessing docs/troubleshooting/index.md...\nProcessing docs/troubleshooting/webhook-not-firing.md...\n\n============================================================\nSEO/GEO OPTIMIZATION REPORT\n============================================================\n\nGEO Findings: 0 errors, 47 warnings, 62 suggestions\n  docs/assets/protocols/asyncapi/asyncapi-api.md:50 [warning] seo-bare-url: Bare URL found. Use [descriptive text](https://postman-echo.com/post\";) instead.\n  docs/assets/protocols/asyncapi/asyncapi-api.md:1 [suggestion] seo-no-freshness: No 'last_reviewed' or 'date' in frontmatter. Search engines favor dated content.\n  docs/assets/protocols/graphql/graphql-api.md:46 [warning] seo-bare-url: Bare URL found. Use [descriptive text](https://postman-echo.com/post\";) instead.\n  docs/assets/protocols/grpc/grpc-api.md:47 [warning] seo-bare-url: Bare URL found. Use [descriptive text](https://postman-echo.com/post\";) instead.\n  docs/assets/protocols/grpc/grpc-api.md:1 [suggestion] seo-no-freshness: No 'last_reviewed' or 'date' in frontmatter. Search engines favor dated content.\n  docs/assets/protocols/index.md:1 [warning] meta-description-short: Description too short (46 < 50 chars)\n  docs/assets/protocols/index.md:1 [suggestion] seo-no-freshness: No 'last_reviewed' or 'date' in frontmatter. Search engines favor dated content.\n  docs/assets/protocols/index.md:1 [warning] seo-thin-content: Only 23 words. Pages under 100 words rank poorly.\n  docs/assets/protocols/rest/rest-api.md:3 [suggestion] first-paragraph-no-definition: First paragraph lacks a definition pattern (is/enables/provides). LLMs need explicit definitions to extract answers.\n  docs/assets/protocols/rest/rest-api.md:33 [warning] heading-generic: Generic heading '## Notes'. Use descriptive headings for LLM retrieval (e.g., 'Configure SASL authentication' not 'Configuration').\n  ... and 99 more findings\n\nSearch Records: 583 records generated\n  By content type:\n    - concept: 28\n    - how-to: 166\n    - reference: 367\n    - troubleshooting: 11\n    - tutorial: 11\n",
+      "stderr_tail": ""
+    },
+    {
+      "capability": "lint:knowledge",
+      "catalog_command": "python3 scripts/validate_knowledge_modules.py",
+      "exec": "npm run lint:knowledge",
+      "status": "PASS",
+      "rc": 0,
+      "duration_sec": 3.567,
+      "stdout_tail": "\n> auto-doc-pipeline@1.0.0 lint:knowledge\n> python3 scripts/validate_knowledge_modules.py\n\nKnowledge modules: 288 modules pass\n",
+      "stderr_tail": ""
+    },
+    {
+      "capability": "lint:layers",
+      "catalog_command": "python3 scripts/doc_layers_validator.py",
+      "exec": "npm run lint:layers",
+      "status": "PASS",
+      "rc": 0,
+      "duration_sec": 2.577,
+      "stdout_tail": "\n> auto-doc-pipeline@1.0.0 lint:layers\n> python3 scripts/doc_layers_validator.py --strict\n\nDocumentation layers report saved to: doc_layers_report.html\n",
+      "stderr_tail": ""
+    },
+    {
+      "capability": "lint:md",
+      "catalog_command": "markdownlint docs/",
+      "exec": "npm run lint:md",
+      "status": "FAIL",
+      "rc": 1,
+      "duration_sec": 19.727,
+      "stdout_tail": "\n> auto-doc-pipeline@1.0.0 lint:md\n> markdownlint docs/\n\n",
+      "stderr_tail": "blank lines [Expected: 1; Actual: 2]\ndocs/reference/intent-experiences/configure-developer.md:993 MD012/no-multiple-blanks Multiple consecutive blank lines [Expected: 1; Actual: 2]\ndocs/reference/intent-experiences/configure-developer.md:1153 MD012/no-multiple-blanks Multiple consecutive blank lines [Expected: 1; Actual: 2]\ndocs/reference/intent-experiences/configure-developer.md:1161 MD012/no-multiple-blanks Multiple consecutive blank lines [Expected: 1; Actual: 2]\ndocs/reference/intent-experiences/configure-developer.md:1181 MD012/no-multiple-blanks Multiple consecutive blank lines [Expected: 1; Actual: 2]\ndocs/reference/intent-experiences/configure-developer.md:1195 MD012/no-multiple-blanks Multiple consecutive blank lines [Expected: 1; Actual: 2]\ndocs/reference/intent-experiences/configure-developer.md:2677 MD012/no-multiple-blanks Multiple consecutive blank lines [Expected: 1; Actual: 2]\ndocs/reference/intent-experiences/configure-developer.md:2713 MD012/no-multiple-blanks Multiple consecutive blank lines [Expected: 1; Actual: 2]\ndocs/reference/intent-experiences/configure-developer.md:2723 MD012/no-multiple-blanks Multiple consecutive blank lines [Expected: 1; Actual: 2]\ndocs/reference/intent-experiences/configure-developer.md:3208 MD022/blanks-around-headings Headings should be surrounded by blank lines [Expected: 1; Actual: 0; Above] [Context: \"### Set up a real-time webhook processing pipeline (Part 10)\"]\ndocs/reference/intent-experiences/configure-developer.md:3623 MD022/blanks-around-headings Headings should be surrounded by blank lines [Expected: 1; Actual: 0; Above] [Context: \"### Smart Merge and Manual Review\"]\ndocs/reference/intent-experiences/integrate-beginner.md:75 MD022/blanks-around-headings Headings should be surrounded by blank lines [Expected: 1; Actual: 0; Above] [Context: \"### Tutorial: launch your first VeriOps API integration (Part 3)\"]\ndocs/reference/intent-experiences/secure-developer.md:989 MD022/blanks-around-headings Headings should be surrounded by blank lines [Expected: 1; Actual: 0; Above] [Context: \"### TaskStream API planning notes\"]\ndocs/reference/intent-experiences/secure-developer.md:1146 MD012/no-multiple-blanks Multiple consecutive blank lines [Expected: 1; Actual: 2]\ndocs/reference/intent-experiences/secure-developer.md:1151 MD012/no-multiple-blanks Multiple consecutive blank lines [Expected: 1; Actual: 2]\ndocs/reference/intent-experiences/secure-operator.md:903 MD012/no-multiple-blanks Multiple consecutive blank lines [Expected: 1; Actual: 2]\ndocs/reference/intent-experiences/secure-operator.md:908 MD012/no-multiple-blanks Multiple consecutive blank lines [Expected: 1; Actual: 2]\ndocs/reference/intent-experiences/secure-practitioner.md:315 MD022/blanks-around-headings Headings should be surrounded by blank lines [Expected: 1; Actual: 0; Above] [Context: \"### Configure HMAC authentication for inbound webhooks\"]\ndocs/reference/intent-experiences/troubleshoot-operator.md:1372 MD012/no-multiple-blanks Multiple consecutive blank lines [Expected: 1; Actual: 2]\ndocs/reference/intent-experiences/troubleshoot-operator.md:1381 MD012/no-multiple-blanks Multiple consecutive blank lines [Expected: 1; Actual: 2]\ndocs/reference/intent-experiences/troubleshoot-operator.md:1391 MD012/no-multiple-blanks Multiple consecutive blank lines [Expected: 1; Actual: 2]\ndocs/reference/intent-experiences/troubleshoot-support.md:79 MD012/no-multiple-blanks Multiple consecutive blank lines [Expected: 1; Actual: 2]\ndocs/reference/intent-experiences/troubleshoot-support.md:94 MD012/no-multiple-blanks Multiple consecutive blank lines [Expected: 1; Actual: 2]\ndocs/reference/nodes/webhook.md:57 MD012/no-multiple-blanks Multiple consecutive blank lines [Expected: 1; Actual: 2]\ndocs/reference/nodes/webhook.md:62 MD012/no-multiple-blanks Multiple consecutive blank lines [Expected: 1; Actual: 2]\ndocs/troubleshooting/webhook-not-firing.md:54 MD012/no-multiple-blanks Multiple consecutive blank lines [Expected: 1; Actual: 2]\n"
+    },
+    {
+      "capability": "lint:multilang",
+      "catalog_command": "python3 scripts/validate_multilang_examples.py --docs-dir docs --scope api --required-languages curl,javascript,python",
+      "exec": "npm run lint:multilang",
+      "status": "PASS",
+      "rc": 0,
+      "duration_sec": 1.256,
+      "stdout_tail": "\n> auto-doc-pipeline@1.0.0 lint:multilang\n> python3 scripts/validate_multilang_examples.py --docs-dir docs --scope api --required-languages curl,javascript,python\n\nMulti-language examples: all checks pass\n",
+      "stderr_tail": ""
+    },
+    {
+      "capability": "lint:multilang:all",
+      "catalog_command": "python3 scripts/validate_multilang_examples.py --docs-dir docs --scope all --required-languages curl,javascript,python",
+      "exec": "npm run lint:multilang:all",
+      "status": "FAIL",
+      "rc": 1,
+      "duration_sec": 1.635,
+      "stdout_tail": "javascript, python\n  docs/operations/CANONICAL_FLOW.md: Missing language tabs. Add a tab group with languages: curl, javascript, python\n  docs/operations/CENTRALIZED_CLIENT_BUNDLES.md: No tab group contains required languages: curl, javascript, python\n  docs/operations/MULTI_PROTOCOL_ARCHITECTURE.md: Missing language tabs. Add a tab group with languages: curl, javascript, python\n  docs/operations/MULTI_PROTOCOL_WIZARD_GUIDE.md: Missing language tabs. Add a tab group with languages: curl, javascript, python\n  docs/operations/OPERATOR_RUNBOOK.md: Missing language tabs. Add a tab group with languages: curl, javascript, python\n  docs/operations/PIPELINE_CAPABILITIES_CATALOG.md: Missing language tabs. Add a tab group with languages: curl, javascript, python\n  docs/operations/PLAN_TIERS.md: Missing language tabs. Add a tab group with languages: curl, javascript, python\n  docs/operations/UNIFIED_CLIENT_CONFIG.md: Missing language tabs. Add a tab group with languages: curl, javascript, python\n  docs/reference/auto-doc-pipeline-study-guide.md: Missing language tabs. Add a tab group with languages: curl, javascript, python\n  docs/reference/intent-experiences/automate-developer.md: Missing language tabs. Add a tab group with languages: curl, javascript, python\n  docs/reference/intent-experiences/automate-operator.md: Missing language tabs. Add a tab group with languages: curl, javascript, python\n  docs/reference/intent-experiences/automate-support.md: Missing language tabs. Add a tab group with languages: curl, javascript, python\n  docs/reference/intent-experiences/configure-beginner.md: No tab group contains required languages: curl, javascript, python\n  docs/reference/intent-experiences/configure-operator.md: No tab group contains required languages: curl, javascript, python\n  docs/reference/intent-experiences/configure-support.md: No tab group contains required languages: curl, javascript, python\n  docs/reference/intent-experiences/index.md: Missing language tabs. Add a tab group with languages: curl, javascript, python\n  docs/reference/intent-experiences/integrate-practitioner.md: No tab group contains required languages: curl, javascript, python\n  docs/reference/intent-experiences/integrate-support.md: No tab group contains required languages: curl, javascript, python\n  docs/reference/intent-experiences/optimize-developer.md: Missing language tabs. Add a tab group with languages: curl, javascript, python\n  docs/reference/intent-experiences/optimize-operator.md: Missing language tabs. Add a tab group with languages: curl, javascript, python\n  docs/reference/intent-experiences/optimize-support.md: Missing language tabs. Add a tab group with languages: curl, javascript, python\n  docs/reference/intent-experiences/secure-beginner.md: Missing language tabs. Add a tab group with languages: curl, javascript, python\n  docs/reference/intent-experiences/secure-developer.md: No tab group contains required languages: curl, javascript, python\n  docs/reference/intent-experiences/secure-operator.md: No tab group contains required languages: curl, javascript, python\n  docs/reference/intent-experiences/secure-practitioner.md: No tab group contains required languages: curl, javascript, python\n  docs/reference/intent-experiences/secure-support.md: No tab group contains required languages: curl, javascript, python\n  docs/reference/intent-experiences/troubleshoot-beginner.md: Missing language tabs. Add a tab group with languages: curl, javascript, python\n  docs/reference/intent-experiences/troubleshoot-practitioner.md: Missing language tabs. Add a tab group with languages: curl, javascript, python\n  docs/reference/intent-experiences/troubleshoot-support.md: No tab group contains required languages: curl, javascript, python\n  docs/reference/network-transparency.md: Missing language tabs. Add a tab group with languages: curl, javascript, python\n  docs/troubleshooting/webhook-not-firing.md: No tab group contains required languages: curl, javascript, python\n",
+      "stderr_tail": ""
+    },
+    {
+      "capability": "lint:openapi",
+      "catalog_command": "npx -y @stoplight/spectral-cli lint api/openapi.yaml --ruleset .spectral.yml && npx -y @redocly/cli lint api/openapi.yaml && npx -y @apidevtools/swagger-cli validate api/openapi.yaml && python3 scripts/validate_openapi_contract.py api/openapi.yaml",
+      "exec": "npm run lint:openapi",
+      "status": "FAIL",
+      "rc": 1,
+      "duration_sec": 71.213,
+      "stdout_tail": "\n> auto-doc-pipeline@1.0.0 lint:openapi\n> npx -y @stoplight/spectral-cli lint api/openapi.yaml --ruleset .spectral.yml && npx -y @redocly/cli lint api/openapi.yaml && npx -y @apidevtools/swagger-cli validate api/openapi.yaml && python3 scripts/validate_openapi_contract.py api/openapi.yaml\n\n",
+      "stderr_tail": "npm error code EAI_AGAIN\nnpm error syscall getaddrinfo\nnpm error errno EAI_AGAIN\nnpm error request to https://registry.npmjs.org/@stoplight%2fspectral-cli failed, reason: getaddrinfo EAI_AGAIN registry.npmjs.org\nnpm error Log files were not written due to an error writing to the directory: /home/eudo/.npm/_logs\nnpm error You can rerun the command with `--loglevel=verbose` to see the logs in your terminal\n"
+    },
+    {
+      "capability": "lint:snippets",
+      "catalog_command": "python3 scripts/lint_code_snippets.py docs/",
+      "exec": "npm run lint:snippets",
+      "status": "FAIL",
+      "rc": 1,
+      "duration_sec": 41.049,
+      "stdout_tail": "\n> auto-doc-pipeline@1.0.0 lint:snippets\n> python3 scripts/lint_code_snippets.py docs/ --strict\n\n\nCode snippet linting: 81 files, 696 blocks checked\n============================================================\n\nErrors (2):\n  docs/reference/intent-experiences/configure-developer.md:3517 [javascript]\n    JavaScript syntax error: docs/reference/intent-experiences/configure-developer.md:3517:32\n### Set up a real-time webhook processing pipeline (Part 8)\n^\n\nSyntaxError: Invalid or unexpected token\n    at wrapSafe (node:internal/modules/cjs/loader:1662:18)\n    at checkSyntax (node:internal/main/check_syntax:78:3)\n\nNode.js v22.16.0\n  docs/reference/intent-experiences/configure-practitioner.md:2951 [javascript]\n    JavaScript syntax error: docs/reference/intent-experiences/configure-practitioner.md:2951:32\n### Set up a real-time webhook processing pipeline (Part 8)\n^\n\nSyntaxError: Invalid or unexpected token\n    at wrapSafe (node:internal/modules/cjs/loader:1662:18)\n    at checkSyntax (node:internal/main/check_syntax:78:3)\n\nNode.js v22.16.0\n\nInfo (6):\n  docs/operations/CANONICAL_FLOW.md:151 [gitignore]\n    No linter for language 'gitignore'\n  docs/operations/CENTRALIZED_CLIENT_BUNDLES.md:488 [gitignore]\n    No linter for language 'gitignore'\n  docs/reference/intent-experiences/integrate-developer.md:656 [gitignore]\n    No linter for language 'gitignore'\n  docs/reference/intent-experiences/integrate-developer.md:1010 [gitignore]\n    No linter for language 'gitignore'\n  docs/reference/intent-experiences/integrate-operator.md:656 [gitignore]\n    No linter for language 'gitignore'\n  docs/reference/intent-experiences/integrate-operator.md:1010 [gitignore]\n    No linter for language 'gitignore'\n\nSummary: 694/696 blocks passed\n",
+      "stderr_tail": ""
+    },
+    {
+      "capability": "lint:snippets:strict",
+      "catalog_command": "python3 scripts/lint_code_snippets.py docs/ templates/ --strict",
+      "exec": "npm run lint:snippets:strict",
+      "status": "FAIL",
+      "rc": 1,
+      "duration_sec": 48.066,
+      "stdout_tail": "\": 125000,\n                         ^\n\nSyntaxError: Unexpected token ':'\n    at wrapSafe (node:internal/modules/cjs/loader:1662:18)\n    at checkSyntax (node:internal/main/check_syntax:78:3)\n\nNode.js v22.16.0\n  templates/architecture-overview.md:344 [javascript]\n    JavaScript syntax error: templates/architecture-overview.md:344:4\n  scale_up_time: \"45 seconds\",\n               ^\n\nSyntaxError: Unexpected token ':'\n    at wrapSafe (node:internal/modules/cjs/loader:1662:18)\n    at checkSyntax (node:internal/main/check_syntax:78:3)\n\nNode.js v22.16.0\n  templates/architecture-overview.md:450 [javascript]\n    JavaScript syntax error: templates/architecture-overview.md:450:5\n    Lambda: \"$2,100\", // 5M invocations\n          ^\n\nSyntaxError: Unexpected token ':'\n    at wrapSafe (node:internal/modules/cjs/loader:1662:18)\n    at checkSyntax (node:internal/main/check_syntax:78:3)\n\nNode.js v22.16.0\n  templates/best-practices.md:166 [javascript]\n    JavaScript syntax error: templates/best-practices.md:166:33\n  if (await isProcessed(eventId)) {\n            ^^^^^^^^^^^\n\nSyntaxError: Unexpected identifier 'isProcessed'\n    at wrapSafe (node:internal/modules/cjs/loader:1662:18)\n    at checkSyntax (node:internal/main/check_syntax:78:3)\n\nNode.js v22.16.0\n  templates/migration-guide.md:142 [json]\n    JSON error at line 5: Expecting ',' delimiter\n  templates/quickstart.md:340 [javascript]\n    JavaScript syntax error: templates/quickstart.md:340:4\n  batchSize: 25,       // Optimal batch size\n           ^\n\nSyntaxError: Unexpected token ':'\n    at wrapSafe (node:internal/modules/cjs/loader:1662:18)\n    at checkSyntax (node:internal/main/check_syntax:78:3)\n\nNode.js v22.16.0\n  templates/release-note.md:164 [javascript]\n    JavaScript syntax error: templates/release-note.md:164:2\nheaders: { 'API-Key': 'sk_live_abc123' }\n                    ^\n\nSyntaxError: Unexpected token ':'\n    at wrapSafe (node:internal/modules/cjs/loader:1662:18)\n    at checkSyntax (node:internal/main/check_syntax:78:3)\n\nNode.js v22.16.0\n  templates/release-note.md:171 [javascript]\n    JavaScript syntax error: templates/release-note.md:171:2\nheaders: { 'Authorization': 'Bearer sk_live_abc123' }\n                          ^\n\nSyntaxError: Unexpected token ':'\n    at wrapSafe (node:internal/modules/cjs/loader:1662:18)\n    at checkSyntax (node:internal/main/check_syntax:78:3)\n\nNode.js v22.16.0\n  templates/release-note.md:199 [json]\n    JSON error at line 5: Expecting ',' delimiter\n\nInfo (16):\n  docs/operations/CANONICAL_FLOW.md:151 [gitignore]\n    No linter for language 'gitignore'\n  docs/operations/CENTRALIZED_CLIENT_BUNDLES.md:488 [gitignore]\n    No linter for language 'gitignore'\n  docs/reference/intent-experiences/integrate-developer.md:656 [gitignore]\n    No linter for language 'gitignore'\n  docs/reference/intent-experiences/integrate-developer.md:1010 [gitignore]\n    No linter for language 'gitignore'\n  docs/reference/intent-experiences/integrate-operator.md:656 [gitignore]\n    No linter for language 'gitignore'\n  docs/reference/intent-experiences/integrate-operator.md:1010 [gitignore]\n    No linter for language 'gitignore'\n  templates/protocols/api-protocol-snippets.md:18 [`md]\n    No linter for language '`md'\n  templates/protocols/api-protocol-snippets.md:69 [`md]\n    No linter for language '`md'\n  templates/protocols/api-protocol-snippets.md:89 [`md]\n    No linter for language '`md'\n  templates/protocols/api-protocol-snippets.md:103 [`md]\n    No linter for language '`md'\n  templates/protocols/api-protocol-snippets.md:118 [`md]\n    No linter for language '`md'\n  templates/reference.md:34 [typescript]\n    tsc installation broken, skipping\n  templates/reference.md:104 [typescript]\n    tsc installation broken, skipping\n  templates/reference.md:114 [typescript]\n    tsc installation broken, skipping\n  templates/reference.md:165 [typescript]\n    tsc installation broken, skipping\n  templates/reference.md:193 [typescript]\n    tsc installation broken, skipping\n\nSummary: 809/822 blocks passed\n",
+      "stderr_tail": ""
+    },
+    {
+      "capability": "lint:spell",
+      "catalog_command": "cspell \"docs/**/*.md\" --no-must-find-files",
+      "exec": "npm run lint:spell",
+      "status": "PASS",
+      "rc": 0,
+      "duration_sec": 23.741,
+      "stdout_tail": "\n> auto-doc-pipeline@1.0.0 lint:spell\n> cspell \"docs/**/*.md\" --no-must-find-files\n\n",
+      "stderr_tail": ".99ms\n12/81 docs/getting-started/quickstart.md 18.45ms\n13/81 docs/how-to/assemble-intent-experiences.md 12.73ms\n14/81 docs/how-to/configure-ask-ai-module.md 19.73ms\n15/81 docs/how-to/configure-webhook-trigger.md 10.81ms\n16/81 docs/how-to/index.md 4.18ms\n17/81 docs/how-to/install-ask-ai-runtime-pack.md 11.52ms\n18/81 docs/how-to/migrate-from-confluence.md 26.79ms\n19/81 docs/how-to/run-api-first-production-flow.md 19.20ms\n20/81 docs/index.md 6.89ms\n21/81 docs/legal/data-processing-agreement.md 20.61ms\n22/81 docs/legal/index.md 10.15ms\n23/81 docs/legal/privacy-policy.md 18.40ms\n24/81 docs/legal/security-contact-policy.md 9.55ms\n25/81 docs/legal/security-policy.md 19.80ms\n26/81 docs/legal/terms-of-service.md 13.21ms\n27/81 docs/operations/CANONICAL_FLOW.md 15.20ms\n28/81 docs/operations/CENTRALIZED_CLIENT_BUNDLES.md 15.15ms\n29/81 docs/operations/MULTI_PROTOCOL_ARCHITECTURE.md 15.14ms\n30/81 docs/operations/MULTI_PROTOCOL_WIZARD_GUIDE.md 12.07ms\n31/81 docs/operations/OPERATOR_RUNBOOK.md 40.09ms\n32/81 docs/operations/PIPELINE_CAPABILITIES_CATALOG.md 40.80ms\n33/81 docs/operations/PLAN_TIERS.md 18.93ms\n34/81 docs/operations/SMART_MERGE_REVIEW.md 7.90ms\n35/81 docs/operations/UNIFIED_CLIENT_CONFIG.md 36.50ms\n36/81 docs/reference/api-playground.md 6.99ms\n37/81 docs/reference/asyncapi-api.md 11.37ms\n38/81 docs/reference/auto-doc-pipeline-study-guide.md 13.29ms\n39/81 docs/reference/deprecated-example.md 4.23ms\n40/81 docs/reference/graphql-api.md 7.51ms\n41/81 docs/reference/grpc-api.md 6.73ms\n42/81 docs/reference/index.md 3.64ms\n43/81 docs/reference/intent-experiences/automate-developer.md 5.71ms\n44/81 docs/reference/intent-experiences/automate-operator.md 4.32ms\n45/81 docs/reference/intent-experiences/automate-support.md 4.27ms\n46/81 docs/reference/intent-experiences/configure-beginner.md 7.06ms\n47/81 docs/reference/intent-experiences/configure-developer.md 189.26ms\n48/81 docs/reference/intent-experiences/configure-operator.md 68.13ms\n49/81 docs/reference/intent-experiences/configure-practitioner.md 95.40ms\n50/81 docs/reference/intent-experiences/configure-support.md 7.08ms\n51/81 docs/reference/intent-experiences/index.md 5.30ms\n52/81 docs/reference/intent-experiences/integrate-beginner.md 16.89ms\n53/81 docs/reference/intent-experiences/integrate-developer.md 115.89ms\n54/81 docs/reference/intent-experiences/integrate-operator.md 121.84ms\n55/81 docs/reference/intent-experiences/integrate-practitioner.md 24.56ms\n56/81 docs/reference/intent-experiences/integrate-support.md 7.44ms\n57/81 docs/reference/intent-experiences/optimize-developer.md 5.11ms\n58/81 docs/reference/intent-experiences/optimize-operator.md 4.76ms\n59/81 docs/reference/intent-experiences/optimize-support.md 4.58ms\n60/81 docs/reference/intent-experiences/secure-beginner.md 6.43ms\n61/81 docs/reference/intent-experiences/secure-developer.md 59.73ms\n62/81 docs/reference/intent-experiences/secure-operator.md 49.86ms\n63/81 docs/reference/intent-experiences/secure-practitioner.md 17.97ms\n64/81 docs/reference/intent-experiences/secure-support.md 7.93ms\n65/81 docs/reference/intent-experiences/troubleshoot-beginner.md 9.99ms\n66/81 docs/reference/intent-experiences/troubleshoot-developer.md 132.91ms\n67/81 docs/reference/intent-experiences/troubleshoot-operator.md 92.06ms\n68/81 docs/reference/intent-experiences/troubleshoot-practitioner.md 33.37ms\n69/81 docs/reference/intent-experiences/troubleshoot-support.md 10.35ms\n70/81 docs/reference/network-transparency.md 21.93ms\n71/81 docs/reference/nodes/webhook.md 9.41ms\n72/81 docs/reference/rest-api.md 4.89ms\n73/81 docs/reference/taskstream-api-playground.md 9.85ms\n74/81 docs/reference/taskstream-planning-notes.md 4.79ms\n75/81 docs/reference/websocket-api.md 8.75ms\n76/81 docs/search-faceted.md 10.84ms\n77/81 docs/SEO_GUIDE.md 18.32ms\n78/81 docs/tags.md 4.14ms\n79/81 docs/troubleshooting/index.md 5.31ms\n80/81 docs/troubleshooting/webhook-not-firing.md 14.22ms\n81/81 docs/VARIABLES_GUIDE.md 20.76ms\nCSpell: Files checked: 81, Issues found: 0 in 0 files.\n"
+    },
+    {
+      "capability": "lint:vale",
+      "catalog_command": "vale docs/",
+      "exec": "npm run lint:vale",
+      "status": "PASS",
+      "rc": 0,
+      "duration_sec": 16.275,
+      "stdout_tail": "\n> auto-doc-pipeline@1.0.0 lint:vale\n> vale docs/\n\n✔ 0 errors, 0 warnings and 0 suggestions in 81 files.\n",
+      "stderr_tail": ""
+    },
+    {
+      "capability": "new-doc",
+      "catalog_command": "python3 scripts/new_doc.py",
+      "exec": "npm run new-doc",
+      "status": "FAIL",
+      "rc": 2,
+      "duration_sec": 0.419,
+      "stdout_tail": "\n> auto-doc-pipeline@1.0.0 new-doc\n> python3 scripts/new_doc.py\n\n",
+      "stderr_tail": "usage: new_doc.py [-h] [-o OUTPUT] [--docs-dir DOCS_DIR] [--locale LOCALE]\n                  [--translate-from TRANSLATE_FROM]\n                  [--i18n-config I18N_CONFIG]\n                  {tutorial,how-to,concept,reference,troubleshooting,api}\n                  title\nnew_doc.py: error: the following arguments are required: type, title\n"
+    },
+    {
+      "capability": "normalize:docs",
+      "catalog_command": "python3 scripts/normalize_docs.py docs/",
+      "exec": "npm run normalize:docs",
+      "status": "PASS",
+      "rc": 0,
+      "duration_sec": 1.491,
+      "stdout_tail": "\n> auto-doc-pipeline@1.0.0 normalize:docs\n> python3 scripts/normalize_docs.py docs/\n\nNormalized 10 file(s).\n",
+      "stderr_tail": ""
+    },
+    {
+      "capability": "normalize:docs:check",
+      "catalog_command": "python3 scripts/normalize_docs.py docs/ --check",
+      "exec": "npm run normalize:docs:check",
+      "status": "PASS",
+      "rc": 0,
+      "duration_sec": 1.382,
+      "stdout_tail": "\n> auto-doc-pipeline@1.0.0 normalize:docs:check\n> python3 scripts/normalize_docs.py docs/ --check\n\nNormalization check passed.\n",
+      "stderr_tail": ""
+    },
+    {
+      "capability": "onboard:client",
+      "catalog_command": "python3 scripts/onboard_client.py",
+      "exec": "npm run onboard:client",
+      "status": "FAIL",
+      "rc": 1,
+      "duration_sec": 0.699,
+      "stdout_tail": "\n> auto-doc-pipeline@1.0.0 onboard:client\n> python3 scripts/onboard_client.py\n\n",
+      "stderr_tail": "Traceback (most recent call last):\n  File \"/mnt/c/Users/Kroha/Documents/development/Auto-Doc Pipeline/scripts/onboard_client.py\", line 154, in <module>\n    sys.exit(main())\n  File \"/mnt/c/Users/Kroha/Documents/development/Auto-Doc Pipeline/scripts/onboard_client.py\", line 134, in main\n    resolved = provision._resolve_args(interactive_args)\n  File \"/mnt/c/Users/Kroha/Documents/development/Auto-Doc Pipeline/scripts/provision_client_repo.py\", line 628, in _resolve_args\n    raise ValueError(\nValueError: Missing required arguments. Provide --client and (for install-local mode) --client-repo, or run in a terminal with --interactive.\n"
+    },
+    {
+      "capability": "openapi:overrides",
+      "catalog_command": "python3 scripts/apply_openapi_overrides.py --spec api/openapi.yaml --spec-tree api/taskstream --overrides api/overrides/openapi.manual.yml",
+      "exec": "npm run openapi:overrides",
+      "status": "FAIL",
+      "rc": 2,
+      "duration_sec": 0.31,
+      "stdout_tail": "\n> auto-doc-pipeline@1.0.0 openapi:overrides\n> python3 scripts/apply_openapi_overrides.py --spec api/openapi.yaml --spec-tree api/taskstream --overrides api/overrides/openapi.manual.yml\n\nOverrides file does not exist: api/overrides/openapi.manual.yml\n",
+      "stderr_tail": ""
+    },
+    {
+      "capability": "openapi:regression",
+      "catalog_command": "python3 scripts/check_openapi_regression.py --spec api/openapi.yaml --spec-tree api/taskstream --snapshot api/.openapi-regression.json",
+      "exec": "npm run openapi:regression",
+      "status": "FAIL",
+      "rc": 2,
+      "duration_sec": 0.591,
+      "stdout_tail": "\n> auto-doc-pipeline@1.0.0 openapi:regression\n> python3 scripts/check_openapi_regression.py --spec api/openapi.yaml --spec-tree api/taskstream --snapshot api/.openapi-regression.json\n\nOpenAPI regression snapshot does not exist: api/.openapi-regression.json\nRun with --update to create baseline snapshot.\n",
+      "stderr_tail": ""
+    },
+    {
+      "capability": "openapi:regression:update",
+      "catalog_command": "python3 scripts/check_openapi_regression.py --spec api/openapi.yaml --spec-tree api/taskstream --snapshot api/.openapi-regression.json --update",
+      "exec": "npm run openapi:regression:update",
+      "status": "PASS",
+      "rc": 0,
+      "duration_sec": 0.61,
+      "stdout_tail": "\n> auto-doc-pipeline@1.0.0 openapi:regression:update\n> python3 scripts/check_openapi_regression.py --spec api/openapi.yaml --spec-tree api/taskstream --snapshot api/.openapi-regression.json --update\n\n[ok] OpenAPI regression snapshot updated: api/.openapi-regression.json\n",
+      "stderr_tail": ""
+    },
+    {
+      "capability": "prepare",
+      "catalog_command": "husky install",
+      "exec": "npm run prepare",
+      "status": "PASS",
+      "rc": 0,
+      "duration_sec": 0.445,
+      "stdout_tail": "\n> auto-doc-pipeline@1.0.0 prepare\n> husky install\n\nhusky - Git hooks installed\n",
+      "stderr_tail": ""
+    },
+    {
+      "capability": "release-pack",
+      "catalog_command": "python3 scripts/generate_release_docs_pack.py --output reports/release-docs-pack.md",
+      "exec": "npm run release-pack",
+      "status": "PASS",
+      "rc": 0,
+      "duration_sec": 0.461,
+      "stdout_tail": "\n> auto-doc-pipeline@1.0.0 release-pack\n> python3 scripts/generate_release_docs_pack.py --output reports/release-docs-pack.md\n\nRelease docs pack written to reports/release-docs-pack.md\n",
+      "stderr_tail": ""
+    },
+    {
+      "capability": "serve",
+      "catalog_command": "python3 scripts/run_generator.py serve",
+      "exec": "npm run serve",
+      "status": "FAIL",
+      "rc": 1,
+      "duration_sec": 1.198,
+      "stdout_tail": "\n> auto-doc-pipeline@1.0.0 serve\n> python3 scripts/run_generator.py serve\n\n[run_generator] Serving with mkdocs: mkdocs serve\n",
+      "stderr_tail": "\n\u001b[31m │ ⚠ WARNING – MkDocs 2.0 is incompatible with Material for MkDocs\u001b[0m\n\u001b[31m │ \u001b[0m\n\u001b[31m │ \u001b[0m  MkDocs 1.x is unmaintained. We recommend switching to Zensical, our\n\u001b[31m │ \u001b[0m  new static site generator, as soon as possible. We're providing an\n\u001b[31m │ \u001b[0m  analysis of the situation in this article:\n\u001b[31m │ \u001b[0m  \n\u001b[31m │ \u001b[0m  \u001b[4mhttps://squidfunk.github.io/mkdocs-material/blog/2026/02/18/mkdocs-2.0/\u001b[0m\n\u001b[0m\nTraceback (most recent call last):\n  File \"/home/eudo/.local/bin/mkdocs\", line 7, in <module>\n    sys.exit(cli())\n  File \"/home/eudo/.local/lib/python3.10/site-packages/click/core.py\", line 1157, in __call__\n    return self.main(*args, **kwargs)\n  File \"/home/eudo/.local/lib/python3.10/site-packages/click/core.py\", line 1078, in main\n    rv = self.invoke(ctx)\n  File \"/home/eudo/.local/lib/python3.10/site-packages/click/core.py\", line 1688, in invoke\n    return _process_result(sub_ctx.command.invoke(sub_ctx))\n  File \"/home/eudo/.local/lib/python3.10/site-packages/click/core.py\", line 1434, in invoke\n    return ctx.invoke(self.callback, **ctx.params)\n  File \"/home/eudo/.local/lib/python3.10/site-packages/click/core.py\", line 783, in invoke\n    return __callback(*args, **kwargs)\n  File \"/home/eudo/.local/lib/python3.10/site-packages/mkdocs/__main__.py\", line 272, in serve_command\n    serve.serve(**kwargs)\n  File \"/home/eudo/.local/lib/python3.10/site-packages/mkdocs/commands/serve.py\", line 69, in serve\n    server = LiveReloadServer(\n  File \"/home/eudo/.local/lib/python3.10/site-packages/mkdocs/livereload/__init__.py\", line 122, in __init__\n    super().__init__((host, port), _Handler, bind_and_activate=False)\n  File \"/usr/lib/python3.10/socketserver.py\", line 448, in __init__\n    self.socket = socket.socket(self.address_family,\n  File \"/usr/lib/python3.10/socket.py\", line 232, in __init__\n    _socket.socket.__init__(self, family, type, proto, fileno)\nPermissionError: [Errno 1] Operation not permitted\n"
+    },
+    {
+      "capability": "serve:docusaurus",
+      "catalog_command": "npx docusaurus start",
+      "exec": "npm run serve:docusaurus",
+      "status": "TIMEOUT",
+      "rc": null,
+      "duration_sec": 45.03,
+      "stdout_tail": "",
+      "stderr_tail": ""
+    },
+    {
+      "capability": "serve:mkdocs",
+      "catalog_command": "mkdocs serve",
+      "exec": "npm run serve:mkdocs",
+      "status": "FAIL",
+      "rc": 1,
+      "duration_sec": 0.99,
+      "stdout_tail": "\n> auto-doc-pipeline@1.0.0 serve:mkdocs\n> mkdocs serve\n\n",
+      "stderr_tail": "\n\u001b[31m │ ⚠ WARNING – MkDocs 2.0 is incompatible with Material for MkDocs\u001b[0m\n\u001b[31m │ \u001b[0m\n\u001b[31m │ \u001b[0m  MkDocs 1.x is unmaintained. We recommend switching to Zensical, our\n\u001b[31m │ \u001b[0m  new static site generator, as soon as possible. We're providing an\n\u001b[31m │ \u001b[0m  analysis of the situation in this article:\n\u001b[31m │ \u001b[0m  \n\u001b[31m │ \u001b[0m  \u001b[4mhttps://squidfunk.github.io/mkdocs-material/blog/2026/02/18/mkdocs-2.0/\u001b[0m\n\u001b[0m\nTraceback (most recent call last):\n  File \"/home/eudo/.local/bin/mkdocs\", line 7, in <module>\n    sys.exit(cli())\n  File \"/home/eudo/.local/lib/python3.10/site-packages/click/core.py\", line 1157, in __call__\n    return self.main(*args, **kwargs)\n  File \"/home/eudo/.local/lib/python3.10/site-packages/click/core.py\", line 1078, in main\n    rv = self.invoke(ctx)\n  File \"/home/eudo/.local/lib/python3.10/site-packages/click/core.py\", line 1688, in invoke\n    return _process_result(sub_ctx.command.invoke(sub_ctx))\n  File \"/home/eudo/.local/lib/python3.10/site-packages/click/core.py\", line 1434, in invoke\n    return ctx.invoke(self.callback, **ctx.params)\n  File \"/home/eudo/.local/lib/python3.10/site-packages/click/core.py\", line 783, in invoke\n    return __callback(*args, **kwargs)\n  File \"/home/eudo/.local/lib/python3.10/site-packages/mkdocs/__main__.py\", line 272, in serve_command\n    serve.serve(**kwargs)\n  File \"/home/eudo/.local/lib/python3.10/site-packages/mkdocs/commands/serve.py\", line 69, in serve\n    server = LiveReloadServer(\n  File \"/home/eudo/.local/lib/python3.10/site-packages/mkdocs/livereload/__init__.py\", line 122, in __init__\n    super().__init__((host, port), _Handler, bind_and_activate=False)\n  File \"/usr/lib/python3.10/socketserver.py\", line 448, in __init__\n    self.socket = socket.socket(self.address_family,\n  File \"/usr/lib/python3.10/socket.py\", line 232, in __init__\n    _socket.socket.__init__(self, family, type, proto, fileno)\nPermissionError: [Errno 1] Operation not permitted\n"
+    },
+    {
+      "capability": "smoke:prod",
+      "catalog_command": "python3 scripts/production_smoke.py",
+      "exec": "npm run smoke:prod",
+      "status": "FAIL",
+      "rc": 1,
+      "duration_sec": 0.783,
+      "stdout_tail": "\n> auto-doc-pipeline@1.0.0 smoke:prod\n> python3 scripts/production_smoke.py\n\n",
+      "stderr_tail": "Missing required environment variable: VERIDOC_BASE_URL\n"
+    },
+    {
+      "capability": "test:adapter",
+      "catalog_command": "python3 -m pytest tests/test_docusaurus_adapter.py -v",
+      "exec": "npm run test:adapter",
+      "status": "PASS",
+      "rc": 0,
+      "duration_sec": 1.817,
+      "stdout_tail": "\n> auto-doc-pipeline@1.0.0 test:adapter\n> python3 -m pytest tests/test_docusaurus_adapter.py -v\n\n============================= test session starts ==============================\nplatform linux -- Python 3.10.12, pytest-8.3.4, pluggy-1.6.0 -- /usr/bin/python3\ncachedir: .pytest_cache\nhypothesis profile 'default'\nrootdir: /mnt/c/Users/Kroha/Documents/development/Auto-Doc Pipeline\nconfigfile: setup.cfg\nplugins: timeout-2.4.0, mock-3.15.1, anyio-4.11.0, hypothesis-6.148.5, xdist-3.8.0, cov-7.0.0, asyncio-1.2.0\nasyncio: mode=strict, debug=False, asyncio_default_fixture_loop_scope=function, asyncio_default_test_loop_scope=function\ncollecting ... collected 28 items\n\ntests/test_docusaurus_adapter.py::AdmonitionConversionTests::test_all_types PASSED [  3%]\ntests/test_docusaurus_adapter.py::AdmonitionConversionTests::test_code_inside_admonition PASSED [  7%]\ntests/test_docusaurus_adapter.py::AdmonitionConversionTests::test_collapsible PASSED [ 10%]\ntests/test_docusaurus_adapter.py::AdmonitionConversionTests::test_consecutive_admonitions PASSED [ 14%]\ntests/test_docusaurus_adapter.py::AdmonitionConversionTests::test_simple_note PASSED [ 17%]\ntests/test_docusaurus_adapter.py::AdmonitionConversionTests::test_untitled PASSED [ 21%]\ntests/test_docusaurus_adapter.py::AdmonitionConversionTests::test_warning_multiline PASSED [ 25%]\ntests/test_docusaurus_adapter.py::TabConversionTests::test_import_added_once PASSED [ 28%]\ntests/test_docusaurus_adapter.py::TabConversionTests::test_mixed_tabs_and_admonitions PASSED [ 32%]\ntests/test_docusaurus_adapter.py::TabConversionTests::test_tabs_with_code PASSED [ 35%]\ntests/test_docusaurus_adapter.py::TabConversionTests::test_two_tabs PASSED [ 39%]\ntests/test_docusaurus_adapter.py::NavConversionTests::test_flat_nav PASSED [ 42%]\ntests/test_docusaurus_adapter.py::NavConversionTests::test_index_as_category_link PASSED [ 46%]\ntests/test_docusaurus_adapter.py::NavConversionTests::test_labeled_items PASSED [ 50%]\ntests/test_docusaurus_adapter.py::NavConversionTests::test_nested_nav PASSED [ 53%]\ntests/test_docusaurus_adapter.py::SiteGeneratorTests::test_detect_default PASSED [ 57%]\ntests/test_docusaurus_adapter.py::SiteGeneratorTests::test_detect_docusaurus PASSED [ 60%]\ntests/test_docusaurus_adapter.py::SiteGeneratorTests::test_detect_hugo PASSED [ 64%]\ntests/test_docusaurus_adapter.py::SiteGeneratorTests::test_detect_jekyll PASSED [ 67%]\ntests/test_docusaurus_adapter.py::SiteGeneratorTests::test_detect_mkdocs PASSED [ 71%]\ntests/test_docusaurus_adapter.py::SiteGeneratorTests::test_detect_sphinx PASSED [ 75%]\ntests/test_docusaurus_adapter.py::SiteGeneratorTests::test_docusaurus_build_command PASSED [ 78%]\ntests/test_docusaurus_adapter.py::SiteGeneratorTests::test_mkdocs_build_command PASSED [ 82%]\ntests/test_docusaurus_adapter.py::SiteGeneratorTests::test_url_conventions PASSED [ 85%]\ntests/test_docusaurus_adapter.py::ConfigGenerationTests::test_full_config PASSED [ 89%]\ntests/test_docusaurus_adapter.py::ConfigGenerationTests::test_minimal_config PASSED [ 92%]\ntests/test_docusaurus_adapter.py::IntegrationTests::test_convert_directory PASSED [ 96%]\ntests/test_docusaurus_adapter.py::IntegrationTests::test_roundtrip PASSED [100%]\n\n============================== 28 passed in 1.11s ==============================\n",
+      "stderr_tail": ""
+    },
+    {
+      "capability": "test:all",
+      "catalog_command": "python3 -m pytest -q tests",
+      "exec": "npm run test:all",
+      "status": "TIMEOUT",
+      "rc": null,
+      "duration_sec": 900.153,
+      "stdout_tail": "",
+      "stderr_tail": ""
+    },
+    {
+      "capability": "test:configurator",
+      "catalog_command": "python3 -m pytest tests/test_gui_configurator.py -v",
+      "exec": "npm run test:configurator",
+      "status": "PASS",
+      "rc": 0,
+      "duration_sec": 2.924,
+      "stdout_tail": "\n> auto-doc-pipeline@1.0.0 test:configurator\n> python3 -m pytest tests/test_gui_configurator.py -v\n\n============================= test session starts ==============================\nplatform linux -- Python 3.10.12, pytest-8.3.4, pluggy-1.6.0 -- /usr/bin/python3\ncachedir: .pytest_cache\nhypothesis profile 'default'\nrootdir: /mnt/c/Users/Kroha/Documents/development/Auto-Doc Pipeline\nconfigfile: setup.cfg\nplugins: timeout-2.4.0, mock-3.15.1, anyio-4.11.0, hypothesis-6.148.5, xdist-3.8.0, cov-7.0.0, asyncio-1.2.0\nasyncio: mode=strict, debug=False, asyncio_default_fixture_loop_scope=function, asyncio_default_test_loop_scope=function\ncollecting ... collected 7 items\n\ntests/test_gui_configurator.py::ConfiguratorGenerationTests::test_all_form_sections PASSED [ 14%]\ntests/test_gui_configurator.py::ConfiguratorGenerationTests::test_embeds_policy_packs PASSED [ 28%]\ntests/test_gui_configurator.py::ConfiguratorGenerationTests::test_embeds_schema PASSED [ 42%]\ntests/test_gui_configurator.py::ConfiguratorGenerationTests::test_embeds_variables PASSED [ 57%]\ntests/test_gui_configurator.py::ConfiguratorGenerationTests::test_generator_choices PASSED [ 71%]\ntests/test_gui_configurator.py::ConfiguratorGenerationTests::test_no_external_deps PASSED [ 85%]\ntests/test_gui_configurator.py::ConfiguratorGenerationTests::test_valid_html PASSED [100%]\n\n============================== 7 passed in 1.65s ===============================\n",
+      "stderr_tail": ""
+    },
+    {
+      "capability": "validate:full",
+      "catalog_command": "npm run validate:minimal && npm run lint:layers && npm run lint:diagrams && npm run validate:knowledge && npm run docs-ops:e2e && npm run docs-ops:golden && npm run docs-ops:test-suite && python3 test_pipeline.py",
+      "exec": "npm run validate:full",
+      "status": "FAIL",
+      "rc": 1,
+      "duration_sec": 13.057,
+      "stdout_tail": "\n> auto-doc-pipeline@1.0.0 validate:full\n> npm run validate:minimal && npm run lint:layers && npm run lint:diagrams && npm run validate:knowledge && npm run docs-ops:e2e && npm run docs-ops:golden && npm run docs-ops:test-suite && python3 test_pipeline.py\n\n\n> auto-doc-pipeline@1.0.0 validate:minimal\n> npm run normalize:docs:check && npm run lint:md && npm run lint:frontmatter && npm run lint:geo && npm run lint:multilang && npm run lint:examples-smoke\n\n\n> auto-doc-pipeline@1.0.0 normalize:docs:check\n> python3 scripts/normalize_docs.py docs/ --check\n\nNormalization check passed.\n\n> auto-doc-pipeline@1.0.0 lint:md\n> markdownlint docs/\n\n",
+      "stderr_tail": "ed: 1; Actual: 0; Above] [Context: \"## Webhook pipeline performance benchmarks\"]\ndocs/getting-started/quickstart.md:34 MD012/no-multiple-blanks Multiple consecutive blank lines [Expected: 1; Actual: 2]\ndocs/getting-started/quickstart.md:41 MD012/no-multiple-blanks Multiple consecutive blank lines [Expected: 1; Actual: 2]\ndocs/how-to/configure-webhook-trigger.md:134 MD022/blanks-around-headings Headings should be surrounded by blank lines [Expected: 1; Actual: 0; Above] [Context: \"## Troubleshoot webhook triggers\"]\ndocs/reference/intent-experiences/configure-beginner.md:46 MD012/no-multiple-blanks Multiple consecutive blank lines [Expected: 1; Actual: 2]\ndocs/reference/intent-experiences/configure-beginner.md:53 MD012/no-multiple-blanks Multiple consecutive blank lines [Expected: 1; Actual: 2]\ndocs/reference/intent-experiences/configure-developer.md:678 MD012/no-multiple-blanks Multiple consecutive blank lines [Expected: 1; Actual: 2]\ndocs/reference/intent-experiences/configure-developer.md:689 MD012/no-multiple-blanks Multiple consecutive blank lines [Expected: 1; Actual: 2]\ndocs/reference/intent-experiences/configure-developer.md:706 MD012/no-multiple-blanks Multiple consecutive blank lines [Expected: 1; Actual: 2]\ndocs/reference/intent-experiences/configure-developer.md:738 MD022/blanks-around-headings Headings should be surrounded by blank lines [Expected: 1; Actual: 0; Above] [Context: \"#### Configure webhook triggers (Part 3): Troubleshoot webhook triggers\"]\ndocs/reference/intent-experiences/configure-developer.md:969 MD012/no-multiple-blanks Multiple consecutive blank lines [Expected: 1; Actual: 2]\ndocs/reference/intent-experiences/configure-developer.md:978 MD012/no-multiple-blanks Multiple consecutive blank lines [Expected: 1; Actual: 2]\ndocs/reference/intent-experiences/configure-developer.md:993 MD012/no-multiple-blanks Multiple consecutive blank lines [Expected: 1; Actual: 2]\ndocs/reference/intent-experiences/configure-developer.md:1153 MD012/no-multiple-blanks Multiple consecutive blank lines [Expected: 1; Actual: 2]\ndocs/reference/intent-experiences/configure-developer.md:1161 MD012/no-multiple-blanks Multiple consecutive blank lines [Expected: 1; Actual: 2]\ndocs/reference/intent-experiences/configure-developer.md:1181 MD012/no-multiple-blanks Multiple consecutive blank lines [Expected: 1; Actual: 2]\ndocs/reference/intent-experiences/configure-developer.md:1195 MD012/no-multiple-blanks Multiple consecutive blank lines [Expected: 1; Actual: 2]\ndocs/reference/intent-experiences/configure-developer.md:2677 MD012/no-multiple-blanks Multiple consecutive blank lines [Expected: 1; Actual: 2]\ndocs/reference/intent-experiences/configure-developer.md:2713 MD012/no-multiple-blanks Multiple consecutive blank lines [Expected: 1; Actual: 2]\ndocs/reference/intent-experiences/configure-developer.md:2723 MD012/no-multiple-blanks Multiple consecutive blank lines [Expected: 1; Actual: 2]\ndocs/reference/intent-experiences/configure-developer.md:3208 MD022/blanks-around-headings Headings should be surrounded by blank lines [Expected: 1; Actual: 0; Above] [Context: \"### Set up a real-time webhook processing pipeline (Part 10)\"]\ndocs/reference/intent-experiences/configure-developer.md:3623 MD022/blanks-around-headings Headings should be surrounded by blank lines [Expected: 1; Actual: 0; Above] [Context: \"### Smart Merge and Manual Review\"]\ndocs/reference/intent-experiences/integrate-beginner.md:75 MD022/blanks-around-headings Headings should be surrounded by blank lines [Expected: 1; Actual: 0; Above] [Context: \"### Tutorial: launch your first VeriOps API integration (Part 3)\"]\ndocs/reference/nodes/webhook.md:57 MD012/no-multiple-blanks Multiple consecutive blank lines [Expected: 1; Actual: 2]\ndocs/reference/nodes/webhook.md:62 MD012/no-multiple-blanks Multiple consecutive blank lines [Expected: 1; Actual: 2]\ndocs/troubleshooting/webhook-not-firing.md:54 MD012/no-multiple-blanks Multiple consecutive blank lines [Expected: 1; Actual: 2]\n"
+    },
+    {
+      "capability": "validate:knowledge",
+      "catalog_command": "npm run lint:knowledge && npm run build:intent:all && npm run build:knowledge-index && npm run build:knowledge-graph && npm run eval:retrieval",
+      "exec": "npm run validate:knowledge",
+      "status": "TIMEOUT",
+      "rc": null,
+      "duration_sec": 120.104,
+      "stdout_tail": "",
+      "stderr_tail": ""
+    },
+    {
+      "capability": "validate:knowledge:with-llm-enrich",
+      "catalog_command": "npm run build:knowledge-enrich:llm && npm run validate:knowledge",
+      "exec": "npm run validate:knowledge:with-llm-enrich",
+      "status": "FAIL",
+      "rc": 1,
+      "duration_sec": 0.881,
+      "stdout_tail": "\n> auto-doc-pipeline@1.0.0 validate:knowledge:with-llm-enrich\n> npm run build:knowledge-enrich:llm && npm run validate:knowledge\n\n\n> auto-doc-pipeline@1.0.0 build:knowledge-enrich:llm\n> python3 scripts/enrich_knowledge_modules_semantic.py\n\n",
+      "stderr_tail": "Traceback (most recent call last):\n  File \"/mnt/c/Users/Kroha/Documents/development/Auto-Doc Pipeline/scripts/enrich_knowledge_modules_semantic.py\", line 23, in <module>\n    from scripts.env_loader import load_local_env\nModuleNotFoundError: No module named 'scripts.env_loader'\n"
+    },
+    {
+      "capability": "validate:minimal",
+      "catalog_command": "npm run normalize:docs:check && npm run lint:md && npm run lint:frontmatter && npm run lint:geo && npm run lint:multilang && npm run lint:examples-smoke",
+      "exec": "npm run validate:minimal",
+      "status": "FAIL",
+      "rc": 1,
+      "duration_sec": 19.774,
+      "stdout_tail": "\n> auto-doc-pipeline@1.0.0 validate:minimal\n> npm run normalize:docs:check && npm run lint:md && npm run lint:frontmatter && npm run lint:geo && npm run lint:multilang && npm run lint:examples-smoke\n\n\n> auto-doc-pipeline@1.0.0 normalize:docs:check\n> python3 scripts/normalize_docs.py docs/ --check\n\nNormalization check passed.\n\n> auto-doc-pipeline@1.0.0 lint:md\n> markdownlint docs/\n\n",
+      "stderr_tail": "docs/concepts/workflow-execution-model.md:48 MD012/no-multiple-blanks Multiple consecutive blank lines [Expected: 1; Actual: 2]\ndocs/concepts/workflow-execution-model.md:55 MD012/no-multiple-blanks Multiple consecutive blank lines [Expected: 1; Actual: 2]\ndocs/en/how-to/set-up-real-time-webhook-processing-pipeline.md:47 MD022/blanks-around-headings Headings should be surrounded by blank lines [Expected: 1; Actual: 0; Above] [Context: \"## Configure the webhook listener endpoint\"]\ndocs/en/how-to/set-up-real-time-webhook-processing-pipeline.md:289 MD022/blanks-around-headings Headings should be surrounded by blank lines [Expected: 1; Actual: 0; Above] [Context: \"## Webhook pipeline performance benchmarks\"]\ndocs/getting-started/quickstart.md:34 MD012/no-multiple-blanks Multiple consecutive blank lines [Expected: 1; Actual: 2]\ndocs/getting-started/quickstart.md:41 MD012/no-multiple-blanks Multiple consecutive blank lines [Expected: 1; Actual: 2]\ndocs/how-to/configure-webhook-trigger.md:134 MD022/blanks-around-headings Headings should be surrounded by blank lines [Expected: 1; Actual: 0; Above] [Context: \"## Troubleshoot webhook triggers\"]\ndocs/reference/intent-experiences/configure-beginner.md:45 MD012/no-multiple-blanks Multiple consecutive blank lines [Expected: 1; Actual: 2]\ndocs/reference/intent-experiences/configure-beginner.md:52 MD012/no-multiple-blanks Multiple consecutive blank lines [Expected: 1; Actual: 2]\ndocs/reference/intent-experiences/configure-practitioner.md:2107 MD012/no-multiple-blanks Multiple consecutive blank lines [Expected: 1; Actual: 2]\ndocs/reference/intent-experiences/configure-practitioner.md:2114 MD012/no-multiple-blanks Multiple consecutive blank lines [Expected: 1; Actual: 2]\ndocs/reference/intent-experiences/integrate-beginner.md:75 MD022/blanks-around-headings Headings should be surrounded by blank lines [Expected: 1; Actual: 0; Above] [Context: \"### Tutorial: launch your first VeriOps API integration (Part 3)\"]\ndocs/reference/nodes/webhook.md:57 MD012/no-multiple-blanks Multiple consecutive blank lines [Expected: 1; Actual: 2]\ndocs/reference/nodes/webhook.md:62 MD012/no-multiple-blanks Multiple consecutive blank lines [Expected: 1; Actual: 2]\ndocs/troubleshooting/webhook-not-firing.md:54 MD012/no-multiple-blanks Multiple consecutive blank lines [Expected: 1; Actual: 2]\n"
+    }
+  ],
+  "direct_cli": [
+    {
+      "capability": "scripts/build_client_bundle.py",
+      "script_exists": true,
+      "exec": "python3 scripts/build_client_bundle.py --help",
+      "status": "PASS",
+      "rc": 0,
+      "duration_sec": 0.267,
+      "stdout_tail": "usage: build_client_bundle.py [-h] --client CLIENT\n\nBuild one client bundle\n\noptions:\n  -h, --help       show this help message and exit\n  --client CLIENT  Path to *.client.yml profile (relative to repo or absolute)\n",
+      "stderr_tail": ""
+    },
+    {
+      "capability": "scripts/provision_client_repo.py",
+      "script_exists": true,
+      "exec": "python3 scripts/provision_client_repo.py --help",
+      "status": "PASS",
+      "rc": 0,
+      "duration_sec": 0.424,
+      "stdout_tail": "usage: provision_client_repo.py [-h] [--client CLIENT]\n                                [--client-repo CLIENT_REPO]\n                                [--docsops-dir DOCSOPS_DIR]\n                                [--install-scheduler {none,linux,windows}]\n                                [--interactive] [--generate-profile]\n                                [--bundle-only]\n\nProvision docsops into a client repo\n\noptions:\n  -h, --help            show this help message and exit\n  --client CLIENT       Path to client profile (*.client.yml)\n  --client-repo CLIENT_REPO\n                        Path to client repository root\n  --docsops-dir DOCSOPS_DIR\n                        Target dir inside client repo\n  --install-scheduler {none,linux,windows}\n                        Optionally install weekly scheduler during\n                        provisioning\n  --interactive         Run interactive wizard (prompts for missing values)\n  --generate-profile    Interactive mode: create profile from preset\n                        (small/startup/enterprise/pilot-evidence)\n  --bundle-only         Build client bundle only (no install into local client\n                        repository).\n",
+      "stderr_tail": ""
+    },
+    {
+      "capability": "scripts/init_pipeline.py",
+      "script_exists": true,
+      "exec": "python3 scripts/init_pipeline.py --help",
+      "status": "PASS",
+      "rc": 0,
+      "duration_sec": 0.153,
+      "stdout_tail": "usage: init_pipeline.py [-h] --product-name PRODUCT_NAME [--company COMPANY]\n                        [--docs-url DOCS_URL] [--cloud-url CLOUD_URL]\n                        [--github-url GITHUB_URL]\n                        [--community-url COMMUNITY_URL]\n                        [--support-email SUPPORT_EMAIL]\n                        [--policy-pack {minimal,api-first,monorepo,multi-product,plg}]\n                        [--target-dir TARGET_DIR]\n                        [--generator {mkdocs,docusaurus}] [--skip-install]\n                        [--skip-validation]\n\nInitialize VeriOps in your project\n\noptions:\n  -h, --help            show this help message and exit\n  --product-name PRODUCT_NAME\n                        Your product name (e.g., 'Acme API')\n  --company COMPANY     Company name\n  --docs-url DOCS_URL   Documentation site URL\n  --cloud-url CLOUD_URL\n                        Cloud/SaaS product URL\n  --github-url GITHUB_URL\n                        GitHub repository URL\n  --community-url COMMUNITY_URL\n                        Community forum URL\n  --support-email SUPPORT_EMAIL\n                        Support email\n  --policy-pack {minimal,api-first,monorepo,multi-product,plg}\n                        Policy pack to use (default: minimal)\n  --target-dir TARGET_DIR\n                        Target project directory (default: current directory)\n  --generator {mkdocs,docusaurus}\n                        Site generator to use (default: mkdocs)\n  --skip-install        Skip dependency installation\n  --skip-validation     Skip initial validation\n\nExamples:\n  # Basic setup\n  python3 init_pipeline.py --product-name \"Acme API\"\n\n  # Full configuration\n  python3 init_pipeline.py \\\n    --product-name \"Acme API\" \\\n    --company \"Acme Corp\" \\\n    --docs-url \"https://docs.acme.com\" \\\n    --github-url \"https://github.com/acme/acme-api\" \\\n    --policy-pack api-first\n\n  # Minimal setup (skip dependency installation)\n  python3 init_pipeline.py --product-name \"MyProduct\" --skip-install\n        \n",
+      "stderr_tail": ""
+    },
+    {
+      "capability": "scripts/run_weekly_gap_batch.py",
+      "script_exists": true,
+      "exec": "python3 scripts/run_weekly_gap_batch.py --help",
+      "status": "PASS",
+      "rc": 0,
+      "duration_sec": 0.419,
+      "stdout_tail": "usage: run_weekly_gap_batch.py [-h] [--docsops-root DOCSOPS_ROOT]\n                               [--reports-dir REPORTS_DIR] [--since SINCE]\n                               [--runtime-config RUNTIME_CONFIG]\n                               [--skip-consolidated-report]\n\nWeekly local docs-ops batch runner\n\noptions:\n  -h, --help            show this help message and exit\n  --docsops-root DOCSOPS_ROOT\n                        Path to docsops bundle directory\n  --reports-dir REPORTS_DIR\n                        Reports output directory\n  --since SINCE         Analyze last N days for gap detection\n  --runtime-config RUNTIME_CONFIG\n                        Optional runtime config path (defaults to <docsops-\n                        root>/config/client_runtime.yml)\n  --skip-consolidated-report\n                        Skip consolidate_reports stage and write minimal\n                        consolidated report placeholder.\n",
+      "stderr_tail": ""
+    },
+    {
+      "capability": "scripts/auto_fix_pr_docs.py",
+      "script_exists": true,
+      "exec": "python3 scripts/auto_fix_pr_docs.py --help",
+      "status": "PASS",
+      "rc": 0,
+      "duration_sec": 0.344,
+      "stdout_tail": "usage: auto_fix_pr_docs.py [-h] --base BASE --head HEAD --pr-number PR_NUMBER\n                           [--docs-root DOCS_ROOT] [--output-dir OUTPUT_DIR]\n\nAuto-fix blocked PR by adding required docs reference note\n\noptions:\n  -h, --help            show this help message and exit\n  --base BASE           Base commit/branch\n  --head HEAD           Head commit/branch\n  --pr-number PR_NUMBER\n  --docs-root DOCS_ROOT\n  --output-dir OUTPUT_DIR\n",
+      "stderr_tail": ""
+    },
+    {
+      "capability": "scripts/ensure_external_mock_server.py",
+      "script_exists": true,
+      "exec": "python3 scripts/ensure_external_mock_server.py --help",
+      "status": "PASS",
+      "rc": 0,
+      "duration_sec": 0.269,
+      "stdout_tail": "usage: ensure_external_mock_server.py [-h] [--provider PROVIDER]\n                                      --project-slug PROJECT_SLUG\n                                      [--base-path BASE_PATH]\n                                      [--spec-path SPEC_PATH]\n                                      [--output-json OUTPUT_JSON]\n                                      [--postman-api-key-env POSTMAN_API_KEY_ENV]\n                                      [--postman-workspace-id-env POSTMAN_WORKSPACE_ID_ENV]\n                                      [--postman-collection-uid-env POSTMAN_COLLECTION_UID_ENV]\n                                      [--postman-mock-server-id-env POSTMAN_MOCK_SERVER_ID_ENV]\n                                      [--postman-mock-server-name POSTMAN_MOCK_SERVER_NAME]\n                                      [--postman-private]\n\nEnsure external mock server and resolve mock_base_url\n\noptions:\n  -h, --help            show this help message and exit\n  --provider PROVIDER\n  --project-slug PROJECT_SLUG\n  --base-path BASE_PATH\n  --spec-path SPEC_PATH\n  --output-json OUTPUT_JSON\n  --postman-api-key-env POSTMAN_API_KEY_ENV\n  --postman-workspace-id-env POSTMAN_WORKSPACE_ID_ENV\n  --postman-collection-uid-env POSTMAN_COLLECTION_UID_ENV\n  --postman-mock-server-id-env POSTMAN_MOCK_SERVER_ID_ENV\n  --postman-mock-server-name POSTMAN_MOCK_SERVER_NAME\n  --postman-private\n",
+      "stderr_tail": ""
+    },
+    {
+      "capability": "scripts/extract_knowledge_modules_from_docs.py",
+      "script_exists": true,
+      "exec": "python3 scripts/extract_knowledge_modules_from_docs.py --help",
+      "status": "PASS",
+      "rc": 0,
+      "duration_sec": 0.234,
+      "stdout_tail": "usage: extract_knowledge_modules_from_docs.py [-h] [--docs-dir DOCS_DIR]\n                                              [--modules-dir MODULES_DIR]\n                                              [--report REPORT]\n                                              [--chunk-target-chars CHUNK_TARGET_CHARS]\n                                              [--owner OWNER]\n\nExtract knowledge modules from docs markdown\n\noptions:\n  -h, --help            show this help message and exit\n  --docs-dir DOCS_DIR\n  --modules-dir MODULES_DIR\n  --report REPORT\n  --chunk-target-chars CHUNK_TARGET_CHARS\n  --owner OWNER\n",
+      "stderr_tail": ""
+    },
+    {
+      "capability": "scripts/gap_detector.py",
+      "script_exists": true,
+      "exec": "python3 scripts/gap_detector.py --help",
+      "status": "PASS",
+      "rc": 0,
+      "duration_sec": 1.195,
+      "stdout_tail": "usage: gap_detector.py [-h] [--json] [--create-issues] [--dry-run]\n                       [--config CONFIG] [--since SINCE]\n                       [--output-dir OUTPUT_DIR] [--algolia-csv ALGOLIA_CSV]\n                       [--algolia-json ALGOLIA_JSON]\n\nUnified Documentation Gap Detector (compatibility wrapper)\n\noptions:\n  -h, --help            show this help message and exit\n  --json                Output results as JSON\n  --create-issues       Create GitHub issues for high-priority gaps\n  --dry-run             Do not create issues, print previews\n  --config CONFIG       Legacy option kept for compatibility\n  --since SINCE         Analyze commits from last N days\n  --output-dir OUTPUT_DIR\n                        Directory for generated reports\n  --algolia-csv ALGOLIA_CSV\n                        Optional path to Algolia CSV export\n  --algolia-json ALGOLIA_JSON\n                        Optional path to Algolia JSON export\n",
+      "stderr_tail": ""
+    },
+    {
+      "capability": "scripts/generate_docusaurus_config.py",
+      "script_exists": true,
+      "exec": "python3 scripts/generate_docusaurus_config.py --help",
+      "status": "PASS",
+      "rc": 0,
+      "duration_sec": 0.176,
+      "stdout_tail": "usage: generate_docusaurus_config.py [-h] [--mkdocs-config MKDOCS_CONFIG]\n                                     [--variables VARIABLES]\n                                     [--output-dir OUTPUT_DIR]\n\nGenerate Docusaurus config from MkDocs config\n\noptions:\n  -h, --help            show this help message and exit\n  --mkdocs-config MKDOCS_CONFIG\n                        Path to mkdocs.yml (default: mkdocs.yml)\n  --variables VARIABLES\n                        Path to _variables.yml (default: docs/_variables.yml)\n  --output-dir OUTPUT_DIR\n                        Output directory for generated files (default: .)\n",
+      "stderr_tail": ""
+    },
+    {
+      "capability": "scripts/generate_facets_index.py",
+      "script_exists": true,
+      "exec": "python3 scripts/generate_facets_index.py --help",
+      "status": "PASS",
+      "rc": 0,
+      "duration_sec": 0.175,
+      "stdout_tail": "usage: generate_facets_index.py [-h] [--docs-dir DOCS_DIR] [--output OUTPUT]\n\nGenerate facets index for client-side search\n\noptions:\n  -h, --help           show this help message and exit\n  --docs-dir DOCS_DIR  Documentation directory (default: docs)\n  --output OUTPUT      Output file path (default: docs/assets/facets-\n                       index.json)\n",
+      "stderr_tail": ""
+    },
+    {
+      "capability": "scripts/generate_fastapi_stubs_from_openapi.py",
+      "script_exists": true,
+      "exec": "python3 scripts/generate_fastapi_stubs_from_openapi.py --help",
+      "status": "PASS",
+      "rc": 0,
+      "duration_sec": 0.206,
+      "stdout_tail": "usage: generate_fastapi_stubs_from_openapi.py [-h] --spec SPEC --output OUTPUT\n\nGenerate FastAPI stubs from OpenAPI\n\noptions:\n  -h, --help       show this help message and exit\n  --spec SPEC      Path to OpenAPI spec\n  --output OUTPUT  Output path for generated app file\n",
+      "stderr_tail": ""
+    },
+    {
+      "capability": "scripts/generate_openapi_from_planning_notes.py",
+      "script_exists": true,
+      "exec": "python3 scripts/generate_openapi_from_planning_notes.py --help",
+      "status": "PASS",
+      "rc": 0,
+      "duration_sec": 0.173,
+      "stdout_tail": "usage: generate_openapi_from_planning_notes.py [-h] --notes NOTES --spec SPEC\n                                               --spec-tree SPEC_TREE\n                                               [--openapi-version OPENAPI_VERSION]\n\nGenerate split OpenAPI from planning notes\n\noptions:\n  -h, --help            show this help message and exit\n  --notes NOTES\n  --spec SPEC\n  --spec-tree SPEC_TREE\n  --openapi-version OPENAPI_VERSION\n",
+      "stderr_tail": ""
+    },
+    {
+      "capability": "scripts/generate_protocol_server_stubs.py",
+      "script_exists": true,
+      "exec": "python3 scripts/generate_protocol_server_stubs.py --help",
+      "status": "PASS",
+      "rc": 0,
+      "duration_sec": 0.199,
+      "stdout_tail": "usage: generate_protocol_server_stubs.py [-h] --protocol\n                                         {rest,graphql,grpc,asyncapi,websocket}\n                                         --source SOURCE [--output OUTPUT]\n\nGenerate server handlers for API protocols\n\noptions:\n  -h, --help            show this help message and exit\n  --protocol {rest,graphql,grpc,asyncapi,websocket}\n  --source SOURCE       Contract source path\n  --output OUTPUT       Generated handler output path\n",
+      "stderr_tail": ""
+    },
+    {
+      "capability": "scripts/generate_llm_web_artifacts.py",
+      "script_exists": true,
+      "exec": "python3 scripts/generate_llm_web_artifacts.py --help",
+      "status": "PASS",
+      "rc": 0,
+      "duration_sec": 0.177,
+      "stdout_tail": "usage: generate_llm_web_artifacts.py [-h] [--docs-root DOCS_ROOT]\n                                     [--site-root SITE_ROOT]\n                                     [--mkdocs-config MKDOCS_CONFIG]\n\nGenerate LLM web artifacts for docs\n\noptions:\n  -h, --help            show this help message and exit\n  --docs-root DOCS_ROOT\n  --site-root SITE_ROOT\n  --mkdocs-config MKDOCS_CONFIG\n",
+      "stderr_tail": ""
+    },
+    {
+      "capability": "scripts/generate_pipeline_capabilities_catalog.py",
+      "script_exists": true,
+      "exec": "python3 scripts/generate_pipeline_capabilities_catalog.py --help",
+      "status": "PASS",
+      "rc": 0,
+      "duration_sec": 0.163,
+      "stdout_tail": "[ok] catalog generated: /mnt/c/Users/Kroha/Documents/development/Auto-Doc Pipeline/docs/operations/PIPELINE_CAPABILITIES_CATALOG.md\n",
+      "stderr_tail": ""
+    },
+    {
+      "capability": "scripts/lifecycle_manager.py",
+      "script_exists": true,
+      "exec": "python3 scripts/lifecycle_manager.py --help",
+      "status": "PASS",
+      "rc": 0,
+      "duration_sec": 0.183,
+      "stdout_tail": "usage: lifecycle_manager.py [-h] [--docs-dir DOCS_DIR] [--scan] [--mkdocs]\n                            [--docusaurus] [--redirects] [--report]\n                            [--json-output JSON_OUTPUT]\n\nManage documentation lifecycle\n\noptions:\n  -h, --help            show this help message and exit\n  --docs-dir DOCS_DIR   Docs directory to scan\n  --scan                Scan for lifecycle states\n  --mkdocs              Generate MkDocs overrides\n  --docusaurus          Generate Docusaurus plugin\n  --redirects           Generate redirect pages\n  --report              Generate lifecycle report\n  --json-output JSON_OUTPUT\n                        Write lifecycle scan results as JSON\n",
+      "stderr_tail": ""
+    },
+    {
+      "capability": "scripts/manage_demo_nav.py",
+      "script_exists": true,
+      "exec": "python3 scripts/manage_demo_nav.py --help",
+      "status": "PASS",
+      "rc": 0,
+      "duration_sec": 0.173,
+      "stdout_tail": "usage: manage_demo_nav.py [-h] --mode {add,remove} [--mkdocs MKDOCS]\n\nManage demo nav entries in mkdocs.yml\n\noptions:\n  -h, --help           show this help message and exit\n  --mode {add,remove}\n  --mkdocs MKDOCS\n",
+      "stderr_tail": ""
+    },
+    {
+      "capability": "scripts/pilot_analysis.py",
+      "script_exists": true,
+      "exec": "python3 scripts/pilot_analysis.py --help",
+      "status": "PASS",
+      "rc": 0,
+      "duration_sec": 0.209,
+      "stdout_tail": "usage: pilot_analysis.py [-h] [--docs-dir DOCS_DIR] [--output OUTPUT] [--json]\n\nPilot Week Documentation Analysis\n\noptions:\n  -h, --help           show this help message and exit\n  --docs-dir DOCS_DIR  Documentation directory\n  --output OUTPUT      Output file path\n  --json               Output JSON instead of HTML\n",
+      "stderr_tail": ""
+    },
+    {
+      "capability": "scripts/preprocess_variables.py",
+      "script_exists": true,
+      "exec": "python3 scripts/preprocess_variables.py --help",
+      "status": "PASS",
+      "rc": 0,
+      "duration_sec": 0.183,
+      "stdout_tail": "usage: preprocess_variables.py [-h] [--variables VARIABLES] [-o OUTPUT]\n                               [--locale-aware]\n                               source\n\nPreprocess {{ variable }} placeholders for Docusaurus\n\npositional arguments:\n  source                Source file or directory\n\noptions:\n  -h, --help            show this help message and exit\n  --variables VARIABLES\n                        Path to _variables.yml (default: docs/_variables.yml)\n  -o OUTPUT, --output OUTPUT\n                        Output file or directory (default: in-place)\n  --locale-aware        Auto-detect locale per file and merge locale-specific\n                        variables\n",
+      "stderr_tail": ""
+    },
+    {
+      "capability": "scripts/upload_to_algolia.py",
+      "script_exists": true,
+      "exec": "python3 scripts/upload_to_algolia.py --help",
+      "status": "PASS",
+      "rc": 0,
+      "duration_sec": 0.22,
+      "stdout_tail": "usage: upload_to_algolia.py [-h] [--records-file RECORDS_FILE]\n                            [--app-id-env APP_ID_ENV]\n                            [--api-key-env API_KEY_ENV]\n                            [--index-name-env INDEX_NAME_ENV]\n                            [--index-name-default INDEX_NAME_DEFAULT]\n\nUpload records to Algolia\n\noptions:\n  -h, --help            show this help message and exit\n  --records-file RECORDS_FILE\n                        Path to Algolia records payload JSON\n  --app-id-env APP_ID_ENV\n                        Environment variable name for Algolia app id\n  --api-key-env API_KEY_ENV\n                        Environment variable name for Algolia admin API key\n  --index-name-env INDEX_NAME_ENV\n                        Environment variable name for Algolia index name\n  --index-name-default INDEX_NAME_DEFAULT\n                        Fallback index name if env variable is not set\n",
+      "stderr_tail": ""
+    },
+    {
+      "capability": "scripts/validate_pr_dod.py",
+      "script_exists": true,
+      "exec": "python3 scripts/validate_pr_dod.py --help",
+      "status": "PASS",
+      "rc": 0,
+      "duration_sec": 0.219,
+      "stdout_tail": "usage: validate_pr_dod.py [-h] --event-path EVENT_PATH\n\nValidate PR DoD contract\n\noptions:\n  -h, --help            show this help message and exit\n  --event-path EVENT_PATH\n                        Path to GitHub event JSON\n",
+      "stderr_tail": ""
+    },
+    {
+      "capability": "scripts/run_multi_protocol_contract_flow.py",
+      "script_exists": true,
+      "exec": "python3 scripts/run_multi_protocol_contract_flow.py --help",
+      "status": "PASS",
+      "rc": 0,
+      "duration_sec": 0.527,
+      "stdout_tail": "usage: run_multi_protocol_contract_flow.py [-h]\n                                           [--runtime-config RUNTIME_CONFIG]\n                                           [--reports-dir REPORTS_DIR]\n                                           [--protocols PROTOCOLS] [--strict]\n                                           [--strictness {standard,enterprise-strict}]\n                                           [--generate-test-assets]\n                                           [--upload-test-assets]\n                                           [--skip-publish]\n\nRun multi-protocol docs-ops flow\n\noptions:\n  -h, --help            show this help message and exit\n  --runtime-config RUNTIME_CONFIG\n  --reports-dir REPORTS_DIR\n  --protocols PROTOCOLS\n  --strict\n  --strictness {standard,enterprise-strict}\n  --generate-test-assets\n  --upload-test-assets\n  --skip-publish\n",
+      "stderr_tail": ""
+    },
+    {
+      "capability": "scripts/run_retrieval_evals_gate.py",
+      "script_exists": true,
+      "exec": "python3 scripts/run_retrieval_evals_gate.py --help",
+      "status": "PASS",
+      "rc": 0,
+      "duration_sec": 24.279,
+      "stdout_tail": "Retrieval evals (token): precision@3=0.24 recall@3=0.72 hallucination_rate=0.0\n[retrieval-gate] mode=token api_key=False faiss=False\n[retrieval-gate] dataset does not match current retrieval index; using auto-generated eval dataset\n",
+      "stderr_tail": "/home/eudo/.local/lib/python3.10/site-packages/joblib/_multiprocessing_helpers.py:44: UserWarning: [Errno 13] Permission denied.  joblib will operate in serial mode\n  warnings.warn(\"%s.  joblib will operate in serial mode\" % (e,))\n2026-04-18 20:25:56.950633: I external/local_xla/xla/tsl/cuda/cudart_stub.cc:31] Could not find cuda drivers on your machine, GPU will not be used.\n2026-04-18 20:25:57.988035: I tensorflow/core/platform/cpu_feature_guard.cc:210] This TensorFlow binary is optimized to use available CPU instructions in performance-critical operations.\nTo enable the following instructions: AVX2 FMA, in other operations, rebuild TensorFlow with the appropriate compiler flags.\n/home/eudo/.local/lib/python3.10/site-packages/google/api_core/_python_version_support.py:266: FutureWarning: You are using a Python version (3.10.12) which Google will stop supporting in new releases of google.api_core once it reaches its end of life (2026-10-04). Please upgrade to the latest Python version, or at least Python 3.11, to continue receiving updates for google.api_core past that date.\n  warnings.warn(message, FutureWarning)\n2026-04-18 20:26:02.061689: I external/local_xla/xla/tsl/cuda/cudart_stub.cc:31] Could not find cuda drivers on your machine, GPU will not be used.\n"
+    },
+    {
+      "capability": "scripts/rag_reindex_lifecycle.py",
+      "script_exists": true,
+      "exec": "python3 scripts/rag_reindex_lifecycle.py --help",
+      "status": "PASS",
+      "rc": 0,
+      "duration_sec": 0.223,
+      "stdout_tail": "usage: rag_reindex_lifecycle.py [-h] [--repo-root REPO_ROOT]\n                                [--docs-dir DOCS_DIR]\n                                [--modules-dir MODULES_DIR]\n                                [--reports-dir REPORTS_DIR]\n                                [--index-path INDEX_PATH]\n                                [--versions-dir VERSIONS_DIR]\n                                [--with-embeddings]\n                                [--provider {local,openai}]\n                                [--retention-versions RETENTION_VERSIONS]\n                                [--contradictions-report CONTRADICTIONS_REPORT]\n                                [--contradictions-stale-days CONTRADICTIONS_STALE_DAYS]\n                                [--contradictions-min-similarity CONTRADICTIONS_MIN_SIMILARITY]\n                                [--skip-contradiction-check]\n                                [--fail-on-critical-contradictions]\n                                [--exclude-critical-contradictions]\n                                [--no-exclude-critical-contradictions]\n                                [--promote-version PROMOTE_VERSION]\n                                [--rollback-to-version ROLLBACK_TO_VERSION]\n                                [--skip-rebuild]\n\nRun versioned RAG reindex lifecycle\n\noptions:\n  -h, --help            show this help message and exit\n  --repo-root REPO_ROOT\n  --docs-dir DOCS_DIR\n  --modules-dir MODULES_DIR\n  --reports-dir REPORTS_DIR\n  --index-path INDEX_PATH\n  --versions-dir VERSIONS_DIR\n  --with-embeddings\n  --provider {local,openai}\n  --retention-versions RETENTION_VERSIONS\n  --contradictions-report CONTRADICTIONS_REPORT\n  --contradictions-stale-days CONTRADICTIONS_STALE_DAYS\n  --contradictions-min-similarity CONTRADICTIONS_MIN_SIMILARITY\n  --skip-contradiction-check\n  --fail-on-critical-contradictions\n  --exclude-critical-contradictions\n  --no-exclude-critical-contradictions\n  --promote-version PROMOTE_VERSION\n  --rollback-to-version ROLLBACK_TO_VERSION\n  --skip-rebuild\n",
+      "stderr_tail": ""
+    },
+    {
+      "capability": "scripts/enforce_rag_optimization_layer.py",
+      "script_exists": true,
+      "exec": "python3 scripts/enforce_rag_optimization_layer.py --help",
+      "status": "PASS",
+      "rc": 0,
+      "duration_sec": 0.23,
+      "stdout_tail": "usage: enforce_rag_optimization_layer.py [-h] [--repo-root REPO_ROOT]\n                                         [--runtime-config RUNTIME_CONFIG]\n                                         [--reports-dir REPORTS_DIR]\n                                         [--provider {local,openai}]\n                                         [--with-embeddings]\n                                         [--retention-versions RETENTION_VERSIONS]\n                                         [--promote-version PROMOTE_VERSION]\n                                         [--rollback-to-version ROLLBACK_TO_VERSION]\n                                         [--skip-rebuild] [--strict]\n\nEnforce RAG optimization layer\n\noptions:\n  -h, --help            show this help message and exit\n  --repo-root REPO_ROOT\n  --runtime-config RUNTIME_CONFIG\n  --reports-dir REPORTS_DIR\n  --provider {local,openai}\n  --with-embeddings\n  --retention-versions RETENTION_VERSIONS\n  --promote-version PROMOTE_VERSION\n  --rollback-to-version ROLLBACK_TO_VERSION\n  --skip-rebuild\n  --strict\n",
+      "stderr_tail": ""
+    },
+    {
+      "capability": "scripts/detect_rag_contradictions.py",
+      "script_exists": true,
+      "exec": "python3 scripts/detect_rag_contradictions.py --help",
+      "status": "PASS",
+      "rc": 0,
+      "duration_sec": 0.23,
+      "stdout_tail": "usage: detect_rag_contradictions.py [-h] [--modules-dir MODULES_DIR]\n                                    [--report REPORT]\n                                    [--stale-days STALE_DAYS]\n                                    [--min-similarity MIN_SIMILARITY]\n                                    [--fail-on-critical]\n\nDetect contradictory claims before RAG indexing\n\noptions:\n  -h, --help            show this help message and exit\n  --modules-dir MODULES_DIR\n  --report REPORT\n  --stale-days STALE_DAYS\n  --min-similarity MIN_SIMILARITY\n  --fail-on-critical\n",
+      "stderr_tail": ""
+    },
+    {
+      "capability": "scripts/generate_protocol_contract_from_planning_notes.py",
+      "script_exists": true,
+      "exec": "python3 scripts/generate_protocol_contract_from_planning_notes.py --help",
+      "status": "PASS",
+      "rc": 0,
+      "duration_sec": 0.18,
+      "stdout_tail": "usage: generate_protocol_contract_from_planning_notes.py [-h] --protocol\n                                                         {graphql,grpc,asyncapi,websocket}\n                                                         --notes NOTES\n                                                         --output OUTPUT\n                                                         [--project-name PROJECT_NAME]\n                                                         [--force]\n\nGenerate protocol contract from planning notes\n\noptions:\n  -h, --help            show this help message and exit\n  --protocol {graphql,grpc,asyncapi,websocket}\n  --notes NOTES         Path to planning notes markdown\n  --output OUTPUT       Output contract path (or grpc directory)\n  --project-name PROJECT_NAME\n  --force\n",
+      "stderr_tail": ""
+    },
+    {
+      "capability": "scripts/generate_protocol_docs.py",
+      "script_exists": true,
+      "exec": "python3 scripts/generate_protocol_docs.py --help",
+      "status": "PASS",
+      "rc": 0,
+      "duration_sec": 0.256,
+      "stdout_tail": "usage: generate_protocol_docs.py [-h] --protocol PROTOCOL --source SOURCE\n                                 --output OUTPUT [--mode MODE]\n                                 [--endpoint ENDPOINT]\n                                 [--ws-endpoint WS_ENDPOINT]\n                                 [--http-endpoint HTTP_ENDPOINT]\n\nGenerate protocol markdown reference\n\noptions:\n  -h, --help            show this help message and exit\n  --protocol PROTOCOL\n  --source SOURCE\n  --output OUTPUT\n  --mode MODE\n  --endpoint ENDPOINT\n  --ws-endpoint WS_ENDPOINT\n  --http-endpoint HTTP_ENDPOINT\n",
+      "stderr_tail": ""
+    },
+    {
+      "capability": "scripts/generate_protocol_test_assets.py",
+      "script_exists": true,
+      "exec": "python3 scripts/generate_protocol_test_assets.py --help",
+      "status": "PASS",
+      "rc": 0,
+      "duration_sec": 0.279,
+      "stdout_tail": "usage: generate_protocol_test_assets.py [-h] [--protocols PROTOCOLS] --source\n                                        SOURCE [--output-dir OUTPUT_DIR]\n                                        [--testrail-csv TESTRAIL_CSV]\n                                        [--zephyr-json ZEPHYR_JSON]\n\nGenerate protocol-aware test assets\n\noptions:\n  -h, --help            show this help message and exit\n  --protocols PROTOCOLS\n  --source SOURCE\n  --output-dir OUTPUT_DIR\n  --testrail-csv TESTRAIL_CSV\n  --zephyr-json ZEPHYR_JSON\n",
+      "stderr_tail": ""
+    },
+    {
+      "capability": "scripts/run_protocol_self_verify.py",
+      "script_exists": true,
+      "exec": "python3 scripts/run_protocol_self_verify.py --help",
+      "status": "PASS",
+      "rc": 0,
+      "duration_sec": 0.231,
+      "stdout_tail": "usage: run_protocol_self_verify.py [-h] --protocol\n                                   {graphql,grpc,asyncapi,websocket}\n                                   [--endpoint ENDPOINT]\n                                   [--ws-endpoint WS_ENDPOINT]\n                                   [--http-endpoint HTTP_ENDPOINT]\n                                   [--require-endpoint]\n                                   [--timeout-sec TIMEOUT_SEC]\n                                   [--json-report JSON_REPORT]\n\nRun runtime self verification for protocol\n\noptions:\n  -h, --help            show this help message and exit\n  --protocol {graphql,grpc,asyncapi,websocket}\n  --endpoint ENDPOINT\n  --ws-endpoint WS_ENDPOINT\n  --http-endpoint HTTP_ENDPOINT\n  --require-endpoint\n  --timeout-sec TIMEOUT_SEC\n  --json-report JSON_REPORT\n",
+      "stderr_tail": ""
+    },
+    {
+      "capability": "scripts/validate_graphql_contract.py",
+      "script_exists": true,
+      "exec": "python3 scripts/validate_graphql_contract.py --help",
+      "status": "PASS",
+      "rc": 0,
+      "duration_sec": 0.163,
+      "stdout_tail": "usage: validate_graphql_contract.py [-h] schema\n\nValidate GraphQL SDL contract\n\npositional arguments:\n  schema      Path to .graphql/.gql schema\n\noptions:\n  -h, --help  show this help message and exit\n",
+      "stderr_tail": ""
+    },
+    {
+      "capability": "scripts/validate_proto_contract.py",
+      "script_exists": true,
+      "exec": "python3 scripts/validate_proto_contract.py --help",
+      "status": "PASS",
+      "rc": 0,
+      "duration_sec": 0.138,
+      "stdout_tail": "usage: validate_proto_contract.py [-h] --proto PROTO\n\nValidate proto contract inputs\n\noptions:\n  -h, --help     show this help message and exit\n  --proto PROTO  Proto file or directory (repeatable)\n",
+      "stderr_tail": ""
+    },
+    {
+      "capability": "scripts/validate_asyncapi_contract.py",
+      "script_exists": true,
+      "exec": "python3 scripts/validate_asyncapi_contract.py --help",
+      "status": "PASS",
+      "rc": 0,
+      "duration_sec": 0.176,
+      "stdout_tail": "usage: validate_asyncapi_contract.py [-h] spec\n\nValidate AsyncAPI contract\n\npositional arguments:\n  spec        Path to AsyncAPI yaml/json\n\noptions:\n  -h, --help  show this help message and exit\n",
+      "stderr_tail": ""
+    },
+    {
+      "capability": "scripts/validate_websocket_contract.py",
+      "script_exists": true,
+      "exec": "python3 scripts/validate_websocket_contract.py --help",
+      "status": "PASS",
+      "rc": 0,
+      "duration_sec": 0.245,
+      "stdout_tail": "usage: validate_websocket_contract.py [-h] contract\n\nValidate WebSocket contract\n\npositional arguments:\n  contract    Path to websocket contract yaml/json\n\noptions:\n  -h, --help  show this help message and exit\n",
+      "stderr_tail": ""
+    },
+    {
+      "capability": "scripts/generate_public_docs_audit.py",
+      "script_exists": true,
+      "exec": "python3 scripts/generate_public_docs_audit.py --help",
+      "status": "PASS",
+      "rc": 0,
+      "duration_sec": 0.503,
+      "stdout_tail": "           auth headers\n  --auth-storage-state AUTH_STORAGE_STATE\n                        Playwright storage state file used for authenticated\n                        browser checks\n  --auth-login-url AUTH_LOGIN_URL\n                        Login URL for automatic storage-state generation\n  --auth-username-env-name AUTH_USERNAME_ENV_NAME\n                        Environment variable for login username\n  --auth-password-env-name AUTH_PASSWORD_ENV_NAME\n                        Environment variable for login password\n  --auth-username-selector AUTH_USERNAME_SELECTOR\n                        CSS selector for username/email input on login page\n  --auth-password-selector AUTH_PASSWORD_SELECTOR\n                        CSS selector for password input on login page\n  --auth-submit-selector AUTH_SUBMIT_SELECTOR\n                        CSS selector for submit button on login page\n  --auth-success-url-pattern AUTH_SUCCESS_URL_PATTERN\n                        Optional regex URL pattern indicating successful login\n  --topology-mode {single-product,multi-project}\n                        single-product: multiple docs sites may indicate\n                        fragmentation; multi-project: no fragmentation penalty\n  --json-output JSON_OUTPUT\n  --html-output HTML_OUTPUT\n  --broken-links-output BROKEN_LINKS_OUTPUT\n                        Export full confirmed broken links list as JSON\n  --llm-enabled         Add optional Claude executive analysis on top of\n                        deterministic metrics\n  --llm-model LLM_MODEL\n                        Anthropic model name for executive analysis\n  --llm-env-file LLM_ENV_FILE\n                        Path to .env file containing ANTHROPIC_API_KEY\n                        (defaults to repo .env; also searches common fallback\n                        locations)\n  --llm-api-key-env-name LLM_API_KEY_ENV_NAME\n                        Env var key to read from --llm-env-file or environment\n  --llm-timeout LLM_TIMEOUT\n                        LLM request timeout in seconds\n  --llm-summary-only    Send only aggregate metrics to LLM (not per-page\n                        data). Much cheaper and faster.\n  --llm-summary-output LLM_SUMMARY_OUTPUT\n                        Optional JSON file with LLM executive analysis\n  --report-url-base REPORT_URL_BASE\n                        Optional public base URL to build report link\n                        (example: https://docsops.company.com/reports)\n  --generate-pdf        Automatically generate executive PDF after audit\n                        completes\n  --company-name COMPANY_NAME\n                        Company name for executive PDF report\n  --pdf-output PDF_OUTPUT\n                        Output path for executive PDF. Defaults to\n                        reports/{company-slug}-executive-audit.pdf\n  --scorecard-json SCORECARD_JSON\n                        Path to audit scorecard JSON (for PDF generation)\n  --auto-scorecard      Automatically regenerate scorecard before PDF using\n                        company assumptions profile\n  --assumptions-json ASSUMPTIONS_JSON\n                        Explicit assumptions JSON for financial model\n                        (overrides profile auto-detection)\n  --assumptions-profiles-dir ASSUMPTIONS_PROFILES_DIR\n                        Directory with company assumptions profiles (example:\n                        databricks.json, default.json)\n  --assumptions-autofill\n                        Use LLM to generate assumptions when profile is not\n                        found\n  --assumptions-autofill-output ASSUMPTIONS_AUTOFILL_OUTPUT\n                        Path to save LLM-generated assumptions profile\n  --runtime-config RUNTIME_CONFIG\n                        Runtime config path used for LLM egress policy\n  --external-llm-approve-once\n                        Approve one external LLM step for this execution\n  --external-llm-approve-for-run\n                        Approve external LLM usage for this run (cached in\n                        reports dir)\n",
+      "stderr_tail": ""
+    },
+    {
+      "capability": "scripts/generate_audit_scorecard.py",
+      "script_exists": true,
+      "exec": "python3 scripts/generate_audit_scorecard.py --help",
+      "status": "PASS",
+      "rc": 0,
+      "duration_sec": 0.403,
+      "stdout_tail": "usage: generate_audit_scorecard.py [-h] [--docs-dir DOCS_DIR]\n                                   [--reports-dir REPORTS_DIR]\n                                   [--spec-path SPEC_PATH]\n                                   [--policy-pack POLICY_PACK]\n                                   [--glossary-path GLOSSARY_PATH]\n                                   [--stale-days STALE_DAYS]\n                                   [--assumptions-json ASSUMPTIONS_JSON]\n                                   [--auto-run-smoke]\n                                   [--commercial-package {pilot,full,full+rag}]\n                                   [--json-output JSON_OUTPUT]\n                                   [--html-output HTML_OUTPUT]\n\nGenerate audit scorecard JSON + HTML\n\noptions:\n  -h, --help            show this help message and exit\n  --docs-dir DOCS_DIR\n  --reports-dir REPORTS_DIR\n  --spec-path SPEC_PATH\n  --policy-pack POLICY_PACK\n  --glossary-path GLOSSARY_PATH\n  --stale-days STALE_DAYS\n  --assumptions-json ASSUMPTIONS_JSON\n  --auto-run-smoke\n  --commercial-package {pilot,full,full+rag}\n                        Commercial package context to render scope and roadmap\n                        sections.\n  --json-output JSON_OUTPUT\n  --html-output HTML_OUTPUT\n",
+      "stderr_tail": ""
+    },
+    {
+      "capability": "scripts/generate_executive_audit_pdf.py",
+      "script_exists": true,
+      "exec": "python3 scripts/generate_executive_audit_pdf.py --help",
+      "status": "PASS",
+      "rc": 0,
+      "duration_sec": 0.624,
+      "stdout_tail": "usage: generate_executive_audit_pdf.py [-h] [--scorecard-json SCORECARD_JSON]\n                                       [--public-audit-json PUBLIC_AUDIT_JSON]\n                                       [--llm-summary-json LLM_SUMMARY_JSON]\n                                       [--company-name COMPANY_NAME]\n                                       [--mode {auto,public,internal}]\n                                       [--output OUTPUT]\n\nGenerate premium executive audit PDF\n\noptions:\n  -h, --help            show this help message and exit\n  --scorecard-json SCORECARD_JSON\n  --public-audit-json PUBLIC_AUDIT_JSON\n  --llm-summary-json LLM_SUMMARY_JSON\n  --company-name COMPANY_NAME\n  --mode {auto,public,internal}\n                        Report mode: public (web crawl), internal (repo\n                        scorecard), auto (detect)\n  --output OUTPUT       Output PDF path. Defaults to reports/{company-\n                        slug}-executive-audit.pdf\n",
+      "stderr_tail": ""
+    },
+    {
+      "capability": "scripts/generate_embeddings.py",
+      "script_exists": true,
+      "exec": "python3 scripts/generate_embeddings.py --help",
+      "status": "PASS",
+      "rc": 0,
+      "duration_sec": 1.309,
+      "stdout_tail": "usage: generate_embeddings.py [-h] [--index INDEX] [--output-dir OUTPUT_DIR]\n                              [--model MODEL] [--batch-size BATCH_SIZE]\n                              [--provider {openai,local}]\n                              [--local-model LOCAL_MODEL] [--chunk]\n                              [--chunk-max-tokens CHUNK_MAX_TOKENS]\n                              [--chunk-overlap CHUNK_OVERLAP]\n\nGenerate FAISS embeddings index\n\noptions:\n  -h, --help            show this help message and exit\n  --index INDEX         Path to knowledge retrieval index JSON\n  --output-dir OUTPUT_DIR\n                        Directory for output .faiss and .json files\n  --model MODEL         OpenAI embedding model name\n  --batch-size BATCH_SIZE\n                        Batch size for embedding API calls\n  --provider {openai,local}\n                        Embedding provider: openai (API) or local (sentence-\n                        transformers).\n  --local-model LOCAL_MODEL\n                        Local embedding model name for --provider local\n  --chunk               Enable token-aware chunking before embedding\n  --chunk-max-tokens CHUNK_MAX_TOKENS\n                        Maximum tokens per chunk (default: 750)\n  --chunk-overlap CHUNK_OVERLAP\n                        Overlap tokens between consecutive chunks (default:\n                        100)\n",
+      "stderr_tail": ""
+    },
+    {
+      "capability": "scripts/docsops_generate.py",
+      "script_exists": true,
+      "exec": "python3 scripts/docsops_generate.py --help",
+      "status": "PASS",
+      "rc": 0,
+      "duration_sec": 0.315,
+      "stdout_tail": "usage: docsops_generate.py [-h] {generate} ...\n\nDocsOps generation orchestrator\n\npositional arguments:\n  {generate}\n    generate  Generate docs from consolidated report\n\noptions:\n  -h, --help  show this help message and exit\n",
+      "stderr_tail": ""
+    },
+    {
+      "capability": "scripts/production_smoke.py",
+      "script_exists": true,
+      "exec": "python3 scripts/production_smoke.py --help",
+      "status": "PASS_COMPILE_ONLY",
+      "rc": 1,
+      "duration_sec": 0.745,
+      "stdout_tail": "",
+      "stderr_tail": "Missing required environment variable: VERIDOC_BASE_URL\n",
+      "fallback": "py_compile",
+      "fallback_rc": 0
+    }
+  ],
+  "summary": {
+    "total": 161,
+    "PASS": 97,
+    "FAIL": 56,
+    "TIMEOUT": 7,
+    "PASS_COMPILE_ONLY": 1
+  }
+}

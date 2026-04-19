@@ -1,0 +1,84 @@
+id: auto-centralized-client-bundles-20
+title: "\u0426\u0435\u043D\u0442\u0440\u0430\u043B\u0438\u0437\u043E\u0432\u0430\u043D\
+  \u043D\u0430\u044F \u043D\u0430\u0441\u0442\u0440\u043E\u0439\u043A\u0430 \u043A\
+  \u043B\u0438\u0435\u043D\u0442\u043E\u0432 (Part 20)"
+summary: "\u041F\u0440\u0430\u043A\u0442\u0438\u0447\u0435\u0441\u043A\u0438\u0439\
+  \ \u043F\u0443\u0442\u044C \u043D\u0430\u0441\u0442\u0440\u043E\u0439\u043A\u0438\
+  \ \u043A\u043B\u0438\u0435\u043D\u0442\u0441\u043A\u0438\u0445 bundle \u0438 \u0430\
+  \u0432\u0442\u043E\u0437\u0430\u043F\u0443\u0441\u043A\u0430 pipeline \u0438\u0437\
+  \ \u043E\u0434\u043D\u043E\u0433\u043E \u043C\u0435\u0441\u0442\u0430."
+intents:
+- integrate
+audiences:
+- developer
+- operator
+channels:
+- docs
+- assistant
+- automation
+priority: 60
+status: active
+owner: docsops-auto
+last_verified: '2026-04-18'
+dependencies: []
+tags:
+- auto-extracted
+- centralized-client-bundles
+- reference
+metadata:
+  url: https://docs.example.com/operations/CENTRALIZED_CLIENT_BUNDLES/
+  title: "\u0426\u0435\u043D\u0442\u0440\u0430\u043B\u0438\u0437\u043E\u0432\u0430\
+    \u043D\u043D\u0430\u044F \u043D\u0430\u0441\u0442\u0440\u043E\u0439\u043A\u0430\
+    \ \u043A\u043B\u0438\u0435\u043D\u0442\u043E\u0432 (Part 20)"
+  heading: Hardening e2e matrix report
+  version: 1.50.0
+  updated_at: '2026-03-11T00:00:00Z'
+  source_site: docs.example.com
+  source_path: operations/CENTRALIZED_CLIENT_BUNDLES.md
+semantic:
+  topic: Hardening e2e matrix report
+  intent: integrate
+  audience: developer
+  keywords:
+  - centralized client bundles
+  - reference
+  status: rule_based
+content:
+  docs_markdown: '- Active/trialing subscriptions get refreshed server license.
+
+    - Inactive subscriptions are downgraded on renewal pass.
+
+    - Strict-local clients use offline renewal bundles and do not require online renewal.
+
+
+    ## Hardening e2e matrix report
+
+
+    Generate a PASS/FAIL report for the hardening controls:
+
+
+    ```bash
+
+    python3 scripts/run_hardening_e2e_matrix.py
+
+    ```
+
+
+    Report path:
+
+
+    - `reports/hardening_e2e_matrix_report.json`'
+  assistant_context: "Use this module when answering questions related to: \u0426\u0435\
+    \u043D\u0442\u0440\u0430\u043B\u0438\u0437\u043E\u0432\u0430\u043D\u043D\u0430\
+    \u044F \u043D\u0430\u0441\u0442\u0440\u043E\u0439\u043A\u0430 \u043A\u043B\u0438\
+    \u0435\u043D\u0442\u043E\u0432 (Part 20). Source path: operations/CENTRALIZED_CLIENT_BUNDLES.md.\
+    \ Summary: \u041F\u0440\u0430\u043A\u0442\u0438\u0447\u0435\u0441\u043A\u0438\u0439\
+    \ \u043F\u0443\u0442\u044C \u043D\u0430\u0441\u0442\u0440\u043E\u0439\u043A\u0438\
+    \ \u043A\u043B\u0438\u0435\u043D\u0442\u0441\u043A\u0438\u0445 bundle \u0438 \u0430\
+    \u0432\u0442\u043E\u0437\u0430\u043F\u0443\u0441\u043A\u0430 pipeline \u0438\u0437\
+    \ \u043E\u0434\u043D\u043E\u0433\u043E \u043C\u0435\u0441\u0442\u0430.\n\n- Active/trialing\
+    \ subscriptions get refreshed server license.\n- Inactive subscriptions are downgraded\
+    \ on renewal pass.\n- Strict-local clients use offline renewal bundles and do\
+    \ not require online renewal.\n\n## Hardening e2e matrix report\n\nGenerate a\
+    \ PASS/FAIL report for the hardening controls:\n\n```bash\npython3 scripts/run_hardening_e2e_matrix.py\n\
+    ```\n\nReport path:\n\n- `reports/hardening_e2e_matrix_report.json`"

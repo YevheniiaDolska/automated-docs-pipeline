@@ -4,17 +4,17 @@ description: Auto-generated websocket reference from source contract.
 content_type: reference
 product: both
 tags:
-- Pytest 2995
-- Docs
 - Tmp
-- Pytest Of Eudo
+- Pytest 3054
+- Docs
 - Test_Multi_Protocol_Flow_Gener0
+- Pytest Of Eudo
 ---
 
 
 # WEBSOCKET Reference
 
-Source: `/tmp/pytest-of-eudo/pytest-2995/test_multi_protocol_flow_gener0/api/websocket.yaml`
+Source: `/tmp/pytest-of-eudo/pytest-3054/test_multi_protocol_flow_gener0/api/websocket.yaml`
 
 Flow mode: `api-first`
 

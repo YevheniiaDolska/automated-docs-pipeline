@@ -1,0 +1,715 @@
+{
+  "generated_at": "2026-04-17T11:32:09.450871+00:00",
+  "site_url": "https://encore.dev/docs",
+  "site_urls": [
+    "https://encore.dev/docs"
+  ],
+  "topology_mode": "multi-project",
+  "verification_modes": [
+    "authenticated",
+    "bot",
+    "browser"
+  ],
+  "sites": [
+    {
+      "site_url": "https://encore.dev/docs",
+      "metrics": {
+        "crawl": {
+          "pages_crawled": 404,
+          "requested_pages": 514,
+          "urls_examined": 405,
+          "max_pages": 2500,
+          "effective_limit": 2500,
+          "auto_mode": false,
+          "stop_reason": "queue_exhausted",
+          "discovered_pages": 405,
+          "crawl_scope_basis": "sitemap",
+          "crawl_scope_pages": 404,
+          "crawl_coverage_pct": 100.25,
+          "trap_urls_skipped": 0,
+          "seeded_sitemap_urls": 404,
+          "robots_sitemaps_declared": 1
+        },
+        "links": {
+          "internal_links_checked": 480,
+          "broken_internal_links_count": 31,
+          "docs_broken_links_count": 31,
+          "repo_broken_links_count": 0,
+          "broken_internal_link_samples": [
+            "https://encore.dev/blog/building-semantic-search-qdrant-encore",
+            "https://encore.dev/cdn-cgi/l/email-protection",
+            "https://encore.dev/cloud",
+            "https://encore.dev/docs/deploy/aws",
+            "https://encore.dev/docs/deploy/gcp",
+            "https://encore.dev/docs/deploy/own-cloud",
+            "https://encore.dev/docs/deploy/self-hosting",
+            "https://encore.dev/docs/g",
+            "https://encore.dev/docs/go/primitives",
+            "https://encore.dev/docs/go/self-host/build",
+            "https://encore.dev/docs/how-to/migrate-to-encore",
+            "https://encore.dev/docs/how-to/try-encore",
+            "https://encore.dev/docs/ts/ai-agents",
+            "https://encore.dev/docs/ts/deploy/deploying",
+            "https://encore.dev/docs/ts/deploy/own-cloud",
+            "https://encore.dev/docs/ts/deploy/preview-environments",
+            "https://encore.dev/docs/ts/develop/mcp",
+            "https://encore.dev/docs/ts/develop/running",
+            "https://encore.dev/docs/ts/develop/services-and-apis",
+            "https://encore.dev/docs/ts/how-to/clerk-auth"
+          ],
+          "docs_broken_link_samples": [
+            "https://encore.dev/blog/building-semantic-search-qdrant-encore",
+            "https://encore.dev/cdn-cgi/l/email-protection",
+            "https://encore.dev/cloud",
+            "https://encore.dev/docs/deploy/aws",
+            "https://encore.dev/docs/deploy/gcp",
+            "https://encore.dev/docs/deploy/own-cloud",
+            "https://encore.dev/docs/deploy/self-hosting",
+            "https://encore.dev/docs/g",
+            "https://encore.dev/docs/go/primitives",
+            "https://encore.dev/docs/go/self-host/build",
+            "https://encore.dev/docs/how-to/migrate-to-encore",
+            "https://encore.dev/docs/how-to/try-encore",
+            "https://encore.dev/docs/ts/ai-agents",
+            "https://encore.dev/docs/ts/deploy/deploying",
+            "https://encore.dev/docs/ts/deploy/own-cloud",
+            "https://encore.dev/docs/ts/deploy/preview-environments",
+            "https://encore.dev/docs/ts/develop/mcp",
+            "https://encore.dev/docs/ts/develop/running",
+            "https://encore.dev/docs/ts/develop/services-and-apis",
+            "https://encore.dev/docs/ts/how-to/clerk-auth",
+            "https://encore.dev/docs/ts/how-to/integrate-frontend",
+            "https://encore.dev/docs/ts/primitives",
+            "https://encore.dev/docs/ts/primitives/metrics",
+            "https://encore.dev/docs/ts/self-host/docker-build",
+            "https://encore.dev/features/tracing",
+            "https://encore.dev/new",
+            "https://encore.dev/t/contact_us",
+            "https://encore.dev/t/privacy",
+            "https://encore.dev/t/terms",
+            "https://encore.dev/templates/chat/provider/slack/bot-manifest.json"
+          ],
+          "repo_broken_link_samples": [],
+          "unreachable_links_count": 0,
+          "unverified_links_count": 0,
+          "unverified_link_samples": [],
+          "confirmed_broken_links_count": 31,
+          "excluded_links_count": 3,
+          "excluded_link_samples": [
+            "https://encore.dev/api/auth/login",
+            "https://encore.dev/assets/blog/7_travelsize.png",
+            "https://encore.dev/assets/blog/9_inlaws.png"
+          ],
+          "_all_confirmed_broken_links": [
+            "https://encore.dev/blog/building-semantic-search-qdrant-encore",
+            "https://encore.dev/cdn-cgi/l/email-protection",
+            "https://encore.dev/cloud",
+            "https://encore.dev/docs/deploy/aws",
+            "https://encore.dev/docs/deploy/gcp",
+            "https://encore.dev/docs/deploy/own-cloud",
+            "https://encore.dev/docs/deploy/self-hosting",
+            "https://encore.dev/docs/g",
+            "https://encore.dev/docs/go/primitives",
+            "https://encore.dev/docs/go/self-host/build",
+            "https://encore.dev/docs/how-to/migrate-to-encore",
+            "https://encore.dev/docs/how-to/try-encore",
+            "https://encore.dev/docs/ts/ai-agents",
+            "https://encore.dev/docs/ts/deploy/deploying",
+            "https://encore.dev/docs/ts/deploy/own-cloud",
+            "https://encore.dev/docs/ts/deploy/preview-environments",
+            "https://encore.dev/docs/ts/develop/mcp",
+            "https://encore.dev/docs/ts/develop/running",
+            "https://encore.dev/docs/ts/develop/services-and-apis",
+            "https://encore.dev/docs/ts/how-to/clerk-auth",
+            "https://encore.dev/docs/ts/how-to/integrate-frontend",
+            "https://encore.dev/docs/ts/primitives",
+            "https://encore.dev/docs/ts/primitives/metrics",
+            "https://encore.dev/docs/ts/self-host/docker-build",
+            "https://encore.dev/features/tracing",
+            "https://encore.dev/new",
+            "https://encore.dev/t/contact_us",
+            "https://encore.dev/t/privacy",
+            "https://encore.dev/t/terms",
+            "https://encore.dev/templates/chat/provider/slack/bot-manifest.json",
+            "https://encore.dev/templates/frontend/lib/plans.ts"
+          ],
+          "_all_unverified_links": [],
+          "_all_excluded_links": [
+            "https://encore.dev/api/auth/login",
+            "https://encore.dev/assets/blog/7_travelsize.png",
+            "https://encore.dev/assets/blog/9_inlaws.png"
+          ],
+          "_all_docs_unverified_links": [],
+          "_all_repo_unverified_links": [],
+          "_broken_link_provenance": {
+            "https://encore.dev/blog/building-semantic-search-qdrant-encore": [
+              {
+                "source_page": "https://encore.dev/articles/best-vector-databases",
+                "anchor_text": "tutorial for building semantic search with Qdrant"
+              },
+              {
+                "source_page": "https://encore.dev/articles/pgvector-vs-qdrant",
+                "anchor_text": "Building Semantic Search with Qdrant"
+              },
+              {
+                "source_page": "https://encore.dev/blog/you-probably-dont-need-a-vector-database",
+                "anchor_text": "semantic search guide using Qdrant"
+              }
+            ],
+            "https://encore.dev/cdn-cgi/l/email-protection": [
+              {
+                "source_page": "https://encore.dev/articles/add-database-go-api",
+                "anchor_text": "[email\u00a0protected]"
+              },
+              {
+                "source_page": "https://encore.dev/articles/add-database-typescript-api",
+                "anchor_text": "[email\u00a0protected]"
+              },
+              {
+                "source_page": "https://encore.dev/articles/authentication-typescript-api",
+                "anchor_text": "[email\u00a0protected]"
+              },
+              {
+                "source_page": "https://encore.dev/articles/elysia-vs-encore",
+                "anchor_text": "[email\u00a0protected]"
+              },
+              {
+                "source_page": "https://encore.dev/articles/hono-vs-encore",
+                "anchor_text": "[email\u00a0protected]"
+              }
+            ],
+            "https://encore.dev/cloud": [
+              {
+                "source_page": "https://encore.dev/blog/anatomy-of-a-trace",
+                "anchor_text": "Encore Cloud"
+              },
+              {
+                "source_page": "https://encore.dev/blog/stop-writing-instrumentation-code",
+                "anchor_text": "Encore Cloud"
+              }
+            ],
+            "https://encore.dev/docs/deploy/aws": [
+              {
+                "source_page": "https://encore.dev/blog/terraform-cdk-alternative",
+                "anchor_text": "AWS"
+              }
+            ],
+            "https://encore.dev/docs/deploy/gcp": [
+              {
+                "source_page": "https://encore.dev/blog/cursor-aws",
+                "anchor_text": "GCP"
+              },
+              {
+                "source_page": "https://encore.dev/blog/terraform-cdk-alternative",
+                "anchor_text": "GCP"
+              }
+            ],
+            "https://encore.dev/docs/deploy/own-cloud": [
+              {
+                "source_page": "https://encore.dev/changelog",
+                "anchor_text": "Check out the docs"
+              },
+              {
+                "source_page": "https://encore.dev/changelog/v1.0.0-a-new-day",
+                "anchor_text": "Check out the docs"
+              },
+              {
+                "source_page": "https://encore.dev/changelog/v0.23.0-azure-support-here",
+                "anchor_text": "Check out the docs"
+              }
+            ],
+            "https://encore.dev/docs/deploy/self-hosting": [
+              {
+                "source_page": "https://encore.dev/blog/terraform-cdk-alternative",
+                "anchor_text": "Self-hosting"
+              }
+            ],
+            "https://encore.dev/docs/g": [
+              {
+                "source_page": "https://encore.dev/templates/react",
+                "anchor_text": "Encore Documentation"
+              }
+            ],
+            "https://encore.dev/docs/go/primitives": [
+              {
+                "source_page": "https://encore.dev/docs/go/ai-integration",
+                "anchor_text": "primitives"
+              }
+            ],
+            "https://encore.dev/docs/go/self-host/build": [
+              {
+                "source_page": "https://encore.dev/docs/go/ai-integration",
+                "anchor_text": "self-host"
+              }
+            ],
+            "https://encore.dev/docs/how-to/migrate-to-encore": [
+              {
+                "source_page": "https://encore.dev/introduction",
+                "anchor_text": "See guide"
+              }
+            ],
+            "https://encore.dev/docs/how-to/try-encore": [
+              {
+                "source_page": "https://encore.dev/introduction",
+                "anchor_text": "Show me"
+              }
+            ],
+            "https://encore.dev/docs/ts/ai-agents": [
+              {
+                "source_page": "https://encore.dev/blog/llm-instructions copy",
+                "anchor_text": "MCP server"
+              }
+            ],
+            "https://encore.dev/docs/ts/deploy/deploying": [
+              {
+                "source_page": "https://encore.dev/blog/ai-agents-aws-credentials",
+                "anchor_text": "approve or reject changes"
+              }
+            ],
+            "https://encore.dev/docs/ts/deploy/own-cloud": [
+              {
+                "source_page": "https://encore.dev/blog/last-year-of-terraform",
+                "anchor_text": "AWS or GCP"
+              }
+            ],
+            "https://encore.dev/docs/ts/deploy/preview-environments": [
+              {
+                "source_page": "https://encore.dev/blog/last-year-of-terraform",
+                "anchor_text": "preview environments"
+              }
+            ],
+            "https://encore.dev/docs/ts/develop/mcp": [
+              {
+                "source_page": "https://encore.dev/articles/what-is-mcp",
+                "anchor_text": "Encore's MCP documentation"
+              },
+              {
+                "source_page": "https://encore.dev/articles/what-is-mcp",
+                "anchor_text": "Encore MCP docs"
+              },
+              {
+                "source_page": "https://encore.dev/articles/what-is-mcp",
+                "anchor_text": "Explore Encore's MCP integration"
+              },
+              {
+                "source_page": "https://encore.dev/blog/last-year-of-terraform",
+                "anchor_text": "MCP server"
+              }
+            ],
+            "https://encore.dev/docs/ts/develop/running": [
+              {
+                "source_page": "https://encore.dev/blog/last-year-of-terraform",
+                "anchor_text": "real infrastructure"
+              }
+            ],
+            "https://encore.dev/docs/ts/develop/services-and-apis": [
+              {
+                "source_page": "https://encore.dev/articles/build-rest-api-typescript-2026",
+                "anchor_text": "service"
+              },
+              {
+                "source_page": "https://encore.dev/articles/microservices-typescript",
+                "anchor_text": "service"
+              },
+              {
+                "source_page": "https://encore.dev/articles/microservices-typescript",
+                "anchor_text": "Encore Services Documentation"
+              }
+            ],
+            "https://encore.dev/docs/ts/how-to/clerk-auth": [
+              {
+                "source_page": "https://encore.dev/templates/clerk",
+                "anchor_text": "Use Clerk with your app"
+              }
+            ],
+            "https://encore.dev/docs/ts/how-to/integrate-frontend": [
+              {
+                "source_page": "https://encore.dev/blog/betterauth-tutorial",
+                "anchor_text": "frontend integration docs"
+              },
+              {
+                "source_page": "https://encore.dev/blog/clerk-tutorial",
+                "anchor_text": "frontend integration docs"
+              },
+              {
+                "source_page": "https://encore.dev/blog/daytona-tutorial",
+                "anchor_text": "frontend integration documentation"
+              },
+              {
+                "source_page": "https://encore.dev/blog/langfuse-tutorial",
+                "anchor_text": "generated API client"
+              }
+            ],
+            "https://encore.dev/docs/ts/primitives": [
+              {
+                "source_page": "https://encore.dev/blog/terraform-cdk-alternative",
+                "anchor_text": "full list of primitives"
+              },
+              {
+                "source_page": "https://encore.dev/docs/platform/ai-integration",
+                "anchor_text": "primitives"
+              },
+              {
+                "source_page": "https://encore.dev/docs/ts/ai-integration",
+                "anchor_text": "primitives"
+              }
+            ],
+            "https://encore.dev/docs/ts/primitives/metrics": [
+              {
+                "source_page": "https://encore.dev/docs/ts/observability/metrics",
+                "anchor_text": "encore.dev/metrics"
+              }
+            ],
+            "https://encore.dev/docs/ts/self-host/docker-build": [
+              {
+                "source_page": "https://encore.dev/blog/betterauth-tutorial",
+                "anchor_text": "self-host"
+              },
+              {
+                "source_page": "https://encore.dev/blog/clerk-tutorial",
+                "anchor_text": "self-host"
+              },
+              {
+                "source_page": "https://encore.dev/blog/ory-tutorial",
+                "anchor_text": "self-hosting instructions"
+              }
+            ],
+            "https://encore.dev/features/tracing": [
+              {
+                "source_page": "https://encore.dev/articles/cron-jobs-typescript",
+                "anchor_text": "distributed tracing"
+              }
+            ],
+            "https://encore.dev/new": [
+              {
+                "source_page": "https://encore.dev/youtube",
+                "anchor_text": "Test new features"
+              }
+            ],
+            "https://encore.dev/t/contact_us": [
+              {
+                "source_page": "https://encore.dev/youtube",
+                "anchor_text": "Contact us"
+              }
+            ],
+            "https://encore.dev/t/privacy": [
+              {
+                "source_page": "https://encore.dev/youtube",
+                "anchor_text": "Privacy"
+              }
+            ],
+            "https://encore.dev/t/terms": [
+              {
+                "source_page": "https://encore.dev/youtube",
+                "anchor_text": "Terms"
+              }
+            ],
+            "https://encore.dev/templates/chat/provider/slack/bot-manifest.json": [
+              {
+                "source_page": "https://encore.dev/templates/chatty-bots",
+                "anchor_text": "bot manifest"
+              }
+            ],
+            "https://encore.dev/templates/frontend/lib/plans.ts": [
+              {
+                "source_page": "https://encore.dev/templates/saas-starter",
+                "anchor_text": "frontend/lib/plans.ts"
+              }
+            ]
+          }
+        },
+        "seo_geo": {
+          "pages_scanned": 404,
+          "missing_title_count": 0,
+          "missing_description_count": 2,
+          "multiple_h1_count": 153,
+          "heading_hierarchy_jump_count": 124,
+          "seo_geo_issue_rate_pct": 17.26
+        },
+        "api_coverage": {
+          "reference_endpoint_count": 48,
+          "api_pages_detected": 132,
+          "endpoints_with_usage_docs": 7,
+          "reference_endpoints_without_usage_docs": 41,
+          "reference_coverage_pct": 14.58,
+          "no_api_pages_found": false,
+          "coverage_determined": true,
+          "coverage_method": "source_of_truth",
+          "detection_note": "",
+          "uncovered_endpoint_samples": [
+            "ev:1",
+            "ev:5",
+            "ev:ai",
+            "ev:devops",
+            "ev:security",
+            "ev:software-development",
+            "gql:a",
+            "gql:above",
+            "gql:addbook",
+            "gql:batching",
+            "gql:can",
+            "gql:could",
+            "gql:data",
+            "gql:encore",
+            "gql:exactly",
+            "gql:fields",
+            "gql:from",
+            "gql:function",
+            "gql:getbooks",
+            "gql:handlers"
+          ]
+        },
+        "examples": {
+          "total_code_examples": 2112,
+          "total_code_blocks_all": 2297,
+          "runnable_without_env": 1850,
+          "blocked_by_placeholders": 29,
+          "network_bound_examples": 233,
+          "example_reliability_estimate_pct": 87.59,
+          "detection_note": ""
+        },
+        "freshness": {
+          "pages_with_last_updated_hint": 111,
+          "pages_without_last_updated_hint": 293,
+          "last_updated_coverage_pct": 27.48,
+          "samples_with_last_updated": [
+            {
+              "url": "https://encore.dev/articles/best-vector-databases",
+              "hint": "\"2026-03-01\""
+            },
+            {
+              "url": "https://encore.dev/articles/pgvector-vs-pinecone",
+              "hint": "\"2026-02-01\""
+            },
+            {
+              "url": "https://encore.dev/blog",
+              "hint": "Feb 28, 2025"
+            },
+            {
+              "url": "https://encore.dev/blog/2023-in-review",
+              "hint": "Jan 4, 2024"
+            },
+            {
+              "url": "https://encore.dev/blog/advanced-go-concurrency",
+              "hint": "Feb 18, 2020"
+            },
+            {
+              "url": "https://encore.dev/blog/a-new-type-of-framework",
+              "hint": "Sep 26, 2024"
+            },
+            {
+              "url": "https://encore.dev/blog/advanced-validation",
+              "hint": "Dec 12, 2024"
+            },
+            {
+              "url": "https://encore.dev/blog/ai-api-creator",
+              "hint": "May 10, 2024"
+            },
+            {
+              "url": "https://encore.dev/blog/ai-agents-aws-credentials",
+              "hint": "Mar 25, 2026"
+            },
+            {
+              "url": "https://encore.dev/blog/beyond-paas",
+              "hint": "Feb 28, 2025"
+            }
+          ]
+        }
+      },
+      "samples": {
+        "broken_links": [
+          "https://encore.dev/blog/building-semantic-search-qdrant-encore",
+          "https://encore.dev/cdn-cgi/l/email-protection",
+          "https://encore.dev/cloud",
+          "https://encore.dev/docs/deploy/aws",
+          "https://encore.dev/docs/deploy/gcp",
+          "https://encore.dev/docs/deploy/own-cloud",
+          "https://encore.dev/docs/deploy/self-hosting",
+          "https://encore.dev/docs/g",
+          "https://encore.dev/docs/go/primitives",
+          "https://encore.dev/docs/go/self-host/build",
+          "https://encore.dev/docs/how-to/migrate-to-encore",
+          "https://encore.dev/docs/how-to/try-encore",
+          "https://encore.dev/docs/ts/ai-agents",
+          "https://encore.dev/docs/ts/deploy/deploying",
+          "https://encore.dev/docs/ts/deploy/own-cloud",
+          "https://encore.dev/docs/ts/deploy/preview-environments",
+          "https://encore.dev/docs/ts/develop/mcp",
+          "https://encore.dev/docs/ts/develop/running",
+          "https://encore.dev/docs/ts/develop/services-and-apis",
+          "https://encore.dev/docs/ts/how-to/clerk-auth"
+        ],
+        "docs_broken_link_samples": [
+          "https://encore.dev/blog/building-semantic-search-qdrant-encore",
+          "https://encore.dev/cdn-cgi/l/email-protection",
+          "https://encore.dev/cloud",
+          "https://encore.dev/docs/deploy/aws",
+          "https://encore.dev/docs/deploy/gcp",
+          "https://encore.dev/docs/deploy/own-cloud",
+          "https://encore.dev/docs/deploy/self-hosting",
+          "https://encore.dev/docs/g",
+          "https://encore.dev/docs/go/primitives",
+          "https://encore.dev/docs/go/self-host/build",
+          "https://encore.dev/docs/how-to/migrate-to-encore",
+          "https://encore.dev/docs/how-to/try-encore",
+          "https://encore.dev/docs/ts/ai-agents",
+          "https://encore.dev/docs/ts/deploy/deploying",
+          "https://encore.dev/docs/ts/deploy/own-cloud",
+          "https://encore.dev/docs/ts/deploy/preview-environments",
+          "https://encore.dev/docs/ts/develop/mcp",
+          "https://encore.dev/docs/ts/develop/running",
+          "https://encore.dev/docs/ts/develop/services-and-apis",
+          "https://encore.dev/docs/ts/how-to/clerk-auth",
+          "https://encore.dev/docs/ts/how-to/integrate-frontend",
+          "https://encore.dev/docs/ts/primitives",
+          "https://encore.dev/docs/ts/primitives/metrics",
+          "https://encore.dev/docs/ts/self-host/docker-build",
+          "https://encore.dev/features/tracing",
+          "https://encore.dev/new",
+          "https://encore.dev/t/contact_us",
+          "https://encore.dev/t/privacy",
+          "https://encore.dev/t/terms",
+          "https://encore.dev/templates/chat/provider/slack/bot-manifest.json"
+        ],
+        "repo_broken_link_samples": [],
+        "unverified_link_samples": [],
+        "api_uncovered_samples": [
+          "ev:1",
+          "ev:5",
+          "ev:ai",
+          "ev:devops",
+          "ev:security",
+          "ev:software-development",
+          "gql:a",
+          "gql:above",
+          "gql:addbook",
+          "gql:batching",
+          "gql:can",
+          "gql:could",
+          "gql:data",
+          "gql:encore",
+          "gql:exactly",
+          "gql:fields",
+          "gql:from",
+          "gql:function",
+          "gql:getbooks",
+          "gql:handlers"
+        ]
+      },
+      "run_count": 1
+    }
+  ],
+  "aggregate": {
+    "metrics": {
+      "crawl": {
+        "pages_crawled": 404,
+        "requested_pages": 514,
+        "urls_examined": 405,
+        "max_pages_total": 2500,
+        "discovered_pages": 405,
+        "crawl_scope_pages": 404,
+        "trap_urls_skipped": 0,
+        "crawl_coverage_pct": 100.25
+      },
+      "links": {
+        "broken_internal_links_count": 31,
+        "docs_broken_links_count": 31,
+        "repo_broken_links_count": 0,
+        "unverified_links_count": 0,
+        "confirmed_broken_links_count": 31,
+        "excluded_links_count": 3
+      },
+      "seo_geo": {
+        "seo_geo_issue_rate_pct": 17.26
+      },
+      "api_coverage": {
+        "reference_coverage_pct": 14.58,
+        "no_api_pages_found": false,
+        "api_pages_detected": 132,
+        "coverage_determined": true,
+        "detection_note": ""
+      },
+      "examples": {
+        "example_reliability_estimate_pct": 87.59
+      },
+      "freshness": {
+        "last_updated_coverage_pct": 27.48
+      }
+    },
+    "confidence": {
+      "overall_confidence_pct": 91.5,
+      "links_confidence_pct": 95.0,
+      "api_confidence_pct": 85.0,
+      "crawl_confidence_pct": 95.0
+    }
+  },
+  "confidence": {
+    "overall_confidence_pct": 91.5,
+    "links_confidence_pct": 95.0,
+    "api_confidence_pct": 85.0,
+    "crawl_confidence_pct": 95.0
+  },
+  "top_findings": [
+    "Broken internal links: 31",
+    "SEO/GEO issue rate is high: 17.26%",
+    "API usage-doc coverage is low: 14.58% (132 API pages detected)",
+    "Freshness visibility is weak: only 27.48% pages show last updated"
+  ],
+  "llm_analysis": {
+    "status": "ok",
+    "model": "claude-sonnet-4-5",
+    "analysis": {
+      "executive_summary": "Documentation audit of encore.dev/docs crawled 404 pages with 100.25% coverage across multi-project topology. Critical issues include 31 confirmed broken internal documentation links requiring immediate remediation. API reference coverage stands at only 14.58% despite 132 API pages detected, indicating significant documentation gaps. Freshness metadata is visible on just 27.48% of pages, limiting user confidence in content currency. SEO/geo issues affect 17.26% of pages, potentially impacting discoverability and international reach.",
+      "strengths": [
+        "Complete crawl coverage at 100.25% with 404 pages successfully indexed",
+        "High overall audit confidence at 91.5% with strong link verification (95% confidence)",
+        "Example code reliability estimated at 87.59%, indicating quality code samples",
+        "No repository navigation link breakage (0 repo_broken_links_count)",
+        "Zero trap URLs or crawl scope issues detected"
+      ],
+      "risks": [
+        "31 confirmed broken internal documentation links create poor user experience and navigation dead-ends",
+        "API reference coverage at 14.58% leaves 85%+ of API surface undocumented or poorly linked",
+        "Freshness metadata missing on 72.52% of pages undermines user trust in content accuracy",
+        "SEO/geo issue rate of 17.26% affects ~70 pages, risking search visibility and international accessibility",
+        "132 API pages detected but low coverage suggests fragmented or incomplete API documentation strategy",
+        "Missing last-updated timestamps prevent users from assessing content relevance for version-specific needs",
+        "Multi-project topology with coverage gaps may confuse users navigating between project contexts"
+      ],
+      "prioritized_actions": [
+        {
+          "action": "Fix all 31 broken internal documentation links to restore navigation integrity",
+          "impact": "critical",
+          "effort": "low"
+        },
+        {
+          "action": "Implement last-updated timestamps on all 293+ pages currently missing freshness metadata",
+          "impact": "high",
+          "effort": "low"
+        },
+        {
+          "action": "Conduct API documentation gap analysis and create missing reference pages to improve 14.58% coverage baseline",
+          "impact": "critical",
+          "effort": "high"
+        },
+        {
+          "action": "Remediate SEO/geo issues on 70 affected pages (meta tags, hreflang, structured data)",
+          "impact": "high",
+          "effort": "medium"
+        },
+        {
+          "action": "Establish cross-linking strategy between 132 API pages and usage documentation to increase reference coverage percentage",
+          "impact": "high",
+          "effort": "medium"
+        }
+      ],
+      "limitations": [
+        "External audit cannot verify accuracy or completeness of technical content, code examples, or API specifications",
+        "Detection of API pages relies on heuristic pattern matching; actual API surface coverage may differ from calculated 14.58%",
+        "Broken link verification reflects point-in-time status; dynamic content or authentication-gated pages may show false positives",
+        "Example reliability estimate is based on structural analysis, not execution testing or version compatibility validation",
+        "Multi-project topology analysis cannot assess logical coherence or user journey effectiveness across project boundaries"
+      ]
+    }
+  }
+}

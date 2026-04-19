@@ -15,7 +15,7 @@ channels:
 priority: 60
 status: active
 owner: docsops-auto
-last_verified: '2026-04-15'
+last_verified: '2026-04-18'
 dependencies: []
 tags:
 - auto-extracted
@@ -40,7 +40,7 @@ semantic:
 content:
   docs_markdown: "## Configure authentication\n\n!!! warning \"Secure your webhooks\"\
     \n    Always enable authentication on production webhook endpoints.\n    Unauthenticated\
-    \ webhooks accept requests from any source.\n\nAdd authentication in the webhook\
+    \ webhooks accept requests from any source.\nAdd authentication in the webhook\
     \ node settings:\n\n| Auth method | Use case | Configuration |\n|-------------|----------|---------------|\n\
     | Header Auth | API key validation | Set header name and expected value |\n| Basic\
     \ Auth | Username and password | Set credentials in node settings |\n| JWT | Token-based\
@@ -51,8 +51,8 @@ content:
     \ incoming HTTP requests with authentication.\n\n## Configure authentication\n\
     \n!!! warning \"Secure your webhooks\"\n    Always enable authentication on production\
     \ webhook endpoints.\n    Unauthenticated webhooks accept requests from any source.\n\
-    \nAdd authentication in the webhook node settings:\n\n| Auth method | Use case\
-    \ | Configuration |\n|-------------|----------|---------------|\n| Header Auth\
-    \ | API key validation | Set header name and expected value |\n| Basic Auth |\
-    \ Username and password | Set credentials in node settings |\n| JWT | Token-based\
-    \ auth | Configure secret and algorithm |"
+    Add authentication in the webhook node settings:\n\n| Auth method | Use case |\
+    \ Configuration |\n|-------------|----------|---------------|\n| Header Auth |\
+    \ API key validation | Set header name and expected value |\n| Basic Auth | Username\
+    \ and password | Set credentials in node settings |\n| JWT | Token-based auth\
+    \ | Configure secret and algorithm |"

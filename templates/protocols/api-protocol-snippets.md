@@ -18,11 +18,42 @@ Use these snippets in generated docs for consistent, high-signal structure.
 ````md
 ### Request
 
-```bash
-curl -X GET "https://{{ api_host }}/v1/resources/res_1" \
-  -H "Authorization: Bearer ${TOKEN}" \
-  -H "Accept: application/json"
-```
+=== "cURL"
+
+    ```bash smoke
+    curl -X GET "https://{{ api_host }}/v1/resources/res_1" \
+      -H "Authorization: Bearer ${TOKEN}" \
+      -H "Accept: application/json"
+    ```
+
+=== "JavaScript"
+
+    ```javascript smoke
+    const response = await fetch('https://{{ api_host }}/v1/resources/res_1', {
+      method: 'GET',
+      headers: {
+        "Authorization": "Bearer ${TOKEN}",
+        "Accept": "application/json",
+      },
+    });
+    const payload = await response.json();
+    console.log(payload);
+    ```
+
+=== "Python"
+
+    ```python smoke
+    import requests
+
+    response = requests.request(
+        'GET',
+        'https://{{ api_host }}/v1/resources/res_1',
+        headers={'Authorization': 'Bearer ${TOKEN}', 'Accept': 'application/json'},
+        timeout=30,
+    )
+    response.raise_for_status()
+    print(response.json())
+    ```
 
 ```json
 {

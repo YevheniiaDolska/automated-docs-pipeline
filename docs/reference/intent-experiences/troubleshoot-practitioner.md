@@ -147,7 +147,7 @@ git commit -m "docs-ops: update Ask AI configuration"
 #### Configure Ask AI module (Part 4): Next steps
 
 - [Quick start](../getting-started/quickstart.md)
-- [Assemble intent experiences](./assemble-intent-experiences.md)
+- [Assemble intent experiences](../../how-to/assemble-intent-experiences.md)
 - [Intelligent knowledge system architecture](../concepts/intelligent-knowledge-system.md)
 
 ### Migrate documentation from Confluence (Part 5)

@@ -80,14 +80,14 @@ The platform is not limited to API-first automation. In active production usage,
 | Drift + docs contract gates | No | Yes | Yes |
 | KPI/SLA reports | No | Yes | Yes |
 | API-first flow | No | Optional | Full |
-| Non-REST API-first autopipeline (GraphQL/gRPC/AsyncAPI/WebSocket) | No | No | Yes |
-| Non-REST server stubs (business-logic placeholders) | No | No | Yes |
-| Non-REST external mock auto-prepare (Postman) | No | No | Yes |
+| Non-REST API-first autopipeline (GraphQL/gRPC/AsyncAPI/WebSocket) | No | Yes | Yes |
+| Non-REST server stubs (business-logic placeholders) | No | Yes | Yes |
+| Non-REST external mock auto-prepare (Postman) | No | Yes | Yes |
 | API test assets (cases/matrix/fuzz docs) | No | Yes | Yes |
 | TestRail/Zephyr upload from pipeline | No | Optional | Optional |
-| RAG/knowledge validation/index | No | Yes | Yes |
+| RAG preparation (knowledge modules/index/graph, no retrieval) | No | Yes | Yes |
 | JSON-LD ontology/graph layer | No | Yes | Yes |
-| Retrieval evals (Precision/Recall/Hallucination) | No | Yes | Yes |
+| Retrieval-time RAG (FAISS retrieval + retrieval eval gate) | No | No | Yes |
 | Terminology auto-sync (glossary markers) | Yes | Yes | Yes |
 | PR auto-doc fix to same PR branch | Optional | Optional | Optional |
 | i18n sync | No | Optional | Yes |
@@ -339,9 +339,9 @@ Plan tiers are enforced at runtime by `scripts/license_gate.py`. Every gated scr
 
 Without a valid license, the pipeline runs in **community mode** (degraded):
 
-- Markdown lint, frontmatter validation, SEO/GEO report-only, gap detection code-only, glossary sync, lifecycle management, REST protocol.
-- No scoring, no auto-fix, no drift detection, no KPI/SLA, no PDF reports, no multi-protocol.
-- Quality gates warn-only (never block).
+- Only free lint gates are enabled by default (markdown, frontmatter, SEO/GEO report-only).
+- Advanced optimization modules are disabled (gap detection, glossary sync, lifecycle management, API-first, protocol flows, KPI/SLA, RAG prep/retrieval, PDF/i18n/custom packs).
+- No protocol entitlement is granted in community mode.
 
 License features per plan:
 
@@ -353,16 +353,16 @@ License features per plan:
 | `kpi_wall_sla` | No | Yes | Yes |
 | `test_assets_generation` | No | Yes | Yes |
 | `consolidated_reports` | No | Yes | Yes |
-| `multi_protocol_pipeline` | No | No | Yes |
-| `knowledge_modules` | No | No | Yes |
-| `knowledge_graph` | No | No | Yes |
+| `multi_protocol_pipeline` | No | Yes | Yes |
+| `knowledge_modules` | No | Yes | Yes |
+| `knowledge_graph` | No | Yes | Yes |
 | `faiss_retrieval` | No | No | Yes |
-| `executive_audit_pdf` | No | No | Yes |
-| `i18n_system` | No | No | Yes |
-| `custom_policy_packs` | No | No | Yes |
-| `testrail_zephyr_upload` | No | No | Yes |
+| `executive_audit_pdf` | No | Yes | Yes |
+| `i18n_system` | No | Yes | Yes |
+| `custom_policy_packs` | No | Yes | Yes |
+| `testrail_zephyr_upload` | No | Yes | Yes |
 
-Protocols per plan: Pilot and Professional allow REST only. Enterprise allows all 5 protocols.
+Protocols per plan: Pilot allows REST only. Professional and Enterprise allow all 5 protocols.
 
 Offline grace period: Pilot 3 days, Professional 7 days, Enterprise 30 days.
 
@@ -373,7 +373,7 @@ Dev/test bypass: `export VERIOPS_LICENSE_PLAN=enterprise`.
 ## 5. Plan upgrade path
 
 - `Basic -> Pro`: turn on `drift_detection`, `docs_contract`, `kpi_sla`, `rag_optimization`, `knowledge_validation`, set `api_first.enabled=true`. Update `licensing.plan` to `professional`.
-- `Pro -> Enterprise`: enable `verify_user_path`, `run_docs_lint`, stricter `policy_overrides.kpi_sla`, add full weekly custom tasks. Update `licensing.plan` to `enterprise`.
+- `Pro -> Enterprise`: enable retrieval-time RAG (`faiss_retrieval`) and stricter policy (`enterprise-strict`) where required. Update `licensing.plan` to `enterprise`.
 
 After any plan change, rebuild the bundle and re-provision.
 

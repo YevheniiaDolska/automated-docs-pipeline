@@ -1,52 +1,52 @@
 {
-  "generated_at": "2026-04-17T10:34:51Z",
+  "generated_at": "2026-04-18T12:12:42Z",
   "checks": {
     "tamper_detection": {
       "command": "pytest -q tests/test_hardening_controls.py::test_integrity_manifest_missing_blocks_when_enforced",
       "returncode": 0,
-      "duration_seconds": 3.293,
+      "duration_seconds": 1.778,
       "status": "PASS",
-      "stdout_tail": ".                                                                        [100%]\n1 passed in 2.21s\n",
+      "stdout_tail": ".                                                                        [100%]\n1 passed in 1.24s\n",
       "stderr_tail": ""
     },
     "expired_jwt_degrade": {
       "command": "pytest -q tests/test_hardening_controls.py::test_expired_license_degrades_to_community",
       "returncode": 0,
-      "duration_seconds": 2.969,
+      "duration_seconds": 1.5,
       "status": "PASS",
-      "stdout_tail": ".                                                                        [100%]\n1 passed in 1.87s\n",
+      "stdout_tail": ".                                                                        [100%]\n1 passed in 0.99s\n",
       "stderr_tail": ""
     },
     "tenant_domain_mismatch_degrade": {
       "command": "pytest -q tests/test_hardening_controls.py::test_tenant_and_domain_binding_mismatch_degrades",
       "returncode": 0,
-      "duration_seconds": 2.113,
+      "duration_seconds": 1.494,
       "status": "PASS",
-      "stdout_tail": ".                                                                        [100%]\n1 passed in 1.26s\n",
+      "stdout_tail": ".                                                                        [100%]\n1 passed in 0.99s\n",
       "stderr_tail": ""
     },
     "missing_invalid_pack_premium_off": {
       "command": "pytest -q tests/test_hardening_controls.py::test_missing_capability_pack_degrades_premium_features",
       "returncode": 0,
-      "duration_seconds": 2.019,
+      "duration_seconds": 1.618,
       "status": "PASS",
-      "stdout_tail": ".                                                                        [100%]\n1 passed in 1.24s\n",
+      "stdout_tail": ".                                                                        [100%]\n1 passed in 1.11s\n",
       "stderr_tail": ""
     },
     "strict_local_offline_renewal_bundle": {
       "command": "pytest -q tests/test_build_offline_renewal_bundle.py",
       "returncode": 0,
-      "duration_seconds": 2.285,
+      "duration_seconds": 1.441,
       "status": "PASS",
-      "stdout_tail": "..                                                                       [100%]\n2 passed in 1.52s\n",
+      "stdout_tail": "..                                                                       [100%]\n2 passed in 0.95s\n",
       "stderr_tail": ""
     },
     "hybrid_cloud_server_renewal_path": {
       "command": "pytest -q tests/test_run_server_license_renewal.py",
       "returncode": 0,
-      "duration_seconds": 2.04,
+      "duration_seconds": 1.474,
       "status": "PASS",
-      "stdout_tail": ".                                                                        [100%]\n1 passed in 1.37s\n",
+      "stdout_tail": ".                                                                        [100%]\n1 passed in 0.98s\n",
       "stderr_tail": ""
     }
   },

@@ -287,7 +287,8 @@ def _build_stage_summary(
                 ("test_assets_json", reports_dir / "api-test-assets" / "api_test_cases.json", True),
                 ("test_assets_coverage", reports_dir / "api-test-assets" / "coverage_report.json", True),
                 ("test_assets_fuzz", reports_dir / "api-test-assets" / "fuzz_scenarios.json", False),
-                ("test_assets_summary", reports_dir / "api-test-assets" / "TEST_ASSETS_SUMMARY.md", True),
+                # Some client profiles generate machine-readable assets only.
+                ("test_assets_summary", reports_dir / "api-test-assets" / "TEST_ASSETS_SUMMARY.md", False),
             ]
         )
     if upload_assets:
@@ -1065,17 +1066,22 @@ def main() -> int:
     stage_no += 1
     narrator.stage(stage_no, execution_stages[stage_no - 1], "Generate llms.txt and markdown URL artifacts")
     _say(f"Stage {stage_no}/{total_stages}", execution_stages[stage_no - 1])
-    llm_web_cmd = [
-        sys.executable,
-        str(REPO_ROOT / "scripts" / "generate_llm_web_artifacts.py"),
-        "--docs-root",
-        str(runtime.get("paths", {}).get("docs_root", "docs")),
-        "--site-root",
-        "site",
-        "--mkdocs-config",
-        "mkdocs.yml",
-    ]
-    llm_web_rc = _run(llm_web_cmd, cwd=repo_root)
+    llm_web_script = REPO_ROOT / "scripts" / "generate_llm_web_artifacts.py"
+    if llm_web_script.exists():
+        llm_web_cmd = [
+            sys.executable,
+            str(llm_web_script),
+            "--docs-root",
+            str(runtime.get("paths", {}).get("docs_root", "docs")),
+            "--site-root",
+            "site",
+            "--mkdocs-config",
+            "mkdocs.yml",
+        ]
+        llm_web_rc = _run(llm_web_cmd, cwd=repo_root)
+    else:
+        llm_web_rc = 0
+        print(f"[autopipeline] note: optional script missing, skipping stage: {llm_web_script}")
     _say(f"Stage {stage_no}/{total_stages} done", f"rc={llm_web_rc}")
     narrator.done(f"llm web artifacts rc={llm_web_rc}")
     if llm_web_rc != 0 and strictness == "enterprise-strict":

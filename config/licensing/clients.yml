@@ -14,7 +14,7 @@ clients:
   private_key_path: /mnt/c/Users/Kroha/Documents/development/Auto-Doc Pipeline/docsops/keys/clients/a/veriops-licensing.key
   public_key_path: /mnt/c/Users/Kroha/Documents/development/Auto-Doc Pipeline/docsops/keys/clients/a/veriops-licensing.pub
   latest_license_jwt_path: /mnt/c/Users/Kroha/Documents/development/Auto-Doc Pipeline/generated/tmp/licenses/a.license.jwt
-  source_profile: /tmp/pytest-of-eudo/pytest-2996/test_main_happy_path0/client.yml
+  source_profile: /tmp/pytest-of-eudo/pytest-3062/test_main_happy_path0/client.yml
 - client_id: rc-pilot-strict-local
   tenant_id: rc-pilot-strict-local
   company_domain: example.com
@@ -93,3 +93,68 @@ clients:
   public_key_path: /mnt/c/Users/Kroha/Documents/development/Auto-Doc Pipeline/docsops/keys/clients/rc-pilot-hybrid/veriops-licensing.pub
   latest_license_jwt_path: /mnt/c/Users/Kroha/Documents/development/Auto-Doc Pipeline/generated/tmp/licenses/rc-pilot-hybrid.license.jwt
   source_profile: /mnt/c/Users/Kroha/Documents/development/docs_test/profiles/pilot-hybrid.client.yml
+- client_id: example-enterprise
+  tenant_id: example-enterprise
+  company_domain: ''
+  plan: professional
+  max_docs: 0
+  status: active
+  retainer_active: true
+  key_rotation_days: 90
+  license_days: 30
+  private_key_path: /mnt/c/Users/Kroha/Documents/development/Auto-Doc Pipeline/docsops/keys/clients/example-enterprise/veriops-licensing.key
+  public_key_path: /mnt/c/Users/Kroha/Documents/development/Auto-Doc Pipeline/docsops/keys/clients/example-enterprise/veriops-licensing.pub
+  latest_license_jwt_path: /mnt/c/Users/Kroha/Documents/development/Auto-Doc Pipeline/generated/tmp/licenses/example-enterprise.license.jwt
+  source_profile: /mnt/c/Users/Kroha/Documents/development/Auto-Doc Pipeline/profiles/clients/examples/enterprise.client.yml
+- client_id: offline-renewal-strict
+  tenant_id: offline-renewal-strict
+  company_domain: example.com
+  plan: enterprise
+  max_docs: 0
+  status: active
+  retainer_active: true
+  key_rotation_days: 90
+  license_days: 30
+  private_key_path: /mnt/c/Users/Kroha/Documents/development/Auto-Doc Pipeline/docsops/keys/clients/offline-renewal-strict/veriops-licensing.key
+  public_key_path: /mnt/c/Users/Kroha/Documents/development/Auto-Doc Pipeline/docsops/keys/clients/offline-renewal-strict/veriops-licensing.pub
+  latest_license_jwt_path: /mnt/c/Users/Kroha/Documents/development/Auto-Doc Pipeline/generated/tmp/licenses/offline-renewal-strict.license.jwt
+  source_profile: /tmp/offline-renewal-strict.client.yml
+- client_id: rc-pilot-cloud
+  tenant_id: rc-pilot-cloud
+  company_domain: example.com
+  plan: pilot
+  max_docs: 0
+  status: active
+  retainer_active: true
+  key_rotation_days: 90
+  license_days: 30
+  private_key_path: /mnt/c/Users/Kroha/Documents/development/Auto-Doc Pipeline/docsops/keys/clients/rc-pilot-cloud/veriops-licensing.key
+  public_key_path: /mnt/c/Users/Kroha/Documents/development/Auto-Doc Pipeline/docsops/keys/clients/rc-pilot-cloud/veriops-licensing.pub
+  latest_license_jwt_path: /mnt/c/Users/Kroha/Documents/development/Auto-Doc Pipeline/generated/tmp/licenses/rc-pilot-cloud.license.jwt
+  source_profile: /mnt/c/Users/Kroha/Documents/development/docs_test/profiles/pilot-cloud.client.yml
+- client_id: rc-full-cloud
+  tenant_id: rc-full-cloud
+  company_domain: example.com
+  plan: professional
+  max_docs: 0
+  status: active
+  retainer_active: true
+  key_rotation_days: 90
+  license_days: 30
+  private_key_path: /mnt/c/Users/Kroha/Documents/development/Auto-Doc Pipeline/docsops/keys/clients/rc-full-cloud/veriops-licensing.key
+  public_key_path: /mnt/c/Users/Kroha/Documents/development/Auto-Doc Pipeline/docsops/keys/clients/rc-full-cloud/veriops-licensing.pub
+  latest_license_jwt_path: /mnt/c/Users/Kroha/Documents/development/Auto-Doc Pipeline/generated/tmp/licenses/rc-full-cloud.license.jwt
+  source_profile: /mnt/c/Users/Kroha/Documents/development/docs_test/profiles/full-cloud.client.yml
+- client_id: rc-full+rag-cloud
+  tenant_id: rc-full+rag-cloud
+  company_domain: example.com
+  plan: enterprise
+  max_docs: 0
+  status: active
+  retainer_active: true
+  key_rotation_days: 90
+  license_days: 30
+  private_key_path: /mnt/c/Users/Kroha/Documents/development/Auto-Doc Pipeline/docsops/keys/clients/rc-full+rag-cloud/veriops-licensing.key
+  public_key_path: /mnt/c/Users/Kroha/Documents/development/Auto-Doc Pipeline/docsops/keys/clients/rc-full+rag-cloud/veriops-licensing.pub
+  latest_license_jwt_path: /mnt/c/Users/Kroha/Documents/development/Auto-Doc Pipeline/generated/tmp/licenses/rc-full+rag-cloud.license.jwt
+  source_profile: /mnt/c/Users/Kroha/Documents/development/docs_test/profiles/full+rag-cloud.client.yml

@@ -36,6 +36,7 @@ class TranslationConfig:
     """Auto-translation provider settings."""
     stale_threshold_days: int = 30
     provider: str = "anthropic"
+    fallback_provider: str = ""
     model: str = "claude-sonnet-4-20250514"
     max_concurrency: int = 3
     temperature: float = 0.3
@@ -135,6 +136,7 @@ def load_i18n_config(config_path: str | Path = "i18n.yml") -> I18nConfig:
     translation = TranslationConfig(
         stale_threshold_days=raw_trans.get("stale_threshold_days", 30),
         provider=auto.get("provider", "anthropic"),
+        fallback_provider=auto.get("fallback_provider", ""),
         model=auto.get("model", "claude-sonnet-4-20250514"),
         max_concurrency=auto.get("max_concurrency", 3),
         temperature=auto.get("temperature", 0.3),

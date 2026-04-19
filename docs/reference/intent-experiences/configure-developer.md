@@ -185,22 +185,21 @@ Build user-intent documentation and channel bundles from reusable knowledge modu
 #### Assemble intent experiences (Part 3): Next steps
 
 - [Intelligent knowledge system architecture](../concepts/intelligent-knowledge-system.md)
-- [Intent experiences reference](../reference/intent-experiences/index.md)
+- [Intent experiences reference](./index.md)
 
 ### ASYNCAPI API Reference (Part 3)
 
 Auto-generated asyncapi reference from source contract.
 
+<!-- vale off -->
 <div id="asyncapi-playground" style="border:1px solid #d1d5db; padding:12px; border-radius:8px;">
   <p><strong>WebSocket Endpoint:</strong> <code id="asyncapi-ws-view"></code></p>
   <p><strong>HTTP Publish Endpoint:</strong> <code id="asyncapi-http-view"></code></p>
-  <!-- vale off -->
   <textarea id="asyncapi-message" rows="8" style="width:100%; font-family:monospace;">{
   "event_type": "project.updated",
   "event_id": "evt_001",
   "data": {"project_id": "prj_abc123", "status": "active"}
 }</textarea><br/>
-  <!-- vale on -->
   <button id="asyncapi-send-ws">Send via WebSocket</button>
   <button id="asyncapi-send-http">Send via HTTP</button>
   <pre id="asyncapi-output" style="margin-top:12px; max-height:320px; overflow:auto;"></pre>
@@ -270,6 +269,7 @@ sendHttp.onclick = async function(){
 };
 })();
 </script>
+<!-- vale on -->
 
 ### Auto-Doc Pipeline study guide (Part 5)
 
@@ -584,7 +584,7 @@ git commit -m "docs-ops: update Ask AI configuration"
 #### Configure Ask AI module (Part 4): Next steps
 
 - [Quick start](../getting-started/quickstart.md)
-- [Assemble intent experiences](./assemble-intent-experiences.md)
+- [Assemble intent experiences](../../how-to/assemble-intent-experiences.md)
 - [Intelligent knowledge system architecture](../concepts/intelligent-knowledge-system.md)
 
 ### Configure webhook triggers
@@ -656,7 +656,6 @@ Set up and configure webhook trigger nodes to start workflows from incoming HTTP
 !!! warning "Secure your webhooks"
     Always enable authentication on production webhook endpoints.
     Unauthenticated webhooks accept requests from any source.
-
 Add authentication in the webhook node settings:
 
 | Auth method | Use case | Configuration |
@@ -762,6 +761,7 @@ Check that you send the `Content-Type: application/json` header.
 
 Auto-generated graphql reference from source contract.
 
+<!-- vale off -->
 <div id="graphql-playground" style="border:1px solid #d1d5db; padding:12px; border-radius:8px;">
   <p><strong>Endpoint:</strong> <code id="graphql-endpoint-view"></code></p>
   <textarea id="graphql-query" rows="12" style="width:100%; font-family:monospace;">query HealthCheck {
@@ -807,6 +807,7 @@ run.onclick = async function(){
 };
 })();
 </script>
+<!-- vale on -->
 
 ### GRPC API Reference (Part 3)
 
@@ -975,6 +976,7 @@ Health check:
     const response = await fetch('http://localhost:8090/healthz', {
       method: 'GET',
       headers: {
+
 },
     });
     const payload = await response.json();
@@ -1061,7 +1063,7 @@ The `/healthz` endpoint reports the status of all advanced retrieval features:
 #### Install Ask AI runtime pack (Part 3): Next steps
 
 - [Configure Ask AI module](configure-ask-ai-module.md)
-- [Assemble intent experiences](assemble-intent-experiences.md)
+- [Assemble intent experiences](../../how-to/assemble-intent-experiences.md)
 - [Intelligent knowledge system architecture](../concepts/intelligent-knowledge-system.md)
 
 ### Intelligent knowledge system architecture (Part 2)
@@ -1540,7 +1542,7 @@ The platform is not limited to API-first automation. In active production usage,
 #### Multi-Protocol Wizard Guide (Part 5): Next steps
 
 - [Operator Runbook](OPERATOR_RUNBOOK.md) -- step-by-step retainer procedures
-- [Documentation index](../index.md)
+- [Documentation index](../../index.md)
 
 ### Multi-Protocol Wizard Guide (Part 6)
 
@@ -2487,7 +2489,7 @@ Two methods:
 | **Interactive wizard** (recommended) | First time, or if unsure about settings | `python3 scripts/onboard_client.py` |
 | **Manual profile + provision** | Repeat setup with known settings | Edit YAML + run `provision_client_repo.py` |
 
-### Pipeline Capabilities Catalog (Part 7)
+### Pipeline Capabilities Catalog (Part 8)
 
 Generated catalog of available pipeline commands, templates, policy packs, and assets for client configuration.
 
@@ -3294,7 +3296,7 @@ For static environments, refer to the [Mermaid sequence diagram](#webhook-proces
 
 #### Set up a real-time webhook processing pipeline (Part 15): Next steps
 
-- [Documentation index](../index.md)
+- [Documentation index](../../index.md)
 
 ### Set up a real-time webhook processing pipeline (Part 2)
 
@@ -3445,13 +3447,11 @@ if (!timestamp || !receivedSig) {
     Buffer.from(receivedSig)
   );
 }
-```
 
 ### Set up a real-time webhook processing pipeline (Part 6)
 
 Configure end-to-end webhook ingestion with HMAC verification, async queue processing, and delivery guarantees in under 15 minutes.
 
-```javascript
 // Test verification
 const testPayload = '{"event": "order.completed", "order_id": "ord_1234"}';
 const testSecret = 'whsec_test_secret_key_abc123_min32chars';
@@ -3509,7 +3509,9 @@ const worker = new Worker('webhook-events', async (job) => {
   const event = job.data;
   console.log(`Processing ${event.type}: ${JSON.stringify(event)}`);
 
-// Part 8: route and process events in worker handlers.
+### Set up a real-time webhook processing pipeline (Part 8)
+
+Configure end-to-end webhook ingestion with HMAC verification, async queue processing, and delivery guarantees in under 15 minutes.
 
 // Route to appropriate handler
   switch (event.type) {
@@ -3576,10 +3578,8 @@ sequenceDiagram
 
 !!! info "Payload size limit"
     {{ product_name }} accepts webhook payloads up to {{ max_payload_size_mb }} MB. Payloads exceeding this limit receive a `413 Payload Too Large` response. For larger data transfers, use a pre-signed URL pattern and send only the URL in the webhook payload.
-
 !!! warning "Signature verification required"
     Always verify webhook signatures before processing event data. Skipping verification exposes your application to forged events, replay attacks, and data injection. Use the HMAC-SHA256 functions provided above for both Python and JavaScript.
-
 !!! tip "Replay protection window"
     Include a timestamp in the signed payload and reject events older than 5 minutes. If your servers have clock skew, synchronize them with NTP and increase the tolerance window to 600 seconds.
 
@@ -3654,7 +3654,7 @@ Suggested operator flow:
 
 #### Smart Merge and Manual Review (Part 3): Next steps
 
-- [Documentation index](../index.md)
+- [Documentation index](../../index.md)
 
 ### Smart Merge and Manual Review (Part 4)
 
@@ -4083,9 +4083,11 @@ Each Webhook node generates two URLs:
 
 === "Cloud"
 
+
  Base URL: `<https://your-instance.app.the> product.cloud`
 
 === "Self-hosted"
+
 
  Base URL: your configured `WEBHOOK_URL` environment variable, or `<http://localhost:5678`> by default.
 
@@ -4145,7 +4147,7 @@ Complete parameter reference for the Webhook trigger node including HTTP methods
 
 #### Webhook node reference for (Part 3): Next steps
 
-- [Documentation index](../index.md)
+- [Documentation index](../../index.md)
 
 ### WEBSOCKET API Reference (Part 3)
 

@@ -16,7 +16,7 @@ channels:
 priority: 60
 status: active
 owner: docsops-auto
-last_verified: '2026-04-15'
+last_verified: '2026-04-18'
 dependencies: []
 tags:
 - auto-extracted
@@ -46,18 +46,18 @@ content:
     \n- **Test URL**: Active only while the workflow editor is open and listening.\
     \ Format: `{base_url}/webhook-test/{path}`\n- **Production URL**: Active when\
     \ the workflow is toggled to Active. Format: `{base_url}/webhook/{path}`\n\n===\
-    \ \"Cloud\"\n\n Base URL: `<https://your-instance.app.the> product.cloud`\n\n\
-    === \"Self-hosted\"\n\n Base URL: your configured `WEBHOOK_URL` environment variable,\
-    \ or `<http://localhost:5678`> by default.\n\n## Output\n\nThe Webhook node outputs\
-    \ a single item with the following structure:\n\n```json\n{\n \"json\": {\n \"\
-    headers\": { \"content-type\": \"application/json\", \"...\": \"...\" },\n \"\
-    params\": {},\n \"query\": { \"key\": \"value\" },\n \"body\": { \"...\": \"request\
-    \ body...\" }\n }\n}\n```\n\nFor binary data (file uploads), the node outputs\
-    \ an additional `binary` key.\n\n## Smoke-checked examples\n\nUse these minimal\
-    \ examples to verify that basic snippets still run in CI.\n\n```bash smoke\npython3\
-    \ -c \"print('webhook smoke ok')\"\n```\n\n```python smoke\npayload = {\"event\"\
-    : \"ping\", \"status\": \"ok\"}\nassert payload[\"status\"] == \"ok\"\nprint(\"\
-    webhook smoke ok\")\n```"
+    \ \"Cloud\"\n\n\n Base URL: `<https://your-instance.app.the> product.cloud`\n\n\
+    === \"Self-hosted\"\n\n\n Base URL: your configured `WEBHOOK_URL` environment\
+    \ variable, or `<http://localhost:5678`> by default.\n\n## Output\n\nThe Webhook\
+    \ node outputs a single item with the following structure:\n\n```json\n{\n \"\
+    json\": {\n \"headers\": { \"content-type\": \"application/json\", \"...\": \"\
+    ...\" },\n \"params\": {},\n \"query\": { \"key\": \"value\" },\n \"body\": {\
+    \ \"...\": \"request body...\" }\n }\n}\n```\n\nFor binary data (file uploads),\
+    \ the node outputs an additional `binary` key.\n\n## Smoke-checked examples\n\n\
+    Use these minimal examples to verify that basic snippets still run in CI.\n\n\
+    ```bash smoke\npython3 -c \"print('webhook smoke ok')\"\n```\n\n```python smoke\n\
+    payload = {\"event\": \"ping\", \"status\": \"ok\"}\nassert payload[\"status\"\
+    ] == \"ok\"\nprint(\"webhook smoke ok\")\n```"
   assistant_context: "Use this module when answering questions related to: Webhook\
     \ node reference for (Part 2). Source path: reference/nodes/webhook.md. Summary:\
     \ Complete parameter reference for the Webhook trigger node including HTTP methods,\
@@ -68,8 +68,8 @@ content:
     \n## URLs\n\nEach Webhook node generates two URLs:\n\n- **Test URL**: Active only\
     \ while the workflow editor is open and listening. Format: `{base_url}/webhook-test/{path}`\n\
     - **Production URL**: Active when the workflow is toggled to Active. Format: `{base_url}/webhook/{path}`\n\
-    \n=== \"Cloud\"\n\n Base URL: `<https://your-instance.app.the> product.cloud`\n\
-    \n=== \"Self-hosted\"\n\n Base URL: your configured `WEBHOOK_URL` environment\
+    \n=== \"Cloud\"\n\n\n Base URL: `<https://your-instance.app.the> product.cloud`\n\
+    \n=== \"Self-hosted\"\n\n\n Base URL: your configured `WEBHOOK_URL` environment\
     \ variable, or `<http://localhost:5678`> by default.\n\n## Output\n\nThe Webhook\
     \ node outputs a single item with the following structure:\n\n```json\n{\n \"\
     json\": {\n \"headers\": { \"content-type\": \"application/json\", \"...\": \"\

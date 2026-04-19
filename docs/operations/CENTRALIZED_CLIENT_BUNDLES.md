@@ -632,12 +632,45 @@ Expected output is JSON with:
 
 Optional API trigger (ops token required):
 
-```bash
-curl -X POST "https://<your-api>/ops/billing/license/renew/run" \
-  -H "Content-Type: application/json" \
-  -H "X-VeriOps-Server-Token: <ops-token>" \
-  -d '{"dry_run": false}'
-```
+=== "cURL"
+
+    ```bash smoke
+    curl -X POST "https://<your-api>/ops/billing/license/renew/run" \
+      -H "Content-Type: application/json" \
+      -H "X-VeriOps-Server-Token: <ops-token>" \
+      -d '{"dry_run": false}'
+    ```
+
+=== "JavaScript"
+
+    ```javascript smoke
+    const response = await fetch('https://<your-api>/ops/billing/license/renew/run', {
+      method: 'POST',
+      headers: {
+        "Content-Type": "application/json",
+        "X-VeriOps-Server-Token": "<ops-token>",
+      },
+      body: JSON.stringify({"dry_run": false}),
+    });
+    const payload = await response.json();
+    console.log(payload);
+    ```
+
+=== "Python"
+
+    ```python smoke
+    import requests
+
+    response = requests.request(
+        'POST',
+        'https://<your-api>/ops/billing/license/renew/run',
+        headers={'Content-Type': 'application/json', 'X-VeriOps-Server-Token': '<ops-token>'},
+        json={'dry_run': False},
+        timeout=30,
+    )
+    response.raise_for_status()
+    print(response.json())
+    ```
 
 Policy:
 

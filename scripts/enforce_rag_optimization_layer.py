@@ -31,6 +31,17 @@ def _safe_load_json(path: Path) -> dict[str, Any]:
     return payload if isinstance(payload, dict) else {}
 
 
+def _resolve_script_path(repo_root: Path, script_name: str) -> Path:
+    candidates = [
+        repo_root / "scripts" / script_name,
+        repo_root / "docsops" / "scripts" / script_name,
+    ]
+    for candidate in candidates:
+        if candidate.exists():
+            return candidate.resolve()
+    return candidates[0].resolve()
+
+
 def _run(cmd: list[str], cwd: Path) -> None:
     completed = subprocess.run(cmd, cwd=str(cwd), check=False, capture_output=True, text=True)
     if completed.returncode != 0:
@@ -142,7 +153,7 @@ def main() -> int:
 
     rag_cmd = [
         sys.executable,
-        "scripts/rag_reindex_lifecycle.py",
+        str(_resolve_script_path(repo_root, "rag_reindex_lifecycle.py")),
         "--repo-root",
         str(repo_root),
         "--reports-dir",
@@ -167,7 +178,7 @@ def main() -> int:
     if not eval_report_path.exists():
         eval_cmd = [
             sys.executable,
-            "scripts/run_retrieval_evals.py",
+            str(_resolve_script_path(repo_root, "run_retrieval_evals.py")),
             "--index",
             "docs/assets/knowledge-retrieval-index.json",
             "--report",

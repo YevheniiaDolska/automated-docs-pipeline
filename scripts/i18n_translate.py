@@ -26,6 +26,7 @@ import argparse
 import asyncio
 import hashlib
 import json
+import subprocess
 import sys
 from pathlib import Path
 
@@ -53,6 +54,10 @@ class DocumentTranslator:
         self.docs_dir = Path(docs_dir)
         self._client = None
 
+    @property
+    def provider(self) -> str:
+        return str(self.config.translation.provider or "anthropic").strip().lower()
+
     def _get_client(self):
         """Lazy-initialize the Anthropic client."""
         if self._client is None:
@@ -67,6 +72,24 @@ class DocumentTranslator:
                 )
                 sys.exit(1)
         return self._client
+
+    def _translate_with_ollama(self, prompt: str) -> str:
+        model = str(self.config.translation.model or "qwen3:30b").strip() or "qwen3:30b"
+        cmd = ["ollama", "run", model]
+        completed = subprocess.run(
+            cmd,
+            input=prompt,
+            text=True,
+            capture_output=True,
+            check=False,
+        )
+        if completed.returncode != 0:
+            detail = (completed.stderr or completed.stdout or "").strip()
+            raise RuntimeError(f"Ollama translation failed (model={model}): {detail[:240]}")
+        out = str(completed.stdout or "").strip()
+        if not out:
+            raise RuntimeError(f"Ollama translation returned empty output (model={model})")
+        return out
 
     def build_translation_prompt(
         self,
@@ -157,19 +180,22 @@ SOURCE DOCUMENT:
         Returns:
             Translated Markdown content.
         """
-        client = self._get_client()
         prompt = self.build_translation_prompt(
             source_content, source_locale, target_locale, target_language_name
         )
-
-        response = client.messages.create(
-            model=self.config.translation.model,
-            max_tokens=8192,
-            temperature=self.config.translation.temperature,
-            messages=[{"role": "user", "content": prompt}],
-        )
-
-        translated = response.content[0].text
+        provider = self.provider
+        translated = ""
+        if provider in {"local", "ollama"}:
+            translated = self._translate_with_ollama(prompt)
+        else:
+            client = self._get_client()
+            response = client.messages.create(
+                model=self.config.translation.model,
+                max_tokens=8192,
+                temperature=self.config.translation.temperature,
+                messages=[{"role": "user", "content": prompt}],
+            )
+            translated = response.content[0].text
 
         # Post-process: ensure frontmatter has correct i18n fields
         translated = self._post_process(
@@ -310,6 +336,34 @@ SOURCE DOCUMENT:
         return results
 
 
+def _runtime_strict_local_active(repo_root: Path) -> bool:
+    candidates = [
+        repo_root / "docsops" / "config" / "client_runtime.yml",
+        repo_root / "config" / "client_runtime.yml",
+    ]
+    for runtime_path in candidates:
+        if not runtime_path.exists():
+            continue
+        try:
+            raw = yaml.safe_load(runtime_path.read_text(encoding="utf-8")) or {}
+        except (OSError, ValueError, TypeError):
+            continue
+        if not isinstance(raw, dict):
+            continue
+        llm_control = raw.get("llm_control", {})
+        security = raw.get("security", {})
+        if not isinstance(llm_control, dict):
+            llm_control = {}
+        if not isinstance(security, dict):
+            security = {}
+        llm_mode = str(llm_control.get("llm_mode", "external_preferred")).strip().lower()
+        strict_local = bool(llm_control.get("strict_local_first", llm_mode == "local_default"))
+        operation_mode = str(security.get("operation_mode", "")).strip().lower()
+        if strict_local or operation_mode == "strict-local":
+            return True
+    return False
+
+
 def _get_items_from_sync(
     config: I18nConfig,
     docs_dir: Path,
@@ -345,7 +399,7 @@ def _get_items_from_sync(
 
 def main() -> None:
     parser = argparse.ArgumentParser(
-        description="Auto-translate documentation using Claude API"
+        description="Auto-translate documentation using configured provider (Anthropic or local Ollama)"
     )
     parser.add_argument(
         "--config",
@@ -380,6 +434,12 @@ def main() -> None:
         action="store_true",
         help="Show what would be translated without making API calls",
     )
+    parser.add_argument(
+        "--provider",
+        choices=["anthropic", "local", "ollama"],
+        default=None,
+        help="Override translation provider for this run",
+    )
     args = parser.parse_args()
 
     try:
@@ -389,6 +449,15 @@ def main() -> None:
         sys.exit(1)
 
     docs_dir = Path(args.docs_dir)
+    runtime_strict_local = _runtime_strict_local_active(Path.cwd())
+    if args.provider:
+        config.translation.provider = args.provider
+    elif runtime_strict_local:
+        config.translation.provider = "local"
+        if str(config.translation.model).strip().startswith("claude"):
+            config.translation.model = "qwen3:30b"
+    provider = str(config.translation.provider or "anthropic").strip().lower()
+    print(f"[i18n_translate] provider={provider} model={config.translation.model}")
     translator = DocumentTranslator(config, docs_dir=docs_dir)
 
     if args.source:

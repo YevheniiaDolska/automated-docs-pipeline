@@ -47,6 +47,62 @@ PILOT_TEMPLATE_PATHS = [
     "templates/api-reference.md",
 ]
 
+PILOT_BLOCKED_SCRIPTS = {
+    "scripts/run_api_first_flow.py",
+    "scripts/run_multi_protocol_contract_flow.py",
+    "scripts/generate_protocol_contract_from_planning_notes.py",
+    "scripts/generate_protocol_server_stubs.py",
+    "scripts/generate_protocol_docs.py",
+    "scripts/generate_protocol_test_assets.py",
+    "scripts/check_protocol_regression.py",
+    "scripts/validate_graphql_contract.py",
+    "scripts/validate_proto_contract.py",
+    "scripts/validate_asyncapi_contract.py",
+    "scripts/validate_websocket_contract.py",
+    "scripts/run_protocol_lint_stack.py",
+    "scripts/run_protocol_self_verify.py",
+    "scripts/run_protocol_docs_quality_suite.py",
+    "scripts/validate_protocol_test_coverage.py",
+    "scripts/publish_protocol_assets.py",
+    "scripts/multi_protocol_engine.py",
+    "scripts/api_protocols.py",
+    "scripts/check_api_sdk_drift.py",
+    "scripts/check_docs_contract.py",
+    "scripts/generate_kpi_wall.py",
+    "scripts/evaluate_kpi_sla.py",
+    "scripts/sync_project_glossary.py",
+    "scripts/lifecycle_manager.py",
+    "scripts/extract_knowledge_modules_from_docs.py",
+    "scripts/validate_knowledge_modules.py",
+    "scripts/detect_rag_contradictions.py",
+    "scripts/generate_knowledge_retrieval_index.py",
+    "scripts/generate_knowledge_graph_jsonld.py",
+    "scripts/enforce_rag_optimization_layer.py",
+    "scripts/rag_reindex_lifecycle.py",
+    "scripts/generate_embeddings.py",
+    "scripts/run_retrieval_evals.py",
+    "scripts/i18n_sync.py",
+    "scripts/i18n_translate.py",
+}
+
+FULL_BLOCKED_SCRIPTS = {
+    # Full package includes RAG preparation, but not retrieval-time RAG runtime.
+    "scripts/generate_embeddings.py",
+    "scripts/run_retrieval_evals.py",
+}
+
+
+def _filter_scripts_by_package(include_scripts: list[str], commercial_package: str) -> list[str]:
+    package = str(commercial_package or "full").strip().lower() or "full"
+    blocked: set[str] = set()
+    if package == "pilot":
+        blocked = set(PILOT_BLOCKED_SCRIPTS)
+    elif package == "full":
+        blocked = set(FULL_BLOCKED_SCRIPTS)
+    if not blocked:
+        return include_scripts
+    return [item for item in include_scripts if item not in blocked]
+
 
 def read_yaml(path: Path) -> dict[str, Any]:
     with path.open("r", encoding="utf-8") as fh:
@@ -106,11 +162,15 @@ def _template_paths_for_package(commercial_package: str) -> list[str]:
 
 
 def _apply_rag_package_policy_to_runtime(runtime_cfg: dict[str, Any], commercial_package: str) -> None:
-    rag_enabled = str(commercial_package).strip().lower() == "full+rag"
+    package = str(commercial_package).strip().lower() or "full"
+    rag_enabled = package == "full+rag"
+    rag_prep_enabled = package in {"full", "full+rag"}
     modules = runtime_cfg.get("modules")
     if isinstance(modules, dict):
-        for key in ("rag_optimization", "ontology_graph", "retrieval_evals", "knowledge_validation"):
-            modules[key] = rag_enabled
+        modules["rag_optimization"] = rag_prep_enabled
+        modules["knowledge_validation"] = rag_prep_enabled
+        modules["ontology_graph"] = rag_prep_enabled
+        modules["retrieval_evals"] = rag_enabled
 
     retrieval_eval = runtime_cfg.get("retrieval_eval")
     if isinstance(retrieval_eval, dict):
@@ -118,7 +178,7 @@ def _apply_rag_package_policy_to_runtime(runtime_cfg: dict[str, Any], commercial
 
     knowledge_graph = runtime_cfg.get("knowledge_graph")
     if isinstance(knowledge_graph, dict):
-        knowledge_graph["enabled"] = rag_enabled
+        knowledge_graph["enabled"] = rag_prep_enabled
 
     rag_runtime = runtime_cfg.get("rag_runtime")
     if isinstance(rag_runtime, dict):
@@ -1446,7 +1506,6 @@ def create_bundle(profile_path: Path) -> Path:
     if not isinstance(licensing_cfg, Mapping):
         licensing_cfg = {}
     commercial_package = str(licensing_cfg.get("commercial_package", "")).strip().lower()
-    explicit_commercial_package = bool(commercial_package)
     if not commercial_package:
         plan_to_package = {
             "pilot": "pilot",
@@ -1454,8 +1513,7 @@ def create_bundle(profile_path: Path) -> Path:
             "enterprise": "full+rag",
         }
         commercial_package = plan_to_package.get(str(licensing_cfg.get("plan", "professional")).strip().lower(), "full")
-    if explicit_commercial_package:
-        _apply_rag_package_policy_to_runtime(runtime_cfg, commercial_package)
+    _apply_rag_package_policy_to_runtime(runtime_cfg, commercial_package)
     branding_cfg = runtime_cfg.get("veridoc_branding", {})
     if isinstance(branding_cfg, Mapping) and bool(branding_cfg.get("enabled", False)) and bool(
         branding_cfg.get("apply_on_weekly", True)
@@ -1517,6 +1575,7 @@ def create_bundle(profile_path: Path) -> Path:
     required_scripts.append("scripts/finalize_docs_gate.py")
     required_scripts.append("scripts/setup_client_env_wizard.py")
     required_scripts.append("scripts/run_autopipeline.py")
+    required_scripts.append("scripts/generate_llm_web_artifacts.py")
     required_scripts.append("scripts/publish_docs_review_branch.py")
     required_scripts.append("scripts/docs_ci_bootstrap.py")
     required_scripts.append("scripts/run_docs_ci_checks.py")
@@ -1666,6 +1725,7 @@ def create_bundle(profile_path: Path) -> Path:
             continue
         if req not in include_scripts:
             include_scripts.append(req)
+    include_scripts = _filter_scripts_by_package(include_scripts, commercial_package)
     include_paths = [str(rel) for rel in bundle_cfg.get("include_paths", [])]
     ip_protection_path = REPO_ROOT / "config" / "ip_protection"
     if ip_protection_path.exists() and "config/ip_protection" not in include_paths:

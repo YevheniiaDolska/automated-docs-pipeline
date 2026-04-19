@@ -12,6 +12,7 @@ app_component: webhook
 original_author: JaneDo
 ---
 
+
 <!-- VERIDOC_POWERED_BADGE:START -->
 [![Powered by VeriDoc](https://img.shields.io/badge/Powered%20by-VeriDoc-0ea5e9?style=flat-square)](https://veridoc.app)
 <!-- VERIDOC_POWERED_BADGE:END -->
@@ -67,7 +68,6 @@ You need:
 !!! warning "Secure your webhooks"
     Always enable authentication on production webhook endpoints.
     Unauthenticated webhooks accept requests from any source.
-
 Add authentication in the webhook node settings:
 
 | Auth method | Use case | Configuration |
@@ -131,7 +131,6 @@ Expected response:
     {{ product_name }} provides separate test and production webhook
     URLs. Use the test URL during development to inspect payloads
     without triggering downstream actions.
-
 ## Troubleshoot webhook triggers
 
 ### Webhook returns 404

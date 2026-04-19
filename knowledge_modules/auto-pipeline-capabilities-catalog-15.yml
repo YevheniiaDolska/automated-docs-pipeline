@@ -14,7 +14,7 @@ channels:
 priority: 60
 status: active
 owner: docsops-auto
-last_verified: '2026-04-15'
+last_verified: '2026-04-18'
 dependencies: []
 tags:
 - auto-extracted
@@ -23,13 +23,13 @@ tags:
 metadata:
   url: https://docs.example.com/operations/PIPELINE_CAPABILITIES_CATALOG/
   title: Pipeline Capabilities Catalog (Part 15)
-  heading: RAG operations and runtime surface
+  heading: RAG retrieval pipeline
   version: 1.50.0
-  updated_at: '2026-04-05T00:00:00Z'
+  updated_at: '2026-04-17T00:00:00Z'
   source_site: docs.example.com
   source_path: operations/PIPELINE_CAPABILITIES_CATALOG.md
 semantic:
-  topic: RAG operations and runtime surface
+  topic: RAG retrieval pipeline
   intent: integrate
   audience: developer
   keywords:
@@ -37,87 +37,69 @@ semantic:
   - reference
   status: rule_based
 content:
-  docs_markdown: '## RAG operations and runtime surface
+  docs_markdown: '## RAG retrieval pipeline
 
 
-    Runtime and operations include:
+    The pipeline generates a knowledge retrieval layer with six advanced features:
 
 
-    1. Query endpoints: `/rag/query` and `/rag/runtime/query`
+    | Feature | Description |
 
-    1. Observability endpoints: `/rag/metrics` and `/rag/alerts`
+    | --- | --- |
 
-    1. Version pointer artifacts: `docs/assets/rag_current.json`, `docs/assets/rag_promoted.json`
+    | Token-aware chunking | Splits modules into 750-token chunks with 100-token overlap
+    (`cl100k_base`) |
 
-    1. Version history and retention: `docs/assets/rag_version_history.json`, `docs/assets/rag-versions/`
+    | Hybrid search (RRF) | Fuses semantic (FAISS) and token-overlap rankings with
+    Reciprocal Rank Fusion (k=60) |
 
-    1. Lifecycle report: `reports/rag_reindex_report.json`
+    | HyDE query expansion | Generates hypothetical doc passage via LLM before embedding
+    for better retrieval on vague queries |
 
-    1. Unified enforcement report: `reports/rag_optimization_layer_report.json`
+    | Cross-encoder reranking | Rescores top 20 candidates with `cross-encoder/ms-marco-MiniLM-L-6-v2`
+    |
 
+    | Embedding cache | In-memory LRU cache (TTL 3,600 seconds, max 512 entries) for
+    query embeddings |
 
-    ## Current retrieval gate snapshot (2026-04-05)
-
-
-    Latest local run (`npm run eval:retrieval`) produced:
-
-
-    1. Mode: `token` (no `OPENAI_API_KEY` and no FAISS artifacts in current run context)
-
-    1. Precision@3: `0.24`
-
-    1. Recall@3: `0.72`
-
-    1. Hallucination rate: `0.0`
-
-    1. Sample count: `25` (auto-generated dataset)
+    | Multi-mode evaluation | Compares token, semantic, hybrid, and hybrid+rerank
+    modes across curated queries |
 
 
-    This snapshot confirms the RAG layer is active and measurable in local mode, and
-    it also shows remaining headroom for precision improvements in strict local token
-    fallback.'
+    **Pipeline scripts:**'
   assistant_context: 'Use this module when answering questions related to: Pipeline
     Capabilities Catalog (Part 15). Source path: operations/PIPELINE_CAPABILITIES_CATALOG.md.
     Summary: Generated catalog of available pipeline commands, templates, policy packs,
     and assets for client configuration.
 
 
-    ## RAG operations and runtime surface
+    ## RAG retrieval pipeline
 
 
-    Runtime and operations include:
+    The pipeline generates a knowledge retrieval layer with six advanced features:
 
 
-    1. Query endpoints: `/rag/query` and `/rag/runtime/query`
+    | Feature | Description |
 
-    1. Observability endpoints: `/rag/metrics` and `/rag/alerts`
+    | --- | --- |
 
-    1. Version pointer artifacts: `docs/assets/rag_current.json`, `docs/assets/rag_promoted.json`
+    | Token-aware chunking | Splits modules into 750-token chunks with 100-token overlap
+    (`cl100k_base`) |
 
-    1. Version history and retention: `docs/assets/rag_version_history.json`, `docs/assets/rag-versions/`
+    | Hybrid search (RRF) | Fuses semantic (FAISS) and token-overlap rankings with
+    Reciprocal Rank Fusion (k=60) |
 
-    1. Lifecycle report: `reports/rag_reindex_report.json`
+    | HyDE query expansion | Generates hypothetical doc passage via LLM before embedding
+    for better retrieval on vague queries |
 
-    1. Unified enforcement report: `reports/rag_optimization_layer_report.json`
+    | Cross-encoder reranking | Rescores top 20 candidates with `cross-encoder/ms-marco-MiniLM-L-6-v2`
+    |
 
+    | Embedding cache | In-memory LRU cache (TTL 3,600 seconds, max 512 entries) for
+    query embeddings |
 
-    ## Current retrieval gate snapshot (2026-04-05)
-
-
-    Latest local run (`npm run eval:retrieval`) produced:
-
-
-    1. Mode: `token` (no `OPENAI_API_KEY` and no FAISS artifacts in current run context)
-
-    1. Precision@3: `0.24`
-
-    1. Recall@3: `0.72`
-
-    1. Hallucination rate: `0.0`
-
-    1. Sample count: `25` (auto-generated dataset)
+    | Multi-mode evaluation | Compares token, semantic, hybrid, and hybrid+rerank
+    modes across curated queries |
 
 
-    This snapshot confirms the RAG layer is active and measurable in local mode, and
-    it also shows remaining headroom for precision improvements in strict local token
-    fallback.'
+    **Pipeline scripts:**'

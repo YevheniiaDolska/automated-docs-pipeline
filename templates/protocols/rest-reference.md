@@ -25,17 +25,51 @@ Idempotency: Idempotency-Key header required for create/update endpoints
 
 ## Quick start request
 
-```bash
-curl -X POST "https://{{ api_host }}/v1/projects" \
-  -H "Authorization: Bearer {{ api_token_example }}" \
-  -H "Content-Type: application/json" \
-  -H "Idempotency-Key: 6c37f5aa-bfd7-4e90-b694-f3a1aef8d146" \
-  -d '{
-    "name": "Payments reliability",
-    "environment": "production",
-    "owner_email": "owner@example.com"
-  }'
-```
+=== "cURL"
+
+    ```bash smoke
+    curl -X POST "https://{{ api_host }}/v1/projects" \
+      -H "Authorization: Bearer {{ api_token_example }}" \
+      -H "Content-Type: application/json" \
+      -H "Idempotency-Key: 6c37f5aa-bfd7-4e90-b694-f3a1aef8d146" \
+      -d '{
+        "name": "Payments reliability",
+        "environment": "production",
+        "owner_email": "owner@example.com"
+      }'
+    ```
+
+=== "JavaScript"
+
+    ```javascript smoke
+    const response = await fetch('https://{{ api_host }}/v1/projects', {
+      method: 'POST',
+      headers: {
+        "Authorization": "Bearer {{ api_token_example }}",
+        "Content-Type": "application/json",
+        "Idempotency-Key": "6c37f5aa-bfd7-4e90-b694-f3a1aef8d146",
+      },
+      body: JSON.stringify({"name": "Payments reliability", "environment": "production", "owner_email": "owner@example.com"}),
+    });
+    const payload = await response.json();
+    console.log(payload);
+    ```
+
+=== "Python"
+
+    ```python smoke
+    import requests
+
+    response = requests.request(
+        'POST',
+        'https://{{ api_host }}/v1/projects',
+        headers={'Authorization': 'Bearer {{ api_token_example }}', 'Content-Type': 'application/json', 'Idempotency-Key': '6c37f5aa-bfd7-4e90-b694-f3a1aef8d146'},
+        json={'name': 'Payments reliability', 'environment': 'production', 'owner_email': 'owner@example.com'},
+        timeout=30,
+    )
+    response.raise_for_status()
+    print(response.json())
+    ```
 
 ```json
 {

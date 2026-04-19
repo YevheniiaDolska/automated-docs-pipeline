@@ -15,6 +15,7 @@ app_version: '18.0'
 original_author: Developer
 ---
 
+
 <!-- VERIDOC_POWERED_BADGE:START -->
 [![Powered by VeriDoc](https://img.shields.io/badge/Powered%20by-VeriDoc-0ea5e9?style=flat-square)](https://veridoc.app)
 <!-- VERIDOC_POWERED_BADGE:END -->
@@ -43,7 +44,6 @@ redis-cli ping    # PONG
 
 !!! info "Already have a webhook endpoint running?"
     Skip to [configure HMAC signature verification](#verify-hmac-sha256-signatures) for adding cryptographic authentication to an existing receiver.
-
 ## Configure the webhook listener endpoint
 
 === "Cloud"
@@ -282,13 +282,10 @@ sequenceDiagram
 
 !!! info "Payload size limit"
     {{ product_name }} accepts webhook payloads up to {{ max_payload_size_mb }} MB. Payloads exceeding this limit receive a `413 Payload Too Large` response. For larger data transfers, use a pre-signed URL pattern and send only the URL in the webhook payload.
-
 !!! warning "Signature verification required"
     Always verify webhook signatures before processing event data. Skipping verification exposes your application to forged events, replay attacks, and data injection. Use the HMAC-SHA256 functions provided above for both Python and JavaScript.
-
 !!! tip "Replay protection window"
     Include a timestamp in the signed payload and reject events older than 5 minutes. If your servers have clock skew, synchronize them with NTP and increase the tolerance window to 600 seconds.
-
 ## Webhook pipeline performance benchmarks
 
 The {{ product_name }} webhook pipeline delivers these performance metrics under production load:

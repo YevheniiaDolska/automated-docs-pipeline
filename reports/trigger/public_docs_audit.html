@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Public Docs Audit</title>
+<style>
+  :root { --bg:#f8fafc; --text:#0f172a; --muted:#64748b; --card:#fff; --border:#e2e8f0; --accent:#0ea5e9; }
+  body { margin:0; font-family:"Segoe UI", Arial, sans-serif; background:linear-gradient(145deg,#ecfeff,#f8fafc); color:var(--text); }
+  .wrap { max-width:1050px; margin:0 auto; padding:24px 16px 40px; }
+  .hero,.section { background:var(--card); border:1px solid var(--border); border-radius:14px; padding:16px; margin-bottom:14px; }
+  h1 { margin:0 0 8px; font-size:28px; }
+  .sub { color:var(--muted); margin:0; }
+  .grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:10px; margin-top:12px; }
+  .card { border:1px solid var(--border); border-radius:10px; padding:12px; }
+  .value { font-size:30px; font-weight:700; color:var(--accent); margin-top:6px; }
+  .label { font-size:13px; color:var(--muted); }
+  ul { margin:8px 0 0 18px; }
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="hero">
+      <h1>Public Documentation Audit</h1>
+      <p class="sub">Sites: 1 | topology: multi-project</p>
+      <p class="sub">Generated: 2026-04-17T11:56:27.923409+00:00</p>
+      <div class="grid">
+        <div class="card"><div class="label">Pages crawled</div><div class="value">214</div></div>
+        <div class="card"><div class="label">Pages discovered</div><div class="value">216</div></div>
+        <div class="card"><div class="label">Crawl coverage</div><div class="value">100.47%</div></div>
+        <div class="card"><div class="label">Broken links (docs)</div><div class="value">5</div></div>
+        <div class="card"><div class="label">Broken links (repo nav)</div><div class="value">0</div></div>
+        <div class="card"><div class="label">Unverified links</div><div class="value">1</div></div>
+        <div class="card"><div class="label">SEO/GEO issue rate</div><div class="value">14.84%</div></div>
+        <div class="card"><div class="label">API reference coverage</div><div class="value">100.0%</div></div>
+        <div class="card"><div class="label">Example reliability (estimate)</div><div class="value">88.89%</div></div>
+        <div class="card"><div class="label">Last-updated coverage</div><div class="value">99.53%</div></div>
+        <div class="card"><div class="label">Audit confidence</div><div class="value">84.83%</div></div>
+      </div>
+    </div>
+    <div class="section">
+      <h2>Top Findings</h2>
+      <ul>
+        <li>Broken internal links: 5</li><li>Link verification inconclusive for 1 URLs (auth/rate-limit/server block); these are excluded from broken-link counts.</li><li>SEO/GEO issue rate is high: 14.84%</li>
+      </ul>
+    </div>
+    <div class="section">
+      <h2>Per-site Summary</h2>
+      <ul>
+        <li><strong>https://trigger.dev/docs</strong>: pages=214, broken_links=5, api_coverage=100.0%, examples=88.89%</li>
+      </ul>
+    </div>
+    <div class="section"><h2>LLM Executive Analysis (Claude Sonnet)</h2><p>Documentation audit of trigger.dev/docs crawled 214 pages with 100.47% crawl coverage across 216 discovered URLs. 5 confirmed broken internal documentation links were identified, all within user-facing docs (0 repository links). API reference coverage is complete at 100% across 9 detected API pages. SEO/geo issue rate is elevated at 14.84%, and overall audit confidence stands at 84.83%.</p><h3>Strengths</h3><ul><li>Complete API reference coverage at 100% with 9 API pages successfully detected</li><li>Excellent freshness tracking with 99.53% of pages showing last-updated metadata</li><li>High crawl coverage at 100.47% indicating comprehensive site discovery</li><li>Example code reliability estimated at 88.89%</li><li>No repository navigation link breakage (0 repo_broken_links_count)</li></ul><h3>Risks</h3><ul><li>5 confirmed broken internal documentation links degrading user navigation experience</li><li>SEO/geo issue rate of 14.84% may impact discoverability and search rankings</li><li>1 unverified link due to auth/rate-limit/server blocks creates uncertainty in link health</li><li>Overall audit confidence at 84.83% indicates moderate uncertainty in findings</li><li>Links confidence at 78.33% is lowest confidence dimension, suggesting link validation challenges</li><li>Example reliability at 88.89% means approximately 1 in 9 code examples may have issues</li><li>Multi-project topology mode may mask project-specific documentation gaps</li></ul><h3>Prioritized actions</h3><ul><li>Fix 5 confirmed broken internal documentation links to restore navigation integrity <em>[critical, low]</em></li><li>Investigate and resolve SEO/geo issues affecting 14.84% of pages to improve discoverability <em>[high, medium]</em></li><li>Review and fix the 1 unverified link blocked by auth/rate-limit/server constraints <em>[medium, low]</em></li><li>Audit and repair code examples with reliability below 90% threshold <em>[medium, medium]</em></li><li>Implement automated link checking in CI/CD to prevent future broken link regressions <em>[high, medium]</em></li></ul></div>
+  </div>
+</body>
+</html>

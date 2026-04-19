@@ -42,11 +42,13 @@ A workflow is a series of connected nodes that process data automatically. In th
 
 === "Cloud"
 
+
 - Log in to your Cloud instance.
 - Select **New Workflow** from the top-right menu.
 - The canvas opens with an empty workflow.
 
 === "Self-hosted"
+
 
 - Open your instance at `http://localhost:5678`.
 - Select **New Workflow**.
@@ -60,6 +62,7 @@ A workflow is a series of connected nodes that process data automatically. In th
 1. Copy the **Test URL**—you will need it in Step 5.
 
 !!! info "Test URL vs Production URL"
+
  The Test URL is active only while the workflow editor is open. The Production URL activates after you toggle the workflow to **Active**.
 
 ### Build your first workflow in 5 minutes (Part 2)

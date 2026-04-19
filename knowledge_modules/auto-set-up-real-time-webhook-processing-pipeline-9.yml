@@ -14,7 +14,7 @@ channels:
 priority: 60
 status: active
 owner: docsops-auto
-last_verified: '2026-04-15'
+last_verified: '2026-04-18'
 dependencies: []
 tags:
 - auto-extracted
@@ -47,13 +47,13 @@ content:
     \ {{ product_name }} accepts webhook payloads up to {{ max_payload_size_mb }}\
     \ MB. Payloads exceeding this limit receive a `413 Payload Too Large` response.\
     \ For larger data transfers, use a pre-signed URL pattern and send only the URL\
-    \ in the webhook payload.\n\n!!! warning \"Signature verification required\"\n\
-    \    Always verify webhook signatures before processing event data. Skipping verification\
+    \ in the webhook payload.\n!!! warning \"Signature verification required\"\n \
+    \   Always verify webhook signatures before processing event data. Skipping verification\
     \ exposes your application to forged events, replay attacks, and data injection.\
     \ Use the HMAC-SHA256 functions provided above for both Python and JavaScript.\n\
-    \n!!! tip \"Replay protection window\"\n    Include a timestamp in the signed\
-    \ payload and reject events older than 5 minutes. If your servers have clock skew,\
-    \ synchronize them with NTP and increase the tolerance window to 600 seconds."
+    !!! tip \"Replay protection window\"\n    Include a timestamp in the signed payload\
+    \ and reject events older than 5 minutes. If your servers have clock skew, synchronize\
+    \ them with NTP and increase the tolerance window to 600 seconds."
   assistant_context: "Use this module when answering questions related to: Set up\
     \ a real-time webhook processing pipeline (Part 9). Source path: en/how-to/set-up-real-time-webhook-processing-pipeline.md.\
     \ Summary: Configure end-to-end webhook ingestion with HMAC verification, async\
@@ -67,11 +67,11 @@ content:
     Payload size limit\"\n    {{ product_name }} accepts webhook payloads up to {{\
     \ max_payload_size_mb }} MB. Payloads exceeding this limit receive a `413 Payload\
     \ Too Large` response. For larger data transfers, use a pre-signed URL pattern\
-    \ and send only the URL in the webhook payload.\n\n!!! warning \"Signature verification\
+    \ and send only the URL in the webhook payload.\n!!! warning \"Signature verification\
     \ required\"\n    Always verify webhook signatures before processing event data.\
     \ Skipping verification exposes your application to forged events, replay attacks,\
     \ and data injection. Use the HMAC-SHA256 functions provided above for both Python\
-    \ and JavaScript.\n\n!!! tip \"Replay protection window\"\n    Include a timestamp\
+    \ and JavaScript.\n!!! tip \"Replay protection window\"\n    Include a timestamp\
     \ in the signed payload and reject events older than 5 minutes. If your servers\
     \ have clock skew, synchronize them with NTP and increase the tolerance window\
     \ to 600 seconds."

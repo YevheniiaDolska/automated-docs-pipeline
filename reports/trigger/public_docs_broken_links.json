@@ -1,0 +1,116 @@
+{
+  "generated_at_utc": "2026-04-17T12:14:53.046345+00:00",
+  "sites_count": 1,
+  "totals": {
+    "docs_broken_links_count": 5,
+    "repo_broken_links_count": 0,
+    "all_confirmed_broken_links_count": 5,
+    "unverified_links_sample_count": 1
+  },
+  "all_docs_broken_links": [
+    "https://trigger.dev/cdn-cgi/l/email-protection",
+    "https://trigger.dev/docs/feature-matrix",
+    "https://trigger.dev/docs/frontend/react-hooks/realtime",
+    "https://trigger.dev/docs/guides/bun",
+    "https://trigger.dev/docs/upgrading-from-v2"
+  ],
+  "all_repo_broken_links": [],
+  "all_unverified_links_sample": [
+    "https://trigger.dev/changelog/increased-otel-attribute-limits"
+  ],
+  "sites": [
+    {
+      "site_url": "https://trigger.dev/docs",
+      "confirmed_broken_links_count": 5,
+      "docs_broken_links_count": 5,
+      "repo_broken_links_count": 0,
+      "docs_broken_links": [
+        "https://trigger.dev/cdn-cgi/l/email-protection",
+        "https://trigger.dev/docs/feature-matrix",
+        "https://trigger.dev/docs/frontend/react-hooks/realtime",
+        "https://trigger.dev/docs/guides/bun",
+        "https://trigger.dev/docs/upgrading-from-v2"
+      ],
+      "repo_broken_links": [],
+      "confirmed_broken_links_detailed": [
+        {
+          "target_url": "https://trigger.dev/cdn-cgi/l/email-protection",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://trigger.dev/blog/clickhouse-too-many-parts-postmortem",
+              "anchor_text": "[email\u00a0protected]"
+            },
+            {
+              "source_page": "https://trigger.dev/blog/scrape-hacker-news",
+              "anchor_text": "[email\u00a0protected]"
+            },
+            {
+              "source_page": "https://trigger.dev/blog/skills",
+              "anchor_text": "[email\u00a0protected]"
+            },
+            {
+              "source_page": "https://trigger.dev/blog/shai-hulud-postmortem",
+              "anchor_text": "[email\u00a0protected]"
+            },
+            {
+              "source_page": "https://trigger.dev/blog/v3-announcement",
+              "anchor_text": "[email\u00a0protected]"
+            }
+          ]
+        },
+        {
+          "target_url": "https://trigger.dev/docs/feature-matrix",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://trigger.dev/changelog/new-v2-projects-disabled",
+              "anchor_text": "v3 feature matrix"
+            }
+          ]
+        },
+        {
+          "target_url": "https://trigger.dev/docs/frontend/react-hooks/realtime",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://trigger.dev/blog/how-we-built-realtime",
+              "anchor_text": "React hooks guide"
+            },
+            {
+              "source_page": "https://trigger.dev/blog/midday-customer-story",
+              "anchor_text": "Realtime hook"
+            },
+            {
+              "source_page": "https://trigger.dev/customers/midday-customer-story",
+              "anchor_text": "Realtime hook"
+            }
+          ]
+        },
+        {
+          "target_url": "https://trigger.dev/docs/guides/bun",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://trigger.dev/blog/beta-to-latest-announcement",
+              "anchor_text": "Bun quickstart guide"
+            }
+          ]
+        },
+        {
+          "target_url": "https://trigger.dev/docs/upgrading-from-v2",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://trigger.dev/blog/v3-open-access",
+              "anchor_text": "migration guide"
+            }
+          ]
+        }
+      ],
+      "unverified_links_sample": [
+        "https://trigger.dev/changelog/increased-otel-attribute-limits"
+      ]
+    }
+  ]
+}

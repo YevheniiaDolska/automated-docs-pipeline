@@ -1211,6 +1211,12 @@ def generate_env_checklist(client_repo: Path, docsops_dir: str) -> Path | None:
         "Set these environment variables in local shell and CI secrets.",
         "Runner/agent prerequisites are installed on client infrastructure (not inside docsops bundle).",
         "",
+        "## Ownership model",
+        "",
+        "- Client side: provider credentials (LLM/Algolia/Postman/TestRail/Zephyr), Docker/runtime availability, CI runner tools.",
+        "- Operator side: signed `docsops/license.jwt`, capability pack delivery (for premium features), and baseline policy defaults.",
+        "- For strict-local mode, external credentials are optional by design; local alternatives are listed below.",
+        "",
         "## Core",
         "",
         "- [ ] `GITHUB_TOKEN` (normally auto-provided in GitHub Actions)",
@@ -1258,6 +1264,28 @@ def generate_env_checklist(client_repo: Path, docsops_dir: str) -> Path | None:
         lines.append("")
 
     sandbox_backend = str(api_first.get("sandbox_backend", "")).strip().lower()
+    security = runtime.get("security", {})
+    if not isinstance(security, dict):
+        security = {}
+    operation_mode = str(security.get("operation_mode", "")).strip().lower()
+    llm_control = runtime.get("llm_control", {})
+    if not isinstance(llm_control, dict):
+        llm_control = {}
+    llm_mode = str(llm_control.get("llm_mode", "external_preferred")).strip().lower()
+    strict_local = bool(llm_control.get("strict_local_first", llm_mode == "local_default")) or operation_mode == "strict-local"
+    lines.extend(
+        [
+            "## Strict-local alternatives",
+            "",
+            f"- Profile strict-local active: `{strict_local}`",
+            f"- API sandbox backend: `{sandbox_backend or 'docker'}`",
+            "- If Docker is unavailable, use `api_first.sandbox_backend=prism` (local contract sandbox).",
+            "- If external keys are unavailable, keep Ask AI/Algolia/external mock disabled and use local Ollama runtime only.",
+            "- Stale-check and contradiction-check run locally and do not require cloud credentials.",
+            "",
+        ]
+    )
+
     external_mock = api_first.get("external_mock", {})
     if not isinstance(external_mock, dict):
         external_mock = {}

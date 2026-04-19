@@ -1,0 +1,57 @@
+{
+  "status": "ok",
+  "model": "claude-sonnet-4-5",
+  "analysis": {
+    "executive_summary": "Documentation audit of trigger.dev/docs crawled 214 pages with 100.47% crawl coverage across 216 discovered URLs. 5 confirmed broken internal documentation links were identified, all within user-facing docs (0 repository links). API reference coverage is complete at 100% across 9 detected API pages. SEO/geo issue rate is elevated at 14.84%, and overall audit confidence stands at 84.83%.",
+    "strengths": [
+      "Complete API reference coverage at 100% with 9 API pages successfully detected",
+      "Excellent freshness tracking with 99.53% of pages showing last-updated metadata",
+      "High crawl coverage at 100.47% indicating comprehensive site discovery",
+      "Example code reliability estimated at 88.89%",
+      "No repository navigation link breakage (0 repo_broken_links_count)"
+    ],
+    "risks": [
+      "5 confirmed broken internal documentation links degrading user navigation experience",
+      "SEO/geo issue rate of 14.84% may impact discoverability and search rankings",
+      "1 unverified link due to auth/rate-limit/server blocks creates uncertainty in link health",
+      "Overall audit confidence at 84.83% indicates moderate uncertainty in findings",
+      "Links confidence at 78.33% is lowest confidence dimension, suggesting link validation challenges",
+      "Example reliability at 88.89% means approximately 1 in 9 code examples may have issues",
+      "Multi-project topology mode may mask project-specific documentation gaps"
+    ],
+    "prioritized_actions": [
+      {
+        "action": "Fix 5 confirmed broken internal documentation links to restore navigation integrity",
+        "impact": "critical",
+        "effort": "low"
+      },
+      {
+        "action": "Investigate and resolve SEO/geo issues affecting 14.84% of pages to improve discoverability",
+        "impact": "high",
+        "effort": "medium"
+      },
+      {
+        "action": "Review and fix the 1 unverified link blocked by auth/rate-limit/server constraints",
+        "impact": "medium",
+        "effort": "low"
+      },
+      {
+        "action": "Audit and repair code examples with reliability below 90% threshold",
+        "impact": "medium",
+        "effort": "medium"
+      },
+      {
+        "action": "Implement automated link checking in CI/CD to prevent future broken link regressions",
+        "impact": "high",
+        "effort": "medium"
+      }
+    ],
+    "limitations": [
+      "External audit cannot verify links behind authentication, rate limits, or server blocks (1 URL unverified)",
+      "Crawl-based analysis cannot guarantee accuracy of code examples in production environments or validate runtime behavior",
+      "SEO/geo issue detection relies on heuristics and may not reflect actual search engine ranking factors or regional performance",
+      "Multi-project topology mode may obscure project-specific documentation completeness or version-specific gaps",
+      "Confidence scores reflect detection reliability but cannot guarantee absence of undiscovered issues in dynamic or gated content"
+    ]
+  }
+}

@@ -1,0 +1,6 @@
+{
+  "generated_at": "2026-04-18T20:02:41.603603",
+  "total_tasks": 0,
+  "tasks": [],
+  "claude_prompt": "# Documentation Generation Tasks\n\nGenerate the following documentation files based on the gap analysis.\nFollow these rules:\n\n1. Use the templates in `./templates/` directory\n2. Follow frontmatter schema from `docs-schema.yml`\n3. Keep descriptions 50-160 characters for SEO\n4. First paragraph must be <60 words with a clear definition\n5. Use concrete examples and code samples\n6. Don't use words like 'simple', 'easy', 'just'\n\n## Tasks\n\n## Execution\n\nFor each task:\n1. Read the template file\n2. Create the document with proper frontmatter\n3. Fill in content based on context and keywords\n4. Save to the specified output path\n\nAfter generating all documents, run: `npm run lint` to validate.\n\nPrompt gate reason:\n- feature_blocked:community"
+}

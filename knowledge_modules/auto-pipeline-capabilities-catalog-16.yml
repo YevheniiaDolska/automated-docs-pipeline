@@ -14,7 +14,7 @@ channels:
 priority: 60
 status: active
 owner: docsops-auto
-last_verified: '2026-04-15'
+last_verified: '2026-04-18'
 dependencies: []
 tags:
 - auto-extracted
@@ -23,13 +23,13 @@ tags:
 metadata:
   url: https://docs.example.com/operations/PIPELINE_CAPABILITIES_CATALOG/
   title: Pipeline Capabilities Catalog (Part 16)
-  heading: Public docs auditor and executive PDF
+  heading: RAG contradiction and stale guardrails
   version: 1.50.0
-  updated_at: '2026-04-05T00:00:00Z'
+  updated_at: '2026-04-17T00:00:00Z'
   source_site: docs.example.com
   source_path: operations/PIPELINE_CAPABILITIES_CATALOG.md
 semantic:
-  topic: Public docs auditor and executive PDF
+  topic: RAG contradiction and stale guardrails
   intent: integrate
   audience: developer
   keywords:
@@ -37,89 +37,95 @@ semantic:
   - reference
   status: rule_based
 content:
-  docs_markdown: '## Public docs auditor and executive PDF
+  docs_markdown: '1. `extract_knowledge_modules_from_docs.py` -- auto-chunk docs into
+    knowledge modules
+
+    1. `validate_knowledge_modules.py` -- schema validation, duplicate ID detection,
+    cycle check
+
+    1. `detect_rag_contradictions.py` -- detects cross-module contradictions in critical
+    runtime facts and writes `reports/rag_contradictions_report.json`
+
+    1. `generate_knowledge_retrieval_index.py` -- JSON index for Algolia + FAISS input,
+    excluding critical conflicting modules by default
+
+    1. `generate_embeddings.py` -- FAISS vector index (`text-embedding-3-small`, 1536
+    dims)
+
+    1. `generate_knowledge_graph_jsonld.py` -- JSON-LD knowledge graph
+
+    1. `run_retrieval_evals.py` -- precision@k, recall@k, hallucination rate evaluation
 
 
-    The public docs auditor crawls live documentation sites and generates a comprehensive
-    quality assessment.
+    ## RAG contradiction and stale guardrails
 
 
-    **Audit modes:**
+    Two complementary guardrails now run for retrieval quality:
 
 
-    | Mode | Command | Description |
+    1. Stale-check answers "is this document outdated?"
 
-    | --- | --- | --- |
-
-    | Basic | `npm run audit:public` | Crawl + evaluate (no LLM) |
-
-    | Interactive wizard | `npm run audit:public:wizard` | Step-by-step guided audit
-    |
-
-    | LLM-powered | `npm run audit:public:llm` | Full expert analysis with Claude
-    |
-
-    | LLM summary only | `npm run audit:public:llm-summary` | Quick LLM summary without
-    full crawl |
-
-    | Executive PDF | `npm run audit:executive-pdf` | Consulting-grade PDF from audit
-    results |
-
-    | Scorecard | `npm run audit:scorecard` | Comprehensive scoring across all quality
-    dimensions |
+    1. Contradiction-check answers "do active documents conflict right now?"
 
 
-    **Executive PDF contents:** cover page with headline findings, executive summary
-    with score gauge and grade, per-site metrics table, board-level KPI bars with
-    financial impact, risk matrix with priority actions, expert analysis (LLM or data-driven
-    fallback), methodology appendix, evidence appendix.
+    When contradictions are detected:
 
 
-    **Audit scorecard dimensions:** docs quality (SEO/GEO), API coverage, code example
-    reliability, glossary health, content freshness, policy compliance.'
+    1. Critical conflicts are excluded from retrieval index generation.
+
+    1. Warnings remain visible for review but do not automatically block indexing.
+
+    1. Optional gate mode can fail the run on critical contradictions.
+
+
+    This design prevents low-trust answers where RAG cites conflicting facts from
+    two active modules.'
   assistant_context: 'Use this module when answering questions related to: Pipeline
     Capabilities Catalog (Part 16). Source path: operations/PIPELINE_CAPABILITIES_CATALOG.md.
     Summary: Generated catalog of available pipeline commands, templates, policy packs,
     and assets for client configuration.
 
 
-    ## Public docs auditor and executive PDF
+    1. `extract_knowledge_modules_from_docs.py` -- auto-chunk docs into knowledge
+    modules
+
+    1. `validate_knowledge_modules.py` -- schema validation, duplicate ID detection,
+    cycle check
+
+    1. `detect_rag_contradictions.py` -- detects cross-module contradictions in critical
+    runtime facts and writes `reports/rag_contradictions_report.json`
+
+    1. `generate_knowledge_retrieval_index.py` -- JSON index for Algolia + FAISS input,
+    excluding critical conflicting modules by default
+
+    1. `generate_embeddings.py` -- FAISS vector index (`text-embedding-3-small`, 1536
+    dims)
+
+    1. `generate_knowledge_graph_jsonld.py` -- JSON-LD knowledge graph
+
+    1. `run_retrieval_evals.py` -- precision@k, recall@k, hallucination rate evaluation
 
 
-    The public docs auditor crawls live documentation sites and generates a comprehensive
-    quality assessment.
+    ## RAG contradiction and stale guardrails
 
 
-    **Audit modes:**
+    Two complementary guardrails now run for retrieval quality:
 
 
-    | Mode | Command | Description |
+    1. Stale-check answers "is this document outdated?"
 
-    | --- | --- | --- |
-
-    | Basic | `npm run audit:public` | Crawl + evaluate (no LLM) |
-
-    | Interactive wizard | `npm run audit:public:wizard` | Step-by-step guided audit
-    |
-
-    | LLM-powered | `npm run audit:public:llm` | Full expert analysis with Claude
-    |
-
-    | LLM summary only | `npm run audit:public:llm-summary` | Quick LLM summary without
-    full crawl |
-
-    | Executive PDF | `npm run audit:executive-pdf` | Consulting-grade PDF from audit
-    results |
-
-    | Scorecard | `npm run audit:scorecard` | Comprehensive scoring across all quality
-    dimensions |
+    1. Contradiction-check answers "do active documents conflict right now?"
 
 
-    **Executive PDF contents:** cover page with headline findings, executive summary
-    with score gauge and grade, per-site metrics table, board-level KPI bars with
-    financial impact, risk matrix with priority actions, expert analysis (LLM or data-driven
-    fallback), methodology appendix, evidence appendix.
+    When contradictions are detected:
 
 
-    **Audit scorecard dimensions:** docs quality (SEO/GEO), API coverage, code example
-    reliability, glossary health, content freshness, policy compliance.'
+    1. Critical conflicts are excluded from retrieval index generation.
+
+    1. Warnings remain visible for review but do not automatically block indexing.
+
+    1. Optional gate mode can fail the run on critical contradictions.
+
+
+    This design prevents low-trust answers where RAG cites conflicting facts from
+    two active modules.'

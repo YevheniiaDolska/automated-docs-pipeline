@@ -97,6 +97,39 @@ def _read_yaml(path: Path) -> dict[str, Any]:
     return raw
 
 
+def _resolve_script_path(repo_root: Path, script_name: str) -> Path:
+    candidates = [
+        repo_root / "scripts" / script_name,
+        repo_root / "docsops" / "scripts" / script_name,
+    ]
+    for path in candidates:
+        if path.exists():
+            return path
+    return candidates[0]
+
+
+def _has_npm_script(package_json_path: Path, script_name: str) -> bool:
+    try:
+        payload = json.loads(package_json_path.read_text(encoding="utf-8"))
+    except (json.JSONDecodeError, OSError):
+        return False
+    scripts = payload.get("scripts", {})
+    return isinstance(scripts, dict) and script_name in scripts
+
+
+def _resolve_lint_command(repo_root: Path, lint_command: str) -> str:
+    command = lint_command.strip()
+    if command != "npm run lint":
+        return lint_command
+    root_pkg = repo_root / "package.json"
+    docsops_pkg = repo_root / "docsops" / "package.json"
+    if _has_npm_script(root_pkg, "lint"):
+        return "npm run lint"
+    if _has_npm_script(docsops_pkg, "lint"):
+        return "npm --prefix docsops run lint"
+    return lint_command
+
+
 def _run(command: str, cwd: Path) -> CommandResult:
     completed = subprocess.run(
         shlex.split(command),
@@ -113,10 +146,13 @@ def _format_command(command: str, docs_root: str, reports_dir: str, iteration: i
     return command.format(docs_root=docs_root, reports_dir=reports_dir, iteration=iteration)
 
 
-def _default_auto_fix_commands(docs_root: str) -> list[str]:
+def _default_auto_fix_commands(docs_root: str, repo_root: Path | None = None) -> list[str]:
+    base = repo_root or Path.cwd()
+    normalize_script = _resolve_script_path(base, "normalize_docs.py")
+    seo_script = _resolve_script_path(base, "seo_geo_optimizer.py")
     return [
-        f"python3 scripts/normalize_docs.py {shlex.quote(docs_root)}",
-        f"python3 scripts/seo_geo_optimizer.py {shlex.quote(docs_root)} --fix",
+        f"python3 {shlex.quote(str(normalize_script))} {shlex.quote(docs_root)}",
+        f"python3 {shlex.quote(str(seo_script))} {shlex.quote(docs_root)} --fix",
     ]
 
 
@@ -183,7 +219,8 @@ def parse_args() -> argparse.Namespace:
     return parser.parse_args()
 
 
-def _merge_config(args: argparse.Namespace, cfg: dict[str, Any]) -> dict[str, Any]:
+def _merge_config(args: argparse.Namespace, cfg: dict[str, Any], repo_root: Path | None = None) -> dict[str, Any]:
+    base = repo_root or Path.cwd()
     merged = {
         "docs_root": args.docs_root,
         "reports_dir": args.reports_dir,
@@ -210,7 +247,9 @@ def _merge_config(args: argparse.Namespace, cfg: dict[str, Any]) -> dict[str, An
                 merged[key] = value
 
     if not merged["auto_fix_commands"]:
-        merged["auto_fix_commands"] = _default_auto_fix_commands(str(merged["docs_root"]))
+        merged["auto_fix_commands"] = _default_auto_fix_commands(str(merged["docs_root"]), base)
+
+    merged["lint_command"] = _resolve_lint_command(base, str(merged["lint_command"]))
 
     return merged
 
@@ -220,7 +259,7 @@ def main() -> int:
     repo_root = Path.cwd()
     runtime_path = Path(args.runtime_config).resolve() if args.runtime_config else None
     cfg = _load_finalize_config(runtime_path)
-    merged = _merge_config(args, cfg)
+    merged = _merge_config(args, cfg, repo_root)
 
     docs_root = str(merged["docs_root"])
     reports_dir = str(merged["reports_dir"])

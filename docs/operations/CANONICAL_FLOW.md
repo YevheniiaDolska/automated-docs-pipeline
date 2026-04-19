@@ -175,7 +175,7 @@ Every pipeline run validates the license locally using an Ed25519-signed JWT. No
 - Public key: `<client-repo>/docsops/keys/veriops-licensing.pub`
 - Capability pack: `<client-repo>/docsops/.capability_pack.enc` (encrypted scoring weights)
 
-Plan tiers control feature access (Pilot, Professional, Enterprise). Without a valid license, the pipeline runs in community mode (degraded: lint-only, no scoring, no drift, REST only).
+Plan tiers control feature access (Pilot, Professional, Enterprise). Without a valid license, the pipeline runs in community mode (degraded: free lint-only defaults, advanced modules disabled, no protocol entitlement).
 
 Check license status: `python3 docsops/scripts/license_gate.py`.
 

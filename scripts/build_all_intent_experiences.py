@@ -29,9 +29,25 @@ def parse_args() -> argparse.Namespace:
     return parser.parse_args()
 
 
+def _resolve_assemble_script() -> Path:
+    local = Path(__file__).resolve().parent / "assemble_intent_experience.py"
+    if local.exists():
+        return local
+    cwd = Path.cwd()
+    candidates = [
+        cwd / "scripts" / "assemble_intent_experience.py",
+        cwd / "docsops" / "scripts" / "assemble_intent_experience.py",
+    ]
+    for path in candidates:
+        if path.exists():
+            return path
+    return local
+
+
 def main() -> None:
     args = parse_args()
     modules = _load_modules(Path(args.modules_dir))
+    assemble_script = _resolve_assemble_script()
 
     combinations: set[tuple[str, str]] = set()
     for module in modules:
@@ -50,7 +66,7 @@ def main() -> None:
             result = subprocess.run(
                 [
                     "python3",
-                    "scripts/assemble_intent_experience.py",
+                    str(assemble_script),
                     "--modules-dir",
                     args.modules_dir,
                     "--intent",

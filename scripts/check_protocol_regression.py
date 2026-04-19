@@ -34,18 +34,29 @@ def _normalized_bytes(path: Path) -> bytes:
     return text.encode("utf-8")
 
 
-def _iter_files(paths: list[Path]) -> list[Path]:
+def _iter_files(paths: list[Path], *, exclude_paths: set[Path] | None = None) -> list[Path]:
+    excluded = {p.resolve() for p in (exclude_paths or set())}
     files: list[Path] = []
     for item in paths:
         if item.is_file() and item.suffix.lower() in TEXT_EXTENSIONS:
-            files.append(item)
+            resolved = item.resolve()
+            if resolved not in excluded:
+                files.append(item)
         elif item.is_dir():
-            files.extend(sorted(candidate for candidate in item.rglob("*") if candidate.is_file() and candidate.suffix.lower() in TEXT_EXTENSIONS))
+            files.extend(
+                sorted(
+                    candidate
+                    for candidate in item.rglob("*")
+                    if candidate.is_file()
+                    and candidate.suffix.lower() in TEXT_EXTENSIONS
+                    and candidate.resolve() not in excluded
+                )
+            )
     return files
 
 
-def collect_snapshot(protocol: str, inputs: list[Path]) -> dict[str, Any]:
-    files = _iter_files(inputs)
+def collect_snapshot(protocol: str, inputs: list[Path], *, exclude_paths: set[Path] | None = None) -> dict[str, Any]:
+    files = _iter_files(inputs, exclude_paths=exclude_paths)
     hashes = {str(path.as_posix()): _sha256_bytes(_normalized_bytes(path)) for path in files}
     return {
         "protocol": protocol,
@@ -76,6 +87,7 @@ def main() -> int:
     parser.add_argument("--protocol", required=True)
     parser.add_argument("--snapshot", required=True)
     parser.add_argument("--input", dest="inputs", action="append", required=True, help="Contract file/dir (repeatable)")
+    parser.add_argument("--exclude", dest="excludes", action="append", default=[], help="Path to exclude from snapshot (repeatable)")
     parser.add_argument("--update", action="store_true")
     args = parser.parse_args()
 
@@ -86,7 +98,10 @@ def main() -> int:
         return 2
 
     snapshot_path = Path(args.snapshot)
-    current = collect_snapshot(args.protocol, inputs)
+    exclude_paths = {Path(item).resolve() for item in args.excludes}
+    # Prevent self-referential churn when snapshot file is inside the input directory.
+    exclude_paths.add(snapshot_path.resolve())
+    current = collect_snapshot(args.protocol, inputs, exclude_paths=exclude_paths)
 
     if args.update:
         _write_json(snapshot_path, current)

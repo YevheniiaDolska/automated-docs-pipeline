@@ -1,0 +1,57 @@
+{
+  "status": "ok",
+  "model": "claude-sonnet-4-5",
+  "analysis": {
+    "executive_summary": "Documentation audit of encore.dev/docs crawled 404 pages with 100.25% coverage across multi-project topology. Critical issues include 31 confirmed broken internal documentation links requiring immediate remediation. API reference coverage stands at only 14.58% despite 132 API pages detected, indicating significant documentation gaps. Freshness metadata is visible on just 27.48% of pages, limiting user confidence in content currency. SEO/geo issues affect 17.26% of pages, potentially impacting discoverability and international reach.",
+    "strengths": [
+      "Complete crawl coverage at 100.25% with 404 pages successfully indexed",
+      "High overall audit confidence at 91.5% with strong link verification (95% confidence)",
+      "Example code reliability estimated at 87.59%, indicating quality code samples",
+      "No repository navigation link breakage (0 repo_broken_links_count)",
+      "Zero trap URLs or crawl scope issues detected"
+    ],
+    "risks": [
+      "31 confirmed broken internal documentation links create poor user experience and navigation dead-ends",
+      "API reference coverage at 14.58% leaves 85%+ of API surface undocumented or poorly linked",
+      "Freshness metadata missing on 72.52% of pages undermines user trust in content accuracy",
+      "SEO/geo issue rate of 17.26% affects ~70 pages, risking search visibility and international accessibility",
+      "132 API pages detected but low coverage suggests fragmented or incomplete API documentation strategy",
+      "Missing last-updated timestamps prevent users from assessing content relevance for version-specific needs",
+      "Multi-project topology with coverage gaps may confuse users navigating between project contexts"
+    ],
+    "prioritized_actions": [
+      {
+        "action": "Fix all 31 broken internal documentation links to restore navigation integrity",
+        "impact": "critical",
+        "effort": "low"
+      },
+      {
+        "action": "Implement last-updated timestamps on all 293+ pages currently missing freshness metadata",
+        "impact": "high",
+        "effort": "low"
+      },
+      {
+        "action": "Conduct API documentation gap analysis and create missing reference pages to improve 14.58% coverage baseline",
+        "impact": "critical",
+        "effort": "high"
+      },
+      {
+        "action": "Remediate SEO/geo issues on 70 affected pages (meta tags, hreflang, structured data)",
+        "impact": "high",
+        "effort": "medium"
+      },
+      {
+        "action": "Establish cross-linking strategy between 132 API pages and usage documentation to increase reference coverage percentage",
+        "impact": "high",
+        "effort": "medium"
+      }
+    ],
+    "limitations": [
+      "External audit cannot verify accuracy or completeness of technical content, code examples, or API specifications",
+      "Detection of API pages relies on heuristic pattern matching; actual API surface coverage may differ from calculated 14.58%",
+      "Broken link verification reflects point-in-time status; dynamic content or authentication-gated pages may show false positives",
+      "Example reliability estimate is based on structural analysis, not execution testing or version compatibility validation",
+      "Multi-project topology analysis cannot assess logical coherence or user journey effectiveness across project boundaries"
+    ]
+  }
+}

@@ -4,8 +4,6 @@ summary: Generated catalog of available pipeline commands, templates, policy pac
   and assets for client configuration.
 intents:
 - integrate
-- secure
-- troubleshoot
 audiences:
 - developer
 - operator
@@ -16,7 +14,7 @@ channels:
 priority: 60
 status: active
 owner: docsops-auto
-last_verified: '2026-04-15'
+last_verified: '2026-04-18'
 dependencies: []
 tags:
 - auto-extracted
@@ -25,13 +23,13 @@ tags:
 metadata:
   url: https://docs.example.com/operations/PIPELINE_CAPABILITIES_CATALOG/
   title: Pipeline Capabilities Catalog (Part 12)
-  heading: Test assets generation and smart merge
+  heading: Pipeline Capabilities Catalog (Part 12)
   version: 1.50.0
-  updated_at: '2026-04-05T00:00:00Z'
+  updated_at: '2026-04-17T00:00:00Z'
   source_site: docs.example.com
   source_path: operations/PIPELINE_CAPABILITIES_CATALOG.md
 semantic:
-  topic: Test assets generation and smart merge
+  topic: Pipeline Capabilities Catalog (Part 12)
   intent: integrate
   audience: developer
   keywords:
@@ -39,95 +37,15 @@ semantic:
   - reference
   status: rule_based
 content:
-  docs_markdown: '## Test assets generation and smart merge
-
-
-    `generate_protocol_test_assets.py` generates protocol-aware test cases for all
-    five protocols with signature-based smart merge to preserve custom and manual
-    test cases across contract changes.
-
-
-    **Test categories per protocol:**
-
-
-    | Protocol | Categories |
-
-    | --- | --- |
-
-    | REST | CRUD happy paths, validation errors, auth, rate limiting, pagination
-    |
-
-    | GraphQL | Query/mutation/subscription happy path, invalid input, auth, injection,
-    latency |
-
-    | gRPC | Unary/streaming positive, status codes, deadline/retry, authorization,
-    latency SLO |
-
-    | AsyncAPI | Publish validation, invalid payload, ordering/idempotency, security,
-    throughput |
-
-    | WebSocket | Connection/auth, message envelope, reconnect, security, concurrency
-    |
-
-
-    **Output formats:** `api_test_cases.json`, `testrail_test_cases.csv` (TestRail),
-    `zephyr_test_cases.json` (Zephyr Scale), `test_matrix.json`, `fuzz_scenarios.json`.
-
-
-    **Smart merge rules:** auto-generated cases are replaced on contract change; customized
-    cases (`customized: true`) are preserved and flagged `needs_review: true` when
-    the contract signature changes; manual cases (`origin: "manual"`) are never overwritten.
-
-
-    **TestRail/Zephyr upload:** `upload_api_test_assets.py` pushes generated cases
-    to TestRail or Zephyr Scale. The `needs_review` flag propagates to both platforms
-    so QA teams can triage stale custom cases.'
+  docs_markdown: '**Self-verification:** `run_protocol_self_verify.py` validates generated
+    docs against live/mock endpoints (GraphQL introspection, gRPC method invocation,
+    AsyncAPI event publish, WebSocket connection routing).'
   assistant_context: 'Use this module when answering questions related to: Pipeline
     Capabilities Catalog (Part 12). Source path: operations/PIPELINE_CAPABILITIES_CATALOG.md.
     Summary: Generated catalog of available pipeline commands, templates, policy packs,
     and assets for client configuration.
 
 
-    ## Test assets generation and smart merge
-
-
-    `generate_protocol_test_assets.py` generates protocol-aware test cases for all
-    five protocols with signature-based smart merge to preserve custom and manual
-    test cases across contract changes.
-
-
-    **Test categories per protocol:**
-
-
-    | Protocol | Categories |
-
-    | --- | --- |
-
-    | REST | CRUD happy paths, validation errors, auth, rate limiting, pagination
-    |
-
-    | GraphQL | Query/mutation/subscription happy path, invalid input, auth, injection,
-    latency |
-
-    | gRPC | Unary/streaming positive, status codes, deadline/retry, authorization,
-    latency SLO |
-
-    | AsyncAPI | Publish validation, invalid payload, ordering/idempotency, security,
-    throughput |
-
-    | WebSocket | Connection/auth, message envelope, reconnect, security, concurrency
-    |
-
-
-    **Output formats:** `api_test_cases.json`, `testrail_test_cases.csv` (TestRail),
-    `zephyr_test_cases.json` (Zephyr Scale), `test_matrix.json`, `fuzz_scenarios.json`.
-
-
-    **Smart merge rules:** auto-generated cases are replaced on contract change; customized
-    cases (`customized: true`) are preserved and flagged `needs_review: true` when
-    the contract signature changes; manual cases (`origin: "manual"`) are never overwritten.
-
-
-    **TestRail/Zephyr upload:** `upload_api_test_assets.py` pushes generated cases
-    to TestRail or Zephyr Scale. The `needs_review` flag propagates to both platforms
-    so QA teams can triage stale custom cases.'
+    **Self-verification:** `run_protocol_self_verify.py` validates generated docs
+    against live/mock endpoints (GraphQL introspection, gRPC method invocation, AsyncAPI
+    event publish, WebSocket connection routing).'

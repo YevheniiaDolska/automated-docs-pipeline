@@ -151,8 +151,12 @@ class TestPlanFeatures:
         assert features["seo_geo_scoring"] is True
         assert features["api_first_flow"] is True
         assert features["drift_detection"] is True
-        assert features["multi_protocol_pipeline"] is False
-        assert features["knowledge_modules"] is False
+        assert features["multi_protocol_pipeline"] is True
+        assert features["knowledge_modules"] is True
+        assert features["knowledge_graph"] is True
+        assert features["faiss_retrieval"] is False
+        assert features["executive_audit_pdf"] is True
+        assert features["i18n_system"] is True
 
     def test_enterprise_features(self):
         features = PLAN_FEATURES["enterprise"]
@@ -164,6 +168,14 @@ class TestPlanFeatures:
 
     def test_enterprise_protocols(self):
         protos = PLAN_PROTOCOLS["enterprise"]
+        assert "rest" in protos
+        assert "graphql" in protos
+        assert "grpc" in protos
+        assert "asyncapi" in protos
+        assert "websocket" in protos
+
+    def test_professional_protocols(self):
+        protos = PLAN_PROTOCOLS["professional"]
         assert "rest" in protos
         assert "graphql" in protos
         assert "grpc" in protos

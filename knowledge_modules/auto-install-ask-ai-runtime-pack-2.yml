@@ -14,7 +14,7 @@ channels:
 priority: 60
 status: active
 owner: docsops-auto
-last_verified: '2026-04-15'
+last_verified: '2026-04-18'
 dependencies: []
 tags:
 - auto-extracted
@@ -50,11 +50,11 @@ content:
     ```\n\nHealth check:\n\n=== \"cURL\"\n\n    ```bash smoke\n    curl http://localhost:8090/healthz\n\
     \    ```\n\n=== \"JavaScript\"\n\n    ```javascript smoke\n    const response\
     \ = await fetch('http://localhost:8090/healthz', {\n      method: 'GET',\n   \
-    \   headers: {\n},\n    });\n    const payload = await response.json();\n    console.log(payload);\n\
-    \    ```\n\n=== \"Python\"\n\n    ```python smoke\n    import requests\n\n   \
-    \ response = requests.request(\n        'GET',\n        'http://localhost:8090/healthz',\n\
-    \        headers={},\n        timeout=30,\n    )\n    response.raise_for_status()\n\
-    \    print(response.json())\n    ```"
+    \   headers: {\n\n},\n    });\n    const payload = await response.json();\n  \
+    \  console.log(payload);\n    ```\n\n=== \"Python\"\n\n    ```python smoke\n \
+    \   import requests\n\n    response = requests.request(\n        'GET',\n    \
+    \    'http://localhost:8090/healthz',\n        headers={},\n        timeout=30,\n\
+    \    )\n    response.raise_for_status()\n    print(response.json())\n    ```"
   assistant_context: "Use this module when answering questions related to: Install\
     \ Ask AI runtime pack (Part 2). Source path: how-to/install-ask-ai-runtime-pack.md.\
     \ Summary: Install the optional Ask AI runtime pack with API endpoint, widget,\
@@ -71,8 +71,8 @@ content:
     \ --host 0.0.0.0 --port 8090\n```\n\nHealth check:\n\n=== \"cURL\"\n\n    ```bash\
     \ smoke\n    curl http://localhost:8090/healthz\n    ```\n\n=== \"JavaScript\"\
     \n\n    ```javascript smoke\n    const response = await fetch('http://localhost:8090/healthz',\
-    \ {\n      method: 'GET',\n      headers: {\n},\n    });\n    const payload =\
-    \ await response.json();\n    console.log(payload);\n    ```\n\n=== \"Python\"\
+    \ {\n      method: 'GET',\n      headers: {\n\n},\n    });\n    const payload\
+    \ = await response.json();\n    console.log(payload);\n    ```\n\n=== \"Python\"\
     \n\n    ```python smoke\n    import requests\n\n    response = requests.request(\n\
     \        'GET',\n        'http://localhost:8090/healthz',\n        headers={},\n\
     \        timeout=30,\n    )\n    response.raise_for_status()\n    print(response.json())\n\

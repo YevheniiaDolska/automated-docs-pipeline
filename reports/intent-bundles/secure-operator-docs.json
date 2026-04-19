@@ -86,8 +86,8 @@
       "content": "### Request 4: Update download\n\n**When:** After an update check finds a new version and the user approves.\n\n**Endpoint:** `GET /v1/download/{version}/{platform}`\n\n**Frequency:** When updates are available (monthly for Professional, weekly opt-in for Enterprise).\n\n```text\nGET /v1/download/1.3.0/linux-x86_64\n```\n\n**What is NOT sent:** No request body. No authentication headers. No client data of any kind.\n\n### Request 5: License deactivation\n\n**When:** When a client explicitly deactivates their license (seat release).\n\n**Endpoint:** `POST /v1/deactivate`\n\n**Frequency:** Once per deactivation.\n\n```json\n{\n  \"authorization\": \"Bearer <license-jwt>\"\n}\n```\n\n**What is NOT sent:** No reason codes, no usage data, no document counts."
     },
     {
-      "module_id": "auto-pipeline-capabilities-catalog-12",
-      "title": "Pipeline Capabilities Catalog (Part 12)",
+      "module_id": "auto-pipeline-capabilities-catalog-13",
+      "title": "Pipeline Capabilities Catalog (Part 13)",
       "priority": 60,
       "intent": "secure",
       "audience": "operator",
@@ -95,8 +95,8 @@
       "content": "## Test assets generation and smart merge\n\n`generate_protocol_test_assets.py` generates protocol-aware test cases for all five protocols with signature-based smart merge to preserve custom and manual test cases across contract changes.\n\n**Test categories per protocol:**\n\n| Protocol | Categories |\n| --- | --- |\n| REST | CRUD happy paths, validation errors, auth, rate limiting, pagination |\n| GraphQL | Query/mutation/subscription happy path, invalid input, auth, injection, latency |\n| gRPC | Unary/streaming positive, status codes, deadline/retry, authorization, latency SLO |\n| AsyncAPI | Publish validation, invalid payload, ordering/idempotency, security, throughput |\n| WebSocket | Connection/auth, message envelope, reconnect, security, concurrency |\n\n**Output formats:** `api_test_cases.json`, `testrail_test_cases.csv` (TestRail), `zephyr_test_cases.json` (Zephyr Scale), `test_matrix.json`, `fuzz_scenarios.json`.\n\n**Smart merge rules:** auto-generated cases are replaced on contract change; customized cases (`customized: true`) are preserved and flagged `needs_review: true` when the contract signature changes; manual cases (`origin: \"manual\"`) are never overwritten.\n\n**TestRail/Zephyr upload:** `upload_api_test_assets.py` pushes generated cases to TestRail or Zephyr Scale. The `needs_review` flag propagates to both platforms so QA teams can triage stale custom cases."
     },
     {
-      "module_id": "auto-pipeline-capabilities-catalog-18",
-      "title": "Pipeline Capabilities Catalog (Part 18)",
+      "module_id": "auto-pipeline-capabilities-catalog-20",
+      "title": "Pipeline Capabilities Catalog (Part 20)",
       "priority": 60,
       "intent": "secure",
       "audience": "operator",

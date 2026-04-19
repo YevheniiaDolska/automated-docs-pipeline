@@ -1,9 +1,9 @@
 {
-  "version": "20260415T120234Z-9ceff3f43f02",
-  "generated_at_utc": "2026-04-15T12:02:34.792894+00:00",
+  "version": "20260418T181209Z-53a0ea3dcd19",
+  "generated_at_utc": "2026-04-18T18:12:09.873490+00:00",
   "promoted_index_path": "/mnt/c/Users/Kroha/Documents/development/Auto-Doc Pipeline/docs/assets/knowledge-retrieval-index.json",
-  "versioned_index_path": "/mnt/c/Users/Kroha/Documents/development/Auto-Doc Pipeline/docs/assets/rag-versions/20260415T120234Z-9ceff3f43f02/knowledge-retrieval-index.json",
-  "checksum_sha256": "9ceff3f43f028059dd376ebebd787928aa0a22b3d2fa8b145a3f2e4c907d1473",
+  "versioned_index_path": "/mnt/c/Users/Kroha/Documents/development/Auto-Doc Pipeline/docs/assets/rag-versions/20260418T181209Z-53a0ea3dcd19/knowledge-retrieval-index.json",
+  "checksum_sha256": "53a0ea3dcd19f2ce874176c5d4514a748df7ad6aab6f2bda4747d3cffbdf7ec7",
   "with_embeddings": true,
   "embeddings_provider": "openai",
   "embeddings_generated": true,
@@ -12,6 +12,7 @@
   "steps": [
     "extract_knowledge_modules",
     "validate_knowledge_modules",
+    "detect_rag_contradictions",
     "generate_knowledge_retrieval_index",
     "generate_embeddings:openai"
   ]

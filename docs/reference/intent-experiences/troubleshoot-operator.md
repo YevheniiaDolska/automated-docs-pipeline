@@ -25,16 +25,15 @@ python3 scripts/assemble_intent_experience.py \
 
 Auto-generated asyncapi reference from source contract.
 
+<!-- vale off -->
 <div id="asyncapi-playground" style="border:1px solid #d1d5db; padding:12px; border-radius:8px;">
   <p><strong>WebSocket Endpoint:</strong> <code id="asyncapi-ws-view"></code></p>
   <p><strong>HTTP Publish Endpoint:</strong> <code id="asyncapi-http-view"></code></p>
-  <!-- vale off -->
   <textarea id="asyncapi-message" rows="8" style="width:100%; font-family:monospace;">{
   "event_type": "project.updated",
   "event_id": "evt_001",
   "data": {"project_id": "prj_abc123", "status": "active"}
 }</textarea><br/>
-  <!-- vale on -->
   <button id="asyncapi-send-ws">Send via WebSocket</button>
   <button id="asyncapi-send-http">Send via HTTP</button>
   <pre id="asyncapi-output" style="margin-top:12px; max-height:320px; overflow:auto;"></pre>
@@ -104,6 +103,7 @@ sendHttp.onclick = async function(){
 };
 })();
 </script>
+<!-- vale on -->
 
 ### Auto-Doc Pipeline study guide (Part 6)
 
@@ -143,6 +143,58 @@ No. The platform is docs-first and supports `code-first`, `api-first`, and `hybr
 ##### Auto-Doc Pipeline study guide (Part 6): 3) Which API protocols are supported?
 
 REST, GraphQL, gRPC, AsyncAPI, and WebSocket.
+
+### Централизованная настройка клиентов (Part 19)
+
+Практический путь настройки клиентских bundle и автозапуска pipeline из одного места.
+
+#### Централизованная настройка клиентов (Part 19): Server auto-renew runbook (hybrid/cloud)
+
+When retainer is active, run server-side license renewal batch on schedule:
+
+```bash
+
+python3 scripts/run_server_license_renewal.py
+
+```
+
+Expected output is JSON with:
+
+- `scanned`
+- `refreshed`
+- `degraded`
+- `errors`
+
+Optional API trigger (ops token required):
+
+```bash
+
+curl -X POST "https://<your-api>/ops/billing/license/renew/run" \
+  -H "Content-Type: application/json" \
+  -H "X-VeriOps-Server-Token: <ops-token>" \
+  -d '{"dry_run": false}'
+
+```
+
+Policy:
+
+- Active/trialing subscriptions get refreshed server license.
+- Inactive subscriptions are downgraded on renewal pass.
+- Strict-local clients use offline renewal bundles and do not require online renewal.
+
+#### Централизованная настройка клиентов (Part 19): Hardening e2e matrix report
+
+Generate a PASS/FAIL report for the hardening controls:
+
+```bash
+
+python3 scripts/run_hardening_e2e_matrix.py
+
+```
+
+Report path:
+
+- `reports/hardening_e2e_matrix_report.json`
 
 ### Централизованная настройка клиентов (Part 3)
 
@@ -311,6 +363,7 @@ LLM sub-processors.
 
 Auto-generated graphql reference from source contract.
 
+<!-- vale off -->
 <div id="graphql-playground" style="border:1px solid #d1d5db; padding:12px; border-radius:8px;">
   <p><strong>Endpoint:</strong> <code id="graphql-endpoint-view"></code></p>
   <textarea id="graphql-query" rows="12" style="width:100%; font-family:monospace;">query HealthCheck {
@@ -356,6 +409,7 @@ run.onclick = async function(){
 };
 })();
 </script>
+<!-- vale on -->
 
 ### GRPC API Reference (Part 3)
 
@@ -425,7 +479,54 @@ Problem → cause → solution. Start here when something breaks.
 
 Generated catalog of available pipeline commands, templates, policy packs, and assets for client configuration.
 
-#### Pipeline Capabilities Catalog (Part 10): Multi-protocol contract pipeline
+| Script | Purpose |
+| --- | --- |
+| `scripts/build_client_bundle.py` | Build client-specific bundle in `generated/client_bundles/<client_id>/`. |
+| `scripts/provision_client_repo.py` | One-shot install into client repo (bundle copy, config/policy, env checklist, scheduler install). |
+| `scripts/init_pipeline.py` | Bootstrap pipeline directly from source into another repo (self-install path). |
+| `scripts/run_weekly_gap_batch.py` | Main weekly local runner (gaps/stale/kpi/api-first/modules/custom tasks/consolidation). |
+| `scripts/auto_fix_pr_docs.py` | PR branch docs autofix helper for optional GitHub workflow. |
+| `scripts/ensure_external_mock_server.py` | Resolve/create external mock endpoint (Postman-supported flow). |
+| `scripts/extract_knowledge_modules_from_docs.py` | Auto-extract knowledge modules from docs markdown. |
+| `scripts/gap_detector.py` | Legacy/direct gap detector entry used in some compatibility paths. |
+| `scripts/generate_docusaurus_config.py` | Generate/update Docusaurus config in adapter flows. |
+| `scripts/generate_facets_index.py` | Build faceted search index artifacts. |
+| `scripts/generate_fastapi_stubs_from_openapi.py` | Generate FastAPI stubs from OpenAPI. |
+| `scripts/generate_openapi_from_planning_notes.py` | Generate OpenAPI root/tree from planning notes. |
+| `scripts/generate_protocol_server_stubs.py` | Generate protocol server stubs with business-logic placeholders for REST, GraphQL, gRPC, AsyncAPI, and WebSocket. |
+| `scripts/generate_llm_web_artifacts.py` | Generate `llms.txt`, `llms-full.txt`, and markdown mirror artifacts for LLM-agent crawling and RAG-friendly indexing. |
+| `scripts/generate_pipeline_capabilities_catalog.py` | Regenerate this capabilities catalog file. |
+| `scripts/lifecycle_manager.py` | Lifecycle scan/report/redirect guidance generation. |
+| `scripts/manage_demo_nav.py` | Demo nav injection/removal helper. |
+| `scripts/pilot_analysis.py` | Pilot analysis/report helper. |
+| `scripts/preprocess_variables.py` | Variables pre-processing helper for docs generation flows. |
+| `scripts/upload_to_algolia.py` | Upload generated search records to Algolia. |
+| `scripts/validate_pr_dod.py` | DoD validation helper for PR workflows. |
+| `scripts/run_multi_protocol_contract_flow.py` | Unified orchestrator for all 5 protocol documentation flows (REST, GraphQL, gRPC, AsyncAPI, WebSocket). Runs 9 stages: ingest, contract validation, server stub generation, lint, regression, docs generation, quality gates, test assets, publish. |
+| `scripts/run_retrieval_evals_gate.py` | Smart retrieval gate with runtime mode selection (`token`, `hybrid`, `hybrid+rerank`) and adaptive threshold profile for dataset mismatch cases. |
+| `scripts/rag_reindex_lifecycle.py` | Versioned RAG reindex lifecycle: extract, validate, index build, optional embeddings, promote, rollback, and retention pruning. |
+| `scripts/enforce_rag_optimization_layer.py` | Unified RAG optimization layer enforcement for cloud, hybrid, and strict-local profiles with alert-enabled thresholds. |
+| `scripts/detect_rag_contradictions.py` | Detect contradictory numeric/runtime claims in knowledge modules before indexing, produce `reports/rag_contradictions_report.json`, and mark critical module IDs for index exclusion or gate blocking. |
+| `scripts/generate_protocol_contract_from_planning_notes.py` | Generate protocol contracts (GraphQL SDL, Proto3, AsyncAPI YAML, WebSocket YAML) from planning notes markdown. |
+| `scripts/generate_protocol_docs.py` | Auto-generate reference documentation from protocol contracts using protocol-specific templates. |
+| `scripts/generate_protocol_test_assets.py` | Generate protocol-aware test cases with signature-based smart merge. Outputs JSON, TestRail CSV, Zephyr JSON, test matrix, and fuzz scenarios. |
+| `scripts/run_protocol_self_verify.py` | Runtime validation against live/mock endpoints: GraphQL introspection, gRPC invocation, AsyncAPI event publish, WebSocket connection and message routing. |
+| `scripts/validate_graphql_contract.py` | GraphQL SDL contract validation (syntax, semantics, operation types). |
+| `scripts/validate_proto_contract.py` | Proto3 contract validation (syntax, service definitions, RPC methods). |
+| `scripts/validate_asyncapi_contract.py` | AsyncAPI contract validation (channels, schemas, delivery guarantees). |
+| `scripts/validate_websocket_contract.py` | WebSocket channel contract validation (message schemas, connection lifecycle). |
+| `scripts/generate_public_docs_audit.py` | Public documentation site auditor: crawls live sites, evaluates broken links, SEO/GEO, API coverage, code examples, freshness. Supports interactive wizard and LLM-powered expert analysis. |
+| `scripts/generate_audit_scorecard.py` | Comprehensive audit scorecard generator combining docs quality, API coverage, code examples, glossary health, and policy compliance into a single score. |
+| `scripts/generate_executive_audit_pdf.py` | Consulting-grade executive PDF report from audit scorecard and public docs audit results. Includes score gauges, risk matrices, financial impact tables, and methodology appendix. |
+| `scripts/generate_embeddings.py` | Generate FAISS vector index from knowledge modules using `text-embedding-3-small` (1536 dimensions). Builds `retrieval.faiss` and `retrieval-metadata.json`. |
+| `scripts/docsops_generate.py` | Operator and policy-triggered generation entry point for local CLI workflows (`operator` and `veridoc` modes). |
+| `scripts/production_smoke.py` | Production smoke validation for runtime readiness and deployment health signals. |
+
+### Pipeline Capabilities Catalog (Part 11)
+
+Generated catalog of available pipeline commands, templates, policy packs, and assets for client configuration.
+
+#### Pipeline Capabilities Catalog (Part 11): Multi-protocol contract pipeline
 
 The pipeline supports five API protocols with a unified orchestrator (`run_multi_protocol_contract_flow.py`). Each protocol has its own contract format, validator, reference template, test generator, and sandbox fallback.
 
@@ -443,11 +544,11 @@ The pipeline supports five API protocols with a unified orchestrator (`run_multi
 
 **Contract generation from planning notes:** `generate_protocol_contract_from_planning_notes.py` generates protocol specs from markdown planning notes.
 
-### Pipeline Capabilities Catalog (Part 12)
+### Pipeline Capabilities Catalog (Part 13)
 
 Generated catalog of available pipeline commands, templates, policy packs, and assets for client configuration.
 
-#### Pipeline Capabilities Catalog (Part 12): Test assets generation and smart merge
+#### Pipeline Capabilities Catalog (Part 13): Test assets generation and smart merge
 
 `generate_protocol_test_assets.py` generates protocol-aware test cases for all five protocols with signature-based smart merge to preserve custom and manual test cases across contract changes.
 
@@ -467,11 +568,11 @@ Generated catalog of available pipeline commands, templates, policy packs, and a
 
 **TestRail/Zephyr upload:** `upload_api_test_assets.py` pushes generated cases to TestRail or Zephyr Scale. The `needs_review` flag propagates to both platforms so QA teams can triage stale custom cases.
 
-### Pipeline Capabilities Catalog (Part 17)
+### Pipeline Capabilities Catalog (Part 19)
 
 Generated catalog of available pipeline commands, templates, policy packs, and assets for client configuration.
 
-#### Pipeline Capabilities Catalog (Part 17): API-first external sandbox note
+#### Pipeline Capabilities Catalog (Part 19): API-first external sandbox note
 
 For public web playground usage, prefer `external` sandbox mode and a public HTTPS mock URL with CORS:
 
@@ -492,7 +593,7 @@ For Postman auto-prepare mode, provide:
 - optional `POSTMAN_COLLECTION_UID` (if empty, pipeline imports collection from generated OpenAPI)
 - optional `POSTMAN_MOCK_SERVER_ID`
 
-#### Pipeline Capabilities Catalog (Part 17): PR auto-doc workflow capability
+#### Pipeline Capabilities Catalog (Part 19): PR auto-doc workflow capability
 
 Enable in client profile with `runtime.pr_autofix`.
 
@@ -504,11 +605,11 @@ Installed workflow behavior:
 1. Commit generated docs into the same PR branch.
 1. Rerun checks automatically.
 
-### Pipeline Capabilities Catalog (Part 18)
+### Pipeline Capabilities Catalog (Part 20)
 
 Generated catalog of available pipeline commands, templates, policy packs, and assets for client configuration.
 
-#### Pipeline Capabilities Catalog (Part 18): Templates
+#### Pipeline Capabilities Catalog (Part 20): Templates
 
 These can be shipped via `bundle.include_paths` and used by LLM generation flow.
 
@@ -545,7 +646,7 @@ These can be shipped via `bundle.include_paths` and used by LLM generation flow.
 - `templates/user-guide.md`
 - `templates/webhooks-guide.md`
 
-#### Pipeline Capabilities Catalog (Part 18): Policy Packs
+#### Pipeline Capabilities Catalog (Part 20): Policy Packs
 
 - `api-first.yml`
 - `minimal.yml`
@@ -553,18 +654,18 @@ These can be shipped via `bundle.include_paths` and used by LLM generation flow.
 - `multi-product.yml`
 - `plg.yml`
 
-#### Pipeline Capabilities Catalog (Part 18): Knowledge Modules
+#### Pipeline Capabilities Catalog (Part 20): Knowledge Modules
 
 Can be copied into client bundle with `bundle.include_paths: ['knowledge_modules']`.
 
 - `webhook-auth-baseline.yml`
 - `webhook-retry-policy.yml`
 
-### Pipeline Capabilities Catalog (Part 6)
+### Pipeline Capabilities Catalog (Part 7)
 
 Generated catalog of available pipeline commands, templates, policy packs, and assets for client configuration.
 
-#### Pipeline Capabilities Catalog (Part 6): How to enable any capability for a client
+#### Pipeline Capabilities Catalog (Part 7): How to enable any capability for a client
 
 ```yaml
 
@@ -577,51 +678,6 @@ runtime:
         continue_on_error: true
 
 ```
-
-### Pipeline Capabilities Catalog (Part 9)
-
-Generated catalog of available pipeline commands, templates, policy packs, and assets for client configuration.
-
-| Script | Purpose |
-| --- | --- |
-| `scripts/build_client_bundle.py` | Build client-specific bundle in `generated/client_bundles/<client_id>/`. |
-| `scripts/provision_client_repo.py` | One-shot install into client repo (bundle copy, config/policy, env checklist, scheduler install). |
-| `scripts/init_pipeline.py` | Bootstrap pipeline directly from source into another repo (self-install path). |
-| `scripts/run_weekly_gap_batch.py` | Main weekly local runner (gaps/stale/kpi/api-first/modules/custom tasks/consolidation). |
-| `scripts/auto_fix_pr_docs.py` | PR branch docs autofix helper for optional GitHub workflow. |
-| `scripts/ensure_external_mock_server.py` | Resolve/create external mock endpoint (Postman-supported flow). |
-| `scripts/extract_knowledge_modules_from_docs.py` | Auto-extract knowledge modules from docs markdown. |
-| `scripts/gap_detector.py` | Legacy/direct gap detector entry used in some compatibility paths. |
-| `scripts/generate_docusaurus_config.py` | Generate/update Docusaurus config in adapter flows. |
-| `scripts/generate_facets_index.py` | Build faceted search index artifacts. |
-| `scripts/generate_fastapi_stubs_from_openapi.py` | Generate FastAPI stubs from OpenAPI. |
-| `scripts/generate_openapi_from_planning_notes.py` | Generate OpenAPI root/tree from planning notes. |
-| `scripts/generate_protocol_server_stubs.py` | Generate protocol server stubs with business-logic placeholders for REST, GraphQL, gRPC, AsyncAPI, and WebSocket. |
-| `scripts/generate_pipeline_capabilities_catalog.py` | Regenerate this capabilities catalog file. |
-| `scripts/lifecycle_manager.py` | Lifecycle scan/report/redirect guidance generation. |
-| `scripts/manage_demo_nav.py` | Demo nav injection/removal helper. |
-| `scripts/pilot_analysis.py` | Pilot analysis/report helper. |
-| `scripts/preprocess_variables.py` | Variables pre-processing helper for docs generation flows. |
-| `scripts/upload_to_algolia.py` | Upload generated search records to Algolia. |
-| `scripts/validate_pr_dod.py` | DoD validation helper for PR workflows. |
-| `scripts/run_multi_protocol_contract_flow.py` | Unified orchestrator for all 5 protocol documentation flows (REST, GraphQL, gRPC, AsyncAPI, WebSocket). Runs 9 stages: ingest, contract validation, server stub generation, lint, regression, docs generation, quality gates, test assets, publish. |
-| `scripts/run_retrieval_evals_gate.py` | Smart retrieval gate with runtime mode selection (`token`, `hybrid`, `hybrid+rerank`) and adaptive threshold profile for dataset mismatch cases. |
-| `scripts/rag_reindex_lifecycle.py` | Versioned RAG reindex lifecycle: extract, validate, index build, optional embeddings, promote, rollback, and retention pruning. |
-| `scripts/enforce_rag_optimization_layer.py` | Unified RAG optimization layer enforcement for cloud, hybrid, and strict-local profiles with alert-enabled thresholds. |
-| `scripts/generate_protocol_contract_from_planning_notes.py` | Generate protocol contracts (GraphQL SDL, Proto3, AsyncAPI YAML, WebSocket YAML) from planning notes markdown. |
-| `scripts/generate_protocol_docs.py` | Auto-generate reference documentation from protocol contracts using protocol-specific templates. |
-| `scripts/generate_protocol_test_assets.py` | Generate protocol-aware test cases with signature-based smart merge. Outputs JSON, TestRail CSV, Zephyr JSON, test matrix, and fuzz scenarios. |
-| `scripts/run_protocol_self_verify.py` | Runtime validation against live/mock endpoints: GraphQL introspection, gRPC invocation, AsyncAPI event publish, WebSocket connection and message routing. |
-| `scripts/validate_graphql_contract.py` | GraphQL SDL contract validation (syntax, semantics, operation types). |
-| `scripts/validate_proto_contract.py` | Proto3 contract validation (syntax, service definitions, RPC methods). |
-| `scripts/validate_asyncapi_contract.py` | AsyncAPI contract validation (channels, schemas, delivery guarantees). |
-| `scripts/validate_websocket_contract.py` | WebSocket channel contract validation (message schemas, connection lifecycle). |
-| `scripts/generate_public_docs_audit.py` | Public documentation site auditor: crawls live sites, evaluates broken links, SEO/GEO, API coverage, code examples, freshness. Supports interactive wizard and LLM-powered expert analysis. |
-| `scripts/generate_audit_scorecard.py` | Comprehensive audit scorecard generator combining docs quality, API coverage, code examples, glossary health, and policy compliance into a single score. |
-| `scripts/generate_executive_audit_pdf.py` | Consulting-grade executive PDF report from audit scorecard and public docs audit results. Includes score gauges, risk matrices, financial impact tables, and methodology appendix. |
-| `scripts/generate_embeddings.py` | Generate FAISS vector index from knowledge modules using `text-embedding-3-small` (1536 dimensions). Builds `retrieval.faiss` and `retrieval-metadata.json`. |
-| `scripts/docsops_generate.py` | Operator and policy-triggered generation entry point for local CLI workflows (`operator` and `veridoc` modes). |
-| `scripts/production_smoke.py` | Production smoke validation for runtime readiness and deployment health signals. |
 
 ### Plan Tiers (Basic / Pro / Enterprise) (Part 10)
 

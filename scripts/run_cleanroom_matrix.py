@@ -22,10 +22,13 @@ REPORT_PATH = REPO_ROOT / "reports" / "cleanroom_matrix_report.json"
 MATRIX = [
     {"package": "pilot", "plan": "pilot", "mode": "strict-local"},
     {"package": "pilot", "plan": "pilot", "mode": "hybrid"},
+    {"package": "pilot", "plan": "pilot", "mode": "cloud"},
     {"package": "full", "plan": "professional", "mode": "strict-local"},
     {"package": "full", "plan": "professional", "mode": "hybrid"},
+    {"package": "full", "plan": "professional", "mode": "cloud"},
     {"package": "full+rag", "plan": "enterprise", "mode": "strict-local"},
     {"package": "full+rag", "plan": "enterprise", "mode": "hybrid"},
+    {"package": "full+rag", "plan": "enterprise", "mode": "cloud"},
 ]
 
 
@@ -203,6 +206,14 @@ def _build_profile(config: dict[str, str]) -> Path:
         llm["strict_local_first"] = True
         llm["external_llm_allowed"] = False
         llm["require_explicit_approval"] = True
+    elif mode == "cloud":
+        security["operation_mode"] = "cloud"
+        security["phone_home_enabled_default"] = True
+        security["update_check_enabled_default"] = True
+        llm["llm_mode"] = "external_preferred"
+        llm["strict_local_first"] = False
+        llm["external_llm_allowed"] = True
+        llm["require_explicit_approval"] = False
     else:
         security["operation_mode"] = "hybrid"
         security["phone_home_enabled_default"] = True
@@ -230,7 +241,14 @@ def _build_profile(config: dict[str, str]) -> Path:
 
 def _cleanup_cleanroom() -> None:
     if CLIENT_REPO.exists():
-        shutil.rmtree(CLIENT_REPO)
+        try:
+            shutil.rmtree(CLIENT_REPO)
+        except OSError:
+            # Windows/WSL occasionally leaves read-only or busy artifacts.
+            subprocess.run(["chmod", "-R", "u+w", str(CLIENT_REPO)], check=False)
+            subprocess.run(["rm", "-rf", str(CLIENT_REPO)], check=False)
+            if CLIENT_REPO.exists():
+                raise
 
 
 def _collect_needs_review_ids() -> list[str]:
@@ -254,7 +272,7 @@ def _is_expected_license_block(step_name: str, step_result: dict[str, Any], conf
     package = str(config.get("package", "")).strip().lower()
     if step_name == "api_first_rest" and package == "pilot":
         return True
-    if step_name == "multi_protocol" and package in {"pilot", "full"}:
+    if step_name == "multi_protocol" and package == "pilot":
         return True
     return False
 

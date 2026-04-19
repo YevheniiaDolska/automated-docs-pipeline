@@ -1,7 +1,8 @@
 {
-  "generated_at": "2026-03-31T20:58:11.158362+00:00",
+  "generated_at": "2026-04-18T17:53:06.465260+00:00",
+  "commercial_package": "full",
   "score": {
-    "audit_score_0_100": 60.53,
+    "audit_score_0_100": 60.8,
     "grade": "D"
   },
   "kpis": {
@@ -23,11 +24,11 @@
       "example_reliability_pct": 100.0
     },
     "freshness": {
-      "total_docs": 80,
-      "dated_docs": 53,
-      "missing_date_docs": 27,
-      "average_age_days": 17.45,
-      "median_age_days": 11.0,
+      "total_docs": 81,
+      "dated_docs": 50,
+      "missing_date_docs": 31,
+      "average_age_days": 34.46,
+      "median_age_days": 29.0,
       "stale_days_threshold": 180,
       "stale_docs_count": 0,
       "stale_docs_pct": 0.0
@@ -46,8 +47,8 @@
         "how-to",
         "reference"
       ],
-      "total_features": 75,
-      "features_missing_required_layers": 75,
+      "total_features": 76,
+      "features_missing_required_layers": 76,
       "features_missing_required_layers_pct": 100.0,
       "sample_missing_features": [
         {
@@ -156,8 +157,8 @@
     "retrieval_quality": {
       "report_found": true,
       "status": "ok",
-      "precision_at_k": 0.2267,
-      "recall_at_k": 0.68,
+      "precision_at_k": 0.24,
+      "recall_at_k": 0.72,
       "hallucination_rate": 0.0,
       "top_k": 3
     },
@@ -165,7 +166,7 @@
       "glossary_path": "glossary.yml",
       "forbidden_terms_count": 5,
       "glossary_terms_count": 17,
-      "docs_scanned": 80,
+      "docs_scanned": 81,
       "docs_with_forbidden_terms": 0,
       "forbidden_term_occurrences": 0,
       "terminology_violation_pct": 0.0,
@@ -584,33 +585,54 @@
     "monthly_loss_usd_base_total": 11248.0,
     "monthly_loss_usd_high_total": 24282.0
   },
-  "top_3_gaps": [
+  "top_3_gaps": [],
+  "scope": {
+    "package": "full",
+    "package_label": "Full implementation",
+    "in_scope": [
+      "Production rollout across prioritized repositories.",
+      "Full quality gate integration in CI and weekly automation.",
+      "Multi-surface docs generation and contract governance.",
+      "Operational runbook alignment and ownership handoff."
+    ],
+    "out_of_scope": [
+      "RAG-heavy retrieval evaluation and graph tuning (add-on).",
+      "Custom security attestations outside standard hardening profile."
+    ],
+    "coverage_note": "Current report includes 8 findings (1 high, 3 medium) mapped to pipeline capabilities."
+  },
+  "roadmap_90_days": [
     {
-      "id": "CODE-0002",
-      "title": "Webhook: webhook: Webhook",
-      "priority": "high",
-      "action_required": "Update webhook documentation for changes in mkdocs.yml. Include payload examples and event types.",
-      "related_files": [
-        "mkdocs.yml"
+      "window_days": "0-30",
+      "objective": "Stabilize core quality risks",
+      "actions": [
+        "Stabilize highest-severity findings and unblock release-critical documentation paths.",
+        "Lock weekly quality gate cadence and confirm review-branch workflow behavior.",
+        "Prioritize 1 high-severity findings for immediate remediation."
       ]
     },
     {
-      "id": "CODE-0001",
-      "title": "Authentication: authentication: Auth",
-      "priority": "high",
-      "action_required": "Update authentication documentation for changes in docs/reference/taskstream-api-playground.md. Include security considerations.",
-      "related_files": [
-        "docs/reference/taskstream-api-playground.md"
+      "window_days": "31-60",
+      "objective": "Scale and standardize coverage",
+      "actions": [
+        "Close the highest business-impact medium findings and reduce recurring support burden.",
+        "Backfill missing documentation layers for top capabilities and API operations.",
+        "Primary gap themes: Missing required doc layers; Documentation freshness debt; RAG retrieval quality risk."
       ]
     },
     {
-      "id": "CODE-0976",
-      "title": "Database Schema: database_schema: schema(",
-      "priority": "high",
-      "action_required": "Document database schema change in scripts/generate_api_test_assets.py. Update data model documentation.",
-      "related_files": [
-        "scripts/generate_api_test_assets.py"
+      "window_days": "61-90",
+      "objective": "Operationalize steady-state excellence",
+      "actions": [
+        "Harden governance with KPI/SLA thresholds tied to release-readiness criteria.",
+        "Institutionalize ownership model, reporting rhythm, and operational escalation policy.",
+        "Resolve remaining medium findings (3) into steady-state backlog."
       ]
     }
-  ]
+  ],
+  "executive_narrative": {
+    "summary": "Current documentation operating posture is fragile (score 60.8, grade D). API coverage is 0.0%, example reliability is 100.0%, drift is 0.0%, and stale coverage debt is 0.0%.",
+    "business_context": "The finding set contains 1 high and 3 medium risks, with quantifiable monthly loss and remediation effort modeled per issue.",
+    "recommendation": "NO-GO until critical remediation milestones are closed. Execute the 90-day roadmap with weekly evidence-based checkpoints to convert documentation quality from project effort into repeatable operating capability."
+  }
 }

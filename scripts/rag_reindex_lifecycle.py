@@ -34,6 +34,17 @@ def _run(cmd: list[str], cwd: Path) -> None:
         )
 
 
+def _resolve_script_path(repo_root: Path, script_name: str) -> Path:
+    candidates = [
+        repo_root / "scripts" / script_name,
+        repo_root / "docsops" / "scripts" / script_name,
+    ]
+    for candidate in candidates:
+        if candidate.exists():
+            return candidate.resolve()
+    return candidates[0].resolve()
+
+
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description="Run versioned RAG reindex lifecycle")
     parser.add_argument("--repo-root", default=".")
@@ -154,7 +165,7 @@ def main() -> int:
         _run(
             [
                 py,
-                "scripts/extract_knowledge_modules_from_docs.py",
+                str(_resolve_script_path(repo_root, "extract_knowledge_modules_from_docs.py")),
                 "--docs-dir",
                 str(docs_dir),
                 "--modules-dir",
@@ -169,7 +180,7 @@ def main() -> int:
         _run(
             [
                 py,
-                "scripts/validate_knowledge_modules.py",
+                str(_resolve_script_path(repo_root, "validate_knowledge_modules.py")),
                 "--modules-dir",
                 str(modules_dir),
                 "--report",
@@ -182,7 +193,7 @@ def main() -> int:
         if not args.skip_contradiction_check:
             contradiction_cmd = [
                 py,
-                "scripts/detect_rag_contradictions.py",
+                str(_resolve_script_path(repo_root, "detect_rag_contradictions.py")),
                 "--modules-dir",
                 str(modules_dir),
                 "--report",
@@ -199,7 +210,7 @@ def main() -> int:
 
         index_cmd = [
             py,
-            "scripts/generate_knowledge_retrieval_index.py",
+            str(_resolve_script_path(repo_root, "generate_knowledge_retrieval_index.py")),
             "--modules-dir",
             str(modules_dir),
             "--output",
@@ -224,7 +235,7 @@ def main() -> int:
         _run(
             [
                 py,
-                "scripts/generate_embeddings.py",
+                str(_resolve_script_path(repo_root, "generate_embeddings.py")),
                 "--index",
                 str(index_path),
                 "--output-dir",

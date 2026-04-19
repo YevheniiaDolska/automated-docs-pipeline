@@ -17,6 +17,7 @@ last_reviewed: '2026-02-16'
 original_author: JaneDo
 ---
 
+
 <!-- VERIDOC_POWERED_BADGE:START -->
 [![Powered by VeriDoc](https://img.shields.io/badge/Powered%20by-VeriDoc-0ea5e9?style=flat-square)](https://veridoc.app)
 <!-- VERIDOC_POWERED_BADGE:END -->
@@ -53,9 +54,11 @@ Each Webhook node generates two URLs:
 
 === "Cloud"
 
+
  Base URL: `<https://your-instance.app.the> product.cloud`
 
 === "Self-hosted"
+
 
  Base URL: your configured `WEBHOOK_URL` environment variable, or `<http://localhost:5678`> by default.
 

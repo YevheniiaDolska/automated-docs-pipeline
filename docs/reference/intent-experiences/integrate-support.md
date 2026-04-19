@@ -27,14 +27,46 @@ Covers secure webhook authentication setup for docs, assistant responses, in-pro
 
 Use HMAC validation to reject spoofed webhook requests before your workflow executes. Set the shared secret in {{ env_vars.webhook_url }} settings, then verify the `X-Signature` header with SHA-256. Reject requests older than 300 seconds, and return HTTP 401 for invalid signatures.
 
-```bash
+=== "cURL"
 
-curl -X POST "http://localhost:{{ default_webhook_port }}/webhook/order-events" \\
-  -H "Content-Type: application/json" \\
-  -H "X-Signature: sha256=YOUR_CALCULATED_SIGNATURE" \\
-  -d '{"order_id":"ord_9482","event":"order_paid","amount":129.99}'
+    ```bash smoke
 
-```
+    curl -X POST "http://localhost:{{ default_webhook_port }}/webhook/order-events" \\
+      -H "Content-Type: application/json" \\
+      -H "X-Signature: sha256=YOUR_CALCULATED_SIGNATURE" \\
+      -d '{"order_id":"ord_9482","event":"order_paid","amount":129.99}'
+    ```
+
+=== "JavaScript"
+
+    ```javascript smoke
+    const response = await fetch('http://localhost:{{ default_webhook_port }}/webhook/order-events', {
+      method: 'POST',
+      headers: {
+        "Content-Type": "application/json",
+        "X-Signature": "sha256=YOUR_CALCULATED_SIGNATURE",
+      },
+      body: JSON.stringify({"order_id": "ord_9482", "event": "order_paid", "amount": 129.99}),
+    });
+    const payload = await response.json();
+    console.log(payload);
+    ```
+
+=== "Python"
+
+    ```python smoke
+    import requests
+
+    response = requests.request(
+        'POST',
+        'http://localhost:{{ default_webhook_port }}/webhook/order-events',
+        headers={'Content-Type': 'application/json', 'X-Signature': 'sha256=YOUR_CALCULATED_SIGNATURE'},
+        json={'order_id': 'ord_9482', 'event': 'order_paid', 'amount': 129.99},
+        timeout=30,
+    )
+    response.raise_for_status()
+    print(response.json())
+    ```
 
 Keep replay protection enabled, rotate the secret every 90 days, and monitor 401 spikes for abuse detection.
 

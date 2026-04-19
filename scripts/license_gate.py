@@ -96,15 +96,15 @@ PLAN_FEATURES: dict[str, dict[str, bool]] = {
         "kpi_wall_sla": True,
         "test_assets_generation": True,
         "consolidated_reports": True,
-        "multi_protocol_pipeline": False,
-        "knowledge_modules": False,
-        "knowledge_graph": False,
+        "multi_protocol_pipeline": True,
+        "knowledge_modules": True,
+        "knowledge_graph": True,
         "faiss_retrieval": False,
-        "executive_audit_pdf": False,
-        "i18n_system": False,
-        "custom_policy_packs": False,
-        "testrail_zephyr_upload": False,
-        "doc_compiler": False,
+        "executive_audit_pdf": True,
+        "i18n_system": True,
+        "custom_policy_packs": True,
+        "testrail_zephyr_upload": True,
+        "doc_compiler": True,
     },
     "enterprise": {
         "markdown_lint": True,
@@ -138,21 +138,21 @@ COMMUNITY_FEATURES: dict[str, bool] = {
     "markdown_lint": True,
     "frontmatter_validation": True,
     "seo_geo_report_only": True,
-    "gap_detection_code": True,
-    "glossary_sync": True,
-    "lifecycle_management": True,
-    "rest_protocol": True,
+    "gap_detection_code": False,
+    "glossary_sync": False,
+    "lifecycle_management": False,
+    "rest_protocol": False,
     "advanced_prompts": False,
 }
 
 # Protocols allowed per plan
 PLAN_PROTOCOLS: dict[str, list[str]] = {
     "pilot": ["rest"],
-    "professional": ["rest"],
+    "professional": ["rest", "graphql", "grpc", "asyncapi", "websocket"],
     "enterprise": ["rest", "graphql", "grpc", "asyncapi", "websocket"],
 }
 
-COMMUNITY_PROTOCOLS: list[str] = ["rest"]
+COMMUNITY_PROTOCOLS: list[str] = []
 
 # Default offline grace days per plan
 DEFAULT_GRACE_DAYS: dict[str, int] = {
@@ -1014,8 +1014,8 @@ def require_protocol(protocol: str, license_info: LicenseInfo | None = None) -> 
     effective_protocols = _effective_protocols(info)
     if protocol.lower().strip() not in effective_protocols:
         print(
-            f"[license] BLOCKED: Protocol '{protocol}' requires Enterprise plan "
-            f"(current: {effective_plan}).",
+            f"[license] BLOCKED: Protocol '{protocol}' is not enabled for current plan "
+            f"(current: {effective_plan}; allowed: {', '.join(effective_protocols)}).",
             file=sys.stderr,
         )
         raise SystemExit(1)

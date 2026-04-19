@@ -1,0 +1,350 @@
+{
+  "generated_at": "2026-04-17T11:56:27.923409+00:00",
+  "site_url": "https://trigger.dev/docs",
+  "site_urls": [
+    "https://trigger.dev/docs"
+  ],
+  "topology_mode": "multi-project",
+  "verification_modes": [
+    "authenticated",
+    "bot",
+    "browser"
+  ],
+  "sites": [
+    {
+      "site_url": "https://trigger.dev/docs",
+      "metrics": {
+        "crawl": {
+          "pages_crawled": 214,
+          "requested_pages": 384,
+          "urls_examined": 216,
+          "max_pages": 2000,
+          "effective_limit": 2000,
+          "auto_mode": false,
+          "stop_reason": "queue_exhausted",
+          "discovered_pages": 216,
+          "crawl_scope_basis": "sitemap",
+          "crawl_scope_pages": 215,
+          "crawl_coverage_pct": 100.47,
+          "trap_urls_skipped": 0,
+          "seeded_sitemap_urls": 215,
+          "robots_sitemaps_declared": 1
+        },
+        "links": {
+          "internal_links_checked": 383,
+          "broken_internal_links_count": 5,
+          "docs_broken_links_count": 5,
+          "repo_broken_links_count": 0,
+          "broken_internal_link_samples": [
+            "https://trigger.dev/cdn-cgi/l/email-protection",
+            "https://trigger.dev/docs/feature-matrix",
+            "https://trigger.dev/docs/frontend/react-hooks/realtime",
+            "https://trigger.dev/docs/guides/bun",
+            "https://trigger.dev/docs/upgrading-from-v2"
+          ],
+          "docs_broken_link_samples": [
+            "https://trigger.dev/cdn-cgi/l/email-protection",
+            "https://trigger.dev/docs/feature-matrix",
+            "https://trigger.dev/docs/frontend/react-hooks/realtime",
+            "https://trigger.dev/docs/guides/bun",
+            "https://trigger.dev/docs/upgrading-from-v2"
+          ],
+          "repo_broken_link_samples": [],
+          "unreachable_links_count": 1,
+          "unverified_links_count": 1,
+          "unverified_link_samples": [
+            "https://trigger.dev/changelog/increased-otel-attribute-limits"
+          ],
+          "confirmed_broken_links_count": 5,
+          "excluded_links_count": 1,
+          "excluded_link_samples": [
+            "https://trigger.dev/blog/event-loop-lag/network-traffic-by-ip.png"
+          ],
+          "_all_confirmed_broken_links": [
+            "https://trigger.dev/cdn-cgi/l/email-protection",
+            "https://trigger.dev/docs/feature-matrix",
+            "https://trigger.dev/docs/frontend/react-hooks/realtime",
+            "https://trigger.dev/docs/guides/bun",
+            "https://trigger.dev/docs/upgrading-from-v2"
+          ],
+          "_all_unverified_links": [
+            "https://trigger.dev/changelog/increased-otel-attribute-limits"
+          ],
+          "_all_excluded_links": [
+            "https://trigger.dev/blog/event-loop-lag/network-traffic-by-ip.png"
+          ],
+          "_all_docs_unverified_links": [
+            "https://trigger.dev/changelog/increased-otel-attribute-limits"
+          ],
+          "_all_repo_unverified_links": [],
+          "_broken_link_provenance": {
+            "https://trigger.dev/cdn-cgi/l/email-protection": [
+              {
+                "source_page": "https://trigger.dev/blog/clickhouse-too-many-parts-postmortem",
+                "anchor_text": "[email\u00a0protected]"
+              },
+              {
+                "source_page": "https://trigger.dev/blog/scrape-hacker-news",
+                "anchor_text": "[email\u00a0protected]"
+              },
+              {
+                "source_page": "https://trigger.dev/blog/skills",
+                "anchor_text": "[email\u00a0protected]"
+              },
+              {
+                "source_page": "https://trigger.dev/blog/shai-hulud-postmortem",
+                "anchor_text": "[email\u00a0protected]"
+              },
+              {
+                "source_page": "https://trigger.dev/blog/v3-announcement",
+                "anchor_text": "[email\u00a0protected]"
+              }
+            ],
+            "https://trigger.dev/docs/feature-matrix": [
+              {
+                "source_page": "https://trigger.dev/changelog/new-v2-projects-disabled",
+                "anchor_text": "v3 feature matrix"
+              }
+            ],
+            "https://trigger.dev/docs/frontend/react-hooks/realtime": [
+              {
+                "source_page": "https://trigger.dev/blog/how-we-built-realtime",
+                "anchor_text": "React hooks guide"
+              },
+              {
+                "source_page": "https://trigger.dev/blog/midday-customer-story",
+                "anchor_text": "Realtime hook"
+              },
+              {
+                "source_page": "https://trigger.dev/customers/midday-customer-story",
+                "anchor_text": "Realtime hook"
+              }
+            ],
+            "https://trigger.dev/docs/guides/bun": [
+              {
+                "source_page": "https://trigger.dev/blog/beta-to-latest-announcement",
+                "anchor_text": "Bun quickstart guide"
+              }
+            ],
+            "https://trigger.dev/docs/upgrading-from-v2": [
+              {
+                "source_page": "https://trigger.dev/blog/v3-open-access",
+                "anchor_text": "migration guide"
+              }
+            ]
+          }
+        },
+        "seo_geo": {
+          "pages_scanned": 214,
+          "missing_title_count": 0,
+          "missing_description_count": 30,
+          "multiple_h1_count": 1,
+          "heading_hierarchy_jump_count": 96,
+          "seo_geo_issue_rate_pct": 14.84
+        },
+        "api_coverage": {
+          "reference_endpoint_count": 6,
+          "api_pages_detected": 9,
+          "endpoints_with_usage_docs": 6,
+          "reference_endpoints_without_usage_docs": 0,
+          "reference_coverage_pct": 100.0,
+          "no_api_pages_found": false,
+          "coverage_determined": true,
+          "coverage_method": "source_of_truth",
+          "detection_note": "",
+          "uncovered_endpoint_samples": []
+        },
+        "examples": {
+          "total_code_examples": 18,
+          "total_code_blocks_all": 18,
+          "runnable_without_env": 16,
+          "blocked_by_placeholders": 0,
+          "network_bound_examples": 2,
+          "example_reliability_estimate_pct": 88.89,
+          "detection_note": ""
+        },
+        "freshness": {
+          "pages_with_last_updated_hint": 213,
+          "pages_without_last_updated_hint": 1,
+          "last_updated_coverage_pct": 99.53,
+          "samples_with_last_updated": [
+            {
+              "url": "https://trigger.dev/blog/beta-to-latest-announcement",
+              "hint": "2026-04-13T12:00:00.000Z"
+            },
+            {
+              "url": "https://trigger.dev/blog/10-claude-code-tips-you-did-not-know",
+              "hint": "2026-04-13T12:00:00.000Z"
+            },
+            {
+              "url": "https://trigger.dev/blog/3m-dollar-seed-round",
+              "hint": "2026-04-13T12:00:00.000Z"
+            },
+            {
+              "url": "https://trigger.dev/blog",
+              "hint": "2026-04-13T12:00:00.000Z"
+            },
+            {
+              "url": "https://trigger.dev/blog/batch-processing",
+              "hint": "2026-04-13T12:00:00.000Z"
+            },
+            {
+              "url": "https://trigger.dev/blog/bulk-actions",
+              "hint": "2026-04-13T12:00:00.000Z"
+            },
+            {
+              "url": "https://trigger.dev/blog/4x-concurrency-static-ips-aws",
+              "hint": "2026-04-13T12:00:00.000Z"
+            },
+            {
+              "url": "https://trigger.dev/blog/clickhouse-too-many-parts-postmortem",
+              "hint": "2026-04-13T12:00:00.000Z"
+            },
+            {
+              "url": "https://trigger.dev/blog/build-extensions",
+              "hint": "2026-04-13T12:00:00.000Z"
+            },
+            {
+              "url": "https://trigger.dev/blog/ai-agents-with-trigger",
+              "hint": "2026-04-13T12:00:00.000Z"
+            }
+          ]
+        }
+      },
+      "samples": {
+        "broken_links": [
+          "https://trigger.dev/cdn-cgi/l/email-protection",
+          "https://trigger.dev/docs/feature-matrix",
+          "https://trigger.dev/docs/frontend/react-hooks/realtime",
+          "https://trigger.dev/docs/guides/bun",
+          "https://trigger.dev/docs/upgrading-from-v2"
+        ],
+        "docs_broken_link_samples": [
+          "https://trigger.dev/cdn-cgi/l/email-protection",
+          "https://trigger.dev/docs/feature-matrix",
+          "https://trigger.dev/docs/frontend/react-hooks/realtime",
+          "https://trigger.dev/docs/guides/bun",
+          "https://trigger.dev/docs/upgrading-from-v2"
+        ],
+        "repo_broken_link_samples": [],
+        "unverified_link_samples": [
+          "https://trigger.dev/changelog/increased-otel-attribute-limits"
+        ],
+        "api_uncovered_samples": []
+      },
+      "run_count": 1
+    }
+  ],
+  "aggregate": {
+    "metrics": {
+      "crawl": {
+        "pages_crawled": 214,
+        "requested_pages": 384,
+        "urls_examined": 216,
+        "max_pages_total": 2000,
+        "discovered_pages": 216,
+        "crawl_scope_pages": 215,
+        "trap_urls_skipped": 0,
+        "crawl_coverage_pct": 100.47
+      },
+      "links": {
+        "broken_internal_links_count": 5,
+        "docs_broken_links_count": 5,
+        "repo_broken_links_count": 0,
+        "unverified_links_count": 1,
+        "confirmed_broken_links_count": 5,
+        "excluded_links_count": 1
+      },
+      "seo_geo": {
+        "seo_geo_issue_rate_pct": 14.84
+      },
+      "api_coverage": {
+        "reference_coverage_pct": 100.0,
+        "no_api_pages_found": false,
+        "api_pages_detected": 9,
+        "coverage_determined": true,
+        "detection_note": ""
+      },
+      "examples": {
+        "example_reliability_estimate_pct": 88.89
+      },
+      "freshness": {
+        "last_updated_coverage_pct": 99.53
+      }
+    },
+    "confidence": {
+      "overall_confidence_pct": 84.83,
+      "links_confidence_pct": 78.33,
+      "api_confidence_pct": 85.0,
+      "crawl_confidence_pct": 95.0
+    }
+  },
+  "confidence": {
+    "overall_confidence_pct": 84.83,
+    "links_confidence_pct": 78.33,
+    "api_confidence_pct": 85.0,
+    "crawl_confidence_pct": 95.0
+  },
+  "top_findings": [
+    "Broken internal links: 5",
+    "Link verification inconclusive for 1 URLs (auth/rate-limit/server block); these are excluded from broken-link counts.",
+    "SEO/GEO issue rate is high: 14.84%"
+  ],
+  "llm_analysis": {
+    "status": "ok",
+    "model": "claude-sonnet-4-5",
+    "analysis": {
+      "executive_summary": "Documentation audit of trigger.dev/docs crawled 214 pages with 100.47% crawl coverage across 216 discovered URLs. 5 confirmed broken internal documentation links were identified, all within user-facing docs (0 repository links). API reference coverage is complete at 100% across 9 detected API pages. SEO/geo issue rate is elevated at 14.84%, and overall audit confidence stands at 84.83%.",
+      "strengths": [
+        "Complete API reference coverage at 100% with 9 API pages successfully detected",
+        "Excellent freshness tracking with 99.53% of pages showing last-updated metadata",
+        "High crawl coverage at 100.47% indicating comprehensive site discovery",
+        "Example code reliability estimated at 88.89%",
+        "No repository navigation link breakage (0 repo_broken_links_count)"
+      ],
+      "risks": [
+        "5 confirmed broken internal documentation links degrading user navigation experience",
+        "SEO/geo issue rate of 14.84% may impact discoverability and search rankings",
+        "1 unverified link due to auth/rate-limit/server blocks creates uncertainty in link health",
+        "Overall audit confidence at 84.83% indicates moderate uncertainty in findings",
+        "Links confidence at 78.33% is lowest confidence dimension, suggesting link validation challenges",
+        "Example reliability at 88.89% means approximately 1 in 9 code examples may have issues",
+        "Multi-project topology mode may mask project-specific documentation gaps"
+      ],
+      "prioritized_actions": [
+        {
+          "action": "Fix 5 confirmed broken internal documentation links to restore navigation integrity",
+          "impact": "critical",
+          "effort": "low"
+        },
+        {
+          "action": "Investigate and resolve SEO/geo issues affecting 14.84% of pages to improve discoverability",
+          "impact": "high",
+          "effort": "medium"
+        },
+        {
+          "action": "Review and fix the 1 unverified link blocked by auth/rate-limit/server constraints",
+          "impact": "medium",
+          "effort": "low"
+        },
+        {
+          "action": "Audit and repair code examples with reliability below 90% threshold",
+          "impact": "medium",
+          "effort": "medium"
+        },
+        {
+          "action": "Implement automated link checking in CI/CD to prevent future broken link regressions",
+          "impact": "high",
+          "effort": "medium"
+        }
+      ],
+      "limitations": [
+        "External audit cannot verify links behind authentication, rate limits, or server blocks (1 URL unverified)",
+        "Crawl-based analysis cannot guarantee accuracy of code examples in production environments or validate runtime behavior",
+        "SEO/geo issue detection relies on heuristics and may not reflect actual search engine ranking factors or regional performance",
+        "Multi-project topology mode may obscure project-specific documentation completeness or version-specific gaps",
+        "Confidence scores reflect detection reliability but cannot guarantee absence of undiscovered issues in dynamic or gated content"
+      ]
+    }
+  }
+}

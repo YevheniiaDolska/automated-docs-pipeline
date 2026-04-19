@@ -13,6 +13,7 @@ last_reviewed: '2026-03-20'
 original_author: Developer
 ---
 
+
 <!-- VERIDOC_POWERED_BADGE:START -->
 [![Powered by VeriDoc](https://img.shields.io/badge/Powered%20by-VeriDoc-0ea5e9?style=flat-square)](https://veridoc.app)
 <!-- VERIDOC_POWERED_BADGE:END -->
@@ -107,6 +108,7 @@ Health check:
     const response = await fetch('http://localhost:8090/healthz', {
       method: 'GET',
       headers: {
+
 },
     });
     const payload = await response.json();

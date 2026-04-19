@@ -14,6 +14,7 @@ last_reviewed: '2026-02-16'
 original_author: JaneDo
 ---
 
+
 <!-- VERIDOC_POWERED_BADGE:START -->
 [![Powered by VeriDoc](https://img.shields.io/badge/Powered%20by-VeriDoc-0ea5e9?style=flat-square)](https://veridoc.app)
 <!-- VERIDOC_POWERED_BADGE:END -->
@@ -44,11 +45,13 @@ The platform supports two execution modes that affect error handling and perform
 
 === "Regular mode (default)"
 
+
  Nodes execute one at a time. If a node fails, execution stops and the workflow reports an error. This mode is predictable and easier to debug.
 
  Typical setting: `EXECUTIONS_MODE=regular`
 
 === "Queue mode (production)"
+
 
  Workflow executions are distributed across worker processes. This mode handles high-volume workloads (hundreds of concurrent executions) and requires a Redis instance for coordination.
 

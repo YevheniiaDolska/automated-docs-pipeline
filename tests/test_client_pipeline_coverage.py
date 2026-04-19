@@ -129,7 +129,7 @@ class TestBuildClientBundle:
         assert runtime["api_first"]["external_mock"]["provider"] == "postman"
         assert runtime["terminology"]["enabled"] is True
         assert runtime["terminology"]["glossary_path"] == "glossary.yml"
-        assert runtime["retrieval_eval"]["enabled"] is True
+        assert runtime["retrieval_eval"]["enabled"] is False
         assert runtime["retrieval_eval"]["top_k"] == 3
         assert runtime["knowledge_graph"]["enabled"] is True
         assert runtime["knowledge_graph"]["output_path"] == "docs/assets/knowledge-graph.jsonld"
@@ -830,6 +830,7 @@ class TestWeeklyBatch:
 
     def test_main_code_first_and_custom_tasks(self, tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:
         from scripts import run_weekly_gap_batch as mod
+        from scripts.license_gate import LicenseInfo, PLAN_FEATURES, PLAN_PROTOCOLS
 
         repo = tmp_path
         docsops = repo / "docsops"
@@ -902,13 +903,27 @@ class TestWeeklyBatch:
         monkeypatch.setattr(mod, "_run", fake_run)
         monkeypatch.setattr(mod, "_run_allow_fail", fake_allow)
         monkeypatch.setattr(mod, "_run_shell", lambda command, cwd, continue_on_error: custom.append(command) or 0)
+        prof_lic = LicenseInfo(
+            valid=True,
+            plan="professional",
+            client_id="test-pro",
+            features=dict(PLAN_FEATURES["professional"]),
+            protocols=list(PLAN_PROTOCOLS["professional"]),
+            max_docs=0,
+            offline_grace_days=7,
+            expires_at=0.0,
+            days_remaining=30,
+            error="",
+        )
+        monkeypatch.setattr(mod, "get_license", lambda force_reload=True: prof_lic)
+        monkeypatch.setattr(mod, "get_license_summary", lambda _lic: "Plan: professional")
         monkeypatch.setattr(sys, "argv", ["x", "--docsops-root", "docsops", "--reports-dir", "reports", "--since", "7"])
 
         rc = mod.main()
         assert rc == 0
         assert any("gap_detector.py" in " ".join(cmd) for _, cmd in ran)
         assert any("generate_knowledge_graph_jsonld.py" in " ".join(cmd) for _, cmd in ran)
-        assert any("run_retrieval_evals.py" in " ".join(cmd) for _, cmd in ran)
+        assert not any("run_retrieval_evals.py" in " ".join(cmd) for _, cmd in ran)
         assert any("enforce_rag_optimization_layer.py" in " ".join(cmd) for _, cmd in ran)
         assert any("consolidate_reports.py" in " ".join(cmd) for _, cmd in ran)
         assert custom == ["echo weekly"]

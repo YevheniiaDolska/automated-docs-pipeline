@@ -151,7 +151,7 @@ Build user-intent documentation and channel bundles from reusable knowledge modu
 #### Assemble intent experiences (Part 3): Next steps
 
 - [Intelligent knowledge system architecture](../concepts/intelligent-knowledge-system.md)
-- [Intent experiences reference](../reference/intent-experiences/index.md)
+- [Intent experiences reference](./index.md)
 
 ### Configure Ask AI module
 
@@ -354,7 +354,7 @@ git commit -m "docs-ops: update Ask AI configuration"
 #### Configure Ask AI module (Part 4): Next steps
 
 - [Quick start](../getting-started/quickstart.md)
-- [Assemble intent experiences](./assemble-intent-experiences.md)
+- [Assemble intent experiences](../../how-to/assemble-intent-experiences.md)
 - [Intelligent knowledge system architecture](../concepts/intelligent-knowledge-system.md)
 
 ### Configure webhook triggers
@@ -426,7 +426,6 @@ Set up and configure webhook trigger nodes to start workflows from incoming HTTP
 !!! warning "Secure your webhooks"
     Always enable authentication on production webhook endpoints.
     Unauthenticated webhooks accept requests from any source.
-
 Add authentication in the webhook node settings:
 
 | Auth method | Use case | Configuration |
@@ -643,6 +642,7 @@ Health check:
     const response = await fetch('http://localhost:8090/healthz', {
       method: 'GET',
       headers: {
+
 },
     });
     const payload = await response.json();
@@ -729,7 +729,7 @@ The `/healthz` endpoint reports the status of all advanced retrieval features:
 #### Install Ask AI runtime pack (Part 3): Next steps
 
 - [Configure Ask AI module](configure-ask-ai-module.md)
-- [Assemble intent experiences](assemble-intent-experiences.md)
+- [Assemble intent experiences](../../how-to/assemble-intent-experiences.md)
 - [Intelligent knowledge system architecture](../concepts/intelligent-knowledge-system.md)
 
 ### Migrate documentation from Confluence
@@ -1174,7 +1174,7 @@ The platform is not limited to API-first automation. In active production usage,
 #### Multi-Protocol Wizard Guide (Part 5): Next steps
 
 - [Operator Runbook](OPERATOR_RUNBOOK.md) -- step-by-step retainer procedures
-- [Documentation index](../index.md)
+- [Documentation index](../../index.md)
 
 ### Multi-Protocol Wizard Guide (Part 6)
 
@@ -2104,11 +2104,13 @@ A workflow is a series of connected nodes that process data automatically. In th
 
 === "Cloud"
 
+
 - Log in to your Cloud instance.
 - Select **New Workflow** from the top-right menu.
 - The canvas opens with an empty workflow.
 
 === "Self-hosted"
+
 
 - Open your instance at `http://localhost:5678`.
 - Select **New Workflow**.
@@ -2122,6 +2124,7 @@ A workflow is a series of connected nodes that process data automatically. In th
 1. Copy the **Test URL**—you will need it in Step 5.
 
 !!! info "Test URL vs Production URL"
+
  The Test URL is active only while the workflow editor is open. The Production URL activates after you toggle the workflow to **Active**.
 
 ### Build your first workflow in 5 minutes (Part 2)
@@ -2741,7 +2744,7 @@ For static environments, refer to the [Mermaid sequence diagram](#webhook-proces
 
 #### Set up a real-time webhook processing pipeline (Part 15): Next steps
 
-- [Documentation index](../index.md)
+- [Documentation index](../../index.md)
 
 ### Set up a real-time webhook processing pipeline (Part 2)
 
@@ -2892,13 +2895,11 @@ if (!timestamp || !receivedSig) {
     Buffer.from(receivedSig)
   );
 }
-```
 
 ### Set up a real-time webhook processing pipeline (Part 6)
 
 Configure end-to-end webhook ingestion with HMAC verification, async queue processing, and delivery guarantees in under 15 minutes.
 
-```javascript
 // Test verification
 const testPayload = '{"event": "order.completed", "order_id": "ord_1234"}';
 const testSecret = 'whsec_test_secret_key_abc123_min32chars';
@@ -2956,7 +2957,9 @@ const worker = new Worker('webhook-events', async (job) => {
   const event = job.data;
   console.log(`Processing ${event.type}: ${JSON.stringify(event)}`);
 
-// Part 8: route and process events in worker handlers.
+### Set up a real-time webhook processing pipeline (Part 8)
+
+Configure end-to-end webhook ingestion with HMAC verification, async queue processing, and delivery guarantees in under 15 minutes.
 
 // Route to appropriate handler
   switch (event.type) {
@@ -3023,10 +3026,8 @@ sequenceDiagram
 
 !!! info "Payload size limit"
     {{ product_name }} accepts webhook payloads up to {{ max_payload_size_mb }} MB. Payloads exceeding this limit receive a `413 Payload Too Large` response. For larger data transfers, use a pre-signed URL pattern and send only the URL in the webhook payload.
-
 !!! warning "Signature verification required"
     Always verify webhook signatures before processing event data. Skipping verification exposes your application to forged events, replay attacks, and data injection. Use the HMAC-SHA256 functions provided above for both Python and JavaScript.
-
 !!! tip "Replay protection window"
     Include a timestamp in the signed payload and reject events older than 5 minutes. If your servers have clock skew, synchronize them with NTP and increase the tolerance window to 600 seconds.
 
@@ -3101,7 +3102,7 @@ Suggested operator flow:
 
 #### Smart Merge and Manual Review (Part 3): Next steps
 
-- [Documentation index](../index.md)
+- [Documentation index](../../index.md)
 
 ### Smart Merge and Manual Review (Part 4)
 

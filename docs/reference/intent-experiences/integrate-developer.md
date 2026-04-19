@@ -114,7 +114,7 @@ Auto-generated asyncapi reference from source contract.
 
 ### ASYNCAPI API Reference: ASYNCAPI Reference
 
-Source: `/tmp/pytest-of-eudo/pytest-2841/test_multi_protocol_flow_e2e_e0/asyncapi.yaml`
+Source: `/tmp/pytest-of-eudo/pytest-3054/test_multi_protocol_flow_e2e_e0/asyncapi.yaml`
 
 Flow mode: `api-first`
 
@@ -141,16 +141,15 @@ Auto-generated asyncapi reference from source contract.
 
 Auto-generated asyncapi reference from source contract.
 
+<!-- vale off -->
 <div id="asyncapi-playground" style="border:1px solid #d1d5db; padding:12px; border-radius:8px;">
   <p><strong>WebSocket Endpoint:</strong> <code id="asyncapi-ws-view"></code></p>
   <p><strong>HTTP Publish Endpoint:</strong> <code id="asyncapi-http-view"></code></p>
-  <!-- vale off -->
   <textarea id="asyncapi-message" rows="8" style="width:100%; font-family:monospace;">{
   "event_type": "project.updated",
   "event_id": "evt_001",
   "data": {"project_id": "prj_abc123", "status": "active"}
 }</textarea><br/>
-  <!-- vale on -->
   <button id="asyncapi-send-ws">Send via WebSocket</button>
   <button id="asyncapi-send-http">Send via HTTP</button>
   <pre id="asyncapi-output" style="margin-top:12px; max-height:320px; overflow:auto;"></pre>
@@ -220,6 +219,7 @@ sendHttp.onclick = async function(){
 };
 })();
 </script>
+<!-- vale on -->
 
 ### ASYNCAPI API Reference (Part 4)
 
@@ -227,7 +227,7 @@ Auto-generated asyncapi reference from source contract.
 
 #### ASYNCAPI API Reference (Part 4): Next steps
 
-- [Documentation index](index.md)
+- [Documentation index](../../index.md)
 
 This auto-generated knowledge chunk was expanded to satisfy minimum retrieval module length for stable indexing.
 
@@ -727,7 +727,7 @@ If needed, run equivalent weekly flow via GitHub Actions cron (`weekly-consolida
 
 #### Canonical Flow (Sales + Delivery) (Part 8): Next steps
 
-- [Documentation index](../index.md)
+- [Documentation index](../../index.md)
 
 ### Canonical Flow (Sales + Delivery) (Part 9)
 
@@ -874,7 +874,76 @@ python3 scripts/provision_client_repo.py \
 - `ops/install_cron_weekly.sh` / `ops/install_windows_task.ps1`
 - `ops/runbook.md`
 
-#### Централизованная настройка клиентов (Part 11): Не ломает ли это локальный опыт?
+### Централизованная настройка клиентов (Part 12)
+
+Практический путь настройки клиентских bundle и автозапуска pipeline из одного места.
+
+#### Централизованная настройка клиентов (Part 12): Офлайн продление лицензии для strict-local
+
+Для `strict-local` не нужно переустанавливать весь `docsops/`. Обычно обновляются только:
+
+- `docsops/license.jwt`
+- `docsops/.capability_pack.enc` (если вы обновляете premium pack)
+
+Оператор собирает renewal-архив на своей стороне:
+
+```bash
+
+python3 scripts/build_offline_renewal_bundle.py \
+  --client-id acme \
+  --plan enterprise \
+  --days 30 \
+  --tenant-id acme \
+  --company-domain acme.example \
+  --with-pack \
+  --license-key "<LICENSE_KEY>"
+
+```
+
+По умолчанию создается:
+
+```text
+
+generated/offline_renewals/renewal-<client_id>-<YYYYMMDD>.zip
+
+```
+
+Если нужен `tar.gz`:
+
+```bash
+
+python3 scripts/build_offline_renewal_bundle.py \
+  --client-id acme \
+  --plan enterprise \
+  --days 30 \
+  --format tar.gz
+
+```
+
+Что внутри renewal-архива:
+
+- `docsops/license.jwt`
+- `docsops/.capability_pack.enc` (опционально)
+- `README_RENEWAL.md` (инструкция для клиента)
+- `renewal_manifest.json`
+
+Как клиент применяет обновление:
+
+\11. Распаковать архив в корень репозитория (где лежит `docsops/`).
+\11. Заменить `docsops/license.jwt` (и `docsops/.capability_pack.enc`, если он есть в архиве).
+\11. Проверить лицензию:
+
+```bash
+
+python3 docsops/scripts/license_gate.py --json
+
+```
+
+### Централизованная настройка клиентов (Part 13)
+
+Практический путь настройки клиентских bundle и автозапуска pipeline из одного места.
+
+#### Централизованная настройка клиентов (Part 13): Не ломает ли это локальный опыт?
 
 Не ломает.
 
@@ -883,11 +952,11 @@ python3 scripts/provision_client_repo.py \
 - Все проверки и генерация выполняются локально в репо клиента.
 - Еженедельный отчёт формируется по расписанию автоматически.
 
-### Централизованная настройка клиентов (Part 12)
+### Централизованная настройка клиентов (Part 14)
 
 Практический путь настройки клиентских bundle и автозапуска pipeline из одного места.
 
-#### Централизованная настройка клиентов (Part 12): Еженедельный автоматический поток
+#### Централизованная настройка клиентов (Part 14): Еженедельный автоматический поток
 
 Скрипт `docsops/scripts/run_weekly_gap_batch.py` по расписанию:
 
@@ -910,7 +979,7 @@ python3 scripts/provision_client_repo.py \
 
 Простой рекомендуемый блок для публичной API песочницы:
 
-### Централизованная настройка клиентов (Part 13)
+### Централизованная настройка клиентов (Part 15)
 
 Практический путь настройки клиентских bundle и автозапуска pipeline из одного места.
 
@@ -934,7 +1003,7 @@ runtime:
 \11. Передает consolidated report локальной LLM для batch generation.
 \11. Делает быстрый визуальный финальный просмотр готовых docs.
 
-#### Централизованная настройка клиентов (Part 13): Что добавить в `.gitignore` клиента
+#### Централизованная настройка клиентов (Part 15): Что добавить в `.gitignore` клиента
 
 Рекомендуемый минимум:
 
@@ -948,11 +1017,11 @@ reports/docsops-weekly.log
 
 JSON/Markdown отчеты (`reports/consolidated_report.json` и связанные отчеты) обычно оставляют в репозитории, если команда ведет историю отчетов в git.
 
-### Централизованная настройка клиентов (Part 14)
+### Централизованная настройка клиентов (Part 16)
 
 Практический путь настройки клиентских bundle и автозапуска pipeline из одного места.
 
-#### Централизованная настройка клиентов (Part 14): RAG/knowledge без ручных запусков
+#### Централизованная настройка клиентов (Part 16): RAG/knowledge без ручных запусков
 
 Это уже укладывается в текущий smooth flow:
 
@@ -995,7 +1064,7 @@ JSON/Markdown отчеты (`reports/consolidated_report.json` и связанн
 
 Как клиенту быстро понять, что отчет новый (самый простой способ):
 
-### Централизованная настройка клиентов (Part 15)
+### Централизованная настройка клиентов (Part 17)
 
 Практический путь настройки клиентских bundle и автозапуска pipeline из одного места.
 
@@ -1010,9 +1079,9 @@ JSON/Markdown отчеты (`reports/consolidated_report.json` и связанн
 - `reports/READY_FOR_REVIEW.txt`
 - `reports/docsops_status.json`
 
-#### Централизованная настройка клиентов (Part 15): Два простых примера
+#### Централизованная настройка клиентов (Part 17): Два простых примера
 
-##### Централизованная настройка клиентов (Part 15): Клиент 1: только Sphinx, без drift
+##### Централизованная настройка клиентов (Part 17): Клиент 1: только Sphinx, без drift
 
 ```yaml
 
@@ -1037,7 +1106,7 @@ bundle:
 
 ```
 
-##### Централизованная настройка клиентов (Part 15): Клиент 2: ReadMe + GitHub, очень строгий quality bar
+##### Централизованная настройка клиентов (Part 17): Клиент 2: ReadMe + GitHub, очень строгий quality bar
 
 ```yaml
 
@@ -1054,15 +1123,15 @@ bundle:
 
 Вы меняете только профиль YAML. Код пайплайна не трогаете.
 
-#### Централизованная настройка клиентов (Part 15): Next steps
+#### Централизованная настройка клиентов (Part 17): Next steps
 
-- [Documentation index](../index.md)
+- [Documentation index](../../index.md)
 
-### Централизованная настройка клиентов (Part 16)
+### Централизованная настройка клиентов (Part 18)
 
 Практический путь настройки клиентских bundle и автозапуска pipeline из одного места.
 
-#### Централизованная настройка клиентов (Part 16): Implementation status (2026-03-25)
+#### Централизованная настройка клиентов (Part 18): Implementation status (2026-03-25)
 
 This document is aligned to the current production implementation baseline.
 
@@ -1085,6 +1154,77 @@ Canonical execution order reference:
 Commercial note:
 
 - Where commercial packaging is discussed, recurring service terms (retainer/licensing) are part of the active go-to-market model.
+
+### Централизованная настройка клиентов (Part 19)
+
+Практический путь настройки клиентских bundle и автозапуска pipeline из одного места.
+
+#### Централизованная настройка клиентов (Part 19): Server auto-renew runbook (hybrid/cloud)
+
+When retainer is active, run server-side license renewal batch on schedule:
+
+```bash
+
+python3 scripts/run_server_license_renewal.py
+
+```
+
+Expected output is JSON with:
+
+- `scanned`
+- `refreshed`
+- `degraded`
+- `errors`
+
+Optional API trigger (ops token required):
+
+=== "cURL"
+
+```bash smoke
+
+    curl -X POST "https://<your-api>/ops/billing/license/renew/run" \
+      -H "Content-Type: application/json" \
+      -H "X-VeriOps-Server-Token: <ops-token>" \
+      -d '{"dry_run": false}'
+
+```
+
+=== "JavaScript"
+
+```javascript smoke
+
+    const response = await fetch('https://<your-api>/ops/billing/license/renew/run', {
+      method: 'POST',
+      headers: {
+        "Content-Type": "application/json",
+        "X-VeriOps-Server-Token": "<ops-token>",
+      },
+      body: JSON.stringify({"dry_run": false}),
+    });
+    const payload = await response.json();
+    console.log(payload);
+
+```
+
+=== "Python"
+
+```python smoke
+
+    import requests
+
+response = requests.request(
+        'POST',
+        'https://<your-api>/ops/billing/license/renew/run',
+        headers={'Content-Type': 'application/json', 'X-VeriOps-Server-Token': '<ops-token>'},
+        json={'dry_run': False},
+        timeout=30,
+    )
+    response.raise_for_status()
+    print(response.json())
+
+```
+
+Policy:
 
 ### Централизованная настройка клиентов (Part 2)
 
@@ -1118,6 +1258,28 @@ runtime:
 - `code-first`: стандартный docs-ops поток
 - `api-first`: API-first поток
 - `hybrid`: оба потока одновременно
+
+### Централизованная настройка клиентов (Part 20)
+
+Практический путь настройки клиентских bundle и автозапуска pipeline из одного места.
+
+- Active/trialing subscriptions get refreshed server license.
+- Inactive subscriptions are downgraded on renewal pass.
+- Strict-local clients use offline renewal bundles and do not require online renewal.
+
+#### Централизованная настройка клиентов (Part 20): Hardening e2e matrix report
+
+Generate a PASS/FAIL report for the hardening controls:
+
+```bash
+
+python3 scripts/run_hardening_e2e_matrix.py
+
+```
+
+Report path:
+
+- `reports/hardening_e2e_matrix_report.json`
 
 ### Централизованная настройка клиентов (Part 3)
 
@@ -1655,7 +1817,7 @@ Auto-generated graphql reference from source contract.
 
 ### GRAPHQL API Reference: GRAPHQL Reference
 
-Source: `/tmp/pytest-of-eudo/pytest-2841/test_multi_protocol_contract_f0/schema.graphql`
+Source: `/tmp/pytest-of-eudo/pytest-3054/test_multi_protocol_contract_f0/schema.graphql`
 
 Flow mode: `api-first`
 
@@ -1678,6 +1840,7 @@ This auto-generated knowledge chunk was expanded to satisfy minimum retrieval mo
 
 Auto-generated graphql reference from source contract.
 
+<!-- vale off -->
 <div id="graphql-playground" style="border:1px solid #d1d5db; padding:12px; border-radius:8px;">
   <p><strong>Endpoint:</strong> <code id="graphql-endpoint-view"></code></p>
   <textarea id="graphql-query" rows="12" style="width:100%; font-family:monospace;">query HealthCheck {
@@ -1723,6 +1886,7 @@ run.onclick = async function(){
 };
 })();
 </script>
+<!-- vale on -->
 
 ### GRAPHQL API Reference (Part 4)
 
@@ -1730,7 +1894,7 @@ Auto-generated graphql reference from source contract.
 
 #### GRAPHQL API Reference (Part 4): Next steps
 
-- [Documentation index](index.md)
+- [Documentation index](../../index.md)
 
 This auto-generated knowledge chunk was expanded to satisfy minimum retrieval module length for stable indexing.
 
@@ -1966,8 +2130,8 @@ Use owner fields and verification dates to enforce accountability.
 
 #### Intelligent knowledge system architecture (Part 6): Next steps
 
-- [Assemble intent experiences](../how-to/assemble-intent-experiences.md)
-- [Intent experiences reference](../reference/intent-experiences/index.md)
+- [Assemble intent experiences](../../how-to/assemble-intent-experiences.md)
+- [Intent experiences reference](./index.md)
 - [Workflow execution model](workflow-execution-model.md)
 
 ### Multi-Protocol Architecture
@@ -2111,7 +2275,7 @@ A curated 50-query eval dataset is maintained at `config/retrieval_eval_dataset.
 
 #### Multi-Protocol Architecture (Part 5): Next steps
 
-- [Documentation index](../index.md)
+- [Documentation index](../../index.md)
 
 ### Multi-Protocol Architecture (Part 6)
 
@@ -2650,7 +2814,54 @@ Generated catalog of available pipeline commands, templates, policy packs, and a
 
 Generated catalog of available pipeline commands, templates, policy packs, and assets for client configuration.
 
-#### Pipeline Capabilities Catalog (Part 10): Multi-protocol contract pipeline
+| Script | Purpose |
+| --- | --- |
+| `scripts/build_client_bundle.py` | Build client-specific bundle in `generated/client_bundles/<client_id>/`. |
+| `scripts/provision_client_repo.py` | One-shot install into client repo (bundle copy, config/policy, env checklist, scheduler install). |
+| `scripts/init_pipeline.py` | Bootstrap pipeline directly from source into another repo (self-install path). |
+| `scripts/run_weekly_gap_batch.py` | Main weekly local runner (gaps/stale/kpi/api-first/modules/custom tasks/consolidation). |
+| `scripts/auto_fix_pr_docs.py` | PR branch docs autofix helper for optional GitHub workflow. |
+| `scripts/ensure_external_mock_server.py` | Resolve/create external mock endpoint (Postman-supported flow). |
+| `scripts/extract_knowledge_modules_from_docs.py` | Auto-extract knowledge modules from docs markdown. |
+| `scripts/gap_detector.py` | Legacy/direct gap detector entry used in some compatibility paths. |
+| `scripts/generate_docusaurus_config.py` | Generate/update Docusaurus config in adapter flows. |
+| `scripts/generate_facets_index.py` | Build faceted search index artifacts. |
+| `scripts/generate_fastapi_stubs_from_openapi.py` | Generate FastAPI stubs from OpenAPI. |
+| `scripts/generate_openapi_from_planning_notes.py` | Generate OpenAPI root/tree from planning notes. |
+| `scripts/generate_protocol_server_stubs.py` | Generate protocol server stubs with business-logic placeholders for REST, GraphQL, gRPC, AsyncAPI, and WebSocket. |
+| `scripts/generate_llm_web_artifacts.py` | Generate `llms.txt`, `llms-full.txt`, and markdown mirror artifacts for LLM-agent crawling and RAG-friendly indexing. |
+| `scripts/generate_pipeline_capabilities_catalog.py` | Regenerate this capabilities catalog file. |
+| `scripts/lifecycle_manager.py` | Lifecycle scan/report/redirect guidance generation. |
+| `scripts/manage_demo_nav.py` | Demo nav injection/removal helper. |
+| `scripts/pilot_analysis.py` | Pilot analysis/report helper. |
+| `scripts/preprocess_variables.py` | Variables pre-processing helper for docs generation flows. |
+| `scripts/upload_to_algolia.py` | Upload generated search records to Algolia. |
+| `scripts/validate_pr_dod.py` | DoD validation helper for PR workflows. |
+| `scripts/run_multi_protocol_contract_flow.py` | Unified orchestrator for all 5 protocol documentation flows (REST, GraphQL, gRPC, AsyncAPI, WebSocket). Runs 9 stages: ingest, contract validation, server stub generation, lint, regression, docs generation, quality gates, test assets, publish. |
+| `scripts/run_retrieval_evals_gate.py` | Smart retrieval gate with runtime mode selection (`token`, `hybrid`, `hybrid+rerank`) and adaptive threshold profile for dataset mismatch cases. |
+| `scripts/rag_reindex_lifecycle.py` | Versioned RAG reindex lifecycle: extract, validate, index build, optional embeddings, promote, rollback, and retention pruning. |
+| `scripts/enforce_rag_optimization_layer.py` | Unified RAG optimization layer enforcement for cloud, hybrid, and strict-local profiles with alert-enabled thresholds. |
+| `scripts/detect_rag_contradictions.py` | Detect contradictory numeric/runtime claims in knowledge modules before indexing, produce `reports/rag_contradictions_report.json`, and mark critical module IDs for index exclusion or gate blocking. |
+| `scripts/generate_protocol_contract_from_planning_notes.py` | Generate protocol contracts (GraphQL SDL, Proto3, AsyncAPI YAML, WebSocket YAML) from planning notes markdown. |
+| `scripts/generate_protocol_docs.py` | Auto-generate reference documentation from protocol contracts using protocol-specific templates. |
+| `scripts/generate_protocol_test_assets.py` | Generate protocol-aware test cases with signature-based smart merge. Outputs JSON, TestRail CSV, Zephyr JSON, test matrix, and fuzz scenarios. |
+| `scripts/run_protocol_self_verify.py` | Runtime validation against live/mock endpoints: GraphQL introspection, gRPC invocation, AsyncAPI event publish, WebSocket connection and message routing. |
+| `scripts/validate_graphql_contract.py` | GraphQL SDL contract validation (syntax, semantics, operation types). |
+| `scripts/validate_proto_contract.py` | Proto3 contract validation (syntax, service definitions, RPC methods). |
+| `scripts/validate_asyncapi_contract.py` | AsyncAPI contract validation (channels, schemas, delivery guarantees). |
+| `scripts/validate_websocket_contract.py` | WebSocket channel contract validation (message schemas, connection lifecycle). |
+| `scripts/generate_public_docs_audit.py` | Public documentation site auditor: crawls live sites, evaluates broken links, SEO/GEO, API coverage, code examples, freshness. Supports interactive wizard and LLM-powered expert analysis. |
+| `scripts/generate_audit_scorecard.py` | Comprehensive audit scorecard generator combining docs quality, API coverage, code examples, glossary health, and policy compliance into a single score. |
+| `scripts/generate_executive_audit_pdf.py` | Consulting-grade executive PDF report from audit scorecard and public docs audit results. Includes score gauges, risk matrices, financial impact tables, and methodology appendix. |
+| `scripts/generate_embeddings.py` | Generate FAISS vector index from knowledge modules using `text-embedding-3-small` (1536 dimensions). Builds `retrieval.faiss` and `retrieval-metadata.json`. |
+| `scripts/docsops_generate.py` | Operator and policy-triggered generation entry point for local CLI workflows (`operator` and `veridoc` modes). |
+| `scripts/production_smoke.py` | Production smoke validation for runtime readiness and deployment health signals. |
+
+### Pipeline Capabilities Catalog (Part 11)
+
+Generated catalog of available pipeline commands, templates, policy packs, and assets for client configuration.
+
+#### Pipeline Capabilities Catalog (Part 11): Multi-protocol contract pipeline
 
 The pipeline supports five API protocols with a unified orchestrator (`run_multi_protocol_contract_flow.py`). Each protocol has its own contract format, validator, reference template, test generator, and sandbox fallback.
 
@@ -2668,17 +2879,17 @@ The pipeline supports five API protocols with a unified orchestrator (`run_multi
 
 **Contract generation from planning notes:** `generate_protocol_contract_from_planning_notes.py` generates protocol specs from markdown planning notes.
 
-### Pipeline Capabilities Catalog (Part 11)
+### Pipeline Capabilities Catalog (Part 12)
 
 Generated catalog of available pipeline commands, templates, policy packs, and assets for client configuration.
 
 **Self-verification:** `run_protocol_self_verify.py` validates generated docs against live/mock endpoints (GraphQL introspection, gRPC method invocation, AsyncAPI event publish, WebSocket connection routing).
 
-### Pipeline Capabilities Catalog (Part 12)
+### Pipeline Capabilities Catalog (Part 13)
 
 Generated catalog of available pipeline commands, templates, policy packs, and assets for client configuration.
 
-#### Pipeline Capabilities Catalog (Part 12): Test assets generation and smart merge
+#### Pipeline Capabilities Catalog (Part 13): Test assets generation and smart merge
 
 `generate_protocol_test_assets.py` generates protocol-aware test cases for all five protocols with signature-based smart merge to preserve custom and manual test cases across contract changes.
 
@@ -2698,11 +2909,11 @@ Generated catalog of available pipeline commands, templates, policy packs, and a
 
 **TestRail/Zephyr upload:** `upload_api_test_assets.py` pushes generated cases to TestRail or Zephyr Scale. The `needs_review` flag propagates to both platforms so QA teams can triage stale custom cases.
 
-### Pipeline Capabilities Catalog (Part 13)
+### Pipeline Capabilities Catalog (Part 14)
 
 Generated catalog of available pipeline commands, templates, policy packs, and assets for client configuration.
 
-#### Pipeline Capabilities Catalog (Part 13): Quality checks (32 automated)
+#### Pipeline Capabilities Catalog (Part 14): Quality checks (32 automated)
 
 The pipeline enforces 32 automated checks on every documentation page across four categories:
 
@@ -2713,11 +2924,11 @@ The pipeline enforces 32 automated checks on every documentation page across fou
 | Style checks | 6 | American English, active voice, no weasel words, no contractions, second person, present tense |
 | Contract checks | 4 | Schema validation, regression detection, snippet lint, self-verification against endpoints |
 
-### Pipeline Capabilities Catalog (Part 14)
+### Pipeline Capabilities Catalog (Part 15)
 
 Generated catalog of available pipeline commands, templates, policy packs, and assets for client configuration.
 
-#### Pipeline Capabilities Catalog (Part 14): RAG retrieval pipeline
+#### Pipeline Capabilities Catalog (Part 15): RAG retrieval pipeline
 
 The pipeline generates a knowledge retrieval layer with six advanced features:
 
@@ -2732,18 +2943,38 @@ The pipeline generates a knowledge retrieval layer with six advanced features:
 
 **Pipeline scripts:**
 
+### Pipeline Capabilities Catalog (Part 16)
+
+Generated catalog of available pipeline commands, templates, policy packs, and assets for client configuration.
+
 1. `extract_knowledge_modules_from_docs.py` -- auto-chunk docs into knowledge modules
 1. `validate_knowledge_modules.py` -- schema validation, duplicate ID detection, cycle check
-1. `generate_knowledge_retrieval_index.py` -- JSON index for Algolia + FAISS input
+1. `detect_rag_contradictions.py` -- detects cross-module contradictions in critical runtime facts and writes `reports/rag_contradictions_report.json`
+1. `generate_knowledge_retrieval_index.py` -- JSON index for Algolia + FAISS input, excluding critical conflicting modules by default
 1. `generate_embeddings.py` -- FAISS vector index (`text-embedding-3-small`, 1536 dims)
 1. `generate_knowledge_graph_jsonld.py` -- JSON-LD knowledge graph
 1. `run_retrieval_evals.py` -- precision@k, recall@k, hallucination rate evaluation
 
-### Pipeline Capabilities Catalog (Part 15)
+#### Pipeline Capabilities Catalog (Part 16): RAG contradiction and stale guardrails
+
+Two complementary guardrails now run for retrieval quality:
+
+1. Stale-check answers "is this document outdated?"
+1. Contradiction-check answers "do active documents conflict right now?"
+
+When contradictions are detected:
+
+1. Critical conflicts are excluded from retrieval index generation.
+1. Warnings remain visible for review but do not automatically block indexing.
+1. Optional gate mode can fail the run on critical contradictions.
+
+This design prevents low-trust answers where RAG cites conflicting facts from two active modules.
+
+### Pipeline Capabilities Catalog (Part 17)
 
 Generated catalog of available pipeline commands, templates, policy packs, and assets for client configuration.
 
-#### Pipeline Capabilities Catalog (Part 15): RAG operations and runtime surface
+#### Pipeline Capabilities Catalog (Part 17): RAG operations and runtime surface
 
 Runtime and operations include:
 
@@ -2753,8 +2984,12 @@ Runtime and operations include:
 1. Version history and retention: `docs/assets/rag_version_history.json`, `docs/assets/rag-versions/`
 1. Lifecycle report: `reports/rag_reindex_report.json`
 1. Unified enforcement report: `reports/rag_optimization_layer_report.json`
+1. Contradiction report: `reports/rag_contradictions_report.json`
+1. Human-readable alert file when conflicts exist: `reports/ALERT_RAG_CONTRADICTIONS.md`
+1. Status alert entry for automation consumers: `reports/docsops_status.json` (`alerts[].id = "rag_contradictions"`)
+1. Review marker counters: `reports/READY_FOR_REVIEW.txt` (`rag_contradictions_critical`, `rag_contradictions_warning`)
 
-#### Pipeline Capabilities Catalog (Part 15): Current retrieval gate snapshot (2026-04-05)
+#### Pipeline Capabilities Catalog (Part 17): Current retrieval gate snapshot (2026-04-05)
 
 Latest local run (`npm run eval:retrieval`) produced:
 
@@ -2766,11 +3001,11 @@ Latest local run (`npm run eval:retrieval`) produced:
 
 This snapshot confirms the RAG layer is active and measurable in local mode, and it also shows remaining headroom for precision improvements in strict local token fallback.
 
-### Pipeline Capabilities Catalog (Part 16)
+### Pipeline Capabilities Catalog (Part 18)
 
 Generated catalog of available pipeline commands, templates, policy packs, and assets for client configuration.
 
-#### Pipeline Capabilities Catalog (Part 16): Public docs auditor and executive PDF
+#### Pipeline Capabilities Catalog (Part 18): Public docs auditor and executive PDF
 
 The public docs auditor crawls live documentation sites and generates a comprehensive quality assessment.
 
@@ -2789,11 +3024,11 @@ The public docs auditor crawls live documentation sites and generates a comprehe
 
 **Audit scorecard dimensions:** docs quality (SEO/GEO), API coverage, code example reliability, glossary health, content freshness, policy compliance.
 
-### Pipeline Capabilities Catalog (Part 17)
+### Pipeline Capabilities Catalog (Part 19)
 
 Generated catalog of available pipeline commands, templates, policy packs, and assets for client configuration.
 
-#### Pipeline Capabilities Catalog (Part 17): API-first external sandbox note
+#### Pipeline Capabilities Catalog (Part 19): API-first external sandbox note
 
 For public web playground usage, prefer `external` sandbox mode and a public HTTPS mock URL with CORS:
 
@@ -2814,7 +3049,7 @@ For Postman auto-prepare mode, provide:
 - optional `POSTMAN_COLLECTION_UID` (if empty, pipeline imports collection from generated OpenAPI)
 - optional `POSTMAN_MOCK_SERVER_ID`
 
-#### Pipeline Capabilities Catalog (Part 17): PR auto-doc workflow capability
+#### Pipeline Capabilities Catalog (Part 19): PR auto-doc workflow capability
 
 Enable in client profile with `runtime.pr_autofix`.
 
@@ -2826,11 +3061,19 @@ Installed workflow behavior:
 1. Commit generated docs into the same PR branch.
 1. Rerun checks automatically.
 
-### Pipeline Capabilities Catalog (Part 18)
+### Pipeline Capabilities Catalog (Part 2)
 
 Generated catalog of available pipeline commands, templates, policy packs, and assets for client configuration.
 
-#### Pipeline Capabilities Catalog (Part 18): Templates
+#### Pipeline Capabilities Catalog (Part 2): Current product definition (2026-04-05)
+
+This content follows the active implementation baseline:
+
+### Pipeline Capabilities Catalog (Part 20)
+
+Generated catalog of available pipeline commands, templates, policy packs, and assets for client configuration.
+
+#### Pipeline Capabilities Catalog (Part 20): Templates
 
 These can be shipped via `bundle.include_paths` and used by LLM generation flow.
 
@@ -2867,7 +3110,7 @@ These can be shipped via `bundle.include_paths` and used by LLM generation flow.
 - `templates/user-guide.md`
 - `templates/webhooks-guide.md`
 
-#### Pipeline Capabilities Catalog (Part 18): Policy Packs
+#### Pipeline Capabilities Catalog (Part 20): Policy Packs
 
 - `api-first.yml`
 - `minimal.yml`
@@ -2875,41 +3118,33 @@ These can be shipped via `bundle.include_paths` and used by LLM generation flow.
 - `multi-product.yml`
 - `plg.yml`
 
-#### Pipeline Capabilities Catalog (Part 18): Knowledge Modules
+#### Pipeline Capabilities Catalog (Part 20): Knowledge Modules
 
 Can be copied into client bundle with `bundle.include_paths: ['knowledge_modules']`.
 
 - `webhook-auth-baseline.yml`
 - `webhook-retry-policy.yml`
 
-### Pipeline Capabilities Catalog (Part 19)
+### Pipeline Capabilities Catalog (Part 21)
 
 Generated catalog of available pipeline commands, templates, policy packs, and assets for client configuration.
 
-#### Pipeline Capabilities Catalog (Part 19): Docker Compose Profiles
+#### Pipeline Capabilities Catalog (Part 21): Docker Compose Profiles
 
 - `docker-compose.api-sandbox.live.yml`
 - `docker-compose.api-sandbox.prodlike.yml`
 - `docker-compose.api-sandbox.yml`
 - `docker-compose.docs-ops.yml`
 
-#### Pipeline Capabilities Catalog (Part 19): Next steps
+#### Pipeline Capabilities Catalog (Part 21): Next steps
 
-- [Documentation index](../index.md)
+- [Documentation index](../../index.md)
 
-### Pipeline Capabilities Catalog (Part 2)
-
-Generated catalog of available pipeline commands, templates, policy packs, and assets for client configuration.
-
-#### Pipeline Capabilities Catalog (Part 2): Current product definition (2026-04-05)
-
-This content follows the active implementation baseline:
-
-### Pipeline Capabilities Catalog (Part 20)
+### Pipeline Capabilities Catalog (Part 22)
 
 Generated catalog of available pipeline commands, templates, policy packs, and assets for client configuration.
 
-#### Pipeline Capabilities Catalog (Part 20): Implementation status (2026-04-05)
+#### Pipeline Capabilities Catalog (Part 22): Implementation status (2026-04-05)
 
 This document is aligned to the current production implementation baseline.
 
@@ -2943,17 +3178,18 @@ Generated catalog of available pipeline commands, templates, policy packs, and a
 1. External mock sandbox resolution is integrated, with Postman-supported auto-prepare in external mode.
 1. Contract test assets are generated automatically and merged with smart-merge so manual/customized cases are preserved and flagged for review when needed.
 1. Knowledge/RAG maintenance, terminology sync, and quality/compliance gates run through the same automation surface when enabled.
+1. LLM-agent web artifacts are generated automatically (`llms.txt`, `llms-full.txt`, markdown URL mirrors, and HTML agent hints) as part of the autopipeline finalization path.
 1. Local-first operation is the default mode: weekly scheduler and quality gates run in the client repository, with GitHub Actions as a compatibility mode.
 1. RAG runtime supports `cloud`, `hybrid`, and `strict-local` operational profiles with one enforcement layer.
 1. RAG runtime endpoints include `/rag/query`, `/rag/runtime/query`, `/rag/metrics`, and `/rag/alerts` with access-control checks.
 1. RAG index lifecycle supports versioned reindex, promote, rollback, and retention pruning through one command surface.
 1. Plan tiers gate advanced capabilities; higher plans include broader non-REST and governance scope.
 
-This catalog has two layers:
-
 ### Pipeline Capabilities Catalog (Part 4)
 
 Generated catalog of available pipeline commands, templates, policy packs, and assets for client configuration.
+
+This catalog has two layers:
 
 1. npm script entry points (from `package.json`)
 1. direct CLI entry points in `scripts/*.py` that are used by provisioning/operator flows and are not exposed as npm commands
@@ -2981,7 +3217,26 @@ The platform is not limited to API-first automation. In active production usage,
 
 Generated catalog of available pipeline commands, templates, policy packs, and assets for client configuration.
 
-#### Pipeline Capabilities Catalog (Part 6): How to enable any capability for a client
+#### Pipeline Capabilities Catalog (Part 6): LLM-agent optimized web surface
+
+The pipeline now includes a dedicated LLM-facing output layer in the same build path as standard docs publishing.
+
+1. Generates `llms.txt` with URL and title pairs for discoverable LLM crawling.
+1. Generates `llms-full.txt` with URL, title, and summary for richer retrieval context.
+1. Publishes markdown mirrors into the static site output so crawlers can consume `.md` without brittle HTML parsing.
+1. Injects explicit HTML metadata hints in the docs template header so agents prefer markdown URL variants.
+
+Operational value:
+
+1. Improves RAG ingestion quality because crawlers ingest source markdown instead of noisy rendered DOM.
+1. Reduces post-processing complexity for external agent ecosystems (fewer custom parsers and extractors).
+1. Provides a concrete pre-sales differentiator: docs are optimized for both human readers and machine agents by default, not via manual retrofit.
+
+### Pipeline Capabilities Catalog (Part 7)
+
+Generated catalog of available pipeline commands, templates, policy packs, and assets for client configuration.
+
+#### Pipeline Capabilities Catalog (Part 7): How to enable any capability for a client
 
 ```yaml
 
@@ -2995,7 +3250,7 @@ runtime:
 
 ```
 
-### Pipeline Capabilities Catalog (Part 7)
+### Pipeline Capabilities Catalog (Part 8)
 
 Generated catalog of available pipeline commands, templates, policy packs, and assets for client configuration.
 
@@ -3123,58 +3378,13 @@ Generated catalog of available pipeline commands, templates, policy packs, and a
 | `validate:knowledge:with-llm-enrich` | Validation | `npm run build:knowledge-enrich:llm && npm run validate:knowledge` |
 | `validate:minimal` | Validation | `npm run normalize:docs:check && npm run lint:md && npm run lint:frontmatter && npm run lint:geo && npm run lint:multilang && npm run lint:examples-smoke` |
 
-### Pipeline Capabilities Catalog (Part 8)
-
-Generated catalog of available pipeline commands, templates, policy packs, and assets for client configuration.
-
-#### Pipeline Capabilities Catalog (Part 8): Direct CLI entry points (not exposed as npm scripts)
-
-These are part of the current implementation and are invoked directly by operator/provisioning/weekly flows.
-
 ### Pipeline Capabilities Catalog (Part 9)
 
 Generated catalog of available pipeline commands, templates, policy packs, and assets for client configuration.
 
-| Script | Purpose |
-| --- | --- |
-| `scripts/build_client_bundle.py` | Build client-specific bundle in `generated/client_bundles/<client_id>/`. |
-| `scripts/provision_client_repo.py` | One-shot install into client repo (bundle copy, config/policy, env checklist, scheduler install). |
-| `scripts/init_pipeline.py` | Bootstrap pipeline directly from source into another repo (self-install path). |
-| `scripts/run_weekly_gap_batch.py` | Main weekly local runner (gaps/stale/kpi/api-first/modules/custom tasks/consolidation). |
-| `scripts/auto_fix_pr_docs.py` | PR branch docs autofix helper for optional GitHub workflow. |
-| `scripts/ensure_external_mock_server.py` | Resolve/create external mock endpoint (Postman-supported flow). |
-| `scripts/extract_knowledge_modules_from_docs.py` | Auto-extract knowledge modules from docs markdown. |
-| `scripts/gap_detector.py` | Legacy/direct gap detector entry used in some compatibility paths. |
-| `scripts/generate_docusaurus_config.py` | Generate/update Docusaurus config in adapter flows. |
-| `scripts/generate_facets_index.py` | Build faceted search index artifacts. |
-| `scripts/generate_fastapi_stubs_from_openapi.py` | Generate FastAPI stubs from OpenAPI. |
-| `scripts/generate_openapi_from_planning_notes.py` | Generate OpenAPI root/tree from planning notes. |
-| `scripts/generate_protocol_server_stubs.py` | Generate protocol server stubs with business-logic placeholders for REST, GraphQL, gRPC, AsyncAPI, and WebSocket. |
-| `scripts/generate_pipeline_capabilities_catalog.py` | Regenerate this capabilities catalog file. |
-| `scripts/lifecycle_manager.py` | Lifecycle scan/report/redirect guidance generation. |
-| `scripts/manage_demo_nav.py` | Demo nav injection/removal helper. |
-| `scripts/pilot_analysis.py` | Pilot analysis/report helper. |
-| `scripts/preprocess_variables.py` | Variables pre-processing helper for docs generation flows. |
-| `scripts/upload_to_algolia.py` | Upload generated search records to Algolia. |
-| `scripts/validate_pr_dod.py` | DoD validation helper for PR workflows. |
-| `scripts/run_multi_protocol_contract_flow.py` | Unified orchestrator for all 5 protocol documentation flows (REST, GraphQL, gRPC, AsyncAPI, WebSocket). Runs 9 stages: ingest, contract validation, server stub generation, lint, regression, docs generation, quality gates, test assets, publish. |
-| `scripts/run_retrieval_evals_gate.py` | Smart retrieval gate with runtime mode selection (`token`, `hybrid`, `hybrid+rerank`) and adaptive threshold profile for dataset mismatch cases. |
-| `scripts/rag_reindex_lifecycle.py` | Versioned RAG reindex lifecycle: extract, validate, index build, optional embeddings, promote, rollback, and retention pruning. |
-| `scripts/enforce_rag_optimization_layer.py` | Unified RAG optimization layer enforcement for cloud, hybrid, and strict-local profiles with alert-enabled thresholds. |
-| `scripts/generate_protocol_contract_from_planning_notes.py` | Generate protocol contracts (GraphQL SDL, Proto3, AsyncAPI YAML, WebSocket YAML) from planning notes markdown. |
-| `scripts/generate_protocol_docs.py` | Auto-generate reference documentation from protocol contracts using protocol-specific templates. |
-| `scripts/generate_protocol_test_assets.py` | Generate protocol-aware test cases with signature-based smart merge. Outputs JSON, TestRail CSV, Zephyr JSON, test matrix, and fuzz scenarios. |
-| `scripts/run_protocol_self_verify.py` | Runtime validation against live/mock endpoints: GraphQL introspection, gRPC invocation, AsyncAPI event publish, WebSocket connection and message routing. |
-| `scripts/validate_graphql_contract.py` | GraphQL SDL contract validation (syntax, semantics, operation types). |
-| `scripts/validate_proto_contract.py` | Proto3 contract validation (syntax, service definitions, RPC methods). |
-| `scripts/validate_asyncapi_contract.py` | AsyncAPI contract validation (channels, schemas, delivery guarantees). |
-| `scripts/validate_websocket_contract.py` | WebSocket channel contract validation (message schemas, connection lifecycle). |
-| `scripts/generate_public_docs_audit.py` | Public documentation site auditor: crawls live sites, evaluates broken links, SEO/GEO, API coverage, code examples, freshness. Supports interactive wizard and LLM-powered expert analysis. |
-| `scripts/generate_audit_scorecard.py` | Comprehensive audit scorecard generator combining docs quality, API coverage, code examples, glossary health, and policy compliance into a single score. |
-| `scripts/generate_executive_audit_pdf.py` | Consulting-grade executive PDF report from audit scorecard and public docs audit results. Includes score gauges, risk matrices, financial impact tables, and methodology appendix. |
-| `scripts/generate_embeddings.py` | Generate FAISS vector index from knowledge modules using `text-embedding-3-small` (1536 dimensions). Builds `retrieval.faiss` and `retrieval-metadata.json`. |
-| `scripts/docsops_generate.py` | Operator and policy-triggered generation entry point for local CLI workflows (`operator` and `veridoc` modes). |
-| `scripts/production_smoke.py` | Production smoke validation for runtime readiness and deployment health signals. |
+#### Pipeline Capabilities Catalog (Part 9): Direct CLI entry points (not exposed as npm scripts)
+
+These are part of the current implementation and are invoked directly by operator/provisioning/weekly flows.
 
 ### Plan Tiers (Basic / Pro / Enterprise)
 
@@ -3376,7 +3586,7 @@ After any plan change, rebuild the bundle and re-provision.
 #### Plan Tiers (Basic / Pro / Enterprise) (Part 13): Next steps
 
 - [Operator Runbook](OPERATOR_RUNBOOK.md) -- step-by-step retainer procedures
-- [Documentation index](../index.md)
+- [Documentation index](../../index.md)
 
 ### Plan Tiers (Basic / Pro / Enterprise) (Part 14)
 
@@ -6072,7 +6282,7 @@ Single source of truth for per-client Auto-Doc Pipeline configuration, modules, 
 
 #### Unified Client Configuration (Part 31): Next steps
 
-- [Documentation index](../index.md)
+- [Documentation index](../../index.md)
 
 #### Unified Client Configuration (Part 31): Implementation status (2026-03-25)
 
@@ -6632,9 +6842,11 @@ Each Webhook node generates two URLs:
 
 === "Cloud"
 
+
  Base URL: `<https://your-instance.app.the> product.cloud`
 
 === "Self-hosted"
+
 
  Base URL: your configured `WEBHOOK_URL` environment variable, or `<http://localhost:5678`> by default.
 
@@ -6694,7 +6906,7 @@ Complete parameter reference for the Webhook trigger node including HTTP methods
 
 #### Webhook node reference for (Part 3): Next steps
 
-- [Documentation index](../index.md)
+- [Documentation index](../../index.md)
 
 ### WEBSOCKET API Reference
 
@@ -6843,11 +7055,13 @@ The platform supports two execution modes that affect error handling and perform
 
 === "Regular mode (default)"
 
+
  Nodes execute one at a time. If a node fails, execution stops and the workflow reports an error. This mode is predictable and easier to debug.
 
  Typical setting: `EXECUTIONS_MODE=regular`
 
 === "Queue mode (production)"
+
 
  Workflow executions are distributed across worker processes. This mode handles high-volume workloads (hundreds of concurrent executions) and requires a Redis instance for coordination.
 

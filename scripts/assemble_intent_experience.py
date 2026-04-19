@@ -199,7 +199,19 @@ def _sanitize_docs_chunk(chunk: str, module_title: str) -> str:
             next_line = out[i + 1] if i + 1 < len(out) else ""
             if next_line and next_line.strip():
                 normalized.append("")
-    return "\n".join(normalized).strip()
+    text = "\n".join(normalized).strip()
+
+    # Normalize cross-page links for files generated under docs/reference/intent-experiences.
+    rewrites = {
+        "(../index.md)": "(../../index.md)",
+        "(../reference/intent-experiences/index.md)": "(./index.md)",
+        "(../how-to/assemble-intent-experiences.md)": "(../../how-to/assemble-intent-experiences.md)",
+        "(./assemble-intent-experiences.md)": "(../../how-to/assemble-intent-experiences.md)",
+        "(assemble-intent-experiences.md)": "(../../how-to/assemble-intent-experiences.md)",
+    }
+    for src, dst in rewrites.items():
+        text = text.replace(src, dst)
+    return text
 
 
 def _build_channel_bundle(intent: str, audience: str, channel: str, matched: list[dict[str, Any]]) -> dict[str, Any]:

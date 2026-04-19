@@ -529,11 +529,11 @@ Write a brief summary (3-5 sentences) covering:
 > Action items: 3 high priority (stale auth docs), 5 medium, 4 low.
 > Recommendation: Update authentication reference docs this week.
 
-### Pipeline Capabilities Catalog (Part 12)
+### Pipeline Capabilities Catalog (Part 13)
 
 Generated catalog of available pipeline commands, templates, policy packs, and assets for client configuration.
 
-#### Pipeline Capabilities Catalog (Part 12): Test assets generation and smart merge
+#### Pipeline Capabilities Catalog (Part 13): Test assets generation and smart merge
 
 `generate_protocol_test_assets.py` generates protocol-aware test cases for all five protocols with signature-based smart merge to preserve custom and manual test cases across contract changes.
 
@@ -553,11 +553,11 @@ Generated catalog of available pipeline commands, templates, policy packs, and a
 
 **TestRail/Zephyr upload:** `upload_api_test_assets.py` pushes generated cases to TestRail or Zephyr Scale. The `needs_review` flag propagates to both platforms so QA teams can triage stale custom cases.
 
-### Pipeline Capabilities Catalog (Part 18)
+### Pipeline Capabilities Catalog (Part 20)
 
 Generated catalog of available pipeline commands, templates, policy packs, and assets for client configuration.
 
-#### Pipeline Capabilities Catalog (Part 18): Templates
+#### Pipeline Capabilities Catalog (Part 20): Templates
 
 These can be shipped via `bundle.include_paths` and used by LLM generation flow.
 
@@ -594,7 +594,7 @@ These can be shipped via `bundle.include_paths` and used by LLM generation flow.
 - `templates/user-guide.md`
 - `templates/webhooks-guide.md`
 
-#### Pipeline Capabilities Catalog (Part 18): Policy Packs
+#### Pipeline Capabilities Catalog (Part 20): Policy Packs
 
 - `api-first.yml`
 - `minimal.yml`
@@ -602,7 +602,7 @@ These can be shipped via `bundle.include_paths` and used by LLM generation flow.
 - `multi-product.yml`
 - `plg.yml`
 
-#### Pipeline Capabilities Catalog (Part 18): Knowledge Modules
+#### Pipeline Capabilities Catalog (Part 20): Knowledge Modules
 
 Can be copied into client bundle with `bundle.include_paths: ['knowledge_modules']`.
 
@@ -1206,7 +1206,7 @@ Complete parameter reference for the Webhook trigger node including HTTP methods
 
 #### Webhook node reference for (Part 3): Next steps
 
-- [Documentation index](../index.md)
+- [Documentation index](../../index.md)
 
 ## Next steps
 

@@ -1,0 +1,57 @@
+{
+  "status": "ok",
+  "model": "claude-sonnet-4-5",
+  "analysis": {
+    "executive_summary": "Audit crawled 2,476 pages across platform.claude.com/docs with 100% coverage and detected zero broken links. API reference coverage stands at 47.14% across 1,488 detected API pages, indicating significant documentation gaps. Example code reliability scored 0%, flagged as a detection limitation likely due to JavaScript-rendered code blocks. Only 25.4% of pages display last-updated metadata, severely limiting freshness transparency. Overall confidence rating is 63.5%, with link verification at 25% confidence due to 2 unverified URLs blocked by authentication or rate limits.",
+    "strengths": [
+      "Complete crawl coverage at 100% with 2,476 pages successfully indexed",
+      "Zero broken internal documentation links and zero repository navigation link failures",
+      "Low SEO/geo issue rate at 0.36%, indicating strong technical SEO foundation",
+      "High crawl confidence at 95% and API detection confidence at 85%",
+      "Effective trap URL filtering with 1,008 pagination/duplicate URLs excluded"
+    ],
+    "risks": [
+      "API reference coverage at 47.14% leaves over half of API surface undocumented or unlinked",
+      "Example code reliability at 0% prevents validation of code accuracy (detection limitation suspected)",
+      "Freshness metadata visible on only 25.4% of pages creates trust and maintenance visibility gaps",
+      "Link verification confidence at 25% due to 2 unverified URLs behind authentication or rate limits",
+      "Overall audit confidence at 63.5% limits reliability of findings for sales commitments",
+      "JavaScript-rendered code blocks may hide broken examples from automated detection",
+      "598 pages requested but not crawled (3,074 requested vs 2,476 crawled) suggests potential scope gaps"
+    ],
+    "prioritized_actions": [
+      {
+        "action": "Audit and document the 52.86% of API surface missing from reference coverage (target 1,488 detected pages for gap analysis)",
+        "impact": "critical",
+        "effort": "high"
+      },
+      {
+        "action": "Implement last-updated timestamps on remaining 74.6% of pages to reach 100% freshness visibility",
+        "impact": "high",
+        "effort": "low"
+      },
+      {
+        "action": "Investigate example code detection failure: validate JS-rendered code blocks are functional and add static fallbacks for audit tooling",
+        "impact": "high",
+        "effort": "medium"
+      },
+      {
+        "action": "Resolve 2 unverified links blocked by authentication/rate-limits to achieve full link verification confidence",
+        "impact": "medium",
+        "effort": "low"
+      },
+      {
+        "action": "Review 598 uncrawled pages (requested but not retrieved) to confirm intentional exclusion vs. access issues",
+        "impact": "medium",
+        "effort": "medium"
+      }
+    ],
+    "limitations": [
+      "External audit cannot verify accuracy of API documentation content, parameter descriptions, or response examples\u2014only structural presence",
+      "Example code reliability at 0% indicates detection tooling cannot parse JavaScript-rendered code blocks; actual code quality remains unvalidated",
+      "Authentication-protected pages and rate-limited endpoints (2 unverified links) cannot be fully tested without internal credentials",
+      "Audit cannot confirm whether 47.14% API coverage represents complete API surface or if undocumented endpoints exist outside crawl scope",
+      "Freshness metadata absence on 74.6% of pages means audit cannot determine actual content staleness or update frequency"
+    ]
+  }
+}

@@ -59,6 +59,8 @@ AUTO_ACCEPT_IF_PRESENT_KEYS: set[str] = {
     "VERIOPS_COMPANY_DOMAIN",
 }
 
+SETUP_PREFLIGHT_REPORT = Path("reports/setup_prerequisites_report.json")
+
 FIELD_GUIDANCE: dict[str, str] = {
     "ALGOLIA_APP_ID": "Take from your Algolia dashboard (Settings/API). Use your own account.",
     "ALGOLIA_API_KEY": "Use your Algolia Admin API key for write/indexing operations (not search-only). Never use a shared operator key.",
@@ -150,6 +152,147 @@ def _load_runtime(repo_root: Path) -> dict[str, Any]:
             if isinstance(raw, dict):
                 return raw
     return {}
+
+
+def _resolve_runtime_path(repo_root: Path) -> Path | None:
+    candidates = [
+        repo_root / "docsops" / "config" / "client_runtime.yml",
+        repo_root / "config" / "client_runtime.yml",
+    ]
+    for candidate in candidates:
+        if candidate.exists():
+            return candidate
+    return None
+
+
+def _write_runtime(path: Path, runtime: dict[str, Any]) -> bool:
+    if yaml is None:
+        return False
+    path.parent.mkdir(parents=True, exist_ok=True)
+    path.write_text(yaml.safe_dump(runtime, sort_keys=False), encoding="utf-8")
+    return True
+
+
+def _is_tool_available(binary: str) -> bool:
+    return bool(shutil.which(binary))
+
+
+def _detect_setup_prereqs(runtime: dict[str, Any], env_values: dict[str, str]) -> dict[str, Any]:
+    integrations = runtime.get("integrations", {}) if isinstance(runtime.get("integrations"), dict) else {}
+    ask_ai = integrations.get("ask_ai", {}) if isinstance(integrations.get("ask_ai"), dict) else {}
+    algolia = integrations.get("algolia", {}) if isinstance(integrations.get("algolia"), dict) else {}
+    api_first = runtime.get("api_first", {}) if isinstance(runtime.get("api_first"), dict) else {}
+    llm_control = runtime.get("llm_control", {}) if isinstance(runtime.get("llm_control"), dict) else {}
+    security = runtime.get("security", {}) if isinstance(runtime.get("security"), dict) else {}
+    operation_mode = str(security.get("operation_mode", "")).strip().lower()
+    llm_mode = str(llm_control.get("llm_mode", "external_preferred")).strip().lower()
+    strict_local = bool(llm_control.get("strict_local_first", llm_mode == "local_default"))
+
+    required_client_inputs: list[dict[str, str]] = []
+    if bool(ask_ai.get("enabled", False)):
+        provider = str(ask_ai.get("provider", "openai")).strip().lower()
+        if provider == "openai":
+            required_client_inputs.append({"key": "OPENAI_API_KEY", "purpose": "Ask AI provider credentials"})
+        elif provider == "anthropic":
+            required_client_inputs.append({"key": "ANTHROPIC_API_KEY", "purpose": "Ask AI provider credentials"})
+        elif provider == "azure-openai":
+            required_client_inputs.extend(
+                [
+                    {"key": "AZURE_OPENAI_API_KEY", "purpose": "Ask AI provider credentials"},
+                    {"key": "AZURE_OPENAI_ENDPOINT", "purpose": "Ask AI provider endpoint"},
+                ]
+            )
+        else:
+            required_client_inputs.extend(
+                [
+                    {"key": "ASK_AI_API_KEY", "purpose": "Custom Ask AI provider credentials"},
+                    {"key": "ASK_AI_BASE_URL", "purpose": "Custom Ask AI provider URL"},
+                ]
+            )
+    if bool(algolia.get("enabled", False)):
+        required_client_inputs.extend(
+            [
+                {"key": str(algolia.get("app_id_env", "ALGOLIA_APP_ID")), "purpose": "Algolia app id"},
+                {"key": str(algolia.get("api_key_env", "ALGOLIA_API_KEY")), "purpose": "Algolia admin key"},
+                {"key": str(algolia.get("index_name_env", "ALGOLIA_INDEX_NAME")), "purpose": "Algolia index name"},
+            ]
+        )
+
+    sandbox_backend = str(api_first.get("sandbox_backend", "docker")).strip().lower()
+    docker_required = bool(api_first.get("enabled", False)) and sandbox_backend == "docker"
+    external_mock = api_first.get("external_mock", {}) if isinstance(api_first.get("external_mock"), dict) else {}
+    if sandbox_backend == "external" and bool(external_mock.get("enabled", False)):
+        postman_cfg = external_mock.get("postman", {}) if isinstance(external_mock.get("postman"), dict) else {}
+        required_client_inputs.extend(
+            [
+                {"key": str(postman_cfg.get("api_key_env", "POSTMAN_API_KEY")), "purpose": "External mock provider API key"},
+                {"key": str(postman_cfg.get("workspace_id_env", "POSTMAN_WORKSPACE_ID")), "purpose": "External mock provider workspace id"},
+            ]
+        )
+
+    missing_inputs = [entry["key"] for entry in required_client_inputs if not str(env_values.get(entry["key"], "")).strip()]
+    available_tools = {
+        "docker": _is_tool_available("docker"),
+        "node": _is_tool_available("node"),
+        "npm": _is_tool_available("npm"),
+        "python3": _is_tool_available("python3"),
+        "ollama": _discover_ollama_bin(Path.cwd()) is not None,
+    }
+    blocking_reasons: list[str] = []
+    warnings: list[str] = []
+    if docker_required and not available_tools["docker"]:
+        blocking_reasons.append("docker_runtime_missing")
+    if missing_inputs:
+        warnings.append("missing_optional_or_external_credentials")
+
+    strict_local_alternatives = {
+        "docker_missing": "Use api_first.sandbox_backend=prism for local contract sandbox without Docker.",
+        "external_provider_keys_missing": "In strict-local mode keep Ask AI/Algolia/external mock disabled or run with local Ollama only.",
+        "llm_audit_or_translate_without_cloud_keys": "Run local generation path and skip cloud-translation/audit steps until keys are provided.",
+    }
+    return {
+        "profile": "strict-local" if (strict_local or operation_mode == "strict-local") else (operation_mode or "hybrid/cloud"),
+        "operation_mode": operation_mode or "unspecified",
+        "required_client_inputs": required_client_inputs,
+        "operator_managed": [
+            {"artifact": "docsops/license.jwt", "purpose": "Signed license entitlement"},
+            {"artifact": "capability pack (optional per plan)", "purpose": "Premium feature runtime pack"},
+            {"artifact": "policy defaults", "purpose": "Security/egress baseline"},
+        ],
+        "missing_inputs": missing_inputs,
+        "available_tools": available_tools,
+        "blocking_reasons": blocking_reasons,
+        "warnings": warnings,
+        "api_first": {
+            "enabled": bool(api_first.get("enabled", False)),
+            "sandbox_backend": sandbox_backend,
+            "docker_required": docker_required,
+        },
+        "strict_local_alternatives": strict_local_alternatives,
+    }
+
+
+def _apply_local_fallbacks(runtime: dict[str, Any], prereqs: dict[str, Any]) -> tuple[dict[str, Any], list[str]]:
+    updates: list[str] = []
+    api_first = runtime.get("api_first", {}) if isinstance(runtime.get("api_first"), dict) else {}
+    runtime["api_first"] = api_first
+    backend = str(api_first.get("sandbox_backend", "docker")).strip().lower()
+    docker_ok = bool(prereqs.get("available_tools", {}).get("docker", False))
+    security = runtime.get("security", {}) if isinstance(runtime.get("security"), dict) else {}
+    llm_control = runtime.get("llm_control", {}) if isinstance(runtime.get("llm_control"), dict) else {}
+    llm_mode = str(llm_control.get("llm_mode", "external_preferred")).strip().lower()
+    strict_local = bool(llm_control.get("strict_local_first", llm_mode == "local_default"))
+    operation_mode = str(security.get("operation_mode", "")).strip().lower()
+    if backend == "docker" and not docker_ok and (strict_local or operation_mode in {"strict-local", "hybrid"}):
+        api_first["sandbox_backend"] = "prism"
+        updates.append("api_first.sandbox_backend: docker -> prism (docker not available)")
+
+    if operation_mode == "strict-local":
+        external_mock = api_first.get("external_mock", {})
+        if isinstance(external_mock, dict) and bool(external_mock.get("enabled", False)):
+            external_mock["enabled"] = False
+            updates.append("api_first.external_mock.enabled: true -> false (strict-local)")
+    return runtime, updates
 
 
 def _prompt_yes_no(prompt: str, default_yes: bool = True) -> bool:
@@ -901,6 +1044,38 @@ def main() -> int:
     print(f"\n[env-wizard] wrote {env_path}")
     print(f"[env-wizard] prompted fields: {prompted_count}")
     runtime = _load_runtime(repo_root)
+    runtime_path = _resolve_runtime_path(repo_root)
+    prereqs = _detect_setup_prereqs(runtime, values)
+    runtime, fallback_updates = _apply_local_fallbacks(runtime, prereqs)
+    if runtime_path is not None and fallback_updates:
+        if _write_runtime(runtime_path, runtime):
+            print(f"[env-wizard] applied strict-local fallback updates: {len(fallback_updates)}")
+            for line in fallback_updates:
+                print(f"[env-wizard] - {line}")
+        else:
+            print("[env-wizard] warning: cannot persist fallback updates (PyYAML missing).")
+
+    print("\n[env-wizard] Ownership and prerequisites")
+    print("- Client-managed: provider keys, optional external integrations, runner prerequisites.")
+    print("- Operator-managed: signed license JWT, capability pack, default policy endpoints.")
+    if prereqs.get("missing_inputs"):
+        print(f"- Missing client inputs: {len(prereqs['missing_inputs'])} (can be added later to {env_path.name}).")
+    if prereqs.get("blocking_reasons"):
+        print(f"- Hard blockers detected: {', '.join(prereqs['blocking_reasons'])}")
+    else:
+        print("- Hard blockers: none")
+
+    preflight_report = {
+        "ok": len(prereqs.get("blocking_reasons", [])) == 0,
+        "env_path": str(env_path),
+        "runtime_path": str(runtime_path) if runtime_path else "",
+        "fallback_updates": fallback_updates,
+        "prerequisites": prereqs,
+    }
+    SETUP_PREFLIGHT_REPORT.parent.mkdir(parents=True, exist_ok=True)
+    SETUP_PREFLIGHT_REPORT.write_text(json.dumps(preflight_report, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
+    print(f"[env-wizard] preflight report: {SETUP_PREFLIGHT_REPORT}")
+
     llm_control = runtime.get("llm_control", {}) if isinstance(runtime.get("llm_control"), dict) else {}
     llm_mode = str(llm_control.get("llm_mode", "external_preferred")).strip().lower()
     strict_local = bool(llm_control.get("strict_local_first", llm_mode == "local_default"))

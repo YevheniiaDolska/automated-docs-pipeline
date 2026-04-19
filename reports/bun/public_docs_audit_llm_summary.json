@@ -1,0 +1,57 @@
+{
+  "status": "ok",
+  "model": "claude-sonnet-4-5",
+  "analysis": {
+    "executive_summary": "Documentation audit of bun.sh/docs covered 313 of 315 requested pages (100% crawl coverage) with 91.5% overall confidence. Critical issues include 2 confirmed broken internal documentation links and 0% example reliability estimate across all pages. API reference coverage stands at 71.95% with 26 API pages detected. Freshness metadata is severely limited at 1.6% coverage, and SEO/geo issues affect 17.01% of pages.",
+    "strengths": [
+      "Complete crawl coverage achieved (313/315 pages, 100%)",
+      "High overall audit confidence at 91.5%",
+      "No repository navigation link breakage (0 repo_broken_links_count)",
+      "API reference coverage exceeds 70% (71.95%) with successful detection across 26 pages",
+      "Zero crawl trap URLs encountered during site examination"
+    ],
+    "risks": [
+      "0% example reliability estimate indicates code examples may be untested, outdated, or unvalidated",
+      "2 confirmed broken internal documentation links degrade user navigation experience",
+      "Only 1.6% of pages display last-updated metadata, preventing users from assessing content freshness",
+      "17.01% SEO/geo issue rate may impact discoverability and search ranking",
+      "28.05% of API surface area lacks reference documentation coverage",
+      "No automated example validation detected across 313 pages",
+      "Freshness tracking infrastructure appears absent or non-functional"
+    ],
+    "prioritized_actions": [
+      {
+        "action": "Implement automated example testing pipeline to validate all code samples against current Bun runtime",
+        "impact": "critical",
+        "effort": "high"
+      },
+      {
+        "action": "Fix 2 confirmed broken internal documentation links immediately",
+        "impact": "high",
+        "effort": "low"
+      },
+      {
+        "action": "Deploy last-updated timestamp metadata to all 313 documentation pages",
+        "impact": "high",
+        "effort": "medium"
+      },
+      {
+        "action": "Audit and remediate SEO/geo issues affecting 17.01% of pages (approximately 53 pages)",
+        "impact": "medium",
+        "effort": "medium"
+      },
+      {
+        "action": "Document remaining 28.05% of API surface area to achieve complete reference coverage",
+        "impact": "medium",
+        "effort": "high"
+      }
+    ],
+    "limitations": [
+      "External audit cannot verify accuracy of technical content, code examples, or API specifications",
+      "Example reliability estimate reflects detection of validation infrastructure only, not actual code correctness",
+      "Crawl limited to publicly accessible pages; authenticated or gated content not examined",
+      "API coverage detection may miss non-standard documentation patterns or embedded references",
+      "Cannot assess internal content review processes, subject matter expert validation, or editorial workflows"
+    ]
+  }
+}

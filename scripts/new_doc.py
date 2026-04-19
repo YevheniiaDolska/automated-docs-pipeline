@@ -868,6 +868,13 @@ If your docs site enables playground integration, add:
             output_path = output_dir / f"{slug}.md"
         else:
             output_path = Path(output_path)
+            if not output_path.is_absolute():
+                parts = output_path.parts
+                # Treat "docs/..." as path relative to the configured docs root.
+                if parts and parts[0] == "docs":
+                    output_path = self.base_dir.joinpath(*parts[1:])
+                else:
+                    output_path = self.base_dir / output_path
             output_path.parent.mkdir(parents=True, exist_ok=True)
 
         # Generate frontmatter
@@ -887,7 +894,11 @@ If your docs site enables playground integration, add:
         print(f"Created {doc_type} document: {output_path}")
 
         # Update mkdocs.yml navigation if needed
-        self.update_navigation(str(output_path.relative_to(self.base_dir)), title, doc_type)
+        try:
+            nav_rel_path = output_path.resolve().relative_to(self.base_dir.resolve())
+        except ValueError:
+            nav_rel_path = output_path
+        self.update_navigation(str(nav_rel_path), title, doc_type)
 
         # Validate with linters
         self.validate_document(output_path)

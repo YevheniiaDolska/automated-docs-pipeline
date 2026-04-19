@@ -1,110 +1,111 @@
 client:
-  id: "example-enterprise"
-  company_name: "Example Enterprise Co"
-  contact_email: "docs@example.com"
-
+  id: example-enterprise
+  company_name: Example Enterprise Co
+  contact_email: docs@example.com
 bundle:
-  output_dir: "generated/client_bundles"
-  base_policy_pack: "multi-product"
-  style_guide: "microsoft"
+  output_dir: generated/client_bundles
+  base_policy_pack: multi-product
+  style_guide: microsoft
   policy_overrides:
     kpi_sla:
       min_doc_coverage: 90
       max_stale_pct: 10
       max_quality_score_drop: 2
   include_scripts:
-    - "scripts/gap_detector.py"
-    - "scripts/check_docs_contract.py"
-    - "scripts/check_api_sdk_drift.py"
-    - "scripts/generate_kpi_wall.py"
-    - "scripts/evaluate_kpi_sla.py"
-    - "scripts/extract_knowledge_modules_from_docs.py"
-    - "scripts/validate_knowledge_modules.py"
-    - "scripts/generate_knowledge_retrieval_index.py"
-    - "scripts/generate_knowledge_graph_jsonld.py"
-    - "scripts/run_retrieval_evals.py"
-    - "scripts/build_all_intent_experiences.py"
-    - "scripts/i18n_sync.py"
-    - "scripts/run_api_first_flow.py"
-    - "scripts/ensure_external_mock_server.py"
-    - "scripts/generate_openapi_from_planning_notes.py"
-    - "scripts/validate_openapi_contract.py"
-    - "scripts/apply_openapi_overrides.py"
-    - "scripts/check_openapi_regression.py"
-    - "scripts/normalize_docs.py"
-    - "scripts/lint_code_snippets.py"
-    - "scripts/check_code_examples_smoke.py"
-    - "scripts/sync_project_glossary.py"
-    - "scripts/generate_multilang_tabs.py"
-    - "scripts/validate_multilang_examples.py"
-    - "scripts/seo_geo_optimizer.py"
-    - "scripts/consolidate_reports.py"
-    - "scripts/run_weekly_gap_batch.py"
-    - "scripts/auto_fix_pr_docs.py"
+  - scripts/gap_detector.py
+  - scripts/check_docs_contract.py
+  - scripts/check_api_sdk_drift.py
+  - scripts/generate_kpi_wall.py
+  - scripts/evaluate_kpi_sla.py
+  - scripts/extract_knowledge_modules_from_docs.py
+  - scripts/validate_knowledge_modules.py
+  - scripts/generate_knowledge_retrieval_index.py
+  - scripts/generate_knowledge_graph_jsonld.py
+  - scripts/run_retrieval_evals.py
+  - scripts/build_all_intent_experiences.py
+  - scripts/i18n_sync.py
+  - scripts/run_api_first_flow.py
+  - scripts/ensure_external_mock_server.py
+  - scripts/generate_openapi_from_planning_notes.py
+  - scripts/validate_openapi_contract.py
+  - scripts/apply_openapi_overrides.py
+  - scripts/check_openapi_regression.py
+  - scripts/normalize_docs.py
+  - scripts/lint_code_snippets.py
+  - scripts/check_code_examples_smoke.py
+  - scripts/sync_project_glossary.py
+  - scripts/generate_multilang_tabs.py
+  - scripts/validate_multilang_examples.py
+  - scripts/seo_geo_optimizer.py
+  - scripts/consolidate_reports.py
+  - scripts/run_weekly_gap_batch.py
+  - scripts/auto_fix_pr_docs.py
   include_docs:
-    - "docs/operations/UNIFIED_CLIENT_CONFIG.md"
-    - "docs/operations/PLAN_TIERS.md"
-    - "docs/operations/PIPELINE_CAPABILITIES_CATALOG.md"
-    - "docs/operations/CENTRALIZED_CLIENT_BUNDLES.md"
+  - docs/operations/UNIFIED_CLIENT_CONFIG.md
+  - docs/operations/PLAN_TIERS.md
+  - docs/operations/PIPELINE_CAPABILITIES_CATALOG.md
+  - docs/operations/CENTRALIZED_CLIENT_BUNDLES.md
   include_paths:
-    - "knowledge_modules"
-    - "templates/interactive-diagram.html"
+  - knowledge_modules
+  - templates/interactive-diagram.html
   llm:
-    codex_instructions_source: "AGENTS.md"
-    claude_instructions_source: "CLAUDE.md"
+    codex_instructions_source: AGENTS.md
+    claude_instructions_source: CLAUDE.md
     inject_managed_block: true
-    docsops_root_in_client_repo: "docsops"
+    docsops_root_in_client_repo: docsops
   automation:
     weekly_gap_report:
       enabled: true
       since_days: 7
-      day_of_week: "monday"
-      time_24h: "10:00"
-
+      day_of_week: monday
+      time_24h: '10:00'
 runtime:
   docs_flow:
-    mode: "hybrid"
-  docs_root: "docs"
-  api_root: "api"
-  sdk_root: "sdk"
-  preferred_llm: "claude"
-  output_targets: ["sphinx", "readme", "github"]
+    mode: hybrid
+  docs_root: docs
+  api_root: api
+  sdk_root: sdk
+  preferred_llm: claude
+  output_targets:
+  - sphinx
+  - readme
+  - github
   pr_autofix:
     enabled: false
     require_label: false
-    label_name: "auto-doc-fix"
+    label_name: auto-doc-fix
     enable_auto_merge: false
-    commit_message: "docs: auto-sync PR docs"
-    workflow_filename: "docsops-pr-autofix.yml"
+    commit_message: 'docs: auto-sync PR docs'
+    workflow_filename: docsops-pr-autofix.yml
   api_first:
     enabled: true
-    project_slug: "project"
-    notes_path: "notes/api-planning.md"
-    spec_path: "api/openapi.yaml"
-    spec_tree_path: "api/project"
-    docs_provider: "mkdocs"
-    docs_spec_target: "docs/assets/api"
-    stubs_output: "generated/api-stubs/fastapi/app/main.py"
-    openapi_version: "3.0.3"
-    manual_overrides_path: ""
-    regression_snapshot_path: ""
+    project_slug: project
+    notes_path: notes/api-planning.md
+    spec_path: api/openapi.yaml
+    spec_tree_path: api/project
+    docs_provider: mkdocs
+    docs_spec_target: docs/assets/api
+    stubs_output: generated/api-stubs/fastapi/app/main.py
+    openapi_version: 3.0.3
+    manual_overrides_path: ''
+    regression_snapshot_path: ''
     update_regression_snapshot: false
     generate_from_notes: true
     verify_user_path: true
-    sandbox_backend: "external"
-    mock_service: "custom"
-    mock_base_url: "https://sandbox-api.example.com/v1"
+    sandbox_backend: external
+    mock_service: custom
+    mock_base_url: https://sandbox-api.example.com/v1
     sync_playground_endpoint: true
     external_mock:
       enabled: true
-      provider: "postman"
-      base_path: "/v1"
+      provider: postman
+      base_path: /v1
       postman:
-        api_key_env: "POSTMAN_API_KEY"
-        workspace_id_env: "POSTMAN_WORKSPACE_ID"
-        collection_uid_env: "POSTMAN_COLLECTION_UID"
-        mock_server_id_env: "POSTMAN_MOCK_SERVER_ID"
-        mock_server_name: ""
+        api_key_env: POSTMAN_API_KEY
+        workspace_id_env: POSTMAN_WORKSPACE_ID
+        collection_uid_env: POSTMAN_COLLECTION_UID
+        mock_server_id_env: POSTMAN_MOCK_SERVER_ID
+        mock_server_name: ''
         private: false
     run_docs_lint: true
     auto_remediate: true
@@ -129,12 +130,12 @@ runtime:
     release_pack: true
   terminology:
     enabled: true
-    glossary_path: "glossary.yml"
+    glossary_path: glossary.yml
     auto_add_from_markers: true
   retrieval_eval:
     enabled: true
-    index_path: "docs/assets/knowledge-retrieval-index.json"
-    dataset_path: ""
+    index_path: docs/assets/knowledge-retrieval-index.json
+    dataset_path: ''
     top_k: 3
     min_precision: 0.5
     min_recall: 0.5
@@ -142,34 +143,38 @@ runtime:
     auto_samples: 25
   knowledge_graph:
     enabled: true
-    modules_dir: "knowledge_modules"
-    output_path: "docs/assets/knowledge-graph.jsonld"
+    modules_dir: knowledge_modules
+    output_path: docs/assets/knowledge-graph.jsonld
   multilang_examples:
     enabled: true
-    scope: "all"
-    required_languages: ["curl", "javascript", "python"]
+    scope: all
+    required_languages:
+    - curl
+    - javascript
+    - python
   custom_tasks:
     weekly:
-      - id: "seo-geo"
-        enabled: true
-        command: "python3 docsops/scripts/seo_geo_optimizer.py docs/"
-        continue_on_error: true
-      - id: "knowledge-validate"
-        enabled: true
-        command: "python3 docsops/scripts/validate_knowledge_modules.py"
-        continue_on_error: true
-      - id: "knowledge-index"
-        enabled: true
-        command: "python3 docsops/scripts/generate_knowledge_retrieval_index.py"
-        continue_on_error: true
-      - id: "intent-experiences"
-        enabled: true
-        command: "python3 docsops/scripts/build_all_intent_experiences.py"
-        continue_on_error: true
+    - id: seo-geo
+      enabled: true
+      command: python3 docsops/scripts/seo_geo_optimizer.py docs/
+      continue_on_error: true
+    - id: knowledge-validate
+      enabled: true
+      command: python3 docsops/scripts/validate_knowledge_modules.py
+      continue_on_error: true
+    - id: knowledge-index
+      enabled: true
+      command: python3 docsops/scripts/generate_knowledge_retrieval_index.py
+      continue_on_error: true
+    - id: intent-experiences
+      enabled: true
+      command: python3 docsops/scripts/build_all_intent_experiences.py
+      continue_on_error: true
     on_demand: []
-
 private_tuning:
   stale_days: 21
   weekly_stale_days: 180
   rag_chunk_target_tokens: 420
   verify_max_attempts: 3
+licensing:
+  manual_jwt_path: generated/tmp/licenses/example-enterprise.license.jwt

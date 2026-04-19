@@ -14,7 +14,7 @@ channels:
 priority: 60
 status: active
 owner: docsops-auto
-last_verified: '2026-04-15'
+last_verified: '2026-04-18'
 dependencies: []
 tags:
 - auto-extracted
@@ -23,13 +23,13 @@ tags:
 metadata:
   url: https://docs.example.com/operations/PIPELINE_CAPABILITIES_CATALOG/
   title: Pipeline Capabilities Catalog (Part 14)
-  heading: RAG retrieval pipeline
+  heading: Quality checks (32 automated)
   version: 1.50.0
-  updated_at: '2026-04-05T00:00:00Z'
+  updated_at: '2026-04-17T00:00:00Z'
   source_site: docs.example.com
   source_path: operations/PIPELINE_CAPABILITIES_CATALOG.md
 semantic:
-  topic: RAG retrieval pipeline
+  topic: Quality checks (32 automated)
   intent: integrate
   audience: developer
   keywords:
@@ -37,101 +37,53 @@ semantic:
   - reference
   status: rule_based
 content:
-  docs_markdown: '## RAG retrieval pipeline
+  docs_markdown: '## Quality checks (32 automated)
 
 
-    The pipeline generates a knowledge retrieval layer with six advanced features:
+    The pipeline enforces 32 automated checks on every documentation page across four
+    categories:
 
 
-    | Feature | Description |
+    | Category | Count | What they verify |
 
-    | --- | --- |
+    | --- | --- | --- |
 
-    | Token-aware chunking | Splits modules into 750-token chunks with 100-token overlap
-    (`cl100k_base`) |
+    | GEO checks | 8 | LLM and AI search optimization: meta descriptions, first paragraph
+    length, heading hierarchy, fact density |
 
-    | Hybrid search (RRF) | Fuses semantic (FAISS) and token-overlap rankings with
-    Reciprocal Rank Fusion (k=60) |
+    | SEO checks | 14 | Traditional search optimization: title length, URL depth,
+    internal links, image alt text, structured data |
 
-    | HyDE query expansion | Generates hypothetical doc passage via LLM before embedding
-    for better retrieval on vague queries |
+    | Style checks | 6 | American English, active voice, no weasel words, no contractions,
+    second person, present tense |
 
-    | Cross-encoder reranking | Rescores top 20 candidates with `cross-encoder/ms-marco-MiniLM-L-6-v2`
-    |
-
-    | Embedding cache | In-memory LRU cache (TTL 3,600 seconds, max 512 entries) for
-    query embeddings |
-
-    | Multi-mode evaluation | Compares token, semantic, hybrid, and hybrid+rerank
-    modes across curated queries |
-
-
-    **Pipeline scripts:**
-
-
-    1. `extract_knowledge_modules_from_docs.py` -- auto-chunk docs into knowledge
-    modules
-
-    1. `validate_knowledge_modules.py` -- schema validation, duplicate ID detection,
-    cycle check
-
-    1. `generate_knowledge_retrieval_index.py` -- JSON index for Algolia + FAISS input
-
-    1. `generate_embeddings.py` -- FAISS vector index (`text-embedding-3-small`, 1536
-    dims)
-
-    1. `generate_knowledge_graph_jsonld.py` -- JSON-LD knowledge graph
-
-    1. `run_retrieval_evals.py` -- precision@k, recall@k, hallucination rate evaluation'
+    | Contract checks | 4 | Schema validation, regression detection, snippet lint,
+    self-verification against endpoints |'
   assistant_context: 'Use this module when answering questions related to: Pipeline
     Capabilities Catalog (Part 14). Source path: operations/PIPELINE_CAPABILITIES_CATALOG.md.
     Summary: Generated catalog of available pipeline commands, templates, policy packs,
     and assets for client configuration.
 
 
-    ## RAG retrieval pipeline
+    ## Quality checks (32 automated)
 
 
-    The pipeline generates a knowledge retrieval layer with six advanced features:
+    The pipeline enforces 32 automated checks on every documentation page across four
+    categories:
 
 
-    | Feature | Description |
+    | Category | Count | What they verify |
 
-    | --- | --- |
+    | --- | --- | --- |
 
-    | Token-aware chunking | Splits modules into 750-token chunks with 100-token overlap
-    (`cl100k_base`) |
+    | GEO checks | 8 | LLM and AI search optimization: meta descriptions, first paragraph
+    length, heading hierarchy, fact density |
 
-    | Hybrid search (RRF) | Fuses semantic (FAISS) and token-overlap rankings with
-    Reciprocal Rank Fusion (k=60) |
+    | SEO checks | 14 | Traditional search optimization: title length, URL depth,
+    internal links, image alt text, structured data |
 
-    | HyDE query expansion | Generates hypothetical doc passage via LLM before embedding
-    for better retrieval on vague queries |
+    | Style checks | 6 | American English, active voice, no weasel words, no contractions,
+    second person, present tense |
 
-    | Cross-encoder reranking | Rescores top 20 candidates with `cross-encoder/ms-marco-MiniLM-L-6-v2`
-    |
-
-    | Embedding cache | In-memory LRU cache (TTL 3,600 seconds, max 512 entries) for
-    query embeddings |
-
-    | Multi-mode evaluation | Compares token, semantic, hybrid, and hybrid+rerank
-    modes across curated queries |
-
-
-    **Pipeline scripts:**
-
-
-    1. `extract_knowledge_modules_from_docs.py` -- auto-chunk docs into knowledge
-    modules
-
-    1. `validate_knowledge_modules.py` -- schema validation, duplicate ID detection,
-    cycle check
-
-    1. `generate_knowledge_retrieval_index.py` -- JSON index for Algolia + FAISS input
-
-    1. `generate_embeddings.py` -- FAISS vector index (`text-embedding-3-small`, 1536
-    dims)
-
-    1. `generate_knowledge_graph_jsonld.py` -- JSON-LD knowledge graph
-
-    1. `run_retrieval_evals.py` -- precision@k, recall@k, hallucination rate evaluation'
+    | Contract checks | 4 | Schema validation, regression detection, snippet lint,
+    self-verification against endpoints |'
