@@ -180,6 +180,34 @@
     .pricing-features li::before {
       content: "✓"; color: var(--brand); font-weight: 700; flex-shrink: 0;
     }
+    .audit-form {
+      margin-top: 16px;
+      background: #fff;
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      padding: 16px;
+    }
+    .audit-form-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 10px;
+      margin-bottom: 10px;
+    }
+    .audit-form input,
+    .audit-form textarea {
+      width: 100%;
+      border: 1px solid #cfd9e6;
+      border-radius: 10px;
+      padding: 10px 12px;
+      font-size: 14px;
+      font-family: inherit;
+      color: var(--ink);
+      background: #fff;
+    }
+    .audit-form textarea { min-height: 96px; resize: vertical; }
+    .audit-form-actions { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; }
+    .audit-form-note { font-size: 13px; color: var(--muted); }
+    .audit-form-result { font-size: 14px; color: var(--ink); }
 
     .billing-toggle {
       display: flex; align-items: center; justify-content: center;
@@ -265,7 +293,7 @@
       <div style="display:flex;align-items:center;gap:14px">
         <a class="cta" href="/login" style="background:#0b111d;border-color:#0b111d;color:#ffffff">Log In</a>
         <a class="cta primary" href="/register">Sign Up</a>
-        <a class="cta ghost" href="#free-audit">Get Free Audit</a>
+        <a class="cta ghost" href="#free-audit-form">Get Free Audit</a>
       </div>
     </div>
   </header>
@@ -288,7 +316,7 @@
           <strong>Your security team will not approve SaaS?</strong> Your docs still drift after every release.
           VeriOps runs the full pipeline inside your infrastructure with zero data exposure, setup that starts in 1 day, and measurable results in 21 days.
           <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:10px">
-            <a class="cta primary" href="#free-audit">Get Free Audit</a>
+            <a class="cta primary" href="#free-audit-form">Get Free Audit</a>
             <a class="cta ghost" href="/veriops">Explore VeriOps</a>
           </div>
         </div>
@@ -357,8 +385,22 @@
           </div>
         </div>
         <div style="margin-top:16px">
-          <a class="cta primary" href="https://calendly.com/eugenia-sorokina/veriops-discovery-call">Request Free Audit</a>
+          <a class="cta primary" href="#free-audit-form">Request Free Audit</a>
         </div>
+        <form id="free-audit-form" class="audit-form">
+          <div class="audit-form-grid">
+            <input id="audit-full-name" type="text" placeholder="Full name" required />
+            <input id="audit-email" type="email" placeholder="Work email" required />
+            <input id="audit-company" type="text" placeholder="Company (optional)" />
+            <input id="audit-docs-url" type="url" placeholder="Docs URL (optional)" />
+          </div>
+          <textarea id="audit-message" placeholder="What is the main docs issue you want to fix? (optional)"></textarea>
+          <div class="audit-form-actions" style="margin-top:10px">
+            <button id="audit-submit" class="cta primary" type="submit">Send Audit Request</button>
+            <span class="audit-form-note">Response target: within 1 business day.</span>
+            <span id="audit-form-result" class="audit-form-result"></span>
+          </div>
+        </form>
       </div>
     </section>
 
@@ -375,7 +417,7 @@
           </p>
           <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap">
             <a class="cta amber" href="https://calendly.com/eugenia-sorokina/veriops-discovery-call" target="_blank" rel="noopener">Schedule a 15-min discovery call</a>
-            <a class="cta ghost" href="#free-audit">Get free audit first</a>
+            <a class="cta ghost" href="#free-audit-form">Get free audit first</a>
           </div>
         </div>
         <div class="cols-3" style="margin-top:16px">
@@ -816,7 +858,7 @@
         </p>
         <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap">
           <a class="cta" href="#pricing" style="background:#fff;color:var(--brand);font-weight:700">Get Started Free</a>
-          <a class="cta" href="#free-audit" style="border:1px solid rgba(255,255,255,.4);color:#fff;background:transparent">Get Free Audit</a>
+          <a class="cta" href="#free-audit-form" style="border:1px solid rgba(255,255,255,.4);color:#fff;background:transparent">Get Free Audit</a>
         </div>
       </div>
     </section>
@@ -865,6 +907,61 @@
     window.setBilling = setBilling;
     window.toggleBilling = toggleBilling;
     setBilling('monthly');
+  })();
+</script>
+<script>
+  (function () {
+    var form = document.getElementById('free-audit-form');
+    if (!form) return;
+
+    var submitBtn = document.getElementById('audit-submit');
+    var result = document.getElementById('audit-form-result');
+
+    form.addEventListener('submit', async function (event) {
+      event.preventDefault();
+      if (!submitBtn || !result) return;
+
+      var payload = {
+        full_name: String((document.getElementById('audit-full-name') || {}).value || '').trim(),
+        email: String((document.getElementById('audit-email') || {}).value || '').trim(),
+        company: String((document.getElementById('audit-company') || {}).value || '').trim() || null,
+        docs_url: String((document.getElementById('audit-docs-url') || {}).value || '').trim() || null,
+        message: String((document.getElementById('audit-message') || {}).value || '').trim() || null
+      };
+
+      if (!payload.full_name || !payload.email) {
+        result.textContent = 'Please fill in full name and work email.';
+        result.style.color = '#b91c1c';
+        return;
+      }
+
+      submitBtn.setAttribute('disabled', 'disabled');
+      submitBtn.style.opacity = '0.7';
+      result.textContent = 'Sending...';
+      result.style.color = '#475569';
+
+      try {
+        var response = await fetch('/api/contact/audit-request', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload)
+        });
+
+        if (!response.ok) {
+          throw new Error('Request failed');
+        }
+
+        result.textContent = 'Audit request submitted. We will contact you within 1 business day.';
+        result.style.color = '#166534';
+        form.reset();
+      } catch (_err) {
+        result.textContent = 'Submit failed. Please retry or email support@veri-doc.app.';
+        result.style.color = '#b91c1c';
+      } finally {
+        submitBtn.removeAttribute('disabled');
+        submitBtn.style.opacity = '1';
+      }
+    });
   })();
 </script>
 </body>
