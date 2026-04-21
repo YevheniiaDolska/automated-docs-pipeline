@@ -5,6 +5,9 @@ from __future__ import annotations
 import json
 import logging
 import os
+import re
+import time
+from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
 
@@ -32,6 +35,43 @@ class AskRequest(BaseModel):
 class AskResponse(BaseModel):
     answer: str
     citations: list[dict[str, Any]]
+    warnings: list[str] = Field(default_factory=list)
+
+
+class FeedbackRequest(BaseModel):
+    question: str = Field(min_length=1, max_length=2000)
+    helpful: bool
+    answer: str = Field(default="", max_length=12000)
+    citations: list[dict[str, Any]] = Field(default_factory=list)
+    comment: str = Field(default="", max_length=1000)
+
+
+STOPWORDS = {
+    "a",
+    "an",
+    "and",
+    "are",
+    "as",
+    "at",
+    "be",
+    "by",
+    "for",
+    "from",
+    "in",
+    "is",
+    "it",
+    "of",
+    "on",
+    "or",
+    "that",
+    "the",
+    "this",
+    "to",
+    "with",
+    "you",
+    "your",
+}
+WORD_RE = re.compile(r"[a-z0-9_]+", re.IGNORECASE)
 
 
 def _bool_env(name: str, default: bool) -> bool:
@@ -72,7 +112,82 @@ def _load_runtime_config() -> dict[str, Any]:
         "embed_cache_enabled": _bool_env("ASK_AI_EMBED_CACHE_ENABLED", True),
         "embed_cache_ttl": int(os.getenv("ASK_AI_EMBED_CACHE_TTL", "3600")),
         "embed_cache_max_size": int(os.getenv("ASK_AI_EMBED_CACHE_MAX_SIZE", "512")),
+        "min_confidence": float(os.getenv("ASK_AI_MIN_CONFIDENCE", "0.28")),
+        "usage_log_path": os.getenv("ASK_AI_USAGE_LOG_PATH", "reports/ask_ai_usage.jsonl"),
+        "feedback_log_path": os.getenv("ASK_AI_FEEDBACK_LOG_PATH", "reports/ask_ai_feedback.jsonl"),
+        "contradictions_report_path": os.getenv("ASK_AI_CONTRADICTIONS_REPORT_PATH", "reports/rag_contradictions_report.json"),
     }
+
+
+def _utc_now_iso() -> str:
+    return datetime.now(timezone.utc).isoformat().replace("+00:00", "Z")
+
+
+def _append_jsonl(path: str, record: dict[str, Any]) -> None:
+    target = Path(path)
+    target.parent.mkdir(parents=True, exist_ok=True)
+    with target.open("a", encoding="utf-8") as fh:
+        fh.write(json.dumps(record, ensure_ascii=True) + "\n")
+
+
+def _tokenize(text: str) -> list[str]:
+    return [tok.lower() for tok in WORD_RE.findall(text) if tok and tok.lower() not in STOPWORDS]
+
+
+def _estimate_context_confidence(question: str, modules: list[dict[str, Any]]) -> tuple[float, int, int]:
+    if not modules:
+        return 0.0, 0, 0
+    q_tokens = [tok for tok in _tokenize(question) if len(tok) > 2]
+    if not q_tokens:
+        return 1.0, 0, 0
+    corpus = " ".join(
+        " ".join(
+            [
+                str(m.get("title", "")),
+                str(m.get("summary", "")),
+                str(m.get("assistant_excerpt", "")),
+            ]
+        ).lower()
+        for m in modules
+    )
+    matched = sum(1 for tok in q_tokens if tok in corpus)
+    coverage = matched / max(len(q_tokens), 1)
+    module_signal = min(len(modules) / 3.0, 1.0)
+    confidence = min(1.0, 0.75 * coverage + 0.25 * module_signal)
+    return confidence, matched, len(q_tokens)
+
+
+def _load_critical_contradiction_ids(report_path: str) -> set[str]:
+    path = Path(report_path)
+    if not path.exists():
+        return set()
+    try:
+        payload = json.loads(path.read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError, TypeError, ValueError):
+        return set()
+    if not isinstance(payload, dict):
+        return set()
+    ids: set[str] = set()
+    raw_ids = payload.get("critical_module_ids", [])
+    if isinstance(raw_ids, list):
+        ids.update(str(item).strip() for item in raw_ids if str(item).strip())
+    raw_issues = payload.get("contradictions", [])
+    if isinstance(raw_issues, list):
+        for issue in raw_issues:
+            if not isinstance(issue, dict):
+                continue
+            if str(issue.get("severity", "")).strip().lower() != "critical":
+                continue
+            modules = issue.get("modules", [])
+            if not isinstance(modules, list):
+                continue
+            for mod in modules:
+                if not isinstance(mod, dict):
+                    continue
+                module_id = str(mod.get("module_id", "")).strip()
+                if module_id:
+                    ids.add(module_id)
+    return ids
 
 
 async def _ask_provider(config: dict[str, Any], context: dict[str, Any]) -> str:
@@ -169,11 +284,133 @@ async def ask(
     x_user_role: str | None = Header(default=None),
     x_user_plan: str | None = Header(default=None),
 ) -> AskResponse:
+    started_at = time.perf_counter()
     config = _load_runtime_config()
+    status = "ok"
+    error_detail = ""
+    warnings: list[str] = []
+    citations: list[dict[str, Any]] = []
+    confidence = 0.0
+    matched_tokens = 0
+    total_tokens = 0
+    low_confidence = False
 
-    if not config["enabled"]:
-        raise HTTPException(status_code=403, detail="Ask AI is disabled")
+    try:
+        if not config["enabled"]:
+            raise HTTPException(status_code=403, detail="Ask AI is disabled")
 
+        try:
+            require_runtime_api_key(x_ask_ai_key)
+        except PermissionError as exc:
+            raise HTTPException(status_code=401, detail=str(exc)) from exc
+
+        auth = parse_auth_context(x_user_id, x_user_role, x_user_plan)
+        try:
+            validate_role(auth, config["allowed_roles"], config["require_auth"])
+        except PermissionError as exc:
+            raise HTTPException(status_code=403, detail=str(exc)) from exc
+
+        if not can_use_ask_ai(auth.plan, config["billing_mode"]):
+            raise HTTPException(status_code=402, detail="Current plan is not entitled for Ask AI")
+
+        modules = load_knowledge_index(config["knowledge_index_path"])
+        bundles = load_assistant_bundles(config["assistant_bundle_glob"])
+        # Keep bundles loaded for future adapter extensions.
+        _ = bundles
+
+        context = build_context(
+            payload.question,
+            modules,
+            config["max_context_modules"],
+            faiss_data=_faiss_data,
+            rerank_enabled=config["rerank_enabled"],
+            rerank_candidates=config["rerank_candidates"],
+            rerank_model=config["rerank_model"],
+            hybrid_enabled=config["hybrid_enabled"],
+            rrf_k=config["rrf_k"],
+            hyde_enabled=config["hyde_enabled"],
+            hyde_model=config["hyde_model"],
+            cache_enabled=config["embed_cache_enabled"],
+            cache_ttl=config["embed_cache_ttl"],
+            cache_max_size=config["embed_cache_max_size"],
+        )
+
+        citations = [
+            {
+                "id": item.get("id"),
+                "title": item.get("title"),
+                "source_file": item.get("source_file"),
+            }
+            for item in context["modules"]
+        ]
+
+        confidence, matched_tokens, total_tokens = _estimate_context_confidence(payload.question, context["modules"])
+        low_confidence = confidence < float(config["min_confidence"])
+
+        critical_ids = _load_critical_contradiction_ids(config["contradictions_report_path"])
+        if critical_ids:
+            cited_ids = {str(item.get("id", "")).strip() for item in citations if str(item.get("id", "")).strip()}
+            conflicted = sorted(cited_ids.intersection(critical_ids))
+            if conflicted:
+                warnings.append(
+                    "Potential contradiction risk detected in cited knowledge modules. "
+                    "Please verify against latest source docs before acting."
+                )
+                logger.warning("Ask AI contradiction warning for modules: %s", ", ".join(conflicted))
+
+        if low_confidence:
+            answer = (
+                "I do not have enough reliable context to answer this safely. "
+                "Please update or add source documentation for this topic, then rerun indexing."
+            )
+        else:
+            answer = await _ask_provider(config, context)
+
+        return AskResponse(answer=answer, citations=citations, warnings=warnings)
+    except HTTPException as exc:
+        status = "error"
+        error_detail = str(exc.detail)
+        raise
+    except Exception as exc:  # noqa: BLE001
+        status = "error"
+        error_detail = str(exc)
+        raise
+    finally:
+        elapsed_ms = int((time.perf_counter() - started_at) * 1000)
+        try:
+            _append_jsonl(
+                config["usage_log_path"],
+                {
+                    "timestamp": _utc_now_iso(),
+                    "status": status,
+                    "latency_ms": elapsed_ms,
+                    "question": payload.question,
+                    "question_length": len(payload.question),
+                    "user_id": x_user_id or "",
+                    "user_role": x_user_role or "",
+                    "plan": x_user_plan or "",
+                    "citation_ids": [str(item.get("id", "")).strip() for item in citations if str(item.get("id", "")).strip()],
+                    "warnings_count": len(warnings),
+                    "low_confidence": low_confidence,
+                    "confidence": round(float(confidence), 4),
+                    "matched_question_tokens": matched_tokens,
+                    "total_question_tokens": total_tokens,
+                    "error": error_detail,
+                },
+            )
+        except Exception as exc:  # noqa: BLE001
+            logger.warning("Failed to write Ask AI usage log: %s", exc)
+
+
+@app.post("/api/v1/feedback")
+def feedback(
+    payload: FeedbackRequest,
+    x_ask_ai_key: str | None = Header(default=None),
+    x_user_id: str | None = Header(default=None),
+    x_user_role: str | None = Header(default=None),
+    x_user_plan: str | None = Header(default=None),
+) -> dict[str, Any]:
+    config = _load_runtime_config()
     try:
         require_runtime_api_key(x_ask_ai_key)
     except PermissionError as exc:
@@ -185,42 +422,30 @@ async def ask(
     except PermissionError as exc:
         raise HTTPException(status_code=403, detail=str(exc)) from exc
 
-    if not can_use_ask_ai(auth.plan, config["billing_mode"]):
-        raise HTTPException(status_code=402, detail="Current plan is not entitled for Ask AI")
+    try:
+        _append_jsonl(
+            config["feedback_log_path"],
+            {
+                "timestamp": _utc_now_iso(),
+                "user_id": auth.user_id,
+                "user_role": auth.role,
+                "plan": auth.plan,
+                "helpful": bool(payload.helpful),
+                "question": payload.question,
+                "answer_length": len(payload.answer or ""),
+                "comment": payload.comment or "",
+                "citation_ids": [
+                    str(item.get("id", "")).strip()
+                    for item in payload.citations
+                    if isinstance(item, dict) and str(item.get("id", "")).strip()
+                ],
+            },
+        )
+    except Exception as exc:  # noqa: BLE001
+        logger.warning("Failed to write Ask AI feedback log: %s", exc)
+        raise HTTPException(status_code=500, detail="Failed to persist feedback") from exc
 
-    modules = load_knowledge_index(config["knowledge_index_path"])
-    bundles = load_assistant_bundles(config["assistant_bundle_glob"])
-    # Keep bundles loaded for future adapter extensions.
-    _ = bundles
-
-    context = build_context(
-        payload.question,
-        modules,
-        config["max_context_modules"],
-        faiss_data=_faiss_data,
-        rerank_enabled=config["rerank_enabled"],
-        rerank_candidates=config["rerank_candidates"],
-        rerank_model=config["rerank_model"],
-        hybrid_enabled=config["hybrid_enabled"],
-        rrf_k=config["rrf_k"],
-        hyde_enabled=config["hyde_enabled"],
-        hyde_model=config["hyde_model"],
-        cache_enabled=config["embed_cache_enabled"],
-        cache_ttl=config["embed_cache_ttl"],
-        cache_max_size=config["embed_cache_max_size"],
-    )
-    answer = await _ask_provider(config, context)
-
-    citations = [
-        {
-            "id": item.get("id"),
-            "title": item.get("title"),
-            "source_file": item.get("source_file"),
-        }
-        for item in context["modules"]
-    ]
-
-    return AskResponse(answer=answer, citations=citations)
+    return {"ok": True}
 
 
 @app.post("/api/v1/billing/webhook")
