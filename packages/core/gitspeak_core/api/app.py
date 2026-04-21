@@ -1202,11 +1202,20 @@ async def rag_metrics(
     alerts = evaluate_rag_alerts(snapshot=snapshot)
     level = "ok" if not alerts else "degraded"
     snapshot_path = reports_dir / "rag_metrics_snapshot.json"
-    snapshot_path.write_text(
-        json.dumps({"status": level, "snapshot": snapshot, "alerts": alerts}, ensure_ascii=True, indent=2) + "\n",
-        encoding="utf-8",
-    )
-    return {"status": level, "snapshot": snapshot, "alerts": alerts}
+    write_warning = ""
+    try:
+        reports_dir.mkdir(parents=True, exist_ok=True)
+        snapshot_path.write_text(
+            json.dumps({"status": level, "snapshot": snapshot, "alerts": alerts}, ensure_ascii=True, indent=2) + "\n",
+            encoding="utf-8",
+        )
+    except OSError as exc:
+        # Observability endpoint must remain available even when local report write fails.
+        write_warning = f"snapshot_persist_failed: {exc}"
+    response: dict[str, Any] = {"status": level, "snapshot": snapshot, "alerts": alerts}
+    if write_warning:
+        response["warning"] = write_warning
+    return response
 
 
 @app.get("/rag/alerts", tags=["rag"])
