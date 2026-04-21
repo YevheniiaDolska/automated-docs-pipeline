@@ -1,0 +1,57 @@
+{
+  "status": "ok",
+  "model": "claude-sonnet-4-5",
+  "analysis": {
+    "executive_summary": "Audit covered 2,950 pages across 2 OpenAI documentation sites with 100% crawl coverage and 86.7% overall confidence. Critical issues include 66 confirmed broken internal documentation links, 33.39% SEO/geo issue rate, and only 12.5% API reference coverage despite 2,332 API pages detected. Freshness metadata is visible on only 25.39% of pages. Example code reliability estimate stands at 74.23%. Multi-project topology confirmed with no fragmentation penalty.",
+    "strengths": [
+      "Complete crawl coverage (100.03%) with high crawl confidence (95%)",
+      "All broken links are user-facing documentation links; zero repository navigation link failures",
+      "2,332 API pages successfully detected with 85% detection confidence",
+      "Example code reliability estimate of 74.23% indicates majority of samples are functional",
+      "Multi-project architecture properly implemented without topology fragmentation"
+    ],
+    "risks": [
+      "66 confirmed broken internal documentation links degrading user navigation and trust",
+      "API reference coverage at only 12.5% leaves 87.5% of API surface undocumented or poorly linked",
+      "SEO/geo issue rate of 33.39% significantly impacts discoverability and search ranking",
+      "Only 25.39% of pages display last-updated metadata, obscuring content freshness for users",
+      "9 links unverified due to auth/rate-limit/server blocks may hide additional broken links",
+      "25.77% of example code may be unreliable or non-functional based on reliability estimate",
+      "Large API page count (2,332) with low reference coverage suggests systemic documentation gaps"
+    ],
+    "prioritized_actions": [
+      {
+        "action": "Fix all 66 confirmed broken internal documentation links",
+        "impact": "critical",
+        "effort": "low"
+      },
+      {
+        "action": "Implement comprehensive API reference linking strategy to raise coverage from 12.5% to minimum 80%",
+        "impact": "critical",
+        "effort": "high"
+      },
+      {
+        "action": "Add last-updated timestamps to all pages (currently 25.39% coverage) to improve trust and freshness signals",
+        "impact": "high",
+        "effort": "medium"
+      },
+      {
+        "action": "Audit and resolve SEO/geo issues affecting 33.39% of pages (meta tags, canonicals, geo-targeting)",
+        "impact": "high",
+        "effort": "medium"
+      },
+      {
+        "action": "Investigate and fix 9 unverified links blocked by auth/rate-limit/server issues",
+        "impact": "medium",
+        "effort": "low"
+      }
+    ],
+    "limitations": [
+      "External audit cannot verify content accuracy, technical correctness, or completeness of API documentation beyond structural coverage",
+      "9 links blocked by authentication, rate limiting, or server errors could not be verified; actual broken link count may be higher",
+      "Example code reliability is estimated through static analysis; runtime execution, environment dependencies, and API key validity not tested",
+      "SEO/geo issue detection limited to structural signals; actual search ranking performance and user geo-targeting effectiveness not measured",
+      "Freshness metadata presence confirmed but timestamp accuracy and content update synchronization not validated"
+    ]
+  }
+}

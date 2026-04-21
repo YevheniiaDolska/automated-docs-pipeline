@@ -1,0 +1,963 @@
+{
+  "generated_at_utc": "2026-04-20T17:41:25.709679+00:00",
+  "sites_count": 2,
+  "totals": {
+    "docs_broken_links_count": 66,
+    "repo_broken_links_count": 0,
+    "all_confirmed_broken_links_count": 66,
+    "unverified_links_sample_count": 9
+  },
+  "all_docs_broken_links": [
+    "https://developers.openai.com/404",
+    "https://developers.openai.com/apps-sdk/concepts/user-interaction",
+    "https://developers.openai.com/blog/developers.openai.com/blog/realtime-api",
+    "https://developers.openai.com/chat/edit",
+    "https://developers.openai.com/codex/guides/skills",
+    "https://developers.openai.com/commands/georadius",
+    "https://developers.openai.com/cookbook/examples/Classification_using_embeddings.ipynb",
+    "https://developers.openai.com/cookbook/examples/Clustering.ipynb",
+    "https://developers.openai.com/cookbook/examples/Customizing_embeddings.ipynb",
+    "https://developers.openai.com/cookbook/examples/Embedding_Wikipedia_articles_for_search.ipynb",
+    "https://developers.openai.com/cookbook/examples/Fine-tuned_classification.ipynb",
+    "https://developers.openai.com/cookbook/examples/Get_embeddings_from_dataset.ipynb",
+    "https://developers.openai.com/cookbook/examples/How_to_call_functions_for_knowledge_retrieval.ipynb",
+    "https://developers.openai.com/cookbook/examples/How_to_call_functions_with_chat_models.ipynb",
+    "https://developers.openai.com/cookbook/examples/How_to_count_tokens_with_tiktoken.ipynb",
+    "https://developers.openai.com/cookbook/examples/Multiclass_classification_for_transactions.ipynb",
+    "https://developers.openai.com/cookbook/examples/Question_answering_using_embeddings.ipynb",
+    "https://developers.openai.com/cookbook/examples/Recommendation_using_embeddings.ipynb",
+    "https://developers.openai.com/cookbook/examples/Semantic_text_search_using_embeddings.ipynb",
+    "https://developers.openai.com/cookbook/examples/agents_sdk/sandboxed-code-migration/src/run_migration_agent.py",
+    "https://developers.openai.com/cookbook/examples/chatgpt/gpt_actions_library/(https:/cookbook.openai.com/examples/chatgpt/gpt_actions_library/gpt_action_sharepoint_doc)",
+    "https://developers.openai.com/cookbook/examples/chatgpt/gpt_actions_library/(https:/doc.workday.com/admin-guide/en-us/authentication-and-security/authentication/oauth/dan1370797831010.html)",
+    "https://developers.openai.com/cookbook/examples/chatgpt/gpt_actions_library/portal.azure.com",
+    "https://developers.openai.com/cookbook/examples/data/example_pdfs",
+    "https://developers.openai.com/cookbook/examples/evaluation/(https:/arxiv.org/pdf/2303.16634.pdf)",
+    "https://developers.openai.com/cookbook/examples/evaluation/github.com/openai/evals",
+    "https://developers.openai.com/cookbook/examples/fine-tuned_qa/answers_with_ft.py",
+    "https://developers.openai.com/cookbook/examples/fine-tuned_qa/platform.openai.com/docs/guides/fine-tuning/use-a-fine-tuned-model",
+    "https://developers.openai.com/cookbook/examples/object_oriented_agentic_approach/resources/object_oriented_agents/core_classes",
+    "https://developers.openai.com/cookbook/examples/openai.fm",
+    "https://developers.openai.com/cookbook/examples/partners/agentic_governance_guide/eval_data/guardrail_test_data.jsonl",
+    "https://developers.openai.com/cookbook/examples/partners/self_evolving_agents/%22data/c13_pyruvate_sample_CMC_from_UCSF.pdf%22",
+    "https://developers.openai.com/cookbook/examples/partners/self_evolving_agents/openai.com",
+    "https://developers.openai.com/cookbook/examples/partners/self_evolving_agents/www.bain.com",
+    "https://developers.openai.com/cookbook/examples/partners/temporal_agents_with_knowledge_graphs/Appendix.ipynb",
+    "https://developers.openai.com/cookbook/examples/third_party/Get_embeddings_from_dataset.ipynb",
+    "https://developers.openai.com/cookbook/examples/vector_databases/analyticdb/Getting_started_with_AnalyticDB_and_OpenAI.ipynb",
+    "https://developers.openai.com/cookbook/examples/vector_databases/cassandra_astradb/Philosophical_Quotes_AstraPy.ipynb",
+    "https://developers.openai.com/cookbook/examples/vector_databases/cassandra_astradb/Philosophical_Quotes_CQL.ipynb",
+    "https://developers.openai.com/cookbook/examples/vector_databases/cassandra_astradb/Philosophical_Quotes_cassIO.ipynb",
+    "https://developers.openai.com/cookbook/examples/vector_databases/elasticsearch/openai/openai-cookbook/blob/main/examples/vector_databases/elasticsearch/elasticsearch-retrieval-augmented-generation.ipynb",
+    "https://developers.openai.com/cookbook/examples/vector_databases/elasticsearch/openai/openai-cookbook/blob/main/examples/vector_databases/elasticsearch/elasticsearch-semantic-search.ipynb",
+    "https://developers.openai.com/cookbook/examples/vector_databases/kusto/Getting_started_with_kusto_and_openai_embeddings.ipynb",
+    "https://developers.openai.com/cookbook/examples/vector_databases/mongodb_atlas/cloud.mongodb.com",
+    "https://developers.openai.com/cookbook/examples/vector_databases/neon/neon.tech/blog/building-an-ai-powered-chatbot-using-vercel-openai-and-postgres",
+    "https://developers.openai.com/cookbook/examples/vector_databases/pinecone/GPT4_Retrieval_Augmentation.ipynb",
+    "https://developers.openai.com/cookbook/examples/vector_databases/pinecone/Gen_QA.ipynb",
+    "https://developers.openai.com/cookbook/examples/vector_databases/pinecone/Semantic_Search.ipynb",
+    "https://developers.openai.com/cookbook/examples/vector_databases/pinecone/pinecone.io",
+    "https://developers.openai.com/cookbook/examples/vector_databases/qdrant/Getting_started_with_Qdrant_and_OpenAI.ipynb",
+    "https://developers.openai.com/cookbook/examples/vector_databases/redis/README.md",
+    "https://developers.openai.com/cookbook/examples/vector_databases/redis/redis",
+    "https://developers.openai.com/cookbook/examples/vector_databases/singlestoredb/OpenAI_wikipedia_semantic_search.ipynb",
+    "https://developers.openai.com/cookbook/examples/vector_databases/tair/Getting_started_with_Tair_and_OpenAI.ipynb",
+    "https://developers.openai.com/cookbook/examples/vector_databases/typesense/typesense/docker-compose.yml",
+    "https://developers.openai.com/cookbook/examples/vector_databases/weaviate/docker-compose.yml",
+    "https://developers.openai.com/cookbook/examples/vector_databases/weaviate/weaviate/docker-compose.yml",
+    "https://developers.openai.com/cookbook/examples/vector_databases/weaviate/weaviate/getting-started-with-weaviate-and-openai.ipynb",
+    "https://developers.openai.com/cookbook/examples/voice_solutions/LICENSE",
+    "https://developers.openai.com/docs/guides/custom-grammars",
+    "https://developers.openai.com/examples/vector_databases/Using_vector_databases_for_embeddings_search.ipynb",
+    "https://developers.openai.com/projects",
+    "https://developers.openai.com/settings",
+    "https://developers.openai.com/settings/organization/api-keys",
+    "https://developers.openai.com/settings/organization/general",
+    "https://developers.openai.com/tokenizer"
+  ],
+  "all_repo_broken_links": [],
+  "all_unverified_links_sample": [
+    "https://developers.openai.com/cookbook/examples/vector_databases/cassandra_astradb/philosophical_quotes_cassio",
+    "https://developers.openai.com/mcp",
+    "https://platform.openai.com/apps-sdk/deploy/submission",
+    "https://platform.openai.com/blog/topic/apps-sdk",
+    "https://platform.openai.com/codex/auth",
+    "https://platform.openai.com/codex/enterprise/managed-configuration",
+    "https://platform.openai.com/codex/ide/slash-commands",
+    "https://platform.openai.com/community/hackathons",
+    "https://platform.openai.com/cookbook/topic/guardrails"
+  ],
+  "sites": [
+    {
+      "site_url": "https://platform.openai.com/docs",
+      "confirmed_broken_links_count": 0,
+      "docs_broken_links_count": 0,
+      "repo_broken_links_count": 0,
+      "docs_broken_links": [],
+      "repo_broken_links": [],
+      "confirmed_broken_links_detailed": [],
+      "unverified_links_sample": [
+        "https://platform.openai.com/apps-sdk/deploy/submission",
+        "https://platform.openai.com/blog/topic/apps-sdk",
+        "https://platform.openai.com/codex/auth",
+        "https://platform.openai.com/codex/enterprise/managed-configuration",
+        "https://platform.openai.com/codex/ide/slash-commands",
+        "https://platform.openai.com/community/hackathons",
+        "https://platform.openai.com/cookbook/topic/guardrails"
+      ]
+    },
+    {
+      "site_url": "https://developers.openai.com/",
+      "confirmed_broken_links_count": 66,
+      "docs_broken_links_count": 66,
+      "repo_broken_links_count": 0,
+      "docs_broken_links": [
+        "https://developers.openai.com/404",
+        "https://developers.openai.com/apps-sdk/concepts/user-interaction",
+        "https://developers.openai.com/blog/developers.openai.com/blog/realtime-api",
+        "https://developers.openai.com/chat/edit",
+        "https://developers.openai.com/codex/guides/skills",
+        "https://developers.openai.com/commands/georadius",
+        "https://developers.openai.com/cookbook/examples/Classification_using_embeddings.ipynb",
+        "https://developers.openai.com/cookbook/examples/Clustering.ipynb",
+        "https://developers.openai.com/cookbook/examples/Customizing_embeddings.ipynb",
+        "https://developers.openai.com/cookbook/examples/Embedding_Wikipedia_articles_for_search.ipynb",
+        "https://developers.openai.com/cookbook/examples/Fine-tuned_classification.ipynb",
+        "https://developers.openai.com/cookbook/examples/Get_embeddings_from_dataset.ipynb",
+        "https://developers.openai.com/cookbook/examples/How_to_call_functions_for_knowledge_retrieval.ipynb",
+        "https://developers.openai.com/cookbook/examples/How_to_call_functions_with_chat_models.ipynb",
+        "https://developers.openai.com/cookbook/examples/How_to_count_tokens_with_tiktoken.ipynb",
+        "https://developers.openai.com/cookbook/examples/Multiclass_classification_for_transactions.ipynb",
+        "https://developers.openai.com/cookbook/examples/Question_answering_using_embeddings.ipynb",
+        "https://developers.openai.com/cookbook/examples/Recommendation_using_embeddings.ipynb",
+        "https://developers.openai.com/cookbook/examples/Semantic_text_search_using_embeddings.ipynb",
+        "https://developers.openai.com/cookbook/examples/agents_sdk/sandboxed-code-migration/src/run_migration_agent.py",
+        "https://developers.openai.com/cookbook/examples/chatgpt/gpt_actions_library/(https:/cookbook.openai.com/examples/chatgpt/gpt_actions_library/gpt_action_sharepoint_doc)",
+        "https://developers.openai.com/cookbook/examples/chatgpt/gpt_actions_library/(https:/doc.workday.com/admin-guide/en-us/authentication-and-security/authentication/oauth/dan1370797831010.html)",
+        "https://developers.openai.com/cookbook/examples/chatgpt/gpt_actions_library/portal.azure.com",
+        "https://developers.openai.com/cookbook/examples/data/example_pdfs",
+        "https://developers.openai.com/cookbook/examples/evaluation/(https:/arxiv.org/pdf/2303.16634.pdf)",
+        "https://developers.openai.com/cookbook/examples/evaluation/github.com/openai/evals",
+        "https://developers.openai.com/cookbook/examples/fine-tuned_qa/answers_with_ft.py",
+        "https://developers.openai.com/cookbook/examples/fine-tuned_qa/platform.openai.com/docs/guides/fine-tuning/use-a-fine-tuned-model",
+        "https://developers.openai.com/cookbook/examples/object_oriented_agentic_approach/resources/object_oriented_agents/core_classes",
+        "https://developers.openai.com/cookbook/examples/openai.fm",
+        "https://developers.openai.com/cookbook/examples/partners/agentic_governance_guide/eval_data/guardrail_test_data.jsonl",
+        "https://developers.openai.com/cookbook/examples/partners/self_evolving_agents/%22data/c13_pyruvate_sample_CMC_from_UCSF.pdf%22",
+        "https://developers.openai.com/cookbook/examples/partners/self_evolving_agents/openai.com",
+        "https://developers.openai.com/cookbook/examples/partners/self_evolving_agents/www.bain.com",
+        "https://developers.openai.com/cookbook/examples/partners/temporal_agents_with_knowledge_graphs/Appendix.ipynb",
+        "https://developers.openai.com/cookbook/examples/third_party/Get_embeddings_from_dataset.ipynb",
+        "https://developers.openai.com/cookbook/examples/vector_databases/analyticdb/Getting_started_with_AnalyticDB_and_OpenAI.ipynb",
+        "https://developers.openai.com/cookbook/examples/vector_databases/cassandra_astradb/Philosophical_Quotes_AstraPy.ipynb",
+        "https://developers.openai.com/cookbook/examples/vector_databases/cassandra_astradb/Philosophical_Quotes_CQL.ipynb",
+        "https://developers.openai.com/cookbook/examples/vector_databases/cassandra_astradb/Philosophical_Quotes_cassIO.ipynb",
+        "https://developers.openai.com/cookbook/examples/vector_databases/elasticsearch/openai/openai-cookbook/blob/main/examples/vector_databases/elasticsearch/elasticsearch-retrieval-augmented-generation.ipynb",
+        "https://developers.openai.com/cookbook/examples/vector_databases/elasticsearch/openai/openai-cookbook/blob/main/examples/vector_databases/elasticsearch/elasticsearch-semantic-search.ipynb",
+        "https://developers.openai.com/cookbook/examples/vector_databases/kusto/Getting_started_with_kusto_and_openai_embeddings.ipynb",
+        "https://developers.openai.com/cookbook/examples/vector_databases/mongodb_atlas/cloud.mongodb.com",
+        "https://developers.openai.com/cookbook/examples/vector_databases/neon/neon.tech/blog/building-an-ai-powered-chatbot-using-vercel-openai-and-postgres",
+        "https://developers.openai.com/cookbook/examples/vector_databases/pinecone/GPT4_Retrieval_Augmentation.ipynb",
+        "https://developers.openai.com/cookbook/examples/vector_databases/pinecone/Gen_QA.ipynb",
+        "https://developers.openai.com/cookbook/examples/vector_databases/pinecone/Semantic_Search.ipynb",
+        "https://developers.openai.com/cookbook/examples/vector_databases/pinecone/pinecone.io",
+        "https://developers.openai.com/cookbook/examples/vector_databases/qdrant/Getting_started_with_Qdrant_and_OpenAI.ipynb",
+        "https://developers.openai.com/cookbook/examples/vector_databases/redis/README.md",
+        "https://developers.openai.com/cookbook/examples/vector_databases/redis/redis",
+        "https://developers.openai.com/cookbook/examples/vector_databases/singlestoredb/OpenAI_wikipedia_semantic_search.ipynb",
+        "https://developers.openai.com/cookbook/examples/vector_databases/tair/Getting_started_with_Tair_and_OpenAI.ipynb",
+        "https://developers.openai.com/cookbook/examples/vector_databases/typesense/typesense/docker-compose.yml",
+        "https://developers.openai.com/cookbook/examples/vector_databases/weaviate/docker-compose.yml",
+        "https://developers.openai.com/cookbook/examples/vector_databases/weaviate/weaviate/docker-compose.yml",
+        "https://developers.openai.com/cookbook/examples/vector_databases/weaviate/weaviate/getting-started-with-weaviate-and-openai.ipynb",
+        "https://developers.openai.com/cookbook/examples/voice_solutions/LICENSE",
+        "https://developers.openai.com/docs/guides/custom-grammars",
+        "https://developers.openai.com/examples/vector_databases/Using_vector_databases_for_embeddings_search.ipynb",
+        "https://developers.openai.com/projects",
+        "https://developers.openai.com/settings",
+        "https://developers.openai.com/settings/organization/api-keys",
+        "https://developers.openai.com/settings/organization/general",
+        "https://developers.openai.com/tokenizer"
+      ],
+      "repo_broken_links": [],
+      "confirmed_broken_links_detailed": [
+        {
+          "target_url": "https://developers.openai.com/404",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://developers.openai.com/blog/codex-at-devday",
+              "anchor_text": "developers.openai.com/404"
+            }
+          ]
+        },
+        {
+          "target_url": "https://developers.openai.com/apps-sdk/concepts/user-interaction",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://developers.openai.com/apps-sdk/concepts/mcp-server",
+              "anchor_text": "Discovery"
+            }
+          ]
+        },
+        {
+          "target_url": "https://developers.openai.com/blog/developers.openai.com/blog/realtime-api",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://developers.openai.com/blog/intro",
+              "anchor_text": "developer notes on the Realtime API"
+            }
+          ]
+        },
+        {
+          "target_url": "https://developers.openai.com/chat/edit",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://developers.openai.com/api/docs/changelog",
+              "anchor_text": "New reusable prompts"
+            },
+            {
+              "source_page": "https://developers.openai.com/api/docs/changelog",
+              "anchor_text": "Generate in playground"
+            }
+          ]
+        },
+        {
+          "target_url": "https://developers.openai.com/codex/guides/skills",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://developers.openai.com/codex/use-cases/refactor-your-codebase",
+              "anchor_text": "Skills"
+            }
+          ]
+        },
+        {
+          "target_url": "https://developers.openai.com/commands/georadius",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://developers.openai.com/cookbook/examples/vector_databases/redis/readme",
+              "anchor_text": "Redis geospatial indexing"
+            }
+          ]
+        },
+        {
+          "target_url": "https://developers.openai.com/cookbook/examples/Classification_using_embeddings.ipynb",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://developers.openai.com/cookbook/examples/multiclass_classification_for_transactions",
+              "anchor_text": "Classification_using_embeddings"
+            }
+          ]
+        },
+        {
+          "target_url": "https://developers.openai.com/cookbook/examples/Clustering.ipynb",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://developers.openai.com/cookbook/examples/clustering_for_transaction_classification",
+              "anchor_text": "Clustering Notebook"
+            }
+          ]
+        },
+        {
+          "target_url": "https://developers.openai.com/cookbook/examples/Customizing_embeddings.ipynb",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://developers.openai.com/cookbook/articles/text_comparison_examples",
+              "anchor_text": "Customizing_embeddings.ipynb"
+            }
+          ]
+        },
+        {
+          "target_url": "https://developers.openai.com/cookbook/examples/Embedding_Wikipedia_articles_for_search.ipynb",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://developers.openai.com/cookbook/examples/question_answering_using_embeddings",
+              "anchor_text": "Embedding Wikipedia articles for search"
+            },
+            {
+              "source_page": "https://developers.openai.com/cookbook/examples/vector_databases/pinecone/using_pinecone_for_embeddings_search",
+              "anchor_text": "in this article"
+            }
+          ]
+        },
+        {
+          "target_url": "https://developers.openai.com/cookbook/examples/Fine-tuned_classification.ipynb",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://developers.openai.com/cookbook/examples/classification_using_embeddings",
+              "anchor_text": "Fine-tuned_classification.ipynb"
+            }
+          ]
+        },
+        {
+          "target_url": "https://developers.openai.com/cookbook/examples/Get_embeddings_from_dataset.ipynb",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://developers.openai.com/cookbook/examples/clustering",
+              "anchor_text": "Get_embeddings_from_dataset Notebook"
+            },
+            {
+              "source_page": "https://developers.openai.com/cookbook/examples/classification_using_embeddings",
+              "anchor_text": "Get_embeddings_from_dataset Notebook"
+            },
+            {
+              "source_page": "https://developers.openai.com/cookbook/examples/multiclass_classification_for_transactions",
+              "anchor_text": "Get_embeddings_from_dataset Notebook"
+            },
+            {
+              "source_page": "https://developers.openai.com/cookbook/examples/regression_using_embeddings",
+              "anchor_text": "Get_embeddings_from_dataset Notebook"
+            },
+            {
+              "source_page": "https://developers.openai.com/cookbook/examples/semantic_text_search_using_embeddings",
+              "anchor_text": "Get_embeddings_from_dataset Notebook"
+            }
+          ]
+        },
+        {
+          "target_url": "https://developers.openai.com/cookbook/examples/How_to_call_functions_for_knowledge_retrieval.ipynb",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://developers.openai.com/cookbook/examples/how_to_call_functions_with_chat_models",
+              "anchor_text": "notebook"
+            }
+          ]
+        },
+        {
+          "target_url": "https://developers.openai.com/cookbook/examples/How_to_call_functions_with_chat_models.ipynb",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://developers.openai.com/cookbook/examples/function_calling_with_an_openapi_spec",
+              "anchor_text": "function-calling"
+            },
+            {
+              "source_page": "https://developers.openai.com/cookbook/examples/function_calling_with_an_openapi_spec",
+              "anchor_text": "function-calling guide"
+            },
+            {
+              "source_page": "https://developers.openai.com/cookbook/examples/how_to_call_functions_for_knowledge_retrieval",
+              "anchor_text": "argument generation"
+            },
+            {
+              "source_page": "https://developers.openai.com/cookbook/examples/how_to_format_inputs_to_chatgpt_models",
+              "anchor_text": "How to call functions with chat models"
+            }
+          ]
+        },
+        {
+          "target_url": "https://developers.openai.com/cookbook/examples/How_to_count_tokens_with_tiktoken.ipynb",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://developers.openai.com/cookbook/examples/embedding_long_inputs",
+              "anchor_text": "How to count tokens with tiktoken"
+            },
+            {
+              "source_page": "https://developers.openai.com/cookbook/examples/how_to_format_inputs_to_chatgpt_models",
+              "anchor_text": "How to count tokens with tiktoken"
+            }
+          ]
+        },
+        {
+          "target_url": "https://developers.openai.com/cookbook/examples/Multiclass_classification_for_transactions.ipynb",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://developers.openai.com/cookbook/examples/clustering_for_transaction_classification",
+              "anchor_text": "Multiclass classification for transactions Notebook"
+            }
+          ]
+        },
+        {
+          "target_url": "https://developers.openai.com/cookbook/examples/Question_answering_using_embeddings.ipynb",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://developers.openai.com/cookbook/articles/text_comparison_examples",
+              "anchor_text": "Question_answering_using_embeddings.ipynb"
+            },
+            {
+              "source_page": "https://developers.openai.com/cookbook/examples/embedding_wikipedia_articles_for_search",
+              "anchor_text": "Question_answering_using_embeddings.ipynb"
+            },
+            {
+              "source_page": "https://developers.openai.com/cookbook/examples/question_answering_using_a_search_api",
+              "anchor_text": "retrieve the content"
+            }
+          ]
+        },
+        {
+          "target_url": "https://developers.openai.com/cookbook/examples/Recommendation_using_embeddings.ipynb",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://developers.openai.com/cookbook/articles/text_comparison_examples",
+              "anchor_text": "Recommendation_using_embeddings.ipynb"
+            }
+          ]
+        },
+        {
+          "target_url": "https://developers.openai.com/cookbook/examples/Semantic_text_search_using_embeddings.ipynb",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://developers.openai.com/cookbook/articles/text_comparison_examples",
+              "anchor_text": "Semantic_text_search_using_embeddings.ipynb"
+            }
+          ]
+        },
+        {
+          "target_url": "https://developers.openai.com/cookbook/examples/agents_sdk/sandboxed-code-migration/src/run_migration_agent.py",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://developers.openai.com/cookbook/examples/agents_sdk/sandboxed-code-migration/sandboxed_code_migration_agent",
+              "anchor_text": "src/run_migration_agent.py"
+            }
+          ]
+        },
+        {
+          "target_url": "https://developers.openai.com/cookbook/examples/chatgpt/gpt_actions_library/(https:/cookbook.openai.com/examples/chatgpt/gpt_actions_library/gpt_action_sharepoint_doc)",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://developers.openai.com/cookbook/examples/chatgpt/gpt_actions_library/gpt_middleware_azure_function",
+              "anchor_text": "Sharepoint Cookbook"
+            }
+          ]
+        },
+        {
+          "target_url": "https://developers.openai.com/cookbook/examples/chatgpt/gpt_actions_library/(https:/doc.workday.com/admin-guide/en-us/authentication-and-security/authentication/oauth/dan1370797831010.html)",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://developers.openai.com/cookbook/examples/chatgpt/gpt_actions_library/gpt_action_workday",
+              "anchor_text": "Workday Community page on API client"
+            }
+          ]
+        },
+        {
+          "target_url": "https://developers.openai.com/cookbook/examples/chatgpt/gpt_actions_library/portal.azure.com",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://developers.openai.com/cookbook/examples/chatgpt/gpt_actions_library/gpt_action_outlook",
+              "anchor_text": "Azure Portal"
+            }
+          ]
+        },
+        {
+          "target_url": "https://developers.openai.com/cookbook/examples/data/example_pdfs",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://developers.openai.com/cookbook/examples/parse_pdf_docs_for_rag",
+              "anchor_text": "data/example_pdfs"
+            }
+          ]
+        },
+        {
+          "target_url": "https://developers.openai.com/cookbook/examples/evaluation/(https:/arxiv.org/pdf/2303.16634.pdf)",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://developers.openai.com/cookbook/examples/evaluation/how_to_eval_abstractive_summarization",
+              "anchor_text": "G-Eval"
+            }
+          ]
+        },
+        {
+          "target_url": "https://developers.openai.com/cookbook/examples/evaluation/github.com/openai/evals",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://developers.openai.com/cookbook/examples/evaluation/getting_started_with_openai_evals",
+              "anchor_text": "OpenAI Evals library"
+            }
+          ]
+        },
+        {
+          "target_url": "https://developers.openai.com/cookbook/examples/fine-tuned_qa/answers_with_ft.py",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://developers.openai.com/cookbook/examples/fine-tuned_qa/olympics-3-train-qa",
+              "anchor_text": "answers_with_ft.py"
+            }
+          ]
+        },
+        {
+          "target_url": "https://developers.openai.com/cookbook/examples/fine-tuned_qa/platform.openai.com/docs/guides/fine-tuning/use-a-fine-tuned-model",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://developers.openai.com/cookbook/examples/fine-tuned_qa/ft_retrieval_augmented_generation_qdrant",
+              "anchor_text": "OpenAI Fine-Tuning Docs"
+            }
+          ]
+        },
+        {
+          "target_url": "https://developers.openai.com/cookbook/examples/object_oriented_agentic_approach/resources/object_oriented_agents/core_classes",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://developers.openai.com/cookbook/examples/object_oriented_agentic_approach/secure_code_interpreter_tool_for_llm_agents",
+              "anchor_text": "object_oriented_agents/core_classes"
+            }
+          ]
+        },
+        {
+          "target_url": "https://developers.openai.com/cookbook/examples/openai.fm",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://developers.openai.com/cookbook/examples/gpt_with_vision_for_video_understanding",
+              "anchor_text": "OpenAI.fm"
+            }
+          ]
+        },
+        {
+          "target_url": "https://developers.openai.com/cookbook/examples/partners/agentic_governance_guide/eval_data/guardrail_test_data.jsonl",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://developers.openai.com/cookbook/examples/partners/agentic_governance_guide/agentic_governance_cookbook",
+              "anchor_text": "eval_data/guardrail_test_data.jsonl"
+            }
+          ]
+        },
+        {
+          "target_url": "https://developers.openai.com/cookbook/examples/partners/self_evolving_agents/%22data/c13_pyruvate_sample_CMC_from_UCSF.pdf%22",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://developers.openai.com/cookbook/examples/partners/self_evolving_agents/autonomous_agent_retraining",
+              "anchor_text": "CMC PDF"
+            }
+          ]
+        },
+        {
+          "target_url": "https://developers.openai.com/cookbook/examples/partners/self_evolving_agents/openai.com",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://developers.openai.com/cookbook/examples/partners/self_evolving_agents/autonomous_agent_retraining",
+              "anchor_text": "OpenAI"
+            }
+          ]
+        },
+        {
+          "target_url": "https://developers.openai.com/cookbook/examples/partners/self_evolving_agents/www.bain.com",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://developers.openai.com/cookbook/examples/partners/self_evolving_agents/autonomous_agent_retraining",
+              "anchor_text": "Bain"
+            }
+          ]
+        },
+        {
+          "target_url": "https://developers.openai.com/cookbook/examples/partners/temporal_agents_with_knowledge_graphs/Appendix.ipynb",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://developers.openai.com/cookbook/examples/partners/temporal_agents_with_knowledge_graphs/temporal_agents",
+              "anchor_text": "Appendix section A.1 \u201cStoring and Retrieving High-Volume Graph Data\u201d"
+            },
+            {
+              "source_page": "https://developers.openai.com/cookbook/examples/partners/temporal_agents_with_knowledge_graphs/temporal_agents",
+              "anchor_text": "A.3 \u201cImplementing Concurrency in the Ingestion Pipeline\u201d"
+            },
+            {
+              "source_page": "https://developers.openai.com/cookbook/examples/partners/temporal_agents_with_knowledge_graphs/temporal_agents",
+              "anchor_text": "Appendix"
+            },
+            {
+              "source_page": "https://developers.openai.com/cookbook/examples/partners/temporal_agents_with_knowledge_graphs/temporal_agents",
+              "anchor_text": "Appendix section A.5. \u201cScaling and Productionizing our Retrieval Agent\u201d"
+            }
+          ]
+        },
+        {
+          "target_url": "https://developers.openai.com/cookbook/examples/third_party/Get_embeddings_from_dataset.ipynb",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://developers.openai.com/cookbook/examples/third_party/visualizing_embeddings_in_wandb",
+              "anchor_text": "Get_embeddings_from_dataset Notebook"
+            }
+          ]
+        },
+        {
+          "target_url": "https://developers.openai.com/cookbook/examples/vector_databases/analyticdb/Getting_started_with_AnalyticDB_and_OpenAI.ipynb",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://developers.openai.com/cookbook/examples/vector_databases/analyticdb/qa_with_langchain_analyticdb_and_openai",
+              "anchor_text": "Getting_started_with_AnalyticDB_and_OpenAI.ipynb"
+            }
+          ]
+        },
+        {
+          "target_url": "https://developers.openai.com/cookbook/examples/vector_databases/cassandra_astradb/Philosophical_Quotes_AstraPy.ipynb",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://developers.openai.com/cookbook/examples/vector_databases/cassandra_astradb/readme",
+              "anchor_text": "Notebook"
+            }
+          ]
+        },
+        {
+          "target_url": "https://developers.openai.com/cookbook/examples/vector_databases/cassandra_astradb/Philosophical_Quotes_CQL.ipynb",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://developers.openai.com/cookbook/examples/vector_databases/cassandra_astradb/readme",
+              "anchor_text": "Notebook"
+            }
+          ]
+        },
+        {
+          "target_url": "https://developers.openai.com/cookbook/examples/vector_databases/cassandra_astradb/Philosophical_Quotes_cassIO.ipynb",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://developers.openai.com/cookbook/examples/vector_databases/cassandra_astradb/readme",
+              "anchor_text": "Notebook"
+            }
+          ]
+        },
+        {
+          "target_url": "https://developers.openai.com/cookbook/examples/vector_databases/elasticsearch/openai/openai-cookbook/blob/main/examples/vector_databases/elasticsearch/elasticsearch-retrieval-augmented-generation.ipynb",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://developers.openai.com/cookbook/examples/vector_databases/elasticsearch/elasticsearch-retrieval-augmented-generation",
+              "anchor_text": ""
+            }
+          ]
+        },
+        {
+          "target_url": "https://developers.openai.com/cookbook/examples/vector_databases/elasticsearch/openai/openai-cookbook/blob/main/examples/vector_databases/elasticsearch/elasticsearch-semantic-search.ipynb",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://developers.openai.com/cookbook/examples/vector_databases/elasticsearch/elasticsearch-semantic-search",
+              "anchor_text": ""
+            },
+            {
+              "source_page": "https://developers.openai.com/cookbook/examples/vector_databases/elasticsearch/elasticsearch-semantic-search",
+              "anchor_text": "Retrieval augmented generation using Elasticsearch and OpenAI"
+            }
+          ]
+        },
+        {
+          "target_url": "https://developers.openai.com/cookbook/examples/vector_databases/kusto/Getting_started_with_kusto_and_openai_embeddings.ipynb",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://developers.openai.com/cookbook/examples/vector_databases/kusto/readme",
+              "anchor_text": "Notebook"
+            }
+          ]
+        },
+        {
+          "target_url": "https://developers.openai.com/cookbook/examples/vector_databases/mongodb_atlas/cloud.mongodb.com",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://developers.openai.com/cookbook/examples/vector_databases/mongodb_atlas/semantic_search_using_mongodb_atlas_vector_search",
+              "anchor_text": "Atlas UI"
+            }
+          ]
+        },
+        {
+          "target_url": "https://developers.openai.com/cookbook/examples/vector_databases/neon/neon.tech/blog/building-an-ai-powered-chatbot-using-vercel-openai-and-postgres",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://developers.openai.com/cookbook/examples/vector_databases/neon/readme",
+              "anchor_text": "Building an AI-powered Chatbot using Vercel, OpenAI, and Postgres"
+            }
+          ]
+        },
+        {
+          "target_url": "https://developers.openai.com/cookbook/examples/vector_databases/pinecone/GPT4_Retrieval_Augmentation.ipynb",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://developers.openai.com/cookbook/examples/vector_databases/pinecone/readme",
+              "anchor_text": "GPT-4 Retrieval Augmentation"
+            }
+          ]
+        },
+        {
+          "target_url": "https://developers.openai.com/cookbook/examples/vector_databases/pinecone/Gen_QA.ipynb",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://developers.openai.com/cookbook/examples/vector_databases/pinecone/readme",
+              "anchor_text": "Generative Question-Answering"
+            }
+          ]
+        },
+        {
+          "target_url": "https://developers.openai.com/cookbook/examples/vector_databases/pinecone/Semantic_Search.ipynb",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://developers.openai.com/cookbook/examples/vector_databases/pinecone/readme",
+              "anchor_text": "Semantic Search"
+            }
+          ]
+        },
+        {
+          "target_url": "https://developers.openai.com/cookbook/examples/vector_databases/pinecone/pinecone.io",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://developers.openai.com/cookbook/examples/vector_databases/pinecone/using_pinecone_for_embeddings_search",
+              "anchor_text": "Pinecone"
+            }
+          ]
+        },
+        {
+          "target_url": "https://developers.openai.com/cookbook/examples/vector_databases/qdrant/Getting_started_with_Qdrant_and_OpenAI.ipynb",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://developers.openai.com/cookbook/examples/vector_databases/qdrant/qa_with_langchain_qdrant_and_openai",
+              "anchor_text": "Getting_started_with_Qdrant_and_OpenAI.ipynb"
+            }
+          ]
+        },
+        {
+          "target_url": "https://developers.openai.com/cookbook/examples/vector_databases/redis/README.md",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://developers.openai.com/cookbook/examples/vector_databases/redis/getting-started-with-redis-and-openai",
+              "anchor_text": "README"
+            }
+          ]
+        },
+        {
+          "target_url": "https://developers.openai.com/cookbook/examples/vector_databases/redis/redis",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://developers.openai.com/cookbook/examples/vector_databases/redis/using_redis_for_embeddings_search",
+              "anchor_text": "redis directory"
+            }
+          ]
+        },
+        {
+          "target_url": "https://developers.openai.com/cookbook/examples/vector_databases/singlestoredb/OpenAI_wikipedia_semantic_search.ipynb",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://developers.openai.com/cookbook/examples/vector_databases/singlestoredb/readme",
+              "anchor_text": "OpenAI wikipedia semantic search"
+            }
+          ]
+        },
+        {
+          "target_url": "https://developers.openai.com/cookbook/examples/vector_databases/tair/Getting_started_with_Tair_and_OpenAI.ipynb",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://developers.openai.com/cookbook/examples/vector_databases/tair/qa_with_langchain_tair_and_openai",
+              "anchor_text": "Getting_started_with_Tair_and_OpenAI.ipynb"
+            }
+          ]
+        },
+        {
+          "target_url": "https://developers.openai.com/cookbook/examples/vector_databases/typesense/typesense/docker-compose.yml",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://developers.openai.com/cookbook/examples/vector_databases/typesense/using_typesense_for_embeddings_search",
+              "anchor_text": "./typesense/docker-compose.yml"
+            }
+          ]
+        },
+        {
+          "target_url": "https://developers.openai.com/cookbook/examples/vector_databases/weaviate/docker-compose.yml",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://developers.openai.com/cookbook/examples/vector_databases/weaviate/getting-started-with-weaviate-and-openai",
+              "anchor_text": "./docker-compose.yml"
+            },
+            {
+              "source_page": "https://developers.openai.com/cookbook/examples/vector_databases/weaviate/hybrid-search-with-weaviate-and-openai",
+              "anchor_text": "./docker-compose.yml"
+            },
+            {
+              "source_page": "https://developers.openai.com/cookbook/examples/vector_databases/weaviate/question-answering-with-weaviate-and-openai",
+              "anchor_text": "./docker-compose.yml"
+            },
+            {
+              "source_page": "https://developers.openai.com/cookbook/examples/vector_databases/weaviate/readme",
+              "anchor_text": "example"
+            },
+            {
+              "source_page": "https://developers.openai.com/cookbook/examples/vector_databases/weaviate/readme",
+              "anchor_text": "Docker-compose example"
+            }
+          ]
+        },
+        {
+          "target_url": "https://developers.openai.com/cookbook/examples/vector_databases/weaviate/weaviate/docker-compose.yml",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://developers.openai.com/cookbook/examples/vector_databases/weaviate/using_weaviate_for_embeddings_search",
+              "anchor_text": "./weaviate/docker-compose.yml"
+            }
+          ]
+        },
+        {
+          "target_url": "https://developers.openai.com/cookbook/examples/vector_databases/weaviate/weaviate/getting-started-with-weaviate-and-openai.ipynb",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://developers.openai.com/cookbook/examples/vector_databases/weaviate/using_weaviate_for_embeddings_search",
+              "anchor_text": "Getting Started with Weaviate and OpenAI module cookbook"
+            }
+          ]
+        },
+        {
+          "target_url": "https://developers.openai.com/cookbook/examples/voice_solutions/LICENSE",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://developers.openai.com/cookbook/examples/voice_solutions/running_realtime_api_speech_on_esp32_arduino_edge_runtime_elatoai",
+              "anchor_text": "LICENSE"
+            }
+          ]
+        },
+        {
+          "target_url": "https://developers.openai.com/docs/guides/custom-grammars",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://developers.openai.com/api/reference/resources/$shared",
+              "anchor_text": "custom grammars guide"
+            }
+          ]
+        },
+        {
+          "target_url": "https://developers.openai.com/examples/vector_databases/Using_vector_databases_for_embeddings_search.ipynb",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://developers.openai.com/cookbook/examples/vector_databases/typesense/readme",
+              "anchor_text": "examples/vector_databases/Using_vector_databases_for_embeddings_search.ipynb"
+            }
+          ]
+        },
+        {
+          "target_url": "https://developers.openai.com/projects",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://developers.openai.com/api/docs/changelog",
+              "anchor_text": "archiving projects"
+            }
+          ]
+        },
+        {
+          "target_url": "https://developers.openai.com/settings",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://developers.openai.com/api/reference",
+              "anchor_text": "general settings"
+            },
+            {
+              "source_page": "https://developers.openai.com/api/reference/overview",
+              "anchor_text": "general settings"
+            }
+          ]
+        },
+        {
+          "target_url": "https://developers.openai.com/settings/organization/api-keys",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://developers.openai.com/api/reference",
+              "anchor_text": "organization settings"
+            },
+            {
+              "source_page": "https://developers.openai.com/api/reference/overview",
+              "anchor_text": "organization settings"
+            }
+          ]
+        },
+        {
+          "target_url": "https://developers.openai.com/settings/organization/general",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://developers.openai.com/api/docs/changelog",
+              "anchor_text": "setting cost limits"
+            },
+            {
+              "source_page": "https://developers.openai.com/api/reference",
+              "anchor_text": "organization settings"
+            },
+            {
+              "source_page": "https://developers.openai.com/api/reference/overview",
+              "anchor_text": "organization settings"
+            }
+          ]
+        },
+        {
+          "target_url": "https://developers.openai.com/tokenizer",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://developers.openai.com/api/reference/go/resources/chat/subresources/completions/methods/create",
+              "anchor_text": "tokens"
+            },
+            {
+              "source_page": "https://developers.openai.com/api/reference/go/resources/completions/methods/create",
+              "anchor_text": "tokenizer tool"
+            },
+            {
+              "source_page": "https://developers.openai.com/api/reference/go/resources/completions/methods/create",
+              "anchor_text": "tokens"
+            },
+            {
+              "source_page": "https://developers.openai.com/api/reference/java/resources/chat/subresources/completions/methods/create",
+              "anchor_text": "tokens"
+            },
+            {
+              "source_page": "https://developers.openai.com/api/reference/java/resources/completions/methods/create",
+              "anchor_text": "tokenizer tool"
+            }
+          ]
+        }
+      ],
+      "unverified_links_sample": [
+        "https://developers.openai.com/cookbook/examples/vector_databases/cassandra_astradb/philosophical_quotes_cassio",
+        "https://developers.openai.com/mcp"
+      ]
+    }
+  ]
+}

@@ -43,7 +43,7 @@
   <div class="wrap">
     <div class="hero">
       <h1>VeriOps Audit Scorecard</h1>
-      <p class="sub">Generated at 2026-04-18T17:53:06.465260+00:00</p>
+      <p class="sub">Generated at 2026-04-21T09:45:30.867954+00:00</p>
       <div class="score">
         <div class="big">60.8</div>
         <div class="grade">Grade D</div>
@@ -51,7 +51,7 @@
       <div class="grid">
         <div class='card'><h3>API coverage</h3><div class='value'>0.0%</div><p>Undocumented: 0 / 0 operations</p></div>
         <div class='card'><h3>Example reliability</h3><div class='value'>100.0%</div><p>Executed: 2, failed: 0</p></div>
-        <div class='card'><h3>Freshness (median age)</h3><div class='value'>29.0 days</div><p>Stale over threshold: 0.0%</p></div>
+        <div class='card'><h3>Freshness (median age)</h3><div class='value'>32.0 days</div><p>Stale over threshold: 0.0%</p></div>
         <div class='card'><h3>Docs contract drift</h3><div class='value'>0.0%</div><p>Mismatches: 0</p></div>
         <div class='card'><h3>Layer completeness</h3><div class='value'>0.0%</div><p>Features missing layers: 76</p></div>
         <div class='card'><h3>Terminology consistency</h3><div class='value'>100.0%</div><p>Forbidden term occurrences: 0</p></div>
@@ -62,19 +62,19 @@
       <h2>Business Impact Estimate (Monthly)</h2>
       <table class="kpi-table">
         <tr><th>Metric</th><th>Estimate</th></tr>
-        <tr><td>Engineering hours lost</td><td>34.4 h</td></tr>
-        <tr><td>Support hours burden</td><td>11.25 h</td></tr>
+        <tr><td>Engineering hours lost</td><td>51.6 h</td></tr>
+        <tr><td>Support hours burden</td><td>35.2 h</td></tr>
         <tr><td>Release delay risk</td><td>0.0 h</td></tr>
-        <tr><td>Opportunity cost</td><td>$3774.25</td></tr>
+        <tr><td>Opportunity cost</td><td>$7436.0</td></tr>
       </table>
-      <p class="foot">Per-finding totals (low/base/high): remediation $1852.5 / $4797.5 / $7790.0, monthly loss $3605.25 / $11248.0 / $24282.0.</p>
-      <p class="foot">Fixability coverage: pilot can close 8 of 8 findings; full implementation can close 8 of 8.</p>
+      <p class="foot">Per-finding totals (low/base/high): remediation $2090.0 / $5445.0 / $8800.0, monthly loss $4125.0 / $12903.0 / $27808.0.</p>
+      <p class="foot">Fixability coverage: pilot can close 7 of 7 findings; full implementation can close 7 of 7.</p>
     </div>
 
     <div class="section">
       <h2>Executive readout</h2>
       <p><strong>Summary:</strong> Current documentation operating posture is fragile (score 60.8, grade D). API coverage is 0.0%, example reliability is 100.0%, drift is 0.0%, and stale coverage debt is 0.0%.</p>
-      <p><strong>Business context:</strong> The finding set contains 1 high and 3 medium risks, with quantifiable monthly loss and remediation effort modeled per issue.</p>
+      <p><strong>Business context:</strong> The finding set contains 1 high and 2 medium risks, with quantifiable monthly loss and remediation effort modeled per issue.</p>
       <p><strong>Recommendation:</strong> NO-GO until critical remediation milestones are closed. Execute the 90-day roadmap with weekly evidence-based checkpoints to convert documentation quality from project effort into repeatable operating capability.</p>
     </div>
 
@@ -84,7 +84,7 @@
         <tr>
           <th>ID</th><th>Issue</th><th>Severity</th><th>Capability</th><th>Gap</th><th>Pilot/Full</th><th>Effort (L/B/H)</th><th>Fix Cost (L/B/H)</th><th>Monthly Loss (L/B/H)</th><th>Confidence</th>
         </tr>
-        <tr><td>F-LAYERS</td><td>Missing required doc layers</td><td>high</td><td>Doc layer completeness</td><td>Features missing required layers %: 100.0 -> 5.0 %</td><td>Yes / Yes</td><td>3.0 / 7.5 / 12.0h</td><td>$285.0 / $712.5 / $1140.0</td><td>$513.0 / $1539.0 / $3283.2</td><td>high</td></tr><tr><td>F-FRESHNESS</td><td>Documentation freshness debt</td><td>medium</td><td>Freshness + lifecycle management</td><td>Stale docs %: 0.0 -> 10.0 %</td><td>Yes / Yes</td><td>2.0 / 5.0 / 8.0h</td><td>$190.0 / $475.0 / $760.0</td><td>$323.0 / $969.0 / $2067.2</td><td>high</td></tr><tr><td>F-RETRIEVAL</td><td>RAG retrieval quality risk</td><td>medium</td><td>RAG retrieval quality control</td><td>Hallucination rate %: 0.0 -> 10.0 %</td><td>Yes / Yes</td><td>4.0 / 9.0 / 14.0h</td><td>$380.0 / $855.0 / $1330.0</td><td>$722.0 / $1949.4 / $4043.2</td><td>high</td></tr><tr><td>F-EVIDENCE-DRIFT-MISSING</td><td>Drift evidence report is missing</td><td>medium</td><td>Code/docs drift contract visibility</td><td>Docs-contract report availability: 0 -> 1 binary</td><td>Yes / Yes</td><td>0.5 / 1.0 / 2.0h</td><td>$47.5 / $95.0 / $190.0</td><td>$42.75 / $104.5 / $266.0</td><td>medium</td></tr><tr><td>F-API-COVERAGE</td><td>Undocumented API operations</td><td>low</td><td>API coverage sync</td><td>API undocumented %: 0.0 -> 5.0 %</td><td>Yes / Yes</td><td>4.0 / 10.0 / 16.0h</td><td>$380.0 / $950.0 / $1520.0</td><td>$836.0 / $2508.0 / $5350.4</td><td>high</td></tr><tr><td>F-EXAMPLES-RELIABILITY</td><td>Code examples fail or are non-runnable</td><td>low</td><td>Executable examples quality</td><td>Example reliability %: 0.0 -> 5.0 % shortfall</td><td>Yes / Yes</td><td>3.0 / 8.5 / 14.0h</td><td>$285.0 / $807.5 / $1330.0</td><td>$570.0 / $1938.0 / $4256.0</td><td>high</td></tr><tr><td>F-DRIFT</td><td>Code/docs contract drift</td><td>low</td><td>Code/docs drift contract visibility</td><td>Drift %: 0.0 -> 2.0 %</td><td>Yes / Yes</td><td>2.0 / 6.0 / 10.0h</td><td>$190.0 / $570.0 / $950.0</td><td>$456.0 / $1641.6 / $3648.0</td><td>low</td></tr><tr><td>F-TERMINOLOGY</td><td>Terminology inconsistency</td><td>low</td><td>Terminology governance</td><td>Terminology violations %: 0.0 -> 3.0 %</td><td>Yes / Yes</td><td>1.0 / 3.5 / 6.0h</td><td>$95.0 / $332.5 / $570.0</td><td>$142.5 / $598.5 / $1368.0</td><td>high</td></tr>
+        <tr><td>F-LAYERS</td><td>Missing required doc layers</td><td>high</td><td>Doc layer completeness</td><td>Features missing required layers %: 100.0 -> 5.0 %</td><td>Yes / Yes</td><td>3.0 / 7.5 / 12.0h</td><td>$330.0 / $825.0 / $1320.0</td><td>$594.0 / $1782.0 / $3801.6</td><td>high</td></tr><tr><td>F-FRESHNESS</td><td>Documentation freshness debt</td><td>medium</td><td>Freshness + lifecycle management</td><td>Stale docs %: 0.0 -> 10.0 %</td><td>Yes / Yes</td><td>2.0 / 5.0 / 8.0h</td><td>$220.0 / $550.0 / $880.0</td><td>$374.0 / $1122.0 / $2393.6</td><td>high</td></tr><tr><td>F-RETRIEVAL</td><td>RAG retrieval quality risk</td><td>medium</td><td>RAG retrieval quality control</td><td>Hallucination rate %: 0.0 -> 10.0 %</td><td>Yes / Yes</td><td>4.0 / 9.0 / 14.0h</td><td>$440.0 / $990.0 / $1540.0</td><td>$836.0 / $2257.2 / $4681.6</td><td>high</td></tr><tr><td>F-API-COVERAGE</td><td>Undocumented API operations</td><td>low</td><td>API coverage sync</td><td>API undocumented %: 0.0 -> 5.0 %</td><td>Yes / Yes</td><td>4.0 / 10.0 / 16.0h</td><td>$440.0 / $1100.0 / $1760.0</td><td>$968.0 / $2904.0 / $6195.2</td><td>high</td></tr><tr><td>F-EXAMPLES-RELIABILITY</td><td>Code examples fail or are non-runnable</td><td>low</td><td>Executable examples quality</td><td>Example reliability %: 0.0 -> 5.0 % shortfall</td><td>Yes / Yes</td><td>3.0 / 8.5 / 14.0h</td><td>$330.0 / $935.0 / $1540.0</td><td>$660.0 / $2244.0 / $4928.0</td><td>high</td></tr><tr><td>F-DRIFT</td><td>Code/docs contract drift</td><td>low</td><td>Code/docs drift contract visibility</td><td>Drift %: 0.0 -> 2.0 %</td><td>Yes / Yes</td><td>2.0 / 6.0 / 10.0h</td><td>$220.0 / $660.0 / $1100.0</td><td>$528.0 / $1900.8 / $4224.0</td><td>high</td></tr><tr><td>F-TERMINOLOGY</td><td>Terminology inconsistency</td><td>low</td><td>Terminology governance</td><td>Terminology violations %: 0.0 -> 3.0 %</td><td>Yes / Yes</td><td>1.0 / 3.5 / 6.0h</td><td>$110.0 / $385.0 / $660.0</td><td>$165.0 / $693.0 / $1584.0</td><td>high</td></tr>
       </table>
     </div>
 
@@ -106,7 +106,7 @@
     <div class="section">
       <h2>Delivery scope</h2>
       <p><strong>Package:</strong> Full implementation (full).</p>
-      <p>Current report includes 8 findings (1 high, 3 medium) mapped to pipeline capabilities.</p>
+      <p>Current report includes 7 findings (1 high, 2 medium) mapped to pipeline capabilities.</p>
       <div class="grid">
         <div class="card">
           <h3>Pilot scope / In scope</h3>
@@ -122,7 +122,7 @@
     <div class="section">
       <h2>90-day roadmap</h2>
       <ol class="top3">
-        <li><strong>0-30</strong> - Stabilize core quality risks<br><span>Stabilize highest-severity findings and unblock release-critical documentation paths.; Lock weekly quality gate cadence and confirm review-branch workflow behavior.; Prioritize 1 high-severity findings for immediate remediation.</span></li><li><strong>31-60</strong> - Scale and standardize coverage<br><span>Close the highest business-impact medium findings and reduce recurring support burden.; Backfill missing documentation layers for top capabilities and API operations.; Primary gap themes: Missing required doc layers; Documentation freshness debt; RAG retrieval quality risk.</span></li><li><strong>61-90</strong> - Operationalize steady-state excellence<br><span>Harden governance with KPI/SLA thresholds tied to release-readiness criteria.; Institutionalize ownership model, reporting rhythm, and operational escalation policy.; Resolve remaining medium findings (3) into steady-state backlog.</span></li>
+        <li><strong>0-30</strong> - Stabilize core quality risks<br><span>Stabilize highest-severity findings and unblock release-critical documentation paths.; Lock weekly quality gate cadence and confirm review-branch workflow behavior.; Prioritize 1 high-severity findings for immediate remediation.</span></li><li><strong>31-60</strong> - Scale and standardize coverage<br><span>Close the highest business-impact medium findings and reduce recurring support burden.; Backfill missing documentation layers for top capabilities and API operations.; Primary gap themes: Missing required doc layers; Documentation freshness debt; RAG retrieval quality risk.</span></li><li><strong>61-90</strong> - Operationalize steady-state excellence<br><span>Harden governance with KPI/SLA thresholds tied to release-readiness criteria.; Institutionalize ownership model, reporting rhythm, and operational escalation policy.; Resolve remaining medium findings (2) into steady-state backlog.</span></li>
       </ol>
     </div>
 

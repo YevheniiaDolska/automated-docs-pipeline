@@ -1,0 +1,348 @@
+{
+  "generated_at": "2026-04-21T08:39:18.721747+00:00",
+  "site_url": "https://console.groq.com/docs",
+  "site_urls": [
+    "https://console.groq.com/docs"
+  ],
+  "topology_mode": "single-product",
+  "verification_modes": [
+    "authenticated",
+    "bot",
+    "browser"
+  ],
+  "sites": [
+    {
+      "site_url": "https://console.groq.com/docs",
+      "metrics": {
+        "crawl": {
+          "pages_crawled": 163,
+          "requested_pages": 193,
+          "urls_examined": 164,
+          "max_pages": 2000,
+          "effective_limit": 2000,
+          "auto_mode": false,
+          "stop_reason": "queue_exhausted",
+          "discovered_pages": 164,
+          "crawl_scope_basis": "sitemap",
+          "crawl_scope_pages": 163,
+          "crawl_coverage_pct": 100.61,
+          "trap_urls_skipped": 1,
+          "seeded_sitemap_urls": 163,
+          "robots_sitemaps_declared": 1
+        },
+        "links": {
+          "internal_links_checked": 192,
+          "broken_internal_links_count": 4,
+          "docs_broken_links_count": 4,
+          "repo_broken_links_count": 0,
+          "broken_internal_link_samples": [
+            "https://console.groq.com/cdn-cgi/l/email-protection",
+            "https://console.groq.com/docs/guides/speech-to-text/prompting",
+            "https://console.groq.com/docs/legal/trademarks",
+            "https://console.groq.com/docs/speech-text"
+          ],
+          "docs_broken_link_samples": [
+            "https://console.groq.com/cdn-cgi/l/email-protection",
+            "https://console.groq.com/docs/guides/speech-to-text/prompting",
+            "https://console.groq.com/docs/legal/trademarks",
+            "https://console.groq.com/docs/speech-text"
+          ],
+          "repo_broken_link_samples": [],
+          "unreachable_links_count": 0,
+          "unverified_links_count": 0,
+          "unverified_link_samples": [],
+          "confirmed_broken_links_count": 4,
+          "excluded_links_count": 2,
+          "excluded_link_samples": [
+            "https://console.groq.com/docs/compound/search-settings",
+            "https://console.groq.com/docs/feedback-policy"
+          ],
+          "_all_confirmed_broken_links": [
+            "https://console.groq.com/cdn-cgi/l/email-protection",
+            "https://console.groq.com/docs/guides/speech-to-text/prompting",
+            "https://console.groq.com/docs/legal/trademarks",
+            "https://console.groq.com/docs/speech-text"
+          ],
+          "_all_unverified_links": [],
+          "_all_excluded_links": [
+            "https://console.groq.com/docs/compound/search-settings",
+            "https://console.groq.com/docs/feedback-policy"
+          ],
+          "_all_docs_unverified_links": [],
+          "_all_repo_unverified_links": [],
+          "_broken_link_provenance": {
+            "https://console.groq.com/cdn-cgi/l/email-protection": [
+              {
+                "source_page": "https://console.groq.com/docs/billing-faqs",
+                "anchor_text": "[email\u00a0protected]"
+              },
+              {
+                "source_page": "https://console.groq.com/docs/browserbase",
+                "anchor_text": "[email\u00a0protected]"
+              },
+              {
+                "source_page": "https://console.groq.com/docs/legal/ai-policy",
+                "anchor_text": "Groq\u2019s Trust & Safety Team"
+              },
+              {
+                "source_page": "https://console.groq.com/docs/legal/copyright-infringement",
+                "anchor_text": "[email\u00a0protected]"
+              },
+              {
+                "source_page": "https://console.groq.com/docs/legal/archive",
+                "anchor_text": "[email\u00a0protected]"
+              }
+            ],
+            "https://console.groq.com/docs/guides/speech-to-text/prompting": [
+              {
+                "source_page": "https://console.groq.com/docs/api-reference",
+                "anchor_text": "prompt"
+              }
+            ],
+            "https://console.groq.com/docs/legal/trademarks": [
+              {
+                "source_page": "https://console.groq.com/docs/legal/current",
+                "anchor_text": "Trademarks"
+              }
+            ],
+            "https://console.groq.com/docs/speech-text": [
+              {
+                "source_page": "https://console.groq.com/docs/api-reference",
+                "anchor_text": "prompt"
+              },
+              {
+                "source_page": "https://console.groq.com/docs/legacy-changelog",
+                "anchor_text": "speech docs"
+              }
+            ]
+          }
+        },
+        "seo_geo": {
+          "pages_scanned": 163,
+          "missing_title_count": 0,
+          "missing_description_count": 3,
+          "multiple_h1_count": 0,
+          "heading_hierarchy_jump_count": 43,
+          "seo_geo_issue_rate_pct": 7.06
+        },
+        "api_coverage": {
+          "reference_endpoint_count": 9,
+          "api_pages_detected": 40,
+          "endpoints_with_usage_docs": 1,
+          "reference_endpoints_without_usage_docs": 8,
+          "reference_coverage_pct": 11.11,
+          "no_api_pages_found": false,
+          "coverage_determined": true,
+          "coverage_method": "source_of_truth",
+          "detection_note": "",
+          "uncovered_endpoint_samples": [
+            "gql:can",
+            "gql:configurations",
+            "gql:definition",
+            "gql:may",
+            "gql:results",
+            "gql:string",
+            "gql:that",
+            "gql:the"
+          ]
+        },
+        "examples": {
+          "total_code_examples": 0,
+          "total_code_blocks_all": 786,
+          "runnable_without_env": 0,
+          "blocked_by_placeholders": 0,
+          "network_bound_examples": 0,
+          "example_reliability_estimate_pct": 0.0,
+          "detection_note": "No executable code blocks detected (786 data-only blocks found). Site may use non-standard code rendering that the auditor does not recognize, or all examples are in data formats (YAML/JSON)."
+        },
+        "freshness": {
+          "pages_with_last_updated_hint": 27,
+          "pages_without_last_updated_hint": 136,
+          "last_updated_coverage_pct": 16.56,
+          "samples_with_last_updated": [
+            {
+              "url": "https://console.groq.com/docs/agentic-tooling",
+              "hint": "2025-08-16"
+            },
+            {
+              "url": "https://console.groq.com/docs/billing-faqs",
+              "hint": "page to learn more and stay updated on announcements."
+            },
+            {
+              "url": "https://console.groq.com/docs/changelog",
+              "hint": "Dec 1, 2025"
+            },
+            {
+              "url": "https://console.groq.com/docs/changelog/compound",
+              "hint": "2025-07-23"
+            },
+            {
+              "url": "https://console.groq.com/docs/compound",
+              "hint": "2025-08-16"
+            },
+            {
+              "url": "https://console.groq.com/docs/compound/built-in-tools",
+              "hint": "2025-07-23"
+            },
+            {
+              "url": "https://console.groq.com/docs/deprecations",
+              "hint": "April 15, 2026:"
+            },
+            {
+              "url": "https://console.groq.com/docs/compound/search-settings",
+              "hint": "2025-07-23"
+            },
+            {
+              "url": "https://console.groq.com/docs/legal",
+              "hint": "October 15, 2025"
+            },
+            {
+              "url": "https://console.groq.com/docs/legacy-changelog",
+              "hint": "April 5, 2025"
+            }
+          ]
+        }
+      },
+      "samples": {
+        "broken_links": [
+          "https://console.groq.com/cdn-cgi/l/email-protection",
+          "https://console.groq.com/docs/guides/speech-to-text/prompting",
+          "https://console.groq.com/docs/legal/trademarks",
+          "https://console.groq.com/docs/speech-text"
+        ],
+        "docs_broken_link_samples": [
+          "https://console.groq.com/cdn-cgi/l/email-protection",
+          "https://console.groq.com/docs/guides/speech-to-text/prompting",
+          "https://console.groq.com/docs/legal/trademarks",
+          "https://console.groq.com/docs/speech-text"
+        ],
+        "repo_broken_link_samples": [],
+        "unverified_link_samples": [],
+        "api_uncovered_samples": [
+          "gql:can",
+          "gql:configurations",
+          "gql:definition",
+          "gql:may",
+          "gql:results",
+          "gql:string",
+          "gql:that",
+          "gql:the"
+        ]
+      },
+      "run_count": 1
+    }
+  ],
+  "aggregate": {
+    "metrics": {
+      "crawl": {
+        "pages_crawled": 163,
+        "requested_pages": 193,
+        "urls_examined": 164,
+        "max_pages_total": 2000,
+        "discovered_pages": 164,
+        "crawl_scope_pages": 163,
+        "trap_urls_skipped": 1,
+        "crawl_coverage_pct": 100.61
+      },
+      "links": {
+        "broken_internal_links_count": 4,
+        "docs_broken_links_count": 4,
+        "repo_broken_links_count": 0,
+        "unverified_links_count": 0,
+        "confirmed_broken_links_count": 4,
+        "excluded_links_count": 2
+      },
+      "seo_geo": {
+        "seo_geo_issue_rate_pct": 7.06
+      },
+      "api_coverage": {
+        "reference_coverage_pct": 11.11,
+        "no_api_pages_found": false,
+        "api_pages_detected": 40,
+        "coverage_determined": true,
+        "detection_note": ""
+      },
+      "examples": {
+        "example_reliability_estimate_pct": 0.0
+      },
+      "freshness": {
+        "last_updated_coverage_pct": 16.56
+      }
+    },
+    "confidence": {
+      "overall_confidence_pct": 91.5,
+      "links_confidence_pct": 95.0,
+      "api_confidence_pct": 85.0,
+      "crawl_confidence_pct": 95.0
+    }
+  },
+  "confidence": {
+    "overall_confidence_pct": 91.5,
+    "links_confidence_pct": 95.0,
+    "api_confidence_pct": 85.0,
+    "crawl_confidence_pct": 95.0
+  },
+  "top_findings": [
+    "Broken internal links: 4",
+    "API usage-doc coverage is low: 11.11% (40 API pages detected)",
+    "Example reliability estimate is low: 0.0%",
+    "Freshness visibility is weak: only 16.56% pages show last updated"
+  ],
+  "llm_analysis": {
+    "status": "ok",
+    "model": "claude-sonnet-4-5",
+    "analysis": {
+      "executive_summary": "Documentation audit of console.groq.com/docs covered 163 pages with 100.61% crawl coverage and 91.5% overall confidence. Critical gaps identified: only 11.11% of 40 detected API pages have adequate usage documentation, 0% example reliability estimate indicates no working code examples detected, and 16.56% freshness coverage means 83% of pages lack visible update timestamps. Four confirmed broken internal links exist within user-facing documentation. SEO/geo issues affect 7.06% of pages.",
+      "strengths": [
+        "Complete crawl coverage at 100.61% with 163 pages successfully indexed",
+        "High overall audit confidence at 91.5% with strong link verification (95%) and crawl confidence (95%)",
+        "Zero repository navigation broken links; all 4 broken links are in user-facing docs only",
+        "Single-product topology provides clear documentation structure",
+        "No unverified or excluded link issues detected"
+      ],
+      "risks": [
+        "Critical: 0% example reliability means no executable/verified code examples detected across 163 pages",
+        "High: Only 11.11% API reference coverage leaves 88.89% of 40 API pages without adequate usage documentation",
+        "High: 83.44% of pages lack visible last-updated timestamps, preventing users from assessing content currency",
+        "Medium: 4 confirmed broken internal documentation links degrade user navigation experience",
+        "Medium: 7.06% SEO/geo issue rate may impact discoverability and international reach",
+        "Medium: API confidence at 85% suggests potential gaps in API documentation detection accuracy",
+        "Low: 1 trap URL skipped and 30 requested pages not crawled (193 requested vs 163 crawled) indicate minor scope limitations"
+      ],
+      "prioritized_actions": [
+        {
+          "action": "Implement automated code example testing and validation system to achieve measurable example reliability above 80%",
+          "impact": "critical",
+          "effort": "high"
+        },
+        {
+          "action": "Create usage guides, tutorials, and integration examples for the 88.89% of API pages lacking coverage (approximately 35 API endpoints)",
+          "impact": "critical",
+          "effort": "high"
+        },
+        {
+          "action": "Add last-updated timestamps to all 136 pages currently missing freshness indicators (83.44% of documentation)",
+          "impact": "high",
+          "effort": "low"
+        },
+        {
+          "action": "Fix 4 confirmed broken internal documentation links to restore navigation integrity",
+          "impact": "high",
+          "effort": "low"
+        },
+        {
+          "action": "Audit and resolve SEO/geo issues affecting 7.06% of pages to improve search visibility and international accessibility",
+          "impact": "medium",
+          "effort": "medium"
+        }
+      ],
+      "limitations": [
+        "External audit cannot verify actual code example functionality or runtime correctness; 0% reliability estimate may indicate detection limitations rather than absence of examples",
+        "API coverage detection at 85% confidence may miss undocumented endpoints, internal APIs, or non-standard API documentation patterns",
+        "Crawl cannot access authentication-required pages, dynamic content requiring user interaction, or documentation behind feature flags",
+        "Link verification cannot guarantee real-time availability of external dependencies or third-party service integrations referenced in documentation",
+        "Freshness analysis depends on visible timestamp metadata; actual content currency may differ from displayed dates or be current despite missing timestamps"
+      ]
+    }
+  }
+}

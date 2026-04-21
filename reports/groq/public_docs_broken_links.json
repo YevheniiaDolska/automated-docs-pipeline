@@ -1,0 +1,96 @@
+{
+  "generated_at_utc": "2026-04-21T09:45:25.718209+00:00",
+  "sites_count": 1,
+  "totals": {
+    "docs_broken_links_count": 4,
+    "repo_broken_links_count": 0,
+    "all_confirmed_broken_links_count": 4,
+    "unverified_links_sample_count": 0
+  },
+  "all_docs_broken_links": [
+    "https://console.groq.com/cdn-cgi/l/email-protection",
+    "https://console.groq.com/docs/guides/speech-to-text/prompting",
+    "https://console.groq.com/docs/legal/trademarks",
+    "https://console.groq.com/docs/speech-text"
+  ],
+  "all_repo_broken_links": [],
+  "all_unverified_links_sample": [],
+  "sites": [
+    {
+      "site_url": "https://console.groq.com/docs",
+      "confirmed_broken_links_count": 4,
+      "docs_broken_links_count": 4,
+      "repo_broken_links_count": 0,
+      "docs_broken_links": [
+        "https://console.groq.com/cdn-cgi/l/email-protection",
+        "https://console.groq.com/docs/guides/speech-to-text/prompting",
+        "https://console.groq.com/docs/legal/trademarks",
+        "https://console.groq.com/docs/speech-text"
+      ],
+      "repo_broken_links": [],
+      "confirmed_broken_links_detailed": [
+        {
+          "target_url": "https://console.groq.com/cdn-cgi/l/email-protection",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://console.groq.com/docs/billing-faqs",
+              "anchor_text": "[email\u00a0protected]"
+            },
+            {
+              "source_page": "https://console.groq.com/docs/browserbase",
+              "anchor_text": "[email\u00a0protected]"
+            },
+            {
+              "source_page": "https://console.groq.com/docs/legal/ai-policy",
+              "anchor_text": "Groq\u2019s Trust & Safety Team"
+            },
+            {
+              "source_page": "https://console.groq.com/docs/legal/copyright-infringement",
+              "anchor_text": "[email\u00a0protected]"
+            },
+            {
+              "source_page": "https://console.groq.com/docs/legal/archive",
+              "anchor_text": "[email\u00a0protected]"
+            }
+          ]
+        },
+        {
+          "target_url": "https://console.groq.com/docs/guides/speech-to-text/prompting",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://console.groq.com/docs/api-reference",
+              "anchor_text": "prompt"
+            }
+          ]
+        },
+        {
+          "target_url": "https://console.groq.com/docs/legal/trademarks",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://console.groq.com/docs/legal/current",
+              "anchor_text": "Trademarks"
+            }
+          ]
+        },
+        {
+          "target_url": "https://console.groq.com/docs/speech-text",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://console.groq.com/docs/api-reference",
+              "anchor_text": "prompt"
+            },
+            {
+              "source_page": "https://console.groq.com/docs/legacy-changelog",
+              "anchor_text": "speech docs"
+            }
+          ]
+        }
+      ],
+      "unverified_links_sample": []
+    }
+  ]
+}

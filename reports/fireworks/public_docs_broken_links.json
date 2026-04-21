@@ -1,0 +1,52 @@
+{
+  "generated_at_utc": "2026-04-21T08:35:25.379282+00:00",
+  "sites_count": 1,
+  "totals": {
+    "docs_broken_links_count": 2,
+    "repo_broken_links_count": 0,
+    "all_confirmed_broken_links_count": 2,
+    "unverified_links_sample_count": 0
+  },
+  "all_docs_broken_links": [
+    "https://docs.fireworks.ai/fine-tuning/tools-sdks/firectl/commands/reinforcement-fine-tuning-job-create",
+    "https://docs.fireworks.ai/models/deploying"
+  ],
+  "all_repo_broken_links": [],
+  "all_unverified_links_sample": [],
+  "sites": [
+    {
+      "site_url": "https://docs.fireworks.ai/",
+      "confirmed_broken_links_count": 2,
+      "docs_broken_links_count": 2,
+      "repo_broken_links_count": 0,
+      "docs_broken_links": [
+        "https://docs.fireworks.ai/fine-tuning/tools-sdks/firectl/commands/reinforcement-fine-tuning-job-create",
+        "https://docs.fireworks.ai/models/deploying"
+      ],
+      "repo_broken_links": [],
+      "confirmed_broken_links_detailed": [
+        {
+          "target_url": "https://docs.fireworks.ai/fine-tuning/tools-sdks/firectl/commands/reinforcement-fine-tuning-job-create",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://docs.fireworks.ai/fine-tuning/training-prerequisites",
+              "anchor_text": "CLI Reference"
+            }
+          ]
+        },
+        {
+          "target_url": "https://docs.fireworks.ai/models/deploying",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://docs.fireworks.ai/updates/changelog",
+              "anchor_text": "deployment documentation"
+            }
+          ]
+        }
+      ],
+      "unverified_links_sample": []
+    }
+  ]
+}

@@ -1,0 +1,314 @@
+{
+  "generated_at": "2026-04-21T07:53:14.142437+00:00",
+  "site_url": "https://docs.together.ai/",
+  "site_urls": [
+    "https://docs.together.ai/"
+  ],
+  "topology_mode": "multi-project",
+  "verification_modes": [
+    "authenticated",
+    "bot",
+    "browser"
+  ],
+  "sites": [
+    {
+      "site_url": "https://docs.together.ai/",
+      "metrics": {
+        "crawl": {
+          "pages_crawled": 231,
+          "requested_pages": 248,
+          "urls_examined": 231,
+          "max_pages": 2500,
+          "effective_limit": 2500,
+          "auto_mode": false,
+          "stop_reason": "queue_exhausted",
+          "discovered_pages": 231,
+          "crawl_scope_basis": "sitemap",
+          "crawl_scope_pages": 230,
+          "crawl_coverage_pct": 100.43,
+          "trap_urls_skipped": 0,
+          "seeded_sitemap_urls": 230,
+          "robots_sitemaps_declared": 1
+        },
+        "links": {
+          "internal_links_checked": 248,
+          "broken_internal_links_count": 1,
+          "docs_broken_links_count": 1,
+          "repo_broken_links_count": 0,
+          "broken_internal_link_samples": [
+            "https://docs.together.ai/docs/v2-migration-guide"
+          ],
+          "docs_broken_link_samples": [
+            "https://docs.together.ai/docs/v2-migration-guide"
+          ],
+          "repo_broken_link_samples": [],
+          "unreachable_links_count": 0,
+          "unverified_links_count": 0,
+          "unverified_link_samples": [],
+          "confirmed_broken_links_count": 1,
+          "excluded_links_count": 0,
+          "excluded_link_samples": [],
+          "_all_confirmed_broken_links": [
+            "https://docs.together.ai/docs/v2-migration-guide"
+          ],
+          "_all_unverified_links": [],
+          "_all_excluded_links": [],
+          "_all_docs_unverified_links": [],
+          "_all_repo_unverified_links": [],
+          "_broken_link_provenance": {
+            "https://docs.together.ai/docs/v2-migration-guide": [
+              {
+                "source_page": "https://docs.together.ai/docs/agent-skills",
+                "anchor_text": "migration guide"
+              }
+            ]
+          }
+        },
+        "seo_geo": {
+          "pages_scanned": 231,
+          "missing_title_count": 0,
+          "missing_description_count": 24,
+          "multiple_h1_count": 5,
+          "heading_hierarchy_jump_count": 90,
+          "seo_geo_issue_rate_pct": 12.88
+        },
+        "api_coverage": {
+          "reference_endpoint_count": 141,
+          "api_pages_detected": 118,
+          "endpoints_with_usage_docs": 44,
+          "reference_endpoints_without_usage_docs": 97,
+          "reference_coverage_pct": 31.21,
+          "no_api_pages_found": false,
+          "coverage_determined": true,
+          "coverage_method": "source_of_truth",
+          "detection_note": "",
+          "uncovered_endpoint_samples": [
+            "ep:/batches/{id}",
+            "ep:/clusters/availability-zones",
+            "ep:/compute/clusters/storage/volumes/{volume_id}",
+            "ep:/compute/clusters/{cluster_id}",
+            "ep:/deployments/secrets/{id}",
+            "ep:/deployments/storage/volumes/{id}",
+            "ep:/deployments/storage/{filename}",
+            "ep:/deployments/{id}",
+            "ep:/endpoints/{endpointid}",
+            "ep:/evaluation/{id}",
+            "ep:/files/{id}",
+            "ep:/fine-tunes/estimate-price",
+            "ep:/fine-tunes/models/limits",
+            "ep:/fine-tunes/models/supported",
+            "ep:/fine-tunes/{id}",
+            "ep:/jobs/{jobid}",
+            "ep:/rl/checkpoints/{id}/download",
+            "ep:/rl/training-sessions",
+            "ep:/rl/training-sessions/{session_id}",
+            "ep:/rl/training-sessions/{session_id}/operations/forward-backward"
+          ]
+        },
+        "examples": {
+          "total_code_examples": 0,
+          "total_code_blocks_all": 1259,
+          "runnable_without_env": 0,
+          "blocked_by_placeholders": 0,
+          "network_bound_examples": 0,
+          "example_reliability_estimate_pct": 0.0,
+          "detection_note": "No executable code blocks detected (1259 data-only blocks found). Site may use non-standard code rendering that the auditor does not recognize, or all examples are in data formats (YAML/JSON)."
+        },
+        "freshness": {
+          "pages_with_last_updated_hint": 25,
+          "pages_without_last_updated_hint": 206,
+          "last_updated_coverage_pct": 10.82,
+          "samples_with_last_updated": [
+            {
+              "url": "https://docs.together.ai/docs/dedicated-inference",
+              "hint": "2025-02-18"
+            },
+            {
+              "url": "https://docs.together.ai/docs/deploying-a-fine-tuned-model",
+              "hint": "\"[email\u00a0protected]/Meta-Llama-3-8B-2024-07-11-22-57-17\""
+            },
+            {
+              "url": "https://docs.together.ai/docs/deprecations",
+              "hint": "2026-04-16"
+            },
+            {
+              "url": "https://docs.together.ai/docs/rerank-overview",
+              "hint": "\"2024-03-27\""
+            },
+            {
+              "url": "https://docs.together.ai/reference/deployments-get",
+              "hint": "UpdatedAt is the ISO8601 timestamp when this deployment was last updated"
+            },
+            {
+              "url": "https://docs.together.ai/reference/deployments-create",
+              "hint": "UpdatedAt is the ISO8601 timestamp when this deployment was last updated"
+            },
+            {
+              "url": "https://docs.together.ai/reference/deployments-secrets-list",
+              "hint": "self.__next_f.push([1,\"1c:[\\\"$\\\",\\\"$L38\\\",null,{\\\"value\\\":{\\\"apiReferenceData\\\":{}},\\\"children\\\":[\\\"$\\\",\\\"$L39\\\",null,{\\"
+            },
+            {
+              "url": "https://docs.together.ai/reference/deployments-storage-volumes-create",
+              "hint": "UpdatedAt is the ISO8601 timestamp when this volume was last updated"
+            },
+            {
+              "url": "https://docs.together.ai/reference/deployments-secrets-get",
+              "hint": "LastUpdatedBy is the identifier of the user who last updated this secret"
+            },
+            {
+              "url": "https://docs.together.ai/reference/deployments-secrets-update",
+              "hint": "LastUpdatedBy is the identifier of the user who last updated this secret"
+            }
+          ]
+        }
+      },
+      "samples": {
+        "broken_links": [
+          "https://docs.together.ai/docs/v2-migration-guide"
+        ],
+        "docs_broken_link_samples": [
+          "https://docs.together.ai/docs/v2-migration-guide"
+        ],
+        "repo_broken_link_samples": [],
+        "unverified_link_samples": [],
+        "api_uncovered_samples": [
+          "ep:/batches/{id}",
+          "ep:/clusters/availability-zones",
+          "ep:/compute/clusters/storage/volumes/{volume_id}",
+          "ep:/compute/clusters/{cluster_id}",
+          "ep:/deployments/secrets/{id}",
+          "ep:/deployments/storage/volumes/{id}",
+          "ep:/deployments/storage/{filename}",
+          "ep:/deployments/{id}",
+          "ep:/endpoints/{endpointid}",
+          "ep:/evaluation/{id}",
+          "ep:/files/{id}",
+          "ep:/fine-tunes/estimate-price",
+          "ep:/fine-tunes/models/limits",
+          "ep:/fine-tunes/models/supported",
+          "ep:/fine-tunes/{id}",
+          "ep:/jobs/{jobid}",
+          "ep:/rl/checkpoints/{id}/download",
+          "ep:/rl/training-sessions",
+          "ep:/rl/training-sessions/{session_id}",
+          "ep:/rl/training-sessions/{session_id}/operations/forward-backward"
+        ]
+      },
+      "run_count": 1
+    }
+  ],
+  "aggregate": {
+    "metrics": {
+      "crawl": {
+        "pages_crawled": 231,
+        "requested_pages": 248,
+        "urls_examined": 231,
+        "max_pages_total": 2500,
+        "discovered_pages": 231,
+        "crawl_scope_pages": 230,
+        "trap_urls_skipped": 0,
+        "crawl_coverage_pct": 100.43
+      },
+      "links": {
+        "broken_internal_links_count": 1,
+        "docs_broken_links_count": 1,
+        "repo_broken_links_count": 0,
+        "unverified_links_count": 0,
+        "confirmed_broken_links_count": 1,
+        "excluded_links_count": 0
+      },
+      "seo_geo": {
+        "seo_geo_issue_rate_pct": 12.88
+      },
+      "api_coverage": {
+        "reference_coverage_pct": 31.21,
+        "no_api_pages_found": false,
+        "api_pages_detected": 118,
+        "coverage_determined": true,
+        "detection_note": ""
+      },
+      "examples": {
+        "example_reliability_estimate_pct": 0.0
+      },
+      "freshness": {
+        "last_updated_coverage_pct": 10.82
+      }
+    },
+    "confidence": {
+      "overall_confidence_pct": 91.5,
+      "links_confidence_pct": 95.0,
+      "api_confidence_pct": 85.0,
+      "crawl_confidence_pct": 95.0
+    }
+  },
+  "confidence": {
+    "overall_confidence_pct": 91.5,
+    "links_confidence_pct": 95.0,
+    "api_confidence_pct": 85.0,
+    "crawl_confidence_pct": 95.0
+  },
+  "top_findings": [
+    "Broken internal links: 1",
+    "SEO/GEO issue rate is high: 12.88%",
+    "API usage-doc coverage is low: 31.21% (118 API pages detected)",
+    "Example reliability estimate is low: 0.0%",
+    "Freshness visibility is weak: only 10.82% pages show last updated"
+  ],
+  "llm_analysis": {
+    "status": "ok",
+    "model": "claude-sonnet-4-5",
+    "analysis": {
+      "executive_summary": "Documentation audit of docs.together.ai covered 231 pages with 100.43% crawl coverage and 91.5% overall confidence. Critical gaps identified: only 31.21% of 118 detected API pages have adequate usage documentation, 0.0% example reliability, and 10.82% freshness visibility. SEO/GEO issues affect 12.88% of pages. One confirmed broken internal link detected within user-facing documentation.",
+      "strengths": [
+        "Comprehensive crawl coverage at 100.43% with 231 pages successfully examined",
+        "High overall audit confidence at 91.5% with strong link verification (95.0% confidence)",
+        "No repository navigation broken links; only 1 user-facing broken link detected",
+        "118 API pages successfully detected indicating substantial API documentation presence",
+        "Zero trap URLs or crawl scope issues encountered during audit"
+      ],
+      "risks": [
+        "Zero percent example reliability means code samples may be outdated, broken, or untested",
+        "68.79% of API documentation lacks adequate usage examples or integration guidance",
+        "Only 10.82% of pages display last-updated timestamps, obscuring content freshness for users",
+        "SEO/GEO issues on 12.88% of pages may impact discoverability and search rankings",
+        "1 confirmed broken internal link degrades user navigation experience",
+        "Lack of freshness indicators creates uncertainty about documentation currency for rapidly evolving AI APIs",
+        "Low example reliability combined with poor API coverage creates high friction for developer onboarding"
+      ],
+      "prioritized_actions": [
+        {
+          "action": "Implement automated example testing and validation pipeline for all code samples across 231 pages",
+          "impact": "critical",
+          "effort": "high"
+        },
+        {
+          "action": "Create usage documentation and integration guides for the 81 API pages (68.79%) lacking adequate coverage",
+          "impact": "critical",
+          "effort": "high"
+        },
+        {
+          "action": "Add last-updated timestamps to all 206 pages (89.18%) currently missing freshness indicators",
+          "impact": "high",
+          "effort": "low"
+        },
+        {
+          "action": "Fix the 1 confirmed broken internal link and implement automated link checking in CI/CD",
+          "impact": "medium",
+          "effort": "low"
+        },
+        {
+          "action": "Remediate SEO/GEO issues affecting 30 pages (12.88%) to improve search discoverability",
+          "impact": "medium",
+          "effort": "medium"
+        }
+      ],
+      "limitations": [
+        "External audit cannot verify accuracy of technical content, code correctness, or conceptual explanations",
+        "API coverage detection relies on pattern matching; actual API completeness requires internal schema comparison",
+        "Example reliability estimate cannot execute code or validate against live API endpoints",
+        "Freshness assessment based only on visible timestamps; cannot detect silent content updates without metadata",
+        "User experience quality, clarity, and developer satisfaction require human evaluation beyond automated metrics"
+      ]
+    }
+  }
+}

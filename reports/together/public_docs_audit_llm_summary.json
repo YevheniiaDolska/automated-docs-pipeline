@@ -1,0 +1,57 @@
+{
+  "status": "ok",
+  "model": "claude-sonnet-4-5",
+  "analysis": {
+    "executive_summary": "Documentation audit of docs.together.ai covered 231 pages with 100.43% crawl coverage and 91.5% overall confidence. Critical gaps identified: only 31.21% of 118 detected API pages have adequate usage documentation, 0.0% example reliability, and 10.82% freshness visibility. SEO/GEO issues affect 12.88% of pages. One confirmed broken internal link detected within user-facing documentation.",
+    "strengths": [
+      "Comprehensive crawl coverage at 100.43% with 231 pages successfully examined",
+      "High overall audit confidence at 91.5% with strong link verification (95.0% confidence)",
+      "No repository navigation broken links; only 1 user-facing broken link detected",
+      "118 API pages successfully detected indicating substantial API documentation presence",
+      "Zero trap URLs or crawl scope issues encountered during audit"
+    ],
+    "risks": [
+      "Zero percent example reliability means code samples may be outdated, broken, or untested",
+      "68.79% of API documentation lacks adequate usage examples or integration guidance",
+      "Only 10.82% of pages display last-updated timestamps, obscuring content freshness for users",
+      "SEO/GEO issues on 12.88% of pages may impact discoverability and search rankings",
+      "1 confirmed broken internal link degrades user navigation experience",
+      "Lack of freshness indicators creates uncertainty about documentation currency for rapidly evolving AI APIs",
+      "Low example reliability combined with poor API coverage creates high friction for developer onboarding"
+    ],
+    "prioritized_actions": [
+      {
+        "action": "Implement automated example testing and validation pipeline for all code samples across 231 pages",
+        "impact": "critical",
+        "effort": "high"
+      },
+      {
+        "action": "Create usage documentation and integration guides for the 81 API pages (68.79%) lacking adequate coverage",
+        "impact": "critical",
+        "effort": "high"
+      },
+      {
+        "action": "Add last-updated timestamps to all 206 pages (89.18%) currently missing freshness indicators",
+        "impact": "high",
+        "effort": "low"
+      },
+      {
+        "action": "Fix the 1 confirmed broken internal link and implement automated link checking in CI/CD",
+        "impact": "medium",
+        "effort": "low"
+      },
+      {
+        "action": "Remediate SEO/GEO issues affecting 30 pages (12.88%) to improve search discoverability",
+        "impact": "medium",
+        "effort": "medium"
+      }
+    ],
+    "limitations": [
+      "External audit cannot verify accuracy of technical content, code correctness, or conceptual explanations",
+      "API coverage detection relies on pattern matching; actual API completeness requires internal schema comparison",
+      "Example reliability estimate cannot execute code or validate against live API endpoints",
+      "Freshness assessment based only on visible timestamps; cannot detect silent content updates without metadata",
+      "User experience quality, clarity, and developer satisfaction require human evaluation beyond automated metrics"
+    ]
+  }
+}

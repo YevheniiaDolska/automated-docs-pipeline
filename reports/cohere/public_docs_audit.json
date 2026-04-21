@@ -1,0 +1,496 @@
+{
+  "generated_at": "2026-04-21T07:45:17.440404+00:00",
+  "site_url": "https://docs.cohere.com/",
+  "site_urls": [
+    "https://docs.cohere.com/"
+  ],
+  "topology_mode": "single-product",
+  "verification_modes": [
+    "authenticated",
+    "bot",
+    "browser"
+  ],
+  "sites": [
+    {
+      "site_url": "https://docs.cohere.com/",
+      "metrics": {
+        "crawl": {
+          "pages_crawled": 220,
+          "requested_pages": 381,
+          "urls_examined": 223,
+          "max_pages": 2500,
+          "effective_limit": 2500,
+          "auto_mode": false,
+          "stop_reason": "queue_exhausted",
+          "discovered_pages": 223,
+          "crawl_scope_basis": "sitemap",
+          "crawl_scope_pages": 223,
+          "crawl_coverage_pct": 100.0,
+          "trap_urls_skipped": 48,
+          "seeded_sitemap_urls": 223,
+          "robots_sitemaps_declared": 1
+        },
+        "links": {
+          "internal_links_checked": 381,
+          "broken_internal_links_count": 16,
+          "docs_broken_links_count": 16,
+          "repo_broken_links_count": 0,
+          "broken_internal_link_samples": [
+            "https://docs.cohere.com/_/docs.cohere.com/_/_/_/changelog/docs/transcribe",
+            "https://docs.cohere.com/_/docs.cohere.com/_/_/_/changelog/reference/create-audio-transcription",
+            "https://docs.cohere.com/_/docs.cohere.com/_/_/_/docs/aya",
+            "https://docs.cohere.com/_/docs.cohere.com/_/_/_/docs/cohere-embed",
+            "https://docs.cohere.com/_/docs.cohere.com/_/_/_/docs/command-r7b",
+            "https://docs.cohere.com/_/docs.cohere.com/_/_/_/docs/datasets",
+            "https://docs.cohere.com/_/docs.cohere.com/_/_/_/docs/deprecations",
+            "https://docs.cohere.com/_/docs.cohere.com/_/_/_/docs/fine-tuning",
+            "https://docs.cohere.com/_/docs.cohere.com/_/_/_/docs/introduction-to-text-generation-at-cohere",
+            "https://docs.cohere.com/_/docs.cohere.com/_/_/_/docs/model-vault",
+            "https://docs.cohere.com/_/docs.cohere.com/_/_/_/docs/multi-step-tool-use",
+            "https://docs.cohere.com/_/docs.cohere.com/_/_/_/docs/rate-limits",
+            "https://docs.cohere.com/_/docs.cohere.com/_/_/_/docs/rerank",
+            "https://docs.cohere.com/_/docs.cohere.com/_/_/_/docs/semantic-search-embed",
+            "https://docs.cohere.com/_/docs.cohere.com/_/_/_/docs/the-cohere-platform",
+            "https://docs.cohere.com/_/docs.cohere.com/_/_/_/docs/transcribe"
+          ],
+          "docs_broken_link_samples": [
+            "https://docs.cohere.com/_/docs.cohere.com/_/_/_/changelog/docs/transcribe",
+            "https://docs.cohere.com/_/docs.cohere.com/_/_/_/changelog/reference/create-audio-transcription",
+            "https://docs.cohere.com/_/docs.cohere.com/_/_/_/docs/aya",
+            "https://docs.cohere.com/_/docs.cohere.com/_/_/_/docs/cohere-embed",
+            "https://docs.cohere.com/_/docs.cohere.com/_/_/_/docs/command-r7b",
+            "https://docs.cohere.com/_/docs.cohere.com/_/_/_/docs/datasets",
+            "https://docs.cohere.com/_/docs.cohere.com/_/_/_/docs/deprecations",
+            "https://docs.cohere.com/_/docs.cohere.com/_/_/_/docs/fine-tuning",
+            "https://docs.cohere.com/_/docs.cohere.com/_/_/_/docs/introduction-to-text-generation-at-cohere",
+            "https://docs.cohere.com/_/docs.cohere.com/_/_/_/docs/model-vault",
+            "https://docs.cohere.com/_/docs.cohere.com/_/_/_/docs/multi-step-tool-use",
+            "https://docs.cohere.com/_/docs.cohere.com/_/_/_/docs/rate-limits",
+            "https://docs.cohere.com/_/docs.cohere.com/_/_/_/docs/rerank",
+            "https://docs.cohere.com/_/docs.cohere.com/_/_/_/docs/semantic-search-embed",
+            "https://docs.cohere.com/_/docs.cohere.com/_/_/_/docs/the-cohere-platform",
+            "https://docs.cohere.com/_/docs.cohere.com/_/_/_/docs/transcribe"
+          ],
+          "repo_broken_link_samples": [],
+          "unreachable_links_count": 3,
+          "unverified_links_count": 8,
+          "unverified_link_samples": [
+            "https://docs.cohere.com/_/docs.cohere.com/_/_/_/docs/retrieval-augmented-generation-rag",
+            "https://docs.cohere.com/_/docs.cohere.com/_/_/_/docs/tool-use-overview",
+            "https://docs.cohere.com/docs/managing-your-connector",
+            "https://docs.cohere.com/docs/prompt-truncation",
+            "https://docs.cohere.com/reference/get-dataset",
+            "https://docs.cohere.com/reference/list-batches",
+            "https://docs.cohere.com/reference/list-datasets",
+            "https://docs.cohere.com/temperature-wiki"
+          ],
+          "confirmed_broken_links_count": 16,
+          "excluded_links_count": 0,
+          "excluded_link_samples": [],
+          "_all_confirmed_broken_links": [
+            "https://docs.cohere.com/_/docs.cohere.com/_/_/_/changelog/docs/transcribe",
+            "https://docs.cohere.com/_/docs.cohere.com/_/_/_/changelog/reference/create-audio-transcription",
+            "https://docs.cohere.com/_/docs.cohere.com/_/_/_/docs/aya",
+            "https://docs.cohere.com/_/docs.cohere.com/_/_/_/docs/cohere-embed",
+            "https://docs.cohere.com/_/docs.cohere.com/_/_/_/docs/command-r7b",
+            "https://docs.cohere.com/_/docs.cohere.com/_/_/_/docs/datasets",
+            "https://docs.cohere.com/_/docs.cohere.com/_/_/_/docs/deprecations",
+            "https://docs.cohere.com/_/docs.cohere.com/_/_/_/docs/fine-tuning",
+            "https://docs.cohere.com/_/docs.cohere.com/_/_/_/docs/introduction-to-text-generation-at-cohere",
+            "https://docs.cohere.com/_/docs.cohere.com/_/_/_/docs/model-vault",
+            "https://docs.cohere.com/_/docs.cohere.com/_/_/_/docs/multi-step-tool-use",
+            "https://docs.cohere.com/_/docs.cohere.com/_/_/_/docs/rate-limits",
+            "https://docs.cohere.com/_/docs.cohere.com/_/_/_/docs/rerank",
+            "https://docs.cohere.com/_/docs.cohere.com/_/_/_/docs/semantic-search-embed",
+            "https://docs.cohere.com/_/docs.cohere.com/_/_/_/docs/the-cohere-platform",
+            "https://docs.cohere.com/_/docs.cohere.com/_/_/_/docs/transcribe"
+          ],
+          "_all_unverified_links": [
+            "https://docs.cohere.com/_/docs.cohere.com/_/_/_/docs/retrieval-augmented-generation-rag",
+            "https://docs.cohere.com/_/docs.cohere.com/_/_/_/docs/tool-use-overview",
+            "https://docs.cohere.com/docs/managing-your-connector",
+            "https://docs.cohere.com/docs/prompt-truncation",
+            "https://docs.cohere.com/reference/get-dataset",
+            "https://docs.cohere.com/reference/list-batches",
+            "https://docs.cohere.com/reference/list-datasets",
+            "https://docs.cohere.com/temperature-wiki"
+          ],
+          "_all_excluded_links": [],
+          "_all_docs_unverified_links": [
+            "https://docs.cohere.com/_/docs.cohere.com/_/_/_/docs/retrieval-augmented-generation-rag",
+            "https://docs.cohere.com/_/docs.cohere.com/_/_/_/docs/tool-use-overview",
+            "https://docs.cohere.com/docs/managing-your-connector",
+            "https://docs.cohere.com/docs/prompt-truncation",
+            "https://docs.cohere.com/reference/get-dataset",
+            "https://docs.cohere.com/reference/list-batches",
+            "https://docs.cohere.com/reference/list-datasets",
+            "https://docs.cohere.com/temperature-wiki"
+          ],
+          "_all_repo_unverified_links": [],
+          "_broken_link_provenance": {
+            "https://docs.cohere.com/_/docs.cohere.com/_/_/_/changelog/docs/transcribe": [
+              {
+                "source_page": "https://docs.cohere.com/changelog",
+                "anchor_text": "Cohere Transcribe"
+              }
+            ],
+            "https://docs.cohere.com/_/docs.cohere.com/_/_/_/changelog/reference/create-audio-transcription": [
+              {
+                "source_page": "https://docs.cohere.com/changelog",
+                "anchor_text": "Audio Transcriptions API"
+              },
+              {
+                "source_page": "https://docs.cohere.com/changelog",
+                "anchor_text": "Audio Transcriptions API endpoint"
+              }
+            ],
+            "https://docs.cohere.com/_/docs.cohere.com/_/_/_/docs/aya": [
+              {
+                "source_page": "https://docs.cohere.com/reference/about",
+                "anchor_text": "Aya"
+              }
+            ],
+            "https://docs.cohere.com/_/docs.cohere.com/_/_/_/docs/cohere-embed": [
+              {
+                "source_page": "https://docs.cohere.com/reference/about",
+                "anchor_text": "Embed"
+              }
+            ],
+            "https://docs.cohere.com/_/docs.cohere.com/_/_/_/docs/command-r7b": [
+              {
+                "source_page": "https://docs.cohere.com/reference/about",
+                "anchor_text": "Command"
+              }
+            ],
+            "https://docs.cohere.com/_/docs.cohere.com/_/_/_/docs/datasets": [
+              {
+                "source_page": "https://docs.cohere.com/docs/datasets",
+                "anchor_text": "table below"
+              }
+            ],
+            "https://docs.cohere.com/_/docs.cohere.com/_/_/_/docs/deprecations": [
+              {
+                "source_page": "https://docs.cohere.com/changelog",
+                "anchor_text": "Deprecations"
+              }
+            ],
+            "https://docs.cohere.com/_/docs.cohere.com/_/_/_/docs/fine-tuning": [
+              {
+                "source_page": "https://docs.cohere.com/reference/about",
+                "anchor_text": "train a custom model"
+              }
+            ],
+            "https://docs.cohere.com/_/docs.cohere.com/_/_/_/docs/introduction-to-text-generation-at-cohere": [
+              {
+                "source_page": "https://docs.cohere.com/reference/about",
+                "anchor_text": "content generation"
+              }
+            ],
+            "https://docs.cohere.com/_/docs.cohere.com/_/_/_/docs/model-vault": [
+              {
+                "source_page": "https://docs.cohere.com/changelog",
+                "anchor_text": "Model Vault"
+              }
+            ],
+            "https://docs.cohere.com/_/docs.cohere.com/_/_/_/docs/multi-step-tool-use": [
+              {
+                "source_page": "https://docs.cohere.com/reference/about",
+                "anchor_text": "agents"
+              }
+            ],
+            "https://docs.cohere.com/_/docs.cohere.com/_/_/_/docs/rate-limits": [
+              {
+                "source_page": "https://docs.cohere.com/changelog",
+                "anchor_text": "Different Types of API Keys and Rate Limits"
+              },
+              {
+                "source_page": "https://docs.cohere.com/reference/about",
+                "anchor_text": "API pricing"
+              }
+            ],
+            "https://docs.cohere.com/_/docs.cohere.com/_/_/_/docs/rerank": [
+              {
+                "source_page": "https://docs.cohere.com/reference/about",
+                "anchor_text": "Rerank"
+              }
+            ],
+            "https://docs.cohere.com/_/docs.cohere.com/_/_/_/docs/semantic-search-embed": [
+              {
+                "source_page": "https://docs.cohere.com/reference/about",
+                "anchor_text": "semantic search"
+              }
+            ],
+            "https://docs.cohere.com/_/docs.cohere.com/_/_/_/docs/the-cohere-platform": [
+              {
+                "source_page": "https://docs.cohere.com/reference/about",
+                "anchor_text": "large language models"
+              },
+              {
+                "source_page": "https://docs.cohere.com/reference/about",
+                "anchor_text": "our documentation"
+              }
+            ],
+            "https://docs.cohere.com/_/docs.cohere.com/_/_/_/docs/transcribe": [
+              {
+                "source_page": "https://docs.cohere.com/reference/about",
+                "anchor_text": "Cohere Transcribe"
+              }
+            ]
+          }
+        },
+        "seo_geo": {
+          "pages_scanned": 220,
+          "missing_title_count": 0,
+          "missing_description_count": 1,
+          "multiple_h1_count": 18,
+          "heading_hierarchy_jump_count": 203,
+          "seo_geo_issue_rate_pct": 25.23
+        },
+        "api_coverage": {
+          "reference_endpoint_count": 9,
+          "api_pages_detected": 78,
+          "endpoints_with_usage_docs": 5,
+          "reference_endpoints_without_usage_docs": 4,
+          "reference_coverage_pct": 55.56,
+          "no_api_pages_found": false,
+          "coverage_determined": true,
+          "coverage_method": "source_of_truth",
+          "detection_note": "",
+          "uncovered_endpoint_samples": [
+            "gql:configurations",
+            "gql:definition",
+            "gql:may",
+            "gql:results"
+          ]
+        },
+        "examples": {
+          "total_code_examples": 0,
+          "total_code_blocks_all": 1958,
+          "runnable_without_env": 0,
+          "blocked_by_placeholders": 0,
+          "network_bound_examples": 0,
+          "example_reliability_estimate_pct": 0.0,
+          "detection_note": "No executable code blocks detected (1958 data-only blocks found). Site may use non-standard code rendering that the auditor does not recognize, or all examples are in data formats (YAML/JSON)."
+        },
+        "freshness": {
+          "pages_with_last_updated_hint": 37,
+          "pages_without_last_updated_hint": 183,
+          "last_updated_coverage_pct": 16.82,
+          "samples_with_last_updated": [
+            {
+              "url": "https://docs.cohere.com/changelog",
+              "hint": "March 26, 2026"
+            },
+            {
+              "url": "https://docs.cohere.com/docs/building-an-agent-with-cohere",
+              "hint": "\"date\": \"2024-06-24\","
+            },
+            {
+              "url": "https://docs.cohere.com/docs/cohere-on-azure/azure-ai-reranking",
+              "hint": "\"date\": \"2024-06-24\","
+            },
+            {
+              "url": "https://docs.cohere.com/docs/cohere-on-azure/azure-ai-tool-use",
+              "hint": "\"date\": \"2024-06-24\","
+            },
+            {
+              "url": "https://docs.cohere.com/docs/command-a-reasoning",
+              "hint": "June 1, 2024"
+            },
+            {
+              "url": "https://docs.cohere.com/docs/command-a",
+              "hint": "June 1, 2024"
+            },
+            {
+              "url": "https://docs.cohere.com/docs/command-a-translate",
+              "hint": "June 1, 2024"
+            },
+            {
+              "url": "https://docs.cohere.com/docs/command-r-plus",
+              "hint": "June 1, 2024"
+            },
+            {
+              "url": "https://docs.cohere.com/docs/command-r",
+              "hint": "June 1, 2024"
+            },
+            {
+              "url": "https://docs.cohere.com/docs/command-r7b",
+              "hint": "June 1, 2024"
+            }
+          ]
+        }
+      },
+      "samples": {
+        "broken_links": [
+          "https://docs.cohere.com/_/docs.cohere.com/_/_/_/changelog/docs/transcribe",
+          "https://docs.cohere.com/_/docs.cohere.com/_/_/_/changelog/reference/create-audio-transcription",
+          "https://docs.cohere.com/_/docs.cohere.com/_/_/_/docs/aya",
+          "https://docs.cohere.com/_/docs.cohere.com/_/_/_/docs/cohere-embed",
+          "https://docs.cohere.com/_/docs.cohere.com/_/_/_/docs/command-r7b",
+          "https://docs.cohere.com/_/docs.cohere.com/_/_/_/docs/datasets",
+          "https://docs.cohere.com/_/docs.cohere.com/_/_/_/docs/deprecations",
+          "https://docs.cohere.com/_/docs.cohere.com/_/_/_/docs/fine-tuning",
+          "https://docs.cohere.com/_/docs.cohere.com/_/_/_/docs/introduction-to-text-generation-at-cohere",
+          "https://docs.cohere.com/_/docs.cohere.com/_/_/_/docs/model-vault",
+          "https://docs.cohere.com/_/docs.cohere.com/_/_/_/docs/multi-step-tool-use",
+          "https://docs.cohere.com/_/docs.cohere.com/_/_/_/docs/rate-limits",
+          "https://docs.cohere.com/_/docs.cohere.com/_/_/_/docs/rerank",
+          "https://docs.cohere.com/_/docs.cohere.com/_/_/_/docs/semantic-search-embed",
+          "https://docs.cohere.com/_/docs.cohere.com/_/_/_/docs/the-cohere-platform",
+          "https://docs.cohere.com/_/docs.cohere.com/_/_/_/docs/transcribe"
+        ],
+        "docs_broken_link_samples": [
+          "https://docs.cohere.com/_/docs.cohere.com/_/_/_/changelog/docs/transcribe",
+          "https://docs.cohere.com/_/docs.cohere.com/_/_/_/changelog/reference/create-audio-transcription",
+          "https://docs.cohere.com/_/docs.cohere.com/_/_/_/docs/aya",
+          "https://docs.cohere.com/_/docs.cohere.com/_/_/_/docs/cohere-embed",
+          "https://docs.cohere.com/_/docs.cohere.com/_/_/_/docs/command-r7b",
+          "https://docs.cohere.com/_/docs.cohere.com/_/_/_/docs/datasets",
+          "https://docs.cohere.com/_/docs.cohere.com/_/_/_/docs/deprecations",
+          "https://docs.cohere.com/_/docs.cohere.com/_/_/_/docs/fine-tuning",
+          "https://docs.cohere.com/_/docs.cohere.com/_/_/_/docs/introduction-to-text-generation-at-cohere",
+          "https://docs.cohere.com/_/docs.cohere.com/_/_/_/docs/model-vault",
+          "https://docs.cohere.com/_/docs.cohere.com/_/_/_/docs/multi-step-tool-use",
+          "https://docs.cohere.com/_/docs.cohere.com/_/_/_/docs/rate-limits",
+          "https://docs.cohere.com/_/docs.cohere.com/_/_/_/docs/rerank",
+          "https://docs.cohere.com/_/docs.cohere.com/_/_/_/docs/semantic-search-embed",
+          "https://docs.cohere.com/_/docs.cohere.com/_/_/_/docs/the-cohere-platform",
+          "https://docs.cohere.com/_/docs.cohere.com/_/_/_/docs/transcribe"
+        ],
+        "repo_broken_link_samples": [],
+        "unverified_link_samples": [
+          "https://docs.cohere.com/_/docs.cohere.com/_/_/_/docs/retrieval-augmented-generation-rag",
+          "https://docs.cohere.com/_/docs.cohere.com/_/_/_/docs/tool-use-overview",
+          "https://docs.cohere.com/docs/managing-your-connector",
+          "https://docs.cohere.com/docs/prompt-truncation",
+          "https://docs.cohere.com/reference/get-dataset",
+          "https://docs.cohere.com/reference/list-batches",
+          "https://docs.cohere.com/reference/list-datasets",
+          "https://docs.cohere.com/temperature-wiki"
+        ],
+        "api_uncovered_samples": [
+          "gql:configurations",
+          "gql:definition",
+          "gql:may",
+          "gql:results"
+        ]
+      },
+      "run_count": 1
+    }
+  ],
+  "aggregate": {
+    "metrics": {
+      "crawl": {
+        "pages_crawled": 220,
+        "requested_pages": 381,
+        "urls_examined": 223,
+        "max_pages_total": 2500,
+        "discovered_pages": 223,
+        "crawl_scope_pages": 223,
+        "trap_urls_skipped": 48,
+        "crawl_coverage_pct": 100.0
+      },
+      "links": {
+        "broken_internal_links_count": 16,
+        "docs_broken_links_count": 16,
+        "repo_broken_links_count": 0,
+        "unverified_links_count": 8,
+        "confirmed_broken_links_count": 16,
+        "excluded_links_count": 0
+      },
+      "seo_geo": {
+        "seo_geo_issue_rate_pct": 25.23
+      },
+      "api_coverage": {
+        "reference_coverage_pct": 55.56,
+        "no_api_pages_found": false,
+        "api_pages_detected": 78,
+        "coverage_determined": true,
+        "detection_note": ""
+      },
+      "examples": {
+        "example_reliability_estimate_pct": 0.0
+      },
+      "freshness": {
+        "last_updated_coverage_pct": 16.82
+      }
+    },
+    "confidence": {
+      "overall_confidence_pct": 78.17,
+      "links_confidence_pct": 61.67,
+      "api_confidence_pct": 85.0,
+      "crawl_confidence_pct": 95.0
+    }
+  },
+  "confidence": {
+    "overall_confidence_pct": 78.17,
+    "links_confidence_pct": 61.67,
+    "api_confidence_pct": 85.0,
+    "crawl_confidence_pct": 95.0
+  },
+  "top_findings": [
+    "Broken internal links: 16",
+    "Link verification inconclusive for 8 URLs (auth/rate-limit/server block); these are excluded from broken-link counts.",
+    "SEO/GEO issue rate is high: 25.23%",
+    "API usage-doc coverage is low: 55.56% (78 API pages detected)",
+    "Example reliability estimate is low: 0.0%",
+    "Freshness visibility is weak: only 16.82% pages show last updated"
+  ],
+  "llm_analysis": {
+    "status": "ok",
+    "model": "claude-sonnet-4-5",
+    "analysis": {
+      "executive_summary": "Audit of docs.cohere.com crawled 220 pages with 100% coverage of discovered scope (223 pages). Documentation contains 16 confirmed broken internal links affecting user-facing content. API reference coverage stands at 55.56% across 78 detected API pages. Example code reliability scored 0.0%, and only 16.82% of pages display last-updated metadata. SEO/geo issues affect 25.23% of pages, indicating significant discoverability and localization gaps.",
+      "strengths": [
+        "Complete crawl coverage achieved (100%) within discovered scope",
+        "No repository navigation link breakage detected",
+        "API page detection successful with 78 pages identified and 85% detection confidence",
+        "Overall audit confidence at 78.17% provides reliable baseline",
+        "Single-product topology simplifies maintenance and governance"
+      ],
+      "risks": [
+        "16 broken internal links in user-facing documentation degrade user experience and trust",
+        "API reference coverage at 55.56% leaves nearly half of API surface undocumented or orphaned",
+        "Example code reliability at 0.0% suggests no executable validation or testing infrastructure",
+        "Only 16.82% freshness visibility prevents users from assessing content currency",
+        "SEO/geo issue rate of 25.23% significantly impairs search discoverability and international reach",
+        "8 unverified links due to auth/rate-limit blocks may hide additional broken references",
+        "Link verification confidence at 61.67% indicates moderate uncertainty in link health assessment"
+      ],
+      "prioritized_actions": [
+        {
+          "action": "Repair all 16 confirmed broken internal links in user-facing documentation",
+          "impact": "critical",
+          "effort": "low"
+        },
+        {
+          "action": "Implement automated example code testing to raise reliability from 0.0% to measurable threshold",
+          "impact": "critical",
+          "effort": "high"
+        },
+        {
+          "action": "Audit and document missing API endpoints to increase coverage from 55.56% to 85%+",
+          "impact": "high",
+          "effort": "high"
+        },
+        {
+          "action": "Add last-updated timestamps to all pages (currently 16.82% coverage)",
+          "impact": "high",
+          "effort": "medium"
+        },
+        {
+          "action": "Resolve SEO/geo issues affecting 25.23% of pages (meta tags, descriptions, localization)",
+          "impact": "medium",
+          "effort": "medium"
+        }
+      ],
+      "limitations": [
+        "External audit cannot verify content accuracy, technical correctness, or completeness of explanations",
+        "8 links blocked by authentication or rate-limiting could not be verified and may include additional broken references",
+        "Example reliability at 0.0% may indicate detection limitations rather than actual code quality if examples exist but are not machine-testable",
+        "Crawl discovered only 223 pages; undiscoverable or unlisted content outside navigation is not assessed",
+        "API coverage measurement depends on heuristic detection; actual API surface may differ from detected pages"
+      ]
+    }
+  }
+}

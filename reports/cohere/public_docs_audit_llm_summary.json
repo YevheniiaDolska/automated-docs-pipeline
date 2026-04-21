@@ -1,0 +1,57 @@
+{
+  "status": "ok",
+  "model": "claude-sonnet-4-5",
+  "analysis": {
+    "executive_summary": "Audit of docs.cohere.com crawled 220 pages with 100% coverage of discovered scope (223 pages). Documentation contains 16 confirmed broken internal links affecting user-facing content. API reference coverage stands at 55.56% across 78 detected API pages. Example code reliability scored 0.0%, and only 16.82% of pages display last-updated metadata. SEO/geo issues affect 25.23% of pages, indicating significant discoverability and localization gaps.",
+    "strengths": [
+      "Complete crawl coverage achieved (100%) within discovered scope",
+      "No repository navigation link breakage detected",
+      "API page detection successful with 78 pages identified and 85% detection confidence",
+      "Overall audit confidence at 78.17% provides reliable baseline",
+      "Single-product topology simplifies maintenance and governance"
+    ],
+    "risks": [
+      "16 broken internal links in user-facing documentation degrade user experience and trust",
+      "API reference coverage at 55.56% leaves nearly half of API surface undocumented or orphaned",
+      "Example code reliability at 0.0% suggests no executable validation or testing infrastructure",
+      "Only 16.82% freshness visibility prevents users from assessing content currency",
+      "SEO/geo issue rate of 25.23% significantly impairs search discoverability and international reach",
+      "8 unverified links due to auth/rate-limit blocks may hide additional broken references",
+      "Link verification confidence at 61.67% indicates moderate uncertainty in link health assessment"
+    ],
+    "prioritized_actions": [
+      {
+        "action": "Repair all 16 confirmed broken internal links in user-facing documentation",
+        "impact": "critical",
+        "effort": "low"
+      },
+      {
+        "action": "Implement automated example code testing to raise reliability from 0.0% to measurable threshold",
+        "impact": "critical",
+        "effort": "high"
+      },
+      {
+        "action": "Audit and document missing API endpoints to increase coverage from 55.56% to 85%+",
+        "impact": "high",
+        "effort": "high"
+      },
+      {
+        "action": "Add last-updated timestamps to all pages (currently 16.82% coverage)",
+        "impact": "high",
+        "effort": "medium"
+      },
+      {
+        "action": "Resolve SEO/geo issues affecting 25.23% of pages (meta tags, descriptions, localization)",
+        "impact": "medium",
+        "effort": "medium"
+      }
+    ],
+    "limitations": [
+      "External audit cannot verify content accuracy, technical correctness, or completeness of explanations",
+      "8 links blocked by authentication or rate-limiting could not be verified and may include additional broken references",
+      "Example reliability at 0.0% may indicate detection limitations rather than actual code quality if examples exist but are not machine-testable",
+      "Crawl discovered only 223 pages; undiscoverable or unlisted content outside navigation is not assessed",
+      "API coverage measurement depends on heuristic detection; actual API surface may differ from detected pages"
+    ]
+  }
+}

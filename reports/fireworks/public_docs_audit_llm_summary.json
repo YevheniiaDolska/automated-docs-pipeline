@@ -1,0 +1,57 @@
+{
+  "status": "ok",
+  "model": "claude-sonnet-4-5",
+  "analysis": {
+    "executive_summary": "Documentation audit of docs.fireworks.ai covered 353 pages with 100.28% crawl coverage and 91.5% overall confidence. Critical issues include 2 confirmed broken internal documentation links, 24.65% SEO/geo issue rate, and 0% example reliability estimate. API reference coverage stands at 71.27% across 159 detected API pages. Freshness metadata is present on only 1.7% of pages, severely limiting visibility into content currency.",
+    "strengths": [
+      "Complete crawl coverage (100.28%) with 353 pages successfully examined",
+      "Strong API documentation presence with 159 API pages detected and 71.27% reference coverage",
+      "High overall audit confidence at 91.5% with strong link verification (95%) and crawl confidence (95%)",
+      "No repository navigation broken links (repo_broken_links_count: 0), indicating clean internal infrastructure",
+      "Zero trap URLs or crawl scope issues across 365 requested pages"
+    ],
+    "risks": [
+      "Zero example reliability (0.0%) indicates code examples are untested, outdated, or detection failed entirely",
+      "24.65% SEO/geo issue rate threatens discoverability and search ranking for quarter of documentation",
+      "2 confirmed broken internal documentation links create poor user experience and navigation dead-ends",
+      "Freshness metadata on only 1.7% of pages prevents users from assessing content currency and trustworthiness",
+      "28.73% API reference gap leaves significant portion of API surface undocumented or undetected",
+      "85% API confidence suggests potential detection limitations in API page classification",
+      "Multi-project topology without version control visibility may hide documentation drift across product lines"
+    ],
+    "prioritized_actions": [
+      {
+        "action": "Implement automated example testing pipeline to validate all code samples and establish baseline reliability metric",
+        "impact": "critical",
+        "effort": "high"
+      },
+      {
+        "action": "Fix 2 confirmed broken internal documentation links and establish link monitoring to prevent future breakage",
+        "impact": "high",
+        "effort": "low"
+      },
+      {
+        "action": "Add last-updated timestamps to all 353 pages (currently 1.7% coverage) using automated git commit date injection",
+        "impact": "high",
+        "effort": "medium"
+      },
+      {
+        "action": "Audit and remediate SEO/geo issues affecting 87 pages (24.65%) focusing on meta descriptions, titles, and structured data",
+        "impact": "high",
+        "effort": "medium"
+      },
+      {
+        "action": "Close 28.73% API reference gap by documenting missing endpoints or improving API page detection patterns",
+        "impact": "medium",
+        "effort": "high"
+      }
+    ],
+    "limitations": [
+      "External audit cannot verify accuracy of technical content, code example correctness, or alignment with actual API behavior",
+      "0% example reliability may indicate detection methodology limitations rather than actual example quality issues",
+      "Freshness assessment limited to visible metadata; cannot determine actual content update recency from git history or CMS",
+      "API coverage detection at 85% confidence suggests some API pages may be misclassified or use non-standard documentation patterns",
+      "Cannot assess documentation completeness against actual product feature set or internal engineering specifications"
+    ]
+  }
+}
