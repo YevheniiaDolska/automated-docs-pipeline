@@ -229,5 +229,10 @@ Use it together with [Deployment Runbook](deploy/production-runbook.md).
 - [x] Versioned RAG index lifecycle supports reindex + promote/rollback + retention policy.
 - [x] Weekly/autopipeline/API-first/multi-protocol flows enforce RAG optimization layer automatically.
 - [x] Egress metadata policy is enforced with local audit trail (`reports/llm_egress_log.json`).
-- [ ] Full cloud/hybrid/strict-local E2E run executed on staging from clean release commit.
-- [ ] Staging RAG alerts and thresholds validated under live load profile.
+- [x] Full cloud/hybrid/strict-local E2E run executed on staging from clean release commit.
+- [x] Staging RAG alerts and thresholds validated under live load profile.
+
+Evidence (2026-04-21):
+
+- Staging deploy commit: `fd95dcd` (`fix(rag): keep metrics endpoint alive when snapshot write fails`) deployed to `/opt/veridoc-staging`.
+- Live-load artifacts: `reports/staging-rag-gate-20260421/summary.md` and JSON/code outputs in the same folder.
