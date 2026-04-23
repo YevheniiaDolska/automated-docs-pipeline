@@ -295,6 +295,7 @@ integrations:
     upload_on_weekly: false
     app_id_env: ALGOLIA_APP_ID
     api_key_env: ALGOLIA_API_KEY
+    search_api_key_env: ALGOLIA_SEARCH_API_KEY
     index_name_env: ALGOLIA_INDEX_NAME
     index_name_default: docs
     site_generator: mkdocs

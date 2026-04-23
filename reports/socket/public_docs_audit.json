@@ -1,0 +1,371 @@
+{
+  "generated_at": "2026-04-22T10:10:50.362625+00:00",
+  "site_url": "https://docs.socket.dev/",
+  "site_urls": [
+    "https://docs.socket.dev/"
+  ],
+  "topology_mode": "single-product",
+  "verification_modes": [
+    "authenticated",
+    "bot",
+    "browser"
+  ],
+  "sites": [
+    {
+      "site_url": "https://docs.socket.dev/",
+      "metrics": {
+        "crawl": {
+          "pages_crawled": 217,
+          "requested_pages": 235,
+          "urls_examined": 217,
+          "max_pages": 5000,
+          "effective_limit": 5000,
+          "auto_mode": false,
+          "stop_reason": "queue_exhausted",
+          "discovered_pages": 217,
+          "crawl_scope_basis": "sitemap",
+          "crawl_scope_pages": 216,
+          "crawl_coverage_pct": 100.46,
+          "trap_urls_skipped": 1,
+          "seeded_sitemap_urls": 216,
+          "robots_sitemaps_declared": 1
+        },
+        "links": {
+          "internal_links_checked": 235,
+          "broken_internal_links_count": 7,
+          "docs_broken_links_count": 7,
+          "repo_broken_links_count": 0,
+          "broken_internal_link_samples": [
+            "https://docs.socket.dev/cdn-cgi/l/email-protection",
+            "https://docs.socket.dev/docs/Artifactory",
+            "https://docs.socket.dev/docs/Configuration",
+            "https://docs.socket.dev/docs/api",
+            "https://docs.socket.dev/docs/overview.md",
+            "https://docs.socket.dev/docs/socket-info",
+            "https://docs.socket.dev/integrations"
+          ],
+          "docs_broken_link_samples": [
+            "https://docs.socket.dev/cdn-cgi/l/email-protection",
+            "https://docs.socket.dev/docs/Artifactory",
+            "https://docs.socket.dev/docs/Configuration",
+            "https://docs.socket.dev/docs/api",
+            "https://docs.socket.dev/docs/overview.md",
+            "https://docs.socket.dev/docs/socket-info",
+            "https://docs.socket.dev/integrations"
+          ],
+          "repo_broken_link_samples": [],
+          "unreachable_links_count": 0,
+          "unverified_links_count": 0,
+          "unverified_link_samples": [],
+          "confirmed_broken_links_count": 7,
+          "excluded_links_count": 1,
+          "excluded_link_samples": [
+            "https://docs.socket.dev/reference/searchdependencies"
+          ],
+          "_all_confirmed_broken_links": [
+            "https://docs.socket.dev/cdn-cgi/l/email-protection",
+            "https://docs.socket.dev/docs/Artifactory",
+            "https://docs.socket.dev/docs/Configuration",
+            "https://docs.socket.dev/docs/api",
+            "https://docs.socket.dev/docs/overview.md",
+            "https://docs.socket.dev/docs/socket-info",
+            "https://docs.socket.dev/integrations"
+          ],
+          "_all_unverified_links": [],
+          "_all_excluded_links": [
+            "https://docs.socket.dev/reference/searchdependencies"
+          ],
+          "_all_docs_unverified_links": [],
+          "_all_repo_unverified_links": [],
+          "_broken_link_provenance": {
+            "https://docs.socket.dev/cdn-cgi/l/email-protection": [
+              {
+                "source_page": "https://docs.socket.dev/docs/contact-support",
+                "anchor_text": "[email\u00a0protected]"
+              },
+              {
+                "source_page": "https://docs.socket.dev/docs/guide-to-socket-mcp",
+                "anchor_text": "[email\u00a0protected]"
+              },
+              {
+                "source_page": "https://docs.socket.dev/docs/ignoring-pull-request-alerts",
+                "anchor_text": "[email\u00a0protected]"
+              },
+              {
+                "source_page": "https://docs.socket.dev/docs/installations",
+                "anchor_text": "[email\u00a0protected]"
+              },
+              {
+                "source_page": "https://docs.socket.dev/docs/permissions",
+                "anchor_text": "[email\u00a0protected]"
+              }
+            ],
+            "https://docs.socket.dev/docs/Artifactory": [
+              {
+                "source_page": "https://docs.socket.dev/docs/socket-firewall-registry-mode",
+                "anchor_text": "Artifactory Integration"
+              }
+            ],
+            "https://docs.socket.dev/docs/Configuration": [
+              {
+                "source_page": "https://docs.socket.dev/docs/socket-firewall-registry-mode",
+                "anchor_text": "Configuration Reference"
+              }
+            ],
+            "https://docs.socket.dev/docs/api": [
+              {
+                "source_page": "https://docs.socket.dev/docs/language-support",
+                "anchor_text": "Socket REST API"
+              },
+              {
+                "source_page": "https://docs.socket.dev/docs/package-issues",
+                "anchor_text": "Socket REST API"
+              }
+            ],
+            "https://docs.socket.dev/docs/overview.md": [
+              {
+                "source_page": "https://docs.socket.dev/docs/socket-firewall-free",
+                "anchor_text": "Socket Firewall Overview"
+              }
+            ],
+            "https://docs.socket.dev/docs/socket-info": [
+              {
+                "source_page": "https://docs.socket.dev/docs/socket-cli",
+                "anchor_text": "socket info"
+              }
+            ],
+            "https://docs.socket.dev/integrations": [
+              {
+                "source_page": "https://docs.socket.dev/docs/socket-for-github",
+                "anchor_text": "Socket CLI"
+              }
+            ]
+          }
+        },
+        "seo_geo": {
+          "pages_scanned": 217,
+          "missing_title_count": 0,
+          "missing_description_count": 0,
+          "multiple_h1_count": 114,
+          "heading_hierarchy_jump_count": 21,
+          "seo_geo_issue_rate_pct": 15.55
+        },
+        "api_coverage": {
+          "reference_endpoint_count": 5,
+          "api_pages_detected": 111,
+          "endpoints_with_usage_docs": 1,
+          "reference_endpoints_without_usage_docs": 4,
+          "reference_coverage_pct": 20.0,
+          "no_api_pages_found": false,
+          "coverage_determined": true,
+          "coverage_method": "source_of_truth",
+          "detection_note": "",
+          "uncovered_endpoint_samples": [
+            "gql:for",
+            "gql:more",
+            "gql:parameters",
+            "gql:string"
+          ]
+        },
+        "examples": {
+          "total_code_examples": 0,
+          "total_code_blocks_all": 579,
+          "runnable_without_env": 0,
+          "blocked_by_placeholders": 0,
+          "network_bound_examples": 0,
+          "example_reliability_estimate_pct": 0.0,
+          "detection_note": "No executable code blocks detected (579 data-only blocks found). Site may use non-standard code rendering that the auditor does not recognize, or all examples are in data formats (YAML/JSON)."
+        },
+        "freshness": {
+          "pages_with_last_updated_hint": 217,
+          "pages_without_last_updated_hint": 0,
+          "last_updated_coverage_pct": 100.0,
+          "samples_with_last_updated": [
+            {
+              "url": "https://docs.socket.dev/docs/alert-purpose-definitions",
+              "hint": "{\"sidebars\":{},\"apiBaseUrl\":\"/\",\"baseUrl\":\"/\",\"search\":{\"appId\":\"T28YKFATPY\",\"searchApiKey\":\"OWZiZGI5YWJlZTdjYjA0YTdjMDQ"
+            },
+            {
+              "url": "https://docs.socket.dev/",
+              "hint": "{\"sidebars\":{},\"apiBaseUrl\":\"/\",\"baseUrl\":\"/\",\"search\":{\"appId\":\"T28YKFATPY\",\"searchApiKey\":\"OWZiZGI5YWJlZTdjYjA0YTdjMDQ"
+            },
+            {
+              "url": "https://docs.socket.dev/docs/api-keys",
+              "hint": "{\"sidebars\":{},\"apiBaseUrl\":\"/\",\"baseUrl\":\"/\",\"search\":{\"appId\":\"T28YKFATPY\",\"searchApiKey\":\"OWZiZGI5YWJlZTdjYjA0YTdjMDQ"
+            },
+            {
+              "url": "https://docs.socket.dev/docs/anaconda-setup-instructions",
+              "hint": "{\"sidebars\":{},\"apiBaseUrl\":\"/\",\"baseUrl\":\"/\",\"search\":{\"appId\":\"T28YKFATPY\",\"searchApiKey\":\"OWZiZGI5YWJlZTdjYjA0YTdjMDQ"
+            },
+            {
+              "url": "https://docs.socket.dev/docs/audit-log",
+              "hint": "{\"sidebars\":{},\"apiBaseUrl\":\"/\",\"baseUrl\":\"/\",\"search\":{\"appId\":\"T28YKFATPY\",\"searchApiKey\":\"OWZiZGI5YWJlZTdjYjA0YTdjMDQ"
+            },
+            {
+              "url": "https://docs.socket.dev/docs/cli-support",
+              "hint": "{\"sidebars\":{},\"apiBaseUrl\":\"/\",\"baseUrl\":\"/\",\"search\":{\"appId\":\"T28YKFATPY\",\"searchApiKey\":\"OWZiZGI5YWJlZTdjYjA0YTdjMDQ"
+            },
+            {
+              "url": "https://docs.socket.dev/docs/contact-support",
+              "hint": "{\"sidebars\":{},\"apiBaseUrl\":\"/\",\"baseUrl\":\"/\",\"search\":{\"appId\":\"T28YKFATPY\",\"searchApiKey\":\"OWZiZGI5YWJlZTdjYjA0YTdjMDQ"
+            },
+            {
+              "url": "https://docs.socket.dev/docs/create-socket-api-key-for-cicd",
+              "hint": "{\"sidebars\":{},\"apiBaseUrl\":\"/\",\"baseUrl\":\"/\",\"search\":{\"appId\":\"T28YKFATPY\",\"searchApiKey\":\"OWZiZGI5YWJlZTdjYjA0YTdjMDQ"
+            },
+            {
+              "url": "https://docs.socket.dev/docs/alert-actions-and-triage-functionality",
+              "hint": "{\"sidebars\":{},\"apiBaseUrl\":\"/\",\"baseUrl\":\"/\",\"search\":{\"appId\":\"T28YKFATPY\",\"searchApiKey\":\"OWZiZGI5YWJlZTdjYjA0YTdjMDQ"
+            },
+            {
+              "url": "https://docs.socket.dev/docs/artifactory-configuration",
+              "hint": "{\"sidebars\":{},\"apiBaseUrl\":\"/\",\"baseUrl\":\"/\",\"search\":{\"appId\":\"T28YKFATPY\",\"searchApiKey\":\"OWZiZGI5YWJlZTdjYjA0YTdjMDQ"
+            }
+          ]
+        }
+      },
+      "samples": {
+        "broken_links": [
+          "https://docs.socket.dev/cdn-cgi/l/email-protection",
+          "https://docs.socket.dev/docs/Artifactory",
+          "https://docs.socket.dev/docs/Configuration",
+          "https://docs.socket.dev/docs/api",
+          "https://docs.socket.dev/docs/overview.md",
+          "https://docs.socket.dev/docs/socket-info",
+          "https://docs.socket.dev/integrations"
+        ],
+        "docs_broken_link_samples": [
+          "https://docs.socket.dev/cdn-cgi/l/email-protection",
+          "https://docs.socket.dev/docs/Artifactory",
+          "https://docs.socket.dev/docs/Configuration",
+          "https://docs.socket.dev/docs/api",
+          "https://docs.socket.dev/docs/overview.md",
+          "https://docs.socket.dev/docs/socket-info",
+          "https://docs.socket.dev/integrations"
+        ],
+        "repo_broken_link_samples": [],
+        "unverified_link_samples": [],
+        "api_uncovered_samples": [
+          "gql:for",
+          "gql:more",
+          "gql:parameters",
+          "gql:string"
+        ]
+      },
+      "run_count": 1
+    }
+  ],
+  "aggregate": {
+    "metrics": {
+      "crawl": {
+        "pages_crawled": 217,
+        "requested_pages": 235,
+        "urls_examined": 217,
+        "max_pages_total": 5000,
+        "discovered_pages": 217,
+        "crawl_scope_pages": 216,
+        "trap_urls_skipped": 1,
+        "crawl_coverage_pct": 100.46
+      },
+      "links": {
+        "broken_internal_links_count": 7,
+        "docs_broken_links_count": 7,
+        "repo_broken_links_count": 0,
+        "unverified_links_count": 0,
+        "confirmed_broken_links_count": 7,
+        "excluded_links_count": 1
+      },
+      "seo_geo": {
+        "seo_geo_issue_rate_pct": 15.55
+      },
+      "api_coverage": {
+        "reference_coverage_pct": 20.0,
+        "no_api_pages_found": false,
+        "api_pages_detected": 111,
+        "coverage_determined": true,
+        "detection_note": ""
+      },
+      "examples": {
+        "example_reliability_estimate_pct": 0.0
+      },
+      "freshness": {
+        "last_updated_coverage_pct": 100.0
+      }
+    },
+    "confidence": {
+      "overall_confidence_pct": 91.5,
+      "links_confidence_pct": 95.0,
+      "api_confidence_pct": 85.0,
+      "crawl_confidence_pct": 95.0
+    }
+  },
+  "confidence": {
+    "overall_confidence_pct": 91.5,
+    "links_confidence_pct": 95.0,
+    "api_confidence_pct": 85.0,
+    "crawl_confidence_pct": 95.0
+  },
+  "top_findings": [
+    "Broken internal links: 7",
+    "SEO/GEO issue rate is high: 15.55%",
+    "API usage-doc coverage is low: 20.0% (111 API pages detected)",
+    "Example reliability estimate is low: 0.0%"
+  ],
+  "llm_analysis": {
+    "status": "ok",
+    "model": "claude-sonnet-4-5",
+    "analysis": {
+      "executive_summary": "Socket.dev documentation audit covered 217 pages with 100.46% crawl coverage and 91.5% overall confidence. Critical issues include 7 confirmed broken internal links, all within user-facing documentation. API reference coverage is low at 20.0% across 111 detected API pages. Example code reliability scored 0.0%, indicating no executable or verified examples. SEO/geo issues affect 15.55% of pages, impacting discoverability.",
+      "strengths": [
+        "Complete crawl coverage at 100.46% with 217 of 235 requested pages successfully examined",
+        "High overall audit confidence at 91.5% with strong link verification (95.0%) and crawl confidence (95.0%)",
+        "100% last-updated metadata coverage across all documentation pages",
+        "Zero repository navigation broken links; all 7 broken links are in user-facing docs and actionable",
+        "Single-product topology provides clear documentation structure with 216 in-scope pages"
+      ],
+      "risks": [
+        "7 confirmed broken internal links degrade user navigation and trust in documentation quality",
+        "API reference coverage at 20.0% leaves 80% of 111 API pages without adequate usage documentation",
+        "0.0% example reliability means no code examples are verified, tested, or executable",
+        "15.55% SEO/geo issue rate significantly impacts search discoverability and global reach",
+        "Low API confidence score (85.0%) suggests potential gaps in API documentation detection accuracy",
+        "No unverified links (0 count) but 1 excluded link may hide additional broken link exposure",
+        "Single trap URL skipped indicates potential crawler evasion or documentation structure issues"
+      ],
+      "prioritized_actions": [
+        {
+          "action": "Fix all 7 confirmed broken internal links in user-facing documentation",
+          "impact": "critical",
+          "effort": "low"
+        },
+        {
+          "action": "Implement executable code examples with verification pipeline to address 0.0% reliability score",
+          "impact": "critical",
+          "effort": "high"
+        },
+        {
+          "action": "Expand API usage documentation to improve 20.0% reference coverage across 111 API pages",
+          "impact": "high",
+          "effort": "high"
+        },
+        {
+          "action": "Remediate SEO/geo issues affecting 15.55% of pages (approximately 34 pages)",
+          "impact": "high",
+          "effort": "medium"
+        },
+        {
+          "action": "Investigate and resolve the 1 trap URL and 1 excluded link for complete coverage",
+          "impact": "medium",
+          "effort": "low"
+        }
+      ],
+      "limitations": [
+        "External audit cannot verify accuracy or technical correctness of documentation content, only structural and linking integrity",
+        "API coverage detection at 85.0% confidence may miss undocumented endpoints or misclassify non-API pages as API documentation",
+        "Example reliability at 0.0% reflects lack of executable verification infrastructure, not necessarily example quality or usefulness",
+        "SEO/geo issue detection limited to technical metadata; cannot assess content relevance, keyword strategy, or competitive positioning",
+        "Crawl cannot access authentication-required pages, private repositories, or dynamically generated content requiring user interaction"
+      ]
+    }
+  }
+}

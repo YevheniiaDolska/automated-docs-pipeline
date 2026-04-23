@@ -1,0 +1,88 @@
+{
+  "generated_at_utc": "2026-04-23T12:04:30.936252+00:00",
+  "sites_count": 1,
+  "totals": {
+    "docs_broken_links_count": 3,
+    "repo_broken_links_count": 0,
+    "all_confirmed_broken_links_count": 3,
+    "unverified_links_sample_count": 3
+  },
+  "all_docs_broken_links": [
+    "https://docs.mercury.com/cdn-cgi/l/email-protection",
+    "https://docs.mercury.com/reference/request-send-money",
+    "https://docs.mercury.com/reference/transactions-1"
+  ],
+  "all_repo_broken_links": [],
+  "all_unverified_links_sample": [
+    "https://docs.mercury.com/docs/security-best-practices",
+    "https://docs.mercury.com/reference/getorganization",
+    "https://docs.mercury.com/reference/getsaferequest"
+  ],
+  "sites": [
+    {
+      "site_url": "https://docs.mercury.com/",
+      "confirmed_broken_links_count": 3,
+      "docs_broken_links_count": 3,
+      "repo_broken_links_count": 0,
+      "docs_broken_links": [
+        "https://docs.mercury.com/cdn-cgi/l/email-protection",
+        "https://docs.mercury.com/reference/request-send-money",
+        "https://docs.mercury.com/reference/transactions-1"
+      ],
+      "repo_broken_links": [],
+      "confirmed_broken_links_detailed": [
+        {
+          "target_url": "https://docs.mercury.com/cdn-cgi/l/email-protection",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://docs.mercury.com/changelog/events-api-now-available",
+              "anchor_text": "[email\u00a0protected]"
+            },
+            {
+              "source_page": "https://docs.mercury.com/changelog/invoicing-api-now-available",
+              "anchor_text": "[email\u00a0protected]"
+            },
+            {
+              "source_page": "https://docs.mercury.com/changelog/treasury-statements-now-avaliable",
+              "anchor_text": "[email\u00a0protected]"
+            },
+            {
+              "source_page": "https://docs.mercury.com/changelog/send-money-api-now-supports-checks-and-domestic-wires-as-payment-methods",
+              "anchor_text": "[email\u00a0protected]"
+            },
+            {
+              "source_page": "https://docs.mercury.com/changelog/webhooks-now-avaliable",
+              "anchor_text": "[email\u00a0protected]"
+            }
+          ]
+        },
+        {
+          "target_url": "https://docs.mercury.com/reference/request-send-money",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://docs.mercury.com/changelog/get-status-of-a-send-money-request",
+              "anchor_text": "https://docs.mercury.com/reference/request-send-money#/"
+            }
+          ]
+        },
+        {
+          "target_url": "https://docs.mercury.com/reference/transactions-1",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://docs.mercury.com/changelog/category-data-on-transactions",
+              "anchor_text": "transactions endpoint"
+            }
+          ]
+        }
+      ],
+      "unverified_links_sample": [
+        "https://docs.mercury.com/docs/security-best-practices",
+        "https://docs.mercury.com/reference/getorganization",
+        "https://docs.mercury.com/reference/getsaferequest"
+      ]
+    }
+  ]
+}

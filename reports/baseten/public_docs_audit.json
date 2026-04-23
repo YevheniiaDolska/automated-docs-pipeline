@@ -1,0 +1,261 @@
+{
+  "generated_at": "2026-04-22T09:59:16.454549+00:00",
+  "site_url": "https://docs.baseten.co/",
+  "site_urls": [
+    "https://docs.baseten.co/"
+  ],
+  "topology_mode": "single-product",
+  "verification_modes": [
+    "authenticated",
+    "bot",
+    "browser"
+  ],
+  "sites": [
+    {
+      "site_url": "https://docs.baseten.co/",
+      "metrics": {
+        "crawl": {
+          "pages_crawled": 283,
+          "requested_pages": 300,
+          "urls_examined": 283,
+          "max_pages": 10000,
+          "effective_limit": 10000,
+          "auto_mode": false,
+          "stop_reason": "queue_exhausted",
+          "discovered_pages": 283,
+          "crawl_scope_basis": "sitemap",
+          "crawl_scope_pages": 282,
+          "crawl_coverage_pct": 100.35,
+          "trap_urls_skipped": 15,
+          "seeded_sitemap_urls": 282,
+          "robots_sitemaps_declared": 1
+        },
+        "links": {
+          "internal_links_checked": 300,
+          "broken_internal_links_count": 0,
+          "docs_broken_links_count": 0,
+          "repo_broken_links_count": 0,
+          "broken_internal_link_samples": [],
+          "docs_broken_link_samples": [],
+          "repo_broken_link_samples": [],
+          "unreachable_links_count": 0,
+          "unverified_links_count": 0,
+          "unverified_link_samples": [],
+          "confirmed_broken_links_count": 0,
+          "excluded_links_count": 1,
+          "excluded_link_samples": [
+            "https://docs.baseten.co/reference/training-api/search-training-jobs"
+          ],
+          "_all_confirmed_broken_links": [],
+          "_all_unverified_links": [],
+          "_all_excluded_links": [
+            "https://docs.baseten.co/reference/training-api/search-training-jobs"
+          ],
+          "_all_docs_unverified_links": [],
+          "_all_repo_unverified_links": [],
+          "_broken_link_provenance": {}
+        },
+        "seo_geo": {
+          "pages_scanned": 283,
+          "missing_title_count": 0,
+          "missing_description_count": 33,
+          "multiple_h1_count": 16,
+          "heading_hierarchy_jump_count": 141,
+          "seo_geo_issue_rate_pct": 16.78
+        },
+        "api_coverage": {
+          "reference_endpoint_count": 2,
+          "api_pages_detected": 180,
+          "endpoints_with_usage_docs": 1,
+          "reference_endpoints_without_usage_docs": 1,
+          "reference_coverage_pct": 50.0,
+          "no_api_pages_found": false,
+          "coverage_determined": true,
+          "coverage_method": "source_of_truth",
+          "detection_note": "",
+          "uncovered_endpoint_samples": [
+            "op:createchatcompletion"
+          ]
+        },
+        "examples": {
+          "total_code_examples": 0,
+          "total_code_blocks_all": 1378,
+          "runnable_without_env": 0,
+          "blocked_by_placeholders": 0,
+          "network_bound_examples": 0,
+          "example_reliability_estimate_pct": 0.0,
+          "detection_note": "No executable code blocks detected (1378 data-only blocks found). Site may use non-standard code rendering that the auditor does not recognize, or all examples are in data formats (YAML/JSON)."
+        },
+        "freshness": {
+          "pages_with_last_updated_hint": 283,
+          "pages_without_last_updated_hint": 0,
+          "last_updated_coverage_pct": 100.0,
+          "samples_with_last_updated": [
+            {
+              "url": "https://docs.baseten.co/api-reference/non-regional/asynchronously-call-the-development-deployment-of-a-chain",
+              "hint": "self.__next_f.push([1,\"// Constants and configuration\\nconst STATUS_CONFIG = {\\n  statusPageId: '8dp3vkb2h71c',\\n  apiKe"
+            },
+            {
+              "url": "https://docs.baseten.co/api-reference/non-regional/asynchronously-call-a-named-environment-of-a-chain",
+              "hint": "self.__next_f.push([1,\"// Constants and configuration\\nconst STATUS_CONFIG = {\\n  statusPageId: '8dp3vkb2h71c',\\n  apiKe"
+            },
+            {
+              "url": "https://docs.baseten.co/api-reference/get-the-status-of-an-async-request",
+              "hint": "The time in UTC at which the async request's status was last updated."
+            },
+            {
+              "url": "https://docs.baseten.co/api-reference/non-regional/asynchronously-call-a-specific-deployment-of-a-chain",
+              "hint": "self.__next_f.push([1,\"// Constants and configuration\\nconst STATUS_CONFIG = {\\n  statusPageId: '8dp3vkb2h71c',\\n  apiKe"
+            },
+            {
+              "url": "https://docs.baseten.co/api-reference/cancel-a-queued-async-request",
+              "hint": "self.__next_f.push([1,\"// Constants and configuration\\nconst STATUS_CONFIG = {\\n  statusPageId: '8dp3vkb2h71c',\\n  apiKe"
+            },
+            {
+              "url": "https://docs.baseten.co/ai-tools",
+              "hint": "self.__next_f.push([1,\"// Constants and configuration\\nconst STATUS_CONFIG = {\\n  statusPageId: '8dp3vkb2h71c',\\n  apiKe"
+            },
+            {
+              "url": "https://docs.baseten.co/api-reference/non-regional/asynchronously-call-the-development-deployment-of-a-model",
+              "hint": "self.__next_f.push([1,\"// Constants and configuration\\nconst STATUS_CONFIG = {\\n  statusPageId: '8dp3vkb2h71c',\\n  apiKe"
+            },
+            {
+              "url": "https://docs.baseten.co/api-reference/non-regional/asynchronously-call-a-specific-deployment-of-a-model",
+              "hint": "self.__next_f.push([1,\"// Constants and configuration\\nconst STATUS_CONFIG = {\\n  statusPageId: '8dp3vkb2h71c',\\n  apiKe"
+            },
+            {
+              "url": "https://docs.baseten.co/api-reference/non-regional/asynchronously-call-a-named-environment-of-a-model",
+              "hint": "self.__next_f.push([1,\"// Constants and configuration\\nconst STATUS_CONFIG = {\\n  statusPageId: '8dp3vkb2h71c',\\n  apiKe"
+            },
+            {
+              "url": "https://docs.baseten.co/",
+              "hint": "self.__next_f.push([1,\"// Constants and configuration\\nconst STATUS_CONFIG = {\\n  statusPageId: '8dp3vkb2h71c',\\n  apiKe"
+            }
+          ]
+        }
+      },
+      "samples": {
+        "broken_links": [],
+        "docs_broken_link_samples": [],
+        "repo_broken_link_samples": [],
+        "unverified_link_samples": [],
+        "api_uncovered_samples": [
+          "op:createchatcompletion"
+        ]
+      },
+      "run_count": 1
+    }
+  ],
+  "aggregate": {
+    "metrics": {
+      "crawl": {
+        "pages_crawled": 283,
+        "requested_pages": 300,
+        "urls_examined": 283,
+        "max_pages_total": 10000,
+        "discovered_pages": 283,
+        "crawl_scope_pages": 282,
+        "trap_urls_skipped": 15,
+        "crawl_coverage_pct": 100.35
+      },
+      "links": {
+        "broken_internal_links_count": 0,
+        "docs_broken_links_count": 0,
+        "repo_broken_links_count": 0,
+        "unverified_links_count": 0,
+        "confirmed_broken_links_count": 0,
+        "excluded_links_count": 1
+      },
+      "seo_geo": {
+        "seo_geo_issue_rate_pct": 16.78
+      },
+      "api_coverage": {
+        "reference_coverage_pct": 50.0,
+        "no_api_pages_found": false,
+        "api_pages_detected": 180,
+        "coverage_determined": true,
+        "detection_note": ""
+      },
+      "examples": {
+        "example_reliability_estimate_pct": 0.0
+      },
+      "freshness": {
+        "last_updated_coverage_pct": 100.0
+      }
+    },
+    "confidence": {
+      "overall_confidence_pct": 91.5,
+      "links_confidence_pct": 95.0,
+      "api_confidence_pct": 85.0,
+      "crawl_confidence_pct": 95.0
+    }
+  },
+  "confidence": {
+    "overall_confidence_pct": 91.5,
+    "links_confidence_pct": 95.0,
+    "api_confidence_pct": 85.0,
+    "crawl_confidence_pct": 95.0
+  },
+  "top_findings": [
+    "SEO/GEO issue rate is high: 16.78%",
+    "API usage-doc coverage is low: 50.0% (180 API pages detected)",
+    "Example reliability estimate is low: 0.0%"
+  ],
+  "llm_analysis": {
+    "status": "ok",
+    "model": "claude-sonnet-4-5",
+    "analysis": {
+      "executive_summary": "Documentation audit of docs.baseten.co crawled 283 of 300 requested pages (100.35% coverage) with zero broken links detected across all categories. API reference coverage stands at 50.0% across 180 detected API pages, indicating significant documentation gaps. SEO/GEO issues affect 16.78% of pages, impacting discoverability. Example reliability estimate is 0.0%, suggesting code examples lack verification or testing infrastructure. Overall audit confidence is 91.5%.",
+      "strengths": [
+        "Zero broken links (internal, docs, or repository navigation)",
+        "Complete crawl coverage at 100.35% with 283 pages successfully indexed",
+        "100% last-updated timestamp coverage across documentation",
+        "High overall audit confidence at 91.5%",
+        "Clean link hygiene with no unverified or excluded links"
+      ],
+      "risks": [
+        "50% API reference coverage leaves half of API surface undocumented across 180 API pages",
+        "0.0% example reliability indicates no code example testing or validation in place",
+        "16.78% SEO/GEO issue rate may significantly reduce organic search visibility and user acquisition",
+        "15 trap URLs were skipped during crawl, potentially hiding content quality issues",
+        "API confidence at 85% suggests potential gaps in API detection methodology",
+        "Missing API documentation creates support burden and developer friction",
+        "Untested examples risk user frustration and eroded trust in documentation quality"
+      ],
+      "prioritized_actions": [
+        {
+          "action": "Implement automated code example testing pipeline to validate all examples against live API",
+          "impact": "critical",
+          "effort": "high"
+        },
+        {
+          "action": "Document remaining 50% of API surface by auditing codebase against existing API pages",
+          "impact": "critical",
+          "effort": "high"
+        },
+        {
+          "action": "Remediate SEO/GEO issues on 47 affected pages (meta descriptions, titles, structured data)",
+          "impact": "high",
+          "effort": "medium"
+        },
+        {
+          "action": "Investigate 15 trap URLs to determine if legitimate content is being excluded from crawl",
+          "impact": "medium",
+          "effort": "low"
+        },
+        {
+          "action": "Establish API documentation coverage monitoring to prevent regression below 80% threshold",
+          "impact": "high",
+          "effort": "low"
+        }
+      ],
+      "limitations": [
+        "External audit cannot verify accuracy of technical content or correctness of code examples without execution",
+        "API coverage detection relies on pattern matching and may miss non-standard API documentation structures",
+        "SEO/GEO scoring does not measure actual search ranking performance or conversion impact",
+        "Crawl cannot assess documentation completeness for features not yet publicly documented",
+        "Link verification confirms HTTP status only, not semantic correctness of link destinations"
+      ]
+    }
+  }
+}

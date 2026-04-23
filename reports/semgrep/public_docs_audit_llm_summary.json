@@ -1,0 +1,57 @@
+{
+  "status": "ok",
+  "model": "claude-sonnet-4-5",
+  "analysis": {
+    "executive_summary": "Audit of semgrep.dev/docs covered 1,116 pages with 100% crawl coverage and 91.5% overall confidence. Documentation contains 11 confirmed broken internal links requiring immediate remediation. API reference coverage stands at 72.73% with 311 API pages detected. SEO/geo issue rate of 16.53% indicates significant discoverability problems. Example reliability estimate of 86.21% and last-updated coverage of 66.22% suggest moderate maintenance gaps.",
+    "strengths": [
+      "Complete crawl coverage (100%) across 1,116 pages with high crawl confidence (95%)",
+      "Strong API documentation presence with 311 API pages detected and coverage determination successful",
+      "High overall audit confidence at 91.5% with robust link verification (95% confidence)",
+      "Example reliability estimate of 86.21% shows majority of code samples are likely functional",
+      "Multi-project topology successfully mapped with 1,116 discovered pages in scope"
+    ],
+    "risks": [
+      "11 confirmed broken internal links degrading user navigation and trust in documentation quality",
+      "SEO/geo issue rate of 16.53% (approximately 185 pages) limiting search discoverability and international reach",
+      "API reference coverage gap of 27.27% leaves significant portions of API undocumented",
+      "Only 66.22% of pages show last-updated metadata, obscuring content freshness for 377+ pages",
+      "Example reliability at 86.21% means approximately 154 pages may contain broken or outdated code samples",
+      "817 trap URLs skipped during crawl may indicate URL structure issues or infinite pagination patterns",
+      "13.79% example unreliability could erode developer trust and increase support burden"
+    ],
+    "prioritized_actions": [
+      {
+        "action": "Fix all 11 confirmed broken internal links to restore navigation integrity",
+        "impact": "critical",
+        "effort": "low"
+      },
+      {
+        "action": "Audit and remediate SEO/geo issues on 185 affected pages to improve discoverability",
+        "impact": "high",
+        "effort": "medium"
+      },
+      {
+        "action": "Expand API reference documentation to close 27.27% coverage gap (target 90%+)",
+        "impact": "high",
+        "effort": "high"
+      },
+      {
+        "action": "Implement last-updated metadata on 377 pages missing freshness indicators",
+        "impact": "medium",
+        "effort": "low"
+      },
+      {
+        "action": "Validate and update code examples on 154 pages with reliability concerns",
+        "impact": "high",
+        "effort": "medium"
+      }
+    ],
+    "limitations": [
+      "External audit cannot verify actual functionality of code examples, only structural patterns and syntax validity",
+      "API coverage detection relies on page structure heuristics and may miss non-standard API documentation formats",
+      "Freshness assessment depends on explicit last-updated metadata; actual content currency cannot be independently verified",
+      "SEO/geo issue detection covers technical factors only; content quality, keyword optimization, and competitive positioning require separate analysis",
+      "Broken link verification performed at audit time; links may break or be fixed after report generation"
+    ]
+  }
+}

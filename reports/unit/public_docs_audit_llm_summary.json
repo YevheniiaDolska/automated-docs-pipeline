@@ -1,0 +1,56 @@
+{
+  "status": "ok",
+  "model": "claude-sonnet-4-5",
+  "analysis": {
+    "executive_summary": "Documentation audit of unit.co/docs covered 349 pages with 100% crawl coverage and 91.5% overall confidence. Critical gaps identified: API reference coverage at only 3.5% despite 243 API pages detected, example reliability at 29.75%, and freshness metadata present on just 12.03% of pages. Site contains 2 confirmed broken internal documentation links. SEO/geo issues affect 9.53% of pages.",
+    "strengths": [
+      "Complete crawl coverage: 349 of 357 pages successfully crawled (100%)",
+      "High overall audit confidence at 91.5% with strong link verification (95%)",
+      "Zero repository navigation broken links; all 2 broken links are user-facing docs",
+      "Single-product topology provides clear documentation structure",
+      "No crawl traps detected across 357 URLs examined"
+    ],
+    "risks": [
+      "Critical: API reference coverage at 3.5% leaves 96.5% of 243 API pages without usage documentation",
+      "High: Example reliability at 29.75% indicates 70%+ of code examples may be outdated or non-functional",
+      "High: Freshness metadata missing on 87.97% of pages prevents users from assessing content currency",
+      "Medium: 2 confirmed broken internal documentation links degrade user navigation experience",
+      "Medium: SEO/geo issues on 9.53% of pages may impact discoverability and international reach",
+      "Low: API detection confidence at 85% suggests possible undercounted API surface area",
+      "Low: 4 excluded links may hide additional broken link issues"
+    ],
+    "prioritized_actions": [
+      {
+        "action": "Implement systematic API usage examples and integration guides for the 243 detected API pages to raise coverage from 3.5% to minimum 60%",
+        "impact": "critical",
+        "effort": "high"
+      },
+      {
+        "action": "Establish automated example testing pipeline to validate code samples and improve reliability from 29.75% baseline",
+        "impact": "critical",
+        "effort": "medium"
+      },
+      {
+        "action": "Add last-updated timestamps to all documentation pages (currently 12.03% coverage) using git commit dates or CMS automation",
+        "impact": "high",
+        "effort": "low"
+      },
+      {
+        "action": "Fix 2 confirmed broken internal documentation links and implement CI/CD link checking to prevent regression",
+        "impact": "high",
+        "effort": "low"
+      },
+      {
+        "action": "Resolve SEO/geo issues affecting 9.53% of pages (meta descriptions, canonical tags, language declarations)",
+        "impact": "medium",
+        "effort": "medium"
+      }
+    ],
+    "limitations": [
+      "External audit cannot verify functional correctness of API documentation or accuracy of technical content",
+      "Example reliability is estimated through heuristics; actual runtime validation requires environment access and execution",
+      "Link checking reflects point-in-time status; dynamic content and authentication-gated pages may not be fully assessed",
+      "API coverage detection at 85% confidence may undercount pages if non-standard documentation patterns are used"
+    ]
+  }
+}

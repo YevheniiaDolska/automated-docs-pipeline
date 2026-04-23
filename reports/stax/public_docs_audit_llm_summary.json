@@ -1,0 +1,57 @@
+{
+  "status": "ok",
+  "model": "claude-sonnet-4-5",
+  "analysis": {
+    "executive_summary": "Audit covered 382 pages across 2 documentation sites (docs.staxpayments.com, developer.staxbill.com) with 100% crawl coverage and 91.5% overall confidence. API reference coverage is complete at 100% with 104 API pages detected. Critical issues include 4 confirmed broken internal links, 16.62% SEO/geo issue rate, and 0% example reliability estimate indicating no working code examples detected. Documentation freshness is strong at 96.6% last-updated coverage.",
+    "strengths": [
+      "Complete crawl coverage (100%) with 382 pages successfully indexed across both documentation properties",
+      "Full API reference coverage (100%) with 104 API pages detected and validated",
+      "Strong documentation freshness at 96.6% last-updated metadata coverage",
+      "Multi-project topology properly configured with no fragmentation penalties",
+      "Zero repository navigation broken links; all 4 broken links are user-facing documentation links"
+    ],
+    "risks": [
+      "Zero working code examples detected (0% reliability estimate) across 382 pages - critical for developer onboarding",
+      "4 confirmed broken internal documentation links degrading user navigation experience",
+      "SEO/geo issue rate of 16.62% (approximately 63 pages) may impact discoverability and search rankings",
+      "API confidence at 85% suggests potential gaps in automated API detection methodology",
+      "Multi-site documentation architecture (2 separate domains) increases maintenance complexity and user confusion",
+      "No detection_note clarification on example reliability measurement - may indicate detection limitation",
+      "Overall confidence of 91.5% leaves 8.5% uncertainty margin on audit findings"
+    ],
+    "prioritized_actions": [
+      {
+        "action": "Audit and restore 4 broken internal documentation links to eliminate navigation dead-ends",
+        "impact": "critical",
+        "effort": "low"
+      },
+      {
+        "action": "Implement working code examples across API documentation - currently 0% have validated examples",
+        "impact": "critical",
+        "effort": "high"
+      },
+      {
+        "action": "Remediate SEO/geo issues on 63+ affected pages (16.62% of total) to improve search discoverability",
+        "impact": "high",
+        "effort": "medium"
+      },
+      {
+        "action": "Validate API detection methodology given 85% confidence score and verify no missing API endpoints",
+        "impact": "high",
+        "effort": "medium"
+      },
+      {
+        "action": "Evaluate consolidating docs.staxpayments.com and developer.staxbill.com into unified domain for reduced fragmentation",
+        "impact": "medium",
+        "effort": "high"
+      }
+    ],
+    "limitations": [
+      "External audit cannot verify functional correctness of API endpoints or accuracy of parameter descriptions",
+      "Code example reliability at 0% may reflect detection limitations rather than complete absence - manual validation required",
+      "SEO/geo issue severity and business impact cannot be quantified without search analytics and traffic data",
+      "Audit cannot assess documentation content quality, technical accuracy, or alignment with actual product behavior",
+      "85% API confidence indicates automated detection may miss non-standard API documentation patterns or custom implementations"
+    ]
+  }
+}

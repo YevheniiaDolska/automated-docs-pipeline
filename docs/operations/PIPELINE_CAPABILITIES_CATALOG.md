@@ -23,6 +23,39 @@ Use this catalog with `runtime.custom_tasks.weekly` in client profiles to enable
   - `full+rag` (`enterprise` plan): smooth autopipeline includes all non-demo capabilities, including retrieval-time RAG.
 - If a capability needs external infrastructure (for example, provider credentials, external mock service, Docker runtime), setup wizard records it as a client-side prerequisite.
 
+## RAG System (Current Implementation)
+
+RAG is implemented as a two-layer system:
+
+- Knowledge preparation layer (included in `full` and `full+rag`):
+  - docs -> knowledge modules extraction/validation
+  - retrieval index generation (`knowledge-retrieval-index.json`)
+  - JSON-LD knowledge graph generation (`knowledge-graph.jsonld`)
+  - retrieval evaluation gate/reporting
+  - stale detection in docs quality loop
+  - contradiction detection and critical-module exclusion from retrieval index
+- Retrieval-time runtime layer (included in `full+rag`):
+  - Ask AI runtime API and widget
+  - semantic retrieval (FAISS) with hybrid/rerank/HyDE/cache options
+  - runtime confidence guardrail (low-confidence safe response)
+  - contradiction warning propagation to client response
+  - usage logging and end-user feedback logging
+
+Primary runtime and report artifacts:
+
+- `docs/assets/knowledge-retrieval-index.json`
+- `docs/assets/knowledge-graph.jsonld`
+- `reports/retrieval_eval_report.json`
+- `reports/rag_contradictions_report.json`
+- `reports/ask_ai_usage.jsonl`
+- `reports/ask_ai_feedback.jsonl`
+
+Operational meaning by plan:
+
+- `community/pilot`: no advanced RAG capabilities in default autopipeline.
+- `professional/full`: full docs-ops + RAG preparation (everything except retrieval-time RAG).
+- `enterprise/full+rag`: same as `full` plus retrieval-time Ask AI runtime with RAG.
+
 ## Prerequisites Ownership
 
 - Client side:

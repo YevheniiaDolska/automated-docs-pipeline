@@ -1,0 +1,3004 @@
+{
+  "generated_at": "2026-04-21T11:45:41.999125+00:00",
+  "site_url": "https://replicate.com/docs",
+  "site_urls": [
+    "https://replicate.com/docs"
+  ],
+  "topology_mode": "single-product",
+  "verification_modes": [
+    "authenticated",
+    "bot",
+    "browser"
+  ],
+  "sites": [
+    {
+      "site_url": "https://replicate.com/docs",
+      "metrics": {
+        "crawl": {
+          "pages_crawled": 29465,
+          "requested_pages": 79752,
+          "urls_examined": 29479,
+          "max_pages": 30000,
+          "effective_limit": 30000,
+          "auto_mode": false,
+          "stop_reason": "queue_exhausted",
+          "discovered_pages": 29479,
+          "crawl_scope_basis": "sitemap",
+          "crawl_scope_pages": 29479,
+          "crawl_coverage_pct": 100.0,
+          "trap_urls_skipped": 13,
+          "seeded_sitemap_urls": 29479,
+          "robots_sitemaps_declared": 1
+        },
+        "links": {
+          "internal_links_checked": 79667,
+          "broken_internal_links_count": 275,
+          "docs_broken_links_count": 275,
+          "repo_broken_links_count": 0,
+          "broken_internal_link_samples": [
+            "https://replicate.com/CODE_OF_CONDUCT.md",
+            "https://replicate.com/CONTRIBUTING.md",
+            "https://replicate.com/DiffusionLight/DiffusionLight/tree/main",
+            "https://replicate.com/None",
+            "https://replicate.com/a16z-infra",
+            "https://replicate.com/afiaka87/github.com/CompVis/latent-diffusion",
+            "https://replicate.com/alexgenovese/LICENSE",
+            "https://replicate.com/allenhooo/geomagical.com",
+            "https://replicate.com/andreasjannson",
+            "https://replicate.com/andreasjansson/afiaka87/retrieval-augmented-diffusion",
+            "https://replicate.com/arielreplicate/LICENSE-MODEL",
+            "https://replicate.com/arielreplicate/LICENSE.txt",
+            "https://replicate.com/arielreplicate/README_zh_Hans.md",
+            "https://replicate.com/arielreplicate/environment.yml",
+            "https://replicate.com/arielreplicate/main.py",
+            "https://replicate.com/arielreplicate/models.py",
+            "https://replicate.com/arielreplicate/multi-scale-blended-diffusion/InteractiveEditing.ipynb",
+            "https://replicate.com/benk044",
+            "https://replicate.com/black-forest-labs/flux-pro-trainer",
+            "https://replicate.com/black-forest-labs/flux-pulid"
+          ],
+          "docs_broken_link_samples": [
+            "https://replicate.com/CODE_OF_CONDUCT.md",
+            "https://replicate.com/CONTRIBUTING.md",
+            "https://replicate.com/DiffusionLight/DiffusionLight/tree/main",
+            "https://replicate.com/None",
+            "https://replicate.com/a16z-infra",
+            "https://replicate.com/afiaka87/github.com/CompVis/latent-diffusion",
+            "https://replicate.com/alexgenovese/LICENSE",
+            "https://replicate.com/allenhooo/geomagical.com",
+            "https://replicate.com/andreasjannson",
+            "https://replicate.com/andreasjansson/afiaka87/retrieval-augmented-diffusion",
+            "https://replicate.com/arielreplicate/LICENSE-MODEL",
+            "https://replicate.com/arielreplicate/LICENSE.txt",
+            "https://replicate.com/arielreplicate/README_zh_Hans.md",
+            "https://replicate.com/arielreplicate/environment.yml",
+            "https://replicate.com/arielreplicate/main.py",
+            "https://replicate.com/arielreplicate/models.py",
+            "https://replicate.com/arielreplicate/multi-scale-blended-diffusion/InteractiveEditing.ipynb",
+            "https://replicate.com/benk044",
+            "https://replicate.com/black-forest-labs/flux-pro-trainer",
+            "https://replicate.com/black-forest-labs/flux-pulid",
+            "https://replicate.com/black-forest-labs/flux.1-kontext",
+            "https://replicate.com/black-forest-labs/replicate.com/playground",
+            "https://replicate.com/blackforestlabs/flux-1-schnell",
+            "https://replicate.com/blog/None",
+            "https://replicate.com/blog/flux-1-a-new-state-of-the-art-image-generation-model-from-black-forest-labs",
+            "https://replicate.com/blog/pruna.ai",
+            "https://replicate.com/blog/replicate.com/flux-kontext-apps",
+            "https://replicate.com/blog/wan",
+            "https://replicate.com/buntingj-vt/GETTING_STARTED.md",
+            "https://replicate.com/buntingj-vt/INSTALL.md"
+          ],
+          "repo_broken_link_samples": [],
+          "unreachable_links_count": 2,
+          "unverified_links_count": 29,
+          "unverified_link_samples": [
+            "https://replicate.com/alexizvelz/rosmeri1/examples",
+            "https://replicate.com/aliciamunianps/alicia/examples",
+            "https://replicate.com/arietudo/samm/examples",
+            "https://replicate.com/ayushunleashed/partpacker",
+            "https://replicate.com/beatrizalvesoll/bea/examples",
+            "https://replicate.com/bighairjames/brad/examples",
+            "https://replicate.com/carlosperz88/teslacyberbeast/examples",
+            "https://replicate.com/colinmcdonnell22/tweak_characters/examples",
+            "https://replicate.com/doriandarko/sdxl-bladerunner2049/examples",
+            "https://replicate.com/doriandarko/sdxl-dolcevita/examples",
+            "https://replicate.com/doriandarko/sdxl-obradinn/examples",
+            "https://replicate.com/emibob/bavis/examples",
+            "https://replicate.com/ferratd/destine/examples",
+            "https://replicate.com/geobotsar81/geobotsar-flux-2/examples",
+            "https://replicate.com/jborgesdb/lamuritechsuite/examples",
+            "https://replicate.com/jonathan-hubjam/jonathan-flux2/examples",
+            "https://replicate.com/jonathan-hubjam/new-spex/examples",
+            "https://replicate.com/jwilko1007-alt/julieaiavatar/examples",
+            "https://replicate.com/katylora/katy-lora/examples",
+            "https://replicate.com/makinsongary698/jh/examples",
+            "https://replicate.com/marcobitboss274/marco-cervo-m2/examples",
+            "https://replicate.com/mayoita/max-mayoita/examples",
+            "https://replicate.com/natta613/nat-1-kai/examples",
+            "https://replicate.com/p/36tn2vtby3raqlb7uvnqlrii5i",
+            "https://replicate.com/p/3xzqmglbd7ofjh2fahy4xhfsva",
+            "https://replicate.com/prakharsaxena24/masked-upscaler",
+            "https://replicate.com/ryokeken/bigboi/examples",
+            "https://replicate.com/stephaniejacksonphoto/steph/examples",
+            "https://replicate.com/treeneefinds/tam/examples"
+          ],
+          "confirmed_broken_links_count": 275,
+          "excluded_links_count": 49,
+          "excluded_link_samples": [
+            "https://replicate.com/api/models/cjwbw/clip-vit-large-patch14/files/36b04aec-efe2-4dea-9c9d-a5faca68b2b2/000000039769.jpg",
+            "https://replicate.com/blog/rss",
+            "https://replicate.com/changelog/rss",
+            "https://replicate.com/cjwbw/assets/cogvlm-paper.pdf",
+            "https://replicate.com/cudanexus/static/images/arabic.jpg",
+            "https://replicate.com/cudanexus/static/images/arabic_text.jpg",
+            "https://replicate.com/cudanexus/static/images/chi_hind.jpg",
+            "https://replicate.com/cudanexus/static/images/chi_hind_text.jpg",
+            "https://replicate.com/cudanexus/static/images/chinese.jpg",
+            "https://replicate.com/cudanexus/static/images/chinese_text.jpg",
+            "https://replicate.com/cudanexus/static/images/funsd.png",
+            "https://replicate.com/cudanexus/static/images/funsd_text.jpg",
+            "https://replicate.com/cudanexus/static/images/hindi.jpg",
+            "https://replicate.com/cudanexus/static/images/hindi_text.jpg",
+            "https://replicate.com/cudanexus/static/images/japanese.jpg",
+            "https://replicate.com/cudanexus/static/images/japanese_text.jpg",
+            "https://replicate.com/cudanexus/static/images/nyt.jpg",
+            "https://replicate.com/cudanexus/static/images/nyt_text.jpg",
+            "https://replicate.com/cudanexus/static/images/paper.jpg",
+            "https://replicate.com/cudanexus/static/images/paper_text.jpg",
+            "https://replicate.com/cudanexus/static/images/pres.png",
+            "https://replicate.com/cudanexus/static/images/pres_text.jpg",
+            "https://replicate.com/cudanexus/static/images/rec_acc_table.png",
+            "https://replicate.com/cudanexus/static/images/scanned.png",
+            "https://replicate.com/cudanexus/static/images/scanned_text.jpg",
+            "https://replicate.com/cudanexus/static/images/textbook.jpg",
+            "https://replicate.com/cudanexus/static/images/textbook_text.jpg",
+            "https://replicate.com/images/README.md",
+            "https://replicate.com/joshelgar/rssmurryflux",
+            "https://replicate.com/joshelgar/rssmurryflux/api"
+          ],
+          "_all_confirmed_broken_links": [
+            "https://replicate.com/CODE_OF_CONDUCT.md",
+            "https://replicate.com/CONTRIBUTING.md",
+            "https://replicate.com/DiffusionLight/DiffusionLight/tree/main",
+            "https://replicate.com/None",
+            "https://replicate.com/a16z-infra",
+            "https://replicate.com/afiaka87/github.com/CompVis/latent-diffusion",
+            "https://replicate.com/alexgenovese/LICENSE",
+            "https://replicate.com/allenhooo/geomagical.com",
+            "https://replicate.com/andreasjannson",
+            "https://replicate.com/andreasjansson/afiaka87/retrieval-augmented-diffusion",
+            "https://replicate.com/arielreplicate/LICENSE-MODEL",
+            "https://replicate.com/arielreplicate/LICENSE.txt",
+            "https://replicate.com/arielreplicate/README_zh_Hans.md",
+            "https://replicate.com/arielreplicate/environment.yml",
+            "https://replicate.com/arielreplicate/main.py",
+            "https://replicate.com/arielreplicate/models.py",
+            "https://replicate.com/arielreplicate/multi-scale-blended-diffusion/InteractiveEditing.ipynb",
+            "https://replicate.com/benk044",
+            "https://replicate.com/black-forest-labs/flux-pro-trainer",
+            "https://replicate.com/black-forest-labs/flux-pulid",
+            "https://replicate.com/black-forest-labs/flux.1-kontext",
+            "https://replicate.com/black-forest-labs/replicate.com/playground",
+            "https://replicate.com/blackforestlabs/flux-1-schnell",
+            "https://replicate.com/blog/None",
+            "https://replicate.com/blog/flux-1-a-new-state-of-the-art-image-generation-model-from-black-forest-labs",
+            "https://replicate.com/blog/pruna.ai",
+            "https://replicate.com/blog/replicate.com/flux-kontext-apps",
+            "https://replicate.com/blog/wan",
+            "https://replicate.com/buntingj-vt/GETTING_STARTED.md",
+            "https://replicate.com/buntingj-vt/INSTALL.md",
+            "https://replicate.com/buntingj-vt/configs/ade20k/convnext/oneformer_convnext_large_bs16_160k.yaml",
+            "https://replicate.com/buntingj-vt/configs/ade20k/convnext/oneformer_convnext_xlarge_bs16_160k.yaml",
+            "https://replicate.com/buntingj-vt/configs/ade20k/dinat/coco_pretrain_oneformer_dinat_large_bs16_160k_1280x1280_coco_pretrain.yaml",
+            "https://replicate.com/buntingj-vt/configs/ade20k/dinat/oneformer_dinat_large_bs16_160k.yaml",
+            "https://replicate.com/buntingj-vt/configs/ade20k/dinat/oneformer_dinat_large_bs16_160k_1280x1280.yaml",
+            "https://replicate.com/buntingj-vt/configs/ade20k/dinat/oneformer_dinat_large_bs16_160k_896x896.yaml",
+            "https://replicate.com/buntingj-vt/configs/ade20k/swin/oneformer_swin_large_bs16_160k.yaml",
+            "https://replicate.com/buntingj-vt/configs/ade20k/swin/oneformer_swin_large_bs16_160k_1280x1280.yaml",
+            "https://replicate.com/buntingj-vt/configs/ade20k/swin/oneformer_swin_large_bs16_160k_896x896.yaml",
+            "https://replicate.com/buntingj-vt/configs/cityscapes/convnext/mapillary_pretrain_oneformer_convnext_large_bs16_90k.yaml",
+            "https://replicate.com/buntingj-vt/configs/cityscapes/convnext/mapillary_pretrain_oneformer_convnext_xlarge_bs16_90k.yaml",
+            "https://replicate.com/buntingj-vt/configs/cityscapes/convnext/oneformer_convnext_large_bs16_90k.yaml",
+            "https://replicate.com/buntingj-vt/configs/cityscapes/convnext/oneformer_convnext_xlarge_bs16_90k.yaml",
+            "https://replicate.com/buntingj-vt/configs/cityscapes/dinat/oneformer_dinat_large_bs16_90k.yaml",
+            "https://replicate.com/buntingj-vt/configs/cityscapes/swin/oneformer_swin_large_bs16_90k.yaml",
+            "https://replicate.com/buntingj-vt/configs/coco/dinat/oneformer_dinat_large_bs16_100ep.yaml",
+            "https://replicate.com/buntingj-vt/configs/coco/swin/oneformer_swin_large_bs16_100ep.yaml",
+            "https://replicate.com/buntingj-vt/configs/mapillary_vistas/convnext/oneformer_convnext_large_bs16_300k.yaml",
+            "https://replicate.com/buntingj-vt/configs/mapillary_vistas/dinat/oneformer_dinat_large_bs16_300k.yaml",
+            "https://replicate.com/buntingj-vt/configs/mapillary_vistas/swin/oneformer_swin_large_bs16_300k.yaml",
+            "https://replicate.com/buntingj-vt/datasets/README.md",
+            "https://replicate.com/buntingj-vt/demo/README.md",
+            "https://replicate.com/buntingj-vt/tools/README.md",
+            "https://replicate.com/bytedance/comfyui/sdxl_lightning_workflow_full.json",
+            "https://replicate.com/bytedance/comfyui/sdxl_lightning_workflow_full_1step.json",
+            "https://replicate.com/bytedance/comfyui/sdxl_lightning_workflow_lora.json",
+            "https://replicate.com/bytedance/resources/cut_bach.mid",
+            "https://replicate.com/bytedance/resources/cut_bach.mp3",
+            "https://replicate.com/bytedance/resources/cut_liszt.mid",
+            "https://replicate.com/bytedance/resources/cut_liszt.mp3",
+            "https://replicate.com/bytedance/seededit-3.0",
+            "https://replicate.com/bytedance/seedream-5",
+            "https://replicate.com/camb-ai/docs/architecture.md",
+            "https://replicate.com/camb-ai/inference.py",
+            "https://replicate.com/camenduru/lgm-ply-to-glb/readme",
+            "https://replicate.com/changelog/None",
+            "https://replicate.com/changelog/replicate.com/playground",
+            "https://replicate.com/character-ai/example_prompts/gpt_examples_i2v.csv",
+            "https://replicate.com/character-ai/example_prompts/gpt_examples_t2v.csv",
+            "https://replicate.com/character-ai/ovi/configs/inference/inference_fusion.yaml",
+            "https://replicate.com/chenxwh/ACKNOWLEDGEMENTS.md",
+            "https://replicate.com/chenxwh/LICENSE",
+            "https://replicate.com/chenxwh/LICENSE-CODE",
+            "https://replicate.com/chenxwh/LICENSE-MODEL",
+            "https://replicate.com/chenxwh/MODEL_LICENSE",
+            "https://replicate.com/cjwbw/LICENSE",
+            "https://replicate.com/cjwbw/LICENSE.apache-2.0",
+            "https://replicate.com/cjwbw/LICENSE.txt",
+            "https://replicate.com/cjwbw/MODEL_LICENSE",
+            "https://replicate.com/cjwbw/NOTICE",
+            "https://replicate.com/cjwbw/ai.com",
+            "https://replicate.com/cjwbw/docs/yfcc_v_acef1cb6d38c2beab6e69e266e234f",
+            "https://replicate.com/cjwbw/shaoshuyang2020@outlook.com",
+            "https://replicate.com/cjwbw/yhebm@connect.ust.hk",
+            "https://replicate.com/collections/cuuupid/marker",
+            "https://replicate.com/collections/image-restoration",
+            "https://replicate.com/collections/trainable-language-models",
+            "https://replicate.com/contact",
+            "https://replicate.com/csslc/LICENSE",
+            "https://replicate.com/cudanexus/LICENSE",
+            "https://replicate.com/cudanexus/datasets/README.md",
+            "https://replicate.com/cudanexus/docs/INSTALL.md",
+            "https://replicate.com/cudanexus/docs/MODEL_ZOO.md",
+            "https://replicate.com/cureau/LICENSE",
+            "https://replicate.com/cuuupid/LICENSE",
+            "https://replicate.com/cuuupid/basic_demo/README.md",
+            "https://replicate.com/cuuupid/basic_demo/README_en.md",
+            "https://replicate.com/cuuupid/composite_demo/README.md",
+            "https://replicate.com/cuuupid/finetune_demo/README.md",
+            "https://replicate.com/cuuupid/sat/README.md",
+            "https://replicate.com/daanelson/LICENSE",
+            "https://replicate.com/deepseek-ai/LICENSE",
+            "https://replicate.com/deepseek-ai/LICENSE-CODE",
+            "https://replicate.com/deepseek-ai/LICENSE-MODEL",
+            "https://replicate.com/deepseek-ai/service@deepseek.com",
+            "https://replicate.com/dobariyz/facefixer-model",
+            "https://replicate.com/docs/404",
+            "https://replicate.com/docs/dataset.md",
+            "https://replicate.com/docs/fine-tuning",
+            "https://replicate.com/docs/guides/cloudflare-image-cache.md",
+            "https://replicate.com/docs/guides/extend/comfyui-manager",
+            "https://replicate.com/docs/guides/extend/run-comfyui-on-replicate",
+            "https://replicate.com/docs/guides/fine-tune-a-language-model",
+            "https://replicate.com/docs/guides/run/how-to-use",
+            "https://replicate.com/docs/guides/run/inpainting",
+            "https://replicate.com/docs/guides/run/outpainting",
+            "https://replicate.com/docs/guides/stable-diffusion/controlnet",
+            "https://replicate.com/docs/guides/stable-diffusion/inpainting",
+            "https://replicate.com/docs/guides/working-with-loras",
+            "https://replicate.com/docs/reference/examples",
+            "https://replicate.com/docs/report_v1.md",
+            "https://replicate.com/dsingal0",
+            "https://replicate.com/easel/advanced-face-swap",
+            "https://replicate.com/emiliacb/LICENSE",
+            "https://replicate.com/fofr/advanced-face-swap",
+            "https://replicate.com/fofr/kontext-realearth",
+            "https://replicate.com/fofr/musicgen-choral",
+            "https://replicate.com/fofr/musicgen-sonic",
+            "https://replicate.com/fofr/portraits_dialogues",
+            "https://replicate.com/fofr/wan-14b-black-sclera",
+            "https://replicate.com/fofr/wan-14b-cyberpunk-realistic",
+            "https://replicate.com/fofr/zeke",
+            "https://replicate.com/foundationvision/LICENSE",
+            "https://replicate.com/get-started/fine-tune-with-flux",
+            "https://replicate.com/google/film-frame-interpolation",
+            "https://replicate.com/guides/comfyui",
+            "https://replicate.com/guides/comfyui/custom-nodes",
+            "https://replicate.com/guides/comfyui/run-comfyui-with-an-api",
+            "https://replicate.com/guides/stable-diffusion/controlnet",
+            "https://replicate.com/guides/stable-diffusion/fine-tuning",
+            "https://replicate.com/guides/stable-diffusion/glossary",
+            "https://replicate.com/guides/stable-diffusion/how-to-use",
+            "https://replicate.com/guides/stable-diffusion/image-to-image",
+            "https://replicate.com/guides/stable-diffusion/inpainting",
+            "https://replicate.com/guides/stable-diffusion/outpainting",
+            "https://replicate.com/guides/stable-diffusion/turbo-and-latent-consistency",
+            "https://replicate.com/guides/upscaling-images",
+            "https://replicate.com/guides/upscaling-images/controlnet-tile",
+            "https://replicate.com/guides/upscaling-images/gfpgan-and-codeformer",
+            "https://replicate.com/guides/upscaling-images/real-esrgan",
+            "https://replicate.com/guides/upscaling-images/sd-ultimate-upscale",
+            "https://replicate.com/guides/upscaling-images/swinir",
+            "https://replicate.com/haiper-ai/haiper-video-2",
+            "https://replicate.com/hardikdava/args.py",
+            "https://replicate.com/hardikdava/misc/accelerate_ds2.yaml",
+            "https://replicate.com/hardikdava/misc/convert_to_wds.py",
+            "https://replicate.com/hardikdava/misc/launch_edit.slurm",
+            "https://replicate.com/hardikdava/requirements.txt",
+            "https://replicate.com/ibm-granite/LICENSE",
+            "https://replicate.com/ibrahimpenekli/ACKNOWLEDGEMENTS.md",
+            "https://replicate.com/ibrahimpenekli/LICENSE",
+            "https://replicate.com/idea-research/data/ram_tag_list.txt",
+            "https://replicate.com/ideogram-ai/ideogram-v3",
+            "https://replicate.com/javirk/LICENSE.md",
+            "https://replicate.com/jd7h/docs/acceleration.md",
+            "https://replicate.com/jd7h/docs/command.md",
+            "https://replicate.com/jd7h/docs/datasets.md",
+            "https://replicate.com/jd7h/docs/report_v1.md",
+            "https://replicate.com/kwaiyeij/kling-v2.1",
+            "https://replicate.com/l3das/link",
+            "https://replicate.com/latentlabs/latentsync",
+            "https://replicate.com/lllyasviel/controlnet-canny",
+            "https://replicate.com/lllyasviel/controlnet-depth2img",
+            "https://replicate.com/login/github",
+            "https://replicate.com/lucataco/LICENSE",
+            "https://replicate.com/lucataco/LICENSE.txt",
+            "https://replicate.com/lucataco/chat/lmdeploy.md",
+            "https://replicate.com/lucataco/demo.ipynb",
+            "https://replicate.com/lucataco/sesame.com",
+            "https://replicate.com/lucataco/video-utils",
+            "https://replicate.com/luma/ray",
+            "https://replicate.com/m1guelpf/LICENSE",
+            "https://replicate.com/menghanxia/LICENSE",
+            "https://replicate.com/merahburam/LICENSES.md",
+            "https://replicate.com/meronym/pyannote.github.io",
+            "https://replicate.com/meronym/pytorch.org",
+            "https://replicate.com/meta/CODE_OF_CONDUCT.md",
+            "https://replicate.com/meta/CONTRIBUTING.md",
+            "https://replicate.com/meta/LICENSE",
+            "https://replicate.com/meta/NOTICE",
+            "https://replicate.com/meta/llama-2-13b/train",
+            "https://replicate.com/meta/meta-llama-3.1-405b-instruct",
+            "https://replicate.com/meta/meta-llama-3.1-405b-instruct/api",
+            "https://replicate.com/meta/meta-llama-3.1-405b-instruct/api/schema",
+            "https://replicate.com/microsoft/LICENSE",
+            "https://replicate.com/mikeei/LICENSE",
+            "https://replicate.com/mistralai/mistral-7b-instruct-v0.2/api",
+            "https://replicate.com/newsletter",
+            "https://replicate.com/newsletter/replicate-intelligence-2024-05-24",
+            "https://replicate.com/newsletter/replicate-intelligence-2024-06-07",
+            "https://replicate.com/newsletter/replicate-intelligence-2024-06-21",
+            "https://replicate.com/nomagick/FAQ.md",
+            "https://replicate.com/nomagick/LICENSE",
+            "https://replicate.com/nomagick/README.md",
+            "https://replicate.com/nomagick/TUTORIAL.md",
+            "https://replicate.com/nomagick/cli_demo.py",
+            "https://replicate.com/nomagick/eval_mm/EVALUATION.md",
+            "https://replicate.com/nomagick/eval_mm/mme/EVAL_MME.md",
+            "https://replicate.com/nomagick/eval_mm/seed_bench/EVAL_SEED.md",
+            "https://replicate.com/nomagick/resources/WECHAT.md",
+            "https://replicate.com/nomagick/touchstone/README.md",
+            "https://replicate.com/notebooks",
+            "https://replicate.com/nvidia/LICENSE.txt",
+            "https://replicate.com/onion-liu/op",
+            "https://replicate.com/onion-liu/test_imgs/face_imgs",
+            "https://replicate.com/onion-liu/test_imgs/style_imgs",
+            "https://replicate.com/openai/gpt-oss-safeguard-120b",
+            "https://replicate.com/openai/model-card.md",
+            "https://replicate.com/p/gb8dcmkqahrgc0cx19evk2c89g",
+            "https://replicate.com/pagebrain",
+            "https://replicate.com/pharmapsychotic/realvisxl-v3-multi-controlnet-lora",
+            "https://replicate.com/pixverse-ai/lipsync",
+            "https://replicate.com/playht/text-to-speech",
+            "https://replicate.com/pollinations/DOCUMENTATION.md",
+            "https://replicate.com/pollinations/LICENSE",
+            "https://replicate.com/pollinations/LICENSE_weights",
+            "https://replicate.com/pollinations/MODEL_CARD.md",
+            "https://replicate.com/pollinations/demo.ipynb",
+            "https://replicate.com/pollinations/doc/AdaMPI.md",
+            "https://replicate.com/pollinations/doc/Warp-Back.md",
+            "https://replicate.com/pollinations/docs/method.md",
+            "https://replicate.com/pollinations/model-card.md",
+            "https://replicate.com/pollinations/requirements.txt",
+            "https://replicate.com/qwen/qwen-image-edit-plus-lora-multiangle",
+            "https://replicate.com/replicate.com/playground",
+            "https://replicate.com/replicate/poet-vicuna-13b",
+            "https://replicate.com/replicate/vllm",
+            "https://replicate.com/rinnakk/LICENSE",
+            "https://replicate.com/rossjillian",
+            "https://replicate.com/runwayml/upscale-v1",
+            "https://replicate.com/shridharathi/brandless",
+            "https://replicate.com/stability-ai/stable-diffusion-medium",
+            "https://replicate.com/stability-ai/stable-video-diffusion",
+            "https://replicate.com/tencent/IndexKits/docs/MakeDataset.md",
+            "https://replicate.com/tencent/comfyui-hydit/README.md",
+            "https://replicate.com/tencent/example_prompts.txt",
+            "https://replicate.com/tencent/minimal_demo.py",
+            "https://replicate.com/thinksound/thinksound",
+            "https://replicate.com/thudm/LICENSE",
+            "https://replicate.com/thudm/resources/contribute.md",
+            "https://replicate.com/tomasmcm",
+            "https://replicate.com/tools/caption/README.md",
+            "https://replicate.com/tools/datasets/README.md",
+            "https://replicate.com/tools/scenedetect/README.md",
+            "https://replicate.com/uwulewd",
+            "https://replicate.com/vectorspacelab/LICENSE",
+            "https://replicate.com/wan-ai/wan-2.2-s2v",
+            "https://replicate.com/wan-video/LICENSE.txt",
+            "https://replicate.com/yuni-eng/coloring",
+            "https://replicate.com/zeke,",
+            "https://replicate.com/zsxkib/LICENSE",
+            "https://replicate.com/zsxkib/bagel",
+            "https://replicate.com/zsxkib/configs/dataset/face_train.yaml",
+            "https://replicate.com/zsxkib/configs/dataset/face_val.yaml",
+            "https://replicate.com/zsxkib/configs/dataset/general_deg_codeformer_train.yaml",
+            "https://replicate.com/zsxkib/configs/dataset/general_deg_codeformer_val.yaml",
+            "https://replicate.com/zsxkib/configs/dataset/general_deg_realesrgan_train.yaml",
+            "https://replicate.com/zsxkib/configs/dataset/general_deg_realesrgan_val.yaml",
+            "https://replicate.com/zsxkib/configs/train_cldm.yaml",
+            "https://replicate.com/zsxkib/configs/train_swinir.yaml",
+            "https://replicate.com/zsxkib/inputs/real47",
+            "https://replicate.com/zsxkib/model-card.md",
+            "https://replicate.com/zsxkib/train-rvc-v2",
+            "https://replicate.com/zylim0702/link_to_baidu_netdisk",
+            "https://replicate.com/zylim0702/link_to_google_drive"
+          ],
+          "_all_unverified_links": [
+            "https://replicate.com/alexizvelz/rosmeri1/examples",
+            "https://replicate.com/aliciamunianps/alicia/examples",
+            "https://replicate.com/arietudo/samm/examples",
+            "https://replicate.com/ayushunleashed/partpacker",
+            "https://replicate.com/beatrizalvesoll/bea/examples",
+            "https://replicate.com/bighairjames/brad/examples",
+            "https://replicate.com/carlosperz88/teslacyberbeast/examples",
+            "https://replicate.com/colinmcdonnell22/tweak_characters/examples",
+            "https://replicate.com/doriandarko/sdxl-bladerunner2049/examples",
+            "https://replicate.com/doriandarko/sdxl-dolcevita/examples",
+            "https://replicate.com/doriandarko/sdxl-obradinn/examples",
+            "https://replicate.com/emibob/bavis/examples",
+            "https://replicate.com/ferratd/destine/examples",
+            "https://replicate.com/geobotsar81/geobotsar-flux-2/examples",
+            "https://replicate.com/jborgesdb/lamuritechsuite/examples",
+            "https://replicate.com/jonathan-hubjam/jonathan-flux2/examples",
+            "https://replicate.com/jonathan-hubjam/new-spex/examples",
+            "https://replicate.com/jwilko1007-alt/julieaiavatar/examples",
+            "https://replicate.com/katylora/katy-lora/examples",
+            "https://replicate.com/makinsongary698/jh/examples",
+            "https://replicate.com/marcobitboss274/marco-cervo-m2/examples",
+            "https://replicate.com/mayoita/max-mayoita/examples",
+            "https://replicate.com/natta613/nat-1-kai/examples",
+            "https://replicate.com/p/36tn2vtby3raqlb7uvnqlrii5i",
+            "https://replicate.com/p/3xzqmglbd7ofjh2fahy4xhfsva",
+            "https://replicate.com/prakharsaxena24/masked-upscaler",
+            "https://replicate.com/ryokeken/bigboi/examples",
+            "https://replicate.com/stephaniejacksonphoto/steph/examples",
+            "https://replicate.com/treeneefinds/tam/examples"
+          ],
+          "_all_excluded_links": [
+            "https://replicate.com/api/models/cjwbw/clip-vit-large-patch14/files/36b04aec-efe2-4dea-9c9d-a5faca68b2b2/000000039769.jpg",
+            "https://replicate.com/blog/rss",
+            "https://replicate.com/changelog/rss",
+            "https://replicate.com/cjwbw/assets/cogvlm-paper.pdf",
+            "https://replicate.com/cudanexus/static/images/arabic.jpg",
+            "https://replicate.com/cudanexus/static/images/arabic_text.jpg",
+            "https://replicate.com/cudanexus/static/images/chi_hind.jpg",
+            "https://replicate.com/cudanexus/static/images/chi_hind_text.jpg",
+            "https://replicate.com/cudanexus/static/images/chinese.jpg",
+            "https://replicate.com/cudanexus/static/images/chinese_text.jpg",
+            "https://replicate.com/cudanexus/static/images/funsd.png",
+            "https://replicate.com/cudanexus/static/images/funsd_text.jpg",
+            "https://replicate.com/cudanexus/static/images/hindi.jpg",
+            "https://replicate.com/cudanexus/static/images/hindi_text.jpg",
+            "https://replicate.com/cudanexus/static/images/japanese.jpg",
+            "https://replicate.com/cudanexus/static/images/japanese_text.jpg",
+            "https://replicate.com/cudanexus/static/images/nyt.jpg",
+            "https://replicate.com/cudanexus/static/images/nyt_text.jpg",
+            "https://replicate.com/cudanexus/static/images/paper.jpg",
+            "https://replicate.com/cudanexus/static/images/paper_text.jpg",
+            "https://replicate.com/cudanexus/static/images/pres.png",
+            "https://replicate.com/cudanexus/static/images/pres_text.jpg",
+            "https://replicate.com/cudanexus/static/images/rec_acc_table.png",
+            "https://replicate.com/cudanexus/static/images/scanned.png",
+            "https://replicate.com/cudanexus/static/images/scanned_text.jpg",
+            "https://replicate.com/cudanexus/static/images/textbook.jpg",
+            "https://replicate.com/cudanexus/static/images/textbook_text.jpg",
+            "https://replicate.com/images/README.md",
+            "https://replicate.com/joshelgar/rssmurryflux",
+            "https://replicate.com/joshelgar/rssmurryflux/api",
+            "https://replicate.com/joshelgar/rssmurryflux/examples",
+            "https://replicate.com/joshelgar/rssmurryflux/readme",
+            "https://replicate.com/joshelgar/rssmurryflux/versions",
+            "https://replicate.com/joshelgar/rssmurryflux/versions/cab0a128ac82fee3cc62ca7e957abe2bed0f18418268bf7ad42602bf5973d816",
+            "https://replicate.com/joshelgar/rssmurryflux/versions/cab0a128ac82fee3cc62ca7e957abe2bed0f18418268bf7ad42602bf5973d816/api",
+            "https://replicate.com/mehdidc/feed_forward_vqgan_clip",
+            "https://replicate.com/naklecha/search-autocomplete",
+            "https://replicate.com/naklecha/search-autocomplete/api",
+            "https://replicate.com/naklecha/search-autocomplete/examples",
+            "https://replicate.com/naklecha/search-autocomplete/readme",
+            "https://replicate.com/naklecha/search-autocomplete/versions",
+            "https://replicate.com/naklecha/search-autocomplete/versions/727be041581f8fa1c05ef6b1772f5956a86f9adb31fcad489375c0091c951826",
+            "https://replicate.com/naklecha/search-autocomplete/versions/727be041581f8fa1c05ef6b1772f5956a86f9adb31fcad489375c0091c951826/api",
+            "https://replicate.com/pollinations/misc/teaser.gif",
+            "https://replicate.com/pvitoria/Figures/ColorizationModel.png",
+            "https://replicate.com/search",
+            "https://replicate.com/shashwatgokhe/deepcoder-14b/versions/feede97a7de3eb6a79a62d1050246f443e07acadd9f9662eee4b975645f7685f",
+            "https://replicate.com/shashwatgokhe/deepcoder-14b/versions/feede97a7de3eb6a79a62d1050246f443e07acadd9f9662eee4b975645f7685f/api",
+            "https://replicate.com/status/rss"
+          ],
+          "_all_docs_unverified_links": [
+            "https://replicate.com/alexizvelz/rosmeri1/examples",
+            "https://replicate.com/aliciamunianps/alicia/examples",
+            "https://replicate.com/arietudo/samm/examples",
+            "https://replicate.com/ayushunleashed/partpacker",
+            "https://replicate.com/beatrizalvesoll/bea/examples",
+            "https://replicate.com/bighairjames/brad/examples",
+            "https://replicate.com/carlosperz88/teslacyberbeast/examples",
+            "https://replicate.com/colinmcdonnell22/tweak_characters/examples",
+            "https://replicate.com/doriandarko/sdxl-bladerunner2049/examples",
+            "https://replicate.com/doriandarko/sdxl-dolcevita/examples",
+            "https://replicate.com/doriandarko/sdxl-obradinn/examples",
+            "https://replicate.com/emibob/bavis/examples",
+            "https://replicate.com/ferratd/destine/examples",
+            "https://replicate.com/geobotsar81/geobotsar-flux-2/examples",
+            "https://replicate.com/jborgesdb/lamuritechsuite/examples",
+            "https://replicate.com/jonathan-hubjam/jonathan-flux2/examples",
+            "https://replicate.com/jonathan-hubjam/new-spex/examples",
+            "https://replicate.com/jwilko1007-alt/julieaiavatar/examples",
+            "https://replicate.com/katylora/katy-lora/examples",
+            "https://replicate.com/makinsongary698/jh/examples",
+            "https://replicate.com/marcobitboss274/marco-cervo-m2/examples",
+            "https://replicate.com/mayoita/max-mayoita/examples",
+            "https://replicate.com/natta613/nat-1-kai/examples",
+            "https://replicate.com/p/36tn2vtby3raqlb7uvnqlrii5i",
+            "https://replicate.com/p/3xzqmglbd7ofjh2fahy4xhfsva",
+            "https://replicate.com/prakharsaxena24/masked-upscaler",
+            "https://replicate.com/ryokeken/bigboi/examples",
+            "https://replicate.com/stephaniejacksonphoto/steph/examples",
+            "https://replicate.com/treeneefinds/tam/examples"
+          ],
+          "_all_repo_unverified_links": [],
+          "_broken_link_provenance": {
+            "https://replicate.com/CODE_OF_CONDUCT.md": [
+              {
+                "source_page": "https://replicate.com/ibm-granite/granite-20b-code-instruct-8k",
+                "anchor_text": "Code of Conduct"
+              },
+              {
+                "source_page": "https://replicate.com/ibm-granite/granite-8b-code-instruct-128k",
+                "anchor_text": "Code of Conduct"
+              }
+            ],
+            "https://replicate.com/CONTRIBUTING.md": [
+              {
+                "source_page": "https://replicate.com/ibm-granite/granite-20b-code-instruct-8k",
+                "anchor_text": "Guidelines"
+              },
+              {
+                "source_page": "https://replicate.com/ibm-granite/granite-8b-code-instruct-128k",
+                "anchor_text": "Guidelines"
+              }
+            ],
+            "https://replicate.com/DiffusionLight/DiffusionLight/tree/main": [
+              {
+                "source_page": "https://replicate.com/lucataco/diffusionlight",
+                "anchor_text": "Download"
+              }
+            ],
+            "https://replicate.com/None": [
+              {
+                "source_page": "https://replicate.com/changelog",
+                "anchor_text": "Replicate Python client"
+              }
+            ],
+            "https://replicate.com/a16z-infra": [
+              {
+                "source_page": "https://replicate.com/blog/run-mistral-7b-with-api",
+                "anchor_text": "@a16z-infra"
+              }
+            ],
+            "https://replicate.com/afiaka87/github.com/CompVis/latent-diffusion": [
+              {
+                "source_page": "https://replicate.com/afiaka87/retrieval-augmented-diffusion",
+                "anchor_text": "latent diffusion"
+              }
+            ],
+            "https://replicate.com/alexgenovese/LICENSE": [
+              {
+                "source_page": "https://replicate.com/alexgenovese/adcsr-ultra-fast-super-resolution",
+                "anchor_text": "LICENSE"
+              },
+              {
+                "source_page": "https://replicate.com/alexgenovese/flux-sd3-flow-edit",
+                "anchor_text": "Apache-2.0 License"
+              },
+              {
+                "source_page": "https://replicate.com/alexgenovese/upscaler",
+                "anchor_text": "Apache-2.0 License"
+              }
+            ],
+            "https://replicate.com/allenhooo/geomagical.com": [
+              {
+                "source_page": "https://replicate.com/allenhooo/lama",
+                "anchor_text": "geomagical.com"
+              }
+            ],
+            "https://replicate.com/andreasjannson": [
+              {
+                "source_page": "https://replicate.com/blog/how-to-prompt-nano-banana-pro",
+                "anchor_text": "andreasjannson"
+              }
+            ],
+            "https://replicate.com/andreasjansson/afiaka87/retrieval-augmented-diffusion": [
+              {
+                "source_page": "https://replicate.com/andreasjansson/monkey-island-rdm",
+                "anchor_text": "https://replicate.com/afiaka87/retrieval-augmented-diffusion"
+              }
+            ],
+            "https://replicate.com/arielreplicate/LICENSE-MODEL": [
+              {
+                "source_page": "https://replicate.com/arielreplicate/stable_diffusion2_upscaling",
+                "anchor_text": "CreativeML Open RAIL++-M License"
+              }
+            ],
+            "https://replicate.com/arielreplicate/LICENSE.txt": [
+              {
+                "source_page": "https://replicate.com/arielreplicate/scalable_diffusion_with_transformers",
+                "anchor_text": "LICENSE.txt"
+              }
+            ],
+            "https://replicate.com/arielreplicate/README_zh_Hans.md": [
+              {
+                "source_page": "https://replicate.com/arielreplicate/robust_video_matting",
+                "anchor_text": "\u4e2d\u6587"
+              }
+            ],
+            "https://replicate.com/arielreplicate/environment.yml": [
+              {
+                "source_page": "https://replicate.com/arielreplicate/scalable_diffusion_with_transformers",
+                "anchor_text": "environment.yml"
+              }
+            ],
+            "https://replicate.com/arielreplicate/main.py": [
+              {
+                "source_page": "https://replicate.com/arielreplicate/scalable_diffusion_with_transformers",
+                "anchor_text": "main.py"
+              }
+            ],
+            "https://replicate.com/arielreplicate/models.py": [
+              {
+                "source_page": "https://replicate.com/arielreplicate/scalable_diffusion_with_transformers",
+                "anchor_text": "implementation"
+              }
+            ],
+            "https://replicate.com/arielreplicate/multi-scale-blended-diffusion/InteractiveEditing.ipynb": [
+              {
+                "source_page": "https://replicate.com/arielreplicate/multi-stage-blended-diffusion",
+                "anchor_text": "multi-scale-blended-diffusion/InteractiveEditing.ipynb"
+              },
+              {
+                "source_page": "https://replicate.com/arielreplicate/multi-stage-blended-diffusion",
+                "anchor_text": "multi-scale-blended-diffusion/blended_latent_diffusion.py ."
+              }
+            ],
+            "https://replicate.com/benk044": [
+              {
+                "source_page": "https://replicate.com/benk044/mooner",
+                "anchor_text": "benk044"
+              },
+              {
+                "source_page": "https://replicate.com/benk044/mooner/versions/4673a61e27b304b499d13a5e370a8fa5542b7ce3c1b8542eefc1226077b3a935",
+                "anchor_text": "benk044"
+              }
+            ],
+            "https://replicate.com/black-forest-labs/flux-pro-trainer": [
+              {
+                "source_page": "https://replicate.com/black-forest-labs/flux-1.1-pro-ultra-finetuned",
+                "anchor_text": "black-forest-labs/flux-pro-trainer"
+              },
+              {
+                "source_page": "https://replicate.com/black-forest-labs/flux-pro-finetuned",
+                "anchor_text": "black-forest-labs/flux-pro-trainer"
+              },
+              {
+                "source_page": "https://replicate.com/collections/flux",
+                "anchor_text": "black-forest-labs/flux-pro-trainer"
+              }
+            ],
+            "https://replicate.com/black-forest-labs/flux-pulid": [
+              {
+                "source_page": "https://replicate.com/collections/ai-face-generator",
+                "anchor_text": "black-forest-labs/flux-pulid"
+              }
+            ],
+            "https://replicate.com/black-forest-labs/flux.1-kontext": [
+              {
+                "source_page": "https://replicate.com/collections/flux-kontext-fine-tunes",
+                "anchor_text": "black-forest-labs/flux.1-kontext"
+              }
+            ],
+            "https://replicate.com/black-forest-labs/replicate.com/playground": [
+              {
+                "source_page": "https://replicate.com/black-forest-labs/flux-2-klein-9b-base-lora",
+                "anchor_text": "Replicate Playground"
+              }
+            ],
+            "https://replicate.com/blackforestlabs/flux-1-schnell": [
+              {
+                "source_page": "https://replicate.com/blog/replicate-intelligence-2024-08-02",
+                "anchor_text": "try on Replicate"
+              }
+            ],
+            "https://replicate.com/blog/None": [
+              {
+                "source_page": "https://replicate.com/blog/kontext-hackathon",
+                "anchor_text": "VoiceCam"
+              }
+            ],
+            "https://replicate.com/blog/flux-1-a-new-state-of-the-art-image-generation-model-from-black-forest-labs": [
+              {
+                "source_page": "https://replicate.com/blog/replicate-intelligence-2024-08-02",
+                "anchor_text": "Replicate API"
+              }
+            ],
+            "https://replicate.com/blog/pruna.ai": [
+              {
+                "source_page": "https://replicate.com/blog/wan-22",
+                "anchor_text": "Pruna AI"
+              }
+            ],
+            "https://replicate.com/blog/replicate.com/flux-kontext-apps": [
+              {
+                "source_page": "https://replicate.com/blog/kontext-hackathon",
+                "anchor_text": "FLUX.1 Kontext apps"
+              }
+            ],
+            "https://replicate.com/blog/wan": [
+              {
+                "source_page": "https://replicate.com/blog/wan-21-parameter-sweep",
+                "anchor_text": "Alibaba\u2019s WAN2.1 text-to-video model"
+              }
+            ],
+            "https://replicate.com/buntingj-vt/GETTING_STARTED.md": [
+              {
+                "source_page": "https://replicate.com/buntingj-vt/one-former",
+                "anchor_text": "Getting Started with OneFormer"
+              }
+            ],
+            "https://replicate.com/buntingj-vt/INSTALL.md": [
+              {
+                "source_page": "https://replicate.com/buntingj-vt/one-former",
+                "anchor_text": "INSTALL.md"
+              }
+            ],
+            "https://replicate.com/buntingj-vt/configs/ade20k/convnext/oneformer_convnext_large_bs16_160k.yaml": [
+              {
+                "source_page": "https://replicate.com/buntingj-vt/one-former",
+                "anchor_text": "config"
+              }
+            ],
+            "https://replicate.com/buntingj-vt/configs/ade20k/convnext/oneformer_convnext_xlarge_bs16_160k.yaml": [
+              {
+                "source_page": "https://replicate.com/buntingj-vt/one-former",
+                "anchor_text": "config"
+              }
+            ],
+            "https://replicate.com/buntingj-vt/configs/ade20k/dinat/coco_pretrain_oneformer_dinat_large_bs16_160k_1280x1280_coco_pretrain.yaml": [
+              {
+                "source_page": "https://replicate.com/buntingj-vt/one-former",
+                "anchor_text": "config"
+              }
+            ],
+            "https://replicate.com/buntingj-vt/configs/ade20k/dinat/oneformer_dinat_large_bs16_160k.yaml": [
+              {
+                "source_page": "https://replicate.com/buntingj-vt/one-former",
+                "anchor_text": "config"
+              }
+            ],
+            "https://replicate.com/buntingj-vt/configs/ade20k/dinat/oneformer_dinat_large_bs16_160k_1280x1280.yaml": [
+              {
+                "source_page": "https://replicate.com/buntingj-vt/one-former",
+                "anchor_text": "config"
+              }
+            ],
+            "https://replicate.com/buntingj-vt/configs/ade20k/dinat/oneformer_dinat_large_bs16_160k_896x896.yaml": [
+              {
+                "source_page": "https://replicate.com/buntingj-vt/one-former",
+                "anchor_text": "config"
+              }
+            ],
+            "https://replicate.com/buntingj-vt/configs/ade20k/swin/oneformer_swin_large_bs16_160k.yaml": [
+              {
+                "source_page": "https://replicate.com/buntingj-vt/one-former",
+                "anchor_text": "config"
+              }
+            ],
+            "https://replicate.com/buntingj-vt/configs/ade20k/swin/oneformer_swin_large_bs16_160k_1280x1280.yaml": [
+              {
+                "source_page": "https://replicate.com/buntingj-vt/one-former",
+                "anchor_text": "config"
+              }
+            ],
+            "https://replicate.com/buntingj-vt/configs/ade20k/swin/oneformer_swin_large_bs16_160k_896x896.yaml": [
+              {
+                "source_page": "https://replicate.com/buntingj-vt/one-former",
+                "anchor_text": "config"
+              }
+            ],
+            "https://replicate.com/buntingj-vt/configs/cityscapes/convnext/mapillary_pretrain_oneformer_convnext_large_bs16_90k.yaml": [
+              {
+                "source_page": "https://replicate.com/buntingj-vt/one-former",
+                "anchor_text": "config"
+              }
+            ],
+            "https://replicate.com/buntingj-vt/configs/cityscapes/convnext/mapillary_pretrain_oneformer_convnext_xlarge_bs16_90k.yaml": [
+              {
+                "source_page": "https://replicate.com/buntingj-vt/one-former",
+                "anchor_text": "config"
+              }
+            ],
+            "https://replicate.com/buntingj-vt/configs/cityscapes/convnext/oneformer_convnext_large_bs16_90k.yaml": [
+              {
+                "source_page": "https://replicate.com/buntingj-vt/one-former",
+                "anchor_text": "config"
+              }
+            ],
+            "https://replicate.com/buntingj-vt/configs/cityscapes/convnext/oneformer_convnext_xlarge_bs16_90k.yaml": [
+              {
+                "source_page": "https://replicate.com/buntingj-vt/one-former",
+                "anchor_text": "config"
+              }
+            ],
+            "https://replicate.com/buntingj-vt/configs/cityscapes/dinat/oneformer_dinat_large_bs16_90k.yaml": [
+              {
+                "source_page": "https://replicate.com/buntingj-vt/one-former",
+                "anchor_text": "config"
+              }
+            ],
+            "https://replicate.com/buntingj-vt/configs/cityscapes/swin/oneformer_swin_large_bs16_90k.yaml": [
+              {
+                "source_page": "https://replicate.com/buntingj-vt/one-former",
+                "anchor_text": "config"
+              }
+            ],
+            "https://replicate.com/buntingj-vt/configs/coco/dinat/oneformer_dinat_large_bs16_100ep.yaml": [
+              {
+                "source_page": "https://replicate.com/buntingj-vt/one-former",
+                "anchor_text": "config"
+              }
+            ],
+            "https://replicate.com/buntingj-vt/configs/coco/swin/oneformer_swin_large_bs16_100ep.yaml": [
+              {
+                "source_page": "https://replicate.com/buntingj-vt/one-former",
+                "anchor_text": "config"
+              }
+            ],
+            "https://replicate.com/buntingj-vt/configs/mapillary_vistas/convnext/oneformer_convnext_large_bs16_300k.yaml": [
+              {
+                "source_page": "https://replicate.com/buntingj-vt/one-former",
+                "anchor_text": "config"
+              }
+            ],
+            "https://replicate.com/buntingj-vt/configs/mapillary_vistas/dinat/oneformer_dinat_large_bs16_300k.yaml": [
+              {
+                "source_page": "https://replicate.com/buntingj-vt/one-former",
+                "anchor_text": "config"
+              }
+            ],
+            "https://replicate.com/buntingj-vt/configs/mapillary_vistas/swin/oneformer_swin_large_bs16_300k.yaml": [
+              {
+                "source_page": "https://replicate.com/buntingj-vt/one-former",
+                "anchor_text": "config"
+              }
+            ],
+            "https://replicate.com/buntingj-vt/datasets/README.md": [
+              {
+                "source_page": "https://replicate.com/buntingj-vt/one-former",
+                "anchor_text": "Preparing Datasets for OneFormer"
+              }
+            ],
+            "https://replicate.com/buntingj-vt/demo/README.md": [
+              {
+                "source_page": "https://replicate.com/buntingj-vt/one-former",
+                "anchor_text": "OneFormer Demo"
+              }
+            ],
+            "https://replicate.com/buntingj-vt/tools/README.md": [
+              {
+                "source_page": "https://replicate.com/buntingj-vt/one-former",
+                "anchor_text": "under tools"
+              }
+            ],
+            "https://replicate.com/bytedance/comfyui/sdxl_lightning_workflow_full.json": [
+              {
+                "source_page": "https://replicate.com/bytedance/sdxl-lightning-4step",
+                "anchor_text": "ComfyUI full workflow"
+              }
+            ],
+            "https://replicate.com/bytedance/comfyui/sdxl_lightning_workflow_full_1step.json": [
+              {
+                "source_page": "https://replicate.com/bytedance/sdxl-lightning-4step",
+                "anchor_text": "ComfyUI full 1-step workflow"
+              }
+            ],
+            "https://replicate.com/bytedance/comfyui/sdxl_lightning_workflow_lora.json": [
+              {
+                "source_page": "https://replicate.com/bytedance/sdxl-lightning-4step",
+                "anchor_text": "ComfyUI LoRA workflow"
+              }
+            ],
+            "https://replicate.com/bytedance/resources/cut_bach.mid": [
+              {
+                "source_page": "https://replicate.com/bytedance/piano-transcription",
+                "anchor_text": "[transcribed_midi]"
+              }
+            ],
+            "https://replicate.com/bytedance/resources/cut_bach.mp3": [
+              {
+                "source_page": "https://replicate.com/bytedance/piano-transcription",
+                "anchor_text": "[audio]"
+              }
+            ],
+            "https://replicate.com/bytedance/resources/cut_liszt.mid": [
+              {
+                "source_page": "https://replicate.com/bytedance/piano-transcription",
+                "anchor_text": "[transcribed_midi]"
+              }
+            ],
+            "https://replicate.com/bytedance/resources/cut_liszt.mp3": [
+              {
+                "source_page": "https://replicate.com/bytedance/piano-transcription",
+                "anchor_text": "audio"
+              },
+              {
+                "source_page": "https://replicate.com/bytedance/piano-transcription",
+                "anchor_text": "[audio]"
+              }
+            ],
+            "https://replicate.com/bytedance/seededit-3.0": [
+              {
+                "source_page": "https://replicate.com/blog/compare-image-editing-models",
+                "anchor_text": "SeedEdit 3.0"
+              },
+              {
+                "source_page": "https://replicate.com/blog/generate-consistent-characters",
+                "anchor_text": "Bytedance\u2019s SeedEdit 3"
+              },
+              {
+                "source_page": "https://replicate.com/blog/generate-consistent-characters",
+                "anchor_text": "SeedEdit 3"
+              }
+            ],
+            "https://replicate.com/bytedance/seedream-5": [
+              {
+                "source_page": "https://replicate.com/blog/how-to-prompt-seedream-5",
+                "anchor_text": "Run Seedream 5.0"
+              },
+              {
+                "source_page": "https://replicate.com/blog/how-to-prompt-seedream-5",
+                "anchor_text": "Start creating with Seedream 5.0"
+              }
+            ],
+            "https://replicate.com/camb-ai/docs/architecture.md": [
+              {
+                "source_page": "https://replicate.com/camb-ai/mars5-tts",
+                "anchor_text": "Architecture"
+              },
+              {
+                "source_page": "https://replicate.com/camb-ai/mars5-tts",
+                "anchor_text": "docs folder"
+              },
+              {
+                "source_page": "https://replicate.com/camb-ai/mars5-tts",
+                "anchor_text": "in the docs folder"
+              },
+              {
+                "source_page": "https://replicate.com/camb-ai/mars5-tts",
+                "anchor_text": "model architecture"
+              }
+            ],
+            "https://replicate.com/camb-ai/inference.py": [
+              {
+                "source_page": "https://replicate.com/camb-ai/mars5-tts",
+                "anchor_text": "InferenceConfig"
+              }
+            ],
+            "https://replicate.com/camenduru/lgm-ply-to-glb/readme": [
+              {
+                "source_page": "https://replicate.com/changelog",
+                "anchor_text": "camenduru/lgm-ply-to-glb"
+              },
+              {
+                "source_page": "https://replicate.com/changelog/2024-02-19-3d-viewer-for-glb-outputs",
+                "anchor_text": "camenduru/lgm-ply-to-glb"
+              }
+            ],
+            "https://replicate.com/changelog/None": [
+              {
+                "source_page": "https://replicate.com/changelog/2023-10-05-api-for-listing-public-models",
+                "anchor_text": "Replicate Python client"
+              }
+            ],
+            "https://replicate.com/changelog/replicate.com/playground": [
+              {
+                "source_page": "https://replicate.com/changelog/2024-12-06-the-little-things-week-ending-december-06-2024",
+                "anchor_text": "default models on the playground (beta)"
+              }
+            ],
+            "https://replicate.com/character-ai/example_prompts/gpt_examples_i2v.csv": [
+              {
+                "source_page": "https://replicate.com/character-ai/ovi-i2v",
+                "anchor_text": "example_prompts/gpt_examples_i2v.csv"
+              }
+            ],
+            "https://replicate.com/character-ai/example_prompts/gpt_examples_t2v.csv": [
+              {
+                "source_page": "https://replicate.com/character-ai/ovi-i2v",
+                "anchor_text": "example_prompts/gpt_examples_t2v.csv"
+              }
+            ],
+            "https://replicate.com/character-ai/ovi/configs/inference/inference_fusion.yaml": [
+              {
+                "source_page": "https://replicate.com/character-ai/ovi-i2v",
+                "anchor_text": "ovi/configs/inference/inference_fusion.yaml"
+              }
+            ],
+            "https://replicate.com/chenxwh/ACKNOWLEDGEMENTS.md": [
+              {
+                "source_page": "https://replicate.com/chenxwh/ml-depth-pro",
+                "anchor_text": "Acknowledgements"
+              }
+            ],
+            "https://replicate.com/chenxwh/LICENSE": [
+              {
+                "source_page": "https://replicate.com/chenxwh/ml-depth-pro",
+                "anchor_text": "LICENSE"
+              },
+              {
+                "source_page": "https://replicate.com/chenxwh/nova-t2i",
+                "anchor_text": "Apache License 2.0"
+              },
+              {
+                "source_page": "https://replicate.com/chenxwh/nova-t2v",
+                "anchor_text": "Apache License 2.0"
+              }
+            ],
+            "https://replicate.com/chenxwh/LICENSE-CODE": [
+              {
+                "source_page": "https://replicate.com/chenxwh/deepseek-vl2",
+                "anchor_text": "MIT License"
+              }
+            ],
+            "https://replicate.com/chenxwh/LICENSE-MODEL": [
+              {
+                "source_page": "https://replicate.com/chenxwh/deepseek-vl2",
+                "anchor_text": "DeepSeek Model License"
+              }
+            ],
+            "https://replicate.com/chenxwh/MODEL_LICENSE": [
+              {
+                "source_page": "https://replicate.com/chenxwh/cogvlm2",
+                "anchor_text": "CogVLM2 LICENSE"
+              },
+              {
+                "source_page": "https://replicate.com/chenxwh/cogvlm2-video",
+                "anchor_text": "CogVLM2 LICENSE"
+              }
+            ],
+            "https://replicate.com/cjwbw/LICENSE": [
+              {
+                "source_page": "https://replicate.com/cjwbw/backgroundmatting",
+                "anchor_text": "MIT License"
+              },
+              {
+                "source_page": "https://replicate.com/cjwbw/cogvlm",
+                "anchor_text": "Apache-2.0 license"
+              },
+              {
+                "source_page": "https://replicate.com/cjwbw/global_tracking_transformers",
+                "anchor_text": "Apache 2.0 license"
+              },
+              {
+                "source_page": "https://replicate.com/cjwbw/karlo",
+                "anchor_text": "CreativeML Open RAIL-M license"
+              }
+            ],
+            "https://replicate.com/cjwbw/LICENSE.apache-2.0": [
+              {
+                "source_page": "https://replicate.com/cjwbw/mindall-e",
+                "anchor_text": "Apache 2.0"
+              }
+            ],
+            "https://replicate.com/cjwbw/LICENSE.txt": [
+              {
+                "source_page": "https://replicate.com/cjwbw/diffmorpher",
+                "anchor_text": "LICENSE"
+              },
+              {
+                "source_page": "https://replicate.com/cjwbw/rembg",
+                "anchor_text": "MIT License"
+              }
+            ],
+            "https://replicate.com/cjwbw/MODEL_LICENSE": [
+              {
+                "source_page": "https://replicate.com/cjwbw/cogvlm",
+                "anchor_text": "Model License"
+              }
+            ],
+            "https://replicate.com/cjwbw/NOTICE": [
+              {
+                "source_page": "https://replicate.com/cjwbw/global_tracking_transformers",
+                "anchor_text": "NOTICE"
+              }
+            ],
+            "https://replicate.com/cjwbw/ai.com": [
+              {
+                "source_page": "https://replicate.com/cjwbw/sadtalker",
+                "anchor_text": "ChatGPT"
+              }
+            ],
+            "https://replicate.com/cjwbw/docs/yfcc_v_acef1cb6d38c2beab6e69e266e234f": [
+              {
+                "source_page": "https://replicate.com/cjwbw/global_tracking_transformers",
+                "anchor_text": "demo video"
+              }
+            ],
+            "https://replicate.com/cjwbw/shaoshuyang2020@outlook.com": [
+              {
+                "source_page": "https://replicate.com/cjwbw/scalecrafter",
+                "anchor_text": "Shaoshu Yang"
+              }
+            ],
+            "https://replicate.com/cjwbw/yhebm@connect.ust.hk": [
+              {
+                "source_page": "https://replicate.com/cjwbw/scalecrafter",
+                "anchor_text": "Yingqing He"
+              }
+            ],
+            "https://replicate.com/collections/cuuupid/marker": [
+              {
+                "source_page": "https://replicate.com/collections/text-recognition-ocr",
+                "anchor_text": "cuuupid/marker"
+              },
+              {
+                "source_page": "https://replicate.com/collections/text-recognition-ocr",
+                "anchor_text": "Marker"
+              }
+            ],
+            "https://replicate.com/collections/image-restoration": [
+              {
+                "source_page": "https://replicate.com/changelog",
+                "anchor_text": "image restoration models"
+              },
+              {
+                "source_page": "https://replicate.com/changelog/2023-12-19-compare-image-inputs-to-outputs",
+                "anchor_text": "image restoration models"
+              }
+            ],
+            "https://replicate.com/collections/trainable-language-models": [
+              {
+                "source_page": "https://replicate.com/changelog/2023-07-20-training-api-for-language-models",
+                "anchor_text": "trainable language models collection"
+              },
+              {
+                "source_page": "https://replicate.com/changelog",
+                "anchor_text": "trainable language models collection"
+              },
+              {
+                "source_page": "https://replicate.com/docs/reference/http",
+                "anchor_text": "trainable language models collection"
+              }
+            ],
+            "https://replicate.com/contact": [
+              {
+                "source_page": "https://replicate.com/docs/topics/models/official-models",
+                "anchor_text": "let us know"
+              }
+            ],
+            "https://replicate.com/csslc/LICENSE": [
+              {
+                "source_page": "https://replicate.com/csslc/ccsr",
+                "anchor_text": "Apache 2.0 license"
+              }
+            ],
+            "https://replicate.com/cudanexus/LICENSE": [
+              {
+                "source_page": "https://replicate.com/cudanexus/detic",
+                "anchor_text": "Apache 2.0 license"
+              }
+            ],
+            "https://replicate.com/cudanexus/datasets/README.md": [
+              {
+                "source_page": "https://replicate.com/cudanexus/detic",
+                "anchor_text": "prepare datasets"
+              }
+            ],
+            "https://replicate.com/cudanexus/docs/INSTALL.md": [
+              {
+                "source_page": "https://replicate.com/cudanexus/detic",
+                "anchor_text": "installation instructions"
+              }
+            ],
+            "https://replicate.com/cudanexus/docs/MODEL_ZOO.md": [
+              {
+                "source_page": "https://replicate.com/cudanexus/detic",
+                "anchor_text": "here"
+              },
+              {
+                "source_page": "https://replicate.com/cudanexus/detic",
+                "anchor_text": "21K model"
+              },
+              {
+                "source_page": "https://replicate.com/cudanexus/detic",
+                "anchor_text": "MODEL ZOO"
+              }
+            ],
+            "https://replicate.com/cureau/LICENSE": [
+              {
+                "source_page": "https://replicate.com/cureau/force-align-wordstamps",
+                "anchor_text": "MIT License"
+              }
+            ],
+            "https://replicate.com/cuuupid/LICENSE": [
+              {
+                "source_page": "https://replicate.com/cuuupid/glm-4v-9b",
+                "anchor_text": "Apache 2.0"
+              }
+            ],
+            "https://replicate.com/cuuupid/basic_demo/README.md": [
+              {
+                "source_page": "https://replicate.com/cuuupid/glm-4v-9b",
+                "anchor_text": "basic_demo"
+              }
+            ],
+            "https://replicate.com/cuuupid/basic_demo/README_en.md": [
+              {
+                "source_page": "https://replicate.com/cuuupid/glm-4v-9b",
+                "anchor_text": "here"
+              }
+            ],
+            "https://replicate.com/cuuupid/composite_demo/README.md": [
+              {
+                "source_page": "https://replicate.com/cuuupid/glm-4v-9b",
+                "anchor_text": "composite_demo"
+              }
+            ],
+            "https://replicate.com/cuuupid/finetune_demo/README.md": [
+              {
+                "source_page": "https://replicate.com/cuuupid/glm-4v-9b",
+                "anchor_text": "fintune_demo"
+              }
+            ],
+            "https://replicate.com/cuuupid/sat/README.md": [
+              {
+                "source_page": "https://replicate.com/cuuupid/cogvideox-5b",
+                "anchor_text": "SAT"
+              }
+            ],
+            "https://replicate.com/daanelson/LICENSE": [
+              {
+                "source_page": "https://replicate.com/daanelson/motion_diffusion_model",
+                "anchor_text": "MIT LICENSE"
+              }
+            ],
+            "https://replicate.com/deepseek-ai/LICENSE": [
+              {
+                "source_page": "https://replicate.com/deepseek-ai/deepseek-v3",
+                "anchor_text": "MIT License"
+              },
+              {
+                "source_page": "https://replicate.com/deepseek-ai/deepseek-v3.1",
+                "anchor_text": "MIT License"
+              }
+            ],
+            "https://replicate.com/deepseek-ai/LICENSE-CODE": [
+              {
+                "source_page": "https://replicate.com/deepseek-ai/deepseek-math-7b-base",
+                "anchor_text": "LICENSE-CODE"
+              },
+              {
+                "source_page": "https://replicate.com/deepseek-ai/deepseek-math-7b-instruct",
+                "anchor_text": "LICENSE-CODE"
+              },
+              {
+                "source_page": "https://replicate.com/deepseek-ai/deepseek-vl2",
+                "anchor_text": "MIT License"
+              },
+              {
+                "source_page": "https://replicate.com/deepseek-ai/deepseek-vl2-small",
+                "anchor_text": "MIT License"
+              }
+            ],
+            "https://replicate.com/deepseek-ai/LICENSE-MODEL": [
+              {
+                "source_page": "https://replicate.com/deepseek-ai/deepseek-math-7b-base",
+                "anchor_text": "LICENSE-MODEL"
+              },
+              {
+                "source_page": "https://replicate.com/deepseek-ai/deepseek-math-7b-instruct",
+                "anchor_text": "LICENSE-MODEL"
+              },
+              {
+                "source_page": "https://replicate.com/deepseek-ai/deepseek-vl2",
+                "anchor_text": "DeepSeek Model License"
+              },
+              {
+                "source_page": "https://replicate.com/deepseek-ai/deepseek-vl2-small",
+                "anchor_text": "DeepSeek Model License"
+              }
+            ],
+            "https://replicate.com/deepseek-ai/service@deepseek.com": [
+              {
+                "source_page": "https://replicate.com/deepseek-ai/deepseek-coder-v2-lite-instruct",
+                "anchor_text": "service@deepseek.com"
+              }
+            ],
+            "https://replicate.com/dobariyz/facefixer-model": [
+              {
+                "source_page": "https://replicate.com/dobariyz/facefixer",
+                "anchor_text": "https://replicate.com/dobariyz/facefixer-model"
+              }
+            ],
+            "https://replicate.com/docs/404": [
+              {
+                "source_page": "https://replicate.com/changelog",
+                "anchor_text": "404 page"
+              },
+              {
+                "source_page": "https://replicate.com/changelog/2025-09-26-the-little-things-week-ending-september-26-2025",
+                "anchor_text": "404 page"
+              }
+            ],
+            "https://replicate.com/docs/dataset.md": [
+              {
+                "source_page": "https://replicate.com/jd7h/open-sora-512",
+                "anchor_text": "dataset.md"
+              }
+            ],
+            "https://replicate.com/docs/fine-tuning": [
+              {
+                "source_page": "https://replicate.com/changelog",
+                "anchor_text": "fine-tune your own model"
+              },
+              {
+                "source_page": "https://replicate.com/changelog/2023-10-17-improved-training-detail-pages",
+                "anchor_text": "fine-tune your own model"
+              }
+            ],
+            "https://replicate.com/docs/guides/cloudflare-image-cache.md": [
+              {
+                "source_page": "https://replicate.com/changelog",
+                "anchor_text": "markdown routes to all docs"
+              },
+              {
+                "source_page": "https://replicate.com/changelog/2024-11-17-the-little-things-week-ending-january-17-2025",
+                "anchor_text": "markdown routes to all docs"
+              }
+            ],
+            "https://replicate.com/docs/guides/extend/comfyui-manager": [
+              {
+                "source_page": "https://replicate.com/docs/guides/extend/comfyui",
+                "anchor_text": "ComfyUI-manager"
+              }
+            ],
+            "https://replicate.com/docs/guides/extend/run-comfyui-on-replicate": [
+              {
+                "source_page": "https://replicate.com/docs/guides/extend/comfyui",
+                "anchor_text": "run ComfyUI workflows on Replicate"
+              },
+              {
+                "source_page": "https://replicate.com/docs/guides/extend/comfyui",
+                "anchor_text": "read our instructions and see what\u2019s supported"
+              }
+            ],
+            "https://replicate.com/docs/guides/fine-tune-a-language-model": [
+              {
+                "source_page": "https://replicate.com/changelog/2023-07-20-training-api-for-language-models",
+                "anchor_text": "guide to fine tuning a language model"
+              },
+              {
+                "source_page": "https://replicate.com/changelog",
+                "anchor_text": "Llama 2"
+              },
+              {
+                "source_page": "https://replicate.com/changelog",
+                "anchor_text": "guide to fine tuning a language model"
+              },
+              {
+                "source_page": "https://replicate.com/changelog/2023-11-06-api-for-creating-models",
+                "anchor_text": "Llama 2"
+              },
+              {
+                "source_page": "https://replicate.com/fofr/image-prompts",
+                "anchor_text": "https://replicate.com/docs/guides/fine-tune-a-language-model"
+              }
+            ],
+            "https://replicate.com/docs/guides/run/how-to-use": [
+              {
+                "source_page": "https://replicate.com/docs/guides/run/make-art-with-stable-diffusion",
+                "anchor_text": "width and height"
+              }
+            ],
+            "https://replicate.com/docs/guides/run/inpainting": [
+              {
+                "source_page": "https://replicate.com/docs/guides/run/make-art-with-stable-diffusion",
+                "anchor_text": "inpainting"
+              }
+            ],
+            "https://replicate.com/docs/guides/run/outpainting": [
+              {
+                "source_page": "https://replicate.com/docs/guides/run/make-art-with-stable-diffusion",
+                "anchor_text": "outpainting"
+              },
+              {
+                "source_page": "https://replicate.com/docs/guides/run/make-art-with-stable-diffusion",
+                "anchor_text": "outpainting guide"
+              },
+              {
+                "source_page": "https://replicate.com/docs/guides/run/make-art-with-stable-diffusion",
+                "anchor_text": "Learn more about outpainting"
+              }
+            ],
+            "https://replicate.com/docs/guides/stable-diffusion/controlnet": [
+              {
+                "source_page": "https://replicate.com/blog/flux-tools",
+                "anchor_text": "ControlNet guide"
+              },
+              {
+                "source_page": "https://replicate.com/collections/control-net",
+                "anchor_text": "Read our guide \u2192"
+              }
+            ],
+            "https://replicate.com/docs/guides/stable-diffusion/inpainting": [
+              {
+                "source_page": "https://replicate.com/collections/image-editing",
+                "anchor_text": "Check out our guide \u2192"
+              }
+            ],
+            "https://replicate.com/docs/guides/working-with-loras": [
+              {
+                "source_page": "https://replicate.com/changelog",
+                "anchor_text": "Working with LoRAs"
+              },
+              {
+                "source_page": "https://replicate.com/changelog/2025-03-14-the-little-things-week-ending-march-14-2025",
+                "anchor_text": "Working with LoRAs"
+              }
+            ],
+            "https://replicate.com/docs/reference/examples": [
+              {
+                "source_page": "https://replicate.com/blog/run-stable-diffusion-with-an-api",
+                "anchor_text": "See some more examples of what you can build"
+              }
+            ],
+            "https://replicate.com/docs/report_v1.md": [
+              {
+                "source_page": "https://replicate.com/jd7h/open-sora-512",
+                "anchor_text": "report"
+              }
+            ],
+            "https://replicate.com/dsingal0": [
+              {
+                "source_page": "https://replicate.com/dsingal0/mixtral-single-gpu/versions/1cac465d7f2f04adea328bc244ab9a05905cd821dd88024a8856b8cf46bc7e4f",
+                "anchor_text": "dsingal0"
+              },
+              {
+                "source_page": "https://replicate.com/dsingal0/mixtral-single-gpu/versions/8b31ec594c950df05731f41c8badf570a44caff114591e0234ac01d8a6f4cd10",
+                "anchor_text": "dsingal0"
+              },
+              {
+                "source_page": "https://replicate.com/dsingal0/mixtral-single-gpu/versions/956ce9c4f3861b7bd703f3cb3297ad7b772197c4ddcf60cf0b345097ef5c3aa4",
+                "anchor_text": "dsingal0"
+              },
+              {
+                "source_page": "https://replicate.com/dsingal0/mixtral-single-gpu/versions/9be764563411468fb757e3479117006d3dff61a25bbad6fcf1bafce3309086dd",
+                "anchor_text": "dsingal0"
+              },
+              {
+                "source_page": "https://replicate.com/dsingal0/mixtral-single-gpu",
+                "anchor_text": "dsingal0"
+              }
+            ],
+            "https://replicate.com/easel/advanced-face-swap": [
+              {
+                "source_page": "https://replicate.com/blog/easel",
+                "anchor_text": "advanced face swap"
+              },
+              {
+                "source_page": "https://replicate.com/blog/easel",
+                "anchor_text": "here"
+              },
+              {
+                "source_page": "https://replicate.com/collections/face-swap",
+                "anchor_text": "easel/advanced-face-swap"
+              }
+            ],
+            "https://replicate.com/emiliacb/LICENSE": [
+              {
+                "source_page": "https://replicate.com/emiliacb/rhubarb",
+                "anchor_text": "LICENSE"
+              }
+            ],
+            "https://replicate.com/fofr/advanced-face-swap": [
+              {
+                "source_page": "https://replicate.com/collections/ai-face-generator",
+                "anchor_text": "fofr/advanced-face-swap"
+              }
+            ],
+            "https://replicate.com/fofr/kontext-realearth": [
+              {
+                "source_page": "https://replicate.com/collections/flux-kontext-fine-tunes",
+                "anchor_text": "fofr/kontext-realearth"
+              }
+            ],
+            "https://replicate.com/fofr/musicgen-choral": [
+              {
+                "source_page": "https://replicate.com/blog/fine-tune-musicgen",
+                "anchor_text": "something choral"
+              },
+              {
+                "source_page": "https://replicate.com/blog/fine-tune-musicgen",
+                "anchor_text": "our choral fine-tune"
+              },
+              {
+                "source_page": "https://replicate.com/blog/fine-tune-musicgen",
+                "anchor_text": "chamber choir music"
+              }
+            ],
+            "https://replicate.com/fofr/musicgen-sonic": [
+              {
+                "source_page": "https://replicate.com/blog/fine-tune-musicgen",
+                "anchor_text": "16bit video game chip-tunes"
+              },
+              {
+                "source_page": "https://replicate.com/blog/fine-tune-musicgen",
+                "anchor_text": "video game music"
+              }
+            ],
+            "https://replicate.com/fofr/portraits_dialogues": [
+              {
+                "source_page": "https://replicate.com/collections/flux-kontext-fine-tunes",
+                "anchor_text": "fofr/portraits_dialogues"
+              }
+            ],
+            "https://replicate.com/fofr/wan-14b-black-sclera": [
+              {
+                "source_page": "https://replicate.com/blog/wan-t2v-loras",
+                "anchor_text": "Black Sclera Eyes"
+              }
+            ],
+            "https://replicate.com/fofr/wan-14b-cyberpunk-realistic": [
+              {
+                "source_page": "https://replicate.com/blog/wan-t2v-loras",
+                "anchor_text": "cyberpunk trailers"
+              },
+              {
+                "source_page": "https://replicate.com/blog/wan-t2v-loras",
+                "anchor_text": "fofr/wan-14b-cyberpunk-realistic"
+              },
+              {
+                "source_page": "https://replicate.com/changelog",
+                "anchor_text": "non-official model pages"
+              },
+              {
+                "source_page": "https://replicate.com/changelog/2025-09-12-the-little-things-week-ending-september-12-2025",
+                "anchor_text": "non-official model pages"
+              }
+            ],
+            "https://replicate.com/fofr/zeke": [
+              {
+                "source_page": "https://replicate.com/blog/fine-tune-sdxl",
+                "anchor_text": "Zeke"
+              }
+            ],
+            "https://replicate.com/foundationvision/LICENSE": [
+              {
+                "source_page": "https://replicate.com/foundationvision/infinity",
+                "anchor_text": "LICENSE"
+              }
+            ],
+            "https://replicate.com/get-started/fine-tune-with-flux": [
+              {
+                "source_page": "https://replicate.com/docs/guides/extend/working-with-loras",
+                "anchor_text": "guide to fine-tuning Flux"
+              }
+            ],
+            "https://replicate.com/google/film-frame-interpolation": [
+              {
+                "source_page": "https://replicate.com/collections/ai-enhance-videos",
+                "anchor_text": "google/film-frame-interpolation"
+              }
+            ],
+            "https://replicate.com/guides/comfyui": [
+              {
+                "source_page": "https://replicate.com/blog/get-the-best-from-stable-diffusion-3",
+                "anchor_text": "read our guide to ComfyUI"
+              }
+            ],
+            "https://replicate.com/guides/comfyui/custom-nodes": [
+              {
+                "source_page": "https://replicate.com/docs/guides/run/upscale-images-with-ai-models",
+                "anchor_text": "our ComfyUI guide"
+              }
+            ],
+            "https://replicate.com/guides/comfyui/run-comfyui-with-an-api": [
+              {
+                "source_page": "https://replicate.com/docs/guides/run/upscale-images-with-ai-models",
+                "anchor_text": "Read our ComfyUI with an API guide"
+              }
+            ],
+            "https://replicate.com/guides/stable-diffusion/controlnet": [
+              {
+                "source_page": "https://replicate.com/docs/guides/run/make-art-with-stable-diffusion",
+                "anchor_text": "Controlnet"
+              },
+              {
+                "source_page": "https://replicate.com/docs/guides/extend/comfyui",
+                "anchor_text": "controlnet"
+              },
+              {
+                "source_page": "https://replicate.com/docs/guides/run/upscale-images-with-ai-models",
+                "anchor_text": "ControlNet"
+              }
+            ],
+            "https://replicate.com/guides/stable-diffusion/fine-tuning": [
+              {
+                "source_page": "https://replicate.com/docs/guides/run/make-art-with-stable-diffusion",
+                "anchor_text": "Fine-tuning"
+              }
+            ],
+            "https://replicate.com/guides/stable-diffusion/glossary": [
+              {
+                "source_page": "https://replicate.com/docs/guides/run/make-art-with-stable-diffusion",
+                "anchor_text": "Glossary"
+              }
+            ],
+            "https://replicate.com/guides/stable-diffusion/how-to-use": [
+              {
+                "source_page": "https://replicate.com/docs/guides/run/make-art-with-stable-diffusion",
+                "anchor_text": "How to use Stable Diffusion"
+              }
+            ],
+            "https://replicate.com/guides/stable-diffusion/image-to-image": [
+              {
+                "source_page": "https://replicate.com/docs/guides/run/make-art-with-stable-diffusion",
+                "anchor_text": "image-to-image"
+              },
+              {
+                "source_page": "https://replicate.com/docs/guides/run/make-art-with-stable-diffusion",
+                "anchor_text": "Image to image (img2img)"
+              },
+              {
+                "source_page": "https://replicate.com/docs/guides/run/upscale-images-with-ai-models",
+                "anchor_text": "denoising strength"
+              }
+            ],
+            "https://replicate.com/guides/stable-diffusion/inpainting": [
+              {
+                "source_page": "https://replicate.com/blog/push-a-custom-sd3",
+                "anchor_text": "inpainting models"
+              },
+              {
+                "source_page": "https://replicate.com/docs/guides/run/make-art-with-stable-diffusion",
+                "anchor_text": "inpainting and outpainting"
+              },
+              {
+                "source_page": "https://replicate.com/docs/guides/run/make-art-with-stable-diffusion",
+                "anchor_text": "Inpainting"
+              },
+              {
+                "source_page": "https://replicate.com/docs/guides/run/make-art-with-stable-diffusion",
+                "anchor_text": "inpainting"
+              }
+            ],
+            "https://replicate.com/guides/stable-diffusion/outpainting": [
+              {
+                "source_page": "https://replicate.com/docs/guides/run/make-art-with-stable-diffusion",
+                "anchor_text": "Outpainting"
+              }
+            ],
+            "https://replicate.com/guides/stable-diffusion/turbo-and-latent-consistency": [
+              {
+                "source_page": "https://replicate.com/docs/guides/run/make-art-with-stable-diffusion",
+                "anchor_text": "Turbo and LCMs"
+              }
+            ],
+            "https://replicate.com/guides/upscaling-images": [
+              {
+                "source_page": "https://replicate.com/collections/super-resolution",
+                "anchor_text": "guide to upscaling images with AI"
+              }
+            ],
+            "https://replicate.com/guides/upscaling-images/controlnet-tile": [
+              {
+                "source_page": "https://replicate.com/docs/guides/run/upscale-images-with-ai-models",
+                "anchor_text": "Upscaling with ControlNet tile"
+              }
+            ],
+            "https://replicate.com/guides/upscaling-images/gfpgan-and-codeformer": [
+              {
+                "source_page": "https://replicate.com/docs/guides/run/upscale-images-with-ai-models",
+                "anchor_text": "GFPGAN and Codeformer"
+              }
+            ],
+            "https://replicate.com/guides/upscaling-images/real-esrgan": [
+              {
+                "source_page": "https://replicate.com/docs/guides/run/upscale-images-with-ai-models",
+                "anchor_text": "Real-ESRGAN"
+              },
+              {
+                "source_page": "https://replicate.com/docs/guides/run/upscale-images-with-ai-models",
+                "anchor_text": "Read about running Real-ESRGAN + GFPGAN with an API"
+              }
+            ],
+            "https://replicate.com/guides/upscaling-images/sd-ultimate-upscale": [
+              {
+                "source_page": "https://replicate.com/docs/guides/run/upscale-images-with-ai-models",
+                "anchor_text": "Ultimate SD Upscale"
+              },
+              {
+                "source_page": "https://replicate.com/docs/guides/run/upscale-images-with-ai-models",
+                "anchor_text": "Ultimate SD Upscale can do this for you"
+              }
+            ],
+            "https://replicate.com/guides/upscaling-images/swinir": [
+              {
+                "source_page": "https://replicate.com/docs/guides/run/upscale-images-with-ai-models",
+                "anchor_text": "SwinIR"
+              }
+            ],
+            "https://replicate.com/haiper-ai/haiper-video-2": [
+              {
+                "source_page": "https://replicate.com/blog/ai-video-is-having-its-stable-diffusion-moment",
+                "anchor_text": "Haiper 2.0"
+              },
+              {
+                "source_page": "https://replicate.com/blog/ai-video-is-having-its-stable-diffusion-moment",
+                "anchor_text": "View Haiper 2.0 on Replicate"
+              },
+              {
+                "source_page": "https://replicate.com/blog/ai-video-is-having-its-stable-diffusion-moment",
+                "anchor_text": "haiper-ai/haiper-video-2"
+              }
+            ],
+            "https://replicate.com/hardikdava/args.py": [
+              {
+                "source_page": "https://replicate.com/hardikdava/flux-image-editing",
+                "anchor_text": "args.py"
+              }
+            ],
+            "https://replicate.com/hardikdava/misc/accelerate_ds2.yaml": [
+              {
+                "source_page": "https://replicate.com/hardikdava/flux-image-editing",
+                "anchor_text": "accelerate config file"
+              }
+            ],
+            "https://replicate.com/hardikdava/misc/convert_to_wds.py": [
+              {
+                "source_page": "https://replicate.com/hardikdava/flux-image-editing",
+                "anchor_text": "this script"
+              }
+            ],
+            "https://replicate.com/hardikdava/misc/launch_edit.slurm": [
+              {
+                "source_page": "https://replicate.com/hardikdava/flux-image-editing",
+                "anchor_text": "this Slurm"
+              }
+            ],
+            "https://replicate.com/hardikdava/requirements.txt": [
+              {
+                "source_page": "https://replicate.com/hardikdava/flux-image-editing",
+                "anchor_text": "requirements.txt"
+              }
+            ],
+            "https://replicate.com/ibm-granite/LICENSE": [
+              {
+                "source_page": "https://replicate.com/ibm-granite/granite-20b-code-instruct-8k",
+                "anchor_text": "Apache 2.0"
+              },
+              {
+                "source_page": "https://replicate.com/ibm-granite/granite-8b-code-instruct-128k",
+                "anchor_text": "Apache 2.0"
+              }
+            ],
+            "https://replicate.com/ibrahimpenekli/ACKNOWLEDGEMENTS.md": [
+              {
+                "source_page": "https://replicate.com/ibrahimpenekli/depth-pro",
+                "anchor_text": "Acknowledgements"
+              }
+            ],
+            "https://replicate.com/ibrahimpenekli/LICENSE": [
+              {
+                "source_page": "https://replicate.com/ibrahimpenekli/depth-pro",
+                "anchor_text": "LICENSE"
+              }
+            ],
+            "https://replicate.com/idea-research/data/ram_tag_list.txt": [
+              {
+                "source_page": "https://replicate.com/idea-research/ram-grounded-sam",
+                "anchor_text": "6,400+"
+              }
+            ],
+            "https://replicate.com/ideogram-ai/ideogram-v3": [
+              {
+                "source_page": "https://replicate.com/collections/image-editing",
+                "anchor_text": "ideogram-ai/ideogram-v3"
+              }
+            ],
+            "https://replicate.com/javirk/LICENSE.md": [
+              {
+                "source_page": "https://replicate.com/javirk/object-removal-partial-convolutions",
+                "anchor_text": "LICENSE.md"
+              }
+            ],
+            "https://replicate.com/jd7h/docs/acceleration.md": [
+              {
+                "source_page": "https://replicate.com/jd7h/open-sora-512",
+                "anchor_text": "acceleration.md"
+              }
+            ],
+            "https://replicate.com/jd7h/docs/command.md": [
+              {
+                "source_page": "https://replicate.com/jd7h/open-sora-512",
+                "anchor_text": "command.md"
+              }
+            ],
+            "https://replicate.com/jd7h/docs/datasets.md": [
+              {
+                "source_page": "https://replicate.com/jd7h/open-sora-512",
+                "anchor_text": "datasets.md"
+              }
+            ],
+            "https://replicate.com/jd7h/docs/report_v1.md": [
+              {
+                "source_page": "https://replicate.com/jd7h/open-sora-512",
+                "anchor_text": "report"
+              }
+            ],
+            "https://replicate.com/kwaiyeij/kling-v2.1": [
+              {
+                "source_page": "https://replicate.com/docs/topics/models/official-models",
+                "anchor_text": "kwaiyeij/kling-v2.1"
+              }
+            ],
+            "https://replicate.com/l3das/link": [
+              {
+                "source_page": "https://replicate.com/l3das/l3das22_challenge",
+                "anchor_text": "beamforming U-Net"
+              },
+              {
+                "source_page": "https://replicate.com/l3das/l3das22_challenge",
+                "anchor_text": "L3DAS22 dataset"
+              },
+              {
+                "source_page": "https://replicate.com/l3das/l3das22_challenge",
+                "anchor_text": "description"
+              }
+            ],
+            "https://replicate.com/latentlabs/latentsync": [
+              {
+                "source_page": "https://replicate.com/collections/lipsync",
+                "anchor_text": "latentlabs/latentsync"
+              }
+            ],
+            "https://replicate.com/lllyasviel/controlnet-canny": [
+              {
+                "source_page": "https://replicate.com/collections/control-net",
+                "anchor_text": "lllyasviel/controlnet-canny"
+              }
+            ],
+            "https://replicate.com/lllyasviel/controlnet-depth2img": [
+              {
+                "source_page": "https://replicate.com/collections/control-net",
+                "anchor_text": "lllyasviel/controlnet-depth2img"
+              }
+            ],
+            "https://replicate.com/login/github": [
+              {
+                "source_page": "https://replicate.com/dashboard",
+                "anchor_text": "Sign in with GitHub"
+              },
+              {
+                "source_page": "https://replicate.com/deployments",
+                "anchor_text": "Sign in with GitHub"
+              },
+              {
+                "source_page": "https://replicate.com/editor",
+                "anchor_text": "Sign in with GitHub"
+              },
+              {
+                "source_page": "https://replicate.com/editor/create",
+                "anchor_text": "Sign in with GitHub"
+              },
+              {
+                "source_page": "https://replicate.com/models",
+                "anchor_text": "Sign in with GitHub"
+              }
+            ],
+            "https://replicate.com/lucataco/LICENSE": [
+              {
+                "source_page": "https://replicate.com/lucataco/cogview4-6b",
+                "anchor_text": "Apache 2.0 License"
+              },
+              {
+                "source_page": "https://replicate.com/lucataco/dolphin-2.9-llama3-8b",
+                "anchor_text": "META LLAMA 3 COMMUNITY LICENSE AGREEMENT"
+              }
+            ],
+            "https://replicate.com/lucataco/LICENSE.txt": [
+              {
+                "source_page": "https://replicate.com/lucataco/blip3-phi3-mini-instruct-r-v1",
+                "anchor_text": "LICENSE"
+              }
+            ],
+            "https://replicate.com/lucataco/chat/lmdeploy.md": [
+              {
+                "source_page": "https://replicate.com/lucataco/internlm2_5-7b-chat",
+                "anchor_text": "LMDeploy"
+              }
+            ],
+            "https://replicate.com/lucataco/demo.ipynb": [
+              {
+                "source_page": "https://replicate.com/lucataco/blip3-phi3-mini-instruct-r-v1",
+                "anchor_text": "notebook"
+              }
+            ],
+            "https://replicate.com/lucataco/sesame.com": [
+              {
+                "source_page": "https://replicate.com/lucataco/csm-1b",
+                "anchor_text": "Sesame"
+              }
+            ],
+            "https://replicate.com/lucataco/video-utils": [
+              {
+                "source_page": "https://replicate.com/collections/video-editing",
+                "anchor_text": "lucataco/video-utils"
+              }
+            ],
+            "https://replicate.com/luma/ray": [
+              {
+                "source_page": "https://replicate.com/blog/ai-video-is-having-its-stable-diffusion-moment",
+                "anchor_text": "Luma Ray"
+              },
+              {
+                "source_page": "https://replicate.com/blog/ai-video-is-having-its-stable-diffusion-moment",
+                "anchor_text": "View Luma Ray on Replicate"
+              },
+              {
+                "source_page": "https://replicate.com/blog/ai-video-is-having-its-stable-diffusion-moment",
+                "anchor_text": "luma/ray"
+              }
+            ],
+            "https://replicate.com/m1guelpf/LICENSE": [
+              {
+                "source_page": "https://replicate.com/m1guelpf/whisper-subtitles",
+                "anchor_text": "LICENSE"
+              }
+            ],
+            "https://replicate.com/menghanxia/LICENSE": [
+              {
+                "source_page": "https://replicate.com/menghanxia/reversiblehalftoning",
+                "anchor_text": "LICENSE"
+              }
+            ],
+            "https://replicate.com/merahburam/LICENSES.md": [
+              {
+                "source_page": "https://replicate.com/merahburam/vectorizer",
+                "anchor_text": "LICENSES.md"
+              }
+            ],
+            "https://replicate.com/meronym/pyannote.github.io": [
+              {
+                "source_page": "https://replicate.com/meronym/speaker-transcription",
+                "anchor_text": "pyannote.audio"
+              },
+              {
+                "source_page": "https://replicate.com/meronym/speaker-diarization",
+                "anchor_text": "pyannote.audio"
+              }
+            ],
+            "https://replicate.com/meronym/pytorch.org": [
+              {
+                "source_page": "https://replicate.com/meronym/speaker-diarization",
+                "anchor_text": "PyTorch"
+              }
+            ],
+            "https://replicate.com/meta/CODE_OF_CONDUCT.md": [
+              {
+                "source_page": "https://replicate.com/meta/omnivore",
+                "anchor_text": "CODE_OF_CONDUCT"
+              }
+            ],
+            "https://replicate.com/meta/CONTRIBUTING.md": [
+              {
+                "source_page": "https://replicate.com/meta/omnivore",
+                "anchor_text": "CONTRIBUTING"
+              }
+            ],
+            "https://replicate.com/meta/LICENSE": [
+              {
+                "source_page": "https://replicate.com/meta/detic",
+                "anchor_text": "Apache 2.0 license"
+              },
+              {
+                "source_page": "https://replicate.com/meta/omnivore",
+                "anchor_text": "LICENSE"
+              },
+              {
+                "source_page": "https://replicate.com/meta/swag",
+                "anchor_text": "LICENSE"
+              }
+            ],
+            "https://replicate.com/meta/NOTICE": [
+              {
+                "source_page": "https://replicate.com/meta/omnivore",
+                "anchor_text": "NOTICE"
+              }
+            ],
+            "https://replicate.com/meta/llama-2-13b/train": [
+              {
+                "source_page": "https://replicate.com/blog/fine-tune-llama-2",
+                "anchor_text": "the model\u2019s \u201cTrain\u201d tab"
+              }
+            ],
+            "https://replicate.com/meta/meta-llama-3.1-405b-instruct": [
+              {
+                "source_page": "https://replicate.com/blog/replicate-intelligence-2024-07-26",
+                "anchor_text": "try on replicate"
+              },
+              {
+                "source_page": "https://replicate.com/blog/run-llama-3-1-with-an-api",
+                "anchor_text": "https://replicate.com/meta/meta-llama-3.1-405b-instruct"
+              },
+              {
+                "source_page": "https://replicate.com/collections/language-models",
+                "anchor_text": "meta/meta-llama-3.1-405b-instruct"
+              },
+              {
+                "source_page": "https://replicate.com/docs/topics/billing",
+                "anchor_text": "Meta\u2019s Llama 3.1 405B Instruct"
+              },
+              {
+                "source_page": "https://replicate.com/docs/topics/models",
+                "anchor_text": "meta/meta-llama-3.1-405b-instruct"
+              }
+            ],
+            "https://replicate.com/meta/meta-llama-3.1-405b-instruct/api": [
+              {
+                "source_page": "https://replicate.com/blog/run-llama-3-1-with-an-api",
+                "anchor_text": "call the HTTP API directly"
+              }
+            ],
+            "https://replicate.com/meta/meta-llama-3.1-405b-instruct/api/schema": [
+              {
+                "source_page": "https://replicate.com/blog/run-llama-3-1-with-an-api",
+                "anchor_text": "model\u2019s schema"
+              }
+            ],
+            "https://replicate.com/microsoft/LICENSE": [
+              {
+                "source_page": "https://replicate.com/microsoft/phi-4-multimodal-instruct",
+                "anchor_text": "MIT license"
+              }
+            ],
+            "https://replicate.com/mikeei/LICENSE": [
+              {
+                "source_page": "https://replicate.com/mikeei/dolphin-2.9-llama3-70b-gguf",
+                "anchor_text": "META LLAMA 3 COMMUNITY LICENSE AGREEMENT"
+              },
+              {
+                "source_page": "https://replicate.com/mikeei/dolphin-2.9-llama3-8b-gguf",
+                "anchor_text": "META LLAMA 3 COMMUNITY LICENSE AGREEMENT"
+              },
+              {
+                "source_page": "https://replicate.com/mikeei/dolphin-2.9.1-llama3-8b-gguf",
+                "anchor_text": "META LLAMA 3 COMMUNITY LICENSE AGREEMENT"
+              }
+            ],
+            "https://replicate.com/mistralai/mistral-7b-instruct-v0.2/api": [
+              {
+                "source_page": "https://replicate.com/blog/run-mistral-7b-with-api",
+                "anchor_text": "call the HTTP API directly"
+              }
+            ],
+            "https://replicate.com/newsletter": [
+              {
+                "source_page": "https://replicate.com/blog/fine-tune-flux",
+                "anchor_text": "sign up to our newsletter"
+              },
+              {
+                "source_page": "https://replicate.com/blog/replicate-intelligence-2024-07-26",
+                "anchor_text": "replicate.com/newsletter"
+              }
+            ],
+            "https://replicate.com/newsletter/replicate-intelligence-2024-05-24": [
+              {
+                "source_page": "https://replicate.com/blog/replicate-intelligence-2024-08-02",
+                "anchor_text": "Golden Gate Claude"
+              }
+            ],
+            "https://replicate.com/newsletter/replicate-intelligence-2024-06-07": [
+              {
+                "source_page": "https://replicate.com/blog/replicate-intelligence-2024-08-02",
+                "anchor_text": "Garden State Llama"
+              }
+            ],
+            "https://replicate.com/newsletter/replicate-intelligence-2024-06-21": [
+              {
+                "source_page": "https://replicate.com/blog/replicate-intelligence-2024-08-02",
+                "anchor_text": "unbundle intelligence"
+              }
+            ],
+            "https://replicate.com/nomagick/FAQ.md": [
+              {
+                "source_page": "https://replicate.com/nomagick/qwen-vl-chat",
+                "anchor_text": "FAQ"
+              }
+            ],
+            "https://replicate.com/nomagick/LICENSE": [
+              {
+                "source_page": "https://replicate.com/nomagick/qwen-vl-chat",
+                "anchor_text": "LICENSE"
+              }
+            ],
+            "https://replicate.com/nomagick/README.md": [
+              {
+                "source_page": "https://replicate.com/nomagick/chatglm2-6b-int4",
+                "anchor_text": "evaluation results"
+              },
+              {
+                "source_page": "https://replicate.com/nomagick/chatglm2-6b",
+                "anchor_text": "evaluation results"
+              }
+            ],
+            "https://replicate.com/nomagick/TUTORIAL.md": [
+              {
+                "source_page": "https://replicate.com/nomagick/qwen-vl-chat",
+                "anchor_text": "tutorial"
+              }
+            ],
+            "https://replicate.com/nomagick/cli_demo.py": [
+              {
+                "source_page": "https://replicate.com/nomagick/chatglm3-6b",
+                "anchor_text": "cli_demo.py"
+              },
+              {
+                "source_page": "https://replicate.com/nomagick/chatglm3-6b-32k",
+                "anchor_text": "cli_demo.py"
+              }
+            ],
+            "https://replicate.com/nomagick/eval_mm/EVALUATION.md": [
+              {
+                "source_page": "https://replicate.com/nomagick/qwen-vl-chat",
+                "anchor_text": "eval_mm/EVALUATION.md"
+              }
+            ],
+            "https://replicate.com/nomagick/eval_mm/mme/EVAL_MME.md": [
+              {
+                "source_page": "https://replicate.com/nomagick/qwen-vl-chat",
+                "anchor_text": "HERE"
+              }
+            ],
+            "https://replicate.com/nomagick/eval_mm/seed_bench/EVAL_SEED.md": [
+              {
+                "source_page": "https://replicate.com/nomagick/qwen-vl-chat",
+                "anchor_text": "HERE"
+              }
+            ],
+            "https://replicate.com/nomagick/resources/WECHAT.md": [
+              {
+                "source_page": "https://replicate.com/nomagick/chatglm2-6b-int4",
+                "anchor_text": "WeChat"
+              },
+              {
+                "source_page": "https://replicate.com/nomagick/chatglm2-6b",
+                "anchor_text": "WeChat"
+              }
+            ],
+            "https://replicate.com/nomagick/touchstone/README.md": [
+              {
+                "source_page": "https://replicate.com/nomagick/qwen-vl-chat",
+                "anchor_text": "touchstone/README.md"
+              }
+            ],
+            "https://replicate.com/notebooks": [
+              {
+                "source_page": "https://replicate.com/nicknaskida/incredibly-fast-whisper",
+                "anchor_text": "Google Colab T4 GPU"
+              }
+            ],
+            "https://replicate.com/nvidia/LICENSE.txt": [
+              {
+                "source_page": "https://replicate.com/nvidia/sana-sprint-1.6b",
+                "anchor_text": "NSCL v2-custom"
+              }
+            ],
+            "https://replicate.com/onion-liu/op": [
+              {
+                "source_page": "https://replicate.com/onion-liu/blendgan",
+                "anchor_text": "StyleGAN2 ops directory"
+              }
+            ],
+            "https://replicate.com/onion-liu/test_imgs/face_imgs": [
+              {
+                "source_page": "https://replicate.com/onion-liu/blendgan",
+                "anchor_text": "test_imgs"
+              }
+            ],
+            "https://replicate.com/onion-liu/test_imgs/style_imgs": [
+              {
+                "source_page": "https://replicate.com/onion-liu/blendgan",
+                "anchor_text": "test_imgs"
+              }
+            ],
+            "https://replicate.com/openai/gpt-oss-safeguard-120b": [
+              {
+                "source_page": "https://replicate.com/lucataco/gpt-oss-safeguard-20b",
+                "anchor_text": "openai/gpt-oss-safeguard-120b"
+              }
+            ],
+            "https://replicate.com/openai/model-card.md": [
+              {
+                "source_page": "https://replicate.com/openai/whisper",
+                "anchor_text": "[Model card]"
+              }
+            ],
+            "https://replicate.com/p/gb8dcmkqahrgc0cx19evk2c89g": [
+              {
+                "source_page": "https://replicate.com/hcolde/rvm",
+                "anchor_text": "https://replicate.com/p/gb8dcmkqahrgc0cx19evk2c89g"
+              }
+            ],
+            "https://replicate.com/pagebrain": [
+              {
+                "source_page": "https://replicate.com/",
+                "anchor_text": ""
+              },
+              {
+                "source_page": "https://replicate.com/home",
+                "anchor_text": ""
+              }
+            ],
+            "https://replicate.com/pharmapsychotic/realvisxl-v3-multi-controlnet-lora": [
+              {
+                "source_page": "https://replicate.com/collections/control-net",
+                "anchor_text": "pharmapsychotic/realvisxl-v3-multi-controlnet-lora"
+              }
+            ],
+            "https://replicate.com/pixverse-ai/lipsync": [
+              {
+                "source_page": "https://replicate.com/collections/lipsync",
+                "anchor_text": "pixverse-ai/lipsync"
+              }
+            ],
+            "https://replicate.com/playht/text-to-speech": [
+              {
+                "source_page": "https://replicate.com/collections/lipsync",
+                "anchor_text": "playht/text-to-speech"
+              }
+            ],
+            "https://replicate.com/pollinations/DOCUMENTATION.md": [
+              {
+                "source_page": "https://replicate.com/pollinations/3d-photo-inpainting",
+                "anchor_text": "DOCUMENTATION.md"
+              }
+            ],
+            "https://replicate.com/pollinations/LICENSE": [
+              {
+                "source_page": "https://replicate.com/pollinations/3d-photo-inpainting",
+                "anchor_text": "LICENSE"
+              },
+              {
+                "source_page": "https://replicate.com/pollinations/music-gen",
+                "anchor_text": "LICENSE file"
+              }
+            ],
+            "https://replicate.com/pollinations/LICENSE_weights": [
+              {
+                "source_page": "https://replicate.com/pollinations/music-gen",
+                "anchor_text": "LICENSE_weights file"
+              }
+            ],
+            "https://replicate.com/pollinations/MODEL_CARD.md": [
+              {
+                "source_page": "https://replicate.com/pollinations/music-gen",
+                "anchor_text": "the model card page"
+              }
+            ],
+            "https://replicate.com/pollinations/demo.ipynb": [
+              {
+                "source_page": "https://replicate.com/pollinations/music-gen",
+                "anchor_text": "demo.ipynb"
+              }
+            ],
+            "https://replicate.com/pollinations/doc/AdaMPI.md": [
+              {
+                "source_page": "https://replicate.com/pollinations/adampi",
+                "anchor_text": "AdaMPI.md"
+              }
+            ],
+            "https://replicate.com/pollinations/doc/Warp-Back.md": [
+              {
+                "source_page": "https://replicate.com/pollinations/adampi",
+                "anchor_text": "Warp-Back.md"
+              }
+            ],
+            "https://replicate.com/pollinations/docs/method.md": [
+              {
+                "source_page": "https://replicate.com/pollinations/amt",
+                "anchor_text": "method.md"
+              }
+            ],
+            "https://replicate.com/pollinations/model-card.md": [
+              {
+                "source_page": "https://replicate.com/pollinations/bark",
+                "anchor_text": "Model Card"
+              }
+            ],
+            "https://replicate.com/pollinations/requirements.txt": [
+              {
+                "source_page": "https://replicate.com/pollinations/3d-photo-inpainting",
+                "anchor_text": "requirements.txt"
+              }
+            ],
+            "https://replicate.com/qwen/qwen-image-edit-plus-lora-multiangle": [
+              {
+                "source_page": "https://replicate.com/qwen-edit-apps/qwen-image-edit-plus-lora-next-scene",
+                "anchor_text": "https://replicate.com/qwen/qwen-image-edit-plus-lora-multiangle"
+              },
+              {
+                "source_page": "https://replicate.com/qwen-edit-apps/qwen-image-edit-plus-lora-fusion",
+                "anchor_text": "https://replicate.com/qwen/qwen-image-edit-plus-lora-multiangle"
+              },
+              {
+                "source_page": "https://replicate.com/qwen-edit-apps/qwen-image-edit-plus-lora-relight",
+                "anchor_text": "https://replicate.com/qwen/qwen-image-edit-plus-lora-multiangle"
+              },
+              {
+                "source_page": "https://replicate.com/qwen-edit-apps/qwen-image-edit-plus-lora-photo-to-anime",
+                "anchor_text": "https://replicate.com/qwen/qwen-image-edit-plus-lora-multiangle"
+              },
+              {
+                "source_page": "https://replicate.com/qwen-edit-apps/qwen-image-edit-plus-lora-skin",
+                "anchor_text": "https://replicate.com/qwen/qwen-image-edit-plus-lora-multiangle"
+              }
+            ],
+            "https://replicate.com/replicate.com/playground": [
+              {
+                "source_page": "https://replicate.com/changelog",
+                "anchor_text": "default models on the playground (beta)"
+              }
+            ],
+            "https://replicate.com/replicate/poet-vicuna-13b": [
+              {
+                "source_page": "https://replicate.com/blog/turn-your-llm-into-a-poet",
+                "anchor_text": "Poet Vicuna-13B"
+              }
+            ],
+            "https://replicate.com/replicate/vllm": [
+              {
+                "source_page": "https://replicate.com/lucataco/dolphin-2.9-llama3-8b",
+                "anchor_text": "Create a new vLLM model"
+              },
+              {
+                "source_page": "https://replicate.com/lucataco/hermes-2-pro-llama-3-70b",
+                "anchor_text": "Create a new vLLM model"
+              },
+              {
+                "source_page": "https://replicate.com/lucataco/hermes-2-pro-llama-3-8b",
+                "anchor_text": "Create a new vLLM model"
+              },
+              {
+                "source_page": "https://replicate.com/lucataco/hermes-2-theta-llama-3-8b",
+                "anchor_text": "Create a new vLLM model"
+              },
+              {
+                "source_page": "https://replicate.com/lucataco/internlm2_5-7b-chat",
+                "anchor_text": "Create a new vLLM model"
+              }
+            ],
+            "https://replicate.com/rinnakk/LICENSE": [
+              {
+                "source_page": "https://replicate.com/rinnakk/japanese-stable-diffusion",
+                "anchor_text": "The CreativeML OpenRAIL M license"
+              }
+            ],
+            "https://replicate.com/rossjillian": [
+              {
+                "source_page": "https://replicate.com/blog/exploring-text-to-image-models",
+                "anchor_text": "rossjillian"
+              },
+              {
+                "source_page": "https://replicate.com/blog/model-docs",
+                "anchor_text": "rossjillian"
+              },
+              {
+                "source_page": "https://replicate.com/blog/uncanny-spaces",
+                "anchor_text": "rossjillian"
+              },
+              {
+                "source_page": "https://replicate.com/rossjillian/controlnet/versions/d55b9f2dcfb156089686b8f767776d5b61b007187a4e1e611881818098100fbb",
+                "anchor_text": "rossjillian"
+              },
+              {
+                "source_page": "https://replicate.com/rossjillian/controlnet/versions/795433b19458d0f4fa172a7ccf93178d2adb1cb8ab2ad6c8fdc33fdbcd49f477",
+                "anchor_text": "rossjillian"
+              }
+            ],
+            "https://replicate.com/runwayml/upscale-v1": [
+              {
+                "source_page": "https://replicate.com/collections/ai-enhance-videos",
+                "anchor_text": "runwayml/upscale-v1"
+              }
+            ],
+            "https://replicate.com/shridharathi/brandless": [
+              {
+                "source_page": "https://replicate.com/docs/topics/models/pipeline-models",
+                "anchor_text": "Brandless Remove brand logos from images Try Model"
+              }
+            ],
+            "https://replicate.com/stability-ai/stable-diffusion-medium": [
+              {
+                "source_page": "https://replicate.com/blog/stable-diffusion-3-5-is-here",
+                "anchor_text": "Stable Diffusion 3.5 Medium"
+              }
+            ],
+            "https://replicate.com/stability-ai/stable-video-diffusion": [
+              {
+                "source_page": "https://replicate.com/alekseycalvin/neurealhistory3",
+                "anchor_text": "here on Replicate"
+              }
+            ],
+            "https://replicate.com/tencent/IndexKits/docs/MakeDataset.md": [
+              {
+                "source_page": "https://replicate.com/tencent/hunyuandit-v1.1",
+                "anchor_text": "docs"
+              }
+            ],
+            "https://replicate.com/tencent/comfyui-hydit/README.md": [
+              {
+                "source_page": "https://replicate.com/tencent/hunyuandit-v1.1",
+                "anchor_text": "ComfyUI README"
+              }
+            ],
+            "https://replicate.com/tencent/example_prompts.txt": [
+              {
+                "source_page": "https://replicate.com/tencent/hunyuandit-v1.1",
+                "anchor_text": "example_prompts.txt"
+              }
+            ],
+            "https://replicate.com/tencent/minimal_demo.py": [
+              {
+                "source_page": "https://replicate.com/tencent/hunyuan3d-2",
+                "anchor_text": "minimal_demo.py"
+              }
+            ],
+            "https://replicate.com/thinksound/thinksound": [
+              {
+                "source_page": "https://replicate.com/collections/video-editing",
+                "anchor_text": "ThinkSound"
+              },
+              {
+                "source_page": "https://replicate.com/collections/video-editing",
+                "anchor_text": "thinksound/thinksound"
+              }
+            ],
+            "https://replicate.com/thudm/LICENSE": [
+              {
+                "source_page": "https://replicate.com/thudm/cogvideox-i2v",
+                "anchor_text": "Apache 2.0 License"
+              },
+              {
+                "source_page": "https://replicate.com/thudm/cogvideox-t2v",
+                "anchor_text": "Apache 2.0 License"
+              }
+            ],
+            "https://replicate.com/thudm/resources/contribute.md": [
+              {
+                "source_page": "https://replicate.com/thudm/cogvideox-i2v",
+                "anchor_text": "here"
+              },
+              {
+                "source_page": "https://replicate.com/thudm/cogvideox-t2v",
+                "anchor_text": "here"
+              }
+            ],
+            "https://replicate.com/tomasmcm": [
+              {
+                "source_page": "https://replicate.com/",
+                "anchor_text": ""
+              },
+              {
+                "source_page": "https://replicate.com/home",
+                "anchor_text": ""
+              }
+            ],
+            "https://replicate.com/tools/caption/README.md": [
+              {
+                "source_page": "https://replicate.com/jd7h/open-sora-512",
+                "anchor_text": "captioning"
+              }
+            ],
+            "https://replicate.com/tools/datasets/README.md": [
+              {
+                "source_page": "https://replicate.com/jd7h/open-sora-512",
+                "anchor_text": "downloading"
+              }
+            ],
+            "https://replicate.com/tools/scenedetect/README.md": [
+              {
+                "source_page": "https://replicate.com/jd7h/open-sora-512",
+                "anchor_text": "video cutting"
+              }
+            ],
+            "https://replicate.com/uwulewd": [
+              {
+                "source_page": "https://replicate.com/uwulewd/airoboros-llama-2-70b",
+                "anchor_text": "uwulewd"
+              },
+              {
+                "source_page": "https://replicate.com/uwulewd/airoboros-llama-2-70b/versions/24083dd7cad713a7d9128694c4ce03671747917afa3c74d40d358dc0b1b74e8c",
+                "anchor_text": "uwulewd"
+              },
+              {
+                "source_page": "https://replicate.com/uwulewd/airoboros-llama-2-70b/versions/41e2a05d91511a8c6a665d08da66117919904784a8bbf6a93ae4d1c494742983",
+                "anchor_text": "uwulewd"
+              },
+              {
+                "source_page": "https://replicate.com/uwulewd/airoboros-llama-2-70b/versions/2ebaf68bd2d5d65ca52cfee4f14c052158757bc5d8a1b5929370e747684e0aeb",
+                "anchor_text": "uwulewd"
+              },
+              {
+                "source_page": "https://replicate.com/uwulewd/airoboros-llama-2-70b/versions/7183639e00fb7ffb068d639f366662aa5593763320847507761a6c3f324cced1",
+                "anchor_text": "uwulewd"
+              }
+            ],
+            "https://replicate.com/vectorspacelab/LICENSE": [
+              {
+                "source_page": "https://replicate.com/vectorspacelab/omnigen",
+                "anchor_text": "MIT License"
+              }
+            ],
+            "https://replicate.com/wan-ai/wan-2.2-s2v": [
+              {
+                "source_page": "https://replicate.com/collections/lipsync",
+                "anchor_text": "wan-ai/wan-2.2-s2v"
+              }
+            ],
+            "https://replicate.com/wan-video/LICENSE.txt": [
+              {
+                "source_page": "https://replicate.com/wan-video/wan-2.2-i2v-a14b",
+                "anchor_text": "license"
+              },
+              {
+                "source_page": "https://replicate.com/wan-video/wan-2.2-animate-animation",
+                "anchor_text": "license"
+              },
+              {
+                "source_page": "https://replicate.com/wan-video/wan-2.2-s2v",
+                "anchor_text": "license"
+              }
+            ],
+            "https://replicate.com/yuni-eng/coloring": [
+              {
+                "source_page": "https://replicate.com/yuni-eng/controlnet-sdxl",
+                "anchor_text": "https://replicate.com/yuni-eng/coloring"
+              }
+            ],
+            "https://replicate.com/zeke,": [
+              {
+                "source_page": "https://replicate.com/blog/build-a-robot-artist-for-your-discord-server-with-stable-diffusion",
+                "anchor_text": "zeke,"
+              }
+            ],
+            "https://replicate.com/zsxkib/LICENSE": [
+              {
+                "source_page": "https://replicate.com/zsxkib/diffbir",
+                "anchor_text": "Apache 2.0 license"
+              },
+              {
+                "source_page": "https://replicate.com/zsxkib/yolo-world",
+                "anchor_text": ""
+              }
+            ],
+            "https://replicate.com/zsxkib/bagel": [
+              {
+                "source_page": "https://replicate.com/bytedance/bagel",
+                "anchor_text": ""
+              }
+            ],
+            "https://replicate.com/zsxkib/configs/dataset/face_train.yaml": [
+              {
+                "source_page": "https://replicate.com/zsxkib/diffbir",
+                "anchor_text": "training set"
+              }
+            ],
+            "https://replicate.com/zsxkib/configs/dataset/face_val.yaml": [
+              {
+                "source_page": "https://replicate.com/zsxkib/diffbir",
+                "anchor_text": "validation set"
+              }
+            ],
+            "https://replicate.com/zsxkib/configs/dataset/general_deg_codeformer_train.yaml": [
+              {
+                "source_page": "https://replicate.com/zsxkib/diffbir",
+                "anchor_text": "training set"
+              }
+            ],
+            "https://replicate.com/zsxkib/configs/dataset/general_deg_codeformer_val.yaml": [
+              {
+                "source_page": "https://replicate.com/zsxkib/diffbir",
+                "anchor_text": "validation set"
+              }
+            ],
+            "https://replicate.com/zsxkib/configs/dataset/general_deg_realesrgan_train.yaml": [
+              {
+                "source_page": "https://replicate.com/zsxkib/diffbir",
+                "anchor_text": "training set"
+              }
+            ],
+            "https://replicate.com/zsxkib/configs/dataset/general_deg_realesrgan_val.yaml": [
+              {
+                "source_page": "https://replicate.com/zsxkib/diffbir",
+                "anchor_text": "validation set"
+              }
+            ],
+            "https://replicate.com/zsxkib/configs/train_cldm.yaml": [
+              {
+                "source_page": "https://replicate.com/zsxkib/diffbir",
+                "anchor_text": "training"
+              }
+            ],
+            "https://replicate.com/zsxkib/configs/train_swinir.yaml": [
+              {
+                "source_page": "https://replicate.com/zsxkib/diffbir",
+                "anchor_text": "training"
+              }
+            ],
+            "https://replicate.com/zsxkib/inputs/real47": [
+              {
+                "source_page": "https://replicate.com/zsxkib/diffbir",
+                "anchor_text": "real47"
+              }
+            ],
+            "https://replicate.com/zsxkib/model-card.md": [
+              {
+                "source_page": "https://replicate.com/zsxkib/whisper-lazyloading",
+                "anchor_text": "[Model card]"
+              }
+            ],
+            "https://replicate.com/zsxkib/train-rvc-v2": [
+              {
+                "source_page": "https://replicate.com/zsxkib/create-rvc-dataset",
+                "anchor_text": "https://replicate.com/zsxkib/train-rvc-v2"
+              }
+            ],
+            "https://replicate.com/zylim0702/link_to_baidu_netdisk": [
+              {
+                "source_page": "https://replicate.com/zylim0702/bokeh_prediction",
+                "anchor_text": "Baidu Netdisk"
+              }
+            ],
+            "https://replicate.com/zylim0702/link_to_google_drive": [
+              {
+                "source_page": "https://replicate.com/zylim0702/bokeh_prediction",
+                "anchor_text": "Google Drive"
+              }
+            ]
+          }
+        },
+        "seo_geo": {
+          "pages_scanned": 29465,
+          "missing_title_count": 0,
+          "missing_description_count": 8228,
+          "multiple_h1_count": 256,
+          "heading_hierarchy_jump_count": 88,
+          "seo_geo_issue_rate_pct": 7.27
+        },
+        "api_coverage": {
+          "reference_endpoint_count": 67,
+          "api_pages_detected": 26003,
+          "endpoints_with_usage_docs": 4,
+          "reference_endpoints_without_usage_docs": 63,
+          "reference_coverage_pct": 5.97,
+          "no_api_pages_found": false,
+          "coverage_determined": true,
+          "coverage_method": "source_of_truth",
+          "detection_note": "",
+          "uncovered_endpoint_samples": [
+            "ep:/account",
+            "ep:/collections",
+            "ep:/collections/{collection_slug}",
+            "ep:/deployments",
+            "ep:/deployments/{deployment_owner}/{deployment_name}",
+            "ep:/deployments/{deployment_owner}/{deployment_name}/predictions",
+            "ep:/files",
+            "ep:/files/{file_id}",
+            "ep:/files/{file_id}/download",
+            "ep:/hardware",
+            "ep:/models",
+            "ep:/models/{model_owner}/{model_name}",
+            "ep:/models/{model_owner}/{model_name}/examples",
+            "ep:/models/{model_owner}/{model_name}/predictions",
+            "ep:/models/{model_owner}/{model_name}/readme",
+            "ep:/models/{model_owner}/{model_name}/versions",
+            "ep:/models/{model_owner}/{model_name}/versions/{version_id}",
+            "ep:/models/{model_owner}/{model_name}/versions/{version_id}/trainings",
+            "ep:/predictions/{prediction_id}",
+            "ep:/search"
+          ]
+        },
+        "examples": {
+          "total_code_examples": 721,
+          "total_code_blocks_all": 2551,
+          "runnable_without_env": 534,
+          "blocked_by_placeholders": 33,
+          "network_bound_examples": 154,
+          "example_reliability_estimate_pct": 74.06,
+          "detection_note": ""
+        },
+        "freshness": {
+          "pages_with_last_updated_hint": 6024,
+          "pages_without_last_updated_hint": 23441,
+          "last_updated_coverage_pct": 20.44,
+          "samples_with_last_updated": [
+            {
+              "url": "https://replicate.com/01-ai/yi-34b",
+              "hint": "2023-11-14T20:23:58.474722+00:00"
+            },
+            {
+              "url": "https://replicate.com/01-ai/yi-34b-200k",
+              "hint": "2023-11-14T21:01:16.554062+00:00"
+            },
+            {
+              "url": "https://replicate.com/01-ai/yi-34b-chat",
+              "hint": "2023-11-23T04:55:15.823981+00:00"
+            },
+            {
+              "url": "https://replicate.com/01-ai/yi-6b",
+              "hint": "2023-11-14T17:43:54.181430+00:00"
+            },
+            {
+              "url": "https://replicate.com/01-ai/yi-6b-chat",
+              "hint": "2023-11-23T04:16:33.794755+00:00"
+            },
+            {
+              "url": "https://replicate.com/0x3f3f3f3fun/hypir-sd2",
+              "hint": "2025-07-17T11:33:00.232736+00:00"
+            },
+            {
+              "url": "https://replicate.com/0xdeadd/bijay",
+              "hint": "2024-09-08T23:35:04.097711+00:00"
+            },
+            {
+              "url": "https://replicate.com/0xdeadd/flux-your-model-name",
+              "hint": "2024-08-31T02:49:09.198752+00:00"
+            },
+            {
+              "url": "https://replicate.com/0xdino/cyberrealistic-pony-semireal-v36",
+              "hint": "2025-07-29T09:42:17.541290+00:00"
+            },
+            {
+              "url": "https://replicate.com/0xdeadd/kamala",
+              "hint": "2024-09-11T02:58:08.049148+00:00"
+            }
+          ]
+        }
+      },
+      "samples": {
+        "broken_links": [
+          "https://replicate.com/CODE_OF_CONDUCT.md",
+          "https://replicate.com/CONTRIBUTING.md",
+          "https://replicate.com/DiffusionLight/DiffusionLight/tree/main",
+          "https://replicate.com/None",
+          "https://replicate.com/a16z-infra",
+          "https://replicate.com/afiaka87/github.com/CompVis/latent-diffusion",
+          "https://replicate.com/alexgenovese/LICENSE",
+          "https://replicate.com/allenhooo/geomagical.com",
+          "https://replicate.com/andreasjannson",
+          "https://replicate.com/andreasjansson/afiaka87/retrieval-augmented-diffusion",
+          "https://replicate.com/arielreplicate/LICENSE-MODEL",
+          "https://replicate.com/arielreplicate/LICENSE.txt",
+          "https://replicate.com/arielreplicate/README_zh_Hans.md",
+          "https://replicate.com/arielreplicate/environment.yml",
+          "https://replicate.com/arielreplicate/main.py",
+          "https://replicate.com/arielreplicate/models.py",
+          "https://replicate.com/arielreplicate/multi-scale-blended-diffusion/InteractiveEditing.ipynb",
+          "https://replicate.com/benk044",
+          "https://replicate.com/black-forest-labs/flux-pro-trainer",
+          "https://replicate.com/black-forest-labs/flux-pulid"
+        ],
+        "docs_broken_link_samples": [
+          "https://replicate.com/CODE_OF_CONDUCT.md",
+          "https://replicate.com/CONTRIBUTING.md",
+          "https://replicate.com/DiffusionLight/DiffusionLight/tree/main",
+          "https://replicate.com/None",
+          "https://replicate.com/a16z-infra",
+          "https://replicate.com/afiaka87/github.com/CompVis/latent-diffusion",
+          "https://replicate.com/alexgenovese/LICENSE",
+          "https://replicate.com/allenhooo/geomagical.com",
+          "https://replicate.com/andreasjannson",
+          "https://replicate.com/andreasjansson/afiaka87/retrieval-augmented-diffusion",
+          "https://replicate.com/arielreplicate/LICENSE-MODEL",
+          "https://replicate.com/arielreplicate/LICENSE.txt",
+          "https://replicate.com/arielreplicate/README_zh_Hans.md",
+          "https://replicate.com/arielreplicate/environment.yml",
+          "https://replicate.com/arielreplicate/main.py",
+          "https://replicate.com/arielreplicate/models.py",
+          "https://replicate.com/arielreplicate/multi-scale-blended-diffusion/InteractiveEditing.ipynb",
+          "https://replicate.com/benk044",
+          "https://replicate.com/black-forest-labs/flux-pro-trainer",
+          "https://replicate.com/black-forest-labs/flux-pulid",
+          "https://replicate.com/black-forest-labs/flux.1-kontext",
+          "https://replicate.com/black-forest-labs/replicate.com/playground",
+          "https://replicate.com/blackforestlabs/flux-1-schnell",
+          "https://replicate.com/blog/None",
+          "https://replicate.com/blog/flux-1-a-new-state-of-the-art-image-generation-model-from-black-forest-labs",
+          "https://replicate.com/blog/pruna.ai",
+          "https://replicate.com/blog/replicate.com/flux-kontext-apps",
+          "https://replicate.com/blog/wan",
+          "https://replicate.com/buntingj-vt/GETTING_STARTED.md",
+          "https://replicate.com/buntingj-vt/INSTALL.md"
+        ],
+        "repo_broken_link_samples": [],
+        "unverified_link_samples": [
+          "https://replicate.com/alexizvelz/rosmeri1/examples",
+          "https://replicate.com/aliciamunianps/alicia/examples",
+          "https://replicate.com/arietudo/samm/examples",
+          "https://replicate.com/ayushunleashed/partpacker",
+          "https://replicate.com/beatrizalvesoll/bea/examples",
+          "https://replicate.com/bighairjames/brad/examples",
+          "https://replicate.com/carlosperz88/teslacyberbeast/examples",
+          "https://replicate.com/colinmcdonnell22/tweak_characters/examples",
+          "https://replicate.com/doriandarko/sdxl-bladerunner2049/examples",
+          "https://replicate.com/doriandarko/sdxl-dolcevita/examples",
+          "https://replicate.com/doriandarko/sdxl-obradinn/examples",
+          "https://replicate.com/emibob/bavis/examples",
+          "https://replicate.com/ferratd/destine/examples",
+          "https://replicate.com/geobotsar81/geobotsar-flux-2/examples",
+          "https://replicate.com/jborgesdb/lamuritechsuite/examples",
+          "https://replicate.com/jonathan-hubjam/jonathan-flux2/examples",
+          "https://replicate.com/jonathan-hubjam/new-spex/examples",
+          "https://replicate.com/jwilko1007-alt/julieaiavatar/examples",
+          "https://replicate.com/katylora/katy-lora/examples",
+          "https://replicate.com/makinsongary698/jh/examples",
+          "https://replicate.com/marcobitboss274/marco-cervo-m2/examples",
+          "https://replicate.com/mayoita/max-mayoita/examples",
+          "https://replicate.com/natta613/nat-1-kai/examples",
+          "https://replicate.com/p/36tn2vtby3raqlb7uvnqlrii5i",
+          "https://replicate.com/p/3xzqmglbd7ofjh2fahy4xhfsva",
+          "https://replicate.com/prakharsaxena24/masked-upscaler",
+          "https://replicate.com/ryokeken/bigboi/examples",
+          "https://replicate.com/stephaniejacksonphoto/steph/examples",
+          "https://replicate.com/treeneefinds/tam/examples"
+        ],
+        "api_uncovered_samples": [
+          "ep:/account",
+          "ep:/collections",
+          "ep:/collections/{collection_slug}",
+          "ep:/deployments",
+          "ep:/deployments/{deployment_owner}/{deployment_name}",
+          "ep:/deployments/{deployment_owner}/{deployment_name}/predictions",
+          "ep:/files",
+          "ep:/files/{file_id}",
+          "ep:/files/{file_id}/download",
+          "ep:/hardware",
+          "ep:/models",
+          "ep:/models/{model_owner}/{model_name}",
+          "ep:/models/{model_owner}/{model_name}/examples",
+          "ep:/models/{model_owner}/{model_name}/predictions",
+          "ep:/models/{model_owner}/{model_name}/readme",
+          "ep:/models/{model_owner}/{model_name}/versions",
+          "ep:/models/{model_owner}/{model_name}/versions/{version_id}",
+          "ep:/models/{model_owner}/{model_name}/versions/{version_id}/trainings",
+          "ep:/predictions/{prediction_id}",
+          "ep:/search"
+        ]
+      },
+      "run_count": 1
+    }
+  ],
+  "aggregate": {
+    "metrics": {
+      "crawl": {
+        "pages_crawled": 29465,
+        "requested_pages": 79752,
+        "urls_examined": 29479,
+        "max_pages_total": 30000,
+        "discovered_pages": 29479,
+        "crawl_scope_pages": 29479,
+        "trap_urls_skipped": 13,
+        "crawl_coverage_pct": 100.0
+      },
+      "links": {
+        "broken_internal_links_count": 275,
+        "docs_broken_links_count": 275,
+        "repo_broken_links_count": 0,
+        "unverified_links_count": 29,
+        "confirmed_broken_links_count": 275,
+        "excluded_links_count": 49
+      },
+      "seo_geo": {
+        "seo_geo_issue_rate_pct": 7.27
+      },
+      "api_coverage": {
+        "reference_coverage_pct": 5.97,
+        "no_api_pages_found": false,
+        "api_pages_detected": 26003,
+        "coverage_determined": true,
+        "detection_note": ""
+      },
+      "examples": {
+        "example_reliability_estimate_pct": 74.06
+      },
+      "freshness": {
+        "last_updated_coverage_pct": 20.44
+      }
+    },
+    "confidence": {
+      "overall_confidence_pct": 87.68,
+      "links_confidence_pct": 85.46,
+      "api_confidence_pct": 85.0,
+      "crawl_confidence_pct": 95.0
+    }
+  },
+  "confidence": {
+    "overall_confidence_pct": 87.68,
+    "links_confidence_pct": 85.46,
+    "api_confidence_pct": 85.0,
+    "crawl_confidence_pct": 95.0
+  },
+  "top_findings": [
+    "Broken internal links: 275",
+    "Link verification inconclusive for 29 URLs (auth/rate-limit/server block); these are excluded from broken-link counts.",
+    "API usage-doc coverage is low: 5.97% (26003 API pages detected)",
+    "Freshness visibility is weak: only 20.44% pages show last updated"
+  ],
+  "llm_analysis": {
+    "status": "ok",
+    "model": "claude-sonnet-4-5",
+    "analysis": {
+      "executive_summary": "Audit crawled 29,465 pages from Replicate documentation (100% coverage of discovered scope, capped at 30,000). Identified 275 confirmed broken internal documentation links with zero repository navigation link failures. API reference coverage is critically low at 5.97% despite detecting 26,003 API pages. Only 20.44% of pages display last-updated metadata, severely limiting freshness assessment. Example code reliability estimated at 74.06% with overall audit confidence at 87.68%.",
+      "strengths": [
+        "Complete crawl coverage achieved (100% of 29,479 discovered pages within scope)",
+        "High overall audit confidence at 87.68% with strong crawl confidence at 95%",
+        "Repository navigation links show zero breakage (all 275 broken links are user-facing docs)",
+        "Large API surface detected (26,003 API pages) indicating comprehensive API documentation exists",
+        "Example code reliability at 74.06% demonstrates majority of code samples are functional"
+      ],
+      "risks": [
+        "275 confirmed broken internal documentation links directly degrade user navigation and trust",
+        "API reference coverage at 5.97% indicates severe gap between API documentation and usage examples/guides",
+        "Only 20.44% freshness visibility prevents assessment of documentation currency across 79% of content",
+        "29 unverified links due to authentication/rate-limiting/server blocks may hide additional broken links",
+        "7.27% SEO/geo issue rate may impact discoverability and international user access",
+        "25.94% of examples may be unreliable or non-functional, risking developer onboarding friction",
+        "49 excluded links suggest potential scope gaps or intentional external link filtering"
+      ],
+      "prioritized_actions": [
+        {
+          "action": "Repair all 275 confirmed broken internal documentation links",
+          "impact": "critical",
+          "effort": "medium"
+        },
+        {
+          "action": "Implement last-updated timestamps on 79% of pages currently missing freshness metadata",
+          "impact": "critical",
+          "effort": "low"
+        },
+        {
+          "action": "Bridge API reference-to-usage gap: increase 5.97% coverage by adding usage examples to high-traffic API pages",
+          "impact": "critical",
+          "effort": "high"
+        },
+        {
+          "action": "Audit and fix 25.94% unreliable code examples to achieve >90% reliability threshold",
+          "impact": "high",
+          "effort": "medium"
+        },
+        {
+          "action": "Investigate 29 unverified links and resolve authentication/access barriers for link validation",
+          "impact": "medium",
+          "effort": "low"
+        }
+      ],
+      "limitations": [
+        "External audit cannot verify accuracy of technical content, code logic, or API specification correctness",
+        "29 unverified links blocked by authentication/rate-limits may conceal additional broken links not counted in the 275 total",
+        "Example reliability estimate is based on static analysis; runtime execution success in user environments cannot be guaranteed",
+        "Crawl capped at 30,000 pages may have excluded content beyond 29,479 discovered pages if additional deep links exist",
+        "API coverage detection relies on pattern matching; actual developer-perceived coverage may differ if non-standard documentation structures are used"
+      ]
+    }
+  }
+}

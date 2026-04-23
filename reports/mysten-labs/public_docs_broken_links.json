@@ -1,0 +1,372 @@
+{
+  "generated_at_utc": "2026-04-22T09:26:23.496449+00:00",
+  "sites_count": 5,
+  "totals": {
+    "docs_broken_links_count": 18,
+    "repo_broken_links_count": 0,
+    "all_confirmed_broken_links_count": 18,
+    "unverified_links_sample_count": 3
+  },
+  "all_docs_broken_links": [
+    "http://sdk.mystenlabs.com/typedoc/modules/doc/index.html",
+    "https://docs.sui.io/concepts/cryptography/nautilus",
+    "https://docs.sui.io/concepts/object-model",
+    "https://docs.sui.io/guides/developer/advanced/randomness-onchain",
+    "https://docs.sui.io/guides/developer/nft-index",
+    "https://docs.sui.io/guides/developer/nft/nft-soulbound",
+    "https://docs.sui.io/guides/developer/sui-101/sponsor-txn",
+    "https://docs.sui.io/references/framework/sui-framework/sui_sui/object",
+    "https://docs.sui.io/references/framework/sui-framework/sui_sui/random",
+    "https://docs.sui.io/references/framework/sui-framework/sui_sui/transfer",
+    "https://docs.sui.io/references/framework/sui_sui/transferx",
+    "https://docs.sui.io/standards/display",
+    "https://sdk.mystenlabs.com/dapp-kit/themes",
+    "https://sdk.mystenlabs.com/index.html",
+    "https://sdk.mystenlabs.com/modules.html",
+    "https://sdk.mystenlabs.com/typedoc/classes/_mysten_sui.client.SuiJsonRpcClient.html",
+    "https://sdk.mystenlabs.com/typedoc/modules/doc/index.html",
+    "https://sdk.mystenlabs.com/typedoc/types/_mysten_sui.transactions.TransactionBlockInput.html"
+  ],
+  "all_repo_broken_links": [],
+  "all_unverified_links_sample": [
+    "https://docs.sui.io/develop",
+    "https://docs.wal.app/docs/operator-guide/storage-nodes/commission-governance",
+    "https://docs.wal.app/docs/troubleshooting/error-handling"
+  ],
+  "sites": [
+    {
+      "site_url": "https://docs.wal.app/",
+      "confirmed_broken_links_count": 0,
+      "docs_broken_links_count": 0,
+      "repo_broken_links_count": 0,
+      "docs_broken_links": [],
+      "repo_broken_links": [],
+      "confirmed_broken_links_detailed": [],
+      "unverified_links_sample": [
+        "https://docs.wal.app/docs/operator-guide/storage-nodes/commission-governance",
+        "https://docs.wal.app/docs/troubleshooting/error-handling"
+      ]
+    },
+    {
+      "site_url": "https://seal.mystenlabs.com/",
+      "confirmed_broken_links_count": 0,
+      "docs_broken_links_count": 0,
+      "repo_broken_links_count": 0,
+      "docs_broken_links": [],
+      "repo_broken_links": [],
+      "confirmed_broken_links_detailed": [],
+      "unverified_links_sample": []
+    },
+    {
+      "site_url": "https://docs.sui.io/",
+      "confirmed_broken_links_count": 11,
+      "docs_broken_links_count": 11,
+      "repo_broken_links_count": 0,
+      "docs_broken_links": [
+        "https://docs.sui.io/concepts/cryptography/nautilus",
+        "https://docs.sui.io/concepts/object-model",
+        "https://docs.sui.io/guides/developer/advanced/randomness-onchain",
+        "https://docs.sui.io/guides/developer/nft-index",
+        "https://docs.sui.io/guides/developer/nft/nft-soulbound",
+        "https://docs.sui.io/guides/developer/sui-101/sponsor-txn",
+        "https://docs.sui.io/references/framework/sui-framework/sui_sui/object",
+        "https://docs.sui.io/references/framework/sui-framework/sui_sui/random",
+        "https://docs.sui.io/references/framework/sui-framework/sui_sui/transfer",
+        "https://docs.sui.io/references/framework/sui_sui/transferx",
+        "https://docs.sui.io/standards/display"
+      ],
+      "repo_broken_links": [],
+      "confirmed_broken_links_detailed": [
+        {
+          "target_url": "https://docs.sui.io/concepts/cryptography/nautilus",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://docs.sui.io/references/awesome-sui-gaming",
+              "anchor_text": "Nautilus"
+            },
+            {
+              "source_page": "https://docs.sui.io/references/awesome-sui-gaming",
+              "anchor_text": "Nautilus reference"
+            }
+          ]
+        },
+        {
+          "target_url": "https://docs.sui.io/concepts/object-model",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://docs.sui.io/references/awesome-sui-gaming",
+              "anchor_text": "Object-Centric Model"
+            }
+          ]
+        },
+        {
+          "target_url": "https://docs.sui.io/guides/developer/advanced/randomness-onchain",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://docs.sui.io/references/framework/sui_sui/random",
+              "anchor_text": "https://docs.sui.io/guides/developer/advanced/randomness-onchain"
+            }
+          ]
+        },
+        {
+          "target_url": "https://docs.sui.io/guides/developer/nft-index",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://docs.sui.io/references/awesome-sui-gaming",
+              "anchor_text": "Dynamic NFTs (Mutable Assets)"
+            }
+          ]
+        },
+        {
+          "target_url": "https://docs.sui.io/guides/developer/nft/nft-soulbound",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://docs.sui.io/references/awesome-sui-gaming",
+              "anchor_text": "Soulbound Assets"
+            }
+          ]
+        },
+        {
+          "target_url": "https://docs.sui.io/guides/developer/sui-101/sponsor-txn",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://docs.sui.io/references/awesome-sui-gaming",
+              "anchor_text": "Sponsored Transactions"
+            }
+          ]
+        },
+        {
+          "target_url": "https://docs.sui.io/references/framework/sui-framework/sui_sui/object",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://docs.sui.io/develop/write-move/sui-move-concepts",
+              "anchor_text": "object . move"
+            }
+          ]
+        },
+        {
+          "target_url": "https://docs.sui.io/references/framework/sui-framework/sui_sui/random",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://docs.sui.io/sui-stack/on-chain-primitives/randomness-onchain",
+              "anchor_text": "random.move"
+            }
+          ]
+        },
+        {
+          "target_url": "https://docs.sui.io/references/framework/sui-framework/sui_sui/transfer",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://docs.sui.io/onchain-finance/examples-patterns/soulbound-tokens",
+              "anchor_text": "sui::transfer module"
+            },
+            {
+              "source_page": "https://docs.sui.io/onchain-finance/examples-patterns/soulbound-tokens",
+              "anchor_text": "transfer::transfer"
+            },
+            {
+              "source_page": "https://docs.sui.io/onchain-finance/examples-patterns/soulbound-tokens",
+              "anchor_text": "transfer::public_transfer"
+            }
+          ]
+        },
+        {
+          "target_url": "https://docs.sui.io/references/framework/sui_sui/transferx",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://docs.sui.io/develop/objects/transfers/transfer-to-object",
+              "anchor_text": "transfer"
+            }
+          ]
+        },
+        {
+          "target_url": "https://docs.sui.io/standards/display",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://docs.sui.io/references/awesome-sui-gaming",
+              "anchor_text": "Sui Object Display Standard"
+            }
+          ]
+        }
+      ],
+      "unverified_links_sample": [
+        "https://docs.sui.io/develop"
+      ]
+    },
+    {
+      "site_url": "https://sdk.mystenlabs.com/typedoc",
+      "confirmed_broken_links_count": 7,
+      "docs_broken_links_count": 7,
+      "repo_broken_links_count": 0,
+      "docs_broken_links": [
+        "http://sdk.mystenlabs.com/typedoc/modules/doc/index.html",
+        "https://sdk.mystenlabs.com/dapp-kit/themes",
+        "https://sdk.mystenlabs.com/index.html",
+        "https://sdk.mystenlabs.com/modules.html",
+        "https://sdk.mystenlabs.com/typedoc/classes/_mysten_sui.client.SuiJsonRpcClient.html",
+        "https://sdk.mystenlabs.com/typedoc/modules/doc/index.html",
+        "https://sdk.mystenlabs.com/typedoc/types/_mysten_sui.transactions.TransactionBlockInput.html"
+      ],
+      "repo_broken_links": [],
+      "confirmed_broken_links_detailed": [
+        {
+          "target_url": "http://sdk.mystenlabs.com/typedoc/modules/doc/index.html",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "http://sdk.mystenlabs.com/typedoc/modules/_mysten_sui.html",
+              "anchor_text": "doc/index.html"
+            }
+          ]
+        },
+        {
+          "target_url": "https://sdk.mystenlabs.com/dapp-kit/themes",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://sdk.mystenlabs.com/typedoc/modules/_mysten_dapp-kit.html",
+              "anchor_text": "themes"
+            },
+            {
+              "source_page": "http://sdk.mystenlabs.com/typedoc/modules/_mysten_dapp-kit.html",
+              "anchor_text": "themes"
+            }
+          ]
+        },
+        {
+          "target_url": "https://sdk.mystenlabs.com/index.html",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://sdk.mystenlabs.com/typedoc",
+              "anchor_text": "Documentation"
+            }
+          ]
+        },
+        {
+          "target_url": "https://sdk.mystenlabs.com/modules.html",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://sdk.mystenlabs.com/typedoc",
+              "anchor_text": "Documentation"
+            }
+          ]
+        },
+        {
+          "target_url": "https://sdk.mystenlabs.com/typedoc/classes/_mysten_sui.client.SuiJsonRpcClient.html",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://sdk.mystenlabs.com/dapp-kit/legacy/wallet-hooks/useSignAndExecuteTransaction",
+              "anchor_text": "SuiJsonRpcClient.signAndExecuteTransaction"
+            }
+          ]
+        },
+        {
+          "target_url": "https://sdk.mystenlabs.com/typedoc/modules/doc/index.html",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://sdk.mystenlabs.com/typedoc/modules/_mysten_sui.html",
+              "anchor_text": "doc/index.html"
+            }
+          ]
+        },
+        {
+          "target_url": "https://sdk.mystenlabs.com/typedoc/types/_mysten_sui.transactions.TransactionBlockInput.html",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://sdk.mystenlabs.com/sui/migrations/sui-1.0",
+              "anchor_text": "TransactionBlockInput"
+            }
+          ]
+        }
+      ],
+      "unverified_links_sample": []
+    },
+    {
+      "site_url": "https://sdk.mystenlabs.com/",
+      "confirmed_broken_links_count": 5,
+      "docs_broken_links_count": 5,
+      "repo_broken_links_count": 0,
+      "docs_broken_links": [
+        "http://sdk.mystenlabs.com/typedoc/modules/doc/index.html",
+        "https://sdk.mystenlabs.com/dapp-kit/themes",
+        "https://sdk.mystenlabs.com/typedoc/classes/_mysten_sui.client.SuiJsonRpcClient.html",
+        "https://sdk.mystenlabs.com/typedoc/modules/doc/index.html",
+        "https://sdk.mystenlabs.com/typedoc/types/_mysten_sui.transactions.TransactionBlockInput.html"
+      ],
+      "repo_broken_links": [],
+      "confirmed_broken_links_detailed": [
+        {
+          "target_url": "http://sdk.mystenlabs.com/typedoc/modules/doc/index.html",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "http://sdk.mystenlabs.com/typedoc/modules/_mysten_sui.html",
+              "anchor_text": "doc/index.html"
+            }
+          ]
+        },
+        {
+          "target_url": "https://sdk.mystenlabs.com/dapp-kit/themes",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://sdk.mystenlabs.com/typedoc/modules/_mysten_dapp-kit.html",
+              "anchor_text": "themes"
+            },
+            {
+              "source_page": "http://sdk.mystenlabs.com/typedoc/modules/_mysten_dapp-kit.html",
+              "anchor_text": "themes"
+            }
+          ]
+        },
+        {
+          "target_url": "https://sdk.mystenlabs.com/typedoc/classes/_mysten_sui.client.SuiJsonRpcClient.html",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://sdk.mystenlabs.com/dapp-kit/legacy/wallet-hooks/useSignAndExecuteTransaction",
+              "anchor_text": "SuiJsonRpcClient.signAndExecuteTransaction"
+            }
+          ]
+        },
+        {
+          "target_url": "https://sdk.mystenlabs.com/typedoc/modules/doc/index.html",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://sdk.mystenlabs.com/typedoc/modules/_mysten_sui.html",
+              "anchor_text": "doc/index.html"
+            }
+          ]
+        },
+        {
+          "target_url": "https://sdk.mystenlabs.com/typedoc/types/_mysten_sui.transactions.TransactionBlockInput.html",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://sdk.mystenlabs.com/sui/migrations/sui-1.0",
+              "anchor_text": "TransactionBlockInput"
+            }
+          ]
+        }
+      ],
+      "unverified_links_sample": []
+    }
+  ]
+}

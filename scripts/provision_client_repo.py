@@ -501,7 +501,7 @@ def _create_profile_via_wizard(default_scheduler: str, *, require_repo: bool = T
                 ask_ai_cfg["model"] = "qwen2.5:7b"
                 ask_ai_cfg["base_url"] = "http://localhost:11434/v1"
                 ask_ai_cfg["install_runtime_pack"] = True
-                ask_ai_cfg["billing_mode"] = "disabled"
+                ask_ai_cfg["billing_mode"] = "bring-your-own-key"
 
         api_first_cfg = profile["runtime"].get("api_first", {})
         if isinstance(api_first_cfg, dict):
@@ -1177,17 +1177,18 @@ def apply_integrations(client_repo: Path, docsops_dir: str) -> None:
     if bool(ask_ai.get("install_runtime_pack", False)):
         runtime_pack_script = client_repo / docsops_dir / "scripts" / "install_ask_ai_runtime.py"
         if runtime_pack_script.exists():
-            subprocess.run(
-                [
-                    sys.executable,
-                    str(runtime_pack_script),
-                    "--target-dir",
-                    ".",
-                    "--skip-if-missing",
-                ],
-                cwd=str(client_repo),
-                check=True,
-            )
+                subprocess.run(
+                    [
+                        sys.executable,
+                        str(runtime_pack_script),
+                        "--target-dir",
+                        ".",
+                        "--force",
+                        "--skip-if-missing",
+                    ],
+                    cwd=str(client_repo),
+                    check=True,
+                )
 
 
 def generate_env_checklist(client_repo: Path, docsops_dir: str) -> Path | None:
@@ -1256,12 +1257,30 @@ def generate_env_checklist(client_repo: Path, docsops_dir: str) -> Path | None:
             "openai": ["OPENAI_API_KEY"],
             "anthropic": ["ANTHROPIC_API_KEY"],
             "azure-openai": ["AZURE_OPENAI_API_KEY", "AZURE_OPENAI_ENDPOINT"],
-            "custom": ["ASK_AI_API_KEY", "ASK_AI_BASE_URL"],
+            "custom": ["ASK_AI_BASE_URL"],
             "local": ["ASK_AI_BASE_URL"],
             "ollama": ["ASK_AI_BASE_URL"],
-        }.get(provider, ["ASK_AI_API_KEY"])
+        }.get(provider, [])
         lines.extend(["## Ask AI", "", f"- Provider: `{provider}`", f"- Billing mode: `{billing_mode}`"])
+        lines.extend(
+            [
+                "- [ ] `ASK_AI_API_KEY`",
+                "  - Runtime auth key for Ask AI endpoints.",
+                "  - Generate with: `python3 -c \"import secrets; print(secrets.token_urlsafe(48))\"`.",
+            ]
+        )
         lines.extend([f"- [ ] `{name}`" for name in provider_vars])
+        if billing_mode == "bring-your-own-key":
+            if provider == "openai":
+                lines.append("- BYOK source: create your own key in OpenAI dashboard.")
+            elif provider == "anthropic":
+                lines.append("- BYOK source: create your own key in Anthropic Console.")
+            elif provider == "azure-openai":
+                lines.append("- BYOK source: create your own key and endpoint in Azure OpenAI resource.")
+            elif provider in {"local", "ollama"}:
+                lines.append("- BYOK note: local Ollama needs no cloud provider key; only `ASK_AI_API_KEY` is required.")
+            else:
+                lines.append("- BYOK source: use your provider key and endpoint from your provider console.")
         if provider == "openai" and billing_mode == "user-subscription":
             lines.extend(
                 [

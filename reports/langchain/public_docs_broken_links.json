@@ -1,0 +1,85 @@
+{
+  "generated_at_utc": "2026-04-21T15:59:17.179007+00:00",
+  "sites_count": 3,
+  "totals": {
+    "docs_broken_links_count": 2,
+    "repo_broken_links_count": 0,
+    "all_confirmed_broken_links_count": 2,
+    "unverified_links_sample_count": 5
+  },
+  "all_docs_broken_links": [
+    "https://docs.langchain.com/langsmith/insights-self-hosted.mdx",
+    "https://docs.langchain.com/langsmith/polly-self-hosted.mdx"
+  ],
+  "all_repo_broken_links": [],
+  "all_unverified_links_sample": [
+    "https://docs.langchain.com/api-reference/integrations-v1/list-github-integrations",
+    "https://docs.langchain.com/oss/javascript/integrations/chat/openai",
+    "https://docs.langchain.com/oss/javascript/langgraph/frontend/overview",
+    "https://python.langchain.com/oss/python/langchain/streaming",
+    "https://python.langchain.com/oss/python/langchain/ui"
+  ],
+  "sites": [
+    {
+      "site_url": "https://langchain-ai.github.io/langgraph",
+      "confirmed_broken_links_count": 0,
+      "docs_broken_links_count": 0,
+      "repo_broken_links_count": 0,
+      "docs_broken_links": [],
+      "repo_broken_links": [],
+      "confirmed_broken_links_detailed": [],
+      "unverified_links_sample": []
+    },
+    {
+      "site_url": "https://python.langchain.com/docs",
+      "confirmed_broken_links_count": 0,
+      "docs_broken_links_count": 0,
+      "repo_broken_links_count": 0,
+      "docs_broken_links": [],
+      "repo_broken_links": [],
+      "confirmed_broken_links_detailed": [],
+      "unverified_links_sample": [
+        "https://python.langchain.com/oss/python/langchain/streaming",
+        "https://python.langchain.com/oss/python/langchain/ui"
+      ]
+    },
+    {
+      "site_url": "https://docs.langchain.com/",
+      "confirmed_broken_links_count": 2,
+      "docs_broken_links_count": 2,
+      "repo_broken_links_count": 0,
+      "docs_broken_links": [
+        "https://docs.langchain.com/langsmith/insights-self-hosted.mdx",
+        "https://docs.langchain.com/langsmith/polly-self-hosted.mdx"
+      ],
+      "repo_broken_links": [],
+      "confirmed_broken_links_detailed": [
+        {
+          "target_url": "https://docs.langchain.com/langsmith/insights-self-hosted.mdx",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://docs.langchain.com/langsmith/llm-auth-proxy-self-hosted",
+              "anchor_text": "Insights"
+            }
+          ]
+        },
+        {
+          "target_url": "https://docs.langchain.com/langsmith/polly-self-hosted.mdx",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://docs.langchain.com/langsmith/llm-auth-proxy-self-hosted",
+              "anchor_text": "Polly"
+            }
+          ]
+        }
+      ],
+      "unverified_links_sample": [
+        "https://docs.langchain.com/api-reference/integrations-v1/list-github-integrations",
+        "https://docs.langchain.com/oss/javascript/integrations/chat/openai",
+        "https://docs.langchain.com/oss/javascript/langgraph/frontend/overview"
+      ]
+    }
+  ]
+}

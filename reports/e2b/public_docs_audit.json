@@ -1,0 +1,1236 @@
+{
+  "generated_at": "2026-04-22T10:03:12.712236+00:00",
+  "site_url": "https://e2b.dev/docs",
+  "site_urls": [
+    "https://e2b.dev/docs"
+  ],
+  "topology_mode": "single-product",
+  "verification_modes": [
+    "authenticated",
+    "bot",
+    "browser"
+  ],
+  "sites": [
+    {
+      "site_url": "https://e2b.dev/docs",
+      "metrics": {
+        "crawl": {
+          "pages_crawled": 270,
+          "requested_pages": 326,
+          "urls_examined": 271,
+          "max_pages": 5000,
+          "effective_limit": 5000,
+          "auto_mode": false,
+          "stop_reason": "queue_exhausted",
+          "discovered_pages": 271,
+          "crawl_scope_basis": "sitemap",
+          "crawl_scope_pages": 271,
+          "crawl_coverage_pct": 100.0,
+          "trap_urls_skipped": 195,
+          "seeded_sitemap_urls": 271,
+          "robots_sitemaps_declared": 1
+        },
+        "links": {
+          "internal_links_checked": 326,
+          "broken_internal_links_count": 43,
+          "docs_broken_links_count": 43,
+          "repo_broken_links_count": 0,
+          "broken_internal_link_samples": [
+            "https://e2b.dev/blog/david-zhang-from-aomni-gives-his-view-on-ai-agents",
+            "https://e2b.dev/category/case-studies",
+            "https://e2b.dev/category/community",
+            "https://e2b.dev/category/customers",
+            "https://e2b.dev/category/guides",
+            "https://e2b.dev/category/insights",
+            "https://e2b.dev/category/interviews",
+            "https://e2b.dev/category/product",
+            "https://e2b.dev/category/release",
+            "https://e2b.dev/category/updates",
+            "https://e2b.dev/cookbook-tags/anthropic",
+            "https://e2b.dev/cookbook-tags/autogen",
+            "https://e2b.dev/cookbook-tags/firecrawl",
+            "https://e2b.dev/cookbook-tags/fireworks-ai",
+            "https://e2b.dev/cookbook-tags/ibm",
+            "https://e2b.dev/cookbook-tags/js",
+            "https://e2b.dev/cookbook-tags/langchain",
+            "https://e2b.dev/cookbook-tags/langgraph",
+            "https://e2b.dev/cookbook-tags/magentic",
+            "https://e2b.dev/cookbook-tags/meta"
+          ],
+          "docs_broken_link_samples": [
+            "https://e2b.dev/blog/david-zhang-from-aomni-gives-his-view-on-ai-agents",
+            "https://e2b.dev/category/case-studies",
+            "https://e2b.dev/category/community",
+            "https://e2b.dev/category/customers",
+            "https://e2b.dev/category/guides",
+            "https://e2b.dev/category/insights",
+            "https://e2b.dev/category/interviews",
+            "https://e2b.dev/category/product",
+            "https://e2b.dev/category/release",
+            "https://e2b.dev/category/updates",
+            "https://e2b.dev/cookbook-tags/anthropic",
+            "https://e2b.dev/cookbook-tags/autogen",
+            "https://e2b.dev/cookbook-tags/firecrawl",
+            "https://e2b.dev/cookbook-tags/fireworks-ai",
+            "https://e2b.dev/cookbook-tags/ibm",
+            "https://e2b.dev/cookbook-tags/js",
+            "https://e2b.dev/cookbook-tags/langchain",
+            "https://e2b.dev/cookbook-tags/langgraph",
+            "https://e2b.dev/cookbook-tags/magentic",
+            "https://e2b.dev/cookbook-tags/meta",
+            "https://e2b.dev/cookbook-tags/mistral",
+            "https://e2b.dev/cookbook-tags/next-js",
+            "https://e2b.dev/cookbook-tags/openai",
+            "https://e2b.dev/cookbook-tags/python",
+            "https://e2b.dev/cookbook-tags/together-ai",
+            "https://e2b.dev/cookbook-tags/ts",
+            "https://e2b.dev/docs)",
+            "https://e2b.dev/docs/api-reference/sandboxes/connect-to-a-sandbox",
+            "https://e2b.dev/docs/api-reference/sandboxes/create-a-sandbox",
+            "https://e2b.dev/docs/api-reference/sandboxes/get-a-sandbox"
+          ],
+          "repo_broken_link_samples": [],
+          "unreachable_links_count": 1,
+          "unverified_links_count": 2,
+          "unverified_link_samples": [
+            "https://e2b.dev/docs/code-interpreting/supported-languages/r",
+            "https://e2b.dev/docs/sandbox/api/upload"
+          ],
+          "confirmed_broken_links_count": 43,
+          "excluded_links_count": 0,
+          "excluded_link_samples": [],
+          "_all_confirmed_broken_links": [
+            "https://e2b.dev/blog/david-zhang-from-aomni-gives-his-view-on-ai-agents",
+            "https://e2b.dev/category/case-studies",
+            "https://e2b.dev/category/community",
+            "https://e2b.dev/category/customers",
+            "https://e2b.dev/category/guides",
+            "https://e2b.dev/category/insights",
+            "https://e2b.dev/category/interviews",
+            "https://e2b.dev/category/product",
+            "https://e2b.dev/category/release",
+            "https://e2b.dev/category/updates",
+            "https://e2b.dev/cookbook-tags/anthropic",
+            "https://e2b.dev/cookbook-tags/autogen",
+            "https://e2b.dev/cookbook-tags/firecrawl",
+            "https://e2b.dev/cookbook-tags/fireworks-ai",
+            "https://e2b.dev/cookbook-tags/ibm",
+            "https://e2b.dev/cookbook-tags/js",
+            "https://e2b.dev/cookbook-tags/langchain",
+            "https://e2b.dev/cookbook-tags/langgraph",
+            "https://e2b.dev/cookbook-tags/magentic",
+            "https://e2b.dev/cookbook-tags/meta",
+            "https://e2b.dev/cookbook-tags/mistral",
+            "https://e2b.dev/cookbook-tags/next-js",
+            "https://e2b.dev/cookbook-tags/openai",
+            "https://e2b.dev/cookbook-tags/python",
+            "https://e2b.dev/cookbook-tags/together-ai",
+            "https://e2b.dev/cookbook-tags/ts",
+            "https://e2b.dev/docs)",
+            "https://e2b.dev/docs/api-reference/sandboxes/connect-to-a-sandbox",
+            "https://e2b.dev/docs/api-reference/sandboxes/create-a-sandbox",
+            "https://e2b.dev/docs/api-reference/sandboxes/get-a-sandbox",
+            "https://e2b.dev/docs/api-reference/sandboxes/resume-a-sandbox",
+            "https://e2b.dev/docs/cli/commands",
+            "https://e2b.dev/docs/cli/installation",
+            "https://e2b.dev/docs/code-interpreter/execution",
+            "https://e2b.dev/docs/code-interpreter/installation",
+            "https://e2b.dev/docs/getting-started/api-key",
+            "https://e2b.dev/docs/guide/connect-bucket",
+            "https://e2b.dev/docs/guide/custom-sandbox",
+            "https://e2b.dev/docs/sandbox/api/filesystem",
+            "https://e2b.dev/docs/sandbox/compute",
+            "https://e2b.dev/docs/sandbox/custom",
+            "https://e2b.dev/docs/sandbox/overview",
+            "https://e2b.dev/docs/sandbox/templates/overview"
+          ],
+          "_all_unverified_links": [
+            "https://e2b.dev/docs/code-interpreting/supported-languages/r",
+            "https://e2b.dev/docs/sandbox/api/upload"
+          ],
+          "_all_excluded_links": [],
+          "_all_docs_unverified_links": [
+            "https://e2b.dev/docs/code-interpreting/supported-languages/r",
+            "https://e2b.dev/docs/sandbox/api/upload"
+          ],
+          "_all_repo_unverified_links": [],
+          "_broken_link_provenance": {
+            "https://e2b.dev/blog/david-zhang-from-aomni-gives-his-view-on-ai-agents": [
+              {
+                "source_page": "https://e2b.dev/blog/the-state-of-ai-agents-reliability-sdks-benchmarking-and-market-trends",
+                "anchor_text": "Aomni"
+              },
+              {
+                "source_page": "https://e2b.dev/blog/the-state-of-ai-agents-reliability-sdks-benchmarking-and-market-trends",
+                "anchor_text": "lack of an agent equivalent of real-time debugging"
+              }
+            ],
+            "https://e2b.dev/category/case-studies": [
+              {
+                "source_page": "https://e2b.dev/blog",
+                "anchor_text": "Case Studies"
+              },
+              {
+                "source_page": "https://e2b.dev/blog/category/case-studies",
+                "anchor_text": "Case Studies"
+              },
+              {
+                "source_page": "https://e2b.dev/blog/category/guides",
+                "anchor_text": "Case Studies"
+              },
+              {
+                "source_page": "https://e2b.dev/blog/category/insights",
+                "anchor_text": "Case Studies"
+              },
+              {
+                "source_page": "https://e2b.dev/blog/category/customers",
+                "anchor_text": "Case Studies"
+              }
+            ],
+            "https://e2b.dev/category/community": [
+              {
+                "source_page": "https://e2b.dev/blog",
+                "anchor_text": "Community"
+              },
+              {
+                "source_page": "https://e2b.dev/blog/category/case-studies",
+                "anchor_text": "Community"
+              },
+              {
+                "source_page": "https://e2b.dev/blog/category/guides",
+                "anchor_text": "Community"
+              },
+              {
+                "source_page": "https://e2b.dev/blog/category/insights",
+                "anchor_text": "Community"
+              },
+              {
+                "source_page": "https://e2b.dev/blog/category/customers",
+                "anchor_text": "Community"
+              }
+            ],
+            "https://e2b.dev/category/customers": [
+              {
+                "source_page": "https://e2b.dev/blog",
+                "anchor_text": "Customers"
+              },
+              {
+                "source_page": "https://e2b.dev/blog/category/case-studies",
+                "anchor_text": "Customers"
+              },
+              {
+                "source_page": "https://e2b.dev/blog/category/guides",
+                "anchor_text": "Customers"
+              },
+              {
+                "source_page": "https://e2b.dev/blog/category/insights",
+                "anchor_text": "Customers"
+              },
+              {
+                "source_page": "https://e2b.dev/blog/category/customers",
+                "anchor_text": "Customers"
+              }
+            ],
+            "https://e2b.dev/category/guides": [
+              {
+                "source_page": "https://e2b.dev/blog",
+                "anchor_text": "Guides"
+              },
+              {
+                "source_page": "https://e2b.dev/blog/category/case-studies",
+                "anchor_text": "Guides"
+              },
+              {
+                "source_page": "https://e2b.dev/blog/category/guides",
+                "anchor_text": "Guides"
+              },
+              {
+                "source_page": "https://e2b.dev/blog/category/insights",
+                "anchor_text": "Guides"
+              },
+              {
+                "source_page": "https://e2b.dev/blog/category/customers",
+                "anchor_text": "Guides"
+              }
+            ],
+            "https://e2b.dev/category/insights": [
+              {
+                "source_page": "https://e2b.dev/blog",
+                "anchor_text": "Insights"
+              },
+              {
+                "source_page": "https://e2b.dev/blog/category/case-studies",
+                "anchor_text": "Insights"
+              },
+              {
+                "source_page": "https://e2b.dev/blog/category/guides",
+                "anchor_text": "Insights"
+              },
+              {
+                "source_page": "https://e2b.dev/blog/category/insights",
+                "anchor_text": "Insights"
+              },
+              {
+                "source_page": "https://e2b.dev/blog/category/customers",
+                "anchor_text": "Insights"
+              }
+            ],
+            "https://e2b.dev/category/interviews": [
+              {
+                "source_page": "https://e2b.dev/blog",
+                "anchor_text": "Interviews"
+              },
+              {
+                "source_page": "https://e2b.dev/blog/category/case-studies",
+                "anchor_text": "Interviews"
+              },
+              {
+                "source_page": "https://e2b.dev/blog/category/guides",
+                "anchor_text": "Interviews"
+              },
+              {
+                "source_page": "https://e2b.dev/blog/category/insights",
+                "anchor_text": "Interviews"
+              },
+              {
+                "source_page": "https://e2b.dev/blog/category/customers",
+                "anchor_text": "Interviews"
+              }
+            ],
+            "https://e2b.dev/category/product": [
+              {
+                "source_page": "https://e2b.dev/blog",
+                "anchor_text": "Product"
+              },
+              {
+                "source_page": "https://e2b.dev/blog/category/case-studies",
+                "anchor_text": "Product"
+              },
+              {
+                "source_page": "https://e2b.dev/blog/category/guides",
+                "anchor_text": "Product"
+              },
+              {
+                "source_page": "https://e2b.dev/blog/category/insights",
+                "anchor_text": "Product"
+              },
+              {
+                "source_page": "https://e2b.dev/blog/category/customers",
+                "anchor_text": "Product"
+              }
+            ],
+            "https://e2b.dev/category/release": [
+              {
+                "source_page": "https://e2b.dev/blog",
+                "anchor_text": "Release"
+              },
+              {
+                "source_page": "https://e2b.dev/blog/category/case-studies",
+                "anchor_text": "Release"
+              },
+              {
+                "source_page": "https://e2b.dev/blog/category/guides",
+                "anchor_text": "Release"
+              },
+              {
+                "source_page": "https://e2b.dev/blog/category/insights",
+                "anchor_text": "Release"
+              },
+              {
+                "source_page": "https://e2b.dev/blog/category/customers",
+                "anchor_text": "Release"
+              }
+            ],
+            "https://e2b.dev/category/updates": [
+              {
+                "source_page": "https://e2b.dev/blog",
+                "anchor_text": "Updates"
+              },
+              {
+                "source_page": "https://e2b.dev/blog/category/case-studies",
+                "anchor_text": "Updates"
+              },
+              {
+                "source_page": "https://e2b.dev/blog/category/guides",
+                "anchor_text": "Updates"
+              },
+              {
+                "source_page": "https://e2b.dev/blog/category/insights",
+                "anchor_text": "Updates"
+              },
+              {
+                "source_page": "https://e2b.dev/blog/category/customers",
+                "anchor_text": "Updates"
+              }
+            ],
+            "https://e2b.dev/cookbook-tags/anthropic": [
+              {
+                "source_page": "https://e2b.dev/",
+                "anchor_text": "Text Link"
+              },
+              {
+                "source_page": "https://e2b.dev/careers",
+                "anchor_text": "Text Link"
+              },
+              {
+                "source_page": "https://e2b.dev/cookbook/claude-code-interpreter-in-python",
+                "anchor_text": "Anthropic"
+              },
+              {
+                "source_page": "https://e2b.dev/cookbook",
+                "anchor_text": "Text Link"
+              },
+              {
+                "source_page": "https://e2b.dev/cookbook/claude-code-interpreter-in-js-ts",
+                "anchor_text": "Anthropic"
+              }
+            ],
+            "https://e2b.dev/cookbook-tags/autogen": [
+              {
+                "source_page": "https://e2b.dev/",
+                "anchor_text": "Text Link"
+              },
+              {
+                "source_page": "https://e2b.dev/careers",
+                "anchor_text": "Text Link"
+              },
+              {
+                "source_page": "https://e2b.dev/cookbook",
+                "anchor_text": "Text Link"
+              },
+              {
+                "source_page": "https://e2b.dev/cookbook/running-code-generated-by-autogen-via-e2b-sandbox",
+                "anchor_text": "Autogen"
+              }
+            ],
+            "https://e2b.dev/cookbook-tags/firecrawl": [
+              {
+                "source_page": "https://e2b.dev/",
+                "anchor_text": "Text Link"
+              },
+              {
+                "source_page": "https://e2b.dev/careers",
+                "anchor_text": "Text Link"
+              },
+              {
+                "source_page": "https://e2b.dev/cookbook",
+                "anchor_text": "Text Link"
+              },
+              {
+                "source_page": "https://e2b.dev/cookbook/visualizing-website-topics--claude-firecrawl-e2b",
+                "anchor_text": "Firecrawl"
+              },
+              {
+                "source_page": "https://e2b.dev/cookbook/scrape-and-analyze-airbnb-data-with-firecrawl-and-e2b",
+                "anchor_text": "Firecrawl"
+              }
+            ],
+            "https://e2b.dev/cookbook-tags/fireworks-ai": [
+              {
+                "source_page": "https://e2b.dev/",
+                "anchor_text": "Text Link"
+              },
+              {
+                "source_page": "https://e2b.dev/careers",
+                "anchor_text": "Text Link"
+              },
+              {
+                "source_page": "https://e2b.dev/cookbook",
+                "anchor_text": "Text Link"
+              },
+              {
+                "source_page": "https://e2b.dev/cookbook/code-interpreting-with-fireworks",
+                "anchor_text": "Fireworks AI"
+              }
+            ],
+            "https://e2b.dev/cookbook-tags/ibm": [
+              {
+                "source_page": "https://e2b.dev/",
+                "anchor_text": "Text Link"
+              },
+              {
+                "source_page": "https://e2b.dev/careers",
+                "anchor_text": "Text Link"
+              },
+              {
+                "source_page": "https://e2b.dev/cookbook",
+                "anchor_text": "Text Link"
+              },
+              {
+                "source_page": "https://e2b.dev/cookbook/code-interpreter-with-ibm-watsonx-ai",
+                "anchor_text": "IBM"
+              },
+              {
+                "source_page": "https://e2b.dev/cookbook/code-interpreter-with-ibm-watsonx-ai-in-js-ts",
+                "anchor_text": "IBM"
+              }
+            ],
+            "https://e2b.dev/cookbook-tags/js": [
+              {
+                "source_page": "https://e2b.dev/",
+                "anchor_text": "Text Link"
+              },
+              {
+                "source_page": "https://e2b.dev/careers",
+                "anchor_text": "Text Link"
+              },
+              {
+                "source_page": "https://e2b.dev/cookbook/ai-code-execution-with-mistral-s-codestral-in-js",
+                "anchor_text": "JS"
+              },
+              {
+                "source_page": "https://e2b.dev/cookbook/ai-code-execution-with-together-ai-models-js-ts",
+                "anchor_text": "JS"
+              },
+              {
+                "source_page": "https://e2b.dev/cookbook",
+                "anchor_text": "Text Link"
+              }
+            ],
+            "https://e2b.dev/cookbook-tags/langchain": [
+              {
+                "source_page": "https://e2b.dev/",
+                "anchor_text": "Text Link"
+              },
+              {
+                "source_page": "https://e2b.dev/careers",
+                "anchor_text": "Text Link"
+              },
+              {
+                "source_page": "https://e2b.dev/cookbook",
+                "anchor_text": "Text Link"
+              },
+              {
+                "source_page": "https://e2b.dev/cookbook/langchain-with-code-interpreting",
+                "anchor_text": "LangChain"
+              }
+            ],
+            "https://e2b.dev/cookbook-tags/langgraph": [
+              {
+                "source_page": "https://e2b.dev/",
+                "anchor_text": "Text Link"
+              },
+              {
+                "source_page": "https://e2b.dev/careers",
+                "anchor_text": "Text Link"
+              },
+              {
+                "source_page": "https://e2b.dev/cookbook",
+                "anchor_text": "Text Link"
+              },
+              {
+                "source_page": "https://e2b.dev/cookbook/langgraph-with-code-interpreting",
+                "anchor_text": "LangGraph"
+              }
+            ],
+            "https://e2b.dev/cookbook-tags/magentic": [
+              {
+                "source_page": "https://e2b.dev/",
+                "anchor_text": "Text Link"
+              },
+              {
+                "source_page": "https://e2b.dev/careers",
+                "anchor_text": "Text Link"
+              },
+              {
+                "source_page": "https://e2b.dev/cookbook",
+                "anchor_text": "Text Link"
+              }
+            ],
+            "https://e2b.dev/cookbook-tags/meta": [
+              {
+                "source_page": "https://e2b.dev/",
+                "anchor_text": "Text Link"
+              },
+              {
+                "source_page": "https://e2b.dev/careers",
+                "anchor_text": "Text Link"
+              },
+              {
+                "source_page": "https://e2b.dev/cookbook/ai-code-execution-with-together-ai-models-js-ts",
+                "anchor_text": "Meta"
+              },
+              {
+                "source_page": "https://e2b.dev/cookbook/ai-code-execution-with-together-ai-models-python",
+                "anchor_text": "Meta"
+              },
+              {
+                "source_page": "https://e2b.dev/cookbook",
+                "anchor_text": "Text Link"
+              }
+            ],
+            "https://e2b.dev/cookbook-tags/mistral": [
+              {
+                "source_page": "https://e2b.dev/",
+                "anchor_text": "Text Link"
+              },
+              {
+                "source_page": "https://e2b.dev/careers",
+                "anchor_text": "Text Link"
+              },
+              {
+                "source_page": "https://e2b.dev/cookbook/ai-code-execution-with-mistral-s-codestral-in-js",
+                "anchor_text": "Mistral"
+              },
+              {
+                "source_page": "https://e2b.dev/cookbook/ai-code-execution-with-mistral-s-codestral-in-python",
+                "anchor_text": "Mistral"
+              },
+              {
+                "source_page": "https://e2b.dev/cookbook",
+                "anchor_text": "Text Link"
+              }
+            ],
+            "https://e2b.dev/cookbook-tags/next-js": [
+              {
+                "source_page": "https://e2b.dev/",
+                "anchor_text": "Text Link"
+              },
+              {
+                "source_page": "https://e2b.dev/careers",
+                "anchor_text": "Text Link"
+              },
+              {
+                "source_page": "https://e2b.dev/cookbook",
+                "anchor_text": "Text Link"
+              },
+              {
+                "source_page": "https://e2b.dev/cookbook/next-js-app-with-llm-code-interpreter-and-streaming",
+                "anchor_text": "Next.js"
+              }
+            ],
+            "https://e2b.dev/cookbook-tags/openai": [
+              {
+                "source_page": "https://e2b.dev/",
+                "anchor_text": "Text Link"
+              },
+              {
+                "source_page": "https://e2b.dev/careers",
+                "anchor_text": "Text Link"
+              },
+              {
+                "source_page": "https://e2b.dev/cookbook",
+                "anchor_text": "Text Link"
+              },
+              {
+                "source_page": "https://e2b.dev/cookbook/gpt-4o-code-interpreter-in-js-ts",
+                "anchor_text": "OpenAI"
+              },
+              {
+                "source_page": "https://e2b.dev/cookbook/gpt-4o-code-interpreter-in-python",
+                "anchor_text": "OpenAI"
+              }
+            ],
+            "https://e2b.dev/cookbook-tags/python": [
+              {
+                "source_page": "https://e2b.dev/",
+                "anchor_text": "Text Link"
+              },
+              {
+                "source_page": "https://e2b.dev/careers",
+                "anchor_text": "Text Link"
+              },
+              {
+                "source_page": "https://e2b.dev/cookbook/ai-code-execution-with-mistral-s-codestral-in-python",
+                "anchor_text": "Python"
+              },
+              {
+                "source_page": "https://e2b.dev/cookbook/ai-code-execution-with-together-ai-models-python",
+                "anchor_text": "Python"
+              },
+              {
+                "source_page": "https://e2b.dev/cookbook/claude-code-interpreter-in-python",
+                "anchor_text": "Python"
+              }
+            ],
+            "https://e2b.dev/cookbook-tags/together-ai": [
+              {
+                "source_page": "https://e2b.dev/",
+                "anchor_text": "Text Link"
+              },
+              {
+                "source_page": "https://e2b.dev/careers",
+                "anchor_text": "Text Link"
+              },
+              {
+                "source_page": "https://e2b.dev/cookbook/ai-code-execution-with-together-ai-models-js-ts",
+                "anchor_text": "Together AI"
+              },
+              {
+                "source_page": "https://e2b.dev/cookbook/ai-code-execution-with-together-ai-models-python",
+                "anchor_text": "Together AI"
+              },
+              {
+                "source_page": "https://e2b.dev/cookbook",
+                "anchor_text": "Text Link"
+              }
+            ],
+            "https://e2b.dev/cookbook-tags/ts": [
+              {
+                "source_page": "https://e2b.dev/",
+                "anchor_text": "Text Link"
+              },
+              {
+                "source_page": "https://e2b.dev/careers",
+                "anchor_text": "Text Link"
+              },
+              {
+                "source_page": "https://e2b.dev/cookbook/ai-code-execution-with-mistral-s-codestral-in-js",
+                "anchor_text": "TS"
+              },
+              {
+                "source_page": "https://e2b.dev/cookbook/ai-code-execution-with-together-ai-models-js-ts",
+                "anchor_text": "TS"
+              },
+              {
+                "source_page": "https://e2b.dev/cookbook",
+                "anchor_text": "Text Link"
+              }
+            ],
+            "https://e2b.dev/docs)": [
+              {
+                "source_page": "https://e2b.dev/blog/llama-3-1-with-code-interpreter-in-python",
+                "anchor_text": "Get started with E2B"
+              }
+            ],
+            "https://e2b.dev/docs/api-reference/sandboxes/connect-to-a-sandbox": [
+              {
+                "source_page": "https://e2b.dev/docs/api-reference/envd/get-the-environment-variables",
+                "anchor_text": "POST /sandboxes/{sandboxID}/connect"
+              },
+              {
+                "source_page": "https://e2b.dev/docs/api-reference/filesystem/compose-multiple-files-into-a-single-file-using-zero-copy-concatenation-source-files-are-deleted-after-successful-composition",
+                "anchor_text": "POST /sandboxes/{sandboxID}/connect"
+              },
+              {
+                "source_page": "https://e2b.dev/docs/api-reference/envd/get-the-stats-of-the-service",
+                "anchor_text": "POST /sandboxes/{sandboxID}/connect"
+              },
+              {
+                "source_page": "https://e2b.dev/docs/api-reference/filesystem/createwatcher",
+                "anchor_text": "POST /sandboxes/{sandboxID}/connect"
+              },
+              {
+                "source_page": "https://e2b.dev/docs/api-reference/filesystem/download-a-file",
+                "anchor_text": "POST /sandboxes/{sandboxID}/connect"
+              }
+            ],
+            "https://e2b.dev/docs/api-reference/sandboxes/create-a-sandbox": [
+              {
+                "source_page": "https://e2b.dev/docs/api-reference/envd/get-the-environment-variables",
+                "anchor_text": "POST /sandboxes"
+              },
+              {
+                "source_page": "https://e2b.dev/docs/api-reference/filesystem/compose-multiple-files-into-a-single-file-using-zero-copy-concatenation-source-files-are-deleted-after-successful-composition",
+                "anchor_text": "POST /sandboxes"
+              },
+              {
+                "source_page": "https://e2b.dev/docs/api-reference/envd/get-the-stats-of-the-service",
+                "anchor_text": "POST /sandboxes"
+              },
+              {
+                "source_page": "https://e2b.dev/docs/api-reference/filesystem/createwatcher",
+                "anchor_text": "POST /sandboxes"
+              },
+              {
+                "source_page": "https://e2b.dev/docs/api-reference/filesystem/download-a-file",
+                "anchor_text": "POST /sandboxes"
+              }
+            ],
+            "https://e2b.dev/docs/api-reference/sandboxes/get-a-sandbox": [
+              {
+                "source_page": "https://e2b.dev/docs/api-reference/envd/get-the-environment-variables",
+                "anchor_text": "GET /sandboxes/{sandboxID}"
+              },
+              {
+                "source_page": "https://e2b.dev/docs/api-reference/filesystem/compose-multiple-files-into-a-single-file-using-zero-copy-concatenation-source-files-are-deleted-after-successful-composition",
+                "anchor_text": "GET /sandboxes/{sandboxID}"
+              },
+              {
+                "source_page": "https://e2b.dev/docs/api-reference/envd/get-the-stats-of-the-service",
+                "anchor_text": "GET /sandboxes/{sandboxID}"
+              },
+              {
+                "source_page": "https://e2b.dev/docs/api-reference/filesystem/createwatcher",
+                "anchor_text": "GET /sandboxes/{sandboxID}"
+              },
+              {
+                "source_page": "https://e2b.dev/docs/api-reference/filesystem/download-a-file",
+                "anchor_text": "GET /sandboxes/{sandboxID}"
+              }
+            ],
+            "https://e2b.dev/docs/api-reference/sandboxes/resume-a-sandbox": [
+              {
+                "source_page": "https://e2b.dev/docs/api-reference/envd/get-the-environment-variables",
+                "anchor_text": "POST /sandboxes/{sandboxID}/resume"
+              },
+              {
+                "source_page": "https://e2b.dev/docs/api-reference/filesystem/compose-multiple-files-into-a-single-file-using-zero-copy-concatenation-source-files-are-deleted-after-successful-composition",
+                "anchor_text": "POST /sandboxes/{sandboxID}/resume"
+              },
+              {
+                "source_page": "https://e2b.dev/docs/api-reference/envd/get-the-stats-of-the-service",
+                "anchor_text": "POST /sandboxes/{sandboxID}/resume"
+              },
+              {
+                "source_page": "https://e2b.dev/docs/api-reference/filesystem/createwatcher",
+                "anchor_text": "POST /sandboxes/{sandboxID}/resume"
+              },
+              {
+                "source_page": "https://e2b.dev/docs/api-reference/filesystem/download-a-file",
+                "anchor_text": "POST /sandboxes/{sandboxID}/resume"
+              }
+            ],
+            "https://e2b.dev/docs/cli/commands": [
+              {
+                "source_page": "https://e2b.dev/blog/customize-sandbox-compute",
+                "anchor_text": "e2b template build"
+              }
+            ],
+            "https://e2b.dev/docs/cli/installation": [
+              {
+                "source_page": "https://e2b.dev/blog/customize-sandbox-compute",
+                "anchor_text": "E2B CLI"
+              }
+            ],
+            "https://e2b.dev/docs/code-interpreter/execution": [
+              {
+                "source_page": "https://e2b.dev/blog/build-langchain-agent-with-code-interpreter",
+                "anchor_text": "result object"
+              }
+            ],
+            "https://e2b.dev/docs/code-interpreter/installation": [
+              {
+                "source_page": "https://e2b.dev/blog/build-langchain-agent-with-code-interpreter",
+                "anchor_text": ""
+              },
+              {
+                "source_page": "https://e2b.dev/blog/guide-code-interpreting-with-groq-and-e2b",
+                "anchor_text": "here"
+              },
+              {
+                "source_page": "https://e2b.dev/blog/guide-groq-js",
+                "anchor_text": "here"
+              },
+              {
+                "source_page": "https://e2b.dev/blog/langgraph-with-code-interpreter-guide-with-code",
+                "anchor_text": ""
+              },
+              {
+                "source_page": "https://e2b.dev/blog/llama-3-1-with-code-interpreter-in-python",
+                "anchor_text": "here"
+              }
+            ],
+            "https://e2b.dev/docs/getting-started/api-key": [
+              {
+                "source_page": "https://e2b.dev/blog/build-ai-data-analyst-with-langchain-and-e2b",
+                "anchor_text": "here"
+              },
+              {
+                "source_page": "https://e2b.dev/blog/build-ai-data-analyst-with-sandboxed-code-execution-using-typescript-and-gpt-4o",
+                "anchor_text": "E2B API KEY"
+              },
+              {
+                "source_page": "https://e2b.dev/blog/build-langchain-agent-with-code-interpreter",
+                "anchor_text": "E2B API KEY"
+              },
+              {
+                "source_page": "https://e2b.dev/blog/guide-code-interpreting-with-groq-and-e2b",
+                "anchor_text": "here"
+              },
+              {
+                "source_page": "https://e2b.dev/blog/guide-groq-js",
+                "anchor_text": "here"
+              }
+            ],
+            "https://e2b.dev/docs/guide/connect-bucket": [
+              {
+                "source_page": "https://e2b.dev/blog/build-langchain-agent-with-code-interpreter",
+                "anchor_text": "connect your cloud storage"
+              },
+              {
+                "source_page": "https://e2b.dev/blog/how-to-analyze-your-csv-files-with-llama-3",
+                "anchor_text": "connect your cloud storage"
+              },
+              {
+                "source_page": "https://e2b.dev/blog/langgraph-with-code-interpreter-guide-with-code",
+                "anchor_text": "connect your cloud storage"
+              }
+            ],
+            "https://e2b.dev/docs/guide/custom-sandbox": [
+              {
+                "source_page": "https://e2b.dev/blog/e2b-sandbox",
+                "anchor_text": "our guide"
+              }
+            ],
+            "https://e2b.dev/docs/sandbox/api/filesystem": [
+              {
+                "source_page": "https://e2b.dev/blog/build-langchain-agent-with-code-interpreter",
+                "anchor_text": "use the filesystem"
+              },
+              {
+                "source_page": "https://e2b.dev/blog/how-to-analyze-your-csv-files-with-llama-3",
+                "anchor_text": "use the filesystem"
+              },
+              {
+                "source_page": "https://e2b.dev/blog/langgraph-with-code-interpreter-guide-with-code",
+                "anchor_text": "use the filesystem"
+              }
+            ],
+            "https://e2b.dev/docs/sandbox/compute": [
+              {
+                "source_page": "https://e2b.dev/blog/customize-sandbox-compute",
+                "anchor_text": "dedicated page"
+              }
+            ],
+            "https://e2b.dev/docs/sandbox/custom": [
+              {
+                "source_page": "https://e2b.dev/blog/build-langchain-agent-with-code-interpreter",
+                "anchor_text": "install custom packages"
+              },
+              {
+                "source_page": "https://e2b.dev/blog/how-to-analyze-your-csv-files-with-llama-3",
+                "anchor_text": "install custom packages"
+              },
+              {
+                "source_page": "https://e2b.dev/blog/langgraph-with-code-interpreter-guide-with-code",
+                "anchor_text": "install custom packages"
+              }
+            ],
+            "https://e2b.dev/docs/sandbox/overview": [
+              {
+                "source_page": "https://e2b.dev/blog/automating-spreadsheet-workflows-with-ai",
+                "anchor_text": "E2B sandboxes"
+              },
+              {
+                "source_page": "https://e2b.dev/blog/build-ai-data-analyst-with-sandboxed-code-execution-using-typescript-and-gpt-4o",
+                "anchor_text": "E2B sandbox"
+              },
+              {
+                "source_page": "https://e2b.dev/blog/building-ai-workflow-automation-for-enterprises",
+                "anchor_text": ""
+              },
+              {
+                "source_page": "https://e2b.dev/blog/e2b-sandbox",
+                "anchor_text": "here"
+              },
+              {
+                "source_page": "https://e2b.dev/blog/e2b-sandbox",
+                "anchor_text": "Source"
+              }
+            ],
+            "https://e2b.dev/docs/sandbox/templates/overview": [
+              {
+                "source_page": "https://e2b.dev/blog/building-open-source-codebase-copilot-with-code-execution-layer",
+                "anchor_text": "custom sandbox"
+              },
+              {
+                "source_page": "https://e2b.dev/blog/e2b-sandbox",
+                "anchor_text": "complete environment customization"
+              },
+              {
+                "source_page": "https://e2b.dev/blog/reacteval-building-llm-benchmark-for-frontend",
+                "anchor_text": "custom sandbox"
+              }
+            ]
+          }
+        },
+        "seo_geo": {
+          "pages_scanned": 270,
+          "missing_title_count": 0,
+          "missing_description_count": 44,
+          "multiple_h1_count": 5,
+          "heading_hierarchy_jump_count": 107,
+          "seo_geo_issue_rate_pct": 14.44
+        },
+        "api_coverage": {
+          "reference_endpoint_count": 592,
+          "api_pages_detected": 86,
+          "endpoints_with_usage_docs": 397,
+          "reference_endpoints_without_usage_docs": 195,
+          "reference_coverage_pct": 67.06,
+          "no_api_pages_found": false,
+          "coverage_determined": true,
+          "coverage_method": "heuristic",
+          "detection_note": "Contract URLs found but no operations parsed",
+          "uncovered_endpoint_samples": [
+            "ep:/127.0.0.1:$",
+            "ep:/80-sandboxid.mydomain.com",
+            "ep:/8081-",
+            "ep:/8081-%h.e2b.app",
+            "ep:/=+$/",
+            "ep:/api.e2b.app/events/sandboxes",
+            "ep:/api.e2b.app/events/sandboxes/$",
+            "ep:/api.e2b.app/events/webhooks",
+            "ep:/api.e2b.app/events/webhooks/$",
+            "ep:/api.e2b.app/sandboxes",
+            "ep:/api.e2b.app/sandboxes/metrics",
+            "ep:/api.e2b.app/sandboxes/{sandboxid",
+            "ep:/api.e2b.app/sandboxes/{sandboxid}/connect",
+            "ep:/api.e2b.app/sandboxes/{sandboxid}/logs",
+            "ep:/api.e2b.app/sandboxes/{sandboxid}/metrics",
+            "ep:/api.e2b.app/sandboxes/{sandboxid}/network",
+            "ep:/api.e2b.app/sandboxes/{sandboxid}/pause",
+            "ep:/api.e2b.app/sandboxes/{sandboxid}/refreshes",
+            "ep:/api.e2b.app/sandboxes/{sandboxid}/resume",
+            "ep:/api.e2b.app/sandboxes/{sandboxid}/snapshots"
+          ]
+        },
+        "examples": {
+          "total_code_examples": 168,
+          "total_code_blocks_all": 741,
+          "runnable_without_env": 144,
+          "blocked_by_placeholders": 5,
+          "network_bound_examples": 19,
+          "example_reliability_estimate_pct": 85.71,
+          "detection_note": ""
+        },
+        "freshness": {
+          "pages_with_last_updated_hint": 75,
+          "pages_without_last_updated_hint": 195,
+          "last_updated_coverage_pct": 27.78,
+          "samples_with_last_updated": [
+            {
+              "url": "https://e2b.dev/blog/ai-agents-vs-developers",
+              "hint": "Oct 20, 2023"
+            },
+            {
+              "url": "https://e2b.dev/blog/about-building-tools-for-llm-agent-with-flo-crivello-ceo-at-lindy-ai",
+              "hint": "Sep 14, 2023"
+            },
+            {
+              "url": "https://e2b.dev/blog/agent-protocol-developers-community-setting-a-new-standard",
+              "hint": "Aug 7, 2023"
+            },
+            {
+              "url": "https://e2b.dev/blog",
+              "hint": "Apr 15, 2026"
+            },
+            {
+              "url": "https://e2b.dev/blog/ai-agents-in-2024",
+              "hint": "Jan 2, 2024"
+            },
+            {
+              "url": "https://e2b.dev/blog/automating-spreadsheet-workflows-with-ai",
+              "hint": "Sep 11, 2024"
+            },
+            {
+              "url": "https://e2b.dev/blog/about-deployment-evaluation-and-testing-of-agents-with-sully-omar-the-ceo-of-cognosys-ai",
+              "hint": "Aug 28, 2023"
+            },
+            {
+              "url": "https://e2b.dev/blog/build-ai-data-analyst-with-langchain-and-e2b",
+              "hint": "Oct 25, 2023"
+            },
+            {
+              "url": "https://e2b.dev/blog/ai-agents-in-the-wild",
+              "hint": "Jun 16, 2023"
+            },
+            {
+              "url": "https://e2b.dev/blog/category/case-studies",
+              "hint": "May 20, 2025"
+            }
+          ]
+        }
+      },
+      "samples": {
+        "broken_links": [
+          "https://e2b.dev/blog/david-zhang-from-aomni-gives-his-view-on-ai-agents",
+          "https://e2b.dev/category/case-studies",
+          "https://e2b.dev/category/community",
+          "https://e2b.dev/category/customers",
+          "https://e2b.dev/category/guides",
+          "https://e2b.dev/category/insights",
+          "https://e2b.dev/category/interviews",
+          "https://e2b.dev/category/product",
+          "https://e2b.dev/category/release",
+          "https://e2b.dev/category/updates",
+          "https://e2b.dev/cookbook-tags/anthropic",
+          "https://e2b.dev/cookbook-tags/autogen",
+          "https://e2b.dev/cookbook-tags/firecrawl",
+          "https://e2b.dev/cookbook-tags/fireworks-ai",
+          "https://e2b.dev/cookbook-tags/ibm",
+          "https://e2b.dev/cookbook-tags/js",
+          "https://e2b.dev/cookbook-tags/langchain",
+          "https://e2b.dev/cookbook-tags/langgraph",
+          "https://e2b.dev/cookbook-tags/magentic",
+          "https://e2b.dev/cookbook-tags/meta"
+        ],
+        "docs_broken_link_samples": [
+          "https://e2b.dev/blog/david-zhang-from-aomni-gives-his-view-on-ai-agents",
+          "https://e2b.dev/category/case-studies",
+          "https://e2b.dev/category/community",
+          "https://e2b.dev/category/customers",
+          "https://e2b.dev/category/guides",
+          "https://e2b.dev/category/insights",
+          "https://e2b.dev/category/interviews",
+          "https://e2b.dev/category/product",
+          "https://e2b.dev/category/release",
+          "https://e2b.dev/category/updates",
+          "https://e2b.dev/cookbook-tags/anthropic",
+          "https://e2b.dev/cookbook-tags/autogen",
+          "https://e2b.dev/cookbook-tags/firecrawl",
+          "https://e2b.dev/cookbook-tags/fireworks-ai",
+          "https://e2b.dev/cookbook-tags/ibm",
+          "https://e2b.dev/cookbook-tags/js",
+          "https://e2b.dev/cookbook-tags/langchain",
+          "https://e2b.dev/cookbook-tags/langgraph",
+          "https://e2b.dev/cookbook-tags/magentic",
+          "https://e2b.dev/cookbook-tags/meta",
+          "https://e2b.dev/cookbook-tags/mistral",
+          "https://e2b.dev/cookbook-tags/next-js",
+          "https://e2b.dev/cookbook-tags/openai",
+          "https://e2b.dev/cookbook-tags/python",
+          "https://e2b.dev/cookbook-tags/together-ai",
+          "https://e2b.dev/cookbook-tags/ts",
+          "https://e2b.dev/docs)",
+          "https://e2b.dev/docs/api-reference/sandboxes/connect-to-a-sandbox",
+          "https://e2b.dev/docs/api-reference/sandboxes/create-a-sandbox",
+          "https://e2b.dev/docs/api-reference/sandboxes/get-a-sandbox"
+        ],
+        "repo_broken_link_samples": [],
+        "unverified_link_samples": [
+          "https://e2b.dev/docs/code-interpreting/supported-languages/r",
+          "https://e2b.dev/docs/sandbox/api/upload"
+        ],
+        "api_uncovered_samples": [
+          "ep:/127.0.0.1:$",
+          "ep:/80-sandboxid.mydomain.com",
+          "ep:/8081-",
+          "ep:/8081-%h.e2b.app",
+          "ep:/=+$/",
+          "ep:/api.e2b.app/events/sandboxes",
+          "ep:/api.e2b.app/events/sandboxes/$",
+          "ep:/api.e2b.app/events/webhooks",
+          "ep:/api.e2b.app/events/webhooks/$",
+          "ep:/api.e2b.app/sandboxes",
+          "ep:/api.e2b.app/sandboxes/metrics",
+          "ep:/api.e2b.app/sandboxes/{sandboxid",
+          "ep:/api.e2b.app/sandboxes/{sandboxid}/connect",
+          "ep:/api.e2b.app/sandboxes/{sandboxid}/logs",
+          "ep:/api.e2b.app/sandboxes/{sandboxid}/metrics",
+          "ep:/api.e2b.app/sandboxes/{sandboxid}/network",
+          "ep:/api.e2b.app/sandboxes/{sandboxid}/pause",
+          "ep:/api.e2b.app/sandboxes/{sandboxid}/refreshes",
+          "ep:/api.e2b.app/sandboxes/{sandboxid}/resume",
+          "ep:/api.e2b.app/sandboxes/{sandboxid}/snapshots"
+        ]
+      },
+      "run_count": 1
+    }
+  ],
+  "aggregate": {
+    "metrics": {
+      "crawl": {
+        "pages_crawled": 270,
+        "requested_pages": 326,
+        "urls_examined": 271,
+        "max_pages_total": 5000,
+        "discovered_pages": 271,
+        "crawl_scope_pages": 271,
+        "trap_urls_skipped": 195,
+        "crawl_coverage_pct": 100.0
+      },
+      "links": {
+        "broken_internal_links_count": 43,
+        "docs_broken_links_count": 43,
+        "repo_broken_links_count": 0,
+        "unverified_links_count": 2,
+        "confirmed_broken_links_count": 43,
+        "excluded_links_count": 0
+      },
+      "seo_geo": {
+        "seo_geo_issue_rate_pct": 14.44
+      },
+      "api_coverage": {
+        "reference_coverage_pct": 67.06,
+        "no_api_pages_found": false,
+        "api_pages_detected": 86,
+        "coverage_determined": true,
+        "detection_note": ""
+      },
+      "examples": {
+        "example_reliability_estimate_pct": 85.71
+      },
+      "freshness": {
+        "last_updated_coverage_pct": 27.78
+      }
+    },
+    "confidence": {
+      "overall_confidence_pct": 89.72,
+      "links_confidence_pct": 90.56,
+      "api_confidence_pct": 85.0,
+      "crawl_confidence_pct": 95.0
+    }
+  },
+  "confidence": {
+    "overall_confidence_pct": 89.72,
+    "links_confidence_pct": 90.56,
+    "api_confidence_pct": 85.0,
+    "crawl_confidence_pct": 95.0
+  },
+  "top_findings": [
+    "Broken internal links: 43",
+    "Link verification inconclusive for 2 URLs (auth/rate-limit/server block); these are excluded from broken-link counts.",
+    "SEO/GEO issue rate is high: 14.44%",
+    "API usage-doc coverage is low: 67.06% (86 API pages detected)",
+    "Freshness visibility is weak: only 27.78% pages show last updated"
+  ],
+  "llm_analysis": {
+    "status": "ok",
+    "model": "claude-sonnet-4-5",
+    "analysis": {
+      "executive_summary": "Documentation audit of e2b.dev/docs covered 270 pages with 100% crawl coverage across 271 discovered pages. The site contains 43 confirmed broken internal links, all within user-facing documentation (zero repository navigation links). API reference coverage stands at 67.06% across 86 detected API pages. Only 27.78% of pages display last-updated metadata, and SEO/geo issues affect 14.44% of content. Overall audit confidence is 89.72%.",
+      "strengths": [
+        "Complete crawl coverage achieved (100%) with 270 pages successfully indexed",
+        "High overall audit confidence at 89.72% with strong crawl confidence at 95%",
+        "API pages successfully detected (86 pages) with no detection failures",
+        "Example code reliability estimated at 85.71%",
+        "Single-product topology provides clear documentation structure"
+      ],
+      "risks": [
+        "43 confirmed broken internal links in user-facing documentation degrade navigation and user trust",
+        "API reference coverage gap of 32.94% leaves significant portions undocumented or unlinked",
+        "Freshness metadata missing on 72.22% of pages prevents users from assessing content currency",
+        "SEO/geo issue rate of 14.44% may impact discoverability and search rankings",
+        "2 unverified links due to auth/rate-limit/server blocks create uncertainty in link health",
+        "195 trap URLs skipped during crawl suggest potential pagination or infinite scroll issues",
+        "API confidence at 85% indicates moderate uncertainty in coverage calculations"
+      ],
+      "prioritized_actions": [
+        {
+          "action": "Repair all 43 broken internal documentation links to restore navigation integrity",
+          "impact": "critical",
+          "effort": "medium"
+        },
+        {
+          "action": "Close API reference coverage gap by documenting or linking remaining 32.94% of API surface",
+          "impact": "high",
+          "effort": "high"
+        },
+        {
+          "action": "Implement last-updated timestamps on all pages (currently missing on 72.22%)",
+          "impact": "high",
+          "effort": "low"
+        },
+        {
+          "action": "Resolve SEO/geo issues affecting 14.44% of pages to improve search visibility",
+          "impact": "medium",
+          "effort": "medium"
+        },
+        {
+          "action": "Investigate and resolve 2 unverified links blocked by auth/rate-limit/server restrictions",
+          "impact": "low",
+          "effort": "low"
+        }
+      ],
+      "limitations": [
+        "External audit cannot verify accuracy or correctness of technical content, code examples, or API specifications",
+        "2 links remain unverified due to authentication, rate limiting, or server blocks; actual status unknown",
+        "Freshness assessment limited to visible metadata; actual content currency requires manual review",
+        "Example code reliability estimate does not guarantee runtime correctness or compatibility with current API versions",
+        "Crawl trapped 195 URLs suggesting dynamic content patterns that may hide additional documentation pages"
+      ]
+    }
+  }
+}

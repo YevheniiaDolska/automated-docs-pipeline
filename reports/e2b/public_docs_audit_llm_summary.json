@@ -1,0 +1,57 @@
+{
+  "status": "ok",
+  "model": "claude-sonnet-4-5",
+  "analysis": {
+    "executive_summary": "Documentation audit of e2b.dev/docs covered 270 pages with 100% crawl coverage across 271 discovered pages. The site contains 43 confirmed broken internal links, all within user-facing documentation (zero repository navigation links). API reference coverage stands at 67.06% across 86 detected API pages. Only 27.78% of pages display last-updated metadata, and SEO/geo issues affect 14.44% of content. Overall audit confidence is 89.72%.",
+    "strengths": [
+      "Complete crawl coverage achieved (100%) with 270 pages successfully indexed",
+      "High overall audit confidence at 89.72% with strong crawl confidence at 95%",
+      "API pages successfully detected (86 pages) with no detection failures",
+      "Example code reliability estimated at 85.71%",
+      "Single-product topology provides clear documentation structure"
+    ],
+    "risks": [
+      "43 confirmed broken internal links in user-facing documentation degrade navigation and user trust",
+      "API reference coverage gap of 32.94% leaves significant portions undocumented or unlinked",
+      "Freshness metadata missing on 72.22% of pages prevents users from assessing content currency",
+      "SEO/geo issue rate of 14.44% may impact discoverability and search rankings",
+      "2 unverified links due to auth/rate-limit/server blocks create uncertainty in link health",
+      "195 trap URLs skipped during crawl suggest potential pagination or infinite scroll issues",
+      "API confidence at 85% indicates moderate uncertainty in coverage calculations"
+    ],
+    "prioritized_actions": [
+      {
+        "action": "Repair all 43 broken internal documentation links to restore navigation integrity",
+        "impact": "critical",
+        "effort": "medium"
+      },
+      {
+        "action": "Close API reference coverage gap by documenting or linking remaining 32.94% of API surface",
+        "impact": "high",
+        "effort": "high"
+      },
+      {
+        "action": "Implement last-updated timestamps on all pages (currently missing on 72.22%)",
+        "impact": "high",
+        "effort": "low"
+      },
+      {
+        "action": "Resolve SEO/geo issues affecting 14.44% of pages to improve search visibility",
+        "impact": "medium",
+        "effort": "medium"
+      },
+      {
+        "action": "Investigate and resolve 2 unverified links blocked by auth/rate-limit/server restrictions",
+        "impact": "low",
+        "effort": "low"
+      }
+    ],
+    "limitations": [
+      "External audit cannot verify accuracy or correctness of technical content, code examples, or API specifications",
+      "2 links remain unverified due to authentication, rate limiting, or server blocks; actual status unknown",
+      "Freshness assessment limited to visible metadata; actual content currency requires manual review",
+      "Example code reliability estimate does not guarantee runtime correctness or compatibility with current API versions",
+      "Crawl trapped 195 URLs suggesting dynamic content patterns that may hide additional documentation pages"
+    ]
+  }
+}

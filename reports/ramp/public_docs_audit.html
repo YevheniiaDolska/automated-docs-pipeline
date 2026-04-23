@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Public Docs Audit</title>
+<style>
+  :root { --bg:#f8fafc; --text:#0f172a; --muted:#64748b; --card:#fff; --border:#e2e8f0; --accent:#0ea5e9; }
+  body { margin:0; font-family:"Segoe UI", Arial, sans-serif; background:linear-gradient(145deg,#ecfeff,#f8fafc); color:var(--text); }
+  .wrap { max-width:1050px; margin:0 auto; padding:24px 16px 40px; }
+  .hero,.section { background:var(--card); border:1px solid var(--border); border-radius:14px; padding:16px; margin-bottom:14px; }
+  h1 { margin:0 0 8px; font-size:28px; }
+  .sub { color:var(--muted); margin:0; }
+  .grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:10px; margin-top:12px; }
+  .card { border:1px solid var(--border); border-radius:10px; padding:12px; }
+  .value { font-size:30px; font-weight:700; color:var(--accent); margin-top:6px; }
+  .label { font-size:13px; color:var(--muted); }
+  ul { margin:8px 0 0 18px; }
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="hero">
+      <h1>Public Documentation Audit</h1>
+      <p class="sub">Sites: 2 | topology: single-product</p>
+      <p class="sub">Generated: 2026-04-23T11:25:56.173454+00:00</p>
+      <div class="grid">
+        <div class="card"><div class="label">Pages crawled</div><div class="value">879</div></div>
+        <div class="card"><div class="label">Pages discovered</div><div class="value">885</div></div>
+        <div class="card"><div class="label">Crawl coverage</div><div class="value">100.23%</div></div>
+        <div class="card"><div class="label">Broken links (docs)</div><div class="value">21</div></div>
+        <div class="card"><div class="label">Broken links (repo nav)</div><div class="value">0</div></div>
+        <div class="card"><div class="label">Unverified links</div><div class="value">7</div></div>
+        <div class="card"><div class="label">SEO/GEO issue rate</div><div class="value">5.63%</div></div>
+        <div class="card"><div class="label">API reference coverage</div><div class="value">51.67%</div></div>
+        <div class="card"><div class="label">Example reliability (estimate)</div><div class="value">0.0%</div></div>
+        <div class="card"><div class="label">Last-updated coverage</div><div class="value">1.14%</div></div>
+        <div class="card"><div class="label">Audit confidence</div><div class="value">81.5%</div></div>
+      </div>
+    </div>
+    <div class="section">
+      <h2>Top Findings</h2>
+      <ul>
+        <li>Broken internal links: 21</li><li>Link verification inconclusive for 7 URLs (auth/rate-limit/server block); these are excluded from broken-link counts.</li><li>API usage-doc coverage is low: 51.67% (110 API pages detected)</li><li>Example reliability: 0% on 879 pages (likely detection limitation). Site may use JS-rendered code blocks.</li><li>Freshness visibility is weak: only 1.14% pages show last updated</li><li>Documentation is split across multiple sites for one product; this is likely a discoverability/consistency risk.</li>
+      </ul>
+    </div>
+    <div class="section">
+      <h2>Per-site Summary</h2>
+      <ul>
+        <li><strong>https://docs.ramp.com/</strong>: pages=83, broken_links=0, api_coverage=100.0%, examples=0.0%</li><li><strong>https://support.ramp.com/</strong>: pages=796, broken_links=21, api_coverage=35.56%, examples=0.0%</li>
+      </ul>
+    </div>
+    <div class="section"><h2>LLM Executive Analysis (Claude Sonnet)</h2><p>Audit covered 879 pages across 2 documentation sites (support.ramp.com, docs.ramp.com) with 100% crawl coverage. 21 confirmed broken internal links exist within user-facing documentation. API reference coverage is 51.67% across 110 detected API pages. Example code detection returned 0% reliability, indicating a technical detection limitation rather than absence of examples. Only 1.14% of pages display last-updated metadata, severely limiting freshness visibility.</p><h3>Strengths</h3><ul><li>Complete crawl coverage achieved (100.23%) with 879 pages successfully indexed</li><li>110 API pages detected and analyzed, providing baseline for reference improvement</li><li>Low SEO/geo issue rate at 5.63% indicates solid technical foundation</li><li>Zero repository navigation broken links; all link issues are in user-facing documentation</li><li>Overall audit confidence of 81.5% provides reliable baseline for remediation</li></ul><h3>Risks</h3><ul><li>21 confirmed broken internal links degrade user navigation and trust in documentation quality</li><li>API reference coverage at 51.67% leaves nearly half of API surface undocumented or poorly linked</li><li>Split documentation across 2 domains (support.ramp.com and docs.ramp.com) creates discoverability and consistency risks</li><li>Freshness metadata visible on only 1.14% of pages prevents users from assessing content currency</li><li>Example code detection failure (0% reliability) suggests JS-rendered content may not be auditable by standard tooling</li><li>7 unverified links due to auth/rate-limit blocks may hide additional broken links</li><li>358 trap URLs skipped during crawl indicate potential pagination or filtering issues that could hide content gaps</li></ul><h3>Prioritized actions</h3><ul><li>Fix all 21 confirmed broken internal links in user-facing documentation <em>[high, low]</em></li><li>Implement last-updated timestamps on all documentation pages (currently 1.14% coverage) <em>[high, medium]</em></li><li>Audit and expand API reference documentation to close the 48% coverage gap (110 pages analyzed) <em>[critical, high]</em></li><li>Consolidate or clearly differentiate documentation across support.ramp.com and docs.ramp.com to reduce user confusion <em>[high, medium]</em></li><li>Manually verify 7 auth-blocked links and investigate 358 trap URLs to uncover hidden content or navigation issues <em>[medium, medium]</em></li></ul></div>
+  </div>
+</body>
+</html>

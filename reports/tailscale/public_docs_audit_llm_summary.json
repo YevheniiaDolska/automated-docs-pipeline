@@ -1,0 +1,57 @@
+{
+  "status": "ok",
+  "model": "claude-sonnet-4-5",
+  "analysis": {
+    "executive_summary": "Audit of Tailscale documentation (https://tailscale.com/docs) crawled 1,091 pages with 100% coverage across 1,092 discovered pages. Critical issue: 152 confirmed broken internal documentation links require immediate remediation. API reference coverage is low at 36.92% across 239 detected API pages. Example code reliability estimated at 84.46% and last-updated metadata present on 84.33% of pages. Overall audit confidence is 91.5%.",
+    "strengths": [
+      "Complete crawl coverage at 100% (1,091 of 1,092 pages successfully crawled)",
+      "High overall audit confidence at 91.5% with strong link verification confidence at 95%",
+      "Example code reliability estimated at 84.46%, indicating majority of code samples are functional",
+      "Last-updated metadata present on 84.33% of documentation pages, supporting freshness tracking",
+      "Zero repository navigation broken links (repo_broken_links_count: 0), all broken links are user-facing documentation"
+    ],
+    "risks": [
+      "152 confirmed broken internal documentation links directly impact user navigation and trust",
+      "Low API reference coverage at 36.92% leaves 63% of API surface undocumented or poorly linked",
+      "SEO/geo issue rate at 9.42% may affect discoverability and international user access",
+      "15.54% of pages lack last-updated metadata, reducing user confidence in content freshness",
+      "15.54% of example code may be unreliable or non-functional, risking developer onboarding friction",
+      "239 API pages detected but only 36.92% coverage suggests significant documentation debt",
+      "API confidence at 85% indicates potential gaps in automated API detection accuracy"
+    ],
+    "prioritized_actions": [
+      {
+        "action": "Fix all 152 broken internal documentation links to restore navigation integrity",
+        "impact": "critical",
+        "effort": "medium"
+      },
+      {
+        "action": "Audit and expand API reference documentation to achieve minimum 70% coverage across 239 detected API pages",
+        "impact": "critical",
+        "effort": "high"
+      },
+      {
+        "action": "Implement automated link checking in CI/CD pipeline to prevent future broken links",
+        "impact": "high",
+        "effort": "low"
+      },
+      {
+        "action": "Add last-updated metadata to remaining 15.67% of pages and establish update governance",
+        "impact": "medium",
+        "effort": "low"
+      },
+      {
+        "action": "Review and fix unreliable code examples (15.54% failure rate) with automated testing",
+        "impact": "high",
+        "effort": "medium"
+      }
+    ],
+    "limitations": [
+      "External audit cannot verify actual functionality of code examples, only structural reliability estimates",
+      "API coverage detection at 85% confidence may miss undocumented endpoints or misclassify page types",
+      "Crawl cannot assess content accuracy, technical correctness, or alignment with current product features",
+      "SEO/geo issue detection does not guarantee search ranking performance or international accessibility outcomes",
+      "Freshness metadata presence does not validate whether content is actually current or requires updates"
+    ]
+  }
+}

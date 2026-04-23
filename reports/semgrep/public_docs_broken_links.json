@@ -1,0 +1,168 @@
+{
+  "generated_at_utc": "2026-04-22T10:15:15.014550+00:00",
+  "sites_count": 1,
+  "totals": {
+    "docs_broken_links_count": 11,
+    "repo_broken_links_count": 0,
+    "all_confirmed_broken_links_count": 11,
+    "unverified_links_sample_count": 0
+  },
+  "all_docs_broken_links": [
+    "https://semgrep.dev/blog/2020/bento-check-unescaped-template-extensions-in-flask",
+    "https://semgrep.dev/blog/2022/xml-security-in-java",
+    "https://semgrep.dev/blog/2024/tanya@semgrep.com",
+    "https://semgrep.dev/case-studies/glasswall",
+    "https://semgrep.dev/contact/product-join-llm-detection-beta",
+    "https://semgrep.dev/contact/product-join-llm-detection-beta/.",
+    "https://semgrep.dev/docs/experiments/focus-metavariable",
+    "https://semgrep.dev/docs/experiments/project-depends-on",
+    "https://semgrep.dev/docs/writing-rules/experiments/taint-labels",
+    "https://semgrep.dev/products/semgrep-managed-scans",
+    "https://semgrep.dev/resources/doyensec-sca-report"
+  ],
+  "all_repo_broken_links": [],
+  "all_unverified_links_sample": [],
+  "sites": [
+    {
+      "site_url": "https://semgrep.dev/docs",
+      "confirmed_broken_links_count": 11,
+      "docs_broken_links_count": 11,
+      "repo_broken_links_count": 0,
+      "docs_broken_links": [
+        "https://semgrep.dev/blog/2020/bento-check-unescaped-template-extensions-in-flask",
+        "https://semgrep.dev/blog/2022/xml-security-in-java",
+        "https://semgrep.dev/blog/2024/tanya@semgrep.com",
+        "https://semgrep.dev/case-studies/glasswall",
+        "https://semgrep.dev/contact/product-join-llm-detection-beta",
+        "https://semgrep.dev/contact/product-join-llm-detection-beta/.",
+        "https://semgrep.dev/docs/experiments/focus-metavariable",
+        "https://semgrep.dev/docs/experiments/project-depends-on",
+        "https://semgrep.dev/docs/writing-rules/experiments/taint-labels",
+        "https://semgrep.dev/products/semgrep-managed-scans",
+        "https://semgrep.dev/resources/doyensec-sca-report"
+      ],
+      "repo_broken_links": [],
+      "confirmed_broken_links_detailed": [
+        {
+          "target_url": "https://semgrep.dev/blog/2020/bento-check-unescaped-template-extensions-in-flask",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://semgrep.dev/docs/cheat-sheets/flask-xss",
+              "anchor_text": "Unescaped template extensions in Flask"
+            }
+          ]
+        },
+        {
+          "target_url": "https://semgrep.dev/blog/2022/xml-security-in-java",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://semgrep.dev/blog/2023/developer-focused-results-and-improved-coverage-with-semgrep-pro-rules",
+              "anchor_text": "our blog post"
+            }
+          ]
+        },
+        {
+          "target_url": "https://semgrep.dev/blog/2024/tanya@semgrep.com",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://semgrep.dev/blog/2024/conclusion-security-champions",
+              "anchor_text": "email me"
+            }
+          ]
+        },
+        {
+          "target_url": "https://semgrep.dev/case-studies/glasswall",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://semgrep.dev/blog/2025/enterprise-scale-code-scanning-semgrep-managed-scans-crossed-1-million-weekly-scans",
+              "anchor_text": "Glasswall's dramatic reduction in false positives"
+            }
+          ]
+        },
+        {
+          "target_url": "https://semgrep.dev/contact/product-join-llm-detection-beta",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://semgrep.dev/blog/2025/ai-powered-detection-with-semgrep",
+              "anchor_text": "you can do so here"
+            }
+          ]
+        },
+        {
+          "target_url": "https://semgrep.dev/contact/product-join-llm-detection-beta/.",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://semgrep.dev/blog/2025/ai-powered-detection-with-semgrep",
+              "anchor_text": "https://semgrep.dev/contact/product-join-llm-detection-beta/ ."
+            }
+          ]
+        },
+        {
+          "target_url": "https://semgrep.dev/docs/experiments/focus-metavariable",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://semgrep.dev/blog/2022/semgrep-spring-2022-meetup-recap",
+              "anchor_text": "focus-metavariable"
+            }
+          ]
+        },
+        {
+          "target_url": "https://semgrep.dev/docs/experiments/project-depends-on",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://semgrep.dev/blog/2022/semgrep-spring-2022-meetup-recap",
+              "anchor_text": "project-depends-on"
+            }
+          ]
+        },
+        {
+          "target_url": "https://semgrep.dev/docs/writing-rules/experiments/taint-labels",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://semgrep.dev/blog/2023/developer-focused-results-and-improved-coverage-with-semgrep-pro-rules",
+              "anchor_text": "taint labels"
+            },
+            {
+              "source_page": "https://semgrep.dev/blog/2023/kotlin-ga",
+              "anchor_text": "taint labels"
+            },
+            {
+              "source_page": "https://semgrep.dev/blog/2023/kotlin-ga",
+              "anchor_text": "Taint Labels"
+            }
+          ]
+        },
+        {
+          "target_url": "https://semgrep.dev/products/semgrep-managed-scans",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://semgrep.dev/blog/2026/preventing-vulnerable-code-from-merging-without-blocking-developers",
+              "anchor_text": "Semgrep Managed Scans"
+            }
+          ]
+        },
+        {
+          "target_url": "https://semgrep.dev/resources/doyensec-sca-report",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://semgrep.dev/blog/2024/why-sast-tools-need-to-be-customizable",
+              "anchor_text": "Doyensec"
+            }
+          ]
+        }
+      ],
+      "unverified_links_sample": []
+    }
+  ]
+}

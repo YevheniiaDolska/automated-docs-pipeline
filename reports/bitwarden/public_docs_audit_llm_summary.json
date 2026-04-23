@@ -1,0 +1,57 @@
+{
+  "status": "ok",
+  "model": "claude-sonnet-4-5",
+  "analysis": {
+    "executive_summary": "Audit crawled 8,569 pages across Bitwarden's help documentation with 95% crawl confidence and 91% overall confidence. Critical issues include 103 confirmed broken internal documentation links and a 24.61% SEO/geo issue rate. API reference coverage stands at 47.5% across 2,723 detected API pages. Example code reliability shows 0% detection (likely a technical limitation due to JavaScript rendering), and only 27.4% of pages display last-updated metadata.",
+    "strengths": [
+      "Comprehensive crawl coverage at 100% of in-scope pages (8,967 discovered pages)",
+      "High overall audit confidence at 91.12% with strong link verification confidence at 94.04%",
+      "No repository navigation broken links (repo_broken_links_count: 0), indicating clean internal tooling",
+      "API pages successfully detected (2,723 pages) with coverage determination completed",
+      "Large documentation footprint (8,569 pages) indicates extensive product coverage"
+    ],
+    "risks": [
+      "103 confirmed broken internal documentation links create poor user experience and erode trust",
+      "24.61% SEO/geo issue rate threatens discoverability and search ranking performance",
+      "API reference coverage at 47.5% leaves over half of API surface undocumented or poorly linked",
+      "0% example reliability detection suggests code samples may not be validated or are undetectable (JS rendering issue)",
+      "Only 27.4% freshness coverage prevents users from assessing content currency and reliability",
+      "1 unverified link due to auth/rate-limit/server blocks may hide additional broken links",
+      "3,594 excluded links represent potential blind spots in link health monitoring"
+    ],
+    "prioritized_actions": [
+      {
+        "action": "Fix all 103 confirmed broken internal documentation links immediately",
+        "impact": "critical",
+        "effort": "medium"
+      },
+      {
+        "action": "Audit and resolve SEO/geo issues affecting 24.61% of pages to restore search visibility",
+        "impact": "critical",
+        "effort": "high"
+      },
+      {
+        "action": "Expand API reference coverage from 47.5% to minimum 85% by documenting missing endpoints and linking usage examples",
+        "impact": "high",
+        "effort": "high"
+      },
+      {
+        "action": "Implement last-updated metadata on all pages (currently 27.4% coverage) to improve content trust",
+        "impact": "high",
+        "effort": "low"
+      },
+      {
+        "action": "Investigate example code detection failure (0% reliability) and implement server-side rendering or static code validation",
+        "impact": "medium",
+        "effort": "medium"
+      }
+    ],
+    "limitations": [
+      "External audit cannot verify content accuracy, technical correctness, or whether documentation matches actual product behavior",
+      "Example code reliability at 0% indicates detection limitation due to JavaScript-rendered code blocks; actual code quality cannot be assessed",
+      "1 unverified link blocked by auth/rate-limit/server restrictions may hide additional broken links not captured in this audit",
+      "3,594 excluded links (external domains, out-of-scope paths) are not verified and may contain broken references",
+      "Audit cannot assess user comprehension, documentation completeness for real-world use cases, or support ticket correlation"
+    ]
+  }
+}

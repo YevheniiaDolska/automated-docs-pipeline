@@ -1,0 +1,57 @@
+{
+  "status": "ok",
+  "model": "claude-sonnet-4-5",
+  "analysis": {
+    "executive_summary": "Audit covered 4,819 pages across 5 documentation sites in multi-project topology with 100% crawl coverage and 86.88% overall confidence. Identified 23 confirmed broken internal links, all within user-facing documentation (zero repository navigation links broken). API reference coverage stands at 21.08% across 4,552 detected API pages, while example code reliability estimates at only 12.55%. Freshness metadata appears on 0.41% of pages and SEO/geo issues affect 21.38% of content. Three links remain unverified due to authentication or rate-limiting constraints.",
+    "strengths": [
+      "Complete crawl coverage at 100% (4,819 of 4,871 requested pages successfully crawled)",
+      "High overall audit confidence at 86.88% with strong crawl confidence at 95%",
+      "Multi-project topology properly configured across 5 sites without fragmentation penalties",
+      "Zero broken repository navigation links (all 23 broken links are user-facing documentation)",
+      "API page detection successful with 4,552 pages identified and no detection failures"
+    ],
+    "risks": [
+      "Critical: 23 confirmed broken internal links in user-facing documentation damage user experience and credibility",
+      "High: API reference coverage at 21.08% leaves 78.92% of API surface without usage documentation or examples",
+      "High: Example code reliability estimate of 12.55% suggests majority of code samples may be outdated, untested, or non-functional",
+      "Medium: SEO/geo issue rate of 21.38% impacts discoverability and search ranking for over 1,000 pages",
+      "Medium: Freshness metadata visible on only 0.41% of pages (approximately 20 pages) prevents users from assessing content currency",
+      "Low: 3 links unverified due to authentication/rate-limiting may hide additional broken links",
+      "Low: 9 excluded links and 2 trap URLs skipped require manual review to confirm appropriate exclusion"
+    ],
+    "prioritized_actions": [
+      {
+        "action": "Fix all 23 confirmed broken internal documentation links to restore navigation integrity",
+        "impact": "critical",
+        "effort": "low"
+      },
+      {
+        "action": "Expand API usage documentation and examples to achieve minimum 60% reference coverage across 4,552 API pages",
+        "impact": "critical",
+        "effort": "high"
+      },
+      {
+        "action": "Implement automated testing for code examples and update/remove non-functional samples to improve 12.55% reliability baseline",
+        "impact": "high",
+        "effort": "high"
+      },
+      {
+        "action": "Add last-updated metadata to all pages (currently 0.41% coverage) to establish content freshness transparency",
+        "impact": "high",
+        "effort": "medium"
+      },
+      {
+        "action": "Remediate SEO/geo issues affecting 21.38% of pages (1,031+ pages) including meta descriptions, titles, and structured data",
+        "impact": "medium",
+        "effort": "medium"
+      }
+    ],
+    "limitations": [
+      "External audit cannot verify actual functionality of code examples; 12.55% reliability is heuristic-based estimate requiring manual testing confirmation",
+      "3 unverified links blocked by authentication or rate-limiting may conceal additional broken links not captured in the 23 confirmed count",
+      "API coverage percentage measures documentation presence only, not accuracy, completeness, or quality of API reference content",
+      "Crawl limited to public documentation; private/authenticated sections, embedded content, and dynamically loaded resources may be incomplete",
+      "SEO/geo issue detection relies on automated rules and cannot assess content relevance, accuracy, or alignment with user search intent"
+    ]
+  }
+}

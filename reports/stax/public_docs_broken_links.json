@@ -1,0 +1,124 @@
+{
+  "generated_at_utc": "2026-04-23T12:26:40.495531+00:00",
+  "sites_count": 2,
+  "totals": {
+    "docs_broken_links_count": 4,
+    "repo_broken_links_count": 0,
+    "all_confirmed_broken_links_count": 4,
+    "unverified_links_sample_count": 0
+  },
+  "all_docs_broken_links": [
+    "https://developer.staxbill.com/cdn-cgi/l/email-protection",
+    "https://developer.staxbill.com/docs/fusebill-payments-api-risk-fields",
+    "https://developer.staxbill.com/v1.0/reference",
+    "https://docs.staxpayments.com/cdn-cgi/l/email-protection"
+  ],
+  "all_repo_broken_links": [],
+  "all_unverified_links_sample": [],
+  "sites": [
+    {
+      "site_url": "https://developer.staxbill.com/",
+      "confirmed_broken_links_count": 3,
+      "docs_broken_links_count": 3,
+      "repo_broken_links_count": 0,
+      "docs_broken_links": [
+        "https://developer.staxbill.com/cdn-cgi/l/email-protection",
+        "https://developer.staxbill.com/docs/fusebill-payments-api-risk-fields",
+        "https://developer.staxbill.com/v1.0/reference"
+      ],
+      "repo_broken_links": [],
+      "confirmed_broken_links_detailed": [
+        {
+          "target_url": "https://developer.staxbill.com/cdn-cgi/l/email-protection",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://developer.staxbill.com/docs/registration-page",
+              "anchor_text": "[email\u00a0protected]"
+            },
+            {
+              "source_page": "https://developer.staxbill.com/docs/checkout",
+              "anchor_text": "[email\u00a0protected]"
+            },
+            {
+              "source_page": "https://developer.staxbill.com/docs/customer-created",
+              "anchor_text": "[email\u00a0protected]"
+            },
+            {
+              "source_page": "https://developer.staxbill.com/docs/customer-status-changed",
+              "anchor_text": "[email\u00a0protected]"
+            },
+            {
+              "source_page": "https://developer.staxbill.com/docs/customer-updated",
+              "anchor_text": "[email\u00a0protected]"
+            }
+          ]
+        },
+        {
+          "target_url": "https://developer.staxbill.com/docs/fusebill-payments-api-risk-fields",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://developer.staxbill.com/docs/add-credit-card-payment-method",
+              "anchor_text": "Stax Bill Payments API Risk Fields"
+            }
+          ]
+        },
+        {
+          "target_url": "https://developer.staxbill.com/v1.0/reference",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://developer.staxbill.com/docs",
+              "anchor_text": "Rate Limits"
+            },
+            {
+              "source_page": "https://developer.staxbill.com/docs/introduction",
+              "anchor_text": "Rate Limits"
+            }
+          ]
+        }
+      ],
+      "unverified_links_sample": []
+    },
+    {
+      "site_url": "https://docs.staxpayments.com/",
+      "confirmed_broken_links_count": 1,
+      "docs_broken_links_count": 1,
+      "repo_broken_links_count": 0,
+      "docs_broken_links": [
+        "https://docs.staxpayments.com/cdn-cgi/l/email-protection"
+      ],
+      "repo_broken_links": [],
+      "confirmed_broken_links_detailed": [
+        {
+          "target_url": "https://docs.staxpayments.com/cdn-cgi/l/email-protection",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://docs.staxpayments.com/docs/getting-started",
+              "anchor_text": "[email\u00a0protected]"
+            },
+            {
+              "source_page": "https://docs.staxpayments.com/docs/1099k-report",
+              "anchor_text": "[email\u00a0protected]"
+            },
+            {
+              "source_page": "https://docs.staxpayments.com/docs/accepting-hsa-and-fsa",
+              "anchor_text": "[email\u00a0protected]"
+            },
+            {
+              "source_page": "https://docs.staxpayments.com/docs/adding-tips-before-batching-out",
+              "anchor_text": "[email\u00a0protected] ."
+            },
+            {
+              "source_page": "https://docs.staxpayments.com/docs/assessing-fee-statements",
+              "anchor_text": "[email\u00a0protected]"
+            }
+          ]
+        }
+      ],
+      "unverified_links_sample": []
+    }
+  ]
+}

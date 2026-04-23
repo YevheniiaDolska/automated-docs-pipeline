@@ -1,0 +1,57 @@
+{
+  "status": "ok",
+  "model": "claude-sonnet-4-5",
+  "analysis": {
+    "executive_summary": "Documentation audit covered 881 pages crawled from 34,791 discovered pages across Hugging Face's multi-project documentation (100% crawl coverage within 35,000 page limit). Overall confidence score is 63.5%, with link verification confidence critically low at 25%. Identified 15 confirmed broken internal documentation links with zero repository navigation link failures. API reference coverage stands at only 25% (54 API pages detected), freshness metadata visible on just 40.18% of pages, and SEO/geo issues affect 19.13% of content. Link verification was inconclusive for 4,967 URLs due to authentication, rate-limiting, or server blocks.",
+    "strengths": [
+      "Zero broken repository navigation links (repo_broken_links_count: 0), indicating healthy GitHub/GitLab integration",
+      "High crawl confidence at 95% with complete coverage of discoverable documentation scope",
+      "Example code reliability estimated at 91.23%, suggesting strong quality in tutorial content",
+      "API coverage detection successfully identified 54 API reference pages without detection limitations",
+      "Trap URL detection prevented crawling of 3 problematic URLs, protecting audit integrity"
+    ],
+    "risks": [
+      "Link verification confidence critically low at 25%, with 4,967 URLs unverified due to auth/rate-limit/server blocks creating blind spots",
+      "15 confirmed broken internal documentation links degrading user navigation experience",
+      "API reference coverage at only 25%, leaving 75% of API surface undocumented or unlinked",
+      "Freshness metadata missing on 59.82% of pages, preventing users from assessing content currency",
+      "SEO/geo issue rate of 19.13% impacting discoverability and international accessibility",
+      "Overall confidence of 63.5% indicates moderate uncertainty in audit completeness",
+      "Only 881 pages crawled from 34,791 discovered pages (2.5% sample) due to 35,000 page limit, potentially missing issues in uncrawled content"
+    ],
+    "prioritized_actions": [
+      {
+        "action": "Fix all 15 confirmed broken internal documentation links to restore navigation integrity",
+        "impact": "critical",
+        "effort": "low"
+      },
+      {
+        "action": "Investigate and resolve authentication/rate-limit issues blocking verification of 4,967 URLs to achieve reliable link health monitoring",
+        "impact": "critical",
+        "effort": "high"
+      },
+      {
+        "action": "Expand API reference documentation coverage from 25% to minimum 80% by documenting missing API surfaces and linking from usage docs",
+        "impact": "high",
+        "effort": "high"
+      },
+      {
+        "action": "Implement last-updated metadata on all pages (currently missing on 59.82%) to improve content trust and maintenance tracking",
+        "impact": "high",
+        "effort": "medium"
+      },
+      {
+        "action": "Audit and remediate SEO/geo issues affecting 19.13% of pages to improve discoverability and international reach",
+        "impact": "medium",
+        "effort": "medium"
+      }
+    ],
+    "limitations": [
+      "External audit cannot verify content accuracy, technical correctness, or whether documented APIs match actual implementation behavior",
+      "4,967 URLs remain unverified due to authentication requirements, rate limiting, or server blocks; actual broken link count may be higher",
+      "Only 2.5% of discovered pages (881 of 34,791) were crawled due to page limit; issues in remaining 97.5% of content are unknown",
+      "Cannot assess whether undocumented APIs (75% coverage gap) are intentionally private/internal or represent documentation debt",
+      "Freshness detection relies on visible metadata only; pages without last-updated timestamps may still be current but cannot be confirmed"
+    ]
+  }
+}

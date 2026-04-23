@@ -1,0 +1,57 @@
+{
+  "status": "ok",
+  "model": "claude-sonnet-4-5",
+  "analysis": {
+    "executive_summary": "Documentation audit of docs.baseten.co crawled 283 of 300 requested pages (100.35% coverage) with zero broken links detected across all categories. API reference coverage stands at 50.0% across 180 detected API pages, indicating significant documentation gaps. SEO/GEO issues affect 16.78% of pages, impacting discoverability. Example reliability estimate is 0.0%, suggesting code examples lack verification or testing infrastructure. Overall audit confidence is 91.5%.",
+    "strengths": [
+      "Zero broken links (internal, docs, or repository navigation)",
+      "Complete crawl coverage at 100.35% with 283 pages successfully indexed",
+      "100% last-updated timestamp coverage across documentation",
+      "High overall audit confidence at 91.5%",
+      "Clean link hygiene with no unverified or excluded links"
+    ],
+    "risks": [
+      "50% API reference coverage leaves half of API surface undocumented across 180 API pages",
+      "0.0% example reliability indicates no code example testing or validation in place",
+      "16.78% SEO/GEO issue rate may significantly reduce organic search visibility and user acquisition",
+      "15 trap URLs were skipped during crawl, potentially hiding content quality issues",
+      "API confidence at 85% suggests potential gaps in API detection methodology",
+      "Missing API documentation creates support burden and developer friction",
+      "Untested examples risk user frustration and eroded trust in documentation quality"
+    ],
+    "prioritized_actions": [
+      {
+        "action": "Implement automated code example testing pipeline to validate all examples against live API",
+        "impact": "critical",
+        "effort": "high"
+      },
+      {
+        "action": "Document remaining 50% of API surface by auditing codebase against existing API pages",
+        "impact": "critical",
+        "effort": "high"
+      },
+      {
+        "action": "Remediate SEO/GEO issues on 47 affected pages (meta descriptions, titles, structured data)",
+        "impact": "high",
+        "effort": "medium"
+      },
+      {
+        "action": "Investigate 15 trap URLs to determine if legitimate content is being excluded from crawl",
+        "impact": "medium",
+        "effort": "low"
+      },
+      {
+        "action": "Establish API documentation coverage monitoring to prevent regression below 80% threshold",
+        "impact": "high",
+        "effort": "low"
+      }
+    ],
+    "limitations": [
+      "External audit cannot verify accuracy of technical content or correctness of code examples without execution",
+      "API coverage detection relies on pattern matching and may miss non-standard API documentation structures",
+      "SEO/GEO scoring does not measure actual search ranking performance or conversion impact",
+      "Crawl cannot assess documentation completeness for features not yet publicly documented",
+      "Link verification confirms HTTP status only, not semantic correctness of link destinations"
+    ]
+  }
+}

@@ -1,0 +1,132 @@
+{
+  "generated_at_utc": "2026-04-22T10:11:15.419018+00:00",
+  "sites_count": 1,
+  "totals": {
+    "docs_broken_links_count": 7,
+    "repo_broken_links_count": 0,
+    "all_confirmed_broken_links_count": 7,
+    "unverified_links_sample_count": 0
+  },
+  "all_docs_broken_links": [
+    "https://docs.socket.dev/cdn-cgi/l/email-protection",
+    "https://docs.socket.dev/docs/Artifactory",
+    "https://docs.socket.dev/docs/Configuration",
+    "https://docs.socket.dev/docs/api",
+    "https://docs.socket.dev/docs/overview.md",
+    "https://docs.socket.dev/docs/socket-info",
+    "https://docs.socket.dev/integrations"
+  ],
+  "all_repo_broken_links": [],
+  "all_unverified_links_sample": [],
+  "sites": [
+    {
+      "site_url": "https://docs.socket.dev/",
+      "confirmed_broken_links_count": 7,
+      "docs_broken_links_count": 7,
+      "repo_broken_links_count": 0,
+      "docs_broken_links": [
+        "https://docs.socket.dev/cdn-cgi/l/email-protection",
+        "https://docs.socket.dev/docs/Artifactory",
+        "https://docs.socket.dev/docs/Configuration",
+        "https://docs.socket.dev/docs/api",
+        "https://docs.socket.dev/docs/overview.md",
+        "https://docs.socket.dev/docs/socket-info",
+        "https://docs.socket.dev/integrations"
+      ],
+      "repo_broken_links": [],
+      "confirmed_broken_links_detailed": [
+        {
+          "target_url": "https://docs.socket.dev/cdn-cgi/l/email-protection",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://docs.socket.dev/docs/contact-support",
+              "anchor_text": "[email\u00a0protected]"
+            },
+            {
+              "source_page": "https://docs.socket.dev/docs/guide-to-socket-mcp",
+              "anchor_text": "[email\u00a0protected]"
+            },
+            {
+              "source_page": "https://docs.socket.dev/docs/ignoring-pull-request-alerts",
+              "anchor_text": "[email\u00a0protected]"
+            },
+            {
+              "source_page": "https://docs.socket.dev/docs/installations",
+              "anchor_text": "[email\u00a0protected]"
+            },
+            {
+              "source_page": "https://docs.socket.dev/docs/permissions",
+              "anchor_text": "[email\u00a0protected]"
+            }
+          ]
+        },
+        {
+          "target_url": "https://docs.socket.dev/docs/Artifactory",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://docs.socket.dev/docs/socket-firewall-registry-mode",
+              "anchor_text": "Artifactory Integration"
+            }
+          ]
+        },
+        {
+          "target_url": "https://docs.socket.dev/docs/Configuration",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://docs.socket.dev/docs/socket-firewall-registry-mode",
+              "anchor_text": "Configuration Reference"
+            }
+          ]
+        },
+        {
+          "target_url": "https://docs.socket.dev/docs/api",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://docs.socket.dev/docs/language-support",
+              "anchor_text": "Socket REST API"
+            },
+            {
+              "source_page": "https://docs.socket.dev/docs/package-issues",
+              "anchor_text": "Socket REST API"
+            }
+          ]
+        },
+        {
+          "target_url": "https://docs.socket.dev/docs/overview.md",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://docs.socket.dev/docs/socket-firewall-free",
+              "anchor_text": "Socket Firewall Overview"
+            }
+          ]
+        },
+        {
+          "target_url": "https://docs.socket.dev/docs/socket-info",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://docs.socket.dev/docs/socket-cli",
+              "anchor_text": "socket info"
+            }
+          ]
+        },
+        {
+          "target_url": "https://docs.socket.dev/integrations",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://docs.socket.dev/docs/socket-for-github",
+              "anchor_text": "Socket CLI"
+            }
+          ]
+        }
+      ],
+      "unverified_links_sample": []
+    }
+  ]
+}

@@ -1,0 +1,172 @@
+{
+  "generated_at_utc": "2026-04-23T12:14:02.588046+00:00",
+  "sites_count": 1,
+  "totals": {
+    "docs_broken_links_count": 9,
+    "repo_broken_links_count": 0,
+    "all_confirmed_broken_links_count": 9,
+    "unverified_links_sample_count": 0
+  },
+  "all_docs_broken_links": [
+    "https://docs.moov.io/get-started/test-mode",
+    "https://docs.moov.io/guides/accounts/image-collection",
+    "https://docs.moov.io/guides/accounts/product-catalog",
+    "https://docs.moov.io/guides/billing/fee-plans",
+    "https://docs.moov.io/guides/developer-tools/breaking-changes-api",
+    "https://docs.moov.io/guides/fee-plans/merchant-statements",
+    "https://docs.moov.io/guides/money-movement/accept-payments/card-acceptance/passthrough-fees",
+    "https://docs.moov.io/guides/money-movement/fees",
+    "https://docs.moov.io/use-cases/card-acceptance"
+  ],
+  "all_repo_broken_links": [],
+  "all_unverified_links_sample": [],
+  "sites": [
+    {
+      "site_url": "https://docs.moov.io/",
+      "confirmed_broken_links_count": 9,
+      "docs_broken_links_count": 9,
+      "repo_broken_links_count": 0,
+      "docs_broken_links": [
+        "https://docs.moov.io/get-started/test-mode",
+        "https://docs.moov.io/guides/accounts/image-collection",
+        "https://docs.moov.io/guides/accounts/product-catalog",
+        "https://docs.moov.io/guides/billing/fee-plans",
+        "https://docs.moov.io/guides/developer-tools/breaking-changes-api",
+        "https://docs.moov.io/guides/fee-plans/merchant-statements",
+        "https://docs.moov.io/guides/money-movement/accept-payments/card-acceptance/passthrough-fees",
+        "https://docs.moov.io/guides/money-movement/fees",
+        "https://docs.moov.io/use-cases/card-acceptance"
+      ],
+      "repo_broken_links": [],
+      "confirmed_broken_links_detailed": [
+        {
+          "target_url": "https://docs.moov.io/get-started/test-mode",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://docs.moov.io/changelog/2024-03-20",
+              "anchor_text": "test mode"
+            }
+          ]
+        },
+        {
+          "target_url": "https://docs.moov.io/guides/accounts/image-collection",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://docs.moov.io/guides/account-tools/product-catalog",
+              "anchor_text": "images"
+            }
+          ]
+        },
+        {
+          "target_url": "https://docs.moov.io/guides/accounts/product-catalog",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://docs.moov.io/guides/account-tools/image-collection",
+              "anchor_text": "product catalog"
+            }
+          ]
+        },
+        {
+          "target_url": "https://docs.moov.io/guides/billing/fee-plans",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://docs.moov.io/guides/accounts/account-types",
+              "anchor_text": "processing fees"
+            },
+            {
+              "source_page": "https://docs.moov.io/guides/accounts/hosted-onboarding",
+              "anchor_text": "billable events"
+            },
+            {
+              "source_page": "https://docs.moov.io/guides/billing/merchant-billling",
+              "anchor_text": "fee plan"
+            },
+            {
+              "source_page": "https://docs.moov.io/guides/billing/merchant-billling",
+              "anchor_text": "standard rounding"
+            }
+          ]
+        },
+        {
+          "target_url": "https://docs.moov.io/guides/developer-tools/breaking-changes-api",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://docs.moov.io/api",
+              "anchor_text": "Breaking changes How Moov treats changes to the API."
+            },
+            {
+              "source_page": "https://docs.moov.io/api/v2024.01.00",
+              "anchor_text": "Breaking changes How Moov treats changes to the API."
+            },
+            {
+              "source_page": "https://docs.moov.io/api/v2024.01.00/version-reference",
+              "anchor_text": "breaking changes"
+            },
+            {
+              "source_page": "https://docs.moov.io/api/v2025.01.00",
+              "anchor_text": "Breaking changes How Moov treats changes to the API."
+            },
+            {
+              "source_page": "https://docs.moov.io/api/v2025.01.00/version-reference",
+              "anchor_text": "breaking changes"
+            }
+          ]
+        },
+        {
+          "target_url": "https://docs.moov.io/guides/fee-plans/merchant-statements",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://docs.moov.io/changelog/2025-09-18",
+              "anchor_text": "documentation"
+            }
+          ]
+        },
+        {
+          "target_url": "https://docs.moov.io/guides/money-movement/accept-payments/card-acceptance/passthrough-fees",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://docs.moov.io/changelog/2023-11-01",
+              "anchor_text": "passthrough fees"
+            }
+          ]
+        },
+        {
+          "target_url": "https://docs.moov.io/guides/money-movement/fees",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://docs.moov.io/changelog/2022-03-23",
+              "anchor_text": "facilitator fees"
+            },
+            {
+              "source_page": "https://docs.moov.io/guides/get-started/glossary",
+              "anchor_text": "Read more"
+            },
+            {
+              "source_page": "https://docs.moov.io/guides/money-movement/send-payments/send-funds",
+              "anchor_text": "Fees"
+            }
+          ]
+        },
+        {
+          "target_url": "https://docs.moov.io/use-cases/card-acceptance",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://docs.moov.io/guides/sources/apple-pay",
+              "anchor_text": "Accept card payments"
+            }
+          ]
+        }
+      ],
+      "unverified_links_sample": []
+    }
+  ]
+}

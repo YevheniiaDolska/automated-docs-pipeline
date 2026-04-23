@@ -1,0 +1,57 @@
+{
+  "status": "ok",
+  "model": "claude-sonnet-4-5",
+  "analysis": {
+    "executive_summary": "Audit crawled 29,465 pages from Replicate documentation (100% coverage of discovered scope, capped at 30,000). Identified 275 confirmed broken internal documentation links with zero repository navigation link failures. API reference coverage is critically low at 5.97% despite detecting 26,003 API pages. Only 20.44% of pages display last-updated metadata, severely limiting freshness assessment. Example code reliability estimated at 74.06% with overall audit confidence at 87.68%.",
+    "strengths": [
+      "Complete crawl coverage achieved (100% of 29,479 discovered pages within scope)",
+      "High overall audit confidence at 87.68% with strong crawl confidence at 95%",
+      "Repository navigation links show zero breakage (all 275 broken links are user-facing docs)",
+      "Large API surface detected (26,003 API pages) indicating comprehensive API documentation exists",
+      "Example code reliability at 74.06% demonstrates majority of code samples are functional"
+    ],
+    "risks": [
+      "275 confirmed broken internal documentation links directly degrade user navigation and trust",
+      "API reference coverage at 5.97% indicates severe gap between API documentation and usage examples/guides",
+      "Only 20.44% freshness visibility prevents assessment of documentation currency across 79% of content",
+      "29 unverified links due to authentication/rate-limiting/server blocks may hide additional broken links",
+      "7.27% SEO/geo issue rate may impact discoverability and international user access",
+      "25.94% of examples may be unreliable or non-functional, risking developer onboarding friction",
+      "49 excluded links suggest potential scope gaps or intentional external link filtering"
+    ],
+    "prioritized_actions": [
+      {
+        "action": "Repair all 275 confirmed broken internal documentation links",
+        "impact": "critical",
+        "effort": "medium"
+      },
+      {
+        "action": "Implement last-updated timestamps on 79% of pages currently missing freshness metadata",
+        "impact": "critical",
+        "effort": "low"
+      },
+      {
+        "action": "Bridge API reference-to-usage gap: increase 5.97% coverage by adding usage examples to high-traffic API pages",
+        "impact": "critical",
+        "effort": "high"
+      },
+      {
+        "action": "Audit and fix 25.94% unreliable code examples to achieve >90% reliability threshold",
+        "impact": "high",
+        "effort": "medium"
+      },
+      {
+        "action": "Investigate 29 unverified links and resolve authentication/access barriers for link validation",
+        "impact": "medium",
+        "effort": "low"
+      }
+    ],
+    "limitations": [
+      "External audit cannot verify accuracy of technical content, code logic, or API specification correctness",
+      "29 unverified links blocked by authentication/rate-limits may conceal additional broken links not counted in the 275 total",
+      "Example reliability estimate is based on static analysis; runtime execution success in user environments cannot be guaranteed",
+      "Crawl capped at 30,000 pages may have excluded content beyond 29,479 discovered pages if additional deep links exist",
+      "API coverage detection relies on pattern matching; actual developer-perceived coverage may differ if non-standard documentation structures are used"
+    ]
+  }
+}

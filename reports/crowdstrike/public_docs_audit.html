@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Public Docs Audit</title>
+<style>
+  :root { --bg:#f8fafc; --text:#0f172a; --muted:#64748b; --card:#fff; --border:#e2e8f0; --accent:#0ea5e9; }
+  body { margin:0; font-family:"Segoe UI", Arial, sans-serif; background:linear-gradient(145deg,#ecfeff,#f8fafc); color:var(--text); }
+  .wrap { max-width:1050px; margin:0 auto; padding:24px 16px 40px; }
+  .hero,.section { background:var(--card); border:1px solid var(--border); border-radius:14px; padding:16px; margin-bottom:14px; }
+  h1 { margin:0 0 8px; font-size:28px; }
+  .sub { color:var(--muted); margin:0; }
+  .grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:10px; margin-top:12px; }
+  .card { border:1px solid var(--border); border-radius:10px; padding:12px; }
+  .value { font-size:30px; font-weight:700; color:var(--accent); margin-top:6px; }
+  .label { font-size:13px; color:var(--muted); }
+  ul { margin:8px 0 0 18px; }
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="hero">
+      <h1>Public Documentation Audit</h1>
+      <p class="sub">Sites: 1 | topology: multi-project</p>
+      <p class="sub">Generated: 2026-04-22T10:07:57.860236+00:00</p>
+      <div class="grid">
+        <div class="card"><div class="label">Pages crawled</div><div class="value">19</div></div>
+        <div class="card"><div class="label">Pages discovered</div><div class="value">19</div></div>
+        <div class="card"><div class="label">Crawl coverage</div><div class="value">100.0%</div></div>
+        <div class="card"><div class="label">Broken links (docs)</div><div class="value">0</div></div>
+        <div class="card"><div class="label">Broken links (repo nav)</div><div class="value">0</div></div>
+        <div class="card"><div class="label">Unverified links</div><div class="value">0</div></div>
+        <div class="card"><div class="label">SEO/GEO issue rate</div><div class="value">11.84%</div></div>
+        <div class="card"><div class="label">API reference coverage</div><div class="value">N/A</div></div>
+        <div class="card"><div class="label">Example reliability (estimate)</div><div class="value">100.0%</div></div>
+        <div class="card"><div class="label">Last-updated coverage</div><div class="value">15.79%</div></div>
+        <div class="card"><div class="label">Audit confidence</div><div class="value">81.0%</div></div>
+      </div>
+    </div>
+    <div class="section">
+      <h2>Top Findings</h2>
+      <ul>
+        <li>SEO/GEO issue rate is high: 11.84%</li><li>API usage-doc coverage is low: 0.0% (2 API pages detected)</li><li>Freshness visibility is weak: only 15.79% pages show last updated</li>
+      </ul>
+    </div>
+    <div class="section">
+      <h2>Per-site Summary</h2>
+      <ul>
+        <li><strong>https://developer.crowdstrike.com/docs</strong>: pages=19, broken_links=0, api_coverage=N/A, examples=100.0%</li>
+      </ul>
+    </div>
+    <div class="section"><h2>LLM Executive Analysis (Claude Sonnet)</h2><p>Audit of developer.crowdstrike.com/docs covered 19 pages (100% of discovered scope, 1.9% of max capacity). Zero broken links detected across all categories. API reference coverage is 0% despite 2 API pages detected, indicating missing usage documentation. Freshness metadata exists on only 15.79% of pages. Overall confidence is 81%, with API confidence notably lower at 55%.</p><h3>Strengths</h3><ul><li>Zero broken links: no internal, docs, or repository navigation link failures</li><li>100% crawl coverage of discovered documentation scope</li><li>Example reliability estimate at 100% for detected code samples</li><li>High link verification confidence at 95%</li><li>No crawl traps or scope leakage issues</li></ul><h3>Risks</h3><ul><li>API reference coverage at 0% despite 2 API pages detected—critical gap in usage documentation</li><li>SEO/GEO issue rate of 11.84% may impact discoverability and search ranking</li><li>Only 15.79% of pages display last-updated metadata, obscuring content freshness</li><li>API confidence score of 55% indicates potential detection limitations in API documentation analysis</li><li>Small crawl sample (19 pages) may not represent full documentation estate</li><li>Multi-project topology detected but only 19 pages crawled suggests incomplete discovery</li><li>Low freshness visibility creates risk of users relying on outdated information</li></ul><h3>Prioritized actions</h3><ul><li>Create usage documentation and integration guides for 2 detected API pages to achieve measurable reference coverage <em>[critical, high]</em></li><li>Implement last-updated timestamps on remaining 84.21% of pages lacking freshness metadata <em>[high, low]</em></li><li>Audit and resolve SEO/GEO issues affecting 11.84% of pages (meta descriptions, titles, structured data) <em>[high, medium]</em></li><li>Investigate multi-project topology to confirm all documentation projects are discoverable and crawlable <em>[high, medium]</em></li><li>Review API page detection methodology given 55% confidence score to ensure comprehensive coverage <em>[medium, low]</em></li></ul></div>
+  </div>
+</body>
+</html>

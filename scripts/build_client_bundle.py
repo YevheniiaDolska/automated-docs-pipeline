@@ -189,6 +189,74 @@ def _apply_rag_package_policy_to_runtime(runtime_cfg: dict[str, Any], commercial
         rag_slo["enabled"] = rag_enabled
 
 
+def _is_strict_local_runtime(runtime_cfg: dict[str, Any]) -> bool:
+    security = runtime_cfg.get("security", {})
+    llm_control = runtime_cfg.get("llm_control", {})
+    if not isinstance(security, Mapping):
+        security = {}
+    if not isinstance(llm_control, Mapping):
+        llm_control = {}
+    llm_mode = str(llm_control.get("llm_mode", "external_preferred")).strip().lower()
+    op_mode = str(security.get("operation_mode", "")).strip().lower()
+    return bool(llm_control.get("strict_local_first", llm_mode == "local_default")) or op_mode == "strict-local"
+
+
+def _apply_strict_local_defaults(runtime_cfg: dict[str, Any]) -> None:
+    if not _is_strict_local_runtime(runtime_cfg):
+        return
+
+    llm_control = runtime_cfg.get("llm_control", {})
+    if not isinstance(llm_control, Mapping):
+        llm_control = {}
+    llm_control = dict(llm_control)
+    llm_control["llm_mode"] = "local_default"
+    llm_control["strict_local_first"] = True
+    llm_control["external_llm_allowed"] = False
+    llm_control["require_explicit_approval"] = True
+    llm_control["local_base_model"] = "qwen2.5:7b"
+    llm_control["local_model_command"] = 'ollama run {model} "{prompt}"'
+    runtime_cfg["llm_control"] = llm_control
+
+    integrations = runtime_cfg.get("integrations", {})
+    if not isinstance(integrations, Mapping):
+        integrations = {}
+    integrations = dict(integrations)
+
+    algolia = integrations.get("algolia", {})
+    if not isinstance(algolia, Mapping):
+        algolia = {}
+    algolia = dict(algolia)
+    algolia["enabled"] = False
+    algolia["upload_on_weekly"] = False
+    integrations["algolia"] = algolia
+
+    ask_ai = integrations.get("ask_ai", {})
+    if not isinstance(ask_ai, Mapping):
+        ask_ai = {}
+    ask_ai = dict(ask_ai)
+    ask_ai["enabled"] = True
+    ask_ai["auto_configure_on_provision"] = True
+    ask_ai["install_runtime_pack"] = True
+    ask_ai["provider"] = "local"
+    ask_ai["billing_mode"] = "bring-your-own-key"
+    ask_ai["model"] = "qwen2.5:7b"
+    ask_ai["base_url"] = "http://localhost:11434/v1"
+    integrations["ask_ai"] = ask_ai
+    runtime_cfg["integrations"] = integrations
+
+    api_first = runtime_cfg.get("api_first", {})
+    if isinstance(api_first, Mapping):
+        api_first_cfg = dict(api_first)
+        api_first_cfg["sandbox_backend"] = "prism"
+        api_first_cfg["upload_test_assets"] = False
+        external_mock = api_first_cfg.get("external_mock", {})
+        if isinstance(external_mock, Mapping):
+            external_mock_cfg = dict(external_mock)
+            external_mock_cfg["enabled"] = False
+            api_first_cfg["external_mock"] = external_mock_cfg
+        runtime_cfg["api_first"] = api_first_cfg
+
+
 def _sha256_file(path: Path) -> str:
     h = hashlib.sha256()
     with path.open("rb") as fh:
@@ -1247,6 +1315,12 @@ def build_local_env_template(
         if isinstance(ask_ai, Mapping) and bool(ask_ai.get("enabled", False)):
             provider = str(ask_ai.get("provider", "openai")).strip().lower()
             billing_mode = str(ask_ai.get("billing_mode", "disabled")).strip().lower()
+            _append_env(
+                lines,
+                "ASK_AI_API_KEY",
+                "replace-with-strong-random-secret",
+                "Ask AI runtime access key (generate with: python3 -c \"import secrets; print(secrets.token_urlsafe(48))\")",
+            )
             if billing_mode == "user-subscription":
                 shared_key_env = "DOCSOPS_SHARED_OPENAI_API_KEY" if provider == "openai" else "DOCSOPS_SHARED_ASK_AI_API_KEY"
                 _append_env(
@@ -1265,7 +1339,6 @@ def build_local_env_template(
             elif provider in {"local", "ollama"}:
                 _append_env(lines, "ASK_AI_BASE_URL", "http://localhost:11434/v1", "Ask AI: local Ollama endpoint")
             else:
-                _append_env(lines, "ASK_AI_API_KEY", "YOUR_ASK_AI_API_KEY", "Ask AI: custom provider key")
                 _append_env(lines, "ASK_AI_BASE_URL", "https://api.example.com/v1", "Ask AI: custom provider base URL")
 
     api_first = runtime_cfg.get("api_first", {})
@@ -1511,6 +1584,7 @@ def create_bundle(profile_path: Path) -> Path:
     write_yaml(policy_dst, policy)
 
     runtime_cfg = build_runtime_config(profile)
+    _apply_strict_local_defaults(runtime_cfg)
     licensing_cfg = profile.get("licensing", {})
     if not isinstance(licensing_cfg, Mapping):
         licensing_cfg = {}

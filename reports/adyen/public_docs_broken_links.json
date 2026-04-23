@@ -1,0 +1,3464 @@
+{
+  "generated_at_utc": "2026-04-23T11:14:49.119239+00:00",
+  "sites_count": 1,
+  "totals": {
+    "docs_broken_links_count": 171,
+    "repo_broken_links_count": 0,
+    "all_confirmed_broken_links_count": 171,
+    "unverified_links_sample_count": 0
+  },
+  "all_docs_broken_links": [
+    "https://docs.adyen.com/account/balances-pilot",
+    "https://docs.adyen.com/account/balances-pilot/deposit",
+    "https://docs.adyen.com/account/balances-pilot/next-payout",
+    "https://docs.adyen.com/account/balances-pilot/reserve",
+    "https://docs.adyen.com/account/manage-your-balances-pilot",
+    "https://docs.adyen.com/account/two-factor-authentication",
+    "https://docs.adyen.com/account/view-your-balances-pilot",
+    "https://docs.adyen.com/api-explorer/Management/latest/patch/merchants/_merchantId_/paymentMethodSettings",
+    "https://docs.adyen.com/api-explorer/Management/latest/post/merchants/(merchantId)/paymentMethodSettings/(paymentMethodId)",
+    "https://docs.adyen.com/api-explorer/balance-webhooks/1/post/balancePlatform.balanceAccount.balance.updated",
+    "https://docs.adyen.com/api-explorer/balanceplatform/latest/post/balancePlatforms/(id)/webhooks/(id)/settings",
+    "https://docs.adyen.com/api-explorer/transfer-webhooks/1/post/balancePlatform.transfer.created",
+    "https://docs.adyen.com/business-accounts/compliance-financial-products",
+    "https://docs.adyen.com/business-accounts/compliance-financial-products/account-statements",
+    "https://docs.adyen.com/business-accounts/compliance-financial-products/customer-complaints",
+    "https://docs.adyen.com/business-accounts/compliance-financial-products/customer-service-support",
+    "https://docs.adyen.com/business-accounts/compliance-financial-products/french-intermediary",
+    "https://docs.adyen.com/business-accounts/compliance-financial-products/keeping-records",
+    "https://docs.adyen.com/business-accounts/compliance-financial-products/marketing-user-communication",
+    "https://docs.adyen.com/business-accounts/compliance-financial-products/pricing-and-eligibility",
+    "https://docs.adyen.com/business-accounts/compliance-financial-products/reporting-to-adyen",
+    "https://docs.adyen.com/business-accounts/compliance-financial-products/user-interface",
+    "https://docs.adyen.com/business-accounts/compliance-financial-products/vulnerable-users",
+    "https://docs.adyen.com/business-accounts/compliance-guidelines/reporting-to-adyen/Vulnerable%20Customers%20Reporting%20Template.xlsx",
+    "https://docs.adyen.com/business-accounts/manage-access/api-credentials-web-service",
+    "https://docs.adyen.com/capital/compliance-financial-products",
+    "https://docs.adyen.com/capital/compliance-financial-products/vulnerable-users",
+    "https://docs.adyen.com/capital/reporting-to-adyen/Vulnerable%20Customers%20Reporting%20Template.xlsx",
+    "https://docs.adyen.com/checkout/3d-secure/api-reference",
+    "https://docs.adyen.com/checkout/3d-secure/native-3ds2",
+    "https://docs.adyen.com/checkout/3d-secure/native-3ds2/android-component",
+    "https://docs.adyen.com/checkout/3d-secure/native-3ds2/ios-component",
+    "https://docs.adyen.com/checkout/3d-secure/other-3ds-flows/standalone-authentication",
+    "https://docs.adyen.com/checkout/api-only",
+    "https://docs.adyen.com/checkout/components-web",
+    "https://docs.adyen.com/checkout/payment-result-codes",
+    "https://docs.adyen.com/checkout/psd2-sca-compliance-and-implementation-guide",
+    "https://docs.adyen.com/classic-integration",
+    "https://docs.adyen.com/classic-integration/3d-secure",
+    "https://docs.adyen.com/classic-integration/cse-integration-ecommerce",
+    "https://docs.adyen.com/classic-integration/recurring-payments",
+    "https://docs.adyen.com/classic-integration/recurring-payments/retrieve-stored-details",
+    "https://docs.adyen.com/classic-platforms/hosted-onboarding-page",
+    "https://docs.adyen.com/classic-platforms/hosted-onboarding-page/customize-experience",
+    "https://docs.adyen.com/classic-platforms/onboarding-and-verification/precheck-kyc-information",
+    "https://docs.adyen.com/classic-platforms/payout-to-cards",
+    "https://docs.adyen.com/classic-platforms/processing-payments/route-payment-to-store",
+    "https://docs.adyen.com/classic-platforms/verification-checks",
+    "https://docs.adyen.com/classic-platforms/verification-checks/bank-account-check",
+    "https://docs.adyen.com/classic-platforms/verification-checks/legal-arrangements",
+    "https://docs.adyen.com/development-resources/building-adyen-solutions",
+    "https://docs.adyen.com/development-resources/integration-security-guide",
+    "https://docs.adyen.com/development-resources/pgp-encryption",
+    "https://docs.adyen.com/development-resources/testing/create-test-cards",
+    "https://docs.adyen.com/development-resources/testing/test-card-numbers",
+    "https://docs.adyen.com/development-resources/webhooks/additional-settings",
+    "https://docs.adyen.com/development-resources/webhooks/understand-notifications",
+    "https://docs.adyen.com/development-resources/webhooks/verify-hmac-signatures",
+    "https://docs.adyen.com/get-started-with-adyen/payment-glossary",
+    "https://docs.adyen.com/get-started-with-adyen/prepare-application",
+    "https://docs.adyen.com/issuing/3d-secure-and-wallets",
+    "https://docs.adyen.com/issuing/add-capabilities",
+    "https://docs.adyen.com/issuing/add-manage-funds/bank-transfer-funding",
+    "https://docs.adyen.com/issuing/add-manage-funds/process-payments/make-a-payment//verification-overview/capabilities",
+    "https://docs.adyen.com/issuing/add-manage-funds/split-payments",
+    "https://docs.adyen.com/issuing/digital-wallets",
+    "https://docs.adyen.com/issuing/manage-funds",
+    "https://docs.adyen.com/issuing/processing-payments-for-cards",
+    "https://docs.adyen.com/issuing/transaction-rules",
+    "https://docs.adyen.com/issuing/transaction-rules/create-and-manage",
+    "https://docs.adyen.com/issuing/transaction-rules/examples",
+    "https://docs.adyen.com/marketplaces/compliance-financial-products/reporting-to-adyen/Vulnerable%20Customers%20Reporting%20Template.xlsx",
+    "https://docs.adyen.com/marketplaces/onboard-users/hosted",
+    "https://docs.adyen.com/marketplaces/split-payments",
+    "https://docs.adyen.com/marketplaces/verification-requirements/required-kyc-information",
+    "https://docs.adyen.com/online-payments/3d-secure/authentication-only",
+    "https://docs.adyen.com/online-payments/3d-secure/native-3ds2/android",
+    "https://docs.adyen.com/online-payments/3d-secure/native-3ds2/android-component",
+    "https://docs.adyen.com/online-payments/3d-secure/native-3ds2/ios",
+    "https://docs.adyen.com/online-payments/3d-secure/native-3ds2/ios-component",
+    "https://docs.adyen.com/online-payments/3d-secure/native-3ds2/web-component",
+    "https://docs.adyen.com/online-payments/3d-secure/other-3ds-flows",
+    "https://docs.adyen.com/online-payments/3d-secure/other-3ds-flows/authentication-only",
+    "https://docs.adyen.com/online-payments/3d-secure/other-3ds-flows/authorize-mpidata",
+    "https://docs.adyen.com/online-payments/3d-secure/other-3ds-flows/data-only",
+    "https://docs.adyen.com/online-payments/3d-secure/redirect-3ds2-3ds1",
+    "https://docs.adyen.com/online-payments/android",
+    "https://docs.adyen.com/online-payments/android/components",
+    "https://docs.adyen.com/online-payments/android/drop-in",
+    "https://docs.adyen.com/online-payments/api-only",
+    "https://docs.adyen.com/online-payments/cancel-or-refund",
+    "https://docs.adyen.com/online-payments/classic-integrations/api-integration-ecommerce",
+    "https://docs.adyen.com/online-payments/classic-integrations/api-integration-ecommerce/3d-secure",
+    "https://docs.adyen.com/online-payments/components-web",
+    "https://docs.adyen.com/online-payments/donations/campaign-manager-web-component",
+    "https://docs.adyen.com/online-payments/drop-in-web",
+    "https://docs.adyen.com/online-payments/ios",
+    "https://docs.adyen.com/online-payments/ios/components",
+    "https://docs.adyen.com/online-payments/ios/drop-in",
+    "https://docs.adyen.com/online-payments/online-payouts/confirm-or-decline-payout",
+    "https://docs.adyen.com/online-payments/pay-by-link",
+    "https://docs.adyen.com/online-payments/payment-result-codes",
+    "https://docs.adyen.com/online-payments/react-native",
+    "https://docs.adyen.com/online-payments/react-native/components",
+    "https://docs.adyen.com/online-payments/react-native/drop-in",
+    "https://docs.adyen.com/online-payments/script-security-compliance",
+    "https://docs.adyen.com/online-payments/script-security-compliance/manage-script-security",
+    "https://docs.adyen.com/online-payments/supported-payment-methods",
+    "https://docs.adyen.com/online-payments/tokenization/create-and-use-tokens",
+    "https://docs.adyen.com/online-payments/update-your-integration",
+    "https://docs.adyen.com/payment-methods/apple-pay/enable-apple-pay",
+    "https://docs.adyen.com/payment-methods/klarna/refunds-and-cancellations",
+    "https://docs.adyen.com/payment-methods/open-banking",
+    "https://docs.adyen.com/payments-fundamentals/payment-glossary",
+    "https://docs.adyen.com/payouts/payout-service/pay-out-to-cards/card-payout-request",
+    "https://docs.adyen.com/payouts/payout-service/pay-out-to-cards/manage-card-information",
+    "https://docs.adyen.com/payouts/payout-service/payout-to-users",
+    "https://docs.adyen.com/payouts/payout-service/payout-to-users/payout-webhooks",
+    "https://docs.adyen.com/payouts/payout-service/payout-to-users/transfer-routes",
+    "https://docs.adyen.com/platforms/build-user-dashboards/payout-components",
+    "https://docs.adyen.com/platforms/build-user-dashboards/reports-component",
+    "https://docs.adyen.com/platforms/build-user-dashboards/transaction-components",
+    "https://docs.adyen.com/platforms/business-accounts",
+    "https://docs.adyen.com/platforms/business-accounts/sca",
+    "https://docs.adyen.com/platforms/business-accounts/sca/register-devices",
+    "https://docs.adyen.com/platforms/business-accounts/send-receive-funds",
+    "https://docs.adyen.com/platforms/business-accounts/transactions-api",
+    "https://docs.adyen.com/platforms/capital",
+    "https://docs.adyen.com/platforms/compliance-financial-products/reporting-to-adyen/Vulnerable%20Customers%20Reporting%20Template.xlsx",
+    "https://docs.adyen.com/platforms/onboard-users/hosted",
+    "https://docs.adyen.com/platforms/online-payments/split-payments",
+    "https://docs.adyen.com/platforms/split-payments",
+    "https://docs.adyen.com/platforms/verification-requirements/required-kyc-information",
+    "https://docs.adyen.com/platforms}/reports-and-fees/balance-platform-accounting-report",
+    "https://docs.adyen.com/plugins/netsuite/tokenization-in-netsuite",
+    "https://docs.adyen.com/plugins/salesforce-commerce-cloud/go-live-checklist",
+    "https://docs.adyen.com/plugins/salesforce-commerce-cloud/sfra-and-sitegenesis",
+    "https://docs.adyen.com/point-of-sale/automating-terminal-management/assign-terminals-api/classic-assign-terminals-api",
+    "https://docs.adyen.com/point-of-sale/automating-terminal-management/terminal-actions-api",
+    "https://docs.adyen.com/point-of-sale/avs-responses-pos",
+    "https://docs.adyen.com/point-of-sale/determine-account-structure/configure-features",
+    "https://docs.adyen.com/point-of-sale/gift-cards-terminal-api",
+    "https://docs.adyen.com/point-of-sale/gift-cards-terminal-api/activate",
+    "https://docs.adyen.com/point-of-sale/gift-cards-terminal-api/deactivate",
+    "https://docs.adyen.com/point-of-sale/gift-cards-terminal-api/load-a-balance",
+    "https://docs.adyen.com/point-of-sale/gift-cards-terminal-api/payment",
+    "https://docs.adyen.com/point-of-sale/gift-cards-terminal-api/query-the-balance",
+    "https://docs.adyen.com/point-of-sale/gift-cards-terminal-api/refund-gift-cards",
+    "https://docs.adyen.com/point-of-sale/gift-cards-terminal-api/void",
+    "https://docs.adyen.com/point-of-sale/managing-terminals/menu-access",
+    "https://docs.adyen.com/point-of-sale/offline-payments",
+    "https://docs.adyen.com/point-of-sale/pos-timeouts",
+    "https://docs.adyen.com/point-of-sale/qr-code-wallets",
+    "https://docs.adyen.com/point-of-sale/refund-payment/cancel-a-pos-refund-request",
+    "https://docs.adyen.com/point-of-sale/shopper-engagement/shopper-input/select-input-request",
+    "https://docs.adyen.com/point-of-sale/sneak-preview/manual-deployment",
+    "https://docs.adyen.com/reporting/account-updater-results-report",
+    "https://docs.adyen.com/reporting/aggregate-settlement-report",
+    "https://docs.adyen.com/reporting/downloading-reports",
+    "https://docs.adyen.com/reporting/marketpay-payments-accounting-report",
+    "https://docs.adyen.com/reporting/monthly-and-daily-finance-report",
+    "https://docs.adyen.com/reporting/settlement-detail-report",
+    "https://docs.adyen.com/reporting/settlement-reconciliation/transaction-level/marketpay-balance-report",
+    "https://docs.adyen.com/reporting/settlement-reconciliation/transaction-level/marketplace-payments-accounting-report",
+    "https://docs.adyen.com/risk-management/configure-custom-risk-rules",
+    "https://docs.adyen.com/risk-management/configure-standard-risk-rules",
+    "https://docs.adyen.com/risk-management/configure-standard-risk-rules/consistency-rules",
+    "https://docs.adyen.com/risk-management/configure-standard-risk-rules/referral-rules",
+    "https://docs.adyen.com/risk-management/configure-standard-risk-rules/shopperdna-rules",
+    "https://docs.adyen.com/risk-management/configure-standard-risk-rules/velocity-rules",
+    "https://docs.adyen.com/unified-commerce/pay-by-link/payment-links/api"
+  ],
+  "all_repo_broken_links": [],
+  "all_unverified_links_sample": [],
+  "sites": [
+    {
+      "site_url": "https://docs.adyen.com/",
+      "confirmed_broken_links_count": 171,
+      "docs_broken_links_count": 171,
+      "repo_broken_links_count": 0,
+      "docs_broken_links": [
+        "https://docs.adyen.com/account/balances-pilot",
+        "https://docs.adyen.com/account/balances-pilot/deposit",
+        "https://docs.adyen.com/account/balances-pilot/next-payout",
+        "https://docs.adyen.com/account/balances-pilot/reserve",
+        "https://docs.adyen.com/account/manage-your-balances-pilot",
+        "https://docs.adyen.com/account/two-factor-authentication",
+        "https://docs.adyen.com/account/view-your-balances-pilot",
+        "https://docs.adyen.com/api-explorer/Management/latest/patch/merchants/_merchantId_/paymentMethodSettings",
+        "https://docs.adyen.com/api-explorer/Management/latest/post/merchants/(merchantId)/paymentMethodSettings/(paymentMethodId)",
+        "https://docs.adyen.com/api-explorer/balance-webhooks/1/post/balancePlatform.balanceAccount.balance.updated",
+        "https://docs.adyen.com/api-explorer/balanceplatform/latest/post/balancePlatforms/(id)/webhooks/(id)/settings",
+        "https://docs.adyen.com/api-explorer/transfer-webhooks/1/post/balancePlatform.transfer.created",
+        "https://docs.adyen.com/business-accounts/compliance-financial-products",
+        "https://docs.adyen.com/business-accounts/compliance-financial-products/account-statements",
+        "https://docs.adyen.com/business-accounts/compliance-financial-products/customer-complaints",
+        "https://docs.adyen.com/business-accounts/compliance-financial-products/customer-service-support",
+        "https://docs.adyen.com/business-accounts/compliance-financial-products/french-intermediary",
+        "https://docs.adyen.com/business-accounts/compliance-financial-products/keeping-records",
+        "https://docs.adyen.com/business-accounts/compliance-financial-products/marketing-user-communication",
+        "https://docs.adyen.com/business-accounts/compliance-financial-products/pricing-and-eligibility",
+        "https://docs.adyen.com/business-accounts/compliance-financial-products/reporting-to-adyen",
+        "https://docs.adyen.com/business-accounts/compliance-financial-products/user-interface",
+        "https://docs.adyen.com/business-accounts/compliance-financial-products/vulnerable-users",
+        "https://docs.adyen.com/business-accounts/compliance-guidelines/reporting-to-adyen/Vulnerable%20Customers%20Reporting%20Template.xlsx",
+        "https://docs.adyen.com/business-accounts/manage-access/api-credentials-web-service",
+        "https://docs.adyen.com/capital/compliance-financial-products",
+        "https://docs.adyen.com/capital/compliance-financial-products/vulnerable-users",
+        "https://docs.adyen.com/capital/reporting-to-adyen/Vulnerable%20Customers%20Reporting%20Template.xlsx",
+        "https://docs.adyen.com/checkout/3d-secure/api-reference",
+        "https://docs.adyen.com/checkout/3d-secure/native-3ds2",
+        "https://docs.adyen.com/checkout/3d-secure/native-3ds2/android-component",
+        "https://docs.adyen.com/checkout/3d-secure/native-3ds2/ios-component",
+        "https://docs.adyen.com/checkout/3d-secure/other-3ds-flows/standalone-authentication",
+        "https://docs.adyen.com/checkout/api-only",
+        "https://docs.adyen.com/checkout/components-web",
+        "https://docs.adyen.com/checkout/payment-result-codes",
+        "https://docs.adyen.com/checkout/psd2-sca-compliance-and-implementation-guide",
+        "https://docs.adyen.com/classic-integration",
+        "https://docs.adyen.com/classic-integration/3d-secure",
+        "https://docs.adyen.com/classic-integration/cse-integration-ecommerce",
+        "https://docs.adyen.com/classic-integration/recurring-payments",
+        "https://docs.adyen.com/classic-integration/recurring-payments/retrieve-stored-details",
+        "https://docs.adyen.com/classic-platforms/hosted-onboarding-page",
+        "https://docs.adyen.com/classic-platforms/hosted-onboarding-page/customize-experience",
+        "https://docs.adyen.com/classic-platforms/onboarding-and-verification/precheck-kyc-information",
+        "https://docs.adyen.com/classic-platforms/payout-to-cards",
+        "https://docs.adyen.com/classic-platforms/processing-payments/route-payment-to-store",
+        "https://docs.adyen.com/classic-platforms/verification-checks",
+        "https://docs.adyen.com/classic-platforms/verification-checks/bank-account-check",
+        "https://docs.adyen.com/classic-platforms/verification-checks/legal-arrangements",
+        "https://docs.adyen.com/development-resources/building-adyen-solutions",
+        "https://docs.adyen.com/development-resources/integration-security-guide",
+        "https://docs.adyen.com/development-resources/pgp-encryption",
+        "https://docs.adyen.com/development-resources/testing/create-test-cards",
+        "https://docs.adyen.com/development-resources/testing/test-card-numbers",
+        "https://docs.adyen.com/development-resources/webhooks/additional-settings",
+        "https://docs.adyen.com/development-resources/webhooks/understand-notifications",
+        "https://docs.adyen.com/development-resources/webhooks/verify-hmac-signatures",
+        "https://docs.adyen.com/get-started-with-adyen/payment-glossary",
+        "https://docs.adyen.com/get-started-with-adyen/prepare-application",
+        "https://docs.adyen.com/issuing/3d-secure-and-wallets",
+        "https://docs.adyen.com/issuing/add-capabilities",
+        "https://docs.adyen.com/issuing/add-manage-funds/bank-transfer-funding",
+        "https://docs.adyen.com/issuing/add-manage-funds/process-payments/make-a-payment//verification-overview/capabilities",
+        "https://docs.adyen.com/issuing/add-manage-funds/split-payments",
+        "https://docs.adyen.com/issuing/digital-wallets",
+        "https://docs.adyen.com/issuing/manage-funds",
+        "https://docs.adyen.com/issuing/processing-payments-for-cards",
+        "https://docs.adyen.com/issuing/transaction-rules",
+        "https://docs.adyen.com/issuing/transaction-rules/create-and-manage",
+        "https://docs.adyen.com/issuing/transaction-rules/examples",
+        "https://docs.adyen.com/marketplaces/compliance-financial-products/reporting-to-adyen/Vulnerable%20Customers%20Reporting%20Template.xlsx",
+        "https://docs.adyen.com/marketplaces/onboard-users/hosted",
+        "https://docs.adyen.com/marketplaces/split-payments",
+        "https://docs.adyen.com/marketplaces/verification-requirements/required-kyc-information",
+        "https://docs.adyen.com/online-payments/3d-secure/authentication-only",
+        "https://docs.adyen.com/online-payments/3d-secure/native-3ds2/android",
+        "https://docs.adyen.com/online-payments/3d-secure/native-3ds2/android-component",
+        "https://docs.adyen.com/online-payments/3d-secure/native-3ds2/ios",
+        "https://docs.adyen.com/online-payments/3d-secure/native-3ds2/ios-component",
+        "https://docs.adyen.com/online-payments/3d-secure/native-3ds2/web-component",
+        "https://docs.adyen.com/online-payments/3d-secure/other-3ds-flows",
+        "https://docs.adyen.com/online-payments/3d-secure/other-3ds-flows/authentication-only",
+        "https://docs.adyen.com/online-payments/3d-secure/other-3ds-flows/authorize-mpidata",
+        "https://docs.adyen.com/online-payments/3d-secure/other-3ds-flows/data-only",
+        "https://docs.adyen.com/online-payments/3d-secure/redirect-3ds2-3ds1",
+        "https://docs.adyen.com/online-payments/android",
+        "https://docs.adyen.com/online-payments/android/components",
+        "https://docs.adyen.com/online-payments/android/drop-in",
+        "https://docs.adyen.com/online-payments/api-only",
+        "https://docs.adyen.com/online-payments/cancel-or-refund",
+        "https://docs.adyen.com/online-payments/classic-integrations/api-integration-ecommerce",
+        "https://docs.adyen.com/online-payments/classic-integrations/api-integration-ecommerce/3d-secure",
+        "https://docs.adyen.com/online-payments/components-web",
+        "https://docs.adyen.com/online-payments/donations/campaign-manager-web-component",
+        "https://docs.adyen.com/online-payments/drop-in-web",
+        "https://docs.adyen.com/online-payments/ios",
+        "https://docs.adyen.com/online-payments/ios/components",
+        "https://docs.adyen.com/online-payments/ios/drop-in",
+        "https://docs.adyen.com/online-payments/online-payouts/confirm-or-decline-payout",
+        "https://docs.adyen.com/online-payments/pay-by-link",
+        "https://docs.adyen.com/online-payments/payment-result-codes",
+        "https://docs.adyen.com/online-payments/react-native",
+        "https://docs.adyen.com/online-payments/react-native/components",
+        "https://docs.adyen.com/online-payments/react-native/drop-in",
+        "https://docs.adyen.com/online-payments/script-security-compliance",
+        "https://docs.adyen.com/online-payments/script-security-compliance/manage-script-security",
+        "https://docs.adyen.com/online-payments/supported-payment-methods",
+        "https://docs.adyen.com/online-payments/tokenization/create-and-use-tokens",
+        "https://docs.adyen.com/online-payments/update-your-integration",
+        "https://docs.adyen.com/payment-methods/apple-pay/enable-apple-pay",
+        "https://docs.adyen.com/payment-methods/klarna/refunds-and-cancellations",
+        "https://docs.adyen.com/payment-methods/open-banking",
+        "https://docs.adyen.com/payments-fundamentals/payment-glossary",
+        "https://docs.adyen.com/payouts/payout-service/pay-out-to-cards/card-payout-request",
+        "https://docs.adyen.com/payouts/payout-service/pay-out-to-cards/manage-card-information",
+        "https://docs.adyen.com/payouts/payout-service/payout-to-users",
+        "https://docs.adyen.com/payouts/payout-service/payout-to-users/payout-webhooks",
+        "https://docs.adyen.com/payouts/payout-service/payout-to-users/transfer-routes",
+        "https://docs.adyen.com/platforms/build-user-dashboards/payout-components",
+        "https://docs.adyen.com/platforms/build-user-dashboards/reports-component",
+        "https://docs.adyen.com/platforms/build-user-dashboards/transaction-components",
+        "https://docs.adyen.com/platforms/business-accounts",
+        "https://docs.adyen.com/platforms/business-accounts/sca",
+        "https://docs.adyen.com/platforms/business-accounts/sca/register-devices",
+        "https://docs.adyen.com/platforms/business-accounts/send-receive-funds",
+        "https://docs.adyen.com/platforms/business-accounts/transactions-api",
+        "https://docs.adyen.com/platforms/capital",
+        "https://docs.adyen.com/platforms/compliance-financial-products/reporting-to-adyen/Vulnerable%20Customers%20Reporting%20Template.xlsx",
+        "https://docs.adyen.com/platforms/onboard-users/hosted",
+        "https://docs.adyen.com/platforms/online-payments/split-payments",
+        "https://docs.adyen.com/platforms/split-payments",
+        "https://docs.adyen.com/platforms/verification-requirements/required-kyc-information",
+        "https://docs.adyen.com/platforms}/reports-and-fees/balance-platform-accounting-report",
+        "https://docs.adyen.com/plugins/netsuite/tokenization-in-netsuite",
+        "https://docs.adyen.com/plugins/salesforce-commerce-cloud/go-live-checklist",
+        "https://docs.adyen.com/plugins/salesforce-commerce-cloud/sfra-and-sitegenesis",
+        "https://docs.adyen.com/point-of-sale/automating-terminal-management/assign-terminals-api/classic-assign-terminals-api",
+        "https://docs.adyen.com/point-of-sale/automating-terminal-management/terminal-actions-api",
+        "https://docs.adyen.com/point-of-sale/avs-responses-pos",
+        "https://docs.adyen.com/point-of-sale/determine-account-structure/configure-features",
+        "https://docs.adyen.com/point-of-sale/gift-cards-terminal-api",
+        "https://docs.adyen.com/point-of-sale/gift-cards-terminal-api/activate",
+        "https://docs.adyen.com/point-of-sale/gift-cards-terminal-api/deactivate",
+        "https://docs.adyen.com/point-of-sale/gift-cards-terminal-api/load-a-balance",
+        "https://docs.adyen.com/point-of-sale/gift-cards-terminal-api/payment",
+        "https://docs.adyen.com/point-of-sale/gift-cards-terminal-api/query-the-balance",
+        "https://docs.adyen.com/point-of-sale/gift-cards-terminal-api/refund-gift-cards",
+        "https://docs.adyen.com/point-of-sale/gift-cards-terminal-api/void",
+        "https://docs.adyen.com/point-of-sale/managing-terminals/menu-access",
+        "https://docs.adyen.com/point-of-sale/offline-payments",
+        "https://docs.adyen.com/point-of-sale/pos-timeouts",
+        "https://docs.adyen.com/point-of-sale/qr-code-wallets",
+        "https://docs.adyen.com/point-of-sale/refund-payment/cancel-a-pos-refund-request",
+        "https://docs.adyen.com/point-of-sale/shopper-engagement/shopper-input/select-input-request",
+        "https://docs.adyen.com/point-of-sale/sneak-preview/manual-deployment",
+        "https://docs.adyen.com/reporting/account-updater-results-report",
+        "https://docs.adyen.com/reporting/aggregate-settlement-report",
+        "https://docs.adyen.com/reporting/downloading-reports",
+        "https://docs.adyen.com/reporting/marketpay-payments-accounting-report",
+        "https://docs.adyen.com/reporting/monthly-and-daily-finance-report",
+        "https://docs.adyen.com/reporting/settlement-detail-report",
+        "https://docs.adyen.com/reporting/settlement-reconciliation/transaction-level/marketpay-balance-report",
+        "https://docs.adyen.com/reporting/settlement-reconciliation/transaction-level/marketplace-payments-accounting-report",
+        "https://docs.adyen.com/risk-management/configure-custom-risk-rules",
+        "https://docs.adyen.com/risk-management/configure-standard-risk-rules",
+        "https://docs.adyen.com/risk-management/configure-standard-risk-rules/consistency-rules",
+        "https://docs.adyen.com/risk-management/configure-standard-risk-rules/referral-rules",
+        "https://docs.adyen.com/risk-management/configure-standard-risk-rules/shopperdna-rules",
+        "https://docs.adyen.com/risk-management/configure-standard-risk-rules/velocity-rules",
+        "https://docs.adyen.com/unified-commerce/pay-by-link/payment-links/api"
+      ],
+      "repo_broken_links": [],
+      "confirmed_broken_links_detailed": [
+        {
+          "target_url": "https://docs.adyen.com/account/balances-pilot",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://docs.adyen.com/account/view-your-balances",
+              "anchor_text": "Balances"
+            }
+          ]
+        },
+        {
+          "target_url": "https://docs.adyen.com/account/balances-pilot/deposit",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://docs.adyen.com/account/balances",
+              "anchor_text": "Deposit"
+            }
+          ]
+        },
+        {
+          "target_url": "https://docs.adyen.com/account/balances-pilot/next-payout",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://docs.adyen.com/account/balances",
+              "anchor_text": "Next payout"
+            }
+          ]
+        },
+        {
+          "target_url": "https://docs.adyen.com/account/balances-pilot/reserve",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://docs.adyen.com/account/balances",
+              "anchor_text": "Reserve"
+            }
+          ]
+        },
+        {
+          "target_url": "https://docs.adyen.com/account/manage-your-balances-pilot",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://docs.adyen.com/account/balances",
+              "anchor_text": "manage"
+            },
+            {
+              "source_page": "https://docs.adyen.com/account/balances",
+              "anchor_text": "Manage your balances Stay updated about the balances in your company and merchant accounts."
+            },
+            {
+              "source_page": "https://docs.adyen.com/account/view-your-balances",
+              "anchor_text": "Manage your balances Stay updated about the balances in your company and merchant accounts."
+            }
+          ]
+        },
+        {
+          "target_url": "https://docs.adyen.com/account/two-factor-authentication",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://docs.adyen.com/online-payments/go-live-checklist",
+              "anchor_text": "two-factor authentication"
+            },
+            {
+              "source_page": "https://docs.adyen.com/online-payments/payments-india-compliance-guide/go-live-india",
+              "anchor_text": "two-factor authentication"
+            },
+            {
+              "source_page": "https://docs.adyen.com/plugins/adobe-commerce/go-live-checklist",
+              "anchor_text": "two-factor authentication"
+            },
+            {
+              "source_page": "https://docs.adyen.com/plugins/salesforce-commerce-cloud/composable-storefront/go-live-checklist",
+              "anchor_text": "two-factor authentication"
+            },
+            {
+              "source_page": "https://docs.adyen.com/plugins/salesforce-commerce-cloud/sfra/go-live-checklist",
+              "anchor_text": "two-factor authentication"
+            }
+          ]
+        },
+        {
+          "target_url": "https://docs.adyen.com/account/view-your-balances-pilot",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://docs.adyen.com/account/balances",
+              "anchor_text": "view"
+            },
+            {
+              "source_page": "https://docs.adyen.com/account/balances",
+              "anchor_text": "View your balances Stay updated about the balances in your company and merchant accounts."
+            },
+            {
+              "source_page": "https://docs.adyen.com/account/manage-your-balances",
+              "anchor_text": "check the balances held by your merchant account"
+            },
+            {
+              "source_page": "https://docs.adyen.com/account/manage-your-balances",
+              "anchor_text": "View your balances Stay updated about the balances in your company and merchant accounts."
+            }
+          ]
+        },
+        {
+          "target_url": "https://docs.adyen.com/api-explorer/Management/latest/patch/merchants/_merchantId_/paymentMethodSettings",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://docs.adyen.com/api-explorer/Management/latest/patch/merchants/(merchantId)/paymentMethodSettings/(paymentMethodId)",
+              "anchor_text": "type"
+            },
+            {
+              "source_page": "https://docs.adyen.com/api-explorer/Management/3/patch/merchants/(merchantId)/paymentMethodSettings/(paymentMethodId)",
+              "anchor_text": "type"
+            },
+            {
+              "source_page": "https://docs.adyen.com/api-explorer/Management/1/patch/merchants/(merchantId)/paymentMethodSettings/(paymentMethodId)",
+              "anchor_text": "type"
+            }
+          ]
+        },
+        {
+          "target_url": "https://docs.adyen.com/api-explorer/Management/latest/post/merchants/(merchantId)/paymentMethodSettings/(paymentMethodId)",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://docs.adyen.com/api-explorer/Management/latest/get/merchants/(merchantId)/paymentMethodSettings",
+              "anchor_text": "JCB-specific fields"
+            },
+            {
+              "source_page": "https://docs.adyen.com/api-explorer/Management/latest/get/merchants/(merchantId)/paymentMethodSettings",
+              "anchor_text": "Diners"
+            },
+            {
+              "source_page": "https://docs.adyen.com/api-explorer/Management/latest/get/merchants/(merchantId)/paymentMethodSettings/(paymentMethodId)",
+              "anchor_text": "JCB-specific fields"
+            },
+            {
+              "source_page": "https://docs.adyen.com/api-explorer/Management/latest/get/merchants/(merchantId)/paymentMethodSettings/(paymentMethodId)",
+              "anchor_text": "Diners"
+            },
+            {
+              "source_page": "https://docs.adyen.com/api-explorer/Management/latest/patch/merchants/(merchantId)/paymentMethodSettings/(paymentMethodId)",
+              "anchor_text": "JCB-specific fields"
+            }
+          ]
+        },
+        {
+          "target_url": "https://docs.adyen.com/api-explorer/balance-webhooks/1/post/balancePlatform.balanceAccount.balance.updated",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://docs.adyen.com/api-explorer/balanceplatform/latest/post/balancePlatforms/(balancePlatformId)/webhooks/(webhookId)/settings",
+              "anchor_text": "balance webhooks"
+            },
+            {
+              "source_page": "https://docs.adyen.com/api-explorer/balanceplatform/2/post/balancePlatforms/(balancePlatformId)/webhooks/(webhookId)/settings",
+              "anchor_text": "balance webhooks"
+            }
+          ]
+        },
+        {
+          "target_url": "https://docs.adyen.com/api-explorer/balanceplatform/latest/post/balancePlatforms/(id)/webhooks/(id)/settings",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://docs.adyen.com/api-explorer/balance-webhooks/latest/overview",
+              "anchor_text": "Configuration API"
+            },
+            {
+              "source_page": "https://docs.adyen.com/api-explorer/balance-webhooks/1/overview",
+              "anchor_text": "Configuration API"
+            }
+          ]
+        },
+        {
+          "target_url": "https://docs.adyen.com/api-explorer/transfer-webhooks/1/post/balancePlatform.transfer.created",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://docs.adyen.com/api-explorer/transfer-webhooks/latest/post/balancePlatform.transfer.updated",
+              "anchor_text": "balancePlatform.transfer.created"
+            },
+            {
+              "source_page": "https://docs.adyen.com/api-explorer/transfer-webhooks/4/post/balancePlatform.transfer.updated",
+              "anchor_text": "balancePlatform.transfer.created"
+            }
+          ]
+        },
+        {
+          "target_url": "https://docs.adyen.com/business-accounts/compliance-financial-products",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://docs.adyen.com/business-accounts/compliance-guidelines/pricing-and-eligibility",
+              "anchor_text": "Overview of compliance guidelines"
+            },
+            {
+              "source_page": "https://docs.adyen.com/business-accounts/compliance-guidelines/reporting-to-adyen",
+              "anchor_text": "Overview of compliance guidelines"
+            },
+            {
+              "source_page": "https://docs.adyen.com/business-accounts/compliance-guidelines/user-interface",
+              "anchor_text": "Overview of compliance guidelines"
+            }
+          ]
+        },
+        {
+          "target_url": "https://docs.adyen.com/business-accounts/compliance-financial-products/account-statements",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://docs.adyen.com/business-accounts/compliance-guidelines",
+              "anchor_text": "Account statements"
+            }
+          ]
+        },
+        {
+          "target_url": "https://docs.adyen.com/business-accounts/compliance-financial-products/customer-complaints",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://docs.adyen.com/business-accounts/compliance-guidelines",
+              "anchor_text": "Customer complaints"
+            },
+            {
+              "source_page": "https://docs.adyen.com/business-accounts/compliance-guidelines/reporting-to-adyen",
+              "anchor_text": "Customer complaints"
+            }
+          ]
+        },
+        {
+          "target_url": "https://docs.adyen.com/business-accounts/compliance-financial-products/customer-service-support",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://docs.adyen.com/business-accounts/compliance-guidelines",
+              "anchor_text": "Customer service and support"
+            },
+            {
+              "source_page": "https://docs.adyen.com/business-accounts/compliance-guidelines/reporting-to-adyen",
+              "anchor_text": "Customer service and support"
+            }
+          ]
+        },
+        {
+          "target_url": "https://docs.adyen.com/business-accounts/compliance-financial-products/french-intermediary",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://docs.adyen.com/business-accounts/compliance-guidelines",
+              "anchor_text": "Registration as intermediary in France"
+            }
+          ]
+        },
+        {
+          "target_url": "https://docs.adyen.com/business-accounts/compliance-financial-products/keeping-records",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://docs.adyen.com/business-accounts/compliance-guidelines",
+              "anchor_text": "Keeping records"
+            },
+            {
+              "source_page": "https://docs.adyen.com/business-accounts/compliance-guidelines/reporting-to-adyen",
+              "anchor_text": "Keeping records"
+            },
+            {
+              "source_page": "https://docs.adyen.com/business-accounts/compliance-guidelines/user-interface",
+              "anchor_text": "Keeping records"
+            }
+          ]
+        },
+        {
+          "target_url": "https://docs.adyen.com/business-accounts/compliance-financial-products/marketing-user-communication",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://docs.adyen.com/business-accounts/compliance-guidelines",
+              "anchor_text": "Marketing and communication with users"
+            },
+            {
+              "source_page": "https://docs.adyen.com/business-accounts/compliance-guidelines/keeping-records",
+              "anchor_text": "Marketing communications"
+            }
+          ]
+        },
+        {
+          "target_url": "https://docs.adyen.com/business-accounts/compliance-financial-products/pricing-and-eligibility",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://docs.adyen.com/business-accounts/compliance-guidelines",
+              "anchor_text": "Pricing and eligibility"
+            }
+          ]
+        },
+        {
+          "target_url": "https://docs.adyen.com/business-accounts/compliance-financial-products/reporting-to-adyen",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://docs.adyen.com/business-accounts/compliance-guidelines",
+              "anchor_text": "Notification and reporting to Adyen"
+            }
+          ]
+        },
+        {
+          "target_url": "https://docs.adyen.com/business-accounts/compliance-financial-products/user-interface",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://docs.adyen.com/business-accounts/compliance-guidelines/account-statements",
+              "anchor_text": "Depositor Information Sheet"
+            },
+            {
+              "source_page": "https://docs.adyen.com/business-accounts/compliance-guidelines/user-interface",
+              "anchor_text": "Depositor Information Sheet"
+            }
+          ]
+        },
+        {
+          "target_url": "https://docs.adyen.com/business-accounts/compliance-financial-products/vulnerable-users",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://docs.adyen.com/business-accounts/compliance-guidelines/customer-service-support",
+              "anchor_text": "Identifying vulnerable users"
+            }
+          ]
+        },
+        {
+          "target_url": "https://docs.adyen.com/business-accounts/compliance-guidelines/reporting-to-adyen/Vulnerable%20Customers%20Reporting%20Template.xlsx",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://docs.adyen.com/business-accounts/compliance-guidelines/reporting-to-adyen",
+              "anchor_text": "here"
+            }
+          ]
+        },
+        {
+          "target_url": "https://docs.adyen.com/business-accounts/manage-access/api-credentials-web-service",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://docs.adyen.com/business-accounts/send-funds/approve-cancel-transfers",
+              "anchor_text": "API credential roles"
+            }
+          ]
+        },
+        {
+          "target_url": "https://docs.adyen.com/capital/compliance-financial-products",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://docs.adyen.com/capital/pricing-and-eligibility",
+              "anchor_text": "Overview of compliance guidelines"
+            }
+          ]
+        },
+        {
+          "target_url": "https://docs.adyen.com/capital/compliance-financial-products/vulnerable-users",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://docs.adyen.com/capital/customer-service-support",
+              "anchor_text": "Identifying vulnerable users"
+            }
+          ]
+        },
+        {
+          "target_url": "https://docs.adyen.com/capital/reporting-to-adyen/Vulnerable%20Customers%20Reporting%20Template.xlsx",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://docs.adyen.com/capital/reporting-to-adyen",
+              "anchor_text": "here"
+            }
+          ]
+        },
+        {
+          "target_url": "https://docs.adyen.com/checkout/3d-secure/api-reference",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://docs.adyen.com/online-payments/3d-secure/native-3ds2/api-integration",
+              "anchor_text": "payload structure"
+            },
+            {
+              "source_page": "https://docs.adyen.com/online-payments/3d-secure/native-3ds2/api-integration",
+              "anchor_text": "3D Secure 2 payload structure"
+            }
+          ]
+        },
+        {
+          "target_url": "https://docs.adyen.com/checkout/3d-secure/native-3ds2",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://docs.adyen.com/online-payments/3d-secure/native-3ds2/api-integration",
+              "anchor_text": "Native 3D Secure 2 authentication"
+            }
+          ]
+        },
+        {
+          "target_url": "https://docs.adyen.com/checkout/3d-secure/native-3ds2/android-component",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://docs.adyen.com/online-payments/3d-secure/native-3ds2/api-integration",
+              "anchor_text": "Android"
+            },
+            {
+              "source_page": "https://docs.adyen.com/online-payments/3d-secure/native-3ds2/api-integration",
+              "anchor_text": "3D Secure 2 Action Component"
+            }
+          ]
+        },
+        {
+          "target_url": "https://docs.adyen.com/checkout/3d-secure/native-3ds2/ios-component",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://docs.adyen.com/online-payments/3d-secure/native-3ds2/api-integration",
+              "anchor_text": "iOS"
+            },
+            {
+              "source_page": "https://docs.adyen.com/online-payments/3d-secure/native-3ds2/api-integration",
+              "anchor_text": "3D Secure 2 Action Component"
+            }
+          ]
+        },
+        {
+          "target_url": "https://docs.adyen.com/checkout/3d-secure/other-3ds-flows/standalone-authentication",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://docs.adyen.com/online-payments/3d-secure/native-3ds2/api-integration",
+              "anchor_text": "Authentication-only"
+            }
+          ]
+        },
+        {
+          "target_url": "https://docs.adyen.com/checkout/api-only",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://docs.adyen.com/online-payments/3d-secure/native-3ds2/api-integration",
+              "anchor_text": "own payment form"
+            }
+          ]
+        },
+        {
+          "target_url": "https://docs.adyen.com/checkout/components-web",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://docs.adyen.com/online-payments/3d-secure/native-3ds2/api-integration",
+              "anchor_text": "Components integration"
+            },
+            {
+              "source_page": "https://docs.adyen.com/online-payments/3d-secure/native-3ds2/api-integration",
+              "anchor_text": "3D Secure 2 Component"
+            },
+            {
+              "source_page": "https://docs.adyen.com/online-payments/3d-secure/native-3ds2/api-integration",
+              "anchor_text": "Web Component integration"
+            }
+          ]
+        },
+        {
+          "target_url": "https://docs.adyen.com/checkout/payment-result-codes",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://docs.adyen.com/online-payments/3d-secure/native-3ds2/api-integration",
+              "anchor_text": "Result codes"
+            }
+          ]
+        },
+        {
+          "target_url": "https://docs.adyen.com/checkout/psd2-sca-compliance-and-implementation-guide",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://docs.adyen.com/online-payments/3d-secure/native-3ds2/api-integration",
+              "anchor_text": "comprehensive PSD2 SCA guide"
+            }
+          ]
+        },
+        {
+          "target_url": "https://docs.adyen.com/classic-integration",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://docs.adyen.com/api-explorer/Payment/latest/post/authorise",
+              "anchor_text": "Classic integration"
+            },
+            {
+              "source_page": "https://docs.adyen.com/api-explorer/Checkout/latest/post/payments",
+              "anchor_text": "Classic integration"
+            },
+            {
+              "source_page": "https://docs.adyen.com/api-explorer/Payment/68/post/authorise",
+              "anchor_text": "Classic integration"
+            },
+            {
+              "source_page": "https://docs.adyen.com/api-explorer/Payment/latest/post/authorise3d",
+              "anchor_text": "Classic integration"
+            },
+            {
+              "source_page": "https://docs.adyen.com/api-explorer/Payment/latest/post/authorise3ds2",
+              "anchor_text": "Classic integration"
+            }
+          ]
+        },
+        {
+          "target_url": "https://docs.adyen.com/classic-integration/3d-secure",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://docs.adyen.com/api-explorer/Payment/latest/post/authorise",
+              "anchor_text": "3D Secure"
+            },
+            {
+              "source_page": "https://docs.adyen.com/api-explorer/Payment/68/post/authorise",
+              "anchor_text": "3D Secure"
+            },
+            {
+              "source_page": "https://docs.adyen.com/api-explorer/Payment/latest/post/authorise3d",
+              "anchor_text": "3D Secure"
+            },
+            {
+              "source_page": "https://docs.adyen.com/api-explorer/Payment/latest/post/authorise3ds2",
+              "anchor_text": "3D Secure"
+            },
+            {
+              "source_page": "https://docs.adyen.com/api-explorer/Payout/latest/post/payout",
+              "anchor_text": "3D Secure"
+            }
+          ]
+        },
+        {
+          "target_url": "https://docs.adyen.com/classic-integration/cse-integration-ecommerce",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://docs.adyen.com/api-explorer/Payment/latest/post/authorise",
+              "anchor_text": "Client-Side Encryption"
+            },
+            {
+              "source_page": "https://docs.adyen.com/api-explorer/Recurring/latest/post/scheduleAccountUpdater",
+              "anchor_text": "Client-Side Encryption"
+            },
+            {
+              "source_page": "https://docs.adyen.com/api-explorer/Payment/68/post/authorise",
+              "anchor_text": "Client-Side Encryption"
+            },
+            {
+              "source_page": "https://docs.adyen.com/api-explorer/Payout/latest/post/payout",
+              "anchor_text": "Client-Side Encryption"
+            },
+            {
+              "source_page": "https://docs.adyen.com/api-explorer/Payout/latest/post/storeDetail",
+              "anchor_text": "Client-Side Encryption"
+            }
+          ]
+        },
+        {
+          "target_url": "https://docs.adyen.com/classic-integration/recurring-payments",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://docs.adyen.com/api-explorer/Payment/latest/post/authorise",
+              "anchor_text": "one-click payment request"
+            },
+            {
+              "source_page": "https://docs.adyen.com/api-explorer/Payment/latest/post/authorise",
+              "anchor_text": "recurring payments"
+            },
+            {
+              "source_page": "https://docs.adyen.com/api-explorer/Recurring/latest/post/scheduleAccountUpdater",
+              "anchor_text": "one-click payment request"
+            },
+            {
+              "source_page": "https://docs.adyen.com/api-explorer/Payment/68/post/authorise",
+              "anchor_text": "one-click payment request"
+            },
+            {
+              "source_page": "https://docs.adyen.com/api-explorer/Payment/68/post/authorise",
+              "anchor_text": "recurring payments"
+            }
+          ]
+        },
+        {
+          "target_url": "https://docs.adyen.com/classic-integration/recurring-payments/retrieve-stored-details",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://docs.adyen.com/api-explorer/Recurring/latest/post/listRecurringDetails",
+              "anchor_text": "Retrieve stored details"
+            },
+            {
+              "source_page": "https://docs.adyen.com/api-explorer/Recurring/68/post/listRecurringDetails",
+              "anchor_text": "Retrieve stored details"
+            }
+          ]
+        },
+        {
+          "target_url": "https://docs.adyen.com/classic-platforms/hosted-onboarding-page",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://docs.adyen.com/api-explorer/Hop/latest/overview",
+              "anchor_text": "onboarding page"
+            },
+            {
+              "source_page": "https://docs.adyen.com/api-explorer/Hop/6/overview",
+              "anchor_text": "onboarding page"
+            }
+          ]
+        },
+        {
+          "target_url": "https://docs.adyen.com/classic-platforms/hosted-onboarding-page/customize-experience",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://docs.adyen.com/api-explorer/Hop/latest/post/getOnboardingUrl",
+              "anchor_text": "Change the page language"
+            },
+            {
+              "source_page": "https://docs.adyen.com/api-explorer/Hop/6/post/getOnboardingUrl",
+              "anchor_text": "Change the page language"
+            }
+          ]
+        },
+        {
+          "target_url": "https://docs.adyen.com/classic-platforms/onboarding-and-verification/precheck-kyc-information",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://docs.adyen.com/api-explorer/Account/latest/post/createAccountHolder",
+              "anchor_text": "processing tier"
+            },
+            {
+              "source_page": "https://docs.adyen.com/api-explorer/Account/6/post/createAccountHolder",
+              "anchor_text": "processing tier"
+            },
+            {
+              "source_page": "https://docs.adyen.com/api-explorer/Account/4/post/createAccountHolder",
+              "anchor_text": "processing tier"
+            }
+          ]
+        },
+        {
+          "target_url": "https://docs.adyen.com/classic-platforms/payout-to-cards",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://docs.adyen.com/api-explorer/Notification/latest/post/ACCOUNT_HOLDER_CREATED",
+              "anchor_text": "Pay out to cards"
+            },
+            {
+              "source_page": "https://docs.adyen.com/api-explorer/Account/latest/post/createAccountHolder",
+              "anchor_text": "Pay out to cards"
+            },
+            {
+              "source_page": "https://docs.adyen.com/api-explorer/Notification/latest/post/ACCOUNT_HOLDER_UPDATED",
+              "anchor_text": "Pay out to cards"
+            },
+            {
+              "source_page": "https://docs.adyen.com/api-explorer/Account/6/post/uploadDocument",
+              "anchor_text": "Pay out to cards"
+            },
+            {
+              "source_page": "https://docs.adyen.com/api-explorer/Account/latest/post/uploadDocument",
+              "anchor_text": "Pay out to cards"
+            }
+          ]
+        },
+        {
+          "target_url": "https://docs.adyen.com/classic-platforms/processing-payments/route-payment-to-store",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://docs.adyen.com/api-explorer/Payment/latest/post/authorise",
+              "anchor_text": "classic integration"
+            },
+            {
+              "source_page": "https://docs.adyen.com/api-explorer/Checkout/latest/post/payments",
+              "anchor_text": "classic integration"
+            },
+            {
+              "source_page": "https://docs.adyen.com/api-explorer/Checkout/latest/post/sessions",
+              "anchor_text": "classic integration"
+            },
+            {
+              "source_page": "https://docs.adyen.com/api-explorer/Checkout/latest/post/paymentMethods",
+              "anchor_text": "classic integration"
+            },
+            {
+              "source_page": "https://docs.adyen.com/api-explorer/Payment/68/post/authorise",
+              "anchor_text": "classic integration"
+            }
+          ]
+        },
+        {
+          "target_url": "https://docs.adyen.com/classic-platforms/verification-checks",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://docs.adyen.com/api-explorer/Hop/latest/post/getOnboardingUrl",
+              "anchor_text": "KYC checks"
+            },
+            {
+              "source_page": "https://docs.adyen.com/api-explorer/Account/6/post/uploadDocument",
+              "anchor_text": "Verification checks"
+            },
+            {
+              "source_page": "https://docs.adyen.com/api-explorer/Account/latest/post/uploadDocument",
+              "anchor_text": "Verification checks"
+            },
+            {
+              "source_page": "https://docs.adyen.com/api-explorer/Account/6/post/getUploadedDocuments",
+              "anchor_text": "Verification checks"
+            },
+            {
+              "source_page": "https://docs.adyen.com/api-explorer/Hop/6/post/getOnboardingUrl",
+              "anchor_text": "KYC checks"
+            }
+          ]
+        },
+        {
+          "target_url": "https://docs.adyen.com/classic-platforms/verification-checks/bank-account-check",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://docs.adyen.com/api-explorer/Account/6/post/uploadDocument",
+              "anchor_text": "Bank account check"
+            },
+            {
+              "source_page": "https://docs.adyen.com/api-explorer/Account/latest/post/uploadDocument",
+              "anchor_text": "Bank account check"
+            },
+            {
+              "source_page": "https://docs.adyen.com/api-explorer/Account/6/post/getUploadedDocuments",
+              "anchor_text": "Bank account check"
+            },
+            {
+              "source_page": "https://docs.adyen.com/api-explorer/Account/4/post/getUploadedDocuments",
+              "anchor_text": "Bank account check"
+            },
+            {
+              "source_page": "https://docs.adyen.com/api-explorer/Account/4/post/uploadDocument",
+              "anchor_text": "Bank account check"
+            }
+          ]
+        },
+        {
+          "target_url": "https://docs.adyen.com/classic-platforms/verification-checks/legal-arrangements",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://docs.adyen.com/api-explorer/Hop/latest/post/getOnboardingUrl",
+              "anchor_text": "legal arrangement details"
+            },
+            {
+              "source_page": "https://docs.adyen.com/api-explorer/Hop/6/post/getOnboardingUrl",
+              "anchor_text": "legal arrangement details"
+            }
+          ]
+        },
+        {
+          "target_url": "https://docs.adyen.com/development-resources/building-adyen-solutions",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://docs.adyen.com/api-explorer/Payment/latest/post/authorise",
+              "anchor_text": "Building Adyen solutions"
+            },
+            {
+              "source_page": "https://docs.adyen.com/api-explorer/Checkout/latest/post/payments",
+              "anchor_text": "Building Adyen solutions"
+            },
+            {
+              "source_page": "https://docs.adyen.com/api-explorer/Checkout/latest/post/payments/(paymentPspReference)/captures",
+              "anchor_text": "Building Adyen solutions"
+            },
+            {
+              "source_page": "https://docs.adyen.com/api-explorer/Checkout/latest/post/sessions",
+              "anchor_text": "Building Adyen solutions"
+            },
+            {
+              "source_page": "https://docs.adyen.com/api-explorer/Checkout/latest/post/payments/(paymentPspReference)/refunds",
+              "anchor_text": "Building Adyen solutions"
+            }
+          ]
+        },
+        {
+          "target_url": "https://docs.adyen.com/development-resources/integration-security-guide",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://docs.adyen.com/plugins/cegid-retail-y2/troubleshooting",
+              "anchor_text": "Transport Layer Security (TLS) version 1.3"
+            },
+            {
+              "source_page": "https://docs.adyen.com/point-of-sale/mobile-android/security",
+              "anchor_text": "Integration security guide"
+            },
+            {
+              "source_page": "https://docs.adyen.com/point-of-sale/mobile-ios/security",
+              "anchor_text": "Integration security guide"
+            },
+            {
+              "source_page": "https://docs.adyen.com/development-resources/webhooks/configure-and-manage",
+              "anchor_text": "compatible TLS configuration"
+            },
+            {
+              "source_page": "https://docs.adyen.com/partners/integration-checklist",
+              "anchor_text": "Integration Security Guide"
+            }
+          ]
+        },
+        {
+          "target_url": "https://docs.adyen.com/development-resources/pgp-encryption",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://docs.adyen.com/reporting/automatically-get-reports",
+              "anchor_text": "generate a PGP key"
+            },
+            {
+              "source_page": "https://docs.adyen.com/reporting/automatically-get-reports",
+              "anchor_text": "Register your PGP public key with Adyen"
+            },
+            {
+              "source_page": "https://docs.adyen.com/development-resources/batch-processing/advanced-sftp-batch-files",
+              "anchor_text": "register your PGP public key"
+            },
+            {
+              "source_page": "https://docs.adyen.com/development-resources/batch-processing/advanced-sftp-batch-files/batch-result-file/accountupdater-result-file",
+              "anchor_text": "PGP encryption documentation"
+            },
+            {
+              "source_page": "https://docs.adyen.com/development-resources/migrating-payment-data/import-data-into-referral-lists",
+              "anchor_text": "PGP encryption documentation"
+            }
+          ]
+        },
+        {
+          "target_url": "https://docs.adyen.com/development-resources/testing/create-test-cards",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://docs.adyen.com/account/user-roles",
+              "anchor_text": "test cards for making test payments"
+            },
+            {
+              "source_page": "https://docs.adyen.com/risk-management/avs-checks",
+              "anchor_text": "create your own test cards"
+            },
+            {
+              "source_page": "https://docs.adyen.com/development-resources/test-cards-and-credentials",
+              "anchor_text": "Creating test cards Create your own test cards for testing your integration."
+            }
+          ]
+        },
+        {
+          "target_url": "https://docs.adyen.com/development-resources/testing/test-card-numbers",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://docs.adyen.com/development-resources/test-cards-and-credentials/create-test-cards",
+              "anchor_text": "generic test card numbers"
+            }
+          ]
+        },
+        {
+          "target_url": "https://docs.adyen.com/development-resources/webhooks/additional-settings",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://docs.adyen.com/api-explorer/Management/3/get/companies/(companyId)/webhooks",
+              "anchor_text": "additional settings"
+            },
+            {
+              "source_page": "https://docs.adyen.com/api-explorer/Management/3/get/companies/(companyId)/webhooks",
+              "anchor_text": "standard webhook additional setting"
+            },
+            {
+              "source_page": "https://docs.adyen.com/api-explorer/Management/3/get/companies/(companyId)/webhooks/(webhookId)",
+              "anchor_text": "additional settings"
+            },
+            {
+              "source_page": "https://docs.adyen.com/api-explorer/Management/3/get/companies/(companyId)/webhooks/(webhookId)",
+              "anchor_text": "standard webhook additional setting"
+            },
+            {
+              "source_page": "https://docs.adyen.com/api-explorer/Management/3/get/merchants/(merchantId)/webhooks",
+              "anchor_text": "additional settings"
+            }
+          ]
+        },
+        {
+          "target_url": "https://docs.adyen.com/development-resources/webhooks/understand-notifications",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://docs.adyen.com/api-explorer/Management/3/post/companies/(companyId)/webhooks/(webhookId)/test",
+              "anchor_text": "body of the notification webhook"
+            },
+            {
+              "source_page": "https://docs.adyen.com/api-explorer/Management/3/post/merchants/(merchantId)/webhooks/(webhookId)/test",
+              "anchor_text": "body of the notification webhook"
+            },
+            {
+              "source_page": "https://docs.adyen.com/development-resources/logs-resources/webhook-event-logs",
+              "anchor_text": "Understand notifications"
+            },
+            {
+              "source_page": "https://docs.adyen.com/api-explorer/Management/latest/post/merchants/(merchantId)/webhooks/(webhookId)/test",
+              "anchor_text": "body of the notification webhook"
+            },
+            {
+              "source_page": "https://docs.adyen.com/api-explorer/Management/1/post/companies/(companyId)/webhooks/(webhookId)/test",
+              "anchor_text": "body of the notification webhook"
+            }
+          ]
+        },
+        {
+          "target_url": "https://docs.adyen.com/development-resources/webhooks/verify-hmac-signatures",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://docs.adyen.com/api-explorer/Management/3/post/companies/(companyId)/webhooks/(webhookId)/generateHmac",
+              "anchor_text": "HMAC-signed notifications"
+            },
+            {
+              "source_page": "https://docs.adyen.com/api-explorer/Management/3/post/companies/(companyId)/webhooks/(webhookId)/generateHmac",
+              "anchor_text": "verify HMAC signatures"
+            },
+            {
+              "source_page": "https://docs.adyen.com/api-explorer/Management/3/post/merchants/(merchantId)/webhooks/(webhookId)/generateHmac",
+              "anchor_text": "HMAC-signed notifications"
+            },
+            {
+              "source_page": "https://docs.adyen.com/api-explorer/Management/3/post/merchants/(merchantId)/webhooks/(webhookId)/generateHmac",
+              "anchor_text": "verify HMAC signatures"
+            },
+            {
+              "source_page": "https://docs.adyen.com/api-explorer/Management/1/post/companies/(companyId)/webhooks/(webhookId)/generateHmac",
+              "anchor_text": "HMAC-signed notifications"
+            }
+          ]
+        },
+        {
+          "target_url": "https://docs.adyen.com/get-started-with-adyen/payment-glossary",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://docs.adyen.com/api-explorer/Payment/latest/post/authorise",
+              "anchor_text": "card verification code"
+            },
+            {
+              "source_page": "https://docs.adyen.com/api-explorer/Checkout/latest/post/payments",
+              "anchor_text": "one-click payments"
+            },
+            {
+              "source_page": "https://docs.adyen.com/api-explorer/Checkout/latest/post/payments",
+              "anchor_text": "sub-merchant"
+            },
+            {
+              "source_page": "https://docs.adyen.com/account/payments-lifecycle",
+              "anchor_text": "offer"
+            },
+            {
+              "source_page": "https://docs.adyen.com/account/payments-lifecycle",
+              "anchor_text": "card network"
+            }
+          ]
+        },
+        {
+          "target_url": "https://docs.adyen.com/get-started-with-adyen/prepare-application",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://docs.adyen.com/account/user-roles",
+              "anchor_text": "upload business documents for the Adyen contract"
+            }
+          ]
+        },
+        {
+          "target_url": "https://docs.adyen.com/issuing/3d-secure-and-wallets",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://docs.adyen.com/api-explorer/balanceplatform/latest/get/balanceAccounts/(id)/paymentInstruments",
+              "anchor_text": "3D Secure and digital wallets"
+            },
+            {
+              "source_page": "https://docs.adyen.com/api-explorer/balanceplatform/latest/post/paymentInstruments",
+              "anchor_text": "3D Secure and digital wallets"
+            },
+            {
+              "source_page": "https://docs.adyen.com/api-explorer/balanceplatform-webhooks/2/post/balancePlatform.paymentInstrument.created",
+              "anchor_text": "3D Secure and digital wallets"
+            },
+            {
+              "source_page": "https://docs.adyen.com/api-explorer/balanceplatform-webhooks/2/post/balancePlatform.paymentInstrument.updated",
+              "anchor_text": "3D Secure and digital wallets"
+            },
+            {
+              "source_page": "https://docs.adyen.com/api-explorer/balanceplatform/2/get/balanceAccounts/(id)/paymentInstruments",
+              "anchor_text": "3D Secure and digital wallets"
+            }
+          ]
+        },
+        {
+          "target_url": "https://docs.adyen.com/issuing/add-capabilities",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://docs.adyen.com/api-explorer/balanceplatform/latest/get/accountHolders/(id)",
+              "anchor_text": "card issuing"
+            },
+            {
+              "source_page": "https://docs.adyen.com/api-explorer/legalentity/4/post/legalEntities",
+              "anchor_text": "card issuing"
+            },
+            {
+              "source_page": "https://docs.adyen.com/api-explorer/legalentity/latest/patch/legalEntities/(id)",
+              "anchor_text": "card issuing"
+            },
+            {
+              "source_page": "https://docs.adyen.com/api-explorer/balanceplatform/latest/patch/accountHolders/(id)",
+              "anchor_text": "card issuing"
+            },
+            {
+              "source_page": "https://docs.adyen.com/api-explorer/legalentity/latest/post/legalEntities",
+              "anchor_text": "card issuing"
+            }
+          ]
+        },
+        {
+          "target_url": "https://docs.adyen.com/issuing/add-manage-funds/bank-transfer-funding",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://docs.adyen.com/issuing/add-manage-funds/funds-transfers",
+              "anchor_text": "Transfer funds from an external bank account"
+            }
+          ]
+        },
+        {
+          "target_url": "https://docs.adyen.com/issuing/add-manage-funds/process-payments/make-a-payment//verification-overview/capabilities",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://docs.adyen.com/issuing/add-manage-funds/process-payments/make-a-payment",
+              "anchor_text": "Capabilities"
+            }
+          ]
+        },
+        {
+          "target_url": "https://docs.adyen.com/issuing/add-manage-funds/split-payments",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://docs.adyen.com/issuing/add-manage-funds/external-bank-transfer",
+              "anchor_text": "split payments"
+            },
+            {
+              "source_page": "https://docs.adyen.com/issuing/add-manage-funds/external-bank-transfer",
+              "anchor_text": "Split payments"
+            },
+            {
+              "source_page": "https://docs.adyen.com/issuing/add-manage-funds/top-ups",
+              "anchor_text": "acquired payments"
+            },
+            {
+              "source_page": "https://docs.adyen.com/issuing/add-manage-funds/top-ups/top-up-webhooks",
+              "anchor_text": "Split payments Process payments and split the funds between your balance accounts."
+            }
+          ]
+        },
+        {
+          "target_url": "https://docs.adyen.com/issuing/digital-wallets",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://docs.adyen.com/issuing/manage-network-tokens",
+              "anchor_text": "adds their Adyen-issued card to the digital wallet"
+            },
+            {
+              "source_page": "https://docs.adyen.com/development-resources/webhooks/webhook-types",
+              "anchor_text": "adds their card to a digital wallet"
+            }
+          ]
+        },
+        {
+          "target_url": "https://docs.adyen.com/issuing/manage-funds",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://docs.adyen.com/api-explorer/Checkout/latest/post/payments",
+              "anchor_text": "Issuing"
+            },
+            {
+              "source_page": "https://docs.adyen.com/api-explorer/Checkout/latest/post/sessions",
+              "anchor_text": "Issuing"
+            },
+            {
+              "source_page": "https://docs.adyen.com/api-explorer/Checkout/70/post/payments",
+              "anchor_text": "Issuing"
+            },
+            {
+              "source_page": "https://docs.adyen.com/api-explorer/Checkout/latest/post/paymentLinks",
+              "anchor_text": "Issuing"
+            },
+            {
+              "source_page": "https://docs.adyen.com/api-explorer/Checkout/72/get/paymentLinks/(linkId)",
+              "anchor_text": "Issuing"
+            }
+          ]
+        },
+        {
+          "target_url": "https://docs.adyen.com/issuing/processing-payments-for-cards",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://docs.adyen.com/api-explorer/payment-webhooks/1/post/balancePlatform.payment.created",
+              "anchor_text": "relayed authorisation"
+            },
+            {
+              "source_page": "https://docs.adyen.com/api-explorer/payment-webhooks/1/post/balancePlatform.outgoingTransfer.updated",
+              "anchor_text": "relayed authorisation"
+            },
+            {
+              "source_page": "https://docs.adyen.com/api-explorer/payment-webhooks/1/post/balancePlatform.outgoingTransfer.created",
+              "anchor_text": "relayed authorisation"
+            },
+            {
+              "source_page": "https://docs.adyen.com/api-explorer/payment-webhooks/1/post/balancePlatform.payment.updated",
+              "anchor_text": "relayed authorisation"
+            },
+            {
+              "source_page": "https://docs.adyen.com/api-explorer/payment-webhooks/latest/post/balancePlatform.outgoingTransfer.created",
+              "anchor_text": "relayed authorisation"
+            }
+          ]
+        },
+        {
+          "target_url": "https://docs.adyen.com/issuing/transaction-rules",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://docs.adyen.com/issuing/authorisation/transaction-rules/create-and-manage",
+              "anchor_text": "how transaction rules work"
+            },
+            {
+              "source_page": "https://docs.adyen.com/issuing/authorisation/transaction-rules/create-and-manage",
+              "anchor_text": "rule hierarchy"
+            },
+            {
+              "source_page": "https://docs.adyen.com/api-explorer/balanceplatform/2/get/balancePlatforms/(id)/transactionRules",
+              "anchor_text": "same or lower in hierarchy"
+            },
+            {
+              "source_page": "https://docs.adyen.com/api-explorer/balanceplatform/2/get/balancePlatforms/(id)/transactionRules",
+              "anchor_text": "time interval"
+            },
+            {
+              "source_page": "https://docs.adyen.com/api-explorer/balanceplatform/2/get/balancePlatforms/(id)/transactionRules",
+              "anchor_text": "type of interval"
+            }
+          ]
+        },
+        {
+          "target_url": "https://docs.adyen.com/issuing/transaction-rules/create-and-manage",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://docs.adyen.com/issuing/authorisation/transaction-rules",
+              "anchor_text": "Override a transaction rule"
+            }
+          ]
+        },
+        {
+          "target_url": "https://docs.adyen.com/issuing/transaction-rules/examples",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://docs.adyen.com/api-explorer/balanceplatform/latest/post/transactionRules",
+              "anchor_text": "examples"
+            },
+            {
+              "source_page": "https://docs.adyen.com/api-explorer/balanceplatform/2/post/transactionRules",
+              "anchor_text": "examples"
+            }
+          ]
+        },
+        {
+          "target_url": "https://docs.adyen.com/marketplaces/compliance-financial-products/reporting-to-adyen/Vulnerable%20Customers%20Reporting%20Template.xlsx",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://docs.adyen.com/marketplaces/compliance-financial-products/reporting-to-adyen",
+              "anchor_text": "here"
+            }
+          ]
+        },
+        {
+          "target_url": "https://docs.adyen.com/marketplaces/onboard-users/hosted",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://docs.adyen.com/api-explorer/legalentity/latest/post/legalEntities/(id)/onboardingLinks",
+              "anchor_text": "marketplaces"
+            },
+            {
+              "source_page": "https://docs.adyen.com/api-explorer/legalentity/4/post/legalEntities/(id)/onboardingLinks",
+              "anchor_text": "marketplaces"
+            },
+            {
+              "source_page": "https://docs.adyen.com/api-explorer/legalentity/3/post/legalEntities/(id)/onboardingLinks",
+              "anchor_text": "marketplaces"
+            }
+          ]
+        },
+        {
+          "target_url": "https://docs.adyen.com/marketplaces/split-payments",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://docs.adyen.com/api-explorer/Payment/latest/post/authorise",
+              "anchor_text": "marketplaces"
+            },
+            {
+              "source_page": "https://docs.adyen.com/api-explorer/Checkout/latest/post/payments/(paymentPspReference)/captures",
+              "anchor_text": "marketplaces"
+            },
+            {
+              "source_page": "https://docs.adyen.com/api-explorer/Checkout/latest/post/payments/(paymentPspReference)/refunds",
+              "anchor_text": "marketplaces"
+            },
+            {
+              "source_page": "https://docs.adyen.com/api-explorer/Checkout/70/post/payments/_paymentPspReference_/refunds",
+              "anchor_text": "marketplaces"
+            },
+            {
+              "source_page": "https://docs.adyen.com/api-explorer/Checkout/70/post/payments/_paymentPspReference_/captures",
+              "anchor_text": "marketplaces"
+            }
+          ]
+        },
+        {
+          "target_url": "https://docs.adyen.com/marketplaces/verification-requirements/required-kyc-information",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://docs.adyen.com/marketplaces/manage-legal-entities",
+              "anchor_text": "Required information"
+            },
+            {
+              "source_page": "https://docs.adyen.com/marketplaces/verification-overview/verification-types",
+              "anchor_text": "required verification information"
+            },
+            {
+              "source_page": "https://docs.adyen.com/marketplaces/verification-overview/verification-types",
+              "anchor_text": "Required information"
+            },
+            {
+              "source_page": "https://docs.adyen.com/marketplaces/verification-requirements",
+              "anchor_text": "minimum required information"
+            }
+          ]
+        },
+        {
+          "target_url": "https://docs.adyen.com/online-payments/3d-secure/authentication-only",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://docs.adyen.com/api-explorer/Payment/latest/post/authorise",
+              "anchor_text": "authentication-only flow"
+            },
+            {
+              "source_page": "https://docs.adyen.com/api-explorer/Checkout/latest/post/payments",
+              "anchor_text": "authentication-only flow"
+            },
+            {
+              "source_page": "https://docs.adyen.com/api-explorer/Checkout/latest/post/sessions",
+              "anchor_text": "authentication-only flow"
+            },
+            {
+              "source_page": "https://docs.adyen.com/api-explorer/Checkout/latest/post/payments/details",
+              "anchor_text": "authentication-only flow"
+            },
+            {
+              "source_page": "https://docs.adyen.com/api-explorer/Payment/68/post/authorise",
+              "anchor_text": "authentication-only flow"
+            }
+          ]
+        },
+        {
+          "target_url": "https://docs.adyen.com/online-payments/3d-secure/native-3ds2/android",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://docs.adyen.com/online-payments/classic-integrations/classic-api-integration/3d-secure-authentication/native-3ds2/android-sdk-integration",
+              "anchor_text": "Native 3D Secure 2 for Android"
+            },
+            {
+              "source_page": "https://docs.adyen.com/payment-methods/cards/raw-card-data",
+              "anchor_text": "Android"
+            }
+          ]
+        },
+        {
+          "target_url": "https://docs.adyen.com/online-payments/3d-secure/native-3ds2/android-component",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://docs.adyen.com/online-payments/upgrade-your-integration/migrate-to-checkout-api",
+              "anchor_text": "Android 3D Secure 2 Component"
+            }
+          ]
+        },
+        {
+          "target_url": "https://docs.adyen.com/online-payments/3d-secure/native-3ds2/ios",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://docs.adyen.com/online-payments/classic-integrations/classic-api-integration/3d-secure-authentication/native-3ds2/ios-sdk-integration",
+              "anchor_text": "Native 3D Secure 2 for iOS"
+            },
+            {
+              "source_page": "https://docs.adyen.com/payment-methods/cards/raw-card-data",
+              "anchor_text": "iOS"
+            }
+          ]
+        },
+        {
+          "target_url": "https://docs.adyen.com/online-payments/3d-secure/native-3ds2/ios-component",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://docs.adyen.com/online-payments/upgrade-your-integration/migrate-to-checkout-api",
+              "anchor_text": "iOS 3D Secure 2 Component"
+            }
+          ]
+        },
+        {
+          "target_url": "https://docs.adyen.com/online-payments/3d-secure/native-3ds2/web-component",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://docs.adyen.com/online-payments/go-live-checklist",
+              "anchor_text": "3D Secure integration guides"
+            },
+            {
+              "source_page": "https://docs.adyen.com/online-payments/upgrade-your-integration/migrate-to-checkout-api",
+              "anchor_text": "native 3D Secure 2 Component"
+            },
+            {
+              "source_page": "https://docs.adyen.com/online-payments/upgrade-your-integration/migrate-to-checkout-api",
+              "anchor_text": "Web 3D Secure 2 Component"
+            }
+          ]
+        },
+        {
+          "target_url": "https://docs.adyen.com/online-payments/3d-secure/other-3ds-flows",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://docs.adyen.com/online-payments/classic-integrations/classic-api-integration/3d-secure-authentication/other-3ds-flows",
+              "anchor_text": "other 3D Secure flows on Checkout API"
+            }
+          ]
+        },
+        {
+          "target_url": "https://docs.adyen.com/online-payments/3d-secure/other-3ds-flows/authentication-only",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://docs.adyen.com/api-explorer/Payment/latest/post/authorise",
+              "anchor_text": "authentication-only integration"
+            },
+            {
+              "source_page": "https://docs.adyen.com/api-explorer/Payment/latest/post/authorise",
+              "anchor_text": "3D Secure 2 authentication"
+            },
+            {
+              "source_page": "https://docs.adyen.com/api-explorer/Payment/latest/post/authorise",
+              "anchor_text": "authentication-only integrations"
+            },
+            {
+              "source_page": "https://docs.adyen.com/api-explorer/Payment/latest/post/authorise",
+              "anchor_text": "standalone authentication-only integrations"
+            },
+            {
+              "source_page": "https://docs.adyen.com/api-explorer/Checkout/latest/post/payments",
+              "anchor_text": "authentication-only integration"
+            }
+          ]
+        },
+        {
+          "target_url": "https://docs.adyen.com/online-payments/3d-secure/other-3ds-flows/authorize-mpidata",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://docs.adyen.com/industries/markets/japan/credit-card-security-guidelines-compliance-guide",
+              "anchor_text": "Send the third-party authentication data"
+            },
+            {
+              "source_page": "https://docs.adyen.com/online-payments/classic-integrations/classic-api-integration/3d-secure-authentication/3d-secure-1/custom-3d-secure-implementation/custom-3d-secure-using-an-external-mpi",
+              "anchor_text": "authorisation-only flow on Checkout API"
+            },
+            {
+              "source_page": "https://docs.adyen.com/online-payments/classic-integrations/classic-api-integration/3d-secure-authentication/3d-secure-1/custom-3d-secure-implementation",
+              "anchor_text": "authorisation-only flow on Checkout API"
+            },
+            {
+              "source_page": "https://docs.adyen.com/online-payments/classic-integrations/classic-api-integration/3d-secure-authentication/3d-secure-1/custom-3d-secure-implementation/custom-3d-secure-using-a-hosted-mpi",
+              "anchor_text": "authorisation-only flow on Checkout API"
+            },
+            {
+              "source_page": "https://docs.adyen.com/online-payments/classic-integrations/classic-api-integration/3d-secure-authentication/other-3ds-flows/authorize-mpidata",
+              "anchor_text": "authorisation-only integration on Checkout API"
+            }
+          ]
+        },
+        {
+          "target_url": "https://docs.adyen.com/online-payments/3d-secure/other-3ds-flows/data-only",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://docs.adyen.com/online-payments/classic-integrations/classic-api-integration/3d-secure-authentication/other-3ds-flows/data-only",
+              "anchor_text": "data-only integration on Checkout API"
+            },
+            {
+              "source_page": "https://docs.adyen.com/reporting/3d-secure/authentication-report",
+              "anchor_text": "data-only flow"
+            }
+          ]
+        },
+        {
+          "target_url": "https://docs.adyen.com/online-payments/3d-secure/redirect-3ds2-3ds1",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://docs.adyen.com/online-payments/classic-integrations/classic-api-integration/3d-secure-authentication",
+              "anchor_text": "3D Secure 1 fallback."
+            },
+            {
+              "source_page": "https://docs.adyen.com/plugins/netsuite/set-up-netsuite-customer-center",
+              "anchor_text": "3D Secure 2 authentication"
+            }
+          ]
+        },
+        {
+          "target_url": "https://docs.adyen.com/online-payments/android",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://docs.adyen.com/online-payments/co-badged-cards-compliance",
+              "anchor_text": "Android Drop-in or Components"
+            },
+            {
+              "source_page": "https://docs.adyen.com/development-resources/pci-dss-compliance-guide",
+              "anchor_text": "Android"
+            }
+          ]
+        },
+        {
+          "target_url": "https://docs.adyen.com/online-payments/android/components",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://docs.adyen.com/payment-methods/cash-app-pay/android-component",
+              "anchor_text": "Android Components integration guide"
+            }
+          ]
+        },
+        {
+          "target_url": "https://docs.adyen.com/online-payments/android/drop-in",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://docs.adyen.com/online-payments/classic-integrations/classic-api-integration/3d-secure-authentication",
+              "anchor_text": "Android Drop-in"
+            },
+            {
+              "source_page": "https://docs.adyen.com/payment-methods/cash-app-pay/android-drop-in",
+              "anchor_text": "Android Drop-in integration guide"
+            }
+          ]
+        },
+        {
+          "target_url": "https://docs.adyen.com/online-payments/api-only",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://docs.adyen.com/online-payments/donations/api-only",
+              "anchor_text": "API only integration"
+            },
+            {
+              "source_page": "https://docs.adyen.com/payment-methods/affirm/api-only",
+              "anchor_text": "API only integration guide"
+            },
+            {
+              "source_page": "https://docs.adyen.com/payment-methods/afterpaytouch/api-only",
+              "anchor_text": "API-only integration guide"
+            },
+            {
+              "source_page": "https://docs.adyen.com/payment-methods/apple-pay/api-only",
+              "anchor_text": "API-only integration guide"
+            },
+            {
+              "source_page": "https://docs.adyen.com/payment-methods/bancontact/bancontact-card/api-only",
+              "anchor_text": "API-only integration guide"
+            }
+          ]
+        },
+        {
+          "target_url": "https://docs.adyen.com/online-payments/cancel-or-refund",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://docs.adyen.com/development-resources/webhooks/webhook-types",
+              "anchor_text": "cancel or refund"
+            }
+          ]
+        },
+        {
+          "target_url": "https://docs.adyen.com/online-payments/classic-integrations/api-integration-ecommerce",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://docs.adyen.com/api-explorer/Payment/latest/post/authorise",
+              "anchor_text": "classic API integration"
+            },
+            {
+              "source_page": "https://docs.adyen.com/api-explorer/Payment/68/post/authorise",
+              "anchor_text": "classic API integration"
+            },
+            {
+              "source_page": "https://docs.adyen.com/api-explorer/Payment/latest/post/adjustAuthorisation",
+              "anchor_text": "classic API integration"
+            },
+            {
+              "source_page": "https://docs.adyen.com/api-explorer/Payment/latest/post/cancelOrRefund",
+              "anchor_text": "classic API integration"
+            },
+            {
+              "source_page": "https://docs.adyen.com/api-explorer/Payment/latest/post/capture",
+              "anchor_text": "classic API integration"
+            }
+          ]
+        },
+        {
+          "target_url": "https://docs.adyen.com/online-payments/classic-integrations/api-integration-ecommerce/3d-secure",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://docs.adyen.com/api-explorer/Payment/latest/post/authorise3d",
+              "anchor_text": "classic API integration"
+            },
+            {
+              "source_page": "https://docs.adyen.com/api-explorer/Payment/latest/post/authorise3ds2",
+              "anchor_text": "classic API integration"
+            },
+            {
+              "source_page": "https://docs.adyen.com/api-explorer/Payment/68/post/authorise3ds2",
+              "anchor_text": "classic API integration"
+            },
+            {
+              "source_page": "https://docs.adyen.com/api-explorer/Payment/68/post/authorise3d",
+              "anchor_text": "classic API integration"
+            }
+          ]
+        },
+        {
+          "target_url": "https://docs.adyen.com/online-payments/components-web",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://docs.adyen.com/online-payments/3d-secure/redirect-3ds2/web-component",
+              "anchor_text": "Web Components integration guide"
+            },
+            {
+              "source_page": "https://docs.adyen.com/online-payments/donations/web-component",
+              "anchor_text": "Web Components integration guide"
+            },
+            {
+              "source_page": "https://docs.adyen.com/payment-methods/afterpaytouch/web-component",
+              "anchor_text": "Web Components integration guide"
+            },
+            {
+              "source_page": "https://docs.adyen.com/payment-methods/apple-pay/web-component",
+              "anchor_text": "Web Components integration guide"
+            },
+            {
+              "source_page": "https://docs.adyen.com/payment-methods/bancontact/bancontact-card/co-branded-cards",
+              "anchor_text": "Components for Web"
+            }
+          ]
+        },
+        {
+          "target_url": "https://docs.adyen.com/online-payments/donations/campaign-manager-web-component",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://docs.adyen.com/online-payments/upgrade-your-integration/upgrade-to-web-v6",
+              "anchor_text": "Giving Campaign Manager Component"
+            },
+            {
+              "source_page": "https://docs.adyen.com/online-payments/upgrade-your-integration/upgrade-to-web-v6/from-v3",
+              "anchor_text": "Giving Campaign Manager Component"
+            },
+            {
+              "source_page": "https://docs.adyen.com/online-payments/upgrade-your-integration/upgrade-to-web-v6/from-v4",
+              "anchor_text": "Giving Campaign Manager Component"
+            }
+          ]
+        },
+        {
+          "target_url": "https://docs.adyen.com/online-payments/drop-in-web",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://docs.adyen.com/online-payments/3d-secure/redirect-3ds2/web-drop-in",
+              "anchor_text": "Web Drop-in"
+            },
+            {
+              "source_page": "https://docs.adyen.com/online-payments/3d-secure/redirect-3ds2/web-drop-in",
+              "anchor_text": "Drop-in integration guide"
+            },
+            {
+              "source_page": "https://docs.adyen.com/online-payments/3d-secure/redirect-3ds2/web-drop-in",
+              "anchor_text": "set up your back end implementation"
+            },
+            {
+              "source_page": "https://docs.adyen.com/online-payments/3d-secure/redirect-3ds2/web-drop-in",
+              "anchor_text": "added Drop-in to your payments form"
+            },
+            {
+              "source_page": "https://docs.adyen.com/online-payments/3d-secure/redirect-3ds2/web-drop-in",
+              "anchor_text": "creating an instance of Drop-in"
+            }
+          ]
+        },
+        {
+          "target_url": "https://docs.adyen.com/online-payments/ios",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://docs.adyen.com/online-payments/co-badged-cards-compliance",
+              "anchor_text": "iOS Drop-in or Components"
+            },
+            {
+              "source_page": "https://docs.adyen.com/development-resources/pci-dss-compliance-guide",
+              "anchor_text": "iOS"
+            }
+          ]
+        },
+        {
+          "target_url": "https://docs.adyen.com/online-payments/ios/components",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://docs.adyen.com/payment-methods/cash-app-pay/ios-component",
+              "anchor_text": "iOS Components integration guide"
+            },
+            {
+              "source_page": "https://docs.adyen.com/payment-methods/cash-app-pay/ios-drop-in",
+              "anchor_text": "iOS Components integration guide"
+            }
+          ]
+        },
+        {
+          "target_url": "https://docs.adyen.com/online-payments/ios/drop-in",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://docs.adyen.com/online-payments/classic-integrations/classic-api-integration/3d-secure-authentication",
+              "anchor_text": "iOS"
+            }
+          ]
+        },
+        {
+          "target_url": "https://docs.adyen.com/online-payments/online-payouts/confirm-or-decline-payout",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://docs.adyen.com/api-explorer/Webhooks/1/post/PAYOUT_DECLINE",
+              "anchor_text": "payout was declined"
+            },
+            {
+              "source_page": "https://docs.adyen.com/api-explorer/Webhooks/latest/post/PAYOUT_DECLINE",
+              "anchor_text": "payout was declined"
+            }
+          ]
+        },
+        {
+          "target_url": "https://docs.adyen.com/online-payments/pay-by-link",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://docs.adyen.com/api-explorer/Checkout/latest/post/paymentLinks",
+              "anchor_text": "Pay by Link documentation"
+            },
+            {
+              "source_page": "https://docs.adyen.com/api-explorer/Checkout/72/patch/paymentLinks/(linkId)",
+              "anchor_text": "force the expiry of a payment link"
+            },
+            {
+              "source_page": "https://docs.adyen.com/api-explorer/Checkout/72/post/paymentLinks",
+              "anchor_text": "Pay by Link documentation"
+            },
+            {
+              "source_page": "https://docs.adyen.com/api-explorer/Checkout/70/patch/paymentLinks/(linkId)",
+              "anchor_text": "force the expiry of a payment link"
+            },
+            {
+              "source_page": "https://docs.adyen.com/api-explorer/Checkout/70/post/paymentLinks",
+              "anchor_text": "Pay by Link documentation"
+            }
+          ]
+        },
+        {
+          "target_url": "https://docs.adyen.com/online-payments/payment-result-codes",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://docs.adyen.com/online-payments/3d-secure/authorize-mpidata",
+              "anchor_text": "Result codes"
+            },
+            {
+              "source_page": "https://docs.adyen.com/online-payments/3d-secure/standalone-authentication",
+              "anchor_text": "Result codes"
+            },
+            {
+              "source_page": "https://docs.adyen.com/online-payments/classic-integrations/classic-api-integration/3d-secure-authentication/native-3ds2",
+              "anchor_text": "Result codes"
+            },
+            {
+              "source_page": "https://docs.adyen.com/online-payments/classic-integrations/classic-api-integration/3d-secure-authentication/3d-secure-1/3d-secure-1-authentication-only",
+              "anchor_text": "Result codes"
+            },
+            {
+              "source_page": "https://docs.adyen.com/online-payments/classic-integrations/classic-api-integration/3d-secure-authentication/native-3ds2/android-sdk-integration",
+              "anchor_text": "Result codes"
+            }
+          ]
+        },
+        {
+          "target_url": "https://docs.adyen.com/online-payments/react-native",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://docs.adyen.com/online-payments/co-badged-cards-compliance",
+              "anchor_text": "React Native Drop-in or Components"
+            }
+          ]
+        },
+        {
+          "target_url": "https://docs.adyen.com/online-payments/react-native/components",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://docs.adyen.com/payment-methods/apple-pay/react-native-component",
+              "anchor_text": "create configuration object for AdyenCheckout"
+            },
+            {
+              "source_page": "https://docs.adyen.com/payment-methods/apple-pay/react-native-component",
+              "anchor_text": "configure AdyenCheckout"
+            },
+            {
+              "source_page": "https://docs.adyen.com/payment-methods/apple-pay/react-native-component",
+              "anchor_text": "Components integration guide"
+            },
+            {
+              "source_page": "https://docs.adyen.com/payment-methods/google-pay/react-native-component",
+              "anchor_text": "Component integration"
+            },
+            {
+              "source_page": "https://docs.adyen.com/payment-methods/google-pay/react-native-component",
+              "anchor_text": "configure AdyenCheckout"
+            }
+          ]
+        },
+        {
+          "target_url": "https://docs.adyen.com/online-payments/react-native/drop-in",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://docs.adyen.com/payment-methods/apple-pay/react-native-drop-in",
+              "anchor_text": "create configuration object for AdyenCheckout"
+            },
+            {
+              "source_page": "https://docs.adyen.com/payment-methods/apple-pay/react-native-drop-in",
+              "anchor_text": "configure AdyenCheckout"
+            },
+            {
+              "source_page": "https://docs.adyen.com/payment-methods/apple-pay/react-native-drop-in",
+              "anchor_text": "Drop-in integration guide"
+            },
+            {
+              "source_page": "https://docs.adyen.com/payment-methods/google-pay/react-native-drop-in",
+              "anchor_text": "Drop-in integration"
+            },
+            {
+              "source_page": "https://docs.adyen.com/payment-methods/google-pay/react-native-drop-in",
+              "anchor_text": "configure AdyenCheckout"
+            }
+          ]
+        },
+        {
+          "target_url": "https://docs.adyen.com/online-payments/script-security-compliance",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://docs.adyen.com/plugins/adobe-commerce/go-live-checklist",
+              "anchor_text": "script security requirements for PCI DSS v4.0.1"
+            },
+            {
+              "source_page": "https://docs.adyen.com/plugins/salesforce-commerce-cloud/sfra/go-live-checklist",
+              "anchor_text": "Script security for PCI DSS v4.0.1 compliance"
+            },
+            {
+              "source_page": "https://docs.adyen.com/development-resources/pci-dss-compliance-guide/saq-a-eligibility",
+              "anchor_text": "Requirements 6.4.3 and 11.6.1"
+            }
+          ]
+        },
+        {
+          "target_url": "https://docs.adyen.com/online-payments/script-security-compliance/manage-script-security",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://docs.adyen.com/plugins/adobe-commerce/go-live-checklist",
+              "anchor_text": "authorize and assure the integrity of scripts"
+            }
+          ]
+        },
+        {
+          "target_url": "https://docs.adyen.com/online-payments/supported-payment-methods",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://docs.adyen.com/unified-commerce/pay-by-link",
+              "anchor_text": "preferred payment method"
+            }
+          ]
+        },
+        {
+          "target_url": "https://docs.adyen.com/online-payments/tokenization/create-and-use-tokens",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://docs.adyen.com/api-explorer/Webhooks/latest/post/ORDER_CLOSED",
+              "anchor_text": "token for stored payment details"
+            },
+            {
+              "source_page": "https://docs.adyen.com/api-explorer/Webhooks/latest/post/ORDER_OPENED",
+              "anchor_text": "token for stored payment details"
+            },
+            {
+              "source_page": "https://docs.adyen.com/api-explorer/Webhooks/latest/post/RECURRING_CONTRACT",
+              "anchor_text": "token for stored payment details"
+            },
+            {
+              "source_page": "https://docs.adyen.com/payment-methods/paypal/web-component",
+              "anchor_text": "CardOnFile"
+            },
+            {
+              "source_page": "https://docs.adyen.com/payment-methods/paypal/web-component",
+              "anchor_text": "Subscription"
+            }
+          ]
+        },
+        {
+          "target_url": "https://docs.adyen.com/online-payments/update-your-integration",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://docs.adyen.com/online-payments",
+              "anchor_text": "keeping your integration up-to-date"
+            }
+          ]
+        },
+        {
+          "target_url": "https://docs.adyen.com/payment-methods/apple-pay/enable-apple-pay",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://docs.adyen.com/api-explorer/Management/3/get/merchants/(merchantId)/paymentMethodSettings/(paymentMethodId)/getApplePayDomains",
+              "anchor_text": "Apple Pay documentation"
+            },
+            {
+              "source_page": "https://docs.adyen.com/api-explorer/Management/1/get/merchants/(merchantId)/paymentMethodSettings/(paymentMethodId)/getApplePayDomains",
+              "anchor_text": "Apple Pay documentation"
+            }
+          ]
+        },
+        {
+          "target_url": "https://docs.adyen.com/payment-methods/klarna/refunds-and-cancellations",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://docs.adyen.com/payment-methods/klarna",
+              "anchor_text": "Refunds"
+            },
+            {
+              "source_page": "https://docs.adyen.com/payment-methods/klarna",
+              "anchor_text": "Partial refunds"
+            }
+          ]
+        },
+        {
+          "target_url": "https://docs.adyen.com/payment-methods/open-banking",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://docs.adyen.com/marketplaces/payment-methods",
+              "anchor_text": "Open banking"
+            },
+            {
+              "source_page": "https://docs.adyen.com/platforms/payment-methods",
+              "anchor_text": "Pay by Bank (Europe)"
+            },
+            {
+              "source_page": "https://docs.adyen.com/development-resources/paymentmethodvariant",
+              "anchor_text": "Pay by Bank (Europe)"
+            }
+          ]
+        },
+        {
+          "target_url": "https://docs.adyen.com/payments-fundamentals/payment-glossary",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://docs.adyen.com/api-explorer/Payment/latest/post/authorise",
+              "anchor_text": "card verification code"
+            },
+            {
+              "source_page": "https://docs.adyen.com/api-explorer/Payment/latest/post/authorise",
+              "anchor_text": "card security code (CVC/CVV)"
+            },
+            {
+              "source_page": "https://docs.adyen.com/api-explorer/Payment/latest/post/authorise",
+              "anchor_text": "card-not-present transactions"
+            },
+            {
+              "source_page": "https://docs.adyen.com/api-explorer/Recurring/latest/post/scheduleAccountUpdater",
+              "anchor_text": "card verification code"
+            },
+            {
+              "source_page": "https://docs.adyen.com/api-explorer/Payment/68/post/authorise",
+              "anchor_text": "card verification code"
+            }
+          ]
+        },
+        {
+          "target_url": "https://docs.adyen.com/payouts/payout-service/pay-out-to-cards/card-payout-request",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://docs.adyen.com/payouts/payout-service/pay-out-to-cards/manage-card-details",
+              "anchor_text": "making a card payout request"
+            },
+            {
+              "source_page": "https://docs.adyen.com/payouts/payout-service/pay-out-to-cards/manage-card-details",
+              "anchor_text": "Make a card payout request Pay out your funds to a third-party card using the Transfers API."
+            },
+            {
+              "source_page": "https://docs.adyen.com/payouts/payout-service/reconciliation-use-cases/verify-balances",
+              "anchor_text": "user's third-party card"
+            },
+            {
+              "source_page": "https://docs.adyen.com/payment-methods/mobilepay",
+              "anchor_text": "payouts"
+            },
+            {
+              "source_page": "https://docs.adyen.com/payment-methods/mobilepay/api-only",
+              "anchor_text": "make a payout"
+            }
+          ]
+        },
+        {
+          "target_url": "https://docs.adyen.com/payouts/payout-service/pay-out-to-cards/manage-card-information",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://docs.adyen.com/api-explorer/transfers/latest/post/transfers",
+              "anchor_text": "token"
+            },
+            {
+              "source_page": "https://docs.adyen.com/api-explorer/transfers/latest/get/transfers/(id)",
+              "anchor_text": "token"
+            },
+            {
+              "source_page": "https://docs.adyen.com/api-explorer/transfer-webhooks/latest/post/balancePlatform.transfer.created",
+              "anchor_text": "token"
+            },
+            {
+              "source_page": "https://docs.adyen.com/api-explorer/transfer-webhooks/latest/post/balancePlatform.transfer.updated",
+              "anchor_text": "token"
+            },
+            {
+              "source_page": "https://docs.adyen.com/api-explorer/transfers/latest/get/transfers",
+              "anchor_text": "token"
+            }
+          ]
+        },
+        {
+          "target_url": "https://docs.adyen.com/payouts/payout-service/payout-to-users",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://docs.adyen.com/api-explorer/transfers/latest/post/transfers",
+              "anchor_text": "fallback priorities"
+            },
+            {
+              "source_page": "https://docs.adyen.com/api-explorer/transfers/4/post/transfers",
+              "anchor_text": "fallback priorities"
+            }
+          ]
+        },
+        {
+          "target_url": "https://docs.adyen.com/payouts/payout-service/payout-to-users/payout-webhooks",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://docs.adyen.com/payouts/payout-service/getting-paid/on-demand-payouts",
+              "anchor_text": "Payout webhooks"
+            },
+            {
+              "source_page": "https://docs.adyen.com/payouts/payout-service/getting-paid/scheduled-payouts",
+              "anchor_text": "Payout webhooks"
+            }
+          ]
+        },
+        {
+          "target_url": "https://docs.adyen.com/payouts/payout-service/payout-to-users/transfer-routes",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://docs.adyen.com/payouts/payout-service/getting-paid/scheduled-payouts",
+              "anchor_text": "calculate the available transfer routes"
+            },
+            {
+              "source_page": "https://docs.adyen.com/payouts/payout-service/getting-paid/scheduled-payouts",
+              "anchor_text": "route priorities"
+            }
+          ]
+        },
+        {
+          "target_url": "https://docs.adyen.com/platforms/build-user-dashboards/payout-components",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://docs.adyen.com/platforms/quickstart-guide/reporting",
+              "anchor_text": "Payouts Overview Component"
+            },
+            {
+              "source_page": "https://docs.adyen.com/platforms/quickstart-guide/reporting",
+              "anchor_text": "Payout Details Component"
+            },
+            {
+              "source_page": "https://docs.adyen.com/platforms/quickstart-guide/payouts",
+              "anchor_text": "Payouts Overview component"
+            },
+            {
+              "source_page": "https://docs.adyen.com/platforms/quickstart-guide/payouts",
+              "anchor_text": "Payout Details component"
+            }
+          ]
+        },
+        {
+          "target_url": "https://docs.adyen.com/platforms/build-user-dashboards/reports-component",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://docs.adyen.com/platforms/quickstart-guide/reporting",
+              "anchor_text": "Reports Component"
+            }
+          ]
+        },
+        {
+          "target_url": "https://docs.adyen.com/platforms/build-user-dashboards/transaction-components",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://docs.adyen.com/platforms/quickstart-guide/reporting",
+              "anchor_text": "Transactions Overview component"
+            },
+            {
+              "source_page": "https://docs.adyen.com/platforms/quickstart-guide/reporting",
+              "anchor_text": "Transaction Details component"
+            }
+          ]
+        },
+        {
+          "target_url": "https://docs.adyen.com/platforms/business-accounts",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://docs.adyen.com/api-explorer/balanceplatform/latest/post/paymentInstruments",
+              "anchor_text": "Issue business accounts"
+            },
+            {
+              "source_page": "https://docs.adyen.com/api-explorer/transfers/latest/post/transfers",
+              "anchor_text": "business account"
+            },
+            {
+              "source_page": "https://docs.adyen.com/api-explorer/balanceplatform/2/post/paymentInstruments",
+              "anchor_text": "Issue business accounts"
+            },
+            {
+              "source_page": "https://docs.adyen.com/api-explorer/transfers/4/post/transfers",
+              "anchor_text": "business account"
+            }
+          ]
+        },
+        {
+          "target_url": "https://docs.adyen.com/platforms/business-accounts/sca",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://docs.adyen.com/api-explorer/balanceplatform/latest/patch/registeredDevices/(id)",
+              "anchor_text": "business accounts"
+            },
+            {
+              "source_page": "https://docs.adyen.com/api-explorer/balanceplatform/2/patch/registeredDevices/(id)",
+              "anchor_text": "business accounts"
+            }
+          ]
+        },
+        {
+          "target_url": "https://docs.adyen.com/platforms/business-accounts/sca/register-devices",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://docs.adyen.com/api-explorer/balanceplatform/latest/patch/registeredDevices/(deviceId)/associations",
+              "anchor_text": "business accounts"
+            },
+            {
+              "source_page": "https://docs.adyen.com/api-explorer/balanceplatform/latest/post/registeredDevices/(deviceId)/associations",
+              "anchor_text": "business accounts"
+            },
+            {
+              "source_page": "https://docs.adyen.com/api-explorer/balanceplatform/latest/post/registeredDevices",
+              "anchor_text": "business accounts"
+            },
+            {
+              "source_page": "https://docs.adyen.com/api-explorer/balanceplatform/2/patch/registeredDevices/(deviceId)/associations",
+              "anchor_text": "business accounts"
+            },
+            {
+              "source_page": "https://docs.adyen.com/api-explorer/balanceplatform/2/post/registeredDevices",
+              "anchor_text": "business accounts"
+            }
+          ]
+        },
+        {
+          "target_url": "https://docs.adyen.com/platforms/business-accounts/send-receive-funds",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://docs.adyen.com/api-explorer/transfers/latest/overview",
+              "anchor_text": "sending funds to third parties"
+            },
+            {
+              "source_page": "https://docs.adyen.com/api-explorer/transfers/1/overview",
+              "anchor_text": "sending funds to third parties"
+            },
+            {
+              "source_page": "https://docs.adyen.com/api-explorer/transfers/4/overview",
+              "anchor_text": "sending funds to third parties"
+            }
+          ]
+        },
+        {
+          "target_url": "https://docs.adyen.com/platforms/business-accounts/transactions-api",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://docs.adyen.com/api-explorer/transfers/latest/overview",
+              "anchor_text": "getting transactions for business bank accounts"
+            },
+            {
+              "source_page": "https://docs.adyen.com/api-explorer/transfers/1/overview",
+              "anchor_text": "getting transactions for business bank accounts"
+            },
+            {
+              "source_page": "https://docs.adyen.com/api-explorer/transfers/4/overview",
+              "anchor_text": "getting transactions for business bank accounts"
+            }
+          ]
+        },
+        {
+          "target_url": "https://docs.adyen.com/platforms/capital",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://docs.adyen.com/api-explorer/transfers/latest/overview",
+              "anchor_text": "request a payout for a grant offer"
+            },
+            {
+              "source_page": "https://docs.adyen.com/api-explorer/transfers/latest/overview",
+              "anchor_text": "outstanding balances"
+            },
+            {
+              "source_page": "https://docs.adyen.com/api-explorer/balanceplatform/latest/get/grantOffers",
+              "anchor_text": "grant offers"
+            },
+            {
+              "source_page": "https://docs.adyen.com/api-explorer/transfers/1/overview",
+              "anchor_text": "request a payout for a grant offer"
+            },
+            {
+              "source_page": "https://docs.adyen.com/api-explorer/transfers/1/overview",
+              "anchor_text": "outstanding balances"
+            }
+          ]
+        },
+        {
+          "target_url": "https://docs.adyen.com/platforms/compliance-financial-products/reporting-to-adyen/Vulnerable%20Customers%20Reporting%20Template.xlsx",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://docs.adyen.com/platforms/compliance-financial-products/reporting-to-adyen",
+              "anchor_text": "here"
+            }
+          ]
+        },
+        {
+          "target_url": "https://docs.adyen.com/platforms/onboard-users/hosted",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://docs.adyen.com/api-explorer/legalentity/latest/post/legalEntities/(id)/onboardingLinks",
+              "anchor_text": "platforms"
+            },
+            {
+              "source_page": "https://docs.adyen.com/api-explorer/legalentity/4/post/legalEntities/(id)/onboardingLinks",
+              "anchor_text": "platforms"
+            },
+            {
+              "source_page": "https://docs.adyen.com/api-explorer/legalentity/3/post/legalEntities/(id)/onboardingLinks",
+              "anchor_text": "platforms"
+            }
+          ]
+        },
+        {
+          "target_url": "https://docs.adyen.com/platforms/online-payments/split-payments",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://docs.adyen.com/api-explorer/Checkout/latest/post/payments/(paymentPspReference)/captures",
+              "anchor_text": "platforms"
+            },
+            {
+              "source_page": "https://docs.adyen.com/api-explorer/Checkout/latest/post/payments/(paymentPspReference)/refunds",
+              "anchor_text": "platforms"
+            },
+            {
+              "source_page": "https://docs.adyen.com/api-explorer/Checkout/70/post/payments/_paymentPspReference_/refunds",
+              "anchor_text": "platforms"
+            },
+            {
+              "source_page": "https://docs.adyen.com/api-explorer/Checkout/70/post/payments/_paymentPspReference_/captures",
+              "anchor_text": "platforms"
+            },
+            {
+              "source_page": "https://docs.adyen.com/api-explorer/Checkout/72/post/payments/(paymentPspReference)/refunds",
+              "anchor_text": "platforms"
+            }
+          ]
+        },
+        {
+          "target_url": "https://docs.adyen.com/platforms/split-payments",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://docs.adyen.com/api-explorer/Payment/latest/post/authorise",
+              "anchor_text": "platforms"
+            },
+            {
+              "source_page": "https://docs.adyen.com/api-explorer/Payment/68/post/authorise",
+              "anchor_text": "platforms"
+            },
+            {
+              "source_page": "https://docs.adyen.com/api-explorer/Payment/latest/post/authorise3d",
+              "anchor_text": "platforms"
+            },
+            {
+              "source_page": "https://docs.adyen.com/api-explorer/Payment/latest/post/authorise3ds2",
+              "anchor_text": "platforms"
+            },
+            {
+              "source_page": "https://docs.adyen.com/api-explorer/Checkout/latest/post/paymentMethods/balance",
+              "anchor_text": "platforms"
+            }
+          ]
+        },
+        {
+          "target_url": "https://docs.adyen.com/platforms/verification-requirements/required-kyc-information",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://docs.adyen.com/get-started-with-adyen/adyen-glossary",
+              "anchor_text": "KYC verification"
+            },
+            {
+              "source_page": "https://docs.adyen.com/get-started-with-adyen/adyen-glossary",
+              "anchor_text": "required information"
+            },
+            {
+              "source_page": "https://docs.adyen.com/platforms/manage-legal-entities",
+              "anchor_text": "Required information"
+            },
+            {
+              "source_page": "https://docs.adyen.com/platforms/verification-overview/verification-types",
+              "anchor_text": "required verification information"
+            },
+            {
+              "source_page": "https://docs.adyen.com/platforms/verification-overview/verification-types",
+              "anchor_text": "Required information"
+            }
+          ]
+        },
+        {
+          "target_url": "https://docs.adyen.com/platforms}/reports-and-fees/balance-platform-accounting-report",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://docs.adyen.com/platforms/in-person-payments/surcharge",
+              "anchor_text": "Balance Platform Accounting Report"
+            }
+          ]
+        },
+        {
+          "target_url": "https://docs.adyen.com/plugins/netsuite/tokenization-in-netsuite",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://docs.adyen.com/plugins/netsuite/set-up-netsuite-customer-center",
+              "anchor_text": "tokenization in NetSuite"
+            }
+          ]
+        },
+        {
+          "target_url": "https://docs.adyen.com/plugins/salesforce-commerce-cloud/go-live-checklist",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://docs.adyen.com/plugins/salesforce-order-management-system",
+              "anchor_text": "SFCC go-live checklist"
+            },
+            {
+              "source_page": "https://docs.adyen.com/plugins/salesforce-order-management-system/install-and-set-up-the-package/manual-setup",
+              "anchor_text": "SFCC go-live checklist"
+            },
+            {
+              "source_page": "https://docs.adyen.com/plugins/salesforce-order-management-system/install-and-set-up-the-package/manual-setup",
+              "anchor_text": "configure the SFCC Business Manager"
+            }
+          ]
+        },
+        {
+          "target_url": "https://docs.adyen.com/plugins/salesforce-commerce-cloud/sfra-and-sitegenesis",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://docs.adyen.com/plugins/salesforce-commerce-cloud",
+              "anchor_text": "SFRA Use our cartridge to start processing payments with Adyen."
+            }
+          ]
+        },
+        {
+          "target_url": "https://docs.adyen.com/point-of-sale/automating-terminal-management/assign-terminals-api/classic-assign-terminals-api",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://docs.adyen.com/api-explorer/postfmapi/1/overview",
+              "anchor_text": "Classic assign terminals"
+            }
+          ]
+        },
+        {
+          "target_url": "https://docs.adyen.com/point-of-sale/automating-terminal-management/terminal-actions-api",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://docs.adyen.com/api-explorer/Management/latest/post/terminals/scheduleActions",
+              "anchor_text": "terminal action"
+            },
+            {
+              "source_page": "https://docs.adyen.com/api-explorer/Management/latest/post/terminals/scheduleActions",
+              "anchor_text": "maintenance call"
+            },
+            {
+              "source_page": "https://docs.adyen.com/api-explorer/Management/latest/get/companies/(companyId)/terminalActions/(actionId)",
+              "anchor_text": "terminal action"
+            },
+            {
+              "source_page": "https://docs.adyen.com/api-explorer/Management/latest/get/companies/(companyId)/androidApps/(id)",
+              "anchor_text": "terminal actions"
+            },
+            {
+              "source_page": "https://docs.adyen.com/api-explorer/Management/latest/get/companies/(companyId)/androidCertificates",
+              "anchor_text": "terminal actions"
+            }
+          ]
+        },
+        {
+          "target_url": "https://docs.adyen.com/point-of-sale/avs-responses-pos",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://docs.adyen.com/point-of-sale/mail-and-telephone-order-moto",
+              "anchor_text": "payment response"
+            },
+            {
+              "source_page": "https://docs.adyen.com/point-of-sale/mail-and-telephone-order-moto",
+              "anchor_text": "list of AVS responses for point of sale"
+            },
+            {
+              "source_page": "https://docs.adyen.com/point-of-sale/mail-and-telephone-order-moto",
+              "anchor_text": "AVS responses for point of sale"
+            },
+            {
+              "source_page": "https://docs.adyen.com/risk-management/avs-checks",
+              "anchor_text": "AVS responses for point of sale"
+            }
+          ]
+        },
+        {
+          "target_url": "https://docs.adyen.com/point-of-sale/determine-account-structure/configure-features",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://docs.adyen.com/api-explorer/Management/latest/patch/stores/(storeId)",
+              "anchor_text": "transaction limits and number of Store-and-Forward transactions"
+            },
+            {
+              "source_page": "https://docs.adyen.com/api-explorer/Management/latest/patch/merchants/(merchantId)/stores/(storeId)",
+              "anchor_text": "transaction limits and number of Store-and-Forward transactions"
+            },
+            {
+              "source_page": "https://docs.adyen.com/api-explorer/Management/3/patch/merchants/(merchantId)/stores/(storeId)",
+              "anchor_text": "transaction limits and number of Store-and-Forward transactions"
+            },
+            {
+              "source_page": "https://docs.adyen.com/api-explorer/Management/3/patch/stores/(storeId)",
+              "anchor_text": "transaction limits and number of Store-and-Forward transactions"
+            },
+            {
+              "source_page": "https://docs.adyen.com/api-explorer/Management/1/patch/merchants/(merchantId)/stores/(storeId)",
+              "anchor_text": "transaction limits and number of Store-and-Forward transactions"
+            }
+          ]
+        },
+        {
+          "target_url": "https://docs.adyen.com/point-of-sale/gift-cards-terminal-api",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://docs.adyen.com/payment-methods/gift-cards",
+              "anchor_text": "In-person payments Accept in-person gift card payments."
+            },
+            {
+              "source_page": "https://docs.adyen.com/payment-methods/gift-cards/stored-value-api",
+              "anchor_text": "Terminal API"
+            },
+            {
+              "source_page": "https://docs.adyen.com/plugins/cegid-retail-y2",
+              "anchor_text": "Gift card payments"
+            },
+            {
+              "source_page": "https://docs.adyen.com/point-of-sale/alternative-payment-methods/gift-cards-terminal-api/query-the-balance",
+              "anchor_text": "card entry method"
+            },
+            {
+              "source_page": "https://docs.adyen.com/point-of-sale/alternative-payment-methods/gift-cards-terminal-api/query-the-balance",
+              "anchor_text": "Gift cards and other stored value cards"
+            }
+          ]
+        },
+        {
+          "target_url": "https://docs.adyen.com/point-of-sale/gift-cards-terminal-api/activate",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://docs.adyen.com/point-of-sale/alternative-payment-methods/gift-cards-terminal-api/query-the-balance",
+              "anchor_text": "activated gift card"
+            },
+            {
+              "source_page": "https://docs.adyen.com/point-of-sale/alternative-payment-methods/gift-cards-terminal-api/query-the-balance",
+              "anchor_text": "Activate a gift card"
+            },
+            {
+              "source_page": "https://docs.adyen.com/point-of-sale/alternative-payment-methods/gift-cards-terminal-api/refund-gift-cards",
+              "anchor_text": "Activate a gift card"
+            },
+            {
+              "source_page": "https://docs.adyen.com/point-of-sale/alternative-payment-methods/gift-cards-terminal-api",
+              "anchor_text": "Activate"
+            },
+            {
+              "source_page": "https://docs.adyen.com/point-of-sale/alternative-payment-methods/gift-cards-terminal-api",
+              "anchor_text": "required Activate gift card Activate a gift card, so it can be used by a shopper."
+            }
+          ]
+        },
+        {
+          "target_url": "https://docs.adyen.com/point-of-sale/gift-cards-terminal-api/deactivate",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://docs.adyen.com/point-of-sale/alternative-payment-methods/gift-cards-terminal-api/refund-gift-cards",
+              "anchor_text": "make a cashback request"
+            },
+            {
+              "source_page": "https://docs.adyen.com/point-of-sale/alternative-payment-methods/gift-cards-terminal-api/refund-gift-cards",
+              "anchor_text": "Deactivate a gift card"
+            },
+            {
+              "source_page": "https://docs.adyen.com/point-of-sale/alternative-payment-methods/gift-cards-terminal-api/void",
+              "anchor_text": "Deactivate a gift card"
+            },
+            {
+              "source_page": "https://docs.adyen.com/point-of-sale/alternative-payment-methods/gift-cards-terminal-api",
+              "anchor_text": "Cash out"
+            },
+            {
+              "source_page": "https://docs.adyen.com/point-of-sale/alternative-payment-methods/gift-cards-terminal-api",
+              "anchor_text": "Deactivate"
+            }
+          ]
+        },
+        {
+          "target_url": "https://docs.adyen.com/point-of-sale/gift-cards-terminal-api/load-a-balance",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://docs.adyen.com/point-of-sale/alternative-payment-methods/gift-cards-terminal-api/query-the-balance",
+              "anchor_text": "Load funds to a gift card"
+            },
+            {
+              "source_page": "https://docs.adyen.com/point-of-sale/alternative-payment-methods/gift-cards-terminal-api/void",
+              "anchor_text": "loaded funds"
+            },
+            {
+              "source_page": "https://docs.adyen.com/point-of-sale/alternative-payment-methods/gift-cards-terminal-api/void",
+              "anchor_text": "Load funds to a gift card"
+            },
+            {
+              "source_page": "https://docs.adyen.com/point-of-sale/alternative-payment-methods/gift-cards-terminal-api",
+              "anchor_text": "Load an amount"
+            },
+            {
+              "source_page": "https://docs.adyen.com/point-of-sale/alternative-payment-methods/gift-cards-terminal-api",
+              "anchor_text": "Load funds Add funds to a gift card at the point of sale."
+            }
+          ]
+        },
+        {
+          "target_url": "https://docs.adyen.com/point-of-sale/gift-cards-terminal-api/payment",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://docs.adyen.com/payment-methods/gift-cards/stored-value-api",
+              "anchor_text": "In-person payments"
+            },
+            {
+              "source_page": "https://docs.adyen.com/point-of-sale/alternative-payment-methods/gift-cards-terminal-api/query-the-balance",
+              "anchor_text": "Make a gift card payment"
+            },
+            {
+              "source_page": "https://docs.adyen.com/point-of-sale/alternative-payment-methods/gift-cards-terminal-api",
+              "anchor_text": "Make a payment"
+            },
+            {
+              "source_page": "https://docs.adyen.com/point-of-sale/alternative-payment-methods/gift-cards-terminal-api",
+              "anchor_text": "Make gift card payment Make a point-of-sale gift card payment."
+            },
+            {
+              "source_page": "https://docs.adyen.com/point-of-sale/alternative-payment-methods/gift-cards-terminal-api/payment",
+              "anchor_text": "make a follow-up payment"
+            }
+          ]
+        },
+        {
+          "target_url": "https://docs.adyen.com/point-of-sale/gift-cards-terminal-api/query-the-balance",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://docs.adyen.com/point-of-sale/alternative-payment-methods/gift-cards-terminal-api/refund-gift-cards",
+              "anchor_text": "Check the balance of a gift card"
+            },
+            {
+              "source_page": "https://docs.adyen.com/point-of-sale/alternative-payment-methods/gift-cards-terminal-api",
+              "anchor_text": "Check balance"
+            },
+            {
+              "source_page": "https://docs.adyen.com/point-of-sale/alternative-payment-methods/gift-cards-terminal-api/payment",
+              "anchor_text": "Make a balance request"
+            },
+            {
+              "source_page": "https://docs.adyen.com/point-of-sale/alternative-payment-methods/gift-cards-terminal-api/payment",
+              "anchor_text": "Check the balance"
+            },
+            {
+              "source_page": "https://docs.adyen.com/point-of-sale/alternative-payment-methods/gift-cards-terminal-api/payment",
+              "anchor_text": "Check the balance of a gift card"
+            }
+          ]
+        },
+        {
+          "target_url": "https://docs.adyen.com/point-of-sale/gift-cards-terminal-api/refund-gift-cards",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://docs.adyen.com/payment-methods/gift-cards/stored-value-api",
+              "anchor_text": "In-person payments"
+            },
+            {
+              "source_page": "https://docs.adyen.com/payment-methods/gift-cards/stored-value-api/load",
+              "anchor_text": "In-person payments"
+            },
+            {
+              "source_page": "https://docs.adyen.com/payment-methods/gift-cards/stored-value-api/void",
+              "anchor_text": "in-person payments"
+            },
+            {
+              "source_page": "https://docs.adyen.com/point-of-sale/alternative-payment-methods/gift-cards-terminal-api/void",
+              "anchor_text": "Make a refund to a gift card"
+            },
+            {
+              "source_page": "https://docs.adyen.com/point-of-sale/alternative-payment-methods/gift-cards-terminal-api",
+              "anchor_text": "Refund"
+            }
+          ]
+        },
+        {
+          "target_url": "https://docs.adyen.com/point-of-sale/gift-cards-terminal-api/void",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://docs.adyen.com/point-of-sale/alternative-payment-methods/gift-cards-terminal-api",
+              "anchor_text": "Undo load transaction"
+            },
+            {
+              "source_page": "https://docs.adyen.com/account/payments-lifecycle",
+              "anchor_text": "unloaded"
+            },
+            {
+              "source_page": "https://docs.adyen.com/account/payments-lifecycle",
+              "anchor_text": "unload funds"
+            }
+          ]
+        },
+        {
+          "target_url": "https://docs.adyen.com/point-of-sale/managing-terminals/menu-access",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://docs.adyen.com/api-explorer/Management/latest/get/companies/(companyId)/terminalSettings",
+              "anchor_text": "passcodes"
+            },
+            {
+              "source_page": "https://docs.adyen.com/api-explorer/Management/latest/get/merchants/(merchantId)/terminalSettings",
+              "anchor_text": "passcodes"
+            },
+            {
+              "source_page": "https://docs.adyen.com/api-explorer/Management/latest/get/stores/(storeId)/terminalSettings",
+              "anchor_text": "passcodes"
+            },
+            {
+              "source_page": "https://docs.adyen.com/api-explorer/Management/latest/get/terminals/(terminalId)/terminalSettings",
+              "anchor_text": "passcodes"
+            },
+            {
+              "source_page": "https://docs.adyen.com/api-explorer/Management/latest/patch/companies/(companyId)/terminalSettings",
+              "anchor_text": "passcodes"
+            }
+          ]
+        },
+        {
+          "target_url": "https://docs.adyen.com/point-of-sale/offline-payments",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://docs.adyen.com/api-explorer/Management/latest/get/companies/(companyId)/terminalSettings",
+              "anchor_text": "offline payment"
+            },
+            {
+              "source_page": "https://docs.adyen.com/api-explorer/Management/latest/get/merchants/(merchantId)/terminalSettings",
+              "anchor_text": "offline payment"
+            },
+            {
+              "source_page": "https://docs.adyen.com/api-explorer/Management/latest/get/stores/(storeId)/terminalSettings",
+              "anchor_text": "offline payment"
+            },
+            {
+              "source_page": "https://docs.adyen.com/api-explorer/Management/latest/get/terminals/(terminalId)/terminalSettings",
+              "anchor_text": "offline payment"
+            },
+            {
+              "source_page": "https://docs.adyen.com/api-explorer/Management/latest/patch/companies/(companyId)/terminalSettings",
+              "anchor_text": "offline payment"
+            }
+          ]
+        },
+        {
+          "target_url": "https://docs.adyen.com/point-of-sale/pos-timeouts",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://docs.adyen.com/api-explorer/Management/latest/get/companies/(companyId)/terminalSettings",
+              "anchor_text": "time-outs"
+            },
+            {
+              "source_page": "https://docs.adyen.com/api-explorer/Management/latest/get/merchants/(merchantId)/terminalSettings",
+              "anchor_text": "time-outs"
+            },
+            {
+              "source_page": "https://docs.adyen.com/api-explorer/Management/latest/get/stores/(storeId)/terminalSettings",
+              "anchor_text": "time-outs"
+            },
+            {
+              "source_page": "https://docs.adyen.com/api-explorer/Management/latest/get/terminals/(terminalId)/terminalSettings",
+              "anchor_text": "time-outs"
+            },
+            {
+              "source_page": "https://docs.adyen.com/api-explorer/Management/latest/patch/companies/(companyId)/terminalSettings",
+              "anchor_text": "time-outs"
+            }
+          ]
+        },
+        {
+          "target_url": "https://docs.adyen.com/point-of-sale/qr-code-wallets",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://docs.adyen.com/payment-methods/grabpay",
+              "anchor_text": "In-person payments Accept in-person GrabPay payments."
+            },
+            {
+              "source_page": "https://docs.adyen.com/plugins/cegid-retail-y2",
+              "anchor_text": "QR code wallet payments"
+            },
+            {
+              "source_page": "https://docs.adyen.com/point-of-sale/testing-pos-payments",
+              "anchor_text": "QR code payments"
+            },
+            {
+              "source_page": "https://docs.adyen.com/point-of-sale/testing-pos-payments",
+              "anchor_text": "initiated by the terminal"
+            },
+            {
+              "source_page": "https://docs.adyen.com/point-of-sale/testing-pos-payments",
+              "anchor_text": "initiated by the POS app"
+            }
+          ]
+        },
+        {
+          "target_url": "https://docs.adyen.com/point-of-sale/refund-payment/cancel-a-pos-refund-request",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://docs.adyen.com/api-explorer/Webhooks/1/post/VOID_PENDING_REFUND",
+              "anchor_text": "cancel a POS refund"
+            },
+            {
+              "source_page": "https://docs.adyen.com/api-explorer/Webhooks/latest/post/VOID_PENDING_REFUND",
+              "anchor_text": "cancel a POS refund"
+            }
+          ]
+        },
+        {
+          "target_url": "https://docs.adyen.com/point-of-sale/shopper-engagement/shopper-input/select-input-request",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://docs.adyen.com/point-of-sale/shopper-engagement/shopper-input/cancel-input",
+              "anchor_text": "Make an input request"
+            },
+            {
+              "source_page": "https://docs.adyen.com/point-of-sale/shopper-engagement/shopper-input/amount",
+              "anchor_text": "Ask for another type of input"
+            },
+            {
+              "source_page": "https://docs.adyen.com/point-of-sale/shopper-engagement/shopper-input/phone-number",
+              "anchor_text": "Ask for another type of input"
+            },
+            {
+              "source_page": "https://docs.adyen.com/point-of-sale/shopper-engagement/shopper-input/menu",
+              "anchor_text": "Ask for another type of input"
+            },
+            {
+              "source_page": "https://docs.adyen.com/point-of-sale/shopper-engagement/shopper-input/digit",
+              "anchor_text": "Ask for another type of input"
+            }
+          ]
+        },
+        {
+          "target_url": "https://docs.adyen.com/point-of-sale/sneak-preview/manual-deployment",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://docs.adyen.com/point-of-sale/release-updating",
+              "anchor_text": "Manually schedule terminal software updates"
+            }
+          ]
+        },
+        {
+          "target_url": "https://docs.adyen.com/reporting/account-updater-results-report",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://docs.adyen.com/online-payments/account-updater/batch-account-updater",
+              "anchor_text": "Account Updater results report"
+            },
+            {
+              "source_page": "https://docs.adyen.com/reporting/automatically-get-reports",
+              "anchor_text": "Account Updater results report"
+            }
+          ]
+        },
+        {
+          "target_url": "https://docs.adyen.com/reporting/aggregate-settlement-report",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://docs.adyen.com/reporting/time-zone-setting",
+              "anchor_text": "Aggregate settlement details report"
+            }
+          ]
+        },
+        {
+          "target_url": "https://docs.adyen.com/reporting/downloading-reports",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://docs.adyen.com/classic-platforms/prepare-reports",
+              "anchor_text": "download reports in the test environment"
+            },
+            {
+              "source_page": "https://docs.adyen.com/classic-platforms/platforms-integration-checklist",
+              "anchor_text": "Download reports"
+            },
+            {
+              "source_page": "https://docs.adyen.com/account",
+              "anchor_text": "Reports Subscribe to reports for reconciliation and other financial tasks."
+            }
+          ]
+        },
+        {
+          "target_url": "https://docs.adyen.com/reporting/marketpay-payments-accounting-report",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://docs.adyen.com/classic-platforms/fund-transfer",
+              "anchor_text": "Marketplace Payment Accounting Report"
+            },
+            {
+              "source_page": "https://docs.adyen.com/classic-platforms/payouts/payout-notifications",
+              "anchor_text": "MarketPay payments accounting report"
+            },
+            {
+              "source_page": "https://docs.adyen.com/classic-platforms/platforms-integration-checklist",
+              "anchor_text": "payments accounting report"
+            },
+            {
+              "source_page": "https://docs.adyen.com/classic-platforms/reconciliation-use-cases/build-transactional-ledger",
+              "anchor_text": "Marketplace Payments accounting report"
+            },
+            {
+              "source_page": "https://docs.adyen.com/classic-platforms/reconciliation-use-cases/transactions-scheduled-payouts",
+              "anchor_text": "Marketplace Payments accounting report"
+            }
+          ]
+        },
+        {
+          "target_url": "https://docs.adyen.com/reporting/monthly-and-daily-finance-report",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://docs.adyen.com/account/balances/reserve",
+              "anchor_text": "Monthly finance report"
+            },
+            {
+              "source_page": "https://docs.adyen.com/account/balances/next-payout",
+              "anchor_text": "Monthly finance report"
+            }
+          ]
+        },
+        {
+          "target_url": "https://docs.adyen.com/reporting/settlement-detail-report",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://docs.adyen.com/classic-platforms/prepare-reports",
+              "anchor_text": "Settlement\u00a0details\u00a0report"
+            },
+            {
+              "source_page": "https://docs.adyen.com/classic-platforms/reconciliation-use-cases/reconcile-accounts-receivable",
+              "anchor_text": "Settlement details report"
+            },
+            {
+              "source_page": "https://docs.adyen.com/classic-platforms/reconciliation-use-cases/understand-fees",
+              "anchor_text": "Settlement\u00a0details\u00a0report"
+            },
+            {
+              "source_page": "https://docs.adyen.com/classic-platforms/reconciliation-use-cases/understand-fees",
+              "anchor_text": "Settlement details report"
+            },
+            {
+              "source_page": "https://docs.adyen.com/classic-platforms/reports-and-fees",
+              "anchor_text": "Settlement\u00a0details\u00a0report"
+            }
+          ]
+        },
+        {
+          "target_url": "https://docs.adyen.com/reporting/settlement-reconciliation/transaction-level/marketpay-balance-report",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://docs.adyen.com/classic-platforms/reconciliation-use-cases/build-transactional-ledger",
+              "anchor_text": "Marketpay Balance Report"
+            },
+            {
+              "source_page": "https://docs.adyen.com/classic-platforms/reconciliation-use-cases/transactions-scheduled-payouts",
+              "anchor_text": "Marketpay Balance Report"
+            }
+          ]
+        },
+        {
+          "target_url": "https://docs.adyen.com/reporting/settlement-reconciliation/transaction-level/marketplace-payments-accounting-report",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://docs.adyen.com/classic-platforms/top-up-accounts",
+              "anchor_text": "Marketplace Payments accounting report"
+            }
+          ]
+        },
+        {
+          "target_url": "https://docs.adyen.com/risk-management/configure-custom-risk-rules",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://docs.adyen.com/risk-management/configure-manual-risk/required-risk-field-reference",
+              "anchor_text": "Custom"
+            },
+            {
+              "source_page": "https://docs.adyen.com/risk-management/configure-manual-risk/required-risk-field-reference",
+              "anchor_text": "custom rules"
+            },
+            {
+              "source_page": "https://docs.adyen.com/risk-management/configure-manual-risk/required-risk-field-reference",
+              "anchor_text": "custom rules or lists"
+            },
+            {
+              "source_page": "https://docs.adyen.com/risk-management/configure-manual-risk/required-risk-field-reference",
+              "anchor_text": "custom risk rule"
+            },
+            {
+              "source_page": "https://docs.adyen.com/payment-methods/paypal/android-drop-in",
+              "anchor_text": "custom risk rules"
+            }
+          ]
+        },
+        {
+          "target_url": "https://docs.adyen.com/risk-management/configure-standard-risk-rules",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://docs.adyen.com/get-started-with-adyen/adyen-glossary",
+              "anchor_text": "risk checks"
+            },
+            {
+              "source_page": "https://docs.adyen.com/online-payments/classic-integrations/classic-api-integration/client-side-encryption",
+              "anchor_text": "risk analysis"
+            },
+            {
+              "source_page": "https://docs.adyen.com/reporting/invoice-reconciliation",
+              "anchor_text": "our risk engine"
+            },
+            {
+              "source_page": "https://docs.adyen.com/payment-methods/paypal/android-drop-in",
+              "anchor_text": "standard risk rules"
+            },
+            {
+              "source_page": "https://docs.adyen.com/payment-methods/paypal/web-component",
+              "anchor_text": "standard risk rules"
+            }
+          ]
+        },
+        {
+          "target_url": "https://docs.adyen.com/risk-management/configure-standard-risk-rules/consistency-rules",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://docs.adyen.com/point-of-sale/risk-management-pos",
+              "anchor_text": "Consistency"
+            },
+            {
+              "source_page": "https://docs.adyen.com/risk-management/configure-manual-risk/required-risk-field-reference",
+              "anchor_text": "Consistency rules"
+            },
+            {
+              "source_page": "https://docs.adyen.com/risk-management/configure-manual-risk/required-risk-field-reference",
+              "anchor_text": "consistency check"
+            }
+          ]
+        },
+        {
+          "target_url": "https://docs.adyen.com/risk-management/configure-standard-risk-rules/referral-rules",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://docs.adyen.com/risk-management/configure-manual-risk/required-risk-field-reference",
+              "anchor_text": "Block and trust lists"
+            },
+            {
+              "source_page": "https://docs.adyen.com/development-resources/migrating-payment-data/import-data-into-referral-lists",
+              "anchor_text": "referral lists"
+            },
+            {
+              "source_page": "https://docs.adyen.com/risk-management/automate-submitting-referrals",
+              "anchor_text": "block and trust lists"
+            }
+          ]
+        },
+        {
+          "target_url": "https://docs.adyen.com/risk-management/configure-standard-risk-rules/shopperdna-rules",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://docs.adyen.com/risk-management/configure-manual-risk/required-risk-field-reference",
+              "anchor_text": "ShopperDNA rules"
+            }
+          ]
+        },
+        {
+          "target_url": "https://docs.adyen.com/risk-management/configure-standard-risk-rules/velocity-rules",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://docs.adyen.com/risk-management/configure-manual-risk/required-risk-field-reference",
+              "anchor_text": "Velocity rules"
+            },
+            {
+              "source_page": "https://docs.adyen.com/online-payments/classic-integrations/hosted-payment-pages/hosted-payment-pages-api/hpp-payment-request",
+              "anchor_text": "velocity fraud checks"
+            }
+          ]
+        },
+        {
+          "target_url": "https://docs.adyen.com/unified-commerce/pay-by-link/payment-links/api",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://docs.adyen.com/api-explorer/Checkout/latest/post/paymentLinks",
+              "anchor_text": "Provide shopper information"
+            },
+            {
+              "source_page": "https://docs.adyen.com/api-explorer/Checkout/latest/post/paymentLinks",
+              "anchor_text": "Language and localization"
+            },
+            {
+              "source_page": "https://docs.adyen.com/api-explorer/Checkout/latest/post/paymentLinks",
+              "anchor_text": "theme"
+            },
+            {
+              "source_page": "https://docs.adyen.com/api-explorer/Checkout/72/get/paymentLinks/(linkId)",
+              "anchor_text": "Provide shopper information"
+            },
+            {
+              "source_page": "https://docs.adyen.com/api-explorer/Checkout/72/get/paymentLinks/(linkId)",
+              "anchor_text": "Language and localization"
+            }
+          ]
+        }
+      ],
+      "unverified_links_sample": []
+    }
+  ]
+}

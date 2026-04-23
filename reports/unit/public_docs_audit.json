@@ -1,0 +1,333 @@
+{
+  "generated_at": "2026-04-23T12:17:25.952413+00:00",
+  "site_url": "https://unit.co/docs",
+  "site_urls": [
+    "https://unit.co/docs"
+  ],
+  "topology_mode": "single-product",
+  "verification_modes": [
+    "authenticated",
+    "bot",
+    "browser"
+  ],
+  "sites": [
+    {
+      "site_url": "https://unit.co/docs",
+      "metrics": {
+        "crawl": {
+          "pages_crawled": 349,
+          "requested_pages": 357,
+          "urls_examined": 357,
+          "max_pages": 5000,
+          "effective_limit": 5000,
+          "auto_mode": false,
+          "stop_reason": "queue_exhausted",
+          "discovered_pages": 357,
+          "crawl_scope_basis": "discovered",
+          "crawl_scope_pages": 357,
+          "crawl_coverage_pct": 100.0,
+          "trap_urls_skipped": 0,
+          "seeded_sitemap_urls": 0,
+          "robots_sitemaps_declared": 1
+        },
+        "links": {
+          "internal_links_checked": 357,
+          "broken_internal_links_count": 2,
+          "docs_broken_links_count": 2,
+          "repo_broken_links_count": 0,
+          "broken_internal_link_samples": [
+            "https://unit.co/docs/ach/api/payments/ach/receiving/events",
+            "https://unit.co/docs/api/statements/overview/white-label-uis"
+          ],
+          "docs_broken_link_samples": [
+            "https://unit.co/docs/ach/api/payments/ach/receiving/events",
+            "https://unit.co/docs/api/statements/overview/white-label-uis"
+          ],
+          "repo_broken_link_samples": [],
+          "unreachable_links_count": 0,
+          "unverified_links_count": 0,
+          "unverified_link_samples": [],
+          "confirmed_broken_links_count": 2,
+          "excluded_links_count": 4,
+          "excluded_link_samples": [
+            "https://unit.co/docs/ETL-V2-public-guide.pdf",
+            "https://unit.co/docs/assets/files/plaid-link-79091e89b001d96067f3e7961f3df85b.png",
+            "https://unit.co/docs/img/unit-web-sdk-landing-pages/unit-white-labeled-banking-external-landing.png",
+            "https://unit.co/docs/json-schemas.zip"
+          ],
+          "_all_confirmed_broken_links": [
+            "https://unit.co/docs/ach/api/payments/ach/receiving/events",
+            "https://unit.co/docs/api/statements/overview/white-label-uis"
+          ],
+          "_all_unverified_links": [],
+          "_all_excluded_links": [
+            "https://unit.co/docs/ETL-V2-public-guide.pdf",
+            "https://unit.co/docs/assets/files/plaid-link-79091e89b001d96067f3e7961f3df85b.png",
+            "https://unit.co/docs/img/unit-web-sdk-landing-pages/unit-white-labeled-banking-external-landing.png",
+            "https://unit.co/docs/json-schemas.zip"
+          ],
+          "_all_docs_unverified_links": [],
+          "_all_repo_unverified_links": [],
+          "_broken_link_provenance": {
+            "https://unit.co/docs/ach/api/payments/ach/receiving/events": [
+              {
+                "source_page": "https://unit.co/docs/ach",
+                "anchor_text": "pending"
+              }
+            ],
+            "https://unit.co/docs/api/statements/overview/white-label-uis": [
+              {
+                "source_page": "https://unit.co/docs/api/statements/overview",
+                "anchor_text": "white-label UI components"
+              }
+            ]
+          }
+        },
+        "seo_geo": {
+          "pages_scanned": 349,
+          "missing_title_count": 28,
+          "missing_description_count": 39,
+          "multiple_h1_count": 7,
+          "heading_hierarchy_jump_count": 59,
+          "seo_geo_issue_rate_pct": 9.53
+        },
+        "api_coverage": {
+          "reference_endpoint_count": 714,
+          "api_pages_detected": 243,
+          "endpoints_with_usage_docs": 25,
+          "reference_endpoints_without_usage_docs": 689,
+          "reference_coverage_pct": 3.5,
+          "no_api_pages_found": false,
+          "coverage_determined": true,
+          "coverage_method": "heuristic",
+          "detection_note": "Contract URLs found but no operations parsed",
+          "uncovered_endpoint_samples": [
+            "ep:/account-holds/:id/release",
+            "ep:/accounts",
+            "ep:/activate",
+            "ep:/api.s.api.unit.sh/cards",
+            "ep:/api.s.api.unit.sh/chargebacks",
+            "ep:/api.s.unit.sh",
+            "ep:/api.s.unit.sh.co/store-locations",
+            "ep:/api.s.unit.sh/account-config-overrides",
+            "ep:/api.s.unit.sh/account-config-overrides'-h",
+            "ep:/api.s.unit.sh/account-config-overrides/89302",
+            "ep:/api.s.unit.sh/account-config-overrides/89302'-h",
+            "ep:/api.s.unit.sh/account-config-overrides/:overrideid",
+            "ep:/api.s.unit.sh/account-end-of-day",
+            "ep:/api.s.unit.sh/account-holds",
+            "ep:/api.s.unit.sh/account-holds'-h",
+            "ep:/api.s.unit.sh/account-holds/1",
+            "ep:/api.s.unit.sh/account-holds/:id/release",
+            "ep:/api.s.unit.sh/account-holds/:id/release'-h",
+            "ep:/api.s.unit.sh/account-holds/{id",
+            "ep:/api.s.unit.sh/accounts"
+          ]
+        },
+        "examples": {
+          "total_code_examples": 810,
+          "total_code_blocks_all": 1870,
+          "runnable_without_env": 241,
+          "blocked_by_placeholders": 307,
+          "network_bound_examples": 262,
+          "example_reliability_estimate_pct": 29.75,
+          "detection_note": ""
+        },
+        "freshness": {
+          "pages_with_last_updated_hint": 42,
+          "pages_without_last_updated_hint": 307,
+          "last_updated_coverage_pct": 12.03,
+          "samples_with_last_updated": [
+            {
+              "url": "https://unit.co/docs/white-label-uis/android-sdk",
+              "hint": "Similarly, the Payment components and Account components can communicate such that, after a payment has been made, the a"
+            },
+            {
+              "url": "https://unit.co/docs/white-label-uis/ios-sdk",
+              "hint": "Similarly, the Payment components and Account components can communicate such that, after a payment has been made, the a"
+            },
+            {
+              "url": "https://unit.co/docs/white-label-uis/language",
+              "hint": "\"description\": \"Your schedule will be updated once a draw is processed.\""
+            },
+            {
+              "url": "https://unit.co/docs/white-label-uis/web-components",
+              "hint": "Similarly, the Payment components and Account components can communicate such that, after a payment has been made, the a"
+            },
+            {
+              "url": "https://unit.co/docs/white-label-uis/react-native-sdk",
+              "hint": "Similarly, the Payment components and Account components can communicate such that, after a payment has been made, the a"
+            },
+            {
+              "url": "https://unit.co/docs/white-label-uis/white-label-changelog",
+              "hint": "4.0.0 (Apr 12, 2026)"
+            },
+            {
+              "url": "https://unit.co/docs/api/about-jsonapi",
+              "hint": "\"2001-08-15\""
+            },
+            {
+              "url": "https://unit.co/docs/api/accounts/deposit-accounts/apis",
+              "hint": "\"2001-08-15\""
+            },
+            {
+              "url": "https://unit.co/docs/api/applications/apis",
+              "hint": "\"2001-08-15\""
+            },
+            {
+              "url": "https://unit.co/docs/api/cards/apis",
+              "hint": "\"2001-08-15\""
+            }
+          ]
+        }
+      },
+      "samples": {
+        "broken_links": [
+          "https://unit.co/docs/ach/api/payments/ach/receiving/events",
+          "https://unit.co/docs/api/statements/overview/white-label-uis"
+        ],
+        "docs_broken_link_samples": [
+          "https://unit.co/docs/ach/api/payments/ach/receiving/events",
+          "https://unit.co/docs/api/statements/overview/white-label-uis"
+        ],
+        "repo_broken_link_samples": [],
+        "unverified_link_samples": [],
+        "api_uncovered_samples": [
+          "ep:/account-holds/:id/release",
+          "ep:/accounts",
+          "ep:/activate",
+          "ep:/api.s.api.unit.sh/cards",
+          "ep:/api.s.api.unit.sh/chargebacks",
+          "ep:/api.s.unit.sh",
+          "ep:/api.s.unit.sh.co/store-locations",
+          "ep:/api.s.unit.sh/account-config-overrides",
+          "ep:/api.s.unit.sh/account-config-overrides'-h",
+          "ep:/api.s.unit.sh/account-config-overrides/89302",
+          "ep:/api.s.unit.sh/account-config-overrides/89302'-h",
+          "ep:/api.s.unit.sh/account-config-overrides/:overrideid",
+          "ep:/api.s.unit.sh/account-end-of-day",
+          "ep:/api.s.unit.sh/account-holds",
+          "ep:/api.s.unit.sh/account-holds'-h",
+          "ep:/api.s.unit.sh/account-holds/1",
+          "ep:/api.s.unit.sh/account-holds/:id/release",
+          "ep:/api.s.unit.sh/account-holds/:id/release'-h",
+          "ep:/api.s.unit.sh/account-holds/{id",
+          "ep:/api.s.unit.sh/accounts"
+        ]
+      },
+      "run_count": 1
+    }
+  ],
+  "aggregate": {
+    "metrics": {
+      "crawl": {
+        "pages_crawled": 349,
+        "requested_pages": 357,
+        "urls_examined": 357,
+        "max_pages_total": 5000,
+        "discovered_pages": 357,
+        "crawl_scope_pages": 357,
+        "trap_urls_skipped": 0,
+        "crawl_coverage_pct": 100.0
+      },
+      "links": {
+        "broken_internal_links_count": 2,
+        "docs_broken_links_count": 2,
+        "repo_broken_links_count": 0,
+        "unverified_links_count": 0,
+        "confirmed_broken_links_count": 2,
+        "excluded_links_count": 4
+      },
+      "seo_geo": {
+        "seo_geo_issue_rate_pct": 9.53
+      },
+      "api_coverage": {
+        "reference_coverage_pct": 3.5,
+        "no_api_pages_found": false,
+        "api_pages_detected": 243,
+        "coverage_determined": true,
+        "detection_note": ""
+      },
+      "examples": {
+        "example_reliability_estimate_pct": 29.75
+      },
+      "freshness": {
+        "last_updated_coverage_pct": 12.03
+      }
+    },
+    "confidence": {
+      "overall_confidence_pct": 91.5,
+      "links_confidence_pct": 95.0,
+      "api_confidence_pct": 85.0,
+      "crawl_confidence_pct": 95.0
+    }
+  },
+  "confidence": {
+    "overall_confidence_pct": 91.5,
+    "links_confidence_pct": 95.0,
+    "api_confidence_pct": 85.0,
+    "crawl_confidence_pct": 95.0
+  },
+  "top_findings": [
+    "Broken internal links: 2",
+    "API usage-doc coverage is low: 3.5% (243 API pages detected)",
+    "Example reliability estimate is low: 29.75%",
+    "Freshness visibility is weak: only 12.03% pages show last updated"
+  ],
+  "llm_analysis": {
+    "status": "ok",
+    "model": "claude-sonnet-4-5",
+    "analysis": {
+      "executive_summary": "Documentation audit of unit.co/docs covered 349 pages with 100% crawl coverage and 91.5% overall confidence. Critical gaps identified: API reference coverage at only 3.5% despite 243 API pages detected, example reliability at 29.75%, and freshness metadata present on just 12.03% of pages. Site contains 2 confirmed broken internal documentation links. SEO/geo issues affect 9.53% of pages.",
+      "strengths": [
+        "Complete crawl coverage: 349 of 357 pages successfully crawled (100%)",
+        "High overall audit confidence at 91.5% with strong link verification (95%)",
+        "Zero repository navigation broken links; all 2 broken links are user-facing docs",
+        "Single-product topology provides clear documentation structure",
+        "No crawl traps detected across 357 URLs examined"
+      ],
+      "risks": [
+        "Critical: API reference coverage at 3.5% leaves 96.5% of 243 API pages without usage documentation",
+        "High: Example reliability at 29.75% indicates 70%+ of code examples may be outdated or non-functional",
+        "High: Freshness metadata missing on 87.97% of pages prevents users from assessing content currency",
+        "Medium: 2 confirmed broken internal documentation links degrade user navigation experience",
+        "Medium: SEO/geo issues on 9.53% of pages may impact discoverability and international reach",
+        "Low: API detection confidence at 85% suggests possible undercounted API surface area",
+        "Low: 4 excluded links may hide additional broken link issues"
+      ],
+      "prioritized_actions": [
+        {
+          "action": "Implement systematic API usage examples and integration guides for the 243 detected API pages to raise coverage from 3.5% to minimum 60%",
+          "impact": "critical",
+          "effort": "high"
+        },
+        {
+          "action": "Establish automated example testing pipeline to validate code samples and improve reliability from 29.75% baseline",
+          "impact": "critical",
+          "effort": "medium"
+        },
+        {
+          "action": "Add last-updated timestamps to all documentation pages (currently 12.03% coverage) using git commit dates or CMS automation",
+          "impact": "high",
+          "effort": "low"
+        },
+        {
+          "action": "Fix 2 confirmed broken internal documentation links and implement CI/CD link checking to prevent regression",
+          "impact": "high",
+          "effort": "low"
+        },
+        {
+          "action": "Resolve SEO/geo issues affecting 9.53% of pages (meta descriptions, canonical tags, language declarations)",
+          "impact": "medium",
+          "effort": "medium"
+        }
+      ],
+      "limitations": [
+        "External audit cannot verify functional correctness of API documentation or accuracy of technical content",
+        "Example reliability is estimated through heuristics; actual runtime validation requires environment access and execution",
+        "Link checking reflects point-in-time status; dynamic content and authentication-gated pages may not be fully assessed",
+        "API coverage detection at 85% confidence may undercount pages if non-standard documentation patterns are used"
+      ]
+    }
+  }
+}

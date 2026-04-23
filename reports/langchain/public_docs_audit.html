@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Public Docs Audit</title>
+<style>
+  :root { --bg:#f8fafc; --text:#0f172a; --muted:#64748b; --card:#fff; --border:#e2e8f0; --accent:#0ea5e9; }
+  body { margin:0; font-family:"Segoe UI", Arial, sans-serif; background:linear-gradient(145deg,#ecfeff,#f8fafc); color:var(--text); }
+  .wrap { max-width:1050px; margin:0 auto; padding:24px 16px 40px; }
+  .hero,.section { background:var(--card); border:1px solid var(--border); border-radius:14px; padding:16px; margin-bottom:14px; }
+  h1 { margin:0 0 8px; font-size:28px; }
+  .sub { color:var(--muted); margin:0; }
+  .grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:10px; margin-top:12px; }
+  .card { border:1px solid var(--border); border-radius:10px; padding:12px; }
+  .value { font-size:30px; font-weight:700; color:var(--accent); margin-top:6px; }
+  .label { font-size:13px; color:var(--muted); }
+  ul { margin:8px 0 0 18px; }
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="hero">
+      <h1>Public Documentation Audit</h1>
+      <p class="sub">Sites: 3 | topology: multi-project</p>
+      <p class="sub">Generated: 2026-04-21T15:10:14.374347+00:00</p>
+      <div class="grid">
+        <div class="card"><div class="label">Pages crawled</div><div class="value">808</div></div>
+        <div class="card"><div class="label">Pages discovered</div><div class="value">813</div></div>
+        <div class="card"><div class="label">Crawl coverage</div><div class="value">100.0%</div></div>
+        <div class="card"><div class="label">Broken links (docs)</div><div class="value">2</div></div>
+        <div class="card"><div class="label">Broken links (repo nav)</div><div class="value">0</div></div>
+        <div class="card"><div class="label">Unverified links</div><div class="value">5</div></div>
+        <div class="card"><div class="label">SEO/GEO issue rate</div><div class="value">17.26%</div></div>
+        <div class="card"><div class="label">API reference coverage</div><div class="value">86.67%</div></div>
+        <div class="card"><div class="label">Example reliability (estimate)</div><div class="value">0.0%</div></div>
+        <div class="card"><div class="label">Last-updated coverage</div><div class="value">99.88%</div></div>
+        <div class="card"><div class="label">Audit confidence</div><div class="value">63.5%</div></div>
+      </div>
+    </div>
+    <div class="section">
+      <h2>Top Findings</h2>
+      <ul>
+        <li>Broken internal links: 2</li><li>Link verification inconclusive for 5 URLs (auth/rate-limit/server block); these are excluded from broken-link counts.</li><li>SEO/GEO issue rate is high: 17.26%</li><li>Example reliability: 0% on 808 pages (likely detection limitation). Site may use JS-rendered code blocks.</li><li>Documentation is split across multiple sites, but marked as multi-project; no fragmentation penalty applied.</li>
+      </ul>
+    </div>
+    <div class="section">
+      <h2>Per-site Summary</h2>
+      <ul>
+        <li><strong>https://langchain-ai.github.io/langgraph</strong>: pages=1, broken_links=0, api_coverage=N/A, examples=0.0%</li><li><strong>https://python.langchain.com/docs</strong>: pages=34, broken_links=0, api_coverage=71.43%, examples=0.0%</li><li><strong>https://docs.langchain.com/</strong>: pages=773, broken_links=2, api_coverage=100.0%, examples=0.0%</li>
+      </ul>
+    </div>
+    <div class="section"><h2>LLM Executive Analysis (Claude Sonnet)</h2><p>Audit covered 808 pages across 3 LangChain documentation sites in multi-project topology mode. Crawl achieved 100% coverage with 813 discovered pages. API reference coverage is strong at 86.67% (222 API pages detected). Critical issues include 2 confirmed broken internal documentation links, 17.26% SEO/geo issue rate, and 0% example reliability estimate indicating likely detection failure on code examples. Overall confidence score is 63.5%, with links confidence notably low at 25%.</p><h3>Strengths</h3><ul><li>Complete crawl coverage at 100% (808 of 813 in-scope pages crawled)</li><li>Strong API reference coverage at 86.67% with 222 API pages successfully detected</li><li>Near-complete freshness metadata coverage at 99.88%</li><li>No repository navigation broken links (repo_broken_links_count: 0)</li><li>High crawl confidence at 95% indicating reliable topology mapping</li></ul><h3>Risks</h3><ul><li>2 confirmed broken internal documentation links requiring immediate repair</li><li>5 unverified links due to authentication, rate-limiting, or server blocks - actual breakage unknown</li><li>SEO/geo issue rate of 17.26% may impact discoverability and search ranking</li><li>0% example reliability across all 808 pages indicates detection failure - code examples likely JS-rendered and not auditable</li><li>Overall confidence only 63.5% limits reliability of audit conclusions</li><li>Links confidence critically low at 25% - link health assessment highly uncertain</li><li>Multi-site topology (3 separate doc sites) may create user navigation confusion despite no fragmentation penalty</li></ul><h3>Prioritized actions</h3><ul><li>Repair 2 confirmed broken internal documentation links <em>[critical, low]</em></li><li>Investigate 0% example reliability - implement server-side rendering or static generation for code blocks to enable detection <em>[critical, high]</em></li><li>Manually verify 5 unverified links blocked by auth/rate-limits to confirm accessibility <em>[high, low]</em></li><li>Address SEO/geo issues affecting 17.26% of pages (140 pages) - review meta tags, descriptions, and structured data <em>[high, medium]</em></li><li>Improve links confidence from 25% by resolving detection limitations and re-auditing link health <em>[medium, medium]</em></li></ul></div>
+  </div>
+</body>
+</html>

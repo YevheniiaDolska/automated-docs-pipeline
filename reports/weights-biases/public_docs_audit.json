@@ -1,0 +1,1022 @@
+{
+  "generated_at": "2026-04-22T08:27:40.311561+00:00",
+  "site_url": "https://docs.wandb.ai/",
+  "site_urls": [
+    "https://docs.wandb.ai/"
+  ],
+  "topology_mode": "multi-project",
+  "verification_modes": [
+    "authenticated",
+    "bot",
+    "browser"
+  ],
+  "sites": [
+    {
+      "site_url": "https://docs.wandb.ai/",
+      "metrics": {
+        "crawl": {
+          "pages_crawled": 4005,
+          "requested_pages": 4129,
+          "urls_examined": 4030,
+          "max_pages": 10000,
+          "effective_limit": 10000,
+          "auto_mode": false,
+          "stop_reason": "queue_exhausted",
+          "discovered_pages": 4030,
+          "crawl_scope_basis": "sitemap",
+          "crawl_scope_pages": 4030,
+          "crawl_coverage_pct": 100.0,
+          "trap_urls_skipped": 12310,
+          "seeded_sitemap_urls": 4030,
+          "robots_sitemaps_declared": 1
+        },
+        "links": {
+          "internal_links_checked": 4107,
+          "broken_internal_links_count": 38,
+          "docs_broken_links_count": 38,
+          "repo_broken_links_count": 0,
+          "broken_internal_link_samples": [
+            "https://docs.wandb.ai/fr/platform/hosting/self-managed/ref-arch.mdx",
+            "https://docs.wandb.ai/fr/weave/guides/core-types/evaluations.mdx",
+            "https://docs.wandb.ai/fr/weave/guides/core-types/prompts-version.mdx",
+            "https://docs.wandb.ai/fr/weave/guides/core-types/prompts.mdx",
+            "https://docs.wandb.ai/fr/weave/guides/tracking/tracing.mdx",
+            "https://docs.wandb.ai/ja/platform/hosting/self-managed/ref-arch.mdx",
+            "https://docs.wandb.ai/ja/weave/guides/core-types/evaluations.mdx",
+            "https://docs.wandb.ai/ja/weave/guides/core-types/leaderboards.mdx",
+            "https://docs.wandb.ai/ja/weave/guides/core-types/prompts-version.mdx",
+            "https://docs.wandb.ai/ja/weave/guides/core-types/prompts.mdx",
+            "https://docs.wandb.ai/ja/weave/guides/tracking/tracing.mdx",
+            "https://docs.wandb.ai/ko/platform/hosting/audit-logging",
+            "https://docs.wandb.ai/ko/platform/hosting/self-managed/ref-arch.mdx",
+            "https://docs.wandb.ai/ko/weave/guides/core-types/evaluations.mdx",
+            "https://docs.wandb.ai/ko/weave/guides/core-types/leaderboards.mdx",
+            "https://docs.wandb.ai/ko/weave/guides/core-types/prompts-version.mdx",
+            "https://docs.wandb.ai/ko/weave/guides/core-types/prompts.mdx",
+            "https://docs.wandb.ai/ko/weave/guides/tracking/tracing.mdx",
+            "https://docs.wandb.ai/platform/hosting/audit-logging",
+            "https://docs.wandb.ai/platform/hosting/self-managed/ref-arch.mdx"
+          ],
+          "docs_broken_link_samples": [
+            "https://docs.wandb.ai/fr/platform/hosting/self-managed/ref-arch.mdx",
+            "https://docs.wandb.ai/fr/weave/guides/core-types/evaluations.mdx",
+            "https://docs.wandb.ai/fr/weave/guides/core-types/prompts-version.mdx",
+            "https://docs.wandb.ai/fr/weave/guides/core-types/prompts.mdx",
+            "https://docs.wandb.ai/fr/weave/guides/tracking/tracing.mdx",
+            "https://docs.wandb.ai/ja/platform/hosting/self-managed/ref-arch.mdx",
+            "https://docs.wandb.ai/ja/weave/guides/core-types/evaluations.mdx",
+            "https://docs.wandb.ai/ja/weave/guides/core-types/leaderboards.mdx",
+            "https://docs.wandb.ai/ja/weave/guides/core-types/prompts-version.mdx",
+            "https://docs.wandb.ai/ja/weave/guides/core-types/prompts.mdx",
+            "https://docs.wandb.ai/ja/weave/guides/tracking/tracing.mdx",
+            "https://docs.wandb.ai/ko/platform/hosting/audit-logging",
+            "https://docs.wandb.ai/ko/platform/hosting/self-managed/ref-arch.mdx",
+            "https://docs.wandb.ai/ko/weave/guides/core-types/evaluations.mdx",
+            "https://docs.wandb.ai/ko/weave/guides/core-types/leaderboards.mdx",
+            "https://docs.wandb.ai/ko/weave/guides/core-types/prompts-version.mdx",
+            "https://docs.wandb.ai/ko/weave/guides/core-types/prompts.mdx",
+            "https://docs.wandb.ai/ko/weave/guides/tracking/tracing.mdx",
+            "https://docs.wandb.ai/platform/hosting/audit-logging",
+            "https://docs.wandb.ai/platform/hosting/self-managed/ref-arch.mdx",
+            "https://docs.wandb.ai/training/api-reference/chat-completions/create-chat-completion",
+            "https://docs.wandb.ai/training/api-reference/health/health-check",
+            "https://docs.wandb.ai/training/api-reference/health/system-check",
+            "https://docs.wandb.ai/training/api-reference/models/create-model",
+            "https://docs.wandb.ai/training/api-reference/models/delete-model",
+            "https://docs.wandb.ai/training/api-reference/models/delete-model-checkpoints",
+            "https://docs.wandb.ai/training/api-reference/models/list-model-checkpoints",
+            "https://docs.wandb.ai/training/api-reference/models/log",
+            "https://docs.wandb.ai/training/api-reference/training-jobs/create-rl-training-job",
+            "https://docs.wandb.ai/training/api-reference/training-jobs/create-sft-training-job"
+          ],
+          "repo_broken_link_samples": [],
+          "unreachable_links_count": 3,
+          "unverified_links_count": 5,
+          "unverified_link_samples": [
+            "https://docs.wandb.ai/fr/weave/guides/core-types/leaderboards.mdx",
+            "https://docs.wandb.ai/fr/weave/reference/generated_typescript_docs/intro-notebook",
+            "https://docs.wandb.ai/ja/pricing",
+            "https://docs.wandb.ai/ja/support/models/articles/what-is-the-difference-between-team-and-",
+            "https://docs.wandb.ai/ja/weave/guides/tools/deploy"
+          ],
+          "confirmed_broken_links_count": 38,
+          "excluded_links_count": 52,
+          "excluded_link_samples": [
+            "https://docs.wandb.ai/fr/models/registry/search_registry",
+            "https://docs.wandb.ai/fr/models/runs/search-runs",
+            "https://docs.wandb.ai/fr/weave/cookbooks/feedback_prod",
+            "https://docs.wandb.ai/fr/weave/guides/tracking/feedback",
+            "https://docs.wandb.ai/fr/weave/reference/python-sdk/trace/feedback",
+            "https://docs.wandb.ai/ja/models/registry/search_registry",
+            "https://docs.wandb.ai/ja/models/runs/search-runs",
+            "https://docs.wandb.ai/ja/weave/cookbooks/feedback_prod",
+            "https://docs.wandb.ai/ja/weave/guides/tracking/feedback",
+            "https://docs.wandb.ai/ja/weave/reference/python-sdk/trace/feedback",
+            "https://docs.wandb.ai/ko/models/registry/search_registry",
+            "https://docs.wandb.ai/ko/models/runs/search-runs",
+            "https://docs.wandb.ai/ko/weave/cookbooks/feedback_prod",
+            "https://docs.wandb.ai/ko/weave/guides/tracking/feedback",
+            "https://docs.wandb.ai/ko/weave/reference/python-sdk/trace/feedback",
+            "https://docs.wandb.ai/models/registry/search_registry",
+            "https://docs.wandb.ai/models/runs/search-runs",
+            "https://docs.wandb.ai/weave/cookbooks/feedback_prod",
+            "https://docs.wandb.ai/weave/guides/tracking/feedback",
+            "https://docs.wandb.ai/weave/reference/python-sdk/trace/feedback",
+            "https://docs.wandb.ai/weave/reference/service-api/feedback/cr\u00e9ation-de-feedback",
+            "https://docs.wandb.ai/weave/reference/service-api/feedback/cr\u00e9ation-par-lot-de-feedback",
+            "https://docs.wandb.ai/weave/reference/service-api/feedback/feedback-create",
+            "https://docs.wandb.ai/weave/reference/service-api/feedback/feedback-create-batch",
+            "https://docs.wandb.ai/weave/reference/service-api/feedback/feedback-payload-schema",
+            "https://docs.wandb.ai/weave/reference/service-api/feedback/feedback-purge",
+            "https://docs.wandb.ai/weave/reference/service-api/feedback/feedback-query",
+            "https://docs.wandb.ai/weave/reference/service-api/feedback/feedback-replace",
+            "https://docs.wandb.ai/weave/reference/service-api/feedback/feedback-stats",
+            "https://docs.wandb.ai/weave/reference/service-api/feedback/purge-de-feedback"
+          ],
+          "_all_confirmed_broken_links": [
+            "https://docs.wandb.ai/fr/platform/hosting/self-managed/ref-arch.mdx",
+            "https://docs.wandb.ai/fr/weave/guides/core-types/evaluations.mdx",
+            "https://docs.wandb.ai/fr/weave/guides/core-types/prompts-version.mdx",
+            "https://docs.wandb.ai/fr/weave/guides/core-types/prompts.mdx",
+            "https://docs.wandb.ai/fr/weave/guides/tracking/tracing.mdx",
+            "https://docs.wandb.ai/ja/platform/hosting/self-managed/ref-arch.mdx",
+            "https://docs.wandb.ai/ja/weave/guides/core-types/evaluations.mdx",
+            "https://docs.wandb.ai/ja/weave/guides/core-types/leaderboards.mdx",
+            "https://docs.wandb.ai/ja/weave/guides/core-types/prompts-version.mdx",
+            "https://docs.wandb.ai/ja/weave/guides/core-types/prompts.mdx",
+            "https://docs.wandb.ai/ja/weave/guides/tracking/tracing.mdx",
+            "https://docs.wandb.ai/ko/platform/hosting/audit-logging",
+            "https://docs.wandb.ai/ko/platform/hosting/self-managed/ref-arch.mdx",
+            "https://docs.wandb.ai/ko/weave/guides/core-types/evaluations.mdx",
+            "https://docs.wandb.ai/ko/weave/guides/core-types/leaderboards.mdx",
+            "https://docs.wandb.ai/ko/weave/guides/core-types/prompts-version.mdx",
+            "https://docs.wandb.ai/ko/weave/guides/core-types/prompts.mdx",
+            "https://docs.wandb.ai/ko/weave/guides/tracking/tracing.mdx",
+            "https://docs.wandb.ai/platform/hosting/audit-logging",
+            "https://docs.wandb.ai/platform/hosting/self-managed/ref-arch.mdx",
+            "https://docs.wandb.ai/training/api-reference/chat-completions/create-chat-completion",
+            "https://docs.wandb.ai/training/api-reference/health/health-check",
+            "https://docs.wandb.ai/training/api-reference/health/system-check",
+            "https://docs.wandb.ai/training/api-reference/models/create-model",
+            "https://docs.wandb.ai/training/api-reference/models/delete-model",
+            "https://docs.wandb.ai/training/api-reference/models/delete-model-checkpoints",
+            "https://docs.wandb.ai/training/api-reference/models/list-model-checkpoints",
+            "https://docs.wandb.ai/training/api-reference/models/log",
+            "https://docs.wandb.ai/training/api-reference/training-jobs/create-rl-training-job",
+            "https://docs.wandb.ai/training/api-reference/training-jobs/create-sft-training-job",
+            "https://docs.wandb.ai/training/api-reference/training-jobs/get-training-job",
+            "https://docs.wandb.ai/training/api-reference/training-jobs/get-training-job-events",
+            "https://docs.wandb.ai/weave/guides/core-types/evaluations.mdx",
+            "https://docs.wandb.ai/weave/guides/core-types/leaderboards.mdx",
+            "https://docs.wandb.ai/weave/guides/core-types/prompts-version.mdx",
+            "https://docs.wandb.ai/weave/guides/core-types/prompts.mdx",
+            "https://docs.wandb.ai/weave/guides/tracking/tracing.mdx",
+            "https://docs.wandb.ai/weave/reference/service-api/table-query-stream"
+          ],
+          "_all_unverified_links": [
+            "https://docs.wandb.ai/fr/weave/guides/core-types/leaderboards.mdx",
+            "https://docs.wandb.ai/fr/weave/reference/generated_typescript_docs/intro-notebook",
+            "https://docs.wandb.ai/ja/pricing",
+            "https://docs.wandb.ai/ja/support/models/articles/what-is-the-difference-between-team-and-",
+            "https://docs.wandb.ai/ja/weave/guides/tools/deploy"
+          ],
+          "_all_excluded_links": [
+            "https://docs.wandb.ai/fr/models/registry/search_registry",
+            "https://docs.wandb.ai/fr/models/runs/search-runs",
+            "https://docs.wandb.ai/fr/weave/cookbooks/feedback_prod",
+            "https://docs.wandb.ai/fr/weave/guides/tracking/feedback",
+            "https://docs.wandb.ai/fr/weave/reference/python-sdk/trace/feedback",
+            "https://docs.wandb.ai/ja/models/registry/search_registry",
+            "https://docs.wandb.ai/ja/models/runs/search-runs",
+            "https://docs.wandb.ai/ja/weave/cookbooks/feedback_prod",
+            "https://docs.wandb.ai/ja/weave/guides/tracking/feedback",
+            "https://docs.wandb.ai/ja/weave/reference/python-sdk/trace/feedback",
+            "https://docs.wandb.ai/ko/models/registry/search_registry",
+            "https://docs.wandb.ai/ko/models/runs/search-runs",
+            "https://docs.wandb.ai/ko/weave/cookbooks/feedback_prod",
+            "https://docs.wandb.ai/ko/weave/guides/tracking/feedback",
+            "https://docs.wandb.ai/ko/weave/reference/python-sdk/trace/feedback",
+            "https://docs.wandb.ai/models/registry/search_registry",
+            "https://docs.wandb.ai/models/runs/search-runs",
+            "https://docs.wandb.ai/weave/cookbooks/feedback_prod",
+            "https://docs.wandb.ai/weave/guides/tracking/feedback",
+            "https://docs.wandb.ai/weave/reference/python-sdk/trace/feedback",
+            "https://docs.wandb.ai/weave/reference/service-api/feedback/cr\u00e9ation-de-feedback",
+            "https://docs.wandb.ai/weave/reference/service-api/feedback/cr\u00e9ation-par-lot-de-feedback",
+            "https://docs.wandb.ai/weave/reference/service-api/feedback/feedback-create",
+            "https://docs.wandb.ai/weave/reference/service-api/feedback/feedback-create-batch",
+            "https://docs.wandb.ai/weave/reference/service-api/feedback/feedback-payload-schema",
+            "https://docs.wandb.ai/weave/reference/service-api/feedback/feedback-purge",
+            "https://docs.wandb.ai/weave/reference/service-api/feedback/feedback-query",
+            "https://docs.wandb.ai/weave/reference/service-api/feedback/feedback-replace",
+            "https://docs.wandb.ai/weave/reference/service-api/feedback/feedback-stats",
+            "https://docs.wandb.ai/weave/reference/service-api/feedback/purge-de-feedback",
+            "https://docs.wandb.ai/weave/reference/service-api/feedback/remplacement-de-feedback",
+            "https://docs.wandb.ai/weave/reference/service-api/feedback/requ\u00eate-de-feedback",
+            "https://docs.wandb.ai/weave/reference/service-api/feedback/sch\u00e9ma-de-payload-de-feedback",
+            "https://docs.wandb.ai/weave/reference/service-api/feedback/statistiques-de-feedback",
+            "https://docs.wandb.ai/weave/reference/service-api/feedback/\u30d5\u30a3\u30fc\u30c9\u30d0\u30c3\u30af\u306e\u30da\u30a4\u30ed\u30fc\u30c9\u30b9\u30ad\u30fc\u30de",
+            "https://docs.wandb.ai/weave/reference/service-api/feedback/\u30d5\u30a3\u30fc\u30c9\u30d0\u30c3\u30af\u30af\u30a8\u30ea",
+            "https://docs.wandb.ai/weave/reference/service-api/feedback/\u30d5\u30a3\u30fc\u30c9\u30d0\u30c3\u30af\u30d1\u30fc\u30b8",
+            "https://docs.wandb.ai/weave/reference/service-api/feedback/\u30d5\u30a3\u30fc\u30c9\u30d0\u30c3\u30af\u4e00\u62ec\u4f5c\u6210",
+            "https://docs.wandb.ai/weave/reference/service-api/feedback/\u30d5\u30a3\u30fc\u30c9\u30d0\u30c3\u30af\u4f5c\u6210",
+            "https://docs.wandb.ai/weave/reference/service-api/feedback/\u30d5\u30a3\u30fc\u30c9\u30d0\u30c3\u30af\u7d71\u8a08",
+            "https://docs.wandb.ai/weave/reference/service-api/feedback/\u30d5\u30a3\u30fc\u30c9\u30d0\u30c3\u30af\u7f6e\u63db",
+            "https://docs.wandb.ai/weave/reference/service-api/feedback/\ud53c\ub4dc\ubc31-\ub300\uccb4",
+            "https://docs.wandb.ai/weave/reference/service-api/feedback/\ud53c\ub4dc\ubc31-\uc0dd\uc131",
+            "https://docs.wandb.ai/weave/reference/service-api/feedback/\ud53c\ub4dc\ubc31-\uc601\uad6c-\uc0ad\uc81c",
+            "https://docs.wandb.ai/weave/reference/service-api/feedback/\ud53c\ub4dc\ubc31-\uc77c\uad04-\uc0dd\uc131",
+            "https://docs.wandb.ai/weave/reference/service-api/feedback/\ud53c\ub4dc\ubc31-\ucffc\ub9ac",
+            "https://docs.wandb.ai/weave/reference/service-api/feedback/\ud53c\ub4dc\ubc31-\ud1b5\uacc4",
+            "https://docs.wandb.ai/weave/reference/service-api/feedback/\ud53c\ub4dc\ubc31-\ud398\uc774\ub85c\ub4dc-\uc2a4\ud0a4\ub9c8",
+            "https://docs.wandb.ai/weave/reference/service-api/images/cr\u00e9ation-dimage",
+            "https://docs.wandb.ai/weave/reference/service-api/images/image-create",
+            "https://docs.wandb.ai/weave/reference/service-api/images/\u753b\u50cf\u4f5c\u6210",
+            "https://docs.wandb.ai/weave/reference/service-api/images/\uc774\ubbf8\uc9c0-\uc0dd\uc131"
+          ],
+          "_all_docs_unverified_links": [
+            "https://docs.wandb.ai/fr/weave/guides/core-types/leaderboards.mdx",
+            "https://docs.wandb.ai/fr/weave/reference/generated_typescript_docs/intro-notebook",
+            "https://docs.wandb.ai/ja/pricing",
+            "https://docs.wandb.ai/ja/support/models/articles/what-is-the-difference-between-team-and-",
+            "https://docs.wandb.ai/ja/weave/guides/tools/deploy"
+          ],
+          "_all_repo_unverified_links": [],
+          "_broken_link_provenance": {
+            "https://docs.wandb.ai/fr/platform/hosting/self-managed/ref-arch.mdx": [
+              {
+                "source_page": "https://docs.wandb.ai/fr/platform/hosting/enterprise-licenses",
+                "anchor_text": "architecture de r\u00e9f\u00e9rence"
+              }
+            ],
+            "https://docs.wandb.ai/fr/weave/guides/core-types/evaluations.mdx": [
+              {
+                "source_page": "https://docs.wandb.ai/fr/weave/guides/integrations/inference",
+                "anchor_text": "\u00e9valuer les performances"
+              },
+              {
+                "source_page": "https://docs.wandb.ai/fr/weave/guides/integrations/inference",
+                "anchor_text": "consulter les \u00e9valuations de votre mod\u00e8le"
+              }
+            ],
+            "https://docs.wandb.ai/fr/weave/guides/core-types/prompts-version.mdx": [
+              {
+                "source_page": "https://docs.wandb.ai/fr/weave/guides/core-types/prompts",
+                "anchor_text": "Stocker et suivre les versions des prompts"
+              },
+              {
+                "source_page": "https://docs.wandb.ai/fr/weave/guides/core-types/prompts",
+                "anchor_text": "page Prompts"
+              }
+            ],
+            "https://docs.wandb.ai/fr/weave/guides/core-types/prompts.mdx": [
+              {
+                "source_page": "https://docs.wandb.ai/fr/weave/guides/core-types/prompts-version",
+                "anchor_text": "avoir cr\u00e9\u00e9 et publi\u00e9 des prompts"
+              }
+            ],
+            "https://docs.wandb.ai/fr/weave/guides/tracking/tracing.mdx": [
+              {
+                "source_page": "https://docs.wandb.ai/fr/weave/guides/integrations/inference",
+                "anchor_text": "le tracing dans Weave"
+              },
+              {
+                "source_page": "https://docs.wandb.ai/fr/weave/guides/integrations/inference",
+                "anchor_text": "tracer les appels de mod\u00e8le"
+              },
+              {
+                "source_page": "https://docs.wandb.ai/fr/weave/guides/integrations/inference",
+                "anchor_text": "consulter vos traces"
+              }
+            ],
+            "https://docs.wandb.ai/ja/platform/hosting/self-managed/ref-arch.mdx": [
+              {
+                "source_page": "https://docs.wandb.ai/ja/platform/hosting/enterprise-licenses",
+                "anchor_text": "Reference architecture"
+              }
+            ],
+            "https://docs.wandb.ai/ja/weave/guides/core-types/evaluations.mdx": [
+              {
+                "source_page": "https://docs.wandb.ai/ja/weave/guides/integrations/inference",
+                "anchor_text": "\u30d1\u30d5\u30a9\u30fc\u30de\u30f3\u30b9\u3092\u8a55\u4fa1"
+              },
+              {
+                "source_page": "https://docs.wandb.ai/ja/weave/guides/integrations/inference",
+                "anchor_text": "\u30e2\u30c7\u30eb\u306e\u8a55\u4fa1\u3092\u8868\u793a\u3057\u307e\u3059"
+              }
+            ],
+            "https://docs.wandb.ai/ja/weave/guides/core-types/leaderboards.mdx": [
+              {
+                "source_page": "https://docs.wandb.ai/ja/weave/guides/integrations/inference",
+                "anchor_text": "\u30ea\u30fc\u30c0\u30fc\u30dc\u30fc\u30c9\u3092\u516c\u958b"
+              },
+              {
+                "source_page": "https://docs.wandb.ai/ja/weave/guides/integrations/inference",
+                "anchor_text": "\u751f\u6210\u3055\u308c\u305f\u30ea\u30fc\u30c0\u30fc\u30dc\u30fc\u30c9\u3092\u8868\u793a\u3057\u307e\u3059"
+              }
+            ],
+            "https://docs.wandb.ai/ja/weave/guides/core-types/prompts-version.mdx": [
+              {
+                "source_page": "https://docs.wandb.ai/ja/weave/guides/core-types/prompts",
+                "anchor_text": "\u30d7\u30ed\u30f3\u30d7\u30c8\u306e\u30d0\u30fc\u30b8\u30e7\u30f3\u306e\u4fdd\u5b58\u3068\u8ffd\u8de1"
+              },
+              {
+                "source_page": "https://docs.wandb.ai/ja/weave/guides/core-types/prompts",
+                "anchor_text": "Prompts \u30da\u30fc\u30b8"
+              }
+            ],
+            "https://docs.wandb.ai/ja/weave/guides/core-types/prompts.mdx": [
+              {
+                "source_page": "https://docs.wandb.ai/ja/weave/guides/core-types/prompts-version",
+                "anchor_text": "\u30d7\u30ed\u30f3\u30d7\u30c8\u3092\u4f5c\u6210\u3057\u3066\u516c\u958b"
+              }
+            ],
+            "https://docs.wandb.ai/ja/weave/guides/tracking/tracing.mdx": [
+              {
+                "source_page": "https://docs.wandb.ai/ja/weave/guides/integrations/inference",
+                "anchor_text": "Weave \u3067\u306e\u30c8\u30ec\u30fc\u30b9"
+              },
+              {
+                "source_page": "https://docs.wandb.ai/ja/weave/guides/integrations/inference",
+                "anchor_text": "\u30e2\u30c7\u30eb\u547c\u3073\u51fa\u3057\u3092\u30c8\u30ec\u30fc\u30b9"
+              },
+              {
+                "source_page": "https://docs.wandb.ai/ja/weave/guides/integrations/inference",
+                "anchor_text": "\u30c8\u30ec\u30fc\u30b9\u3092\u8868\u793a\u3057\u307e\u3059"
+              }
+            ],
+            "https://docs.wandb.ai/ko/platform/hosting/audit-logging": [
+              {
+                "source_page": "https://docs.wandb.ai/ko/release-notes/server-releases-archived",
+                "anchor_text": "\uac10\uc0ac \ub85c\uadf8"
+              }
+            ],
+            "https://docs.wandb.ai/ko/platform/hosting/self-managed/ref-arch.mdx": [
+              {
+                "source_page": "https://docs.wandb.ai/ko/platform/hosting/enterprise-licenses",
+                "anchor_text": "\ub808\ud37c\ub7f0\uc2a4 \uc544\ud0a4\ud14d\ucc98"
+              }
+            ],
+            "https://docs.wandb.ai/ko/weave/guides/core-types/evaluations.mdx": [
+              {
+                "source_page": "https://docs.wandb.ai/ko/weave/guides/integrations/inference",
+                "anchor_text": "\uc131\ub2a5\uc744 \ud3c9\uac00"
+              },
+              {
+                "source_page": "https://docs.wandb.ai/ko/weave/guides/integrations/inference",
+                "anchor_text": "\ubaa8\ub378 \ud3c9\uac00\ub97c \ud655\uc778\ud569\ub2c8\ub2e4"
+              }
+            ],
+            "https://docs.wandb.ai/ko/weave/guides/core-types/leaderboards.mdx": [
+              {
+                "source_page": "https://docs.wandb.ai/ko/weave/guides/integrations/inference",
+                "anchor_text": "\ub9ac\ub354\ubcf4\ub4dc\ub97c \uac8c\uc2dc"
+              },
+              {
+                "source_page": "https://docs.wandb.ai/ko/weave/guides/integrations/inference",
+                "anchor_text": "\uc0dd\uc131\ub41c \ub9ac\ub354\ubcf4\ub4dc\ub97c \ud655\uc778\ud569\ub2c8\ub2e4"
+              }
+            ],
+            "https://docs.wandb.ai/ko/weave/guides/core-types/prompts-version.mdx": [
+              {
+                "source_page": "https://docs.wandb.ai/ko/weave/guides/core-types/prompts",
+                "anchor_text": "\ud504\ub86c\ud504\ud2b8 \ubc84\uc804 \uc800\uc7a5 \ubc0f \ucd94\uc801"
+              },
+              {
+                "source_page": "https://docs.wandb.ai/ko/weave/guides/core-types/prompts",
+                "anchor_text": "Prompts \ud398\uc774\uc9c0"
+              }
+            ],
+            "https://docs.wandb.ai/ko/weave/guides/core-types/prompts.mdx": [
+              {
+                "source_page": "https://docs.wandb.ai/ko/weave/guides/core-types/prompts-version",
+                "anchor_text": "\ud504\ub86c\ud504\ud2b8\ub97c \uc0dd\uc131\ud558\uace0 \uac8c\uc2dc"
+              }
+            ],
+            "https://docs.wandb.ai/ko/weave/guides/tracking/tracing.mdx": [
+              {
+                "source_page": "https://docs.wandb.ai/ko/weave/guides/integrations/inference",
+                "anchor_text": "Weave\uc758 tracing"
+              },
+              {
+                "source_page": "https://docs.wandb.ai/ko/weave/guides/integrations/inference",
+                "anchor_text": "\ubaa8\ub378 calls\ub97c \ud2b8\ub808\uc774\uc2a4"
+              },
+              {
+                "source_page": "https://docs.wandb.ai/ko/weave/guides/integrations/inference",
+                "anchor_text": "\ud2b8\ub808\uc774\uc2a4\ub97c \ud655\uc778\ud569\ub2c8\ub2e4"
+              }
+            ],
+            "https://docs.wandb.ai/platform/hosting/audit-logging": [
+              {
+                "source_page": "https://docs.wandb.ai/fr/release-notes/server-releases-archived",
+                "anchor_text": "journaux d\u2019audit"
+              },
+              {
+                "source_page": "https://docs.wandb.ai/ja/release-notes/server-releases-archived",
+                "anchor_text": "audit logs"
+              },
+              {
+                "source_page": "https://docs.wandb.ai/release-notes/server-releases-archived",
+                "anchor_text": "audit logs"
+              }
+            ],
+            "https://docs.wandb.ai/platform/hosting/self-managed/ref-arch.mdx": [
+              {
+                "source_page": "https://docs.wandb.ai/platform/hosting/enterprise-licenses",
+                "anchor_text": "Reference architecture"
+              }
+            ],
+            "https://docs.wandb.ai/training/api-reference/chat-completions/create-chat-completion": [
+              {
+                "source_page": "https://docs.wandb.ai/fr/training/api-reference",
+                "anchor_text": "POST /v1/chat/completions"
+              },
+              {
+                "source_page": "https://docs.wandb.ai/fr/training/api-reference",
+                "anchor_text": "POST /v1/chat/completions/"
+              },
+              {
+                "source_page": "https://docs.wandb.ai/ja/training/api-reference",
+                "anchor_text": "POST /v1/chat/completions"
+              },
+              {
+                "source_page": "https://docs.wandb.ai/ja/training/api-reference",
+                "anchor_text": "POST /v1/chat/completions/"
+              },
+              {
+                "source_page": "https://docs.wandb.ai/ko/training/api-reference",
+                "anchor_text": "POST /v1/chat/completions"
+              }
+            ],
+            "https://docs.wandb.ai/training/api-reference/health/health-check": [
+              {
+                "source_page": "https://docs.wandb.ai/fr/training/api-reference",
+                "anchor_text": "GET /v1/health"
+              },
+              {
+                "source_page": "https://docs.wandb.ai/ja/training/api-reference",
+                "anchor_text": "GET /v1/health"
+              },
+              {
+                "source_page": "https://docs.wandb.ai/ko/training/api-reference",
+                "anchor_text": "GET /v1/health"
+              },
+              {
+                "source_page": "https://docs.wandb.ai/training/api-reference",
+                "anchor_text": "GET /v1/health"
+              }
+            ],
+            "https://docs.wandb.ai/training/api-reference/health/system-check": [
+              {
+                "source_page": "https://docs.wandb.ai/fr/training/api-reference",
+                "anchor_text": "GET /v1/system-check"
+              },
+              {
+                "source_page": "https://docs.wandb.ai/ja/training/api-reference",
+                "anchor_text": "GET /v1/system-check"
+              },
+              {
+                "source_page": "https://docs.wandb.ai/ko/training/api-reference",
+                "anchor_text": "GET /v1/system-check"
+              },
+              {
+                "source_page": "https://docs.wandb.ai/training/api-reference",
+                "anchor_text": "GET /v1/system-check"
+              }
+            ],
+            "https://docs.wandb.ai/training/api-reference/models/create-model": [
+              {
+                "source_page": "https://docs.wandb.ai/fr/training/api-reference",
+                "anchor_text": "POST /v1/preview/models"
+              },
+              {
+                "source_page": "https://docs.wandb.ai/ja/training/api-reference",
+                "anchor_text": "POST /v1/preview/models"
+              },
+              {
+                "source_page": "https://docs.wandb.ai/ko/training/api-reference",
+                "anchor_text": "POST /v1/preview/models"
+              },
+              {
+                "source_page": "https://docs.wandb.ai/training/api-reference",
+                "anchor_text": "POST /v1/preview/models"
+              }
+            ],
+            "https://docs.wandb.ai/training/api-reference/models/delete-model": [
+              {
+                "source_page": "https://docs.wandb.ai/fr/training/api-reference",
+                "anchor_text": "DELETE /v1/preview/models/"
+              },
+              {
+                "source_page": "https://docs.wandb.ai/ja/training/api-reference",
+                "anchor_text": "DELETE /v1/preview/models/"
+              },
+              {
+                "source_page": "https://docs.wandb.ai/ko/training/api-reference",
+                "anchor_text": "DELETE /v1/preview/models/"
+              },
+              {
+                "source_page": "https://docs.wandb.ai/training/api-reference",
+                "anchor_text": "DELETE /v1/preview/models/"
+              }
+            ],
+            "https://docs.wandb.ai/training/api-reference/models/delete-model-checkpoints": [
+              {
+                "source_page": "https://docs.wandb.ai/fr/training/api-reference",
+                "anchor_text": "DELETE /v1/preview/models/ /checkpoints"
+              },
+              {
+                "source_page": "https://docs.wandb.ai/ja/training/api-reference",
+                "anchor_text": "DELETE /v1/preview/models/ /checkpoints"
+              },
+              {
+                "source_page": "https://docs.wandb.ai/ko/training/api-reference",
+                "anchor_text": "DELETE /v1/preview/models/ /checkpoints"
+              },
+              {
+                "source_page": "https://docs.wandb.ai/training/api-reference",
+                "anchor_text": "DELETE /v1/preview/models/ /checkpoints"
+              }
+            ],
+            "https://docs.wandb.ai/training/api-reference/models/list-model-checkpoints": [
+              {
+                "source_page": "https://docs.wandb.ai/fr/training/api-reference",
+                "anchor_text": "GET /v1/preview/models/ /checkpoints"
+              },
+              {
+                "source_page": "https://docs.wandb.ai/ja/training/api-reference",
+                "anchor_text": "GET /v1/preview/models/ /checkpoints"
+              },
+              {
+                "source_page": "https://docs.wandb.ai/ko/training/api-reference",
+                "anchor_text": "GET /v1/preview/models/ /checkpoints"
+              },
+              {
+                "source_page": "https://docs.wandb.ai/training/api-reference",
+                "anchor_text": "GET /v1/preview/models/ /checkpoints"
+              }
+            ],
+            "https://docs.wandb.ai/training/api-reference/models/log": [
+              {
+                "source_page": "https://docs.wandb.ai/fr/training/api-reference",
+                "anchor_text": "POST /v1/preview/models/ /log"
+              },
+              {
+                "source_page": "https://docs.wandb.ai/ja/training/api-reference",
+                "anchor_text": "POST /v1/preview/models/ /log"
+              },
+              {
+                "source_page": "https://docs.wandb.ai/ko/training/api-reference",
+                "anchor_text": "POST /v1/preview/models/ /log"
+              },
+              {
+                "source_page": "https://docs.wandb.ai/training/api-reference",
+                "anchor_text": "POST /v1/preview/models/ /log"
+              }
+            ],
+            "https://docs.wandb.ai/training/api-reference/training-jobs/create-rl-training-job": [
+              {
+                "source_page": "https://docs.wandb.ai/fr/training/api-reference",
+                "anchor_text": "POST /v1/preview/training-jobs"
+              },
+              {
+                "source_page": "https://docs.wandb.ai/ja/training/api-reference",
+                "anchor_text": "POST /v1/preview/training-jobs"
+              },
+              {
+                "source_page": "https://docs.wandb.ai/ko/training/api-reference",
+                "anchor_text": "POST /v1/preview/training-jobs"
+              },
+              {
+                "source_page": "https://docs.wandb.ai/training/api-reference",
+                "anchor_text": "POST /v1/preview/training-jobs"
+              }
+            ],
+            "https://docs.wandb.ai/training/api-reference/training-jobs/create-sft-training-job": [
+              {
+                "source_page": "https://docs.wandb.ai/fr/training/api-reference",
+                "anchor_text": "POST /v1/preview/sft-training-jobs"
+              },
+              {
+                "source_page": "https://docs.wandb.ai/ja/training/api-reference",
+                "anchor_text": "POST /v1/preview/sft-training-jobs"
+              },
+              {
+                "source_page": "https://docs.wandb.ai/ko/training/api-reference",
+                "anchor_text": "POST /v1/preview/sft-training-jobs"
+              },
+              {
+                "source_page": "https://docs.wandb.ai/training/api-reference",
+                "anchor_text": "POST /v1/preview/sft-training-jobs"
+              }
+            ],
+            "https://docs.wandb.ai/training/api-reference/training-jobs/get-training-job": [
+              {
+                "source_page": "https://docs.wandb.ai/fr/training/api-reference",
+                "anchor_text": "GET /v1/preview/training-jobs/"
+              },
+              {
+                "source_page": "https://docs.wandb.ai/ja/training/api-reference",
+                "anchor_text": "GET /v1/preview/training-jobs/"
+              },
+              {
+                "source_page": "https://docs.wandb.ai/ko/training/api-reference",
+                "anchor_text": "GET /v1/preview/training-jobs/"
+              },
+              {
+                "source_page": "https://docs.wandb.ai/training/api-reference",
+                "anchor_text": "GET /v1/preview/training-jobs/"
+              }
+            ],
+            "https://docs.wandb.ai/training/api-reference/training-jobs/get-training-job-events": [
+              {
+                "source_page": "https://docs.wandb.ai/fr/training/api-reference",
+                "anchor_text": "GET /v1/preview/training-jobs/ /events"
+              },
+              {
+                "source_page": "https://docs.wandb.ai/ja/training/api-reference",
+                "anchor_text": "GET /v1/preview/training-jobs/ /events"
+              },
+              {
+                "source_page": "https://docs.wandb.ai/ko/training/api-reference",
+                "anchor_text": "GET /v1/preview/training-jobs/ /events"
+              },
+              {
+                "source_page": "https://docs.wandb.ai/training/api-reference",
+                "anchor_text": "GET /v1/preview/training-jobs/ /events"
+              }
+            ],
+            "https://docs.wandb.ai/weave/guides/core-types/evaluations.mdx": [
+              {
+                "source_page": "https://docs.wandb.ai/weave/guides/integrations/inference",
+                "anchor_text": "evaluate performance"
+              },
+              {
+                "source_page": "https://docs.wandb.ai/weave/guides/integrations/inference",
+                "anchor_text": "view your model evaluations"
+              }
+            ],
+            "https://docs.wandb.ai/weave/guides/core-types/leaderboards.mdx": [
+              {
+                "source_page": "https://docs.wandb.ai/weave/guides/integrations/inference",
+                "anchor_text": "publish a leaderboard"
+              },
+              {
+                "source_page": "https://docs.wandb.ai/weave/guides/integrations/inference",
+                "anchor_text": "view the generated leaderboard"
+              }
+            ],
+            "https://docs.wandb.ai/weave/guides/core-types/prompts-version.mdx": [
+              {
+                "source_page": "https://docs.wandb.ai/weave/guides/core-types/prompts",
+                "anchor_text": "Store and track versions of prompts"
+              },
+              {
+                "source_page": "https://docs.wandb.ai/weave/guides/core-types/prompts",
+                "anchor_text": "Prompts page"
+              }
+            ],
+            "https://docs.wandb.ai/weave/guides/core-types/prompts.mdx": [
+              {
+                "source_page": "https://docs.wandb.ai/weave/guides/core-types/prompts-version",
+                "anchor_text": "creating and publishing prompts"
+              }
+            ],
+            "https://docs.wandb.ai/weave/guides/tracking/tracing.mdx": [
+              {
+                "source_page": "https://docs.wandb.ai/weave/guides/integrations/inference",
+                "anchor_text": "tracing in Weave"
+              },
+              {
+                "source_page": "https://docs.wandb.ai/weave/guides/integrations/inference",
+                "anchor_text": "trace model calls"
+              },
+              {
+                "source_page": "https://docs.wandb.ai/weave/guides/integrations/inference",
+                "anchor_text": "view your traces"
+              }
+            ],
+            "https://docs.wandb.ai/weave/reference/service-api/table-query-stream": [
+              {
+                "source_page": "https://docs.wandb.ai/fr/weave/reference/service-api",
+                "anchor_text": "POST /table/query_stream"
+              },
+              {
+                "source_page": "https://docs.wandb.ai/ja/weave/reference/service-api",
+                "anchor_text": "POST /table/query_stream"
+              },
+              {
+                "source_page": "https://docs.wandb.ai/ko/weave/reference/service-api",
+                "anchor_text": "POST /table/query_stream"
+              },
+              {
+                "source_page": "https://docs.wandb.ai/weave/reference/service-api",
+                "anchor_text": "POST /table/query_stream"
+              }
+            ]
+          }
+        },
+        "seo_geo": {
+          "pages_scanned": 4005,
+          "missing_title_count": 0,
+          "missing_description_count": 1831,
+          "multiple_h1_count": 187,
+          "heading_hierarchy_jump_count": 716,
+          "seo_geo_issue_rate_pct": 17.07
+        },
+        "api_coverage": {
+          "reference_endpoint_count": 76,
+          "api_pages_detected": 940,
+          "endpoints_with_usage_docs": 11,
+          "reference_endpoints_without_usage_docs": 65,
+          "reference_coverage_pct": 14.47,
+          "no_api_pages_found": false,
+          "coverage_determined": true,
+          "coverage_method": "source_of_truth",
+          "detection_note": "",
+          "uncovered_endpoint_samples": [
+            "ep:/call/read",
+            "ep:/call/update",
+            "ep:/call/upsert_batch",
+            "ep:/calls/delete",
+            "ep:/calls/query_stats",
+            "ep:/calls/stream_query",
+            "ep:/cost/create",
+            "ep:/cost/purge",
+            "ep:/cost/query",
+            "ep:/feedback/create",
+            "ep:/feedback/purge",
+            "ep:/feedback/query",
+            "ep:/feedback/replace",
+            "ep:/file/content",
+            "ep:/file/create",
+            "ep:/health",
+            "ep:/obj/create",
+            "ep:/obj/delete",
+            "ep:/obj/read",
+            "ep:/objs/query"
+          ]
+        },
+        "examples": {
+          "total_code_examples": 0,
+          "total_code_blocks_all": 13873,
+          "runnable_without_env": 0,
+          "blocked_by_placeholders": 0,
+          "network_bound_examples": 0,
+          "example_reliability_estimate_pct": 0.0,
+          "detection_note": "No executable code blocks detected (13873 data-only blocks found). Site may use non-standard code rendering that the auditor does not recognize, or all examples are in data formats (YAML/JSON)."
+        },
+        "freshness": {
+          "pages_with_last_updated_hint": 104,
+          "pages_without_last_updated_hint": 3901,
+          "last_updated_coverage_pct": 2.6,
+          "samples_with_last_updated": [
+            {
+              "url": "https://docs.wandb.ai/fr/inference/lifecycle",
+              "hint": "2026-04-07"
+            },
+            {
+              "url": "https://docs.wandb.ai/fr/models/integrations/dagster",
+              "hint": "\"2023-01-01\""
+            },
+            {
+              "url": "https://docs.wandb.ai/fr/models/registry/search_registry",
+              "hint": "\"2024-01-08\""
+            },
+            {
+              "url": "https://docs.wandb.ai/fr/models/reports/edit-a-report",
+              "hint": "tfw\">August 20, 2021</a></blockquote>"
+            },
+            {
+              "url": "https://docs.wandb.ai/fr/platform/hosting/data-security/secure-storage-connector",
+              "hint": "\"2012-10-17\""
+            },
+            {
+              "url": "https://docs.wandb.ai/fr/platform/hosting/monitoring-usage/audit-logging",
+              "hint": "repr\u00e9sente le 23 janvier 2023 \u00e0 12:34:56 UTC."
+            },
+            {
+              "url": "https://docs.wandb.ai/fr/platform/launch/setup-agent-advanced",
+              "hint": "'2012-10-17'"
+            },
+            {
+              "url": "https://docs.wandb.ai/fr/platform/launch/setup-launch-sagemaker",
+              "hint": "\"2012-10-17\""
+            },
+            {
+              "url": "https://docs.wandb.ai/fr/release-notes/server-releases-archived",
+              "hint": "28 mars 2025"
+            },
+            {
+              "url": "https://docs.wandb.ai/fr/release-notes/sdk-releases",
+              "hint": "10 mars 2026"
+            }
+          ]
+        }
+      },
+      "samples": {
+        "broken_links": [
+          "https://docs.wandb.ai/fr/platform/hosting/self-managed/ref-arch.mdx",
+          "https://docs.wandb.ai/fr/weave/guides/core-types/evaluations.mdx",
+          "https://docs.wandb.ai/fr/weave/guides/core-types/prompts-version.mdx",
+          "https://docs.wandb.ai/fr/weave/guides/core-types/prompts.mdx",
+          "https://docs.wandb.ai/fr/weave/guides/tracking/tracing.mdx",
+          "https://docs.wandb.ai/ja/platform/hosting/self-managed/ref-arch.mdx",
+          "https://docs.wandb.ai/ja/weave/guides/core-types/evaluations.mdx",
+          "https://docs.wandb.ai/ja/weave/guides/core-types/leaderboards.mdx",
+          "https://docs.wandb.ai/ja/weave/guides/core-types/prompts-version.mdx",
+          "https://docs.wandb.ai/ja/weave/guides/core-types/prompts.mdx",
+          "https://docs.wandb.ai/ja/weave/guides/tracking/tracing.mdx",
+          "https://docs.wandb.ai/ko/platform/hosting/audit-logging",
+          "https://docs.wandb.ai/ko/platform/hosting/self-managed/ref-arch.mdx",
+          "https://docs.wandb.ai/ko/weave/guides/core-types/evaluations.mdx",
+          "https://docs.wandb.ai/ko/weave/guides/core-types/leaderboards.mdx",
+          "https://docs.wandb.ai/ko/weave/guides/core-types/prompts-version.mdx",
+          "https://docs.wandb.ai/ko/weave/guides/core-types/prompts.mdx",
+          "https://docs.wandb.ai/ko/weave/guides/tracking/tracing.mdx",
+          "https://docs.wandb.ai/platform/hosting/audit-logging",
+          "https://docs.wandb.ai/platform/hosting/self-managed/ref-arch.mdx"
+        ],
+        "docs_broken_link_samples": [
+          "https://docs.wandb.ai/fr/platform/hosting/self-managed/ref-arch.mdx",
+          "https://docs.wandb.ai/fr/weave/guides/core-types/evaluations.mdx",
+          "https://docs.wandb.ai/fr/weave/guides/core-types/prompts-version.mdx",
+          "https://docs.wandb.ai/fr/weave/guides/core-types/prompts.mdx",
+          "https://docs.wandb.ai/fr/weave/guides/tracking/tracing.mdx",
+          "https://docs.wandb.ai/ja/platform/hosting/self-managed/ref-arch.mdx",
+          "https://docs.wandb.ai/ja/weave/guides/core-types/evaluations.mdx",
+          "https://docs.wandb.ai/ja/weave/guides/core-types/leaderboards.mdx",
+          "https://docs.wandb.ai/ja/weave/guides/core-types/prompts-version.mdx",
+          "https://docs.wandb.ai/ja/weave/guides/core-types/prompts.mdx",
+          "https://docs.wandb.ai/ja/weave/guides/tracking/tracing.mdx",
+          "https://docs.wandb.ai/ko/platform/hosting/audit-logging",
+          "https://docs.wandb.ai/ko/platform/hosting/self-managed/ref-arch.mdx",
+          "https://docs.wandb.ai/ko/weave/guides/core-types/evaluations.mdx",
+          "https://docs.wandb.ai/ko/weave/guides/core-types/leaderboards.mdx",
+          "https://docs.wandb.ai/ko/weave/guides/core-types/prompts-version.mdx",
+          "https://docs.wandb.ai/ko/weave/guides/core-types/prompts.mdx",
+          "https://docs.wandb.ai/ko/weave/guides/tracking/tracing.mdx",
+          "https://docs.wandb.ai/platform/hosting/audit-logging",
+          "https://docs.wandb.ai/platform/hosting/self-managed/ref-arch.mdx",
+          "https://docs.wandb.ai/training/api-reference/chat-completions/create-chat-completion",
+          "https://docs.wandb.ai/training/api-reference/health/health-check",
+          "https://docs.wandb.ai/training/api-reference/health/system-check",
+          "https://docs.wandb.ai/training/api-reference/models/create-model",
+          "https://docs.wandb.ai/training/api-reference/models/delete-model",
+          "https://docs.wandb.ai/training/api-reference/models/delete-model-checkpoints",
+          "https://docs.wandb.ai/training/api-reference/models/list-model-checkpoints",
+          "https://docs.wandb.ai/training/api-reference/models/log",
+          "https://docs.wandb.ai/training/api-reference/training-jobs/create-rl-training-job",
+          "https://docs.wandb.ai/training/api-reference/training-jobs/create-sft-training-job"
+        ],
+        "repo_broken_link_samples": [],
+        "unverified_link_samples": [
+          "https://docs.wandb.ai/fr/weave/guides/core-types/leaderboards.mdx",
+          "https://docs.wandb.ai/fr/weave/reference/generated_typescript_docs/intro-notebook",
+          "https://docs.wandb.ai/ja/pricing",
+          "https://docs.wandb.ai/ja/support/models/articles/what-is-the-difference-between-team-and-",
+          "https://docs.wandb.ai/ja/weave/guides/tools/deploy"
+        ],
+        "api_uncovered_samples": [
+          "ep:/call/read",
+          "ep:/call/update",
+          "ep:/call/upsert_batch",
+          "ep:/calls/delete",
+          "ep:/calls/query_stats",
+          "ep:/calls/stream_query",
+          "ep:/cost/create",
+          "ep:/cost/purge",
+          "ep:/cost/query",
+          "ep:/feedback/create",
+          "ep:/feedback/purge",
+          "ep:/feedback/query",
+          "ep:/feedback/replace",
+          "ep:/file/content",
+          "ep:/file/create",
+          "ep:/health",
+          "ep:/obj/create",
+          "ep:/obj/delete",
+          "ep:/obj/read",
+          "ep:/objs/query"
+        ]
+      },
+      "run_count": 1
+    }
+  ],
+  "aggregate": {
+    "metrics": {
+      "crawl": {
+        "pages_crawled": 4005,
+        "requested_pages": 4129,
+        "urls_examined": 4030,
+        "max_pages_total": 10000,
+        "discovered_pages": 4030,
+        "crawl_scope_pages": 4030,
+        "trap_urls_skipped": 12310,
+        "crawl_coverage_pct": 100.0
+      },
+      "links": {
+        "broken_internal_links_count": 38,
+        "docs_broken_links_count": 38,
+        "repo_broken_links_count": 0,
+        "unverified_links_count": 5,
+        "confirmed_broken_links_count": 38,
+        "excluded_links_count": 52
+      },
+      "seo_geo": {
+        "seo_geo_issue_rate_pct": 17.07
+      },
+      "api_coverage": {
+        "reference_coverage_pct": 14.47,
+        "no_api_pages_found": false,
+        "api_pages_detected": 940,
+        "coverage_determined": true,
+        "detection_note": ""
+      },
+      "examples": {
+        "example_reliability_estimate_pct": 0.0
+      },
+      "freshness": {
+        "last_updated_coverage_pct": 2.6
+      }
+    },
+    "confidence": {
+      "overall_confidence_pct": 86.85,
+      "links_confidence_pct": 83.37,
+      "api_confidence_pct": 85.0,
+      "crawl_confidence_pct": 95.0
+    }
+  },
+  "confidence": {
+    "overall_confidence_pct": 86.85,
+    "links_confidence_pct": 83.37,
+    "api_confidence_pct": 85.0,
+    "crawl_confidence_pct": 95.0
+  },
+  "top_findings": [
+    "Broken internal links: 38",
+    "Link verification inconclusive for 5 URLs (auth/rate-limit/server block); these are excluded from broken-link counts.",
+    "SEO/GEO issue rate is high: 17.07%",
+    "API usage-doc coverage is low: 14.47% (940 API pages detected)",
+    "Example reliability: 0% on 4005 pages (likely detection limitation). Site may use JS-rendered code blocks.",
+    "Freshness visibility is weak: only 2.6% pages show last updated"
+  ],
+  "llm_analysis": {
+    "status": "ok",
+    "model": "claude-sonnet-4-5",
+    "analysis": {
+      "executive_summary": "Audit crawled 4,005 pages across https://docs.wandb.ai/ with 100% crawl coverage and 86.85% overall confidence. Identified 38 confirmed broken internal documentation links with no repository navigation link failures. API reference coverage is critically low at 14.47% despite detecting 940 API pages. Example code reliability detection returned 0%, indicating a likely technical detection limitation with JavaScript-rendered content. Freshness metadata is visible on only 2.6% of pages, and SEO/geographic issues affect 17.07% of content.",
+      "strengths": [
+        "Complete crawl coverage at 100% (4,005 of 4,030 in-scope pages successfully crawled)",
+        "High overall audit confidence at 86.85% with strong crawl confidence at 95%",
+        "No broken repository navigation links (repo_broken_links_count: 0)",
+        "Large API surface detected with 940 API-related pages identified",
+        "Effective trap URL filtering (12,310 URLs skipped, preventing crawl pollution)"
+      ],
+      "risks": [
+        "38 confirmed broken internal documentation links degrading user navigation and trust",
+        "API reference coverage at 14.47% leaves 85%+ of API surface without usage documentation or examples",
+        "Example code reliability at 0% suggests users cannot verify working code samples (likely detection issue, but user impact unknown)",
+        "Only 2.6% of pages display last-updated metadata, obscuring content freshness for 97.4% of documentation",
+        "SEO/geographic issue rate of 17.07% may limit discoverability and international reach",
+        "5 unverified links due to authentication/rate-limiting/server blocks represent potential hidden broken links",
+        "Detection limitations on example reliability (0% on 4,005 pages) prevent validation of critical code samples"
+      ],
+      "prioritized_actions": [
+        {
+          "action": "Fix all 38 confirmed broken internal documentation links to restore navigation integrity",
+          "impact": "critical",
+          "effort": "low"
+        },
+        {
+          "action": "Increase API usage documentation coverage from 14.47% to minimum 60% by adding code examples and integration guides for top 50 API endpoints",
+          "impact": "critical",
+          "effort": "high"
+        },
+        {
+          "action": "Implement last-updated timestamps on all documentation pages (currently 2.6% coverage) to improve trust and maintenance visibility",
+          "impact": "high",
+          "effort": "medium"
+        },
+        {
+          "action": "Investigate and resolve example code detection failure (0% reliability score) by ensuring code blocks are server-rendered or accessible to audit tooling",
+          "impact": "high",
+          "effort": "medium"
+        },
+        {
+          "action": "Audit and remediate SEO/geographic issues affecting 17.07% of pages to improve search discoverability and international accessibility",
+          "impact": "medium",
+          "effort": "medium"
+        }
+      ],
+      "limitations": [
+        "External audit cannot verify authentication-protected content; 5 unverified links may include false negatives",
+        "0% example reliability score likely reflects detection limitation with JavaScript-rendered code blocks rather than actual code quality",
+        "Audit cannot validate functional correctness of API documentation or whether detected API pages represent complete API surface",
+        "SEO/geographic issue detection does not measure actual search ranking performance or user acquisition impact",
+        "Crawl cannot assess documentation accuracy, technical correctness, or alignment with current product functionality"
+      ]
+    }
+  }
+}

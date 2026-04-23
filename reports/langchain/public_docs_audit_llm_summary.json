@@ -1,0 +1,57 @@
+{
+  "status": "ok",
+  "model": "claude-sonnet-4-5",
+  "analysis": {
+    "executive_summary": "Audit covered 808 pages across 3 LangChain documentation sites in multi-project topology mode. Crawl achieved 100% coverage with 813 discovered pages. API reference coverage is strong at 86.67% (222 API pages detected). Critical issues include 2 confirmed broken internal documentation links, 17.26% SEO/geo issue rate, and 0% example reliability estimate indicating likely detection failure on code examples. Overall confidence score is 63.5%, with links confidence notably low at 25%.",
+    "strengths": [
+      "Complete crawl coverage at 100% (808 of 813 in-scope pages crawled)",
+      "Strong API reference coverage at 86.67% with 222 API pages successfully detected",
+      "Near-complete freshness metadata coverage at 99.88%",
+      "No repository navigation broken links (repo_broken_links_count: 0)",
+      "High crawl confidence at 95% indicating reliable topology mapping"
+    ],
+    "risks": [
+      "2 confirmed broken internal documentation links requiring immediate repair",
+      "5 unverified links due to authentication, rate-limiting, or server blocks - actual breakage unknown",
+      "SEO/geo issue rate of 17.26% may impact discoverability and search ranking",
+      "0% example reliability across all 808 pages indicates detection failure - code examples likely JS-rendered and not auditable",
+      "Overall confidence only 63.5% limits reliability of audit conclusions",
+      "Links confidence critically low at 25% - link health assessment highly uncertain",
+      "Multi-site topology (3 separate doc sites) may create user navigation confusion despite no fragmentation penalty"
+    ],
+    "prioritized_actions": [
+      {
+        "action": "Repair 2 confirmed broken internal documentation links",
+        "impact": "critical",
+        "effort": "low"
+      },
+      {
+        "action": "Investigate 0% example reliability - implement server-side rendering or static generation for code blocks to enable detection",
+        "impact": "critical",
+        "effort": "high"
+      },
+      {
+        "action": "Manually verify 5 unverified links blocked by auth/rate-limits to confirm accessibility",
+        "impact": "high",
+        "effort": "low"
+      },
+      {
+        "action": "Address SEO/geo issues affecting 17.26% of pages (140 pages) - review meta tags, descriptions, and structured data",
+        "impact": "high",
+        "effort": "medium"
+      },
+      {
+        "action": "Improve links confidence from 25% by resolving detection limitations and re-auditing link health",
+        "impact": "medium",
+        "effort": "medium"
+      }
+    ],
+    "limitations": [
+      "External audit cannot verify code example correctness or executability - 0% reliability score indicates examples were not detectable, likely due to client-side rendering",
+      "5 links could not be verified due to authentication requirements, rate limiting, or server blocks - actual status unknown without internal access",
+      "SEO/geo issue detection relies on metadata presence and format - cannot assess content quality, keyword relevance, or actual search performance",
+      "Crawl limited to public documentation - cannot audit authentication-protected pages, staging environments, or internal knowledge bases",
+      "Multi-site topology analysis cannot measure actual user confusion or navigation friction across 3 separate documentation domains"
+    ]
+  }
+}

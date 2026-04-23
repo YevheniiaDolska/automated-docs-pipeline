@@ -564,6 +564,57 @@ By default, `git_sync.enabled=true`: weekly runner executes `git fetch` + `git p
 This lets the responsible person avoid manual pull steps.
 Scheduler must run under a user account that already has git access to the private repo (SSH key or credential helper/PAT).
 
+### RAG quality hardening (stale + contradictions)
+
+Recommended weekly sequence for RAG-safe indexing:
+
+\11. run stale/freshness checks (`kpi_wall`, `audit_scorecard`, optional i18n stale checks)
+\11. run contradiction detection: `python3 docsops/scripts/detect_rag_contradictions.py --report reports/rag_contradictions_report.json --stale-days 180`
+\11. regenerate retrieval index with exclusion gate:
+`python3 docsops/scripts/generate_knowledge_retrieval_index.py --contradictions-report reports/rag_contradictions_report.json --exclude-critical-contradictions`
+\11. run retrieval eval gate (`run_retrieval_evals.py` or `run_retrieval_evals_gate.py`)
+
+Result:
+
+- stale-check answers: "is this document outdated?"
+- contradiction-check answers: "do current docs conflict right now?"
+- critical conflict modules are excluded from retrieval index automatically.
+
+### Ask AI runtime guardrails and feedback loop
+
+When Ask AI runtime is enabled (`runtime.integrations.ask_ai.enabled=true`), current runtime supports:
+
+- semantic retrieval context (FAISS/hybrid/rerank/HyDE/cache according to runtime config)
+- low-confidence guardrail (`ASK_AI_MIN_CONFIDENCE`) with safe fallback answer
+- contradiction warnings in API response (`warnings[]`) when cited modules intersect critical contradiction IDs
+- usage telemetry log (`ASK_AI_USAGE_LOG_PATH`, default `reports/ask_ai_usage.jsonl`)
+- end-user feedback endpoint (`POST /api/v1/feedback`) and feedback log
+  (`ASK_AI_FEEDBACK_LOG_PATH`, default `reports/ask_ai_feedback.jsonl`)
+
+Usage log record fields (JSONL):
+
+- `timestamp`
+- `status`
+- `latency_ms`
+- `question`
+- `plan`
+- `user_id`
+- `user_role`
+- `citation_ids`
+- `low_confidence`
+- `confidence`
+- `warnings_count`
+- `error`
+
+Recommended runtime env defaults:
+
+```bash
+ASK_AI_MIN_CONFIDENCE=0.28
+ASK_AI_CONTRADICTIONS_REPORT_PATH=reports/rag_contradictions_report.json
+ASK_AI_USAGE_LOG_PATH=reports/ask_ai_usage.jsonl
+ASK_AI_FEEDBACK_LOG_PATH=reports/ask_ai_feedback.jsonl
+```
+
 `finalize_gate` behavior:
 
 - runs after generation/refinement tasks in weekly flow,
@@ -977,6 +1028,11 @@ Outcome:
 
 - operators do not run commands manually each week
 - operators only review report output and final published docs
+
+Implementation boundary by plan:
+
+- `professional/full`: all knowledge-preparation and quality-hardening steps above, but no retrieval-time Ask AI RAG serving.
+- `enterprise/full+rag`: full preparation + retrieval-time Ask AI runtime and feedback loop.
 
 ## Next steps
 

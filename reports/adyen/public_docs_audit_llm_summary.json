@@ -1,0 +1,57 @@
+{
+  "status": "ok",
+  "model": "claude-sonnet-4-5",
+  "analysis": {
+    "executive_summary": "Audit of docs.adyen.com covered 4,309 pages (100% crawl coverage) across multi-project topology with 81% overall confidence. Critical issues include 171 confirmed broken internal documentation links and 0% API reference coverage despite 2,912 API pages detected. SEO/geo issues affect 11.49% of pages. Only 3.55% of pages display last-updated metadata, severely limiting freshness transparency. Example code reliability estimated at 88.38%.",
+    "strengths": [
+      "Complete crawl coverage: 4,309 of 4,622 requested pages successfully crawled (100%)",
+      "No repository navigation link breakage (repo_broken_links_count: 0)",
+      "High crawl confidence at 95% with no trap URLs encountered",
+      "Example code reliability estimated at 88.38%, indicating generally functional samples",
+      "Multi-project topology successfully mapped across documentation structure"
+    ],
+    "risks": [
+      "171 confirmed broken internal documentation links create poor user experience and navigation failures",
+      "0% API reference coverage with 2,912 API pages detected indicates complete absence of usage documentation linkage",
+      "API confidence only 55%, suggesting potential detection or measurement limitations in API documentation analysis",
+      "11.49% SEO/geo issue rate may impact discoverability and international user access",
+      "3.55% last-updated coverage prevents users from assessing content freshness on 96.45% of pages",
+      "82 links excluded from analysis may hide additional broken link issues",
+      "Low API confidence (55%) combined with 0% reference coverage suggests systematic API documentation gaps"
+    ],
+    "prioritized_actions": [
+      {
+        "action": "Fix all 171 broken internal documentation links to restore navigation integrity",
+        "impact": "critical",
+        "effort": "medium"
+      },
+      {
+        "action": "Implement API reference-to-guide linking strategy to address 0% coverage across 2,912 API pages",
+        "impact": "critical",
+        "effort": "high"
+      },
+      {
+        "action": "Deploy last-updated metadata across all pages (currently only 3.55% coverage)",
+        "impact": "high",
+        "effort": "low"
+      },
+      {
+        "action": "Investigate and resolve 11.49% SEO/geo issues affecting discoverability",
+        "impact": "high",
+        "effort": "medium"
+      },
+      {
+        "action": "Audit API detection methodology given 55% confidence and validate 2,912 detected API pages",
+        "impact": "medium",
+        "effort": "medium"
+      }
+    ],
+    "limitations": [
+      "External audit cannot verify accuracy of technical content, code functionality, or API specification correctness",
+      "55% API confidence indicates potential detection limitations; actual API coverage may differ from reported 0%",
+      "Cannot assess user authentication flows, interactive examples, or dynamic content requiring login",
+      "Broken link detection limited to crawled pages; 313 pages not crawled (4,622 requested vs 4,309 crawled) may contain additional issues",
+      "Example reliability estimate (88.38%) is algorithmic; actual code execution success requires runtime testing"
+    ]
+  }
+}

@@ -1,0 +1,731 @@
+{
+  "generated_at": "2026-04-23T11:25:56.173454+00:00",
+  "site_url": "multiple-sites",
+  "site_urls": [
+    "https://support.ramp.com/",
+    "https://docs.ramp.com/"
+  ],
+  "topology_mode": "single-product",
+  "verification_modes": [
+    "authenticated",
+    "bot",
+    "browser"
+  ],
+  "sites": [
+    {
+      "site_url": "https://docs.ramp.com/",
+      "metrics": {
+        "crawl": {
+          "pages_crawled": 83,
+          "requested_pages": 83,
+          "urls_examined": 83,
+          "max_pages": 10000,
+          "effective_limit": 10000,
+          "auto_mode": false,
+          "stop_reason": "queue_exhausted",
+          "discovered_pages": 83,
+          "crawl_scope_basis": "sitemap",
+          "crawl_scope_pages": 82,
+          "crawl_coverage_pct": 101.22,
+          "trap_urls_skipped": 0,
+          "seeded_sitemap_urls": 82,
+          "robots_sitemaps_declared": 0
+        },
+        "links": {
+          "internal_links_checked": 0,
+          "broken_internal_links_count": 0,
+          "docs_broken_links_count": 0,
+          "repo_broken_links_count": 0,
+          "broken_internal_link_samples": [],
+          "docs_broken_link_samples": [],
+          "repo_broken_link_samples": [],
+          "unreachable_links_count": 0,
+          "unverified_links_count": 0,
+          "unverified_link_samples": [],
+          "confirmed_broken_links_count": 0,
+          "excluded_links_count": 0,
+          "excluded_link_samples": [],
+          "_all_confirmed_broken_links": [],
+          "_all_unverified_links": [],
+          "_all_excluded_links": [],
+          "_all_docs_unverified_links": [],
+          "_all_repo_unverified_links": [],
+          "_broken_link_provenance": {}
+        },
+        "seo_geo": {
+          "pages_scanned": 83,
+          "missing_title_count": 0,
+          "missing_description_count": 83,
+          "multiple_h1_count": 0,
+          "heading_hierarchy_jump_count": 0,
+          "seo_geo_issue_rate_pct": 25.0
+        },
+        "api_coverage": {
+          "reference_endpoint_count": 15,
+          "api_pages_detected": 82,
+          "endpoints_with_usage_docs": 15,
+          "reference_endpoints_without_usage_docs": 0,
+          "reference_coverage_pct": 100.0,
+          "no_api_pages_found": false,
+          "coverage_determined": true,
+          "coverage_method": "heuristic",
+          "detection_note": "Contract URLs found but no operations parsed",
+          "uncovered_endpoint_samples": []
+        },
+        "examples": {
+          "total_code_examples": 0,
+          "total_code_blocks_all": 0,
+          "runnable_without_env": 0,
+          "blocked_by_placeholders": 0,
+          "network_bound_examples": 0,
+          "example_reliability_estimate_pct": 0.0,
+          "detection_note": "No code blocks detected in crawled pages. The site may use JavaScript-rendered code blocks invisible to the HTML parser."
+        },
+        "freshness": {
+          "pages_with_last_updated_hint": 0,
+          "pages_without_last_updated_hint": 83,
+          "last_updated_coverage_pct": 0.0,
+          "samples_with_last_updated": []
+        }
+      },
+      "samples": {
+        "broken_links": [],
+        "docs_broken_link_samples": [],
+        "repo_broken_link_samples": [],
+        "unverified_link_samples": [],
+        "api_uncovered_samples": []
+      },
+      "run_count": 1
+    },
+    {
+      "site_url": "https://support.ramp.com/",
+      "metrics": {
+        "crawl": {
+          "pages_crawled": 796,
+          "requested_pages": 1134,
+          "urls_examined": 802,
+          "max_pages": 10000,
+          "effective_limit": 10000,
+          "auto_mode": false,
+          "stop_reason": "queue_exhausted",
+          "discovered_pages": 802,
+          "crawl_scope_basis": "sitemap",
+          "crawl_scope_pages": 801,
+          "crawl_coverage_pct": 100.12,
+          "trap_urls_skipped": 358,
+          "seeded_sitemap_urls": 801,
+          "robots_sitemaps_declared": 1
+        },
+        "links": {
+          "internal_links_checked": 1134,
+          "broken_internal_links_count": 21,
+          "docs_broken_links_count": 21,
+          "repo_broken_links_count": 0,
+          "broken_internal_link_samples": [
+            "https://support.ramp.com/hc/en-us/articles/20829858611859",
+            "https://support.ramp.com/hc/en-us/articles/22009498542099",
+            "https://support.ramp.com/hc/en-us/articles/33023431590419-How-to-update-the-Ramp-Acumatica-customization-project",
+            "https://support.ramp.com/hc/en-us/articles/34187089596819-Roles-and-Permissions-on-Ramp",
+            "https://support.ramp.com/hc/en-us/articles/360042417834-User-role-deep-dive-Assistant",
+            "https://support.ramp.com/hc/en-us/articles/360042576054",
+            "https://support.ramp.com/hc/en-us/articles/360042965234",
+            "https://support.ramp.com/hc/en-us/articles/360056048434",
+            "https://support.ramp.com/hc/en-us/articles/360056048434-Set-Up-Your-Expense-Policy",
+            "https://support.ramp.com/hc/en-us/articles/360059460491",
+            "https://support.ramp.com/hc/en-us/articles/39460230633363",
+            "https://support.ramp.com/hc/en-us/articles/4418793009811",
+            "https://support.ramp.com/hc/en-us/articles/4418793009811-Bill-Pay-Vendors-and-Vendor-Owners",
+            "https://support.ramp.com/hc/en-us/articles/4418793009811-Bill-Pay-vendors-and-vendor-owners",
+            "https://support.ramp.com/hc/en-us/articles/9754935122067",
+            "https://support.ramp.com/hc/en-us/articles/platform.openai.com",
+            "https://support.ramp.com/hc/en-us/articles/sync-repayments-to-your-accounting-software",
+            "https://support.ramp.com/hc/en-us/articles/two-way-bill-payment-sync",
+            "https://support.ramp.com/hc/en-us/articles/youtube.com/watch",
+            "https://support.ramp.com/hc/en-us/categories/360002060114-Getting-Started"
+          ],
+          "docs_broken_link_samples": [
+            "https://support.ramp.com/hc/en-us/articles/20829858611859",
+            "https://support.ramp.com/hc/en-us/articles/22009498542099",
+            "https://support.ramp.com/hc/en-us/articles/33023431590419-How-to-update-the-Ramp-Acumatica-customization-project",
+            "https://support.ramp.com/hc/en-us/articles/34187089596819-Roles-and-Permissions-on-Ramp",
+            "https://support.ramp.com/hc/en-us/articles/360042417834-User-role-deep-dive-Assistant",
+            "https://support.ramp.com/hc/en-us/articles/360042576054",
+            "https://support.ramp.com/hc/en-us/articles/360042965234",
+            "https://support.ramp.com/hc/en-us/articles/360056048434",
+            "https://support.ramp.com/hc/en-us/articles/360056048434-Set-Up-Your-Expense-Policy",
+            "https://support.ramp.com/hc/en-us/articles/360059460491",
+            "https://support.ramp.com/hc/en-us/articles/39460230633363",
+            "https://support.ramp.com/hc/en-us/articles/4418793009811",
+            "https://support.ramp.com/hc/en-us/articles/4418793009811-Bill-Pay-Vendors-and-Vendor-Owners",
+            "https://support.ramp.com/hc/en-us/articles/4418793009811-Bill-Pay-vendors-and-vendor-owners",
+            "https://support.ramp.com/hc/en-us/articles/9754935122067",
+            "https://support.ramp.com/hc/en-us/articles/platform.openai.com",
+            "https://support.ramp.com/hc/en-us/articles/sync-repayments-to-your-accounting-software",
+            "https://support.ramp.com/hc/en-us/articles/two-way-bill-payment-sync",
+            "https://support.ramp.com/hc/en-us/articles/youtube.com/watch",
+            "https://support.ramp.com/hc/en-us/categories/360002060114-Getting-Started",
+            "https://support.ramp.com/hc/en-us/categories/360002060114-Getting-started"
+          ],
+          "repo_broken_link_samples": [],
+          "unreachable_links_count": 0,
+          "unverified_links_count": 7,
+          "unverified_link_samples": [
+            "https://support.ramp.com/hc/en-us/articles/43045480546835-Sage-Intacct-Sync-Error-Sage-Intacct-reported-Oops-we-can-t-find-this-transaction",
+            "https://support.ramp.com/hc/en-us/articles/4409480530707-Spend-requests-and-spending-limit-increases",
+            "https://support.ramp.com/hc/en-us/requests/new",
+            "https://support.ramp.com/hc/en-us/sections/23213587638547-Procurement",
+            "https://support.ramp.com/hc/en-us/sections/34411443062675-Bill-Pay-Accounting",
+            "https://support.ramp.com/hc/en-us/sections/360009239574-Payments-limits-and-statements",
+            "https://support.ramp.com/hc/en-us/sections/360012365433-Reimbursements"
+          ],
+          "confirmed_broken_links_count": 21,
+          "excluded_links_count": 1,
+          "excluded_link_samples": [
+            "https://support.ramp.com/hc/en-us/search"
+          ],
+          "_all_confirmed_broken_links": [
+            "https://support.ramp.com/hc/en-us/articles/20829858611859",
+            "https://support.ramp.com/hc/en-us/articles/22009498542099",
+            "https://support.ramp.com/hc/en-us/articles/33023431590419-How-to-update-the-Ramp-Acumatica-customization-project",
+            "https://support.ramp.com/hc/en-us/articles/34187089596819-Roles-and-Permissions-on-Ramp",
+            "https://support.ramp.com/hc/en-us/articles/360042417834-User-role-deep-dive-Assistant",
+            "https://support.ramp.com/hc/en-us/articles/360042576054",
+            "https://support.ramp.com/hc/en-us/articles/360042965234",
+            "https://support.ramp.com/hc/en-us/articles/360056048434",
+            "https://support.ramp.com/hc/en-us/articles/360056048434-Set-Up-Your-Expense-Policy",
+            "https://support.ramp.com/hc/en-us/articles/360059460491",
+            "https://support.ramp.com/hc/en-us/articles/39460230633363",
+            "https://support.ramp.com/hc/en-us/articles/4418793009811",
+            "https://support.ramp.com/hc/en-us/articles/4418793009811-Bill-Pay-Vendors-and-Vendor-Owners",
+            "https://support.ramp.com/hc/en-us/articles/4418793009811-Bill-Pay-vendors-and-vendor-owners",
+            "https://support.ramp.com/hc/en-us/articles/9754935122067",
+            "https://support.ramp.com/hc/en-us/articles/platform.openai.com",
+            "https://support.ramp.com/hc/en-us/articles/sync-repayments-to-your-accounting-software",
+            "https://support.ramp.com/hc/en-us/articles/two-way-bill-payment-sync",
+            "https://support.ramp.com/hc/en-us/articles/youtube.com/watch",
+            "https://support.ramp.com/hc/en-us/categories/360002060114-Getting-Started",
+            "https://support.ramp.com/hc/en-us/categories/360002060114-Getting-started"
+          ],
+          "_all_unverified_links": [
+            "https://support.ramp.com/hc/en-us/articles/43045480546835-Sage-Intacct-Sync-Error-Sage-Intacct-reported-Oops-we-can-t-find-this-transaction",
+            "https://support.ramp.com/hc/en-us/articles/4409480530707-Spend-requests-and-spending-limit-increases",
+            "https://support.ramp.com/hc/en-us/requests/new",
+            "https://support.ramp.com/hc/en-us/sections/23213587638547-Procurement",
+            "https://support.ramp.com/hc/en-us/sections/34411443062675-Bill-Pay-Accounting",
+            "https://support.ramp.com/hc/en-us/sections/360009239574-Payments-limits-and-statements",
+            "https://support.ramp.com/hc/en-us/sections/360012365433-Reimbursements"
+          ],
+          "_all_excluded_links": [
+            "https://support.ramp.com/hc/en-us/search"
+          ],
+          "_all_docs_unverified_links": [
+            "https://support.ramp.com/hc/en-us/articles/43045480546835-Sage-Intacct-Sync-Error-Sage-Intacct-reported-Oops-we-can-t-find-this-transaction",
+            "https://support.ramp.com/hc/en-us/articles/4409480530707-Spend-requests-and-spending-limit-increases",
+            "https://support.ramp.com/hc/en-us/requests/new",
+            "https://support.ramp.com/hc/en-us/sections/23213587638547-Procurement",
+            "https://support.ramp.com/hc/en-us/sections/34411443062675-Bill-Pay-Accounting",
+            "https://support.ramp.com/hc/en-us/sections/360009239574-Payments-limits-and-statements",
+            "https://support.ramp.com/hc/en-us/sections/360012365433-Reimbursements"
+          ],
+          "_all_repo_unverified_links": [],
+          "_broken_link_provenance": {
+            "https://support.ramp.com/hc/en-us/articles/20829858611859": [
+              {
+                "source_page": "https://support.ramp.com/hc/en-us/articles/21694263212563-Ramp-for-early-customers",
+                "anchor_text": "Procurement spend programs & purchase orders (POs)"
+              },
+              {
+                "source_page": "https://support.ramp.com/hc/en-us/articles/25702842573459-Syncing-Ramp-Purchase-Orders-into-accounting",
+                "anchor_text": "Ramp Procurement"
+              },
+              {
+                "source_page": "https://support.ramp.com/hc/en-us/articles/50698457888403-Syncing-item-receipts-to-NetSuite",
+                "anchor_text": "purchase orders"
+              },
+              {
+                "source_page": "https://support.ramp.com/hc/en-us/articles/50698457888403-Syncing-item-receipts-to-NetSuite",
+                "anchor_text": "Purchase orders in Ramp"
+              }
+            ],
+            "https://support.ramp.com/hc/en-us/articles/22009498542099": [
+              {
+                "source_page": "https://support.ramp.com/hc/en-us/articles/5506033900307-User-role-deep-dive-Assistant",
+                "anchor_text": "Shared funds"
+              }
+            ],
+            "https://support.ramp.com/hc/en-us/articles/33023431590419-How-to-update-the-Ramp-Acumatica-customization-project": [
+              {
+                "source_page": "https://support.ramp.com/hc/en-us/articles/36257086601235-Two-Way-Vendor-Information-Sync",
+                "anchor_text": "How to update the Ramp Acumatica customization project"
+              }
+            ],
+            "https://support.ramp.com/hc/en-us/articles/34187089596819-Roles-and-Permissions-on-Ramp": [
+              {
+                "source_page": "https://support.ramp.com/hc/en-us/articles/47229183261203-Virtual-Cards-on-Purchase-Orders",
+                "anchor_text": "Roles and Permissions on Ramp"
+              }
+            ],
+            "https://support.ramp.com/hc/en-us/articles/360042417834-User-role-deep-dive-Assistant": [
+              {
+                "source_page": "https://support.ramp.com/hc/en-us/articles/48177054625555-Preview-Mode",
+                "anchor_text": "Assistant role"
+              }
+            ],
+            "https://support.ramp.com/hc/en-us/articles/360042576054": [
+              {
+                "source_page": "https://support.ramp.com/hc/en-us/articles/4417590458259-Getting-started-as-a-User",
+                "anchor_text": "Using your card"
+              }
+            ],
+            "https://support.ramp.com/hc/en-us/articles/360042965234": [
+              {
+                "source_page": "https://support.ramp.com/hc/en-us/articles/50856231650323-Sync-repayments-to-your-accounting-software",
+                "anchor_text": "QuickBooks Online"
+              },
+              {
+                "source_page": "https://support.ramp.com/hc/en-us/articles/50856231650323-Sync-repayments-to-your-accounting-software",
+                "anchor_text": "QuickBooks Online overview"
+              }
+            ],
+            "https://support.ramp.com/hc/en-us/articles/360056048434": [
+              {
+                "source_page": "https://support.ramp.com/hc/en-us/articles/1500002005682-Ramp-Admin-guide",
+                "anchor_text": "Setup your expense policy"
+              },
+              {
+                "source_page": "https://support.ramp.com/hc/en-us/articles/4417662362259-Spend-guidelines-Alerts-and-flags",
+                "anchor_text": "Setup your expense policy."
+              }
+            ],
+            "https://support.ramp.com/hc/en-us/articles/360056048434-Set-Up-Your-Expense-Policy": [
+              {
+                "source_page": "https://support.ramp.com/hc/en-us/articles/11642074477971-NetSuite-International-accounting-support",
+                "anchor_text": "here"
+              }
+            ],
+            "https://support.ramp.com/hc/en-us/articles/360059460491": [
+              {
+                "source_page": "https://support.ramp.com/hc/en-us/articles/13796337614227-Sage-multi-entity-changes",
+                "anchor_text": "Verifying bank accounts"
+              }
+            ],
+            "https://support.ramp.com/hc/en-us/articles/39460230633363": [
+              {
+                "source_page": "https://support.ramp.com/hc/en-us/articles/4417421399699-Reviewing-transactions-from-Ramp-cards",
+                "anchor_text": "Homepage FAQ"
+              }
+            ],
+            "https://support.ramp.com/hc/en-us/articles/4418793009811": [
+              {
+                "source_page": "https://support.ramp.com/hc/en-us/articles/1500002005682-Ramp-Admin-guide",
+                "anchor_text": "Bill Pay vendors and vendor owners"
+              },
+              {
+                "source_page": "https://support.ramp.com/hc/en-us/articles/4417836454419-Bill-payment-methods-and-timelines",
+                "anchor_text": "Bill Pay Vendors and Vendor Owners"
+              },
+              {
+                "source_page": "https://support.ramp.com/hc/en-us/articles/8952397876883-Creating-and-managing-recurring-bill-payments-on-Ramp-s-Bill-Pay",
+                "anchor_text": "here"
+              }
+            ],
+            "https://support.ramp.com/hc/en-us/articles/4418793009811-Bill-Pay-Vendors-and-Vendor-Owners": [
+              {
+                "source_page": "https://support.ramp.com/hc/en-us/articles/360043081013-How-to-contact-Ramp-s-Support-team",
+                "anchor_text": "Bill Pay vendors and vendor owners"
+              },
+              {
+                "source_page": "https://support.ramp.com/hc/en-us/articles/4417843897747-Bill-Pay-approvals",
+                "anchor_text": "here"
+              }
+            ],
+            "https://support.ramp.com/hc/en-us/articles/4418793009811-Bill-Pay-vendors-and-vendor-owners": [
+              {
+                "source_page": "https://support.ramp.com/hc/en-us/articles/33747033991827-Import-ERP-vendors-into-Ramp",
+                "anchor_text": "Bulk Vendor Upload"
+              },
+              {
+                "source_page": "https://support.ramp.com/hc/en-us/articles/44401749997331-Import-ERP-vendors-into-Ramp",
+                "anchor_text": "Bulk Vendor Upload"
+              }
+            ],
+            "https://support.ramp.com/hc/en-us/articles/9754935122067": [
+              {
+                "source_page": "https://support.ramp.com/hc/en-us/articles/9550192601875-Ramp-s-fraud-protection-procedures",
+                "anchor_text": "Learn how to recognize and respond to phishing and other scams at your business."
+              }
+            ],
+            "https://support.ramp.com/hc/en-us/articles/platform.openai.com": [
+              {
+                "source_page": "https://support.ramp.com/hc/en-us/articles/50665591644051-AI-Spend-Intelligence",
+                "anchor_text": "OpenAI Console"
+              }
+            ],
+            "https://support.ramp.com/hc/en-us/articles/sync-repayments-to-your-accounting-software": [
+              {
+                "source_page": "https://support.ramp.com/hc/en-us/articles/4435677996947-NetSuite-overview",
+                "anchor_text": "Sync repayments to your accounting software"
+              },
+              {
+                "source_page": "https://support.ramp.com/hc/en-us/articles/4435536594067-QuickBooks-Online-overview",
+                "anchor_text": "Sync repayments to your accounting software"
+              },
+              {
+                "source_page": "https://support.ramp.com/hc/en-us/articles/4435940482707-Sage-Intacct-overview",
+                "anchor_text": "Sync repayments to your accounting software"
+              }
+            ],
+            "https://support.ramp.com/hc/en-us/articles/two-way-bill-payment-sync": [
+              {
+                "source_page": "https://support.ramp.com/hc/en-us/articles/33844303915539-Importing-bills-from-your-accounting-provider",
+                "anchor_text": "Two-way bill payment sync"
+              }
+            ],
+            "https://support.ramp.com/hc/en-us/articles/youtube.com/watch": [
+              {
+                "source_page": "https://support.ramp.com/hc/en-us/articles/46332308926739-Ramp-Treasury-Bank-Feeds",
+                "anchor_text": "QuickBooks Desktop"
+              }
+            ],
+            "https://support.ramp.com/hc/en-us/categories/360002060114-Getting-Started": [
+              {
+                "source_page": "https://support.ramp.com/hc/en-us",
+                "anchor_text": "Getting Started"
+              },
+              {
+                "source_page": "https://support.ramp.com/hc/en-us/articles/10464991136787-Bill-Pay-amortization-for-NetSuite",
+                "anchor_text": "Getting Started"
+              },
+              {
+                "source_page": "https://support.ramp.com/hc/en-us/articles/10881975647763-Funds-cards-and-spend-programs",
+                "anchor_text": "Getting Started"
+              },
+              {
+                "source_page": "https://support.ramp.com/hc/en-us/articles/10313396957587-AngelList-Stack-integration",
+                "anchor_text": "Getting Started"
+              },
+              {
+                "source_page": "https://support.ramp.com/hc/en-us/articles/10859570893203-Invoice-line-items-Expense-vs-item",
+                "anchor_text": "Getting Started"
+              }
+            ],
+            "https://support.ramp.com/hc/en-us/categories/360002060114-Getting-started": [
+              {
+                "source_page": "https://support.ramp.com/hc/en-us/articles/1500002006322-Getting-started-as-an-Admin",
+                "anchor_text": "Getting started"
+              },
+              {
+                "source_page": "https://support.ramp.com/hc/en-us/articles/24997409838739-Setting-up-single-sign-on-SSO-and-login-controls-in-Ramp",
+                "anchor_text": "Getting started"
+              },
+              {
+                "source_page": "https://support.ramp.com/hc/en-us/articles/360042579234-Next-steps-after-applying-and-getting-approved",
+                "anchor_text": "Getting started"
+              },
+              {
+                "source_page": "https://support.ramp.com/hc/en-us/articles/39367962117651-Transfer-business-ownership",
+                "anchor_text": "Getting started"
+              },
+              {
+                "source_page": "https://support.ramp.com/hc/en-us/articles/39559398061203-Managing-login-controls-in-Ramp",
+                "anchor_text": "Getting started"
+              }
+            ]
+          }
+        },
+        "seo_geo": {
+          "pages_scanned": 796,
+          "missing_title_count": 0,
+          "missing_description_count": 78,
+          "multiple_h1_count": 0,
+          "heading_hierarchy_jump_count": 37,
+          "seo_geo_issue_rate_pct": 3.61
+        },
+        "api_coverage": {
+          "reference_endpoint_count": 45,
+          "api_pages_detected": 28,
+          "endpoints_with_usage_docs": 16,
+          "reference_endpoints_without_usage_docs": 29,
+          "reference_coverage_pct": 35.56,
+          "no_api_pages_found": false,
+          "coverage_determined": true,
+          "coverage_method": "heuristic",
+          "detection_note": "Contract URLs found but no operations parsed",
+          "uncovered_endpoint_samples": [
+            "ep:/hc/en-us/articles/32842117658643-quickbooks-desktop-integration-api-overview",
+            "ep:/hc/en-us/articles/35397427804435-netsuite-sync-error-requires-additional-information-for-fields-such-as-account-reference-no-location",
+            "ep:/hc/en-us/articles/35397970057875-netsuite-sync-error-invalid-account-reference-default-expense-account-cannot-be-a-liability-account",
+            "ep:/hc/en-us/articles/35430276428947-netsuite-sync-error-invalid-reference-id",
+            "ep:/hc/en-us/articles/37609739614355-quickbooks-online-sync-error-required-param-missing-need-to-supply-the-required-value-for-the-api-required-parameter-line-accountbasedexpenselinedetail-accountref-is-missing-in-the-request",
+            "ep:/hc/en-us/articles/39258967094419-microsoft-dynamics-finance-operations-integration-overview",
+            "ep:/hc/en-us/articles/39454534394003-recover-or-update-your-mfa-method",
+            "ep:/hc/en-us/articles/43110233098259-netsuite-sync-error-you-must-create-a-credit-card-account-in-your-netsuite-instance-to-perform-this-operation",
+            "ep:/hc/en-us/articles/43332905176851-sage-intacct-sync-error-error-converting-purchase-order-the-document-document-name-is-already-converted-invalid-operation-error-code-bl01001973",
+            "ep:/hc/en-us/articles/43334159922451-netsuite-sync-error-netsuiteresourceexception-you-have-attempted-an-invalid-sublist-or-line-item-operation-you-are-either-trying-to-access-a-field-on-a-non-existent-line-or-you-are-trying-to-add-or-remove-lines-from-a-static-sublist",
+            "ep:/hc/en-us/articles/43784208358163-sage-intacct-sync-error-the-following-field-does-not-reference-an-existing-record-field-name",
+            "ep:/hc/en-us/articles/4417836454419-bill-payment-methods-and-timelines",
+            "ep:/hc/en-us/articles/45685505974035-netsuite-sync-error-invalid-account-reference-key-account-key-for-subsidiary-subsidiary",
+            "ep:/hc/en-us/articles/45686278205075-netsuite-sync-error-invalid-account-reference-key-account-key-for-subsidiary-subsidiary",
+            "ep:/hc/en-us/articles/45804742041491-quickbooks-online-sync-error-account-period-closed-cannot-update-through-services-api",
+            "ep:/hc/en-us/articles/45866573032211-quickbooks-online-sync-error-invalid-reference-id-name-s-element-not-found",
+            "ep:/hc/en-us/articles/45870960944275-quickbooks-online-sync-error-invalid-reference-ids-element-type-element-id",
+            "ep:/hc/en-us/articles/45875616264723-netsuite-sync-error-you-have-attempted-an-invalid-sublist-or-line-item-operation-you-are-either-trying-to-access-a-field-on-a-non-existent-line-or-you-are-trying-to-add-or-remove-lines-from-a-static-sublist",
+            "ep:/hc/en-us/articles/46073128346515-sage-intacct-sync-error-the-credit-card-is-not-a-valid-payment-method-for-paying-top-level-bills-in-an-intacct-global-consolidation-company-use-a-different-payment-method-such-as-check-error-code-bl03000069",
+            "ep:/hc/en-us/articles/46182685480211-sync-intacct-sync-error-httpsconnectionpool-host-api-intacct-com-port-443-read-timed-out-read-timeout-0-4"
+          ]
+        },
+        "examples": {
+          "total_code_examples": 0,
+          "total_code_blocks_all": 8,
+          "runnable_without_env": 0,
+          "blocked_by_placeholders": 0,
+          "network_bound_examples": 0,
+          "example_reliability_estimate_pct": 0.0,
+          "detection_note": "No executable code blocks detected (8 data-only blocks found). Site may use non-standard code rendering that the auditor does not recognize, or all examples are in data formats (YAML/JSON)."
+        },
+        "freshness": {
+          "pages_with_last_updated_hint": 10,
+          "pages_without_last_updated_hint": 786,
+          "last_updated_coverage_pct": 1.26,
+          "samples_with_last_updated": [
+            {
+              "url": "https://support.ramp.com/hc/en-us/articles/24202495913235-Request-payment-tax-and-other-details-from-vendors",
+              "hint": "The vendor profile will be updated once a vendor has submitted the information"
+            },
+            {
+              "url": "https://support.ramp.com/hc/en-us/articles/27082016818579-International-mileage-reimbursements",
+              "hint": "ZAR 4.95/km (from March 1, 2026)"
+            },
+            {
+              "url": "https://support.ramp.com/hc/en-us/articles/33844303915539-Importing-bills-from-your-accounting-provider",
+              "hint": "can be modified on imported bills."
+            },
+            {
+              "url": "https://support.ramp.com/hc/en-us/articles/360055243094-Splitting-transactions-or-reimbursements",
+              "hint": "Splits can be updated in the table view to adjust amounts, categories, and other fields. However, a split transaction ca"
+            },
+            {
+              "url": "https://support.ramp.com/hc/en-us/articles/36257086601235-Two-Way-Vendor-Information-Sync",
+              "hint": "Updated on Ramp"
+            },
+            {
+              "url": "https://support.ramp.com/hc/en-us/articles/40415613198355-Understanding-Ramp-s-Partner-Tiers",
+              "hint": "April 1, 2026"
+            },
+            {
+              "url": "https://support.ramp.com/hc/en-us/articles/45558068057235-Procurement-Role-Configuration",
+              "hint": "Screenshot 2025-10-12 at 7.47.20\u202fPM.png"
+            },
+            {
+              "url": "https://support.ramp.com/hc/en-us/articles/46165610254995-1099-Filing-on-Ramp",
+              "hint": "January 6, 2026,"
+            },
+            {
+              "url": "https://support.ramp.com/hc/en-us/articles/46487027102611-Advanced-filtering-on-reporting-tables",
+              "hint": "Last updated:"
+            },
+            {
+              "url": "https://support.ramp.com/hc/en-us/articles/49663332645907-Ramp-Chrome-Extension-Receipt-Fetching-Security-Brief",
+              "hint": "Ramp takes data protection and security seriously. Ramp maintains a SOC 2 Type II report which provides validation from "
+            }
+          ]
+        }
+      },
+      "samples": {
+        "broken_links": [
+          "https://support.ramp.com/hc/en-us/articles/20829858611859",
+          "https://support.ramp.com/hc/en-us/articles/22009498542099",
+          "https://support.ramp.com/hc/en-us/articles/33023431590419-How-to-update-the-Ramp-Acumatica-customization-project",
+          "https://support.ramp.com/hc/en-us/articles/34187089596819-Roles-and-Permissions-on-Ramp",
+          "https://support.ramp.com/hc/en-us/articles/360042417834-User-role-deep-dive-Assistant",
+          "https://support.ramp.com/hc/en-us/articles/360042576054",
+          "https://support.ramp.com/hc/en-us/articles/360042965234",
+          "https://support.ramp.com/hc/en-us/articles/360056048434",
+          "https://support.ramp.com/hc/en-us/articles/360056048434-Set-Up-Your-Expense-Policy",
+          "https://support.ramp.com/hc/en-us/articles/360059460491",
+          "https://support.ramp.com/hc/en-us/articles/39460230633363",
+          "https://support.ramp.com/hc/en-us/articles/4418793009811",
+          "https://support.ramp.com/hc/en-us/articles/4418793009811-Bill-Pay-Vendors-and-Vendor-Owners",
+          "https://support.ramp.com/hc/en-us/articles/4418793009811-Bill-Pay-vendors-and-vendor-owners",
+          "https://support.ramp.com/hc/en-us/articles/9754935122067",
+          "https://support.ramp.com/hc/en-us/articles/platform.openai.com",
+          "https://support.ramp.com/hc/en-us/articles/sync-repayments-to-your-accounting-software",
+          "https://support.ramp.com/hc/en-us/articles/two-way-bill-payment-sync",
+          "https://support.ramp.com/hc/en-us/articles/youtube.com/watch",
+          "https://support.ramp.com/hc/en-us/categories/360002060114-Getting-Started"
+        ],
+        "docs_broken_link_samples": [
+          "https://support.ramp.com/hc/en-us/articles/20829858611859",
+          "https://support.ramp.com/hc/en-us/articles/22009498542099",
+          "https://support.ramp.com/hc/en-us/articles/33023431590419-How-to-update-the-Ramp-Acumatica-customization-project",
+          "https://support.ramp.com/hc/en-us/articles/34187089596819-Roles-and-Permissions-on-Ramp",
+          "https://support.ramp.com/hc/en-us/articles/360042417834-User-role-deep-dive-Assistant",
+          "https://support.ramp.com/hc/en-us/articles/360042576054",
+          "https://support.ramp.com/hc/en-us/articles/360042965234",
+          "https://support.ramp.com/hc/en-us/articles/360056048434",
+          "https://support.ramp.com/hc/en-us/articles/360056048434-Set-Up-Your-Expense-Policy",
+          "https://support.ramp.com/hc/en-us/articles/360059460491",
+          "https://support.ramp.com/hc/en-us/articles/39460230633363",
+          "https://support.ramp.com/hc/en-us/articles/4418793009811",
+          "https://support.ramp.com/hc/en-us/articles/4418793009811-Bill-Pay-Vendors-and-Vendor-Owners",
+          "https://support.ramp.com/hc/en-us/articles/4418793009811-Bill-Pay-vendors-and-vendor-owners",
+          "https://support.ramp.com/hc/en-us/articles/9754935122067",
+          "https://support.ramp.com/hc/en-us/articles/platform.openai.com",
+          "https://support.ramp.com/hc/en-us/articles/sync-repayments-to-your-accounting-software",
+          "https://support.ramp.com/hc/en-us/articles/two-way-bill-payment-sync",
+          "https://support.ramp.com/hc/en-us/articles/youtube.com/watch",
+          "https://support.ramp.com/hc/en-us/categories/360002060114-Getting-Started",
+          "https://support.ramp.com/hc/en-us/categories/360002060114-Getting-started"
+        ],
+        "repo_broken_link_samples": [],
+        "unverified_link_samples": [
+          "https://support.ramp.com/hc/en-us/articles/43045480546835-Sage-Intacct-Sync-Error-Sage-Intacct-reported-Oops-we-can-t-find-this-transaction",
+          "https://support.ramp.com/hc/en-us/articles/4409480530707-Spend-requests-and-spending-limit-increases",
+          "https://support.ramp.com/hc/en-us/requests/new",
+          "https://support.ramp.com/hc/en-us/sections/23213587638547-Procurement",
+          "https://support.ramp.com/hc/en-us/sections/34411443062675-Bill-Pay-Accounting",
+          "https://support.ramp.com/hc/en-us/sections/360009239574-Payments-limits-and-statements",
+          "https://support.ramp.com/hc/en-us/sections/360012365433-Reimbursements"
+        ],
+        "api_uncovered_samples": [
+          "ep:/hc/en-us/articles/32842117658643-quickbooks-desktop-integration-api-overview",
+          "ep:/hc/en-us/articles/35397427804435-netsuite-sync-error-requires-additional-information-for-fields-such-as-account-reference-no-location",
+          "ep:/hc/en-us/articles/35397970057875-netsuite-sync-error-invalid-account-reference-default-expense-account-cannot-be-a-liability-account",
+          "ep:/hc/en-us/articles/35430276428947-netsuite-sync-error-invalid-reference-id",
+          "ep:/hc/en-us/articles/37609739614355-quickbooks-online-sync-error-required-param-missing-need-to-supply-the-required-value-for-the-api-required-parameter-line-accountbasedexpenselinedetail-accountref-is-missing-in-the-request",
+          "ep:/hc/en-us/articles/39258967094419-microsoft-dynamics-finance-operations-integration-overview",
+          "ep:/hc/en-us/articles/39454534394003-recover-or-update-your-mfa-method",
+          "ep:/hc/en-us/articles/43110233098259-netsuite-sync-error-you-must-create-a-credit-card-account-in-your-netsuite-instance-to-perform-this-operation",
+          "ep:/hc/en-us/articles/43332905176851-sage-intacct-sync-error-error-converting-purchase-order-the-document-document-name-is-already-converted-invalid-operation-error-code-bl01001973",
+          "ep:/hc/en-us/articles/43334159922451-netsuite-sync-error-netsuiteresourceexception-you-have-attempted-an-invalid-sublist-or-line-item-operation-you-are-either-trying-to-access-a-field-on-a-non-existent-line-or-you-are-trying-to-add-or-remove-lines-from-a-static-sublist",
+          "ep:/hc/en-us/articles/43784208358163-sage-intacct-sync-error-the-following-field-does-not-reference-an-existing-record-field-name",
+          "ep:/hc/en-us/articles/4417836454419-bill-payment-methods-and-timelines",
+          "ep:/hc/en-us/articles/45685505974035-netsuite-sync-error-invalid-account-reference-key-account-key-for-subsidiary-subsidiary",
+          "ep:/hc/en-us/articles/45686278205075-netsuite-sync-error-invalid-account-reference-key-account-key-for-subsidiary-subsidiary",
+          "ep:/hc/en-us/articles/45804742041491-quickbooks-online-sync-error-account-period-closed-cannot-update-through-services-api",
+          "ep:/hc/en-us/articles/45866573032211-quickbooks-online-sync-error-invalid-reference-id-name-s-element-not-found",
+          "ep:/hc/en-us/articles/45870960944275-quickbooks-online-sync-error-invalid-reference-ids-element-type-element-id",
+          "ep:/hc/en-us/articles/45875616264723-netsuite-sync-error-you-have-attempted-an-invalid-sublist-or-line-item-operation-you-are-either-trying-to-access-a-field-on-a-non-existent-line-or-you-are-trying-to-add-or-remove-lines-from-a-static-sublist",
+          "ep:/hc/en-us/articles/46073128346515-sage-intacct-sync-error-the-credit-card-is-not-a-valid-payment-method-for-paying-top-level-bills-in-an-intacct-global-consolidation-company-use-a-different-payment-method-such-as-check-error-code-bl03000069",
+          "ep:/hc/en-us/articles/46182685480211-sync-intacct-sync-error-httpsconnectionpool-host-api-intacct-com-port-443-read-timed-out-read-timeout-0-4"
+        ]
+      },
+      "run_count": 1
+    }
+  ],
+  "aggregate": {
+    "metrics": {
+      "crawl": {
+        "pages_crawled": 879,
+        "requested_pages": 1217,
+        "urls_examined": 885,
+        "max_pages_total": 20000,
+        "discovered_pages": 885,
+        "crawl_scope_pages": 883,
+        "trap_urls_skipped": 358,
+        "crawl_coverage_pct": 100.23
+      },
+      "links": {
+        "broken_internal_links_count": 21,
+        "docs_broken_links_count": 21,
+        "repo_broken_links_count": 0,
+        "unverified_links_count": 7,
+        "confirmed_broken_links_count": 21,
+        "excluded_links_count": 1
+      },
+      "seo_geo": {
+        "seo_geo_issue_rate_pct": 5.63
+      },
+      "api_coverage": {
+        "reference_coverage_pct": 51.67,
+        "no_api_pages_found": false,
+        "api_pages_detected": 110,
+        "coverage_determined": true,
+        "detection_note": ""
+      },
+      "examples": {
+        "example_reliability_estimate_pct": 0.0
+      },
+      "freshness": {
+        "last_updated_coverage_pct": 1.14
+      }
+    },
+    "confidence": {
+      "overall_confidence_pct": 81.5,
+      "links_confidence_pct": 70.0,
+      "api_confidence_pct": 85.0,
+      "crawl_confidence_pct": 95.0
+    }
+  },
+  "confidence": {
+    "overall_confidence_pct": 81.5,
+    "links_confidence_pct": 70.0,
+    "api_confidence_pct": 85.0,
+    "crawl_confidence_pct": 95.0
+  },
+  "top_findings": [
+    "Broken internal links: 21",
+    "Link verification inconclusive for 7 URLs (auth/rate-limit/server block); these are excluded from broken-link counts.",
+    "API usage-doc coverage is low: 51.67% (110 API pages detected)",
+    "Example reliability: 0% on 879 pages (likely detection limitation). Site may use JS-rendered code blocks.",
+    "Freshness visibility is weak: only 1.14% pages show last updated",
+    "Documentation is split across multiple sites for one product; this is likely a discoverability/consistency risk."
+  ],
+  "llm_analysis": {
+    "status": "ok",
+    "model": "claude-sonnet-4-5",
+    "analysis": {
+      "executive_summary": "Audit covered 879 pages across 2 documentation sites (support.ramp.com, docs.ramp.com) with 100% crawl coverage. 21 confirmed broken internal links exist within user-facing documentation. API reference coverage is 51.67% across 110 detected API pages. Example code detection returned 0% reliability, indicating a technical detection limitation rather than absence of examples. Only 1.14% of pages display last-updated metadata, severely limiting freshness visibility.",
+      "strengths": [
+        "Complete crawl coverage achieved (100.23%) with 879 pages successfully indexed",
+        "110 API pages detected and analyzed, providing baseline for reference improvement",
+        "Low SEO/geo issue rate at 5.63% indicates solid technical foundation",
+        "Zero repository navigation broken links; all link issues are in user-facing documentation",
+        "Overall audit confidence of 81.5% provides reliable baseline for remediation"
+      ],
+      "risks": [
+        "21 confirmed broken internal links degrade user navigation and trust in documentation quality",
+        "API reference coverage at 51.67% leaves nearly half of API surface undocumented or poorly linked",
+        "Split documentation across 2 domains (support.ramp.com and docs.ramp.com) creates discoverability and consistency risks",
+        "Freshness metadata visible on only 1.14% of pages prevents users from assessing content currency",
+        "Example code detection failure (0% reliability) suggests JS-rendered content may not be auditable by standard tooling",
+        "7 unverified links due to auth/rate-limit blocks may hide additional broken links",
+        "358 trap URLs skipped during crawl indicate potential pagination or filtering issues that could hide content gaps"
+      ],
+      "prioritized_actions": [
+        {
+          "action": "Fix all 21 confirmed broken internal links in user-facing documentation",
+          "impact": "high",
+          "effort": "low"
+        },
+        {
+          "action": "Implement last-updated timestamps on all documentation pages (currently 1.14% coverage)",
+          "impact": "high",
+          "effort": "medium"
+        },
+        {
+          "action": "Audit and expand API reference documentation to close the 48% coverage gap (110 pages analyzed)",
+          "impact": "critical",
+          "effort": "high"
+        },
+        {
+          "action": "Consolidate or clearly differentiate documentation across support.ramp.com and docs.ramp.com to reduce user confusion",
+          "impact": "high",
+          "effort": "medium"
+        },
+        {
+          "action": "Manually verify 7 auth-blocked links and investigate 358 trap URLs to uncover hidden content or navigation issues",
+          "impact": "medium",
+          "effort": "medium"
+        }
+      ],
+      "limitations": [
+        "Example code detection returned 0% reliability; JS-rendered or dynamically loaded code blocks cannot be verified by this audit method",
+        "7 links could not be verified due to authentication, rate-limiting, or server blocks; actual broken link count may be higher",
+        "External audit cannot assess content accuracy, completeness of explanations, or alignment with actual product behavior",
+        "Crawl excluded 358 trap URLs (likely pagination/filters); content completeness in those areas is not validated",
+        "API coverage metric reflects linkage and structure only; does not evaluate quality, accuracy, or usability of API documentation"
+      ]
+    }
+  }
+}

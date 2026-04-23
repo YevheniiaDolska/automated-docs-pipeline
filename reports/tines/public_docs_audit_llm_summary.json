@@ -1,0 +1,57 @@
+{
+  "status": "ok",
+  "model": "claude-sonnet-4-5",
+  "analysis": {
+    "executive_summary": "Audit covered 4,004 pages across Tines documentation (100% crawl coverage of discovered scope). Identified 19 confirmed broken internal links within user-facing docs. API reference coverage is 75.76% across 969 detected API pages. Example code reliability shows 0% detection (likely technical limitation due to JS rendering). Only 42.58% of pages display last-updated metadata, and SEO/geo issues affect 18.1% of content.",
+    "strengths": [
+      "Complete crawl coverage (100%) of discovered documentation scope with 4,004 pages indexed",
+      "Strong API page detection with 969 pages identified and 75.76% reference coverage",
+      "No repository navigation broken links (repo_broken_links_count: 0)",
+      "High API detection confidence at 85% and crawl confidence at 95%",
+      "Single-product topology provides clear documentation structure"
+    ],
+    "risks": [
+      "19 confirmed broken internal links in user-facing documentation degrade user experience and trust",
+      "33 unverified links due to authentication, rate-limiting, or server blocks create uncertainty in link health",
+      "SEO/geo issue rate of 18.1% may impact discoverability and search ranking",
+      "Example code reliability at 0% suggests detection failure; actual code quality unknown and unvalidated",
+      "Only 42.58% last-updated coverage prevents users from assessing content freshness and relevance",
+      "Overall confidence of 66.12% indicates moderate audit reliability with significant blind spots",
+      "Link verification confidence critically low at 31.54%, limiting broken link analysis reliability"
+    ],
+    "prioritized_actions": [
+      {
+        "action": "Fix all 19 confirmed broken internal documentation links",
+        "impact": "critical",
+        "effort": "low"
+      },
+      {
+        "action": "Investigate and resolve 33 unverified links (authentication/rate-limit issues) to confirm accessibility",
+        "impact": "high",
+        "effort": "medium"
+      },
+      {
+        "action": "Implement last-updated metadata on remaining 57.42% of pages to improve freshness transparency",
+        "impact": "high",
+        "effort": "medium"
+      },
+      {
+        "action": "Audit and remediate SEO/geo issues affecting 18.1% of pages to improve search visibility",
+        "impact": "high",
+        "effort": "high"
+      },
+      {
+        "action": "Manually validate example code blocks (audit detected 0% due to JS rendering limitation)",
+        "impact": "medium",
+        "effort": "high"
+      }
+    ],
+    "limitations": [
+      "Example code reliability (0%) likely reflects detection failure on JS-rendered content, not actual code quality; manual review required",
+      "33 unverified links could not be validated due to authentication requirements, rate limiting, or server blocks; actual status unknown",
+      "Overall confidence of 66.12% and link confidence of 31.54% indicate significant portions of documentation could not be fully assessed",
+      "External audit cannot verify accuracy of technical content, code functionality, or alignment with actual product behavior",
+      "Crawl limited to 4,004 pages; trap URL filtering (3,878 skipped) may have excluded legitimate dynamic or parameterized documentation pages"
+    ]
+  }
+}

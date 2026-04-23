@@ -1,0 +1,132 @@
+{
+  "generated_at_utc": "2026-04-23T08:33:11.184314+00:00",
+  "sites_count": 1,
+  "totals": {
+    "docs_broken_links_count": 5,
+    "repo_broken_links_count": 0,
+    "all_confirmed_broken_links_count": 5,
+    "unverified_links_sample_count": 0
+  },
+  "all_docs_broken_links": [
+    "https://docs.detectify.com/integrations/notifications",
+    "https://docs.detectify.com/internal-network-testing/configure",
+    "https://docs.detectify.com/internal-network-testing/deploy/aws",
+    "https://docs.detectify.com/internal-network-testing/deploy/helm",
+    "https://docs.detectify.com/internal-network-testing/deploy/kubernetes"
+  ],
+  "all_repo_broken_links": [],
+  "all_unverified_links_sample": [],
+  "sites": [
+    {
+      "site_url": "https://docs.detectify.com/",
+      "confirmed_broken_links_count": 5,
+      "docs_broken_links_count": 5,
+      "repo_broken_links_count": 0,
+      "docs_broken_links": [
+        "https://docs.detectify.com/integrations/notifications",
+        "https://docs.detectify.com/internal-network-testing/configure",
+        "https://docs.detectify.com/internal-network-testing/deploy/aws",
+        "https://docs.detectify.com/internal-network-testing/deploy/helm",
+        "https://docs.detectify.com/internal-network-testing/deploy/kubernetes"
+      ],
+      "repo_broken_links": [],
+      "confirmed_broken_links_detailed": [
+        {
+          "target_url": "https://docs.detectify.com/integrations/notifications",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://docs.detectify.com/account-management/notifications",
+              "anchor_text": "Integrations"
+            },
+            {
+              "source_page": "https://docs.detectify.com/vulnerability-reference/remediation",
+              "anchor_text": "Slack or Teams notifications"
+            }
+          ]
+        },
+        {
+          "target_url": "https://docs.detectify.com/internal-network-testing/configure",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://docs.detectify.com/internal-network-testing",
+              "anchor_text": "Configure"
+            },
+            {
+              "source_page": "https://docs.detectify.com/internal-network-testing/deploy",
+              "anchor_text": "Configure"
+            },
+            {
+              "source_page": "https://docs.detectify.com/internal-network-testing/deploy/helm/getting-started",
+              "anchor_text": "Configure"
+            },
+            {
+              "source_page": "https://docs.detectify.com/internal-network-testing/use-cases",
+              "anchor_text": "Configuration"
+            }
+          ]
+        },
+        {
+          "target_url": "https://docs.detectify.com/internal-network-testing/deploy/aws",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://docs.detectify.com/internal-network-testing/deploy",
+              "anchor_text": "Terraform/AWS"
+            },
+            {
+              "source_page": "https://docs.detectify.com/internal-network-testing/deploy",
+              "anchor_text": "Available"
+            },
+            {
+              "source_page": "https://docs.detectify.com/internal-network-testing/scaling",
+              "anchor_text": "Terraform module documentation"
+            }
+          ]
+        },
+        {
+          "target_url": "https://docs.detectify.com/internal-network-testing/deploy/helm",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://docs.detectify.com/internal-network-testing/deploy",
+              "anchor_text": "Helm"
+            },
+            {
+              "source_page": "https://docs.detectify.com/internal-network-testing/deploy",
+              "anchor_text": "Available"
+            },
+            {
+              "source_page": "https://docs.detectify.com/internal-network-testing/deploy",
+              "anchor_text": "Helm chart"
+            },
+            {
+              "source_page": "https://docs.detectify.com/internal-network-testing/deploy",
+              "anchor_text": "Helm Chart Deployment"
+            },
+            {
+              "source_page": "https://docs.detectify.com/internal-network-testing/scaling",
+              "anchor_text": "Helm chart documentation"
+            }
+          ]
+        },
+        {
+          "target_url": "https://docs.detectify.com/internal-network-testing/deploy/kubernetes",
+          "link_type": "docs",
+          "source_refs": [
+            {
+              "source_page": "https://docs.detectify.com/internal-network-testing",
+              "anchor_text": "Helm Chart"
+            },
+            {
+              "source_page": "https://docs.detectify.com/internal-network-testing/deploy/helm/requirements",
+              "anchor_text": "Deploy on Kubernetes"
+            }
+          ]
+        }
+      ],
+      "unverified_links_sample": []
+    }
+  ]
+}

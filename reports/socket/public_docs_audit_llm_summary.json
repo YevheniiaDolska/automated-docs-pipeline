@@ -1,0 +1,57 @@
+{
+  "status": "ok",
+  "model": "claude-sonnet-4-5",
+  "analysis": {
+    "executive_summary": "Socket.dev documentation audit covered 217 pages with 100.46% crawl coverage and 91.5% overall confidence. Critical issues include 7 confirmed broken internal links, all within user-facing documentation. API reference coverage is low at 20.0% across 111 detected API pages. Example code reliability scored 0.0%, indicating no executable or verified examples. SEO/geo issues affect 15.55% of pages, impacting discoverability.",
+    "strengths": [
+      "Complete crawl coverage at 100.46% with 217 of 235 requested pages successfully examined",
+      "High overall audit confidence at 91.5% with strong link verification (95.0%) and crawl confidence (95.0%)",
+      "100% last-updated metadata coverage across all documentation pages",
+      "Zero repository navigation broken links; all 7 broken links are in user-facing docs and actionable",
+      "Single-product topology provides clear documentation structure with 216 in-scope pages"
+    ],
+    "risks": [
+      "7 confirmed broken internal links degrade user navigation and trust in documentation quality",
+      "API reference coverage at 20.0% leaves 80% of 111 API pages without adequate usage documentation",
+      "0.0% example reliability means no code examples are verified, tested, or executable",
+      "15.55% SEO/geo issue rate significantly impacts search discoverability and global reach",
+      "Low API confidence score (85.0%) suggests potential gaps in API documentation detection accuracy",
+      "No unverified links (0 count) but 1 excluded link may hide additional broken link exposure",
+      "Single trap URL skipped indicates potential crawler evasion or documentation structure issues"
+    ],
+    "prioritized_actions": [
+      {
+        "action": "Fix all 7 confirmed broken internal links in user-facing documentation",
+        "impact": "critical",
+        "effort": "low"
+      },
+      {
+        "action": "Implement executable code examples with verification pipeline to address 0.0% reliability score",
+        "impact": "critical",
+        "effort": "high"
+      },
+      {
+        "action": "Expand API usage documentation to improve 20.0% reference coverage across 111 API pages",
+        "impact": "high",
+        "effort": "high"
+      },
+      {
+        "action": "Remediate SEO/geo issues affecting 15.55% of pages (approximately 34 pages)",
+        "impact": "high",
+        "effort": "medium"
+      },
+      {
+        "action": "Investigate and resolve the 1 trap URL and 1 excluded link for complete coverage",
+        "impact": "medium",
+        "effort": "low"
+      }
+    ],
+    "limitations": [
+      "External audit cannot verify accuracy or technical correctness of documentation content, only structural and linking integrity",
+      "API coverage detection at 85.0% confidence may miss undocumented endpoints or misclassify non-API pages as API documentation",
+      "Example reliability at 0.0% reflects lack of executable verification infrastructure, not necessarily example quality or usefulness",
+      "SEO/geo issue detection limited to technical metadata; cannot assess content relevance, keyword strategy, or competitive positioning",
+      "Crawl cannot access authentication-required pages, private repositories, or dynamically generated content requiring user interaction"
+    ]
+  }
+}

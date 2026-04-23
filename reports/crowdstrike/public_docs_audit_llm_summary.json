@@ -1,0 +1,57 @@
+{
+  "status": "ok",
+  "model": "claude-sonnet-4-5",
+  "analysis": {
+    "executive_summary": "Audit of developer.crowdstrike.com/docs covered 19 pages (100% of discovered scope, 1.9% of max capacity). Zero broken links detected across all categories. API reference coverage is 0% despite 2 API pages detected, indicating missing usage documentation. Freshness metadata exists on only 15.79% of pages. Overall confidence is 81%, with API confidence notably lower at 55%.",
+    "strengths": [
+      "Zero broken links: no internal, docs, or repository navigation link failures",
+      "100% crawl coverage of discovered documentation scope",
+      "Example reliability estimate at 100% for detected code samples",
+      "High link verification confidence at 95%",
+      "No crawl traps or scope leakage issues"
+    ],
+    "risks": [
+      "API reference coverage at 0% despite 2 API pages detected\u2014critical gap in usage documentation",
+      "SEO/GEO issue rate of 11.84% may impact discoverability and search ranking",
+      "Only 15.79% of pages display last-updated metadata, obscuring content freshness",
+      "API confidence score of 55% indicates potential detection limitations in API documentation analysis",
+      "Small crawl sample (19 pages) may not represent full documentation estate",
+      "Multi-project topology detected but only 19 pages crawled suggests incomplete discovery",
+      "Low freshness visibility creates risk of users relying on outdated information"
+    ],
+    "prioritized_actions": [
+      {
+        "action": "Create usage documentation and integration guides for 2 detected API pages to achieve measurable reference coverage",
+        "impact": "critical",
+        "effort": "high"
+      },
+      {
+        "action": "Implement last-updated timestamps on remaining 84.21% of pages lacking freshness metadata",
+        "impact": "high",
+        "effort": "low"
+      },
+      {
+        "action": "Audit and resolve SEO/GEO issues affecting 11.84% of pages (meta descriptions, titles, structured data)",
+        "impact": "high",
+        "effort": "medium"
+      },
+      {
+        "action": "Investigate multi-project topology to confirm all documentation projects are discoverable and crawlable",
+        "impact": "high",
+        "effort": "medium"
+      },
+      {
+        "action": "Review API page detection methodology given 55% confidence score to ensure comprehensive coverage",
+        "impact": "medium",
+        "effort": "low"
+      }
+    ],
+    "limitations": [
+      "Audit crawled only 19 pages; full documentation estate may contain additional issues not visible in this sample",
+      "API coverage detection confidence at 55% suggests potential false negatives in API page identification",
+      "External audit cannot verify accuracy, completeness, or technical correctness of documentation content",
+      "Link verification does not guarantee destination page quality, relevance, or up-to-date information",
+      "Multi-project topology may have undiscovered projects or sections not accessible from audited entry points"
+    ]
+  }
+}

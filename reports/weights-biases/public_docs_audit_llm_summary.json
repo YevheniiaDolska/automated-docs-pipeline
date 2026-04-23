@@ -1,0 +1,57 @@
+{
+  "status": "ok",
+  "model": "claude-sonnet-4-5",
+  "analysis": {
+    "executive_summary": "Audit crawled 4,005 pages across https://docs.wandb.ai/ with 100% crawl coverage and 86.85% overall confidence. Identified 38 confirmed broken internal documentation links with no repository navigation link failures. API reference coverage is critically low at 14.47% despite detecting 940 API pages. Example code reliability detection returned 0%, indicating a likely technical detection limitation with JavaScript-rendered content. Freshness metadata is visible on only 2.6% of pages, and SEO/geographic issues affect 17.07% of content.",
+    "strengths": [
+      "Complete crawl coverage at 100% (4,005 of 4,030 in-scope pages successfully crawled)",
+      "High overall audit confidence at 86.85% with strong crawl confidence at 95%",
+      "No broken repository navigation links (repo_broken_links_count: 0)",
+      "Large API surface detected with 940 API-related pages identified",
+      "Effective trap URL filtering (12,310 URLs skipped, preventing crawl pollution)"
+    ],
+    "risks": [
+      "38 confirmed broken internal documentation links degrading user navigation and trust",
+      "API reference coverage at 14.47% leaves 85%+ of API surface without usage documentation or examples",
+      "Example code reliability at 0% suggests users cannot verify working code samples (likely detection issue, but user impact unknown)",
+      "Only 2.6% of pages display last-updated metadata, obscuring content freshness for 97.4% of documentation",
+      "SEO/geographic issue rate of 17.07% may limit discoverability and international reach",
+      "5 unverified links due to authentication/rate-limiting/server blocks represent potential hidden broken links",
+      "Detection limitations on example reliability (0% on 4,005 pages) prevent validation of critical code samples"
+    ],
+    "prioritized_actions": [
+      {
+        "action": "Fix all 38 confirmed broken internal documentation links to restore navigation integrity",
+        "impact": "critical",
+        "effort": "low"
+      },
+      {
+        "action": "Increase API usage documentation coverage from 14.47% to minimum 60% by adding code examples and integration guides for top 50 API endpoints",
+        "impact": "critical",
+        "effort": "high"
+      },
+      {
+        "action": "Implement last-updated timestamps on all documentation pages (currently 2.6% coverage) to improve trust and maintenance visibility",
+        "impact": "high",
+        "effort": "medium"
+      },
+      {
+        "action": "Investigate and resolve example code detection failure (0% reliability score) by ensuring code blocks are server-rendered or accessible to audit tooling",
+        "impact": "high",
+        "effort": "medium"
+      },
+      {
+        "action": "Audit and remediate SEO/geographic issues affecting 17.07% of pages to improve search discoverability and international accessibility",
+        "impact": "medium",
+        "effort": "medium"
+      }
+    ],
+    "limitations": [
+      "External audit cannot verify authentication-protected content; 5 unverified links may include false negatives",
+      "0% example reliability score likely reflects detection limitation with JavaScript-rendered code blocks rather than actual code quality",
+      "Audit cannot validate functional correctness of API documentation or whether detected API pages represent complete API surface",
+      "SEO/geographic issue detection does not measure actual search ranking performance or user acquisition impact",
+      "Crawl cannot assess documentation accuracy, technical correctness, or alignment with current product functionality"
+    ]
+  }
+}

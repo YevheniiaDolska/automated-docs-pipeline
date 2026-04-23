@@ -70,6 +70,8 @@ FIELD_GUIDANCE: dict[str, str] = {
     "ANTHROPIC_API_KEY": "Use your Anthropic key.",
     "AZURE_OPENAI_API_KEY": "Use your Azure OpenAI key.",
     "AZURE_OPENAI_ENDPOINT": "Use your Azure OpenAI endpoint URL from Azure portal.",
+    "ASK_AI_API_KEY": "Generate a strong random key for your Ask AI runtime auth (example: python3 -c \"import secrets; print(secrets.token_urlsafe(48))\").",
+    "ASK_AI_BASE_URL": "Ask AI provider endpoint URL. Keep default for local Ollama.",
     "POSTMAN_API_KEY": "Use your Postman API key.",
     "POSTMAN_WORKSPACE_ID": "Take from your Postman workspace settings.",
     "POSTMAN_COLLECTION_UID": "Optional. Leave empty to auto-import from generated contract.",
@@ -191,6 +193,12 @@ def _detect_setup_prereqs(runtime: dict[str, Any], env_values: dict[str, str]) -
 
     required_client_inputs: list[dict[str, str]] = []
     if bool(ask_ai.get("enabled", False)):
+        required_client_inputs.append(
+            {
+                "key": "ASK_AI_API_KEY",
+                "purpose": "Ask AI runtime access key (client-generated secret)",
+            }
+        )
         provider = str(ask_ai.get("provider", "openai")).strip().lower()
         if provider == "openai":
             required_client_inputs.append({"key": "OPENAI_API_KEY", "purpose": "Ask AI provider credentials"})
@@ -209,7 +217,6 @@ def _detect_setup_prereqs(runtime: dict[str, Any], env_values: dict[str, str]) -
         else:
             required_client_inputs.extend(
                 [
-                    {"key": "ASK_AI_API_KEY", "purpose": "Custom Ask AI provider credentials"},
                     {"key": "ASK_AI_BASE_URL", "purpose": "Custom Ask AI provider URL"},
                 ]
             )
@@ -1066,6 +1073,10 @@ def main() -> int:
     print("\n[env-wizard] Ownership and prerequisites")
     print("- Client-managed: provider keys, optional external integrations, runner prerequisites.")
     print("- Operator-managed: signed license JWT, capability pack, default policy endpoints.")
+    if "ASK_AI_API_KEY" in prereqs.get("missing_inputs", []):
+        print("- Ask AI runtime key (`ASK_AI_API_KEY`) is missing.")
+        print("  Generate one: python3 -c \"import secrets; print(secrets.token_urlsafe(48))\"")
+        print(f"  Then set it in {env_path.name}.")
     if prereqs.get("missing_inputs"):
         print(f"- Missing client inputs: {len(prereqs['missing_inputs'])} (can be added later to {env_path.name}).")
     if prereqs.get("blocking_reasons"):

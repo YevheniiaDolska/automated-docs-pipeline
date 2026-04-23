@@ -1,0 +1,409 @@
+{
+  "generated_at": "2026-04-22T10:14:52.086426+00:00",
+  "site_url": "https://semgrep.dev/docs",
+  "site_urls": [
+    "https://semgrep.dev/docs"
+  ],
+  "topology_mode": "multi-project",
+  "verification_modes": [
+    "authenticated",
+    "bot",
+    "browser"
+  ],
+  "sites": [
+    {
+      "site_url": "https://semgrep.dev/docs",
+      "metrics": {
+        "crawl": {
+          "pages_crawled": 1116,
+          "requested_pages": 1442,
+          "urls_examined": 1116,
+          "max_pages": 10000,
+          "effective_limit": 10000,
+          "auto_mode": false,
+          "stop_reason": "queue_exhausted",
+          "discovered_pages": 1116,
+          "crawl_scope_basis": "sitemap",
+          "crawl_scope_pages": 1116,
+          "crawl_coverage_pct": 100.0,
+          "trap_urls_skipped": 817,
+          "seeded_sitemap_urls": 1116,
+          "robots_sitemaps_declared": 2
+        },
+        "links": {
+          "internal_links_checked": 1047,
+          "broken_internal_links_count": 11,
+          "docs_broken_links_count": 11,
+          "repo_broken_links_count": 0,
+          "broken_internal_link_samples": [
+            "https://semgrep.dev/blog/2020/bento-check-unescaped-template-extensions-in-flask",
+            "https://semgrep.dev/blog/2022/xml-security-in-java",
+            "https://semgrep.dev/blog/2024/tanya@semgrep.com",
+            "https://semgrep.dev/case-studies/glasswall",
+            "https://semgrep.dev/contact/product-join-llm-detection-beta",
+            "https://semgrep.dev/contact/product-join-llm-detection-beta/.",
+            "https://semgrep.dev/docs/experiments/focus-metavariable",
+            "https://semgrep.dev/docs/experiments/project-depends-on",
+            "https://semgrep.dev/docs/writing-rules/experiments/taint-labels",
+            "https://semgrep.dev/products/semgrep-managed-scans",
+            "https://semgrep.dev/resources/doyensec-sca-report"
+          ],
+          "docs_broken_link_samples": [
+            "https://semgrep.dev/blog/2020/bento-check-unescaped-template-extensions-in-flask",
+            "https://semgrep.dev/blog/2022/xml-security-in-java",
+            "https://semgrep.dev/blog/2024/tanya@semgrep.com",
+            "https://semgrep.dev/case-studies/glasswall",
+            "https://semgrep.dev/contact/product-join-llm-detection-beta",
+            "https://semgrep.dev/contact/product-join-llm-detection-beta/.",
+            "https://semgrep.dev/docs/experiments/focus-metavariable",
+            "https://semgrep.dev/docs/experiments/project-depends-on",
+            "https://semgrep.dev/docs/writing-rules/experiments/taint-labels",
+            "https://semgrep.dev/products/semgrep-managed-scans",
+            "https://semgrep.dev/resources/doyensec-sca-report"
+          ],
+          "repo_broken_link_samples": [],
+          "unreachable_links_count": 0,
+          "unverified_links_count": 0,
+          "unverified_link_samples": [],
+          "confirmed_broken_links_count": 11,
+          "excluded_links_count": 6,
+          "excluded_link_samples": [
+            "https://semgrep.dev/api/v1/docs",
+            "https://semgrep.dev/assets/blog/blog-security-advocacy/security-engineer-guide-to-mcp/semgrep-mcp-evaluation-cheatsheet.xlsx",
+            "https://semgrep.dev/assets/content/whitepapers/semgrep-reachabilityanalysis-whitepaper-1225.pdf",
+            "https://semgrep.dev/docs/kb/semgrep-appsec-platform/search-filter-sort-findings",
+            "https://semgrep.dev/docs/release-notes/rss.xml",
+            "https://semgrep.dev/products/product-updates/rss"
+          ],
+          "_all_confirmed_broken_links": [
+            "https://semgrep.dev/blog/2020/bento-check-unescaped-template-extensions-in-flask",
+            "https://semgrep.dev/blog/2022/xml-security-in-java",
+            "https://semgrep.dev/blog/2024/tanya@semgrep.com",
+            "https://semgrep.dev/case-studies/glasswall",
+            "https://semgrep.dev/contact/product-join-llm-detection-beta",
+            "https://semgrep.dev/contact/product-join-llm-detection-beta/.",
+            "https://semgrep.dev/docs/experiments/focus-metavariable",
+            "https://semgrep.dev/docs/experiments/project-depends-on",
+            "https://semgrep.dev/docs/writing-rules/experiments/taint-labels",
+            "https://semgrep.dev/products/semgrep-managed-scans",
+            "https://semgrep.dev/resources/doyensec-sca-report"
+          ],
+          "_all_unverified_links": [],
+          "_all_excluded_links": [
+            "https://semgrep.dev/api/v1/docs",
+            "https://semgrep.dev/assets/blog/blog-security-advocacy/security-engineer-guide-to-mcp/semgrep-mcp-evaluation-cheatsheet.xlsx",
+            "https://semgrep.dev/assets/content/whitepapers/semgrep-reachabilityanalysis-whitepaper-1225.pdf",
+            "https://semgrep.dev/docs/kb/semgrep-appsec-platform/search-filter-sort-findings",
+            "https://semgrep.dev/docs/release-notes/rss.xml",
+            "https://semgrep.dev/products/product-updates/rss"
+          ],
+          "_all_docs_unverified_links": [],
+          "_all_repo_unverified_links": [],
+          "_broken_link_provenance": {
+            "https://semgrep.dev/blog/2020/bento-check-unescaped-template-extensions-in-flask": [
+              {
+                "source_page": "https://semgrep.dev/docs/cheat-sheets/flask-xss",
+                "anchor_text": "Unescaped template extensions in Flask"
+              }
+            ],
+            "https://semgrep.dev/blog/2022/xml-security-in-java": [
+              {
+                "source_page": "https://semgrep.dev/blog/2023/developer-focused-results-and-improved-coverage-with-semgrep-pro-rules",
+                "anchor_text": "our blog post"
+              }
+            ],
+            "https://semgrep.dev/blog/2024/tanya@semgrep.com": [
+              {
+                "source_page": "https://semgrep.dev/blog/2024/conclusion-security-champions",
+                "anchor_text": "email me"
+              }
+            ],
+            "https://semgrep.dev/case-studies/glasswall": [
+              {
+                "source_page": "https://semgrep.dev/blog/2025/enterprise-scale-code-scanning-semgrep-managed-scans-crossed-1-million-weekly-scans",
+                "anchor_text": "Glasswall's dramatic reduction in false positives"
+              }
+            ],
+            "https://semgrep.dev/contact/product-join-llm-detection-beta": [
+              {
+                "source_page": "https://semgrep.dev/blog/2025/ai-powered-detection-with-semgrep",
+                "anchor_text": "you can do so here"
+              }
+            ],
+            "https://semgrep.dev/contact/product-join-llm-detection-beta/.": [
+              {
+                "source_page": "https://semgrep.dev/blog/2025/ai-powered-detection-with-semgrep",
+                "anchor_text": "https://semgrep.dev/contact/product-join-llm-detection-beta/ ."
+              }
+            ],
+            "https://semgrep.dev/docs/experiments/focus-metavariable": [
+              {
+                "source_page": "https://semgrep.dev/blog/2022/semgrep-spring-2022-meetup-recap",
+                "anchor_text": "focus-metavariable"
+              }
+            ],
+            "https://semgrep.dev/docs/experiments/project-depends-on": [
+              {
+                "source_page": "https://semgrep.dev/blog/2022/semgrep-spring-2022-meetup-recap",
+                "anchor_text": "project-depends-on"
+              }
+            ],
+            "https://semgrep.dev/docs/writing-rules/experiments/taint-labels": [
+              {
+                "source_page": "https://semgrep.dev/blog/2023/developer-focused-results-and-improved-coverage-with-semgrep-pro-rules",
+                "anchor_text": "taint labels"
+              },
+              {
+                "source_page": "https://semgrep.dev/blog/2023/kotlin-ga",
+                "anchor_text": "taint labels"
+              },
+              {
+                "source_page": "https://semgrep.dev/blog/2023/kotlin-ga",
+                "anchor_text": "Taint Labels"
+              }
+            ],
+            "https://semgrep.dev/products/semgrep-managed-scans": [
+              {
+                "source_page": "https://semgrep.dev/blog/2026/preventing-vulnerable-code-from-merging-without-blocking-developers",
+                "anchor_text": "Semgrep Managed Scans"
+              }
+            ],
+            "https://semgrep.dev/resources/doyensec-sca-report": [
+              {
+                "source_page": "https://semgrep.dev/blog/2024/why-sast-tools-need-to-be-customizable",
+                "anchor_text": "Doyensec"
+              }
+            ]
+          }
+        },
+        "seo_geo": {
+          "pages_scanned": 1116,
+          "missing_title_count": 0,
+          "missing_description_count": 120,
+          "multiple_h1_count": 16,
+          "heading_hierarchy_jump_count": 602,
+          "seo_geo_issue_rate_pct": 16.53
+        },
+        "api_coverage": {
+          "reference_endpoint_count": 11,
+          "api_pages_detected": 311,
+          "endpoints_with_usage_docs": 8,
+          "reference_endpoints_without_usage_docs": 3,
+          "reference_coverage_pct": 72.73,
+          "no_api_pages_found": false,
+          "coverage_determined": true,
+          "coverage_method": "source_of_truth",
+          "detection_note": "",
+          "uncovered_endpoint_samples": [
+            "gql:configurations",
+            "gql:definition",
+            "gql:may"
+          ]
+        },
+        "examples": {
+          "total_code_examples": 696,
+          "total_code_blocks_all": 1540,
+          "runnable_without_env": 600,
+          "blocked_by_placeholders": 54,
+          "network_bound_examples": 42,
+          "example_reliability_estimate_pct": 86.21,
+          "detection_note": ""
+        },
+        "freshness": {
+          "pages_with_last_updated_hint": 739,
+          "pages_without_last_updated_hint": 377,
+          "last_updated_coverage_pct": 66.22,
+          "samples_with_last_updated": [
+            {
+              "url": "https://semgrep.dev/blog/2019/bento-check-keeping-cookies-safe-in-flask",
+              "hint": "April 20, 2026"
+            },
+            {
+              "url": "https://semgrep.dev/blog/2019/r2c-workshop-at-defcon-27-finding-vulnerabilities",
+              "hint": "April 20, 2026"
+            },
+            {
+              "url": "https://semgrep.dev/blog/2019/flask-check-send-file",
+              "hint": "April 20, 2026"
+            },
+            {
+              "url": "https://semgrep.dev/blog/2020/bay-area-owasp-meetup-presentation",
+              "hint": "April 20, 2026"
+            },
+            {
+              "url": "https://semgrep.dev/blog/2019/our-quest-to-make-world-class-security-and-bugfinding-available-to-all-developers",
+              "hint": "April 20, 2026"
+            },
+            {
+              "url": "https://semgrep.dev/blog/2020/announcing-ruby-ga-support",
+              "hint": "April 20, 2026"
+            },
+            {
+              "url": "https://semgrep.dev/blog/2020/be-careful-what-you-request-for-django-method",
+              "hint": "April 20, 2026"
+            },
+            {
+              "url": "https://semgrep.dev/blog/2020/bento-08-released-with-updated-workflows-and-new-specialty-checks",
+              "hint": "April 20, 2026"
+            },
+            {
+              "url": "https://semgrep.dev/blog/2019/surprising-subtleties-of-docker-permissions",
+              "hint": "April 20, 2026"
+            },
+            {
+              "url": "https://semgrep.dev/blog/2019/three-things-your-linter-shouldnt-tell-you",
+              "hint": "April 20, 2026"
+            }
+          ]
+        }
+      },
+      "samples": {
+        "broken_links": [
+          "https://semgrep.dev/blog/2020/bento-check-unescaped-template-extensions-in-flask",
+          "https://semgrep.dev/blog/2022/xml-security-in-java",
+          "https://semgrep.dev/blog/2024/tanya@semgrep.com",
+          "https://semgrep.dev/case-studies/glasswall",
+          "https://semgrep.dev/contact/product-join-llm-detection-beta",
+          "https://semgrep.dev/contact/product-join-llm-detection-beta/.",
+          "https://semgrep.dev/docs/experiments/focus-metavariable",
+          "https://semgrep.dev/docs/experiments/project-depends-on",
+          "https://semgrep.dev/docs/writing-rules/experiments/taint-labels",
+          "https://semgrep.dev/products/semgrep-managed-scans",
+          "https://semgrep.dev/resources/doyensec-sca-report"
+        ],
+        "docs_broken_link_samples": [
+          "https://semgrep.dev/blog/2020/bento-check-unescaped-template-extensions-in-flask",
+          "https://semgrep.dev/blog/2022/xml-security-in-java",
+          "https://semgrep.dev/blog/2024/tanya@semgrep.com",
+          "https://semgrep.dev/case-studies/glasswall",
+          "https://semgrep.dev/contact/product-join-llm-detection-beta",
+          "https://semgrep.dev/contact/product-join-llm-detection-beta/.",
+          "https://semgrep.dev/docs/experiments/focus-metavariable",
+          "https://semgrep.dev/docs/experiments/project-depends-on",
+          "https://semgrep.dev/docs/writing-rules/experiments/taint-labels",
+          "https://semgrep.dev/products/semgrep-managed-scans",
+          "https://semgrep.dev/resources/doyensec-sca-report"
+        ],
+        "repo_broken_link_samples": [],
+        "unverified_link_samples": [],
+        "api_uncovered_samples": [
+          "gql:configurations",
+          "gql:definition",
+          "gql:may"
+        ]
+      },
+      "run_count": 1
+    }
+  ],
+  "aggregate": {
+    "metrics": {
+      "crawl": {
+        "pages_crawled": 1116,
+        "requested_pages": 1442,
+        "urls_examined": 1116,
+        "max_pages_total": 10000,
+        "discovered_pages": 1116,
+        "crawl_scope_pages": 1116,
+        "trap_urls_skipped": 817,
+        "crawl_coverage_pct": 100.0
+      },
+      "links": {
+        "broken_internal_links_count": 11,
+        "docs_broken_links_count": 11,
+        "repo_broken_links_count": 0,
+        "unverified_links_count": 0,
+        "confirmed_broken_links_count": 11,
+        "excluded_links_count": 6
+      },
+      "seo_geo": {
+        "seo_geo_issue_rate_pct": 16.53
+      },
+      "api_coverage": {
+        "reference_coverage_pct": 72.73,
+        "no_api_pages_found": false,
+        "api_pages_detected": 311,
+        "coverage_determined": true,
+        "detection_note": ""
+      },
+      "examples": {
+        "example_reliability_estimate_pct": 86.21
+      },
+      "freshness": {
+        "last_updated_coverage_pct": 66.22
+      }
+    },
+    "confidence": {
+      "overall_confidence_pct": 91.5,
+      "links_confidence_pct": 95.0,
+      "api_confidence_pct": 85.0,
+      "crawl_confidence_pct": 95.0
+    }
+  },
+  "confidence": {
+    "overall_confidence_pct": 91.5,
+    "links_confidence_pct": 95.0,
+    "api_confidence_pct": 85.0,
+    "crawl_confidence_pct": 95.0
+  },
+  "top_findings": [
+    "Broken internal links: 11",
+    "SEO/GEO issue rate is high: 16.53%"
+  ],
+  "llm_analysis": {
+    "status": "ok",
+    "model": "claude-sonnet-4-5",
+    "analysis": {
+      "executive_summary": "Audit of semgrep.dev/docs covered 1,116 pages with 100% crawl coverage and 91.5% overall confidence. Documentation contains 11 confirmed broken internal links requiring immediate remediation. API reference coverage stands at 72.73% with 311 API pages detected. SEO/geo issue rate of 16.53% indicates significant discoverability problems. Example reliability estimate of 86.21% and last-updated coverage of 66.22% suggest moderate maintenance gaps.",
+      "strengths": [
+        "Complete crawl coverage (100%) across 1,116 pages with high crawl confidence (95%)",
+        "Strong API documentation presence with 311 API pages detected and coverage determination successful",
+        "High overall audit confidence at 91.5% with robust link verification (95% confidence)",
+        "Example reliability estimate of 86.21% shows majority of code samples are likely functional",
+        "Multi-project topology successfully mapped with 1,116 discovered pages in scope"
+      ],
+      "risks": [
+        "11 confirmed broken internal links degrading user navigation and trust in documentation quality",
+        "SEO/geo issue rate of 16.53% (approximately 185 pages) limiting search discoverability and international reach",
+        "API reference coverage gap of 27.27% leaves significant portions of API undocumented",
+        "Only 66.22% of pages show last-updated metadata, obscuring content freshness for 377+ pages",
+        "Example reliability at 86.21% means approximately 154 pages may contain broken or outdated code samples",
+        "817 trap URLs skipped during crawl may indicate URL structure issues or infinite pagination patterns",
+        "13.79% example unreliability could erode developer trust and increase support burden"
+      ],
+      "prioritized_actions": [
+        {
+          "action": "Fix all 11 confirmed broken internal links to restore navigation integrity",
+          "impact": "critical",
+          "effort": "low"
+        },
+        {
+          "action": "Audit and remediate SEO/geo issues on 185 affected pages to improve discoverability",
+          "impact": "high",
+          "effort": "medium"
+        },
+        {
+          "action": "Expand API reference documentation to close 27.27% coverage gap (target 90%+)",
+          "impact": "high",
+          "effort": "high"
+        },
+        {
+          "action": "Implement last-updated metadata on 377 pages missing freshness indicators",
+          "impact": "medium",
+          "effort": "low"
+        },
+        {
+          "action": "Validate and update code examples on 154 pages with reliability concerns",
+          "impact": "high",
+          "effort": "medium"
+        }
+      ],
+      "limitations": [
+        "External audit cannot verify actual functionality of code examples, only structural patterns and syntax validity",
+        "API coverage detection relies on page structure heuristics and may miss non-standard API documentation formats",
+        "Freshness assessment depends on explicit last-updated metadata; actual content currency cannot be independently verified",
+        "SEO/geo issue detection covers technical factors only; content quality, keyword optimization, and competitive positioning require separate analysis",
+        "Broken link verification performed at audit time; links may break or be fixed after report generation"
+      ]
+    }
+  }
+}

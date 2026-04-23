@@ -1,0 +1,57 @@
+{
+  "status": "ok",
+  "model": "claude-sonnet-4-5",
+  "analysis": {
+    "executive_summary": "Audit covered 701 pages across 2 LaunchDarkly documentation sites with 100.04% crawl coverage. 1 confirmed broken internal link detected in user-facing docs. API reference coverage is low at 20.0% with only 17 API pages detected. 742 links could not be verified due to authentication or rate-limiting. Freshness metadata is visible on only 48.36% of pages, and SEO/geo issues affect 17.62% of content. Overall confidence score is 63.5%, with link verification confidence particularly low at 25.0%.",
+    "strengths": [
+      "Complete crawl coverage (100.04%) with 701 pages successfully indexed from 2392 discovered URLs",
+      "Minimal confirmed broken links (1 total) in user-facing documentation",
+      "No repository navigation link breakage detected",
+      "Multi-project topology properly configured without fragmentation penalties",
+      "Example code reliability estimated at 85.88%"
+    ],
+    "risks": [
+      "742 unverified links create blind spots; actual broken link count may be significantly higher due to auth/rate-limit barriers",
+      "API reference coverage critically low at 20.0% with only 17 API pages detected across 701 total pages",
+      "Freshness metadata missing on 51.64% of pages, preventing users from assessing content currency",
+      "SEO/geo issue rate of 17.62% may impact discoverability and international user experience",
+      "Link verification confidence at 25.0% undermines reliability of broken link reporting",
+      "Overall audit confidence of 63.5% indicates moderate uncertainty in findings",
+      "Large gap between pages crawled (701) and URLs examined (2392) suggests significant content gating or redirects"
+    ],
+    "prioritized_actions": [
+      {
+        "action": "Investigate and resolve 742 unverified links by addressing authentication barriers or providing audit access credentials",
+        "impact": "critical",
+        "effort": "high"
+      },
+      {
+        "action": "Expand API reference documentation from 17 pages to achieve minimum 60% coverage of API surface area",
+        "impact": "critical",
+        "effort": "high"
+      },
+      {
+        "action": "Implement last-updated timestamps on all pages (currently missing from 51.64% of content)",
+        "impact": "high",
+        "effort": "low"
+      },
+      {
+        "action": "Audit and remediate SEO/geo issues affecting 17.62% of pages (123+ pages impacted)",
+        "impact": "high",
+        "effort": "medium"
+      },
+      {
+        "action": "Fix confirmed broken internal link and establish monitoring to prevent future link rot",
+        "impact": "medium",
+        "effort": "low"
+      }
+    ],
+    "limitations": [
+      "742 links blocked by authentication, rate-limiting, or server restrictions could not be verified; actual broken link count may be higher",
+      "External audit cannot validate accuracy, completeness, or technical correctness of documentation content",
+      "API page detection relies on heuristics; 20.0% coverage may reflect detection gaps rather than true API documentation density",
+      "Cannot assess internal workflows, CMS configurations, or unpublished content in staging environments",
+      "SEO/geo issue severity and business impact require internal analytics correlation beyond external crawl data"
+    ]
+  }
+}

@@ -1,0 +1,558 @@
+{
+  "generated_at": "2026-04-21T15:10:14.374347+00:00",
+  "site_url": "multiple-sites",
+  "site_urls": [
+    "https://python.langchain.com/docs",
+    "https://docs.langchain.com/",
+    "https://langchain-ai.github.io/langgraph"
+  ],
+  "topology_mode": "multi-project",
+  "verification_modes": [
+    "authenticated",
+    "bot",
+    "browser"
+  ],
+  "sites": [
+    {
+      "site_url": "https://langchain-ai.github.io/langgraph",
+      "metrics": {
+        "crawl": {
+          "pages_crawled": 1,
+          "requested_pages": 1,
+          "urls_examined": 1,
+          "max_pages": 15000,
+          "effective_limit": 15000,
+          "auto_mode": false,
+          "stop_reason": "queue_exhausted",
+          "discovered_pages": 1,
+          "crawl_scope_basis": "discovered",
+          "crawl_scope_pages": 1,
+          "crawl_coverage_pct": 100.0,
+          "trap_urls_skipped": 0,
+          "seeded_sitemap_urls": 0,
+          "robots_sitemaps_declared": 0
+        },
+        "links": {
+          "internal_links_checked": 0,
+          "broken_internal_links_count": 0,
+          "docs_broken_links_count": 0,
+          "repo_broken_links_count": 0,
+          "broken_internal_link_samples": [],
+          "docs_broken_link_samples": [],
+          "repo_broken_link_samples": [],
+          "unreachable_links_count": 0,
+          "unverified_links_count": 0,
+          "unverified_link_samples": [],
+          "confirmed_broken_links_count": 0,
+          "excluded_links_count": 0,
+          "excluded_link_samples": [],
+          "_all_confirmed_broken_links": [],
+          "_all_unverified_links": [],
+          "_all_excluded_links": [],
+          "_all_docs_unverified_links": [],
+          "_all_repo_unverified_links": [],
+          "_broken_link_provenance": {}
+        },
+        "seo_geo": {
+          "pages_scanned": 1,
+          "missing_title_count": 0,
+          "missing_description_count": 1,
+          "multiple_h1_count": 0,
+          "heading_hierarchy_jump_count": 0,
+          "seo_geo_issue_rate_pct": 25.0
+        },
+        "api_coverage": {
+          "reference_endpoint_count": 0,
+          "api_pages_detected": 0,
+          "endpoints_with_usage_docs": 0,
+          "reference_endpoints_without_usage_docs": 0,
+          "reference_coverage_pct": -1.0,
+          "no_api_pages_found": true,
+          "coverage_determined": false,
+          "coverage_method": "heuristic",
+          "detection_note": "Contract URLs found but no operations parsed",
+          "uncovered_endpoint_samples": []
+        },
+        "examples": {
+          "total_code_examples": 0,
+          "total_code_blocks_all": 0,
+          "runnable_without_env": 0,
+          "blocked_by_placeholders": 0,
+          "network_bound_examples": 0,
+          "example_reliability_estimate_pct": 0.0,
+          "detection_note": "No code blocks detected in crawled pages. The site may use JavaScript-rendered code blocks invisible to the HTML parser."
+        },
+        "freshness": {
+          "pages_with_last_updated_hint": 0,
+          "pages_without_last_updated_hint": 1,
+          "last_updated_coverage_pct": 0.0,
+          "samples_with_last_updated": []
+        }
+      },
+      "samples": {
+        "broken_links": [],
+        "docs_broken_link_samples": [],
+        "repo_broken_link_samples": [],
+        "unverified_link_samples": [],
+        "api_uncovered_samples": []
+      },
+      "run_count": 1
+    },
+    {
+      "site_url": "https://python.langchain.com/docs",
+      "metrics": {
+        "crawl": {
+          "pages_crawled": 34,
+          "requested_pages": 36,
+          "urls_examined": 36,
+          "max_pages": 15000,
+          "effective_limit": 15000,
+          "auto_mode": false,
+          "stop_reason": "queue_exhausted",
+          "discovered_pages": 36,
+          "crawl_scope_basis": "discovered",
+          "crawl_scope_pages": 36,
+          "crawl_coverage_pct": 100.0,
+          "trap_urls_skipped": 0,
+          "seeded_sitemap_urls": 0,
+          "robots_sitemaps_declared": 0
+        },
+        "links": {
+          "internal_links_checked": 36,
+          "broken_internal_links_count": 0,
+          "docs_broken_links_count": 0,
+          "repo_broken_links_count": 0,
+          "broken_internal_link_samples": [],
+          "docs_broken_link_samples": [],
+          "repo_broken_link_samples": [],
+          "unreachable_links_count": 2,
+          "unverified_links_count": 2,
+          "unverified_link_samples": [
+            "https://python.langchain.com/oss/python/langchain/streaming",
+            "https://python.langchain.com/oss/python/langchain/ui"
+          ],
+          "confirmed_broken_links_count": 0,
+          "excluded_links_count": 0,
+          "excluded_link_samples": [],
+          "_all_confirmed_broken_links": [],
+          "_all_unverified_links": [
+            "https://python.langchain.com/oss/python/langchain/streaming",
+            "https://python.langchain.com/oss/python/langchain/ui"
+          ],
+          "_all_excluded_links": [],
+          "_all_docs_unverified_links": [
+            "https://python.langchain.com/oss/python/langchain/streaming",
+            "https://python.langchain.com/oss/python/langchain/ui"
+          ],
+          "_all_repo_unverified_links": [],
+          "_broken_link_provenance": {}
+        },
+        "seo_geo": {
+          "pages_scanned": 34,
+          "missing_title_count": 0,
+          "missing_description_count": 0,
+          "multiple_h1_count": 0,
+          "heading_hierarchy_jump_count": 0,
+          "seo_geo_issue_rate_pct": 0.0
+        },
+        "api_coverage": {
+          "reference_endpoint_count": 7,
+          "api_pages_detected": 1,
+          "endpoints_with_usage_docs": 5,
+          "reference_endpoints_without_usage_docs": 2,
+          "reference_coverage_pct": 71.43,
+          "no_api_pages_found": false,
+          "coverage_determined": true,
+          "coverage_method": "source_of_truth",
+          "detection_note": "",
+          "uncovered_endpoint_samples": [
+            "gql:records",
+            "gql:stats"
+          ]
+        },
+        "examples": {
+          "total_code_examples": 0,
+          "total_code_blocks_all": 34,
+          "runnable_without_env": 0,
+          "blocked_by_placeholders": 0,
+          "network_bound_examples": 0,
+          "example_reliability_estimate_pct": 0.0,
+          "detection_note": "No executable code blocks detected (34 data-only blocks found). Site may use non-standard code rendering that the auditor does not recognize, or all examples are in data formats (YAML/JSON)."
+        },
+        "freshness": {
+          "pages_with_last_updated_hint": 34,
+          "pages_without_last_updated_hint": 0,
+          "last_updated_coverage_pct": 100.0,
+          "samples_with_last_updated": [
+            {
+              "url": "https://python.langchain.com/docs",
+              "hint": "self.__next_f.push([1,\"17:[null,[\\\"$\\\",\\\"$L32\\\",null,{\\\"isLivePreviewRoute\\\":false,\\\"children\\\":[\\\"$\\\",\\\"$L5\\\",null,{\\\"a"
+            },
+            {
+              "url": "https://python.langchain.com/langsmith/home",
+              "hint": "self.__next_f.push([1,\"17:[null,[\\\"$\\\",\\\"$L32\\\",null,{\\\"isLivePreviewRoute\\\":false,\\\"children\\\":[\\\"$\\\",\\\"$L5\\\",null,{\\\"a"
+            },
+            {
+              "url": "https://python.langchain.com/oss/python/langchain/deploy",
+              "hint": "self.__next_f.push([1,\"17:[null,[\\\"$\\\",\\\"$L32\\\",null,{\\\"isLivePreviewRoute\\\":false,\\\"children\\\":[\\\"$\\\",\\\"$L5\\\",null,{\\\"a"
+            },
+            {
+              "url": "https://python.langchain.com/oss/python/contributing/overview",
+              "hint": "self.__next_f.push([1,\"17:[null,[\\\"$\\\",\\\"$L32\\\",null,{\\\"isLivePreviewRoute\\\":false,\\\"children\\\":[\\\"$\\\",\\\"$L5\\\",null,{\\\"a"
+            },
+            {
+              "url": "https://python.langchain.com/oss/python/integrations/providers/overview",
+              "hint": "self.__next_f.push([1,\"17:[null,[\\\"$\\\",\\\"$L32\\\",null,{\\\"isLivePreviewRoute\\\":false,\\\"children\\\":[\\\"$\\\",\\\"$L5\\\",null,{\\\"a"
+            },
+            {
+              "url": "https://python.langchain.com/oss/python/langchain/context-engineering",
+              "hint": "self.__next_f.push([1,\"17:[null,[\\\"$\\\",\\\"$L32\\\",null,{\\\"isLivePreviewRoute\\\":false,\\\"children\\\":[\\\"$\\\",\\\"$L5\\\",null,{\\\"a"
+            },
+            {
+              "url": "https://python.langchain.com/oss/python/deepagents/overview",
+              "hint": "self.__next_f.push([1,\"17:[null,[\\\"$\\\",\\\"$L32\\\",null,{\\\"isLivePreviewRoute\\\":false,\\\"children\\\":[\\\"$\\\",\\\"$L5\\\",null,{\\\"a"
+            },
+            {
+              "url": "https://python.langchain.com/",
+              "hint": "self.__next_f.push([1,\"17:[null,[\\\"$\\\",\\\"$L32\\\",null,{\\\"isLivePreviewRoute\\\":false,\\\"children\\\":[\\\"$\\\",\\\"$L5\\\",null,{\\\"a"
+            },
+            {
+              "url": "https://python.langchain.com/oss/python/langchain/guardrails",
+              "hint": "self.__next_f.push([1,\"17:[null,[\\\"$\\\",\\\"$L32\\\",null,{\\\"isLivePreviewRoute\\\":false,\\\"children\\\":[\\\"$\\\",\\\"$L5\\\",null,{\\\"a"
+            },
+            {
+              "url": "https://python.langchain.com/oss/python/langchain/agents",
+              "hint": "self.__next_f.push([1,\"17:[null,[\\\"$\\\",\\\"$L32\\\",null,{\\\"isLivePreviewRoute\\\":false,\\\"children\\\":[\\\"$\\\",\\\"$L5\\\",null,{\\\"a"
+            }
+          ]
+        }
+      },
+      "samples": {
+        "broken_links": [],
+        "docs_broken_link_samples": [],
+        "repo_broken_link_samples": [],
+        "unverified_link_samples": [
+          "https://python.langchain.com/oss/python/langchain/streaming",
+          "https://python.langchain.com/oss/python/langchain/ui"
+        ],
+        "api_uncovered_samples": [
+          "gql:records",
+          "gql:stats"
+        ]
+      },
+      "run_count": 1
+    },
+    {
+      "site_url": "https://docs.langchain.com/",
+      "metrics": {
+        "crawl": {
+          "pages_crawled": 773,
+          "requested_pages": 1255,
+          "urls_examined": 776,
+          "max_pages": 15000,
+          "effective_limit": 15000,
+          "auto_mode": false,
+          "stop_reason": "queue_exhausted",
+          "discovered_pages": 776,
+          "crawl_scope_basis": "sitemap",
+          "crawl_scope_pages": 776,
+          "crawl_coverage_pct": 100.0,
+          "trap_urls_skipped": 41,
+          "seeded_sitemap_urls": 776,
+          "robots_sitemaps_declared": 1
+        },
+        "links": {
+          "internal_links_checked": 1255,
+          "broken_internal_links_count": 2,
+          "docs_broken_links_count": 2,
+          "repo_broken_links_count": 0,
+          "broken_internal_link_samples": [
+            "https://docs.langchain.com/langsmith/insights-self-hosted.mdx",
+            "https://docs.langchain.com/langsmith/polly-self-hosted.mdx"
+          ],
+          "docs_broken_link_samples": [
+            "https://docs.langchain.com/langsmith/insights-self-hosted.mdx",
+            "https://docs.langchain.com/langsmith/polly-self-hosted.mdx"
+          ],
+          "repo_broken_link_samples": [],
+          "unreachable_links_count": 3,
+          "unverified_links_count": 3,
+          "unverified_link_samples": [
+            "https://docs.langchain.com/api-reference/integrations-v1/list-github-integrations",
+            "https://docs.langchain.com/oss/javascript/integrations/chat/openai",
+            "https://docs.langchain.com/oss/javascript/langgraph/frontend/overview"
+          ],
+          "confirmed_broken_links_count": 2,
+          "excluded_links_count": 13,
+          "excluded_link_samples": [
+            "https://docs.langchain.com/langsmith/agent-server-api/assistants/search-assistants",
+            "https://docs.langchain.com/langsmith/agent-server-api/crons/search-crons",
+            "https://docs.langchain.com/langsmith/agent-server-api/store/search-or-list-items-within-a-namespace-prefix",
+            "https://docs.langchain.com/langsmith/agent-server-api/threads/search-threads",
+            "https://docs.langchain.com/langsmith/agent-server-changelog/rss.xml",
+            "https://docs.langchain.com/langsmith/feedback-data-format",
+            "https://docs.langchain.com/langsmith/self-hosted-changelog/rss.xml",
+            "https://docs.langchain.com/oss/javascript/integrations/document_loaders/web_loaders/searchapi",
+            "https://docs.langchain.com/oss/javascript/integrations/document_loaders/web_loaders/sitemap",
+            "https://docs.langchain.com/oss/javascript/releases/changelog/rss.xml",
+            "https://docs.langchain.com/oss/python/integrations/document_loaders/sitemap",
+            "https://docs.langchain.com/oss/python/integrations/tools/searchapi",
+            "https://docs.langchain.com/oss/python/releases/changelog/rss.xml"
+          ],
+          "_all_confirmed_broken_links": [
+            "https://docs.langchain.com/langsmith/insights-self-hosted.mdx",
+            "https://docs.langchain.com/langsmith/polly-self-hosted.mdx"
+          ],
+          "_all_unverified_links": [
+            "https://docs.langchain.com/api-reference/integrations-v1/list-github-integrations",
+            "https://docs.langchain.com/oss/javascript/integrations/chat/openai",
+            "https://docs.langchain.com/oss/javascript/langgraph/frontend/overview"
+          ],
+          "_all_excluded_links": [
+            "https://docs.langchain.com/langsmith/agent-server-api/assistants/search-assistants",
+            "https://docs.langchain.com/langsmith/agent-server-api/crons/search-crons",
+            "https://docs.langchain.com/langsmith/agent-server-api/store/search-or-list-items-within-a-namespace-prefix",
+            "https://docs.langchain.com/langsmith/agent-server-api/threads/search-threads",
+            "https://docs.langchain.com/langsmith/agent-server-changelog/rss.xml",
+            "https://docs.langchain.com/langsmith/feedback-data-format",
+            "https://docs.langchain.com/langsmith/self-hosted-changelog/rss.xml",
+            "https://docs.langchain.com/oss/javascript/integrations/document_loaders/web_loaders/searchapi",
+            "https://docs.langchain.com/oss/javascript/integrations/document_loaders/web_loaders/sitemap",
+            "https://docs.langchain.com/oss/javascript/releases/changelog/rss.xml",
+            "https://docs.langchain.com/oss/python/integrations/document_loaders/sitemap",
+            "https://docs.langchain.com/oss/python/integrations/tools/searchapi",
+            "https://docs.langchain.com/oss/python/releases/changelog/rss.xml"
+          ],
+          "_all_docs_unverified_links": [
+            "https://docs.langchain.com/api-reference/integrations-v1/list-github-integrations",
+            "https://docs.langchain.com/oss/javascript/integrations/chat/openai",
+            "https://docs.langchain.com/oss/javascript/langgraph/frontend/overview"
+          ],
+          "_all_repo_unverified_links": [],
+          "_broken_link_provenance": {
+            "https://docs.langchain.com/langsmith/insights-self-hosted.mdx": [
+              {
+                "source_page": "https://docs.langchain.com/langsmith/llm-auth-proxy-self-hosted",
+                "anchor_text": "Insights"
+              }
+            ],
+            "https://docs.langchain.com/langsmith/polly-self-hosted.mdx": [
+              {
+                "source_page": "https://docs.langchain.com/langsmith/llm-auth-proxy-self-hosted",
+                "anchor_text": "Polly"
+              }
+            ]
+          }
+        },
+        "seo_geo": {
+          "pages_scanned": 773,
+          "missing_title_count": 0,
+          "missing_description_count": 423,
+          "multiple_h1_count": 4,
+          "heading_hierarchy_jump_count": 130,
+          "seo_geo_issue_rate_pct": 18.01
+        },
+        "api_coverage": {
+          "reference_endpoint_count": 8,
+          "api_pages_detected": 221,
+          "endpoints_with_usage_docs": 8,
+          "reference_endpoints_without_usage_docs": 0,
+          "reference_coverage_pct": 100.0,
+          "no_api_pages_found": false,
+          "coverage_determined": true,
+          "coverage_method": "source_of_truth",
+          "detection_note": "",
+          "uncovered_endpoint_samples": []
+        },
+        "examples": {
+          "total_code_examples": 0,
+          "total_code_blocks_all": 6178,
+          "runnable_without_env": 0,
+          "blocked_by_placeholders": 0,
+          "network_bound_examples": 0,
+          "example_reliability_estimate_pct": 0.0,
+          "detection_note": "No executable code blocks detected (6178 data-only blocks found). Site may use non-standard code rendering that the auditor does not recognize, or all examples are in data formats (YAML/JSON)."
+        },
+        "freshness": {
+          "pages_with_last_updated_hint": 773,
+          "pages_without_last_updated_hint": 0,
+          "last_updated_coverage_pct": 100.0,
+          "samples_with_last_updated": [
+            {
+              "url": "https://docs.langchain.com/",
+              "hint": "self.__next_f.push([1,\"16:[null,[\\\"$\\\",\\\"$L24\\\",null,{\\\"isLivePreviewRoute\\\":false,\\\"children\\\":[\\\"$\\\",\\\"$L5\\\",null,{\\\"a"
+            },
+            {
+              "url": "https://docs.langchain.com/api-reference/auth-service-v2/check-oauth-token-exists",
+              "hint": "self.__next_f.push([1,\"14:[null,[\\\"$\\\",\\\"$L2d\\\",null,{\\\"isLivePreviewRoute\\\":false,\\\"children\\\":[\\\"$\\\",\\\"$L5\\\",null,{\\\"a"
+            },
+            {
+              "url": "https://docs.langchain.com/api-reference/auth-service-v2/delete-oauth-tokens-for-user",
+              "hint": "self.__next_f.push([1,\"14:[null,[\\\"$\\\",\\\"$L2d\\\",null,{\\\"isLivePreviewRoute\\\":false,\\\"children\\\":[\\\"$\\\",\\\"$L5\\\",null,{\\\"a"
+            },
+            {
+              "url": "https://docs.langchain.com/api-reference/auth-service-v2/check-workspace-slack-tokens-exist",
+              "hint": "self.__next_f.push([1,\"14:[null,[\\\"$\\\",\\\"$L22\\\",null,{\\\"isLivePreviewRoute\\\":false,\\\"children\\\":[\\\"$\\\",\\\"$L5\\\",null,{\\\"a"
+            },
+            {
+              "url": "https://docs.langchain.com/api-reference/agent-connections-v2/create-connection",
+              "hint": "self.__next_f.push([1,\"14:[null,[\\\"$\\\",\\\"$L22\\\",null,{\\\"isLivePreviewRoute\\\":false,\\\"children\\\":[\\\"$\\\",\\\"$L5\\\",null,{\\\"a"
+            },
+            {
+              "url": "https://docs.langchain.com/api-reference/auth-service-v2/delete-oauth-provider",
+              "hint": "self.__next_f.push([1,\"14:[null,[\\\"$\\\",\\\"$L22\\\",null,{\\\"isLivePreviewRoute\\\":false,\\\"children\\\":[\\\"$\\\",\\\"$L5\\\",null,{\\\"a"
+            },
+            {
+              "url": "https://docs.langchain.com/api-reference/auth-service-v2/create-mcp-oauth-provider",
+              "hint": "self.__next_f.push([1,\"14:[null,[\\\"$\\\",\\\"$L2d\\\",null,{\\\"isLivePreviewRoute\\\":false,\\\"children\\\":[\\\"$\\\",\\\"$L5\\\",null,{\\\"a"
+            },
+            {
+              "url": "https://docs.langchain.com/api-reference/auth-service-v2/authenticate",
+              "hint": "self.__next_f.push([1,\"14:[null,[\\\"$\\\",\\\"$L2d\\\",null,{\\\"isLivePreviewRoute\\\":false,\\\"children\\\":[\\\"$\\\",\\\"$L5\\\",null,{\\\"a"
+            },
+            {
+              "url": "https://docs.langchain.com/api-reference/agent-connections-v2/list-connections",
+              "hint": "self.__next_f.push([1,\"14:[null,[\\\"$\\\",\\\"$L2b\\\",null,{\\\"isLivePreviewRoute\\\":false,\\\"children\\\":[\\\"$\\\",\\\"$L5\\\",null,{\\\"a"
+            },
+            {
+              "url": "https://docs.langchain.com/api-reference/auth-service-v2/delete-single-oauth-token",
+              "hint": "self.__next_f.push([1,\"14:[null,[\\\"$\\\",\\\"$L2f\\\",null,{\\\"isLivePreviewRoute\\\":false,\\\"children\\\":[\\\"$\\\",\\\"$L5\\\",null,{\\\"a"
+            }
+          ]
+        }
+      },
+      "samples": {
+        "broken_links": [
+          "https://docs.langchain.com/langsmith/insights-self-hosted.mdx",
+          "https://docs.langchain.com/langsmith/polly-self-hosted.mdx"
+        ],
+        "docs_broken_link_samples": [
+          "https://docs.langchain.com/langsmith/insights-self-hosted.mdx",
+          "https://docs.langchain.com/langsmith/polly-self-hosted.mdx"
+        ],
+        "repo_broken_link_samples": [],
+        "unverified_link_samples": [
+          "https://docs.langchain.com/api-reference/integrations-v1/list-github-integrations",
+          "https://docs.langchain.com/oss/javascript/integrations/chat/openai",
+          "https://docs.langchain.com/oss/javascript/langgraph/frontend/overview"
+        ],
+        "api_uncovered_samples": []
+      },
+      "run_count": 1
+    }
+  ],
+  "aggregate": {
+    "metrics": {
+      "crawl": {
+        "pages_crawled": 808,
+        "requested_pages": 1292,
+        "urls_examined": 813,
+        "max_pages_total": 45000,
+        "discovered_pages": 813,
+        "crawl_scope_pages": 813,
+        "trap_urls_skipped": 41,
+        "crawl_coverage_pct": 100.0
+      },
+      "links": {
+        "broken_internal_links_count": 2,
+        "docs_broken_links_count": 2,
+        "repo_broken_links_count": 0,
+        "unverified_links_count": 5,
+        "confirmed_broken_links_count": 2,
+        "excluded_links_count": 13
+      },
+      "seo_geo": {
+        "seo_geo_issue_rate_pct": 17.26
+      },
+      "api_coverage": {
+        "reference_coverage_pct": 86.67,
+        "no_api_pages_found": false,
+        "api_pages_detected": 222,
+        "coverage_determined": true,
+        "detection_note": ""
+      },
+      "examples": {
+        "example_reliability_estimate_pct": 0.0
+      },
+      "freshness": {
+        "last_updated_coverage_pct": 99.88
+      }
+    },
+    "confidence": {
+      "overall_confidence_pct": 63.5,
+      "links_confidence_pct": 25.0,
+      "api_confidence_pct": 85.0,
+      "crawl_confidence_pct": 95.0
+    }
+  },
+  "confidence": {
+    "overall_confidence_pct": 63.5,
+    "links_confidence_pct": 25.0,
+    "api_confidence_pct": 85.0,
+    "crawl_confidence_pct": 95.0
+  },
+  "top_findings": [
+    "Broken internal links: 2",
+    "Link verification inconclusive for 5 URLs (auth/rate-limit/server block); these are excluded from broken-link counts.",
+    "SEO/GEO issue rate is high: 17.26%",
+    "Example reliability: 0% on 808 pages (likely detection limitation). Site may use JS-rendered code blocks.",
+    "Documentation is split across multiple sites, but marked as multi-project; no fragmentation penalty applied."
+  ],
+  "llm_analysis": {
+    "status": "ok",
+    "model": "claude-sonnet-4-5",
+    "analysis": {
+      "executive_summary": "Audit covered 808 pages across 3 LangChain documentation sites in multi-project topology mode. Crawl achieved 100% coverage with 813 discovered pages. API reference coverage is strong at 86.67% (222 API pages detected). Critical issues include 2 confirmed broken internal documentation links, 17.26% SEO/geo issue rate, and 0% example reliability estimate indicating likely detection failure on code examples. Overall confidence score is 63.5%, with links confidence notably low at 25%.",
+      "strengths": [
+        "Complete crawl coverage at 100% (808 of 813 in-scope pages crawled)",
+        "Strong API reference coverage at 86.67% with 222 API pages successfully detected",
+        "Near-complete freshness metadata coverage at 99.88%",
+        "No repository navigation broken links (repo_broken_links_count: 0)",
+        "High crawl confidence at 95% indicating reliable topology mapping"
+      ],
+      "risks": [
+        "2 confirmed broken internal documentation links requiring immediate repair",
+        "5 unverified links due to authentication, rate-limiting, or server blocks - actual breakage unknown",
+        "SEO/geo issue rate of 17.26% may impact discoverability and search ranking",
+        "0% example reliability across all 808 pages indicates detection failure - code examples likely JS-rendered and not auditable",
+        "Overall confidence only 63.5% limits reliability of audit conclusions",
+        "Links confidence critically low at 25% - link health assessment highly uncertain",
+        "Multi-site topology (3 separate doc sites) may create user navigation confusion despite no fragmentation penalty"
+      ],
+      "prioritized_actions": [
+        {
+          "action": "Repair 2 confirmed broken internal documentation links",
+          "impact": "critical",
+          "effort": "low"
+        },
+        {
+          "action": "Investigate 0% example reliability - implement server-side rendering or static generation for code blocks to enable detection",
+          "impact": "critical",
+          "effort": "high"
+        },
+        {
+          "action": "Manually verify 5 unverified links blocked by auth/rate-limits to confirm accessibility",
+          "impact": "high",
+          "effort": "low"
+        },
+        {
+          "action": "Address SEO/geo issues affecting 17.26% of pages (140 pages) - review meta tags, descriptions, and structured data",
+          "impact": "high",
+          "effort": "medium"
+        },
+        {
+          "action": "Improve links confidence from 25% by resolving detection limitations and re-auditing link health",
+          "impact": "medium",
+          "effort": "medium"
+        }
+      ],
+      "limitations": [
+        "External audit cannot verify code example correctness or executability - 0% reliability score indicates examples were not detectable, likely due to client-side rendering",
+        "5 links could not be verified due to authentication requirements, rate limiting, or server blocks - actual status unknown without internal access",
+        "SEO/geo issue detection relies on metadata presence and format - cannot assess content quality, keyword relevance, or actual search performance",
+        "Crawl limited to public documentation - cannot audit authentication-protected pages, staging environments, or internal knowledge bases",
+        "Multi-site topology analysis cannot measure actual user confusion or navigation friction across 3 separate documentation domains"
+      ]
+    }
+  }
+}

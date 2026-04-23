@@ -1,0 +1,1554 @@
+{
+  "generated_at": "2026-04-22T09:29:54.957643+00:00",
+  "site_url": "https://docs.anyscale.com/",
+  "site_urls": [
+    "https://docs.anyscale.com/"
+  ],
+  "topology_mode": "single-product",
+  "verification_modes": [
+    "authenticated",
+    "bot",
+    "browser"
+  ],
+  "sites": [
+    {
+      "site_url": "https://docs.anyscale.com/",
+      "metrics": {
+        "crawl": {
+          "pages_crawled": 436,
+          "requested_pages": 883,
+          "urls_examined": 436,
+          "max_pages": 5000,
+          "effective_limit": 5000,
+          "auto_mode": false,
+          "stop_reason": "queue_exhausted",
+          "discovered_pages": 436,
+          "crawl_scope_basis": "sitemap",
+          "crawl_scope_pages": 436,
+          "crawl_coverage_pct": 100.0,
+          "trap_urls_skipped": 25,
+          "seeded_sitemap_urls": 436,
+          "robots_sitemaps_declared": 1
+        },
+        "links": {
+          "internal_links_checked": 883,
+          "broken_internal_links_count": 164,
+          "docs_broken_links_count": 164,
+          "repo_broken_links_count": 0,
+          "broken_internal_link_samples": [
+            "https://docs.anyscale.com/archive/ref.md",
+            "https://docs.anyscale.com/reference/base-images.md",
+            "https://docs.anyscale.com/reference/base-images/compare.md",
+            "https://docs.anyscale.com/reference/base-images/ray-2110/py310.md",
+            "https://docs.anyscale.com/reference/base-images/ray-2110/py311.md",
+            "https://docs.anyscale.com/reference/base-images/ray-2110/py39.md",
+            "https://docs.anyscale.com/reference/base-images/ray-2120/py310.md",
+            "https://docs.anyscale.com/reference/base-images/ray-2120/py311.md",
+            "https://docs.anyscale.com/reference/base-images/ray-2120/py39.md",
+            "https://docs.anyscale.com/reference/base-images/ray-2200/py310.md",
+            "https://docs.anyscale.com/reference/base-images/ray-2200/py311.md",
+            "https://docs.anyscale.com/reference/base-images/ray-2200/py39.md",
+            "https://docs.anyscale.com/reference/base-images/ray-2210/py310.md",
+            "https://docs.anyscale.com/reference/base-images/ray-2210/py311.md",
+            "https://docs.anyscale.com/reference/base-images/ray-2210/py39.md",
+            "https://docs.anyscale.com/reference/base-images/ray-2220/py310.md",
+            "https://docs.anyscale.com/reference/base-images/ray-2220/py311.md",
+            "https://docs.anyscale.com/reference/base-images/ray-2220/py39.md",
+            "https://docs.anyscale.com/reference/base-images/ray-2230/py310.md",
+            "https://docs.anyscale.com/reference/base-images/ray-2230/py311.md"
+          ],
+          "docs_broken_link_samples": [
+            "https://docs.anyscale.com/archive/ref.md",
+            "https://docs.anyscale.com/reference/base-images.md",
+            "https://docs.anyscale.com/reference/base-images/compare.md",
+            "https://docs.anyscale.com/reference/base-images/ray-2110/py310.md",
+            "https://docs.anyscale.com/reference/base-images/ray-2110/py311.md",
+            "https://docs.anyscale.com/reference/base-images/ray-2110/py39.md",
+            "https://docs.anyscale.com/reference/base-images/ray-2120/py310.md",
+            "https://docs.anyscale.com/reference/base-images/ray-2120/py311.md",
+            "https://docs.anyscale.com/reference/base-images/ray-2120/py39.md",
+            "https://docs.anyscale.com/reference/base-images/ray-2200/py310.md",
+            "https://docs.anyscale.com/reference/base-images/ray-2200/py311.md",
+            "https://docs.anyscale.com/reference/base-images/ray-2200/py39.md",
+            "https://docs.anyscale.com/reference/base-images/ray-2210/py310.md",
+            "https://docs.anyscale.com/reference/base-images/ray-2210/py311.md",
+            "https://docs.anyscale.com/reference/base-images/ray-2210/py39.md",
+            "https://docs.anyscale.com/reference/base-images/ray-2220/py310.md",
+            "https://docs.anyscale.com/reference/base-images/ray-2220/py311.md",
+            "https://docs.anyscale.com/reference/base-images/ray-2220/py39.md",
+            "https://docs.anyscale.com/reference/base-images/ray-2230/py310.md",
+            "https://docs.anyscale.com/reference/base-images/ray-2230/py311.md",
+            "https://docs.anyscale.com/reference/base-images/ray-2230/py39.md",
+            "https://docs.anyscale.com/reference/base-images/ray-2240/py310.md",
+            "https://docs.anyscale.com/reference/base-images/ray-2240/py311.md",
+            "https://docs.anyscale.com/reference/base-images/ray-2240/py39.md",
+            "https://docs.anyscale.com/reference/base-images/ray-2300/py310.md",
+            "https://docs.anyscale.com/reference/base-images/ray-2300/py311.md",
+            "https://docs.anyscale.com/reference/base-images/ray-2300/py39.md",
+            "https://docs.anyscale.com/reference/base-images/ray-2310/py310.md",
+            "https://docs.anyscale.com/reference/base-images/ray-2310/py311.md",
+            "https://docs.anyscale.com/reference/base-images/ray-2310/py39.md"
+          ],
+          "repo_broken_link_samples": [],
+          "unreachable_links_count": 0,
+          "unverified_links_count": 0,
+          "unverified_link_samples": [],
+          "confirmed_broken_links_count": 164,
+          "excluded_links_count": 1,
+          "excluded_link_samples": [
+            "https://docs.anyscale.com/search"
+          ],
+          "_all_confirmed_broken_links": [
+            "https://docs.anyscale.com/archive/ref.md",
+            "https://docs.anyscale.com/reference/base-images.md",
+            "https://docs.anyscale.com/reference/base-images/compare.md",
+            "https://docs.anyscale.com/reference/base-images/ray-2110/py310.md",
+            "https://docs.anyscale.com/reference/base-images/ray-2110/py311.md",
+            "https://docs.anyscale.com/reference/base-images/ray-2110/py39.md",
+            "https://docs.anyscale.com/reference/base-images/ray-2120/py310.md",
+            "https://docs.anyscale.com/reference/base-images/ray-2120/py311.md",
+            "https://docs.anyscale.com/reference/base-images/ray-2120/py39.md",
+            "https://docs.anyscale.com/reference/base-images/ray-2200/py310.md",
+            "https://docs.anyscale.com/reference/base-images/ray-2200/py311.md",
+            "https://docs.anyscale.com/reference/base-images/ray-2200/py39.md",
+            "https://docs.anyscale.com/reference/base-images/ray-2210/py310.md",
+            "https://docs.anyscale.com/reference/base-images/ray-2210/py311.md",
+            "https://docs.anyscale.com/reference/base-images/ray-2210/py39.md",
+            "https://docs.anyscale.com/reference/base-images/ray-2220/py310.md",
+            "https://docs.anyscale.com/reference/base-images/ray-2220/py311.md",
+            "https://docs.anyscale.com/reference/base-images/ray-2220/py39.md",
+            "https://docs.anyscale.com/reference/base-images/ray-2230/py310.md",
+            "https://docs.anyscale.com/reference/base-images/ray-2230/py311.md",
+            "https://docs.anyscale.com/reference/base-images/ray-2230/py39.md",
+            "https://docs.anyscale.com/reference/base-images/ray-2240/py310.md",
+            "https://docs.anyscale.com/reference/base-images/ray-2240/py311.md",
+            "https://docs.anyscale.com/reference/base-images/ray-2240/py39.md",
+            "https://docs.anyscale.com/reference/base-images/ray-2300/py310.md",
+            "https://docs.anyscale.com/reference/base-images/ray-2300/py311.md",
+            "https://docs.anyscale.com/reference/base-images/ray-2300/py39.md",
+            "https://docs.anyscale.com/reference/base-images/ray-2310/py310.md",
+            "https://docs.anyscale.com/reference/base-images/ray-2310/py311.md",
+            "https://docs.anyscale.com/reference/base-images/ray-2310/py39.md",
+            "https://docs.anyscale.com/reference/base-images/ray-2320/py310.md",
+            "https://docs.anyscale.com/reference/base-images/ray-2320/py311.md",
+            "https://docs.anyscale.com/reference/base-images/ray-2320/py39.md",
+            "https://docs.anyscale.com/reference/base-images/ray-2330/py310.md",
+            "https://docs.anyscale.com/reference/base-images/ray-2330/py311.md",
+            "https://docs.anyscale.com/reference/base-images/ray-2330/py39.md",
+            "https://docs.anyscale.com/reference/base-images/ray-2340/py310.md",
+            "https://docs.anyscale.com/reference/base-images/ray-2340/py311.md",
+            "https://docs.anyscale.com/reference/base-images/ray-2340/py39.md",
+            "https://docs.anyscale.com/reference/base-images/ray-2350/py310.md",
+            "https://docs.anyscale.com/reference/base-images/ray-2350/py311.md",
+            "https://docs.anyscale.com/reference/base-images/ray-2350/py312.md",
+            "https://docs.anyscale.com/reference/base-images/ray-2350/py39.md",
+            "https://docs.anyscale.com/reference/base-images/ray-2360/py310.md",
+            "https://docs.anyscale.com/reference/base-images/ray-2360/py311.md",
+            "https://docs.anyscale.com/reference/base-images/ray-2360/py312.md",
+            "https://docs.anyscale.com/reference/base-images/ray-2360/py39.md",
+            "https://docs.anyscale.com/reference/base-images/ray-2361/py310.md",
+            "https://docs.anyscale.com/reference/base-images/ray-2361/py311.md",
+            "https://docs.anyscale.com/reference/base-images/ray-2361/py312.md",
+            "https://docs.anyscale.com/reference/base-images/ray-2361/py39.md",
+            "https://docs.anyscale.com/reference/base-images/ray-2370/py310.md",
+            "https://docs.anyscale.com/reference/base-images/ray-2370/py311.md",
+            "https://docs.anyscale.com/reference/base-images/ray-2370/py312.md",
+            "https://docs.anyscale.com/reference/base-images/ray-2370/py39.md",
+            "https://docs.anyscale.com/reference/base-images/ray-2380/py310.md",
+            "https://docs.anyscale.com/reference/base-images/ray-2380/py311.md",
+            "https://docs.anyscale.com/reference/base-images/ray-2380/py312.md",
+            "https://docs.anyscale.com/reference/base-images/ray-2380/py39.md",
+            "https://docs.anyscale.com/reference/base-images/ray-2390/py310.md",
+            "https://docs.anyscale.com/reference/base-images/ray-2390/py311.md",
+            "https://docs.anyscale.com/reference/base-images/ray-2390/py312.md",
+            "https://docs.anyscale.com/reference/base-images/ray-2390/py39.md",
+            "https://docs.anyscale.com/reference/base-images/ray-2400/py310.md",
+            "https://docs.anyscale.com/reference/base-images/ray-2400/py311.md",
+            "https://docs.anyscale.com/reference/base-images/ray-2400/py312.md",
+            "https://docs.anyscale.com/reference/base-images/ray-2400/py39.md",
+            "https://docs.anyscale.com/reference/base-images/ray-2410/py310.md",
+            "https://docs.anyscale.com/reference/base-images/ray-2410/py311.md",
+            "https://docs.anyscale.com/reference/base-images/ray-2410/py312.md",
+            "https://docs.anyscale.com/reference/base-images/ray-2410/py39.md",
+            "https://docs.anyscale.com/reference/base-images/ray-2420/py310.md",
+            "https://docs.anyscale.com/reference/base-images/ray-2420/py311.md",
+            "https://docs.anyscale.com/reference/base-images/ray-2420/py312.md",
+            "https://docs.anyscale.com/reference/base-images/ray-2420/py39.md",
+            "https://docs.anyscale.com/reference/base-images/ray-2421/py310.md",
+            "https://docs.anyscale.com/reference/base-images/ray-2421/py311.md",
+            "https://docs.anyscale.com/reference/base-images/ray-2421/py312.md",
+            "https://docs.anyscale.com/reference/base-images/ray-2421/py39.md",
+            "https://docs.anyscale.com/reference/base-images/ray-2430/py310.md",
+            "https://docs.anyscale.com/reference/base-images/ray-2430/py311.md",
+            "https://docs.anyscale.com/reference/base-images/ray-2430/py312.md",
+            "https://docs.anyscale.com/reference/base-images/ray-2430/py39.md",
+            "https://docs.anyscale.com/reference/base-images/ray-2440/py310.md",
+            "https://docs.anyscale.com/reference/base-images/ray-2440/py311.md",
+            "https://docs.anyscale.com/reference/base-images/ray-2440/py312.md",
+            "https://docs.anyscale.com/reference/base-images/ray-2440/py39.md",
+            "https://docs.anyscale.com/reference/base-images/ray-2441/py310.md",
+            "https://docs.anyscale.com/reference/base-images/ray-2441/py311.md",
+            "https://docs.anyscale.com/reference/base-images/ray-2441/py312.md",
+            "https://docs.anyscale.com/reference/base-images/ray-2441/py39.md",
+            "https://docs.anyscale.com/reference/base-images/ray-2450/py310.md",
+            "https://docs.anyscale.com/reference/base-images/ray-2450/py311.md",
+            "https://docs.anyscale.com/reference/base-images/ray-2450/py312.md",
+            "https://docs.anyscale.com/reference/base-images/ray-2450/py39.md",
+            "https://docs.anyscale.com/reference/base-images/ray-2460/py310.md",
+            "https://docs.anyscale.com/reference/base-images/ray-2460/py311.md",
+            "https://docs.anyscale.com/reference/base-images/ray-2460/py312.md",
+            "https://docs.anyscale.com/reference/base-images/ray-2460/py39.md",
+            "https://docs.anyscale.com/reference/base-images/ray-2470/py310.md",
+            "https://docs.anyscale.com/reference/base-images/ray-2470/py311.md",
+            "https://docs.anyscale.com/reference/base-images/ray-2470/py312.md",
+            "https://docs.anyscale.com/reference/base-images/ray-2470/py39.md",
+            "https://docs.anyscale.com/reference/base-images/ray-2471/py310.md",
+            "https://docs.anyscale.com/reference/base-images/ray-2471/py311.md",
+            "https://docs.anyscale.com/reference/base-images/ray-2471/py312.md",
+            "https://docs.anyscale.com/reference/base-images/ray-2471/py39.md",
+            "https://docs.anyscale.com/reference/base-images/ray-2480/py310.md",
+            "https://docs.anyscale.com/reference/base-images/ray-2480/py311.md",
+            "https://docs.anyscale.com/reference/base-images/ray-2480/py312.md",
+            "https://docs.anyscale.com/reference/base-images/ray-2480/py39.md",
+            "https://docs.anyscale.com/reference/base-images/ray-2490/py310.md",
+            "https://docs.anyscale.com/reference/base-images/ray-2490/py311.md",
+            "https://docs.anyscale.com/reference/base-images/ray-2490/py312.md",
+            "https://docs.anyscale.com/reference/base-images/ray-2490/py39.md",
+            "https://docs.anyscale.com/reference/base-images/ray-2491/py310.md",
+            "https://docs.anyscale.com/reference/base-images/ray-2491/py311.md",
+            "https://docs.anyscale.com/reference/base-images/ray-2491/py312.md",
+            "https://docs.anyscale.com/reference/base-images/ray-2491/py39.md",
+            "https://docs.anyscale.com/reference/base-images/ray-2492/py310.md",
+            "https://docs.anyscale.com/reference/base-images/ray-2492/py311.md",
+            "https://docs.anyscale.com/reference/base-images/ray-2492/py312.md",
+            "https://docs.anyscale.com/reference/base-images/ray-2492/py39.md",
+            "https://docs.anyscale.com/reference/base-images/ray-2500/py310.md",
+            "https://docs.anyscale.com/reference/base-images/ray-2500/py311.md",
+            "https://docs.anyscale.com/reference/base-images/ray-2500/py312.md",
+            "https://docs.anyscale.com/reference/base-images/ray-2500/py39.md",
+            "https://docs.anyscale.com/reference/base-images/ray-2501/py310.md",
+            "https://docs.anyscale.com/reference/base-images/ray-2501/py311.md",
+            "https://docs.anyscale.com/reference/base-images/ray-2501/py312.md",
+            "https://docs.anyscale.com/reference/base-images/ray-2501/py39.md",
+            "https://docs.anyscale.com/reference/base-images/ray-2510/py310.md",
+            "https://docs.anyscale.com/reference/base-images/ray-2510/py311.md",
+            "https://docs.anyscale.com/reference/base-images/ray-2510/py312.md",
+            "https://docs.anyscale.com/reference/base-images/ray-2510/py39.md",
+            "https://docs.anyscale.com/reference/base-images/ray-2511/py310.md",
+            "https://docs.anyscale.com/reference/base-images/ray-2511/py311.md",
+            "https://docs.anyscale.com/reference/base-images/ray-2511/py312.md",
+            "https://docs.anyscale.com/reference/base-images/ray-2511/py39.md",
+            "https://docs.anyscale.com/reference/base-images/ray-2512/py310.md",
+            "https://docs.anyscale.com/reference/base-images/ray-2512/py311.md",
+            "https://docs.anyscale.com/reference/base-images/ray-2512/py312.md",
+            "https://docs.anyscale.com/reference/base-images/ray-2512/py39.md",
+            "https://docs.anyscale.com/reference/base-images/ray-2520/py310.md",
+            "https://docs.anyscale.com/reference/base-images/ray-2520/py311.md",
+            "https://docs.anyscale.com/reference/base-images/ray-2520/py312.md",
+            "https://docs.anyscale.com/reference/base-images/ray-2521/py310.md",
+            "https://docs.anyscale.com/reference/base-images/ray-2521/py311.md",
+            "https://docs.anyscale.com/reference/base-images/ray-2521/py312.md",
+            "https://docs.anyscale.com/reference/base-images/ray-2530/py310.md",
+            "https://docs.anyscale.com/reference/base-images/ray-2530/py311.md",
+            "https://docs.anyscale.com/reference/base-images/ray-2530/py312.md",
+            "https://docs.anyscale.com/reference/base-images/ray-2540/py310.md",
+            "https://docs.anyscale.com/reference/base-images/ray-2540/py311.md",
+            "https://docs.anyscale.com/reference/base-images/ray-2540/py312.md",
+            "https://docs.anyscale.com/reference/base-images/ray-2540/py313.md",
+            "https://docs.anyscale.com/reference/base-images/ray-2541/py310.md",
+            "https://docs.anyscale.com/reference/base-images/ray-2541/py311.md",
+            "https://docs.anyscale.com/reference/base-images/ray-2541/py312.md",
+            "https://docs.anyscale.com/reference/base-images/ray-2541/py313.md",
+            "https://docs.anyscale.com/reference/base-images/ray-2550/py310.md",
+            "https://docs.anyscale.com/reference/base-images/ray-2550/py311.md",
+            "https://docs.anyscale.com/reference/base-images/ray-2550/py312.md",
+            "https://docs.anyscale.com/reference/base-images/ray-2550/py313.md"
+          ],
+          "_all_unverified_links": [],
+          "_all_excluded_links": [
+            "https://docs.anyscale.com/search"
+          ],
+          "_all_docs_unverified_links": [],
+          "_all_repo_unverified_links": [],
+          "_broken_link_provenance": {
+            "https://docs.anyscale.com/archive/ref.md": [
+              {
+                "source_page": "https://docs.anyscale.com/archive/ref",
+                "anchor_text": "View Markdown"
+              }
+            ],
+            "https://docs.anyscale.com/reference/base-images.md": [
+              {
+                "source_page": "https://docs.anyscale.com/reference/base-images",
+                "anchor_text": "View Markdown"
+              }
+            ],
+            "https://docs.anyscale.com/reference/base-images/compare.md": [
+              {
+                "source_page": "https://docs.anyscale.com/reference/base-images/compare",
+                "anchor_text": "View Markdown"
+              }
+            ],
+            "https://docs.anyscale.com/reference/base-images/ray-2110/py310.md": [
+              {
+                "source_page": "https://docs.anyscale.com/reference/base-images/ray-2110/py310",
+                "anchor_text": "View Markdown"
+              }
+            ],
+            "https://docs.anyscale.com/reference/base-images/ray-2110/py311.md": [
+              {
+                "source_page": "https://docs.anyscale.com/reference/base-images/ray-2110/py311",
+                "anchor_text": "View Markdown"
+              }
+            ],
+            "https://docs.anyscale.com/reference/base-images/ray-2110/py39.md": [
+              {
+                "source_page": "https://docs.anyscale.com/reference/base-images/ray-2110/py39",
+                "anchor_text": "View Markdown"
+              }
+            ],
+            "https://docs.anyscale.com/reference/base-images/ray-2120/py310.md": [
+              {
+                "source_page": "https://docs.anyscale.com/reference/base-images/ray-2120/py310",
+                "anchor_text": "View Markdown"
+              }
+            ],
+            "https://docs.anyscale.com/reference/base-images/ray-2120/py311.md": [
+              {
+                "source_page": "https://docs.anyscale.com/reference/base-images/ray-2120/py311",
+                "anchor_text": "View Markdown"
+              }
+            ],
+            "https://docs.anyscale.com/reference/base-images/ray-2120/py39.md": [
+              {
+                "source_page": "https://docs.anyscale.com/reference/base-images/ray-2120/py39",
+                "anchor_text": "View Markdown"
+              }
+            ],
+            "https://docs.anyscale.com/reference/base-images/ray-2200/py310.md": [
+              {
+                "source_page": "https://docs.anyscale.com/reference/base-images/ray-2200/py310",
+                "anchor_text": "View Markdown"
+              }
+            ],
+            "https://docs.anyscale.com/reference/base-images/ray-2200/py311.md": [
+              {
+                "source_page": "https://docs.anyscale.com/reference/base-images/ray-2200/py311",
+                "anchor_text": "View Markdown"
+              }
+            ],
+            "https://docs.anyscale.com/reference/base-images/ray-2200/py39.md": [
+              {
+                "source_page": "https://docs.anyscale.com/reference/base-images/ray-2200/py39",
+                "anchor_text": "View Markdown"
+              }
+            ],
+            "https://docs.anyscale.com/reference/base-images/ray-2210/py310.md": [
+              {
+                "source_page": "https://docs.anyscale.com/reference/base-images/ray-2210/py310",
+                "anchor_text": "View Markdown"
+              }
+            ],
+            "https://docs.anyscale.com/reference/base-images/ray-2210/py311.md": [
+              {
+                "source_page": "https://docs.anyscale.com/reference/base-images/ray-2210/py311",
+                "anchor_text": "View Markdown"
+              }
+            ],
+            "https://docs.anyscale.com/reference/base-images/ray-2210/py39.md": [
+              {
+                "source_page": "https://docs.anyscale.com/reference/base-images/ray-2210/py39",
+                "anchor_text": "View Markdown"
+              }
+            ],
+            "https://docs.anyscale.com/reference/base-images/ray-2220/py310.md": [
+              {
+                "source_page": "https://docs.anyscale.com/reference/base-images/ray-2220/py310",
+                "anchor_text": "View Markdown"
+              }
+            ],
+            "https://docs.anyscale.com/reference/base-images/ray-2220/py311.md": [
+              {
+                "source_page": "https://docs.anyscale.com/reference/base-images/ray-2220/py311",
+                "anchor_text": "View Markdown"
+              }
+            ],
+            "https://docs.anyscale.com/reference/base-images/ray-2220/py39.md": [
+              {
+                "source_page": "https://docs.anyscale.com/reference/base-images/ray-2220/py39",
+                "anchor_text": "View Markdown"
+              }
+            ],
+            "https://docs.anyscale.com/reference/base-images/ray-2230/py310.md": [
+              {
+                "source_page": "https://docs.anyscale.com/reference/base-images/ray-2230/py310",
+                "anchor_text": "View Markdown"
+              }
+            ],
+            "https://docs.anyscale.com/reference/base-images/ray-2230/py311.md": [
+              {
+                "source_page": "https://docs.anyscale.com/reference/base-images/ray-2230/py311",
+                "anchor_text": "View Markdown"
+              }
+            ],
+            "https://docs.anyscale.com/reference/base-images/ray-2230/py39.md": [
+              {
+                "source_page": "https://docs.anyscale.com/reference/base-images/ray-2230/py39",
+                "anchor_text": "View Markdown"
+              }
+            ],
+            "https://docs.anyscale.com/reference/base-images/ray-2240/py310.md": [
+              {
+                "source_page": "https://docs.anyscale.com/reference/base-images/ray-2240/py310",
+                "anchor_text": "View Markdown"
+              }
+            ],
+            "https://docs.anyscale.com/reference/base-images/ray-2240/py311.md": [
+              {
+                "source_page": "https://docs.anyscale.com/reference/base-images/ray-2240/py311",
+                "anchor_text": "View Markdown"
+              }
+            ],
+            "https://docs.anyscale.com/reference/base-images/ray-2240/py39.md": [
+              {
+                "source_page": "https://docs.anyscale.com/reference/base-images/ray-2240/py39",
+                "anchor_text": "View Markdown"
+              }
+            ],
+            "https://docs.anyscale.com/reference/base-images/ray-2300/py310.md": [
+              {
+                "source_page": "https://docs.anyscale.com/reference/base-images/ray-2300/py310",
+                "anchor_text": "View Markdown"
+              }
+            ],
+            "https://docs.anyscale.com/reference/base-images/ray-2300/py311.md": [
+              {
+                "source_page": "https://docs.anyscale.com/reference/base-images/ray-2300/py311",
+                "anchor_text": "View Markdown"
+              }
+            ],
+            "https://docs.anyscale.com/reference/base-images/ray-2300/py39.md": [
+              {
+                "source_page": "https://docs.anyscale.com/reference/base-images/ray-2300/py39",
+                "anchor_text": "View Markdown"
+              }
+            ],
+            "https://docs.anyscale.com/reference/base-images/ray-2310/py310.md": [
+              {
+                "source_page": "https://docs.anyscale.com/reference/base-images/ray-2310/py310",
+                "anchor_text": "View Markdown"
+              }
+            ],
+            "https://docs.anyscale.com/reference/base-images/ray-2310/py311.md": [
+              {
+                "source_page": "https://docs.anyscale.com/reference/base-images/ray-2310/py311",
+                "anchor_text": "View Markdown"
+              }
+            ],
+            "https://docs.anyscale.com/reference/base-images/ray-2310/py39.md": [
+              {
+                "source_page": "https://docs.anyscale.com/reference/base-images/ray-2310/py39",
+                "anchor_text": "View Markdown"
+              }
+            ],
+            "https://docs.anyscale.com/reference/base-images/ray-2320/py310.md": [
+              {
+                "source_page": "https://docs.anyscale.com/reference/base-images/ray-2320/py310",
+                "anchor_text": "View Markdown"
+              }
+            ],
+            "https://docs.anyscale.com/reference/base-images/ray-2320/py311.md": [
+              {
+                "source_page": "https://docs.anyscale.com/reference/base-images/ray-2320/py311",
+                "anchor_text": "View Markdown"
+              }
+            ],
+            "https://docs.anyscale.com/reference/base-images/ray-2320/py39.md": [
+              {
+                "source_page": "https://docs.anyscale.com/reference/base-images/ray-2320/py39",
+                "anchor_text": "View Markdown"
+              }
+            ],
+            "https://docs.anyscale.com/reference/base-images/ray-2330/py310.md": [
+              {
+                "source_page": "https://docs.anyscale.com/reference/base-images/ray-2330/py310",
+                "anchor_text": "View Markdown"
+              }
+            ],
+            "https://docs.anyscale.com/reference/base-images/ray-2330/py311.md": [
+              {
+                "source_page": "https://docs.anyscale.com/reference/base-images/ray-2330/py311",
+                "anchor_text": "View Markdown"
+              }
+            ],
+            "https://docs.anyscale.com/reference/base-images/ray-2330/py39.md": [
+              {
+                "source_page": "https://docs.anyscale.com/reference/base-images/ray-2330/py39",
+                "anchor_text": "View Markdown"
+              }
+            ],
+            "https://docs.anyscale.com/reference/base-images/ray-2340/py310.md": [
+              {
+                "source_page": "https://docs.anyscale.com/reference/base-images/ray-2340/py310",
+                "anchor_text": "View Markdown"
+              }
+            ],
+            "https://docs.anyscale.com/reference/base-images/ray-2340/py311.md": [
+              {
+                "source_page": "https://docs.anyscale.com/reference/base-images/ray-2340/py311",
+                "anchor_text": "View Markdown"
+              }
+            ],
+            "https://docs.anyscale.com/reference/base-images/ray-2340/py39.md": [
+              {
+                "source_page": "https://docs.anyscale.com/reference/base-images/ray-2340/py39",
+                "anchor_text": "View Markdown"
+              }
+            ],
+            "https://docs.anyscale.com/reference/base-images/ray-2350/py310.md": [
+              {
+                "source_page": "https://docs.anyscale.com/reference/base-images/ray-2350/py310",
+                "anchor_text": "View Markdown"
+              }
+            ],
+            "https://docs.anyscale.com/reference/base-images/ray-2350/py311.md": [
+              {
+                "source_page": "https://docs.anyscale.com/reference/base-images/ray-2350/py311",
+                "anchor_text": "View Markdown"
+              }
+            ],
+            "https://docs.anyscale.com/reference/base-images/ray-2350/py312.md": [
+              {
+                "source_page": "https://docs.anyscale.com/reference/base-images/ray-2350/py312",
+                "anchor_text": "View Markdown"
+              }
+            ],
+            "https://docs.anyscale.com/reference/base-images/ray-2350/py39.md": [
+              {
+                "source_page": "https://docs.anyscale.com/reference/base-images/ray-2350/py39",
+                "anchor_text": "View Markdown"
+              }
+            ],
+            "https://docs.anyscale.com/reference/base-images/ray-2360/py310.md": [
+              {
+                "source_page": "https://docs.anyscale.com/reference/base-images/ray-2360/py310",
+                "anchor_text": "View Markdown"
+              }
+            ],
+            "https://docs.anyscale.com/reference/base-images/ray-2360/py311.md": [
+              {
+                "source_page": "https://docs.anyscale.com/reference/base-images/ray-2360/py311",
+                "anchor_text": "View Markdown"
+              }
+            ],
+            "https://docs.anyscale.com/reference/base-images/ray-2360/py312.md": [
+              {
+                "source_page": "https://docs.anyscale.com/reference/base-images/ray-2360/py312",
+                "anchor_text": "View Markdown"
+              }
+            ],
+            "https://docs.anyscale.com/reference/base-images/ray-2360/py39.md": [
+              {
+                "source_page": "https://docs.anyscale.com/reference/base-images/ray-2360/py39",
+                "anchor_text": "View Markdown"
+              }
+            ],
+            "https://docs.anyscale.com/reference/base-images/ray-2361/py310.md": [
+              {
+                "source_page": "https://docs.anyscale.com/reference/base-images/ray-2361/py310",
+                "anchor_text": "View Markdown"
+              }
+            ],
+            "https://docs.anyscale.com/reference/base-images/ray-2361/py311.md": [
+              {
+                "source_page": "https://docs.anyscale.com/reference/base-images/ray-2361/py311",
+                "anchor_text": "View Markdown"
+              }
+            ],
+            "https://docs.anyscale.com/reference/base-images/ray-2361/py312.md": [
+              {
+                "source_page": "https://docs.anyscale.com/reference/base-images/ray-2361/py312",
+                "anchor_text": "View Markdown"
+              }
+            ],
+            "https://docs.anyscale.com/reference/base-images/ray-2361/py39.md": [
+              {
+                "source_page": "https://docs.anyscale.com/reference/base-images/ray-2361/py39",
+                "anchor_text": "View Markdown"
+              }
+            ],
+            "https://docs.anyscale.com/reference/base-images/ray-2370/py310.md": [
+              {
+                "source_page": "https://docs.anyscale.com/reference/base-images/ray-2370/py310",
+                "anchor_text": "View Markdown"
+              }
+            ],
+            "https://docs.anyscale.com/reference/base-images/ray-2370/py311.md": [
+              {
+                "source_page": "https://docs.anyscale.com/reference/base-images/ray-2370/py311",
+                "anchor_text": "View Markdown"
+              }
+            ],
+            "https://docs.anyscale.com/reference/base-images/ray-2370/py312.md": [
+              {
+                "source_page": "https://docs.anyscale.com/reference/base-images/ray-2370/py312",
+                "anchor_text": "View Markdown"
+              }
+            ],
+            "https://docs.anyscale.com/reference/base-images/ray-2370/py39.md": [
+              {
+                "source_page": "https://docs.anyscale.com/reference/base-images/ray-2370/py39",
+                "anchor_text": "View Markdown"
+              }
+            ],
+            "https://docs.anyscale.com/reference/base-images/ray-2380/py310.md": [
+              {
+                "source_page": "https://docs.anyscale.com/reference/base-images/ray-2380/py310",
+                "anchor_text": "View Markdown"
+              }
+            ],
+            "https://docs.anyscale.com/reference/base-images/ray-2380/py311.md": [
+              {
+                "source_page": "https://docs.anyscale.com/reference/base-images/ray-2380/py311",
+                "anchor_text": "View Markdown"
+              }
+            ],
+            "https://docs.anyscale.com/reference/base-images/ray-2380/py312.md": [
+              {
+                "source_page": "https://docs.anyscale.com/reference/base-images/ray-2380/py312",
+                "anchor_text": "View Markdown"
+              }
+            ],
+            "https://docs.anyscale.com/reference/base-images/ray-2380/py39.md": [
+              {
+                "source_page": "https://docs.anyscale.com/reference/base-images/ray-2380/py39",
+                "anchor_text": "View Markdown"
+              }
+            ],
+            "https://docs.anyscale.com/reference/base-images/ray-2390/py310.md": [
+              {
+                "source_page": "https://docs.anyscale.com/reference/base-images/ray-2390/py310",
+                "anchor_text": "View Markdown"
+              }
+            ],
+            "https://docs.anyscale.com/reference/base-images/ray-2390/py311.md": [
+              {
+                "source_page": "https://docs.anyscale.com/reference/base-images/ray-2390/py311",
+                "anchor_text": "View Markdown"
+              }
+            ],
+            "https://docs.anyscale.com/reference/base-images/ray-2390/py312.md": [
+              {
+                "source_page": "https://docs.anyscale.com/reference/base-images/ray-2390/py312",
+                "anchor_text": "View Markdown"
+              }
+            ],
+            "https://docs.anyscale.com/reference/base-images/ray-2390/py39.md": [
+              {
+                "source_page": "https://docs.anyscale.com/reference/base-images/ray-2390/py39",
+                "anchor_text": "View Markdown"
+              }
+            ],
+            "https://docs.anyscale.com/reference/base-images/ray-2400/py310.md": [
+              {
+                "source_page": "https://docs.anyscale.com/reference/base-images/ray-2400/py310",
+                "anchor_text": "View Markdown"
+              }
+            ],
+            "https://docs.anyscale.com/reference/base-images/ray-2400/py311.md": [
+              {
+                "source_page": "https://docs.anyscale.com/reference/base-images/ray-2400/py311",
+                "anchor_text": "View Markdown"
+              }
+            ],
+            "https://docs.anyscale.com/reference/base-images/ray-2400/py312.md": [
+              {
+                "source_page": "https://docs.anyscale.com/reference/base-images/ray-2400/py312",
+                "anchor_text": "View Markdown"
+              }
+            ],
+            "https://docs.anyscale.com/reference/base-images/ray-2400/py39.md": [
+              {
+                "source_page": "https://docs.anyscale.com/reference/base-images/ray-2400/py39",
+                "anchor_text": "View Markdown"
+              }
+            ],
+            "https://docs.anyscale.com/reference/base-images/ray-2410/py310.md": [
+              {
+                "source_page": "https://docs.anyscale.com/reference/base-images/ray-2410/py310",
+                "anchor_text": "View Markdown"
+              }
+            ],
+            "https://docs.anyscale.com/reference/base-images/ray-2410/py311.md": [
+              {
+                "source_page": "https://docs.anyscale.com/reference/base-images/ray-2410/py311",
+                "anchor_text": "View Markdown"
+              }
+            ],
+            "https://docs.anyscale.com/reference/base-images/ray-2410/py312.md": [
+              {
+                "source_page": "https://docs.anyscale.com/reference/base-images/ray-2410/py312",
+                "anchor_text": "View Markdown"
+              }
+            ],
+            "https://docs.anyscale.com/reference/base-images/ray-2410/py39.md": [
+              {
+                "source_page": "https://docs.anyscale.com/reference/base-images/ray-2410/py39",
+                "anchor_text": "View Markdown"
+              }
+            ],
+            "https://docs.anyscale.com/reference/base-images/ray-2420/py310.md": [
+              {
+                "source_page": "https://docs.anyscale.com/reference/base-images/ray-2420/py310",
+                "anchor_text": "View Markdown"
+              }
+            ],
+            "https://docs.anyscale.com/reference/base-images/ray-2420/py311.md": [
+              {
+                "source_page": "https://docs.anyscale.com/reference/base-images/ray-2420/py311",
+                "anchor_text": "View Markdown"
+              }
+            ],
+            "https://docs.anyscale.com/reference/base-images/ray-2420/py312.md": [
+              {
+                "source_page": "https://docs.anyscale.com/reference/base-images/ray-2420/py312",
+                "anchor_text": "View Markdown"
+              }
+            ],
+            "https://docs.anyscale.com/reference/base-images/ray-2420/py39.md": [
+              {
+                "source_page": "https://docs.anyscale.com/reference/base-images/ray-2420/py39",
+                "anchor_text": "View Markdown"
+              }
+            ],
+            "https://docs.anyscale.com/reference/base-images/ray-2421/py310.md": [
+              {
+                "source_page": "https://docs.anyscale.com/reference/base-images/ray-2421/py310",
+                "anchor_text": "View Markdown"
+              }
+            ],
+            "https://docs.anyscale.com/reference/base-images/ray-2421/py311.md": [
+              {
+                "source_page": "https://docs.anyscale.com/reference/base-images/ray-2421/py311",
+                "anchor_text": "View Markdown"
+              }
+            ],
+            "https://docs.anyscale.com/reference/base-images/ray-2421/py312.md": [
+              {
+                "source_page": "https://docs.anyscale.com/reference/base-images/ray-2421/py312",
+                "anchor_text": "View Markdown"
+              }
+            ],
+            "https://docs.anyscale.com/reference/base-images/ray-2421/py39.md": [
+              {
+                "source_page": "https://docs.anyscale.com/reference/base-images/ray-2421/py39",
+                "anchor_text": "View Markdown"
+              }
+            ],
+            "https://docs.anyscale.com/reference/base-images/ray-2430/py310.md": [
+              {
+                "source_page": "https://docs.anyscale.com/reference/base-images/ray-2430/py310",
+                "anchor_text": "View Markdown"
+              }
+            ],
+            "https://docs.anyscale.com/reference/base-images/ray-2430/py311.md": [
+              {
+                "source_page": "https://docs.anyscale.com/reference/base-images/ray-2430/py311",
+                "anchor_text": "View Markdown"
+              }
+            ],
+            "https://docs.anyscale.com/reference/base-images/ray-2430/py312.md": [
+              {
+                "source_page": "https://docs.anyscale.com/reference/base-images/ray-2430/py312",
+                "anchor_text": "View Markdown"
+              }
+            ],
+            "https://docs.anyscale.com/reference/base-images/ray-2430/py39.md": [
+              {
+                "source_page": "https://docs.anyscale.com/reference/base-images/ray-2430/py39",
+                "anchor_text": "View Markdown"
+              }
+            ],
+            "https://docs.anyscale.com/reference/base-images/ray-2440/py310.md": [
+              {
+                "source_page": "https://docs.anyscale.com/reference/base-images/ray-2440/py310",
+                "anchor_text": "View Markdown"
+              }
+            ],
+            "https://docs.anyscale.com/reference/base-images/ray-2440/py311.md": [
+              {
+                "source_page": "https://docs.anyscale.com/reference/base-images/ray-2440/py311",
+                "anchor_text": "View Markdown"
+              }
+            ],
+            "https://docs.anyscale.com/reference/base-images/ray-2440/py312.md": [
+              {
+                "source_page": "https://docs.anyscale.com/reference/base-images/ray-2440/py312",
+                "anchor_text": "View Markdown"
+              }
+            ],
+            "https://docs.anyscale.com/reference/base-images/ray-2440/py39.md": [
+              {
+                "source_page": "https://docs.anyscale.com/reference/base-images/ray-2440/py39",
+                "anchor_text": "View Markdown"
+              }
+            ],
+            "https://docs.anyscale.com/reference/base-images/ray-2441/py310.md": [
+              {
+                "source_page": "https://docs.anyscale.com/reference/base-images/ray-2441/py310",
+                "anchor_text": "View Markdown"
+              }
+            ],
+            "https://docs.anyscale.com/reference/base-images/ray-2441/py311.md": [
+              {
+                "source_page": "https://docs.anyscale.com/reference/base-images/ray-2441/py311",
+                "anchor_text": "View Markdown"
+              }
+            ],
+            "https://docs.anyscale.com/reference/base-images/ray-2441/py312.md": [
+              {
+                "source_page": "https://docs.anyscale.com/reference/base-images/ray-2441/py312",
+                "anchor_text": "View Markdown"
+              }
+            ],
+            "https://docs.anyscale.com/reference/base-images/ray-2441/py39.md": [
+              {
+                "source_page": "https://docs.anyscale.com/reference/base-images/ray-2441/py39",
+                "anchor_text": "View Markdown"
+              }
+            ],
+            "https://docs.anyscale.com/reference/base-images/ray-2450/py310.md": [
+              {
+                "source_page": "https://docs.anyscale.com/reference/base-images/ray-2450/py310",
+                "anchor_text": "View Markdown"
+              }
+            ],
+            "https://docs.anyscale.com/reference/base-images/ray-2450/py311.md": [
+              {
+                "source_page": "https://docs.anyscale.com/reference/base-images/ray-2450/py311",
+                "anchor_text": "View Markdown"
+              }
+            ],
+            "https://docs.anyscale.com/reference/base-images/ray-2450/py312.md": [
+              {
+                "source_page": "https://docs.anyscale.com/reference/base-images/ray-2450/py312",
+                "anchor_text": "View Markdown"
+              }
+            ],
+            "https://docs.anyscale.com/reference/base-images/ray-2450/py39.md": [
+              {
+                "source_page": "https://docs.anyscale.com/reference/base-images/ray-2450/py39",
+                "anchor_text": "View Markdown"
+              }
+            ],
+            "https://docs.anyscale.com/reference/base-images/ray-2460/py310.md": [
+              {
+                "source_page": "https://docs.anyscale.com/reference/base-images/ray-2460/py310",
+                "anchor_text": "View Markdown"
+              }
+            ],
+            "https://docs.anyscale.com/reference/base-images/ray-2460/py311.md": [
+              {
+                "source_page": "https://docs.anyscale.com/reference/base-images/ray-2460/py311",
+                "anchor_text": "View Markdown"
+              }
+            ],
+            "https://docs.anyscale.com/reference/base-images/ray-2460/py312.md": [
+              {
+                "source_page": "https://docs.anyscale.com/reference/base-images/ray-2460/py312",
+                "anchor_text": "View Markdown"
+              }
+            ],
+            "https://docs.anyscale.com/reference/base-images/ray-2460/py39.md": [
+              {
+                "source_page": "https://docs.anyscale.com/reference/base-images/ray-2460/py39",
+                "anchor_text": "View Markdown"
+              }
+            ],
+            "https://docs.anyscale.com/reference/base-images/ray-2470/py310.md": [
+              {
+                "source_page": "https://docs.anyscale.com/reference/base-images/ray-2470/py310",
+                "anchor_text": "View Markdown"
+              }
+            ],
+            "https://docs.anyscale.com/reference/base-images/ray-2470/py311.md": [
+              {
+                "source_page": "https://docs.anyscale.com/reference/base-images/ray-2470/py311",
+                "anchor_text": "View Markdown"
+              }
+            ],
+            "https://docs.anyscale.com/reference/base-images/ray-2470/py312.md": [
+              {
+                "source_page": "https://docs.anyscale.com/reference/base-images/ray-2470/py312",
+                "anchor_text": "View Markdown"
+              }
+            ],
+            "https://docs.anyscale.com/reference/base-images/ray-2470/py39.md": [
+              {
+                "source_page": "https://docs.anyscale.com/reference/base-images/ray-2470/py39",
+                "anchor_text": "View Markdown"
+              }
+            ],
+            "https://docs.anyscale.com/reference/base-images/ray-2471/py310.md": [
+              {
+                "source_page": "https://docs.anyscale.com/reference/base-images/ray-2471/py310",
+                "anchor_text": "View Markdown"
+              }
+            ],
+            "https://docs.anyscale.com/reference/base-images/ray-2471/py311.md": [
+              {
+                "source_page": "https://docs.anyscale.com/reference/base-images/ray-2471/py311",
+                "anchor_text": "View Markdown"
+              }
+            ],
+            "https://docs.anyscale.com/reference/base-images/ray-2471/py312.md": [
+              {
+                "source_page": "https://docs.anyscale.com/reference/base-images/ray-2471/py312",
+                "anchor_text": "View Markdown"
+              }
+            ],
+            "https://docs.anyscale.com/reference/base-images/ray-2471/py39.md": [
+              {
+                "source_page": "https://docs.anyscale.com/reference/base-images/ray-2471/py39",
+                "anchor_text": "View Markdown"
+              }
+            ],
+            "https://docs.anyscale.com/reference/base-images/ray-2480/py310.md": [
+              {
+                "source_page": "https://docs.anyscale.com/reference/base-images/ray-2480/py310",
+                "anchor_text": "View Markdown"
+              }
+            ],
+            "https://docs.anyscale.com/reference/base-images/ray-2480/py311.md": [
+              {
+                "source_page": "https://docs.anyscale.com/reference/base-images/ray-2480/py311",
+                "anchor_text": "View Markdown"
+              }
+            ],
+            "https://docs.anyscale.com/reference/base-images/ray-2480/py312.md": [
+              {
+                "source_page": "https://docs.anyscale.com/reference/base-images/ray-2480/py312",
+                "anchor_text": "View Markdown"
+              }
+            ],
+            "https://docs.anyscale.com/reference/base-images/ray-2480/py39.md": [
+              {
+                "source_page": "https://docs.anyscale.com/reference/base-images/ray-2480/py39",
+                "anchor_text": "View Markdown"
+              }
+            ],
+            "https://docs.anyscale.com/reference/base-images/ray-2490/py310.md": [
+              {
+                "source_page": "https://docs.anyscale.com/reference/base-images/ray-2490/py310",
+                "anchor_text": "View Markdown"
+              }
+            ],
+            "https://docs.anyscale.com/reference/base-images/ray-2490/py311.md": [
+              {
+                "source_page": "https://docs.anyscale.com/reference/base-images/ray-2490/py311",
+                "anchor_text": "View Markdown"
+              }
+            ],
+            "https://docs.anyscale.com/reference/base-images/ray-2490/py312.md": [
+              {
+                "source_page": "https://docs.anyscale.com/reference/base-images/ray-2490/py312",
+                "anchor_text": "View Markdown"
+              }
+            ],
+            "https://docs.anyscale.com/reference/base-images/ray-2490/py39.md": [
+              {
+                "source_page": "https://docs.anyscale.com/reference/base-images/ray-2490/py39",
+                "anchor_text": "View Markdown"
+              }
+            ],
+            "https://docs.anyscale.com/reference/base-images/ray-2491/py310.md": [
+              {
+                "source_page": "https://docs.anyscale.com/reference/base-images/ray-2491/py310",
+                "anchor_text": "View Markdown"
+              }
+            ],
+            "https://docs.anyscale.com/reference/base-images/ray-2491/py311.md": [
+              {
+                "source_page": "https://docs.anyscale.com/reference/base-images/ray-2491/py311",
+                "anchor_text": "View Markdown"
+              }
+            ],
+            "https://docs.anyscale.com/reference/base-images/ray-2491/py312.md": [
+              {
+                "source_page": "https://docs.anyscale.com/reference/base-images/ray-2491/py312",
+                "anchor_text": "View Markdown"
+              }
+            ],
+            "https://docs.anyscale.com/reference/base-images/ray-2491/py39.md": [
+              {
+                "source_page": "https://docs.anyscale.com/reference/base-images/ray-2491/py39",
+                "anchor_text": "View Markdown"
+              }
+            ],
+            "https://docs.anyscale.com/reference/base-images/ray-2492/py310.md": [
+              {
+                "source_page": "https://docs.anyscale.com/reference/base-images/ray-2492/py310",
+                "anchor_text": "View Markdown"
+              }
+            ],
+            "https://docs.anyscale.com/reference/base-images/ray-2492/py311.md": [
+              {
+                "source_page": "https://docs.anyscale.com/reference/base-images/ray-2492/py311",
+                "anchor_text": "View Markdown"
+              }
+            ],
+            "https://docs.anyscale.com/reference/base-images/ray-2492/py312.md": [
+              {
+                "source_page": "https://docs.anyscale.com/reference/base-images/ray-2492/py312",
+                "anchor_text": "View Markdown"
+              }
+            ],
+            "https://docs.anyscale.com/reference/base-images/ray-2492/py39.md": [
+              {
+                "source_page": "https://docs.anyscale.com/reference/base-images/ray-2492/py39",
+                "anchor_text": "View Markdown"
+              }
+            ],
+            "https://docs.anyscale.com/reference/base-images/ray-2500/py310.md": [
+              {
+                "source_page": "https://docs.anyscale.com/reference/base-images/ray-2500/py310",
+                "anchor_text": "View Markdown"
+              }
+            ],
+            "https://docs.anyscale.com/reference/base-images/ray-2500/py311.md": [
+              {
+                "source_page": "https://docs.anyscale.com/reference/base-images/ray-2500/py311",
+                "anchor_text": "View Markdown"
+              }
+            ],
+            "https://docs.anyscale.com/reference/base-images/ray-2500/py312.md": [
+              {
+                "source_page": "https://docs.anyscale.com/reference/base-images/ray-2500/py312",
+                "anchor_text": "View Markdown"
+              }
+            ],
+            "https://docs.anyscale.com/reference/base-images/ray-2500/py39.md": [
+              {
+                "source_page": "https://docs.anyscale.com/reference/base-images/ray-2500/py39",
+                "anchor_text": "View Markdown"
+              }
+            ],
+            "https://docs.anyscale.com/reference/base-images/ray-2501/py310.md": [
+              {
+                "source_page": "https://docs.anyscale.com/reference/base-images/ray-2501/py310",
+                "anchor_text": "View Markdown"
+              }
+            ],
+            "https://docs.anyscale.com/reference/base-images/ray-2501/py311.md": [
+              {
+                "source_page": "https://docs.anyscale.com/reference/base-images/ray-2501/py311",
+                "anchor_text": "View Markdown"
+              }
+            ],
+            "https://docs.anyscale.com/reference/base-images/ray-2501/py312.md": [
+              {
+                "source_page": "https://docs.anyscale.com/reference/base-images/ray-2501/py312",
+                "anchor_text": "View Markdown"
+              }
+            ],
+            "https://docs.anyscale.com/reference/base-images/ray-2501/py39.md": [
+              {
+                "source_page": "https://docs.anyscale.com/reference/base-images/ray-2501/py39",
+                "anchor_text": "View Markdown"
+              }
+            ],
+            "https://docs.anyscale.com/reference/base-images/ray-2510/py310.md": [
+              {
+                "source_page": "https://docs.anyscale.com/reference/base-images/ray-2510/py310",
+                "anchor_text": "View Markdown"
+              }
+            ],
+            "https://docs.anyscale.com/reference/base-images/ray-2510/py311.md": [
+              {
+                "source_page": "https://docs.anyscale.com/reference/base-images/ray-2510/py311",
+                "anchor_text": "View Markdown"
+              }
+            ],
+            "https://docs.anyscale.com/reference/base-images/ray-2510/py312.md": [
+              {
+                "source_page": "https://docs.anyscale.com/reference/base-images/ray-2510/py312",
+                "anchor_text": "View Markdown"
+              }
+            ],
+            "https://docs.anyscale.com/reference/base-images/ray-2510/py39.md": [
+              {
+                "source_page": "https://docs.anyscale.com/reference/base-images/ray-2510/py39",
+                "anchor_text": "View Markdown"
+              }
+            ],
+            "https://docs.anyscale.com/reference/base-images/ray-2511/py310.md": [
+              {
+                "source_page": "https://docs.anyscale.com/reference/base-images/ray-2511/py310",
+                "anchor_text": "View Markdown"
+              }
+            ],
+            "https://docs.anyscale.com/reference/base-images/ray-2511/py311.md": [
+              {
+                "source_page": "https://docs.anyscale.com/reference/base-images/ray-2511/py311",
+                "anchor_text": "View Markdown"
+              }
+            ],
+            "https://docs.anyscale.com/reference/base-images/ray-2511/py312.md": [
+              {
+                "source_page": "https://docs.anyscale.com/reference/base-images/ray-2511/py312",
+                "anchor_text": "View Markdown"
+              }
+            ],
+            "https://docs.anyscale.com/reference/base-images/ray-2511/py39.md": [
+              {
+                "source_page": "https://docs.anyscale.com/reference/base-images/ray-2511/py39",
+                "anchor_text": "View Markdown"
+              }
+            ],
+            "https://docs.anyscale.com/reference/base-images/ray-2512/py310.md": [
+              {
+                "source_page": "https://docs.anyscale.com/reference/base-images/ray-2512/py310",
+                "anchor_text": "View Markdown"
+              }
+            ],
+            "https://docs.anyscale.com/reference/base-images/ray-2512/py311.md": [
+              {
+                "source_page": "https://docs.anyscale.com/reference/base-images/ray-2512/py311",
+                "anchor_text": "View Markdown"
+              }
+            ],
+            "https://docs.anyscale.com/reference/base-images/ray-2512/py312.md": [
+              {
+                "source_page": "https://docs.anyscale.com/reference/base-images/ray-2512/py312",
+                "anchor_text": "View Markdown"
+              }
+            ],
+            "https://docs.anyscale.com/reference/base-images/ray-2512/py39.md": [
+              {
+                "source_page": "https://docs.anyscale.com/reference/base-images/ray-2512/py39",
+                "anchor_text": "View Markdown"
+              }
+            ],
+            "https://docs.anyscale.com/reference/base-images/ray-2520/py310.md": [
+              {
+                "source_page": "https://docs.anyscale.com/reference/base-images/ray-2520/py310",
+                "anchor_text": "View Markdown"
+              }
+            ],
+            "https://docs.anyscale.com/reference/base-images/ray-2520/py311.md": [
+              {
+                "source_page": "https://docs.anyscale.com/reference/base-images/ray-2520/py311",
+                "anchor_text": "View Markdown"
+              }
+            ],
+            "https://docs.anyscale.com/reference/base-images/ray-2520/py312.md": [
+              {
+                "source_page": "https://docs.anyscale.com/reference/base-images/ray-2520/py312",
+                "anchor_text": "View Markdown"
+              }
+            ],
+            "https://docs.anyscale.com/reference/base-images/ray-2521/py310.md": [
+              {
+                "source_page": "https://docs.anyscale.com/reference/base-images/ray-2521/py310",
+                "anchor_text": "View Markdown"
+              }
+            ],
+            "https://docs.anyscale.com/reference/base-images/ray-2521/py311.md": [
+              {
+                "source_page": "https://docs.anyscale.com/reference/base-images/ray-2521/py311",
+                "anchor_text": "View Markdown"
+              }
+            ],
+            "https://docs.anyscale.com/reference/base-images/ray-2521/py312.md": [
+              {
+                "source_page": "https://docs.anyscale.com/reference/base-images/ray-2521/py312",
+                "anchor_text": "View Markdown"
+              }
+            ],
+            "https://docs.anyscale.com/reference/base-images/ray-2530/py310.md": [
+              {
+                "source_page": "https://docs.anyscale.com/reference/base-images/ray-2530/py310",
+                "anchor_text": "View Markdown"
+              }
+            ],
+            "https://docs.anyscale.com/reference/base-images/ray-2530/py311.md": [
+              {
+                "source_page": "https://docs.anyscale.com/reference/base-images/ray-2530/py311",
+                "anchor_text": "View Markdown"
+              }
+            ],
+            "https://docs.anyscale.com/reference/base-images/ray-2530/py312.md": [
+              {
+                "source_page": "https://docs.anyscale.com/reference/base-images/ray-2530/py312",
+                "anchor_text": "View Markdown"
+              }
+            ],
+            "https://docs.anyscale.com/reference/base-images/ray-2540/py310.md": [
+              {
+                "source_page": "https://docs.anyscale.com/reference/base-images/ray-2540/py310",
+                "anchor_text": "View Markdown"
+              }
+            ],
+            "https://docs.anyscale.com/reference/base-images/ray-2540/py311.md": [
+              {
+                "source_page": "https://docs.anyscale.com/reference/base-images/ray-2540/py311",
+                "anchor_text": "View Markdown"
+              }
+            ],
+            "https://docs.anyscale.com/reference/base-images/ray-2540/py312.md": [
+              {
+                "source_page": "https://docs.anyscale.com/reference/base-images/ray-2540/py312",
+                "anchor_text": "View Markdown"
+              }
+            ],
+            "https://docs.anyscale.com/reference/base-images/ray-2540/py313.md": [
+              {
+                "source_page": "https://docs.anyscale.com/reference/base-images/ray-2540/py313",
+                "anchor_text": "View Markdown"
+              }
+            ],
+            "https://docs.anyscale.com/reference/base-images/ray-2541/py310.md": [
+              {
+                "source_page": "https://docs.anyscale.com/reference/base-images/ray-2541/py310",
+                "anchor_text": "View Markdown"
+              }
+            ],
+            "https://docs.anyscale.com/reference/base-images/ray-2541/py311.md": [
+              {
+                "source_page": "https://docs.anyscale.com/reference/base-images/ray-2541/py311",
+                "anchor_text": "View Markdown"
+              }
+            ],
+            "https://docs.anyscale.com/reference/base-images/ray-2541/py312.md": [
+              {
+                "source_page": "https://docs.anyscale.com/reference/base-images/ray-2541/py312",
+                "anchor_text": "View Markdown"
+              }
+            ],
+            "https://docs.anyscale.com/reference/base-images/ray-2541/py313.md": [
+              {
+                "source_page": "https://docs.anyscale.com/reference/base-images/ray-2541/py313",
+                "anchor_text": "View Markdown"
+              }
+            ],
+            "https://docs.anyscale.com/reference/base-images/ray-2550/py310.md": [
+              {
+                "source_page": "https://docs.anyscale.com/reference/base-images/ray-2550/py310",
+                "anchor_text": "View Markdown"
+              }
+            ],
+            "https://docs.anyscale.com/reference/base-images/ray-2550/py311.md": [
+              {
+                "source_page": "https://docs.anyscale.com/reference/base-images/ray-2550/py311",
+                "anchor_text": "View Markdown"
+              }
+            ],
+            "https://docs.anyscale.com/reference/base-images/ray-2550/py312.md": [
+              {
+                "source_page": "https://docs.anyscale.com/reference/base-images/ray-2550/py312",
+                "anchor_text": "View Markdown"
+              }
+            ],
+            "https://docs.anyscale.com/reference/base-images/ray-2550/py313.md": [
+              {
+                "source_page": "https://docs.anyscale.com/reference/base-images/ray-2550/py313",
+                "anchor_text": "View Markdown"
+              }
+            ]
+          }
+        },
+        "seo_geo": {
+          "pages_scanned": 436,
+          "missing_title_count": 0,
+          "missing_description_count": 1,
+          "multiple_h1_count": 433,
+          "heading_hierarchy_jump_count": 23,
+          "seo_geo_issue_rate_pct": 26.2
+        },
+        "api_coverage": {
+          "reference_endpoint_count": 150,
+          "api_pages_detected": 216,
+          "endpoints_with_usage_docs": 23,
+          "reference_endpoints_without_usage_docs": 127,
+          "reference_coverage_pct": 15.33,
+          "no_api_pages_found": false,
+          "coverage_determined": true,
+          "coverage_method": "heuristic",
+          "detection_note": "Contract URLs found but no operations parsed",
+          "uncovered_endpoint_samples": [
+            "ep:/$anyscale_cloud_storage_bucket/$anyscale_organization_id/$anyscale_cloud_id/artifact_storage",
+            "ep:/../../mnt/local_storage/mistral-7b-instruct-v0.1.safetensors",
+            "ep:/02/2024",
+            "ep:/25/2024",
+            "ep:/_ray_pkg_5cbc1f5ea201895259da328911c3241cb56311e9.zip",
+            "ep:/_ray_pkg_5cbc1f5ea201895259da328911c3241cb56311e9.zip'.(proxyactor",
+            "ep:/anyscale-test-data-cld-i2w99rzq8b6lbjkke9y94vi5/org_7c1kalm9wcx2bnijw53gut/cld_kvedzwag2qa8i5bjxuevf5i7/artifact_storage/mistral-7b-instruct-v0.1.safetensors",
+            "ep:/bucket-",
+            "ep:/bucket-name",
+            "ep:/bugs.launchpad.net/ubuntu/+source/openssh/+bug/45234",
+            "ep:/bugs.launchpad.net/ubuntu/+source/openssh/+bug/45234mkdir",
+            "ep:/console.anyscale.com/configurations/cluster-computes/cpt_abc123",
+            "ep:/console.anyscale.com/jobs",
+            "ep:/console.anyscale.com/jobs/prodjob_6ntzknwk1i9b1uw1zk1gp9dbhe",
+            "ep:/console.anyscale.com/jobs/prodjob_6ntzknwk1i9b1uw1zk1gp9dbhe(anyscale",
+            "ep:/console.anyscale.com/jobs/prodjob_ugk21r7pt6sbsxfuxn1an82x3e",
+            "ep:/console.anyscale.com/jobs/prodjob_ugk21r7pt6sbsxfuxn1an82x3e(anyscale",
+            "ep:/console.anyscale.com/jobsjobs:name",
+            "ep:/console.anyscale.com/projects",
+            "ep:/console.anyscale.com/projects/prj_1234"
+          ]
+        },
+        "examples": {
+          "total_code_examples": 1048,
+          "total_code_blocks_all": 4405,
+          "runnable_without_env": 894,
+          "blocked_by_placeholders": 74,
+          "network_bound_examples": 80,
+          "example_reliability_estimate_pct": 85.31,
+          "detection_note": ""
+        },
+        "freshness": {
+          "pages_with_last_updated_hint": 23,
+          "pages_without_last_updated_hint": 413,
+          "last_updated_coverage_pct": 5.28,
+          "samples_with_last_updated": [
+            {
+              "url": "https://docs.anyscale.com/admin/cloud/configure-aws",
+              "hint": "\"2012-10-17\""
+            },
+            {
+              "url": "https://docs.anyscale.com/administration/cloud-deployment/aws-ecr",
+              "hint": "\"2012-10-17\""
+            },
+            {
+              "url": "https://docs.anyscale.com/administration/security-and-compliance/audit-logs",
+              "hint": "\"2023-08-01 01:04:05.073682+00:00\""
+            },
+            {
+              "url": "https://docs.anyscale.com/iam/aws",
+              "hint": "\"2012-10-17\""
+            },
+            {
+              "url": "https://docs.anyscale.com/iam/eks",
+              "hint": "\"Version\": \"2012-10-17\","
+            },
+            {
+              "url": "https://docs.anyscale.com/monitoring/debugging-ray-oom",
+              "hint": "failed on March 8, 2025, at 7:28"
+            },
+            {
+              "url": "https://docs.anyscale.com/monitoring/debugging-ray-data-auto-scaling",
+              "hint": "failed on Apr 5, 2025, 7:12"
+            },
+            {
+              "url": "https://docs.anyscale.com/monitoring/exporting-logs",
+              "hint": "\"2012-10-17\""
+            },
+            {
+              "url": "https://docs.anyscale.com/rag/structured-data",
+              "hint": "[12345, 'Alice', '2023-09-01', 250.00, 'Shipped']"
+            },
+            {
+              "url": "https://docs.anyscale.com/reference/aggregated-instance-usage",
+              "hint": "\"2024-10-01\""
+            }
+          ]
+        }
+      },
+      "samples": {
+        "broken_links": [
+          "https://docs.anyscale.com/archive/ref.md",
+          "https://docs.anyscale.com/reference/base-images.md",
+          "https://docs.anyscale.com/reference/base-images/compare.md",
+          "https://docs.anyscale.com/reference/base-images/ray-2110/py310.md",
+          "https://docs.anyscale.com/reference/base-images/ray-2110/py311.md",
+          "https://docs.anyscale.com/reference/base-images/ray-2110/py39.md",
+          "https://docs.anyscale.com/reference/base-images/ray-2120/py310.md",
+          "https://docs.anyscale.com/reference/base-images/ray-2120/py311.md",
+          "https://docs.anyscale.com/reference/base-images/ray-2120/py39.md",
+          "https://docs.anyscale.com/reference/base-images/ray-2200/py310.md",
+          "https://docs.anyscale.com/reference/base-images/ray-2200/py311.md",
+          "https://docs.anyscale.com/reference/base-images/ray-2200/py39.md",
+          "https://docs.anyscale.com/reference/base-images/ray-2210/py310.md",
+          "https://docs.anyscale.com/reference/base-images/ray-2210/py311.md",
+          "https://docs.anyscale.com/reference/base-images/ray-2210/py39.md",
+          "https://docs.anyscale.com/reference/base-images/ray-2220/py310.md",
+          "https://docs.anyscale.com/reference/base-images/ray-2220/py311.md",
+          "https://docs.anyscale.com/reference/base-images/ray-2220/py39.md",
+          "https://docs.anyscale.com/reference/base-images/ray-2230/py310.md",
+          "https://docs.anyscale.com/reference/base-images/ray-2230/py311.md"
+        ],
+        "docs_broken_link_samples": [
+          "https://docs.anyscale.com/archive/ref.md",
+          "https://docs.anyscale.com/reference/base-images.md",
+          "https://docs.anyscale.com/reference/base-images/compare.md",
+          "https://docs.anyscale.com/reference/base-images/ray-2110/py310.md",
+          "https://docs.anyscale.com/reference/base-images/ray-2110/py311.md",
+          "https://docs.anyscale.com/reference/base-images/ray-2110/py39.md",
+          "https://docs.anyscale.com/reference/base-images/ray-2120/py310.md",
+          "https://docs.anyscale.com/reference/base-images/ray-2120/py311.md",
+          "https://docs.anyscale.com/reference/base-images/ray-2120/py39.md",
+          "https://docs.anyscale.com/reference/base-images/ray-2200/py310.md",
+          "https://docs.anyscale.com/reference/base-images/ray-2200/py311.md",
+          "https://docs.anyscale.com/reference/base-images/ray-2200/py39.md",
+          "https://docs.anyscale.com/reference/base-images/ray-2210/py310.md",
+          "https://docs.anyscale.com/reference/base-images/ray-2210/py311.md",
+          "https://docs.anyscale.com/reference/base-images/ray-2210/py39.md",
+          "https://docs.anyscale.com/reference/base-images/ray-2220/py310.md",
+          "https://docs.anyscale.com/reference/base-images/ray-2220/py311.md",
+          "https://docs.anyscale.com/reference/base-images/ray-2220/py39.md",
+          "https://docs.anyscale.com/reference/base-images/ray-2230/py310.md",
+          "https://docs.anyscale.com/reference/base-images/ray-2230/py311.md",
+          "https://docs.anyscale.com/reference/base-images/ray-2230/py39.md",
+          "https://docs.anyscale.com/reference/base-images/ray-2240/py310.md",
+          "https://docs.anyscale.com/reference/base-images/ray-2240/py311.md",
+          "https://docs.anyscale.com/reference/base-images/ray-2240/py39.md",
+          "https://docs.anyscale.com/reference/base-images/ray-2300/py310.md",
+          "https://docs.anyscale.com/reference/base-images/ray-2300/py311.md",
+          "https://docs.anyscale.com/reference/base-images/ray-2300/py39.md",
+          "https://docs.anyscale.com/reference/base-images/ray-2310/py310.md",
+          "https://docs.anyscale.com/reference/base-images/ray-2310/py311.md",
+          "https://docs.anyscale.com/reference/base-images/ray-2310/py39.md"
+        ],
+        "repo_broken_link_samples": [],
+        "unverified_link_samples": [],
+        "api_uncovered_samples": [
+          "ep:/$anyscale_cloud_storage_bucket/$anyscale_organization_id/$anyscale_cloud_id/artifact_storage",
+          "ep:/../../mnt/local_storage/mistral-7b-instruct-v0.1.safetensors",
+          "ep:/02/2024",
+          "ep:/25/2024",
+          "ep:/_ray_pkg_5cbc1f5ea201895259da328911c3241cb56311e9.zip",
+          "ep:/_ray_pkg_5cbc1f5ea201895259da328911c3241cb56311e9.zip'.(proxyactor",
+          "ep:/anyscale-test-data-cld-i2w99rzq8b6lbjkke9y94vi5/org_7c1kalm9wcx2bnijw53gut/cld_kvedzwag2qa8i5bjxuevf5i7/artifact_storage/mistral-7b-instruct-v0.1.safetensors",
+          "ep:/bucket-",
+          "ep:/bucket-name",
+          "ep:/bugs.launchpad.net/ubuntu/+source/openssh/+bug/45234",
+          "ep:/bugs.launchpad.net/ubuntu/+source/openssh/+bug/45234mkdir",
+          "ep:/console.anyscale.com/configurations/cluster-computes/cpt_abc123",
+          "ep:/console.anyscale.com/jobs",
+          "ep:/console.anyscale.com/jobs/prodjob_6ntzknwk1i9b1uw1zk1gp9dbhe",
+          "ep:/console.anyscale.com/jobs/prodjob_6ntzknwk1i9b1uw1zk1gp9dbhe(anyscale",
+          "ep:/console.anyscale.com/jobs/prodjob_ugk21r7pt6sbsxfuxn1an82x3e",
+          "ep:/console.anyscale.com/jobs/prodjob_ugk21r7pt6sbsxfuxn1an82x3e(anyscale",
+          "ep:/console.anyscale.com/jobsjobs:name",
+          "ep:/console.anyscale.com/projects",
+          "ep:/console.anyscale.com/projects/prj_1234"
+        ]
+      },
+      "run_count": 1
+    }
+  ],
+  "aggregate": {
+    "metrics": {
+      "crawl": {
+        "pages_crawled": 436,
+        "requested_pages": 883,
+        "urls_examined": 436,
+        "max_pages_total": 5000,
+        "discovered_pages": 436,
+        "crawl_scope_pages": 436,
+        "trap_urls_skipped": 25,
+        "crawl_coverage_pct": 100.0
+      },
+      "links": {
+        "broken_internal_links_count": 164,
+        "docs_broken_links_count": 164,
+        "repo_broken_links_count": 0,
+        "unverified_links_count": 0,
+        "confirmed_broken_links_count": 164,
+        "excluded_links_count": 1
+      },
+      "seo_geo": {
+        "seo_geo_issue_rate_pct": 26.2
+      },
+      "api_coverage": {
+        "reference_coverage_pct": 15.33,
+        "no_api_pages_found": false,
+        "api_pages_detected": 216,
+        "coverage_determined": true,
+        "detection_note": ""
+      },
+      "examples": {
+        "example_reliability_estimate_pct": 85.31
+      },
+      "freshness": {
+        "last_updated_coverage_pct": 5.28
+      }
+    },
+    "confidence": {
+      "overall_confidence_pct": 91.5,
+      "links_confidence_pct": 95.0,
+      "api_confidence_pct": 85.0,
+      "crawl_confidence_pct": 95.0
+    }
+  },
+  "confidence": {
+    "overall_confidence_pct": 91.5,
+    "links_confidence_pct": 95.0,
+    "api_confidence_pct": 85.0,
+    "crawl_confidence_pct": 95.0
+  },
+  "top_findings": [
+    "Broken internal links: 164",
+    "SEO/GEO issue rate is high: 26.2%",
+    "API usage-doc coverage is low: 15.33% (216 API pages detected)",
+    "Freshness visibility is weak: only 5.28% pages show last updated"
+  ],
+  "llm_analysis": {
+    "status": "ok",
+    "model": "claude-sonnet-4-5",
+    "analysis": {
+      "executive_summary": "Documentation audit of docs.anyscale.com covered 436 pages at 100% crawl coverage with 91.5% overall confidence. Critical issues include 164 confirmed broken internal links affecting user navigation and trust. API reference coverage stands at only 15.33% despite 216 API pages detected, indicating significant documentation gaps. Freshness metadata appears on just 5.28% of pages, obscuring content currency. SEO/geo issues affect 26.2% of pages, potentially limiting discoverability.",
+      "strengths": [
+        "Complete crawl coverage achieved (100% of discovered pages, 436/436)",
+        "High overall audit confidence at 91.5% with strong link verification (95%)",
+        "Example code reliability estimated at 85.31%, indicating quality code samples",
+        "Single-product topology provides clear documentation structure",
+        "No repository navigation link breakage (repo_broken_links_count: 0)"
+      ],
+      "risks": [
+        "164 confirmed broken internal links create poor user experience and erode trust in documentation quality",
+        "API reference coverage at 15.33% leaves 84.67% of API surface undocumented or poorly linked",
+        "Only 5.28% of pages display last-updated metadata, preventing users from assessing content freshness",
+        "26.2% SEO/geo issue rate may significantly reduce organic search visibility and international reach",
+        "25 URLs identified as potential crawler traps were skipped, possibly hiding additional content issues",
+        "Low freshness visibility combined with broken links suggests possible content decay or migration issues",
+        "API confidence at 85% indicates potential detection gaps in API documentation assessment"
+      ],
+      "prioritized_actions": [
+        {
+          "action": "Fix all 164 broken internal links through automated link validation and redirect mapping",
+          "impact": "critical",
+          "effort": "medium"
+        },
+        {
+          "action": "Implement last-updated timestamps on all pages (currently 5.28% coverage) to establish freshness transparency",
+          "impact": "critical",
+          "effort": "low"
+        },
+        {
+          "action": "Audit and expand API reference coverage from 15.33% to minimum 80% by linking usage docs to API pages",
+          "impact": "critical",
+          "effort": "high"
+        },
+        {
+          "action": "Resolve SEO/geo issues affecting 26.2% of pages (114 pages) through metadata and localization fixes",
+          "impact": "high",
+          "effort": "medium"
+        },
+        {
+          "action": "Investigate 25 crawler trap URLs to determine if legitimate content is being excluded from audit",
+          "impact": "medium",
+          "effort": "low"
+        }
+      ],
+      "limitations": [
+        "External audit cannot verify accuracy of technical content, code examples, or API specifications",
+        "Broken link detection reflects point-in-time status; links may break or be fixed post-audit",
+        "API coverage detection at 85% confidence may undercount or misclassify API reference pages",
+        "Cannot assess user satisfaction, task completion rates, or actual documentation effectiveness",
+        "SEO/geo issue detection does not guarantee search ranking impact or international usability outcomes"
+      ]
+    }
+  }
+}

@@ -1,0 +1,57 @@
+{
+  "status": "ok",
+  "model": "claude-sonnet-4-5",
+  "analysis": {
+    "executive_summary": "Documentation audit of docs.moov.io crawled 1686 pages with 100% coverage and 91.5% overall confidence. Critical gaps identified: 9 confirmed broken internal links, 22.14% SEO/geo issue rate, and only 15.65% API reference coverage despite 1468 API pages detected. Freshness metadata present on only 9.19% of pages. Example reliability estimated at 85.25%, indicating potential code drift or maintenance issues.",
+    "strengths": [
+      "Complete crawl coverage: 1686 of 1686 pages examined (100%)",
+      "High overall audit confidence at 91.5% with strong link verification (95%)",
+      "No repository navigation broken links; all 9 broken links are user-facing documentation",
+      "Large API surface detected (1468 pages) provides foundation for improvement",
+      "Example reliability at 85.25% shows majority of code samples likely functional"
+    ],
+    "risks": [
+      "9 confirmed broken internal links degrade user navigation and trust",
+      "22.14% SEO/geo issue rate severely impacts discoverability and search ranking",
+      "Only 15.65% API reference coverage leaves 84% of API pages without usage documentation",
+      "9.19% freshness visibility prevents users from assessing content currency and reliability",
+      "14.75% of examples may be broken or outdated, risking developer onboarding failure",
+      "Low API coverage with 1468 detected pages suggests systematic gap in integration guidance",
+      "Missing last-updated dates on 90%+ pages creates compliance and maintenance tracking risk"
+    ],
+    "prioritized_actions": [
+      {
+        "action": "Fix all 9 confirmed broken internal documentation links",
+        "impact": "critical",
+        "effort": "low"
+      },
+      {
+        "action": "Implement systematic last-updated metadata across all 1686 pages",
+        "impact": "critical",
+        "effort": "medium"
+      },
+      {
+        "action": "Audit and remediate SEO/geo issues affecting 22.14% of pages (373 pages)",
+        "impact": "high",
+        "effort": "high"
+      },
+      {
+        "action": "Create usage documentation for top 50 most-accessed API endpoints (targeting 1468 API pages)",
+        "impact": "high",
+        "effort": "high"
+      },
+      {
+        "action": "Validate and update the 14.75% potentially broken code examples",
+        "impact": "high",
+        "effort": "medium"
+      }
+    ],
+    "limitations": [
+      "External audit cannot verify accuracy of technical content, code correctness, or business logic",
+      "API coverage detection relies on page structure patterns; actual API completeness requires internal validation",
+      "Example reliability is estimated through static analysis; runtime execution success not guaranteed",
+      "Crawl limited to publicly accessible pages; authenticated or gated content not evaluated",
+      "SEO/geo issue detection based on technical markers; actual search engine ranking impact requires live monitoring"
+    ]
+  }
+}

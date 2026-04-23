@@ -1,0 +1,1123 @@
+{
+  "generated_at": "2026-04-22T09:01:51.894713+00:00",
+  "site_url": "multiple-sites",
+  "site_urls": [
+    "https://docs.sui.io/",
+    "https://sdk.mystenlabs.com/",
+    "https://sdk.mystenlabs.com/typedoc",
+    "https://docs.wal.app/",
+    "https://seal.mystenlabs.com/"
+  ],
+  "topology_mode": "multi-project",
+  "verification_modes": [
+    "authenticated",
+    "bot",
+    "browser"
+  ],
+  "sites": [
+    {
+      "site_url": "https://docs.wal.app/",
+      "metrics": {
+        "crawl": {
+          "pages_crawled": 89,
+          "requested_pages": 95,
+          "urls_examined": 91,
+          "max_pages": 10000,
+          "effective_limit": 10000,
+          "auto_mode": false,
+          "stop_reason": "queue_exhausted",
+          "discovered_pages": 91,
+          "crawl_scope_basis": "sitemap",
+          "crawl_scope_pages": 91,
+          "crawl_coverage_pct": 100.0,
+          "trap_urls_skipped": 1,
+          "seeded_sitemap_urls": 91,
+          "robots_sitemaps_declared": 0
+        },
+        "links": {
+          "internal_links_checked": 95,
+          "broken_internal_links_count": 0,
+          "docs_broken_links_count": 0,
+          "repo_broken_links_count": 0,
+          "broken_internal_link_samples": [],
+          "docs_broken_link_samples": [],
+          "repo_broken_link_samples": [],
+          "unreachable_links_count": 2,
+          "unverified_links_count": 2,
+          "unverified_link_samples": [
+            "https://docs.wal.app/docs/operator-guide/storage-nodes/commission-governance",
+            "https://docs.wal.app/docs/troubleshooting/error-handling"
+          ],
+          "confirmed_broken_links_count": 0,
+          "excluded_links_count": 2,
+          "excluded_link_samples": [
+            "https://docs.wal.app/assets/files/walrus_whitepaper_v2-31701a689e75cc47048440b56789f388.pdf",
+            "https://docs.wal.app/search"
+          ],
+          "_all_confirmed_broken_links": [],
+          "_all_unverified_links": [
+            "https://docs.wal.app/docs/operator-guide/storage-nodes/commission-governance",
+            "https://docs.wal.app/docs/troubleshooting/error-handling"
+          ],
+          "_all_excluded_links": [
+            "https://docs.wal.app/assets/files/walrus_whitepaper_v2-31701a689e75cc47048440b56789f388.pdf",
+            "https://docs.wal.app/search"
+          ],
+          "_all_docs_unverified_links": [
+            "https://docs.wal.app/docs/operator-guide/storage-nodes/commission-governance",
+            "https://docs.wal.app/docs/troubleshooting/error-handling"
+          ],
+          "_all_repo_unverified_links": [],
+          "_broken_link_provenance": {}
+        },
+        "seo_geo": {
+          "pages_scanned": 89,
+          "missing_title_count": 0,
+          "missing_description_count": 3,
+          "multiple_h1_count": 0,
+          "heading_hierarchy_jump_count": 27,
+          "seo_geo_issue_rate_pct": 8.43
+        },
+        "api_coverage": {
+          "reference_endpoint_count": 108,
+          "api_pages_detected": 13,
+          "endpoints_with_usage_docs": 34,
+          "reference_endpoints_without_usage_docs": 74,
+          "reference_coverage_pct": 31.48,
+          "no_api_pages_found": false,
+          "coverage_determined": true,
+          "coverage_method": "heuristic",
+          "detection_note": "Contract URLs found but no operations parsed",
+          "uncovered_endpoint_samples": [
+            "ep:/.config/walrus$",
+            "ep:/.config/walrus/client_config.yaml",
+            "ep:/.config/walrus/publisher-wallets",
+            "ep:/.config/walrus/publisher-walletsmkdir",
+            "ep:/.config/walruscurl",
+            "ep:/.local/share/bash-completion/completions",
+            "ep:/.sui/sui_config",
+            "ep:/.sui/sui_config/sui.keystorecat",
+            "ep:/.sui/sui_configecho",
+            "ep:/127.0.0.1:31415/v1/quilts",
+            "ep:/bin/bash",
+            "ep:/checkpoints.$network.sui.io",
+            "ep:/chunk_*",
+            "ep:/docs.wal.app/docs/http-api/quilt-http-apis",
+            "ep:/docs.wal.app/docs/http-api/reading-blobs",
+            "ep:/docs.wal.app/docs/http-api/storing-blobs",
+            "ep:/docs.wal.app/docs/operator-guide/aggregators/operating-aggregator",
+            "ep:/docs.wal.app/docs/operator-guide/publishers/operating-publisher",
+            "ep:/docs.wal.app/docs/operator-guide/storage-nodes/storage-node-setup",
+            "ep:/docs.wal.app/docs/sites/ci-cd/other-ci-cd-platforms"
+          ]
+        },
+        "examples": {
+          "total_code_examples": 240,
+          "total_code_blocks_all": 377,
+          "runnable_without_env": 164,
+          "blocked_by_placeholders": 13,
+          "network_bound_examples": 63,
+          "example_reliability_estimate_pct": 68.33,
+          "detection_note": ""
+        },
+        "freshness": {
+          "pages_with_last_updated_hint": 12,
+          "pages_without_last_updated_hint": 77,
+          "last_updated_coverage_pct": 13.48,
+          "samples_with_last_updated": [
+            {
+              "url": "https://docs.wal.app/blog",
+              "hint": "2025-03-27T00:00:00.000Z"
+            },
+            {
+              "url": "https://docs.wal.app/blog/06_mainnet",
+              "hint": "2025-03-27T00:00:00.000Z"
+            },
+            {
+              "url": "https://docs.wal.app/blog/02_devnet_update",
+              "hint": "2024-08-12T00:00:00.000Z"
+            },
+            {
+              "url": "https://docs.wal.app/blog/03_whitepaper",
+              "hint": "2024-09-17T00:00:00.000Z"
+            },
+            {
+              "url": "https://docs.wal.app/blog/04_testnet_update",
+              "hint": "2024-10-17T00:00:00.000Z"
+            },
+            {
+              "url": "https://docs.wal.app/blog/01_announcing_walrus",
+              "hint": "2024-11-01T00:00:00.000Z"
+            },
+            {
+              "url": "https://docs.wal.app/blog/05_testnet_redeployment",
+              "hint": "2025-01-16T00:00:00.000Z"
+            },
+            {
+              "url": "https://docs.wal.app/docs/legal/privacy",
+              "hint": "Last Updated:"
+            },
+            {
+              "url": "https://docs.wal.app/docs/legal/testnet_tos",
+              "hint": "Last updated: March 26, 2025"
+            },
+            {
+              "url": "https://docs.wal.app/docs/system-overview/public-aggregators-and-publishers",
+              "hint": "The operator list in JSON format includes additional info about aggregators, namely whether they are deployed with cachi"
+            }
+          ]
+        }
+      },
+      "samples": {
+        "broken_links": [],
+        "docs_broken_link_samples": [],
+        "repo_broken_link_samples": [],
+        "unverified_link_samples": [
+          "https://docs.wal.app/docs/operator-guide/storage-nodes/commission-governance",
+          "https://docs.wal.app/docs/troubleshooting/error-handling"
+        ],
+        "api_uncovered_samples": [
+          "ep:/.config/walrus$",
+          "ep:/.config/walrus/client_config.yaml",
+          "ep:/.config/walrus/publisher-wallets",
+          "ep:/.config/walrus/publisher-walletsmkdir",
+          "ep:/.config/walruscurl",
+          "ep:/.local/share/bash-completion/completions",
+          "ep:/.sui/sui_config",
+          "ep:/.sui/sui_config/sui.keystorecat",
+          "ep:/.sui/sui_configecho",
+          "ep:/127.0.0.1:31415/v1/quilts",
+          "ep:/bin/bash",
+          "ep:/checkpoints.$network.sui.io",
+          "ep:/chunk_*",
+          "ep:/docs.wal.app/docs/http-api/quilt-http-apis",
+          "ep:/docs.wal.app/docs/http-api/reading-blobs",
+          "ep:/docs.wal.app/docs/http-api/storing-blobs",
+          "ep:/docs.wal.app/docs/operator-guide/aggregators/operating-aggregator",
+          "ep:/docs.wal.app/docs/operator-guide/publishers/operating-publisher",
+          "ep:/docs.wal.app/docs/operator-guide/storage-nodes/storage-node-setup",
+          "ep:/docs.wal.app/docs/sites/ci-cd/other-ci-cd-platforms"
+        ]
+      },
+      "run_count": 1
+    },
+    {
+      "site_url": "https://seal.mystenlabs.com/",
+      "metrics": {
+        "crawl": {
+          "pages_crawled": 2,
+          "requested_pages": 2,
+          "urls_examined": 2,
+          "max_pages": 10000,
+          "effective_limit": 10000,
+          "auto_mode": false,
+          "stop_reason": "queue_exhausted",
+          "discovered_pages": 2,
+          "crawl_scope_basis": "discovered",
+          "crawl_scope_pages": 2,
+          "crawl_coverage_pct": 100.0,
+          "trap_urls_skipped": 0,
+          "seeded_sitemap_urls": 0,
+          "robots_sitemaps_declared": 0
+        },
+        "links": {
+          "internal_links_checked": 2,
+          "broken_internal_links_count": 0,
+          "docs_broken_links_count": 0,
+          "repo_broken_links_count": 0,
+          "broken_internal_link_samples": [],
+          "docs_broken_link_samples": [],
+          "repo_broken_link_samples": [],
+          "unreachable_links_count": 0,
+          "unverified_links_count": 0,
+          "unverified_link_samples": [],
+          "confirmed_broken_links_count": 0,
+          "excluded_links_count": 0,
+          "excluded_link_samples": [],
+          "_all_confirmed_broken_links": [],
+          "_all_unverified_links": [],
+          "_all_excluded_links": [],
+          "_all_docs_unverified_links": [],
+          "_all_repo_unverified_links": [],
+          "_broken_link_provenance": {}
+        },
+        "seo_geo": {
+          "pages_scanned": 2,
+          "missing_title_count": 0,
+          "missing_description_count": 0,
+          "multiple_h1_count": 0,
+          "heading_hierarchy_jump_count": 0,
+          "seo_geo_issue_rate_pct": 0.0
+        },
+        "api_coverage": {
+          "reference_endpoint_count": 0,
+          "api_pages_detected": 0,
+          "endpoints_with_usage_docs": 0,
+          "reference_endpoints_without_usage_docs": 0,
+          "reference_coverage_pct": -1.0,
+          "no_api_pages_found": true,
+          "coverage_determined": false,
+          "coverage_method": "heuristic",
+          "detection_note": "Contract URLs found but no operations parsed",
+          "uncovered_endpoint_samples": []
+        },
+        "examples": {
+          "total_code_examples": 0,
+          "total_code_blocks_all": 0,
+          "runnable_without_env": 0,
+          "blocked_by_placeholders": 0,
+          "network_bound_examples": 0,
+          "example_reliability_estimate_pct": 0.0,
+          "detection_note": "No code blocks detected in crawled pages. The site may use JavaScript-rendered code blocks invisible to the HTML parser."
+        },
+        "freshness": {
+          "pages_with_last_updated_hint": 0,
+          "pages_without_last_updated_hint": 2,
+          "last_updated_coverage_pct": 0.0,
+          "samples_with_last_updated": []
+        }
+      },
+      "samples": {
+        "broken_links": [],
+        "docs_broken_link_samples": [],
+        "repo_broken_link_samples": [],
+        "unverified_link_samples": [],
+        "api_uncovered_samples": []
+      },
+      "run_count": 1
+    },
+    {
+      "site_url": "https://docs.sui.io/",
+      "metrics": {
+        "crawl": {
+          "pages_crawled": 639,
+          "requested_pages": 671,
+          "urls_examined": 641,
+          "max_pages": 10000,
+          "effective_limit": 10000,
+          "auto_mode": false,
+          "stop_reason": "queue_exhausted",
+          "discovered_pages": 641,
+          "crawl_scope_basis": "sitemap",
+          "crawl_scope_pages": 641,
+          "crawl_coverage_pct": 100.0,
+          "trap_urls_skipped": 1,
+          "seeded_sitemap_urls": 641,
+          "robots_sitemaps_declared": 1
+        },
+        "links": {
+          "internal_links_checked": 670,
+          "broken_internal_links_count": 11,
+          "docs_broken_links_count": 11,
+          "repo_broken_links_count": 0,
+          "broken_internal_link_samples": [
+            "https://docs.sui.io/concepts/cryptography/nautilus",
+            "https://docs.sui.io/concepts/object-model",
+            "https://docs.sui.io/guides/developer/advanced/randomness-onchain",
+            "https://docs.sui.io/guides/developer/nft-index",
+            "https://docs.sui.io/guides/developer/nft/nft-soulbound",
+            "https://docs.sui.io/guides/developer/sui-101/sponsor-txn",
+            "https://docs.sui.io/references/framework/sui-framework/sui_sui/object",
+            "https://docs.sui.io/references/framework/sui-framework/sui_sui/random",
+            "https://docs.sui.io/references/framework/sui-framework/sui_sui/transfer",
+            "https://docs.sui.io/references/framework/sui_sui/transferx",
+            "https://docs.sui.io/standards/display"
+          ],
+          "docs_broken_link_samples": [
+            "https://docs.sui.io/concepts/cryptography/nautilus",
+            "https://docs.sui.io/concepts/object-model",
+            "https://docs.sui.io/guides/developer/advanced/randomness-onchain",
+            "https://docs.sui.io/guides/developer/nft-index",
+            "https://docs.sui.io/guides/developer/nft/nft-soulbound",
+            "https://docs.sui.io/guides/developer/sui-101/sponsor-txn",
+            "https://docs.sui.io/references/framework/sui-framework/sui_sui/object",
+            "https://docs.sui.io/references/framework/sui-framework/sui_sui/random",
+            "https://docs.sui.io/references/framework/sui-framework/sui_sui/transfer",
+            "https://docs.sui.io/references/framework/sui_sui/transferx",
+            "https://docs.sui.io/standards/display"
+          ],
+          "repo_broken_link_samples": [],
+          "unreachable_links_count": 1,
+          "unverified_links_count": 1,
+          "unverified_link_samples": [
+            "https://docs.sui.io/develop"
+          ],
+          "confirmed_broken_links_count": 11,
+          "excluded_links_count": 7,
+          "excluded_link_samples": [
+            "https://docs.sui.io/assets/files/deepbook-3e24e6e1deeb8cd860682c1fb473b597.pdf",
+            "https://docs.sui.io/assets/files/mysticeti-b7bf6bc1e0df4e363fd971dc51e11ac0.pdf",
+            "https://docs.sui.io/assets/files/sui-6251a5c5b9d2fab6b1df0e24ba7c6322.pdf",
+            "https://docs.sui.io/doc/sui-cli-cheatsheet.pdf",
+            "https://docs.sui.io/paper/sui-lutris.pdf",
+            "https://docs.sui.io/paper/tokenomics.pdf",
+            "https://docs.sui.io/search"
+          ],
+          "_all_confirmed_broken_links": [
+            "https://docs.sui.io/concepts/cryptography/nautilus",
+            "https://docs.sui.io/concepts/object-model",
+            "https://docs.sui.io/guides/developer/advanced/randomness-onchain",
+            "https://docs.sui.io/guides/developer/nft-index",
+            "https://docs.sui.io/guides/developer/nft/nft-soulbound",
+            "https://docs.sui.io/guides/developer/sui-101/sponsor-txn",
+            "https://docs.sui.io/references/framework/sui-framework/sui_sui/object",
+            "https://docs.sui.io/references/framework/sui-framework/sui_sui/random",
+            "https://docs.sui.io/references/framework/sui-framework/sui_sui/transfer",
+            "https://docs.sui.io/references/framework/sui_sui/transferx",
+            "https://docs.sui.io/standards/display"
+          ],
+          "_all_unverified_links": [
+            "https://docs.sui.io/develop"
+          ],
+          "_all_excluded_links": [
+            "https://docs.sui.io/assets/files/deepbook-3e24e6e1deeb8cd860682c1fb473b597.pdf",
+            "https://docs.sui.io/assets/files/mysticeti-b7bf6bc1e0df4e363fd971dc51e11ac0.pdf",
+            "https://docs.sui.io/assets/files/sui-6251a5c5b9d2fab6b1df0e24ba7c6322.pdf",
+            "https://docs.sui.io/doc/sui-cli-cheatsheet.pdf",
+            "https://docs.sui.io/paper/sui-lutris.pdf",
+            "https://docs.sui.io/paper/tokenomics.pdf",
+            "https://docs.sui.io/search"
+          ],
+          "_all_docs_unverified_links": [
+            "https://docs.sui.io/develop"
+          ],
+          "_all_repo_unverified_links": [],
+          "_broken_link_provenance": {
+            "https://docs.sui.io/concepts/cryptography/nautilus": [
+              {
+                "source_page": "https://docs.sui.io/references/awesome-sui-gaming",
+                "anchor_text": "Nautilus"
+              },
+              {
+                "source_page": "https://docs.sui.io/references/awesome-sui-gaming",
+                "anchor_text": "Nautilus reference"
+              }
+            ],
+            "https://docs.sui.io/concepts/object-model": [
+              {
+                "source_page": "https://docs.sui.io/references/awesome-sui-gaming",
+                "anchor_text": "Object-Centric Model"
+              }
+            ],
+            "https://docs.sui.io/guides/developer/advanced/randomness-onchain": [
+              {
+                "source_page": "https://docs.sui.io/references/framework/sui_sui/random",
+                "anchor_text": "https://docs.sui.io/guides/developer/advanced/randomness-onchain"
+              }
+            ],
+            "https://docs.sui.io/guides/developer/nft-index": [
+              {
+                "source_page": "https://docs.sui.io/references/awesome-sui-gaming",
+                "anchor_text": "Dynamic NFTs (Mutable Assets)"
+              }
+            ],
+            "https://docs.sui.io/guides/developer/nft/nft-soulbound": [
+              {
+                "source_page": "https://docs.sui.io/references/awesome-sui-gaming",
+                "anchor_text": "Soulbound Assets"
+              }
+            ],
+            "https://docs.sui.io/guides/developer/sui-101/sponsor-txn": [
+              {
+                "source_page": "https://docs.sui.io/references/awesome-sui-gaming",
+                "anchor_text": "Sponsored Transactions"
+              }
+            ],
+            "https://docs.sui.io/references/framework/sui-framework/sui_sui/object": [
+              {
+                "source_page": "https://docs.sui.io/develop/write-move/sui-move-concepts",
+                "anchor_text": "object . move"
+              }
+            ],
+            "https://docs.sui.io/references/framework/sui-framework/sui_sui/random": [
+              {
+                "source_page": "https://docs.sui.io/sui-stack/on-chain-primitives/randomness-onchain",
+                "anchor_text": "random.move"
+              }
+            ],
+            "https://docs.sui.io/references/framework/sui-framework/sui_sui/transfer": [
+              {
+                "source_page": "https://docs.sui.io/onchain-finance/examples-patterns/soulbound-tokens",
+                "anchor_text": "sui::transfer module"
+              },
+              {
+                "source_page": "https://docs.sui.io/onchain-finance/examples-patterns/soulbound-tokens",
+                "anchor_text": "transfer::transfer"
+              },
+              {
+                "source_page": "https://docs.sui.io/onchain-finance/examples-patterns/soulbound-tokens",
+                "anchor_text": "transfer::public_transfer"
+              }
+            ],
+            "https://docs.sui.io/references/framework/sui_sui/transferx": [
+              {
+                "source_page": "https://docs.sui.io/develop/objects/transfers/transfer-to-object",
+                "anchor_text": "transfer"
+              }
+            ],
+            "https://docs.sui.io/standards/display": [
+              {
+                "source_page": "https://docs.sui.io/references/awesome-sui-gaming",
+                "anchor_text": "Sui Object Display Standard"
+              }
+            ]
+          }
+        },
+        "seo_geo": {
+          "pages_scanned": 639,
+          "missing_title_count": 0,
+          "missing_description_count": 5,
+          "multiple_h1_count": 2,
+          "heading_hierarchy_jump_count": 284,
+          "seo_geo_issue_rate_pct": 11.38
+        },
+        "api_coverage": {
+          "reference_endpoint_count": 43,
+          "api_pages_detected": 450,
+          "endpoints_with_usage_docs": 5,
+          "reference_endpoints_without_usage_docs": 38,
+          "reference_coverage_pct": 11.63,
+          "no_api_pages_found": false,
+          "coverage_determined": true,
+          "coverage_method": "source_of_truth",
+          "detection_note": "",
+          "uncovered_endpoint_samples": [
+            "gql:at",
+            "gql:block",
+            "gql:blocks",
+            "gql:body",
+            "gql:bounds",
+            "gql:but",
+            "gql:cannot",
+            "gql:complexity",
+            "gql:composition",
+            "gql:cost",
+            "gql:dynamic",
+            "gql:fails",
+            "gql:fetches",
+            "gql:for",
+            "gql:function",
+            "gql:has",
+            "gql:ide",
+            "gql:input",
+            "gql:is",
+            "gql:limits"
+          ]
+        },
+        "examples": {
+          "total_code_examples": 1611,
+          "total_code_blocks_all": 4288,
+          "runnable_without_env": 1371,
+          "blocked_by_placeholders": 129,
+          "network_bound_examples": 111,
+          "example_reliability_estimate_pct": 85.1,
+          "detection_note": ""
+        },
+        "freshness": {
+          "pages_with_last_updated_hint": 8,
+          "pages_without_last_updated_hint": 631,
+          "last_updated_coverage_pct": 1.25,
+          "samples_with_last_updated": [
+            {
+              "url": "https://docs.sui.io/develop/accessing-data/graphql/query-with-graphql",
+              "hint": "date: Tue, 09 Sep 2025 23:34:04 GMT"
+            },
+            {
+              "url": "https://docs.sui.io/onchain-finance/deepbook-margin/contract-information",
+              "hint": "Feb 10, 2026"
+            },
+            {
+              "url": "https://docs.sui.io/onchain-finance/deepbook-margin/deepbook-margin-indexer",
+              "hint": "\"2025-01-01 00:00:00\""
+            },
+            {
+              "url": "https://docs.sui.io/onchain-finance/deepbookv3/contract-information",
+              "hint": "Jan 7, 2026"
+            },
+            {
+              "url": "https://docs.sui.io/onchain-finance/examples-patterns/nft-rental",
+              "hint": "/// Initially undefined, is updated once someone rents it."
+            },
+            {
+              "url": "https://docs.sui.io/references/framework/sui_sui/deny_list",
+              "hint": "DenyList are modified only by this"
+            },
+            {
+              "url": "https://docs.sui.io/references/framework/sui_sui_system/validator",
+              "hint": "Gas price quote, updated only at end of epoch."
+            },
+            {
+              "url": "https://docs.sui.io/references/fullnode-protocol",
+              "hint": "price quote, updated only at end of"
+            }
+          ]
+        }
+      },
+      "samples": {
+        "broken_links": [
+          "https://docs.sui.io/concepts/cryptography/nautilus",
+          "https://docs.sui.io/concepts/object-model",
+          "https://docs.sui.io/guides/developer/advanced/randomness-onchain",
+          "https://docs.sui.io/guides/developer/nft-index",
+          "https://docs.sui.io/guides/developer/nft/nft-soulbound",
+          "https://docs.sui.io/guides/developer/sui-101/sponsor-txn",
+          "https://docs.sui.io/references/framework/sui-framework/sui_sui/object",
+          "https://docs.sui.io/references/framework/sui-framework/sui_sui/random",
+          "https://docs.sui.io/references/framework/sui-framework/sui_sui/transfer",
+          "https://docs.sui.io/references/framework/sui_sui/transferx",
+          "https://docs.sui.io/standards/display"
+        ],
+        "docs_broken_link_samples": [
+          "https://docs.sui.io/concepts/cryptography/nautilus",
+          "https://docs.sui.io/concepts/object-model",
+          "https://docs.sui.io/guides/developer/advanced/randomness-onchain",
+          "https://docs.sui.io/guides/developer/nft-index",
+          "https://docs.sui.io/guides/developer/nft/nft-soulbound",
+          "https://docs.sui.io/guides/developer/sui-101/sponsor-txn",
+          "https://docs.sui.io/references/framework/sui-framework/sui_sui/object",
+          "https://docs.sui.io/references/framework/sui-framework/sui_sui/random",
+          "https://docs.sui.io/references/framework/sui-framework/sui_sui/transfer",
+          "https://docs.sui.io/references/framework/sui_sui/transferx",
+          "https://docs.sui.io/standards/display"
+        ],
+        "repo_broken_link_samples": [],
+        "unverified_link_samples": [
+          "https://docs.sui.io/develop"
+        ],
+        "api_uncovered_samples": [
+          "gql:at",
+          "gql:block",
+          "gql:blocks",
+          "gql:body",
+          "gql:bounds",
+          "gql:but",
+          "gql:cannot",
+          "gql:complexity",
+          "gql:composition",
+          "gql:cost",
+          "gql:dynamic",
+          "gql:fails",
+          "gql:fetches",
+          "gql:for",
+          "gql:function",
+          "gql:has",
+          "gql:ide",
+          "gql:input",
+          "gql:is",
+          "gql:limits"
+        ]
+      },
+      "run_count": 1
+    },
+    {
+      "site_url": "https://sdk.mystenlabs.com/typedoc",
+      "metrics": {
+        "crawl": {
+          "pages_crawled": 2045,
+          "requested_pages": 2053,
+          "urls_examined": 2053,
+          "max_pages": 10000,
+          "effective_limit": 10000,
+          "auto_mode": false,
+          "stop_reason": "queue_exhausted",
+          "discovered_pages": 2053,
+          "crawl_scope_basis": "discovered",
+          "crawl_scope_pages": 2053,
+          "crawl_coverage_pct": 100.0,
+          "trap_urls_skipped": 0,
+          "seeded_sitemap_urls": 0,
+          "robots_sitemaps_declared": 0
+        },
+        "links": {
+          "internal_links_checked": 2053,
+          "broken_internal_links_count": 7,
+          "docs_broken_links_count": 7,
+          "repo_broken_links_count": 0,
+          "broken_internal_link_samples": [
+            "http://sdk.mystenlabs.com/typedoc/modules/doc/index.html",
+            "https://sdk.mystenlabs.com/dapp-kit/themes",
+            "https://sdk.mystenlabs.com/index.html",
+            "https://sdk.mystenlabs.com/modules.html",
+            "https://sdk.mystenlabs.com/typedoc/classes/_mysten_sui.client.SuiJsonRpcClient.html",
+            "https://sdk.mystenlabs.com/typedoc/modules/doc/index.html",
+            "https://sdk.mystenlabs.com/typedoc/types/_mysten_sui.transactions.TransactionBlockInput.html"
+          ],
+          "docs_broken_link_samples": [
+            "http://sdk.mystenlabs.com/typedoc/modules/doc/index.html",
+            "https://sdk.mystenlabs.com/dapp-kit/themes",
+            "https://sdk.mystenlabs.com/index.html",
+            "https://sdk.mystenlabs.com/modules.html",
+            "https://sdk.mystenlabs.com/typedoc/classes/_mysten_sui.client.SuiJsonRpcClient.html",
+            "https://sdk.mystenlabs.com/typedoc/modules/doc/index.html",
+            "https://sdk.mystenlabs.com/typedoc/types/_mysten_sui.transactions.TransactionBlockInput.html"
+          ],
+          "repo_broken_link_samples": [],
+          "unreachable_links_count": 0,
+          "unverified_links_count": 0,
+          "unverified_link_samples": [],
+          "confirmed_broken_links_count": 7,
+          "excluded_links_count": 0,
+          "excluded_link_samples": [],
+          "_all_confirmed_broken_links": [
+            "http://sdk.mystenlabs.com/typedoc/modules/doc/index.html",
+            "https://sdk.mystenlabs.com/dapp-kit/themes",
+            "https://sdk.mystenlabs.com/index.html",
+            "https://sdk.mystenlabs.com/modules.html",
+            "https://sdk.mystenlabs.com/typedoc/classes/_mysten_sui.client.SuiJsonRpcClient.html",
+            "https://sdk.mystenlabs.com/typedoc/modules/doc/index.html",
+            "https://sdk.mystenlabs.com/typedoc/types/_mysten_sui.transactions.TransactionBlockInput.html"
+          ],
+          "_all_unverified_links": [],
+          "_all_excluded_links": [],
+          "_all_docs_unverified_links": [],
+          "_all_repo_unverified_links": [],
+          "_broken_link_provenance": {
+            "http://sdk.mystenlabs.com/typedoc/modules/doc/index.html": [
+              {
+                "source_page": "http://sdk.mystenlabs.com/typedoc/modules/_mysten_sui.html",
+                "anchor_text": "doc/index.html"
+              }
+            ],
+            "https://sdk.mystenlabs.com/dapp-kit/themes": [
+              {
+                "source_page": "https://sdk.mystenlabs.com/typedoc/modules/_mysten_dapp-kit.html",
+                "anchor_text": "themes"
+              },
+              {
+                "source_page": "http://sdk.mystenlabs.com/typedoc/modules/_mysten_dapp-kit.html",
+                "anchor_text": "themes"
+              }
+            ],
+            "https://sdk.mystenlabs.com/index.html": [
+              {
+                "source_page": "https://sdk.mystenlabs.com/typedoc",
+                "anchor_text": "Documentation"
+              }
+            ],
+            "https://sdk.mystenlabs.com/modules.html": [
+              {
+                "source_page": "https://sdk.mystenlabs.com/typedoc",
+                "anchor_text": "Documentation"
+              }
+            ],
+            "https://sdk.mystenlabs.com/typedoc/classes/_mysten_sui.client.SuiJsonRpcClient.html": [
+              {
+                "source_page": "https://sdk.mystenlabs.com/dapp-kit/legacy/wallet-hooks/useSignAndExecuteTransaction",
+                "anchor_text": "SuiJsonRpcClient.signAndExecuteTransaction"
+              }
+            ],
+            "https://sdk.mystenlabs.com/typedoc/modules/doc/index.html": [
+              {
+                "source_page": "https://sdk.mystenlabs.com/typedoc/modules/_mysten_sui.html",
+                "anchor_text": "doc/index.html"
+              }
+            ],
+            "https://sdk.mystenlabs.com/typedoc/types/_mysten_sui.transactions.TransactionBlockInput.html": [
+              {
+                "source_page": "https://sdk.mystenlabs.com/sui/migrations/sui-1.0",
+                "anchor_text": "TransactionBlockInput"
+              }
+            ]
+          }
+        },
+        "seo_geo": {
+          "pages_scanned": 2045,
+          "missing_title_count": 0,
+          "missing_description_count": 0,
+          "multiple_h1_count": 39,
+          "heading_hierarchy_jump_count": 1862,
+          "seo_geo_issue_rate_pct": 23.24
+        },
+        "api_coverage": {
+          "reference_endpoint_count": 17,
+          "api_pages_detected": 2045,
+          "endpoints_with_usage_docs": 0,
+          "reference_endpoints_without_usage_docs": 17,
+          "reference_coverage_pct": 0.0,
+          "no_api_pages_found": false,
+          "coverage_determined": true,
+          "coverage_method": "source_of_truth",
+          "detection_note": "",
+          "uncovered_endpoint_samples": [
+            "ev:ai",
+            "ev:batch",
+            "ev:dataloader",
+            "ev:devops",
+            "ev:graphql",
+            "ev:nodejs",
+            "ev:security",
+            "ev:software-development",
+            "gql:anything",
+            "gql:are",
+            "gql:getsuiname",
+            "gql:hook",
+            "gql:kiosk",
+            "gql:menu",
+            "gql:occurs",
+            "gql:or",
+            "gql:the"
+          ]
+        },
+        "examples": {
+          "total_code_examples": 0,
+          "total_code_blocks_all": 1208,
+          "runnable_without_env": 0,
+          "blocked_by_placeholders": 0,
+          "network_bound_examples": 0,
+          "example_reliability_estimate_pct": 0.0,
+          "detection_note": "No executable code blocks detected (1208 data-only blocks found). Site may use non-standard code rendering that the auditor does not recognize, or all examples are in data formats (YAML/JSON)."
+        },
+        "freshness": {
+          "pages_with_last_updated_hint": 0,
+          "pages_without_last_updated_hint": 2045,
+          "last_updated_coverage_pct": 0.0,
+          "samples_with_last_updated": []
+        }
+      },
+      "samples": {
+        "broken_links": [
+          "http://sdk.mystenlabs.com/typedoc/modules/doc/index.html",
+          "https://sdk.mystenlabs.com/dapp-kit/themes",
+          "https://sdk.mystenlabs.com/index.html",
+          "https://sdk.mystenlabs.com/modules.html",
+          "https://sdk.mystenlabs.com/typedoc/classes/_mysten_sui.client.SuiJsonRpcClient.html",
+          "https://sdk.mystenlabs.com/typedoc/modules/doc/index.html",
+          "https://sdk.mystenlabs.com/typedoc/types/_mysten_sui.transactions.TransactionBlockInput.html"
+        ],
+        "docs_broken_link_samples": [
+          "http://sdk.mystenlabs.com/typedoc/modules/doc/index.html",
+          "https://sdk.mystenlabs.com/dapp-kit/themes",
+          "https://sdk.mystenlabs.com/index.html",
+          "https://sdk.mystenlabs.com/modules.html",
+          "https://sdk.mystenlabs.com/typedoc/classes/_mysten_sui.client.SuiJsonRpcClient.html",
+          "https://sdk.mystenlabs.com/typedoc/modules/doc/index.html",
+          "https://sdk.mystenlabs.com/typedoc/types/_mysten_sui.transactions.TransactionBlockInput.html"
+        ],
+        "repo_broken_link_samples": [],
+        "unverified_link_samples": [],
+        "api_uncovered_samples": [
+          "ev:ai",
+          "ev:batch",
+          "ev:dataloader",
+          "ev:devops",
+          "ev:graphql",
+          "ev:nodejs",
+          "ev:security",
+          "ev:software-development",
+          "gql:anything",
+          "gql:are",
+          "gql:getsuiname",
+          "gql:hook",
+          "gql:kiosk",
+          "gql:menu",
+          "gql:occurs",
+          "gql:or",
+          "gql:the"
+        ]
+      },
+      "run_count": 1
+    },
+    {
+      "site_url": "https://sdk.mystenlabs.com/",
+      "metrics": {
+        "crawl": {
+          "pages_crawled": 2044,
+          "requested_pages": 2050,
+          "urls_examined": 2050,
+          "max_pages": 10000,
+          "effective_limit": 10000,
+          "auto_mode": false,
+          "stop_reason": "queue_exhausted",
+          "discovered_pages": 2050,
+          "crawl_scope_basis": "discovered",
+          "crawl_scope_pages": 2050,
+          "crawl_coverage_pct": 100.0,
+          "trap_urls_skipped": 0,
+          "seeded_sitemap_urls": 0,
+          "robots_sitemaps_declared": 0
+        },
+        "links": {
+          "internal_links_checked": 2050,
+          "broken_internal_links_count": 5,
+          "docs_broken_links_count": 5,
+          "repo_broken_links_count": 0,
+          "broken_internal_link_samples": [
+            "http://sdk.mystenlabs.com/typedoc/modules/doc/index.html",
+            "https://sdk.mystenlabs.com/dapp-kit/themes",
+            "https://sdk.mystenlabs.com/typedoc/classes/_mysten_sui.client.SuiJsonRpcClient.html",
+            "https://sdk.mystenlabs.com/typedoc/modules/doc/index.html",
+            "https://sdk.mystenlabs.com/typedoc/types/_mysten_sui.transactions.TransactionBlockInput.html"
+          ],
+          "docs_broken_link_samples": [
+            "http://sdk.mystenlabs.com/typedoc/modules/doc/index.html",
+            "https://sdk.mystenlabs.com/dapp-kit/themes",
+            "https://sdk.mystenlabs.com/typedoc/classes/_mysten_sui.client.SuiJsonRpcClient.html",
+            "https://sdk.mystenlabs.com/typedoc/modules/doc/index.html",
+            "https://sdk.mystenlabs.com/typedoc/types/_mysten_sui.transactions.TransactionBlockInput.html"
+          ],
+          "repo_broken_link_samples": [],
+          "unreachable_links_count": 0,
+          "unverified_links_count": 0,
+          "unverified_link_samples": [],
+          "confirmed_broken_links_count": 5,
+          "excluded_links_count": 0,
+          "excluded_link_samples": [],
+          "_all_confirmed_broken_links": [
+            "http://sdk.mystenlabs.com/typedoc/modules/doc/index.html",
+            "https://sdk.mystenlabs.com/dapp-kit/themes",
+            "https://sdk.mystenlabs.com/typedoc/classes/_mysten_sui.client.SuiJsonRpcClient.html",
+            "https://sdk.mystenlabs.com/typedoc/modules/doc/index.html",
+            "https://sdk.mystenlabs.com/typedoc/types/_mysten_sui.transactions.TransactionBlockInput.html"
+          ],
+          "_all_unverified_links": [],
+          "_all_excluded_links": [],
+          "_all_docs_unverified_links": [],
+          "_all_repo_unverified_links": [],
+          "_broken_link_provenance": {
+            "http://sdk.mystenlabs.com/typedoc/modules/doc/index.html": [
+              {
+                "source_page": "http://sdk.mystenlabs.com/typedoc/modules/_mysten_sui.html",
+                "anchor_text": "doc/index.html"
+              }
+            ],
+            "https://sdk.mystenlabs.com/dapp-kit/themes": [
+              {
+                "source_page": "https://sdk.mystenlabs.com/typedoc/modules/_mysten_dapp-kit.html",
+                "anchor_text": "themes"
+              },
+              {
+                "source_page": "http://sdk.mystenlabs.com/typedoc/modules/_mysten_dapp-kit.html",
+                "anchor_text": "themes"
+              }
+            ],
+            "https://sdk.mystenlabs.com/typedoc/classes/_mysten_sui.client.SuiJsonRpcClient.html": [
+              {
+                "source_page": "https://sdk.mystenlabs.com/dapp-kit/legacy/wallet-hooks/useSignAndExecuteTransaction",
+                "anchor_text": "SuiJsonRpcClient.signAndExecuteTransaction"
+              }
+            ],
+            "https://sdk.mystenlabs.com/typedoc/modules/doc/index.html": [
+              {
+                "source_page": "https://sdk.mystenlabs.com/typedoc/modules/_mysten_sui.html",
+                "anchor_text": "doc/index.html"
+              }
+            ],
+            "https://sdk.mystenlabs.com/typedoc/types/_mysten_sui.transactions.TransactionBlockInput.html": [
+              {
+                "source_page": "https://sdk.mystenlabs.com/sui/migrations/sui-1.0",
+                "anchor_text": "TransactionBlockInput"
+              }
+            ]
+          }
+        },
+        "seo_geo": {
+          "pages_scanned": 2044,
+          "missing_title_count": 0,
+          "missing_description_count": 0,
+          "multiple_h1_count": 38,
+          "heading_hierarchy_jump_count": 1862,
+          "seo_geo_issue_rate_pct": 23.24
+        },
+        "api_coverage": {
+          "reference_endpoint_count": 17,
+          "api_pages_detected": 2044,
+          "endpoints_with_usage_docs": 0,
+          "reference_endpoints_without_usage_docs": 17,
+          "reference_coverage_pct": 0.0,
+          "no_api_pages_found": false,
+          "coverage_determined": true,
+          "coverage_method": "source_of_truth",
+          "detection_note": "",
+          "uncovered_endpoint_samples": [
+            "ev:ai",
+            "ev:batch",
+            "ev:dataloader",
+            "ev:devops",
+            "ev:graphql",
+            "ev:nodejs",
+            "ev:security",
+            "ev:software-development",
+            "gql:anything",
+            "gql:are",
+            "gql:getsuiname",
+            "gql:hook",
+            "gql:kiosk",
+            "gql:menu",
+            "gql:occurs",
+            "gql:or",
+            "gql:the"
+          ]
+        },
+        "examples": {
+          "total_code_examples": 0,
+          "total_code_blocks_all": 1201,
+          "runnable_without_env": 0,
+          "blocked_by_placeholders": 0,
+          "network_bound_examples": 0,
+          "example_reliability_estimate_pct": 0.0,
+          "detection_note": "No executable code blocks detected (1201 data-only blocks found). Site may use non-standard code rendering that the auditor does not recognize, or all examples are in data formats (YAML/JSON)."
+        },
+        "freshness": {
+          "pages_with_last_updated_hint": 0,
+          "pages_without_last_updated_hint": 2044,
+          "last_updated_coverage_pct": 0.0,
+          "samples_with_last_updated": []
+        }
+      },
+      "samples": {
+        "broken_links": [
+          "http://sdk.mystenlabs.com/typedoc/modules/doc/index.html",
+          "https://sdk.mystenlabs.com/dapp-kit/themes",
+          "https://sdk.mystenlabs.com/typedoc/classes/_mysten_sui.client.SuiJsonRpcClient.html",
+          "https://sdk.mystenlabs.com/typedoc/modules/doc/index.html",
+          "https://sdk.mystenlabs.com/typedoc/types/_mysten_sui.transactions.TransactionBlockInput.html"
+        ],
+        "docs_broken_link_samples": [
+          "http://sdk.mystenlabs.com/typedoc/modules/doc/index.html",
+          "https://sdk.mystenlabs.com/dapp-kit/themes",
+          "https://sdk.mystenlabs.com/typedoc/classes/_mysten_sui.client.SuiJsonRpcClient.html",
+          "https://sdk.mystenlabs.com/typedoc/modules/doc/index.html",
+          "https://sdk.mystenlabs.com/typedoc/types/_mysten_sui.transactions.TransactionBlockInput.html"
+        ],
+        "repo_broken_link_samples": [],
+        "unverified_link_samples": [],
+        "api_uncovered_samples": [
+          "ev:ai",
+          "ev:batch",
+          "ev:dataloader",
+          "ev:devops",
+          "ev:graphql",
+          "ev:nodejs",
+          "ev:security",
+          "ev:software-development",
+          "gql:anything",
+          "gql:are",
+          "gql:getsuiname",
+          "gql:hook",
+          "gql:kiosk",
+          "gql:menu",
+          "gql:occurs",
+          "gql:or",
+          "gql:the"
+        ]
+      },
+      "run_count": 1
+    }
+  ],
+  "aggregate": {
+    "metrics": {
+      "crawl": {
+        "pages_crawled": 4819,
+        "requested_pages": 4871,
+        "urls_examined": 4837,
+        "max_pages_total": 50000,
+        "discovered_pages": 4837,
+        "crawl_scope_pages": 4837,
+        "trap_urls_skipped": 2,
+        "crawl_coverage_pct": 100.0
+      },
+      "links": {
+        "broken_internal_links_count": 23,
+        "docs_broken_links_count": 23,
+        "repo_broken_links_count": 0,
+        "unverified_links_count": 3,
+        "confirmed_broken_links_count": 23,
+        "excluded_links_count": 9
+      },
+      "seo_geo": {
+        "seo_geo_issue_rate_pct": 21.38
+      },
+      "api_coverage": {
+        "reference_coverage_pct": 21.08,
+        "no_api_pages_found": false,
+        "api_pages_detected": 4552,
+        "coverage_determined": true,
+        "detection_note": ""
+      },
+      "examples": {
+        "example_reliability_estimate_pct": 12.55
+      },
+      "freshness": {
+        "last_updated_coverage_pct": 0.41
+      }
+    },
+    "confidence": {
+      "overall_confidence_pct": 86.88,
+      "links_confidence_pct": 83.46,
+      "api_confidence_pct": 85.0,
+      "crawl_confidence_pct": 95.0
+    }
+  },
+  "confidence": {
+    "overall_confidence_pct": 86.88,
+    "links_confidence_pct": 83.46,
+    "api_confidence_pct": 85.0,
+    "crawl_confidence_pct": 95.0
+  },
+  "top_findings": [
+    "Broken internal links: 23",
+    "Link verification inconclusive for 3 URLs (auth/rate-limit/server block); these are excluded from broken-link counts.",
+    "SEO/GEO issue rate is high: 21.38%",
+    "API usage-doc coverage is low: 21.08% (4552 API pages detected)",
+    "Example reliability estimate is low: 12.55%",
+    "Freshness visibility is weak: only 0.41% pages show last updated",
+    "Documentation is split across multiple sites, but marked as multi-project; no fragmentation penalty applied."
+  ],
+  "llm_analysis": {
+    "status": "ok",
+    "model": "claude-sonnet-4-5",
+    "analysis": {
+      "executive_summary": "Audit covered 4,819 pages across 5 documentation sites in multi-project topology with 100% crawl coverage and 86.88% overall confidence. Identified 23 confirmed broken internal links, all within user-facing documentation (zero repository navigation links broken). API reference coverage stands at 21.08% across 4,552 detected API pages, while example code reliability estimates at only 12.55%. Freshness metadata appears on 0.41% of pages and SEO/geo issues affect 21.38% of content. Three links remain unverified due to authentication or rate-limiting constraints.",
+      "strengths": [
+        "Complete crawl coverage at 100% (4,819 of 4,871 requested pages successfully crawled)",
+        "High overall audit confidence at 86.88% with strong crawl confidence at 95%",
+        "Multi-project topology properly configured across 5 sites without fragmentation penalties",
+        "Zero broken repository navigation links (all 23 broken links are user-facing documentation)",
+        "API page detection successful with 4,552 pages identified and no detection failures"
+      ],
+      "risks": [
+        "Critical: 23 confirmed broken internal links in user-facing documentation damage user experience and credibility",
+        "High: API reference coverage at 21.08% leaves 78.92% of API surface without usage documentation or examples",
+        "High: Example code reliability estimate of 12.55% suggests majority of code samples may be outdated, untested, or non-functional",
+        "Medium: SEO/geo issue rate of 21.38% impacts discoverability and search ranking for over 1,000 pages",
+        "Medium: Freshness metadata visible on only 0.41% of pages (approximately 20 pages) prevents users from assessing content currency",
+        "Low: 3 links unverified due to authentication/rate-limiting may hide additional broken links",
+        "Low: 9 excluded links and 2 trap URLs skipped require manual review to confirm appropriate exclusion"
+      ],
+      "prioritized_actions": [
+        {
+          "action": "Fix all 23 confirmed broken internal documentation links to restore navigation integrity",
+          "impact": "critical",
+          "effort": "low"
+        },
+        {
+          "action": "Expand API usage documentation and examples to achieve minimum 60% reference coverage across 4,552 API pages",
+          "impact": "critical",
+          "effort": "high"
+        },
+        {
+          "action": "Implement automated testing for code examples and update/remove non-functional samples to improve 12.55% reliability baseline",
+          "impact": "high",
+          "effort": "high"
+        },
+        {
+          "action": "Add last-updated metadata to all pages (currently 0.41% coverage) to establish content freshness transparency",
+          "impact": "high",
+          "effort": "medium"
+        },
+        {
+          "action": "Remediate SEO/geo issues affecting 21.38% of pages (1,031+ pages) including meta descriptions, titles, and structured data",
+          "impact": "medium",
+          "effort": "medium"
+        }
+      ],
+      "limitations": [
+        "External audit cannot verify actual functionality of code examples; 12.55% reliability is heuristic-based estimate requiring manual testing confirmation",
+        "3 unverified links blocked by authentication or rate-limiting may conceal additional broken links not captured in the 23 confirmed count",
+        "API coverage percentage measures documentation presence only, not accuracy, completeness, or quality of API reference content",
+        "Crawl limited to public documentation; private/authenticated sections, embedded content, and dynamically loaded resources may be incomplete",
+        "SEO/geo issue detection relies on automated rules and cannot assess content relevance, accuracy, or alignment with user search intent"
+      ]
+    }
+  }
+}

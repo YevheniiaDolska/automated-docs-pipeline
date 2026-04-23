@@ -1,0 +1,57 @@
+{
+  "status": "ok",
+  "model": "claude-sonnet-4-5",
+  "analysis": {
+    "executive_summary": "Documentation audit of docs.llamaindex.ai covered 51 pages from 446 discovered URLs (100% crawl coverage within scope). Zero broken links confirmed across documentation and repository navigation. However, 395 links could not be verified due to authentication or rate-limiting (excluded from broken link counts). API reference coverage is complete at 100% (1 page detected), but example reliability is 0%, freshness metadata is absent on all pages, and SEO/geo issues affect 25% of content. Overall audit confidence stands at 63.5%.",
+    "strengths": [
+      "Zero confirmed broken links in documentation or repository navigation",
+      "100% API reference coverage with successful detection (85% confidence)",
+      "Complete crawl coverage at 100% of in-scope pages",
+      "Clean internal link structure with no broken internal links",
+      "Multi-project topology successfully mapped"
+    ],
+    "risks": [
+      "395 unverified external links create unknown link health exposure (authentication/rate-limit blocks prevented validation)",
+      "0% example reliability indicates no working code examples detected or validated",
+      "0% freshness coverage means no last-updated metadata visible to users, obscuring content currency",
+      "25% SEO/geo issue rate suggests significant discoverability and internationalization problems",
+      "Only 1 API page detected despite multi-project topology may indicate incomplete API documentation or detection gaps",
+      "Low overall confidence at 63.5% and links confidence at 25% limit audit certainty",
+      "Large gap between discovered pages (446) and crawled pages (51) suggests scope limitations or access restrictions"
+    ],
+    "prioritized_actions": [
+      {
+        "action": "Implement last-updated timestamps on all documentation pages to address 0% freshness coverage",
+        "impact": "critical",
+        "effort": "low"
+      },
+      {
+        "action": "Audit and repair example code blocks to achieve measurable reliability above 0%",
+        "impact": "critical",
+        "effort": "high"
+      },
+      {
+        "action": "Resolve authentication/rate-limit issues blocking 395 external link verifications and establish monitoring",
+        "impact": "high",
+        "effort": "medium"
+      },
+      {
+        "action": "Fix SEO/geo issues affecting 25% of pages (meta descriptions, titles, language tags)",
+        "impact": "high",
+        "effort": "medium"
+      },
+      {
+        "action": "Investigate crawl gap (51 crawled vs 446 discovered) and expand API documentation coverage beyond 1 page",
+        "impact": "medium",
+        "effort": "medium"
+      }
+    ],
+    "limitations": [
+      "External audit cannot verify actual functionality of code examples in user runtime environments or dependency compatibility",
+      "395 unverified links may be functional but blocked by authentication, rate-limiting, or bot detection; manual verification required",
+      "Crawl limited to 51 of 446 discovered pages; findings do not cover 88.6% of discovered URL space",
+      "API coverage detection based on pattern matching; actual API completeness vs. codebase requires internal review",
+      "SEO/geo scoring cannot assess content quality, accuracy, or appropriateness for target markets"
+    ]
+  }
+}

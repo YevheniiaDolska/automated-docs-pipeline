@@ -1,0 +1,477 @@
+{
+  "generated_at": "2026-04-23T12:24:42.091947+00:00",
+  "site_url": "multiple-sites",
+  "site_urls": [
+    "https://docs.staxpayments.com/",
+    "https://developer.staxbill.com/"
+  ],
+  "topology_mode": "multi-project",
+  "verification_modes": [
+    "authenticated",
+    "bot",
+    "browser"
+  ],
+  "sites": [
+    {
+      "site_url": "https://developer.staxbill.com/",
+      "metrics": {
+        "crawl": {
+          "pages_crawled": 66,
+          "requested_pages": 69,
+          "urls_examined": 69,
+          "max_pages": 10000,
+          "effective_limit": 10000,
+          "auto_mode": false,
+          "stop_reason": "queue_exhausted",
+          "discovered_pages": 69,
+          "crawl_scope_basis": "discovered",
+          "crawl_scope_pages": 69,
+          "crawl_coverage_pct": 100.0,
+          "trap_urls_skipped": 0,
+          "seeded_sitemap_urls": 0,
+          "robots_sitemaps_declared": 0
+        },
+        "links": {
+          "internal_links_checked": 69,
+          "broken_internal_links_count": 3,
+          "docs_broken_links_count": 3,
+          "repo_broken_links_count": 0,
+          "broken_internal_link_samples": [
+            "https://developer.staxbill.com/cdn-cgi/l/email-protection",
+            "https://developer.staxbill.com/docs/fusebill-payments-api-risk-fields",
+            "https://developer.staxbill.com/v1.0/reference"
+          ],
+          "docs_broken_link_samples": [
+            "https://developer.staxbill.com/cdn-cgi/l/email-protection",
+            "https://developer.staxbill.com/docs/fusebill-payments-api-risk-fields",
+            "https://developer.staxbill.com/v1.0/reference"
+          ],
+          "repo_broken_link_samples": [],
+          "unreachable_links_count": 0,
+          "unverified_links_count": 0,
+          "unverified_link_samples": [],
+          "confirmed_broken_links_count": 3,
+          "excluded_links_count": 0,
+          "excluded_link_samples": [],
+          "_all_confirmed_broken_links": [
+            "https://developer.staxbill.com/cdn-cgi/l/email-protection",
+            "https://developer.staxbill.com/docs/fusebill-payments-api-risk-fields",
+            "https://developer.staxbill.com/v1.0/reference"
+          ],
+          "_all_unverified_links": [],
+          "_all_excluded_links": [],
+          "_all_docs_unverified_links": [],
+          "_all_repo_unverified_links": [],
+          "_broken_link_provenance": {
+            "https://developer.staxbill.com/cdn-cgi/l/email-protection": [
+              {
+                "source_page": "https://developer.staxbill.com/docs/registration-page",
+                "anchor_text": "[email\u00a0protected]"
+              },
+              {
+                "source_page": "https://developer.staxbill.com/docs/checkout",
+                "anchor_text": "[email\u00a0protected]"
+              },
+              {
+                "source_page": "https://developer.staxbill.com/docs/customer-created",
+                "anchor_text": "[email\u00a0protected]"
+              },
+              {
+                "source_page": "https://developer.staxbill.com/docs/customer-status-changed",
+                "anchor_text": "[email\u00a0protected]"
+              },
+              {
+                "source_page": "https://developer.staxbill.com/docs/customer-updated",
+                "anchor_text": "[email\u00a0protected]"
+              }
+            ],
+            "https://developer.staxbill.com/docs/fusebill-payments-api-risk-fields": [
+              {
+                "source_page": "https://developer.staxbill.com/docs/add-credit-card-payment-method",
+                "anchor_text": "Stax Bill Payments API Risk Fields"
+              }
+            ],
+            "https://developer.staxbill.com/v1.0/reference": [
+              {
+                "source_page": "https://developer.staxbill.com/docs",
+                "anchor_text": "Rate Limits"
+              },
+              {
+                "source_page": "https://developer.staxbill.com/docs/introduction",
+                "anchor_text": "Rate Limits"
+              }
+            ]
+          }
+        },
+        "seo_geo": {
+          "pages_scanned": 66,
+          "missing_title_count": 0,
+          "missing_description_count": 2,
+          "multiple_h1_count": 5,
+          "heading_hierarchy_jump_count": 11,
+          "seo_geo_issue_rate_pct": 6.82
+        },
+        "api_coverage": {
+          "reference_endpoint_count": 18,
+          "api_pages_detected": 28,
+          "endpoints_with_usage_docs": 18,
+          "reference_endpoints_without_usage_docs": 0,
+          "reference_coverage_pct": 100.0,
+          "no_api_pages_found": false,
+          "coverage_determined": true,
+          "coverage_method": "source_of_truth",
+          "detection_note": "",
+          "uncovered_endpoint_samples": []
+        },
+        "examples": {
+          "total_code_examples": 0,
+          "total_code_blocks_all": 203,
+          "runnable_without_env": 0,
+          "blocked_by_placeholders": 0,
+          "network_bound_examples": 0,
+          "example_reliability_estimate_pct": 0.0,
+          "detection_note": "No executable code blocks detected (203 data-only blocks found). Site may use non-standard code rendering that the auditor does not recognize, or all examples are in data formats (YAML/JSON)."
+        },
+        "freshness": {
+          "pages_with_last_updated_hint": 64,
+          "pages_without_last_updated_hint": 2,
+          "last_updated_coverage_pct": 96.97,
+          "samples_with_last_updated": [
+            {
+              "url": "https://developer.staxbill.com/reference/overview",
+              "hint": "{\"sidebars\":{},\"apiBaseUrl\":\"/\",\"baseUrl\":\"/\",\"search\":{\"appId\":\"T28YKFATPY\",\"searchApiKey\":\"NjNjMzZhZjRkOGY4MDJiN2Q1NTh"
+            },
+            {
+              "url": "https://developer.staxbill.com/docs/registration-page",
+              "hint": "{\"sidebars\":{},\"apiBaseUrl\":\"/\",\"baseUrl\":\"/\",\"search\":{\"appId\":\"T28YKFATPY\",\"searchApiKey\":\"NjNjMzZhZjRkOGY4MDJiN2Q1NTh"
+            },
+            {
+              "url": "https://developer.staxbill.com/docs",
+              "hint": "{\"sidebars\":{},\"apiBaseUrl\":\"/\",\"baseUrl\":\"/\",\"search\":{\"appId\":\"T28YKFATPY\",\"searchApiKey\":\"NjNjMzZhZjRkOGY4MDJiN2Q1NTh"
+            },
+            {
+              "url": "https://developer.staxbill.com/docs/bulk-invoice-payment",
+              "hint": "{\"sidebars\":{},\"apiBaseUrl\":\"/\",\"baseUrl\":\"/\",\"search\":{\"appId\":\"T28YKFATPY\",\"searchApiKey\":\"NjNjMzZhZjRkOGY4MDJiN2Q1NTh"
+            },
+            {
+              "url": "https://developer.staxbill.com/docs/ajax-transparent-redirect-1",
+              "hint": "{\"sidebars\":{},\"apiBaseUrl\":\"/\",\"baseUrl\":\"/\",\"search\":{\"appId\":\"T28YKFATPY\",\"searchApiKey\":\"NjNjMzZhZjRkOGY4MDJiN2Q1NTh"
+            },
+            {
+              "url": "https://developer.staxbill.com/docs/create-and-update-customer-notes",
+              "hint": "{\"sidebars\":{},\"apiBaseUrl\":\"/\",\"baseUrl\":\"/\",\"search\":{\"appId\":\"T28YKFATPY\",\"searchApiKey\":\"NjNjMzZhZjRkOGY4MDJiN2Q1NTh"
+            },
+            {
+              "url": "https://developer.staxbill.com/docs/create-customer-1",
+              "hint": "{\"sidebars\":{},\"apiBaseUrl\":\"/\",\"baseUrl\":\"/\",\"search\":{\"appId\":\"T28YKFATPY\",\"searchApiKey\":\"NjNjMzZhZjRkOGY4MDJiN2Q1NTh"
+            },
+            {
+              "url": "https://developer.staxbill.com/docs/configuring",
+              "hint": "{\"sidebars\":{},\"apiBaseUrl\":\"/\",\"baseUrl\":\"/\",\"search\":{\"appId\":\"T28YKFATPY\",\"searchApiKey\":\"NjNjMzZhZjRkOGY4MDJiN2Q1NTh"
+            },
+            {
+              "url": "https://developer.staxbill.com/docs/checkout",
+              "hint": "{\"sidebars\":{},\"apiBaseUrl\":\"/\",\"baseUrl\":\"/\",\"search\":{\"appId\":\"T28YKFATPY\",\"searchApiKey\":\"NjNjMzZhZjRkOGY4MDJiN2Q1NTh"
+            },
+            {
+              "url": "https://developer.staxbill.com/docs/bulk-job-flow",
+              "hint": "{\"sidebars\":{},\"apiBaseUrl\":\"/\",\"baseUrl\":\"/\",\"search\":{\"appId\":\"T28YKFATPY\",\"searchApiKey\":\"NjNjMzZhZjRkOGY4MDJiN2Q1NTh"
+            }
+          ]
+        }
+      },
+      "samples": {
+        "broken_links": [
+          "https://developer.staxbill.com/cdn-cgi/l/email-protection",
+          "https://developer.staxbill.com/docs/fusebill-payments-api-risk-fields",
+          "https://developer.staxbill.com/v1.0/reference"
+        ],
+        "docs_broken_link_samples": [
+          "https://developer.staxbill.com/cdn-cgi/l/email-protection",
+          "https://developer.staxbill.com/docs/fusebill-payments-api-risk-fields",
+          "https://developer.staxbill.com/v1.0/reference"
+        ],
+        "repo_broken_link_samples": [],
+        "unverified_link_samples": [],
+        "api_uncovered_samples": []
+      },
+      "run_count": 1
+    },
+    {
+      "site_url": "https://docs.staxpayments.com/",
+      "metrics": {
+        "crawl": {
+          "pages_crawled": 316,
+          "requested_pages": 318,
+          "urls_examined": 317,
+          "max_pages": 10000,
+          "effective_limit": 10000,
+          "auto_mode": false,
+          "stop_reason": "queue_exhausted",
+          "discovered_pages": 317,
+          "crawl_scope_basis": "discovered",
+          "crawl_scope_pages": 317,
+          "crawl_coverage_pct": 100.0,
+          "trap_urls_skipped": 315,
+          "seeded_sitemap_urls": 0,
+          "robots_sitemaps_declared": 0
+        },
+        "links": {
+          "internal_links_checked": 318,
+          "broken_internal_links_count": 1,
+          "docs_broken_links_count": 1,
+          "repo_broken_links_count": 0,
+          "broken_internal_link_samples": [
+            "https://docs.staxpayments.com/cdn-cgi/l/email-protection"
+          ],
+          "docs_broken_link_samples": [
+            "https://docs.staxpayments.com/cdn-cgi/l/email-protection"
+          ],
+          "repo_broken_link_samples": [],
+          "unreachable_links_count": 0,
+          "unverified_links_count": 0,
+          "unverified_link_samples": [],
+          "confirmed_broken_links_count": 1,
+          "excluded_links_count": 1,
+          "excluded_link_samples": [
+            "https://docs.staxpayments.com/search"
+          ],
+          "_all_confirmed_broken_links": [
+            "https://docs.staxpayments.com/cdn-cgi/l/email-protection"
+          ],
+          "_all_unverified_links": [],
+          "_all_excluded_links": [
+            "https://docs.staxpayments.com/search"
+          ],
+          "_all_docs_unverified_links": [],
+          "_all_repo_unverified_links": [],
+          "_broken_link_provenance": {
+            "https://docs.staxpayments.com/cdn-cgi/l/email-protection": [
+              {
+                "source_page": "https://docs.staxpayments.com/docs/getting-started",
+                "anchor_text": "[email\u00a0protected]"
+              },
+              {
+                "source_page": "https://docs.staxpayments.com/docs/1099k-report",
+                "anchor_text": "[email\u00a0protected]"
+              },
+              {
+                "source_page": "https://docs.staxpayments.com/docs/accepting-hsa-and-fsa",
+                "anchor_text": "[email\u00a0protected]"
+              },
+              {
+                "source_page": "https://docs.staxpayments.com/docs/adding-tips-before-batching-out",
+                "anchor_text": "[email\u00a0protected] ."
+              },
+              {
+                "source_page": "https://docs.staxpayments.com/docs/assessing-fee-statements",
+                "anchor_text": "[email\u00a0protected]"
+              }
+            ]
+          }
+        },
+        "seo_geo": {
+          "pages_scanned": 316,
+          "missing_title_count": 0,
+          "missing_description_count": 4,
+          "multiple_h1_count": 162,
+          "heading_hierarchy_jump_count": 70,
+          "seo_geo_issue_rate_pct": 18.67
+        },
+        "api_coverage": {
+          "reference_endpoint_count": 2,
+          "api_pages_detected": 76,
+          "endpoints_with_usage_docs": 2,
+          "reference_endpoints_without_usage_docs": 0,
+          "reference_coverage_pct": 100.0,
+          "no_api_pages_found": false,
+          "coverage_determined": true,
+          "coverage_method": "source_of_truth",
+          "detection_note": "",
+          "uncovered_endpoint_samples": []
+        },
+        "examples": {
+          "total_code_examples": 0,
+          "total_code_blocks_all": 160,
+          "runnable_without_env": 0,
+          "blocked_by_placeholders": 0,
+          "network_bound_examples": 0,
+          "example_reliability_estimate_pct": 0.0,
+          "detection_note": "No executable code blocks detected (160 data-only blocks found). Site may use non-standard code rendering that the auditor does not recognize, or all examples are in data formats (YAML/JSON)."
+        },
+        "freshness": {
+          "pages_with_last_updated_hint": 305,
+          "pages_without_last_updated_hint": 11,
+          "last_updated_coverage_pct": 96.52,
+          "samples_with_last_updated": [
+            {
+              "url": "https://docs.staxpayments.com/changelog",
+              "hint": "2025-09-04T16:00:00.000Z"
+            },
+            {
+              "url": "https://docs.staxpayments.com/docs/payment-links-online",
+              "hint": "{\"sidebars\":{},\"apiBaseUrl\":\"/\",\"baseUrl\":\"/\",\"search\":{\"appId\":\"T28YKFATPY\",\"searchApiKey\":\"YWFkNDMyMjA3MzlmYzZlNGUzMzU"
+            },
+            {
+              "url": "https://docs.staxpayments.com/docs/getting-started",
+              "hint": "{\"sidebars\":{},\"apiBaseUrl\":\"/\",\"baseUrl\":\"/\",\"search\":{\"appId\":\"T28YKFATPY\",\"searchApiKey\":\"YWFkNDMyMjA3MzlmYzZlNGUzMzU"
+            },
+            {
+              "url": "https://docs.staxpayments.com/docs/point-of-sale-pos",
+              "hint": "{\"sidebars\":{},\"apiBaseUrl\":\"/\",\"baseUrl\":\"/\",\"search\":{\"appId\":\"T28YKFATPY\",\"searchApiKey\":\"YWFkNDMyMjA3MzlmYzZlNGUzMzU"
+            },
+            {
+              "url": "https://docs.staxpayments.com/docs/getting-started-implementation",
+              "hint": "{\"sidebars\":{},\"apiBaseUrl\":\"/\",\"baseUrl\":\"/\",\"search\":{\"appId\":\"T28YKFATPY\",\"searchApiKey\":\"YWFkNDMyMjA3MzlmYzZlNGUzMzU"
+            },
+            {
+              "url": "https://docs.staxpayments.com/docs/onsite-payments",
+              "hint": "{\"sidebars\":{},\"apiBaseUrl\":\"/\",\"baseUrl\":\"/\",\"search\":{\"appId\":\"T28YKFATPY\",\"searchApiKey\":\"YWFkNDMyMjA3MzlmYzZlNGUzMzU"
+            },
+            {
+              "url": "https://docs.staxpayments.com/docs/online-payments-overview",
+              "hint": "{\"sidebars\":{},\"apiBaseUrl\":\"/\",\"baseUrl\":\"/\",\"search\":{\"appId\":\"T28YKFATPY\",\"searchApiKey\":\"YWFkNDMyMjA3MzlmYzZlNGUzMzU"
+            },
+            {
+              "url": "https://docs.staxpayments.com/docs/enrollment",
+              "hint": "{\"sidebars\":{},\"apiBaseUrl\":\"/\",\"baseUrl\":\"/\",\"search\":{\"appId\":\"T28YKFATPY\",\"searchApiKey\":\"YWFkNDMyMjA3MzlmYzZlNGUzMzU"
+            },
+            {
+              "url": "https://docs.staxpayments.com/docs/storing-a-payment-method",
+              "hint": "{\"sidebars\":{},\"apiBaseUrl\":\"/\",\"baseUrl\":\"/\",\"search\":{\"appId\":\"T28YKFATPY\",\"searchApiKey\":\"YWFkNDMyMjA3MzlmYzZlNGUzMzU"
+            },
+            {
+              "url": "https://docs.staxpayments.com/docs",
+              "hint": "{\"sidebars\":{},\"apiBaseUrl\":\"/\",\"baseUrl\":\"/\",\"search\":{\"appId\":\"T28YKFATPY\",\"searchApiKey\":\"YWFkNDMyMjA3MzlmYzZlNGUzMzU"
+            }
+          ]
+        }
+      },
+      "samples": {
+        "broken_links": [
+          "https://docs.staxpayments.com/cdn-cgi/l/email-protection"
+        ],
+        "docs_broken_link_samples": [
+          "https://docs.staxpayments.com/cdn-cgi/l/email-protection"
+        ],
+        "repo_broken_link_samples": [],
+        "unverified_link_samples": [],
+        "api_uncovered_samples": []
+      },
+      "run_count": 1
+    }
+  ],
+  "aggregate": {
+    "metrics": {
+      "crawl": {
+        "pages_crawled": 382,
+        "requested_pages": 387,
+        "urls_examined": 386,
+        "max_pages_total": 20000,
+        "discovered_pages": 386,
+        "crawl_scope_pages": 386,
+        "trap_urls_skipped": 315,
+        "crawl_coverage_pct": 100.0
+      },
+      "links": {
+        "broken_internal_links_count": 4,
+        "docs_broken_links_count": 4,
+        "repo_broken_links_count": 0,
+        "unverified_links_count": 0,
+        "confirmed_broken_links_count": 4,
+        "excluded_links_count": 1
+      },
+      "seo_geo": {
+        "seo_geo_issue_rate_pct": 16.62
+      },
+      "api_coverage": {
+        "reference_coverage_pct": 100.0,
+        "no_api_pages_found": false,
+        "api_pages_detected": 104,
+        "coverage_determined": true,
+        "detection_note": ""
+      },
+      "examples": {
+        "example_reliability_estimate_pct": 0.0
+      },
+      "freshness": {
+        "last_updated_coverage_pct": 96.6
+      }
+    },
+    "confidence": {
+      "overall_confidence_pct": 91.5,
+      "links_confidence_pct": 95.0,
+      "api_confidence_pct": 85.0,
+      "crawl_confidence_pct": 95.0
+    }
+  },
+  "confidence": {
+    "overall_confidence_pct": 91.5,
+    "links_confidence_pct": 95.0,
+    "api_confidence_pct": 85.0,
+    "crawl_confidence_pct": 95.0
+  },
+  "top_findings": [
+    "Broken internal links: 4",
+    "SEO/GEO issue rate is high: 16.62%",
+    "Example reliability estimate is low: 0.0%",
+    "Documentation is split across multiple sites, but marked as multi-project; no fragmentation penalty applied."
+  ],
+  "llm_analysis": {
+    "status": "ok",
+    "model": "claude-sonnet-4-5",
+    "analysis": {
+      "executive_summary": "Audit covered 382 pages across 2 documentation sites (docs.staxpayments.com, developer.staxbill.com) with 100% crawl coverage and 91.5% overall confidence. API reference coverage is complete at 100% with 104 API pages detected. Critical issues include 4 confirmed broken internal links, 16.62% SEO/geo issue rate, and 0% example reliability estimate indicating no working code examples detected. Documentation freshness is strong at 96.6% last-updated coverage.",
+      "strengths": [
+        "Complete crawl coverage (100%) with 382 pages successfully indexed across both documentation properties",
+        "Full API reference coverage (100%) with 104 API pages detected and validated",
+        "Strong documentation freshness at 96.6% last-updated metadata coverage",
+        "Multi-project topology properly configured with no fragmentation penalties",
+        "Zero repository navigation broken links; all 4 broken links are user-facing documentation links"
+      ],
+      "risks": [
+        "Zero working code examples detected (0% reliability estimate) across 382 pages - critical for developer onboarding",
+        "4 confirmed broken internal documentation links degrading user navigation experience",
+        "SEO/geo issue rate of 16.62% (approximately 63 pages) may impact discoverability and search rankings",
+        "API confidence at 85% suggests potential gaps in automated API detection methodology",
+        "Multi-site documentation architecture (2 separate domains) increases maintenance complexity and user confusion",
+        "No detection_note clarification on example reliability measurement - may indicate detection limitation",
+        "Overall confidence of 91.5% leaves 8.5% uncertainty margin on audit findings"
+      ],
+      "prioritized_actions": [
+        {
+          "action": "Audit and restore 4 broken internal documentation links to eliminate navigation dead-ends",
+          "impact": "critical",
+          "effort": "low"
+        },
+        {
+          "action": "Implement working code examples across API documentation - currently 0% have validated examples",
+          "impact": "critical",
+          "effort": "high"
+        },
+        {
+          "action": "Remediate SEO/geo issues on 63+ affected pages (16.62% of total) to improve search discoverability",
+          "impact": "high",
+          "effort": "medium"
+        },
+        {
+          "action": "Validate API detection methodology given 85% confidence score and verify no missing API endpoints",
+          "impact": "high",
+          "effort": "medium"
+        },
+        {
+          "action": "Evaluate consolidating docs.staxpayments.com and developer.staxbill.com into unified domain for reduced fragmentation",
+          "impact": "medium",
+          "effort": "high"
+        }
+      ],
+      "limitations": [
+        "External audit cannot verify functional correctness of API endpoints or accuracy of parameter descriptions",
+        "Code example reliability at 0% may reflect detection limitations rather than complete absence - manual validation required",
+        "SEO/geo issue severity and business impact cannot be quantified without search analytics and traffic data",
+        "Audit cannot assess documentation content quality, technical accuracy, or alignment with actual product behavior",
+        "85% API confidence indicates automated detection may miss non-standard API documentation patterns or custom implementations"
+      ]
+    }
+  }
+}

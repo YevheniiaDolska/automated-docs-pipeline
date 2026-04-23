@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Public Docs Audit</title>
+<style>
+  :root { --bg:#f8fafc; --text:#0f172a; --muted:#64748b; --card:#fff; --border:#e2e8f0; --accent:#0ea5e9; }
+  body { margin:0; font-family:"Segoe UI", Arial, sans-serif; background:linear-gradient(145deg,#ecfeff,#f8fafc); color:var(--text); }
+  .wrap { max-width:1050px; margin:0 auto; padding:24px 16px 40px; }
+  .hero,.section { background:var(--card); border:1px solid var(--border); border-radius:14px; padding:16px; margin-bottom:14px; }
+  h1 { margin:0 0 8px; font-size:28px; }
+  .sub { color:var(--muted); margin:0; }
+  .grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:10px; margin-top:12px; }
+  .card { border:1px solid var(--border); border-radius:10px; padding:12px; }
+  .value { font-size:30px; font-weight:700; color:var(--accent); margin-top:6px; }
+  .label { font-size:13px; color:var(--muted); }
+  ul { margin:8px 0 0 18px; }
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="hero">
+      <h1>Public Documentation Audit</h1>
+      <p class="sub">Sites: 2 | topology: multi-project</p>
+      <p class="sub">Generated: 2026-04-22T12:58:09.964247+00:00</p>
+      <div class="grid">
+        <div class="card"><div class="label">Pages crawled</div><div class="value">701</div></div>
+        <div class="card"><div class="label">Pages discovered</div><div class="value">2392</div></div>
+        <div class="card"><div class="label">Crawl coverage</div><div class="value">100.04%</div></div>
+        <div class="card"><div class="label">Broken links (docs)</div><div class="value">1</div></div>
+        <div class="card"><div class="label">Broken links (repo nav)</div><div class="value">0</div></div>
+        <div class="card"><div class="label">Unverified links</div><div class="value">742</div></div>
+        <div class="card"><div class="label">SEO/GEO issue rate</div><div class="value">17.62%</div></div>
+        <div class="card"><div class="label">API reference coverage</div><div class="value">20.0%</div></div>
+        <div class="card"><div class="label">Example reliability (estimate)</div><div class="value">85.88%</div></div>
+        <div class="card"><div class="label">Last-updated coverage</div><div class="value">48.36%</div></div>
+        <div class="card"><div class="label">Audit confidence</div><div class="value">63.5%</div></div>
+      </div>
+    </div>
+    <div class="section">
+      <h2>Top Findings</h2>
+      <ul>
+        <li>Broken internal links: 1</li><li>Link verification inconclusive for 742 URLs (auth/rate-limit/server block); these are excluded from broken-link counts.</li><li>SEO/GEO issue rate is high: 17.62%</li><li>API usage-doc coverage is low: 20.0% (17 API pages detected)</li><li>Freshness visibility is weak: only 48.36% pages show last updated</li><li>Documentation is split across multiple sites, but marked as multi-project; no fragmentation penalty applied.</li>
+      </ul>
+    </div>
+    <div class="section">
+      <h2>Per-site Summary</h2>
+      <ul>
+        <li><strong>https://developers.launchdarkly.com/</strong>: pages=1, broken_links=0, api_coverage=N/A, examples=0.0%</li><li><strong>https://launchdarkly.com/docs/home</strong>: pages=700, broken_links=1, api_coverage=20.0%, examples=86.0%</li>
+      </ul>
+    </div>
+    <div class="section"><h2>LLM Executive Analysis (Claude Sonnet)</h2><p>Audit covered 701 pages across 2 LaunchDarkly documentation sites with 100.04% crawl coverage. 1 confirmed broken internal link detected in user-facing docs. API reference coverage is low at 20.0% with only 17 API pages detected. 742 links could not be verified due to authentication or rate-limiting. Freshness metadata is visible on only 48.36% of pages, and SEO/geo issues affect 17.62% of content. Overall confidence score is 63.5%, with link verification confidence particularly low at 25.0%.</p><h3>Strengths</h3><ul><li>Complete crawl coverage (100.04%) with 701 pages successfully indexed from 2392 discovered URLs</li><li>Minimal confirmed broken links (1 total) in user-facing documentation</li><li>No repository navigation link breakage detected</li><li>Multi-project topology properly configured without fragmentation penalties</li><li>Example code reliability estimated at 85.88%</li></ul><h3>Risks</h3><ul><li>742 unverified links create blind spots; actual broken link count may be significantly higher due to auth/rate-limit barriers</li><li>API reference coverage critically low at 20.0% with only 17 API pages detected across 701 total pages</li><li>Freshness metadata missing on 51.64% of pages, preventing users from assessing content currency</li><li>SEO/geo issue rate of 17.62% may impact discoverability and international user experience</li><li>Link verification confidence at 25.0% undermines reliability of broken link reporting</li><li>Overall audit confidence of 63.5% indicates moderate uncertainty in findings</li><li>Large gap between pages crawled (701) and URLs examined (2392) suggests significant content gating or redirects</li></ul><h3>Prioritized actions</h3><ul><li>Investigate and resolve 742 unverified links by addressing authentication barriers or providing audit access credentials <em>[critical, high]</em></li><li>Expand API reference documentation from 17 pages to achieve minimum 60% coverage of API surface area <em>[critical, high]</em></li><li>Implement last-updated timestamps on all pages (currently missing from 51.64% of content) <em>[high, low]</em></li><li>Audit and remediate SEO/geo issues affecting 17.62% of pages (123+ pages impacted) <em>[high, medium]</em></li><li>Fix confirmed broken internal link and establish monitoring to prevent future link rot <em>[medium, low]</em></li></ul></div>
+  </div>
+</body>
+</html>

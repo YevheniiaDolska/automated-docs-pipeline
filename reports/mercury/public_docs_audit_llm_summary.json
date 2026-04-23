@@ -1,0 +1,57 @@
+{
+  "status": "ok",
+  "model": "claude-sonnet-4-5",
+  "analysis": {
+    "executive_summary": "Mercury documentation audit covered 103 pages crawled from 121 requested (100.95% coverage). 3 confirmed broken internal documentation links were identified. API reference coverage is complete at 100% across 83 detected API pages. Example reliability is critically low at 0.0%, and only 63.11% of pages display last-updated metadata. SEO/geo issue rate of 17.23% indicates metadata quality concerns.",
+    "strengths": [
+      "Complete API reference coverage at 100% across 83 API pages with high detection confidence (85%)",
+      "Excellent crawl coverage at 100.95% with 95% confidence, indicating comprehensive site structure",
+      "Single-product topology provides clear documentation architecture",
+      "Zero repository navigation broken links; all broken links are user-facing documentation issues",
+      "No crawl trap URLs encountered, suggesting clean URL structure"
+    ],
+    "risks": [
+      "Example reliability at 0.0% means code samples may be untested, outdated, or non-functional",
+      "3 confirmed broken internal documentation links degrade user navigation experience",
+      "3 additional links unverified due to authentication/rate-limiting; actual broken link count may be higher",
+      "SEO/geo issue rate of 17.23% (approximately 18 pages) impacts discoverability and search ranking",
+      "Only 63.11% last-updated coverage leaves 37% of pages with unknown freshness signals",
+      "Overall confidence at 71.5% with particularly low links confidence (45%) suggests verification limitations",
+      "Low links confidence may hide additional broken or problematic URLs not detected in audit"
+    ],
+    "prioritized_actions": [
+      {
+        "action": "Implement automated example testing pipeline to validate all code samples and raise reliability from 0.0%",
+        "impact": "critical",
+        "effort": "high"
+      },
+      {
+        "action": "Fix 3 confirmed broken internal documentation links and investigate 3 unverified URLs requiring authentication",
+        "impact": "high",
+        "effort": "low"
+      },
+      {
+        "action": "Add last-updated metadata to remaining 37% of pages lacking freshness indicators",
+        "impact": "high",
+        "effort": "medium"
+      },
+      {
+        "action": "Audit and remediate SEO/geo issues on approximately 18 pages (17.23% of corpus)",
+        "impact": "medium",
+        "effort": "medium"
+      },
+      {
+        "action": "Implement authenticated link checking to improve links confidence from 45% and verify protected URLs",
+        "impact": "medium",
+        "effort": "medium"
+      }
+    ],
+    "limitations": [
+      "External audit cannot execute or validate functionality of code examples; 0.0% reliability score indicates detection limitation, not confirmed failure",
+      "3 unverified links blocked by authentication/rate-limiting may be functional; actual broken link count requires internal verification",
+      "Crawl limited to public documentation; authenticated or gated content not assessed",
+      "SEO/geo issue detection based on metadata presence only; cannot assess content quality or accuracy",
+      "Freshness metadata presence verified but not validated against actual content update dates"
+    ]
+  }
+}

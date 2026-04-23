@@ -502,7 +502,7 @@ def _create_personal_profile() -> tuple[Path, str]:
                 ask_ai_cfg["model"] = "qwen2.5:7b"
                 ask_ai_cfg["base_url"] = "http://localhost:11434/v1"
                 ask_ai_cfg["install_runtime_pack"] = True
-                ask_ai_cfg["billing_mode"] = "disabled"
+                ask_ai_cfg["billing_mode"] = "bring-your-own-key"
 
         api_first_cfg = profile["runtime"].get("api_first", {})
         if isinstance(api_first_cfg, dict):
@@ -617,6 +617,12 @@ def build_personal_env_template(
             billing_mode = str(
                 ask_ai.get("billing_mode", "disabled")
             ).strip().lower()
+            _append_env(
+                lines,
+                "ASK_AI_API_KEY",
+                "replace-with-strong-random-secret",
+                "Ask AI runtime access key (generate with: python3 -c \"import secrets; print(secrets.token_urlsafe(48))\")",
+            )
             if billing_mode == "user-subscription":
                 shared_key_env = "DOCSOPS_SHARED_OPENAI_API_KEY" if provider == "openai" else "DOCSOPS_SHARED_ASK_AI_API_KEY"
                 _append_env(
@@ -660,12 +666,6 @@ def build_personal_env_template(
                     "Ask AI: local Ollama endpoint",
                 )
             else:
-                _append_env(
-                    lines,
-                    "ASK_AI_API_KEY",
-                    "YOUR_ASK_AI_API_KEY",
-                    "Ask AI: custom provider key",
-                )
                 _append_env(
                     lines,
                     "ASK_AI_BASE_URL",

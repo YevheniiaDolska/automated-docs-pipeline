@@ -1,0 +1,57 @@
+{
+  "status": "ok",
+  "model": "claude-sonnet-4-5",
+  "analysis": {
+    "executive_summary": "Documentation audit of docs.detectify.com covered 116 pages with 100% crawl coverage and 91.5% overall confidence. The site contains 5 confirmed broken internal links requiring immediate remediation. API reference coverage stands at 69.03% across 23 detected API pages, indicating significant documentation gaps. Example reliability is critically low at 0.0%, suggesting no validated code samples exist. All 116 pages include last-updated metadata, demonstrating strong freshness tracking.",
+    "strengths": [
+      "Complete crawl coverage achieved (100%) with all 116 discovered pages examined",
+      "High overall audit confidence at 91.5% with strong link verification (95% confidence)",
+      "Full last-updated metadata coverage (100%) across all pages enables effective freshness monitoring",
+      "Zero repository navigation broken links; all 5 broken links are user-facing documentation issues",
+      "No SEO/geo issues detected (0.0% issue rate)"
+    ],
+    "risks": [
+      "5 confirmed broken internal documentation links directly impact user navigation and trust",
+      "API reference coverage at 69.03% leaves nearly one-third of API surface undocumented",
+      "Example reliability at 0.0% indicates no executable or validated code samples exist",
+      "23 API pages detected may be insufficient for comprehensive API documentation",
+      "Lack of working examples severely impacts developer onboarding and implementation success",
+      "API confidence at 85% suggests potential gaps in API page detection accuracy",
+      "Missing 30.97% of API documentation creates blind spots for integration teams"
+    ],
+    "prioritized_actions": [
+      {
+        "action": "Fix all 5 confirmed broken internal documentation links",
+        "impact": "critical",
+        "effort": "low"
+      },
+      {
+        "action": "Implement example validation pipeline to achieve minimum 80% reliability score",
+        "impact": "critical",
+        "effort": "high"
+      },
+      {
+        "action": "Audit API surface and create documentation for missing 30.97% coverage gap",
+        "impact": "high",
+        "effort": "high"
+      },
+      {
+        "action": "Add executable code examples to all 23 existing API pages",
+        "impact": "high",
+        "effort": "medium"
+      },
+      {
+        "action": "Establish automated link checking in CI/CD to prevent future broken links",
+        "impact": "medium",
+        "effort": "medium"
+      }
+    ],
+    "limitations": [
+      "External audit cannot verify technical accuracy of documentation content or correctness of implementation guidance",
+      "API coverage detection relies on page structure patterns; actual API completeness requires internal API inventory comparison",
+      "Example reliability score reflects static analysis only; runtime validation against live APIs not performed",
+      "Freshness metadata presence confirmed but actual content currency requires subject matter expert review",
+      "User experience quality, clarity, and comprehensiveness of explanations not assessed by automated tooling"
+    ]
+  }
+}

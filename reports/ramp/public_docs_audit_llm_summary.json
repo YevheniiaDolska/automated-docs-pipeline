@@ -1,0 +1,57 @@
+{
+  "status": "ok",
+  "model": "claude-sonnet-4-5",
+  "analysis": {
+    "executive_summary": "Audit covered 879 pages across 2 documentation sites (support.ramp.com, docs.ramp.com) with 100% crawl coverage. 21 confirmed broken internal links exist within user-facing documentation. API reference coverage is 51.67% across 110 detected API pages. Example code detection returned 0% reliability, indicating a technical detection limitation rather than absence of examples. Only 1.14% of pages display last-updated metadata, severely limiting freshness visibility.",
+    "strengths": [
+      "Complete crawl coverage achieved (100.23%) with 879 pages successfully indexed",
+      "110 API pages detected and analyzed, providing baseline for reference improvement",
+      "Low SEO/geo issue rate at 5.63% indicates solid technical foundation",
+      "Zero repository navigation broken links; all link issues are in user-facing documentation",
+      "Overall audit confidence of 81.5% provides reliable baseline for remediation"
+    ],
+    "risks": [
+      "21 confirmed broken internal links degrade user navigation and trust in documentation quality",
+      "API reference coverage at 51.67% leaves nearly half of API surface undocumented or poorly linked",
+      "Split documentation across 2 domains (support.ramp.com and docs.ramp.com) creates discoverability and consistency risks",
+      "Freshness metadata visible on only 1.14% of pages prevents users from assessing content currency",
+      "Example code detection failure (0% reliability) suggests JS-rendered content may not be auditable by standard tooling",
+      "7 unverified links due to auth/rate-limit blocks may hide additional broken links",
+      "358 trap URLs skipped during crawl indicate potential pagination or filtering issues that could hide content gaps"
+    ],
+    "prioritized_actions": [
+      {
+        "action": "Fix all 21 confirmed broken internal links in user-facing documentation",
+        "impact": "high",
+        "effort": "low"
+      },
+      {
+        "action": "Implement last-updated timestamps on all documentation pages (currently 1.14% coverage)",
+        "impact": "high",
+        "effort": "medium"
+      },
+      {
+        "action": "Audit and expand API reference documentation to close the 48% coverage gap (110 pages analyzed)",
+        "impact": "critical",
+        "effort": "high"
+      },
+      {
+        "action": "Consolidate or clearly differentiate documentation across support.ramp.com and docs.ramp.com to reduce user confusion",
+        "impact": "high",
+        "effort": "medium"
+      },
+      {
+        "action": "Manually verify 7 auth-blocked links and investigate 358 trap URLs to uncover hidden content or navigation issues",
+        "impact": "medium",
+        "effort": "medium"
+      }
+    ],
+    "limitations": [
+      "Example code detection returned 0% reliability; JS-rendered or dynamically loaded code blocks cannot be verified by this audit method",
+      "7 links could not be verified due to authentication, rate-limiting, or server blocks; actual broken link count may be higher",
+      "External audit cannot assess content accuracy, completeness of explanations, or alignment with actual product behavior",
+      "Crawl excluded 358 trap URLs (likely pagination/filters); content completeness in those areas is not validated",
+      "API coverage metric reflects linkage and structure only; does not evaluate quality, accuracy, or usability of API documentation"
+    ]
+  }
+}

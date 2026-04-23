@@ -1,0 +1,325 @@
+{
+  "generated_at": "2026-04-23T12:03:59.778489+00:00",
+  "site_url": "https://docs.mercury.com/",
+  "site_urls": [
+    "https://docs.mercury.com/"
+  ],
+  "topology_mode": "single-product",
+  "verification_modes": [
+    "authenticated",
+    "bot",
+    "browser"
+  ],
+  "sites": [
+    {
+      "site_url": "https://docs.mercury.com/",
+      "metrics": {
+        "crawl": {
+          "pages_crawled": 103,
+          "requested_pages": 121,
+          "urls_examined": 106,
+          "max_pages": 5000,
+          "effective_limit": 5000,
+          "auto_mode": false,
+          "stop_reason": "queue_exhausted",
+          "discovered_pages": 106,
+          "crawl_scope_basis": "sitemap",
+          "crawl_scope_pages": 105,
+          "crawl_coverage_pct": 100.95,
+          "trap_urls_skipped": 0,
+          "seeded_sitemap_urls": 105,
+          "robots_sitemaps_declared": 1
+        },
+        "links": {
+          "internal_links_checked": 121,
+          "broken_internal_links_count": 3,
+          "docs_broken_links_count": 3,
+          "repo_broken_links_count": 0,
+          "broken_internal_link_samples": [
+            "https://docs.mercury.com/cdn-cgi/l/email-protection",
+            "https://docs.mercury.com/reference/request-send-money",
+            "https://docs.mercury.com/reference/transactions-1"
+          ],
+          "docs_broken_link_samples": [
+            "https://docs.mercury.com/cdn-cgi/l/email-protection",
+            "https://docs.mercury.com/reference/request-send-money",
+            "https://docs.mercury.com/reference/transactions-1"
+          ],
+          "repo_broken_link_samples": [],
+          "unreachable_links_count": 3,
+          "unverified_links_count": 3,
+          "unverified_link_samples": [
+            "https://docs.mercury.com/docs/security-best-practices",
+            "https://docs.mercury.com/reference/getorganization",
+            "https://docs.mercury.com/reference/getsaferequest"
+          ],
+          "confirmed_broken_links_count": 3,
+          "excluded_links_count": 0,
+          "excluded_link_samples": [],
+          "_all_confirmed_broken_links": [
+            "https://docs.mercury.com/cdn-cgi/l/email-protection",
+            "https://docs.mercury.com/reference/request-send-money",
+            "https://docs.mercury.com/reference/transactions-1"
+          ],
+          "_all_unverified_links": [
+            "https://docs.mercury.com/docs/security-best-practices",
+            "https://docs.mercury.com/reference/getorganization",
+            "https://docs.mercury.com/reference/getsaferequest"
+          ],
+          "_all_excluded_links": [],
+          "_all_docs_unverified_links": [
+            "https://docs.mercury.com/docs/security-best-practices",
+            "https://docs.mercury.com/reference/getorganization",
+            "https://docs.mercury.com/reference/getsaferequest"
+          ],
+          "_all_repo_unverified_links": [],
+          "_broken_link_provenance": {
+            "https://docs.mercury.com/cdn-cgi/l/email-protection": [
+              {
+                "source_page": "https://docs.mercury.com/changelog/events-api-now-available",
+                "anchor_text": "[email\u00a0protected]"
+              },
+              {
+                "source_page": "https://docs.mercury.com/changelog/invoicing-api-now-available",
+                "anchor_text": "[email\u00a0protected]"
+              },
+              {
+                "source_page": "https://docs.mercury.com/changelog/treasury-statements-now-avaliable",
+                "anchor_text": "[email\u00a0protected]"
+              },
+              {
+                "source_page": "https://docs.mercury.com/changelog/send-money-api-now-supports-checks-and-domestic-wires-as-payment-methods",
+                "anchor_text": "[email\u00a0protected]"
+              },
+              {
+                "source_page": "https://docs.mercury.com/changelog/webhooks-now-avaliable",
+                "anchor_text": "[email\u00a0protected]"
+              }
+            ],
+            "https://docs.mercury.com/reference/request-send-money": [
+              {
+                "source_page": "https://docs.mercury.com/changelog/get-status-of-a-send-money-request",
+                "anchor_text": "https://docs.mercury.com/reference/request-send-money#/"
+              }
+            ],
+            "https://docs.mercury.com/reference/transactions-1": [
+              {
+                "source_page": "https://docs.mercury.com/changelog/category-data-on-transactions",
+                "anchor_text": "transactions endpoint"
+              }
+            ]
+          }
+        },
+        "seo_geo": {
+          "pages_scanned": 103,
+          "missing_title_count": 0,
+          "missing_description_count": 15,
+          "multiple_h1_count": 53,
+          "heading_hierarchy_jump_count": 3,
+          "seo_geo_issue_rate_pct": 17.23
+        },
+        "api_coverage": {
+          "reference_endpoint_count": 1,
+          "api_pages_detected": 83,
+          "endpoints_with_usage_docs": 1,
+          "reference_endpoints_without_usage_docs": 0,
+          "reference_coverage_pct": 100.0,
+          "no_api_pages_found": false,
+          "coverage_determined": true,
+          "coverage_method": "source_of_truth",
+          "detection_note": "",
+          "uncovered_endpoint_samples": []
+        },
+        "examples": {
+          "total_code_examples": 0,
+          "total_code_blocks_all": 62,
+          "runnable_without_env": 0,
+          "blocked_by_placeholders": 0,
+          "network_bound_examples": 0,
+          "example_reliability_estimate_pct": 0.0,
+          "detection_note": "No executable code blocks detected (62 data-only blocks found). Site may use non-standard code rendering that the auditor does not recognize, or all examples are in data formats (YAML/JSON)."
+        },
+        "freshness": {
+          "pages_with_last_updated_hint": 65,
+          "pages_without_last_updated_hint": 38,
+          "last_updated_coverage_pct": 63.11,
+          "samples_with_last_updated": [
+            {
+              "url": "https://docs.mercury.com/docs/using-mercury-sandbox",
+              "hint": "{\"sidebars\":{},\"apiBaseUrl\":\"/\",\"baseUrl\":\"/\",\"search\":{\"appId\":\"T28YKFATPY\",\"searchApiKey\":\"OGQ1ZDVlYmY0ZWMyNDQzN2FhM2I"
+            },
+            {
+              "url": "https://docs.mercury.com/docs/getting-started",
+              "hint": "{\"sidebars\":{},\"apiBaseUrl\":\"/\",\"baseUrl\":\"/\",\"search\":{\"appId\":\"T28YKFATPY\",\"searchApiKey\":\"OGQ1ZDVlYmY0ZWMyNDQzN2FhM2I"
+            },
+            {
+              "url": "https://docs.mercury.com/docs/welcome",
+              "hint": "{\"sidebars\":{},\"apiBaseUrl\":\"/\",\"baseUrl\":\"/\",\"search\":{\"appId\":\"T28YKFATPY\",\"searchApiKey\":\"OGQ1ZDVlYmY0ZWMyNDQzN2FhM2I"
+            },
+            {
+              "url": "https://docs.mercury.com/docs/api-token-security-policies",
+              "hint": "{\"sidebars\":{},\"apiBaseUrl\":\"/\",\"baseUrl\":\"/\",\"search\":{\"appId\":\"T28YKFATPY\",\"searchApiKey\":\"OGQ1ZDVlYmY0ZWMyNDQzN2FhM2I"
+            },
+            {
+              "url": "https://docs.mercury.com/docs/connecting-mercury-mcp",
+              "hint": "{\"sidebars\":{},\"apiBaseUrl\":\"/\",\"baseUrl\":\"/\",\"search\":{\"appId\":\"T28YKFATPY\",\"searchApiKey\":\"OGQ1ZDVlYmY0ZWMyNDQzN2FhM2I"
+            },
+            {
+              "url": "https://docs.mercury.com/docs/what-is-mercury-mcp",
+              "hint": "{\"sidebars\":{},\"apiBaseUrl\":\"/\",\"baseUrl\":\"/\",\"search\":{\"appId\":\"T28YKFATPY\",\"searchApiKey\":\"OGQ1ZDVlYmY0ZWMyNDQzN2FhM2I"
+            },
+            {
+              "url": "https://docs.mercury.com/reference/accounts_receivable",
+              "hint": "{\"sidebars\":{},\"apiBaseUrl\":\"/\",\"baseUrl\":\"/\",\"search\":{\"appId\":\"T28YKFATPY\",\"searchApiKey\":\"OGQ1ZDVlYmY0ZWMyNDQzN2FhM2I"
+            },
+            {
+              "url": "https://docs.mercury.com/docs/supported-tools-on-mercury-mcp",
+              "hint": "{\"sidebars\":{},\"apiBaseUrl\":\"/\",\"baseUrl\":\"/\",\"search\":{\"appId\":\"T28YKFATPY\",\"searchApiKey\":\"OGQ1ZDVlYmY0ZWMyNDQzN2FhM2I"
+            },
+            {
+              "url": "https://docs.mercury.com/reference/createinvoice",
+              "hint": "{\"sidebars\":{},\"apiBaseUrl\":\"/\",\"baseUrl\":\"/\",\"search\":{\"appId\":\"T28YKFATPY\",\"searchApiKey\":\"OGQ1ZDVlYmY0ZWMyNDQzN2FhM2I"
+            },
+            {
+              "url": "https://docs.mercury.com/reference/createcustomer",
+              "hint": "{\"sidebars\":{},\"apiBaseUrl\":\"/\",\"baseUrl\":\"/\",\"search\":{\"appId\":\"T28YKFATPY\",\"searchApiKey\":\"OGQ1ZDVlYmY0ZWMyNDQzN2FhM2I"
+            }
+          ]
+        }
+      },
+      "samples": {
+        "broken_links": [
+          "https://docs.mercury.com/cdn-cgi/l/email-protection",
+          "https://docs.mercury.com/reference/request-send-money",
+          "https://docs.mercury.com/reference/transactions-1"
+        ],
+        "docs_broken_link_samples": [
+          "https://docs.mercury.com/cdn-cgi/l/email-protection",
+          "https://docs.mercury.com/reference/request-send-money",
+          "https://docs.mercury.com/reference/transactions-1"
+        ],
+        "repo_broken_link_samples": [],
+        "unverified_link_samples": [
+          "https://docs.mercury.com/docs/security-best-practices",
+          "https://docs.mercury.com/reference/getorganization",
+          "https://docs.mercury.com/reference/getsaferequest"
+        ],
+        "api_uncovered_samples": []
+      },
+      "run_count": 1
+    }
+  ],
+  "aggregate": {
+    "metrics": {
+      "crawl": {
+        "pages_crawled": 103,
+        "requested_pages": 121,
+        "urls_examined": 106,
+        "max_pages_total": 5000,
+        "discovered_pages": 106,
+        "crawl_scope_pages": 105,
+        "trap_urls_skipped": 0,
+        "crawl_coverage_pct": 100.95
+      },
+      "links": {
+        "broken_internal_links_count": 3,
+        "docs_broken_links_count": 3,
+        "repo_broken_links_count": 0,
+        "unverified_links_count": 3,
+        "confirmed_broken_links_count": 3,
+        "excluded_links_count": 0
+      },
+      "seo_geo": {
+        "seo_geo_issue_rate_pct": 17.23
+      },
+      "api_coverage": {
+        "reference_coverage_pct": 100.0,
+        "no_api_pages_found": false,
+        "api_pages_detected": 83,
+        "coverage_determined": true,
+        "detection_note": ""
+      },
+      "examples": {
+        "example_reliability_estimate_pct": 0.0
+      },
+      "freshness": {
+        "last_updated_coverage_pct": 63.11
+      }
+    },
+    "confidence": {
+      "overall_confidence_pct": 71.5,
+      "links_confidence_pct": 45.0,
+      "api_confidence_pct": 85.0,
+      "crawl_confidence_pct": 95.0
+    }
+  },
+  "confidence": {
+    "overall_confidence_pct": 71.5,
+    "links_confidence_pct": 45.0,
+    "api_confidence_pct": 85.0,
+    "crawl_confidence_pct": 95.0
+  },
+  "top_findings": [
+    "Broken internal links: 3",
+    "Link verification inconclusive for 3 URLs (auth/rate-limit/server block); these are excluded from broken-link counts.",
+    "SEO/GEO issue rate is high: 17.23%",
+    "Example reliability estimate is low: 0.0%"
+  ],
+  "llm_analysis": {
+    "status": "ok",
+    "model": "claude-sonnet-4-5",
+    "analysis": {
+      "executive_summary": "Mercury documentation audit covered 103 pages crawled from 121 requested (100.95% coverage). 3 confirmed broken internal documentation links were identified. API reference coverage is complete at 100% across 83 detected API pages. Example reliability is critically low at 0.0%, and only 63.11% of pages display last-updated metadata. SEO/geo issue rate of 17.23% indicates metadata quality concerns.",
+      "strengths": [
+        "Complete API reference coverage at 100% across 83 API pages with high detection confidence (85%)",
+        "Excellent crawl coverage at 100.95% with 95% confidence, indicating comprehensive site structure",
+        "Single-product topology provides clear documentation architecture",
+        "Zero repository navigation broken links; all broken links are user-facing documentation issues",
+        "No crawl trap URLs encountered, suggesting clean URL structure"
+      ],
+      "risks": [
+        "Example reliability at 0.0% means code samples may be untested, outdated, or non-functional",
+        "3 confirmed broken internal documentation links degrade user navigation experience",
+        "3 additional links unverified due to authentication/rate-limiting; actual broken link count may be higher",
+        "SEO/geo issue rate of 17.23% (approximately 18 pages) impacts discoverability and search ranking",
+        "Only 63.11% last-updated coverage leaves 37% of pages with unknown freshness signals",
+        "Overall confidence at 71.5% with particularly low links confidence (45%) suggests verification limitations",
+        "Low links confidence may hide additional broken or problematic URLs not detected in audit"
+      ],
+      "prioritized_actions": [
+        {
+          "action": "Implement automated example testing pipeline to validate all code samples and raise reliability from 0.0%",
+          "impact": "critical",
+          "effort": "high"
+        },
+        {
+          "action": "Fix 3 confirmed broken internal documentation links and investigate 3 unverified URLs requiring authentication",
+          "impact": "high",
+          "effort": "low"
+        },
+        {
+          "action": "Add last-updated metadata to remaining 37% of pages lacking freshness indicators",
+          "impact": "high",
+          "effort": "medium"
+        },
+        {
+          "action": "Audit and remediate SEO/geo issues on approximately 18 pages (17.23% of corpus)",
+          "impact": "medium",
+          "effort": "medium"
+        },
+        {
+          "action": "Implement authenticated link checking to improve links confidence from 45% and verify protected URLs",
+          "impact": "medium",
+          "effort": "medium"
+        }
+      ],
+      "limitations": [
+        "External audit cannot execute or validate functionality of code examples; 0.0% reliability score indicates detection limitation, not confirmed failure",
+        "3 unverified links blocked by authentication/rate-limiting may be functional; actual broken link count requires internal verification",
+        "Crawl limited to public documentation; authenticated or gated content not assessed",
+        "SEO/geo issue detection based on metadata presence only; cannot assess content quality or accuracy",
+        "Freshness metadata presence verified but not validated against actual content update dates"
+      ]
+    }
+  }
+}

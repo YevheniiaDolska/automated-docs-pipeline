@@ -1,0 +1,57 @@
+{
+  "status": "ok",
+  "model": "claude-sonnet-4-5",
+  "analysis": {
+    "executive_summary": "Documentation audit of docs.anyscale.com covered 436 pages at 100% crawl coverage with 91.5% overall confidence. Critical issues include 164 confirmed broken internal links affecting user navigation and trust. API reference coverage stands at only 15.33% despite 216 API pages detected, indicating significant documentation gaps. Freshness metadata appears on just 5.28% of pages, obscuring content currency. SEO/geo issues affect 26.2% of pages, potentially limiting discoverability.",
+    "strengths": [
+      "Complete crawl coverage achieved (100% of discovered pages, 436/436)",
+      "High overall audit confidence at 91.5% with strong link verification (95%)",
+      "Example code reliability estimated at 85.31%, indicating quality code samples",
+      "Single-product topology provides clear documentation structure",
+      "No repository navigation link breakage (repo_broken_links_count: 0)"
+    ],
+    "risks": [
+      "164 confirmed broken internal links create poor user experience and erode trust in documentation quality",
+      "API reference coverage at 15.33% leaves 84.67% of API surface undocumented or poorly linked",
+      "Only 5.28% of pages display last-updated metadata, preventing users from assessing content freshness",
+      "26.2% SEO/geo issue rate may significantly reduce organic search visibility and international reach",
+      "25 URLs identified as potential crawler traps were skipped, possibly hiding additional content issues",
+      "Low freshness visibility combined with broken links suggests possible content decay or migration issues",
+      "API confidence at 85% indicates potential detection gaps in API documentation assessment"
+    ],
+    "prioritized_actions": [
+      {
+        "action": "Fix all 164 broken internal links through automated link validation and redirect mapping",
+        "impact": "critical",
+        "effort": "medium"
+      },
+      {
+        "action": "Implement last-updated timestamps on all pages (currently 5.28% coverage) to establish freshness transparency",
+        "impact": "critical",
+        "effort": "low"
+      },
+      {
+        "action": "Audit and expand API reference coverage from 15.33% to minimum 80% by linking usage docs to API pages",
+        "impact": "critical",
+        "effort": "high"
+      },
+      {
+        "action": "Resolve SEO/geo issues affecting 26.2% of pages (114 pages) through metadata and localization fixes",
+        "impact": "high",
+        "effort": "medium"
+      },
+      {
+        "action": "Investigate 25 crawler trap URLs to determine if legitimate content is being excluded from audit",
+        "impact": "medium",
+        "effort": "low"
+      }
+    ],
+    "limitations": [
+      "External audit cannot verify accuracy of technical content, code examples, or API specifications",
+      "Broken link detection reflects point-in-time status; links may break or be fixed post-audit",
+      "API coverage detection at 85% confidence may undercount or misclassify API reference pages",
+      "Cannot assess user satisfaction, task completion rates, or actual documentation effectiveness",
+      "SEO/geo issue detection does not guarantee search ranking impact or international usability outcomes"
+    ]
+  }
+}
