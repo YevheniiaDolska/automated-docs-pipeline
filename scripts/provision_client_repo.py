@@ -280,7 +280,7 @@ def _create_profile_via_wizard(default_scheduler: str, *, require_repo: bool = T
             ["mkdocs", "docusaurus", "hugo", "vitepress", "custom"],
             str(profile["runtime"]["integrations"]["algolia"].get("site_generator", "mkdocs")),
         )
-    enable_ask_ai = False
+    enable_ask_ai = strict_local
     if not strict_local:
         enable_ask_ai = _prompt_yes_no(
             "Enable Ask AI integration?",
@@ -395,8 +395,8 @@ def _create_profile_via_wizard(default_scheduler: str, *, require_repo: bool = T
             if isinstance(ask_ai, dict) and bool(enable_ask_ai):
                 ask_ai["provider"] = _prompt_choice(
                     "Ask AI provider",
-                    ["openai", "anthropic", "azure-openai", "custom"],
-                    str(ask_ai.get("provider", "openai")).strip().lower(),
+                    ["openai", "anthropic", "azure-openai", "custom", "local", "ollama"],
+                    str(ask_ai.get("provider", "openai" if not strict_local else "local")).strip().lower(),
                 )
                 ask_ai["billing_mode"] = _prompt_choice(
                     "Ask AI billing mode",
@@ -445,7 +445,7 @@ def _create_profile_via_wizard(default_scheduler: str, *, require_repo: bool = T
         llm_control = {}
     llm_control["llm_mode"] = "local_default" if strict_local else "external_preferred"
     llm_control["local_model"] = "veridoc-writer"
-    llm_control["local_base_model"] = "qwen3:30b"
+    llm_control["local_base_model"] = "qwen2.5:7b"
     llm_control["local_model_command"] = "ollama run {model} \"{prompt}\""
     llm_control["auto_install_local_model_on_setup"] = True
     llm_control["strict_local_first"] = strict_local
@@ -496,7 +496,11 @@ def _create_profile_via_wizard(default_scheduler: str, *, require_repo: bool = T
                 algolia_cfg["upload_on_weekly"] = False
             ask_ai_cfg = integrations.get("ask_ai", {})
             if isinstance(ask_ai_cfg, dict):
-                ask_ai_cfg["enabled"] = False
+                ask_ai_cfg["enabled"] = True
+                ask_ai_cfg["provider"] = "local"
+                ask_ai_cfg["model"] = "qwen2.5:7b"
+                ask_ai_cfg["base_url"] = "http://localhost:11434/v1"
+                ask_ai_cfg["install_runtime_pack"] = True
                 ask_ai_cfg["billing_mode"] = "disabled"
 
         api_first_cfg = profile["runtime"].get("api_first", {})
@@ -1088,6 +1092,7 @@ def _apply_algolia_widget(client_repo: Path, docsops_dir: str, runtime: dict[str
     generator = str(algolia.get("site_generator", "mkdocs")).strip().lower()
     app_id_env = str(algolia.get("app_id_env", "ALGOLIA_APP_ID"))
     api_key_env = str(algolia.get("api_key_env", "ALGOLIA_API_KEY"))
+    search_api_key_env = str(algolia.get("search_api_key_env", "ALGOLIA_SEARCH_API_KEY"))
     index_name_env = str(algolia.get("index_name_env", "ALGOLIA_INDEX_NAME"))
     index_name_default = str(algolia.get("index_name_default", "docs"))
 
@@ -1109,7 +1114,7 @@ REPO_ROOT="$(cd "$(dirname "${{BASH_SOURCE[0]}})/../../.." && pwd)"
 cd "$REPO_ROOT"
 
 APP_ID="${{${app_id_env}:-YOUR_ALGOLIA_APP_ID}}"
-SEARCH_KEY="${{${api_key_env}:-YOUR_ALGOLIA_SEARCH_KEY}}"
+SEARCH_KEY="${{${search_api_key_env}:-${{{api_key_env}:-YOUR_ALGOLIA_SEARCH_KEY}}}}"
 INDEX_NAME="${{${index_name_env}:-{index_name_default}}}"
 
 python3 "{docsops_dir}/scripts/generate_algolia_widget.py" \\
@@ -1231,6 +1236,7 @@ def generate_env_checklist(client_repo: Path, docsops_dir: str) -> Path | None:
                 "",
                 f"- [ ] `{algolia.get('app_id_env', 'ALGOLIA_APP_ID')}`",
                 f"- [ ] `{algolia.get('api_key_env', 'ALGOLIA_API_KEY')}`",
+                f"- [ ] `{algolia.get('search_api_key_env', 'ALGOLIA_SEARCH_API_KEY')}`",
                 f"- [ ] `{algolia.get('index_name_env', 'ALGOLIA_INDEX_NAME')}`",
                 "",
                 f"Site generator: `{site_gen}`",
@@ -1251,6 +1257,8 @@ def generate_env_checklist(client_repo: Path, docsops_dir: str) -> Path | None:
             "anthropic": ["ANTHROPIC_API_KEY"],
             "azure-openai": ["AZURE_OPENAI_API_KEY", "AZURE_OPENAI_ENDPOINT"],
             "custom": ["ASK_AI_API_KEY", "ASK_AI_BASE_URL"],
+            "local": ["ASK_AI_BASE_URL"],
+            "ollama": ["ASK_AI_BASE_URL"],
         }.get(provider, ["ASK_AI_API_KEY"])
         lines.extend(["## Ask AI", "", f"- Provider: `{provider}`", f"- Billing mode: `{billing_mode}`"])
         lines.extend([f"- [ ] `{name}`" for name in provider_vars])

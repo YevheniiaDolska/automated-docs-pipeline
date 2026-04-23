@@ -64,6 +64,7 @@ SETUP_PREFLIGHT_REPORT = Path("reports/setup_prerequisites_report.json")
 FIELD_GUIDANCE: dict[str, str] = {
     "ALGOLIA_APP_ID": "Take from your Algolia dashboard (Settings/API). Use your own account.",
     "ALGOLIA_API_KEY": "Use your Algolia Admin API key for write/indexing operations (not search-only). Never use a shared operator key.",
+    "ALGOLIA_SEARCH_API_KEY": "Use your Algolia Search-Only API key for frontend search widget.",
     "ALGOLIA_INDEX_NAME": "You can invent it. Best practice: veriops_<client_slug>_docs (for example veriops_acme_docs).",
     "OPENAI_API_KEY": "Use your OpenAI key. Do not reuse a shared operator key.",
     "ANTHROPIC_API_KEY": "Use your Anthropic key.",
@@ -202,6 +203,9 @@ def _detect_setup_prereqs(runtime: dict[str, Any], env_values: dict[str, str]) -
                     {"key": "AZURE_OPENAI_ENDPOINT", "purpose": "Ask AI provider endpoint"},
                 ]
             )
+        elif provider in {"local", "ollama"}:
+            # strict-local: no external provider creds are required
+            pass
         else:
             required_client_inputs.extend(
                 [
@@ -214,6 +218,10 @@ def _detect_setup_prereqs(runtime: dict[str, Any], env_values: dict[str, str]) -
             [
                 {"key": str(algolia.get("app_id_env", "ALGOLIA_APP_ID")), "purpose": "Algolia app id"},
                 {"key": str(algolia.get("api_key_env", "ALGOLIA_API_KEY")), "purpose": "Algolia admin key"},
+                {
+                    "key": str(algolia.get("search_api_key_env", "ALGOLIA_SEARCH_API_KEY")),
+                    "purpose": "Algolia search API key",
+                },
                 {"key": str(algolia.get("index_name_env", "ALGOLIA_INDEX_NAME")), "purpose": "Algolia index name"},
             ]
         )
@@ -755,7 +763,7 @@ def bootstrap_local_llm_runtime(repo_root: Path, runtime: dict[str, Any], intera
     llm_mode = str(llm_control.get("llm_mode", "external_preferred")).strip().lower()
     strict_local = bool(llm_control.get("strict_local_first", llm_mode == "local_default"))
     model = str(llm_control.get("local_model", "veridoc-writer")).strip() or "veridoc-writer"
-    base_model = str(llm_control.get("local_base_model", "qwen3:30b")).strip() or "qwen3:30b"
+    base_model = str(llm_control.get("local_base_model", "qwen2.5:7b")).strip() or "qwen2.5:7b"
     auto_install = bool(llm_control.get("auto_install_local_model_on_setup", True))
     security = runtime.get("security", {}) if isinstance(runtime.get("security"), dict) else {}
     operation_mode = str(security.get("operation_mode", "")).strip().lower()

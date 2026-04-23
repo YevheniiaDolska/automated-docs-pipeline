@@ -74,7 +74,7 @@ class DocumentTranslator:
         return self._client
 
     def _translate_with_ollama(self, prompt: str) -> str:
-        model = str(self.config.translation.model or "qwen3:30b").strip() or "qwen3:30b"
+        model = str(self.config.translation.model or "qwen2.5:7b").strip() or "qwen2.5:7b"
         cmd = ["ollama", "run", model]
         completed = subprocess.run(
             cmd,
@@ -455,7 +455,7 @@ def main() -> None:
     elif runtime_strict_local:
         config.translation.provider = "local"
         if str(config.translation.model).strip().startswith("claude"):
-            config.translation.model = "qwen3:30b"
+            config.translation.model = "qwen2.5:7b"
     provider = str(config.translation.provider or "anthropic").strip().lower()
     print(f"[i18n_translate] provider={provider} model={config.translation.model}")
     translator = DocumentTranslator(config, docs_dir=docs_dir)

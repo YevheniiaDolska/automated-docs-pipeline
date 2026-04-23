@@ -278,7 +278,7 @@ def _create_personal_profile() -> tuple[Path, str]:
                 )
             ),
         )
-    enable_ask_ai = False
+    enable_ask_ai = strict_local
     if not strict_local:
         enable_ask_ai = _prompt_yes_no(
             "Enable Ask AI integration?",
@@ -431,8 +431,8 @@ def _create_personal_profile() -> tuple[Path, str]:
             if isinstance(ask_ai, dict) and bool(enable_ask_ai):
                 ask_ai["provider"] = _prompt_choice(
                     "Ask AI provider",
-                    ["openai", "anthropic", "azure-openai", "custom"],
-                    str(ask_ai.get("provider", "openai")).strip().lower(),
+                    ["openai", "anthropic", "azure-openai", "custom", "local", "ollama"],
+                    str(ask_ai.get("provider", "openai" if not strict_local else "local")).strip().lower(),
                 )
                 ask_ai["billing_mode"] = _prompt_choice(
                     "Ask AI billing mode",
@@ -472,7 +472,7 @@ def _create_personal_profile() -> tuple[Path, str]:
         llm_control = {}
     llm_control["llm_mode"] = "local_default" if strict_local else "external_preferred"
     llm_control["local_model"] = "veridoc-writer"
-    llm_control["local_base_model"] = "qwen3:30b"
+    llm_control["local_base_model"] = "qwen2.5:7b"
     llm_control["local_model_command"] = "ollama run {model} \"{prompt}\""
     llm_control["auto_install_local_model_on_setup"] = True
     llm_control["strict_local_first"] = strict_local
@@ -497,7 +497,11 @@ def _create_personal_profile() -> tuple[Path, str]:
                 algolia_cfg["upload_on_weekly"] = False
             ask_ai_cfg = integrations.get("ask_ai", {})
             if isinstance(ask_ai_cfg, dict):
-                ask_ai_cfg["enabled"] = False
+                ask_ai_cfg["enabled"] = True
+                ask_ai_cfg["provider"] = "local"
+                ask_ai_cfg["model"] = "qwen2.5:7b"
+                ask_ai_cfg["base_url"] = "http://localhost:11434/v1"
+                ask_ai_cfg["install_runtime_pack"] = True
                 ask_ai_cfg["billing_mode"] = "disabled"
 
         api_first_cfg = profile["runtime"].get("api_first", {})
@@ -596,6 +600,12 @@ def build_personal_env_template(
             )
             _append_env(
                 lines,
+                str(algolia.get("search_api_key_env", "ALGOLIA_SEARCH_API_KEY")),
+                "YOUR_ALGOLIA_SEARCH_API_KEY",
+                "Algolia search API key for docs UI widget",
+            )
+            _append_env(
+                lines,
                 str(algolia.get("index_name_env", "ALGOLIA_INDEX_NAME")),
                 str(algolia.get("index_name_default", "docs")),
                 "Algolia index name",
@@ -641,6 +651,13 @@ def build_personal_env_template(
                     "AZURE_OPENAI_ENDPOINT",
                     "https://YOUR_RESOURCE.openai.azure.com/",
                     "Ask AI: Azure endpoint",
+                )
+            elif provider in {"local", "ollama"}:
+                _append_env(
+                    lines,
+                    "ASK_AI_BASE_URL",
+                    "http://localhost:11434/v1",
+                    "Ask AI: local Ollama endpoint",
                 )
             else:
                 _append_env(

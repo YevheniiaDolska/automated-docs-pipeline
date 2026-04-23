@@ -43,11 +43,12 @@ def _bool_env(name: str, default: bool) -> bool:
 
 def _load_runtime_config() -> dict[str, Any]:
     provider = os.getenv("ASK_AI_PROVIDER", "openai").strip().lower()
+    base_default = "http://localhost:11434/v1" if provider in {"local", "ollama"} else "https://api.openai.com/v1"
     return {
         "enabled": _bool_env("ASK_AI_ENABLED", True),
         "provider": provider,
         "model": os.getenv("ASK_AI_MODEL", "gpt-4.1-mini"),
-        "base_url": os.getenv("ASK_AI_BASE_URL", "https://api.openai.com/v1").rstrip("/"),
+        "base_url": os.getenv("ASK_AI_BASE_URL", base_default).rstrip("/"),
         "provider_api_key": resolve_provider_api_key(provider),
         "billing_mode": os.getenv("ASK_AI_BILLING_MODE", "disabled"),
         "max_context_modules": int(os.getenv("ASK_AI_MAX_CONTEXT_MODULES", "6")),
@@ -79,6 +80,65 @@ async def _ask_provider(config: dict[str, Any], context: dict[str, Any]) -> str:
     """Call provider API; fallback to deterministic response when key is missing."""
     question = context["question"]
     modules = context["modules"]
+    provider = str(config.get("provider", "openai")).strip().lower()
+
+    system_prompt = (
+        "You are a documentation assistant. Answer with clear steps. "
+        "Use only provided context modules. If uncertain, say what is missing."
+    )
+    user_prompt = (
+        f"Question: {question}\n\n"
+        f"Context modules:\n{modules}\n\n"
+        "Return short practical guidance with numbered steps."
+    )
+
+    if provider in {"local", "ollama"}:
+        base_url = str(config.get("base_url", "http://localhost:11434/v1")).rstrip("/")
+        async with httpx.AsyncClient(timeout=60.0) as client:
+            if base_url.endswith("/v1"):
+                payload = {
+                    "model": config["model"],
+                    "temperature": config["temperature"],
+                    "max_tokens": config["max_tokens"],
+                    "messages": [
+                        {"role": "system", "content": system_prompt},
+                        {"role": "user", "content": user_prompt},
+                    ],
+                }
+                response = await client.post(
+                    f"{base_url}/chat/completions",
+                    headers={"Content-Type": "application/json"},
+                    json=payload,
+                )
+                response.raise_for_status()
+                data = response.json()
+                choices = data.get("choices", [])
+                if not choices:
+                    return "No answer returned from local provider."
+                message = choices[0].get("message", {})
+                return str(message.get("content", "")).strip() or "No answer returned from local provider."
+
+            payload = {
+                "model": config["model"],
+                "stream": False,
+                "messages": [
+                    {"role": "system", "content": system_prompt},
+                    {"role": "user", "content": user_prompt},
+                ],
+                "options": {
+                    "temperature": float(config["temperature"]),
+                    "num_predict": int(config["max_tokens"]),
+                },
+            }
+            response = await client.post(
+                f"{base_url}/api/chat",
+                headers={"Content-Type": "application/json"},
+                json=payload,
+            )
+            response.raise_for_status()
+            data = response.json()
+            message = data.get("message", {})
+            return str(message.get("content", "")).strip() or "No answer returned from local provider."
 
     if not config["provider_api_key"]:
         if modules:
@@ -91,16 +151,6 @@ async def _ask_provider(config: dict[str, Any], context: dict[str, Any]) -> str:
 
     if config["provider"] != "openai":
         return "Provider adapter is not implemented yet for this provider. Use openai or add adapter logic."
-
-    system_prompt = (
-        "You are a documentation assistant. Answer with clear steps. "
-        "Use only provided context modules. If uncertain, say what is missing."
-    )
-    user_prompt = (
-        f"Question: {question}\n\n"
-        f"Context modules:\n{modules}\n\n"
-        "Return short practical guidance with numbered steps."
-    )
 
     payload = {
         "model": config["model"],

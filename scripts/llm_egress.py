@@ -22,7 +22,7 @@ class LLMEgressPolicy:
     redact_before_external: bool = True
     approval_cache_scope: str = "run"
     local_model: str = "veridoc-writer"
-    local_base_model: str = "qwen3:30b"
+    local_base_model: str = "qwen2.5:7b"
     local_model_command: str = "ollama run {model} \"{prompt}\""
     quality_delta_note: str = "Fully local mode may reduce output quality by ~10-15% on hardest synthesis tasks."
 

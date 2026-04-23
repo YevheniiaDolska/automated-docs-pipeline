@@ -25,6 +25,8 @@ _PROVIDER_KEY_FALLBACKS: dict[str, tuple[str, ...]] = {
         "ASK_AI_PROVIDER_API_KEY",
         "ASK_AI_API_KEY",
     ),
+    "local": (),
+    "ollama": (),
 }
 
 

@@ -434,7 +434,7 @@ def build_runtime_config(profile: dict[str, Any]) -> dict[str, Any]:
                 "approval_cache_scope": "run",
                 "redact_before_external": True,
                 "local_model": "veridoc-writer",
-                "local_base_model": "qwen3:30b",
+                "local_base_model": "qwen2.5:7b",
                 "local_model_command": "ollama run {model} \"{prompt}\"",
                 "auto_install_local_model_on_setup": True,
                 "strict_local_first": False,
@@ -661,6 +661,7 @@ def build_runtime_config(profile: dict[str, Any]) -> dict[str, Any]:
                     "upload_on_weekly": False,
                     "app_id_env": "ALGOLIA_APP_ID",
                     "api_key_env": "ALGOLIA_API_KEY",
+                    "search_api_key_env": "ALGOLIA_SEARCH_API_KEY",
                     "index_name_env": "ALGOLIA_INDEX_NAME",
                     "index_name_default": "docs",
                     "site_generator": "mkdocs",
@@ -1231,6 +1232,12 @@ def build_local_env_template(
             )
             _append_env(
                 lines,
+                str(algolia.get("search_api_key_env", "ALGOLIA_SEARCH_API_KEY")),
+                "YOUR_ALGOLIA_SEARCH_API_KEY",
+                "Algolia search API key for docs UI widget",
+            )
+            _append_env(
+                lines,
                 str(algolia.get("index_name_env", "ALGOLIA_INDEX_NAME")),
                 str(algolia.get("index_name_default", "docs")),
                 "Algolia index name",
@@ -1255,6 +1262,8 @@ def build_local_env_template(
             elif provider == "azure-openai":
                 _append_env(lines, "AZURE_OPENAI_API_KEY", "YOUR_AZURE_OPENAI_API_KEY", "Ask AI: Azure OpenAI key")
                 _append_env(lines, "AZURE_OPENAI_ENDPOINT", "https://YOUR_RESOURCE.openai.azure.com/", "Ask AI: Azure endpoint")
+            elif provider in {"local", "ollama"}:
+                _append_env(lines, "ASK_AI_BASE_URL", "http://localhost:11434/v1", "Ask AI: local Ollama endpoint")
             else:
                 _append_env(lines, "ASK_AI_API_KEY", "YOUR_ASK_AI_API_KEY", "Ask AI: custom provider key")
                 _append_env(lines, "ASK_AI_BASE_URL", "https://api.example.com/v1", "Ask AI: custom provider base URL")
