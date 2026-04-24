@@ -5,6 +5,7 @@ from __future__ import annotations
 import glob
 import json
 import os
+import re
 import time
 from pathlib import Path
 from typing import Any
@@ -34,6 +35,32 @@ except ImportError:
 # ---------------------------------------------------------------------------
 
 _EMBED_CACHE: dict[str, tuple[float, Any]] = {}
+_WORD_RE = re.compile(r"[a-z0-9_]+", re.IGNORECASE)
+_STOPWORDS = {
+    "a",
+    "an",
+    "and",
+    "are",
+    "as",
+    "at",
+    "be",
+    "by",
+    "for",
+    "from",
+    "in",
+    "is",
+    "it",
+    "of",
+    "on",
+    "or",
+    "that",
+    "the",
+    "this",
+    "to",
+    "with",
+    "you",
+    "your",
+}
 
 
 def _get_cached_embedding(text: str, ttl: int) -> Any:
@@ -312,6 +339,109 @@ def rank_modules(question: str, modules: list[dict[str, Any]], limit: int) -> li
 
 
 # ---------------------------------------------------------------------------
+# Vectorless structural search
+# ---------------------------------------------------------------------------
+
+def _question_terms(question: str) -> list[str]:
+    return [tok.lower() for tok in _WORD_RE.findall(question or "") if tok and tok.lower() not in _STOPWORDS]
+
+
+def _module_scalar_fields(module: dict[str, Any]) -> list[str]:
+    return [
+        str(module.get("title", "")).lower(),
+        str(module.get("summary", "")).lower(),
+        str(module.get("heading", "")).lower(),
+        str(module.get("url", "")).lower(),
+        str(module.get("topic", "")).lower(),
+        str(module.get("semantic_intent", "")).lower(),
+        str(module.get("semantic_audience", "")).lower(),
+    ]
+
+
+def _module_list_fields(module: dict[str, Any]) -> list[str]:
+    merged: list[str] = []
+    for key in ("intents", "channels", "tags", "keywords"):
+        value = module.get(key, [])
+        if isinstance(value, list):
+            merged.extend(str(item).lower() for item in value if str(item).strip())
+    return merged
+
+
+def _vectorless_score(question: str, terms: list[str], module: dict[str, Any]) -> float:
+    if not terms:
+        return 0.0
+
+    scalars = _module_scalar_fields(module)
+    lists = _module_list_fields(module)
+    title = scalars[0]
+    heading = scalars[2]
+    summary = scalars[1]
+    assistant_excerpt = str(module.get("assistant_excerpt", "")).lower()
+    metadata_blob = " ".join(scalars + lists)
+
+    score = 0.0
+    for term in terms:
+        if term in heading:
+            score += 4.0
+        elif term in title:
+            score += 3.0
+        elif term in lists or term in metadata_blob:
+            score += 2.5
+        elif term in summary:
+            score += 1.5
+        elif term in assistant_excerpt:
+            score += 1.0
+
+    q = (question or "").lower()
+    if any(token in q for token in ("what changed", "change", "changed", "difference", "between", "delta", "vs", "versus")):
+        if any(token in metadata_blob for token in ("release", "changelog", "migration", "version", "updated", "changes")):
+            score += 5.0
+    if any(token in q for token in ("api", "endpoint", "request", "response", "schema", "graphql", "grpc", "asyncapi", "websocket")):
+        if any(token in metadata_blob for token in ("api", "reference", "endpoint", "openapi", "graphql", "grpc", "asyncapi", "websocket")):
+            score += 4.0
+    if any(token in q for token in ("how", "configure", "setup", "install", "enable", "disable")):
+        if any(token in metadata_blob for token in ("how-to", "tutorial", "guide", "configure", "setup", "install")):
+            score += 4.0
+
+    priority = int(module.get("priority", 0) or 0)
+    score += max(0.0, min(priority, 5) * 0.2)
+    return score
+
+
+def rank_modules_vectorless_scored(
+    question: str,
+    modules: list[dict[str, Any]],
+    limit: int,
+) -> list[tuple[dict[str, Any], float]]:
+    terms = _question_terms(question)
+    scored: list[tuple[dict[str, Any], float]] = []
+    for module in modules:
+        s = _vectorless_score(question, terms, module)
+        if s > 0:
+            scored.append((module, s))
+    scored.sort(key=lambda item: (item[1], int(item[0].get("priority", 0))), reverse=True)
+    return scored[: max(limit, 1)]
+
+
+def _should_use_vectorless_auto(
+    question: str,
+    modules: list[dict[str, Any]],
+    faiss_data: tuple[Any, list[dict[str, Any]]] | None,
+) -> bool:
+    if faiss_data is None:
+        return True
+    q = (question or "").lower()
+    if any(token in q for token in ("what changed", "difference", "between", "delta", "compare", "versus", "vs")):
+        return True
+    if any(token in q for token in ("policy", "sla", "slo", "terms", "compliance", "license", "pricing")):
+        return True
+    if not modules:
+        return False
+    structured_count = sum(1 for m in modules if str(m.get("heading", "")).strip() and str(m.get("url", "")).strip())
+    return (structured_count / max(len(modules), 1)) >= 0.7
+
+
+# ---------------------------------------------------------------------------
 # Hybrid search (RRF)
 # ---------------------------------------------------------------------------
 
@@ -408,13 +538,40 @@ def build_context(
     cache_enabled: bool = True,
     cache_ttl: int = 3600,
     cache_max_size: int = 512,
+    retrieval_mode: str = "auto",
+    vectorless_min_score: float = 2.0,
 ) -> dict[str, Any]:
     top: list[dict[str, Any]] = []
     fetch_limit = rerank_candidates if rerank_enabled else max_context_modules
+    selected_mode = "token"
+    fallback_used = False
 
-    if faiss_data is not None:
+    normalized_mode = str(retrieval_mode or "auto").strip().lower()
+
+    if normalized_mode == "vectorless" or (
+        normalized_mode == "auto" and _should_use_vectorless_auto(question, modules, faiss_data)
+    ):
+        selected_mode = "vectorless"
+        scored_vectorless = rank_modules_vectorless_scored(question, modules, fetch_limit)
+        top = [item[0] for item in scored_vectorless]
+        top_score = float(scored_vectorless[0][1]) if scored_vectorless else 0.0
+        if normalized_mode == "auto" and top_score < float(vectorless_min_score):
+            fallback_used = True
+            top = []
+
+    if not top and faiss_data is not None and normalized_mode in {"auto", "hybrid", "semantic", "vectorless"}:
         faiss_index, faiss_metadata = faiss_data
-        if hybrid_enabled:
+        if normalized_mode == "semantic":
+            selected_mode = "semantic"
+            top = rank_modules_semantic(
+                question, faiss_index, faiss_metadata, fetch_limit,
+                hyde_enabled=hyde_enabled, hyde_model=hyde_model,
+                cache_enabled=cache_enabled, cache_ttl=cache_ttl,
+                cache_max_size=cache_max_size,
+            )
+        elif hybrid_enabled and normalized_mode in {"auto", "hybrid", "vectorless"}:
+            if selected_mode != "vectorless":
+                selected_mode = "hybrid"
             top = rank_modules_hybrid(
                 question, modules, faiss_index, faiss_metadata, fetch_limit,
                 rrf_k=rrf_k,
@@ -423,6 +580,7 @@ def build_context(
                 cache_max_size=cache_max_size,
             )
         else:
+            selected_mode = "semantic"
             top = rank_modules_semantic(
                 question, faiss_index, faiss_metadata, fetch_limit,
                 hyde_enabled=hyde_enabled, hyde_model=hyde_model,
@@ -445,10 +603,13 @@ def build_context(
 
     # Fallback to token overlap
     if not top:
+        selected_mode = "token"
         top = rank_modules(question, modules, max_context_modules)
 
     return {
         "question": question,
+        "retrieval_mode": selected_mode,
+        "retrieval_fallback_used": fallback_used,
         "modules": [
             {
                 "id": m.get("id"),

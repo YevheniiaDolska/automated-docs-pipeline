@@ -113,6 +113,8 @@ def _load_runtime_config() -> dict[str, Any]:
         "embed_cache_enabled": _bool_env("ASK_AI_EMBED_CACHE_ENABLED", True),
         "embed_cache_ttl": int(os.getenv("ASK_AI_EMBED_CACHE_TTL", "3600")),
         "embed_cache_max_size": int(os.getenv("ASK_AI_EMBED_CACHE_MAX_SIZE", "512")),
+        "retrieval_mode": os.getenv("ASK_AI_RETRIEVAL_MODE", "auto").strip().lower(),
+        "vectorless_min_score": float(os.getenv("ASK_AI_VECTORLESS_MIN_SCORE", "2.0")),
         "min_confidence": float(os.getenv("ASK_AI_MIN_CONFIDENCE", "0.28")),
         "usage_log_path": os.getenv("ASK_AI_USAGE_LOG_PATH", "reports/ask_ai_usage.jsonl"),
         "feedback_log_path": os.getenv("ASK_AI_FEEDBACK_LOG_PATH", "reports/ask_ai_feedback.jsonl"),
@@ -321,6 +323,7 @@ def healthz() -> dict[str, Any]:
         "semantic_retrieval": _faiss_data is not None,
         "reranking": cfg["rerank_enabled"],
         "hybrid_search": cfg["hybrid_enabled"],
+        "retrieval_mode": cfg["retrieval_mode"],
         "hyde": cfg["hyde_enabled"],
         "embedding_cache": cfg["embed_cache_enabled"],
     }
@@ -340,6 +343,7 @@ async def ask(
     error_detail = ""
     warnings: list[str] = []
     citations: list[dict[str, Any]] = []
+    context: dict[str, Any] = {"retrieval_mode": "", "retrieval_fallback_used": False, "modules": []}
     confidence = 0.0
     matched_tokens = 0
     total_tokens = 0
@@ -383,6 +387,8 @@ async def ask(
             cache_enabled=config["embed_cache_enabled"],
             cache_ttl=config["embed_cache_ttl"],
             cache_max_size=config["embed_cache_max_size"],
+            retrieval_mode=config["retrieval_mode"],
+            vectorless_min_score=config["vectorless_min_score"],
         )
 
         citations = [
@@ -441,6 +447,8 @@ async def ask(
                     "plan": x_user_plan or "",
                     "citation_ids": [str(item.get("id", "")).strip() for item in citations if str(item.get("id", "")).strip()],
                     "warnings_count": len(warnings),
+                    "retrieval_mode": str(context.get("retrieval_mode", "")),
+                    "retrieval_fallback_used": bool(context.get("retrieval_fallback_used", False)),
                     "low_confidence": low_confidence,
                     "confidence": round(float(confidence), 4),
                     "matched_question_tokens": matched_tokens,

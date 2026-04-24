@@ -73,6 +73,8 @@ def _load_runtime_config() -> dict[str, Any]:
         "embed_cache_enabled": _bool_env("ASK_AI_EMBED_CACHE_ENABLED", True),
         "embed_cache_ttl": int(os.getenv("ASK_AI_EMBED_CACHE_TTL", "3600")),
         "embed_cache_max_size": int(os.getenv("ASK_AI_EMBED_CACHE_MAX_SIZE", "512")),
+        "retrieval_mode": os.getenv("ASK_AI_RETRIEVAL_MODE", "auto").strip().lower(),
+        "vectorless_min_score": float(os.getenv("ASK_AI_VECTORLESS_MIN_SCORE", "2.0")),
     }
 
 
@@ -206,6 +208,7 @@ def healthz() -> dict[str, Any]:
         "semantic_retrieval": _faiss_data is not None,
         "reranking": cfg["rerank_enabled"],
         "hybrid_search": cfg["hybrid_enabled"],
+        "retrieval_mode": cfg["retrieval_mode"],
         "hyde": cfg["hyde_enabled"],
         "embedding_cache": cfg["embed_cache_enabled"],
     }
@@ -258,6 +261,8 @@ async def ask(
         cache_enabled=config["embed_cache_enabled"],
         cache_ttl=config["embed_cache_ttl"],
         cache_max_size=config["embed_cache_max_size"],
+        retrieval_mode=config["retrieval_mode"],
+        vectorless_min_score=config["vectorless_min_score"],
     )
     answer = await _ask_provider(config, context)
 
