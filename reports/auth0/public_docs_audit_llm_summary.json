@@ -1,0 +1,57 @@
+{
+  "status": "ok",
+  "model": "claude-sonnet-4-5",
+  "analysis": {
+    "executive_summary": "Audit crawled 8,990 pages from Auth0 documentation (100% coverage of 9,211 in-scope pages). Identified 609 confirmed broken internal documentation links. API reference coverage stands at 50.31% across 3,203 detected API pages. SEO/geographic metadata issues affect 19.91% of pages. Only 31.9% of pages display last-updated timestamps, limiting freshness transparency.",
+    "strengths": [
+      "Complete crawl coverage achieved (100% of in-scope pages)",
+      "High crawl confidence at 95% with robust topology mapping",
+      "Example code reliability estimated at 85.12%",
+      "API page detection successful across 3,203 pages with no detection gaps",
+      "Large documentation footprint (8,990 pages) indicates comprehensive product coverage"
+    ],
+    "risks": [
+      "609 confirmed broken internal documentation links degrade user navigation and trust",
+      "1,039 links unverified due to authentication/rate-limiting; actual broken link count may be higher",
+      "API reference coverage at 50.31% leaves half of API surface without adequate usage documentation",
+      "SEO/geographic metadata issues on 19.91% of pages may reduce discoverability and international reach",
+      "Only 31.9% freshness visibility prevents users from assessing content currency",
+      "Overall documentation confidence at 66.28% indicates systemic quality concerns",
+      "Link verification confidence critically low at 31.95% due to large unverified set"
+    ],
+    "prioritized_actions": [
+      {
+        "action": "Fix all 609 confirmed broken internal documentation links",
+        "impact": "critical",
+        "effort": "medium"
+      },
+      {
+        "action": "Implement last-updated timestamps on remaining 68.1% of pages to reach 100% freshness visibility",
+        "impact": "high",
+        "effort": "low"
+      },
+      {
+        "action": "Expand API usage documentation to cover the missing 49.69% of 3,203 API pages",
+        "impact": "high",
+        "effort": "high"
+      },
+      {
+        "action": "Resolve SEO/geographic metadata issues affecting 19.91% of pages",
+        "impact": "high",
+        "effort": "medium"
+      },
+      {
+        "action": "Audit and verify the 1,039 authentication-blocked links to determine true broken link scope",
+        "impact": "medium",
+        "effort": "medium"
+      }
+    ],
+    "limitations": [
+      "1,039 links could not be verified due to authentication, rate-limiting, or server blocks; actual broken link count may differ",
+      "External audit cannot validate accuracy, completeness, or technical correctness of documentation content",
+      "Example code reliability is estimated through static analysis; runtime execution success not guaranteed",
+      "Crawl limited to public documentation; private/authenticated content areas not assessed",
+      "API coverage measures presence of usage docs, not quality, accuracy, or alignment with actual API behavior"
+    ]
+  }
+}

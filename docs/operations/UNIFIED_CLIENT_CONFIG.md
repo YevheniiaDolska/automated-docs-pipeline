@@ -596,6 +596,19 @@ When Ask AI runtime is enabled (`runtime.integrations.ask_ai.enabled=true`), cur
 - end-user feedback endpoint (`POST /api/v1/feedback`) and feedback log
   (`ASK_AI_FEEDBACK_LOG_PATH`, default `reports/ask_ai_feedback.jsonl`)
 
+Plain-language sequence:
+
+1. docs are cleaned and structured before AI retrieval (`knowledge preparation pipeline`)
+1. content is split into semantic modules with metadata (`knowledge modules`)
+1. quality gates run before indexing (`stale/broken-example/gap/terminology`)
+1. stale-check and contradiction-check run as separate controls
+1. critical contradictions are excluded from retrieval index
+1. index + knowledge graph are generated after hardening
+1. retrieval eval gate checks precision/recall/hallucination before production
+1. runtime uses retrieval-only context and low-confidence guardrail
+1. runtime returns contradiction warnings when critical modules are cited
+1. usage + feedback logs close the continuous quality loop
+
 Usage log record fields (JSONL):
 
 - `timestamp`

@@ -68,6 +68,31 @@ RAG differentiation value:
 - Lower false-positive relevance by prioritizing explicit entities before semantic similarity.
 - Stronger final ordering through graph-aware reranking over module relationships.
 
+## RAG Plain-Language Flow
+
+1. The pipeline does not feed raw docs directly to AI. It first cleans and structures them (`knowledge preparation pipeline`).
+1. Docs are split into semantic chunks with metadata: type, audience, source, and verification time (`knowledge modules`).
+1. Before indexing, quality gates check stale content, broken examples, gaps, and terminology consistency (`quality gates`).
+1. Stale and contradiction checks are separate controls:
+   - stale-check: "is this doc outdated?"
+   - contradiction-check: "do docs conflict right now?"
+1. Critically conflicting modules are excluded automatically from retrieval index (`critical-module exclusion from retrieval index`).
+1. After hardening, the system builds:
+   - retrieval index (`knowledge-retrieval-index.json`)
+   - knowledge graph (`knowledge-graph.jsonld`)
+1. Retrieval quality is measured before production with gate thresholds (`retrieval eval gate: precision/recall/hallucination`).
+1. At answer time, runtime uses retrieval-time RAG only; when confidence is low, it returns a safe fallback instead of guessing (`low-confidence guardrail`).
+1. If cited modules are in critical contradiction set, client receives warning in response (`runtime contradiction warnings`).
+1. Production signals are captured continuously: real questions, latency, citations, and helpful/not-helpful feedback (`usage log + feedback loop`).
+
+## Why This Is Competitive
+
+1. Many RAG products optimize retrieval over whatever docs they receive, but do not harden docs quality before indexing.
+1. This pipeline adds quality hardening before index build (`pre-index quality hardening`), which reduces confident wrong answers.
+1. It includes automatic stop-controls: stale-check, contradiction-check, retrieval eval gate, and low-confidence guardrail.
+1. It supports strict-local and air-gapped operation modes for regulated clients.
+1. It is not only a chat widget; it is a managed docs quality + RAG operating system (`docs-ops + RAG`).
+
 ## Prerequisites Ownership
 
 - Client side:
