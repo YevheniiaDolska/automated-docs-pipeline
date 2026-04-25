@@ -1,284 +1,68 @@
 ---
 title: "Upsell Sales Playbook"
-description: "A practical, high-conversion upsell playbook for moving VeriOps clients from pilot to rollout to retainer."
+description: "How to move clients from 21-day pilot to full rollout and retainer with clear technical boundaries."
 content_type: reference
 product: both
-last_reviewed: "2026-03-16"
+last_reviewed: "2026-04-25"
 tags:
   - Sales
-  - Upsell
   - Commercial
   - Operations
 ---
 
-# Upsell Sales Playbook
+# Upsell sales playbook
 
-## Current product definition (2026-03-25)
+## Current offer ladder
 
-This content follows the active implementation baseline:
+1. Pilot: `$5,000`, 21 days.
+1. Full implementation: `$15,000`.
+1. Optional RAG add-on: `$10,000`.
+1. Retainer: Lite `$1,500`, Growth `$3,000`, Critical `$6,000`.
 
-1. The platform is docs-first and also supports `code-first`, `api-first`, and `hybrid` modes.
-1. The smooth autopipeline covers all five API protocols (REST, GraphQL, gRPC, AsyncAPI, and WebSocket) in one operational model.
-1. Non-REST flow includes generated server stubs with business-logic placeholders.
-1. External mock sandbox resolution is integrated, with Postman-supported auto-prepare in external mode.
-1. Contract test assets are generated automatically and merged with smart-merge so manual/customized cases are preserved and flagged for review when needed.
-1. Knowledge/RAG maintenance, terminology sync, and quality/compliance gates run through the same automation surface when enabled.
-1. Plan tiers gate advanced capabilities; higher plans include broader non-REST and governance scope.
+## Upsell triggers
 
+Move from pilot to full when:
 
-This playbook is the operating system for expanding accounts with VeriOps.
-It is built around one commercial path:
+1. Client asks for stable weekly operation beyond pilot scope.
+1. Client needs all API-first chains in production scope.
+1. Client needs stricter governance and reliability.
 
-Pilot -> Full Rollout -> Monthly Retainer
+Move from full to full+RAG when:
 
-Use this document to qualify, position, propose, close, and expand with consistency.
+1. Client needs AI Q&A over docs with citations.
+1. Client wants stale/contradiction-safe retrieval behavior.
 
+Move from full/full+RAG to retainer when:
 
-## Non-API documentation flows (docs-first scope)
+1. Client needs predictable response time.
+1. Client wants ongoing optimization and reporting ownership.
 
-The platform is not limited to API-first automation. In active production usage, it also runs full docs-first and code-first documentation operations for non-API content:
+## Positioning script
 
-1. Detects content gaps, stale pages, and drift across product docs, runbooks, admin guides, troubleshooting, and release notes.
-1. Generates and updates documentation types beyond API references (tutorial, how-to, concept, reference, troubleshooting, release-note, security, SDK, user/admin, and operations docs).
-1. Applies normalization, style, metadata/frontmatter, SEO/GEO, terminology governance, and snippet validation to all documentation categories.
-1. Executes lifecycle controls (active/deprecated/removed states, replacement links, and freshness cadence).
-1. Runs knowledge extraction and retrieval preparation for all docs, not only API pages.
-1. Produces consolidated review artifacts so human input is focused on approval and business accuracy, not repetitive formatting and synchronization work.
+"Pilot proved value in one repository within 21 days. Full implementation turns that proof into repeatable production operations across your scope. If you also need AI answers with guardrails, add the RAG layer."
 
-## 1) Positioning in one sentence
+## Objection handling
 
-VeriOps turns documentation from manual overhead into a measurable operating system with quality gates, drift protection, and weekly automation.
+### "Can we stay on pilot setup only?"
 
-## 2) Ideal customer profile (ICP)
+Yes, but pilot scope is intentionally narrow. Full rollout is required for predictable production-level operation.
 
-Best-fit accounts usually have:
+### "Do we need RAG immediately?"
 
-- 20-500 engineering and product team members.
-- 1-5 active product repositories.
-- recurring release pressure and doc debt.
-- API, integration, or compliance-heavy workflows.
-- no stable owner for doc quality governance.
+No. Full implementation already prepares content for RAG. Retrieval-time RAG can be added later without rebuilding the whole foundation.
 
-Strong buying signals:
+### "Do we need retainer?"
 
-- docs are stale or inconsistent across teams.
-- support receives repeated "missing docs" tickets.
-- releases ship faster than documentation updates.
-- onboarding takes too long for new users or partners.
+Not always. Retainer is recommended when client needs active operational ownership and faster response guarantees.
 
-## 3) Expansion ladder and pricing anchors
+## Red lines
 
-### Stage A: Pilot (Entry)
+1. Do not promise full scope inside pilot price.
+1. Do not promise retrieval-time RAG inside base full package.
+1. Do not describe community/degraded mode as equivalent to paid full operation.
 
-- Price anchor: USD 5,000.
-- Duration: 10-14 calendar days.
-- Goal: prove measurable value in one real repository.
-- Core outcomes: working pipeline, first validated run, baseline KPI report, handoff session.
+## References
 
-### Stage B: Full Rollout
-
-- Price anchor: USD 12,000-25,000+.
-- Duration: 3-6 weeks.
-- Goal: production-grade implementation and team enablement.
-- Core outcomes: stricter gates, CI/scheduler operations, team training, final acceptance run.
-
-### Stage C: Retainer (SLA)
-
-- Lite: USD 1,500/month.
-- Growth: USD 3,000/month.
-- Critical: USD 6,000/month.
-- Goal: continuous optimization, risk control, and operational continuity.
-
-## 4) Upsell trigger matrix
-
-Use triggers to move the deal forward at the right moment.
-
-| Trigger | What it means | Recommended upsell |
-| --- | --- | --- |
-| Pilot KPI improvement confirmed | Buyer saw real value | Move to Full Rollout |
-| Team asks for multi-repo coverage | Scope outgrew pilot | Move to Full Rollout |
-| Compliance/risk concerns appear | Need stronger controls | Full Rollout + stricter policy pack |
-| Weekly run ownership unclear | Buyer needs operational support | Add Monthly Retainer |
-| New product team joins | Expansion opportunity | Add repo scope + retainer tier upgrade |
-
-## 5) Discovery call structure (20-30 min)
-
-### Agenda
-
-1. Current workflow and bottlenecks.
-1. Cost of poor documentation quality.
-1. Desired outcomes in 30-90 days.
-1. Buying process, stakeholders, timeline.
-1. Recommendation and next step.
-
-### Discovery questions
-
-- What breaks most often in your current docs process?
-- Which teams are most affected when docs lag behind releases?
-- How do you currently measure documentation quality and freshness?
-- What would make this initiative a clear win in 30 days?
-- If pilot succeeds, what internal process is needed for rollout approval?
-
-## 6) Qualification framework (simple MEDDICC-lite)
-
-- `Pain`: measurable documentation or release friction exists.
-- `Impact`: business impact is visible (support load, onboarding time, risk).
-- `Owner`: one accountable sponsor can drive decision.
-- `Decision`: buying process and timeline are defined.
-- `Expansion`: clear post-pilot path exists if outcomes are met.
-
-If 4 out of 5 are not met, keep the deal in nurture, not proposal.
-
-## 7) Core value messaging by stakeholder
-
-### Engineering leader
-
-- Fewer release blockers from docs drift.
-- Better API/documentation alignment.
-- Repeatable quality gates in CI.
-
-### Product leader
-
-- Faster feature adoption through cleaner docs.
-- Less launch friction across teams.
-- Clear KPI visibility for documentation health.
-
-### Support/operations leader
-
-- Fewer repetitive support escalations.
-- More stable knowledge base quality.
-- Predictable SLA-backed maintenance via retainer.
-
-## 8) Proposal architecture that converts
-
-Every proposal should include:
-
-1. Current-state summary in the buyer's words.
-1. Scope boundaries (included and excluded items).
-1. Delivery plan with explicit milestones.
-1. Acceptance criteria with measurable outputs.
-1. Commercial terms and payment schedule.
-1. Upsell map: what unlocks after pilot success.
-
-## 9) Pilot-to-rollout conversion script
-
-Use this script after successful pilot evidence review:
-
-"In 10-14 days we validated value in one repository. The next step is standardizing this across your production scope so outcomes are repeatable, not one-off. Full Rollout extends the same system to your broader environment with stricter gates, automation cadence, and team enablement. We recommend starting in the next two weeks while pilot context is fresh."
-
-## 10) Objection handling
-
-### "We need to think about budget."
-
-Response:
-"That makes sense. To keep risk low, we can sequence this in stages and tie spend to acceptance checkpoints. The pilot already reduced uncertainty; rollout is about scaling what is proven."
-
-### "Can we just stay on pilot setup?"
-
-Response:
-"You can, but pilot scope is intentionally limited. Without rollout, governance and multi-repo consistency stay fragile. Rollout is what converts a one-time setup into an operating capability."
-
-### "We don't need a retainer."
-
-Response:
-"If your team has stable ownership and time capacity, retainer may be optional. Most teams choose at least Lite or Growth to avoid quality regression and preserve KPI momentum."
-
-## 11) Closing framework
-
-Use a 3-step close:
-
-1. Reconfirm business outcomes and acceptance criteria.
-1. Confirm scope, timeline, and stakeholders in writing.
-1. Lock commercial terms and kickoff date.
-
-Close question:
-"If we keep scope exactly as agreed and start on <date>, are you ready to approve this rollout this week?"
-
-## 12) Post-sale expansion playbook
-
-Expansion opportunities to review every 30-45 days:
-
-- Add additional repositories.
-- Upgrade policy pack strictness.
-- Add API-first/hybrid implementation layers.
-- Add RAG/retrieval evaluation support.
-- Move Lite -> Growth -> Critical retainer as usage grows.
-
-## 13) KPIs for sales and expansion
-
-Track these metrics monthly:
-
-- pilot-to-rollout conversion rate,
-- average days from pilot finish to rollout signature,
-- rollout-to-retainer attach rate,
-- average expansion revenue per account,
-- churn and downgrade rate by retainer tier.
-
-## 14) Execution rhythm
-
-### Weekly
-
-- Review pipeline outcomes and open risks.
-- Identify new triggers for expansion.
-- Prepare one concrete upsell action per account.
-
-### Monthly
-
-- Hold value review with sponsor.
-- Present KPI delta and risk map.
-- Propose next-scope expansion with timeline and price.
-
-## 15) Non-negotiables
-
-- No vague scope in proposals.
-- No rollout without pilot evidence or equivalent diagnostics.
-- No retainer promises without explicit SLA boundaries.
-- No discounting without a justified tradeoff (scope, term, or payment structure).
-
-## 16) Quick-use checklist
-
-Before sending a proposal:
-
-1. [ ] ICP fit validated.
-1. [ ] Discovery notes documented.
-1. [ ] Trigger for current upsell stage confirmed.
-1. [ ] Acceptance criteria are measurable.
-1. [ ] Commercial terms are clear and consistent.
-1. [ ] Next-step date is agreed with buyer.
-
-## Related documents
-
-| Document | Use case |
-| --- | --- |
-| `US_COMMERCIAL_ONE_PAGER.md` | Offer structure and baseline terms |
-| `PILOT_WEEK_OFFER.md` | Pilot scope and deliverables |
-| `PRICING_STRATEGY_REVISED.md` | Strategic pricing logic |
-| `PRICING_CHEATSHEET_RU.md` | Internal RU pricing notes |
-
-## Next steps
-
-- [Documentation index](../index.md)
-
-## Implementation status (2026-03-25)
-
-This document is aligned to the current production implementation baseline.
-
-Current baseline:
-
-1. The platform is docs-first and also supports `code-first`, `api-first`, and `hybrid` flows.
-1. REST and non-REST protocols are supported in one automation model: REST, GraphQL, gRPC, AsyncAPI, and WebSocket.
-1. Non-REST automation includes server stubs with business-logic placeholders.
-1. External mock sandbox resolution is integrated into the smooth autopipeline, including Postman-supported auto-prepare mode.
-1. Contract test assets are generated automatically and merged with smart-merge rules so manual/customized cases are preserved.
-1. Knowledge/RAG tasks run as part of automation when enabled (module extraction, validation, retrieval index, graph, evals).
-1. Plan gating is enforced by configuration and policy packs; advanced non-REST automation is reserved for higher plans.
-
-Canonical execution order reference:
-
-- `docs/operations/CANONICAL_FLOW.md`
-- `docs/operations/UNIFIED_CLIENT_CONFIG.md`
-- `README.md`
-
-Commercial note:
-
-- Where commercial packaging is discussed, recurring service terms (retainer/licensing) are part of the active go-to-market model.
+- `PILOT_WEEK_OFFER.md`
+- `PILOT_VS_FULL_IMPLEMENTATION.md`
+- `docs/operations/PLAN_TIERS.md`

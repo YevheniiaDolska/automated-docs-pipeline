@@ -1,152 +1,44 @@
-# Pilot service proposal (10-14 days)
+# Pilot service proposal (21 days)
 
-## Current product definition (2026-03-25)
+This document is the external-facing commercial summary for the VeriOps pilot.
 
-This content follows the active implementation baseline:
+## Offer
 
-1. The platform is docs-first and also supports `code-first`, `api-first`, and `hybrid` modes.
-1. The smooth autopipeline covers all five API protocols (REST, GraphQL, gRPC, AsyncAPI, and WebSocket) in one operational model.
-1. Non-REST flow includes generated server stubs with business-logic placeholders.
-1. External mock sandbox resolution is integrated, with Postman-supported auto-prepare in external mode.
-1. Contract test assets are generated automatically and merged with smart-merge so manual/customized cases are preserved and flagged for review when needed.
-1. Knowledge/RAG maintenance, terminology sync, and quality/compliance gates run through the same automation surface when enabled.
-1. Plan tiers gate advanced capabilities; higher plans include broader non-REST and governance scope.
-
-
-
-## Non-API documentation flows (docs-first scope)
-
-The platform is not limited to API-first automation. In active production usage, it also runs full docs-first and code-first documentation operations for non-API content:
-
-1. Detects content gaps, stale pages, and drift across product docs, runbooks, admin guides, troubleshooting, and release notes.
-1. Generates and updates documentation types beyond API references (tutorial, how-to, concept, reference, troubleshooting, release-note, security, SDK, user/admin, and operations docs).
-1. Applies normalization, style, metadata/frontmatter, SEO/GEO, terminology governance, and snippet validation to all documentation categories.
-1. Executes lifecycle controls (active/deprecated/removed states, replacement links, and freshness cadence).
-1. Runs knowledge extraction and retrieval preparation for all docs, not only API pages.
-1. Produces consolidated review artifacts so human input is focused on approval and business accuracy, not repetitive formatting and synchronization work.
-
-## What you get
-
-This pilot is a focused 10-14 calendar day engagement (typically 5-10 business days) that installs the VeriOps on your real repository and delivers measurable results. This is not a demo. You receive a working system, generated documentation, and data that proves the value.
-
-## Commercial package (fixed)
-
-- Pilot price: **$5,000**.
-- Pilot duration: **10-14 calendar days**.
-- Next step after successful pilot: **Full implementation for $15,000**.
-- After full implementation: optional monthly retainer.
+- Price: `$5,000`.
+- Duration: 21 calendar days.
+- Scope: one repository, measurable proof in production-like flow.
 
 ## Deliverables
 
-### 1. Configured pipeline
+1. Installed and configured docs pipeline in client repository.
+1. One completed docs generation cycle from free-form intent.
+1. One completed API-first flow from planning notes.
+1. Quality gates and reports validated.
+1. Team handoff with run instructions.
 
-The pipeline is installed and configured in your repository with:
+## Success criteria
 
-- Quality gates active in CI (markdownlint, frontmatter validation, SEO/GEO checks, code example smoke tests).
-- `minimal.yml` policy pack with relaxed thresholds for initial adoption.
-- `docs/_variables.yml` populated with your product information.
-- 3-5 templates customized for your product and content model.
+1. Pipeline runs end-to-end without manual patching in bundle.
+1. Generated artifacts pass configured gates.
+1. Team can run weekly flow independently.
+1. GO/NO-GO report is ready for rollout decision.
 
-### 2. First consolidated report processed
+## After pilot
 
-The consolidated report merges gap detection, KPI data, and staleness analysis into one prioritized document. It identifies:
+- Full implementation: `$15,000` one-time.
+- Optional RAG add-on: `$10,000` one-time.
+- Retainer options after implementation: `$1,500`, `$3,000`, `$6,000` monthly.
 
-- Missing documentation ranked by business impact.
-- Stale pages that need updating.
-- Quality issues across existing documentation.
-- SEO/GEO optimization opportunities.
+## Service states
 
-### 3. Generated documentation (5-10 pages)
-
-Claude Code processes the consolidated report and generates 5-10 documents from the highest-priority items. Each document:
-
-- Uses a pre-validated template from the 31-template library.
-- References shared variables (no hardcoded product names, URLs, or ports).
-- Passes all 8-stage quality pipeline (Vale, markdownlint, cspell, frontmatter, SEO/GEO, contract, drift).
-- Includes self-verified code examples and fact-checked assertions.
-
-### 4. Before/after KPI comparison
-
-Baseline measurements are captured at kickoff and final measurements are captured at handoff:
-
-- Documentation quality score.
-- Stale documentation percentage.
-- High-priority gap count.
-- Metadata completeness.
-
-### 5. Team training
-
-A 60-90 minute session covering:
-
-- How to create documentation from templates.
-- How to run local validation (`npm run validate:minimal`).
-- How to read the consolidated report.
-- How to use Claude Code with the pipeline instructions.
-
-## What happens after the pilot
-
-If you proceed to full implementation, the pilot foundation stays. You switch to a stricter policy pack, enable all CI gates, and customize all templates. Nothing is thrown away.
-
-Full implementation package (fixed): **$15,000** for production rollout and hardening.
-
-If you stop after the pilot, you keep everything: CI checks, templates, analysis scripts, and the baseline report. The quality gates continue enforcing standards on every pull request.
-
-## What is not included in pilot
-
-- Multi-repository rollout.
-- Custom module development from scratch.
-- 24/7 support SLA.
-- Organization-wide change management and long-term optimization.
-
-## Pilot / expiry / full matrix
-
-| State | What works | What is limited |
-| --- | --- | --- |
-| Pilot active ($5,000) | Pilot deliverables, core gates, weekly cycle in pilot scope | Multi-repo and full rollout scope are not included |
-| Pilot expired (without full upgrade) | Client keeps delivered docs/templates/assets | Advanced licensed capabilities degrade after grace period |
-| Full implementation ($15,000) | Full production rollout scope and hardening | No pilot scope limits |
-
-## Timeline
-
-| Phase | Focus |
+| State | Included |
 | --- | --- |
-| Kickoff (Days 1-2) | Install pipeline, capture baseline, configure variables |
-| Build (Days 3-6) | Customize templates, enable core quality gate, run first consolidation |
-| Hardening (Days 7-10) | Generate/fix priority docs, run validations, stabilize outputs |
-| Handoff (Days 11-14) | Final measurement, team training, handoff |
+| Pilot active | 21-day pilot scope and support |
+| Full implementation | Full non-RAG production rollout |
+| Full + RAG | Full rollout plus retrieval-time RAG layer |
+| Community/degraded mode | Baseline free lint defaults only |
 
-## Next step
+## Notes
 
-Book a 15-20 minute discovery call to confirm fit, repository prerequisites, and pilot success criteria before kickoff.
-
-## Related guides
-
-| Guide | What it covers |
-| --- | --- |
-| `PILOT_START_HERE.md` | Step-by-step self-serve pilot instructions |
-| `PILOT_VS_FULL_IMPLEMENTATION.md` | Comparison of pilot vs full rollout |
-| `PRICING_STRATEGY_REVISED.md` | Pricing model and packages |
-
-## Implementation status (2026-03-25)
-
-This document is aligned to the current production implementation baseline.
-
-Current baseline:
-
-1. The platform is docs-first and also supports `code-first`, `api-first`, and `hybrid` flows.
-1. REST and non-REST protocols are supported in one automation model: REST, GraphQL, gRPC, AsyncAPI, and WebSocket.
-1. Non-REST automation includes server stubs with business-logic placeholders.
-1. External mock sandbox resolution is integrated into the smooth autopipeline, including Postman-supported auto-prepare mode.
-1. Contract test assets are generated automatically and merged with smart-merge rules so manual/customized cases are preserved.
-1. Knowledge/RAG tasks run as part of automation when enabled (module extraction, validation, retrieval index, graph, evals).
-1. Plan gating is enforced by configuration and policy packs; advanced non-REST automation is reserved for higher plans.
-
-Canonical execution order reference:
-
-- `docs/operations/CANONICAL_FLOW.md`
-- `docs/operations/UNIFIED_CLIENT_CONFIG.md`
-- `README.md`
-
-Commercial note:
-
-- Where commercial packaging is discussed, recurring service terms (retainer/licensing) are part of the active go-to-market model.
+- Setup starts in one day after prerequisites are available.
+- Pilot is designed to reduce commercial risk before wider rollout.

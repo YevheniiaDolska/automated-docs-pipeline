@@ -1,186 +1,50 @@
 ---
-title: "VeriOps quick start"
-description: "Set up the VeriOps in minutes, run gap analysis, and generate documentation with validation-ready commands."
-content_type: tutorial
+title: "Quick start"
+description: "Fast local start for onboarding, wizard setup, autopipeline run, and validation commands."
+content_type: how-to
 product: both
+last_reviewed: "2026-04-25"
 tags:
-  - Tutorial
-  - AI
-last_reviewed: "2026-03-07"
+  - Setup
+  - Quickstart
 ---
 
-# Quick start (5 minutes)
+# Quick start (15 minutes)
 
-This tutorial shows you how to install the VeriOps, enable smooth weekly automation,
-and produce docs updates that pass validation checks.
-
-## Prerequisites
-
-Verify these are installed:
+## Install
 
 ```bash
-node --version   # 18+ required
-python3 --version  # 3.11+ required
-git --version
-```
-
-If anything is missing:
-
-- Node.js: [Download Node.js](https://nodejs.org/)
-- Python: [Download Python](https://www.python.org/downloads/)
-- Git: [Install Git](https://git-scm.com/)
-
-## Step 1: Clone and install
-
-```bash
-git clone <repo-url>
-cd "VeriOps"
+python3 -m pip install -r requirements.txt
 npm install
-pip install -r requirements.txt
 ```
 
-On Windows, use `py -3 -m pip install -r requirements.txt` if `pip` is not on PATH.
-
-## Step 2: Recommended weekly automation (no manual weekly commands)
-
-Use one of these setup modes.
-
-Same machine mode (you have direct access to client repo path):
+## Onboard client locally
 
 ```bash
-python3 scripts/provision_client_repo.py \
-  --client profiles/clients/blockstream-demo.client.yml \
-  --client-repo /path/to/client-repo \
-  --docsops-dir docsops \
-  --install-scheduler linux
+python3 scripts/onboard_client.py --mode install-local
+python3 docsops/scripts/setup_client_env_wizard.py
 ```
 
-Different laptops mode (you build, client installs):
+## Run full autopipeline once
 
 ```bash
-python3 scripts/build_client_bundle.py --client profiles/clients/blockstream-demo.client.yml
+python3 scripts/run_autopipeline.py --docsops-root docsops --reports-dir reports --auto-generate
 ```
 
-Then copy `generated/client_bundles/blockstream-demo/` into client repo as `docsops/`.
-Client installs local scheduler:
+## Validate
 
 ```bash
-bash docsops/ops/install_cron_weekly.sh
+npm run lint
+python3 scripts/validate_knowledge_modules.py
+python3 scripts/generate_knowledge_retrieval_index.py
 ```
 
-Windows:
+## Read next
 
-```bash
-powershell -ExecutionPolicy Bypass -File docsops/ops/install_windows_task.ps1
-```
-
-Scheduler uses local machine timezone, so Monday morning is interpreted in client local time when installed on client laptop.
-After install, weekly `reports/consolidated_report.json` is generated automatically by `docsops/scripts/run_weekly_gap_batch.py`.
-
-New baseline included in weekly run:
-
-- automatic multi-language tabs generation for code examples
-- multi-language tabs validation (`curl` + `javascript` + `python`)
-- smoke execution with optional `expected-output` checks on tagged blocks
-- retrieval quality evals (`precision/recall/hallucination-rate`)
-- lightweight JSON-LD knowledge graph generation
-- glossary marker sync into `glossary.yml` (`sync_project_glossary.py`)
-- API-first advanced controls when configured:
-  - manual OpenAPI overrides apply
-  - regression snapshot gate for contract drift
-
-## Step 3: Generate the consolidated report now (optional immediate run)
-
-```bash
-npm run consolidate
-```
-
-This runs gap analysis, builds the KPI wall, evaluates SLA compliance, and merges everything into `reports/consolidated_report.json`.
-
-To regenerate only the consolidated file from existing reports:
-
-```bash
-npm run consolidate:reports-only
-```
-
-## Step 4: Process with Claude Code
-
-Open Claude Code in the project directory and give it the report:
-
-```text
-Process reports/consolidated_report.json
-```
-
-Claude Code reads the consolidated report, identifies documentation gaps, and generates or updates Markdown files in `docs/` following `CLAUDE.md`.
-If a required doc type has no template, it creates a new template first and then generates docs from that template.
-
-## Step 5: Review and commit
-
-Check what changed:
-
-```bash
-git diff docs/
-```
-
-Validate the generated documentation:
-
-```bash
-npm run validate:minimal
-```
-
-If everything passes, commit:
-
-```bash
-git add docs/ mkdocs.yml
-git commit -m "docs: generate documentation from gap analysis"
-```
-
-## Optional: Ask AI module (beginner setup)
-
-If a client wants Ask AI configuration support, use these commands:
-
-```bash
-npm run askai:status
-npm run askai:enable
-npm run askai:configure -- --provider openai --billing-mode user-subscription
-```
-
-If the client does not need Ask AI, keep it disabled:
-
-```bash
-npm run askai:disable
-```
-
-If the client asks for a live Ask AI runtime (endpoint + widget), install it:
-
-```bash
-npm run askai:runtime:install
-```
-
-## What each command does
-
-| Command | Purpose |
-| --- | --- |
-| `npm run consolidate` | Run all analyses and merge into one report |
-| `npm run validate:minimal` | Fast lint check (markdownlint, frontmatter, GEO, examples) |
-| `npm run validate:full` | Full lint check including e2e and golden tests |
-| `npm run serve` | Preview docs site locally (auto-detects MkDocs or Docusaurus) |
-| `npm run lint` | Run all individual linters (Vale, markdownlint, cspell, GEO) |
-| `npm run askai:status` | Show Ask AI module configuration |
-| `npm run askai:enable` | Enable Ask AI module |
-| `npm run askai:disable` | Disable Ask AI module |
-| `npm run askai:runtime:install` | Install Ask AI runtime pack in current repo |
-| `npm run gaps` | Run gap analysis only |
-| `npm run kpi-wall` | Generate KPI dashboard |
+- `README.md`
+- `SETUP_GUIDE.md`
+- `USER_GUIDE.md`
 
 ## Next steps
 
-| Goal | Guide |
-| --- | --- |
-| Understand all features | [README](./README.md) |
-| Full setup with troubleshooting | [Setup guide](./README_SETUP.md) |
-| Install into another repository | [Setup for projects](./SETUP_FOR_PROJECTS.md) |
-| Configure all client keys | [Unified client config](./docs/operations/UNIFIED_CLIENT_CONFIG.md) |
-| Apply Basic/Pro/Enterprise plans | [Plan tiers](./docs/operations/PLAN_TIERS.md) |
-| Customize for a company | [Customization guide](./CUSTOMIZATION_PER_COMPANY.md) |
-| Windows setup from scratch | [Beginner guide](./BEGINNER_GUIDE.md) |
+- [Documentation index](../index.md)
