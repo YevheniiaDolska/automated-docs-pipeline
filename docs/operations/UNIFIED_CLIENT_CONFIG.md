@@ -585,6 +585,11 @@ Result:
 When Ask AI runtime is enabled (`runtime.integrations.ask_ai.enabled=true`), current runtime supports:
 
 - semantic retrieval context (FAISS/hybrid/rerank/HyDE/cache according to runtime config)
+- retrieval mode auto-router (`ASK_AI_RETRIEVAL_MODE=auto|hybrid|vectorless|semantic|token`)
+- vectorless structural retrieval (no embeddings required for this branch)
+- query decomposition for multi-hop questions with evidence fusion
+- entity-first retrieval (entity extraction + pre-ranking before main retrieval path)
+- graph rerank layer to boost strongly connected knowledge modules
 - low-confidence guardrail (`ASK_AI_MIN_CONFIDENCE`) with safe fallback answer
 - contradiction warnings in API response (`warnings[]`) when cited modules intersect critical contradiction IDs
 - usage telemetry log (`ASK_AI_USAGE_LOG_PATH`, default `reports/ask_ai_usage.jsonl`)
@@ -610,6 +615,12 @@ Recommended runtime env defaults:
 
 ```bash
 ASK_AI_MIN_CONFIDENCE=0.28
+ASK_AI_RETRIEVAL_MODE=auto
+ASK_AI_VECTORLESS_MIN_SCORE=2.0
+ASK_AI_GRAPH_RERANK_ENABLED=true
+ASK_AI_GRAPH_RERANK_BOOST=0.35
+ASK_AI_QUERY_DECOMP_ENABLED=true
+ASK_AI_ENTITY_FIRST_ENABLED=true
 ASK_AI_CONTRADICTIONS_REPORT_PATH=reports/rag_contradictions_report.json
 ASK_AI_USAGE_LOG_PATH=reports/ask_ai_usage.jsonl
 ASK_AI_FEEDBACK_LOG_PATH=reports/ask_ai_feedback.jsonl

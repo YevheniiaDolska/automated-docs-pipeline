@@ -75,6 +75,10 @@ def _load_runtime_config() -> dict[str, Any]:
         "embed_cache_max_size": int(os.getenv("ASK_AI_EMBED_CACHE_MAX_SIZE", "512")),
         "retrieval_mode": os.getenv("ASK_AI_RETRIEVAL_MODE", "auto").strip().lower(),
         "vectorless_min_score": float(os.getenv("ASK_AI_VECTORLESS_MIN_SCORE", "2.0")),
+        "graph_rerank_enabled": _bool_env("ASK_AI_GRAPH_RERANK_ENABLED", True),
+        "graph_rerank_boost": float(os.getenv("ASK_AI_GRAPH_RERANK_BOOST", "0.35")),
+        "query_decomp_enabled": _bool_env("ASK_AI_QUERY_DECOMP_ENABLED", True),
+        "entity_first_enabled": _bool_env("ASK_AI_ENTITY_FIRST_ENABLED", True),
     }
 
 
@@ -209,6 +213,9 @@ def healthz() -> dict[str, Any]:
         "reranking": cfg["rerank_enabled"],
         "hybrid_search": cfg["hybrid_enabled"],
         "retrieval_mode": cfg["retrieval_mode"],
+        "graph_rerank": cfg["graph_rerank_enabled"],
+        "query_decomposition": cfg["query_decomp_enabled"],
+        "entity_first": cfg["entity_first_enabled"],
         "hyde": cfg["hyde_enabled"],
         "embedding_cache": cfg["embed_cache_enabled"],
     }
@@ -263,6 +270,10 @@ async def ask(
         cache_max_size=config["embed_cache_max_size"],
         retrieval_mode=config["retrieval_mode"],
         vectorless_min_score=config["vectorless_min_score"],
+        graph_rerank_enabled=config["graph_rerank_enabled"],
+        graph_rerank_boost=config["graph_rerank_boost"],
+        query_decomp_enabled=config["query_decomp_enabled"],
+        entity_first_enabled=config["entity_first_enabled"],
     )
     answer = await _ask_provider(config, context)
 

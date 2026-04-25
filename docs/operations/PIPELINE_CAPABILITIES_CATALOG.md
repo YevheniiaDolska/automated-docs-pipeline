@@ -37,6 +37,11 @@ RAG is implemented as a two-layer system:
 - Retrieval-time runtime layer (included in `full+rag`):
   - Ask AI runtime API and widget
   - semantic retrieval (FAISS) with hybrid/rerank/HyDE/cache options
+  - auto-routing retrieval mode (`auto|hybrid|vectorless|semantic|token`)
+  - vectorless structural retrieval for high-structure docs and precise fact navigation
+  - query decomposition (multi-hop question split into 2-3 subqueries + evidence fusion)
+  - entity-first retrieval (endpoint/version/feature-flag/entity prefilter before main ranking)
+  - graph rerank layer (lightweight module-link propagation on dependencies/tags/topic)
   - runtime confidence guardrail (low-confidence safe response)
   - contradiction warning propagation to client response
   - usage logging and end-user feedback logging
@@ -55,6 +60,13 @@ Operational meaning by plan:
 - `community/pilot`: no advanced RAG capabilities in default autopipeline.
 - `professional/full`: full docs-ops + RAG preparation (everything except retrieval-time RAG).
 - `enterprise/full+rag`: same as `full` plus retrieval-time Ask AI runtime with RAG.
+
+RAG differentiation value:
+
+- Better precision on structured enterprise docs without replacing hybrid retrieval.
+- More robust multi-hop answers by combining evidence from decomposed subqueries.
+- Lower false-positive relevance by prioritizing explicit entities before semantic similarity.
+- Stronger final ordering through graph-aware reranking over module relationships.
 
 ## Prerequisites Ownership
 

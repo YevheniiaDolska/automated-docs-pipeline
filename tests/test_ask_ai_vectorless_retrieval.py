@@ -60,6 +60,7 @@ def test_auto_mode_prefers_vectorless_for_structured_change_query(runtime_root: 
         faiss_data=None,
         retrieval_mode="auto",
         vectorless_min_score=1.0,
+        graph_rerank_enabled=False,
     )
 
     assert context["retrieval_mode"] == "vectorless"
@@ -97,6 +98,7 @@ def test_auto_mode_falls_back_to_token_when_vectorless_signal_is_low(runtime_roo
         faiss_data=None,
         retrieval_mode="auto",
         vectorless_min_score=999.0,
+        graph_rerank_enabled=False,
     )
 
     assert context["retrieval_mode"] == "token"
@@ -129,3 +131,152 @@ def test_runtime_config_supports_local_hybrid_cloud_modes(
     assert cfg["base_url"] == expected_base
     assert cfg["retrieval_mode"] == "auto"
     assert cfg["hybrid_enabled"] is True
+    assert cfg["graph_rerank_enabled"] is True
+    assert cfg["query_decomp_enabled"] is True
+    assert cfg["entity_first_enabled"] is True
+
+
+@pytest.mark.parametrize(
+    "runtime_root",
+    [
+        ROOT / "ask-ai-runtime",
+        ROOT / "runtime" / "ask-ai-pack",
+    ],
+)
+def test_query_decomposition_combines_evidence_from_multiple_subqueries(runtime_root: Path) -> None:
+    retrieval = _import_runtime_module(runtime_root, "app.retrieval")
+    modules = [
+        {
+            "id": "billing-rules",
+            "title": "Billing rules",
+            "summary": "Invoice and payment policies.",
+            "heading": "Billing",
+            "url": "/reference/billing",
+            "tags": ["billing"],
+            "priority": 2,
+            "assistant_excerpt": "Invoice generation.",
+        },
+        {
+            "id": "auth-rules",
+            "title": "Authentication policy",
+            "summary": "SSO and token authentication.",
+            "heading": "Auth",
+            "url": "/reference/auth",
+            "tags": ["security", "auth"],
+            "priority": 2,
+            "assistant_excerpt": "SSO setup and token scopes.",
+        },
+    ]
+
+    context = retrieval.build_context(
+        "show billing and authentication requirements",
+        modules,
+        max_context_modules=3,
+        faiss_data=None,
+        retrieval_mode="token",
+        query_decomp_enabled=True,
+        graph_rerank_enabled=False,
+        entity_first_enabled=False,
+    )
+
+    ids = [m["id"] for m in context["modules"]]
+    assert "billing-rules" in ids
+    assert "auth-rules" in ids
+
+
+@pytest.mark.parametrize(
+    "runtime_root",
+    [
+        ROOT / "ask-ai-runtime",
+        ROOT / "runtime" / "ask-ai-pack",
+    ],
+)
+def test_entity_first_boosts_endpoint_specific_module(runtime_root: Path) -> None:
+    retrieval = _import_runtime_module(runtime_root, "app.retrieval")
+    modules = [
+        {
+            "id": "generic-auth",
+            "title": "Authentication overview",
+            "summary": "General auth model.",
+            "heading": "Overview",
+            "url": "/concepts/auth",
+            "tags": ["auth"],
+            "priority": 3,
+            "assistant_excerpt": "General authentication concepts.",
+        },
+        {
+            "id": "endpoint-auth",
+            "title": "POST /v1/payments endpoint auth",
+            "summary": "Auth requirements for /v1/payments",
+            "heading": "Endpoint auth",
+            "url": "/reference/post-v1-payments",
+            "tags": ["api", "endpoint"],
+            "priority": 1,
+            "assistant_excerpt": "Use Bearer token for /v1/payments.",
+        },
+    ]
+
+    context = retrieval.build_context(
+        "auth for POST /v1/payments endpoint",
+        modules,
+        max_context_modules=2,
+        faiss_data=None,
+        retrieval_mode="token",
+        entity_first_enabled=True,
+        graph_rerank_enabled=False,
+    )
+
+    assert context["modules"]
+    assert context["modules"][0]["id"] == "endpoint-auth"
+
+
+@pytest.mark.parametrize(
+    "runtime_root",
+    [
+        ROOT / "ask-ai-runtime",
+        ROOT / "runtime" / "ask-ai-pack",
+    ],
+)
+def test_graph_rerank_promotes_dependency_neighbor(runtime_root: Path) -> None:
+    retrieval = _import_runtime_module(runtime_root, "app.retrieval")
+    modules = [
+        {
+            "id": "seed",
+            "title": "Webhook auth setup",
+            "summary": "Configure webhook authentication.",
+            "heading": "Webhook auth",
+            "url": "/how-to/webhook-auth",
+            "tags": ["webhook", "auth"],
+            "priority": 2,
+            "assistant_excerpt": "Configure signatures.",
+            "dependencies": ["dep"],
+        },
+        {
+            "id": "dep",
+            "title": "Webhook signature verification",
+            "summary": "Verify signatures and replay attack protections.",
+            "heading": "Signature verification",
+            "url": "/reference/webhook-signature",
+            "tags": ["webhook", "security"],
+            "priority": 1,
+            "assistant_excerpt": "Validate signature header.",
+            "dependencies": [],
+        },
+    ]
+
+    context = retrieval.build_context(
+        "configure webhook auth",
+        modules,
+        max_context_modules=2,
+        faiss_data=None,
+        retrieval_mode="token",
+        query_decomp_enabled=False,
+        entity_first_enabled=False,
+        graph_rerank_enabled=True,
+        graph_rerank_boost=0.9,
+    )
+
+    assert context["retrieval_mode"].endswith("+graph")
+    ids = [m["id"] for m in context["modules"]]
+    assert "seed" in ids
+    assert "dep" in ids
