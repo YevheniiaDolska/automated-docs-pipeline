@@ -27,6 +27,8 @@ logger = logging.getLogger(__name__)
 
 _PBKDF2_ITERATIONS = 260_000
 _SALT_LENGTH = 32
+_JWT_ISSUER = os.environ.get("VERIDOC_JWT_ISSUER", "veridoc-api")
+_JWT_AUDIENCE = os.environ.get("VERIDOC_JWT_AUDIENCE", "veridoc-clients")
 
 
 def hash_password(password: str) -> str:
@@ -93,6 +95,8 @@ def create_access_token(
         "iat": now,
         "exp": now + timedelta(minutes=expires_minutes),
         "jti": secrets.token_hex(16),
+        "iss": _JWT_ISSUER,
+        "aud": _JWT_AUDIENCE,
     }
     if extra_claims:
         claims.update(extra_claims)
@@ -105,7 +109,14 @@ def decode_access_token(token: str, secret_key: str) -> dict[str, Any]:
     Raises jwt.InvalidTokenError on failure.
     """
     jwt = _get_jwt()
-    return jwt.decode(token, secret_key, algorithms=["HS256"])
+    return jwt.decode(
+        token,
+        secret_key,
+        algorithms=["HS256"],
+        issuer=_JWT_ISSUER,
+        audience=_JWT_AUDIENCE,
+        options={"require": ["sub", "exp", "iat", "jti", "iss", "aud"]},
+    )
 
 
 # ---------------------------------------------------------------------------

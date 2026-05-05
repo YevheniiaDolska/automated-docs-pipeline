@@ -479,7 +479,7 @@ class TestBilling:
         from gitspeak_core.api.billing import verify_webhook_signature
 
         # With no secret, returns True (dev mode)
-        assert verify_webhook_signature(b"test", "sig", "") is True
+        assert verify_webhook_signature(b"test", "sig", "") is False
 
     def test_referral_attribution_and_recurring_commission(self, db_session):
         from gitspeak_core.api.auth import RegisterRequest, handle_register

@@ -15,10 +15,12 @@ TOKEN_PATTERN = re.compile(r"[a-z0-9]{2,}", flags=re.IGNORECASE)
 
 
 def _tokenize(text: str) -> set[str]:
+    """Internal helper for `_tokenize`."""
     return {token.lower() for token in TOKEN_PATTERN.findall(text or "")}
 
 
 def _score_token_overlap(query: str, record: dict[str, Any]) -> float:
+    """Internal helper for `_score_token_overlap`."""
     q_tokens = _tokenize(query)
     if not q_tokens:
         return 0.0
@@ -42,11 +44,13 @@ def _score_token_overlap(query: str, record: dict[str, Any]) -> float:
 
 
 def _read_json(path: Path) -> Any:
+    """Internal helper for `_read_json`."""
     payload = json.loads(path.read_text(encoding="utf-8"))
     return payload
 
 
 def load_ask_ai_config(repo_root: Path) -> dict[str, Any]:
+    """Execute `load_ask_ai_config` workflow."""
     cfg_path = repo_root / "config" / "ask-ai.yml"
     if not cfg_path.exists():
         return {
@@ -65,6 +69,7 @@ def load_ask_ai_config(repo_root: Path) -> dict[str, Any]:
 
 
 def load_retrieval_index(repo_root: Path, ask_ai_cfg: dict[str, Any]) -> list[dict[str, Any]]:
+    """Execute `load_retrieval_index` workflow."""
     index_path = Path(str(ask_ai_cfg.get("knowledge_index_path", "docs/assets/knowledge-retrieval-index.json")))
     if not index_path.is_absolute():
         index_path = (repo_root / index_path).resolve()
@@ -83,6 +88,7 @@ def load_retrieval_index(repo_root: Path, ask_ai_cfg: dict[str, Any]) -> list[di
 
 
 def infer_user_roles(user: dict[str, Any]) -> set[str]:
+    """Execute `infer_user_roles` workflow."""
     roles = {"user"}
     if bool(user.get("is_superuser", False)):
         roles.update({"admin", "support"})
@@ -101,6 +107,7 @@ def _record_allowed_by_acl(
     user_roles: set[str],
     allowed_source_sites: set[str],
 ) -> bool:
+    """Internal helper for `_record_allowed_by_acl`."""
     metadata = record.get("metadata", {}) if isinstance(record.get("metadata"), dict) else {}
 
     source_site = str(record.get("source_site") or metadata.get("source_site") or "").strip().lower()
@@ -134,6 +141,7 @@ def search_retrieval_index(
     allowed_source_sites: set[str],
     top_k: int = 5,
 ) -> tuple[list[dict[str, Any]], int]:
+    """Execute `search_retrieval_index` workflow."""
     ranked: list[tuple[float, dict[str, Any]]] = []
     blocked = 0
     for row in rows:
@@ -183,6 +191,7 @@ def append_rag_query_metric(
     latency_ms: int,
     retrieval_mode: str = "token",
 ) -> None:
+    """Execute `append_rag_query_metric` workflow."""
     telemetry_dir.mkdir(parents=True, exist_ok=True)
     out = telemetry_dir / "rag_query_metrics.jsonl"
     record = {
@@ -201,6 +210,7 @@ def append_rag_query_metric(
 
 
 def _percentile(values: list[int], percentile: int) -> int:
+    """Internal helper for `_percentile`."""
     if not values:
         return 0
     ordered = sorted(values)
@@ -214,6 +224,7 @@ def load_rag_metrics_snapshot(
     reports_dir: Path,
     max_rows: int = 2000,
 ) -> dict[str, Any]:
+    """Execute `load_rag_metrics_snapshot` workflow."""
     telemetry_file = telemetry_dir / "rag_query_metrics.jsonl"
     rows: list[dict[str, Any]] = []
     if telemetry_file.exists():
@@ -324,6 +335,7 @@ def run_reindex_lifecycle(
     include_embeddings: bool,
     embeddings_provider: str,
 ) -> dict[str, Any]:
+    """Execute `run_reindex_lifecycle` workflow."""
     import subprocess
 
     started = time.time()
@@ -369,6 +381,7 @@ def run_reindex_lifecycle(
 
 
 def resolve_embeddings_provider(explicit: str | None = None) -> str:
+    """Execute `resolve_embeddings_provider` workflow."""
     value = str(explicit or "").strip().lower()
     if value in {"local", "openai"}:
         return value

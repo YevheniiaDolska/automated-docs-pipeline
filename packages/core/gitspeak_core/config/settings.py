@@ -187,6 +187,10 @@ class AppSettings(BaseModel):
                 "FATAL: cors_origins must be an explicit allowlist in staging/production. "
                 "Set VERIDOC_CORS_ORIGINS to comma-separated HTTPS origins."
             )
+        if self.environment == "production" and bool(self.debug):
+            raise ValueError("FATAL: debug must be false in production.")
+        if self.environment == "production" and not str(self.database_url).strip():
+            raise ValueError("FATAL: VERIDOC_DATABASE_URL is required in production.")
         return self
 
 

@@ -1439,8 +1439,10 @@ def verify_webhook_signature(
     """Verify LemonSqueezy webhook HMAC-SHA256 signature."""
     secret = secret or LEMONSQUEEZY_WEBHOOK_SECRET
     if not secret:
-        logger.warning("No webhook secret configured, skipping verification")
-        return True
+        logger.critical("No webhook secret configured, rejecting webhook verification")
+        return False
+    if not signature.strip():
+        return False
 
     expected = hmac.new(
         secret.encode("utf-8"),

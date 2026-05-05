@@ -235,6 +235,7 @@ def get_current_user(
 # ---------------------------------------------------------------------------
 
 _rate_limit_store: dict[str, list[float]] = defaultdict(list)
+_webhook_replay_guard: dict[str, float] = {}
 
 # Requests per minute by tier
 TIER_RATE_LIMITS: dict[str, int] = {
@@ -244,6 +245,9 @@ TIER_RATE_LIMITS: dict[str, int] = {
     "business": 120,
     "enterprise": 300,
 }
+
+WEBHOOK_MAX_SKEW_SECONDS = 300
+WEBHOOK_REPLAY_TTL_SECONDS = 3600
 
 
 def check_rate_limit(user: dict[str, Any]) -> None:
@@ -267,6 +271,42 @@ def check_rate_limit(user: dict[str, Any]) -> None:
         )
 
     _rate_limit_store[user_id].append(now)
+
+
+def _cleanup_webhook_replay_guard(now: float) -> None:
+    """Internal helper for `_cleanup_webhook_replay_guard`."""
+    stale = [key for key, ts in _webhook_replay_guard.items() if now - ts > WEBHOOK_REPLAY_TTL_SECONDS]
+    for key in stale:
+        _webhook_replay_guard.pop(key, None)
+
+
+def _verify_webhook_replay_protection(
+    *,
+    event_id: str,
+    timestamp_header: str,
+    payload: bytes,
+) -> None:
+    """Reject stale and replayed webhook deliveries."""
+    if not event_id.strip():
+        raise HTTPException(status_code=400, detail="Missing webhook event id")
+    if not timestamp_header.strip():
+        raise HTTPException(status_code=400, detail="Missing webhook timestamp")
+
+    try:
+        sent_ts = int(timestamp_header.strip())
+    except ValueError as exc:
+        raise HTTPException(status_code=400, detail="Invalid webhook timestamp") from exc
+
+    now = int(time.time())
+    if abs(now - sent_ts) > WEBHOOK_MAX_SKEW_SECONDS:
+        raise HTTPException(status_code=400, detail="Stale webhook timestamp")
+
+    digest = hashlib.sha256(payload).hexdigest()
+    replay_key = f"{event_id.strip()}:{digest}"
+    _cleanup_webhook_replay_guard(float(now))
+    if replay_key in _webhook_replay_guard:
+        raise HTTPException(status_code=409, detail="Webhook replay detected")
+    _webhook_replay_guard[replay_key] = float(now)
 
 
 def _require_ops_token(x_veriops_server_token: str | None = Header(None)) -> None:
@@ -356,6 +396,7 @@ def _load_egress_allowlist() -> tuple[set[str], list[str]]:
 
 
 def _validate_metadata_payload(payload: dict[str, Any]) -> tuple[bool, str]:
+    """Internal helper for `_validate_metadata_payload`."""
     allowed, blocked = _load_egress_allowlist()
     for key in payload:
         key_norm = str(key).strip()
@@ -368,6 +409,7 @@ def _validate_metadata_payload(payload: dict[str, Any]) -> tuple[bool, str]:
 
 
 def _load_revocation_list() -> dict[str, Any]:
+    """Internal helper for `_load_revocation_list`."""
     if not REVOCATION_LIST_PATH.exists():
         return {}
     try:
@@ -378,6 +420,7 @@ def _load_revocation_list() -> dict[str, Any]:
 
 
 def _save_revocation_list(payload: dict[str, Any]) -> None:
+    """Internal helper for `_save_revocation_list`."""
     REVOCATION_LIST_PATH.parent.mkdir(parents=True, exist_ok=True)
     REVOCATION_LIST_PATH.write_text(
         json.dumps(payload, ensure_ascii=True, indent=2) + "\n",
@@ -530,7 +573,8 @@ async def register_user(request: Request, db: Any = Depends(get_db)) -> dict[str
         result = handle_register(req, db)
         return result.model_dump()
     except ValueError as exc:
-        raise HTTPException(status_code=400, detail=str(exc))
+        logger.warning("register_user validation failed: %s", exc)
+        raise HTTPException(status_code=400, detail="Invalid registration payload")
 
 
 @app.post("/auth/login", tags=["auth"])
@@ -544,7 +588,8 @@ async def login_user(request: Request, db: Any = Depends(get_db)) -> dict[str, A
         result = handle_login(req, db)
         return result.model_dump()
     except ValueError as exc:
-        raise HTTPException(status_code=401, detail=str(exc))
+        logger.warning("login_user authentication failed: %s", exc)
+        raise HTTPException(status_code=401, detail="Invalid credentials")
 
 
 @app.get("/auth/me", tags=["auth"])
@@ -559,10 +604,12 @@ async def get_me(
         result = handle_get_profile(user["user_id"], db)
         return result.model_dump()
     except ValueError as exc:
-        raise HTTPException(status_code=404, detail=str(exc))
+        logger.warning("get_me profile lookup failed: %s", exc)
+        raise HTTPException(status_code=404, detail="User profile not found")
 
 
 def _oauth_redirect_uri(provider: str) -> str:
+    """Internal helper for `_oauth_redirect_uri`."""
     configured = os.environ.get(f"{provider.upper()}_OAUTH_REDIRECT_URI", "").strip()
     if configured:
         return configured
@@ -571,6 +618,7 @@ def _oauth_redirect_uri(provider: str) -> str:
 
 
 def _oauth_frontend_callback_url() -> str:
+    """Internal helper for `_oauth_frontend_callback_url`."""
     configured = os.environ.get("VERIDOC_OAUTH_CALLBACK_URL", "").strip()
     if configured:
         return configured
@@ -579,6 +627,7 @@ def _oauth_frontend_callback_url() -> str:
 
 
 def _oauth_state_token(provider: str) -> str:
+    """Internal helper for `_oauth_state_token`."""
     settings = get_default_settings()
     payload = {
         "provider": provider,
@@ -590,6 +639,7 @@ def _oauth_state_token(provider: str) -> str:
 
 
 def _decode_oauth_state(token: str) -> dict[str, Any]:
+    """Internal helper for `_decode_oauth_state`."""
     settings = get_default_settings()
     try:
         payload = jwt.decode(token, settings.secret_key.get_secret_value(), algorithms=["HS256"])
@@ -601,6 +651,7 @@ def _decode_oauth_state(token: str) -> dict[str, Any]:
 
 
 def _get_oauth_config(provider: str) -> dict[str, str]:
+    """Internal helper for `_get_oauth_config`."""
     normalized = provider.strip().lower()
     if normalized == "google":
         client_id = os.environ.get("GOOGLE_CLIENT_ID", "").strip()
@@ -641,6 +692,7 @@ def _get_oauth_config(provider: str) -> dict[str, str]:
 
 
 async def _fetch_oauth_identity(provider: str, code: str) -> dict[str, str]:
+    """Internal helper for `_fetch_oauth_identity`."""
     config = _get_oauth_config(provider)
     redirect_uri = _oauth_redirect_uri(provider)
     async with httpx.AsyncClient(timeout=20) as client:
@@ -1258,7 +1310,8 @@ async def rag_reindex(
             embeddings_provider=provider,
         )
     except (OSError, ValueError, TypeError, RuntimeError) as exc:
-        raise HTTPException(status_code=500, detail=str(exc))
+        logger.exception("rag_reindex failed")
+        raise HTTPException(status_code=500, detail="RAG reindex failed")
     return {"status": "ok", "report": report}
 
 
@@ -1538,7 +1591,8 @@ async def create_checkout(
         result = handle_create_checkout(req, user["user_id"], user["email"], db)
         return result.model_dump()
     except (RuntimeError, ValueError, TypeError, OSError) as exc:
-        raise HTTPException(status_code=400, detail=str(exc))
+        logger.warning("create_checkout failed: %s", exc)
+        raise HTTPException(status_code=400, detail="Invalid checkout request")
 
 
 @app.get("/billing/portal", tags=["billing"])
@@ -1553,7 +1607,8 @@ async def get_portal(
         result = handle_get_portal_url(user["user_id"], db)
         return result.model_dump()
     except ValueError as exc:
-        raise HTTPException(status_code=400, detail=str(exc))
+        logger.warning("get_portal failed: %s", exc)
+        raise HTTPException(status_code=400, detail="Unable to create billing portal link")
 
 
 @app.get("/billing/usage", tags=["billing"])
@@ -1568,7 +1623,8 @@ async def get_usage(
         result = handle_get_usage(user["user_id"], db)
         return result.model_dump()
     except ValueError as exc:
-        raise HTTPException(status_code=400, detail=str(exc))
+        logger.warning("get_usage failed: %s", exc)
+        raise HTTPException(status_code=400, detail="Unable to fetch billing usage")
 
 
 @app.get("/billing/license/status", tags=["billing"])
@@ -1583,7 +1639,8 @@ async def get_billing_license_status(
         result = handle_get_server_license_status(user["user_id"], db)
         return result.model_dump()
     except ValueError as exc:
-        raise HTTPException(status_code=400, detail=str(exc))
+        logger.warning("get_billing_license_status failed: %s", exc)
+        raise HTTPException(status_code=400, detail="Unable to fetch license status")
 
 
 @app.get("/billing/license/token", tags=["billing"])
@@ -1598,7 +1655,8 @@ async def get_billing_license_token(
         result = handle_get_server_license_token(user["user_id"], db)
         return result.model_dump()
     except ValueError as exc:
-        raise HTTPException(status_code=400, detail=str(exc))
+        logger.warning("get_billing_license_token failed: %s", exc)
+        raise HTTPException(status_code=400, detail="Unable to fetch license token")
 
 
 @app.get("/billing/referrals", tags=["billing"])
@@ -1613,7 +1671,8 @@ async def get_referral_summary(
         result = handle_get_referral_summary(user["user_id"], db)
         return result.model_dump()
     except ValueError as exc:
-        raise HTTPException(status_code=400, detail=str(exc))
+        logger.warning("get_referral_summary failed: %s", exc)
+        raise HTTPException(status_code=400, detail="Unable to fetch referral summary")
 
 
 @app.put("/billing/referrals", tags=["billing"])
@@ -1634,7 +1693,8 @@ async def update_referral_settings(
         result = handle_update_referral_settings(user["user_id"], req, db)
         return result.model_dump()
     except ValueError as exc:
-        raise HTTPException(status_code=400, detail=str(exc))
+        logger.warning("update_referral_settings failed: %s", exc)
+        raise HTTPException(status_code=400, detail="Invalid referral settings payload")
 
 
 @app.post("/billing/referrals/payouts/run", tags=["billing"])
@@ -1668,7 +1728,8 @@ async def create_invoice_request(
         result = handle_create_invoice_request(req, user["user_id"], db)
         return result.model_dump()
     except (RuntimeError, ValueError, TypeError, OSError) as exc:
-        raise HTTPException(status_code=400, detail=str(exc))
+        logger.warning("create_invoice_request failed: %s", exc)
+        raise HTTPException(status_code=400, detail="Invalid invoice request payload")
 
 
 @app.post("/contact/audit-request", tags=["contact"])
@@ -1686,7 +1747,8 @@ async def create_audit_request(
         result = handle_create_audit_request(req, db)
         return result.model_dump()
     except (RuntimeError, ValueError, TypeError, OSError) as exc:
-        raise HTTPException(status_code=400, detail=str(exc))
+        logger.warning("create_audit_request failed: %s", exc)
+        raise HTTPException(status_code=400, detail="Invalid audit request payload")
 
 
 @app.get("/pricing/plans", tags=["billing"])
@@ -1722,6 +1784,19 @@ async def lemonsqueezy_webhook(
         raise HTTPException(status_code=400, detail="Invalid webhook signature")
 
     body = await request.json()
+    event_id = (
+        request.headers.get("x-event-id", "")
+        or str(body.get("meta", {}).get("event_id", "")).strip()
+        or str(body.get("data", {}).get("id", "")).strip()
+    )
+    timestamp_header = (
+        request.headers.get("x-timestamp", "")
+        or str(body.get("meta", {}).get("timestamp", "")).strip()
+        or str(body.get("data", {}).get("attributes", {}).get("created_at", "")).strip()
+    )
+    if not timestamp_header.isdigit():
+        timestamp_header = str(int(time.time()))
+    _verify_webhook_replay_protection(event_id=event_id, timestamp_header=timestamp_header, payload=payload)
     event_name = body.get("meta", {}).get("event_name", "")
     event_data = body.get("data", {})
 
@@ -1748,6 +1823,15 @@ async def manual_billing_webhook(
     body = await request.json()
     if not isinstance(body, dict):
         raise HTTPException(status_code=400, detail="Invalid webhook payload")
+    event_id = (
+        request.headers.get("x-manual-event-id", "")
+        or str(body.get("event_id", "")).strip()
+        or str(body.get("id", "")).strip()
+    )
+    timestamp_header = request.headers.get("x-manual-timestamp", "") or str(body.get("timestamp", "")).strip()
+    if not timestamp_header.isdigit():
+        timestamp_header = str(int(time.time()))
+    _verify_webhook_replay_protection(event_id=event_id, timestamp_header=timestamp_header, payload=payload)
     event_name = str(
         body.get("event_name")
         or body.get("event")

@@ -7,20 +7,31 @@ import logging
 import os
 import re
 import time
+import ipaddress
 from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
+from urllib.parse import urlparse
 
 import httpx
 from dotenv import load_dotenv
 from fastapi import FastAPI, Header, HTTPException, Request
+from fastapi.middleware.cors import CORSMiddleware
+from fastapi.middleware.httpsredirect import HTTPSRedirectMiddleware
+from fastapi.middleware.trustedhost import TrustedHostMiddleware
 from fastapi.responses import JSONResponse
 from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel, Field
 
 from app.auth import parse_auth_context, require_runtime_api_key, validate_role
-from app.billing_hooks import can_use_ask_ai, verify_webhook_signature
-from app.retrieval import build_context, load_assistant_bundles, load_faiss_index, load_knowledge_index
+from app.billing_hooks import can_use_ask_ai, enforce_webhook_replay_protection, verify_webhook_signature
+from app.retrieval import (
+    build_context,
+    load_assistant_bundles,
+    load_faiss_index,
+    load_knowledge_index,
+    resolve_requested_locale,
+)
 from app.secrets import resolve_provider_api_key
 
 logger = logging.getLogger(__name__)
@@ -30,12 +41,16 @@ load_dotenv()
 
 class AskRequest(BaseModel):
     question: str = Field(min_length=3, max_length=2000)
+    locale: str | None = Field(default=None, max_length=16)
 
 
 class AskResponse(BaseModel):
     answer: str
     citations: list[dict[str, Any]]
     warnings: list[str] = Field(default_factory=list)
+    locale_requested: str = "en"
+    locale_resolved: str = "en"
+    locale_fallback_used: bool = False
 
 
 class FeedbackRequest(BaseModel):
@@ -72,9 +87,20 @@ STOPWORDS = {
     "your",
 }
 WORD_RE = re.compile(r"[a-z0-9_]+", re.IGNORECASE)
+_rate_limit_store: dict[str, list[float]] = {}
+
+
+def _rate_limit_key(user_id: str | None, ask_key: str | None, client_ip: str | None) -> str:
+    """Internal helper for `_rate_limit_key`."""
+    if user_id and user_id.strip():
+        return f"user:{user_id.strip()}"
+    if ask_key and ask_key.strip():
+        return f"key:{ask_key.strip()[:16]}"
+    return f"ip:{(client_ip or 'unknown').strip()}"
 
 
 def _bool_env(name: str, default: bool) -> bool:
+    """Internal helper for `_bool_env`."""
     raw = os.getenv(name)
     if raw is None:
         return default
@@ -82,6 +108,7 @@ def _bool_env(name: str, default: bool) -> bool:
 
 
 def _load_runtime_config() -> dict[str, Any]:
+    """Internal helper for `_load_runtime_config`."""
     provider = os.getenv("ASK_AI_PROVIDER", "openai").strip().lower()
     base_default = "http://localhost:11434/v1" if provider in {"local", "ollama"} else "https://api.openai.com/v1"
     return {
@@ -119,18 +146,29 @@ def _load_runtime_config() -> dict[str, Any]:
         "graph_rerank_boost": float(os.getenv("ASK_AI_GRAPH_RERANK_BOOST", "0.35")),
         "query_decomp_enabled": _bool_env("ASK_AI_QUERY_DECOMP_ENABLED", True),
         "entity_first_enabled": _bool_env("ASK_AI_ENTITY_FIRST_ENABLED", True),
+        "language_routing_enabled": _bool_env("ASK_AI_LANGUAGE_ROUTING_ENABLED", True),
+        "default_locale": os.getenv("ASK_AI_DEFAULT_LOCALE", "en").strip().lower() or "en",
+        "locale_fallback": os.getenv("ASK_AI_LOCALE_FALLBACK", "en").strip().lower() or "en",
         "min_confidence": float(os.getenv("ASK_AI_MIN_CONFIDENCE", "0.28")),
         "usage_log_path": os.getenv("ASK_AI_USAGE_LOG_PATH", "reports/ask_ai_usage.jsonl"),
         "feedback_log_path": os.getenv("ASK_AI_FEEDBACK_LOG_PATH", "reports/ask_ai_feedback.jsonl"),
         "contradictions_report_path": os.getenv("ASK_AI_CONTRADICTIONS_REPORT_PATH", "reports/rag_contradictions_report.json"),
+        "rate_limit_per_minute": int(os.getenv("ASK_AI_RATE_LIMIT_PER_MINUTE", "60")),
+        "allowed_hosts": [x.strip().lower() for x in os.getenv("ASK_AI_ALLOWED_HOSTS", "api.openai.com,localhost,127.0.0.1").split(",") if x.strip()],
+        "enforce_https": _bool_env("ASK_AI_ENFORCE_HTTPS", False),
+        "cors_origins": [x.strip() for x in os.getenv("ASK_AI_CORS_ORIGINS", "http://localhost:3000").split(",") if x.strip()],
+        "trusted_hosts": [x.strip().lower() for x in os.getenv("ASK_AI_TRUSTED_HOSTS", "localhost,127.0.0.1").split(",") if x.strip()],
+        "https_redirect": _bool_env("ASK_AI_HTTPS_REDIRECT", False),
     }
 
 
 def _utc_now_iso() -> str:
+    """Internal helper for `_utc_now_iso`."""
     return datetime.now(timezone.utc).isoformat().replace("+00:00", "Z")
 
 
 def _append_jsonl(path: str, record: dict[str, Any]) -> None:
+    """Internal helper for `_append_jsonl`."""
     target = Path(path)
     target.parent.mkdir(parents=True, exist_ok=True)
     with target.open("a", encoding="utf-8") as fh:
@@ -138,10 +176,12 @@ def _append_jsonl(path: str, record: dict[str, Any]) -> None:
 
 
 def _tokenize(text: str) -> list[str]:
+    """Internal helper for `_tokenize`."""
     return [tok.lower() for tok in WORD_RE.findall(text) if tok and tok.lower() not in STOPWORDS]
 
 
 def _estimate_context_confidence(question: str, modules: list[dict[str, Any]]) -> tuple[float, int, int]:
+    """Internal helper for `_estimate_context_confidence`."""
     if not modules:
         return 0.0, 0, 0
     q_tokens = [tok for tok in _tokenize(question) if len(tok) > 2]
@@ -165,6 +205,7 @@ def _estimate_context_confidence(question: str, modules: list[dict[str, Any]]) -
 
 
 def _load_critical_contradiction_ids(report_path: str) -> set[str]:
+    """Internal helper for `_load_critical_contradiction_ids`."""
     path = Path(report_path)
     if not path.exists():
         return set()
@@ -195,6 +236,57 @@ def _load_critical_contradiction_ids(report_path: str) -> set[str]:
                 if module_id:
                     ids.add(module_id)
     return ids
+
+
+def _is_blocked_host(host: str) -> bool:
+    """Internal helper for `_is_blocked_host`."""
+    try:
+        ip = ipaddress.ip_address(host)
+    except ValueError:
+        lowered = host.lower().strip()
+        return lowered in {"metadata.google.internal"} or lowered.endswith(".internal")
+    return (
+        ip.is_private
+        or ip.is_loopback
+        or ip.is_link_local
+        or ip.is_multicast
+        or ip.is_reserved
+        or ip.is_unspecified
+    )
+
+
+def _validate_provider_base_url(config: dict[str, Any]) -> None:
+    """Internal helper for `_validate_provider_base_url`."""
+    raw_url = str(config.get("base_url", "")).strip()
+    if not raw_url:
+        raise HTTPException(status_code=500, detail="ASK_AI_BASE_URL is empty")
+    parsed = urlparse(raw_url)
+    if parsed.scheme not in {"http", "https"}:
+        raise HTTPException(status_code=500, detail="ASK_AI_BASE_URL must use http/https")
+    host = (parsed.hostname or "").strip().lower()
+    if not host:
+        raise HTTPException(status_code=500, detail="ASK_AI_BASE_URL host is missing")
+    allowed_hosts = {str(x).strip().lower() for x in config.get("allowed_hosts", []) if str(x).strip()}
+    if allowed_hosts and host not in allowed_hosts:
+        raise HTTPException(status_code=500, detail="ASK_AI_BASE_URL host is not in ASK_AI_ALLOWED_HOSTS")
+    is_explicit_local_allow = host in {"localhost", "127.0.0.1", "::1"} and host in allowed_hosts
+    if _is_blocked_host(host) and not is_explicit_local_allow:
+        raise HTTPException(status_code=500, detail="ASK_AI_BASE_URL host is blocked by SSRF policy")
+    if bool(config.get("enforce_https", False)) and parsed.scheme != "https":
+        raise HTTPException(status_code=500, detail="ASK_AI_BASE_URL must use https when ASK_AI_ENFORCE_HTTPS=true")
+
+
+def _check_rate_limit(config: dict[str, Any], key: str) -> None:
+    """Internal helper for `_check_rate_limit`."""
+    limit = int(config.get("rate_limit_per_minute", 60))
+    now = time.time()
+    window = 60.0
+    timestamps = _rate_limit_store.get(key, [])
+    filtered = [ts for ts in timestamps if now - ts < window]
+    if len(filtered) >= limit:
+        raise HTTPException(status_code=429, detail="Rate limit exceeded")
+    filtered.append(now)
+    _rate_limit_store[key] = filtered
 
 
 async def _ask_provider(config: dict[str, Any], context: dict[str, Any]) -> str:
@@ -303,11 +395,23 @@ async def _ask_provider(config: dict[str, Any], context: dict[str, Any]) -> str:
 
 app = FastAPI(title="Ask AI Runtime", version="1.0.0")
 app.mount("/public", StaticFiles(directory=str(Path(__file__).resolve().parents[1] / "public")), name="public")
+_app_cfg = _load_runtime_config()
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=_app_cfg["cors_origins"],
+    allow_credentials=True,
+    allow_methods=["GET", "POST", "OPTIONS"],
+    allow_headers=["*"],
+)
+app.add_middleware(TrustedHostMiddleware, allowed_hosts=_app_cfg["trusted_hosts"])
+if _app_cfg["https_redirect"]:
+    app.add_middleware(HTTPSRedirectMiddleware)
 
 _faiss_data: tuple[Any, list[dict[str, Any]]] | None = None
 
 
 def _init_faiss() -> None:
+    """Internal helper for `_init_faiss`."""
     global _faiss_data  # noqa: PLW0603
     cfg = _load_runtime_config()
     _faiss_data = load_faiss_index(cfg["faiss_index_path"], cfg["faiss_metadata_path"])
@@ -318,6 +422,7 @@ _init_faiss()
 
 @app.get("/healthz")
 def healthz() -> dict[str, Any]:
+    """Execute `healthz` workflow."""
     cfg = _load_runtime_config()
     return {
         "ok": True,
@@ -333,17 +438,24 @@ def healthz() -> dict[str, Any]:
         "entity_first": cfg["entity_first_enabled"],
         "hyde": cfg["hyde_enabled"],
         "embedding_cache": cfg["embed_cache_enabled"],
+        "language_routing": cfg["language_routing_enabled"],
+        "default_locale": cfg["default_locale"],
+        "locale_fallback": cfg["locale_fallback"],
     }
 
 
 @app.post("/api/v1/ask", response_model=AskResponse)
 async def ask(
     payload: AskRequest,
+    request: Request,
     x_ask_ai_key: str | None = Header(default=None),
     x_user_id: str | None = Header(default=None),
     x_user_role: str | None = Header(default=None),
     x_user_plan: str | None = Header(default=None),
+    x_ask_ai_locale: str | None = Header(default=None),
+    accept_language: str | None = Header(default=None),
 ) -> AskResponse:
+    """Execute `ask` workflow."""
     started_at = time.perf_counter()
     config = _load_runtime_config()
     status = "ok"
@@ -373,11 +485,22 @@ async def ask(
 
         if not can_use_ask_ai(auth.plan, config["billing_mode"]):
             raise HTTPException(status_code=402, detail="Current plan is not entitled for Ask AI")
+        _validate_provider_base_url(config)
+        _check_rate_limit(
+            config,
+            _rate_limit_key(auth.user_id, x_ask_ai_key, request.client.host if request.client else None),
+        )
 
         modules = load_knowledge_index(config["knowledge_index_path"])
         bundles = load_assistant_bundles(config["assistant_bundle_glob"])
         # Keep bundles loaded for future adapter extensions.
         _ = bundles
+        requested_locale = resolve_requested_locale(
+            payload.question,
+            explicit_locale=(payload.locale or x_ask_ai_locale),
+            accept_language=accept_language,
+            default_locale=str(config.get("default_locale", "en")),
+        )
 
         context = build_context(
             payload.question,
@@ -400,6 +523,10 @@ async def ask(
             graph_rerank_boost=config["graph_rerank_boost"],
             query_decomp_enabled=config["query_decomp_enabled"],
             entity_first_enabled=config["entity_first_enabled"],
+            preferred_locale=requested_locale,
+            default_locale=str(config.get("default_locale", "en")),
+            fallback_locale=str(config.get("locale_fallback", "en")),
+            language_routing_enabled=bool(config.get("language_routing_enabled", True)),
         )
 
         citations = [
@@ -407,6 +534,7 @@ async def ask(
                 "id": item.get("id"),
                 "title": item.get("title"),
                 "source_file": item.get("source_file"),
+                "locale": item.get("locale", ""),
             }
             for item in context["modules"]
         ]
@@ -424,6 +552,10 @@ async def ask(
                     "Please verify against latest source docs before acting."
                 )
                 logger.warning("Ask AI contradiction warning for modules: %s", ", ".join(conflicted))
+        if bool(context.get("locale_fallback_used", False)):
+            warnings.append(
+                f"Sources in requested locale are unavailable. Used '{context.get('locale_resolved', 'en')}' knowledge as fallback."
+            )
 
         if low_confidence:
             answer = (
@@ -433,7 +565,14 @@ async def ask(
         else:
             answer = await _ask_provider(config, context)
 
-        return AskResponse(answer=answer, citations=citations, warnings=warnings)
+        return AskResponse(
+            answer=answer,
+            citations=citations,
+            warnings=warnings,
+            locale_requested=str(context.get("locale_requested", config.get("default_locale", "en"))),
+            locale_resolved=str(context.get("locale_resolved", config.get("default_locale", "en"))),
+            locale_fallback_used=bool(context.get("locale_fallback_used", False)),
+        )
     except HTTPException as exc:
         status = "error"
         error_detail = str(exc.detail)
@@ -460,6 +599,9 @@ async def ask(
                     "warnings_count": len(warnings),
                     "retrieval_mode": str(context.get("retrieval_mode", "")),
                     "retrieval_fallback_used": bool(context.get("retrieval_fallback_used", False)),
+                    "locale_requested": str(context.get("locale_requested", config.get("default_locale", "en"))),
+                    "locale_resolved": str(context.get("locale_resolved", config.get("default_locale", "en"))),
+                    "locale_fallback_used": bool(context.get("locale_fallback_used", False)),
                     "low_confidence": low_confidence,
                     "confidence": round(float(confidence), 4),
                     "matched_question_tokens": matched_tokens,
@@ -474,11 +616,13 @@ async def ask(
 @app.post("/api/v1/feedback")
 def feedback(
     payload: FeedbackRequest,
+    request: Request,
     x_ask_ai_key: str | None = Header(default=None),
     x_user_id: str | None = Header(default=None),
     x_user_role: str | None = Header(default=None),
     x_user_plan: str | None = Header(default=None),
 ) -> dict[str, Any]:
+    """Execute `feedback` workflow."""
     config = _load_runtime_config()
     try:
         require_runtime_api_key(x_ask_ai_key)
@@ -490,6 +634,10 @@ def feedback(
         validate_role(auth, config["allowed_roles"], config["require_auth"])
     except PermissionError as exc:
         raise HTTPException(status_code=403, detail=str(exc)) from exc
+    _check_rate_limit(
+        config,
+        _rate_limit_key(auth.user_id, x_ask_ai_key, request.client.host if request.client else None),
+    )
 
     try:
         _append_jsonl(
@@ -521,6 +669,8 @@ def feedback(
 async def billing_webhook(
     request: Request,
     x_signature: str | None = Header(default=None),
+    x_event_id: str | None = Header(default=None),
+    x_timestamp: str | None = Header(default=None),
 ) -> JSONResponse:
     """Process billing webhook events and update entitlements.
 
@@ -553,6 +703,15 @@ async def billing_webhook(
         raise HTTPException(
             status_code=400, detail="Malformed webhook payload"
         ) from exc
+    event_id = (
+        (x_event_id or "").strip()
+        or str(payload.get("meta", {}).get("event_id", "")).strip()
+        or str(payload.get("data", {}).get("id", "")).strip()
+    )
+    timestamp = (x_timestamp or "").strip() or str(payload.get("meta", {}).get("timestamp", "")).strip()
+    if not timestamp.isdigit():
+        timestamp = str(int(time.time()))
+    enforce_webhook_replay_protection(body=body, event_id=event_id, timestamp=timestamp)
 
     event_name = payload.get("meta", {}).get("event_name", "")
     if not event_name:
