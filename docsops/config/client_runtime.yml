@@ -210,6 +210,21 @@ knowledge_graph:
   enabled: true
   modules_dir: knowledge_modules
   output_path: docs/assets/knowledge-graph.jsonld
+code_intelligence:
+  enabled: true
+  fail_open: true
+  include_dirs:
+  - packages
+  - src
+  - app
+  - apps
+  - services
+  - libs
+  - sdk
+  max_files: 3000
+  output_path: docs/assets/code-knowledge-index.json
+  graph_output_path: docs/assets/code-dependency-graph.json
+  report_path: reports/code_knowledge_report.json
 git_sync:
   enabled: true
   repo_path: .

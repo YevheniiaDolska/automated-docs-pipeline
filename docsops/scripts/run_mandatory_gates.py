@@ -153,7 +153,7 @@ def main() -> int:
     gates: list[GateResult] = []
     failed = False
 
-    def apply_command_gate(gate_id: str, required: bool, command: list[str]) -> None:
+    def apply_command_gate(gate_id: str, required: bool, command: list[str], *, fail_open: bool = False) -> None:
         """Execute `apply_command_gate` workflow."""
         nonlocal failed
         if not required:
@@ -163,7 +163,13 @@ def main() -> int:
             gates.append(GateResult(gate_id, True, False, True, "check_only"))
             return
         ok, detail = _run(command, repo_root)
-        gates.append(GateResult(gate_id, True, True, ok, detail))
+        if ok:
+            gates.append(GateResult(gate_id, True, True, True, detail))
+            return
+        if fail_open:
+            gates.append(GateResult(gate_id, True, True, True, f"soft_failed:{detail}"))
+            return
+        gates.append(GateResult(gate_id, True, True, False, detail))
         if not ok:
             failed = True
 
@@ -205,6 +211,8 @@ def main() -> int:
     if is_prep_tier:
         apply_command_gate("full_docs_quality", True, ["npm", "run", "lint"])
         code_intelligence_enabled = _module_enabled(runtime, "code_intelligence", True if is_full else False)
+        code_intel_cfg = runtime.get("code_intelligence", {}) if isinstance(runtime.get("code_intelligence"), dict) else {}
+        code_intel_fail_open = bool(code_intel_cfg.get("fail_open", True))
         if args.strict and not code_intelligence_enabled and is_full:
             gates.append(GateResult("module_code_intelligence_enabled", True, False, False, "runtime.modules.code_intelligence=false"))
             failed = True
@@ -224,6 +232,7 @@ def main() -> int:
                     "--report",
                     "reports/code_knowledge_report.json",
                 ],
+                fail_open=code_intel_fail_open,
             )
         apply_command_gate(
             "knowledge_extract",
@@ -305,9 +314,26 @@ def main() -> int:
         apply_artifact_gate("artifact_retrieval_index", True, repo_root / "docs/assets/knowledge-retrieval-index.json")
         apply_artifact_gate("artifact_contradictions_report", True, reports_dir / "rag_contradictions_report.json")
         if _module_enabled(runtime, "code_intelligence", True if is_full else False):
-            apply_artifact_gate("artifact_code_knowledge_index", True, repo_root / "docs/assets/code-knowledge-index.json")
-            apply_artifact_gate("artifact_code_dependency_graph", True, repo_root / "docs/assets/code-dependency-graph.json")
-            apply_artifact_gate("artifact_code_knowledge_report", True, reports_dir / "code_knowledge_report.json")
+            if code_intel_fail_open:
+                for gate_id, path in (
+                    ("artifact_code_knowledge_index", repo_root / "docs/assets/code-knowledge-index.json"),
+                    ("artifact_code_dependency_graph", repo_root / "docs/assets/code-dependency-graph.json"),
+                    ("artifact_code_knowledge_report", reports_dir / "code_knowledge_report.json"),
+                ):
+                    ok = _artifact_exists(path)
+                    gates.append(
+                        GateResult(
+                            gate_id,
+                            True,
+                            False,
+                            True,
+                            str(path) if ok else f"soft_missing:{path}",
+                        )
+                    )
+            else:
+                apply_artifact_gate("artifact_code_knowledge_index", True, repo_root / "docs/assets/code-knowledge-index.json")
+                apply_artifact_gate("artifact_code_dependency_graph", True, repo_root / "docs/assets/code-dependency-graph.json")
+                apply_artifact_gate("artifact_code_knowledge_report", True, reports_dir / "code_knowledge_report.json")
 
         if _module_enabled(runtime, "ontology_graph", True):
             apply_artifact_gate("artifact_knowledge_graph", True, repo_root / "docs/assets/knowledge-graph.jsonld")

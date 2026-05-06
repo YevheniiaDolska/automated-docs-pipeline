@@ -1,239 +1,192 @@
 ---
-title: Canonical Flow (Sales + Delivery)
-description: Canonical sales and delivery flow for onboarding and operating client
-  Auto-Doc Pipeline setups.
+title: "Canonical flow (sales + delivery)"
+description: "Current canonical flow for selling, onboarding, operating, and publishing with VeriOps."
 content_type: reference
 product: both
-last_reviewed: '2026-03-24'
+last_reviewed: "2026-04-26"
 tags:
-- Operations
-- Client Onboarding
-original_author: Developer
+  - Operations
+  - Client Onboarding
+  - Delivery
 ---
 
-<!-- VERIDOC_POWERED_BADGE:START -->
-[![Powered by VeriDoc](https://img.shields.io/badge/Powered%20by-VeriDoc-0ea5e9?style=flat-square)](https://veridoc.app)
-<!-- VERIDOC_POWERED_BADGE:END -->
+# Canonical flow (sales + delivery)
 
-# Canonical Flow (Sales + Delivery)
+This is the current source of truth for how VeriOps is sold and operated.
 
-This is the single source of truth for how to sell and run the pipeline today.
+## Scope summary
 
-## 1. Core promise
+1. Docs-first is the default operating surface.
+1. Code-first and API-first are integrated branches of the same autopipeline.
+1. Multi-protocol API support includes REST, GraphQL, gRPC, AsyncAPI, and WebSocket.
+1. Full implementation includes all advanced capabilities except retrieval-time RAG.
+1. Full+RAG adds retrieval-time Ask AI runtime over prepared knowledge.
 
-One-time setup, then smooth weekly automation:
+## Commercial model (current)
 
-\11. Generate/configure client profile.
-\11. Provision bundle into client repo.
-\11. Install scheduler.
-\11. Weekly reports and checks run automatically.
-\11. Human only reviews report + final docs.
+- Pilot: `$5,000` for 21 calendar days.
+- Full implementation: `$15,000` one-time.
+- RAG add-on: `$10,000` one-time.
+- Pilot credit policy: after a paid pilot, `$5,000` is credited toward full implementation.
+  - Full after pilot: `$10,000`.
+  - Full+RAG after pilot: `$20,000` total.
+- Retainers: `$1,500`, `$3,000`, `$6,000` monthly.
 
-## 2. One-time setup (you do this)
+## Plan boundaries
 
-\11. Pick preset:
+1. Community/degraded mode: free lint defaults only.
+1. Full implementation: full docs/API operations plus RAG preparation, without retrieval-time RAG.
+1. Full+RAG: full stack including retrieval-time Ask AI runtime.
 
-- `profiles/clients/presets/small.yml`
-- `profiles/clients/presets/startup.yml`
-- `profiles/clients/presets/enterprise.yml`
-- `profiles/clients/presets/pilot-evidence.yml`
+## Delivery modes
 
-\11. Fastest path:
+- Cloud.
+- Hybrid.
+- Strict-local (air-gapped).
 
-```bash
-python3 scripts/onboard_client.py
-```
+In strict-local mode, local runtime path is supported (Ollama/Qwen), and external integrations can stay disabled.
 
-\11. If you use manual mode, customize client profile:
+## Step-by-step canonical flow
 
-- client identity
-- repo paths (`docs_root`, `api_root`, `sdk_root`)
-- output targets
-- module toggles
-- policy/plan strictness
+## Step 1: qualify and package
 
-\11. Choose delivery mode:
+1. Confirm client operating mode (cloud, hybrid, strict-local).
+1. Confirm scope (pilot, full, full+rag).
+1. Confirm prerequisites and credential ownership.
 
-- Same machine mode (you can access client repo path directly): use provisioning.
-- Different laptops mode: build bundle on your machine, then client installs scheduler locally.
+## Step 2: onboard client
 
-\11. Provision (same machine mode):
-
-```bash
-python3 scripts/provision_client_repo.py \
-  --client profiles/clients/<client>.client.yml \
-  --client-repo /path/to/client-repo \
-  --docsops-dir docsops \
-  --install-scheduler linux
-```
-
-Windows:
+Preferred entry points:
 
 ```bash
-python3 scripts/provision_client_repo.py \
-  --client profiles/clients/<client>.client.yml \
-  --client-repo C:/path/to/client-repo \
-  --docsops-dir docsops \
-  --install-scheduler windows
+python3 scripts/onboard_client.py --mode bundle-only
+# or
+python3 scripts/onboard_client.py --mode install-local
 ```
 
-\11. Build + handoff (different laptops mode):
+For same-machine provisioning:
 
 ```bash
-python3 scripts/build_client_bundle.py --client profiles/clients/<client>.client.yml
+python3 scripts/provision_client_repo.py --client <profile> --client-repo <path> --docsops-dir docsops --install-scheduler linux
 ```
 
-Client installs scheduler after copying bundle into `<client-repo>/docsops`:
+## Step 3: run setup wizard in client repository
 
 ```bash
-bash docsops/ops/install_cron_weekly.sh
+python3 docsops/scripts/setup_client_env_wizard.py
 ```
 
-Windows:
+Wizard responsibilities:
+
+1. Create/update `.env.docsops.local`.
+1. Explain missing prerequisites.
+1. Apply strict-local fallbacks when needed.
+1. Bootstrap local Ollama runtime when selected by mode/profile.
+
+## Step 4: run autopipeline
 
 ```bash
-powershell -ExecutionPolicy Bypass -File docsops/ops/install_windows_task.ps1
+python3 scripts/run_autopipeline.py --docsops-root docsops --reports-dir reports --auto-generate
 ```
 
-Scheduler timezone is local machine timezone. Monday schedule follows client local time when installed on client machine.
-Default schedule is Monday at `10:00` local time.
+Weekly scheduler runs equivalent flow via `docsops/scripts/run_weekly_gap_batch.py`.
 
-## 3. Weekly automation (no manual commands)
+## Step 5: autopipeline execution layers
 
-Scheduler runs:
+1. Gap, stale, drift, KPI/SLA, lifecycle, and quality checks.
+1. Docs generation/update using templates and policy constraints.
+1. API-first flow when enabled, including multi-protocol chain.
+1. Knowledge preparation layer for RAG.
+1. Consolidated report generation.
 
-- `docsops/scripts/run_weekly_gap_batch.py`
+## Step 6: RAG preparation and runtime gates
 
-It executes:
+Preparation layer (full and full+rag):
 
-- gap detection
-- stale checks
-- drift + docs contract (if enabled)
-  - docs contract is report-only by default (no hard weekly blocking)
-  - consolidated report includes only new/changed docs-contract mismatches, ignores closed ones, and deduplicates overlap with other gap sources
-- KPI/SLA (if enabled)
-- API-first flow (if enabled)
-  - supports `docker`, `prism` (no Docker), and `external` public sandbox URL
-  - if `sync_playground_endpoint=true`, sandbox URL is auto-synced into docs playground config
-  - manual overrides apply (`apply_openapi_overrides.py`)
-  - regression gate (`check_openapi_regression.py`)
-  - generates API test assets from OpenAPI (`generate_api_test_assets.py`)
-  - optionally uploads test assets to TestRail/Zephyr (`upload_api_test_assets.py`)
-- Multi-protocol API-first flow (if non-REST protocols are enabled)
-  - runs `run_multi_protocol_contract_flow.py` for GraphQL, gRPC, AsyncAPI, and WebSocket
-  - auto-generates server stubs with business-logic placeholders (`generate_protocol_server_stubs.py`)
-  - auto-resolves runtime endpoints for self-verification and docs testers
-  - in `external` sandbox mode with `external_mock.enabled=true`, auto-prepares Postman mock endpoint
-- RAG/knowledge tasks:
-  - `extract_knowledge_modules_from_docs.py`
-  - `validate_knowledge_modules.py`
-  - `generate_knowledge_retrieval_index.py`
-  - `generate_knowledge_graph_jsonld.py`
-  - `run_retrieval_evals.py` (Precision/Recall/Hallucination-rate)
-- terminology governance:
-  - `sync_project_glossary.py` (syncs glossary markers to `glossary.yml`)
-- multi-language examples standard:
-  - `generate_multilang_tabs.py`
-  - `validate_multilang_examples.py`
-  - `check_code_examples_smoke.py` (including `expected-output` comparison for tagged blocks)
-- intent bundle assembly via `build_all_intent_experiences.py` when enabled in `runtime.custom_tasks.weekly`
-- `custom_tasks.weekly` commands
-- consolidated report generation
+1. Do not feed raw documentation directly to AI retrieval.
+1. Run knowledge preparation first: normalize and structure documentation.
+1. Split documents into semantic chunks and create knowledge modules.
+1. Attach module metadata for intent, audience, source/provenance, and verification timestamp.
+1. Run mandatory pre-index quality gates for freshness, example correctness, coverage gaps, terminology consistency, and structural consistency.
+1. Run stale-check and contradiction-check as separate controls.
+1. Exclude critical conflicting modules from retrieval index automatically.
+1. Build retrieval assets only after quality hardening:
+   - retrieval index (`docs/assets/knowledge-retrieval-index.json`)
+   - knowledge graph (`docs/assets/knowledge-graph.jsonld`)
+1. For code-first repositories, build AST/code-aware index and code dependency graph:
+   - `docs/assets/code-knowledge-index.json`
+   - `docs/assets/code-dependency-graph.json`
+   - `reports/code_knowledge_report.json`
+1. Run retrieval evaluation gate before production use:
+   - precision
+   - recall
+   - hallucination rate
 
-Output:
+Runtime layer (full+rag only):
+
+1. Ask AI runtime uses retrieval-time RAG context only (no free-form guessing).
+1. If confidence is low, runtime uses safe fallback (`low-confidence guardrail`).
+1. If cited modules are in contradiction-risk set, runtime returns explicit contradiction warnings.
+1. Usage and feedback loop is always logged:
+   - user query
+   - latency
+   - cited modules
+   - helpful/not-helpful feedback
+1. Retrieval mode auto-routing is active (`auto|hybrid|vectorless|semantic|token`) based on query and corpus characteristics.
+1. Vectorless structural retrieval is available for long, strongly structured docs.
+1. Query decomposition and evidence fusion are used for complex multi-hop questions.
+1. Entity-first retrieval prioritizes exact entities (for example endpoint, version, feature flag) before final ranking.
+1. Graph re-rank layer reorders candidates using module relationships (`dependencies`, `tags`, `topic` links).
+
+Why this is competitively strong:
+
+1. Most RAG stacks optimize retrieval over whatever corpus they receive, but do not harden knowledge quality before indexing.
+1. This pipeline applies pre-index quality hardening, which reduces high-confidence wrong answers.
+1. It has built-in stop-controls: stale-check, contradiction-check, retrieval eval gate, and low-confidence guardrail.
+1. Code intelligence extraction has fail-open safety in runtime config (`code_intelligence.fail_open=true`) to avoid blocking whole pipeline on parser edge-cases.
+1. It supports regulated operation modes (`strict-local`, `on-prem`, and air-gapped variants).
+1. It is a docs operations system plus controlled RAG runtime, not only a chat layer.
+1. Combined vectorless + hybrid + entity-first + graph rerank improves both precise structural lookup and broad semantic retrieval:
+   - vectorless path improves precision on long, structured docs,
+   - decomposition + evidence fusion improves recall on multi-hop questions,
+   - entity-first reduces false matches for exact technical entities,
+   - graph rerank promotes logically connected modules for higher final answer coherence.
+
+## Step 7: review, finalize, publish
+
+1. Team reviews diffs and report outputs.
+1. Finalize gate reruns lint/validation loop.
+1. Review branch flow can push updates automatically.
+1. Site build/publish is executed by configured target and CI/CD policy.
+
+## About git synchronization
+
+`git_sync` can run before weekly checks (`fetch`/`pull`) for unattended environments.
+
+It is configured in runtime config and can be disabled for strict governance environments.
+
+## Licensing and hardening
+
+1. Local signed JWT validation is enforced.
+1. Premium capabilities require entitlement/capability pack.
+1. Anti-tamper and hardening controls apply in production profile.
+1. Missing/invalid entitlements trigger degraded behavior instead of silent bypass.
+
+## Standard artifacts
+
+Core outputs include:
 
 - `reports/consolidated_report.json`
-- related reports are regenerated to the same filenames each run (no manual cleanup required)
-- `reports/docsops_status.json` (quick freshness/status check for non-technical users)
+- `reports/docsops_status.json`
+- `docs/assets/knowledge-retrieval-index.json`
+- `docs/assets/knowledge-graph.jsonld`
+- `reports/retrieval_eval_report.json`
+- `reports/rag_contradictions_report.json`
 
-Client repo `.gitignore` recommendation:
+## Canonical references
 
-```gitignore
-reports/docsops-weekly.log
-```
-
-## 4. Human role
-
-\11. In file explorer, check Modified date of `reports/consolidated_report.json`.
-\11. If date/time is fresh, ask local LLM to process the report.
-\11. Review generated docs quickly.
-\11. Publish/merge.
-
-## 5. Operator manual checks after setup
-
-\11. Check `<client-repo>/docsops/config/client_runtime.yml` for correct client values.
-\11. Check `<client-repo>/docsops/policy_packs/selected.yml` for expected policy pack/overrides.
-\11. Check `<client-repo>/docsops/ENV_CHECKLIST.md` and align secrets with client.
-\11. Check `<client-repo>/docsops/license.jwt` exists and is valid: `python3 docsops/scripts/license_gate.py`.
-\11. Run one smoke weekly cycle and ensure `reports/consolidated_report.json` is refreshed.
-
-## 6. Licensing
-
-Every pipeline run validates the license locally using an Ed25519-signed JWT. No client data is ever sent to any server.
-
-- License file: `<client-repo>/docsops/license.jwt`
-- Public key: `<client-repo>/docsops/keys/veriops-licensing.pub`
-- Capability pack: `<client-repo>/docsops/.capability_pack.enc` (encrypted scoring weights)
-
-Plan tiers control feature access (Pilot, Professional, Enterprise). Without a valid license, the pipeline runs in community mode (degraded: free lint-only defaults, advanced modules disabled, no protocol entitlement).
-
-Check license status: `python3 docsops/scripts/license_gate.py`.
-
-Dev/test bypass: `export VERIOPS_LICENSE_PLAN=enterprise`.
-
-Details: `docs/operations/PLAN_TIERS.md`, `docs/operations/OPERATOR_RUNBOOK.md`.
-
-## 7. Plan packaging
-
-- Basic: essential quality + gaps + stale.
-- Pro: adds drift/contract, KPI/SLA, RAG/knowledge, hybrid/API-first.
-- Enterprise: strict policy, full automation surface, advanced verification.
-
-Details: `docs/operations/PLAN_TIERS.md`.
-
-## 8. What to say in sales calls
-
-\11. "You get one-time setup, then weekly documentation ops on autopilot."
-\11. "Your team stops doing doc plumbing and only reviews final output."
-\11. "Quality is controlled by policy packs and automated gates."
-\11. "RAG/knowledge is maintained automatically, so AI outputs stay grounded."
-
-## 9. Compatibility mode
-
-If needed, run equivalent weekly flow via GitHub Actions cron (`weekly-consolidation.yml` and companion workflows). Recommended mode remains local scheduler automation in client repo.
-
-## 10. Deep references
-
-- `docs/operations/OPERATOR_RUNBOOK.md`
-- `docs/operations/CENTRALIZED_CLIENT_BUNDLES.md`
 - `docs/operations/UNIFIED_CLIENT_CONFIG.md`
-- `docs/operations/PLAN_TIERS.md`
 - `docs/operations/PIPELINE_CAPABILITIES_CATALOG.md`
-
-## Next steps
-
-- [Documentation index](../index.md)
-
-## Implementation status (2026-03-25)
-
-This document is aligned to the current production implementation baseline.
-
-Current baseline:
-
-1. The platform is docs-first and also supports `code-first`, `api-first`, and `hybrid` flows.
-1. REST and non-REST protocols are supported in one automation model: REST, GraphQL, gRPC, AsyncAPI, and WebSocket.
-1. Non-REST automation includes server stubs with business-logic placeholders.
-1. External mock sandbox resolution is integrated into the smooth autopipeline, including Postman-supported auto-prepare mode.
-1. Contract test assets are generated automatically and merged with smart-merge rules so manual/customized cases are preserved.
-1. Knowledge/RAG tasks run as part of automation when enabled (module extraction, validation, retrieval index, graph, evals).
-1. Plan gating is enforced by configuration and policy packs; advanced non-REST automation is reserved for higher plans.
-
-Canonical execution order reference:
-
-- `docs/operations/CANONICAL_FLOW.md`
-- `docs/operations/UNIFIED_CLIENT_CONFIG.md`
-- `README.md`
-
-Commercial note:
-
-- Where commercial packaging is discussed, recurring service terms (retainer/licensing) are part of the active go-to-market model.
+- `docs/operations/PLAN_TIERS.md`
+- `docs/operations/OPERATOR_RUNBOOK.md`
+- `production-gate.md`

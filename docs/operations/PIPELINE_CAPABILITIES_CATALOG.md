@@ -34,6 +34,8 @@ RAG is implemented as a two-layer system:
   - retrieval evaluation gate/reporting
   - stale detection in docs quality loop
   - contradiction detection and critical-module exclusion from retrieval index
+  - AST/code-aware indexing for code-first repositories
+  - code dependency graph extraction (`imports/calls/config deps`)
 - Retrieval-time runtime layer (included in `full+rag`):
   - Ask AI runtime API and widget
   - semantic retrieval (FAISS) with hybrid/rerank/HyDE/cache options
@@ -44,20 +46,26 @@ RAG is implemented as a two-layer system:
   - graph rerank layer (lightweight module-link propagation on dependencies/tags/topic)
   - runtime confidence guardrail (low-confidence safe response)
   - contradiction warning propagation to client response
+  - language-aware retrieval routing (query locale -> same-locale knowledge, fallback to English)
   - usage logging and end-user feedback logging
 
 Primary runtime and report artifacts:
 
 - `docs/assets/knowledge-retrieval-index.json`
 - `docs/assets/knowledge-graph.jsonld`
+- `docs/assets/code-knowledge-index.json`
+- `docs/assets/code-dependency-graph.json`
 - `reports/retrieval_eval_report.json`
+- `reports/retrieval_evals_report.json`
 - `reports/rag_contradictions_report.json`
+- `reports/code_knowledge_report.json`
 - `reports/ask_ai_usage.jsonl`
 - `reports/ask_ai_feedback.jsonl`
 
 Operational meaning by plan:
 
-- `community/pilot`: no advanced RAG capabilities in default autopipeline.
+- `community`: degraded baseline only (free lint/hygiene defaults).
+- `pilot`: one-repo, 21-day production-like pipeline scope with full RAG preparation and hardening, without retrieval-time Ask AI runtime.
 - `professional/full`: full docs-ops + RAG preparation (everything except retrieval-time RAG).
 - `enterprise/full+rag`: same as `full` plus retrieval-time Ask AI runtime with RAG.
 
@@ -82,14 +90,23 @@ RAG differentiation value:
    - knowledge graph (`knowledge-graph.jsonld`)
 1. Retrieval quality is measured before production with gate thresholds (`retrieval eval gate: precision/recall/hallucination`).
 1. At answer time, runtime uses retrieval-time RAG only; when confidence is low, it returns a safe fallback instead of guessing (`low-confidence guardrail`).
+1. Query language is resolved from explicit locale / `Accept-Language` / query text; retrieval uses same-locale sources when available, otherwise falls back to English.
 1. If cited modules are in critical contradiction set, client receives warning in response (`runtime contradiction warnings`).
 1. Production signals are captured continuously: real questions, latency, citations, and helpful/not-helpful feedback (`usage log + feedback loop`).
+1. Retrieval runtime auto-routes mode by query/corpus (`auto|hybrid|vectorless|semantic|token`).
+1. Vectorless structural retrieval is used for long, high-structure corpora when it improves precision.
+1. Complex questions can be decomposed into 2-3 subqueries, then merged through evidence fusion before final ranking.
+1. Entity-first retrieval pre-prioritizes explicit entities (endpoint/version/feature flag/term) before semantic ranking.
+1. Final ranking includes graph-aware reranking using module relationships (`dependencies`, `tags`, `topic` links).
+1. For code-first flows, AST/code-aware chunks and dependency graph are built to improve evidence grounding for documentation claims.
 
 ## Why This Is Competitive
 
 1. Many RAG products optimize retrieval over whatever docs they receive, but do not harden docs quality before indexing.
 1. This pipeline adds quality hardening before index build (`pre-index quality hardening`), which reduces confident wrong answers.
 1. It includes automatic stop-controls: stale-check, contradiction-check, retrieval eval gate, and low-confidence guardrail.
+1. Code intelligence has fail-open safety (`code_intelligence.fail_open=true`): if extraction fails, core pipeline still completes.
+1. It includes multilingual hardening: locale-aware retrieval routing and locale-aware eval gates with per-locale thresholds.
 1. It supports strict-local and air-gapped operation modes for regulated clients.
 1. It is not only a chat widget; it is a managed docs quality + RAG operating system (`docs-ops + RAG`).
 
