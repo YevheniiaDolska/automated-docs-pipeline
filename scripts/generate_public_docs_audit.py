@@ -8,7 +8,7 @@ import gzip
 import hashlib
 import html
 import ipaddress
-from http.client import IncompleteRead
+from http.client import IncompleteRead, InvalidURL
 import json
 import logging
 import os
@@ -16,8 +16,9 @@ import re
 import subprocess
 import sys
 import statistics
+import time
 from collections import deque
-from concurrent.futures import ThreadPoolExecutor, as_completed
+from concurrent.futures import FIRST_COMPLETED, ThreadPoolExecutor, as_completed, wait
 from dataclasses import dataclass, field
 from datetime import datetime, timezone
 from html.parser import HTMLParser
@@ -98,6 +99,7 @@ _MAX_CODE_BUFFER_CHARS = 400_000
 _MAX_CODE_BLOCK_CHARS = 100_000
 _MAX_CODE_BLOCKS_PER_PAGE = 300
 _MAX_FETCH_BYTES = max(256 * 1024, int(os.environ.get("DOCS_AUDIT_MAX_FETCH_BYTES", "8388608")))
+_MAX_URL_CHARS = max(512, int(os.environ.get("DOCS_AUDIT_MAX_URL_CHARS", "4096")))
 
 AUDIT_OFFER_RUNS: dict[str, int] = {
     "lead-magnet": 1,
@@ -114,7 +116,10 @@ def _slugify(text: str) -> str:
 
 
 def _normalize_url(raw: str) -> str:
+    """Internal helper for `_normalize_url`."""
     value = str(raw or "").strip()
+    if not value or len(value) > _MAX_URL_CHARS:
+        return ""
     # Accept wizard input without scheme, e.g. "docs.example.com/path".
     if value and "://" not in value and not value.startswith("/"):
         value = "https://" + value
@@ -139,7 +144,10 @@ def _normalize_url(raw: str) -> str:
     if path != "/" and path.endswith("/"):
         path = path[:-1]
     clean = parsed._replace(fragment="", query="", path=path)
-    return urlunparse(clean)
+    normalized = urlunparse(clean)
+    if len(normalized) > _MAX_URL_CHARS:
+        return ""
+    return normalized
 
 
 def _safe_join_normalize_url(base_url: str, href: str) -> str:
@@ -160,6 +168,7 @@ def _safe_join_normalize_url(base_url: str, href: str) -> str:
 
 
 def _is_probable_crawl_trap(url: str) -> bool:
+    """Internal helper for `_is_probable_crawl_trap`."""
     parsed = urlparse(url)
     path = (parsed.path or "/").lower()
     if any(hint in path for hint in _CRAWL_TRAP_PATH_HINTS):
@@ -173,6 +182,7 @@ def _is_probable_crawl_trap(url: str) -> bool:
 
 
 def _extract_http_urls_from_xml(body: str) -> list[str]:
+    """Internal helper for `_extract_http_urls_from_xml`."""
     urls: list[str] = []
     for match in _URLSET_LOC_RE.findall(body or ""):
         candidate = _normalize_url(str(match).strip())
@@ -181,11 +191,24 @@ def _extract_http_urls_from_xml(body: str) -> list[str]:
     return urls
 
 
+def _is_sitemap_like_url(url: str) -> bool:
+    """Return True when URL likely points to a sitemap document."""
+    parsed = urlparse(url)
+    path = (parsed.path or "").lower()
+    if not path:
+        return False
+    if path.endswith(".xml") or path.endswith(".xml.gz") or path.endswith(".gz"):
+        return True
+    filename = path.rsplit("/", 1)[-1]
+    return "sitemap" in filename
+
+
 def _discover_seed_urls_from_sitemaps(
     start_url: str,
     timeout: int,
     auth_headers: dict[str, str] | None = None,
 ) -> tuple[set[str], int]:
+    """Internal helper for `_discover_seed_urls_from_sitemaps`."""
     parsed = urlparse(start_url)
     root = f"{parsed.scheme}://{parsed.netloc}"
     auth_headers = auth_headers or {}
@@ -195,6 +218,10 @@ def _discover_seed_urls_from_sitemaps(
     robots_url = f"{root}/robots.txt"
     st, _, body = _fetch(robots_url, max(4, int(timeout)), extra_headers=auth_headers)
     sitemap_candidates: list[str] = []
+    normalized_start = _normalize_url(start_url)
+    if _is_sitemap_like_url(normalized_start):
+        # If caller passes a concrete sitemap URL, prioritize it as authoritative.
+        sitemap_candidates.append(normalized_start)
     if 200 <= st < 400 and body:
         for raw_url in _SITEMAP_HINT_RE.findall(body):
             candidate = _normalize_url(str(raw_url).strip())
@@ -205,6 +232,12 @@ def _discover_seed_urls_from_sitemaps(
     # Common sitemap endpoints (include when robots.txt does not declare them).
     for suffix in ("/sitemap.xml", "/sitemap_index.xml", "/sitemap-index.xml"):
         sitemap_candidates.append(_normalize_url(root + suffix))
+    # If input URL is nested (for example /docs or /help), probe local sitemap roots.
+    path_parts = [p for p in (parsed.path or "/").split("/") if p]
+    if path_parts:
+        base_prefix = "/" + path_parts[0]
+        for suffix in ("/sitemap.xml", "/sitemap_index.xml", "/sitemap-index.xml"):
+            sitemap_candidates.append(_normalize_url(root + base_prefix + suffix))
 
     # Breadth-limited sitemap traversal to avoid unbounded sitemap index loops.
     checked: set[str] = set()
@@ -223,7 +256,7 @@ def _discover_seed_urls_from_sitemaps(
         for loc in _extract_http_urls_from_xml(text):
             if not _same_host(loc, start_url):
                 continue
-            if loc.endswith(".xml") and ("sitemap" in loc.lower()) and loc not in checked:
+            if _is_sitemap_like_url(loc) and loc not in checked:
                 queue.append(loc)
                 continue
             discovered.add(loc)
@@ -239,6 +272,7 @@ def _discover_seed_urls_from_feeds(
     timeout: int,
     auth_headers: dict[str, str] | None = None,
 ) -> set[str]:
+    """Internal helper for `_discover_seed_urls_from_feeds`."""
     parsed = urlparse(start_url)
     root = f"{parsed.scheme}://{parsed.netloc}"
     auth_headers = auth_headers or {}
@@ -290,6 +324,7 @@ def _canonical_link_variants(url: str) -> list[str]:
     candidates: list[str] = []
 
     def _add_path(new_path: str) -> None:
+        """Internal helper for `_add_path`."""
         if not new_path.startswith("/"):
             new_path = "/" + new_path
         if new_path != "/" and new_path.endswith("/"):
@@ -324,6 +359,7 @@ def _canonical_link_variants(url: str) -> list[str]:
 
 
 def _is_http_url(raw: str) -> bool:
+    """Internal helper for `_is_http_url`."""
     try:
         parsed = urlparse(raw)
     except (ValueError, TypeError) as exc:  # noqa: BLE001
@@ -352,11 +388,28 @@ def _is_http_url(raw: str) -> bool:
     return True
 
 
+def _canonical_host(url: str) -> str:
+    """Internal helper for `_canonical_host`."""
+    parsed = urlparse(url)
+    host = (parsed.hostname or "").strip().lower()
+    if host.startswith("www."):
+        host = host[4:]
+    return host
+
+
 def _same_host(a: str, b: str) -> bool:
-    return urlparse(a).netloc.lower() == urlparse(b).netloc.lower()
+    """Internal helper for `_same_host`."""
+    host_a = _canonical_host(a)
+    host_b = _canonical_host(b)
+    if not host_a or not host_b:
+        return False
+    if host_a == host_b:
+        return True
+    return host_a.endswith("." + host_b) or host_b.endswith("." + host_a)
 
 
 def _safe_pct(numerator: float, denominator: float) -> float:
+    """Internal helper for `_safe_pct`."""
     if denominator <= 0:
         return 0.0
     return round((numerator / denominator) * 100.0, 2)
@@ -417,6 +470,7 @@ def _fetch(
     _ua_idx: int = 0,
     extra_headers: dict[str, str] | None = None,
 ) -> tuple[int, str, str]:
+    """Internal helper for `_fetch`."""
     if not _is_http_url(url):
         return 0, "", ""
     url = _sanitize_url(url)
@@ -437,10 +491,16 @@ def _fetch(
     )
 
     def _read_limited_bytes(stream: Any) -> bytes:
+        """Internal helper for `_read_limited_bytes`."""
         chunks: list[bytes] = []
         total = 0
         chunk_size = 64 * 1024
+        started_at = time.monotonic()
+        hard_read_seconds = max(8, int(timeout) * 3)
         while total < _MAX_FETCH_BYTES:
+            if (time.monotonic() - started_at) > hard_read_seconds:
+                logger.debug("HTTP body read hard-timeout (%ss) for %s", hard_read_seconds, url)
+                break
             want = min(chunk_size, _MAX_FETCH_BYTES - total)
             try:
                 part = stream.read(want)
@@ -513,7 +573,7 @@ def _fetch(
         except (MemoryError, RuntimeError, ValueError, TypeError, OSError) as read_exc:  # noqa: BLE001
             logger.debug("Failed to read HTTP error body (code=%d): %s", code, read_exc)
             return code, "text/html", ""
-    except (URLError, OSError, TimeoutError):
+    except (URLError, OSError, TimeoutError, InvalidURL, ValueError, UnicodeError):
         return 0, "", ""
     except (RuntimeError, ValueError, TypeError, OSError) as exc:  # noqa: BLE001 -- SSL, socket, redirect loops, etc.
         logger.debug("Unexpected fetch error: %s", exc)
@@ -555,7 +615,8 @@ _HIGHLIGHT_CLASS_PATTERN = re.compile(
 
 
 class _DocsHTMLParser(HTMLParser):
-    def __init__(self, base_url: str):
+    def __init__(self, base_url: str) -> Any:
+        """Internal helper for `__init__`."""
         super().__init__()
         self.base_url = base_url
         self.title = ""
@@ -582,6 +643,7 @@ class _DocsHTMLParser(HTMLParser):
         self._active_anchor_text: list[str] = []
 
     def handle_starttag(self, tag: str, attrs: list[tuple[str, str | None]]) -> None:
+        """Execute `handle_starttag` workflow."""
         attrs_map = dict(attrs)
         cls = str(attrs_map.get("class", "")).lower()
 
@@ -682,6 +744,7 @@ class _DocsHTMLParser(HTMLParser):
                 self._date_class_detected = True
 
     def handle_endtag(self, tag: str) -> None:
+        """Execute `handle_endtag` workflow."""
         if tag == "a":
             if self._active_anchor_href and _same_host(self._active_anchor_href, self.base_url):
                 anchor_text = " ".join(self._active_anchor_text).strip()
@@ -754,6 +817,7 @@ class _DocsHTMLParser(HTMLParser):
 
     def handle_data(self, data: str) -> None:
         # Always collect raw data into code buffers (preserve whitespace)
+        """Execute `handle_data` workflow."""
         if self._in_pre or self._in_code:
             if self._code_buf_chars < _MAX_CODE_BUFFER_CHARS:
                 remaining = _MAX_CODE_BUFFER_CHARS - self._code_buf_chars
@@ -805,6 +869,7 @@ class _DocsHTMLParser(HTMLParser):
 
     def as_page(self, url: str, status: int) -> PageData:
         # Deduplicate code blocks (MkDocs Material tabs often repeat same content)
+        """Execute `as_page` workflow."""
         seen: set[str] = set()
         unique_blocks: list[dict[str, str]] = []
         for block in self.code_blocks:
@@ -836,6 +901,7 @@ class _DocsHTMLParser(HTMLParser):
 
 
 def _heading_violations(levels: list[int]) -> int:
+    """Internal helper for `_heading_violations`."""
     if not levels:
         return 0
     violations = 0
@@ -852,6 +918,7 @@ _DATA_ONLY_LANGS = {"text", "yaml", "json", "toml", "ini", "xml", "csv", "diff",
 
 
 def _estimate_example_reliability(pages: list[PageData]) -> dict[str, Any]:
+    """Internal helper for `_estimate_example_reliability`."""
     total = 0
     runnable = 0
     blocked_by_placeholders = 0
@@ -959,6 +1026,7 @@ _METHOD_PATH_PATTERN = re.compile(
 
 
 def _api_signal_score(text: str) -> int:
+    """Internal helper for `_api_signal_score`."""
     score = 0
     for pattern in _API_SIGNAL_PATTERNS:
         if pattern.search(text):
@@ -967,6 +1035,7 @@ def _api_signal_score(text: str) -> int:
 
 
 def _extract_api_identifiers(text: str) -> set[str]:
+    """Internal helper for `_extract_api_identifiers`."""
     identifiers: set[str] = set()
     for match in ENDPOINT_PATTERN.findall(text.lower()):
         cleaned = str(match).strip().rstrip(".,;:)]}\"'")
@@ -1012,6 +1081,7 @@ def _is_api_page(page: PageData) -> bool:
 
 
 def _discover_contract_urls(pages: list[PageData]) -> list[str]:
+    """Internal helper for `_discover_contract_urls`."""
     pattern = re.compile(
         r"(openapi|swagger|api-docs|graphql|schema|asyncapi|\.proto|protobuf|descriptor)",
         flags=re.IGNORECASE,
@@ -1038,6 +1108,7 @@ def _discover_contract_urls(pages: list[PageData]) -> list[str]:
 
 
 def _extract_contract_identifiers(contract_text: str) -> set[str]:
+    """Internal helper for `_extract_contract_identifiers`."""
     ids: set[str] = set()
     # OpenAPI/Swagger paths
     for m in re.findall(r"\"(/[^\"\\s]+)\"\\s*:\\s*\\{", contract_text):
@@ -1059,6 +1130,7 @@ def _extract_contract_identifiers(contract_text: str) -> set[str]:
 
 
 def _parse_structured_contract_identifiers(contract_text: str) -> set[str]:
+    """Internal helper for `_parse_structured_contract_identifiers`."""
     ids: set[str] = set()
     payload: Any = None
     stripped = contract_text.strip()
@@ -1135,6 +1207,7 @@ def _source_of_truth_identifiers(
     timeout: int,
     auth_headers: dict[str, str] | None = None,
 ) -> tuple[set[str], str]:
+    """Internal helper for `_source_of_truth_identifiers`."""
     candidates = _discover_contract_urls(pages)
     if not candidates:
         return set(), "No contract URLs discovered in crawled pages"
@@ -1160,6 +1233,7 @@ def _api_coverage_from_public_docs(
     timeout: int = 15,
     auth_headers: dict[str, str] | None = None,
 ) -> dict[str, Any]:
+    """Internal helper for `_api_coverage_from_public_docs`."""
     reference_ids: set[str] = set()
     non_reference_ids: set[str] = set()
 
@@ -1211,6 +1285,7 @@ def _api_coverage_from_public_docs(
 
 
 def _seo_geo_metrics(pages: list[PageData]) -> dict[str, Any]:
+    """Internal helper for `_seo_geo_metrics`."""
     total = len(pages)
     missing_title = sum(1 for p in pages if not p.title.strip())
     missing_description = sum(1 for p in pages if not p.meta_description.strip())
@@ -1261,6 +1336,7 @@ def _is_excluded_link(url: str) -> bool:
 
 
 def _link_health(pages: list[PageData], status_map: dict[str, int]) -> dict[str, Any]:
+    """Internal helper for `_link_health`."""
     internal_links = set()
     link_provenance: dict[str, list[dict[str, str]]] = {}
     for page in pages:
@@ -1322,6 +1398,7 @@ def _link_health(pages: list[PageData], status_map: dict[str, int]) -> dict[str,
 
 
 def _last_updated_metrics(pages: list[PageData]) -> dict[str, Any]:
+    """Internal helper for `_last_updated_metrics`."""
     with_hint = [p for p in pages if p.last_updated_hint.strip()]
     return {
         "pages_with_last_updated_hint": len(with_hint),
@@ -1346,6 +1423,10 @@ def _browser_verify_links(
     except ImportError:
         return {}
     result: dict[str, int] = {}
+    per_url_timeout_seconds = max(3, min(int(timeout), 8))
+    # Global budget so browser verify never blocks the whole audit for too long.
+    budget_seconds = max(30, (len(urls) * per_url_timeout_seconds) + 15)
+    deadline = time.monotonic() + budget_seconds
     try:
         with sync_playwright() as pw:
             browser = pw.chromium.launch(headless=True)
@@ -1356,14 +1437,30 @@ def _browser_verify_links(
                 kwargs["storage_state"] = storage_state_path
             context = browser.new_context(**kwargs)
             page = context.new_page()
-            page.set_default_navigation_timeout(max(1000, int(timeout * 1000)))
-            for url in urls:
+            page.set_default_navigation_timeout(max(1000, int(per_url_timeout_seconds * 1000)))
+            for idx, url in enumerate(urls, start=1):
+                if time.monotonic() > deadline:
+                    # Mark the remaining candidates as inconclusive and stop.
+                    for rem in urls[idx - 1:]:
+                        result[rem] = 0
+                    print(
+                        "[audit][watchdog] browser verification budget exceeded ({}s); "
+                        "remaining candidates marked as inconclusive.".format(budget_seconds),
+                        flush=True,
+                    )
+                    break
                 try:
-                    resp = page.goto(url, wait_until="domcontentloaded")
+                    resp = page.goto(
+                        url,
+                        wait_until="domcontentloaded",
+                        timeout=max(1000, int(per_url_timeout_seconds * 1000)),
+                    )
                     status = int(resp.status) if resp is not None else 0
                 except (PlaywrightError, OSError, RuntimeError, ValueError, TypeError):
                     status = 0
                 result[url] = status
+                if idx % 20 == 0 or idx == len(urls):
+                    print("[audit] browser-verify links: {}/{}".format(idx, len(urls)), flush=True)
             context.close()
             browser.close()
     except (PlaywrightError, OSError, RuntimeError, ValueError, TypeError):
@@ -1490,6 +1587,7 @@ def _ensure_playwright_storage_state(
 
 
 def _cookie_header_from_storage_state(storage_state_path: str, target_host: str) -> str:
+    """Internal helper for `_cookie_header_from_storage_state`."""
     if not storage_state_path:
         return ""
     p = _resolve_cross_platform_path(Path(storage_state_path))
@@ -1555,10 +1653,21 @@ def _crawl_site(
     stop_reason = "limit_reached" if not auto_mode else "converged"
 
     # Try up to len(_USER_AGENTS) User-Agent variants for the start page
+    memory_guard_triggered = False
     for ua_attempt in range(len(_USER_AGENTS)):
         seen: set[str] = set()
         pages: list[PageData] = []
         status_map: dict[str, int] = {}
+        def _set_status(url: str, st: int) -> bool:
+            nonlocal memory_guard_triggered
+            if not url:
+                return False
+            try:
+                status_map[url] = st
+                return True
+            except MemoryError:
+                memory_guard_triggered = True
+                return False
         discovered: set[str] = {start_url}
         seed_urls: set[str] = {start_url}
         sitemap_urls, robot_count = _discover_seed_urls_from_sitemaps(
@@ -1612,8 +1721,23 @@ def _crawl_site(
             page = parser_html.as_page(url, st)
             return url, st, page, page.internal_links
 
-        with ThreadPoolExecutor(max_workers=workers) as pool:
+        pool = ThreadPoolExecutor(max_workers=workers)
+        try:
+            heartbeat_every_seconds = 30.0
+            last_heartbeat_at = time.monotonic()
             while queue and len(seen) < effective_limit:
+                now = time.monotonic()
+                if (now - last_heartbeat_at) >= heartbeat_every_seconds:
+                    print(
+                        "[audit][heartbeat] pages={} discovered={} seen={} queue={}".format(
+                            len(pages),
+                            len(discovered),
+                            len(seen),
+                            len(queue),
+                        ),
+                        flush=True,
+                    )
+                    last_heartbeat_at = now
                 # Submit a batch of URLs (up to remaining budget)
                 batch: list[str] = []
                 round_discovered_before = len(discovered)
@@ -1626,27 +1750,80 @@ def _crawl_site(
                     break
 
                 futures = {pool.submit(_crawl_one, u): u for u in batch}
-                for future in as_completed(futures):
-                    url, st, page, new_links = future.result()
-                    status_map[url] = st
-                    if page is not None:
-                        pages.append(page)
-                        print("[audit] page {}/{}: {}".format(len(pages), progress_total, url[:80]), flush=True)
-                        for link in new_links:
-                            if not _is_http_url(link):
-                                continue
-                            if not _same_host(link, start_url):
-                                continue
-                            if _is_probable_crawl_trap(link):
-                                trap_urls_skipped += 1
-                                continue
-                            # In sitemap-scoped mode, keep crawl strictly within sitemap/feed seeds.
-                            if sitemap_scope and link not in seed_urls:
-                                continue
-                            if link not in discovered:
-                                discovered.add(link)
-                                if len(seen) + len(queue) < effective_limit * 2:
-                                    queue.append(link)
+                pending = set(futures.keys())
+                stalled_since = time.monotonic()
+                batch_watchdog_seconds = max(20, int(timeout) * 4)
+                while pending:
+                    now = time.monotonic()
+                    if (now - last_heartbeat_at) >= heartbeat_every_seconds:
+                        print(
+                            "[audit][heartbeat] pages={} discovered={} seen={} queue={} pending={}".format(
+                                len(pages),
+                                len(discovered),
+                                len(seen),
+                                len(queue),
+                                len(pending),
+                            ),
+                            flush=True,
+                        )
+                        last_heartbeat_at = now
+                    done, pending = wait(pending, timeout=2.0, return_when=FIRST_COMPLETED)
+                    if not done:
+                        if (time.monotonic() - stalled_since) > batch_watchdog_seconds:
+                            for stalled_future in list(pending):
+                                stalled_url = futures.get(stalled_future, "")
+                                if stalled_url:
+                                    if not _set_status(stalled_url, 0):
+                                        stop_reason = "memory_guard"
+                                        pending.clear()
+                                        break
+                                    print(
+                                        "[audit][watchdog] stalled page skipped after {}s: {}".format(
+                                            batch_watchdog_seconds, stalled_url[:100]
+                                        ),
+                                        flush=True,
+                                    )
+                                # Best-effort cancellation: queued futures cancel immediately;
+                                # running futures may continue, but must not block crawl shutdown.
+                                stalled_future.cancel()
+                            break
+                        continue
+
+                    stalled_since = time.monotonic()
+                    for future in done:
+                        url = futures.get(future, "")
+                        try:
+                            result_url, st, page, new_links = future.result()
+                            url = result_url or url
+                        except (RuntimeError, ValueError, TypeError, OSError):  # noqa: BLE001
+                            if url:
+                                if not _set_status(url, 0):
+                                    stop_reason = "memory_guard"
+                                    pending.clear()
+                                    break
+                            continue
+                        if not _set_status(url, st):
+                            stop_reason = "memory_guard"
+                            pending.clear()
+                            break
+                        if page is not None:
+                            pages.append(page)
+                            print("[audit] page {}/{}: {}".format(len(pages), progress_total, url[:80]), flush=True)
+                            for link in new_links:
+                                if not _is_http_url(link):
+                                    continue
+                                if not _same_host(link, start_url):
+                                    continue
+                                if _is_probable_crawl_trap(link):
+                                    trap_urls_skipped += 1
+                                    continue
+                                # In sitemap-scoped mode, keep crawl strictly within sitemap/feed seeds.
+                                if sitemap_scope and link not in seed_urls:
+                                    continue
+                                if link not in discovered:
+                                    discovered.add(link)
+                                    if len(seen) + len(queue) < effective_limit * 2:
+                                        queue.append(link)
 
                 if auto_mode:
                     found_new = len(discovered) > round_discovered_before
@@ -1665,6 +1842,9 @@ def _crawl_site(
                     stop_reason = "queue_exhausted"
                 else:
                     stop_reason = "limit_reached"
+        finally:
+            # Do not block whole audit on a single hung network read in a worker thread.
+            pool.shutdown(wait=False, cancel_futures=True)
 
         # If we got at least 1 page, stop retrying
         if pages:
@@ -1699,7 +1879,9 @@ def _crawl_site(
             pages = list(by_url.values())
             for u, st in b_status.items():
                 if u not in status_map or status_map.get(u, 0) in {0, -2}:
-                    status_map[u] = st
+                    if not _set_status(u, st):
+                        stop_reason = "memory_guard"
+                        break
 
     # -- Parallel link-health check (HEAD-only, short timeout, 50 workers) ------
     link_timeout = min(timeout, 3)
@@ -1728,6 +1910,7 @@ def _crawl_site(
         print("[audit] checking {} unique links ({} workers)...".format(total, link_workers), flush=True)
 
         def _check_one(link: str) -> tuple[str, int]:
+            """Internal helper for `_check_one`."""
             st, _, _ = _fetch(link, link_timeout, head_only=True, extra_headers=auth_headers)
             # Many SPA/SSG sites return 404 for HEAD but 200 for GET; retry
             if st >= 400 or st == 0:
@@ -1754,14 +1937,55 @@ def _crawl_site(
                 return link, -2
             return link, st
 
-        with ThreadPoolExecutor(max_workers=link_workers) as pool:
-            futures = {pool.submit(_check_one, lnk): lnk for lnk in unchecked}
-            for future in as_completed(futures):
-                link, st = future.result()
-                status_map[link] = st
-                done += 1
-                if done % 100 == 0 or done == total:
-                    print("[audit] links: {}/{}".format(done, total), flush=True)
+        link_pool = ThreadPoolExecutor(max_workers=link_workers)
+        try:
+            futures = {link_pool.submit(_check_one, lnk): lnk for lnk in unchecked}
+            pending = set(futures.keys())
+            stalled_since = time.monotonic()
+            link_watchdog_seconds = max(30, int(timeout) * 6)
+            while pending:
+                done_set, pending = wait(pending, timeout=2.0, return_when=FIRST_COMPLETED)
+                if not done_set:
+                    if (time.monotonic() - stalled_since) > link_watchdog_seconds:
+                        for stalled_future in list(pending):
+                            stalled_link = futures.get(stalled_future, "")
+                            if stalled_link:
+                                if not _set_status(stalled_link, -2):
+                                    stop_reason = "memory_guard"
+                                    pending.clear()
+                                    break
+                                stalled_future.cancel()
+                        print(
+                            "[audit][watchdog] link-check stalled >{}s; remaining links marked inconclusive.".format(
+                                link_watchdog_seconds
+                            ),
+                            flush=True,
+                        )
+                        break
+                    continue
+                stalled_since = time.monotonic()
+                for future in done_set:
+                    link = futures.get(future, "")
+                    try:
+                        result_link, st = future.result()
+                        link = result_link or link
+                    except (RuntimeError, ValueError, TypeError, OSError):  # noqa: BLE001
+                        if link:
+                            if not _set_status(link, -2):
+                                stop_reason = "memory_guard"
+                                pending.clear()
+                                break
+                        done += 1
+                        continue
+                    if not _set_status(link, st):
+                        stop_reason = "memory_guard"
+                        pending.clear()
+                        break
+                    done += 1
+                    if done % 100 == 0 or done == total:
+                        print("[audit] links: {}/{}".format(done, total), flush=True)
+        finally:
+            link_pool.shutdown(wait=False, cancel_futures=True)
 
         # Browser verification pass for a sample of remaining broken candidates
         if "browser" in verification_modes:
@@ -1779,9 +2003,9 @@ def _crawl_site(
                 )
                 for link, st in browser_status.items():
                     if 200 <= int(st or 0) < 400:
-                        status_map[link] = int(st)
+                        _set_status(link, int(st))
                     elif int(st or 0) == 0:
-                        status_map[link] = -2
+                        _set_status(link, -2)
 
     crawl_stats = {
         "auto_mode": auto_mode,
@@ -1799,6 +2023,7 @@ def _crawl_site(
         "link_checks_total_candidates": int(total_unchecked),
         "link_checks_executed": int(len(unchecked)),
         "link_checks_sampled": bool(total_unchecked > len(unchecked)),
+        "memory_guard_triggered": bool(memory_guard_triggered),
     }
     if return_stats:
         return pages, status_map, crawl_stats
@@ -1818,6 +2043,7 @@ def _site_payload(
     crawl_batch_size: int = 60,
     auto_max_pages: int = 100000,
 ) -> dict[str, Any]:
+    """Internal helper for `_site_payload`."""
     crawl_result = _crawl_site(
         site_url,
         max_pages,
@@ -2012,6 +2238,7 @@ def _merge_site_runs(site_runs: list[dict[str, Any]]) -> dict[str, Any]:
 
     # Median for volatile percentages
     def _median_metric(path: list[str], default: float = 0.0) -> float:
+        """Internal helper for `_median_metric`."""
         vals: list[float] = []
         for m in metrics_runs:
             cur: Any = m
@@ -2043,7 +2270,9 @@ def _merge_site_runs(site_runs: list[dict[str, Any]]) -> dict[str, Any]:
 
 
 def _aggregate_sites(sites: list[dict[str, Any]]) -> dict[str, Any]:
+    """Internal helper for `_aggregate_sites`."""
     def wavg(key_path: list[str]) -> float:
+        """Execute `wavg` workflow."""
         acc = 0.0
         weight = 0
         for site in sites:
@@ -2092,7 +2321,7 @@ def _aggregate_sites(sites: list[dict[str, Any]]) -> dict[str, Any]:
     api_cov = float(metrics["api_coverage"].get("reference_coverage_pct", -1.0) or -1.0)
     api_pages = int(metrics["api_coverage"].get("api_pages_detected", 0) or 0)
     crawl_ratio = 0.0 if scope_pages <= 0 else min(1.0, urls_examined / scope_pages)
-    metrics["crawl"]["crawl_coverage_pct"] = _safe_pct(urls_examined, scope_pages)
+    metrics["crawl"]["crawl_coverage_pct"] = min(100.0, _safe_pct(urls_examined, scope_pages))
     link_conf = max(20.0, 95.0 - min(70.0, (unverified / max(1, docs_broken + unverified)) * 100.0))
     api_conf = 85.0 if api_cov >= 0 else (55.0 if api_pages > 0 else 35.0)
     crawl_conf = 35.0 + crawl_ratio * 60.0
@@ -2225,6 +2454,7 @@ def _run_llm_json_prompt(
 
 
 def _clamp(v: Any, low: float, high: float, default: float) -> float:
+    """Internal helper for `_clamp`."""
     try:
         n = float(v)
     except (TypeError, ValueError):
@@ -2318,6 +2548,7 @@ def _resolve_company_assumptions_path(
 
 
 def _build_llm_prompt(payload: dict[str, Any], summary_only: bool = False) -> str:
+    """Internal helper for `_build_llm_prompt`."""
     if summary_only:
         compact = {
             "site_urls": payload.get("site_urls", []),
@@ -2358,6 +2589,7 @@ def _run_llm_analysis(
     timeout: int,
     summary_only: bool = False,
 ) -> dict[str, Any]:
+    """Internal helper for `_run_llm_analysis`."""
     prompt = _build_llm_prompt(payload, summary_only=summary_only)
     body = {
         "model": model,
@@ -2422,10 +2654,12 @@ def _effective_audit_llm_policy(
 
 
 def _build_html(payload: dict[str, Any]) -> str:
+    """Internal helper for `_build_html`."""
     m = payload["aggregate"]["metrics"]
     conf = payload.get("confidence", {}) if isinstance(payload.get("confidence"), dict) else {}
     sites = payload.get("sites", [])
     def _fmt_api_cov(ac: dict[str, Any]) -> str:
+        """Internal helper for `_fmt_api_cov`."""
         raw = float(ac.get("reference_coverage_pct", -1.0) or -1.0)
         if raw < 0:
             return "N/A"
@@ -2541,6 +2775,7 @@ def _build_html(payload: dict[str, Any]) -> str:
 
 
 def _build_broken_links_export(payload: dict[str, Any]) -> dict[str, Any]:
+    """Internal helper for `_build_broken_links_export`."""
     sites = payload.get("sites", []) if isinstance(payload.get("sites"), list) else []
     per_site: list[dict[str, Any]] = []
     all_docs_links: set[str] = set()
@@ -2613,6 +2848,7 @@ def _build_broken_links_export(payload: dict[str, Any]) -> dict[str, Any]:
 
 
 def main() -> int:
+    """Execute `main` workflow."""
     parser = argparse.ArgumentParser(description="Audit public docs sites")
     parser.add_argument(
         "--site-url",
@@ -3004,6 +3240,7 @@ def main() -> int:
     )
 
     def _run_site(url: str) -> dict[str, Any]:
+        """Internal helper for `_run_site`."""
         runs: list[dict[str, Any]] = []
         for run_idx in range(verification_runs):
             if verification_runs > 1:
