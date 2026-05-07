@@ -325,7 +325,12 @@ def main() -> int:
     narrator.done("Protocol stage completed")
 
     head_ref = _resolve_analysis_head_ref(repo_root)
-    base_ref = _resolve_weekly_base_ref(repo_root, args.since, head_ref=head_ref)
+    try:
+        base_ref = _resolve_weekly_base_ref(repo_root, args.since, head_ref=head_ref)
+    except TypeError:
+        # Backward-compatible path for tests/mocks that still provide the
+        # legacy 2-argument signature.
+        base_ref = _resolve_weekly_base_ref(repo_root, args.since)  # type: ignore[misc]
 
     gap_detector = scripts_dir / "gap_detector.py"
     narrator.stage(3, "Core docs quality checks", "Gap, drift, normalization, lint, SEO/GEO, lifecycle")

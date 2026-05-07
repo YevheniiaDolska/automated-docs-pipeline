@@ -17,7 +17,7 @@ import sys
 import statistics
 from collections import deque
 from concurrent.futures import ThreadPoolExecutor, as_completed
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from datetime import datetime, timezone
 from html.parser import HTMLParser
 from pathlib import Path
@@ -489,11 +489,11 @@ class PageData:
     h1_count: int
     heading_levels: list[int]
     internal_links: list[str]
-    internal_link_refs: list[dict[str, str]]
     external_links: list[str]
     code_blocks: list[dict[str, str]]
     text: str
     last_updated_hint: str
+    internal_link_refs: list[dict[str, str]] = field(default_factory=list)
 
 
 _DATE_PATTERN = re.compile(

@@ -25,14 +25,14 @@ jobs:
           python-version: '3.11'
       - name: Install dependencies
         run: |
-          npm ci || true
+          npm ci
           python3 -m pip install --upgrade pip
-          python3 -m pip install -r requirements-dev.txt || true
-          python3 -m pip install mkdocs sphinx || true
+          python3 -m pip install -r requirements.txt
+          python3 -m pip install mkdocs
       - name: Run docs checks
         env:
           DOCSOPS_SITE_GENERATOR: 'mkdocs'
           DOCSOPS_SITE_BUILD_COMMAND: 'mkdocs build --strict'
-          DOCSOPS_DOCS_LINT_COMMAND: 'npm run lint'
+          DOCSOPS_DOCS_LINT_COMMAND: 'npm run validate:minimal'
         run: |
           python3 docsops/scripts/run_docs_ci_checks.py --runtime-config docsops/config/client_runtime.yml

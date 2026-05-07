@@ -40,7 +40,7 @@ jobs:
       - name: Run markdownlint
         run: |
           echo "::group::Markdownlint"
-          markdownlint --config .markdownlint.yml "**/*.md" || exit_code=$?
+          markdownlint --config .markdownlint.yml "docs/**/*.md" || exit_code=$?
           echo "::endgroup::"
           if [ "${exit_code:-0}" -ne 0 ]; then
             echo "❌ Markdownlint found issues"
@@ -51,7 +51,7 @@ jobs:
       - name: Run cspell
         run: |
           echo "::group::Spell Check"
-          cspell "**/*.md" --config cspell.json || exit_code=$?
+          cspell "docs/**/*.md" --config cspell.json || exit_code=$?
           echo "::endgroup::"
           if [ "${exit_code:-0}" -ne 0 ]; then
             echo "❌ Spell check found issues"

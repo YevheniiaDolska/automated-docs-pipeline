@@ -1161,6 +1161,9 @@ def create_bundle(profile_path: Path) -> Path:
                 bundle_cfg["include_paths"] = include_paths
 
     for req in required_scripts:
+        if not (REPO_ROOT / req).exists():
+            print(f"[warn] required script not found in source repo, skipping from bundle: {req}")
+            continue
         if req not in include_scripts:
             include_scripts.append(req)
     include_paths = [str(rel) for rel in bundle_cfg.get("include_paths", [])]
@@ -1172,8 +1175,14 @@ def create_bundle(profile_path: Path) -> Path:
     for rel in include_scripts:
         copy_into_bundle(str(rel), bundle_root)
     for rel in bundle_cfg.get("include_docs", []):
+        if not (REPO_ROOT / str(rel)).exists():
+            print(f"[warn] include_docs path not found, skipping: {rel}")
+            continue
         copy_into_bundle(str(rel), bundle_root)
     for rel in bundle_cfg.get("include_paths", []):
+        if not (REPO_ROOT / str(rel)).exists():
+            print(f"[warn] include_paths path not found, skipping: {rel}")
+            continue
         copy_path_into_bundle(str(rel), bundle_root)
 
     write_yaml(bundle_root / "config" / "client_runtime.yml", runtime_cfg)

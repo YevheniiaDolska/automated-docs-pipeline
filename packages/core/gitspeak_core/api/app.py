@@ -663,7 +663,7 @@ async def start_pipeline_run(
             repo_path=request.repo_path,
             flow_mode=request.flow_mode,
             modules=request.modules,
-            protocols=request.protocols,
+            protocols=getattr(request, "protocols", None),
             user_tier=user["tier"],
         )
         run.celery_task_id = task.id
@@ -677,7 +677,7 @@ async def start_pipeline_run(
             repo_path=request.repo_path,
             flow_mode=request.flow_mode,
             modules=request.modules,
-            protocols=request.protocols,
+            protocols=getattr(request, "protocols", None),
         )
         result = handle_run_pipeline(req, user_tier=user["tier"])
         run.status = "completed" if result.status == "ok" else "failed"

@@ -431,7 +431,7 @@ def _find_existing_mock_by_name(base_url: str, api_key: str, workspace_id: str, 
     for endpoint in candidates:
         try:
             payload = _http_json("GET", endpoint, api_key=api_key)
-        except RuntimeError as exc:
+        except Exception as exc:  # noqa: BLE001 - network/client mocks can raise non-RuntimeError
             logger.debug(
                 "Mock server lookup failed for endpoint %s: %s", endpoint, exc,
             )
